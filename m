@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9207D935149
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 19:36:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760678.1170573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F92593515F
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 19:54:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760686.1170583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUV3R-0003Pj-J5; Thu, 18 Jul 2024 17:36:33 +0000
+	id 1sUVJl-000712-Se; Thu, 18 Jul 2024 17:53:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760678.1170573; Thu, 18 Jul 2024 17:36:33 +0000
+Received: by outflank-mailman (output) from mailman id 760686.1170583; Thu, 18 Jul 2024 17:53:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUV3R-0003ND-GC; Thu, 18 Jul 2024 17:36:33 +0000
-Received: by outflank-mailman (input) for mailman id 760678;
- Thu, 18 Jul 2024 17:36:32 +0000
+	id 1sUVJl-0006yv-OX; Thu, 18 Jul 2024 17:53:25 +0000
+Received: by outflank-mailman (input) for mailman id 760686;
+ Thu, 18 Jul 2024 17:53:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MiOu=OS=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sUV3Q-0003N7-Dz
- for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 17:36:32 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1sUVJk-0006ym-I8
+ for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 17:53:24 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45146824-452c-11ef-bbfd-fd08da9f4363;
- Thu, 18 Jul 2024 19:36:31 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a77b60cafecso105886766b.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 10:36:31 -0700 (PDT)
+ id a0416f6d-452e-11ef-bbfd-fd08da9f4363;
+ Thu, 18 Jul 2024 19:53:23 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a6fd513f18bso135250566b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 10:53:23 -0700 (PDT)
 Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a79bc81ddf5sm581927566b.191.2024.07.18.10.36.29
+ a640c23a62f3a-a79bc5b7ef5sm592451166b.82.2024.07.18.10.53.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jul 2024 10:36:30 -0700 (PDT)
+ Thu, 18 Jul 2024 10:53:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,102 +44,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45146824-452c-11ef-bbfd-fd08da9f4363
+X-Inumbo-ID: a0416f6d-452e-11ef-bbfd-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1721324191; x=1721928991; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
+        d=cloud.com; s=cloud; t=1721325203; x=1721930003; darn=lists.xenproject.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1Us40ohKc8SVL5iuesi02O5HQYFBQ+xnDu9VyYFEiNw=;
-        b=Cbtn5XVLhdhIH8kVeWxkMsWJIYu8/y9eFudYq9AXNf5MXcHhO51lZU0RRo1aH7nDAE
-         rqpCd4nzZacF/JnpOOXhAFZxy7r4/7lxHz0e06AyzPFwK7JbCWDQ4OPgOob3JGKdzC4j
-         4dcRXsJJAbDJZ5fhU4CLncbPER/91+PmIHhOQ=
+        bh=P0lp9482kAAfJ6VbIIrSYE5SBTbQePlXwFTltb1GbOU=;
+        b=X9SzttugN+3OkoI6KwwyJLy/ZaGpvoweV0I4uOPcU1uN+ArvD3gBhgYd2mhd7Sjwwp
+         kn+Q85/xu6IJQ2BqyL0y0/pBrTmVvEUM66mITnaaULtam36Yj+gThSS5RGRrMwtXo1+I
+         /g0JgDsvDxWEPrQ4bZ4lnXE7NWkcQ3FZKsjwE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721324191; x=1721928991;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
+        d=1e100.net; s=20230601; t=1721325203; x=1721930003;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
          :content-transfer-encoding:mime-version:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=1Us40ohKc8SVL5iuesi02O5HQYFBQ+xnDu9VyYFEiNw=;
-        b=wPhCLjjLVS5Ns0rs/+FnlPbKDWBX2htoXI+Z2CcM2NnWSylw3cKYH6vCBDlWkTrrdJ
-         U5RvZbs0PjmzIFbfmAYF2SyCg/z+e+NeWNX6fBis8y7eHNgxqwOrs9XyGFESZpXscNi2
-         Ulh2Bbfw7X8oxukePa/GEbD+jpM9f8PzdfQMR6KyQ81LNg+Y93fK/6Kk0tttJupvpDdC
-         Ulf6oUPUMD21Wq78fpooY/1ogUPmbJJ/nLXIFzBqZwFFvKN32EAMS1rXEZoj3FCeu90y
-         DszWVbCsh2ObnenTpT0ddxcP8HIyroPKY8XyTtoT1aTc3BkyfwzY8A9QL7/0p3Mi9xvZ
-         /7Qw==
-X-Forwarded-Encrypted: i=1; AJvYcCUh2YmlujcRuF2NnEZVjsOYW1U+aWrjKE+JWeN6Tf2iSdSyNXjGjfEv+RiQv2tQFHcZjpNawFBimj984IB8s7vuGKilNCSzAAyXGqPJsuw=
-X-Gm-Message-State: AOJu0YwIsitbV18rTxC6nf8vGhLBPmBzwv38FUK+LiadWBVrZMWzkA6c
-	BtCnhRNSRhjuA++hrJ6UY34pV35LQ3Cp0d662//MNfL2B5/tcEuBvSlm14j9iTs=
-X-Google-Smtp-Source: AGHT+IGAb5WXQ8HndK/HoCdyvF7A1SQzgrq5icnSVcsdoJ/3suDs2XF3zezsvn45LHJDQ/PvTJE8Yw==
-X-Received: by 2002:a17:906:7d48:b0:a77:da14:8401 with SMTP id a640c23a62f3a-a7a011382dbmr374534666b.10.1721324190579;
-        Thu, 18 Jul 2024 10:36:30 -0700 (PDT)
+        bh=P0lp9482kAAfJ6VbIIrSYE5SBTbQePlXwFTltb1GbOU=;
+        b=HaXUWAxopH7Q/iSd6tTHZsF4/Uu4G8Cz89RLKuZS6rKgYAY1vooSTQjMeYZk7M0fBO
+         bfvblV/wz1CLM13d9o1Ct/yta8Es3cgoeHCL5ZqvCG/fW/9Yaywb0EpUHcSq2om/MMRH
+         Eu8KRiHMVF4UwI3eejvouVzaWOOs7J6qMM6ATsXoMOPAOWwM7LRPhTRpCdFaVA7EO4KN
+         oCgUSh4fEJemtLGK+uUcU0khoHXDsnFFKwbZrRQSEQQKckMOGDPqYX5CQhupYNHppB+W
+         hB1c6AQddPse8VCSJEyMsLzy3SYfXh4qRp3c/jFSuKpbQjID+xlvGTbSYsFHY2ujS+Ok
+         IlwA==
+X-Forwarded-Encrypted: i=1; AJvYcCUdV0a+6f9/BrgQX6mB/Ho46lgxjTzxZqPT5BwsOH08b/nrX4FegTbRzXCye6G68YWH2VKuOa7UiNyomrnPsl28rQV/YQr5rrn5Yir/4IY=
+X-Gm-Message-State: AOJu0Yw/GvJTccaE+mu3wjZ62r3+pTseh/TkE3yvjfXDFw/jJ6vQWap5
+	n3ljeILZwxGdyo5WP3zTr2U6oG9XzvfAziz2MndJa90wQlIMjaSLAVsJ82ThRXg=
+X-Google-Smtp-Source: AGHT+IGadvCqNBSMSaMYwynS6YcMzc7kXlzySGV42M//JlM17evHbQ6TGwEyt94hFQvisk/B9xlzWQ==
+X-Received: by 2002:a17:906:7147:b0:a77:e55a:9e7e with SMTP id a640c23a62f3a-a7a01369423mr395561966b.73.1721325202594;
+        Thu, 18 Jul 2024 10:53:22 -0700 (PDT)
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 18 Jul 2024 18:36:27 +0100
-Message-Id: <D2SUHZ78N3M5.231Q6OE5GA3GE@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "George Dunlap"
- <george.dunlap@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien
- Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 2/2] Add scripts/oss-fuzz/build.sh
+Date: Thu, 18 Jul 2024 18:53:19 +0100
+Message-Id: <D2SUUW3IXC2L.1U5ZWSZQN1HQA@cloud.com>
 From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Tamas K Lengyel" <tamas@tklengyel.com>,
- <xen-devel@lists.xenproject.org>
+To: "Teddy Astie" <teddy.astie@vates.tech>, <xen-devel@lists.xenproject.org>
+Cc: "Jan Beulich" <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Subject: Re: [PATCH for-4.19?] x86/IOMMU: Move allocation in
+ iommu_identity_mapping
 X-Mailer: aerc 0.17.0
-References: <d14436e64c650b388936a921837b984772a4fceb.1719355322.git.tamas@tklengyel.com> <d0974cc40ca68fe197ba7941edd934970d3a92cf.1719355322.git.tamas@tklengyel.com>
-In-Reply-To: <d0974cc40ca68fe197ba7941edd934970d3a92cf.1719355322.git.tamas@tklengyel.com>
+References: <20240717155136.140303-1-teddy.astie@vates.tech>
+In-Reply-To: <20240717155136.140303-1-teddy.astie@vates.tech>
 
-On Tue Jun 25, 2024 at 11:47 PM BST, Tamas K Lengyel wrote:
-> The build integration script for oss-fuzz targets. Future fuzzing targets=
- can
-> be added to this script and those targets will be automatically picked up=
- by
-> oss-fuzz without having to open separate PRs on the oss-fuzz repo.
+On Wed Jul 17, 2024 at 4:51 PM BST, Teddy Astie wrote:
+> If for some reason, xmalloc fails after having mapped the
+> reserved regions, a error is reported, but the regions are
+> actually mapped in p2m.
 >
-> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+> Move the allocation before trying to map the regions, in
+> case the allocation fails, no mapping is actually done
+> which could allows this operation to be retried with the
+> same regions without failing due to already existing mappings.
+>
+> Fixes: c0e19d7c6c ("IOMMU: generalize VT-d's tracking of mapped RMRR regi=
+ons")
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 > ---
->  scripts/oss-fuzz/build.sh | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
->  create mode 100755 scripts/oss-fuzz/build.sh
+>  xen/drivers/passthrough/x86/iommu.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
 >
-> diff --git a/scripts/oss-fuzz/build.sh b/scripts/oss-fuzz/build.sh
-> new file mode 100755
-> index 0000000000..2cfd72adf1
-> --- /dev/null
-> +++ b/scripts/oss-fuzz/build.sh
-> @@ -0,0 +1,23 @@
-> +#!/bin/bash -eu
-
-The shebang probably wants to be "/usr/bin/env bash" to account for systems
-that don't have bash specifically there.
-
-With that "-eu" would need to move down a line to be "set -eu"
-
-> +# SPDX-License-Identifier: Apache-2.0
-> +# Copyright 2024 Google LLC
-> +#
-> +# Licensed under the Apache License, Version 2.0 (the "License");
-> +# you may not use this file except in compliance with the License.
-> +# You may obtain a copy of the License at
-> +#
-> +#      http://www.apache.org/licenses/LICENSE-2.0
-> +#
-> +# Unless required by applicable law or agreed to in writing, software
-> +# distributed under the License is distributed on an "AS IS" BASIS,
-> +# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implie=
-d.
-> +# See the License for the specific language governing permissions and
-> +# limitations under the License.
-> +#
-> +########################################################################=
-########
+> diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthroug=
+h/x86/iommu.c
+> index cc0062b027..b6bc6d71cb 100644
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -267,18 +267,22 @@ int iommu_identity_mapping(struct domain *d, p2m_ac=
+cess_t p2ma,
+>      if ( p2ma =3D=3D p2m_access_x )
+>          return -ENOENT;
+> =20
+> +    map =3D xmalloc(struct identity_map);
+> +    if ( !map )
+> +        return -ENOMEM;
 > +
-> +cd xen
-> +./configure --disable-stubdom --disable-pvshim --disable-docs --disable-=
-xen
-> +make clang=3Dy -C tools/include
-> +make clang=3Dy -C tools/fuzz/x86_instruction_emulator libfuzzer-harness
-> +cp tools/fuzz/x86_instruction_emulator/libfuzzer-harness $OUT/x86_instru=
-ction_emulator
+>      while ( base_pfn < end_pfn )
+>      {
+>          int err =3D set_identity_p2m_entry(d, base_pfn, p2ma, flag);
+> =20
+>          if ( err )
+> +        {
+> +            xfree(map);
+>              return err;
+> +        }
+>          base_pfn++;
+>      }
+> =20
+> -    map =3D xmalloc(struct identity_map);
+> -    if ( !map )
+> -        return -ENOMEM;
+>      map->base =3D base;
+>      map->end =3D end;
+>      map->access =3D p2ma;
+
+That covers the case where xmalloc fails, but what about the case where
+set_identity_p2m_entry() fails in for a middle pfn? (i.e: due to ENOMEM).
 
 Cheers,
 Alejandro
