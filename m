@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9352293705B
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 23:58:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760735.1170644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1789B937058
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 23:58:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760736.1170659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUZ8O-0003H8-4n; Thu, 18 Jul 2024 21:57:56 +0000
+	id 1sUZ8P-0003hE-CQ; Thu, 18 Jul 2024 21:57:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760735.1170644; Thu, 18 Jul 2024 21:57:56 +0000
+Received: by outflank-mailman (output) from mailman id 760736.1170659; Thu, 18 Jul 2024 21:57:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUZ8O-0003Cv-0k; Thu, 18 Jul 2024 21:57:56 +0000
-Received: by outflank-mailman (input) for mailman id 760735;
- Thu, 18 Jul 2024 21:57:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sUZ8P-0003eC-8l; Thu, 18 Jul 2024 21:57:57 +0000
+Received: by outflank-mailman (input) for mailman id 760736;
+ Thu, 18 Jul 2024 21:57:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AEHZ=OS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sUZ8M-0003BD-6A
- for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 21:57:54 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c8087f40-4550-11ef-bbfd-fd08da9f4363;
- Thu, 18 Jul 2024 23:57:52 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2eedea0fd88so17559621fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 14:57:52 -0700 (PDT)
+ id 1sUZ8N-0002ha-LT
+ for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 21:57:55 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c8c7e146-4550-11ef-8776-851b0ebba9a2;
+ Thu, 18 Jul 2024 23:57:54 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a77ec5d3b0dso142087166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 14:57:54 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a33de74e5sm5294266b.147.2024.07.18.14.57.50
+ a640c23a62f3a-a7a33de74e5sm5294266b.147.2024.07.18.14.57.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jul 2024 14:57:50 -0700 (PDT)
+ Thu, 18 Jul 2024 14:57:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8087f40-4550-11ef-bbfd-fd08da9f4363
+X-Inumbo-ID: c8c7e146-4550-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1721339871; x=1721944671; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1721339873; x=1721944673; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zwFWzFvgZNrEVHvyRBE8cy2ybaA/G1NJTsH6Emb+MEQ=;
-        b=r+Vu8uaXA/MHX011CptwK1aHeMR5A1/I9RhXtxeeA/sC31JVuYUnhvZLqi+8LnC6QP
-         g/1HvrBIXn0FNjZIYsZaSnJlpPHst7g0aMw+CvE2nPTHPcqJy/IKh1Q2nE0fHIlxtv3u
-         PB5FT7fX1yj2OvsCSvn+u6BCBHEMbuY55aiPM=
+        bh=4GWn57rc3KL1PwUW4FYINxfwiapH7y2BIUBNdFS5IEE=;
+        b=d+pdsbs/RoAFns/vM3tUJkFHJlIQYRydN8LQ/gz1QR7WROYNiK0B9rU6ZPac+YC6Zm
+         AAdA26TeNwGKxxqpiVD8v9nxS8s04P1mOZY1YBXSzHbjRFL9lZtqDRWtOS3h9h5qSL7q
+         4slXc+JfOYdatcY9WJW6v4QqEzyHOYEjSIaNM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721339871; x=1721944671;
+        d=1e100.net; s=20230601; t=1721339873; x=1721944673;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=zwFWzFvgZNrEVHvyRBE8cy2ybaA/G1NJTsH6Emb+MEQ=;
-        b=VK981onbRL7G4/2U26bNbEKETPirUPSX5YyA/NnABQQNs5jGb2pqsLzcfXSYs3XG2D
-         CY8dBWxp8niAYn0fhQ6ChcuIs+0Xe3Q7f72EQxEpH+gLgqMhPqthxt7r0qYXGp/uXj+L
-         yOkMLWuGczBI9qQH3OjF+vBhz78bM3ZQjRuisD4VDcdG1lH+kwBDN1kB9vOVobh4XfV8
-         bSOLkP/kIdp3MJTkPDgD8O6ohuQJFPXChY58DdF1ZqlEkT/sjWN3jEZPfx9irFM5PKB/
-         Gdc5P2guOPtMeyDI1pWDb+BO72T/L5qM3ZwEKf424fM3t7Mia1XbqHzIq89ZPA+IJdAM
-         xZMA==
-X-Gm-Message-State: AOJu0Yw6iC1qE+PC9HdF3IKTAiG+k0WzNTbZSCPcBprVOrxP/OeOokOW
-	KzuDnpyS6GqgLJ9FOzKQSSXa6noQ0ekNecEgjVKzmNT6s9k4K6I9CgkYOjh4pmqhu1zpX7KY86A
-	1
-X-Google-Smtp-Source: AGHT+IFRHnZO7GLRxxpq0OV++qcIOqQIfYWu2izeKn140Dl3ATRuCUEfGAbfWVvQK4LITKnoUg8qmA==
-X-Received: by 2002:a05:6512:682:b0:52c:e040:7d9 with SMTP id 2adb3069b0e04-52ee5428af2mr4540350e87.59.1721339871272;
-        Thu, 18 Jul 2024 14:57:51 -0700 (PDT)
+        bh=4GWn57rc3KL1PwUW4FYINxfwiapH7y2BIUBNdFS5IEE=;
+        b=eDgBQP6ftG6/7g06MKaIs0VzsfI7N/n5M6YaZ8kfOquC/YM3IdDVwzeUcrX6n1Ep39
+         on6pJkGmnEA0aaOdhV3MIzjPilTSvCLQGv2rrKWBVk1NlyXE8V0By+jQCwd9jvofe+K4
+         J57VxKF2XHPpcmZFzknGMkpZoAK/O6nnn0u62io9xiafJyKCXu4462Yj8KUnZIpeX77B
+         2flFBl45C6NenjhZY7txC5JL4qIXTuPDGFQhpGCTZOROF9uiv0bJE+cigvdVNh0wob+S
+         LutsOY9rVQO4cYflo28BS1aqM38y6uGWYNHLfOSQUs0goLBNHCP4xpUwHCUp0D2FD7pS
+         WGRw==
+X-Gm-Message-State: AOJu0YwEexa1C6uC+sfjZq8cmiaqieZomtfg9lJOywldHycxz1faPhHC
+	RAV69anmyBHhBE2VG29bbOqh7LpQyJY+4Pj1ygGLpVv2xbqPfLcbBwHIrI0GaRi1gJJ3h1V3hGz
+	j
+X-Google-Smtp-Source: AGHT+IE3GGRKISsIRhYfJ2h3x/9H/KPzRnvd/7V4dLwQxc5o97oAu/KglCBD0nhQcEY4Ch4NIYTFfg==
+X-Received: by 2002:a17:906:eb57:b0:a75:360a:6cb0 with SMTP id a640c23a62f3a-a7a0115669bmr386806366b.29.1721339873212;
+        Thu, 18 Jul 2024 14:57:53 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -84,9 +84,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH 1/4] xen/domain: Introduce arch_init_idle_domain()
-Date: Thu, 18 Jul 2024 22:57:41 +0100
-Message-Id: <20240718215744.3892072-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/4] x86/domain: Implement arch_init_idle_domain()
+Date: Thu, 18 Jul 2024 22:57:42 +0100
+Message-Id: <20240718215744.3892072-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240718215744.3892072-1-andrew.cooper3@citrix.com>
 References: <20240718215744.3892072-1-andrew.cooper3@citrix.com>
@@ -94,13 +94,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The idle domain causes a large amount of complexity in domain_create() because
-of x86's need to initialise d->arch.ctxt_switch in arch_domain_create().
+The idle domain needs d->arch.ctxt_switch initialised on x86.  Implement the
+new arch_init_idle_domain() in order to do this.
 
-In order to address this, introduce an optional hook to perform extra
-initialisation of the idle domain.
+Right now this double-initalises the ctxt_switch pointer, but it's safe and
+will stop happening when domain_create() is cleaned up as a consequence.
 
-No functional change.
+No practical change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -113,40 +113,61 @@ CC: Bertrand Marquis <bertrand.marquis@arm.com>
 CC: Michal Orzel <michal.orzel@amd.com>
 CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/common/domain.c     | 3 +++
- xen/include/xen/sched.h | 5 +++++
- 2 files changed, 8 insertions(+)
+ xen/arch/x86/domain.c             | 19 ++++++++++++-------
+ xen/arch/x86/include/asm/domain.h |  3 +++
+ 2 files changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index fb262dcec919..e312c820d641 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -685,6 +685,9 @@ struct domain *domain_create(domid_t domid,
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index ccadfe0c9e70..eff905c6c6e5 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -768,6 +768,17 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+     return true;
+ }
  
-     rangeset_domain_initialise(d);
- 
-+    if ( is_idle_domain(d) )
++void __init arch_init_idle_domain(struct domain *d)
++{
++    static const struct arch_csw idle_csw = {
++        .from = paravirt_ctxt_switch_from,
++        .to   = paravirt_ctxt_switch_to,
++        .tail = idle_loop,
++    };
++
++    d->arch.ctxt_switch = &idle_csw;
++}
++
+ int arch_domain_create(struct domain *d,
+                        struct xen_domctl_createdomain *config,
+                        unsigned int flags)
+@@ -783,13 +794,7 @@ int arch_domain_create(struct domain *d,
+     /* Minimal initialisation for the idle domain. */
+     if ( unlikely(is_idle_domain(d)) )
+     {
+-        static const struct arch_csw idle_csw = {
+-            .from = paravirt_ctxt_switch_from,
+-            .to   = paravirt_ctxt_switch_to,
+-            .tail = idle_loop,
+-        };
+-
+-        d->arch.ctxt_switch = &idle_csw;
 +        arch_init_idle_domain(d);
-+
-     /* DOMID_{XEN,IO,etc} (other than IDLE) are sufficiently constructed. */
-     if ( is_system_domain(d) && !is_idle_domain(d) )
-         return d;
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 2dcd1d1a4f8a..90666576c2f8 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -728,6 +728,11 @@ struct domain *domain_create(domid_t domid,
-                              struct xen_domctl_createdomain *config,
-                              unsigned int flags);
  
-+#ifndef arch_init_idle_domain
-+/* Optional, if there's any construction necessary for DOMID_IDLE */
-+static inline void arch_init_idle_domain(struct domain *d) {}
-+#endif
+         d->arch.cpu_policy = ZERO_BLOCK_PTR; /* Catch stray misuses. */
+ 
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index f5daeb182baa..bca3258d69ac 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -779,6 +779,9 @@ struct arch_vcpu_io {
+ /* Maxphysaddr supportable by the paging infrastructure. */
+ unsigned int domain_max_paddr_bits(const struct domain *d);
+ 
++#define arch_init_idle_domain arch_init_idle_domain
++void arch_init_idle_domain(struct domain *d);
 +
+ #endif /* __ASM_DOMAIN_H__ */
+ 
  /*
-  * rcu_lock_domain_by_id() is more efficient than get_domain_by_id().
-  * This is the preferred function if the returned domain reference
 -- 
 2.39.2
 
