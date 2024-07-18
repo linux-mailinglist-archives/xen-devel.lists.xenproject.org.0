@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64628935111
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 19:08:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760662.1170552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D46C93513C
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 19:26:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760670.1170562 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUUar-0006Xp-6H; Thu, 18 Jul 2024 17:07:01 +0000
+	id 1sUUss-0001K5-LK; Thu, 18 Jul 2024 17:25:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760662.1170552; Thu, 18 Jul 2024 17:07:01 +0000
+Received: by outflank-mailman (output) from mailman id 760670.1170562; Thu, 18 Jul 2024 17:25:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUUar-0006Vr-3h; Thu, 18 Jul 2024 17:07:01 +0000
-Received: by outflank-mailman (input) for mailman id 760662;
- Thu, 18 Jul 2024 17:07:00 +0000
+	id 1sUUss-0001Ho-IJ; Thu, 18 Jul 2024 17:25:38 +0000
+Received: by outflank-mailman (input) for mailman id 760670;
+ Thu, 18 Jul 2024 17:25:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AEHZ=OS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sUUaq-0006Vl-Bs
- for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 17:07:00 +0000
-Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
- [2607:f8b0:4864:20::736])
+ <SRS0=MiOu=OS=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sUUsr-0001Hi-OF
+ for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 17:25:37 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24908ea5-4528-11ef-bbfd-fd08da9f4363;
- Thu, 18 Jul 2024 19:06:59 +0200 (CEST)
-Received: by mail-qk1-x736.google.com with SMTP id
- af79cd13be357-79f083f5cb6so28924885a.3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 10:06:59 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7a1938f0674sm44494285a.61.2024.07.18.10.06.56
+ id beb45d91-452a-11ef-bbfd-fd08da9f4363;
+ Thu, 18 Jul 2024 19:25:36 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-58e76294858so150274a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 10:25:36 -0700 (PDT)
+Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a79bc820e3dsm585694166b.194.2024.07.18.10.25.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jul 2024 10:06:57 -0700 (PDT)
+ Thu, 18 Jul 2024 10:25:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +44,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24908ea5-4528-11ef-bbfd-fd08da9f4363
+X-Inumbo-ID: beb45d91-452a-11ef-bbfd-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1721322418; x=1721927218; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ufxJ+wk+qkOogv3RiaZnix+u85SOqFXVXqwzHhdSUoQ=;
-        b=bw0l3K+iDPu3nDgVSBXf6RpT9Y+7NVKrkXDBOdjhbxYuLqyAFQbu/errI9iGQ4QfUP
-         EdpAknx1fEd3MS4cLrEFv78GFg1i9WutfLIyzW96P9HdyUdsM+acYxVNJ0XWz9cCpeaF
-         DX5VwLEvnAfjh/S3DEMAFCfGnLCat4bfy1kmg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721322418; x=1721927218;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1721323536; x=1721928336; darn=lists.xenproject.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ufxJ+wk+qkOogv3RiaZnix+u85SOqFXVXqwzHhdSUoQ=;
-        b=SeV9ZWxZ+NTlEy/nZAb4rlthXVgu+Qp8+zMOderdli5PRzCKUUQn0yjroPlQDzqQ8C
-         I3+u9J0RPGZNXb4x2bhpVWkM649yZ0QrMbgkquT3p2wqGJpTO2dqedXAhDs5duxqnmc+
-         Ay1z6F+3qBg52PB0tGqq0g7zQoiE9nOQxep15f0QH5yyNxk2kLa+HVBZkx0vo0Sh4VWD
-         GrGddIED56oTTzQtd5EuEf6ZkDs9LqxYPyuT9YaELoQMEzHeFMPr37VAMqvF61laCemk
-         ugZLnH4SO41V0hSgjBhyTzY/CQFg0nhXrHprK7/PmJK5DUrQFefrNwHc9abiiWWq3uqg
-         fSXg==
-X-Forwarded-Encrypted: i=1; AJvYcCXX+eGBypzw6jxkueQUMjH3E54e/N/20SNZrD/6xkjh65bjYNcjJyuzaaivKCJwfvxlQhzzmAmK1uV+D6PPLEZFNpnQ0SmdJ4rqt+2WJ/Q=
-X-Gm-Message-State: AOJu0Yy1J0z5eILflL15MNDRsBK4Scepw6/aEJ/VB82oxlphbvMOOK+O
-	KMz7MJWKcmn1tknyxHKd7U9O1jenB1V9kK/oX5FyPJT9s1X/BHOhc1UKyiOcd7E=
-X-Google-Smtp-Source: AGHT+IF3mv8dVarejYjyPlSw/zAWJWsQbtOrmZNpcFI+nTjGWLb9TCg2dOn4hV1mQbPvXY/nje3WCA==
-X-Received: by 2002:a05:620a:4554:b0:79d:5a77:aea8 with SMTP id af79cd13be357-7a1938ea4cdmr170522785a.1.1721322418017;
-        Thu, 18 Jul 2024 10:06:58 -0700 (PDT)
-Message-ID: <99403a3c-1e4f-4971-a08b-5480e6d1e829@citrix.com>
-Date: Thu, 18 Jul 2024 18:06:54 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/HVM: get_pat_flags() is needed only by shadow code
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <76aafbed-bea9-445a-8abb-6e1e44996594@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <76aafbed-bea9-445a-8abb-6e1e44996594@suse.com>
+        bh=H9V0OS3KMlvXPuE+v2E26dH5fSQlgeRx81+aUTw86j0=;
+        b=QY0o5PaJJBkw0V4GSLVg4YxsAJ/jWcdag7oaZd+a7JgSlT9C7+xj/+z8sBIkld77cb
+         wM5TypqsOtqoPWDpbos62sNzL5TwPUb191bM2xLJCZGnn6q8CeXxl3slLafY6mqhhpnO
+         5G5DlszgS2NYNs5GjoBZRtRs4ZIRvD3UHKE+8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721323536; x=1721928336;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=H9V0OS3KMlvXPuE+v2E26dH5fSQlgeRx81+aUTw86j0=;
+        b=NmrZc3hwynoChfKvSkd7hLDHpw5NdzRXOcl5TZydF2wpJI8bbRIhTbIMN/ERgHIWIq
+         o8oZ/OGPC8dIRq4eRXh51olw/8lecZTnUvGyGINP+fh5S5pinR/KWJVYHbwtSJoZLf+o
+         PP40zEfxkqna8ZGnStV1D2K+2ls75FUkzJAJcRVb8bac5BrB+wxXwNvJCb8SyyLVtxCK
+         s12S0uRCkgKP6rPUiVLKk0sJafCpdQ93FtPaw06eDod8z/KoyvyronRpYZlf2dQU0Cf0
+         i7A5xBcyjQ+Yt7RgjelzFbOwkxYjXV2jhN4MB0v+FiP/0imPxQp26lE8XLK0UroNesa4
+         7LDg==
+X-Forwarded-Encrypted: i=1; AJvYcCWbE/qPhx21mrbkKuvP1q4lYjnpD5BXbGLxCJ4BLx9dOBpCN+vlLVua5hIhaVe8sK8NI+MakICXPfcP/F7dq/4b9I1WaKBYBEWgh4qQP/k=
+X-Gm-Message-State: AOJu0Yw9hY/Oh1EvRbgsTKXaMeU5ZPmCrlDS7IIVeDibgZ4nGBgDTQZH
+	C41qWDy7yAY3T0N3dGidtxkTXvHZDtfW1/q7pavqWjf8BadPfWjUhUqBAIfJ7p8=
+X-Google-Smtp-Source: AGHT+IEl54UWMHQDDisHDhkFmqqjwHpQW32cjdgItlOPEBkmER1pCISf8Jw/O3PWk978bw6p82pVfg==
+X-Received: by 2002:a17:906:6d0f:b0:a72:64f0:552e with SMTP id a640c23a62f3a-a7a0f159d32mr399572266b.19.1721323535673;
+        Thu, 18 Jul 2024 10:25:35 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Thu, 18 Jul 2024 18:25:33 +0100
+Message-Id: <D2SU9MKGLSB7.1J9TBL8HPU4AP@cloud.com>
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Xen-devel"
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH for-4.20 4/4] x86/fpu: Split fpu_setup_fpu() in two
+X-Mailer: aerc 0.17.0
+References: <cover.1720538832.git.alejandro.vallejo@cloud.com>
+ <da30dedcfa68d7c30375b96c85424e13ec6d458b.1720538832.git.alejandro.vallejo@cloud.com> <c311ef0f-7d86-4a2b-b056-9bfa0665113e@suse.com>
+In-Reply-To: <c311ef0f-7d86-4a2b-b056-9bfa0665113e@suse.com>
 
-On 18/07/2024 11:10 am, Jan Beulich wrote:
-> Therefore with SHADOW_PAGING=n this is better compiled out, to avoid
-> leaving around unreachable/dead code.
+On Thu Jul 18, 2024 at 1:19 PM BST, Jan Beulich wrote:
+> On 09.07.2024 17:52, Alejandro Vallejo wrote:
+> > It's doing too many things at once and there's no clear way of defining=
+ what
+> > it's meant to do. This patch splits the function in two.
+> >=20
+> >   1. A reset function, parameterized by the FCW value. FCW_RESET means =
+to reset
+> >      the state to power-on reset values, while FCW_DEFAULT means to res=
+et to the
+> >      default values present during vCPU creation.
+> >   2. A x87/SSE state loader (equivalent to the old function when it too=
+k a data
+> >      pointer).
+> >=20
+> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> > ---
+> > I'm still not sure what the old function tries to do. The state we star=
+t vCPUs
+> > in is _similar_ to the after-finit, but it's not quite (`ftw` is not -1=
+). I went
+> > for the "let's not deviate too much from previous behaviour", but maybe=
+ we did
+> > intend for vCPUs to start as if `finit` had just been executed?
 >
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> A relevant aspect here may be that what FSXR and XSAVE area have is only =
+an
+> abridged form of the tag word, being only 8 bits in size. 0x00 there is
+> equivalent to FTW=3D0xffff (all st(<N>) empty). That's not quite correct =
+for
+> the reset case indeed, where FTW=3D0x5555 (i.e. all st(<N>) zero, requiri=
+ng
+
+I missed the tag being abridged. That makes a lot of sense, thanks.
+
+> the abridged form to hold 0xff instead). While no-one has reported issues
+> there so far, I think it wouldn't be inappropriate to correct this.
+
+Ack, I'll add it on v2.
+
 >
-> --- a/xen/arch/x86/hvm/mtrr.c
-> +++ b/xen/arch/x86/hvm/mtrr.c
-> @@ -271,6 +271,8 @@ int mtrr_get_type(const struct mtrr_stat
->     return overlap_mtrr_pos;
->  }
->  
-> +#ifdef CONFIG_SHADOW_PAGING
-> +
->  /*
->   * return the memory type from PAT.
->   * NOTE: valid only when paging is enabled.
-> @@ -359,6 +361,8 @@ uint32_t get_pat_flags(struct vcpu *v,
->      return pat_type_2_pte_flags(pat_entry_value);
->  }
->  
-> +#endif /* CONFIG_SHADOW_PAGING */
-> +
->  static inline bool valid_mtrr_type(uint8_t type)
->  {
->      switch ( type )
+> > --- a/xen/arch/x86/hvm/hvm.c
+> > +++ b/xen/arch/x86/hvm/hvm.c
+> > @@ -1162,10 +1162,17 @@ static int cf_check hvm_load_cpu_ctxt(struct do=
+main *d, hvm_domain_context_t *h)
+> >      seg.attr =3D ctxt.ldtr_arbytes;
+> >      hvm_set_segment_register(v, x86_seg_ldtr, &seg);
+> > =20
+> > -    /* Cover xsave-absent save file restoration on xsave-capable host.=
+ */
+> > -    vcpu_setup_fpu(v, xsave_enabled(v) ? NULL : v->arch.xsave_area,
+> > -                   ctxt.flags & XEN_X86_FPU_INITIALISED ? ctxt.fpu_reg=
+s : NULL,
+> > -                   FCW_RESET);
+> > +    /*
+> > +     * On Xen 4.1 and later the FPU state is restored on a later HVM c=
+ontext, so
+> > +     * what we're doing here is initialising the FPU state for guests =
+from even
+> > +     * older versions of Xen. In general such guests only use legacy x=
+87/SSE
+> > +     * state, and if they did use XSAVE then our best-effort strategy =
+is to make
+> > +     * an XSAVE header for x87 and SSE hoping that's good enough.
+> > +     */
+> > +    if ( ctxt.flags & XEN_X86_FPU_INITIALISED )
+> > +        vcpu_setup_fpu(v, &ctxt.fpu_regs);
+> > +    else
+> > +        vcpu_reset_fpu(v, FCW_RESET);
+>
+> I'm struggling with the use of "later" in the comment. What exactly is th=
+at
+> meant to express? Fundamentally the XSAVE data is fully backwards compati=
+ble
+> with the FXSR one, I think, so the mentioning of "best-effort" isn't quit=
+e
+> clear to me either.
 
-While I can see this is true, the fact it is indicates that we have
-bugs/problems elsewhere.
+I meant that the XSAVE state (including FPU/SSE state) is passed not on the=
+ HVM
+context struct being process _here_, but another one that will arrive later=
+ on
+in the stream. There's 3 interesting cases regarding extended states:
 
-It is not only the shadow code that has to combine attributes like this,
-so we've either got opencoding elsewhere, or a bad abstraction.
+  1. If there is an XSAVE context later in the stream, what we do here for =
+the
+     FPU doesn't matter because it'll be overriden later. That's fine.
+  2. If there isn't and the guest didn't use extended states  it's still fi=
+ne
+     because we have all the information we need here.
+  2. If there isn't but the guest DID use extended states (could've happene=
+d
+     prior to Xen 4.1) then we're in a pickle because we have to make up
+     non-existing state. This is what I meant by best effort.
 
-(This is an observation, rather than a specific objection.)
+Seeing how you got confused the comment probably needs to be rewritten to
+better reflect this.
 
-~Andrew
+>
+> > --- a/xen/arch/x86/i387.c
+> > +++ b/xen/arch/x86/i387.c
+> > @@ -310,41 +310,25 @@ int vcpu_init_fpu(struct vcpu *v)
+> >      return xstate_alloc_save_area(v);
+> >  }
+> > =20
+> > -void vcpu_setup_fpu(struct vcpu *v, struct xsave_struct *xsave_area,
+> > -                    const void *data, unsigned int fcw_default)
+> > +void vcpu_reset_fpu(struct vcpu *v, uint16_t fcw)
+> >  {
+> > -    fpusse_t *fpu_sse =3D &v->arch.xsave_area->fpu_sse;
+> > -
+> > -    ASSERT(!xsave_area || xsave_area =3D=3D v->arch.xsave_area);
+> > -
+> > -    v->fpu_initialised =3D !!data;
+> > -
+> > -    if ( data )
+> > -    {
+> > -        memcpy(fpu_sse, data, sizeof(*fpu_sse));
+> > -        if ( xsave_area )
+> > -            xsave_area->xsave_hdr.xstate_bv =3D XSTATE_FP_SSE;
+> > -    }
+> > -    else if ( xsave_area && fcw_default =3D=3D FCW_DEFAULT )
+> > -    {
+> > -        xsave_area->xsave_hdr.xstate_bv =3D 0;
+> > -        fpu_sse->mxcsr =3D MXCSR_DEFAULT;
+> > -    }
+> > -    else
+> > -    {
+> > -        memset(fpu_sse, 0, sizeof(*fpu_sse));
+> > -        fpu_sse->fcw =3D fcw_default;
+> > -        fpu_sse->mxcsr =3D MXCSR_DEFAULT;
+> > -        if ( v->arch.xsave_area )
+> > -        {
+> > -            v->arch.xsave_area->xsave_hdr.xstate_bv &=3D ~XSTATE_FP_SS=
+E;
+> > -            if ( fcw_default !=3D FCW_DEFAULT )
+> > -                v->arch.xsave_area->xsave_hdr.xstate_bv |=3D X86_XCR0_=
+X87;
+> > -        }
+> > -    }
+> > +    v->fpu_initialised =3D false;
+> > +    *v->arch.xsave_area =3D (struct xsave_struct) {
+> > +        .fpu_sse =3D {
+> > +            .mxcsr =3D MXCSR_DEFAULT,
+> > +            .fcw =3D fcw,
+> > +        },
+> > +        .xsave_hdr.xstate_bv =3D fcw =3D=3D FCW_RESET ? X86_XCR0_X87 :=
+ 0,
+> > +    };
+> > +}
+>
+> Old code checked against FCW_DEFAULT uniformly. You switching to checking
+> against FCW_RESET is no functional change only because all callers pass
+> either of the two values. I wonder whether the new function's parameter
+> wouldn't want to be a boolean (reset vs init).
+
+I agree, and It's effectively what it is. The problem with the boolean is t=
+hat
+it's utterly unreadable at the call sites.
+
+    vcpu_reset_fpu(v, true); /* Is this reset or set-to-default? */
+    vcpu_reset_fpu(v, FCW_RESET); /* Clear to be a reset */
+
+I could also split it in 2, so we end up with these:
+
+  * vcpu_setup_fpu(v, data): Copies x87/SSE state
+  * vcpu_reset_fpu(v): Reset to power-on state
+  * vcpu_set_default_fpu(v): Reset to default state
+
+Thinking about it, I kind of prefer this second approach. Thoughts?
+
+>
+> > -    if ( xsave_area )
+> > -        xsave_area->xsave_hdr.xcomp_bv =3D 0;
+> > +void vcpu_setup_fpu(struct vcpu *v, const void *data)
+> > +{
+> > +    v->fpu_initialised =3D true;
+> > +    *v->arch.xsave_area =3D (struct xsave_struct) {
+> > +        .fpu_sse =3D *(fpusse_t*)data,
+>
+> First of all please never cast away const. See Misra rule 11.8. And then
+> a nit again: Blank ahead of the latter of the two *-s, please.
+>
+
+Bah, yes. You're right. Casting to (const fpusse_t *) instead should appeas=
+e
+the UB gods.
+
+> > --- a/xen/arch/x86/include/asm/i387.h
+> > +++ b/xen/arch/x86/include/asm/i387.h
+> > @@ -31,10 +31,29 @@ void vcpu_restore_fpu_nonlazy(struct vcpu *v, bool =
+need_stts);
+> >  void vcpu_restore_fpu_lazy(struct vcpu *v);
+> >  void vcpu_save_fpu(struct vcpu *v);
+> >  void save_fpu_enable(void);
+> > -
+> >  int vcpu_init_fpu(struct vcpu *v);
+> > -struct xsave_struct;
+> > -void vcpu_setup_fpu(struct vcpu *v, struct xsave_struct *xsave_area,
+> > -                    const void *data, unsigned int fcw_default);
+> >  void vcpu_destroy_fpu(struct vcpu *v);
+> > +
+> > +/*
+> > + * Restore `v`'s FPU to known values
+> > + *
+> > + * If fcw =3D=3D FCW_RESET, then the reset state is power-on RESET.
+> > + *
+> > + * Otherwise `mxcsr` is set to `MXCSR_DEFAULT`, `fcw` is overriden wit=
+h the
+> > + * `fcw` argument and everything else is zeroed out.
+>
+> Backticks are used for two different purposes here, which I'm afraid is
+> confusing. You want to make it easy to tell function arguments from other
+> entities, imo.
+>
+
+Fair enough, sure.
+
+> > + * @param v   vCPU containing the FPU
+> > + * @param fcw Intended FPU Control Word
+> > + */
+> > +void vcpu_reset_fpu(struct vcpu *v, uint16_t fcw);
+> > +
+> > +/*
+> > + * Load x87/SSE state into `v`'s FPU
+>
+> Applicable here then as well.
+>
+> Jan
+
+Cheers,
+Alejandro
 
