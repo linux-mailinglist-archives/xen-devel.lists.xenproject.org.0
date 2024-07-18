@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94D50934C50
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 13:20:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760401.1170243 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56B4D934C58
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 13:23:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760406.1170254 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUPBK-0005yf-Jj; Thu, 18 Jul 2024 11:20:18 +0000
+	id 1sUPEZ-0006Y4-1g; Thu, 18 Jul 2024 11:23:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760401.1170243; Thu, 18 Jul 2024 11:20:18 +0000
+Received: by outflank-mailman (output) from mailman id 760406.1170254; Thu, 18 Jul 2024 11:23:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUPBK-0005wJ-H8; Thu, 18 Jul 2024 11:20:18 +0000
-Received: by outflank-mailman (input) for mailman id 760401;
- Thu, 18 Jul 2024 11:20:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sUPEY-0006WZ-VK; Thu, 18 Jul 2024 11:23:38 +0000
+Received: by outflank-mailman (input) for mailman id 760406;
+ Thu, 18 Jul 2024 11:23:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3WUc=OS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sUPBJ-0005w6-1h
- for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 11:20:17 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b47fd165-44f7-11ef-8776-851b0ebba9a2;
- Thu, 18 Jul 2024 13:20:15 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2ee920b0781so9209261fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 04:20:15 -0700 (PDT)
+ id 1sUPEX-0006WT-Rx
+ for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 11:23:37 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2cd418f1-44f8-11ef-bbfd-fd08da9f4363;
+ Thu, 18 Jul 2024 13:23:36 +0200 (CEST)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2eedea0fd88so9132271fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 04:23:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70b7eca662csm10177182b3a.147.2024.07.18.04.20.11
+ d2e1a72fcca58-70b7ecc9965sm9778385b3a.199.2024.07.18.04.23.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jul 2024 04:20:13 -0700 (PDT)
+ Thu, 18 Jul 2024 04:23:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b47fd165-44f7-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 2cd418f1-44f8-11ef-bbfd-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721301614; x=1721906414; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721301816; x=1721906616; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mc6QN7fXJBk2HasrqrAYGkWmoE0Im1l/xBI0Ue+u0x8=;
-        b=SbR/VMk9KADP1cpF55RuuBYk99P8SmvWum4bEAyO7pzYoeiM6/lVFbuuOFp2z6ZXmZ
-         C/kT0VJObW1llF+r/VQJDW1oEsNlv6TiPJUpgBGoYPZNBTq/KMu+4gEWyJrBytp5GSEM
-         rraWCY9vB76k8Qe8ZMJNEQwuCiR5csOdqA+/u1ymvJ5jD5K+WikWrN5KJVjlJXoGfFI5
-         nc0nAw/lvYuvmd3iXWJuXarKnxY0lvMszwdGZtsXucTc6XuHKrdcFaUmFwLmh+Bwu9gu
-         D1PSHkOUNB3317EeYjyzC0kg0JxRg5iIn8HVIQZhibcKKlXXD/tTlzEAK9TNRvT0bcod
-         5lAA==
+        bh=BQkhRiJhmlIyT8KpzqkTFOqSCn6RIZmXHNiKYpe3CdU=;
+        b=UCPBw7ZTZyl6X50INqMccQFQt8cyyYahOChpYRPNK7/5OxBVBBC6OWDWWXkF08Hr2b
+         YU+YOQEg966jFxGv3G4H79AeKw+CVdbTIdWOH4bngGmAHylEpnyBek1AYC6C++MICtH0
+         VckEWGQyTEoahcNKq537H6HpwAT269UlpSNSV1tuUmBAo+cI9RsEZ9uhn2X+dW+FD0jr
+         Yg4cV5c+lfgIQ55D3UGiKt/Uo7nzhJhYxnL4Aysncojj7RXii+xMunL/ZT41FdPcYIT1
+         lqV62I7MhYQx2lzlDgzMUH9sJ6DNzb7Y+SWWPjt3wxZcUIRZaiFBCUQeWTyhxTEViV8d
+         cNMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721301614; x=1721906414;
+        d=1e100.net; s=20230601; t=1721301816; x=1721906616;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mc6QN7fXJBk2HasrqrAYGkWmoE0Im1l/xBI0Ue+u0x8=;
-        b=Ov8K+oUg2fnuVqkbH7V2YAjMGKGCO/sELbXy0s5JTLSTAn+T3+i1b29/d8ymJ1XkzU
-         JkBrY9ZMEFuUUilG+7+X0iozFJETeHSYkK/xkddbiJ/Gn5l5/peG/bSK/Q4ZhuW2Dz9O
-         9SdaZF77x7ylh1sfcpVqUd95YADZJ7ALbrZwpkSEUzGScthNKSi6TuMQ2TF92dGTRnOj
-         jY3pdZcJdhmuUKhBjF82NXww1Vyb7irKImIDveyks0gPsNvica7GrvC+zQYzkAmjfYaq
-         loTQ93RlJsvDOEJxK+yRQRD3mYDlEsusnCSaCs3i4vS796Co66roaGQTjxBfV1CddPWv
-         dq0w==
-X-Forwarded-Encrypted: i=1; AJvYcCUiz6EA2D0i5uWzJFw94qRTEqBfLx29tV5UW981BzVDyrqe41uwtwaS+YYZBcSw4sybyaIQAG8t5Hn5fAM9XTRDktR2nKR37gfCtbbVLJ8=
-X-Gm-Message-State: AOJu0YyVXlbrHVzHJnH+hNPBeWJlN1sOeOqCUf+13RmpTr9hp3ncR/KO
-	A4aSeTg+Kkyt9HJI4L/ahfXttBgZ88V/R6bqkfZOm8iZaiYbuUTOLRl4Cvg43g==
-X-Google-Smtp-Source: AGHT+IHoYO1TT0Bsh5sPYtbbr3PZL3mEfiMFrTlcZJgkLSGXPHZrJ4lDZLGmYqEhCi+39LeMA9Msxw==
-X-Received: by 2002:a2e:9b56:0:b0:2ec:54ec:1741 with SMTP id 38308e7fff4ca-2ef05c7507cmr13282631fa.18.1721301614258;
-        Thu, 18 Jul 2024 04:20:14 -0700 (PDT)
-Message-ID: <7da4a590-921c-42ed-a734-f8150bea407e@suse.com>
-Date: Thu, 18 Jul 2024 13:20:07 +0200
+        bh=BQkhRiJhmlIyT8KpzqkTFOqSCn6RIZmXHNiKYpe3CdU=;
+        b=FuAMsLCKSTzkCBqfof0SVuwRWN0Lr74yJu/a2nANQzriGzx/HtlhImYGtd4X3AGcOn
+         +513gow/3ad80HR4c3AwZ5rP8o3VJBSgWESwtHx/UkAkacEK/BzyyLCydwhUNVV/B808
+         nnGksqCnuE6R+aI8mghxSdjvDQYE+rzjlwyS/D3tKlIsZZ7TafUK1GZ9ocC9lbk1Kvxy
+         3jyKcxeGL32l+anyEB0F8DKq+wjnxJM1ALLtuWMPu34RU0+dUxhGwO3JJ5sAant+2286
+         HxPU4DWbB2qT6UMD+D4tFq1Lt7dCe4HbeAnFKrHhLcDYBNSKiFHMjfUDWECO0/w9qdti
+         CL4g==
+X-Forwarded-Encrypted: i=1; AJvYcCV6u7Tp4rIMrtXzpVTWhOh74T8MuBuj5l9ohKXrA98f1sythJoYtaKsKbMNElxL6zl9+zbpIUqjHJFjFbIIjSMYgyYbQLCaJsw1RIP/2h0=
+X-Gm-Message-State: AOJu0YznEL0XtpQWCosg7tHgjcUWALmCXO4QW9+yWv/IS1W/V8KX1xHB
+	L/UT002/KTpxJM2tgOOd0d8htMR1abOkP4PongJVnAVOgCay7b/jbcZUeJ2vLzAbsWJ0s+P6QSo
+	=
+X-Google-Smtp-Source: AGHT+IGWEJU6pFAL6aYsOcQzXbuvYKc+74p8AlucKU19FpzyVkApAUbsdBLeqatCRCO4ooaqExrLtw==
+X-Received: by 2002:a2e:bc13:0:b0:2ea:7d8f:8d12 with SMTP id 38308e7fff4ca-2ef05d6214dmr15176891fa.48.1721301816213;
+        Thu, 18 Jul 2024 04:23:36 -0700 (PDT)
+Message-ID: <ac986849-7041-4b1c-89a8-bdf1c4ad29cc@suse.com>
+Date: Thu, 18 Jul 2024 13:23:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 1/4] x86/xstate: Use compression check helper in
- xstate_all()
+Subject: Re: [PATCH for-4.20 2/4] x86/fpu: Create a typedef for the x87/SSE
+ area inside "struct xsave_struct"
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <cover.1720538832.git.alejandro.vallejo@cloud.com>
- <c12704135bf9ae1cf59ea4f8a05485d505b7863c.1720538832.git.alejandro.vallejo@cloud.com>
+ <2e2763f4980c98cca0e2c3be057b2299295bb616.1720538832.git.alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,19 +115,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c12704135bf9ae1cf59ea4f8a05485d505b7863c.1720538832.git.alejandro.vallejo@cloud.com>
+In-Reply-To: <2e2763f4980c98cca0e2c3be057b2299295bb616.1720538832.git.alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 09.07.2024 17:52, Alejandro Vallejo wrote:
-> Minor refactor to make xstate_all() use a helper rather than poking directly
-> into the XSAVE header.
+> Making the union non-anonymous causes a lot of headaches,
+
+Maybe better "would cause", as that's not what you're doing here?
+
+> because a lot of code
+> relies on it being so, but it's possible to make a typedef of the anonymous
+> union so all callsites currently relying on typeof() can stop doing so directly.
 > 
-> No functional change
+> This commit creates a `fpusse_t` typedef to the anonymous union at the head of
+> the XSAVE area and uses it instead of typeof().
+> 
+> No functional change.
 > 
 > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
-
 
 
