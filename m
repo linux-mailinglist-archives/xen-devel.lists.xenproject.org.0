@@ -2,34 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCDDA934D4B
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 14:36:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760462.1170314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26677934D84
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2024 14:53:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760472.1170324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUQMZ-0002YX-Eo; Thu, 18 Jul 2024 12:35:59 +0000
+	id 1sUQdA-0005wy-RW; Thu, 18 Jul 2024 12:53:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760462.1170314; Thu, 18 Jul 2024 12:35:59 +0000
+Received: by outflank-mailman (output) from mailman id 760472.1170324; Thu, 18 Jul 2024 12:53:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUQMZ-0002VS-CD; Thu, 18 Jul 2024 12:35:59 +0000
-Received: by outflank-mailman (input) for mailman id 760462;
- Thu, 18 Jul 2024 12:35:57 +0000
+	id 1sUQdA-0005v2-NP; Thu, 18 Jul 2024 12:53:08 +0000
+Received: by outflank-mailman (input) for mailman id 760472;
+ Thu, 18 Jul 2024 12:53:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Lg7+=OS=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1sUQMX-0002VL-Re
- for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 12:35:57 +0000
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45e3096e-4502-11ef-8776-851b0ebba9a2;
- Thu, 18 Jul 2024 14:35:55 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1721306142615762.886477000092;
- Thu, 18 Jul 2024 05:35:42 -0700 (PDT)
-Received: by mail-yb1-f169.google.com with SMTP id
- 3f1490d57ef6-e04196b7603so760319276.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2024 05:35:42 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TiGH=OS=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sUQd9-0005uw-G9
+ for xen-devel@lists.xenproject.org; Thu, 18 Jul 2024 12:53:07 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id acc0c68b-4504-11ef-8776-851b0ebba9a2;
+ Thu, 18 Jul 2024 14:53:05 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 536541F399;
+ Thu, 18 Jul 2024 12:53:03 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 13B0B136F7;
+ Thu, 18 Jul 2024 12:53:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id XPBeAy8QmWYVeQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 18 Jul 2024 12:53:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,90 +52,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45e3096e-4502-11ef-8776-851b0ebba9a2
-ARC-Seal: i=1; a=rsa-sha256; t=1721306149; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=m3zpbycuyT4tdA4frOLQc1KUJnzxVxZBU3l+1loALEwkQdiM7E0Cr2/Rnoravrq1bgb7EAhzyTiFkEYIucR3aGuiWrsr7Dkqc08Xip1Cyb675SPLuVXQqSJi0FCKH1EHwojufKJox7Z2RWrmWuDBdR/6hiEzBWohYPv8KbmCzdU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1721306149; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=FRgdaSUZyLRQ3CEP0Nm1cYTilO/hWIfCThtWEAs/Pc8=; 
-	b=cuQx11HkDm5L+Y9MHhi9hQIWx++gIKko0xPnvs4p3Ma1ehI7ITxQSLjpF3v0wfLkvKqm0NIy+CU6X5fW+N+3xoqYxpKiqUYjC7U25PlVvvfzRLhp3WixwmTr3yg6XYfsbHcEIL570VicPNylEqdSHZmiYKp1Rdb1za8p+LWWNWg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=tklengyel.com;
-	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
-	dmarc=pass header.from=<tamas@tklengyel.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1721306149;
-	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
-	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=FRgdaSUZyLRQ3CEP0Nm1cYTilO/hWIfCThtWEAs/Pc8=;
-	b=fgxzNepkciV5dmzw4JNCBawaWbNVZjIqhwL4mShqsL6AldoYq935HCazph7mHvf6
-	ighMg5KRLfLeHfyWXwYs9wZTYyTYoPs1tfmnl3cOt/NzbXR3x9H6I/K/mbGb/r81EVN
-	Ez5pJziKj3I+QjTEzhgMGQEjzGuykwMiDdhsbaLU=
-X-Forwarded-Encrypted: i=1; AJvYcCU/BErzsmr3M1RQ9f5Zzx4+iiZ2laWzh1l6yZgcFVUrGwiiTI3xRCyKVWDV5DcSXifPJLnuOzqXdait18JNi8jZXNvABf9VVj1Aox3sDwA=
-X-Gm-Message-State: AOJu0YxFN+EcXF6GvKKQLa1HkoOXbh3qzw1ogI903EPEqnIoy/N6KFiy
-	VA5BVb5wjSXOx9ct17zNuHWfJ7myfKXBGxsqI3dxacfIudK7wk3rWc9B7V5CNCU0IWxkyCmqXCT
-	sw35Dk67yg1WM2Hdzu5oG59eITOQ=
-X-Google-Smtp-Source: AGHT+IFkRiVyFjWVz1scjTWu2eSsIXxkMsps6hGwC5ufvZuTLUMhXqCVrgo1tiedOqRSSRkDFoutJ34/FrFZI41q9Hk=
-X-Received: by 2002:a05:6902:2b02:b0:e03:4efe:df92 with SMTP id
- 3f1490d57ef6-e05ed79632cmr5916397276.53.1721306141820; Thu, 18 Jul 2024
- 05:35:41 -0700 (PDT)
+X-Inumbo-ID: acc0c68b-4504-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1721307184; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=AdT5XI7daN7y0jcY4YymDW2f9yIOYl50ejWQ2o+Dr7M=;
+	b=P10sI0a0W6vGu8A3hp9Sheg8whyOHHJ1KTjvLiV3tTNqWv2bcrkBqxliEG4pC9R2lIClqK
+	yv5mVB5dheeKiTqUkMlx4lKuWarQPenU9/sCL5C/CX/QbkEzLWQxaAbu2pUOjL4MjUnb4a
+	yBD0I9JizvVfgxRWTV0VUCCbYvJQqPo=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=gqJGIM1d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1721307183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=AdT5XI7daN7y0jcY4YymDW2f9yIOYl50ejWQ2o+Dr7M=;
+	b=gqJGIM1dcxMuvO1dL9jE06ULkedA15AbgQt0skiVioPoy4rJYPaQcQgzVDWFjb7Z49mb1K
+	BWGWO4MLQKenQMYgtCDM5HfEq1s6cnINumEuFAFp3xqqRWyj+cE0lIDMmgktsZGyWbqwTL
+	kPRxJqHtIOH27ENvobX9tBkYvjLUHjQ=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] MAINTAINERS: drop CPU POOLS section
+Date: Thu, 18 Jul 2024 14:52:51 +0200
+Message-ID: <20240718125251.27163-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <d14436e64c650b388936a921837b984772a4fceb.1719355322.git.tamas@tklengyel.com>
- <32302065-672c-480f-8491-d73982598e77@suse.com>
-In-Reply-To: <32302065-672c-480f-8491-d73982598e77@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Thu, 18 Jul 2024 08:35:05 -0400
-X-Gmail-Original-Message-ID: <CABfawh=_Zg+jQe6muxfd5T+sfy2SJUdF03Q4qXVaF8aNVjhGyQ@mail.gmail.com>
-Message-ID: <CABfawh=_Zg+jQe6muxfd5T+sfy2SJUdF03Q4qXVaF8aNVjhGyQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] Add libfuzzer target to fuzz/x86_instruction_emulator
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 536541F399
+X-Spam-Flag: NO
+X-Spam-Score: 0.99
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [0.99 / 50.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Spam-Level: 
+X-Spamd-Bar: /
 
-On Thu, Jul 18, 2024 at 7:03=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 26.06.2024 00:47, Tamas K Lengyel wrote:
-> > This target enables integration into oss-fuzz. Changing invalid input r=
-eturn
-> > to -1 as values other then 0/-1 are reserved by libfuzzer.
->
-> And existing behavior (for afl) is unaffected because there we (wrongly)
-> ignore the return value altogether.
->
-> > @@ -67,7 +70,8 @@ distclean: clean
-> >
-> >  .PHONY: clean
-> >  clean:
-> > -     rm -f *.a *.o $(DEPS_RM) afl-harness afl-harness-cov *.gcda *.gcn=
-o *.gcov
-> > +     rm -f *.a *.o $(DEPS_RM) *.gcda *.gcno *.gcov \
-> > +        afl-harness afl-harness-cov libfuzzer-harness
-> >       rm -rf x86_emulate x86-emulate.c x86-emulate.h wrappers.c cpuid.c
->
-> This is what I said for v1:
->
-> "I'm inclined to suggest it's time to split this line (e.g. keeping all t=
-he
->  wildcard patterns together and moving the rest to a new rm invocation)."
->
-> Could this really be misunderstood to mean anything other than
->
-> clean:
->         rm -f *.a *.o $(DEPS_RM) *.gcda *.gcno *.gcov
->         rm -f afl-harness afl-harness-cov libfuzzer-harness
->         rm -rf x86_emulate x86-emulate.c x86-emulate.h wrappers.c cpuid.c
->
-> ?
+The CPU POOLS sections in MAINTAINERS can be dropped, as the SCHEDULING
+section has the same maintainers and it is covering the CPU POOLS files
+as well.
 
-Evidently, yes.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ MAINTAINERS | 6 ------
+ 1 file changed, 6 deletions(-)
 
-> With that
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> and I'm kind of okay making that adjustment myself while committing.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2b0c894527..37aacba2f9 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -284,12 +284,6 @@ S:	Supported
+ F:	.gitlab-ci.yml
+ F:	automation/
+ 
+-CPU POOLS
+-M:	Juergen Gross <jgross@suse.com>
+-M:	Dario Faggioli <dfaggioli@suse.com>
+-S:	Supported
+-F:	xen/common/sched/*cpupool.c
+-
+ DEVICE TREE
+ M:	Stefano Stabellini <sstabellini@kernel.org>
+ M:	Julien Grall <julien@xen.org>
+-- 
+2.43.0
 
-Thanks! That is appreciated.
-Tamas
 
