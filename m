@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33CFE937211
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 03:43:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760820.1170752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB98993727B
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 04:34:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760834.1170774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUcds-0004F1-Ka; Fri, 19 Jul 2024 01:42:40 +0000
+	id 1sUdRn-0001vz-Dp; Fri, 19 Jul 2024 02:34:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760820.1170752; Fri, 19 Jul 2024 01:42:40 +0000
+Received: by outflank-mailman (output) from mailman id 760834.1170774; Fri, 19 Jul 2024 02:34:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUcds-0004Ct-I0; Fri, 19 Jul 2024 01:42:40 +0000
-Received: by outflank-mailman (input) for mailman id 760820;
- Fri, 19 Jul 2024 01:42:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sUcdr-0004Ci-LU; Fri, 19 Jul 2024 01:42:39 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sUcdr-0002iJ-Cy; Fri, 19 Jul 2024 01:42:39 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sUcdr-0002DS-1l; Fri, 19 Jul 2024 01:42:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sUcdr-0007C9-0y; Fri, 19 Jul 2024 01:42:39 +0000
+	id 1sUdRn-0001tH-BA; Fri, 19 Jul 2024 02:34:15 +0000
+Received: by outflank-mailman (input) for mailman id 760834;
+ Fri, 19 Jul 2024 02:34:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=a+sj=OT=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1sUdRl-0001tA-Sj
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 02:34:14 +0000
+Received: from fhigh2-smtp.messagingengine.com
+ (fhigh2-smtp.messagingengine.com [103.168.172.153])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 606111b3-4577-11ef-8776-851b0ebba9a2;
+ Fri, 19 Jul 2024 04:34:10 +0200 (CEST)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailfhigh.nyi.internal (Postfix) with ESMTP id 99EDB1140265;
+ Thu, 18 Jul 2024 22:34:08 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Thu, 18 Jul 2024 22:34:08 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 18 Jul 2024 22:34:06 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,126 +44,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=T2ZryZ0FB0QRQipw89ZmPXrk1tz8d4O4Y+ZXQZ1hff4=; b=wHTrldJpg0JTaY4ZLVbTOnShEn
-	2yTg+2WmEKRNsv+ccKRUJ6JBdP6cRecTxpGrTJiyqLGIsAAP6zVXUNrjKqLtXPJ0V4fThc2Wy3OxZ
-	mnuJ1ZyDHJalh/7UIDo+o+cNowfDgmHnITHRhZcdBujGiDQ5KNW4asHym1VyayTdbV1s=;
+X-Inumbo-ID: 606111b3-4577-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
+	 t=1721356448; x=1721442848; bh=Y5XHPfGuIrp7S1hbzvj1pjkbqkEQEhy0
+	VNxti2mSbZ0=; b=HQ5CmzcrT25rF3oIBlv6FqWOREZz8si0J39M0vyG7mghtXF3
+	KWCs5l1pK+AwZVTusuN1Opi0j5NDO+CNtcVgeR71hL8ZfKlkpwVZQMp+250xlpPC
+	I+VFyQfk1VqVj9UkRGfxu0LBbdfCmOWT/C/U/bjEVM5X18Das7SM8rGhmTkpHGfS
+	nwDabjxrpIMBx/Oc9MY9fohO33/6dZr4eez/7boCeHdkgS/hZpQCI7z1y27PjA3z
+	N9O0a3HwRw1I2FosMaxwr7xR7WKOK6vuoJ4MijUMwKe43+bsCPlg1z3Ay56uol12
+	BXhITpUBeJ0KqqUm3QZr78v34DgQSMt35+x36w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1721356448; x=1721442848; bh=Y5XHPfGuIrp7S
+	1hbzvj1pjkbqkEQEhy0VNxti2mSbZ0=; b=cco4x5wJiml+BcVkpF5bdYiEvl4VD
+	EmGA3Wix90QdCOOlRnrWm0iCO+jsvE2t2j3ac1p58pxxwRU2aDfcHOYuUjKrM7u5
+	gWLd0SZi313fYqyP1sXMBrnfG1cua9intAkiVLyh2rhjNSQJbr+lsCMAbO74Ptwq
+	pQi8rBogURWcsduMO9FGcZy2mgmBlOPavT+Em43AThCJfzaFTWVT6Gl25GjTDz8w
+	C5oxH9ruBNMJYDrfrxAIg16bw75GQv98DTbQTCNFc45SLugVNwsuQdL2yqQ8E6e4
+	nY99R0p3XBxkW3wrO66ARnkjJrisys8jcjodVnaD8Jl5sJdRSF9wAJP5Q==
+X-ME-Sender: <xms:n9CZZk6rA_SoD_zmCOXqmwURjplC4GvPN8UwK5U17115gwSHqCQjjw>
+    <xme:n9CZZl4gVgmCMB5d2TaGXYNpxNbEtWEqFI0KFDlw1GBX8a_5xFnSOBXhyCtzTXTAY
+    ObZ_x4yoZ-_dA>
+X-ME-Received: <xmr:n9CZZjeUyKwneUy6ynxn6DH6--qc0_J5HHkHmiKp-9t09TUU0Se-u6k67CcjePbDp5tduQkWx8W_CYHntnW58UgHh-gV6kMrOVgeoD_T5YZEgytYHUU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrhedtgdeitdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofggtgfgsehtkeertd
+    ertdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghk
+    ihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqe
+    enucggtffrrghtthgvrhhnpeelkefhudelteelleelteetveeffeetffekteetjeehlefg
+    geekleeghefhtdehvdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
+    hlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgt
+    ohhm
+X-ME-Proxy: <xmx:n9CZZpLxJ2C-G7vbKU09CSvON6w6dx3oOt_wx2DgpWT9GaxE8dL3eg>
+    <xmx:n9CZZoLL5l4sn9ziNv-m_cMOpP-NJ_4Ta-djeA1m8CfElD9LhUr4KQ>
+    <xmx:n9CZZqwO2pudgFCFRNi7PPTGoBBqivpiP4gjJyYwyobe2WCSac2vkg>
+    <xmx:n9CZZsJYNGYvfyBhwEVaDQy_fc5dTOp9ODJUeKKIsoTqdU-oIYT12g>
+    <xmx:oNCZZijdoOcn-UQtzb16My4zvTydC_-vG_Ieye8Q3mWP4Z9s5QPK8jSa>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186885-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v5 0/3] Add API for making parts of a MMIO page R/O and use it in XHCI console
+Date: Fri, 19 Jul 2024 04:33:35 +0200
+Message-ID: <cover.8c9972382c46fce22682bcec2ee28fe2501dd18f.1721356393.git-series.marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186885: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-install:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-install:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
-X-Osstest-Versions-This:
-    xen=a99f25f7ac60544e9af4b3b516d7566ba8841cc4
-X-Osstest-Versions-That:
-    xen=57338346f29cea7b183403561bdc5f407163b846
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 19 Jul 2024 01:42:39 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 186885 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186885/
+On older systems, XHCI xcap had a layout that no other (interesting) registers
+were placed on the same page as the debug capability, so Linux was fine with
+making the whole page R/O. But at least on Tiger Lake and Alder Lake, Linux
+needs to write to some other registers on the same page too.
 
-Regressions :-(
+Add a generic API for making just parts of an MMIO page R/O and use it to fix
+USB3 console with share=yes or share=hwdom options. More details in commit
+messages.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  7 xen-install fail REGR. vs. 186826
- test-amd64-amd64-libvirt      7 xen-install              fail REGR. vs. 186826
- test-arm64-arm64-xl-xsm       7 xen-install              fail REGR. vs. 186826
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 186826
+Marek Marczykowski-Górecki (3):
+  xen/list: add LIST_HEAD_RO_AFTER_INIT
+  x86/mm: add API for marking only part of a MMIO page read only
+  drivers/char: Use sub-page ro API to make just xhci dbc cap RO
 
-version targeted for testing:
- xen                  a99f25f7ac60544e9af4b3b516d7566ba8841cc4
-baseline version:
- xen                  57338346f29cea7b183403561bdc5f407163b846
+ xen/arch/x86/hvm/emulate.c      |   2 +-
+ xen/arch/x86/hvm/hvm.c          |   4 +-
+ xen/arch/x86/include/asm/mm.h   |  23 +++-
+ xen/arch/x86/mm.c               | 262 +++++++++++++++++++++++++++++++++-
+ xen/arch/x86/pv/ro-page-fault.c |   6 +-
+ xen/drivers/char/xhci-dbc.c     |  36 +++--
+ xen/include/xen/list.h          |   3 +-
+ 7 files changed, 317 insertions(+), 19 deletions(-)
 
-Last test of basis   186826  2024-07-16 19:00:25 Z    2 days
-Failing since        186880  2024-07-18 15:00:30 Z    0 days    3 attempts
-Testing same since   186883  2024-07-18 21:11:32 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit a99f25f7ac60544e9af4b3b516d7566ba8841cc4
-Author: Julien Grall <julien@xen.org>
-Date:   Thu Jul 18 16:51:02 2024 +0100
-
-    CHANGELOG.md: Start new 4.20.0 section
-    
-    Signed-off-by: Julien Grall <julien@xen.org>
-
-commit 974ad0926e4616444dc0c1d83ba86bd6eb8dd52d
-Author: Julien Grall <julien@xen.org>
-Date:   Thu Jul 18 16:48:06 2024 +0100
-
-    CHANGELOG.md: Set release date for 4.19
-    
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-
-commit 285937175be2509bc5b4c2eff2ec0b2fa758ff69
-Author: Julien Grall <julien@xen.org>
-Date:   Thu Jul 18 16:00:47 2024 +0100
-
-    Re-run ./autogens.h for 4.20
-    
-    Signed-off-by: Julien Grall <julien@xen.org>
-
-commit f66e523189f1130a2fd3b77a9f0c8ac152355ac8
-Author: Julien Grall <julien@xen.org>
-Date:   Thu Jul 18 15:42:58 2024 +0100
-
-    Set version to 4.20; 4.19 has branched
-    
-    Signed-off-by: Julien Grall <julien@xen.org>
-
-commit b181bb9fdbae9cdae96f979cfcc30c6195071417
-Author: Julien Grall <julien@xen.org>
-Date:   Thu Jul 18 15:40:44 2024 +0100
-
-    Revert "Config.mk pin QEMU_UPSTREAM_REVISION (prep for Xen 4.19 RC1)"
-    
-    The branch is unstable again.
-    
-    This reverts commit 7584e39986ef2cb4816892ffaefb26f4ad063468.
-(qemu changes not included)
+base-commit: a99f25f7ac60544e9af4b3b516d7566ba8841cc4
+-- 
+git-series 0.9.1
 
