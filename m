@@ -2,45 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6304D937A39
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 17:58:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761132.1171128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFEFA937A67
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 18:09:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761145.1171140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUpyp-0004RW-TO; Fri, 19 Jul 2024 15:57:11 +0000
+	id 1sUqAr-0006nM-Vm; Fri, 19 Jul 2024 16:09:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761132.1171128; Fri, 19 Jul 2024 15:57:11 +0000
+Received: by outflank-mailman (output) from mailman id 761145.1171140; Fri, 19 Jul 2024 16:09:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUpyp-0004O0-QI; Fri, 19 Jul 2024 15:57:11 +0000
-Received: by outflank-mailman (input) for mailman id 761132;
- Fri, 19 Jul 2024 15:57:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=17VY=OT=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sUpyo-0004Nb-78
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 15:57:10 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8bd167b6-45e7-11ef-8776-851b0ebba9a2;
- Fri, 19 Jul 2024 17:57:06 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AB79721195;
- Fri, 19 Jul 2024 15:57:03 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 79FEE13808;
- Fri, 19 Jul 2024 15:57:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4DMvHM+MmmaMDwAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 19 Jul 2024 15:57:03 +0000
+	id 1sUqAr-0006kb-T2; Fri, 19 Jul 2024 16:09:37 +0000
+Received: by outflank-mailman (input) for mailman id 761145;
+ Fri, 19 Jul 2024 16:09:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DsCa=OT=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1sUqAq-0006kS-LD
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 16:09:36 +0000
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 49c512ce-45e9-11ef-bbfd-fd08da9f4363;
+ Fri, 19 Jul 2024 18:09:35 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1721405370197363.9369552082903;
+ Fri, 19 Jul 2024 09:09:30 -0700 (PDT)
+Received: by mail-yb1-f175.google.com with SMTP id
+ 3f1490d57ef6-e026a2238d8so2127906276.0
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 09:09:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,174 +41,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bd167b6-45e7-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1721404624; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=njpne1O7ESlKbpj2bubjPeYyxpHa6RmoveMWlnfX5zU=;
-	b=fs1dzQMkHOadYC4nCcDWjH3kCol2VQPjBs+vKmAp62Pep/8zpd9EC4/XtQNa5xuGugfYaq
-	Z98SxV0e7AqBitl1YAdPTjKXFFD0+Pi0B4iMjwNwSr04poOotup659Lr8K1lPB0axgVzc7
-	6Dmv2NKYmchhlt31d7Gwfr4JARpc75E=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=WfMSsv4A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1721404623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=njpne1O7ESlKbpj2bubjPeYyxpHa6RmoveMWlnfX5zU=;
-	b=WfMSsv4AzLpQsDqFAn3i1AbfDS1OnUe11A8FOR+i3tQeZ1WGMb4qrg4EhVljXdXPMFdamw
-	6zCeZdtOLMMCFSWaJwJS2GrGBffaLH7E+yRTijCHv89FHR5jRVz5m6aBl2uOACXWV00H6L
-	8xgtlgRNZzhXlCapbOVue2lwCti0zck=
-From: Juergen Gross <jgross@suse.com>
-To: minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org,
-	wl@xen.org,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2] Mini-OS: add some macros for asm statements
-Date: Fri, 19 Jul 2024 17:57:01 +0200
-Message-ID: <20240719155701.18856-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 49c512ce-45e9-11ef-bbfd-fd08da9f4363
+ARC-Seal: i=1; a=rsa-sha256; t=1721405371; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=D4F0XK7cdd/mv0z53PeFdezJVscDVugoTxyfIaOMyc0dGn6n2WWr6y/xombgNLS6bXK/Ai5retY25sjczetP0u9no6BQFMdsoLts5ZbUjhiKh2ZM8qy/kvcTGIYnBv2f/Vb5rHJXD3TvWkQ4hBGBLnbHJF2DgEAr+D7zXaw4X7I=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1721405371; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=gwqbqtHCZgoj8RT1GA/9N7f8kzTOeXXpyebls8KObrU=; 
+	b=F13HKnedmMwbQH2IyrpO7hHme4Q32PJqR0RD0NHRgZN71yfhoBy3OYZsvF8nFy6RdHd2UdUg8Htj0g3Pd5DmtJLFv+L2dad/gBcT66+Xm3znGYwbB4MnzJTxeulpAImZ2+p8RO9mIbTS98ww4cbPuQeBnnxpWUfT80rHD21ASjU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1721405371;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=gwqbqtHCZgoj8RT1GA/9N7f8kzTOeXXpyebls8KObrU=;
+	b=CLMhnBntyogWNjLi3ppn2GSdQWUFwjGwl9RHSillO0EDTq7WE/QVrLwUDoe6/dkQ
+	sdk/LGPE7/757ZEiayvTP/J6RctZ+4sxTBt2ucLtq4qxiQ5/doa6lBU2ja5pXud/08K
+	ATJ305xEGNHKgZz3sZPA8wr4fLKhXF3/44Nt3daw=
+X-Gm-Message-State: AOJu0YxmsvoZw0Wkj36JIAUGR6Sx4dZ0h80UjetFpUBxV9ANHP5a+vGB
+	C/26NilDsA3Jpxc7fLU8groPFVfDNUQTMqjfwQ5PmEQqHPLJzwZMxqsMSGi5bPG12hfdtb0pYXh
+	eBBmjAdRdDnr3L4jLxXumYk6ulws=
+X-Google-Smtp-Source: AGHT+IGIwL5vcamb/waCgpTBzGm0eTemh/8kJ3Q7NfxqUqBz/CA2NKZnx7bkjWYY6bAJLjrxKQgUhP+2y4ZgE/akMa8=
+X-Received: by 2002:a05:6902:2088:b0:e02:b51f:830f with SMTP id
+ 3f1490d57ef6-e087045a554mr106407276.41.1721405369388; Fri, 19 Jul 2024
+ 09:09:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [0.19 / 50.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DWL_DNSWL_LOW(-1.00)[suse.com:dkim];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:dkim,suse.com:email];
-	FROM_HAS_DN(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: AB79721195
-X-Spam-Score: 0.19
-X-Spam-Flag: NO
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Bar: /
+References: <d14436e64c650b388936a921837b984772a4fceb.1719355322.git.tamas@tklengyel.com>
+ <d0974cc40ca68fe197ba7941edd934970d3a92cf.1719355322.git.tamas@tklengyel.com> <D2SUHZ78N3M5.231Q6OE5GA3GE@cloud.com>
+In-Reply-To: <D2SUHZ78N3M5.231Q6OE5GA3GE@cloud.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 19 Jul 2024 12:08:53 -0400
+X-Gmail-Original-Message-ID: <CABfawhnKQG8T1K+rOdsq9vWFfm_Ba0NgPciQ0CRvZFoZQY5h9w@mail.gmail.com>
+Message-ID: <CABfawhnKQG8T1K+rOdsq9vWFfm_Ba0NgPciQ0CRvZFoZQY5h9w@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] Add scripts/oss-fuzz/build.sh
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Instead of having #ifdefs sprinkled around in x86 code, add some
-macros defining constants for asm statements to address differences
-between 32- and 64-bit mode.
+On Thu, Jul 18, 2024 at 1:36=E2=80=AFPM Alejandro Vallejo
+<alejandro.vallejo@cloud.com> wrote:
+>
+> On Tue Jun 25, 2024 at 11:47 PM BST, Tamas K Lengyel wrote:
+> > The build integration script for oss-fuzz targets. Future fuzzing targe=
+ts can
+> > be added to this script and those targets will be automatically picked =
+up by
+> > oss-fuzz without having to open separate PRs on the oss-fuzz repo.
+> >
+> > Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+> > ---
+> >  scripts/oss-fuzz/build.sh | 23 +++++++++++++++++++++++
+> >  1 file changed, 23 insertions(+)
+> >  create mode 100755 scripts/oss-fuzz/build.sh
+> >
+> > diff --git a/scripts/oss-fuzz/build.sh b/scripts/oss-fuzz/build.sh
+> > new file mode 100755
+> > index 0000000000..2cfd72adf1
+> > --- /dev/null
+> > +++ b/scripts/oss-fuzz/build.sh
+> > @@ -0,0 +1,23 @@
+> > +#!/bin/bash -eu
+>
+> The shebang probably wants to be "/usr/bin/env bash" to account for syste=
+ms
+> that don't have bash specifically there.
+>
+> With that "-eu" would need to move down a line to be "set -eu"
 
-Modify existing code to use those macros.
+Thanks but this script is specifically made for just one environment
+and does not need to account for other systems.
 
-While at it convert the assembler parts of run_idle_thread() to a more
-sane variant.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- addressed comments by Andrew Cooper
----
- arch/x86/sched.c | 34 ++++++++++------------------------
- include/x86/os.h | 18 ++++++++++--------
- 2 files changed, 20 insertions(+), 32 deletions(-)
-
-diff --git a/arch/x86/sched.c b/arch/x86/sched.c
-index dabe6fd6..42805f9f 100644
---- a/arch/x86/sched.c
-+++ b/arch/x86/sched.c
-@@ -60,16 +60,10 @@ void dump_stack(struct thread *thread)
-     unsigned long *bottom = (unsigned long *)(thread->stack + STACK_SIZE); 
-     unsigned long *pointer = (unsigned long *)thread->sp;
-     int count;
--    if(thread == current)
--    {
--#ifdef __i386__    
--        asm("movl %%esp,%0"
--            : "=r"(pointer));
--#else
--        asm("movq %%rsp,%0"
--            : "=r"(pointer));
--#endif
--    }
-+
-+    if ( thread == current )
-+        asm("mov %%"ASM_SP",%0" : "=r"(pointer));
-+
-     printk("The stack for \"%s\"\n", thread->name);
-     for(count = 0; count < 25 && pointer < bottom; count ++)
-     {
-@@ -119,20 +113,12 @@ struct thread* arch_create_thread(char *name, void (*function)(void *),
- 
- void run_idle_thread(void)
- {
--    /* Switch stacks and run the thread */ 
--#if defined(__i386__)
--    __asm__ __volatile__("mov %0,%%esp\n\t"
--                         "push %1\n\t" 
--                         "ret"                                            
--                         :"=m" (idle_thread->sp)
--                         :"m" (idle_thread->ip));                          
--#elif defined(__x86_64__)
--    __asm__ __volatile__("mov %0,%%rsp\n\t"
--                         "push %1\n\t" 
--                         "ret"                                            
--                         :"=m" (idle_thread->sp)
--                         :"m" (idle_thread->ip));                                                    
--#endif
-+    /* Switch stacks and run the thread */
-+    asm volatile ("mov %[sp], %%"ASM_SP"\n\t"
-+                  "jmp *%[ip]\n\t"
-+                  :
-+                  : [sp] "m" (idle_thread->sp),
-+                    [ip] "m" (idle_thread->ip));
- }
- 
- unsigned long __local_irq_save(void)
-diff --git a/include/x86/os.h b/include/x86/os.h
-index ee34d784..0095be13 100644
---- a/include/x86/os.h
-+++ b/include/x86/os.h
-@@ -61,6 +61,16 @@
- #define TRAP_deferred_nmi     31
- #define TRAP_xen_callback     32
- 
-+#if defined(__i386__)
-+#define __SZ    "l"
-+#define __REG   "e"
-+#else
-+#define __SZ    "q"
-+#define __REG   "r"
-+#endif
-+
-+#define ASM_SP  __REG"sp"
-+
- /* Everything below this point is not included by assembler (.S) files. */
- #ifndef __ASSEMBLY__
- 
-@@ -141,14 +151,6 @@ do {									\
- 
- #else
- 
--#if defined(__i386__)
--#define __SZ "l"
--#define __REG "e"
--#else
--#define __SZ "q"
--#define __REG "r"
--#endif
--
- #define __cli() asm volatile ( "cli" : : : "memory" )
- #define __sti() asm volatile ( "sti" : : : "memory" )
- 
--- 
-2.43.0
-
+Cheers,
+Tamas
 
