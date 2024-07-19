@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10D2B93741C
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 08:48:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760900.1170864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 157DD937433
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 09:12:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760913.1170874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUhOq-0000PQ-5W; Fri, 19 Jul 2024 06:47:28 +0000
+	id 1sUhn3-0003zQ-1u; Fri, 19 Jul 2024 07:12:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760900.1170864; Fri, 19 Jul 2024 06:47:28 +0000
+Received: by outflank-mailman (output) from mailman id 760913.1170874; Fri, 19 Jul 2024 07:12:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUhOq-0000NP-2l; Fri, 19 Jul 2024 06:47:28 +0000
-Received: by outflank-mailman (input) for mailman id 760900;
- Fri, 19 Jul 2024 06:47:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sUhOo-0000NF-Vb; Fri, 19 Jul 2024 06:47:26 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sUhOo-0000vX-TW; Fri, 19 Jul 2024 06:47:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sUhOo-0004sN-IK; Fri, 19 Jul 2024 06:47:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sUhOo-00054l-Hs; Fri, 19 Jul 2024 06:47:26 +0000
+	id 1sUhn2-0003xu-VN; Fri, 19 Jul 2024 07:12:28 +0000
+Received: by outflank-mailman (input) for mailman id 760913;
+ Fri, 19 Jul 2024 07:12:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=B1Gh=OT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sUhn2-0003xo-0N
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 07:12:28 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 40c3e9ef-459e-11ef-bbfd-fd08da9f4363;
+ Fri, 19 Jul 2024 09:12:26 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-36865a516f1so564398f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 00:12:26 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-36878694a58sm783700f8f.58.2024.07.19.00.12.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Jul 2024 00:12:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,126 +44,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=5hNpucf8BH2DSOgnouatKWt+p+4Nfd87MAR8CzMURrk=; b=yjeWCKRJw/L9aDMiAy2YaTAHi+
-	kNv/Zi01JrG7UAs2S7QUz/YLRGXzITAlFYwM0lc0m/V/c2aUBC7CnpF+8mA4rDBD4ejne5gPH/V1W
-	DIQf08jDzcikc+3htQVrfMTHn0S2+Vwznq2c3/XKk0URGFKW9AAWU4P43XPOAwz/mKeI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186895-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 40c3e9ef-459e-11ef-bbfd-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1721373146; x=1721977946; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=kE1W8RaJ1HQtlvL6i/+t7H83aLQlSoeznbOsGL4jwMY=;
+        b=RK9go39rU+2aL0vVMZZkTtR+zYyfFUvECizMzlz46h7vc0XMOixyQ4Wxm9svKpS8mb
+         A0HgxdioTeoZEUdEZvksNFv9Jh0j2/RG+vfbPn0/1+2aiLqMMOZbqDrGOwMLWXcVSBUj
+         5wXjmwFzab9M5/fkt7AVFgCIWX+zrskDpHn4A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721373146; x=1721977946;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kE1W8RaJ1HQtlvL6i/+t7H83aLQlSoeznbOsGL4jwMY=;
+        b=F6lGMZyz8070173lLvUC4WerzfxcSd9+z/ufH4QAmLyWRAFIaUucsb5LgruEYZbhSm
+         hGySeGPp/8271ZXleLl4mTiDmyL3xtVxoBSvrGm2K2K1QgpGtklpMD3EBbspixo2VNFw
+         IAkfL4PSgk9zNEd23+aaRMWkXSsppeyhDLqHwbfgAVPd68EK0O+MOee+1TxoSM90X+xR
+         EBjPtgmfsQ13euy4WVhF0CWDArO6iIApfbbt355gePdDaegVKFYJSbRtlWuUoJocO7S5
+         mIMfuOgThMPpWLMroCwbY9L4Gn+rKz1Kgi0cX//6Ia+wAvijPVifkeNraF3uqhsiDiW2
+         yP2g==
+X-Forwarded-Encrypted: i=1; AJvYcCUwz4Qx/1c3fRGrPB6lOwrAnuA6Hgwr4ZsckD+YNET2jn7t+B4R0ysZP1LPHh8tyuj48vM2YiIL4ae43HU4+8bZ4iImeMKJkqDawxiZHNQ=
+X-Gm-Message-State: AOJu0YzqiXmx28Q7MIK8U+Lf+0rqAKDNtyHQB0NkNWfKqxugA5yjKDA5
+	S6H6bvaoMGoSNeKV6ObtqHMbNjkL+C2fz9D27AnpQGLXSCrJ7/e7YssU3Ce7lyo=
+X-Google-Smtp-Source: AGHT+IH+6tkbtEqsHAGrJnKM1iLtIhVBXmqWr092XKFbM5DdBiF8E6304zQ0Is38yFJdYC6ckUq1Xg==
+X-Received: by 2002:a5d:64aa:0:b0:368:6b56:641b with SMTP id ffacd0b85a97d-3686b5664b4mr2546810f8f.47.1721373145788;
+        Fri, 19 Jul 2024 00:12:25 -0700 (PDT)
+Date: Fri, 19 Jul 2024 09:12:24 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] x86/HVM: get_pat_flags() is needed only by shadow code
+Message-ID: <ZpoR2Hvv7-hqmk53@macbook>
+References: <76aafbed-bea9-445a-8abb-6e1e44996594@suse.com>
+ <99403a3c-1e4f-4971-a08b-5480e6d1e829@citrix.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 186895: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-install:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-install:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
-X-Osstest-Versions-This:
-    xen=a99f25f7ac60544e9af4b3b516d7566ba8841cc4
-X-Osstest-Versions-That:
-    xen=57338346f29cea7b183403561bdc5f407163b846
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 19 Jul 2024 06:47:26 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <99403a3c-1e4f-4971-a08b-5480e6d1e829@citrix.com>
 
-flight 186895 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186895/
+On Thu, Jul 18, 2024 at 06:06:54PM +0100, Andrew Cooper wrote:
+> On 18/07/2024 11:10 am, Jan Beulich wrote:
+> > Therefore with SHADOW_PAGING=n this is better compiled out, to avoid
+> > leaving around unreachable/dead code.
+> >
+> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >
+> > --- a/xen/arch/x86/hvm/mtrr.c
+> > +++ b/xen/arch/x86/hvm/mtrr.c
+> > @@ -271,6 +271,8 @@ int mtrr_get_type(const struct mtrr_stat
+> >     return overlap_mtrr_pos;
+> >  }
+> >  
+> > +#ifdef CONFIG_SHADOW_PAGING
+> > +
+> >  /*
+> >   * return the memory type from PAT.
+> >   * NOTE: valid only when paging is enabled.
+> > @@ -359,6 +361,8 @@ uint32_t get_pat_flags(struct vcpu *v,
+> >      return pat_type_2_pte_flags(pat_entry_value);
+> >  }
+> >  
+> > +#endif /* CONFIG_SHADOW_PAGING */
+> > +
+> >  static inline bool valid_mtrr_type(uint8_t type)
+> >  {
+> >      switch ( type )
+> 
+> While I can see this is true, the fact it is indicates that we have
+> bugs/problems elsewhere.
+> 
+> It is not only the shadow code that has to combine attributes like this,
+> so we've either got opencoding elsewhere, or a bad abstraction.
+> 
+> (This is an observation, rather than a specific objection.)
 
-Regressions :-(
+Won't shadow always need a specific helper, in order to combine both
+MTRRs and guest PAT attributes, while HAP only needs to merge MTRR
+attributes?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  7 xen-install fail REGR. vs. 186826
- test-amd64-amd64-libvirt      7 xen-install              fail REGR. vs. 186826
- test-arm64-arm64-xl-xsm       7 xen-install              fail REGR. vs. 186826
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 186826
+Not that current code couldn't be better structured.
 
-version targeted for testing:
- xen                  a99f25f7ac60544e9af4b3b516d7566ba8841cc4
-baseline version:
- xen                  57338346f29cea7b183403561bdc5f407163b846
-
-Last test of basis   186826  2024-07-16 19:00:25 Z    2 days
-Failing since        186880  2024-07-18 15:00:30 Z    0 days    5 attempts
-Testing same since   186883  2024-07-18 21:11:32 Z    0 days    4 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit a99f25f7ac60544e9af4b3b516d7566ba8841cc4
-Author: Julien Grall <julien@xen.org>
-Date:   Thu Jul 18 16:51:02 2024 +0100
-
-    CHANGELOG.md: Start new 4.20.0 section
-    
-    Signed-off-by: Julien Grall <julien@xen.org>
-
-commit 974ad0926e4616444dc0c1d83ba86bd6eb8dd52d
-Author: Julien Grall <julien@xen.org>
-Date:   Thu Jul 18 16:48:06 2024 +0100
-
-    CHANGELOG.md: Set release date for 4.19
-    
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-
-commit 285937175be2509bc5b4c2eff2ec0b2fa758ff69
-Author: Julien Grall <julien@xen.org>
-Date:   Thu Jul 18 16:00:47 2024 +0100
-
-    Re-run ./autogens.h for 4.20
-    
-    Signed-off-by: Julien Grall <julien@xen.org>
-
-commit f66e523189f1130a2fd3b77a9f0c8ac152355ac8
-Author: Julien Grall <julien@xen.org>
-Date:   Thu Jul 18 15:42:58 2024 +0100
-
-    Set version to 4.20; 4.19 has branched
-    
-    Signed-off-by: Julien Grall <julien@xen.org>
-
-commit b181bb9fdbae9cdae96f979cfcc30c6195071417
-Author: Julien Grall <julien@xen.org>
-Date:   Thu Jul 18 15:40:44 2024 +0100
-
-    Revert "Config.mk pin QEMU_UPSTREAM_REVISION (prep for Xen 4.19 RC1)"
-    
-    The branch is unstable again.
-    
-    This reverts commit 7584e39986ef2cb4816892ffaefb26f4ad063468.
-(qemu changes not included)
+Thanks, Roger.
 
