@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1C7C9375A9
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 11:24:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760948.1170916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17054937683
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 12:12:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760958.1170933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUjqa-0003SU-PF; Fri, 19 Jul 2024 09:24:16 +0000
+	id 1sUkaV-0001Uu-86; Fri, 19 Jul 2024 10:11:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760948.1170916; Fri, 19 Jul 2024 09:24:16 +0000
+Received: by outflank-mailman (output) from mailman id 760958.1170933; Fri, 19 Jul 2024 10:11:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUjqa-0003Qb-MP; Fri, 19 Jul 2024 09:24:16 +0000
-Received: by outflank-mailman (input) for mailman id 760948;
- Fri, 19 Jul 2024 09:24:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sUkaV-0001SY-5V; Fri, 19 Jul 2024 10:11:43 +0000
+Received: by outflank-mailman (input) for mailman id 760958;
+ Fri, 19 Jul 2024 10:11:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lbjb=OT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sUjqZ-0003QV-U4
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 09:24:15 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a95c3bf9-45b0-11ef-8776-851b0ebba9a2;
- Fri, 19 Jul 2024 11:24:13 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2eefeab807dso22944971fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 02:24:13 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fd6f290eedsm432465ad.93.2024.07.19.02.24.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Jul 2024 02:24:11 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sUkaU-0001SO-2f; Fri, 19 Jul 2024 10:11:42 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sUkaU-0005TT-11; Fri, 19 Jul 2024 10:11:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sUkaT-0002vK-Hz; Fri, 19 Jul 2024 10:11:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sUkaT-0005iS-HW; Fri, 19 Jul 2024 10:11:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,163 +42,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a95c3bf9-45b0-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721381052; x=1721985852; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FQfjmugfI8Len1jWT99nCNmm4UQ0R02Y32QP/u8hiN4=;
-        b=DEVT2Z5zUnkb4k+uU4930+4SeIWYp3kRozk+JGS71sQnxNJWFmz5yGdjeXY8k+0Id4
-         AYopufCpfBHFAM8duJhNtCvRiIvym60De66mNTLxGGgODb+T7ICHAzJ63NdDhXrNFd9x
-         zB0in3PLFKneS3eisd7eOloPALLNSLFoLCH/0LCHkpDbBjKJgPZQWqI+Y33gok1elUGE
-         i7mfxj/ycKKtB3RfiIs4nVSrKiR6UJHty65gpx2EBwCDAdjVYhrjZ3M0bbz+mckFu8HR
-         bEuTOZYmF9AYuHpdcIw9zFpMAJ5Ic/g32qZ2Cenv6RZzz4Qi/qQqQSdx2fjLpBOaGM+J
-         PzJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721381052; x=1721985852;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FQfjmugfI8Len1jWT99nCNmm4UQ0R02Y32QP/u8hiN4=;
-        b=cFlNOa8Bqsz+50d6+WrkuKUBBl+u9ZpJuXjnibdvB7EgqJQXppMlTpe7AfqZwMZLOs
-         Q5YpQo5Ui2K5DiDULwm6KY59YOFSA5NX5YxgKWzXAQD09asM822yatZEqWGqDaPNKhmT
-         eCPlfLrVds7e9hoMxU9xL8zPobSgt0SQ74Df4Bh1yXHKZ9FP62Lu1kTjNMq0XVsOFGn8
-         8OgUopWcLbZNhNBss2uXrTbDx3fFnKKwCm1Vt0ydj/iDyTPwhcgTspg9i4CQ9Oha8403
-         gBeMhL5pcxzOoPQ+ELWRQXEw6STiRP1MdVo1GOKKubYkd1h1fMnSOihI+yF7zHXgCpE2
-         CM/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCU782yTJo2Ucz/jvkHHdfmb0veOgY2qPIpmV4kdJeB4ApxWBTb3O8bdKpSo3hsdm5Xe5L4hK9hYXFXYo0vxFUUmYLEoMnTCZE+bT23yX8Q=
-X-Gm-Message-State: AOJu0Ywre76gRmR6S3G9BUvmuf66cr8W57aAUGExTWpXTGiNr3bRumQn
-	N+TFYRA4pF1VTZz9M7BwyszdzG09tzcI2uc54k5lYDIJFmwZE1LxMTbJH+YiaA==
-X-Google-Smtp-Source: AGHT+IEftYCarYzKyy8bIaH4vG7QrL57a8wqm5jUbQFiKzBpSyLc8ryVCkuL5W7tbHCcbSIsCZfCdQ==
-X-Received: by 2002:a05:651c:b0a:b0:2ec:1708:4db2 with SMTP id 38308e7fff4ca-2ef05d604cdmr39479631fa.47.1721381052442;
-        Fri, 19 Jul 2024 02:24:12 -0700 (PDT)
-Message-ID: <2b0665cf-8205-4cf4-ad88-17aaa667045a@suse.com>
-Date: Fri, 19 Jul 2024 11:24:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ldxWzIvIRGmpqrdQLsPKrU5tDqzQ2aX6+9o5YANc7dQ=; b=5lXIA+wKBgI40ZQJHf8TMf1aQ7
+	I2gquZn1L2Z7WZibmmr056GivFuV9dYat2I3zcYTjLbbcBTW+i3SDHMMV35l+M+FgGTKjCaZ44+GA
+	MWR8VgAixQOLULVKA2tpmC/J72au5SLTJRRwy5HK04UD79rlpGYKfQZ5kxytT/vrggLs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186901-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 4/4] x86/fpu: Split fpu_setup_fpu() in two
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <cover.1720538832.git.alejandro.vallejo@cloud.com>
- <da30dedcfa68d7c30375b96c85424e13ec6d458b.1720538832.git.alejandro.vallejo@cloud.com>
- <c311ef0f-7d86-4a2b-b056-9bfa0665113e@suse.com>
- <D2SU9MKGLSB7.1J9TBL8HPU4AP@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D2SU9MKGLSB7.1J9TBL8HPU4AP@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 186901: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-install:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-install:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
+X-Osstest-Versions-This:
+    xen=a99f25f7ac60544e9af4b3b516d7566ba8841cc4
+X-Osstest-Versions-That:
+    xen=57338346f29cea7b183403561bdc5f407163b846
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 19 Jul 2024 10:11:41 +0000
 
-On 18.07.2024 19:25, Alejandro Vallejo wrote:
-> On Thu Jul 18, 2024 at 1:19 PM BST, Jan Beulich wrote:
->> On 09.07.2024 17:52, Alejandro Vallejo wrote:
->>> --- a/xen/arch/x86/i387.c
->>> +++ b/xen/arch/x86/i387.c
->>> @@ -310,41 +310,25 @@ int vcpu_init_fpu(struct vcpu *v)
->>>      return xstate_alloc_save_area(v);
->>>  }
->>>  
->>> -void vcpu_setup_fpu(struct vcpu *v, struct xsave_struct *xsave_area,
->>> -                    const void *data, unsigned int fcw_default)
->>> +void vcpu_reset_fpu(struct vcpu *v, uint16_t fcw)
->>>  {
->>> -    fpusse_t *fpu_sse = &v->arch.xsave_area->fpu_sse;
->>> -
->>> -    ASSERT(!xsave_area || xsave_area == v->arch.xsave_area);
->>> -
->>> -    v->fpu_initialised = !!data;
->>> -
->>> -    if ( data )
->>> -    {
->>> -        memcpy(fpu_sse, data, sizeof(*fpu_sse));
->>> -        if ( xsave_area )
->>> -            xsave_area->xsave_hdr.xstate_bv = XSTATE_FP_SSE;
->>> -    }
->>> -    else if ( xsave_area && fcw_default == FCW_DEFAULT )
->>> -    {
->>> -        xsave_area->xsave_hdr.xstate_bv = 0;
->>> -        fpu_sse->mxcsr = MXCSR_DEFAULT;
->>> -    }
->>> -    else
->>> -    {
->>> -        memset(fpu_sse, 0, sizeof(*fpu_sse));
->>> -        fpu_sse->fcw = fcw_default;
->>> -        fpu_sse->mxcsr = MXCSR_DEFAULT;
->>> -        if ( v->arch.xsave_area )
->>> -        {
->>> -            v->arch.xsave_area->xsave_hdr.xstate_bv &= ~XSTATE_FP_SSE;
->>> -            if ( fcw_default != FCW_DEFAULT )
->>> -                v->arch.xsave_area->xsave_hdr.xstate_bv |= X86_XCR0_X87;
->>> -        }
->>> -    }
->>> +    v->fpu_initialised = false;
->>> +    *v->arch.xsave_area = (struct xsave_struct) {
->>> +        .fpu_sse = {
->>> +            .mxcsr = MXCSR_DEFAULT,
->>> +            .fcw = fcw,
->>> +        },
->>> +        .xsave_hdr.xstate_bv = fcw == FCW_RESET ? X86_XCR0_X87 : 0,
->>> +    };
->>> +}
->>
->> Old code checked against FCW_DEFAULT uniformly. You switching to checking
->> against FCW_RESET is no functional change only because all callers pass
->> either of the two values. I wonder whether the new function's parameter
->> wouldn't want to be a boolean (reset vs init).
-> 
-> I agree, and It's effectively what it is. The problem with the boolean is that
-> it's utterly unreadable at the call sites.
-> 
->     vcpu_reset_fpu(v, true); /* Is this reset or set-to-default? */
+flight 186901 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186901/
 
-    vcpu_reset_fpu(v, true /* reset */);
+Regressions :-(
 
-and
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  7 xen-install fail REGR. vs. 186826
+ test-amd64-amd64-libvirt      7 xen-install              fail REGR. vs. 186826
+ test-arm64-arm64-xl-xsm       7 xen-install              fail REGR. vs. 186826
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 186826
 
-    vcpu_reset_fpu(v, false /* init */);
+version targeted for testing:
+ xen                  a99f25f7ac60544e9af4b3b516d7566ba8841cc4
+baseline version:
+ xen                  57338346f29cea7b183403561bdc5f407163b846
 
-would be an option. But I get your point.
+Last test of basis   186826  2024-07-16 19:00:25 Z    2 days
+Failing since        186880  2024-07-18 15:00:30 Z    0 days    6 attempts
+Testing same since   186883  2024-07-18 21:11:32 Z    0 days    5 attempts
 
->     vcpu_reset_fpu(v, FCW_RESET); /* Clear to be a reset */
-> 
-> I could also split it in 2, so we end up with these:
-> 
->   * vcpu_setup_fpu(v, data): Copies x87/SSE state
->   * vcpu_reset_fpu(v): Reset to power-on state
->   * vcpu_set_default_fpu(v): Reset to default state
-> 
-> Thinking about it, I kind of prefer this second approach. Thoughts?
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+  Julien Grall <julien@xen.org>
 
-I'd be okay with that seeing how small the two functions would end up
-being, albeit I don't like the "set_default" part of the name very much.
-If I could talk you into using "init" instead ...
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     fail    
 
-Jan
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit a99f25f7ac60544e9af4b3b516d7566ba8841cc4
+Author: Julien Grall <julien@xen.org>
+Date:   Thu Jul 18 16:51:02 2024 +0100
+
+    CHANGELOG.md: Start new 4.20.0 section
+    
+    Signed-off-by: Julien Grall <julien@xen.org>
+
+commit 974ad0926e4616444dc0c1d83ba86bd6eb8dd52d
+Author: Julien Grall <julien@xen.org>
+Date:   Thu Jul 18 16:48:06 2024 +0100
+
+    CHANGELOG.md: Set release date for 4.19
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+commit 285937175be2509bc5b4c2eff2ec0b2fa758ff69
+Author: Julien Grall <julien@xen.org>
+Date:   Thu Jul 18 16:00:47 2024 +0100
+
+    Re-run ./autogens.h for 4.20
+    
+    Signed-off-by: Julien Grall <julien@xen.org>
+
+commit f66e523189f1130a2fd3b77a9f0c8ac152355ac8
+Author: Julien Grall <julien@xen.org>
+Date:   Thu Jul 18 15:42:58 2024 +0100
+
+    Set version to 4.20; 4.19 has branched
+    
+    Signed-off-by: Julien Grall <julien@xen.org>
+
+commit b181bb9fdbae9cdae96f979cfcc30c6195071417
+Author: Julien Grall <julien@xen.org>
+Date:   Thu Jul 18 15:40:44 2024 +0100
+
+    Revert "Config.mk pin QEMU_UPSTREAM_REVISION (prep for Xen 4.19 RC1)"
+    
+    The branch is unstable again.
+    
+    This reverts commit 7584e39986ef2cb4816892ffaefb26f4ad063468.
+(qemu changes not included)
 
