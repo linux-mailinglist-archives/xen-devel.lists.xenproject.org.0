@@ -2,46 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98763937752
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 13:52:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761035.1171010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79DDA937756
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 13:54:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761043.1171023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUm9P-0007ZV-Mf; Fri, 19 Jul 2024 11:51:51 +0000
+	id 1sUmBV-00088M-1d; Fri, 19 Jul 2024 11:54:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761035.1171010; Fri, 19 Jul 2024 11:51:51 +0000
+Received: by outflank-mailman (output) from mailman id 761043.1171023; Fri, 19 Jul 2024 11:54:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUm9P-0007WN-Ju; Fri, 19 Jul 2024 11:51:51 +0000
-Received: by outflank-mailman (input) for mailman id 761035;
- Fri, 19 Jul 2024 11:51:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sUmBU-00086G-VK; Fri, 19 Jul 2024 11:54:00 +0000
+Received: by outflank-mailman (input) for mailman id 761043;
+ Fri, 19 Jul 2024 11:53:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=17VY=OT=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sUm9O-0007WF-9F
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 11:51:50 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4743ee39-45c5-11ef-8776-851b0ebba9a2;
- Fri, 19 Jul 2024 13:51:48 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4FA461F7A2;
- Fri, 19 Jul 2024 11:51:47 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0D98D132CB;
- Fri, 19 Jul 2024 11:51:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id urfSAVNTmmaycQAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 19 Jul 2024 11:51:47 +0000
+ (envelope-from <julien@xen.org>) id 1sUmBT-00085s-Ip
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 11:53:59 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sUmBT-0007Uk-FU; Fri, 19 Jul 2024 11:53:59 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sUmBT-00032f-8t; Fri, 19 Jul 2024 11:53:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,90 +39,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4743ee39-45c5-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1721389907; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=FpTczX37OVAfgSdS0MCnHxjXTVgI4wTVfVGCzuAsGD0=;
-	b=E9v2vZIlbOUCNyLdK3sUXpo0857aHhmi0hB5Pu4oQi4hG7xNWkDzmm2FbsEBlQbXwLMl4e
-	NFEUM4C0MmCTIxYKHzI2zJpYmiajAuPr1NgORoJc9r3TebUdmETXbbnvAtEoY7iBM6rBb8
-	l5AuvGbGNF6hz91AGll070fFG//yYCo=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=E9v2vZIl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1721389907; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=FpTczX37OVAfgSdS0MCnHxjXTVgI4wTVfVGCzuAsGD0=;
-	b=E9v2vZIlbOUCNyLdK3sUXpo0857aHhmi0hB5Pu4oQi4hG7xNWkDzmm2FbsEBlQbXwLMl4e
-	NFEUM4C0MmCTIxYKHzI2zJpYmiajAuPr1NgORoJc9r3TebUdmETXbbnvAtEoY7iBM6rBb8
-	l5AuvGbGNF6hz91AGll070fFG//yYCo=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] SUPPORT.md: update Xen version
-Date: Fri, 19 Jul 2024 13:51:44 +0200
-Message-ID: <20240719115144.5301-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=RxSnWn4QsEIxB6rGcMLhXsO4EMfYqhpkM24S+/Za7zY=; b=YE7+Rt4kAtfnEXigrpwN4Ri8gO
+	mJZtmehIX7i6/KO5OTfl25x9jatjBVbier8DVzzhHiqXYmvv+eh52VXfNYHzt4451yVIFxzrzI19N
+	I43Urv18scQq4Bd9R5dYog+rNqQ/wvSoFdUeYFhI3q0Bd01gZSsmwmo83LnK5fH9Xw+o=;
+Message-ID: <504119de-cb73-4e27-8596-89113970ad15@xen.org>
+Date: Fri, 19 Jul 2024 12:53:57 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	DWL_DNSWL_BLOCKED(0.00)[suse.com:dkim];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Flag: NO
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 4FA461F7A2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] SUPPORT.md: update Xen version
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240719115144.5301-1-jgross@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240719115144.5301-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Update the Xen version to 4.20
+Hi,
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- SUPPORT.md | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 19/07/2024 12:51, Juergen Gross wrote:
+> Update the Xen version to 4.20
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-diff --git a/SUPPORT.md b/SUPPORT.md
-index 77d2a7a7db..bd4316523d 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -9,7 +9,7 @@ for the definitions of the support status levels etc.
- 
- # Release Support
- 
--    Xen-Version: 4.19-rc
-+    Xen-Version: 4.20-unstable
-     Initial-Release: n/a
-     Supported-Until: TBD
-     Security-Support-Until: Unreleased - not yet security-supported
+I am pretty sure I forgot to update this file also last release :(.
+
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+> ---
+>   SUPPORT.md | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/SUPPORT.md b/SUPPORT.md
+> index 77d2a7a7db..bd4316523d 100644
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -9,7 +9,7 @@ for the definitions of the support status levels etc.
+>   
+>   # Release Support
+>   
+> -    Xen-Version: 4.19-rc
+> +    Xen-Version: 4.20-unstable
+>       Initial-Release: n/a
+
+I will need to send an update for 4.19 with the dates.
+
+>       Supported-Until: TBD
+>       Security-Support-Until: Unreleased - not yet security-supported
+
+Cheers,
+
 -- 
-2.43.0
-
+Julien Grall
 
