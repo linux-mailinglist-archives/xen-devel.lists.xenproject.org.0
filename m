@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2536493791E
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 16:21:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761098.1171085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E9119379CE
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 17:22:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761117.1171108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUoU1-0001s8-4e; Fri, 19 Jul 2024 14:21:17 +0000
+	id 1sUpQc-0000Qk-9i; Fri, 19 Jul 2024 15:21:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761098.1171085; Fri, 19 Jul 2024 14:21:17 +0000
+Received: by outflank-mailman (output) from mailman id 761117.1171108; Fri, 19 Jul 2024 15:21:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUoU1-0001qX-1q; Fri, 19 Jul 2024 14:21:17 +0000
-Received: by outflank-mailman (input) for mailman id 761098;
- Fri, 19 Jul 2024 14:21:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sUpQc-0000Oy-6U; Fri, 19 Jul 2024 15:21:50 +0000
+Received: by outflank-mailman (input) for mailman id 761117;
+ Fri, 19 Jul 2024 15:21:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hWFp=OT=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
- id 1sUoTz-0001qR-6L
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 14:21:15 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 26e7d52e-45da-11ef-8776-851b0ebba9a2;
- Fri, 19 Jul 2024 16:21:13 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5a167b9df7eso1237327a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 07:21:13 -0700 (PDT)
-Received: from EMEAENGAAD91498.citrite.net ([217.156.233.154])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c7bddc6sm38351866b.69.2024.07.19.07.21.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Jul 2024 07:21:11 -0700 (PDT)
+ <SRS0=arYX=OT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sUpQa-0000Os-0X
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 15:21:48 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9b949d21-45e2-11ef-bbfd-fd08da9f4363;
+ Fri, 19 Jul 2024 17:21:46 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id F2598CE1C70;
+ Fri, 19 Jul 2024 15:21:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6FBC32782;
+ Fri, 19 Jul 2024 15:21:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +41,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26e7d52e-45da-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1721398872; x=1722003672; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=5mKoKQlcx9bJbBptsIYJsL6Whb62TcTKnY7xLKDf1v0=;
-        b=hC2DujudJ++7S9frQp9ywk9jbCqt3FKXEMilz6nMI0n4XPevP4Dai6CybnXyixfpBa
-         VOMHhtM3xSMQUXzR6LXRgqyOGOSQgZfTx3zR6fX0v1WQ+SJxecwkNJSfl2hDqyF6D9Px
-         A01Ewv1hwnYWWI4jl/m1QE8F5g9fEBstd6tJ0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721398872; x=1722003672;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5mKoKQlcx9bJbBptsIYJsL6Whb62TcTKnY7xLKDf1v0=;
-        b=grkGXOPSsokzEv8RhRnsBecgQ8DkWeqqXsjDTsYEUMq/2R9hQ+uz94WXefmQObjZbg
-         qLdsmI3oLUGxpaxguf4ryAXMQB8aEGC/P/9bSYgn1P20QBXS0NFvMGh3TdWiHvaobDmt
-         3sgoxeERxXRBquSVw4ncHDPUrIn9GyHzA2lnu/1vmOtSdiXTaRF7pm4eiwwBun9N43Bd
-         jATBYr4F89P/+KlwHLszIkaP2LsnM/MKICXr8Yl2VTeQyXMa7N+VYQ1x+UJj+KPJIrrc
-         VoU1Gck5YxHuuksl/2rdhksLYNvZLuQeOlnDudM9ckuEeC/hOWF+gKcPkxIHziaSY8iA
-         1blA==
-X-Gm-Message-State: AOJu0Yw1Zg0N7F+OG477Wy1LhGFAli4NZlMY1S2ER/rTcG+ukGF+G9hg
-	aeuouXfs5FR8dj6jY9NIEdKwbqHq8kL/TknofurXmph+ywvKIUR6SGktpCIFuB1JmwzPEZ2Bi2i
-	O
-X-Google-Smtp-Source: AGHT+IG5+aGcvK2yZQ2J1dJ41Tx5MoQ32oGaGTOkUPFPBwbDx4YkjxUNmXkKePi211DRsWbpDrtabg==
-X-Received: by 2002:a17:906:7b4d:b0:a6f:6803:57ef with SMTP id a640c23a62f3a-a7a0119ddddmr561622366b.27.1721398872096;
-        Fri, 19 Jul 2024 07:21:12 -0700 (PDT)
-From: Matthew Barnes <matthew.barnes@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Matthew Barnes <matthew.barnes@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Subject: [RFC XEN PATCH v2] x86/cpuid: Expose max_vcpus field in HVM hypervisor leaf
-Date: Fri, 19 Jul 2024 15:21:09 +0100
-Message-Id: <fa24cd3b232e8865eb6451e5f7af9cd203ce52ab.1721224079.git.matthew.barnes@cloud.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 9b949d21-45e2-11ef-bbfd-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1721402500;
+	bh=NCu19WDWBYTF+e4zH4ldrfB7wVw6Y/eLcl4RCKCkUqc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=VyLv0vL44gOjRBAUj27t6cWlS9lAD36cafE5vwXbfW2KGsfb+Z19YmXOakGazjGGc
+	 M4RKSpgHtFGfwWQLww4c9yoZvkP2HPntuQu9MX5KPFwF1BKFtn2IuAphJEvR93UmXx
+	 N7dz+RWT0b4//2ALbQgdq4/nauhYplvtU0kOvK4KFFcMhhrwhuj37IFvoo/rkPgLZG
+	 80X/xDkCDib8Cb41KzGIxtJ3i/J9XNKALc5lYrfaegzpUyXjbl7zCgDKZ7jbx88RgM
+	 vEmnAMt3RpM3k4gdVQun1ZVAqhaV9XctwavnSdlmGeFmJT4BnmUVKmJmkmHvOcUBW/
+	 +cI/kO0Yy+WTg==
+Date: Fri, 19 Jul 2024 08:21:37 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, 
+    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [RFC PATCH 17/17] CODING_STYLE: Add a section on header guards
+ naming conventions
+In-Reply-To: <b1bad3be-4520-48e6-952c-3f1828a0bafa@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2407190820510.4857@ubuntu-linux-20-04-desktop>
+References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com> <fdb3811e00b9d6708c18d349a5a5043bb1b49cec.1719829101.git.alessandro.zucchelli@bugseng.com> <375074a0-0db7-40ba-9c9f-590b0cbe2409@suse.com> <alpine.DEB.2.22.394.2407121528380.3635@ubuntu-linux-20-04-desktop>
+ <f1369d5e-5c2e-4866-a593-9656b569c086@suse.com> <alpine.DEB.2.22.394.2407151736530.3635@ubuntu-linux-20-04-desktop> <4893a89d-9ef5-4d86-94b0-042e88588439@suse.com> <alpine.DEB.2.22.394.2407161713010.3635@ubuntu-linux-20-04-desktop>
+ <013c6cc2-eddf-4beb-b115-01aaaa71faa6@suse.com> <alpine.DEB.2.22.394.2407171601540.3635@ubuntu-linux-20-04-desktop> <8fd8d6e4-ef29-4ea9-9437-a743c25fe7b9@suse.com> <alpine.DEB.2.22.394.2407181457110.4857@ubuntu-linux-20-04-desktop>
+ <b1bad3be-4520-48e6-952c-3f1828a0bafa@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Currently, OVMF is hard-coded to set up a maximum of 64 vCPUs on
-startup.
-
-There are efforts to support a maximum of 128 vCPUs, which would involve
-bumping the OVMF constant from 64 to 128.
-
-However, it would be more future-proof for OVMF to access the maximum
-number of vCPUs for a domain and set itself up appropriately at
-run-time.
-
-GitLab ticket: https://gitlab.com/xen-project/xen/-/issues/191
-
-For OVMF to access the maximum vCPU count, this patch has Xen expose
-the maximum vCPU ID via cpuid on the HVM hypervisor leaf in edx.
-
-Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
----
-Changes in v2:
-- Tweak value from "maximum vcpu count" to "maximum vcpu id"
-- Reword commit message to avoid "have to" wording
-- Fix vpcus -> vcpus typo
----
- xen/arch/x86/traps.c                | 4 ++++
- xen/include/public/arch-x86/cpuid.h | 3 +++
- 2 files changed, 7 insertions(+)
-
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index ee91fc56b125..f39b598e9bba 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1169,6 +1169,10 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
-         res->a |= XEN_HVM_CPUID_DOMID_PRESENT;
-         res->c = d->domain_id;
+On Fri, 19 Jul 2024, Jan Beulich wrote:
+> On 19.07.2024 00:01, Stefano Stabellini wrote:
+> > On Thu, 18 Jul 2024, Jan Beulich wrote:
+> >> On 18.07.2024 01:02, Stefano Stabellini wrote:
+> >>> On Wed, 17 Jul 2024, Jan Beulich wrote:
+> >>>> On 17.07.2024 02:20, Stefano Stabellini wrote:
+> >>>>> On Tue, 16 Jul 2024, Jan Beulich wrote:
+> >>>>>> On 16.07.2024 02:43, Stefano Stabellini wrote:
+> >>>>>>> On Mon, 15 Jul 2024, Jan Beulich wrote:
+> >>>>>>>> On 13.07.2024 00:38, Stefano Stabellini wrote:
+> >>>>>>>>> On Wed, 3 Jul 2024, Jan Beulich wrote:
+> >>>>>>>>>> I further have to note that, as indicated during the earlier discussion,
+> >>>>>>>>>> I still cannot see how occasional ambiguity is going to be dealt with.
+> >>>>>>>>>> IOW from the rules above two different headers could still end up with
+> >>>>>>>>>> the same guard identifier.
+> >>>>>>>>>
+> >>>>>>>>> Maybe something like this?
+> >>>>>>>>>
+> >>>>>>>>> "In the event of naming collisions, exceptions to the coding style may
+> >>>>>>>>> be made at the discretion of the contributor and maintainers."
+> >>>>>>>>
+> >>>>>>>> Hmm, maybe I wasn't clear enough then. My take is that the scheme should
+> >>>>>>>> simply not allow for possible collisions. Neither the contributor nor the
+> >>>>>>>> reviewer may spot such a collision, and it may therefore take until the
+> >>>>>>>> first full scan that one is actually noticed. Which I consider too late
+> >>>>>>>> in the process, even if we already were at the point where commits were
+> >>>>>>>> checked pre-push.
+> >>>>>>>
+> >>>>>>> Looking at the proposal, copy/pasted here for convenience:
+> >>>>>>>
+> >>>>>>> - private headers -> <dir>_<filename>_H
+> >>>>>>> - asm-generic headers -> ASM_GENERIC_<filename>_H
+> >>>>>>>     - #ifndef ASM_GENERIC_X86_PERCPU_H
+> >>>>>>>       #define ASM_GENERIC_X86_PERCPU_H
+> >>>>>>>       //...
+> >>>>>>>       #endif /* ASM_GENERIC_X86_PERCPU_H */
+> >>>>>>> - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
+> >>>>>>>     - #ifndef ASM_X86_DOMAIN_H
+> >>>>>>>       #define ASM_X86_DOMAIN_H
+> >>>>>>>       //...
+> >>>>>>>       #endif /* ASM_X86_DOMAIN_H */
+> >>>>>>> - xen/include/xen/<filename>.h -> XEN_<filename>_H
+> >>>>>>> - xen/include/xen/<subdir>/<filename>.h -> XEN_<subdir>_<filename>_H
+> >>>>>>>
+> >>>>>>>
+> >>>>>>> The only possibility for collision that I can see is from the first
+> >>>>>>> point:
+> >>>>>>>
+> >>>>>>> - private headers -> <dir>_<filename>_H
+> >>>>>>
+> >>>>>> I don't think this is the only possibility of collisions. The <subdir>_<filename>
+> >>>>>> parts can similarly cause problems if either of the two involved names contains
+> >>>>>> e.g. a dash (which would need converting to an underscore) or an underscore. To
+> >>>>>> avoid this, the name separators (slashes in the actual file names) there may need
+> >>>>>> representing by double underscores.
+> >>>>>
+> >>>>> I am OK with you two underscores as name separator (slashes in the
+> >>>>> actual file names). Would you do it for all levels like this?
+> >>>>>
+> >>>>> - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
+> >>>>> - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
+> >>>>> - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+> >>>>>
+> >>>>>
+> >>>>> I think it is better than the below:
+> >>>>>
+> >>>>> - arch/arm/arm64/lib/something.h -> ARM_ARM64__LIB__SOMETHING_H
+> >>>>> - arch/arm/arm32/lib/something.h -> ARM_ARM32__LIB__SOMETHING_H
+> >>>>> - arch/x86/lib/something.h -> X86_LIB__SOMETHING_H
+> >>>>
+> >>>> Hmm, maybe it's indeed better to do it entirely uniformly then.
+> >>>
+> >>>
+> >>> Do we have agreement on the naming convention then? 
+> >>>
+> >>>
+> >>> - private headers -> <dir>__<filename>__H
+> >>>     - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
+> >>>     - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
+> >>>     - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+> >>>
+> >>> - asm-generic headers -> ASM_GENERIC_<filename>_H
+> >>>     - include/asm-generic/percpu.h -> ASM_GENERIC_X86_PERCPU_H
+> >>>
+> >>> - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
+> >>>     - arch/x86/include/asm/domain.h -> ASM_X86_DOMAIN_H
+> >>>
+> >>> - include/xen -> XEN_<filename>_H
+> >>>     - include/xen/percpu.h -> XEN_PERCPU_H
+> >>>
+> >>>
+> >>> Or do you prefer the double underscore __  in all cases?
+> >>
+> >> It's not so much prefer, but a requirement if we want to be future proof.
+> >> Even for ASM_GENERIC_* that'll be needed, as your outline above simply
+> >> doesn't mention the (future) case of there being subdir-s there (see how
+> >> Linux already has some). Imo the question doesn't even arise for XEN_*,
+> >> as xen/ has subdir-s already.
+> > 
+> > OK. So it becomes:
+> > 
+> > - private headers -> <dir>__<filename>_H
+> >     - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
+> >     - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
+> >     - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+> > 
+> > - asm-generic headers -> ASM_GENERIC__<filename>_H
+> >     - include/asm-generic/percpu.h -> ASM_GENERIC__X86__PERCPU_H
+> 
+> Nit: There's still a stray _X86_ in here.
  
-+        /* Indicate presence of max vcpu id and set it in edx */
-+        res->a |= XEN_HVM_CPUID_MAX_VCPU_ID_PRESENT;
-+        res->d = d->max_vcpus - 1;
-+
-         /*
-          * Per-vCPU event channel upcalls are implemented and work
-          * correctly with PIRQs routed over event channels.
-diff --git a/xen/include/public/arch-x86/cpuid.h b/xen/include/public/arch-x86/cpuid.h
-index 3bb0dd249ff9..7673e285a9ec 100644
---- a/xen/include/public/arch-x86/cpuid.h
-+++ b/xen/include/public/arch-x86/cpuid.h
-@@ -87,6 +87,7 @@
-  * Sub-leaf 0: EAX: Features
-  * Sub-leaf 0: EBX: vcpu id (iff EAX has XEN_HVM_CPUID_VCPU_ID_PRESENT flag)
-  * Sub-leaf 0: ECX: domain id (iff EAX has XEN_HVM_CPUID_DOMID_PRESENT flag)
-+ * Sub-leaf 0: EDX: max vcpu id (iff EAX has XEN_HVM_CPUID_MAX_VCPU_ID_PRESENT flag)
-  */
- #define XEN_HVM_CPUID_APIC_ACCESS_VIRT (1u << 0) /* Virtualized APIC registers */
- #define XEN_HVM_CPUID_X2APIC_VIRT      (1u << 1) /* Virtualized x2APIC accesses */
-@@ -107,6 +108,8 @@
-  */
- #define XEN_HVM_CPUID_UPCALL_VECTOR    (1u << 6)
- 
-+#define XEN_HVM_CPUID_MAX_VCPU_ID_PRESENT (1u << 7) /* max vcpu id is present in EDX */
-+
- /*
-  * Leaf 6 (0x40000x05)
-  * PV-specific parameters
--- 
-2.34.1
+yes, good point.
 
+Alessandro, let us know if we are good to go ahead or if we are missing
+anything.
+
+
+> > - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM__<architecture>__<subdir>__<filename>_H
+> >     - arch/x86/include/asm/domain.h -> ASM__X86__DOMAIN_H
+> > 
+> > - include/xen -> XEN__<filename>_H
+> >     - include/xen/percpu.h -> XEN__PERCPU_H
+> > 
+> > If we have found agreement then Alessandro could send an update
+> 
 
