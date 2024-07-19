@@ -2,33 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D06E1937710
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 13:14:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760996.1170976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0A39937745
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 13:43:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761021.1170996 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUlYY-0001ba-9w; Fri, 19 Jul 2024 11:13:46 +0000
+	id 1sUm0r-0005pT-PV; Fri, 19 Jul 2024 11:43:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760996.1170976; Fri, 19 Jul 2024 11:13:46 +0000
+Received: by outflank-mailman (output) from mailman id 761021.1170996; Fri, 19 Jul 2024 11:43:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUlYY-0001aQ-6z; Fri, 19 Jul 2024 11:13:46 +0000
-Received: by outflank-mailman (input) for mailman id 760996;
- Fri, 19 Jul 2024 11:13:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y74h=OT=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1sUlYW-0001YK-U9
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 11:13:44 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4e1c071-45bf-11ef-8776-851b0ebba9a2;
- Fri, 19 Jul 2024 13:13:42 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5a10bb7bcd0so1041268a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 04:13:42 -0700 (PDT)
+	id 1sUm0r-0005nx-Md; Fri, 19 Jul 2024 11:43:01 +0000
+Received: by outflank-mailman (input) for mailman id 761021;
+ Fri, 19 Jul 2024 11:33:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9oqQ=OT=ti.com=a-singh21@srs-se1.protection.inumbo.net>)
+ id 1sUlrd-0004gF-1D
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 11:33:29 +0000
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b6295d89-45c2-11ef-bbfd-fd08da9f4363;
+ Fri, 19 Jul 2024 13:33:27 +0200 (CEST)
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 46JBXONI100164
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 06:33:24 -0500
+Received: from DFLE114.ent.ti.com (dfle114.ent.ti.com [10.64.6.35])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 46JBXO81041731
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 06:33:24 -0500
+Received: from DFLE103.ent.ti.com (10.64.6.24) by DFLE114.ent.ti.com
+ (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 19
+ Jul 2024 06:33:24 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE103.ent.ti.com
+ (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Fri, 19 Jul 2024 06:33:24 -0500
+Received: from localhost (nightbug.dhcp.ti.com [10.24.68.87])
+ by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 46JBXNJL076804;
+ Fri, 19 Jul 2024 06:33:24 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,175 +54,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4e1c071-45bf-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1721387622; x=1721992422; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=5e7wKCkzNVlPlHXDTLl/rmjv17vv+TYao9fpalfP0SY=;
-        b=ADwOtJLbN+JvJpno4O8CnEb87H2z/D5AhH44F28stOJGxuUpiTTZBTox+J58gVyqYh
-         ZSKWJFVk6yQ3nA3RCTtz4zQrHrdcGuDuGI+kfaTO3tBxgFC43FUTF51Uko36QIdHUwkQ
-         oZaghE/BbD9neA63QOAxrHy3DJXUt3YgAkBl0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721387622; x=1721992422;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5e7wKCkzNVlPlHXDTLl/rmjv17vv+TYao9fpalfP0SY=;
-        b=wO5fJd5Ag6CyYhNe4ez/CuwA4iheE4/nJIXlwfr21ljhzngMhkxoR4qv+p7N0OKB7S
-         qzqhgyfa+khbtIAQTK53w46IMS+qwOzgqo5Go5rxhqKytr/b+LBXLjcvbiJiqUmWJ4zj
-         Qe8AXDP3DYvG6wlxGoS5ANlHDBNkwh6bEsSFEiMIqj/B9JVgl2DYg7OXR62bMcZSdBRE
-         ZhTXdaI5LddEwPpJ3xCD1JPgKI0vmHEaPhqZWk7Dni2TpomdiB8/4ZYlGlNRY2hGoW0s
-         Eu73tUlUoAGL9WQNO5Um+B1eyEnbDnCNY0zItmQ87H4IBOdug0N/a8Y2f8NiPsl3WaGF
-         Xh/w==
-X-Forwarded-Encrypted: i=1; AJvYcCVtYwPJrWUvoIpwug7GX+ijILN7K5/GVGer/eIFekg5+3xoRkhjGPqnNVp/EE6nuwOQgHKVzJXatO7VVqMvXbOIDidm8y72omW3Y4T+a7A=
-X-Gm-Message-State: AOJu0Yy2Sy/OROZC76A9VXZcYKYIxQuQoflEShxGY+CiR3AKmuYXSnfF
-	J4QBcwEyWtm5EuRMTFEj6jIbOKM4DEVTBLNkZYkpyicZGm5s+YO20H9iqp0koVG7vCa02P/ZG1m
-	V6s8lIZZxAay0AfjFA85sU4BBxdH9iwgwT9NULw==
-X-Google-Smtp-Source: AGHT+IE2E6/0CR/edfh7Q2HPb/VFViuIMYHUXMOIzEDWTbjY5p+yMMocv/qWDt07IMeaBdZj5Uh0C1g8GkzU4fm8wKg=
-X-Received: by 2002:a17:906:2f0b:b0:a77:dbf0:d30 with SMTP id
- a640c23a62f3a-a7a011b6466mr523528966b.41.1721387621269; Fri, 19 Jul 2024
- 04:13:41 -0700 (PDT)
+X-Inumbo-ID: b6295d89-45c2-11ef-bbfd-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1721388805;
+	bh=L0bRkCPaGDdgFautpIKHYtZ+R9TkSjccH9W/hhznknM=;
+	h=From:To:CC:Subject:Date;
+	b=K2QLL3gq0XHLIkiyVcKKJ01FPJOJ/UkBn2LFSbTE2I2m6GtJbJFhduwFZZW2CR7uk
+	 4sS3QXLXTbUMxGIrOkLZXX3a9qQgVeMm1jSgzFunZru/qLBkuowoEsn6sbYWYQJG4+
+	 FfIsGxuEY7q3eqwbRfZhC1s5Rbdw58SzluLiFyn8=
+From: Amneesh Singh <a-singh21@ti.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Amneesh Singh <a-singh21@ti.com>
+Subject: [PATCH] drivers: char: omap-uart: add "clock-hz" option
+Date: Fri, 19 Jul 2024 17:03:13 +0530
+Message-ID: <20240719113313.145587-1-a-singh21@ti.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <CAO-mL=xEEdCjUWN3oqJEBjktH+dsJDXrQ2uHWD80bJJ32q3_pw@mail.gmail.com>
- <925ec9b8-83b3-473c-aa7c-dd825cdc3b9a@xen.org>
-In-Reply-To: <925ec9b8-83b3-473c-aa7c-dd825cdc3b9a@xen.org>
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Fri, 19 Jul 2024 12:13:05 +0100
-Message-ID: <CAO-mL=yhMDuvMOWHU93jNLgxOJe4_Bir44UC23+HoAfj0yK=Tw@mail.gmail.com>
-Subject: Re: [Vote] Xen Project Code of Conduct Team Member
-To: win-pv-devel@lists.xenproject.org, 
-	xen-devel <xen-devel@lists.xenproject.org>, 
-	"xen-api@lists.xenproject.org" <xen-api@lists.xenproject.org>, minios-devel@lists.xenproject.org, 
-	mirageos-devel@lists.xenproject.org
-Cc: committers@xenproject.org, Roger Pau Monne <roger.pau@cloud.com>
-Content-Type: multipart/alternative; boundary="000000000000afe24c061d97c966"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 
---000000000000afe24c061d97c966
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Quite a few TI K3 devices do not have clock-frequency specified in their
+respective UART nodes. However hard-coding the frequency is not a
+solution as the function clock input can differ between SoCs. So,
+similar to com1/com2, let the user pass the frequency as a dtuart option
+via the bootargs. If not specified it will fallback to the same DT
+parsing as before. For example, dtuart=serial2:clock-hz=48000000 can be
+a valid bootarg.
 
-Hi all,
+Signed-off-by: Amneesh Singh <a-singh21@ti.com>
+---
+ xen/drivers/char/omap-uart.c | 62 +++++++++++++++++++++++++++++-------
+ 1 file changed, 50 insertions(+), 12 deletions(-)
 
-I have received all votes from leadership teams of three mature projects
-and achieved a quorum on this proposal.
-Votes have been received both in public and private.
+diff --git a/xen/drivers/char/omap-uart.c b/xen/drivers/char/omap-uart.c
+index 1079198..660c486 100644
+--- a/xen/drivers/char/omap-uart.c
++++ b/xen/drivers/char/omap-uart.c
+@@ -305,33 +305,71 @@ static struct uart_driver __read_mostly omap_uart_driver = {
+     .vuart_info = omap_vuart_info,
+ };
+ 
++static void __init omap_uart_parse_config(struct omap_uart *uart,
++                                         const char *config) {
++
++    char options[256];
++    char *value, *start = options;
++
++    if ( !strcmp(config, "") )
++        return;
++
++    strlcpy(options, config, ARRAY_SIZE(options));
++
++    while (start != NULL)
++    {
++        char *name;
++
++        /* Parse next name-value pair. */
++        value = strsep(&start, ",");
++        name = strsep(&value, "=");
++
++        if ( !strcmp(name, "clock-hz") )
++            uart->clock_hz = simple_strtoul(value, NULL, 0);
++        else
++            printk("WARNING: UART configuration option %s is not supported\n",
++                   name);
++
++    }
++}
++
+ static int __init omap_uart_init(struct dt_device_node *dev,
+                                  const void *data)
+ {
+     const char *config = data;
+     struct omap_uart *uart;
+-    u32 clkspec;
+     int res;
+     paddr_t addr, size;
+ 
+-    if ( strcmp(config, "") )
+-        printk("WARNING: UART configuration is not supported\n");
+-
+     uart = &omap_com;
+ 
+-    res = dt_property_read_u32(dev, "clock-frequency", &clkspec);
+-    if ( !res )
+-    {
+-        printk("omap-uart: Unable to retrieve the clock frequency\n");
+-        return -EINVAL;
+-    }
+-
+-    uart->clock_hz = clkspec;
++    /* Default configuration. */
++    uart->clock_hz = 0;
+     uart->baud = 115200;
+     uart->data_bits = 8;
+     uart->parity = UART_PARITY_NONE;
+     uart->stop_bits = 1;
+ 
++    /*
++     * Parse dtuart options.
++     * Valid options:
++     *   - clock-hz
++     */
++    omap_uart_parse_config(uart, config);
++
++    /* If clock-hz is missing. */
++    if ( uart->clock_hz == 0 )
++    {
++        u32 clkspec;
++        res = dt_property_read_u32(dev, "clock-frequency", &clkspec);
++        if ( !res )
++        {
++            printk("omap-uart: Unable to retrieve the clock frequency\n");
++            return -EINVAL;
++        }
++        uart->clock_hz = clkspec;
++    }
++
+     res = dt_device_get_paddr(dev, 0, &addr, &size);
+     if ( res )
+     {
+-- 
+2.34.1
 
-The outcome of votes:
-Hypervisor: +3
-Windows PV: +2
-XAPI: +2
-
-Roger will be added as the new code of conduct team member.
-
-Many thanks,
-Kelly Choi
-
-Community Manager
-Xen Project
-
-
-On Tue, Jul 9, 2024 at 6:42=E2=80=AFAM Julien Grall <julien@xen.org> wrote:
-
->
->
-> On 08/07/2024 10:00, Kelly Choi wrote:
-> > Hi all,
-> >
-> > As you are aware, George Dunlap has recently stepped down from the Xen
-> > Project as a committer, but he was also a part of the Code of Conduct
-> team.
-> >
-> > As a result, Stefano will be the only member remaining on the CoC team.
-> @Roger
-> > Pau Monne <roger.pau@cloud.com> has volunteered to join the team, so
-> that
-> > there are at least two members.
-> >
-> > In accordance with https://xenproject.org/developers/governance/, I nee=
-d
-> > the leadership teams of the three mature projects: the Hypervisor, the
-> XAPI
-> > project, and the Windows PV Driver project to vote on this proposal.
-> >
-> > The specific voting rules, in this case, are outlined in the section:
-> > https://www.xenproject.org/governance.html#project-decisions
-> >
-> > I propose to tally the votes after July 31st, 2024. You can reply via
-> email
-> > in public or private:
-> > +1: for proposal
-> > -1: against proposal
->
-> +1
->
-> Cheers,
->
-> --
-> Julien Grall
->
-
---000000000000afe24c061d97c966
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Hi all,<div><br></div><div>I have receive=
-d all votes from leadership=C2=A0teams=C2=A0of three mature projects and ac=
-hieved a quorum=C2=A0on this proposal.</div><div>Votes have been received b=
-oth in public and private.</div><div><br></div><div>The outcome of votes:</=
-div><div>Hypervisor:=C2=A0+3</div><div>Windows PV:=C2=A0+2</div><div>XAPI:=
-=C2=A0+2</div><div><br></div><div>Roger will be added as the new code of co=
-nduct team member.=C2=A0</div><div><br></div><div><div><div dir=3D"ltr" cla=
-ss=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,</div><div>Kelly C=
-hoi</div><div><br></div><div><div style=3D"color:rgb(136,136,136)">Communit=
-y Manager</div><div style=3D"color:rgb(136,136,136)">Xen Project=C2=A0<br><=
-/div></div></div></div></div><br></div></div><br><div class=3D"gmail_quote"=
-><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jul 9, 2024 at 6:42=E2=80=AF=
-AM Julien Grall &lt;<a href=3D"mailto:julien@xen.org">julien@xen.org</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-<br>
-On 08/07/2024 10:00, Kelly Choi wrote:<br>
-&gt; Hi all,<br>
-&gt; <br>
-&gt; As you are aware, George Dunlap has recently stepped down from the Xen=
-<br>
-&gt; Project as a committer, but he was also a part of the Code of Conduct =
-team.<br>
-&gt; <br>
-&gt; As a result, Stefano will be the only member remaining on the CoC team=
-. @Roger<br>
-&gt; Pau Monne &lt;<a href=3D"mailto:roger.pau@cloud.com" target=3D"_blank"=
->roger.pau@cloud.com</a>&gt; has volunteered to join the team, so that<br>
-&gt; there are at least two members.<br>
-&gt; <br>
-&gt; In accordance with <a href=3D"https://xenproject.org/developers/govern=
-ance/" rel=3D"noreferrer" target=3D"_blank">https://xenproject.org/develope=
-rs/governance/</a>, I need<br>
-&gt; the leadership teams of the three mature projects: the Hypervisor, the=
- XAPI<br>
-&gt; project, and the Windows PV Driver project to vote on this proposal.<b=
-r>
-&gt; <br>
-&gt; The specific voting rules, in this case, are outlined in the section:<=
-br>
-&gt; <a href=3D"https://www.xenproject.org/governance.html#project-decision=
-s" rel=3D"noreferrer" target=3D"_blank">https://www.xenproject.org/governan=
-ce.html#project-decisions</a><br>
-&gt; <br>
-&gt; I propose to tally the votes after July 31st, 2024. You can reply via =
-email<br>
-&gt; in public or private:<br>
-&gt; +1: for proposal<br>
-&gt; -1: against proposal<br>
-<br>
-+1<br>
-<br>
-Cheers,<br>
-<br>
--- <br>
-Julien Grall<br>
-</blockquote></div></div>
-
---000000000000afe24c061d97c966--
 
