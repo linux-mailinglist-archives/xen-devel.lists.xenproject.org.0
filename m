@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 463F793757C
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 11:06:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760930.1170893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B20893758C
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 11:14:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760938.1170904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUjYE-000073-V1; Fri, 19 Jul 2024 09:05:18 +0000
+	id 1sUjh9-0001jW-Pp; Fri, 19 Jul 2024 09:14:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760930.1170893; Fri, 19 Jul 2024 09:05:18 +0000
+Received: by outflank-mailman (output) from mailman id 760938.1170904; Fri, 19 Jul 2024 09:14:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUjYE-0008Vf-SK; Fri, 19 Jul 2024 09:05:18 +0000
-Received: by outflank-mailman (input) for mailman id 760930;
- Fri, 19 Jul 2024 09:05:17 +0000
+	id 1sUjh9-0001i1-MU; Fri, 19 Jul 2024 09:14:31 +0000
+Received: by outflank-mailman (input) for mailman id 760938;
+ Fri, 19 Jul 2024 09:14:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lbjb=OT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sUjYD-0008VZ-GZ
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 09:05:17 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
+ id 1sUjh7-0001hv-M2
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 09:14:29 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03b28d61-45ae-11ef-bbfd-fd08da9f4363;
- Fri, 19 Jul 2024 11:05:16 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2ee920b0781so20503801fa.1
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 02:05:15 -0700 (PDT)
+ id 4c79be6c-45af-11ef-bbfd-fd08da9f4363;
+ Fri, 19 Jul 2024 11:14:28 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2eeb1ba0468so23575411fa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 02:14:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-70cff59e2d7sm804764b3a.170.2024.07.19.02.05.11
+ 98e67ed59e1d1-2ccf7b2f300sm1094414a91.10.2024.07.19.02.14.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Jul 2024 02:05:14 -0700 (PDT)
+ Fri, 19 Jul 2024 02:14:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03b28d61-45ae-11ef-bbfd-fd08da9f4363
+X-Inumbo-ID: 4c79be6c-45af-11ef-bbfd-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721379915; x=1721984715; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721380467; x=1721985267; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zUXzVnh1xTxH4tbZMk5I3ZZk1Ii2xC/fZk38ALx3MKI=;
-        b=ZJeQv2byykcdDTszzvsWzO5ZAhecDk5+2vuCxs78EJqEVdjTk+4bmoby8mCywnawVZ
-         I2/8/AccBQ7bvy99PNCULKRCzuRe4WzVik4pj19I3JMMhyoolK398EqJhKqYLKUkeK1U
-         cIrFzCScbpAqsHEZJHbjY/cBBbulSeX+3sniomthFdNLda7U+xiHrKVrtnwziDfntyEi
-         29XeotMdf1o5qH+2/ZpcUz54+9Xzb6Wn5Ekj3EBn0ojuOyiKDGDyn0cGb0V3GXwqjMrz
-         PKHrzuYQj0+/zfioH6JLXSi5AlrwkB7vACarwlePzJCEJCh2VbBAF/fAm/a5wyQP9OTz
-         VTSA==
+        bh=nYuKqorvNH3x3saBcLhRLAXZjtCGyXm9P8WjxtissRY=;
+        b=BIChjvQwWixLydoDkHX2MPJ7TaUwO1nIdg8Dht8y2YY7WRsWXVEx4OTMI1MXlOcA+1
+         xvWPpuScZ4Boejfq8Cze1H4S+wKnTk5XmQC96WcMp097DEYGcth1dWtRtqPixVMn/5nH
+         /49fliZxgCGhKgCOoTNGkLZXCQ7cZlRZf5g+DXvYFOG84947b/D0eSB34AlhDlLj2BTH
+         9D4K2pQB1z9suxbPNldiwTI9MdFtb3D5fr+UVhgUS+L19bgR4We9dH9eb3GZlsQOsRXz
+         YiiiSqLgZYNAvpwhYrsWnLiRNj6B1adHI7OVxSSneiagA9F9PbFRW74xautO5FDzi3Dd
+         DHxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721379915; x=1721984715;
+        d=1e100.net; s=20230601; t=1721380467; x=1721985267;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zUXzVnh1xTxH4tbZMk5I3ZZk1Ii2xC/fZk38ALx3MKI=;
-        b=jrxDiscQ0FVjvWGH2PCaePqCSPMULlJEA8YRwPJ3nzgQP9PUp/h9Aamg+D2t1httAS
-         bIkKp47Gsma7gEAxG35t0CR9TnorbiJDXafnkCOkF7nOK3GVNqGbPmvPl0k5JeEtIS/1
-         IUJmAYyN08dmFTBd0nKImunFq+hSJKFG98PYDVUCQcnX2x2+ctjO+du2hQ2LyNOI7/x/
-         Zq658P4ETHohhWyAblLFuippnOyYiWGXLkeMpo5tdzYEjFOflsui+swbShGSxNloeHmF
-         wn8fJQc65DLI8Av4U7EiXNIwSvC/i91qCpOBduIyX6dVHMXZh/4fT/zpcMOic5cNsqs9
-         oM5w==
-X-Forwarded-Encrypted: i=1; AJvYcCWZxWlqRocanD70bNuMxg5cXD+ktr6/3s8+qxaLaf7n24Z1KvUtoUKR8RTWsmcVA2vTsEIPRE+ENBTO8xM8sEQHlUoe89Nk5yNqCQHmhss=
-X-Gm-Message-State: AOJu0YzKfcdiGsAiWE0lyfHZhh7c3ZoAqdZBw9/YYEpeSXHBVFelhR60
-	1UsQOcVvZIhRbPVjWfH1PM6bkgaNkuOjA3cdaEDSn4tstyPbNfSs0p4oYFopXw==
-X-Google-Smtp-Source: AGHT+IHO+cFrNaabHRy5q3RuXZxp5nDYA4XjUf2Gk5GfbtH6VlIs5n1TctMKTc1CFpaR7XuSBfVlgg==
-X-Received: by 2002:a2e:7016:0:b0:2ee:d5e5:ebdd with SMTP id 38308e7fff4ca-2ef05c543eamr31445011fa.8.1721379915294;
-        Fri, 19 Jul 2024 02:05:15 -0700 (PDT)
-Message-ID: <b1bad3be-4520-48e6-952c-3f1828a0bafa@suse.com>
-Date: Fri, 19 Jul 2024 11:05:07 +0200
+        bh=nYuKqorvNH3x3saBcLhRLAXZjtCGyXm9P8WjxtissRY=;
+        b=BaFtq3jpNccKwNwhBnYqK3jzx2Unh+EVAenycoNvezjdbwRW88Yq8Ex8TXyvoVNY+9
+         DKnrY5sKqYZHl19OBL925147wWTIqJ3H/AfJCaqv+BXcIHq2Nz9yaLdfhiyK4eiIDXWJ
+         khqgCUh9uDyB5hU1tVK3On4f1SlLMkX14qU6fGEQzaGrKMIM3BRrZq8dQLuI4dgImVau
+         fJFfpvJWkoflJ5bEbouK0h5gZvoWK1sulpycNcyWN3vIw962az8RNGxGGgG+w9dy932O
+         Yxlr2sKW/1U0eAAFtwlwayypqtJQBFtNL1cnsXkGv+cNFqytj2iOkeMHOjtxbrc7Q7eP
+         hGKg==
+X-Forwarded-Encrypted: i=1; AJvYcCXGXKV7oQ9WOuz4sktXmyKKk947ak2xLT0BXIbiRVs6UYXMnAlsHZD0V9hbwEzVqfOG/ccMbOzX2LLEXVgddNc2dFZVkjvTZ3DvEQqE9bY=
+X-Gm-Message-State: AOJu0Yz7I47fa6vvOwi4lBGj2W0L+CWkltmmgN1oOPFj8hIJCKMU3joI
+	ayZP0eZFQNTVc75MR2nuByZJ4Cg/frulIHQziR7/jti3w+oSIES0CRxNcYIQKz3Z+rRRiYBXF7o
+	=
+X-Google-Smtp-Source: AGHT+IHEbnddAncRuj9XUXgECejYLUMWDEiGvMXgZL3gngOuXD9Ieunuz2YfHBmuF4/1Qpqu30Vbig==
+X-Received: by 2002:a2e:8912:0:b0:2ee:4e67:85e0 with SMTP id 38308e7fff4ca-2ef05c52c41mr35104491fa.3.1721380467021;
+        Fri, 19 Jul 2024 02:14:27 -0700 (PDT)
+Message-ID: <4cc61747-904c-4b00-a722-2c31f7d04c2d@suse.com>
+Date: Fri, 19 Jul 2024 11:14:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 17/17] CODING_STYLE: Add a section on header guards
- naming conventions
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
- consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1719829101.git.alessandro.zucchelli@bugseng.com>
- <fdb3811e00b9d6708c18d349a5a5043bb1b49cec.1719829101.git.alessandro.zucchelli@bugseng.com>
- <375074a0-0db7-40ba-9c9f-590b0cbe2409@suse.com>
- <alpine.DEB.2.22.394.2407121528380.3635@ubuntu-linux-20-04-desktop>
- <f1369d5e-5c2e-4866-a593-9656b569c086@suse.com>
- <alpine.DEB.2.22.394.2407151736530.3635@ubuntu-linux-20-04-desktop>
- <4893a89d-9ef5-4d86-94b0-042e88588439@suse.com>
- <alpine.DEB.2.22.394.2407161713010.3635@ubuntu-linux-20-04-desktop>
- <013c6cc2-eddf-4beb-b115-01aaaa71faa6@suse.com>
- <alpine.DEB.2.22.394.2407171601540.3635@ubuntu-linux-20-04-desktop>
- <8fd8d6e4-ef29-4ea9-9437-a743c25fe7b9@suse.com>
- <alpine.DEB.2.22.394.2407181457110.4857@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH for-4.20 3/4] x86/fpu: Combine fpu_ctxt and xsave_area in
+ arch_vcpu
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <cover.1720538832.git.alejandro.vallejo@cloud.com>
+ <170c78f39dfef620d9060be3f1b31313673f09b9.1720538832.git.alejandro.vallejo@cloud.com>
+ <78ae0b2f-e0a6-4ab9-b7a6-43e1357ff9b9@suse.com>
+ <D2STLWUF9965.3QXLJ2TWIXS1Z@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,128 +117,105 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2407181457110.4857@ubuntu-linux-20-04-desktop>
+In-Reply-To: <D2STLWUF9965.3QXLJ2TWIXS1Z@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.07.2024 00:01, Stefano Stabellini wrote:
-> On Thu, 18 Jul 2024, Jan Beulich wrote:
->> On 18.07.2024 01:02, Stefano Stabellini wrote:
->>> On Wed, 17 Jul 2024, Jan Beulich wrote:
->>>> On 17.07.2024 02:20, Stefano Stabellini wrote:
->>>>> On Tue, 16 Jul 2024, Jan Beulich wrote:
->>>>>> On 16.07.2024 02:43, Stefano Stabellini wrote:
->>>>>>> On Mon, 15 Jul 2024, Jan Beulich wrote:
->>>>>>>> On 13.07.2024 00:38, Stefano Stabellini wrote:
->>>>>>>>> On Wed, 3 Jul 2024, Jan Beulich wrote:
->>>>>>>>>> I further have to note that, as indicated during the earlier discussion,
->>>>>>>>>> I still cannot see how occasional ambiguity is going to be dealt with.
->>>>>>>>>> IOW from the rules above two different headers could still end up with
->>>>>>>>>> the same guard identifier.
->>>>>>>>>
->>>>>>>>> Maybe something like this?
->>>>>>>>>
->>>>>>>>> "In the event of naming collisions, exceptions to the coding style may
->>>>>>>>> be made at the discretion of the contributor and maintainers."
->>>>>>>>
->>>>>>>> Hmm, maybe I wasn't clear enough then. My take is that the scheme should
->>>>>>>> simply not allow for possible collisions. Neither the contributor nor the
->>>>>>>> reviewer may spot such a collision, and it may therefore take until the
->>>>>>>> first full scan that one is actually noticed. Which I consider too late
->>>>>>>> in the process, even if we already were at the point where commits were
->>>>>>>> checked pre-push.
->>>>>>>
->>>>>>> Looking at the proposal, copy/pasted here for convenience:
->>>>>>>
->>>>>>> - private headers -> <dir>_<filename>_H
->>>>>>> - asm-generic headers -> ASM_GENERIC_<filename>_H
->>>>>>>     - #ifndef ASM_GENERIC_X86_PERCPU_H
->>>>>>>       #define ASM_GENERIC_X86_PERCPU_H
->>>>>>>       //...
->>>>>>>       #endif /* ASM_GENERIC_X86_PERCPU_H */
->>>>>>> - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
->>>>>>>     - #ifndef ASM_X86_DOMAIN_H
->>>>>>>       #define ASM_X86_DOMAIN_H
->>>>>>>       //...
->>>>>>>       #endif /* ASM_X86_DOMAIN_H */
->>>>>>> - xen/include/xen/<filename>.h -> XEN_<filename>_H
->>>>>>> - xen/include/xen/<subdir>/<filename>.h -> XEN_<subdir>_<filename>_H
->>>>>>>
->>>>>>>
->>>>>>> The only possibility for collision that I can see is from the first
->>>>>>> point:
->>>>>>>
->>>>>>> - private headers -> <dir>_<filename>_H
->>>>>>
->>>>>> I don't think this is the only possibility of collisions. The <subdir>_<filename>
->>>>>> parts can similarly cause problems if either of the two involved names contains
->>>>>> e.g. a dash (which would need converting to an underscore) or an underscore. To
->>>>>> avoid this, the name separators (slashes in the actual file names) there may need
->>>>>> representing by double underscores.
->>>>>
->>>>> I am OK with you two underscores as name separator (slashes in the
->>>>> actual file names). Would you do it for all levels like this?
->>>>>
->>>>> - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
->>>>> - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
->>>>> - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
->>>>>
->>>>>
->>>>> I think it is better than the below:
->>>>>
->>>>> - arch/arm/arm64/lib/something.h -> ARM_ARM64__LIB__SOMETHING_H
->>>>> - arch/arm/arm32/lib/something.h -> ARM_ARM32__LIB__SOMETHING_H
->>>>> - arch/x86/lib/something.h -> X86_LIB__SOMETHING_H
->>>>
->>>> Hmm, maybe it's indeed better to do it entirely uniformly then.
->>>
->>>
->>> Do we have agreement on the naming convention then? 
->>>
->>>
->>> - private headers -> <dir>__<filename>__H
->>>     - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
->>>     - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
->>>     - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
->>>
->>> - asm-generic headers -> ASM_GENERIC_<filename>_H
->>>     - include/asm-generic/percpu.h -> ASM_GENERIC_X86_PERCPU_H
->>>
->>> - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM_<architecture>_<subdir>_<filename>_H
->>>     - arch/x86/include/asm/domain.h -> ASM_X86_DOMAIN_H
->>>
->>> - include/xen -> XEN_<filename>_H
->>>     - include/xen/percpu.h -> XEN_PERCPU_H
->>>
->>>
->>> Or do you prefer the double underscore __  in all cases?
+On 18.07.2024 18:54, Alejandro Vallejo wrote:
+> On Thu Jul 18, 2024 at 12:49 PM BST, Jan Beulich wrote:
+>> On 09.07.2024 17:52, Alejandro Vallejo wrote:
+>>> --- a/xen/arch/x86/include/asm/domain.h
+>>> +++ b/xen/arch/x86/include/asm/domain.h
+>>> @@ -591,12 +591,7 @@ struct pv_vcpu
+>>>  
+>>>  struct arch_vcpu
+>>>  {
+>>> -    /*
+>>> -     * guest context (mirroring struct vcpu_guest_context) common
+>>> -     * between pv and hvm guests
+>>> -     */
+>>> -
+>>> -    void              *fpu_ctxt;
+>>> +    /* Fixed point registers */
+>>>      struct cpu_user_regs user_regs;
 >>
->> It's not so much prefer, but a requirement if we want to be future proof.
->> Even for ASM_GENERIC_* that'll be needed, as your outline above simply
->> doesn't mention the (future) case of there being subdir-s there (see how
->> Linux already has some). Imo the question doesn't even arise for XEN_*,
->> as xen/ has subdir-s already.
+>> Not exactly, no. Selector registers are there as well for example, which
+>> I wouldn't consider "fixed point" ones. I wonder why the existing comment
+>> cannot simply be kept, perhaps extended to mention that fpu_ctxt now lives
+>> elsewhere.
 > 
-> OK. So it becomes:
+> Would you prefer "general purpose registers"? It's not quite that either, but
+> it's arguably closer. I can part with the comment altogether but I'd rather
+> leave a token amount of information to say "non-FPU register state" (but not
+> that, because that would be a terrible description). 
 > 
-> - private headers -> <dir>__<filename>_H
->     - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
->     - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
->     - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
-> 
-> - asm-generic headers -> ASM_GENERIC__<filename>_H
->     - include/asm-generic/percpu.h -> ASM_GENERIC__X86__PERCPU_H
+> I'd rather update it to something that better reflects reality, as I found it
+> quite misleading when reading through. I initially thought it may have been
+> related to struct layout (as in C-style single-level inheritance), but as it
+> turns out it's merely establishing a vague relationship between arch_vcpu and
+> vcpu_guest_context. I can believe once upon a time the relationship was closer
+> than it it now, but with the guest context missing AVX state, MSR state and
+> other bits and pieces I thought it better to avoid such confusions for future
+> navigators down the line so limit its description to the line below.
 
-Nit: There's still a stray _X86_ in here.
+As said, I'd prefer if you amended the existing comment. Properly describing
+what's in cpu_user_regs isn't quite as easy in only very few words. Neither
+"fixed point register" nor "general purpose registers" really covers it. And
+I'd really like to avoid having potentially confusing comments.
+
+>>> --- a/xen/arch/x86/xstate.c
+>>> +++ b/xen/arch/x86/xstate.c
+>>> @@ -507,9 +507,16 @@ int xstate_alloc_save_area(struct vcpu *v)
+>>>      unsigned int size;
+>>>  
+>>>      if ( !cpu_has_xsave )
+>>> -        return 0;
+>>> -
+>>> -    if ( !is_idle_vcpu(v) || !cpu_has_xsavec )
+>>> +    {
+>>> +        /*
+>>> +         * This is bigger than FXSAVE_SIZE by 64 bytes, but it helps treating
+>>> +         * the FPU state uniformly as an XSAVE buffer even if XSAVE is not
+>>> +         * available in the host. Note the alignment restriction of the XSAVE
+>>> +         * area are stricter than those of the FXSAVE area.
+>>> +         */
+>>> +        size = XSTATE_AREA_MIN_SIZE;
+>>
+>> What exactly would break if just (a little over) 512 bytes worth were allocated
+>> when there's no XSAVE? If it was exactly 512, something like xstate_all() would
+>> need to apply a little more care, I guess. Yet for that having just always-zero
+>> xstate_bv and xcomp_bv there would already suffice (e.g. using
+>> offsetof(..., xsave_hdr.reserved) here, to cover further fields gaining meaning
+>> down the road). Remember that due to xmalloc() overhead and the 64-byte-aligned
+>> requirement, you can only have 6 of them in a page the way you do it, when the
+>> alternative way 7 would fit (if I got my math right).
+> 
+> I'm slightly confused.
+> 
+> XSTATE_AREA_MIN_SIZE is already 512 + 64 to account for the XSAVE header,
+> including its reserved fields. Did you mean something else?
+
+No, I didn't. I've in fact commented on it precisely because it is the value
+you name. That's larger than necessary, and when suitably shrunk - as said -
+one more of these structures could fit in a page (assuming they were all
+allocated back-to-back, which isn't quite true right now, but other
+intervening allocations may or may not take space from the same page, so
+chances are still that the ones here all might come from one page as long as
+there's space left).
+
+>     #define XSAVE_HDR_SIZE            64
+>     #define XSAVE_SSE_OFFSET          160
+>     #define XSTATE_YMM_SIZE           256
+>     #define FXSAVE_SIZE               512
+>     #define XSAVE_HDR_OFFSET          FXSAVE_SIZE
+>     #define XSTATE_AREA_MIN_SIZE      (FXSAVE_SIZE + XSAVE_HDR_SIZE)
+> 
+> Part of the rationale is to simplify other bits of code that are currently
+> conditionalized on v->xsave_header being NULL. And for that the full xsave
+> header must be present (even if unused because !cpu_xsave)
+
+But that's my point: The reserved[] part doesn't need to be there; it's
+not being accessed anywhere, I don't think.
 
 Jan
-
-> - arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM__<architecture>__<subdir>__<filename>_H
->     - arch/x86/include/asm/domain.h -> ASM__X86__DOMAIN_H
-> 
-> - include/xen -> XEN__<filename>_H
->     - include/xen/percpu.h -> XEN__PERCPU_H
-> 
-> If we have found agreement then Alessandro could send an update
-
 
