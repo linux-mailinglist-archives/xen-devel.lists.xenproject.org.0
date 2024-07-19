@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B20893758C
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 11:14:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.760938.1170904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1C7C9375A9
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 11:24:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.760948.1170916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUjh9-0001jW-Pp; Fri, 19 Jul 2024 09:14:31 +0000
+	id 1sUjqa-0003SU-PF; Fri, 19 Jul 2024 09:24:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 760938.1170904; Fri, 19 Jul 2024 09:14:31 +0000
+Received: by outflank-mailman (output) from mailman id 760948.1170916; Fri, 19 Jul 2024 09:24:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUjh9-0001i1-MU; Fri, 19 Jul 2024 09:14:31 +0000
-Received: by outflank-mailman (input) for mailman id 760938;
- Fri, 19 Jul 2024 09:14:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sUjqa-0003Qb-MP; Fri, 19 Jul 2024 09:24:16 +0000
+Received: by outflank-mailman (input) for mailman id 760948;
+ Fri, 19 Jul 2024 09:24:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lbjb=OT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sUjh7-0001hv-M2
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 09:14:29 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c79be6c-45af-11ef-bbfd-fd08da9f4363;
- Fri, 19 Jul 2024 11:14:28 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2eeb1ba0468so23575411fa.0
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 02:14:28 -0700 (PDT)
+ id 1sUjqZ-0003QV-U4
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 09:24:15 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a95c3bf9-45b0-11ef-8776-851b0ebba9a2;
+ Fri, 19 Jul 2024 11:24:13 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2eefeab807dso22944971fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 02:24:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2ccf7b2f300sm1094414a91.10.2024.07.19.02.14.23
+ d9443c01a7336-1fd6f290eedsm432465ad.93.2024.07.19.02.24.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Jul 2024 02:14:26 -0700 (PDT)
+ Fri, 19 Jul 2024 02:24:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c79be6c-45af-11ef-bbfd-fd08da9f4363
+X-Inumbo-ID: a95c3bf9-45b0-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721380467; x=1721985267; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721381052; x=1721985852; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nYuKqorvNH3x3saBcLhRLAXZjtCGyXm9P8WjxtissRY=;
-        b=BIChjvQwWixLydoDkHX2MPJ7TaUwO1nIdg8Dht8y2YY7WRsWXVEx4OTMI1MXlOcA+1
-         xvWPpuScZ4Boejfq8Cze1H4S+wKnTk5XmQC96WcMp097DEYGcth1dWtRtqPixVMn/5nH
-         /49fliZxgCGhKgCOoTNGkLZXCQ7cZlRZf5g+DXvYFOG84947b/D0eSB34AlhDlLj2BTH
-         9D4K2pQB1z9suxbPNldiwTI9MdFtb3D5fr+UVhgUS+L19bgR4We9dH9eb3GZlsQOsRXz
-         YiiiSqLgZYNAvpwhYrsWnLiRNj6B1adHI7OVxSSneiagA9F9PbFRW74xautO5FDzi3Dd
-         DHxA==
+        bh=FQfjmugfI8Len1jWT99nCNmm4UQ0R02Y32QP/u8hiN4=;
+        b=DEVT2Z5zUnkb4k+uU4930+4SeIWYp3kRozk+JGS71sQnxNJWFmz5yGdjeXY8k+0Id4
+         AYopufCpfBHFAM8duJhNtCvRiIvym60De66mNTLxGGgODb+T7ICHAzJ63NdDhXrNFd9x
+         zB0in3PLFKneS3eisd7eOloPALLNSLFoLCH/0LCHkpDbBjKJgPZQWqI+Y33gok1elUGE
+         i7mfxj/ycKKtB3RfiIs4nVSrKiR6UJHty65gpx2EBwCDAdjVYhrjZ3M0bbz+mckFu8HR
+         bEuTOZYmF9AYuHpdcIw9zFpMAJ5Ic/g32qZ2Cenv6RZzz4Qi/qQqQSdx2fjLpBOaGM+J
+         PzJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721380467; x=1721985267;
+        d=1e100.net; s=20230601; t=1721381052; x=1721985852;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nYuKqorvNH3x3saBcLhRLAXZjtCGyXm9P8WjxtissRY=;
-        b=BaFtq3jpNccKwNwhBnYqK3jzx2Unh+EVAenycoNvezjdbwRW88Yq8Ex8TXyvoVNY+9
-         DKnrY5sKqYZHl19OBL925147wWTIqJ3H/AfJCaqv+BXcIHq2Nz9yaLdfhiyK4eiIDXWJ
-         khqgCUh9uDyB5hU1tVK3On4f1SlLMkX14qU6fGEQzaGrKMIM3BRrZq8dQLuI4dgImVau
-         fJFfpvJWkoflJ5bEbouK0h5gZvoWK1sulpycNcyWN3vIw962az8RNGxGGgG+w9dy932O
-         Yxlr2sKW/1U0eAAFtwlwayypqtJQBFtNL1cnsXkGv+cNFqytj2iOkeMHOjtxbrc7Q7eP
-         hGKg==
-X-Forwarded-Encrypted: i=1; AJvYcCXGXKV7oQ9WOuz4sktXmyKKk947ak2xLT0BXIbiRVs6UYXMnAlsHZD0V9hbwEzVqfOG/ccMbOzX2LLEXVgddNc2dFZVkjvTZ3DvEQqE9bY=
-X-Gm-Message-State: AOJu0Yz7I47fa6vvOwi4lBGj2W0L+CWkltmmgN1oOPFj8hIJCKMU3joI
-	ayZP0eZFQNTVc75MR2nuByZJ4Cg/frulIHQziR7/jti3w+oSIES0CRxNcYIQKz3Z+rRRiYBXF7o
-	=
-X-Google-Smtp-Source: AGHT+IHEbnddAncRuj9XUXgECejYLUMWDEiGvMXgZL3gngOuXD9Ieunuz2YfHBmuF4/1Qpqu30Vbig==
-X-Received: by 2002:a2e:8912:0:b0:2ee:4e67:85e0 with SMTP id 38308e7fff4ca-2ef05c52c41mr35104491fa.3.1721380467021;
-        Fri, 19 Jul 2024 02:14:27 -0700 (PDT)
-Message-ID: <4cc61747-904c-4b00-a722-2c31f7d04c2d@suse.com>
-Date: Fri, 19 Jul 2024 11:14:19 +0200
+        bh=FQfjmugfI8Len1jWT99nCNmm4UQ0R02Y32QP/u8hiN4=;
+        b=cFlNOa8Bqsz+50d6+WrkuKUBBl+u9ZpJuXjnibdvB7EgqJQXppMlTpe7AfqZwMZLOs
+         Q5YpQo5Ui2K5DiDULwm6KY59YOFSA5NX5YxgKWzXAQD09asM822yatZEqWGqDaPNKhmT
+         eCPlfLrVds7e9hoMxU9xL8zPobSgt0SQ74Df4Bh1yXHKZ9FP62Lu1kTjNMq0XVsOFGn8
+         8OgUopWcLbZNhNBss2uXrTbDx3fFnKKwCm1Vt0ydj/iDyTPwhcgTspg9i4CQ9Oha8403
+         gBeMhL5pcxzOoPQ+ELWRQXEw6STiRP1MdVo1GOKKubYkd1h1fMnSOihI+yF7zHXgCpE2
+         CM/Q==
+X-Forwarded-Encrypted: i=1; AJvYcCU782yTJo2Ucz/jvkHHdfmb0veOgY2qPIpmV4kdJeB4ApxWBTb3O8bdKpSo3hsdm5Xe5L4hK9hYXFXYo0vxFUUmYLEoMnTCZE+bT23yX8Q=
+X-Gm-Message-State: AOJu0Ywre76gRmR6S3G9BUvmuf66cr8W57aAUGExTWpXTGiNr3bRumQn
+	N+TFYRA4pF1VTZz9M7BwyszdzG09tzcI2uc54k5lYDIJFmwZE1LxMTbJH+YiaA==
+X-Google-Smtp-Source: AGHT+IEftYCarYzKyy8bIaH4vG7QrL57a8wqm5jUbQFiKzBpSyLc8ryVCkuL5W7tbHCcbSIsCZfCdQ==
+X-Received: by 2002:a05:651c:b0a:b0:2ec:1708:4db2 with SMTP id 38308e7fff4ca-2ef05d604cdmr39479631fa.47.1721381052442;
+        Fri, 19 Jul 2024 02:24:12 -0700 (PDT)
+Message-ID: <2b0665cf-8205-4cf4-ad88-17aaa667045a@suse.com>
+Date: Fri, 19 Jul 2024 11:24:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20 3/4] x86/fpu: Combine fpu_ctxt and xsave_area in
- arch_vcpu
+Subject: Re: [PATCH for-4.20 4/4] x86/fpu: Split fpu_setup_fpu() in two
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <cover.1720538832.git.alejandro.vallejo@cloud.com>
- <170c78f39dfef620d9060be3f1b31313673f09b9.1720538832.git.alejandro.vallejo@cloud.com>
- <78ae0b2f-e0a6-4ab9-b7a6-43e1357ff9b9@suse.com>
- <D2STLWUF9965.3QXLJ2TWIXS1Z@cloud.com>
+ <da30dedcfa68d7c30375b96c85424e13ec6d458b.1720538832.git.alejandro.vallejo@cloud.com>
+ <c311ef0f-7d86-4a2b-b056-9bfa0665113e@suse.com>
+ <D2SU9MKGLSB7.1J9TBL8HPU4AP@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,105 +115,93 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D2STLWUF9965.3QXLJ2TWIXS1Z@cloud.com>
+In-Reply-To: <D2SU9MKGLSB7.1J9TBL8HPU4AP@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.07.2024 18:54, Alejandro Vallejo wrote:
-> On Thu Jul 18, 2024 at 12:49 PM BST, Jan Beulich wrote:
+On 18.07.2024 19:25, Alejandro Vallejo wrote:
+> On Thu Jul 18, 2024 at 1:19 PM BST, Jan Beulich wrote:
 >> On 09.07.2024 17:52, Alejandro Vallejo wrote:
->>> --- a/xen/arch/x86/include/asm/domain.h
->>> +++ b/xen/arch/x86/include/asm/domain.h
->>> @@ -591,12 +591,7 @@ struct pv_vcpu
+>>> --- a/xen/arch/x86/i387.c
+>>> +++ b/xen/arch/x86/i387.c
+>>> @@ -310,41 +310,25 @@ int vcpu_init_fpu(struct vcpu *v)
+>>>      return xstate_alloc_save_area(v);
+>>>  }
 >>>  
->>>  struct arch_vcpu
+>>> -void vcpu_setup_fpu(struct vcpu *v, struct xsave_struct *xsave_area,
+>>> -                    const void *data, unsigned int fcw_default)
+>>> +void vcpu_reset_fpu(struct vcpu *v, uint16_t fcw)
 >>>  {
->>> -    /*
->>> -     * guest context (mirroring struct vcpu_guest_context) common
->>> -     * between pv and hvm guests
->>> -     */
+>>> -    fpusse_t *fpu_sse = &v->arch.xsave_area->fpu_sse;
 >>> -
->>> -    void              *fpu_ctxt;
->>> +    /* Fixed point registers */
->>>      struct cpu_user_regs user_regs;
->>
->> Not exactly, no. Selector registers are there as well for example, which
->> I wouldn't consider "fixed point" ones. I wonder why the existing comment
->> cannot simply be kept, perhaps extended to mention that fpu_ctxt now lives
->> elsewhere.
-> 
-> Would you prefer "general purpose registers"? It's not quite that either, but
-> it's arguably closer. I can part with the comment altogether but I'd rather
-> leave a token amount of information to say "non-FPU register state" (but not
-> that, because that would be a terrible description). 
-> 
-> I'd rather update it to something that better reflects reality, as I found it
-> quite misleading when reading through. I initially thought it may have been
-> related to struct layout (as in C-style single-level inheritance), but as it
-> turns out it's merely establishing a vague relationship between arch_vcpu and
-> vcpu_guest_context. I can believe once upon a time the relationship was closer
-> than it it now, but with the guest context missing AVX state, MSR state and
-> other bits and pieces I thought it better to avoid such confusions for future
-> navigators down the line so limit its description to the line below.
-
-As said, I'd prefer if you amended the existing comment. Properly describing
-what's in cpu_user_regs isn't quite as easy in only very few words. Neither
-"fixed point register" nor "general purpose registers" really covers it. And
-I'd really like to avoid having potentially confusing comments.
-
->>> --- a/xen/arch/x86/xstate.c
->>> +++ b/xen/arch/x86/xstate.c
->>> @@ -507,9 +507,16 @@ int xstate_alloc_save_area(struct vcpu *v)
->>>      unsigned int size;
->>>  
->>>      if ( !cpu_has_xsave )
->>> -        return 0;
+>>> -    ASSERT(!xsave_area || xsave_area == v->arch.xsave_area);
 >>> -
->>> -    if ( !is_idle_vcpu(v) || !cpu_has_xsavec )
->>> +    {
->>> +        /*
->>> +         * This is bigger than FXSAVE_SIZE by 64 bytes, but it helps treating
->>> +         * the FPU state uniformly as an XSAVE buffer even if XSAVE is not
->>> +         * available in the host. Note the alignment restriction of the XSAVE
->>> +         * area are stricter than those of the FXSAVE area.
->>> +         */
->>> +        size = XSTATE_AREA_MIN_SIZE;
+>>> -    v->fpu_initialised = !!data;
+>>> -
+>>> -    if ( data )
+>>> -    {
+>>> -        memcpy(fpu_sse, data, sizeof(*fpu_sse));
+>>> -        if ( xsave_area )
+>>> -            xsave_area->xsave_hdr.xstate_bv = XSTATE_FP_SSE;
+>>> -    }
+>>> -    else if ( xsave_area && fcw_default == FCW_DEFAULT )
+>>> -    {
+>>> -        xsave_area->xsave_hdr.xstate_bv = 0;
+>>> -        fpu_sse->mxcsr = MXCSR_DEFAULT;
+>>> -    }
+>>> -    else
+>>> -    {
+>>> -        memset(fpu_sse, 0, sizeof(*fpu_sse));
+>>> -        fpu_sse->fcw = fcw_default;
+>>> -        fpu_sse->mxcsr = MXCSR_DEFAULT;
+>>> -        if ( v->arch.xsave_area )
+>>> -        {
+>>> -            v->arch.xsave_area->xsave_hdr.xstate_bv &= ~XSTATE_FP_SSE;
+>>> -            if ( fcw_default != FCW_DEFAULT )
+>>> -                v->arch.xsave_area->xsave_hdr.xstate_bv |= X86_XCR0_X87;
+>>> -        }
+>>> -    }
+>>> +    v->fpu_initialised = false;
+>>> +    *v->arch.xsave_area = (struct xsave_struct) {
+>>> +        .fpu_sse = {
+>>> +            .mxcsr = MXCSR_DEFAULT,
+>>> +            .fcw = fcw,
+>>> +        },
+>>> +        .xsave_hdr.xstate_bv = fcw == FCW_RESET ? X86_XCR0_X87 : 0,
+>>> +    };
+>>> +}
 >>
->> What exactly would break if just (a little over) 512 bytes worth were allocated
->> when there's no XSAVE? If it was exactly 512, something like xstate_all() would
->> need to apply a little more care, I guess. Yet for that having just always-zero
->> xstate_bv and xcomp_bv there would already suffice (e.g. using
->> offsetof(..., xsave_hdr.reserved) here, to cover further fields gaining meaning
->> down the road). Remember that due to xmalloc() overhead and the 64-byte-aligned
->> requirement, you can only have 6 of them in a page the way you do it, when the
->> alternative way 7 would fit (if I got my math right).
+>> Old code checked against FCW_DEFAULT uniformly. You switching to checking
+>> against FCW_RESET is no functional change only because all callers pass
+>> either of the two values. I wonder whether the new function's parameter
+>> wouldn't want to be a boolean (reset vs init).
 > 
-> I'm slightly confused.
+> I agree, and It's effectively what it is. The problem with the boolean is that
+> it's utterly unreadable at the call sites.
 > 
-> XSTATE_AREA_MIN_SIZE is already 512 + 64 to account for the XSAVE header,
-> including its reserved fields. Did you mean something else?
+>     vcpu_reset_fpu(v, true); /* Is this reset or set-to-default? */
 
-No, I didn't. I've in fact commented on it precisely because it is the value
-you name. That's larger than necessary, and when suitably shrunk - as said -
-one more of these structures could fit in a page (assuming they were all
-allocated back-to-back, which isn't quite true right now, but other
-intervening allocations may or may not take space from the same page, so
-chances are still that the ones here all might come from one page as long as
-there's space left).
+    vcpu_reset_fpu(v, true /* reset */);
 
->     #define XSAVE_HDR_SIZE            64
->     #define XSAVE_SSE_OFFSET          160
->     #define XSTATE_YMM_SIZE           256
->     #define FXSAVE_SIZE               512
->     #define XSAVE_HDR_OFFSET          FXSAVE_SIZE
->     #define XSTATE_AREA_MIN_SIZE      (FXSAVE_SIZE + XSAVE_HDR_SIZE)
+and
+
+    vcpu_reset_fpu(v, false /* init */);
+
+would be an option. But I get your point.
+
+>     vcpu_reset_fpu(v, FCW_RESET); /* Clear to be a reset */
 > 
-> Part of the rationale is to simplify other bits of code that are currently
-> conditionalized on v->xsave_header being NULL. And for that the full xsave
-> header must be present (even if unused because !cpu_xsave)
+> I could also split it in 2, so we end up with these:
+> 
+>   * vcpu_setup_fpu(v, data): Copies x87/SSE state
+>   * vcpu_reset_fpu(v): Reset to power-on state
+>   * vcpu_set_default_fpu(v): Reset to default state
+> 
+> Thinking about it, I kind of prefer this second approach. Thoughts?
 
-But that's my point: The reserved[] part doesn't need to be there; it's
-not being accessed anywhere, I don't think.
+I'd be okay with that seeing how small the two functions would end up
+being, albeit I don't like the "set_default" part of the name very much.
+If I could talk you into using "init" instead ...
 
 Jan
 
