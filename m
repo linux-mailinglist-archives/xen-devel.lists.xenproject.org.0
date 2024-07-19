@@ -2,47 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0A39937745
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 13:43:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761021.1170996 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98763937752
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2024 13:52:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761035.1171010 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUm0r-0005pT-PV; Fri, 19 Jul 2024 11:43:01 +0000
+	id 1sUm9P-0007ZV-Mf; Fri, 19 Jul 2024 11:51:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761021.1170996; Fri, 19 Jul 2024 11:43:01 +0000
+Received: by outflank-mailman (output) from mailman id 761035.1171010; Fri, 19 Jul 2024 11:51:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sUm0r-0005nx-Md; Fri, 19 Jul 2024 11:43:01 +0000
-Received: by outflank-mailman (input) for mailman id 761021;
- Fri, 19 Jul 2024 11:33:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sUm9P-0007WN-Ju; Fri, 19 Jul 2024 11:51:51 +0000
+Received: by outflank-mailman (input) for mailman id 761035;
+ Fri, 19 Jul 2024 11:51:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9oqQ=OT=ti.com=a-singh21@srs-se1.protection.inumbo.net>)
- id 1sUlrd-0004gF-1D
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 11:33:29 +0000
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b6295d89-45c2-11ef-bbfd-fd08da9f4363;
- Fri, 19 Jul 2024 13:33:27 +0200 (CEST)
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 46JBXONI100164
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 06:33:24 -0500
-Received: from DFLE114.ent.ti.com (dfle114.ent.ti.com [10.64.6.35])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 46JBXO81041731
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jul 2024 06:33:24 -0500
-Received: from DFLE103.ent.ti.com (10.64.6.24) by DFLE114.ent.ti.com
- (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 19
- Jul 2024 06:33:24 -0500
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE103.ent.ti.com
- (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Fri, 19 Jul 2024 06:33:24 -0500
-Received: from localhost (nightbug.dhcp.ti.com [10.24.68.87])
- by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 46JBXNJL076804;
- Fri, 19 Jul 2024 06:33:24 -0500
+ (envelope-from <SRS0=17VY=OT=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sUm9O-0007WF-9F
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2024 11:51:50 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4743ee39-45c5-11ef-8776-851b0ebba9a2;
+ Fri, 19 Jul 2024 13:51:48 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4FA461F7A2;
+ Fri, 19 Jul 2024 11:51:47 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0D98D132CB;
+ Fri, 19 Jul 2024 11:51:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id urfSAVNTmmaycQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Fri, 19 Jul 2024 11:51:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,128 +53,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6295d89-45c2-11ef-bbfd-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1721388805;
-	bh=L0bRkCPaGDdgFautpIKHYtZ+R9TkSjccH9W/hhznknM=;
-	h=From:To:CC:Subject:Date;
-	b=K2QLL3gq0XHLIkiyVcKKJ01FPJOJ/UkBn2LFSbTE2I2m6GtJbJFhduwFZZW2CR7uk
-	 4sS3QXLXTbUMxGIrOkLZXX3a9qQgVeMm1jSgzFunZru/qLBkuowoEsn6sbYWYQJG4+
-	 FfIsGxuEY7q3eqwbRfZhC1s5Rbdw58SzluLiFyn8=
-From: Amneesh Singh <a-singh21@ti.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Amneesh Singh <a-singh21@ti.com>
-Subject: [PATCH] drivers: char: omap-uart: add "clock-hz" option
-Date: Fri, 19 Jul 2024 17:03:13 +0530
-Message-ID: <20240719113313.145587-1-a-singh21@ti.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 4743ee39-45c5-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1721389907; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=FpTczX37OVAfgSdS0MCnHxjXTVgI4wTVfVGCzuAsGD0=;
+	b=E9v2vZIlbOUCNyLdK3sUXpo0857aHhmi0hB5Pu4oQi4hG7xNWkDzmm2FbsEBlQbXwLMl4e
+	NFEUM4C0MmCTIxYKHzI2zJpYmiajAuPr1NgORoJc9r3TebUdmETXbbnvAtEoY7iBM6rBb8
+	l5AuvGbGNF6hz91AGll070fFG//yYCo=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=E9v2vZIl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1721389907; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=FpTczX37OVAfgSdS0MCnHxjXTVgI4wTVfVGCzuAsGD0=;
+	b=E9v2vZIlbOUCNyLdK3sUXpo0857aHhmi0hB5Pu4oQi4hG7xNWkDzmm2FbsEBlQbXwLMl4e
+	NFEUM4C0MmCTIxYKHzI2zJpYmiajAuPr1NgORoJc9r3TebUdmETXbbnvAtEoY7iBM6rBb8
+	l5AuvGbGNF6hz91AGll070fFG//yYCo=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] SUPPORT.md: update Xen version
+Date: Fri, 19 Jul 2024 13:51:44 +0200
+Message-ID: <20240719115144.5301-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DWL_DNSWL_BLOCKED(0.00)[suse.com:dkim];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Spam-Flag: NO
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 4FA461F7A2
 
-Quite a few TI K3 devices do not have clock-frequency specified in their
-respective UART nodes. However hard-coding the frequency is not a
-solution as the function clock input can differ between SoCs. So,
-similar to com1/com2, let the user pass the frequency as a dtuart option
-via the bootargs. If not specified it will fallback to the same DT
-parsing as before. For example, dtuart=serial2:clock-hz=48000000 can be
-a valid bootarg.
+Update the Xen version to 4.20
 
-Signed-off-by: Amneesh Singh <a-singh21@ti.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- xen/drivers/char/omap-uart.c | 62 +++++++++++++++++++++++++++++-------
- 1 file changed, 50 insertions(+), 12 deletions(-)
+ SUPPORT.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/drivers/char/omap-uart.c b/xen/drivers/char/omap-uart.c
-index 1079198..660c486 100644
---- a/xen/drivers/char/omap-uart.c
-+++ b/xen/drivers/char/omap-uart.c
-@@ -305,33 +305,71 @@ static struct uart_driver __read_mostly omap_uart_driver = {
-     .vuart_info = omap_vuart_info,
- };
+diff --git a/SUPPORT.md b/SUPPORT.md
+index 77d2a7a7db..bd4316523d 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -9,7 +9,7 @@ for the definitions of the support status levels etc.
  
-+static void __init omap_uart_parse_config(struct omap_uart *uart,
-+                                         const char *config) {
-+
-+    char options[256];
-+    char *value, *start = options;
-+
-+    if ( !strcmp(config, "") )
-+        return;
-+
-+    strlcpy(options, config, ARRAY_SIZE(options));
-+
-+    while (start != NULL)
-+    {
-+        char *name;
-+
-+        /* Parse next name-value pair. */
-+        value = strsep(&start, ",");
-+        name = strsep(&value, "=");
-+
-+        if ( !strcmp(name, "clock-hz") )
-+            uart->clock_hz = simple_strtoul(value, NULL, 0);
-+        else
-+            printk("WARNING: UART configuration option %s is not supported\n",
-+                   name);
-+
-+    }
-+}
-+
- static int __init omap_uart_init(struct dt_device_node *dev,
-                                  const void *data)
- {
-     const char *config = data;
-     struct omap_uart *uart;
--    u32 clkspec;
-     int res;
-     paddr_t addr, size;
+ # Release Support
  
--    if ( strcmp(config, "") )
--        printk("WARNING: UART configuration is not supported\n");
--
-     uart = &omap_com;
- 
--    res = dt_property_read_u32(dev, "clock-frequency", &clkspec);
--    if ( !res )
--    {
--        printk("omap-uart: Unable to retrieve the clock frequency\n");
--        return -EINVAL;
--    }
--
--    uart->clock_hz = clkspec;
-+    /* Default configuration. */
-+    uart->clock_hz = 0;
-     uart->baud = 115200;
-     uart->data_bits = 8;
-     uart->parity = UART_PARITY_NONE;
-     uart->stop_bits = 1;
- 
-+    /*
-+     * Parse dtuart options.
-+     * Valid options:
-+     *   - clock-hz
-+     */
-+    omap_uart_parse_config(uart, config);
-+
-+    /* If clock-hz is missing. */
-+    if ( uart->clock_hz == 0 )
-+    {
-+        u32 clkspec;
-+        res = dt_property_read_u32(dev, "clock-frequency", &clkspec);
-+        if ( !res )
-+        {
-+            printk("omap-uart: Unable to retrieve the clock frequency\n");
-+            return -EINVAL;
-+        }
-+        uart->clock_hz = clkspec;
-+    }
-+
-     res = dt_device_get_paddr(dev, 0, &addr, &size);
-     if ( res )
-     {
+-    Xen-Version: 4.19-rc
++    Xen-Version: 4.20-unstable
+     Initial-Release: n/a
+     Supported-Until: TBD
+     Security-Support-Until: Unreleased - not yet security-supported
 -- 
-2.34.1
+2.43.0
 
 
