@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBDC7938DE5
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 13:06:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761685.1171694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39CFD938DEE
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 13:08:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761697.1171705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVqrW-00047e-8Z; Mon, 22 Jul 2024 11:05:50 +0000
+	id 1sVqtr-00057X-L5; Mon, 22 Jul 2024 11:08:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761685.1171694; Mon, 22 Jul 2024 11:05:50 +0000
+Received: by outflank-mailman (output) from mailman id 761697.1171705; Mon, 22 Jul 2024 11:08:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVqrW-00045c-5a; Mon, 22 Jul 2024 11:05:50 +0000
-Received: by outflank-mailman (input) for mailman id 761685;
- Mon, 22 Jul 2024 11:05:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sVqtr-00055X-I6; Mon, 22 Jul 2024 11:08:15 +0000
+Received: by outflank-mailman (input) for mailman id 761697;
+ Mon, 22 Jul 2024 11:08:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVqrU-00045W-Vt
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 11:05:48 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 58eafbbe-481a-11ef-8776-851b0ebba9a2;
- Mon, 22 Jul 2024 13:05:47 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2eeec60a324so54401891fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 04:05:47 -0700 (PDT)
+ id 1sVqtq-00055R-0U
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 11:08:14 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id afcefe0f-481a-11ef-bbfe-fd08da9f4363;
+ Mon, 22 Jul 2024 13:08:12 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a77c9d3e593so398738766b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 04:08:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5a44cb995absm4330918a12.45.2024.07.22.04.05.45
+ a640c23a62f3a-a7a7c3058f2sm47110266b.116.2024.07.22.04.08.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 04:05:46 -0700 (PDT)
+ Mon, 22 Jul 2024 04:08:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58eafbbe-481a-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: afcefe0f-481a-11ef-bbfe-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721646346; x=1722251146; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721646492; x=1722251292; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qGyR88A/hBUnz+cJs6sjjjIgO4VsY7v+pM3503uK4B4=;
-        b=E+2uGM+I1JtuBsGgBcZ3ER9FYehvxD9lXwgxm00OBIRwxGGJ6DcAe5+VoioVnEwaH6
-         ox3GSiCIG8EnWBuHAmBnPbvP6rLG8BwzC9KPOdA5C7LUijfoix5qtoW1t8sORcpE4wrc
-         CYEq1fO2TUXTHxnCZpd0xnZOsocDHFOGMGaTWlpdBDbVYpC5DFWjUuUXlC7g0SpmnH12
-         fHUWTjAEd2H0qzvaueU2RfAi4T40JfkBtfvInsxiADlm2BHaPi4ui1ANJnVYzyNr0mAO
-         tmxmVSzIZXj5NmuplDep+FrolPCrIoL1Cgv23bZC/1SdPKNlrT72qILm2gZbpX5uB54i
-         Nvrg==
+        bh=8vEJoS20U9T4zFE9PkSLs8DH9cg+4jTKrhK4jdHkx7g=;
+        b=c6kMoh+7VfKst6+gf25j4Bw6WPlVTKrUcjU4ljj5Fl0+mZEOXFTUElRhNvu7h4fDUD
+         0qr31Cy8x34PtNBFfWhEKBpCRTyvPe/rTR2L41VOIrtWNEgJZ+zZZoU6BbAfZ2rEt0Nl
+         aMzE55NGbR/xni+EcLdWFoUwqmue/k3vCfu9e2PPg2eXqqYzuDLsRO65yyVkLTxQMl3D
+         7hPoqpCXGKzSE3oJpATuTrJA3aBE4NRhmB1+gE4MnPPJMm+RwDBEIm2ggsyC7cEMhqdu
+         MszB6uJkCVqTBvYNq8VF2o6WlNvJgf0WJDVNb6oQvx2tlMpTzwEb4KsCePDW1QWFlijW
+         cmxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721646346; x=1722251146;
+        d=1e100.net; s=20230601; t=1721646492; x=1722251292;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qGyR88A/hBUnz+cJs6sjjjIgO4VsY7v+pM3503uK4B4=;
-        b=BbMXsMPdq0giD9Z7UzSHDWqSBIji+HyA+hRyiU1oDz6Lagb0bTkMNwA1CSS/UOEYLv
-         i4of7fRvshgPL88ifgYiWW15h6xJDsi+ozeQhItsf/WyoEa4jf7RIjK+XcTIYLHOXdti
-         sW95wfJtW1yAem6aEzxGlTPdhMVmhnLxxNvvOO7AoCCS9nlcfUwQ/Ssh6FhRPTfhDMqS
-         DIurv2TwedJtZXf6DGxDpjxuvGnH7MRCBXGubW4+bbtx8Df/mZ6/BEvKYwKtjt1Oz6bR
-         0oEd8o7nSjGPZPMueJl6BcedTrhzYdQK9hUzSEtEK94N1/oALLR506bsGneJ6qb3vrhT
-         mBtg==
-X-Forwarded-Encrypted: i=1; AJvYcCU0AE0ODt1kT9Lc/xqx6ZzP0F+EY0VbGV3JshqcMTXsnsTJJgJwQWlUU58vBa5ITK4bZ2rayg48LUz0VxpQrtRDKtgBHfk/g17jk8Z0ono=
-X-Gm-Message-State: AOJu0YzEsMXxX+lw7sbkNghwXbbbdzfPLrKcyNgKghcwg0I25nmNiQfB
-	PzEclre5kuL0qOXxVRSWGhoZI1QtoBOyzr7yDtEql2vkbTxN+9Imepx9MyQk5Q==
-X-Google-Smtp-Source: AGHT+IFq1JNraLbCBk5opjN1y/GiEVYtJwBG5aCTQGoQ/om1cXSxcbhZ4P8RiIdlzMUNmukdZK2UzQ==
-X-Received: by 2002:a2e:b052:0:b0:2ef:20ae:d117 with SMTP id 38308e7fff4ca-2ef20aed353mr49948191fa.10.1721646346474;
-        Mon, 22 Jul 2024 04:05:46 -0700 (PDT)
-Message-ID: <0ae9e579-7d96-41f2-8f6b-2ee3394b3afe@suse.com>
-Date: Mon, 22 Jul 2024 13:05:45 +0200
+        bh=8vEJoS20U9T4zFE9PkSLs8DH9cg+4jTKrhK4jdHkx7g=;
+        b=QNkP6jBwkVe1rG6kVuHLxfQEFMqlasCI7UgpRKUw6IL3YC9Q7glXjGix7hkuKkvBkl
+         6zW77DCnG7GfA/VHtc2l0FpgDeMqVWcOykhx1TPN16glWQGYvTj8stVtUxN6U/Q9T3Xs
+         hEJhxVhfl2tuItoYfzdhQ5w+md0gJx4OLmhDbUsEcaIBO4KhgpH95fLoO7j4E7jFXaVB
+         F8uP8Qqcm4N+rpDppo6JAUPhLeinM8BU1fjK73DO8EPyvFmdyEBqxSJGIi4FKtoh0qZJ
+         tZyQ31mdxyH9+QuYeUrOYlM6MK7QbeKytsZG/JbLfUjrMjUEYKAig4B2LdwgtogWH/z1
+         x41g==
+X-Forwarded-Encrypted: i=1; AJvYcCU71qz/5XelTTACf727/+r3PaCWsHErsjpZdf8aeIixU/lXJ1pjQ4WXuQhwVacz1cuIFKF7liZt0AIKWSgyEg6/i7LqVpmPT86/egiSXAg=
+X-Gm-Message-State: AOJu0YyMLjjeJsXn0RTGbbxYFUasZxNVACq/wOQEpiqHDv4BPOdNSzpJ
+	YPCHlZa32Gngn2e7kgJjrhqHOpu7mTw72JvYkvJiKEuCxMP6Z/88pvkX8lf0+A==
+X-Google-Smtp-Source: AGHT+IGRj6bi42oA2rh8pqqm/CM/KGXRayt8A1Y+CbX45NTJ/JyEMBiVZ8uGyT1JpAMrjmmaYPcvzg==
+X-Received: by 2002:a17:907:1b26:b0:a77:cf09:9c5f with SMTP id a640c23a62f3a-a7a4c030e1bmr485480866b.37.1721646492309;
+        Mon, 22 Jul 2024 04:08:12 -0700 (PDT)
+Message-ID: <f2443c6d-895b-4d9a-b397-a5158c43a73d@suse.com>
+Date: Mon, 22 Jul 2024 13:08:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 1/2] Add libfuzzer target to
@@ -148,8 +148,9 @@ On 22.07.2024 13:03, Tamas K Lengyel wrote:
 > 
 > Well let me see if I can hack the Makefile to only build this with clang..
 
-And perhaps a new enough version thereof? Or has the option been around there
-forever?
+Oh, and - please don't special case Clang. Instead please check for option
+availability (e.g. using cc-option), such that for possible future gcc,
+when support there may have been added, we'd then build it there as well.
 
 Jan
 
