@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C326E939020
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 15:50:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761983.1172064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C22B93902A
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 15:52:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761994.1172082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVtR2-0005ie-JT; Mon, 22 Jul 2024 13:50:40 +0000
+	id 1sVtSa-0006lp-2Q; Mon, 22 Jul 2024 13:52:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761983.1172064; Mon, 22 Jul 2024 13:50:40 +0000
+Received: by outflank-mailman (output) from mailman id 761994.1172082; Mon, 22 Jul 2024 13:52:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVtR2-0005g2-Di; Mon, 22 Jul 2024 13:50:40 +0000
-Received: by outflank-mailman (input) for mailman id 761983;
- Mon, 22 Jul 2024 13:50:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVtR0-0005fr-IK
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 13:50:38 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f38ef59-4831-11ef-8776-851b0ebba9a2;
- Mon, 22 Jul 2024 15:50:36 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a77e6dd7f72so449456966b.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 06:50:36 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c785d21sm428322766b.3.2024.07.22.06.50.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 06:50:35 -0700 (PDT)
+	id 1sVtSZ-0006jI-W5; Mon, 22 Jul 2024 13:52:15 +0000
+Received: by outflank-mailman (input) for mailman id 761994;
+ Mon, 22 Jul 2024 13:52:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NZPk=OW=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1sVtSY-0006jC-ID
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 13:52:14 +0000
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 987f354e-4831-11ef-bbfe-fd08da9f4363;
+ Mon, 22 Jul 2024 15:52:13 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1721656330130922.7612174364122;
+ Mon, 22 Jul 2024 06:52:10 -0700 (PDT)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-6659e81bc68so44858747b3.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 06:52:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +41,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f38ef59-4831-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721656236; x=1722261036; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VkcqHFruFCEUof4OoJV+aKNWfp/qQu3JWhFJ8C1Mg3Y=;
-        b=Nnm2R65qQ9SC15uZ+WI+iTxb/2pgyAXSjpzCYIypxCu57ik96uirjyICSqMdrOmiJy
-         AQaC5IuLbbk1iKTWLkYvYh+4zqxiu29M3k1RXk13gCRrmJU7iq9LSEzz1fUj8h3jENL4
-         5psXyHdqYvryQxuyXGhPChf/v8pX5RW+7Cxe+Q+zqopdmBEYyTWqVB0a/XSOeiZgQ9oL
-         IjswwX4z+GW2Vt4ypDKsfyE99eqmI1xA1ZUd/V7k1GauAnUL0X5pAyESnVNRkU5p3s/V
-         382NKs5V6vZSNYmK+HfZ5Q+2yVI2dX5VXXUhDC/AVMpuuTIHU5Y52wlE0Cjqzvcn4i0y
-         10xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721656236; x=1722261036;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VkcqHFruFCEUof4OoJV+aKNWfp/qQu3JWhFJ8C1Mg3Y=;
-        b=BiEW4ZTct351OShBXw4ZpGTB9YEKbmIZfngM18fOgjbwKpj9Fq4wld7TudGwcDbAPm
-         C989GAIyrkt+l1JpweIhMcSKl9s59omac2F1Z7C8pcGGh2FeBrx/ztGoNuvRppDC9Tij
-         v/hgGnt75y52pqdfXoYkapb6xGx8D7cXIRJwEuRz5+hv0sdYOiivPVFo4VCZdnxEVLLj
-         f8AafgLnWEoLggwEp017p5Kb1LL3G1imOera26TzFat+U+VpludmcjOHkCkgNirIc/hF
-         KZ5GMP/Vq1YCCloNL67jflOZfnEm45vo9MUp6Mdn6WZUUG7FVWhIdTGbY81tS7XqNnCh
-         UW8A==
-X-Forwarded-Encrypted: i=1; AJvYcCUQrGBD66CMP2AstpXgvrfJ2vgFF1j96M8hEHFKomjwvCAUB1Fp6aKcldw7Eb/H3ZqSSMWZPC6DQ3VU9y15ULBx+2hOUTgvl4IMFNIx/hY=
-X-Gm-Message-State: AOJu0YwZEPJPtTphiye/vQjgBQuZMQ1D65gp9tcNcvmGS4lTNwSJBooc
-	59Y6I2RRjSqhcbFxVQP7/i2SdyJcBDW5tlDRbOV2tIOrFV8g4CXLpkNqMQx7rg==
-X-Google-Smtp-Source: AGHT+IEZcVG86BDcWsKYNX2p4AHeWCKqzBPiNzGkLGxZgwKsykML3MJP3TNlccu9U6nkFQ4qHZ6pPw==
-X-Received: by 2002:a17:907:9489:b0:a77:d495:26a2 with SMTP id a640c23a62f3a-a7a4c226b0dmr363555366b.55.1721656235888;
-        Mon, 22 Jul 2024 06:50:35 -0700 (PDT)
-Message-ID: <c8a8b325-3ee4-41c7-ab5c-ec968df677f9@suse.com>
-Date: Mon, 22 Jul 2024 15:50:34 +0200
+X-Inumbo-ID: 987f354e-4831-11ef-bbfe-fd08da9f4363
+ARC-Seal: i=1; a=rsa-sha256; t=1721656330; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=O579i6ruDriWBCMmmQcV0hHLn2ZQAfxwlu+8KLl0YcXg6uf74ee0/mbxBRL+MUwvS578jm6G6bvKqWgWMbCl+KZ8MiTcCgVK4lLb8YtUjRYtR0a4Q9HPoKpI+MpQomSRPrBsrjUiGS4EtV/rUxg2e/Buv+7yMSf3ZEn8F5FoZAI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1721656330; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=UWyLZ+rbKDcHujQTg+aeEEMLPQh3LsNe/noT9Sjxsf4=; 
+	b=PoVTfsdclnStztFqkziTDWf24HYVtE+Xa9vXkQjInvlyyRohU+Z+hrsBmn+gxa8HFE5NYqYE2x1P4M3DkWYwiQS2gbC7jg6xY6Hc/wfMkY2k9IHMERLYx5D14Ncx5093ZOPnKCiSa6MONysEghGQfYXSFqYH55RxiTo1WpAb/m0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1721656330;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=UWyLZ+rbKDcHujQTg+aeEEMLPQh3LsNe/noT9Sjxsf4=;
+	b=RkFh4FO1i0zv7O1VJVll+/M3bWZdT4B8d/dX23aIOCB5obU/yA0JYAmPHg+egtVn
+	z6rsvlEqskKm61B9Ll2q+sdgtSsW5I+sezjKyMTy2IGZYtCdydddWcgO/giaa32uv4m
+	iddl1utNwDRnjJ+16QgAIrZpXbjUgM9VKRfpx5tw=
+X-Forwarded-Encrypted: i=1; AJvYcCXgwWCi4ajKF2pHh+KxXm3DaNH1kIAdhOBCCPAXfLcybOyZegCU2nCDYDviniMlnikWR2paWKt8v/Wz40DHj/7S3foTnbkqUQNnLEaq8PE=
+X-Gm-Message-State: AOJu0YwJmA8d4r86OYTlqPKfO3YnqrZrgLR55tE+KCbq3yEPp3S8MEsv
+	f9zg1ASaSJS0STmhKTO64QswSnpYZRAoVJ5jhUVfOwDlbhTdRtuEYiX84I8uPIRRxP5yxsaPfSo
+	/FCnHFTAaHUpiWLjwyWD62WsD+7Y=
+X-Google-Smtp-Source: AGHT+IFyLjdiPqIwzq3xtBmnD7XGgXLytFBMlU3YMNEYTPhBuPflPnZYGCfpcFj0rqYJYtxT75MN+suu5W9u+/yIbuw=
+X-Received: by 2002:a05:690c:6187:b0:650:859b:ec8d with SMTP id
+ 00721157ae682-66ad830a00fmr92292477b3.10.1721656329371; Mon, 22 Jul 2024
+ 06:52:09 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 22/22] x86/AMD: add IRPerf support
-To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>
-Cc: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1698261255.git.edwin.torok@cloud.com>
- <6cd765e98fa4888b9e94215f3572a94e95fe2a4b.1698261255.git.edwin.torok@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6cd765e98fa4888b9e94215f3572a94e95fe2a4b.1698261255.git.edwin.torok@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20240722112752.4981-1-tamas@tklengyel.com> <9013e512-2710-4492-8e60-8f25ba32bbe6@suse.com>
+In-Reply-To: <9013e512-2710-4492-8e60-8f25ba32bbe6@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Mon, 22 Jul 2024 09:51:33 -0400
+X-Gmail-Original-Message-ID: <CABfawhmPm18vuqVR6S6K2Rv0nCssUsrY0jgJthVF_y7TuKVx-w@mail.gmail.com>
+Message-ID: <CABfawhmPm18vuqVR6S6K2Rv0nCssUsrY0jgJthVF_y7TuKVx-w@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] Add libfuzzer target to fuzz/x86_instruction_emulator
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 25.10.2023 21:29, Edwin Török wrote:
-> --- a/xen/arch/x86/msr.c
-> +++ b/xen/arch/x86/msr.c
-> @@ -584,6 +584,13 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
->          }
->          break;
->  
-> +    case MSR_K8_HWCR:
-> +        if ( !(cp->x86_vendor & X86_VENDOR_AMD) ||
-> +             (val & ~K8_HWCR_IRPERF_EN) ||
-> +             wrmsr_safe(msr, val) != 0 )
-> +            goto gp_fault;
-> +        break;
+On Mon, Jul 22, 2024 at 8:24=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 22.07.2024 13:27, Tamas K Lengyel wrote:
+> > This target enables integration into oss-fuzz. Changing invalid input r=
+eturn
+> > to -1 as values other then 0/-1 are reserved by libfuzzer. Also adding =
+the
+> > missing __wrap_vsnprintf wrapper which is required for successful oss-f=
+uzz
+> > build.
+> >
+> > Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+> > ---
+> > v3: don't include libfuzzer-harness in target 'all' as it requires spec=
+ific cc
+>
+> With this, how is it going to be built at all? Only by invoking the speci=
+al
+> target "manually" as it seems? Which sets this up for easy bit-rotting. I
+> wonder what others think here ...
 
-Well, no: There's no-where you ever turn the bit off again. There's no
-respective adjustment to guest_rdmsr(). There's no migration of the bit
-guests gain control of. You also shouldn't permit writing the bit when
-the feature flag is clear.
+Yes, by calling make with the specific target. It's not going to
+bitrot because oss-fuzz will pick up any regression on a daily basis
+to this target. I assume you would be interested in receiving the
+fuzzing reports so it would show as a build failure in case something
+broke it.
 
-> --- a/xen/include/public/arch-x86/cpufeatureset.h
-> +++ b/xen/include/public/arch-x86/cpufeatureset.h
-> @@ -241,7 +241,7 @@ XEN_CPUFEATURE(EFRO,          7*32+10) /*   APERF/MPERF Read Only interface */
->  
->  /* AMD-defined CPU features, CPUID level 0x80000008.ebx, word 8 */
->  XEN_CPUFEATURE(CLZERO,        8*32+ 0) /*A  CLZERO instruction */
-> -XEN_CPUFEATURE(IRPERF,        8*32+ 1) /* Instruction Retired Performance Counter */
-> +XEN_CPUFEATURE(IRPERF,        8*32+ 1) /*A! Instruction Retired Performance Counter */
-
-Again I don't see why you have ! here. There's also missing movement of code
-the previous patch added to recalculate_misc(), which now ought to be in
-calculate_host_policy().
-
-Jan
+Tamas
 
