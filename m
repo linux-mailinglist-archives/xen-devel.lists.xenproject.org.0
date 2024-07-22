@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33745938F9F
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 15:04:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761929.1172001 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27019938FA4
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 15:06:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761942.1172010 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVshl-0003yY-2n; Mon, 22 Jul 2024 13:03:53 +0000
+	id 1sVsk2-0004nx-E3; Mon, 22 Jul 2024 13:06:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761929.1172001; Mon, 22 Jul 2024 13:03:53 +0000
+Received: by outflank-mailman (output) from mailman id 761942.1172010; Mon, 22 Jul 2024 13:06:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVshl-0003wi-04; Mon, 22 Jul 2024 13:03:53 +0000
-Received: by outflank-mailman (input) for mailman id 761929;
- Mon, 22 Jul 2024 13:03:51 +0000
+	id 1sVsk2-0004lh-BM; Mon, 22 Jul 2024 13:06:14 +0000
+Received: by outflank-mailman (input) for mailman id 761942;
+ Mon, 22 Jul 2024 13:06:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVshj-0003vs-A0
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 13:03:51 +0000
+ id 1sVsk0-0004kL-KN
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 13:06:12 +0000
 Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
  [2a00:1450:4864:20::230])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d6db1d7f-482a-11ef-bbfe-fd08da9f4363;
- Mon, 22 Jul 2024 15:03:50 +0200 (CEST)
+ id 29c303bd-482b-11ef-bbfe-fd08da9f4363;
+ Mon, 22 Jul 2024 15:06:09 +0200 (CEST)
 Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2ef27bfd15bso17839211fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 06:03:50 -0700 (PDT)
+ 38308e7fff4ca-2eefe705510so48999311fa.1
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 06:06:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5a30aaa2420sm6096968a12.21.2024.07.22.06.03.49
+ 4fb4d7f45d1cf-5a30c7d32e6sm6102137a12.84.2024.07.22.06.06.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 06:03:49 -0700 (PDT)
+ Mon, 22 Jul 2024 06:06:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6db1d7f-482a-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: 29c303bd-482b-11ef-bbfe-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721653430; x=1722258230; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721653569; x=1722258369; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=la/Ui8oPhbKdSzFW5XFA8OjidMb1oWsniS7p8jFjY7Y=;
-        b=Na2aOStBvjcchNPmOarO09TYxrrCzwcF4GWodulhdDUFiI4AyKRly5UPeiwlOumRTc
-         l+b3tCCXgmB7NOfSPEJnhXKapwGqFdmYUrojnwiOAiRki2rrITOBT2yru+8np1qEHT3a
-         lsIdCrjRqLs2+DRmGF50PBeHeIgbsnDLnqGHEFAQ92guwglxC85ChH6quv6Hu/hnjN8w
-         TPE+cUHyECD1wWyKTqPqSdhbGEMwg80WSdQF2VWMQQ4LGGV7ibjxlpp2wM7x3iEILXMF
-         q6+f6ydN84ZhCBptwLIDqBF0iBiKCy+/adi3AAXUPvW7V0M4nRqBY6Ia17Y7Vx/kHTbE
-         kHzA==
+        bh=pE4/l7qbbob/UpFsaDfWF81AsDgiFOJVYzZ7Spjnv64=;
+        b=E+LprUp3iKvcQcbD7cDfZv7At6+3wOhFSF95hIehzhBCKsnBC1Uxd94Pch/Oh8ersf
+         Eb8iONuJUoMfvTxGzVCgl7Pc8dE7INQCpE36EBEJcNATp54kvoOTceSrxNkweVy4bW4u
+         cGtHlnCNu6bEIIHVIDgZNOdCiilIdAdyUQnmW5c7W7a37h6mNYNKT5ETpvqn1C2EtVez
+         Bd3iyuwICh4GMhrAffy6K+J1KFDK6uG1MMXQ1E2niWu93ed8eUqwmORz0MB0i++1HMDD
+         pxLJ80p5OvhdxIIG9U7qlp3nnG/vrn/3QWq2EFXS3CLte9KIU5sRZ63dEakKZ4enz/xG
+         2PYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721653430; x=1722258230;
+        d=1e100.net; s=20230601; t=1721653569; x=1722258369;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=la/Ui8oPhbKdSzFW5XFA8OjidMb1oWsniS7p8jFjY7Y=;
-        b=PPMmO85IzD4kMnwFImzdGrZjCH3oX5PpUOb/uefufgg+sk2Te5FTEC4WVRHW5uOpp7
-         N3sKXdBDBLvRI4WWOK1mwPJIW9TwhW4W/wdBt3DmIDACrLaLjuxUEbsiqiG7UCiAQApI
-         +CGbTdRcTiggUQcAzKobQHlBQzob0JXTs/5shzy/rUz2U90xNBCFkczS0/ghRfm5XKBJ
-         CoA/3LTr0eUMuL8lxg5nFvt1uZ7j7Y/jKUo87m0VucS6pj6iWgpfq3uw/uCmBeztxp3/
-         kN6L6hLWDOE1abz0C7ipe9/ev35ZhVrXYCyZSHxj6Fm8ILFwCSUKXdPfeE1tJthtxXLk
-         HaIA==
-X-Forwarded-Encrypted: i=1; AJvYcCWHv+y+mUnV0Bq4W5Ka2oKgiUL84DqZTM9NxbbAqylPdRwfSE0/J3Bpire+Dba2496bBroW0/S29n9IVdlRQtUIHDw16QFuj3zqwnYq2Tg=
-X-Gm-Message-State: AOJu0Yw9EMdHMmmXyfR4WJLAK1GN/dQRDQqW8P6ppqwQGxL6yANR7H9T
-	jSW3uce1yA/7puXmAGVXybczsvRIX4AQwqSsilrWM1CAcwMSDFcFsUjWT4QI4g==
-X-Google-Smtp-Source: AGHT+IHKKTfeIQ5jY2nXFGJNcIdDi+EBEnXt592KclOxVaTa8P7AEjXVjfbl0TFQCvXX0KYPEKMC6g==
-X-Received: by 2002:a2e:9ecb:0:b0:2ee:7c12:7b36 with SMTP id 38308e7fff4ca-2ef16784929mr51249281fa.19.1721653429738;
-        Mon, 22 Jul 2024 06:03:49 -0700 (PDT)
-Message-ID: <fe42229e-be70-4d51-aca2-b1f874652d35@suse.com>
-Date: Mon, 22 Jul 2024 15:03:48 +0200
+        bh=pE4/l7qbbob/UpFsaDfWF81AsDgiFOJVYzZ7Spjnv64=;
+        b=hZROkY+8XKH/fRVs3HOAqayXxTPOz0n4l9mX0Hmtjs3aV7F+NChTFWTU2kOP0KNK8W
+         ga0ecnUVl6vN5BUP5zyZL1dbJgW3byLnFr9IXiyNUv6+Eu7fL26klp8+Misa4hsuangJ
+         gkQKel0FmjMYfD3ZHJ4eIRYnBhQegn2pdXj4ceTEpvOyNGdoAQz4Eo6ZoUcE2PqBGZ33
+         C5nAsSaSfsQUrJVcOFWHXcgaVqMVHMF29UgFZ81quWJsrgdIOZsJECIAT4rvD1X/LNj1
+         R3Z9sBzEuiOnBFxIOI+peUfWPR//wMDO16uDyXZedXF4nx3Qq36oSqElroGmumbjlV3o
+         XtjQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU8Fs55QWhmeFmN8HxwXW+UdInnxyeBIRlaVj1RfMT0FihE6CAr9Ru30/OJhqpnG3qIrLbfrIi3sTe+OP9RWoRDjKQ7YEgxozhhkaEk9r4=
+X-Gm-Message-State: AOJu0YykNRtsnjb6uciOQ9MMwMJU43drG5PpnnEeonpNQNSlxdcxahCG
+	QyLVeAxzEQVCi0YQxTRcQcnlOUjrvlavbcNF3O8kzn25fcHadSIBZ6gFVLaTdQ==
+X-Google-Smtp-Source: AGHT+IGFXGO1z3faH3dZzDNlLT3+ak27ZV7RmWDuhy1LqET+13vTWfwCWCtJydlPNQl4rR75z97p6Q==
+X-Received: by 2002:a2e:a989:0:b0:2ef:2593:334d with SMTP id 38308e7fff4ca-2ef25933587mr36545561fa.47.1721653568817;
+        Mon, 22 Jul 2024 06:06:08 -0700 (PDT)
+Message-ID: <b9a9f515-71c6-4219-8493-df890da7fcb4@suse.com>
+Date: Mon, 22 Jul 2024 15:06:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Fix the figlet banner
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240722124842.4039445-1-andrew.cooper3@citrix.com>
+Subject: Re: [linux-linus test] 186932: regressions - FAIL
+To: Anthony PERARD <anthony@xenproject.org>
+Cc: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <osstest-186932-mainreport@xen.org>
+ <39d87a30-7722-45ec-bc13-11111eb46483@suse.com> <Zp5YpOt42lATLwQX@l14>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -111,40 +116,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240722124842.4039445-1-andrew.cooper3@citrix.com>
+In-Reply-To: <Zp5YpOt42lATLwQX@l14>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.07.2024 14:48, Andrew Cooper wrote:
-> 4.20 is just wide enough to cause figlet to split the banner onto two lines:
+On 22.07.2024 15:03, Anthony PERARD wrote:
+> On Mon, Jul 22, 2024 at 09:05:43AM +0200, Jan Beulich wrote:
+>> On 22.07.2024 06:56, osstest service owner wrote:
+>>> flight 186932 linux-linus real [real]
+>>> http://logs.test-lab.xenproject.org/osstest/logs/186932/
+>>>
+>>> Regressions :-(
+>>>
+>>> Tests which did not succeed and are blocking,
+>>> including tests which could not be run:
+>>>  test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 186827
+>>>  test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 186827
+>>
+>> There looks to be a basic problem as of flight 186925, yet a brief look at one
+>> of the logs doesn't really give any hint other than the system perhaps simply
+>> being slow. Ideas, anyone?
 > 
->    __  __
->    \ \/ /___ _ __
->     \  // _ \ '_ \
->     /  \  __/ | | |
->    /_/\_\___|_| |_|
+> Well, yes, it's really slow to reach having a running ssh server. If I
+> let the machine boot, there's two reason in the log for the long time:
 > 
->    _  _    ____   ___                     _        _     _
->   | || |  |___ \ / _ \    _   _ _ __  ___| |_ __ _| |__ | | ___
->   | || |_   __) | | | |__| | | | '_ \/ __| __/ _` | '_ \| |/ _ \
->   |__   _| / __/| |_| |__| |_| | | | \__ \ || (_| | |_) | |  __/
->      |_|(_)_____|\___/    \__,_|_| |_|___/\__\__,_|_.__/|_|\___|
+> Jul 22 11:44:25.216867 Waiting for /dev to be fully populated...Timed out for waiting the udev queue being empty.
+> Jul 22 11:46:25.469002 done (timeout).
 > 
-> Instruct figlet to use 100 column width, rather than 80, resulting in:
-> 
->    __  __            _  _    ____   ___                     _        _     _
->    \ \/ /___ _ __   | || |  |___ \ / _ \    _   _ _ __  ___| |_ __ _| |__ | | ___
->     \  // _ \ '_ \  | || |_   __) | | | |__| | | | '_ \/ __| __/ _` | '_ \| |/ _ \
->     /  \  __/ | | | |__   _| / __/| |_| |__| |_| | | | \__ \ || (_| | |_) | |  __/
->    /_/\_\___|_| |_|    |_|(_)_____|\___/    \__,_|_| |_|___/\__\__,_|_.__/|_|\___|
-> 
-> While fixing this, also fix a rendering error in the non-figlet case; while a
-> leading space looks better for figlet, it looks very wrong for the simple
-> one-line case.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Jul 22 11:46:29.103350 Configuring network interfaces...
+> Jul 22 11:46:32.127350 ^@Timed out for waiting the udev queue being empty.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Yet both of these instances of timing out look suspiciously like a regression
+(in or caused by the kernel)?
 
+Jan
+
+> Jul 22 11:48:29.256918 [  403.298102] NET: Registered PF_INET6 protocol family
+> ... more network kernel info after that.
+> Jul 22 11:48:33.204921 Waiting for xenbr0 to get ready (MAXWAIT is 2 seconds).
+> Jul 22 11:48:33.204984 done.
+> 
+> (on previous run, "configuring network interface" is followed by
+> "waiting for xenbr0")
+> 
+> 
+> So, we lost already 4 min waiting, out of a budget of 7min for full
+> reboot.
+> 
+> Also, "reboot" doesn't work with this newer kernel, the machine prints
+> "Will now restart." then nothing happen.
+> 
+> I have also try without Xen, it's the same behavior.
+> 
+> Cheers,
+> 
 
 
