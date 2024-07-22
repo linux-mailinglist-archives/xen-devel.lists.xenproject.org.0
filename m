@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C0E59392F2
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 19:04:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762258.1172405 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE2159392F6
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 19:10:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762273.1172417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVwSF-0001jx-6E; Mon, 22 Jul 2024 17:04:07 +0000
+	id 1sVwXt-0003DD-P9; Mon, 22 Jul 2024 17:09:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762258.1172405; Mon, 22 Jul 2024 17:04:07 +0000
+Received: by outflank-mailman (output) from mailman id 762273.1172417; Mon, 22 Jul 2024 17:09:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVwSF-0001ew-2F; Mon, 22 Jul 2024 17:04:07 +0000
-Received: by outflank-mailman (input) for mailman id 762258;
- Mon, 22 Jul 2024 17:04:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sVwXt-0003Ad-MV; Mon, 22 Jul 2024 17:09:57 +0000
+Received: by outflank-mailman (input) for mailman id 762273;
+ Mon, 22 Jul 2024 17:09:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QQNa=OW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sVwSD-0001aU-P3
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 17:04:05 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 66938a0b-484c-11ef-bbfe-fd08da9f4363;
- Mon, 22 Jul 2024 19:04:04 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-52f008aa351so2107302e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 10:04:04 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
+ <SRS0=H4cl=OW=gmail.com=inisider@srs-se1.protection.inumbo.net>)
+ id 1sVwXs-0003AX-22
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 17:09:56 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 36c01774-484d-11ef-8776-851b0ebba9a2;
+ Mon, 22 Jul 2024 19:09:54 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-52f024f468bso2128626e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 10:09:54 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c789eb8sm443645266b.35.2024.07.22.10.04.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 10:04:03 -0700 (PDT)
+ 2adb3069b0e04-52efce504e3sm910195e87.109.2024.07.22.10.09.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Jul 2024 10:09:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,168 +45,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66938a0b-484c-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: 36c01774-484d-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1721667844; x=1722272644; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Mjgjwa3kPvZM5pZjJMrO/Qtozz1yU/NtYu8JHgYi3c4=;
-        b=cfasR34+hgBs+LSaSNFrtUESLlYFlNbLRuUJf0WgPI3JKczNeUKpmOzf4cw2TBpbBz
-         xLW6hV9xtbaueqYDZlhb6vP5C+JS23uNTCoA0Opn6jIBs+ZT1BY7mYOBBF3G2qNbI+/Y
-         eFNY8CPn3Mq0875yLFcHwnzPW5wY8RPBgnUrI=
+        d=gmail.com; s=20230601; t=1721668193; x=1722272993; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Fie+5TwjN6CDpwmiwmY8Q21t7VoAbo4DMmV+x9ms7Ws=;
+        b=IZXHdgItpg1JXA3lUk2cjR4KcdhdKCoEMEeGcVHMQrMUCvEF5nmZp/KliwdiRD2j7J
+         BuBiiaqJjcXjwo9qdzbB1nE068Vm9hj9r4Pn82ifPx3EW/2ZzclHjVjJKlUPR7ig6ZWB
+         ob0MbiiuZ+ctglcN0RIYae8agI9ypV64IzqCJQ3Lw7AvNlsDW9nFveGlpuL4d7fHYQrd
+         Xl+6sezFKdsjIaC4ILAsPXtk+rqO9u4e6EvRe2YrNbBTbVXCPbmy6CI5W9Nj8RnOvQE0
+         AYTakGRMbX/FEId9sduCcfxXzrIc/9/IjQ8UOzX4E/aDXUUAaczzcR/oRpW4IAi+3kcy
+         eYpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721667844; x=1722272644;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Mjgjwa3kPvZM5pZjJMrO/Qtozz1yU/NtYu8JHgYi3c4=;
-        b=KsuRZVRpBo+UNLdexwzsXFZDlpLQFh/lpV0uVhkFWmmVq5bpgYAXyzwV4OYhWmRjk6
-         ictU6khRFjVj+QZAZIWnaerq3NwqREirXWZ2XfauTBkipGG7inLYQplzAwKu0ljwy+/i
-         kOKHd7CMkLG/87uXr3g6exp8MK0GmAy3xMTP1Wl8SHqi3pN5DfjQ7IOObEOdHOstZ5ho
-         bHePMx0ihaJ9DMFnoJ+DinAsVhORIpVQen+zf8c2DBM/zAOFu6yWCPl0DNfoH4otkGqM
-         JFywjwWj3s/gBorlauVlOIuXYz4x2+xPwpBSjcsefYONCi4GO/OOu/4/aPFJQSGWP6gm
-         HkoA==
-X-Forwarded-Encrypted: i=1; AJvYcCWeVoyUCRZYBk6D9iE4/PHlepuoFuj70JAuRnN89GoUnHBXdp0Na9gMAzSjlPUVv9w8xNeiHm0u4M2B3p+lsOJKRn0QKHkmJt1LEYQ4PiY=
-X-Gm-Message-State: AOJu0YzJAaEInLC4DdkG+rjQ3QB1gg+lvYBbXkb0J0fXtuXEYEb+xHdQ
-	A/Qcx99lKpuKnv2918K5mgYPN5VhkNcvFhtv6A6NhdeZHyI6cz/J+J+eGLAOUauLcHbn2b+Ps/8
-	U
-X-Google-Smtp-Source: AGHT+IEWvzuZmfb6npybAMbljO/tdNbsxah4FsHZNNxI0OYH3SpdmTIQOo2Nn5+DX8/ezgVfrhMlXg==
-X-Received: by 2002:a05:6512:3e01:b0:52e:a7a6:ed7f with SMTP id 2adb3069b0e04-52efb84ea35mr3420263e87.60.1721667844206;
-        Mon, 22 Jul 2024 10:04:04 -0700 (PDT)
-Message-ID: <f53e8b5b-1a89-4190-a6bc-495e8487384f@citrix.com>
-Date: Mon, 22 Jul 2024 18:04:01 +0100
+        d=1e100.net; s=20230601; t=1721668193; x=1722272993;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Fie+5TwjN6CDpwmiwmY8Q21t7VoAbo4DMmV+x9ms7Ws=;
+        b=jlIj75AmP+7cJVdkNounXWi5nwaaJE7h86QumiGbEYuNsHElAek85hK+WNckbiNZ/K
+         wgf7oVj05MKPtFcMYa6+v1FdXQ4OYrq48mbs3BEXLAY4UzDI0F23u5Sh7LJzKUNjsM+U
+         8/12+beSb/fSKQ0VUpSpDQP9lkfEZQ/vXz63L63mm2b4ZHWuv9ilEpV/3zjHbE+fFfnq
+         RzHi8afVa58VLs+a0A3m2g1xPQ5/WgSesQ0HQZOp/dfdpZr+6lc2NfwaezREjgpArF+U
+         xOCbQtGIFKaRwQx0xHFwDCHGYschSkd/FfEvOi2RPb1DvKsb2701OSqPJLcCts709V28
+         enig==
+X-Forwarded-Encrypted: i=1; AJvYcCU9BG39+kAVeEdpIQgZdKkVMwXhVWsuJFbmubc9D25ClvM5r7GLdsYwZrUY9frM1T69Tq6IMs5BqG/LdDU+ouYAqzSPLBwS0BCPk+AxmmU=
+X-Gm-Message-State: AOJu0Ywo8E1wZRZIsAdiZ4ETTW7jmG3jRO/uwl5O66OIeTOVgq4WkihD
+	pMkXQjwZdRWXRtJ7sb2IW5k8aT29JTc35IVAsFCB7M2YIxKx367s
+X-Google-Smtp-Source: AGHT+IHSayyUTKE/F2d8sQdBjXIBvlyXWu7QUNG8cGxNmX8Vow6fC4hQ/gUKdCaFnHW0I8q7rGnSiQ==
+X-Received: by 2002:a05:6512:2826:b0:52e:764b:b20d with SMTP id 2adb3069b0e04-52efb7e1281mr5120554e87.28.1721668193130;
+        Mon, 22 Jul 2024 10:09:53 -0700 (PDT)
+Message-ID: <a53ef38e044db149bb37b70f1e56a33c6a3e7c83.camel@gmail.com>
+Subject: Re: [PATCH v2 5/8] xen/riscv: introduce asm/pmap.h header
+From: Oleksii Kurochko <inisider@gmail.com>
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,  xen-devel@lists.xenproject.org
+Date: Mon, 22 Jul 2024 19:09:51 +0200
+In-Reply-To: <623da862-8e76-4d40-9aa9-b02c8fd9944d@xen.org>
+References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
+	 <c7331e4c2f481f069571976a708c4aba04d2c0e4.1720799926.git.oleksii.kurochko@gmail.com>
+	 <6458c61d-5974-41c2-a1e6-76e4a15a487a@suse.com>
+	 <54af6fb751da1103054de2d79a2057bec658f399.camel@gmail.com>
+	 <623da862-8e76-4d40-9aa9-b02c8fd9944d@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/efi: Unlock NX if necessary
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Gene Bright <gene@cyberlight.us>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240722101838.3946983-1-andrew.cooper3@citrix.com>
- <20240722101838.3946983-3-andrew.cooper3@citrix.com>
- <9123e966-1ec6-4853-b6a2-f92e21dc784c@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <9123e966-1ec6-4853-b6a2-f92e21dc784c@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 22/07/2024 11:43 am, Jan Beulich wrote:
-> On 22.07.2024 12:18, Andrew Cooper wrote:
->> EFI systems can run with NX disabled, as has been discovered on a Broadwell
->> Supermicro X10SRM-TF system.
->>
->> Prior to commit fc3090a47b21 ("x86/boot: Clear XD_DISABLE from the early boot
->> path"), the logic to unlock NX was common to all boot paths, but that commit
->> moved it out of the native-EFI booth path.
->>
->> Have the EFI path attempt to unlock NX, rather than just blindly refusing to
->> boot when CONFIG_REQUIRE_NX is active.
->>
->> Fixes: fc3090a47b21 ("x86/boot: Clear XD_DISABLE from the early boot path")
->> Link: https://xcp-ng.org/forum/post/80520
->> Reported-by: Gene Bright <gene@cyberlight.us>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> for both patches, yet with two remarks and a nit here:
->
-> First: Cleanup in the earlier patch will get in the way of backporting
-> this easily. Let's hope I won't screw up.
+On Mon, 2024-07-22 at 15:48 +0100, Julien Grall wrote:
+> Hi,
+>=20
+> On 22/07/2024 15:44, Oleksii Kurochko wrote:
+> > On Mon, 2024-07-22 at 14:54 +0200, Jan Beulich wrote:
+> > > On 12.07.2024 18:22, Oleksii Kurochko wrote:
+> > > > --- /dev/null
+> > > > +++ b/xen/arch/riscv/include/asm/pmap.h
+> > > > @@ -0,0 +1,28 @@
+> > > > +#ifndef __ASM_PMAP_H__
+> > > > +#define __ASM_PMAP_H__
+> > > > +
+> > > > +#include <xen/bug.h>
+> > > > +#include <xen/mm.h>
+> > > > +
+> > > > +#include <asm/fixmap.h>
+> > > > +
+> > > > +static inline void arch_pmap_map(unsigned int slot, mfn_t mfn)
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 pte_t *entry =3D &xen_fixmap[slot];
+> > > > +=C2=A0=C2=A0=C2=A0 pte_t pte;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 ASSERT(!pte_is_valid(*entry));
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 pte =3D mfn_to_xen_entry(mfn, PAGE_HYPERVISOR_R=
+W);
+> > > > +=C2=A0=C2=A0=C2=A0 pte.pte |=3D PTE_LEAF_DEFAULT;
+> > > > +=C2=A0=C2=A0=C2=A0 write_pte(entry, pte);
+> > > > +}
+> > > > +
+> > > > +static inline void arch_pmap_unmap(unsigned int slot)
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 pte_t pte =3D {};
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 write_pte(&xen_fixmap[slot], pte);
+> > > > +}
+> > >=20
+> > > Why are these not using set_fixmap() / clear_fixmap()
+> > > respectively?
+> > They haven't been introduced yet. And I thought that these fucntion
+> > are
+> > used only in pmap_{un}map() and that is the reason why I decided to
+> > not
+> > introduce them. But while writing the answer on another comment, I
+> > found other places where set_fixmap() / clear_fixmap() are used, so
+> > I
+> > will introduce them and reuse here.
+>=20
+> I am guessing you are going to implement set_fixmap()/clear_fixmap()=20
+> using map_pages_to_xen(). If so, for early boot you are going to end
+> up=20
+> in a circular loop because map_pages_to_xen() will likely use pmap()=20
+> which will call set_fixmap().
+I am going to implement that in the following way as I faced the
+described by you issue when I first time tried to implement it using
+map_pages_to_xen():
+   /* Map a 4k page in a fixmap entry */
+   void set_fixmap(unsigned map, mfn_t mfn, unsigned int flags)
+   {
+       pte_t pte;
+  =20
+       pte =3D mfn_to_xen_entry(mfn, flags);
+       pte.pte |=3D PTE_LEAF_DEFAULT;
+       write_pte(&xen_fixmap[pt_index(0, FIXMAP_ADDR(map))], pte);
+   }
+  =20
+   /* Remove a mapping from a fixmap entry */
+   void clear_fixmap(unsigned map)
+   {
+       pte_t pte =3D {0};
+       write_pte(&xen_fixmap[pt_index(0, FIXMAP_ADDR(map))], pte);
+   }
+  =20
+~ Oleksii
 
-I'd just take both.
+>=20
+> There is a big comment in common/pmap.c which explain why arch_pmap_*
+> was introduced rather than calling *_fixmap() directly:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0 /*
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * We cannot use set_fixmap() here. We use =
+PMAP when the domain
+> map
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * page infrastructure is not yet initializ=
+ed, so=20
+> map_pages_to_xen() called
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * by set_fixmap() needs to map pages on de=
+mand, which then
+> calls=20
+> pmap()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * again, resulting in a loop. Modify the P=
+TEs directly instead.
+> The same
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * is true for pmap_unmap().
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+>=20
+> Cheers,
+>=20
 
-The reason the patches are this way around is because the reading of max
-extd leaf needs moving in order to add the vendor check, and doing that
-together in this patch made the diff far harder to follow.
-
->
->> --- a/xen/arch/x86/efi/efi-boot.h
->> +++ b/xen/arch/x86/efi/efi-boot.h
->> @@ -736,13 +736,33 @@ static void __init efi_arch_handle_module(const struct file *file,
->>      efi_bs->FreePool(ptr);
->>  }
->>  
->> +static bool __init intel_unlock_nx(void)
->> +{
->> +    uint64_t val, disable;
->> +
->> +    rdmsrl(MSR_IA32_MISC_ENABLE, val);
->> +
->> +    disable = val & MSR_IA32_MISC_ENABLE_XD_DISABLE;
->> +
->> +    if ( !disable )
->> +        return false;
->> +
->> +    wrmsrl(MSR_IA32_MISC_ENABLE, val & ~disable);
-> The base ISA not having ANDN or NAND (and a prereq to my patch to add
-> minimum-ABI-level control to the build machinery still sitting there
-> unreviewed), using "val ^ disable" here would likely produce slightly
-> better code for the time being.
-
-While that might technically be true, you're assuming that everyone
-reading the code can de-obfuscate ^ back into &~, and that the compiler
-hasn't made its own alternative arrangements.
-
-It's init code, not a fastpath.
-
->
->> @@ -752,10 +772,17 @@ static void __init efi_arch_cpu(void)
->>      caps[FEATURESET_e1d] = cpuid_edx(0x80000001U);
->>  
->>      /*
->> -     * This check purposefully doesn't use cpu_has_nx because
->> +     * These checks purposefully doesn't use cpu_has_nx because
-> Nit: With the change to plural, switch to "don't"?
-
-Yes, my mistake.  Fixed.
-
-~Andrew
 
