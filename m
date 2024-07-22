@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 686F7938D9D
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 12:44:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761641.1171631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05F2A938DB2
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 12:52:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761650.1171640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVqWh-0006g2-B3; Mon, 22 Jul 2024 10:44:19 +0000
+	id 1sVqeH-0008UB-4q; Mon, 22 Jul 2024 10:52:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761641.1171631; Mon, 22 Jul 2024 10:44:19 +0000
+Received: by outflank-mailman (output) from mailman id 761650.1171640; Mon, 22 Jul 2024 10:52:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVqWh-0006eT-7K; Mon, 22 Jul 2024 10:44:19 +0000
-Received: by outflank-mailman (input) for mailman id 761641;
- Mon, 22 Jul 2024 10:44:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sVqeH-0008Rx-28; Mon, 22 Jul 2024 10:52:09 +0000
+Received: by outflank-mailman (input) for mailman id 761650;
+ Mon, 22 Jul 2024 10:52:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVqWf-0006eN-OV
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 10:44:17 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e33f1d4-4817-11ef-bbfe-fd08da9f4363;
- Mon, 22 Jul 2024 12:43:33 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-58ef19aa69dso2877454a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 03:43:33 -0700 (PDT)
+ id 1sVqeF-0008Rr-IR
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 10:52:07 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6f38f376-4818-11ef-8776-851b0ebba9a2;
+ Mon, 22 Jul 2024 12:52:05 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a77d85f7fa3so665816466b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 03:52:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5a30aaa253fsm5920360a12.23.2024.07.22.03.43.32
+ a640c23a62f3a-a7a3c8bea14sm407648466b.130.2024.07.22.03.52.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 03:43:32 -0700 (PDT)
+ Mon, 22 Jul 2024 03:52:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e33f1d4-4817-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: 6f38f376-4818-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721645013; x=1722249813; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721645525; x=1722250325; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uUJ0LhTHkPKliaHMVBuaNiS2nMMCe9pRxCR6YJM2wL8=;
-        b=J7N+5Y91sRYFBkLK9PakyYboJIUEX8WbvnRkKJfkjZSRGjD5ay0F68Cs5jTZSgvSQI
-         2WBdemBrJTtsKtD4S8Wee2slNOdcD2Gh/GnM40rDKJHA3iI825+1lJBfVXltRYRbVtaR
-         Geis9NK4K3wurTtUreJ12xCIR5emzihQyM68PGwSssTFXgyjMSGOlJPeja8XwwsMz0Uu
-         AZ1cq/yekiHs6NJq4DVuMIawSbX3DKHIWmf4u/AAeaghsFfYzJU79hNN7s0If9sF8til
-         Za3vqk7eILTckkc8/JLsPbjuP3gIRCzTaytcciDFMYqRCLG957cp2kDUbDeCMlUz8WF/
-         gbDA==
+        bh=nwz6oyh+p7tLOp3na84SOE6EaLeHyQy7QENeZ6kL6Rg=;
+        b=IKDwVDKMLNv+0XD1aYuchtNs1NgLCHvIqfowSsIXeV21VvLEt1HGxQEcZ9DUmgeZkJ
+         XmwdZuOypQqPBY0HbDoAO+ilu35QQK3ij1taNY/ynclrYCiZ7MAvrzPdRs3LI7KGIyAw
+         2TsxMUMhB406lahAKx7qK6MrL2Wx66iz8ukbUtJ6C6Q4vhbxkbIIGQ3qjUTKDbeBOlHL
+         9NlTpXaoiruvmby1y/wBw5eiSuImd6c394+ssVY2O0OioLeaPXzEfzRIXhdNh6f1tGv9
+         C14dpcz/SgOvNs6rp7Y8mUVT6ChhEQhgiXWBKLANZ9lDDTmW4NiJLXX3aG5GkA2/Z2mA
+         Ha2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721645013; x=1722249813;
+        d=1e100.net; s=20230601; t=1721645525; x=1722250325;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uUJ0LhTHkPKliaHMVBuaNiS2nMMCe9pRxCR6YJM2wL8=;
-        b=JlQVZK01CyRVV0vjM/VbK3W9V8j2xZCWpileLSpQWHM+X5RcFkNDPFu1HY8FGgTbhL
-         g90k1vSm362sefLuc5WtqBoe3lxXsUWcpN57oYPERgYa/3ZlYtL0N17qIs6AlCD1dz90
-         ZuWVQAcRtb5mjkdnjOADHk8QTCHkBqeEMn0FExgnOe/OyUwm11q/qWlmP4c4vGG9+DwJ
-         vEMOR8C23qmBzDV0vhJMhddvDHGnyQgsYAeAPfslO6QCyOXIHjPIqu6RO7jMgqAtZSFY
-         QUv7MgQ5ziL+ru17KupIAa7lEKquKLh8F5R2WTUgVbhH7C4vS/BXO5NQgORY69/hSllQ
-         hn6A==
-X-Forwarded-Encrypted: i=1; AJvYcCUTisdM2oWdlxbnd0f45gFgnWl637csnm8GTS48RAojCH59xBC+gZ7V0oguns6+gLheA7up8tzTM+l6wRtNgZrpLNMp6DGiVeCKlA4owYM=
-X-Gm-Message-State: AOJu0Yzz+Nld8hq+fkDUeDMAl/xB9bycrUysfFLGAVcwTFyM4D6JPY53
-	a1RmE4BPFXnPE+wabXDJTQ75W0Ffz0an8NcMVTz68dmhAonfXZCeT3xzYiut2w==
-X-Google-Smtp-Source: AGHT+IFyIHZ7Jde/nlBLtjXyVYXyp13+RZKGKFcRGEOHqoPquzQJ6FXDh3Bhw+yy+qdFeKIpmqkzqQ==
-X-Received: by 2002:a05:6402:5111:b0:599:4d6c:d70c with SMTP id 4fb4d7f45d1cf-5a479a6e7b1mr3633869a12.8.1721645013198;
-        Mon, 22 Jul 2024 03:43:33 -0700 (PDT)
-Message-ID: <9123e966-1ec6-4853-b6a2-f92e21dc784c@suse.com>
-Date: Mon, 22 Jul 2024 12:43:32 +0200
+        bh=nwz6oyh+p7tLOp3na84SOE6EaLeHyQy7QENeZ6kL6Rg=;
+        b=E5yWLk0f9dNSEJ7igG0snn+/aVKd06UBPpeLHbPXm7C0WKfJV5hvzlFby1siCqN6DL
+         ScXbk1qVn6bR4Y+V1lWXq3E6un1hNW+e6bt4uiYkYJuYFTxahkHhRd3KqNVdnPgmE4uX
+         lvnHATW6BjUHcpEIqd8VTIMkGs7Uhk0RVOgy1WI/4jBOOwUeV2DbFGJXpZ52RVodPPIF
+         /HBzZzuuSOw1P1u/n2S3MqXr+LtIgeejqHp/W6ampq3VxctxVdGezBR+tuM9DCcQvOrg
+         G8JaYA2RoFIJYoJehG9mh2BSuFbAAk6NOyrzM8JmGGRB5w6uI2k0krmLjSRN/fQ045CG
+         0bBg==
+X-Forwarded-Encrypted: i=1; AJvYcCWZzx+BFe4h2X6d7d/MgN1Alu1HpB4bQjp04BWtkaqzaUTzbwm5e30Y42vIhIXMZewZC+nJ2ljW0WTpf4GD/K8cJXQD3tIGlGzVHMZeqec=
+X-Gm-Message-State: AOJu0YwRmZGvFwVUmdUpoQRPNFHgBBUI0GkBx3Ekv8g8T6kYWJR2WbAr
+	/6QAh1bnnuXUjNZtP12ongHE/kgPh8ArVI0cAfvGJ/YmuForR4qEQIYFm8BKvQ==
+X-Google-Smtp-Source: AGHT+IEHGTf9bJG0s6yJaYzxIFdWkfXN6VHbfjboMu+C4I8Q4FgikoIo2jyXWAOxcXwjl2WWOl/Ebg==
+X-Received: by 2002:a17:907:da1:b0:a77:c051:36a9 with SMTP id a640c23a62f3a-a7a41aea01cmr767510166b.9.1721645524960;
+        Mon, 22 Jul 2024 03:52:04 -0700 (PDT)
+Message-ID: <9420cad5-703d-4236-a2c6-a9c0dae64986@suse.com>
+Date: Mon, 22 Jul 2024 12:52:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/efi: Unlock NX if necessary
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Gene Bright <gene@cyberlight.us>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240722101838.3946983-1-andrew.cooper3@citrix.com>
- <20240722101838.3946983-3-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v10 3/5] xen/riscv: introduce trap_init()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1720799487.git.oleksii.kurochko@gmail.com>
+ <80c02f1215d74e42fd9bc7f0d6e27d043a11b0e9.1720799487.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,64 +115,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240722101838.3946983-3-andrew.cooper3@citrix.com>
+In-Reply-To: <80c02f1215d74e42fd9bc7f0d6e27d043a11b0e9.1720799487.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.07.2024 12:18, Andrew Cooper wrote:
-> EFI systems can run with NX disabled, as has been discovered on a Broadwell
-> Supermicro X10SRM-TF system.
-> 
-> Prior to commit fc3090a47b21 ("x86/boot: Clear XD_DISABLE from the early boot
-> path"), the logic to unlock NX was common to all boot paths, but that commit
-> moved it out of the native-EFI booth path.
-> 
-> Have the EFI path attempt to unlock NX, rather than just blindly refusing to
-> boot when CONFIG_REQUIRE_NX is active.
-> 
-> Fixes: fc3090a47b21 ("x86/boot: Clear XD_DISABLE from the early boot path")
-> Link: https://xcp-ng.org/forum/post/80520
-> Reported-by: Gene Bright <gene@cyberlight.us>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 12.07.2024 18:18, Oleksii Kurochko wrote:
+> trap_init() wasn't declared with the __init attribute to avoid removing
+> __init when multi-CPU support for Xen is added.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-for both patches, yet with two remarks and a nit here:
+When you say "wasn't" one could easily take this as something you're
+correcting in the patch being described. Therefore perhaps better
+"isn't". Plus, as this isn't really describing the change, but just
+a perhaps unexpected aspect thereof, maybe also better start with
+something like "Note that ...".
 
-First: Cleanup in the earlier patch will get in the way of backporting
-this easily. Let's hope I won't screw up.
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 
-> --- a/xen/arch/x86/efi/efi-boot.h
-> +++ b/xen/arch/x86/efi/efi-boot.h
-> @@ -736,13 +736,33 @@ static void __init efi_arch_handle_module(const struct file *file,
->      efi_bs->FreePool(ptr);
->  }
->  
-> +static bool __init intel_unlock_nx(void)
-> +{
-> +    uint64_t val, disable;
-> +
-> +    rdmsrl(MSR_IA32_MISC_ENABLE, val);
-> +
-> +    disable = val & MSR_IA32_MISC_ENABLE_XD_DISABLE;
-> +
-> +    if ( !disable )
-> +        return false;
-> +
-> +    wrmsrl(MSR_IA32_MISC_ENABLE, val & ~disable);
-
-The base ISA not having ANDN or NAND (and a prereq to my patch to add
-minimum-ABI-level control to the build machinery still sitting there
-unreviewed), using "val ^ disable" here would likely produce slightly
-better code for the time being.
-
-> @@ -752,10 +772,17 @@ static void __init efi_arch_cpu(void)
->      caps[FEATURESET_e1d] = cpuid_edx(0x80000001U);
->  
->      /*
-> -     * This check purposefully doesn't use cpu_has_nx because
-> +     * These checks purposefully doesn't use cpu_has_nx because
-
-Nit: With the change to plural, switch to "don't"?
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
