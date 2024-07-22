@@ -2,32 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A2E093911B
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 16:58:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762111.1172218 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D8893913B
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 17:02:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762118.1172232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVuUA-0007bD-MB; Mon, 22 Jul 2024 14:57:58 +0000
+	id 1sVuXu-0000fZ-7E; Mon, 22 Jul 2024 15:01:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762111.1172218; Mon, 22 Jul 2024 14:57:58 +0000
+Received: by outflank-mailman (output) from mailman id 762118.1172232; Mon, 22 Jul 2024 15:01:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVuUA-0007ZM-JV; Mon, 22 Jul 2024 14:57:58 +0000
-Received: by outflank-mailman (input) for mailman id 762111;
- Mon, 22 Jul 2024 14:57:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sVuXu-0000c1-48; Mon, 22 Jul 2024 15:01:50 +0000
+Received: by outflank-mailman (input) for mailman id 762118;
+ Mon, 22 Jul 2024 15:01:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sVuU9-0007ZG-5q
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 14:57:57 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sVuU7-0000Nw-0r; Mon, 22 Jul 2024 14:57:55 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sVuU6-0002qB-Pw; Mon, 22 Jul 2024 14:57:54 +0000
+ (envelope-from <SRS0=JAiy=OW=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sVuXs-0000bJ-F1
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 15:01:48 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f6dea0a-483b-11ef-8776-851b0ebba9a2;
+ Mon, 22 Jul 2024 17:01:44 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 079111FB73;
+ Mon, 22 Jul 2024 15:01:44 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BF621136A9;
+ Mon, 22 Jul 2024 15:01:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id gC05LVd0nmaFVgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 22 Jul 2024 15:01:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,70 +52,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=+QYaDGqTgRtC4dMpFUId0MUWzHRtRQ9J2KwclGyfN9Q=; b=e2SBwU/MQr459Lxrpxv3sZ2shB
-	wzmKO08020eece6/VLLHiYGCtbKbLCjKiygaNavdtF6+jYrvbls2Yu6YEIov3T7Zrt8kwtm5X0jSN
-	sMbRgO02doU/22d1lA34jOWnEYfWnaAm/11FWAB1tihwbAA6abgSDXe3ysSsddCq5Sas=;
-Message-ID: <9ff73d5c-fe83-4b65-b3c7-c17b4ce2e4f7@xen.org>
-Date: Mon, 22 Jul 2024 15:57:52 +0100
+X-Inumbo-ID: 4f6dea0a-483b-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1721660504; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=8w2yj4tCoress7M4+t/E8kv6ccuo2Mv5ulBvjkeIp0o=;
+	b=GlaVkVSednbL7HCSgkwFpoMPVG2c8InCkdzoLOgNKqOuTsSKH8jXlvmJphrYvaadSgBkBn
+	nasSPcYGWZhE+zp44QKAUyMdzGLNZJDNr016LNAhcjwMa+ViJeJ5TJR4DywTY8EXiSkjEP
+	Myg9Kg7m+EDJHlfmDXKgE4yYJoQ8rIM=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=GlaVkVSe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1721660504; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=8w2yj4tCoress7M4+t/E8kv6ccuo2Mv5ulBvjkeIp0o=;
+	b=GlaVkVSednbL7HCSgkwFpoMPVG2c8InCkdzoLOgNKqOuTsSKH8jXlvmJphrYvaadSgBkBn
+	nasSPcYGWZhE+zp44QKAUyMdzGLNZJDNr016LNAhcjwMa+ViJeJ5TJR4DywTY8EXiSkjEP
+	Myg9Kg7m+EDJHlfmDXKgE4yYJoQ8rIM=
+From: Juergen Gross <jgross@suse.com>
+To: minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org,
+	wl@xen.org,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH 0/4] mini-os: cleanup of mm.c
+Date: Mon, 22 Jul 2024 17:01:37 +0200
+Message-ID: <20240722150141.31391-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/8] xen/riscv: introduce asm/pmap.h header
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
- <c7331e4c2f481f069571976a708c4aba04d2c0e4.1720799926.git.oleksii.kurochko@gmail.com>
- <15375179-1c94-43c3-a256-42a856905e21@xen.org>
- <c6a06c8d-ed6c-42d2-9ba3-56c37e878d9c@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <c6a06c8d-ed6c-42d2-9ba3-56c37e878d9c@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [0.19 / 50.00];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 079111FB73
+X-Spam-Score: 0.19
+X-Spam-Flag: NO
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Bar: /
 
+Some cleanups in mm.c: style, removal of unused stuff, optimizations.
 
+Juergen Gross (4):
+  mini-os: make mm.c coding style compliant
+  mini-os: mm: remove not needed struct chunk_tail_st
+  mini-os: mm: reduce buddy allocator list administration data
+  mini-os: remove sanity_check()
 
-On 22/07/2024 13:58, Jan Beulich wrote:
-> On 21.07.2024 10:51, Julien Grall wrote:
->> On 12/07/2024 17:22, Oleksii Kurochko wrote:
->>> +inline pte_t mfn_to_xen_entry(mfn_t mfn, unsigned int attr)
->>> +{
->>> +    /* there is no attr field in RISC-V's pte */
->>> +    (void) attr;
->>
->> Surely you have a way to say indicate whether an entry is readable/writable?
-> 
-> I'm puzzled by this question. The sole outlier in Arm code is pmap.h, in
-> passing PAGE_HYPERVISOR_RW to this function when all others pass memory
-> types (MT_*).  > Afaics only the low three bits are then used in the
-> function, discarding access control bits altogether. R/W access appears
-> to be implied.
-
-Arm is not exempt of odd interfaces. However, from just this patch, it 
-is not clear why RISC-V would continue to use the same appropach if the 
-attributes doesn't exist.
-
-Looking at the rest of the series, it seems to be because we wanted to 
-have a generic page-table code. If there are a desire to continue 
-towards this direction, then I would assume we would need a arch 
-specific way to set the read/write bit.
-
-At which point it makes a lot more sense to push setting the access bits 
-in mfn_to_xen_entry().
-
-Even if we don't do any code consolidation, I think it is odd for Arm 
-that a caller will assume mfn_to_xen_entry() will always return a 
-read-writable page and update as necessary. It would be nicer to push 
-this decision to mfn_to_xen_entry().
-
-Cheers,
+ include/lib.h |   3 -
+ mm.c          | 264 +++++++++++++++++++++-----------------------------
+ 2 files changed, 112 insertions(+), 155 deletions(-)
 
 -- 
-Julien Grall
+2.43.0
+
 
