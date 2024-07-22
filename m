@@ -2,34 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAE85939597
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 23:38:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762440.1172609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A9CD93959C
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 23:44:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762449.1172623 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sW0jv-0004mF-8H; Mon, 22 Jul 2024 21:38:39 +0000
+	id 1sW0on-0006JE-R6; Mon, 22 Jul 2024 21:43:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762440.1172609; Mon, 22 Jul 2024 21:38:39 +0000
+Received: by outflank-mailman (output) from mailman id 762449.1172623; Mon, 22 Jul 2024 21:43:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sW0jv-0004kI-5W; Mon, 22 Jul 2024 21:38:39 +0000
-Received: by outflank-mailman (input) for mailman id 762440;
- Mon, 22 Jul 2024 21:38:37 +0000
+	id 1sW0on-0006HT-OK; Mon, 22 Jul 2024 21:43:41 +0000
+Received: by outflank-mailman (input) for mailman id 762449;
+ Mon, 22 Jul 2024 21:43:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z3Fi=OW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sW0jt-0004aQ-CV
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 21:38:37 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ <SRS0=TuwE=OW=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
+ id 1sW0om-0006FZ-GP
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 21:43:40 +0000
+Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bf72c1dc-4872-11ef-8776-851b0ebba9a2;
- Mon, 22 Jul 2024 23:38:35 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3818B60347;
- Mon, 22 Jul 2024 21:38:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468A4C116B1;
- Mon, 22 Jul 2024 21:38:32 +0000 (UTC)
+ id 733011c9-4873-11ef-8776-851b0ebba9a2;
+ Mon, 22 Jul 2024 23:43:36 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by sonata.ens-lyon.org (Postfix) with ESMTP id 23556A02D3;
+ Mon, 22 Jul 2024 23:43:36 +0200 (CEST)
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+ by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id O2fIxkPsJrLC; Mon, 22 Jul 2024 23:43:36 +0200 (CEST)
+Received: from begin (aamiens-653-1-111-57.w83-192.abo.wanadoo.fr
+ [83.192.234.57])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id 041FCA02CA;
+ Mon, 22 Jul 2024 23:43:36 +0200 (CEST)
+Received: from samy by begin with local (Exim 4.98-RC3)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1sW0oh-0000000B70A-2UUt; Mon, 22 Jul 2024 23:43:35 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,103 +52,344 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf72c1dc-4872-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1721684313;
-	bh=tXQrIb3VEeHB3STEH5LnCuga4yuSW0LDWlS7Ce5x9EM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=KGRTwxXkBmT/2FxHqzLl+jKrJdETyZShq9CcBbJmWDE06WUvsWXDKLFOQL0Y9zKWn
-	 8QzRJGFFrts1nDbvCda/MkohOSHICg9lQ+z8vJRPbBWnAjtvbgR3Wxy8dGSyD6onHI
-	 TrTCEw/8iXTK5MRJ7oSVqJnQ2+usG2DJc2lrOHJGb+zZ0cCFPRUcjKzXaxyYmdkJRA
-	 LoQq25g7y+bAGNFK5vxF+gewCSxdTV+jp/5HE4ghw3SmM6jxd0fo/sDN684+x2AaSd
-	 xHbBSQtMX+Q/IR3ijaJavsBQu4OSnnEb/f4EdrBt5BkSuXJmEetSUanwBSzxpKs4Lj
-	 BbJpalRTCMkrQ==
-Date: Mon, 22 Jul 2024 14:38:31 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, George Dunlap <gwd@xenproject.org>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>, 
-    "Daniel P . Smith" <dpsmith@apertussolutions.com>, 
-    Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
-    Huang Rui <ray.huang@amd.com>
-Subject: Re: [XEN PATCH v12 3/7] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH
- dom0
-In-Reply-To: <20240708114124.407797-4-Jiqian.Chen@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2407221438230.4857@ubuntu-linux-20-04-desktop>
-References: <20240708114124.407797-1-Jiqian.Chen@amd.com> <20240708114124.407797-4-Jiqian.Chen@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 733011c9-4873-11ef-8776-851b0ebba9a2
+Date: Mon, 22 Jul 2024 23:43:35 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+Subject: Re: [PATCH 1/3] mini-os: apply coding style to arch/x86/time.c
+Message-ID: <20240722214335.cb2spwsgacs43w55@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org, wl@xen.org
+References: <20240722121643.18116-1-jgross@suse.com>
+ <20240722121643.18116-2-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240722121643.18116-2-jgross@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 
-On Mon, 8 Jul 2024, Jiqian Chen wrote:
-> The gsi of a passthrough device must be configured for it to be
-> able to be mapped into a hvm domU.
-> But When dom0 is PVH, the gsis may not get registered(see below
-> clarification), it causes the info of apic, pin and irq not be
-> added into irq_2_pin list, and the handler of irq_desc is not set,
-> then when passthrough a device, setting ioapic affinity and vector
-> will fail.
+Juergen Gross, le lun. 22 juil. 2024 14:16:41 +0200, a ecrit:
+> Apply the preferred coding style to arch/x86/time.c.
 > 
-> To fix above problem, on Linux kernel side, a new code will
-> need to call PHYSDEVOP_setup_gsi for passthrough devices to
-> register gsi when dom0 is PVH.
-> 
-> So, add PHYSDEVOP_setup_gsi into hvm_physdev_op for above
-> purpose.
-> 
-> Clarify two questions:
-> First, why the gsi of devices belong to PVH dom0 can work?
-> Because when probe a driver to a normal device, it uses the normal
-> probe function of pci device, in its callstack, it requests irq
-> and unmask corresponding ioapic of gsi, then trap into xen and
-> register gsi finally.
-> Callstack is(on linux kernel side) pci_device_probe->
-> request_threaded_irq-> irq_startup-> __unmask_ioapic->
-> io_apic_write, then trap into xen hvmemul_do_io->
-> hvm_io_intercept-> hvm_process_io_intercept->
-> vioapic_write_indirect-> vioapic_hwdom_map_gsi-> mp_register_gsi.
-> So that the gsi can be registered.
-> 
-> Second, why the gsi of passthrough device can't work when dom0
-> is PVH?
-> Because when assign a device to passthrough, it uses the specific
-> probe function of pciback, in its callstack, it doesn't install a
-> fake irq handler due to the ISR is not running. So that
-> mp_register_gsi on Xen side is never called, then the gsi is not
-> registered.
-> Callstack is(on linux kernel side) pcistub_probe->pcistub_seize->
-> pcistub_init_device-> xen_pcibk_reset_device->
-> xen_pcibk_control_isr->isr_on==0.
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
+Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
 > ---
->  xen/arch/x86/hvm/hypercall.c | 1 +
->  1 file changed, 1 insertion(+)
+>  arch/x86/time.c | 194 +++++++++++++++++++++++-------------------------
+>  1 file changed, 93 insertions(+), 101 deletions(-)
 > 
-> diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
-> index 03ada3c880bd..cfe82d0f96ed 100644
-> --- a/xen/arch/x86/hvm/hypercall.c
-> +++ b/xen/arch/x86/hvm/hypercall.c
-> @@ -86,6 +86,7 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->              return -ENOSYS;
->          break;
+> diff --git a/arch/x86/time.c b/arch/x86/time.c
+> index 332c0260..a473a9e1 100644
+> --- a/arch/x86/time.c
+> +++ b/arch/x86/time.c
+> @@ -1,7 +1,7 @@
+>  /* -*-  Mode:C; c-basic-offset:4; tab-width:4 -*-
+>   ****************************************************************************
+>   * (C) 2003 - Rolf Neugebauer - Intel Research Cambridge
+> - * (C) 2002-2003 - Keir Fraser - University of Cambridge 
+> + * (C) 2002-2003 - Keir Fraser - University of Cambridge
+>   * (C) 2005 - Grzegorz Milos - Intel Research Cambridge
+>   * (C) 2006 - Robert Kaiser - FH Wiesbaden
+>   ****************************************************************************
+> @@ -18,20 +18,19 @@
+>   * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+>   * sell copies of the Software, and to permit persons to whom the Software is
+>   * furnished to do so, subject to the following conditions:
+> - * 
+> + *
+>   * The above copyright notice and this permission notice shall be included in
+>   * all copies or substantial portions of the Software.
+> - * 
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+> - * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+> - * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
+> - * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+> + * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+>   * DEALINGS IN THE SOFTWARE.
+>   */
 >  
-> +    case PHYSDEVOP_setup_gsi:
->      case PHYSDEVOP_pci_mmcfg_reserved:
->      case PHYSDEVOP_pci_device_add:
->      case PHYSDEVOP_pci_device_remove:
+> -
+>  #include <mini-os/os.h>
+>  #include <mini-os/traps.h>
+>  #include <mini-os/types.h>
+> @@ -46,44 +45,43 @@
+>  
+>  /* These are peridically updated in shared_info, and then copied here. */
+>  struct shadow_time_info {
+> -	uint64_t tsc_timestamp;     /* TSC at last update of time vals.  */
+> -	uint64_t system_timestamp;  /* Time, in nanosecs, since boot.    */
+> -	uint32_t tsc_to_nsec_mul;
+> -	uint32_t tsc_to_usec_mul;
+> -	int tsc_shift;
+> -	uint32_t version;
+> +    uint64_t tsc_timestamp;     /* TSC at last update of time vals.  */
+> +    uint64_t system_timestamp;  /* Time, in nanosecs, since boot.    */
+> +    uint32_t tsc_to_nsec_mul;
+> +    uint32_t tsc_to_usec_mul;
+> +    int tsc_shift;
+> +    uint32_t version;
+>  };
+>  static struct timespec shadow_ts;
+>  static uint32_t shadow_ts_version;
+>  
+>  static struct shadow_time_info shadow;
+>  
+> -
+>  #ifndef rmb
+> -#define rmb()  __asm__ __volatile__ ("lock; addl $0,0(%%esp)": : :"memory")
+> +#define rmb()  __asm__ __volatile__ ("lock; addl $0,0(%%esp)" : : : "memory")
+>  #endif
+>  
+> -#define HANDLE_USEC_OVERFLOW(_tv)          \
+> -    do {                                   \
+> +#define HANDLE_USEC_OVERFLOW(_tv)           \
+> +    do {                                    \
+>          while ( (_tv)->tv_usec >= 1000000 ) \
+> -        {                                  \
+> +        {                                   \
+>              (_tv)->tv_usec -= 1000000;      \
+>              (_tv)->tv_sec++;                \
+> -        }                                  \
+> +        }                                   \
+>      } while ( 0 )
+>  
+>  static inline int time_values_up_to_date(void)
+>  {
+> -	struct vcpu_time_info *src = &HYPERVISOR_shared_info->vcpu_info[0].time; 
+> +    struct vcpu_time_info *src = &HYPERVISOR_shared_info->vcpu_info[0].time;
+>  
+> -	return (shadow.version == src->version);
+> +    return shadow.version == src->version;
+>  }
+>  
+>  static inline int wc_values_up_to_date(void)
+>  {
+> -	shared_info_t *s= HYPERVISOR_shared_info;
+> +    shared_info_t *s = HYPERVISOR_shared_info;
+>  
+> -	return (shadow_ts_version == s->wc_version);
+> +    return shadow_ts_version == s->wc_version;
+>  }
+>  
+>  /*
+> @@ -92,109 +90,104 @@ static inline int wc_values_up_to_date(void)
+>   */
+>  static inline uint64_t scale_delta(uint64_t delta, uint32_t mul_frac, int shift)
+>  {
+> -	uint64_t product;
+> +    uint64_t product;
+>  #ifdef __i386__
+> -	uint32_t tmp1, tmp2;
+> +    uint32_t tmp1, tmp2;
+>  #endif
+>  
+> -	if ( shift < 0 )
+> -		delta >>= -shift;
+> -	else
+> -		delta <<= shift;
+> +    if ( shift < 0 )
+> +        delta >>= -shift;
+> +    else
+> +        delta <<= shift;
+>  
+>  #ifdef __i386__
+> -	__asm__ (
+> -		"mul  %5       ; "
+> -		"mov  %4,%%eax ; "
+> -		"mov  %%edx,%4 ; "
+> -		"mul  %5       ; "
+> -		"add  %4,%%eax ; "
+> -		"xor  %5,%5    ; "
+> -		"adc  %5,%%edx ; "
+> -		: "=A" (product), "=r" (tmp1), "=r" (tmp2)
+> -		: "a" ((uint32_t)delta), "1" ((uint32_t)(delta >> 32)), "2" (mul_frac) );
+> +    __asm__ (
+> +        "mul  %5       ; "
+> +        "mov  %4,%%eax ; "
+> +        "mov  %%edx,%4 ; "
+> +        "mul  %5       ; "
+> +        "add  %4,%%eax ; "
+> +        "xor  %5,%5    ; "
+> +        "adc  %5,%%edx ; "
+> +        : "=A" (product), "=r" (tmp1), "=r" (tmp2)
+> +        : "a" ((uint32_t)delta), "1" ((uint32_t)(delta >> 32)), "2" (mul_frac) );
+>  #else
+> -	__asm__ (
+> -		"mul %%rdx ; shrd $32,%%rdx,%%rax"
+> -		: "=a" (product) : "0" (delta), "d" ((uint64_t)mul_frac) );
+> +    __asm__ (
+> +        "mul %%rdx ; shrd $32,%%rdx,%%rax"
+> +        : "=a" (product) : "0" (delta), "d" ((uint64_t)mul_frac) );
+>  #endif
+>  
+> -	return product;
+> +    return product;
+>  }
+>  
+> -
+>  static unsigned long get_nsec_offset(void)
+>  {
+> -	uint64_t now, delta;
+> -	rdtscll(now);
+> -	delta = now - shadow.tsc_timestamp;
+> -	return scale_delta(delta, shadow.tsc_to_nsec_mul, shadow.tsc_shift);
+> -}
+> +    uint64_t now, delta;
+>  
+> +    rdtscll(now);
+> +    delta = now - shadow.tsc_timestamp;
+> +
+> +    return scale_delta(delta, shadow.tsc_to_nsec_mul, shadow.tsc_shift);
+> +}
+>  
+>  static void get_time_values_from_xen(void)
+>  {
+> -	struct vcpu_time_info    *src = &HYPERVISOR_shared_info->vcpu_info[0].time;
+> -
+> - 	do {
+> -		shadow.version = src->version;
+> -		rmb();
+> -		shadow.tsc_timestamp     = src->tsc_timestamp;
+> -		shadow.system_timestamp  = src->system_time;
+> -		shadow.tsc_to_nsec_mul   = src->tsc_to_system_mul;
+> -		shadow.tsc_shift         = src->tsc_shift;
+> -		rmb();
+> -	}
+> -	while ((src->version & 1) | (shadow.version ^ src->version));
+> -
+> -	shadow.tsc_to_usec_mul = shadow.tsc_to_nsec_mul / 1000;
+> +    struct vcpu_time_info *src = &HYPERVISOR_shared_info->vcpu_info[0].time;
+> +
+> +    do {
+> +        shadow.version = src->version;
+> +        rmb();
+> +        shadow.tsc_timestamp     = src->tsc_timestamp;
+> +        shadow.system_timestamp  = src->system_time;
+> +        shadow.tsc_to_nsec_mul   = src->tsc_to_system_mul;
+> +        shadow.tsc_shift         = src->tsc_shift;
+> +        rmb();
+> +    } while ( (src->version & 1) | (shadow.version ^ src->version) );
+> +
+> +    shadow.tsc_to_usec_mul = shadow.tsc_to_nsec_mul / 1000;
+>  }
+>  
+> -
+> -
+> -
+> -/* monotonic_clock(): returns # of nanoseconds passed since time_init()
+> - *		Note: This function is required to return accurate
+> - *		time even in the absence of multiple timer ticks.
+> +/*
+> + * monotonic_clock(): returns # of nanoseconds passed since time_init()
+> + *        Note: This function is required to return accurate
+> + *        time even in the absence of multiple timer ticks.
+>   */
+>  uint64_t monotonic_clock(void)
+>  {
+> -	uint64_t time;
+> -	uint32_t local_time_version;
+> -
+> -	do {
+> -		local_time_version = shadow.version;
+> -		rmb();
+> -		time = shadow.system_timestamp + get_nsec_offset();
+> -		if (!time_values_up_to_date())
+> -			get_time_values_from_xen();
+> -		rmb();
+> -	} while (local_time_version != shadow.version);
+> -
+> -	return time;
+> +    uint64_t time;
+> +    uint32_t local_time_version;
+> +
+> +    do {
+> +        local_time_version = shadow.version;
+> +        rmb();
+> +        time = shadow.system_timestamp + get_nsec_offset();
+> +        if ( !time_values_up_to_date() )
+> +            get_time_values_from_xen();
+> +        rmb();
+> +    } while ( local_time_version != shadow.version );
+> +
+> +    return time;
+>  }
+>  
+>  static void update_wallclock(void)
+>  {
+> -	shared_info_t *s = HYPERVISOR_shared_info;
+> -
+> -	do {
+> -		shadow_ts_version = s->wc_version;
+> -		rmb();
+> -		shadow_ts.tv_sec  = s->wc_sec;
+> -		shadow_ts.tv_nsec = s->wc_nsec;
+> -		rmb();
+> -	}
+> -	while ((s->wc_version & 1) | (shadow_ts_version ^ s->wc_version));
+> +    shared_info_t *s = HYPERVISOR_shared_info;
+> +
+> +    do {
+> +        shadow_ts_version = s->wc_version;
+> +        rmb();
+> +        shadow_ts.tv_sec  = s->wc_sec;
+> +        shadow_ts.tv_nsec = s->wc_nsec;
+> +        rmb();
+> +    } while ( (s->wc_version & 1) | (shadow_ts_version ^ s->wc_version) );
+>  }
+>  
+> -
+>  int gettimeofday(struct timeval *tv, void *tz)
+>  {
+>      uint64_t nsec = monotonic_clock();
+>  
+> -    if (!wc_values_up_to_date())
+> -	update_wallclock();
+> +    if ( !wc_values_up_to_date() )
+> +        update_wallclock();
+>  
+>      nsec += shadow_ts.tv_nsec;
+>  
+> @@ -209,7 +202,7 @@ EXPORT_SYMBOL(gettimeofday);
+>  void block_domain(s_time_t until)
+>  {
+>      ASSERT(irqs_disabled());
+> -    if(monotonic_clock() < until)
+> +    if ( monotonic_clock() < until )
+>      {
+>          HYPERVISOR_set_timer_op(until);
+>  #ifdef CONFIG_PARAVIRT
+> @@ -228,9 +221,8 @@ static void timer_handler(evtchn_port_t ev, struct pt_regs *regs, void *ign)
+>      HYPERVISOR_set_timer_op(monotonic_clock() + MILLISECS(1));
+>  }
+>  
+> -
+> -
+>  static evtchn_port_t port;
+> +
+>  void init_time(void)
+>  {
+>      port = bind_virq(VIRQ_TIMER, &timer_handler, NULL);
 > -- 
-> 2.34.1
+> 2.43.0
 > 
+
+-- 
+Samuel
+"I don't know why, but first C programs tend to look a lot worse than
+first programs in any other language (maybe except for fortran, but then
+I suspect all fortran programs look like `firsts')"
+(By Olaf Kirch)
 
