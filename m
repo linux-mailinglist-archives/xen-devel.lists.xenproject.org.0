@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8473C938F06
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 14:20:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761853.1171905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97F4D938F0C
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 14:24:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761861.1171915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVs1i-00014V-V6; Mon, 22 Jul 2024 12:20:26 +0000
+	id 1sVs5V-0001em-DQ; Mon, 22 Jul 2024 12:24:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761853.1171905; Mon, 22 Jul 2024 12:20:26 +0000
+Received: by outflank-mailman (output) from mailman id 761861.1171915; Mon, 22 Jul 2024 12:24:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVs1i-00012O-Rm; Mon, 22 Jul 2024 12:20:26 +0000
-Received: by outflank-mailman (input) for mailman id 761853;
- Mon, 22 Jul 2024 12:20:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sVs5V-0001cq-A5; Mon, 22 Jul 2024 12:24:21 +0000
+Received: by outflank-mailman (input) for mailman id 761861;
+ Mon, 22 Jul 2024 12:24:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVs1h-00012I-1u
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 12:20:25 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c4d86b2d-4824-11ef-8776-851b0ebba9a2;
- Mon, 22 Jul 2024 14:20:23 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-52f04150796so1097315e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 05:20:23 -0700 (PDT)
+ id 1sVs5T-0001ck-7d
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 12:24:19 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 50f8f188-4825-11ef-bbfe-fd08da9f4363;
+ Mon, 22 Jul 2024 14:24:18 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a77ec5d3b0dso391666466b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 05:24:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c785b89sm415683066b.36.2024.07.22.05.20.21
+ a640c23a62f3a-a7a3c785e07sm416966066b.38.2024.07.22.05.24.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 05:20:22 -0700 (PDT)
+ Mon, 22 Jul 2024 05:24:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4d86b2d-4824-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 50f8f188-4825-11ef-bbfe-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721650822; x=1722255622; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721651058; x=1722255858; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fMNh7FBPsBo1tfiC+OaicVwt+SBfn+RT7xkOluCDgEw=;
-        b=DQomlsZsZ9t0Ougi1IjYbDPEV+F4CfcR7hJtoSKcHG9z4yCvn1raA6iDCaZ0e1IXpc
-         fdohKwrfq6hkG2R5KU7yFHTDoNTRP7i3a17iqpqjOj9FT/iWIssICLW8Cg3cQtoMayO5
-         X9S1A4nuuUKGcZTrhjyZXfnUrVV+lTQrRDYneVIVLejrgK27uHg1ZtJgogsTDQCxE2HQ
-         YYM9TlnGk+gopdmx5AZjitSwRGQyd+kNRYv8zQvfvqawGUKl3viIVZw82M0cPxBKx4oI
-         enqRWwP5EKT3ED9z06ecncmXopc0WPTapJb7/ial+13ntFIbA/TgxjhS03Bo21LuFR32
-         Ib2w==
+        bh=jdyvCYgVUhL7JLk69HLz/tzI3ek6aeHibTJbGk/n0L4=;
+        b=SuW9eUZYtGH1InXEaZhRDy2zGjClpCY5J3FXf3jlHT1fmw0PAQRuyUEUiKOcBMqOQA
+         X8OXl748f1ON4GAHiv8/G4jnVIu4YRotNpz1T7zanzIM47+Dp8kB49OPcZ1OdsEn3AGu
+         qO1M/QE+cSxYYb2j+bFCOWpZa6fcX/48Cd/iC4PTxu2kXM51RFrXzSNecKJlZfI0CjNX
+         o80VY/2ECaF0O0vh4gEVskFViO87zoCq/+HXg+d7WxSladBXJifVoGD+AKrnEAnZyHDm
+         bIzAsyGO4ls8IbtuYG5Swlh+9w5ErZrZ/mNDwbyUd2DXjyanDGY6M1ZSUA6pn85pt94K
+         Pp3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721650822; x=1722255622;
+        d=1e100.net; s=20230601; t=1721651058; x=1722255858;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fMNh7FBPsBo1tfiC+OaicVwt+SBfn+RT7xkOluCDgEw=;
-        b=gTsZtD+W/AanhLsmmbD8e+ugtkijmxSRcYjr8JY6GvJQOaKjHg7DJdHLl57eZUWE+s
-         OT8wSom1WufHAf+eka+SaAcUP0qQla0YAr9Xk2pXFXwfoqb6LVtlHH6ETAUrLFrAGapX
-         N/ZJ8KQbpPA3hMb4hLMIaXx5b5c0x6BoITkA8Y7Ii8wKoy/ncYjc+SS7g+ioCB5phVYH
-         3EG2mULxaL5/pcqA/4VkD9d5ke1FpCn7R23TQAr6fYz4CX+vJTFBfCXNdZdNoGJVIs1h
-         /6/lGPvHf0cNzRBWTDCsckOW/X5JXQZhWh3cDVrVZVrKt/g/LDqmxpgoYAncfqpmBoF/
-         znig==
-X-Forwarded-Encrypted: i=1; AJvYcCWONsRd94a91NJPkmdEc7V1VDcOIDY+yaqJJcU4WTQG6XHj6dpcTDsyf2biMLDpo+O2aYEeSijk6pgsLfJQaj3WD6+9aRTe06LmtVKHiBI=
-X-Gm-Message-State: AOJu0YzvK8dXh+l86ahquWAGRWuA1DyiFW53dJ252F2A3eAWkcaRudnt
-	9IgYFHK6h0Y2HCn33kCXkRkA3UAPWIZIaVaCrG4PjwwuGd+90paFodKV2vkFrg==
-X-Google-Smtp-Source: AGHT+IEZtTsgswGnEBJn3t7Khak3o+4+5720hQ9v+YL1+X1Z6yno4BQW3BqW2wHLHQiEXHvJVQaSVw==
-X-Received: by 2002:a05:6512:3e14:b0:52c:d78b:d0b8 with SMTP id 2adb3069b0e04-52efb780b4amr4695585e87.39.1721650822502;
-        Mon, 22 Jul 2024 05:20:22 -0700 (PDT)
-Message-ID: <9bd41e19-50f7-43e7-b3ce-c2870a836f79@suse.com>
-Date: Mon, 22 Jul 2024 14:20:21 +0200
+        bh=jdyvCYgVUhL7JLk69HLz/tzI3ek6aeHibTJbGk/n0L4=;
+        b=aBOTrvee5y6rdaJFcd3zmN0CwOejhzBOg1b7Erv/Lty1mSvu+XGRzWe9id4SU2ssqW
+         JLlOco9uPxZmmjM9qsXS/Qo/MWc2kyE93cuj+iP39YgGDqv/vgQeUcEkeOI45qpO7bMr
+         LtzLu0hKSkerQTEGMmXBGeyx7jXBEP3/YAx71yIDMwHhVXlCCAtWAkBx6iTswBzMUnpx
+         caIDKaN2zWvj+KhpLZvM97hxEtF5MphpFzqFZrMOBTSRRrvzVi586I1xpJpFjAnt38/n
+         wd+37GjKxczWPHkrAW3xUCn0VakRA4uVycm5ZLX1X59dl2VKYbKEnpm/YAuy7LT2C66t
+         s/wg==
+X-Forwarded-Encrypted: i=1; AJvYcCUwwIwscoNGhZIe6svtG6+040kzAWprtr7W/bALN1aJDCTLrW8Wy8qqZdFNHUxG76dwR7P37IBzwlaHpdOC/B2h6Rg3CcgKrK5kkVE9L70=
+X-Gm-Message-State: AOJu0YzKwZYefov/OsLrUlFcrVr8zOJEzm4hzfCj9SD4SPM5yg0rhtDs
+	ui2Lz3168p8OsrT4T+/zcqKcA5Nv5snvyuLxpWTqJKulvjnooGwdSGgiYVDEXQ==
+X-Google-Smtp-Source: AGHT+IGaZ2K+Wrj0Haah4EjShbTPdqKRrild+LOIcVNPQ2e2f9C6N+3QzIlFx5YUDI9odY0hVpw1EQ==
+X-Received: by 2002:a17:907:7f0c:b0:a7a:83f8:cfcf with SMTP id a640c23a62f3a-a7a83f8dc14mr3900566b.35.1721651057634;
+        Mon, 22 Jul 2024 05:24:17 -0700 (PDT)
+Message-ID: <9013e512-2710-4492-8e60-8f25ba32bbe6@suse.com>
+Date: Mon, 22 Jul 2024 14:24:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] Add tools/fuzz/oss-fuzz/build.sh
+Subject: Re: [PATCH v3 1/2] Add libfuzzer target to
+ fuzz/x86_instruction_emulator
 To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
 References: <20240722112752.4981-1-tamas@tklengyel.com>
- <20240722112752.4981-2-tamas@tklengyel.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,47 +113,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240722112752.4981-2-tamas@tklengyel.com>
+In-Reply-To: <20240722112752.4981-1-tamas@tklengyel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.07.2024 13:27, Tamas K Lengyel wrote:
-> --- /dev/null
-> +++ b/LICENSES/Apache-2.0
-> @@ -0,0 +1,202 @@
-> +
-> +                                 Apache License
-> +                           Version 2.0, January 2004
-> +                        http://www.apache.org/licenses/
+> This target enables integration into oss-fuzz. Changing invalid input return
+> to -1 as values other then 0/-1 are reserved by libfuzzer. Also adding the
+> missing __wrap_vsnprintf wrapper which is required for successful oss-fuzz
+> build.
+> 
+> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+> ---
+> v3: don't include libfuzzer-harness in target 'all' as it requires specific cc
 
-Better https:// (also near the end) nowadays?
-
-Other files in this directory also have at least one Valid-License-Identifier:
-line and at least one SPDX-URL: one. Depending on what would be put there, I'd
-then wonder whether ...
-
-> --- /dev/null
-> +++ b/tools/fuzz/oss-fuzz/build.sh
-> @@ -0,0 +1,11 @@
-> +#!/bin/bash -eu
-> +# Copyright 2024 Google LLC
-> +# SPDX-License-Identifier: Apache-2.0
-
-... there wouldn't want to be an "-only" tag here. Yet I'm entirely uncertain
-with this, as CC-BY-4.0 also has no such tag.
-
-I guess I should offer making respective adjustments while committing. I'll
-wait with an ack though to give Alejandro some time to confirm that you
-addressed his bash related comment.
+With this, how is it going to be built at all? Only by invoking the special
+target "manually" as it seems? Which sets this up for easy bit-rotting. I
+wonder what others think here ...
 
 Jan
-
-> +# This script is intended to be run only from the oss-fuzz docker framework
-> +# See https://google.github.io/oss-fuzz/getting-started/new-project-guide/#buildsh
-> +cd xen
-> +./configure --disable-stubdom --disable-pvshim --disable-docs --disable-xen --with-system-qemu
-> +make clang=y -C tools/include
-> +make clang=y -C tools/fuzz/x86_instruction_emulator libfuzzer-harness
-> +cp tools/fuzz/x86_instruction_emulator/libfuzzer-harness $OUT/x86_instruction_emulator
-
 
