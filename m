@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BF209391BB
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 17:25:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762203.1172325 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81ACE9391DB
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 17:32:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762214.1172335 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVuuU-0008PF-Rj; Mon, 22 Jul 2024 15:25:10 +0000
+	id 1sVv1B-0002SS-LC; Mon, 22 Jul 2024 15:32:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762203.1172325; Mon, 22 Jul 2024 15:25:10 +0000
+Received: by outflank-mailman (output) from mailman id 762214.1172335; Mon, 22 Jul 2024 15:32:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVuuU-0008Ne-NP; Mon, 22 Jul 2024 15:25:10 +0000
-Received: by outflank-mailman (input) for mailman id 762203;
- Mon, 22 Jul 2024 15:25:09 +0000
+	id 1sVv1B-0002Pi-Hg; Mon, 22 Jul 2024 15:32:05 +0000
+Received: by outflank-mailman (input) for mailman id 762214;
+ Mon, 22 Jul 2024 15:32:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVuuT-0008NY-08
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 15:25:09 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1sVv1A-0002Pc-Me
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 15:32:04 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 932ef0f6-483e-11ef-8776-851b0ebba9a2;
- Mon, 22 Jul 2024 17:25:06 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5a10bb7b237so3872163a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 08:25:06 -0700 (PDT)
+ id 8b3174dd-483f-11ef-8776-851b0ebba9a2;
+ Mon, 22 Jul 2024 17:32:02 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-52f00ad303aso1929124e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 08:32:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5a30c7d30a0sm6307989a12.83.2024.07.22.08.25.05
+ 4fb4d7f45d1cf-5a30af837e5sm6280515a12.43.2024.07.22.08.32.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 08:25:05 -0700 (PDT)
+ Mon, 22 Jul 2024 08:32:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 932ef0f6-483e-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 8b3174dd-483f-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721661906; x=1722266706; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721662322; x=1722267122; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CqEvfyyxNNGQfu+BQ10gGIuY/jWL5R9RFbGKJU6Bnkk=;
-        b=KCrGJUzWLjnA4FwqZt6iBeN5d9I3ESKu5cn/UVpoYCLNCxW7SV72Up4oUMXHkh8LzK
-         lVA3xPGBv9hh7yqlnMpCYMI6WdBeT1zYwu9HHihpS4WoSz0/CBzmxQK8Y+ymuNfpCokK
-         83NS1efdbvatwbjPUeRnOg7vcGSEQi9ZMpCAz2cut8xaVYoIqRF+RSBCpkDuAWyhDj5V
-         tOg1K58xBbKhgDLzoNoV6Zwda8jYpuAhkuoN5Mzo6d73Emlvlb5p22FEEMH3Od1MdYUs
-         cpOsuEILwpdqwqRicYBPBQyxcVgs+kDaOcr6eA2Uq/BR8rgd3SXRRnVFMzPJ7zp13QC0
-         P9uA==
+        bh=SOIZAqBEbDi9h0PwNo+bs4UheO9DVZgDsoH+Y10LPAQ=;
+        b=FZRiSsRnHM93KpGQJzHdaU0qt4njPwHPn2xqr1I0QE1pAfaOb/f5LriI2exOUxpVRK
+         aSNqeBxo9Eth4KtUdru9lly2jUghCmKNMXOZjyEiWKXfQMnOKcOJHxZLjthhX2/Toy9J
+         BhypqFQA+JSqKbE2Lvp7z5v8peSeU3OzOGZ5hlPYMI41Sd7OtvisiOy1UE+/pvQjTzdy
+         Zjlr4YgopzNvGTcxz+ufgrbhpkmmkaTnws4ejjehpLYfijapXw/IYYYgMBJlU4m14tpV
+         wIZYQ4G8HcMh1KJv6VZmpYqDaqjcDDDL6W2mi4I6ZGlKyj11APmWRZu2gzCDzmT6fuMT
+         E4FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721661906; x=1722266706;
+        d=1e100.net; s=20230601; t=1721662322; x=1722267122;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CqEvfyyxNNGQfu+BQ10gGIuY/jWL5R9RFbGKJU6Bnkk=;
-        b=E9faG+fyHRYgIWTbqhNtVaSeKE6+XfeV4p6Gh6bGaNMOQtEAmoESswLblJAQokcwTl
-         N4S0jxqRGrfTb39MndXJcAL1coDwduuszruG+msp8ItcovRNucU/ZEmWLd9w+Nb85xgR
-         vzOBA12i/GZEklrcX8P/ymqLrMapJYOx0XXVAhuG6xKsreHX67DFa3ga4QmhhREGz2d6
-         cJIlUURfW794hIo9ShqYkgE5HWmB/RdeQBnLCbSGunRHslbqVdpZ6QFWC8+QnNBKp0nf
-         xbKIw2XdThrV7cakvirVex9tE+Bw3oDQTTBulE/93fBJM/OS/WH3sD3SIbDclpgEzOjY
-         7urA==
-X-Forwarded-Encrypted: i=1; AJvYcCVyxbotFUzOFXEMDqMJqCIGRibFZsG6cNaLvtxB3EvNmmxRJuBgTceeMOCNjBfhvYh3Fzv0qavJaWSypoQIbU1anBmgbX9EYnS7wC9EQW0=
-X-Gm-Message-State: AOJu0Yym6Xga6UmwQMYV0gPjBrJBRcsnHAP5OlF1M6Wqt7ovGUj+Vjgx
-	tnHImVwf2wskDhhAFnDjP8M9t+W9x6q0LKyoPp9YxDUT6hNYitm7xUHyf/Vcjg==
-X-Google-Smtp-Source: AGHT+IE9bc+oSdVl/n4OxRKz2ZWt811QEf23iy0O4PeW5GeCz4r6FzNrN2m1MUgwU//Lv02zMgRg0g==
-X-Received: by 2002:a50:8ad8:0:b0:5a2:9683:2bb6 with SMTP id 4fb4d7f45d1cf-5a941a3b8d8mr191795a12.1.1721661906174;
-        Mon, 22 Jul 2024 08:25:06 -0700 (PDT)
-Message-ID: <53e2a88b-8d2d-477a-84cb-5b44af365dbe@suse.com>
-Date: Mon, 22 Jul 2024 17:25:04 +0200
+        bh=SOIZAqBEbDi9h0PwNo+bs4UheO9DVZgDsoH+Y10LPAQ=;
+        b=DMabAenmKjEYoXWF+k7THjBKjU2M3sk66jJT1G6ML09oYq/A2+rO21dFz3Euo9xnRH
+         YRET/S/7voJHrInS1MzW0JDyPzrPJsWmliViLIWV0rMUCx94amvr/S5HIP2501xvRlWp
+         dR7JGCK6is2J1jfEhKlVwobCWTXjDIeibDWYcR4EkDsO41jQHUzWm/Ju5siKbQDmVgMC
+         HbbxcwAKio/Ht8jPR2EVDFO5FGV558pmNkqIhmx5niPtoUciDkpXGeb4RiS8RyZSupQ3
+         7TpVKhOeaHBJavAbajHCXK4zJGgpJL7tQ9C2RlhnUyb3b99Zr64mrG7ZlOo6LQCN7KsQ
+         z17w==
+X-Forwarded-Encrypted: i=1; AJvYcCVc9yuZHx8WdTCfJtWPmHzZWp8p2I675Lh/WdHYPFiWCben5/NbrXJ/kVsWwTnbgZ9/JVUo72O+C4gBn9dB3gR5SFtQKGhN0Aja8IoGG30=
+X-Gm-Message-State: AOJu0Yyey4nFPTlbE5YqyZm0v5c/YPdggRulhAH1sY2a1x78w6g6xmJh
+	yWN5PCs6mBFFYx6etJPekznwnbGTXwjF0Xe9jP45lIbUCB/Ziou/tg0ia1A8Hg==
+X-Google-Smtp-Source: AGHT+IGa+O7tfjLNlXzYyu0VuL/INd4vUsW8KKGD5bgHfkTac1dPvfKCieayTn49cONUW8x9dNG9Ww==
+X-Received: by 2002:a05:6512:3b27:b0:52c:df5f:7b4e with SMTP id 2adb3069b0e04-52fc406f75emr167485e87.38.1721662322180;
+        Mon, 22 Jul 2024 08:32:02 -0700 (PDT)
+Message-ID: <6036a48e-f2ae-4629-ba73-2c78f46234fb@suse.com>
+Date: Mon, 22 Jul 2024 17:32:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/8] xen/riscv: setup fixmap mapping
+Subject: Re: [PATCH v10 4/5] xen/riscv: enable GENERIC_BUG_FRAME
 To: Oleksii <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
- <b1776fb20603cb56b0aea17ef998ea951d2bbda9.1720799926.git.oleksii.kurochko@gmail.com>
- <16648c6c-416d-4205-8d16-38c006251bb9@suse.com>
- <26a45d85fa22a696b629e602e87d5d95626b77f0.camel@gmail.com>
+References: <cover.1720799487.git.oleksii.kurochko@gmail.com>
+ <c2bbbe2ac9f41c19f746418df324212b2e4684a5.1720799487.git.oleksii.kurochko@gmail.com>
+ <5e3be451-188f-4092-a84e-1c40a5ad6b44@suse.com>
+ <16b92dc23daf98d2c55ab42f0d941d9b8888064e.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,74 +117,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <26a45d85fa22a696b629e602e87d5d95626b77f0.camel@gmail.com>
+In-Reply-To: <16b92dc23daf98d2c55ab42f0d941d9b8888064e.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 22.07.2024 16:36, Oleksii wrote:
-> On Mon, 2024-07-22 at 14:42 +0200, Jan Beulich wrote:
->> On 12.07.2024 18:22, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/config.h
->>> +++ b/xen/arch/riscv/include/asm/config.h
->>> @@ -74,11 +74,20 @@
->>>  #error "unsupported RV_STAGE1_MODE"
->>>  #endif
->>>  
->>> +#define XEN_SIZE                MB(2)
->>> +#define XEN_VIRT_END            (XEN_VIRT_START + XEN_SIZE)
->>> +
->>> +#define BOOT_FDT_VIRT_START     XEN_VIRT_END
->>> +#define BOOT_FDT_VIRT_SIZE      MB(4)
->>> +
->>>  #define DIRECTMAP_SLOT_END      509
->>>  #define DIRECTMAP_SLOT_START    200
->>>  #define DIRECTMAP_VIRT_START    SLOTN(DIRECTMAP_SLOT_START)
->>>  #define DIRECTMAP_SIZE          (SLOTN(DIRECTMAP_SLOT_END) -
->>> SLOTN(DIRECTMAP_SLOT_START))
->>>  
->>> +#define FIXMAP_BASE             (BOOT_FDT_VIRT_START +
->>> BOOT_FDT_VIRT_SIZE)
->>> +#define FIXMAP_ADDR(n)          (FIXMAP_BASE + (n) * PAGE_SIZE)
+On 22.07.2024 16:09, Oleksii wrote:
+> On Mon, 2024-07-22 at 13:02 +0200, Jan Beulich wrote:
+>> On 12.07.2024 18:18, Oleksii Kurochko wrote:
+>>> ---
+>>> Changes in V10:
+>>>  - put 'select GENERIC_BUG_FRAME' in "Config RISCV".
+>>>  - rework do_trap() to not fetch an instruction in case when the
+>>> cause of trap
+>>>    is BUG_insn.
 >>
->> Why exactly do you insert this here, and not adjacent to
->> BOOT_FDT_VIRT_*,
->> which it actually is adjacent with?
-> I tried to follow alphabetical order.
-
-Oh, X before B (just making fun) ... Anyway, my take here is that sorting
-by address is going to be more helpful.
-
->>> --- a/xen/arch/riscv/mm.c
->>> +++ b/xen/arch/riscv/mm.c
->>> @@ -49,6 +49,9 @@ stage1_pgtbl_root[PAGETABLE_ENTRIES];
->>>  pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
->>>  stage1_pgtbl_nonroot[PGTBL_INITIAL_COUNT * PAGETABLE_ENTRIES];
->>>  
->>> +pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
->>> +xen_fixmap[PAGETABLE_ENTRIES];
+>> It's BUG_insn here, but then ...
 >>
->> Any reason this cannot be static?
-> It will be used by pmap:
->    static inline void arch_pmap_map(unsigned int slot, mfn_t mfn)
->    {
->        pte_t *entry = &xen_fixmap[slot];
->        pte_t pte;
->    
->        ASSERT(!pte_is_valid(*entry));
->    
->        pte = mfn_to_xen_entry(mfn, PAGE_HYPERVISOR_RW);
->        pte.pte |= PTE_LEAF_DEFAULT;
->        write_pte(entry, pte);
->    }
->    
->    static inline void arch_pmap_unmap(unsigned int slot)
->    {
->        pte_t pte = {};
->    
->        write_pte(&xen_fixmap[slot], pte);
->    }
+>>> @@ -103,7 +104,29 @@ static void do_unexpected_trap(const struct
+>>> cpu_user_regs *regs)
+>>>  
+>>>  void do_trap(struct cpu_user_regs *cpu_regs)
+>>>  {
+>>> -    do_unexpected_trap(cpu_regs);
+>>> +    register_t pc = cpu_regs->sepc;
+>>> +    unsigned long cause = csr_read(CSR_SCAUSE);
+>>> +
+>>> +    switch ( cause )
+>>> +    {
+>>> +    case CAUSE_BREAKPOINT:
+>>
+>> ... BREAKPOINT here? Generally I'd deem something named "breakpoint"
+>> as
+>> debugging related (and hence continuable). I'd have expected
+>> CAUSE_ILLEGAL_INSTRUCTION here, but likely I'm missing something.
+> Agree, that is is confusing, but BUG_insn is defined as ebreak
+> instruction ( Linux kernel uses also ebreak ) and it generates
+> CAUSE_BREAKPOINT.
 
-Yet as asked there - shouldn't that be set_fixmap() and clear_fixmap()?
+I'm curious: How do you / does a debugger tell a breakpoint set on
+such an EBREAK insn (e.g. as a result of a use of WARN_ON()) from
+the original, unmodified insn? If there's a breakpoint, you want
+to forward to the debugger. Whereas if there's no breakpoint, you
+want to process the WARN_ON() normally.
 
 Jan
 
