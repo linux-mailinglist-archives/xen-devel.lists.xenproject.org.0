@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C82A9938F23
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 14:36:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761880.1171925 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7401A938F35
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 14:42:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761888.1171935 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVsHI-000475-FF; Mon, 22 Jul 2024 12:36:32 +0000
+	id 1sVsMt-0006AM-5p; Mon, 22 Jul 2024 12:42:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761880.1171925; Mon, 22 Jul 2024 12:36:32 +0000
+Received: by outflank-mailman (output) from mailman id 761888.1171935; Mon, 22 Jul 2024 12:42:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVsHI-00044b-C1; Mon, 22 Jul 2024 12:36:32 +0000
-Received: by outflank-mailman (input) for mailman id 761880;
- Mon, 22 Jul 2024 12:36:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aIMA=OW=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1sVsHG-00044V-T9
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 12:36:31 +0000
-Received: from fhigh5-smtp.messagingengine.com
- (fhigh5-smtp.messagingengine.com [103.168.172.156])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 022fa498-4827-11ef-8776-851b0ebba9a2;
- Mon, 22 Jul 2024 14:36:27 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailfhigh.nyi.internal (Postfix) with ESMTP id 17DC7114009E;
- Mon, 22 Jul 2024 08:36:24 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 22 Jul 2024 08:36:24 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 22 Jul 2024 08:36:21 -0400 (EDT)
+	id 1sVsMt-000680-2d; Mon, 22 Jul 2024 12:42:19 +0000
+Received: by outflank-mailman (input) for mailman id 761888;
+ Mon, 22 Jul 2024 12:42:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sVsMr-00066N-EM
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 12:42:17 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d39492f6-4827-11ef-bbfe-fd08da9f4363;
+ Mon, 22 Jul 2024 14:42:16 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a77e2f51496so430970866b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 05:42:16 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7a3c785f31sm416374466b.30.2024.07.22.05.42.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Jul 2024 05:42:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,187 +45,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 022fa498-4827-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1721651784;
-	 x=1721738184; bh=ypN56BFl3s/Ve7LjwV+i/fBSIKNDeBuN4CBqgZWT0bU=; b=
-	Fhel1vZjPWtWA4NMk4fDTP1EgloSpj0gcFa95paBtajCvjxvEGombqew1SZcLLGn
-	r2HJHWQ7B1QzBQqo9EHQ43AYUp4LpCQ723S0NuTI/KNKHpo03ejjNjqow0OIe82X
-	IoHha2SkgsgZ4zb5ymQSMdB3mcCarkC8vLvt3Hf9wXHrXhU/T57n/M5gvM+6O0be
-	DuvEu1IZiX6bQLaza5RASyVOJYhwOJMfklGyHEG3J9qMwvK+vLnaS2hgq6lawoQg
-	ktK/n1BsoKPLhkJRxxrG48hKUZcHBeoXo1AWYr+1TMNpv31l9AL6ST5LI3KhNYv8
-	xY5IasuNSCv/wJ77xVm1CQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1721651784; x=1721738184; bh=ypN56BFl3s/Ve7LjwV+i/fBSIKND
-	eBuN4CBqgZWT0bU=; b=USEtC55WWS9V9OZOGlEellQ+wR8VcWrRjMLDKYX+Un+s
-	PKGR5Lizg3w+FD5ckW4jAsJ2ldxEVtn4ZvFk87yse2XJvjfLFGqzAHcX/DyoVxku
-	2pDIbxnu31MC/Xh1smABJe+7tlq6ykI0+RX/Fg7rztCPxWByZYJINdFtDh0Flgz3
-	z6NvhcwPx3MuYppASSXLYNb09qqrd9b0zryQln05XChqsFiIIGh3n+ZtZiUwROuY
-	DEWCIFEXj8yVDidonHiQkC1LOk3xmghQU7eU/ObNI/ruaSeg4y1M0lbN82jztsQv
-	mAc7tym3D6NdDCfRKhbs9QcSdEmFWk8qgbT75oT0OA==
-X-ME-Sender: <xms:R1KeZg-0ioQz_hFhzgdAGYPRzun9ofR9NuasHVDIKOcQRuCCSF4_Rw>
-    <xme:R1KeZotAnlTtxBSUdbCnolo758v5Dmt_9VpPQYgdos6CV2epGqVquyOaKcegHqItR
-    Pfpxx4t4-BS5Q>
-X-ME-Received: <xmr:R1KeZmC14jbktXl79LEHhH4AC8LqU8S7YTNCIJAk_R7CmBOo82EkITipHK5dhKm3KyZtZAUGxSghkU7j2TWms0_-AJWy3TcXYw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrheejgdehgecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
-    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:R1KeZgfm3sYAkjSnW74rhkYQNLqxi0Z-uBuVgkGsb5vOdCp5GJ1y7A>
-    <xmx:R1KeZlP_SUxsyq80jjYfwQ02sTSKp0VRs06B15qLwhoDVK8ADNXazg>
-    <xmx:R1KeZqnkUNJgYG5zyQfKUMt4bQRiexF_QUC_AcYV0DieqzwOwqV48A>
-    <xmx:R1KeZnvDSgYS11LusPDJH3zYfPTGNoD83zJS2VKZPkA-7RkdoJKq6A>
-    <xmx:SFKeZmrWh0Pa_ygwIx4T3-0F_pTFw9_7N8WBYmyrYhKi0aj5yjHifROQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 22 Jul 2024 14:36:15 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v5 2/3] x86/mm: add API for marking only part of a MMIO
- page read only
-Message-ID: <Zp5SQlB_QR47NmtY@mail-itl>
-References: <cover.8c9972382c46fce22682bcec2ee28fe2501dd18f.1721356393.git-series.marmarek@invisiblethingslab.com>
- <f0b36fb78b87d2f06c0d33da28ba16cd1d2fa8b9.1721356393.git-series.marmarek@invisiblethingslab.com>
- <dce600a3-4b1c-47e9-b336-42ca32e309c5@suse.com>
+X-Inumbo-ID: d39492f6-4827-11ef-bbfe-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1721652136; x=1722256936; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cu5FYPa3xDXi8Co0MiMRV9ZwcRFK9Bx4tlWAmxNchAA=;
+        b=Dx2a97Mdnnazfd0ORd7ocThoxES/HN3U0NK3IYKPeeAwHeEW8SIrgGchhaR5hl+wqm
+         qfqS7G0UBHU5nfgUFlUdq9zyva9IDlqAuUJs/RiD9rOBt5SWqhnMlH1tLB3KMOaTkpbc
+         5ZYtRIOQQpBIpvredZOBK4gAsOJKCGk2hYU0oEHci2AkuqjY236QzB0bL+TuvBo3kqD3
+         Wk4/ESkEDqxND23SxPUTtvht0os0eseHAT3T21TfI8zHQBK1eN6SaaS+eoyf+Nm7sE+t
+         w6bu5H4duj7Z/8JIhFxG8KvUIuKTUEIHNA1UPEH9t5fGjp9DQIUb88eegP5uG2cfnwaG
+         AUlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721652136; x=1722256936;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Cu5FYPa3xDXi8Co0MiMRV9ZwcRFK9Bx4tlWAmxNchAA=;
+        b=sS0tJhrOHXwyyUNHghLclACUP4VreftLYZI5qfWVEpyzJ/pHgEi0WILKVoZS4irsoI
+         qSbIygOt8plpQ8+522xKKFGKiDjuM98Q4I3p1gFYbzUZH1+i9TEMaToOCjTPLE4gy5pd
+         Fxzx0u8tnc/5N9HXl5T/tpHYt88gPMQde9GU7N5b1nZV4b7AUXh51/YVKnRfEdIi8opU
+         GTHTfE7gT37WkItqX00X38rlYHaPtnNfB0qr76Skt1rpEHvfdyEWFK0pAV9daCRt9QQv
+         uxHmWYzvN8DcLyH3q652LBQiWoyrLemsJTtdWUhh9URmEmPhl3/ZoEAEQzOOqHKc3s+J
+         GLgg==
+X-Forwarded-Encrypted: i=1; AJvYcCUi1BQ07iMHSh7MRoOO45ghD/65HSbplY3w5RY1a57eOQPxU8KzF/3AaWCqdyHABi49IpHg3YX65W5IglZvQ7Zqz6ojt5hdoUmtLRay1Gg=
+X-Gm-Message-State: AOJu0Yzau6ikkHmcV3Aw4XGdzxFw5uhUCDP0niYBwhKymCjihSj7zol2
+	UdSMmeb+i0ukA0VtuMPDJWxiThW+W7wauCF+lyel9djViPVxS8Vz9lzgAYSOSg==
+X-Google-Smtp-Source: AGHT+IEIEcXXu13amj/sNql9hhkbADHp46yUR1y2USBO12JSj8ICivhHvOJBfH45LgBJP7+kbecAzA==
+X-Received: by 2002:a17:906:d555:b0:a72:8a75:6559 with SMTP id a640c23a62f3a-a7a4c3f8f77mr416527666b.47.1721652135743;
+        Mon, 22 Jul 2024 05:42:15 -0700 (PDT)
+Message-ID: <16648c6c-416d-4205-8d16-38c006251bb9@suse.com>
+Date: Mon, 22 Jul 2024 14:42:14 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="YYya+0V9dO8Q4qkD"
-Content-Disposition: inline
-In-Reply-To: <dce600a3-4b1c-47e9-b336-42ca32e309c5@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/8] xen/riscv: setup fixmap mapping
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
+ <b1776fb20603cb56b0aea17ef998ea951d2bbda9.1720799926.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <b1776fb20603cb56b0aea17ef998ea951d2bbda9.1720799926.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 12.07.2024 18:22, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/include/asm/config.h
+> +++ b/xen/arch/riscv/include/asm/config.h
+> @@ -74,11 +74,20 @@
+>  #error "unsupported RV_STAGE1_MODE"
+>  #endif
+>  
+> +#define XEN_SIZE                MB(2)
+> +#define XEN_VIRT_END            (XEN_VIRT_START + XEN_SIZE)
+> +
+> +#define BOOT_FDT_VIRT_START     XEN_VIRT_END
+> +#define BOOT_FDT_VIRT_SIZE      MB(4)
+> +
+>  #define DIRECTMAP_SLOT_END      509
+>  #define DIRECTMAP_SLOT_START    200
+>  #define DIRECTMAP_VIRT_START    SLOTN(DIRECTMAP_SLOT_START)
+>  #define DIRECTMAP_SIZE          (SLOTN(DIRECTMAP_SLOT_END) - SLOTN(DIRECTMAP_SLOT_START))
+>  
+> +#define FIXMAP_BASE             (BOOT_FDT_VIRT_START + BOOT_FDT_VIRT_SIZE)
+> +#define FIXMAP_ADDR(n)          (FIXMAP_BASE + (n) * PAGE_SIZE)
 
---YYya+0V9dO8Q4qkD
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jul 2024 14:36:15 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v5 2/3] x86/mm: add API for marking only part of a MMIO
- page read only
+Why exactly do you insert this here, and not adjacent to BOOT_FDT_VIRT_*,
+which it actually is adjacent with? Then ...
 
-On Mon, Jul 22, 2024 at 02:09:15PM +0200, Jan Beulich wrote:
-> On 19.07.2024 04:33, Marek Marczykowski-G=C3=B3recki wrote:
-> > @@ -4910,6 +4921,254 @@ long arch_memory_op(unsigned long cmd, XEN_GUES=
-T_HANDLE_PARAM(void) arg)
-> >      return rc;
-> >  }
-> > =20
-> > +static void __iomem *subpage_mmio_find_page(mfn_t mfn)
-> > +{
-> > +    struct subpage_ro_range *entry;
->=20
-> With the function returning void*, my first reaction was to ask why this
-> isn't pointer-to-const. Yet then ...
->=20
-> > +    list_for_each_entry(entry, &subpage_ro_ranges, list)
-> > +        if ( mfn_eq(entry->mfn, mfn) )
-> > +            return entry;
->=20
-> ... you're actually returning entry here, just with its type zapped for
-> no apparent reason. I also question the __iomem in the return type.
+>  #define FRAMETABLE_SCALE_FACTOR  (PAGE_SIZE/sizeof(struct page_info))
+>  #define FRAMETABLE_SIZE_IN_SLOTS (((DIRECTMAP_SIZE / SLOTN(1)) / FRAMETABLE_SCALE_FACTOR) + 1)
 
-Right, a leftover from some earlier version.
+... this would also stay next to DIRECTMAP_*, which it uses.
 
-> > +static int __init subpage_mmio_ro_add_page(
-> > +    mfn_t mfn,
-> > +    unsigned int offset_s,
-> > +    unsigned int offset_e)
-> > +{
-> > +    struct subpage_ro_range *entry =3D NULL, *iter;
-> > +    unsigned int i;
-> > +
-> > +    entry =3D subpage_mmio_find_page(mfn);
-> > +    if ( !entry )
-> > +    {
-> > +        /* iter =3D=3D NULL marks it was a newly allocated entry */
-> > +        iter =3D NULL;
->=20
-> Yet you don't use "iter" for other purposes anymore. I think the variable
-> wants renaming and shrinking to e.g. a simple bool.
+> --- a/xen/arch/riscv/include/asm/page.h
+> +++ b/xen/arch/riscv/include/asm/page.h
+> @@ -81,6 +81,13 @@ static inline void flush_page_to_ram(unsigned long mfn, bool sync_icache)
+>      BUG_ON("unimplemented");
+>  }
+>  
+> +/* Write a pagetable entry. */
+> +static inline void write_pte(pte_t *p, pte_t pte)
+> +{
+> +    *p = pte;
+> +    asm volatile ("sfence.vma");
 
-+1
+When they don't have operands, asm()-s are volatile anyway (being explicit
+about this may still be desirable, yes). But: Can you get away without
+operands here? Don't you need a memory clobber for the fence to actually
+remain where it is needed?
 
-> > +        entry =3D xzalloc(struct subpage_ro_range);
-> > +        if ( !entry )
-> > +            return -ENOMEM;
-> > +        entry->mfn =3D mfn;
-> > +    }
-> > +
-> > +    for ( i =3D offset_s; i <=3D offset_e; i +=3D MMIO_RO_SUBPAGE_GRAN=
- )
-> > +    {
-> > +        bool oldbit =3D __test_and_set_bit(i / MMIO_RO_SUBPAGE_GRAN,
-> > +                                        entry->ro_elems);
->=20
-> Nit: Indentation looks to be off by 1 here.
->=20
-> > +        ASSERT(!oldbit);
-> > +    }
-> > +
-> > +    if ( !iter )
-> > +        list_add(&entry->list, &subpage_ro_ranges);
->=20
-> What's wrong with doing this right in the earlier conditional?
->=20
-> > +int __init subpage_mmio_ro_add(
-> > +    paddr_t start,
-> > +    size_t size)
-> > +{
-> > +    mfn_t mfn_start =3D maddr_to_mfn(start);
-> > +    paddr_t end =3D start + size - 1;
-> > +    mfn_t mfn_end =3D maddr_to_mfn(end);
-> > +    unsigned int offset_end =3D 0;
-> > +    int rc;
-> > +    bool subpage_start, subpage_end;
-> > +
-> > +    ASSERT(IS_ALIGNED(start, MMIO_RO_SUBPAGE_GRAN));
-> > +    ASSERT(IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN));
-> > +    if ( !IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN) )
-> > +        return -EINVAL;
->=20
-> I think I had asked before: Why is misaligned size something that wants a
-> release build fallback to the assertion, but not misaligned start?
+Also, nit (style): Blanks missing.
 
-Misaligned start will lead to protecting larger area, not smaller, so it
-is not unsafe thing to do. But I can also make it return an error, it
-shouldn't happen after all.
+> --- a/xen/arch/riscv/mm.c
+> +++ b/xen/arch/riscv/mm.c
+> @@ -49,6 +49,9 @@ stage1_pgtbl_root[PAGETABLE_ENTRIES];
+>  pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+>  stage1_pgtbl_nonroot[PGTBL_INITIAL_COUNT * PAGETABLE_ENTRIES];
+>  
+> +pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+> +xen_fixmap[PAGETABLE_ENTRIES];
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Any reason this cannot be static?
 
---YYya+0V9dO8Q4qkD
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmaeUkIACgkQ24/THMrX
-1yxzWwf/XX6LeOUlrcfSwO7/Yn9gRodsIRsJlfaoqA8Ztd/IVkYdZuesfmH14RHD
-5H/BeLoAaVfLiAVYm5EDq8Wz93Dfz/MqnalAVwJxEP0XRf31QQi5b/mzlAZ5idlB
-IqU/vzzQ/am8NIyTcLJh6mCspDjRc/TomhI3hAYyU3b+Z+fR6mR5HvsoaebJ7sIO
-WYgeYUP4cB84sgk491n2uRTV7m7Ixoo61FPbdlWVUVjS64GAwxAIz916naYRjYJR
-Zetz06m4jXz9i6B845kjQMEaATfPjoIg8l210/v1SK77smiSIr4oFUhbd9HtfluS
-wrlUrJNLPLaOjEZwrITO7xHU6TUu0g==
-=rYLJ
------END PGP SIGNATURE-----
-
---YYya+0V9dO8Q4qkD--
+Jan
 
