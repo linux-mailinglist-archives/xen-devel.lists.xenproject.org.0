@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB93C9389E5
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 09:16:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761507.1171439 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F6A39389F9
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 09:23:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761520.1171453 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVnGo-00080Q-SG; Mon, 22 Jul 2024 07:15:42 +0000
+	id 1sVnO5-0001NZ-KS; Mon, 22 Jul 2024 07:23:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761507.1171439; Mon, 22 Jul 2024 07:15:42 +0000
+Received: by outflank-mailman (output) from mailman id 761520.1171453; Mon, 22 Jul 2024 07:23:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVnGo-0007yc-Pb; Mon, 22 Jul 2024 07:15:42 +0000
-Received: by outflank-mailman (input) for mailman id 761507;
- Mon, 22 Jul 2024 07:15:41 +0000
+	id 1sVnO5-0001Lz-HP; Mon, 22 Jul 2024 07:23:13 +0000
+Received: by outflank-mailman (input) for mailman id 761520;
+ Mon, 22 Jul 2024 07:23:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVnGn-0007yW-KD
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 07:15:41 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1sVnO3-0001Ls-N7
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 07:23:11 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 338f58bb-47fa-11ef-bbfe-fd08da9f4363;
- Mon, 22 Jul 2024 09:15:40 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a77c349bb81so368707666b.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 00:15:40 -0700 (PDT)
+ id 3ff3b810-47fb-11ef-bbfe-fd08da9f4363;
+ Mon, 22 Jul 2024 09:23:10 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2ef248ab2aeso21277061fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 00:23:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c9233c5sm382848266b.185.2024.07.22.00.15.39
+ a640c23a62f3a-a7a3c922b75sm381440166b.180.2024.07.22.00.23.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 00:15:39 -0700 (PDT)
+ Mon, 22 Jul 2024 00:23:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 338f58bb-47fa-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: 3ff3b810-47fb-11ef-bbfe-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721632540; x=1722237340; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721632990; x=1722237790; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=I+/Vgod0fktbuHqI7yZLmkeiuCeHf5w5rjOdro5VCqU=;
-        b=USdB+YbGUFvmvi/4JTu0J8AYkGe/lzFnUwzZDnCx2H0mQtrNtgW400u7rlGWALzPJy
-         fpa1kEmGkthvCaC478u2nSOYWUm96tTaPPi3Lz2+dxWjeUcqsfzmikwllYksUabcenP1
-         wt3CfNvUFyMEhr9GbIXuxg//QfFYk4+tH1Afc7K6HPj/J4X1p0EkwfoLRMIjnpjzTLrL
-         XsqgWHDYEKJWQYF3olproVG0TXndogXwZwag89FijT5ft0d8e1eOV1pNFOmciSwqsrPn
-         7E0bF+1m8CvbGfgBEpsZx19a1AlzOV53Sm9Hp98KXFh8hr/wN/7ajywL/3YJK5Ha7ffz
-         FnhA==
+        bh=YFZUySdDi7DXHjs1J1a/uwX9YShs8m5Umy+CQL7fxBQ=;
+        b=OYEcn/bcsmm+cCuwniV9oywDvnyjollgi7yuSGu/g+PnY9Jm+T/kmAhM0RKptgGqrj
+         wKKrlwGZP2A+B+jhDX9P9/6i4yACCLJhabllbqDoQtXxwU1Zfg7f0tgcLTOwtC63eZuV
+         7S6CCS7TSEM5cpmQI9dcmlT+hj2UPtA9KhrfL0PMloBHqzKs/WqKV7xvV+7sZJM/G3El
+         J7ekX7gP5LzvXkHjyAXreJk76yz1uPzPLmRz+YSF79mVg3UtZm/fU6iYudghbfpClt4f
+         mlt/ah0Ju4tlyg1HdyjtE6DDa14zqGLYUHptYZ3saJORmJqGtgdBDNnp3yRG96/MhAod
+         tqRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721632540; x=1722237340;
+        d=1e100.net; s=20230601; t=1721632990; x=1722237790;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=I+/Vgod0fktbuHqI7yZLmkeiuCeHf5w5rjOdro5VCqU=;
-        b=pQjB8cW5Q0jKRECohLMhxwUEUfW8MEod/kt2KCCVYzLUclf5CWsRABr0UaOpkpK4Aw
-         LgD344rM4LEZ4J5Krk0+vR6GhkFNbGWUBK3HVjo9tvcew8jazd12gwMNqOCf/SYfu84w
-         FcNiP0p8QuN84URxDxuQaVe7GV/Eh6gxjbdKjgLELtMbcjHX/PuD4NVZA8b/AufncqCt
-         VoaNGMdHzlTNqsVSRwptYVMOv0bqg2sU/ax6cUEwblBdTZvDQYvWIFKhQgbkhd/mKmoi
-         QpcTlvbp+gtcqXUwAlB36s0LvjtiEtYSWcXr7ZW+kI+9FESD5NtMxHeh8A9xGgWtppHY
-         qHEA==
-X-Forwarded-Encrypted: i=1; AJvYcCWXdB7S4TVU7K53ZMFZdvcHaTI0F7bVdKlSS5Qc4g5aOZiIUIF18b2640W7tUyDaPSc3l8p85wAdIQgKLg8+IrxLhY2bCIT/fPHUsKXGDw=
-X-Gm-Message-State: AOJu0YwAjbJ51aX2RTmw/3Y9kpcflF73WGUsxAAvVqy63SJHP7kDE8Qo
-	u+GwySiKscyrvANyP0fjE1dSD2KgzF/CZJ+FYQ6SdWIofdx7jN0ewW4kngCJkQ==
-X-Google-Smtp-Source: AGHT+IGgYTCy7irMQCSlIXJ4qjae7T7NyhhHviRZAyBf6PzP4paIYcQcGtGbLIRSsiSayYaA0Ob7rA==
-X-Received: by 2002:a17:906:6a19:b0:a75:25ff:550d with SMTP id a640c23a62f3a-a7a4c010608mr356163866b.26.1721632540008;
-        Mon, 22 Jul 2024 00:15:40 -0700 (PDT)
-Message-ID: <0c76f87a-ca46-4511-9a6d-9ffc10815295@suse.com>
-Date: Mon, 22 Jul 2024 09:15:38 +0200
+        bh=YFZUySdDi7DXHjs1J1a/uwX9YShs8m5Umy+CQL7fxBQ=;
+        b=kd3CSgYXYZ1ojAejGCS2vBlefIYrdEmGC6rg2KUyxWM8IPgM7bx86elp1P5TYPE2f3
+         ko9BT9zON0AY3SGSZOCMTvGbVEk5rZrIPV3WAJAR+4iDRcnZq9fElO2JDYTouOhwdgV0
+         s7wO6Q34jaCncRfplmhZ+hwUHChze1qGLDchOJCl/EeEfGbUVD6bhk0Ley/nXOf21KvM
+         hLMRFMh9TFTn6r2BTMzNO4nSi+LlYr4YT7GNjvj8K0G7Dfl1IDSurPvvBSdd8vrMhynY
+         d/LoDJXo2iO3OxYFQNHYqYXmHe/1YG/TRq8nyWklgKGfEUBx08TQEtOwHfS+yPZwj6oi
+         qdUw==
+X-Forwarded-Encrypted: i=1; AJvYcCW0qyzzbwQZ5mXMSrqzKTdEpQcPs3wICR9n3ds1o9DS49hMQdb5gkpBTDO/IVrD/cfAh8ALaXWkKAfH9FFTCDZ2ZbmD0A5LMLA9FJN2FSw=
+X-Gm-Message-State: AOJu0YyHnadntrIdYwOPfKQ7QpaMxyjPZvWXJ76OfvtRoMYL8FU6SdRQ
+	tXRnCUrAyI0SX+PMTNoRtArOnCln71sXWTaM/JPyn/zfJTDPSeLl5EH7Raf4IQ==
+X-Google-Smtp-Source: AGHT+IFkk/tg56+tVywQO+Ev1FuGFUMmZkuGMErwPPyyMVI7iCjFJrC7kVfSZfnphsXfnCDO3AMGqA==
+X-Received: by 2002:a2e:9d94:0:b0:2ef:2c68:a776 with SMTP id 38308e7fff4ca-2ef2c68a7f8mr26287651fa.37.1721632990152;
+        Mon, 22 Jul 2024 00:23:10 -0700 (PDT)
+Message-ID: <be94ac73-cb8f-4bb3-a529-4c3b47a939b3@suse.com>
+Date: Mon, 22 Jul 2024 09:23:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] Mini-OS: add some macros for asm statements
-To: Juergen Gross <jgross@suse.com>
-Cc: samuel.thibault@ens-lyon.org, wl@xen.org,
- minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
-References: <20240719155701.18856-1-jgross@suse.com>
+Subject: Re: [PATCH 4/4] arch/domain: Clean up the idle domain remnants in
+ arch_domain_create()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240718215744.3892072-1-andrew.cooper3@citrix.com>
+ <20240718215744.3892072-5-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -111,73 +118,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240719155701.18856-1-jgross@suse.com>
+In-Reply-To: <20240718215744.3892072-5-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.07.2024 17:57, Juergen Gross wrote:
-> --- a/arch/x86/sched.c
-> +++ b/arch/x86/sched.c
-> @@ -60,16 +60,10 @@ void dump_stack(struct thread *thread)
->      unsigned long *bottom = (unsigned long *)(thread->stack + STACK_SIZE); 
->      unsigned long *pointer = (unsigned long *)thread->sp;
->      int count;
-> -    if(thread == current)
-> -    {
-> -#ifdef __i386__    
-> -        asm("movl %%esp,%0"
-> -            : "=r"(pointer));
-> -#else
-> -        asm("movq %%rsp,%0"
-> -            : "=r"(pointer));
-> -#endif
-> -    }
-> +
-> +    if ( thread == current )
-> +        asm("mov %%"ASM_SP",%0" : "=r"(pointer));
-
-As you switch the if() to Xen style, why not also the asm()? Irrespective of
-which precise style is meant to be used, the last closing double quote likely
-also wants to be followed by a blank?
-
-> @@ -119,20 +113,12 @@ struct thread* arch_create_thread(char *name, void (*function)(void *),
+On 18.07.2024 23:57, Andrew Cooper wrote:
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -791,23 +791,6 @@ int arch_domain_create(struct domain *d,
 >  
->  void run_idle_thread(void)
->  {
-> -    /* Switch stacks and run the thread */ 
-> -#if defined(__i386__)
-> -    __asm__ __volatile__("mov %0,%%esp\n\t"
-> -                         "push %1\n\t" 
-> -                         "ret"                                            
-> -                         :"=m" (idle_thread->sp)
-> -                         :"m" (idle_thread->ip));                          
-> -#elif defined(__x86_64__)
-> -    __asm__ __volatile__("mov %0,%%rsp\n\t"
-> -                         "push %1\n\t" 
-> -                         "ret"                                            
-> -                         :"=m" (idle_thread->sp)
-> -                         :"m" (idle_thread->ip));                                                    
-> -#endif
-> +    /* Switch stacks and run the thread */
-> +    asm volatile ("mov %[sp], %%"ASM_SP"\n\t"
-> +                  "jmp *%[ip]\n\t"
-> +                  :
-> +                  : [sp] "m" (idle_thread->sp),
-> +                    [ip] "m" (idle_thread->ip));
->  }
+>      spin_lock_init(&d->arch.e820_lock);
+>  
+> -    /* Minimal initialisation for the idle domain. */
+> -    if ( unlikely(is_idle_domain(d)) )
+> -    {
+> -        arch_init_idle_domain(d);
+> -
+> -        d->arch.cpu_policy = ZERO_BLOCK_PTR; /* Catch stray misuses. */
 
-Here instead you look to be switching to Linux style. Was that intended?
-
-As an aside, I think the construct is slightly problematic: In principle
-the compiler could make a copy of idle_thread->ip on the stack. (It
-won't normally, for code efficiency reasons.) That would break with the
-earlier change of the stack pointer. Using an "r" constraint would
-perhaps be better there. Yet if so wanted, that would certainly be a
-separate change.
-
-With the adjustments (or respective clarifications as to style intentions),
-which I'd be fine making while committing so long as you agree:
+This line looks to be lost in the process. Already in an earlier patch it
+should move to arch_init_idle_domain(), shouldn't it? With that adjustment
+for the entire series:
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
+
 
