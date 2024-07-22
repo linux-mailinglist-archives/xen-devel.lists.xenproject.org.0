@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60614938EFB
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 14:17:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761819.1171890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8473C938F06
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 14:20:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761853.1171905 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVryV-000773-E4; Mon, 22 Jul 2024 12:17:07 +0000
+	id 1sVs1i-00014V-V6; Mon, 22 Jul 2024 12:20:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761819.1171890; Mon, 22 Jul 2024 12:17:07 +0000
+Received: by outflank-mailman (output) from mailman id 761853.1171905; Mon, 22 Jul 2024 12:20:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVryV-00074C-B0; Mon, 22 Jul 2024 12:17:07 +0000
-Received: by outflank-mailman (input) for mailman id 761819;
- Mon, 22 Jul 2024 12:17:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sVs1i-00012O-Rm; Mon, 22 Jul 2024 12:20:26 +0000
+Received: by outflank-mailman (input) for mailman id 761853;
+ Mon, 22 Jul 2024 12:20:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JAiy=OW=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sVryU-0005pO-6s
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 12:17:06 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4f112dc2-4824-11ef-bbfe-fd08da9f4363;
- Mon, 22 Jul 2024 14:17:05 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0B7A921849;
- Mon, 22 Jul 2024 12:17:04 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CF2B2138A7;
- Mon, 22 Jul 2024 12:17:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id txsdMb9NnmYtIQAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 22 Jul 2024 12:17:03 +0000
+ (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sVs1h-00012I-1u
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 12:20:25 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c4d86b2d-4824-11ef-8776-851b0ebba9a2;
+ Mon, 22 Jul 2024 14:20:23 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-52f04150796so1097315e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 05:20:23 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7a3c785b89sm415683066b.36.2024.07.22.05.20.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Jul 2024 05:20:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,176 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f112dc2-4824-11ef-bbfe-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1721650625; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vN1oYJgnKGXgHS+7WZJ4Q18USh1zc0tS4qvELPG//0g=;
-	b=l6XNNSormHLDQBcjM97GIRBqTF/133nH+AlzKg2vtmDgbPPgW7gRbZvsyqJdqBOmZYdN9x
-	qi82ljcj/E5XsQKv15B1S4EQ5cc3qZoMxJXazlsrIpnPD053XrNpB6twXWKE80MIlWI4QT
-	oihsNOqNqs2ticUVAwyB2UUKuBgWehs=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=O3T7queS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1721650624; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vN1oYJgnKGXgHS+7WZJ4Q18USh1zc0tS4qvELPG//0g=;
-	b=O3T7queSEzN2XVVxG1f++WZkkjdp+K9+jUCCfCabUE6kDkip/ZXjYjQh5jSWg1a/bKhNKh
-	zqAvjlvq1Xv8SMmB50p1oYh/B9Wng2HGgaH9Q9rV7ICEaBCEyXi8JueZ/53kTXZ+1Vhbzg
-	GtYNCJPoLBSYtEtQOv9i/UKLTmOQPRg=
-From: Juergen Gross <jgross@suse.com>
-To: minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org,
-	wl@xen.org,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 3/3] mini-os: simplify monotonic_clock()
-Date: Mon, 22 Jul 2024 14:16:43 +0200
-Message-ID: <20240722121643.18116-4-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240722121643.18116-1-jgross@suse.com>
-References: <20240722121643.18116-1-jgross@suse.com>
+X-Inumbo-ID: c4d86b2d-4824-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1721650822; x=1722255622; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fMNh7FBPsBo1tfiC+OaicVwt+SBfn+RT7xkOluCDgEw=;
+        b=DQomlsZsZ9t0Ougi1IjYbDPEV+F4CfcR7hJtoSKcHG9z4yCvn1raA6iDCaZ0e1IXpc
+         fdohKwrfq6hkG2R5KU7yFHTDoNTRP7i3a17iqpqjOj9FT/iWIssICLW8Cg3cQtoMayO5
+         X9S1A4nuuUKGcZTrhjyZXfnUrVV+lTQrRDYneVIVLejrgK27uHg1ZtJgogsTDQCxE2HQ
+         YYM9TlnGk+gopdmx5AZjitSwRGQyd+kNRYv8zQvfvqawGUKl3viIVZw82M0cPxBKx4oI
+         enqRWwP5EKT3ED9z06ecncmXopc0WPTapJb7/ial+13ntFIbA/TgxjhS03Bo21LuFR32
+         Ib2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721650822; x=1722255622;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fMNh7FBPsBo1tfiC+OaicVwt+SBfn+RT7xkOluCDgEw=;
+        b=gTsZtD+W/AanhLsmmbD8e+ugtkijmxSRcYjr8JY6GvJQOaKjHg7DJdHLl57eZUWE+s
+         OT8wSom1WufHAf+eka+SaAcUP0qQla0YAr9Xk2pXFXwfoqb6LVtlHH6ETAUrLFrAGapX
+         N/ZJ8KQbpPA3hMb4hLMIaXx5b5c0x6BoITkA8Y7Ii8wKoy/ncYjc+SS7g+ioCB5phVYH
+         3EG2mULxaL5/pcqA/4VkD9d5ke1FpCn7R23TQAr6fYz4CX+vJTFBfCXNdZdNoGJVIs1h
+         /6/lGPvHf0cNzRBWTDCsckOW/X5JXQZhWh3cDVrVZVrKt/g/LDqmxpgoYAncfqpmBoF/
+         znig==
+X-Forwarded-Encrypted: i=1; AJvYcCWONsRd94a91NJPkmdEc7V1VDcOIDY+yaqJJcU4WTQG6XHj6dpcTDsyf2biMLDpo+O2aYEeSijk6pgsLfJQaj3WD6+9aRTe06LmtVKHiBI=
+X-Gm-Message-State: AOJu0YzvK8dXh+l86ahquWAGRWuA1DyiFW53dJ252F2A3eAWkcaRudnt
+	9IgYFHK6h0Y2HCn33kCXkRkA3UAPWIZIaVaCrG4PjwwuGd+90paFodKV2vkFrg==
+X-Google-Smtp-Source: AGHT+IEZtTsgswGnEBJn3t7Khak3o+4+5720hQ9v+YL1+X1Z6yno4BQW3BqW2wHLHQiEXHvJVQaSVw==
+X-Received: by 2002:a05:6512:3e14:b0:52c:d78b:d0b8 with SMTP id 2adb3069b0e04-52efb780b4amr4695585e87.39.1721650822502;
+        Mon, 22 Jul 2024 05:20:22 -0700 (PDT)
+Message-ID: <9bd41e19-50f7-43e7-b3ce-c2870a836f79@suse.com>
+Date: Mon, 22 Jul 2024 14:20:21 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -3.81
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 0B7A921849
-X-Spamd-Result: default: False [-3.81 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	DWL_DNSWL_LOW(-1.00)[suse.com:dkim];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:dkim,suse.com:email];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] Add tools/fuzz/oss-fuzz/build.sh
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
+References: <20240722112752.4981-1-tamas@tklengyel.com>
+ <20240722112752.4981-2-tamas@tklengyel.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240722112752.4981-2-tamas@tklengyel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-monotonic_clock() in arch/x86/time.c is more complex than needed: it
-has basically two nested loops making sure the time data obtained from
-Xen are valid.
+On 22.07.2024 13:27, Tamas K Lengyel wrote:
+> --- /dev/null
+> +++ b/LICENSES/Apache-2.0
+> @@ -0,0 +1,202 @@
+> +
+> +                                 Apache License
+> +                           Version 2.0, January 2004
+> +                        http://www.apache.org/licenses/
 
-Simplify that by merging some of the used sub-functions into the main
-function and using only a single loop. Further simplify the code by
-using struct vcpu_time_info for the local instance instead of defining
-a similar structure in the code.
+Better https:// (also near the end) nowadays?
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- arch/x86/time.c | 58 ++++++++++++++-----------------------------------
- 1 file changed, 16 insertions(+), 42 deletions(-)
+Other files in this directory also have at least one Valid-License-Identifier:
+line and at least one SPDX-URL: one. Depending on what would be put there, I'd
+then wonder whether ...
 
-diff --git a/arch/x86/time.c b/arch/x86/time.c
-index 7fd7abef..52916e15 100644
---- a/arch/x86/time.c
-+++ b/arch/x86/time.c
-@@ -44,24 +44,10 @@
-  *************************************************************************/
- 
- /* These are peridically updated in shared_info, and then copied here. */
--struct shadow_time_info {
--    uint64_t tsc_timestamp;     /* TSC at last update of time vals.  */
--    uint64_t system_timestamp;  /* Time, in nanosecs, since boot.    */
--    uint32_t tsc_to_nsec_mul;
--    int tsc_shift;
--    uint32_t version;
--};
- static struct timespec shadow_ts;
- static uint32_t shadow_ts_version;
- 
--static struct shadow_time_info shadow;
--
--static inline int time_values_up_to_date(void)
--{
--    struct vcpu_time_info *src = &HYPERVISOR_shared_info->vcpu_info[0].time;
--
--    return shadow.version == src->version;
--}
-+static struct vcpu_time_info shadow;
- 
- static inline int wc_values_up_to_date(void)
- {
-@@ -113,22 +99,7 @@ static unsigned long get_nsec_offset(void)
-     rdtscll(now);
-     delta = now - shadow.tsc_timestamp;
- 
--    return scale_delta(delta, shadow.tsc_to_nsec_mul, shadow.tsc_shift);
--}
--
--static void get_time_values_from_xen(void)
--{
--    struct vcpu_time_info *src = &HYPERVISOR_shared_info->vcpu_info[0].time;
--
--    do {
--        shadow.version = src->version;
--        rmb();
--        shadow.tsc_timestamp     = src->tsc_timestamp;
--        shadow.system_timestamp  = src->system_time;
--        shadow.tsc_to_nsec_mul   = src->tsc_to_system_mul;
--        shadow.tsc_shift         = src->tsc_shift;
--        rmb();
--    } while ( (src->version & 1) | (shadow.version ^ src->version) );
-+    return scale_delta(delta, shadow.tsc_to_system_mul, shadow.tsc_shift);
- }
- 
- /*
-@@ -138,19 +109,22 @@ static void get_time_values_from_xen(void)
-  */
- uint64_t monotonic_clock(void)
- {
--    uint64_t time;
--    uint32_t local_time_version;
-+    struct vcpu_time_info *src = &HYPERVISOR_shared_info->vcpu_info[0].time;
- 
--    do {
--        local_time_version = shadow.version;
--        rmb();
--        time = shadow.system_timestamp + get_nsec_offset();
--        if ( !time_values_up_to_date() )
--            get_time_values_from_xen();
--        rmb();
--    } while ( local_time_version != shadow.version );
-+    if ( shadow.version != src->version )
-+    {
-+        do {
-+            shadow.version = src->version;
-+            rmb();
-+            shadow.tsc_timestamp     = src->tsc_timestamp;
-+            shadow.system_time       = src->system_time;
-+            shadow.tsc_to_system_mul = src->tsc_to_system_mul;
-+            shadow.tsc_shift         = src->tsc_shift;
-+            rmb();
-+        } while ( (src->version & 1) || (shadow.version != src->version) );
-+    }
- 
--    return time;
-+    return shadow.system_time + get_nsec_offset();
- }
- 
- static void update_wallclock(void)
--- 
-2.43.0
+> --- /dev/null
+> +++ b/tools/fuzz/oss-fuzz/build.sh
+> @@ -0,0 +1,11 @@
+> +#!/bin/bash -eu
+> +# Copyright 2024 Google LLC
+> +# SPDX-License-Identifier: Apache-2.0
+
+... there wouldn't want to be an "-only" tag here. Yet I'm entirely uncertain
+with this, as CC-BY-4.0 also has no such tag.
+
+I guess I should offer making respective adjustments while committing. I'll
+wait with an ack though to give Alejandro some time to confirm that you
+addressed his bash related comment.
+
+Jan
+
+> +# This script is intended to be run only from the oss-fuzz docker framework
+> +# See https://google.github.io/oss-fuzz/getting-started/new-project-guide/#buildsh
+> +cd xen
+> +./configure --disable-stubdom --disable-pvshim --disable-docs --disable-xen --with-system-qemu
+> +make clang=y -C tools/include
+> +make clang=y -C tools/fuzz/x86_instruction_emulator libfuzzer-harness
+> +cp tools/fuzz/x86_instruction_emulator/libfuzzer-harness $OUT/x86_instruction_emulator
 
 
