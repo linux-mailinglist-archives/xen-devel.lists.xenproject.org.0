@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5F54938DD4
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 13:03:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761658.1171654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44063938DD5
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 13:03:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761663.1171665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVqoH-0001yb-1d; Mon, 22 Jul 2024 11:02:29 +0000
+	id 1sVqpA-0002Sr-9i; Mon, 22 Jul 2024 11:03:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761658.1171654; Mon, 22 Jul 2024 11:02:29 +0000
+Received: by outflank-mailman (output) from mailman id 761663.1171665; Mon, 22 Jul 2024 11:03:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVqoG-0001wC-VK; Mon, 22 Jul 2024 11:02:28 +0000
-Received: by outflank-mailman (input) for mailman id 761658;
- Mon, 22 Jul 2024 11:02:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sVqpA-0002QE-74; Mon, 22 Jul 2024 11:03:24 +0000
+Received: by outflank-mailman (input) for mailman id 761663;
+ Mon, 22 Jul 2024 11:03:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVqoF-0001w6-Ai
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 11:02:27 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0a0eaa4-4819-11ef-8776-851b0ebba9a2;
- Mon, 22 Jul 2024 13:02:25 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a77c9d3e593so397985266b.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 04:02:25 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c8c1e2asm406349166b.129.2024.07.22.04.02.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 04:02:24 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sVqp9-0002Q1-Ht; Mon, 22 Jul 2024 11:03:23 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sVqp9-0004G3-9A; Mon, 22 Jul 2024 11:03:23 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sVqp8-0000NH-R6; Mon, 22 Jul 2024 11:03:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sVqp8-0001ra-Qk; Mon, 22 Jul 2024 11:03:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,162 +42,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0a0eaa4-4819-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721646145; x=1722250945; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=V/Qyihe1CLR3n1hjpSeTM+klYUGa72BEC21XM6gHDPk=;
-        b=ddQrbksYpGr4SzKyfR0P/sxlcAtGRbxq3z5HP38pZdK0/Q3ofjtaPEOH94M6PJm5xL
-         LqxUr7n+ed2plAJZ68L9YzUUNNeaLVdpoi18hcI4/8GOxvF7HewhmiausS57AdwSs/sk
-         Q3Y10zzoq9fUk3Ar30ZBaCJVAxAiOFujxvI4WerBKh30iDjRin1RPp333U7YwTS4sShb
-         l/AVKzuxOnAllQp3tzh4P8d6aSMsqvqVbDEEqbrCjJdTfLwZdY2pOetF3Sc1PwJ4Kkv4
-         ao9nHge9faNiaQf7IC6YCLQ4U4FD7D4nx9jEs5EtWEtG9OnH/G6oEGsC1pnUD/4vi8O5
-         ENNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721646145; x=1722250945;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=V/Qyihe1CLR3n1hjpSeTM+klYUGa72BEC21XM6gHDPk=;
-        b=pyNYBysPQuKK/lTwJ5lAIvjKAugOdFmkShfGeG5wtOQsf9l7bL9rmJeGPmszWiYwub
-         nY0fJwJv/I/auJzO73RkMMm4U12w9m9/ZnOuj49qGnBg9D/W5vnN7wSIzX1UW8BzyVH3
-         sEuuUt2jFqIktEeGPbUG0SIdRVVQJMeRC3C95DmRNCzWKhsQwgSlEld9WBRDANfDSExx
-         fvzmJxn+JLDq1YhiL5qp0fOMmTLulo7nJOnQFOg0CcORf2ntJWy/uK/VT/lIUE2P0m6e
-         q8e7Oq7b37IwN9Pih6bHK4q7f0V4vRCTeUB3/k/VcuijqkUoKnCUauX2sH4MYLttzkPR
-         gCMQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVtcsnwBvfdjM+mkj/f/FyhJjIB42/uXz7NhAkc6QIiC58v41d3dAJCwDg+b8FtqiTfo44Y1afyeJP5ZWHtO1NZnMgJ+xoemnxdLkpLdOs=
-X-Gm-Message-State: AOJu0Yw4FcU9urtkYzF2Uk5uKCfV4Kgbg1HM+3OPMZpHQswp9wkSCMTU
-	x9IFTy4PyCxZ8EPNt0DRu/sds8ZDRytV4kODapKc0N6cqgfG1NJWPyqe+6XKCQ==
-X-Google-Smtp-Source: AGHT+IGXVefAjZztsS5LQY0sSfZfXmHuhbmREn/g0R94pE+IoiqMjkWX2cJzgl5Ro2lnRtsDKOeEow==
-X-Received: by 2002:a17:906:6a2a:b0:a77:cf9d:f498 with SMTP id a640c23a62f3a-a7a4c034e10mr389305566b.40.1721646144653;
-        Mon, 22 Jul 2024 04:02:24 -0700 (PDT)
-Message-ID: <5e3be451-188f-4092-a84e-1c40a5ad6b44@suse.com>
-Date: Mon, 22 Jul 2024 13:02:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Z14KLS4z6ZTPXKrgv0G6WBKPYIlmf4nRM2rVbbYQcfg=; b=6SyZoblHgFj1MowsuV+FOb/ZDV
+	OAdJ3XlEYN4bc18OHjocqnGo5W3VEmRS1f4ok37YNhrHFU2FEVM8qDSWZtH0gR10LPPK5ijRXT1NY
+	iPrs5k7TBcuvyqaNQbb3mW8nM/93XPpJk3TG4J4cypocvUh4qEbxOGqpsyO84oljlzhg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186935-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 4/5] xen/riscv: enable GENERIC_BUG_FRAME
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1720799487.git.oleksii.kurochko@gmail.com>
- <c2bbbe2ac9f41c19f746418df324212b2e4684a5.1720799487.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c2bbbe2ac9f41c19f746418df324212b2e4684a5.1720799487.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 186935: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=c674c77f69684bfa57e3c61d6dbf404c13953f34
+X-Osstest-Versions-That:
+    xen=e5182b40cf4bbb89292d66b8f3047a9ee913a90a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 22 Jul 2024 11:03:22 +0000
 
-On 12.07.2024 18:18, Oleksii Kurochko wrote:
-> To have working BUG(), WARN(), ASSERT, run_in_exception_handler()
-> it is needed to enable GENERIC_BUG_FRAME.
-> 
-> Also, <xen/lib.h> is needed to be included for the reason that panic() and
-> printk() are used in common/bug.c and RISC-V fails if it is not included
-> with the following errors:
->    common/bug.c:69:9: error: implicit declaration of function 'printk'
->    [-Werror=implicit-function-declaration]
->       69 |         printk("Xen WARN at %s%s:%d\n", prefix, filename,
->    lineno);
->          |         ^~~~~~
->    common/bug.c:77:9: error: implicit declaration of function 'panic'
->    [-Werror=implicit-function-declaration]
->       77 |         panic("Xen BUG at %s%s:%d\n", prefix, filename,
->    lineno);
+flight 186935 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186935/
 
-I don't think the diagnostics themselves are needed here.
+Regressions :-(
 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in V10:
->  - put 'select GENERIC_BUG_FRAME' in "Config RISCV".
->  - rework do_trap() to not fetch an instruction in case when the cause of trap
->    is BUG_insn.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 186913
 
-It's BUG_insn here, but then ...
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> @@ -103,7 +104,29 @@ static void do_unexpected_trap(const struct cpu_user_regs *regs)
->  
->  void do_trap(struct cpu_user_regs *cpu_regs)
->  {
-> -    do_unexpected_trap(cpu_regs);
-> +    register_t pc = cpu_regs->sepc;
-> +    unsigned long cause = csr_read(CSR_SCAUSE);
-> +
-> +    switch ( cause )
-> +    {
-> +    case CAUSE_BREAKPOINT:
+version targeted for testing:
+ xen                  c674c77f69684bfa57e3c61d6dbf404c13953f34
+baseline version:
+ xen                  e5182b40cf4bbb89292d66b8f3047a9ee913a90a
 
-... BREAKPOINT here? Generally I'd deem something named "breakpoint" as
-debugging related (and hence continuable). I'd have expected
-CAUSE_ILLEGAL_INSTRUCTION here, but likely I'm missing something.
+Last test of basis   186913  2024-07-19 14:00:22 Z    2 days
+Testing same since   186935  2024-07-22 08:00:25 Z    0 days    1 attempts
 
-> +        if ( do_bug_frame(cpu_regs, pc) >= 0 )
-> +        {
-> +            if ( !pc ||
+------------------------------------------------------------
+People who touched revisions under test:
+  Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  George Dunlap <george.dunlap@cloud.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
+  Victor Lira <victorm.lira@amd.com>
 
-In how far does this really need special casing? Isn't that case covered by
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
-> +                 !(is_kernel_text(pc + 1) || is_kernel_inittext(pc + 1)) )
 
-... these checks anyway? And btw, why the "+ 1" in both function arguments?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> +            {
-> +                printk("Something wrong with PC: 0x%lx\n", pc);
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Nit: %#lx please in situations like this.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> +                die();
-> +            }
-> +
-> +            cpu_regs->sepc += GET_INSN_LENGTH(*(uint16_t *)pc);
-> +            return;
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-This isn't needed, is it? You'd return anyway by ...
 
-> +        }
-> +
-> +        break;
+Not pushing.
 
-.... going through here to ...
+------------------------------------------------------------
+commit c674c77f69684bfa57e3c61d6dbf404c13953f34
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Jul 22 09:41:03 2024 +0200
 
-> +    default:
-> +        do_unexpected_trap(cpu_regs);
-> +    }
->  }
+    x86: don't open-code [gm]fn_to_[gm]addr()
+    
+    At least in pure address calculation use the intended basic construct
+    instead of opend-coded left-shifting by PAGE_SHIFT. Leave alone page
+    table entry calculations for now, as those aren't really calculating
+    addresses.
+    
+    No functional change.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-... here.
+commit 8d5dc7d7df92d8d7f9450cee0bab57dceefa26c5
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Jul 22 09:40:24 2024 +0200
 
-Two further nits for the default case: Please have a break statement
-there as well, and please have a blank line immediately up from it.
+    x86/mm: drop gfn_to_paddr()
+    
+    This really is gfn_to_gaddr() in disguise; no need to have two variants
+    of the same logic.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Jan
+commit 0e3642514719c0659f2af44b1bbe8aba63d4a2ed
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Jul 22 09:39:40 2024 +0200
+
+    x86: drop REX64_PREFIX
+    
+    While we didn't copy the full Linux commentary, Linux commit
+    7180d4fb8308 ("x86_64: Fix 64bit FXSAVE encoding") is quite explicit
+    about gas 2.16 supporting FXSAVEQ / FXRSTORQ. As that's presently our
+    minimal required version, we can drop the workaround that was needed for
+    yet older gas.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit af67ae49ce8f7298bf52345558490013a9d044b3
+Author: Tamas K Lengyel <tamas@tklengyel.com>
+Date:   Mon Jul 22 09:38:28 2024 +0200
+
+    Add libfuzzer target to fuzz/x86_instruction_emulator
+    
+    This target enables integration into oss-fuzz. Changing invalid input return
+    to -1 as values other then 0/-1 are reserved by libfuzzer. Also adding the
+    missing __wrap_vsnprintf wrapper which is required for successful oss-fuzz
+    build.
+    
+    Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 4b09c30b0f778160523045396f7fff631a24bc1c
+Author: Victor Lira <victorm.lira@amd.com>
+Date:   Mon Jul 22 09:37:45 2024 +0200
+
+    common/sched: address a violation of MISRA C Rule 8.7
+    
+    Rule 8.7: "Functions and objects should not be defined with external
+    linkage if they are referenced in only one translation unit".
+    
+    This patch fixes this by adding the static specifier.
+    No functional changes.
+    
+    Reported-by: Stewart Hildebrand stewart.hildebrand@amd.com
+    Signed-off-by: Victor Lira <victorm.lira@amd.com>
+    Acked-by: George Dunlap <george.dunlap@cloud.com>
+
+commit c1059b4799d4ce3378b6722e01d66422f0b63977
+Author: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Date:   Mon Jul 22 09:37:11 2024 +0200
+
+    public/sysctl: address violations of MISRA C: 2012 Rule 7.3
+    
+    This addresses violations of MISRA C:2012 Rule 7.3 which states as
+    following: The lowercase character `l' shall not be used in a literal
+    suffix.
+    
+    Changed moreover suffixes 'u' in 'U' for better readability next to
+    the 'L's.
+    
+    No functional change.
+    
+    Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit d3029dba8e13b36adc0a513581850bbc9b51feda
+Author: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Date:   Mon Jul 22 09:36:35 2024 +0200
+
+    x86/cpufreq: clean up stale powernow_cpufreq_init()
+    
+    Remove useless declaration, eliminating a MISRA C:2012 Rule 8.6
+    violation: The routine itself was removed by following commit long time
+    ago:
+    
+       222013114 x86: Fix RevF detection in powernow.c
+    
+    No functional change.
+    
+    Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 8c000b8fd3caf9c1ff615fc15429e13271b26849
+Author: Juergen Gross <jgross@suse.com>
+Date:   Mon Jul 22 09:36:21 2024 +0200
+
+    SUPPORT.md: update Xen version
+    
+    Update the Xen version to 4.20
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit 7b6c1ba3b1c98dc17d076e058260167449a334b0
+Author: Juergen Gross <jgross@suse.com>
+Date:   Mon Jul 22 09:36:09 2024 +0200
+
+    MAINTAINERS: drop CPU POOLS section
+    
+    The CPU POOLS sections in MAINTAINERS can be dropped, as the SCHEDULING
+    section has the same maintainers and it is covering the CPU POOLS files
+    as well.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 820034ef91675517901f48da2f26b77146b07a73
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Jul 22 09:35:42 2024 +0200
+
+    MAINTAINERS: drop separate x86/mm section
+    
+    Let the subtree fall under general x86 maintainership instead, then also
+    properly reflecting Roger's role there.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+(qemu changes not included)
 
