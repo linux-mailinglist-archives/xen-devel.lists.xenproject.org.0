@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32ADA938998
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 09:06:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761497.1171429 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB93C9389E5
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 09:16:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761507.1171439 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVn7E-0006FA-Sh; Mon, 22 Jul 2024 07:05:48 +0000
+	id 1sVnGo-00080Q-SG; Mon, 22 Jul 2024 07:15:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761497.1171429; Mon, 22 Jul 2024 07:05:48 +0000
+Received: by outflank-mailman (output) from mailman id 761507.1171439; Mon, 22 Jul 2024 07:15:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVn7E-0006Ce-Pw; Mon, 22 Jul 2024 07:05:48 +0000
-Received: by outflank-mailman (input) for mailman id 761497;
- Mon, 22 Jul 2024 07:05:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sVnGo-0007yc-Pb; Mon, 22 Jul 2024 07:15:42 +0000
+Received: by outflank-mailman (input) for mailman id 761507;
+ Mon, 22 Jul 2024 07:15:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVn7D-0006CY-N6
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 07:05:47 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d1027ab4-47f8-11ef-8776-851b0ebba9a2;
- Mon, 22 Jul 2024 09:05:45 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5854ac817afso2250961a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 00:05:45 -0700 (PDT)
+ id 1sVnGn-0007yW-KD
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 07:15:41 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 338f58bb-47fa-11ef-bbfe-fd08da9f4363;
+ Mon, 22 Jul 2024 09:15:40 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a77c349bb81so368707666b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 00:15:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5a51433f904sm2945160a12.40.2024.07.22.00.05.44
+ a640c23a62f3a-a7a3c9233c5sm382848266b.185.2024.07.22.00.15.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 00:05:44 -0700 (PDT)
+ Mon, 22 Jul 2024 00:15:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1027ab4-47f8-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 338f58bb-47fa-11ef-bbfe-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721631945; x=1722236745; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3/peW/0/GCaqcuPKOsJNC+gk9eHp5K+xbvPXgtsTOC0=;
-        b=Oq0Ha6uvJ9jCe/pSVWhJox8CSe4kQEmixEJ5fYohHQgL0e+XuFEhuKYQVmB4dyZ0pZ
-         F/gq9352S1OzZsmG4gqcvE8JUAGZSNE4nvHBtUi5Mr5y7jb+2A6PyPjh4eNsE5ErRVc2
-         LtbbFf1eQgeCZP8NOT/qgramADS0jOs3eXRqf0603A27EnQgXwbHFgInQr+L/fqthOMv
-         6wM4l734PrYe6+Xkvz2vzKczrOZ/xhPPCjh6C0CZDJ3LGMrBfKqbtN1oFbPlXzD3i1co
-         TLHz60Df1hpDFvl07uvTThOuD8tKQBUD3wu3tJJ+XTxLpnoLWL4yP+eC2rvvhAt3YjyD
-         IQMg==
+        d=suse.com; s=google; t=1721632540; x=1722237340; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=I+/Vgod0fktbuHqI7yZLmkeiuCeHf5w5rjOdro5VCqU=;
+        b=USdB+YbGUFvmvi/4JTu0J8AYkGe/lzFnUwzZDnCx2H0mQtrNtgW400u7rlGWALzPJy
+         fpa1kEmGkthvCaC478u2nSOYWUm96tTaPPi3Lz2+dxWjeUcqsfzmikwllYksUabcenP1
+         wt3CfNvUFyMEhr9GbIXuxg//QfFYk4+tH1Afc7K6HPj/J4X1p0EkwfoLRMIjnpjzTLrL
+         XsqgWHDYEKJWQYF3olproVG0TXndogXwZwag89FijT5ft0d8e1eOV1pNFOmciSwqsrPn
+         7E0bF+1m8CvbGfgBEpsZx19a1AlzOV53Sm9Hp98KXFh8hr/wN/7ajywL/3YJK5Ha7ffz
+         FnhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721631945; x=1722236745;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3/peW/0/GCaqcuPKOsJNC+gk9eHp5K+xbvPXgtsTOC0=;
-        b=WxXrVy5zE1cN4z91fJRolR4mnApssSz6gSDKTXdM7/+70wykszRTcf3gfRjMU8kXTX
-         gZb1M+FTiYkJ2FifBD3Tt3RXkMfhbWs6fBUKWq0q1AYXCTYWAebKO1NJB3wT0PclIaST
-         WHT8fyixyEhXfKLVwFzAuuQLFc7CBV+WLD2bIZAs4lK/ahc3KmSa/AWq+fj/GyyIDjOK
-         5Ah0HSjEmbtAFYzwAz6Ff6iiv5WgCFXM98XGnnJwxBF0jKf/CI909W3ut24cvumdAhsx
-         UPIp6iXlVEbVTz/PgI+LitfYrJZe0vKPGr+0fcHT/vKe8eOKTbeNY9ZujwHaTmjEd6BW
-         tX4g==
-X-Gm-Message-State: AOJu0YzyA2IScijEb0zmSvaCfNXgTU2CqesPSg/1OjibFZFY0mqXIKPj
-	tSR8KVyfNWw76QMGzIICopM6M5uYNoXA0StsWCFxUjRrPJ1JjodaUX7JQH13PA==
-X-Google-Smtp-Source: AGHT+IGv9JeomGku2JpY57hOmMjRdelenITGX45UImYzWatrvhQFApxG0MLiwCcSIekkiHg2m1HSNA==
-X-Received: by 2002:a05:6402:528c:b0:5a2:fc48:db12 with SMTP id 4fb4d7f45d1cf-5a479a72a4fmr3830829a12.19.1721631945125;
-        Mon, 22 Jul 2024 00:05:45 -0700 (PDT)
-Message-ID: <39d87a30-7722-45ec-bc13-11111eb46483@suse.com>
-Date: Mon, 22 Jul 2024 09:05:43 +0200
+        d=1e100.net; s=20230601; t=1721632540; x=1722237340;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=I+/Vgod0fktbuHqI7yZLmkeiuCeHf5w5rjOdro5VCqU=;
+        b=pQjB8cW5Q0jKRECohLMhxwUEUfW8MEod/kt2KCCVYzLUclf5CWsRABr0UaOpkpK4Aw
+         LgD344rM4LEZ4J5Krk0+vR6GhkFNbGWUBK3HVjo9tvcew8jazd12gwMNqOCf/SYfu84w
+         FcNiP0p8QuN84URxDxuQaVe7GV/Eh6gxjbdKjgLELtMbcjHX/PuD4NVZA8b/AufncqCt
+         VoaNGMdHzlTNqsVSRwptYVMOv0bqg2sU/ax6cUEwblBdTZvDQYvWIFKhQgbkhd/mKmoi
+         QpcTlvbp+gtcqXUwAlB36s0LvjtiEtYSWcXr7ZW+kI+9FESD5NtMxHeh8A9xGgWtppHY
+         qHEA==
+X-Forwarded-Encrypted: i=1; AJvYcCWXdB7S4TVU7K53ZMFZdvcHaTI0F7bVdKlSS5Qc4g5aOZiIUIF18b2640W7tUyDaPSc3l8p85wAdIQgKLg8+IrxLhY2bCIT/fPHUsKXGDw=
+X-Gm-Message-State: AOJu0YwAjbJ51aX2RTmw/3Y9kpcflF73WGUsxAAvVqy63SJHP7kDE8Qo
+	u+GwySiKscyrvANyP0fjE1dSD2KgzF/CZJ+FYQ6SdWIofdx7jN0ewW4kngCJkQ==
+X-Google-Smtp-Source: AGHT+IGgYTCy7irMQCSlIXJ4qjae7T7NyhhHviRZAyBf6PzP4paIYcQcGtGbLIRSsiSayYaA0Ob7rA==
+X-Received: by 2002:a17:906:6a19:b0:a75:25ff:550d with SMTP id a640c23a62f3a-a7a4c010608mr356163866b.26.1721632540008;
+        Mon, 22 Jul 2024 00:15:40 -0700 (PDT)
+Message-ID: <0c76f87a-ca46-4511-9a6d-9ffc10815295@suse.com>
+Date: Mon, 22 Jul 2024 09:15:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [linux-linus test] 186932: regressions - FAIL
-To: osstest service owner <osstest-admin@xenproject.org>
-References: <osstest-186932-mainreport@xen.org>
+Subject: Re: [PATCH v2] Mini-OS: add some macros for asm statements
+To: Juergen Gross <jgross@suse.com>
+Cc: samuel.thibault@ens-lyon.org, wl@xen.org,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
+References: <20240719155701.18856-1-jgross@suse.com>
 Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,31 +111,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <osstest-186932-mainreport@xen.org>
+In-Reply-To: <20240719155701.18856-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.07.2024 06:56, osstest service owner wrote:
-> flight 186932 linux-linus real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/186932/
-> 
-> Regressions :-(
-> 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 186827
->  test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 186827
->  test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 186827
->  test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 186827
->  test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 186827
->  test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 186827
->  test-arm64-arm64-xl-thunderx  8 xen-boot                 fail REGR. vs. 186827
->  test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 186827
->  test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 186827
+On 19.07.2024 17:57, Juergen Gross wrote:
+> --- a/arch/x86/sched.c
+> +++ b/arch/x86/sched.c
+> @@ -60,16 +60,10 @@ void dump_stack(struct thread *thread)
+>      unsigned long *bottom = (unsigned long *)(thread->stack + STACK_SIZE); 
+>      unsigned long *pointer = (unsigned long *)thread->sp;
+>      int count;
+> -    if(thread == current)
+> -    {
+> -#ifdef __i386__    
+> -        asm("movl %%esp,%0"
+> -            : "=r"(pointer));
+> -#else
+> -        asm("movq %%rsp,%0"
+> -            : "=r"(pointer));
+> -#endif
+> -    }
+> +
+> +    if ( thread == current )
+> +        asm("mov %%"ASM_SP",%0" : "=r"(pointer));
 
-There looks to be a basic problem as of flight 186925, yet a brief look at one
-of the logs doesn't really give any hint other than the system perhaps simply
-being slow. Ideas, anyone?
+As you switch the if() to Xen style, why not also the asm()? Irrespective of
+which precise style is meant to be used, the last closing double quote likely
+also wants to be followed by a blank?
+
+> @@ -119,20 +113,12 @@ struct thread* arch_create_thread(char *name, void (*function)(void *),
+>  
+>  void run_idle_thread(void)
+>  {
+> -    /* Switch stacks and run the thread */ 
+> -#if defined(__i386__)
+> -    __asm__ __volatile__("mov %0,%%esp\n\t"
+> -                         "push %1\n\t" 
+> -                         "ret"                                            
+> -                         :"=m" (idle_thread->sp)
+> -                         :"m" (idle_thread->ip));                          
+> -#elif defined(__x86_64__)
+> -    __asm__ __volatile__("mov %0,%%rsp\n\t"
+> -                         "push %1\n\t" 
+> -                         "ret"                                            
+> -                         :"=m" (idle_thread->sp)
+> -                         :"m" (idle_thread->ip));                                                    
+> -#endif
+> +    /* Switch stacks and run the thread */
+> +    asm volatile ("mov %[sp], %%"ASM_SP"\n\t"
+> +                  "jmp *%[ip]\n\t"
+> +                  :
+> +                  : [sp] "m" (idle_thread->sp),
+> +                    [ip] "m" (idle_thread->ip));
+>  }
+
+Here instead you look to be switching to Linux style. Was that intended?
+
+As an aside, I think the construct is slightly problematic: In principle
+the compiler could make a copy of idle_thread->ip on the stack. (It
+won't normally, for code efficiency reasons.) That would break with the
+earlier change of the stack pointer. Using an "r" constraint would
+perhaps be better there. Yet if so wanted, that would certainly be a
+separate change.
+
+With the adjustments (or respective clarifications as to style intentions),
+which I'd be fine making while committing so long as you agree:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
