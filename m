@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39CFD938DEE
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 13:08:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761697.1171705 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 954D2938DF3
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 13:12:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761707.1171714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVqtr-00057X-L5; Mon, 22 Jul 2024 11:08:15 +0000
+	id 1sVqxY-0006aA-3i; Mon, 22 Jul 2024 11:12:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761697.1171705; Mon, 22 Jul 2024 11:08:15 +0000
+Received: by outflank-mailman (output) from mailman id 761707.1171714; Mon, 22 Jul 2024 11:12:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVqtr-00055X-I6; Mon, 22 Jul 2024 11:08:15 +0000
-Received: by outflank-mailman (input) for mailman id 761697;
- Mon, 22 Jul 2024 11:08:14 +0000
+	id 1sVqxY-0006Yb-14; Mon, 22 Jul 2024 11:12:04 +0000
+Received: by outflank-mailman (input) for mailman id 761707;
+ Mon, 22 Jul 2024 11:12:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVqtq-00055R-0U
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 11:08:14 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1sVqxX-0006YV-1R
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 11:12:03 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id afcefe0f-481a-11ef-bbfe-fd08da9f4363;
- Mon, 22 Jul 2024 13:08:12 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a77c9d3e593so398738766b.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 04:08:12 -0700 (PDT)
+ id 386c0b0d-481b-11ef-bbfe-fd08da9f4363;
+ Mon, 22 Jul 2024 13:12:02 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5a22f09d976so4729317a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 04:12:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a7c3058f2sm47110266b.116.2024.07.22.04.08.11
+ a640c23a62f3a-a7a3c9230f5sm409219966b.187.2024.07.22.04.12.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 04:08:12 -0700 (PDT)
+ Mon, 22 Jul 2024 04:12:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afcefe0f-481a-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: 386c0b0d-481b-11ef-bbfe-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721646492; x=1722251292; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721646721; x=1722251521; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8vEJoS20U9T4zFE9PkSLs8DH9cg+4jTKrhK4jdHkx7g=;
-        b=c6kMoh+7VfKst6+gf25j4Bw6WPlVTKrUcjU4ljj5Fl0+mZEOXFTUElRhNvu7h4fDUD
-         0qr31Cy8x34PtNBFfWhEKBpCRTyvPe/rTR2L41VOIrtWNEgJZ+zZZoU6BbAfZ2rEt0Nl
-         aMzE55NGbR/xni+EcLdWFoUwqmue/k3vCfu9e2PPg2eXqqYzuDLsRO65yyVkLTxQMl3D
-         7hPoqpCXGKzSE3oJpATuTrJA3aBE4NRhmB1+gE4MnPPJMm+RwDBEIm2ggsyC7cEMhqdu
-         MszB6uJkCVqTBvYNq8VF2o6WlNvJgf0WJDVNb6oQvx2tlMpTzwEb4KsCePDW1QWFlijW
-         cmxA==
+        bh=3A9dTe8cHsRzPksCLzlIijFJ4yJyFKya6mDRlo91Kto=;
+        b=E80fEI0MUTkzQBKOpw50/RpE2Hgob24NXDJWU9kTzI/tMVECGb8rIwu4Wl6+77mZDn
+         Hy3niLVI54UydB0E1cWC8l/gXFCeRrWDjf4vfLUw5E97tzicir6SJnHl7C+yr3m/tXEa
+         3gZtHet1CuAyzNGVvLU4R1oLwmXTq0wjofLIwxFp7NN5V4cLFIf4e7lIAVuGwLfD02M/
+         TDinPQ+W1QC8DoqpAM/ubFEUkbQNMTqDr9VLQ92gwmzIrYuzXFFqxucV10qgadCO+LpK
+         xXRxeKomuz78DrD/5z7xjmyiX0rp6zX8Xx9oW0G4Maw2N2ZrKxIdI+AjlZg1Xz1P7XhF
+         fPyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721646492; x=1722251292;
+        d=1e100.net; s=20230601; t=1721646721; x=1722251521;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8vEJoS20U9T4zFE9PkSLs8DH9cg+4jTKrhK4jdHkx7g=;
-        b=QNkP6jBwkVe1rG6kVuHLxfQEFMqlasCI7UgpRKUw6IL3YC9Q7glXjGix7hkuKkvBkl
-         6zW77DCnG7GfA/VHtc2l0FpgDeMqVWcOykhx1TPN16glWQGYvTj8stVtUxN6U/Q9T3Xs
-         hEJhxVhfl2tuItoYfzdhQ5w+md0gJx4OLmhDbUsEcaIBO4KhgpH95fLoO7j4E7jFXaVB
-         F8uP8Qqcm4N+rpDppo6JAUPhLeinM8BU1fjK73DO8EPyvFmdyEBqxSJGIi4FKtoh0qZJ
-         tZyQ31mdxyH9+QuYeUrOYlM6MK7QbeKytsZG/JbLfUjrMjUEYKAig4B2LdwgtogWH/z1
-         x41g==
-X-Forwarded-Encrypted: i=1; AJvYcCU71qz/5XelTTACf727/+r3PaCWsHErsjpZdf8aeIixU/lXJ1pjQ4WXuQhwVacz1cuIFKF7liZt0AIKWSgyEg6/i7LqVpmPT86/egiSXAg=
-X-Gm-Message-State: AOJu0YyMLjjeJsXn0RTGbbxYFUasZxNVACq/wOQEpiqHDv4BPOdNSzpJ
-	YPCHlZa32Gngn2e7kgJjrhqHOpu7mTw72JvYkvJiKEuCxMP6Z/88pvkX8lf0+A==
-X-Google-Smtp-Source: AGHT+IGRj6bi42oA2rh8pqqm/CM/KGXRayt8A1Y+CbX45NTJ/JyEMBiVZ8uGyT1JpAMrjmmaYPcvzg==
-X-Received: by 2002:a17:907:1b26:b0:a77:cf09:9c5f with SMTP id a640c23a62f3a-a7a4c030e1bmr485480866b.37.1721646492309;
-        Mon, 22 Jul 2024 04:08:12 -0700 (PDT)
-Message-ID: <f2443c6d-895b-4d9a-b397-a5158c43a73d@suse.com>
-Date: Mon, 22 Jul 2024 13:08:11 +0200
+        bh=3A9dTe8cHsRzPksCLzlIijFJ4yJyFKya6mDRlo91Kto=;
+        b=XLFDf6AB5E35e9RjD4lyOVB9sXoAMtYVvXcOsx73cBxkIqkOT8GDNQ0qUrxjl2MrQ/
+         bemmc10t1FN+fYoEbZRkxbF0+li7KE+Ukm5bKT3VoBhCb4c7PUOoZgx8OnZnDV5E7QNX
+         d2umddZBZJ/njxtXVkdcmog5DRscyO6HCmyHixSfE48mHEa1+6x9xP9KVvTXuYIsy0Cc
+         6zyNZuG683AechRWKPc0tSm5YerJG7+cxIXJ8OQExnS/8aeyIuJ5ZzZaZSW8dvk/1RCi
+         VzLO5fwfT/33l+0XEkNPzfQOA0bYV16v+GRacHFeGiyPy58junLX2RqrWHw0OBb3TyVM
+         IWqA==
+X-Forwarded-Encrypted: i=1; AJvYcCWXJ5NLOqqdocqKP/L3gDmx/o2cDqWsehF5D1JcIowfVBjK21NyMPY6oCe75PSsVuYIALHRXGBQlISNnfiT/5Lt218GSxXlN6shZpqHVM0=
+X-Gm-Message-State: AOJu0YzXixz2SAim9MlUQ3MHI+FNWDIV2TCATHBXGhOSSQCnL68YM9oS
+	CMMvM3ss4rNymaGmNd8Bcnvxt5mlbvXBkE+CD48l8Yj/TH6ZD0orBP/uGpFg2A==
+X-Google-Smtp-Source: AGHT+IHrvDXmMEi49l4TAlKSugEtiCWWPVz/8L7A8I0CbavrYo1KK9ltKn3pl55BOpTXKCcTLyejAw==
+X-Received: by 2002:a17:907:7285:b0:a7a:81ba:8eb3 with SMTP id a640c23a62f3a-a7a81ba9195mr14127066b.27.1721646721460;
+        Mon, 22 Jul 2024 04:12:01 -0700 (PDT)
+Message-ID: <5e49cddd-3185-4576-90dd-0ed089436967@suse.com>
+Date: Mon, 22 Jul 2024 13:12:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] Add libfuzzer target to
- fuzz/x86_instruction_emulator
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
-References: <d14436e64c650b388936a921837b984772a4fceb.1719355322.git.tamas@tklengyel.com>
- <9991b646-2d9e-418d-a0c0-5e357766c66c@suse.com>
- <CABfawhmz4hAx3JbF=XO=xuhzVrGg_+k5cdEd0Mdp0y=Cxu8v1Q@mail.gmail.com>
+Subject: Re: [PATCH v10 5/5] xen/riscv: test basic exception handling stuff
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1720799487.git.oleksii.kurochko@gmail.com>
+ <17ee34d97af4bebc87facf8576cee519ca26bf12.1720799487.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,42 +115,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CABfawhmz4hAx3JbF=XO=xuhzVrGg_+k5cdEd0Mdp0y=Cxu8v1Q@mail.gmail.com>
+In-Reply-To: <17ee34d97af4bebc87facf8576cee519ca26bf12.1720799487.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.07.2024 13:03, Tamas K Lengyel wrote:
-> On Mon, Jul 22, 2024 at 5:20 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 26.06.2024 00:47, Tamas K Lengyel wrote:
->>> This target enables integration into oss-fuzz. Changing invalid input return
->>> to -1 as values other then 0/-1 are reserved by libfuzzer. Also adding the
->>> missing __wrap_vsnprintf wrapper which is required for successful oss-fuzz
->>> build.
->>>
->>> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
->>
->> I've reverted this right away, because of ...
->>
->>> @@ -58,6 +58,9 @@ afl-harness: afl-harness.o $(OBJS) cpuid.o wrappers.o
->>>  afl-harness-cov: afl-harness-cov.o $(patsubst %.o,%-cov.o,$(OBJS)) cpuid.o wrappers.o
->>>       $(CC) $(CFLAGS) $(GCOV_FLAGS) $(addprefix -Wl$(comma)--wrap=,$(WRAPPED)) $^ -o $@
->>>
->>> +libfuzzer-harness: $(OBJS) cpuid.o wrappers.o
->>> +     $(CC) $(CFLAGS) $(LIB_FUZZING_ENGINE) -fsanitize=fuzzer $(addprefix -Wl$(comma)--wrap=,$(WRAPPED)) $^ -o $@
->>
->> ... this causing
->>
->> gcc: error: unrecognized argument to '-fsanitize=' option: 'fuzzer'
->> make[6]: *** [Makefile:62: libfuzzer-harness] Error 1
->>
->> with apparently a fair set of gcc-s used by distro-s we use for CI.
-> 
-> Well let me see if I can hack the Makefile to only build this with clang..
+On 12.07.2024 18:18, Oleksii Kurochko wrote:
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Acked-by: Alistair Francis <alistair.francis@wdc.com>
 
-Oh, and - please don't special case Clang. Instead please check for option
-availability (e.g. using cc-option), such that for possible future gcc,
-when support there may have been added, we'd then build it there as well.
+As to the once again empty description and as to earlier comments of mine:
+
+> --- a/xen/arch/riscv/setup.c
+> +++ b/xen/arch/riscv/setup.c
+> @@ -19,6 +19,22 @@ void arch_get_xen_caps(xen_capabilities_info_t *info)
+>  unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
+>      __aligned(STACK_SIZE);
+>  
+> +#ifdef CONFIG_SELF_TESTS
+> +static void test_run_in_exception(const struct cpu_user_regs *regs)
+> +{
+> +    printk("If you see this message, ");
+> +    printk("run_in_exception_handler is most likely working\n");
+> +}
+> +
+> +static void test_macros_from_bug_h(void)
+> +{
+> +    run_in_exception_handler(test_run_in_exception);
+> +    WARN();
+> +    printk("If you see this message, ");
+> +    printk("WARN is most likely working\n");
+> +}
+> +#endif
+> +
+>  void __init noreturn start_xen(unsigned long bootcpu_id,
+>                                 paddr_t dtb_addr)
+>  {
+> @@ -26,6 +42,10 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>  
+>      trap_init();
+>  
+> +#ifdef CONFIG_SELF_TESTS
+> +    test_macros_from_bug_h();
+> +#endif
+> +
+>      printk("All set up\n");
+>  
+>      for ( ;; )
+
+While for the moment having this may be okay, I'd like the commit itself to
+clarify what the future plans here are. The latest once Xen comes up properly
+on RISC-V, this is likely going to get in the way because of the noise it
+causes in the log.
 
 Jan
 
