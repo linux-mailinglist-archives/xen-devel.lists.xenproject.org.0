@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB45E938974
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 09:00:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761490.1171419 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32ADA938998
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 09:06:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761497.1171429 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVn1T-0004fP-7p; Mon, 22 Jul 2024 06:59:51 +0000
+	id 1sVn7E-0006FA-Sh; Mon, 22 Jul 2024 07:05:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761490.1171419; Mon, 22 Jul 2024 06:59:51 +0000
+Received: by outflank-mailman (output) from mailman id 761497.1171429; Mon, 22 Jul 2024 07:05:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVn1T-0004du-4l; Mon, 22 Jul 2024 06:59:51 +0000
-Received: by outflank-mailman (input) for mailman id 761490;
- Mon, 22 Jul 2024 06:59:48 +0000
+	id 1sVn7E-0006Ce-Pw; Mon, 22 Jul 2024 07:05:48 +0000
+Received: by outflank-mailman (input) for mailman id 761497;
+ Mon, 22 Jul 2024 07:05:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVn1Q-0004do-RP
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 06:59:48 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1sVn7D-0006CY-N6
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 07:05:47 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id faf9bd41-47f7-11ef-8776-851b0ebba9a2;
- Mon, 22 Jul 2024 08:59:46 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a77abe5c709so378589166b.2
- for <xen-devel@lists.xenproject.org>; Sun, 21 Jul 2024 23:59:46 -0700 (PDT)
+ id d1027ab4-47f8-11ef-8776-851b0ebba9a2;
+ Mon, 22 Jul 2024 09:05:45 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5854ac817afso2250961a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 00:05:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c922b3esm379427966b.184.2024.07.21.23.59.45
+ 4fb4d7f45d1cf-5a51433f904sm2945160a12.40.2024.07.22.00.05.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 21 Jul 2024 23:59:45 -0700 (PDT)
+ Mon, 22 Jul 2024 00:05:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: faf9bd41-47f7-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: d1027ab4-47f8-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721631586; x=1722236386; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zAQSqkHKNWKln4PjMS1CXP+Ho8wB+BnNbBHJtPZejaI=;
-        b=VrHS5n101tmcqWciPD119pvtcR/EutkOHcQsy36iathFk078BE1NpO6N1JHtcKVqkm
-         F0US+/+ABRuvrP/K4bCaXe4qqlIFUbS03yPI3jc0MsDWeVVjmrSlQIcaGZB+44kG9RJG
-         9DE3ZFVVZgREM7eEZxP4M5KldHb5Eq9spssHuCOLiEShB1KR1KZ+vGpEEupxXEheQ2XT
-         UD1l6cxP35nSEajjXdJPJeSPdUnS2lQ9Nuqm48az3HVjkBJcvNCJpXY/O9lGd9TvnYdD
-         TWVJi5Ae2tiH0MkNN2gFRo14fWxQkzdxKuBK8oMafwjohHUCMzgU8kr0ysGr8SSzAQhh
-         cUYQ==
+        d=suse.com; s=google; t=1721631945; x=1722236745; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3/peW/0/GCaqcuPKOsJNC+gk9eHp5K+xbvPXgtsTOC0=;
+        b=Oq0Ha6uvJ9jCe/pSVWhJox8CSe4kQEmixEJ5fYohHQgL0e+XuFEhuKYQVmB4dyZ0pZ
+         F/gq9352S1OzZsmG4gqcvE8JUAGZSNE4nvHBtUi5Mr5y7jb+2A6PyPjh4eNsE5ErRVc2
+         LtbbFf1eQgeCZP8NOT/qgramADS0jOs3eXRqf0603A27EnQgXwbHFgInQr+L/fqthOMv
+         6wM4l734PrYe6+Xkvz2vzKczrOZ/xhPPCjh6C0CZDJ3LGMrBfKqbtN1oFbPlXzD3i1co
+         TLHz60Df1hpDFvl07uvTThOuD8tKQBUD3wu3tJJ+XTxLpnoLWL4yP+eC2rvvhAt3YjyD
+         IQMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721631586; x=1722236386;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zAQSqkHKNWKln4PjMS1CXP+Ho8wB+BnNbBHJtPZejaI=;
-        b=Ystb8mZ/gCBw+Td8hfbvGIU4OHah0sGt0Ew1JKwXqSxGrqBdDZGIRPw2GekMXER7py
-         tfZB5UFyoLqSZWEK1WYgv8Ygio8iFkTErSmNZs6El01W34rHkmtSfLPS0a0zT0VgAa5t
-         U39HXLs5ea6kcpkaUsictLKziuI50XREpSdeku6BZtghF6pEBhYTtjpvUUK3YGhTwoHy
-         e3t5cjNZf16Asa1W+oEfT+P+yrDDtxqbQYO2XwG8WojJFrqnvatfL6sx7mVnyCd1r2fi
-         T6O7EVlBD78ZTvbUrR6t/xxlLobzAjUeTuB3Mdd8QyZwTY5xr2mjuT29umhVqihEWkgP
-         nngA==
-X-Forwarded-Encrypted: i=1; AJvYcCWlq+iSkK5o051wj7lkX3aB9gxm+qXXUo9louu1Gnn+8zdS/+MgujXGXJMOiT+YvhywFn4zMcjlh/KIVstxte1VamogyU2AEp/WpR5cVps=
-X-Gm-Message-State: AOJu0YwBQXQvTBpcv9X9c8eN0RFw8L64dOGAdQ8jPUz6YY4ATh7FqiER
-	uxP36hYG9TbleaIuC4ZxQZAzt6UAwWeKZagnFUB8B1MI4V/+p5vQlZfciOZpcA==
-X-Google-Smtp-Source: AGHT+IFAyjQK+ffd8R7nbWOp5Fo3L9PjImt/ZVPSTW0lme6CeN7YnpjgOTQUtOoFp6k6n0eOq/Zv7g==
-X-Received: by 2002:a17:907:968e:b0:a77:d85c:86fa with SMTP id a640c23a62f3a-a7a4bfe5ebcmr421189666b.13.1721631585926;
-        Sun, 21 Jul 2024 23:59:45 -0700 (PDT)
-Message-ID: <dcab8b1b-d775-4529-868c-e976344cf01d@suse.com>
-Date: Mon, 22 Jul 2024 08:59:44 +0200
+        d=1e100.net; s=20230601; t=1721631945; x=1722236745;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3/peW/0/GCaqcuPKOsJNC+gk9eHp5K+xbvPXgtsTOC0=;
+        b=WxXrVy5zE1cN4z91fJRolR4mnApssSz6gSDKTXdM7/+70wykszRTcf3gfRjMU8kXTX
+         gZb1M+FTiYkJ2FifBD3Tt3RXkMfhbWs6fBUKWq0q1AYXCTYWAebKO1NJB3wT0PclIaST
+         WHT8fyixyEhXfKLVwFzAuuQLFc7CBV+WLD2bIZAs4lK/ahc3KmSa/AWq+fj/GyyIDjOK
+         5Ah0HSjEmbtAFYzwAz6Ff6iiv5WgCFXM98XGnnJwxBF0jKf/CI909W3ut24cvumdAhsx
+         UPIp6iXlVEbVTz/PgI+LitfYrJZe0vKPGr+0fcHT/vKe8eOKTbeNY9ZujwHaTmjEd6BW
+         tX4g==
+X-Gm-Message-State: AOJu0YzyA2IScijEb0zmSvaCfNXgTU2CqesPSg/1OjibFZFY0mqXIKPj
+	tSR8KVyfNWw76QMGzIICopM6M5uYNoXA0StsWCFxUjRrPJ1JjodaUX7JQH13PA==
+X-Google-Smtp-Source: AGHT+IGv9JeomGku2JpY57hOmMjRdelenITGX45UImYzWatrvhQFApxG0MLiwCcSIekkiHg2m1HSNA==
+X-Received: by 2002:a05:6402:528c:b0:5a2:fc48:db12 with SMTP id 4fb4d7f45d1cf-5a479a72a4fmr3830829a12.19.1721631945125;
+        Mon, 22 Jul 2024 00:05:45 -0700 (PDT)
+Message-ID: <39d87a30-7722-45ec-bc13-11111eb46483@suse.com>
+Date: Mon, 22 Jul 2024 09:05:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/8] xen/riscv: introduce generic Xen page table
- handling
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
- <f2d7f538edb7db8990bf26b791df9da3d390bf05.1720799926.git.oleksii.kurochko@gmail.com>
- <5187f606-0a1c-4812-8f8c-13301f0aba8c@xen.org>
+Subject: Re: [linux-linus test] 186932: regressions - FAIL
+To: osstest service owner <osstest-admin@xenproject.org>
+References: <osstest-186932-mainreport@xen.org>
 Content-Language: en-US
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,43 +113,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5187f606-0a1c-4812-8f8c-13301f0aba8c@xen.org>
+In-Reply-To: <osstest-186932-mainreport@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.07.2024 11:02, Julien Grall wrote:
-> Hi,
+On 22.07.2024 06:56, osstest service owner wrote:
+> flight 186932 linux-linus real [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/186932/
 > 
-> On 12/07/2024 17:22, Oleksii Kurochko wrote:
->> At least, between Arm and RISC-V most of the code related to Xen page
->> table handling are common.
->>
->> This GENERIC_PT code is based on Arm's arm/mmu/pt.c except some minor
->> changes such as introduction of the following functions:
->>    * get_root_page()
->>    * xen_pt_check_contig()
->>    * set_pte_table_bit()
->>    * sanity_arch_specific_pte_checks()
->>    * get_contig_bit()
->>    * set_pte_permissions()
->>    * flush_xen_tlb_range_va()
->> It was done because not every functions has the generic pte_flags and
->> it could be a different positions of the PTE bits in a PTE.
-> While I am always in favor of trying to avoid code duplication, I am not 
-> sure the page-tables are one that should be.
+> Regressions :-(
 > 
-> For instance, you don't have the concept of contiguous page in RISC-V (I 
-> see you introduce dummy flags, but IMHO this is a bit of a hack). All 
-> the code was also written in a way to avoid temporary conflict mappings. 
-> This is to avoid using Break-Before-Make. But on newer hardware this 
-> could be relaxed.
-> 
-> I am interested to know what the others thinks.
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 186827
+>  test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 186827
+>  test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 186827
+>  test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 186827
+>  test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 186827
+>  test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 186827
+>  test-arm64-arm64-xl-thunderx  8 xen-boot                 fail REGR. vs. 186827
+>  test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 186827
+>  test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 186827
 
-I share the concern; I was rather surprised to see the title, but - not
-having had the time to look at the patch yet - was kind of guessing
-(hoping) it wasn't really what the title said. Page table handling quite
-likely wants to remain arch-specific.
+There looks to be a basic problem as of flight 186925, yet a brief look at one
+of the logs doesn't really give any hint other than the system perhaps simply
+being slow. Ideas, anyone?
 
 Jan
 
