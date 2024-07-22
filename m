@@ -2,34 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7C13939578
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 23:27:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762357.1172524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1481F93957C
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 23:30:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762369.1172537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sW0Z7-0007nb-Oi; Mon, 22 Jul 2024 21:27:29 +0000
+	id 1sW0bd-0000aU-5S; Mon, 22 Jul 2024 21:30:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762357.1172524; Mon, 22 Jul 2024 21:27:29 +0000
+Received: by outflank-mailman (output) from mailman id 762369.1172537; Mon, 22 Jul 2024 21:30:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sW0Z7-0007k8-Km; Mon, 22 Jul 2024 21:27:29 +0000
-Received: by outflank-mailman (input) for mailman id 762357;
- Mon, 22 Jul 2024 21:27:28 +0000
+	id 1sW0bd-0000YS-22; Mon, 22 Jul 2024 21:30:05 +0000
+Received: by outflank-mailman (input) for mailman id 762369;
+ Mon, 22 Jul 2024 21:30:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z3Fi=OW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sW0Z6-0007Ee-2h
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 21:27:28 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ <SRS0=TuwE=OW=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
+ id 1sW0bc-0000EF-2J
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 21:30:04 +0000
+Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 308fb55d-4871-11ef-bbfe-fd08da9f4363;
- Mon, 22 Jul 2024 23:27:27 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 9F0E8CE0C4F;
- Mon, 22 Jul 2024 21:27:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6D2C116B1;
- Mon, 22 Jul 2024 21:27:18 +0000 (UTC)
+ id 8dfce30b-4871-11ef-bbfe-fd08da9f4363;
+ Mon, 22 Jul 2024 23:30:02 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by sonata.ens-lyon.org (Postfix) with ESMTP id 2AB8DA02D3;
+ Mon, 22 Jul 2024 23:30:02 +0200 (CEST)
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+ by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id QKfM2qWowNs9; Mon, 22 Jul 2024 23:30:02 +0200 (CEST)
+Received: from begin (aamiens-653-1-111-57.w83-192.abo.wanadoo.fr
+ [83.192.234.57])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id 10AF0A02CA;
+ Mon, 22 Jul 2024 23:30:02 +0200 (CEST)
+Received: from samy by begin with local (Exim 4.98-RC3)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1sW0bZ-0000000AY7o-2o5O; Mon, 22 Jul 2024 23:30:01 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,50 +52,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 308fb55d-4871-11ef-bbfe-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1721683640;
-	bh=eZ3Vexn5asWDHZ/yQICg46V4bCJuyIKihlB2Krshc7I=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=V2jKBZhK9eQ5EgdN5F91cm+RfVDO3TeieWejrRwo6F8ol0707NYzt1RmHeXSm0bYq
-	 Gp2jCiwU3WxI5mp+vgrI58/Tk0Qdk9mTfnivKI1lRED2X6henfPMVADFpVkLgwb3yh
-	 F2N8VmKvGhHJFIATXIKorMFl5fEJCHv3NlikLt8s7iCmFJyjYUY+erSa94N8BGdafx
-	 OnBSIuW2uTQ8q+GhgMcyGr6czgSYct8qKVeMZVpdvoDiw3MC5VoMHP6dZAyexo4scY
-	 E+Nof+jHC2bFzLS/EkxIHl2yCcbZ6bxYKRv/o6SqCKvoQa2RdXdydX4eAFhrkHJ2rR
-	 b0HG1OVLupNxg==
-Date: Mon, 22 Jul 2024 14:27:17 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>, 
-    "Daniel P . Smith" <dpsmith@apertussolutions.com>, 
-    Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
-    Huang Rui <Ray.Huang@amd.com>, Huang Rui <ray.huang@amd.com>
-Subject: Re: [XEN PATCH v9 3/5] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH
- dom0
-In-Reply-To: <20240607081127.126593-4-Jiqian.Chen@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2407221427090.4857@ubuntu-linux-20-04-desktop>
-References: <20240607081127.126593-1-Jiqian.Chen@amd.com> <20240607081127.126593-4-Jiqian.Chen@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 8dfce30b-4871-11ef-bbfe-fd08da9f4363
+Date: Mon, 22 Jul 2024 23:30:01 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+Subject: Re: [PATCH 1/4] mini-os: make mm.c coding style compliant
+Message-ID: <20240722213001.c43qzpjjmjqk2yq3@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org, wl@xen.org
+References: <20240722150141.31391-1-jgross@suse.com>
+ <20240722150141.31391-2-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240722150141.31391-2-jgross@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 
-On Fri, 7 Jun 2024, Jiqian Chen wrote:
-> On PVH dom0, the gsis don't get registered, but
-> the gsi of a passthrough device must be configured for it to
-> be able to be mapped into a hvm domU.
-> On Linux kernel side, it calles PHYSDEVOP_setup_gsi for
-> passthrough devices to register gsi when dom0 is PVH.
-> So, add PHYSDEVOP_setup_gsi for above purpose.
-> 
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+Juergen Gross, le lun. 22 juil. 2024 17:01:38 +0200, a ecrit:
+> @@ -63,8 +63,8 @@ unsigned long nr_free_pages;
+>  
+>  /*
+>   * Hint regarding bitwise arithmetic in map_{alloc,free}:
+> - *  -(1<<n)  sets all bits >= n. 
+> - *  (1<<n)-1 sets all bits <  n.
+> + *  -(1 << n)  sets all bits >= n.
+> + *  (1 << n) - 1 sets all bits <  n.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Please keep the alignment of "sets"
 
+Apart this nitpick,
+
+Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+
+Samuel
 
