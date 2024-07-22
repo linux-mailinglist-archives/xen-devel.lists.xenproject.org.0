@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC0FA938E80
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 13:55:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.761789.1171819 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA42938EDD
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2024 14:10:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.761803.1171839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVrdF-0001Jt-7W; Mon, 22 Jul 2024 11:55:09 +0000
+	id 1sVrqx-0004Cx-Iy; Mon, 22 Jul 2024 12:09:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 761789.1171819; Mon, 22 Jul 2024 11:55:09 +0000
+Received: by outflank-mailman (output) from mailman id 761803.1171839; Mon, 22 Jul 2024 12:09:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sVrdF-0001HO-4Y; Mon, 22 Jul 2024 11:55:09 +0000
-Received: by outflank-mailman (input) for mailman id 761789;
- Mon, 22 Jul 2024 11:55:07 +0000
+	id 1sVrqx-0004AH-GN; Mon, 22 Jul 2024 12:09:19 +0000
+Received: by outflank-mailman (input) for mailman id 761803;
+ Mon, 22 Jul 2024 12:09:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=79tL=OW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sVrdD-0001HI-EM
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 11:55:07 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1sVrqw-0004A9-71
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2024 12:09:18 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3cb369b0-4821-11ef-bbfe-fd08da9f4363;
- Mon, 22 Jul 2024 13:55:06 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a77baa87743so439624966b.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 04:55:06 -0700 (PDT)
+ id 37e2d922-4823-11ef-bbfe-fd08da9f4363;
+ Mon, 22 Jul 2024 14:09:17 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5a108354819so3563429a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 05:09:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c7bdac0sm415320766b.60.2024.07.22.04.55.05
+ 4fb4d7f45d1cf-5a30a4d6e67sm6041345a12.17.2024.07.22.05.09.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 04:55:05 -0700 (PDT)
+ Mon, 22 Jul 2024 05:09:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cb369b0-4821-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: 37e2d922-4823-11ef-bbfe-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721649306; x=1722254106; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721650156; x=1722254956; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gFfXVU6XiY1KG5DgwejyKNGR/9Y0OFSel6bgkpXSPK0=;
-        b=YByomqJ6OW0aUawmHqIop3tfakMh88jFJKJqOPC3TbnDEnqGk5eIm24U+CW1V4oNZb
-         kA2pS96FlYqKASQVBuYbUrjD+W2EFJo7TkaNgWQt/56brEQI9x8k1TiMfP/S4qyNZEuM
-         iKePVDegFu8veuiXK46FhrAhH6nCKHUhMXjqdpuV6YfgkzRksMFBHvBbMVqexq6LTh1L
-         0yMTkcTb3pDMhpVWoDi9Loir0zQacZExrJTjSeckYuleHpmJsjFKYG1u33fGKeiH2dNn
-         ofw6WB8Z55xeFk8rFF8QQ+L5XUzqbjNPqAmAALSF20azH1loFTpFRIJwi5S91btzQamz
-         LpuA==
+        bh=Q1ODGjjIkswPcEwduhZfJL5a1ukg2QuJ74+piOzsw6g=;
+        b=UrEaZXM3DBsq0Zmvlw1szr1skh4c2JnwFrg5Tj7hDa06ULwSzWgzA98yCHep2IgV6c
+         auqR0JdoD0C1xbgL4b8towDp9SQ1rI7lhY7pyE0rZpokolLhnSl7ZwPy4EekETj1/7uT
+         i8F88cfwiod7udYzREf0Inh51X7kRYoUMO/XYdgIrxU/vBRJKEypHjRyBKS9iQi4ZCs0
+         IhsnId6BjBL8eiqdXbeV+m1TDUWKviLYDbJ8ml8nZa8nANmJsAJYaPg86Q9tCRfonG/U
+         lmlTUl4tg/BKRn7JjFKorXpDbnfzP4oiOAlgGTzN8VKEJvfHuylIcPq+8QQoq4xoAp3T
+         vGDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721649306; x=1722254106;
+        d=1e100.net; s=20230601; t=1721650156; x=1722254956;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gFfXVU6XiY1KG5DgwejyKNGR/9Y0OFSel6bgkpXSPK0=;
-        b=l5J31AfdHPM/rW0IHR3h1taxGjsRDY2choxGwEhGoCf0AR6+zbFK+pRZSdHDoJwxhu
-         mmukN0lyQn3Tb1B9HWumRHJz9PAy9MU5xs46qUCqU0m2ymyIEoEeQ3vrlgB40nYlbMBd
-         QAhJqHZOAiSuASvU9dq0NwhsFTO/rWqE2VmRdM0oxLY/nism8gCz6//Q3uaQJuLeAMrA
-         2/RQHlsZJXRfXpjCAGCHzDebsXqVHGA0uKrSGn7lXkPb5m9W6bh+rnjFJ1mDbn1O673l
-         dWu5WGzbYN9JNpkyCqnEYhh5sNu302vNTBCxZ57LidJzW+/iM8R76RVqw3WKOJwO9aO3
-         lC8A==
-X-Forwarded-Encrypted: i=1; AJvYcCUTXff3En8UdMi1niV2j1/Y+XEiYCyYz6NH3MwlVrhCMIYutBYbz4echT8+KhA3Ebf+gJd23pcMJSSciCjnnvikTceVlOe0suIrznL+VOQ=
-X-Gm-Message-State: AOJu0YzPX4pbV+fP01v4sWdR0DxUZs4oFo4PNhvm76vbF+YXFnpkt9GP
-	0a8pfjQeIN1wi5meh9DRIoWx78/bGEKdoQ7lPMn7wTUA0Sf3Lt2QI/FCrKP6jQ==
-X-Google-Smtp-Source: AGHT+IGff+6W+RbF45vW42tX0KOxv48WB1hK3sF3anRb8ujxYEuMjvqStDQiImgT7sXJfZzsQDIRsw==
-X-Received: by 2002:a17:907:980d:b0:a77:c330:ad9d with SMTP id a640c23a62f3a-a7a4c44b02amr400366166b.61.1721649305559;
-        Mon, 22 Jul 2024 04:55:05 -0700 (PDT)
-Message-ID: <7ad9cd04-a4f6-47ef-8f73-400388329fbc@suse.com>
-Date: Mon, 22 Jul 2024 13:55:04 +0200
+        bh=Q1ODGjjIkswPcEwduhZfJL5a1ukg2QuJ74+piOzsw6g=;
+        b=aFMPyDpjzerGUkCfZXplhrW04x7WMOfLEZfv9nzVftSB/wE8Ec0hkz5FEfuIaULSjY
+         5eZDzzT1Vq37/60XcN+0hsOHU7j1zrxC8VTGqMl88DEDfjrG461nkH9zgJJzrkFFLWZx
+         ugIGv63v9PmftTjDeZejXEQGSy6j4QdIu3G8KZhHEBmYnfFbUiZlbfGqQMja5h7UlQmu
+         Qgb08+OO2KNroAI0VRfQuZdEjVqn6LyRLqEHtTzj+XQVliwDRzgs4RUapGdesOreNfGz
+         7rK7X3lJbn/dAvMVt9IRVgQVTUfOnXr5U+jx9UXA1THLgGiI+m/peCqio5RWsd093pgn
+         z17Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW1B5e5X8kY2KPQfL8wAfH9rw3B1LjzSvbhUXQtX1C9ONvpul0bdccfZMfyJ2e+id2We6LKZ5HQscKfwW/o5e4dOffXCfo8nNDsXeh3RCM=
+X-Gm-Message-State: AOJu0YyHbeObbPqlGpwzjDldnOURCuaINbKDWQ6FsQWTbRivvWckQeYH
+	Odq5rSSNO6yYzvED5PVfOpGuSfJNHL7ydTEKIZus2NKQ78Pyerrr+ULEnNw/hw==
+X-Google-Smtp-Source: AGHT+IEqEm3kMlveM6LuDWgYK7mEv9UNyWyWbDjpC5W4BIcpLCu501EmdQ6HypF4tqpQ7YiD/hg0xw==
+X-Received: by 2002:a50:d514:0:b0:5a2:a808:a2e0 with SMTP id 4fb4d7f45d1cf-5a478b64758mr3867686a12.4.1721650156570;
+        Mon, 22 Jul 2024 05:09:16 -0700 (PDT)
+Message-ID: <dce600a3-4b1c-47e9-b336-42ca32e309c5@suse.com>
+Date: Mon, 22 Jul 2024 14:09:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v4 11/14] x86/vpmu: guard calls to vmx/svm functions
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH v5 2/3] x86/mm: add API for marking only part of a MMIO
+ page read only
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
-References: <cover.1720501197.git.Sergiy_Kibrik@epam.com>
- <81999eb47b590afe3b269c33f7d166c9882cafdc.1720501197.git.Sergiy_Kibrik@epam.com>
+ xen-devel@lists.xenproject.org
+References: <cover.8c9972382c46fce22682bcec2ee28fe2501dd18f.1721356393.git-series.marmarek@invisiblethingslab.com>
+ <f0b36fb78b87d2f06c0d33da28ba16cd1d2fa8b9.1721356393.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,48 +115,105 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <81999eb47b590afe3b269c33f7d166c9882cafdc.1720501197.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <f0b36fb78b87d2f06c0d33da28ba16cd1d2fa8b9.1721356393.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09.07.2024 08:07, Sergiy Kibrik wrote:
-> @@ -363,7 +364,7 @@ static int cf_check amd_vpmu_do_wrmsr(unsigned int msr, uint64_t msr_content)
->              return 0;
->          vpmu_set(vpmu, VPMU_RUNNING);
+On 19.07.2024 04:33, Marek Marczykowski-Górecki wrote:
+> @@ -4910,6 +4921,254 @@ long arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>      return rc;
+>  }
 >  
-> -        if ( is_hvm_vcpu(v) && is_msr_bitmap_on(vpmu) )
-> +        if ( is_svm_vcpu(v) && is_msr_bitmap_on(vpmu) )
->               amd_vpmu_set_msr_bitmap(v);
->      }
+> +static void __iomem *subpage_mmio_find_page(mfn_t mfn)
+> +{
+> +    struct subpage_ro_range *entry;
 
-Up from here there's another is_hvm_vcpu(). I think you want to change all
-of them, for consistency.
+With the function returning void*, my first reaction was to ask why this
+isn't pointer-to-const. Yet then ...
 
-> @@ -269,7 +271,7 @@ static inline void __core2_vpmu_save(struct vcpu *v)
->      if ( !is_hvm_vcpu(v) )
->          rdmsrl(MSR_CORE_PERF_GLOBAL_STATUS, core2_vpmu_cxt->global_status);
->      /* Save MSR to private context to make it fork-friendly */
-> -    else if ( mem_sharing_enabled(v->domain) )
-> +    else if ( is_vmx_vcpu(v) && mem_sharing_enabled(v->domain) )
->          vmx_read_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
->                             &core2_vpmu_cxt->global_ctrl);
->  }
+> +    list_for_each_entry(entry, &subpage_ro_ranges, list)
+> +        if ( mfn_eq(entry->mfn, mfn) )
+> +            return entry;
 
-Why don't you change the is_hvm_vcpu() that even is visible in context?
-Then this hunk would also actually follow what the description says.
+... you're actually returning entry here, just with its type zapped for
+no apparent reason. I also question the __iomem in the return type.
 
-> @@ -333,7 +335,7 @@ static inline void __core2_vpmu_load(struct vcpu *v)
->          wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL, core2_vpmu_cxt->global_ctrl);
->      }
->      /* Restore MSR from context when used with a fork */
-> -    else if ( mem_sharing_is_fork(v->domain) )
-> +    else if ( is_vmx_vcpu(v) && mem_sharing_is_fork(v->domain) )
->          vmx_write_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
->                              core2_vpmu_cxt->global_ctrl);
->  }
+> +static int __init subpage_mmio_ro_add_page(
+> +    mfn_t mfn,
+> +    unsigned int offset_s,
+> +    unsigned int offset_e)
+> +{
+> +    struct subpage_ro_range *entry = NULL, *iter;
+> +    unsigned int i;
+> +
+> +    entry = subpage_mmio_find_page(mfn);
+> +    if ( !entry )
+> +    {
+> +        /* iter == NULL marks it was a newly allocated entry */
+> +        iter = NULL;
 
-Same here, and up from here there are again two more places to change
-(plus at least one more further down).
+Yet you don't use "iter" for other purposes anymore. I think the variable
+wants renaming and shrinking to e.g. a simple bool.
+
+> +        entry = xzalloc(struct subpage_ro_range);
+> +        if ( !entry )
+> +            return -ENOMEM;
+> +        entry->mfn = mfn;
+> +    }
+> +
+> +    for ( i = offset_s; i <= offset_e; i += MMIO_RO_SUBPAGE_GRAN )
+> +    {
+> +        bool oldbit = __test_and_set_bit(i / MMIO_RO_SUBPAGE_GRAN,
+> +                                        entry->ro_elems);
+
+Nit: Indentation looks to be off by 1 here.
+
+> +        ASSERT(!oldbit);
+> +    }
+> +
+> +    if ( !iter )
+> +        list_add(&entry->list, &subpage_ro_ranges);
+
+What's wrong with doing this right in the earlier conditional?
+
+> +int __init subpage_mmio_ro_add(
+> +    paddr_t start,
+> +    size_t size)
+> +{
+> +    mfn_t mfn_start = maddr_to_mfn(start);
+> +    paddr_t end = start + size - 1;
+> +    mfn_t mfn_end = maddr_to_mfn(end);
+> +    unsigned int offset_end = 0;
+> +    int rc;
+> +    bool subpage_start, subpage_end;
+> +
+> +    ASSERT(IS_ALIGNED(start, MMIO_RO_SUBPAGE_GRAN));
+> +    ASSERT(IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN));
+> +    if ( !IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN) )
+> +        return -EINVAL;
+
+I think I had asked before: Why is misaligned size something that wants a
+release build fallback to the assertion, but not misaligned start?
+
+> +static void subpage_mmio_write_emulate(
+> +    mfn_t mfn,
+> +    unsigned int offset,
+> +    const void *data,
+> +    unsigned int len)
+> +{
+> +    struct subpage_ro_range *entry;
+> +    volatile void __iomem *addr;
+> +
+> +    entry = subpage_mmio_find_page(mfn);
+> +    if ( !entry )
+> +        /* Do not print message for pages without any writable parts. */
+> +        return;
+> +
+> +    if ( test_bit(offset / MMIO_RO_SUBPAGE_GRAN, entry->ro_elems) )
+> +    {
+> +write_ignored:
+
+Nit: Like you have it further up, labels indented by at least one blank please.
 
 Jan
 
