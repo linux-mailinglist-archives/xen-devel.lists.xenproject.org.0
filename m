@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F665939C40
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 10:08:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762664.1172872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72BE5939C54
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 10:15:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762673.1172882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWAZ8-0006TF-LF; Tue, 23 Jul 2024 08:08:10 +0000
+	id 1sWAgM-0007xz-B5; Tue, 23 Jul 2024 08:15:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762664.1172872; Tue, 23 Jul 2024 08:08:10 +0000
+Received: by outflank-mailman (output) from mailman id 762673.1172882; Tue, 23 Jul 2024 08:15:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWAZ8-0006RD-IY; Tue, 23 Jul 2024 08:08:10 +0000
-Received: by outflank-mailman (input) for mailman id 762664;
- Tue, 23 Jul 2024 08:08:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWAZ7-0006R3-8S; Tue, 23 Jul 2024 08:08:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWAZ6-0000hy-T6; Tue, 23 Jul 2024 08:08:08 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWAZ6-0000DD-LX; Tue, 23 Jul 2024 08:08:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sWAZ6-0005ai-L9; Tue, 23 Jul 2024 08:08:08 +0000
+	id 1sWAgM-0007wB-8D; Tue, 23 Jul 2024 08:15:38 +0000
+Received: by outflank-mailman (input) for mailman id 762673;
+ Tue, 23 Jul 2024 08:15:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J0IL=OX=bugseng.com=alessandro.zucchelli@srs-se1.protection.inumbo.net>)
+ id 1sWAgK-0007w0-IF
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 08:15:36 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bbd56a9e-48cb-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 10:15:34 +0200 (CEST)
+Received: from delta.bugseng.com.homenet.telecomitalia.it
+ (host-79-35-51-193.retail.telecomitalia.it [79.35.51.193])
+ by support.bugseng.com (Postfix) with ESMTPSA id 59F2B4EE0739;
+ Tue, 23 Jul 2024 10:15:28 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +40,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=QXTNYusbcADYCKPiClXui8o/I/veP5OuwpZPd89/EZw=; b=ZbLu7RwWiuKgAjJb6pTrkystw0
-	b1zL8V2PFTPZMOhr3BifY90AMUpuFuhDtERzKfwYJebuwfB1mnBMaIPEErJIHHV8YADKjauIX4eKh
-	iPBzpRiN/+d8R7i+YmsJW/3kH5TQUnnhJQCs0lQz8uJnjodZ0iGFHx2bfyCUlnzRbQGk=;
+X-Inumbo-ID: bbd56a9e-48cb-11ef-8776-851b0ebba9a2
+From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186961-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: consulting@bugseng.com,
+	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>
+Subject: [XEN PATCH v5 00/17] xen: address violation of MISRA C:2012 Directive 4.10
+Date: Tue, 23 Jul 2024 10:14:52 +0200
+Message-Id: <cover.1721720583.git.alessandro.zucchelli@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [ovmf test] 186961: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=c5ab17430b2579dd79e3cbd497b8b9deccd34abc
-X-Osstest-Versions-That:
-    ovmf=e10de1cb0345e54c0b4d83f5979a76111d10d6c7
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 23 Jul 2024 08:08:08 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 186961 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186961/
+The Xen sources contain violations of MISRA C:2012 Directive 4.10 whose headline states:
+"Precautions shall be taken in order to prevent the contents of a header file
+being included more than once".
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 c5ab17430b2579dd79e3cbd497b8b9deccd34abc
-baseline version:
- ovmf                 e10de1cb0345e54c0b4d83f5979a76111d10d6c7
+Following V2, V3 and V4, here are all the rules that have been applied:
+- private headers -> <dir>__<filename>_H
+- asm-generic headers -> ASM_GENERIC__<filename>_H
+- arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM__<architecture>__<subdir>__<filename>_H
+- include/xen -> XEN__<filename>_H
 
-Last test of basis   186958  2024-07-23 03:41:28 Z    0 days
-Testing same since   186961  2024-07-23 06:15:52 Z    0 days    1 attempts
+Links to the discussions:
+https://lists.xenproject.org/archives/html/xen-devel/2023-09/msg01928.html
+https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg01784.html
+https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg02073.html
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Oliver Smith-Denny <osde@linux.microsoft.com>
+Furthermore, the violations arising from the autogenerated header files
+include/xen/compile.h and xen/hypercall-defs.h are addressed.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Changes in v5:
+edit inclusion guard naming conventions, according to feedback received
+edit inclusion guards in header files reflecting the naming convention
+fix some rebasing mistakes left in the previous version
 
+Changes in v4:
+add/amend inclusion guards to address violations of the Directive and the new naming convention.
+drop teh XEN_ prefix when needed, according to the feedback received.
+add inclusion guard naming convention section in CODING_STYLE
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Changes in v3:
+Add/amend inclusion guards to address violations of the Directive and the new naming convention.
+Remove trailing underscores.
+Modify creation rule for asm-offsets.h to conform to the new standard and to not generate conflicting
+guards between architectures (which is a violation of the Directive).
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Alessandro Zucchelli (3):
+  xen/build: address violation of MISRA C Directive 4.10
+  CODING_STYLE: Add a section on header guards naming conventions
+  include/asm-generic: rename inclusion guards for consistency
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Maria Celeste Cesario (3):
+  xen/arm: address violations of MISRA C:2012 Directive 4.10
+  xen: address violations of MISRA C:2012 Directive 4.10
+  xen/x86: rename inclusion guards for consistency
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Nicola Vetrini (1):
+  xen: add deviations for MISRA C 2012 Dir D4.10
 
+Simone Ballarin (10):
+  misra: add deviation for headers that explicitly avoid guards
+  misra: modify deviations for empty and generated headers
+  misra: add deviations for direct inclusion guards
+  xen/arm: address violations of MISRA C:2012 Directive 4.10
+  xen/x86: address violations of MISRA C:2012 Directive 4.10
+  x86/EFI: address violations of MISRA C:2012 Directive 4.10
+  xen/common: address violations of MISRA C:2012 Directive 4.10
+  xen/efi: address violations of MISRA C:2012 Directive 4.10
+  xen: address violations of MISRA C:2012 Directive 4.10
+  x86/asm: address violations of MISRA C:2012 Directive 4.10
 
-Pushing revision :
+ CODING_STYLE                                  | 21 ++++++++++++
+ .../eclair_analysis/ECLAIR/deviations.ecl     | 12 +++----
+ docs/misra/deviations.rst                     |  6 ++++
+ docs/misra/safe.json                          | 32 +++++++++++++++++++
+ xen/arch/arm/efi/efi-boot.h                   |  6 ++++
+ xen/arch/arm/efi/runtime.h                    |  1 +
+ xen/arch/arm/include/asm/domain.h             |  6 ++--
+ xen/arch/arm/include/asm/efibind.h            |  5 +++
+ xen/arch/arm/include/asm/event.h              |  6 ++--
+ xen/arch/arm/include/asm/grant_table.h        |  6 ++--
+ xen/arch/arm/include/asm/hypercall.h          |  1 +
+ xen/arch/arm/include/asm/io.h                 |  6 ++--
+ xen/arch/arm/include/asm/irq.h                |  6 ++--
+ xen/arch/arm/include/asm/smp.h                |  6 ++--
+ xen/arch/arm/include/asm/spinlock.h           |  6 ++--
+ xen/arch/arm/include/asm/system.h             |  6 ++--
+ xen/arch/x86/Makefile                         |  9 +++---
+ xen/arch/x86/cpu/cpu.h                        |  5 +++
+ xen/arch/x86/efi/efi-boot.h                   |  5 +++
+ xen/arch/x86/efi/runtime.h                    |  5 +++
+ xen/arch/x86/include/asm/compat.h             |  5 +++
+ xen/arch/x86/include/asm/cpufeatures.h        |  5 +--
+ xen/arch/x86/include/asm/domain.h             |  6 ++--
+ xen/arch/x86/include/asm/efibind.h            |  5 +++
+ xen/arch/x86/include/asm/event.h              |  6 ++--
+ xen/arch/x86/include/asm/grant_table.h        |  6 ++--
+ xen/arch/x86/include/asm/hypercall.h          |  1 +
+ xen/arch/x86/include/asm/io.h                 |  6 ++--
+ xen/arch/x86/include/asm/irq.h                |  6 ++--
+ xen/arch/x86/include/asm/smp.h                |  6 ++--
+ xen/arch/x86/include/asm/spinlock.h           |  6 ++--
+ xen/arch/x86/include/asm/system.h             |  6 ++--
+ xen/arch/x86/x86_64/mmconfig.h                |  5 +++
+ xen/arch/x86/x86_emulate/private.h            |  5 +++
+ xen/build.mk                                  | 13 +++++---
+ xen/common/decompress.h                       |  5 +++
+ xen/common/efi/efi.h                          |  5 +++
+ xen/common/event_channel.h                    |  5 +++
+ xen/include/Makefile                          | 16 +++++++---
+ xen/include/asm-generic/altp2m.h              |  6 ++--
+ xen/include/asm-generic/atomic-ops.h          |  6 ++--
+ xen/include/asm-generic/device.h              |  6 ++--
+ xen/include/asm-generic/div64.h               |  6 ++--
+ xen/include/asm-generic/hardirq.h             |  6 ++--
+ xen/include/asm-generic/iocap.h               |  6 ++--
+ xen/include/asm-generic/monitor.h             |  6 ++--
+ xen/include/asm-generic/paging.h              |  6 ++--
+ xen/include/asm-generic/percpu.h              |  6 ++--
+ xen/include/asm-generic/random.h              |  6 ++--
+ xen/include/asm-generic/softirq.h             |  6 ++--
+ xen/include/asm-generic/vm_event.h            |  6 ++--
+ xen/include/public/arch-x86/cpufeatureset.h   |  1 +
+ xen/include/public/errno.h                    |  1 +
+ xen/include/xen/err.h                         |  8 +++--
+ xen/include/xen/pci_ids.h                     |  5 +++
+ xen/include/xen/softirq.h                     |  8 +++--
+ xen/include/xen/vmap.h                        |  8 +++--
+ xen/scripts/Makefile.asm-generic              |  8 ++++-
+ 58 files changed, 268 insertions(+), 117 deletions(-)
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   e10de1cb03..c5ab17430b  c5ab17430b2579dd79e3cbd497b8b9deccd34abc -> xen-tested-master
+-- 
+2.34.1
+
 
