@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9C31939E92
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 12:07:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762961.1173203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1427939EB7
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 12:24:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762969.1173213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWCQb-0007ng-Gz; Tue, 23 Jul 2024 10:07:29 +0000
+	id 1sWCgk-0002RJ-S6; Tue, 23 Jul 2024 10:24:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762961.1173203; Tue, 23 Jul 2024 10:07:29 +0000
+Received: by outflank-mailman (output) from mailman id 762969.1173213; Tue, 23 Jul 2024 10:24:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWCQb-0007lA-Dy; Tue, 23 Jul 2024 10:07:29 +0000
-Received: by outflank-mailman (input) for mailman id 762961;
- Tue, 23 Jul 2024 10:07:28 +0000
+	id 1sWCgk-0002PJ-Oq; Tue, 23 Jul 2024 10:24:10 +0000
+Received: by outflank-mailman (input) for mailman id 762969;
+ Tue, 23 Jul 2024 10:24:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Rd17=OX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWCQa-0007l4-9p
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 10:07:28 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d4281be-48db-11ef-bbfe-fd08da9f4363;
- Tue, 23 Jul 2024 12:07:27 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2ef2d7d8854so23032881fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 03:07:27 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2ccf8092da9sm8699754a91.37.2024.07.23.03.07.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jul 2024 03:07:26 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xgPy=OX=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1sWCgj-0002PD-5n
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 10:24:09 +0000
+Received: from fout7-smtp.messagingengine.com (fout7-smtp.messagingengine.com
+ [103.168.172.150]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id af59c1e9-48dd-11ef-bbfe-fd08da9f4363;
+ Tue, 23 Jul 2024 12:24:06 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 59C4B1380521;
+ Tue, 23 Jul 2024 06:24:03 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Tue, 23 Jul 2024 06:24:03 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 23 Jul 2024 06:24:01 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +43,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d4281be-48db-11ef-bbfe-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721729247; x=1722334047; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=p74SxLq2dEWp9ZGQVN+Lvnkp8KTTjzqhjk9NmTUGt58=;
-        b=C8s00kctkgfFVmxqkyVpxpcsxuRD5ajz6r8mEj/ykZPC4pBG+rUOE5SxVu56fjaQrM
-         VWYnjMc85BLGX95R/5JqDN5KdcE108HSK/s4f46/qWGa1gFbq4ze1cg+edsvlcU56GNb
-         zgJdXpcC6JVMx2yF6AUvrahFd9s4yeKq75HSe2QDMM4cY2LiieWz6Z+au/H1CdVOjwe1
-         l1wDiRodzMgJ/KZWUUUlaCbqpErqcyagInEXoniVjHvRIg6NG0GVKn+n7xaWq9Nv1mq4
-         AqIiYAR82c9BKQebYQPTOKwVmKSlMQVmp3yHlr9xvuafSj9HuDs/aST5znRsVqjZkaGM
-         RhxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721729247; x=1722334047;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=p74SxLq2dEWp9ZGQVN+Lvnkp8KTTjzqhjk9NmTUGt58=;
-        b=pDN/TNik3Bfdju7AQNkO2jZstUlF7rRWKcMNHFEjOhmP4nwHniDGGbb85u0nkyhajr
-         rWQKU+jtwwLob/7iyCsiI9778LiSnPdocDqtJWquyEY4rg1bxDkp8icZMFekiVb1n0up
-         oPeV5+cdnds04joSYOUp8zxi576flT/3gcLxXoClX/g/FwelDyg0PaYog3PlIPLNiHtC
-         O6bhlim8lOn61I/Rgc0uRY6OJC3CfJaFShea2lubaZ2bSRfJpwBxYXPiHAoTwrRIyhRt
-         OeaIdes64z+kS5sYLLAeiAhQKqAZjl5HVWKQHVifuDAuzFoXUWcRC5/x7G/ogZheg3HS
-         Qs+A==
-X-Forwarded-Encrypted: i=1; AJvYcCW+DCXgcl3NkfRQJpN92dLcTKb7fcCM/DAXzpceWSNBshX5OxS+TrkbPqq3eoPk+xgvT6N2MJkvWtYtgpQmVCXxPyGc7u0M0QitRNuFCEU=
-X-Gm-Message-State: AOJu0Yyb7iRjKtbfOzXCMLn5bMSF2Mpjtpro6P+kvTuILf4aBUeM6uZM
-	wxrvFGjhBW80+cIV7buvciT3TI7lfh4dRenAfX6WkSTqS2DHZdXlUQOm/0vLDw==
-X-Google-Smtp-Source: AGHT+IGkYBM9ECwR7LcsuBf+IyL8oYna1/B2se7nS8kr7HptRu1RGHFB5g+m4KRfwdvK20lONG/fBw==
-X-Received: by 2002:a2e:240f:0:b0:2ef:a504:65b8 with SMTP id 38308e7fff4ca-2f01ea56ec0mr13847481fa.13.1721729246579;
-        Tue, 23 Jul 2024 03:07:26 -0700 (PDT)
-Message-ID: <04b96cce-d2a0-4948-9db7-ee2073248472@suse.com>
-Date: Tue, 23 Jul 2024 12:07:20 +0200
+X-Inumbo-ID: af59c1e9-48dd-11ef-bbfe-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1721730243;
+	 x=1721816643; bh=Uzk9y7b0LvyRMNuN0uE2uPhPtiBU94dfsnk4x657QoU=; b=
+	NoKW/bpMGvjtEoe4J5VeEi1sBEyzkLoSyHzHOcIllBwIVlB45hVMozWR7YdUr6a/
+	fDuBNMEYK2Ki6Z7kh6dV3ho8FC+ntj+bJqYRkdHt4KY5tFpBDGaSRTsIty/kqrQc
+	q/FuyCVnxfnOBEsBoTWvIOZJdDZefYCXDoiRB37FHIhdYhVnGYeOjoZkBXuyZms1
+	7rzn7A66vj2s9eEPpjlPVp4cbAa2I2a+aeSi8sNiI5KI0UezH75ah9Hwr2A6Xz4z
+	yw1wAyz9BTpBKD7tPtlOsWJaRMZOHBPjMzUTe1cMY/39neV5EajiR+0Osfq+mEzK
+	i3Zv/mFqWnF1Od/bs6Wrtg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1721730243; x=1721816643; bh=Uzk9y7b0LvyRMNuN0uE2uPhPtiBU
+	94dfsnk4x657QoU=; b=dUFz/SYkGt2Y8u1bKKq8n90mQoGDbVjWM8p6dOb23t8w
+	pBYIpdGC2a2ql96EIFWmj0Ha5Z0e6BicZvv5p/FCg9YdyLZk89AgUhopU2PZ+g1P
+	FCy+nN0CO+TsPYW2RFFdjKtmGPn6VOJlgfWJAoSApqwTRF1HRGTcQdDmzLWA5haQ
+	r6o16NoaAh9mwnrdSSjvPNHJPWe7aoQ43W7idYmTsYbeNBoFXQkzUkLKU7snIL2O
+	6DHNrrH4QPJTcPA0yUZAEkXSOut4o/lkdBuqpuIW1M7FUdFVqS2Hnlhm2kPKUfrV
+	PCK/wMxBMG7oYB/lXYFHdWBizLKuF8QBfQrtxQhwLQ==
+X-ME-Sender: <xms:w4SfZrNvTPxH7adKRsAHx-T1XcUgn4UJLSHHPnWOCXKgi35DsFBgCA>
+    <xme:w4SfZl994JNC8Y_9BrtZG6pk7TY1mb0Wcm997tllzjl_5mcJef52b58ubcRfjdU2l
+    ccHEge_unbVtw>
+X-ME-Received: <xmr:w4SfZqQTLZRpWoZOBkw6hp9jyaNiJfNbmhqjArQy6HsA7-dJK75OZgM>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrheelgddvjecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
+    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedt
+X-ME-Proxy: <xmx:w4SfZvsg6i4nVq7CXvsJ7n-1_qAW5ZcbIBba3cVTXO_Z8YQ1qEeDEA>
+    <xmx:w4SfZjdR-aA7tNoxqwEiP3ttQ-RmLna7tQo7o9RVeuJ_47lHOJbMzg>
+    <xmx:w4SfZr2auZo7kbPPiLVtZrBulWpCShtaRafI90DFGZac0zF8vOIzHA>
+    <xmx:w4SfZv9B5qBpwCddVS7hLCvKthaDWqA2QF1HY2i2sliIstCameG4EQ>
+    <xmx:w4SfZrQn0RBGqutikHQoAUk-nB5yCtgBHeQrAboxfv7BfhTIfSFM302W>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 23 Jul 2024 12:23:58 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Gene Bright <gene@cyberlight.us>
+Subject: Re: [PATCH 1/2] x86/efi: Simplify efi_arch_cpu() a little
+Message-ID: <Zp-Ev__kc3xQRgf_@mail-itl>
+References: <20240722101838.3946983-1-andrew.cooper3@citrix.com>
+ <20240722101838.3946983-2-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] x86/altcall: fix clang code-gen when using
- altcall in loop constructs
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <20240723093117.99487-1-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240723093117.99487-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-On 23.07.2024 11:31, Roger Pau Monne wrote:
-> Yet another clang code generation issue when using altcalls.
-> 
-> The issue this time is with using loop constructs around alternative_{,v}call
-> instances using parameter types smaller than the register size.
-> 
-> Given the following example code:
-> 
-> static void bar(bool b)
-> {
->     unsigned int i;
-> 
->     for ( i = 0; i < 10; i++ )
->     {
->         int ret_;
->         register union {
->             bool e;
->             unsigned long r;
->         } di asm("rdi") = { .e = b };
->         register unsigned long si asm("rsi");
->         register unsigned long dx asm("rdx");
->         register unsigned long cx asm("rcx");
->         register unsigned long r8 asm("r8");
->         register unsigned long r9 asm("r9");
->         register unsigned long r10 asm("r10");
->         register unsigned long r11 asm("r11");
-> 
->         asm volatile ( "call %c[addr]"
->                        : "+r" (di), "=r" (si), "=r" (dx),
->                          "=r" (cx), "=r" (r8), "=r" (r9),
->                          "=r" (r10), "=r" (r11), "=a" (ret_)
->                        : [addr] "i" (&(func)), "g" (func)
->                        : "memory" );
->     }
-> }
-> 
-> See: https://godbolt.org/z/qvxMGd84q
-> 
-> Clang will generate machine code that only resets the low 8 bits of %rdi
-> between loop calls, leaving the rest of the register possibly containing
-> garbage from the use of %rdi inside the called function.  Note also that clang
-> doesn't truncate the input parameters at the callee, thus breaking the psABI.
-> 
-> Fix this by turning the `e` element in the anonymous union into an array that
-> consumes the same space as an unsigned long, as this forces clang to reset the
-> whole %rdi register instead of just the low 8 bits.
-> 
-> Fixes: 2ce562b2a413 ('x86/altcall: use a union as register type for function parameters on clang')
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="lEMPaGzDlhaGp2++"
+Content-Disposition: inline
+In-Reply-To: <20240722101838.3946983-2-andrew.cooper3@citrix.com>
 
 
+--lEMPaGzDlhaGp2++
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 23 Jul 2024 12:23:58 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Gene Bright <gene@cyberlight.us>
+Subject: Re: [PATCH 1/2] x86/efi: Simplify efi_arch_cpu() a little
+
+On Mon, Jul 22, 2024 at 11:18:37AM +0100, Andrew Cooper wrote:
+> Make the "no extended leaves" case fatal and remove one level of indentat=
+ion.
+> Defer the max-leaf aquisition until it is first used.
+>=20
+> No functional change.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> CC: Gene Bright <gene@cyberlight.us>
+> ---
+>  xen/arch/x86/efi/efi-boot.h | 31 ++++++++++++++++---------------
+>  1 file changed, 16 insertions(+), 15 deletions(-)
+>=20
+> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+> index f282358435f1..4e4be7174751 100644
+> --- a/xen/arch/x86/efi/efi-boot.h
+> +++ b/xen/arch/x86/efi/efi-boot.h
+> @@ -738,29 +738,30 @@ static void __init efi_arch_handle_module(const str=
+uct file *file,
+> =20
+>  static void __init efi_arch_cpu(void)
+>  {
+> -    uint32_t eax =3D cpuid_eax(0x80000000U);
+> +    uint32_t eax;
+>      uint32_t *caps =3D boot_cpu_data.x86_capability;
+> =20
+>      boot_tsc_stamp =3D rdtsc();
+> =20
+>      caps[FEATURESET_1c] =3D cpuid_ecx(1);
+> =20
+> -    if ( (eax >> 16) =3D=3D 0x8000 && eax > 0x80000000U )
+> -    {
+> -        caps[FEATURESET_e1d] =3D cpuid_edx(0x80000001U);
+> +    eax =3D cpuid_eax(0x80000000U);
+> +    if ( (eax >> 16) !=3D 0x8000 || eax < 0x80000000U )
+> +        blexit(L"In 64bit mode, but no extended CPUID leaves?!?");
+> =20
+> -        /*
+> -         * This check purposefully doesn't use cpu_has_nx because
+> -         * cpu_has_nx bypasses the boot_cpu_data read if Xen was compiled
+> -         * with CONFIG_REQUIRE_NX
+> -         */
+> -        if ( IS_ENABLED(CONFIG_REQUIRE_NX) &&
+> -             !boot_cpu_has(X86_FEATURE_NX) )
+> -            blexit(L"This build of Xen requires NX support");
+> +    caps[FEATURESET_e1d] =3D cpuid_edx(0x80000001U);
+> =20
+> -        if ( cpu_has_nx )
+> -            trampoline_efer |=3D EFER_NXE;
+> -    }
+> +    /*
+> +     * This check purposefully doesn't use cpu_has_nx because
+> +     * cpu_has_nx bypasses the boot_cpu_data read if Xen was compiled
+> +     * with CONFIG_REQUIRE_NX
+> +     */
+> +    if ( IS_ENABLED(CONFIG_REQUIRE_NX) &&
+> +         !boot_cpu_has(X86_FEATURE_NX) )
+> +        blexit(L"This build of Xen requires NX support");
+> +
+> +    if ( cpu_has_nx )
+> +        trampoline_efer |=3D EFER_NXE;
+>  }
+> =20
+>  static void __init efi_arch_blexit(void)
+> --=20
+> 2.39.2
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--lEMPaGzDlhaGp2++
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmafhL8ACgkQ24/THMrX
+1yzlfAf8Cu7uEXig3naKT5T2Elyf+v4qaJWz0DjN08jj6vPi6UC36vyy+AKw9ulU
+cw+l+RCQfex48HsXl28K94hFvBdcV9NuowoFcw/hU1juO2Ykzj6s5/zQrq/4zNbW
+0C0em+NYlaYfM6N66TAOmZwmqk7zzcREzIFa4qQNsZwp89LWUV9lvWQK8BAt/W/7
+BZ5fHM8tTgisiYSz0aHK7mrnp6UY8oBmQ6yLZOXsVK6bBtZTtJNd1YZMZJlS4aSS
+jLNm1H++0vADKjH3uVMv4OoyHNDcmsM5GN5s+iskMHH5Xq+sCEjQxNKDSlfQ2lI8
+Kcn7RGVh6X1MNDy8SpQFi2OIHdR3HQ==
+=lqXV
+-----END PGP SIGNATURE-----
+
+--lEMPaGzDlhaGp2++--
 
