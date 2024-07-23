@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88DCE93A1B4
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 15:39:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763213.1173469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A60D193A1E4
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 15:47:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763229.1173489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWFj1-000422-RE; Tue, 23 Jul 2024 13:38:43 +0000
+	id 1sWFrM-0006XH-Ph; Tue, 23 Jul 2024 13:47:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763213.1173469; Tue, 23 Jul 2024 13:38:43 +0000
+Received: by outflank-mailman (output) from mailman id 763229.1173489; Tue, 23 Jul 2024 13:47:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWFj1-00040N-O0; Tue, 23 Jul 2024 13:38:43 +0000
-Received: by outflank-mailman (input) for mailman id 763213;
- Tue, 23 Jul 2024 13:38:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sWFrM-0006Uq-Mp; Tue, 23 Jul 2024 13:47:20 +0000
+Received: by outflank-mailman (input) for mailman id 763229;
+ Tue, 23 Jul 2024 13:47:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v/3h=OX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sWFj0-00040F-0W
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 13:38:42 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id df66c63b-48f8-11ef-bbfe-fd08da9f4363;
- Tue, 23 Jul 2024 15:38:41 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-52f024f468bso3423194e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 06:38:40 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52efd42770dsm1199633e87.196.2024.07.23.06.38.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jul 2024 06:38:39 -0700 (PDT)
+ <SRS0=ruWa=OX=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sWFrL-0006Uj-8n
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 13:47:19 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 13098e91-48fa-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 15:47:17 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-52f01ec08d6so3198655e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 06:47:17 -0700 (PDT)
+Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7a3c8be3d7sm551225366b.140.2024.07.23.06.47.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jul 2024 06:47:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +44,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df66c63b-48f8-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: 13098e91-48fa-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1721741920; x=1722346720; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=QUcmsYiwqBfNIALGEdCHYjpJBIHP/Xn/H3+qY1u5Tb8=;
-        b=i+1sBk3GeEgvBaA3FONOmR1+MqJjQ6sNcu4IgVlJfM4e48YZgd2rDufQ6ABMDe4+pC
-         GwVxPu0POix+Lw21FrTco6XqstSGgKBhFkWZYJT4hb50Lcc6VNWxKUpTVugbn8hx8tXd
-         ZZXGEr6Nm238owuVmwJtYZDQvm2Gn5fs4bAtfmIksSgnXMnmtC2otAuJ6VAlJXLipCYU
-         eWL8k2Gw8HziHobv/MeiF2TuuwT/eGGEIWPTg0W+2OL7VwpTlebelG0C1VeOPRK5/Bhy
-         xZFlmcbFJS+8sGk7CYONX6Yu3vIRx2nxamZmN4qM/MF3gEEtPP7ptf3hul0hNKPkHatt
-         LEuA==
+        d=cloud.com; s=cloud; t=1721742436; x=1722347236; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=41wLimo+GAUwzY99gBr6y7OCaz6N2LtCF8X53iEUQPM=;
+        b=iApbp7XOCgbQR8l4ZkjbSvMmk7QORJiooS8JjQCa2D4vVpjXsOo4CBUXmNQcgOGCVB
+         vxm1OwepNw40Re9eve1VhJPRbAkKyL9K38CMfj/fM82DvDo0Xy1DN4OZqT6HZjgTit4Q
+         XqSKpVeRL7tIa2sm974JWa+mUCywPCvWM2UQ0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721741920; x=1722346720;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QUcmsYiwqBfNIALGEdCHYjpJBIHP/Xn/H3+qY1u5Tb8=;
-        b=TUldZZ+UzxdXhX/1+76iOv3yNqwqg3FGmJxx010341LbIt7gk7if8bNhqz8SvnFT9H
-         uxv3K4QXXWFxH5zNvYg+GVqQ2dAbGuxt1dYH7XKmDHVxmSBnZK44TE1e753AQAlJhXo0
-         vqnfYWL3zUdohEjS1IoRIizOrU3qUBHMoPQ3A5GxVL+dsFQ/Gq8PaZ+Z0HdXLR0/319R
-         YXjK+luSrlwfPee3cehtS0elzPI3noI/4lteVlKOT+V43w5f8jhrNlW4eKEOfwNNuPFD
-         ajG8T5+4WzowV6XPuF/aiVNF+vBu2/XOyfX9jhrGXIby7tt6h1QRnocz9gZyxa5slWnN
-         lCjA==
-X-Forwarded-Encrypted: i=1; AJvYcCVi9EVxctn7D2AX1Zr2MwbqTnSoC3a2ouiKXWWEkcNksXjzCLZ4DkRDIL0eSJNDUAexCBZsSTQRinFHgGO1GWZlo2WpCunrFjkJEOkig6Q=
-X-Gm-Message-State: AOJu0Yy7vgOKU3SIiis1EzO5izC++UpYQvaN7aK6N/89bOb0HmhgfDwk
-	doMFi3Ls3x3PBeN8GFkvndSFgqlySnF26yRopBANkWJxkd75Jl5z
-X-Google-Smtp-Source: AGHT+IFzXBJjzkjr1sGbrjvYoFNp+OY0ndHil4kKBg+mXCNFs8oX0SZnmeJsQ9HK96ljzcVUPxfOeA==
-X-Received: by 2002:a05:6512:ac8:b0:52e:7f16:96b6 with SMTP id 2adb3069b0e04-52efb837fcfmr6606298e87.37.1721741920099;
-        Tue, 23 Jul 2024 06:38:40 -0700 (PDT)
-Message-ID: <d20fd6488bfde555da5e9857cbdf2330903dbe46.camel@gmail.com>
-Subject: Re: [PATCH v2 4/8] xen/riscv: setup fixmap mapping
-From: oleksii.kurochko@gmail.com
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Date: Tue, 23 Jul 2024 15:38:39 +0200
-In-Reply-To: <23b6ffc8-6965-4a67-a809-0145821ff5f8@xen.org>
-References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
-	 <b1776fb20603cb56b0aea17ef998ea951d2bbda9.1720799926.git.oleksii.kurochko@gmail.com>
-	 <8fd1cc2c-9dda-4e74-b242-fe8aa862955d@xen.org>
-	 <fad84a0af0ce578c0c9cb63131e992957ccd9eba.camel@gmail.com>
-	 <23b6ffc8-6965-4a67-a809-0145821ff5f8@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+        d=1e100.net; s=20230601; t=1721742436; x=1722347236;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=41wLimo+GAUwzY99gBr6y7OCaz6N2LtCF8X53iEUQPM=;
+        b=fKb0K3VJZmUxGyOohVjpb/TKEMVTn/cbhSDb0Q8mUQMDQbF3i4mG/V4HfQGmUkwEYO
+         7Guvbnlp5gcaMwUWpVp9wVsnaH7knpbrXG8psnewBM42qoWrKQmrUD6Fa59AjGCIROPU
+         2IRYDBVRts1KxKuL8LD0lWsmJvINIVDUPga2NcDmjbK14wHJ1BXk4p8nH74vy6aB+HOj
+         iTGKKPMDeYUvxjFiQ3i78q9z8iVUns1kDwXRPBXpXlAq78g0YgdoVUsWm7PluioZ0i6Y
+         BHLAd4VIS8Cki3l/9X+Wv9ChELmgDwFt57+LZB/Kt880v8ZXFwuRqr8Uy6YxQl32T9JU
+         IPTw==
+X-Forwarded-Encrypted: i=1; AJvYcCULL2L1BnYmV1ez1vu8Sk/3acrRXnUWIJnhM6qUwjYf3ej3UUSTTNARQsbnuTAZnKjzShEdKK5FdySBVSZW2qIXsme3qIlMEI2zDiir8zI=
+X-Gm-Message-State: AOJu0YwKI9NRp4DNeAp2oVOMLmXqWyubnvsvBN37B/sLzJ1YXGAH/bxC
+	5/2qmHqDsrZ0vrPCRvawCOWxVeKKmQUP0LsAWThFzQpIP3gSjxF5G2cItP/G5NI=
+X-Google-Smtp-Source: AGHT+IHiq6vw4McMRltRCNCB6huqDqybR+36+mKNH+f0I+lPaCgCC71mr8ZGzhfqo3Rx8nL6TeArIQ==
+X-Received: by 2002:a05:6512:2211:b0:52e:76d5:9504 with SMTP id 2adb3069b0e04-52fc403d8dcmr2159669e87.3.1721742436389;
+        Tue, 23 Jul 2024 06:47:16 -0700 (PDT)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
-MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 23 Jul 2024 14:47:13 +0100
+Message-Id: <D2WYR6RSF2NH.3FCEH00B4ZRZ2@cloud.com>
+Cc: "Jan Beulich" <JBeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, "Gene Bright" <gene@cyberlight.us>
+Subject: Re: [PATCH 1/2] x86/efi: Simplify efi_arch_cpu() a little
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Xen-devel"
+ <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.17.0
+References: <20240722101838.3946983-1-andrew.cooper3@citrix.com>
+ <20240722101838.3946983-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20240722101838.3946983-2-andrew.cooper3@citrix.com>
 
-On Tue, 2024-07-23 at 14:33 +0100, Julien Grall wrote:
-> On 23/07/2024 14:27, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > Hello Julien,
->=20
-> Hi Oleksii,
->=20
->=20
-> > On Sun, 2024-07-21 at 09:46 +0100, Julien Grall wrote:
-> > > > diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-> > > > index 7d09e781bf..d69a174b5d 100644
-> > > > --- a/xen/arch/riscv/mm.c
-> > > > +++ b/xen/arch/riscv/mm.c
-> > > > @@ -49,6 +49,9 @@ stage1_pgtbl_root[PAGETABLE_ENTRIES];
-> > > > =C2=A0=C2=A0=C2=A0 pte_t __section(".bss.page_aligned") __aligned(P=
-AGE_SIZE)
-> > > > =C2=A0=C2=A0=C2=A0 stage1_pgtbl_nonroot[PGTBL_INITIAL_COUNT *
-> > > > PAGETABLE_ENTRIES];
-> > > > =C2=A0=C2=A0=C2=A0=20
-> > > > +pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
-> > > > +xen_fixmap[PAGETABLE_ENTRIES];
-> > >=20
-> > > Can you add a BUILD_BUG_ON() to check that the number of entries
-> > > in
-> > > the
-> > > fixmap will never be above PAGETABLE_ENTRIES?
-> > I just realized that we don't have the information about how many
-> > entries has been used. Am I confusing something?
->=20
-> I think we do. It is FIX_LAST.
-Sure. We have FIX_LAST. Thanks
+On Mon Jul 22, 2024 at 11:18 AM BST, Andrew Cooper wrote:
+> Make the "no extended leaves" case fatal and remove one level of indentat=
+ion.
+> Defer the max-leaf aquisition until it is first used.
+>
+> No functional change.
+>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> CC: Gene Bright <gene@cyberlight.us>
+> ---
+>  xen/arch/x86/efi/efi-boot.h | 31 ++++++++++++++++---------------
+>  1 file changed, 16 insertions(+), 15 deletions(-)
+>
+> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+> index f282358435f1..4e4be7174751 100644
+> --- a/xen/arch/x86/efi/efi-boot.h
+> +++ b/xen/arch/x86/efi/efi-boot.h
+> @@ -738,29 +738,30 @@ static void __init efi_arch_handle_module(const str=
+uct file *file,
+> =20
+>  static void __init efi_arch_cpu(void)
+>  {
+> -    uint32_t eax =3D cpuid_eax(0x80000000U);
+> +    uint32_t eax;
+>      uint32_t *caps =3D boot_cpu_data.x86_capability;
+> =20
+>      boot_tsc_stamp =3D rdtsc();
+> =20
+>      caps[FEATURESET_1c] =3D cpuid_ecx(1);
+> =20
+> -    if ( (eax >> 16) =3D=3D 0x8000 && eax > 0x80000000U )
+> -    {
+> -        caps[FEATURESET_e1d] =3D cpuid_edx(0x80000001U);
+> +    eax =3D cpuid_eax(0x80000000U);
 
-~ Oleksii
+Why this movement?
 
+> +    if ( (eax >> 16) !=3D 0x8000 || eax < 0x80000000U )
+> +        blexit(L"In 64bit mode, but no extended CPUID leaves?!?");
+
+I'm not sure about the condition even for the old code. If eax had 0x900000=
+00
+(because new convention appeared 10y in the future), then there would be
+extended leaves but we would be needlessly bailing out. Why not simply chec=
+k
+that eax < 0x80000001 in here?
+
+> =20
+> -        /*
+> -         * This check purposefully doesn't use cpu_has_nx because
+> -         * cpu_has_nx bypasses the boot_cpu_data read if Xen was compile=
+d
+> -         * with CONFIG_REQUIRE_NX
+> -         */
+> -        if ( IS_ENABLED(CONFIG_REQUIRE_NX) &&
+> -             !boot_cpu_has(X86_FEATURE_NX) )
+> -            blexit(L"This build of Xen requires NX support");
+> +    caps[FEATURESET_e1d] =3D cpuid_edx(0x80000001U);
+> =20
+> -        if ( cpu_has_nx )
+> -            trampoline_efer |=3D EFER_NXE;
+> -    }
+> +    /*
+> +     * This check purposefully doesn't use cpu_has_nx because
+> +     * cpu_has_nx bypasses the boot_cpu_data read if Xen was compiled
+> +     * with CONFIG_REQUIRE_NX
+> +     */
+> +    if ( IS_ENABLED(CONFIG_REQUIRE_NX) &&
+> +         !boot_cpu_has(X86_FEATURE_NX) )
+> +        blexit(L"This build of Xen requires NX support");
+> +
+> +    if ( cpu_has_nx )
+> +        trampoline_efer |=3D EFER_NXE;
+>  }
+> =20
+>  static void __init efi_arch_blexit(void)
+
+Cheers,
+Alejandro
 
