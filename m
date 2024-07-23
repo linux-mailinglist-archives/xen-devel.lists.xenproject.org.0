@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D91B93A252
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 16:08:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763264.1173529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9094693A253
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 16:09:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763268.1173539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWGBp-0003ry-6t; Tue, 23 Jul 2024 14:08:29 +0000
+	id 1sWGCc-0004Jx-Fs; Tue, 23 Jul 2024 14:09:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763264.1173529; Tue, 23 Jul 2024 14:08:29 +0000
+Received: by outflank-mailman (output) from mailman id 763268.1173539; Tue, 23 Jul 2024 14:09:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWGBp-0003on-4E; Tue, 23 Jul 2024 14:08:29 +0000
-Received: by outflank-mailman (input) for mailman id 763264;
- Tue, 23 Jul 2024 14:08:27 +0000
+	id 1sWGCc-0004Hw-Ck; Tue, 23 Jul 2024 14:09:18 +0000
+Received: by outflank-mailman (input) for mailman id 763268;
+ Tue, 23 Jul 2024 14:09:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=W1nq=OX=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1sWGBn-0003oh-Dy
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 14:08:27 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20608.outbound.protection.outlook.com
- [2a01:111:f403:2414::608])
+ id 1sWGCb-0004Gg-1W
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 14:09:17 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060a.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::60a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06397dcf-48fd-11ef-8776-851b0ebba9a2;
- Tue, 23 Jul 2024 16:08:25 +0200 (CEST)
-Received: from BL1P221CA0025.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::13)
- by CH3PR12MB8754.namprd12.prod.outlook.com (2603:10b6:610:170::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29; Tue, 23 Jul
- 2024 14:08:21 +0000
-Received: from BL6PEPF0001AB77.namprd02.prod.outlook.com
- (2603:10b6:208:2c5:cafe::27) by BL1P221CA0025.outlook.office365.com
- (2603:10b6:208:2c5::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.15 via Frontend
- Transport; Tue, 23 Jul 2024 14:08:21 +0000
+ id 2437904c-48fd-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 16:09:15 +0200 (CEST)
+Received: from BN9PR03CA0974.namprd03.prod.outlook.com (2603:10b6:408:109::19)
+ by DS0PR12MB7874.namprd12.prod.outlook.com (2603:10b6:8:141::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.18; Tue, 23 Jul
+ 2024 14:09:11 +0000
+Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
+ (2603:10b6:408:109:cafe::4c) by BN9PR03CA0974.outlook.office365.com
+ (2603:10b6:408:109::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.17 via Frontend
+ Transport; Tue, 23 Jul 2024 14:09:11 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB77.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ BN3PEPF0000B078.mail.protection.outlook.com (10.167.243.123) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Tue, 23 Jul 2024 14:08:21 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ 15.20.7784.11 via Frontend Transport; Tue, 23 Jul 2024 14:09:11 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 23 Jul
- 2024 09:08:19 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 09:09:10 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 23 Jul
- 2024 09:08:19 -0500
+ 2024 09:09:10 -0500
 Received: from [172.23.111.139] (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 23 Jul 2024 09:08:18 -0500
+ Transport; Tue, 23 Jul 2024 09:09:09 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,213 +63,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06397dcf-48fd-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 2437904c-48fd-11ef-8776-851b0ebba9a2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h3Eu5lzcFX9FLBi/PPf/lCxTKiTo+McefbyeMJ88f4mW5kuuo1tgzhjkofgPvkOZUNqA8/exi5tzZoN+ofIOj+LiC3J/DJ9I7+q77m0q1s9SgIeQxAH0Xhc86wE2YarVNLaXCttDD5mkPmTl8u6bnHQujfFiXDt/87oKw2rsB1f/PKnvbSLGr6e+PF9FqyQNMMAaBb/0SCsHrND3XRUKbBnafz2zotOYtld841gGJhiVw+gnT0TaubCtoImHkFO4Tgtdn1ejugeKWyOT/AxjrLHXi8R1IYcES77xQeXOugvl3PzTt0uEf4fk0gH7TIe60Qv1wvy+qM18tFEIBswMyQ==
+ b=uWIK+Li/Am7aku33t5CIGahYOe4hPbPz+ZhpczfjqPMD52jz2aIaCJG1sZrRcKvWJoDASGozA4mKUm+2Snorvcs6YTorVpBLUQXDDliQg58dwyvnP3pyV5Jo+iSc/gO3Y/AhC/LtfB3Ensq+c3M/WtzFGVX4ptkn5x/fF9szmS2KhOGAmpUM18SxSurmlAvu8iccfivX664uYLz3cd2lsL0rgzv16NZ8ire89te65hkq1LCjdiakpMni9h45TSp3aGmycNXWb7yJcCshwTB0k7MprI158pxKRkY1SxEbG5EIHr414yQJi48XCrxxDnliOY8dWca/wG1mTwQYlK6REg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vrOKkQBU4TDjr90t1Z4yRMA7wSjtwgBuAkIgZmtVEdA=;
- b=ieLV5LWiBsVPJK+jJfYTCYmdubOAWW3nOA2odrM1V54YckP3NHhkiAXvXlM9KmevZezyQ9CPtFZ+2RcJTaNUv51SpZagUkyJJpZMaMTHtXDYsEgquqzER19nRRTtz8PO6+OeeOgir/6i7+zpRM68Yoc9szmeWI4T5L+HOW/sIY31lfqu5D38/AvynABQFsqg5ThKDKUD79uYUhFt52yj22FD067R2hb1Ohg7e78e08g8+yeN8swUDnQEjh9Wmyb/j6OMIZbx4ok1euq30pxA0SMO2ir4AnDP0nk+A8F/m29oE+wxRkPQhgcojWnkeF1/ex2i5u77L2lQEdzTRZcJFg==
+ bh=AVEj1nE6RswZNDJ+mXfggHs0FnAaXmmn7YOQWVRsuCw=;
+ b=VPUeKullYQREJy7G4uMRDs9Gq89iBHze1B9APdN9zfv4SW88qp7AI4GLbt9DWTwG6Vg1xbLj5UfAIF5y9iY8KfaapxF0DpPrVcoLbmEJN5vbUZzcBHpK4JhtAbRH/AH6cuty4lPUG/Sj6lHF6BfpQpnXxlABP69L5isa1jsEZJ0e7dDZxYDM4drWdi2Nk5aNqzzjzUq1MiZdoBLpRtDoAPGHhLLRtjGF82DXMXW4i9i761JyB5R1Je6T/a+JarpmKYIAjdPr7Lst3rtyfiZLcDNKxfXKSqN97TxPd1IKlLtxZpIzr/gcaH30wamtH9EBhoQTUJoTBjvHfENsRcnufg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vrOKkQBU4TDjr90t1Z4yRMA7wSjtwgBuAkIgZmtVEdA=;
- b=Yws/wGKaFQLbMnz/SkQrFBcy6nLZywGDdSugfEvZv77RCjirgLxzZxJvyBQD05NjKxwk8DvxK+d83QfD47WkEAKM5PY5mt6VJ5OESXznXMnIl0fzUmipr9EKTHLnznt1H2pBih5cz8HYrga+Wk/RyH7dJ1snoUEQ1xJnl6PRxD0=
+ bh=AVEj1nE6RswZNDJ+mXfggHs0FnAaXmmn7YOQWVRsuCw=;
+ b=chil8p2S19GhWrQsmblK11vFAn389PAaQj0zQmngmN56RCb0pRZxqDIwTfF/pyxD/RdaB03Gy1gaOzgW1OaCvYPmWWTN8GjrgyS/F4AzL3jYK4GixkgvwxrVIk9K6PIsQwjLRQsR6BcthDq1eaJ+5DwXjGXgIxOJlNEZOjcLY10=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <296cccab-118f-4b42-b48d-f4927d10162d@amd.com>
-Date: Tue, 23 Jul 2024 09:45:15 -0400
+Message-ID: <1e737cea-49f7-4813-986f-229536123d23@amd.com>
+Date: Tue, 23 Jul 2024 09:46:06 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1.1 5/6] tools/libxs: Use writev()/sendmsg() instead of
- write()
-To: Juergen Gross <jgross@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@vates.tech>, Frediano Ziglio
-	<frediano.ziglio@cloud.com>
-References: <20240718164842.3650702-6-andrew.cooper3@citrix.com>
- <20240722162547.4060813-1-andrew.cooper3@citrix.com>
- <cabf929b-11bd-4401-88a2-7d4c8ae4b606@suse.com>
- <702ac4d8-2eba-4b4d-bf43-3cc8277c5778@citrix.com>
- <34350564-2faf-4af7-a66c-4ef3960a98ed@suse.com>
+Subject: Re: [PATCH 6/6] tools/libxs: Stop playing with SIGPIPE
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross
+	<jgross@suse.com>
+References: <20240718164842.3650702-1-andrew.cooper3@citrix.com>
+ <20240718164842.3650702-7-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <34350564-2faf-4af7-a66c-4ef3960a98ed@suse.com>
+In-Reply-To: <20240718164842.3650702-7-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
+Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB77:EE_|CH3PR12MB8754:EE_
-X-MS-Office365-Filtering-Correlation-Id: faf4e7b7-6a78-4122-0230-08dcab20e904
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|DS0PR12MB7874:EE_
+X-MS-Office365-Filtering-Correlation-Id: 437313a3-461a-4260-819a-08dcab2106c8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?U2FHendIK0NiM3hBK1dZRmN4czd6MGFzdngvVlAwclYrNTlDaEd1aGhaekJE?=
- =?utf-8?B?bnAvdUFDUklxRFNhRTNaYUFGaTdkYlExN1A4bDN5Ym1IWmNyVlpsaUVkb1dn?=
- =?utf-8?B?L1NDVDk4RlNQSExiNHpFVnFiK0ZRY2E4WEk1MTMzNkRzSGZZZ1dGOFlrTW5a?=
- =?utf-8?B?bFJOVmI2OS9zT0FrM1hXRzlHenlrQjFzbVpmWXlTQzM1UDkxTmloZDJWTFFr?=
- =?utf-8?B?d2VLN3hqRitvWWJEUktjZFZzbExMRHRVbS9zaGlZM1A1dVlRalE5Rk93ZVVk?=
- =?utf-8?B?dHQxUzBtdGRRdWlubUpoMjZyVzAvUjBnLzR3bHd1UVYvdHJSZWlWT09DYmUr?=
- =?utf-8?B?TmRZZ0ZWLzB3bVNTdmpKR3dRTEhCVW9SYkFOTkVtUWwyKy91bWg2NDk0WlBm?=
- =?utf-8?B?TmIyQytKY2lBeHVqNVBYSXc5N0VuRzk0cTF0ZkVDd293SXNpZE92OXNINnRl?=
- =?utf-8?B?NnZOcjBCSVV2Z2V3Z0hrdWg3TW8zSk5zNTdKN0UwZ3NwcXZRWldiUHhkcDVz?=
- =?utf-8?B?dE9ldlpYaFQ1R3lOR0YxMEhzb05IcXhJUHZXUG14WTU4a0dLY3VSN3BOaVhp?=
- =?utf-8?B?SGZRRUZpOGdsOXFRN2xldmUxNFlVd2R6OTBDbitSMGh2ZGVyOU04NFAvRzZC?=
- =?utf-8?B?QTdiUWFKR3JFeE5IZDNNRnBmWlQrbExreGhSa0kyamJZblZpQVptS0Q0ZDVl?=
- =?utf-8?B?bkNWMjd2Y2ViVTd3ZUQyRXBRbGUvNkFUM0RYOXBTZWZBV2MwWnM3eEVCNzcw?=
- =?utf-8?B?RlpGYmk0b2RGN0hTY3FmOHR2bVgyTnJOdWtGcGFDN2hHK2lBbDBqcVFXZ2Fz?=
- =?utf-8?B?UW1IQS82OVYzaWFRdDBIMUpIcDRvKy9VWTZ1TFM4dTI2UjlURlNWckFuZkdT?=
- =?utf-8?B?VGZtWTZkdW81WnJzRUt2Wi9ZS0N4aVVzS3l0VVhXU3dkbzcyK09JeXpkRzY1?=
- =?utf-8?B?OXhsVEM5bUhWY2ZzMUVLMEpHOU8rVlYrRS91cG5NWEhYRWl3V3lZdW0zYmo0?=
- =?utf-8?B?N2VpazRtU3ppZ3hKN2ZIOVZHZ2JBUDltWlpTTTR5K1F3aUVsQk5GMElVYVcv?=
- =?utf-8?B?K3dvdFdURE5Wa3A2TWtWRm14MVJBQ0o3a0JjcHErZUxNWjBQdXQrT0piMVVi?=
- =?utf-8?B?WnpNejF0dVIvU0dBUFJHYW1hNytuUzJPblYyYTJ5VThQYnNLb05MelpqbFY1?=
- =?utf-8?B?VGIyZFFLZWxxNU5PN2tzVnl4K1JkWUVHQUtSdTVncEpoWUZoOGZKUmtpREoy?=
- =?utf-8?B?YVUyTE5xUnpuSjRKNWJwK2l0UGovclhRV251MmdJWEx1RCsvYjA4U1REaDhj?=
- =?utf-8?B?WWp1cWJuM3lQNTVhb0RBRGRKMzBIbTNta0pTeUpkNS9yRzBDTnVoRVh4cTZX?=
- =?utf-8?B?Y3pEeTBwVGkwSEtkc0lwU2V1YkdWaFo1eSttTGdXeFpPMUQwNWZPakpBUGgx?=
- =?utf-8?B?bDhkdXlLa2MwWS9BUWlXRDhubFh0Z290NWFyNHJMR2Era0Y1OEF3TFViOUt4?=
- =?utf-8?B?NlpWbmZzU05YcGRHMnFkRk1tazArS2FoQjNveThpeDZ5eDFQQXNJVFpSeHJx?=
- =?utf-8?B?SitLOVEzNU01dlc1RDQ0SGhtQ3czdHcrcE9HVVh6RjZNSkpsVWkxT0NhamYv?=
- =?utf-8?B?ME5tMkpmUDVNbzZ1TUZ1Ukl4eWlPcmNaS1VjUlRQSkQvWmhlRjRiUU1wTGZZ?=
- =?utf-8?B?L25rYlZxOUdycDdWVlNvQUU1Y0N4bzROYkNwVXNWUnBsMVpoWFhTTXk0dE1m?=
- =?utf-8?B?RVRWaEFJQWVJeGdIcTdzcjRaWDBtcCtuK1hNMWVOeEZML1hvbVlRK0ZweVM1?=
- =?utf-8?B?ZFNLYmtKWmU5dnFWZUNTQzU4Q0xwVzdqb3R2Z3M2M0h5dGJaUVd0WEpXbThM?=
- =?utf-8?B?bEZ5SGRFY1ZObjlLb0ZmMnNZSGRJcXIzYTZhaTVOR0dRcWJwcmU0a1JxaDFP?=
- =?utf-8?Q?NKlLZXB9FlZ2uNJAv6HFtUD+LzxjsLiK?=
+	=?utf-8?B?S1dGaXVzRXhyUFoyMzRIazYzb0xCWVczNURCUnRnVTl1YlFJbTAydHFhZE50?=
+ =?utf-8?B?UXplenNqOTk1TEFId1VYOE11TFdZeUZQeDI0YXVPTzQ5TTZoR0lyK084ZEps?=
+ =?utf-8?B?eEtsSENobVdlV0tiNjRRM0JTb3VxQ2IvWWFIaSsvS2NsSWV0Q1dXNEdhS0pp?=
+ =?utf-8?B?eVRaNmNtSWR2Z2RBZ3JVZHNjRGF2OTZxQlpuU1NJN2ZMbG14bFdTeHhwMWlu?=
+ =?utf-8?B?TUJtTzArSGlyN0NDK3JCVUI4azlBVGhzVlV4Vy9KYkpVdjJMUVV2cC9uSnJ3?=
+ =?utf-8?B?L3hkYWZhQkR2WGR2b2lscDBvT3pKdlBDV0RobTJ3SnY3RHN3eHU1TzZaQjVl?=
+ =?utf-8?B?TWdMOGFyQlpFTnB5aEFTVDBMcmY1SHN3YVN6SkYyZEdMRGQ5ZXRZMjFzZmov?=
+ =?utf-8?B?M1dEQUJ3U3JsdjlpWC9lMCtxWUI1M29BS1U2clQwYnRTemdDVTR4RGVDR3Jp?=
+ =?utf-8?B?SWgrajBKVHE5NjB0ZlRpNlJDQ0w1ZjdtRVRFT0ZUbGdNVjd0aWdDTDNoSGRp?=
+ =?utf-8?B?S1RDQXB3R2J0VE82Wll5dzl5b2lSbHdZR2JKbGV4WVQvQlNpMTc1TzJBbmxI?=
+ =?utf-8?B?WmFsRnNVWm1aQWdVbyt4aFJLb0FGRnB1T0JqcXFBamE4bUk4dGllSWw0Z3BL?=
+ =?utf-8?B?elZ0M21jenhtbGRrNWc3K0hsNDFST0JWeTEzenpSS1hURVNzWHRpRHowcE81?=
+ =?utf-8?B?c1hYNjBGVGlPbWJLYnQ3UCthdnJ0R1Y3UC84S3BJVk05bEZWMlp5RW45SkVW?=
+ =?utf-8?B?TGhZVEMxc3NWMWJQVDh0ZlJNSldiVXJZZmw0ekNUSVFDL1dZOU03SHl2TTMr?=
+ =?utf-8?B?aEFiSisyL3diaTR3Z3F2M1FGcXVZTHJTWUVEZ2pobzRyL09pZU1PMzZDYWJt?=
+ =?utf-8?B?ejVwL1JDdzNVYjRmMDU0MjYwY1Z5M3lLc0hPdmdPOVdWdWRTQ2hvV1N2dENK?=
+ =?utf-8?B?V1MyWHBlbG9VTFNsOEIrWXI0bUI2WmhvSi80RlBoR2VpN2w5emUrVlhoanZv?=
+ =?utf-8?B?b2gyUW51bXFjcGNZM0MzZUZkY3lmK1dmc3AwNGFiQU42aHVhczJuSlRTUnRS?=
+ =?utf-8?B?Vjg0eG5BbVBxK213d3gvL2ppL2JJYmg2YmtTS0h3aStpN2F6dWVNdlZ4dWRI?=
+ =?utf-8?B?YW90ajZxdDNzbjllZG10aVYvRnpuOEhzR2I4cjJtWjZYQVEwTGt1MUtOQ2Vm?=
+ =?utf-8?B?bVJLVFg5dURxMFpwUzRLL2p1a2Y2SjJ0bUhhMHlJaVNHNFphMkM0OHRnN2s0?=
+ =?utf-8?B?R2VKaUhyZnJmL09UdFJzQWN4U2FRbklJRFE0RjRwekVDdEk0RzNSV09KSkV6?=
+ =?utf-8?B?N2NFU3pRaVh0NEZWQ0hBNjdwTkhWME9PUDdBb1BOOHlGVnpHcVBjRHpSNzBV?=
+ =?utf-8?B?aVdXbm94NE5LNXl4elZMWUwzMXB0N0k3MGJvNk5WVGdjNTR1a082MUVrQWxz?=
+ =?utf-8?B?Rzkrc2Rra01IWkZxTzIwczJ0dTJqWGx3ZnRZUklzYTNKeDNzWDNBVy9NNFJO?=
+ =?utf-8?B?NCtrN3F2MUNFZVd2Z3I3dmthSjZhM1Ryb3VwRHJ4WUJGYkdhNkJ2QUpkRmNv?=
+ =?utf-8?B?N1lISUVSME45Z3ZoOUpkdjFHazNIOUhRRmprQXRuUCtrM1JraU82RXRreU8y?=
+ =?utf-8?B?RU53UGVmMHBMTXUyZGRtVXc5VFZrTEt5MEJPNFA2SUdWaml5NWFmbTdXdEJB?=
+ =?utf-8?B?dzlNcG14RnprOHh5NHdXYWJVTlZBcy9zK3IrSjlxSUEyT25abCtCMGJiUkhZ?=
+ =?utf-8?B?YmNkc29teWdvYUJCRmd3b1VDR0RxY2FQRHpvWnJUYVZ2dDl2VmU4OHdBaStE?=
+ =?utf-8?B?YWp2WCtNSWoxQnVqWFY4NDdmYmZ6TXBiTXplajd2eDRpZDNMK2JyTlJZYUtN?=
+ =?utf-8?B?SmZUeDFFSCtjNjhyd1ZUL0VsRVRtaEhxclpMZWdaQjgvcC9qZDNvQ2duUDlC?=
+ =?utf-8?Q?LyuyoV3nVyVriZJr/UMDOBOq/rg+tIMN?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2024 14:08:21.5799
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2024 14:09:11.4123
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: faf4e7b7-6a78-4122-0230-08dcab20e904
+X-MS-Exchange-CrossTenant-Network-Message-Id: 437313a3-461a-4260-819a-08dcab2106c8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB77.namprd02.prod.outlook.com
+	BN3PEPF0000B078.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8754
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7874
 
-On 2024-07-23 08:30, Juergen Gross wrote:
-> On 23.07.24 14:25, Andrew Cooper wrote:
->> On 23/07/2024 10:37 am, Jürgen Groß wrote:
->>> On 22.07.24 18:25, Andrew Cooper wrote:
->>>> With the input data now conveniently arranged, use writev()/sendmsg()
->>>> instead
->>>> of decomposing it into write() calls.
->>>>
->>>> This causes all requests to be submitted with a single system call,
->>>> rather
->>>> than at least two.  While in principle short writes can occur, the
->>>> chances of
->>>> it happening are slim given that most xenbus comms are only a 
->>>> handful of
->>>> bytes.
->>>>
->>>> Nevertheless, provide {writev,sendmsg}_exact() wrappers which take
->>>> care of
->>>> resubmitting on EINTR or short write.
->>>>
->>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> ---
->>>> CC: Anthony PERARD <anthony.perard@vates.tech>
->>>> CC: Juergen Gross <jgross@suse.com>
->>>> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
->>>>
->>>> v1.1:
->>>>    * Fix iov overread, spotted by Frediano.  Factor the common
->>>> updating logic
->>>>      out into update_iov().
->>>> ---
->>>>    tools/libs/store/xs.c | 94 
->>>> +++++++++++++++++++++++++++++++++++++++++--
->>>>    1 file changed, 91 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
->>>> index e820cccc2314..f80ac7558cbe 100644
->>>> --- a/tools/libs/store/xs.c
->>>> +++ b/tools/libs/store/xs.c
->>>> @@ -563,6 +563,95 @@ static void *read_reply(
->>>>        return body;
->>>>    }
->>>>    +/*
->>>> + * Update an iov/nr pair after an incomplete writev()/sendmsg().
->>>> + *
->>>> + * Awkwardly, nr has different widths and signs between writev() and
->>>> + * sendmsg(), so we take it and return it by value, rather than by
->>>> pointer.
->>>> + */
->>>> +static size_t update_iov(struct iovec **p_iov, size_t nr, size_t res)
->>>> +{
->>>> +    struct iovec *iov = *p_iov;
->>>> +
->>>> +        /* Skip fully complete elements, including empty elements. */
->>>> +        while (nr && res >= iov->iov_len) {
->>>> +                res -= iov->iov_len;
->>>> +                nr--;
->>>> +                iov++;
->>>> +        }
->>>> +
->>>> +        /* Partial element, adjust base/len. */
->>>> +        if (res) {
->>>> +                iov->iov_len  -= res;
->>>> +                iov->iov_base += res;
->>>> +        }
->>>> +
->>>> +        *p_iov = iov;
->>>> +
->>>> +    return nr;
->>>> +}
->>>> +
->>>> +/*
->>>> + * Wrapper around sendmsg() to resubmit on EINTR or short write.
->>>> Returns
->>>> + * @true if all data was transmitted, or @false with errno for an
->>>> error.
->>>> + * Note: May alter @iov in place on resubmit.
->>>> + */
->>>> +static bool sendmsg_exact(int fd, struct iovec *iov, unsigned int nr)
->>>> +{
->>>> +    struct msghdr hdr = {
->>>> +        .msg_iov = iov,
->>>> +        .msg_iovlen = nr,
->>>> +    };
->>>> +
->>>> +    /* Sanity check first element isn't empty */
->>>> +    assert(iov->iov_len == sizeof(struct xsd_sockmsg));
->>>
->>> Can you please move this assert() into write_request(), avoiding to have
->>> 2 copies of it?
->>
->> It was more relevant before update_iov() was split out.
->>
->> But, there's exactly the same assertion in the write_request()'s caller,
->> so I'd prefer to simply drop it if that's ok?
->>
->> The writev()/sendmsg() won't malfunction if the first element is 0, and
->> update_iov() will now cope too, so I don't think it's necessary.
+On 2024-07-18 12:48, Andrew Cooper wrote:
+> It's very rude for a library to play with signals behind the back of the
+> application, no matter ones views on the default behaviour of SIGPIPE under
+> POSIX.  Even if the application doesn't care about the xenstored socket, it my
+> care about others.
 > 
-> Fine with me.
+> This logic has existed since xenstore/xenstored was originally added in commit
+> 29c9e570b1ed ("Add xenstore daemon and library") in 2005.
+> 
+> It's also unnecessary.  Pass MSG_NOSIGNAL when talking to xenstored over a
+> pipe (to avoid sucumbing to SIGPIPE if xenstored has crashed), and forgo any
+> playing with the signal disposition.
+> 
+> This has a side benefit of saving 2 syscalls per xenstore request.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-
-Looks like xs_write_all() is now unused internally, but it's an exposed 
-library function.  I guess it can just be kept instead of bumping the 
-library version.
-
-Regards,
-Jason
 
