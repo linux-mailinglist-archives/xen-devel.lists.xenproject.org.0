@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 485939399D9
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 08:38:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762637.1172853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01379939C36
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 10:04:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762655.1172863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sW9AU-0001rR-41; Tue, 23 Jul 2024 06:38:38 +0000
+	id 1sWAUd-0005by-24; Tue, 23 Jul 2024 08:03:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762637.1172853; Tue, 23 Jul 2024 06:38:38 +0000
+Received: by outflank-mailman (output) from mailman id 762655.1172863; Tue, 23 Jul 2024 08:03:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sW9AU-0001pw-1H; Tue, 23 Jul 2024 06:38:38 +0000
-Received: by outflank-mailman (input) for mailman id 762637;
- Tue, 23 Jul 2024 06:38:36 +0000
+	id 1sWAUc-0005Yw-V2; Tue, 23 Jul 2024 08:03:30 +0000
+Received: by outflank-mailman (input) for mailman id 762655;
+ Tue, 23 Jul 2024 08:03:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Rd17=OX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sW9AS-0001pl-Si
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 06:38:36 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=v/3h=OX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sWAUb-0005Yq-5K
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 08:03:29 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2f5c1ec4-48be-11ef-8776-851b0ebba9a2;
- Tue, 23 Jul 2024 08:38:34 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a7aa212c1c9so2385166b.2
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2024 23:38:34 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c917fd1sm501789366b.151.2024.07.22.23.38.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jul 2024 23:38:33 -0700 (PDT)
+ id 0a91826f-48ca-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 10:03:27 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2ef2cb7d562so26450541fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 01:03:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +40,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f5c1ec4-48be-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 0a91826f-48ca-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721716714; x=1722321514; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JvsPOLHO4JZdXg1CzUSHXhI3NoYqUBa7NCaPlCwzZT0=;
-        b=ItvYW0Bsz5ZH85anZWZMwmXIb9QJBy5TFvUR8DaWuiSooNRfEA3kG1GmXX/LLlIb7u
-         3q7GN5jddY6CyYPIOMggVAV00gCzogWX9IL1sSCMwTS9G7UEK4y3dlYJl66v7G5Tugsc
-         wsnE115zwVczeN4W/7lkeRiKnqME3Yb4DtKWW3AfaUlWWwe4Rwf6/EUYyxl+z5PVqF9I
-         JG3B76OMlD7R9cPe0KwsTY6bKc88bVR3I8sFpBJw2AaPTZIy2kzhkTa84ddo/e6rQLgP
-         sCmPSatOYixBP/iU0pmfhMdSDQ3Unywub6UFJUmv9NjLkYqyzQOH3QBVj/h8HPJJX1mV
-         xWMw==
+        d=gmail.com; s=20230601; t=1721721806; x=1722326606; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=BEOdj/phYWdWdsKjX0e/gVICoNaoHrf8S+TSLd5O2Kw=;
+        b=DaIEtt2uWuUZe0MPDeMu5O64UkjCAaMZqE1/lTJtDTAdViQb/msFAcDh5WmML80wnN
+         ZgYAPZgDqgo8zmODPIFAVdjrc0wYsHp7j71OIR4orvGRSbi55ICWqzmTeTvKkQl2ZM5r
+         QuFzv9pcN9UxHQBSJDBEDJ/0avA3RD5503Mu5S/gtIYNH9eFrNBGCjEHL3FZ+lAju+w5
+         8oMBvxPqyVqSAhW745uWJy5S6lw0NUiTwxgxHy82PtNmVOH2kXu5oLs93G20Mvlr47LR
+         82qK0kGZc1QcYZoZbyZ9WyLP/G2ivYbuLhcmFtYN7YbdtgUWfEmYSDauOH73TKaXY3dA
+         JctA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721716714; x=1722321514;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JvsPOLHO4JZdXg1CzUSHXhI3NoYqUBa7NCaPlCwzZT0=;
-        b=Y5UeJoFjm0XPElE1rmKdRApVxlwDqdtFH1/M/tv4esMHmyDDBf+LHSNiEIV5ETGd1t
-         c5Xj6HY58eA40abpL4fgadZHxSm7l4d34Ns9uPZiKwWFxxLp0J/9r0oyoMA6p6YXbxkJ
-         zRcBZy9W5wOc7JzgczLXziaxXSQk95kcrDOFwWRryldSbUfcrGYz889PJE2M+A9ab2/H
-         YnVFpii0oV/tM4XdjZMujIcIowSKhIy69PATkSsI9BFYOxhwZb0f42Uwu6AyZ9gpijEF
-         5G/IAUCVtFNoVxnT6nIm1gioHIEfZqusp6kTWwmKs6lR9bj3sMtNh6bC8b/dxmxqeDJi
-         /yaQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWDeYjMMwbKd0diFKIATic3S6XcLy6hYgkSmvJybINQCvqD6fnUY34ExtvmnTZtuPCXvWqu2GPG22h1W/5YLGGjc768UihnSCnkw5mkCKk=
-X-Gm-Message-State: AOJu0YycQJ5BuGXhOblxkcpztzYpZzZl4JYveJmRbiZQig93FixN5/GR
-	/6i3da03tBzyjjipe1aPVCogDadFT3AmT4SmGYIu9kqZ9gJASjk+MDgBNcfafg==
-X-Google-Smtp-Source: AGHT+IHhyY7fMS5olQyGKrXxy1DBuLtT+jw+VOxIaKdieC+D/pg+XCf8vQN7daXH6PO7PrWuf5tfgg==
-X-Received: by 2002:a17:907:3f1e:b0:a72:50f7:3c6f with SMTP id a640c23a62f3a-a7a87c841c9mr144124666b.14.1721716714245;
-        Mon, 22 Jul 2024 23:38:34 -0700 (PDT)
-Message-ID: <89c3a016-11ea-4c05-95c9-3941fd194fb6@suse.com>
-Date: Tue, 23 Jul 2024 08:38:33 +0200
+        d=1e100.net; s=20230601; t=1721721806; x=1722326606;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BEOdj/phYWdWdsKjX0e/gVICoNaoHrf8S+TSLd5O2Kw=;
+        b=etDFn6pJwtmfUdFDcm0giJFyFZD8LVa+r0VLvR5zg6+guYqPBN+BoOl6Kpp6eEafQ+
+         FDmnYCjCgkxAMbCaasxAbzx7s9ecUt9kstGvbXPYH9J137LENJ/rMIAiQ56W8P6PO7jU
+         BgJJnwpKzkIHJIM5YPKFP/s+xyfQwxZf3EkQreLvbXusBw0rOzGPFBPIWAVPu5PQ9Oe/
+         b9xXZRdXSOLiNbBjck7C2iWoMtopXEvZDAjnjgYBAGUjvcgsWfHe6m25IuoriQIs388i
+         EvawTweh91ByquJKjDt6duGbIzS97Xqi03FR27qf2aeN2yIdUl7aHqyNKzOJ/Q6yoYnb
+         1zWw==
+X-Forwarded-Encrypted: i=1; AJvYcCXIGPaE4M1nv5DRN4dFTMMh4yi/AaWD8/RWqWE3tU9kg28pyqIZ9kP0oepEsLL/OufK3KAU4oboRih4IrMc+7pSOvQRmpdE4JDtg2Lnbes=
+X-Gm-Message-State: AOJu0YxW2kXrJAbFi3p8z8RPoNxwzDq3AFFphOAN53yjCg7b+14h6rN9
+	WuUqcUelaStTfE8PljKnPpaH4UatztYk4nxR3Y0MGOjJK9YPaHuLp5QdweURVk3DWA+TfmaEorE
+	BQkJtYQWP8ir+D5Tcw/QOv+TtQRs=
+X-Google-Smtp-Source: AGHT+IHxTO08JSAdq2IiMOYm+XVcE88HlXJMPZ6RAxCGT0yxd5dKsQghqIH9BniMogtniivRgQSuCMD+ymKrWTaeVJo=
+X-Received: by 2002:a05:6512:6c4:b0:52e:9481:eaa1 with SMTP id
+ 2adb3069b0e04-52efb74ea1dmr7195633e87.23.1721721806072; Tue, 23 Jul 2024
+ 01:03:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] arch/domain: Clean up the idle domain remnants in
- arch_domain_create()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240718215744.3892072-1-andrew.cooper3@citrix.com>
- <20240718215744.3892072-5-andrew.cooper3@citrix.com>
- <be94ac73-cb8f-4bb3-a529-4c3b47a939b3@suse.com>
- <e3f64d67-75eb-4c7b-97fb-ca39edb5ddb9@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e3f64d67-75eb-4c7b-97fb-ca39edb5ddb9@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
+ <c7331e4c2f481f069571976a708c4aba04d2c0e4.1720799926.git.oleksii.kurochko@gmail.com>
+ <6458c61d-5974-41c2-a1e6-76e4a15a487a@suse.com> <54af6fb751da1103054de2d79a2057bec658f399.camel@gmail.com>
+ <623da862-8e76-4d40-9aa9-b02c8fd9944d@xen.org> <a53ef38e044db149bb37b70f1e56a33c6a3e7c83.camel@gmail.com>
+ <26ae01e2-d085-48d7-8b1f-da1e44b01e53@xen.org>
+In-Reply-To: <26ae01e2-d085-48d7-8b1f-da1e44b01e53@xen.org>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Date: Tue, 23 Jul 2024 10:02:48 +0200
+Message-ID: <CAMacjJwWLjGcFbYEhCPyNEW_+sfb51+XtKqyBcc2JGm=D5bf0w@mail.gmail.com>
+Subject: Re: [PATCH v2 5/8] xen/riscv: introduce asm/pmap.h header
+To: Julien Grall <julien@xen.org>
+Cc: Oleksii Kurochko <inisider@gmail.com>, Jan Beulich <jbeulich@suse.com>, 
+	Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
+	Connor Davis <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000a734c3061de598fd"
 
-On 22.07.2024 19:46, Andrew Cooper wrote:
-> On 22/07/2024 8:23 am, Jan Beulich wrote:
->> On 18.07.2024 23:57, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/domain.c
->>> +++ b/xen/arch/x86/domain.c
->>> @@ -791,23 +791,6 @@ int arch_domain_create(struct domain *d,
->>>  
->>>      spin_lock_init(&d->arch.e820_lock);
->>>  
->>> -    /* Minimal initialisation for the idle domain. */
->>> -    if ( unlikely(is_idle_domain(d)) )
->>> -    {
->>> -        arch_init_idle_domain(d);
->>> -
->>> -        d->arch.cpu_policy = ZERO_BLOCK_PTR; /* Catch stray misuses. */
->> This line looks to be lost in the process. Already in an earlier patch it
->> should move to arch_init_idle_domain(), shouldn't it? With that adjustment
->> for the entire series:
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> It was semi-intentional.  cpu_policy is just one of many pointers, and I
-> don't see a good reason for it to be treated specially.
-> 
-> It's been around for years now, and never one triggered, not to mention
-> the fact that there's a dwindling set of machines where a dereference of
-> 0 isn't instantly fatal anyway.
+--000000000000a734c3061de598fd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Okay, yet would you mind mentioning this removal as intentional then in
-the description?
+Hi Julien,
 
-Jan
+On Mon, Jul 22, 2024 at 7:27=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
+:
+
+> Hi,
+>
+> >> On 22/07/2024 15:44, Oleksii Kurochko wrote:
+> >>> On Mon, 2024-07-22 at 14:54 +0200, Jan Beulich wrote:
+> >>>> On 12.07.2024 18:22, Oleksii Kurochko wrote:
+> >>>>> --- /dev/null
+> >>>>> +++ b/xen/arch/riscv/include/asm/pmap.h
+> >>>>> @@ -0,0 +1,28 @@
+> >>>>> +#ifndef __ASM_PMAP_H__
+> >>>>> +#define __ASM_PMAP_H__
+> >>>>> +
+> >>>>> +#include <xen/bug.h>
+> >>>>> +#include <xen/mm.h>
+> >>>>> +
+> >>>>> +#include <asm/fixmap.h>
+> >>>>> +
+> >>>>> +static inline void arch_pmap_map(unsigned int slot, mfn_t mfn)
+> >>>>> +{
+> >>>>> +    pte_t *entry =3D &xen_fixmap[slot];
+> >>>>> +    pte_t pte;
+> >>>>> +
+> >>>>> +    ASSERT(!pte_is_valid(*entry));
+> >>>>> +
+> >>>>> +    pte =3D mfn_to_xen_entry(mfn, PAGE_HYPERVISOR_RW);
+> >>>>> +    pte.pte |=3D PTE_LEAF_DEFAULT;
+> >>>>> +    write_pte(entry, pte);
+> >>>>> +}
+> >>>>> +
+> >>>>> +static inline void arch_pmap_unmap(unsigned int slot)
+> >>>>> +{
+> >>>>> +    pte_t pte =3D {};
+> >>>>> +
+> >>>>> +    write_pte(&xen_fixmap[slot], pte);
+> >>>>> +}
+> >>>>
+> >>>> Why are these not using set_fixmap() / clear_fixmap()
+> >>>> respectively?
+> >>> They haven't been introduced yet. And I thought that these fucntion
+> >>> are
+> >>> used only in pmap_{un}map() and that is the reason why I decided to
+> >>> not
+> >>> introduce them. But while writing the answer on another comment, I
+> >>> found other places where set_fixmap() / clear_fixmap() are used, so
+> >>> I
+> >>> will introduce them and reuse here.
+> >>
+> >> I am guessing you are going to implement set_fixmap()/clear_fixmap()
+> >> using map_pages_to_xen(). If so, for early boot you are going to end
+> >> up
+> >> in a circular loop because map_pages_to_xen() will likely use pmap()
+> >> which will call set_fixmap().
+> > I am going to implement that in the following way as I faced the
+> > described by you issue when I first time tried to implement it using
+> > map_pages_to_xen():
+> What's wrong with keeping the arch_pmap_*() as-is and call
+> map_pages_to_xen() in the fixmap?
+>
+> At least this would be consistent with what other architectures does and
+> less risky (see below).
+>
+Then I misunderstood you, if not to use {set/clear}_fixmap() in arch_pmap()
+then everything should be fine.
+Then I think it is needed to add the comment also above arch_pmap_*()
+function why it isn't used {set/clear}_fixmap()
+inside. ( or update the commit message )
+
+
+>
+> >     /* Map a 4k page in a fixmap entry */
+> >     void set_fixmap(unsigned map, mfn_t mfn, unsigned int flags)
+> >     {
+> >         pte_t pte;
+> >
+> >         pte =3D mfn_to_xen_entry(mfn, flags);
+> >         pte.pte |=3D PTE_LEAF_DEFAULT;
+> >         write_pte(&xen_fixmap[pt_index(0, FIXMAP_ADDR(map))], pte);
+>
+> It would be saner to check if you are not overwriting any existing
+> mapping as otherwise you will probably need a TLB flush.
+>
+> >     }
+> >
+> >     /* Remove a mapping from a fixmap entry */
+> >     void clear_fixmap(unsigned map)
+> >     {
+> >         pte_t pte =3D {0};
+> >         write_pte(&xen_fixmap[pt_index(0, FIXMAP_ADDR(map))], pte);
+>
+> Don't you need a TLB flush?
+>
+Inside write_pte() there is "sfence.vma".
+
+But probably it would be better to add flush_xen_tlb_range_va_local() or
+something similar here in case if someone will decide to update write_pte()=
+.
+
+~ Oleksii
+
+--000000000000a734c3061de598fd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi Julien,</div><br><div class=3D"gmail_quote"><div d=
+ir=3D"ltr" class=3D"gmail_attr">On Mon, Jul 22, 2024 at 7:27=E2=80=AFPM Jul=
+ien Grall &lt;<a href=3D"mailto:julien@xen.org">julien@xen.org</a>&gt; wrot=
+e:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi,<br><br>
+&gt;&gt; On 22/07/2024 15:44, Oleksii Kurochko wrote:<br>
+&gt;&gt;&gt; On Mon, 2024-07-22 at 14:54 +0200, Jan Beulich wrote:<br>
+&gt;&gt;&gt;&gt; On 12.07.2024 18:22, Oleksii Kurochko wrote:<br>
+&gt;&gt;&gt;&gt;&gt; --- /dev/null<br>
+&gt;&gt;&gt;&gt;&gt; +++ b/xen/arch/riscv/include/asm/pmap.h<br>
+&gt;&gt;&gt;&gt;&gt; @@ -0,0 +1,28 @@<br>
+&gt;&gt;&gt;&gt;&gt; +#ifndef __ASM_PMAP_H__<br>
+&gt;&gt;&gt;&gt;&gt; +#define __ASM_PMAP_H__<br>
+&gt;&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt;&gt; +#include &lt;xen/bug.h&gt;<br>
+&gt;&gt;&gt;&gt;&gt; +#include &lt;xen/mm.h&gt;<br>
+&gt;&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt;&gt; +#include &lt;asm/fixmap.h&gt;<br>
+&gt;&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt;&gt; +static inline void arch_pmap_map(unsigned int slot, m=
+fn_t mfn)<br>
+&gt;&gt;&gt;&gt;&gt; +{<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0 pte_t *entry =3D &amp;xen_fixmap[s=
+lot];<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0 pte_t pte;<br>
+&gt;&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0 ASSERT(!pte_is_valid(*entry));<br>
+&gt;&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0 pte =3D mfn_to_xen_entry(mfn, PAGE=
+_HYPERVISOR_RW);<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0 pte.pte |=3D PTE_LEAF_DEFAULT;<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0 write_pte(entry, pte);<br>
+&gt;&gt;&gt;&gt;&gt; +}<br>
+&gt;&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt;&gt; +static inline void arch_pmap_unmap(unsigned int slot)=
+<br>
+&gt;&gt;&gt;&gt;&gt; +{<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0 pte_t pte =3D {};<br>
+&gt;&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0=C2=A0=C2=A0 write_pte(&amp;xen_fixmap[slot], p=
+te);<br>
+&gt;&gt;&gt;&gt;&gt; +}<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Why are these not using set_fixmap() / clear_fixmap()<br>
+&gt;&gt;&gt;&gt; respectively?<br>
+&gt;&gt;&gt; They haven&#39;t been introduced yet. And I thought that these=
+ fucntion<br>
+&gt;&gt;&gt; are<br>
+&gt;&gt;&gt; used only in pmap_{un}map() and that is the reason why I decid=
+ed to<br>
+&gt;&gt;&gt; not<br>
+&gt;&gt;&gt; introduce them. But while writing the answer on another commen=
+t, I<br>
+&gt;&gt;&gt; found other places where set_fixmap() / clear_fixmap() are use=
+d, so<br>
+&gt;&gt;&gt; I<br>
+&gt;&gt;&gt; will introduce them and reuse here.<br>
+&gt;&gt;<br>
+&gt;&gt; I am guessing you are going to implement set_fixmap()/clear_fixmap=
+()<br>
+&gt;&gt; using map_pages_to_xen(). If so, for early boot you are going to e=
+nd<br>
+&gt;&gt; up<br>
+&gt;&gt; in a circular loop because map_pages_to_xen() will likely use pmap=
+()<br>
+&gt;&gt; which will call set_fixmap().<br>
+&gt; I am going to implement that in the following way as I faced the<br>
+&gt; described by you issue when I first time tried to implement it using<b=
+r>
+&gt; map_pages_to_xen():<br>
+What&#39;s wrong with keeping the arch_pmap_*() as-is and call <br>
+map_pages_to_xen() in the fixmap?<br>
+<br>
+At least this would be consistent with what other architectures does and <b=
+r>
+less risky (see below).<br></blockquote><div>Then I misunderstood=C2=A0you,=
+ if not to use {set/clear}_fixmap() in arch_pmap() then everything should b=
+e fine.</div><div>Then I think it is needed to add the comment also above a=
+rch_pmap_*() function why it isn&#39;t used {set/clear}_fixmap()</div><div>=
+inside. ( or update the commit message )</div><div>=C2=A0</div><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
+id rgb(204,204,204);padding-left:1ex">
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0/* Map a 4k page in a fixmap entry */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0void set_fixmap(unsigned map, mfn_t mfn, unsigned i=
+nt flags)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pte_t pte;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pte =3D mfn_to_xen_entry(mfn, flags);=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pte.pte |=3D PTE_LEAF_DEFAULT;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0write_pte(&amp;xen_fixmap[pt_index(0,=
+ FIXMAP_ADDR(map))], pte);<br>
+<br>
+It would be saner to check if you are not overwriting any existing <br>
+mapping as otherwise you will probably need a TLB flush.<br>
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0/* Remove a mapping from a fixmap entry */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0void clear_fixmap(unsigned map)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pte_t pte =3D {0};<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0write_pte(&amp;xen_fixmap[pt_index(0,=
+ FIXMAP_ADDR(map))], pte);<br>
+<br>
+Don&#39;t you need a TLB flush?<br></blockquote><div>Inside write_pte() the=
+re is &quot;sfence.vma&quot;.</div><div><br></div><div>But probably it woul=
+d be better to add flush_xen_tlb_range_va_local() or</div><div>something si=
+milar here in case if someone will=C2=A0decide to update write_pte().</div>=
+<div><br></div><div>~ Oleksii=C2=A0</div></div></div>
+
+--000000000000a734c3061de598fd--
 
