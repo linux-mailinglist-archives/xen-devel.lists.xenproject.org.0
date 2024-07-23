@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02E8E939E52
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 11:56:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762943.1173182 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD710939E78
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 12:02:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762951.1173193 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWCGB-0004dl-7I; Tue, 23 Jul 2024 09:56:43 +0000
+	id 1sWCLX-0006TK-UM; Tue, 23 Jul 2024 10:02:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762943.1173182; Tue, 23 Jul 2024 09:56:43 +0000
+Received: by outflank-mailman (output) from mailman id 762951.1173193; Tue, 23 Jul 2024 10:02:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWCGB-0004bJ-44; Tue, 23 Jul 2024 09:56:43 +0000
-Received: by outflank-mailman (input) for mailman id 762943;
- Tue, 23 Jul 2024 09:56:41 +0000
+	id 1sWCLX-0006QQ-RC; Tue, 23 Jul 2024 10:02:15 +0000
+Received: by outflank-mailman (input) for mailman id 762951;
+ Tue, 23 Jul 2024 10:02:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v/3h=OX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sWCG9-0004Zz-9m
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 09:56:41 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Rd17=OX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sWCLX-0006QK-6E
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 10:02:15 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dad8c71b-48d9-11ef-8776-851b0ebba9a2;
- Tue, 23 Jul 2024 11:56:39 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5a88be88a3aso1948692a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 02:56:39 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5a30aaa31e0sm7255758a12.27.2024.07.23.02.56.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jul 2024 02:56:38 -0700 (PDT)
+ id a110f227-48da-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 12:02:11 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2eeb1ba0481so78664221fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 03:02:11 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2ccf7b2adafsm8699877a91.2.2024.07.23.03.02.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jul 2024 03:02:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dad8c71b-48d9-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: a110f227-48da-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1721728599; x=1722333399; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=EPjq/0Ae7menY2n7fzEAajEy8OOwH/UzGbAMjQ7op6A=;
-        b=fklYcF+FWaeBjjRIP0G4gexznvjUH297V+sFzxXtcJ2pncy6Vo3YK97+km5F0FuwmZ
-         JlmIx+dTGNDPyD2K5j461aoUUNIxh/SYKdigEQpJiIAKtMmNQnxdV8a6xoD7GQy1sZ1J
-         SVXStkkRbD+FtyTEPWndgiPPUNQEmUSQ7pvWToPzQ+7ieV3SakydXLNQSHW4JjiTmODh
-         yg/5ME4kNcHhDvXOYxWkLHvXAii6YaJNr2Xu5hA6eR8MSBNzphnhTqXu7VusqXZ0wPMy
-         Reg4EHGOCnN3qBoMHMUvp67Qz01+DDx/sNZrnodjBE2qsy2XZunBBv0Y6vRS2ZtNKoll
-         3i9g==
+        d=suse.com; s=google; t=1721728931; x=1722333731; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xsfroiK4oeor59++qycD2qtfKDNLdKaFvizIzX+T1ek=;
+        b=eIIFEqW13zHtBPWCjU2sb9Yd2bF7oNewmEKvnzslXCNVeiiMAxdfsDu/P2lk5kQaie
+         5XlSMt58FfmoaIqfF0/CjXVNcxXIluUn0OTFc3u21yTGgMBz0sbgPwGyFUPpW/l1zHD2
+         +L6pA/cHQiwSuw1YbSZknZpty433ZyVrHupavgoi1XYr3vljYtVwfjLqyCypHYH52rM5
+         8KCdgX+fEPy58DLJcQspl4XcEXxPlzPhft9UYYBJI/2ASAbcaqy9H246OQ1k38d4FY6H
+         AEGPAFNvl5LTj0urKE6lynDvQGsKcCeG3jLVJj7OqbA08VJkDrANdMio0vlDuRs4UGd+
+         KhDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721728599; x=1722333399;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EPjq/0Ae7menY2n7fzEAajEy8OOwH/UzGbAMjQ7op6A=;
-        b=S4gMR13jy+xGGP4MEPJ7Rw4eYkLBGfAI4rRqRiO8nznZBuChsdAZD8rtEFGJXOuBHo
-         GqWjhnHpGLnBzn+nIM9sK/HvrJIFDx9MUmhIY2EOu7W9BUYjKNAO5+JlJu862SWp7bjm
-         dF2qNZrazVEpR7vnfp5KE6PqPDQJ9JlhcWJ2gW44Qki/0kspq2UbaKoo846+YPhjhU+E
-         tnRUVcB3l9QzWFdFKWr+2+JBFY3HWQNiIQnbSETOCfwXPEcvfAJVd2mtVmwg9i9j3Pa4
-         FIwpJFMTAzDmcRsRF80APd4joYYTcL6SJM1+GBIBZnlCCu0NkjAce6YxrR/Lo5F6Nj3C
-         jRnw==
-X-Forwarded-Encrypted: i=1; AJvYcCWmhLDtLzTEnVZ7FvNpcUDO/FM1JDDoYo2Y705/QwuaSLjZeN+HDI/OHIk7G/kIZfJSAUkJxhicCACSKY4WhkR4PYrAziFqrycmkaBT1e0=
-X-Gm-Message-State: AOJu0YyVUJqIYQGtuUtCItb0NZOCgRNdX+oDsNNvCnoRhcyAllunkF3y
-	a+zl4y21nL1RZq9XXKp2rVPR6OhkYFoTzsARPFIfGiSemnsa7+A0
-X-Google-Smtp-Source: AGHT+IG8J47QLKlCu7MsaXfk1C2J2p6R2mlNreCOcJ3cZicgGVa9iZSik8UE7UfNCln/fXMyo180xg==
-X-Received: by 2002:a05:6402:2682:b0:5a3:d140:1a46 with SMTP id 4fb4d7f45d1cf-5a479b6e59emr6905021a12.23.1721728598540;
-        Tue, 23 Jul 2024 02:56:38 -0700 (PDT)
-Message-ID: <d5b315641064cb66efaafe972f2a08ee9f2a0a58.camel@gmail.com>
-Subject: Re: [PATCH for-4.19] x86/altcall: fix clang code-gen when using
- altcall in loop constructs
-From: oleksii.kurochko@gmail.com
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>
-Date: Tue, 23 Jul 2024 11:56:37 +0200
-In-Reply-To: <20240723093117.99487-1-roger.pau@citrix.com>
-References: <20240723093117.99487-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1721728931; x=1722333731;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xsfroiK4oeor59++qycD2qtfKDNLdKaFvizIzX+T1ek=;
+        b=KhnFFn4H7alqPnXbRV9KjgD2/UVm9yPdC7+VxB37cHod8YGsM79b1AyIqIrtedPQr2
+         64oTYh2DODxAH/d6Kr/9TSFAStkNqzarDYSY19gdJ9g8vBD+7o8/4HddNvs76D/ys9Hb
+         7afROfDxqBMPVj0SCLjwJfsi7cl8IfLJnqenjI/YSQL948szkjUMbuzgaO5zn9boSuYT
+         m3FS76YdsLOcgtTR1qxuPlEadm/LJa0OyTyY7XVP0t7AQxjB6vGjj8cWIL7hUz1IbivF
+         XAdLClXXaxWh/0v6ajJE1DBFX8QMIpACDUp++kwwtqlRjgcDicVGr+KTH4ncsgfkUs1O
+         lbgw==
+X-Forwarded-Encrypted: i=1; AJvYcCV+wUnHte5fk+bY3swLgtskKtrRS5sDrWxV6nA3VcvYCeb/+mS+j8vvolZeGiJsTxGAHxNX61Kxzc5nlJZaPkGLmEyeCXykTe33sXQqFR4=
+X-Gm-Message-State: AOJu0YyS2rrqJj/nPloA3yUzwoRNSzsc2y2Hhe/wJdih5ma7K4D3pPbC
+	oMymGoG9CbFtklONSdfc9+vyJ5AV0if0XmT1HU52V45DgksSYAhn5+ZB913Ckg==
+X-Google-Smtp-Source: AGHT+IEvKLs0dtZqmHulYvk+K+j9IpwyGar0Ge1ZmoYhNKRFBMtFwmdVOTUUJvgSrHY1dFRPDCfyhA==
+X-Received: by 2002:a2e:95c2:0:b0:2ef:564c:a590 with SMTP id 38308e7fff4ca-2ef564ca663mr29682951fa.29.1721728931295;
+        Tue, 23 Jul 2024 03:02:11 -0700 (PDT)
+Message-ID: <14ffb00d-d6ba-4c18-88c1-2601a2df8a8b@suse.com>
+Date: Tue, 23 Jul 2024 12:02:03 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/8] xen/riscv: introduce asm/pmap.h header
+To: oleksii.kurochko@gmail.com
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Julien Grall <julien@xen.org>
+References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
+ <c7331e4c2f481f069571976a708c4aba04d2c0e4.1720799926.git.oleksii.kurochko@gmail.com>
+ <6458c61d-5974-41c2-a1e6-76e4a15a487a@suse.com>
+ <54af6fb751da1103054de2d79a2057bec658f399.camel@gmail.com>
+ <623da862-8e76-4d40-9aa9-b02c8fd9944d@xen.org>
+ <a53ef38e044db149bb37b70f1e56a33c6a3e7c83.camel@gmail.com>
+ <26ae01e2-d085-48d7-8b1f-da1e44b01e53@xen.org>
+ <CAMacjJwWLjGcFbYEhCPyNEW_+sfb51+XtKqyBcc2JGm=D5bf0w@mail.gmail.com>
+ <97c82aca-0b8a-4b78-980b-0857dbdae80a@suse.com>
+ <4c9eb7a79c33c7cd2f6bde05b1fbc7770e662026.camel@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <4c9eb7a79c33c7cd2f6bde05b1fbc7770e662026.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-T24gVHVlLCAyMDI0LTA3LTIzIGF0IDExOjMxICswMjAwLCBSb2dlciBQYXUgTW9ubmUgd3JvdGU6
-Cj4gWWV0IGFub3RoZXIgY2xhbmcgY29kZSBnZW5lcmF0aW9uIGlzc3VlIHdoZW4gdXNpbmcgYWx0
-Y2FsbHMuCj4gCj4gVGhlIGlzc3VlIHRoaXMgdGltZSBpcyB3aXRoIHVzaW5nIGxvb3AgY29uc3Ry
-dWN0cyBhcm91bmQKPiBhbHRlcm5hdGl2ZV97LHZ9Y2FsbAo+IGluc3RhbmNlcyB1c2luZyBwYXJh
-bWV0ZXIgdHlwZXMgc21hbGxlciB0aGFuIHRoZSByZWdpc3RlciBzaXplLgo+IAo+IEdpdmVuIHRo
-ZSBmb2xsb3dpbmcgZXhhbXBsZSBjb2RlOgo+IAo+IHN0YXRpYyB2b2lkIGJhcihib29sIGIpCj4g
-ewo+IMKgwqDCoCB1bnNpZ25lZCBpbnQgaTsKPiAKPiDCoMKgwqAgZm9yICggaSA9IDA7IGkgPCAx
-MDsgaSsrICkKPiDCoMKgwqAgewo+IMKgwqDCoMKgwqDCoMKgIGludCByZXRfOwo+IMKgwqDCoMKg
-wqDCoMKgIHJlZ2lzdGVyIHVuaW9uIHsKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJvb2wgZTsK
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgcjsKPiDCoMKgwqDCoMKgwqDC
-oCB9IGRpIGFzbSgicmRpIikgPSB7IC5lID0gYiB9Owo+IMKgwqDCoMKgwqDCoMKgIHJlZ2lzdGVy
-IHVuc2lnbmVkIGxvbmcgc2kgYXNtKCJyc2kiKTsKPiDCoMKgwqDCoMKgwqDCoCByZWdpc3RlciB1
-bnNpZ25lZCBsb25nIGR4IGFzbSgicmR4Iik7Cj4gwqDCoMKgwqDCoMKgwqAgcmVnaXN0ZXIgdW5z
-aWduZWQgbG9uZyBjeCBhc20oInJjeCIpOwo+IMKgwqDCoMKgwqDCoMKgIHJlZ2lzdGVyIHVuc2ln
-bmVkIGxvbmcgcjggYXNtKCJyOCIpOwo+IMKgwqDCoMKgwqDCoMKgIHJlZ2lzdGVyIHVuc2lnbmVk
-IGxvbmcgcjkgYXNtKCJyOSIpOwo+IMKgwqDCoMKgwqDCoMKgIHJlZ2lzdGVyIHVuc2lnbmVkIGxv
-bmcgcjEwIGFzbSgicjEwIik7Cj4gwqDCoMKgwqDCoMKgwqAgcmVnaXN0ZXIgdW5zaWduZWQgbG9u
-ZyByMTEgYXNtKCJyMTEiKTsKPiAKPiDCoMKgwqDCoMKgwqDCoCBhc20gdm9sYXRpbGUgKCAiY2Fs
-bCAlY1thZGRyXSIKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCA6ICIrciIgKGRpKSwgIj1yIiAoc2kpLCAiPXIiIChkeCksCj4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICI9ciIgKGN4KSwgIj1yIiAocjgpLCAiPXIi
-IChyOSksCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-ICI9ciIgKHIxMCksICI9ciIgKHIxMSksICI9YSIgKHJldF8pCj4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgOiBbYWRkcl0gImkiICgmKGZ1bmMpKSwgImciIChm
-dW5jKQo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDogIm1l
-bW9yeSIgKTsKPiDCoMKgwqAgfQo+IH0KPiAKPiBTZWU6IGh0dHBzOi8vZ29kYm9sdC5vcmcvei9x
-dnhNR2Q4NHEKPiAKPiBDbGFuZyB3aWxsIGdlbmVyYXRlIG1hY2hpbmUgY29kZSB0aGF0IG9ubHkg
-cmVzZXRzIHRoZSBsb3cgOCBiaXRzIG9mCj4gJXJkaQo+IGJldHdlZW4gbG9vcCBjYWxscywgbGVh
-dmluZyB0aGUgcmVzdCBvZiB0aGUgcmVnaXN0ZXIgcG9zc2libHkKPiBjb250YWluaW5nCj4gZ2Fy
-YmFnZSBmcm9tIHRoZSB1c2Ugb2YgJXJkaSBpbnNpZGUgdGhlIGNhbGxlZCBmdW5jdGlvbi7CoCBO
-b3RlIGFsc28KPiB0aGF0IGNsYW5nCj4gZG9lc24ndCB0cnVuY2F0ZSB0aGUgaW5wdXQgcGFyYW1l
-dGVycyBhdCB0aGUgY2FsbGVlLCB0aHVzIGJyZWFraW5nCj4gdGhlIHBzQUJJLgo+IAo+IEZpeCB0
-aGlzIGJ5IHR1cm5pbmcgdGhlIGBlYCBlbGVtZW50IGluIHRoZSBhbm9ueW1vdXMgdW5pb24gaW50
-byBhbgo+IGFycmF5IHRoYXQKPiBjb25zdW1lcyB0aGUgc2FtZSBzcGFjZSBhcyBhbiB1bnNpZ25l
-ZCBsb25nLCBhcyB0aGlzIGZvcmNlcyBjbGFuZyB0bwo+IHJlc2V0IHRoZQo+IHdob2xlICVyZGkg
-cmVnaXN0ZXIgaW5zdGVhZCBvZiBqdXN0IHRoZSBsb3cgOCBiaXRzLgo+IAo+IEZpeGVzOiAyY2U1
-NjJiMmE0MTMgKCd4ODYvYWx0Y2FsbDogdXNlIGEgdW5pb24gYXMgcmVnaXN0ZXIgdHlwZSBmb3IK
-PiBmdW5jdGlvbiBwYXJhbWV0ZXJzIG9uIGNsYW5nJykKPiBTdWdnZXN0ZWQtYnk6IEphbiBCZXVs
-aWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBSb2dlciBQYXUgTW9ubsOp
-IDxyb2dlci5wYXVAY2l0cml4LmNvbT4KPiAtLS0KPiBBZGRpbmcgT2xla3NpaSBhcyB0byB3aGV0
-aGVyIHRoaXMgY291bGQgYmUgY29uc2lkZXJlZCBmb3IgNC4xOTogaXQncwo+IHN0cmljdGx5Cj4g
-bGltaXRlZCB0byBjbGFuZyBidWlsZHMsIHBsdXMgd2lsbCBuZWVkIHRvIGJlIGJhY2twb3J0ZWQg
-YW55d2F5Lgo+IC0tLQpJIGFtIG9rYXkgdG8gaGF2ZSB0aGlzIGNoYW5nZSBpbiA0LjE5IGJ1dCB0
-aGVuIGl0IHNob3VsZCBiZSByZXZpZXdlZAphbmQgbWVyZ2VkIEFTQVAgYXMgdGhlIHRyZWUgd2Fz
-IHRhZ2dlZCBmZXcgbWludXRlcyBhZ28gYW5kIEkgZXhwZWN0ZWQKdGhhdCBpdCB3aWxsIGJlIHRo
-ZSBsYXN0IG9uZSBSQyBpbiB0aGlzIHJlbGVhc2UgY3ljbGU6CgpSZWxlYXNlLUFja2VkLUJ5OiBP
-bGVrc2lpIEt1cm9jaGtvIDxvbGVrc2lpLmt1cm9jaGtvQGdtYWlsLmNvbT4KCn4gT2xla3NpaQoK
-PiDCoHhlbi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9hbHRlcm5hdGl2ZS5oIHwgNCArKy0tCj4gwqAx
-IGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYg
-LS1naXQgYS94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vYWx0ZXJuYXRpdmUuaAo+IGIveGVuL2Fy
-Y2gveDg2L2luY2x1ZGUvYXNtL2FsdGVybmF0aXZlLmgKPiBpbmRleCAwZDM2OTdmMWRlNDkuLmU2
-M2I0NTkyNzY0MyAxMDA2NDQKPiAtLS0gYS94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vYWx0ZXJu
-YXRpdmUuaAo+ICsrKyBiL3hlbi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9hbHRlcm5hdGl2ZS5oCj4g
-QEAgLTE4NSwxMCArMTg1LDEwIEBAIGV4dGVybiB2b2lkIGFsdGVybmF0aXZlX2JyYW5jaGVzKHZv
-aWQpOwo+IMKgICovCj4gwqAjZGVmaW5lIEFMVF9DQUxMX0FSRyhhcmcsCj4gbinCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gwqDCoMKgwqAgcmVnaXN0ZXIgdW5pb24KPiB7wqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiAtwqDCoMKgwqDCoMKg
-wqAgdHlwZW9mKGFyZykKPiBlO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIFwKPiArwqDCoMKgwqDCoMKgwqAgdHlwZW9mKGFyZykgZVtzaXplb2YobG9uZykgLwo+IHNp
-emVvZihhcmcpXTvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+
-IMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZwo+IHI7wqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBcCj4gwqDCoMKgwqAgfSBhICMjIG4gIyMgXyBhc20gKCBBTFRfQ0FM
-TF9hcmcgIyMgbiApID0KPiB7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIFwKPiAtwqDCoMKgwqDCoMKgwqAgLmUgPSAoeyBCVUlMRF9CVUdfT04oc2l6ZW9m
-KGFyZykgPiBzaXplb2Yodm9pZCAqKSk7IChhcmcpOwo+IH0pwqDCoCBcCj4gK8KgwqDCoMKgwqDC
-oMKgIC5lWzBdID0gKHsgQlVJTERfQlVHX09OKHNpemVvZihhcmcpID4gc2l6ZW9mKHZvaWQgKikp
-Owo+IChhcmcpOyB9KVwKPiDCoMKgwqDCoCB9Cj4gwqAjZWxzZQo+IMKgI2RlZmluZSBBTFRfQ0FM
-TF9BUkcoYXJnLCBuKSBcCgo=
+On 23.07.2024 10:55, oleksii.kurochko@gmail.com wrote:
+> On Tue, 2024-07-23 at 10:36 +0200, Jan Beulich wrote:
+>> On 23.07.2024 10:02, Oleksii Kurochko wrote:
+>>> On Mon, Jul 22, 2024 at 7:27 PM Julien Grall <julien@xen.org>
+>>> wrote:
+>>>>>> On 22/07/2024 15:44, Oleksii Kurochko wrote:
+>>>>>     /* Map a 4k page in a fixmap entry */
+>>>>>     void set_fixmap(unsigned map, mfn_t mfn, unsigned int
+>>>>> flags)
+>>>>>     {
+>>>>>         pte_t pte;
+>>>>>
+>>>>>         pte = mfn_to_xen_entry(mfn, flags);
+>>>>>         pte.pte |= PTE_LEAF_DEFAULT;
+>>>>>         write_pte(&xen_fixmap[pt_index(0, FIXMAP_ADDR(map))],
+>>>>> pte);
+>>>>
+>>>> It would be saner to check if you are not overwriting any
+>>>> existing
+>>>> mapping as otherwise you will probably need a TLB flush.
+>>>>
+>>>>>     }
+>>>>>
+>>>>>     /* Remove a mapping from a fixmap entry */
+>>>>>     void clear_fixmap(unsigned map)
+>>>>>     {
+>>>>>         pte_t pte = {0};
+>>>>>         write_pte(&xen_fixmap[pt_index(0, FIXMAP_ADDR(map))],
+>>>>> pte);
+>>>>
+>>>> Don't you need a TLB flush?
+>>>>
+>>> Inside write_pte() there is "sfence.vma".
+>>
+>> That's just a fence though, not a TLB flush.
+> From the privileged doc:
+>    ```
+>    SFENCE.VMA is also used to invalidate entries in the
+>    address-translation cache associated with a hart (see Section 4.3.2). 
+>    ...
+>    The SFENCE.VMA is used to flush any local hardware caches related to
+>    address translation.
+>    It is specified as a fence rather than a TLB flush to provide cleaner
+>    semantics with respect to
+>    which instructions are affected by the flush operation and to support a
+>    wider variety of dynamic
+>    caching structures and memory-management schemes. SFENCE.VMA is also
+>    used by higher
+>    privilege levels to synchronize page table writes and the address
+>    translation hardware.
+>    ...
+>    ```
+> I read this as SFENCE.VMA is used not only for ordering of load/stores,
+> but also to flush TLB ( which is a type of more general term as
+> address-translation cache, IIUIC ).
 
+Oh, I see. Kind of unexpected for an instruction of that name. Yet note
+how they talk about the local hart only. You need a wider scope TLB
+flush here.
+
+Jan
 
