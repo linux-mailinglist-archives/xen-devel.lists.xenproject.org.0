@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2386939E03
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 11:37:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762912.1173143 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1504939E14
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 11:40:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762919.1173153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWBxF-0007lf-1b; Tue, 23 Jul 2024 09:37:09 +0000
+	id 1sWBzj-0008LI-DW; Tue, 23 Jul 2024 09:39:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762912.1173143; Tue, 23 Jul 2024 09:37:09 +0000
+Received: by outflank-mailman (output) from mailman id 762919.1173153; Tue, 23 Jul 2024 09:39:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWBxE-0007jF-UU; Tue, 23 Jul 2024 09:37:08 +0000
-Received: by outflank-mailman (input) for mailman id 762912;
- Tue, 23 Jul 2024 09:37:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BZ+O=OX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sWBxD-0007j9-Nq
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 09:37:07 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f7ab8d5-48d7-11ef-8776-851b0ebba9a2;
- Tue, 23 Jul 2024 11:37:05 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-36865a516f1so3854066f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 02:37:05 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
- (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
- [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36878684225sm11050026f8f.9.2024.07.23.02.37.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jul 2024 02:37:04 -0700 (PDT)
+	id 1sWBzj-0008Ib-AT; Tue, 23 Jul 2024 09:39:43 +0000
+Received: by outflank-mailman (input) for mailman id 762919;
+ Tue, 23 Jul 2024 09:39:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KExd=OX=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
+ id 1sWBzi-0008IS-Ez
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 09:39:42 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7c5f74b2-48d7-11ef-bbfe-fd08da9f4363;
+ Tue, 23 Jul 2024 11:39:41 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2ef32fea28dso18636221fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 02:39:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,138 +40,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f7ab8d5-48d7-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 7c5f74b2-48d7-11ef-bbfe-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721727425; x=1722332225; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yEUBnwtg76xzsUSRmmt1T0t9FKyyOKiaApV9Xp/3br8=;
-        b=KOMvmKCPG5H8SmRIYl2gMyxy6QyeamXvrqGGBFZhX1hjou74nbs80tgaXNgUlJo5UN
-         G7ldpBIk62vKVLRR0kpJdLiDjbRfpuWL9w5Eg8vq1h59Ap+L3ocAhRY6Wni7pnt9LHtQ
-         DJ8yaw64MtaAaAPBPXW4UNsVRfhDSIcd1ZJYJcwHsBN5y4pCZ5Xl2MF97JsihqO2elsN
-         /JP0y/R1kB3t2L3HbrO4wv/ahBV94kWYCwtatk986L6bYZkI9zP48c1kK86DiakfuH7Q
-         XcemPaHh5dyxK0h15o+3Ft2YerkDx3fCquREYDC9Nq5Za+HWw6MDa7JgHI42AhVqwE1c
-         YfnA==
+        d=cloud.com; s=cloud; t=1721727581; x=1722332381; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=l6l7kRSoJUjHzdPQiYd/ht/e7MUtQ6tGdub3AxnaR+M=;
+        b=foxeOTWxkKeJbnQZrNYRWY2N3Z+68id4FTeuS1Qpl4J5n+IpDdwez04cmEHq6n5TCH
+         A47IEL8DPt9rOZ80m8UMEbwLJrtQJRjNxMU71t82SW5FlVJaSxfsrzDOnmPFRMYz1m8f
+         8wCwKVS+/h/0dCVRDJ7HRcGD/mwxiah4Lihx4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721727425; x=1722332225;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=yEUBnwtg76xzsUSRmmt1T0t9FKyyOKiaApV9Xp/3br8=;
-        b=u9zzszC5Evfl6H801bQiMYnPIRgeFo7sQ+KKt4NyPXgyp9yMuxlwvCEA0LDLsSmadT
-         xqONhPtj8tp+6k+CWM8KEdFmx76AuBTLMqoYqOQEtbUYF7qPAkRyDKndBKAtrIlfqQK8
-         SOm1XSqLhccMw3rKK+1JP2CgCDd11/we0dF1KlryiOB6dlEm5y+vZtHba1jgfVxBhu3W
-         MXQ+eCNa1M3a/57xZDVgxYhuto7RlGaMvv7PuFRLyBidKPJ5rocTceRLe4R3PMlsiaFt
-         w5f1i/bixguA4ke4qODqvMYYIujHc3PiPImB7caCDBbvsx9D4vS8WDoUiM/332Po3A0l
-         3FLw==
-X-Forwarded-Encrypted: i=1; AJvYcCVxWo0y08SAi4xOYP49pUKsos3cQSJBkHyA2C8nX/oA/xb2RX7kjKiI1gM4Cf4p82dQwdqEMlgw+QWX6njgyFc9B4SnW5Fq6fl76WPlc4g=
-X-Gm-Message-State: AOJu0YwOiynPp1Nfry7Q1PNWYIbfQp57Qg9G6QNRuxKFC2pA40fNlYKO
-	wzrcfxjgALSpQmOdAjUhpzhFoXZViB35SueAqGYRleDSdBHbmqFIWgZvcbsDGA8=
-X-Google-Smtp-Source: AGHT+IFS9N5Mj2T7tqA8UL3WW4dhMxRrU2fscpC934Et8ZljMIqE4dkmePHCQhDeKq1HKribBG8LfQ==
-X-Received: by 2002:adf:e745:0:b0:368:4b34:541 with SMTP id ffacd0b85a97d-369bae4ceebmr7532029f8f.16.1721727424983;
-        Tue, 23 Jul 2024 02:37:04 -0700 (PDT)
-Message-ID: <cabf929b-11bd-4401-88a2-7d4c8ae4b606@suse.com>
-Date: Tue, 23 Jul 2024 11:37:04 +0200
+        d=1e100.net; s=20230601; t=1721727581; x=1722332381;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=l6l7kRSoJUjHzdPQiYd/ht/e7MUtQ6tGdub3AxnaR+M=;
+        b=MwWz15+6lyOi+lI3ugfvo0hlJsZwR0TxOp83T0eVpG+TNWMspQn88S2BK0p4fD2qzx
+         KiPs8KySki+5DFQ/LYk9rqvlFbIbAd99dT+3mK8aMYR++wzW1PhYTuEH7jaO9HVUOa6/
+         mrtp3TS1sNc4glgX6skeSDscta8s/lDg9J1jJU+fE4Hi+c2XPVc4maTWfYzVNrrC9j8p
+         WGTl1e4rHzLBl//VmYwxfnCtNzkje/Ajwl5MazdEGxCSMaRFU6w+ojfz0UFi5LvX2BfX
+         tQFfjxZG2y0FZvbCjQ4b4uOZKjPA4BOE8S89fzEksvDvEu7DWjaC43d4DDsnufWEbbk+
+         9GUg==
+X-Forwarded-Encrypted: i=1; AJvYcCU/2TfoRKRwZjulLu4/LkI3GQD1QHOyuWrItLdmFNgfd0b38JgO8V3AFSfk7zuYFRtLQfSHJmUDNo6KaMaaONFUrsOoquPhEaIzhwsJcKs=
+X-Gm-Message-State: AOJu0YzfYb8jLRjPoZerSIChoMAli2Or/W1j+03eFGgHpGw7SUDkkDqC
+	0vvon0n4H3cO9Lscfj8p0y87qgCk82gF4e4NqB9+H3nkRf2Q8D6ZscNXm7hz+fhRly3alEp7OER
+	kmpmH/L3f7d71/td1usxFCVyLVHNZ2Gt7gyDaYQ==
+X-Google-Smtp-Source: AGHT+IFzfTp5JokiVx1N/dJq9A9GuJy+wJZONP4I4D14D35rUj8m9tG74zjcHMEt5LKzNGSgGe7BhC3do3bmn2b+tQY=
+X-Received: by 2002:a2e:7a0c:0:b0:2ef:281f:ba60 with SMTP id
+ 38308e7fff4ca-2f01ea5e484mr16420281fa.20.1721727580562; Tue, 23 Jul 2024
+ 02:39:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1.1 5/6] tools/libxs: Use writev()/sendmsg() instead of
- write()
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-References: <20240718164842.3650702-6-andrew.cooper3@citrix.com>
- <20240722162547.4060813-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <20240722162547.4060813-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20240712130749.1272741-1-fouad.hilly@cloud.com>
+ <20240712130749.1272741-4-fouad.hilly@cloud.com> <c4157096-cfc6-4455-a5f4-c2af94591284@suse.com>
+In-Reply-To: <c4157096-cfc6-4455-a5f4-c2af94591284@suse.com>
+From: Fouad Hilly <fouad.hilly@cloud.com>
+Date: Tue, 23 Jul 2024 10:39:29 +0100
+Message-ID: <CAJKAvHb-jtoB3APfS940FcgzUm9JhNR=Gg-QMLxS-YOaQyeL_w@mail.gmail.com>
+Subject: Re: [PATCH v5 3/4] x86/ucode: Introduce --force option to xen-ucode
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 22.07.24 18:25, Andrew Cooper wrote:
-> With the input data now conveniently arranged, use writev()/sendmsg() instead
-> of decomposing it into write() calls.
-> 
-> This causes all requests to be submitted with a single system call, rather
-> than at least two.  While in principle short writes can occur, the chances of
-> it happening are slim given that most xenbus comms are only a handful of
-> bytes.
-> 
-> Nevertheless, provide {writev,sendmsg}_exact() wrappers which take care of
-> resubmitting on EINTR or short write.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Juergen Gross <jgross@suse.com>
-> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
-> 
-> v1.1:
->   * Fix iov overread, spotted by Frediano.  Factor the common updating logic
->     out into update_iov().
-> ---
->   tools/libs/store/xs.c | 94 +++++++++++++++++++++++++++++++++++++++++--
->   1 file changed, 91 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
-> index e820cccc2314..f80ac7558cbe 100644
-> --- a/tools/libs/store/xs.c
-> +++ b/tools/libs/store/xs.c
-> @@ -563,6 +563,95 @@ static void *read_reply(
->   	return body;
->   }
->   
-> +/*
-> + * Update an iov/nr pair after an incomplete writev()/sendmsg().
-> + *
-> + * Awkwardly, nr has different widths and signs between writev() and
-> + * sendmsg(), so we take it and return it by value, rather than by pointer.
-> + */
-> +static size_t update_iov(struct iovec **p_iov, size_t nr, size_t res)
-> +{
-> +	struct iovec *iov = *p_iov;
-> +
-> +        /* Skip fully complete elements, including empty elements. */
-> +        while (nr && res >= iov->iov_len) {
-> +                res -= iov->iov_len;
-> +                nr--;
-> +                iov++;
-> +        }
-> +
-> +        /* Partial element, adjust base/len. */
-> +        if (res) {
-> +                iov->iov_len  -= res;
-> +                iov->iov_base += res;
-> +        }
-> +
-> +        *p_iov = iov;
-> +
-> +	return nr;
-> +}
-> +
-> +/*
-> + * Wrapper around sendmsg() to resubmit on EINTR or short write.  Returns
-> + * @true if all data was transmitted, or @false with errno for an error.
-> + * Note: May alter @iov in place on resubmit.
-> + */
-> +static bool sendmsg_exact(int fd, struct iovec *iov, unsigned int nr)
-> +{
-> +	struct msghdr hdr = {
-> +		.msg_iov = iov,
-> +		.msg_iovlen = nr,
-> +	};
-> +
-> +	/* Sanity check first element isn't empty */
-> +	assert(iov->iov_len == sizeof(struct xsd_sockmsg));
+On Fri, Jul 12, 2024 at 2:27=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 12.07.2024 15:07, Fouad Hilly wrote:
+> > @@ -79,6 +81,8 @@ static void usage(FILE *stream, const char *name)
+> >              "options:\n"
+> >              "  -h, --help            display this help\n"
+> >              "  -s, --show-cpu-info   show CPU information\n"
+> > +            "  -f, --force           skip certain checks; do not use u=
+nless you"
+> > +            "know exactly what you are doing\n"
+>
+> Would this output line perhaps better be wrapped explicitly, to avoid
+> odd wrapping effects on terminals not wider than 80 chars? In any event
+> there's a blank missing at the present source wrapping point.
+Sure, I will wrap it in v6
+>
+> Jan
 
-Can you please move this assert() into write_request(), avoiding to have
-2 copies of it?
+Thanks,
 
-With that:
-
-Reviewed-by: Juergen Gross <jgross@suse.com>
-
-
-Juergen
+Fouad
 
