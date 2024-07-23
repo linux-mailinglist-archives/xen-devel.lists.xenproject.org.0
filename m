@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72BE5939C54
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 10:15:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762673.1172882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66145939C58
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 10:15:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762674.1172894 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWAgM-0007xz-B5; Tue, 23 Jul 2024 08:15:38 +0000
+	id 1sWAgN-0008Dd-JR; Tue, 23 Jul 2024 08:15:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762673.1172882; Tue, 23 Jul 2024 08:15:38 +0000
+Received: by outflank-mailman (output) from mailman id 762674.1172894; Tue, 23 Jul 2024 08:15:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWAgM-0007wB-8D; Tue, 23 Jul 2024 08:15:38 +0000
-Received: by outflank-mailman (input) for mailman id 762673;
- Tue, 23 Jul 2024 08:15:36 +0000
+	id 1sWAgN-0008AO-Ft; Tue, 23 Jul 2024 08:15:39 +0000
+Received: by outflank-mailman (input) for mailman id 762674;
+ Tue, 23 Jul 2024 08:15:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J0IL=OX=bugseng.com=alessandro.zucchelli@srs-se1.protection.inumbo.net>)
- id 1sWAgK-0007w0-IF
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 08:15:36 +0000
+ id 1sWAgL-0007w0-CQ
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 08:15:37 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bbd56a9e-48cb-11ef-8776-851b0ebba9a2;
- Tue, 23 Jul 2024 10:15:34 +0200 (CEST)
+ id bcebe19c-48cb-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 10:15:35 +0200 (CEST)
 Received: from delta.bugseng.com.homenet.telecomitalia.it
  (host-79-35-51-193.retail.telecomitalia.it [79.35.51.193])
- by support.bugseng.com (Postfix) with ESMTPSA id 59F2B4EE0739;
- Tue, 23 Jul 2024 10:15:28 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 4B9634EE0742;
+ Tue, 23 Jul 2024 10:15:33 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,152 +40,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbd56a9e-48cb-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: bcebe19c-48cb-11ef-8776-851b0ebba9a2
 From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
-	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>
-Subject: [XEN PATCH v5 00/17] xen: address violation of MISRA C:2012 Directive 4.10
-Date: Tue, 23 Jul 2024 10:14:52 +0200
-Message-Id: <cover.1721720583.git.alessandro.zucchelli@bugseng.com>
+	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Subject: [XEN PATCH v5 01/17] misra: add deviation for headers that explicitly avoid guards
+Date: Tue, 23 Jul 2024 10:14:53 +0200
+Message-Id: <ad912232b11d925cc5456e064ebf41eb208201e8.1721720583.git.alessandro.zucchelli@bugseng.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1721720583.git.alessandro.zucchelli@bugseng.com>
+References: <cover.1721720583.git.alessandro.zucchelli@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Xen sources contain violations of MISRA C:2012 Directive 4.10 whose headline states:
-"Precautions shall be taken in order to prevent the contents of a header file
-being included more than once".
+From: Simone Ballarin <simone.ballarin@bugseng.com>
 
-Following V2, V3 and V4, here are all the rules that have been applied:
-- private headers -> <dir>__<filename>_H
-- asm-generic headers -> ASM_GENERIC__<filename>_H
-- arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM__<architecture>__<subdir>__<filename>_H
-- include/xen -> XEN__<filename>_H
+Some headers, under specific circumstances (documented in a comment at
+the beginning of the file), explicitly do not have strict inclusion
+guards: the caller is responsible for including them correctly.
 
-Links to the discussions:
-https://lists.xenproject.org/archives/html/xen-devel/2023-09/msg01928.html
-https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg01784.html
-https://lists.xenproject.org/archives/html/xen-devel/2023-10/msg02073.html
+These files are not supposed to comply with Directive 4.10:
+"Precautions shall be taken in order to prevent the contents of a header
+file being included more than once"
 
-Furthermore, the violations arising from the autogenerated header files
-include/xen/compile.h and xen/hypercall-defs.h are addressed.
+This patch adds deviation cooments for headers that avoid guards.
 
+Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+
+---
 Changes in v5:
-edit inclusion guard naming conventions, according to feedback received
-edit inclusion guards in header files reflecting the naming convention
-fix some rebasing mistakes left in the previous version
-
-Changes in v4:
-add/amend inclusion guards to address violations of the Directive and the new naming convention.
-drop teh XEN_ prefix when needed, according to the feedback received.
-add inclusion guard naming convention section in CODING_STYLE
-
+- edit deviation description
+- edit commit message
 Changes in v3:
-Add/amend inclusion guards to address violations of the Directive and the new naming convention.
-Remove trailing underscores.
-Modify creation rule for asm-offsets.h to conform to the new standard and to not generate conflicting
-guards between architectures (which is a violation of the Directive).
+- fix inconsistent deviation ID
+- change comment-based deviation text
+Changes in v2:
+- use the format introduced with doc/misra/safe.json instead of
+  a generic text-based deviation
+---
+ docs/misra/safe.json                        | 8 ++++++++
+ xen/include/public/arch-x86/cpufeatureset.h | 1 +
+ xen/include/public/errno.h                  | 1 +
+ 3 files changed, 10 insertions(+)
 
-Alessandro Zucchelli (3):
-  xen/build: address violation of MISRA C Directive 4.10
-  CODING_STYLE: Add a section on header guards naming conventions
-  include/asm-generic: rename inclusion guards for consistency
-
-Maria Celeste Cesario (3):
-  xen/arm: address violations of MISRA C:2012 Directive 4.10
-  xen: address violations of MISRA C:2012 Directive 4.10
-  xen/x86: rename inclusion guards for consistency
-
-Nicola Vetrini (1):
-  xen: add deviations for MISRA C 2012 Dir D4.10
-
-Simone Ballarin (10):
-  misra: add deviation for headers that explicitly avoid guards
-  misra: modify deviations for empty and generated headers
-  misra: add deviations for direct inclusion guards
-  xen/arm: address violations of MISRA C:2012 Directive 4.10
-  xen/x86: address violations of MISRA C:2012 Directive 4.10
-  x86/EFI: address violations of MISRA C:2012 Directive 4.10
-  xen/common: address violations of MISRA C:2012 Directive 4.10
-  xen/efi: address violations of MISRA C:2012 Directive 4.10
-  xen: address violations of MISRA C:2012 Directive 4.10
-  x86/asm: address violations of MISRA C:2012 Directive 4.10
-
- CODING_STYLE                                  | 21 ++++++++++++
- .../eclair_analysis/ECLAIR/deviations.ecl     | 12 +++----
- docs/misra/deviations.rst                     |  6 ++++
- docs/misra/safe.json                          | 32 +++++++++++++++++++
- xen/arch/arm/efi/efi-boot.h                   |  6 ++++
- xen/arch/arm/efi/runtime.h                    |  1 +
- xen/arch/arm/include/asm/domain.h             |  6 ++--
- xen/arch/arm/include/asm/efibind.h            |  5 +++
- xen/arch/arm/include/asm/event.h              |  6 ++--
- xen/arch/arm/include/asm/grant_table.h        |  6 ++--
- xen/arch/arm/include/asm/hypercall.h          |  1 +
- xen/arch/arm/include/asm/io.h                 |  6 ++--
- xen/arch/arm/include/asm/irq.h                |  6 ++--
- xen/arch/arm/include/asm/smp.h                |  6 ++--
- xen/arch/arm/include/asm/spinlock.h           |  6 ++--
- xen/arch/arm/include/asm/system.h             |  6 ++--
- xen/arch/x86/Makefile                         |  9 +++---
- xen/arch/x86/cpu/cpu.h                        |  5 +++
- xen/arch/x86/efi/efi-boot.h                   |  5 +++
- xen/arch/x86/efi/runtime.h                    |  5 +++
- xen/arch/x86/include/asm/compat.h             |  5 +++
- xen/arch/x86/include/asm/cpufeatures.h        |  5 +--
- xen/arch/x86/include/asm/domain.h             |  6 ++--
- xen/arch/x86/include/asm/efibind.h            |  5 +++
- xen/arch/x86/include/asm/event.h              |  6 ++--
- xen/arch/x86/include/asm/grant_table.h        |  6 ++--
- xen/arch/x86/include/asm/hypercall.h          |  1 +
- xen/arch/x86/include/asm/io.h                 |  6 ++--
- xen/arch/x86/include/asm/irq.h                |  6 ++--
- xen/arch/x86/include/asm/smp.h                |  6 ++--
- xen/arch/x86/include/asm/spinlock.h           |  6 ++--
- xen/arch/x86/include/asm/system.h             |  6 ++--
- xen/arch/x86/x86_64/mmconfig.h                |  5 +++
- xen/arch/x86/x86_emulate/private.h            |  5 +++
- xen/build.mk                                  | 13 +++++---
- xen/common/decompress.h                       |  5 +++
- xen/common/efi/efi.h                          |  5 +++
- xen/common/event_channel.h                    |  5 +++
- xen/include/Makefile                          | 16 +++++++---
- xen/include/asm-generic/altp2m.h              |  6 ++--
- xen/include/asm-generic/atomic-ops.h          |  6 ++--
- xen/include/asm-generic/device.h              |  6 ++--
- xen/include/asm-generic/div64.h               |  6 ++--
- xen/include/asm-generic/hardirq.h             |  6 ++--
- xen/include/asm-generic/iocap.h               |  6 ++--
- xen/include/asm-generic/monitor.h             |  6 ++--
- xen/include/asm-generic/paging.h              |  6 ++--
- xen/include/asm-generic/percpu.h              |  6 ++--
- xen/include/asm-generic/random.h              |  6 ++--
- xen/include/asm-generic/softirq.h             |  6 ++--
- xen/include/asm-generic/vm_event.h            |  6 ++--
- xen/include/public/arch-x86/cpufeatureset.h   |  1 +
- xen/include/public/errno.h                    |  1 +
- xen/include/xen/err.h                         |  8 +++--
- xen/include/xen/pci_ids.h                     |  5 +++
- xen/include/xen/softirq.h                     |  8 +++--
- xen/include/xen/vmap.h                        |  8 +++--
- xen/scripts/Makefile.asm-generic              |  8 ++++-
- 58 files changed, 268 insertions(+), 117 deletions(-)
-
+diff --git a/docs/misra/safe.json b/docs/misra/safe.json
+index 3f18ef401c..44d1c4890e 100644
+--- a/docs/misra/safe.json
++++ b/docs/misra/safe.json
+@@ -68,6 +68,14 @@
+         },
+         {
+             "id": "SAF-8-safe",
++            "analyser": {
++                "eclair": "MC3R1.D4.10"
++            },
++            "name": "Dir 4.10: headers that leave it up to the caller to include them correctly",
++            "text": "Headers that deliberatively leave the responsability of their correct inclusion to the caller are allowed."
++        },
++        {
++            "id": "SAF-9-safe",
+             "analyser": {},
+             "name": "Sentinel",
+             "text": "Next ID to be used"
+diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
+index d9eba5e9a7..3962ba9342 100644
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -23,6 +23,7 @@
+  * their XEN_CPUFEATURE() being appropriate in the included context.
+  */
+ 
++/* SAF-8-safe inclusion procedure left to caller */
+ #ifndef XEN_CPUFEATURE
+ 
+ /*
+diff --git a/xen/include/public/errno.h b/xen/include/public/errno.h
+index 5a78a7607c..b9fc6762fb 100644
+--- a/xen/include/public/errno.h
++++ b/xen/include/public/errno.h
+@@ -17,6 +17,7 @@
+  * will unilaterally #undef XEN_ERRNO().
+  */
+ 
++/* SAF-8-safe inclusion procedure left to caller */
+ #ifndef XEN_ERRNO
+ 
+ /*
 -- 
 2.34.1
 
