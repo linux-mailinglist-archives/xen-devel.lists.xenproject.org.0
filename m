@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81217939CE4
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 10:44:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762846.1173074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFA68939CEC
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 10:45:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762852.1173082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWB7k-00057J-PG; Tue, 23 Jul 2024 08:43:56 +0000
+	id 1sWB8i-0005cD-14; Tue, 23 Jul 2024 08:44:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762846.1173074; Tue, 23 Jul 2024 08:43:56 +0000
+Received: by outflank-mailman (output) from mailman id 762852.1173082; Tue, 23 Jul 2024 08:44:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWB7k-000548-MB; Tue, 23 Jul 2024 08:43:56 +0000
-Received: by outflank-mailman (input) for mailman id 762846;
- Tue, 23 Jul 2024 08:43:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sWB8h-0005Zj-UZ; Tue, 23 Jul 2024 08:44:55 +0000
+Received: by outflank-mailman (input) for mailman id 762852;
+ Tue, 23 Jul 2024 08:44:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Rd17=OX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWB7j-000542-MB
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 08:43:55 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b173174f-48cf-11ef-bbfe-fd08da9f4363;
- Tue, 23 Jul 2024 10:43:54 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5a10bb7bcd0so5103353a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 01:43:54 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c8c022dsm511010766b.102.2024.07.23.01.43.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jul 2024 01:43:53 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sWB8g-0005ZZ-H8; Tue, 23 Jul 2024 08:44:54 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sWB8g-0001Nw-1n; Tue, 23 Jul 2024 08:44:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sWB8f-0001Ks-N5; Tue, 23 Jul 2024 08:44:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sWB8f-0008EH-MV; Tue, 23 Jul 2024 08:44:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +42,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b173174f-48cf-11ef-bbfe-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721724234; x=1722329034; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nrG1jI97WeUlB9L9CyUHhcM/4jOMcTb1tb6wd0//3T4=;
-        b=dRgcfWIHZ+MiVrk4PmQFDaw//TWnsLmEHKX79cH8FKgzfIhVw6DuVGkFs/8UuuH+0n
-         Ly78l8I9WU/ZbQIEA/pxhzj+bcAp7YCJWsAoh0NZ9z3wpoegbBIQLtPvcp9pyL5+GHNj
-         AXclio5WAu8Y4nxaCDjvXEDoXUeR1cN7r/4Dakx0drIHbApuQM8CMtVLIz0rnQI7nV1x
-         ORY/T7WkE4u7OG7zkRwa+BcTHtz8QmSeC876Rxkt8mw+LNE3klbHe2p4nnu7a7zPK+L2
-         +1bIlCsJrE2eZuvEESfWwLl9NZtiiv7q2CxJZVuIW/ifYRQT1bqNrFqsdBQCWFc6UMSB
-         S18g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721724234; x=1722329034;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nrG1jI97WeUlB9L9CyUHhcM/4jOMcTb1tb6wd0//3T4=;
-        b=VUckf0dmBYgGh5nGErUK8NbSJIq9jVaorIRDx6Br3DzmurMtfOiwhawy/xLtDvLbCo
-         Ma31RQZgNNGsXnCMBwnd4hlNaJr5fI2g7S88t9kJflzQRs+JHJp4JMLZIHP2ShWx4x1u
-         0XEB29KD7/6J79P/uBLVw5mZ6vnlitxBiRX6T5tMc+9YLzW8qPkoqrr5QTeZ0johnayK
-         ngLowszLdaTUrsDxqVytX02B5lILLo8liQIM1cQbM7H236DPPcnlBUNjjfZUOIQyG7sK
-         r8tGfNlSF5hTASbLJfwoJt0m5Qb4E2W1998HV3KIc6eglgaCbbMaAu1nJOFtMP7pHdet
-         cJ2w==
-X-Forwarded-Encrypted: i=1; AJvYcCWSgqc8qWKd3/Lexsvy1bG3yX73ctv/iTRZ0otqjwSgbKZ3mdrHJY4Iv8zgibnV0CIlTYy1VOv+cC8zhDbfZ1rakN4XuKVqOlVVjyZ0fOk=
-X-Gm-Message-State: AOJu0YxsLdjwZQVI5aOzGls32KVPQDoAJo/f22v/3pexOnCWq9lRl3nI
-	ywNPULDDPeo2zsjwM22WBM8sVl+QBrs9Veu5M/TYq3KnYugb0k8cJ9Db/6xnGA==
-X-Google-Smtp-Source: AGHT+IHhv/E0aDNbN2t+OR+qVuE2GWAgWe6QS4dX2jVhcsMfkUbw4ztNbJJj5NaurUyGKGvwNIsurQ==
-X-Received: by 2002:a17:907:97c2:b0:a77:c314:d621 with SMTP id a640c23a62f3a-a7a4bfa2ce3mr612032866b.13.1721724233956;
-        Tue, 23 Jul 2024 01:43:53 -0700 (PDT)
-Message-ID: <9ceeedb1-31c6-4701-849c-e4f32fc07409@suse.com>
-Date: Tue, 23 Jul 2024 10:43:52 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=0qeEuup0sgZfIlIC5xfVxr/bY0kJ063v9+frLVV5KSE=; b=eXkKd1bRsslGuP6ZSr4s+mlp3d
+	hbGqOOFLRRG/vGsD+tcfJounARgipmUaxeoUmHX65eXhKuhrNZmJMcshtrkDFyp2NyrB3G7shRc7k
+	jWhn9TMSL2BZ7y2ns5EYAyE5AWoQNyXROkAIjM6k6cBWG6pEpVAKxOGCkk/zhrdZNQbU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186959-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v5 16/17] CODING_STYLE: Add a section on header guards
- naming conventions
-To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1721720583.git.alessandro.zucchelli@bugseng.com>
- <14a663eaab02a78e688e1d260e1a4eb1799b13c5.1721720583.git.alessandro.zucchelli@bugseng.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <14a663eaab02a78e688e1d260e1a4eb1799b13c5.1721720583.git.alessandro.zucchelli@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 186959: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=6699341d880fdff110eb4e3ec03e4bc4172cb431
+X-Osstest-Versions-That:
+    libvirt=c019350a76d79405dd3e22d3023b71384f2924f2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 23 Jul 2024 08:44:53 +0000
 
-On 23.07.2024 10:15, Alessandro Zucchelli wrote:
-> This section explains which format should be followed by header
-> inclusion guards via a drop-down list of rules.
-> 
-> No functional change.
-> 
-> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+flight 186959 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186959/
 
-As indicated in reply to v4, this wants (imo needs) to move to the very start
-of the series. No changes following the new scheme should be made without the
-new scheme actually having been committed.
+Failures :-/ but no regressions.
 
-> --- a/CODING_STYLE
-> +++ b/CODING_STYLE
-> @@ -159,6 +159,27 @@ Emacs local variables
->  A comment block containing local variables for emacs is permitted at
->  the end of files.  It should be:
->  
-> +Header inclusion guards
-> +-----------------------
-> +
-> +Unless differently specified all header files should have proper inclusion
-> +guards in order to avoid being included multiple times.
-> +The following naming conventions have been devised:
-> +
-> +- private headers -> <dir>__<filename>_H
-> +    - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
-> +    - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
-> +    - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
-> +
-> +- asm-generic headers -> ASM_GENERIC__<filename>_H
-> +    - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
-> +
-> +- arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM__<architecture>__<subdir>__<filename>_H
-> +    - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
-> +
-> +- include/xen -> XEN__<filename>_H
-> +    - include/xen/something.h -> XEN__SOMETHING_H
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186923
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
 
-While I think this expresses what we have settled on, it lack details. For
-example, when to use single vs double underscores is left for the reader
-to derive from the examples, which leaves room for interpretation.
+version targeted for testing:
+ libvirt              6699341d880fdff110eb4e3ec03e4bc4172cb431
+baseline version:
+ libvirt              c019350a76d79405dd3e22d3023b71384f2924f2
 
-Jan
+Last test of basis   186923  2024-07-20 04:20:34 Z    3 days
+Testing same since   186959  2024-07-23 04:18:49 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Daniel P. Berrangé <berrange@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   c019350a76..6699341d88  6699341d880fdff110eb4e3ec03e4bc4172cb431 -> xen-tested-master
 
