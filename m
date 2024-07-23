@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 954CD93A955
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 00:29:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763605.1173883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB75D93A959
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 00:32:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763612.1173893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWO0N-0001sP-7Y; Tue, 23 Jul 2024 22:29:11 +0000
+	id 1sWO2n-0003JI-J4; Tue, 23 Jul 2024 22:31:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763605.1173883; Tue, 23 Jul 2024 22:29:11 +0000
+Received: by outflank-mailman (output) from mailman id 763612.1173893; Tue, 23 Jul 2024 22:31:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWO0N-0001qo-4W; Tue, 23 Jul 2024 22:29:11 +0000
-Received: by outflank-mailman (input) for mailman id 763605;
- Tue, 23 Jul 2024 22:29:09 +0000
+	id 1sWO2n-0003HY-GM; Tue, 23 Jul 2024 22:31:41 +0000
+Received: by outflank-mailman (input) for mailman id 763612;
+ Tue, 23 Jul 2024 22:31:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zFMf=OX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sWO0L-0001qi-Em
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 22:29:09 +0000
+ id 1sWO2l-0003HS-Hs
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 22:31:39 +0000
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f9073aba-4942-11ef-bbfe-fd08da9f4363;
- Wed, 24 Jul 2024 00:29:08 +0200 (CEST)
+ id 52629762-4943-11ef-bbfe-fd08da9f4363;
+ Wed, 24 Jul 2024 00:31:38 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 8E401CE0E5A;
- Tue, 23 Jul 2024 22:29:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29EAC4AF0E;
- Tue, 23 Jul 2024 22:29:03 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 8EB1DCE0F1E;
+ Tue, 23 Jul 2024 22:31:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01362C4AF09;
+ Tue, 23 Jul 2024 22:31:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,114 +41,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9073aba-4942-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: 52629762-4943-11ef-bbfe-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1721773744;
-	bh=OryRj2MHZ0AdfrkDVtAAH1se2WYy1PfAmFlsb+RJqQs=;
+	s=k20201202; t=1721773893;
+	bh=iFoTsvhGds4e8ro19VEcLaArCf4YzS5GjwOElHoMGWk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=lHMsZiUx3/zD7NpTQ+srkEroUbZYwE825f1RN2i39H831n8Lq0qQ7Bsy8LhQYYV1P
-	 I7G6nIYbCEr/RZo6UjJrepm0f9wbLDX4oLdd/TCtps8WNkhq1eyg8ayzoYtUQ87Hm+
-	 Iyr8t0zl+84zwcEPozejufu3dZhD1Lhon9RQN2MlQIRZLNvaFqKv4zU0+V++KScJ7a
-	 DVMM841++j4sFtlLPGCBlvaJAf+7Ye1H13pwEsUGlys5JE/fysr+hGRmayNz9DKUr2
-	 0gpnuxpZW5hV9w0jbCxCTUqlSf2rPLJpK2jEnNy/9nehFFAk1kjik7SmbIFD+klOFu
-	 2Ny4LskMfnjoQ==
-Date: Tue, 23 Jul 2024 15:29:02 -0700 (PDT)
+	b=tmoqf6YhhZRckBR8A/INwJgePB+tObznFpbUNlS5qHZucEKvOT0DfGeUS8sOFI5Pd
+	 /tn5rYQ2zYKzCWxBN17iHgaZeFV/Q2P8nscyDKszf19UxQ4Yys1hZ682aAM6EqDUVj
+	 Huv3qdrE6lHF4caFUZIWSVJcutmCWGZqbE/aPQkf3HzizS9dIPAbSBa71vwpkRU5so
+	 5uwazBuWbu+3GdtCwzJuO5yQHFC/sT1RGvvQ6sdcxS3SmD+EQXADRa/ZkuE+IwOIqL
+	 ZSPwiM2P9jhUPk7+lzFnwwVTb7m1S5xAwJtqbfehOeahmpuloMrESHSoB+ULqgeRnU
+	 CG+VyGpiO1XVw==
+Date: Tue, 23 Jul 2024 15:31:31 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
     Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v5 12/17] xen: address violations of MISRA C:2012
+Subject: Re: [XEN PATCH v5 15/17] xen/build: address violation of MISRA C
  Directive 4.10
-In-Reply-To: <42fbbb9ffb85893d049c80812b547ffb10ccda7e.1721720583.git.alessandro.zucchelli@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2407231528040.4857@ubuntu-linux-20-04-desktop>
-References: <cover.1721720583.git.alessandro.zucchelli@bugseng.com> <42fbbb9ffb85893d049c80812b547ffb10ccda7e.1721720583.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <08fe3472d3da3035357b72d4684295cbe79b77c1.1721720583.git.alessandro.zucchelli@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2407231530490.4857@ubuntu-linux-20-04-desktop>
+References: <cover.1721720583.git.alessandro.zucchelli@bugseng.com> <08fe3472d3da3035357b72d4684295cbe79b77c1.1721720583.git.alessandro.zucchelli@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Tue, 23 Jul 2024, Alessandro Zucchelli wrote:
-> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+> This addresses violations of MISRA C:2012 Rule 4.10 which states as
+> following: Precautions shall be taken in order to prevent the contents
+> of a header file being included more than once.
 > 
-> Modify creation rule for asm-offsets.h to conform to
-> the new standard and to not generate conflicting guards
-> between architectures (which is a violation of the directive).
-> Modify generic-y creation rule to generate code without violations
-> and to conform to the new standard.
+> Changes are made for autogenerated header files: include/xen/compile.h
+> and include/xen/hypercall-defs.h.
 > 
-> Mechanical change.
+> No functional change.
 > 
-> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
-> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-
-I know I gave my Reviewed-by already but I have a question below...
-
-
+> 
 > ---
 > Changes in v5:
-> - edit inclusion guards of autogenerated files
-> Commit introduced in v3
+> - edit inclusion guards for autogenerated header files
 > ---
->  xen/build.mk                     | 7 ++++---
->  xen/scripts/Makefile.asm-generic | 8 +++++++-
->  2 files changed, 11 insertions(+), 4 deletions(-)
+>  xen/build.mk         | 6 +++++-
+>  xen/include/Makefile | 5 ++++-
+>  2 files changed, 9 insertions(+), 2 deletions(-)
 > 
 > diff --git a/xen/build.mk b/xen/build.mk
-> index 0f490ca71b..32624d3097 100644
+> index 32624d3097..ebb2d06b3c 100644
 > --- a/xen/build.mk
 > +++ b/xen/build.mk
-> @@ -47,6 +47,7 @@ asm-offsets.s: arch/$(SRCARCH)/$(ARCH)/asm-offsets.c
+> @@ -18,6 +18,8 @@ quiet_cmd_compile.h = UPD     $@
+>  define cmd_compile.h
+>      if [ ! -r $@ -o -O $@ ]; then \
+>  	cat .banner; \
+> +	echo '#ifndef XEN__COMPILE_H' > $(dot-target).tmp; \
+> +	echo '#define XEN__COMPILE_H' >> $(dot-target).tmp; \
+>  	sed -e 's/@@date@@/$(XEN_BUILD_DATE)/g' \
+>  	    -e 's/@@time@@/$(XEN_BUILD_TIME)/g' \
+>  	    -e 's/@@whoami@@/$(XEN_WHOAMI)/g' \
+> @@ -28,8 +30,9 @@ define cmd_compile.h
+>  	    -e 's/@@subversion@@/$(XEN_SUBVERSION)/g' \
+>  	    -e 's/@@extraversion@@/$(XEN_EXTRAVERSION)/g' \
+>  	    -e 's!@@changeset@@!$(shell $(srctree)/tools/scmversion $(XEN_ROOT) || echo "unavailable")!g' \
+> -	    < $< > $(dot-target).tmp; \
+> +	    < $< >> $(dot-target).tmp; \
+>  	sed -rf $(srctree)/tools/process-banner.sed < .banner >> $(dot-target).tmp; \
+> +	echo '#endif /* XEN__COMPILE_H */' >> $(dot-target).tmp; \
+>  	mv -f $(dot-target).tmp $@; \
+>      fi
+>  endef
+> @@ -40,6 +43,7 @@ include/xen/compile.h: include/xen/compile.h.in .banner FORCE
 >  
->  arch/$(SRCARCH)/include/asm/asm-offsets.h: asm-offsets.s
->  	@(set -e; \
-> +	  guard=$$(echo ASM__${SRCARCH}__ASM_OFFSETS_H | tr a-z A-Z); \
->  	  echo "/*"; \
->  	  echo " * DO NOT MODIFY."; \
->  	  echo " *"; \
-> @@ -54,12 +55,12 @@ arch/$(SRCARCH)/include/asm/asm-offsets.h: asm-offsets.s
->  	  echo " *"; \
->  	  echo " */"; \
->  	  echo ""; \
-> -	  echo "#ifndef __ASM_OFFSETS_H__"; \
-> -	  echo "#define __ASM_OFFSETS_H__"; \
-> +	  echo "#ifndef $$guard"; \
-> +	  echo "#define $$guard"; \
->  	  echo ""; \
->  	  sed -rne "/^[^#].*==>/{s:.*==>(.*)<==.*:\1:; s: [\$$#]: :; p;}"; \
->  	  echo ""; \
-> -	  echo "#endif") <$< >$@
-> +	  echo "#endif /* $$guard */") <$< >$@
+>  targets += include/xen/compile.h
 >  
->  build-dirs := $(patsubst %/built_in.o,%,$(filter %/built_in.o,$(ALL_OBJS) $(ALL_LIBS)))
->  
-> diff --git a/xen/scripts/Makefile.asm-generic b/xen/scripts/Makefile.asm-generic
-> index b0d356bfa3..2d2fd9f76e 100644
-> --- a/xen/scripts/Makefile.asm-generic
-> +++ b/xen/scripts/Makefile.asm-generic
-> @@ -32,7 +32,13 @@ old-headers := $(wildcard $(obj)/*.h)
->  unwanted    := $(filter-out $(generic-y) $(generated-y),$(old-headers))
->  
->  quiet_cmd_wrap = WRAP    $@
-> -      cmd_wrap = echo "\#include <asm-generic/$*.h>" > $@
-> +cmd_wrap = \
-> +    guard=$$(echo ASM_GENERIC__${SRCARCH}__$*_H | tr a-z A-Z); \
+> +
 
-Shouldn't this be: ASM_GENERIC__$*_H  according to the coding style?
+Spurious change? Could be fixed on commit. Other than this
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-
-> +    echo "\#ifndef $$guard" >$@.new; \
-> +    echo "\#define $$guard" >>$@.new; \
-> +    echo "\#include <asm-generic/$*.h>" >>$@.new; \
-> +    echo "\#endif /* $$guard */" >>$@.new; \
-> +    mv -f $@.new $@
+>  -include $(wildcard .asm-offsets.s.d)
+>  asm-offsets.s: arch/$(SRCARCH)/$(ARCH)/asm-offsets.c
+>  	$(CC) $(call cpp_flags,$(c_flags)) -S -g0 -o $@.new -MQ $@ $<
+> diff --git a/xen/include/Makefile b/xen/include/Makefile
+> index 1ff9468eeb..35df93c82e 100644
+> --- a/xen/include/Makefile
+> +++ b/xen/include/Makefile
+> @@ -119,7 +119,10 @@ $(obj)/compat/xlat.h: $(addprefix $(obj)/compat/.xlat/,$(xlat-y)) FORCE
 >  
->  quiet_cmd_remove = REMOVE  $(unwanted)
->        cmd_remove = rm -f $(unwanted)
+>  quiet_cmd_genhyp = GEN     $@
+>  define cmd_genhyp
+> -    awk -f $(srctree)/scripts/gen_hypercall.awk <$< >$@
+> +    echo "#ifndef XEN__HYPERCALL_DEFS_H" >$@; \
+> +    echo "#define XEN__HYPERCALL_DEFS_H" >>$@; \
+> +    awk -f $(srctree)/scripts/gen_hypercall.awk <$< >>$@; \
+> +    echo "#endif /* XEN__HYPERCALL_DEFS_H */" >>$@
+>  endef
+>  
+>  all: $(obj)/xen/hypercall-defs.h
 > -- 
 > 2.34.1
 > 
