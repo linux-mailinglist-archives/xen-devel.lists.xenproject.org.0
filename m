@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F414193A254
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 16:10:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763276.1173548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2329293A2BE
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 16:29:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763299.1173559 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWGDH-0004w3-Tu; Tue, 23 Jul 2024 14:09:59 +0000
+	id 1sWGVn-0000Qv-Cr; Tue, 23 Jul 2024 14:29:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763276.1173548; Tue, 23 Jul 2024 14:09:59 +0000
+Received: by outflank-mailman (output) from mailman id 763299.1173559; Tue, 23 Jul 2024 14:29:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWGDH-0004tD-Qy; Tue, 23 Jul 2024 14:09:59 +0000
-Received: by outflank-mailman (input) for mailman id 763276;
- Tue, 23 Jul 2024 14:09:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sWGVn-0000P7-8s; Tue, 23 Jul 2024 14:29:07 +0000
+Received: by outflank-mailman (input) for mailman id 763299;
+ Tue, 23 Jul 2024 14:29:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=402b=OX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sWGDG-0004su-68
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 14:09:58 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d9f22e5-48fd-11ef-bbfe-fd08da9f4363;
- Tue, 23 Jul 2024 16:09:57 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2eefeab807dso65791991fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 07:09:57 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5a30aaa31e0sm7550612a12.27.2024.07.23.07.09.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jul 2024 07:09:55 -0700 (PDT)
+ <SRS0=xgPy=OX=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1sWGVl-0000OU-Dt
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 14:29:05 +0000
+Received: from fout1-smtp.messagingengine.com (fout1-smtp.messagingengine.com
+ [103.168.172.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e75f12f6-48ff-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 16:29:02 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 13EED1380340
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 10:29:00 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 23 Jul 2024 10:29:00 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 10:28:59 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,222 +43,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d9f22e5-48fd-11ef-bbfe-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1721743796; x=1722348596; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6nW/rt9Qo5tfRDufRGYbEvIvuJIAr6r7zmSe5eBX0ms=;
-        b=M//THgEzaa+aDVBEGOcF/Elvz2KEn948/1/etLE6Yds/vIBgJ7+2BJqL14R+CHVlNa
-         TbCcPvU/m/IEu13urwUO1Nj8XR0HSy8XwkT9npw7bkDAgmHcA2N9ztdNyMlm6pKHHnpq
-         m3fOXWO+Sn8ydH6ap50JtQjPd6gUrfQmmFETc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721743796; x=1722348596;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6nW/rt9Qo5tfRDufRGYbEvIvuJIAr6r7zmSe5eBX0ms=;
-        b=H1DbFhTT6XQgVRMwW896bNS+lPLEjZ97Q20IqGM4iC890u1g0KwxRuLhkDN1EG6Lxo
-         +hHOf+URvptRlurTVede/E6lVeXlv4ZeLPYxnCkDsNXFD/szs1DBKy9gBejiRS/GMhi0
-         7Ym7kylO82TvFma1sVVJT3YdVJ6anaDNBA9ub5cangceWVHYmN71glkg7oGfyZkxqb6Z
-         z4eOOX3q1TU6O6+0uyWd7hzqCfpQef/+C3k1qJ/yuN3SaqSv8EvM4NQmexXYAGnTMXmd
-         //vJcLoUI6/rQ1V+aSYm0RXjG2to53NogBwRxfWCTiA8lA8rf8MnWQhIvC3+2/4ApvCX
-         XbDw==
-X-Forwarded-Encrypted: i=1; AJvYcCWK7ENdvp5HMf4lNbHlA1ykX7jsqIxZXezH3pNAt8sdvIJwK+FUfEuo6eF7+76WrGV+DVqNclgfjWPMcyzKwQUlmvcFJm/6sOwz0/XVrEg=
-X-Gm-Message-State: AOJu0YyvG86OJKTmKXFbWsiGoQ/QKmfIRJh0V2RCvMg2JaOt/JNWJhH3
-	NMz8qka3WSgssIPJrhFP8dVV9m/Tp6YLzjjSiLv4MglMqQJ3TuVnCnhMtlGwYsnfDTl0VSYpSN6
-	/
-X-Google-Smtp-Source: AGHT+IH9dbnid+umfgkDovOno7oGayRaeV+CbXCITXh68H5Z7ircdpdrKcDMbpIIJjdv3XX2uRlGtQ==
-X-Received: by 2002:a2e:b054:0:b0:2ef:2f60:1950 with SMTP id 38308e7fff4ca-2f01eac68e1mr20567321fa.30.1721743796350;
-        Tue, 23 Jul 2024 07:09:56 -0700 (PDT)
-Message-ID: <69ad0dbc-7690-4da2-85be-9b44edb8d28e@citrix.com>
-Date: Tue, 23 Jul 2024 15:09:54 +0100
+X-Inumbo-ID: e75f12f6-48ff-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:content-type:content-type:date:date
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1721744940; x=1721831340; bh=YgfT7mscqH
+	S498jIZyCl52XDbsmT1MApm9rfgZLU06I=; b=MAmkHJ+QxtVFm+jLrwOVp7rwJU
+	n1TSa+zBFy1Xhfh8GgIJ6yvG161A/ZmG1lJu2/+qvsEmPwD4E4f23FIOPj3S17pC
+	ZMotn526PZ/zwfeG4kRHZQPX4Ko0prPoGEPn+ZEt/LoXJS9z6nPVMpMic4vwAkKO
+	HJeuT0oHgV7IKaofNOZM9EzGKS+6PaW2i5WXyeuAalkfwBEAcPWQDDvV/Ob9AYSH
+	aBBcZG8oh80nRZU8DcQkhToKb2yjh/E7cXJhnIHQhqo9GryRE+mma3Sg1QmZ8SOi
+	wvYShJv8SCfoY6Ua4YBucRULYWofkNPpH7wB6gn104YdrL7HE+ZcI1jGft7g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1721744940; x=1721831340; bh=YgfT7mscqHS498jIZyCl52XDbsmT1MApm9r
+	fgZLU06I=; b=CYcDTvG2GF9t+w6hAAqeH3lNXyFeO9Jwm31DKSCVig8KLiMX3nq
+	39ZSlg2fS4GwQCXYXJ2RzGqhc9Zdsxzi6fw4mlf1wBW4bBJaPUE2oYJcrRWGj1ZX
+	fuwp44JC+cwChNS2yGU7+aA6Ehm9u1b2Y62Y86NVEWxJb2OtauGKLNnxC4z3F9PN
+	z1V7MaqtTmWnwsJUpI+N4y1pmheklLa7To2Jv1+gqNuo00cCwTytqPWM+leBqu8R
+	dUkHWC+yf7beujh5XATLBfsQx72/3zbwdOLW05UsTpsB9v7nsCfBsrlXXbCEjhBk
+	wy1QsYPPD7o/HEa4tcV93I3h0nwRfiwKvyw==
+X-ME-Sender: <xms:K76fZh_DQl0nj6URxKlBqt42MUU6BEDDquz9ZAOys4yui3O85cp5eA>
+    <xme:K76fZlsKRbuqAM-_KS7meyyy_WrItZz98TxVM4qIChRZ-BHrOdtUS8XMNNYfte-U7
+    D3vJnqPhbQ48Q>
+X-ME-Received: <xmr:K76fZvCC9zACRmWCFqMSCTZnJM1jOl_ru5WTV-cQKUzSszKdHRocIcmk060QpFKA8G9jdgIdyZkzpvtsW6BlPbdNh4bDEt8v8Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrheelgdejiecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfggtggusehgtderredttd
+    ejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcu
+    oehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenuc
+    ggtffrrghtthgvrhhnpedtudfgteduveduieevvefgteeujeelgffggffhhffhhedtffef
+    fefgudeugeefhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
+    hrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+    pdhnsggprhgtphhtthhopedt
+X-ME-Proxy: <xmx:K76fZlfMKVM_fV-oNg-fS4sNFPihKFjd5mi_cR3I4rQBM6gd-X14Zg>
+    <xmx:K76fZmPv2QQ1Ik_pA-eNyQvOKq9RHg1byX3Y8M2tdtJJpT8OT6wkAg>
+    <xmx:K76fZnl7COiBudj-IsVEMLRxbfSflDjRMg-EHFUbQ0LBZttTq2JQ0w>
+    <xmx:K76fZgvatJ51tZOKdKr62MLQFDruf1p2vSo-qJ71WFW2hpavZILGvw>
+    <xmx:LL6fZgUOOC_g4cRGlWWX4UwljWAFBOOqoFQK91753bxDwAryHzfeRy8b>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 23 Jul 2024 16:28:56 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Assertion failed at arch/x86/genapic/x2apic.c:38 on S3 resume nested
+ in KVM on AMD
+Message-ID: <Zp--KHAFuDVnH1Oq@mail-itl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1.1 5/6] tools/libxs: Use writev()/sendmsg() instead of
- write()
-To: Jason Andryuk <jason.andryuk@amd.com>, Juergen Gross <jgross@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-References: <20240718164842.3650702-6-andrew.cooper3@citrix.com>
- <20240722162547.4060813-1-andrew.cooper3@citrix.com>
- <cabf929b-11bd-4401-88a2-7d4c8ae4b606@suse.com>
- <702ac4d8-2eba-4b4d-bf43-3cc8277c5778@citrix.com>
- <34350564-2faf-4af7-a66c-4ef3960a98ed@suse.com>
- <296cccab-118f-4b42-b48d-f4927d10162d@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <296cccab-118f-4b42-b48d-f4927d10162d@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="PgnEH3+1U+YAOMDK"
+Content-Disposition: inline
 
-On 23/07/2024 2:45 pm, Jason Andryuk wrote:
-> On 2024-07-23 08:30, Juergen Gross wrote:
->> On 23.07.24 14:25, Andrew Cooper wrote:
->>> On 23/07/2024 10:37 am, Jürgen Groß wrote:
->>>> On 22.07.24 18:25, Andrew Cooper wrote:
->>>>> With the input data now conveniently arranged, use writev()/sendmsg()
->>>>> instead
->>>>> of decomposing it into write() calls.
->>>>>
->>>>> This causes all requests to be submitted with a single system call,
->>>>> rather
->>>>> than at least two.  While in principle short writes can occur, the
->>>>> chances of
->>>>> it happening are slim given that most xenbus comms are only a
->>>>> handful of
->>>>> bytes.
->>>>>
->>>>> Nevertheless, provide {writev,sendmsg}_exact() wrappers which take
->>>>> care of
->>>>> resubmitting on EINTR or short write.
->>>>>
->>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>> ---
->>>>> CC: Anthony PERARD <anthony.perard@vates.tech>
->>>>> CC: Juergen Gross <jgross@suse.com>
->>>>> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
->>>>>
->>>>> v1.1:
->>>>>    * Fix iov overread, spotted by Frediano.  Factor the common
->>>>> updating logic
->>>>>      out into update_iov().
->>>>> ---
->>>>>    tools/libs/store/xs.c | 94
->>>>> +++++++++++++++++++++++++++++++++++++++++--
->>>>>    1 file changed, 91 insertions(+), 3 deletions(-)
->>>>>
->>>>> diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
->>>>> index e820cccc2314..f80ac7558cbe 100644
->>>>> --- a/tools/libs/store/xs.c
->>>>> +++ b/tools/libs/store/xs.c
->>>>> @@ -563,6 +563,95 @@ static void *read_reply(
->>>>>        return body;
->>>>>    }
->>>>>    +/*
->>>>> + * Update an iov/nr pair after an incomplete writev()/sendmsg().
->>>>> + *
->>>>> + * Awkwardly, nr has different widths and signs between writev() and
->>>>> + * sendmsg(), so we take it and return it by value, rather than by
->>>>> pointer.
->>>>> + */
->>>>> +static size_t update_iov(struct iovec **p_iov, size_t nr, size_t
->>>>> res)
->>>>> +{
->>>>> +    struct iovec *iov = *p_iov;
->>>>> +
->>>>> +        /* Skip fully complete elements, including empty
->>>>> elements. */
->>>>> +        while (nr && res >= iov->iov_len) {
->>>>> +                res -= iov->iov_len;
->>>>> +                nr--;
->>>>> +                iov++;
->>>>> +        }
->>>>> +
->>>>> +        /* Partial element, adjust base/len. */
->>>>> +        if (res) {
->>>>> +                iov->iov_len  -= res;
->>>>> +                iov->iov_base += res;
->>>>> +        }
->>>>> +
->>>>> +        *p_iov = iov;
->>>>> +
->>>>> +    return nr;
->>>>> +}
->>>>> +
->>>>> +/*
->>>>> + * Wrapper around sendmsg() to resubmit on EINTR or short write.
->>>>> Returns
->>>>> + * @true if all data was transmitted, or @false with errno for an
->>>>> error.
->>>>> + * Note: May alter @iov in place on resubmit.
->>>>> + */
->>>>> +static bool sendmsg_exact(int fd, struct iovec *iov, unsigned int
->>>>> nr)
->>>>> +{
->>>>> +    struct msghdr hdr = {
->>>>> +        .msg_iov = iov,
->>>>> +        .msg_iovlen = nr,
->>>>> +    };
->>>>> +
->>>>> +    /* Sanity check first element isn't empty */
->>>>> +    assert(iov->iov_len == sizeof(struct xsd_sockmsg));
->>>>
->>>> Can you please move this assert() into write_request(), avoiding to
->>>> have
->>>> 2 copies of it?
->>>
->>> It was more relevant before update_iov() was split out.
->>>
->>> But, there's exactly the same assertion in the write_request()'s
->>> caller,
->>> so I'd prefer to simply drop it if that's ok?
->>>
->>> The writev()/sendmsg() won't malfunction if the first element is 0, and
->>> update_iov() will now cope too, so I don't think it's necessary.
->>
->> Fine with me.
->
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-Thanks.
+--PgnEH3+1U+YAOMDK
+Content-Type: multipart/mixed; protected-headers=v1;
+	boundary="RVpJQbIQ0wZipRE6"
+Content-Disposition: inline
+Date: Tue, 23 Jul 2024 16:28:56 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Assertion failed at arch/x86/genapic/x2apic.c:38 on S3 resume nested
+ in KVM on AMD
 
->
-> Looks like xs_write_all() is now unused internally, but it's an
-> exposed library function.  I guess it can just be kept instead of
-> bumping the library version.
 
-I have a /dev/null shaped hole I'm itching to file it in, but that is
-going to need a soname bump.  It's just one of many dubious functions
-exposed...
+--RVpJQbIQ0wZipRE6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-One mess at a time.
+Hi,
 
-~Andrew
+I'm observing a crash like the one below when trying to resume from S3.
+It happens on Xen nested in KVM (QEMU 9.0, Linux 6.9.3) but only on AMD.
+The very same software stack on Intel works just fine. QEMU is running
+with "-cpu host,+svm,+invtsc -machine q35,kernel-irqchip=3Dsplit -device
+amd-iommu,intremap=3Don -smp 2" among others.
+
+    (XEN) Preparing system for ACPI S3 state.
+    (XEN) Disabling non-boot CPUs ...
+    (XEN) Broke affinity for IRQ1, new: {0-1}
+    (XEN) Broke affinity for IRQ20, new: {0-1}
+    (XEN) Broke affinity for IRQ22, new: {0-1}
+    (XEN) Entering ACPI S3 state.
+    (XEN) Finishing wakeup from ACPI S3 state.
+    (XEN) Enabling non-boot CPUs  ...
+    (XEN) Assertion 'cpumask_test_cpu(this_cpu, per_cpu(cluster_cpus, this_=
+cpu))' failed at arch/x86/genapic/x2apic.c:38
+    (XEN) ----[ Xen-4.20  x86_64  debug=3Dy  Not tainted ]----
+    (XEN) CPU:    1
+    (XEN) RIP:    e008:[<ffff82d04028862b>] x2apic.c#init_apic_ldr_x2apic_c=
+luster+0x8a/0x1b9
+    (XEN) RFLAGS: 0000000000010096   CONTEXT: hypervisor
+    (XEN) rax: ffff830278a25f50   rbx: 0000000000000001   rcx: ffff82d0405e=
+1700
+    (XEN) rdx: 0000003233412000   rsi: ffff8302739da2d8   rdi: 000000000000=
+0000
+    (XEN) rbp: 00000000000000c8   rsp: ffff8302739d7e78   r8:  000000000000=
+0001
+    (XEN) r9:  ffff8302739d7fa0   r10: 0000000000000001   r11: 000000000000=
+0000
+    (XEN) r12: 0000000000000001   r13: 0000000000000001   r14: 000000000000=
+0000
+    (XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4: 000000000075=
+06e0
+    (XEN) cr3: 000000007fa7a000   cr2: 0000000000000000
+    (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 000000000000=
+0000
+    (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+    (XEN) Xen code around <ffff82d04028862b> (x2apic.c#init_apic_ldr_x2apic=
+_cluster+0x8a/0x1b9):
+    (XEN)  cf 82 ff ff eb b7 0f 0b <0f> 0b 48 8d 05 9c fc 33 00 48 8b 0d a5=
+ 0a 35 00
+    (XEN) Xen stack trace from rsp=3Dffff8302739d7e78:
+    (XEN)    0000000000000000 00000000000000c8 0000000000000001 00000000000=
+00001
+    (XEN)    0000000000000000 ffff82d0402f1d83 ffff8302739d7fff 00000000000=
+000c8
+    (XEN)    0000000000000001 0000000000000001 ffff82d04031adb9 00000000000=
+00001
+    (XEN)    0000000000000000 0000000000000000 0000000000000000 ffff82d0402=
+76677
+    (XEN)    0000000000000000 0000000000000000 0000000000000000 00000000000=
+00000
+    (XEN)    ffff88810037c000 0000000000000001 0000000000000246 deadbeefdea=
+df00d
+    (XEN)    0000000000000001 aaaaaaaaaaaaaaaa 0000000000000000 ffffffff811=
+d130a
+    (XEN)    deadbeefdeadf00d deadbeefdeadf00d deadbeefdeadf00d 00000100000=
+00000
+    (XEN)    ffffffff811d130a 000000000000e033 0000000000000246 ffffc900400=
+b3ef8
+    (XEN)    000000000000e02b 000000000000beef 000000000000beef 00000000000=
+0beef
+    (XEN)    000000000000beef 0000e01000000001 ffff8302739de000 00000032334=
+12000
+    (XEN)    00000000007506e0 0000000000000000 0000000000000000 00000002000=
+00000
+    (XEN)    0000000000000002
+    (XEN) Xen call trace:
+    (XEN)    [<ffff82d04028862b>] R x2apic.c#init_apic_ldr_x2apic_cluster+0=
+x8a/0x1b9
+    (XEN)    [<ffff82d0402f1d83>] S setup_local_APIC+0x26/0x449
+    (XEN)    [<ffff82d04031adb9>] S start_secondary+0x1c4/0x37a
+    (XEN)    [<ffff82d040276677>] S __high_start+0x87/0xd0
+    (XEN)=20
+    (XEN)=20
+    (XEN) ****************************************
+    (XEN) Panic on CPU 1:
+    (XEN) Assertion 'cpumask_test_cpu(this_cpu, per_cpu(cluster_cpus, this_=
+cpu))' failed at arch/x86/genapic/x2apic.c:38
+    (XEN) ****************************************
+
+On a release build, it hits "BUG" later on in the same file.
+
+I've tested the attached patch from Roger, but that assertion didn't
+fail (or it crashed before reaching that part).
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--RVpJQbIQ0wZipRE6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: attachment; filename="debug-amd-suspend.patch"
+Content-Transfer-Encoding: quoted-printable
+
+diff --git a/xen/arch/x86/genapic/x2apic.c b/xen/arch/x86/genapic/x2apic.c
+index 371dd100c742..fe8e664e1b63 100644
+--- a/xen/arch/x86/genapic/x2apic.c
++++ b/xen/arch/x86/genapic/x2apic.c
+@@ -30,8 +30,11 @@ static inline u32 x2apic_cluster(unsigned int cpu)
+ static void cf_check init_apic_ldr_x2apic_cluster(void)
+ {
+     unsigned int cpu, this_cpu =3D smp_processor_id();
++    uint32_t id =3D apic_read(APIC_ID);
++    uint32_t ldr =3D apic_read(APIC_LDR);
+=20
+-    per_cpu(cpu_2_logical_apicid, this_cpu) =3D apic_read(APIC_LDR);
++    ASSERT(x2apic_ldr_from_id(id) =3D=3D ldr);
++    per_cpu(cpu_2_logical_apicid, this_cpu) =3D ldr;
+=20
+     if ( per_cpu(cluster_cpus, this_cpu) )
+     {
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index 9cfc82666ae5..2a010a6363b7 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -1064,11 +1064,6 @@ static const struct hvm_mmio_ops vlapic_mmio_ops =3D=
+ {
+     .write =3D vlapic_mmio_write,
+ };
+=20
+-static uint32_t x2apic_ldr_from_id(uint32_t id)
+-{
+-    return ((id & ~0xf) << 12) | (1 << (id & 0xf));
+-}
+-
+ static void set_x2apic_id(struct vlapic *vlapic)
+ {
+     const struct vcpu *v =3D vlapic_vcpu(vlapic);
+diff --git a/xen/arch/x86/include/asm/apic.h b/xen/arch/x86/include/asm/api=
+c.h
+index 7b5a0832c05e..8a892fa2fa5b 100644
+--- a/xen/arch/x86/include/asm/apic.h
++++ b/xen/arch/x86/include/asm/apic.h
+@@ -148,6 +148,11 @@ static inline void ack_APIC_irq(void)
+ 	apic_write(APIC_EOI, 0);
+ }
+=20
++static inline uint32_t x2apic_ldr_from_id(uint32_t id)
++{
++    return ((id & ~0xf) << 12) | (1 << (id & 0xf));
++}
++
+ extern int get_maxlvt(void);
+ extern void clear_local_APIC(void);
+ extern void connect_bsp_APIC (void);
+
+
+--RVpJQbIQ0wZipRE6--
+
+--PgnEH3+1U+YAOMDK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmafvigACgkQ24/THMrX
+1yxa1AgAi9fZo7ap/6FN8R2gaH4mbqwE7pLJHxCat0qoNyG+9U4rNOTbUOMjSFfD
+IwgNlOKCYYqddniExdejKt7KLREsBhr8SHgg1/IPd/e85Lfzg8Nx9KT0hoTr71EG
+Hb2SVao150m41SuWOJtRHlmyI9yZ4iLfl+6STFkzx+MWnW/amk6OGMKhg3k1vxU8
+CknvFSnqpisEHeF8DN7P2eywnpt+Adb4/67YYypgVhU3AFDD5erJH0+HX841W1OR
+WvslzihfXoNH6NabL1m/OXB0Y5ySOTMiwjHCER+9cBYW1hJePUy8mItry7FQ4F08
+6/fE+hP+bQ7VQ02NkWHqNwCush0zxw==
+=9cM8
+-----END PGP SIGNATURE-----
+
+--PgnEH3+1U+YAOMDK--
 
