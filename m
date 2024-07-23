@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3256939C5D
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 10:16:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762708.1172973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1326939CD9
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 10:38:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762839.1173062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWAgv-0003f4-Un; Tue, 23 Jul 2024 08:16:13 +0000
+	id 1sWB15-0003bg-31; Tue, 23 Jul 2024 08:37:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762708.1172973; Tue, 23 Jul 2024 08:16:13 +0000
+Received: by outflank-mailman (output) from mailman id 762839.1173062; Tue, 23 Jul 2024 08:37:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWAgv-0003cA-RV; Tue, 23 Jul 2024 08:16:13 +0000
-Received: by outflank-mailman (input) for mailman id 762708;
- Tue, 23 Jul 2024 08:16:11 +0000
+	id 1sWB14-0003Z9-WA; Tue, 23 Jul 2024 08:37:02 +0000
+Received: by outflank-mailman (input) for mailman id 762839;
+ Tue, 23 Jul 2024 08:37:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J0IL=OX=bugseng.com=alessandro.zucchelli@srs-se1.protection.inumbo.net>)
- id 1sWAgp-0008AN-5Z
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 08:16:07 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Rd17=OX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sWB13-0003Z3-8b
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 08:37:01 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce620007-48cb-11ef-bbfe-fd08da9f4363;
- Tue, 23 Jul 2024 10:16:05 +0200 (CEST)
-Received: from delta.bugseng.com.homenet.telecomitalia.it
- (host-79-35-51-193.retail.telecomitalia.it [79.35.51.193])
- by support.bugseng.com (Postfix) with ESMTPSA id 7E3FB4EE0744;
- Tue, 23 Jul 2024 10:16:04 +0200 (CEST)
+ id ba531d16-48ce-11ef-bbfe-fd08da9f4363;
+ Tue, 23 Jul 2024 10:36:59 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5a167b9df7eso5182176a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 01:36:59 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5a30c2f88a5sm7155898a12.77.2024.07.23.01.36.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jul 2024 01:36:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,306 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce620007-48cb-11ef-bbfe-fd08da9f4363
-From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>
-Subject: [XEN PATCH v5 17/17] include/asm-generic: rename inclusion guards for consistency
-Date: Tue, 23 Jul 2024 10:15:09 +0200
-Message-Id: <79c020c608d59c1c5d4156e307acba046b1ad17e.1721720583.git.alessandro.zucchelli@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1721720583.git.alessandro.zucchelli@bugseng.com>
-References: <cover.1721720583.git.alessandro.zucchelli@bugseng.com>
+X-Inumbo-ID: ba531d16-48ce-11ef-bbfe-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1721723819; x=1722328619; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=V011ySCA2sWR2YZ2G4YKkT98XR8zrJAayITvz4Vl7nY=;
+        b=UEJfkmnwSc/Oj2piz2jLRKGACnW7/0oPM3B/tstN4S15gKM6TobXqDZbPwwMfF8CRq
+         Ylfk0hOyO4b+hljXQNxw5N8oxIzB74JzmM2WPSAwBVtf33UlAPONsI89+hOKEQcSB0nw
+         uH64vJA7mOGLbAo3PPLV9NRO/zCTkPdVXbe51LFFoE7HmK7vOj7Lj8QZeiKY7tO5JVo1
+         7Z6SBj7/HwW+X6RJQWREHfXkiLkJvr3wKSzAUBg0vzzacTnGHycL5ZE11b0IrKVfFtgJ
+         TBibz32Kkarb5myOBL9B9JUVM4uwCHg850tr4MdcCVGdtlVqQ3wu7lkUoVHsVSGs0/9y
+         Anxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721723819; x=1722328619;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=V011ySCA2sWR2YZ2G4YKkT98XR8zrJAayITvz4Vl7nY=;
+        b=r0AmPjqKEAwP2WFPabkwnbepS2xyycrGrdmTeufs5hCudtO2hRjPFRHpZT7a7G+YXH
+         bIjLJgWKIG1+T3eiuYWOBJeNfR3DHYj8VPyhjqC41CnOl7H25jD2/bWiagrUNvNX6T0H
+         380O8tgZFmZUUJaTew6aiaAJ2rUyBOGMulGo9jD1hlCcoGNA9JEKWdrlzpw3DRkBoEsH
+         sXS4O/bNunk2crVezKG6DYGqX1UpsPkXinuqpm8OvN2tf4n1JK8f3p6NP1e1KZ5oXjGR
+         /Rca0SgWNyK77ojxPFR7rgOE9nPFb5z3SimQrFL6Bju38YDIPPLFY8GiLDgLDhR6Czyq
+         37TQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX0CojS7chsSwjEBSwuRTNS9GwSFuna0CDLL5uiMgEOxlKl1tdxLjwAsCfcrS88G0NnsCjZ5TMUpiaNJwFNkfmyXB4Bo0HlZBOIJZILLis=
+X-Gm-Message-State: AOJu0Yz2HWtz3wdEV19D880nffCcPMsBadBFIC0MVucyYtMMexCO3KNV
+	a72f9glx3z6XDfEyoWkjFtQ3eWjhdYZx0JpjV+L3EWfesNYqvqggOR1PTUbv2w==
+X-Google-Smtp-Source: AGHT+IFi6zbXfxwnzww72RnBGGHbXqdMIVs8saSz+LCxIhYx4rRabmTNkLws2fNNgqu75Udu4X16TQ==
+X-Received: by 2002:a05:6402:27cf:b0:5a0:d754:5ec5 with SMTP id 4fb4d7f45d1cf-5a4795813a8mr7317789a12.26.1721723819342;
+        Tue, 23 Jul 2024 01:36:59 -0700 (PDT)
+Message-ID: <97c82aca-0b8a-4b78-980b-0857dbdae80a@suse.com>
+Date: Tue, 23 Jul 2024 10:36:57 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/8] xen/riscv: introduce asm/pmap.h header
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Oleksii Kurochko <inisider@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Julien Grall <julien@xen.org>
+References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
+ <c7331e4c2f481f069571976a708c4aba04d2c0e4.1720799926.git.oleksii.kurochko@gmail.com>
+ <6458c61d-5974-41c2-a1e6-76e4a15a487a@suse.com>
+ <54af6fb751da1103054de2d79a2057bec658f399.camel@gmail.com>
+ <623da862-8e76-4d40-9aa9-b02c8fd9944d@xen.org>
+ <a53ef38e044db149bb37b70f1e56a33c6a3e7c83.camel@gmail.com>
+ <26ae01e2-d085-48d7-8b1f-da1e44b01e53@xen.org>
+ <CAMacjJwWLjGcFbYEhCPyNEW_+sfb51+XtKqyBcc2JGm=D5bf0w@mail.gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAMacjJwWLjGcFbYEhCPyNEW_+sfb51+XtKqyBcc2JGm=D5bf0w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Edit inclusion guards in asm-generic header files in order to make them
-consistent with the estabilished naming convention.
+On 23.07.2024 10:02, Oleksii Kurochko wrote:
+> On Mon, Jul 22, 2024 at 7:27 PM Julien Grall <julien@xen.org> wrote:
+>>>> On 22/07/2024 15:44, Oleksii Kurochko wrote:
+>>>     /* Map a 4k page in a fixmap entry */
+>>>     void set_fixmap(unsigned map, mfn_t mfn, unsigned int flags)
+>>>     {
+>>>         pte_t pte;
+>>>
+>>>         pte = mfn_to_xen_entry(mfn, flags);
+>>>         pte.pte |= PTE_LEAF_DEFAULT;
+>>>         write_pte(&xen_fixmap[pt_index(0, FIXMAP_ADDR(map))], pte);
+>>
+>> It would be saner to check if you are not overwriting any existing
+>> mapping as otherwise you will probably need a TLB flush.
+>>
+>>>     }
+>>>
+>>>     /* Remove a mapping from a fixmap entry */
+>>>     void clear_fixmap(unsigned map)
+>>>     {
+>>>         pte_t pte = {0};
+>>>         write_pte(&xen_fixmap[pt_index(0, FIXMAP_ADDR(map))], pte);
+>>
+>> Don't you need a TLB flush?
+>>
+> Inside write_pte() there is "sfence.vma".
 
-No functional change.
+That's just a fence though, not a TLB flush.
 
-Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
----
- xen/include/asm-generic/altp2m.h     | 6 +++---
- xen/include/asm-generic/atomic-ops.h | 6 +++---
- xen/include/asm-generic/device.h     | 6 +++---
- xen/include/asm-generic/div64.h      | 6 +++---
- xen/include/asm-generic/hardirq.h    | 6 +++---
- xen/include/asm-generic/iocap.h      | 6 +++---
- xen/include/asm-generic/monitor.h    | 6 +++---
- xen/include/asm-generic/paging.h     | 6 +++---
- xen/include/asm-generic/percpu.h     | 6 +++---
- xen/include/asm-generic/random.h     | 6 +++---
- xen/include/asm-generic/softirq.h    | 6 +++---
- xen/include/asm-generic/vm_event.h   | 6 +++---
- 12 files changed, 36 insertions(+), 36 deletions(-)
-
-diff --git a/xen/include/asm-generic/altp2m.h b/xen/include/asm-generic/altp2m.h
-index 39865a842a..34ae943145 100644
---- a/xen/include/asm-generic/altp2m.h
-+++ b/xen/include/asm-generic/altp2m.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef __ASM_GENERIC_ALTP2M_H
--#define __ASM_GENERIC_ALTP2M_H
-+#ifndef ASM_GENERIC__ALTP2M_H
-+#define ASM_GENERIC__ALTP2M_H
- 
- #include <xen/bug.h>
- 
-@@ -22,7 +22,7 @@ static inline unsigned int altp2m_vcpu_idx(const struct vcpu *v)
-     return 0;
- }
- 
--#endif /* __ASM_GENERIC_ALTP2M_H */
-+#endif /* ASM_GENERIC__ALTP2M_H */
- 
- /*
-  * Local variables:
-diff --git a/xen/include/asm-generic/atomic-ops.h b/xen/include/asm-generic/atomic-ops.h
-index 98dd907942..50f1db909d 100644
---- a/xen/include/asm-generic/atomic-ops.h
-+++ b/xen/include/asm-generic/atomic-ops.h
-@@ -4,8 +4,8 @@
-  * forward inline declaration that can be synthesized from other atomic
-  * functions or being created from scratch.
-  */
--#ifndef _ASM_GENERIC_ATOMIC_OPS_H_
--#define _ASM_GENERIC_ATOMIC_OPS_H_
-+#ifndef ASM_GENERIC__ATOMIC_OPS_H_
-+#define ASM_GENERIC__ATOMIC_OPS_H_
- 
- #include <xen/atomic.h>
- #include <xen/lib.h>
-@@ -94,4 +94,4 @@ static inline int atomic_add_negative(int i, atomic_t *v)
- }
- #endif
- 
--#endif /* _ASM_GENERIC_ATOMIC_OPS_H_ */
-+#endif /* ASM_GENERIC__ATOMIC_OPS_H_ */
-diff --git a/xen/include/asm-generic/device.h b/xen/include/asm-generic/device.h
-index 1acd1ba1d8..eccd3159a9 100644
---- a/xen/include/asm-generic/device.h
-+++ b/xen/include/asm-generic/device.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef __ASM_GENERIC_DEVICE_H__
--#define __ASM_GENERIC_DEVICE_H__
-+#ifndef ASM_GENERIC__DEVICE_H
-+#define ASM_GENERIC__DEVICE_H
- 
- #include <xen/stdbool.h>
- 
-@@ -127,7 +127,7 @@ __section(".adev.info") = {                                         \
- 
- #endif /* CONFIG_ACPI */
- 
--#endif /* __ASM_GENERIC_DEVICE_H__ */
-+#endif /* ASM_GENERIC__DEVICE_H */
- 
- /*
-  * Local variables:
-diff --git a/xen/include/asm-generic/div64.h b/xen/include/asm-generic/div64.h
-index 068d8a11ad..c1770561c6 100644
---- a/xen/include/asm-generic/div64.h
-+++ b/xen/include/asm-generic/div64.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef __ASM_GENERIC_DIV64
--#define __ASM_GENERIC_DIV64
-+#ifndef ASM_GENERIC__DIV64_H
-+#define ASM_GENERIC__DIV64_H
- 
- #include <xen/types.h>
- 
-@@ -15,7 +15,7 @@
- 
- #endif /* BITS_PER_LONG */
- 
--#endif
-+#endif /* ASM_GENERIC__DIV64_H */
- 
- /*
-  * Local variables:
-diff --git a/xen/include/asm-generic/hardirq.h b/xen/include/asm-generic/hardirq.h
-index ddccf460b9..09260b1b08 100644
---- a/xen/include/asm-generic/hardirq.h
-+++ b/xen/include/asm-generic/hardirq.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef __ASM_GENERIC_HARDIRQ_H
--#define __ASM_GENERIC_HARDIRQ_H
-+#ifndef ASM_GENERIC__HARDIRQ_H
-+#define ASM_GENERIC__HARDIRQ_H
- 
- #include <xen/cache.h>
- #include <xen/smp.h>
-@@ -17,7 +17,7 @@ typedef struct {
- #define irq_enter()     (local_irq_count(smp_processor_id())++)
- #define irq_exit()      (local_irq_count(smp_processor_id())--)
- 
--#endif /* __ASM_GENERIC_HARDIRQ_H */
-+#endif /* ASM_GENERIC__HARDIRQ_H */
- 
- /*
-  * Local variables:
-diff --git a/xen/include/asm-generic/iocap.h b/xen/include/asm-generic/iocap.h
-index dd7cb45488..1001fb629a 100644
---- a/xen/include/asm-generic/iocap.h
-+++ b/xen/include/asm-generic/iocap.h
-@@ -1,11 +1,11 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef __ASM_GENERIC_IOCAP_H__
--#define __ASM_GENERIC_IOCAP_H__
-+#ifndef ASM_GENERIC__IOCAP_H
-+#define ASM_GENERIC__IOCAP_H
- 
- #define cache_flush_permitted(d)                        \
-     (!rangeset_is_empty((d)->iomem_caps))
- 
--#endif /* __ASM_GENERIC_IOCAP_H__ */
-+#endif /* ASM_GENERIC__IOCAP_H */
- 
- /*
-  * Local variables:
-diff --git a/xen/include/asm-generic/monitor.h b/xen/include/asm-generic/monitor.h
-index 1ade289099..e53f0823cb 100644
---- a/xen/include/asm-generic/monitor.h
-+++ b/xen/include/asm-generic/monitor.h
-@@ -9,8 +9,8 @@
-  *
-  */
- 
--#ifndef __ASM_GENERIC_MONITOR_H__
--#define __ASM_GENERIC_MONITOR_H__
-+#ifndef ASM_GENERIC__MONITOR_H
-+#define ASM_GENERIC__MONITOR_H
- 
- #include <xen/errno.h>
- #include <xen/lib.h>
-@@ -52,7 +52,7 @@ void arch_monitor_cleanup_domain(struct domain *d)
-     /* No arch-specific domain cleanup on GENERIC. */
- }
- 
--#endif /* __ASM_GENERIC_MONITOR_H__ */
-+#endif /* ASM_GENERIC__MONITOR_H */
- 
- /*
-  * Local variables:
-diff --git a/xen/include/asm-generic/paging.h b/xen/include/asm-generic/paging.h
-index 8df534cfdc..1a8fae6543 100644
---- a/xen/include/asm-generic/paging.h
-+++ b/xen/include/asm-generic/paging.h
-@@ -1,13 +1,13 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef __ASM_GENERIC_PAGING_H__
--#define __ASM_GENERIC_PAGING_H__
-+#ifndef ASM_GENERIC__PAGING_H
-+#define ASM_GENERIC__PAGING_H
- 
- #include <xen/stdbool.h>
- 
- #define paging_mode_translate(d)    ((void)(d), true)
- #define paging_mode_external(d)     ((void)(d), true)
- 
--#endif /* __ASM_GENERIC_PAGING_H__ */
-+#endif /* ASM_GENERIC__PAGING_H */
- 
- /*
-  * Local variables:
-diff --git a/xen/include/asm-generic/percpu.h b/xen/include/asm-generic/percpu.h
-index 60af4f9ff9..7302edb00c 100644
---- a/xen/include/asm-generic/percpu.h
-+++ b/xen/include/asm-generic/percpu.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef __ASM_GENERIC_PERCPU_H__
--#define __ASM_GENERIC_PERCPU_H__
-+#ifndef ASM_GENERIC__PERCPU_H
-+#define ASM_GENERIC__PERCPU_H
- 
- #ifndef __ASSEMBLY__
- 
-@@ -25,7 +25,7 @@ void percpu_init_areas(void);
- 
- #endif
- 
--#endif /* __ASM_GENERIC_PERCPU_H__ */
-+#endif /* ASM_GENERIC__PERCPU_H */
- 
- /*
-  * Local variables:
-diff --git a/xen/include/asm-generic/random.h b/xen/include/asm-generic/random.h
-index d0d35dd217..f2e6c1c11c 100644
---- a/xen/include/asm-generic/random.h
-+++ b/xen/include/asm-generic/random.h
-@@ -1,13 +1,13 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef __ASM_GENERIC_RANDOM_H__
--#define __ASM_GENERIC_RANDOM_H__
-+#ifndef ASM_GENERIC__RANDOM_H
-+#define ASM_GENERIC__RANDOM_H
- 
- static inline unsigned int arch_get_random(void)
- {
-     return 0;
- }
- 
--#endif /* __ASM_GENERIC_RANDOM_H__ */
-+#endif /* ASM_GENERIC__RANDOM_H */
- 
- /*
-  * Local variables:
-diff --git a/xen/include/asm-generic/softirq.h b/xen/include/asm-generic/softirq.h
-index 83be855e50..92144c7eca 100644
---- a/xen/include/asm-generic/softirq.h
-+++ b/xen/include/asm-generic/softirq.h
-@@ -1,12 +1,12 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
--#ifndef __ASM_GENERIC_SOFTIRQ_H__
--#define __ASM_GENERIC_SOFTIRQ_H__
-+#ifndef ASM_GENERIC__SOFTIRQ_H
-+#define ASM_GENERIC__SOFTIRQ_H
- 
- #define NR_ARCH_SOFTIRQS       0
- 
- #define arch_skip_send_event_check(cpu) 0
- 
--#endif /* __ASM_GENERIC_SOFTIRQ_H__ */
-+#endif /* ASM_GENERIC__SOFTIRQ_H */
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/asm-generic/vm_event.h b/xen/include/asm-generic/vm_event.h
-index 620c7b971c..ff538b6ba4 100644
---- a/xen/include/asm-generic/vm_event.h
-+++ b/xen/include/asm-generic/vm_event.h
-@@ -5,8 +5,8 @@
-  * Copyright (c) 2015 Tamas K Lengyel (tamas@tklengyel.com)
-  */
- 
--#ifndef __ASM_GENERIC_VM_EVENT_H__
--#define __ASM_GENERIC_VM_EVENT_H__
-+#ifndef ASM_GENERIC__VM_EVENT_H
-+#define ASM_GENERIC__VM_EVENT_H
- 
- #include <xen/sched.h>
- #include <public/vm_event.h>
-@@ -52,4 +52,4 @@ void vm_event_reset_vmtrace(struct vcpu *v)
-     /* Nothing to do. */
- }
- 
--#endif /* __ASM_GENERIC_VM_EVENT_H__ */
-+#endif /* ASM_GENERIC__VM_EVENT_H */
--- 
-2.34.1
-
+Jan
 
