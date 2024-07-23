@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD710939E78
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 12:02:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762951.1173193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9C31939E92
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 12:07:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762961.1173203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWCLX-0006TK-UM; Tue, 23 Jul 2024 10:02:15 +0000
+	id 1sWCQb-0007ng-Gz; Tue, 23 Jul 2024 10:07:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762951.1173193; Tue, 23 Jul 2024 10:02:15 +0000
+Received: by outflank-mailman (output) from mailman id 762961.1173203; Tue, 23 Jul 2024 10:07:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWCLX-0006QQ-RC; Tue, 23 Jul 2024 10:02:15 +0000
-Received: by outflank-mailman (input) for mailman id 762951;
- Tue, 23 Jul 2024 10:02:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sWCQb-0007lA-Dy; Tue, 23 Jul 2024 10:07:29 +0000
+Received: by outflank-mailman (input) for mailman id 762961;
+ Tue, 23 Jul 2024 10:07:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Rd17=OX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWCLX-0006QK-6E
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 10:02:15 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a110f227-48da-11ef-8776-851b0ebba9a2;
- Tue, 23 Jul 2024 12:02:11 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2eeb1ba0481so78664221fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 03:02:11 -0700 (PDT)
+ id 1sWCQa-0007l4-9p
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 10:07:28 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5d4281be-48db-11ef-bbfe-fd08da9f4363;
+ Tue, 23 Jul 2024 12:07:27 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2ef2d7d8854so23032881fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 03:07:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2ccf7b2adafsm8699877a91.2.2024.07.23.03.02.07
+ 98e67ed59e1d1-2ccf8092da9sm8699754a91.37.2024.07.23.03.07.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jul 2024 03:02:10 -0700 (PDT)
+ Tue, 23 Jul 2024 03:07:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a110f227-48da-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 5d4281be-48db-11ef-bbfe-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721728931; x=1722333731; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721729247; x=1722334047; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xsfroiK4oeor59++qycD2qtfKDNLdKaFvizIzX+T1ek=;
-        b=eIIFEqW13zHtBPWCjU2sb9Yd2bF7oNewmEKvnzslXCNVeiiMAxdfsDu/P2lk5kQaie
-         5XlSMt58FfmoaIqfF0/CjXVNcxXIluUn0OTFc3u21yTGgMBz0sbgPwGyFUPpW/l1zHD2
-         +L6pA/cHQiwSuw1YbSZknZpty433ZyVrHupavgoi1XYr3vljYtVwfjLqyCypHYH52rM5
-         8KCdgX+fEPy58DLJcQspl4XcEXxPlzPhft9UYYBJI/2ASAbcaqy9H246OQ1k38d4FY6H
-         AEGPAFNvl5LTj0urKE6lynDvQGsKcCeG3jLVJj7OqbA08VJkDrANdMio0vlDuRs4UGd+
-         KhDw==
+        bh=p74SxLq2dEWp9ZGQVN+Lvnkp8KTTjzqhjk9NmTUGt58=;
+        b=C8s00kctkgfFVmxqkyVpxpcsxuRD5ajz6r8mEj/ykZPC4pBG+rUOE5SxVu56fjaQrM
+         VWYnjMc85BLGX95R/5JqDN5KdcE108HSK/s4f46/qWGa1gFbq4ze1cg+edsvlcU56GNb
+         zgJdXpcC6JVMx2yF6AUvrahFd9s4yeKq75HSe2QDMM4cY2LiieWz6Z+au/H1CdVOjwe1
+         l1wDiRodzMgJ/KZWUUUlaCbqpErqcyagInEXoniVjHvRIg6NG0GVKn+n7xaWq9Nv1mq4
+         AqIiYAR82c9BKQebYQPTOKwVmKSlMQVmp3yHlr9xvuafSj9HuDs/aST5znRsVqjZkaGM
+         RhxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721728931; x=1722333731;
+        d=1e100.net; s=20230601; t=1721729247; x=1722334047;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xsfroiK4oeor59++qycD2qtfKDNLdKaFvizIzX+T1ek=;
-        b=KhnFFn4H7alqPnXbRV9KjgD2/UVm9yPdC7+VxB37cHod8YGsM79b1AyIqIrtedPQr2
-         64oTYh2DODxAH/d6Kr/9TSFAStkNqzarDYSY19gdJ9g8vBD+7o8/4HddNvs76D/ys9Hb
-         7afROfDxqBMPVj0SCLjwJfsi7cl8IfLJnqenjI/YSQL948szkjUMbuzgaO5zn9boSuYT
-         m3FS76YdsLOcgtTR1qxuPlEadm/LJa0OyTyY7XVP0t7AQxjB6vGjj8cWIL7hUz1IbivF
-         XAdLClXXaxWh/0v6ajJE1DBFX8QMIpACDUp++kwwtqlRjgcDicVGr+KTH4ncsgfkUs1O
-         lbgw==
-X-Forwarded-Encrypted: i=1; AJvYcCV+wUnHte5fk+bY3swLgtskKtrRS5sDrWxV6nA3VcvYCeb/+mS+j8vvolZeGiJsTxGAHxNX61Kxzc5nlJZaPkGLmEyeCXykTe33sXQqFR4=
-X-Gm-Message-State: AOJu0YyS2rrqJj/nPloA3yUzwoRNSzsc2y2Hhe/wJdih5ma7K4D3pPbC
-	oMymGoG9CbFtklONSdfc9+vyJ5AV0if0XmT1HU52V45DgksSYAhn5+ZB913Ckg==
-X-Google-Smtp-Source: AGHT+IEvKLs0dtZqmHulYvk+K+j9IpwyGar0Ge1ZmoYhNKRFBMtFwmdVOTUUJvgSrHY1dFRPDCfyhA==
-X-Received: by 2002:a2e:95c2:0:b0:2ef:564c:a590 with SMTP id 38308e7fff4ca-2ef564ca663mr29682951fa.29.1721728931295;
-        Tue, 23 Jul 2024 03:02:11 -0700 (PDT)
-Message-ID: <14ffb00d-d6ba-4c18-88c1-2601a2df8a8b@suse.com>
-Date: Tue, 23 Jul 2024 12:02:03 +0200
+        bh=p74SxLq2dEWp9ZGQVN+Lvnkp8KTTjzqhjk9NmTUGt58=;
+        b=pDN/TNik3Bfdju7AQNkO2jZstUlF7rRWKcMNHFEjOhmP4nwHniDGGbb85u0nkyhajr
+         rWQKU+jtwwLob/7iyCsiI9778LiSnPdocDqtJWquyEY4rg1bxDkp8icZMFekiVb1n0up
+         oPeV5+cdnds04joSYOUp8zxi576flT/3gcLxXoClX/g/FwelDyg0PaYog3PlIPLNiHtC
+         O6bhlim8lOn61I/Rgc0uRY6OJC3CfJaFShea2lubaZ2bSRfJpwBxYXPiHAoTwrRIyhRt
+         OeaIdes64z+kS5sYLLAeiAhQKqAZjl5HVWKQHVifuDAuzFoXUWcRC5/x7G/ogZheg3HS
+         Qs+A==
+X-Forwarded-Encrypted: i=1; AJvYcCW+DCXgcl3NkfRQJpN92dLcTKb7fcCM/DAXzpceWSNBshX5OxS+TrkbPqq3eoPk+xgvT6N2MJkvWtYtgpQmVCXxPyGc7u0M0QitRNuFCEU=
+X-Gm-Message-State: AOJu0Yyb7iRjKtbfOzXCMLn5bMSF2Mpjtpro6P+kvTuILf4aBUeM6uZM
+	wxrvFGjhBW80+cIV7buvciT3TI7lfh4dRenAfX6WkSTqS2DHZdXlUQOm/0vLDw==
+X-Google-Smtp-Source: AGHT+IGkYBM9ECwR7LcsuBf+IyL8oYna1/B2se7nS8kr7HptRu1RGHFB5g+m4KRfwdvK20lONG/fBw==
+X-Received: by 2002:a2e:240f:0:b0:2ef:a504:65b8 with SMTP id 38308e7fff4ca-2f01ea56ec0mr13847481fa.13.1721729246579;
+        Tue, 23 Jul 2024 03:07:26 -0700 (PDT)
+Message-ID: <04b96cce-d2a0-4948-9db7-ee2073248472@suse.com>
+Date: Tue, 23 Jul 2024 12:07:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/8] xen/riscv: introduce asm/pmap.h header
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Julien Grall <julien@xen.org>
-References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
- <c7331e4c2f481f069571976a708c4aba04d2c0e4.1720799926.git.oleksii.kurochko@gmail.com>
- <6458c61d-5974-41c2-a1e6-76e4a15a487a@suse.com>
- <54af6fb751da1103054de2d79a2057bec658f399.camel@gmail.com>
- <623da862-8e76-4d40-9aa9-b02c8fd9944d@xen.org>
- <a53ef38e044db149bb37b70f1e56a33c6a3e7c83.camel@gmail.com>
- <26ae01e2-d085-48d7-8b1f-da1e44b01e53@xen.org>
- <CAMacjJwWLjGcFbYEhCPyNEW_+sfb51+XtKqyBcc2JGm=D5bf0w@mail.gmail.com>
- <97c82aca-0b8a-4b78-980b-0857dbdae80a@suse.com>
- <4c9eb7a79c33c7cd2f6bde05b1fbc7770e662026.camel@gmail.com>
+Subject: Re: [PATCH for-4.19] x86/altcall: fix clang code-gen when using
+ altcall in loop constructs
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+References: <20240723093117.99487-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,69 +112,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4c9eb7a79c33c7cd2f6bde05b1fbc7770e662026.camel@gmail.com>
+In-Reply-To: <20240723093117.99487-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 23.07.2024 10:55, oleksii.kurochko@gmail.com wrote:
-> On Tue, 2024-07-23 at 10:36 +0200, Jan Beulich wrote:
->> On 23.07.2024 10:02, Oleksii Kurochko wrote:
->>> On Mon, Jul 22, 2024 at 7:27 PM Julien Grall <julien@xen.org>
->>> wrote:
->>>>>> On 22/07/2024 15:44, Oleksii Kurochko wrote:
->>>>>     /* Map a 4k page in a fixmap entry */
->>>>>     void set_fixmap(unsigned map, mfn_t mfn, unsigned int
->>>>> flags)
->>>>>     {
->>>>>         pte_t pte;
->>>>>
->>>>>         pte = mfn_to_xen_entry(mfn, flags);
->>>>>         pte.pte |= PTE_LEAF_DEFAULT;
->>>>>         write_pte(&xen_fixmap[pt_index(0, FIXMAP_ADDR(map))],
->>>>> pte);
->>>>
->>>> It would be saner to check if you are not overwriting any
->>>> existing
->>>> mapping as otherwise you will probably need a TLB flush.
->>>>
->>>>>     }
->>>>>
->>>>>     /* Remove a mapping from a fixmap entry */
->>>>>     void clear_fixmap(unsigned map)
->>>>>     {
->>>>>         pte_t pte = {0};
->>>>>         write_pte(&xen_fixmap[pt_index(0, FIXMAP_ADDR(map))],
->>>>> pte);
->>>>
->>>> Don't you need a TLB flush?
->>>>
->>> Inside write_pte() there is "sfence.vma".
->>
->> That's just a fence though, not a TLB flush.
-> From the privileged doc:
->    ```
->    SFENCE.VMA is also used to invalidate entries in the
->    address-translation cache associated with a hart (see Section 4.3.2). 
->    ...
->    The SFENCE.VMA is used to flush any local hardware caches related to
->    address translation.
->    It is specified as a fence rather than a TLB flush to provide cleaner
->    semantics with respect to
->    which instructions are affected by the flush operation and to support a
->    wider variety of dynamic
->    caching structures and memory-management schemes. SFENCE.VMA is also
->    used by higher
->    privilege levels to synchronize page table writes and the address
->    translation hardware.
->    ...
->    ```
-> I read this as SFENCE.VMA is used not only for ordering of load/stores,
-> but also to flush TLB ( which is a type of more general term as
-> address-translation cache, IIUIC ).
+On 23.07.2024 11:31, Roger Pau Monne wrote:
+> Yet another clang code generation issue when using altcalls.
+> 
+> The issue this time is with using loop constructs around alternative_{,v}call
+> instances using parameter types smaller than the register size.
+> 
+> Given the following example code:
+> 
+> static void bar(bool b)
+> {
+>     unsigned int i;
+> 
+>     for ( i = 0; i < 10; i++ )
+>     {
+>         int ret_;
+>         register union {
+>             bool e;
+>             unsigned long r;
+>         } di asm("rdi") = { .e = b };
+>         register unsigned long si asm("rsi");
+>         register unsigned long dx asm("rdx");
+>         register unsigned long cx asm("rcx");
+>         register unsigned long r8 asm("r8");
+>         register unsigned long r9 asm("r9");
+>         register unsigned long r10 asm("r10");
+>         register unsigned long r11 asm("r11");
+> 
+>         asm volatile ( "call %c[addr]"
+>                        : "+r" (di), "=r" (si), "=r" (dx),
+>                          "=r" (cx), "=r" (r8), "=r" (r9),
+>                          "=r" (r10), "=r" (r11), "=a" (ret_)
+>                        : [addr] "i" (&(func)), "g" (func)
+>                        : "memory" );
+>     }
+> }
+> 
+> See: https://godbolt.org/z/qvxMGd84q
+> 
+> Clang will generate machine code that only resets the low 8 bits of %rdi
+> between loop calls, leaving the rest of the register possibly containing
+> garbage from the use of %rdi inside the called function.  Note also that clang
+> doesn't truncate the input parameters at the callee, thus breaking the psABI.
+> 
+> Fix this by turning the `e` element in the anonymous union into an array that
+> consumes the same space as an unsigned long, as this forces clang to reset the
+> whole %rdi register instead of just the low 8 bits.
+> 
+> Fixes: 2ce562b2a413 ('x86/altcall: use a union as register type for function parameters on clang')
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Oh, I see. Kind of unexpected for an instruction of that name. Yet note
-how they talk about the local hart only. You need a wider scope TLB
-flush here.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
