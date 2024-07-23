@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2C5C939DD4
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 11:32:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.762893.1173122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58EEC939DF6
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 11:33:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.762900.1173133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWBs6-0005zq-6Z; Tue, 23 Jul 2024 09:31:50 +0000
+	id 1sWBtg-0006ZL-IP; Tue, 23 Jul 2024 09:33:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 762893.1173122; Tue, 23 Jul 2024 09:31:50 +0000
+Received: by outflank-mailman (output) from mailman id 762900.1173133; Tue, 23 Jul 2024 09:33:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWBs6-0005xw-3v; Tue, 23 Jul 2024 09:31:50 +0000
-Received: by outflank-mailman (input) for mailman id 762893;
- Tue, 23 Jul 2024 09:31:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MQdi=OX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sWBs4-0005xq-IK
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 09:31:48 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 62012341-48d6-11ef-bbfe-fd08da9f4363;
- Tue, 23 Jul 2024 11:31:47 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2ef2d7d8854so22634941fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 02:31:47 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-427d6906a96sm168073485e9.22.2024.07.23.02.31.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jul 2024 02:31:46 -0700 (PDT)
+	id 1sWBtg-0006Wh-Dc; Tue, 23 Jul 2024 09:33:28 +0000
+Received: by outflank-mailman (input) for mailman id 762900;
+ Tue, 23 Jul 2024 09:33:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=BZ+O=OX=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sWBte-0006WU-BU
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 09:33:26 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9bb2a758-48d6-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 11:33:24 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2eeec60a324so68204971fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 02:33:24 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7aa309243esm13867066b.151.2024.07.23.02.33.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jul 2024 02:33:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,121 +47,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62012341-48d6-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: 9bb2a758-48d6-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1721727107; x=1722331907; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=4p5EBajcnF2PBWFGM7P90104CDoSF78S5SKBKjL4e/Y=;
-        b=Px2VoIjBIiErERU+l+1A9M8P1zeEqostM0d7WZMyjzTGmnt12yyevBUQCDCTqFAfGe
-         XNfQjSPetoLXVnCGa1Qx0U1VYvnnmU4xL9jv5p2RY8qjBjdzSNPE8OEXVJ6IdxH8DNfm
-         Cl115pM/3AwBrXsC/ITqvndHFPzhzAK1TnOSU=
+        d=suse.com; s=google; t=1721727204; x=1722332004; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=R+zEoWWeWJvbrJUrkEFc8Z4N5GueeVB4Q31zrWykAPY=;
+        b=ZnESTzd7f5pGBxlIanOFRTUTkETeMA27i4CA9oFOY1Q5FoTcDrZ7wm4Si+hdffmA/T
+         cewxh23egPGyMe1y3r3UOdGOxnA/XFSe9PkOSggowcPXNrcihvNXTtIbKU5kl9keeGgv
+         pdkAVUkA4Qr91TstHS9v2BR/5i5KVL+9D/LyzPJqMilpaHX1RMnQ/DYiivmmTrVRb0s7
+         BvD5YNeLrZX9YNuxQ6t5hPeW8VP8du/bAejVO3KdO8I/vWKueddhpAEu61rNaelqecqb
+         YLO3uhvI0KmrYLgVkSGDDtYKkgQRtM0uIObewQz2Xd9fqNl5FSL490P36rY9oiJ2aJAY
+         Wkbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721727107; x=1722331907;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4p5EBajcnF2PBWFGM7P90104CDoSF78S5SKBKjL4e/Y=;
-        b=DA6t35KkC+8q7lRboyQRWdg4c4HsgcHZEaXmDcfqSREH3x+jD04fjbyFU4OzBnrA1x
-         K2y7Cu1xOiKUmfjR/UQuaFVURNBRv2FPIwraaSVRy92Ua/iKOiL+k+rmoS1HfwTCMooW
-         0oVtBfvaFsMa2+ryWQJUxE3QMxN4HtDtpiHYQLbKYBa6fAgUumvsVKBPNp5Tp5I9aptl
-         ldQMxvVxZxBIujE7XsRmsV/5FnM7ObogABEXdfOTfA+PrbyuM+h31Qr+JcvTWpmmbKIp
-         fMtuGx7Oukp8pqIEIfYn0G045agt8LDxuSsv1YUoyu8vg2UX3Jcq/ibwYq9Ns/0TcKpe
-         9knA==
-X-Gm-Message-State: AOJu0YwVfJVMeDckRSLELqnowhuZFObSmuRJNNyRv9fEsN/SdN8uRDC1
-	l3EoPI1jxky2iLhdB5tYz9gQXNn5hb0VDiphHxWQzT7onF6aRi9U2IRQpKuzOZbRvXD1PyB6Efu
-	B
-X-Google-Smtp-Source: AGHT+IE1pyooqsY8trGVubUq4gK4A3xLfKdqvT96Y8tKgrPiFsTVxiOCI/mJeYESNEAImuc7Km7BXA==
-X-Received: by 2002:a2e:9f16:0:b0:2ee:80b2:1e99 with SMTP id 38308e7fff4ca-2f01ead8f10mr16221501fa.44.1721727106436;
-        Tue, 23 Jul 2024 02:31:46 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH for-4.19] x86/altcall: fix clang code-gen when using altcall in loop constructs
-Date: Tue, 23 Jul 2024 11:31:17 +0200
-Message-ID: <20240723093117.99487-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.45.2
+        d=1e100.net; s=20230601; t=1721727204; x=1722332004;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=R+zEoWWeWJvbrJUrkEFc8Z4N5GueeVB4Q31zrWykAPY=;
+        b=kkVtCq3/5dX7uw6xglGlIoQ9BLtuKtqEpXSA5LRR2FyzUbm+4qIavmjlh65Sy2wG8/
+         /TFkL/R6BHjKyesOsvlHZuD716PjzjvJUo99hTxcuzK8vy2IJACixKp9+08l5nPp0AyS
+         3+AZ1iqGtc/iPcngqZ/PT2vA3RtSNBB1tMaEF5BvZ08A+m3h/ry28jPulHehoBDeUWMz
+         01J36QV/tGOs3RqpE8n7yNTJcjFAxxrSvO1Q9Jk+W310Nk99i2wL0y6eHawfSIAcLDhh
+         AXvsU9Psv7ZPzVpXOxySRIN5liad0bmhZnNSRbd0/1ndubYVRRayXNgbJ8nKV0xL1LEu
+         S09Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWnz1cHh1iL4Ka3ZMKYqFWHsvLR6XMb3VZEAIi6v11cGkRgK1X6rtILlWhxcHmRBUEkOSgOfy6hVxkdhAvwZpOZcRaTcvDz38KVNSZb5LA=
+X-Gm-Message-State: AOJu0YzyEW0ffJzvOMOyDz2DEReWTGESsdIf2UkfjS06lfc8hbdz9Ioo
+	E0jygunNuH4vtq6laeJWFbTaAn/epAGEDQzIeeKHEGw3+jCVvoVt3+RTowkbR1w=
+X-Google-Smtp-Source: AGHT+IGFy1qp2Pyl/L+9SOzj92owp98C73nk/p9nx6uOqCkYna3b6X03t6g83XoH7IEOqCMvhM7fSw==
+X-Received: by 2002:a2e:9e01:0:b0:2ef:2d3a:e700 with SMTP id 38308e7fff4ca-2ef2d3ae865mr51998561fa.18.1721727203872;
+        Tue, 23 Jul 2024 02:33:23 -0700 (PDT)
+Message-ID: <8cbe6c8c-1401-4661-9319-e174ffce7461@suse.com>
+Date: Tue, 23 Jul 2024 11:33:23 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] tools/libxs: Track whether we're using a socket or
+ file
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>
+References: <20240718164842.3650702-1-andrew.cooper3@citrix.com>
+ <20240718164842.3650702-5-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <20240718164842.3650702-5-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Yet another clang code generation issue when using altcalls.
+On 18.07.24 18:48, Andrew Cooper wrote:
+> It will determine whether to use writev() or sendmsg().
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Juergen Gross <jgross@suse.com>
+> ---
+>   tools/libs/store/xs.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
+> index 96ea2b192924..f4edeb05f03b 100644
+> --- a/tools/libs/store/xs.c
+> +++ b/tools/libs/store/xs.c
+> @@ -65,6 +65,9 @@ struct xs_stored_msg {
+>   struct xs_handle {
+>   	/* Communications channel to xenstore daemon. */
+>   	int fd;
+> +
+> +	bool is_socket; /* is @fd a file or socket? */
+> +
+>   	Xentoolcore__Active_Handle tc_ah; /* for restrict */
+>   
+>   	/*
+> @@ -305,6 +308,8 @@ static struct xs_handle *get_handle(const char *connect_to)
+>   	if (h->fd == -1)
+>   		goto err;
+>   
+> +	h->is_socket = S_ISSOCK(buf.st_mode);
+> +
+>   	XEN_TAILQ_INIT(&h->reply_list);
+>   	XEN_TAILQ_INIT(&h->watch_list);
+>   
 
-The issue this time is with using loop constructs around alternative_{,v}call
-instances using parameter types smaller than the register size.
+I'd prefer to set h->is_socket above the current
 
-Given the following example code:
+     if (S_ISSOCK(buf.st_mode))
 
-static void bar(bool b)
-{
-    unsigned int i;
+and then use h->is_socket in this if instead.
 
-    for ( i = 0; i < 10; i++ )
-    {
-        int ret_;
-        register union {
-            bool e;
-            unsigned long r;
-        } di asm("rdi") = { .e = b };
-        register unsigned long si asm("rsi");
-        register unsigned long dx asm("rdx");
-        register unsigned long cx asm("rcx");
-        register unsigned long r8 asm("r8");
-        register unsigned long r9 asm("r9");
-        register unsigned long r10 asm("r10");
-        register unsigned long r11 asm("r11");
+With that:
 
-        asm volatile ( "call %c[addr]"
-                       : "+r" (di), "=r" (si), "=r" (dx),
-                         "=r" (cx), "=r" (r8), "=r" (r9),
-                         "=r" (r10), "=r" (r11), "=a" (ret_)
-                       : [addr] "i" (&(func)), "g" (func)
-                       : "memory" );
-    }
-}
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-See: https://godbolt.org/z/qvxMGd84q
 
-Clang will generate machine code that only resets the low 8 bits of %rdi
-between loop calls, leaving the rest of the register possibly containing
-garbage from the use of %rdi inside the called function.  Note also that clang
-doesn't truncate the input parameters at the callee, thus breaking the psABI.
-
-Fix this by turning the `e` element in the anonymous union into an array that
-consumes the same space as an unsigned long, as this forces clang to reset the
-whole %rdi register instead of just the low 8 bits.
-
-Fixes: 2ce562b2a413 ('x86/altcall: use a union as register type for function parameters on clang')
-Suggested-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Adding Oleksii as to whether this could be considered for 4.19: it's strictly
-limited to clang builds, plus will need to be backported anyway.
----
- xen/arch/x86/include/asm/alternative.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/x86/include/asm/alternative.h b/xen/arch/x86/include/asm/alternative.h
-index 0d3697f1de49..e63b45927643 100644
---- a/xen/arch/x86/include/asm/alternative.h
-+++ b/xen/arch/x86/include/asm/alternative.h
-@@ -185,10 +185,10 @@ extern void alternative_branches(void);
-  */
- #define ALT_CALL_ARG(arg, n)                                            \
-     register union {                                                    \
--        typeof(arg) e;                                                  \
-+        typeof(arg) e[sizeof(long) / sizeof(arg)];                      \
-         unsigned long r;                                                \
-     } a ## n ## _ asm ( ALT_CALL_arg ## n ) = {                         \
--        .e = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })   \
-+        .e[0] = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })\
-     }
- #else
- #define ALT_CALL_ARG(arg, n) \
--- 
-2.45.2
-
+Juergen
 
