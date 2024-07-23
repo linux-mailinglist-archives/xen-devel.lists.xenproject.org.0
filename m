@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4436F93A5E5
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 20:29:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763483.1173753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E94AF93A57D
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 20:24:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763475.1173743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWKFv-0000Sj-Tx; Tue, 23 Jul 2024 18:28:59 +0000
+	id 1sWKAW-0008AA-B6; Tue, 23 Jul 2024 18:23:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763483.1173753; Tue, 23 Jul 2024 18:28:59 +0000
+Received: by outflank-mailman (output) from mailman id 763475.1173743; Tue, 23 Jul 2024 18:23:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWKFv-0000Q8-QQ; Tue, 23 Jul 2024 18:28:59 +0000
-Received: by outflank-mailman (input) for mailman id 763483;
- Tue, 23 Jul 2024 18:28:58 +0000
+	id 1sWKAW-00087V-7u; Tue, 23 Jul 2024 18:23:24 +0000
+Received: by outflank-mailman (input) for mailman id 763475;
+ Tue, 23 Jul 2024 18:23:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W1nq=OX=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1sWKFu-0000Q2-EJ
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 18:28:58 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20600.outbound.protection.outlook.com
- [2a01:111:f403:2417::600])
+ <SRS0=m9Jy=OX=gmail.com=milandjokic1995@srs-se1.protection.inumbo.net>)
+ id 1sWKAU-00087P-Ur
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 18:23:23 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6ac73c71-4921-11ef-8776-851b0ebba9a2;
- Tue, 23 Jul 2024 20:28:55 +0200 (CEST)
-Received: from SJ0PR03CA0114.namprd03.prod.outlook.com (2603:10b6:a03:333::29)
- by BY5PR12MB4290.namprd12.prod.outlook.com (2603:10b6:a03:20e::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.14; Tue, 23 Jul
- 2024 18:28:52 +0000
-Received: from SJ1PEPF0000231D.namprd03.prod.outlook.com
- (2603:10b6:a03:333:cafe::fe) by SJ0PR03CA0114.outlook.office365.com
- (2603:10b6:a03:333::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28 via Frontend
- Transport; Tue, 23 Jul 2024 18:28:52 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ1PEPF0000231D.mail.protection.outlook.com (10.167.242.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Tue, 23 Jul 2024 18:28:51 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 23 Jul
- 2024 13:28:50 -0500
-Received: from [172.23.111.139] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 23 Jul 2024 13:28:49 -0500
+ id a38c1262-4920-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 20:23:20 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-368313809a4so74918f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 11:23:20 -0700 (PDT)
+Received: from Xen-host.domain.local ([89.216.37.146])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-36878695165sm12153993f8f.62.2024.07.23.11.23.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jul 2024 11:23:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,157 +45,379 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ac73c71-4921-11ef-8776-851b0ebba9a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hus+TonpatTjnTwXA9HoYFSpDBOCXGTCKRR8UbG0x+7LoTNWThOsfUM1kronEfI0sttOm84mlpXX8EmenqMREfTZyZt184R/5Mg/bgI68D9xY5Atr+uiA4wmNBs7ecYB7Aha3zdtCeSad2VDO7t0CCGJTtD6Kuz/uSUP+GPVl2bwNBfBR/HEQ+FY+UvxiEbc1Ewz3rCmaUlqN2E+9wQ4PtMRIOOtUXswajtylPgxS/8B71XawLb01AITCO27pL0iclIJnHeGY9Kf1H+Ku2LK4Ns9a+xpXEUYk71yxXdkmbYgKHDGamqGqcEC5n04eGaO07v3hKtph0B+bQOadKTLwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g+DT8OJiqnlgbG5hYSt88xcANE9o/290vg2yp65LNGM=;
- b=omlYVKvvbiSUTg74QE0H2qFHoH3C/FPYHyQJtKCEACK1QaUTqzuKbJKM9++PqFnvbsiDyG8PcDdaN2TMLN8WsW9L/ZwGZaiIfSuO6EpKlBroXdcwnM3X4I40ROejg5/rOBXEMlR+W6el5RVv9kL8XQfQgB6Er1zm6BQmlh4V4OSXcVyiHkBkLfskGvNFjI1QkgRjJl5yLJTNF6cT2YW1YAfQcYfPpXypm1U5vFPjvne1nMuNB7l1JhP6UTOiVpBWkEfxCj/yLh1X71+7rZCZt99sL2rmIzno5qa8AKCMdRcCjvArdK+R//SK/YDrS8Xhk8egzAYk2qHqn17WeApgfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g+DT8OJiqnlgbG5hYSt88xcANE9o/290vg2yp65LNGM=;
- b=obWrpHyzsg+F+LmVIlb6OZHPCEXtMfC4hACHVLyKy+1uk2IqINv6bi5Owm113FeuFtODefyDWMuuyNc78DCIc10xFcsHlotb6uliB5xiwzi1ISENszWvYWcbw74I1oNBc4kpyniTzqzNZ6mZZrOPd8ALlfqeXB0Wz0sG04I9Uho=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <e5ee360d-d945-4807-a6ce-9a7b97b69bea@amd.com>
-Date: Tue, 23 Jul 2024 14:05:45 -0400
+X-Inumbo-ID: a38c1262-4920-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1721759000; x=1722363800; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rEKXJ3rnaM1OvcvTBXIXn3MAAErsEuSno4les8Onla4=;
+        b=gpv2fpQIy3/p4qq/hhbx4Gqsu9yXHA+yLAiRs/9nRDc1hCpiOPg51aDFTTT3Q6/QNb
+         0ffwVNXCh9Aoq48ErHKF4I18dl/tFqTYHWhCLN2yF8HfG46/xxypV8SpIx1kWSHGy72l
+         Mn3jPYSwPG8uwnWTeRIAV0HYfDEHmNR+1hFsj8ogVXlQYLprvDESswx6+IphysDor/fY
+         Y0Xvki9PZ7yfJRfOYMUMKTuvWORWqm6TA1ThXk8jtEFgzANL+5T22lLB1jKkrN5yTHsy
+         D2MGonY8aV0JardKJLgHkVn5zBqa7xx9D9GnMHq7rqA28vH/oM3Xc1RatxkaeHbzz97o
+         9vdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721759000; x=1722363800;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rEKXJ3rnaM1OvcvTBXIXn3MAAErsEuSno4les8Onla4=;
+        b=b21j1ISVX4k2Jory/Rf7tlO+mN/C/fcm+Cez9t8m41LBNCpCPzVmXq1UCK9OMGki/O
+         kfrXCFvRXT78/sU/4L8pQ9U1CtOu4XNNr6UABAwmxn9LL+jAQ/TC9NVUnr6jpiIoWITc
+         UpTuPgVSlIfgvU9cnmo/Ro58/DM+bY/ctLFFDeVGXnt65dpfags3fYuKohyb7/gLok7X
+         XNHoFb0Sfui5RLocpn0PU5nj18OFTUehqCFKII09U67L4ZLaIgRADezW+mnDYIaZqXAW
+         3K8eAUeyEqHGWngle2FOZcbKAjH2ldSatd2eU7iI7nqMjLAvhaSMJIF1nOlMHcqiL/rP
+         NiGg==
+X-Gm-Message-State: AOJu0Yw3XgYDwSPg53j9twE9TvOHYpViOIOrn3BZNycKpnCDV4XSdGA/
+	0xamfWouoF/ILJ1AoHX/jBMgtttLSANZVdgZR/kXIimyKBpfaL0UBZ6jBuuW
+X-Google-Smtp-Source: AGHT+IF3Fo/93/hCrwGY9D48HZbsCXb4BnNPN4ndkhdnPMjtwU39QaZeKp+eQ777InDukQAZZAlSsg==
+X-Received: by 2002:a05:6000:1544:b0:366:df35:b64f with SMTP id ffacd0b85a97d-369e3e5a4f9mr2768780f8f.4.1721758999264;
+        Tue, 23 Jul 2024 11:23:19 -0700 (PDT)
+From: Milan Djokic <milandjokic1995@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: oleksii.kurochko@gmail.com,
+	Nikola Jelic <nikola.jelic@rt-rk.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Milan Djokic <milan.djokic@rt-rk.com>
+Subject: [PATCH v2] xen: PE/COFF image header
+Date: Tue, 23 Jul 2024 20:22:06 +0200
+Message-Id: <728bb10e944a7ec28a67c2e9e62910632eb2366b.1721758832.git.milandjokic1995@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <2b747d672eeadc1150d3b84f0303e1d288311133.1721391876.git.milan.djokic@rt-rk.com>
+References: <2b747d672eeadc1150d3b84f0303e1d288311133.1721391876.git.milan.djokic@rt-rk.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] hotplug: Restore block-tap phy compatibility
- (again)
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-	<xen-devel@lists.xenproject.org>, <oleksii.kurochko@gmail.com>
-References: <20240715234631.4468-1-jandryuk@gmail.com> <Zp/GcCUVPX/d/7qx@l14>
- <ac3d7bcd-6ed8-4ded-bb5d-ab9c228e9579@amd.com>
- <8a185aeabe4b3928906036590affbec8658bf226.camel@gmail.com>
- <eb096455-cc60-4c34-b7e4-fb0345086934@citrix.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <eb096455-cc60-4c34-b7e4-fb0345086934@citrix.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231D:EE_|BY5PR12MB4290:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b5135a0-ffd9-482e-313b-08dcab454d6c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NzdKamNya21uUDFCQXJMb2dDUjNTdXc5MnNFdlNZa1djb1BlTk5ONGR4bTM3?=
- =?utf-8?B?bm5qM05MRFZqQmlmM0szZ1dyZlZGNDJqVGtRNThpWGMrNDdjdXAyUFBBak5U?=
- =?utf-8?B?Q0dFTjUwbml2aVNkSFVnb3FDUEprNE1EajZqRlgvMjBRSHptTEZ3SE9ZakdQ?=
- =?utf-8?B?cjhqTkg3ayt6Q2Q4OTZ4aGY2N0RVakc4Z3hNSTU5UXhWOTJGTCs4Smpwa3p1?=
- =?utf-8?B?TUtRYWJoZnJSbmt0eVFSVkx0UXVRRDNiYmY4QWVHYkttYWZnYTlYSFdJb2pn?=
- =?utf-8?B?NTJzQzZVbjR6bnVYRGFPNjZibXB5aER3bXZYdzhwQ0FKRy9yOE9CaEJCOHF5?=
- =?utf-8?B?dWRvT2JRdWkyZTU1QVRoNEZqL2VrbGlFNXpETy9QRjhMQ2tHZjF3NVpvYStQ?=
- =?utf-8?B?cWJpWmFBdWFqWStiaGlMaFNieG9nd0lIZzJKZUltdUt5cWpZU3ZTYTBNSVEy?=
- =?utf-8?B?MzlFaHJJQkpLSkd6YkY1ZC96elhFZVBVRk1RSzNuSXhENjJHVSthZTZqK1p6?=
- =?utf-8?B?Mnd1cVpxOVk5dVBrdXhCRVQ5UXdRMEZ3VHBzak5GV0FRK0Q1QytCbEFEWXpi?=
- =?utf-8?B?SUpRSVlOWDRSMUIzNnJrYnhsWE92VnVZcEVJU1o1aUVGcTlwZVV4Nzg3L1d0?=
- =?utf-8?B?c1NQQXV5RUZiUXhpNlJjRVFwWDhoOUZWRjNUYk9aSW1sQ3VQNWpyNnozK2VN?=
- =?utf-8?B?MjM2Y1pnNGZoUGVxbVpUNiswSHZUK09XekM0bVMxUU1xTU9vblBOakJabzll?=
- =?utf-8?B?Zk92cEhPWTFJWjRKTm9qWVVvWG9UWWpGY1U0TDR4bVI0cmFnQm1YV3p1Ymt2?=
- =?utf-8?B?SEJ2MkRtbzVudXhmVE02ZnFHVldxTms2WUYwYU9Od1BDZXJta202UktHdWhZ?=
- =?utf-8?B?a3FYR2dMdXBOOFZyWU1wWXZoYWlGWkc4ZmF6VGJvRlNnaXNwMEpHSGV3RVJD?=
- =?utf-8?B?cjhFSjc2OFpSK1NTMkNqb0hmS0V2MUwwYW9hYU9iZDdjVERRZXh5NG5SdHEz?=
- =?utf-8?B?SEc3dEpsZFpldnVSc0pSS0lQYnJ0ZWNiby91RU0wUGlFUDNQNXZPVkhFTmZa?=
- =?utf-8?B?a3NnRlpId3A4bi9NaEhQdGFPTUlNRjdNc2VZbkV4L0NTbmI5cmZESDJGUGpY?=
- =?utf-8?B?Znl3NUhKS3J4Y1pKdVlUOG1oUkJZeFJkNE5YSVJJeDV4WVYyak5ta3U0eWRT?=
- =?utf-8?B?WW0xRUNrbW5DQTl5SDcxaENQeEQyWmNEYWNWR1I3T0xJL1lXSnhqSlM4TUcw?=
- =?utf-8?B?WU1mUW5jOFZleThzbVpWZjI0STR2QmcvZ3ZyWXc0SkJHazgzQ0ozMTZJejJs?=
- =?utf-8?B?THowemw0bHRuWVFucDBtT3l4YXBqTG5YK2NRUVY1ZnFEZXVVQ3RQMFdUOEZn?=
- =?utf-8?B?NG5PV2ZnNVM2OUszNFh1UlprOWk2YVhEdnBlTDNhM2FkaEcwd1FLcy9jUG9D?=
- =?utf-8?B?MlhURGdJNXZmN3NnZzdVa2VQTjg5WUVMdXBPNEhjY3ZEeTlGWjQzRFRzL2ZL?=
- =?utf-8?B?TFZlVlZES1lWb1o1Z2tRWFRFWExUSG5pLzNlOWNWeUVWRHZkbTA2UE5DUW1Q?=
- =?utf-8?B?cXAwT2JJSlVJSzZkSGI3clNmM1YxRmthYWRzZHRpTk4ra1BnWDVTaHV6TVlz?=
- =?utf-8?B?WUlNQThNSVpLclVsb3J1QlgxclNQenBLb2JSYXRBaUI2WWVnRGxKWHRNMERJ?=
- =?utf-8?B?aHF3UUtnSklyaUhZNm1pNVlJTHMzcmZXeXJxVkpLTDVyZVhSVForK1dieHY2?=
- =?utf-8?B?c05VVGxqOVB1WlJPZVM2ay9YL1BKcVdJMU9WMG5ZbnZRSU9OWGs0RVNzZHUr?=
- =?utf-8?B?MS9oQVFURlFDL3RTZ1FBYXFhQUx2YWVQTlc0NjBQQ0pKV3RKc2ZBV2pnMmxo?=
- =?utf-8?B?K3pOcDVmNVI4OGZaZ3d6QnVVTS96bXM2ZWtQZEYyY01GZVN5Q00yc0hjZks3?=
- =?utf-8?Q?tvvMSiS4iK5KRDWj97YJzA+lCJs6FnPX?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2024 18:28:51.6828
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b5135a0-ffd9-482e-313b-08dcab454d6c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF0000231D.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4290
 
-On 2024-07-23 13:34, Andrew Cooper wrote:
-> On 23/07/2024 6:31 pm, oleksii.kurochko@gmail.com wrote:
->> On Tue, 2024-07-23 at 11:04 -0400, Jason Andryuk wrote:
->>> On 2024-07-23 11:04, Anthony PERARD wrote:
->>>> On Mon, Jul 15, 2024 at 07:46:31PM -0400, Jason Andryuk wrote:
->>>>> "$dev" needs to be set correctly for backendtype=phy as well as
->>>>> backendtype=tap.  Move the setting into the conditional, so it
->>>>> can be
->>>>> handled properly for each.
->>>>>
->>>>> (dev could be captured during tap-ctl allocate for blktap module,
->>>>> but it
->>>>> would not be set properly for the find_device case.  The
->>>>> backendtype=tap
->>>>> case would need to be handled regardless.)
->>>>>
->>>>> Fixes: 6fcdc84927 ("hotplug: Restore block-tap phy
->>>>> compatibility")
->>>> Do you mean f16ac12bd418 ("hotplug: Restore block-tap phy
->>>> compatibility") ?
->>> Yes!  Thanks for checking that - I must have grabbed the hash from a
->>> local branch.
->>>
->>>>> Fixes: 76a484193d ("hotplug: Update block-tap")
->>>>>
->>>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>>> With the fixes tag fix:
->>>> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
->>> Thanks again.
->>>
->>> Oleksii, this is a fix (for an incomplete fix) for 4.19.  76a484193d
->>> broke compatibility for block-tap with the blktap2 kernel model (when
->>> adding support for tapback).  This finishes restoring blktap2
->>> support.
->>>
->>> I realize it's late in the release if you don't want to take it.
->> It's pretty late but I just wanted to clarify:
->> 1. Is so critical that we should have this in 4.19?
->> 2. If we won't take it now, then will it be backported anyway?
-> 
-> 2) Yes it will get backported.  In fact I'm about to commit it to staging.
-> 
-> 1) It's a bug in a new feature for 4.19, so if we don't take this bugfix
-> then we'll have to strip it from the release notes.
+From: Nikola Jelic <nikola.jelic@rt-rk.com>
 
-It's a bug in the old feature.  The new feature - tapback daemon 
-support, backendtype=tap - works with what's in the 4.19 tree.  It's the 
-old kernel module support - backendtype=phy,script=block-tap - that was 
-broken when adding tapback support.  This patch fixes the old support.
+Added PE/COFF generic image header which shall be used for EFI
+application format for x86/risc-v. x86 and risc-v source shall be adjusted
+to use this header in following commits. pe.h header is taken over from
+linux kernel with minor changes in terms of formatting and structure member comments.
+Also, COFF relocation and win cert structures are ommited, since these are not relevant for Xen.
 
-The change is localized in the block-tap script and requires explicit 
-configuration (script=block-tap) to use.  So it seems to me to be a 
-lower risk to take it even though it is late in the cycle.
+Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 36e4fc57fc16
 
-Regards,
-Jason
+Signed-off-by: Nikola Jelic <nikola.jelic@rt-rk.com>
+Signed-off-by: Milan Djokic <milan.djokic@rt-rk.com>
+---
+This header is split into a separate commit following discussion from https://lists.xenproject.org/archives/html/xen-devel/2024-07/msg00166.html
+Upcoming commit shall modify x86 implementation to use this header
+instead of internal structures.
+---
+Changes in V2:
+  - Fixed header formatting and some structure member names/comments
+  - Removed linux kernel specific macros (EFI stub version, linux pe
+magic)
+  - Removed duplicated values
+  - Removed COFF relocation and win cert structures which are not relevant for Xen
+---
+ xen/include/efi/pe.h | 291 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 291 insertions(+)
+ create mode 100644 xen/include/efi/pe.h
+
+diff --git a/xen/include/efi/pe.h b/xen/include/efi/pe.h
+new file mode 100644
+index 0000000000..64e047e88b
+--- /dev/null
++++ b/xen/include/efi/pe.h
+@@ -0,0 +1,291 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright 2011 Red Hat, Inc.
++ * All rights reserved.
++ *
++ * Author(s): Peter Jones <pjones@redhat.com>
++ */
++#ifndef EFI__PE_H
++#define EFI__PE_H
++
++#define MZ_MAGIC 0x5a4d /* "MZ" */
++
++#define PE_MAGIC              0x00004550 /* "PE\0\0" */
++#define PE_OPT_MAGIC_PE32     0x010b
++#define PE_OPT_MAGIC_PE32_ROM 0x0107
++#define PE_OPT_MAGIC_PE32PLUS 0x020b
++
++/* machine type */
++#define IMAGE_FILE_MACHINE_UNKNOWN     0x0000
++#define IMAGE_FILE_MACHINE_AM33        0x01d3
++#define IMAGE_FILE_MACHINE_AMD64       0x8664
++#define IMAGE_FILE_MACHINE_ARM         0x01c0
++#define IMAGE_FILE_MACHINE_ARMV7       0x01c4
++#define IMAGE_FILE_MACHINE_ARM64       0xaa64
++#define IMAGE_FILE_MACHINE_EBC         0x0ebc
++#define IMAGE_FILE_MACHINE_I386        0x014c
++#define IMAGE_FILE_MACHINE_IA64        0x0200
++#define IMAGE_FILE_MACHINE_M32R        0x9041
++#define IMAGE_FILE_MACHINE_MIPS16      0x0266
++#define IMAGE_FILE_MACHINE_MIPSFPU     0x0366
++#define IMAGE_FILE_MACHINE_MIPSFPU16   0x0466
++#define IMAGE_FILE_MACHINE_POWERPC     0x01f0
++#define IMAGE_FILE_MACHINE_POWERPCFP   0x01f1
++#define IMAGE_FILE_MACHINE_R4000       0x0166
++#define IMAGE_FILE_MACHINE_RISCV32     0x5032
++#define IMAGE_FILE_MACHINE_RISCV64     0x5064
++#define IMAGE_FILE_MACHINE_RISCV128    0x5128
++#define IMAGE_FILE_MACHINE_SH3         0x01a2
++#define IMAGE_FILE_MACHINE_SH3DSP      0x01a3
++#define IMAGE_FILE_MACHINE_SH3E        0x01a4
++#define IMAGE_FILE_MACHINE_SH4         0x01a6
++#define IMAGE_FILE_MACHINE_SH5         0x01a8
++#define IMAGE_FILE_MACHINE_THUMB       0x01c2
++#define IMAGE_FILE_MACHINE_WCEMIPSV2   0x0169
++#define IMAGE_FILE_MACHINE_LOONGARCH32 0x6232
++#define IMAGE_FILE_MACHINE_LOONGARCH64 0x6264
++
++/* flags */
++#define IMAGE_FILE_RELOCS_STRIPPED         0x0001
++#define IMAGE_FILE_EXECUTABLE_IMAGE        0x0002
++#define IMAGE_FILE_LINE_NUMS_STRIPPED      0x0004
++#define IMAGE_FILE_LOCAL_SYMS_STRIPPED     0x0008
++#define IMAGE_FILE_AGGRESSIVE_WS_TRIM      0x0010
++#define IMAGE_FILE_LARGE_ADDRESS_AWARE     0x0020
++#define IMAGE_FILE_16BIT_MACHINE           0x0040
++#define IMAGE_FILE_BYTES_REVERSED_LO       0x0080
++#define IMAGE_FILE_32BIT_MACHINE           0x0100
++#define IMAGE_FILE_DEBUG_STRIPPED          0x0200
++#define IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP 0x0400
++#define IMAGE_FILE_NET_RUN_FROM_SWAP       0x0800
++#define IMAGE_FILE_SYSTEM                  0x1000
++#define IMAGE_FILE_DLL                     0x2000
++#define IMAGE_FILE_UP_SYSTEM_ONLY          0x4000
++#define IMAGE_FILE_BYTES_REVERSED_HI       0x8000
++
++#define IMAGE_SUBSYSTEM_UNKNOWN                 0
++#define IMAGE_SUBSYSTEM_NATIVE                  1
++#define IMAGE_SUBSYSTEM_WINDOWS_GUI             2
++#define IMAGE_SUBSYSTEM_WINDOWS_CUI             3
++#define IMAGE_SUBSYSTEM_POSIX_CUI               7
++#define IMAGE_SUBSYSTEM_WINDOWS_CE_GUI          9
++#define IMAGE_SUBSYSTEM_EFI_APPLICATION         10
++#define IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER 11
++#define IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER      12
++#define IMAGE_SUBSYSTEM_EFI_ROM_IMAGE           13
++#define IMAGE_SUBSYSTEM_XBOX                    14
++
++#define IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE         0x0040
++#define IMAGE_DLL_CHARACTERISTICS_FORCE_INTEGRITY      0x0080
++#define IMAGE_DLL_CHARACTERISTICS_NX_COMPAT            0x0100
++#define IMAGE_DLLCHARACTERISTICS_NO_ISOLATION          0x0200
++#define IMAGE_DLLCHARACTERISTICS_NO_SEH                0x0400
++#define IMAGE_DLLCHARACTERISTICS_NO_BIND               0x0800
++#define IMAGE_DLLCHARACTERISTICS_WDM_DRIVER            0x2000
++#define IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE 0x8000
++
++#define IMAGE_DLLCHARACTERISTICS_EX_CET_COMPAT         0x0001
++#define IMAGE_DLLCHARACTERISTICS_EX_FORWARD_CFI_COMPAT 0x0040
++
++/* they actually defined 0x00000000 as well, but I think we'll skip that one. */
++#define IMAGE_SCN_RESERVED_0             0x00000001
++#define IMAGE_SCN_RESERVED_1             0x00000002
++#define IMAGE_SCN_RESERVED_2             0x00000004
++#define IMAGE_SCN_TYPE_NO_PAD            0x00000008 /* don't pad - obsolete */
++#define IMAGE_SCN_RESERVED_3             0x00000010
++#define IMAGE_SCN_CNT_CODE               0x00000020 /* .text */
++#define IMAGE_SCN_CNT_INITIALIZED_DATA   0x00000040 /* .data */
++#define IMAGE_SCN_CNT_UNINITIALIZED_DATA 0x00000080 /* .bss */
++#define IMAGE_SCN_LNK_OTHER              0x00000100 /* reserved */
++#define IMAGE_SCN_LNK_INFO               0x00000200 /* .drectve comments */
++#define IMAGE_SCN_RESERVED_4             0x00000400
++#define IMAGE_SCN_LNK_REMOVE             0x00000800 /* .o only - scn to be rm'd*/
++#define IMAGE_SCN_LNK_COMDAT             0x00001000 /* .o only - COMDAT data */
++#define IMAGE_SCN_RESERVED_5             0x00002000 /* spec omits this */
++#define IMAGE_SCN_RESERVED_6             0x00004000 /* spec omits this */
++#define IMAGE_SCN_GPREL                  0x00008000 /* global pointer referenced data */
++/* spec lists 0x20000 twice, I suspect they meant 0x10000 for one of them */
++#define IMAGE_SCN_MEM_PURGEABLE 0x00010000 /* reserved for "future" use */
++#define IMAGE_SCN_16BIT         0x00020000 /* reserved for "future" use */
++#define IMAGE_SCN_LOCKED        0x00040000 /* reserved for "future" use */
++#define IMAGE_SCN_PRELOAD       0x00080000 /* reserved for "future" use */
++/* and here they just stuck a 1-nibble integer in the middle of a bitfield */
++#define IMAGE_SCN_ALIGN_1BYTES    0x00100000 /* it does what it says on the box */
++#define IMAGE_SCN_ALIGN_2BYTES    0x00200000
++#define IMAGE_SCN_ALIGN_4BYTES    0x00300000
++#define IMAGE_SCN_ALIGN_8BYTES    0x00400000
++#define IMAGE_SCN_ALIGN_16BYTES   0x00500000
++#define IMAGE_SCN_ALIGN_32BYTES   0x00600000
++#define IMAGE_SCN_ALIGN_64BYTES   0x00700000
++#define IMAGE_SCN_ALIGN_128BYTES  0x00800000
++#define IMAGE_SCN_ALIGN_256BYTES  0x00900000
++#define IMAGE_SCN_ALIGN_512BYTES  0x00a00000
++#define IMAGE_SCN_ALIGN_1024BYTES 0x00b00000
++#define IMAGE_SCN_ALIGN_2048BYTES 0x00c00000
++#define IMAGE_SCN_ALIGN_4096BYTES 0x00d00000
++#define IMAGE_SCN_ALIGN_8192BYTES 0x00e00000
++#define IMAGE_SCN_LNK_NRELOC_OVFL 0x01000000 /* extended relocations */
++#define IMAGE_SCN_MEM_DISCARDABLE 0x02000000 /* scn can be discarded */
++#define IMAGE_SCN_MEM_NOT_CACHED  0x04000000 /* cannot be cached */
++#define IMAGE_SCN_MEM_NOT_PAGED   0x08000000 /* not pageable */
++#define IMAGE_SCN_MEM_SHARED      0x10000000 /* can be shared */
++#define IMAGE_SCN_MEM_EXECUTE     0x20000000 /* can be executed as code */
++#define IMAGE_SCN_MEM_READ        0x40000000 /* readable */
++#define IMAGE_SCN_MEM_WRITE       0x80000000 /* writeable */
++
++#define IMAGE_DEBUG_TYPE_CODEVIEW              2
++#define IMAGE_DEBUG_TYPE_EX_DLLCHARACTERISTICS 20
++
++#ifndef __ASSEMBLY__
++
++struct mz_hdr {
++    uint16_t magic;              /* MZ_MAGIC */
++    uint16_t lbsize;             /* size of last used block */
++    uint16_t blocks;             /* pages in file, 0x3 */
++    uint16_t relocs;             /* relocations */
++    uint16_t hdrsize;            /* header size in "paragraphs" */
++    uint16_t min_extra_pps;      /* .bss */
++    uint16_t max_extra_pps;      /* runtime limit for the arena size */
++    uint16_t ss;                 /* relative stack segment */
++    uint16_t sp;                 /* initial %sp register */
++    uint16_t checksum;           /* word checksum */
++    uint16_t ip;                 /* initial %ip register */
++    uint16_t cs;                 /* initial %cs relative to load segment */
++    uint16_t reloc_table_offset; /* offset of the first relocation */
++    uint16_t overlay_num;        /* overlay number.  set to 0. */
++    uint16_t reserved0[4];       /* reserved */
++    uint16_t oem_id;             /* oem identifier */
++    uint16_t oem_info;           /* oem specific */
++    uint16_t reserved1[10];      /* reserved */
++    uint32_t peaddr;             /* file offset of PE header */
++    char     message[];          /* message to print */
++};
++
++struct mz_reloc {
++    uint16_t offset;
++    uint16_t segment;
++};
++
++struct pe_hdr {
++    uint32_t magic;        /* PE magic */
++    uint16_t machine;      /* machine type */
++    uint16_t sections;     /* number of sections */
++    uint32_t timestamp;    /* time_t */
++    uint32_t symbol_table; /* symbol table offset */
++    uint32_t symbols;      /* number of symbols */
++    uint16_t opt_hdr_size; /* size of optional header */
++    uint16_t flags;        /* flags */
++};
++
++/*
++ * the fact that pe32 isn't padded where pe32+ is 64-bit means union won't
++ * work right.
++ */
++struct pe32_opt_hdr {
++    /* "standard" header */
++    uint16_t magic;       /* file type */
++    uint8_t  ld_major;    /* linker major version */
++    uint8_t  ld_minor;    /* linker minor version */
++    uint32_t text_size;   /* size of text section(s) */
++    uint32_t data_size;   /* size of data section(s) */
++    uint32_t bss_size;    /* size of bss section(s) */
++    uint32_t entry_point; /* file offset of entry point */
++    uint32_t code_base;   /* relative code addr in ram */
++    uint32_t data_base;   /* relative data addr in ram */
++    /* "windows" header */
++    uint32_t image_base;     /* preferred load address */
++    uint32_t section_align;  /* alignment in bytes */
++    uint32_t file_align;     /* file alignment in bytes */
++    uint16_t os_major;       /* major OS version */
++    uint16_t os_minor;       /* minor OS version */
++    uint16_t image_major;    /* major image version */
++    uint16_t image_minor;    /* minor image version */
++    uint16_t subsys_major;   /* major subsystem version */
++    uint16_t subsys_minor;   /* minor subsystem version */
++    uint32_t win32_version;  /* reserved, must be 0 */
++    uint32_t image_size;     /* image size */
++    uint32_t header_size;    /* header size rounded up to file_align */
++    uint32_t csum;           /* checksum */
++    uint16_t subsys;         /* subsystem */
++    uint16_t dll_flags;      /* more flags! */
++    uint32_t stack_size_req; /* amt of stack requested */
++    uint32_t stack_size;     /* amt of stack required */
++    uint32_t heap_size_req;  /* amt of heap requested */
++    uint32_t heap_size;      /* amt of heap required */
++    uint32_t loader_flags;   /* reserved, must be 0 */
++    uint32_t data_dirs;      /* number of data dir entries */
++};
++
++struct pe32plus_opt_hdr {
++    uint16_t magic;       /* file type */
++    uint8_t  ld_major;    /* linker major version */
++    uint8_t  ld_minor;    /* linker minor version */
++    uint32_t text_size;   /* size of text section(s) */
++    uint32_t data_size;   /* size of data section(s) */
++    uint32_t bss_size;    /* size of bss section(s) */
++    uint32_t entry_point; /* file offset of entry point */
++    uint32_t code_base;   /* relative code addr in ram */
++    /* "windows" header */
++    uint64_t image_base;     /* preferred load address */
++    uint32_t section_align;  /* alignment in bytes */
++    uint32_t file_align;     /* file alignment in bytes */
++    uint16_t os_major;       /* major OS version */
++    uint16_t os_minor;       /* minor OS version */
++    uint16_t image_major;    /* major image version */
++    uint16_t image_minor;    /* minor image version */
++    uint16_t subsys_major;   /* major subsystem version */
++    uint16_t subsys_minor;   /* minor subsystem version */
++    uint32_t win32_version;  /* reserved, must be 0 */
++    uint32_t image_size;     /* image size */
++    uint32_t header_size;    /* header size rounded up to file_align */
++    uint32_t csum;           /* checksum */
++    uint16_t subsys;         /* subsystem */
++    uint16_t dll_flags;      /* more flags! */
++    uint64_t stack_size_req; /* amt of stack requested */
++    uint64_t stack_size;     /* amt of stack required */
++    uint64_t heap_size_req;  /* amt of heap requested */
++    uint64_t heap_size;      /* amt of heap required */
++    uint32_t loader_flags;   /* reserved, must be 0 */
++    uint32_t data_dirs;      /* number of data dir entries */
++};
++
++struct data_dirent {
++    uint32_t rva;            /* relative to load address */
++    uint32_t size;
++};
++
++struct data_directory {
++    struct data_dirent exports;          /* .edata */
++    struct data_dirent imports;          /* .idata */
++    struct data_dirent resources;        /* .rsrc */
++    struct data_dirent exceptions;       /* .pdata */
++    struct data_dirent certs;            /* certs */
++    struct data_dirent base_relocations; /* .reloc */
++    struct data_dirent debug;            /* .debug */
++    struct data_dirent arch;             /* reservered */
++    struct data_dirent global_ptr;       /* global pointer reg. Size=0 */
++    struct data_dirent tls;              /* .tls */
++    struct data_dirent load_config;      /* load configuration structure */
++    struct data_dirent bound_imports;    /* no idea */
++    struct data_dirent import_addrs;     /* import address table */
++    struct data_dirent delay_imports;    /* delay-load import table */
++    struct data_dirent clr_runtime_hdr;  /* .cor (object only) */
++    struct data_dirent reserved;
++};
++
++struct section_header {
++    char     name[8];         /* name or string tbl offset */
++    uint32_t virtual_size;    /* size of loaded section in ram */
++    uint32_t rva;             /* relative virtual address */
++    uint32_t raw_data_size;   /* size of the section */
++    uint32_t data_addr;       /* file pointer to first page of sec */
++    uint32_t relocs;          /* file pointer to relocation entries */
++    uint32_t line_numbers;    /* line numbers */
++    uint16_t num_relocs;      /* number of relocations */
++    uint16_t num_lin_numbers; /* COFF line count */
++    uint32_t flags;
++};
++
++#endif /* __ASSEMBLY__ */
++
++#endif /* EFI__PE_H */
+-- 
+2.25.1
+
 
