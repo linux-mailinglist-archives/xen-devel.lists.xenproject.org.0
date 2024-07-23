@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A60D193A1E4
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 15:47:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763229.1173489 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1950B93A1F1
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 15:51:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763237.1173499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWFrM-0006XH-Ph; Tue, 23 Jul 2024 13:47:20 +0000
+	id 1sWFuh-0008Af-88; Tue, 23 Jul 2024 13:50:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763229.1173489; Tue, 23 Jul 2024 13:47:20 +0000
+Received: by outflank-mailman (output) from mailman id 763237.1173499; Tue, 23 Jul 2024 13:50:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWFrM-0006Uq-Mp; Tue, 23 Jul 2024 13:47:20 +0000
-Received: by outflank-mailman (input) for mailman id 763229;
- Tue, 23 Jul 2024 13:47:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ruWa=OX=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sWFrL-0006Uj-8n
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 13:47:19 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 13098e91-48fa-11ef-8776-851b0ebba9a2;
- Tue, 23 Jul 2024 15:47:17 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-52f01ec08d6so3198655e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 06:47:17 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c8be3d7sm551225366b.140.2024.07.23.06.47.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jul 2024 06:47:15 -0700 (PDT)
+	id 1sWFuh-00088p-4G; Tue, 23 Jul 2024 13:50:47 +0000
+Received: by outflank-mailman (input) for mailman id 763237;
+ Tue, 23 Jul 2024 13:50:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sWFuf-00088f-Mz; Tue, 23 Jul 2024 13:50:45 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sWFuf-0007Kz-G0; Tue, 23 Jul 2024 13:50:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sWFue-0003Zw-VG; Tue, 23 Jul 2024 13:50:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sWFue-0007vH-Uc; Tue, 23 Jul 2024 13:50:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,135 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13098e91-48fa-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1721742436; x=1722347236; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=41wLimo+GAUwzY99gBr6y7OCaz6N2LtCF8X53iEUQPM=;
-        b=iApbp7XOCgbQR8l4ZkjbSvMmk7QORJiooS8JjQCa2D4vVpjXsOo4CBUXmNQcgOGCVB
-         vxm1OwepNw40Re9eve1VhJPRbAkKyL9K38CMfj/fM82DvDo0Xy1DN4OZqT6HZjgTit4Q
-         XqSKpVeRL7tIa2sm974JWa+mUCywPCvWM2UQ0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721742436; x=1722347236;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=41wLimo+GAUwzY99gBr6y7OCaz6N2LtCF8X53iEUQPM=;
-        b=fKb0K3VJZmUxGyOohVjpb/TKEMVTn/cbhSDb0Q8mUQMDQbF3i4mG/V4HfQGmUkwEYO
-         7Guvbnlp5gcaMwUWpVp9wVsnaH7knpbrXG8psnewBM42qoWrKQmrUD6Fa59AjGCIROPU
-         2IRYDBVRts1KxKuL8LD0lWsmJvINIVDUPga2NcDmjbK14wHJ1BXk4p8nH74vy6aB+HOj
-         iTGKKPMDeYUvxjFiQ3i78q9z8iVUns1kDwXRPBXpXlAq78g0YgdoVUsWm7PluioZ0i6Y
-         BHLAd4VIS8Cki3l/9X+Wv9ChELmgDwFt57+LZB/Kt880v8ZXFwuRqr8Uy6YxQl32T9JU
-         IPTw==
-X-Forwarded-Encrypted: i=1; AJvYcCULL2L1BnYmV1ez1vu8Sk/3acrRXnUWIJnhM6qUwjYf3ej3UUSTTNARQsbnuTAZnKjzShEdKK5FdySBVSZW2qIXsme3qIlMEI2zDiir8zI=
-X-Gm-Message-State: AOJu0YwKI9NRp4DNeAp2oVOMLmXqWyubnvsvBN37B/sLzJ1YXGAH/bxC
-	5/2qmHqDsrZ0vrPCRvawCOWxVeKKmQUP0LsAWThFzQpIP3gSjxF5G2cItP/G5NI=
-X-Google-Smtp-Source: AGHT+IHiq6vw4McMRltRCNCB6huqDqybR+36+mKNH+f0I+lPaCgCC71mr8ZGzhfqo3Rx8nL6TeArIQ==
-X-Received: by 2002:a05:6512:2211:b0:52e:76d5:9504 with SMTP id 2adb3069b0e04-52fc403d8dcmr2159669e87.3.1721742436389;
-        Tue, 23 Jul 2024 06:47:16 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 23 Jul 2024 14:47:13 +0100
-Message-Id: <D2WYR6RSF2NH.3FCEH00B4ZRZ2@cloud.com>
-Cc: "Jan Beulich" <JBeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, "Gene Bright" <gene@cyberlight.us>
-Subject: Re: [PATCH 1/2] x86/efi: Simplify efi_arch_cpu() a little
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Xen-devel"
- <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.17.0
-References: <20240722101838.3946983-1-andrew.cooper3@citrix.com>
- <20240722101838.3946983-2-andrew.cooper3@citrix.com>
-In-Reply-To: <20240722101838.3946983-2-andrew.cooper3@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qdAGfAyVrvHxnOftmDdy0y+KR57jGsrs6AD4E43br68=; b=csGOjR93UVOOAC4Ha39Hsj9U/7
+	GqVkRMZFAk/NGJy1spmXt+iF9m/b0+i7iCVYjhnDQOwanVZ0PLVQhyN4yhtZPRN70J8DXa+iZlT2g
+	gM07dq1wGPZS5B60W9uk+F+O4LhbWC/Y0ScMgMcf8IT/Jt13WyilKHx738utXp/ARFSM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-186964-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 186964: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=f96298d75cebfe2a7707157ed644eb86bf6d46ca
+X-Osstest-Versions-That:
+    ovmf=46eb0ca29bf6bd84381af8506e0d9b1755f767d9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 23 Jul 2024 13:50:44 +0000
 
-On Mon Jul 22, 2024 at 11:18 AM BST, Andrew Cooper wrote:
-> Make the "no extended leaves" case fatal and remove one level of indentat=
-ion.
-> Defer the max-leaf aquisition until it is first used.
->
-> No functional change.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> CC: Gene Bright <gene@cyberlight.us>
-> ---
->  xen/arch/x86/efi/efi-boot.h | 31 ++++++++++++++++---------------
->  1 file changed, 16 insertions(+), 15 deletions(-)
->
-> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-> index f282358435f1..4e4be7174751 100644
-> --- a/xen/arch/x86/efi/efi-boot.h
-> +++ b/xen/arch/x86/efi/efi-boot.h
-> @@ -738,29 +738,30 @@ static void __init efi_arch_handle_module(const str=
-uct file *file,
-> =20
->  static void __init efi_arch_cpu(void)
->  {
-> -    uint32_t eax =3D cpuid_eax(0x80000000U);
-> +    uint32_t eax;
->      uint32_t *caps =3D boot_cpu_data.x86_capability;
-> =20
->      boot_tsc_stamp =3D rdtsc();
-> =20
->      caps[FEATURESET_1c] =3D cpuid_ecx(1);
-> =20
-> -    if ( (eax >> 16) =3D=3D 0x8000 && eax > 0x80000000U )
-> -    {
-> -        caps[FEATURESET_e1d] =3D cpuid_edx(0x80000001U);
-> +    eax =3D cpuid_eax(0x80000000U);
+flight 186964 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/186964/
 
-Why this movement?
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 f96298d75cebfe2a7707157ed644eb86bf6d46ca
+baseline version:
+ ovmf                 46eb0ca29bf6bd84381af8506e0d9b1755f767d9
 
-> +    if ( (eax >> 16) !=3D 0x8000 || eax < 0x80000000U )
-> +        blexit(L"In 64bit mode, but no extended CPUID leaves?!?");
+Last test of basis   186962  2024-07-23 08:46:52 Z    0 days
+Testing same since   186964  2024-07-23 11:11:30 Z    0 days    1 attempts
 
-I'm not sure about the condition even for the old code. If eax had 0x900000=
-00
-(because new convention appeared 10y in the future), then there would be
-extended leaves but we would be needlessly bailing out. Why not simply chec=
-k
-that eax < 0x80000001 in here?
+------------------------------------------------------------
+People who touched revisions under test:
+  Dun Tan <dun.tan@intel.com>
+  levi.yun <yeoreum.yun@arm.com>
 
-> =20
-> -        /*
-> -         * This check purposefully doesn't use cpu_has_nx because
-> -         * cpu_has_nx bypasses the boot_cpu_data read if Xen was compile=
-d
-> -         * with CONFIG_REQUIRE_NX
-> -         */
-> -        if ( IS_ENABLED(CONFIG_REQUIRE_NX) &&
-> -             !boot_cpu_has(X86_FEATURE_NX) )
-> -            blexit(L"This build of Xen requires NX support");
-> +    caps[FEATURESET_e1d] =3D cpuid_edx(0x80000001U);
-> =20
-> -        if ( cpu_has_nx )
-> -            trampoline_efer |=3D EFER_NXE;
-> -    }
-> +    /*
-> +     * This check purposefully doesn't use cpu_has_nx because
-> +     * cpu_has_nx bypasses the boot_cpu_data read if Xen was compiled
-> +     * with CONFIG_REQUIRE_NX
-> +     */
-> +    if ( IS_ENABLED(CONFIG_REQUIRE_NX) &&
-> +         !boot_cpu_has(X86_FEATURE_NX) )
-> +        blexit(L"This build of Xen requires NX support");
-> +
-> +    if ( cpu_has_nx )
-> +        trampoline_efer |=3D EFER_NXE;
->  }
-> =20
->  static void __init efi_arch_blexit(void)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
 
-Cheers,
-Alejandro
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   46eb0ca29b..f96298d75c  f96298d75cebfe2a7707157ed644eb86bf6d46ca -> xen-tested-master
 
