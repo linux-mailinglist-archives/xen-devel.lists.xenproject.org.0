@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ECBF93A0B3
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 14:58:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763164.1173408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7F4A93A1A1
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 15:36:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763203.1173460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWF5k-0003OU-Oc; Tue, 23 Jul 2024 12:58:08 +0000
+	id 1sWFgg-0002w5-Dl; Tue, 23 Jul 2024 13:36:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763164.1173408; Tue, 23 Jul 2024 12:58:08 +0000
+Received: by outflank-mailman (output) from mailman id 763203.1173460; Tue, 23 Jul 2024 13:36:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWF5k-0003MW-Lf; Tue, 23 Jul 2024 12:58:08 +0000
-Received: by outflank-mailman (input) for mailman id 763164;
- Tue, 23 Jul 2024 12:58:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sWFgg-0002tN-8Z; Tue, 23 Jul 2024 13:36:18 +0000
+Received: by outflank-mailman (input) for mailman id 763203;
+ Tue, 23 Jul 2024 13:36:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v/3h=OX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sWF5j-0003MO-G7
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 12:58:07 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33c017b8-48f3-11ef-8776-851b0ebba9a2;
- Tue, 23 Jul 2024 14:58:05 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2f029e9c9cfso751871fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 05:58:05 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a3c95088fsm533833666b.212.2024.07.23.05.58.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jul 2024 05:58:04 -0700 (PDT)
+ <SRS0=W1nq=OX=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1sWFge-0002s4-8j
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 13:36:16 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:2009::60b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 875b7628-48f8-11ef-bbfe-fd08da9f4363;
+ Tue, 23 Jul 2024 15:36:14 +0200 (CEST)
+Received: from MN2PR06CA0003.namprd06.prod.outlook.com (2603:10b6:208:23d::8)
+ by MN2PR12MB4061.namprd12.prod.outlook.com (2603:10b6:208:19a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.19; Tue, 23 Jul
+ 2024 13:36:10 +0000
+Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
+ (2603:10b6:208:23d:cafe::1b) by MN2PR06CA0003.outlook.office365.com
+ (2603:10b6:208:23d::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.17 via Frontend
+ Transport; Tue, 23 Jul 2024 13:36:10 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7784.5 via Frontend Transport; Tue, 23 Jul 2024 13:36:10 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 23 Jul
+ 2024 08:36:09 -0500
+Received: from [172.23.111.139] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 23 Jul 2024 08:36:08 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,76 +59,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33c017b8-48f3-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1721739485; x=1722344285; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=eLjU1GrQIEeME2On3WmG/n+4CYiWPby0mGCJwnoMmx0=;
-        b=TP/GBJTYHLQ6ubWljoXC0jWgwBr37t8RYni4+9mG+a/06GRLqTHNWvef9wP4OIoA9z
-         Du41ex1/N9kWgBuaiw2rlfnHAx7a0UhJFR/6kpsl0NauU8BYuJxRlx6Rc2x3QV1p9ghX
-         Ia6jYHKBtfTToMuNTs12/iP7IJHLrQ05TZZ5HyBoBpDQ9xBlQPI0AAPZWrlH8ua4ynYB
-         7NmoaeEPJ1uZMNVb2P4LB7a6I621Fg6r3pcrLkJWNSLApG9gD3yol+qJ2erx49YaBT1r
-         +DkVkvpF1IY1nDWUb9BzvtD9TEQmjS7m26LAaZKAmxMkx9NO5f/Z+F253bhGlEfSrHXz
-         GYhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721739485; x=1722344285;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=eLjU1GrQIEeME2On3WmG/n+4CYiWPby0mGCJwnoMmx0=;
-        b=VSjnzEVI1mQ/3KujxwZTZAYLGC1a9KQ9pz6PDz7w/vclQc4C1y7CVp0l9P9szGDn4f
-         4lAerq0YvV0v/dyuWaQnShXvzrQvwQPgDROemvTZZx6xrHVdQ+8xWr1nwVTwYHt2WPys
-         PK9TZYobRrka72S7uq4bJkA9i9Hy12pNoPvTlDP/Stt95OTUrdhqx5dDXjDV2hmlm3qO
-         0e3Py6LKQdin3jPRxaycOrUolBnQKAf6Z3Tb0LGPv8dMRnSEE8JwPsUSO6sxU7iqk3Ee
-         vLrHujFU18VQPeZ1Oau8xO3gIqMSUx8+Pr5pTG+TEY+L9R4f1H09qKkoHJsthbk8TCz8
-         nIVQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXCqcePfXlLQbzpa9Msy1YkWhVEu+tr8CkXFj3DnjYZkSgSdCbv0BAQoAxw6Ot+qurE5QydOUH97oHCIxf10iU/tXeTdphEGx8zDy97V6M=
-X-Gm-Message-State: AOJu0Yxlbirkbo3/yp7nzogPv5F0WBRXJo/7dX4Oyn+jDBKPzbsLzfEh
-	cWirPWNQK2+tCkchS6ulM1qk61EUspq/suiKE7K8FUgWAINt7G9A
-X-Google-Smtp-Source: AGHT+IE9Se+nkDKMQrGgONUEaVncIJvgJdzx0LUGIN05FVWT4lVSokVzP8PFSjR+5upHKewu5XQwgQ==
-X-Received: by 2002:a05:651c:1a2c:b0:2ef:2b65:1d03 with SMTP id 38308e7fff4ca-2ef2b651e57mr76036571fa.49.1721739484651;
-        Tue, 23 Jul 2024 05:58:04 -0700 (PDT)
-Message-ID: <819ec33e568b54aba355bc2189b3d760ec294fb0.camel@gmail.com>
-Subject: Re: [PATCH v2 4/8] xen/riscv: setup fixmap mapping
-From: oleksii.kurochko@gmail.com
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Date: Tue, 23 Jul 2024 14:58:03 +0200
-In-Reply-To: <8fd1cc2c-9dda-4e74-b242-fe8aa862955d@xen.org>
-References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
-	 <b1776fb20603cb56b0aea17ef998ea951d2bbda9.1720799926.git.oleksii.kurochko@gmail.com>
-	 <8fd1cc2c-9dda-4e74-b242-fe8aa862955d@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+X-Inumbo-ID: 875b7628-48f8-11ef-bbfe-fd08da9f4363
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CqbbPrcwjf1S6npgTFubicbBXPoakkr1UueaGZnHwpUBwfy7Hr+81IPj9gfteDl5WXF6gTB7pZgOPCzObv3ImNNdr/Lu5n4+6Acyy5CGY9RroxHdI6tMhZgIM6/3FKl9OW714D/2KKNvcCDO74BpMPzGuOz43TKx1r42pHtSxSh61n5Zv7TBx7fxLNA1eE9mxrZSFofAatLmjIQqlIJ6fRQxTPavQ5ZPwQPERuTnJ7mNBiYMb7ki7qYGGXfbArFyP0rUmtodsrOMTMlrsGWbHBvDsiA5DNC1xqrwjjnX5y6GSAL6WXI1+gIw700XHpltWePqPiPwhHMnlyN8eKd5og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o8VthCRXraIiNFbEqzH/+77YKs+ZZNodAJVfWtzplKE=;
+ b=LD0rcvOIfc8jB3/mUU4asLcwV0kxSsNl8HYolYNR4lyTJqsvscuK3ktb+Dr0L+BCmnY+4yEs2PK5YvngCPpYrcsQwGG84mP6PQMoo4yocSYaRQ+GFhde1A3WhIWok7qcEFP0NwNCJP4xzYbN3xEjSdZzG1T5YeLK4Shfwq1QOiLeNvR6HrmdDz9TOlkUGVkKmYU1rLMf/1B73pzfzpfoODvV0VxjJZ6Jaucqt8oN6lUkKXz37kPSD9FtwnyZ63WCKdURgdz5JXEZxhCfnu6iSTRayeqW3wPtsfTltZz6ald6dXYF+TSiLdc4sdqBdfZMuVOi7NB88BNgoGo93VzysA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o8VthCRXraIiNFbEqzH/+77YKs+ZZNodAJVfWtzplKE=;
+ b=rvkKm/+wyv62OD2F4Ov6zGyuDlHrj30DjxOsQHiI5hoqHMytT96uJb0X4cxk3IrIJOYfVfh82hFA/rjnJ3sAVHLv+YpHhXKzYm4sIq/UG7tK7sFN91SLi+2+tFkCDFLBFuz3cLpNEXuF66m8WxSUaLN+ZZzAgesoH5AyhnOkSs8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <ac1bd263-e9b4-4bc6-a9be-649b075add46@amd.com>
+Date: Tue, 23 Jul 2024 09:13:05 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH 2/6] tools/libxs: Rework xs_talkv() to take xsd_sockmsg
+ within the iovec
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross
+	<jgross@suse.com>
+References: <20240718164842.3650702-1-andrew.cooper3@citrix.com>
+ <20240718164842.3650702-3-andrew.cooper3@citrix.com>
+Content-Language: en-US
+In-Reply-To: <20240718164842.3650702-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|MN2PR12MB4061:EE_
+X-MS-Office365-Filtering-Correlation-Id: b63a424d-f871-43ca-a382-08dcab1c69da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VWh0eU91RjVRdUtCNlIvZUZxT0Iyc0xja3dhelZuT2RLTTNaV2FLb1hhU2VX?=
+ =?utf-8?B?SmVud09rSTZCd2UzRGltMkU2ZXlqaGI5NXhEeEVxZzFFQUJnRXJxS09ZS05l?=
+ =?utf-8?B?RUhuSGJGRXhZT1hPbnF4VmVKYTRBekZwMzFldzVTWU9Fc29jREZPQlk3eURn?=
+ =?utf-8?B?TjFJUmtROWVYYStaZWJhUEhyS2hxOEJLQzB5eG40TVE5ZE5KeGhRSlE5Y2Q5?=
+ =?utf-8?B?UUFZT3A4SUV2bmlmVkpXaGZqZVVzWllvR0p4OGduZ3FlWHZzUTJ3NCtWaWk0?=
+ =?utf-8?B?WktNbzNTKzZkUG1NUjkvUTBJNjhQWWU3N0s3TDQyZnh5NUoraEFyYTRqL09r?=
+ =?utf-8?B?MTJQMVlBNXF5T0FBY3BhWlZqSkFlS3FnSmgvNFA0YUl6VHk5eW9YdE93UkpT?=
+ =?utf-8?B?eWJQUXdVVXJjcExrUUZBOG0wUEVHcGtNSy9OZkpuNGNHRVJtNGtabnQ4czFx?=
+ =?utf-8?B?Tm5qRHZyVWlaR2tLb0tWc2JvbHNXYWZJSFhMeUtJbitCeDlaaUFSeHNhZEZj?=
+ =?utf-8?B?VlROUzVaZkRzbEpWUklEYVJCQ1ZxT1ZTOEM5UERYK3JuM3lGOW1kMlJkWGI2?=
+ =?utf-8?B?WVZoVHdEK2RCR1VTdFJxUzRpRWNmTWVYWU5xZUlwZVVkN3VoYjNibWMraTZO?=
+ =?utf-8?B?MVVvUHIxckF6WmtUd1ZPR3NEa2ZQTVZUbmIyVVl1aUdSZlhHaG4vcHRCNmlU?=
+ =?utf-8?B?MGVXOEtyellubE9KbCtGZ3ZySnlJOXdTN0FpUUlWYW5XeDJoK1NVcUROeXZo?=
+ =?utf-8?B?RkNPb3FNL0dFaTRiSVllMFZCK0k0OEcrRjgwdzR5NGluOG94MjFJZ2Y0ajVN?=
+ =?utf-8?B?bjBNT2FteWh0bUxYV0dNNURLNVo2SVJxYUtyYUFDVFRraVBVbFZrN05jRG5X?=
+ =?utf-8?B?WDJaVU1JZlVZUDQwNDYvRkM1Und0TGlaU3ZmQjZvUUtTUkNZM1NtUG8rNDhG?=
+ =?utf-8?B?Y0s0RzhPYnUvcGNRZHVkamZzNE93dXJiZjhkaDdCVlpNbXphVTVNQlgyRHdX?=
+ =?utf-8?B?U1psbHNIaHBTc2tiUm9GRWhsYy9pQVlFbjJIcmFJZTdKa0FodmlVVE9GZXZl?=
+ =?utf-8?B?RDFDTExmQ0JsSU03eVFFRHMvYnJydXByQ0J3NllHUFZHLzJCVi8wMmkzaW1F?=
+ =?utf-8?B?ODdZOXRmNjVEYUJuWmxsalkzNStiQWhjMWhYTDkyZDVpVE1GWkdWY0l5Visr?=
+ =?utf-8?B?bjRiL0V2WXRJYlBCSzVBVHFWbDFzWUlmMjJTVzFMdklZS1ZkenJuYisvUlVx?=
+ =?utf-8?B?bm9OZ0tvR2xqSDU1SGtram1hYTkxcnBDOVhrNHV3bElUTkZPeGdBSlNSWmcz?=
+ =?utf-8?B?RDF2Z2o5OEQrN0swcHdjQmxTOGtaTGc2NjZneUxXSG9ZdzB4cTBTSDloeWY4?=
+ =?utf-8?B?ekRUOHVvaWxYdjdqZHpySlhHSWw3UE9qQVRRSWRlNEVBazhRM2tiTWltUnRq?=
+ =?utf-8?B?N1dLOEMrWks1NE94SlpUSlIyRlZlekgxTFVDSGZvbEJwM25hZ1hKVlh1WU9V?=
+ =?utf-8?B?dXVXWXN2RjVZdE9nMlY5TFJ5UGhSS0xRNHY4TjU1L01lL214RncrSjBuaWFT?=
+ =?utf-8?B?MHh3cHA5YWNRTnlLNlJLK3BoVzk4RHhYaTMreTJsNFdqdlE1TWNVT3FJNGVH?=
+ =?utf-8?B?NjJTdW5JT1lEL2VtRTF6eDVUaXhmbk91dVNCLzVKUWVFMHQ0dkU2V2ZRN1g1?=
+ =?utf-8?B?UzhxcUlXU0M2UW5tdHNjaEZ3TkZPemNpU0xEc2NGR01EVkt6c09YaFo2NDJD?=
+ =?utf-8?B?YkYwLzBMU0dIcWdrYXdLaXVzWkx4NFBSSVJ5STI0TUhpdnVVUzJOTktDNldZ?=
+ =?utf-8?B?UjMxTU5LdjBvRnNHZ2NEUFhoYytyLy9uWkwwWnNuVXBGMEQvUWYySzNyOTBU?=
+ =?utf-8?B?YzRLSEZGVDU4eXJaZWsrZ1M2UWVDcUN1MTh0VTI3d0pqRzdoZFNBOVFoMVZ1?=
+ =?utf-8?Q?pUE+d3wpcwtXsu7d0gGYka80YwF1MH78?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2024 13:36:10.1419
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b63a424d-f871-43ca-a382-08dcab1c69da
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B06C.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4061
 
-Hi Julien,
+On 2024-07-18 12:48, Andrew Cooper wrote:
+> We would like to writev() the whole outgoing message, which is hard given the
+> current need to prepend the locally-constructed xsd_sockmsg.
+> 
+> Instead, have the caller provide xsd_sockmsg in iovec[0].  This in turn drops
+> the t and type parameters from xs_talkv().
+> 
+> Note that xs_talkv() may alter the iovec structure.  This may happen when
+> writev() is really used under the covers, and it's preforable to having the
 
-On Sun, 2024-07-21 at 09:46 +0100, Julien Grall wrote:
-> > +/* Fixmap slots */
-> > +#define FIX_PMAP_BEGIN (0) /* Start of PMAP */
-> > +#define FIX_PMAP_END (FIX_PMAP_BEGIN + NUM_FIX_PMAP - 1) /* End of
-> > PMAP */
->=20
-> ... here is seems to be inclusive. Furthermore if you had 32-bit
-> address=20
-> space, it is also quite easy to have to create a region right at the
-> top=20
-> of it. So when END is exclusive, it would become 0.
->=20
-> So on Arm, we decided to start to get rid of "end". I would consider
-> to=20
-> do the same on RISC-V for new functions.
-I assume that you wrote here just as an example of confusion occurs
-because of using *_END but just to be clear I have to leave
-FIXMAP_MAP_END as-is because it is used now by common code.
+preferable
 
-~ Oleksii
+> lower levels need to duplciate the iovec to edit it upon encountering a short
 
+duplicate
+
+> write.  xs_directory_part() is the only function impacted by this, and it's
+> easy to rearrange.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
