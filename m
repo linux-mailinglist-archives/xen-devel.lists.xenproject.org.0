@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62A2A939F74
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 13:10:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763054.1173291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7631F939FB6
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 13:23:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763068.1173301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWDOf-0006MK-Px; Tue, 23 Jul 2024 11:09:33 +0000
+	id 1sWDbU-00017w-05; Tue, 23 Jul 2024 11:22:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763054.1173291; Tue, 23 Jul 2024 11:09:33 +0000
+Received: by outflank-mailman (output) from mailman id 763068.1173301; Tue, 23 Jul 2024 11:22:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWDOf-0006Kk-Mo; Tue, 23 Jul 2024 11:09:33 +0000
-Received: by outflank-mailman (input) for mailman id 763054;
- Tue, 23 Jul 2024 11:09:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sWDbT-00015l-Sq; Tue, 23 Jul 2024 11:22:47 +0000
+Received: by outflank-mailman (input) for mailman id 763068;
+ Tue, 23 Jul 2024 11:22:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWDOe-0006Ka-3M; Tue, 23 Jul 2024 11:09:32 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWDOd-0004Fk-O7; Tue, 23 Jul 2024 11:09:31 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWDOd-0005D0-CU; Tue, 23 Jul 2024 11:09:31 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sWDOd-0004qe-Bv; Tue, 23 Jul 2024 11:09:31 +0000
+ (envelope-from <SRS0=BZ+O=OX=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1sWDbS-00015f-VC
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 11:22:46 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e1da59a1-48e5-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 13:22:44 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a728f74c23dso56568166b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 04:22:44 -0700 (PDT)
+Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
+ (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
+ [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7aa49f3dfdsm14028066b.145.2024.07.23.04.22.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jul 2024 04:22:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +47,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=xtAkDFANU6rv2cdR+PNSTJObDt8tALDjAgoDwDLx0AY=; b=Bbt6Ls7M4M9+GOaPv6bn4e3YdM
-	c3SugVwu7mrdFKdSxVse+9yRgcxhdqEPAFHkyuc4930IRsOdcIdggPC0aiBZXba6jJit99KZnf0Zk
-	UUhbgP5uwRk9/7WLGq6wzfaLQzSAa7YUc6Qs5imXIoDllDqYaFYqyp7jUWFhM6LWKjp0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186962-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e1da59a1-48e5-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1721733764; x=1722338564; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=h/XSk6ltUMQMPtPlqVGntKFT4nYu/hIlLTTW65/D/x4=;
+        b=WkNABcJ/g+OfIhVUxUrKMjlj9SOAyUgrYDkuSOWZ7QT40fjsFOiiL+jS/5g0SczsxH
+         eeP1fxXyNv/hcx+kRyamCCadY6+BxFqBmz7OyxbZPozttCy1FQMGcuwU0faAdCTxDt6M
+         rBS9Y045jfPaGyuRPtuTrXIB5nK6cN0runAyYDDrMdLnjdZ+DibKYbGBVWsNcp8xRkro
+         9yvwU9PzDx9XDViekmj6dPcI364Me1HM6JcqHg05B+iNTeCkcRiWBOXJVide3nvMKB1Y
+         49z/kzDvepDeS8m4+wfw2oDtXCaSlzIGidd63nsFfK9r8uHcbaoJMkXZ6lwhWs/b/r4g
+         Vf1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721733764; x=1722338564;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=h/XSk6ltUMQMPtPlqVGntKFT4nYu/hIlLTTW65/D/x4=;
+        b=em3d+j1MqSwzkZ7nAAcOaP/YfeNg2fWHTUC1mMKXAL11dBDDMmnhf15y1umB0rEKy9
+         BELmGuDTXvyYNHZG2ou4GIZATY222yQbM0Hv56U7qf1N2hzz9Xcl9cmaxEYXDc70FIZ7
+         VHSI7aX/RULMU6qSb0M5B3D4jlutyYubEyRoz0GinX+qLPp2J9cEW7rklKxA7+/2XHkm
+         u++BnpdQbFkgx/1dE8ygXsgHNk/qn81qVe/6I0UVd1ba6ct8VElmU+Ghk0lXKpPLvdHC
+         pEZTGubsJtpRDvcGfhlNSjVAXFetb/35R/6IMkcXtdCz8DnaLP1zowtScuLHOSP/cLOV
+         0tlA==
+X-Forwarded-Encrypted: i=1; AJvYcCUD3mbRnWD1NDCoQylFbPyu7XGf0LzXKu22OdbXLSUZPzqph6eQLTC2S3hImEuQBYlnMReecr/jk4U9O/5p+XOMWkDpfUzQVKlKAAWQVgo=
+X-Gm-Message-State: AOJu0Yz4wQj6aUew4/IpY2w3HbyB8wzzqNBbqVin4SvLrLGNq7ij2Pgt
+	rwgv2TaiLwuOpkfzD1WUBsOdCQEEeCKTY8zkhzqLeyeNioJ2d1grz+uX3UtB/aViGYkWwwwL6mN
+	L
+X-Google-Smtp-Source: AGHT+IHN6GVVorTX8tdmNr525szLLZQrL0RxzAbw/OsWAlCxAMj5JnbXGOXSHKYDjLGD/46TjZ443w==
+X-Received: by 2002:a17:907:d18:b0:a77:d441:c6f1 with SMTP id a640c23a62f3a-a7a4c1233bamr648918466b.33.1721733763950;
+        Tue, 23 Jul 2024 04:22:43 -0700 (PDT)
+Message-ID: <596b843e-43ae-4094-af3f-000b36a4d58c@suse.com>
+Date: Tue, 23 Jul 2024 13:22:43 +0200
 MIME-Version: 1.0
-Subject: [ovmf test] 186962: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=46eb0ca29bf6bd84381af8506e0d9b1755f767d9
-X-Osstest-Versions-That:
-    ovmf=c5ab17430b2579dd79e3cbd497b8b9deccd34abc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 23 Jul 2024 11:09:31 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/6] tools/libxs: Stop playing with SIGPIPE
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>
+References: <20240718164842.3650702-1-andrew.cooper3@citrix.com>
+ <20240718164842.3650702-7-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <20240718164842.3650702-7-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 186962 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186962/
+On 18.07.24 18:48, Andrew Cooper wrote:
+> It's very rude for a library to play with signals behind the back of the
+> application, no matter ones views on the default behaviour of SIGPIPE under
+> POSIX.  Even if the application doesn't care about the xenstored socket, it my
+> care about others.
+> 
+> This logic has existed since xenstore/xenstored was originally added in commit
+> 29c9e570b1ed ("Add xenstore daemon and library") in 2005.
+> 
+> It's also unnecessary.  Pass MSG_NOSIGNAL when talking to xenstored over a
+> pipe (to avoid sucumbing to SIGPIPE if xenstored has crashed), and forgo any
+> playing with the signal disposition.
+> 
+> This has a side benefit of saving 2 syscalls per xenstore request.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 46eb0ca29bf6bd84381af8506e0d9b1755f767d9
-baseline version:
- ovmf                 c5ab17430b2579dd79e3cbd497b8b9deccd34abc
-
-Last test of basis   186961  2024-07-23 06:15:52 Z    0 days
-Testing same since   186962  2024-07-23 08:46:52 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Shenbagadevi R <shenbagadevir@ami.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Juergen
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   c5ab17430b..46eb0ca29b  46eb0ca29bf6bd84381af8506e0d9b1755f767d9 -> xen-tested-master
 
