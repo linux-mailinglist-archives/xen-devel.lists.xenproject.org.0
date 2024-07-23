@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F7F993A3C1
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 17:28:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763332.1173603 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D491493A3CC
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2024 17:37:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763342.1173614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWHQn-0002BH-SC; Tue, 23 Jul 2024 15:28:01 +0000
+	id 1sWHZI-0003zq-Ra; Tue, 23 Jul 2024 15:36:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763332.1173603; Tue, 23 Jul 2024 15:28:01 +0000
+Received: by outflank-mailman (output) from mailman id 763342.1173614; Tue, 23 Jul 2024 15:36:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWHQn-00029h-PG; Tue, 23 Jul 2024 15:28:01 +0000
-Received: by outflank-mailman (input) for mailman id 763332;
- Tue, 23 Jul 2024 15:28:00 +0000
+	id 1sWHZI-0003wi-Nx; Tue, 23 Jul 2024 15:36:48 +0000
+Received: by outflank-mailman (input) for mailman id 763342;
+ Tue, 23 Jul 2024 15:36:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W1nq=OX=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1sWHQm-00029b-4t
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 15:28:00 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20603.outbound.protection.outlook.com
- [2a01:111:f400:7ea9::603])
+ <SRS0=v/3h=OX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sWHZH-0003vM-9H
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2024 15:36:47 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22d9e595-4908-11ef-8776-851b0ebba9a2;
- Tue, 23 Jul 2024 17:27:57 +0200 (CEST)
-Received: from CH2PR03CA0027.namprd03.prod.outlook.com (2603:10b6:610:59::37)
- by MN2PR12MB4424.namprd12.prod.outlook.com (2603:10b6:208:26a::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.17; Tue, 23 Jul
- 2024 15:27:53 +0000
-Received: from DS2PEPF0000343F.namprd02.prod.outlook.com
- (2603:10b6:610:59:cafe::b0) by CH2PR03CA0027.outlook.office365.com
- (2603:10b6:610:59::37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29 via Frontend
- Transport; Tue, 23 Jul 2024 15:27:53 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF0000343F.mail.protection.outlook.com (10.167.18.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7784.11 via Frontend Transport; Tue, 23 Jul 2024 15:27:53 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 23 Jul
- 2024 10:27:51 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 23 Jul
- 2024 10:27:51 -0500
-Received: from [172.23.111.139] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 23 Jul 2024 10:27:51 -0500
+ id 5dd7bd1f-4909-11ef-8776-851b0ebba9a2;
+ Tue, 23 Jul 2024 17:36:45 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2eeb1ba0481so83805841fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jul 2024 08:36:45 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ef3074e87asm7999261fa.81.2024.07.23.08.36.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jul 2024 08:36:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,133 +45,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22d9e595-4908-11ef-8776-851b0ebba9a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VrY/OL2PomZowaW/VUnvc7ULU7yTZ4EDh5XcTVBziTw08yVnZ66GZlPMzLkbW1aCiu3jRTcJyjW9zMEEIV0W3iw3wa9LOsLk6RfLpTQ6wrG8gTCHEmfwzHmNgX65GuxOu+OEE1xfi3DW67tjsnfbT4eCk1TD/Z47OR2LFv4rMeoWALA4a2eOsT5BBRHjmeJfhKp/YDAAUOL9PPPek9jgl2ipu3CL637xhkFjdD6hmT3IvdVYTR+m+NSafesbFWL8l1vO3IdRcun1Tr4f3c2QETyGJNJMB2VqeMKEBJY4E2s3NSB/8/fs+bBAHZrw8IUAEa+e2qyp/oYsRLKn8FPKwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1Qy4Un0zlD49c88NTjvDkppgHkGuxNhRKGSB9Yg66RM=;
- b=QrLNLZseSus7BCV7cuZ0HGachz8sitLVVUVMImeqIslcLN6H6DHvPKKY1fdskqXhcIvLMshU6e+Ax7XKEhOJnSZrFckdNO+qzAxedLaFDxost9yqcKoNYSNyJ2j3mFQJLP4W4A4zzEi7dKSGFprRjyT7x0I3pGDAnJnvWFV3c1uBiT+suKwjDMa1rDlzOxPFqncpXd8/eq/S+YI6TyLSFuQKEm8G8B2Ft/kQeppdizqTPpo5JABN1XjZeEMUgh+GDPe3pEKEmBl/wFjklI4Hx3TmLO/aCYq5Tf0SU2Ym4UxnKopE+VhxNDJv8oQxKnLdsJpwhxd1EyCrX7qvH2AqOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vates.tech smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Qy4Un0zlD49c88NTjvDkppgHkGuxNhRKGSB9Yg66RM=;
- b=UUEmV0ZezzWQufOp4HRT6iTRNr0BGinaTPoaxNv/exNBrz1VR2Ecqes6osGooFzQd5FqgILM3OnoEtnI21YW0hFUP/srxrUvG3PYLIvOcEnX+urkosTS8OrdNZAEs1ZqZuQzc84LbOT0AqHXKBfS9zpjPmX9LDTQie3gCtGworQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <ac3d7bcd-6ed8-4ded-bb5d-ab9c228e9579@amd.com>
-Date: Tue, 23 Jul 2024 11:04:47 -0400
+X-Inumbo-ID: 5dd7bd1f-4909-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1721749004; x=1722353804; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=lIj8zvACM1852usyHUDax4NYrsFS+cOKd746s7hhDNc=;
+        b=e75Rbu9R+g3wbhfTmY9NnIgENpNwrPk2+zZE2tc4Gxur9+Lp+JTWM9RgZ3GnKym5Gq
+         HydkMTbJtdCRSq+h6LnTaL3YRDFzf6gCKLz6d1V50uWf2PDVs4TaZbU57SVjvxt1CcKe
+         UwU5dCCNFstGSEMYYGHIQcA6K/eClHu7Q7i4B8T8CF4+5Zl7XBri9W/2wT7Kl5X9Z+Dy
+         2fIAQ5Is6XjbN6llM1sno+PFGU8eoIwEePG3vWMGGFWnZ7TaVVih+3/W7f116KKqrHDB
+         naQzmJBfd60JLOJ0uM/xT03qW0FEcHumAx2Rw4B5XaiIhWsXpl7FpL5mz1KT88PkzJU+
+         l9YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721749004; x=1722353804;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=lIj8zvACM1852usyHUDax4NYrsFS+cOKd746s7hhDNc=;
+        b=pfWu9pHNeX6MbHO93UEbvalHeg0A4aQOyjRg8u/P4TrPNeJhbtMalAqWyj9ueMRtEc
+         mKo1TMFCje+xM8DDNaxLPjiSWGcwF0/y4yS+ygLQuzAesdRJC1PwG09SXn3dPKQIjttb
+         6JByCbB877l38u4kIs6Rcr/fod3k3r4/ZawlJeyhQPqALu3OGlB9gfzNte1SEZd26iew
+         pgIlJh+IgybBE75yZTwBgbCnNPIDk8VnIVy3AGHtmuzlqh5eH6v+YPjaYV2VKdjTV8o2
+         c90f/QVvka4ePzr2eMS6+BiWEberTkw+FfToSLqrOBHGxHrm/kY/2Jouo/kuyV8SZr0+
+         /now==
+X-Forwarded-Encrypted: i=1; AJvYcCUYUb+qF/ZXRJRgyAERtiOE6U2p9Hmfcg1GvQpKhuW7opO90k0huS8b96Cuglcm59VBUdcOLDNfxq94RhS0SJAVUMDPrQ+qvO7ZoleycX4=
+X-Gm-Message-State: AOJu0YyxN7N17LWvdtvfdrR3m6S/ZuSDp8Yq2peJ1Pp8si/ld0SHN+PR
+	7nR1ZO9JcKisoTC+/RuilWd2vZfEDf9WPKMiL1NLTf3F2xEl1ZQ7
+X-Google-Smtp-Source: AGHT+IGUG1Cu4hebyLvxuTbID6fkfEusAmO1p3EkqfATCHyQm/dqBTi0nC0ABFZXPfY88T7qC/HArA==
+X-Received: by 2002:a2e:8ec9:0:b0:2ef:2658:98f2 with SMTP id 38308e7fff4ca-2ef265899ebmr63252341fa.33.1721749004085;
+        Tue, 23 Jul 2024 08:36:44 -0700 (PDT)
+Message-ID: <b7e248ae79aaded532d86453520fcb4cb7a7fb3b.camel@gmail.com>
+Subject: Re: [PATCH v2 5/8] xen/riscv: introduce asm/pmap.h header
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,  xen-devel@lists.xenproject.org, Julien Grall
+ <julien@xen.org>
+Date: Tue, 23 Jul 2024 17:36:42 +0200
+In-Reply-To: <14ffb00d-d6ba-4c18-88c1-2601a2df8a8b@suse.com>
+References: <cover.1720799925.git.oleksii.kurochko@gmail.com>
+	 <c7331e4c2f481f069571976a708c4aba04d2c0e4.1720799926.git.oleksii.kurochko@gmail.com>
+	 <6458c61d-5974-41c2-a1e6-76e4a15a487a@suse.com>
+	 <54af6fb751da1103054de2d79a2057bec658f399.camel@gmail.com>
+	 <623da862-8e76-4d40-9aa9-b02c8fd9944d@xen.org>
+	 <a53ef38e044db149bb37b70f1e56a33c6a3e7c83.camel@gmail.com>
+	 <26ae01e2-d085-48d7-8b1f-da1e44b01e53@xen.org>
+	 <CAMacjJwWLjGcFbYEhCPyNEW_+sfb51+XtKqyBcc2JGm=D5bf0w@mail.gmail.com>
+	 <97c82aca-0b8a-4b78-980b-0857dbdae80a@suse.com>
+	 <4c9eb7a79c33c7cd2f6bde05b1fbc7770e662026.camel@gmail.com>
+	 <14ffb00d-d6ba-4c18-88c1-2601a2df8a8b@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19] hotplug: Restore block-tap phy compatibility
- (again)
-To: Anthony PERARD <anthony.perard@vates.tech>, Jason Andryuk
-	<jandryuk@gmail.com>, <oleksii.kurochko@gmail.com>
-CC: <xen-devel@lists.xenproject.org>
-References: <20240715234631.4468-1-jandryuk@gmail.com> <Zp/GcCUVPX/d/7qx@l14>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <Zp/GcCUVPX/d/7qx@l14>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|MN2PR12MB4424:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8eb7eec4-4952-436f-c7bd-08dcab2c052e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?U2pUR2pOcjkwQmlGek5KV2d5QUw1dVNlWU1oRUUyTEUySTFkMTNZVGJlZDQx?=
- =?utf-8?B?amFmTTZKYXhuRFVaMEFkUGtkWGV4TnpUcTJucVh0UitKOUxyL0gyWHlpaXhX?=
- =?utf-8?B?YjRVTEkrUGZhaXJNNEQxYW5QTXhhWkg3L2hwSzR1ODM3M00zZk9HRHI1aWNh?=
- =?utf-8?B?S0swQm1rVjgwblFPQkFocHFiQ0FqT2FPdTh5YkJOSFoxOVIvTWU3L3dRd2N5?=
- =?utf-8?B?SG5vemc2U0hTYlV3ODAwN2lFT0cra0tLZjM3UHdkUmIyTkE2QXdmcTY0ZDZD?=
- =?utf-8?B?SFV3LytPbHV1S1pFODFMYmt2cExoWUtZOGV5N1RaUWdWR0JHZEprNVRCNGpF?=
- =?utf-8?B?QTU5ZUpSOWhSaXdabmViUzVJZlgvQXdaMTZQMnFRWEZQUC8zeHFtMzBpOXEr?=
- =?utf-8?B?Nmk5MEV2MStHUWdyT2tCUXpMZXF2ZzFrajRXMnIyTWdyZHhNQmp6MkRoMkJX?=
- =?utf-8?B?Y0tNT1JBZ2E4MmxCNHlYQ1VnYi9rL0Zud0t2MlVkdmx1WmFPNC8zWE5VOGdu?=
- =?utf-8?B?Ukp3Q3BycFdLYXVvQzhkcmdpcVZLckIwa3ZZVlFycFhUVVplVllMVkk2aWNp?=
- =?utf-8?B?c1NueGpsSHlCbVUrSEZ5SlhIOWIzTnY1WjhzdG1LV3B4U2FGNUhOZnhvajB1?=
- =?utf-8?B?dndlUTBpK3pCOHQ1eDlOd0tERSszZ0dSS0pkSzJiOEd1Z3VTcy9kRDN0WUYr?=
- =?utf-8?B?OWJEMDAwalpsY0EvcnZwUW5MNXFqUWJIZDVGa09oYVRVSHRVU2ViZ3I1Z1Vk?=
- =?utf-8?B?WEkxdEgzSFA3TzJ0NmRWTmdHOXRGUjJTbHhiaERLeXl5L2RTQ05FUjBhSG9W?=
- =?utf-8?B?MXhTRllMVlNDUTJoVmsxRVgzN3FodzZ2alErc2xEcXJiK2swZ0FKTXUxYVVX?=
- =?utf-8?B?VUovMDVFQTREVmJyWWhWU1Y1Z1IrRXJ3MHJCUnRub1Fvb0lDRGtHeFJmTWwy?=
- =?utf-8?B?TVBNSnVyVXRiWkhrM1lyY3E3TUhWaElOMHV5QnJDSGpMMEtJb0ZHL0l5WjAw?=
- =?utf-8?B?Y01QK0pqdThJMkkwMU05NjczODZ5ZFJCYnFJSS9yYnVvOHpiVCtxelN4SkJF?=
- =?utf-8?B?Y1AybHJYWExPTTNNWEZUT3V4ejlFU2paQzJ5QllCemphSktjTi8yeHQ4QkRs?=
- =?utf-8?B?dDFjS0ttUHJwM21KdzdBT0huRkMwalNDVGZIeGRVdElkNW82NzhuOVhiek01?=
- =?utf-8?B?M0FYbExaKyttSFJoemJKK29SNW9jSU9pQ3RTRjJlYW9qNjluZVQ3WURYTHRy?=
- =?utf-8?B?UkxKeXo5STdzTzY2L3hkWHozU1ZxNXZydnRBbzZHcHBRaks1aWo0alg3eGUw?=
- =?utf-8?B?ZGU3WU1ybEhEQ1BRUWJ3dTExNUI0d21xcEZ2Q0Z2TTZ0cTFzNW9xdEJSR2RG?=
- =?utf-8?B?dFoweUlIa0FwWnk1Q1ZxbncwYTE0YThDdFM1R2Nhak4xaXFCVVVnRkhnWEdZ?=
- =?utf-8?B?NHRIYnZEN0RNQ0F1N0ZqQTlEQWpyQ3owUzVkbGh4cjhtZDBxU0hra1pCdmJv?=
- =?utf-8?B?clllV1JFQ3BWNmppTk50TUVsQ1JMMk9Vck5zT2tYVHdVRWp5N1U0UDMxSWhM?=
- =?utf-8?B?blZwNUUzekp6dkdGNk5iSHp4SnhhWE1ISGNLTFdWQi9WRzNtb0RFNDlxSTJG?=
- =?utf-8?B?R2JYZFRNRXlOUFRQVlF6RkpibkdxTnVpNFZOMzM4RWNsMnFlSG11REdhbitP?=
- =?utf-8?B?QnM2QlZVOEtOSFVRdVBEeGN5WS96RTRuSlBOaW11b284dTZ1WEd2b0dDN3Nn?=
- =?utf-8?B?ZVhsT0N3bUJJQjU2MElvWTRXQ0Nwb3h2T0pqZXN3MW4yekhHVE1mbW1GUnBt?=
- =?utf-8?B?R3c2UXZUMU8vWG9GR005aUpFcDBYQ3Zkc0dYanAzaktmdVNuelVycU5aaXJj?=
- =?utf-8?B?eEl4UUxrY2hObks2MWIyVVo4dUpOdXM0Z1ZmeW8zVWJXclA0d0UrTHZCUWZU?=
- =?utf-8?Q?jgun+LkGZjg6iQYDEq7QMcE0D48ZwuDN?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2024 15:27:53.2536
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8eb7eec4-4952-436f-c7bd-08dcab2c052e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF0000343F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4424
 
-On 2024-07-23 11:04, Anthony PERARD wrote:
-> On Mon, Jul 15, 2024 at 07:46:31PM -0400, Jason Andryuk wrote:
->> "$dev" needs to be set correctly for backendtype=phy as well as
->> backendtype=tap.  Move the setting into the conditional, so it can be
->> handled properly for each.
->>
->> (dev could be captured during tap-ctl allocate for blktap module, but it
->> would not be set properly for the find_device case.  The backendtype=tap
->> case would need to be handled regardless.)
->>
->> Fixes: 6fcdc84927 ("hotplug: Restore block-tap phy compatibility")
-> 
-> Do you mean f16ac12bd418 ("hotplug: Restore block-tap phy compatibility") ?
+On Tue, 2024-07-23 at 12:02 +0200, Jan Beulich wrote:
+> On 23.07.2024 10:55, oleksii.kurochko@gmail.com=C2=A0wrote:
+> > On Tue, 2024-07-23 at 10:36 +0200, Jan Beulich wrote:
+> > > On 23.07.2024 10:02, Oleksii Kurochko wrote:
+> > > > On Mon, Jul 22, 2024 at 7:27=E2=80=AFPM Julien Grall <julien@xen.or=
+g>
+> > > > wrote:
+> > > > > > > On 22/07/2024 15:44, Oleksii Kurochko wrote:
+> > > > > > =C2=A0=C2=A0=C2=A0 /* Map a 4k page in a fixmap entry */
+> > > > > > =C2=A0=C2=A0=C2=A0 void set_fixmap(unsigned map, mfn_t mfn, uns=
+igned int
+> > > > > > flags)
+> > > > > > =C2=A0=C2=A0=C2=A0 {
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pte_t pte;
+> > > > > >=20
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pte =3D mfn_to_xen_e=
+ntry(mfn, flags);
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pte.pte |=3D PTE_LEA=
+F_DEFAULT;
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_pte(&xen_fixma=
+p[pt_index(0,
+> > > > > > FIXMAP_ADDR(map))],
+> > > > > > pte);
+> > > > >=20
+> > > > > It would be saner to check if you are not overwriting any
+> > > > > existing
+> > > > > mapping as otherwise you will probably need a TLB flush.
+> > > > >=20
+> > > > > > =C2=A0=C2=A0=C2=A0 }
+> > > > > >=20
+> > > > > > =C2=A0=C2=A0=C2=A0 /* Remove a mapping from a fixmap entry */
+> > > > > > =C2=A0=C2=A0=C2=A0 void clear_fixmap(unsigned map)
+> > > > > > =C2=A0=C2=A0=C2=A0 {
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pte_t pte =3D {0};
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_pte(&xen_fixma=
+p[pt_index(0,
+> > > > > > FIXMAP_ADDR(map))],
+> > > > > > pte);
+> > > > >=20
+> > > > > Don't you need a TLB flush?
+> > > > >=20
+> > > > Inside write_pte() there is "sfence.vma".
+> > >=20
+> > > That's just a fence though, not a TLB flush.
+> > From the privileged doc:
+> > =C2=A0=C2=A0 ```
+> > =C2=A0=C2=A0 SFENCE.VMA is also used to invalidate entries in the
+> > =C2=A0=C2=A0 address-translation cache associated with a hart (see Sect=
+ion
+> > 4.3.2).=20
+> > =C2=A0=C2=A0 ...
+> > =C2=A0=C2=A0 The SFENCE.VMA is used to flush any local hardware caches
+> > related to
+> > =C2=A0=C2=A0 address translation.
+> > =C2=A0=C2=A0 It is specified as a fence rather than a TLB flush to prov=
+ide
+> > cleaner
+> > =C2=A0=C2=A0 semantics with respect to
+> > =C2=A0=C2=A0 which instructions are affected by the flush operation and=
+ to
+> > support a
+> > =C2=A0=C2=A0 wider variety of dynamic
+> > =C2=A0=C2=A0 caching structures and memory-management schemes. SFENCE.V=
+MA is
+> > also
+> > =C2=A0=C2=A0 used by higher
+> > =C2=A0=C2=A0 privilege levels to synchronize page table writes and the
+> > address
+> > =C2=A0=C2=A0 translation hardware.
+> > =C2=A0=C2=A0 ...
+> > =C2=A0=C2=A0 ```
+> > I read this as SFENCE.VMA is used not only for ordering of
+> > load/stores,
+> > but also to flush TLB ( which is a type of more general term as
+> > address-translation cache, IIUIC ).
+>=20
+> Oh, I see. Kind of unexpected for an instruction of that name. Yet
+> note
+> how they talk about the local hart only. You need a wider scope TLB
+> flush here.
+Could you please clarify why it is needed wider?
 
-Yes!  Thanks for checking that - I must have grabbed the hash from a 
-local branch.
+Arm Xen flushed only local TLB.
+RISC-V Linux kernel for fixmap also uses: local_flush_tlb_page().
 
->> Fixes: 76a484193d ("hotplug: Update block-tap")
->>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> 
-> With the fixes tag fix:
-> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+~ Oleksii
 
-Thanks again.
-
-Oleksii, this is a fix (for an incomplete fix) for 4.19.  76a484193d 
-broke compatibility for block-tap with the blktap2 kernel model (when 
-adding support for tapback).  This finishes restoring blktap2 support.
-
-I realize it's late in the release if you don't want to take it.
-
-Regards,
-Jason
 
