@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D715593B795
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 21:31:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764479.1174934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3A0F93B7E1
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 22:15:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764488.1174944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWhgX-000415-E8; Wed, 24 Jul 2024 19:30:01 +0000
+	id 1sWiNP-0001JM-KL; Wed, 24 Jul 2024 20:14:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764479.1174934; Wed, 24 Jul 2024 19:30:01 +0000
+Received: by outflank-mailman (output) from mailman id 764488.1174944; Wed, 24 Jul 2024 20:14:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWhgX-0003yV-AB; Wed, 24 Jul 2024 19:30:01 +0000
-Received: by outflank-mailman (input) for mailman id 764479;
- Wed, 24 Jul 2024 19:30:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWhgW-0003yL-4I; Wed, 24 Jul 2024 19:30:00 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWhgV-00074q-S7; Wed, 24 Jul 2024 19:29:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWhgV-0004Yb-Km; Wed, 24 Jul 2024 19:29:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sWhgV-0004tO-KL; Wed, 24 Jul 2024 19:29:59 +0000
+	id 1sWiNP-0001GZ-H5; Wed, 24 Jul 2024 20:14:19 +0000
+Received: by outflank-mailman (input) for mailman id 764488;
+ Wed, 24 Jul 2024 20:14:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ik8X=OY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sWiNN-0001GT-Qo
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 20:14:17 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4c1cad38-49f9-11ef-bbfe-fd08da9f4363;
+ Wed, 24 Jul 2024 22:14:16 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 7289DCE12AB;
+ Wed, 24 Jul 2024 20:14:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFF4DC32781;
+ Wed, 24 Jul 2024 20:14:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,71 +41,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=9izWXgKhrZKtrl0hFcjBVa9NdHPzkIXESDBYzlnJ0dA=; b=Ux8/u/mXhCP5++v4YTZLNIhUQY
-	+lQ1Ge39sJlSl7xFvbLVoG91t+gTvmphHn1/YFfR+ckri0NAba0A6gDlM3YYyOCTsXBlUWh5zJ0CM
-	o4VUk2VSXMyrdeuUlZ8d1Mtmkr79+EbmoPvHWuav6QCiAWRl9k7X+9EP1ypRspofretU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186986-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4c1cad38-49f9-11ef-bbfe-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1721852052;
+	bh=5LteRdY+MfTqF8UhxIIySAt41BaRsjswPvyJjP3n5fU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=lfrVrzn4ts5Kuw82hwAt3NxiycGHXHxSSKuIH2Pz00LWir474etVQ7eUccouiQalD
+	 qgNDnhCyBM6wD2WpFC7vBRkSbh0gGYHIQoNRTbimD7pg1gY2dZqF8QFE5sc3PVwOCM
+	 Wrhj/lSI7nfNObD5B4++7Md97yHenfy5MPuYAkljVuE8/XDy2oEvE7rdpbsmaHazNc
+	 C/O0jwTU+63/9bn8WS83bhDuO3Qx69L6LuKgOx+xPoC2RIz2QDYHaH9Ya9CPmWsCZ1
+	 tzwYUEtpIcGLS3EF3Zl8u6vCMQ5XpQPDopvyeuvIOBpFKFDpW+QpJ7OJcH78YVLw2F
+	 sjWR5Qx6NHBPQ==
+Date: Wed, 24 Jul 2024 13:14:10 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Techguru <techguru@byiq.org>
+cc: xen-devel@lists.xenproject.org, Michal Orzel <michal.orzel@amd.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: Xen for Apple Silicon (M1 and beyond)
+In-Reply-To: <d5c3e0900db98aaaeb7fb52f16598257@mail.infomaniak.com>
+Message-ID: <alpine.DEB.2.22.394.2407241309170.4857@ubuntu-linux-20-04-desktop>
+References: <d5c3e0900db98aaaeb7fb52f16598257@mail.infomaniak.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xtf test] 186986: all pass - PUSHED
-X-Osstest-Versions-This:
-    xtf=4172faef1c0dee027ddd3ffdbc88fe20eb711e9c
-X-Osstest-Versions-That:
-    xtf=3955325292f49257797f339cfdcb84748550e069
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 24 Jul 2024 19:29:59 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 186986 xtf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186986/
+On Wed, 24 Jul 2024, Techguru wrote:
+> Hello,
+> Stefano, on IRC, suggested that I start a discussion on this mailing
+> list regarding my intention to bring up a fully function XEN on Apple
+> Silicon (M1 and beyond).  I am in the process of getting up to speed
+> on your governance policies, applied for Coverity access to use some
+> of the known issues there as training wheels, and putting my gitlab
+> fork into good working order with CI.
+> 
+> I would rather not duplicate effort which has already been proposed,
+> so definitely open to any pointers, any requests for how to chunk
+> things into smaller patches, any requests for particular
+> ordering/sequencing of patch sets.
+> 
+> Some obvious areas:
+> 16k pages;
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xtf                  4172faef1c0dee027ddd3ffdbc88fe20eb711e9c
-baseline version:
- xtf                  3955325292f49257797f339cfdcb84748550e069
-
-Last test of basis   184862  2024-03-03 00:41:25 Z  143 days
-Testing same since   186986  2024-07-24 18:11:37 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-
-jobs:
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-amd64-pvops                                            pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
+For this, do you know if 4K pages are supported (in addition to 16K)? It
+would be a lot easier to keep running Xen using 4K pages and run guests
+on top of Xen which use 16K pages. In the past, we had Linux using 64K
+pages running on top of Xen using 4K pages for example.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> device trees;
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+You might be able to use the device tree which is used to boot Linux on
+Apple silicon
 
 
-Pushing revision :
+> interrupts;
 
-To xenbits.xen.org:/home/xen/git/xtf.git
-   3955325..4172fae  4172faef1c0dee027ddd3ffdbc88fe20eb711e9c -> xen-tested-master
+If the interrupt controller is not an ARM GIC, then we need a driver for
+it in Xen
+
+
+> power management;
+> any essential device drivers.
+
+In addition to the interrupt controller, we might need drivers for the
+UART or framebuffer to see Xen output. Also the timer. Xen has a driver
+for the ARM Generic Timer but if Apple has a different timer, that is
+something else to consider.
 
