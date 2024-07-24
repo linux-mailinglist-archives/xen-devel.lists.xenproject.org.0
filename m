@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F9F293B0F4
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 14:35:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764163.1174500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F00393B0F9
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 14:38:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764171.1174510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWbC9-00089Q-7F; Wed, 24 Jul 2024 12:34:13 +0000
+	id 1sWbGG-0000RM-NT; Wed, 24 Jul 2024 12:38:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764163.1174500; Wed, 24 Jul 2024 12:34:13 +0000
+Received: by outflank-mailman (output) from mailman id 764171.1174510; Wed, 24 Jul 2024 12:38:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWbC9-00087h-4g; Wed, 24 Jul 2024 12:34:13 +0000
-Received: by outflank-mailman (input) for mailman id 764163;
- Wed, 24 Jul 2024 12:34:11 +0000
+	id 1sWbGG-0000Oo-Ke; Wed, 24 Jul 2024 12:38:28 +0000
+Received: by outflank-mailman (input) for mailman id 764171;
+ Wed, 24 Jul 2024 12:38:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D33k=OY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWbC7-00087T-K0
- for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 12:34:11 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+ id 1sWbGF-0000Oh-Ma
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 12:38:27 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 010c5baf-49b9-11ef-8776-851b0ebba9a2;
- Wed, 24 Jul 2024 14:34:00 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ef248ab2aeso61775851fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 05:34:00 -0700 (PDT)
+ id 9f05a4ab-49b9-11ef-8776-851b0ebba9a2;
+ Wed, 24 Jul 2024 14:38:25 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2ef2c109eabso38216731fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 05:38:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a93c70c41sm182914966b.42.2024.07.24.05.33.59
+ 4fb4d7f45d1cf-5a7f5349cc5sm4257230a12.13.2024.07.24.05.38.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jul 2024 05:33:59 -0700 (PDT)
+ Wed, 24 Jul 2024 05:38:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 010c5baf-49b9-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 9f05a4ab-49b9-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721824440; x=1722429240; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721824705; x=1722429505; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rcRhokmq6WLZcBPydD/CHjgEbRheWu7fj0qXLc38ehQ=;
-        b=Nxw78ZPrVye+22lKMw716X9HWQeLEm1BX7Nfm/3qvdQi+KHU+Wh+YR5OoBALvnbhRh
-         Z3DYlSR7Hc22xNJJtK1umQ4v32CzwBJsmvKhXt8Q/LVmt4UyGRNl+q0+jul1lSeZgdxL
-         7pROKkAcgKwt+7qrHgKqZvX+h8dC13XxmprOmZ/p+IGvWRAE/MGEZNFMu7ZEDDLvlQrP
-         UmKExUWruIbTtOdYaGeKiq6glhtSFj6+XZ1FP3ypTr0V9f+RBpU5/G3+rrJTupMozhvy
-         Igx7ih3aomRVnOIlXpSB9yEmicorjGjG1UiJRngzz1gjO+JC9ieyEbadI3DzzGV/+mMb
-         xjkQ==
+        bh=yl1wq62E2OWmmxs2B6fPZ+78OhF7H2md4Qsr4Igmt90=;
+        b=WOAnjYzDEa6IIt4NpUDRpX/1LVIubSkhsasL7+v6zKeK0m52+cekkaVpk3qVR0ZZEu
+         vmj8Z9fK0M85NDTOglnyhuRpiSzVp8360PCPM4Oe1GEvFkWK9KY/5LPR6Chv4sONAUgr
+         1srkGchhnEL5tafHQr6ljQL/QzV+kM+Lp6cuPQxWjzj28oYW38UvScW4ipWnn4APwb7Q
+         IIgG4Y2z+M2AyQJViBvPJtxhZ9YXUjrlnEUHQYpdpcgc9k8A/jbrOCw/bWV8xYB2rZuJ
+         0JbOp1z91E+YHafAAHgpaiAgArawxj0hbgmIh5U8xysh4+4cskeeFOdTug7nJZDf82t4
+         UVIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721824440; x=1722429240;
+        d=1e100.net; s=20230601; t=1721824705; x=1722429505;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rcRhokmq6WLZcBPydD/CHjgEbRheWu7fj0qXLc38ehQ=;
-        b=LZUUBXDhGBGlbGkWTKg98z5JpQtdlVW5tLYa8u0XPkBHa6eI5GqN+HT5gdyL9pPKKh
-         G02glvrM015S4z2QF4SUv52XxsEBvQjZZ6B0Bj8NSfcdYpiM92atRzxbuSyUWLEc6KaR
-         qWynDGDAeGIhwURsT9d5MmB63L+yIaj7ltblGdtS2q0FIkRg514xBu2sY7A0ssZU5jQJ
-         0Rd7OIFtzVC1IyyiYDMBu6AYiJqCwakrITr57RcYYX3wgHrJzgODgvDEsgyZcVkY3CbE
-         F8BQSOEGZrt4ISThIHWt1PSXFspo8GcFxMb5QECHllID5FQOH6wc95zNNEY9WwdEzwgc
-         uIdw==
-X-Forwarded-Encrypted: i=1; AJvYcCX7TzCsZd4j5B4sNY5nhNLz3l+0UOs2pQJ1tkFCKvNuu1V37ess+OfU9YaGqzyZoemEtLyGUkBogutxwkuTFhQz8+WVrK8qCoDpgKNyZrs=
-X-Gm-Message-State: AOJu0YwJeZuTe5II7cYF6t9t+cRKOT655EhTP0dlYUcC83v21rKGOSxX
-	rUTnWl9w0VCEqqoxSeSa4LHsffFCC83b3Ail7ndRXiZ1W7SvbiqzpKhBbU5KcQ==
-X-Google-Smtp-Source: AGHT+IEe5tIr88dhau/hp4cGFqNgorG6PCh03Lq9DqUi+0W2/aGRl4vPRYopnY0bg6Mbii/nfQvMHw==
-X-Received: by 2002:a05:651c:2211:b0:2ef:2490:46f1 with SMTP id 38308e7fff4ca-2f02b741d17mr30664261fa.23.1721824440079;
-        Wed, 24 Jul 2024 05:34:00 -0700 (PDT)
-Message-ID: <7641ef1d-b6b0-409d-8169-6e0c43a0227f@suse.com>
-Date: Wed, 24 Jul 2024 14:33:58 +0200
+        bh=yl1wq62E2OWmmxs2B6fPZ+78OhF7H2md4Qsr4Igmt90=;
+        b=nVALybSO1MksgcH2cIIkA44b5VByALrOBZjMIfG0bzY93WAO9qMEUaZ6iDx/tXagbN
+         rABf3fNRv3aKSPTHvwedQJvHz6FFOJMX/vQWmVwfuwEGzWh4/tZck/aYcCr8MjsdkCBc
+         WYYhrEbLdLtybPT7TRvzKnrtQ3V0iba9aj/kCn4epRKODhQ6jlcNR6CHXpieukwmdzN6
+         lUBYP/sBjZeni5qz+6A5J5SLJNki5YRxfg8OJWDBYoa3u8vgTlTzf5AtG69QLgf0zwN1
+         5zsmpEGgImQ3aLWpD9flWiERqI00OmKpHUdlhP798FzJnI2PQCac/mccAi90bbJIkLgU
+         CO3g==
+X-Forwarded-Encrypted: i=1; AJvYcCUDfnCg3nuUfUjR3x40AyfCO8O0JKg37QwwWdo6HOycg19wG1KLYhRyw8xL3JrascgVqxC993SsbkyT03GYptJyVGKVlMoei+YNn5kze6A=
+X-Gm-Message-State: AOJu0YymoY/4Xwt4Br4XkAJsBblOuh2S//WSV01NK/dBT/J3GmMMGFVa
+	4DKgbotYmJFVr2hg/DpaoEwuyfWXWzt+R1ArJTr3sdQ8+WGWGziwkcPYPSlTlA==
+X-Google-Smtp-Source: AGHT+IFjqbWpmuQc9COMPEZiGX2jooP4sx1DsxDe1a8nraqmFWQaArEYzxxP0C+UkYAQ6y1g5LsBuw==
+X-Received: by 2002:a2e:7d15:0:b0:2ef:2483:5659 with SMTP id 38308e7fff4ca-2ef24836095mr74736691fa.5.1721824705264;
+        Wed, 24 Jul 2024 05:38:25 -0700 (PDT)
+Message-ID: <313a4ce6-e080-4d9e-8f08-ba40be98a7a9@suse.com>
+Date: Wed, 24 Jul 2024 14:38:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/printk: Avoid the use of L as a length modifier
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240723174129.67911-1-andrew.cooper3@citrix.com>
- <f88005d5-8c1f-4060-b3b4-7f88d8c42725@suse.com>
- <7125fef0-fe2c-4c6d-bfc8-fdb4dc126905@citrix.com>
+Subject: Re: [XEN PATCH v4 1/9] automation/eclair: fix deviation of MISRA C
+ Rule 16.3
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1721050709.git.federico.serafini@bugseng.com>
+ <490e1a84b1b4b8d983dc41af147191f79506cdbd.1721050709.git.federico.serafini@bugseng.com>
+ <d39e4fd8-ce54-48b2-8b20-b22b5c70fe73@suse.com>
+ <efb0d95f-2feb-419f-92fb-ff2d1c199cb9@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,74 +116,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7125fef0-fe2c-4c6d-bfc8-fdb4dc126905@citrix.com>
+In-Reply-To: <efb0d95f-2feb-419f-92fb-ff2d1c199cb9@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24.07.2024 12:30, Andrew Cooper wrote:
-> On 24/07/2024 8:34 am, Jan Beulich wrote:
->> On 23.07.2024 19:41, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/cpu/mcheck/vmce.c
->>> +++ b/xen/arch/x86/cpu/mcheck/vmce.c
->>> @@ -71,7 +71,7 @@ int vmce_restore_vcpu(struct vcpu *v, const struct hvm_vmce_vcpu *ctxt)
->>>      if ( ctxt->caps & ~guest_mcg_cap & ~MCG_CAP_COUNT & ~MCG_CTL_P )
->>>      {
->>>          printk(XENLOG_G_ERR
->>> -               "%s restore: unsupported MCA capabilities %#"PRIx64" for %pv (supported: %#Lx)\n",
->>> +               "%s restore: unsupported MCA capabilities %#"PRIx64" for %pv (supported: %#llx)\n",
->>>                  is_hvm_vcpu(v) ? "HVM" : "PV", ctxt->caps,
->>>                  v, guest_mcg_cap & ~MCG_CAP_COUNT);
->> guest_mcg_cap is unsigned long and MCG_CAP_COUNT could as well use UL instead
->> of ULL, couldn't it?
-> 
-> Well, like ...
-> 
+On 24.07.2024 13:32, Federico Serafini wrote:
+> On 24/07/24 11:45, Jan Beulich wrote:
+>> On 15.07.2024 18:48, Federico Serafini wrote:
+>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>> @@ -499,7 +499,7 @@ safe."
+>>>   -doc_end
+>>>   
+>>>   -doc_begin="Switch clauses ending with an explicit comment indicating the fallthrough intention are safe."
+>>> --config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through.? \\*/.*$,0..1))))"}
+>>> +-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through\\.? \\*/.*$,0..2))))"}
+>>>   -doc_end
+>>>   
+>>>   -doc_begin="Switch statements having a controlling expression of enum type deliberately do not have a default case: gcc -Wall enables -Wswitch which warns (and breaks the build as we use -Werror) if one of the enum labels is missing from the switch."
 >>
->>> --- a/xen/arch/x86/hvm/vmx/vmcs.c
->>> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
->>> @@ -517,7 +517,7 @@ static int vmx_init_vmcs_config(bool bsp)
->>>          if ( (vmx_basic_msr_high & (VMX_BASIC_VMCS_SIZE_MASK >> 32)) >
->>>               PAGE_SIZE )
->>>          {
->>> -            printk("VMX: CPU%d VMCS size is too big (%Lu bytes)\n",
->>> +            printk("VMX: CPU%d VMCS size is too big (%llu bytes)\n",
->>>                     smp_processor_id(),
->>>                     vmx_basic_msr_high & (VMX_BASIC_VMCS_SIZE_MASK >> 32));
->>>              return -EINVAL;
->>> @@ -564,7 +564,7 @@ static int vmx_init_vmcs_config(bool bsp)
->>>          if ( (vmx_basic_msr_high & (VMX_BASIC_VMCS_SIZE_MASK >> 32)) !=
->>>               ((vmx_basic_msr & VMX_BASIC_VMCS_SIZE_MASK) >> 32) )
->>>          {
->>> -            printk("VMX: CPU%d unexpected VMCS size %Lu\n",
->>> +            printk("VMX: CPU%d unexpected VMCS size %llu\n",
->>>                     smp_processor_id(),
->>>                     vmx_basic_msr_high & (VMX_BASIC_VMCS_SIZE_MASK >> 32));
->>>              mismatch = 1;
->> Same here for VMX_BASIC_VMCS_SIZE_MASK. We leverage not doing 32-bit builds
->> anymore in exactly this way elsewhere.
+>> This patch doesn't apply. There's a somewhat similar entry, but its doc_begin
+>> line is sufficiently different. I have no idea what's going on here; there's
+>> no dependency stated anywhere.
 > 
-> ... this, it is about 32bit builds.
+> Right, this patch depends on [1] which has not been committed yet.
+> 
+> [1]
+> https://lists.xenproject.org/archives/html/xen-devel/2024-06/msg01347.html
 
-I don't think this is relevant for the VMCS constants?
+Which in turn isn't ready to be committed yet afaict, due to a pending
+question regarding ASSERT_UNREACHABLE().
 
-> For better or worse, the msr-index cleanup says to use ULL, and this was
-> so it could be shared into 32bit codebases.  (In this case, I was
-> thinking HVMLoader and misc bits of userspace.)
-
-Hmm, yes. Let me mention though that right when starting that cleanup, you
-introduced two outliers - MSR_CTC_{THREAD,CORE}_MASK. The latter was later
-changed to have a U suffix, in part due to both Stefano and me not paying
-enough attention when reviewing. So while I can see the goal, I'm wondering
-whether we shouldn't take the abstraction there yet a step further and
-arrange for UL suffixes in 64-bit builds, but for ULL in 32-bit ones:
-
-#ifdef __i386__
-# define _MC(x) _AC(x, ULL)
-#else
-# define _MC(x) _AC(x, UL)
-#endif
-
-Thoughts?
+In any event - please make sure you prominently state dependencies on
+uncommitted patches (outside of the same series of course).
 
 Jan
 
