@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2380A93B5D8
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 19:24:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764445.1174889 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D409A93B623
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 19:50:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764454.1174903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWfik-00046d-6P; Wed, 24 Jul 2024 17:24:10 +0000
+	id 1sWg6p-0007Nj-4u; Wed, 24 Jul 2024 17:49:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764445.1174889; Wed, 24 Jul 2024 17:24:10 +0000
+Received: by outflank-mailman (output) from mailman id 764454.1174903; Wed, 24 Jul 2024 17:49:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWfik-000445-39; Wed, 24 Jul 2024 17:24:10 +0000
-Received: by outflank-mailman (input) for mailman id 764445;
- Wed, 24 Jul 2024 17:24:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sWg6p-0007L8-1U; Wed, 24 Jul 2024 17:49:03 +0000
+Received: by outflank-mailman (input) for mailman id 764454;
+ Wed, 24 Jul 2024 17:49:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Rh+e=OY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sWfij-00043z-2P
- for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 17:24:09 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8839c426-49e1-11ef-bbfe-fd08da9f4363;
- Wed, 24 Jul 2024 19:24:07 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a77ec5d3b0dso11425666b.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 10:24:07 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a92dddccdsm206680066b.79.2024.07.24.10.24.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jul 2024 10:24:06 -0700 (PDT)
+ <SRS0=a5wr=OY=amd.com=VictorM.Lira@srs-se1.protection.inumbo.net>)
+ id 1sWg6n-0007L2-5F
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 17:49:01 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2062a.outbound.protection.outlook.com
+ [2a01:111:f403:2407::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fffa2817-49e4-11ef-8776-851b0ebba9a2;
+ Wed, 24 Jul 2024 19:48:58 +0200 (CEST)
+Received: from SJ2PR12MB8876.namprd12.prod.outlook.com (2603:10b6:a03:539::18)
+ by MN2PR12MB4271.namprd12.prod.outlook.com (2603:10b6:208:1d7::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.17; Wed, 24 Jul
+ 2024 17:48:54 +0000
+Received: from SJ2PR12MB8876.namprd12.prod.outlook.com
+ ([fe80::69d9:a014:7a29:de4a]) by SJ2PR12MB8876.namprd12.prod.outlook.com
+ ([fe80::69d9:a014:7a29:de4a%5]) with mapi id 15.20.7762.027; Wed, 24 Jul 2024
+ 17:48:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,426 +47,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8839c426-49e1-11ef-bbfe-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1721841847; x=1722446647; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4Rvyrsvi4VDHSNTEoTN5RHC0ozeuUeA8jV41FRDsJis=;
-        b=hE0SX6Jc+MvvtI9AtIe+7N9hcH1HOR4XlUzWvjU4BfT86VMZB0Y2vpjOc1iQWmm8iD
-         FFZfEPGTb+KkDfNeoIMcAZpZVrzv07WsSZJFgT2y80/eldnlF7aVmHJe11MbnRR8oKXv
-         ja0kwnzcy6ZAt0YdmqUHxzkGAe81LlTwkd35E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721841847; x=1722446647;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4Rvyrsvi4VDHSNTEoTN5RHC0ozeuUeA8jV41FRDsJis=;
-        b=FPkw3ZSzI2kmBntN+ksopDeHntFgs42TsgzhNtgfZKFbjV+vVqGzx5GAZVdz0Og6EH
-         ozhgtaRuOZasBuKPWL/Nr/epyKIYN9Kqo1aUC9AXYpW37Aoxf4kDf2YB2vyL1q7nGaZQ
-         cSt4vQZfQFz7YrqOzGxfcD10IZZds8aErVksjcsTisv22GBiKrQRln46e6a2CmwxDdFq
-         16+kd+R6YlerdNfEk49r2fBuksJWDKuH/MgG3QgnRg8LQwAbqWpJFF6mzaKH2FY9ABzn
-         h5Fax7qpPik22ilw51fb5UamaPqI5y7/3S/kY2e8aEb3l82CCGcVndccpH/faZx1Pjw8
-         5NRw==
-X-Forwarded-Encrypted: i=1; AJvYcCX2Bl4SbyKai3oRJ6x5cT1WuMN1QkMqIfltgCk6j70qf24AKc6Ag9VhLiYntnxDPbnq/vy6ajna4POPKnFsxqtnB5yxC7WrmMPxA4SviDM=
-X-Gm-Message-State: AOJu0YwMsT6lXDWnadDe/w8vBvVin3pvUCjWvz0tOO1puNthNCWDCzW6
-	PHJzDo4JUlvCX9UY1H4QjoHVMzKzWNgKsWh99NzUYvFW3vwCm/H9VlSeJ0qGs9I=
-X-Google-Smtp-Source: AGHT+IFK1AvohhlDV9rKjIsqQFeMp48KS4yansf0Mvz5b0VmVQ0mtr2EhnUvOKmgBzBSmEmEPlwUeg==
-X-Received: by 2002:a17:906:fca7:b0:a7a:c197:8712 with SMTP id a640c23a62f3a-a7ac528ecb7mr7009866b.59.1721841846848;
-        Wed, 24 Jul 2024 10:24:06 -0700 (PDT)
-Message-ID: <4f24cc9a-3eb8-4c6f-bcb4-a9e04a50cd9e@citrix.com>
-Date: Wed, 24 Jul 2024 18:24:04 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: fffa2817-49e4-11ef-8776-851b0ebba9a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i84to+0kpjgGDRP3EuH3lkGiLvwTAEIo/NI5hGsnI/pZGXsB8Ri3NOFGQGhubykAkhswKuM0NL9bwlFjHUYaVgvHCLhiFhTBA3xnSPRqqZZE05ilD44eCT4Ij0k1GXQe7e9EN/XZfO2fstQJJ3ydZNY+OwjzXhNZOpvtjD6o/dGlGNao8vSsyUuLz+a5v1YNK6U4j2Ps9cNItbONScFx2BbBYknYnLloblLc3rcXj28w8U0mH8UpOVOwlrbyVIYYkzIRvl1UVRrsP7dTNQKC04UTMGXmAfDf1K5Ylh008TjTJ37FuiZO8GmIO1v7NmJvHBEdFLl3WtOoCrj0DO17RA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G3rQt1eS1aoDIvTnPZegoVA5lc1gfRlK8Zh9V16wvto=;
+ b=SznYS2viGtaeTSp2IsMa3lHPCqMDfT+tCCqf6QyTFO3huv9RL867ei/tHV8cZWhm+t9OVfYPyLgcAh2hJHzAxVyEGzIq6ur8dV9P89C5lMGS0IYC7SS7KsDW51HzU7bn7YeQyssQdrltBiQ+omkZT9Bbwxy/8DVLLLv4BgPs9yVTScfOHKxabtrOEpHTExvdMauzxWvH5ToTEw110HfHLTvycMiy62B1fPFcSeIPVF/bYpkAstmPPGTdegDkfi2uQ/8qZi0LEN77CNtYSaJ5dXGNpCYYPsyUaWjwZba5MzI5UwgbURt7BYFjjMJ8ihSzIdy9VmNc+/NNov+C8ZTP6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G3rQt1eS1aoDIvTnPZegoVA5lc1gfRlK8Zh9V16wvto=;
+ b=BSrYwqjFqushIzTrU3dgqk7NbCOv5BBSJie3JPpw9gt0LGMHLXcJLpbgA6ZVw83MlD99nZ0FrOgnWI0ordM8A+NvwD2fDFOx229hs38SyY4HPzMGJZuWLxFXZV+VkBCThNdkOUoLBAZWzvBLrdFcmJ7QCwXhXUYV5wehOGBYdTA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <8fa38784-ba85-4675-9fad-39dd97652bb6@amd.com>
+Date: Wed, 24 Jul 2024 10:48:53 -0700
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.20] hvmloader: Rework hypercall infrastructure
+Subject: Re: [RFC PATCH] automation: add linker symbol name script
 To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240717111231.3517605-1-andrew.cooper3@citrix.com>
- <ec6f3d2b-d5be-4ff5-9bf1-79eb5a3a85e1@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ec6f3d2b-d5be-4ff5-9bf1-79eb5a3a85e1@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-On 17/07/2024 1:37 pm, Jan Beulich wrote:
-> On 17.07.2024 13:12, Andrew Cooper wrote:
->> Right now, the hypercall page is at a hardcoded physical address, and making
->> hypercalls involves indirect calls to compile-time constant addresses.
->> e.g. HYPERCALL_memory_op is:
->>
->>   mov    $0x80180,%eax
->>   call   *%eax
->>
->> Instead, import the hypercall infrastructure from XTF to have hypercall_page[]
->> fully within the hvmloader image, and prepared at compile time rather than
->> runtime.  This uses direct calls, so HYPERCALL_memory_op now disassembles as:
->>
->>   call   132180 <HYPERCALL_memory_op>
->>
->> which is faster and clearer.
-> Just to mention it - even with a fixed address using indirect calls shouldn't
-> have been necessary (minus assembler bugs, that is).
-
-Indeed.
-
-The very proto-form of XTF to investigate XSA-106 was done in HVMLoader
-because I needed something HVM based (rather than the MiniOS based PV
-work I'd been doing up to that point).
-
-Starting XTF from scratch was a very deliberate decision so as not to
-starting with technical debt such as this...
-
->
->> Remove the loop over multiple hypercall pages.  It was long ago realised to be
->> an unworkable design, and eax fixed in the ABI to 1.
->>
->> Pass -z noexecstack to LD to stop newer bintuils complaining about the absence
->> of .note.GNU-stack.  hvmloader is not a regular binary, and in fact its stack
->> is always executable owing to operating in unpaged mode.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->>
->> There doesn't appear to be any sensible AFLAGS infrastructure to set
->> -D__ASSEMBLY__.  Opecoding it once seemed like the least bad option.
-> I agree.
->
->> ---
->>  tools/firmware/hvmloader/Makefile         |   3 +
->>  tools/firmware/hvmloader/config.h         |   1 -
->>  tools/firmware/hvmloader/hvmloader.c      |   7 +-
->>  tools/firmware/hvmloader/hvmloader.lds    |   4 +-
->>  tools/firmware/hvmloader/hypercall.h      | 121 ++++++----------------
->>  tools/firmware/hvmloader/hypercall_page.S |  67 ++++++++++++
->>  6 files changed, 105 insertions(+), 98 deletions(-)
->>  create mode 100644 tools/firmware/hvmloader/hypercall_page.S
-> May I ask that the new file use a hyphen in place of the underscore?
->
->> @@ -142,8 +141,7 @@ static void init_hypercalls(void)
->>  
->>      /* Fill in hypercall transfer pages. */
->>      cpuid(base + 2, &eax, &ebx, &ecx, &edx);
->> -    for ( i = 0; i < eax; i++ )
->> -        wrmsr(ebx, HYPERCALL_PHYSICAL_ADDRESS + (i << 12) + i);
->> +    wrmsr(ebx, (unsigned long)hypercall_page);
-> Convert the comment to singular then, too?
->
->> --- a/tools/firmware/hvmloader/hvmloader.lds
->> +++ b/tools/firmware/hvmloader/hvmloader.lds
->> @@ -7,9 +7,9 @@ SECTIONS
->>     * NB: there's no need to use the AT keyword in order to set the LMA, by
->>     * default the linker will use VMA = LMA unless specified otherwise.
->>     */
->> -  .text : { *(.text) *(.text.*) }
->> +  .text : { *(.text) *(.text.*)}
-> Likely merely a leftover from some experimentation?
-
-Ah yes.  I originally had .text.hcall which doesn't work properly after
-.text.*
-
-But I also didn't want it disassembled by default, hence ending up in data.
-
->
->> --- a/tools/firmware/hvmloader/hypercall.h
->> +++ b/tools/firmware/hvmloader/hypercall.h
->> @@ -35,148 +35,91 @@
->>  #include <xen/xen.h>
->>  #include "config.h"
->>  
->> -#define hcall_addr(name)                                                \
->> -    ((unsigned long)HYPERCALL_PHYSICAL_ADDRESS + __HYPERVISOR_##name * 32)
->> -
->> -#define _hypercall0(type, name)                 \
->> -({                                              \
->> -    long __res;                                 \
->> -    asm volatile (                              \
->> -        "call *%%eax"                           \
->> -        : "=a" (__res)                          \
->> -        : "0" (hcall_addr(name))                \
->> -        : "memory" );                           \
->> -    (type)__res;                                \
->> -})
->> -
->> -#define _hypercall1(type, name, a1)             \
->> -({                                              \
->> -    long __res, __ign1;                         \
->> -    asm volatile (                              \
->> -        "call *%%eax"                           \
->> -        : "=a" (__res), "=b" (__ign1)           \
->> -        : "0" (hcall_addr(name)),               \
->> -          "1" ((long)(a1))                      \
->> -        : "memory" );                           \
->> -    (type)__res;                                \
->> -})
->> -
->> -#define _hypercall2(type, name, a1, a2)                 \
->> -({                                                      \
->> -    long __res, __ign1, __ign2;                         \
->> -    asm volatile (                                      \
->> -        "call *%%eax"                                   \
->> -        : "=a" (__res), "=b" (__ign1), "=c" (__ign2)    \
->> -        : "0" (hcall_addr(name)),                       \
->> -          "1" ((long)(a1)), "2" ((long)(a2))            \
->> -        : "memory" );                                   \
->> -    (type)__res;                                        \
->> -})
->> -
->> -#define _hypercall3(type, name, a1, a2, a3)             \
->> -({                                                      \
->> -    long __res, __ign1, __ign2, __ign3;                 \
->> -    asm volatile (                                      \
->> -        "call *%%eax"                                   \
->> -        : "=a" (__res), "=b" (__ign1), "=c" (__ign2),   \
->> -          "=d" (__ign3)                                 \
->> -        : "0" (hcall_addr(name)),                       \
->> -          "1" ((long)(a1)), "2" ((long)(a2)),           \
->> -          "3" ((long)(a3))                              \
->> -        : "memory" );                                   \
->> -    (type)__res;                                        \
->> -})
->> -
->> -#define _hypercall4(type, name, a1, a2, a3, a4)         \
->> -({                                                      \
->> -    long __res, __ign1, __ign2, __ign3, __ign4;         \
->> -    asm volatile (                                      \
->> -        "call *%%eax"                                   \
->> -        : "=a" (__res), "=b" (__ign1), "=c" (__ign2),   \
->> -          "=d" (__ign3), "=S" (__ign4)                  \
->> -        : "0" (hcall_addr(name)),                       \
->> -          "1" ((long)(a1)), "2" ((long)(a2)),           \
->> -          "3" ((long)(a3)), "4" ((long)(a4))            \
->> -        : "memory" );                                   \
->> -    (type)__res;                                        \
->> -})
->> -
->> -#define _hypercall5(type, name, a1, a2, a3, a4, a5)     \
->> -({                                                      \
->> -    long __res, __ign1, __ign2, __ign3, __ign4, __ign5; \
->> -    asm volatile (                                      \
->> -        "call *%%eax"                                   \
->> -        : "=a" (__res), "=b" (__ign1), "=c" (__ign2),   \
->> -          "=d" (__ign3), "=S" (__ign4), "=D" (__ign5)   \
->> -        : "0" (hcall_addr(name)),                       \
->> -          "1" ((long)(a1)), "2" ((long)(a2)),           \
->> -          "3" ((long)(a3)), "4" ((long)(a4)),           \
->> -          "5" ((long)(a5))                              \
->> -        : "memory" );                                   \
->> -    (type)__res;                                        \
->> -})
->> +extern const char hypercall_page[];
->> +
->> +#define _hypercall2(type, hcall, a1, a2)                                \
->> +    ({                                                                  \
->> +        long res, _a1 = (long)(a1), _a2 = (long)(a2);                   \
->> +        asm volatile (                                                  \
->> +            "call hypercall_page + %c[offset]"                          \
->> +            : "=a" (res), "+b" (_a1), "+c" (_a2)                        \
->> +            : [offset] "i" (hcall * 32)                                 \
->> +            : "memory" );                                               \
->> +        (type)res;                                                      \
->> +    })
->> +
->> +#define _hypercall3(type, hcall, a1, a2, a3)                            \
->> +    ({                                                                  \
->> +        long res, _a1 = (long)(a1), _a2 = (long)(a2), _a3 = (long)(a3); \
->> +        asm volatile (                                                  \
->> +            "call hypercall_page + %c[offset]"                          \
->> +            : "=a" (res), "+b" (_a1), "+c" (_a2), "+d" (_a3)            \
->> +            : [offset] "i" (hcall * 32)                                 \
->> +            : "memory" );                                               \
->> +        (type)res;                                                      \
->> +    })
-> Not having _hypercall0() and _hypercall1() anymore is certainly a little
-> odd. If one needed to use such a hypercall, even if only for debugging,
-> the extra work needed (every time) would be larger than necessary. I'm
-> definitely less worried about _hypercall4() and _hypercall5().
->
-> In any event the removal of any wrappers could do with mentioning in the
-> description, to indicate it's deliberate (and why).
-
-I suppose leaving 0 and 1 behind is fine.  That's easy enough.
-
->
->>  static inline int
->>  hypercall_sched_op(
->>      int cmd, void *arg)
->>  {
->> -    return _hypercall2(int, sched_op, cmd, arg);
->> +    return _hypercall2(int, __HYPERVISOR_sched_op, cmd, arg);
->>  }
-> I know you don't really like token concatenation in cases like these ones,
-> but these adjustments all don't look as if they were necessary right here.
-> The new macros use the macro parameter only in ways where token pasting
-> would continue to work, afaics. And in the new assembly file you use very
-> similar token pasting anyway.
-
-That's because my judgement is not about simply tokenisation (or not). 
-It's about not using ## when it is likely to interfere with
-grep/cscope/tags/etc.
-
-The assembly file both isn't really interesting to find this way, and
-needs ## in order to work the way it does (differing prefixes in the
-hypercall names).
-
->
->> --- /dev/null
->> +++ b/tools/firmware/hvmloader/hypercall_page.S
->> @@ -0,0 +1,67 @@
->> +#include <xen/xen.h>
->> +
->> +        .section ".hcall", "aw"
-> Why "aw"? I'd have expected "awx" if you really think the writable part
-> needs expressing here, or else "ax". Otherwise I think a brief comment as
-> wanted as to the absence of x for something that is executable.
-
-It's because it's merged with .data (so it doesn't pollute the
-disassembly).  "awx" causes a section flags mismatch.
-
-> Also may I ask that you add @progbits?
-
-Ok.
-
->
->> +        .align 4096
-> PAGE_SIZE? And then again ...
->
->> +        .globl hypercall_page
->> +hypercall_page:
->> +         /* Poisoned with `ret` for safety before hypercalls are set up. */
->> +        .fill 4096, 1, 0xc3
->> +        .type hypercall_page, STT_OBJECT
->> +        .size hypercall_page, 4096
-> ... here?
-
-HVMLoader doesn't have a suitable constant, and doesn't have _AC().
-
-Although we probably can just get away with (1 << PAGE_SHIFT) and drop
-the ul.
-
->
-> As to the "poisoning" - how does RET provide any safety? If a call happened
-> early, the uncertainty of what %eax is set to would make it unpredictable
-> how such a caller would further behave. Imo better to crash / hang in such
-> a case, perhaps by using INT3 instead.
->
-> I notice that matches earlier behavior, but there the comment at least
-> validly said "rendering them no-ops" (yet still without considering
-> possible problems resulting from doing so).
-
-That's a complicated one.  I can't remember why I chose that exact
-phraseology, but it's not really about accidentally-too-early case, it's
-about error handling.
-
-HVMLoader doesn't have an IDT, so any exception is fatal.  But that's
-also something that ideally wants fixing (if it weren't for the fact
-that it's more likely that I'll complete plans to remove hvmloader
-completely before having time to do an IDT).
-
-But for code which does have a panic() function, there's console_io
-(logging) and sched_op (SHUTDOWN_crash) which you want to use just in
-case they do work, before moving onto other methods of terminating.
+Cc: Stefano Stabellini <sstabellini@kernel.org>, roberto.bagnara@bugseng.com,
+ consulting@bugseng.com, simone.ballarin@bugseng.com,
+ xen-devel@lists.xenproject.org
+References: <06e4ad1126b8e9231bf6dcf88205857081968274.1721779872.git.victorm.lira@amd.com>
+ <4468a02f-4d8c-4b94-8af6-cd1751cd0a89@suse.com>
+Content-Language: en-US
+From: "Lira, Victor M" <VictorM.Lira@amd.com>
+In-Reply-To: <4468a02f-4d8c-4b94-8af6-cd1751cd0a89@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY5PR13CA0032.namprd13.prod.outlook.com
+ (2603:10b6:a03:180::45) To SJ2PR12MB8876.namprd12.prod.outlook.com
+ (2603:10b6:a03:539::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8876:EE_|MN2PR12MB4271:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21da418c-1295-4be4-5fcc-08dcac08e2a7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RjZjaHlHcEU3dWY1cnU0YTUwNnl1S3FSNEJQUXZBRmQxei9kbkxCK1NjaDQy?=
+ =?utf-8?B?eUVWK3FEWXJZaHFJOVRoNm4rQ3podDZnY2YxbzVHL1ExV0NFc2tqc3hSU3Zp?=
+ =?utf-8?B?bGltUlpFeDBmQ3hXYTVlRDJQeXNNZm1ZbEordmJVQnlJZkFHcHFLU2J1Z0Nv?=
+ =?utf-8?B?ODlGYVBDMWlKRmk0QUVmMUhTbTJ0YVo0K25mek9GYXU2OWN3WWVVT0RWZzdK?=
+ =?utf-8?B?bFZwQllyVCtQczBPemU3a2dwU2UzQTFPWTlJaDJ6WXBqdHcxR3ZSM0xmNG04?=
+ =?utf-8?B?cXc1eFBsa09kanFtZDJyaVREZng1UW9reEpzTUtQK2o4VjJza2dRSVRKZlJJ?=
+ =?utf-8?B?QXpiUnFTbklLQklZQVZveE1ITHBvZy9VOHFWUUpRcm94ZGZKREhLN2NQMnJj?=
+ =?utf-8?B?SEh3OHp4dkxkTUtSaGZKWlBzV3ZaOS9oN2tRcm05TmlYWXNjYlhOeHl1aktW?=
+ =?utf-8?B?Q2lvWEJLT1Awa2Mwd2FxNnFiOVJnM05neUV1RTlTem5MbEduWEVrYmoxREsy?=
+ =?utf-8?B?dGgyZWZlbjFXVEpVTGNIcnhIcitjb2R3REx0ZUNGNGo1eHEvbm5CdFNLRGR5?=
+ =?utf-8?B?UlY2emw4VzBHTTE0QStkUjdURDBxZmpoZ1psNHpIN25YdnhFOUhmVTdmNy91?=
+ =?utf-8?B?UjQ5eWQ1QVpQWjI2OUhkVFdJWTJlZnVraktyZ0Q3MFZsTUx3Z25RUjV4L3p5?=
+ =?utf-8?B?c3VtNVBSNnpGMHRxZ0d3bWpwWlVoNnZKaHl2Z3hKNnJqOGFrMnF5OGIwWUJP?=
+ =?utf-8?B?aHlTZlcrajYrQ05CVEZ2MW44YTJuQjRoMUYzMENJZUR1TTBDME5tVnQxanNr?=
+ =?utf-8?B?bEgzSkNEYUxTNE93VDdwcTdaenU1OFV4SjVRY0RVMW5YaXphenU3ZjVZbUhj?=
+ =?utf-8?B?T0VnMnAvMkNEQ3JFOVR2NkhjMGt0L3pNdHZPQ3VFdTRSdXVYZGdXZ3Z3b1or?=
+ =?utf-8?B?R1QyQkN0TW8reU43VHpIaE8xQnVPSnMrZVcrMG40RXNFdnUvcmxWRU04aGRC?=
+ =?utf-8?B?MHRwV1V5aDdRUGZIdzVWU2lJUDhPNEdyR3B1VEh5bEFpbGVQTmQwQnZNbFVu?=
+ =?utf-8?B?eEhBWjE5cXVvUTBqMWpwUGxqNHRCemVwRzRFODRnTDlvei9TZEhKK3cvQ0lS?=
+ =?utf-8?B?WEhEa2pmSXlPZy9mVFpuRmhxZzMrcmxpVGNQNXlmZndIREdZUU1rcFlUaWor?=
+ =?utf-8?B?c2k1MDI0WVBWN2FzTFUvWWh4dlp0Y0VvUTlSUllJZUthQ3BuWFdsWU1JQWhV?=
+ =?utf-8?B?b3JiTXBocFNQZUlzREUxVnZNSEMyL0JvbW1wM3NHa1dBbHBWcTA2YkUzdXpq?=
+ =?utf-8?B?cldCQ1lkdzhMazF0N20rOEErb3Q3UDhrOHBMaFh3RTcvUmluOTR3QzA2Nlpz?=
+ =?utf-8?B?a3U1Ky9yQ3pNbWlkN0tiMU9yWVoySmwxZWVSZzJzcFc0K2wyQUtEcDBDc1R6?=
+ =?utf-8?B?YTR4a0w5ejFoaXRjWjltOHdTN0VqTTJRVHBaVldwWlVTR1crVDVuOHQyTVZk?=
+ =?utf-8?B?Y1J0SWZ6MUw4SjVKRFBGRy84Q1NUQkxaMElBSlVmRFNXTEV3NDhIRFVQVURK?=
+ =?utf-8?B?WG5pMWs4YktLTUxBYzJTR2kxRnFGZ1pWVWlLYW9vcU9GSm9SU2dxbUhMdSsx?=
+ =?utf-8?B?RUVPSDNiQmtZY3pERkFmK0dwNUcwVURZcnZ0V1FMMFhQWnYyaitIOW04U3k5?=
+ =?utf-8?B?UTkwUkNzWS9lN0pGZ3FnV3JSODdwQzUvUXVvZ0dONGZXUzZDSzg4RENXcjFZ?=
+ =?utf-8?B?RmQ2QkNVcGN6MTczalJjRS96T29RWWc4bTdFSGZ4MWFYL1I4NHhpOTJSaFJ0?=
+ =?utf-8?B?WkNESFN0N0QvOVIzd3hSUT09?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8876.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VHc0MXJGcnpHbldRaEVZaHcxVk10SjZDeXhHREZsVjJmeTN4TmhrNFlZcUwv?=
+ =?utf-8?B?N0ZtTHVmSE8wb1BSQ3ArRXQzVmNUMnQzeml0dms5NmdpbytIRStEdzRtWEVp?=
+ =?utf-8?B?Sk5LWEFFNk9tZkdXZWRRRGVVT04xUGd6UXhMM2g5NXZ2c0gvMHBKVDNwaWY5?=
+ =?utf-8?B?aDZUTzYxdEVtOVYvcWJ2MFIzL3pCenREdHhPWUNGRFl5TGQyNFRtRDVkQ2Rw?=
+ =?utf-8?B?M1h6Njh4bnlyZTUxVVhuOEdvWlVKU200KyszVW0yd0NzKzExZ3BScTN6Q281?=
+ =?utf-8?B?ME1PTFFyT0l3c0tkTnFESTVwZ09qZ25VUEVmcDg3ZUpMSjduTXJlWSt1ZUVi?=
+ =?utf-8?B?bFVscDRlbTJqaHhhcmtRUTZ1bHhUN29tNkxrRUlpRi8vYmZVQ01USUdYbUNu?=
+ =?utf-8?B?eXQ5R0Z4aVZsaGFhbkhvNnpSOWQwUnpOK2hJSGxuV2RoYnI5QkVDdkVHMG9l?=
+ =?utf-8?B?MExJTmlQVVdsbUt2YzdsZno4bVl2U2UwMGFqR2V6UW0vNDNFc3ZEcW9IVzNQ?=
+ =?utf-8?B?cTVLRTJUR0ZkR25yVGpyd0Rjb25rYTZQWC9tTWY0M1BDNG05R1ZKVm93YzB5?=
+ =?utf-8?B?UU53SnF0S2Y2UnFNeC9qSGo3TTZKMnRzVVZvSmxWK1ZTblV2K1NqY3orR2d1?=
+ =?utf-8?B?bTBjUzQ3eFBMYy9wT0hUY0RJV0NHMjdpK1I4YmxsTk1TMzMxTG1kVkhMVkZJ?=
+ =?utf-8?B?aXNxZ09OcVhCRFFML1kyc1VnMGpNaDBiTklFdlVXSjhUMXpUUE56OXQ5MmtB?=
+ =?utf-8?B?T3c3SWhRc3dTdjlmZ3RudUF2TEdCNCtJU014QUE5OC8yME9CdU1vN2YxemY3?=
+ =?utf-8?B?QlJzNmhEWXY2b01uVVNoeURYNURqRnJQY1FicExTTkhKYlJ2c2h4djBOdWxP?=
+ =?utf-8?B?WW9yc2ZrVXdBbEZPVVZlcHdCWldXMnBJVDd3R1pKODhhMjBnZ0JudWRiejIx?=
+ =?utf-8?B?d2lwaHBGSXdvY0JZRTZzZXVqc2Z4U0FseVJhU0tPamxrZ2dZTFJQbmhKSkIz?=
+ =?utf-8?B?V3hvbTFiQVhPWUZpZzhjTmtLK1UwYjluaUs4aXpZZytmcXlkVU1VTS9SdkNl?=
+ =?utf-8?B?dC80d1lPcjZCekJjS1kxeFNBcS9xQmVtYXludUt3aUt4T2tGNXZVYWd6cnB6?=
+ =?utf-8?B?RlhOYXRVUmd0U0hCYUdUTmlTbDRPUVBBWTBnWlczMGswZWxRY0EyNzVzbzFS?=
+ =?utf-8?B?aDN3T1FzU0lBbFpXK3VsKzVTaFVFOWlkY2lOTVBhMlpFelZjbGtlcEZWUTF5?=
+ =?utf-8?B?akRiQ0dIek9maDVLd1k1UDhINzEvSVR0ZTBaK2wwbThTSm5aV3ZKUDlnQjdC?=
+ =?utf-8?B?SU1aQjBRR0dZV2ErSzFUNkVmazhBVDFKUnJzdmVKN25JczdwZ2FLMDV6Z2pK?=
+ =?utf-8?B?SGYwTHJYNkxLa2dHZkw5eFhSdjh4dHYxRmFQUnVOZ2Joc3hMUWozY3dpWlRr?=
+ =?utf-8?B?dld2WlhsemVZZU9ISEJkeGI0aGtMcWFwdWJvT3JNRk0ya2ZMZDdWbUJETm42?=
+ =?utf-8?B?QThKK0ZZYXZvN2xqOUs1bGt4TWZxR0k5cm5GOU5WaitYWDE4UFJRYWdJUzBk?=
+ =?utf-8?B?U1Y0c2JSQldla2VkTXd0RWVpRExRWkhnbGhoUm1UMU0vNHhwQzRRWjhqbWJq?=
+ =?utf-8?B?eWtOclZpQ3lxVjhVN29YNlNQSTJsclNaUnM0S2dieEJmYWZjTS9FcDRRSlFR?=
+ =?utf-8?B?TEpaK0VTNzdtdnptM0w5YzBwK2tDVXZGOHpqVXNJdEc2eHhhUEVDaDRIU1N0?=
+ =?utf-8?B?SUp1TktVYlpGc3AvRmU4ckZRRkJKMW9UcTFWbzcrQXZsdlNsZ0E1eUptcUFt?=
+ =?utf-8?B?VkNQRGRqQXpXUzFqOVdlUGV3ZFBGV3BBMjVVRHI0aFYvbkJ3ZWNEdEtoaG9m?=
+ =?utf-8?B?SXJVSmJ2RFJydmdTQmREcEJHUS9QOGpYV3V4cVJnZit1V3ZOLzU4czF0UzNB?=
+ =?utf-8?B?OTVwZGJNeVNCZVZtQnpiYUVtdGhpTkROc1ppMlNiUGU3NTR2LzRHZlRMRWp2?=
+ =?utf-8?B?UUlHazdqbFpGVDVtWHZvUU5RMko0LzFTSmx0dldCOXdPdFNDTDZCcjNEemhn?=
+ =?utf-8?B?UjRNRURCNnN2amtlbkdnNVlRUXdzanQvTmh4bkJQSnBkR3o1RkFIT0doakRF?=
+ =?utf-8?Q?n5dKuzN/V3iI0qYkLCpb+uP9C?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21da418c-1295-4be4-5fcc-08dcac08e2a7
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8876.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2024 17:48:54.3078
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bxIILTi8lpj6p9/y/mpyttQSgNtYm3kP1zY8RYhb1aIrpaW4XQR+6UpvJtGmQoUV0yfxr9NzL5RnD4OvuuSfXQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4271
 
 
->
->> +#define DECLARE_HYPERCALL(name)                                                 \
->> +        .globl HYPERCALL_ ## name;                                              \
->> +        .type  HYPERCALL_ ## name, STT_FUNC;                                    \
->> +        .size  HYPERCALL_ ## name, 32;                                          \
->> +        .set   HYPERCALL_ ## name, hypercall_page + __HYPERVISOR_ ## name * 32
->> +
->> +DECLARE_HYPERCALL(set_trap_table)
->> +DECLARE_HYPERCALL(mmu_update)
->> +DECLARE_HYPERCALL(set_gdt)
->> +DECLARE_HYPERCALL(stack_switch)
->> +DECLARE_HYPERCALL(set_callbacks)
->> +DECLARE_HYPERCALL(fpu_taskswitch)
->> +DECLARE_HYPERCALL(sched_op_compat)
->> +DECLARE_HYPERCALL(platform_op)
->> +DECLARE_HYPERCALL(set_debugreg)
->> +DECLARE_HYPERCALL(get_debugreg)
->> +DECLARE_HYPERCALL(update_descriptor)
->> +DECLARE_HYPERCALL(memory_op)
->> +DECLARE_HYPERCALL(multicall)
->> +DECLARE_HYPERCALL(update_va_mapping)
->> +DECLARE_HYPERCALL(set_timer_op)
->> +DECLARE_HYPERCALL(event_channel_op_compat)
->> +DECLARE_HYPERCALL(xen_version)
->> +DECLARE_HYPERCALL(console_io)
->> +DECLARE_HYPERCALL(physdev_op_compat)
->> +DECLARE_HYPERCALL(grant_table_op)
->> +DECLARE_HYPERCALL(vm_assist)
->> +DECLARE_HYPERCALL(update_va_mapping_otherdomain)
->> +DECLARE_HYPERCALL(iret)
->> +DECLARE_HYPERCALL(vcpu_op)
->> +DECLARE_HYPERCALL(set_segment_base)
->> +DECLARE_HYPERCALL(mmuext_op)
->> +DECLARE_HYPERCALL(xsm_op)
->> +DECLARE_HYPERCALL(nmi_op)
->> +DECLARE_HYPERCALL(sched_op)
->> +DECLARE_HYPERCALL(callback_op)
->> +DECLARE_HYPERCALL(xenoprof_op)
->> +DECLARE_HYPERCALL(event_channel_op)
->> +DECLARE_HYPERCALL(physdev_op)
->> +DECLARE_HYPERCALL(hvm_op)
->> +DECLARE_HYPERCALL(sysctl)
->> +DECLARE_HYPERCALL(domctl)
->> +DECLARE_HYPERCALL(kexec_op)
->> +DECLARE_HYPERCALL(tmem_op)
-> We're not going to ever need this in hvmloader, are we? There are quite a
-> few more that I'd suggest to leave out, but this one stands out for no
-> longer existing even in the hypervisor.
+On 7/24/2024 12:44 AM, Jan Beulich wrote:
+> Nit: In names of new files we prefer - over _.
+> +script_name=`basename "$0"`
+I have fixed the above comments in v2.
 
-I suspect I can trim this to just what HVMLoader needs.  It's not as if
-we're expecting a major change in functionality.
+>> +#!/bin/bash
+> Can we rely on bash to be there and at that location? As you using any
+> bash-isms in the script which cannot be avoided?
 
-~Andrew
+Are the automation scripts required to be portable? Can you please point 
+me to a resource where I can learn how to make the script portable?
+
+Victor
+
 
