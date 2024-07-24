@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCB9093AD59
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 09:44:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763828.1174161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE73F93AD90
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 09:57:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763836.1174171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWWfl-0000Xr-8o; Wed, 24 Jul 2024 07:44:29 +0000
+	id 1sWWrd-0002gW-8u; Wed, 24 Jul 2024 07:56:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763828.1174161; Wed, 24 Jul 2024 07:44:29 +0000
+Received: by outflank-mailman (output) from mailman id 763836.1174171; Wed, 24 Jul 2024 07:56:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWWfl-0000WB-4d; Wed, 24 Jul 2024 07:44:29 +0000
-Received: by outflank-mailman (input) for mailman id 763828;
- Wed, 24 Jul 2024 07:44:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sWWrd-0002el-5c; Wed, 24 Jul 2024 07:56:45 +0000
+Received: by outflank-mailman (input) for mailman id 763836;
+ Wed, 24 Jul 2024 07:56:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D33k=OY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWWfk-0000W5-GH
- for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 07:44:28 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8cf9ecc4-4990-11ef-bbfe-fd08da9f4363;
- Wed, 24 Jul 2024 09:44:26 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a7a8e73b29cso147406266b.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 00:44:26 -0700 (PDT)
+ id 1sWWrb-0002dO-Vm
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 07:56:43 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 43809e0e-4992-11ef-8776-851b0ebba9a2;
+ Wed, 24 Jul 2024 09:56:41 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a7ab5fc975dso19691166b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 00:56:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7ab17e8db5sm39574866b.123.2024.07.24.00.44.25
+ a640c23a62f3a-a7a92dddccdsm162227466b.79.2024.07.24.00.56.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jul 2024 00:44:25 -0700 (PDT)
+ Wed, 24 Jul 2024 00:56:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8cf9ecc4-4990-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: 43809e0e-4992-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721807066; x=1722411866; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721807801; x=1722412601; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F0nozimmj1fFiLCtwOAFz3+vcYAT/xjZFzLeWZ9UJzk=;
-        b=QauCfnKy7cjH5HBx7e3NFN+xKWNmCbuBs69UFGt4mQIroi1eaVfA5Z9GUuG8CBumP7
-         oMQ5ZLjtXHGL+OGsuK/HjTOZptLGK7NBpxOVn/Ihzc8gj3yj+TKesRFgml20dJd05+pI
-         eAUeJKhe08p1V+IvMfx3snweOD7UpYxwZLIB/osADExVqepQe+I1Jn5nYRqnLVGjyPYZ
-         kLCTNL77Qu4JKC5yvm5xShOhUfd5JwHs6OKEqpMlSC0cTxHu45mvooH5m35je+Lk/+Fq
-         4wu3j+uFFSSXQyzgiX4oloMoIs/+rWZ4gz/jBBGUVGclLpR/pnkM77BMKp+v0gXHb7ZD
-         Py6A==
+        bh=Zg5TTElUNPOWDRdPE4JFJtFqpfHGgOG+47kNLVUVaYk=;
+        b=QCIK2ZvZeLEQysOaGV1WGplYXvhudH2mzwH6yBGTfZTy3KciYV2DE4O9TBHlPDI6na
+         C8k5K9ZOBbbr/MOLu2LJuKsSBGRRRWESb5UtY+qikdLLUqh6sdOFoe2HHj6auP5FyZZK
+         Rh6EJ73KAHlLBqX6VsrxzXjd6bjnkVwqUJ8r0fPPBJMvyd82ItlVyMkimR9eNzyFIKJb
+         U+5u1e8srjQIeUPDHdBqakrmzc337qSpoAGS/92ezvADTAcL2IGrFt1+VD77LpYF6ZCp
+         C2uYhvSqjqkytlkqyn4hOwjngYEqHvkUR1bI4F2R/PYFbeZ1Uus00hi08F1+AY+owpAT
+         cOyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721807066; x=1722411866;
+        d=1e100.net; s=20230601; t=1721807801; x=1722412601;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=F0nozimmj1fFiLCtwOAFz3+vcYAT/xjZFzLeWZ9UJzk=;
-        b=sChcWfyJu3GMjITgaHLSKQuT18micWegDQkjiUKSWtfBnQNwXQnPjtuV/sq+loZRi9
-         3ERy3Bp7lPiWAfW2lTXh2bHBhGbHqt9fe7X4uvEfAxcgKx/MHqEaVb0cNTIvRn02k3Ln
-         sy80fw3ofP136Umib/FC9x8gQ0SDtOeNZBq2cbg++/v95W/+vwstbSbX5IP5o2j05Fvn
-         4oR+2ea3HyKWaV7EAJJUNAXMmgj33wF+QAqZRa5YmnE68rDLCwssjBjvnCfr/mAcIpoS
-         l86IcO8gRELwM2MobBFvUWmvWyWj3dRzpLU6f1Ra7OldzrvYH2JPa46b2K7zwBpHHzLj
-         G+PA==
-X-Forwarded-Encrypted: i=1; AJvYcCUuCxfetLfqRP7ZSvC1BHrapcgpH/Ym3isfhF2Pydq0MX/Ek8gc1lr4KhImolJEtsRkgbOkm0P8IZlsQo5RWj6eUF+z1ngFK5oN3NwAzw8=
-X-Gm-Message-State: AOJu0Yz9Ikpiw4QQX+AU5wnFBIWxV3TVS1gsOjsVdLlnA6ZzxFOpjIUh
-	53j2XOH7azxcZfzprcggsf5KxwLu3YgCVa/jjLXL5ShwdK80k26WpI1fCO4SdA==
-X-Google-Smtp-Source: AGHT+IHbB98Vj/gKyMy9sA1SNaTIW393s4pFJ+byveIkKAuMgTXdOOPe3FhOZhRAfc6I1GCS9lSp1g==
-X-Received: by 2002:a17:907:9720:b0:a77:cf09:9c5f with SMTP id a640c23a62f3a-a7aabba7270mr130955566b.37.1721807065615;
-        Wed, 24 Jul 2024 00:44:25 -0700 (PDT)
-Message-ID: <4468a02f-4d8c-4b94-8af6-cd1751cd0a89@suse.com>
-Date: Wed, 24 Jul 2024 09:44:24 +0200
+        bh=Zg5TTElUNPOWDRdPE4JFJtFqpfHGgOG+47kNLVUVaYk=;
+        b=PBCHhTZWyuNACjValEhh2d8/U98Tjvwr32O5XO6sOMhff85W8xMEj5FUgG8BL7QZla
+         strtzibwWUpnM4B1LZrIdNtVry/REqbFk8WqLjZ1Q1xmitf6I9+4vhhgHFDRx9Si6eM2
+         bio1tN2ZTrQodZfXwExxfA3qL8R9DEFkbrKDtOiGRg4BkqgDL15r7wezMaR0HMRFAuOh
+         cOWNiJLK2nv+J0UG/UPi8YOQOU01ZP9duVN5uAEMhgoQRhW86eUJWKdb1J/hAN2CBUih
+         7Qw/CqwIxI28yDv/aa18hZQg4CMB7UHanN+UDrh6RFIzSoSdBkaWJrnLKegBAlgjjySs
+         twUg==
+X-Forwarded-Encrypted: i=1; AJvYcCUp5B0CDV+fM5OzONNXrjPWvxVsbebvDC20L9KZShg0UkisgzJRpA/vIigo20s0sSfJJnjG6I28IzDnaIOul09WHzNCBK4CWlTZ1j8y0u4=
+X-Gm-Message-State: AOJu0YwjQ3yu9lsYLT3VgDQqLdoMZ7mmzrqex678TRsY34dVh1WT0Egd
+	XiWiOc268cK9WVvlLA4WzWaYyyP/JwykCZiYcY7FPi15o4v10OXEeQJ3deHNVA==
+X-Google-Smtp-Source: AGHT+IE9fxggadT2mF0F48MFKOLZBPQtE3LJO+wNeyTGjk2T3RiPKYops5mNJvl2dUXEIusfji6AZQ==
+X-Received: by 2002:a17:907:7f0f:b0:a7a:a5ed:43d0 with SMTP id a640c23a62f3a-a7aa5ed4babmr194344766b.47.1721807801325;
+        Wed, 24 Jul 2024 00:56:41 -0700 (PDT)
+Message-ID: <14104805-0f0e-4741-877f-24afffc816ce@suse.com>
+Date: Wed, 24 Jul 2024 09:56:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] automation: add linker symbol name script
-To: victorm.lira@amd.com
-Cc: Stefano Stabellini <sstabellini@kernel.org>, roberto.bagnara@bugseng.com,
- consulting@bugseng.com, simone.ballarin@bugseng.com,
- xen-devel@lists.xenproject.org
-References: <06e4ad1126b8e9231bf6dcf88205857081968274.1721779872.git.victorm.lira@amd.com>
+Subject: Re: [PATCH] x86/IO-APIC: Improve APIC_TMR accesses
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240723203701.208018-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,83 +111,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <06e4ad1126b8e9231bf6dcf88205857081968274.1721779872.git.victorm.lira@amd.com>
+In-Reply-To: <20240723203701.208018-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.07.2024 02:18, victorm.lira@amd.com wrote:
-> --- /dev/null
-> +++ b/automation/eclair_analysis/linker_symbols.sh
+On 23.07.2024 22:37, Andrew Cooper wrote:
+> XenServer's instance of coverity complains of OVERFLOW_BEFORE_WIDEN in
+> mask_and_ack_level_ioapic_irq(), which is ultimately because of v being
+> unsigned long, and (1U << ...) being 32 bits.
 
-Nit: In names of new files we prefer - over _.
+Which of course is bogus when the shift amount is masked down to 5 bits.
+May I ask that you express this somehow in the wording.
 
-> @@ -0,0 +1,41 @@
-> +#!/bin/bash
+> Introduce a apic_tmr_read() helper like we already have for ISR and IRR, and
+> use it to remove the opencoded access logic.  Introduce an is_level boolean to
+> improve the legibility of the surrounding logic.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Can we rely on bash to be there and at that location? As you using any
-bash-isms in the script which cannot be avoided?
-
-> +# Stop immediately if any executed command has exit status different from 0.
-> +set -e
-> +
-> +# Extract linker symbol names (except those starting with ".") from assignments.
-> +
-> +script_name=`basename "$0"`
-
-Personally I consider $(...) more readable. What I'm strictly going to
-request is that within a script you at least be consistent, seeing ...
-
-> +script_dir="$(
-> +  cd "$(dirname "$0")"
-> +  echo "${PWD}"
-> +)"
-
-... e.g. this.
-
-> +src_dir="${script_dir}/../.."
-> +
-> +usage() {
-> +  echo "Usage: ${script_name} <ARM64|X86_64>"
-
-Why require arguments that then ...
-
-> +}
-> +
-> +if [ $# -ne 1 ]; then
-> +  usage
-> +  exit 1
-> +fi
-> +
-> +if [ "$1" == "X86_64" ]; then
-> +    filepaths=(
-> +        "${src_dir}/xen/arch/x86/xen.lds.S"
-> +    )
-> +elif [ "$1" == "ARM64" ]; then
-> +    filepaths=(
-> +        "${src_dir}/xen/arch/arm/xen.lds.S"
-> +    )
-
-... you need to special case? What's wrong with having the arguments be
-"arm" or "x86"?
-
-However, you also cannot use xen.lds.S here, as that may yield incomplete
-results. This script needs running _after_ a successful build, on the
-generated xen.lds.
-
-> +else
-> +    usage
-> +    exit 1
-> +fi
-> +
-> +(
-> +    for file in "${filepaths[@]}"
-> +    do
-> +        sed -n "s/^\s*\([a-zA-Z_][a-zA-Z_0-9.\-]*\)\s*=.*;\s*$/\1/p" $filepaths
-> +    done
-> +)
-
-Why the extra parentheses? And why a loop and filepaths being an array,
-when there's guaranteed to be only one file?
+The change is an improvement irrespective of Coverity's anomaly, so:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
