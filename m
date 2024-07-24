@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAE6893B3B8
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 17:32:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764294.1174752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B30A393B3DA
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 17:36:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764342.1174789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWdy6-0000DH-VA; Wed, 24 Jul 2024 15:31:54 +0000
+	id 1sWe2K-0005BP-9z; Wed, 24 Jul 2024 15:36:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764294.1174752; Wed, 24 Jul 2024 15:31:54 +0000
+Received: by outflank-mailman (output) from mailman id 764342.1174789; Wed, 24 Jul 2024 15:36:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWdy6-00006s-QR; Wed, 24 Jul 2024 15:31:54 +0000
-Received: by outflank-mailman (input) for mailman id 764294;
- Wed, 24 Jul 2024 15:31:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sWe2K-00058V-77; Wed, 24 Jul 2024 15:36:16 +0000
+Received: by outflank-mailman (input) for mailman id 764342;
+ Wed, 24 Jul 2024 15:36:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fJNX=OY=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sWdy4-0005Oj-HW
- for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 15:31:52 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d98969a1-49d1-11ef-bbfe-fd08da9f4363;
- Wed, 24 Jul 2024 17:31:51 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2ef2cce8c08so41848491fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 08:31:52 -0700 (PDT)
+ id 1sWdy7-0005Od-LS
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 15:31:55 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id da30c9c0-49d1-11ef-8776-851b0ebba9a2;
+ Wed, 24 Jul 2024 17:31:53 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2ef2d96164aso34910601fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 08:31:53 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ef2b568858sm13237311fa.35.2024.07.24.08.31.50
+ 38308e7fff4ca-2ef2b568858sm13237311fa.35.2024.07.24.08.31.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jul 2024 08:31:50 -0700 (PDT)
+ Wed, 24 Jul 2024 08:31:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d98969a1-49d1-11ef-bbfe-fd08da9f4363
+X-Inumbo-ID: da30c9c0-49d1-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1721835111; x=1722439911; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1721835112; x=1722439912; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PXOE9CRQc9546f2NMHjGZ/14SaZEN5RgTjEp/XheDio=;
-        b=k49/vwWu8fhBmZqpE1IS9yn5z2UFmmfZFhWBw48/M9Hlx2tWiNtLxgrqC8XLt/NW08
-         dGNjXrPZUocCpPNSirQeY0o/H7I9eJkn2OjDQcJ4ruZGmrgvzdAWBjHFybITO/ZJfHph
-         uUnkU7ipv4mGQMhP8X+86UXxeCp+ecVXPgi7SKUDnbWrFqoWfQjnL2fcMwXnd9HRQdV6
-         XmFtC97xrPhlZ5OqJxqF+xp1IbRcn8mu+mw7QaaqSYBhJsp+P4BY2d6oJeNamK2eyVfA
-         tRIvqlaDnxWVRAseB2hfSAK0aIKpc1XpgEwg9BgMc321y6U6ujoN13R96TQJHOo3PpmU
-         EUPg==
+        bh=q/CS7Jv3CQg3aYb6VjDr+kgbj+LlISONX9Xzf/VXrcE=;
+        b=isNN5wGfEzeZZBDCZ9UPN64CIA8ouZHSl88/ejQk5xorhIqKLi7Hu1/JoMb5Htmu5m
+         Xe2I8R+OnNFq9O4RFLmrRZ5AVyzkL9z4h9ZJKSqBaiEia70zl/X/7ikBvzklpfR8kpQL
+         iL0n/Hp+fVh37lxxeQhmC9jE1ESgIjvVXyPL20hAxcLxDkygYtzcHnHZRlw+0x8Gf7+N
+         tPwoASJ+5pn7tMlP1v283Hplklr1OMHTDbn4htaDpCoPRjUJKw72w350jGjjYC0lqPls
+         +24usiP3A7a4iWmiHc20wj/jHIAzrNC66LbyVq2MqJGhospmD0YHrLOW2ytzto1cOrDC
+         l9oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721835111; x=1722439911;
+        d=1e100.net; s=20230601; t=1721835112; x=1722439912;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=PXOE9CRQc9546f2NMHjGZ/14SaZEN5RgTjEp/XheDio=;
-        b=iCrfoVzN0zKTihxKzsEqqMsUgPwnUkgzIsNOYaUIyL6KbMvHRsko6V6GaG7560GL9u
-         C1AdML1eCYsfjWmLy2NX/kQVBPhdFoF9OSQa3eD2oCmqvWDg0iIfmOtc2jS+NAGyOLst
-         KpfdUYlPYM+Yjhxs2FHnjHr1tKWdtUuK1944TFxhM/DdfWq1gBrLF66BfqT2HyV6WFzQ
-         wWqYQ7SSSVVEyKRfvbzeg9iWVleNFgIsLV1nqg1iKXICY4dyyP8sO7+XtdUS33V60QvE
-         +X9Hr4iTbUKtEYVRS9nC2QbM4U+BvVApf+Hd3KaV03bZ2ecDwzWilVLTihbH8S4LiDno
-         TLBA==
-X-Gm-Message-State: AOJu0YxkJF3TqD0b9UIyo0dknHvxMq8yZv08aa6rO7joV6BivtLjduIv
-	z5tJ6g0bapZxEUgeh+xBnQ5RS9a22Xr30QBFrlTvU+f7TaRvu7lUZoOz3tc6
-X-Google-Smtp-Source: AGHT+IFsU2+Od5rLfvrYUmDoF5dSsSMCuxFKBOlJMYc7fMR+ZRmqqk7JEQO5hNH2cIv6nBgSU6DcFA==
-X-Received: by 2002:a2e:9651:0:b0:2ef:1edc:3b6a with SMTP id 38308e7fff4ca-2f039ea7c63mr1224821fa.21.1721835111186;
-        Wed, 24 Jul 2024 08:31:51 -0700 (PDT)
+        bh=q/CS7Jv3CQg3aYb6VjDr+kgbj+LlISONX9Xzf/VXrcE=;
+        b=SC1eNCQdO5UyIdgcNmYuZUPVbkE6z7tZycwoBPIOZdoxCETx+i/OkLAyThd831RIG6
+         c+lHW2jNu3cIKt7D8VEMRJUsyhwDuSS+Zc9zckktaw5eTKFhcW/xehkFFiv7g/Zz74Lm
+         aXD81eKNAO9tZV8qeX0zGyDHWf/t9jZsVgC6Wm3qRxH/vVWkGzT97uHv7QygDwmnMuuf
+         sG/q+0eD6cDAiKYXee9CnLJCI0EAsUB3w12ySWroXzcXkhu7wwBncxPwMWDzbDUHweye
+         UlcDb4WR+dfIcpnhpSlJkAH0nAlmZAw19kFRO3kKc1FbJ2wOT3dRuKeof0bz1uTuOFXA
+         POgw==
+X-Gm-Message-State: AOJu0YxVvmpUOVxknsuDF0AL70U4K2BeRmaSjaevln2Ap7rNNjnyzHpW
+	+S56Bdv74pdKppuFcsSvRSNWiE7zJ6FwB3qY4n5SN8NmenqrTGdDAaT+5cAX
+X-Google-Smtp-Source: AGHT+IEyjEPjgLD8s7dHrkVR9Q0dDIrWRBSTtqdVISR/d2JPuqHEq2zU5N7KJ813KWl1O7q1C3Yopg==
+X-Received: by 2002:a2e:9d17:0:b0:2ef:2f77:e577 with SMTP id 38308e7fff4ca-2f039cac58dmr1412581fa.27.1721835112186;
+        Wed, 24 Jul 2024 08:31:52 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -84,189 +84,409 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 6/9] xen/riscv: introduce functionality to work with cpu info
-Date: Wed, 24 Jul 2024 17:31:37 +0200
-Message-ID: <4ea9005d4209e24df9b30a7b3c282276084a3cf1.1721834549.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 7/9] xen/riscv: introduce and init SBI RFENCE extension
+Date: Wed, 24 Jul 2024 17:31:38 +0200
+Message-ID: <fb2d24731f870378d79077be39b1bc19cc655327.1721834549.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <cover.1721834549.git.oleksii.kurochko@gmail.com>
 References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-struct pcpu_info is introduced to store pcpu related information.
-At the moment, it is only processor_id but in the fututre it will be
-guest cpu information and some temporary variables which will be
-used during save/restore of vcpu registers.
+Introduces functions to work with SBI RFENCE extenstion
+which will be used to do various version of fences for
+remote ( not local ) CPU.
 
-set_processor_id() and get_processor_id() are introduced to set and
-get processor id which is stored in pcpu_info.
+Except that sbi_init() function and auxiliary functions and
+macros definitions are introduced to proper initialization and
+checking availability of SBI extenstions.
+At the moment, it is only done for RFENCE.
 
-__cpuid_to_hartid_map[NR_CPUS] is introduced to store the mapping
-between Xen logical CPU and hartid ( physical CPU id ) and auxiliary
-macros cpuid_to_hartid_map() for convience access to __cpuid_to_hartid_map[].
-
-smp_processor_id() is defined properly as it is enough to information to
-define it now instead of seting it to "dummy" 0.
-
-Also, tp registers is initialized to point to pcpu_info[0];
-set_processor_id is set to 0 as Xen is running on logical cpu 0 and
-save physical CPU id for current logical CPU id in __cpuid_to_hartid_map[].
+sbi_remote_sfence_vma() is introduced to send SFENCE_VMA to
+a set of target HARTs and based on that flush_xen_tlb_range_va()
+will be implemented.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V3:
  - new patch.
 ---
- xen/arch/riscv/Makefile                |  2 ++
- xen/arch/riscv/include/asm/processor.h | 35 ++++++++++++++++++++++++--
- xen/arch/riscv/include/asm/smp.h       | 10 ++++++++
- xen/arch/riscv/setup.c                 | 13 ++++++++++
- xen/arch/riscv/smp.c                   |  4 +++
- xen/arch/riscv/smpboot.c               | 12 +++++++++
- 6 files changed, 74 insertions(+), 2 deletions(-)
- create mode 100644 xen/arch/riscv/smp.c
- create mode 100644 xen/arch/riscv/smpboot.c
+ xen/arch/riscv/include/asm/sbi.h |  57 +++++++
+ xen/arch/riscv/sbi.c             | 256 +++++++++++++++++++++++++++++++
+ xen/arch/riscv/setup.c           |   3 +
+ 3 files changed, 316 insertions(+)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index 81b77b13d6..334fd24547 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -4,6 +4,8 @@ obj-y += mm.o
- obj-$(CONFIG_RISCV_64) += riscv64/
- obj-y += sbi.o
- obj-y += setup.o
-+obj-y += smp.o
-+obj-y += smpboot.o
- obj-y += stubs.o
- obj-y += traps.o
- obj-y += vm_event.o
-diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
-index 3ae164c265..4c3e45fd17 100644
---- a/xen/arch/riscv/include/asm/processor.h
-+++ b/xen/arch/riscv/include/asm/processor.h
-@@ -12,8 +12,39 @@
+diff --git a/xen/arch/riscv/include/asm/sbi.h b/xen/arch/riscv/include/asm/sbi.h
+index 0e6820a4ed..0985fbb1aa 100644
+--- a/xen/arch/riscv/include/asm/sbi.h
++++ b/xen/arch/riscv/include/asm/sbi.h
+@@ -14,6 +14,38 @@
  
- #ifndef __ASSEMBLY__
+ #define SBI_EXT_0_1_CONSOLE_PUTCHAR		0x1
  
--/* TODO: need to be implemeted */
--#define smp_processor_id() 0
-+#include <xen/bug.h>
-+#include <xen/types.h>
++#define SBI_EXT_BASE                    0x10
++#define SBI_EXT_RFENCE                  0x52464E43
 +
-+register struct pcpu_info *tp asm ("tp");
++/* SBI function IDs for BASE extension */
++#define SBI_EXT_BASE_GET_SPEC_VERSION   0x0
++#define SBI_EXT_BASE_GET_IMP_ID         0x1
++#define SBI_EXT_BASE_GET_IMP_VERSION    0x2
++#define SBI_EXT_BASE_PROBE_EXT          0x3
 +
-+struct pcpu_info {
-+    unsigned int processor_id;
-+};
++/* SBI function IDs for RFENCE extension */
++#define SBI_EXT_RFENCE_REMOTE_FENCE_I           0x0
++#define SBI_EXT_RFENCE_REMOTE_SFENCE_VMA        0x1
++#define SBI_EXT_RFENCE_REMOTE_SFENCE_VMA_ASID   0x2
++#define SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA       0x3
++#define SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA_VMID  0x4
++#define SBI_EXT_RFENCE_REMOTE_HFENCE_VVMA       0x5
++#define SBI_EXT_RFENCE_REMOTE_HFENCE_VVMA_ASID  0x6
 +
-+/* tp points to one of these */
-+extern struct pcpu_info pcpu_info[NR_CPUS];
++#define SBI_SPEC_VERSION_MAJOR_SHIFT    24
++#define SBI_SPEC_VERSION_MAJOR_MASK     0x7f
++#define SBI_SPEC_VERSION_MINOR_MASK     0xffffff
 +
-+#define get_processor_id()      (tp->processor_id)
-+#define set_processor_id(id)    do { \
-+    tp->processor_id = id;           \
-+} while(0)
++/* SBI return error codes */
++#define SBI_SUCCESS             0
++#define SBI_ERR_FAILURE         -1
++#define SBI_ERR_NOT_SUPPORTED   -2
++#define SBI_ERR_INVALID_PARAM   -3
++#define SBI_ERR_DENIED          -4
++#define SBI_ERR_INVALID_ADDRESS -5
 +
-+static inline unsigned int smp_processor_id(void)
-+{
-+    unsigned int id;
++#define SBI_SPEC_VERSION_DEFAULT        0x1
 +
-+    id = get_processor_id();
-+
-+    /*
-+     * Technically the hartid can be greater than what a uint can hold.
-+     * If such a system were to exist, we will need to change
-+     * the smp_processor_id() API to be unsigned long instead of
-+     * unsigned int.
-+     */
-+    BUG_ON(id > UINT_MAX);
-+
-+    return id;
-+}
- 
- /* On stack VCPU state */
- struct cpu_user_regs
-diff --git a/xen/arch/riscv/include/asm/smp.h b/xen/arch/riscv/include/asm/smp.h
-index b1ea91b1eb..3fff27a8a5 100644
---- a/xen/arch/riscv/include/asm/smp.h
-+++ b/xen/arch/riscv/include/asm/smp.h
-@@ -5,6 +5,8 @@
- #include <xen/cpumask.h>
- #include <xen/percpu.h>
- 
-+#define INVALID_HARTID UINT_MAX
-+
- DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
- DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
- 
-@@ -14,6 +16,14 @@ DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
+ struct sbiret {
+     long error;
+     long value;
+@@ -31,4 +63,29 @@ struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
   */
- #define park_offline_cpus false
+ void sbi_console_putchar(int ch);
  
-+void smp_setup_processor_id(unsigned long boot_cpu_hartid);
++/*
++ * Check underlying SBI implementation has RFENCE
++ *
++ * @return 1 for supported AND 0 for not-supported
++ */
++int sbi_has_rfence(void);
 +
 +/*
-+ * Mapping between linux logical cpu index and hartid.
++ * Send SFENCE_VMA to a set of target HARTs.
++ *
++ * @param hart_mask mask representing set of target HARTs
++ * @param start virtual address start
++ * @param size virtual address size
 + */
-+extern unsigned long __cpuid_to_hartid_map[NR_CPUS];
-+#define cpuid_to_hartid_map(cpu) __cpuid_to_hartid_map[cpu]
++void sbi_remote_sfence_vma(const unsigned long *hart_mask,
++                           unsigned long start,
++                           unsigned long size);
 +
- #endif
++/*
++ * Initialize SBI library
++ *
++ * @return 0 on success, otherwise negative errno on failure
++ */
++int sbi_init(void);
++
+ #endif /* __ASM_RISCV_SBI_H__ */
+diff --git a/xen/arch/riscv/sbi.c b/xen/arch/riscv/sbi.c
+index 0ae166c861..04d878d1e2 100644
+--- a/xen/arch/riscv/sbi.c
++++ b/xen/arch/riscv/sbi.c
+@@ -10,8 +10,18 @@
+  * Copyright (c) 2021-2023 Vates SAS.
+  */
  
- /*
++#include <xen/cpumask.h>
++#include <xen/errno.h>
++#include <xen/init.h>
++#include <xen/lib.h>
++#include <xen/smp.h>
++
++#include <asm/processor.h>
+ #include <asm/sbi.h>
+ 
++static unsigned long sbi_spec_version = SBI_SPEC_VERSION_DEFAULT;
++static unsigned long sbi_fw_id, sbi_fw_version;
++
+ struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
+                         unsigned long arg0, unsigned long arg1,
+                         unsigned long arg2, unsigned long arg3,
+@@ -38,7 +48,253 @@ struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
+     return ret;
+ }
+ 
++static int sbi_err_map_xen_errno(int err)
++{
++    switch ( err )
++    {
++    case SBI_SUCCESS:
++        return 0;
++    case SBI_ERR_DENIED:
++        return -EACCES;
++    case SBI_ERR_INVALID_PARAM:
++        return -EINVAL;
++    case SBI_ERR_INVALID_ADDRESS:
++        return -EFAULT;
++    case SBI_ERR_NOT_SUPPORTED:
++    case SBI_ERR_FAILURE:
++    default:
++        return -EOPNOTSUPP;
++    };
++}
++
+ void sbi_console_putchar(int ch)
+ {
+     sbi_ecall(SBI_EXT_0_1_CONSOLE_PUTCHAR, 0, ch, 0, 0, 0, 0, 0);
+ }
++
++static unsigned long sbi_major_version(void)
++{
++    return (sbi_spec_version >> SBI_SPEC_VERSION_MAJOR_SHIFT) &
++        SBI_SPEC_VERSION_MAJOR_MASK;
++}
++
++static unsigned long sbi_minor_version(void)
++{
++    return sbi_spec_version & SBI_SPEC_VERSION_MINOR_MASK;
++}
++
++static long sbi_ext_base_func(long fid)
++{
++    struct sbiret ret;
++
++    ret = sbi_ecall(SBI_EXT_BASE, fid, 0, 0, 0, 0, 0, 0);
++    if (!ret.error)
++        return ret.value;
++    else
++        return ret.error;
++}
++
++static void sbi_cpumask_to_hartmask(const struct cpumask *cmask,
++                 struct cpumask *hmask)
++{
++    u32 cpu;
++    unsigned long hart = INVALID_HARTID;
++
++    if (!cmask || !hmask)
++        return;
++
++    cpumask_clear(hmask);
++    for_each_cpu(cpu, cmask)
++    {
++        if ( CONFIG_NR_CPUS <= cpu )
++        {
++            printk(XENLOG_ERR "SBI: invalid hart=%lu for cpu=%d\n",
++                     hart, cpu);
++            continue;
++        }
++
++        hart = cpuid_to_hartid_map(pcpu_info[cpu].processor_id);
++        cpumask_set_cpu(hart, hmask);
++    }
++}
++
++static int __sbi_rfence_v02_real(unsigned long fid,
++                 unsigned long hmask, unsigned long hbase,
++                 unsigned long start, unsigned long size,
++                 unsigned long arg4)
++{
++    struct sbiret ret = {0};
++    int result = 0;
++
++    switch ( fid )
++    {
++    case SBI_EXT_RFENCE_REMOTE_FENCE_I:
++        ret = sbi_ecall(SBI_EXT_RFENCE, fid, hmask, hbase,
++                0, 0, 0, 0);
++        break;
++    case SBI_EXT_RFENCE_REMOTE_SFENCE_VMA:
++        ret = sbi_ecall(SBI_EXT_RFENCE, fid, hmask, hbase,
++                start, size, 0, 0);
++        break;
++    case SBI_EXT_RFENCE_REMOTE_SFENCE_VMA_ASID:
++        ret = sbi_ecall(SBI_EXT_RFENCE, fid, hmask, hbase,
++                start, size, arg4, 0);
++        break;
++    case SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA:
++        ret = sbi_ecall(SBI_EXT_RFENCE, fid, hmask, hbase,
++                start, size, 0, 0);
++        break;
++    case SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA_VMID:
++        ret = sbi_ecall(SBI_EXT_RFENCE, fid, hmask, hbase,
++                start, size, arg4, 0);
++        break;
++    case SBI_EXT_RFENCE_REMOTE_HFENCE_VVMA:
++        ret = sbi_ecall(SBI_EXT_RFENCE, fid, hmask, hbase,
++                start, size, 0, 0);
++        break;
++    case SBI_EXT_RFENCE_REMOTE_HFENCE_VVMA_ASID:
++        ret = sbi_ecall(SBI_EXT_RFENCE, fid, hmask, hbase,
++                start, size, arg4, 0);
++        break;
++
++    default:
++        printk("%s: unknown function ID [%lu]\n",
++               __func__, fid);
++        result = -EINVAL;
++        break;
++    };
++
++    if ( ret.error )
++    {
++        result = sbi_err_map_xen_errno(ret.error);
++        printk("%s: hbase=%lu hmask=0x%lx failed (error %d)\n",
++               __func__, hbase, hmask, result);
++    }
++
++    return result;
++}
++
++static int __sbi_rfence_v02(unsigned long fid,
++                const unsigned long *hart_mask,
++                unsigned long start, unsigned long size,
++                unsigned long arg4, unsigned long arg5)
++{
++    struct cpumask tmask;
++    unsigned long hart, hmask, hbase;
++    int result;
++
++    if (!hart_mask)
++    {
++        sbi_cpumask_to_hartmask(&cpu_online_map, &tmask);
++        hart_mask = cpumask_bits(&tmask);
++    }
++
++    hmask = hbase = 0;
++    for_each_set_bit(hart, hart_mask, CONFIG_NR_CPUS)
++    {
++        if (hmask && ((hbase + BITS_PER_LONG) <= hart))
++        {
++            result = __sbi_rfence_v02_real(fid, hmask, hbase,
++                            start, size, arg4);
++            if (result)
++                return result;
++            hmask = hbase = 0;
++        }
++
++        if (!hmask)
++            hbase = hart;
++
++        hmask |= 1UL << (hart - hbase);
++    }
++
++    if (hmask)
++    {
++        result = __sbi_rfence_v02_real(fid, hmask, hbase,
++                        start, size, arg4);
++        if (result)
++            return result;
++    }
++
++    return 0;
++}
++
++static int (*__sbi_rfence)(unsigned long fid,
++        const unsigned long *hart_mask,
++        unsigned long start, unsigned long size,
++        unsigned long arg4, unsigned long arg5) = NULL;
++
++void sbi_remote_sfence_vma(const unsigned long *hart_mask,
++                           unsigned long start,
++                           unsigned long size)
++{
++    __sbi_rfence(SBI_EXT_RFENCE_REMOTE_SFENCE_VMA,
++             hart_mask, start, size, 0, 0);
++}
++
++#define sbi_get_spec_version()		\
++    sbi_ext_base_func(SBI_EXT_BASE_GET_SPEC_VERSION)
++
++#define sbi_get_firmware_id()		\
++    sbi_ext_base_func(SBI_EXT_BASE_GET_IMP_ID)
++
++#define sbi_get_firmware_version()	\
++    sbi_ext_base_func(SBI_EXT_BASE_GET_IMP_VERSION)
++
++int sbi_probe_extension(long extid)
++{
++    struct sbiret ret;
++
++    ret = sbi_ecall(SBI_EXT_BASE, SBI_EXT_BASE_PROBE_EXT, extid,
++            0, 0, 0, 0, 0);
++    if (!ret.error && ret.value)
++        return ret.value;
++
++    return -EOPNOTSUPP;
++}
++
++static int sbi_spec_is_0_1(void)
++{
++    return (sbi_spec_version == SBI_SPEC_VERSION_DEFAULT) ? 1 : 0;
++}
++
++int sbi_has_rfence(void)
++{
++    return __sbi_rfence ? 1 : 0;
++}
++
++int __init sbi_init(void)
++{
++    int ret;
++
++    ret = sbi_get_spec_version();
++    if (ret > 0)
++        sbi_spec_version = ret;
++
++    printk("SBI specification v%lu.%lu detected\n",
++            sbi_major_version(), sbi_minor_version());
++
++    if ( !sbi_spec_is_0_1() )
++    {
++        sbi_fw_id = sbi_get_firmware_id();
++        sbi_fw_version = sbi_get_firmware_version();
++
++        printk("SBI implementation ID=0x%lx Version=0x%lx\n",
++            sbi_fw_id, sbi_fw_version);
++
++        if ( sbi_probe_extension(SBI_EXT_RFENCE) > 0 )
++        {
++            __sbi_rfence = __sbi_rfence_v02;
++            printk("SBI v0.2 RFENCE extension detected\n");
++        }
++    } else {
++        BUG_ON("Ooops. SBI spec veriosn 0.1 detected. Need to add support");
++    }
++
++    if ( !sbi_has_rfence() )
++    {
++        BUG_ON("At the moment flush_xen_tlb_range_va() uses SBI rfence to "
++               "flush TLB for all CPUS!");
++    }
++
++    return 0;
++}
 diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 13f0e8c77d..37b234360c 100644
+index 37b234360c..497e273081 100644
 --- a/xen/arch/riscv/setup.c
 +++ b/xen/arch/riscv/setup.c
-@@ -40,6 +40,19 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- {
-     remove_identity_mapping();
+@@ -8,6 +8,7 @@
+ #include <public/version.h>
  
-+    /*
-+     * tp register contains an address of physical cpu information.
-+     * So write physical CPU info of boot cpu to tp register
-+     * It will be used later by get_processor_id() to get process_id ( look at
-+     * <asm/processor.h> ):
-+     *   #define get_processor_id()    (tp->processor_id)
-+     */
-+    asm volatile ("mv tp, %0" : : "r"((unsigned long)&pcpu_info[0]));
-+
-+    set_processor_id(0);
-+
-+    smp_setup_processor_id(bootcpu_id);
-+
+ #include <asm/early_printk.h>
++#include <asm/sbi.h>
+ #include <asm/traps.h>
+ 
+ void arch_get_xen_caps(xen_capabilities_info_t *info)
+@@ -55,6 +56,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+ 
      trap_init();
  
++    sbi_init();
++
  #ifdef CONFIG_SELF_TESTS
-diff --git a/xen/arch/riscv/smp.c b/xen/arch/riscv/smp.c
-new file mode 100644
-index 0000000000..006a062ad7
---- /dev/null
-+++ b/xen/arch/riscv/smp.c
-@@ -0,0 +1,4 @@
-+#include <xen/smp.h>
-+
-+/* tp points to one of these per cpu */
-+struct pcpu_info pcpu_info[NR_CPUS];
-\ No newline at end of file
-diff --git a/xen/arch/riscv/smpboot.c b/xen/arch/riscv/smpboot.c
-new file mode 100644
-index 0000000000..a90401ffd4
---- /dev/null
-+++ b/xen/arch/riscv/smpboot.c
-@@ -0,0 +1,12 @@
-+#include <xen/init.h>
-+#include <xen/sections.h>
-+#include <xen/smp.h>
-+
-+unsigned long __cpuid_to_hartid_map[NR_CPUS] __ro_after_init = {
-+    [0 ... NR_CPUS-1] = INVALID_HARTID
-+};
-+
-+void __init smp_setup_processor_id(unsigned long boot_cpu_hartid)
-+{
-+    cpuid_to_hartid_map(0) = boot_cpu_hartid;
-+}
+     test_macros_from_bug_h();
+ #endif
 -- 
 2.45.2
 
