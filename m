@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B9F93ADB2
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 10:02:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763863.1174205 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EE4D93ADEE
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 10:29:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763992.1174260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWWwj-0005sq-Fh; Wed, 24 Jul 2024 08:02:01 +0000
+	id 1sWXMD-00029E-3H; Wed, 24 Jul 2024 08:28:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763863.1174205; Wed, 24 Jul 2024 08:02:01 +0000
+Received: by outflank-mailman (output) from mailman id 763992.1174260; Wed, 24 Jul 2024 08:28:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWWwj-0005rM-Cl; Wed, 24 Jul 2024 08:02:01 +0000
-Received: by outflank-mailman (input) for mailman id 763863;
- Wed, 24 Jul 2024 08:02:00 +0000
+	id 1sWXMC-000266-VO; Wed, 24 Jul 2024 08:28:20 +0000
+Received: by outflank-mailman (input) for mailman id 763992;
+ Wed, 24 Jul 2024 08:28:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Rh+e=OY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sWWwi-0005KI-OP
- for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 08:02:00 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ <SRS0=23fT=OY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sWXMB-000260-Fx
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 08:28:19 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 009e2cf8-4993-11ef-8776-851b0ebba9a2;
- Wed, 24 Jul 2024 10:01:59 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2ef283c58f4so40303861fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 01:01:59 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-427f937aac1sm17373635e9.11.2024.07.24.01.01.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jul 2024 01:01:57 -0700 (PDT)
+ id ad6bfa07-4996-11ef-8776-851b0ebba9a2;
+ Wed, 24 Jul 2024 10:28:17 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4266edee10cso43456025e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 01:28:17 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-427f93aba72sm18005895e9.37.2024.07.24.01.28.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jul 2024 01:28:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,152 +44,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 009e2cf8-4993-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: ad6bfa07-4996-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1721808118; x=1722412918; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FMtjqeS9qCuN178jGuhz9jycjtdh32KlfCJNMM9kOqw=;
-        b=XEBpjLxXSQ05hFbVjUPR7WZCfh7VkYZn/OgdJnVtnzcvqOfvYGAWBKTn67H/IinCWs
-         97sWuo9OlczmgDxatMd42RLCNFGJ9oDWGV1P4pyLPD2T/SBPsx9/7mkLSJnatJKitusq
-         TARE0nnr+APCuUTDBMc+J0vkcDcHZsrufbdfU=
+        d=citrix.com; s=google; t=1721809697; x=1722414497; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=pKoqUri68laBZ8jnjxxBrIZrLh5Z5m2ePL2hu34WOEw=;
+        b=Tjszsb3gLikVhUF+dAdHa+1WLv0jFe+Eg7wi8dXNWHKllUjDTiBKGq9G796Tr12yCX
+         g1B44tcel8IhxvOzJ8kwvnb8zvRWY685BHl9O+VGjy11RD8qfusCNFDiH1ItDQaIxxlm
+         TReHFdKx0KY1VrUy/m/ZDMiPFZD2Alb1sEgLU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721808118; x=1722412918;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FMtjqeS9qCuN178jGuhz9jycjtdh32KlfCJNMM9kOqw=;
-        b=C44G5QkNMqWa8Cg1O8QbqJc/EZrd36biHszDtv37NsYHcYRVaDMWMWY4vAaPZvASyg
-         bKd4zFjfbnQggr+bL7rLoDqQ+JOfxMmEXn8h3lcg8YH2/eqlpLA5BcmuxQ8I/UEMwEh+
-         DBHAX23a2NNexcH1leYrfEddJagNn6sMN2yiHRNTtBvOsvJpFEQ40eY7Hs7Ff1Suhs6R
-         4316LXCW8GAA/H3mixyfVsVKE0bBmk/SG+034TRt+mD3S0kzU9xufhJ0BYEsLgIVVsJ0
-         ffiw1cqlaOIfBGkaeU5lPlpzaIxwCKQEFeu5xje/k842d9J2NoNBEdNEv5UmFm6bF2dh
-         L3Dw==
-X-Gm-Message-State: AOJu0YybuFTZ+tW3s5OC5XtAEuoftl+0s//tWUDsC4yR8Ot8LD85VcGZ
-	fluCOYiqxrxfv/G8gAT2T6ECu9v8jQkZPbVzP4iq1na8hgjpMILT6hzR8+LjflI=
-X-Google-Smtp-Source: AGHT+IEt1nM4FyIrR5teQWl7diGloh6nUQV7IoFZDFODJg6vJdJoLL5+m3mzgeqcHA2E1Bvp0e3+PA==
-X-Received: by 2002:a2e:7212:0:b0:2ef:2c4b:b799 with SMTP id 38308e7fff4ca-2ef2c4bb8d6mr61857391fa.28.1721808118404;
-        Wed, 24 Jul 2024 01:01:58 -0700 (PDT)
-Message-ID: <69c5a7d8-7d71-4bbe-81f2-5f8a07e0d5e8@citrix.com>
-Date: Wed, 24 Jul 2024 09:01:57 +0100
+        d=1e100.net; s=20230601; t=1721809697; x=1722414497;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=pKoqUri68laBZ8jnjxxBrIZrLh5Z5m2ePL2hu34WOEw=;
+        b=KBf2NxDDqMg3k3/ZjKUcCXlNAU+AkiN2l7hZE59GB45IPd3o47x5CZA1xAKdeyAeqp
+         aL0roMckYgg2eBMR58l7RNt3j24oz/O4RO41650CBbKpo63wZ+UMAGkBtyZa2RIfxqIj
+         4Aq1nBaVXvduzIflXWhjh+lF4UCWM9JKymIZUxS3XP92DIkQAjA9RZ7sQQVrSccsv7cp
+         QPKX8qG+2pagErXhGEWMu9eeH+7Ov2J12Lqlf0wFSqIj6qzrAxYvCCCXg4+RoV5SIyW5
+         wTgnFe5TQsX1Lvuefb9/q82Y06ShTz59nDf/A4nyjMhGxGdTkKpm+6gohsJ2vQis4481
+         acrw==
+X-Forwarded-Encrypted: i=1; AJvYcCU0giXvfYBi4342EhVufQ/1m0/A+W3bndOgF1BeUvVx/vPM2DiUkPbCbaYi0Y/hd/JDDEgXRn1Ay5jSkpnYCmQgR8SSMHCvLsS4OFjCoLc=
+X-Gm-Message-State: AOJu0YxufTT3/mP4oTSFEmyVIPAYF56KI3wl55PJa5ji30cX+tfs21av
+	k4uxI9NSmoENCTY5D3t+59PVLedE7N+ezpj8cAIsopLHNylECvSZOc0tCYrueys=
+X-Google-Smtp-Source: AGHT+IEQiTjnPE/OA0TRCY0TE+B0rHDjebD4cAUoXK3ZmWsEN6s6TtwiI8PDW+tNkcLo09qgCtjd+A==
+X-Received: by 2002:a05:600c:1c21:b0:426:6b47:290b with SMTP id 5b1f17b1804b1-427f95ad5b3mr9549595e9.28.1721809696545;
+        Wed, 24 Jul 2024 01:28:16 -0700 (PDT)
+Date: Wed, 24 Jul 2024 10:28:14 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH for-4.19] x86/altcall: fix clang code-gen when using
+ altcall in loop constructs
+Message-ID: <ZqC7Hn8R6Mkyqtpl@macbook>
+References: <20240723093117.99487-1-roger.pau@citrix.com>
+ <D2X13ED477J8.25JRFH9VEW33O@cloud.com>
+ <Zp_VuwxqH3Mii8_W@macbook>
+ <D2X237Y7T92R.1VVSBS9MCJOFW@cloud.com>
+ <7a5da6ce-0ef0-4666-a5c4-44383469f67e@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] tools/libxs: Fix SIGPIPE handling issues
-To: Jan Beulich <jbeulich@suse.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240718164842.3650702-1-andrew.cooper3@citrix.com>
- <4758a806-712f-4ec2-97e8-a31b493b2c31@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <4758a806-712f-4ec2-97e8-a31b493b2c31@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <7a5da6ce-0ef0-4666-a5c4-44383469f67e@suse.com>
 
-On 24/07/2024 7:58 am, Jan Beulich wrote:
-> On 18.07.2024 18:48, Andrew Cooper wrote:
->> While the purpose of this series is patch 6, it has a side effect of reducing
->> the number of system calls substantally.
->>
->> Using a strace of test-xenstore as an example, we go from this:
->>
->>   rt_sigaction(SIGPIPE, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fda8278e2f0}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fda8278e2f0}, 8) = 0
->>   write(3, "\v\0\0\0\0\0\0\0\0\0\0\0\30\0\0\0", 16) = 16
->>   write(3, "xenstore-test/502673/a\0", 23) = 23
->>   write(3, "a", 1)                        = 1
->>   read(3, "\v\0\0\0\0\0\0\0\0\0\0\0\3\0\0\0", 16) = 16
->>   read(3, "OK\0", 3)                      = 3
->>   rt_sigaction(SIGPIPE, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER, sa_restorer=0x7fda8278e2f0}, NULL, 8) = 0
->>
->> down to this:
->>
->>   sendmsg(3, {msg_name=NULL, msg_namelen=0, msg_iov=[{iov_base="\v\0\0\0\0\0\0\0\0\0\0\0\30\0\0\0", iov_len=16}, {iov_base="xenstore-test/504021/a\0", iov_len=23}, {iov_base="a", iov_len=1}], msg_iovlen=3, msg_controllen=0, msg_flags=0}, MSG_NOSIGNAL) = 40
->>   read(3, "\v\0\0\0\0\0\0\0\0\0\0\0\3\0\0\0", 16) = 16
->>   read(3, "OK\0", 3)                      = 3
->>
->>
->> I.e., it removes 2x rt_sigaction(), and turns all write()'s into a single
->> writev() or sendmsg().
->>
->>
->> Reads are a little more problematic to deal with.  Xenstored will produce a
->> full package basically in one go, but libxenstore's reading is horrbly
->> complicated by virtue of it being completely different depending on whether
->> xs_watch() has created a secondary read thread or not.
->>
->> Andrew Cooper (6):
->>   tools/libxs: Fix length check in xs_talkv()
->>   tools/libxs: Rework xs_talkv() to take xsd_sockmsg within the iovec
->>   tools/libxs: Rationalise the definition of struct xs_handle
->>   tools/libxs: Track whether we're using a socket or file
->>   tools/libxs: Use writev()/sendmsg() instead of write()
->>   tools/libxs: Stop playing with SIGPIPE
-> The title of the entire series containing "Fix" vs there being no single
-> Fixes: tag throughout, afaics, leave unclear to me whether any or all of
-> this work wants/needs backporting. Please clarify.
+On Wed, Jul 24, 2024 at 08:39:05AM +0200, Jan Beulich wrote:
+> On 23.07.2024 18:24, Alejandro Vallejo wrote:
+> > On Tue Jul 23, 2024 at 5:09 PM BST, Roger Pau Monné wrote:
+> >> On Tue, Jul 23, 2024 at 04:37:12PM +0100, Alejandro Vallejo wrote:
+> >>> On Tue Jul 23, 2024 at 10:31 AM BST, Roger Pau Monne wrote:
+> >>>> --- a/xen/arch/x86/include/asm/alternative.h
+> >>>> +++ b/xen/arch/x86/include/asm/alternative.h
+> >>>> @@ -185,10 +185,10 @@ extern void alternative_branches(void);
+> >>>>   */
+> >>>>  #define ALT_CALL_ARG(arg, n)                                            \
+> >>>>      register union {                                                    \
+> >>>> -        typeof(arg) e;                                                  \
+> >>>> +        typeof(arg) e[sizeof(long) / sizeof(arg)];                      \
+> >>>>          unsigned long r;                                                \
+> >>>>      } a ## n ## _ asm ( ALT_CALL_arg ## n ) = {                         \
+> >>>> -        .e = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })   \
+> >>>> +        .e[0] = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })\
+> >>>>      }
+> >>>>  #else
+> >>>>  #define ALT_CALL_ARG(arg, n) \
+> >>>
+> >>> Don't we want BUILD_BUG_ON(sizeof(long) % sizeof(arg) == 0) instead?
+> >>
+> >> I think you meant BUILD_BUG_ON(sizeof(long) % sizeof(arg) != 0)?
+> > 
+> > Bah, yes. I wrote it as a COMPILE_ASSERT().
+> > 
+> >>
+> >>> Otherwise
+> >>> odd sizes will cause the wrong union size to prevail, and while I can't see
+> >>> today how those might come to happen there's Murphy's law.
+> >>
+> >> The overall union size would still be fine, because it has the
+> >> unsigned long element, it's just that the array won't cover all the
+> >> space assigned to the long member?
+> > 
+> > I explained myself poorly. If the current BUILD_BUG_ON() stays as-is that's
+> > right, but...
+> > 
+> >>
+> >> IOW if sizeof(arg) == 7, then we would define an array with only 1
+> >> element, which won't make the size of the union change, but won't
+> >> cover the same space that's used by the long member.
+> > 
+> > ... I thought the point of the patch was to cover the full union with the
+> > array, and not just a subset. My proposed alternative merely tries to ensure
+> > the argument is always a submultiple in size of a long so the array is always a
+> > perfect match.
 
-I was on the fence about whether I should have used Fixes: (2005 commit)
-in patch 6 or not.
+I would be fine with the adjusted BUILD_BUG_ON(), but if we change the
+instance for clang we should also update the BUILD_BUG_ON() used on
+the gcc counterpart so they both match.  That might be undesirable
+however since gcc doesn't exhibit any of those bugs, and hence
+shouldn't have such constraints.
 
-Also I've had a spectacularly bad run of luck with the CLOEXEC fixes so
-leaving them to bake for a little longer in staging is no bad thing. 
-That said, I am likely to backport them into the patchqueue imminently.
+> Question is whether there's an issue with odd sized values in Clang. I
+> wouldn't want to exclude such (admittedly somewhat exotic) uses "just
+> in case". My understanding here is that the issue the patch addresses
+> is not merely the treatment of the union by Clang, but the combination
+> thereof with it violating the psABI when it comes to passing bool
+> around.
 
-Personally, I think it is very buggy for libxenstore to play with
-SIGPIPE, but it also came from reading the strace of the CLOEXEC fixes
-and thinking "well that's clearly broken too" rather than from a real
-SIGPIPE problem.
+So there are at least two issues, one is the lack of truncation of
+register value done by the callee, which is a psABI violation.  The
+other is clang not resetting the high bits of the register when the
+altcall is inside a loop construct.  In the godbolt example provided
+the high bits of %rdi are not cleared between loops.  This last issue
+would also be 'fixed' if clang implemented the psABI properly and
+truncated the register at the callee.
 
-~Andrew
+I've given a try in godbolt, and odd structure sizes seem to be
+affected:
 
-P.S. Then again, the Xen libraries all get away with murder doing things
-that libraries must never do...  I think it's still unforgivable that
-libxentoollog adjusts stdout/stderr if you pass NULL into
-xc_open_handle(), and that we have 5 different trivial few-kb libraries
-which are co-dependent on each other when it should be a single one.
+https://godbolt.org/z/778YsoWsn
+
+We have no usages of such structures in Xen so far.
+
+The only way I've found to cope with this is to use something like:
+
+#define ALT_CALL_ARG(arg, n)                                            \
+    union {                                                             \
+        typeof(arg) e[(sizeof(long) + sizeof(arg) - 1) / sizeof(arg)];  \
+        unsigned long r;                                                \
+    } a ## n ## __  = {                                                 \
+        .e[0] = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })\
+    };                                                                  \
+    register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =      \
+        a ## n ## __.r
+
+An oversized array that ensures all the space of the long is covered
+by the array, but then we need an extra variable, as we would
+otherwise require modifying ALT_CALL{0..6}_OUT to use aX_.r instead of
+aX_.
+
+Thanks, Roger.
 
