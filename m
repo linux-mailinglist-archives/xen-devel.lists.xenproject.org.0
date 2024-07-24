@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF55E93B52B
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 18:38:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764426.1174871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2924293B556
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 18:56:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764436.1174881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWeza-0004q3-DH; Wed, 24 Jul 2024 16:37:30 +0000
+	id 1sWfHR-00080G-TV; Wed, 24 Jul 2024 16:55:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764426.1174871; Wed, 24 Jul 2024 16:37:30 +0000
+Received: by outflank-mailman (output) from mailman id 764436.1174881; Wed, 24 Jul 2024 16:55:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWeza-0004n3-9U; Wed, 24 Jul 2024 16:37:30 +0000
-Received: by outflank-mailman (input) for mailman id 764426;
- Wed, 24 Jul 2024 16:37:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWezY-0004mr-Ev; Wed, 24 Jul 2024 16:37:28 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWezY-00039t-93; Wed, 24 Jul 2024 16:37:28 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWezX-0006PT-S6; Wed, 24 Jul 2024 16:37:27 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sWezX-0005sG-Rf; Wed, 24 Jul 2024 16:37:27 +0000
+	id 1sWfHR-0007x7-PZ; Wed, 24 Jul 2024 16:55:57 +0000
+Received: by outflank-mailman (input) for mailman id 764436;
+ Wed, 24 Jul 2024 16:55:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BqPM=OY=bounce.vates.tech=bounce-md_30504962.66a13219.v1-b7fbadff23584586971799825d4c5773@srs-se1.protection.inumbo.net>)
+ id 1sWfHR-0007x1-1K
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 16:55:57 +0000
+Received: from mail135-10.atl141.mandrillapp.com
+ (mail135-10.atl141.mandrillapp.com [198.2.135.10])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 973ddb23-49dd-11ef-bbfe-fd08da9f4363;
+ Wed, 24 Jul 2024 18:55:55 +0200 (CEST)
+Received: from pmta14.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail135-10.atl141.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WTgBd4ZVxz5QkSg0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 16:55:53 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ b7fbadff23584586971799825d4c5773; Wed, 24 Jul 2024 16:55:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,371 +43,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=HE4QnihzMi6fuWkL39zhkBDaIU7dPsouK1Ixidxmysw=; b=K/0M2xONzFiC9mpCLtHreYCNq9
-	J3nFcxcELCYSZw7vUfXNbOs8ttjqIhOMJw0VHRG32Jl29r55qjwlqTwiS7v2/NkHPfjQGlFEHieqJ
-	cmY36tb7a8HOgDe3eEh0LCH8vMloSgdBemH3E47FQEU4dCrFZ3yZh1G+CaqIzel53GZc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186978-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 973ddb23-49dd-11ef-bbfe-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1721840153; x=1722100653;
+	bh=qCZ6mYVmJIRN3TaxhdQ3Db+DFjiS3ogKT9Gjtzui1Vk=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=H6aPVHncsrkoIImxZYOpzM+iA2BzkvCml0Mr4wJa0FhTsha9hJzz9pJzRiQFRPlC3
+	 1gsfYRhRFkBiokXP20kOVPls90fIO4j3pvMz+1g5SmVRTHIixeHHcggGl89yGY6+Hg
+	 shmAjkw7PuGZORjydj5cIrS/XyqO+ha0GDFSO4SrDtNBF4EtIrTG68jW7EdAFgzL4Z
+	 cP3wbMBTuJbEiExiiD85nQYMHD5yrLp/oVikpsmRaLzsEukXtYljOiZRfOAfYNNw7q
+	 kF6FiEB4xLoVcuHF4hYsE0xBSiRo6J2O0hOYxEeEd2F3cNvLcMI3/uNnYcqYzkR6Gx
+	 usR2/GTlNSn6Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1721840153; x=1722100653; i=anthony.perard@vates.tech;
+	bh=qCZ6mYVmJIRN3TaxhdQ3Db+DFjiS3ogKT9Gjtzui1Vk=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=VdvWr7rJ+svqNL6JvH9rjKtd22iizsWLqPMd1Qln5HS713wDcGKDuSMvMS3utDL3Z
+	 Va/DjjKWxGUB2xj7rKmeR30tndnsdvoBg6hH6Hg7BvUq0bCoaknkWmhtJo91X21YIp
+	 9AgS9N5T1o0l5xvGhzrXE8KlItv91Rd5QP2+lgqI+SS9uw/fENim3i/45PBjvQpFHp
+	 zyp72je8FH9/z31SjKOY9m456YndDIiB6CbTLt5ci52zEOGXc3yNcpuLcWIzxcUBFZ
+	 +AXDOWa3yA3iHV106fo6HVSRy3H5jnSmZsYsgt4OeirIx1jyTNtdiX9SD+FAKkIYEO
+	 JqV2SAM4pwaAw==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v5=202/4]=20x86/ucode:=20refactor=20xen-ucode=20to=20utilize=20getopt?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1721840152823
+To: Fouad Hilly <fouad.hilly@cloud.com>
+Cc: xen-devel@lists.xenproject.org
+Message-Id: <ZqEyGD4wgL/z9nn5@l14>
+References: <20240712130749.1272741-1-fouad.hilly@cloud.com> <20240712130749.1272741-3-fouad.hilly@cloud.com>
+In-Reply-To: <20240712130749.1272741-3-fouad.hilly@cloud.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b7fbadff23584586971799825d4c5773?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240724:md
+Date: Wed, 24 Jul 2024 16:55:53 +0000
 MIME-Version: 1.0
-Subject: [xen-unstable test] 186978: FAIL
-X-Osstest-Failures:
-    xen-unstable:test-armhf-armhf-examine:host-install:broken:regression
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=a17b6db9b00784b409c35e3017dc45aed1ec2bfb
-X-Osstest-Versions-That:
-    xen=fa58fcdc8cc38b5b73a59209a630ea7170eac713
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 24 Jul 2024 16:37:27 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-flight 186978 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186978/
+On Fri, Jul 12, 2024 at 02:07:47PM +0100, Fouad Hilly wrote:
+> diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
+> index 390969db3d1c..8de82e5b8a10 100644
+> --- a/tools/misc/xen-ucode.c
+> +++ b/tools/misc/xen-ucode.c
+> @@ -71,12 +72,29 @@ static void show_curr_cpu(FILE *f)
+>      }
+>  }
+>  
+> +static void usage(FILE *stream, const char *name)
+> +{
+> +    fprintf(stream,
+> +            "%s: Xen microcode updating tool\n"
+> +            "options:\n"
+> +            "  -h, --help            display this help\n"
+> +            "  -s, --show-cpu-info   show CPU information\n"
+> +            "Usage: %s [microcode file] [options]\n", name, name);
 
-Failures and problems with tests :-(
+FYI, I disagree with Andy about the order of this message. First is
+"Usage:" which explain where the option (dash-prefixed) can go, and
+which are the mandatory arguments, sometime having all the single-letter
+option in this line as well. Then there's an explanation of what the
+options are. I've check `bash`, `cat`, `xl`, `gcc`.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-examine      5 host-install           broken REGR. vs. 186971
+I wonder which CLI program would print the minimum amount of information
+on how to run the program as the last line of the help message.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186971
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186971
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186971
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186971
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186971
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186971
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+> @@ -86,22 +104,34 @@ int main(int argc, char *argv[])
+>          exit(1);
+>      }
+>  
+> -    if ( argc < 2 )
+> +    while ( (opt = getopt_long(argc, argv, "hs", options, NULL)) != -1 )
+>      {
+> -        fprintf(stderr,
+> -                "xen-ucode: Xen microcode updating tool\n"
+> -                "Usage: %s [<microcode file> | show-cpu-info]\n", argv[0]);
+> -        show_curr_cpu(stderr);
+> -        exit(2);
+> +        switch (opt)
+> +        {
+> +        case 'h':
+> +            usage(stdout, argv[0]);
+> +            exit(EXIT_SUCCESS);
+> +
+> +        case 's':
+> +            show_curr_cpu(stdout);
+> +            exit(EXIT_SUCCESS);
+> +
+> +        default:
+> +            goto ext_err;
+> +        }
+>      }
+>  
+> -    if ( !strcmp(argv[1], "show-cpu-info") )
+> +    if ( optind == argc )
+> +        goto ext_err;
+> +
+> +    /* For backwards compatibility to the pre-getopt() cmdline handling */
+> +    if ( !strcmp(argv[optind], "show-cpu-info") )
+>      {
+>          show_curr_cpu(stdout);
+>          return 0;
+>      }
+>  
+> -    filename = argv[1];
+> +    filename = argv[optind];
+>      fd = open(filename, O_RDONLY);
+>      if ( fd < 0 )
+>      {
+> @@ -146,4 +176,10 @@ int main(int argc, char *argv[])
+>      close(fd);
+>  
+>      return 0;
+> +
+> + ext_err:
+> +    fprintf(stderr,
+> +            "%s: unable to process command line arguments\n", argv[0]);
 
-version targeted for testing:
- xen                  a17b6db9b00784b409c35e3017dc45aed1ec2bfb
-baseline version:
- xen                  fa58fcdc8cc38b5b73a59209a630ea7170eac713
+A nice to have would be to have a better error message to point out
+what's wrong with the arguments. For that you could print the error
+message before "goto ext_err". One would be "unknown option" for the
+first goto, and "missing microcode file" for the second goto, that is
+instead of printing this more generic error message.
 
-Last test of basis   186971  2024-07-23 17:07:07 Z    0 days
-Testing same since   186978  2024-07-24 04:56:31 Z    0 days    1 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
+-- 
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+Anthony Perard | Vates XCP-ng Developer
 
+XCP-ng & Xen Orchestra - Vates solutions
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-step test-armhf-armhf-examine host-install
-
-Not pushing.
-
-------------------------------------------------------------
-commit a17b6db9b00784b409c35e3017dc45aed1ec2bfb
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Jun 28 16:33:56 2024 +0100
-
-    tools/libxs: Stop playing with SIGPIPE
-    
-    It's very rude for a library to play with signals behind the back of the
-    application, no matter ones views on the default behaviour of SIGPIPE under
-    POSIX.  Even if the application doesn't care about the xenstored socket, it my
-    care about others.
-    
-    This logic has existed since xenstore/xenstored was originally added in commit
-    29c9e570b1ed ("Add xenstore daemon and library") in 2005.
-    
-    It's also unnecessary.  Pass MSG_NOSIGNAL when talking to xenstored over a
-    pipe (to avoid sucumbing to SIGPIPE if xenstored has crashed), and forgo any
-    playing with the signal disposition.
-    
-    This has a side benefit of saving 2 syscalls per xenstore request.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-
-commit ebaeb0c64a6d363313e213eb9995f48307604ebb
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Thu Jul 18 12:55:48 2024 +0100
-
-    tools/libxs: Use writev()/sendmsg() instead of write()
-    
-    With the input data now conveniently arranged, use writev()/sendmsg() instead
-    of decomposing it into write() calls.
-    
-    This causes all requests to be submitted with a single system call, rather
-    than at least two.  While in principle short writes can occur, the chances of
-    it happening are slim given that most xenbus comms are only a handful of
-    bytes.
-    
-    Nevertheless, provide {writev,sendmsg}_exact() wrappers which take care of
-    resubmitting on EINTR or short write.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-
-commit 046efe529e82b8b999d8453d4ea49cb817c3f9b5
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Jun 28 19:40:27 2024 +0100
-
-    tools/libxs: Track whether we're using a socket or file
-    
-    It will determine whether to use writev() or sendmsg().
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-
-commit f050c03ce2ad0095ff0bec5f9ec673bb2026cf16
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Thu Jul 18 12:03:03 2024 +0100
-
-    tools/libxs: Rationalise the definition of struct xs_handle
-    
-    Right now there are two completely different struct xs_handle definitions,
-    depend on #ifdef USE_PTHREAD.  One is quite well hidden, and often escapes
-    updates.
-    
-    Rework struct xs_handle using some interior ifdefary.  It's slightly longer,
-    but much easier to follow.  Importanly, this makes it much harder to forget
-    the !PTHREAD case when adding a "common" variable.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-
-commit e2a93bed8b9e0f0c4779dcd4b10dc7ba2a959fbc
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Thu Jul 18 10:13:04 2024 +0100
-
-    tools/libxs: Rework xs_talkv() to take xsd_sockmsg within the iovec
-    
-    We would like to writev() the whole outgoing message, but this is hard given
-    the current need to prepend the locally-constructed xsd_sockmsg.
-    
-    Instead, have the caller provide xsd_sockmsg in iovec[0].  This in turn drops
-    the 't' and 'type' parameters from xs_talkv().
-    
-    Note that xs_talkv() may alter the iovec structure.  This may happen when
-    writev() is really used under the covers, and it's preferable to having the
-    lower levels need to duplicate the iovec to edit it upon encountering a short
-    write.  xs_directory_part() is the only function impacted by this, and it's
-    easy to rearrange to be compatible.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-
-commit 42db2deb5e7617f0459b68cd73ab503938356186
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Thu Jul 18 10:23:00 2024 +0100
-
-    tools/libxs: Fix length check in xs_talkv()
-    
-    If the sum of iov element lengths overflows, the XENSTORE_PAYLOAD_MAX can
-    pass, after which we'll write 4G of data with a good-looking length field, and
-    the remainder of the payload will be interpreted as subsequent commands.
-    
-    Check each iov element length for XENSTORE_PAYLOAD_MAX before accmulating it.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-(qemu changes not included)
+web: https://vates.tech
 
