@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C859B93B8CC
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 23:50:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764533.1175003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10A4B93B914
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 00:14:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764542.1175013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWjsH-0007Ok-Io; Wed, 24 Jul 2024 21:50:17 +0000
+	id 1sWkFN-0001wi-EP; Wed, 24 Jul 2024 22:14:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764533.1175003; Wed, 24 Jul 2024 21:50:17 +0000
+Received: by outflank-mailman (output) from mailman id 764542.1175013; Wed, 24 Jul 2024 22:14:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWjsH-0007MI-GA; Wed, 24 Jul 2024 21:50:17 +0000
-Received: by outflank-mailman (input) for mailman id 764533;
- Wed, 24 Jul 2024 21:50:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWjsG-0007M8-BP; Wed, 24 Jul 2024 21:50:16 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWjsG-0001UZ-5s; Wed, 24 Jul 2024 21:50:16 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWjsF-0001VU-MD; Wed, 24 Jul 2024 21:50:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sWjsF-00073T-Ll; Wed, 24 Jul 2024 21:50:15 +0000
+	id 1sWkFN-0001ua-Bn; Wed, 24 Jul 2024 22:14:09 +0000
+Received: by outflank-mailman (input) for mailman id 764542;
+ Wed, 24 Jul 2024 22:14:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ik8X=OY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sWkFM-0001uR-3b
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 22:14:08 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0a4466da-4a0a-11ef-bbff-fd08da9f4363;
+ Thu, 25 Jul 2024 00:14:06 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 152AE612B8;
+ Wed, 24 Jul 2024 22:14:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC837C32781;
+ Wed, 24 Jul 2024 22:14:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +41,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=R+aEraF2W2GsUi7UATD2w2Rmhr5rJIuA3YlcKtmMPcQ=; b=zw7YA0MbQ5cx/n1/68JKdXWBtf
-	9bIsrse3uReztsTDiElkg/bQsrdQGKnEBmTF7JcudjsWybnqQ6OAu+C9LClZmuk6lYttyCi72r6tp
-	EP+T+/ODe+g3P4Gd9J6onNvkMdhEzT/ShkYQCUf6384/Vuix0ZObSm2ETifqTksPWmDA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186988-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0a4466da-4a0a-11ef-bbff-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1721859244;
+	bh=bcT+y/dwiVMzCXlP0bFQ0zxczNpbCiI1eganToTN200=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=isc7/Px1pKBAzvpH3sZNR0ArZdcBaa017QGmTP8a9IX/EdqiqNVohfZAUw0Govlnt
+	 33hcr5cW+KeC/HyTZytRnqE94E1ISpnfYy9WtEmG1Xg+UoWEtK/9+Z5baZqOF73fJB
+	 OBRXwYAFYUFittcAYUBkH7ZmqO3mXqYkbsIc3nEdiAc4//FyS8/KGwBEQCN0F107X6
+	 1ElBcbNwHuI1VCqydhU0zJpzN6n8Y9r6FJ5i0OZlEfNHwYp6U81NLgTjqXsbMYTWSS
+	 2MWH5x8bE3DqlmkcP4pRM/TP3GCFqsJBrdxWAXAsW+G8o+NV0sAWGFnZ0LAyOOWR+v
+	 UDUE/VOd2nY/A==
+Date: Wed, 24 Jul 2024 15:14:02 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, 
+    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v5 16/17] CODING_STYLE: Add a section on header guards
+ naming conventions
+In-Reply-To: <6be25cb3-2481-4832-9a05-6f58468b8cc0@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2407241513540.4857@ubuntu-linux-20-04-desktop>
+References: <cover.1721720583.git.alessandro.zucchelli@bugseng.com> <14a663eaab02a78e688e1d260e1a4eb1799b13c5.1721720583.git.alessandro.zucchelli@bugseng.com> <9ceeedb1-31c6-4701-849c-e4f32fc07409@suse.com> <alpine.DEB.2.22.394.2407231539570.4857@ubuntu-linux-20-04-desktop>
+ <6be25cb3-2481-4832-9a05-6f58468b8cc0@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 186988: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=a7abb77c599f4243d7dbab552ec74ed4d0d0d152
-X-Osstest-Versions-That:
-    ovmf=a9c8c47d5347c74f5e7e7cb859912a276c6e9fb8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 24 Jul 2024 21:50:15 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 186988 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186988/
+On Wed, 24 Jul 2024, Jan Beulich wrote:
+> On 24.07.2024 00:40, Stefano Stabellini wrote:
+> > On Tue, 23 Jul 2024, Jan Beulich wrote:
+> >> On 23.07.2024 10:15, Alessandro Zucchelli wrote:
+> >>> This section explains which format should be followed by header
+> >>> inclusion guards via a drop-down list of rules.
+> >>>
+> >>> No functional change.
+> >>>
+> >>> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+> >>
+> >> As indicated in reply to v4, this wants (imo needs) to move to the very start
+> >> of the series. No changes following the new scheme should be made without the
+> >> new scheme actually having been committed.
+> >>
+> >>> --- a/CODING_STYLE
+> >>> +++ b/CODING_STYLE
+> >>> @@ -159,6 +159,27 @@ Emacs local variables
+> >>>  A comment block containing local variables for emacs is permitted at
+> >>>  the end of files.  It should be:
+> >>>  
+> >>> +Header inclusion guards
+> >>> +-----------------------
+> >>> +
+> >>> +Unless differently specified all header files should have proper inclusion
+> >>> +guards in order to avoid being included multiple times.
+> >>> +The following naming conventions have been devised:
+> >>> +
+> >>> +- private headers -> <dir>__<filename>_H
+> >>> +    - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
+> >>> +    - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
+> >>> +    - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+> >>> +
+> >>> +- asm-generic headers -> ASM_GENERIC__<filename>_H
+> >>> +    - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
+> >>> +
+> >>> +- arch/<architecture>/include/asm/<subdir>/<filename>.h -> ASM__<architecture>__<subdir>__<filename>_H
+> >>> +    - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
+> >>> +
+> >>> +- include/xen -> XEN__<filename>_H
+> >>> +    - include/xen/something.h -> XEN__SOMETHING_H
+> >>
+> >> While I think this expresses what we have settled on, it lack details. For
+> >> example, when to use single vs double underscores is left for the reader
+> >> to derive from the examples, which leaves room for interpretation.
+> > 
+> > I think so too. Here is my improved version, what do you think:
+> > 
+> > 
+> > Header inclusion guards
+> > -----------------------
+> > 
+> > Unless otherwise specified, all header files should include proper
+> > guards to prevent multiple inclusions. The following naming conventions
+> > apply:
+> > 
+> > - Private headers: <dir>__<filename>_H
+> >     - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
+> >     - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
+> >     - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+> > 
+> > - asm-generic headers: ASM_GENERIC__<filename>_H
+> >     - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
+> > 
+> > - arch-specific headers: ASM__<architecture>__<subdir>__<filename>_H
+> >     - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
+> > 
+> > - Xen headers: XEN__<filename>_H
+> >     - include/xen/something.h -> XEN__SOMETHING_H
+> > 
+> > Notes:
+> > 
+> > - Filenames and directories are converted to uppercase.
+> > - Dashes are converted to underscores.
+> 
+> s/Dashes/Non-alphanumeric characters/
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 a7abb77c599f4243d7dbab552ec74ed4d0d0d152
-baseline version:
- ovmf                 a9c8c47d5347c74f5e7e7cb859912a276c6e9fb8
-
-Last test of basis   186983  2024-07-24 10:43:12 Z    0 days
-Testing same since   186988  2024-07-24 20:13:23 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ardb@kernel.org>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   a9c8c47d53..a7abb77c59  a7abb77c599f4243d7dbab552ec74ed4d0d0d152 -> xen-tested-master
++1
 
