@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE7C93B3AF
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 17:32:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764287.1174700 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0385993B3B2
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 17:32:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764289.1174709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWdxj-0006cp-2L; Wed, 24 Jul 2024 15:31:31 +0000
+	id 1sWdxz-0007RB-C6; Wed, 24 Jul 2024 15:31:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764287.1174700; Wed, 24 Jul 2024 15:31:31 +0000
+Received: by outflank-mailman (output) from mailman id 764289.1174709; Wed, 24 Jul 2024 15:31:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWdxi-0006aS-Ux; Wed, 24 Jul 2024 15:31:30 +0000
-Received: by outflank-mailman (input) for mailman id 764287;
- Wed, 24 Jul 2024 15:31:29 +0000
+	id 1sWdxz-0007NG-90; Wed, 24 Jul 2024 15:31:47 +0000
+Received: by outflank-mailman (input) for mailman id 764289;
+ Wed, 24 Jul 2024 15:31:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fJNX=OY=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sWdxg-0005Od-Vc
- for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 15:31:28 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+ id 1sWdxy-0005Od-3v
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 15:31:46 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca1b5c54-49d1-11ef-8776-851b0ebba9a2;
- Wed, 24 Jul 2024 17:31:26 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ee910d6a9eso10077391fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 08:31:26 -0700 (PDT)
+ id d52a2c92-49d1-11ef-8776-851b0ebba9a2;
+ Wed, 24 Jul 2024 17:31:44 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2ef1c12ae23so49921801fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 08:31:44 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2ef26f1bc4asm14240491fa.40.2024.07.24.08.31.24
+ 38308e7fff4ca-2ef2b568858sm13237311fa.35.2024.07.24.08.31.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jul 2024 08:31:24 -0700 (PDT)
+ Wed, 24 Jul 2024 08:31:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,100 +44,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca1b5c54-49d1-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: d52a2c92-49d1-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1721835085; x=1722439885; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4O/hwQwHF6rfJLVATnZjtAz9ttGqfT93bsxm/gvlyso=;
-        b=Fx02EhSWbV36Y2XPEQJhk4I3PD1/abDRG4Axwf3C9J3R/UkDK8tM/L+K3sUM/qJnoj
-         2cYjw9B0lFsfi6HHaSccH8iJPwnHGFfInCHQjXcV6QECpZcCXeOC6Yu79HiUEU/6V0zz
-         InFMCYbtJo8u9E1MjZ6BYIXxZ9CxbEhDuZlj18yxZowyrvUzuUBWzVR6jWBVINSCa6jM
-         ORjmyMccpUlUmVMFtOQOZQJm2wNE/QwtCcWr+z8UseqSSXNuSYkte8/K6kelchcMIAED
-         eWOAht0WGh0PJ0N2mY2hMfj+vRB3GH75JIz8B8ZPSiUdIa85hyxt+kTK1QZYCNriU10U
-         ecww==
+        d=gmail.com; s=20230601; t=1721835104; x=1722439904; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=y6EXp2HkQVB8UrhglnsBxDgtSrAqoItcHexdbcYlEvM=;
+        b=NjiOf5lJWw7W7Qu2FYVUs82TVabQi1M2DH2ROth79yekgJLBIEXSlFb8ewrf649pzC
+         ngSGMVD9o91SP1cIRU4Zd+/4nSZReZQWvU96+0xN/ZHX+evvQqngbi9wSQWqLx8OXJ9m
+         UxLd7MbQgu1Gri7Tq7qeA8nZX/9hWRuDZJJAiiSNTa2PPHQOwgE/QiLlHBl9zjWJfy6F
+         hAV2huwk6k9Gsgj9GfzDvBzi8A8wbY4oKvHO1ty7uLkIK4TmFPqoQVsr8A5Ks+JKVQww
+         Gs4DRP1G6d2Dwly4cRGY9dzUoagQDIaKKLjePVlnY3hXpQE0QhST4ZdA53PzdVaLrXpp
+         bBpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721835085; x=1722439885;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4O/hwQwHF6rfJLVATnZjtAz9ttGqfT93bsxm/gvlyso=;
-        b=f99J9Kf15C1th2Qn3XXy0rtTCxAWAPYcCD6B3WyjnTQqlhbdAp6bUppC8J3goWHNWp
-         BtBlIRV9e5UItRUZ5rtVZ7d0/S1CHFZkyKk/UU3fSl4MeT2DN0IEnIYr4qOFmodyqT6q
-         ZbgQPJI5bneRzMp3zMX+1diU3jEZ3YFZ/mRB547yuqjKSNow2Lo1PzE12yhu9dJoQqQJ
-         2/++dH0GnL/RmMnAtiOBO/Lhb+RdygL4FXWmoZYw/8krYtHYc8Js1lRMJPWLmr+xA1VX
-         t7tCNUj47xzUkaORzIeR0j9KZsvi5AbBmGY8goUq2TdOCRxTi+9XLzt6HLb9SwJ7l6kd
-         tz8w==
-X-Gm-Message-State: AOJu0YyHQZ4ecA450fmPIePkzd6G5ZqePwoESKD8GAnfMS1quueliCfp
-	x8SUNLMzPa9fCDbk+yJTPus49+FpfsuPbm3+VKJ8y76J/QKjO4wXuAbNrRxN
-X-Google-Smtp-Source: AGHT+IFwW9NRyjYW7BQrQYvv6ZlUZAHMK5dZdh4otNlSjFLdBd76AEtDTO4J0u1G65gJH33NGBAHAg==
-X-Received: by 2002:a2e:a4cd:0:b0:2ee:7c35:d892 with SMTP id 38308e7fff4ca-2f032d43da6mr6452101fa.17.1721835085036;
-        Wed, 24 Jul 2024 08:31:25 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1721835104; x=1722439904;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=y6EXp2HkQVB8UrhglnsBxDgtSrAqoItcHexdbcYlEvM=;
+        b=LDR72oXOLNzH9SZCR39sGRpjCxu+Ox5FVepecJWNngsBemtBu9et7jeJc9c3K9HW07
+         IcWBOMGTCUwBpEZMSAKy5tlaXfBtGdSx9eRLYyyBjflRbs+CUoCDY71mWjga3ek3BzzZ
+         Dqrt95Lvcs9QU84s0hgejvcMPeQhpIBWVST2nBcJfmlAE0hRPpsNypUeEqAqnHKINQsX
+         NsxkhWcFnkir6c63D11iMiFl1BUxJyAbSO7KrSJz2pHob75tHFXh8oqnWlJh2362GhGe
+         Lywr6YGiKWbEgEtICD0z2txANEMG2nHgu9LrresWZmrJ0+T2FObZH/1i4q1oxLG1iptX
+         FP2g==
+X-Gm-Message-State: AOJu0YwN/qWursyk+q8/Rhkjp5YVkJhYU7hu3XPm8j/omZ+LAF9A4asb
+	qpgkTKV+rKZnO6/G6rIldw7h4K5Tvxs3/OUnrRc1V2dlzN32Okfh/q11Y4Lf
+X-Google-Smtp-Source: AGHT+IFqCl0athOfpD4+ml5FENpESTH7jrVQRDChYNM1L6Ka7N3dNIf8g4l10uSwAlKA5uaKrbJqiw==
+X-Received: by 2002:a2e:3812:0:b0:2ef:32bb:536f with SMTP id 38308e7fff4ca-2f039d9438cmr1563071fa.36.1721835103577;
+        Wed, 24 Jul 2024 08:31:43 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v11 5/5] xen/riscv: test basic exception handling stuff
-Date: Wed, 24 Jul 2024 17:31:19 +0200
-Message-ID: <c407999ca7a7fb2772cfa8ea4b9b312cf4366c4d.1721731887.git.oleksii.kurochko@gmail.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH v3 0/9] RISCV device tree mapping
+Date: Wed, 24 Jul 2024 17:31:31 +0200
+Message-ID: <cover.1721834549.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.45.2
-In-Reply-To: <cover.1721731887.git.oleksii.kurochko@gmail.com>
-References: <cover.1721731887.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduces testing of some macros from <xen/bug.h>.
+Current patch series introduces device tree mapping for RISC-V
+and necessary things for that such as:
+- Fixmap mapping
+- pmap
+- Xen page table processing
 
-Also wraps this testing into SELF_TESTS config to not produce
-a noise in the log related to functionality testing ( in the
-current case, it is macros from xen/bug.h ) when CONFIG_SELF_TESTS
-is disabled.
+Also, it introduces common stuff for working with fdt which is
+based on the patches from [1]:
+  [PATCH v4 2/6] xen/device-tree: Move Arm's setup.c bootinfo functions to common
+  [PATCH v4 3/6] xen/common: Move Arm's bootfdt.c
+All changes which were done on top of Shawn's patches please find in "Changes" section
+of each patch.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Alistair Francis <alistair.francis@wdc.com>
+Also there is another one depenency:
+RISCV basic exception handling implementation [2]
+
+[1] https://lore.kernel.org/xen-devel/cover.1712893887.git.sanastasio@raptorengineering.com/
+[2] https://lore.kernel.org/xen-devel/cover.1720799487.git.oleksii.kurochko@gmail.com/T/#t
+
 ---
- xen/arch/riscv/setup.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+Changes in v3:
+ - Introduce SBI RFENCE extension support.
+ - Introduce and initialize pcpu_info[] and __cpuid_to_hartid_map[] and functionality
+   to work with this arrays.
+ - Make page table handling arch specific instead of trying to make it generic.
+ - All other changes are patch specific so please look at the patch.
+---
+Changes in v2:
+ - Update the cover letter message
+ - introduce fixmap mapping
+ - introduce pmap
+ - introduce CONFIG_GENREIC_PT
+ - update use early_fdt_map() after MMU is enabled.
+---
 
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index a6a29a1508..4defad68f4 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -19,6 +19,22 @@ void arch_get_xen_caps(xen_capabilities_info_t *info)
- unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
-     __aligned(STACK_SIZE);
- 
-+#ifdef CONFIG_SELF_TESTS
-+static void test_run_in_exception(const struct cpu_user_regs *regs)
-+{
-+    printk("If you see this message, ");
-+    printk("run_in_exception_handler is most likely working\n");
-+}
-+
-+static void test_macros_from_bug_h(void)
-+{
-+    run_in_exception_handler(test_run_in_exception);
-+    WARN();
-+    printk("If you see this message, ");
-+    printk("WARN is most likely working\n");
-+}
-+#endif
-+
- void __init noreturn start_xen(unsigned long bootcpu_id,
-                                paddr_t dtb_addr)
- {
-@@ -26,6 +42,10 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- 
-     trap_init();
- 
-+#ifdef CONFIG_SELF_TESTS
-+    test_macros_from_bug_h();
-+#endif
-+
-     printk("All set up\n");
- 
-     for ( ;; )
+Oleksii Kurochko (7):
+  xen/riscv: enable CONFIG_HAS_DEVICE_TREE
+  xen/riscv: setup fixmap mapping
+  xen/riscv: introduce asm/pmap.h header
+  xen/riscv: introduce functionality to work with cpu info
+  xen/riscv: introduce and init SBI RFENCE extension
+  xen/riscv: page table handling
+  xen/riscv: introduce early_fdt_map()
+
+Shawn Anastasio (2):
+  xen/device-tree: Move Arm's setup.c bootinfo functions to common
+  xen/common: Move Arm's bootfdt.c to common
+
+ MAINTAINERS                            |    2 +
+ xen/arch/arm/Makefile                  |    1 -
+ xen/arch/arm/bootfdt.c                 |  622 -------
+ xen/arch/arm/include/asm/setup.h       |  198 +--
+ xen/arch/arm/setup.c                   |  432 -----
+ xen/arch/riscv/Kconfig                 |    3 +
+ xen/arch/riscv/Makefile                |    3 +
+ xen/arch/riscv/include/asm/config.h    |    8 +
+ xen/arch/riscv/include/asm/fixmap.h    |   44 +
+ xen/arch/riscv/include/asm/flushtlb.h  |   37 +
+ xen/arch/riscv/include/asm/mm.h        |    6 +
+ xen/arch/riscv/include/asm/page-bits.h |   36 +
+ xen/arch/riscv/include/asm/page.h      |   84 +-
+ xen/arch/riscv/include/asm/pmap.h      |   33 +
+ xen/arch/riscv/include/asm/processor.h |   35 +-
+ xen/arch/riscv/include/asm/sbi.h       |   57 +
+ xen/arch/riscv/include/asm/smp.h       |   10 +
+ xen/arch/riscv/mm.c                    |  120 +-
+ xen/arch/riscv/pt.c                    |  410 +++++
+ xen/arch/riscv/sbi.c                   |  256 +++
+ xen/arch/riscv/setup.c                 |   27 +
+ xen/arch/riscv/smp.c                   |    4 +
+ xen/arch/riscv/smpboot.c               |   12 +
+ xen/arch/riscv/xen.lds.S               |    2 +-
+ xen/common/Makefile                    |    2 +-
+ xen/common/device-tree/Makefile        |    3 +
+ xen/common/device-tree/bootfdt.c       |  635 +++++++
+ xen/common/device-tree/bootinfo.c      |  459 +++++
+ xen/common/device-tree/device_tree.c   | 2253 ++++++++++++++++++++++++
+ xen/common/device_tree.c               | 2253 ------------------------
+ xen/include/xen/bootfdt.h              |  209 +++
+ 31 files changed, 4740 insertions(+), 3516 deletions(-)
+ delete mode 100644 xen/arch/arm/bootfdt.c
+ create mode 100644 xen/arch/riscv/include/asm/fixmap.h
+ create mode 100644 xen/arch/riscv/include/asm/pmap.h
+ create mode 100644 xen/arch/riscv/pt.c
+ create mode 100644 xen/arch/riscv/smp.c
+ create mode 100644 xen/arch/riscv/smpboot.c
+ create mode 100644 xen/common/device-tree/Makefile
+ create mode 100644 xen/common/device-tree/bootfdt.c
+ create mode 100644 xen/common/device-tree/bootinfo.c
+ create mode 100644 xen/common/device-tree/device_tree.c
+ delete mode 100644 xen/common/device_tree.c
+ create mode 100644 xen/include/xen/bootfdt.h
+
 -- 
 2.45.2
 
