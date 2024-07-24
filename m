@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15ABA93AD19
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 09:19:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763806.1174131 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF6D593AD35
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 09:35:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763816.1174141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWWGl-0003nW-NM; Wed, 24 Jul 2024 07:18:39 +0000
+	id 1sWWW8-0006cP-3p; Wed, 24 Jul 2024 07:34:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763806.1174131; Wed, 24 Jul 2024 07:18:39 +0000
+Received: by outflank-mailman (output) from mailman id 763816.1174141; Wed, 24 Jul 2024 07:34:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWWGl-0003kv-K5; Wed, 24 Jul 2024 07:18:39 +0000
-Received: by outflank-mailman (input) for mailman id 763806;
- Wed, 24 Jul 2024 07:18:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sWWW8-0006Zo-0T; Wed, 24 Jul 2024 07:34:32 +0000
+Received: by outflank-mailman (input) for mailman id 763816;
+ Wed, 24 Jul 2024 07:34:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWWGk-0003kl-9l; Wed, 24 Jul 2024 07:18:38 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWWGk-0007wc-1Q; Wed, 24 Jul 2024 07:18:38 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sWWGj-0000ub-DL; Wed, 24 Jul 2024 07:18:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sWWGj-0006PI-Cr; Wed, 24 Jul 2024 07:18:37 +0000
+ (envelope-from <SRS0=D33k=OY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sWWW6-0006Zi-Ed
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 07:34:30 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 28662c5c-498f-11ef-8776-851b0ebba9a2;
+ Wed, 24 Jul 2024 09:34:28 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a7a94aa5080so77389166b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 00:34:28 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7aa6fea966sm87050266b.223.2024.07.24.00.34.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Jul 2024 00:34:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,234 +45,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=y3mO0S+oYyvuLc9CZ5JG/FGFW2pq6LHeCXrWBcRfogs=; b=fsZ1s2R8FlADyJJZHYsZzc5MP1
-	ejHWyMJzD3UNbK1R8SZdmdfKtNKRMOQUnCwX4p2hWTJvlu9Q2SXoPua2+3rG4FqVgKUXUUamD6BMO
-	s0rajkU9AgMhw0ArS/FEa9DqZGCF2QIxr+Zl44g+PdPyrPrqGWQhvHo+nAMZWcnIBY5g=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-186973-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 28662c5c-498f-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1721806468; x=1722411268; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lxpbdfCGrMS+HlYf5Z3VNQfjy8P76FtTN33whdHa8dw=;
+        b=A1eQ+2Q65IpzW/7K85kUDtmnNGkgpbTjME/kCiXV4yMDqkpZCt9o5ODdZVbJBtZrx/
+         IcIp8MujF4q3VnFYQEZxpj8vMZNpV/3GJyBJLw9PtZhdpLjoZsgsGlDYfCj/A7BgkFpy
+         tyUiiqPfbC/CT1I9LoM1a3uV34qZ9gyKKu+Ou7oQZ8AW+iMrZYiY6lXNAOUrByTUsx2v
+         0ZRnryD9F4ot0NXA/T2eLcwh2/nzOBjS+JdJ9QrjkB1FQTbuDMjUrKD3v5yHE4Sfk0kj
+         6TxjVKSCyGE0BIR9QxTKq4MzXYGnp6Vq24x7HLu5eGT7Sgqt+rAujbYI/5Mwuj8CIKMc
+         qGXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721806468; x=1722411268;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lxpbdfCGrMS+HlYf5Z3VNQfjy8P76FtTN33whdHa8dw=;
+        b=s1FCaZ/Kab117kx7WjQRlfpdnhkO1cZiR962/V/LPcoa952S0xrP2s//JcniJVKJBg
+         52EDNJVA2y2FuDwelEn//+MhRki58I0nOYhq55OnE0c1UWhoBLF+ovyx4RysmwLBNMG7
+         BEGMMIF5f3mXMAjY/tWgGG1Dj0b+6V5/rPdFbWs6AQcwdfGz7qFwQlbKrmthykaDZe4R
+         2ykbZ5pRH7hCvvlHvB595ZmrAiQfY7EjWLkjNOuUkvn1ikmaCj0SRRFIiJSluWtgECgx
+         7NhxN3N8twLZqyvSkTf38AG7RK/+TV1yjRzkQIvtGcFxWJRd8qxesfmjLbCC7wBrLZoV
+         ITdg==
+X-Forwarded-Encrypted: i=1; AJvYcCXwwAKjcdWpiP6fsYGO9+D0qMsjERt5wpIK7g7PTka1nu8fPAhaW61t2Y7OCETOVLaTC6sOPxL1R7bZe3oB3DS/C1AHlkuvedg6EjV8YjE=
+X-Gm-Message-State: AOJu0Yy4ELRyvYti6W+NwDAQnkyfRHCyjP6RtOZrH/jXej8IJFTXPGIZ
+	EyQ9fuoT4dJhGsO92xPvY75BCqC8xnk/I49yP5ceve9axDcPAJijXRWwJj7EZP6hAjdkvayzKCs
+	=
+X-Google-Smtp-Source: AGHT+IHLC//ja0oYDuCPMPVQjT1GF9VodgJK3ZRfQNCYjo/3hgq+W37PxJnF9kXrTBkxfCL2XkZb8w==
+X-Received: by 2002:a17:907:97c2:b0:a77:bfca:da53 with SMTP id a640c23a62f3a-a7a4c06a5f6mr949669866b.30.1721806467692;
+        Wed, 24 Jul 2024 00:34:27 -0700 (PDT)
+Message-ID: <f88005d5-8c1f-4060-b3b4-7f88d8c42725@suse.com>
+Date: Wed, 24 Jul 2024 09:34:26 +0200
 MIME-Version: 1.0
-Subject: [linux-linus test] 186973: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-thunderx:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-freebsd12-amd64:guest-start/freebsd.repeat:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=e9680017b2dc8686a908ea1b51941a91b6da9f1d
-X-Osstest-Versions-That:
-    linux=f83e38fc9f1092f8a7a65ff2ea6a1ea6502efaf0
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 24 Jul 2024 07:18:37 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/printk: Avoid the use of L as a length modifier
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240723174129.67911-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240723174129.67911-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 186973 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/186973/
+On 23.07.2024 19:41, Andrew Cooper wrote:
+> Coverity complains about it being invalid.  It turns out that it is a GCC-ism
+> to treat ll and L equivalently.  C99 only permits L to mean long double.
+> 
+> Convert all uses of L in to alternatives, either l, ll or PRI.64 depending on
+> the operand type.  This in turn removes some unnecessary casts which look to
+> predate us having correct PRI* constants.
 
-Regressions :-(
+I'm certainly okay with switching to PRI.64 where appropriate. Switching to ll,
+however, means longer string literals for no really good reason. We use all
+sorts of GCC / GNU extensions; I don't see why we shouldn't be permitted to
+also use this one. It's Coverity that wants to cope, imo.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot            fail REGR. vs. 186827
- test-amd64-amd64-dom0pvh-xl-amd  8 xen-boot              fail REGR. vs. 186827
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 186827
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 186827
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 186827
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 186827
- test-arm64-arm64-xl-thunderx  8 xen-boot                 fail REGR. vs. 186827
- test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 186827
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 186827
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 186827
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 186827
- test-amd64-amd64-qemuu-freebsd12-amd64 21 guest-start/freebsd.repeat fail REGR. vs. 186827
+Or, if we really meant to no longer use L, support for it should then imo also
+be purged from vsnprintf().
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186827
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186827
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186827
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186827
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186827
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186827
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+> I'm disappointed at having to use %ll for __fix_to_virt() in apic.c and
+> io_apic.c.  The expression ends up ULL because of the GB(64) in VMAP_VIRT_END,
+> but can't really be changed without breaking 32bit builds of Xen.
+> 
+> One option might be to turn __fix_to_virt() into a proper function, but
+> there's a lot of that infrastructure which should be dedup'd and not left to
+> each arch to copy.
 
-version targeted for testing:
- linux                e9680017b2dc8686a908ea1b51941a91b6da9f1d
-baseline version:
- linux                f83e38fc9f1092f8a7a65ff2ea6a1ea6502efaf0
+Maybe it doesn't need us going that far, as ...
 
-Last test of basis   186827  2024-07-16 19:43:06 Z    7 days
-Failing since        186925  2024-07-20 09:44:52 Z    3 days    9 attempts
-Testing same since   186973  2024-07-23 20:14:32 Z    0 days    1 attempts
+> --- a/xen/arch/x86/apic.c
+> +++ b/xen/arch/x86/apic.c
+> @@ -938,7 +938,7 @@ void __init init_apic_mappings(void)
+>          apic_phys = mp_lapic_addr;
+>  
+>      set_fixmap_nocache(FIX_APIC_BASE, apic_phys);
+> -    apic_printk(APIC_VERBOSE, "mapped APIC to %08Lx (%08lx)\n", APIC_BASE,
+> +    apic_printk(APIC_VERBOSE, "mapped APIC to %08llx (%08lx)\n", APIC_BASE,
+>                  apic_phys);
 
-------------------------------------------------------------
-1828 people touched revisions under test,
-not listing them all
+... I wonder why we use __fix_to_virt() for APIC_BASE in the first place.
+Using fix_to_virt() would look to be more logical, as all users cast to
+a pointer anyway. Then it could simply be %p here.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 fail    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      fail    
+> --- a/xen/arch/x86/cpu/intel.c
+> +++ b/xen/arch/x86/cpu/intel.c
+> @@ -441,7 +441,7 @@ static void intel_log_freq(const struct cpuinfo_x86 *c)
+>              unsigned long long val = ecx;
+>  
+>              val *= ebx;
+> -            printk("CPU%u: TSC: %u Hz * %u / %u = %Lu Hz\n",
+> +            printk("CPU%u: TSC: %u Hz * %u / %u = %llu Hz\n",
+>                     smp_processor_id(), ecx, ebx, eax, val / eax);
+>          }
 
+Maybe change val to be uint64_t instead? That's against what ./CODING_STYLE
+calls for, but would be for a reason (to be able to use PRIu64) here.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> --- a/xen/arch/x86/cpu/mcheck/vmce.c
+> +++ b/xen/arch/x86/cpu/mcheck/vmce.c
+> @@ -71,7 +71,7 @@ int vmce_restore_vcpu(struct vcpu *v, const struct hvm_vmce_vcpu *ctxt)
+>      if ( ctxt->caps & ~guest_mcg_cap & ~MCG_CAP_COUNT & ~MCG_CTL_P )
+>      {
+>          printk(XENLOG_G_ERR
+> -               "%s restore: unsupported MCA capabilities %#"PRIx64" for %pv (supported: %#Lx)\n",
+> +               "%s restore: unsupported MCA capabilities %#"PRIx64" for %pv (supported: %#llx)\n",
+>                  is_hvm_vcpu(v) ? "HVM" : "PV", ctxt->caps,
+>                  v, guest_mcg_cap & ~MCG_CAP_COUNT);
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+guest_mcg_cap is unsigned long and MCG_CAP_COUNT could as well use UL instead
+of ULL, couldn't it?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> @@ -517,7 +517,7 @@ static int vmx_init_vmcs_config(bool bsp)
+>          if ( (vmx_basic_msr_high & (VMX_BASIC_VMCS_SIZE_MASK >> 32)) >
+>               PAGE_SIZE )
+>          {
+> -            printk("VMX: CPU%d VMCS size is too big (%Lu bytes)\n",
+> +            printk("VMX: CPU%d VMCS size is too big (%llu bytes)\n",
+>                     smp_processor_id(),
+>                     vmx_basic_msr_high & (VMX_BASIC_VMCS_SIZE_MASK >> 32));
+>              return -EINVAL;
+> @@ -564,7 +564,7 @@ static int vmx_init_vmcs_config(bool bsp)
+>          if ( (vmx_basic_msr_high & (VMX_BASIC_VMCS_SIZE_MASK >> 32)) !=
+>               ((vmx_basic_msr & VMX_BASIC_VMCS_SIZE_MASK) >> 32) )
+>          {
+> -            printk("VMX: CPU%d unexpected VMCS size %Lu\n",
+> +            printk("VMX: CPU%d unexpected VMCS size %llu\n",
+>                     smp_processor_id(),
+>                     vmx_basic_msr_high & (VMX_BASIC_VMCS_SIZE_MASK >> 32));
+>              mismatch = 1;
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Same here for VMX_BASIC_VMCS_SIZE_MASK. We leverage not doing 32-bit builds
+anymore in exactly this way elsewhere.
 
+> --- a/xen/arch/x86/io_apic.c
+> +++ b/xen/arch/x86/io_apic.c
+> @@ -2597,7 +2597,7 @@ static void __init ioapic_init_mappings(void)
+>          }
+>  
+>          set_fixmap_nocache(idx, ioapic_phys);
+> -        apic_printk(APIC_VERBOSE, "mapped IOAPIC to %08Lx (%08lx)\n",
+> +        apic_printk(APIC_VERBOSE, "mapped IOAPIC to %08llx (%08lx)\n",
+>                      __fix_to_virt(idx), ioapic_phys);
 
-Not pushing.
+Like above, switch to using fix_to_virt() and %p?
 
-(No revision log; it would be 202868 lines long.)
+Jan
 
