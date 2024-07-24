@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE73F93AD90
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 09:57:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.763836.1174171 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8203C93AD91
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2024 09:57:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.763842.1174181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWWrd-0002gW-8u; Wed, 24 Jul 2024 07:56:45 +0000
+	id 1sWWsF-0003Hj-L0; Wed, 24 Jul 2024 07:57:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 763836.1174171; Wed, 24 Jul 2024 07:56:45 +0000
+Received: by outflank-mailman (output) from mailman id 763842.1174181; Wed, 24 Jul 2024 07:57:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWWrd-0002el-5c; Wed, 24 Jul 2024 07:56:45 +0000
-Received: by outflank-mailman (input) for mailman id 763836;
- Wed, 24 Jul 2024 07:56:44 +0000
+	id 1sWWsF-0003Em-H7; Wed, 24 Jul 2024 07:57:23 +0000
+Received: by outflank-mailman (input) for mailman id 763842;
+ Wed, 24 Jul 2024 07:57:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D33k=OY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWWrb-0002dO-Vm
- for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 07:56:43 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1sWWsE-0002dO-Dg
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2024 07:57:22 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 43809e0e-4992-11ef-8776-851b0ebba9a2;
- Wed, 24 Jul 2024 09:56:41 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a7ab5fc975dso19691166b.1
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 00:56:41 -0700 (PDT)
+ id 5abad9b7-4992-11ef-8776-851b0ebba9a2;
+ Wed, 24 Jul 2024 09:57:20 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-595856e2336so1083774a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 00:57:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7a92dddccdsm162227466b.79.2024.07.24.00.56.40
+ 4fb4d7f45d1cf-5a30a4d7127sm8647432a12.3.2024.07.24.00.57.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jul 2024 00:56:41 -0700 (PDT)
+ Wed, 24 Jul 2024 00:57:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43809e0e-4992-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 5abad9b7-4992-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721807801; x=1722412601; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721807840; x=1722412640; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zg5TTElUNPOWDRdPE4JFJtFqpfHGgOG+47kNLVUVaYk=;
-        b=QCIK2ZvZeLEQysOaGV1WGplYXvhudH2mzwH6yBGTfZTy3KciYV2DE4O9TBHlPDI6na
-         C8k5K9ZOBbbr/MOLu2LJuKsSBGRRRWESb5UtY+qikdLLUqh6sdOFoe2HHj6auP5FyZZK
-         Rh6EJ73KAHlLBqX6VsrxzXjd6bjnkVwqUJ8r0fPPBJMvyd82ItlVyMkimR9eNzyFIKJb
-         U+5u1e8srjQIeUPDHdBqakrmzc337qSpoAGS/92ezvADTAcL2IGrFt1+VD77LpYF6ZCp
-         C2uYhvSqjqkytlkqyn4hOwjngYEqHvkUR1bI4F2R/PYFbeZ1Uus00hi08F1+AY+owpAT
-         cOyw==
+        bh=c2f4P9QdyyPTeUIlYdGXbyUGoQGCVV0wq54e53flh5A=;
+        b=DLj+6sfVRPTbrH4CWppblUPTyOVoVsFnwTqUfUBsW9E06ZzkClnBmFkvWqxUzUafZe
+         eCWzGJZhi5DPWqQdxlpwOZU/IxBJo+KXB96TbdOBAdSarQvxttoM/A0+j//8oyeYINQM
+         8CX8zsKLMLM4o0SDw3B6XEib0YnvxhIFLl+aL1AN7tRL3DZBjnyhuTNKsjSuPNOscXjn
+         xWO5AcfIDF/I1t9y7OPhIbZRE30S/mPu1nmoMtfEtMtreEp1zSw+KqyRYSMbblTEj1Ct
+         cYgbDhiUStTZrhZMpFUakV0DWGU/mMWF9Qqm8VqXCHXsi/MSDNQ6MHbaLsIUyg1ZkaYl
+         OpSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721807801; x=1722412601;
+        d=1e100.net; s=20230601; t=1721807840; x=1722412640;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Zg5TTElUNPOWDRdPE4JFJtFqpfHGgOG+47kNLVUVaYk=;
-        b=PBCHhTZWyuNACjValEhh2d8/U98Tjvwr32O5XO6sOMhff85W8xMEj5FUgG8BL7QZla
-         strtzibwWUpnM4B1LZrIdNtVry/REqbFk8WqLjZ1Q1xmitf6I9+4vhhgHFDRx9Si6eM2
-         bio1tN2ZTrQodZfXwExxfA3qL8R9DEFkbrKDtOiGRg4BkqgDL15r7wezMaR0HMRFAuOh
-         cOWNiJLK2nv+J0UG/UPi8YOQOU01ZP9duVN5uAEMhgoQRhW86eUJWKdb1J/hAN2CBUih
-         7Qw/CqwIxI28yDv/aa18hZQg4CMB7UHanN+UDrh6RFIzSoSdBkaWJrnLKegBAlgjjySs
-         twUg==
-X-Forwarded-Encrypted: i=1; AJvYcCUp5B0CDV+fM5OzONNXrjPWvxVsbebvDC20L9KZShg0UkisgzJRpA/vIigo20s0sSfJJnjG6I28IzDnaIOul09WHzNCBK4CWlTZ1j8y0u4=
-X-Gm-Message-State: AOJu0YwjQ3yu9lsYLT3VgDQqLdoMZ7mmzrqex678TRsY34dVh1WT0Egd
-	XiWiOc268cK9WVvlLA4WzWaYyyP/JwykCZiYcY7FPi15o4v10OXEeQJ3deHNVA==
-X-Google-Smtp-Source: AGHT+IE9fxggadT2mF0F48MFKOLZBPQtE3LJO+wNeyTGjk2T3RiPKYops5mNJvl2dUXEIusfji6AZQ==
-X-Received: by 2002:a17:907:7f0f:b0:a7a:a5ed:43d0 with SMTP id a640c23a62f3a-a7aa5ed4babmr194344766b.47.1721807801325;
-        Wed, 24 Jul 2024 00:56:41 -0700 (PDT)
-Message-ID: <14104805-0f0e-4741-877f-24afffc816ce@suse.com>
-Date: Wed, 24 Jul 2024 09:56:39 +0200
+        bh=c2f4P9QdyyPTeUIlYdGXbyUGoQGCVV0wq54e53flh5A=;
+        b=KlhTU3/7+KWV6rZRhPTri3AnyV/u6O64iiET/BRGAgmGJWPv/xhhcGbzetVF/Hp7lM
+         j9CHoTC1vdIYEPNX9qPZXCGFG5dlV7f1UHptbGC/gcNtIFcit2Z1TmRHBrIp8s2sNi8o
+         781PTwDf3F3Pv0nT4cV81QV/aIusUiZenrMoZWcPT3oVyservti5wC7/ZdfosJG3YKrW
+         NtCK+pyxqqjoyse8aXfM7J/xibAfPjjV5nh8CKlTEf67VorYZCKN+3xfmmm1DYhUWq6G
+         FaBjJ/L9B9SEHaxhO8S9J24z/cURRF8+UnGsfn0/0H6pWGNgLAorrwNA8UN3hr2gJEb0
+         z3fg==
+X-Forwarded-Encrypted: i=1; AJvYcCWuLoSx5kYRKlf298u2XT7Yv1qB0hSJvOBmHVOfxZ3fOwyw2788Y7eGfo/tJWfnrG14U4hj7WpKOO2NZwRznuY0KkM1ekbbdLT/F0bMLs4=
+X-Gm-Message-State: AOJu0Yy5mx5x9vZ+XXwwNH3jJd7+mSWc15FPAYS202JiC0xDBVYbyWUK
+	Y5kYDxBkbelZ6+TizfTqEtyQWJ2cNdoHWtWavvbyeeI9Arm+3KTMs1LVmuU4sSwMYOr6pNew99E
+	=
+X-Google-Smtp-Source: AGHT+IG9wbvZyw14p9ccoNq5OAXVIuwe+NW6POFgu1pfiPdtSK/sYsgiZmLKLuB/PkYE8PFkZNs4sw==
+X-Received: by 2002:a05:6402:2483:b0:585:412f:ff8f with SMTP id 4fb4d7f45d1cf-5ab19dccf09mr1240583a12.4.1721807840360;
+        Wed, 24 Jul 2024 00:57:20 -0700 (PDT)
+Message-ID: <68b1f03e-505f-43b1-8203-272508bae52b@suse.com>
+Date: Wed, 24 Jul 2024 09:57:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/IO-APIC: Improve APIC_TMR accesses
+Subject: Re: [PATCH] x86/APIC: Rewrite apic_isr_read() to match
+ apic_{tmr,irr}_read()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240723203701.208018-1-andrew.cooper3@citrix.com>
+References: <20240723211202.267212-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -111,28 +113,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240723203701.208018-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240723211202.267212-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.07.2024 22:37, Andrew Cooper wrote:
-> XenServer's instance of coverity complains of OVERFLOW_BEFORE_WIDEN in
-> mask_and_ack_level_ioapic_irq(), which is ultimately because of v being
-> unsigned long, and (1U << ...) being 32 bits.
-
-Which of course is bogus when the shift amount is masked down to 5 bits.
-May I ask that you express this somehow in the wording.
-
-> Introduce a apic_tmr_read() helper like we already have for ISR and IRR, and
-> use it to remove the opencoded access logic.  Introduce an is_level boolean to
-> improve the legibility of the surrounding logic.
-> 
-> No functional change.
+On 23.07.2024 23:12, Andrew Cooper wrote:
+> This allows for marginally better code generation including the use of BT
+> rather than SHR/TEST.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-The change is an improvement irrespective of Coverity's anomaly, so:
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
