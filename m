@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B469393BECA
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 11:14:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764874.1175445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 352A593BF13
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 11:27:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764886.1175456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWuXL-0001CM-2y; Thu, 25 Jul 2024 09:13:23 +0000
+	id 1sWuk8-0003LM-AA; Thu, 25 Jul 2024 09:26:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764874.1175445; Thu, 25 Jul 2024 09:13:23 +0000
+Received: by outflank-mailman (output) from mailman id 764886.1175456; Thu, 25 Jul 2024 09:26:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWuXL-0001AS-0B; Thu, 25 Jul 2024 09:13:23 +0000
-Received: by outflank-mailman (input) for mailman id 764874;
- Thu, 25 Jul 2024 09:13:22 +0000
+	id 1sWuk8-0003IK-6y; Thu, 25 Jul 2024 09:26:36 +0000
+Received: by outflank-mailman (input) for mailman id 764886;
+ Thu, 25 Jul 2024 09:26:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/jnY=OZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sWuXK-0001AM-EV
- for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 09:13:22 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ (envelope-from <SRS0=/1nn=OZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sWuk7-0003H4-3H
+ for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 09:26:35 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 234a318e-4a66-11ef-bbff-fd08da9f4363;
- Thu, 25 Jul 2024 11:13:21 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5a88be88a3aso850029a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 02:13:21 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
- (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
- [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acadb98a2sm49682166b.217.2024.07.25.02.13.19
+ id fbe45370-4a67-11ef-bbff-fd08da9f4363;
+ Thu, 25 Jul 2024 11:26:34 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5a22f09d976so3105574a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 02:26:34 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acab23704sm52494266b.3.2024.07.25.02.26.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jul 2024 02:13:20 -0700 (PDT)
+ Thu, 25 Jul 2024 02:26:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,102 +45,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 234a318e-4a66-11ef-bbff-fd08da9f4363
+X-Inumbo-ID: fbe45370-4a67-11ef-bbff-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721898801; x=1722503601; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xbOh1YnLRGUof5jIdg/YaLDXWdX8IKsWKWEs5XtNUCY=;
-        b=MQdkdCTWw307vgLLjc56GPiwxrwBTT8ofe1vSijyvSOFk6qIHMPU6OSadKfvoMtUJS
-         0HViZGag2e2XzB/MgQUpQW1kWD591PY53FBqZuDzPG6sUJxPIyIBFxv1eaHC0jrTvyY8
-         30Z9NZCIxGmVWAJ2l+jSeeo8dSqx/9682iIcIb/wArVPaXA86aj+DDg8B0Jvsk5MuqK2
-         0S6APIJTRi5y3f2ptovjNWmMN8rXD/2zlop4k0rBB/KMS2gooohtK+oqgsxV/0aWyWyI
-         CI2slu/Vsxlgsj3+xNSO05nS8La3+91KgvZ6047ZXXL/2kjwOho7l7r8V3N0naf+pRX5
-         p8wg==
+        d=suse.com; s=google; t=1721899593; x=1722504393; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=vrKoZlQWrKJ4ZNG6GJimcEMPC3rmfVGwlDySbp2Xgig=;
+        b=B04aOntqYFq0nNS9w1RGgmhBwn5XIc94+tn6gYxILr1hYLmDERCyD4Z6Jb1wIlwC4E
+         8ga8VCbAIRD2IDL1F9CK+vGxl0bupHmbPtaGRAEg7gf5aYiL8Y6JzHHlRjU3Uvyu5eLP
+         JqRwb4IYdhD8mW2fazmmiLXsStoYKMRq7w5a1TE9XYuzE3HrQyW3EtmU5OHghk6nr7jV
+         P6PJd7RSYOhfAlVa1p2QKQw6EWfPpJjSaG4x3hk+r1ciVud8dzUSaVg5aD/6jbgKO42a
+         t+uvvyQzKIJWEYct9qABVVos29vNCoGUt2TOlx1jyE8lTE5h2+4fIKrMRo5CzVdFpaYY
+         ur7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721898801; x=1722503601;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xbOh1YnLRGUof5jIdg/YaLDXWdX8IKsWKWEs5XtNUCY=;
-        b=mHH9hL6sgYtHsQ6XR9m3v9dzyO8aZ2xif96nnpd/LIpD/zd8v8csclWaIP+eDhiYUN
-         eTcQMYjWbmAAo7wa2zeqy+ap9CvHNdoC3eYWLNgiazEt4TStsZSBUUiZLRmIl+U7TuWn
-         A2omJ64XeVwXd818Y4+LiwdYT7TWAWWTv+64T8PiL67ULCOm4hBWT05lJvDcK7cwl5uz
-         dISrw4coHlToTD6ueGvsDExcvx2LOwEnoTxkGtRG98iDW+uDizcnLxX+0JC3ECue+RnP
-         f8FnrxpsHUAZZmjBQechkSHrvvm2p22PAyq8UAeHzm3Hn4AW4AnncHwaGlYrQWqcjssC
-         XlaQ==
-X-Gm-Message-State: AOJu0YyExXRtSytqyuwaWh89tlHOUXysLf77wkAkS1lLytI2paoExxai
-	5ylg1cawsdGxcscwzBXPoEx5OtCYCFp+5MJEND6KxngeYwmwU01f8mO7aZlfAM8=
-X-Google-Smtp-Source: AGHT+IHxmwgcPOVP7EAaplSEN4sDlAIuvKhcJZrN3BNDqOUMOcNM4PXGUk94TQFdyWJlKa2+KaDWzQ==
-X-Received: by 2002:a17:906:c145:b0:a7a:a138:dbc5 with SMTP id a640c23a62f3a-a7acb97172bmr106298066b.65.1721898800661;
-        Thu, 25 Jul 2024 02:13:20 -0700 (PDT)
-Message-ID: <036855d4-b1d4-444b-92d6-84376ecdffb8@suse.com>
-Date: Thu, 25 Jul 2024 11:13:19 +0200
+        d=1e100.net; s=20230601; t=1721899593; x=1722504393;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vrKoZlQWrKJ4ZNG6GJimcEMPC3rmfVGwlDySbp2Xgig=;
+        b=RsG1xWMCldKuVz1I415zaw1qMeS6uWvn/eesxYbpZyHYNgDNQANL/Fst8mWwKjeg0u
+         cqf9zd+MALp3M3v7Y+oUxKmNSBoc8fGBIppfkScuKi4n6CU608aKmy9B57XEVDmo3RcT
+         9TFfTFGCJIJNtvkkKi0vLjcRS1rzUu84+T4pouhBb/7G8gnBiyrAEeZtDirqa6rBlRX/
+         SE2stdCEymJIJ5Pj6SsDIqjz1QbxqC3DSVQsCTLxQ/bm8cyD1HFHNlV8inyErgdrDrBj
+         xxbzB84/x/iJfmVE/MyKVP/YH1Iv/CybELEMqZPJLmpKW1tiGA4p1NBrUZlEd+Jx8Qmq
+         NYpg==
+X-Forwarded-Encrypted: i=1; AJvYcCW79Ft156eEhymn+OnF/Qf/NISM/YZG3eNOkmCPZPCc098K5rUdouPTQUeBsHudxjKM+p0UzLbYec6wOcyC3FN/Ddx1gghyf1zEElqYjr4=
+X-Gm-Message-State: AOJu0YySne5QcDW1SbdGAEqiZBNACCvri28CZjjAaGMAFZDtZWiNDFph
+	bRmLI37n2klNtOKfaJRpzFEHz9FVs99FMb17NfceFWGX1/LaJyLr83u0Q1PvoA==
+X-Google-Smtp-Source: AGHT+IFJv0zBeXKluJDR88ArbTGz73U2lP//S71kp1O41735aGelOW8Q9zsHFvydutyn+qUzhyBWlg==
+X-Received: by 2002:a17:907:7244:b0:a77:c051:36a9 with SMTP id a640c23a62f3a-a7ac44e144amr265540066b.9.1721899593550;
+        Thu, 25 Jul 2024 02:26:33 -0700 (PDT)
+Message-ID: <7588feb4-dc42-4bf3-85db-7aaac201a2ff@suse.com>
+Date: Thu, 25 Jul 2024 11:26:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/xen: fix memblock_reserve() usage on PVH
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-References: <20240725073116.14626-1-roger.pau@citrix.com>
- <20240725073116.14626-3-roger.pau@citrix.com>
- <a249e651-a2a1-4ea9-b262-0d04a8abaf0e@suse.com> <ZqIIgc9xj6wmDJtE@macbook>
+Subject: Re: [PATCH v6 2/3] x86/mm: add API for marking only part of a MMIO
+ page read only
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.66bd16d0134f9664ea3e0f4d56f7c127afc308c8.1721704980.git-series.marmarek@invisiblethingslab.com>
+ <4bea5034cda37f35cd04115bebcccb52e3ea719e.1721704980.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <ZqIIgc9xj6wmDJtE@macbook>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <4bea5034cda37f35cd04115bebcccb52e3ea719e.1721704980.git-series.marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 25.07.24 10:10, Roger Pau Monné wrote:
-> On Thu, Jul 25, 2024 at 10:01:17AM +0200, Jürgen Groß wrote:
->> On 25.07.24 09:31, Roger Pau Monne wrote:
->>> The current usage of memblock_reserve() in init_pvh_bootparams() is done before
->>> the .bss is zeroed, and that used to be fine when
->>> memblock_reserved_init_regions implicitly ended up in the .meminit.data
->>> section.  However after commit 73db3abdca58c memblock_reserved_init_regions
->>> ends up in the .bss section, thus breaking it's usage before the .bss is
->>> cleared.
->>>
->>> Move and rename the call to xen_reserve_extra_memory() so it's done in the
->>> x86_init.oem.arch_setup hook, which gets executed after the .bss has been
->>> zeroed, but before calling e820__memory_setup().
->>>
->>> Fixes: 38620fc4e893 ('x86/xen: attempt to inflate the memory balloon on PVH')
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>> While the commit that introduced the user-noticeable regression is
->>> 73db3abdca58c, I think 38620fc4e893 should have been more careful to not
->>> initialize the memblock ranges ahead of the .bss zeroing.
->>
->> Reviewed-by: Juergen Gross <jgross@suse.com>
->>
->> I'd prefer using 73db3abdca58c for the fixes tag. Otherwise you'd need to
->> add this patch to the stable branches, too, which is technically not really
->> needed.
->>
->> Additionally I'd like to drop the Fixes: tag from the prereq patch, as this
->> one doesn't really fix anything.
->>
->> I can do both while committing.
-> 
-> I was unsure myself (as noted in the post-commit notes) about which
-> "Fixes:" tag to use.
-> 
-> Is there anyway that it can be noted that this commit depends on the
-> previous change also being present?  For backport reasons, if anyone
-> ends up backporting 73db3abdca58c it would also need to pick the two
-> patches here.
+On 23.07.2024 05:24, Marek Marczykowski-Górecki wrote:
+> +static int __init subpage_mmio_ro_add_page(
+> +    mfn_t mfn,
+> +    unsigned int offset_s,
+> +    unsigned int offset_e)
+> +{
+> +    struct subpage_ro_range *entry = NULL;
+> +    bool new_entry = false;
+> +    unsigned int i;
+> +
+> +    entry = subpage_mmio_find_page(mfn);
+> +    if ( !entry )
+> +    {
+> +        entry = xzalloc(struct subpage_ro_range);
+> +        if ( !entry )
+> +            return -ENOMEM;
+> +        entry->mfn = mfn;
+> +        list_add(&entry->list, &subpage_ro_ranges);
+> +        new_entry = true;
+> +    }
+> +
+> +    for ( i = offset_s; i <= offset_e; i += MMIO_RO_SUBPAGE_GRAN )
+> +    {
+> +        bool oldbit = __test_and_set_bit(i / MMIO_RO_SUBPAGE_GRAN,
+> +                                         entry->ro_elems);
+> +        ASSERT(!oldbit);
+> +    }
+> +
+> +    return new_entry ? 0 : 1;
 
-This is normal business of backporting. This patch added to a stable kernel
-would at least result in a build failure. The person doing the backport could
-it either fixup locally in the backported patch, or look which patch did setup
-the source to make this patch work.
+Imo simply !new_entry would be more concise.
 
+> +int __init subpage_mmio_ro_add(
+> +    paddr_t start,
+> +    size_t size)
+> +{
+> +    mfn_t mfn_start = maddr_to_mfn(start);
+> +    paddr_t end = start + size - 1;
+> +    mfn_t mfn_end = maddr_to_mfn(end);
+> +    unsigned int offset_end = 0;
+> +    int rc;
+> +    bool subpage_start, subpage_end;
+> +
+> +    /*
+> +     * In release, build unaligned start will protect larger area,
 
-Juergen
+I think the first comma wants to move past "build".
 
+> +     * so tolerate it.
+> +     * But unaligned size would result in smaller area, so deny it.
+> +     */
+> +    ASSERT(IS_ALIGNED(start, MMIO_RO_SUBPAGE_GRAN));
+> +    ASSERT(IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN));
+> +    if ( !IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN) )
+> +        return -EINVAL;
+
+I hoped you would, when adding the comment, recall an earlier comment of
+mine: If you want to tolerate mis-aligned start in release builds, you
+need to make further adjustments to the subsequent logic (at which
+point the respective assertion may become pointless); see below. While
+things may work okay without (I didn't fully convince myself either way),
+the main point here is that you want to make sure we test in debug builds
+what's actually used in release one. Hence subtleties like this would
+better be dealt with uniformly between release and debug builds.
+
+> +    if ( !size )
+> +        return 0;
+> +
+> +    if ( mfn_eq(mfn_start, mfn_end) )
+> +    {
+> +        /* Both starting and ending parts handled at once */
+> +        subpage_start = PAGE_OFFSET(start) || PAGE_OFFSET(end) != PAGE_SIZE - 1;
+> +        subpage_end = false;
+> +    }
+> +    else
+> +    {
+> +        subpage_start = PAGE_OFFSET(start);
+> +        subpage_end = PAGE_OFFSET(end) != PAGE_SIZE - 1;
+> +    }
+
+Neither of the two subpage_start calculations is correct when start is
+misaligned, but within the first 8 bytes of a page.
+
+Jan
 
