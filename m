@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FA3193C40A
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 16:24:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765024.1175576 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2541793C5CB
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 16:55:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765039.1175610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWzOP-0002W3-53; Thu, 25 Jul 2024 14:24:29 +0000
+	id 1sWzrv-00079F-KE; Thu, 25 Jul 2024 14:54:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765024.1175576; Thu, 25 Jul 2024 14:24:29 +0000
+Received: by outflank-mailman (output) from mailman id 765039.1175610; Thu, 25 Jul 2024 14:54:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWzOP-0002TX-1e; Thu, 25 Jul 2024 14:24:29 +0000
-Received: by outflank-mailman (input) for mailman id 765024;
- Thu, 25 Jul 2024 14:24:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/1nn=OZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWzON-0002TR-BR
- for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 14:24:27 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 974d9f04-4a91-11ef-8776-851b0ebba9a2;
- Thu, 25 Jul 2024 16:24:24 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2ef2c109eabso2656691fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 07:24:24 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acadb9819sm77628966b.205.2024.07.25.07.24.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jul 2024 07:24:23 -0700 (PDT)
+	id 1sWzrv-00077k-GL; Thu, 25 Jul 2024 14:54:59 +0000
+Received: by outflank-mailman (input) for mailman id 765039;
+ Thu, 25 Jul 2024 14:54:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KwaG=OZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sWzru-00077Z-3v
+ for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 14:54:58 +0000
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [2607:f8b0:4864:20::22f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id db97351b-4a95-11ef-bbff-fd08da9f4363;
+ Thu, 25 Jul 2024 16:54:57 +0200 (CEST)
+Received: by mail-oi1-x22f.google.com with SMTP id
+ 5614622812f47-3d9e13ef8edso594429b6e.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 07:54:57 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-44fe8123fb1sm6871261cf.18.2024.07.25.07.54.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jul 2024 07:54:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,82 +44,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 974d9f04-4a91-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: db97351b-4a95-11ef-bbff-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721917463; x=1722522263; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=5iBzzJZKN4/MHgtaBxutVuuVQSTJdzlGsZw+uqwSav8=;
-        b=SuLwDRse7VhhHYZCd7XVm2YDNIVRjhnPHmmaAs/sLh2DuDSZxCgCBockMj8sA7wl5X
-         NHBOIDcgjLiVFCVGoJRSyuD5XxeZt2A0M/pkE/2WYbGnUOTdftlHr9dFSB7IydkRuEi5
-         Z241ajt+Y9rli7FRpBrbI9Wtmw4HCXIazWoKUPZ1bbl9xoztUNFJr0kyNzQy+3RGOOwo
-         arESLvF28VraH2HGufPf0boBn2ASi7V/gWJqdNp7oAZ++oIdcyqheKD8N8hAbeJv6yya
-         6lQnWQQeKfS3+IUjzAu961hKZneWpOpiHK8fm+8CL7ItHxzkTPQSnxuOBEdhn/+vsp8t
-         5Clg==
+        d=citrix.com; s=google; t=1721919296; x=1722524096; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=onuCBAMg0ZTh1qjbMu/QgglL5loFwS5IkGrwQbw/xOY=;
+        b=Y1sdfIUAKzCStGpEuCLr5TOExoG2rTHEZVUgm8vjQ6ySHjgWVzQYSPvk8szUOd+pOb
+         H0APt5R/trTxdsYOrT9/1cRJhRu8fRUnoRKUXml2fHET1i1bYw+Bc7HZop7EElT0/0c8
+         3ITcoNlxeYhoUmSnckFrqK1wo/VOVlrlrglNc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721917463; x=1722522263;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5iBzzJZKN4/MHgtaBxutVuuVQSTJdzlGsZw+uqwSav8=;
-        b=pn1hh6Vg93HOKYc+OXwLqe/nIWGV1xiGwP1RP2KRpZEFiKqrsCmgnpIDrsLeOOrcCG
-         4GOBm21IKPObCs6z3nfLIJycB6a7aZXoVcmrENGoqYPVHVyS3+CbnxCmGJFlybP6idcr
-         kCX+sooPBbStODe9medUL1D5v2Q1UJ2cwMDcXVn33LUCxPMKG+nTzxBu5JytyX+1bbGA
-         JujI+y15kgO0QTQa5AcNMCeUECFSLdMYaq8B2QoW1wkMPp/ktgBj6bUzziTPptG7iVcQ
-         9+unguuvFqc1SpDtZ+o1XfdTu+G2dFkxOtAPDXvSMWoMKV91eKDBtqtqflTYq8MYCKPl
-         9YBw==
-X-Gm-Message-State: AOJu0YypS97N0Xhz7zhMP/RWXo9EukLbDUadhpvMLLiDf7ufS5ymz8lX
-	pTk7R7RXS18+vDtke9WtWIneb5OdX0Bq8i/NIwikt9HD0Uobln6EG0XptVsKFwCg19kSK7XVosY
-	=
-X-Google-Smtp-Source: AGHT+IEHAmy1m5LmNTfJovbM/dElxgQ45vwBCGOV5ywYvgfZ26iv4YIV/49PvtTdcz2gvun6QWC2BA==
-X-Received: by 2002:a05:6512:5cb:b0:52e:9428:c6dd with SMTP id 2adb3069b0e04-52fd609b9d9mr1321023e87.59.1721917463565;
-        Thu, 25 Jul 2024 07:24:23 -0700 (PDT)
-Message-ID: <2dbe1632-4959-4b15-ada6-c438bc300c2a@suse.com>
-Date: Thu, 25 Jul 2024 16:24:21 +0200
+        d=1e100.net; s=20230601; t=1721919296; x=1722524096;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=onuCBAMg0ZTh1qjbMu/QgglL5loFwS5IkGrwQbw/xOY=;
+        b=sx0la0gS2wm28jBF+iF0pmV3+SrHGpqWW/44WVlP3KMNVewQPL8XNPkz1s4WS2C3Im
+         GyVDnQY29d0Hc+LoF2P3tMvjFq1w7rBeSThgWmpU84RYG6zlWTNZ8MZN06f+GMdNapaq
+         eCbDLYwFfti6fC2jDIGknEi5W+ICw4ylZr0hbJxYesbMlXOqxAK/DoFXXJE6Lky6hioG
+         zYJVxUMGJUN8s1L+N9BGONu7vVTCSOqPqcjyKZmPQHQc/Je4ADgQ4sw0s+k7hfDw/B21
+         4zFYm3R7q5OTM3kpk1qMqu6YssVaMICtYDPXSqFzOkD1pAPcsioKuTTPPF4cJdjVJoDw
+         8uxw==
+X-Forwarded-Encrypted: i=1; AJvYcCW6UWuv2Z9j4VxRKPpc8P3rgBYN4vOl2TbSrQVTNUTX9qI8Fh7BjsG1lHWClfoybjSWd/1w26U16eov5U1IkRBrmDDpQOcAUClXwwIGFDY=
+X-Gm-Message-State: AOJu0YyqGtAE0X5YWCyJJtpuibW8yJCpE5bpTVQuFIC8e6jO16xdYjmc
+	ZTv8j0yDXQ3CAnznmMhJhursvmvKnCJa8FP1z/6R/RViUHTS5a4CpamZepIq7p0=
+X-Google-Smtp-Source: AGHT+IF6uIXn51WotDMC7RtYtp1s0/WYA+bKu3G9qQ1Gr1PtkOzcNqb1VglvCEJUHgl+dkvxi+0G/g==
+X-Received: by 2002:a05:6808:2029:b0:3d9:2c5a:c81a with SMTP id 5614622812f47-3db142650c7mr2483537b6e.50.1721919296105;
+        Thu, 25 Jul 2024 07:54:56 -0700 (PDT)
+Date: Thu, 25 Jul 2024 16:54:54 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] x86/altcall: further refine clang workaround
+Message-ID: <ZqJnPvL1ilDDzM9V@macbook>
+References: <20240725105634.16825-1-roger.pau@citrix.com>
+ <9ecd3a39-55bf-4a49-9f45-1e0abfad353a@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: preparations for 4.18.3 and 4.17.5
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Kelly Choi <kelly.choi@cloud.com>,
- Anthony Perard <anthony@xenproject.org>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <9ecd3a39-55bf-4a49-9f45-1e0abfad353a@suse.com>
 
-All,
+On Thu, Jul 25, 2024 at 03:18:29PM +0200, Jan Beulich wrote:
+> On 25.07.2024 12:56, Roger Pau Monne wrote:
+> > --- a/xen/arch/x86/include/asm/alternative.h
+> > +++ b/xen/arch/x86/include/asm/alternative.h
+> > @@ -184,11 +184,11 @@ extern void alternative_branches(void);
+> >   * https://github.com/llvm/llvm-project/issues/82598
+> >   */
+> >  #define ALT_CALL_ARG(arg, n)                                            \
+> > -    register union {                                                    \
+> > -        typeof(arg) e[sizeof(long) / sizeof(arg)];                      \
+> > -        unsigned long r;                                                \
+> > +    register struct {                                                   \
+> > +        typeof(arg) e;                                                  \
+> > +        char pad[sizeof(void *) - sizeof(arg)];                         \
+> 
+> One thing that occurred to me only after our discussion, and I then forgot
+> to mention this before you would send a patch: What if sizeof(void *) ==
+> sizeof(arg)? Zero-sized arrays are explicitly something we're trying to
+> get rid of.
 
-the releases are due in about two weeks. Please point out backports you find
-missing from the respective staging branches, but which you consider relevant.
+I wondered about this, but I though it was only [] that we were trying
+to get rid of, not [0].
 
-Note that 4.17.5 is going to be the last Xen Project coordinated ordinary stable
-release from the 4.17 branch; the branch will move into security-only support
-mode afterwards.
+> I was wondering whether we could get away resorting to bitfields, as those
+> are well-defined when having a width of zero:
+> 
+>     register struct {                                                   \
+>         typeof(arg) e;                                                  \
+>         unsigned long pad:(sizeof(void *) - sizeof(arg)) * 8;           \
+>     } ...
+> 
+> Yet when the width is zero, the field may not have name, whereas when the
+> field uniformly doesn't have a name, Clang would, like also for
+> 
+>     register struct {                                                   \
+>         typeof(arg) e;                                                  \
+>         unsigned long :0;                                               \
+>     } ...
+> 
+> regards that space as not needing any (re)init. Bottom line: For the
+> moment I'm out of ideas.
 
-Jan
+Hm, I see.  I don't have any good ideas right now either.  Will put it
+on the back burner and pick up later, already too much on my plate
+right now to be playing clang games.  Thanks for your input.
+
+Roger.
 
