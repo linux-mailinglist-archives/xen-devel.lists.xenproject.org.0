@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF8EB93CAF0
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 00:42:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765152.1175735 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84D7293CAF2
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 00:43:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765158.1175746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sX79W-0008Ne-DL; Thu, 25 Jul 2024 22:41:38 +0000
+	id 1sX7B4-0000Ug-OJ; Thu, 25 Jul 2024 22:43:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765152.1175735; Thu, 25 Jul 2024 22:41:38 +0000
+Received: by outflank-mailman (output) from mailman id 765158.1175746; Thu, 25 Jul 2024 22:43:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sX79W-0008Lz-An; Thu, 25 Jul 2024 22:41:38 +0000
-Received: by outflank-mailman (input) for mailman id 765152;
- Thu, 25 Jul 2024 22:41:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sX7B4-0000St-KQ; Thu, 25 Jul 2024 22:43:14 +0000
+Received: by outflank-mailman (input) for mailman id 765158;
+ Thu, 25 Jul 2024 22:43:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+0nn=OZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sX79U-0008Lt-UW
- for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 22:41:37 +0000
+ id 1sX7B3-0000Sl-Gw
+ for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 22:43:13 +0000
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0a9da018-4ad7-11ef-bbff-fd08da9f4363;
- Fri, 26 Jul 2024 00:41:34 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 43dac7ce-4ad7-11ef-8776-851b0ebba9a2;
+ Fri, 26 Jul 2024 00:43:10 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 7BC6ECE1689;
- Thu, 25 Jul 2024 22:41:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5812AC4AF0C;
- Thu, 25 Jul 2024 22:41:29 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id CC22ACE1670;
+ Thu, 25 Jul 2024 22:43:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20D8FC116B1;
+ Thu, 25 Jul 2024 22:43:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,71 +41,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a9da018-4ad7-11ef-bbff-fd08da9f4363
+X-Inumbo-ID: 43dac7ce-4ad7-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1721947290;
-	bh=sOVM4r7mU3j5oVQ/ecTboEcugQf38pMenhU9TEOvlxc=;
+	s=k20201202; t=1721947387;
+	bh=YSo0ZWw2Rmtmy3caExuqNagDM3pbktT9dEH66VTsiWE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=TeByrUzyDl2nBdnWYmTW0arfbTqBl94g10G03CJELfYPuRF2Q+G9RJzlQF4eg86BR
-	 Ff3cQD/kJkFqJAv7pdwE4L5Wwsg0JK2jW/fj3sEfDgK9V4SK8WLSitAw6/i9Qitk84
-	 J7zjmNDnJlfldti0ybOCIugpexix5r4xZ1HNV8UvHGUJq6E7EHXa8nyxeWyhq+/ixS
-	 y7EjRwcxc/XQG3XWvEi7Cd5BSxhIP6nnde/Nn/W6FR3umS61Ut6worIshOKX8swhmc
-	 /Yh38XtxkVVPWttWVtcKUNylQHGLPqqecE9ci+wOJA8E0+LLkspgK473rSHY8gkO6V
-	 De97BHXbQ4BBQ==
-Date: Thu, 25 Jul 2024 15:41:28 -0700 (PDT)
+	b=ukkrpSypdxqqAToLgn1t1aqea1OMaokstn+NyCARl1fMwLx1i5AcArg0lcL87gLr+
+	 /bH5BOF9Quy7f0Lr5mY8K6fOeH7sFT1/Z1VvxbzXo00HEqn4U1q0TPF6dtfKQFzwZy
+	 NvhX22sjJeBFGSoNFOfxxtVHynENvEdHnUun03tn43v6L9wR0ERlVEF8vW7pv62W8N
+	 xDOZXK0CVUDcsXvZH/Tj9K1lP92cxYfX1y82fF7GyyOdVEaIIe7AcAE3eGk+ZFSNAk
+	 qNj5YpD0EMDCbcTvrsWWQ1pInmFSzEvpk9XX90l9lYbGagKLBJ2pUytzCcCHbJg8Jz
+	 K2VqxUSZci3Eg==
+Date: Thu, 25 Jul 2024 15:43:04 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Techguru <techguru@byiq.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Michal Orzel <michal.orzel@amd.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>
-Subject: Re: Xen for Apple Silicon (M1 and beyond)
-In-Reply-To: <99c8f34c61b59a16edb0fd11d214267e@mail.infomaniak.com>
-Message-ID: <alpine.DEB.2.22.394.2407251540130.4857@ubuntu-linux-20-04-desktop>
-References: <d5c3e0900db98aaaeb7fb52f16598257@mail.infomaniak.com> <alpine.DEB.2.22.394.2407241309170.4857@ubuntu-linux-20-04-desktop> <99c8f34c61b59a16edb0fd11d214267e@mail.infomaniak.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: victorm.lira@amd.com, xen-devel@lists.xenproject.org, 
+    Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, roberto.bagnara@bugseng.com, 
+    consulting@bugseng.com, simone.ballarin@bugseng.com
+Subject: Re: [RFC PATCH v3] automation: add linker symbol name script
+In-Reply-To: <d1a08318bb28df72f95c737627c1a4e5@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2407251542230.4857@ubuntu-linux-20-04-desktop>
+References: <29c7f6cd166d5d3c0e9f64dc937e29dc7ecf3f2d.1721933988.git.victorm.lira@amd.com> <d1a08318bb28df72f95c737627c1a4e5@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1760869520-1721947290=:4857"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, 25 Jul 2024, Nicola Vetrini wrote:
+> On 2024-07-25 21:01, victorm.lira@amd.com wrote:
+> > From: Victor Lira <victorm.lira@amd.com>
+> > 
+> > Requested-by: Jan Beulich <jbeulich@suse.com>
+> > Signed-off-by: Victor Lira <victorm.lira@amd.com>
+> > ---
+> > Notes:
+> > This is a utilty script for help with the MISRA process.
+> > This script matches all linker symbol names in linker script files for
+> > arm or x86.
+> > Not included are symbol names starting with "." or symbol names enclosed
+> > in quotes since the files dont't use any. The regular expression also does
+> > not match for "&=" and similar compound assignments.
+> > ---
+> > Cc: Jan Beulich <jbeulich@suse.com>
+> > Cc: Stefano Stabellini <sstabellini@kernel.org>
+> > Cc: roberto.bagnara@bugseng.com
+> > Cc: consulting@bugseng.com
+> > Cc: simone.ballarin@bugseng.com
+> > ---
+> > Changes v2:
+> > - address style comments
+> > - updated script to use .lds instead of .lds.S
+> > - remove sample output from patch
+> > 
+> > Changes v3:
+> > - use #!/bin/sh
+> > - update error handling and message similar to ../build.sh
+> > ---
+> >  automation/eclair_analysis/linker-symbols.sh | 34 ++++++++++++++++++++
+> >  1 file changed, 34 insertions(+)
+> >  create mode 100755 automation/eclair_analysis/linker-symbols.sh
+> > 
+> > diff --git a/automation/eclair_analysis/linker-symbols.sh
+> > b/automation/eclair_analysis/linker-symbols.sh
+> > new file mode 100755
+> > index 0000000000..61790fb281
+> > --- /dev/null
+> > +++ b/automation/eclair_analysis/linker-symbols.sh
+> > @@ -0,0 +1,34 @@
+> > +#!/bin/sh
+> > +
+> > +# Stop immediately if any executed command has exit status different from
+> > 0.
+> > +set -e
+> > +
+> > +# Extract linker symbol names (except those starting with ".") from
+> > assignments.
+> > +
+> > +script_name=$(basename "$0")
+> > +script_dir="$(
+> > +  cd "$(dirname "$0")"
+> > +  echo "${PWD}"
+> > +)"
+> > +src_dir="${script_dir}/../.."
+> > +
+> > +fatal() {
+> > +  echo "${script_name}: $*" >&2
+> > +  exit 1
+> > +}
+> > +
+> > +usage() {
+> > +  fatal "Usage: ${script_name} <arm|x86>"
+> > +}
+> > +
+> > +if [ $# -ne 1 ]; then
+> > +  usage
+> > +fi
+> > +
+> > +filepath="${src_dir}/xen/arch/${1}/xen.lds"
+> > +
+> > +if [ ! -f "$filepath" ]; then
+> > +  fatal "Could not find ${1} linker script. Must be run after arm/x86
+> > build."
+> > +fi
+> > +
+> 
+> A doubt I came across now: since this script must be run after the build (and
+> hence the analysis), but the configuration must be generated before the
+> analysis, the only way this could work in my opinion is this:
+> 
+> - a build without analysis is performed, just enough to build xen.lds (maybe
+> there is a specific Makefile target to do this)
+> - generate the configuration, then clean everything and then run the analysis
 
---8323329-1760869520-1721947290=:4857
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Yes, that is one option and it should work. The other option is to run
+this script against the xen.lds.S files instead (if it works.)
 
-On Thu, 25 Jul 2024, Techguru wrote:
-> A bit about Apple Silicon M1(2,3,4) architecture, SoC and motherboard. (AFAIK)
-> 
-> There are no EFI assumptions nor contracts, and no EFI firmware.
-> Between those 4 generations of silicon, there are about 80 different roles "SoC cores/components" can play, each with its own signed Apple
-> Firmware.
-> Most of those SoC cores/functions have nothing to do with the traditional ARM compute cores.
-> At least one of those SoC cores is actually an x86 processor core (on models which support HDMI), running x86 firmware.
-> Many of the other non-compute cores (Networking, USC (A-C), Thunderbolt ... yada yada) are various size Arm cores running an Apple RTOS
-> Variant of L4 microkernel.
-> Each of those, again, has its own Apple Signed firmware which is paired with a particular Darwin kernel release.
-> One point of friction is that there is no stable ABI spec for each of the firmware modules.   Apple reserves the right to completely change
-> the firmware's
-> interface with the paired Darwin kernel.
-> 
-> It is perhaps best to think of the SoC and related motherboard hardware as a "compute cluster" rather than a single von-neuman machine.
-> 
-> I could be wrong about a lot of the above, and invite corrections with citations.
-> 
-> For this, do you know if 4K pages are supported (in addition to 16K)? It
-> would be a lot easier to keep running Xen using 4K pages and run guests
-> on top of Xen which use 16K pages. In the past, we had Linux using 64K
-> pages running on top of Xen using 4K pages for example.
-> 
-> Given the state of all of the _other_ SoC cores running L4 RTOS, I have reservations about running with anything other than 16k native
-> pages.  Will have to
-> investigate what options, if any, are available for keeping 16k pages for existing firmware, while presenting 4k pages to guest OS.
-> 
-> However, both Rosetta and Docker appear to run 4k guests just fine, so not sure how many pushups they are doing in the process.
 
-I just wanted to clarify that I am suggesting to run Xen with 4K pages
-and the guests with 16K pages. I am *not* suggesting to change the page
-granularity of the guests.
---8323329-1760869520-1721947290=:4857--
+> > +sed -n "s/^\s*\([a-zA-Z_][a-zA-Z_0-9.\-]*\)\s*=.*;.*$/\1/p" "$filepath"
 
