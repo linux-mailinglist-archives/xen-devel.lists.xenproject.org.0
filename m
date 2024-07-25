@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C34E93BCCA
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 08:59:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764711.1175213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E278D93BCCC
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 09:01:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764722.1175223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWsRM-0005Oq-Ts; Thu, 25 Jul 2024 06:59:04 +0000
+	id 1sWsTn-0006v7-9U; Thu, 25 Jul 2024 07:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764711.1175213; Thu, 25 Jul 2024 06:59:04 +0000
+Received: by outflank-mailman (output) from mailman id 764722.1175223; Thu, 25 Jul 2024 07:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWsRM-0005NN-Qp; Thu, 25 Jul 2024 06:59:04 +0000
-Received: by outflank-mailman (input) for mailman id 764711;
- Thu, 25 Jul 2024 06:59:03 +0000
+	id 1sWsTn-0006tL-6i; Thu, 25 Jul 2024 07:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 764722;
+ Thu, 25 Jul 2024 07:01:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Od1u=OZ=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
- id 1sWsRL-0005LV-5H
- for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 06:59:03 +0000
-Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ed894ae-4a53-11ef-bbff-fd08da9f4363;
- Thu, 25 Jul 2024 08:59:01 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by sonata.ens-lyon.org (Postfix) with ESMTP id 6F022A02C4;
- Thu, 25 Jul 2024 08:59:00 +0200 (CEST)
-Received: from sonata.ens-lyon.org ([127.0.0.1])
- by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 8b8yThK8-v56; Thu, 25 Jul 2024 08:59:00 +0200 (CEST)
-Received: from begin (nat-inria-interne-52-gw-01-bso.bordeaux.inria.fr
- [194.199.1.52])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by sonata.ens-lyon.org (Postfix) with ESMTPSA id 53DEBA02A2;
- Thu, 25 Jul 2024 08:59:00 +0200 (CEST)
-Received: from samy by begin with local (Exim 4.98-RC3)
- (envelope-from <samuel.thibault@ens-lyon.org>)
- id 1sWsRI-000000004wm-0H3M; Thu, 25 Jul 2024 08:59:00 +0200
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ik63=OZ=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1sWsTl-0006tD-HN
+ for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 07:01:33 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [85.215.255.20]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b8fcb8a1-4a53-11ef-bbff-fd08da9f4363;
+ Thu, 25 Jul 2024 09:01:32 +0200 (CEST)
+Received: from sender by smtp.strato.de (RZmta 51.1.0 AUTH)
+ with ESMTPSA id Da26f206P71V8dA
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate)
+ for <xen-devel@lists.xenproject.org>;
+ Thu, 25 Jul 2024 09:01:31 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,103 +42,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ed894ae-4a53-11ef-bbff-fd08da9f4363
-Date: Thu, 25 Jul 2024 08:59:00 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
-	wl@xen.org
-Subject: Re: [PATCH v2] mini-os: put sanity_check() under CONFIG_TEST
-Message-ID: <20240725065859.mp2ijjthuhw7ecgj@begin>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org, wl@xen.org
-References: <20240725064254.7545-1-jgross@suse.com>
+X-Inumbo-ID: b8fcb8a1-4a53-11ef-bbff-fd08da9f4363
+ARC-Seal: i=1; a=rsa-sha256; t=1721890891; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=HrqWdAKrjJeJjTdQcAYaFJHidHgjxTsNdj6MRgM4eey7n/AYy4sBlkhxuKAMF4+Joz
+    9Z5xyKSF5Cv4CCuVupkxVkC84DygDiLij1AGZJW2/i59SzcXjy1s9tax5MsbuOl25/2J
+    XhwzkRc46OC5UdiI3h9AFlN8DHk9rpzXyFHUwSgWzbSrkgzViIznLBQATxJuWWdemoL+
+    YejqpCFkUOAmW48Un/zreNdxp74UyCC7l5psfuDb/hNV7Kb0qLEss1gOjlzrYyAbbBK7
+    zfuMyLYZIeDrcq0EAckayOCgXPTLOcAX/57u3hXrjywdhuBfVqleVxF+/NElp/tnPZX0
+    1nEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1721890891;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=lcMkuGHGXoTQ7r035i/bbCgRrhgabq8SC9/hfmOJc2c=;
+    b=BTIFxlDof58nbqZBI8tNbqJFg8R9ZhLM3Auu7CV3HCHyOWE5i63Bdqo4kb+/ROe1h4
+    wenEYIztXkXKfEkay8zhVeJ4rc0/2W4Y/+hcBlrY3bKq/QDb3kKOuhL5FVVfLkCfhneu
+    SmPvEcorDDN0BLPX8yAXolWIGD75dkrz4sn5BLOqBWAoMMrStKuj9d2AF4LVPH+fIfw6
+    OEwLRIGgJ05g0KW7FsBvfV3hEYyIEq4+ZmlrC2kkOS+bfsGj0P0eRbh9e8N2ndvmugJF
+    sx6PJ/H3rv9fqI3gu6xPiegg2b4EXf6UKDd08mXm+tAif69Yi5zb3SXztLOQw0Jy/UQ4
+    Z/Vw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1721890891;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=lcMkuGHGXoTQ7r035i/bbCgRrhgabq8SC9/hfmOJc2c=;
+    b=VxkTbNGhX67uTvZAWqG1ftPzgdLjoa+C+CWKfVx8uKxwn6+NzflAdeX1/oY6ySRA+d
+    2LSAegT5hpN7rvfEkOr1LYqwcRHLFJy4QJo3GkGldLTTVn6uJpMgLXtF16aX7NJpwkZb
+    r3gm6LbthMn2h3FYf0dNHhxjzA2mr3VI9ZH9mcWX2q+8YjfnLUJ63ulDtHTzZXdchY0Q
+    oJle1yE0HJ/4REnGCXuztcg2H0hXh5S0DVDJgb1hCWFhjSVNcyuVApDAmadddOV6RVG/
+    v/Y0y7GmWWNXWc2EIoPzIKTcsdq1luTYhNaCYotn+VSdVoAjLpj2o77561txyhKyOoRn
+    isUQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1721890891;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=lcMkuGHGXoTQ7r035i/bbCgRrhgabq8SC9/hfmOJc2c=;
+    b=yIkV8AQV61O6cSGmX/chJEtWOGnXoag3ukFWjNIbTWgZfgB8F1jVszH9EtFS4+OYnR
+    qKn9m5iI31VyQO9HJ/Dg==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR5U0KIYkrsgXpphFp5TpggLXYhJp+e75du9haPEQ=="
+Date: Thu, 25 Jul 2024 09:01:24 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Subject: remove usage of hostname
+Message-ID: <20240725090124.33d571b9.olaf@aepfle.de>
+X-Mailer: Claws Mail (olh) 20240408T134401.7adfa8f7 hat ein Softwareproblem, kann man nichts machen.
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240725064254.7545-1-jgross@suse.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
+Content-Type: multipart/signed; boundary="Sig_/mi7WFVmz=_7ead0OfsLsRso";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 7bit
 
-Juergen Gross, le jeu. 25 juil. 2024 08:42:54 +0200, a ecrit:
-> Hide the sanity_check() function, as it is used nowhere. By putting it
-> under #ifdef CONFIG_TEST it will stay around, but it won't be
-> included in normal production builds.
-> 
-> Call sanity_check() from the periodic thread of the test app, causing
-> a sanity check every second.
-> 
-> Since any application linked with Mini-OS can't call sanity_check()
-> (there is no EXPORT_SYMBOL for it), there is zero chance of breaking
-> any use case.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+--Sig_/mi7WFVmz=_7ead0OfsLsRso
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Some parts of the build, like "make -C xen defconfig" use the "hostname"
+binary, which may not be installed by default. At least the openSUSE
+containers lack it. The configure scripts already have code like
+"hostname | uname -n" to handle this. I think 'uname -n' gives the same
+result as 'hostname'.
 
-Thanks!
+Is there any benefit in using 'hostname'?
 
-> ---
-> V2:
-> - don't remove it, but just hide it (Samuel Thibault)
-> ---
->  include/lib.h | 2 ++
->  mm.c          | 2 ++
->  test.c        | 1 +
->  3 files changed, 5 insertions(+)
-> 
-> diff --git a/include/lib.h b/include/lib.h
-> index abd4e9ab..de67bab0 100644
-> --- a/include/lib.h
-> +++ b/include/lib.h
-> @@ -152,8 +152,10 @@ do {                                                           \
->  
->  #define BUG_ON(x) ASSERT(!(x))
->  
-> +#ifdef CONFIG_TEST
->  /* Consistency check as much as possible. */
->  void sanity_check(void);
-> +#endif
->  
->  /* Get own domid. */
->  domid_t get_domid(void);
-> diff --git a/mm.c b/mm.c
-> index 4aa0c6ca..a5d3f5e5 100644
-> --- a/mm.c
-> +++ b/mm.c
-> @@ -395,6 +395,7 @@ void fini_mm(void)
->  {
->  }
->  
-> +#ifdef CONFIG_TEST
->  void sanity_check(void)
->  {
->      int x;
-> @@ -410,3 +411,4 @@ void sanity_check(void)
->          }
->      }
->  }
-> +#endif
-> diff --git a/test.c b/test.c
-> index 465c54e8..4dd6e260 100644
-> --- a/test.c
-> +++ b/test.c
-> @@ -185,6 +185,7 @@ static void periodic_thread(void *p)
->      {
->          gettimeofday(&tv, NULL);
->          printk("T(s=%ld us=%ld)\n", tv.tv_sec, tv.tv_usec);
-> +        sanity_check();
->          msleep(1000);
->      }
->  }
-> -- 
-> 2.43.0
-> 
 
--- 
-Samuel
-`When you say "I wrote a program that crashed Windows", people just stare at
-you blankly and say "Hey, I got those with the system, *for free*".'
-(By Linus Torvalds)
+Olaf
+
+--Sig_/mi7WFVmz=_7ead0OfsLsRso
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmah+EQACgkQ86SN7mm1
+DoAUxg//aUjOd01ThPlLZqwhd32xW8dvl0E+f2D5FoqfBMwcKtxqZvNoHKXDTr+R
+pPMTeeFvB22Xu6CYMD3smp4ijMiZiXeKsfI4kIbmJISulHcR5SrAVVgQKJyexXht
+YbcxgiekwQqYKD22PriJFPpbLHLCFqXyOkWsvo+/mnqyeSqzs90dNEiMLSEP/eXG
+Z6RhvDJdx5Vpem+MHlfqRDvNBs+c/xbgu1ukRAHCxdbTk0KT96le7NEbOyafwlAZ
+o7uwrHD/M8D423QGKfK4l5DIHhr+k3y0MvvC8eo62jrJvy/I/VSMsAK7jgcHxf7y
+rSi31pvSS2Is2i7j8VHfHlO0Bxv7cGSc5ZRzog49jvE1C5T0ZrP6qf1Da5aWOVlw
+tGUoQ5VRI9f03O+6mO5I8w9P+H+liEJUPIbx63/tK8qj4+E4HHhmY0zE19IAN4rW
+51vJ7eZK0PaI+uz7BtOx42qAtDx54tKD8qtzctWNXd4qI5nogay43fi/5qGK6dFz
+VupvjlSshpqejd8mrkPszGq2SNyqSH0kCFA0zu0OXCFmdO1isvhfyi01gkNooAmH
+XjI3up8pL/lcfXFgRCFmzpl6m/4s55obknZmAteZ/P5yBgzJQ5UVaB5zheDU7KNc
+a++p8OPpyJ9rL7m4vnL4FXprVNKWhySa0bwEYZPlIELc39w81zg=
+=nUFm
+-----END PGP SIGNATURE-----
+
+--Sig_/mi7WFVmz=_7ead0OfsLsRso--
 
