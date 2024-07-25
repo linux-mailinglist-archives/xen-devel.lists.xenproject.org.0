@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E278D93BCCC
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 09:01:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764722.1175223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4F9393BD27
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 09:32:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764733.1175234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWsTn-0006v7-9U; Thu, 25 Jul 2024 07:01:35 +0000
+	id 1sWsxD-0002u8-IP; Thu, 25 Jul 2024 07:31:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764722.1175223; Thu, 25 Jul 2024 07:01:35 +0000
+Received: by outflank-mailman (output) from mailman id 764733.1175234; Thu, 25 Jul 2024 07:31:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWsTn-0006tL-6i; Thu, 25 Jul 2024 07:01:35 +0000
-Received: by outflank-mailman (input) for mailman id 764722;
- Thu, 25 Jul 2024 07:01:33 +0000
+	id 1sWsxD-0002ru-FZ; Thu, 25 Jul 2024 07:31:59 +0000
+Received: by outflank-mailman (input) for mailman id 764733;
+ Thu, 25 Jul 2024 07:31:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ik63=OZ=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1sWsTl-0006tD-HN
- for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 07:01:33 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [85.215.255.20]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8fcb8a1-4a53-11ef-bbff-fd08da9f4363;
- Thu, 25 Jul 2024 09:01:32 +0200 (CEST)
-Received: from sender by smtp.strato.de (RZmta 51.1.0 AUTH)
- with ESMTPSA id Da26f206P71V8dA
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate)
- for <xen-devel@lists.xenproject.org>;
- Thu, 25 Jul 2024 09:01:31 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KwaG=OZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sWsxB-0002ro-V5
+ for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 07:31:57 +0000
+Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
+ [2607:f8b0:4864:20::b2b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f86418f2-4a57-11ef-bbff-fd08da9f4363;
+ Thu, 25 Jul 2024 09:31:56 +0200 (CEST)
+Received: by mail-yb1-xb2b.google.com with SMTP id
+ 3f1490d57ef6-e0b2d2e7dc9so297226276.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 00:31:56 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6bb3fafa1aesm4291046d6.133.2024.07.25.00.31.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jul 2024 00:31:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,92 +44,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8fcb8a1-4a53-11ef-bbff-fd08da9f4363
-ARC-Seal: i=1; a=rsa-sha256; t=1721890891; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=HrqWdAKrjJeJjTdQcAYaFJHidHgjxTsNdj6MRgM4eey7n/AYy4sBlkhxuKAMF4+Joz
-    9Z5xyKSF5Cv4CCuVupkxVkC84DygDiLij1AGZJW2/i59SzcXjy1s9tax5MsbuOl25/2J
-    XhwzkRc46OC5UdiI3h9AFlN8DHk9rpzXyFHUwSgWzbSrkgzViIznLBQATxJuWWdemoL+
-    YejqpCFkUOAmW48Un/zreNdxp74UyCC7l5psfuDb/hNV7Kb0qLEss1gOjlzrYyAbbBK7
-    zfuMyLYZIeDrcq0EAckayOCgXPTLOcAX/57u3hXrjywdhuBfVqleVxF+/NElp/tnPZX0
-    1nEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1721890891;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
-    bh=lcMkuGHGXoTQ7r035i/bbCgRrhgabq8SC9/hfmOJc2c=;
-    b=BTIFxlDof58nbqZBI8tNbqJFg8R9ZhLM3Auu7CV3HCHyOWE5i63Bdqo4kb+/ROe1h4
-    wenEYIztXkXKfEkay8zhVeJ4rc0/2W4Y/+hcBlrY3bKq/QDb3kKOuhL5FVVfLkCfhneu
-    SmPvEcorDDN0BLPX8yAXolWIGD75dkrz4sn5BLOqBWAoMMrStKuj9d2AF4LVPH+fIfw6
-    OEwLRIGgJ05g0KW7FsBvfV3hEYyIEq4+ZmlrC2kkOS+bfsGj0P0eRbh9e8N2ndvmugJF
-    sx6PJ/H3rv9fqI3gu6xPiegg2b4EXf6UKDd08mXm+tAif69Yi5zb3SXztLOQw0Jy/UQ4
-    Z/Vw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1721890891;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
-    bh=lcMkuGHGXoTQ7r035i/bbCgRrhgabq8SC9/hfmOJc2c=;
-    b=VxkTbNGhX67uTvZAWqG1ftPzgdLjoa+C+CWKfVx8uKxwn6+NzflAdeX1/oY6ySRA+d
-    2LSAegT5hpN7rvfEkOr1LYqwcRHLFJy4QJo3GkGldLTTVn6uJpMgLXtF16aX7NJpwkZb
-    r3gm6LbthMn2h3FYf0dNHhxjzA2mr3VI9ZH9mcWX2q+8YjfnLUJ63ulDtHTzZXdchY0Q
-    oJle1yE0HJ/4REnGCXuztcg2H0hXh5S0DVDJgb1hCWFhjSVNcyuVApDAmadddOV6RVG/
-    v/Y0y7GmWWNXWc2EIoPzIKTcsdq1luTYhNaCYotn+VSdVoAjLpj2o77561txyhKyOoRn
-    isUQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1721890891;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
-    bh=lcMkuGHGXoTQ7r035i/bbCgRrhgabq8SC9/hfmOJc2c=;
-    b=yIkV8AQV61O6cSGmX/chJEtWOGnXoag3ukFWjNIbTWgZfgB8F1jVszH9EtFS4+OYnR
-    qKn9m5iI31VyQO9HJ/Dg==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR5U0KIYkrsgXpphFp5TpggLXYhJp+e75du9haPEQ=="
-Date: Thu, 25 Jul 2024 09:01:24 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Subject: remove usage of hostname
-Message-ID: <20240725090124.33d571b9.olaf@aepfle.de>
-X-Mailer: Claws Mail (olh) 20240408T134401.7adfa8f7 hat ein Softwareproblem, kann man nichts machen.
+X-Inumbo-ID: f86418f2-4a57-11ef-bbff-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1721892715; x=1722497515; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=VvZ4DTblxYxly9G9vL3gUkX/k/yzmXgKCMvFtxah1qs=;
+        b=GAjXDM4mJFrtJkkb40bdTCjB+ecbdBUA7LgDA7TJkxatI8rYs+4Xlz+jpST6K+ktEm
+         wssxFs8HKzkEbuKFiqUSdHZl9csT2WQNz35BGGg/abtuRbJbHW0DLnyM5fTP+jt1uCFJ
+         jFRH1mGbxssuIpZqn69QR8E9zzPTY5/obP8Qc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721892715; x=1722497515;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VvZ4DTblxYxly9G9vL3gUkX/k/yzmXgKCMvFtxah1qs=;
+        b=rHojpaZbLiocc4JbfnwGeFE/a4nE4xJSVkt1AC7SZsy6dSvkok4OMlFDNdJTLPHh0H
+         OgsE+ztDfjrr6SComjzImpmYFAktFrDd6Z6vbnkfx4krDVfFEI8xe1G3ZsKomr8mNw8B
+         W2xBaw9efAOvjT8aHnL7/b9c5p1tTILp6OhPlmFc4yUpDRwXsDM1LnE1L+qCyy+NUDkz
+         CqaGin+eOp/C6DbbOe1IW8SiEOA8KnRJNYSaIjC6/xjE1bBgCxHqcsd0FuEqO7IjooWG
+         9JM7QYqygdgCJJuCUV6fxBDIGXKIQRtepbME81njis6LD+bTu1eJF25Fz3OFWevkQY+N
+         VVHw==
+X-Gm-Message-State: AOJu0YwtH7WmfyAcGySwE0mQ26jJJiH/StJbWpWEeYOhjhcQsfucq2jd
+	b1Gu3AGZ+SMzHL77Us9njlPV1nlrKoDmfEfLTblO7E3nLMLP0WSJAi06fCSpF7XMzmETNBfTHh5
+	W
+X-Google-Smtp-Source: AGHT+IEQ3ilVsGS4D0Yn0i3rrErdJYCa0VhU+F+tFJqk4zJ4GND8LiLWiZXrzfjIIg4gfIYZK7uezQ==
+X-Received: by 2002:a05:6902:240f:b0:e02:b9ac:1486 with SMTP id 3f1490d57ef6-e0b2346ead8mr1859811276.57.1721892715002;
+        Thu, 25 Jul 2024 00:31:55 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>
+Subject: [PATCH 0/2] x86/xen: fix memblock_reserve() usage on PVH
+Date: Thu, 25 Jul 2024 09:31:13 +0200
+Message-ID: <20240725073116.14626-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/mi7WFVmz=_7ead0OfsLsRso";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---Sig_/mi7WFVmz=_7ead0OfsLsRso
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Hello,
 
-Some parts of the build, like "make -C xen defconfig" use the "hostname"
-binary, which may not be installed by default. At least the openSUSE
-containers lack it. The configure scripts already have code like
-"hostname | uname -n" to handle this. I think 'uname -n' gives the same
-result as 'hostname'.
+First patch is just code movement, the second patch is the actual
+bugfix.
 
-Is there any benefit in using 'hostname'?
+Thanks, Roger.
 
+Roger Pau Monne (2):
+  x86/xen: move xen_reserve_extra_memory()
+  x86/xen: fix memblock_reserve() usage on PVH
 
-Olaf
+ arch/x86/include/asm/xen/hypervisor.h |   5 --
+ arch/x86/platform/pvh/enlighten.c     |   3 -
+ arch/x86/xen/enlighten_pvh.c          | 107 ++++++++++++++------------
+ 3 files changed, 58 insertions(+), 57 deletions(-)
 
---Sig_/mi7WFVmz=_7ead0OfsLsRso
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
+-- 
+2.45.2
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmah+EQACgkQ86SN7mm1
-DoAUxg//aUjOd01ThPlLZqwhd32xW8dvl0E+f2D5FoqfBMwcKtxqZvNoHKXDTr+R
-pPMTeeFvB22Xu6CYMD3smp4ijMiZiXeKsfI4kIbmJISulHcR5SrAVVgQKJyexXht
-YbcxgiekwQqYKD22PriJFPpbLHLCFqXyOkWsvo+/mnqyeSqzs90dNEiMLSEP/eXG
-Z6RhvDJdx5Vpem+MHlfqRDvNBs+c/xbgu1ukRAHCxdbTk0KT96le7NEbOyafwlAZ
-o7uwrHD/M8D423QGKfK4l5DIHhr+k3y0MvvC8eo62jrJvy/I/VSMsAK7jgcHxf7y
-rSi31pvSS2Is2i7j8VHfHlO0Bxv7cGSc5ZRzog49jvE1C5T0ZrP6qf1Da5aWOVlw
-tGUoQ5VRI9f03O+6mO5I8w9P+H+liEJUPIbx63/tK8qj4+E4HHhmY0zE19IAN4rW
-51vJ7eZK0PaI+uz7BtOx42qAtDx54tKD8qtzctWNXd4qI5nogay43fi/5qGK6dFz
-VupvjlSshpqejd8mrkPszGq2SNyqSH0kCFA0zu0OXCFmdO1isvhfyi01gkNooAmH
-XjI3up8pL/lcfXFgRCFmzpl6m/4s55obknZmAteZ/P5yBgzJQ5UVaB5zheDU7KNc
-a++p8OPpyJ9rL7m4vnL4FXprVNKWhySa0bwEYZPlIELc39w81zg=
-=nUFm
------END PGP SIGNATURE-----
-
---Sig_/mi7WFVmz=_7ead0OfsLsRso--
 
