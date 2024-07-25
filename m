@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 352A593BF13
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 11:27:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764886.1175456 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED03C93BF87
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 11:58:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764901.1175465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWuk8-0003LM-AA; Thu, 25 Jul 2024 09:26:36 +0000
+	id 1sWvDc-0007qx-IK; Thu, 25 Jul 2024 09:57:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764886.1175456; Thu, 25 Jul 2024 09:26:36 +0000
+Received: by outflank-mailman (output) from mailman id 764901.1175465; Thu, 25 Jul 2024 09:57:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWuk8-0003IK-6y; Thu, 25 Jul 2024 09:26:36 +0000
-Received: by outflank-mailman (input) for mailman id 764886;
- Thu, 25 Jul 2024 09:26:35 +0000
+	id 1sWvDc-0007pL-Fe; Thu, 25 Jul 2024 09:57:04 +0000
+Received: by outflank-mailman (input) for mailman id 764901;
+ Thu, 25 Jul 2024 09:57:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/1nn=OZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWuk7-0003H4-3H
- for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 09:26:35 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1sWvDa-0007pF-Tj
+ for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 09:57:02 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fbe45370-4a67-11ef-bbff-fd08da9f4363;
- Thu, 25 Jul 2024 11:26:34 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5a22f09d976so3105574a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 02:26:34 -0700 (PDT)
+ id 3d308334-4a6c-11ef-bbff-fd08da9f4363;
+ Thu, 25 Jul 2024 11:57:01 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a77ec5d3b0dso35906366b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 02:57:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acab23704sm52494266b.3.2024.07.25.02.26.33
+ a640c23a62f3a-a7acad903f1sm54617466b.152.2024.07.25.02.57.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jul 2024 02:26:33 -0700 (PDT)
+ Thu, 25 Jul 2024 02:57:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fbe45370-4a67-11ef-bbff-fd08da9f4363
+X-Inumbo-ID: 3d308334-4a6c-11ef-bbff-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721899593; x=1722504393; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vrKoZlQWrKJ4ZNG6GJimcEMPC3rmfVGwlDySbp2Xgig=;
-        b=B04aOntqYFq0nNS9w1RGgmhBwn5XIc94+tn6gYxILr1hYLmDERCyD4Z6Jb1wIlwC4E
-         8ga8VCbAIRD2IDL1F9CK+vGxl0bupHmbPtaGRAEg7gf5aYiL8Y6JzHHlRjU3Uvyu5eLP
-         JqRwb4IYdhD8mW2fazmmiLXsStoYKMRq7w5a1TE9XYuzE3HrQyW3EtmU5OHghk6nr7jV
-         P6PJd7RSYOhfAlVa1p2QKQw6EWfPpJjSaG4x3hk+r1ciVud8dzUSaVg5aD/6jbgKO42a
-         t+uvvyQzKIJWEYct9qABVVos29vNCoGUt2TOlx1jyE8lTE5h2+4fIKrMRo5CzVdFpaYY
-         ur7g==
+        d=suse.com; s=google; t=1721901421; x=1722506221; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Voik6myG6U2fsby5AJZEMgOr4NbzqfMzJUWbvCxCJJU=;
+        b=AbPRWUrhZllaztGnqEqjfMZXOQezghNFClUuORuxczbfNAP3qASiC7JVUa039WJkNv
+         kDWFmTBYQTy4Qv/6CjActzSKrn43tlfjMU45lTs3kPZvNyVKmzQTn8ptgP4L6BUj2/nW
+         5TBshxJUeAdq69zAFh+N489d5BShuTILfAVZ3+p7154/5Xn2PgZFRB7r1+JPSFQ3ejYa
+         2/u6TuOcpz41+IagnGDyKYIvusvZq3WIXMjbSAPmdtQng3gUnS4Wgf6faEhWqBqRd6ks
+         6keBHuGpTuUn3DXzE3qrOnZSsMdJJcfYM+zdJl3ajM4Z8H8mghGbk7YvyAsQ6tiOABaj
+         8yKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721899593; x=1722504393;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vrKoZlQWrKJ4ZNG6GJimcEMPC3rmfVGwlDySbp2Xgig=;
-        b=RsG1xWMCldKuVz1I415zaw1qMeS6uWvn/eesxYbpZyHYNgDNQANL/Fst8mWwKjeg0u
-         cqf9zd+MALp3M3v7Y+oUxKmNSBoc8fGBIppfkScuKi4n6CU608aKmy9B57XEVDmo3RcT
-         9TFfTFGCJIJNtvkkKi0vLjcRS1rzUu84+T4pouhBb/7G8gnBiyrAEeZtDirqa6rBlRX/
-         SE2stdCEymJIJ5Pj6SsDIqjz1QbxqC3DSVQsCTLxQ/bm8cyD1HFHNlV8inyErgdrDrBj
-         xxbzB84/x/iJfmVE/MyKVP/YH1Iv/CybELEMqZPJLmpKW1tiGA4p1NBrUZlEd+Jx8Qmq
-         NYpg==
-X-Forwarded-Encrypted: i=1; AJvYcCW79Ft156eEhymn+OnF/Qf/NISM/YZG3eNOkmCPZPCc098K5rUdouPTQUeBsHudxjKM+p0UzLbYec6wOcyC3FN/Ddx1gghyf1zEElqYjr4=
-X-Gm-Message-State: AOJu0YySne5QcDW1SbdGAEqiZBNACCvri28CZjjAaGMAFZDtZWiNDFph
-	bRmLI37n2klNtOKfaJRpzFEHz9FVs99FMb17NfceFWGX1/LaJyLr83u0Q1PvoA==
-X-Google-Smtp-Source: AGHT+IFJv0zBeXKluJDR88ArbTGz73U2lP//S71kp1O41735aGelOW8Q9zsHFvydutyn+qUzhyBWlg==
-X-Received: by 2002:a17:907:7244:b0:a77:c051:36a9 with SMTP id a640c23a62f3a-a7ac44e144amr265540066b.9.1721899593550;
-        Thu, 25 Jul 2024 02:26:33 -0700 (PDT)
-Message-ID: <7588feb4-dc42-4bf3-85db-7aaac201a2ff@suse.com>
-Date: Thu, 25 Jul 2024 11:26:31 +0200
+        d=1e100.net; s=20230601; t=1721901421; x=1722506221;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Voik6myG6U2fsby5AJZEMgOr4NbzqfMzJUWbvCxCJJU=;
+        b=DOe1GeQemfa1vz2gm5YUhbER2XqkcUqsJab1OFOVeNjsqXkiBXg/OVNvOZlmzunzJa
+         m0L2c91agWXgyH25jiGVN2Ahq9Sq8eKfH3VgSwcfuSifp8UpbQZM/MBkrkRyh4TgIgyi
+         RTeUQkQIPCmxA1IrOXqWCqEltEOz/kVdMSyXWCYQ7wWzugfPQliCrzhI5WIdu0AxWxuZ
+         8nzmTZff4QJiq3U77zyJ41Ni8jvj4MySDqDewdjohXMp7tjnSD0VdTjRzVw4Rh0xVmhA
+         g9xna2gSIrqOMSeFsyU3btkjiz6HLLviN2aTxuCSNOalVMbzzK4hhlNE5XJo34jlIlVc
+         NqmA==
+X-Gm-Message-State: AOJu0YxAiQH9LB84wpzUlNdJ/BzL2GjLAa6VGeLEg44YQcgxYBu1QlJ7
+	ZkRuH2rdt1JJPdgbjFfHVleBGadDFylJcInbOyEdqns6m8Yehm0n+cHlvq3eQNQtR/nGC8ky5fA
+	=
+X-Google-Smtp-Source: AGHT+IG+W2YA5eb7XNkNUSgP0Hgv+JtsrKpr8VIXK4WblVKGUZ+F/jr66nv6OUe8bp48wO9+e3ncWw==
+X-Received: by 2002:a17:907:98b:b0:a77:cbe5:413f with SMTP id a640c23a62f3a-a7acb3d6a15mr98139266b.4.1721901421161;
+        Thu, 25 Jul 2024 02:57:01 -0700 (PDT)
+Message-ID: <bd43ad1f-9cc4-42a4-8461-c8e3990b6910@suse.com>
+Date: Thu, 25 Jul 2024 11:56:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] x86/mm: add API for marking only part of a MMIO
- page read only
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.66bd16d0134f9664ea3e0f4d56f7c127afc308c8.1721704980.git-series.marmarek@invisiblethingslab.com>
- <4bea5034cda37f35cd04115bebcccb52e3ea719e.1721704980.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] gnttab: complete compat [gs]et-version logic
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,92 +109,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4bea5034cda37f35cd04115bebcccb52e3ea719e.1721704980.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23.07.2024 05:24, Marek Marczykowski-Górecki wrote:
-> +static int __init subpage_mmio_ro_add_page(
-> +    mfn_t mfn,
-> +    unsigned int offset_s,
-> +    unsigned int offset_e)
-> +{
-> +    struct subpage_ro_range *entry = NULL;
-> +    bool new_entry = false;
-> +    unsigned int i;
-> +
-> +    entry = subpage_mmio_find_page(mfn);
-> +    if ( !entry )
-> +    {
-> +        entry = xzalloc(struct subpage_ro_range);
-> +        if ( !entry )
-> +            return -ENOMEM;
-> +        entry->mfn = mfn;
-> +        list_add(&entry->list, &subpage_ro_ranges);
-> +        new_entry = true;
-> +    }
-> +
-> +    for ( i = offset_s; i <= offset_e; i += MMIO_RO_SUBPAGE_GRAN )
-> +    {
-> +        bool oldbit = __test_and_set_bit(i / MMIO_RO_SUBPAGE_GRAN,
-> +                                         entry->ro_elems);
-> +        ASSERT(!oldbit);
-> +    }
-> +
-> +    return new_entry ? 0 : 1;
+While the CHECK_* macro invocations exist for these, the just-in-case
+CASE() invocations were missing for them.
 
-Imo simply !new_entry would be more concise.
+Fixes: a98dc13703e0 ("Introduce a grant_entry_v2 structure")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Alternatively, as I'm under the impression Andrew would prefer it, we
+could decide to drop all of these fallback #ifndef blocks.
 
-> +int __init subpage_mmio_ro_add(
-> +    paddr_t start,
-> +    size_t size)
-> +{
-> +    mfn_t mfn_start = maddr_to_mfn(start);
-> +    paddr_t end = start + size - 1;
-> +    mfn_t mfn_end = maddr_to_mfn(end);
-> +    unsigned int offset_end = 0;
-> +    int rc;
-> +    bool subpage_start, subpage_end;
-> +
-> +    /*
-> +     * In release, build unaligned start will protect larger area,
-
-I think the first comma wants to move past "build".
-
-> +     * so tolerate it.
-> +     * But unaligned size would result in smaller area, so deny it.
-> +     */
-> +    ASSERT(IS_ALIGNED(start, MMIO_RO_SUBPAGE_GRAN));
-> +    ASSERT(IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN));
-> +    if ( !IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN) )
-> +        return -EINVAL;
-
-I hoped you would, when adding the comment, recall an earlier comment of
-mine: If you want to tolerate mis-aligned start in release builds, you
-need to make further adjustments to the subsequent logic (at which
-point the respective assertion may become pointless); see below. While
-things may work okay without (I didn't fully convince myself either way),
-the main point here is that you want to make sure we test in debug builds
-what's actually used in release one. Hence subtleties like this would
-better be dealt with uniformly between release and debug builds.
-
-> +    if ( !size )
-> +        return 0;
-> +
-> +    if ( mfn_eq(mfn_start, mfn_end) )
-> +    {
-> +        /* Both starting and ending parts handled at once */
-> +        subpage_start = PAGE_OFFSET(start) || PAGE_OFFSET(end) != PAGE_SIZE - 1;
-> +        subpage_end = false;
-> +    }
-> +    else
-> +    {
-> +        subpage_start = PAGE_OFFSET(start);
-> +        subpage_end = PAGE_OFFSET(end) != PAGE_SIZE - 1;
-> +    }
-
-Neither of the two subpage_start calculations is correct when start is
-misaligned, but within the first 8 bytes of a page.
-
-Jan
+--- a/xen/common/compat/grant_table.c
++++ b/xen/common/compat/grant_table.c
+@@ -118,10 +118,18 @@ int (compat_grant_table_op)(
+     CASE(dump_table);
+ #endif
+ 
++#ifndef CHECK_gnttab_set_version
++    CASE(set_version);
++#endif
++
+ #ifndef CHECK_gnttab_get_status_frames
+     CASE(get_status_frames);
+ #endif
+ 
++#ifndef CHECK_gnttab_get_version
++    CASE(get_version);
++#endif
++
+ #ifndef CHECK_gnttab_swap_grant_ref
+     CASE(swap_grant_ref);
+ #endif
 
