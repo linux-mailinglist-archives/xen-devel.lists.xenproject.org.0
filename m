@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0E2293BE13
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 10:41:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764859.1175426 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9B7393BE1B
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 10:45:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764864.1175436 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWu2A-00042D-KK; Thu, 25 Jul 2024 08:41:10 +0000
+	id 1sWu5W-0004bf-2E; Thu, 25 Jul 2024 08:44:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764859.1175426; Thu, 25 Jul 2024 08:41:10 +0000
+Received: by outflank-mailman (output) from mailman id 764864.1175436; Thu, 25 Jul 2024 08:44:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWu2A-0003zI-Hl; Thu, 25 Jul 2024 08:41:10 +0000
-Received: by outflank-mailman (input) for mailman id 764859;
- Thu, 25 Jul 2024 08:41:08 +0000
+	id 1sWu5V-0004Z1-VS; Thu, 25 Jul 2024 08:44:37 +0000
+Received: by outflank-mailman (input) for mailman id 764864;
+ Thu, 25 Jul 2024 08:44:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/1nn=OZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWu28-0003zC-RI
- for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 08:41:08 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1sWu5U-0004Ys-Bq
+ for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 08:44:36 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a253c5ec-4a61-11ef-8776-851b0ebba9a2;
- Thu, 25 Jul 2024 10:41:06 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-58f9874aeb4so717189a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 01:41:06 -0700 (PDT)
+ id 1e0244a4-4a62-11ef-8776-851b0ebba9a2;
+ Thu, 25 Jul 2024 10:44:34 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a7ac469e4c4so52292966b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 01:44:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acac60f14sm47927466b.91.2024.07.25.01.41.05
+ a640c23a62f3a-a7acad90e34sm47721866b.164.2024.07.25.01.44.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jul 2024 01:41:06 -0700 (PDT)
+ Thu, 25 Jul 2024 01:44:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a253c5ec-4a61-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 1e0244a4-4a62-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721896866; x=1722501666; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721897074; x=1722501874; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7Gak7R+79LwKvGqU9BLyAey2IZ5rU+hPjw4/obE8YM0=;
-        b=QoO9g5pcBqKetNR+FW3FVtiGmJ/FcLnvjEMm27YNYZmxWvYQWuqm+bBLl1JcE5VMNb
-         kVj+Px/q886vxMO6jZm8OVsDAMIL6dJT6R3QMERCsQhCBIT4ruEZkERtiRleFpn4YAfy
-         KWsZ5Iegn2kKctD3jZjdFclOf7XDWGsLiMDzKvjyxHQS1QW+GteISsZpXU4QK8E/TsZ9
-         M5cNVTKMwO4ErnD9oH7KpYMSMuOE0HpmcNnA6D/iOCqq7zkfO7jsmCng+Ogzp0Y9eMN4
-         87p5oGwTTHv2QLDycXb25uCz+iYurQD2FYiS2ryhf77heCd2vvMGWyWKMIsk7zeck/+H
-         Ingg==
+        bh=+RyqYk1s5dADHCQYvpaZbng6pCvpWh0WeQEqgzEk/sE=;
+        b=Y/Ynjmm+hkBynizqrkfiNY6p29j7Wbh1agqzGmMJ1vhatMIxBKd4SaKSVGpKQ3e14R
+         55EZGoNyAzG4ysNLKzlKyhml1m6carkwKmJK4ln+YThwjJgzeorb2koC9XbdsRWKmva5
+         aWozchzp4ALU+laTqRNdKSD3rqOTuuf/8HE0dUJOohunmJAn7FQcHXSEcvHJIhfOf9cB
+         U21sTFcdPGva6XQsmAUsKmkbIoPNUpKef6aYvEDxZnMgCwGIQwHijnJrM4VQVFzuQUSf
+         5TZfm4u5q9aMJgrH/UciV5JclFeZuyOxyPnzH2M+9lMq9DEK7G8WEzh5cCUGi/ocpKYd
+         hy4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721896866; x=1722501666;
+        d=1e100.net; s=20230601; t=1721897074; x=1722501874;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7Gak7R+79LwKvGqU9BLyAey2IZ5rU+hPjw4/obE8YM0=;
-        b=F741unfaM7xRROHCfgHli0o8YedK/RLWgALSYythVsvr3JyhgBvYPi6qeiDwK8cBa2
-         fKmfgt/wCuUJuYzeaBenAsp4clxvxgIcqswDXJx4PZRvthEoJTkp4EtXRmo86aoKYZ0J
-         USzwSe08XluAalgu1PX1Dr9tswGlL+K9MhCYO5qtP0DZae7yr+UkMUrOpszCPlkaYnk7
-         tTiNir6Jx4OcrzFWFVitgxty4eufHBr/8ogtMmBuOqZCCsO4cVjDIVn7EJkAzPR4tvY/
-         ZHAEyJHUZnL5hqkUUKd5uhqo0iTQ/torUGpa0kM95AliIRM0689UM+9JVSm+V3ySFvfJ
-         axZg==
-X-Forwarded-Encrypted: i=1; AJvYcCXLYPcUBdCVClUM4u7XfmwmM5LmWN/p54l7lp7Q9hdA1PEZ5D1Mxty7J+ESlAGGRbhRAjslH7wPS0rHWhKikBOoyGc50m0uzvoiLc6KnzE=
-X-Gm-Message-State: AOJu0YyUcxLJKJfTOpj7GPdto0irSHWjabUmwKTK5aGu7/0k0J4p5cs6
-	j03b+vT25R1eWgV/vrl/gcvTrJOCOWstahelB665cvCHuuijkppE1uL0GWwJHML+gCEKaEYqVaw
-	=
-X-Google-Smtp-Source: AGHT+IGR1AXm6/WAd3SPeKz5cV/bEopuuQ69EMO0jnPt2A57LVAoXLWZ0SkgqAwfzjAs5StCVFAljg==
-X-Received: by 2002:a17:907:845:b0:a7a:a46e:dc37 with SMTP id a640c23a62f3a-a7acb92ebd4mr89483066b.57.1721896866367;
-        Thu, 25 Jul 2024 01:41:06 -0700 (PDT)
-Message-ID: <e2d2244d-66ac-46bd-b047-044c9860c955@suse.com>
-Date: Thu, 25 Jul 2024 10:41:04 +0200
+        bh=+RyqYk1s5dADHCQYvpaZbng6pCvpWh0WeQEqgzEk/sE=;
+        b=MU+mzA5weP0e3o7HhG0ZJLCGvwK2PKMzCMhHaKkeLXXQU1HC8/I6CuF77C2kXilG7g
+         qt+n1/bbkCp+yFVqjsmTyyeK+2/eWGvtT7z1tEv4pUVbAySMnFtfamHkK+brQq4/fHsY
+         +4m6VrQfVGDRjdh/RjS0cyPQbkidftF9ypVo4+JtOgq+Qm1z0xJGhgDhkopNzGQ3kY6F
+         Ghyp6qJYrXJreLYKjhckwJ/JXtYK44bn9Ymtx5W6GK1m0vuXbKq49vNNztVxHkyUVAOH
+         Esg8SHIIcV9JvNampJzBAxG9ag35tS5+Sy6gE2aQT5sxu2ufk/aR6pjHPr4Yj7gszEyt
+         6Eug==
+X-Forwarded-Encrypted: i=1; AJvYcCU8T32vp+CeJ9DI1qLpEqSJnYjFPtfnJHPqKDIJPeJ6ZK7Hykqy144uVaZDPQuZMOV6spgfGQOSb+5cQx51dINhubKMuHret+4SlvpR6cw=
+X-Gm-Message-State: AOJu0YyChQbXLch+zkLIIeVhcsSdq8jwDAmRJ2dO+JEYRu4jyDZ7vDPk
+	4vGE7yIttCKnN2rHavHWZ5730N1pGeePE6Ap2YXz4QamLk56KvIuIpkKnD+bRg==
+X-Google-Smtp-Source: AGHT+IFUMONjJKXJ42LgrHlhWx9iHUWD65l4AQgEdzUm9aLTgNpmvBJWd2Sk3I2jq7vsR39T7ZGZuw==
+X-Received: by 2002:a17:907:3d9e:b0:a6f:e03a:99d with SMTP id a640c23a62f3a-a7ab27c1feamr453949966b.0.1721897073826;
+        Thu, 25 Jul 2024 01:44:33 -0700 (PDT)
+Message-ID: <d26bc29f-3ceb-4fe4-af58-c188f9bbf097@suse.com>
+Date: Thu, 25 Jul 2024 10:44:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/4] x86/ucode: refactor xen-ucode to utilize getopt
+Subject: Re: [PATCH v6 3/4] x86/ucode: Introduce --force option to xen-ucode
 To: Fouad Hilly <fouad.hilly@cloud.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20240725082725.2685481-1-fouad.hilly@cloud.com>
- <20240725082725.2685481-3-fouad.hilly@cloud.com>
+ <20240725082725.2685481-4-fouad.hilly@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,28 +113,114 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240725082725.2685481-3-fouad.hilly@cloud.com>
+In-Reply-To: <20240725082725.2685481-4-fouad.hilly@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 25.07.2024 10:27, Fouad Hilly wrote:
-> @@ -71,12 +72,29 @@ static void show_curr_cpu(FILE *f)
->      }
+> Introduce --force option to xen-ucode to force skipping microcode version check, which
+> allows the user to update x86 microcode even if both versions are the same or downgrade.
+> xc_microcode_update() refactored to accept flags and utilize xenpf_microcode_update2.
+> 
+> Signed-off-by: Fouad Hilly <fouad.hilly@cloud.com>
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> [v6]
+> 1- Fix usage() output for -f option to be explicitly wrapped for 80 character width
+> [v5]
+> 1- Update commit message.
+> 2- Re-phrase --force option description.
+> [v4]
+> 1- Add --force to xen-ucode options.
+> 2- Update xc_microcode_update() to accept and handle flags.
+> ---
+>  tools/include/xenctrl.h   |  3 ++-
+>  tools/libs/ctrl/xc_misc.c | 12 +++++++-----
+>  tools/misc/xen-ucode.c    | 15 ++++++++++++---
+>  3 files changed, 21 insertions(+), 9 deletions(-)
+> 
+> diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+> index 9ceca0cffc2f..2c4608c09ab0 100644
+> --- a/tools/include/xenctrl.h
+> +++ b/tools/include/xenctrl.h
+> @@ -1171,7 +1171,8 @@ typedef uint32_t xc_node_to_node_dist_t;
+>  int xc_physinfo(xc_interface *xch, xc_physinfo_t *info);
+>  int xc_cputopoinfo(xc_interface *xch, unsigned *max_cpus,
+>                     xc_cputopo_t *cputopo);
+> -int xc_microcode_update(xc_interface *xch, const void *buf, size_t len);
+> +int xc_microcode_update(xc_interface *xch, const void *buf,
+> +                        size_t len, unsigned int flags);
+>  int xc_get_cpu_version(xc_interface *xch, struct xenpf_pcpu_version *cpu_ver);
+>  int xc_get_ucode_revision(xc_interface *xch,
+>                            struct xenpf_ucode_revision *ucode_rev);
+> diff --git a/tools/libs/ctrl/xc_misc.c b/tools/libs/ctrl/xc_misc.c
+> index 50282fd60dcc..6a60216bda03 100644
+> --- a/tools/libs/ctrl/xc_misc.c
+> +++ b/tools/libs/ctrl/xc_misc.c
+> @@ -203,11 +203,12 @@ int xc_physinfo(xc_interface *xch,
+>      return 0;
 >  }
 >  
-> +static void usage(FILE *stream, const char *name)
-> +{
-> +    fprintf(stream,
-> +            "%s: Xen microcode updating tool\n"
-> +            "options:\n"
-> +            "  -h, --help            display this help\n"
-> +            "  -s, --show-cpu-info   show CPU information\n"
-> +            "Usage: %s [microcode file | options]\n", name, name);
+> -int xc_microcode_update(xc_interface *xch, const void *buf, size_t len)
+> +int xc_microcode_update(xc_interface *xch, const void *buf,
+> +                        size_t len, unsigned int flags)
+>  {
+>      int ret;
+>      struct xen_platform_op platform_op = {};
+> -    DECLARE_HYPERCALL_BUFFER(struct xenpf_microcode_update, uc);
+> +    DECLARE_HYPERCALL_BUFFER(struct xenpf_microcode_update2, uc);
+>  
+>      uc = xc_hypercall_buffer_alloc(xch, uc, len);
+>      if ( uc == NULL )
+> @@ -215,9 +216,10 @@ int xc_microcode_update(xc_interface *xch, const void *buf, size_t len)
+>  
+>      memcpy(uc, buf, len);
+>  
+> -    platform_op.cmd = XENPF_microcode_update;
+> -    platform_op.u.microcode.length = len;
+> -    set_xen_guest_handle(platform_op.u.microcode.data, uc);
+> +    platform_op.cmd = XENPF_microcode_update2;
+> +    platform_op.u.microcode2.length = len;
+> +    platform_op.u.microcode2.flags = flags;
+> +    set_xen_guest_handle(platform_op.u.microcode2.data, uc);
+>  
+>      ret = do_platform_op(xch, &platform_op);
+>  
+> diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
+> index 2c9f337b86cb..688e540943b1 100644
+> --- a/tools/misc/xen-ucode.c
+> +++ b/tools/misc/xen-ucode.c
+> @@ -13,6 +13,8 @@
+>  #include <xenctrl.h>
+>  #include <getopt.h>
+>  
+> +#include <xen/platform.h>
+> +
+>  static xc_interface *xch;
+>  
+>  static const char intel_id[] = "GenuineIntel";
+> @@ -79,7 +81,9 @@ static void usage(FILE *stream, const char *name)
+>              "options:\n"
+>              "  -h, --help            display this help\n"
+>              "  -s, --show-cpu-info   show CPU information\n"
+> -            "Usage: %s [microcode file | options]\n", name, name);
+> +            "  -f, --force           skip certain checks; do not use unless\n"
+> +            "you know exactly what you are doing\n"
 
-Oh, and: While I gave this precise layout as an outline, it wasn't really
-meant to be used literally. Note how "microcode" and "file" now suggest
-there need to be two separate command line elements. Perhaps using
-"microcode-file" instead may already make this less ambiguous.
+Did you look at the produced output? Imo you want to have
+
+            "  -f, --force           skip certain checks; do not use unless\n"
+            "                        you know exactly what you are doing\n"
+
+> +            "Usage: %s [microcode file [-f,--force] | options]\n", name, name);
+
+At least
+
+            "Usage: %s [microcode file [-f|--force] | options]\n", name, name);
+
+But: "options" now includes -f / --force, yet that on its own makes no sense.
+I think this needs further textual clarification to properly indicate what is
+valid to use and what is not.
 
 Jan
 
