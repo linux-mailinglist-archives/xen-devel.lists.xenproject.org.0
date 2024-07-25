@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A47693C8D6
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 21:40:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765123.1175715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F15293C95A
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 22:11:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765133.1175725 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sX4JY-00036G-Uf; Thu, 25 Jul 2024 19:39:48 +0000
+	id 1sX4mg-00074c-5Z; Thu, 25 Jul 2024 20:09:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765123.1175715; Thu, 25 Jul 2024 19:39:48 +0000
+Received: by outflank-mailman (output) from mailman id 765133.1175725; Thu, 25 Jul 2024 20:09:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sX4JY-00033G-S6; Thu, 25 Jul 2024 19:39:48 +0000
-Received: by outflank-mailman (input) for mailman id 765123;
- Thu, 25 Jul 2024 19:39:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l8vd=OZ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1sX4JX-00033A-GY
- for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 19:39:47 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a5f33243-4abd-11ef-bbff-fd08da9f4363;
- Thu, 25 Jul 2024 21:39:46 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id B8CC94EE073C;
- Thu, 25 Jul 2024 21:39:45 +0200 (CEST)
+	id 1sX4mg-00072S-2y; Thu, 25 Jul 2024 20:09:54 +0000
+Received: by outflank-mailman (input) for mailman id 765133;
+ Thu, 25 Jul 2024 20:09:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sX4mf-00072I-EU; Thu, 25 Jul 2024 20:09:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sX4mf-0007fX-8g; Thu, 25 Jul 2024 20:09:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sX4me-0006Cr-S9; Thu, 25 Jul 2024 20:09:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sX4me-0006xt-Rh; Thu, 25 Jul 2024 20:09:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,118 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5f33243-4abd-11ef-bbff-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=/SnT1OWZKL2U8sSeSY5MDq0xOwg/6bGisL3uvLeEdSg=; b=c22kAV+35aLqx10CZhge70jSYB
+	8HHZ/OPDvaZOpnB6n1zUBGgh5L3JsVdkp6f2P8jkGyF0yTRxOR4kUDRHeln/oD9+9TSgsE7AU7akL
+	/RumBmg1aYLGDsaZr5+rUlUknA6CsmwxcBMcaB+OfxKwTHiQ0GLrAENi+jcLyt97kVBE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187008-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Thu, 25 Jul 2024 21:39:45 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: victorm.lira@amd.com
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, roberto.bagnara@bugseng.com,
- consulting@bugseng.com, simone.ballarin@bugseng.com
-Subject: Re: [RFC PATCH v3] automation: add linker symbol name script
-In-Reply-To: <29c7f6cd166d5d3c0e9f64dc937e29dc7ecf3f2d.1721933988.git.victorm.lira@amd.com>
-References: <29c7f6cd166d5d3c0e9f64dc937e29dc7ecf3f2d.1721933988.git.victorm.lira@amd.com>
-Message-ID: <d1a08318bb28df72f95c737627c1a4e5@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 187008: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b1bce5e5649840159d54eb8bffa4fa3d4fae8ee6
+X-Osstest-Versions-That:
+    ovmf=8665187b017b0e4e4febf2241b433e6371f6e7e1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 25 Jul 2024 20:09:52 +0000
 
-On 2024-07-25 21:01, victorm.lira@amd.com wrote:
-> From: Victor Lira <victorm.lira@amd.com>
-> 
-> Requested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Victor Lira <victorm.lira@amd.com>
-> ---
-> Notes:
-> This is a utilty script for help with the MISRA process.
-> This script matches all linker symbol names in linker script files for
-> arm or x86.
-> Not included are symbol names starting with "." or symbol names 
-> enclosed
-> in quotes since the files dont't use any. The regular expression also 
-> does
-> not match for "&=" and similar compound assignments.
-> ---
-> Cc: Jan Beulich <jbeulich@suse.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: roberto.bagnara@bugseng.com
-> Cc: consulting@bugseng.com
-> Cc: simone.ballarin@bugseng.com
-> ---
-> Changes v2:
-> - address style comments
-> - updated script to use .lds instead of .lds.S
-> - remove sample output from patch
-> 
-> Changes v3:
-> - use #!/bin/sh
-> - update error handling and message similar to ../build.sh
-> ---
->  automation/eclair_analysis/linker-symbols.sh | 34 ++++++++++++++++++++
->  1 file changed, 34 insertions(+)
->  create mode 100755 automation/eclair_analysis/linker-symbols.sh
-> 
-> diff --git a/automation/eclair_analysis/linker-symbols.sh 
-> b/automation/eclair_analysis/linker-symbols.sh
-> new file mode 100755
-> index 0000000000..61790fb281
-> --- /dev/null
-> +++ b/automation/eclair_analysis/linker-symbols.sh
-> @@ -0,0 +1,34 @@
-> +#!/bin/sh
-> +
-> +# Stop immediately if any executed command has exit status different 
-> from 0.
-> +set -e
-> +
-> +# Extract linker symbol names (except those starting with ".") from 
-> assignments.
-> +
-> +script_name=$(basename "$0")
-> +script_dir="$(
-> +  cd "$(dirname "$0")"
-> +  echo "${PWD}"
-> +)"
-> +src_dir="${script_dir}/../.."
-> +
-> +fatal() {
-> +  echo "${script_name}: $*" >&2
-> +  exit 1
-> +}
-> +
-> +usage() {
-> +  fatal "Usage: ${script_name} <arm|x86>"
-> +}
-> +
-> +if [ $# -ne 1 ]; then
-> +  usage
-> +fi
-> +
-> +filepath="${src_dir}/xen/arch/${1}/xen.lds"
-> +
-> +if [ ! -f "$filepath" ]; then
-> +  fatal "Could not find ${1} linker script. Must be run after arm/x86 
-> build."
-> +fi
-> +
+flight 187008 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187008/
 
-A doubt I came across now: since this script must be run after the build 
-(and hence the analysis), but the configuration must be generated before 
-the analysis, the only way this could work in my opinion is this:
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b1bce5e5649840159d54eb8bffa4fa3d4fae8ee6
+baseline version:
+ ovmf                 8665187b017b0e4e4febf2241b433e6371f6e7e1
 
-- a build without analysis is performed, just enough to build xen.lds 
-(maybe there is a specific Makefile target to do this)
-- generate the configuration, then clean everything and then run the 
-analysis
+Last test of basis   187003  2024-07-25 09:45:20 Z    0 days
+Testing same since   187008  2024-07-25 14:43:33 Z    0 days    1 attempts
 
-> +sed -n "s/^\s*\([a-zA-Z_][a-zA-Z_0-9.\-]*\)\s*=.*;.*$/\1/p" 
-> "$filepath"
-> --
-> 2.25.1
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   8665187b01..b1bce5e564  b1bce5e5649840159d54eb8bffa4fa3d4fae8ee6 -> xen-tested-master
 
