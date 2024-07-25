@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 146AE93BC8C
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 08:31:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764669.1175162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1FF993BCA1
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 08:39:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764676.1175171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWrzy-0008KR-S7; Thu, 25 Jul 2024 06:30:46 +0000
+	id 1sWs84-0000jH-LC; Thu, 25 Jul 2024 06:39:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764669.1175162; Thu, 25 Jul 2024 06:30:46 +0000
+Received: by outflank-mailman (output) from mailman id 764676.1175171; Thu, 25 Jul 2024 06:39:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWrzy-0008HR-PR; Thu, 25 Jul 2024 06:30:46 +0000
-Received: by outflank-mailman (input) for mailman id 764669;
- Thu, 25 Jul 2024 06:30:45 +0000
+	id 1sWs84-0000gn-IF; Thu, 25 Jul 2024 06:39:08 +0000
+Received: by outflank-mailman (input) for mailman id 764676;
+ Thu, 25 Jul 2024 06:39:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/1nn=OZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWrzx-0008HJ-PY
- for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 06:30:45 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ id 1sWs83-0000ge-2t
+ for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 06:39:07 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6c1c410c-4a4f-11ef-bbff-fd08da9f4363;
- Thu, 25 Jul 2024 08:30:44 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-52efd08e6d9so584126e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 23:30:44 -0700 (PDT)
+ id 9670dbfa-4a50-11ef-bbff-fd08da9f4363;
+ Thu, 25 Jul 2024 08:39:05 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a7a94478a4eso36052066b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jul 2024 23:39:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ac64eb3a95sm454424a12.61.2024.07.24.23.30.43
+ a640c23a62f3a-a7acac60369sm37746466b.90.2024.07.24.23.39.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jul 2024 23:30:44 -0700 (PDT)
+ Wed, 24 Jul 2024 23:39:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c1c410c-4a4f-11ef-bbff-fd08da9f4363
+X-Inumbo-ID: 9670dbfa-4a50-11ef-bbff-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721889044; x=1722493844; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721889545; x=1722494345; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JWV0Z/FRCc78nFOv71bdzI9o5hMZkoIum/9R1LZsDKU=;
-        b=QnIJthufySiS46Xds5J/sRw1M0OPHyzteRnB5YqD5OHcMJE7LStpSEpenuQAO2ywI+
-         XBL9UdUskrtkWFKlyHNg4ZoSHg8/SekUNRa5Jf8P1z547q/VEC0zajLbWJq6iBjAX7Mx
-         9RuMl7eZu+7jBMaF0qV3i2+nhxQEbrHfcOJoJiLirHueY9brYqNIL0n1l2/yOVh1aaCp
-         oHmU+UvcNQpBHGWMvJrNiqAgaUJFukKg+c4gL6hPegAQmk73YA89nS56KQ+5B061jjBx
-         N3gRUtJLi9w6WhX+k9Wqg1wUAp6igI4/H454IQx3O6X137PoCf5FDe+aFP6JeS3ybdeX
-         Rnjg==
+        bh=427Rs21Ah7mgrEF0QTzXMrltScXbNCl/tT6CWILqlpc=;
+        b=I76jYFunxM1Zhq+Q5EnLRAvNc+pzED/WfzxFST3DlAcrhTeRKaPyO9buGjiiMFoakF
+         oHsU2AoXO0mrz4eK5U0nQjoy8UyMQ+UU7u+WY3/ZqnW8fYeC6cEtHZitjLWVmHO/KZgG
+         1NY2vJ1/M4+Ih6N9fwIJzrDAl6eQTvDablPmO4dPfuNEAlW6GPYwmSpyDyoFP6qiCbp/
+         eEA1scQP+c2WvxEPkXhpzR779KZKqQHDJ7df5VNWXRinVAHYRTEa6Xc6TgKc1xVX4mcy
+         +ZjxXHITT1KnnzDSx8rPRrnkYxDj52Mr/eWvvGMTE8qCD6CXBjMSCrRuMDDsmYMBBvyN
+         OX/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721889044; x=1722493844;
+        d=1e100.net; s=20230601; t=1721889545; x=1722494345;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JWV0Z/FRCc78nFOv71bdzI9o5hMZkoIum/9R1LZsDKU=;
-        b=WGWAQebTz+0GBuA+sxgbRFt3zF98WFMpFbyaXsVHtrW+6G/ZgN0JQc9u4w0Jfi4Nz1
-         Iwlevt6DfnhkD2GUHx1gQDscJt2ul2RA7oE6tro/tEGOoIsmLzf9X65xoMt1etUsYbQa
-         7LYcC/uJRxV8gXZXirl9CclBH+eq1/NxNYYCGov2hB/6WcylmH25k2vpqNL+x3cvTjWD
-         P5V8W5ktatYX7imKB2AuJZSqZvwB8VAGkfS+yyvvWq8BL3Pej93WC4UGqcnAGAmafmI6
-         HrO0YzH/NHFajDSf0hKLvbu/2KCIMhAZ5PKEo231Fvnl++24H+uk9Z1lIi5v1Eofdk9+
-         HIOQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXrdYkkaPAG0Psc1uxeIbWRufo2KqMg+f/JdFYiqsiMq2B6+b5Sv6N8El3YwoNo4Q9/b9ycmToqqBbUu5seMbIwds5GT6Bupe7oAuMLXvs=
-X-Gm-Message-State: AOJu0Yy1PD1aXz1uIOROnN2/ij9oQ6vvJhVbexEBT7XaXpf7IFB6Gijs
-	ssJUYxl+AbHwPuNpdlCRN8l2/A4SsFtGSAEkfEo2m9eXzD3YMHnlxPZnFy5M4A==
-X-Google-Smtp-Source: AGHT+IHJ/6SeBg4MMs7CQbkqDZk3rXHvIDcCj8dWe1upanLHiO72zoL2fGz73+dMbFMdZ4BXFtso9w==
-X-Received: by 2002:a05:6512:a96:b0:52e:9619:e26a with SMTP id 2adb3069b0e04-52fd3f1c319mr1411309e87.26.1721889044307;
-        Wed, 24 Jul 2024 23:30:44 -0700 (PDT)
-Message-ID: <5a56ae90-f211-4650-b026-09650e93adf6@suse.com>
-Date: Thu, 25 Jul 2024 08:30:42 +0200
+        bh=427Rs21Ah7mgrEF0QTzXMrltScXbNCl/tT6CWILqlpc=;
+        b=Y2vFJdpUJUhwYoT6MxGSPbKUslOFxWusfDoyTfsKgyXaxONoHn/y3H5Ahru+o0utQc
+         o7WNUde7y3P/n0yocwcc6T0Cc0hyURaPCIM/S0ODw3twi/F+DwLG1gTNL/AuwmOAlMfw
+         lVlboZoHraqy5q07NgDjEeEuX2IXlfszl2ZmYhIpRDLNr+5ZSrMoJC51eXGKHm5poWTx
+         tFZE2kqGfuxoVmZ8TQAmjp/FcA3keksalY1FaONL27uMg0ZhRcZetS8Dr22zKT3/nYIF
+         2hCqHRdfZn8+mahRKtkG7kBbYdtcyoMD6TI1F6gOaUz9GMsWfg58Jmc/GNjhut/8DlzO
+         x8gg==
+X-Forwarded-Encrypted: i=1; AJvYcCWSPrmrA3duxDmzb46VSsFjly5BqV2svy5/TCqwrbnMvBxra7ierFvcAYfMCZRrIERw0RhyqjnzUapoDWTGKYDPS6BXILU4utIuC+exx5Y=
+X-Gm-Message-State: AOJu0YzJl+3xjbd2/0YLXXNUwyAA6Q7VRBq4P4VdN/jm2WAGp/+DyzUf
+	dEHwAW99qZjvpu8rLILz3wkDU++JxTKTWd4k7LIBsmjh5GfD8WWhvKk+29Kkxw==
+X-Google-Smtp-Source: AGHT+IGN7900JHAICfY88OgVm3rbAcYtjCyXEqOnk4rVtODjtNZeBLSpkG3JX3gE2+/z0QJHDL/GdQ==
+X-Received: by 2002:a17:907:9718:b0:a6f:5609:954f with SMTP id a640c23a62f3a-a7ac44e1aaamr211791666b.12.1721889544851;
+        Wed, 24 Jul 2024 23:39:04 -0700 (PDT)
+Message-ID: <115612cd-92c8-4494-a4c4-c996543d43b5@suse.com>
+Date: Thu, 25 Jul 2024 08:39:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] automation: add linker symbol name script
-To: "Lira, Victor M" <VictorM.Lira@amd.com>
+Subject: Re: [RFC PATCH v2] automation: add linker symbol name script
+To: victorm.lira@amd.com
 Cc: Stefano Stabellini <sstabellini@kernel.org>, roberto.bagnara@bugseng.com,
  consulting@bugseng.com, simone.ballarin@bugseng.com,
  xen-devel@lists.xenproject.org
-References: <06e4ad1126b8e9231bf6dcf88205857081968274.1721779872.git.victorm.lira@amd.com>
- <4468a02f-4d8c-4b94-8af6-cd1751cd0a89@suse.com>
- <8fa38784-ba85-4675-9fad-39dd97652bb6@amd.com>
+References: <5b2862d6d036248e8cdd76e9884f173c6b7ff325.1721842334.git.victorm.lira@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,36 +112,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8fa38784-ba85-4675-9fad-39dd97652bb6@amd.com>
+In-Reply-To: <5b2862d6d036248e8cdd76e9884f173c6b7ff325.1721842334.git.victorm.lira@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.07.2024 19:48, Lira, Victor M wrote:
-> On 7/24/2024 12:44 AM, Jan Beulich wrote:
->> Nit: In names of new files we prefer - over _.
->> +script_name=`basename "$0"`
-> I have fixed the above comments in v2.
+On 24.07.2024 19:52, victorm.lira@amd.com wrote:
+> From: Victor Lira <victorm.lira@amd.com>
 > 
->>> +#!/bin/bash
->> Can we rely on bash to be there and at that location? As you using any
->> bash-isms in the script which cannot be avoided?
-> 
-> Are the automation scripts required to be portable? Can you please point 
-> me to a resource where I can learn how to make the script portable?
+> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+> Requested-by: Stefano Stabellini <sstabellini@kernel.org>
 
-In addition to what Jason pointed you at, the more abstract answer is to
-look at the shell specification. E.g.
+Note: Tags in chronological order, please. Stefano isn't likely to have requested
+that after you signed off on the change. As an aside, aiui Stefano requested this
+in response to me having requested it on the call earlier this week.
 
-https://pubs.opengroup.org/onlinepubs/007904975/utilities/contents.html
-(issue 6, i.e. a little dated by now)
+> --- /dev/null
+> +++ b/automation/eclair_analysis/linker-symbols.sh
+> @@ -0,0 +1,34 @@
+> +# Stop immediately if any executed command has exit status different from 0.
+> +set -e
+> +
+> +# Extract linker symbol names (except those starting with ".") from assignments.
+> +
+> +script_name=$(basename "$0")
+> +script_dir="$(
+> +  cd "$(dirname "$0")"
+> +  echo "${PWD}"
+> +)"
+> +src_dir="${script_dir}/../.."
+> +
+> +usage() {
+> +  echo "Usage: ${script_name} <arm|x86>"
+> +}
+> +
+> +if [ $# -ne 1 ]; then
+> +  usage
+> +  exit 1
+> +fi
+> +
+> +if [ "$1" != "arm" ] && [ "$1" != "x86" ]; then
+> +    usage
+> +    exit 1
+> +fi
 
-https://pubs.opengroup.org/onlinepubs/9699919799/
-(issue 7, also already about 6 years old)
+This isn't really needed when you ...
 
-https://pubs.opengroup.org/onlinepubs/9799919799/
-(issue 8, very resent)
+> +filepath="${src_dir}/xen/arch/${1}/xen.lds"
+> +
+> +if [ ! -f "$filepath" ]; then
+> +    echo "Must be run after build."
+> +    exit 2
+> +fi
 
-The older variants may be relevant when backward compatibility matters.
+... check existence first here. Perhaps worth mentioning $1 in the error
+message, as having done just some build may not be sufficient.
+
+Plus, for all error messages: The better want re-directing via >&2.
 
 Jan
 
