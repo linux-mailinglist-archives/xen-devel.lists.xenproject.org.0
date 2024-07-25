@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 912E093BE11
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 10:38:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.764853.1175416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0E2293BE13
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jul 2024 10:41:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.764859.1175426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWtyl-0002ZX-4s; Thu, 25 Jul 2024 08:37:39 +0000
+	id 1sWu2A-00042D-KK; Thu, 25 Jul 2024 08:41:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 764853.1175416; Thu, 25 Jul 2024 08:37:39 +0000
+Received: by outflank-mailman (output) from mailman id 764859.1175426; Thu, 25 Jul 2024 08:41:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sWtyl-0002WY-2H; Thu, 25 Jul 2024 08:37:39 +0000
-Received: by outflank-mailman (input) for mailman id 764853;
- Thu, 25 Jul 2024 08:37:37 +0000
+	id 1sWu2A-0003zI-Hl; Thu, 25 Jul 2024 08:41:10 +0000
+Received: by outflank-mailman (input) for mailman id 764859;
+ Thu, 25 Jul 2024 08:41:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/1nn=OZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sWtyj-0002Qu-Nm
- for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 08:37:37 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1sWu28-0003zC-RI
+ for xen-devel@lists.xenproject.org; Thu, 25 Jul 2024 08:41:08 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24b87bb2-4a61-11ef-8776-851b0ebba9a2;
- Thu, 25 Jul 2024 10:37:36 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a7a9cf7d3f3so33244266b.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 01:37:36 -0700 (PDT)
+ id a253c5ec-4a61-11ef-8776-851b0ebba9a2;
+ Thu, 25 Jul 2024 10:41:06 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-58f9874aeb4so717189a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jul 2024 01:41:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad4160bsm47245766b.98.2024.07.25.01.37.35
+ a640c23a62f3a-a7acac60f14sm47927466b.91.2024.07.25.01.41.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jul 2024 01:37:35 -0700 (PDT)
+ Thu, 25 Jul 2024 01:41:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24b87bb2-4a61-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: a253c5ec-4a61-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721896656; x=1722501456; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721896866; x=1722501666; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zaIrx7YHUpypK+qpBz60y/7w1fXeUC/TztAWP1g1ecM=;
-        b=Fn7/9aY5Py7BTe/sDx1Es67HgcBnUynTOCJ3XpbU8KWBxI4xmTIJYb5VoRXAUriXsY
-         GipOTN3nyRxhDA8o5AYLEqW9RC/fPZcI1k7q9huwE8ZxnFBIc5ADADt/o+bWTTqjj+sg
-         5NL5ug12YRPOPKBnoQYhWqVgsBy2rjciCepmCnfrmVjacOvhjSqXS5rnrdQ5bp06xvMh
-         /QaHTRVMAjYuWnwMc6lNr0OAi9SYHtRCjW8QOisYNWduJ+CIeZINmtkmehgpGOxE7/ef
-         PtUlXxvx/cOkFePpwiQ2Ypa/SCsS94kdDRHuoJX0lYWJ3PTjkv/QLj8TyBt8uT0kvnjJ
-         HmJg==
+        bh=7Gak7R+79LwKvGqU9BLyAey2IZ5rU+hPjw4/obE8YM0=;
+        b=QoO9g5pcBqKetNR+FW3FVtiGmJ/FcLnvjEMm27YNYZmxWvYQWuqm+bBLl1JcE5VMNb
+         kVj+Px/q886vxMO6jZm8OVsDAMIL6dJT6R3QMERCsQhCBIT4ruEZkERtiRleFpn4YAfy
+         KWsZ5Iegn2kKctD3jZjdFclOf7XDWGsLiMDzKvjyxHQS1QW+GteISsZpXU4QK8E/TsZ9
+         M5cNVTKMwO4ErnD9oH7KpYMSMuOE0HpmcNnA6D/iOCqq7zkfO7jsmCng+Ogzp0Y9eMN4
+         87p5oGwTTHv2QLDycXb25uCz+iYurQD2FYiS2ryhf77heCd2vvMGWyWKMIsk7zeck/+H
+         Ingg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721896656; x=1722501456;
+        d=1e100.net; s=20230601; t=1721896866; x=1722501666;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zaIrx7YHUpypK+qpBz60y/7w1fXeUC/TztAWP1g1ecM=;
-        b=aehoVBte1RDNrfjuoM37wvubI7uuU+jxP/Fw9crPQghkIO5B29SLuTvja26qSkPLCl
-         X87jAvX3tmOIw/sGnJPF6qJWhUcn64ruPHZ6npBASKJCTJLED22BRQe8CcJja+SZ/PI2
-         eVIcfIWyt4iZlKo4IEa3u2wwAqTIHgwBqC8cdXSv6FueJJgXOTJ5VgW55dcsi9mgxR2I
-         Hamk6R7SUQCeJh5HleBTezxfwb1Q3INNhh8bho9OW/AO3lUVKsWsiVQ+0icsZSYva+C+
-         1BCX4hus1FdHQ3D/p5BjY75cVtyU5AdVTknjqUlneQE418Ru+MiqwvlYIKfxEM6vFx3b
-         Q1UQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWprXoltcttgGPzjZYdhjK3dhPSpyCqlUQYWm/O1FdwNmzDSiLAwr6DLkunqK2UgG4nBvkc3iwZuPsChVNkWlApm2RGGbyqdz/Y1X3xnFc=
-X-Gm-Message-State: AOJu0YxtifqvTFFgsf5mQ+jgDGB31/0H7qFieuPAoZ6mPzjkLC2DOPAc
-	LRRUlcrvzOSigHekFDFaxfGo2d26y2gjuO4tTnepH8frP3hZ2P2w8ayoot7C6NA37YyP8jE/jCE
+        bh=7Gak7R+79LwKvGqU9BLyAey2IZ5rU+hPjw4/obE8YM0=;
+        b=F741unfaM7xRROHCfgHli0o8YedK/RLWgALSYythVsvr3JyhgBvYPi6qeiDwK8cBa2
+         fKmfgt/wCuUJuYzeaBenAsp4clxvxgIcqswDXJx4PZRvthEoJTkp4EtXRmo86aoKYZ0J
+         USzwSe08XluAalgu1PX1Dr9tswGlL+K9MhCYO5qtP0DZae7yr+UkMUrOpszCPlkaYnk7
+         tTiNir6Jx4OcrzFWFVitgxty4eufHBr/8ogtMmBuOqZCCsO4cVjDIVn7EJkAzPR4tvY/
+         ZHAEyJHUZnL5hqkUUKd5uhqo0iTQ/torUGpa0kM95AliIRM0689UM+9JVSm+V3ySFvfJ
+         axZg==
+X-Forwarded-Encrypted: i=1; AJvYcCXLYPcUBdCVClUM4u7XfmwmM5LmWN/p54l7lp7Q9hdA1PEZ5D1Mxty7J+ESlAGGRbhRAjslH7wPS0rHWhKikBOoyGc50m0uzvoiLc6KnzE=
+X-Gm-Message-State: AOJu0YyUcxLJKJfTOpj7GPdto0irSHWjabUmwKTK5aGu7/0k0J4p5cs6
+	j03b+vT25R1eWgV/vrl/gcvTrJOCOWstahelB665cvCHuuijkppE1uL0GWwJHML+gCEKaEYqVaw
 	=
-X-Google-Smtp-Source: AGHT+IHykuXenWBb45vtWxcccZd4/vj2HyCQ/8AfQw4Ogpr4yB63sa5cZlLKYdtHhR+ZIGiils2QZA==
-X-Received: by 2002:a17:907:7f86:b0:a77:e48d:bc3 with SMTP id a640c23a62f3a-a7ac4de3b26mr142936866b.19.1721896655654;
-        Thu, 25 Jul 2024 01:37:35 -0700 (PDT)
-Message-ID: <772e656a-8d03-47b3-884e-4aeeb48b1c0d@suse.com>
-Date: Thu, 25 Jul 2024 10:37:34 +0200
+X-Google-Smtp-Source: AGHT+IGR1AXm6/WAd3SPeKz5cV/bEopuuQ69EMO0jnPt2A57LVAoXLWZ0SkgqAwfzjAs5StCVFAljg==
+X-Received: by 2002:a17:907:845:b0:a7a:a46e:dc37 with SMTP id a640c23a62f3a-a7acb92ebd4mr89483066b.57.1721896866367;
+        Thu, 25 Jul 2024 01:41:06 -0700 (PDT)
+Message-ID: <e2d2244d-66ac-46bd-b047-044c9860c955@suse.com>
+Date: Thu, 25 Jul 2024 10:41:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v6 2/4] x86/ucode: refactor xen-ucode to utilize getopt
@@ -130,23 +130,10 @@ On 25.07.2024 10:27, Fouad Hilly wrote:
 > +            "  -s, --show-cpu-info   show CPU information\n"
 > +            "Usage: %s [microcode file | options]\n", name, name);
 
-You did see Anthony's comments on this before sending the new version,
-didn't you? I agree with him (and I'm somewhat embarrassed that I didn't
-notice this myself earlier on).
-
-> @@ -146,4 +176,10 @@ int main(int argc, char *argv[])
->      close(fd);
->  
->      return 0;
-> +
-> + ext_err:
-> +    fprintf(stderr,
-> +            "%s: unable to process command line arguments\n", argv[0]);
-> +    usage(stderr, argv[0]);
-> +    exit(EXIT_FAILURE);
->  }
-
-And there was a comment on this, too.
+Oh, and: While I gave this precise layout as an outline, it wasn't really
+meant to be used literally. Note how "microcode" and "file" now suggest
+there need to be two separate command line elements. Perhaps using
+"microcode-file" instead may already make this less ambiguous.
 
 Jan
 
