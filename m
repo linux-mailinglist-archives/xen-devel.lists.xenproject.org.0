@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9382A93D99D
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 22:16:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765756.1176410 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 203D393D9EC
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 22:40:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765766.1176420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXRMK-0005ms-3l; Fri, 26 Jul 2024 20:16:12 +0000
+	id 1sXRjN-00019d-0R; Fri, 26 Jul 2024 20:40:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765756.1176410; Fri, 26 Jul 2024 20:16:12 +0000
+Received: by outflank-mailman (output) from mailman id 765766.1176420; Fri, 26 Jul 2024 20:40:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXRMK-0005iL-0S; Fri, 26 Jul 2024 20:16:12 +0000
-Received: by outflank-mailman (input) for mailman id 765756;
- Fri, 26 Jul 2024 20:16:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HdqS=O2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sXRMI-0005he-RH
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 20:16:10 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e3d67f97-4b8b-11ef-8776-851b0ebba9a2;
- Fri, 26 Jul 2024 22:16:08 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2491461671;
- Fri, 26 Jul 2024 20:16:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27452C4AF09;
- Fri, 26 Jul 2024 20:16:04 +0000 (UTC)
+	id 1sXRjM-00016a-Sx; Fri, 26 Jul 2024 20:40:00 +0000
+Received: by outflank-mailman (input) for mailman id 765766;
+ Fri, 26 Jul 2024 20:39:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXRjL-00016M-Cx; Fri, 26 Jul 2024 20:39:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXRjK-0005DV-Ro; Fri, 26 Jul 2024 20:39:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXRjK-0003Ip-Ei; Fri, 26 Jul 2024 20:39:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXRjK-0007Uq-EG; Fri, 26 Jul 2024 20:39:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,119 +42,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3d67f97-4b8b-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722024965;
-	bh=F8ifxgQXWaNGze3x4qI8bHRWYDbVSo9IftHDTKXH1QU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VK1AujExIMVH+0tSY7eVWXQUOWXWYVyQAGa+tRZ13JdfUWzEixgfu+z8s9MshJ+Ql
-	 MzueY+1/QJUUeRVRsTYf+IGnX+OYyw5X14SVLRvqTsl6LPq5UP/ScaDrLREXp5BeZW
-	 CXW02XaJcDoy8m54kgWbj/sOE9/69JlDS0LpLvhYyuYXdbIp3PD5lCet117RHXwxTk
-	 wq5hGTeR2OCP77udKqVBiddvWytrZsAdjBEom1I5JimH+cdVvSknwxWsZAoxWeYRM9
-	 13sSU3GDhnrfFsxbxcgG2KOXnuQe3eaz55y4nNf+F6f6fVyOgDV+N50F76laNxR7TY
-	 b89onZOBQLT+w==
-Date: Fri, 26 Jul 2024 13:16:02 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, George Dunlap <gwd@xenproject.org>, 
-    Julien Grall <julien@xen.org>, Anthony PERARD <anthony@xenproject.org>, 
-    Juergen Gross <jgross@suse.com>, 
-    "Daniel P . Smith" <dpsmith@apertussolutions.com>, 
-    "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, 
-    "Huang, Ray" <Ray.Huang@amd.com>
-Subject: Re: [XEN PATCH v12 4/7] x86/domctl: Add hypercall to set the access
- of x86 gsi
-In-Reply-To: <BL1PR12MB5849C8A40630534241B31941E7B42@BL1PR12MB5849.namprd12.prod.outlook.com>
-Message-ID: <alpine.DEB.2.22.394.2407261313160.4857@ubuntu-linux-20-04-desktop>
-References: <20240708114124.407797-1-Jiqian.Chen@amd.com> <20240708114124.407797-5-Jiqian.Chen@amd.com> <alpine.DEB.2.22.394.2407221505440.4857@ubuntu-linux-20-04-desktop> <BL1PR12MB5849C8A40630534241B31941E7B42@BL1PR12MB5849.namprd12.prod.outlook.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FMiEFxpC8tzUMilkU0HvkUv5JNvrKFZE2oj2wCAESw4=; b=Azo0s9huZUFUQGt5IQ9GhnkxYv
+	7EVU5xmIsr/eLViFPSCcIPkmraPR89Aw0NvMFTVVIeXk4RquCSLSovsbFV2LdIkR6rDTaNQsmA/yb
+	HvkI8MEqAUKF2QQ2jsjshizOPJxr319kxr0eSOcOG0f5u8aX908W42bj5lGRPZJxKjRU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187013-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [libvirt test] 187013: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=bd11c753f3f947d91ae0c8d2ba965e5661e25080
+X-Osstest-Versions-That:
+    libvirt=e62c26a20dced58ea342d9cb8f5e9164dc3bb023
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 26 Jul 2024 20:39:58 +0000
 
-On Fri, 26 Jul 2024, Chen, Jiqian wrote:
-> On 2024/7/23 06:10, Stefano Stabellini wrote:
-> > On Mon, 8 Jul 2024, Jiqian Chen wrote:
-> >> Some type of domains don't have PIRQs, like PVH, it doesn't do
-> >> PHYSDEVOP_map_pirq for each gsi. When passthrough a device
-> >> to guest base on PVH dom0, callstack
-> >> pci_add_dm_done->XEN_DOMCTL_irq_permission will fail at function
-> >> domain_pirq_to_irq, because PVH has no mapping of gsi, pirq and
-> >> irq on Xen side.
-> >> What's more, current hypercall XEN_DOMCTL_irq_permission requires
-> >> passing in pirq to set the access of irq, it is not suitable for
-> >> dom0 that doesn't have PIRQs.
-> >>
-> >> So, add a new hypercall XEN_DOMCTL_gsi_permission to grant/deny
-> >> the permission of irq(translate from x86 gsi) to dumU when dom0
-> >> has no PIRQs.
-> >>
-> >> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> >> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> >> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> >> ---
-> >> CC: Daniel P . Smith <dpsmith@apertussolutions.com>
-> >> Remaining comment @Daniel P . Smith:
-> >> +        ret = -EPERM;
-> >> +        if ( !irq_access_permitted(currd, irq) ||
-> >> +             xsm_irq_permission(XSM_HOOK, d, irq, access_flag) )
-> >> +            goto gsi_permission_out;
-> >> Is it okay to issue the XSM check using the translated value, 
-> >> not the one that was originally passed into the hypercall?
-> >> ---
-> >>  xen/arch/x86/domctl.c              | 32 ++++++++++++++++++++++++++++++
-> >>  xen/arch/x86/include/asm/io_apic.h |  2 ++
-> >>  xen/arch/x86/io_apic.c             | 17 ++++++++++++++++
-> >>  xen/arch/x86/mpparse.c             |  5 ++---
-> >>  xen/include/public/domctl.h        |  9 +++++++++
-> >>  xen/xsm/flask/hooks.c              |  1 +
-> >>  6 files changed, 63 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-> >> index 9190e11faaa3..4e9e4c4cfed3 100644
-> >> --- a/xen/arch/x86/domctl.c
-> >> +++ b/xen/arch/x86/domctl.c
-> >> @@ -36,6 +36,7 @@
-> >>  #include <asm/xstate.h>
-> >>  #include <asm/psr.h>
-> >>  #include <asm/cpu-policy.h>
-> >> +#include <asm/io_apic.h>
-> >>  
-> >>  static int update_domain_cpu_policy(struct domain *d,
-> >>                                      xen_domctl_cpu_policy_t *xdpc)
-> >> @@ -237,6 +238,37 @@ long arch_do_domctl(
-> >>          break;
-> >>      }
-> >>  
-> >> +    case XEN_DOMCTL_gsi_permission:
-> >> +    {
-> >> +        int irq;
-> >> +        unsigned int gsi = domctl->u.gsi_permission.gsi;
-> >> +        uint8_t access_flag = domctl->u.gsi_permission.access_flag;
-> >> +
-> >> +        /* Check all bits and pads are zero except lowest bit */
-> >> +        ret = -EINVAL;
-> >> +        if ( access_flag & ( ~XEN_DOMCTL_GSI_PERMISSION_MASK ) )
-> >> +            goto gsi_permission_out;
-> >> +        for ( i = 0; i < ARRAY_SIZE(domctl->u.gsi_permission.pad); ++i )
-> >> +            if ( domctl->u.gsi_permission.pad[i] )
-> >> +                goto gsi_permission_out;
-> >> +
-> >> +        if ( gsi > highest_gsi() || (irq = gsi_2_irq(gsi)) <= 0 )
-> > 
-> > gsi is unsigned int but it is passed to gsi_2_irq which takes an int as
-> > parameter. If gsi >= INT32_MAX we have a problem. I think we should
-> > explicitly check for the possible overflow and return error in that
-> > case.
-> But here has checked "gsi > highest_gsi()", can highesi_gsi() return a gsi >= INT32_MAX?
+flight 187013 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187013/
 
-In practice it is impossible but in theory it could. But then I looked
-at the implementation of highest_gsi() and gsi_end actually a signed
-int. So I think this is OK:
+Failures :-/ but no regressions.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186998
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ libvirt              bd11c753f3f947d91ae0c8d2ba965e5661e25080
+baseline version:
+ libvirt              e62c26a20dced58ea342d9cb8f5e9164dc3bb023
+
+Last test of basis   186998  2024-07-25 04:22:25 Z    1 days
+Testing same since   187013  2024-07-26 04:20:39 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ján Tomko <jtomko@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   e62c26a20d..bd11c753f3  bd11c753f3f947d91ae0c8d2ba965e5661e25080 -> xen-tested-master
 
