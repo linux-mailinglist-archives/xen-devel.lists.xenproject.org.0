@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95A6693CC34
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 03:02:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765196.1175785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8051293CC91
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 03:58:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765203.1175795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sX9Kg-0008Ev-Kd; Fri, 26 Jul 2024 01:01:18 +0000
+	id 1sXACj-00049T-Lf; Fri, 26 Jul 2024 01:57:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765196.1175785; Fri, 26 Jul 2024 01:01:18 +0000
+Received: by outflank-mailman (output) from mailman id 765203.1175795; Fri, 26 Jul 2024 01:57:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sX9Kg-0008AP-Hr; Fri, 26 Jul 2024 01:01:18 +0000
-Received: by outflank-mailman (input) for mailman id 765196;
- Fri, 26 Jul 2024 01:01:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sXACj-00047s-Ix; Fri, 26 Jul 2024 01:57:09 +0000
+Received: by outflank-mailman (input) for mailman id 765203;
+ Fri, 26 Jul 2024 01:57:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XHFb=O2=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1sX9Ke-00059r-Qa
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 01:01:17 +0000
-Received: from fout6-smtp.messagingengine.com (fout6-smtp.messagingengine.com
- [103.168.172.149]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8a080a2b-4aea-11ef-8776-851b0ebba9a2;
- Fri, 26 Jul 2024 03:01:07 +0200 (CEST)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailfout.nyi.internal (Postfix) with ESMTP id 45F371380351;
- Thu, 25 Jul 2024 21:01:06 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Thu, 25 Jul 2024 21:01:06 -0400
+ id 1sXACh-00047h-R4
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 01:57:07 +0000
+Received: from fhigh2-smtp.messagingengine.com
+ (fhigh2-smtp.messagingengine.com [103.168.172.153])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5a7bf067-4af2-11ef-bbff-fd08da9f4363;
+ Fri, 26 Jul 2024 03:57:04 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailfhigh.nyi.internal (Postfix) with ESMTP id AE9D711401EA;
+ Thu, 25 Jul 2024 21:57:02 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Thu, 25 Jul 2024 21:57:02 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 25 Jul 2024 21:01:04 -0400 (EDT)
+ 25 Jul 2024 21:57:01 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,122 +44,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a080a2b-4aea-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 5a7bf067-4af2-11ef-bbff-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1721955666;
-	 x=1722042066; bh=vMEFVFOBmxb1HtF7SEeR9nke0slxYCkVy8bbPz/CgoQ=; b=
-	KQ2WtaqQrcn9tMX9La5NeuV5zz9y8a/L0veU9nefTcxUl41189n1jVcBKx2a7v8W
-	YcsNFgKXN+zL7Lg1z9sXxEigVkl/4ppe7pq3YS25BI5yP9H+NvIQT3XR8hCL40Mu
-	ONFPeFuH06rSQOESQBNPXJK5pDDweiExyo0TTArW3sIhzxC8kCX0dGtC7c6A1GsZ
-	9uR4Qxl1uneAXJA13TGblN+fm7Jh+JHfWiUco3LySGGMt2O78NY+EUOe6XpQnryE
-	b/zuvkIn/j/sFMM0KsdU3dJuU/jCQZ7FpWTvQGdg2mqvotGgnm744ijWkmAtwkWb
-	LwES+y20Ne6MlKSTzReGpA==
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
+	 t=1721959022; x=1722045422; bh=ELkS5LyLRXW6K4j+ygM4XILJ8BqvSvZ7
+	MAPzWMIadhU=; b=HLT1UnbHD8PrfoHA7Ty5qdPVZDo1bTwfz1KvYyDoHwgZxZnC
+	FnlkR6nwM9ruz1G+XqxWsbKhSJiZy6VZyY0xTbkFrH1KJjK8TmZweQ3HXs0PbUpE
+	YKbSheNFXQujSbSVCoo1vHIIZaXLIGEOv0sqqftXlIYpuPPVSWe6sNr/wORteOZa
+	Kbq49Goldtl6lzE+wjDgXxLT8PJ/sgoqUXsnnMOkD1UjYFABoWYiaQTl/6kPpOIf
+	9V0FETKKCT8kjWTcKmdnAR9xZZTC/ymUe9AO7AeDAPhXBLAqVUR2iWQ9SZ3GCbJg
+	7A9zBQu1LOGz+Qu9qWg2BwdkVmn2PgsrOoU7aA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1721955666; x=1722042066; bh=vMEFVFOBmxb1HtF7SEeR9nke0slx
-	YCkVy8bbPz/CgoQ=; b=R65c60C5newhRbf30/1qG6FAHZmdGGi63FDU39ycfWKm
-	uycRwgIzZPrqfEN0OHljJTKUzwtgXrAZAEkgNsCgiKzJC5wKkvPbU4HpXDyKNbfO
-	rTktcQlu+6iOFL6r1/1yMtpSlJSMHKgMQx6nAGwIAXcJlUUHm5kSY2B1Fxlus0sB
-	dkUymfW7QZtJtYEGkzKD3EP983C8IyZ8tIBb5uUF3SBGzWlD1fSbISMGgCiAce7m
-	Wf9cMVm4520nvqsvS05rh0pH2jn/vqTHOFCusa+0kSDIQ1lXnF93An2lp7U9mkkF
-	bNuCepEmD5Tkek/oWVvHGJb3eNrA8+kBxND+hlp1Cw==
-X-ME-Sender: <xms:UfWiZmfmLenvZjmDm9O7o8iOzJ8Z4SiZH7x2dtPL6wHPOP97AFi6wg>
-    <xme:UfWiZgPAdYbAmo4mFNzTGxC4TAtp1BlBVY2hgaxiqukdebAlF6sqz_a4eKDsQBDUg
-    Scd_Qqd0G7WsQ>
-X-ME-Received: <xmr:UfWiZnjLyZ5sVdRbfu2G_6erJi0UYbx1WS14LCOkmXARlDnvXaFxGHlUnwStv6JCm5vGwoLzShKUAvTxPLX0mujb_YdeGad1Ww>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrieeggdegtdcutefuodetggdotefrodftvf
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1721959022; x=1722045422; bh=ELkS5LyLRXW6K
+	4j+ygM4XILJ8BqvSvZ7MAPzWMIadhU=; b=bJf6hggmutyWWXOXz5c/Yp6wTANH3
+	WCbvQwPBPmIEh2vF3Vzk4GdxjT9MDBfr7kJdDPRmv15N1aAc5ltCS6dsDx7oN2iK
+	yQjxicxDwEZXSmHLvSRBHN1Q+zF/iWf2fTfCmafcOZsh/DAKE0yEJve1gv1t8emv
+	rXQLqs4f62CmnADwaGFh98ixKYERdlAmiI3PJLfNqhVavAl9adZBg7tLTYRz6IDH
+	Jt8ga1OiuDWdl7062MmwZ7FL/AQkFSvYSzEDOcjZE7dLfw0Jw7TGGpRV8tPGFAPr
+	U1wlCJXR2QIblprXNK7B5wH2AVyZHOG1aOzpv6nGSWIHzg6yIsFKhCR2Q==
+X-ME-Sender: <xms:bgKjZt23ez2bf_kNizoQi0vLK4pvMO57cIYN5SgKhrawtMN_MGVeoA>
+    <xme:bgKjZkHzj8KfDhKLCEplzUzH2dTC_C-lLIL6muJDbK0LuQTSGsR2jzA0Tzbc_k3y_
+    LNN7rIFwAf-nA>
+X-ME-Received: <xmr:bgKjZt5QI8Gq2wLVf-3xyI4FuC50JGX9CNABnwFyO_3IqfXfnV9frgbb4X-R7QPG97_sGUop3x9zf45wpw_ZUMFT5bEIRV2ZQTs-J_HUSut9-bMDI8U>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrieeggdehudcutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
-    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedt
-X-ME-Proxy: <xmx:UvWiZj_ePNCIfe7LSZEg5KBC_9S3WDwz1lLOViEi7Hy8Bfn7Dr2fow>
-    <xmx:UvWiZiv_7hkqD8bW4B3DYAGHg2NDcnb-DNqIobEHFPIbk0WrkleMfA>
-    <xmx:UvWiZqHjjcqPT4DI1UdA3OChi8dBtU43aQjQ0mBC3t_vOeD1vFvrAw>
-    <xmx:UvWiZhMj9qG2bCWfbr5aM52Tvl4ZNjVTYgte2mW4o8wDkA_AS4wyvw>
-    <xmx:UvWiZmK8mAcVLnoAJmB6SxL10g4m2q-EW6AgMgywgU6CEjsyCrbSqLxU>
+    uegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofggtgfgsehtkeertd
+    ertdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghk
+    ihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqe
+    enucggtffrrghtthgvrhhnpeelkefhudelteelleelteetveeffeetffekteetjeehlefg
+    geekleeghefhtdehvdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
+    hlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgt
+    ohhmpdhnsggprhgtphhtthhopedt
+X-ME-Proxy: <xmx:bgKjZq1OPExS_qoZDBc0lnn3RrknErU_E_UxkQQqYoo_Ez_x1Y-vcg>
+    <xmx:bgKjZgGyHG41jAbjbYGS9CEEUyCU8xI0tAEOy9X9bIavtvdz9kuzpA>
+    <xmx:bgKjZr9M9yEqqBRvAioY3HbZitv9CatlrUSEuIngo-YiAVTWi-MBaQ>
+    <xmx:bgKjZtnY8Hm9xaD6hZyesQDxa_Tug-N8TKi6QqWH-I5Hfm1JFfagig>
+    <xmx:bgKjZqOi-zV1OmzivAOSX0eIbvB8Yz8HaLXncqrtYIJ_iHNNW7NnEiv2>
 Feedback-ID: i1568416f:Fastmail
-Date: Fri, 26 Jul 2024 03:01:00 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 2/3] x86/mm: add API for marking only part of a MMIO
- page read only
-Message-ID: <ZqL1TBOezvBgMQso@mail-itl>
-References: <cover.66bd16d0134f9664ea3e0f4d56f7c127afc308c8.1721704980.git-series.marmarek@invisiblethingslab.com>
- <4bea5034cda37f35cd04115bebcccb52e3ea719e.1721704980.git-series.marmarek@invisiblethingslab.com>
- <7588feb4-dc42-4bf3-85db-7aaac201a2ff@suse.com>
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v7 0/2] Add API for making parts of a MMIO page R/O and use it in XHCI console
+Date: Fri, 26 Jul 2024 03:55:52 +0200
+Message-ID: <cover.fe70b6220fe40bbe11f97b9396340c5dd11d59aa.1721958949.git-series.marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="1j2XPxvC1isC58oq"
-Content-Disposition: inline
-In-Reply-To: <7588feb4-dc42-4bf3-85db-7aaac201a2ff@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On older systems, XHCI xcap had a layout that no other (interesting) registers
+were placed on the same page as the debug capability, so Linux was fine with
+making the whole page R/O. But at least on Tiger Lake and Alder Lake, Linux
+needs to write to some other registers on the same page too.
 
---1j2XPxvC1isC58oq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jul 2024 03:01:00 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 2/3] x86/mm: add API for marking only part of a MMIO
- page read only
+Add a generic API for making just parts of an MMIO page R/O and use it to fix
+USB3 console with share=yes or share=hwdom options. More details in commit
+messages.
 
-On Thu, Jul 25, 2024 at 11:26:31AM +0200, Jan Beulich wrote:
-> On 23.07.2024 05:24, Marek Marczykowski-G=C3=B3recki wrote:
-> > +     * so tolerate it.
-> > +     * But unaligned size would result in smaller area, so deny it.
-> > +     */
-> > +    ASSERT(IS_ALIGNED(start, MMIO_RO_SUBPAGE_GRAN));
-> > +    ASSERT(IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN));
-> > +    if ( !IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN) )
-> > +        return -EINVAL;
->=20
-> I hoped you would, when adding the comment, recall an earlier comment of
-> mine: If you want to tolerate mis-aligned start in release builds, you
-> need to make further adjustments to the subsequent logic (at which
-> point the respective assertion may become pointless); see below. While
-> things may work okay without (I didn't fully convince myself either way),
-> the main point here is that you want to make sure we test in debug builds
-> what's actually used in release one. Hence subtleties like this would
-> better be dealt with uniformly between release and debug builds.
+Marek Marczykowski-Górecki (2):
+  x86/mm: add API for marking only part of a MMIO page read only
+  drivers/char: Use sub-page ro API to make just xhci dbc cap RO
 
-Right, and I think this is a good argument to not try to accept
-unaligned size either, even if it would be possible here.
+ xen/arch/x86/hvm/emulate.c      |   2 +-
+ xen/arch/x86/hvm/hvm.c          |   4 +-
+ xen/arch/x86/include/asm/mm.h   |  23 +++-
+ xen/arch/x86/mm.c               | 261 +++++++++++++++++++++++++++++++++-
+ xen/arch/x86/pv/ro-page-fault.c |   6 +-
+ xen/drivers/char/xhci-dbc.c     |  36 +++--
+ 6 files changed, 313 insertions(+), 19 deletions(-)
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---1j2XPxvC1isC58oq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmai9UwACgkQ24/THMrX
-1yytbQf/ZvSfv6BxnYZLGS6L0Gjx1bhRO5xzwkGEXbcQgLdzhEsGFi3TcpNXJmGA
-Mq46erMm2EFMkHSeHwiyboXay3F0tYLrEelRuWvJV5kTZ6V94Ws1bPhbwPZJ9VqG
-Uig8ESaQr7XzNX98MxRm6rQtSfFbAJxSLmV8Qd1bGHQFhP+HA26P4gbVb4YIwFOC
-b68C2+IJOIjsFMzsuXg6CvlQMXppSwBowce+cnT49oMVq/8YFTBfAlkb3bevyIkj
-HLc/Bs7/NtKaZNP1L2ojeQGk9DQPxMQirYKeE2BKPLZBIj3nTXy+OlGDyE95dt2B
-CzD1Y/QG5Mp/ok8KmA/P43zf5QR45w==
-=sydp
------END PGP SIGNATURE-----
-
---1j2XPxvC1isC58oq--
+base-commit: b25b28ede1cba43eda1e0b84ad967683b8196847
+-- 
+git-series 0.9.1
 
