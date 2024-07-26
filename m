@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22F6D93D640
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 17:39:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765605.1176290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9637593D65E
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 17:42:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765662.1176326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXN2I-0001h6-Vt; Fri, 26 Jul 2024 15:39:14 +0000
+	id 1sXN4c-0004xv-5p; Fri, 26 Jul 2024 15:41:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765605.1176290; Fri, 26 Jul 2024 15:39:14 +0000
+Received: by outflank-mailman (output) from mailman id 765662.1176326; Fri, 26 Jul 2024 15:41:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXN2I-0001dZ-S6; Fri, 26 Jul 2024 15:39:14 +0000
-Received: by outflank-mailman (input) for mailman id 765605;
- Fri, 26 Jul 2024 15:39:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sXN4c-0004rZ-1a; Fri, 26 Jul 2024 15:41:38 +0000
+Received: by outflank-mailman (input) for mailman id 765662;
+ Fri, 26 Jul 2024 15:41:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Bxzg=O2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sXMvW-00084T-VO
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 15:32:15 +0000
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [2607:f8b0:4864:20::82e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a956b84-4b64-11ef-8776-851b0ebba9a2;
- Fri, 26 Jul 2024 17:32:13 +0200 (CEST)
-Received: by mail-qt1-x82e.google.com with SMTP id
- d75a77b69052e-44fe58fcf29so3847531cf.2
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 08:32:12 -0700 (PDT)
+ id 1sXMvZ-00084Z-Lz
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 15:32:17 +0000
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [2607:f8b0:4864:20::733])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3baeadbc-4b64-11ef-bbff-fd08da9f4363;
+ Fri, 26 Jul 2024 17:32:14 +0200 (CEST)
+Received: by mail-qk1-x733.google.com with SMTP id
+ af79cd13be357-7a1df0a93eeso54357785a.1
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 08:32:14 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-44fe81259cesm14414941cf.6.2024.07.26.08.32.09
+ af79cd13be357-7a1d73ed33bsm186293085a.58.2024.07.26.08.32.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jul 2024 08:32:09 -0700 (PDT)
+ Fri, 26 Jul 2024 08:32:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,43 +44,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a956b84-4b64-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 3baeadbc-4b64-11ef-bbff-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722007931; x=1722612731; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1722007933; x=1722612733; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D/Si1GObgr7VHk+37CZa7YHHAXjnb60+qTIn0xcWOxk=;
-        b=kvGLK3cnHBOWVPyLL2a5LWNAGH+IdS0PqP3iwoNcbT6QccCG9Vk/FaOHrdLhd3/MKc
-         dSw+1gjN6EFBEeD6JMmsEX8TUtLoAagtbO4akI9YTzxFqawG9GhG2/dHhddSJKW6uKWF
-         Y8qEVNx1T3TP6rx0HwqaPQz7SOIQu4FID+fQE=
+        bh=+bQ+ii7M1KJhsihYtAn+LMm9W2OsmDXTDtNb1K2Kk+8=;
+        b=ULjq/Fq8AEzNonKiqnzDW2K4UctU1Jls2eXHeGiyKUtMbUZ1fup+OMvxdw69kxqRDG
+         bCMe/pFZwI4HvSBRwtfaOF7JekIf5n1R2unNXmCNwGqinsTniSiOC2TA4Xco+ugIfLAM
+         u5or8g1UmGciX16GTqlgQzD4Fo/YzT4aGXeh4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722007931; x=1722612731;
+        d=1e100.net; s=20230601; t=1722007933; x=1722612733;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=D/Si1GObgr7VHk+37CZa7YHHAXjnb60+qTIn0xcWOxk=;
-        b=uwMQpRUpNf+DscGt3s4mol6LnWsFis3Zd2ueXE5m50WvUsKJbwCe3TZna6oTWboplb
-         vrW0RkzerbuSCMf8B7R2X+f4a8rtEN74rI3JwJo4aPjkSOcWjU06IdpIAXtcwYQTCDGv
-         wVYkHSsT87rKnnpNCgEGrehpU9LcPJmfHy5EnE84zE01F8cT5+Rn3aklccaoriK6P55Z
-         xffCEP8XccVrJAl+uk5HGk8rNXuYCHRmGSqvIPUL096ejROgvpz3OPJKZxm54Qb+7S4H
-         WA4tj/yGNYT01prVNM90/U/TlkF7C3di92Ji4gNu6OcoMK+4ZhvBw7cv1OnRAO5hY819
-         AHIw==
-X-Gm-Message-State: AOJu0YzGQfVAPg4ZZdzZa01cf24MVSeJAV4M+POvrPhD9mOdw7kvpnuA
-	9cwBuDMJ13EfMr29nwJAx0CpgxuoosQq+5f9DDOtx/X+aykkIKPf7StCVVJZQaUvsm3qTGDGyzk
-	9
-X-Google-Smtp-Source: AGHT+IFlmoKIVbvsxd/sjDsiPGUXG2bxnsKNLp/iKOSkxDcooIG1tLdj9v2mDDAsKk1LuEAAGdEnhA==
-X-Received: by 2002:a05:622a:13d1:b0:447:e83a:1051 with SMTP id d75a77b69052e-45004f3dd66mr1394031cf.47.1722007930041;
-        Fri, 26 Jul 2024 08:32:10 -0700 (PDT)
+        bh=+bQ+ii7M1KJhsihYtAn+LMm9W2OsmDXTDtNb1K2Kk+8=;
+        b=XTjbhbKK7gMAVEajiqbuSMrkNWsYY+/q+NRzGjuu6L1kZfruMFba8YEKKSQRpmLG6s
+         FLV0dGsAA9UDttxrigvUXktyBjcKoYbUsLBhhx1H7bgXUMy1q7i97SXDEyQMM7I+wGQg
+         LRup8Nr2feEDEhm6MnvwPgVeWCllxLB3hZh8mX8faIj08syDoM3Lv6hrIpm9HBuK0CMG
+         JkVonKdyFAAaRQYotYNRcQ01crPOX/xwEYriGh8tZNtOsXiK8RypHLfR/jlF1Z+wsLsH
+         xeyFum5eVkyYmTb3nKjufn8jeKA4S2ISL+tHP8j/H9Lf4lbDBsMQT17UxIdpEBf1Oib8
+         5sEQ==
+X-Gm-Message-State: AOJu0Yy7/FtcEumP2xkLgioa0Va7WzY0j4PckaIZFWekavioZO5SCYij
+	ZjVUQy2FSKbZ7SnQtcv63lCISF2z0JHgNobxN84iJdcPkactxJzsendIQEIHBK69grEVz963CHk
+	+
+X-Google-Smtp-Source: AGHT+IFEl+l6gfhV/oaxuOmcOHpAbe9haRO9XmK8X2xunfJzUIgKMhf39uziKga6rh7b4MNPD63eCg==
+X-Received: by 2002:a05:620a:4152:b0:79f:fe8:5fce with SMTP id af79cd13be357-7a1e522fb05mr11382285a.3.1722007932948;
+        Fri, 26 Jul 2024 08:32:12 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: alejandro.vallejo@cloud.com,
 	Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 20/22] x86/pv: allow using a unique per-pCPU root page table (L4)
-Date: Fri, 26 Jul 2024 17:22:04 +0200
-Message-ID: <20240726152206.28411-21-roger.pau@citrix.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH 21/22] x86/mm: switch to a per-CPU mapped stack when using ASI
+Date: Fri, 26 Jul 2024 17:22:05 +0200
+Message-ID: <20240726152206.28411-22-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240726152206.28411-1-roger.pau@citrix.com>
 References: <20240726152206.28411-1-roger.pau@citrix.com>
@@ -88,432 +92,597 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When running PV guests it's possible for the guest to use the same root page
-table (L4) for all vCPUs, which in turn will result in Xen also using the same
-root page table on all pCPUs that are running any domain vCPU.
+When using ASI the CPU stack is mapped using a range of fixmap entries in the
+per-CPU region.  This ensures the stack is only accessible by the current CPU.
 
-When using XPTI Xen switches to a per-CPU shadow L4 when running in guest
-context, switching to the fully populated L4 when in Xen context.
+Note however there's further work required in order to allocate the stack from
+domheap instead of xenheap, and ensure the stack is not part of the direct
+map.
 
-Take advantage of this existing shadowing and force the usage of a per-CPU L4
-that shadows the guest selected L4 when Address Space Isolation is requested
-for PV guests.
+For domains not running with ASI enabled all the CPU stacks are mapped in the
+per-domain L3, so that the stack is always at the same linear address,
+regardless of whether ASI is enabled or not for the domain.
 
-The mapping of the guest L4 is done with a per-CPU fixmap entry, that however
-requires that the currently loaded L4 has the per-CPU slot setup.  In order to
-ensure this switch to the shadow per-CPU L4 with just the Xen slots populated,
-and then map the guest L4 and copy the contents of the guest controlled
-slots.
+When calling UEFI runtime methods the current per-domain slot needs to be added
+to the EFI L4, so that the stack is available in UEFI.
+
+Finally, some users of callfunc IPIs pass parameters from the stack, so when
+handling a callfunc IPI the stack of the caller CPU is mapped into the address
+space of the CPU handling the IPI.  This needs further work to use a bounce
+buffer in order to avoid having to map remote CPU stacks.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/domain.c              | 37 +++++++++++++++++++++
- xen/arch/x86/flushtlb.c            |  9 ++++++
- xen/arch/x86/include/asm/current.h | 15 ++++++---
- xen/arch/x86/include/asm/fixmap.h  |  1 +
- xen/arch/x86/include/asm/pv/mm.h   |  8 +++++
- xen/arch/x86/mm.c                  | 47 +++++++++++++++++++++++++++
- xen/arch/x86/pv/domain.c           | 25 ++++++++++++--
- xen/arch/x86/pv/mm.c               | 52 ++++++++++++++++++++++++++++++
- xen/arch/x86/smpboot.c             | 20 +++++++++++-
- 9 files changed, 207 insertions(+), 7 deletions(-)
+There's also further work required in order to avoid mapping remote stack when
+handling callfunc IPIs.
+---
+ xen/arch/x86/domain.c              |  12 +++
+ xen/arch/x86/include/asm/current.h |   5 ++
+ xen/arch/x86/include/asm/fixmap.h  |   5 ++
+ xen/arch/x86/include/asm/mm.h      |   6 +-
+ xen/arch/x86/include/asm/smp.h     |  12 +++
+ xen/arch/x86/mm.c                  | 125 +++++++++++++++++++++++++++--
+ xen/arch/x86/setup.c               |  27 +++++--
+ xen/arch/x86/smp.c                 |  29 +++++++
+ xen/arch/x86/smpboot.c             |  47 ++++++++++-
+ xen/arch/x86/traps.c               |   6 +-
+ xen/common/efi/runtime.c           |  12 +++
+ xen/common/smp.c                   |  10 +++
+ xen/include/xen/smp.h              |   5 ++
+ 13 files changed, 281 insertions(+), 20 deletions(-)
 
 diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index b62c4311da6c..94a42ef29cd1 100644
+index 94a42ef29cd1..d00ba415877f 100644
 --- a/xen/arch/x86/domain.c
 +++ b/xen/arch/x86/domain.c
-@@ -45,6 +45,7 @@
- #include <asm/io.h>
- #include <asm/processor.h>
- #include <asm/desc.h>
-+#include <asm/fixmap.h>
- #include <asm/i387.h>
- #include <asm/xstate.h>
- #include <asm/cpuidle.h>
-@@ -2110,11 +2111,47 @@ void context_switch(struct vcpu *prev, struct vcpu *next)
+@@ -929,6 +929,18 @@ int arch_domain_create(struct domain *d,
  
-     local_irq_disable();
+     d->arch.msr_relaxed = config->arch.misc_flags & XEN_X86_MSR_RELAXED;
  
-+    if ( is_pv_domain(prevd) && prevd->arch.asi )
++    if ( !d->arch.asi && (opt_asi_hvm || opt_asi_pv ) )
 +    {
 +        /*
-+         * Don't leak the L4 shadow mapping in the per-CPU area.  Can't be done
-+         * in paravirt_ctxt_switch_from() because the lazy idle vCPU context
-+         * switch would otherwise enter an infinite loop in
-+         * mapcache_current_vcpu() with sync_local_execstate().
-+         *
-+         * Note clearing the fixmpa must strictly be done ahead of changing the
-+         * current vCPU and with interrupts disabled, so there's no window
-+         * where current->domain->arch.asi == true and PCPU_FIX_PV_L4SHADOW is
-+         * not mapped.
++         * This domain is not using ASI, but other domains on the system
++         * possibly are, hence the CPU stacks are on the per-CPU page-table
++         * region.  Add an L3 entry that has all the stacks mapped.
 +         */
-+        percpu_clear_fixmap(PCPU_FIX_PV_L4SHADOW);
-+        get_cpu_info()->root_pgt_changed = false;
++        rc = map_all_stacks(d);
++        if ( rc )
++            goto fail;
 +    }
 +
-     set_current(next);
+     return 0;
  
-     if ( (per_cpu(curr_vcpu, cpu) == next) ||
-          (is_idle_domain(nextd) && cpu_online(cpu)) )
-     {
-+        if ( is_pv_domain(nextd) && nextd->arch.asi )
-+        {
-+            /* Signal the fixmap entry must be mapped. */
-+            get_cpu_info()->new_cr3 = true;
-+            if ( get_cpu_info()->root_pgt_changed )
-+            {
-+                /*
-+                 * Map and update the shadow L4 in case we received any
-+                 * FLUSH_ROOT_PGTBL request while running on the idle vCPU.
-+                 *
-+                 * Do it before enabling interrupts so that no flush IPI can be
-+                 * delivered without having PCPU_FIX_PV_L4SHADOW correctly
-+                 * mapped.
-+                 */
-+                pv_update_shadow_l4(next, true);
-+                get_cpu_info()->root_pgt_changed = false;
-+            }
-+        }
-+
-         local_irq_enable();
-     }
-     else
-diff --git a/xen/arch/x86/flushtlb.c b/xen/arch/x86/flushtlb.c
-index fd5ed16ffb57..b85ce232abbb 100644
---- a/xen/arch/x86/flushtlb.c
-+++ b/xen/arch/x86/flushtlb.c
-@@ -17,6 +17,7 @@
- #include <asm/nops.h>
- #include <asm/page.h>
- #include <asm/pv/domain.h>
-+#include <asm/pv/mm.h>
- #include <asm/spec_ctrl.h>
- 
- /* Debug builds: Wrap frequently to stress-test the wrap logic. */
-@@ -192,7 +193,15 @@ unsigned int flush_area_local(const void *va, unsigned int flags)
-     unsigned int order = (flags - 1) & FLUSH_ORDER_MASK;
- 
-     if ( flags & FLUSH_ROOT_PGTBL )
-+    {
-+        const struct vcpu *curr = current;
-+        const struct domain *curr_d = curr->domain;
-+
-         get_cpu_info()->root_pgt_changed = true;
-+        if ( is_pv_domain(curr_d) && curr_d->arch.asi )
-+            /* Update the shadow root page-table ahead of doing TLB flush. */
-+            pv_update_shadow_l4(curr, false);
-+    }
- 
-     if ( flags & (FLUSH_TLB|FLUSH_TLB_GLOBAL) )
-     {
+  fail:
 diff --git a/xen/arch/x86/include/asm/current.h b/xen/arch/x86/include/asm/current.h
-index bcec328c9875..6a021607a1a9 100644
+index 6a021607a1a9..75b9a341f814 100644
 --- a/xen/arch/x86/include/asm/current.h
 +++ b/xen/arch/x86/include/asm/current.h
-@@ -60,10 +60,14 @@ struct cpu_info {
-     uint8_t      scf; /* SCF_* */
+@@ -24,6 +24,11 @@
+  * 0 - IST Shadow Stacks (4x 1k, read-only)
+  */
  
-     /*
--     * The following field controls copying of the L4 page table of 64-bit
--     * PV guests to the per-cpu root page table on entering the guest context.
--     * If set the L4 page table is being copied to the root page table and
--     * the field will be reset.
-+     * For XPTI the following field controls copying of the L4 page table of
-+     * 64-bit PV guests to the per-cpu root page table on entering the guest
-+     * context.  If set the L4 page table is being copied to the root page
-+     * table and the field will be reset.
-+     *
-+     * For ASI the field is used to acknowledge whether a FLUSH_ROOT_PGTBL
-+     * request has been received when running the idle vCPU on PV guest
-+     * page-tables (a lazy context switch to the idle vCPU).
-      */
-     bool         root_pgt_changed;
- 
-@@ -74,6 +78,9 @@ struct cpu_info {
-      */
-     bool         use_pv_cr3;
- 
-+    /* For ASI: per-CPU fixmap of guest L4 is possibly out of sync. */
-+    bool         new_cr3;
-+
-     /* get_stack_bottom() must be 16-byte aligned */
- };
- 
-diff --git a/xen/arch/x86/include/asm/fixmap.h b/xen/arch/x86/include/asm/fixmap.h
-index a456c65072d8..bc68a98568ae 100644
---- a/xen/arch/x86/include/asm/fixmap.h
-+++ b/xen/arch/x86/include/asm/fixmap.h
-@@ -120,6 +120,7 @@ extern void __set_fixmap_x(
- 
- /* per-CPU fixmap area. */
- enum percpu_fixed_addresses {
-+    PCPU_FIX_PV_L4SHADOW,
-     __end_of_percpu_fixed_addresses
- };
- 
-diff --git a/xen/arch/x86/include/asm/pv/mm.h b/xen/arch/x86/include/asm/pv/mm.h
-index 182764542c1f..a7c74898fce0 100644
---- a/xen/arch/x86/include/asm/pv/mm.h
-+++ b/xen/arch/x86/include/asm/pv/mm.h
-@@ -23,6 +23,9 @@ bool pv_destroy_ldt(struct vcpu *v);
- 
- int validate_segdesc_page(struct page_info *page);
- 
-+void pv_clear_l4_guest_entries(root_pgentry_t *root_pgt);
-+void pv_update_shadow_l4(const struct vcpu *v, bool flush);
-+
- #else
- 
- #include <xen/errno.h>
-@@ -44,6 +47,11 @@ static inline bool pv_map_ldt_shadow_page(unsigned int off) { return false; }
- static inline bool pv_destroy_ldt(struct vcpu *v)
- { ASSERT_UNREACHABLE(); return false; }
- 
-+static inline void pv_clear_l4_guest_entries(root_pgentry_t *root_pgt)
-+{ ASSERT_UNREACHABLE(); }
-+static inline void pv_update_shadow_l4(const struct vcpu *v, bool flush)
-+{ ASSERT_UNREACHABLE(); }
-+
- #endif
- 
- #endif /* __X86_PV_MM_H__ */
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 937089d203cc..8fea7465a9df 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -513,6 +513,8 @@ void make_cr3(struct vcpu *v, mfn_t mfn)
-     v->arch.cr3 = mfn_x(mfn) << PAGE_SHIFT;
-     if ( is_pv_domain(d) && d->arch.pv.pcid )
-         v->arch.cr3 |= get_pcid_bits(v, false);
-+    if ( is_pv_domain(d) && d->arch.asi )
-+        get_cpu_info()->new_cr3 = true;
- }
- 
- void write_ptbase(struct vcpu *v)
-@@ -532,6 +534,40 @@ void write_ptbase(struct vcpu *v)
-             cpu_info->pv_cr3 |= get_pcid_bits(v, true);
-         switch_cr3_cr4(v->arch.cr3, new_cr4);
-     }
-+    else if ( is_pv_domain(d) && d->arch.asi )
-+    {
-+        root_pgentry_t *root_pgt = this_cpu(root_pgt);
-+        unsigned long cr3 = __pa(root_pgt);
-+
-+        /*
-+         * XPTI and ASI cannot be simultaneously used even by different
-+         * domains at runtime.
-+         */
-+        ASSERT(!cpu_info->use_pv_cr3 && !cpu_info->xen_cr3 &&
-+               !cpu_info->pv_cr3);
-+
-+        if ( new_cr4 & X86_CR4_PCIDE )
-+            cr3 |= get_pcid_bits(v, false);
-+
-+        /*
-+         * Zap guest L4 entries ahead of flushing the TLB, so that the CPU
-+         * cannot speculatively populate the TLB with stale mappings.
-+         */
-+        pv_clear_l4_guest_entries(root_pgt);
-+
-+        /*
-+         * Switch to the shadow L4 with just the Xen slots populated, the guest
-+         * slots will be populated by pv_update_shadow_l4() once running on the
-+         * shadow L4.
-+         *
-+         * The reason for switching to the per-CPU shadow L4 before updating
-+         * the guest slots is that pv_update_shadow_l4() uses per-CPU mappings,
-+         * and the in-use page-table previous to the switch_cr3_cr4() call
-+         * might not support per-CPU mappings.
-+         */
-+        switch_cr3_cr4(cr3, new_cr4);
-+        pv_update_shadow_l4(v, false);
-+    }
-     else
-     {
-         ASSERT(!is_hvm_domain(d) || !d->arch.asi
-@@ -6505,6 +6541,17 @@ void setup_perdomain_slot(const struct vcpu *v, root_pgentry_t *root_pgt)
- 
-         ASSERT(l3);
-         populate_perdomain(d, root_pgt, l3);
-+
-+        if ( is_pv_domain(d) )
-+        {
-+            /*
-+             * Abuse the fact that this function is called on vCPU context
-+             * switch and clean previous guest controlled slots from the shadow
-+             * L4.
-+             */
-+            pv_clear_l4_guest_entries(root_pgt);
-+            get_cpu_info()->new_cr3 = true;
-+        }
-     }
-     else if ( is_hvm_domain(d) || d->arch.pv.xpti )
-         l4e_write(&root_pgt[root_table_offset(PERDOMAIN_VIRT_START)],
-diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
-index 46ee10a8a4c2..80bf2bf934dd 100644
---- a/xen/arch/x86/pv/domain.c
-+++ b/xen/arch/x86/pv/domain.c
-@@ -15,6 +15,7 @@
- #include <asm/invpcid.h>
- #include <asm/spec_ctrl.h>
- #include <asm/pv/domain.h>
-+#include <asm/pv/mm.h>
- #include <asm/shadow.h>
- 
- #ifdef CONFIG_PV32
-@@ -384,7 +385,7 @@ int pv_domain_initialise(struct domain *d)
- 
-     d->arch.ctxt_switch = &pv_csw;
- 
--    d->arch.pv.flush_root_pt = d->arch.pv.xpti;
-+    d->arch.pv.flush_root_pt = d->arch.pv.xpti || d->arch.asi;
- 
-     if ( !is_pv_32bit_domain(d) && use_invpcid && cpu_has_pcid )
-         switch ( ACCESS_ONCE(opt_pcid) )
-@@ -446,7 +447,27 @@ static void _toggle_guest_pt(struct vcpu *v)
-      * to release). Switch to the idle page tables in such an event; the
-      * guest will have been crashed already.
-      */
--    cr3 = v->arch.cr3;
-+    if ( v->domain->arch.asi )
-+    {
-+        /*
-+         * _toggle_guest_pt() might switch between user and kernel page tables,
-+         * but doesn't use write_ptbase(), and hence needs an explicit call to
-+         * sync the shadow L4.
-+         */
-+        cr3 = __pa(this_cpu(root_pgt));
-+        if ( v->domain->arch.pv.pcid )
-+            cr3 |= get_pcid_bits(v, false);
-+        /*
-+         * Ensure the current root page table is already the shadow L4, as
-+         * guest user/kernel switches can only happen once the guest is
-+         * running.
-+         */
-+        ASSERT(read_cr3() == cr3);
-+        pv_update_shadow_l4(v, false);
-+    }
-+    else
-+        cr3 = v->arch.cr3;
-+
-     if ( shadow_mode_enabled(v->domain) )
-     {
-         cr3 &= ~X86_CR3_NOFLUSH;
-diff --git a/xen/arch/x86/pv/mm.c b/xen/arch/x86/pv/mm.c
-index 24f0d2e4ff7d..c20ce099ae27 100644
---- a/xen/arch/x86/pv/mm.c
-+++ b/xen/arch/x86/pv/mm.c
-@@ -11,6 +11,7 @@
- #include <xen/guest_access.h>
- 
- #include <asm/current.h>
-+#include <asm/fixmap.h>
- #include <asm/p2m.h>
- 
- #include "mm.h"
-@@ -103,6 +104,57 @@ void init_xen_pae_l2_slots(l2_pgentry_t *l2t, const struct domain *d)
- }
- #endif
- 
-+void pv_clear_l4_guest_entries(root_pgentry_t *root_pgt)
++static inline bool is_shstk_slot(unsigned int i)
 +{
-+    unsigned int i;
-+
-+    for ( i = 0; i < ROOT_PAGETABLE_FIRST_XEN_SLOT; i++ )
-+        l4e_write(&root_pgt[i], l4e_empty());
-+    for ( i = ROOT_PAGETABLE_LAST_XEN_SLOT + 1; i < L4_PAGETABLE_ENTRIES; i++ )
-+        l4e_write(&root_pgt[i], l4e_empty());
-+}
-+
-+void pv_update_shadow_l4(const struct vcpu *v, bool flush)
-+{
-+    const root_pgentry_t *guest_pgt = percpu_fix_to_virt(PCPU_FIX_PV_L4SHADOW);
-+    root_pgentry_t *shadow_pgt = this_cpu(root_pgt);
-+
-+    ASSERT(!v->domain->arch.pv.xpti);
-+    ASSERT(is_pv_vcpu(v));
-+    ASSERT(!is_idle_vcpu(v));
-+
-+    if ( get_cpu_info()->new_cr3 )
-+    {
-+        percpu_set_fixmap(PCPU_FIX_PV_L4SHADOW, maddr_to_mfn(v->arch.cr3),
-+                          __PAGE_HYPERVISOR_RO);
-+        get_cpu_info()->new_cr3 = false;
-+    }
-+
-+    if ( is_pv_32bit_vcpu(v) )
-+    {
-+        l4e_write(&shadow_pgt[0], guest_pgt[0]);
-+        l4e_write(&shadow_pgt[root_table_offset(PERDOMAIN_ALT_VIRT_START)],
-+            shadow_pgt[root_table_offset(PERDOMAIN_VIRT_START)]);
-+    }
-+    else
-+    {
-+        unsigned int i;
-+
-+        for ( i = 0; i < ROOT_PAGETABLE_FIRST_XEN_SLOT; i++ )
-+            l4e_write(&shadow_pgt[i], guest_pgt[i]);
-+        for ( i = ROOT_PAGETABLE_LAST_XEN_SLOT + 1;
-+              i < L4_PAGETABLE_ENTRIES; i++ )
-+            l4e_write(&shadow_pgt[i], guest_pgt[i]);
-+
-+        /* The presence of this Xen slot is selected by the guest. */
-+        l4e_write(&shadow_pgt[l4_table_offset(RO_MPT_VIRT_START)],
-+            guest_pgt[l4_table_offset(RO_MPT_VIRT_START)]);
-+    }
-+
-+    if ( flush )
-+        flush_local(FLUSH_TLB_GLOBAL);
++    return (i == 0 || i == PRIMARY_SHSTK_SLOT);
 +}
 +
  /*
-  * Local variables:
-  * mode: C
+  * Identify which stack page the stack pointer is on.  Returns an index
+  * as per the comment above.
+diff --git a/xen/arch/x86/include/asm/fixmap.h b/xen/arch/x86/include/asm/fixmap.h
+index bc68a98568ae..d52c1886fcdd 100644
+--- a/xen/arch/x86/include/asm/fixmap.h
++++ b/xen/arch/x86/include/asm/fixmap.h
+@@ -120,6 +120,11 @@ extern void __set_fixmap_x(
+ 
+ /* per-CPU fixmap area. */
+ enum percpu_fixed_addresses {
++    /* For alignment reasons the per-CPU stacks must come first. */
++    PCPU_STACK_START,
++    PCPU_STACK_END = PCPU_STACK_START + NR_CPUS * (1U << STACK_ORDER) - 1,
++#define PERCPU_STACK_IDX(c) (PCPU_STACK_START + (c) * (1U << STACK_ORDER))
++#define PERCPU_STACK_ADDR(c) percpu_fix_to_virt(PERCPU_STACK_IDX(c))
+     PCPU_FIX_PV_L4SHADOW,
+     __end_of_percpu_fixed_addresses
+ };
+diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
+index f883468b1a7c..b4f1e0399275 100644
+--- a/xen/arch/x86/include/asm/mm.h
++++ b/xen/arch/x86/include/asm/mm.h
+@@ -521,7 +521,7 @@ extern struct rangeset *mmio_ro_ranges;
+ #define compat_pfn_to_cr3(pfn) (((unsigned)(pfn) << 12) | ((unsigned)(pfn) >> 20))
+ #define compat_cr3_to_pfn(cr3) (((unsigned)(cr3) >> 12) | ((unsigned)(cr3) << 20))
+ 
+-void memguard_guard_stack(void *p);
++void memguard_guard_stack(void *p, unsigned int cpu);
+ void memguard_unguard_stack(void *p);
+ 
+ struct mmio_ro_emulate_ctxt {
+@@ -652,4 +652,8 @@ static inline int destroy_xen_mappings_cpu(unsigned long s, unsigned long e,
+     return modify_xen_mappings_cpu(s, e, _PAGE_NONE, cpu);
+ }
+ 
++/* Setup a per-domain slot that maps all pCPU stacks. */
++int map_all_stacks(struct domain *d);
++int add_stack(const void *stack, unsigned int cpu);
++
+ #endif /* __ASM_X86_MM_H__ */
+diff --git a/xen/arch/x86/include/asm/smp.h b/xen/arch/x86/include/asm/smp.h
+index c8c79601343d..a17c609da4b6 100644
+--- a/xen/arch/x86/include/asm/smp.h
++++ b/xen/arch/x86/include/asm/smp.h
+@@ -79,6 +79,18 @@ extern bool unaccounted_cpus;
+ 
+ void *cpu_alloc_stack(unsigned int cpu);
+ 
++/*
++ * Setup the per-CPU area stack mappings.
++ *
++ * @dest_cpu:  CPU where the mappings are to appear.
++ * @stack_cpu: CPU whose stacks should be mapped.
++ */
++void cpu_set_stack_mappings(unsigned int dest_cpu, unsigned int stack_cpu);
++
++#define HAS_ARCH_SMP_CALLFUNC
++void arch_smp_pre_callfunc(unsigned int cpu);
++void arch_smp_post_callfunc(unsigned int cpu);
++
+ #endif /* !__ASSEMBLY__ */
+ 
+ #endif
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index 8fea7465a9df..67ffdebb595e 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -87,6 +87,7 @@
+  * doing the final put_page(), and remove it from the iommu if so.
+  */
+ 
++#include <xen/cpu.h>
+ #include <xen/init.h>
+ #include <xen/ioreq.h>
+ #include <xen/kernel.h>
+@@ -6352,31 +6353,40 @@ void free_perdomain_mappings(struct domain *d)
+     d->arch.perdomain_l3_pg = NULL;
+ }
+ 
+-static void write_sss_token(unsigned long *ptr)
++static void write_sss_token(unsigned long *ptr, unsigned long va)
+ {
+     /*
+      * A supervisor shadow stack token is its own linear address, with the
+      * busy bit (0) clear.
+      */
+-    *ptr = (unsigned long)ptr;
++    *ptr = va;
+ }
+ 
+-void memguard_guard_stack(void *p)
++void memguard_guard_stack(void *p, unsigned int cpu)
+ {
++    unsigned long va =
++        (opt_asi_hvm || opt_asi_pv) ? (unsigned long)PERCPU_STACK_ADDR(cpu)
++                                    : (unsigned long)p;
++
+     /* IST Shadow stacks.  4x 1k in stack page 0. */
+     if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
+     {
+-        write_sss_token(p + (IST_MCE * IST_SHSTK_SIZE) - 8);
+-        write_sss_token(p + (IST_NMI * IST_SHSTK_SIZE) - 8);
+-        write_sss_token(p + (IST_DB  * IST_SHSTK_SIZE) - 8);
+-        write_sss_token(p + (IST_DF  * IST_SHSTK_SIZE) - 8);
++        write_sss_token(p + (IST_MCE * IST_SHSTK_SIZE) - 8,
++                        va + (IST_MCE * IST_SHSTK_SIZE) - 8);
++        write_sss_token(p + (IST_NMI * IST_SHSTK_SIZE) - 8,
++                        va + (IST_NMI * IST_SHSTK_SIZE) - 8);
++        write_sss_token(p + (IST_DB  * IST_SHSTK_SIZE) - 8,
++                        va + (IST_DB  * IST_SHSTK_SIZE) - 8);
++        write_sss_token(p + (IST_DF  * IST_SHSTK_SIZE) - 8,
++                        va + (IST_DF  * IST_SHSTK_SIZE) - 8);
+     }
+     map_pages_to_xen((unsigned long)p, virt_to_mfn(p), 1, PAGE_HYPERVISOR_SHSTK);
+ 
+     /* Primary Shadow Stack.  1x 4k in stack page 5. */
+     p += PRIMARY_SHSTK_SLOT * PAGE_SIZE;
++    va += PRIMARY_SHSTK_SLOT * PAGE_SIZE;
+     if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
+-        write_sss_token(p + PAGE_SIZE - 8);
++        write_sss_token(p + PAGE_SIZE - 8, va + PAGE_SIZE - 8);
+ 
+     map_pages_to_xen((unsigned long)p, virt_to_mfn(p), 1, PAGE_HYPERVISOR_SHSTK);
+ }
+@@ -6567,6 +6577,105 @@ void setup_perdomain_slot(const struct vcpu *v, root_pgentry_t *root_pgt)
+                   root_pgt[root_table_offset(PERDOMAIN_VIRT_START)]);
+ }
+ 
++static struct page_info *l2_all_stacks;
++
++int add_stack(const void *stack, unsigned int cpu)
++{
++    unsigned long va = (unsigned long)PERCPU_STACK_ADDR(cpu);
++    struct page_info *pg;
++    l2_pgentry_t *l2tab = NULL;
++    l1_pgentry_t *l1tab = NULL;
++    unsigned int nr;
++    int rc = 0;
++
++    /*
++     * Assume CPU stack allocation is always serialized, either because it's
++     * done on the BSP during boot, or in case of hotplug, in stop machine
++     * context.
++     */
++    ASSERT(system_state < SYS_STATE_active || cpu_in_hotplug_context());
++
++    if ( !opt_asi_hvm && !opt_asi_pv )
++        return 0;
++
++    if ( !l2_all_stacks )
++    {
++        l2_all_stacks = alloc_domheap_page(NULL, MEMF_no_owner);
++        if ( !l2_all_stacks )
++            return -ENOMEM;
++        l2tab = __map_domain_page(l2_all_stacks);
++        clear_page(l2tab);
++    }
++    else
++        l2tab = __map_domain_page(l2_all_stacks);
++
++    /* code assumes all the stacks can be mapped with a single l2. */
++    ASSERT(l3_table_offset((unsigned long)percpu_fix_to_virt(PCPU_STACK_END)) ==
++        l3_table_offset((unsigned long)percpu_fix_to_virt(PCPU_STACK_START)));
++    for ( nr = 0 ; nr < (1U << STACK_ORDER) ; nr++)
++    {
++        l2_pgentry_t *pl2e = l2tab + l2_table_offset(va);
++
++        if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) )
++        {
++            pg = alloc_domheap_page(NULL, MEMF_no_owner);
++            if ( !pg )
++            {
++                rc = -ENOMEM;
++                break;
++            }
++            l1tab = __map_domain_page(pg);
++            clear_page(l1tab);
++            l2e_write(pl2e, l2e_from_page(pg, __PAGE_HYPERVISOR_RW));
++        }
++        else if ( !l1tab )
++            l1tab = map_l1t_from_l2e(*pl2e);
++
++        l1e_write(&l1tab[l1_table_offset(va)],
++                  l1e_from_mfn(virt_to_mfn(stack),
++                               is_shstk_slot(nr) ? __PAGE_HYPERVISOR_SHSTK
++                                                 : __PAGE_HYPERVISOR_RW));
++
++        va += PAGE_SIZE;
++        stack += PAGE_SIZE;
++
++        if ( !l1_table_offset(va) )
++        {
++            unmap_domain_page(l1tab);
++            l1tab = NULL;
++        }
++    }
++
++    unmap_domain_page(l1tab);
++    unmap_domain_page(l2tab);
++    /*
++     * Don't care to free the intermediate page-tables on failure, can be used
++     * to map other stacks.
++     */
++
++    return rc;
++}
++
++int map_all_stacks(struct domain *d)
++{
++    /*
++     * Create the per-domain L3.  Pass a dummy PERDOMAIN_VIRT_START, but note
++     * only the per-domain L3 is allocated when nr == 0.
++     */
++    int rc = create_perdomain_mapping(d, PERDOMAIN_VIRT_START, 0, NULL, NULL);
++    l3_pgentry_t *l3tab;
++
++    if ( rc )
++        return rc;
++
++    l3tab = __map_domain_page(d->arch.perdomain_l3_pg);
++    l3tab[l3_table_offset((unsigned long)percpu_fix_to_virt(PCPU_STACK_START))]
++        = l3e_from_page(l2_all_stacks, __PAGE_HYPERVISOR_RW);
++    unmap_domain_page(l3tab);
++
++    return 0;
++}
++
+ static void __init __maybe_unused build_assertions(void)
+ {
+     /*
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 5bf81b81b46f..76f7d71b8c1c 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -808,8 +808,6 @@ static void __init noreturn reinit_bsp_stack(void)
+     /* Update SYSCALL trampolines */
+     percpu_traps_init();
+ 
+-    stack_base[0] = stack;
+-
+     rc = setup_cpu_root_pgt(0);
+     if ( rc )
+         panic("Error %d setting up PV root page table\n", rc);
+@@ -1771,10 +1769,6 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+ 
+     system_state = SYS_STATE_boot;
+ 
+-    bsp_stack = cpu_alloc_stack(0);
+-    if ( !bsp_stack )
+-        panic("No memory for BSP stack\n");
+-
+     console_init_ring();
+     vesa_init();
+ 
+@@ -1961,6 +1955,16 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+ 
+     alternative_branches();
+ 
++    /*
++     * Alloc the BSP stack closer to the point where the AP ones also get
++     * allocated - and after the speculation mitigations have been initialized.
++     * In order to set up the shadow stack token correctly Xen needs to know
++     * whether per-CPU mapped stacks are being used.
++     */
++    bsp_stack = cpu_alloc_stack(0);
++    if ( !bsp_stack )
++        panic("No memory for BSP stack\n");
++
+     /*
+      * Setup the local per-domain L3 for the BSP also, so it matches the state
+      * of the APs.
+@@ -2065,8 +2069,17 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+         info->last_spec_ctrl = default_xen_spec_ctrl;
+     }
+ 
++    stack_base[0] = bsp_stack;
++
+     /* Copy the cpu info block, and move onto the BSP stack. */
+-    bsp_info = get_cpu_info_from_stack((unsigned long)bsp_stack);
++    if ( opt_asi_hvm || opt_asi_pv )
++    {
++        cpu_set_stack_mappings(0, 0);
++        bsp_info = get_cpu_info_from_stack((unsigned long)PERCPU_STACK_ADDR(0));
++    }
++    else
++        bsp_info = get_cpu_info_from_stack((unsigned long)bsp_stack);
++
+     *bsp_info = *info;
+ 
+     asm volatile ("mov %[stk], %%rsp; jmp %c[fn]" ::
+diff --git a/xen/arch/x86/smp.c b/xen/arch/x86/smp.c
+index 04c6a0572319..18a7196195cf 100644
+--- a/xen/arch/x86/smp.c
++++ b/xen/arch/x86/smp.c
+@@ -22,6 +22,7 @@
+ #include <asm/hardirq.h>
+ #include <asm/hpet.h>
+ #include <asm/setup.h>
++#include <asm/spec_ctrl.h>
+ #include <irq_vectors.h>
+ #include <mach_apic.h>
+ 
+@@ -433,3 +434,31 @@ long cf_check cpu_down_helper(void *data)
+         ret = cpu_down(cpu);
+     return ret;
+ }
++
++void arch_smp_pre_callfunc(unsigned int cpu)
++{
++    if ( (!opt_asi_pv && !opt_asi_hvm) || cpu == smp_processor_id() ||
++         (!current->domain->arch.asi && !is_idle_vcpu(current)) ||
++        /*
++         * CPU#0 still runs on the .init stack when the APs are started, don't
++         * attempt to map such stack.
++         */
++         (!cpu && system_state < SYS_STATE_active) )
++        return;
++
++    cpu_set_stack_mappings(smp_processor_id(), cpu);
++}
++
++void arch_smp_post_callfunc(unsigned int cpu)
++{
++    unsigned int i;
++
++    if ( (!opt_asi_pv && !opt_asi_hvm) || cpu == smp_processor_id() ||
++         (!current->domain->arch.asi && !is_idle_vcpu(current)) )
++        return;
++
++    for ( i = 0; i < (1U << STACK_ORDER); i++ )
++        percpu_clear_fixmap(PERCPU_STACK_IDX(cpu) + i);
++
++    flush_area_local(PERCPU_STACK_ADDR(cpu), FLUSH_ORDER(STACK_ORDER));
++}
 diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 40cc14799252..d9841ed3b663 100644
+index d9841ed3b663..548e3102101c 100644
 --- a/xen/arch/x86/smpboot.c
 +++ b/xen/arch/x86/smpboot.c
-@@ -829,7 +829,7 @@ int setup_cpu_root_pgt(unsigned int cpu)
-     unsigned int off;
-     int rc;
+@@ -579,7 +579,20 @@ static int do_boot_cpu(int apicid, int cpu)
+         printk("Booting processor %d/%d eip %lx\n",
+                cpu, apicid, start_eip);
  
--    if ( !opt_xpti_hwdom && !opt_xpti_domu )
-+    if ( !opt_xpti_hwdom && !opt_xpti_domu && !opt_asi_pv )
-         return 0;
- 
-     rpt = alloc_xenheap_page();
-@@ -839,6 +839,18 @@ int setup_cpu_root_pgt(unsigned int cpu)
-     clear_page(rpt);
-     per_cpu(root_pgt, cpu) = rpt;
- 
-+    if ( opt_asi_pv )
+-    stack_start = stack_base[cpu] + STACK_SIZE - sizeof(struct cpu_info);
++    if ( opt_asi_hvm || opt_asi_pv )
 +    {
 +        /*
-+         * Populate the Xen slots, the guest ones will be copied from the guest
-+         * root page-table.
++         * Uniformly run with the stack mapping of the per-CPU area (including
++         * the idle vCPU) if ASI is enabled for any domain type.
 +         */
-+        init_xen_l4_slots(rpt, _mfn(virt_to_mfn(rpt)), INVALID_MFN, NULL,
-+                          false, false, true);
++        cpu_set_stack_mappings(cpu, cpu);
 +
-+        return 0;
++        ASSERT(IS_ALIGNED((unsigned long)PERCPU_STACK_ADDR(cpu), STACK_SIZE));
++
++        stack_start = PERCPU_STACK_ADDR(cpu) + STACK_SIZE - sizeof(struct cpu_info);
 +    }
-+
-     rpt[root_table_offset(RO_MPT_VIRT_START)] =
-         idle_pg_table[root_table_offset(RO_MPT_VIRT_START)];
-     /* SH_LINEAR_PT inserted together with guest mappings. */
-@@ -892,6 +904,12 @@ static void cleanup_cpu_root_pgt(unsigned int cpu)
++    else
++        stack_start = stack_base[cpu] + STACK_SIZE - sizeof(struct cpu_info);
  
-     per_cpu(root_pgt, cpu) = NULL;
+     /*
+      * If per-CPU idle root page table has been allocated, switch to it as
+@@ -1053,11 +1066,41 @@ void *cpu_alloc_stack(unsigned int cpu)
+     stack = alloc_xenheap_pages(STACK_ORDER, memflags);
  
-+    if ( opt_asi_pv )
+     if ( stack )
+-        memguard_guard_stack(stack);
 +    {
-+        free_xenheap_page(rpt);
-+        return;
++        int rc = add_stack(stack, cpu);
++
++        if ( rc )
++        {
++            printk(XENLOG_ERR "unable to map stack for CPU %u: %d\n", cpu, rc);
++            free_xenheap_pages(stack, STACK_ORDER);
++            return NULL;
++        }
++        memguard_guard_stack(stack, cpu);
++    }
+ 
+     return stack;
+ }
+ 
++void cpu_set_stack_mappings(unsigned int dest_cpu, unsigned int stack_cpu)
++{
++    unsigned int i;
++
++    for ( i = 0; i < (1U << STACK_ORDER); i++ )
++    {
++        unsigned int flags = (is_shstk_slot(i) ? __PAGE_HYPERVISOR_SHSTK
++                                               : __PAGE_HYPERVISOR_RW) |
++                             (dest_cpu == stack_cpu ? _PAGE_GLOBAL : 0);
++
++        if ( is_shstk_slot(i) && dest_cpu != stack_cpu )
++            continue;
++
++        percpu_set_fixmap_remote(dest_cpu, PERCPU_STACK_IDX(stack_cpu) + i,
++                                 _mfn(virt_to_mfn(stack_base[stack_cpu] +
++                                                  i * PAGE_SIZE)),
++                                 flags);
++    }
++}
++
+ static int cpu_smpboot_alloc(unsigned int cpu)
+ {
+     struct cpu_info *info;
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index b4fb95917023..28513c0e3d6a 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -609,10 +609,12 @@ void show_stack_overflow(unsigned int cpu, const struct cpu_user_regs *regs)
+     unsigned long esp = regs->rsp;
+     unsigned long curr_stack_base = esp & ~(STACK_SIZE - 1);
+     unsigned long esp_top, esp_bottom;
++    const void *stack = current->domain->arch.asi ? PERCPU_STACK_ADDR(cpu)
++                                                  : stack_base[cpu];
+ 
+-    if ( _p(curr_stack_base) != stack_base[cpu] )
++    if ( _p(curr_stack_base) != stack )
+         printk("Current stack base %p differs from expected %p\n",
+-               _p(curr_stack_base), stack_base[cpu]);
++               _p(curr_stack_base), stack);
+ 
+     esp_bottom = (esp | (STACK_SIZE - 1)) + 1;
+     esp_top    = esp_bottom - PRIMARY_STACK_SIZE;
+diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
+index d952c3ba785e..3a8233ed62ac 100644
+--- a/xen/common/efi/runtime.c
++++ b/xen/common/efi/runtime.c
+@@ -32,6 +32,7 @@ void efi_rs_leave(struct efi_rs_state *state);
+ 
+ #ifndef CONFIG_ARM
+ # include <asm/i387.h>
++# include <asm/spec_ctrl.h>
+ # include <asm/xstate.h>
+ # include <public/platform.h>
+ #endif
+@@ -85,6 +86,7 @@ struct efi_rs_state efi_rs_enter(void)
+     static const u16 fcw = FCW_DEFAULT;
+     static const u32 mxcsr = MXCSR_DEFAULT;
+     struct efi_rs_state state = { .cr3 = 0 };
++    root_pgentry_t *efi_pgt, *idle_pgt;
+ 
+     if ( mfn_eq(efi_l4_mfn, INVALID_MFN) )
+         return state;
+@@ -98,6 +100,16 @@ struct efi_rs_state efi_rs_enter(void)
+ 
+     efi_rs_on_cpu = smp_processor_id();
+ 
++    if ( opt_asi_pv || opt_asi_hvm )
++    {
++        /* Insert the idle per-domain slot for the stack mapping. */
++        efi_pgt = map_domain_page(efi_l4_mfn);
++        idle_pgt = maddr_to_virt(idle_vcpu[efi_rs_on_cpu]->arch.cr3);
++        efi_pgt[root_table_offset(PERDOMAIN_VIRT_START)].l4 =
++            idle_pgt[root_table_offset(PERDOMAIN_VIRT_START)].l4;
++        unmap_domain_page(efi_pgt);
 +    }
 +
-     for ( r = root_table_offset(DIRECTMAP_VIRT_START);
-           r < root_table_offset(HYPERVISOR_VIRT_END); ++r )
-     {
+     /* prevent fixup_page_fault() from doing anything */
+     irq_enter();
+ 
+diff --git a/xen/common/smp.c b/xen/common/smp.c
+index a011f541f1ea..04f5aede0d3d 100644
+--- a/xen/common/smp.c
++++ b/xen/common/smp.c
+@@ -29,6 +29,7 @@ static struct call_data_struct {
+     void (*func) (void *info);
+     void *info;
+     int wait;
++    unsigned int caller;
+     cpumask_t selected;
+ } call_data;
+ 
+@@ -63,6 +64,7 @@ void on_selected_cpus(
+     call_data.func = func;
+     call_data.info = info;
+     call_data.wait = wait;
++    call_data.caller = smp_processor_id();
+ 
+     smp_send_call_function_mask(&call_data.selected);
+ 
+@@ -82,6 +84,12 @@ void smp_call_function_interrupt(void)
+     if ( !cpumask_test_cpu(cpu, &call_data.selected) )
+         return;
+ 
++    /*
++     * TODO: use bounce buffers to pass callfunc data, so that when using ASI
++     * there's no need to map remote CPU stacks.
++     */
++    arch_smp_pre_callfunc(call_data.caller);
++
+     irq_enter();
+ 
+     if ( unlikely(!func) )
+@@ -102,6 +110,8 @@ void smp_call_function_interrupt(void)
+     }
+ 
+     irq_exit();
++
++    arch_smp_post_callfunc(call_data.caller);
+ }
+ 
+ /*
+diff --git a/xen/include/xen/smp.h b/xen/include/xen/smp.h
+index 2ca9ff1bfcc1..610c279ca24c 100644
+--- a/xen/include/xen/smp.h
++++ b/xen/include/xen/smp.h
+@@ -76,4 +76,9 @@ extern void *stack_base[NR_CPUS];
+ void initialize_cpu_data(unsigned int cpu);
+ int setup_cpu_root_pgt(unsigned int cpu);
+ 
++#ifndef HAS_ARCH_SMP_CALLFUNC
++static inline void arch_smp_pre_callfunc(unsigned int cpu) {}
++static inline void arch_smp_post_callfunc(unsigned int cpu) {}
++#endif
++
+ #endif /* __XEN_SMP_H__ */
 -- 
 2.45.2
 
