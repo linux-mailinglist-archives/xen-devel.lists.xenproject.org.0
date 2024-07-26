@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FB0693D624
+	by mail.lfdr.de (Postfix) with ESMTPS id 58A8793D627
 	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 17:32:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765509.1176120 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.765510.1176129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXMur-0008Ki-FS; Fri, 26 Jul 2024 15:31:33 +0000
+	id 1sXMus-00007O-Ls; Fri, 26 Jul 2024 15:31:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765509.1176120; Fri, 26 Jul 2024 15:31:33 +0000
+Received: by outflank-mailman (output) from mailman id 765510.1176129; Fri, 26 Jul 2024 15:31:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXMur-0008Ip-CC; Fri, 26 Jul 2024 15:31:33 +0000
-Received: by outflank-mailman (input) for mailman id 765509;
- Fri, 26 Jul 2024 15:31:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sXMus-00005k-JD; Fri, 26 Jul 2024 15:31:34 +0000
+Received: by outflank-mailman (input) for mailman id 765510;
+ Fri, 26 Jul 2024 15:31:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Bxzg=O2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sXMup-00084Z-Dm
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 15:31:31 +0000
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [2607:f8b0:4864:20::735])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2124b10b-4b64-11ef-bbff-fd08da9f4363;
- Fri, 26 Jul 2024 17:31:30 +0200 (CEST)
-Received: by mail-qk1-x735.google.com with SMTP id
- af79cd13be357-7a1d024f775so52880185a.2
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 08:31:30 -0700 (PDT)
+ id 1sXMus-00084T-2x
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 15:31:34 +0000
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [2607:f8b0:4864:20::730])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 225b2650-4b64-11ef-8776-851b0ebba9a2;
+ Fri, 26 Jul 2024 17:31:32 +0200 (CEST)
+Received: by mail-qk1-x730.google.com with SMTP id
+ af79cd13be357-7a1dea79e1aso46018885a.1
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 08:31:32 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6bb3f8f83d4sm17591006d6.35.2024.07.26.08.31.27
+ af79cd13be357-7a1d73b6030sm184648085a.52.2024.07.26.08.31.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jul 2024 08:31:28 -0700 (PDT)
+ Fri, 26 Jul 2024 08:31:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,43 +44,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2124b10b-4b64-11ef-bbff-fd08da9f4363
+X-Inumbo-ID: 225b2650-4b64-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722007889; x=1722612689; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1722007891; x=1722612691; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Q8/eLzGKCNNaqp81P/ebP+yU7jUBZnj71z4rM4VxIFc=;
-        b=qO0jKsIZ8iWXK45vr0ZvmZnaxWd/D6nA1AwpS7MPmv9BYvqhE5TCpM7ix54kTCuyXz
-         ZuRXeH03rj0DOJtRC3hBNlKgz1RrCbhuq7V2M1KaRMnpqQ0nUiVYSPY8LU4aVWonlrs0
-         +fCNPguGDLb5rC1YHRqHPCvBpWSWGmESrPW6s=
+        bh=rKymiwpMPZJ5/hzGvo04irbMOh4ckmWGExUi8izxgEY=;
+        b=g2CZh8PzJVV6cSccLzcfZao96z+rrxvlhV/jpqKyjIwTYzWn5GNoDkKHugM3d1P8j1
+         lrwSyBWFFNxJi8Jpff7C/MrhR5XtaJUe36O5gVmv4+WHywNE0swkG3eHDnrOVOq+lit0
+         u5E225yvs1PGMM2skBwlh3CGPKStapi7dFUj4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722007889; x=1722612689;
+        d=1e100.net; s=20230601; t=1722007891; x=1722612691;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Q8/eLzGKCNNaqp81P/ebP+yU7jUBZnj71z4rM4VxIFc=;
-        b=KbPRU3K0gyfhG0UpnLN/Y22ngEwgaLOHToPz1bfYq+QnzM6RUTtknr8DcagpV1IAYS
-         Pw1vUitt/ngcHrEkG6gOo2qjv59qepG27SSt2haqY1Z/hq8Yixew+d9aApKSM0ZdhjfT
-         +TlCOwe5ae/mwH4brkxCpjd50y0t47qZ2GhuZv6FOCRbs/vm2gv3THSGDVt8j6rS4hFa
-         x1Wux0T5rTsWo5CI9Wa0gzMyeN3si99Bs4TgYu7ZBdVw7vOc90cJVikxS39TRP9biK4u
-         06cWL3viIjfc/zVpOKEc3aTBvCmTuOwnyiSO6W/rFBUHaGQA0goSbWVba6lbaScpL+T2
-         4PfQ==
-X-Gm-Message-State: AOJu0YxMA+C+swB2Q26QClHB+8JHvY2Jim8WZIqRQFQPsvBG0U7E++Fg
-	SpcVAxpr3pY43e/MfigfgC+KkKke/yxTUNxyYydKC2uIZbLwBFnKOK4tIBoyeHaJVGYchkinvR2
-	l
-X-Google-Smtp-Source: AGHT+IFLtsWsY1JYEGzPRoLeoM/bqF2ayyF64j8qdM3N2504+XrbCNnIhwNYx2hvnFRpCWiQHayJQw==
-X-Received: by 2002:a05:6214:4106:b0:6b5:423:52bc with SMTP id 6a1803df08f44-6bb559f8dd9mr1901106d6.3.1722007888414;
-        Fri, 26 Jul 2024 08:31:28 -0700 (PDT)
+        bh=rKymiwpMPZJ5/hzGvo04irbMOh4ckmWGExUi8izxgEY=;
+        b=vSdKYiFYkWjuXCI8mzRNXYK1CEZSjuUitWYsH/SyxTIVhnfIOh5H14vJP2cfsBc6jU
+         KjIXu6ll/smE4u1LEax5IwHKWOdM08RbIzfEB9p6flTTAzmdMybxOhihOQlwFEHoRTRR
+         0LzIRCRj2ELUUadJJGWMWQoRkulQ6Do3dZ55QzAJujmfXFrDi7WdQEeOTWXXSIiLa6U2
+         77CD+Xy+7jWC/3sVOmyHwsAY//yAZ/yfM2Ri2V04ow/vrH5IGHZzHJcFpt6Jf7qmQNtj
+         L61/C7ka8lZbPSQIE8n16+0rqqpBB31YRO5iorVDyJfoyTbEx+jaZU+Xxt8Whse0AIQr
+         W6YA==
+X-Gm-Message-State: AOJu0Yz7d048j2LP1tJ34vJ0VJG5C/2ibTLtgthsvBTI5UYbTuGseBja
+	iinc3ANkEJIvyj7TB9xBCFnybJcFP+zIOzcxR5//lccavS8h5nZdeNqZhV1y9NeC4n4FNPZjJ94
+	G
+X-Google-Smtp-Source: AGHT+IEdUO0MI9dsyDOfxgyck3T6p5fTlRG7Ie+Y+ECT2UK0qouUz1Bg+vc3njuND80gxH1JaE/PaQ==
+X-Received: by 2002:a05:620a:4013:b0:79f:17af:e360 with SMTP id af79cd13be357-7a1e525e9c4mr11217485a.33.1722007890580;
+        Fri, 26 Jul 2024 08:31:30 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: alejandro.vallejo@cloud.com,
 	Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 01/22] x86/mm: drop l{1,2,3,4}e_write_atomic()
-Date: Fri, 26 Jul 2024 17:21:45 +0200
-Message-ID: <20240726152206.28411-2-roger.pau@citrix.com>
+Subject: [PATCH 02/22] x86/mm: rename l{1,2,3,4}e_read_atomic()
+Date: Fri, 26 Jul 2024 17:21:46 +0200
+Message-ID: <20240726152206.28411-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240726152206.28411-1-roger.pau@citrix.com>
 References: <20240726152206.28411-1-roger.pau@citrix.com>
@@ -88,226 +88,158 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The l{1,2,3,4}e_write_atomic() and non _atomic suffixed helpers share the same
-implementation, so it seems pointless and possibly confusing to have both.
-
-Remove the l{1,2,3,4}e_write_atomic() helpers and switch it's user to
-l{1,2,3,4}e_write(), as that's also atomic.  While there also remove
-pte_write{,_atomic}() and just use write_atomic() in the wrappers.
+There's no l{1,2,3,4}e_read() implementation, so drop the _atomic suffix from
+the read helpers.  This allows unifying the naming with the write helpers,
+which are also atomic but don't have the suffix already: l{1,2,3,4}e_write().
 
 No functional change intended.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/include/asm/page.h        | 21 +++-----------
+ xen/arch/x86/include/asm/page.h        | 16 ++++++++--------
  xen/arch/x86/include/asm/x86_64/page.h |  2 --
- xen/arch/x86/mm.c                      | 39 +++++++++++---------------
- 3 files changed, 20 insertions(+), 42 deletions(-)
+ xen/arch/x86/mm.c                      | 12 ++++++------
+ xen/arch/x86/traps.c                   |  8 ++++----
+ 4 files changed, 18 insertions(+), 20 deletions(-)
 
 diff --git a/xen/arch/x86/include/asm/page.h b/xen/arch/x86/include/asm/page.h
-index 350d1fb1100f..3d20ee507a33 100644
+index 3d20ee507a33..e48571de9332 100644
 --- a/xen/arch/x86/include/asm/page.h
 +++ b/xen/arch/x86/include/asm/page.h
-@@ -26,27 +26,14 @@
-     l4e_from_intpte(pte_read_atomic(&l4e_get_intpte(*(l4ep))))
+@@ -16,14 +16,14 @@
+ #include <asm/x86_64/page.h>
+ 
+ /* Read a pte atomically from memory. */
+-#define l1e_read_atomic(l1ep) \
+-    l1e_from_intpte(pte_read_atomic(&l1e_get_intpte(*(l1ep))))
+-#define l2e_read_atomic(l2ep) \
+-    l2e_from_intpte(pte_read_atomic(&l2e_get_intpte(*(l2ep))))
+-#define l3e_read_atomic(l3ep) \
+-    l3e_from_intpte(pte_read_atomic(&l3e_get_intpte(*(l3ep))))
+-#define l4e_read_atomic(l4ep) \
+-    l4e_from_intpte(pte_read_atomic(&l4e_get_intpte(*(l4ep))))
++#define l1e_read(l1ep) \
++    l1e_from_intpte(read_atomic(&l1e_get_intpte(*(l1ep))))
++#define l2e_read(l2ep) \
++    l2e_from_intpte(read_atomic(&l2e_get_intpte(*(l2ep))))
++#define l3e_read(l3ep) \
++    l3e_from_intpte(read_atomic(&l3e_get_intpte(*(l3ep))))
++#define l4e_read(l4ep) \
++    l4e_from_intpte(read_atomic(&l4e_get_intpte(*(l4ep))))
  
  /* Write a pte atomically to memory. */
--#define l1e_write_atomic(l1ep, l1e) \
--    pte_write_atomic(&l1e_get_intpte(*(l1ep)), l1e_get_intpte(l1e))
--#define l2e_write_atomic(l2ep, l2e) \
--    pte_write_atomic(&l2e_get_intpte(*(l2ep)), l2e_get_intpte(l2e))
--#define l3e_write_atomic(l3ep, l3e) \
--    pte_write_atomic(&l3e_get_intpte(*(l3ep)), l3e_get_intpte(l3e))
--#define l4e_write_atomic(l4ep, l4e) \
--    pte_write_atomic(&l4e_get_intpte(*(l4ep)), l4e_get_intpte(l4e))
--
--/*
-- * Write a pte safely but non-atomically to memory.
-- * The PTE may become temporarily not-present during the update.
-- */
  #define l1e_write(l1ep, l1e) \
--    pte_write(&l1e_get_intpte(*(l1ep)), l1e_get_intpte(l1e))
-+    write_atomic(&l1e_get_intpte(*(l1ep)), l1e_get_intpte(l1e))
- #define l2e_write(l2ep, l2e) \
--    pte_write(&l2e_get_intpte(*(l2ep)), l2e_get_intpte(l2e))
-+    write_atomic(&l2e_get_intpte(*(l2ep)), l2e_get_intpte(l2e))
- #define l3e_write(l3ep, l3e) \
--    pte_write(&l3e_get_intpte(*(l3ep)), l3e_get_intpte(l3e))
-+    write_atomic(&l3e_get_intpte(*(l3ep)), l3e_get_intpte(l3e))
- #define l4e_write(l4ep, l4e) \
--    pte_write(&l4e_get_intpte(*(l4ep)), l4e_get_intpte(l4e))
-+    write_atomic(&l4e_get_intpte(*(l4ep)), l4e_get_intpte(l4e))
- 
- /* Get direct integer representation of a pte's contents (intpte_t). */
- #define l1e_get_intpte(x)          ((x).l1)
 diff --git a/xen/arch/x86/include/asm/x86_64/page.h b/xen/arch/x86/include/asm/x86_64/page.h
-index 19ca64d79223..03fcce61c052 100644
+index 03fcce61c052..465a70731214 100644
 --- a/xen/arch/x86/include/asm/x86_64/page.h
 +++ b/xen/arch/x86/include/asm/x86_64/page.h
-@@ -70,8 +70,6 @@ typedef l4_pgentry_t root_pgentry_t;
+@@ -69,8 +69,6 @@ typedef l4_pgentry_t root_pgentry_t;
+ 
  #endif /* !__ASSEMBLY__ */
  
- #define pte_read_atomic(ptep)       read_atomic(ptep)
--#define pte_write_atomic(ptep, pte) write_atomic(ptep, pte)
--#define pte_write(ptep, pte)        write_atomic(ptep, pte)
- 
+-#define pte_read_atomic(ptep)       read_atomic(ptep)
+-
  /* Given a virtual address, get an entry offset into a linear page table. */
  #define l1_linear_offset(_a) (((_a) & VADDR_MASK) >> L1_PAGETABLE_SHIFT)
+ #define l2_linear_offset(_a) (((_a) & VADDR_MASK) >> L2_PAGETABLE_SHIFT)
 diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 95795567f2a5..fab2de5fae27 100644
+index fab2de5fae27..6ffacab341ad 100644
 --- a/xen/arch/x86/mm.c
 +++ b/xen/arch/x86/mm.c
-@@ -5253,7 +5253,7 @@ int map_pages_to_xen(
-              !(flags & (_PAGE_PAT | MAP_SMALL_PAGES)) )
-         {
-             /* 1GB-page mapping. */
--            l3e_write_atomic(pl3e, l3e_from_mfn(mfn, l1f_to_lNf(flags)));
-+            l3e_write(pl3e, l3e_from_mfn(mfn, l1f_to_lNf(flags)));
+@@ -2147,7 +2147,7 @@ static int mod_l1_entry(l1_pgentry_t *pl1e, l1_pgentry_t nl1e,
+                         struct vcpu *pt_vcpu, struct domain *pg_dom)
+ {
+     bool preserve_ad = (cmd == MMU_PT_UPDATE_PRESERVE_AD);
+-    l1_pgentry_t ol1e = l1e_read_atomic(pl1e);
++    l1_pgentry_t ol1e = l1e_read(pl1e);
+     struct domain *pt_dom = pt_vcpu->domain;
+     int rc = 0;
  
-             if ( (l3e_get_flags(ol3e) & _PAGE_PRESENT) )
-             {
-@@ -5353,8 +5353,7 @@ int map_pages_to_xen(
-             if ( (l3e_get_flags(*pl3e) & _PAGE_PRESENT) &&
-                  (l3e_get_flags(*pl3e) & _PAGE_PSE) )
-             {
--                l3e_write_atomic(pl3e,
--                                 l3e_from_mfn(l2mfn, __PAGE_HYPERVISOR));
-+                l3e_write(pl3e, l3e_from_mfn(l2mfn, __PAGE_HYPERVISOR));
-                 l2mfn = INVALID_MFN;
-             }
-             if ( locking )
-@@ -5375,7 +5374,7 @@ int map_pages_to_xen(
-         {
-             /* Super-page mapping. */
-             ol2e = *pl2e;
--            l2e_write_atomic(pl2e, l2e_from_mfn(mfn, l1f_to_lNf(flags)));
-+            l2e_write(pl2e, l2e_from_mfn(mfn, l1f_to_lNf(flags)));
+@@ -2270,7 +2270,7 @@ static int mod_l2_entry(l2_pgentry_t *pl2e,
+         return -EPERM;
+     }
  
-             if ( (l2e_get_flags(ol2e) & _PAGE_PRESENT) )
-             {
-@@ -5457,8 +5456,7 @@ int map_pages_to_xen(
-                 if ( (l2e_get_flags(*pl2e) & _PAGE_PRESENT) &&
-                      (l2e_get_flags(*pl2e) & _PAGE_PSE) )
-                 {
--                    l2e_write_atomic(pl2e, l2e_from_mfn(l1mfn,
--                                                        __PAGE_HYPERVISOR));
-+                    l2e_write(pl2e, l2e_from_mfn(l1mfn, __PAGE_HYPERVISOR));
-                     l1mfn = INVALID_MFN;
-                 }
-                 if ( locking )
-@@ -5471,7 +5469,7 @@ int map_pages_to_xen(
-             if ( !pl1e )
-                 pl1e = map_l1t_from_l2e(*pl2e) + l1_table_offset(virt);
-             ol1e  = *pl1e;
--            l1e_write_atomic(pl1e, l1e_from_mfn(mfn, flags));
-+            l1e_write(pl1e, l1e_from_mfn(mfn, flags));
-             UNMAP_DOMAIN_PAGE(pl1e);
-             if ( (l1e_get_flags(ol1e) & _PAGE_PRESENT) )
-             {
-@@ -5524,8 +5522,7 @@ int map_pages_to_xen(
-                 UNMAP_DOMAIN_PAGE(l1t);
-                 if ( i == L1_PAGETABLE_ENTRIES )
-                 {
--                    l2e_write_atomic(pl2e, l2e_from_pfn(base_mfn,
--                                                        l1f_to_lNf(flags)));
-+                    l2e_write(pl2e, l2e_from_pfn(base_mfn, l1f_to_lNf(flags)));
-                     if ( locking )
-                         spin_unlock(&map_pgdir_lock);
-                     flush_area(virt - PAGE_SIZE,
-@@ -5574,8 +5571,7 @@ int map_pages_to_xen(
-             UNMAP_DOMAIN_PAGE(l2t);
-             if ( i == L2_PAGETABLE_ENTRIES )
-             {
--                l3e_write_atomic(pl3e, l3e_from_pfn(base_mfn,
--                                                    l1f_to_lNf(flags)));
-+                l3e_write(pl3e, l3e_from_pfn(base_mfn, l1f_to_lNf(flags)));
-                 if ( locking )
-                     spin_unlock(&map_pgdir_lock);
-                 flush_area(virt - PAGE_SIZE,
-@@ -5674,7 +5670,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-                     : l3e_from_pfn(l3e_get_pfn(*pl3e),
-                                    (l3e_get_flags(*pl3e) & ~FLAGS_MASK) | nf);
+-    ol2e = l2e_read_atomic(pl2e);
++    ol2e = l2e_read(pl2e);
  
--                l3e_write_atomic(pl3e, nl3e);
-+                l3e_write(pl3e, nl3e);
-                 v += 1UL << L3_PAGETABLE_SHIFT;
-                 continue;
-             }
-@@ -5696,8 +5692,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-             if ( (l3e_get_flags(*pl3e) & _PAGE_PRESENT) &&
-                  (l3e_get_flags(*pl3e) & _PAGE_PSE) )
+     if ( l2e_get_flags(nl2e) & _PAGE_PRESENT )
+     {
+@@ -2332,7 +2332,7 @@ static int mod_l3_entry(l3_pgentry_t *pl3e,
+     if ( pgentry_ptr_to_slot(pl3e) >= 3 && is_pv_32bit_domain(d) )
+         return -EINVAL;
+ 
+-    ol3e = l3e_read_atomic(pl3e);
++    ol3e = l3e_read(pl3e);
+ 
+     if ( l3e_get_flags(nl3e) & _PAGE_PRESENT )
+     {
+@@ -2394,7 +2394,7 @@ static int mod_l4_entry(l4_pgentry_t *pl4e,
+         return -EINVAL;
+     }
+ 
+-    ol4e = l4e_read_atomic(pl4e);
++    ol4e = l4e_read(pl4e);
+ 
+     if ( l4e_get_flags(nl4e) & _PAGE_PRESENT )
+     {
+@@ -5925,7 +5925,7 @@ void init_or_livepatch modify_xen_mappings_lite(
+     while ( v < e )
+     {
+         l2_pgentry_t *pl2e = &l2_xenmap[l2_table_offset(v)];
+-        l2_pgentry_t l2e = l2e_read_atomic(pl2e);
++        l2_pgentry_t l2e = l2e_read(pl2e);
+         unsigned int l2f = l2e_get_flags(l2e);
+ 
+         ASSERT(l2f & _PAGE_PRESENT);
+@@ -5947,7 +5947,7 @@ void init_or_livepatch modify_xen_mappings_lite(
+             while ( v < e )
              {
--                l3e_write_atomic(pl3e,
--                                 l3e_from_mfn(l2mfn, __PAGE_HYPERVISOR));
-+                l3e_write(pl3e, l3e_from_mfn(l2mfn, __PAGE_HYPERVISOR));
-                 l2mfn = INVALID_MFN;
-             }
-             if ( locking )
-@@ -5732,7 +5727,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-                     : l2e_from_pfn(l2e_get_pfn(*pl2e),
-                                    (l2e_get_flags(*pl2e) & ~FLAGS_MASK) | nf);
- 
--                l2e_write_atomic(pl2e, nl2e);
-+                l2e_write(pl2e, nl2e);
-                 v += 1UL << L2_PAGETABLE_SHIFT;
-             }
-             else
-@@ -5755,8 +5750,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-                 if ( (l2e_get_flags(*pl2e) & _PAGE_PRESENT) &&
-                      (l2e_get_flags(*pl2e) & _PAGE_PSE) )
-                 {
--                    l2e_write_atomic(pl2e, l2e_from_mfn(l1mfn,
--                                                        __PAGE_HYPERVISOR));
-+                    l2e_write(pl2e, l2e_from_mfn(l1mfn, __PAGE_HYPERVISOR));
-                     l1mfn = INVALID_MFN;
-                 }
-                 if ( locking )
-@@ -5785,7 +5779,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-                 : l1e_from_pfn(l1e_get_pfn(*pl1e),
-                                (l1e_get_flags(*pl1e) & ~FLAGS_MASK) | nf);
- 
--            l1e_write_atomic(pl1e, nl1e);
-+            l1e_write(pl1e, nl1e);
-             UNMAP_DOMAIN_PAGE(pl1e);
-             v += PAGE_SIZE;
- 
-@@ -5824,7 +5818,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-             if ( i == L1_PAGETABLE_ENTRIES )
-             {
-                 /* Empty: zap the L2E and free the L1 page. */
--                l2e_write_atomic(pl2e, l2e_empty());
-+                l2e_write(pl2e, l2e_empty());
-                 if ( locking )
-                     spin_unlock(&map_pgdir_lock);
-                 flush_area(NULL, FLUSH_TLB_GLOBAL); /* flush before free */
-@@ -5868,7 +5862,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-             if ( i == L2_PAGETABLE_ENTRIES )
-             {
-                 /* Empty: zap the L3E and free the L2 page. */
--                l3e_write_atomic(pl3e, l3e_empty());
-+                l3e_write(pl3e, l3e_empty());
-                 if ( locking )
-                     spin_unlock(&map_pgdir_lock);
-                 flush_area(NULL, FLUSH_TLB_GLOBAL); /* flush before free */
-@@ -5940,7 +5934,7 @@ void init_or_livepatch modify_xen_mappings_lite(
-         {
-             ASSERT(IS_ALIGNED(v, 1UL << L2_PAGETABLE_SHIFT));
- 
--            l2e_write_atomic(pl2e, l2e_from_intpte((l2e.l2 & ~fm) | flags));
-+            l2e_write(pl2e, l2e_from_intpte((l2e.l2 & ~fm) | flags));
- 
-             v += 1UL << L2_PAGETABLE_SHIFT;
-             continue;
-@@ -5958,8 +5952,7 @@ void init_or_livepatch modify_xen_mappings_lite(
+                 l1_pgentry_t *pl1e = &pl1t[l1_table_offset(v)];
+-                l1_pgentry_t l1e = l1e_read_atomic(pl1e);
++                l1_pgentry_t l1e = l1e_read(pl1e);
+                 unsigned int l1f = l1e_get_flags(l1e);
  
                  ASSERT(l1f & _PAGE_PRESENT);
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index ee91fc56b125..b4fb95917023 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1450,7 +1450,7 @@ static enum pf_type __page_fault_type(unsigned long addr,
+     mfn = cr3 >> PAGE_SHIFT;
  
--                l1e_write_atomic(pl1e,
--                                 l1e_from_intpte((l1e.l1 & ~fm) | flags));
-+                l1e_write(pl1e, l1e_from_intpte((l1e.l1 & ~fm) | flags));
+     l4t = map_domain_page(_mfn(mfn));
+-    l4e = l4e_read_atomic(&l4t[l4_table_offset(addr)]);
++    l4e = l4e_read(&l4t[l4_table_offset(addr)]);
+     mfn = l4e_get_pfn(l4e);
+     unmap_domain_page(l4t);
+     if ( ((l4e_get_flags(l4e) & required_flags) != required_flags) ||
+@@ -1459,7 +1459,7 @@ static enum pf_type __page_fault_type(unsigned long addr,
+     page_user &= l4e_get_flags(l4e);
  
-                 v += 1UL << L1_PAGETABLE_SHIFT;
+     l3t  = map_domain_page(_mfn(mfn));
+-    l3e = l3e_read_atomic(&l3t[l3_table_offset(addr)]);
++    l3e = l3e_read(&l3t[l3_table_offset(addr)]);
+     mfn = l3e_get_pfn(l3e);
+     unmap_domain_page(l3t);
+     if ( ((l3e_get_flags(l3e) & required_flags) != required_flags) ||
+@@ -1470,7 +1470,7 @@ static enum pf_type __page_fault_type(unsigned long addr,
+         goto leaf;
  
+     l2t = map_domain_page(_mfn(mfn));
+-    l2e = l2e_read_atomic(&l2t[l2_table_offset(addr)]);
++    l2e = l2e_read(&l2t[l2_table_offset(addr)]);
+     mfn = l2e_get_pfn(l2e);
+     unmap_domain_page(l2t);
+     if ( ((l2e_get_flags(l2e) & required_flags) != required_flags) ||
+@@ -1481,7 +1481,7 @@ static enum pf_type __page_fault_type(unsigned long addr,
+         goto leaf;
+ 
+     l1t = map_domain_page(_mfn(mfn));
+-    l1e = l1e_read_atomic(&l1t[l1_table_offset(addr)]);
++    l1e = l1e_read(&l1t[l1_table_offset(addr)]);
+     mfn = l1e_get_pfn(l1e);
+     unmap_domain_page(l1t);
+     if ( ((l1e_get_flags(l1e) & required_flags) != required_flags) ||
 -- 
 2.45.2
 
