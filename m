@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7282A93D6E3
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 18:27:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765683.1176340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F103D93D6E6
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 18:30:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765691.1176349 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXNlf-0001QQ-GV; Fri, 26 Jul 2024 16:26:07 +0000
+	id 1sXNpi-0004Aj-48; Fri, 26 Jul 2024 16:30:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765683.1176340; Fri, 26 Jul 2024 16:26:07 +0000
+Received: by outflank-mailman (output) from mailman id 765691.1176349; Fri, 26 Jul 2024 16:30:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXNlf-0001Nl-DG; Fri, 26 Jul 2024 16:26:07 +0000
-Received: by outflank-mailman (input) for mailman id 765683;
- Fri, 26 Jul 2024 16:26:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sXNpi-00047c-1P; Fri, 26 Jul 2024 16:30:18 +0000
+Received: by outflank-mailman (input) for mailman id 765691;
+ Fri, 26 Jul 2024 16:30:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P8ZK=O2=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sXNle-0001Nf-3B
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 16:26:06 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf236d53-4b6b-11ef-bc00-fd08da9f4363;
- Fri, 26 Jul 2024 18:26:01 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a7a9a369055so201938666b.3
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 09:26:01 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad91005sm193463566b.173.2024.07.26.09.26.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Jul 2024 09:26:00 -0700 (PDT)
+ <SRS0=5GXa=O2=amd.com=VictorM.Lira@srs-se1.protection.inumbo.net>)
+ id 1sXNpg-00046E-Gf
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 16:30:16 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061f.outbound.protection.outlook.com
+ [2a01:111:f403:2418::61f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 54fdbe77-4b6c-11ef-8776-851b0ebba9a2;
+ Fri, 26 Jul 2024 18:30:14 +0200 (CEST)
+Received: from SJ2PR12MB8876.namprd12.prod.outlook.com (2603:10b6:a03:539::18)
+ by MW6PR12MB8897.namprd12.prod.outlook.com (2603:10b6:303:24a::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.29; Fri, 26 Jul
+ 2024 16:30:07 +0000
+Received: from SJ2PR12MB8876.namprd12.prod.outlook.com
+ ([fe80::69d9:a014:7a29:de4a]) by SJ2PR12MB8876.namprd12.prod.outlook.com
+ ([fe80::69d9:a014:7a29:de4a%5]) with mapi id 15.20.7784.020; Fri, 26 Jul 2024
+ 16:30:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,231 +47,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf236d53-4b6b-11ef-bc00-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1722011161; x=1722615961; darn=lists.xenproject.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YlGYXb7vpgE153wxJcUKemLIuYFS/C4BxEM1AQOl8rI=;
-        b=XPu5sO25kfQLAKeiqfTO8Cjz/+hjJssmE8s6faUix8Rw2yCSGxeLE9vefSZd+693l0
-         78ZVYWp8j1WGYLDnrtqiiFWi0/Mvf/0lWbHC+bxs9ruG5R51RkCIrSHjOYokvYRVYgv1
-         DAeMN7h7wX9P76VxBQiuzVEFcrUMbIAlzaOw8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722011161; x=1722615961;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=YlGYXb7vpgE153wxJcUKemLIuYFS/C4BxEM1AQOl8rI=;
-        b=k6RJ5BN4bl3CSNsdE2cxmdXz+5B8xgEo9gu4DjZ7nvTkJOxz5pu1kpwioQD8SF9tZP
-         qKdTRO9G8ZJn4PJITWSE2sH7cctzuBOg/tga7yK3NRuycUVPVAehHNb6my0mTTtoBkZd
-         f05JFUKVuiBZSw+RBgGOd0Kx/090s0vHMe6lZlEim44BubvPP+ZXlW8XOjYTlINsq0vn
-         pof8D6G1V9T6PDulTXz06X+sRLl+urTPnTZOqsMt9n8/Q7OQmWnB3famSiHco+6n3EQP
-         jQcLPDBIC5GsNpqbp5cD1r5VtMmKNxCYADsKTEH6BgMDSf/qlqXiUVQ8T2tT9Dq6n8X4
-         /LWg==
-X-Forwarded-Encrypted: i=1; AJvYcCXpktXGW90YflIcrrxdh7wxqG2Regy7CpKGwltkWgZ514zT6l4zUsO+nl7dWfntlvV1WtRyfxt8khFij8zhUQ4Xx6ucyp+uqkNRTHYzgB8=
-X-Gm-Message-State: AOJu0Yyf+hev+xEnQpdcPZuiz6mzzypu1HMGpM0cRTmVtmdPKZGI06F+
-	gnRyHkWrFA4Phi/LYPfrfj4/JZl856BMK6cYMt0yGxRryEkRc355L+7S74MXKb3BBDwnqFQfhs+
-	pyq4=
-X-Google-Smtp-Source: AGHT+IHwu4GZE1g+GQ/O/7EBDDYdZOWkGfJOmxAxidHBgWVaOYRM9eaEY2OMzyd5+7KItSHVG0cstA==
-X-Received: by 2002:a17:907:6d01:b0:a7a:a06b:eec3 with SMTP id a640c23a62f3a-a7d3ff9ed50mr1933366b.23.1722011160676;
-        Fri, 26 Jul 2024 09:26:00 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 26 Jul 2024 17:25:58 +0100
-Message-Id: <D2ZM0D609TOQ.2GQQWR1QALUPA@cloud.com>
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>, <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] x86/altcall: further refine clang workaround
-X-Mailer: aerc 0.17.0
-References: <20240725105634.16825-1-roger.pau@citrix.com>
- <9ecd3a39-55bf-4a49-9f45-1e0abfad353a@suse.com> <ZqJnPvL1ilDDzM9V@macbook>
- <a638b0e1-07a3-495c-b3b9-e450a50f9429@suse.com> <ZqNQwM3U8S5q-kg5@macbook>
- <0f6b446a-0dda-4e59-807b-c0c0bcdf78bf@suse.com> <ZqNVs97wexqd5trA@macbook>
- <4e2117f9-2a68-4032-9d1a-09965f97085f@suse.com>
- <D2ZJA8MODIO2.9JHFXZO8LW7Z@cloud.com>
- <D2ZJFUKTDIAL.2OE4EHLK6GGIB@cloud.com> <ZqO-RFZHdCrIuRok@macbook>
-In-Reply-To: <ZqO-RFZHdCrIuRok@macbook>
+X-Inumbo-ID: 54fdbe77-4b6c-11ef-8776-851b0ebba9a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RVOyBrZQCLZ0tzjCw0XwC2wwMqMtcWrMU3IW7jx8CLGn8DC7rg6OjkEiT5oq9z4RpH5wD5I8CmUj7yqi54BnLpsIlv69KoMtXk6GbdFiCKb38JtkhsIFJ+GHRytBvLne0QZuLjnPOEpAfEBfq4w7s5FnQSe2WkPeYb3BQPi5xyXSWlwFNgSpNa07gOZV6W5UkqC2y/w2NL8XBgPj5OdXl6gp1N8Mek0YkUKGDAENvTB0YschLEGMQW+zlrIRwgueKHeZOzzbiyOa2zGzc56SVF5u9TyBH60CT2cefT8AWDbm5+zb8LhH2kXhqYVgAOYhcR3AFayCQruucQiMojk+kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y5/A11Jd0LhVLYAWmJfeRLAyGmxDxFiaeExH8ReIFC8=;
+ b=Ev1AzMOKdza+Tlotr3oeY+Wgswb4iV/wUqGsPa2pFHuQ133p3K2tIop8NeoCZ4I+IyIG6/nECxris4T8t0KdMTEPIjZ39bq6L1lOFzD+5edz3brvpcDUy7am+CnHB3a7SDmaI8VSxqbtK44no9dWZgsZLWfAzX31U98U6AofDyFGuBbT1ltLRynZxbrIwRvHxO+zSGd4sEUCHSZCjKJK40yOtHfBl6+DWRWX0oS7LFeR6eUGooy7EWd6gn2W63n9QZTkSN/9cSENLM4Pryw3KOHn/CpXxkY0qeOzCpYbFAgybYiwrUzpZEmwMYtiP6H9+EP3iw4htailXOjDyU3trg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y5/A11Jd0LhVLYAWmJfeRLAyGmxDxFiaeExH8ReIFC8=;
+ b=Q1vAxk1bBLGbSBgQmjHlD4ghqsW6dIO4jKdR9xHzYfPp1V4Zn7yqOobm+BnlWSjYz4ykZk/8Ej3YW0HTg/RRgeS9p8DgL/zk9Z6q0WMvhNj1DFIub6vR2f2AQbFA7BP2SPTzsI8IQjVf4kmL3+avE+Qrby3dwKDq0Kl5XewE4Lw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <993a1f22-2d65-4bac-b466-aa4fb9626553@amd.com>
+Date: Fri, 26 Jul 2024 09:30:06 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3] automation: add linker symbol name script
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, roberto.bagnara@bugseng.com,
+ consulting@bugseng.com, simone.ballarin@bugseng.com,
+ xen-devel@lists.xenproject.org
+References: <29c7f6cd166d5d3c0e9f64dc937e29dc7ecf3f2d.1721933988.git.victorm.lira@amd.com>
+ <68c3ac17-2ccb-40db-b105-712d444440c3@suse.com>
+Content-Language: en-US
+From: "Lira, Victor M" <VictorM.Lira@amd.com>
+In-Reply-To: <68c3ac17-2ccb-40db-b105-712d444440c3@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY5PR20CA0030.namprd20.prod.outlook.com
+ (2603:10b6:a03:1f4::43) To SJ2PR12MB8876.namprd12.prod.outlook.com
+ (2603:10b6:a03:539::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8876:EE_|MW6PR12MB8897:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69808da6-1c21-4f0d-0213-08dcad9035f7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WW1QWXJQME95T3MvZnU3YlVmOU92eXFjS3BBYk1vWDh1WVEzYkxiY1lzaFdW?=
+ =?utf-8?B?MjRzWTBmbWlQVmUrLzE1SFc0QjZ0OXhvU1RZM0Z5ZEVlaXlMU1hTUWFETExN?=
+ =?utf-8?B?V0V1TXlIcVBsV0l6bHhiOFAwSGpZNDFEejlFN25jWFYxTFo2V0VUUmZuWGYy?=
+ =?utf-8?B?Nk5lYmNhc3AramU1eVg1dFFPT2FRL0NDSVlhc2lFS3RLTUhIbkVCTG4xdG1q?=
+ =?utf-8?B?aGpWRVdYQXJpdHExVlQ1MUQ0clVGLys5SUY2S25HSmJNbzc4U2FjNXhpRys1?=
+ =?utf-8?B?c0hHdUM4RVhOc21Zd3UxbXYyZ3pjZ1NUcjVqQjlGdzkrcFZKa3JIV2pLem5T?=
+ =?utf-8?B?Ui9reDBNUDdacC83MmduYzdrdGFwSEhMcFMzdDFQWnlsaEJJZ0daWEdOcklU?=
+ =?utf-8?B?US9abGVvVGdvYzlQcWRGRGs3aEVpUHI3UVV2R1VmOEw5TUxXallldFJKNDQv?=
+ =?utf-8?B?WngxRTZIakhCZENZK29iOUdOWDJ2Mm01RlZpK2lITmlEeFgzelkwS013UTdY?=
+ =?utf-8?B?b2ltQm5DaS81d0tZdi9SYjdBODdlcUlxQXp6VWpBdy9vWVRmazVNbVBDaTM4?=
+ =?utf-8?B?WUtMK0RLTWhzUmU3eGhRd3haQ2VTK2VJT2V2a1lrZ1NOZ3JYTmtHRWNRMkJJ?=
+ =?utf-8?B?MFIydENHWWZWRFlkWFovZVdVbE1WMUs0cWh3YngzbG16aG1VU3Rra3NCaGJt?=
+ =?utf-8?B?OGc5UnlyRldLdXlGYWRGRnhCOEdVcklUdXI5b1JDNTJiWDdxL25FYTkrdFE5?=
+ =?utf-8?B?MXliWStSWVM3bllIQVk1b204QkdLbEtaVUZYdGkvWUVHNnk1QTBtZGdCVkgx?=
+ =?utf-8?B?YUxJMGtiTEIwQW8yeS9NM05UekIycE9PdHhCUXFaTDkyZXN1UEhqK2ZNa21w?=
+ =?utf-8?B?eGJ4RkxyQytpNU5ESWxwaWdKSDZiSC82OWFjWW16UXFJUE9GS1NMb1pibFVU?=
+ =?utf-8?B?dDRMVHhlRE1ITnNZZFBDUlFBSFI4UTNMZFc2azdTNFErbDNZeG9QUU84S2Ri?=
+ =?utf-8?B?WVIvbEYxdU14Y3pwS1lQWDZBRk55aVRPYU91b1FEN2dERE9GVVRsclhjN2pj?=
+ =?utf-8?B?cmhYRHpJaVBOOGEyL0hnU29Db2tHTEt1aVZ2VTZ6Zm5TNkFKQVdHUmY0anYx?=
+ =?utf-8?B?QTVIdWZTWFIzbU5tVE4veUJiRjdWZ3NIN1N6RTVncmk2Q2U1bEtkL0RQQldk?=
+ =?utf-8?B?bUMrZFROQW9kemdNUzQ0RDBsN3kzREU5L2lqVzhJdmZVN1FMcDRHRE03Z0pl?=
+ =?utf-8?B?U2tEU3F2WCtQRUtMcXY3cC9BanZhRWhQNmlTTWlvRWtxL283bjdDY1IvQllG?=
+ =?utf-8?B?cmpMd3FWK1ZxbG43emc1dGxqY2g3TG51UEUxUTNidXYycEs0dVAvOU8xUjNP?=
+ =?utf-8?B?ekZ6dUFNZnRDMHB6WWJjQWkzZ2pNQTMyMmtUc1Rrd3hZdWZrbHBCQmlvcll6?=
+ =?utf-8?B?MTl4eFZaMXF4T0dMYUMraGR1dkZuc2kvdm41UE1iWXdPSlRIbGdtVUduN2tV?=
+ =?utf-8?B?Ynh0eHV4K3FjOTBZNU5hTUxGdDNuRWVZS3N5WnZjZWFPZzg0dkljSlNzK1Jk?=
+ =?utf-8?B?eGR6OFhtZ1pHenl3VVY1b3lJWm5ZWUIwMGdtbTcwNHZpQ240c3lYckE3Wk5C?=
+ =?utf-8?B?NzNBQXhtSFFsKytMWTBJeDZKZFJNcGRpTWFDYjBFVXRMM24zWnlrRGxJTE5Z?=
+ =?utf-8?B?dUJnQ1F6N3pvdS9SYkZnYzhIWmErYmpvVXNSYjFneXZSdkhjdkZ4K2ppUEhi?=
+ =?utf-8?B?S0E0ck5RS2szdW1pdXZIeWVWSW1acEUzZjFxNHV5UUFkY2VHSXB3U2VZdjV6?=
+ =?utf-8?B?cHFMN013UjNrWk93SUZpUT09?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8876.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dXFUM0EwdnBCNkdadjRMK1JSZlduSi9FOEtpNnhkNnhxRTM3MWNNTTJUY1Jq?=
+ =?utf-8?B?enFHWlFKeHNVUmNseWhVQnovR2xyNm5oZy9kVldjdTBrZGJtV3hsdFZoSmpz?=
+ =?utf-8?B?bmhuUmZXTUFTS2M0Y21DeU9oSGkweDFRK0RJN1VJcDBiaHpveTc4eG9IejRl?=
+ =?utf-8?B?NjRPSUw3dU82VG5VWHZmNnZJU0doTTlqRU9GMVBtanQzRUcrVi85VTV4WE93?=
+ =?utf-8?B?ODNJc0J3Tm5YS05hdVhYRTdnVU1mMzVja2xUOE5oMFNhdDNGcU8xNnU4eEpt?=
+ =?utf-8?B?Um16dEdLd0tJelZRQzJSZEF1YVlPc28zcHY3MmlBR1ZSOWxFdFJyNHRvSjFO?=
+ =?utf-8?B?amtnTlBkV0ZDa3UzMisyVmlhMVczeVl1ZjQyVDRLUExtTm5ZbE9MKzdWZ213?=
+ =?utf-8?B?aHRxTU5VbjJwUGJmTnMwWjljd09FWG90azFiWmdkdjRWdmRzNjJIbTU0alFs?=
+ =?utf-8?B?cFJDSzNNbDRQQVBIa0dnL2JIL0lTbDlVZlEzSk1kRUFRKzlOaGVuNXVXVm0v?=
+ =?utf-8?B?b3c5ZCtDdlltVGJmVnkxblJLRXY4NjlXa2dRRjJQNjJ2SEFhbnhtS2pYcTJJ?=
+ =?utf-8?B?ZlYyVTRNaERYZWdnQ3VBd05xUkZuRkxLblBzRFhicFZQN2FXMlgxbmFtUVRR?=
+ =?utf-8?B?Qy9JdFMxRTd1ZHJpbWpXY2lpS0d6N3pBZHNtc3FoNHM2L0NYQ1E0OFBGblR6?=
+ =?utf-8?B?b0h1QzFqaWtZaDdUQVYyd2RzOWF0RUlpdGV1cTA2azh0a3pQbFhISkcwdkYz?=
+ =?utf-8?B?Q0NEQWZkNEVqcnRYckE4Z0YvUXEvWFZyR2J4Y3pZeUJOR1RWc0NWbmo2Z2ZX?=
+ =?utf-8?B?UVJlQU40RzNEMEpTT0tKNFByd2ozODZkR3JUZ3hsdVZpK2wyUnI0QXhuRlFw?=
+ =?utf-8?B?Z3lpZWpMUlpNdXlrblFRZHE0ZVpYaW1lZmJSckFLRWVBWk8wNFlmcWZJeHd4?=
+ =?utf-8?B?NEdzQ2RSckppTU9FSUlQVGpUbS9XOG9nNFVibjI1bWVVekc1cWU5VTFwNFJi?=
+ =?utf-8?B?U1R1QWN5MjlKT3BqaG10MHlqVWEyM3c0NDlUV3lRV2twenJGRWIwdW0yYThH?=
+ =?utf-8?B?K2pTNDdjZ2FkczNoZVEzdU5CYTNPdkV1clpiVnQvZkt2N0hqMUtNMk00dWxu?=
+ =?utf-8?B?ZXQ0Zk1XZU9VbFlTaURxc2RnTU1JQytWSThJZmxJNkZOb3BlYnJOYXhIMyth?=
+ =?utf-8?B?eGJMdHhoeW5QUGtYNXRuakh1R0hlSTlNTzU1dmxNMndUdkwwZ1FrZFc2S0VK?=
+ =?utf-8?B?UzkrYmpqSUp0V0VTd2lkSmQ0R1A5Ly9KRmh1dUtVeXhkSm5HWTIxYVpVYWZL?=
+ =?utf-8?B?andkdWpLeSs4RlZuc0w5VXJsQTlEcnY1UlNwQzFiUzRqTDRhNjJ2SldwdkRq?=
+ =?utf-8?B?NktCZjNuY2pzT1BCMERKSEFic3dIVWkyZlRXTHozYXY0cXZ1Y2tuMUtiNS9j?=
+ =?utf-8?B?c1FES0w2MTV0S0Q3Z3VUbHpFVmhPaWs0SmJHb2EyZ1dGcEpNcW1JR2NqWmlm?=
+ =?utf-8?B?NzFHKzlQMUZiNndSSHRldmp4RUd0dk1UbDl0ODN0M2l4cWF5ZjdrOGNKZ2tZ?=
+ =?utf-8?B?NTdGTkI0czNxTWxPT1l1NThKbWtXVjVRRjg2UVRocngzRlhhU3BjQzlzcHFQ?=
+ =?utf-8?B?Tjc3SFRZMDU1b2d6dXhIeWs5QTdVZElKTmt1bjJWYnZhc0UvTUtaSXBwYysy?=
+ =?utf-8?B?ZDk4bU0wZmxrbnZXVitpRHd6dXo1YlJaSm1Tb0J2eVMrd2ZlMW5nYStGak5l?=
+ =?utf-8?B?NXRPVitUVXFNOXcxZnVmZ2dXUllzcys4KzF4c1pRdU5kTS9JK2pqcmIvSmc2?=
+ =?utf-8?B?US96STVsVEdDbk1lcXVtWGVBVjJzQVVDc2MvaXpyRDcyTnV1eTdUMEQ2YU1i?=
+ =?utf-8?B?OW9uZFRKQWNGY09DMFVlOGxnTFdMc1VzVUNaalViU29oTlpya2ZPbkVLVDd3?=
+ =?utf-8?B?dzVFNTNaaVRPYS9DdWhRYzhnaGpoNk12b2t3OVpXSisxSWhHY2NESC9rS2tH?=
+ =?utf-8?B?MENkYmloT2Z5Zi9OOTJwdUlJMDZHK09QMGJOYmZwTDhoSDRQWDJISWNRVUNG?=
+ =?utf-8?B?MlZXZXI2NVB3Ukp2cjVUMzhvVlVRNytablgrd3d5L2ovS3BWVWV6K0NXTm9Q?=
+ =?utf-8?Q?4JjiUNuDGU0/tQZIroRxx5cj/?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69808da6-1c21-4f0d-0213-08dcad9035f7
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8876.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2024 16:30:07.3147
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T2Cuao04v6I4PxL4lBuW8ZdbbJ5T3YsRRFQimLfxmY4qf5WndoygVhHCc7Np+uo4bRkjY74s10NkxzExq3Zffw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8897
 
-On Fri Jul 26, 2024 at 4:18 PM BST, Roger Pau Monn=C3=A9 wrote:
-> On Fri, Jul 26, 2024 at 03:25:08PM +0100, Alejandro Vallejo wrote:
-> > On Fri Jul 26, 2024 at 3:17 PM BST, Alejandro Vallejo wrote:
-> > > On Fri Jul 26, 2024 at 9:05 AM BST, Jan Beulich wrote:
-> > > > On 26.07.2024 09:52, Roger Pau Monn=C3=A9 wrote:
-> > > > > On Fri, Jul 26, 2024 at 09:36:15AM +0200, Jan Beulich wrote:
-> > > > >> On 26.07.2024 09:31, Roger Pau Monn=C3=A9 wrote:
-> > > > >>> On Thu, Jul 25, 2024 at 05:00:22PM +0200, Jan Beulich wrote:
-> > > > >>>> On 25.07.2024 16:54, Roger Pau Monn=C3=A9 wrote:
-> > > > >>>>> On Thu, Jul 25, 2024 at 03:18:29PM +0200, Jan Beulich wrote:
-> > > > >>>>>> On 25.07.2024 12:56, Roger Pau Monne wrote:
-> > > > >>>>>>> --- a/xen/arch/x86/include/asm/alternative.h
-> > > > >>>>>>> +++ b/xen/arch/x86/include/asm/alternative.h
-> > > > >>>>>>> @@ -184,11 +184,11 @@ extern void alternative_branches(void=
-);
-> > > > >>>>>>>   * https://github.com/llvm/llvm-project/issues/82598
-> > > > >>>>>>>   */
-> > > > >>>>>>>  #define ALT_CALL_ARG(arg, n)                              =
-              \
-> > > > >>>>>>> -    register union {                                      =
-              \
-> > > > >>>>>>> -        typeof(arg) e[sizeof(long) / sizeof(arg)];        =
-              \
-> > > > >>>>>>> -        unsigned long r;                                  =
-              \
-> > > > >>>>>>> +    register struct {                                     =
-              \
-> > > > >>>>>>> +        typeof(arg) e;                                    =
-              \
-> > > > >>>>>>> +        char pad[sizeof(void *) - sizeof(arg)];           =
-              \
-> > > > >>>>>>
-> > > > >>>>>> One thing that occurred to me only after our discussion, and=
- I then forgot
-> > > > >>>>>> to mention this before you would send a patch: What if sizeo=
-f(void *) =3D=3D
-> > > > >>>>>> sizeof(arg)? Zero-sized arrays are explicitly something we'r=
-e trying to
-> > > > >>>>>> get rid of.
-> > > > >>>>>
-> > > > >>>>> I wondered about this, but I though it was only [] that we we=
-re trying
-> > > > >>>>> to get rid of, not [0].
-> > > > >>>>
-> > > > >>>> Sadly (here) it's actually the other way around, aiui.
-> > > > >>>
-> > > > >>> The only other option I have in mind is using an oversized arra=
-y on
-> > > > >>> the union, like:
-> > > > >>>
-> > > > >>> #define ALT_CALL_ARG(arg, n)                                   =
-         \
-> > > > >>>     union {                                                    =
-         \
-> > > > >>>         typeof(arg) e[(sizeof(long) + sizeof(arg) - 1) / sizeof=
-(arg)];  \
-> > > > >>>         unsigned long r;                                       =
-         \
-> > > > >>>     } a ## n ## __  =3D {                                      =
-           \
-> > > > >>>         .e[0] =3D ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *))=
-; (arg); })\
-> > > > >>>     };                                                         =
-         \
-> > > > >>>     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n =
-) =3D      \
-> > > > >>>         a ## n ## __.r
-> > > > >>
-> > > > >> Yet that's likely awful code-gen wise?
-> > > > >=20
-> > > > > Seems OK: https://godbolt.org/z/nsdo5Gs8W
-> > > >
-> > > > In which case why not go this route. If the compiler is doing fine =
-with
-> > > > that, maybe the array dimension expression could be further simplif=
-ied,
-> > > > accepting yet more over-sizing? Like "sizeof(void *) / sizeof (arg)=
- + 1"
-> > > > or even simply "sizeof(void *)"? Suitably commented of course ...
-> > > >
-> > > > >> For the time being, can we perhaps
-> > > > >> just tighten the BUILD_BUG_ON(), as iirc Alejandro had suggested=
-?
-> > > > >=20
-> > > > > My main concern with tightening the BUILD_BUG_ON() is that then I
-> > > > > would also like to do so for the GCC one, so that build fails
-> > > > > uniformly.
-> > > >
-> > > > If we were to take that route, then yes, probably should constrain =
-both
-> > > > (with a suitable comment on the gcc one).
-> > > >
-> > > > Jan
-> > >
-> > > Yet another way would be to have an intermediate `long` to cast onto.=
- Compilers
-> > > will optimise away the copy. It ignores the different-type aliasing r=
-ules in
-> > > the C spec, so there's an assumption that we have -fno-strict-aliasin=
-g. But I
-> > > belive we do? Otherwise it should pretty much work on anything.
-> > >
-> > > ```
-> > >   #define ALT_CALL_ARG(arg, n)                                       =
-       \
-> > >       unsigned long __tmp =3D 0;                                     =
-         \
-> > >       *(typeof(arg) *)&__tmp =3D                                     =
-         \
-> > >           ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })   =
-       \
-> > >       register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =
-=3D __tmp; \
-> > > ```
-> > >
-> > > fwiw, clang18 emits identical code compared with the previous godbolt=
- link.
-> > >
-> > > Link: https://godbolt.org/z/facd1M9xa
-> > >
-> > > Cheers,
-> > > Alejandro
-> >=20
-> > Bah. s/b/__tmp/ in line15. Same output though, so the point still stand=
-s.
->
-> Had to adjust it to:
->
-> #define ALT_CALL_ARG(arg, n)                                             =
- \
->     unsigned long a ## n ## __ =3D 0;                                    =
-   \
->     *(typeof(arg) *)&a ## n ## __ =3D                                    =
-   \
->         ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); });        =
- \
->     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =3D a ##=
- n ## __
->
-> So that tmp__ is not defined multiple times for repeated
-> ALT_CALL_ARG() usages.
->
-> Already tried something like this in the past, but it mixes code with
-> declarations, and that's forbidden in the current C standard that Xen
-> uses:
->
-> ./arch/x86/include/asm/hvm/hvm.h:665:5: error: mixing declarations and co=
-de is incompatible with standards before C99 [-Werror,-Wdeclaration-after-s=
-tatement]
->
-> The `*(typeof(arg) *)&__tmp =3D ...` line is considered code, and is
-> followed by further declarations.  Even if we moved both declarations
-> ahead of the assigns it would still complain when multiple
-> ALT_CALL_ARG() instances are used in the same altcall block.
->
-> Thanks, Roger.
 
-That _was_ forbidden in C89, but it has been allowed since. We have a warni=
-ng
-enabled to cause it to fail even if we always use C99-compatible compilers.=
- I
-think we should change that.
+On 7/26/2024 12:44 AM, Jan Beulich wrote:
+>> +  fatal "Could not find ${1} linker script. Must be run after arm/x86 build."
+> ... why you have "arm/x86" there when the message already includes ${1}.
+> That'll simply go stale (and unnoticed) when PPC and/or RISC-V make further
+> progress. Actually in usage() I'm similarly uncertain you want to mention
+> the two architectures explicitly. Just say <arch> there? Happy to make
+> adjustments while committing, so long as you agree.
+>
+> Jan
 
-Regardless, I think it can be worked around. This compiles (otherwise
-untested):
+OK, I see your point and I agree with both changes.
 
-#define ALT_CALL_ARG(arg, n)
-    register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =3D ({   \
-        unsigned long tmp =3D 0;                                          \
-        *(typeof(arg) *)&a ## n ## __ =3D (arg);                          \
-        BUILD_BUG_ON(sizeof(arg) > sizeof(void *));                     \
-        tmp;                                                            \
-    })
+Victor
 
-That said, if the oversized temp union works, I'm fine with that too.
-
-Cheers,
-Alejandro
 
