@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40B4093D510
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 16:25:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765430.1176020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5525393D56E
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 16:55:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765445.1176031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXLsg-0001yW-Ac; Fri, 26 Jul 2024 14:25:14 +0000
+	id 1sXMLa-0006MS-J7; Fri, 26 Jul 2024 14:55:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765430.1176020; Fri, 26 Jul 2024 14:25:14 +0000
+Received: by outflank-mailman (output) from mailman id 765445.1176031; Fri, 26 Jul 2024 14:55:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXLsg-0001wg-7K; Fri, 26 Jul 2024 14:25:14 +0000
-Received: by outflank-mailman (input) for mailman id 765430;
- Fri, 26 Jul 2024 14:25:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sXMLa-0006JY-EJ; Fri, 26 Jul 2024 14:55:06 +0000
+Received: by outflank-mailman (input) for mailman id 765445;
+ Fri, 26 Jul 2024 14:55:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=P8ZK=O2=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sXLse-0001wa-FT
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 14:25:12 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ddf84907-4b5a-11ef-bbff-fd08da9f4363;
- Fri, 26 Jul 2024 16:25:11 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-52f01afa11cso1971283e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 07:25:11 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad41616sm182950766b.137.2024.07.26.07.25.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Jul 2024 07:25:10 -0700 (PDT)
+ id 1sXMLY-0006JS-JM
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 14:55:04 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 095b7ec7-4b5f-11ef-8776-851b0ebba9a2;
+ Fri, 26 Jul 2024 16:55:02 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5a10835487fso2877584a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 07:55:02 -0700 (PDT)
+Received: from EMEAENGAAD19049.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acad41462sm180156266b.119.2024.07.26.07.55.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Jul 2024 07:55:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,172 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ddf84907-4b5a-11ef-bbff-fd08da9f4363
+X-Inumbo-ID: 095b7ec7-4b5f-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1722003911; x=1722608711; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RTGr6E4iUPh9DMDAZ7f58092WQTR2KdftTscFn5t7Ps=;
-        b=EqCBG5h98YlJbRQQYcEN1yv7+gmXmzpFXgc9AhY7bsFlKGe1eDTs5chNUWd2fe3hTQ
-         Lsx59zcAqNTxwE6O5hI6S3WRBYLYLb6iAv/gKv4saq2xl0x8mU4kPdgbZ8WWQ8A1HSUy
-         clypO5CvWtNMABYS2t1+98E2DDeWYfRY6tW7c=
+        d=cloud.com; s=cloud; t=1722005701; x=1722610501; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=U04aEBUi0SKv54sVsrAk71ymAOHw5qjFievhU+jTj60=;
+        b=R27vc1lfdG2rPhyOfcdOtistsOsMyUcoSHmUSOywc4AUFW32jY7MC5FDhQUXXKmOt3
+         ZglxESbZdQX/ws6TPGy7dRyht1E6Vhq27wZ2Tt1QmKvBpqxn+QjfYRqgg1Mu76gSKbL9
+         ETcpvhVKVv974dyRQydoNgOe5NATfr4k+1Klo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722003911; x=1722608711;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=RTGr6E4iUPh9DMDAZ7f58092WQTR2KdftTscFn5t7Ps=;
-        b=HTTFbcwj9IKwTsu37tYDqZxMbraEhEdmlhqc7v++haOk6b6/Ia4/rjArzTM227DHHd
-         ZT+RBZ6LBQ5QGOALQqx2ayp+i8bjyw/mRXwrca1fKOfb06MCu5pLUd45iCI+XoI2ea0g
-         tlrHCO+xrU6AedhWTfCgeyLpwbjH2HhLaz4viL6Zo78GxywKyoWdPoM8M4bf/kBjOwBd
-         40CJNt+l3kU9G+GM6hqEKmSWHBynwCYGKBz5gQz+NjufhFuPQA6LKzKVdICKIqLofktm
-         8DtCf3aHAQR8jJmIaa3PLDlPyWUoZc4T/5l0bUg7szRQkYcNPhVM5Y6AlQFo9qvBAtIP
-         8ZgQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXVQj1PSYlqrLkGIYQIGvnk+eEYFJbyVJReJaKezQXGgjBoRzLyJB6f+aGHmFy4IYEUfXdhr5tTiJ2G+gLbjUfKzHXsI5A6s4MVmHUENOg=
-X-Gm-Message-State: AOJu0Yx+LvqU/9G/g7EilnHJkol1B903wLUNDh3yCwAFViLgQaF9Kj8J
-	o3q2SoBMVZ/clqiOFaS8+6/dLWKRNRihvw057HKSqdyFUieRadWRwY32vAqqxDY=
-X-Google-Smtp-Source: AGHT+IFRxfK9RsUS0U+ocskmLtHNbJ+B2gYyx0BAXiE0V+NA1JZ2s8Jf3o5Hv8nEu0e63vN75zBt1A==
-X-Received: by 2002:ac2:4c48:0:b0:52c:dca7:c9bd with SMTP id 2adb3069b0e04-52fd3f2c027mr4128976e87.30.1722003910823;
-        Fri, 26 Jul 2024 07:25:10 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 26 Jul 2024 15:25:08 +0100
-Message-Id: <D2ZJFUKTDIAL.2OE4EHLK6GGIB@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] x86/altcall: further refine clang workaround
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>, "Jan Beulich"
- <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-X-Mailer: aerc 0.17.0
-References: <20240725105634.16825-1-roger.pau@citrix.com>
- <9ecd3a39-55bf-4a49-9f45-1e0abfad353a@suse.com> <ZqJnPvL1ilDDzM9V@macbook>
- <a638b0e1-07a3-495c-b3b9-e450a50f9429@suse.com> <ZqNQwM3U8S5q-kg5@macbook>
- <0f6b446a-0dda-4e59-807b-c0c0bcdf78bf@suse.com> <ZqNVs97wexqd5trA@macbook>
- <4e2117f9-2a68-4032-9d1a-09965f97085f@suse.com>
- <D2ZJA8MODIO2.9JHFXZO8LW7Z@cloud.com>
-In-Reply-To: <D2ZJA8MODIO2.9JHFXZO8LW7Z@cloud.com>
+        d=1e100.net; s=20230601; t=1722005701; x=1722610501;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=U04aEBUi0SKv54sVsrAk71ymAOHw5qjFievhU+jTj60=;
+        b=EejZvdHHLafcPec69gyOf9fZlr2jX0HAueFeJc/j6+sbz6nKFtQWYo8uH9VNk3RTeW
+         5Kf+Aut3dThtjRrGc+IZGfeJEC++Lu4Aou7Y8XEcNmr8mpUZAYcL6bevQVnjxiymhoo5
+         pd2RX5kjHlZjc7KaNhh4GNHRq71hcA477aLF693EwwuQskegRqbehaGGvj0a3ffrJ98X
+         fEu2sSSUyz2+vtBZcUgEj679R1N8mOM2w5ECqgEFT10ZbbMS5MAYZayMviYWW3eh9rBM
+         YxVCIYktvhUPPVCY5+KqIHX8IsfSrQBABUKRQhAb+zHhNdTz2e9tjiYuAlvlKJYRRvpY
+         Fz1A==
+X-Gm-Message-State: AOJu0YzkaskrM1BpbZNJoGESeW4CKRwejdJD8jXolW0jgGXMr1x+gKNI
+	myC6foxu3Q+Xhn7bNOjB4vA89QJunrnfMW3CxZQVJFI1jEySFfD+dX4fAz4wu97V956qYTve8Bi
+	Q1oM=
+X-Google-Smtp-Source: AGHT+IGBbauuT5eMx63qcvKu3h7pvqL2FktMuh7xTChhQ4XelaAUap2b3ZJMn1MhJSHCDPCztpQWfQ==
+X-Received: by 2002:a17:906:3bd1:b0:a77:c080:11fa with SMTP id a640c23a62f3a-a7ac5064904mr410935566b.48.1722005701449;
+        Fri, 26 Jul 2024 07:55:01 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Paul Durrant <paul@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/viridian: Clarify some viridian logging strings
+Date: Fri, 26 Jul 2024 15:52:00 +0100
+Message-ID: <20240726145200.1991-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.45.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri Jul 26, 2024 at 3:17 PM BST, Alejandro Vallejo wrote:
-> On Fri Jul 26, 2024 at 9:05 AM BST, Jan Beulich wrote:
-> > On 26.07.2024 09:52, Roger Pau Monn=C3=A9 wrote:
-> > > On Fri, Jul 26, 2024 at 09:36:15AM +0200, Jan Beulich wrote:
-> > >> On 26.07.2024 09:31, Roger Pau Monn=C3=A9 wrote:
-> > >>> On Thu, Jul 25, 2024 at 05:00:22PM +0200, Jan Beulich wrote:
-> > >>>> On 25.07.2024 16:54, Roger Pau Monn=C3=A9 wrote:
-> > >>>>> On Thu, Jul 25, 2024 at 03:18:29PM +0200, Jan Beulich wrote:
-> > >>>>>> On 25.07.2024 12:56, Roger Pau Monne wrote:
-> > >>>>>>> --- a/xen/arch/x86/include/asm/alternative.h
-> > >>>>>>> +++ b/xen/arch/x86/include/asm/alternative.h
-> > >>>>>>> @@ -184,11 +184,11 @@ extern void alternative_branches(void);
-> > >>>>>>>   * https://github.com/llvm/llvm-project/issues/82598
-> > >>>>>>>   */
-> > >>>>>>>  #define ALT_CALL_ARG(arg, n)                                  =
-          \
-> > >>>>>>> -    register union {                                          =
-          \
-> > >>>>>>> -        typeof(arg) e[sizeof(long) / sizeof(arg)];            =
-          \
-> > >>>>>>> -        unsigned long r;                                      =
-          \
-> > >>>>>>> +    register struct {                                         =
-          \
-> > >>>>>>> +        typeof(arg) e;                                        =
-          \
-> > >>>>>>> +        char pad[sizeof(void *) - sizeof(arg)];               =
-          \
-> > >>>>>>
-> > >>>>>> One thing that occurred to me only after our discussion, and I t=
-hen forgot
-> > >>>>>> to mention this before you would send a patch: What if sizeof(vo=
-id *) =3D=3D
-> > >>>>>> sizeof(arg)? Zero-sized arrays are explicitly something we're tr=
-ying to
-> > >>>>>> get rid of.
-> > >>>>>
-> > >>>>> I wondered about this, but I though it was only [] that we were t=
-rying
-> > >>>>> to get rid of, not [0].
-> > >>>>
-> > >>>> Sadly (here) it's actually the other way around, aiui.
-> > >>>
-> > >>> The only other option I have in mind is using an oversized array on
-> > >>> the union, like:
-> > >>>
-> > >>> #define ALT_CALL_ARG(arg, n)                                       =
-     \
-> > >>>     union {                                                        =
-     \
-> > >>>         typeof(arg) e[(sizeof(long) + sizeof(arg) - 1) / sizeof(arg=
-)];  \
-> > >>>         unsigned long r;                                           =
-     \
-> > >>>     } a ## n ## __  =3D {                                          =
-       \
-> > >>>         .e[0] =3D ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (a=
-rg); })\
-> > >>>     };                                                             =
-     \
-> > >>>     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =
-=3D      \
-> > >>>         a ## n ## __.r
-> > >>
-> > >> Yet that's likely awful code-gen wise?
-> > >=20
-> > > Seems OK: https://godbolt.org/z/nsdo5Gs8W
-> >
-> > In which case why not go this route. If the compiler is doing fine with
-> > that, maybe the array dimension expression could be further simplified,
-> > accepting yet more over-sizing? Like "sizeof(void *) / sizeof (arg) + 1=
-"
-> > or even simply "sizeof(void *)"? Suitably commented of course ...
-> >
-> > >> For the time being, can we perhaps
-> > >> just tighten the BUILD_BUG_ON(), as iirc Alejandro had suggested?
-> > >=20
-> > > My main concern with tightening the BUILD_BUG_ON() is that then I
-> > > would also like to do so for the GCC one, so that build fails
-> > > uniformly.
-> >
-> > If we were to take that route, then yes, probably should constrain both
-> > (with a suitable comment on the gcc one).
-> >
-> > Jan
->
-> Yet another way would be to have an intermediate `long` to cast onto. Com=
-pilers
-> will optimise away the copy. It ignores the different-type aliasing rules=
- in
-> the C spec, so there's an assumption that we have -fno-strict-aliasing. B=
-ut I
-> belive we do? Otherwise it should pretty much work on anything.
->
-> ```
->   #define ALT_CALL_ARG(arg, n)                                           =
-   \
->       unsigned long __tmp =3D 0;                                         =
-     \
->       *(typeof(arg) *)&__tmp =3D                                         =
-     \
->           ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })       =
-   \
->       register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =3D __=
-tmp; \
-> ```
->
-> fwiw, clang18 emits identical code compared with the previous godbolt lin=
-k.
->
-> Link: https://godbolt.org/z/facd1M9xa
->
-> Cheers,
-> Alejandro
+It's sadically misleading to show an error without letters and expect
+the dmesg reader to understand it's in hex. The patch adds a 0x prefix
+to all hex numbers that don't already have it.
 
-Bah. s/b/__tmp/ in line15. Same output though, so the point still stands.
+On the one instance in which a boolean is printed as an integer, print
+it as a decimal integer instead so it's 0/1 in the common case and not
+misleading if it's ever not just that due to a bug.
 
-Cheers,
-Alejandro
+While at it, rename VIRIDIAN CRASH to VIRIDIAN GUEST_CRASH. Every member
+of a support team that looks at the message systematically believes
+"viridian" crashed, which is absolutely not what goes on. It's the guest
+asking the hypervisor for a sudden shutdown because it crashed, and
+stating why.
+
+Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+---
+Still going through its Gitlab pipeline
+
+---
+ xen/arch/x86/hvm/viridian/synic.c    | 2 +-
+ xen/arch/x86/hvm/viridian/viridian.c | 9 +++++----
+ 2 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/viridian/synic.c b/xen/arch/x86/hvm/viridian/synic.c
+index 3375e55e95ca..c3dc573b003d 100644
+--- a/xen/arch/x86/hvm/viridian/synic.c
++++ b/xen/arch/x86/hvm/viridian/synic.c
+@@ -172,7 +172,7 @@ int viridian_synic_wrmsr(struct vcpu *v, uint32_t idx, uint64_t val)
+         vector = new.vector;
+         vv->vector_to_sintx[vector] = sintx;
+ 
+-        printk(XENLOG_G_INFO "%pv: VIRIDIAN SINT%u: vector: %x\n", v, sintx,
++        printk(XENLOG_G_INFO "%pv: VIRIDIAN SINT%u: vector: %#x\n", v, sintx,
+                vector);
+ 
+         *vs = new;
+diff --git a/xen/arch/x86/hvm/viridian/viridian.c b/xen/arch/x86/hvm/viridian/viridian.c
+index 0496c52ed5a2..21480d9ee700 100644
+--- a/xen/arch/x86/hvm/viridian/viridian.c
++++ b/xen/arch/x86/hvm/viridian/viridian.c
+@@ -253,7 +253,7 @@ static void dump_guest_os_id(const struct domain *d)
+     goi = &d->arch.hvm.viridian->guest_os_id;
+ 
+     printk(XENLOG_G_INFO
+-           "d%d: VIRIDIAN GUEST_OS_ID: vendor: %x os: %x major: %x minor: %x sp: %x build: %x\n",
++           "d%d: VIRIDIAN GUEST_OS_ID: vendor: %#x os: %#x major: %#x minor: %#x sp: %#x build: %#x\n",
+            d->domain_id, goi->vendor, goi->os, goi->major, goi->minor,
+            goi->service_pack, goi->build_number);
+ }
+@@ -264,7 +264,7 @@ static void dump_hypercall(const struct domain *d)
+ 
+     hg = &d->arch.hvm.viridian->hypercall_gpa;
+ 
+-    printk(XENLOG_G_INFO "d%d: VIRIDIAN HYPERCALL: enabled: %x pfn: %lx\n",
++    printk(XENLOG_G_INFO "d%d: VIRIDIAN HYPERCALL: enabled: %u pfn: %#lx\n",
+            d->domain_id,
+            hg->enabled, (unsigned long)hg->pfn);
+ }
+@@ -372,7 +372,8 @@ int guest_wrmsr_viridian(struct vcpu *v, uint32_t idx, uint64_t val)
+         d->shutdown_code = SHUTDOWN_crash;
+         spin_unlock(&d->shutdown_lock);
+ 
+-        gprintk(XENLOG_WARNING, "VIRIDIAN CRASH: %lx %lx %lx %lx %lx\n",
++        gprintk(XENLOG_WARNING,
++                "VIRIDIAN GUEST_CRASH: %#lx %#lx %#lx %#lx %#lx\n",
+                 vv->crash_param[0], vv->crash_param[1], vv->crash_param[2],
+                 vv->crash_param[3], vv->crash_param[4]);
+         break;
+@@ -1056,7 +1057,7 @@ void viridian_dump_guest_page(const struct vcpu *v, const char *name,
+     if ( !vp->msr.enabled )
+         return;
+ 
+-    printk(XENLOG_G_INFO "%pv: VIRIDIAN %s: pfn: %lx\n",
++    printk(XENLOG_G_INFO "%pv: VIRIDIAN %s: pfn: %#lx\n",
+            v, name, (unsigned long)vp->msr.pfn);
+ }
+ 
+-- 
+2.45.2
+
 
