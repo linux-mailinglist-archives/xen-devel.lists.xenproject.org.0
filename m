@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F103D93D6E6
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 18:30:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765691.1176349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C5F193D6EB
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 18:32:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765698.1176360 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXNpi-0004Aj-48; Fri, 26 Jul 2024 16:30:18 +0000
+	id 1sXNrY-0004j6-FB; Fri, 26 Jul 2024 16:32:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765691.1176349; Fri, 26 Jul 2024 16:30:18 +0000
+Received: by outflank-mailman (output) from mailman id 765698.1176360; Fri, 26 Jul 2024 16:32:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXNpi-00047c-1P; Fri, 26 Jul 2024 16:30:18 +0000
-Received: by outflank-mailman (input) for mailman id 765691;
- Fri, 26 Jul 2024 16:30:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sXNrY-0004hb-CH; Fri, 26 Jul 2024 16:32:12 +0000
+Received: by outflank-mailman (input) for mailman id 765698;
+ Fri, 26 Jul 2024 16:32:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5GXa=O2=amd.com=VictorM.Lira@srs-se1.protection.inumbo.net>)
- id 1sXNpg-00046E-Gf
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 16:30:16 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061f.outbound.protection.outlook.com
- [2a01:111:f403:2418::61f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 54fdbe77-4b6c-11ef-8776-851b0ebba9a2;
- Fri, 26 Jul 2024 18:30:14 +0200 (CEST)
-Received: from SJ2PR12MB8876.namprd12.prod.outlook.com (2603:10b6:a03:539::18)
- by MW6PR12MB8897.namprd12.prod.outlook.com (2603:10b6:303:24a::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.29; Fri, 26 Jul
- 2024 16:30:07 +0000
-Received: from SJ2PR12MB8876.namprd12.prod.outlook.com
- ([fe80::69d9:a014:7a29:de4a]) by SJ2PR12MB8876.namprd12.prod.outlook.com
- ([fe80::69d9:a014:7a29:de4a%5]) with mapi id 15.20.7784.020; Fri, 26 Jul 2024
- 16:30:07 +0000
+ <SRS0=P8ZK=O2=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sXNrW-0004hT-KF
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 16:32:10 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9ab4cee9-4b6c-11ef-bc00-fd08da9f4363;
+ Fri, 26 Jul 2024 18:32:09 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5a2ffc3447fso2721252a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 09:32:09 -0700 (PDT)
+Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5ac63b59ca1sm2139425a12.52.2024.07.26.09.32.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Jul 2024 09:32:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,145 +44,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54fdbe77-4b6c-11ef-8776-851b0ebba9a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RVOyBrZQCLZ0tzjCw0XwC2wwMqMtcWrMU3IW7jx8CLGn8DC7rg6OjkEiT5oq9z4RpH5wD5I8CmUj7yqi54BnLpsIlv69KoMtXk6GbdFiCKb38JtkhsIFJ+GHRytBvLne0QZuLjnPOEpAfEBfq4w7s5FnQSe2WkPeYb3BQPi5xyXSWlwFNgSpNa07gOZV6W5UkqC2y/w2NL8XBgPj5OdXl6gp1N8Mek0YkUKGDAENvTB0YschLEGMQW+zlrIRwgueKHeZOzzbiyOa2zGzc56SVF5u9TyBH60CT2cefT8AWDbm5+zb8LhH2kXhqYVgAOYhcR3AFayCQruucQiMojk+kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y5/A11Jd0LhVLYAWmJfeRLAyGmxDxFiaeExH8ReIFC8=;
- b=Ev1AzMOKdza+Tlotr3oeY+Wgswb4iV/wUqGsPa2pFHuQ133p3K2tIop8NeoCZ4I+IyIG6/nECxris4T8t0KdMTEPIjZ39bq6L1lOFzD+5edz3brvpcDUy7am+CnHB3a7SDmaI8VSxqbtK44no9dWZgsZLWfAzX31U98U6AofDyFGuBbT1ltLRynZxbrIwRvHxO+zSGd4sEUCHSZCjKJK40yOtHfBl6+DWRWX0oS7LFeR6eUGooy7EWd6gn2W63n9QZTkSN/9cSENLM4Pryw3KOHn/CpXxkY0qeOzCpYbFAgybYiwrUzpZEmwMYtiP6H9+EP3iw4htailXOjDyU3trg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y5/A11Jd0LhVLYAWmJfeRLAyGmxDxFiaeExH8ReIFC8=;
- b=Q1vAxk1bBLGbSBgQmjHlD4ghqsW6dIO4jKdR9xHzYfPp1V4Zn7yqOobm+BnlWSjYz4ykZk/8Ej3YW0HTg/RRgeS9p8DgL/zk9Z6q0WMvhNj1DFIub6vR2f2AQbFA7BP2SPTzsI8IQjVf4kmL3+avE+Qrby3dwKDq0Kl5XewE4Lw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <993a1f22-2d65-4bac-b466-aa4fb9626553@amd.com>
-Date: Fri, 26 Jul 2024 09:30:06 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3] automation: add linker symbol name script
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, roberto.bagnara@bugseng.com,
- consulting@bugseng.com, simone.ballarin@bugseng.com,
- xen-devel@lists.xenproject.org
-References: <29c7f6cd166d5d3c0e9f64dc937e29dc7ecf3f2d.1721933988.git.victorm.lira@amd.com>
- <68c3ac17-2ccb-40db-b105-712d444440c3@suse.com>
-Content-Language: en-US
-From: "Lira, Victor M" <VictorM.Lira@amd.com>
-In-Reply-To: <68c3ac17-2ccb-40db-b105-712d444440c3@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY5PR20CA0030.namprd20.prod.outlook.com
- (2603:10b6:a03:1f4::43) To SJ2PR12MB8876.namprd12.prod.outlook.com
- (2603:10b6:a03:539::18)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB8876:EE_|MW6PR12MB8897:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69808da6-1c21-4f0d-0213-08dcad9035f7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?WW1QWXJQME95T3MvZnU3YlVmOU92eXFjS3BBYk1vWDh1WVEzYkxiY1lzaFdW?=
- =?utf-8?B?MjRzWTBmbWlQVmUrLzE1SFc0QjZ0OXhvU1RZM0Z5ZEVlaXlMU1hTUWFETExN?=
- =?utf-8?B?V0V1TXlIcVBsV0l6bHhiOFAwSGpZNDFEejlFN25jWFYxTFo2V0VUUmZuWGYy?=
- =?utf-8?B?Nk5lYmNhc3AramU1eVg1dFFPT2FRL0NDSVlhc2lFS3RLTUhIbkVCTG4xdG1q?=
- =?utf-8?B?aGpWRVdYQXJpdHExVlQ1MUQ0clVGLys5SUY2S25HSmJNbzc4U2FjNXhpRys1?=
- =?utf-8?B?c0hHdUM4RVhOc21Zd3UxbXYyZ3pjZ1NUcjVqQjlGdzkrcFZKa3JIV2pLem5T?=
- =?utf-8?B?Ui9reDBNUDdacC83MmduYzdrdGFwSEhMcFMzdDFQWnlsaEJJZ0daWEdOcklU?=
- =?utf-8?B?US9abGVvVGdvYzlQcWRGRGs3aEVpUHI3UVV2R1VmOEw5TUxXallldFJKNDQv?=
- =?utf-8?B?WngxRTZIakhCZENZK29iOUdOWDJ2Mm01RlZpK2lITmlEeFgzelkwS013UTdY?=
- =?utf-8?B?b2ltQm5DaS81d0tZdi9SYjdBODdlcUlxQXp6VWpBdy9vWVRmazVNbVBDaTM4?=
- =?utf-8?B?WUtMK0RLTWhzUmU3eGhRd3haQ2VTK2VJT2V2a1lrZ1NOZ3JYTmtHRWNRMkJJ?=
- =?utf-8?B?MFIydENHWWZWRFlkWFovZVdVbE1WMUs0cWh3YngzbG16aG1VU3Rra3NCaGJt?=
- =?utf-8?B?OGc5UnlyRldLdXlGYWRGRnhCOEdVcklUdXI5b1JDNTJiWDdxL25FYTkrdFE5?=
- =?utf-8?B?MXliWStSWVM3bllIQVk1b204QkdLbEtaVUZYdGkvWUVHNnk1QTBtZGdCVkgx?=
- =?utf-8?B?YUxJMGtiTEIwQW8yeS9NM05UekIycE9PdHhCUXFaTDkyZXN1UEhqK2ZNa21w?=
- =?utf-8?B?eGJ4RkxyQytpNU5ESWxwaWdKSDZiSC82OWFjWW16UXFJUE9GS1NMb1pibFVU?=
- =?utf-8?B?dDRMVHhlRE1ITnNZZFBDUlFBSFI4UTNMZFc2azdTNFErbDNZeG9QUU84S2Ri?=
- =?utf-8?B?WVIvbEYxdU14Y3pwS1lQWDZBRk55aVRPYU91b1FEN2dERE9GVVRsclhjN2pj?=
- =?utf-8?B?cmhYRHpJaVBOOGEyL0hnU29Db2tHTEt1aVZ2VTZ6Zm5TNkFKQVdHUmY0anYx?=
- =?utf-8?B?QTVIdWZTWFIzbU5tVE4veUJiRjdWZ3NIN1N6RTVncmk2Q2U1bEtkL0RQQldk?=
- =?utf-8?B?bUMrZFROQW9kemdNUzQ0RDBsN3kzREU5L2lqVzhJdmZVN1FMcDRHRE03Z0pl?=
- =?utf-8?B?U2tEU3F2WCtQRUtMcXY3cC9BanZhRWhQNmlTTWlvRWtxL283bjdDY1IvQllG?=
- =?utf-8?B?cmpMd3FWK1ZxbG43emc1dGxqY2g3TG51UEUxUTNidXYycEs0dVAvOU8xUjNP?=
- =?utf-8?B?ekZ6dUFNZnRDMHB6WWJjQWkzZ2pNQTMyMmtUc1Rrd3hZdWZrbHBCQmlvcll6?=
- =?utf-8?B?MTl4eFZaMXF4T0dMYUMraGR1dkZuc2kvdm41UE1iWXdPSlRIbGdtVUduN2tV?=
- =?utf-8?B?Ynh0eHV4K3FjOTBZNU5hTUxGdDNuRWVZS3N5WnZjZWFPZzg0dkljSlNzK1Jk?=
- =?utf-8?B?eGR6OFhtZ1pHenl3VVY1b3lJWm5ZWUIwMGdtbTcwNHZpQ240c3lYckE3Wk5C?=
- =?utf-8?B?NzNBQXhtSFFsKytMWTBJeDZKZFJNcGRpTWFDYjBFVXRMM24zWnlrRGxJTE5Z?=
- =?utf-8?B?dUJnQ1F6N3pvdS9SYkZnYzhIWmErYmpvVXNSYjFneXZSdkhjdkZ4K2ppUEhi?=
- =?utf-8?B?S0E0ck5RS2szdW1pdXZIeWVWSW1acEUzZjFxNHV5UUFkY2VHSXB3U2VZdjV6?=
- =?utf-8?B?cHFMN013UjNrWk93SUZpUT09?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8876.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dXFUM0EwdnBCNkdadjRMK1JSZlduSi9FOEtpNnhkNnhxRTM3MWNNTTJUY1Jq?=
- =?utf-8?B?enFHWlFKeHNVUmNseWhVQnovR2xyNm5oZy9kVldjdTBrZGJtV3hsdFZoSmpz?=
- =?utf-8?B?bmhuUmZXTUFTS2M0Y21DeU9oSGkweDFRK0RJN1VJcDBiaHpveTc4eG9IejRl?=
- =?utf-8?B?NjRPSUw3dU82VG5VWHZmNnZJU0doTTlqRU9GMVBtanQzRUcrVi85VTV4WE93?=
- =?utf-8?B?ODNJc0J3Tm5YS05hdVhYRTdnVU1mMzVja2xUOE5oMFNhdDNGcU8xNnU4eEpt?=
- =?utf-8?B?Um16dEdLd0tJelZRQzJSZEF1YVlPc28zcHY3MmlBR1ZSOWxFdFJyNHRvSjFO?=
- =?utf-8?B?amtnTlBkV0ZDa3UzMisyVmlhMVczeVl1ZjQyVDRLUExtTm5ZbE9MKzdWZ213?=
- =?utf-8?B?aHRxTU5VbjJwUGJmTnMwWjljd09FWG90azFiWmdkdjRWdmRzNjJIbTU0alFs?=
- =?utf-8?B?cFJDSzNNbDRQQVBIa0dnL2JIL0lTbDlVZlEzSk1kRUFRKzlOaGVuNXVXVm0v?=
- =?utf-8?B?b3c5ZCtDdlltVGJmVnkxblJLRXY4NjlXa2dRRjJQNjJ2SEFhbnhtS2pYcTJJ?=
- =?utf-8?B?ZlYyVTRNaERYZWdnQ3VBd05xUkZuRkxLblBzRFhicFZQN2FXMlgxbmFtUVRR?=
- =?utf-8?B?Qy9JdFMxRTd1ZHJpbWpXY2lpS0d6N3pBZHNtc3FoNHM2L0NYQ1E0OFBGblR6?=
- =?utf-8?B?b0h1QzFqaWtZaDdUQVYyd2RzOWF0RUlpdGV1cTA2azh0a3pQbFhISkcwdkYz?=
- =?utf-8?B?Q0NEQWZkNEVqcnRYckE4Z0YvUXEvWFZyR2J4Y3pZeUJOR1RWc0NWbmo2Z2ZX?=
- =?utf-8?B?UVJlQU40RzNEMEpTT0tKNFByd2ozODZkR3JUZ3hsdVZpK2wyUnI0QXhuRlFw?=
- =?utf-8?B?Z3lpZWpMUlpNdXlrblFRZHE0ZVpYaW1lZmJSckFLRWVBWk8wNFlmcWZJeHd4?=
- =?utf-8?B?NEdzQ2RSckppTU9FSUlQVGpUbS9XOG9nNFVibjI1bWVVekc1cWU5VTFwNFJi?=
- =?utf-8?B?U1R1QWN5MjlKT3BqaG10MHlqVWEyM3c0NDlUV3lRV2twenJGRWIwdW0yYThH?=
- =?utf-8?B?K2pTNDdjZ2FkczNoZVEzdU5CYTNPdkV1clpiVnQvZkt2N0hqMUtNMk00dWxu?=
- =?utf-8?B?ZXQ0Zk1XZU9VbFlTaURxc2RnTU1JQytWSThJZmxJNkZOb3BlYnJOYXhIMyth?=
- =?utf-8?B?eGJMdHhoeW5QUGtYNXRuakh1R0hlSTlNTzU1dmxNMndUdkwwZ1FrZFc2S0VK?=
- =?utf-8?B?UzkrYmpqSUp0V0VTd2lkSmQ0R1A5Ly9KRmh1dUtVeXhkSm5HWTIxYVpVYWZL?=
- =?utf-8?B?andkdWpLeSs4RlZuc0w5VXJsQTlEcnY1UlNwQzFiUzRqTDRhNjJ2SldwdkRq?=
- =?utf-8?B?NktCZjNuY2pzT1BCMERKSEFic3dIVWkyZlRXTHozYXY0cXZ1Y2tuMUtiNS9j?=
- =?utf-8?B?c1FES0w2MTV0S0Q3Z3VUbHpFVmhPaWs0SmJHb2EyZ1dGcEpNcW1JR2NqWmlm?=
- =?utf-8?B?NzFHKzlQMUZiNndSSHRldmp4RUd0dk1UbDl0ODN0M2l4cWF5ZjdrOGNKZ2tZ?=
- =?utf-8?B?NTdGTkI0czNxTWxPT1l1NThKbWtXVjVRRjg2UVRocngzRlhhU3BjQzlzcHFQ?=
- =?utf-8?B?Tjc3SFRZMDU1b2d6dXhIeWs5QTdVZElKTmt1bjJWYnZhc0UvTUtaSXBwYysy?=
- =?utf-8?B?ZDk4bU0wZmxrbnZXVitpRHd6dXo1YlJaSm1Tb0J2eVMrd2ZlMW5nYStGak5l?=
- =?utf-8?B?NXRPVitUVXFNOXcxZnVmZ2dXUllzcys4KzF4c1pRdU5kTS9JK2pqcmIvSmc2?=
- =?utf-8?B?US96STVsVEdDbk1lcXVtWGVBVjJzQVVDc2MvaXpyRDcyTnV1eTdUMEQ2YU1i?=
- =?utf-8?B?OW9uZFRKQWNGY09DMFVlOGxnTFdMc1VzVUNaalViU29oTlpya2ZPbkVLVDd3?=
- =?utf-8?B?dzVFNTNaaVRPYS9DdWhRYzhnaGpoNk12b2t3OVpXSisxSWhHY2NESC9rS2tH?=
- =?utf-8?B?MENkYmloT2Z5Zi9OOTJwdUlJMDZHK09QMGJOYmZwTDhoSDRQWDJISWNRVUNG?=
- =?utf-8?B?MlZXZXI2NVB3Ukp2cjVUMzhvVlVRNytablgrd3d5L2ovS3BWVWV6K0NXTm9Q?=
- =?utf-8?Q?4JjiUNuDGU0/tQZIroRxx5cj/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69808da6-1c21-4f0d-0213-08dcad9035f7
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8876.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2024 16:30:07.3147
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T2Cuao04v6I4PxL4lBuW8ZdbbJ5T3YsRRFQimLfxmY4qf5WndoygVhHCc7Np+uo4bRkjY74s10NkxzExq3Zffw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8897
+X-Inumbo-ID: 9ab4cee9-4b6c-11ef-bc00-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1722011529; x=1722616329; darn=lists.xenproject.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=45nvN7EPr/hhNIhud3ZozczxUmsCkPjNs4KnECSaARs=;
+        b=lGMjMqgstn89lszWdqT0a7QY7p3yj1g26CAOZa+8OmL5PvHsrF8rTdvh6B7FgfH5O2
+         Ty51HNRwqYzTuW1fHp0oRrkwllPDIkLPuqGzICpEu1N10shbUJBh9AJLIXpdaxwpt8yD
+         066IuBbbsz8Qp13zz7tRaWCyJe9mOB55q60f4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722011529; x=1722616329;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=45nvN7EPr/hhNIhud3ZozczxUmsCkPjNs4KnECSaARs=;
+        b=IgpchISYS587Ujlf0ZISJ1npOSals0nRJaB3kRsoSgpEoc0WmPbh9Co2BYfzX32dHI
+         +lsUap0L1+zNabf/hp14wHOz0vpxpzPu0FWSmc35P+AmHVDGWI5pak59JAvN8QKmQIbB
+         Xpl+MRd/Q+fOaW+hdAuQYkHH4P+G8JWTH5LeX8eaCqVO633ZzY0DDvtpHs7DByEvorys
+         tPbkXhydcsHqXElG797OMBqZMGWcSKSDOYrRQc2zDsOKvB8yYTyc/+ldeZqSnjfGben6
+         4q6388/gzYApy3zzb9y/Pr6ii3LUhthZQWH1pslme1GDKN4PTi14xrDZLMNRfjosgx5c
+         jQNw==
+X-Forwarded-Encrypted: i=1; AJvYcCXbuhyB9BOWXEIuYJmKrB4SIm5s25HYC8Bqr0aIV3dwyEBQzyBNhAesWQYoKbQIJ9Fr6PLSJvBzPy39w1dXwLCkQ6ff1b5P3Q8Fpu5K70o=
+X-Gm-Message-State: AOJu0Yz4F6905i7Mz2ObrSNpiNoOy6DEHkheUFkBby5Z5eh+tpKn0oep
+	XAzSJUmkz0890s8HlsMfUDfXLTzZ/dpl8XUaz8cuT/rTDCpIvkIvJbjEgBlEZ1g=
+X-Google-Smtp-Source: AGHT+IHF7/UohxQFGXt4cSthc6lhVaRDfVltT5QW9nTfHOoG03fpZIIpzPyUvvh0hB/ZhNtU2itBAw==
+X-Received: by 2002:a50:cd18:0:b0:5a3:b866:eaee with SMTP id 4fb4d7f45d1cf-5ac631afba8mr4490748a12.7.1722011529170;
+        Fri, 26 Jul 2024 09:32:09 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 26 Jul 2024 17:32:07 +0100
+Message-Id: <D2ZM52IVW8FG.7497GL0FA95Z@cloud.com>
+To: <paul@xen.org>, "Xen-devel" <xen-devel@lists.xenproject.org>
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Subject: Re: [PATCH] x86/viridian: Clarify some viridian logging strings
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+X-Mailer: aerc 0.17.0
+References: <20240726145200.1991-1-alejandro.vallejo@cloud.com>
+ <e757eaeb-a10f-423e-a914-ec1d77ee0491@xen.org>
+In-Reply-To: <e757eaeb-a10f-423e-a914-ec1d77ee0491@xen.org>
 
-
-On 7/26/2024 12:44 AM, Jan Beulich wrote:
->> +  fatal "Could not find ${1} linker script. Must be run after arm/x86 build."
-> ... why you have "arm/x86" there when the message already includes ${1}.
-> That'll simply go stale (and unnoticed) when PPC and/or RISC-V make further
-> progress. Actually in usage() I'm similarly uncertain you want to mention
-> the two architectures explicitly. Just say <arch> there? Happy to make
-> adjustments while committing, so long as you agree.
+On Fri Jul 26, 2024 at 4:11 PM BST, Paul Durrant wrote:
+> On 26/07/2024 15:52, Alejandro Vallejo wrote:
+> > It's sadically misleading to show an error without letters and expect
+> > the dmesg reader to understand it's in hex.
 >
-> Jan
+> That depends on who's doing the reading.
+>
+> > The patch adds a 0x prefix
+> > to all hex numbers that don't already have it.
+> >=20
+> > On the one instance in which a boolean is printed as an integer, print
+> > it as a decimal integer instead so it's 0/1 in the common case and not
+> > misleading if it's ever not just that due to a bug.
+> >=20
+> > While at it, rename VIRIDIAN CRASH to VIRIDIAN GUEST_CRASH. Every membe=
+r
+> > of a support team that looks at the message systematically believes
+> > "viridian" crashed,
+>
+> ... which suggests they need educating as to what 'viridian' is (or was).
+>
 
-OK, I see your point and I agree with both changes.
+Can't argue with you there. But if a minor cosmetic tweak to a dmesg string
+clarifies a matter without further explanation it's imo a net positive chan=
+ge.
 
-Victor
+> > which is absolutely not what goes on. It's the guest
+> > asking the hypervisor for a sudden shutdown because it crashed, and
+> > stating why.
+> >=20
+> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> > ---
+> > Still going through its Gitlab pipeline
+> >=20
+> > ---
+> >   xen/arch/x86/hvm/viridian/synic.c    | 2 +-
+> >   xen/arch/x86/hvm/viridian/viridian.c | 9 +++++----
+> >   2 files changed, 6 insertions(+), 5 deletions(-)
+> >=20
+> > diff --git a/xen/arch/x86/hvm/viridian/synic.c b/xen/arch/x86/hvm/virid=
+ian/synic.c
+> > index 3375e55e95ca..c3dc573b003d 100644
+> > --- a/xen/arch/x86/hvm/viridian/synic.c
+> > +++ b/xen/arch/x86/hvm/viridian/synic.c
+> > @@ -172,7 +172,7 @@ int viridian_synic_wrmsr(struct vcpu *v, uint32_t i=
+dx, uint64_t val)
+> >           vector =3D new.vector;
+> >           vv->vector_to_sintx[vector] =3D sintx;
+> >  =20
+> > -        printk(XENLOG_G_INFO "%pv: VIRIDIAN SINT%u: vector: %x\n", v, =
+sintx,
+> > +        printk(XENLOG_G_INFO "%pv: VIRIDIAN SINT%u: vector: %#x\n", v,=
+ sintx,
+> >                  vector);
+> >  =20
+> >           *vs =3D new;
+> > diff --git a/xen/arch/x86/hvm/viridian/viridian.c b/xen/arch/x86/hvm/vi=
+ridian/viridian.c
+> > index 0496c52ed5a2..21480d9ee700 100644
+> > --- a/xen/arch/x86/hvm/viridian/viridian.c
+> > +++ b/xen/arch/x86/hvm/viridian/viridian.c
+> > @@ -253,7 +253,7 @@ static void dump_guest_os_id(const struct domain *d=
+)
+> >       goi =3D &d->arch.hvm.viridian->guest_os_id;
+> >  =20
+> >       printk(XENLOG_G_INFO
+> > -           "d%d: VIRIDIAN GUEST_OS_ID: vendor: %x os: %x major: %x min=
+or: %x sp: %x build: %x\n",
+> > +           "d%d: VIRIDIAN GUEST_OS_ID: vendor: %#x os: %#x major: %#x =
+minor: %#x sp: %#x build: %#x\n",
+> >              d->domain_id, goi->vendor, goi->os, goi->major, goi->minor=
+,
+> >              goi->service_pack, goi->build_number);
+> >   }
+> > @@ -264,7 +264,7 @@ static void dump_hypercall(const struct domain *d)
+> >  =20
+> >       hg =3D &d->arch.hvm.viridian->hypercall_gpa;
+> >  =20
+> > -    printk(XENLOG_G_INFO "d%d: VIRIDIAN HYPERCALL: enabled: %x pfn: %l=
+x\n",
+> > +    printk(XENLOG_G_INFO "d%d: VIRIDIAN HYPERCALL: enabled: %u pfn: %#=
+lx\n",
+> >              d->domain_id,
+> >              hg->enabled, (unsigned long)hg->pfn);
+> >   }
+> > @@ -372,7 +372,8 @@ int guest_wrmsr_viridian(struct vcpu *v, uint32_t i=
+dx, uint64_t val)
+> >           d->shutdown_code =3D SHUTDOWN_crash;
+> >           spin_unlock(&d->shutdown_lock);
+> >  =20
+> > -        gprintk(XENLOG_WARNING, "VIRIDIAN CRASH: %lx %lx %lx %lx %lx\n=
+",
+> > +        gprintk(XENLOG_WARNING,
+> > +                "VIRIDIAN GUEST_CRASH: %#lx %#lx %#lx %#lx %#lx\n",
+>
+> Honestly this change should be unnecessary, but since this is all=20
+> cosmetic...
+>
+> Reviewed-by: Paul Durrant <paul@xen.org>
+>
 
+Thanks
+
+> >                   vv->crash_param[0], vv->crash_param[1], vv->crash_par=
+am[2],
+> >                   vv->crash_param[3], vv->crash_param[4]);
+> >           break;
+> > @@ -1056,7 +1057,7 @@ void viridian_dump_guest_page(const struct vcpu *=
+v, const char *name,
+> >       if ( !vp->msr.enabled )
+> >           return;
+> >  =20
+> > -    printk(XENLOG_G_INFO "%pv: VIRIDIAN %s: pfn: %lx\n",
+> > +    printk(XENLOG_G_INFO "%pv: VIRIDIAN %s: pfn: %#lx\n",
+> >              v, name, (unsigned long)vp->msr.pfn);
+> >   }
+> >  =20
+
+Cheers,
+Alejandro
 
