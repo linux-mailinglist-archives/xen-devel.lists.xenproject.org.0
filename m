@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 501A293D63C
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 17:38:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765593.1176270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7282A93D6E3
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 18:27:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765683.1176340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXN1f-0000XG-Gc; Fri, 26 Jul 2024 15:38:35 +0000
+	id 1sXNlf-0001QQ-GV; Fri, 26 Jul 2024 16:26:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765593.1176270; Fri, 26 Jul 2024 15:38:35 +0000
+Received: by outflank-mailman (output) from mailman id 765683.1176340; Fri, 26 Jul 2024 16:26:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXN1f-0000Vm-DG; Fri, 26 Jul 2024 15:38:35 +0000
-Received: by outflank-mailman (input) for mailman id 765593;
- Fri, 26 Jul 2024 15:38:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sXNlf-0001Nl-DG; Fri, 26 Jul 2024 16:26:07 +0000
+Received: by outflank-mailman (input) for mailman id 765683;
+ Fri, 26 Jul 2024 16:26:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Bxzg=O2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sXMva-00084T-CI
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 15:32:18 +0000
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [2607:f8b0:4864:20::82e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3ce06ce3-4b64-11ef-8776-851b0ebba9a2;
- Fri, 26 Jul 2024 17:32:16 +0200 (CEST)
-Received: by mail-qt1-x82e.google.com with SMTP id
- d75a77b69052e-44fe11dedb3so3920871cf.1
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 08:32:16 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-44fe817b704sm14134541cf.49.2024.07.26.08.32.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jul 2024 08:32:14 -0700 (PDT)
+ <SRS0=P8ZK=O2=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sXNle-0001Nf-3B
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 16:26:06 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bf236d53-4b6b-11ef-bc00-fd08da9f4363;
+ Fri, 26 Jul 2024 18:26:01 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a7a9a369055so201938666b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 09:26:01 -0700 (PDT)
+Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acad91005sm193463566b.173.2024.07.26.09.26.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Jul 2024 09:26:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,121 +44,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ce06ce3-4b64-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: bf236d53-4b6b-11ef-bc00-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722007935; x=1722612735; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1722011161; x=1722615961; darn=lists.xenproject.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ujxzWIZCxxgOdDMzOO3f1hDHb8R0sblL5/6JViBiwPw=;
-        b=uFw+QpwwhbidcC77uubDdoH10eC9LJ8xXKwzJft22lAaUcosgJsLS7RCHZUjkpVGAS
-         iHxdSEKLPSAVfDq255QRkfR+413yKhucswkHIcSknLgWYBGE4MmbR+de0Bt8hlzFGdiX
-         ZzeB5uikKdL/4lSZILCpvqB1FENyTjSOctGUY=
+        bh=YlGYXb7vpgE153wxJcUKemLIuYFS/C4BxEM1AQOl8rI=;
+        b=XPu5sO25kfQLAKeiqfTO8Cjz/+hjJssmE8s6faUix8Rw2yCSGxeLE9vefSZd+693l0
+         78ZVYWp8j1WGYLDnrtqiiFWi0/Mvf/0lWbHC+bxs9ruG5R51RkCIrSHjOYokvYRVYgv1
+         DAeMN7h7wX9P76VxBQiuzVEFcrUMbIAlzaOw8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722007935; x=1722612735;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ujxzWIZCxxgOdDMzOO3f1hDHb8R0sblL5/6JViBiwPw=;
-        b=h2KjDLnxAGZW+OlhgD9z0thvgimw98plLnZsK8n6WhBNykZpgFPE0yIgClpwHRXICn
-         l628cNbawypjDA8dH4Pyx/Q0gWifQ2Pg+5R7tnpPn4MexWDR258kndkiajLvqiL8qnqY
-         ciEqWudbTUJU3ciM2Jdd0CM/ni8HxsP29/tdrXUPqfV+wVWGfERqer4g6C+O3FLGkPt5
-         Grrwy7dZxWBDVdogq6mTW2zuXwU7tjqJTopHpR3TUnicOCGAR3UXF/O/BCv24Guxn5Uv
-         OEmXsWMmomjZspvFX0kS6jgTc094fdkWYzEQQ/BRvJjtUbEAEnxqmCzDks1OcUTOWaZi
-         HBiA==
-X-Gm-Message-State: AOJu0YyJ85eMMOJGVyTymBUXyuCB0NWg8/g4RTL+8PlHl0TuF6AIKWmI
-	7KVAGV9N8L+mGNfiSJFAQbiwZapPXzo0JX10Y0GsAPj7PqvmpcQrMdXE/UzPkXNjieVbstlAyyJ
-	T
-X-Google-Smtp-Source: AGHT+IEN0Eq8CDQ5Cb603qPnp/JwUedIQCyO4aYdsNBLQFTLNZuf7mCOphfab1I5CFzTJfvm3Gvhew==
-X-Received: by 2002:a05:622a:1309:b0:447:df6b:b8c5 with SMTP id d75a77b69052e-45004db298amr1640751cf.33.1722007935174;
-        Fri, 26 Jul 2024 08:32:15 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: alejandro.vallejo@cloud.com,
-	Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 22/22] x86/mm: zero stack on stack switch or reset
-Date: Fri, 26 Jul 2024 17:22:06 +0200
-Message-ID: <20240726152206.28411-23-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240726152206.28411-1-roger.pau@citrix.com>
-References: <20240726152206.28411-1-roger.pau@citrix.com>
-MIME-Version: 1.0
+        d=1e100.net; s=20230601; t=1722011161; x=1722615961;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=YlGYXb7vpgE153wxJcUKemLIuYFS/C4BxEM1AQOl8rI=;
+        b=k6RJ5BN4bl3CSNsdE2cxmdXz+5B8xgEo9gu4DjZ7nvTkJOxz5pu1kpwioQD8SF9tZP
+         qKdTRO9G8ZJn4PJITWSE2sH7cctzuBOg/tga7yK3NRuycUVPVAehHNb6my0mTTtoBkZd
+         f05JFUKVuiBZSw+RBgGOd0Kx/090s0vHMe6lZlEim44BubvPP+ZXlW8XOjYTlINsq0vn
+         pof8D6G1V9T6PDulTXz06X+sRLl+urTPnTZOqsMt9n8/Q7OQmWnB3famSiHco+6n3EQP
+         jQcLPDBIC5GsNpqbp5cD1r5VtMmKNxCYADsKTEH6BgMDSf/qlqXiUVQ8T2tT9Dq6n8X4
+         /LWg==
+X-Forwarded-Encrypted: i=1; AJvYcCXpktXGW90YflIcrrxdh7wxqG2Regy7CpKGwltkWgZ514zT6l4zUsO+nl7dWfntlvV1WtRyfxt8khFij8zhUQ4Xx6ucyp+uqkNRTHYzgB8=
+X-Gm-Message-State: AOJu0Yyf+hev+xEnQpdcPZuiz6mzzypu1HMGpM0cRTmVtmdPKZGI06F+
+	gnRyHkWrFA4Phi/LYPfrfj4/JZl856BMK6cYMt0yGxRryEkRc355L+7S74MXKb3BBDwnqFQfhs+
+	pyq4=
+X-Google-Smtp-Source: AGHT+IHwu4GZE1g+GQ/O/7EBDDYdZOWkGfJOmxAxidHBgWVaOYRM9eaEY2OMzyd5+7KItSHVG0cstA==
+X-Received: by 2002:a17:907:6d01:b0:a7a:a06b:eec3 with SMTP id a640c23a62f3a-a7d3ff9ed50mr1933366b.23.1722011160676;
+        Fri, 26 Jul 2024 09:26:00 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Fri, 26 Jul 2024 17:25:58 +0100
+Message-Id: <D2ZM0D609TOQ.2GQQWR1QALUPA@cloud.com>
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] x86/altcall: further refine clang workaround
+X-Mailer: aerc 0.17.0
+References: <20240725105634.16825-1-roger.pau@citrix.com>
+ <9ecd3a39-55bf-4a49-9f45-1e0abfad353a@suse.com> <ZqJnPvL1ilDDzM9V@macbook>
+ <a638b0e1-07a3-495c-b3b9-e450a50f9429@suse.com> <ZqNQwM3U8S5q-kg5@macbook>
+ <0f6b446a-0dda-4e59-807b-c0c0bcdf78bf@suse.com> <ZqNVs97wexqd5trA@macbook>
+ <4e2117f9-2a68-4032-9d1a-09965f97085f@suse.com>
+ <D2ZJA8MODIO2.9JHFXZO8LW7Z@cloud.com>
+ <D2ZJFUKTDIAL.2OE4EHLK6GGIB@cloud.com> <ZqO-RFZHdCrIuRok@macbook>
+In-Reply-To: <ZqO-RFZHdCrIuRok@macbook>
 
-With the stack mapped on a per-CPU basis there's no risk of other CPUs being
-able to read the stack contents, but vCPUs running on the current pCPU could
-read stack rubble from operations of previous vCPUs.
+On Fri Jul 26, 2024 at 4:18 PM BST, Roger Pau Monn=C3=A9 wrote:
+> On Fri, Jul 26, 2024 at 03:25:08PM +0100, Alejandro Vallejo wrote:
+> > On Fri Jul 26, 2024 at 3:17 PM BST, Alejandro Vallejo wrote:
+> > > On Fri Jul 26, 2024 at 9:05 AM BST, Jan Beulich wrote:
+> > > > On 26.07.2024 09:52, Roger Pau Monn=C3=A9 wrote:
+> > > > > On Fri, Jul 26, 2024 at 09:36:15AM +0200, Jan Beulich wrote:
+> > > > >> On 26.07.2024 09:31, Roger Pau Monn=C3=A9 wrote:
+> > > > >>> On Thu, Jul 25, 2024 at 05:00:22PM +0200, Jan Beulich wrote:
+> > > > >>>> On 25.07.2024 16:54, Roger Pau Monn=C3=A9 wrote:
+> > > > >>>>> On Thu, Jul 25, 2024 at 03:18:29PM +0200, Jan Beulich wrote:
+> > > > >>>>>> On 25.07.2024 12:56, Roger Pau Monne wrote:
+> > > > >>>>>>> --- a/xen/arch/x86/include/asm/alternative.h
+> > > > >>>>>>> +++ b/xen/arch/x86/include/asm/alternative.h
+> > > > >>>>>>> @@ -184,11 +184,11 @@ extern void alternative_branches(void=
+);
+> > > > >>>>>>>   * https://github.com/llvm/llvm-project/issues/82598
+> > > > >>>>>>>   */
+> > > > >>>>>>>  #define ALT_CALL_ARG(arg, n)                              =
+              \
+> > > > >>>>>>> -    register union {                                      =
+              \
+> > > > >>>>>>> -        typeof(arg) e[sizeof(long) / sizeof(arg)];        =
+              \
+> > > > >>>>>>> -        unsigned long r;                                  =
+              \
+> > > > >>>>>>> +    register struct {                                     =
+              \
+> > > > >>>>>>> +        typeof(arg) e;                                    =
+              \
+> > > > >>>>>>> +        char pad[sizeof(void *) - sizeof(arg)];           =
+              \
+> > > > >>>>>>
+> > > > >>>>>> One thing that occurred to me only after our discussion, and=
+ I then forgot
+> > > > >>>>>> to mention this before you would send a patch: What if sizeo=
+f(void *) =3D=3D
+> > > > >>>>>> sizeof(arg)? Zero-sized arrays are explicitly something we'r=
+e trying to
+> > > > >>>>>> get rid of.
+> > > > >>>>>
+> > > > >>>>> I wondered about this, but I though it was only [] that we we=
+re trying
+> > > > >>>>> to get rid of, not [0].
+> > > > >>>>
+> > > > >>>> Sadly (here) it's actually the other way around, aiui.
+> > > > >>>
+> > > > >>> The only other option I have in mind is using an oversized arra=
+y on
+> > > > >>> the union, like:
+> > > > >>>
+> > > > >>> #define ALT_CALL_ARG(arg, n)                                   =
+         \
+> > > > >>>     union {                                                    =
+         \
+> > > > >>>         typeof(arg) e[(sizeof(long) + sizeof(arg) - 1) / sizeof=
+(arg)];  \
+> > > > >>>         unsigned long r;                                       =
+         \
+> > > > >>>     } a ## n ## __  =3D {                                      =
+           \
+> > > > >>>         .e[0] =3D ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *))=
+; (arg); })\
+> > > > >>>     };                                                         =
+         \
+> > > > >>>     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n =
+) =3D      \
+> > > > >>>         a ## n ## __.r
+> > > > >>
+> > > > >> Yet that's likely awful code-gen wise?
+> > > > >=20
+> > > > > Seems OK: https://godbolt.org/z/nsdo5Gs8W
+> > > >
+> > > > In which case why not go this route. If the compiler is doing fine =
+with
+> > > > that, maybe the array dimension expression could be further simplif=
+ied,
+> > > > accepting yet more over-sizing? Like "sizeof(void *) / sizeof (arg)=
+ + 1"
+> > > > or even simply "sizeof(void *)"? Suitably commented of course ...
+> > > >
+> > > > >> For the time being, can we perhaps
+> > > > >> just tighten the BUILD_BUG_ON(), as iirc Alejandro had suggested=
+?
+> > > > >=20
+> > > > > My main concern with tightening the BUILD_BUG_ON() is that then I
+> > > > > would also like to do so for the GCC one, so that build fails
+> > > > > uniformly.
+> > > >
+> > > > If we were to take that route, then yes, probably should constrain =
+both
+> > > > (with a suitable comment on the gcc one).
+> > > >
+> > > > Jan
+> > >
+> > > Yet another way would be to have an intermediate `long` to cast onto.=
+ Compilers
+> > > will optimise away the copy. It ignores the different-type aliasing r=
+ules in
+> > > the C spec, so there's an assumption that we have -fno-strict-aliasin=
+g. But I
+> > > belive we do? Otherwise it should pretty much work on anything.
+> > >
+> > > ```
+> > >   #define ALT_CALL_ARG(arg, n)                                       =
+       \
+> > >       unsigned long __tmp =3D 0;                                     =
+         \
+> > >       *(typeof(arg) *)&__tmp =3D                                     =
+         \
+> > >           ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })   =
+       \
+> > >       register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =
+=3D __tmp; \
+> > > ```
+> > >
+> > > fwiw, clang18 emits identical code compared with the previous godbolt=
+ link.
+> > >
+> > > Link: https://godbolt.org/z/facd1M9xa
+> > >
+> > > Cheers,
+> > > Alejandro
+> >=20
+> > Bah. s/b/__tmp/ in line15. Same output though, so the point still stand=
+s.
+>
+> Had to adjust it to:
+>
+> #define ALT_CALL_ARG(arg, n)                                             =
+ \
+>     unsigned long a ## n ## __ =3D 0;                                    =
+   \
+>     *(typeof(arg) *)&a ## n ## __ =3D                                    =
+   \
+>         ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); });        =
+ \
+>     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =3D a ##=
+ n ## __
+>
+> So that tmp__ is not defined multiple times for repeated
+> ALT_CALL_ARG() usages.
+>
+> Already tried something like this in the past, but it mixes code with
+> declarations, and that's forbidden in the current C standard that Xen
+> uses:
+>
+> ./arch/x86/include/asm/hvm/hvm.h:665:5: error: mixing declarations and co=
+de is incompatible with standards before C99 [-Werror,-Wdeclaration-after-s=
+tatement]
+>
+> The `*(typeof(arg) *)&__tmp =3D ...` line is considered code, and is
+> followed by further declarations.  Even if we moved both declarations
+> ahead of the assigns it would still complain when multiple
+> ALT_CALL_ARG() instances are used in the same altcall block.
+>
+> Thanks, Roger.
 
-The #DF stack is not zeroed because handling of #DF results in a panic.
+That _was_ forbidden in C89, but it has been allowed since. We have a warni=
+ng
+enabled to cause it to fail even if we always use C99-compatible compilers.=
+ I
+think we should change that.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/include/asm/current.h | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+Regardless, I think it can be worked around. This compiles (otherwise
+untested):
 
-diff --git a/xen/arch/x86/include/asm/current.h b/xen/arch/x86/include/asm/current.h
-index 75b9a341f814..02b4118b03ef 100644
---- a/xen/arch/x86/include/asm/current.h
-+++ b/xen/arch/x86/include/asm/current.h
-@@ -177,6 +177,14 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
- # define SHADOW_STACK_WORK ""
- #endif
- 
-+#define ZERO_STACK                                              \
-+    "test %[stk_size], %[stk_size];"                            \
-+    "jz .L_skip_zeroing.%=;"                                    \
-+    "std;"                                                      \
-+    "rep stosb;"                                                \
-+    "cld;"                                                      \
-+    ".L_skip_zeroing.%=:"
-+
- #if __GNUC__ >= 9
- # define ssaj_has_attr_noreturn(fn) __builtin_has_attribute(fn, __noreturn__)
- #else
-@@ -187,10 +195,24 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
- #define switch_stack_and_jump(fn, instr, constr)                        \
-     ({                                                                  \
-         unsigned int tmp;                                               \
-+        bool zero_stack = current->domain->arch.asi;                    \
-         BUILD_BUG_ON(!ssaj_has_attr_noreturn(fn));                      \
-+        ASSERT(IS_ALIGNED((unsigned long)guest_cpu_user_regs() -        \
-+                          PRIMARY_STACK_SIZE +                          \
-+                          sizeof(struct cpu_info), PAGE_SIZE));         \
-+        if ( zero_stack )                                               \
-+        {                                                               \
-+            unsigned long stack_top = get_stack_bottom() &              \
-+                                      ~(STACK_SIZE - 1);                \
-+                                                                        \
-+            clear_page((void *)stack_top + IST_MCE * PAGE_SIZE);        \
-+            clear_page((void *)stack_top + IST_NMI * PAGE_SIZE);        \
-+            clear_page((void *)stack_top + IST_DB  * PAGE_SIZE);        \
-+        }                                                               \
-         __asm__ __volatile__ (                                          \
-             SHADOW_STACK_WORK                                           \
-             "mov %[stk], %%rsp;"                                        \
-+            ZERO_STACK                                                  \
-             CHECK_FOR_LIVEPATCH_WORK                                    \
-             instr "[fun]"                                               \
-             : [val] "=&r" (tmp),                                        \
-@@ -201,7 +223,13 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
-               ((PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8),               \
-               [stack_mask] "i" (STACK_SIZE - 1),                        \
-               _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__,                \
--                                 __FILE__, NULL)                        \
-+                                 __FILE__, NULL),                       \
-+              /* For stack zeroing. */                                  \
-+              "D" ((void *)guest_cpu_user_regs() - 1),                  \
-+              [stk_size] "c"                                            \
-+              (zero_stack ? PRIMARY_STACK_SIZE - sizeof(struct cpu_info)\
-+                          : 0),                                         \
-+              "a" (0)                                                   \
-             : "memory" );                                               \
-         unreachable();                                                  \
-     })
--- 
-2.45.2
+#define ALT_CALL_ARG(arg, n)
+    register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =3D ({   \
+        unsigned long tmp =3D 0;                                          \
+        *(typeof(arg) *)&a ## n ## __ =3D (arg);                          \
+        BUILD_BUG_ON(sizeof(arg) > sizeof(void *));                     \
+        tmp;                                                            \
+    })
 
+That said, if the oversized temp union works, I'm fine with that too.
+
+Cheers,
+Alejandro
 
