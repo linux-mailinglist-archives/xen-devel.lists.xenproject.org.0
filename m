@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02E2793D5D8
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 17:19:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765500.1176099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2243D93D622
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 17:32:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765508.1176110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXMiJ-0004wX-0Z; Fri, 26 Jul 2024 15:18:35 +0000
+	id 1sXMuq-00087U-8N; Fri, 26 Jul 2024 15:31:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765500.1176099; Fri, 26 Jul 2024 15:18:34 +0000
+Received: by outflank-mailman (output) from mailman id 765508.1176110; Fri, 26 Jul 2024 15:31:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXMiI-0004uU-TY; Fri, 26 Jul 2024 15:18:34 +0000
-Received: by outflank-mailman (input) for mailman id 765500;
- Fri, 26 Jul 2024 15:18:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sXMuq-00084f-52; Fri, 26 Jul 2024 15:31:32 +0000
+Received: by outflank-mailman (input) for mailman id 765508;
+ Fri, 26 Jul 2024 15:31:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Bxzg=O2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sXMiH-0004uO-DY
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 15:18:33 +0000
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [2607:f8b0:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 511daa38-4b62-11ef-bbff-fd08da9f4363;
- Fri, 26 Jul 2024 17:18:32 +0200 (CEST)
-Received: by mail-ot1-x332.google.com with SMTP id
- 46e09a7af769-70446231242so654159a34.1
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 08:18:32 -0700 (PDT)
+ id 1sXMuo-00084T-7o
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 15:31:30 +0000
+Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
+ [2607:f8b0:4864:20::f33])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1fd2e656-4b64-11ef-8776-851b0ebba9a2;
+ Fri, 26 Jul 2024 17:31:28 +0200 (CEST)
+Received: by mail-qv1-xf33.google.com with SMTP id
+ 6a1803df08f44-6b79b93a4c9so6710386d6.1
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 08:31:28 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6bb3f8ddd7esm17581416d6.15.2024.07.26.08.18.29
+ 6a1803df08f44-6bb3f8f63e7sm17685666d6.30.2024.07.26.08.31.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jul 2024 08:18:30 -0700 (PDT)
+ Fri, 26 Jul 2024 08:31:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,168 +44,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 511daa38-4b62-11ef-bbff-fd08da9f4363
+X-Inumbo-ID: 1fd2e656-4b64-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722007110; x=1722611910; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=z28BwUqlGfuCYZiEq7Wrt7AnHoiKBZZZBXeirgUlkr8=;
-        b=TkjC5WtjVwJIs1W7alLUkl/36gyEom2diQomGGT504luUbUtVQYXggSFuH5fR7BM6x
-         KPHalfheE0dd0RZXN+j0TM4zvKXmRe0ICssUAQSyiAHH5kDuC/eLmmL3TcuvuzO6GK9Z
-         TUxFRcXpyXpJ/+WGdHuCox0b3Ja7sknucziy0=
+        d=citrix.com; s=google; t=1722007886; x=1722612686; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=zPU3LlqrtwNZylg0zb4sk1TXfrsqUZcTdsqYRGiXSDU=;
+        b=t0peZe+bVcVHy3LIjXmnGx17aa9LHEFIhf+fyliL7upywGD9s6sawdqD4jLtGmVbBX
+         ZePAOlKUNJ3PXSC38oD3Kv+pMTMRhvQXsUHflnnlJhOFKBbdjR31EHkuprxlvYRNCdTi
+         03uIgaIfj5xjc1wWt4j5biGvSZhFvkMQU90vM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722007110; x=1722611910;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=z28BwUqlGfuCYZiEq7Wrt7AnHoiKBZZZBXeirgUlkr8=;
-        b=XKtDfA2In68QH9cPckx9v5uJioEMzADk6/uMYYy3xhaUfRjTOA007Pb8X0DZmlayUs
-         oZo7Lm3egIwPKbyMvLDdRaSSfx8Vstsdv20N6jHUb1rJ5qShHT15ZDHcHoPesZIoOnsR
-         5XOcrb2oe5s0J6XrQGy84/W4YmhrRPSF0Uew9qebYzCOI4Dk37ZX48janS809XKmR0mx
-         bYpHRfa8tHsF1sLrtaICEL8FcZ3F84uFxu6+iAB2Stb/pjjlbWDLUTa5H6EIFiY8CRTm
-         cutLdMFCgerBQoyMdvypgAK4nzyE8jDNxYsBqv4FKVNGEJj3uOBYe0thU4tIZitSo11r
-         oPQQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW2rkORWTe7TIAjBsUT6XQXquT5slmOS3uAoNT/e/Evm5kpD03gfCb8EleLIU6dZD7UoDN8n7AubAk7/8HC8OHLMLD8kf5OoxDtv80m39I=
-X-Gm-Message-State: AOJu0Yy8U2APONmVSkppmyRg2asLQdRGyFTxfJHlvvhE3oNYlO0s6svg
-	TuOzZWgDp7jix2VJuEwNWdAWk6IvnqJlSI9Wzjh00zHeGtingO0tSvZ/5OR8yxQ=
-X-Google-Smtp-Source: AGHT+IH+SmaLK8ebPDRx7s6q65eASz/4C8sElevQkt8lgTVvHEvUGnaQMFd9PuVAinJB67q/ZTIDRw==
-X-Received: by 2002:a05:6830:6310:b0:709:3462:a4b6 with SMTP id 46e09a7af769-7093462a85bmr7379342a34.9.1722007110460;
-        Fri, 26 Jul 2024 08:18:30 -0700 (PDT)
-Date: Fri, 26 Jul 2024 17:18:28 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
+        d=1e100.net; s=20230601; t=1722007886; x=1722612686;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zPU3LlqrtwNZylg0zb4sk1TXfrsqUZcTdsqYRGiXSDU=;
+        b=lZG94fOM4sZmHNboHSARAqfIWaNijjKp76M/u+XIdpBP+aktD6tmblr4Hz3D+j4Ujt
+         PRf7F1k8EWHmpRSRccqNTqx6nBR3R0b9LKcAz5bnMN7pyDfYrQnukRICJH3PO8kfFVMU
+         bFjSU2pHytMC3WlHbMi0i8juRIEzCXYEEN8VPzPnQVbKkG7A/z8kVFH2t1Z7ce9VHW+q
+         2MRk2DtFBLESrNytsIlvFA2lP9PPPF0K1lc3f4VWQ2jdFpUCfTIoOjggxbrMmqqItSos
+         RazIvinwZ7mLcEjhcORRWHT+BezMa543yqJL4Xa1BGlY2snoUfbXNqkCRp1UjlkRB4O3
+         bz6w==
+X-Gm-Message-State: AOJu0YypAj2ffkLdy2EG+Iat5reCIYEfa1GoFqEYIo5KgYJGPeVr7nvX
+	lDgKZHx64VvVz0le7oYoaSpV/BSMI5xMwE4sZdytgaPujrzWd1k9aKM36gwOlzMJeTfDJRUM267
+	t
+X-Google-Smtp-Source: AGHT+IHU7Vjgt39cEspg360NKE/64h8BaUjvXaT9vcd6mGJ05cMtUQcSlTKWkq+XLt2Tkxsbz8cv+A==
+X-Received: by 2002:ad4:5ece:0:b0:6b5:d95c:692d with SMTP id 6a1803df08f44-6bb3c8cd3b5mr115974516d6.13.1722007886272;
+        Fri, 26 Jul 2024 08:31:26 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: alejandro.vallejo@cloud.com,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/altcall: further refine clang workaround
-Message-ID: <ZqO-RFZHdCrIuRok@macbook>
-References: <20240725105634.16825-1-roger.pau@citrix.com>
- <9ecd3a39-55bf-4a49-9f45-1e0abfad353a@suse.com>
- <ZqJnPvL1ilDDzM9V@macbook>
- <a638b0e1-07a3-495c-b3b9-e450a50f9429@suse.com>
- <ZqNQwM3U8S5q-kg5@macbook>
- <0f6b446a-0dda-4e59-807b-c0c0bcdf78bf@suse.com>
- <ZqNVs97wexqd5trA@macbook>
- <4e2117f9-2a68-4032-9d1a-09965f97085f@suse.com>
- <D2ZJA8MODIO2.9JHFXZO8LW7Z@cloud.com>
- <D2ZJFUKTDIAL.2OE4EHLK6GGIB@cloud.com>
+	Tim Deegan <tim@xen.org>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH 00/22] x86: adventures in Address Space Isolation
+Date: Fri, 26 Jul 2024 17:21:44 +0200
+Message-ID: <20240726152206.28411-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <D2ZJFUKTDIAL.2OE4EHLK6GGIB@cloud.com>
 
-On Fri, Jul 26, 2024 at 03:25:08PM +0100, Alejandro Vallejo wrote:
-> On Fri Jul 26, 2024 at 3:17 PM BST, Alejandro Vallejo wrote:
-> > On Fri Jul 26, 2024 at 9:05 AM BST, Jan Beulich wrote:
-> > > On 26.07.2024 09:52, Roger Pau Monné wrote:
-> > > > On Fri, Jul 26, 2024 at 09:36:15AM +0200, Jan Beulich wrote:
-> > > >> On 26.07.2024 09:31, Roger Pau Monné wrote:
-> > > >>> On Thu, Jul 25, 2024 at 05:00:22PM +0200, Jan Beulich wrote:
-> > > >>>> On 25.07.2024 16:54, Roger Pau Monné wrote:
-> > > >>>>> On Thu, Jul 25, 2024 at 03:18:29PM +0200, Jan Beulich wrote:
-> > > >>>>>> On 25.07.2024 12:56, Roger Pau Monne wrote:
-> > > >>>>>>> --- a/xen/arch/x86/include/asm/alternative.h
-> > > >>>>>>> +++ b/xen/arch/x86/include/asm/alternative.h
-> > > >>>>>>> @@ -184,11 +184,11 @@ extern void alternative_branches(void);
-> > > >>>>>>>   * https://github.com/llvm/llvm-project/issues/82598
-> > > >>>>>>>   */
-> > > >>>>>>>  #define ALT_CALL_ARG(arg, n)                                            \
-> > > >>>>>>> -    register union {                                                    \
-> > > >>>>>>> -        typeof(arg) e[sizeof(long) / sizeof(arg)];                      \
-> > > >>>>>>> -        unsigned long r;                                                \
-> > > >>>>>>> +    register struct {                                                   \
-> > > >>>>>>> +        typeof(arg) e;                                                  \
-> > > >>>>>>> +        char pad[sizeof(void *) - sizeof(arg)];                         \
-> > > >>>>>>
-> > > >>>>>> One thing that occurred to me only after our discussion, and I then forgot
-> > > >>>>>> to mention this before you would send a patch: What if sizeof(void *) ==
-> > > >>>>>> sizeof(arg)? Zero-sized arrays are explicitly something we're trying to
-> > > >>>>>> get rid of.
-> > > >>>>>
-> > > >>>>> I wondered about this, but I though it was only [] that we were trying
-> > > >>>>> to get rid of, not [0].
-> > > >>>>
-> > > >>>> Sadly (here) it's actually the other way around, aiui.
-> > > >>>
-> > > >>> The only other option I have in mind is using an oversized array on
-> > > >>> the union, like:
-> > > >>>
-> > > >>> #define ALT_CALL_ARG(arg, n)                                            \
-> > > >>>     union {                                                             \
-> > > >>>         typeof(arg) e[(sizeof(long) + sizeof(arg) - 1) / sizeof(arg)];  \
-> > > >>>         unsigned long r;                                                \
-> > > >>>     } a ## n ## __  = {                                                 \
-> > > >>>         .e[0] = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })\
-> > > >>>     };                                                                  \
-> > > >>>     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =      \
-> > > >>>         a ## n ## __.r
-> > > >>
-> > > >> Yet that's likely awful code-gen wise?
-> > > > 
-> > > > Seems OK: https://godbolt.org/z/nsdo5Gs8W
-> > >
-> > > In which case why not go this route. If the compiler is doing fine with
-> > > that, maybe the array dimension expression could be further simplified,
-> > > accepting yet more over-sizing? Like "sizeof(void *) / sizeof (arg) + 1"
-> > > or even simply "sizeof(void *)"? Suitably commented of course ...
-> > >
-> > > >> For the time being, can we perhaps
-> > > >> just tighten the BUILD_BUG_ON(), as iirc Alejandro had suggested?
-> > > > 
-> > > > My main concern with tightening the BUILD_BUG_ON() is that then I
-> > > > would also like to do so for the GCC one, so that build fails
-> > > > uniformly.
-> > >
-> > > If we were to take that route, then yes, probably should constrain both
-> > > (with a suitable comment on the gcc one).
-> > >
-> > > Jan
-> >
-> > Yet another way would be to have an intermediate `long` to cast onto. Compilers
-> > will optimise away the copy. It ignores the different-type aliasing rules in
-> > the C spec, so there's an assumption that we have -fno-strict-aliasing. But I
-> > belive we do? Otherwise it should pretty much work on anything.
-> >
-> > ```
-> >   #define ALT_CALL_ARG(arg, n)                                              \
-> >       unsigned long __tmp = 0;                                              \
-> >       *(typeof(arg) *)&__tmp =                                              \
-> >           ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })          \
-> >       register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) = __tmp; \
-> > ```
-> >
-> > fwiw, clang18 emits identical code compared with the previous godbolt link.
-> >
-> > Link: https://godbolt.org/z/facd1M9xa
-> >
-> > Cheers,
-> > Alejandro
-> 
-> Bah. s/b/__tmp/ in line15. Same output though, so the point still stands.
+Hello,
 
-Had to adjust it to:
+The aim of this series is to introduce the functionality required to
+create linear mappings visible to a single pCPU.
 
-#define ALT_CALL_ARG(arg, n)                                              \
-    unsigned long a ## n ## __ = 0;                                       \
-    *(typeof(arg) *)&a ## n ## __ =                                       \
-        ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); });         \
-    register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) = a ## n ## __
+Doing so requires having a per-CPU root page-table (L4), and hence
+requires changes to the HVM monitor tables and shadowing the guest
+selected L4 on PV guests.  As follow ups (and partially to ensure the
+per-CPU mappings work fine) the CPU stacks are switched to use per-CPU
+mappings, so that remote stack contents are not by default mapped on all
+page-tables (note: for this to be true the directmap entries for the
+stack pages would need to be removed also).
 
-So that tmp__ is not defined multiple times for repeated
-ALT_CALL_ARG() usages.
+Patches before patch 12 are either small fixes or preparatory
+non-functional changes in order to accommodate the rest of the series.
 
-Already tried something like this in the past, but it mixes code with
-declarations, and that's forbidden in the current C standard that Xen
-uses:
+Patch 12 introduces a new 'asi' spec-ctrl option, that's used to enable
+Address Space Isolation.
 
-./arch/x86/include/asm/hvm/hvm.h:665:5: error: mixing declarations and code is incompatible with standards before C99 [-Werror,-Wdeclaration-after-statement]
+Patches 13-15 and 20 introduce logic to use per-CPU L4 on HVM and PV
+guests.
 
-The `*(typeof(arg) *)&__tmp = ...` line is considered code, and is
-followed by further declarations.  Even if we moved both declarations
-ahead of the assigns it would still complain when multiple
-ALT_CALL_ARG() instances are used in the same altcall block.
+Patches 16-18 add support for creating per-CPU mappings to the existing
+page-table management functions, map_pages_to_xen() and related
+functions.  Patch 19 introduce helpers for creating per-CPU mappings
+using a fixmap interface.
+
+Finally patches 21-22 add support for mapping the CPU stack in a per-CPU
+fixmap region, and zeroing the stacks on guest context switch.
+
+I've been testing the patches quite a lot using XenRT, and so far they
+seem to not cause regressions (either with spec-ctrl=asi or without it),
+but XenRT no longer tests shadow paging or 32bit PV guests.
+
+This proposal is also missing an interface similar to map_domain_page()
+in order to create per-CPU mappings that don't use a fixmap entry.  I
+thought however that the current content was fair enough for a first
+posting, and that I would like to get feedback on this before building
+further functionality on top of it.
+
+Note that none of the logic introduced in the series removes entries for
+the directmap, so evne when creating the per-CPU mappings the underlying
+physical addresses are fully accessible when using it's linear direct
+map entries.
+
+I also haven't done any benchmarking.  Doesn't seem to cripple
+performance up to the point that XenRT jobs would timeout before
+finishing, that the only objective reference I can provide at the
+moment.
+
+It's likely to still have some rough edges, handle with care.
 
 Thanks, Roger.
+
+Roger Pau Monne (22):
+  x86/mm: drop l{1,2,3,4}e_write_atomic()
+  x86/mm: rename l{1,2,3,4}e_read_atomic()
+  x86/dom0: only disable SMAP for the PV dom0 build
+  x86/mm: ensure L4 idle_pg_table is not modified past boot
+  x86/mm: make virt_to_xen_l1e() static
+  x86/mm: introduce a local domain variable to write_ptbase()
+  x86/spec-ctrl: initialize per-domain XPTI in spec_ctrl_init_domain()
+  x86/mm: avoid passing a domain parameter to L4 init function
+  x86/pv: untie issuing FLUSH_ROOT_PGTBL from XPTI
+  x86/mm: move FLUSH_ROOT_PGTBL handling before TLB flush
+  x86/mm: split setup of the per-domain slot on context switch
+  x86/spec-ctrl: introduce Address Space Isolation command line option
+  x86/hvm: use a per-pCPU monitor table in HAP mode
+  x86/hvm: use a per-pCPU monitor table in shadow mode
+  x86/idle: allow using a per-pCPU L4
+  x86/mm: introduce a per-CPU L3 table for the per-domain slot
+  x86/mm: introduce support to populate a per-CPU page-table region
+  x86/mm: allow modifying per-CPU entries of remote page-tables
+  x86/mm: introduce a per-CPU fixmap area
+  x86/pv: allow using a unique per-pCPU root page table (L4)
+  x86/mm: switch to a per-CPU mapped stack when using ASI
+  x86/mm: zero stack on stack switch or reset
+
+ docs/misc/xen-command-line.pandoc      |  15 +-
+ xen/arch/x86/boot/x86_64.S             |  11 +
+ xen/arch/x86/domain.c                  |  75 +++-
+ xen/arch/x86/domain_page.c             |   2 +-
+ xen/arch/x86/flushtlb.c                |  18 +-
+ xen/arch/x86/hvm/hvm.c                 |  67 ++++
+ xen/arch/x86/hvm/svm/svm.c             |   5 +
+ xen/arch/x86/hvm/vmx/vmcs.c            |   1 +
+ xen/arch/x86/hvm/vmx/vmx.c             |   4 +
+ xen/arch/x86/include/asm/config.h      |   4 +
+ xen/arch/x86/include/asm/current.h     |  38 +-
+ xen/arch/x86/include/asm/domain.h      |   7 +
+ xen/arch/x86/include/asm/fixmap.h      |  50 +++
+ xen/arch/x86/include/asm/flushtlb.h    |   3 +-
+ xen/arch/x86/include/asm/hap.h         |   1 -
+ xen/arch/x86/include/asm/hvm/hvm.h     |   8 +
+ xen/arch/x86/include/asm/hvm/vcpu.h    |   6 +-
+ xen/arch/x86/include/asm/mm.h          |  34 +-
+ xen/arch/x86/include/asm/page.h        |  37 +-
+ xen/arch/x86/include/asm/paging.h      |  18 +
+ xen/arch/x86/include/asm/pv/mm.h       |   8 +
+ xen/arch/x86/include/asm/setup.h       |   1 +
+ xen/arch/x86/include/asm/smp.h         |  12 +
+ xen/arch/x86/include/asm/spec_ctrl.h   |   2 +
+ xen/arch/x86/include/asm/x86_64/page.h |   4 -
+ xen/arch/x86/mm.c                      | 484 ++++++++++++++++++++-----
+ xen/arch/x86/mm/hap/hap.c              |  74 ----
+ xen/arch/x86/mm/paging.c               |   4 +-
+ xen/arch/x86/mm/shadow/common.c        |  42 +--
+ xen/arch/x86/mm/shadow/hvm.c           |  64 ++--
+ xen/arch/x86/mm/shadow/multi.c         |  73 ++--
+ xen/arch/x86/mm/shadow/private.h       |   4 +-
+ xen/arch/x86/pv/dom0_build.c           |  16 +-
+ xen/arch/x86/pv/domain.c               |  28 +-
+ xen/arch/x86/pv/mm.c                   |  52 +++
+ xen/arch/x86/setup.c                   |  55 +--
+ xen/arch/x86/smp.c                     |  29 ++
+ xen/arch/x86/smpboot.c                 |  78 +++-
+ xen/arch/x86/spec_ctrl.c               |  78 +++-
+ xen/arch/x86/traps.c                   |  14 +-
+ xen/common/efi/runtime.c               |  12 +
+ xen/common/smp.c                       |  10 +
+ xen/include/xen/smp.h                  |   5 +
+ 43 files changed, 1198 insertions(+), 355 deletions(-)
+
+-- 
+2.45.2
+
 
