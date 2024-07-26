@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD93093CEE8
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 09:36:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765289.1175886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E692F93CEFA
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2024 09:45:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765298.1175896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXFUy-0006rb-5v; Fri, 26 Jul 2024 07:36:20 +0000
+	id 1sXFce-00006S-Pv; Fri, 26 Jul 2024 07:44:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765289.1175886; Fri, 26 Jul 2024 07:36:20 +0000
+Received: by outflank-mailman (output) from mailman id 765298.1175896; Fri, 26 Jul 2024 07:44:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXFUy-0006pU-2R; Fri, 26 Jul 2024 07:36:20 +0000
-Received: by outflank-mailman (input) for mailman id 765289;
- Fri, 26 Jul 2024 07:36:18 +0000
+	id 1sXFce-0008VQ-Lw; Fri, 26 Jul 2024 07:44:16 +0000
+Received: by outflank-mailman (input) for mailman id 765298;
+ Fri, 26 Jul 2024 07:44:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Bo/X=O2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sXFUw-0006pO-Q7
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 07:36:18 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ id 1sXFcc-0008VK-PG
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2024 07:44:14 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bea84b1c-4b21-11ef-bbff-fd08da9f4363;
- Fri, 26 Jul 2024 09:36:17 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a7aa086b077so131673366b.0
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 00:36:17 -0700 (PDT)
+ id da4cb01b-4b22-11ef-bbff-fd08da9f4363;
+ Fri, 26 Jul 2024 09:44:13 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a7a843bef98so147565266b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2024 00:44:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad4ae4dsm143833966b.136.2024.07.26.00.36.16
+ a640c23a62f3a-a7acada27ddsm143617566b.184.2024.07.26.00.44.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Jul 2024 00:36:16 -0700 (PDT)
+ Fri, 26 Jul 2024 00:44:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bea84b1c-4b21-11ef-bbff-fd08da9f4363
+X-Inumbo-ID: da4cb01b-4b22-11ef-bbff-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1721979377; x=1722584177; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1721979853; x=1722584653; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=L+XrnBvO28HTfSsxjfwSjzdC3/Q1fvXAJzgvBQwjoVo=;
-        b=ZXjDBGl47crZuIgtdICKNYPN9QMOmrWapbkHMJniwbKzvl1FyFgHj3EmO609LDo5t9
-         1m5bmV2zcvDy1hdp2X9nCo6ZCwux04CcH2gViTlqAvid86qIXU2nm3O4XZFI0iGgCnmU
-         fCMXdPXGXkKM6yki2m2nbhIzcQy7XPr+utwH99W9SCWbqL5HVywuYr8z7LoItMOgrf7c
-         sbe8Cu6ctPwB+UJhq4oBXn3BSQcIo7m9YKB1OrcsBVoIBzh92r+TnLp1GwkNvqjhluoE
-         /duiazzqnsTITvnR4q5txRDOJyAS6uYVLwER6OQsB+z1NyinIE6iJyh1zJY6rYBjBU54
-         8x/g==
+        bh=ugfk6aT1iGRzcL2ectDCRPJ1gZaTogcQcIYTYhFZZ7Q=;
+        b=UeyN4PGOUKA/sRzoedIkmnr/FBu18W0hFZZynb8AQSs6v8+Nj/qIyPP6ozQCpZ6nN0
+         UdQUHo+jcIS20FD1NnC5SeW70M1Pcm0a+xSKxVsQJRRzwAJntQrr3ywKVduXU3XFVIGT
+         oc0b8dHMVp3wxFw62uaiLQotN0gLqrSr7jVch8B6HJ9nDoOtSvEQoN081JwMcI29T5Qt
+         St3MNfN50ppx8RP+u7Tld6pruT9mnwWzNo5HGfUrV27NtbwqJHXiuW73BdyhauMML7ip
+         VyqrTrbGkooWSAgQxBEhALCBFBbQeCD5v3Wapo1N0VN7tyjXdnqbsqOv6K9XPm7Ok4hv
+         s8UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721979377; x=1722584177;
+        d=1e100.net; s=20230601; t=1721979853; x=1722584653;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L+XrnBvO28HTfSsxjfwSjzdC3/Q1fvXAJzgvBQwjoVo=;
-        b=XEXIgTcVgEibZb0DOj1vt1iP6bf5r70DonEG1jww8ol3BsJe+xusoIvoUfJffwxnDu
-         29z6tFFit7w8CbdF3RnSYMR8T0GTGz79jQNJKqmjzNOxhd1BRa9cvB8LnM4IsOAnHFET
-         dw6YcZ2qTL0iH6EadcHHIW4xCr6zITE0LH1/ORNkRTKmU5o7kH7A2yUT+vV2Gn4c5FgK
-         u6saIC5afl2AKRg+sS+vXd+C67+fgRBlFvXJKL8Wq8OT7dskxeFy0x3Rx+l0eL7BVZGU
-         pQbvXkKC74AHCAmpOOS9TlI4U8nFnmckRdX4ryjB0l4yptWUJ6fYNzTXs9g8oVaJaZ8M
-         c7YQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXbErhkELS30S1FhLUh9u5VQ/sp2tPOaXc+cALC1Ag+OEVPt2pv6rT3fpePvLFV4OBuc1LVLGFRFzeH1lbvx993PjpRHIlQ5o75BltgK6Q=
-X-Gm-Message-State: AOJu0YxkX2A7GbI1Y59CuJmhK8c3qvskuAGQP99+PzpXMq/FiVy0ftox
-	O8r7zM3LaTgTTJdZ/lLJzsYonXxM/GawFqUNgJVmxg+OpKO3/x4tLq0fIKNZJg==
-X-Google-Smtp-Source: AGHT+IGK/+/23iKUCeJ8vXJmxDP0nlOKhORICd/yFNN2GR9i/P8iOQiIHQouoR0bjfdVXUVSkmUxcQ==
-X-Received: by 2002:a17:906:d54f:b0:a7a:ac5f:bc01 with SMTP id a640c23a62f3a-a7ac4b624b5mr447943466b.0.1721979377167;
-        Fri, 26 Jul 2024 00:36:17 -0700 (PDT)
-Message-ID: <0f6b446a-0dda-4e59-807b-c0c0bcdf78bf@suse.com>
-Date: Fri, 26 Jul 2024 09:36:15 +0200
+        bh=ugfk6aT1iGRzcL2ectDCRPJ1gZaTogcQcIYTYhFZZ7Q=;
+        b=WXjjjhgrVnXdhouE6ELbeKapkUABviCbMzaKa37NkaC0ApuKgFB50iQv65Q2tXMSCK
+         V+wb9ZZPc0R48Ek0FFsaE+BwgHso8C+1Zi84EnM8bH1ngQZtSmYPWKH+PSOeAUtbWIhF
+         B8EInByas2oYA/zHootZraVsT7SA/WcDTQ11IpCFhT+06YqPRMxYCpBJRX3oepQZfhEE
+         aGUfpbgVxMMvJ2sZLaDA7sa9XibL21ROkJXhF4LUFGnm+8ChwoEtuhoEx/eFhE95bNGT
+         v5cbo+hjZcZL3gqTXClrgcxvNddwjfPlckesFvaWi3VROoto3F/eAsqUeYqTVbh3W+MC
+         s0wQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU8IbY0g0nhRQWgz+x7ZZsp0UzVyUGDlBCJldHXV6h561adAebd/0iQWXTl7+EL5A/6WpBdH8vFj007THh1Y+ExCTIg74MX2VfVhXqzH6U=
+X-Gm-Message-State: AOJu0YyB8D7K6FFZlAJpH5gpO5lglc7uA64eFKtRbYUsQrQpql6QZafZ
+	wYmsjx4L4aplGZ0XD7pNG9YMub4RatcLtolS4sGMNp0WJNwQ4712DGW09wJiKQ==
+X-Google-Smtp-Source: AGHT+IF+f5yrT96Oz8OhDbnClSgHf2QZ7MGDg8wm6IqcgmUz/rdxZeggKjVCPjfIGEHnwKYIFZxwoQ==
+X-Received: by 2002:a17:907:2689:b0:a77:dbf0:d22 with SMTP id a640c23a62f3a-a7ac5330b2bmr297159366b.65.1721979853037;
+        Fri, 26 Jul 2024 00:44:13 -0700 (PDT)
+Message-ID: <68c3ac17-2ccb-40db-b105-712d444440c3@suse.com>
+Date: Fri, 26 Jul 2024 09:44:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/altcall: further refine clang workaround
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+Subject: Re: [RFC PATCH v3] automation: add linker symbol name script
+To: victorm.lira@amd.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>, roberto.bagnara@bugseng.com,
+ consulting@bugseng.com, simone.ballarin@bugseng.com,
  xen-devel@lists.xenproject.org
-References: <20240725105634.16825-1-roger.pau@citrix.com>
- <9ecd3a39-55bf-4a49-9f45-1e0abfad353a@suse.com> <ZqJnPvL1ilDDzM9V@macbook>
- <a638b0e1-07a3-495c-b3b9-e450a50f9429@suse.com> <ZqNQwM3U8S5q-kg5@macbook>
+References: <29c7f6cd166d5d3c0e9f64dc937e29dc7ecf3f2d.1721933988.git.victorm.lira@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,53 +112,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZqNQwM3U8S5q-kg5@macbook>
+In-Reply-To: <29c7f6cd166d5d3c0e9f64dc937e29dc7ecf3f2d.1721933988.git.victorm.lira@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.07.2024 09:31, Roger Pau Monné wrote:
-> On Thu, Jul 25, 2024 at 05:00:22PM +0200, Jan Beulich wrote:
->> On 25.07.2024 16:54, Roger Pau Monné wrote:
->>> On Thu, Jul 25, 2024 at 03:18:29PM +0200, Jan Beulich wrote:
->>>> On 25.07.2024 12:56, Roger Pau Monne wrote:
->>>>> --- a/xen/arch/x86/include/asm/alternative.h
->>>>> +++ b/xen/arch/x86/include/asm/alternative.h
->>>>> @@ -184,11 +184,11 @@ extern void alternative_branches(void);
->>>>>   * https://github.com/llvm/llvm-project/issues/82598
->>>>>   */
->>>>>  #define ALT_CALL_ARG(arg, n)                                            \
->>>>> -    register union {                                                    \
->>>>> -        typeof(arg) e[sizeof(long) / sizeof(arg)];                      \
->>>>> -        unsigned long r;                                                \
->>>>> +    register struct {                                                   \
->>>>> +        typeof(arg) e;                                                  \
->>>>> +        char pad[sizeof(void *) - sizeof(arg)];                         \
->>>>
->>>> One thing that occurred to me only after our discussion, and I then forgot
->>>> to mention this before you would send a patch: What if sizeof(void *) ==
->>>> sizeof(arg)? Zero-sized arrays are explicitly something we're trying to
->>>> get rid of.
->>>
->>> I wondered about this, but I though it was only [] that we were trying
->>> to get rid of, not [0].
->>
->> Sadly (here) it's actually the other way around, aiui.
+On 25.07.2024 21:01, victorm.lira@amd.com wrote:
+> From: Victor Lira <victorm.lira@amd.com>
 > 
-> The only other option I have in mind is using an oversized array on
-> the union, like:
-> 
-> #define ALT_CALL_ARG(arg, n)                                            \
->     union {                                                             \
->         typeof(arg) e[(sizeof(long) + sizeof(arg) - 1) / sizeof(arg)];  \
->         unsigned long r;                                                \
->     } a ## n ## __  = {                                                 \
->         .e[0] = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })\
->     };                                                                  \
->     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) =      \
->         a ## n ## __.r
+> Requested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Victor Lira <victorm.lira@amd.com>
 
-Yet that's likely awful code-gen wise? For the time being, can we perhaps
-just tighten the BUILD_BUG_ON(), as iirc Alejandro had suggested?
+Looks okay to me now, just that I don't see ...
+
+> --- /dev/null
+> +++ b/automation/eclair_analysis/linker-symbols.sh
+> @@ -0,0 +1,34 @@
+> +#!/bin/sh
+> +
+> +# Stop immediately if any executed command has exit status different from 0.
+> +set -e
+> +
+> +# Extract linker symbol names (except those starting with ".") from assignments.
+> +
+> +script_name=$(basename "$0")
+> +script_dir="$(
+> +  cd "$(dirname "$0")"
+> +  echo "${PWD}"
+> +)"
+> +src_dir="${script_dir}/../.."
+> +
+> +fatal() {
+> +  echo "${script_name}: $*" >&2
+> +  exit 1
+> +}
+> +
+> +usage() {
+> +  fatal "Usage: ${script_name} <arm|x86>"
+> +}
+> +
+> +if [ $# -ne 1 ]; then
+> +  usage
+> +fi
+> +
+> +filepath="${src_dir}/xen/arch/${1}/xen.lds"
+> +
+> +if [ ! -f "$filepath" ]; then
+> +  fatal "Could not find ${1} linker script. Must be run after arm/x86 build."
+
+... why you have "arm/x86" there when the message already includes ${1}.
+That'll simply go stale (and unnoticed) when PPC and/or RISC-V make further
+progress. Actually in usage() I'm similarly uncertain you want to mention
+the two architectures explicitly. Just say <arch> there? Happy to make
+adjustments while committing, so long as you agree.
 
 Jan
 
