@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED4E893DC5C
-	for <lists+xen-devel@lfdr.de>; Sat, 27 Jul 2024 02:20:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.765789.1176439 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CCC093DCF0
+	for <lists+xen-devel@lfdr.de>; Sat, 27 Jul 2024 03:33:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.765801.1176449 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXVAA-0000cZ-0U; Sat, 27 Jul 2024 00:19:54 +0000
+	id 1sXWIj-0006ZO-B1; Sat, 27 Jul 2024 01:32:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 765789.1176439; Sat, 27 Jul 2024 00:19:53 +0000
+Received: by outflank-mailman (output) from mailman id 765801.1176449; Sat, 27 Jul 2024 01:32:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXVA9-0000aS-Tx; Sat, 27 Jul 2024 00:19:53 +0000
-Received: by outflank-mailman (input) for mailman id 765789;
- Sat, 27 Jul 2024 00:19:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ti8Z=O3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sXVA8-0000Sf-P3
- for xen-devel@lists.xenproject.org; Sat, 27 Jul 2024 00:19:52 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f03dffaa-4bad-11ef-bc00-fd08da9f4363;
- Sat, 27 Jul 2024 02:19:51 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 9379FCE0ED1;
- Sat, 27 Jul 2024 00:19:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0E3C32782;
- Sat, 27 Jul 2024 00:19:43 +0000 (UTC)
+	id 1sXWIj-0006Xr-3O; Sat, 27 Jul 2024 01:32:49 +0000
+Received: by outflank-mailman (input) for mailman id 765801;
+ Sat, 27 Jul 2024 01:32:47 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXWIh-0006Xh-3A; Sat, 27 Jul 2024 01:32:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXWIg-0005X6-QT; Sat, 27 Jul 2024 01:32:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXWIg-000373-7V; Sat, 27 Jul 2024 01:32:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXWIg-0007RA-71; Sat, 27 Jul 2024 01:32:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,151 +42,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f03dffaa-4bad-11ef-bc00-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722039584;
-	bh=caF8ZEnVQAiNG73dG8gwlbc6P0P+Qerrz+YIN+0RoYY=;
-	h=Date:From:To:cc:Subject:From;
-	b=SZ27PMHYdp2E7lT6S0L+6NG+gmYrcpAEga6X1bWDXZk3Tel2b+3VRAR+nm4wQyKxo
-	 YlGBCyzfrS6POgwYWaX9CEYEGBWtvNJvUcevhy9Dn6SMHWwzJPYIQYG04/IIS7vnnM
-	 qg0oh/UHBMorJwGEGLflhmQAxGBrpy6clmv6KQfS9uta+mhAvHSTBdLMyjz1coixql
-	 zPtASQ9F7xVUulvs55dMJk2IbBEVpO5hPpgbM2+MMZlPddaO2J478X91dFsL2WCjFC
-	 DrbX3/f2grgTGXM4lqYkgV3a7uPSQGxfqSo1EWXFilQSKbv78qhkbp73ehKxk7gNb2
-	 p9xOriynMsM9g==
-Date: Fri, 26 Jul 2024 17:19:42 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=yZmGyb8NRDQD+LZCy5UoazQJZ29CETO98oiJrDpBOTo=; b=entdcKoG9cpWnQosdhx5c1YFnU
+	maHFHRdipCx3bebxewZn0tgt4YY8FG3SNHK4n6ltdaAENznOK8EZv62ipZX7nYsRKAK2j4RYIh1aP
+	3Hp35+0UzqMk2e5lZzDRDgnUDRqv+Y2/Ebb9bWgLqIEzMLgW4CF7/UCxXdbinD7HfTAk=;
 To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, marmarek@invisiblethingslab.com, 
-    andrew.cooper3@citrix.com, cardoe@cardoe.com
-Subject: [PATCH v2] automation: upgrade Yocto to scarthgap
-Message-ID: <alpine.DEB.2.22.394.2407261639190.4857@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Message-ID: <osstest-187019-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [linux-linus test] 187019: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit1:guest-start/debian.repeat:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=2f8c4f5062855a83c1f2dbc012c4fa274ce999d4
+X-Osstest-Versions-That:
+    linux=f83e38fc9f1092f8a7a65ff2ea6a1ea6502efaf0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 27 Jul 2024 01:32:46 +0000
 
-Upgrade Yocto to a newer version. Use ext4 as image format for testing
-with QEMU on ARM and ARM64 as the default is WIC and it is not available
-for our xen-image-minimal target.
+flight 187019 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187019/
 
-Also update the tar.bz2 filename for the rootfs.
+Regressions :-(
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot            fail REGR. vs. 186827
+ test-amd64-amd64-dom0pvh-xl-amd  8 xen-boot              fail REGR. vs. 186827
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 186827
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 186827
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 186827
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 186827
+ test-arm64-arm64-xl-thunderx  8 xen-boot                 fail REGR. vs. 186827
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 186827
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 186827
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 186827
+ test-amd64-amd64-xl-credit1 22 guest-start/debian.repeat fail REGR. vs. 186827
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 186827
 
-all yocto tests pass:
-https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/1390081173
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 186827
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 186827
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 186827
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 186827
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 186827
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 186827
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
 
-Changes in v2:
-- s/EXT4/IMAGE_FMT/
-- set IMAGE_FMT before the call to project_build
-- also update the filename xen-image-minimal-qemuarm.rootfs.tar.bz2
----
- automation/build/yocto/build-yocto.sh       | 15 ++++++++++++---
- automation/build/yocto/yocto.inc            |  4 ++--
- automation/gitlab-ci/build.yaml             |  2 +-
- automation/scripts/qemu-smoke-dom0-arm32.sh |  2 +-
- 4 files changed, 16 insertions(+), 7 deletions(-)
+version targeted for testing:
+ linux                2f8c4f5062855a83c1f2dbc012c4fa274ce999d4
+baseline version:
+ linux                f83e38fc9f1092f8a7a65ff2ea6a1ea6502efaf0
 
-diff --git a/automation/build/yocto/build-yocto.sh b/automation/build/yocto/build-yocto.sh
-index 93ce81ce82..e1e69f2bb5 100755
---- a/automation/build/yocto/build-yocto.sh
-+++ b/automation/build/yocto/build-yocto.sh
-@@ -25,6 +25,7 @@ TARGET_SUPPORTED="qemuarm qemuarm64 qemux86-64"
- VERBOSE="n"
- TARGETLIST=""
- BUILDJOBS="8"
-+IMAGE_FMT=""
- 
- # actions to do
- do_clean="n"
-@@ -38,8 +39,9 @@ build_result=0
- # layers to include in the project
- build_layerlist="poky/meta poky/meta-poky poky/meta-yocto-bsp \
-                  meta-openembedded/meta-oe meta-openembedded/meta-python \
-+                 meta-openembedded/meta-networking \
-                  meta-openembedded/meta-filesystems \
--                 meta-openembedded/meta-networking meta-virtualization"
-+                 meta-virtualization"
- 
- # yocto image to build
- build_image="xen-image-minimal"
-@@ -175,7 +177,7 @@ function project_build() {
-                 mkdir -p $OUTPUTDIR
-                 cp $BUILDDIR/tmp/deploy/images/qemuarm/zImage $OUTPUTDIR
-                 cp $BUILDDIR/tmp/deploy/images/qemuarm/xen-qemuarm $OUTPUTDIR
--                cp $BUILDDIR/tmp/deploy/images/qemuarm/xen-image-minimal-qemuarm.tar.bz2 $OUTPUTDIR
-+                cp $BUILDDIR/tmp/deploy/images/qemuarm/xen-image-minimal-qemuarm.rootfs.tar.bz2 $OUTPUTDIR
-             fi
-         fi
-     ) || return 1
-@@ -196,7 +198,7 @@ function project_run() {
- 
-         /usr/bin/expect <<EOF
- set timeout 1000
--spawn bash -c "runqemu serialstdio nographic slirp"
-+spawn bash -c "runqemu serialstdio nographic slirp ${IMAGE_FMT}"
- 
- expect_after {
-     -re "(.*)\r" {
-@@ -356,6 +358,13 @@ for f in ${TARGETLIST}; do
-         run_task project_create "${f}"
-     fi
-     if [ -f "${BUILDDIR}/${f}/conf/local.conf" ]; then
-+        # Set the right image target
-+        if [ "$f" = "qemux86-64" ]; then
-+            IMAGE_FMT=""
-+        else
-+            IMAGE_FMT="ext4"
-+        fi
-+
-         if [ "${do_build}" = "y" ]; then
-             run_task project_build "${f}"
-         fi
-diff --git a/automation/build/yocto/yocto.inc b/automation/build/yocto/yocto.inc
-index 2f3b1a5b2a..209df7dde9 100644
---- a/automation/build/yocto/yocto.inc
-+++ b/automation/build/yocto/yocto.inc
-@@ -6,10 +6,10 @@
- # YOCTOVERSION-TARGET for x86_64 hosts
- # YOCTOVERSION-TARGET-arm64v8 for arm64 hosts
- # For example you can build an arm64 container with the following command:
--# make yocto/kirkstone-qemuarm64-arm64v8
-+# make yocto/scarthgap-qemuarm64-arm64v8
- 
- # Yocto versions we are currently using.
--YOCTO_VERSION = kirkstone
-+YOCTO_VERSION = scarthgap
- 
- # Yocto BSPs we want to build for.
- YOCTO_TARGETS = qemuarm64 qemuarm qemux86-64
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 7ce88d38e7..32045cef0c 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -212,7 +212,7 @@
-   script:
-     - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` ${YOCTO_BOARD} ${YOCTO_OUTPUT}
-   variables:
--    YOCTO_VERSION: kirkstone
-+    YOCTO_VERSION: scarthgap
-     CONTAINER: yocto:${YOCTO_VERSION}-${YOCTO_BOARD}${YOCTO_HOST}
-   artifacts:
-     paths:
-diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
-index 31c05cc840..eaaea5a982 100755
---- a/automation/scripts/qemu-smoke-dom0-arm32.sh
-+++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
-@@ -8,7 +8,7 @@ cd binaries
- 
- mkdir rootfs
- cd rootfs
--tar xvf ../xen-image-minimal-qemuarm.tar.bz2
-+tar xvf ../xen-image-minimal-qemuarm.rootfs.tar.bz2
- mkdir -p ./root
- echo "name=\"test\"
- memory=400
--- 
-2.25.1
+Last test of basis   186827  2024-07-16 19:43:06 Z   10 days
+Failing since        186925  2024-07-20 09:44:52 Z    6 days   14 attempts
+Testing same since   187019  2024-07-26 19:10:58 Z    0 days    1 attempts
 
+------------------------------------------------------------
+1928 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 216313 lines long.)
 
