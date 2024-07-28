@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E15FA93E1BF
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Jul 2024 02:50:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766031.1176610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F7D193E2F2
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Jul 2024 03:20:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766048.1176620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXs6u-0000Nu-VH; Sun, 28 Jul 2024 00:50:04 +0000
+	id 1sXsaF-0008I7-BG; Sun, 28 Jul 2024 01:20:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766031.1176610; Sun, 28 Jul 2024 00:50:04 +0000
+Received: by outflank-mailman (output) from mailman id 766048.1176620; Sun, 28 Jul 2024 01:20:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sXs6u-0000LE-SK; Sun, 28 Jul 2024 00:50:04 +0000
-Received: by outflank-mailman (input) for mailman id 766031;
- Sun, 28 Jul 2024 00:50:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sXsaF-0008Gc-8V; Sun, 28 Jul 2024 01:20:23 +0000
+Received: by outflank-mailman (input) for mailman id 766048;
+ Sun, 28 Jul 2024 01:20:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=s8sE=O4=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1sXs6t-0008Sh-Eu
- for xen-devel@lists.xenproject.org; Sun, 28 Jul 2024 00:50:03 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50c24294-4c7b-11ef-8776-851b0ebba9a2;
- Sun, 28 Jul 2024 02:50:01 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D2167611D9;
- Sun, 28 Jul 2024 00:49:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71818C32781;
- Sun, 28 Jul 2024 00:49:57 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXsaD-0008GQ-AG; Sun, 28 Jul 2024 01:20:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXsaC-00030v-Ty; Sun, 28 Jul 2024 01:20:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXsaC-0005hm-KL; Sun, 28 Jul 2024 01:20:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sXsaC-0004G1-Jr; Sun, 28 Jul 2024 01:20:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,158 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50c24294-4c7b-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722127798;
-	bh=cVpANbBpyjABr/uwdE5+zHiR2KnbawAzmIIg/G1xH9g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ca62VEKVSZ4du/QbzmQULMpO3q3t0hMzJuNgYpCE0i1wYDiSyh8qjxH8Obx6IPVnB
-	 QapihDBV9lZQ5CR5C3F59b3KX6s4PJVcYUuUfOqXFzGmIfSoj4c0HBnnjQqFt/6Yon
-	 1kob8PvmVUzqqaQl819z7klVYURh1cbUseZdy4W8t1XRh4r2rS/vhDyz0ztoo7OBkh
-	 I6ynsjk6QwOKFzWsAoZULuklXMQXgDqwLR80LJWPEWESMkGGgYdBYC+RQF8O4IIbta
-	 3+V0hrH3gHyPJe9iclzOGh7Ggs/GIk326sQUAgeRb/2Mnz3xmR4TrsAV4tVKNLd7yi
-	 pjFqR9Zs9yQQA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Juergen Gross <jgross@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 6.6 3/3] xen: privcmd: Switch from mutex to spinlock for irqfds
-Date: Sat, 27 Jul 2024 20:49:51 -0400
-Message-ID: <20240728004952.1707781-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240728004952.1707781-1-sashal@kernel.org>
-References: <20240728004952.1707781-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.43
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=EdVfNIMrTMf8bCAg14f+Quur1JjUrhUHoIUm7YzuUHs=; b=mlQokv4lUdFyx0SpmIsSp5Jq5r
+	gex4CIfNP929pFCQezQ98fwhwGe97bGicJ9WlaT59c4Xmu4V664Q8jnvo80AT28OHI4aQ5IqFaLYc
+	dX4qWJ9U1FtTWEUqGOyls4m0s3/Wyb23ZKHVhTw7hcxAHghZnHhoYjCggml1StwU4OWM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187030-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 187030: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b7f963d570ec5e27bc04d546372c6fc47e4f3b17
+X-Osstest-Versions-That:
+    ovmf=52eb643d0785a19c7f1c107d390c7bb52a79789e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 28 Jul 2024 01:20:20 +0000
 
-From: Viresh Kumar <viresh.kumar@linaro.org>
+flight 187030 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187030/
 
-[ Upstream commit 1c682593096a487fd9aebc079a307ff7a6d054a3 ]
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b7f963d570ec5e27bc04d546372c6fc47e4f3b17
+baseline version:
+ ovmf                 52eb643d0785a19c7f1c107d390c7bb52a79789e
 
-irqfd_wakeup() gets EPOLLHUP, when it is called by
-eventfd_release() by way of wake_up_poll(&ctx->wqh, EPOLLHUP), which
-gets called under spin_lock_irqsave(). We can't use a mutex here as it
-will lead to a deadlock.
+Last test of basis   187029  2024-07-27 16:13:52 Z    0 days
+Testing same since   187030  2024-07-27 23:44:56 Z    0 days    1 attempts
 
-Fix it by switching over to a spin lock.
+------------------------------------------------------------
+People who touched revisions under test:
+  Bret Barkelew <brbarkel@microsoft.com>
+  Oliver Smith-Denny <osde@linux.microsoft.com>
 
-Reported-by: Al Viro <viro@zeniv.linux.org.uk>
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Link: https://lore.kernel.org/r/a66d7a7a9001424d432f52a9fc3931a1f345464f.1718703669.git.viresh.kumar@linaro.org
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/xen/privcmd.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
 
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index da88173bac432..923f064c7e3e9 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -841,7 +841,7 @@ static long privcmd_ioctl_mmap_resource(struct file *file,
- #ifdef CONFIG_XEN_PRIVCMD_IRQFD
- /* Irqfd support */
- static struct workqueue_struct *irqfd_cleanup_wq;
--static DEFINE_MUTEX(irqfds_lock);
-+static DEFINE_SPINLOCK(irqfds_lock);
- static LIST_HEAD(irqfds_list);
- 
- struct privcmd_kernel_irqfd {
-@@ -905,9 +905,11 @@ irqfd_wakeup(wait_queue_entry_t *wait, unsigned int mode, int sync, void *key)
- 		irqfd_inject(kirqfd);
- 
- 	if (flags & EPOLLHUP) {
--		mutex_lock(&irqfds_lock);
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&irqfds_lock, flags);
- 		irqfd_deactivate(kirqfd);
--		mutex_unlock(&irqfds_lock);
-+		spin_unlock_irqrestore(&irqfds_lock, flags);
- 	}
- 
- 	return 0;
-@@ -925,6 +927,7 @@ irqfd_poll_func(struct file *file, wait_queue_head_t *wqh, poll_table *pt)
- static int privcmd_irqfd_assign(struct privcmd_irqfd *irqfd)
- {
- 	struct privcmd_kernel_irqfd *kirqfd, *tmp;
-+	unsigned long flags;
- 	__poll_t events;
- 	struct fd f;
- 	void *dm_op;
-@@ -964,18 +967,18 @@ static int privcmd_irqfd_assign(struct privcmd_irqfd *irqfd)
- 	init_waitqueue_func_entry(&kirqfd->wait, irqfd_wakeup);
- 	init_poll_funcptr(&kirqfd->pt, irqfd_poll_func);
- 
--	mutex_lock(&irqfds_lock);
-+	spin_lock_irqsave(&irqfds_lock, flags);
- 
- 	list_for_each_entry(tmp, &irqfds_list, list) {
- 		if (kirqfd->eventfd == tmp->eventfd) {
- 			ret = -EBUSY;
--			mutex_unlock(&irqfds_lock);
-+			spin_unlock_irqrestore(&irqfds_lock, flags);
- 			goto error_eventfd;
- 		}
- 	}
- 
- 	list_add_tail(&kirqfd->list, &irqfds_list);
--	mutex_unlock(&irqfds_lock);
-+	spin_unlock_irqrestore(&irqfds_lock, flags);
- 
- 	/*
- 	 * Check if there was an event already pending on the eventfd before we
-@@ -1007,12 +1010,13 @@ static int privcmd_irqfd_deassign(struct privcmd_irqfd *irqfd)
- {
- 	struct privcmd_kernel_irqfd *kirqfd;
- 	struct eventfd_ctx *eventfd;
-+	unsigned long flags;
- 
- 	eventfd = eventfd_ctx_fdget(irqfd->fd);
- 	if (IS_ERR(eventfd))
- 		return PTR_ERR(eventfd);
- 
--	mutex_lock(&irqfds_lock);
-+	spin_lock_irqsave(&irqfds_lock, flags);
- 
- 	list_for_each_entry(kirqfd, &irqfds_list, list) {
- 		if (kirqfd->eventfd == eventfd) {
-@@ -1021,7 +1025,7 @@ static int privcmd_irqfd_deassign(struct privcmd_irqfd *irqfd)
- 		}
- 	}
- 
--	mutex_unlock(&irqfds_lock);
-+	spin_unlock_irqrestore(&irqfds_lock, flags);
- 
- 	eventfd_ctx_put(eventfd);
- 
-@@ -1069,13 +1073,14 @@ static int privcmd_irqfd_init(void)
- static void privcmd_irqfd_exit(void)
- {
- 	struct privcmd_kernel_irqfd *kirqfd, *tmp;
-+	unsigned long flags;
- 
--	mutex_lock(&irqfds_lock);
-+	spin_lock_irqsave(&irqfds_lock, flags);
- 
- 	list_for_each_entry_safe(kirqfd, tmp, &irqfds_list, list)
- 		irqfd_deactivate(kirqfd);
- 
--	mutex_unlock(&irqfds_lock);
-+	spin_unlock_irqrestore(&irqfds_lock, flags);
- 
- 	destroy_workqueue(irqfd_cleanup_wq);
- }
--- 
-2.43.0
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   52eb643d07..b7f963d570  b7f963d570ec5e27bc04d546372c6fc47e4f3b17 -> xen-tested-master
 
