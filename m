@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9483593F728
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 16:01:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766776.1177293 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAECD93F76D
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 16:19:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766783.1177304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYQvj-0007BB-8s; Mon, 29 Jul 2024 14:00:51 +0000
+	id 1sYRCr-00016K-O4; Mon, 29 Jul 2024 14:18:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766776.1177293; Mon, 29 Jul 2024 14:00:51 +0000
+Received: by outflank-mailman (output) from mailman id 766783.1177304; Mon, 29 Jul 2024 14:18:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYQvj-00078E-5s; Mon, 29 Jul 2024 14:00:51 +0000
-Received: by outflank-mailman (input) for mailman id 766776;
- Mon, 29 Jul 2024 14:00:50 +0000
+	id 1sYRCr-000136-KD; Mon, 29 Jul 2024 14:18:33 +0000
+Received: by outflank-mailman (input) for mailman id 766783;
+ Mon, 29 Jul 2024 14:18:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7lGn=O5=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
- id 1sYQvh-000788-Vj
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 14:00:50 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ <SRS0=QfTU=O5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sYRCp-000130-N5
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 14:18:31 +0000
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [2607:f8b0:4864:20::831])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5557428-4db2-11ef-bc01-fd08da9f4363;
- Mon, 29 Jul 2024 16:00:48 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a7ab76558a9so676638466b.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 07:00:48 -0700 (PDT)
-Received: from EMEAENGAAD91498. ([217.156.233.154])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acadb8313sm511972166b.211.2024.07.29.07.00.47
+ id 6d4a9f96-4db5-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 16:18:30 +0200 (CEST)
+Received: by mail-qt1-x831.google.com with SMTP id
+ d75a77b69052e-44fffca4fb7so13235761cf.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 07:18:30 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-44fe8126979sm41098401cf.7.2024.07.29.07.18.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jul 2024 07:00:47 -0700 (PDT)
+ Mon, 29 Jul 2024 07:18:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,85 +44,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5557428-4db2-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: 6d4a9f96-4db5-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1722261648; x=1722866448; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tPWdhGz+1Zr1Fi+/4UAxIQSk+5sixhT902OdGrxe3JQ=;
-        b=hwMXkJTz+H+h4VfnG585ogU9y8wNFyeP8CRkBRPMOHdT4NttjOD1ZDpQdI4WDvCJBQ
-         fgpi80arwtev2YXfp7pu8S5S+a0zi0xheml9YTbfLXFTH8HzL4bqkZD0geOoRr/M45UN
-         zoCxQOf+ckgneeyRZOR5EQW9Ng0nZ23BgvqdU=
+        d=citrix.com; s=google; t=1722262708; x=1722867508; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=5Xqj9Ad9phWii7KRfvFhqzLIAqDK3JVN1IPltAXWtgs=;
+        b=AMbbF3B3CMIwZ7xe4untwYNXANpTimuQKeKoUP/px+L2yGQw5uDAlc5eD7s6HT6RyX
+         iWeyHhzbKmbIWEKL2AHP/rg9IAbjHhPPSwVQrbqlCFAC39VlA6yw8nl1wZWk79DMlTC+
+         7i0Jahd0A+cvUydmPesrtYvO19yakX0hrUPtM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722261648; x=1722866448;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tPWdhGz+1Zr1Fi+/4UAxIQSk+5sixhT902OdGrxe3JQ=;
-        b=Nv2T5kFkdXUWoBWPlDDcxDTtDh3VIOnuGVkyLMZ9pDVwh4Qmt7hCiTivbJJGnbxYLb
-         e6VUyvmKzvZQWfCpema4tZpbeVz45+qruFIP763p8JrRhEDrmTIQ+DzLkP2LTA7PzCaC
-         yH3oMtKJW1iux3+X6z0Uv5ZY79v3GWqv5aPm1RuD7x0Oeb6+i1tqF/VKVSR8dngMEpze
-         ZMQAhMR7VyRxtoVh7aN95/TQXXnH2+NK13hZryyMUwMsDgps9igi5y8Fr9EQv2Zt9lz9
-         oh+1f3jPfz4WkAOJWvvH0fNqO8bD4THyYB5I/fMEEfsOvlu7PsGjTw4tOcEMkeoeskeD
-         UgcA==
-X-Forwarded-Encrypted: i=1; AJvYcCU/G7azgmIkLr+SdrNnmi5NfwaaTyjT0wlefR+YmzYwPPAYz0XiO8y6jaWsSB6krGKFeUupegL1CErKbe0dmqJ3SHoVQvnlo2t9fl4GR4k=
-X-Gm-Message-State: AOJu0YyKWU8AyRHOG+WRl+hD5XK/cQcH6EYLPrgFaFlLFIR7MycJD2xy
-	AM41VrzJWRf4Kam4F4RQyD0+NhsRyafSmWPN5sDim5zZg3p4BdtgqUw6Mm7g0T8=
-X-Google-Smtp-Source: AGHT+IHjmgjWZ4jn/s31/CsMLtw1MvZbXZBEXWi1v+6ALWREYaWLovE0bF55FCvbIjnkhB5blwYRxQ==
-X-Received: by 2002:a17:906:c10d:b0:a77:c7d8:7b4c with SMTP id a640c23a62f3a-a7d3f86fd32mr766962466b.11.1722261647947;
-        Mon, 29 Jul 2024 07:00:47 -0700 (PDT)
-Message-ID: <66a7a08f.170a0220.ecc03.23f1@mx.google.com>
-X-Google-Original-Message-ID: <20240729140042.d6yzd7v67tmnbpx3@EMEAENGAAD91498.>
-Date: Mon, 29 Jul 2024 15:00:42 +0100
-From: Matthew Barnes <matthew.barnes@cloud.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v4] tools/lsevtchn: Use errno macro to handle
- hypercall error cases
-References: <cce46da98274f84a3cea16d0e1e34b56d4d09410.1722011581.git.matthew.barnes@cloud.com>
- <1491a5c3-bb30-4804-95d6-31946ee1588d@suse.com>
+        d=1e100.net; s=20230601; t=1722262708; x=1722867508;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5Xqj9Ad9phWii7KRfvFhqzLIAqDK3JVN1IPltAXWtgs=;
+        b=CZKq2LHf8EXzv7WE5ZpxvBrbH/vxq+Vc2rmew+3bXzEe0TrBDbRcjcNdG9JeIaKOrW
+         KwQUSnjArBdAr+0n/rKhSoJXEMzmww07Ro5Q5MAyeYwWtx8pGjTVcj78GWYdPEqHpqDU
+         46hTW9wHJL2me/eya7k9EAC1d2GP79sLkO38EzkcYnw4hcoNBaJtK4emnz0C5o0yJ4Ei
+         AoQeEyo9l5Vamm6H0rIIVCGR8hzIN1EsXYixEnFB2sEdOODpV2fiGTq/+aDtIwZbTL7Y
+         tD3gthWYkUvJmSnECbYJm40JbyQUHt/VpUT/+8LS9l5wQXEvRzrUnGOTjwWQkHG+uKrz
+         QdAA==
+X-Gm-Message-State: AOJu0Yw3VXGIjFFKWHejbc5wceSC9qAeUpaxnPNC7aheqGVpk9XYsgao
+	M7M2Na+97nL+ggLEKKcuCdOAeb+6Se0aVKg564xUDCGBA8TfGYnkIWwI4+2y6oQ=
+X-Google-Smtp-Source: AGHT+IHx1QidPx2xSjYhPOTjOHySF+w7yFZbvpEKCpJ5noFL/glf6a+CnE7rsPMD0FvppQyTQvcwAg==
+X-Received: by 2002:a05:622a:13d1:b0:44f:f6f0:7d2b with SMTP id d75a77b69052e-45004f5e7abmr105236071cf.53.1722262708269;
+        Mon, 29 Jul 2024 07:18:28 -0700 (PDT)
+Date: Mon, 29 Jul 2024 16:18:26 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>
+Subject: Re: [PATCH 08/22] x86/mm: avoid passing a domain parameter to L4
+ init function
+Message-ID: <Zqeksmgq87ak7YID@macbook>
+References: <20240726152206.28411-1-roger.pau@citrix.com>
+ <20240726152206.28411-9-roger.pau@citrix.com>
+ <D322ACW6M240.2G3UQGXHR0XU0@cloud.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <1491a5c3-bb30-4804-95d6-31946ee1588d@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <D322ACW6M240.2G3UQGXHR0XU0@cloud.com>
 
-On Mon, Jul 29, 2024 at 09:58:46AM +0200, Jan Beulich wrote:
-> On 26.07.2024 18:40, Matthew Barnes wrote:
-> > @@ -24,7 +25,23 @@ int main(int argc, char **argv)
-> >          status.port = port;
-> >          rc = xc_evtchn_status(xch, &status);
-> >          if ( rc < 0 )
-> > -            break;
-> > +        {
-> > +            switch ( errno ) {
-> > +                case EACCES: continue; /* Xen-owned evtchn */
-> > +                case EINVAL: /* Port enumeration has ended */
-> > +                    rc = 0;
-> > +                    goto out;
+On Mon, Jul 29, 2024 at 02:36:39PM +0100, Alejandro Vallejo wrote:
+> On Fri Jul 26, 2024 at 4:21 PM BST, Roger Pau Monne wrote:
+> > In preparation for the function being called from contexts where no domain is
+> > present.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  xen/arch/x86/include/asm/mm.h  |  4 +++-
+> >  xen/arch/x86/mm.c              | 24 +++++++++++++-----------
+> >  xen/arch/x86/mm/hap/hap.c      |  3 ++-
+> >  xen/arch/x86/mm/shadow/hvm.c   |  3 ++-
+> >  xen/arch/x86/mm/shadow/multi.c |  7 +++++--
+> >  xen/arch/x86/pv/dom0_build.c   |  3 ++-
+> >  xen/arch/x86/pv/domain.c       |  3 ++-
+> >  7 files changed, 29 insertions(+), 18 deletions(-)
+> >
+> > diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
+> > index b3853ae734fa..076e7009dc99 100644
+> > --- a/xen/arch/x86/include/asm/mm.h
+> > +++ b/xen/arch/x86/include/asm/mm.h
+> > @@ -375,7 +375,9 @@ int devalidate_page(struct page_info *page, unsigned long type,
+> >  
+> >  void init_xen_pae_l2_slots(l2_pgentry_t *l2t, const struct domain *d);
+> >  void init_xen_l4_slots(l4_pgentry_t *l4t, mfn_t l4mfn,
+> > -                       const struct domain *d, mfn_t sl4mfn, bool ro_mpt);
+> > +                       mfn_t sl4mfn, const struct page_info *perdomain_l3,
+> > +                       bool ro_mpt, bool maybe_compat, bool short_directmap);
 > > +
-> > +                case ESRCH:
-> > +                    perror("Domain ID does not correspond to valid domain");
-> > +                    rc = ESRCH;
-> > +                    goto out;
-> > +                default:
-> > +                    perror(NULL);
-> > +                    rc = errno;
-> > +                    goto out;
-> > +            }
-> > +        }
 > 
-> There are a number of style violations here: Opening figure brace
-> placement, indentation of the case labels, placement of the
-> "continue", lack of blank lines between non-fall-through case blocks.
-> Also why three "goto out" when one would do?
+> The comment currently in the .c file should probably be here instead, and
+> updated for the new arguments. That said, I'm skeptical 3 booleans is something
+> desirable. It induces a lot of complexity at the call sites (which of the 8
+> forms of init_xen_l4_slots() do I need here?) and a lot of cognitive overload.
+> 
+> I can't propose a solution because I'm still wrapping my head around how the
+> layout (esp. compat layout) fits together. Maybe the booleans can be mapped to
+> an enum? It would also help interpret the callsites as it'd no longer be a
+> sequence of contextless booleans, but a readable identifier.
 
-There's no particular reason why three "goto out"s were used.
+We have the following possible combinations:
 
-I will tweak these style decisions in patch v5.
+          RO MPT  COMPAT XLAT  SHORT DMAP
+PV64        ?         N             Y
+PV32        N         Y             Y
+HVM         N         Y             N
 
-Matt
+
+So we would need:
+
+enum l4_domain_type {
+    PV64,
+    PV64_RO_MPT,
+    PV32,
+    HVM
+};
+
+I can see about replacing those last 3 booleans with the proposed
+enum.
+
+Thanks, Roger.
 
