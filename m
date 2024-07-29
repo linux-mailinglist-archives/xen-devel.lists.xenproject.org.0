@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F93993F8F6
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 17:03:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766873.1177412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A92F93F8F9
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 17:03:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766881.1177424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYRto-0006KG-K7; Mon, 29 Jul 2024 15:02:56 +0000
+	id 1sYRuL-0006tF-0c; Mon, 29 Jul 2024 15:03:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766873.1177412; Mon, 29 Jul 2024 15:02:56 +0000
+Received: by outflank-mailman (output) from mailman id 766881.1177424; Mon, 29 Jul 2024 15:03:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYRto-0006Ig-H3; Mon, 29 Jul 2024 15:02:56 +0000
-Received: by outflank-mailman (input) for mailman id 766873;
- Mon, 29 Jul 2024 15:02:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sYRuK-0006qf-So; Mon, 29 Jul 2024 15:03:28 +0000
+Received: by outflank-mailman (input) for mailman id 766881;
+ Mon, 29 Jul 2024 15:03:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7lGn=O5=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
- id 1sYRtn-0006Ia-Dx
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 15:02:55 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a17c0cb2-4dbb-11ef-8776-851b0ebba9a2;
- Mon, 29 Jul 2024 17:02:53 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5afa207b8bfso3103068a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 08:02:53 -0700 (PDT)
-Received: from EMEAENGAAD91498.citrite.net ([217.156.233.154])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ac6339b06esm5848322a12.10.2024.07.29.08.02.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jul 2024 08:02:52 -0700 (PDT)
+ <SRS0=+PZO=O5=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1sYRuI-0006eV-Tv
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 15:03:26 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b4e5dea5-4dbb-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 17:03:26 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5af326eddb2so5021963a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 08:03:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +40,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a17c0cb2-4dbb-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: b4e5dea5-4dbb-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1722265373; x=1722870173; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=kBtjsfdsTy7i8mRY2ZgMcr3TDqeVEGFIRB258IV37CA=;
-        b=bXl/YNPq/y8M6JBi8jWAAjX9XMi2Fpw7u9H+9a2Lg2scRiErjo3nD3GyUHtrNAvBOb
-         KSvxlvxNT7D1U6QjzjLtliXO978D1oBtiMzEQmdzKVoGqKQAdS7VzyfxKZFAQE3c8kiN
-         XUnsEp8hfwrHTqaDtvqcvzf/vO/74z4EzFAWY=
+        d=gmail.com; s=20230601; t=1722265406; x=1722870206; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=r39w7G2DfUB7c3EusM9NnT8kZ1CCHY4LUzhurD4ImZ8=;
+        b=JNMNOn7lhTy8PTZecp7Be/4kpav+dViVihWl6/TLcMqPc/lrIv09BQnKu5FK5kWYY4
+         2Wx7Z8GovD9CaRj3zEI/Tbe63QIkwHOO6IUAOm42YK5cyB/nja8diI54+Ece3cYiuwC0
+         DXXe9issOAvSVkKLg/zDWKAEFZxVzcc/0MRxYi8RVMCgZsjpSDwXERhzKY0bz0+PFona
+         h9CKN7ouVsKsiW8Scz4ZOftT3CazOMFGKGb9Sg3n4t2m1H5nRJfj1deXUc2+R7RLEkJh
+         mLaQwX//b0yXe1JvykiAVK340bTEdEW+bdNOkIHZiKL7CvQRPy0vwm7QW4C8SZXa5zu2
+         FVHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722265373; x=1722870173;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kBtjsfdsTy7i8mRY2ZgMcr3TDqeVEGFIRB258IV37CA=;
-        b=NiZEn4i086rBqFNpaKD+ELC9yoQcjyAdJZz85XbBL2jOg1nbpMssCWFLU2c+Y6nuFf
-         IVnNvTKKLHLbwsmGbjT6P72kmn4kIpfjOBTKxQFZh/XxzmUKVl1Dpk2PRGpTl63FLLq8
-         5BIvEHuKlnljehKigeI9JvvoUb+l5Cs2Gao9kAzQOzmblTIY3GFFlf6/1fS6LzAYKMcf
-         bQHJnwBK2/UwfJWtTrhkjFUdCMUnGOh/K7mnSB5ri06+Ir4+Die+TbzswLbbbSEzbEQR
-         llZUDrAf0/sBe5xsO0EHGce8w5MwbLZsl86c+/gPQ6+bvi+/W56eajwxMICnV/l8aBnj
-         ai7A==
-X-Gm-Message-State: AOJu0Yw2h+DB6CNal7I7FHRJxnkJ+I+Koi0uimidmfBEsUY+7O0UTxkY
-	/7D4Pk0S9pdbl6aE3bC3A2yB+OuYxwRax5Z+IzwIu0Oyd4WAs74PxW5v0/VMypIRhlfMFl87Czl
-	z
-X-Google-Smtp-Source: AGHT+IEklQ96vRviqOT8LlJpDTS1BsN+ypuK42NQSF78PAKQ9a8sQ24qH0SFjgEQUGQ2p/1LYCSRKw==
-X-Received: by 2002:a50:d489:0:b0:5a2:1693:1a2f with SMTP id 4fb4d7f45d1cf-5b0208c2d59mr4992714a12.12.1722265372287;
-        Mon, 29 Jul 2024 08:02:52 -0700 (PDT)
-From: Matthew Barnes <matthew.barnes@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Matthew Barnes <matthew.barnes@cloud.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH v6] tools/lsevtchn: Use errno macro to handle hypercall error cases
-Date: Mon, 29 Jul 2024 16:02:41 +0100
-Message-Id: <cbb751a7fab10d228513bb163c85c83d025330c9.1722265284.git.matthew.barnes@cloud.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20230601; t=1722265406; x=1722870206;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=r39w7G2DfUB7c3EusM9NnT8kZ1CCHY4LUzhurD4ImZ8=;
+        b=d7lVQKdT4kspXiabOvxuim/1ebHW9sPaelR7pY8mEzxWV+QvXuqFqD6CeW9j8EcXX+
+         M5F8MSK1MUHj/3TXJ2bRTx7T1qC8qRoEJkhY1tyOV0TNuImr9IWr27UNpAlw4C4a/JsV
+         /ITHTnUfJ0OmIa7kkGvvGIn9Iv7coW2ebBf0NDAB/Z+RB9htZhWzTSUPxBCXlPT1k8Kl
+         VxrGdGn3eqxgYtH3ymrA4l4Bu7CjSTkEB6GWwZQ57NDbrSFhMtUW0HFVXeQ80ZMC1vsj
+         3Qh7a7DfJn7pNR0Wp0MObUQeoFfHoTPhRy6FRGh4fjZYzKTehwYTat5AXYbO80Xh78LJ
+         R+oQ==
+X-Gm-Message-State: AOJu0YwVEvXmnAUbNX9NVls84u4Us7ij/ofGOR+PcNUgZPOqVXolRZq3
+	57RIKhF10ZiJVpedsE/PpElO0iOGe2i09V6X5kMwKgFZD2vSjkeN9+D8560a14MstOY3YJmIxpd
+	1Psnd8MNkxK0JQN4e5jiSH90rYsV9Ax/w
+X-Google-Smtp-Source: AGHT+IEj9xkOR+maYcz+v3DVnsOKo+OcgTaN7vgXrp5yAilaAQO12h7bty+bd2Q5XnSbuSRL8+uuhd02nWm7BBBvVvE=
+X-Received: by 2002:a50:a40e:0:b0:58c:b2b8:31b2 with SMTP id
+ 4fb4d7f45d1cf-5b0191acfddmr6963373a12.17.1722265405187; Mon, 29 Jul 2024
+ 08:03:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240728210856.310083-1-jandryuk@gmail.com> <ZqeoAElP7fWJc15s@l14>
+In-Reply-To: <ZqeoAElP7fWJc15s@l14>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Mon, 29 Jul 2024 11:03:13 -0400
+Message-ID: <CAKf6xpvoUnZ_Vrwm9t7PBM5hgjspQ=C6FmWj5gr7V22WsRXsMA@mail.gmail.com>
+Subject: Re: [PATCH v4] libxl: Enable stubdom cdrom changing
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>, 
+	Jason Andryuk <jason.andryuk@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Currently, lsevtchn aborts its event channel enumeration when it hits
-an event channel that is owned by Xen.
+On Mon, Jul 29, 2024 at 10:32=E2=80=AFAM Anthony PERARD
+<anthony.perard@vates.tech> wrote:
+>
+> On Sun, Jul 28, 2024 at 05:08:56PM -0400, Jason Andryuk wrote:
+> > +static void cdrom_insert_stubdom_parse_fdset(libxl__egc *egc,
+> > +                                             libxl__ev_qmp *qmp,
+> > +                                             const libxl__json_object =
+*response,
+> > +                                             int rc)
+> > +{
+> > +    EGC_GC;
+> > +    libxl__cdrom_insert_state *cis =3D CONTAINER_OF(qmp, *cis, qmp);
+> > +    int devid;
+> > +    int fdset;
+> > +
+> > +    if (rc) goto out;
+> > +
+> > +    /* Only called for qemu-xen/linux stubdom. */
+> > +    assert(cis->dm_ver =3D=3D LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN);
+> > +
+> > +    devid =3D libxl__device_disk_dev_number(cis->disk->vdev, NULL, NUL=
+L);
+> > +    fdset =3D query_fdsets_find_fdset(gc, response, devid);
+> > +    if (fdset =3D=3D ERROR_NOTFOUND) {
+> > +        /* Give the stubdom a little time before trying again. */
+> > +        rc =3D libxl__ev_time_register_rel(cis->ao, &cis->retry_timer,
+> > +                                         cdrom_insert_stubdom_query_fd=
+set,
+> > +                                         200);
+> > +        if (rc) goto out;
+>
+> There's a missing "return;" here.
 
-lsevtchn does not distinguish between different hypercall errors, which
-results in lsevtchn missing potential relevant event channels with
-higher port numbers.
+Thank you for spotting that!  Now I feel silly that I missed it.  My
+quick testing yesterday succeeded, but it must not have needed a
+retry.  So I did not notice.  I have re-tested with your change and
+verified that retries happen properly - I see two 'query-fdsets' QMP
+commands sometimes.
 
-Use the errno macro to distinguish between hypercall errors, and
-continue event channel enumeration if the hypercall error is not
-critical to enumeration.
+> And looks like it's the only issue,
+> with that fixed: Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
----
-Changes in v6:
-- Add blank space before label
-
-Changes in v5:
-- Code style changes to switch statement
-
-Changes in v4:
-- Catch non-critical errors and fail on everything else, instead of
-  catching few known critical errors and ignoring everything else
-- Use 'perror' to describe miscellaneous critical errors
-- Return appropriate error code from lsevtchn tool
-- Tweak commit description
----
- tools/xcutils/lsevtchn.c | 27 +++++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
-
-diff --git a/tools/xcutils/lsevtchn.c b/tools/xcutils/lsevtchn.c
-index d1710613ddc5..29504c9d2077 100644
---- a/tools/xcutils/lsevtchn.c
-+++ b/tools/xcutils/lsevtchn.c
-@@ -3,6 +3,7 @@
- #include <stdint.h>
- #include <string.h>
- #include <stdio.h>
-+#include <errno.h>
- 
- #include <xenctrl.h>
- 
-@@ -24,7 +25,28 @@ int main(int argc, char **argv)
-         status.port = port;
-         rc = xc_evtchn_status(xch, &status);
-         if ( rc < 0 )
--            break;
-+        {
-+            switch ( errno )
-+            {
-+            case EACCES: /* Xen-owned evtchn */
-+                continue;
-+
-+            case EINVAL: /* Port enumeration has ended */
-+                rc = 0;
-+                break;
-+
-+            case ESRCH:
-+                perror("Domain ID does not correspond to valid domain");
-+                rc = ESRCH;
-+                break;
-+
-+            default:
-+                perror(NULL);
-+                rc = errno;
-+                break;
-+            }
-+            goto out;
-+        }
- 
-         if ( status.status == EVTCHNSTAT_closed )
-             continue;
-@@ -58,7 +80,8 @@ int main(int argc, char **argv)
-         printf("\n");
-     }
- 
-+ out:
-     xc_interface_close(xch);
- 
--    return 0;
-+    return rc;
- }
--- 
-2.34.1
-
+Thanks,
+Jason
 
