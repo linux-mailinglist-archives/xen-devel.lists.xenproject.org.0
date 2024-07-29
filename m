@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7CCC93F888
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 16:45:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766851.1177382 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0225693F8CE
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 16:56:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766859.1177392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYRcF-0001HV-Oi; Mon, 29 Jul 2024 14:44:47 +0000
+	id 1sYRn7-0003XP-No; Mon, 29 Jul 2024 14:56:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766851.1177382; Mon, 29 Jul 2024 14:44:47 +0000
+Received: by outflank-mailman (output) from mailman id 766859.1177392; Mon, 29 Jul 2024 14:56:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYRcF-0001G0-Lt; Mon, 29 Jul 2024 14:44:47 +0000
-Received: by outflank-mailman (input) for mailman id 766851;
- Mon, 29 Jul 2024 14:44:45 +0000
+	id 1sYRn7-0003Vi-L8; Mon, 29 Jul 2024 14:56:01 +0000
+Received: by outflank-mailman (input) for mailman id 766859;
+ Mon, 29 Jul 2024 14:55:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XCGL=O5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYRcD-0001Fr-SO
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 14:44:45 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1sYRn5-0003Vb-EB
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 14:55:59 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14190caa-4db9-11ef-8776-851b0ebba9a2;
- Mon, 29 Jul 2024 16:44:37 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a7a9a7af0d0so474289666b.3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 07:44:37 -0700 (PDT)
+ id a96b9e37-4dba-11ef-8776-851b0ebba9a2;
+ Mon, 29 Jul 2024 16:55:57 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-52f04c29588so6391801e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 07:55:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acab4de7asm516353366b.66.2024.07.29.07.44.36
+ a640c23a62f3a-a7acac60369sm516869566b.90.2024.07.29.07.55.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 07:44:36 -0700 (PDT)
+ Mon, 29 Jul 2024 07:55:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14190caa-4db9-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: a96b9e37-4dba-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722264277; x=1722869077; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722264957; x=1722869757; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=N6z+L8J4g/6gTtcX1rcZAOHLgCzHuGot2VvPUUI2fB8=;
-        b=IrFMFzAqAxzMEmqrAbWpqV32BNn5WN45BAM6A7Wbgc+WYSHm6WuA+LlMn04lZ7NWBM
-         IFhtu90eG6WKsGWA5JyiFROgg5vuRO/LxKuwJCSb61Gwsoq7TcMKbX34YXYfKCdVVxcP
-         W0WjyqgBLs/P39ZtBXw1nLZ3iXrAp3iPzfTKRfyWS7mC+2WfIEt7WT9KUEI/0H86y9nn
-         0qBzGQljA2tXxAlYt5MVLtpaZSzVL4g/viwg17I+WSis2KFUyPlBmJtNMMMJtkGgp/hQ
-         TbW715ttjuDoYOnPHtBVOswLyljUtoWLbSx8nrDhG+0m5I7WyLa2tfg4OXJ0sEDkofdL
-         v3Eg==
+        bh=S5EEaYouypDnIwmtZs+E2u3r89NVpG5/evnwm/MoRfw=;
+        b=ciAL3mwZNkPk+bYTAIHIIXK0weYb46y2QiwJq2eXzADJ8ejaPgCHq01LPrvkGoKJdG
+         LgBv5MZUvGGNErPEOp4MVnsb+LmQgSFxfUBnKuS4MPlTLe4BaRCmo2orbio7r2R+ScFZ
+         HOEsfbTdc/aEK1hQLEwNyIAP+l4xh8c4f7JOiYlgtObRS8CPVfin2e4krc5zg8ghPUT+
+         D0GMG8Nq0TENAvDX0hDPQeAidaLJ6V7sb23d2bROew4IEF0aNcjXWV8zR90ISkmCqRW2
+         HpDmbpp7HEqRjXy2286z8y5CELFqCFTSKR9WNn/3P0oiqgiHu5T7QsFswlaMDGIj9x/9
+         onpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722264277; x=1722869077;
+        d=1e100.net; s=20230601; t=1722264957; x=1722869757;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=N6z+L8J4g/6gTtcX1rcZAOHLgCzHuGot2VvPUUI2fB8=;
-        b=Ul92nCi0U9RojJJGcSpBIh3/YFaQweZeHT6msWaAYJSOTo0WqJMwxkkPPsKjNjWsqm
-         c7y9O4opdu9gECD2xAF6tQQGD/dLPX9Y0X1j8N0IjGsBGDbEYdLaBFekRf8SFoa0UcpP
-         fDL/IXynw9TftLib6CAJRez4sjURedPVqQCGg5Ycx90jsCbHZAGqRJc3g7g8OSlXlOMZ
-         5AVq440QLeceL2p5kKKhcIS8MinzOdZbkYg6uSWzXJAmdqIQCGWg0qIav+OSIjBJl5rv
-         ErfCgSYkXSC77zjOHV+33pMN8IC5S/jKF85UjCfiklCKduR25uiu71YQfqwUsTfDUAl4
-         Qk+w==
-X-Forwarded-Encrypted: i=1; AJvYcCUIwOU68FwzgUUYYHkOxW0le+Al+WJdGMVvTdk8IDXc2f4k32ahAo+TowK6wz/onC6/nzZdirKa0H0JqwrXfhDPUECsKaL3MpDsMgUmmAc=
-X-Gm-Message-State: AOJu0YzwbG+HQMO+6A3rRLINKAPWRehqhKoJuO4y9w293fxfyRpjwiTJ
-	ytMiyiioyXzcxlRN9MDpE57a0FF+MaZaiMuNgPjqCz/h/TSboH3Uuc/4xxn6TA==
-X-Google-Smtp-Source: AGHT+IFZ3+od9csvA1zxqfjuvpfa7iS4vqfl0hcoywcP9Z9lHMr60qtX0TDAbA2r0iC9WqpXh66D6A==
-X-Received: by 2002:a17:907:7205:b0:a7a:9ca6:527 with SMTP id a640c23a62f3a-a7d3ff7cce8mr562413666b.8.1722264276797;
-        Mon, 29 Jul 2024 07:44:36 -0700 (PDT)
-Message-ID: <d62df418-ff89-4594-944f-e68513d1f672@suse.com>
-Date: Mon, 29 Jul 2024 16:44:37 +0200
+        bh=S5EEaYouypDnIwmtZs+E2u3r89NVpG5/evnwm/MoRfw=;
+        b=MT4+YqRTFQYkQDo0u98iy6Qd4ZCeJNIhfr7DUOx7mv/DFzhV3hY13ovVbjjxsHMn5i
+         Cnk2Mx+IX4EC/10UWiOgamwmyZLzyw+TcDOJ/tpgG4BQKrgZTATEQy17Zl86G0LKjFjK
+         to3a1yWygOmiFR6r8RViwhrT2rD3PZxRSN6oSyXmAoWBPBDlL24Pm0yi3886MmP2687I
+         XMQajdjs1wfBzK+yAfA2YPDpwNOhC+7KihWHNpnGMvLZEbrLkggdKoWa4f3sEkM4R1qx
+         cPsJomrtP8n3EZusFsewfVedmVUfcY393IcgWJBmgQUHwFtjJFMAoBTanChn3vIn97ck
+         5xxg==
+X-Forwarded-Encrypted: i=1; AJvYcCU2gr2/PVknmcaH9Ily2LVqbOSAbbHW4L4iwycjF5EW+GefQV4TUO4kqXaBE0soY/2+SQpAUsMALxX8Tb0GYalgmej6SPAoqd6b9BUe/jo=
+X-Gm-Message-State: AOJu0Yy6PLKgA5HlCPpyKPDIjLNOphlgjeTJQA84wpLbLSi2Sc8ObYIk
+	0V6/65aEGKqFtjky9RCwQAEqeAZfkXCoVMTppu1Wb21xp3Sj1DiROZCrDjIGLQ==
+X-Google-Smtp-Source: AGHT+IHa5Uo99km7B125x7mifT5FhSBXJlkSUuj8eHPLF/dewcXjPe3wQZA1YXXoul9XN8pWqLTDFQ==
+X-Received: by 2002:a05:6512:4859:b0:52c:850b:cfc6 with SMTP id 2adb3069b0e04-5309b2c3a7bmr4747317e87.38.1722264956729;
+        Mon, 29 Jul 2024 07:55:56 -0700 (PDT)
+Message-ID: <baa57ab0-60c9-49b0-9601-09bea081ddd7@suse.com>
+Date: Mon, 29 Jul 2024 16:55:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v5] tools/lsevtchn: Use errno macro to handle
- hypercall error cases
-To: Matthew Barnes <matthew.barnes@cloud.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <f7bc11cc63a7b8596eb7a7c17f1e5c910f0009e5.1722263364.git.matthew.barnes@cloud.com>
+Subject: Re: [PATCH 1/3] xen: add no_instrument_function attributes
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20240729142421.137283-1-stewart.hildebrand@amd.com>
+ <20240729142421.137283-2-stewart.hildebrand@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,20 +116,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f7bc11cc63a7b8596eb7a7c17f1e5c910f0009e5.1722263364.git.matthew.barnes@cloud.com>
+In-Reply-To: <20240729142421.137283-2-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.07.2024 16:34, Matthew Barnes wrote:
-> @@ -58,7 +80,8 @@ int main(int argc, char **argv)
->          printf("\n");
->      }
->  
-> +out:
+On 29.07.2024 16:24, Stewart Hildebrand wrote:
+> In preparation for using -finstrument-functions option, we need to tag a
+> few functions that don't work well with such instrumentation. If we
+> don't intervene, we would end up with linker errors such as undefined
+> reference to __bad_cmpxchg.
 
-Sorry didn't pay attention here (and can likely be taken care of when
-committing, unless other comments arise): Labels want to be indented
-by at least one blank. See ./CODING_STYLE.
+I can't spot mention of such a side effect from the documentation. Talk
+there is of function calls being added at function entry and exit.
+Nothing is being said that calls to other functions would also be
+affected.
+
+> --- a/xen/arch/arm/include/asm/arm64/cmpxchg.h
+> +++ b/xen/arch/arm/include/asm/arm64/cmpxchg.h
+> @@ -5,6 +5,7 @@
+>  
+>  extern void __bad_xchg(volatile void *ptr, int size);
+>  
+> +__attribute__((no_instrument_function))
+
+I guess it would be nice to have
+
+#define no_instrument __attribute__((no_instrument_function))
+
+in xen/compiler.h. I also don't think these annotations want placing
+ahead of the entire declaration, but rather where other similar
+annotations would also go.
 
 Jan
 
