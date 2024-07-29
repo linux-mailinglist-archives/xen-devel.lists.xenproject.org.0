@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E9AA93F7AE
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 16:25:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766796.1177342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B85F893F7DF
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 16:29:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766826.1177353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYRJ6-0003gf-Fp; Mon, 29 Jul 2024 14:25:00 +0000
+	id 1sYRNL-0005PI-0r; Mon, 29 Jul 2024 14:29:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766796.1177342; Mon, 29 Jul 2024 14:25:00 +0000
+Received: by outflank-mailman (output) from mailman id 766826.1177353; Mon, 29 Jul 2024 14:29:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYRJ6-0003da-C7; Mon, 29 Jul 2024 14:25:00 +0000
-Received: by outflank-mailman (input) for mailman id 766796;
- Mon, 29 Jul 2024 14:24:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lVSF=O5=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1sYRJ4-0003ZM-53
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 14:24:58 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20601.outbound.protection.outlook.com
- [2a01:111:f403:2405::601])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 53711ad6-4db6-11ef-8776-851b0ebba9a2;
- Mon, 29 Jul 2024 16:24:56 +0200 (CEST)
-Received: from CH5PR04CA0015.namprd04.prod.outlook.com (2603:10b6:610:1f4::16)
- by IA0PR12MB8714.namprd12.prod.outlook.com (2603:10b6:208:488::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.28; Mon, 29 Jul
- 2024 14:24:51 +0000
-Received: from DS3PEPF000099D6.namprd04.prod.outlook.com
- (2603:10b6:610:1f4:cafe::60) by CH5PR04CA0015.outlook.office365.com
- (2603:10b6:610:1f4::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.34 via Frontend
- Transport; Mon, 29 Jul 2024 14:24:50 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099D6.mail.protection.outlook.com (10.167.17.7) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7828.19 via Frontend Transport; Mon, 29 Jul 2024 14:24:50 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 29 Jul
- 2024 09:24:50 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 29 Jul
- 2024 09:24:49 -0500
-Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 29 Jul 2024 09:24:48 -0500
+	id 1sYRNK-0005NI-T7; Mon, 29 Jul 2024 14:29:22 +0000
+Received: by outflank-mailman (input) for mailman id 766826;
+ Mon, 29 Jul 2024 14:29:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XCGL=O5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sYRNJ-0005NC-W2
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 14:29:21 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f1d0c52b-4db6-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 16:29:21 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a7ac469e4c4so701953866b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 07:29:21 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acab23f21sm513951066b.37.2024.07.29.07.29.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Jul 2024 07:29:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,311 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53711ad6-4db6-11ef-8776-851b0ebba9a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cHRmPxEHO4owW8CpirPq6sPM52zHNmRnguTaoiLfEoNT+m9fO75v7XgZe87s1w+95LH1+Lc33AH/9mTPhFpUKl+0D03NYHyfSCR0CiaLUlLBPj7W2dECks5NoufNCi06TmoQWCY43ssL7QVzDaDUQfRX9x7rWTtJVVEMtTbfJCNIBuWayBju3gBxouCYlynE+3twiMj0gWxgNsMnKI/qqzQmckXn7otOnAUDZ/mPLAtPqMnn7l/YGP9G+CXeAFs86W5wM/mMUSjkpH2AoDKeYcXn9DCmvgp8FNgECg63bshjC33gTtqxfg9w+GjtHcB7UrOZ1xSgZS65bL2NfxviVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TSm79FkEI7y4i+M/UCormwCYBTtHPSb5Zm5QtdPtlSY=;
- b=yQ61iHq5CACPPembOTSkn/0/wY4G64w9UlZOj0ETwCQgsWIxk3ClwXHzjbVQZ6qJODEqiek4pDZzsbWeiQ5VjTqq+xamsXxCd3WzWNX2xSqmcT5CrABaMcFAhragWjhXfD4TXBImgQDGqATt8ula76V3f+/86RwMq7xVS+hCFK04sX5miv1cuOnaO2+CDr5sa6PVgN/p6SkVmlpreKZ2QXEUMvcdZvyVfbdwCk64ELv0JnY0/nC55NEFjWQS0+1RzL82Z8klileNcC4U+KBbCG3769tmNWKWV3Wjb02GiYJFhaCE2fqM4aY226pUqog054Z178dqsKWqfbClVZz1fQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TSm79FkEI7y4i+M/UCormwCYBTtHPSb5Zm5QtdPtlSY=;
- b=kF4meOSDHYvfi5+9M4M4MLOD2vua6NcldG7dSmBDcYHCxwXeeRz+zyFR6RSsnHut8IWNJwZqK0dktg6aWZDjIYw6PZdEuD9XIOXBSjtKrqeXcYeUtRHIKIx0bZTvgeVcFmFzo9Xv9ZSnZj2Mw2VkyKjzM6pHj5JQhrCM4Y0s50g=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 3/3] xen/arm: stack check instrumentation
-Date: Mon, 29 Jul 2024 10:24:17 -0400
-Message-ID: <20240729142421.137283-4-stewart.hildebrand@amd.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240729142421.137283-1-stewart.hildebrand@amd.com>
-References: <20240729142421.137283-1-stewart.hildebrand@amd.com>
+X-Inumbo-ID: f1d0c52b-4db6-11ef-bc01-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1722263360; x=1722868160; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ek9HDFKIhaL+t8Gwc5EWQqh7/03/2YDofjLoJlxaQxs=;
+        b=QBUM+vg363KMmym/zVIpR1X5fqoKm/tw8GgQhrjT7KgBVodMBbJx3kepb6y3zyafXT
+         s6naL5912vguSAcdYpUGBESyY4Lb5E5Jnjm2/wR6LT1k9jMRZ6dObbpoX9GZ0grlKKc+
+         Q52QnFQ0OddZeHR+XQcb2lfqq0no0YaJ1ANhK+Ji0mMWarivK0AlM1YqapYOC6aVIRUI
+         Gkwzg+p2fW9EMRz4wUGyY/+qYIVIVeP1kfrtOcX/Co+PjipG/2T9RM4Crem+fC7aeV3B
+         P3DuNtn0l6bH+NLy7Jq6CeorVQBVa4zxIQqaNI+sRYymdC6Ii0jdAhp0tgDDk7XCAaBD
+         2UVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722263360; x=1722868160;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ek9HDFKIhaL+t8Gwc5EWQqh7/03/2YDofjLoJlxaQxs=;
+        b=jA87nyA9ruIn1BFJovp5vIVBPBZ9eknlt2/0uBnWeHBm4yfo+mcpohz3NdO0y+yWge
+         aVJmJ2HBx0AImSfGMXLT95ku+7/sPzacopAlp9LDEJs2V1L+OQYyqVYEyvYvpswULlta
+         SHou2UPGQx5p7Ey5t40eMtfbvM3z35vguduoKO4E3r+c7b00JT/iSbxC6vaKO8U6EV73
+         SIyNSFJ7A0BEP5c4vIB7ptQ9zzvUF1akGdXiWtrcy5AP91zXt2KAPVZEXCSIxLDVVHBA
+         3UgxR6eXvbeVZALFGL2oAHe7k4chbYAKnoR0ogpnsAU3OCzd6C+BufmBdRcrX+KXcdhg
+         JQEA==
+X-Forwarded-Encrypted: i=1; AJvYcCUASwhlP3GEbYzwWlhCQmiC88P7w5eTi8+ywDXIboTwNwDmbvnLBWN/1Y3k9vKP8IEAl4SqTr6KNE89KH489vnjicHo+HnMUdghx3CedSQ=
+X-Gm-Message-State: AOJu0YxqTw6ztVJUZCFB7M2TZ7xC1VS6BXyk91KW++San5YRowzQoteE
+	AiIA9YEIz9tWWZ6Af9h2MJ0bA9Kdp1+2tasjXFDYIKRDa+NMNSwwp1SG1FxLdQ==
+X-Google-Smtp-Source: AGHT+IEts3F4gtfTQUTq/sC3mhp1r+KNGjqDIfa6nq2x1dZso53XSTD4IzIe0pO0gu6tC5JCWabAHg==
+X-Received: by 2002:a17:906:d262:b0:a6f:e7a0:91cf with SMTP id a640c23a62f3a-a7d3fa09eccmr746903366b.24.1722263360345;
+        Mon, 29 Jul 2024 07:29:20 -0700 (PDT)
+Message-ID: <3359e37e-eaae-49ca-80a5-2bf70b9b46c7@suse.com>
+Date: Mon, 29 Jul 2024 16:29:20 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D6:EE_|IA0PR12MB8714:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7fb1ffd3-64e5-47c0-2937-08dcafda3515
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?7qvpyGSaSAs7SSrqASTkAaSrjFv9vxREIO1PCtmW84zvr7o7RILwe/tYSlrh?=
- =?us-ascii?Q?vmepIDw9+yvtk3OR2neys3fAr1cc4tk5CAjJkK3uGIDX3be6vIJJf6ebS8bH?=
- =?us-ascii?Q?pBPNni5e5PeafIToF1n4FibidLn2n0RSs0+T25cW5zYsIuxCWUjk7ZgjQQrT?=
- =?us-ascii?Q?6zjlAYbSPZRkSVBc6p4cmr44JVvg5GA5ib0/mU7N/EhNB4gLpBra0g+CNhen?=
- =?us-ascii?Q?YqIP7qnNzzPBFuiUtx4uQuPJSwtKRJiS1PQCuyPO6nvea+KWE85q6SDs2qe3?=
- =?us-ascii?Q?UepdfQEtlJcp9y72lov/b+1S/xE8fknNvSy+Dun+SVKkz4fkTQ/k/kzruA0o?=
- =?us-ascii?Q?vejt4fG8BQgpaJ23ZHCd/3QQCdtCTdA4BwT7/LgsQQKSI3No1DC9b+zcOejw?=
- =?us-ascii?Q?7cVLHreXhg9KO0Q5qeeNMOM61LjKVhtN3bZCvaaf6fwtTRZ+xtbQCpNKCSqf?=
- =?us-ascii?Q?5OonyXV8q6gYFoNEFURlNe3nuPfFVow/zoZYkHdJQMcGk8a/tWVBEEeDLiZZ?=
- =?us-ascii?Q?dYbo1PQ0rtOuuMbWfC9ybmC0UGxs4bTA6ESDpAQHhENVefblMshnsje0APXy?=
- =?us-ascii?Q?y4nnb9vuX8kLpee03dgcxDcT+DMbBRDJ6bswsY4jFMDQMAmXb4itAPa6ZdDg?=
- =?us-ascii?Q?XGpQtsX501WIG9bTxjWP7vZL1WFKHNbn9usZ/lLFOyUcR/KkY26OfF+CxOsa?=
- =?us-ascii?Q?6aW1XfE6IrfaLaHQUrpz4lda4jJPUZkanAhS4CXn6CEvoGp+C5L6UkjDGajW?=
- =?us-ascii?Q?hg5t089vMXpUmxMEY9d/J2mlTfkbHz/CAeqhDOd7UX7T9sEb3LtXg2Fqj/hN?=
- =?us-ascii?Q?qfjxTlaARioVVajQVRjZDfzDT3ec0Qti0UJ/CnHF5bT5ohR3XI4Fmdu+laTi?=
- =?us-ascii?Q?ir/bEt+XxWY7TJEsbfsNBWX1JfzWtFfmQwON2hFPaEcgGFtjnu2uLV6+7oma?=
- =?us-ascii?Q?IWK+ZM4nt8zVydhJpzW/WeBx/NDJcrX1WzZ6Atd5J+YYfeL5tDQcQCjG6niW?=
- =?us-ascii?Q?82Bj9K7UrBSIHGT5dE3WKPYyWkNPPZeAY9OFujHPuCf465vzkJRCROSqCPvu?=
- =?us-ascii?Q?Qj4l9NKJYMUbukqQf0vVELmaTh5NGS+MSKXePAjDKaYooSVx5/VFAmVjc7y2?=
- =?us-ascii?Q?tSaVQ+ZGu2md2m1otGobiThrlBulXjjZPEVPCGxFX5D+9Q4PqZv6Gt9lKQ/r?=
- =?us-ascii?Q?5q/a2VzuP/WzumY2sC3XMQjsKo/m+iFZ5116an5jbUDmNupYFT/c/opzHypm?=
- =?us-ascii?Q?H4Cnh0cLAMXsNAFNhr3G6Iqh1KF5UJcdUXx9eqAMczTevK2YsajcqZ2UtqVR?=
- =?us-ascii?Q?WExc9hCXgCS8gtqswcbDdxoaIDN/AldnbxV2xMa8OImf+x4W6GH+5tihKuk+?=
- =?us-ascii?Q?4/7ugUnatb7O4s96obgNKApGSqx9J7qIeokD0GI6+WbfrZ6UeuzLUBM3jZRF?=
- =?us-ascii?Q?g+QQYEyJgI5E2/Zvq20Dz4QvEacebL5H?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2024 14:24:50.6984
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7fb1ffd3-64e5-47c0-2937-08dcafda3515
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099D6.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8714
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/9] xen/riscv: introduce asm/pmap.h header
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
+ <11b5487659a9c76793e520c108cd92c6c84b908d.1721834549.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <11b5487659a9c76793e520c108cd92c6c84b908d.1721834549.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Use the -finstrument-functions option to check that the stack pointer is
-valid upon each function entry. Only enable it for debug builds due to
-the overhead introduced.
+On 24.07.2024 17:31, Oleksii Kurochko wrote:
+> Introduces arch_pmap_{un}map functions and select HAS_PMAP
+> for CONFIG_RISCV.
+> 
+> Additionaly it was necessary to introduce functions:
+>  - mfn_from_xen_entry
+>  - mfn_to_pte
+> 
+> Also flush_xen_tlb_range_va_local() and flush_xen_tlb_one_local()
+> are introduced and use in arch_pmap_unmap().
 
-Use per-cpu variables to store the stack base and nesting level. The
-nesting level is used to avoid invoking __cyg_profile_func_enter
-recursively.
+Just flush_xen_tlb_one_local() would suffice for the purposes here.
+flush_xen_tlb_range_va_local() will need some kind of cutoff, to
+avoid looping for an excessivly long time.
 
-A check is added for whether per-cpu data has been initialized. Since
-TPIDR_EL2 resets to an unknown value, initialize it to an invalid value.
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/pmap.h
+> @@ -0,0 +1,33 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef ASM_PMAP_H
+> +#define ASM_PMAP_H
+> +
+> +#include <xen/bug.h>
+> +#include <xen/mm.h>
+> +#include <xen/page-size.h>
+> +
+> +#include <asm/fixmap.h>
+> +#include <asm/flushtlb.h>
+> +#include <asm/system.h>
+> +
+> +static inline void arch_pmap_map(unsigned int slot, mfn_t mfn)
+> +{
+> +    pte_t *entry = &xen_fixmap[slot];
+> +    pte_t pte;
+> +
+> +    ASSERT(!pte_is_valid(*entry));
+> +
+> +    pte = mfn_to_xen_entry(mfn, PAGE_HYPERVISOR_RW);
+> +    write_pte(entry, pte);
+> +}
 
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
----
-RFC: I only tested this on arm64. I still need to test with arm32.
+Perhaps add a comment to clarify why it's safe to omit a TLB flush here.
+Note that arch_pmap_unmap() having one is a necessary but not sufficient
+condition to that. In principle hardware may also cache "negative" TLB
+entries; I have no idea how RISC-V behaves in this regard, or whether
+that aspect is actually left to implementations.
 
-RFC: Should we put this under its own config option instead of reusing
-     CONFIG_DEBUG?
+> +static inline void arch_pmap_unmap(unsigned int slot)
+> +{
+> +    pte_t pte = {};
+> +
+> +    write_pte(&xen_fixmap[slot], pte);
+> +
+> +    flush_xen_tlb_range_va_local(FIXMAP_ADDR(slot), PAGE_SIZE);
+> +}
 
-RFC: Is there a better value for INVALID_PER_CPU_OFFSET? We can't use 0
-     because 0 is a valid value for get_per_cpu_offset().
----
- xen/arch/arm/arch.mk             |  1 +
- xen/arch/arm/arm64/head.S        |  4 +++
- xen/arch/arm/domain.c            |  3 +++
- xen/arch/arm/include/asm/page.h  |  2 ++
- xen/arch/arm/include/asm/traps.h |  8 ++++++
- xen/arch/arm/setup.c             |  4 +++
- xen/arch/arm/smpboot.c           |  3 +++
- xen/arch/arm/traps.c             | 45 ++++++++++++++++++++++++++++++++
- 8 files changed, 70 insertions(+)
+For both functions, even if mainly for documentation purposes, it may
+be desirable to mark them __init. It's again a necessary (but not
+sufficient) condition here, to validly use local TLB flushes only.
 
-diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
-index 022dcda19224..c39cb65d183d 100644
---- a/xen/arch/arm/arch.mk
-+++ b/xen/arch/arm/arch.mk
-@@ -12,6 +12,7 @@ CFLAGS-$(CONFIG_ARM_32) += -mno-unaligned-access
- CFLAGS-$(CONFIG_ARM_64) += -mcpu=generic
- CFLAGS-$(CONFIG_ARM_64) += -mgeneral-regs-only # No fp registers etc
- $(call cc-option-add,CFLAGS-$(CONFIG_ARM_64),CC,-mno-outline-atomics)
-+CFLAGS-$(CONFIG_DEBUG) += -finstrument-functions
- 
- ifneq ($(filter command line environment,$(origin CONFIG_EARLY_PRINTK)),)
-     $(error You must use 'make menuconfig' to enable/disable early printk now)
-diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-index 2fa07dc3a04b..4a332b9cbc7c 100644
---- a/xen/arch/arm/arm64/head.S
-+++ b/xen/arch/arm/arm64/head.S
-@@ -399,6 +399,10 @@ FUNC_LOCAL(cpu_init)
-          * than SP_EL0.
-          */
-         msr spsel, #1
-+
-+        ldr   x0, =INVALID_PER_CPU_OFFSET
-+        msr   tpidr_el2, x0
-+
-         ret
- END(cpu_init)
- 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 7cfcefd27944..93ebe6e5f8af 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -26,6 +26,7 @@
- #include <asm/procinfo.h>
- #include <asm/regs.h>
- #include <asm/tee/tee.h>
-+#include <asm/traps.h>
- #include <asm/vfp.h>
- #include <asm/vgic.h>
- #include <asm/vtimer.h>
-@@ -328,6 +329,8 @@ void context_switch(struct vcpu *prev, struct vcpu *next)
- 
-     set_current(next);
- 
-+    stack_set(next->arch.stack);
-+
-     prev = __context_switch(prev, next);
- 
-     schedule_tail(prev);
-diff --git a/xen/arch/arm/include/asm/page.h b/xen/arch/arm/include/asm/page.h
-index 69f817d1e68a..6b5aaf1eb3ff 100644
---- a/xen/arch/arm/include/asm/page.h
-+++ b/xen/arch/arm/include/asm/page.h
-@@ -7,6 +7,8 @@
- #include <asm/lpae.h>
- #include <asm/sysregs.h>
- 
-+#define INVALID_PER_CPU_OFFSET            _AC(0x1, UL)
-+
- /* Shareability values for the LPAE entries */
- #define LPAE_SH_NON_SHAREABLE 0x0
- #define LPAE_SH_UNPREDICTALE  0x1
-diff --git a/xen/arch/arm/include/asm/traps.h b/xen/arch/arm/include/asm/traps.h
-index 9a60dbf70e5b..13e6997c2643 100644
---- a/xen/arch/arm/include/asm/traps.h
-+++ b/xen/arch/arm/include/asm/traps.h
-@@ -118,6 +118,14 @@ static inline register_t sign_extend(const struct hsr_dabt dabt, register_t r)
- 
- void finalize_instr_emulation(const struct instr_details *instr);
- 
-+#ifdef CONFIG_DEBUG
-+void stack_check_init(void);
-+void stack_set(unsigned char *base);
-+#else
-+static inline void stack_check_init(void) { }
-+static inline void stack_set(unsigned char *base) { }
-+#endif
-+
- #endif /* __ASM_ARM_TRAPS__ */
- /*
-  * Local variables:
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 0c2fdaceaf21..07d07feff602 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -47,6 +47,7 @@
- #include <asm/setup.h>
- #include <xsm/xsm.h>
- #include <asm/acpi.h>
-+#include <asm/traps.h>
- 
- struct bootinfo __initdata bootinfo = BOOTINFO_INIT;
- 
-@@ -733,6 +734,8 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
-     percpu_init_areas();
-     set_processor_id(0); /* needed early, for smp_processor_id() */
- 
-+    stack_check_init();
-+
-     /* Initialize traps early allow us to get backtrace when an error occurred */
-     init_traps();
- 
-@@ -924,6 +927,7 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
-      * since the static one we're running on is about to be freed. */
-     memcpy(idle_vcpu[0]->arch.cpu_info, get_cpu_info(),
-            sizeof(struct cpu_info));
-+    stack_set(idle_vcpu[0]->arch.stack);
-     switch_stack_and_jump(idle_vcpu[0]->arch.cpu_info, init_done);
- }
- 
-diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-index 04e363088d60..1c689f2caed7 100644
---- a/xen/arch/arm/smpboot.c
-+++ b/xen/arch/arm/smpboot.c
-@@ -30,6 +30,7 @@
- #include <asm/psci.h>
- #include <asm/acpi.h>
- #include <asm/tee/tee.h>
-+#include <asm/traps.h>
- 
- /* Override macros from asm/page.h to make them work with mfn_t */
- #undef virt_to_mfn
-@@ -329,6 +330,8 @@ void asmlinkage start_secondary(void)
- 
-     set_processor_id(cpuid);
- 
-+    stack_check_init();
-+
-     identify_cpu(&current_cpu_data);
-     processor_setup();
- 
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index aac6c599f878..b4890eec7ec4 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -2325,6 +2325,51 @@ void asmlinkage leave_hypervisor_to_guest(void)
-         arm_smccc_1_1_smc(ARM_SMCCC_ARCH_WORKAROUND_2_FID, 0, NULL);
- }
- 
-+#ifdef CONFIG_DEBUG
-+DEFINE_PER_CPU(unsigned int, stack_check_nesting);
-+DEFINE_PER_CPU(unsigned char *, stack_base);
-+
-+void __attribute__((no_instrument_function)) stack_set(unsigned char *base)
-+{
-+    this_cpu(stack_base) = base;
-+}
-+
-+void __init __attribute__((no_instrument_function)) stack_check_init(void)
-+{
-+    this_cpu(stack_check_nesting) = 0;
-+    stack_set(init_data.stack);
-+}
-+
-+__attribute__((no_instrument_function))
-+void __cyg_profile_func_enter(void *this_fn, void *call_site)
-+{
-+    unsigned char *sp;
-+
-+    if ( get_per_cpu_offset() == INVALID_PER_CPU_OFFSET )
-+        return;
-+
-+    asm volatile ("mov %0, sp" : "=r" (sp) );
-+
-+    if ( sp < this_cpu(stack_base) ||
-+         sp > (this_cpu(stack_base) + STACK_SIZE) )
-+    {
-+        if ( this_cpu(stack_check_nesting) )
-+            return;
-+
-+        this_cpu(stack_check_nesting)++;
-+        printk("CPU %d stack pointer out of bounds (sp %#lx, stack base %#lx)\n",
-+               smp_processor_id(), (uintptr_t)sp,
-+               (uintptr_t)this_cpu(stack_base));
-+        BUG();
-+    }
-+}
-+
-+__attribute__((no_instrument_function))
-+void __cyg_profile_func_exit(void *this_fn, void *call_site)
-+{
-+}
-+#endif
-+
- /*
-  * Local variables:
-  * mode: C
--- 
-2.45.2
+> --- a/xen/arch/riscv/mm.c
+> +++ b/xen/arch/riscv/mm.c
+> @@ -382,3 +382,18 @@ int map_pages_to_xen(unsigned long virt,
+>      BUG_ON("unimplemented");
+>      return -1;
+>  }
+> +
+> +static inline pte_t mfn_from_pte(mfn_t mfn)
+> +{
+> +    unsigned long pte = mfn_x(mfn) << PTE_PPN_SHIFT;
+> +    return (pte_t){ .pte = pte };
+> +}
 
+My earlier naming related comment may not have been here, but it
+was certainly meant to apply to any similar functions: A function
+of this name should imo take a pte_t and produce an mfn_t. IOW I'd
+expect this function to be pte_from_mfn(). However, I question it being
+a good idea to do it this way. The resulting pte_t isn't valid yet, aiui,
+as it still needs at least the access controls filled in. Such a partial
+pte_t would better not be floating around at any time, imo. IOW the
+function likely wants to take a 2nd parameter.
+
+Jan
 
