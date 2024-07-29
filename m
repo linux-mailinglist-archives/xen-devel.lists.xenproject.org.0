@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27D4B93EFAF
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 10:17:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766418.1176898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C81FD93F004
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 10:39:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766439.1176914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYLZT-0006Je-Le; Mon, 29 Jul 2024 08:17:31 +0000
+	id 1sYLu3-0002pI-Eo; Mon, 29 Jul 2024 08:38:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766418.1176898; Mon, 29 Jul 2024 08:17:31 +0000
+Received: by outflank-mailman (output) from mailman id 766439.1176914; Mon, 29 Jul 2024 08:38:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYLZT-0006IC-ID; Mon, 29 Jul 2024 08:17:31 +0000
-Received: by outflank-mailman (input) for mailman id 766418;
- Mon, 29 Jul 2024 08:17:29 +0000
+	id 1sYLu3-0002m5-AO; Mon, 29 Jul 2024 08:38:47 +0000
+Received: by outflank-mailman (input) for mailman id 766439;
+ Mon, 29 Jul 2024 08:38:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QfTU=O5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sYLZR-0006I6-KQ
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 08:17:29 +0000
-Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
- [2607:f8b0:4864:20::72e])
+ id 1sYLu1-0002lz-45
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 08:38:45 +0000
+Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
+ [2607:f8b0:4864:20::836])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fe684c91-4d82-11ef-bc01-fd08da9f4363;
- Mon, 29 Jul 2024 10:17:28 +0200 (CEST)
-Received: by mail-qk1-x72e.google.com with SMTP id
- af79cd13be357-7a1e2ac1ee5so186468985a.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 01:17:28 -0700 (PDT)
+ id f66c8715-4d85-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 10:38:43 +0200 (CEST)
+Received: by mail-qt1-x836.google.com with SMTP id
+ d75a77b69052e-44ff6dd158cso19043781cf.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 01:38:43 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6bb3f8d84e2sm48874876d6.21.2024.07.29.01.17.26
+ d75a77b69052e-44fe814c2bbsm39878511cf.35.2024.07.29.01.38.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jul 2024 01:17:26 -0700 (PDT)
+ Mon, 29 Jul 2024 01:38:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,56 +44,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe684c91-4d82-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: f66c8715-4d85-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722241047; x=1722845847; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1722242322; x=1722847122; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=cvbs/cxiByXlz9GbAZjIUDAo+YIyO15xk7TjFWjOgNQ=;
-        b=P7OXvbTmUXvm1uGITgtJ4+FoYSnG1k/JQSmdJFsB+LVEVmdCyTBbOxJo5I2+x3iRp6
-         Jsmxx0wKfkjlfd9hF/xpHUrO7szlL0o3WPEDZKeuDtb8pPbjo0aqyQ2QEiEw3fAYYEHu
-         yIZxv4bycghP8tCX+QOd6W+oGdfOvS3EcdeY4=
+        bh=yksyStlcpCKPHCR2lpoH4mXGfQBNBTxFjbm/2lizJuI=;
+        b=JU9J23YvBUcLuD4FrvueiAYEurxW6U+afrbo3Oc+bnGCwgGj/pKGiEhyzReiipA1o1
+         upoKWL0XWkEdcUZb727C5vAsVtsMsuf84RXFn72Te7JwPLdMOcnThO0RS51QGPZT5jNG
+         hbb4qk9VO7IwGM9AoywQp2TJ4gGMvhGms2xKQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722241047; x=1722845847;
+        d=1e100.net; s=20230601; t=1722242322; x=1722847122;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cvbs/cxiByXlz9GbAZjIUDAo+YIyO15xk7TjFWjOgNQ=;
-        b=NtuI9mnFYuaE8wjuUaX4J7Z3P4f44Oaey95aVeSib/Qzk5T9NfDafetMYNMNOZGZ2o
-         UIVPawAfh0TU1DZD4K0U50tLIlIHcAaBSdLL3j3Tyx+s74ZWH7xQCrkpi5m6SQVvGJ1r
-         J6QxLTqvIlPEA8N14sDFlbWjj7uGy2knUyE6v1pbMwsnc5EZ34dT5XHQIDEsR6B9gVor
-         ZCmcMMMc/AwvSl8zaXJhn5gnk+z6lrY4Y5S0q9QoeULw1xztr5L4qM81wIpaZ+wwXFbt
-         Qvk41kNGBu9iE53GojtnPd8OJbNavLRPJdMy7wjOfHXw089XhJXsAK6+oeMRLzF31gu8
-         jCVw==
-X-Gm-Message-State: AOJu0YylEIbJvqLTE2Keo85Vcm5m21O9tKd4nPOO2YKL9qWTSaxgb3eE
-	UYuRs9ZnQh25t1MZn64Ugs3VR4QDz9PFT4Wm0UBec3ouAbINbJYB+QYlPM6DoVDR2LyUtnewzO2
-	Q
-X-Google-Smtp-Source: AGHT+IE8T9GwSzCF8QIX1x9Tr/+4qjjaseYfN5PW9t8R6KjknY0V9Urt9tXJUZ9iY1PdEaMGM318ng==
-X-Received: by 2002:a05:6214:1245:b0:6b7:b026:fa3 with SMTP id 6a1803df08f44-6bb55aafd35mr76686416d6.46.1722241047091;
-        Mon, 29 Jul 2024 01:17:27 -0700 (PDT)
-Date: Mon, 29 Jul 2024 10:17:25 +0200
+        bh=yksyStlcpCKPHCR2lpoH4mXGfQBNBTxFjbm/2lizJuI=;
+        b=lj4MNT+U8WpqI5dtOUh9iFEn6LyezYPD3ZyhGQVDWedtbeaiLkWjT4GM/2ah0yEj0k
+         29YizuArWvOD4I/SeC+axzAQbQaM9D/I97N6+5VsJRvoVP6mkovrU17j0EPrB9ZKr1EP
+         h7fQzZMwMBGtUtdkJcRE4DIsPmZo8LiFl1WvG8YFimokUCfZ2k2Cuk5edgP3sk5DNF47
+         yo3/7K1+wHW7uHvf1P5AW0U+ZvEXzGDs3vXKbEF0djcfM8V8Py6NR2QlSVs8dpHway1a
+         nH7QDfEzvyOWgUYZPtmM6Q3KiJiGU1iBV4suRdwdn47lOnijYjRRThpzCGDoY5NB9oOZ
+         193w==
+X-Forwarded-Encrypted: i=1; AJvYcCVq20WyZw05MMcnF4y78YdiqO2uPuE5VUSiNA2KJbgOndZB9Dx4pKW1DRp9NFl+OkkEhPwGJCYsSUkVPQxN5RQ4Y99KKzx21HQCybj9/3k=
+X-Gm-Message-State: AOJu0Yw5nf+s/ELvJJIBT94b3gSaqjDmJqiY8Aw2qH9IJyLjigaUkmFx
+	6vw/tHHE5Mh5ZJ4AkXcixdD5as2RXzdE7rI7FkMTeiw2HIR+Tki9c6n0bbP6nVc=
+X-Google-Smtp-Source: AGHT+IF54BaRbwvUbu6aqAXUbcCRTREORUj+xk1kO3hdhPt6asghppOM5RYZ5Usi8/S5trV7aI4K6w==
+X-Received: by 2002:a05:622a:1888:b0:446:4b81:807d with SMTP id d75a77b69052e-45004d68f98mr100381161cf.1.1722242322613;
+        Mon, 29 Jul 2024 01:38:42 -0700 (PDT)
+Date: Mon, 29 Jul 2024 10:38:40 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: alejandro.vallejo@cloud.com, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 03/22] x86/dom0: only disable SMAP for the PV dom0 build
-Message-ID: <ZqdQFRyoV6umqO1z@macbook>
-References: <20240726152206.28411-1-roger.pau@citrix.com>
- <20240726152206.28411-4-roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
+	"committers @ xenproject . org" <committers@xenproject.org>,
+	Julien Grall <jgrall@amazon.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for 4.19] CHANGELOG.md: Finalize changes in 4.19 release
+ cycle
+Message-ID: <ZqdVEDNZDxhAXb_p@macbook>
+References: <0c93b49ac00fa92721035b4f9eb2ae76175fe886.1722237887.git.oleksii.kurochko@gmail.com>
+ <f2450b46-3542-4e1c-b7d7-8735b1839791@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20240726152206.28411-4-roger.pau@citrix.com>
+In-Reply-To: <f2450b46-3542-4e1c-b7d7-8735b1839791@suse.com>
 
-On Fri, Jul 26, 2024 at 05:21:47PM +0200, Roger Pau Monne wrote:
-> The PVH dom0 builder doesn't switch page tables and has no need to run with
-> SMAP disabled.
+On Mon, Jul 29, 2024 at 10:11:23AM +0200, Jan Beulich wrote:
+> On 29.07.2024 09:31, Oleksii Kurochko wrote:
+> > @@ -23,6 +34,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+> >     using a standalone library implementation.
+> >   - xenalyze no longer requires `--svm-mode` when analyzing traces
+> >     generated on AMD CPUs
+> > + - CI updates:
+> > +   - Minimum fixes to rebuild the containers, following the HEREDOC problems.
+> > +   - Rebuild containers to have testing with up-to-date LTS distros.
+> > +   - Few build system checks, and strip the obsolete contents of
+> > +     the build containers.
+> 
+> This again doesn't concern people using Xen, does it?
 
-This should be reworded as:
+I think the CHANGELOG was for both users consuming Xen, but also for
+developers (or more technical consumers) to know what changed between
+releases.
 
-"The PVH dom0 builder doesn't build guest page-tables, because PVH is
-started in 32bit protected mode, hence has no need to run with SMAP
-disabled."
+The PR notes should indeed be more user-focused, but in that case I
+still think mentioning something about increased efforts to improve
+Gitlab CI is worth having in the release notes, so people know
+improvements are being done wrt testing.
 
 Thanks, Roger.
 
