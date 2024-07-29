@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FA1193F909
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 17:05:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766895.1177443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46C9893F970
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 17:29:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766912.1177454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYRvh-0007yp-IB; Mon, 29 Jul 2024 15:04:53 +0000
+	id 1sYSIw-00047a-Ge; Mon, 29 Jul 2024 15:28:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766895.1177443; Mon, 29 Jul 2024 15:04:53 +0000
+Received: by outflank-mailman (output) from mailman id 766912.1177454; Mon, 29 Jul 2024 15:28:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYRvh-0007wc-ES; Mon, 29 Jul 2024 15:04:53 +0000
-Received: by outflank-mailman (input) for mailman id 766895;
- Mon, 29 Jul 2024 15:04:51 +0000
+	id 1sYSIw-00045G-Ct; Mon, 29 Jul 2024 15:28:54 +0000
+Received: by outflank-mailman (input) for mailman id 766912;
+ Mon, 29 Jul 2024 15:28:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+PZO=O5=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1sYRvf-0007wD-Mh
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 15:04:51 +0000
-Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
- [2607:f8b0:4864:20::b2d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XCGL=O5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sYSIv-00045A-1k
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 15:28:53 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e68f81e1-4dbb-11ef-bc01-fd08da9f4363;
- Mon, 29 Jul 2024 17:04:50 +0200 (CEST)
-Received: by mail-yb1-xb2d.google.com with SMTP id
- 3f1490d57ef6-e0b2d2e7dc9so2211767276.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 08:04:50 -0700 (PDT)
-Received: from shine.ofnet.lan ([2601:cb:4001:dd00:4607:a3c8:56f1:778a])
- by smtp.gmail.com with ESMTPSA id
- 3f1490d57ef6-e0b29f1c248sm1852374276.6.2024.07.29.08.04.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jul 2024 08:04:47 -0700 (PDT)
+ id 4251602e-4dbf-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 17:28:52 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-58ef19aa69dso4117692a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 08:28:51 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acab5151csm519880766b.74.2024.07.29.08.28.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Jul 2024 08:28:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,670 +45,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e68f81e1-4dbb-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: 4251602e-4dbf-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722265488; x=1722870288; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=SKl4Me2z0mrDM66JsCXjWuDWO0RAfsJJlEIk4qi0i7c=;
-        b=AQ33t0cuzvL+7O0eOpsWNPL/GPCLXp7Rp1al1RgH4wOEIO/xsZFYo4KThoR9Eg5EE6
-         F+puMVZfdJZ2ttMBlPtqSAAaO+sWg9a/uRGD63N3NY7V/RclGKpCYd8gllG1jeOB3Sj1
-         WfhkRGiGNYaTsWlFBzmgjMzwLiO+iSDdacJ4aSMiKF6KaxQWyYPO+ZUX9N3M8IjBYXmr
-         P10l6Vl4aVlEjoJRUiiEjkup5GHs9POhI0s4EJKqiXqob0N45ZVubaLMftYg+zw+ENUs
-         +TognGL1hibqPa0ZQPANXjC4tt4MZWjItKbamuv9/NzMJuETTThMqZ31MLdan6h6nRoT
-         vl+w==
+        d=suse.com; s=google; t=1722266931; x=1722871731; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=8sev3bBuQNQu80TeieCkWveOqmk53YYSZ7PX3Na1KUc=;
+        b=cylvhAaaR/YuE9bGaSF6FN77UoNYj9C9mpoX8yQCf+5dDSW62kABXlUtjXdue3zPSo
+         4mj5dI8/tk0krPz08M8bnNTsjJwD3o2zNMHncrGpCpsMRIVjOv0RiSuhxMvHY+OKxDn8
+         nS3/nkdHa9vzDNPyjZ2ohhykkkrFrr7xA2JoGcgzXn0+tYikEbJycjFzXKg4QFyvM5X8
+         j9X54JxBDRFhdoQ2KBzgv26Nus6BwAhTuQa1lD9NfJsRdSPH84TO1Y+4ch++sV9HtKdO
+         xqG9UU1D9D+mug0rhFZjlTL5nF5dbIyikLn4N/iEw1NuGjBi7BsvhOeUsfBVnxruE8fo
+         lFQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722265488; x=1722870288;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SKl4Me2z0mrDM66JsCXjWuDWO0RAfsJJlEIk4qi0i7c=;
-        b=WaFi0xyJ56TRtClXLvGHoQ43CfrjNJePlbiEwYSg2ExrK54XaWfJWG1810kNwKWmrd
-         S1T6vaDfiYoyWGMgYFrmpwvZcRDnf3UbPsgFZ0/SljJEFq68Lh26i7QE4a/E1/O7ykBE
-         MHiLVJuNpQRQgBWUnSW2ShSSqw24ZyGJ/jeeEIaSAjEDqItZRj+k/IxNt/J5j94aIFvO
-         yamUjsVbPTAa/MEb5A7oWGqXKYEve8USLkYh2NoBGhGkywPhtVFnZyCGKZpEQDUyk3GJ
-         t2bynwc3a8DqNuHdrzeSvMSKsj2TfUcRtd8a1Trn7yNIR+d3mifmAhO+6tn9qqcAWegf
-         eKig==
-X-Gm-Message-State: AOJu0YxmzOcOvRc+n0xiJttSR0XFxiR8ovWW1tS9iOWii+AxVe5Hkhjg
-	LWrvEw16L8yFpSowEA3zsc26KBkHDtXbh2WTvCiQq0tpCDX7gnt0KmYdOQ==
-X-Google-Smtp-Source: AGHT+IFJxGIX4lu9G8X1djtrH2ajDN1X0+J4aRn14wrvSFoLECvMaqUQerddHSdNYY7B2Gz5b+88rw==
-X-Received: by 2002:a05:6902:1883:b0:e03:577d:a354 with SMTP id 3f1490d57ef6-e0b545d5e82mr8406263276.49.1722265487657;
-        Mon, 29 Jul 2024 08:04:47 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
-	Jason Andryuk <jason.andryuk@amd.com>
-Subject: [PATCH v5] libxl: Enable stubdom cdrom changing
-Date: Mon, 29 Jul 2024 11:04:12 -0400
-Message-Id: <20240729150412.64285-1-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.40.1
+        d=1e100.net; s=20230601; t=1722266931; x=1722871731;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8sev3bBuQNQu80TeieCkWveOqmk53YYSZ7PX3Na1KUc=;
+        b=s1o8R6/3sLV/h4ILtXMobwpJARmR53chJpm6CY8Tl3DE1B33bPvgpbIrFu3JsY/czk
+         TOaxuIbknyZIy1LJaDZtqywLO+82eBD+BN93UnPCWv3jRIZAiaaUkvLItjfqko8YwlJ7
+         kLlswKx9HwEQaUFpjqTVjTnAn+YrMwSbr4tb51aZlU4gd9eQP1zhXq75Z5vtUJB863jU
+         oS5mqDp8m9LIF2KtD+3zlf3FrSQlhBjudbSQ2UFhXh34X/Sg9WNwJPwGV7BJmCbph4n1
+         Y8BzBPIWGw2jNWcRSWgGORWAI5NjqCy6JyneNpBGbCvRvclQVtXKZBPPPqJ2MMH32AcC
+         HHMw==
+X-Forwarded-Encrypted: i=1; AJvYcCVjSzMDMKwS7WJHTCzIs4g+ucBkNH4bEicpoo4H5OOGXUTkGPu4BymTWarHlgghjgFAWu9yOevSS7rKGrxgK3YYZchHu457ppCVGD5JcKs=
+X-Gm-Message-State: AOJu0YzOxqzLIk/MdmKJJzSaX0kmpDtSRnWlEY3ilRX4mYvn70YAIuSF
+	92JKjD97qYkSix5owJDV2q3R/V4gH97yNpZFoNZ7/hi/10IjS66U31F2wEOB95l7G027vJSPIuc
+	=
+X-Google-Smtp-Source: AGHT+IEr/4ovTkjmjNyaBWE92JPKvrnHDcmomEMMDvgJH8Gm9uMpnJgUmSuZ2RQE2feOgkjWy8DOKQ==
+X-Received: by 2002:a17:907:e8a:b0:a7a:af5d:f30b with SMTP id a640c23a62f3a-a7d401e02c2mr401844566b.66.1722266931198;
+        Mon, 29 Jul 2024 08:28:51 -0700 (PDT)
+Message-ID: <113b9d4a-d31c-4491-bf8c-96ac97d98f45@suse.com>
+Date: Mon, 29 Jul 2024 17:28:50 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/9] xen/riscv: introduce functionality to work with
+ cpu info
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
+ <4ea9005d4209e24df9b30a7b3c282276084a3cf1.1721834549.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <4ea9005d4209e24df9b30a7b3c282276084a3cf1.1721834549.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-To change the cd-rom medium, libxl will:
- - QMP eject the medium from QEMU
- - block-detach the old PV disk
- - block-attach the new PV disk
- - QMP change the medium to the new PV disk by fdset-id
+On 24.07.2024 17:31, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/include/asm/processor.h
+> +++ b/xen/arch/riscv/include/asm/processor.h
+> @@ -12,8 +12,39 @@
+>  
+>  #ifndef __ASSEMBLY__
+>  
+> -/* TODO: need to be implemeted */
+> -#define smp_processor_id() 0
+> +#include <xen/bug.h>
+> +#include <xen/types.h>
+> +
+> +register struct pcpu_info *tp asm ("tp");
+> +
+> +struct pcpu_info {
+> +    unsigned int processor_id;
+> +};
+> +
+> +/* tp points to one of these */
+> +extern struct pcpu_info pcpu_info[NR_CPUS];
+> +
+> +#define get_processor_id()      (tp->processor_id)
+> +#define set_processor_id(id)    do { \
+> +    tp->processor_id = id;           \
 
-The QMP code is reused, and remove and attach are implemented here.
+Nit: Parentheses around id please.
 
-The stubdom must internally handle adding /dev/xvdc to the appropriate
-fdset.  libxl in dom0 doesn't see the result of adding to the fdset as
-that is internal to the stubdom, but the fdset's opaque fields will be
-set to stub-devid:$devid, so libxl can identify it.  $devid is common
-between the stubdom and libxl, so it can be identified on both side.
-The stubdom will name the device xvdY regardless of the guest name hdY,
-sdY, or xvdY, but the stubdom will be assigned the same devid
-facilitating lookup.  Because the stubdom add-fd call is asynchronous,
-libxl needs to poll query-fdsets to identify when add-fd has completed.
+> +} while(0)
 
-For cd-eject, we still need to attach the empty vbd.  This is necessary
-since xenstore is used to determine that hdc exists.  Otherwise after
-eject, hdc would be gone and the cd-insert would fail to find the drive
-to insert new media.
+While often we omit the blanks inside the parentheses for such
+constructs, the one ahead of the opening paren should still be there.
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
----
-QEMU inside the stubdom can be sandboxed disallowing opening the devices
-by path name, so QMP add-fd is used like with dom0 QEMU depriv.
+> +static inline unsigned int smp_processor_id(void)
+> +{
+> +    unsigned int id;
+> +
+> +    id = get_processor_id();
+> +
+> +    /*
+> +     * Technically the hartid can be greater than what a uint can hold.
+> +     * If such a system were to exist, we will need to change
+> +     * the smp_processor_id() API to be unsigned long instead of
+> +     * unsigned int.
+> +     */
+> +    BUG_ON(id > UINT_MAX);
 
-v1 allowed ERROR_JSON_CONFIG_EMPTY "because a stubdom don't have a json
-config," but it is re-introduced in v2 since the guest should be acted
-on.  It seems fine in testing.  The missing JSON was probably from
-OpenXT having disabled JSON configs in the past.
+Compilers may complaing about this condition being always false. But: Why
+do you check against UINT_MAX, not against NR_CPUS? It's not the hart ID
+your retrieving get_processor_id(), but Xen's, isn't it? Even if I'm
+missing something here, ...
 
-v2
-Use query-fdsets for removal and addition - stub-devid:$devid
-Re-use aodev instead of 2nd aodev_del
-Rename some functions
-Support sdX vdevs
-Get stubdomid from cis->disk_domid in stubdom callbacks
-Use if (rc) not if (rc != 0)
-Remove comment about libxl_device_disk_remove
-Use EGC_GC not STATE_AO_GC
-Re-work and eliminate cdrom_insert_stubdom_query_fdset_retry
-Change some messages
-Allow missing removal fdset in case it wasn't added during startup.
-Drop LOGD(... rc=%d)
+> --- a/xen/arch/riscv/include/asm/smp.h
+> +++ b/xen/arch/riscv/include/asm/smp.h
+> @@ -5,6 +5,8 @@
+>  #include <xen/cpumask.h>
+>  #include <xen/percpu.h>
+>  
+> +#define INVALID_HARTID UINT_MAX
 
-v3:
-Remove LOG DEBUGs
-s/timeout_retry/retry_timer/
-Init stubdom_fdset = -1 and use as flag to pase fdset-id
-Drop AO_GC
-Avoid non-error goto
-Expect ERROR_TIMEOUT as non-error
-Drop some comments
-close payload_fd and set to -1
-Remove limit on query-fdset retries
+... this implies that the check above would need to use >=.
 
-By removing the limit on query-fdset retries, we lose an explicity error
-message for the stubdom not performing the add-fd, but we give more time
-which may let more cases succeed.
+> @@ -14,6 +16,14 @@ DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
+>   */
+>  #define park_offline_cpus false
+>  
+> +void smp_setup_processor_id(unsigned long boot_cpu_hartid);
+> +
+> +/*
+> + * Mapping between linux logical cpu index and hartid.
+> + */
+> +extern unsigned long __cpuid_to_hartid_map[NR_CPUS];
+> +#define cpuid_to_hartid_map(cpu) __cpuid_to_hartid_map[cpu]
 
-v4:
-Add "must be last" in cdrom_insert_stubdom_parse_fdset_rm()
-Add "must be last" in cdrom_insert_stubdom_disk_add_cb()
-Move ERROR_NOTFOUND handling earlier in cdrom_insert_stubdom_parse_fdset()
+May I please ask that there be no new variables with double underscores
+at the front or any other namespacing violations?
 
-v5:
-Add missing return
-Add Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
----
- docs/misc/stubdom.txt         |  10 +
- tools/libs/light/libxl_disk.c | 383 ++++++++++++++++++++++++++++++++--
- 2 files changed, 372 insertions(+), 21 deletions(-)
+> --- a/xen/arch/riscv/setup.c
+> +++ b/xen/arch/riscv/setup.c
+> @@ -40,6 +40,19 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>  {
+>      remove_identity_mapping();
+>  
+> +    /*
+> +     * tp register contains an address of physical cpu information.
+> +     * So write physical CPU info of boot cpu to tp register
+> +     * It will be used later by get_processor_id() to get process_id ( look at
 
-diff --git a/docs/misc/stubdom.txt b/docs/misc/stubdom.txt
-index c717a95d17..64c220db20 100644
---- a/docs/misc/stubdom.txt
-+++ b/docs/misc/stubdom.txt
-@@ -127,6 +127,16 @@ Limitations:
-  - at most 26 emulated disks are supported (more are still available as PV disks)
-  - graphics output (VNC/SDL/Spice) not supported
- 
-+CD-ROM changing:
-+
-+To change the CD-ROM medium, libxl will:
-+ - QMP eject the medium from QEMU
-+ - block-detach the old PV disk
-+ - block-attach the new PV disk
-+ - QMP change the medium to the new PV disk by fdset-id
-+
-+The stubdom must internally add /dev/xvdc to an fdset in QEMU with opaque set
-+to "stub-devid:$devid".  libxl will lookup the fdset with that string.
- 
-                                    PV-GRUB
-                                    =======
-diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
-index 1f1e5c6567..da1d973bf5 100644
---- a/tools/libs/light/libxl_disk.c
-+++ b/tools/libs/light/libxl_disk.c
-@@ -829,21 +829,118 @@ int libxl_device_disk_getinfo(libxl_ctx *ctx, uint32_t domid,
-     return rc;
- }
- 
-+/*
-+ * Search through the query-fdsets JSON looking for a matching devid.
-+ *
-+ * If found, return the fdset-id integer (>=0).
-+ *
-+ * If not found, return ERROR_NOTFOUND.
-+ *
-+ * On error, return libxl ERROR_*.
-+ */
-+static int query_fdsets_find_fdset(libxl__gc *gc,
-+                                   const libxl__json_object *response,
-+                                   int devid)
-+{
-+    const libxl__json_object *fdset;
-+    const char *needle = GCSPRINTF("stub-devid:%d", devid);
-+    int i, j, rc;
-+
-+    /* query-fdsets returns:
-+     * [
-+     *   { "fds": [
-+     *       { "fd": 30,
-+     *         "opaque": "stub-devid:2080"
-+     *       }
-+     *     ],
-+     *     "fdset-id": 1
-+     *   }
-+     * ]
-+     */
-+    for (i = 0; (fdset = libxl__json_array_get(response, i)); i++) {
-+        const libxl__json_object *fdset_id;
-+        const libxl__json_object *fds;
-+        const libxl__json_object *fd;
-+
-+        fdset_id = libxl__json_map_get("fdset-id", fdset, JSON_INTEGER);
-+        if (!fdset_id) {
-+            rc = ERROR_QEMU_API;
-+            goto out;
-+        }
-+
-+        fds = libxl__json_map_get("fds", fdset, JSON_ARRAY);
-+        if (!fds) {
-+            rc = ERROR_QEMU_API;
-+            goto out;
-+        }
-+        for (j = 0; (fd = libxl__json_array_get(fds, j)); j++) {
-+            const libxl__json_object *fd_num;
-+            const libxl__json_object *opaque;
-+            const char *opaque_str;
-+
-+            fd_num = libxl__json_map_get("fd", fd, JSON_INTEGER);
-+            if (!fd_num) {
-+                rc = ERROR_QEMU_API;
-+                goto out;
-+            }
-+            opaque = libxl__json_map_get("opaque", fd, JSON_STRING);
-+            if (!opaque) {
-+                continue;
-+            }
-+
-+            opaque_str = libxl__json_object_get_string(opaque);
-+            if (strcmp(opaque_str, needle) == 0) {
-+                return libxl__json_object_get_integer(fdset_id);
-+            }
-+        }
-+    }
-+    rc = ERROR_NOTFOUND;
-+
-+ out:
-+    return rc;
-+}
-+
- typedef struct {
-     libxl__ao *ao;
-+    libxl__ao_device aodev;
-     libxl_domid domid;
-+    libxl_domid disk_domid;
-     libxl_device_disk *disk;
-     libxl_device_disk disk_saved;
-     libxl__ev_slowlock qmp_lock;
-     int dm_ver;
-     libxl__ev_time time;
-+    libxl__ev_time retry_timer;
-     libxl__ev_qmp qmp;
-+    int stubdom_fdset;
- } libxl__cdrom_insert_state;
- 
- static void cdrom_insert_lock_acquired(libxl__egc *, libxl__ev_slowlock *,
-                                        int rc);
- static void cdrom_insert_qmp_connected(libxl__egc *, libxl__ev_qmp *,
-                                        const libxl__json_object *, int rc);
-+static void cdrom_insert_stubdom_query_fdset_rm(libxl__egc *egc,
-+                                                libxl__ev_qmp *qmp,
-+                                                const libxl__json_object *resp,
-+                                                int rc);
-+static void cdrom_insert_stubdom_parse_fdset_rm(libxl__egc *egc,
-+                                                libxl__ev_qmp *qmp,
-+                                                const libxl__json_object *resp,
-+                                                int rc);
-+static void cdrom_insert_stubdom_ejected(libxl__egc *egc, libxl__ev_qmp *,
-+                                         const libxl__json_object *, int rc);
-+static void cdrom_insert_stubdom_disk_remove_cb(libxl__egc *egc,
-+                                                 libxl__ao_device *aodev);
-+static void cdrom_insert_stubdom_disk_add_cb(libxl__egc *egc,
-+                                             libxl__ao_device *aodev);
-+static void cdrom_insert_stubdom_query_fdset(libxl__egc *egc,
-+                                             libxl__ev_time *ev,
-+                                             const struct timeval *abs,
-+                                             int rc);
-+static void cdrom_insert_stubdom_parse_fdset(libxl__egc *egc,
-+                                             libxl__ev_qmp *qmp,
-+                                             const libxl__json_object *response,
-+                                             int rc);
- static void cdrom_insert_ejected(libxl__egc *egc, libxl__ev_qmp *,
-                                  const libxl__json_object *, int rc);
- static void cdrom_insert_addfd_cb(libxl__egc *egc, libxl__ev_qmp *,
-@@ -865,6 +962,7 @@ int libxl_cdrom_insert(libxl_ctx *ctx, uint32_t domid, libxl_device_disk *disk,
-     libxl_device_disk *disks = NULL;
-     int rc;
-     libxl__cdrom_insert_state *cis;
-+    libxl_domid stubdomid;
- 
-     GCNEW(cis);
-     cis->ao = ao;
-@@ -876,6 +974,8 @@ int libxl_cdrom_insert(libxl_ctx *ctx, uint32_t domid, libxl_device_disk *disk,
-     cis->qmp_lock.ao = ao;
-     cis->qmp_lock.domid = domid;
-     libxl__ev_time_init(&cis->time);
-+    libxl__ev_time_init(&cis->retry_timer);
-+    cis->stubdom_fdset = -1;
-     libxl__ev_qmp_init(&cis->qmp);
-     cis->qmp.ao = ao;
-     cis->qmp.domid = domid;
-@@ -892,12 +992,6 @@ int libxl_cdrom_insert(libxl_ctx *ctx, uint32_t domid, libxl_device_disk *disk,
-         goto out;
-     }
- 
--    if (libxl_get_stubdom_id(ctx, domid) != 0) {
--        LOGD(ERROR, domid, "cdrom-insert doesn't work for stub domains");
--        rc = ERROR_INVAL;
--        goto out;
--    }
--
-     cis->dm_ver = libxl__device_model_version_running(gc, domid);
-     if (cis->dm_ver == -1) {
-         LOGD(ERROR, domid, "Cannot determine device model version");
-@@ -905,7 +999,22 @@ int libxl_cdrom_insert(libxl_ctx *ctx, uint32_t domid, libxl_device_disk *disk,
-         goto out;
-     }
- 
--    disks = libxl__device_list(gc, &libxl__disk_devtype, domid, &num);
-+    stubdomid = libxl_get_stubdom_id(CTX, cis->domid);
-+    if (stubdomid == 0) {
-+        cis->disk_domid = domid;
-+    } else {
-+        cis->disk_domid = stubdomid;
-+        disk->backend = LIBXL_DISK_BACKEND_PHY;
-+    }
-+
-+    if (cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL &&
-+        stubdomid) {
-+        LOGD(ERROR, domid, "cdrom-insert doesn't work for Mini-OS stubdoms");
-+        rc = ERROR_INVAL;
-+        goto out;
-+    }
-+
-+    disks = libxl__device_list(gc, &libxl__disk_devtype, cis->disk_domid, &num);
-     for (i = 0; i < num; i++) {
-         if (disks[i].is_cdrom && !strcmp(disk->vdev, disks[i].vdev))
-         {
-@@ -920,7 +1029,7 @@ int libxl_cdrom_insert(libxl_ctx *ctx, uint32_t domid, libxl_device_disk *disk,
-         goto out;
-     }
- 
--    rc = libxl__device_disk_setdefault(gc, domid, disk, false);
-+    rc = libxl__device_disk_setdefault(gc, cis->disk_domid, disk, false);
-     if (rc) goto out;
- 
-     if (!disk->pdev_path) {
-@@ -994,7 +1103,12 @@ static void cdrom_insert_qmp_connected(libxl__egc *egc, libxl__ev_qmp *qmp,
-         QMP_PARAMETERS_SPRINTF(&args, "id", "ide-%i", devid);
-     else
-         QMP_PARAMETERS_SPRINTF(&args, "device", "ide-%i", devid);
--    qmp->callback = cdrom_insert_ejected;
-+
-+    if (libxl_get_stubdom_id(CTX, cis->domid))
-+        qmp->callback = cdrom_insert_stubdom_query_fdset_rm;
-+    else
-+        qmp->callback = cdrom_insert_ejected;
-+
-     rc = libxl__ev_qmp_send(egc, qmp, "eject", args);
-     if (rc) goto out;
-     return;
-@@ -1002,6 +1116,210 @@ out:
-     cdrom_insert_done(egc, cis, rc); /* must be last */
- }
- 
-+static void cdrom_insert_stubdom_query_fdset_rm(libxl__egc *egc,
-+                                                libxl__ev_qmp *qmp,
-+                                                const libxl__json_object *resp,
-+                                                int rc)
-+{
-+    libxl__cdrom_insert_state *cis = CONTAINER_OF(qmp, *cis, qmp);
-+
-+    if (rc) goto out;
-+
-+    /* Only called for qemu-xen/linux stubdom. */
-+    assert(cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN);
-+
-+    cis->qmp.callback = cdrom_insert_stubdom_parse_fdset_rm;
-+
-+    rc = libxl__ev_qmp_send(egc, &cis->qmp, "query-fdsets", NULL);
-+    if (rc) goto out;
-+
-+    return;
-+
-+ out:
-+    cdrom_insert_done(egc, cis, rc); /* must be last */
-+}
-+
-+static void cdrom_insert_stubdom_parse_fdset_rm(libxl__egc *egc,
-+                                                libxl__ev_qmp *qmp,
-+                                                const libxl__json_object *resp,
-+                                                int rc)
-+{
-+    EGC_GC;
-+    libxl__cdrom_insert_state *cis = CONTAINER_OF(qmp, *cis, qmp);
-+    int devid;
-+    int fdset;
-+
-+    if (rc) goto out;
-+
-+    /* Only called for qemu-xen/linux stubdom. */
-+    assert(cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN);
-+
-+    devid = libxl__device_disk_dev_number(cis->disk->vdev, NULL, NULL);
-+    fdset = query_fdsets_find_fdset(gc, resp, devid);
-+    if (fdset < 0) {
-+        rc = fdset;
-+        goto out;
-+    }
-+
-+    LOGD(DEBUG, cis->domid, "Found fdset %d", fdset);
-+
-+    libxl__json_object *args = NULL;
-+
-+    libxl__qmp_param_add_integer(gc, &args, "fdset-id", fdset);
-+
-+    cis->qmp.callback = cdrom_insert_stubdom_ejected;
-+
-+    rc = libxl__ev_qmp_send(egc, &cis->qmp, "remove-fd", args);
-+    if (rc) goto out;
-+
-+    return;
-+
-+ out:
-+    if (rc == ERROR_NOTFOUND) {
-+        LOGD(DEBUG, cis->domid, "No fdset found - skipping remove-fd");
-+        cdrom_insert_stubdom_ejected(egc, qmp, resp, 0); /* must be last */
-+    } else {
-+        cdrom_insert_done(egc, cis, rc); /* must be last */
-+    }
-+}
-+
-+
-+static void cdrom_insert_stubdom_ejected(libxl__egc *egc, libxl__ev_qmp *qmp,
-+                                         const libxl__json_object *response,
-+                                         int rc)
-+{
-+    libxl__cdrom_insert_state *cis = CONTAINER_OF(qmp, *cis, qmp);
-+    libxl__device *device;
-+    STATE_AO_GC(cis->ao);
-+    domid_t stubdomid = cis->disk_domid;
-+
-+    if (rc) goto out;
-+
-+    GCNEW(device);
-+    rc = libxl__device_from_disk(gc, stubdomid, cis->disk, device);
-+    if (rc) goto out;
-+
-+    /* stubdom PV block dev eject */
-+    libxl__prepare_ao_device(ao, &cis->aodev);
-+    cis->aodev.action = LIBXL__DEVICE_ACTION_REMOVE;
-+    cis->aodev.dev = device;
-+    cis->aodev.callback = cdrom_insert_stubdom_disk_remove_cb;
-+    cis->aodev.force.flag = LIBXL__FORCE_OFF;
-+    libxl__initiate_device_generic_remove(egc, &cis->aodev);
-+    return;
-+
-+ out:
-+    cdrom_insert_done(egc, cis, rc); /* must be last */
-+}
-+
-+static void cdrom_insert_stubdom_disk_remove_cb(libxl__egc *egc,
-+                                                 libxl__ao_device *aodev)
-+{
-+    STATE_AO_GC(aodev->ao);
-+    libxl__cdrom_insert_state *cis = CONTAINER_OF(aodev, *cis, aodev);
-+    domid_t stubdomid = cis->disk_domid;
-+
-+    if (aodev->rc) {
-+        LOGD(ERROR, aodev->dev->domid, "Unable to remove stubdom PV disk id %u",
-+             aodev->dev->devid);
-+        goto out;
-+    }
-+
-+    /* block dev insert - this may be inserting an empty disk for eject. */
-+    libxl__prepare_ao_device(ao, &cis->aodev);
-+    /* set an ao callback to end up in cdrom_insert_ejected */
-+    cis->aodev.callback = cdrom_insert_stubdom_disk_add_cb;
-+    libxl__device_disk_add(egc, stubdomid, cis->disk, &cis->aodev);
-+
-+    return;
-+
-+ out:
-+    cdrom_insert_done(egc, cis, aodev->rc); /* must be last */
-+}
-+
-+static void cdrom_insert_stubdom_disk_add_cb(libxl__egc *egc,
-+                                             libxl__ao_device *aodev)
-+{
-+    EGC_GC;
-+    libxl__cdrom_insert_state *cis = CONTAINER_OF(aodev, *cis, aodev);
-+
-+    if (aodev->rc) {
-+        LOGD(ERROR, aodev->dev->domid, "Unable to insert stubdom PV disk id %u",
-+             aodev->dev->devid);
-+        goto out;
-+    }
-+
-+    cdrom_insert_stubdom_query_fdset(egc, &cis->retry_timer, NULL,
-+                                     ERROR_TIMEDOUT);
-+    return;
-+
-+ out:
-+    cdrom_insert_done(egc, cis, aodev->rc); /* must be last */
-+}
-+
-+static void cdrom_insert_stubdom_query_fdset(libxl__egc *egc,
-+                                             libxl__ev_time *ev,
-+                                             const struct timeval *abs,
-+                                             int rc)
-+{
-+    EGC_GC;
-+    libxl__cdrom_insert_state *cis = CONTAINER_OF(ev, *cis, retry_timer);
-+
-+    if (rc != ERROR_TIMEDOUT) goto out;
-+
-+    /* Only called for qemu-xen/linux stubdom. */
-+    assert(cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN);
-+
-+    cis->qmp.callback = cdrom_insert_stubdom_parse_fdset;
-+
-+    rc = libxl__ev_qmp_send(egc, &cis->qmp, "query-fdsets", NULL);
-+    if (rc) goto out;
-+
-+    return;
-+
-+ out:
-+    cdrom_insert_done(egc, cis, rc); /* must be last */
-+}
-+
-+static void cdrom_insert_stubdom_parse_fdset(libxl__egc *egc,
-+                                             libxl__ev_qmp *qmp,
-+                                             const libxl__json_object *response,
-+                                             int rc)
-+{
-+    EGC_GC;
-+    libxl__cdrom_insert_state *cis = CONTAINER_OF(qmp, *cis, qmp);
-+    int devid;
-+    int fdset;
-+
-+    if (rc) goto out;
-+
-+    /* Only called for qemu-xen/linux stubdom. */
-+    assert(cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN);
-+
-+    devid = libxl__device_disk_dev_number(cis->disk->vdev, NULL, NULL);
-+    fdset = query_fdsets_find_fdset(gc, response, devid);
-+    if (fdset == ERROR_NOTFOUND) {
-+        /* Give the stubdom a little time before trying again. */
-+        rc = libxl__ev_time_register_rel(cis->ao, &cis->retry_timer,
-+                                         cdrom_insert_stubdom_query_fdset,
-+                                         200);
-+        if (rc) goto out;
-+        return;
-+    } else if (fdset < 0) {
-+        rc = fdset;
-+        goto out;
-+    }
-+
-+    cis->stubdom_fdset = fdset;
-+
-+    LOGD(DEBUG, cis->domid, "Found fdset %d", cis->stubdom_fdset);
-+    cdrom_insert_ejected(egc, &cis->qmp, NULL, rc);
-+    return;
-+
-+ out:
-+    cdrom_insert_done(egc, cis, rc); /* must be last */
-+}
-+
- static void cdrom_insert_ejected(libxl__egc *egc,
-                                  libxl__ev_qmp *qmp,
-                                  const libxl__json_object *response,
-@@ -1026,7 +1344,7 @@ static void cdrom_insert_ejected(libxl__egc *egc,
- 
-     if (rc) goto out;
- 
--    rc = libxl__device_from_disk(gc, domid, disk, &device);
-+    rc = libxl__device_from_disk(gc, cis->disk_domid, disk, &device);
-     if (rc) goto out;
-     be_path = libxl__device_backend_path(gc, &device);
-     libxl_path = libxl__device_libxl_path(gc, &device);
-@@ -1082,6 +1400,7 @@ static void cdrom_insert_ejected(libxl__egc *egc,
-     if (rc) goto out;
- 
-     if (cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN &&
-+        libxl_get_stubdom_id(CTX, cis->domid) == 0 &&
-         disk->format != LIBXL_DISK_FORMAT_EMPTY) {
-         libxl__json_object *args = NULL;
- 
-@@ -1094,7 +1413,7 @@ static void cdrom_insert_ejected(libxl__egc *egc,
-             goto out;
-         }
- 
--        /* This free form parameter is not use by QEMU or libxl. */
-+        /* This free form parameter is not used by QEMU or non-stubdom libxl. */
-         QMP_PARAMETERS_SPRINTF(&args, "opaque", "%s:%s",
-                                libxl_disk_format_to_string(disk->format),
-                                disk->pdev_path);
-@@ -1116,7 +1435,15 @@ out:
-         cdrom_insert_done(egc, cis, rc); /* must be last */
-     } else if (!has_callback) {
-         /* Only called if no asynchronous callback are set. */
--        cdrom_insert_inserted(egc, qmp, NULL, 0); /* must be last */
-+        if (libxl_get_stubdom_id(CTX, cis->domid) &&
-+            disk->format != LIBXL_DISK_FORMAT_EMPTY) {
-+            LOGD(DEBUG, cis->domid,
-+                 "stubdom %d needs to perform add-fd internally",
-+                 libxl_get_stubdom_id(CTX, cis->domid));
-+            cdrom_insert_addfd_cb(egc, qmp, NULL, 0); /* must be last */
-+        } else  {
-+            cdrom_insert_inserted(egc, qmp, NULL, 0); /* must be last */
-+        }
-     }
- }
- 
-@@ -1135,17 +1462,25 @@ static void cdrom_insert_addfd_cb(libxl__egc *egc,
-     /* convenience aliases */
-     libxl_device_disk *disk = cis->disk;
- 
--    close(qmp->payload_fd);
-+    if (qmp->payload_fd >= 0)
-+    {
-+        close(qmp->payload_fd);
-+    }
-     qmp->payload_fd = -1;
- 
-     if (rc) goto out;
- 
--    o = libxl__json_map_get("fdset-id", response, JSON_INTEGER);
--    if (!o) {
--        rc = ERROR_FAIL;
--        goto out;
-+    /* response non-NULL only for non-stubdom */
-+    if (cis->stubdom_fdset == -1) {
-+        o = libxl__json_map_get("fdset-id", response, JSON_INTEGER);
-+        if (!o) {
-+            rc = ERROR_FAIL;
-+            goto out;
-+        }
-+        fdset = libxl__json_object_get_integer(o);
-+    } else {
-+        fdset = cis->stubdom_fdset;
-     }
--    fdset = libxl__json_object_get_integer(o);
- 
-     devid = libxl__device_disk_dev_number(disk->vdev, NULL, NULL);
-     qmp->callback = cdrom_insert_inserted;
-@@ -1158,8 +1493,13 @@ static void cdrom_insert_addfd_cb(libxl__egc *egc,
-     if (libxl__qmp_ev_qemu_compare_version(qmp, 2, 8, 0) >= 0) {
-         QMP_PARAMETERS_SPRINTF(&args, "id", "ide-%i", devid);
-         QMP_PARAMETERS_SPRINTF(&args, "filename", "/dev/fdset/%d", fdset);
--        libxl__qmp_param_add_string(gc, &args, "format",
--            libxl__qemu_disk_format_string(disk->format));
-+        if (response) {
-+            libxl__qmp_param_add_string(gc, &args, "format",
-+                libxl__qemu_disk_format_string(disk->format));
-+        } else {
-+            /* Stubdom is using blockdev /dev/xvd* */
-+            libxl__qmp_param_add_string(gc, &args, "format", "host_device");
-+        }
-         rc = libxl__ev_qmp_send(egc, qmp, "blockdev-change-medium", args);
-     } else {
-         QMP_PARAMETERS_SPRINTF(&args, "device", "ide-%i", devid);
-@@ -1196,7 +1536,7 @@ static void cdrom_insert_inserted(libxl__egc *egc,
- 
-     if (rc) goto out;
- 
--    rc = libxl__device_from_disk(gc, domid, disk, &device);
-+    rc = libxl__device_from_disk(gc, cis->disk_domid, disk, &device);
-     if (rc) goto out;
-     be_path = libxl__device_backend_path(gc, &device);
-     libxl_path = libxl__device_libxl_path(gc, &device);
-@@ -1281,6 +1621,7 @@ static void cdrom_insert_done(libxl__egc *egc,
-     EGC_GC;
- 
-     libxl__ev_time_deregister(gc, &cis->time);
-+    libxl__ev_time_deregister(gc, &cis->retry_timer);
-     libxl__ev_qmp_dispose(gc, &cis->qmp);
-     if (cis->qmp.payload_fd >= 0) close(cis->qmp.payload_fd);
-     libxl__ev_slowlock_unlock(gc, &cis->qmp_lock);
--- 
-2.40.1
+process_id?
 
+> +     * <asm/processor.h> ):
+> +     *   #define get_processor_id()    (tp->processor_id)
+> +     */
+> +    asm volatile ("mv tp, %0" : : "r"((unsigned long)&pcpu_info[0]));
+
+Nit: Blanks missing.
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/smp.c
+> @@ -0,0 +1,4 @@
+> +#include <xen/smp.h>
+> +
+> +/* tp points to one of these per cpu */
+> +struct pcpu_info pcpu_info[NR_CPUS];
+> \ No newline at end of file
+
+Please correct this.
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/smpboot.c
+> @@ -0,0 +1,12 @@
+> +#include <xen/init.h>
+> +#include <xen/sections.h>
+> +#include <xen/smp.h>
+> +
+> +unsigned long __cpuid_to_hartid_map[NR_CPUS] __ro_after_init = {
+> +    [0 ... NR_CPUS-1] = INVALID_HARTID
+
+Nit: Blanks around - please.
+
+> +};
+> +
+> +void __init smp_setup_processor_id(unsigned long boot_cpu_hartid)
+> +{
+> +    cpuid_to_hartid_map(0) = boot_cpu_hartid;
+> +}
+
+The function name suggests this can be used for all CPUs, but the
+code is pretty clear abut this being for the boot CPU only.
 
