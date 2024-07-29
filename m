@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF33493F5ED
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 14:54:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766715.1177223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51C0E93F60A
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 15:00:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766722.1177232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYPsy-00016O-Tk; Mon, 29 Jul 2024 12:53:56 +0000
+	id 1sYPzR-0003Dz-I1; Mon, 29 Jul 2024 13:00:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766715.1177223; Mon, 29 Jul 2024 12:53:56 +0000
+Received: by outflank-mailman (output) from mailman id 766722.1177232; Mon, 29 Jul 2024 13:00:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYPsy-00014u-Qt; Mon, 29 Jul 2024 12:53:56 +0000
-Received: by outflank-mailman (input) for mailman id 766715;
- Mon, 29 Jul 2024 12:53:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QfTU=O5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sYPsw-00014o-MP
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 12:53:54 +0000
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [2607:f8b0:4864:20::732])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b5c2cd0-4da9-11ef-8776-851b0ebba9a2;
- Mon, 29 Jul 2024 14:53:53 +0200 (CEST)
-Received: by mail-qk1-x732.google.com with SMTP id
- af79cd13be357-79ef72bb8c8so129547185a.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 05:53:52 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7a1e4292ae6sm347878285a.74.2024.07.29.05.53.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jul 2024 05:53:51 -0700 (PDT)
+	id 1sYPzR-0003C7-FQ; Mon, 29 Jul 2024 13:00:37 +0000
+Received: by outflank-mailman (input) for mailman id 766722;
+ Mon, 29 Jul 2024 13:00:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XCGL=O5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sYPzQ-0003C1-Le
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 13:00:36 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8ba7852e-4daa-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 15:00:35 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a7d2a9a23d9so339205966b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 06:00:35 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acab52932sm501059566b.77.2024.07.29.06.00.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Jul 2024 06:00:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,76 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b5c2cd0-4da9-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 8ba7852e-4daa-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722257631; x=1722862431; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ObDcHphduOFVb9T8BaQz9ibo8RiD6nspOnXXFzzwsQw=;
-        b=sfBm5SpCOSR7YVeWkZ8z2gwxiENzQyYxQNN5fvXa/mgiaVUgdcsRh6N6zL8YLMlfIi
-         KQ+NrYzUA9iq0nJUqSYSEUi+7pHTXQST8jWv+fC9hIOM7qdL9duaq3f7v0JU4+OC/qQA
-         Wjr1DzJFUjVq6b5lj864BvjpOhgo/NsLpy6U4=
+        d=suse.com; s=google; t=1722258035; x=1722862835; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=0M9z771BB643RbT6KD1Kab4CxpYlJRLqSLh2eCZUKik=;
+        b=aJHqHrhPbcG1bn3hVZCUpXCt13EunADy79HfOZXANS6WIt43Qnd8SknQGZQ5C8anuk
+         06FzatcwkiChOVPZgZnXfdVP9NujiUu/ygM4Ji332phmswcOgRu0PL2FdXdNXBhptP6d
+         IAAXhy+XyLT7/jsNeqe1rvkL56CNcCwDICMfBYqOyeg4/0hkbIgDko/yX/R6jOknJI6h
+         nfUzstrb8IvrcOFTsuppBEX5aYYxp8Ms6ag7bxii4A442ZA0Z/6On20Yqrl0n4xY2bnK
+         6ySG67pdsFGcU936xVLy3w1p9c7gOZSOzWFuBzI4SMG78aYXoQ8eo/R9Fqn/x/ppsKsS
+         KOIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722257631; x=1722862431;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ObDcHphduOFVb9T8BaQz9ibo8RiD6nspOnXXFzzwsQw=;
-        b=gTEwIcjKAPdWAkhE8KyKNBn13SyWNCWdMJui1wSVnoZV8MFJposzrpsRJlsxEYNSxU
-         hRffhwouEc1OAxlurs4QRhhuziOuZokI/UK53jgj2Jkm8XBuMuri5hI5cBNWe2Wo9s6d
-         hrK9lGOmhQmckuZ0xymrK6vMIBfnJ9/+gC8Z0ZBCQQj+a41MYVECpaeN/hCGAwLjghhP
-         Ukh/7kfyFawVG4Xf1d49roLV2TnK+Q65nnYsIqd+LKCUKbHhLV4R3N/e04OQGLvfrOQj
-         0zJYq/MsqK+cESt14AxBj2eCZdlqLG6EExUiTo/RcF0wYPzmXWbl5ejRsRi78sj6DYI4
-         uWrw==
-X-Forwarded-Encrypted: i=1; AJvYcCVgmc1kAYU5VBna8SwkiBuONKZkDZx0BQohVkhzFjzGa2EImW5xjIZ3VheFq4jRE9KV/d7+aAQr+Tv0drGRGtJZTRr5iE+1Ot6Ex/nTofs=
-X-Gm-Message-State: AOJu0YxGKg70g/ceOJ4xT8fpW5VCLcul8SUONoGTlmuA57uOMF9/RNd9
-	kdBuYNnt1Wp3ke43/noI5DtZFgkuNq8FuXMmZyOwKXhYzjsDQM0xQXFbzP1/R10=
-X-Google-Smtp-Source: AGHT+IH8kunUhb9TKWqwzdDgmVUF5lcfRFtAebuKGxjAcavbW7OB2/XQsjRM3qUVb2JQSLl3mGwEgA==
-X-Received: by 2002:a05:620a:4711:b0:79c:9431:f71a with SMTP id af79cd13be357-7a1e522f672mr1023123285a.11.1722257631382;
-        Mon, 29 Jul 2024 05:53:51 -0700 (PDT)
-Date: Mon, 29 Jul 2024 14:53:48 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: alejandro.vallejo@cloud.com, Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 01/22] x86/mm: drop l{1,2,3,4}e_write_atomic()
-Message-ID: <ZqeQ3KKyBe9sJ8Qf@macbook>
-References: <20240726152206.28411-1-roger.pau@citrix.com>
- <20240726152206.28411-2-roger.pau@citrix.com>
- <c46c1d62-c9d3-4549-8006-9e846fbc9d3d@suse.com>
+        d=1e100.net; s=20230601; t=1722258035; x=1722862835;
+        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0M9z771BB643RbT6KD1Kab4CxpYlJRLqSLh2eCZUKik=;
+        b=Fnf7cULEatPlIKKtoVbMVRm3B6PWp5qyLLOrvKyIdESXfnaW2zLUuu0MnXo1mGZyVx
+         3M1oVHdLRomfoxI48adihA4HuI3FD3dFh0Ax80H2fwYtzVlHBXj40AQzSKdS6xmnnMdI
+         ViM18a8KMw3yf+Z2Jbtl0fNa3btqseutBDIAyrW/5rWYWmAe7+Ec7r6g/IbpsFzzNXYC
+         GIpZEM9Yi8BraVXTuiO7ehhG3OjrznwxtxXKac48eRi2Fj+DSzxdaY+Ejilhk2cDQV0G
+         hZkoLetuHo/dt55Kj//ocnc2p90XmmRP9mKIDDRzQMsqa5uc4B6RCijC1FPvgjnlQuiS
+         9xpg==
+X-Gm-Message-State: AOJu0YyS1fbEn3DdT499o18ZngOMe6GP6mc0bJD6nSA/6gsqnXLR7SMb
+	YEdmOLDMOiYiPmuRRTi1JxwgNIkxeeWt9WobUheIeyy6033CZVgpYyKNSgeci/e2kwyYKv/Uc9k
+	=
+X-Google-Smtp-Source: AGHT+IFrfiPOfLPg4wHhDA2KK0TMTQikMg+Fwm7reAz4QMe3SH3FWJ8ifiFFwUMHtTE6teqE/Ydz7A==
+X-Received: by 2002:a17:907:ea2:b0:a77:dd1c:6274 with SMTP id a640c23a62f3a-a7d401e13c5mr480017566b.69.1722258034998;
+        Mon, 29 Jul 2024 06:00:34 -0700 (PDT)
+Message-ID: <7c03ed78-7c80-45bf-acf3-a916b7abb7d5@suse.com>
+Date: Mon, 29 Jul 2024 15:00:35 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c46c1d62-c9d3-4549-8006-9e846fbc9d3d@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 4/5] xen/riscv: enable GENERIC_BUG_FRAME
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <cover.1721731887.git.oleksii.kurochko@gmail.com>
+ <b79bcfb9031564fc8d275af66fa94c1e82e54de2.1721731887.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Cc: xen-devel@lists.xenproject.org
+In-Reply-To: <b79bcfb9031564fc8d275af66fa94c1e82e54de2.1721731887.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 29, 2024 at 09:52:50AM +0200, Jan Beulich wrote:
-> On 26.07.2024 17:21, Roger Pau Monne wrote:
-> > The l{1,2,3,4}e_write_atomic() and non _atomic suffixed helpers share the same
-> > implementation, so it seems pointless and possibly confusing to have both.
-> > 
-> > Remove the l{1,2,3,4}e_write_atomic() helpers and switch it's user to
-> > l{1,2,3,4}e_write(), as that's also atomic.  While there also remove
-> > pte_write{,_atomic}() and just use write_atomic() in the wrappers.
-> > 
-> > No functional change intended.
-> > 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 24.07.2024 17:31, Oleksii Kurochko wrote:
+> To have working BUG(), WARN(), ASSERT, run_in_exception_handler()
+> it is needed to enable GENERIC_BUG_FRAME.
 > 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ebreak is used as BUG_insn so when macros from <xen/bug.h> are
+> used, an exception with BREAKPOINT cause will be generated.
 > 
-> In the description, can we perhaps mention the historical aspect of why
-> these were there (and separate)? Happy to add a sentence when committing,
-> as long as you agree.
+> ebreak triggers a debug trap, which starts in debug mode and is
+> then filtered by every mode. A debugger will first handle the
+> debug trap and check if ebreak was set by it or not. If not,
+> CAUSE_BREAKPOINT will be generated for the mode where the ebreak
+> instruction was executed.
 
-Sure:
+Here and in the similar code comment you talk about an external
+debugger, requiring debug mode, which is an optional feature. In
+my earlier comments what I was referring to was pure software
+debugging. I continue to fail to see how properly distinguishing
+ebreak uses for breakpoints from ebreak uses for e.g. BUG() and
+WARN() is going to be feasible.
 
-"x86 32bit mode used to have a non-atomic PTE write that would split
-the write in two halves, but with Xen only supporting x86 64bit
-that's no longer present."
+> @@ -103,7 +104,39 @@ static void do_unexpected_trap(const struct cpu_user_regs *regs)
+>  
+>  void do_trap(struct cpu_user_regs *cpu_regs)
+>  {
+> -    do_unexpected_trap(cpu_regs);
+> +    register_t pc = cpu_regs->sepc;
+> +    unsigned long cause = csr_read(CSR_SCAUSE);
+> +
+> +    switch ( cause )
+> +    {
+> +    /*
+> +     * ebreak is used as BUG_insn so when macros from <xen/bug.h> are
+> +     * used, an exception with BREAKPOINT cause will be generated.
+> +     *
+> +     * ebreak triggers a debug trap, which starts in debug mode and is
+> +     * then filtered by every mode. A debugger will first handle the
+> +     * debug trap and check if ebreak was set by it or not. If not,
+> +     * CAUSE_BREAKPOINT will be generated for the mode where the ebreak
+> +     * instruction was executed.
+> +     */
+> +    case CAUSE_BREAKPOINT:
+> +        if ( do_bug_frame(cpu_regs, pc) >= 0 )
+> +        {
+> +            if ( !(is_kernel_text(pc) || is_kernel_inittext(pc)) )
+> +            {
+> +                printk("Something wrong with PC: %#lx\n", pc);
+> +                die();
+> +            }
+> +
+> +            cpu_regs->sepc += GET_INSN_LENGTH(*(uint16_t *)pc);
+> +        }
+> +
+> +        break;
 
-Would be fine?  Possibly added after the first paragraph IMO.
+Wouldn't you better fall through here, with the "break" moved into
+the if()'s body?
 
-Thanks, Roger.
+Jan
+
+> +    default:
+> +        do_unexpected_trap(cpu_regs);
+> +        break;
+> +    }
+>  }
+
+
 
