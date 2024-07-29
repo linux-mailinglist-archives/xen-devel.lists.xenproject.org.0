@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C160693F9B5
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 17:40:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766929.1177462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1A2693F9E0
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 17:53:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766941.1177485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYSUA-0007fn-GJ; Mon, 29 Jul 2024 15:40:30 +0000
+	id 1sYSfk-0001c5-LF; Mon, 29 Jul 2024 15:52:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766929.1177462; Mon, 29 Jul 2024 15:40:30 +0000
+Received: by outflank-mailman (output) from mailman id 766941.1177485; Mon, 29 Jul 2024 15:52:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYSUA-0007cm-Dh; Mon, 29 Jul 2024 15:40:30 +0000
-Received: by outflank-mailman (input) for mailman id 766929;
- Mon, 29 Jul 2024 15:40:28 +0000
+	id 1sYSfk-0001a7-Hj; Mon, 29 Jul 2024 15:52:28 +0000
+Received: by outflank-mailman (input) for mailman id 766941;
+ Mon, 29 Jul 2024 15:52:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=U+rL=O5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sYSU8-0007cb-UF
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 15:40:28 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1sYSfi-0001a1-Nk
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 15:52:26 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e0ff2571-4dc0-11ef-bc01-fd08da9f4363;
- Mon, 29 Jul 2024 17:40:27 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5af326eddb2so5092496a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 08:40:27 -0700 (PDT)
+ id 8cb7946e-4dc2-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 17:52:25 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2f035ae1083so48584651fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 08:52:25 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad41027sm522974466b.122.2024.07.29.08.40.26
+ 4fb4d7f45d1cf-5ac64eb3111sm5954127a12.69.2024.07.29.08.52.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 08:40:26 -0700 (PDT)
+ Mon, 29 Jul 2024 08:52:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0ff2571-4dc0-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: 8cb7946e-4dc2-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722267627; x=1722872427; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1722268345; x=1722873145; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hHHOTZKfN5Mg8lHknKrtPcg1fIky6wy2Oya5b6jbNgA=;
-        b=inKC5Vf0ytWvKVoCBOhA1GE/UXs55sM5j088B1dThTc7Ff6+yZovQiWPxizdDaBpls
-         oLPwv3CqKlIiZ8w69UZFHt2KUszNlqu1mjEKV/vAu2xd25uE6cTBiQTwf64/SejShLm8
-         gYGZ3mvQUwsWT0Pbl94SYAVm7m6pIVwurl4Yw=
+        bh=nv0j4OU+BIienT8K4WyNHHX1Z4IJTt9TYCyx7EZ/HNM=;
+        b=ZxBkjCslob+Ia6WTjAAwjlz82pcQ5+kbZ5gFslQv8hfjtxuY8QxOk6j7PbZnev+7Lm
+         MsyxWeonbTMzImGPurl6JZhVNJuP9JXxSCZYzzA2ebNZSNZH9mHh104ne99tX9LjZnEo
+         ROIoXHkUmAjgXJGthRTg4nHzQBnYvER08nIo0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722267627; x=1722872427;
+        d=1e100.net; s=20230601; t=1722268345; x=1722873145;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hHHOTZKfN5Mg8lHknKrtPcg1fIky6wy2Oya5b6jbNgA=;
-        b=uLqVUoP5e0VW5IkagQl22V4feuBFcr8ewyibjR9KHiRzCHYuRtrWgF4IeZS21Fp5i9
-         KeYMN+Tnqo+B6gz7JkkGfgp6LdgN+YRh2NPWj1uQmaaQaOKyC5fxiW1XcbGOKDk/jdH8
-         ewbP5bnXdJpSkzL5rB+d+PKzrperwd9pdvN3TKCgNyHnsJBTQ6Gjoq9mXBXXB7sGXQ1R
-         xNxb6W5iLfw5VdBFkQx8MbmSs9PrMc7jytvdRA/wYSer6uwI3RZKX5hIkc+DOlha+psa
-         9YohcPBbqyMw2wv2NEHBcL7tVqrzyY9mlq2h0T869BMqOEOU/bg8O4jENUivucfuiB3J
-         UTpQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUZXQck08i0Pa8gmwTvuZZicWlUFGgLt7em5T9wzIrnR089w5aKsJ8bkuEaIrPt398LtJM+vbToQSQUIKkKr8CMo6KqP2QAN2QJj4F2gw4=
-X-Gm-Message-State: AOJu0YwGSqBR7GKrk2VmAdYAiRFIA+jNkITmG1rCsAMIbwwLU2Sp3MXj
-	UGV+a2fSkPdFx5Jg1eT/0Wk/u/1jRtgNkx/0khoq/kOpObf5ZK4f5sKDuyV5fsNDPI8VoZ39Aru
-	d
-X-Google-Smtp-Source: AGHT+IGFbTEuU1IeKrRDIbs6G54/h7kmEPRz9J+KeQUlSOO1/oeYmQFvaDGPYx5+U9EXfsE81WXw+A==
-X-Received: by 2002:a17:907:1c19:b0:a6f:e03a:99d with SMTP id a640c23a62f3a-a7d3f514a03mr942560466b.0.1722267626965;
-        Mon, 29 Jul 2024 08:40:26 -0700 (PDT)
-Message-ID: <5e600017-e929-4ebf-b620-1e673b06fc1a@citrix.com>
-Date: Mon, 29 Jul 2024 16:40:24 +0100
+        bh=nv0j4OU+BIienT8K4WyNHHX1Z4IJTt9TYCyx7EZ/HNM=;
+        b=Sncq94DAF5aEJwYvLj9+mKRymd4R12OGXjBl8w46TvBUDCVdh6O5rDIhq/yIZdiZS6
+         1ZDNnCqe4H8eR3dz7PyOsHV34Stz88BEenSwBkbbejz5Cb+vv5pHB4PL7O+etnfCCHdS
+         cfyBVo745oK0psBq+EicRv6gSTf4cFoQM5V3O5Za2jTH09zEK4nuP3xuZLD+8ZtOXtwH
+         9vUzIoKPblQ7On4LKnaZup2wZl41ieLK5a6YA3/vCuXN27iBD53AFKr/5oAGVQrbp8Bb
+         DUOnqdIA3FsvlabOC3K60bwLqa7K2Jw1MZw/4I0a/QqNc1pFyeydDD2mzIWSN7yCpi28
+         7cUA==
+X-Forwarded-Encrypted: i=1; AJvYcCXaTvsyZyoZPFtcOSpCIUCdY7KS7JFu9ZSIZb/GRlbAH1msECNwzKoaKxjeTNqA3q8KOjS8xc36m5uJzbcjw30kjDZJVSpbrnyNNt/ADiI=
+X-Gm-Message-State: AOJu0YwkQ15e2dhfmDZr8d2H7V15pXtzo3/ARc9s/91Id6qp53IOYigI
+	Qo41i4n6eL2ylO4WJxPJmZoa98wDDiAaWgEpXTOQGmfCzWfUZRJ+F7pYZkbJ9B4=
+X-Google-Smtp-Source: AGHT+IH+I8Iq3Pr3UNAYqRuieBkDvhYHoUyY6bwV6Li/Jilx8Qb+Vt4k6+/STo6TNi35Q1e6PelghA==
+X-Received: by 2002:a2e:9619:0:b0:2ef:2e3f:35da with SMTP id 38308e7fff4ca-2f12ee634famr48998341fa.45.1722268344464;
+        Mon, 29 Jul 2024 08:52:24 -0700 (PDT)
+Message-ID: <5aad5f48-e32e-4a59-bcef-05adec0ecbec@citrix.com>
+Date: Mon, 29 Jul 2024 16:52:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 22/22] x86/mm: zero stack on stack switch or reset
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: alejandro.vallejo@cloud.com, Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 03/22] x86/dom0: only disable SMAP for the PV dom0 build
+To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: alejandro.vallejo@cloud.com, xen-devel@lists.xenproject.org
 References: <20240726152206.28411-1-roger.pau@citrix.com>
- <20240726152206.28411-23-roger.pau@citrix.com>
+ <20240726152206.28411-4-roger.pau@citrix.com>
+ <b1918f51-1ac0-40f8-9174-d8161b2681dd@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,104 +129,30 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240726152206.28411-23-roger.pau@citrix.com>
+In-Reply-To: <b1918f51-1ac0-40f8-9174-d8161b2681dd@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26/07/2024 4:22 pm, Roger Pau Monne wrote:
-> With the stack mapped on a per-CPU basis there's no risk of other CPUs being
-> able to read the stack contents, but vCPUs running on the current pCPU could
-> read stack rubble from operations of previous vCPUs.
->
-> The #DF stack is not zeroed because handling of #DF results in a panic.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/include/asm/current.h | 30 +++++++++++++++++++++++++++++-
->  1 file changed, 29 insertions(+), 1 deletion(-)
->
-> diff --git a/xen/arch/x86/include/asm/current.h b/xen/arch/x86/include/asm/current.h
-> index 75b9a341f814..02b4118b03ef 100644
-> --- a/xen/arch/x86/include/asm/current.h
-> +++ b/xen/arch/x86/include/asm/current.h
-> @@ -177,6 +177,14 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
->  # define SHADOW_STACK_WORK ""
->  #endif
->  
-> +#define ZERO_STACK                                              \
-> +    "test %[stk_size], %[stk_size];"                            \
-> +    "jz .L_skip_zeroing.%=;"                                    \
-> +    "std;"                                                      \
-> +    "rep stosb;"                                                \
-> +    "cld;"                                                      \
-> +    ".L_skip_zeroing.%=:"
-> +
->  #if __GNUC__ >= 9
->  # define ssaj_has_attr_noreturn(fn) __builtin_has_attribute(fn, __noreturn__)
->  #else
-> @@ -187,10 +195,24 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
->  #define switch_stack_and_jump(fn, instr, constr)                        \
->      ({                                                                  \
->          unsigned int tmp;                                               \
-> +        bool zero_stack = current->domain->arch.asi;                    \
->          BUILD_BUG_ON(!ssaj_has_attr_noreturn(fn));                      \
-> +        ASSERT(IS_ALIGNED((unsigned long)guest_cpu_user_regs() -        \
-> +                          PRIMARY_STACK_SIZE +                          \
-> +                          sizeof(struct cpu_info), PAGE_SIZE));         \
-> +        if ( zero_stack )                                               \
-> +        {                                                               \
-> +            unsigned long stack_top = get_stack_bottom() &              \
-> +                                      ~(STACK_SIZE - 1);                \
-> +                                                                        \
-> +            clear_page((void *)stack_top + IST_MCE * PAGE_SIZE);        \
-> +            clear_page((void *)stack_top + IST_NMI * PAGE_SIZE);        \
-> +            clear_page((void *)stack_top + IST_DB  * PAGE_SIZE);        \
-> +        }                                                               \
->          __asm__ __volatile__ (                                          \
->              SHADOW_STACK_WORK                                           \
->              "mov %[stk], %%rsp;"                                        \
-> +            ZERO_STACK                                                  \
->              CHECK_FOR_LIVEPATCH_WORK                                    \
->              instr "[fun]"                                               \
->              : [val] "=&r" (tmp),                                        \
-> @@ -201,7 +223,13 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
->                ((PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8),               \
->                [stack_mask] "i" (STACK_SIZE - 1),                        \
->                _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__,                \
-> -                                 __FILE__, NULL)                        \
-> +                                 __FILE__, NULL),                       \
-> +              /* For stack zeroing. */                                  \
-> +              "D" ((void *)guest_cpu_user_regs() - 1),                  \
-> +              [stk_size] "c"                                            \
-> +              (zero_stack ? PRIMARY_STACK_SIZE - sizeof(struct cpu_info)\
-> +                          : 0),                                         \
-> +              "a" (0)                                                   \
->              : "memory" );                                               \
->          unreachable();                                                  \
->      })
+On 29/07/2024 12:53 pm, Jan Beulich wrote:
+> On 26.07.2024 17:21, Roger Pau Monne wrote:
+>> The PVH dom0 builder doesn't switch page tables and has no need to run with
+>> SMAP disabled.
+>>
+>> Put the SMAP disabling close to the code region where it's necessary, as it
+>> then becomes obvious why switch_cr3_cr4() is required instead of
+>> write_ptbase().
+>>
+>> Note removing SMAP from cr4_pv32_mask is not required, as we never jump into
+>> guest context, and hence updating the value of cr4_pv32_mask is not relevant.
+> I'm okay-ish with that being dropped, but iirc the goal was to keep the
+> variable in sync with CPU state.
 
-This looks very expensive.
+Removing SMAP from cr4_pv32_mask is necessary.
 
-For starters, switch_stack_and_jump() is used twice in a typical context
-switch; once in the schedule tail, and again out of hvm_do_resume().
+Otherwise IST vectors will reactive SMAP behind the back of the dombuilder.
 
-Furthermore, #MC happen never (to many many significant figures), #DB
-happens never for HVM guests (but does happen for PV), and NMIs are
-either ~never, or 2Hz which is far less often than the 30ms default
-timeslice.
-
-So, the overwhelming majority of the time, those 3 calls to clear_page()
-will be re-zeroing blocks of zeroes.
-
-This can probably be avoided by making use of ist_exit (held in %r12) to
-only zero an IST stack when leaving it.  This leaves the IRET frame able
-to be recovered, but with e.g. RFDS, you can do that irrespective, and
-it's not terribly sensitive.
-
-
-What about shadow stacks?  You're not zeroing those, and while they're
-less sensitive than the data stack, there ought to be some reasoning
-about them.
+This will probably only manifest in practice in a CONFIG_PV32=y build,
+and with a poorly timed NMI.
 
 ~Andrew
 
