@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E08E093EF12
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 09:53:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766324.1176812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C780E93EF16
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 09:53:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766332.1176822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYLBd-0005kG-Qi; Mon, 29 Jul 2024 07:52:53 +0000
+	id 1sYLCR-0006Ja-77; Mon, 29 Jul 2024 07:53:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766324.1176812; Mon, 29 Jul 2024 07:52:53 +0000
+Received: by outflank-mailman (output) from mailman id 766332.1176822; Mon, 29 Jul 2024 07:53:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYLBd-0005iL-NS; Mon, 29 Jul 2024 07:52:53 +0000
-Received: by outflank-mailman (input) for mailman id 766324;
- Mon, 29 Jul 2024 07:52:52 +0000
+	id 1sYLCR-0006HM-46; Mon, 29 Jul 2024 07:53:43 +0000
+Received: by outflank-mailman (input) for mailman id 766332;
+ Mon, 29 Jul 2024 07:53:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XCGL=O5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYLBc-0005iE-6c
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 07:52:52 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1sYLCO-0005iE-VC
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 07:53:40 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8e26d9e0-4d7f-11ef-bc01-fd08da9f4363;
- Mon, 29 Jul 2024 09:52:51 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a6265d3ba8fso294238666b.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 00:52:51 -0700 (PDT)
+ id ab6aa6ef-4d7f-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 09:53:40 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a7a81bd549eso281656466b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 00:53:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad4ae4dsm470840166b.136.2024.07.29.00.52.50
+ a640c23a62f3a-a7acad41616sm472995566b.137.2024.07.29.00.53.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 00:52:50 -0700 (PDT)
+ Mon, 29 Jul 2024 00:53:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e26d9e0-4d7f-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: ab6aa6ef-4d7f-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722239571; x=1722844371; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722239620; x=1722844420; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rXOrwGXm38fF+ifJcSxFCrHtH99KGTl/Cdeaz3eH+AU=;
-        b=OBLmLNjmy4N22ieP3b7ASQKon6e8pbKN7HPXPpDgeUxv69PFITSEOfd9x8f2TG0j/R
-         1mZP2HYT7RX0gS9P9sqetQ2jzUDUsEU9HGiH/gpTucTjdcO2KCyySr3Ubbzi4y8CDNTQ
-         BMrUuQEPgIAwUDi1/uisGiMd1kh584iFHrwymbOa7ZwksN/p8euIBNTtTNXtcK3SKXrn
-         yib0YNpSSQFogrzavA2pecqqFipJz0kfIhJssSsC1yqqwujAHpYq4gRkwqpQF6zd6XvT
-         8pv4p1ednAmvsU++BOVnpKO8g4thPyUKqv93WZVIOCclgMFIwQjydC6jqW2izUmy87AX
-         4yCg==
+        bh=47XvnKvqGFz/PAE7vf8u+e1o2yMA+dKIiEZnU44Qdps=;
+        b=ddkSZE2VbjbRMuzm1uwyv7Nx4Qgpc0n7bwbkQhNH1pA+yWacznTVQ8GtenAt3RPvVh
+         E6Q9UG4Vu4tkWqw/dkkitJH1ZTGIPi7UMhfuWEfufwJQLK0WJjmap2vsq+htGa4QufCJ
+         2hMBABmUSJbk21BXZKYva+dmurXraJFq8dOLxvAC0o7ka9/QmHqqVA/+KUncdXJUE2Z5
+         9dduDM/ku++ojMj5B+AJ6+M+pqDrIztV2/oNNy/dku4uyb92+STWAsTBo+qXVDY3+n4g
+         QpI+hPBz8BTBWTzuJ952tti4HAPgCmZ8p9zlC53tPKRANP8YFNlrsVJLVYTZIZN/nJOw
+         SQSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722239571; x=1722844371;
+        d=1e100.net; s=20230601; t=1722239620; x=1722844420;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rXOrwGXm38fF+ifJcSxFCrHtH99KGTl/Cdeaz3eH+AU=;
-        b=hw+XuyxoSHEHYe096zSb/+JzskIntodzdWyI23d5KTY7rmY0ZfgJHpA1AS/N6vxVK9
-         joFF/NqJbN8NvhmTdCLpXwoLewX2378PDqsqquqeLU+gZw+PZZsxJVQx0r/EAbM2BmU6
-         nTSBJ/ZULn/wOr0xYU5+/AsbKd2p4L4hXLXbO3nAp81cN7YkeiZt5MOeKj9JR9l6BnuD
-         oF8YoBL+fhGWpBsvGsFvbWkHJ2W3W0X7TtCgPJRytn1TI9EDw0F0N4/7MasXKd4N6EcH
-         UTP91i2Cxveosf4SzXhlvD5UIMCYkpdY6T4GGxwIr9GD8IqewN/JrSxcCLiw26TEg5Xo
-         qc0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCW6U9EG37IsdlmkXrN4Vo+cJ2nTJE+dWrfCI5tcfzMy+N+X39QZ/eJ8q08wE7JunSeiW9wqDbKdpuKE+hgRNoV6y7ZQXj7u9NV4qnO+dVo=
-X-Gm-Message-State: AOJu0YxTh+CVjj1R2P42cBGdBOCO0Oopow5iHLqS+3Omr7qcwp046VTJ
-	/Jl/Qxnt1R3yra4/MBoolwAyNlM1dgwQPD53+lrNpk5w0QAUhIPsCr4ZubqLPfP1p2JvwKERVwk
-	=
-X-Google-Smtp-Source: AGHT+IGVU3MYhPkHnwVbIhFsH7laq05SrsN4aPvEsKrScrmHBtI0RP41H0o69lReH/z89+LtyWdojQ==
-X-Received: by 2002:a17:907:6d01:b0:a77:f2c5:84bf with SMTP id a640c23a62f3a-a7d3ffa524bmr400230566b.2.1722239570718;
-        Mon, 29 Jul 2024 00:52:50 -0700 (PDT)
-Message-ID: <c46c1d62-c9d3-4549-8006-9e846fbc9d3d@suse.com>
-Date: Mon, 29 Jul 2024 09:52:50 +0200
+        bh=47XvnKvqGFz/PAE7vf8u+e1o2yMA+dKIiEZnU44Qdps=;
+        b=PyyQ5h+n0PJzE9DwPovOh6GU7FkfsIUFtr+au+JRn64FcCL79QcHdy9LNMkmI3x/YT
+         mAsSR7VysftyHe/wmtECRhU54VkSgCPvD3R3aRZqPsW3nH9+MvvpuDRRsXICEVRa7id/
+         KXkWcEvkZA2/uXKWg+EDEz/0fGJiPAQCoPnw4dSvf7RTubFvDOeZfsQEEAP5P1R3GnUi
+         B6Ejg/Q+ta16wymY25VmFTBkiD1x+lFF69pmFsJ9kxlhboIiJu+VEWVuNR5R636YHWfJ
+         myiG7/I3LdY35rLMg0XdhFFllKiQSFv5UWwXqdyDRlvUccUdt/CsW6igLcqlbgUhejwl
+         VF5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXiMA8pK1fJNFviByjwVAVczRoUyG3ldDMF+wm9/xy2Qgg7SLoPnfe4MNMXzsA9Zj3VoHm731FjQP21j9ujO8qtP714Nao6DaA5OoHZDqY=
+X-Gm-Message-State: AOJu0Yy15hwvX2EUWzwtgdKAGbOKVRm4hxXm0f6cqkHDboIKBmCfO/KF
+	sem5V9RMRQAnkNSHayfSjaAc6XJf43Q5OwvVk8469gwoO4fFnxzULgGKkzUlGQ==
+X-Google-Smtp-Source: AGHT+IGyiwwlOqM8OqDR0y/GOidQf/UsAAQQOhUV7XOw69mErpgzb+PKZlI6MTV3ufK42RA+uJo1RA==
+X-Received: by 2002:a17:907:9720:b0:a7a:97ca:3056 with SMTP id a640c23a62f3a-a7d3fff8d5fmr501686566b.16.1722239619888;
+        Mon, 29 Jul 2024 00:53:39 -0700 (PDT)
+Message-ID: <c20c15af-a8c6-44af-a0b2-bf24c7d27f72@suse.com>
+Date: Mon, 29 Jul 2024 09:53:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/22] x86/mm: drop l{1,2,3,4}e_write_atomic()
+Subject: Re: [PATCH 02/22] x86/mm: rename l{1,2,3,4}e_read_atomic()
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: alejandro.vallejo@cloud.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20240726152206.28411-1-roger.pau@citrix.com>
- <20240726152206.28411-2-roger.pau@citrix.com>
+ <20240726152206.28411-3-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,17 +112,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240726152206.28411-2-roger.pau@citrix.com>
+In-Reply-To: <20240726152206.28411-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 26.07.2024 17:21, Roger Pau Monne wrote:
-> The l{1,2,3,4}e_write_atomic() and non _atomic suffixed helpers share the same
-> implementation, so it seems pointless and possibly confusing to have both.
-> 
-> Remove the l{1,2,3,4}e_write_atomic() helpers and switch it's user to
-> l{1,2,3,4}e_write(), as that's also atomic.  While there also remove
-> pte_write{,_atomic}() and just use write_atomic() in the wrappers.
+> There's no l{1,2,3,4}e_read() implementation, so drop the _atomic suffix from
+> the read helpers.  This allows unifying the naming with the write helpers,
+> which are also atomic but don't have the suffix already: l{1,2,3,4}e_write().
 > 
 > No functional change intended.
 > 
@@ -131,9 +127,5 @@ On 26.07.2024 17:21, Roger Pau Monne wrote:
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-In the description, can we perhaps mention the historical aspect of why
-these were there (and separate)? Happy to add a sentence when committing,
-as long as you agree.
 
-Jan
 
