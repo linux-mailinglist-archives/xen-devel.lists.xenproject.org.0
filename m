@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86DEA93F313
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 12:47:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766585.1177082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 500A393F3A4
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 13:07:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766595.1177093 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYNuJ-00072C-Vr; Mon, 29 Jul 2024 10:47:11 +0000
+	id 1sYODP-00024m-IA; Mon, 29 Jul 2024 11:06:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766585.1177082; Mon, 29 Jul 2024 10:47:11 +0000
+Received: by outflank-mailman (output) from mailman id 766595.1177093; Mon, 29 Jul 2024 11:06:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYNuJ-0006zk-TF; Mon, 29 Jul 2024 10:47:11 +0000
-Received: by outflank-mailman (input) for mailman id 766585;
- Mon, 29 Jul 2024 10:47:10 +0000
+	id 1sYODP-00020B-FK; Mon, 29 Jul 2024 11:06:55 +0000
+Received: by outflank-mailman (input) for mailman id 766595;
+ Mon, 29 Jul 2024 11:06:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XCGL=O5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYNuI-0006ze-JI
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 10:47:10 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1sYODO-0001zn-Nu
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 11:06:54 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e793e1c8-4d97-11ef-bc01-fd08da9f4363;
- Mon, 29 Jul 2024 12:47:09 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a7aa212c1c9so449385766b.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 03:47:09 -0700 (PDT)
+ id a9805e2b-4d9a-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 13:06:53 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-52efa16aad9so4891688e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 04:06:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad418f1sm486769066b.135.2024.07.29.03.47.08
+ 4fb4d7f45d1cf-5ac63590d76sm5658722a12.24.2024.07.29.04.06.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 03:47:08 -0700 (PDT)
+ Mon, 29 Jul 2024 04:06:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e793e1c8-4d97-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: a9805e2b-4d9a-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722250029; x=1722854829; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722251213; x=1722856013; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=75tZsRRT0P/pYwpcBW5aVpn9TYPt/uXgIxOkkV6L/Lw=;
-        b=AEnjZfWPzB7KQGjz7ZDYDIxUE14rKQgpYpGKHA0e6Pvo4tzXZduBhMHmN7uCnKZT6C
-         3q+yBCK2AuANODW2JwnFsUvNoZrUcrqUEKjiqeRraS/pFebibaxA0LHyDRK+yoru8z1V
-         ajAu1LMmcFwmA5g4GmVseidvlUclKHRnf9zMUm8nzSmA7h07ihSgk6/jMtOShOMJyl/B
-         6srp5KhNlbKLt1AICZePaKAJRVtEFCpVEZjQtO6dCBfKA277hsYVFK+Ypn2YyIz9ztr8
-         UKMntnNrndDTtEhRq1Ht6KS9mPpLUcYjQAWAaIHS8S1iIXEijz6EUPa6C7EB6j16uf3c
-         qtTQ==
+        bh=jdcyUW8YkGgSGPTmCXDLuGHXhlnx4+qvAzXEI3OMnMk=;
+        b=dMEbq7bUtvVF5lhlw/ZsjiL6OYy2YtEL+2ZXmQ3Eswbt8ZoCsOo5a+VA3AzrYTCec2
+         7hI3RvnhrnNoS4IKnc/WmfVMBp48iOD0Ul2ZKDMgbT9UlPkah6StVeOJcIv8hTKsq/J3
+         MkhLyyeUwWCeztP7rHv+qEVVQhEGwHZW+r1qDwWEw42mUj8FKCzVIw5LATCnuHoFxPQo
+         0kcHn9c01ofSMS0KfJ+YLfXgu7erFC3ZIq2+ErXmnpQar6LrSZzGJnd7GIMrEokiRxM5
+         kTUrrz5DMOIcJDTJknet2LOLu/YKM2fn62ePoyphSoWLUBKvu1D0WlQ1JNJOwf7QX8DS
+         rabg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722250029; x=1722854829;
+        d=1e100.net; s=20230601; t=1722251213; x=1722856013;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=75tZsRRT0P/pYwpcBW5aVpn9TYPt/uXgIxOkkV6L/Lw=;
-        b=VbIfxk1Oy9HjsZHSF7MLtinaFKQjEYwvpXfi/5t1w/+HdhbXtKrhJYTMXspxzCZdZr
-         FiQEWvOwYbf9voJZITYAU7ePHfMcfry67aZFh7nyBcKcOam+LSko8qGPGoM8QJkDN9vD
-         hgj/rMFzR/n9JfSEBy+qy817u/d4bQOfjxkfTFhyjoBtTTU2ubwcuSZ6iRUQqYNFULYY
-         4V59INmOoAbTLfszry8d8DarNR33Zm7epOTVdeMYA6ZHCXBT+C1EqgC9hNSksfalAlzt
-         oZDI+aiSB+/my4aRh2hW21lkxySQYVHqmo4KmKyrmSL4NDMgCeIxcVIqEjMCV4xhdDr5
-         d0HA==
-X-Forwarded-Encrypted: i=1; AJvYcCUUyq/Dk36jkDWFVYcrSYQ0SscBmJQ0pnh+7d4Qi7lmV4Oskc1G9eAcZFguD0/u8N4iSBHgcMetQQN0/ET2aFb7FaVliZ/ip71ecsekQ0E=
-X-Gm-Message-State: AOJu0YxFgI3wMVQvBxAOB5rtYbvkN4Fi5YMMFBsV8ClLksIeKTJk51r8
-	iVI4GrnvWBXEVt08UobYVCg4+FiZ6oO7K43YoFCzbEEwC2//DownBzUOQ8mrFQ==
-X-Google-Smtp-Source: AGHT+IESOR2+VoUyPOWTgXCHlXh7hOzOkJ5+F4Mc53h/J9Pl2NofVEx9kUZwfptkc8Xvl9pLBkKt7w==
-X-Received: by 2002:a17:907:e8a:b0:a7a:af5d:f30b with SMTP id a640c23a62f3a-a7d401e02c2mr359882166b.66.1722250028743;
-        Mon, 29 Jul 2024 03:47:08 -0700 (PDT)
-Message-ID: <5f31e485-f103-4fe8-bcd5-7e5d1312e449@suse.com>
-Date: Mon, 29 Jul 2024 12:47:09 +0200
+        bh=jdcyUW8YkGgSGPTmCXDLuGHXhlnx4+qvAzXEI3OMnMk=;
+        b=J2uzzxl2UCzkpuMSRY8bqSkUocu3jZ5NyJWV68ewPuZxzHiZ/6elg8TH/oBTfaOACc
+         v0Sl7fsk4WDFdkWLaGCymzSOHBjq3Kxpe4pgpNJmFxNPLsv7XAhk8X64tzxP4bjB8yCm
+         HQOZ9GGY2sB1U2EGcJ1ieMYWZoBL6hGFrd7FWSn0Ct+1KsV1Urikzuoa633NkNtn2gbC
+         KFNlEe/VPlPJBn/TvtlT5gMfpZxiZPPWqjxVTDv8WyuGsQmTeTOE1nEGtEpKXJppVr/m
+         tLJoBDCm9Rdjq8nUF0ovdGHT29XGhj5yD2bta7oUMc3d6mag5HJpcFLk/NtkqxKbDoFZ
+         u+tg==
+X-Forwarded-Encrypted: i=1; AJvYcCUTBX2fR1Ylkm/wM2p9KFLY4Q7BNqrHnbYkV/oZdi3ZPoBpvyjb5f2yLjNK6W7nUe/HX+055f9dCP8BRuX4lF7g2Sh9gyxXTq41zhVCGiY=
+X-Gm-Message-State: AOJu0YxZUY5ERXibXBTjXgG95Y4/CF+YTQQZ3gkw0Hzrq8JjA0LnS1xm
+	7sE0DaacON9Uu2mpEtVXDG/Gkyxc2HZtta5VUG1EhJnbiSXKrG0qnw7ihqNJig==
+X-Google-Smtp-Source: AGHT+IHvQxFlL3Gm7GgP5OLe7Oc8FqXKxi4KPs0sPlPbXjAAkMRRS+cwG5L+oA/hMi7Pg7wSeBPmdw==
+X-Received: by 2002:ac2:48a5:0:b0:52c:f2e0:db23 with SMTP id 2adb3069b0e04-5309b2c2ab8mr4354849e87.40.1722251212908;
+        Mon, 29 Jul 2024 04:06:52 -0700 (PDT)
+Message-ID: <9a91fed1-64eb-4f52-9134-131c556e9244@suse.com>
+Date: Mon, 29 Jul 2024 13:06:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/altcall: further refine clang workaround
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- xen-devel@lists.xenproject.org
-References: <20240729103050.38401-1-roger.pau@citrix.com>
+Subject: Re: [XEN PATCH v5 6/8] x86/hvm: add defensive statements in
+ unreachable program points
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <cover.1722239813.git.federico.serafini@bugseng.com>
+ <a686f70406c33d689b040af5d4e14878cde8a36c.1722239813.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,35 +114,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240729103050.38401-1-roger.pau@citrix.com>
+In-Reply-To: <a686f70406c33d689b040af5d4e14878cde8a36c.1722239813.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.07.2024 12:30, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/include/asm/alternative.h
-> +++ b/xen/arch/x86/include/asm/alternative.h
-> @@ -183,13 +183,13 @@ extern void alternative_branches(void);
->   * https://github.com/llvm/llvm-project/issues/12579
->   * https://github.com/llvm/llvm-project/issues/82598
->   */
-> -#define ALT_CALL_ARG(arg, n)                                            \
-> -    register union {                                                    \
-> -        typeof(arg) e[sizeof(long) / sizeof(arg)];                      \
-> -        unsigned long r;                                                \
-> -    } a ## n ## _ asm ( ALT_CALL_arg ## n ) = {                         \
-> -        .e[0] = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })\
-> -    }
-> +#define ALT_CALL_ARG(arg, n)                                             \
-> +     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) = ({   \
-> +         unsigned long tmp = 0;                                          \
-> +         *(typeof(arg) *)&tmp = (arg);                                   \
-> +         BUILD_BUG_ON(sizeof(arg) > sizeof(void *));                     \
+On 29.07.2024 11:00, Federico Serafini wrote:
+> As a defensive measure, make sure to signal an error to the caller
+> if an unreachable program point is reached.
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-With this, even more so than before, I think the type of tmp would better
-be void * (or the BUILD_BUG_ON() be made use unsigned long, yet I consider
-that less desirable). As a nit, I also don't think the backslashes need
-moving out by one position. Finally I'm afraid you're leaving stale the
-comment ahead of this construct.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
