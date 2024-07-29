@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCAD893F49A
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 13:54:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766658.1177164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2578793F4AB
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 13:56:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766665.1177173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYOww-0004u6-BF; Mon, 29 Jul 2024 11:53:58 +0000
+	id 1sYOz3-0005WV-QB; Mon, 29 Jul 2024 11:56:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766658.1177164; Mon, 29 Jul 2024 11:53:58 +0000
+Received: by outflank-mailman (output) from mailman id 766665.1177173; Mon, 29 Jul 2024 11:56:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYOww-0004qp-7C; Mon, 29 Jul 2024 11:53:58 +0000
-Received: by outflank-mailman (input) for mailman id 766658;
- Mon, 29 Jul 2024 11:53:57 +0000
+	id 1sYOz3-0005TT-NF; Mon, 29 Jul 2024 11:56:09 +0000
+Received: by outflank-mailman (input) for mailman id 766665;
+ Mon, 29 Jul 2024 11:56:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XCGL=O5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYOwv-0004qh-0e
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 11:53:57 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1sYOz2-0005TI-1C
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 11:56:08 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b43cf2d-4da1-11ef-8776-851b0ebba9a2;
- Mon, 29 Jul 2024 13:53:55 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a7a9a369055so379122566b.3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 04:53:55 -0700 (PDT)
+ id 894d534f-4da1-11ef-8776-851b0ebba9a2;
+ Mon, 29 Jul 2024 13:56:06 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5a2ffc3447fso5026355a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 04:56:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acadb8072sm495772466b.196.2024.07.29.04.53.54
+ 4fb4d7f45d1cf-5ac6377d724sm5699471a12.40.2024.07.29.04.56.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 04:53:54 -0700 (PDT)
+ Mon, 29 Jul 2024 04:56:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b43cf2d-4da1-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 894d534f-4da1-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722254034; x=1722858834; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722254165; x=1722858965; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RHxB+KOsH2qUfsGR7EJ+h5H+zbkNMnGmnXV0Nli+o1U=;
-        b=aZh5CqQya31GW7kE4jfTUsskhkS0z4he2nTJpnp8CBiycONQDSQ4JNqUBMxed92fWp
-         nYHE0z9dT9nEb/Nyqtzx69cht76z4WuXH9ndWfLcOC0B6P0dOHRqgQdV1j7ZUu5Og7HK
-         JMs8c68+PRy847OAl483P6YdcOaZMpFCb1l8AtgfMsu/uEWhi9rMMOrsjLkcPkJMKsNf
-         K88jyGN77PWnVcqgxYpWnbDpuWIqZjFt8pjnsYLhfgJCVvjK77oDMrketjBicduVaNJx
-         dpvDrrAswnj44j3txZEKnGmXfOtsM6w2xo4AaFMSGh9lcN50ZbFu6++W5H6u6QTra3q7
-         aFHg==
+        bh=V3aerfiNd+Qw4NIW8btZkv5t7sqtJzDuyM7luKLJjjg=;
+        b=Br59XFfJcaPxTs9wozgz2IZOBbpxZ1QrSiqTLm7H4rB5gleyhfJiBsmPuLzjJK1hqd
+         UN66Jnx4lBVOMoT9nJb8eDh9KLBr1w0GvR4+XfLdBgQD3ftbGIUEAJeDKbyiEgnwqwce
+         BdZTeThk4szNlzDPfspJTDaVJW8XQsFi+wAeoKGV6nEblr903nuiFwedFjwAgVVUkd+p
+         SOPb++rSpwHLWLGla3xrRHcykgbfnycqtrOCrkyIlQFnZFCrtppudOEecUHZT+trH7jN
+         3hhewoPvWq2AwkFTQGHP9yx3uZehlSand4K84rWmA4yUQY/U1t3bBHrLFnKQmTJ2VGmn
+         Fpvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722254034; x=1722858834;
+        d=1e100.net; s=20230601; t=1722254165; x=1722858965;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RHxB+KOsH2qUfsGR7EJ+h5H+zbkNMnGmnXV0Nli+o1U=;
-        b=h4GuHIKzzfd1oSebvn4NzurT+A+gsgRH7EnO7GCZVyYVurxNeN79Uh9M+9Tte9G/6h
-         6eDe7UBQA00g/tIWwZEVPXo+CahgEcPPpocp8OprM+JRUzAZFAkAunQK73u46UZ3kOMG
-         qV6cOSI4oZAJNPE19cUNcy4AX6iZ6nqJWdrmzfGX5yAGqbFIIZWAir1wjD+i3UoMlKyX
-         OjjyYEDcOptvP4aBgTISjmBiN3ZDAkDzzTH/o8nAQzny3Q38jsQTVcyentKeDrNGgZrQ
-         S03QFNO2spUutIDUzhOjq8GdEG7piC2r6ud0vbSar1ZjYRRqHQIdjA4p37Canj5ZU3LO
-         ZZ5A==
-X-Forwarded-Encrypted: i=1; AJvYcCVK+TpWVKmzrxqgyG5Hn+Nq5OgENkVprmhHzCA8Dk5we9v8XF0XUte+x124HkFA+EsbfSMTqaZN3jERccG/64GZC4FzcMwu0aHNvS5D0Vo=
-X-Gm-Message-State: AOJu0Yy1Qzf8B7lgsfQ+bxYg54TAxhovHBDhVn03CXauG4i0w2m66tek
-	G8tJBeo50G5jb0V6nwtN0sbPzJM5nMzfWR8hx3KsItyRNwhRF+EaGfNQ9b+vMQ==
-X-Google-Smtp-Source: AGHT+IEawEg71ZZqW7v2vUSg/3DTj5bBabnh32gSriG5lG8qvYfRTPyVnja8be0EIb0PwDtDf/HIdQ==
-X-Received: by 2002:a17:907:7f1f:b0:a77:db97:f4fd with SMTP id a640c23a62f3a-a7d400575dbmr423823766b.34.1722254034567;
-        Mon, 29 Jul 2024 04:53:54 -0700 (PDT)
-Message-ID: <b1918f51-1ac0-40f8-9174-d8161b2681dd@suse.com>
-Date: Mon, 29 Jul 2024 13:53:55 +0200
+        bh=V3aerfiNd+Qw4NIW8btZkv5t7sqtJzDuyM7luKLJjjg=;
+        b=HyOocZtqdrIcG/dmmzDTUWz2q1rN4h+Uwa3vfDue5gXkAa5Lna3bLYz/B23VJecWOA
+         V8lvuG3HknUDDUYOVcSdrzF0DTayLMH8v2cMGRxPB3AeGe4FM2H84GpeeRLU8gdTy/Xm
+         CvqWC8A5GuYKfE6ceEPcCrMp7ZWjoDAwRqu/XHJc80ZSgSTsCeICX212rnWljwPa8PUX
+         FguoPg1FTfGhTEDPaDmt0SdT3vSPSQfz3Fw81W0aApjzmLZITS7cx+BdwEJBpbTd65B8
+         lmhc9lhh/XCKNvLQQcPwviz6P5GQsEMIlLTvq6EGjOrA9gib0SVDpy9sIfhYQ749bEFG
+         Qpdw==
+X-Forwarded-Encrypted: i=1; AJvYcCUbjYp5/e1nGUmAMnWt2eRjXNNIdTfvEMqzfB4k2kuJROWlPjjBp7YBhNAhDPA5s7+RgDpXLMLVFkyM6B1yCj8xLWi5bFT0JqPYm+VmnUo=
+X-Gm-Message-State: AOJu0YwQmXjVIgFt6o88TjcQqF1fIOcFRTFIn30OlW2U3ziK7jtiyyFc
+	GIcMGldXBWxAB4r5y1qrFdeJgDwCuFlzkct1zyXZDuxQD4YGeqeL+XT6CudK0g==
+X-Google-Smtp-Source: AGHT+IFHr70a3SxG6yXhWoKb74BCy2O7m9AAWgS3a7y4VF1wLy96iB+PI8WUE1EZRjPtNOKCgNZVWA==
+X-Received: by 2002:a05:6402:34cd:b0:5a2:8f7d:aff6 with SMTP id 4fb4d7f45d1cf-5b020ba571fmr5892575a12.17.1722254165428;
+        Mon, 29 Jul 2024 04:56:05 -0700 (PDT)
+Message-ID: <fd95fd5c-844c-4a4b-8242-98293f63faa4@suse.com>
+Date: Mon, 29 Jul 2024 13:56:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/22] x86/dom0: only disable SMAP for the PV dom0 build
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: alejandro.vallejo@cloud.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH] CHANGELOG.md: Finalize changes in 4.19 release cycle
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Community Manager <community.manager@xenproject.org>,
+ "committers @ xenproject . org" <committers@xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <20240726152206.28411-1-roger.pau@citrix.com>
- <20240726152206.28411-4-roger.pau@citrix.com>
+References: <32f773f72abbe114574980a8e99260ba96bd32e8.1722253791.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,27 +115,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240726152206.28411-4-roger.pau@citrix.com>
+In-Reply-To: <32f773f72abbe114574980a8e99260ba96bd32e8.1722253791.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.07.2024 17:21, Roger Pau Monne wrote:
-> The PVH dom0 builder doesn't switch page tables and has no need to run with
-> SMAP disabled.
-> 
-> Put the SMAP disabling close to the code region where it's necessary, as it
-> then becomes obvious why switch_cr3_cr4() is required instead of
-> write_ptbase().
-> 
-> Note removing SMAP from cr4_pv32_mask is not required, as we never jump into
-> guest context, and hence updating the value of cr4_pv32_mask is not relevant.
+On 29.07.2024 13:52, Oleksii Kurochko wrote:
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-I'm okay-ish with that being dropped, but iirc the goal was to keep the
-variable in sync with CPU state.
-
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
+Acked-by: Jan Beulich <jbeulich@suse.com>
+(for whatever that's worth)
 
 
