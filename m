@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A14E393EEFA
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 09:50:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766317.1176802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E08E093EF12
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 09:53:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766324.1176812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYL7s-0004HQ-B1; Mon, 29 Jul 2024 07:49:00 +0000
+	id 1sYLBd-0005kG-Qi; Mon, 29 Jul 2024 07:52:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766317.1176802; Mon, 29 Jul 2024 07:49:00 +0000
+Received: by outflank-mailman (output) from mailman id 766324.1176812; Mon, 29 Jul 2024 07:52:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYL7s-0004Fv-8H; Mon, 29 Jul 2024 07:49:00 +0000
-Received: by outflank-mailman (input) for mailman id 766317;
- Mon, 29 Jul 2024 07:48:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sYLBd-0005iL-NS; Mon, 29 Jul 2024 07:52:53 +0000
+Received: by outflank-mailman (input) for mailman id 766324;
+ Mon, 29 Jul 2024 07:52:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XCGL=O5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYL7q-0004Fn-S7
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 07:48:58 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0240a686-4d7f-11ef-8776-851b0ebba9a2;
- Mon, 29 Jul 2024 09:48:56 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a7a9a369055so353912066b.3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 00:48:56 -0700 (PDT)
+ id 1sYLBc-0005iE-6c
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 07:52:52 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8e26d9e0-4d7f-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 09:52:51 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a6265d3ba8fso294238666b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 00:52:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad92fd8sm467852066b.159.2024.07.29.00.48.55
+ a640c23a62f3a-a7acad4ae4dsm470840166b.136.2024.07.29.00.52.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 00:48:55 -0700 (PDT)
+ Mon, 29 Jul 2024 00:52:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0240a686-4d7f-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 8e26d9e0-4d7f-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722239336; x=1722844136; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722239571; x=1722844371; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yRZECdnepxKr8OdvtClTHDTPSPKU+zpa9QLJ01Ubr9Q=;
-        b=Jl+QvbwrJegz8OoDhcXo6dL0ZvJuCw7iFjAEZ5c7iXDU4CAIbJ+Ag3ZqGehK15Z/GF
-         u3+3D+PhSlT25JKx0HO0Rjzdg2DAqmYwviM3S0TvzKnABuOWNEQcq6BuoLHg2/UuGi4W
-         6RgqO7o9YnjBU7yerkL+JAO1zOo+pD8Q8SxY/pd8iu4kx/hZx17Sb3qHpk1TnSBZDYAE
-         CgxxVkFFrAuBUEgLuvlx6Rm3usFMt4QiJZ/3zL+3lsOkRBLAQIJUo8G0db7Y8zTvhuD4
-         XuP5c92S0JEETO/a+N2zc0DeDrjiKiNl5X5IfZMkJKwf0+5HOYJSOLj8l9XI9MHUbUeE
-         OmsQ==
+        bh=rXOrwGXm38fF+ifJcSxFCrHtH99KGTl/Cdeaz3eH+AU=;
+        b=OBLmLNjmy4N22ieP3b7ASQKon6e8pbKN7HPXPpDgeUxv69PFITSEOfd9x8f2TG0j/R
+         1mZP2HYT7RX0gS9P9sqetQ2jzUDUsEU9HGiH/gpTucTjdcO2KCyySr3Ubbzi4y8CDNTQ
+         BMrUuQEPgIAwUDi1/uisGiMd1kh584iFHrwymbOa7ZwksN/p8euIBNTtTNXtcK3SKXrn
+         yib0YNpSSQFogrzavA2pecqqFipJz0kfIhJssSsC1yqqwujAHpYq4gRkwqpQF6zd6XvT
+         8pv4p1ednAmvsU++BOVnpKO8g4thPyUKqv93WZVIOCclgMFIwQjydC6jqW2izUmy87AX
+         4yCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722239336; x=1722844136;
+        d=1e100.net; s=20230601; t=1722239571; x=1722844371;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yRZECdnepxKr8OdvtClTHDTPSPKU+zpa9QLJ01Ubr9Q=;
-        b=uvS5ACs4HVVX7m3RmjUHcuN1DHI6xuNiuRVONal8YoXK+mDCD74H+0FUOb9MNu7LQ1
-         hFv2SfrOZ6Yh//v0wfwIHjpg86J7nGxcq2Rklu06w1QwnN4B5zY9dHZpGcjIOmuIkKKj
-         PT5ooTjNYv2fIiwDadPvMt3lb8j+8PJHEsbmPguukVmmgOJPzTx/jrt0YkePabpNEs0W
-         DewyUrwY9c07/ucn4m1dqP1tPYadCUdNInM774dDykdLXBPDHqd+fwbJlW3mM8n2Qtx7
-         M6ongLkMjNjBp2EJ8ZL4BPGt5yPxWJlHIEkZPsnEo4I1LUCAbFOgIipKBMChPLiHrda1
-         13hA==
-X-Forwarded-Encrypted: i=1; AJvYcCUco7urE0H+1/sb4CrxkdFzjRGJLUG3OjMLz1bfUrgiLtTVrYvL93p1M+Q/Pzhn2zIGmmyKu0KyFqZZhUOSxwjFMkVZ6wu4VsoN/TE2//c=
-X-Gm-Message-State: AOJu0Yy/EbUvTy0/sL0oX9sqzPAJTOlIXGqUFpT2VmsKMqMwfvJstP16
-	p0SdbSMI0cAlwH5Q9iTjehhHk6PDy4R8MhUMkBmXhC4YWOSCear1x4rr6p3bIA==
-X-Google-Smtp-Source: AGHT+IE+L5hIKbjbH4HS746ObXwB0Amz0zqp/EpZIVoklQ0+3mXnUDKYQ6WvnDMi9ZwoyrZeZQJ9vw==
-X-Received: by 2002:a17:907:d8e:b0:a77:c314:d621 with SMTP id a640c23a62f3a-a7d3ff557c0mr567180566b.13.1722239335985;
-        Mon, 29 Jul 2024 00:48:55 -0700 (PDT)
-Message-ID: <9add0cfe-e5e9-41fa-9845-4921f53f479c@suse.com>
-Date: Mon, 29 Jul 2024 09:48:56 +0200
+        bh=rXOrwGXm38fF+ifJcSxFCrHtH99KGTl/Cdeaz3eH+AU=;
+        b=hw+XuyxoSHEHYe096zSb/+JzskIntodzdWyI23d5KTY7rmY0ZfgJHpA1AS/N6vxVK9
+         joFF/NqJbN8NvhmTdCLpXwoLewX2378PDqsqquqeLU+gZw+PZZsxJVQx0r/EAbM2BmU6
+         nTSBJ/ZULn/wOr0xYU5+/AsbKd2p4L4hXLXbO3nAp81cN7YkeiZt5MOeKj9JR9l6BnuD
+         oF8YoBL+fhGWpBsvGsFvbWkHJ2W3W0X7TtCgPJRytn1TI9EDw0F0N4/7MasXKd4N6EcH
+         UTP91i2Cxveosf4SzXhlvD5UIMCYkpdY6T4GGxwIr9GD8IqewN/JrSxcCLiw26TEg5Xo
+         qc0Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW6U9EG37IsdlmkXrN4Vo+cJ2nTJE+dWrfCI5tcfzMy+N+X39QZ/eJ8q08wE7JunSeiW9wqDbKdpuKE+hgRNoV6y7ZQXj7u9NV4qnO+dVo=
+X-Gm-Message-State: AOJu0YxTh+CVjj1R2P42cBGdBOCO0Oopow5iHLqS+3Omr7qcwp046VTJ
+	/Jl/Qxnt1R3yra4/MBoolwAyNlM1dgwQPD53+lrNpk5w0QAUhIPsCr4ZubqLPfP1p2JvwKERVwk
+	=
+X-Google-Smtp-Source: AGHT+IGVU3MYhPkHnwVbIhFsH7laq05SrsN4aPvEsKrScrmHBtI0RP41H0o69lReH/z89+LtyWdojQ==
+X-Received: by 2002:a17:907:6d01:b0:a77:f2c5:84bf with SMTP id a640c23a62f3a-a7d3ffa524bmr400230566b.2.1722239570718;
+        Mon, 29 Jul 2024 00:52:50 -0700 (PDT)
+Message-ID: <c46c1d62-c9d3-4549-8006-9e846fbc9d3d@suse.com>
+Date: Mon, 29 Jul 2024 09:52:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/viridian: Clarify some viridian logging strings
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240726145200.1991-1-alejandro.vallejo@cloud.com>
+Subject: Re: [PATCH 01/22] x86/mm: drop l{1,2,3,4}e_write_atomic()
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: alejandro.vallejo@cloud.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20240726152206.28411-1-roger.pau@citrix.com>
+ <20240726152206.28411-2-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,68 +113,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240726145200.1991-1-alejandro.vallejo@cloud.com>
+In-Reply-To: <20240726152206.28411-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.07.2024 16:52, Alejandro Vallejo wrote:
-> It's sadically misleading to show an error without letters and expect
-> the dmesg reader to understand it's in hex. The patch adds a 0x prefix
-> to all hex numbers that don't already have it.
+On 26.07.2024 17:21, Roger Pau Monne wrote:
+> The l{1,2,3,4}e_write_atomic() and non _atomic suffixed helpers share the same
+> implementation, so it seems pointless and possibly confusing to have both.
+> 
+> Remove the l{1,2,3,4}e_write_atomic() helpers and switch it's user to
+> l{1,2,3,4}e_write(), as that's also atomic.  While there also remove
+> pte_write{,_atomic}() and just use write_atomic() in the wrappers.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Just a few remarks: First I agree with Paul here. Imo ...
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/hvm/viridian/synic.c
-> +++ b/xen/arch/x86/hvm/viridian/synic.c
-> @@ -172,7 +172,7 @@ int viridian_synic_wrmsr(struct vcpu *v, uint32_t idx, uint64_t val)
->          vector = new.vector;
->          vv->vector_to_sintx[vector] = sintx;
->  
-> -        printk(XENLOG_G_INFO "%pv: VIRIDIAN SINT%u: vector: %x\n", v, sintx,
-> +        printk(XENLOG_G_INFO "%pv: VIRIDIAN SINT%u: vector: %#x\n", v, sintx,
->                 vector);
-
-... vectors should simply never be logged decimal, and then there's no
-need for any disambiguating 0x.
-
-> --- a/xen/arch/x86/hvm/viridian/viridian.c
-> +++ b/xen/arch/x86/hvm/viridian/viridian.c
-> @@ -253,7 +253,7 @@ static void dump_guest_os_id(const struct domain *d)
->      goi = &d->arch.hvm.viridian->guest_os_id;
->  
->      printk(XENLOG_G_INFO
-> -           "d%d: VIRIDIAN GUEST_OS_ID: vendor: %x os: %x major: %x minor: %x sp: %x build: %x\n",
-> +           "d%d: VIRIDIAN GUEST_OS_ID: vendor: %#x os: %#x major: %#x minor: %#x sp: %#x build: %#x\n",
->             d->domain_id, goi->vendor, goi->os, goi->major, goi->minor,
->             goi->service_pack, goi->build_number);
-
-Here otoh I agree, to some degree at least: Generally I'd expect version
-numbers to be logged decimal.
-
-What would have been nice both here and ...
-
-> @@ -264,7 +264,7 @@ static void dump_hypercall(const struct domain *d)
->  
->      hg = &d->arch.hvm.viridian->hypercall_gpa;
->  
-> -    printk(XENLOG_G_INFO "d%d: VIRIDIAN HYPERCALL: enabled: %x pfn: %lx\n",
-> +    printk(XENLOG_G_INFO "d%d: VIRIDIAN HYPERCALL: enabled: %u pfn: %#lx\n",
->             d->domain_id,
->             hg->enabled, (unsigned long)hg->pfn);
-
-... here would be to take the opportunity and switch to %pd.
-
-> @@ -372,7 +372,8 @@ int guest_wrmsr_viridian(struct vcpu *v, uint32_t idx, uint64_t val)
->          d->shutdown_code = SHUTDOWN_crash;
->          spin_unlock(&d->shutdown_lock);
->  
-> -        gprintk(XENLOG_WARNING, "VIRIDIAN CRASH: %lx %lx %lx %lx %lx\n",
-> +        gprintk(XENLOG_WARNING,
-> +                "VIRIDIAN GUEST_CRASH: %#lx %#lx %#lx %#lx %#lx\n",
->                  vv->crash_param[0], vv->crash_param[1], vv->crash_param[2],
->                  vv->crash_param[3], vv->crash_param[4]);
-
-Here I wonder what good the underscore does that you add.
+In the description, can we perhaps mention the historical aspect of why
+these were there (and separate)? Happy to add a sentence when committing,
+as long as you agree.
 
 Jan
 
