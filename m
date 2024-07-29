@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52F6F93F2F7
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 12:40:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.766575.1177073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86DEA93F313
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2024 12:47:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.766585.1177082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYNnm-0005t0-8D; Mon, 29 Jul 2024 10:40:26 +0000
+	id 1sYNuJ-00072C-Vr; Mon, 29 Jul 2024 10:47:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 766575.1177073; Mon, 29 Jul 2024 10:40:26 +0000
+Received: by outflank-mailman (output) from mailman id 766585.1177082; Mon, 29 Jul 2024 10:47:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYNnm-0005qu-4b; Mon, 29 Jul 2024 10:40:26 +0000
-Received: by outflank-mailman (input) for mailman id 766575;
- Mon, 29 Jul 2024 10:40:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sYNuJ-0006zk-TF; Mon, 29 Jul 2024 10:47:11 +0000
+Received: by outflank-mailman (input) for mailman id 766585;
+ Mon, 29 Jul 2024 10:47:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XCGL=O5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYNnk-0005qo-Lk
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 10:40:24 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f50151e1-4d96-11ef-8776-851b0ebba9a2;
- Mon, 29 Jul 2024 12:40:22 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a7aada2358fso612291166b.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 03:40:22 -0700 (PDT)
+ id 1sYNuI-0006ze-JI
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2024 10:47:10 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e793e1c8-4d97-11ef-bc01-fd08da9f4363;
+ Mon, 29 Jul 2024 12:47:09 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a7aa212c1c9so449385766b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 03:47:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acab4de6fsm493592866b.63.2024.07.29.03.40.21
+ a640c23a62f3a-a7acad418f1sm486769066b.135.2024.07.29.03.47.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 03:40:21 -0700 (PDT)
+ Mon, 29 Jul 2024 03:47:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f50151e1-4d96-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: e793e1c8-4d97-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722249622; x=1722854422; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722250029; x=1722854829; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CyjpNTegy+UU7KeQwylz5bSCg0p9AmxPerrRAfmVEqQ=;
-        b=M1BD46JMtqHR31QZabe59BvlmwspTwkuYdVa0ksAh9rKIicDYNR6CnvsGR2n66inz/
-         CMkVtojiWue8CQfN4TWvLds/JnblfToDziktxi7EzQv36Uje7qGcSqSkyT2pSdbb+jIs
-         JJZSFFwx80/GFT9BG4Ok53RDcNAGKBQB4Rfgjw+D7vgt1bgpQ3x/WKI2q63Z5dLNRs9t
-         qIVOBrjn34R3mCUh2ff4nO2E8klN6J2uz+wijh0ecEyrg6SrU/gBS2YAfNGncrIgWIBJ
-         EKLjPi76W7fVmTFpNSy6lh8E/Qm2bSrntJtZXIKcPLtWUVuxXo50/JF+T7TVPZs8N/T7
-         Z8uQ==
+        bh=75tZsRRT0P/pYwpcBW5aVpn9TYPt/uXgIxOkkV6L/Lw=;
+        b=AEnjZfWPzB7KQGjz7ZDYDIxUE14rKQgpYpGKHA0e6Pvo4tzXZduBhMHmN7uCnKZT6C
+         3q+yBCK2AuANODW2JwnFsUvNoZrUcrqUEKjiqeRraS/pFebibaxA0LHyDRK+yoru8z1V
+         ajAu1LMmcFwmA5g4GmVseidvlUclKHRnf9zMUm8nzSmA7h07ihSgk6/jMtOShOMJyl/B
+         6srp5KhNlbKLt1AICZePaKAJRVtEFCpVEZjQtO6dCBfKA277hsYVFK+Ypn2YyIz9ztr8
+         UKMntnNrndDTtEhRq1Ht6KS9mPpLUcYjQAWAaIHS8S1iIXEijz6EUPa6C7EB6j16uf3c
+         qtTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722249622; x=1722854422;
+        d=1e100.net; s=20230601; t=1722250029; x=1722854829;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CyjpNTegy+UU7KeQwylz5bSCg0p9AmxPerrRAfmVEqQ=;
-        b=EXEfxz0El6qj7uWsSMoTFcpUlC4F6aedrkq8LWrVJP/DElcB90ANxbckzeW055ysyZ
-         JOyo8QfC1ZpIqjRa9ArnBnS17bp0h0MQYEzSrUb3FJl1hvzBa00TbJGjlsx1zxhEl6W9
-         WPWuVmNugf7VnHEUqGOtwkSy7s5SghKJBJEunbzwBIZ2+i+58mG6t3NFHpNY+DzzdyQm
-         a/8Z7uY/5Vk6CtCVxFWHlqocfK+Uxo5byDF2sLICQ68gXBdGd4WYgUcPcz+YncAxyCTr
-         WkAwvDNburo0ocR/9oC9KL+xGzxsxd4ttejjjown95VWQK9+TEd6y7ydUz7lNQGUq2E7
-         zRbg==
-X-Forwarded-Encrypted: i=1; AJvYcCV5/FAig1b1lHaVchugCf4RsjBXYZ/ZpDG5aZhrFuwRMMafyplKe1EE8sR6fK4f+/yOAEdTAE8LzrErdsXfFP6IEwOkwyZxS+Q2esqr/VE=
-X-Gm-Message-State: AOJu0Yxh/i8QBWuT6NH9fOsNp0LVQSpn3nhLSPuzEcIMoWojzXTNHeP+
-	MU3wtmFNRVPCHleItnXm8XITdMkaw2wZE0Gv1WEm7CWUchz4xQvDI6LfH2pdgQ==
-X-Google-Smtp-Source: AGHT+IHElL4ZMTUkg7Of0OxTLAURpm/cVQa0+kC6UsnhS1t5lPBibttEniWvVv33bvZ1W01A7LPTUg==
-X-Received: by 2002:a17:907:9403:b0:a6f:e0f0:d669 with SMTP id a640c23a62f3a-a7d3f85b402mr708468266b.12.1722249621821;
-        Mon, 29 Jul 2024 03:40:21 -0700 (PDT)
-Message-ID: <dcca64aa-eb2c-41e2-9f24-3fdc26e6e367@suse.com>
-Date: Mon, 29 Jul 2024 12:40:22 +0200
+        bh=75tZsRRT0P/pYwpcBW5aVpn9TYPt/uXgIxOkkV6L/Lw=;
+        b=VbIfxk1Oy9HjsZHSF7MLtinaFKQjEYwvpXfi/5t1w/+HdhbXtKrhJYTMXspxzCZdZr
+         FiQEWvOwYbf9voJZITYAU7ePHfMcfry67aZFh7nyBcKcOam+LSko8qGPGoM8QJkDN9vD
+         hgj/rMFzR/n9JfSEBy+qy817u/d4bQOfjxkfTFhyjoBtTTU2ubwcuSZ6iRUQqYNFULYY
+         4V59INmOoAbTLfszry8d8DarNR33Zm7epOTVdeMYA6ZHCXBT+C1EqgC9hNSksfalAlzt
+         oZDI+aiSB+/my4aRh2hW21lkxySQYVHqmo4KmKyrmSL4NDMgCeIxcVIqEjMCV4xhdDr5
+         d0HA==
+X-Forwarded-Encrypted: i=1; AJvYcCUUyq/Dk36jkDWFVYcrSYQ0SscBmJQ0pnh+7d4Qi7lmV4Oskc1G9eAcZFguD0/u8N4iSBHgcMetQQN0/ET2aFb7FaVliZ/ip71ecsekQ0E=
+X-Gm-Message-State: AOJu0YxFgI3wMVQvBxAOB5rtYbvkN4Fi5YMMFBsV8ClLksIeKTJk51r8
+	iVI4GrnvWBXEVt08UobYVCg4+FiZ6oO7K43YoFCzbEEwC2//DownBzUOQ8mrFQ==
+X-Google-Smtp-Source: AGHT+IESOR2+VoUyPOWTgXCHlXh7hOzOkJ5+F4Mc53h/J9Pl2NofVEx9kUZwfptkc8Xvl9pLBkKt7w==
+X-Received: by 2002:a17:907:e8a:b0:a7a:af5d:f30b with SMTP id a640c23a62f3a-a7d401e02c2mr359882166b.66.1722250028743;
+        Mon, 29 Jul 2024 03:47:08 -0700 (PDT)
+Message-ID: <5f31e485-f103-4fe8-bcd5-7e5d1312e449@suse.com>
+Date: Mon, 29 Jul 2024 12:47:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for 4.19] CHANGELOG.md: Finalize changes in 4.19 release
- cycle
-To: oleksii.kurochko@gmail.com
-Cc: Community Manager <community.manager@xenproject.org>,
- "committers @ xenproject . org" <committers@xenproject.org>,
- Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v2] x86/altcall: further refine clang workaround
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
  xen-devel@lists.xenproject.org
-References: <0c93b49ac00fa92721035b4f9eb2ae76175fe886.1722237887.git.oleksii.kurochko@gmail.com>
- <f2450b46-3542-4e1c-b7d7-8735b1839791@suse.com>
- <843c1b340e153cb535f28872a95623cf46a35981.camel@gmail.com>
+References: <20240729103050.38401-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,45 +112,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <843c1b340e153cb535f28872a95623cf46a35981.camel@gmail.com>
+In-Reply-To: <20240729103050.38401-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29.07.2024 12:20, oleksii.kurochko@gmail.com wrote:
-> On Mon, 2024-07-29 at 10:11 +0200, Jan Beulich wrote:
->> On 29.07.2024 09:31, Oleksii Kurochko wrote:
->>> @@ -31,6 +47,14 @@ The format is based on [Keep a
->>> Changelog](https://keepachangelog.com/en/1.0.0/)
->>>   - Add a new 9pfs backend running as a daemon in dom0. First user
->>> is
->>>     Xenstore-stubdom now being able to support full Xenstore trace
->>> capability.
->>>   - libxl support for backendtype=tap with tapback.
->>> + - On Arm:
->>> +   - FF-A notification support.
->>> +   - Introduction of dynamic node programming using overlay dtbo.
->>
->> This is fine to have. I wonder though if the per-arch sections
->> wouldn't
->> better sit next to each other (all at the top or all at the bottom).
-> I didn't get you here. Everything in "### Added" is sorted per-arch.
+On 29.07.2024 12:30, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/include/asm/alternative.h
+> +++ b/xen/arch/x86/include/asm/alternative.h
+> @@ -183,13 +183,13 @@ extern void alternative_branches(void);
+>   * https://github.com/llvm/llvm-project/issues/12579
+>   * https://github.com/llvm/llvm-project/issues/82598
+>   */
+> -#define ALT_CALL_ARG(arg, n)                                            \
+> -    register union {                                                    \
+> -        typeof(arg) e[sizeof(long) / sizeof(arg)];                      \
+> -        unsigned long r;                                                \
+> -    } a ## n ## _ asm ( ALT_CALL_arg ## n ) = {                         \
+> -        .e[0] = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })\
+> -    }
+> +#define ALT_CALL_ARG(arg, n)                                             \
+> +     register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) = ({   \
+> +         unsigned long tmp = 0;                                          \
+> +         *(typeof(arg) *)&tmp = (arg);                                   \
+> +         BUILD_BUG_ON(sizeof(arg) > sizeof(void *));                     \
 
-But x86 is at the start of the section, whereas you add to the bottom.
-
->>> + - On PPC:
->>> +   - Basic exception handler implementation.
->>> + - On RISCV:
->>> +   - Identity mapping implementation.
->>> +   - Introduction of architecture-specific headers.
->>
->> These again don't concern people using Xen, do they?
-> Well, I agree that PPC/RISCV is far away from being used but still it
-> shows that progress is going on.
-> 
-> Do we have the document which tell what should be in CHANGELOG and what
-> shouldn't?
-
-I'm not aware of any. And as mentioned, there has been disagreement before.
+With this, even more so than before, I think the type of tmp would better
+be void * (or the BUILD_BUG_ON() be made use unsigned long, yet I consider
+that less desirable). As a nit, I also don't think the backslashes need
+moving out by one position. Finally I'm afraid you're leaving stale the
+comment ahead of this construct.
 
 Jan
 
