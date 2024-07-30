@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03E549411A4
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 14:16:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767686.1178375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B16DF9411AA
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 14:18:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767693.1178385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYllZ-00018a-HC; Tue, 30 Jul 2024 12:15:45 +0000
+	id 1sYlnc-0002GL-SC; Tue, 30 Jul 2024 12:17:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767686.1178375; Tue, 30 Jul 2024 12:15:45 +0000
+Received: by outflank-mailman (output) from mailman id 767693.1178385; Tue, 30 Jul 2024 12:17:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYllZ-00016O-Du; Tue, 30 Jul 2024 12:15:45 +0000
-Received: by outflank-mailman (input) for mailman id 767686;
- Tue, 30 Jul 2024 12:15:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sYlnc-0002Et-Ov; Tue, 30 Jul 2024 12:17:52 +0000
+Received: by outflank-mailman (input) for mailman id 767693;
+ Tue, 30 Jul 2024 12:17:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hr/k=O6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYllY-00016I-Fu
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 12:15:44 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 70d8cbd5-4e6d-11ef-8776-851b0ebba9a2;
- Tue, 30 Jul 2024 14:15:42 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-52efd530a4eso7010748e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 05:15:42 -0700 (PDT)
+ id 1sYlnb-0002El-Ai
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 12:17:51 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bd0f7e09-4e6d-11ef-bc01-fd08da9f4363;
+ Tue, 30 Jul 2024 14:17:50 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5a156556fb4so6970279a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 05:17:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acab23f62sm643080466b.16.2024.07.30.05.15.41
+ 4fb4d7f45d1cf-5ac63b59aa5sm7243556a12.43.2024.07.30.05.17.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jul 2024 05:15:41 -0700 (PDT)
+ Tue, 30 Jul 2024 05:17:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70d8cbd5-4e6d-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: bd0f7e09-4e6d-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722341742; x=1722946542; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722341870; x=1722946670; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=t+yBq+PZ3qeR79tyRs5EQIzbiBScpMqImrplcSta1j4=;
-        b=WJdC0uanTOW7lREGerPilhoYhP1dU2XDqjpWLSalRJMT/K02Cf00P/E1/hQye7Gzne
-         /9deGUy2Ex/ye15aNtp3rDJAAtlk568mnPpHhEm6WEjLeUSVgIA7HYjHSTm8LQ+gBUMm
-         MrwUuE0oRVJiq4B0/3d1J9ryIJsioTTLHcLhzZ5z/0xs0rg8afh9DgPpcIxCZ25f4q00
-         wO8KpaG0W/wYOnrN0s89oWfUZZTs9QcGQBXlZkjQMk5nqpxyvNy+JYPnq/5YmnmlCDjE
-         mwCRQlOqFWLHrvh5jtCl/FrO1MKhzdmzPLnEEqq6+LWKRkCKJqZtUALArWGjBfFOGJsu
-         L5xg==
+        bh=F/Ns7A9vLLtAkaOYavA9pBxbaBVNxBHRAR0jTb8lJxk=;
+        b=RHpYFOABTEs3WhKOax4G8NIXRA09GvsFceM73FkmRIB4sY/WcumMAS33YIrX9zg+Fh
+         9FjV3KsmipvZJSEctf3M0PH1dJPEwItmMCJ4lB6g9RhE6jV4TxPBlu7XaN7+a69YoZqW
+         xKTDuya9Ym1Fw2BUnfswKj/ZTHMTixqd4KsL/J40LJmusdgA3BLVbCQ1YNDBGlSeaPjb
+         tSoWqSgKfo5OK1yW/KHCUaPdMG7ZCpZ62ukN+/97Z9fESZA93hbLlx5B7BNicXJsdG8Q
+         rgAq+gMoonCaW/sLZW3f3iTPdk7pzhNKrnv9yDAS759GnoiMWXDI+jTwAoRaVK8MjyI2
+         3N6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722341742; x=1722946542;
+        d=1e100.net; s=20230601; t=1722341870; x=1722946670;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=t+yBq+PZ3qeR79tyRs5EQIzbiBScpMqImrplcSta1j4=;
-        b=n4pD6dUOPJsmfKQ3m39nshf6rlTWa1XFPH2pRNUnpxbSVaSOqnIAzSK4/DSweunqm6
-         Z36zQoC0bt9VInAXnbkJOvrAlXS3DeWBWMgHJ98QXMAByZZ4k5ZGkC3su9ZZKx20YsWF
-         /SLQIdFxoiXZZ9ZAGNEq6/sMOsVzKIwizn3Jz4h0oQDvfxyAVsaa6GuvTBZY9IRqFaJu
-         smP5Jh+14vSbWq9ml2N7o3kKSMPG1azKvhzaPGZUaVHm6woFHpBc1dadhAYbBW/czcOF
-         9Z84R/4ylbQNeaysj/iaMFQFel8RhxDsGxUJlHGYp/C9+NlQdr2tWiiUNtFvusyaOcEU
-         9jYQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXvxjwBoVx9a8brKSYOdLjdXzTDlGY8AvwTjV2V/bJUJ/pcgaQIS1h6aZ12jPd2UUvm+8Krkx3nBCIRy58gkIMHSkRAugevkk1y2iAfxfU=
-X-Gm-Message-State: AOJu0YzmINWgdwIZQv/R2ASsgmmLlfwX3OUVsEyfxXTcxFXEu+mBrxJJ
-	At7BURUDWwyil8SLRwrLAq7MoFuE5iICYXVp43GHok8N2ESnB/BkoB+arMHTFg==
-X-Google-Smtp-Source: AGHT+IGFKhXdIOd2WDocyVb1hGYlwZVtn9OE7XK/rs8+KWPnhHfjNo21ePyNvhL+gXNl4CQA+OPtug==
-X-Received: by 2002:a19:915e:0:b0:52e:ff2a:217 with SMTP id 2adb3069b0e04-5309b2d7baamr6808175e87.50.1722341741682;
-        Tue, 30 Jul 2024 05:15:41 -0700 (PDT)
-Message-ID: <36944f26-1180-4eaa-aa5d-3186e65faeb8@suse.com>
-Date: Tue, 30 Jul 2024 14:15:40 +0200
+        bh=F/Ns7A9vLLtAkaOYavA9pBxbaBVNxBHRAR0jTb8lJxk=;
+        b=JoU/cjIcKGcfC9IzuQEiFPYDtC10LYog1f8x3g2TKASDPJaC78TEl0sPdSXIV0rmdL
+         DXLefBcUFmD9B74CgWIKx6GK0wZXhy/lJOaxMRQcjBJ3QiVOIxle9PHzmjHe0RizTgJk
+         cPgYVLvuzvsemL1jgyCHThEgt9XEdZ8myORPjIqQVh1dbkarvyPqdqX4TI3uZJyS6ZGk
+         2it4+bM/69bLZi3vNHWs5iBVRMANOa7hs/EzQUsJbsnhhlAJxsqs0AIOsOFIOdvHt/vN
+         Q5L9coFwGt+h0ypYat2zpN62ktNn0Ma5W2YSiKjCiuAGwJ/gmN6b69viSfZHwaEH/Uax
+         gLaw==
+X-Forwarded-Encrypted: i=1; AJvYcCWW9VzUnqah5TKW9SYF7O41Mj/N5i/WxKjKgbLRA3CtoVG4L1ZPAt7vplE3Iz/UyPpZG/72BEwJl3iu8tOXIWcFo/zGTip7qNW4Ik5Yds4=
+X-Gm-Message-State: AOJu0Yz4U+bScxOBHvwWA/xl8LwhheGcYXQLS16bFJ9n/Uk8/jqXdb/t
+	UanI32A2DlCSO+Qr3LGJUQPArOi0ziLemDKUKsi9LUlMQZghWNJ+ZCGfgCw+dA==
+X-Google-Smtp-Source: AGHT+IFKRG+Y8ErrHF9ay4aRM7UwV1reznpmbqNPa1/BcBFZL8EHUonoK3KncWSrZIR3D/V5zcz0Ow==
+X-Received: by 2002:a05:6402:3508:b0:5aa:32bb:146 with SMTP id 4fb4d7f45d1cf-5b0226baf28mr7740110a12.38.1722341869700;
+        Tue, 30 Jul 2024 05:17:49 -0700 (PDT)
+Message-ID: <13aa38d9-9554-43d7-aa76-9599ae2824cc@suse.com>
+Date: Tue, 30 Jul 2024 14:17:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/9] xen/riscv: introduce asm/pmap.h header
+Subject: Re: [PATCH v3 7/9] xen/riscv: introduce and init SBI RFENCE extension
 To: oleksii.kurochko@gmail.com
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -89,11 +89,11 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
- <11b5487659a9c76793e520c108cd92c6c84b908d.1721834549.git.oleksii.kurochko@gmail.com>
- <3359e37e-eaae-49ca-80a5-2bf70b9b46c7@suse.com>
- <78effb178b1ffe7ccb1714a13157e94f5e816b01.camel@gmail.com>
- <6c2ebc9e-cc0d-4139-80a2-4d7025989a9e@suse.com>
- <035f836a53966194048df5b720b94a78b0a490ae.camel@gmail.com>
+ <fb2d24731f870378d79077be39b1bc19cc655327.1721834549.git.oleksii.kurochko@gmail.com>
+ <49d3a181-0830-4f55-83a4-c6c9fd54eb17@suse.com>
+ <b7433d25bb3ca7a0f4e54f561b450b5724fb46dc.camel@gmail.com>
+ <97554cbe-7009-4bc9-8205-7a9e0f29aad0@suse.com>
+ <23ef6ff003d4170269eedfc7d3354965f060ba3f.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,75 +119,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <035f836a53966194048df5b720b94a78b0a490ae.camel@gmail.com>
+In-Reply-To: <23ef6ff003d4170269eedfc7d3354965f060ba3f.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30.07.2024 13:39, oleksii.kurochko@gmail.com wrote:
-> On Tue, 2024-07-30 at 09:56 +0200, Jan Beulich wrote:
->> On 29.07.2024 18:22, oleksii.kurochko@gmail.com wrote:
->>> On Mon, 2024-07-29 at 16:29 +0200, Jan Beulich wrote:
+On 30.07.2024 13:57, oleksii.kurochko@gmail.com wrote:
+> On Tue, 2024-07-30 at 11:17 +0200, Jan Beulich wrote:
+>> On 30.07.2024 10:44, oleksii.kurochko@gmail.com wrote:
+>>> On Mon, 2024-07-29 at 17:52 +0200, Jan Beulich wrote:
 >>>> On 24.07.2024 17:31, Oleksii Kurochko wrote:
->>>>> --- /dev/null
->>>>> +++ b/xen/arch/riscv/include/asm/pmap.h
->>>>> @@ -0,0 +1,33 @@
->>>>> +/* SPDX-License-Identifier: GPL-2.0 */
->>>>> +#ifndef ASM_PMAP_H
->>>>> +#define ASM_PMAP_H
->>>>> +
->>>>> +#include <xen/bug.h>
->>>>> +#include <xen/mm.h>
->>>>> +#include <xen/page-size.h>
->>>>> +
->>>>> +#include <asm/fixmap.h>
->>>>> +#include <asm/flushtlb.h>
->>>>> +#include <asm/system.h>
->>>>> +
->>>>> +static inline void arch_pmap_map(unsigned int slot, mfn_t mfn)
->>>>> +{
->>>>> +    pte_t *entry = &xen_fixmap[slot];
->>>>> +    pte_t pte;
->>>>> +
->>>>> +    ASSERT(!pte_is_valid(*entry));
->>>>> +
->>>>> +    pte = mfn_to_xen_entry(mfn, PAGE_HYPERVISOR_RW);
->>>>> +    write_pte(entry, pte);
->>>>> +}
 >>>>
->>>> Perhaps add a comment to clarify why it's safe to omit a TLB
->>>> flush
->>>> here.
->>>> Note that arch_pmap_unmap() having one is a necessary but not
->>>> sufficient
->>>> condition to that. In principle hardware may also cache
->>>> "negative"
->>>> TLB
->>>> entries; I have no idea how RISC-V behaves in this regard, or
->>>> whether
->>>> that aspect is actually left to implementations.
->>> what do you mean by "negative" TLB? an old TLB entry which should
->>> be
->>> invalidated?
+>>>>
+>>>>> +/*
+>>>>> + * Send SFENCE_VMA to a set of target HARTs.
+>>>>> + *
+>>>>> + * @param hart_mask mask representing set of target HARTs
+>>>>> + * @param start virtual address start
+>>>>> + * @param size virtual address size
+>>>>
+>>>> Are these really virtual addresses, not somehow a bias and a
+>>>> number
+>>>> of bits (CPUs) or elements? From the rest of the patch I can't
+>>>> deduce
+>>>> what these two parameters express.
+>>> According to SBI doc start is an virtual address:
+>>> https://github.com/riscv-non-isa/riscv-sbi-doc/blob/master/src/ext-rfence.adoc?plain=1#L44
 >>
->> No, I mean TLB entries saying "no valid translation here". I.e.
->> avoiding
->> recurring walks of something that was once found to have no
->> translation.
-> But we can't modify an existent entry because we have
-> "ASSERT(!pte_is_valid(*entry))" in pmap_map() function and we are doing
-> TLB flush during pmap_unmap().
+>> Oh, so these are describing the VA range to be flushed. Okay.
+>>
+>>> and hart_mask is:
+>>> • unsigned long hart_mask is a scalar bit-vector containing hartids
+>>
+>> Biased by hart_mask_base in the actual SBI call.
+> What word "biased" mean here?
 
-You _always_ modify an existing entry. That may be a not-present one, but
-that's still an entry. And that's part of why I think you still didn't
-understand what I said. A particular implementation, if permitted by the
-spec, may very well put in place a TLB entry when the result of a page
-walk was a non-present entry. So ...
-
-> So when we will be in pmap_map() we are
-> sure that there is no TLB entry for the new pte.
-
-..., can you point me at the part of the spec saying that such "negative"
-TLB entries are not permitted?
+The meaning of e.g. bit 0 in hart_mask will, aiui, be determined by
+hart_mask_base. If the latter is non-zero, the bit will not name hart 0.
 
 Jan
 
