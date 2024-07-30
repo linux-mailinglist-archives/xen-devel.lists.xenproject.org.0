@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21F32942159
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 22:13:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768061.1178805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 080769421BB
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 22:41:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768069.1178815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYtCq-0008QH-Jx; Tue, 30 Jul 2024 20:12:24 +0000
+	id 1sYteC-0004VL-P9; Tue, 30 Jul 2024 20:40:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768061.1178805; Tue, 30 Jul 2024 20:12:24 +0000
+Received: by outflank-mailman (output) from mailman id 768069.1178815; Tue, 30 Jul 2024 20:40:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYtCq-0008OP-H5; Tue, 30 Jul 2024 20:12:24 +0000
-Received: by outflank-mailman (input) for mailman id 768061;
- Tue, 30 Jul 2024 20:12:23 +0000
+	id 1sYteC-0004T5-Ly; Tue, 30 Jul 2024 20:40:40 +0000
+Received: by outflank-mailman (input) for mailman id 768069;
+ Tue, 30 Jul 2024 20:40:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v2aj=O6=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1sYtCo-0008OJ-Ve
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 20:12:23 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20601.outbound.protection.outlook.com
- [2a01:111:f403:2409::601])
+ <SRS0=3jiA=O6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sYteB-0004Sz-DI
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 20:40:39 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05fb38c7-4eb0-11ef-bc01-fd08da9f4363;
- Tue, 30 Jul 2024 22:12:20 +0200 (CEST)
-Received: from SA9PR13CA0127.namprd13.prod.outlook.com (2603:10b6:806:27::12)
- by CH3PR12MB7572.namprd12.prod.outlook.com (2603:10b6:610:144::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.28; Tue, 30 Jul
- 2024 20:12:15 +0000
-Received: from SN1PEPF000252A4.namprd05.prod.outlook.com
- (2603:10b6:806:27:cafe::54) by SA9PR13CA0127.outlook.office365.com
- (2603:10b6:806:27::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.19 via Frontend
- Transport; Tue, 30 Jul 2024 20:12:15 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000252A4.mail.protection.outlook.com (10.167.242.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7828.19 via Frontend Transport; Tue, 30 Jul 2024 20:12:14 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 30 Jul
- 2024 15:12:14 -0500
-Received: from [172.28.183.80] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 30 Jul 2024 15:12:13 -0500
+ id fa5dc8a8-4eb3-11ef-bc01-fd08da9f4363;
+ Tue, 30 Jul 2024 22:40:38 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4281e3b2f72so21481145e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 13:40:38 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-427fb7bdfa0sm258990045e9.14.2024.07.30.13.40.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Jul 2024 13:40:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,206 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05fb38c7-4eb0-11ef-bc01-fd08da9f4363
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R97Rpde0bUQylQbPiBJDWnNxXGjp9ul8tvSIG4xqKOyjJRyqT70ixG2/VVCbf0SJa9O/kORveiUDT0rOPQc3xAREZsfELOQfAiLTK71wz9plRpy72qxBv7v2lVjSFYCTQNU0qoM5rsYMvyin3ik3N6Xiy9CJkEJbBfkGMVpMGP/c75GwyKdQCMrA+udZyJe1xuE7b/Ep9xZuv7755mi3OuCcRj6605k7QQtvlQRJjRhBlRL8z0fHheVDmG0pCeW1SqUrtD1BVxA6537xMraqji6FKQg1LTqpMUcxUol/sHwxVEHc6n102bmyiL9ZVn3UDBzG/GcSSAi8ZOYAFygcag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fc33GMnABJISCtJcK0V6+XTh3zwvOnqOkgapOFYlwIo=;
- b=J02dY8lxHq0CiqDlX9V0wlhNqVpGb6+dyeXbEbZ5E4kZoE4joguzyua67FgtCLkzXWlWMCl7/ulw2SIp2s5XX+ht54X6zqQTYweajJZqjhee0qBEkmumBhm1W87a7D3OFSGYVrEplRhl/7UBk3ieJbi2YrI1S9j9wBsuhng+gzjpiF1IWD5G4qaRR4NFEsc1xU4BL6tozOqb268Bw8L4HFba9pzI/ww3liZ3nWz6TCYOabc7cmmJnJkuxG8QEpay6kixeiaU23c4dMujdS5gtBkA1wDFH4ktiWvsJkhe4S/ejl5eY/wj08G3dtVW8gB6c7ZRUgjNhuEFqbwRyfUlBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fc33GMnABJISCtJcK0V6+XTh3zwvOnqOkgapOFYlwIo=;
- b=ZTCWPth7p2e76QlDlkqCtpoyIu3CEHTMYWd3XGFTBzBlPmbdIXS/shAZVLxoaosE7xe9OOaq0tfg8vA56+506zbJZr/Hs3hrv4qm7LyN5SUwXBR7GqQVS6TaYVgwGI3PVZtyOiYN/2h2B9IusM0JvQrsZyIVyhaB5Aq9bi7lRS0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <a3dd3ed1-ba8c-4776-b9b5-926e30651e5d@amd.com>
-Date: Tue, 30 Jul 2024 16:12:07 -0400
+X-Inumbo-ID: fa5dc8a8-4eb3-11ef-bc01-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1722372037; x=1722976837; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=bydnm9uuY6+8KZl9W1OMHbSauv6isBLhyHeiQbRtl6M=;
+        b=TWNjOMdQxLfMmSaaI2wX19DS3jJA6IGNnfh0E/BR10dtcA0n1vU5FoptB7Ro5eX0UB
+         ruzywSWQb83GIUJLb4J+uBFoWLlB+skY5ia4/NUYXT7HtDLYiItTOSIStSCr6siH0ZvD
+         K6cPhtUIzTtqa6DweWoVVAS4cPGU9SEdSlhRc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722372037; x=1722976837;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bydnm9uuY6+8KZl9W1OMHbSauv6isBLhyHeiQbRtl6M=;
+        b=iqGdquSkHdyZObEWjSXPjlG39Mh0SOJFu+wSsNF6SxV9ks80vtOfGWL6MdSQqFjYdT
+         xNvN+gR61btpAOYyZXFAhQbsh8MaczvNau2T3Nl/Ptela8E5zde1Y14mnOPT+11ngMHl
+         C7EHo77QU93J0UnF3t/Pi4lK5JBga+q7XNPjlNmcAHXk6CoQp5WiLnxGclsku37ry9DB
+         ztjhIT1wfKacoGGDVyrW5GrDkgoysQ4CRmxIBxQZj6DEuf8t/h5TG83exOowrC2wRu40
+         mH2LjMNXdDz62wnB6B5LdurEIg1GoJYcHvECUs/RtbYo2ppEiXKw5HdfQTyTjaRdZAdW
+         ZlHA==
+X-Gm-Message-State: AOJu0YwzCHeNty/W3kEHyTSTwtgXKtr1uMV6XIHQxIyjvYp1m6QUgDGj
+	ZXcleGdUiZL4NntkkEBaH+CrBezZqyQmnMAqjCHkkXjk2gpUcvhTj5S+x6PAQ28=
+X-Google-Smtp-Source: AGHT+IG1gAQ/x30HKttfGCBofvDFLaxaZ25sup/tBnpi1+9ORE4uT0Zxkm/xDNrN4IVaiktrxhB+Bw==
+X-Received: by 2002:a05:600c:a49:b0:426:623f:34ae with SMTP id 5b1f17b1804b1-42811d8a865mr81576545e9.16.1722372037333;
+        Tue, 30 Jul 2024 13:40:37 -0700 (PDT)
+Message-ID: <dceb52ce-407f-4c41-924e-9e122a0eaf3a@citrix.com>
+Date: Tue, 30 Jul 2024 21:40:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] xen/arm: stack check instrumentation
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH 0/3] Stack checking on Arm
+To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>
 References: <20240729142421.137283-1-stewart.hildebrand@amd.com>
- <20240729142421.137283-4-stewart.hildebrand@amd.com>
- <d313f39a-f5aa-4611-975e-bc64759bbd01@xen.org>
- <23fe4756-4e5c-47f8-b9cc-101b7b8d116f@amd.com>
- <6a71cff1-feac-44cd-9233-9ed474e871e4@xen.org>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <6a71cff1-feac-44cd-9233-9ed474e871e4@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+ <2cfb4a5c-dff8-4202-80dd-c546d5d6bc6d@xen.org>
+ <alpine.DEB.2.22.394.2407291333550.4857@ubuntu-linux-20-04-desktop>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <alpine.DEB.2.22.394.2407291333550.4857@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A4:EE_|CH3PR12MB7572:EE_
-X-MS-Office365-Filtering-Correlation-Id: 772767dc-d73d-4ebc-8f21-08dcb0d3e78c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SGM5OEJsZldQWVd4ZGg1OVkxZDJaQS9WeDFJdGUveHAxbnd5ZGYxY0M5QzRP?=
- =?utf-8?B?Ui9hZGdtQm1zNkNQQkdoS1VybEZFbHN0Zm1MY3F4WTc5L2d1VjdmMUwxR2p3?=
- =?utf-8?B?U0NPVVE1bHJtQUwwaGFiaHg4YXQwZ2crWWtzaXNRUTJUeldDb1ZVWmJsLytM?=
- =?utf-8?B?U0U4SlFNRnhjb25veDdpUUhBVzhGZTE1MkZkdE9pT0VwWTdqOUpEV0RMc3NW?=
- =?utf-8?B?MnRVN3dLTWNsYWNRSnFyOHd3b1JEOUFjNERwVm4rRUVoYWJiTE00ditFdERz?=
- =?utf-8?B?aGg5dXBvbGhQS2hiTUpEL3VCbXJTUGhXVEZaR0FyTVhDanE2RnN1OU9TTGR0?=
- =?utf-8?B?dW1HUWVVcDZkSFZUUm82eUpvci9XNVRDRHdKTmF1QnZOMHZ6TFpuN3dhNUpW?=
- =?utf-8?B?SmZITEppSEI0TTZNb0l3WS9jVndxSTBhYmY4Tkdva3lueU50blJlVUNIemow?=
- =?utf-8?B?RG5mMlBGWkd3NE1mZDFubmFVeWhnMnlXcG95a2tOT29Nd0dGbTFmNmdhTHRt?=
- =?utf-8?B?VVBIVTI5RGNROVJrWG9oTkVSYWlzcVRVQy81eDhkNzZDWUxEM0U0WjdnKzlt?=
- =?utf-8?B?TzNwWGRYWjlPSVM2elJDUm1nOTUzVENHc2lrRm9FaDRSajRsaHMwS09ObEc2?=
- =?utf-8?B?YXB2S1pXUjhtbkVsa0JvUTZvaW0za0V3OG85MUxQbkIzdHAxQWpxY3g3L2dY?=
- =?utf-8?B?T3pmaXBXSUhJdFNoc0t4UmtuWEFBMW9meEdUNXo2VGZMejdaUEJQeWZCbytB?=
- =?utf-8?B?emJUTmVCRU4xRFhCSm81ZGZxUmhZL0FWWjlaVGs1R0xCdDFXQ3kyT0xCRDYy?=
- =?utf-8?B?cHE4WXdwbFYxem5yOHUyUnNrNXAzMG9iUEhaNW9hdHljWklRRUM5SzErQWNC?=
- =?utf-8?B?OFZ5VlhhanhGWHJmblV0RW5rZGFvY1piV242VDJieEdOY1ZsRkRjTGQ3WW1V?=
- =?utf-8?B?SnV0TEovS2R5SVZyQjk1aDZKc3RUWlN6QlJndk9ldng5Z0lSbzRUSHpTQTAy?=
- =?utf-8?B?UzJFVno0K3hOYnY2SndsVUszeHFlYlpsWHJqQkozUVM3ZGhzM2lWQ3Bobk9T?=
- =?utf-8?B?OGlhL3V1SVN6aTV3aE13cWJGNWNZU1VkTXg3NnM3VUN4alpYc05DSFRHbjFB?=
- =?utf-8?B?c1B1NmdLT3hldVJYNVNHUjV5aWVrSEZnRmd5bCtiOUZHTld5K2FXQXhLa1BX?=
- =?utf-8?B?SVlBWFdTWmRkcFl5MGFsb1BONHdxVDVQL3RuN3JnWkhlejFGWmQ3eWRrcm9v?=
- =?utf-8?B?T1lyVGRNNjNOYlJVQmxnNjgwWUFEYWwzSUQ2c1oyRXIwTm5YS0dOVjNqVmlC?=
- =?utf-8?B?ck12SUd3M1BxRXhFdkdwcTRpRmFSZDl4bVBDSE1pZUdlREszT2kxMzV6c0x2?=
- =?utf-8?B?RHRQUit6QjBNc2J6Y3lSOXpiQkdQd3RZNjJDdEZuaXlKbVVkamVGM2hRVktt?=
- =?utf-8?B?TXhzeWxiSEZvMmJGNWFkN0FSRTA2b0laaXdiYU96UVdxeHlhR3E3VmR0UFJp?=
- =?utf-8?B?aHVvUDVMZzQ1TklDdXRsS3JMTTE5WXhnek0vOFFVZlQ1eVVSeXB0VVB6cjNG?=
- =?utf-8?B?NmduT29HN0ZwdXdGeGh0Y1hGbzJIOXVqcGw3MlBKVi9JN0lHZ1NMZGFvRnQ2?=
- =?utf-8?B?M1g1eThpVDVhNVpjSUgyaWMzRWRMbmx2TmlpVVgrakhtWVdKbUZDTnAvL1RF?=
- =?utf-8?B?UVJTTk43SFVWMnBWS215VHVadFJkRHdnckQvZnF4bXkySjJZcDBFcTNqdFhi?=
- =?utf-8?B?NFBLMVhDaHB0aThNZk1qcWRrK3dKeHJpdjJpTTNxY1JzWEFIemtFcE40Umh3?=
- =?utf-8?B?R3liU1BQOWJleWJ4ODYvQ2VSWjlIQUpZaHFqdWpleTBaL2MyRzhyaXFvaENi?=
- =?utf-8?B?bmlUSmFkekVyT0pBQ3hpWHQ5cHBJUGdLRE55TnA5ZGxFS2JaeHJQV1lTY1NE?=
- =?utf-8?Q?F7UmENZTvXRhdQqiKDCzbUIrfOR0m1eI?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2024 20:12:14.8323
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 772767dc-d73d-4ebc-8f21-08dcb0d3e78c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000252A4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7572
 
-On 7/30/24 14:07, Julien Grall wrote:
-> Hi,
-> 
-> On 30/07/2024 18:50, Stewart Hildebrand wrote:
->> On 7/29/24 14:36, Julien Grall wrote:
->>> Hi Stewart,
->>>
->>> On 29/07/2024 15:24, Stewart Hildebrand wrote:
->>>> +DEFINE_PER_CPU(unsigned int, stack_check_nesting);
->>>> +DEFINE_PER_CPU(unsigned char *, stack_base);
->>>
->>> I think this could be "const unsigned char *" as the stack should not be modified directly.
+On 29/07/2024 10:37 pm, Stefano Stabellini wrote:
+> On Mon, 29 Jul 2024, Julien Grall wrote:
+>> Hi,
 >>
->> Every time there's a vcpu context switch we will have a new stack.
-> 
-> I am not sure I follow. "const unsigned char *" should still allow you to update stack_base. It will just prevent anyone to try to write to modify the stack via stack_base.
+>> On 29/07/2024 15:24, Stewart Hildebrand wrote:
+>>> This series introduces stack check instrumentation on Arm. This is
+>>> helpful for safety certification efforts. I'm sending this in an RFC
+>>> state because I wanted to gather opinions on the approach of using
+>>> -finstrument-functions.
+>> This looks ok for an initial approach. I wonder if longer term we want to
+>> implement stack guards on Arm. We would need to allocate an extra "virtual"
+>> page per stack that would be unmapped.
+>>
+>> The advantage is this could be used also in production and doesn't rely on any
+>> support from the processor.
+>>
+>> Any thoughts?
+> I think we need both. We should implement stack guards on Arm. In
+> addition, it is also beneficial to have -finstrument-functions for
+> profiling, debugging, and also so that we can retrieve detailed call
+> graphs from execution runs. As an example, -finstrument-functions can
+> help with offline analysis to prove that we don't have unbounded
+> recursion, on both arm and x86 too. On the other hand, stack guards help
+> with protecting the stack in production.
 
-Ah, of course. You're right. I'll change it to "const unsigned char *".
+x86 unconditionally has stack guards.  It was easier doing it this way
+than to have conditional stack guards and conditional shadow stacks
+(hardware CET stacks).
 
-> 
->>
->>>
->>>> +
->>>> +void __attribute__((no_instrument_function)) stack_set(unsigned char *base)
->>>> +{
->>>> +    this_cpu(stack_base) = base;
->>>> +}
->>>> +
->>>> +void __init __attribute__((no_instrument_function)) stack_check_init(void)
->>>> +{
->>>> +    this_cpu(stack_check_nesting) = 0;
->>>> +    stack_set(init_data.stack);
->>>> +}
->>>> +
->>>> +__attribute__((no_instrument_function))
->>>> +void __cyg_profile_func_enter(void *this_fn, void *call_site)
->>>> +{
->>>> +    unsigned char *sp;
->>>> +
->>>> +    if ( get_per_cpu_offset() == INVALID_PER_CPU_OFFSET )
->>>> +        return;
->>>> +
->>>> +    asm volatile ("mov %0, sp" : "=r" (sp) );
->>>> +
->>>> +    if ( sp < this_cpu(stack_base) ||
->>>> +         sp > (this_cpu(stack_base) + STACK_SIZE) )
->>>
->>> The top of the stack is used to store struct cpu_info. So you want to substract its size (see arch_vcpu_create()).
->>
->> Will do.
->>
->>>
->>>> +    {
->>>> +        if ( this_cpu(stack_check_nesting) )
->>>> +            return;
->>>> +
->>>> +        this_cpu(stack_check_nesting)++;
->>>
->>> Looking at the use, it only seems to be used as "print/panic once". So maybe use a bool to avoid any overflow.
->>
->> It will only ever be incremented once. I'll still change it to a bool,
->> this should make it more obvious.
->>
->>>
->>>> +        printk("CPU %d stack pointer out of bounds (sp %#lx, stack base %#lx)\n",
->>>> +               smp_processor_id(), (uintptr_t)sp,
->>>> +               (uintptr_t)this_cpu(stack_base));
->>>> +        BUG();
->>>
->>> I would consider to call panic().
->>
->> panic() alone doesn't show the stack trace / call trace.
-> 
-> Ah good point. But TBH, I have never really understood why panic() didn't return a call stack. There are a few places where I found beneficial when debugging.
-> 
-> Anyway, I guess this could be handled separately.
-> 
->>
->>> But is it safe to call any of this if we blew the stack?
->>
->> Nope, it sure isn't!
->>
->>> IOW, should we have a buffer?
->>
->> Yes. After some experimentation, I found that this printk and a WARN
->> (similar to BUG, but resumes execution and allows me to collect these
->> metrics) uses approximately 1632 bytes of stack. Assuming BUG uses a
->> similar amount of stack as WARN, and adding in a comfortable margin for
->> error, I'll add a 4096 byte buffer (i.e. invoke the print/BUG with 4096
->> bytes remaining on the stack).
-> 
-> AFAICT, the stack on Arm is 32KB. So we 1/8 of the stack as a buffer. Do you know the current stack use in a normal setup (e.g. boot a guest)?
+In most cases, the #DF handler will recognise hitting a guard page and
+panic() with information about the stack overflow.
 
-In my particular test case simply booting a dom0, it uses about 14k of
-stack. Of course this could vary with booting dom0less domUs, complexity
-of device tree parsing, etc.
+The one case where this wont happen is on AMD hardware in HVM(SVM)
+context, because the SVM designers and the AMD64 designers didn't talk
+to each other when developing the respective features[1]...
 
-> 
-> Anyway, so long the feature is not enabled in production, then it might be ok to steal 4KB. We could increase the stack if we see any issue.
-> 
-> Cheers,
-> 
+In this case, Xen will take a clean[2] triple fault and reset on stack
+overflow.
 
+~Andrew
+
+[1] The Task Register isn't switched on VMRUN, and while this was fine
+in 32bit CPUs, it wasn't fine when 64bit CPUs replaced Task Switches
+with the Interrupt Stack Table mechanism.  It should be fixed when AMD
+implement FRED support.  For current CPUs, we can in principle fix this,
+but at added latency to vmentry/exit, which is why we've not done so. 
+If someone feels like adding a debug mode for it, I'm sure that would be
+acceptable.
+
+[2] If you can call such a thing "clean", but it won't execute off into
+the weeds.
+
+[3] (tangent from another thread).  14k of stack!?!.  x86 has 8k and
+we've only ever hit that in error cases...
 
