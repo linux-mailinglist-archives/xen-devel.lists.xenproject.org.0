@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 997E1940887
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 08:42:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767278.1177878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 394579408DE
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 08:49:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767284.1177888 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYgYm-0002NI-0o; Tue, 30 Jul 2024 06:42:12 +0000
+	id 1sYgfE-0003NA-LQ; Tue, 30 Jul 2024 06:48:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767278.1177878; Tue, 30 Jul 2024 06:42:11 +0000
+Received: by outflank-mailman (output) from mailman id 767284.1177888; Tue, 30 Jul 2024 06:48:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYgYl-0002Lc-Ua; Tue, 30 Jul 2024 06:42:11 +0000
-Received: by outflank-mailman (input) for mailman id 767278;
- Tue, 30 Jul 2024 06:42:10 +0000
+	id 1sYgfE-0003MC-Is; Tue, 30 Jul 2024 06:48:52 +0000
+Received: by outflank-mailman (input) for mailman id 767284;
+ Tue, 30 Jul 2024 06:48:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hr/k=O6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYgYk-0002LW-HO
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 06:42:10 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1sYgfC-0003M6-Rg
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 06:48:50 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d766591a-4e3e-11ef-bc01-fd08da9f4363;
- Tue, 30 Jul 2024 08:42:09 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so440854766b.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 23:42:08 -0700 (PDT)
+ id c6bbbc92-4e3f-11ef-bc01-fd08da9f4363;
+ Tue, 30 Jul 2024 08:48:49 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a7a9e25008aso544897766b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 23:48:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acab23f62sm606207066b.16.2024.07.29.23.42.07
+ a640c23a62f3a-a7acab4de6fsm605084466b.63.2024.07.29.23.48.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 23:42:07 -0700 (PDT)
+ Mon, 29 Jul 2024 23:48:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d766591a-4e3e-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: c6bbbc92-4e3f-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722321728; x=1722926528; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722322129; x=1722926929; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XHB4eU3RZ35UpD8A5nbV2DYKKPlBqIpFdqY8Irf/JA4=;
-        b=DmhhWB5zP7srK1XaTHDtjAPUVWbyQVRQnF/NgjESi3Tx2MfCWyikIsGiik1cpkvZ9G
-         OnR/vIj3p0FFHZgtUF7kvL/0yGs+CaBPvpk54ibwVCunvAjjbRsynFsfDhIbuFnOmvo4
-         HY7CxBZT4Woq5f+zOrQfayxtSmJECVzMLDrQwFwh9I+GMt7A9hFOOQp+PcsBojsPrFof
-         HsiS7sdj5xvZTKAFlonQmKhT0a6ItWd1ECBnN1BX7ZK5/qkopGoHFpymzoQc1eNIc3J0
-         dY5diC2HIqjFhuluUwATts5KRPA1lf2OnHAfVnw6C/fqvklqlgzjqvJTRr4it6FE/X9F
-         +mBg==
+        bh=Eb7QeYB4jrltSR1X1h+r+HsYjyWy/W7WT9zzF8QC3c4=;
+        b=MMPxTCCGuNtEKehsE3XXQ58lURoHVXeH7l6gEJOiGZlk5+mUyDPjUow6gtIpr/CH+1
+         W+yFAyr+EF0kEe9LAGrm+chlYuUe7LkEfZl1kT/iV9VuTkUP5+xnnYI3rQA2MdbvGpcU
+         sfK7oZjYyq8KXFqOkhn8bNVgczXQbyWRbooTrRIW742Z83PDYGwMaTuA8l5+DSXLZJi7
+         ahm8fiYRXdjX87k/WaLi70CyIGzts9HrmQSovdj0y4gVxUze23RhxiFqXNdhcYutfSiy
+         Zg9uWiImz6VC29zJdHV6ALNpU7GKnaBCowPtdVsdp/OjlOofqEzxQkDhTccyv0iaTrKb
+         AIWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722321728; x=1722926528;
+        d=1e100.net; s=20230601; t=1722322129; x=1722926929;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XHB4eU3RZ35UpD8A5nbV2DYKKPlBqIpFdqY8Irf/JA4=;
-        b=hG3+DUdk0U2mqgysrgKpAkPRheKBFVXwdbD3wBaNt410Xdq7I4lpfyBRG3A9mVXlhX
-         h1kUQU6lpoC8DKCpaEjiOf0gZ6026M0MX+BHT7+14E/aaKG9/VL46knGIxfANit/i+YP
-         bDvue0IrKjrK7trn/5Fjno2789Wf7JFraP8iug6dGlNisfes3VjCgaxcMVG61JDYF5WA
-         d/OdlXOHHGeyBNoypqNB/3Y//FS/QG+9RwHDXOf9n+q1s6/Pzw9ApseHQI/kVUg6L30w
-         n54EE6WZXLqryPYDs99rSTOXjoLogpcLewXsxqKDkDDocubE7VIKop2WZGIXnUlORxuy
-         7aMw==
-X-Forwarded-Encrypted: i=1; AJvYcCUruEC3luiIs4X1SZDYcueRPDIvYi1TB8MGI/7ZGetwvkQEvNGzeddlkEHN8tcwyP6LfCkhNHfwgFHA73473PQa3UP+jsht9m360rPTBvM=
-X-Gm-Message-State: AOJu0YweEIPQIGWkYDd1A1CTcNU50qct1Ta6eHzZc9SDOHYhvryOZNwX
-	K+71GXLFdY5QrF+4JuZ6yYQTiFZG0aOU3U3YuNsNTPUNe0zREpYueYYCoe0A3DN98bZ2yhURpUM
-	=
-X-Google-Smtp-Source: AGHT+IH0Qf7OO2E3uecdSANP+YFzzO3JCAMFaOb2gSmgWsy6U8ZWb1JWUkU/UMqfY1jEsW+Mboq6Tw==
-X-Received: by 2002:a17:907:2da8:b0:a77:c824:b4c5 with SMTP id a640c23a62f3a-a7d4004414bmr693291266b.18.1722321727715;
-        Mon, 29 Jul 2024 23:42:07 -0700 (PDT)
-Message-ID: <59e3fdd5-f13b-414c-95e1-46e86a4779ac@suse.com>
-Date: Tue, 30 Jul 2024 08:42:06 +0200
+        bh=Eb7QeYB4jrltSR1X1h+r+HsYjyWy/W7WT9zzF8QC3c4=;
+        b=g+n8GgclQXf35BvE6de/u4OSfkbdwSzuFL1QUn9idlrDqJ+a2ILm6mwQZewVPl1dq3
+         piLj+wUXeC+OYiG81MBlaz2zA5raPBw0oNb53dezKbozweIEmRy+Ubl1tZwDC/ftu7h6
+         H0SGlsOVL8+XCHbUt0ojfYIgk6xMoaNgmc4p9xQMGDB1lXPr7qhO2Gtchvsu+M0Kup8O
+         EET5lJyS+tDRxW1wH0taWuN1hLLFh18TNC/LVTj1LaE2GP13ECy62d2Ts6my6dXaRB0F
+         2LaBwVr38Fd8c9IFTnQY2Ne2kTY2IqkAQsrI+PhV2neJgUj+wy0mI9foHIZKcvalFhpF
+         vF0g==
+X-Forwarded-Encrypted: i=1; AJvYcCXYkyoqcW4BgyP6weYqGldIU+gewB7q3aadaFsRtzwVhhYLvngUzD363jES6gT4gZOv9tJNiOhYnVCr4gEhydXQTlUjRRZc1+PyezkpQXU=
+X-Gm-Message-State: AOJu0YzFit7mhA315S84vHpoEIKhdoL2/ymuJYorrOTRMqfgz1JiD7t7
+	Gwgtd3nsANgTbd+RauIy5lE/K0DNfPfjPgToKINIuYmYb82EFudiOoWkQpb0ag==
+X-Google-Smtp-Source: AGHT+IE6PMGNc9ucX7Nyz8rHSmkEG1Da6kLPK2uhDsmQGNGs6wR4P/HVMWvjpXYlGnpskDo8L73cCg==
+X-Received: by 2002:a17:907:2da8:b0:a7a:a7b8:ada7 with SMTP id a640c23a62f3a-a7d400746d3mr728961166b.24.1722322129245;
+        Mon, 29 Jul 2024 23:48:49 -0700 (PDT)
+Message-ID: <680f461a-fd84-4d93-9dde-f524120d6522@suse.com>
+Date: Tue, 30 Jul 2024 08:48:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/xl: add suspend-to-ram and resume subcommands
-To: zithro <slack@rabbit.lu>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@vates.tech>
-References: <4e9f3590be9f19edb87e05c7b7c2efeae8863109.1709190010.git.slack@rabbit.lu>
- <500adb55-4927-4876-aa22-3269538bb4c7@rabbit.lu>
+Subject: Re: [PATCH 3/3] xen/arm: stack check instrumentation
+To: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20240729142421.137283-1-stewart.hildebrand@amd.com>
+ <20240729142421.137283-4-stewart.hildebrand@amd.com>
+ <d313f39a-f5aa-4611-975e-bc64759bbd01@xen.org>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,34 +117,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <500adb55-4927-4876-aa22-3269538bb4c7@rabbit.lu>
+In-Reply-To: <d313f39a-f5aa-4611-975e-bc64759bbd01@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 30.07.2024 00:31, zithro wrote:
-> Added my S-o-B (no other change).
+On 29.07.2024 20:36, Julien Grall wrote:
+> On 29/07/2024 15:24, Stewart Hildebrand wrote:
+>> Use the -finstrument-functions option to check that the stack pointer is
 > 
-> PS: re-sent to account for Anthony mail address change
+> Is the feature supported by both clang and GCC? If so, which from versions?
 > 
-> On 29 Feb 2024 08:00, zithro / Cyril Rébert wrote:
->> The xl command doesn't provide suspend/resume, so add them :
->>    xl suspend-to-ram <Domain>
->>    xl resume <Domain>
->>
->> This patch follows a discussion on XenDevel: when you want the
->> virtualized equivalent of "sleep"-ing a host, it's better to
->> suspend/resume than to pause/unpause a domain.
->>
->> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Suggested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> Signed-off-by: Cyril Rébert (zithro) <slack@rabbit.lu>
+>  From README, this is what we currently support.
+> 
+>        - For ARM 32-bit:
+>          - GCC 4.9 or later
+>          - GNU Binutils 2.24 or later
+>        - For ARM 64-bit:
+>          - GCC 5.1 or later
+>          - GNU Binutils 2.24 or later
+> 
+> We don't mention Clang, but I would expect a clang from 4-5 years should 
+> still be Arm (not cross-compile as we never fully added the support).
 
-Imo you want to properly re-submit, ...
-
->> ---
->> - Tested on v4.17, x86
-
-... with this testing also advanced to 4.19.
+I was wondering the same, but already on patch 1 and with other architectures
+also in mind, as there's common (XSM) code gaining respective attributes. For
+gcc I checked that even 4.1 supports that attribute, so I expect we're fine
+here (and double checking with godbolt, Clang 3.0.0 also supports the option).
 
 Jan
 
