@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EDD0942327
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 00:55:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768107.1178854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1495C942369
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 01:31:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768119.1178868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYvjm-0006lL-Op; Tue, 30 Jul 2024 22:54:34 +0000
+	id 1sYwIP-00040n-I2; Tue, 30 Jul 2024 23:30:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768107.1178854; Tue, 30 Jul 2024 22:54:34 +0000
+Received: by outflank-mailman (output) from mailman id 768119.1178868; Tue, 30 Jul 2024 23:30:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYvjm-0006jg-Lj; Tue, 30 Jul 2024 22:54:34 +0000
-Received: by outflank-mailman (input) for mailman id 768107;
- Tue, 30 Jul 2024 22:54:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sYvjl-0006jW-Le; Tue, 30 Jul 2024 22:54:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sYvjl-00006e-8I; Tue, 30 Jul 2024 22:54:33 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sYvjk-0007ne-V9; Tue, 30 Jul 2024 22:54:33 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sYvjk-00015N-Ud; Tue, 30 Jul 2024 22:54:32 +0000
+	id 1sYwIP-0003yy-Ep; Tue, 30 Jul 2024 23:30:21 +0000
+Received: by outflank-mailman (input) for mailman id 768119;
+ Tue, 30 Jul 2024 23:30:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0AIz=O6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sYwIN-0003ys-Kz
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 23:30:19 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ad7bd759-4ecb-11ef-bc01-fd08da9f4363;
+ Wed, 31 Jul 2024 01:30:17 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 58E246212D;
+ Tue, 30 Jul 2024 23:30:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC28C32782;
+ Tue, 30 Jul 2024 23:30:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +41,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=EPcK4VCO+NsIBVAU/bO4P5Fgx9aVgJg5H/JUJGfbZy8=; b=FWD5LlEq7GjhSiPg5ErGvWERgr
-	zvI1JYl/oHzHfkFxBaZho9HLlX5UKY0SO/QcWgNtCqTufGOFpJ8IXqQDUcuKoalgKqyZVMe8S21uM
-	8voXTUzPXn6WlGE2S5H09PMd4krgwt0ZcTGQSh6T4AdMDtDCKNE5XxoYVrxHrUakOE60=;
+X-Inumbo-ID: ad7bd759-4ecb-11ef-bc01-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1722382216;
+	bh=G/NerJrxdmHr6YCYnARbwwuhXFGRVodoUT5YVoxt9zU=;
+	h=Date:From:To:cc:Subject:From;
+	b=dJuFl8/UZ74yJAjck0tL/AU6WgzC5aD5dAEb62p/rq/FsfoYJy3Yqk+c4Tn3k9kzI
+	 46/AQK90zpma4IfzOC6ea9ifS8NbksB9zHiUryZsQgOObqokroGmxGEhREENrHQJ2v
+	 4E4aMCIbf7leEJknKhU88unB3DVeBFFoCDLhOsUTEfNJ5RmrmKMERz1FTxjG0qNRmI
+	 y5OrMT/BC1laX2AP/2wliBkiPteNy7aPLWYUDnwQFkTtcmX87ifyCibbTYGFatNChZ
+	 Uh+GsqT8BzF8JiUVzZDjaFdivaAW02IlEayFGAznk2gFjofD8/cfKgE6yPu/aJteXp
+	 wYCylZ7WprreQ==
+Date: Tue, 30 Jul 2024 16:30:14 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187066-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+cc: sstabellini@kernel.org, Jan Beulich <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>
+Subject: [PATCH] docs/misra: add R13.2 and R18.2 to rules.rst
+Message-ID: <alpine.DEB.2.22.394.2407301626460.4857@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 187066: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=f8f34edd9db82882fd70f14cb97ab28e9bb0b9a3
-X-Osstest-Versions-That:
-    ovmf=5b08df03f8193261e4837ed4e91ff81fa7d17e4d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 30 Jul 2024 22:54:32 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 187066 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187066/
+Add MISRA C rules 13.2 and 18.2 to rules.rst. Both rules have zero
+violations reported by Eclair but they have some cautions. We accept
+both rules and for now we'll enable scanning for them in Eclair but only
+violations will cause the Gitlab CI job to fail (cautions will not.)
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 f8f34edd9db82882fd70f14cb97ab28e9bb0b9a3
-baseline version:
- ovmf                 5b08df03f8193261e4837ed4e91ff81fa7d17e4d
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Last test of basis   187058  2024-07-30 14:13:07 Z    0 days
-Testing same since   187066  2024-07-30 21:13:14 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jason1 Lin <jason1.lin@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   5b08df03f8..f8f34edd9d  f8f34edd9db82882fd70f14cb97ab28e9bb0b9a3 -> xen-tested-master
+diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+index 7b366edb07..ef60e9a455 100644
+--- a/docs/misra/rules.rst
++++ b/docs/misra/rules.rst
+@@ -462,6 +462,15 @@ maintainers if you want to suggest a change.
+      - Initializer lists shall not contain persistent side effects
+      -
+ 
++   * - `Rule 13.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_02.c>`_
++     - Required
++     - The value of an expression and its persistent side-effects shall
++       be the same under all permitted evaluation orders
++     - Be aware that the static analysis tool Eclair might report
++       several findings for Rule 13.2 of type "caution". These are
++       instances where Eclair is unable to verify that the code is valid
++       in regard to Rule 13.2. Caution reports are not violations.
++
+    * - `Rule 13.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_06.c>`_
+      - Required
+      - The operand of the sizeof operator shall not contain any
+@@ -583,6 +592,15 @@ maintainers if you want to suggest a change.
+        submitting new patches please try to decrease the number of
+        violations when possible.
+ 
++   * - `Rule 18.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_18_02.c>`_
++     - Required
++     - Subtraction between pointers shall only be applied to pointers
++       that address elements of the same array
++     - Be aware that the static analysis tool Eclair might report
++       several findings for Rule 18.2 of type "caution". These are
++       instances where Eclair is unable to verify that the code is valid
++       in regard to Rule 18.2. Caution reports are not violations.
++
+    * - `Rule 18.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_18_03.c>`_
+      - Required
+      - The relational operators > >= < and <= shall not be applied to objects of pointer type except where they point into the same object
 
