@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 394579408DE
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 08:49:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767284.1177888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4527F94090A
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 09:01:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767293.1177899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYgfE-0003NA-LQ; Tue, 30 Jul 2024 06:48:52 +0000
+	id 1sYgqj-0006Hm-Na; Tue, 30 Jul 2024 07:00:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767284.1177888; Tue, 30 Jul 2024 06:48:52 +0000
+Received: by outflank-mailman (output) from mailman id 767293.1177899; Tue, 30 Jul 2024 07:00:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYgfE-0003MC-Is; Tue, 30 Jul 2024 06:48:52 +0000
-Received: by outflank-mailman (input) for mailman id 767284;
- Tue, 30 Jul 2024 06:48:50 +0000
+	id 1sYgqj-0006Fl-KC; Tue, 30 Jul 2024 07:00:45 +0000
+Received: by outflank-mailman (input) for mailman id 767293;
+ Tue, 30 Jul 2024 07:00:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hr/k=O6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYgfC-0003M6-Rg
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 06:48:50 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1sYgqi-0006Ff-80
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 07:00:44 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c6bbbc92-4e3f-11ef-bc01-fd08da9f4363;
- Tue, 30 Jul 2024 08:48:49 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a7a9e25008aso544897766b.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2024 23:48:49 -0700 (PDT)
+ id 6fb62d07-4e41-11ef-bc01-fd08da9f4363;
+ Tue, 30 Jul 2024 09:00:42 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a7d638a1f27so135292666b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 00:00:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acab4de6fsm605084466b.63.2024.07.29.23.48.48
+ 4fb4d7f45d1cf-5ac63590ce2sm6766210a12.26.2024.07.30.00.00.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jul 2024 23:48:48 -0700 (PDT)
+ Tue, 30 Jul 2024 00:00:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6bbbc92-4e3f-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: 6fb62d07-4e41-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722322129; x=1722926929; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722322842; x=1722927642; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Eb7QeYB4jrltSR1X1h+r+HsYjyWy/W7WT9zzF8QC3c4=;
-        b=MMPxTCCGuNtEKehsE3XXQ58lURoHVXeH7l6gEJOiGZlk5+mUyDPjUow6gtIpr/CH+1
-         W+yFAyr+EF0kEe9LAGrm+chlYuUe7LkEfZl1kT/iV9VuTkUP5+xnnYI3rQA2MdbvGpcU
-         sfK7oZjYyq8KXFqOkhn8bNVgczXQbyWRbooTrRIW742Z83PDYGwMaTuA8l5+DSXLZJi7
-         ahm8fiYRXdjX87k/WaLi70CyIGzts9HrmQSovdj0y4gVxUze23RhxiFqXNdhcYutfSiy
-         Zg9uWiImz6VC29zJdHV6ALNpU7GKnaBCowPtdVsdp/OjlOofqEzxQkDhTccyv0iaTrKb
-         AIWw==
+        bh=VD46Z5ff3GZBwqie9LRLIXmPd9irkxsEFxkK+YXHWVw=;
+        b=HgO4PywVPZf25f0bVX0mGgV84c3/QNP4uOuMX5+sjfnoM7uayfjx6+rxGJlyhAWMj0
+         oZONSJNGUJEEkt3u4YuNAQtdkKWKql/3fXTEMpr+wOSM8jVPZ6u6p6s3J8v1e9pL7yr9
+         40uUsoDFDmABftFxQt4hQcmQ8HIOue4KZVZBTwPBiFCyxw2FkByrtc6NpYt5MwiIffEm
+         cWJZa3AMw2hCsHsXGApM4FKQiXYMxTP6sZ8MAnG8XdaOtEjl3FvvOVyvC42BzkgSvUSY
+         5blqOuX165KXc6cD5u6/WwdluwKRA5h6/Ti3zumzohdK2YQgJvFWh0WA47fke7fJElFD
+         e1nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722322129; x=1722926929;
+        d=1e100.net; s=20230601; t=1722322842; x=1722927642;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Eb7QeYB4jrltSR1X1h+r+HsYjyWy/W7WT9zzF8QC3c4=;
-        b=g+n8GgclQXf35BvE6de/u4OSfkbdwSzuFL1QUn9idlrDqJ+a2ILm6mwQZewVPl1dq3
-         piLj+wUXeC+OYiG81MBlaz2zA5raPBw0oNb53dezKbozweIEmRy+Ubl1tZwDC/ftu7h6
-         H0SGlsOVL8+XCHbUt0ojfYIgk6xMoaNgmc4p9xQMGDB1lXPr7qhO2Gtchvsu+M0Kup8O
-         EET5lJyS+tDRxW1wH0taWuN1hLLFh18TNC/LVTj1LaE2GP13ECy62d2Ts6my6dXaRB0F
-         2LaBwVr38Fd8c9IFTnQY2Ne2kTY2IqkAQsrI+PhV2neJgUj+wy0mI9foHIZKcvalFhpF
-         vF0g==
-X-Forwarded-Encrypted: i=1; AJvYcCXYkyoqcW4BgyP6weYqGldIU+gewB7q3aadaFsRtzwVhhYLvngUzD363jES6gT4gZOv9tJNiOhYnVCr4gEhydXQTlUjRRZc1+PyezkpQXU=
-X-Gm-Message-State: AOJu0YzFit7mhA315S84vHpoEIKhdoL2/ymuJYorrOTRMqfgz1JiD7t7
-	Gwgtd3nsANgTbd+RauIy5lE/K0DNfPfjPgToKINIuYmYb82EFudiOoWkQpb0ag==
-X-Google-Smtp-Source: AGHT+IE6PMGNc9ucX7Nyz8rHSmkEG1Da6kLPK2uhDsmQGNGs6wR4P/HVMWvjpXYlGnpskDo8L73cCg==
-X-Received: by 2002:a17:907:2da8:b0:a7a:a7b8:ada7 with SMTP id a640c23a62f3a-a7d400746d3mr728961166b.24.1722322129245;
-        Mon, 29 Jul 2024 23:48:49 -0700 (PDT)
-Message-ID: <680f461a-fd84-4d93-9dde-f524120d6522@suse.com>
-Date: Tue, 30 Jul 2024 08:48:47 +0200
+        bh=VD46Z5ff3GZBwqie9LRLIXmPd9irkxsEFxkK+YXHWVw=;
+        b=qjg/38iCmxewLayjfjkZIGy+2/l1hdOTuCASGy+g5uyvR2uKiYg3xbE1kMeaQcxfRr
+         yOjGltZFqtpxQZnWAM6N48hJ5NBprEBjZRBBz6w43AK/tMaNWLxi6JC0FrX2GtgJkAg3
+         lZpv6TV6s9hybiRyZ6CPc2kOfIsc2FQPWIE1c0hlFSHDwc51sxXttx79Dm8VeDzInItk
+         SCQytw9g0hFSWbcXOfzfjZAvis8+qWP/V/W94/xKPYGL62vmP8d5p6QS2/QfTojvH3uw
+         VQTolMfOIUiL+iyIgQKuG4c6X4QpoDV9RSD3Z7VKfDDJT1wCaNskJUbgWqASKEwtaB0g
+         CeyA==
+X-Forwarded-Encrypted: i=1; AJvYcCWuhsrlkkgSJCYVDIbk+nvQREt0UTB0Q8l30PsFS9IdKL5Qp0UVZM8TaYtcbT6YMqCM6Tgw+2kTPbzAvCs6HkTt3Vb5IGoVp0U9U721shw=
+X-Gm-Message-State: AOJu0YxG93BjbBvjMLeWU6wbYBuncjHkHeB8Jce/KgzNUolxJb8b8t/3
+	FzM8OqaKVLGT6Ik8pDOY+I0u0/6RvnhweZum5vdfM8K7Yf2dTMThfFWPYF5eJA==
+X-Google-Smtp-Source: AGHT+IEvPJO5Qrt8/7ERHr8auh2XD8NP31FHnbu9XztHgaNCIN9y8hB1OVJZW5nmJXYsuY3WjxcqVw==
+X-Received: by 2002:a05:6402:268d:b0:5a2:65cb:7335 with SMTP id 4fb4d7f45d1cf-5b021d22bf0mr8709081a12.19.1722322842128;
+        Tue, 30 Jul 2024 00:00:42 -0700 (PDT)
+Message-ID: <ec446763-7e23-4f53-86d2-dab0df8a6c1b@suse.com>
+Date: Tue, 30 Jul 2024 09:00:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] xen/arm: stack check instrumentation
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20240729142421.137283-1-stewart.hildebrand@amd.com>
- <20240729142421.137283-4-stewart.hildebrand@amd.com>
- <d313f39a-f5aa-4611-975e-bc64759bbd01@xen.org>
+Subject: Re: [PATCH] XSM/domctl: Fix permission checks on
+ XEN_DOMCTL_createdomain
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240729162651.571991-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,32 +114,71 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d313f39a-f5aa-4611-975e-bc64759bbd01@xen.org>
+In-Reply-To: <20240729162651.571991-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.07.2024 20:36, Julien Grall wrote:
-> On 29/07/2024 15:24, Stewart Hildebrand wrote:
->> Use the -finstrument-functions option to check that the stack pointer is
+On 29.07.2024 18:26, Andrew Cooper wrote:
+> The XSM checks for XEN_DOMCTL_createdomain are problematic.  There's a split
+> between xsm_domctl() called early, and flask_domain_create() called quite late
+> during domain construction.
 > 
-> Is the feature supported by both clang and GCC? If so, which from versions?
+> All XSM implementations except Flask have a simple IS_PRIV check in
+> xsm_domctl(), and operate as expected when an unprivileged domain tries to
+> make a hypercall.
 > 
->  From README, this is what we currently support.
-> 
->        - For ARM 32-bit:
->          - GCC 4.9 or later
->          - GNU Binutils 2.24 or later
->        - For ARM 64-bit:
->          - GCC 5.1 or later
->          - GNU Binutils 2.24 or later
-> 
-> We don't mention Clang, but I would expect a clang from 4-5 years should 
-> still be Arm (not cross-compile as we never fully added the support).
+> Flask however foregoes any action in xsm_domctl() and defers everything,
+> including the simple "is current permitted to create a a domain" check, to
 
-I was wondering the same, but already on patch 1 and with other architectures
-also in mind, as there's common (XSM) code gaining respective attributes. For
-gcc I checked that even 4.1 supports that attribute, so I expect we're fine
-here (and double checking with godbolt, Clang 3.0.0 also supports the option).
+Nit: Double "a".
+
+> flask_domain_create().
+> 
+> As a conseqeuence, when XSM Flask is active, and irrespective of the policy
+> loaded, all domains irrespective of privilege can:
+> 
+>  * Mutate the global 'rover' variable, used to track the next free domid.
+>    Therefore, all domains can cause a domid wraparound, and combined with a
+>    volentary reboot, choose their own domid.
+> 
+>  * Cause a reasonable amount of a domain to be constructed before ultimately
+>    failing for permission reasons, including the use of settings outside of
+>    supported limits.
+> 
+> In order to remedate this, pass the ssidref into xsm_domctl() and at least
+> check that the calling domain privileged enough to create domains.
+> 
+> This issue has not been assigned an XSA, because Flask is experimental and not
+> security supported.
+> 
+> Reported-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+However, a remark and a nit:
+
+> --- a/xen/include/xsm/dummy.h
+> +++ b/xen/include/xsm/dummy.h
+> @@ -162,7 +162,7 @@ static XSM_INLINE int cf_check xsm_set_target(
+>  }
+>  
+>  static XSM_INLINE int cf_check xsm_domctl(
+> -    XSM_DEFAULT_ARG struct domain *d, int cmd)
+> +    XSM_DEFAULT_ARG struct domain *d, int cmd, uint32_t ssidref)
+
+Might be a reasonable thing to also convert type of "cmd" here and elsewhere,
+as you're touching all relevant places anyway: The struct field passed in is
+uint32_t, so the caller needlessly does a signed-ness conversion.
+
+> @@ -248,9 +248,9 @@ static inline int xsm_set_target(
+>      return alternative_call(xsm_ops.set_target, d, e);
+>  }
+>  
+> -static inline int xsm_domctl(xsm_default_t def, struct domain *d, int cmd)
+> +static inline int xsm_domctl(xsm_default_t def, struct domain *d, int cmd, uint32_t ssidref)
+
+This line is getting a little too long now.
 
 Jan
 
