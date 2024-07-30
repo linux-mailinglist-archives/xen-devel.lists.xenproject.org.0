@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22D94941481
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 16:36:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767890.1178599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C44A1941480
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 16:36:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767886.1178588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYnxN-0007Hy-As; Tue, 30 Jul 2024 14:36:05 +0000
+	id 1sYnxE-00070A-1T; Tue, 30 Jul 2024 14:35:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767890.1178599; Tue, 30 Jul 2024 14:36:05 +0000
+Received: by outflank-mailman (output) from mailman id 767886.1178588; Tue, 30 Jul 2024 14:35:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYnxN-0007FQ-7b; Tue, 30 Jul 2024 14:36:05 +0000
-Received: by outflank-mailman (input) for mailman id 767890;
- Tue, 30 Jul 2024 14:36:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fTg3=O6=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1sYnxM-0006se-0x
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 14:36:04 +0000
-Received: from sender3-op-o17.zoho.com (sender3-op-o17.zoho.com
- [136.143.184.17]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0ae3800f-4e81-11ef-bc01-fd08da9f4363;
- Tue, 30 Jul 2024 16:36:02 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1722350157300640.2217030234874;
- Tue, 30 Jul 2024 07:35:57 -0700 (PDT)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-64b417e1511so34461977b3.3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 07:35:57 -0700 (PDT)
+	id 1sYnxD-0006yA-Ut; Tue, 30 Jul 2024 14:35:55 +0000
+Received: by outflank-mailman (input) for mailman id 767886;
+ Tue, 30 Jul 2024 14:35:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sYnxC-0006y0-QU; Tue, 30 Jul 2024 14:35:54 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sYnxC-0006al-LD; Tue, 30 Jul 2024 14:35:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sYnxC-0007Bv-57; Tue, 30 Jul 2024 14:35:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sYnxC-0000i8-4X; Tue, 30 Jul 2024 14:35:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,77 +42,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ae3800f-4e81-11ef-bc01-fd08da9f4363
-ARC-Seal: i=1; a=rsa-sha256; t=1722350159; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=hfCuvxWjoiiZ59yTIS/+pCEnZVhZFIjM8aPkjTWr1uW8sldNF7KLBAHZDlMeOXnHfmLCZuGoQDwocAr+YEUTZHejpwVUPxbWSKydMk8EVAZftB7/9MWTAcz/3x7mK5KLdN01B5o3aktZE9W4d8SkMSxiDH1vvBICV1FWqAXBf8E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1722350159; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=D1ebpLyx8gR86eeQvtJ6wU+dy9ju+XdkIf9IVMlzmQo=; 
-	b=IWQTTMtKgJiM4J0eiFhshBJLWZe0rQNAeiMKhosaib/P8l4ExCJQi9xUWyY7SoJDXUEoP6liB3DxjLCUFqemPS3T3FILMChF9gV5I76nkJewYbfk6lEZ/rz3cRivaXM3jKt3V3vJfMwBDeloZwDf8WtFHllzxpbmDilY7z7gQt4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=tklengyel.com;
-	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
-	dmarc=pass header.from=<tamas@tklengyel.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1722350159;
-	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
-	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=D1ebpLyx8gR86eeQvtJ6wU+dy9ju+XdkIf9IVMlzmQo=;
-	b=SSOCsHId9pGL9VADvmBIofwfaPf+ej8y2A72njtlmmMDw9Ij/CHwxZq37KroEccu
-	Pnuyi9IhHZPudERwjZ53N3UpdXnWWn5ha4G92J9Jdy2PejmFviiSN9WcJYjGda/expN
-	xVe5j+8VhD2nXIMDyr/au6hAdbY3xbdj4w5U9uwc=
-X-Gm-Message-State: AOJu0YwBSH/yCRTB+dg0fKqsCjTnFZ0GilmC2JaXINYh13v65177//1D
-	7SrHI6Woo+gazohbKE0xYdQtFAdR8hV83z9xXHbKglYFZ3Fi8QV3XWu0z4l0ITFJ//1aSMMSXeG
-	ADhxY9dbqnD/qASQQPS8qjr8HL2I=
-X-Google-Smtp-Source: AGHT+IHIDQK94uXMQIslV+V0IpD1u6rhrvHxBU2KJjq7fSO/uzmi6beaomz9Nz2PlokD6uPkIgAA5EcTiCicGUDllNE=
-X-Received: by 2002:a05:6902:2807:b0:e0b:28ce:6156 with SMTP id
- 3f1490d57ef6-e0b5466b3bbmr11505415276.55.1722350156536; Tue, 30 Jul 2024
- 07:35:56 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1722333634.git.Sergiy_Kibrik@epam.com> <b0292af6629ad483dd0a437960585cf5aa3a03cd.1722333634.git.Sergiy_Kibrik@epam.com>
-In-Reply-To: <b0292af6629ad483dd0a437960585cf5aa3a03cd.1722333634.git.Sergiy_Kibrik@epam.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Tue, 30 Jul 2024 10:35:19 -0400
-X-Gmail-Original-Message-ID: <CABfawhn_qiPGe75a1nKJYop45zN3uMdN_u7ok8wmwaRFSCGH4Q@mail.gmail.com>
-Message-ID: <CABfawhn_qiPGe75a1nKJYop45zN3uMdN_u7ok8wmwaRFSCGH4Q@mail.gmail.com>
-Subject: Re: [XEN PATCH v5 02/13] x86/monitor: guard altp2m usage
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: xen-devel@lists.xenproject.org, Alexandru Isaila <aisaila@bitdefender.com>, 
-	Petre Pircalabu <ppircalabu@bitdefender.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=2+gM/6f0MDNWoAhFrewR7nF5hOblejW6XVzt5OYZRx8=; b=fP3RjeyuNuaaiFPFyIAj5riizL
+	mbrQl8X3+9zvMOC23xS/85XqMIRYmdGBN+U3FjgpGaqe+7pTK5NDb9Xo5mRj/6VPUn5JUe7zd5SVk
+	yh0HawtfimTtb8Niv/Re4DTt7N0wIKOTpf7whIM25u+Ekump7QWAdB6a1+nTVB+Sn/bo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187054-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 187054: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=303d3ff85c90ee4af4bad4e3b1d4932fa2634d64
+X-Osstest-Versions-That:
+    xen=8b5016e28737f140926619b14b8ca291dc4c5e62
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 30 Jul 2024 14:35:54 +0000
 
-On Tue, Jul 30, 2024 at 6:18=E2=80=AFAM Sergiy Kibrik <Sergiy_Kibrik@epam.c=
-om> wrote:
->
-> Explicitly check whether altp2m is on for domain when getting altp2m inde=
-x.
-> If explicit call to altp2m_active() always returns false, DCE will remove
-> call to altp2m_vcpu_idx().
->
-> p2m_get_mem_access() expects 0 as altp2m_idx parameter when altp2m not ac=
-tive
-> or not supported, so 0 is a fallback value then.
->
-> The puspose of that is later to be able to disable altp2m support and
+flight 187054 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187054/
 
-"purpose" misspelled here
+Failures :-/ but no regressions.
 
-> exclude its code from the build completely, when not supported by target
-> platform (as of now it's supported for VT-d only).
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Probably wanted to say "VT-x only" here
+version targeted for testing:
+ xen                  303d3ff85c90ee4af4bad4e3b1d4932fa2634d64
+baseline version:
+ xen                  8b5016e28737f140926619b14b8ca291dc4c5e62
 
->
-> Also all other calls to altp2m_vcpu_idx() are guarded by altp2m_active(),=
- so
-> this change puts usage of this routine in line with the rest of code.
->
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Last test of basis   187043  2024-07-29 16:02:08 Z    0 days
+Testing same since   187054  2024-07-30 10:02:18 Z    0 days    1 attempts
 
-With the commit message fixed (probably could be done when applied):
-Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+------------------------------------------------------------
+People who touched revisions under test:
+  Alejandro Vallejo <alejandro.vallejo@cloud.com>
+  Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+  Federico Serafini <federico.serafini@bugseng.com>
+  Huang Rui <ray.huang@amd.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jiqian Chen <Jiqian.Chen@amd.com>
+  Nicola Vetrini <nicola.vetrini@bugseng.com>
+  Ross Lagerwall <ross.lagerwall@citrix.com>
+  Simone Ballarin <simone.ballarin@bugseng.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Stewart Hildebrand <stewart.hildebrand@amd.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   8b5016e287..303d3ff85c  303d3ff85c90ee4af4bad4e3b1d4932fa2634d64 -> smoke
 
