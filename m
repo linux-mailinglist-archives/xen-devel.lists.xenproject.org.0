@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C6A294100B
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 12:56:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767572.1178245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 923AB941010
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 12:57:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767581.1178255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYkWN-0007cE-0e; Tue, 30 Jul 2024 10:55:59 +0000
+	id 1sYkXZ-0008RH-9D; Tue, 30 Jul 2024 10:57:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767572.1178245; Tue, 30 Jul 2024 10:55:58 +0000
+Received: by outflank-mailman (output) from mailman id 767581.1178255; Tue, 30 Jul 2024 10:57:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYkWM-0007a1-Sv; Tue, 30 Jul 2024 10:55:58 +0000
-Received: by outflank-mailman (input) for mailman id 767572;
- Tue, 30 Jul 2024 10:55:58 +0000
+	id 1sYkXZ-0008OO-66; Tue, 30 Jul 2024 10:57:13 +0000
+Received: by outflank-mailman (input) for mailman id 767581;
+ Tue, 30 Jul 2024 10:57:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f/bP=O6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sYkWM-0007Zv-0Y
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 10:55:58 +0000
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
- [2607:f8b0:4864:20::82e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hr/k=O6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sYkXY-0007Zv-5W
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 10:57:12 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4a530597-4e62-11ef-8776-851b0ebba9a2;
- Tue, 30 Jul 2024 12:55:53 +0200 (CEST)
-Received: by mail-qt1-x82e.google.com with SMTP id
- d75a77b69052e-44fe11dedb3so19458751cf.1
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 03:55:53 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-44fe817b704sm48859191cf.49.2024.07.30.03.55.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jul 2024 03:55:52 -0700 (PDT)
+ id 7834a7a3-4e62-11ef-8776-851b0ebba9a2;
+ Tue, 30 Jul 2024 12:57:10 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a7aac70e30dso564847266b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 03:57:10 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acab2314csm642063366b.14.2024.07.30.03.57.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Jul 2024 03:57:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,117 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a530597-4e62-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 7834a7a3-4e62-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722336953; x=1722941753; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=FgXOKJWNRnRlz0Nm5RAVMdrRS+bLkdw98dwTpwqDu7Q=;
-        b=F7bWE5lp75dbMAb5rgSbdRHkyGkbmCW3wBjvnFjZSmksGhD1HtfKYslZBXZ5tgiZ9p
-         iWvP9qWg+BVGJ8HoMfqCT9OMT9JY9aqmqZnSxRQVG16k/Q36J7ifhO7BEZ/D+aWP85Jn
-         Jlo+KGYU7UBLzZfGahQOmLR+g1Xz0gStEqVPk=
+        d=suse.com; s=google; t=1722337030; x=1722941830; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Po8FTiwtDWrNQap1N3UoZT3/Uk5DxNwtOnO6XpY1gU4=;
+        b=fvtHnKmEJFdQK+a0LAScnKQPBdg3eEUB1GZDkK1cMcXV0QczpcJ7ki2MtcXXoQTqb6
+         xkQVRgkt97KlaBv55UOvxKtL44X3/zSlYv7/64Q8DWW+q9rTFeUG8BJTSsB0VbuciuHE
+         htfD2Uz3ptjcVYvFRFeTYzdDFWtOAdiDShJ321IcThWjnjKKv0nnTQaKJBMLzu7GCc3q
+         EstyVQD8bdOTlt9s+lyG0LZZ1HW8qnwQFi6esK53X2k4Fel1laEzZSPqJK71fk62ThcL
+         wOTf/SO7hTK4Vqlvu68Bodp37Mc2NsC6BKGSdJc0u4Akka6Fuhanw6bAm6EUv2VPG0Sw
+         vHWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722336953; x=1722941753;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1722337030; x=1722941830;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FgXOKJWNRnRlz0Nm5RAVMdrRS+bLkdw98dwTpwqDu7Q=;
-        b=oU2FkckRg0TIrbeoNa1lOzzM2ceTPMZ9hoOJmY5ofmUDPxHOs+Xt/PmGVxoIo718gx
-         NjcXig/0cXcedi3I7vt6BdlFsgo0mA0GRZiM2bKjdm2aQ9CMlU8uUi0pdwBaImMb72im
-         JVdHVInIjsk94+QFQTLjtApOh3j71A8UwW2cQhKfGmqyaZlHmS+1QvtNWsDtU14saNWH
-         1dAkZqOQa63h6iXmr4w4kPZO00Vxa8fs5HSGyn5jfRagbty5cMQFs1D5zdJucpnZkweg
-         Nt/Tpn9lAavRpZzjGWvzsvpjcjUfq4oiI/kIRd8SfpqCHXVoADjTxUpPlTH8RHCwouje
-         7zhw==
-X-Forwarded-Encrypted: i=1; AJvYcCWATYD4DYjJ6JYW1U3s2iSkOvt48joPHODtEy31/eKCHwC3/kKoArCiwAOVQRt5Y3aRBjeRrpn0qzRxm5QntN5H8HGK5Que1h1dpssDYNM=
-X-Gm-Message-State: AOJu0YxzPqUV6x59Br3Y/MmCOyEJ81WkuPKxzkUuoGk9X1OCUqj8V5uo
-	kA+Sywf5rOF944sDsL8maWPzz4yUn7upb7vBTwP800qK5YjnCgODB8nhjIlPguY=
-X-Google-Smtp-Source: AGHT+IGDcuHOXGDLPG2b8B3tNSoa6NthQF9XssbyibuciuFoE3LIh6WuK4czhNZhgcIhhog4QcHNUQ==
-X-Received: by 2002:a05:622a:1309:b0:447:df6b:b8c5 with SMTP id d75a77b69052e-45004db298amr120861831cf.33.1722336952454;
-        Tue, 30 Jul 2024 03:55:52 -0700 (PDT)
-Date: Tue, 30 Jul 2024 12:55:47 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, alejandro.vallejo@cloud.com,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 03/22] x86/dom0: only disable SMAP for the PV dom0 build
-Message-ID: <ZqjGs2NLTbatrQS9@macbook>
-References: <20240726152206.28411-1-roger.pau@citrix.com>
- <20240726152206.28411-4-roger.pau@citrix.com>
- <b1918f51-1ac0-40f8-9174-d8161b2681dd@suse.com>
- <5aad5f48-e32e-4a59-bcef-05adec0ecbec@citrix.com>
- <ZqfA714LUFgZOYqw@macbook>
- <542807c8-425b-481f-b02f-dd657c12ef5d@citrix.com>
+        bh=Po8FTiwtDWrNQap1N3UoZT3/Uk5DxNwtOnO6XpY1gU4=;
+        b=vfX+S1o8qnMBh4+Xl5mQ/s3kqR6i4RvQ2TYiCR+SK3b6ZHKBLvQXy2Wr67rnaD2L8i
+         sg2/qBgRf7HD0/5cT9TPj4JKfy8RBoqvlnEkVlOy2zW6m1+Y/bqrmEvCKU7z/3QJYRw0
+         FRJiHBZ2JII5Pqf4NLJVZxog+RzeNbcvxrAS4eti/BI67Uz3+fRvinsuMeg8GPt2Y3+V
+         1RQnyNfcJzkLMZbubFUmIGhxYmRyFLtOZdaJsWdCD+czmi5bb1tzQLlISTgDeDm8YW8v
+         6QViEoMu1Jqw0koGR5m98iswgAyK+x6M1I1boTnEXnrNoHKn7CqLcBfl9Y8WZjB8jwHN
+         fEpg==
+X-Gm-Message-State: AOJu0YwsSTOjKJqkhWZfipYQWu+DMziF7m0nYG67doEMXNCifEd7BagE
+	THaXs7eYDhtCyP4uqM8SNjr8O2+5O4MSfxElOK3fpiTD0LJKNPCIwSCSyplg5dELkPwAw6wUqYM
+	=
+X-Google-Smtp-Source: AGHT+IEi712nRbYdEHOSzCpWqfCH4dlIc28CjJ4SDhBKoITbgcPOEjsGb1MrBEiWEdn5bAWXsz6dcw==
+X-Received: by 2002:a17:907:9713:b0:a77:bfca:da53 with SMTP id a640c23a62f3a-a7d3ff97f73mr656160766b.30.1722337029597;
+        Tue, 30 Jul 2024 03:57:09 -0700 (PDT)
+Message-ID: <d7289554-258b-4f75-858b-64005e9ae9be@suse.com>
+Date: Tue, 30 Jul 2024 12:57:08 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <542807c8-425b-481f-b02f-dd657c12ef5d@citrix.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Daniel Smith <dpsmith@apertussolutions.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] SUPPORT.md: split XSM from Flask
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 29, 2024 at 06:51:31PM +0100, Andrew Cooper wrote:
-> On 29/07/2024 5:18 pm, Roger Pau Monné wrote:
-> > On Mon, Jul 29, 2024 at 04:52:22PM +0100, Andrew Cooper wrote:
-> >> On 29/07/2024 12:53 pm, Jan Beulich wrote:
-> >>> On 26.07.2024 17:21, Roger Pau Monne wrote:
-> >>>> The PVH dom0 builder doesn't switch page tables and has no need to run with
-> >>>> SMAP disabled.
-> >>>>
-> >>>> Put the SMAP disabling close to the code region where it's necessary, as it
-> >>>> then becomes obvious why switch_cr3_cr4() is required instead of
-> >>>> write_ptbase().
-> >>>>
-> >>>> Note removing SMAP from cr4_pv32_mask is not required, as we never jump into
-> >>>> guest context, and hence updating the value of cr4_pv32_mask is not relevant.
-> >>> I'm okay-ish with that being dropped, but iirc the goal was to keep the
-> >>> variable in sync with CPU state.
-> >> Removing SMAP from cr4_pv32_mask is necessary.
-> >>
-> >> Otherwise IST vectors will reactive SMAP behind the back of the dombuilder.
-> >>
-> >> This will probably only manifest in practice in a CONFIG_PV32=y build,
-> > Sorry, I'm possibly missing some context here.  When running the dom0
-> > builder we switch to the guest page-tables, but not to the guest vCPU,
-> > (iow: current == idle) and hence the context is always the Xen
-> > context.
-> 
-> Correct.
-> 
-> > Why would the return path of the IST use cr4_pv32_mask when the
-> > context in which the IST happened was the Xen one, and the current
-> > vCPU is the idle one (a 64bit PV guest from Xen's PoV).
-> >
-> > My understanding is that cr4_pv32_mask should only be used when the
-> > current context is running a 32bit PV vCPU.
-> 
-> This logic is evil to follow, because you need to look at both
-> cr4_pv32_mask and XEN_CR4_PV32_BITS to see both halves of it.
-> 
-> Notice how cr4_pv32_restore() only ever OR's cr4_pv32_mask into %cr4?
-> 
-> CR4_PV32_RESTORE is called from every entry path which *might* have come
-> from a 32bit PV guest, and it always results in Xen having SMEP/SMAP
-> active (as applicable).  This includes NMI.
-> 
-> The change is only undone in compat_restore_all_guest(), where
-> XEN_CR4_PV32_BITS is cleared from %cr4 iff returning to Ring1/2.  This
-> is logic cunningly disguised in the use of the Parity flag.
-> 
-> 
-> Because the NMI handler does reactive SMEP/SMAP (based on the value in
-> cr4_pv32_mask), and returning to Xen does not pass through
-> compat_restore_all_guest(), taking an NMI in the middle of of the
-> dombuilder will reactive SMAP behind your back.
+XSM is a generic framework, which in particular is also used by SILO.
+With this it can't really be experimental: Arm enables SILO by default.
 
-After further conversations with Andrew we believe the current
-disabling of X86_CR4_SMAP in %cr4 during dom0 build is not safe.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Regardless of whether cr4_pv32_mask is properly adjusted return to Xen
-context from interrupt would be done with SMAP enabled if
-X86_FEATURE_XEN_SMAP is set.
-
-I will send a new patch that uses stac/clac in order to disable SMAP
-(if required) around the dom0 builder code that switches to the guest
-page-tables.
-
-Thanks, Roger.
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -768,13 +768,20 @@ Compile time disabled for ARM by default
+ 
+     Status, x86: Supported, not security supported
+ 
+-### XSM & FLASK
++### XSM
++
++    Status: Supported
++
++See below for use with FLASK and SILO.  The dummy implementation is covered here
++as well.
++
++### XSM + FLASK
+ 
+     Status: Experimental
+ 
+ Compile time disabled by default.
+ 
+-Also note that using XSM
++Also note that using FLASK
+ to delegate various domain control hypercalls
+ to particular other domains, rather than only permitting use by dom0,
+ is also specifically excluded from security support for many hypercalls.
+@@ -787,6 +794,10 @@ Please see XSA-77 for more details.
+ The default policy includes FLASK labels and roles for a "typical" Xen-based system
+ with dom0, driver domains, stub domains, domUs, and so on.
+ 
++### XSM + SILO
++
++    Status: Supported
++
+ ## Virtual Hardware, Hypervisor
+ 
+ ### x86/Nested PV
 
