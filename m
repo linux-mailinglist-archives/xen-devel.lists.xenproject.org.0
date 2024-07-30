@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E289194117A
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 14:04:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767672.1178354 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3975E941198
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 14:11:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767679.1178365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYlaR-0006Dy-C0; Tue, 30 Jul 2024 12:04:15 +0000
+	id 1sYlhN-0000Y3-2U; Tue, 30 Jul 2024 12:11:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767672.1178354; Tue, 30 Jul 2024 12:04:15 +0000
+Received: by outflank-mailman (output) from mailman id 767679.1178365; Tue, 30 Jul 2024 12:11:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYlaR-0006BG-9C; Tue, 30 Jul 2024 12:04:15 +0000
-Received: by outflank-mailman (input) for mailman id 767672;
- Tue, 30 Jul 2024 12:04:13 +0000
+	id 1sYlhM-0000WT-VW; Tue, 30 Jul 2024 12:11:24 +0000
+Received: by outflank-mailman (input) for mailman id 767679;
+ Tue, 30 Jul 2024 12:11:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hr/k=O6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYlaP-0006BA-J7
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 12:04:13 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1sYlhL-0000WN-J7
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 12:11:23 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d5126462-4e6b-11ef-8776-851b0ebba9a2;
- Tue, 30 Jul 2024 14:04:11 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5a2ffc34722so9223461a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 05:04:11 -0700 (PDT)
+ id d5527d41-4e6c-11ef-8776-851b0ebba9a2;
+ Tue, 30 Jul 2024 14:11:21 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a7d2a9a23d9so493266766b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 05:11:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ac64eb3c29sm7109005a12.59.2024.07.30.05.04.10
+ a640c23a62f3a-a7acab4de06sm635379466b.71.2024.07.30.05.11.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jul 2024 05:04:10 -0700 (PDT)
+ Tue, 30 Jul 2024 05:11:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5126462-4e6b-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: d5527d41-4e6c-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722341051; x=1722945851; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722341481; x=1722946281; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HZKFikV9T8407QvCk0mbySiwJQj1JdBUYVZmSaBepoc=;
-        b=XqYh3gmQ1P1Y1nAJ8LaZwHdqYWUHRbJI2XJiO2a1VxkKCKM0ziY2o8+hqVkq/WV4pO
-         WN8209py8BGygb46zh7a3VC5EBiviI4hVWXdW4mjLHHaJ4jXQ+vNPpPIDnO2ll2iZ7k8
-         N1E2vMh/ZEoBoZp0LwTLVmkYLgNkexgRNoLETWL2BU6pQBC2+I11Ldcw3qeSPDGgUPXf
-         l4nI+OmNMd3r4azz6MrGeak3WI0J1MV+SinWmPJKV5mlLaBirQZa+7AKtAKGJ9LfBWQc
-         lm6ANXCdOrizB+neY18AgmY46wrpLR7xlug4t6ZVLV4kduOdLOjqC0uMqu3bDP2SOOlm
-         xSCg==
+        bh=IFHEc9VLs6aD6v7ubFKDDN9rjvCJlMDm8nYff6mJLpM=;
+        b=T5z4fjSTW4g4jCVNyktoJy3occ3tHFt6IeN+EcLIoravKGsOyBSJ+iVYsLjikrdi3h
+         EYzzArNlnZCL81hoSZT/JVVYsbcq5y+EuA4KQK1e9xnePd1fJfZY1zScNxFlsrPJM0DK
+         ObIEYQjMAGv2r2HLPeZX1pYIJw4PXFaUXb3yh31ViOjFtI/Kfusbh+kjWlkaN5/h0ULh
+         xYN4tAhjcv3IzoyAO8V4Q8UZ36B0W7byjgeBWoBvcTVOfJx/7l/u4LY78dQT7mwsLD2w
+         YF6KGTCLEy7GWtkN2d8XKThZWfwuKQehQAgn2JDc8yMvhmx+M5h8sFi/ugJVe0iHrFaH
+         j64g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722341051; x=1722945851;
+        d=1e100.net; s=20230601; t=1722341481; x=1722946281;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HZKFikV9T8407QvCk0mbySiwJQj1JdBUYVZmSaBepoc=;
-        b=OLh+ukgE5IGKV1aLIh8pzzC3JO3e//OApMsfW8tQD0htZjGvePcNwAGTHWIk704gRT
-         1vT3/7xMMEb5WUmQxj68SP++WraqtRaMzAw4UE1r14F+C4/Re8s0Z+oft5y526teTmqM
-         xQ2pb8X/VHPnXW/xP9WSjMJX/XN+qPbaWI/WqvVzl/qgD1gB4wMxkLslEtspb9l/WyCB
-         yJRjUgtwXDtvOHKVuqkHmkpH5clmQT8F9XUO+ycRIJUbLLGryH6DRte11Q9+8OgeEQJO
-         w6JGkmijd7eVOZd1sEd3QSnwFC26eSxfMxxOxzAKvv77TyqUcNWrnut9QrntL7EfkYpS
-         kWQg==
-X-Gm-Message-State: AOJu0Yy9lI6dgc1PIh8XAuTYAu52dZCduxArWhnxbADUiM42QgSNFq40
-	FuXzlLv0KB7MaSrFGXjIHW9vcNwK6RdcaiaAb9UlHWixSv3rRTq2CYoEWyZl3A==
-X-Google-Smtp-Source: AGHT+IE1uws4CAdZOI6WCo+3ym3kgGzTobeyS3VIGYcROaca6T4pVH5kg5ttpZet0r2LfM4QNtjw7A==
-X-Received: by 2002:a50:c30f:0:b0:58c:b2b8:31b2 with SMTP id 4fb4d7f45d1cf-5b46cf13951mr1622142a12.17.1722341050906;
-        Tue, 30 Jul 2024 05:04:10 -0700 (PDT)
-Message-ID: <67f1bcb7-8924-413f-a8ec-6a01f90e7836@suse.com>
-Date: Tue, 30 Jul 2024 14:04:09 +0200
+        bh=IFHEc9VLs6aD6v7ubFKDDN9rjvCJlMDm8nYff6mJLpM=;
+        b=LKp7c7CBJGV813eA57X6ER0wfA5rsQjHiGbCMQbXVZ5JC4qzr8DwCcHorTZ6i5xj65
+         SshMSArxuAyYZbzN+3QRqGk4VdZZx1eTnx9fOPzXjdEu3UTYc6e/q56t9zwcE0qlJv0Y
+         V0eCEUvvT7D6jUqGaz+8DtaQS6Ct7qC5TwoDOsekcgIbI1pd72vh86oYiPcnL40ec6Sa
+         NMMPtJ+yB0AUS85S1S2+0va26vZVtXQror0lgnPsyhisilnD3FszquiZr/uSMozT05Yj
+         iiIb27c+msYZcqDoApEy1yBerq2rOvpAXfzj+GbIq+i2MKk+RXeirmkZhCP02+2Xa9xg
+         3MRg==
+X-Forwarded-Encrypted: i=1; AJvYcCUtUDuIiyZy4duNRjtK5fDgkHiOzl1AmLJRuaCotAFKDAlia6TLbU/8+sl5X9vX7L2VWx9cSGW6kaegRexPL4KvZQkOQnlS6tQNRWOoSKE=
+X-Gm-Message-State: AOJu0YzifMgZtq1zGj+43I6PvPZPV4v8WNNXIVg/Z8arPFj6suorF4V8
+	ZUDa3skNdlUIKnuAgR3o61PODrK9BIvwO8OpChQq8pKomRrDr8X1R7H7kQ0+Fw==
+X-Google-Smtp-Source: AGHT+IG+0LM30RBDwqeSFQ1Rtl4XfhNktvMPtzGlh2QKUMpH1VUL6k3FFvWBbPLp9Z4d4rtxLP1GoA==
+X-Received: by 2002:a17:907:7286:b0:a7c:4095:ccb6 with SMTP id a640c23a62f3a-a7d3fff71eemr861557166b.16.1722341480899;
+        Tue, 30 Jul 2024 05:11:20 -0700 (PDT)
+Message-ID: <9ed45d6d-5fdc-4754-908c-1d29b66b850a@suse.com>
+Date: Tue, 30 Jul 2024 14:11:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] SUPPORT.md: split XSM from Flask
-To: Daniel Smith <dpsmith@apertussolutions.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <d7289554-258b-4f75-858b-64005e9ae9be@suse.com>
- <191036ec4af.b419d861552194.691516900344490021@apertussolutions.com>
+Subject: Re: [PATCH v3 4/9] xen/riscv: setup fixmap mapping
+To: oleksii.kurochko@gmail.com
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
+ <04576976b82b97442f645b83b3d62475d144af8e.1721834549.git.oleksii.kurochko@gmail.com>
+ <917cc521-c0c4-49e8-bc40-948679398bc6@suse.com>
+ <28d646ba3d95da2eaf40869e1c07d950a0f3f203.camel@gmail.com>
+ <8b8b0304-9f6f-4ded-a451-edc8fdd0e52a@suse.com>
+ <2803670c49bdce4ef5982e7d149c77dda0701a31.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,39 +120,83 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <191036ec4af.b419d861552194.691516900344490021@apertussolutions.com>
+In-Reply-To: <2803670c49bdce4ef5982e7d149c77dda0701a31.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.07.2024 13:37, Daniel Smith wrote:
-> ---- On Tue, 30 Jul 2024 06:57:08 -0400 Jan Beulich  wrote ---
+On 30.07.2024 13:25, oleksii.kurochko@gmail.com wrote:
+> On Tue, 2024-07-30 at 09:49 +0200, Jan Beulich wrote:
+>> On 29.07.2024 18:11, oleksii.kurochko@gmail.com wrote:
+>>> On Mon, 2024-07-29 at 15:35 +0200, Jan Beulich wrote:
+>>>> On 24.07.2024 17:31, Oleksii Kurochko wrote:
+>>>>> @@ -81,6 +82,14 @@ static inline void
+>>>>> flush_page_to_ram(unsigned
+>>>>> long mfn, bool sync_icache)
+>>>>>      BUG_ON("unimplemented");
+>>>>>  }
+>>>>>  
+>>>>> +/* Write a pagetable entry. */
+>>>>> +static inline void write_pte(pte_t *p, pte_t pte)
+>>>>> +{
+>>>>> +    RISCV_FENCE(rw, rw);
+>>>>> +    *p = pte;
+>>>>> +    RISCV_FENCE(rw, rw);
+>>>>> +}
+>>>>
+>>>> Why the first of the two fences? 
+>>> To ensure that writes have completed with the old mapping.
+>>
+>> Wait: There can certainly be uncompleted writes, but those must have
+>> walked the page tables already, or else a (synchronous) fault could
+>> not be delivered on the originating store instruction. Or am I
+>> misunderstanding how paging (and associated faults) work on RISC-V?
+> I am not sure that I correctly understand the part regarding (
+> synchronous ) fault. Could you please come up with an example?
 > 
->  > XSM is a generic framework, which in particular is also used by SILO. 
->  > With this it can't really be experimental: Arm enables SILO by default. 
->  >  
->  > Signed-off-by: Jan Beulich jbeulich@suse.com> 
->  >  
->  > --- a/SUPPORT.md 
->  > +++ b/SUPPORT.md 
->  > @@ -768,13 +768,20 @@ Compile time disabled for ARM by default 
->  >  
->  >  Status, x86: Supported, not security supported 
->  >  
->  > -### XSM & FLASK 
->  > +### XSM 
->  > + 
->  > +    Status: Supported 
->  > + 
->  > +See below for use with FLASK and SILO.  The dummy implementation is covered here 
->  > +as well. 
->  > + 
->  > +### XSM + FLASK 
-> 
-> To me it would make more sense to say XSM FLASK Policy than XSM + FLASK.
+> If something during page table walk will go wrong then a fault will be
+> raised.
 
-I thought about using "policy", but then deemed that wrong. The "Flask
-policy" is what you load into Flask. Whereas here we're talking about the
-code actually carrying out what such a policy says.
+On the very insn, with subsequent insns not having started executing
+(from an architectural perspective, i.e. leaving aside speculation).
+That is what my use of "synchronous" meant.
+
+> My initial intension was to be sure if I will be writing to an actively
+> in-use page table that other cores can see at the time then fences
+> above are required. It is not the case for now as we have only one CPUs
+> but I assume that it will be a case when SMP will be enabled and more
+> then one CPU will be able to work with the same page table.
+
+Would that first fence really help there? The other CPU could use
+the page tables in the window between the fence and the write. My
+understanding of the need for fences is for them to be used at times
+where ordering of memory accesses matters. For the moment I don't
+see this as an aspect for the 1st fence here, but I may be
+overlooking something.
+
+>>>>> +    tmp = paddr_to_pte(LINK_TO_LOAD((unsigned
+>>>>> long)&xen_fixmap),
+>>>>> PTE_TABLE);
+>>>>
+>>>> I'm a little puzzled by the use of LINK_TO_LOAD() (and
+>>>> LOAD_TO_LINK()
+>>>> a
+>>>> little further up) here. Don't you have functioning __pa() and
+>>>> __va()?
+>>> No, they haven't been introduced yet.
+>>
+>> So you're building up more technical debt, as the use of said two
+>> constructs really should be limited to very early setup. Aiui once
+>> you have functioning __va() / __pa() the code here would want
+>> changing?
+> 
+> Ideally yes, it would want to changed.
+> 
+> Would it be the better solution to define __va() and __pa() using
+> LOAD_TO_LINK()/LINK_TO_LOAD() so when "real" __va() and __pa() will be
+> ready so only definitions of __va() and __pa() should be changed.
+
+Well, that's something you're in a better position to answer, as it
+depends on the ordering of subsequent work of yours.
 
 Jan
 
