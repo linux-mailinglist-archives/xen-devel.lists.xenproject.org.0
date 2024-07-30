@@ -2,32 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5A7D941F32
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 20:08:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768048.1178792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21F32942159
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 22:13:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768061.1178805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYrGN-0007Pd-0K; Tue, 30 Jul 2024 18:07:55 +0000
+	id 1sYtCq-0008QH-Jx; Tue, 30 Jul 2024 20:12:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768048.1178792; Tue, 30 Jul 2024 18:07:54 +0000
+Received: by outflank-mailman (output) from mailman id 768061.1178805; Tue, 30 Jul 2024 20:12:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYrGM-0007O9-Tp; Tue, 30 Jul 2024 18:07:54 +0000
-Received: by outflank-mailman (input) for mailman id 768048;
- Tue, 30 Jul 2024 18:07:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sYrGL-0007Nk-LF
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 18:07:53 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sYrGK-0002s5-RG; Tue, 30 Jul 2024 18:07:52 +0000
-Received: from [15.248.2.25] (helo=[10.24.67.29])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sYrGK-0002Pk-KF; Tue, 30 Jul 2024 18:07:52 +0000
+	id 1sYtCq-0008OP-H5; Tue, 30 Jul 2024 20:12:24 +0000
+Received: by outflank-mailman (input) for mailman id 768061;
+ Tue, 30 Jul 2024 20:12:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=v2aj=O6=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1sYtCo-0008OJ-Ve
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 20:12:23 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2409::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 05fb38c7-4eb0-11ef-bc01-fd08da9f4363;
+ Tue, 30 Jul 2024 22:12:20 +0200 (CEST)
+Received: from SA9PR13CA0127.namprd13.prod.outlook.com (2603:10b6:806:27::12)
+ by CH3PR12MB7572.namprd12.prod.outlook.com (2603:10b6:610:144::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.28; Tue, 30 Jul
+ 2024 20:12:15 +0000
+Received: from SN1PEPF000252A4.namprd05.prod.outlook.com
+ (2603:10b6:806:27:cafe::54) by SA9PR13CA0127.outlook.office365.com
+ (2603:10b6:806:27::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.19 via Frontend
+ Transport; Tue, 30 Jul 2024 20:12:15 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF000252A4.mail.protection.outlook.com (10.167.242.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7828.19 via Frontend Transport; Tue, 30 Jul 2024 20:12:14 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 30 Jul
+ 2024 15:12:14 -0500
+Received: from [172.28.183.80] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 30 Jul 2024 15:12:13 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,325 +59,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=q+uEIXsYah8wV9Ej7qUYbl4VVaqhYo56k3Bk1ndEEJA=; b=a3d6Me8FxoErkTCsS06CI1CL6I
-	M3rkw2224C7db9lJQFaeMwZTJwNmShJ1WZNaz1CNjxYy4st7ImuyYypUCHy0LDa1IwRit7vGgIwi9
-	dnzcl6uaDx2sKjJUK1QIoxcixqV5eX0WHHSU6Izi656jS6clGvH2fLkYmD/yPLhbMpzI=;
-Message-ID: <6a71cff1-feac-44cd-9233-9ed474e871e4@xen.org>
-Date: Tue, 30 Jul 2024 19:07:50 +0100
+X-Inumbo-ID: 05fb38c7-4eb0-11ef-bc01-fd08da9f4363
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R97Rpde0bUQylQbPiBJDWnNxXGjp9ul8tvSIG4xqKOyjJRyqT70ixG2/VVCbf0SJa9O/kORveiUDT0rOPQc3xAREZsfELOQfAiLTK71wz9plRpy72qxBv7v2lVjSFYCTQNU0qoM5rsYMvyin3ik3N6Xiy9CJkEJbBfkGMVpMGP/c75GwyKdQCMrA+udZyJe1xuE7b/Ep9xZuv7755mi3OuCcRj6605k7QQtvlQRJjRhBlRL8z0fHheVDmG0pCeW1SqUrtD1BVxA6537xMraqji6FKQg1LTqpMUcxUol/sHwxVEHc6n102bmyiL9ZVn3UDBzG/GcSSAi8ZOYAFygcag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fc33GMnABJISCtJcK0V6+XTh3zwvOnqOkgapOFYlwIo=;
+ b=J02dY8lxHq0CiqDlX9V0wlhNqVpGb6+dyeXbEbZ5E4kZoE4joguzyua67FgtCLkzXWlWMCl7/ulw2SIp2s5XX+ht54X6zqQTYweajJZqjhee0qBEkmumBhm1W87a7D3OFSGYVrEplRhl/7UBk3ieJbi2YrI1S9j9wBsuhng+gzjpiF1IWD5G4qaRR4NFEsc1xU4BL6tozOqb268Bw8L4HFba9pzI/ww3liZ3nWz6TCYOabc7cmmJnJkuxG8QEpay6kixeiaU23c4dMujdS5gtBkA1wDFH4ktiWvsJkhe4S/ejl5eY/wj08G3dtVW8gB6c7ZRUgjNhuEFqbwRyfUlBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fc33GMnABJISCtJcK0V6+XTh3zwvOnqOkgapOFYlwIo=;
+ b=ZTCWPth7p2e76QlDlkqCtpoyIu3CEHTMYWd3XGFTBzBlPmbdIXS/shAZVLxoaosE7xe9OOaq0tfg8vA56+506zbJZr/Hs3hrv4qm7LyN5SUwXBR7GqQVS6TaYVgwGI3PVZtyOiYN/2h2B9IusM0JvQrsZyIVyhaB5Aq9bi7lRS0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <a3dd3ed1-ba8c-4776-b9b5-926e30651e5d@amd.com>
+Date: Tue, 30 Jul 2024 16:12:07 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 3/3] xen/arm: stack check instrumentation
-Content-Language: en-GB
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>
 References: <20240729142421.137283-1-stewart.hildebrand@amd.com>
  <20240729142421.137283-4-stewart.hildebrand@amd.com>
  <d313f39a-f5aa-4611-975e-bc64759bbd01@xen.org>
  <23fe4756-4e5c-47f8-b9cc-101b7b8d116f@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <23fe4756-4e5c-47f8-b9cc-101b7b8d116f@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <6a71cff1-feac-44cd-9233-9ed474e871e4@xen.org>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <6a71cff1-feac-44cd-9233-9ed474e871e4@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A4:EE_|CH3PR12MB7572:EE_
+X-MS-Office365-Filtering-Correlation-Id: 772767dc-d73d-4ebc-8f21-08dcb0d3e78c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SGM5OEJsZldQWVd4ZGg1OVkxZDJaQS9WeDFJdGUveHAxbnd5ZGYxY0M5QzRP?=
+ =?utf-8?B?Ui9hZGdtQm1zNkNQQkdoS1VybEZFbHN0Zm1MY3F4WTc5L2d1VjdmMUwxR2p3?=
+ =?utf-8?B?U0NPVVE1bHJtQUwwaGFiaHg4YXQwZ2crWWtzaXNRUTJUeldDb1ZVWmJsLytM?=
+ =?utf-8?B?U0U4SlFNRnhjb25veDdpUUhBVzhGZTE1MkZkdE9pT0VwWTdqOUpEV0RMc3NW?=
+ =?utf-8?B?MnRVN3dLTWNsYWNRSnFyOHd3b1JEOUFjNERwVm4rRUVoYWJiTE00ditFdERz?=
+ =?utf-8?B?aGg5dXBvbGhQS2hiTUpEL3VCbXJTUGhXVEZaR0FyTVhDanE2RnN1OU9TTGR0?=
+ =?utf-8?B?dW1HUWVVcDZkSFZUUm82eUpvci9XNVRDRHdKTmF1QnZOMHZ6TFpuN3dhNUpW?=
+ =?utf-8?B?SmZITEppSEI0TTZNb0l3WS9jVndxSTBhYmY4Tkdva3lueU50blJlVUNIemow?=
+ =?utf-8?B?RG5mMlBGWkd3NE1mZDFubmFVeWhnMnlXcG95a2tOT29Nd0dGbTFmNmdhTHRt?=
+ =?utf-8?B?VVBIVTI5RGNROVJrWG9oTkVSYWlzcVRVQy81eDhkNzZDWUxEM0U0WjdnKzlt?=
+ =?utf-8?B?TzNwWGRYWjlPSVM2elJDUm1nOTUzVENHc2lrRm9FaDRSajRsaHMwS09ObEc2?=
+ =?utf-8?B?YXB2S1pXUjhtbkVsa0JvUTZvaW0za0V3OG85MUxQbkIzdHAxQWpxY3g3L2dY?=
+ =?utf-8?B?T3pmaXBXSUhJdFNoc0t4UmtuWEFBMW9meEdUNXo2VGZMejdaUEJQeWZCbytB?=
+ =?utf-8?B?emJUTmVCRU4xRFhCSm81ZGZxUmhZL0FWWjlaVGs1R0xCdDFXQ3kyT0xCRDYy?=
+ =?utf-8?B?cHE4WXdwbFYxem5yOHUyUnNrNXAzMG9iUEhaNW9hdHljWklRRUM5SzErQWNC?=
+ =?utf-8?B?OFZ5VlhhanhGWHJmblV0RW5rZGFvY1piV242VDJieEdOY1ZsRkRjTGQ3WW1V?=
+ =?utf-8?B?SnV0TEovS2R5SVZyQjk1aDZKc3RUWlN6QlJndk9ldng5Z0lSbzRUSHpTQTAy?=
+ =?utf-8?B?UzJFVno0K3hOYnY2SndsVUszeHFlYlpsWHJqQkozUVM3ZGhzM2lWQ3Bobk9T?=
+ =?utf-8?B?OGlhL3V1SVN6aTV3aE13cWJGNWNZU1VkTXg3NnM3VUN4alpYc05DSFRHbjFB?=
+ =?utf-8?B?c1B1NmdLT3hldVJYNVNHUjV5aWVrSEZnRmd5bCtiOUZHTld5K2FXQXhLa1BX?=
+ =?utf-8?B?SVlBWFdTWmRkcFl5MGFsb1BONHdxVDVQL3RuN3JnWkhlejFGWmQ3eWRrcm9v?=
+ =?utf-8?B?T1lyVGRNNjNOYlJVQmxnNjgwWUFEYWwzSUQ2c1oyRXIwTm5YS0dOVjNqVmlC?=
+ =?utf-8?B?ck12SUd3M1BxRXhFdkdwcTRpRmFSZDl4bVBDSE1pZUdlREszT2kxMzV6c0x2?=
+ =?utf-8?B?RHRQUit6QjBNc2J6Y3lSOXpiQkdQd3RZNjJDdEZuaXlKbVVkamVGM2hRVktt?=
+ =?utf-8?B?TXhzeWxiSEZvMmJGNWFkN0FSRTA2b0laaXdiYU96UVdxeHlhR3E3VmR0UFJp?=
+ =?utf-8?B?aHVvUDVMZzQ1TklDdXRsS3JMTTE5WXhnek0vOFFVZlQ1eVVSeXB0VVB6cjNG?=
+ =?utf-8?B?NmduT29HN0ZwdXdGeGh0Y1hGbzJIOXVqcGw3MlBKVi9JN0lHZ1NMZGFvRnQ2?=
+ =?utf-8?B?M1g1eThpVDVhNVpjSUgyaWMzRWRMbmx2TmlpVVgrakhtWVdKbUZDTnAvL1RF?=
+ =?utf-8?B?UVJTTk43SFVWMnBWS215VHVadFJkRHdnckQvZnF4bXkySjJZcDBFcTNqdFhi?=
+ =?utf-8?B?NFBLMVhDaHB0aThNZk1qcWRrK3dKeHJpdjJpTTNxY1JzWEFIemtFcE40Umh3?=
+ =?utf-8?B?R3liU1BQOWJleWJ4ODYvQ2VSWjlIQUpZaHFqdWpleTBaL2MyRzhyaXFvaENi?=
+ =?utf-8?B?bmlUSmFkekVyT0pBQ3hpWHQ5cHBJUGdLRE55TnA5ZGxFS2JaeHJQV1lTY1NE?=
+ =?utf-8?Q?F7UmENZTvXRhdQqiKDCzbUIrfOR0m1eI?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2024 20:12:14.8323
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 772767dc-d73d-4ebc-8f21-08dcb0d3e78c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000252A4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7572
 
-Hi,
-
-On 30/07/2024 18:50, Stewart Hildebrand wrote:
-> On 7/29/24 14:36, Julien Grall wrote:
->> Hi Stewart,
->>
->> On 29/07/2024 15:24, Stewart Hildebrand wrote:
->>> Use the -finstrument-functions option to check that the stack pointer is
->>
->> Is the feature supported by both clang and GCC?
+On 7/30/24 14:07, Julien Grall wrote:
+> Hi,
 > 
-> Yes, I tested both.
-> 
->> If so, which from versions?
-> 
-> gcc since at least 1998, not sure what version specifically.
-> 
-> clang since v2.8 (2010)
-
-That's quite old :). Thanks for checking.
-
->>
->> In any case, it would be better if this new option is under its own kconfig options. We can separately decide whether it is on or off by default when CONFIG_DEBUG=y.
-> 
-> Will do. Given the significant overhead when running on qemu, I think I
-> must reluctantly suggest that it be off by default. For CI runs with
-> real hardware, we could turn it on.
-
-That makes sense.
-
->>> Use per-cpu variables to store the stack base and nesting level. The
->>> nesting level is used to avoid invoking __cyg_profile_func_enter
->>> recursively.
+> On 30/07/2024 18:50, Stewart Hildebrand wrote:
+>> On 7/29/24 14:36, Julien Grall wrote:
+>>> Hi Stewart,
 >>>
->>> A check is added for whether per-cpu data has been initialized. Since
->>> TPIDR_EL2 resets to an unknown value, initialize it to an invalid value.
+>>> On 29/07/2024 15:24, Stewart Hildebrand wrote:
+>>>> +DEFINE_PER_CPU(unsigned int, stack_check_nesting);
+>>>> +DEFINE_PER_CPU(unsigned char *, stack_base);
 >>>
->>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>> ---
->>> RFC: I only tested this on arm64. I still need to test with arm32.
+>>> I think this could be "const unsigned char *" as the stack should not be modified directly.
+>>
+>> Every time there's a vcpu context switch we will have a new stack.
+> 
+> I am not sure I follow. "const unsigned char *" should still allow you to update stack_base. It will just prevent anyone to try to write to modify the stack via stack_base.
+
+Ah, of course. You're right. I'll change it to "const unsigned char *".
+
+> 
+>>
 >>>
->>> RFC: Should we put this under its own config option instead of reusing
->>>        CONFIG_DEBUG?
+>>>> +
+>>>> +void __attribute__((no_instrument_function)) stack_set(unsigned char *base)
+>>>> +{
+>>>> +    this_cpu(stack_base) = base;
+>>>> +}
+>>>> +
+>>>> +void __init __attribute__((no_instrument_function)) stack_check_init(void)
+>>>> +{
+>>>> +    this_cpu(stack_check_nesting) = 0;
+>>>> +    stack_set(init_data.stack);
+>>>> +}
+>>>> +
+>>>> +__attribute__((no_instrument_function))
+>>>> +void __cyg_profile_func_enter(void *this_fn, void *call_site)
+>>>> +{
+>>>> +    unsigned char *sp;
+>>>> +
+>>>> +    if ( get_per_cpu_offset() == INVALID_PER_CPU_OFFSET )
+>>>> +        return;
+>>>> +
+>>>> +    asm volatile ("mov %0, sp" : "=r" (sp) );
+>>>> +
+>>>> +    if ( sp < this_cpu(stack_base) ||
+>>>> +         sp > (this_cpu(stack_base) + STACK_SIZE) )
+>>>
+>>> The top of the stack is used to store struct cpu_info. So you want to substract its size (see arch_vcpu_create()).
 >>
->> See above.
+>> Will do.
 >>
 >>>
->>> RFC: Is there a better value for INVALID_PER_CPU_OFFSET? We can't use 0
->>>        because 0 is a valid value for get_per_cpu_offset().
->>
->> I would consider to use ~0 because this is very unlikely to be used as an offset (at least on arm64).
-> 
-> Yep, ~0 works, will do.
-> 
->>
->>> ---
->>>    xen/arch/arm/arch.mk             |  1 +
->>>    xen/arch/arm/arm64/head.S        |  4 +++
->>>    xen/arch/arm/domain.c            |  3 +++
->>>    xen/arch/arm/include/asm/page.h  |  2 ++
->>>    xen/arch/arm/include/asm/traps.h |  8 ++++++
->>>    xen/arch/arm/setup.c             |  4 +++
->>>    xen/arch/arm/smpboot.c           |  3 +++
->>>    xen/arch/arm/traps.c             | 45 ++++++++++++++++++++++++++++++++
->>>    8 files changed, 70 insertions(+)
+>>>> +    {
+>>>> +        if ( this_cpu(stack_check_nesting) )
+>>>> +            return;
+>>>> +
+>>>> +        this_cpu(stack_check_nesting)++;
 >>>
->>> diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
->>> index 022dcda19224..c39cb65d183d 100644
->>> --- a/xen/arch/arm/arch.mk
->>> +++ b/xen/arch/arm/arch.mk
->>> @@ -12,6 +12,7 @@ CFLAGS-$(CONFIG_ARM_32) += -mno-unaligned-access
->>>    CFLAGS-$(CONFIG_ARM_64) += -mcpu=generic
->>>    CFLAGS-$(CONFIG_ARM_64) += -mgeneral-regs-only # No fp registers etc
->>>    $(call cc-option-add,CFLAGS-$(CONFIG_ARM_64),CC,-mno-outline-atomics)
->>> +CFLAGS-$(CONFIG_DEBUG) += -finstrument-functions
->>>      ifneq ($(filter command line environment,$(origin CONFIG_EARLY_PRINTK)),)
->>>        $(error You must use 'make menuconfig' to enable/disable early printk now)
->>> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
->>> index 2fa07dc3a04b..4a332b9cbc7c 100644
->>> --- a/xen/arch/arm/arm64/head.S
->>> +++ b/xen/arch/arm/arm64/head.S
->>> @@ -399,6 +399,10 @@ FUNC_LOCAL(cpu_init)
->>>             * than SP_EL0.
->>>             */
->>>            msr spsel, #1
->>> +
+>>> Looking at the use, it only seems to be used as "print/panic once". So maybe use a bool to avoid any overflow.
 >>
->> I would add a comment explaining what we are doing.
+>> It will only ever be incremented once. I'll still change it to a bool,
+>> this should make it more obvious.
+>>
+>>>
+>>>> +        printk("CPU %d stack pointer out of bounds (sp %#lx, stack base %#lx)\n",
+>>>> +               smp_processor_id(), (uintptr_t)sp,
+>>>> +               (uintptr_t)this_cpu(stack_base));
+>>>> +        BUG();
+>>>
+>>> I would consider to call panic().
+>>
+>> panic() alone doesn't show the stack trace / call trace.
 > 
-> Will do.
+> Ah good point. But TBH, I have never really understood why panic() didn't return a call stack. There are a few places where I found beneficial when debugging.
+> 
+> Anyway, I guess this could be handled separately.
 > 
 >>
->>> +        ldr   x0, =INVALID_PER_CPU_OFFSET
->>> +        msr   tpidr_el2, x0
->>> +
->>>            ret
->>>    END(cpu_init)
->>>    diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
->>> index 7cfcefd27944..93ebe6e5f8af 100644
->>> --- a/xen/arch/arm/domain.c
->>> +++ b/xen/arch/arm/domain.c
->>> @@ -26,6 +26,7 @@
->>>    #include <asm/procinfo.h>
->>>    #include <asm/regs.h>
->>>    #include <asm/tee/tee.h>
->>> +#include <asm/traps.h>
->>>    #include <asm/vfp.h>
->>>    #include <asm/vgic.h>
->>>    #include <asm/vtimer.h>
->>> @@ -328,6 +329,8 @@ void context_switch(struct vcpu *prev, struct vcpu *next)
->>>          set_current(next);
->>>    +    stack_set(next->arch.stack);
->>> +
->>>        prev = __context_switch(prev, next);
->>>          schedule_tail(prev);
->>> diff --git a/xen/arch/arm/include/asm/page.h b/xen/arch/arm/include/asm/page.h
->>> index 69f817d1e68a..6b5aaf1eb3ff 100644
->>> --- a/xen/arch/arm/include/asm/page.h
->>> +++ b/xen/arch/arm/include/asm/page.h
->>> @@ -7,6 +7,8 @@
->>>    #include <asm/lpae.h>
->>>    #include <asm/sysregs.h>
->>>    +#define INVALID_PER_CPU_OFFSET            _AC(0x1, UL)
->>> +
->>>    /* Shareability values for the LPAE entries */
->>>    #define LPAE_SH_NON_SHAREABLE 0x0
->>>    #define LPAE_SH_UNPREDICTALE  0x1
->>> diff --git a/xen/arch/arm/include/asm/traps.h b/xen/arch/arm/include/asm/traps.h
->>> index 9a60dbf70e5b..13e6997c2643 100644
->>> --- a/xen/arch/arm/include/asm/traps.h
->>> +++ b/xen/arch/arm/include/asm/traps.h
->>> @@ -118,6 +118,14 @@ static inline register_t sign_extend(const struct hsr_dabt dabt, register_t r)
->>>      void finalize_instr_emulation(const struct instr_details *instr);
->>>    +#ifdef CONFIG_DEBUG
->>> +void stack_check_init(void);
->>> +void stack_set(unsigned char *base);
->>> +#else
->>> +static inline void stack_check_init(void) { }
->>> +static inline void stack_set(unsigned char *base) { }
->>> +#endif
->>> +
->>>    #endif /* __ASM_ARM_TRAPS__ */
->>>    /*
->>>     * Local variables:
->>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
->>> index 0c2fdaceaf21..07d07feff602 100644
->>> --- a/xen/arch/arm/setup.c
->>> +++ b/xen/arch/arm/setup.c
->>> @@ -47,6 +47,7 @@
->>>    #include <asm/setup.h>
->>>    #include <xsm/xsm.h>
->>>    #include <asm/acpi.h>
->>> +#include <asm/traps.h>
->>>      struct bootinfo __initdata bootinfo = BOOTINFO_INIT;
->>>    @@ -733,6 +734,8 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
->>>        percpu_init_areas();
->>>        set_processor_id(0); /* needed early, for smp_processor_id() */
->>>    +    stack_check_init();
->>> +
->>>        /* Initialize traps early allow us to get backtrace when an error occurred */
->>>        init_traps();
->>>    @@ -924,6 +927,7 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
->>>         * since the static one we're running on is about to be freed. */
->>>        memcpy(idle_vcpu[0]->arch.cpu_info, get_cpu_info(),
->>>               sizeof(struct cpu_info));
->>> +    stack_set(idle_vcpu[0]->arch.stack);
->>>        switch_stack_and_jump(idle_vcpu[0]->arch.cpu_info, init_done);
->>>    }
->>>    diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
->>> index 04e363088d60..1c689f2caed7 100644
->>> --- a/xen/arch/arm/smpboot.c
->>> +++ b/xen/arch/arm/smpboot.c
->>> @@ -30,6 +30,7 @@
->>>    #include <asm/psci.h>
->>>    #include <asm/acpi.h>
->>>    #include <asm/tee/tee.h>
->>> +#include <asm/traps.h>
->>>      /* Override macros from asm/page.h to make them work with mfn_t */
->>>    #undef virt_to_mfn
->>> @@ -329,6 +330,8 @@ void asmlinkage start_secondary(void)
->>>          set_processor_id(cpuid);
->>>    +    stack_check_init();
->>> +
->>>        identify_cpu(&current_cpu_data);
->>>        processor_setup();
->>>    diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
->>> index aac6c599f878..b4890eec7ec4 100644
->>> --- a/xen/arch/arm/traps.c
->>> +++ b/xen/arch/arm/traps.c
->>> @@ -2325,6 +2325,51 @@ void asmlinkage leave_hypervisor_to_guest(void)
->>>            arm_smccc_1_1_smc(ARM_SMCCC_ARCH_WORKAROUND_2_FID, 0, NULL);
->>>    }
->>>    +#ifdef CONFIG_DEBUG
+>>> But is it safe to call any of this if we blew the stack?
 >>
->> Loooking at the code below. Aside the stack pointer part, nothing seems specific to Arm. So maybe this could be moved to common code?
-> 
-> Yes, I suppose so.
-> 
+>> Nope, it sure isn't!
 >>
->>> +DEFINE_PER_CPU(unsigned int, stack_check_nesting);
->>> +DEFINE_PER_CPU(unsigned char *, stack_base);
+>>> IOW, should we have a buffer?
 >>
->> I think this could be "const unsigned char *" as the stack should not be modified directly.
+>> Yes. After some experimentation, I found that this printk and a WARN
+>> (similar to BUG, but resumes execution and allows me to collect these
+>> metrics) uses approximately 1632 bytes of stack. Assuming BUG uses a
+>> similar amount of stack as WARN, and adding in a comfortable margin for
+>> error, I'll add a 4096 byte buffer (i.e. invoke the print/BUG with 4096
+>> bytes remaining on the stack).
 > 
-> Every time there's a vcpu context switch we will have a new stack.
+> AFAICT, the stack on Arm is 32KB. So we 1/8 of the stack as a buffer. Do you know the current stack use in a normal setup (e.g. boot a guest)?
 
-I am not sure I follow. "const unsigned char *" should still allow you 
-to update stack_base. It will just prevent anyone to try to write to 
-modify the stack via stack_base.
+In my particular test case simply booting a dom0, it uses about 14k of
+stack. Of course this could vary with booting dom0less domUs, complexity
+of device tree parsing, etc.
 
 > 
->>
->>> +
->>> +void __attribute__((no_instrument_function)) stack_set(unsigned char *base)
->>> +{
->>> +    this_cpu(stack_base) = base;
->>> +}
->>> +
->>> +void __init __attribute__((no_instrument_function)) stack_check_init(void)
->>> +{
->>> +    this_cpu(stack_check_nesting) = 0;
->>> +    stack_set(init_data.stack);
->>> +}
->>> +
->>> +__attribute__((no_instrument_function))
->>> +void __cyg_profile_func_enter(void *this_fn, void *call_site)
->>> +{
->>> +    unsigned char *sp;
->>> +
->>> +    if ( get_per_cpu_offset() == INVALID_PER_CPU_OFFSET )
->>> +        return;
->>> +
->>> +    asm volatile ("mov %0, sp" : "=r" (sp) );
->>> +
->>> +    if ( sp < this_cpu(stack_base) ||
->>> +         sp > (this_cpu(stack_base) + STACK_SIZE) )
->>
->> The top of the stack is used to store struct cpu_info. So you want to substract its size (see arch_vcpu_create()).
+> Anyway, so long the feature is not enabled in production, then it might be ok to steal 4KB. We could increase the stack if we see any issue.
 > 
-> Will do.
+> Cheers,
 > 
->>
->>> +    {
->>> +        if ( this_cpu(stack_check_nesting) )
->>> +            return;
->>> +
->>> +        this_cpu(stack_check_nesting)++;
->>
->> Looking at the use, it only seems to be used as "print/panic once". So maybe use a bool to avoid any overflow.
-> 
-> It will only ever be incremented once. I'll still change it to a bool,
-> this should make it more obvious.
-> 
->>
->>> +        printk("CPU %d stack pointer out of bounds (sp %#lx, stack base %#lx)\n",
->>> +               smp_processor_id(), (uintptr_t)sp,
->>> +               (uintptr_t)this_cpu(stack_base));
->>> +        BUG();
->>
->> I would consider to call panic().
-> 
-> panic() alone doesn't show the stack trace / call trace.
-
-Ah good point. But TBH, I have never really understood why panic() 
-didn't return a call stack. There are a few places where I found 
-beneficial when debugging.
-
-Anyway, I guess this could be handled separately.
-
-> 
->> But is it safe to call any of this if we blew the stack?
-> 
-> Nope, it sure isn't!
-> 
->> IOW, should we have a buffer?
-> 
-> Yes. After some experimentation, I found that this printk and a WARN
-> (similar to BUG, but resumes execution and allows me to collect these
-> metrics) uses approximately 1632 bytes of stack. Assuming BUG uses a
-> similar amount of stack as WARN, and adding in a comfortable margin for
-> error, I'll add a 4096 byte buffer (i.e. invoke the print/BUG with 4096
-> bytes remaining on the stack).
-
-AFAICT, the stack on Arm is 32KB. So we 1/8 of the stack as a buffer. Do 
-you know the current stack use in a normal setup (e.g. boot a guest)?
-
-Anyway, so long the feature is not enabled in production, then it might 
-be ok to steal 4KB. We could increase the stack if we see any issue.
-
-Cheers,
-
--- 
-Julien Grall
 
 
