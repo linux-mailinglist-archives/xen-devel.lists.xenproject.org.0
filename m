@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2D4C940F6E
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 12:33:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767517.1178184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C02FA940F85
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 12:35:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767525.1178195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYkAL-0007x2-1t; Tue, 30 Jul 2024 10:33:13 +0000
+	id 1sYkCO-00006V-HE; Tue, 30 Jul 2024 10:35:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767517.1178184; Tue, 30 Jul 2024 10:33:13 +0000
+Received: by outflank-mailman (output) from mailman id 767525.1178195; Tue, 30 Jul 2024 10:35:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYkAK-0007vL-VO; Tue, 30 Jul 2024 10:33:12 +0000
-Received: by outflank-mailman (input) for mailman id 767517;
- Tue, 30 Jul 2024 10:33:12 +0000
+	id 1sYkCO-00004t-DZ; Tue, 30 Jul 2024 10:35:20 +0000
+Received: by outflank-mailman (input) for mailman id 767525;
+ Tue, 30 Jul 2024 10:35:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f2k0=O6=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1sYkAK-0007vD-4k
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 10:33:12 +0000
+ id 1sYkCN-0008WT-EE
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 10:35:19 +0000
 Received: from pb-smtp21.pobox.com (pb-smtp21.pobox.com [173.228.157.53])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1ddc727d-4e5f-11ef-bc01-fd08da9f4363;
- Tue, 30 Jul 2024 12:33:11 +0200 (CEST)
+ id 699d59dc-4e5f-11ef-bc01-fd08da9f4363;
+ Tue, 30 Jul 2024 12:35:18 +0200 (CEST)
 Received: from pb-smtp21.pobox.com (unknown [127.0.0.1])
- by pb-smtp21.pobox.com (Postfix) with ESMTP id C8ED83EF89;
- Tue, 30 Jul 2024 06:33:09 -0400 (EDT)
+ by pb-smtp21.pobox.com (Postfix) with ESMTP id AEB7E3EF9A;
+ Tue, 30 Jul 2024 06:35:16 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 Received: from pb-smtp21.sea.icgroup.com (unknown [127.0.0.1])
- by pb-smtp21.pobox.com (Postfix) with ESMTP id C0B523EF88;
- Tue, 30 Jul 2024 06:33:09 -0400 (EDT)
+ by pb-smtp21.pobox.com (Postfix) with ESMTP id A72C93EF99;
+ Tue, 30 Jul 2024 06:35:16 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 Received: from localhost (unknown [185.130.54.90])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by pb-smtp21.pobox.com (Postfix) with ESMTPSA id 68EAC3EF87;
- Tue, 30 Jul 2024 06:33:06 -0400 (EDT)
+ by pb-smtp21.pobox.com (Postfix) with ESMTPSA id 4C14C3EF98;
+ Tue, 30 Jul 2024 06:35:12 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -50,147 +50,288 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ddc727d-4e5f-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: 699d59dc-4e5f-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
 	:subject:date:message-id:in-reply-to:references:mime-version
-	:content-transfer-encoding; s=sasl; bh=TYiTEy4cUxeBQmG3mkiO34ODY
-	8YMOMAHGuXGuqNEmg4=; b=b8NKrxhlTE9+AcL/Xyfp2QPq0pnohHav+Hz1on2dq
-	aAWDm2DTADa1yu4GH42GK5pbEU+E8xiOjd0LTDsOXlTK58nUP2GHC8HaV2jBx2U1
-	2suGzTELfA+KbAbvrHrQ/oF/YwvsVl9zPKxsjL5Oi1Oe7wrFqkYJxVtG1ygtcQ6X
-	PM=
+	:content-transfer-encoding; s=sasl; bh=ZWslkpob5/V135B4z/OMGz0wX
+	maU/UJuAqh6Fq+RDfA=; b=XOp0rSK/zbpFTz0gM5wxM1MKCs75QVNnw8ssI6Xju
+	okdVvjsIjTpS5shTxmaYiOwdFfhRb7oR5uf6D40D0a476aBDo5Z/chbhQsftjoNq
+	JcwipDge7w72QFTHK/MugtEUoBFpbeadF/Y1coPlvMxzZPkZP/Si77FMipfg8hNC
+	1I=
 From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 To: xen-devel@lists.xenproject.org
 Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	Paul Durrant <paul@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [XEN PATCH v5 09/13] x86/vmx: guard access to cpu_has_vmx_* in common code
-Date: Tue, 30 Jul 2024 13:33:03 +0300
-Message-Id: <c2961c8b67041883ce5a5f6d0511a31dc7fbe22d.1722333634.git.Sergiy_Kibrik@epam.com>
+	Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+Subject: [XEN PATCH v5 10/13] x86/vpmu: guard calls to vmx/svm functions
+Date: Tue, 30 Jul 2024 13:35:09 +0300
+Message-Id: <fda81012adec8c4993acd83076f1a46f2d71d668.1722333634.git.Sergiy_Kibrik@epam.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1722333634.git.Sergiy_Kibrik@epam.com>
 References: <cover.1722333634.git.Sergiy_Kibrik@epam.com>
 MIME-Version: 1.0
 X-Pobox-Relay-ID:
- 1BA55366-4E5F-11EF-BB9B-9625FCCAB05B-90055647!pb-smtp21.pobox.com
+ 66ADABE2-4E5F-11EF-ABA6-9625FCCAB05B-90055647!pb-smtp21.pobox.com
 Content-Transfer-Encoding: quoted-printable
 
-There're several places in common code, outside of arch/x86/hvm/vmx,
-where cpu_has_vmx_* get accessed without checking whether VMX supported f=
-irst.
-These macros rely on global variables defined in vmx code, so when VMX su=
-pport
-is disabled accesses to these variables turn into build failures.
-
-To overcome these failures, build-time check is done before accessing glo=
-bal
-variables, so that DCE would remove these variables.
+If VMX/SVM disabled in the build, we may still want to have vPMU drivers =
+for
+PV guests. Yet in such case before using VMX/SVM features and functions w=
+e have
+to explicitly check if they're available in the build. For this purpose
+(and also not to complicate conditionals) two helpers introduced --
+is_{vmx,svm}_vcpu(v) that check both HVM & VMX/SVM conditions at the same=
+ time,
+and they replace is_hvm_vcpu(v) macro in Intel/AMD PMU drivers.
 
 Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Acked-by: Paul Durrant <paul@xen.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
 CC: Jan Beulich <jbeulich@suse.com>
 ---
 changes in v5:
- - change kconfig option name VMX -> INTEL_VMX
- - do not change .c files, only modify macros in vmcs.h
+- change kconfig option name SVM/VMX -> AMD_SVM/INTEL_VMX
+ - replace is_hvm_vcpu() with is_{svm,vmx}_vcpu()
 changes in v4:
- - use IS_ENABLED(CONFIG_VMX) instead of using_vmx
+ - use IS_ENABLED(CONFIG_{VMX,SVM}) instead of using_{vmx,svm}
+ - fix typo
 changes in v3:
- - using_vmx instead of cpu_has_vmx
- - clarify description on why this change needed
+ - introduced macro is_{vmx,svm}_vcpu(v)
+ - changed description
+ - reordered patch, do not modify conditionals w/ cpu_has_vmx_msr_bitmap =
+check
 ---
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h | 33 ++++++++++++++++---------
- 1 file changed, 22 insertions(+), 11 deletions(-)
+ xen/arch/x86/cpu/vpmu_amd.c   | 11 ++++++-----
+ xen/arch/x86/cpu/vpmu_intel.c | 32 +++++++++++++++++---------------
+ 2 files changed, 23 insertions(+), 20 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/inclu=
-de/asm/hvm/vmx/vmcs.h
-index 58140af691..34898d9612 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -300,13 +300,15 @@ extern u64 vmx_ept_vpid_cap;
- #define cpu_has_wbinvd_exiting \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_WBINVD_EXITING)
- #define cpu_has_vmx_virtualize_apic_accesses \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSE=
-S)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSE=
-S)
- #define cpu_has_vmx_tpr_shadow \
-     (vmx_cpu_based_exec_control & CPU_BASED_TPR_SHADOW)
- #define cpu_has_vmx_vnmi \
-     (vmx_pin_based_exec_control & PIN_BASED_VIRTUAL_NMIS)
- #define cpu_has_vmx_msr_bitmap \
--    (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_MSR_BITMAP)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_MSR_BITMAP)
- #define cpu_has_vmx_secondary_exec_control \
-     (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS)
- #define cpu_has_vmx_tertiary_exec_control \
-@@ -316,11 +318,13 @@ extern u64 vmx_ept_vpid_cap;
- #define cpu_has_vmx_dt_exiting \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_DESCRIPTOR_TABLE_EXITIN=
-G)
- #define cpu_has_vmx_rdtscp \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_RDTSCP)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_RDTSCP)
- #define cpu_has_vmx_vpid \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VPID)
- #define cpu_has_monitor_trap_flag \
--    (vmx_cpu_based_exec_control & CPU_BASED_MONITOR_TRAP_FLAG)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_cpu_based_exec_control & CPU_BASED_MONITOR_TRAP_FLAG)
- #define cpu_has_vmx_pat \
-     (vmx_vmentry_control & VM_ENTRY_LOAD_GUEST_PAT)
- #define cpu_has_vmx_efer \
-@@ -333,13 +337,17 @@ extern u64 vmx_ept_vpid_cap;
- #define cpu_has_vmx_ple \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_PAUSE_LOOP_EXITING)
- #define cpu_has_vmx_invpcid \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_INVPCID)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_INVPCID)
- #define cpu_has_vmx_apic_reg_virt \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_APIC_REGISTER_VIRT)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_APIC_REGISTER_VIRT)
- #define cpu_has_vmx_virtual_intr_delivery \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY)
- #define cpu_has_vmx_virtualize_x2apic_mode \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE)
- #define cpu_has_vmx_posted_intr_processing \
-     (vmx_pin_based_exec_control & PIN_BASED_POSTED_INTERRUPT)
- #define cpu_has_vmx_vmcs_shadowing \
-@@ -347,14 +355,17 @@ extern u64 vmx_ept_vpid_cap;
- #define cpu_has_vmx_vmfunc \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VM_FUNCTIONS)
- #define cpu_has_vmx_virt_exceptions \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS)
- #define cpu_has_vmx_pml \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_PML)
- #define cpu_has_vmx_mpx \
--    ((vmx_vmexit_control & VM_EXIT_CLEAR_BNDCFGS) && \
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     (vmx_vmexit_control & VM_EXIT_CLEAR_BNDCFGS) && \
-      (vmx_vmentry_control & VM_ENTRY_LOAD_BNDCFGS))
- #define cpu_has_vmx_xsaves \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_XSAVES)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_XSAVES)
- #define cpu_has_vmx_tsc_scaling \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_TSC_SCALING)
- #define cpu_has_vmx_bus_lock_detection \
+diff --git a/xen/arch/x86/cpu/vpmu_amd.c b/xen/arch/x86/cpu/vpmu_amd.c
+index 97e6315bd9..a082450e92 100644
+--- a/xen/arch/x86/cpu/vpmu_amd.c
++++ b/xen/arch/x86/cpu/vpmu_amd.c
+@@ -27,6 +27,7 @@
+ #define is_pmu_enabled(msr) ((msr) & (1ULL << MSR_F10H_EVNTSEL_EN_SHIFT)=
+)
+ #define set_guest_mode(msr) ((msr) |=3D (1ULL << MSR_F10H_EVNTSEL_GO_SHI=
+FT))
+ #define is_overflowed(msr) (!((msr) & (1ULL << (MSR_F10H_COUNTER_LENGTH =
+- 1))))
++#define is_svm_vcpu(v) (IS_ENABLED(CONFIG_AMD_SVM) && is_hvm_vcpu(v))
+=20
+ static unsigned int __read_mostly num_counters;
+ static const u32 __read_mostly *counters;
+@@ -289,7 +290,7 @@ static int cf_check amd_vpmu_save(struct vcpu *v,  bo=
+ol to_guest)
+=20
+     context_save(v);
+=20
+-    if ( !vpmu_is_set(vpmu, VPMU_RUNNING) && is_hvm_vcpu(v) &&
++    if ( !vpmu_is_set(vpmu, VPMU_RUNNING) && is_svm_vcpu(v) &&
+          is_msr_bitmap_on(vpmu) )
+         amd_vpmu_unset_msr_bitmap(v);
+=20
+@@ -349,7 +350,7 @@ static int cf_check amd_vpmu_do_wrmsr(unsigned int ms=
+r, uint64_t msr_content)
+         return -EINVAL;
+=20
+     /* For all counters, enable guest only mode for HVM guest */
+-    if ( is_hvm_vcpu(v) && (type =3D=3D MSR_TYPE_CTRL) &&
++    if ( is_svm_vcpu(v) && (type =3D=3D MSR_TYPE_CTRL) &&
+          !is_guest_mode(msr_content) )
+     {
+         set_guest_mode(msr_content);
+@@ -363,7 +364,7 @@ static int cf_check amd_vpmu_do_wrmsr(unsigned int ms=
+r, uint64_t msr_content)
+             return 0;
+         vpmu_set(vpmu, VPMU_RUNNING);
+=20
+-        if ( is_hvm_vcpu(v) && is_msr_bitmap_on(vpmu) )
++        if ( is_svm_vcpu(v) && is_msr_bitmap_on(vpmu) )
+              amd_vpmu_set_msr_bitmap(v);
+     }
+=20
+@@ -372,7 +373,7 @@ static int cf_check amd_vpmu_do_wrmsr(unsigned int ms=
+r, uint64_t msr_content)
+         (is_pmu_enabled(msr_content) =3D=3D 0) && vpmu_is_set(vpmu, VPMU=
+_RUNNING) )
+     {
+         vpmu_reset(vpmu, VPMU_RUNNING);
+-        if ( is_hvm_vcpu(v) && is_msr_bitmap_on(vpmu) )
++        if ( is_svm_vcpu(v) && is_msr_bitmap_on(vpmu) )
+              amd_vpmu_unset_msr_bitmap(v);
+         release_pmu_ownership(PMU_OWNER_HVM);
+     }
+@@ -415,7 +416,7 @@ static void cf_check amd_vpmu_destroy(struct vcpu *v)
+ {
+     struct vpmu_struct *vpmu =3D vcpu_vpmu(v);
+=20
+-    if ( is_hvm_vcpu(v) && is_msr_bitmap_on(vpmu) )
++    if ( is_svm_vcpu(v) && is_msr_bitmap_on(vpmu) )
+         amd_vpmu_unset_msr_bitmap(v);
+=20
+     xfree(vpmu->context);
+diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.=
+c
+index cd414165df..085495ab5f 100644
+--- a/xen/arch/x86/cpu/vpmu_intel.c
++++ b/xen/arch/x86/cpu/vpmu_intel.c
+@@ -54,6 +54,8 @@
+ #define MSR_PMC_ALIAS_MASK       (~(MSR_IA32_PERFCTR0 ^ MSR_IA32_A_PERFC=
+TR0))
+ static bool __read_mostly full_width_write;
+=20
++#define is_vmx_vcpu(v) (IS_ENABLED(CONFIG_INTEL_VMX) && is_hvm_vcpu(v))
++
+ /*
+  * MSR_CORE_PERF_FIXED_CTR_CTRL contains the configuration of all fixed
+  * counters. 4 bits for every counter.
+@@ -266,10 +268,10 @@ static inline void __core2_vpmu_save(struct vcpu *v=
+)
+         rdmsrl(MSR_P6_EVNTSEL(i), xen_pmu_cntr_pair[i].control);
+     }
+=20
+-    if ( !is_hvm_vcpu(v) )
++    if ( !is_vmx_vcpu(v) )
+         rdmsrl(MSR_CORE_PERF_GLOBAL_STATUS, core2_vpmu_cxt->global_statu=
+s);
+     /* Save MSR to private context to make it fork-friendly */
+-    else if ( mem_sharing_enabled(v->domain) )
++    else if ( is_vmx_vcpu(v) && mem_sharing_enabled(v->domain) )
+         vmx_read_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
+                            &core2_vpmu_cxt->global_ctrl);
+ }
+@@ -278,7 +280,7 @@ static int cf_check core2_vpmu_save(struct vcpu *v, b=
+ool to_guest)
+ {
+     struct vpmu_struct *vpmu =3D vcpu_vpmu(v);
+=20
+-    if ( !is_hvm_vcpu(v) )
++    if ( !is_vmx_vcpu(v) )
+         wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL, 0);
+=20
+     if ( !vpmu_are_all_set(vpmu, VPMU_CONTEXT_SAVE | VPMU_CONTEXT_LOADED=
+) )
+@@ -287,7 +289,7 @@ static int cf_check core2_vpmu_save(struct vcpu *v, b=
+ool to_guest)
+     __core2_vpmu_save(v);
+=20
+     /* Unset PMU MSR bitmap to trap lazy load. */
+-    if ( !vpmu_is_set(vpmu, VPMU_RUNNING) && is_hvm_vcpu(v) &&
++    if ( !vpmu_is_set(vpmu, VPMU_RUNNING) && is_vmx_vcpu(v) &&
+          cpu_has_vmx_msr_bitmap )
+         core2_vpmu_unset_msr_bitmap(v);
+=20
+@@ -326,14 +328,14 @@ static inline void __core2_vpmu_load(struct vcpu *v=
+)
+     if ( vpmu_is_set(vcpu_vpmu(v), VPMU_CPU_HAS_DS) )
+         wrmsrl(MSR_IA32_DS_AREA, core2_vpmu_cxt->ds_area);
+=20
+-    if ( !is_hvm_vcpu(v) )
++    if ( !is_vmx_vcpu(v) )
+     {
+         wrmsrl(MSR_CORE_PERF_GLOBAL_OVF_CTRL, core2_vpmu_cxt->global_ovf=
+_ctrl);
+         core2_vpmu_cxt->global_ovf_ctrl =3D 0;
+         wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL, core2_vpmu_cxt->global_ctrl);
+     }
+     /* Restore MSR from context when used with a fork */
+-    else if ( mem_sharing_is_fork(v->domain) )
++    else if ( is_vmx_vcpu(v) && mem_sharing_is_fork(v->domain) )
+         vmx_write_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
+                             core2_vpmu_cxt->global_ctrl);
+ }
+@@ -381,7 +383,7 @@ static int core2_vpmu_verify(struct vcpu *v)
+     }
+=20
+     if ( vpmu_is_set(vpmu, VPMU_CPU_HAS_DS) &&
+-         !(is_hvm_vcpu(v)
++         !(is_vmx_vcpu(v)
+            ? is_canonical_address(core2_vpmu_cxt->ds_area)
+            : __addr_ok(core2_vpmu_cxt->ds_area)) )
+         return -EINVAL;
+@@ -442,7 +444,7 @@ static int cf_check core2_vpmu_alloc_resource(struct =
+vcpu *v)
+     if ( !acquire_pmu_ownership(PMU_OWNER_HVM) )
+         return 0;
+=20
+-    if ( is_hvm_vcpu(v) )
++    if ( is_vmx_vcpu(v) )
+     {
+         if ( vmx_add_host_load_msr(v, MSR_CORE_PERF_GLOBAL_CTRL, 0) )
+             goto out_err;
+@@ -513,7 +515,7 @@ static int core2_vpmu_msr_common_check(u32 msr_index,=
+ int *type, int *index)
+         __core2_vpmu_load(current);
+         vpmu_set(vpmu, VPMU_CONTEXT_LOADED);
+=20
+-        if ( is_hvm_vcpu(current) && cpu_has_vmx_msr_bitmap )
++        if ( is_vmx_vcpu(current) && cpu_has_vmx_msr_bitmap )
+             core2_vpmu_set_msr_bitmap(current);
+     }
+     return 1;
+@@ -562,7 +564,7 @@ static int cf_check core2_vpmu_do_wrmsr(unsigned int =
+msr, uint64_t msr_content)
+             return -EINVAL;
+         if ( vpmu_is_set(vpmu, VPMU_CPU_HAS_DS) )
+         {
+-            if ( !(is_hvm_vcpu(v) ? is_canonical_address(msr_content)
++            if ( !(is_vmx_vcpu(v) ? is_canonical_address(msr_content)
+                                   : __addr_ok(msr_content)) )
+             {
+                 gdprintk(XENLOG_WARNING,
+@@ -584,7 +586,7 @@ static int cf_check core2_vpmu_do_wrmsr(unsigned int =
+msr, uint64_t msr_content)
+         if ( msr_content & fixed_ctrl_mask )
+             return -EINVAL;
+=20
+-        if ( is_hvm_vcpu(v) )
++        if ( is_vmx_vcpu(v) )
+             vmx_read_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
+                                &core2_vpmu_cxt->global_ctrl);
+         else
+@@ -653,7 +655,7 @@ static int cf_check core2_vpmu_do_wrmsr(unsigned int =
+msr, uint64_t msr_content)
+             if ( blocked )
+                 return -EINVAL;
+=20
+-            if ( is_hvm_vcpu(v) )
++            if ( is_vmx_vcpu(v) )
+                 vmx_read_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
+                                    &core2_vpmu_cxt->global_ctrl);
+             else
+@@ -672,7 +674,7 @@ static int cf_check core2_vpmu_do_wrmsr(unsigned int =
+msr, uint64_t msr_content)
+         wrmsrl(msr, msr_content);
+     else
+     {
+-        if ( is_hvm_vcpu(v) )
++        if ( is_vmx_vcpu(v) )
+             vmx_write_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL, msr_conten=
+t);
+         else
+             wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL, msr_content);
+@@ -706,7 +708,7 @@ static int cf_check core2_vpmu_do_rdmsr(unsigned int =
+msr, uint64_t *msr_content)
+             *msr_content =3D core2_vpmu_cxt->global_status;
+             break;
+         case MSR_CORE_PERF_GLOBAL_CTRL:
+-            if ( is_hvm_vcpu(v) )
++            if ( is_vmx_vcpu(v) )
+                 vmx_read_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL, msr_con=
+tent);
+             else
+                 rdmsrl(MSR_CORE_PERF_GLOBAL_CTRL, *msr_content);
+@@ -808,7 +810,7 @@ static void cf_check core2_vpmu_destroy(struct vcpu *=
+v)
+     vpmu->context =3D NULL;
+     xfree(vpmu->priv_context);
+     vpmu->priv_context =3D NULL;
+-    if ( is_hvm_vcpu(v) && cpu_has_vmx_msr_bitmap )
++    if ( is_vmx_vcpu(v) && cpu_has_vmx_msr_bitmap )
+         core2_vpmu_unset_msr_bitmap(v);
+     release_pmu_ownership(PMU_OWNER_HVM);
+     vpmu_clear(vpmu);
 --=20
 2.25.1
 
