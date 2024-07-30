@@ -2,43 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2FF3940FAB
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 12:41:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767550.1178224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4B54940FEC
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 12:49:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767562.1178235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYkIW-0003rq-H4; Tue, 30 Jul 2024 10:41:40 +0000
+	id 1sYkQ2-0005Ht-8K; Tue, 30 Jul 2024 10:49:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767550.1178224; Tue, 30 Jul 2024 10:41:40 +0000
+Received: by outflank-mailman (output) from mailman id 767562.1178235; Tue, 30 Jul 2024 10:49:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYkIW-0003pa-EA; Tue, 30 Jul 2024 10:41:40 +0000
-Received: by outflank-mailman (input) for mailman id 767550;
- Tue, 30 Jul 2024 10:41:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sYkQ2-0005GP-5T; Tue, 30 Jul 2024 10:49:26 +0000
+Received: by outflank-mailman (input) for mailman id 767562;
+ Tue, 30 Jul 2024 10:49:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f2k0=O6=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1sYkIU-0003oy-Sh
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 10:41:38 +0000
-Received: from pb-smtp21.pobox.com (pb-smtp21.pobox.com [173.228.157.53])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4b5db4de-4e60-11ef-8776-851b0ebba9a2;
- Tue, 30 Jul 2024 12:41:37 +0200 (CEST)
-Received: from pb-smtp21.pobox.com (unknown [127.0.0.1])
- by pb-smtp21.pobox.com (Postfix) with ESMTP id 658593F018;
- Tue, 30 Jul 2024 06:41:35 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
-Received: from pb-smtp21.sea.icgroup.com (unknown [127.0.0.1])
- by pb-smtp21.pobox.com (Postfix) with ESMTP id 5F04C3F017;
- Tue, 30 Jul 2024 06:41:35 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
-Received: from localhost (unknown [185.130.54.90])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by pb-smtp21.pobox.com (Postfix) with ESMTPSA id 0700E3F016;
- Tue, 30 Jul 2024 06:41:31 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
+ <SRS0=f/bP=O6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sYkQ1-0005GJ-5T
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 10:49:25 +0000
+Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
+ [2607:f8b0:4864:20::72d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 61eb5507-4e61-11ef-bc01-fd08da9f4363;
+ Tue, 30 Jul 2024 12:49:24 +0200 (CEST)
+Received: by mail-qk1-x72d.google.com with SMTP id
+ af79cd13be357-7a1dd2004e1so275241985a.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 03:49:23 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7a201bcfbc8sm46803885a.77.2024.07.30.03.49.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jul 2024 03:49:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,97 +44,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b5db4de-4e60-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
-	:subject:date:message-id:in-reply-to:references:mime-version
-	:content-transfer-encoding; s=sasl; bh=PLWtHtTVfhKJOmXqlZPRu0lCA
-	GY1YvlMSG00r7Ubp84=; b=XVYLtJbJQYRYqEmkmnVIlq1bf4jiTsiMMtj6IZys6
-	WTImyCfFEwdqsDrRIAMQq1YBx7FQxBzvq/Z3kyvUGyxYTJdXcz8dY8JaFh7ie3O9
-	LJEWmPAL0rI3hDV75HaraKMiQfA5sndGf2rGMgZWsAMi5R6DsFDjyGkFDISQppg6
-	q8=
-From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Subject: [XEN PATCH v5 13/13] x86/hvm: make AMD-V and Intel VT-x support configurable
-Date: Tue, 30 Jul 2024 13:41:29 +0300
-Message-Id: <827008e4af26814e4cd4bf6abbb92c77fc136aa8.1722333634.git.Sergiy_Kibrik@epam.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1722333634.git.Sergiy_Kibrik@epam.com>
-References: <cover.1722333634.git.Sergiy_Kibrik@epam.com>
+X-Inumbo-ID: 61eb5507-4e61-11ef-bc01-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1722336563; x=1722941363; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=OgLCtt5Lvm07HTnzII7Mpc5F8wSjDwMWQlufjHET5h0=;
+        b=PBORxhpyC6bwHYyd3LweE+d+OX+jfrhRcFAyaWGO4W9bIiqbP0Emfc0N04QuZNdXQs
+         MUGJKBBjw7ynYHc5rDs3x/stlUBWux/rF3i8VMPmsUdFOLbfM1ChYIg31QZNkCisNtYO
+         kUxulWCARsBRnzPaZp1Zoy6VJ6a4tiLK+Cgro=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722336563; x=1722941363;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=OgLCtt5Lvm07HTnzII7Mpc5F8wSjDwMWQlufjHET5h0=;
+        b=usjtw0AACp91Tu5usdGYGua66LW93GFu6eYhOiVerNZmI01UZ1c+TCadXN0PVKox1b
+         GyLFHei0y/Y6v0vDAbwPbzkjEypC3cL6aEE0olTMrwtAFD4mtRUYfUVc83UP375wqaVg
+         SyBpubiUFjceVXg/OkrvOf19JP366Z88hr5PtDeTWhwjgW9SsnMIjxF5zZgMFneECU6y
+         yE9FgM5DQx7aVuOyDWiqLboRV1wb6Di6E0a5LHWXAydO0Lht9xKUT0ngFQbDOZSjdo0x
+         Nu2LlG8jLOPOgPqRcAMDNVxsUzEDID+fS7feseg+OM5DH58utXaK2jmXuzNNptKCzrFz
+         ZO1g==
+X-Gm-Message-State: AOJu0YxOafxh6x0vDQwMG8cGnYHjYY/KeobsgIy7KNTNTWvvwWUX1+QP
+	BTIiRctIxwkB4Vsl/tCQrkqK1UGdqO+0ESDhRvb5Aldot4qD1IpxNEwjzFGKyk8=
+X-Google-Smtp-Source: AGHT+IHQ5gU4H9i2DQyhaaYWH2VkpYp6KqiakEuesWMBOcHl2/dtKLaMqGnuIb0d3Idf0rm9MzrCYQ==
+X-Received: by 2002:a05:620a:370b:b0:79e:fc8c:daf1 with SMTP id af79cd13be357-7a1e52475dfmr1367298785a.19.1722336562585;
+        Tue, 30 Jul 2024 03:49:22 -0700 (PDT)
+Date: Tue, 30 Jul 2024 12:49:20 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, alejandro.vallejo@cloud.com,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 22/22] x86/mm: zero stack on stack switch or reset
+Message-ID: <ZqjFB3U-7l8Nop_u@macbook>
+References: <20240726152206.28411-1-roger.pau@citrix.com>
+ <20240726152206.28411-23-roger.pau@citrix.com>
+ <5e600017-e929-4ebf-b620-1e673b06fc1a@citrix.com>
 MIME-Version: 1.0
-X-Pobox-Relay-ID:
- 4901D3BA-4E60-11EF-9654-9625FCCAB05B-90055647!pb-smtp21.pobox.com
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5e600017-e929-4ebf-b620-1e673b06fc1a@citrix.com>
 
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
+On Mon, Jul 29, 2024 at 04:40:24PM +0100, Andrew Cooper wrote:
+> On 26/07/2024 4:22 pm, Roger Pau Monne wrote:
+> > With the stack mapped on a per-CPU basis there's no risk of other CPUs being
+> > able to read the stack contents, but vCPUs running on the current pCPU could
+> > read stack rubble from operations of previous vCPUs.
+> >
+> > The #DF stack is not zeroed because handling of #DF results in a panic.
+> >
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  xen/arch/x86/include/asm/current.h | 30 +++++++++++++++++++++++++++++-
+> >  1 file changed, 29 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/xen/arch/x86/include/asm/current.h b/xen/arch/x86/include/asm/current.h
+> > index 75b9a341f814..02b4118b03ef 100644
+> > --- a/xen/arch/x86/include/asm/current.h
+> > +++ b/xen/arch/x86/include/asm/current.h
+> > @@ -177,6 +177,14 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
+> >  # define SHADOW_STACK_WORK ""
+> >  #endif
+> >  
+> > +#define ZERO_STACK                                              \
+> > +    "test %[stk_size], %[stk_size];"                            \
+> > +    "jz .L_skip_zeroing.%=;"                                    \
+> > +    "std;"                                                      \
+> > +    "rep stosb;"                                                \
+> > +    "cld;"                                                      \
+> > +    ".L_skip_zeroing.%=:"
+> > +
+> >  #if __GNUC__ >= 9
+> >  # define ssaj_has_attr_noreturn(fn) __builtin_has_attribute(fn, __noreturn__)
+> >  #else
+> > @@ -187,10 +195,24 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
+> >  #define switch_stack_and_jump(fn, instr, constr)                        \
+> >      ({                                                                  \
+> >          unsigned int tmp;                                               \
+> > +        bool zero_stack = current->domain->arch.asi;                    \
+> >          BUILD_BUG_ON(!ssaj_has_attr_noreturn(fn));                      \
+> > +        ASSERT(IS_ALIGNED((unsigned long)guest_cpu_user_regs() -        \
+> > +                          PRIMARY_STACK_SIZE +                          \
+> > +                          sizeof(struct cpu_info), PAGE_SIZE));         \
+> > +        if ( zero_stack )                                               \
+> > +        {                                                               \
+> > +            unsigned long stack_top = get_stack_bottom() &              \
+> > +                                      ~(STACK_SIZE - 1);                \
+> > +                                                                        \
+> > +            clear_page((void *)stack_top + IST_MCE * PAGE_SIZE);        \
+> > +            clear_page((void *)stack_top + IST_NMI * PAGE_SIZE);        \
+> > +            clear_page((void *)stack_top + IST_DB  * PAGE_SIZE);        \
+> > +        }                                                               \
+> >          __asm__ __volatile__ (                                          \
+> >              SHADOW_STACK_WORK                                           \
+> >              "mov %[stk], %%rsp;"                                        \
+> > +            ZERO_STACK                                                  \
+> >              CHECK_FOR_LIVEPATCH_WORK                                    \
+> >              instr "[fun]"                                               \
+> >              : [val] "=&r" (tmp),                                        \
+> > @@ -201,7 +223,13 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
+> >                ((PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8),               \
+> >                [stack_mask] "i" (STACK_SIZE - 1),                        \
+> >                _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__,                \
+> > -                                 __FILE__, NULL)                        \
+> > +                                 __FILE__, NULL),                       \
+> > +              /* For stack zeroing. */                                  \
+> > +              "D" ((void *)guest_cpu_user_regs() - 1),                  \
+> > +              [stk_size] "c"                                            \
+> > +              (zero_stack ? PRIMARY_STACK_SIZE - sizeof(struct cpu_info)\
+> > +                          : 0),                                         \
+> > +              "a" (0)                                                   \
+> >              : "memory" );                                               \
+> >          unreachable();                                                  \
+> >      })
+> 
+> This looks very expensive.
+> 
+> For starters, switch_stack_and_jump() is used twice in a typical context
+> switch; once in the schedule tail, and again out of hvm_do_resume().
 
-Provide the user with configuration control over the cpu virtualization s=
-upport
-in Xen by making AMD_SVM and INTEL_VMX options user selectable.
+Right, it's the reset_stack_and_call_ind() at the end of context
+switch and then the reset_stack_and_jump() in the HVM tail context
+switch handlers.
 
-To preserve the current default behavior, both options depend on HVM and
-default to value of HVM.
+One option would be to only do the stack zeroing from the
+reset_stack_and_call_ind() call in context_switch().
 
-To prevent users from unknowingly disabling virtualization support, make =
-the
-controls user selectable only if EXPERT is enabled.
+I've got no idea how expensive this is, I might try to run some
+benchmarks to get some figures.  I was planning on running two VMs
+with 1 vCPU each, both pinned to the same pCPU.
 
-No functional change intended.
+> 
+> Furthermore, #MC happen never (to many many significant figures), #DB
+> happens never for HVM guests (but does happen for PV), and NMIs are
+> either ~never, or 2Hz which is far less often than the 30ms default
+> timeslice.
+> 
+> So, the overwhelming majority of the time, those 3 calls to clear_page()
+> will be re-zeroing blocks of zeroes.
+> 
+> This can probably be avoided by making use of ist_exit (held in %r12) to
+> only zero an IST stack when leaving it.  This leaves the IRET frame able
+> to be recovered, but with e.g. RFDS, you can do that irrespective, and
+> it's not terribly sensitive.
 
-Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-changes in v5:
-- change kconfig option name SVM/VMX -> AMD_SVM/INTEL_VMX
-changes in v3:
- - only tags added
-changes in v2:
- - remove dependency of build options IOMMU/AMD_IOMMU on VMX/SVM options
----
- xen/arch/x86/Kconfig | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+I could look into that, TBH I was bordeline with clearing the IST
+stacks, as I wasn't convinced there could be anything sensitive there,
+but again couldn't convince myself there's nothing sensitive now,
+nor can be in the future.
 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index eff9eedc19..f6a90d71fb 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -123,11 +123,25 @@ config HVM
- 	  If unsure, say Y.
-=20
- config AMD_SVM
--	def_bool HVM
-+	bool "AMD-V" if EXPERT
-+	depends on HVM
-+	default HVM
-+	help
-+	  Enables virtual machine extensions on platforms that implement the
-+	  AMD Virtualization Technology (AMD-V).
-+	  If your system includes a processor with AMD-V support, say Y.
-+	  If in doubt, say Y.
-=20
- config INTEL_VMX
--	def_bool HVM
-+	bool "Intel VT-x" if EXPERT
-+	depends on HVM
-+	default HVM
- 	select ARCH_IOREQ_COMPLETION
-+	help
-+	  Enables virtual machine extensions on platforms that implement the
-+	  Intel Virtualization Technology (Intel VT-x).
-+	  If your system includes a processor with Intel VT-x support, say Y.
-+	  If in doubt, say Y.
-=20
- config XEN_SHSTK
- 	bool "Supervisor Shadow Stacks"
---=20
-2.25.1
+> What about shadow stacks?  You're not zeroing those, and while they're
+> less sensitive than the data stack, there ought to be some reasoning
+> about them.
 
+I've assumed that shadow stacks only contained the expected return
+addresses, and hence won't be considered sensitive information, but
+maybe I was too lax.
+
+An attacker could get execution traces of the previous vCPU, and that
+might be useful for some exploits?
+
+Thanks, Roger.
 
