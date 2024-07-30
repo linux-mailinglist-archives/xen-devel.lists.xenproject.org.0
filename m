@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB23940B27
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 10:20:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767362.1177962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97EF3940C13
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 10:45:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767372.1177983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYi5K-00043m-PK; Tue, 30 Jul 2024 08:19:54 +0000
+	id 1sYiTX-0000LH-Us; Tue, 30 Jul 2024 08:44:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767362.1177962; Tue, 30 Jul 2024 08:19:54 +0000
+Received: by outflank-mailman (output) from mailman id 767372.1177983; Tue, 30 Jul 2024 08:44:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYi5K-00041T-Mo; Tue, 30 Jul 2024 08:19:54 +0000
-Received: by outflank-mailman (input) for mailman id 767362;
- Tue, 30 Jul 2024 08:19:53 +0000
+	id 1sYiTX-0000Iv-Rc; Tue, 30 Jul 2024 08:44:55 +0000
+Received: by outflank-mailman (input) for mailman id 767372;
+ Tue, 30 Jul 2024 08:44:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=HnHO=O6=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sYi5J-00041N-5F
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 08:19:53 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3FYA=O6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sYiTW-0000IK-LI
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 08:44:54 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7dfda483-4e4c-11ef-8776-851b0ebba9a2;
- Tue, 30 Jul 2024 10:19:51 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-59589a9be92so6571704a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 01:19:51 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8729:4000:29eb:6d9d:3214:39d2?
- (p200300e58729400029eb6d9d321439d2.dip0.t-ipconnect.de.
- [2003:e5:8729:4000:29eb:6d9d:3214:39d2])
+ id fceb3578-4e4f-11ef-8776-851b0ebba9a2;
+ Tue, 30 Jul 2024 10:44:52 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a7a81bd549eso400809066b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 01:44:52 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad41462sm599013366b.119.2024.07.30.01.19.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jul 2024 01:19:50 -0700 (PDT)
+ a640c23a62f3a-a7acab235fesm615910466b.36.2024.07.30.01.44.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jul 2024 01:44:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,84 +45,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7dfda483-4e4c-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: fceb3578-4e4f-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722327590; x=1722932390; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Avtw4N1eR+GiFCtanmTPhq54KY38UjoQBkTBOJ8ucHg=;
-        b=Xum7bXlai1fQZqzw7cDEYLb9NIeBYy5UmOVrkjLYUHm7QuqCC5OrH3yiqsw14kY0v1
-         85HIGGWSe+PWcZ9m7S4UWECwuyqkAz8PQIhf5NlXPxT9O3HWjB/KGRvWt8xUkF2hODe8
-         jJaoJL7KuKljA388V/gbShskb2yiTvHxR3tYexwI3aTcS3mW2LcBwIrizdUSPsOa9rVN
-         w6qAYTHjWJQRlH8CYwVMKlheJXSxcFBeRh2pQ+XwhK7whM0kqBH4LXv3SaG3D5hlJAzk
-         ZhcHxuwmXDbyIA2IErSIzqJQ2enZFxJJgjWk1aqX2k6UtRN/riwskzSkdqIH7JIUB/Nw
-         RZ6g==
+        d=gmail.com; s=20230601; t=1722329092; x=1722933892; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=6I/dVUGdVTQaJjNIE9OK2jT6xxy9qmocb7jXgDWAWH0=;
+        b=XcTRhAgx3c3Dnqk1u+N/51HfkSXQXAcqjlA+2KoOGMaIu2pcXv4itwGSC6Afhf2DZO
+         Rw4d4PSMdpLVR1COhxhrI2CRJY/GBwu2XrDafURmozuGxXD3lUKMNnysjfX03+/aW7sv
+         aqLX+YzFkqLYG/dU62TIsED4F21ChGUw/F270taPuUr7bMeQv7T30vQsw4X8QzLztyGO
+         jJzVQMkGcD7DnLlMZ8Ni8Ongna5ZZ4NouRsL271rRH+KTeVjg8H3Mwk3D00xnusaArSQ
+         R8Mr2IlXTh4bnPmdXZwQmyX4N9+zXHeC8xx0H+1c5t2En5qNADmeKhmtvpAEYHrEQ1sl
+         WN8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722327590; x=1722932390;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Avtw4N1eR+GiFCtanmTPhq54KY38UjoQBkTBOJ8ucHg=;
-        b=S1FehHXPD9DR4/zyY07dsFZlMqztSH9dxixDN/TBXVQ0eaoDSbg+nryhjIAz71ojhj
-         zdzMYROSywtPqD4vxNc3kj9OjU7CIXex+QKAc28fjvQO9TRVCyNdN+Iq46XQaFRRJYXK
-         7dzn7CQJmyOKcW4kLn/IyL3xSp/TtmXHNNTvvuBa8YFDH4vu8tVrK+1mojkMoMsbOgt/
-         Zr45IX99P/stCMWQoURqlGwvSup/8LyQYRqI/7ZrnDSYn/WO/ky2KjHop4cYSDxgUkAR
-         oSWurFV+UXbPM1ockxD0kXrfz1znUclqlCRCG4u+N2ePmwXaMSKSPOQO9A4DohwOidu9
-         BT4w==
-X-Forwarded-Encrypted: i=1; AJvYcCU1PSBrY4HmN5ridwesezYHoZvxMIcekpRHMWX5Tj+unqn8Dg3NNnuYVLJwK/Kb6p8mh/Ufqv3wDEr4zlCsVtv03sFvq+Ape4v1pfqnpLc=
-X-Gm-Message-State: AOJu0YxR+o7WWWGnu/W9cao2ZIR3WLDR9vWb40a69xwfaoZGa+2TTWTh
-	sOb1BTagpVR9Bj5wKUEztYXOvAWzXR4hd6xUHwIOfnYM5X4wn0Ex+deTVocOsss=
-X-Google-Smtp-Source: AGHT+IFtJfbuc2u/eqs3fRRONElGEKaG14fTy9PG8wn0MX65Vt4oWxjVm5SNDXnIIsDaAG7fIWy+1g==
-X-Received: by 2002:a17:907:72c1:b0:a7a:8876:4427 with SMTP id a640c23a62f3a-a7d40071af4mr757772966b.25.1722327590535;
-        Tue, 30 Jul 2024 01:19:50 -0700 (PDT)
-Message-ID: <8270bede-d548-481b-b349-e305a4f574c8@suse.com>
-Date: Tue, 30 Jul 2024 10:19:49 +0200
+        d=1e100.net; s=20230601; t=1722329092; x=1722933892;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6I/dVUGdVTQaJjNIE9OK2jT6xxy9qmocb7jXgDWAWH0=;
+        b=uGLS00cfxCH0M/8Q/BZniozC9HclP9fxvr/wbcDjObKhEjUV5HqZKDb+apD41zAilq
+         GbDP1qUQH0X1KdzNHVabx6Ux4DHDEROtXyyIuJahoagPoAWldBp/tmYhRe7chTDGWzvm
+         GQG/6ylAR0TORngWX/d0bBqJPAAbD9F3HWKS8235QNvWA/FFZOLrz5xxoKnI1+iqjmOu
+         409BRYtVY1VBm7PKNbOO30iIrQlKFO92NeZOAe4eiAb87hBfmrl0dtCoOA2jz3E8/u8T
+         DVshCvhdJvwA3oXHHk1cJPfzC9L6oBZKgCXuWJCTxzaWIXH+X0+WDrC9pY9kjK7Xlt20
+         0cpw==
+X-Forwarded-Encrypted: i=1; AJvYcCWTm6AipFo3YgyWmavsnC2uwK53PDH6HMYdiEGutG3mDTkz4RUOGS/kcbRbFzFC6H07tv3LeYPIktnbASQJwQOmoKI+2H5RH007YFqfAM8=
+X-Gm-Message-State: AOJu0Ywy0cTDqJMWdqCrY2WABhv2Qzi9q9SW55Xm6VLcWJHUQj8EEJUA
+	FKum3bgz4hgI0iw9uYg+WFIvmhPVM4cgL0Mm9Spiy44/uDbtIeB/
+X-Google-Smtp-Source: AGHT+IEQuiP2uWEAEATirapGpowcEdMQMAhbDxgqdyDNslDa3XjcQ9LNfKnICKFftNiJNQEgXOgmFg==
+X-Received: by 2002:a17:907:874c:b0:a7a:a138:dbd4 with SMTP id a640c23a62f3a-a7d401916bbmr740303966b.64.1722329091692;
+        Tue, 30 Jul 2024 01:44:51 -0700 (PDT)
+Message-ID: <b7433d25bb3ca7a0f4e54f561b450b5724fb46dc.camel@gmail.com>
+Subject: Re: [PATCH v3 7/9] xen/riscv: introduce and init SBI RFENCE
+ extension
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Tue, 30 Jul 2024 10:44:50 +0200
+In-Reply-To: <49d3a181-0830-4f55-83a4-c6c9fd54eb17@suse.com>
+References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
+	 <fb2d24731f870378d79077be39b1bc19cc655327.1721834549.git.oleksii.kurochko@gmail.com>
+	 <49d3a181-0830-4f55-83a4-c6c9fd54eb17@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] xen: silence maybe-unitialized warning
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>
-References: <20240729142421.137283-1-stewart.hildebrand@amd.com>
- <20240729142421.137283-3-stewart.hildebrand@amd.com>
- <b49f76cb-f22e-498e-83ae-68cc9840c48d@suse.com>
- <e816ca86-3b1f-42ea-b338-de73d9fb6370@amd.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <e816ca86-3b1f-42ea-b338-de73d9fb6370@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 29.07.24 21:01, Stewart Hildebrand wrote:
-> On 7/29/24 11:03, Jürgen Groß wrote:
->> On 29.07.24 16:24, Stewart Hildebrand wrote:
->>> When building with gcc with -finstrument-functions, optimization level
->>> -O1, CONFIG_HYPFS=y and # CONFIG_HAS_SCHED_GRANULARITY is not set, the
->>> the following build warning (error) is encountered:
->>>
->>> common/sched/cpupool.c: In function ‘cpupool_gran_write’:
->>> common/sched/cpupool.c:1220:26: error: ‘gran’ may be used uninitialized [-Werror=maybe-uninitialized]
->>>    1220 |                      0 : cpupool_check_granularity(gran);
->>>         |                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>> common/sched/cpupool.c:1207:21: note: ‘gran’ declared here
->>>    1207 |     enum sched_gran gran;
->>>         |                     ^~~~
->>>
->>> This is a false positive. Silence the warning (error) by initializing
->>> the variable.
->>>
->>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>
->> Reviewed-by: Juergen Gross <jgross@suse.com>
-> 
-> Thanks!
-> 
-> It just occurred to me: should the subject prefix be xen/cpupool:
-> instead of plain xen: ?
+On Mon, 2024-07-29 at 17:52 +0200, Jan Beulich wrote:
+> On 24.07.2024 17:31, Oleksii Kurochko wrote:
+>=20
+>=20
+> > +/*
+> > + * Send SFENCE_VMA to a set of target HARTs.
+> > + *
+> > + * @param hart_mask mask representing set of target HARTs
+> > + * @param start virtual address start
+> > + * @param size virtual address size
+>=20
+> Are these really virtual addresses, not somehow a bias and a number
+> of bits (CPUs) or elements? From the rest of the patch I can't deduce
+> what these two parameters express.
+According to SBI doc start is an virtual address:
+https://github.com/riscv-non-isa/riscv-sbi-doc/blob/master/src/ext-rfence.a=
+doc?plain=3D1#L44
 
-Probably, yes.
+and hart_mask is:
+=E2=80=A2 unsigned long hart_mask is a scalar bit-vector containing hartids
 
 
-Juergen
+>=20
+> > + */
+> > +void sbi_remote_sfence_vma(const unsigned long *hart_mask,
+>=20
+> Maybe better hart_mask[]? It's not clear to me though what the upper
+> bound of the array is.
+Theoretically it is ULONGMAX but we don't looking more then
+CONFIG_NR_CPUS.
+
+>=20
+> > +
+> > +static void sbi_cpumask_to_hartmask(const struct cpumask *cmask,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct cpumask *hmask)
+>=20
+> I doubt it is valud to re-use struct cpumask for hart maps.
+Why not? Would it be better to use unsigned long *hmask?
+
+>=20
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 u32 cpu;
+>=20
+> uint32_t or yet better unsigned int please.
+>=20
+> > +=C2=A0=C2=A0=C2=A0 unsigned long hart =3D INVALID_HARTID;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 if (!cmask || !hmask)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 cpumask_clear(hmask);
+> > +=C2=A0=C2=A0=C2=A0 for_each_cpu(cpu, cmask)
+> > +=C2=A0=C2=A0=C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( CONFIG_NR_CPUS <=3D cp=
+u )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pri=
+ntk(XENLOG_ERR "SBI: invalid hart=3D%lu for
+> > cpu=3D%d\n",
+>=20
+> %u for the CPU please.
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hart, cpu);
+>=20
+> "hart" wasn't set yet and hence is invalid or at least misleading to
+> log.
+That why it will print INVALID_HARTID which user will identify as
+invalid hartid.
+Do you mean that there is no any sense to message "invalid hart=3D%lu" as
+it is obviously invalid?
+
+>=20
+> Nit: Indentation.
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 con=
+tinue;
+>=20
+>=20
+> Can you really sensibly continue in such a case?
+I think yes, the worst thing we will have is that the "bad" CPU won't
+be used.
+But it might be better to switch to BUG_ON() as if we are inised the
+"if CONFIG_NR_CPUS <=3D cpu" then it could tell us that something went
+wrong.
+
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hart =3D cpuid_to_hartid_ma=
+p(pcpu_info[cpu].processor_id);
+>=20
+> What does "_map" in the function/macro name signify?
+It is interconnections/correllation between Xen's CPU id and Hart's id.
+
+
+~ Oleksii
 
