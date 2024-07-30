@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 415B2941281
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 14:52:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767747.1178445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 174F99412B1
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 14:58:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767754.1178454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYmKS-0005iN-Ri; Tue, 30 Jul 2024 12:51:48 +0000
+	id 1sYmQa-0006mk-Ec; Tue, 30 Jul 2024 12:58:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767747.1178445; Tue, 30 Jul 2024 12:51:48 +0000
+Received: by outflank-mailman (output) from mailman id 767754.1178454; Tue, 30 Jul 2024 12:58:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYmKS-0005g9-Nz; Tue, 30 Jul 2024 12:51:48 +0000
-Received: by outflank-mailman (input) for mailman id 767747;
- Tue, 30 Jul 2024 12:51:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sYmQa-0006lF-C1; Tue, 30 Jul 2024 12:58:08 +0000
+Received: by outflank-mailman (input) for mailman id 767754;
+ Tue, 30 Jul 2024 12:58:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hr/k=O6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYmKQ-0005g3-Ml
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 12:51:46 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 79b3b24e-4e72-11ef-8776-851b0ebba9a2;
- Tue, 30 Jul 2024 14:51:44 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-52f04c1e58eso5899809e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 05:51:44 -0700 (PDT)
+ id 1sYmQY-0006jF-P3
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 12:58:06 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5c5a2a0a-4e73-11ef-bc01-fd08da9f4363;
+ Tue, 30 Jul 2024 14:58:05 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5a1f9bc80e3so3786860a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 05:58:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad903f1sm642605866b.152.2024.07.30.05.51.43
+ 4fb4d7f45d1cf-5afa605d81bsm5637348a12.74.2024.07.30.05.58.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jul 2024 05:51:43 -0700 (PDT)
+ Tue, 30 Jul 2024 05:58:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79b3b24e-4e72-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 5c5a2a0a-4e73-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722343904; x=1722948704; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722344284; x=1722949084; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=o8545QigfXVaF1KsEMarV5g9cqBKF88cQWB2WemE7S4=;
-        b=fEadpkzRpDbpxVAIdzixIyzvlBNf3jKntADv/HyGsSwZ1YFSk0Kxd4ml/EVkbrSRH8
-         WbhraS3xJt+llu8AK2cgx9QqLvCqTFdWHnNZCteYRodIXDvHfOo9xx7yvbPg1acZJ9A8
-         n+pGoqiYChbt2J6/E7XNAP2LUzHSSs1h/4WJSMG04HUk6Bx6+IBrRBuq97Owy/ajrgGq
-         dCN671Fh2xbzzZyJQucQ3Dw6GoO1mF29/p95w9HymrXJbTmQPLYZhsGgONZ6wwyekeCX
-         Lczqfjq6vfoVM5FVUclBBb+sJXU59EtVLQXKqKcxVVEVjuqWQtZhpeNyOy0J+mhRyAZW
-         oCUA==
+        bh=0hdNllN7iOT2NDvpdFgYwr6O7OzPMHgwqprJyYYGcxY=;
+        b=VjfJxgRTMu64WvMM2b9V5ElJNkW/G4kTSxsDJwntatkuJRim8b+5Ofg6QiCkwupChS
+         ArF4sSVENCrwbfcLDy+enAJ4J08pide8Zsg768Z3m5wYkwb2dz+PMmC4YdnEGRDY2n6a
+         aX91/gTftKy/c7LBjZdS6iQcj+TR1UqHzLr3esBwIhfKOHx+f0imWW4hazMhiee4FO+O
+         Si6UDMhZWlbpl1WpBdUJ2TdIlU1l6Ovperc8maD8PgzVnLy8pUnhTwaBb+MO1gJNImrM
+         VvApgcxNfSy8pF0mL85fOi269c8wT97coYkj5QwNUX7TuiZyfNDwBp3vvBBIkkQmfKlk
+         5w+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722343904; x=1722948704;
+        d=1e100.net; s=20230601; t=1722344284; x=1722949084;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=o8545QigfXVaF1KsEMarV5g9cqBKF88cQWB2WemE7S4=;
-        b=A5DG87IF6rAiFewuiNmlKh8d6pygU1+djEDTe1LZ80dTzH2xw+0eiDUyXOoub7yJlw
-         cMqqzV90nD35I9wemmEQUkUwF/hteWWF2y7Bas0pLyF3GYYeLFvZF/8bbetlNyObcjYI
-         qqyF19xWOzcXSN42fT2zX9Ish+wSINhNFwRYKc6lmzaOjzGhCH6gQXz9OTv/xmmWBGG2
-         eMW+Mtxd6oNtv0ipvL7oh1qoxqgvAkbj8KgPBcV14koMFE9YDIKrIm4eSe7e10vag0m/
-         VSknCqXXptlGqyiRkKadppbjN1QA4j7dBNshLtyhaENho7rEkQRfi7uOxJSghaTKKnzv
-         oRgg==
-X-Gm-Message-State: AOJu0YwDyQkBf02EUxpEaziferVVITRIQ5br8jz6H/OcI7198KD9CqJB
-	j6NcB5wQ+Fxzet94RVzWJt0oezh/mHogRqNeeqL1DwtKVIhw5aCOyCPnzBuLEw==
-X-Google-Smtp-Source: AGHT+IEgS2i0UR+EovQjDxGklbjM5NMRlUmTJdDr7LuIpCHCL/afAcfgI+p2wP7D7rhRemUvTcpl2g==
-X-Received: by 2002:a05:6512:68e:b0:52d:3ada:4b6b with SMTP id 2adb3069b0e04-5309b269a7fmr11197903e87.1.1722343904050;
-        Tue, 30 Jul 2024 05:51:44 -0700 (PDT)
-Message-ID: <ece36e0f-da36-410d-b785-ee80399097e2@suse.com>
-Date: Tue, 30 Jul 2024 14:51:43 +0200
+        bh=0hdNllN7iOT2NDvpdFgYwr6O7OzPMHgwqprJyYYGcxY=;
+        b=dEcySfsphJPi3MICUSVUyqbrZEFsxUcH+ujEH4WefnFwc/QJ5YjcST8tR2J3l+DaF/
+         /H0KJm9kiylJwVeADhv/y81u7jhESGjlHp1xBgIX8RskcjzbPvt6UN+VP4V6/CVt+sHH
+         2zIx45Rv5XeCj1c4xUbd8L2dwhyCLVCtaDPe+meEPgKCvJZqpxw5BAxvlqqW9ehN9zto
+         Y08qWTSXB71yvlu277WmmyhKQYoJkAfXdSDwVv/QtZ43m3PfKtnSh2YJWUQzMSh+eEg9
+         Wx7JsxtSxx/89P3MIo+wKlbQmA2zUI36m60Gc1QOuHALKPh29TPGzewFJDg8o5GVaPym
+         /Lvg==
+X-Forwarded-Encrypted: i=1; AJvYcCVKK8gPK/+I7eJzk1uaU7PTWiqateW2AzO4E3yXhXgIv4qdXCQIUqnVLPO69jYEAcswOod7XY/b3UG/85IqSX9LowNEZ5rTjIQ2BRec9xE=
+X-Gm-Message-State: AOJu0YwXDWjHdoKoNH/twnhF4DBD2YW8oEbFbpAEyrSx9Drou+7ReeEN
+	QFBA7vQ7V+2zzXOSaVsGNg940oRkEabI/te1BQFiI9pdgWb/mz1tymSsSYCqMA==
+X-Google-Smtp-Source: AGHT+IGRTTP8OWA2xAAkR9O/VUWfCb1kEdw+Sm3b8hsA4kOwJmnwGhSnziUlFKuRgudLvEMoYBCF4Q==
+X-Received: by 2002:a50:d5c1:0:b0:59f:bf77:80d4 with SMTP id 4fb4d7f45d1cf-5b021190877mr8570630a12.6.1722344284339;
+        Tue, 30 Jul 2024 05:58:04 -0700 (PDT)
+Message-ID: <220ebc7e-36eb-40af-9fa0-133bb458dfd5@suse.com>
+Date: Tue, 30 Jul 2024 14:58:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] SUPPORT.md: split XSM from Flask
-To: Daniel Smith <dpsmith@apertussolutions.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Daniel Smith <dpsmith@apertussolutions.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <d7289554-258b-4f75-858b-64005e9ae9be@suse.com>
- <191036ec4af.b419d861552194.691516900344490021@apertussolutions.com>
- <67f1bcb7-8924-413f-a8ec-6a01f90e7836@suse.com>
- <191039f639c.eee6b8a8560183.5020758529681496430@apertussolutions.com>
+ <ef4b21d8-a5a9-4d24-bf18-908b5ee067db@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,47 +113,75 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <191039f639c.eee6b8a8560183.5020758529681496430@apertussolutions.com>
+In-Reply-To: <ef4b21d8-a5a9-4d24-bf18-908b5ee067db@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.07.2024 14:31, Daniel Smith wrote:
-> ---- On Tue, 30 Jul 2024 08:04:09 -0400 Jan Beulich  wrote ---
+On 30.07.2024 14:35, Andrew Cooper wrote:
+> On 30/07/2024 11:57 am, Jan Beulich wrote:
+>> XSM is a generic framework, which in particular is also used by SILO.
+>> With this it can't really be experimental: Arm enables SILO by default.
 > 
->  > On 30.07.2024 13:37, Daniel Smith wrote: 
->  > > ---- On Tue, 30 Jul 2024 06:57:08 -0400 Jan Beulich  wrote --- 
->  > > 
->  > >  > XSM is a generic framework, which in particular is also used by SILO. 
->  > >  > With this it can't really be experimental: Arm enables SILO by default. 
->  > >  > 
->  > >  > Signed-off-by: Jan Beulich jbeulich@suse.com> 
->  > >  > 
->  > >  > --- a/SUPPORT.md 
->  > >  > +++ b/SUPPORT.md 
->  > >  > @@ -768,13 +768,20 @@ Compile time disabled for ARM by default 
->  > >  > 
->  > >  >  Status, x86: Supported, not security supported 
->  > >  > 
->  > >  > -### XSM & FLASK 
->  > >  > +### XSM 
->  > >  > + 
->  > >  > +    Status: Supported 
->  > >  > + 
->  > >  > +See below for use with FLASK and SILO.  The dummy implementation is covered here 
->  > >  > +as well. 
->  > >  > + 
->  > >  > +### XSM + FLASK 
->  > > 
->  > > To me it would make more sense to say XSM FLASK Policy than XSM + FLASK. 
->  >  
->  > I thought about using "policy", but then deemed that wrong. The "Flask 
->  > policy" is what you load into Flask. Whereas here we're talking about the 
->  > code actually carrying out what such a policy says. 
->  
-> The main issue I have is the "+", so I checked how the different security models/policies are referenced under LSM. The documentation I reviwed lists them as modules or security modules, e.g. AppArmor module. How about one of these combinations, FLASK Module, XSM FLASK Module, or FLASK XSM Module?
+> It's stronger than this.
+> 
+> XSA-295 makes SILO the only security supported configuration for ARM.
 
-Either of the latter two are fine(ish) by me. My (smaller) concern there is
-that the M in XSM also stands for Module.
+Okay, switched to "Arm mandates SILO for having a security supported
+configuration."
+
+>> --- a/SUPPORT.md
+>> +++ b/SUPPORT.md
+>> @@ -768,13 +768,20 @@ Compile time disabled for ARM by default
+>>  
+>>      Status, x86: Supported, not security supported
+>>  
+>> -### XSM & FLASK
+>> +### XSM
+>> +
+>> +    Status: Supported
+>> +
+>> +See below for use with FLASK and SILO.  The dummy implementation is covered here
+>> +as well.
+> 
+> This feels weird, although I can't suggest a better option.
+> 
+> XSM isn't optional; it can't be compiled out,
+
+How can it not be? There's an "XSM" Kconfig control.
+
+> nor can the dummy policy,
+
+In a way. Yet how the dummy policy is instantiated is quite different
+between XSM=y and XSM=n.
+
+> so it's weird to call out what literally cannot have a statement
+> different to the rest of Xen.
+> 
+> Combined with ...
+> 
+>> +
+>> +### XSM + FLASK
+> 
+> ... this wanting to say "Flask (XSM module/policy)" IMO, maybe what we
+> really want is:
+> 
+> ---%<---
+> ### XSM (Xen Security Modules)
+> 
+> Base XSM is a security policy framework used in Xen.  The dummy policy
+> implements a basic "dom0 all powerful, domUs all unprivileged" policy".
+> ---%<---
+> 
+> intentionally without giving a Status.
+
+As per above, imo XSM=y wants security status named. That's, after all,
+part of what was missing / ambiguous so far.
+
+> Then, the two blocks below are clearly alternative modules which have
+> optionality and different support statuses.
+
+I'll change the wording there some, to be closer to what you and also
+Daniel ask for.
 
 Jan
 
