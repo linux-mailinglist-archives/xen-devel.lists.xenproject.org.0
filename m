@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BDC6940A34
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 09:49:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.767312.1177919 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C661940A7B
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2024 09:56:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.767321.1177929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYhbt-00056u-Jk; Tue, 30 Jul 2024 07:49:29 +0000
+	id 1sYhir-0006s0-AM; Tue, 30 Jul 2024 07:56:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 767312.1177919; Tue, 30 Jul 2024 07:49:29 +0000
+Received: by outflank-mailman (output) from mailman id 767321.1177929; Tue, 30 Jul 2024 07:56:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYhbt-00054c-Gg; Tue, 30 Jul 2024 07:49:29 +0000
-Received: by outflank-mailman (input) for mailman id 767312;
- Tue, 30 Jul 2024 07:49:27 +0000
+	id 1sYhir-0006q1-6y; Tue, 30 Jul 2024 07:56:41 +0000
+Received: by outflank-mailman (input) for mailman id 767321;
+ Tue, 30 Jul 2024 07:56:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hr/k=O6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sYhbr-00054U-NB
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 07:49:27 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1sYhip-0006o1-LK
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 07:56:39 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e3c6734-4e48-11ef-bc01-fd08da9f4363;
- Tue, 30 Jul 2024 09:49:26 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5a167b9df7eso6989271a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 00:49:26 -0700 (PDT)
+ id 400f98f2-4e49-11ef-bc01-fd08da9f4363;
+ Tue, 30 Jul 2024 09:56:39 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a7aa212c1c9so586917866b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 00:56:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acab4de90sm605107266b.62.2024.07.30.00.49.24
+ a640c23a62f3a-a7acac64b7csm609893166b.93.2024.07.30.00.56.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jul 2024 00:49:25 -0700 (PDT)
+ Tue, 30 Jul 2024 00:56:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e3c6734-4e48-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: 400f98f2-4e49-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722325766; x=1722930566; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722326198; x=1722930998; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rOQgbSmCjqlR4rFbd5QNe0Gi/KMbK02sW2z1r2xQ7+w=;
-        b=PSLesPNNmPuWWqfPNEZVU2WEId+8plSTG28XiWiBAjf8yehVaMzqEOnKjG8P/K6NDh
-         F2PKYjKhUhqyKgdfoUhdgm+dsnUZDEj/jBPEabixdPxVILgNp68piQK8No022zuPTjgg
-         xLTHvRXyxoFmxupBcIY1SLcE8XrZu5cfOlE6hsK3UBbnzR0ee/ChV81m0T64ZnGNHh62
-         A2SGOxHPsz05T+t3HkoKYl/GfJpfzFww6w3ToV/BPV09qegj6SuQGvoZSL8UfVFw7Emw
-         UFx2kKcML6CTp8EeXTVoFAh63hs4VtzVSFdzUxYH3plNLq05IbgeJd3hs/fvCsfJkbiO
-         rlbA==
+        bh=NUBmyX8fwbzEcyTRBXhDHMwFZvkgD8DEHn8tOwLUNME=;
+        b=gREhWyg8S+CL51maHtHYJfxMLUO6MDc4PnMzye/acEJjzOBoJzmTJ+UxR45bF+UodU
+         acLchUnRdk4qaGoVXA3UxrCRTdbb16WDRf4R46IuC2nCGDrjwXeTPB9A8Z7KID72uDC6
+         ATM3gSKJISlrDKbxeYnAVG1k9PcY6O0A88p5KM341IOL+CZEpH4IUS+oUNhDmeFGm1q8
+         YzqGFsWVhdoCG494Scs6YVAiSRsd3mdP9Cds4mStkx4XRc2h4iGYc2xOTws+hKsN9gdr
+         5RIF4f0QZPpbR/6dfgZ7w//PptumLRgQ4JYcEpCmwNOHjQjtDDGHG2kCWi8MsZ9C892b
+         bw7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722325766; x=1722930566;
+        d=1e100.net; s=20230601; t=1722326198; x=1722930998;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rOQgbSmCjqlR4rFbd5QNe0Gi/KMbK02sW2z1r2xQ7+w=;
-        b=Rt0The9yxK6Es6NNZwa5s7Hv6Q4XAsLXj8snNllwNQVsMbpiy1t6le28WrzHh2Zmjx
-         xspCnRtuYNQ1XWfcX7S3vJwGIAykf3baFRH7AXSer5wCQ17vfC9PBMzkwRQU3fihrcK4
-         8BgA3llSO/aosKwIxY7FQzrzSAlmVRrPQb2c2YyshPx/IUZbyXa9oVLKjkUQ5RJV5Bb4
-         o03+Fg4nNLPH2Fgz7Bu+WecD0KqUPYreyeOt307Xtrj6RJlTZIl3aWP+Yh0HECpNhwz4
-         +7oynPQO211gmPdD0RJKc3b0tgtfFX5P8rLjITpMYBbvlxxiiqLiMC+RzU+EGRlTPWq8
-         pPXg==
-X-Forwarded-Encrypted: i=1; AJvYcCVsXtB6UX6a+M2P0W7oEGRqFmNpLZr8JddGvTCHQBIjKPU1JuTcsPnLoS4frcWXjhqMe9AqZt+IJXx/SYgBB2E1D2pXZT3ZBM0b0F/w5nM=
-X-Gm-Message-State: AOJu0Yx9vmk973o9YpwdxOkWArF2q5wPoYpHDNT2L24rJzinCQ0bHM/M
-	/QftZH6dwjHNPtXu+WUt8XZEArZObKPa40Pc6ktzrTLlBVxE/WWGnA15arB0Ug==
-X-Google-Smtp-Source: AGHT+IFtLwiD5yKQ/bhFVXkVhMCFbrlFXpRb5RLVBcCn8vK4veuBtXYmZUFy1yPFYBZ9zQDgFZXbGg==
-X-Received: by 2002:a17:907:d17:b0:a7a:c256:3cb with SMTP id a640c23a62f3a-a7d400e1442mr680327766b.39.1722325765546;
-        Tue, 30 Jul 2024 00:49:25 -0700 (PDT)
-Message-ID: <8b8b0304-9f6f-4ded-a451-edc8fdd0e52a@suse.com>
-Date: Tue, 30 Jul 2024 09:49:24 +0200
+        bh=NUBmyX8fwbzEcyTRBXhDHMwFZvkgD8DEHn8tOwLUNME=;
+        b=EewFh9HKkTE3QN/0EMQQ0Pzzv3qtAXlLrDGFeTAkGbqYZyT6h0FQ0SktbhEjEOTCbn
+         8S7u7UQwagOiNVtb23e3Kb+7zjty6gfVugSrLpfekbKZ6Y6zvx7S2NeumdjpGMADgRTM
+         201v8X/uzIDfOH8NLoP9n+OJSwwbusq7M0cVYVsbIKxDTj6oKVkQ/gz/UJ6gB7P3zSKk
+         c/HXrdLptARyrnGYnR/ArnjNQ/k5Rb6jy0bhUEnWa8kRq3jHKb/ne35NJEsep1Zi5DXn
+         sKpSAz/xvwritQlxVDOtPA2zmkRFRm80zVjSWBER5nJw+DcclKIBo8gwo6dpMKWemNBt
+         BfgA==
+X-Forwarded-Encrypted: i=1; AJvYcCXU52VTiT3K+AO0hOyjfkP9JpN+BroH4F0ZgPxVSrrpFslOFVAO9qRfLMTUSS11+QV485bhYIzdVQtE3EPFgCYYeyjZZSsqMoA5kuHfk7c=
+X-Gm-Message-State: AOJu0Yy3Kt/DcKFRDB06Vaj5Yzcjqc1ZiEjYg+jDRbZqaENHXfn5R0K0
+	Q6/2ni4HZjA4fxrIYW9OnXChIM5g0ZQXxOAZsXPMED6d0q2B3BESWeBgsEBvug==
+X-Google-Smtp-Source: AGHT+IFeKXHa+iZm3YCGiyjLm+1Cjz8azkzisE0w9u5iNPElqQ+wPwEJ0w63Usuh3XRIFqDGgHhknQ==
+X-Received: by 2002:a17:907:1c19:b0:a6f:8265:8f2 with SMTP id a640c23a62f3a-a7d400d6673mr782289366b.37.1722326198155;
+        Tue, 30 Jul 2024 00:56:38 -0700 (PDT)
+Message-ID: <6c2ebc9e-cc0d-4139-80a2-4d7025989a9e@suse.com>
+Date: Tue, 30 Jul 2024 09:56:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/9] xen/riscv: setup fixmap mapping
+Subject: Re: [PATCH v3 5/9] xen/riscv: introduce asm/pmap.h header
 To: oleksii.kurochko@gmail.com
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
+ xen-devel@lists.xenproject.org
 References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
- <04576976b82b97442f645b83b3d62475d144af8e.1721834549.git.oleksii.kurochko@gmail.com>
- <917cc521-c0c4-49e8-bc40-948679398bc6@suse.com>
- <28d646ba3d95da2eaf40869e1c07d950a0f3f203.camel@gmail.com>
+ <11b5487659a9c76793e520c108cd92c6c84b908d.1721834549.git.oleksii.kurochko@gmail.com>
+ <3359e37e-eaae-49ca-80a5-2bf70b9b46c7@suse.com>
+ <78effb178b1ffe7ccb1714a13157e94f5e816b01.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,110 +117,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <28d646ba3d95da2eaf40869e1c07d950a0f3f203.camel@gmail.com>
+In-Reply-To: <78effb178b1ffe7ccb1714a13157e94f5e816b01.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.07.2024 18:11, oleksii.kurochko@gmail.com wrote:
-> On Mon, 2024-07-29 at 15:35 +0200, Jan Beulich wrote:
+On 29.07.2024 18:22, oleksii.kurochko@gmail.com wrote:
+> On Mon, 2024-07-29 at 16:29 +0200, Jan Beulich wrote:
 >> On 24.07.2024 17:31, Oleksii Kurochko wrote:
->>> @@ -81,6 +82,14 @@ static inline void flush_page_to_ram(unsigned
->>> long mfn, bool sync_icache)
->>>      BUG_ON("unimplemented");
->>>  }
->>>  
->>> +/* Write a pagetable entry. */
->>> +static inline void write_pte(pte_t *p, pte_t pte)
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/include/asm/pmap.h
+>>> @@ -0,0 +1,33 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0 */
+>>> +#ifndef ASM_PMAP_H
+>>> +#define ASM_PMAP_H
+>>> +
+>>> +#include <xen/bug.h>
+>>> +#include <xen/mm.h>
+>>> +#include <xen/page-size.h>
+>>> +
+>>> +#include <asm/fixmap.h>
+>>> +#include <asm/flushtlb.h>
+>>> +#include <asm/system.h>
+>>> +
+>>> +static inline void arch_pmap_map(unsigned int slot, mfn_t mfn)
 >>> +{
->>> +    RISCV_FENCE(rw, rw);
->>> +    *p = pte;
->>> +    RISCV_FENCE(rw, rw);
+>>> +    pte_t *entry = &xen_fixmap[slot];
+>>> +    pte_t pte;
+>>> +
+>>> +    ASSERT(!pte_is_valid(*entry));
+>>> +
+>>> +    pte = mfn_to_xen_entry(mfn, PAGE_HYPERVISOR_RW);
+>>> +    write_pte(entry, pte);
 >>> +}
 >>
->> Why the first of the two fences? 
-> To ensure that writes have completed with the old mapping.
+>> Perhaps add a comment to clarify why it's safe to omit a TLB flush
+>> here.
+>> Note that arch_pmap_unmap() having one is a necessary but not
+>> sufficient
+>> condition to that. In principle hardware may also cache "negative"
+>> TLB
+>> entries; I have no idea how RISC-V behaves in this regard, or whether
+>> that aspect is actually left to implementations.
+> what do you mean by "negative" TLB? an old TLB entry which should be
+> invalidated?
 
-Wait: There can certainly be uncompleted writes, but those must have
-walked the page tables already, or else a (synchronous) fault could
-not be delivered on the originating store instruction. Or am I
-misunderstanding how paging (and associated faults) work on RISC-V?
+No, I mean TLB entries saying "no valid translation here". I.e. avoiding
+recurring walks of something that was once found to have no translation.
 
->> And isn't having the 2nd here going
->> to badly affect batch updates of page tables?
-> By batch you mean update more then one pte?
-> It yes, then it will definitely affect. It could be dropped here but
-> could we do something to be sure that someone won't miss to add
-> fence/barrier?
-
-Well, imo you first want to spell out where the responsibilities for
-fencing lies. Then follow the spelled out rules in all new code you
-add.
-
->>> +     * x is the highest page table level for currect  MMU mode (
->>> for example,
->>> +     * for Sv39 has 3 page tables so the x = 2 (L2 -> L1 -> L0) ).
->>> +     *
->>> +     * In this cycle we want to find L1 page table because as L0
->>> page table
->>> +     * xen_fixmap[] will be used.
->>> +     *
->>> +     * i is defined ( HYP_PT_ROOT_LEVEL - 1 ) becuase pte for L2 (
->>> in
->>> +     * case of Sv39 ) has been recieved above.
->>> +     */
->>> +    for ( i = HYP_PT_ROOT_LEVEL - 1; i != 0; i-- )
->>
->> I think the subtracting of 1 is unhelpful here. Think of another 
->> case where
->> you want to walk down to L0. How would you express that with a
->> similar for()
->> construct. It would imo be more natural to use
->>
->>     for ( i = HYP_PT_ROOT_LEVEL; i > 1; i-- )
-> Then the first one _i_ will be initialized as L2, not L1. As an option
-> we then have to use ...
->>
->> here (and then in that hypothetical other case
->>
->>     for ( i = HYP_PT_ROOT_LEVEL; i > 0; i-- )
->>
->> ), and then the last part of the comment likely wouldn't be needed
->> either.
->> However, considering ...
->>
->>> +    {
->>> +        BUG_ON(!pte_is_valid(*pte));
+>>> +static inline void arch_pmap_unmap(unsigned int slot)
+>>> +{
+>>> +    pte_t pte = {};
 >>> +
->>> +        pte = (pte_t *)LOAD_TO_LINK(pte_to_paddr(*pte));
->>> +        pte = &pte[pt_index(i, FIXMAP_ADDR(0))];
->>
->> ... the use of i here, it may instead want to be
-> ... should be ( i - 1 ).
-> I am okay with such refactoring.
-
-Well, because of this use of i I specifically suggested ...
-
->>     for ( i = HYP_PT_ROOT_LEVEL; i-- > 1; )
-
-... this.
-
->>> +    }
+>>> +    write_pte(&xen_fixmap[slot], pte);
 >>> +
->>> +    BUG_ON(pte_is_valid(*pte));
->>> +
->>> +    tmp = paddr_to_pte(LINK_TO_LOAD((unsigned long)&xen_fixmap),
->>> PTE_TABLE);
+>>> +    flush_xen_tlb_range_va_local(FIXMAP_ADDR(slot), PAGE_SIZE);
+>>> +}
 >>
->> I'm a little puzzled by the use of LINK_TO_LOAD() (and LOAD_TO_LINK()
->> a
->> little further up) here. Don't you have functioning __pa() and
->> __va()?
-> No, they haven't been introduced yet.
+>> For both functions, even if mainly for documentation purposes, it may
+>> be desirable to mark them __init. It's again a necessary (but not
+>> sufficient) condition here, to validly use local TLB flushes only.
+> Does __init in this context means that it will be called only by boot
+> cpu at the start and that is it?
 
-So you're building up more technical debt, as the use of said two
-constructs really should be limited to very early setup. Aiui once
-you have functioning __va() / __pa() the code here would want
-changing?
+No, and I said so in my reply. __init is indicative of the function not
+being suitable for runtime use, but it is not enough to indicate the
+function is also unsuitable for use as soon as a 2nd CPU is being brought
+up. Yet for the latter we have no proper annotation. Hence my suggestion
+to use the former to have at least a limited indicator.
+
+An alternative might be to add ASSERT(system_state < SYS_STATE_smp_boot).
+That, however, exists in common/pmap.c already anyway.
+
+Yet another alternative would be a clarifying comment.
 
 Jan
 
