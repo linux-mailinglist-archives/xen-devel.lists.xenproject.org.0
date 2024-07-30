@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A32C942297
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 00:15:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768090.1178835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0F109422F4
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 00:30:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768100.1178844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYv7u-0000Zu-KB; Tue, 30 Jul 2024 22:15:26 +0000
+	id 1sYvM1-0002lH-S7; Tue, 30 Jul 2024 22:30:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768090.1178835; Tue, 30 Jul 2024 22:15:26 +0000
+Received: by outflank-mailman (output) from mailman id 768100.1178844; Tue, 30 Jul 2024 22:30:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sYv7u-0000XX-HW; Tue, 30 Jul 2024 22:15:26 +0000
-Received: by outflank-mailman (input) for mailman id 768090;
- Tue, 30 Jul 2024 22:15:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sYv7t-0000XM-2n; Tue, 30 Jul 2024 22:15:25 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sYv7s-0007Fx-W4; Tue, 30 Jul 2024 22:15:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sYv7s-0006l8-KY; Tue, 30 Jul 2024 22:15:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sYv7s-0004V4-KA; Tue, 30 Jul 2024 22:15:24 +0000
+	id 1sYvM1-0002iU-PH; Tue, 30 Jul 2024 22:30:01 +0000
+Received: by outflank-mailman (input) for mailman id 768100;
+ Tue, 30 Jul 2024 22:30:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0AIz=O6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sYvM0-0002e2-Iy
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2024 22:30:00 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 408cf509-4ec3-11ef-bc01-fd08da9f4363;
+ Wed, 31 Jul 2024 00:29:58 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id AD36B62114;
+ Tue, 30 Jul 2024 22:29:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 733B4C32782;
+ Tue, 30 Jul 2024 22:29:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,91 +41,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=z4qNnwFL9nBY+TFSAEda3HK8UWkWwEhsEgi4dpp3uTk=; b=X4x3kKBI2Dshut/8zHMgiNq2X/
-	G+hv8eECiHRrc0A/gzJtnuxW67m9R7bk6W+CJ/VBggIDQmp+XrCMrFeZf3uE9rf4UGbGcqxDSvEUy
-	1mWolitEW2Bg9mYPFmA0fHXTRxYg+YLDvYNadLy1cexKv+xdUSUORS2MxKiG995htHT0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187065-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 408cf509-4ec3-11ef-bc01-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1722378597;
+	bh=iXwmhYCCcyRDw2DJIPfqL2B2J9LqKdHICiKlj40dCDM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=VsnXh0cIy6MwRgYVov2Hu44Q4Oy3vb1WSweVdDxDaI97QumUZaMY8yvnIJ4nu3tdK
+	 Qcah3xymNH1R6+gerYm9S2QtrUOH9w2EPp3hX0mLAcrTv5LEGF06PE/2BiHqakmqgR
+	 oFfBFMVKfzS3GviRUTLV1g7i4AMqQMSgAGsE0gCWdxZwVJT1BJQ4CU6OrJlLpKoTbZ
+	 YR95RfkHdzuAGmUh+mbn1vlQ5MkgdYiO0M0uz/m/fPVLkT/gzSGlgR5r/ymXcsHq3Y
+	 bQv0u7POqU54AT+PkRoxBl5UNZ55ocumaEAdfM1yzfaMR+zvEkGgVAgyBp/NOH3BAB
+	 vNr9zJ9isCXKg==
+Date: Tue, 30 Jul 2024 15:29:54 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Amneesh Singh <a-singh21@ti.com>, mst@redhat.com
+cc: sstabellini@kernel.org, boris.ostrovsky@oracle.com, hch@infradead.org, 
+    iommu@lists.linux-foundation.org, jasowang@redhat.com, jgross@suse.com, 
+    konrad.wilk@oracle.com, linux-arm-kernel@lists.infradead.org, 
+    linux-imx@nxp.com, linux-kernel@vger.kernel.org, peng.fan@nxp.com, 
+    virtualization@lists.linux-foundation.org, x86@kernel.org, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen: introduce xen_vring_use_dma
+In-Reply-To: <20240730105910.443753-1-a-singh21@ti.com>
+Message-ID: <alpine.DEB.2.22.394.2407301519330.4857@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.21.2007151001140.4124@sstabellini-ThinkPad-T480s> <20240730105910.443753-1-a-singh21@ti.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 187065: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=a18b50614d97ecb488479829dcd5ad963bf691e3
-X-Osstest-Versions-That:
-    xen=303d3ff85c90ee4af4bad4e3b1d4932fa2634d64
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 30 Jul 2024 22:15:24 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 187065 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187065/
+On Tue, 30 Jul 2024, Amneesh Singh wrote:
+> Hi Stefano,
+> 
+> First off, apologies for bumping this dead thread.
+> 
+> I came across this patch signed off by you recently
+> https://github.com/Xilinx/linux-xlnx/commit/72cb5514953be3aa2ac00c57c9eaa100ecc67176
+> 
+> and was wondering if a patch replacing xen_domain() with xen_pv_domain() in
+> vring_use_dma_api() can be sent upstream? If not, is there a reason why?
 
-Failures :-/ but no regressions.
+Hi Amneesh,
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Yes this patch is still required for Xen on ARM and it fixes a real bug.
+Unfortunately the upstreaming process stalled so we had to keep the fix
+in our Xilinx Linux branch. Here is the link to the start of this
+conversation and to the last message:
 
-version targeted for testing:
- xen                  a18b50614d97ecb488479829dcd5ad963bf691e3
-baseline version:
- xen                  303d3ff85c90ee4af4bad4e3b1d4932fa2634d64
-
-Last test of basis   187054  2024-07-30 10:02:18 Z    0 days
-Testing same since   187065  2024-07-30 18:02:12 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Daniel P. Smith <dpsmith@apertussolutions.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Jason Andryuk <jason.andryuk@amd.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+https://marc.info/?i=20200624091732.23944-1-peng.fan%40nxp.com
+https://marc.info/?i=alpine.DEB.2.21.2007151001140.4124%40sstabellini-ThinkPad-T480s
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Hi Michael, I see you are CCed to this email. Would you be open to
+acking this patch now that a 3rd independent engineer from a different
+company (NXP first, then AMD/Xilinx, now TI) has reported this as a bug
+fix?
 
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   303d3ff85c..a18b50614d  a18b50614d97ecb488479829dcd5ad963bf691e3 -> smoke
 
