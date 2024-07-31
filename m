@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 822C5943131
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 15:43:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768705.1179606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB3279431A9
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 16:08:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768781.1179665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ9bt-0006ox-0q; Wed, 31 Jul 2024 13:43:21 +0000
+	id 1sZ9zB-0005YK-Up; Wed, 31 Jul 2024 14:07:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768705.1179606; Wed, 31 Jul 2024 13:43:20 +0000
+Received: by outflank-mailman (output) from mailman id 768781.1179665; Wed, 31 Jul 2024 14:07:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ9bs-0006mB-U3; Wed, 31 Jul 2024 13:43:20 +0000
-Received: by outflank-mailman (input) for mailman id 768705;
- Wed, 31 Jul 2024 13:43:19 +0000
+	id 1sZ9zB-0005VI-S4; Wed, 31 Jul 2024 14:07:25 +0000
+Received: by outflank-mailman (input) for mailman id 768781;
+ Wed, 31 Jul 2024 14:07:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8n5P=O7=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sZ9br-0006m0-9d
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 13:43:19 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ <SRS0=F/qb=O7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sZ9zA-0005TA-Op
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 14:07:24 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d7727ff8-4f42-11ef-bc01-fd08da9f4363;
- Wed, 31 Jul 2024 15:43:18 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-52f04c29588so10228243e87.3; 
- Wed, 31 Jul 2024 06:43:17 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
+ id 3584e31e-4f46-11ef-bc01-fd08da9f4363;
+ Wed, 31 Jul 2024 16:07:23 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a7a94aa5080so681794066b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 07:07:23 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52fd5c19ac4sm2253412e87.192.2024.07.31.06.43.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 Jul 2024 06:43:15 -0700 (PDT)
+ a640c23a62f3a-a7acad91075sm771904466b.168.2024.07.31.07.07.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 31 Jul 2024 07:07:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,135 +45,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7727ff8-4f42-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: 3584e31e-4f46-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722433397; x=1723038197; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
-         :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=r718cEIdkop+N07k1ZNX/53J6gUGA7u7PilJxZxkD8I=;
-        b=lFzF8gmdPC40bCkUJhy1/yVk5kIie5IOGwc3tXPwFJQl1GYtWmaODQJeRX8gEChtSR
-         5IkmIRQ154u3vZHBXFRrmkjgLBxNGKiSiGBD/eEPBc/GL4aIWWj3hFFlCNiTtqDBoUfP
-         JzOZeTpk8iY86dcLzz3TA/2CoCuBCaAIjxMRUT8Gy1JYe59XEv1JbXRO19VO97pGMKil
-         WIkeZviJt2IEoI2Ym77QVc9PzCO8XpvjcHXbLvQUB94vAqNtlPbemie47pScOY+w4ZmH
-         OKYk9lb2bdRpwsoT87XMQA65Fx7d1EWgVHwdjEMVL8ibfehQgyiM9oVjuCNUwgWsSm2p
-         j+LQ==
+        d=citrix.com; s=google; t=1722434843; x=1723039643; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FjZ4zKrTVE02CIFl2QtucXqR067v1+j3M5J1TjNg8Q8=;
+        b=mSkN5R9WbULwFmO2bHQf4LTWxNwD7mcxuK6dKyomEsabC5w4YWKR9yw+zWYwxPX8YC
+         OMPCqs3MC10eqV+EEjACtXlI9IdD9gqWBA56Dutz7VGSz/VLYQy+gaCbLOdCo4A0tGHc
+         gkaTAx0VZwv++2ztIi1SAtwAqvQEv3sDSjfDg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722433397; x=1723038197;
-        h=mime-version:user-agent:content-transfer-encoding:date:cc:to:from
-         :subject:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1722434843; x=1723039643;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r718cEIdkop+N07k1ZNX/53J6gUGA7u7PilJxZxkD8I=;
-        b=qHkv2AwXZaiLYsN8gVdPrP74AEJyWp1npzLpaBb1CUQcwYY53431+b5c/LwF4HVFCk
-         UvpgCSi9U+c6DgeDnzhLyYibIGXw/Bq57bbpUA3ovkD41y3tnWolbGVEF/Xikx9LlQNM
-         wRzSlRuvItgpdLIuu34W5/lriwAs/52YM8OMHk+IGZVmMMo+8Aer56UpWTjaQXZc6iIr
-         c5nMCHVIwGCvXso8jigEjwkdhBvDBnEIvWUdvscEWg6M81QK6D6Spirs5tfhoYC/EeK0
-         3oEPxQQ1o9R1ep1aUT2Uvaxl5ndsCKvNl44cHCRpB3g11yLYuUiZs+SPhJrwbWPGDTpr
-         Q8tg==
-X-Forwarded-Encrypted: i=1; AJvYcCVuSF7Y1TTuSBbKUX+y0q1xuY3CzqiD65cEw8WLyCJ3JIICiSnUWHTSHU7UWCzN9qQ0KtqJ1joYCMHmGh5naU/fGjIUkdNYBEIe2kZ1gEa25bGqLuRj9Ul0p6kDbrQjl8opEIjm15vi77j3QMeSsYM0xMfyrfAeZvDIvUybH5VcPuONpAvT9zYZSvIfrDTgG9hQ9kjLgXA=
-X-Gm-Message-State: AOJu0Yyi0GqyMlne0vMYvD1mlG2Br6Fs4s1yDPygJT6+kCOzo5nugose
-	BGz3ffAKGNOLrpv9JKbCp2AM0Hrn/0MpG1a6U8I9a3v8rfMVdHniJ0nnHQ==
-X-Google-Smtp-Source: AGHT+IGZFF3mk7oJ3pIj23gs7Hb0BVkYb1S67I6Cja7HRi41SZjz6dqZjEMXc/TAhT5BD/iKe7oKjw==
-X-Received: by 2002:a05:6512:3ed:b0:52c:e17c:3741 with SMTP id 2adb3069b0e04-5309b269b87mr8479716e87.5.1722433396139;
-        Wed, 31 Jul 2024 06:43:16 -0700 (PDT)
-Message-ID: <4dc6a46b72e75d4bdd9a40916ed3bf05460146bd.camel@gmail.com>
-Subject: Xen Project Releases Version 4.19
-From: oleksii.kurochko@gmail.com
-To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org, 
-	xen-announce@lists.xenproject.org, advisory-board@lists.xenproject.org
-Cc: Kelly Choi <kelly.choi@cloud.com>
-Date: Wed, 31 Jul 2024 15:43:15 +0200
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+        bh=FjZ4zKrTVE02CIFl2QtucXqR067v1+j3M5J1TjNg8Q8=;
+        b=xGLc6WIxPhqXxw84svY4AeiLt3F7QssQEg6lbu1i3D3tPVaXmJYT2CpUAfn4ulcDzA
+         SQyUri/Ncv/H46HiSHQE/2oNivXb910o68Eo9yqQ1jGNT69acQIhFrSoW8+iz4K/h5Om
+         lq6Utm0IBqkEGRRYe6TA/j85VLIisvfBNb/5s0WWhmNKxklPZiOl7UjhgB3WBfm3ZmoP
+         hPRdyU7iFG0uUZ5LIE90WLouo5HxbvARb9rGOll1dP9jdP4jAZ2TW3fH8KbZ0rmZcZ3C
+         jb5XNoVSdMyp5hcTBHFnpjCJMWZGqBwyD5t6RXybazjpus9GXOaSyYIAmgOQi+kQ+uZF
+         QvpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVUr17GseyU7umteAKID9hYmdgDfrVRHWY4VzwCHA0+6WF9sBe8MYTQ97baMe3MotZ0iIumj27nYjpeKq34XXfkhBSyTDkHaW+SR156K1U=
+X-Gm-Message-State: AOJu0YwKtjlDWoepfvm17pcH8MwmcQyfsMV/EAgNuFrwh9uTl8M1zL4a
+	d9QqKTwPoJPCaVb/bpfe/h/kTuO+571NNgCmSrxCLEB6tuSxrtuPvf+9fQunhz4=
+X-Google-Smtp-Source: AGHT+IHZJmvN1E0sOAAKnui0Q+ECvK+XvDKk8E1oqGOmoWBcKE9PAtY73zMigkOkxGKdpeMevGvILg==
+X-Received: by 2002:a17:907:968e:b0:a7a:9144:e251 with SMTP id a640c23a62f3a-a7d3fdb7e94mr1200381766b.11.1722434842939;
+        Wed, 31 Jul 2024 07:07:22 -0700 (PDT)
+Message-ID: <1de0e761-0c87-4a7f-a7a9-3c468489c410@citrix.com>
+Date: Wed, 31 Jul 2024 15:07:20 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/domain: Factor domlist_{insert,remove}() out of
+ domain_{create,destroy}()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240731120406.3429430-1-andrew.cooper3@citrix.com>
+ <33cde4c7-e00a-47e0-b752-82e514df99d3@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <33cde4c7-e00a-47e0-b752-82e514df99d3@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello everyone,
+On 31/07/2024 1:14 pm, Jan Beulich wrote:
+> On 31.07.2024 14:04, Andrew Cooper wrote:
+>> --- a/xen/common/domain.c
+>> +++ b/xen/common/domain.c
+>> @@ -64,6 +64,57 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
+>>  static struct domain *domain_hash[DOMAIN_HASH_SIZE];
+>>  struct domain *domain_list;
+>>  
+>> +/*
+>> + * Insert a domain into the domlist/hash.  This allows the domain to be looked
+>> + * up by domid, and therefore to be the subject of hypercalls/etc.
+>> + */
+>> +static void domlist_insert(struct domain *d)
+>> +{
+>> +    struct domain **pd;
+>> +
+>> +    spin_lock(&domlist_update_lock);
+>> +
+>> +    /* domain_list is maintained in domid order. */
+>> +    pd = &domain_list;
+> Make this the initializer of the variable, if ...
+>
+>> +    for ( ; *pd != NULL; pd = &(*pd)->next_in_list )
+> ... isn't to be the starting clause of the for()?
 
-It's with great pleasure that I announce our 4.19 PR release.
+Ok.
 
-I want to thank the whole community for their efforts in getting this
-release published!
+>
+>> +        if ( (*pd)->domain_id > d->domain_id )
+>> +            break;
+>> +
+>> +    d->next_in_list = *pd;
+>> +    d->next_in_hashbucket = domain_hash[DOMAIN_HASH(d->domain_id)];
+>> +    rcu_assign_pointer(*pd, d);
+>> +    rcu_assign_pointer(domain_hash[DOMAIN_HASH(d->domain_id)], d);
+> Maybe worth putting the hash in a local variable?
 
-*Please find the PR article attached here
-<https://www.linuxfoundation.org/press/xen-project-announces-performance-an=
-d-security-advancements-with-release-of-4.19?utm_content=3D302230092&utm_me=
-dium=3Dsocial&utm_source=3Dtwitter&hss_channel=3Dtw-14706299
->*
+Ok.
 
-Please find the tarball and its signature at:
-   https://downloads.xenproject.org/release/xen/4.19.0/
+>
+>> +    spin_unlock(&domlist_update_lock);
+>> +}
+>> +
+>> +/*
+>> + * Remove a domain from the domlist/hash.  This means the domain can no longer
+>> + * be looked up by domid, and therefore can no longer be the subject of
+>> + * *subsequent* hypercalls/etc.  In-progress hypercalls/etc can still operate
+>> + * on the domain.
+>> + */
+>> +static void domlist_remove(struct domain *d)
+>> +{
+>> +    struct domain **pd = &domain_list;
+>> +
+>> +    spin_lock(&domlist_update_lock);
+>> +
+>> +    pd = &domain_list;
+> pd already has an initializer.
 
-You can also check out the tag in xen.git:
-   git://xenbits.xen.org/xen.git RELEASE-4.19.0
+Ah - that was a copy&paste error of mine.  I'll drop the initialiser.
 
-Git checkout and build instructions can be found at:
-   https://wiki.xenproject.org/wiki/Xen_Project_4.19_Release_Notes#Build_Re=
-quirements
+The code I copied from strictly initialises *pd with the update lock
+held.  As we're only taking the address of pointer, I think it's safe to
+be outside, but its also just an LEA so also not interesting to
+initialise outside.
 
-Release notes can be found at:
-   https://wiki.xenproject.org/wiki/Xen_Project_4.19_Release_Notes
+> With at least the pd related adjustments
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-A summary for 4.19 release documents can be found at:
-   https://wiki.xenproject.org/wiki/Category:Xen_4.19
+Thanks.
 
-*Some notable features:*
-  - *Security Enhancements:*
-    - Published 13 new Xen Security Advisories (XSAs) to mitigate =20
-vulnerabilities.
-    - Adoption of additional MISRA-C rules for improved code quality.
- =20
-  - *Arm*
-    - Introduction of dynamic node programming using overlay dtbo.
-    - FF-A notification support
-
-  - *x86 Architecture:*
-    - Introduce a new x2APIC driver that uses Cluster Logical     =20
-addressing mode for IPIs and physical addressing mode for     =20
-external interrupts.
-    - Deprecate support for XeonPhi in 4.19, with the firm plan to   =20
-remove support in 4.20.
-   *PVH:*
-     - PVH dom0 has now moved to "supported with caveats" status=E2=80=8B=
-=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B=E2=80=8B
-     - PVH/HVM can now map foreign pages, which should for example   =20
-allow QEMU stubdomains to run as PVH
-     - Boot time speedup due to the IOMMU changes
-     - Don't expose pIRQ support to HVM guests by default.  The feature
-(XENFEAT_hvm_pirqs) can now be enabled on a per-domain basis
-
-   *Other updates:*
-     - Add a new 9pfs backend running as a daemon in dom0. First user=20
-is Xenstore-stubdom now being able to support full Xenstore      =20
-trace capability.=20
-     - libxl support for backendtype=3Dtap with tapback.
-     - Increase the maximum number of CPUs Xen can be built for from =20
-4095 to 16383.
-     - When building with Systemd support (./configure --enable-     =20
-systemd), remove libsystemd as a build dependency. Systemd           =20
-Notify support is retained, now using a standalone library      =20
-implementation.
-     - xenalyze no longer requires `--svm-mode` when analyzing traces=20
-generated on AMD CPUs.
-     - Code symbol annotations and MISRA compliance improvements.
-
-   *CI updates:*
-     - Minimum fixes to rebuild the containers, following the HEREDOC=20
-problems.
-     - Rebuild containers to have testing with up-to-date LTS distros.
-     - Few build system checks, and strip the obsolete contents of the
-build containers.
-
-Aside from the updates mentioned, I would also like to note that we are
-still actively working on the PPC and RISC-V ports.
-
-Best regards,
- Oleksii
-
-Come join the conversation on Matrix:
-
-XenProject: https://matrix.to/#/#XenProject:matrix.org
-
-XenDevel: https://matrix.to/#/#XenDevel:matrix.org
-
-XenSocial: https://matrix.to/#/#XenSocial:matrix.org
+~Andrew
 
