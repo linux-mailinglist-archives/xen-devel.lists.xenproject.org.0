@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 010E5942DE5
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 14:15:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768530.1179360 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA297942E50
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 14:24:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768538.1179369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ8E9-00017d-86; Wed, 31 Jul 2024 12:14:45 +0000
+	id 1sZ8N8-00035N-2W; Wed, 31 Jul 2024 12:24:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768530.1179360; Wed, 31 Jul 2024 12:14:45 +0000
+Received: by outflank-mailman (output) from mailman id 768538.1179369; Wed, 31 Jul 2024 12:24:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ8E9-000150-4a; Wed, 31 Jul 2024 12:14:45 +0000
-Received: by outflank-mailman (input) for mailman id 768530;
- Wed, 31 Jul 2024 12:14:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sZ8N7-00032s-Vq; Wed, 31 Jul 2024 12:24:01 +0000
+Received: by outflank-mailman (input) for mailman id 768538;
+ Wed, 31 Jul 2024 12:24:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9TNE=O7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZ8E7-00014u-Ng
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 12:14:43 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77876909-4f36-11ef-bc01-fd08da9f4363;
- Wed, 31 Jul 2024 14:14:42 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5a10835487fso8244649a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 05:14:42 -0700 (PDT)
+ id 1sZ8N6-00032m-96
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 12:24:00 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c03a5755-4f37-11ef-8776-851b0ebba9a2;
+ Wed, 31 Jul 2024 14:23:54 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5a15c2dc569so4934197a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 05:23:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ac631b03a0sm8697508a12.2.2024.07.31.05.14.34
+ 4fb4d7f45d1cf-5ac64eb3146sm8641705a12.66.2024.07.31.05.23.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Jul 2024 05:14:34 -0700 (PDT)
+ Wed, 31 Jul 2024 05:23:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77876909-4f36-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: c03a5755-4f37-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722428082; x=1723032882; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722428638; x=1723033438; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=n2h2kIRU4A4fL9+3qfAXXgYBMuZB+dVtUhe1Z8YY1HM=;
-        b=gvCi7LVRtfS6QBgKFa6ZroKJaOD90NxT/n+4aSghcpO9QJdbxbpZ5QWX14mW2lQIUv
-         9NRq5ZrwhTd8oy2GBtQaYAGwxiFIwjo/gNzKshmJp8gaee7BUK/zPZ03Lv1JVxRMA+3E
-         YPB1cegQYsgIwrHFyZGvqBV9mM/6v41YOivzn12WlFQZtX/C8EPBrrXUDOU42sKDHu7N
-         jPqfaJShbFbbIZ8v3VNsk6SU+JPzKOaV4xTF2iOsAbxj89pPJwNGp5wClFZF9irsTLFV
-         bOXcIc3HyBD1cJMcyeBJLg7eRr7cQTAEyA8mXY/Ay3zJ+4Wm+fiIPnOiLz5VO1S8RxPD
-         rMxg==
+        bh=B27pjRdnhyBOcqpeMg3qCW584FZBVzYWW63ojgafWRc=;
+        b=NO53XN4dQsm2Bhij61PBj1GbD+PX5c3vAf4xkLXpwd5qlEF2muqTAdA2HRhSaT29b6
+         cygOj+xG97yY+cCPf3Bbc+korDdCx7OyCY+wuVwt2NfbnNEwQuH5nlqSsLlNnN8mDeQJ
+         yqS/pVYrroQOdtUl33jEKK3Ng2Qm6dkh7z8vKyzLpTKqVu68tUw1G4IDcPOCSTEEXiKy
+         bBwfhk7C7n3IDKNRrLWL1iVkes9mTGXRU13pRNwKupp0ZWdPvHvuX4/vNeQmqCTgOp6c
+         HhmNNjjDE8QNYJe4RYuJnfy884wsRxtxVBg9X/pPbRDGmo44aojOHfDtAALhgdzMy1JG
+         iGUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722428082; x=1723032882;
+        d=1e100.net; s=20230601; t=1722428638; x=1723033438;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=n2h2kIRU4A4fL9+3qfAXXgYBMuZB+dVtUhe1Z8YY1HM=;
-        b=BPBPTGiEFor61/sXlzoWAyhqrekqFdGHYbHA07xTUeo8J2G1jhlMfhp5U9tHgqkqst
-         CpMpwHseKXfTJvxu3IWiAVvZMC7Uft2JdmvYJXvCMS76VSAgZ4HpooWJkB12mtgkemQx
-         r+h7uaZinOyxVa+U99gEEGMhWbtUzMIEc65Ha+D/DYEHzLHBfF0D/Cgy8mtYOk7liDmh
-         +Hi5N7gbCZWG/jtvKBGolfXudAWW+CGEXMN1rYuiPvDDRxGvm1v9vvqbD8aK+ddpt1TP
-         FfF6GnM4JiIa3XP/fqWvYYy+lloGXWnCDFSSzJlRb+k3VnZ+o48LqMeNkS2qqCX4PvyC
-         D+DQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV68qgi33ejtmo3L5w2+YztkoEUEPjNwpphSQgRuaXlQOTzgQvKbJn6+pwLiI7jdTaufmjnZMd09FacLTrdfm83bIBFLMj8jp3mfF+jdtY=
-X-Gm-Message-State: AOJu0YySZGo+szyaht43m5sXrfothUnaTSNNFt6nRN+0CVfBqR+1DE/9
-	rWRkLhdSM2d1G003yvBNlpYOiIu+dQeQQ7/TsR+QxqBu2l5A2nOXl/N0qjDhhyci5luOjPf9eRM
-	=
-X-Google-Smtp-Source: AGHT+IF6piW/5duYTi6cuQzY8jDKxZCaCteHTwGraI7V4uusak1GgVZ65MYa/qUBL6t8qRN+Jc3mlQ==
-X-Received: by 2002:a50:aa8d:0:b0:5a7:d986:6e4 with SMTP id 4fb4d7f45d1cf-5b021f0c48bmr9747845a12.28.1722428074905;
-        Wed, 31 Jul 2024 05:14:34 -0700 (PDT)
-Message-ID: <33cde4c7-e00a-47e0-b752-82e514df99d3@suse.com>
-Date: Wed, 31 Jul 2024 14:14:33 +0200
+        bh=B27pjRdnhyBOcqpeMg3qCW584FZBVzYWW63ojgafWRc=;
+        b=Vs2DhvzM3/eQDWYYpZdd432RsvjOYPDIr2B6/N/J5WDoVovBoVTcT8IelKI4afD8xn
+         4g1mTKhKt0ogw8/d8PSMeXCMtKdEYHJ6+gJwh7/AWD8Mu6BSbxEtLfubi1Y8kCyUY4on
+         3E7AzXxfLVYl4cxUvZ9VYinQ4WcEAAJJtFFMKkL6PiKE5nZLK+TonEfdIK6qTtpwEDQM
+         IwTe3E/Nk34v/sT76pAUNzj5jdqF+wzam7pGNsm/uiDH4j4OjpZdVOBY3F/bl5FrvVBr
+         QJ8Gqh7FhFGUJef25E5ACCs9b35Owui+u46twl/NdC73oYa1G2HY4SguRDhw150lHzT5
+         37wQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVsWORWJrVY3Rge8KC6IZkXrDG37vQyeysx7ecAor8miZ0Fa9f7f9YeQ1x3BQmNIbT2ndr54eYB6AAlMqvf5/CLzUnh9SCU5ABIOLyghvk=
+X-Gm-Message-State: AOJu0YxvC9DaO1HiyQj1MbLJ9YwftFlmk2Ggqzw6hkGWUtsRJcHKCpcW
+	fcoBIeI33h9EdhKofDheFfeYYMv5ayvCjhwM22Y+3imTZ1ojGmvT1Gz1zUNekg==
+X-Google-Smtp-Source: AGHT+IFjp9VYsbonbw0qpeyzwQawhNsXpu87dYyAY9QyRmNs1wLikLNvEdYY/RXm83Bd3F2Mm7fI0A==
+X-Received: by 2002:a50:9ee6:0:b0:5a7:464a:abf with SMTP id 4fb4d7f45d1cf-5b02317d025mr11413672a12.24.1722428637734;
+        Wed, 31 Jul 2024 05:23:57 -0700 (PDT)
+Message-ID: <cc92ed50-89f7-48c9-b0e1-cd61a020001c@suse.com>
+Date: Wed, 31 Jul 2024 14:23:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/domain: Factor domlist_{insert,remove}() out of
- domain_{create,destroy}()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240731120406.3429430-1-andrew.cooper3@citrix.com>
+Subject: Re: [XEN PATCH v5 09/13] x86/vmx: guard access to cpu_has_vmx_* in
+ common code
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1722333634.git.Sergiy_Kibrik@epam.com>
+ <c2961c8b67041883ce5a5f6d0511a31dc7fbe22d.1722333634.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,67 +115,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240731120406.3429430-1-andrew.cooper3@citrix.com>
+In-Reply-To: <c2961c8b67041883ce5a5f6d0511a31dc7fbe22d.1722333634.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31.07.2024 14:04, Andrew Cooper wrote:
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -64,6 +64,57 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
->  static struct domain *domain_hash[DOMAIN_HASH_SIZE];
->  struct domain *domain_list;
->  
-> +/*
-> + * Insert a domain into the domlist/hash.  This allows the domain to be looked
-> + * up by domid, and therefore to be the subject of hypercalls/etc.
-> + */
-> +static void domlist_insert(struct domain *d)
-> +{
-> +    struct domain **pd;
-> +
-> +    spin_lock(&domlist_update_lock);
-> +
-> +    /* domain_list is maintained in domid order. */
-> +    pd = &domain_list;
+On 30.07.2024 12:33, Sergiy Kibrik wrote:
+> There're several places in common code, outside of arch/x86/hvm/vmx,
+> where cpu_has_vmx_* get accessed without checking whether VMX supported first.
+> These macros rely on global variables defined in vmx code, so when VMX support
+> is disabled accesses to these variables turn into build failures.
+> 
+> To overcome these failures, build-time check is done before accessing global
+> variables, so that DCE would remove these variables.
+> 
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> Acked-by: Paul Durrant <paul@xen.org>
+> CC: Andrew Cooper <andrew.cooper3@citrix.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> ---
+> changes in v5:
+>  - change kconfig option name VMX -> INTEL_VMX
+>  - do not change .c files, only modify macros in vmcs.h
 
-Make this the initializer of the variable, if ...
+Better, yet still not going far enough, as indicated earlier:
 
-> +    for ( ; *pd != NULL; pd = &(*pd)->next_in_list )
+> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+> @@ -300,13 +300,15 @@ extern u64 vmx_ept_vpid_cap;
+>  #define cpu_has_wbinvd_exiting \
+>      (vmx_secondary_exec_control & SECONDARY_EXEC_WBINVD_EXITING)
+>  #define cpu_has_vmx_virtualize_apic_accesses \
+> -    (vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES)
+> +    (IS_ENABLED(CONFIG_INTEL_VMX) && \
+> +     vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES)
 
-... isn't to be the starting clause of the for()?
+Why does this change but the earlier cpu_has_wbinvd_exiting or ...
 
-> +        if ( (*pd)->domain_id > d->domain_id )
-> +            break;
-> +
-> +    d->next_in_list = *pd;
-> +    d->next_in_hashbucket = domain_hash[DOMAIN_HASH(d->domain_id)];
-> +    rcu_assign_pointer(*pd, d);
-> +    rcu_assign_pointer(domain_hash[DOMAIN_HASH(d->domain_id)], d);
+>  #define cpu_has_vmx_tpr_shadow \
+>      (vmx_cpu_based_exec_control & CPU_BASED_TPR_SHADOW)
+>  #define cpu_has_vmx_vnmi \
+>      (vmx_pin_based_exec_control & PIN_BASED_VIRTUAL_NMIS)
 
-Maybe worth putting the hash in a local variable?
-
-> +    spin_unlock(&domlist_update_lock);
-> +}
-> +
-> +/*
-> + * Remove a domain from the domlist/hash.  This means the domain can no longer
-> + * be looked up by domid, and therefore can no longer be the subject of
-> + * *subsequent* hypercalls/etc.  In-progress hypercalls/etc can still operate
-> + * on the domain.
-> + */
-> +static void domlist_remove(struct domain *d)
-> +{
-> +    struct domain **pd = &domain_list;
-> +
-> +    spin_lock(&domlist_update_lock);
-> +
-> +    pd = &domain_list;
-
-pd already has an initializer.
-
-With at least the pd related adjustments
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+... these two (and several more elsewhere) don't?
 
 Jan
 
