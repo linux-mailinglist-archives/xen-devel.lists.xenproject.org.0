@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BBFA942880
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 09:58:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768294.1179068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA46A94289A
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 10:02:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768304.1179078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ4EC-0000Ps-WA; Wed, 31 Jul 2024 07:58:32 +0000
+	id 1sZ4Hm-0002Tm-G4; Wed, 31 Jul 2024 08:02:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768294.1179068; Wed, 31 Jul 2024 07:58:32 +0000
+Received: by outflank-mailman (output) from mailman id 768304.1179078; Wed, 31 Jul 2024 08:02:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ4EC-0000Mw-Sm; Wed, 31 Jul 2024 07:58:32 +0000
-Received: by outflank-mailman (input) for mailman id 768294;
- Wed, 31 Jul 2024 07:58:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sZ4Hm-0002Rw-D0; Wed, 31 Jul 2024 08:02:14 +0000
+Received: by outflank-mailman (input) for mailman id 768304;
+ Wed, 31 Jul 2024 08:02:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9TNE=O7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZ4EB-0000G2-RN
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 07:58:31 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad73adc4-4f12-11ef-bc01-fd08da9f4363;
- Wed, 31 Jul 2024 09:58:31 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a7abf92f57bso699372366b.2
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 00:58:31 -0700 (PDT)
+ id 1sZ4Hl-0002Rq-Jd
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 08:02:13 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 30fdb2e5-4f13-11ef-8776-851b0ebba9a2;
+ Wed, 31 Jul 2024 10:02:11 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5a79df5af51so1245982a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 01:02:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acadb80c3sm736491466b.197.2024.07.31.00.58.29
+ a640c23a62f3a-a7acadb80c3sm736808166b.197.2024.07.31.01.02.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Jul 2024 00:58:29 -0700 (PDT)
+ Wed, 31 Jul 2024 01:02:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad73adc4-4f12-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: 30fdb2e5-4f13-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722412710; x=1723017510; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722412931; x=1723017731; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mU1CcASOro9RK3Zq/mQFtcDdPcZIsk5HQAQqSy6H0EY=;
-        b=belRqHHXj6NMdYf8BjIO5bDflftm8kda3PUhu473Q6GngPfNWJU192g3u49j+AC/aP
-         bM0cgbxg2JMWAf6YXDG5ZtM4QizfjU41cxJ8r2KD383i9wCvb8+38PK83Zxb2p+AKuG7
-         x76w+OaEJZyPnSKnC74Weuvh8KfPgTDkBMopZGZ6FHvwZNOQaGLFI8THGrR2CJiY8pLJ
-         ECmfcdMxKR0TdLWjF58jc8DdN3p2vLbSBy0QvFPZgalueyW8+rprcsIMVZPg1pAPwEVt
-         Q/HSZkg0jfobLBzsn1QSqtPc1gYEirJUWTMjiT6AN/JPUngwb0yDKpL1wFi9jLVoHQlV
-         5vJQ==
+        bh=ks4vOAYP+psPxcMsr0VFWwkCJ0sUggPF4HxzEbFTtes=;
+        b=f/dSHpXO4JfG/mmUpeDu3eN31lPlJRoG46qZtvdETRkZen25Futcs3l+Se9F4L8YlA
+         2h71sH2KWsUqojw+rdBdfQJzvlOg5m2Sd2kupclUiwoP39obB/jduPXWW1dv2kU+SbqN
+         zKh7mJpwY+mxK/mUGYrBSTCswB66RjYO9i0sN6RpwBXbokkORXw1si5ZekXDKKurjKd/
+         GO51vUN4jMve1olJOAeIVUo+xBkv795ZoHMhljl6+1TFqxv1Vob+BCRpS6nGpL1Vq+dn
+         eiGh8EG023lGvgoPG/jUkG/rmCyUis+ra9QDDaDU+LO5M9fbkc0QFJroTzcXLq8O9485
+         sqtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722412710; x=1723017510;
+        d=1e100.net; s=20230601; t=1722412931; x=1723017731;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mU1CcASOro9RK3Zq/mQFtcDdPcZIsk5HQAQqSy6H0EY=;
-        b=htlxPGhe0arirEAuC2gv+a9a8zV5MFj+p/53SK2OxsfAtXgMHibLpymLhwjRTLG+I/
-         SCaUyoNeYMf1I6bWWftshYHLZSJmbQTVtkGUdINqrkRukfY4lJAz7dTpC8pxkM50sH1R
-         PEmkifAq4MQF9HUJvT062h5AT8B1ofxxvLMhug3WyVAuReHxj89sjs49QV4mhUvtV8l1
-         0WAfFrj6pFCBbHC7QX1SXQl4NyhdH40CCqdSRPMqRijqxf91M/jCbNrhQ1OEL9JK0ZCu
-         Dxz988DC1Il8gIAdqAOazvAk42VDtWgtpS+Lym98CT6p5a87gzk4HhxdcjAv9CNi7CNt
-         JKMg==
-X-Gm-Message-State: AOJu0Yw4x4tdsV4jf6n/sL9lnY/zjQ7SDv8g1GQR6sUXYC77VgFU+Ahy
-	+1ea2H38fbnP+t+JoU75R3tupLMm/E+D/Jg/Vypo8lUNIZfO45bn7N/5wVv5cg==
-X-Google-Smtp-Source: AGHT+IF6kzjzEWRb0xWV+Cjmj+vUT0L4EfCXNRTGCAKVACpx6KQful5ZHF2lqOQRbIRQhwZbNEW7qw==
-X-Received: by 2002:a17:907:72ce:b0:a75:1069:5b94 with SMTP id a640c23a62f3a-a7d3ffa3052mr1023665366b.21.1722412710369;
-        Wed, 31 Jul 2024 00:58:30 -0700 (PDT)
-Message-ID: <0aa0982a-30b3-43cd-9a9e-4542d7cb583f@suse.com>
-Date: Wed, 31 Jul 2024 09:58:28 +0200
+        bh=ks4vOAYP+psPxcMsr0VFWwkCJ0sUggPF4HxzEbFTtes=;
+        b=Q2VZfvbQHl993rpC5ODM13G6rN6V89l6/2/WNzvrDoTuJFwfgNoLiHqq5tGMyweIIJ
+         7hIXQ3e/GRCfhHokSvFCtwzwD/dCr814n1J3e+01LxhzOINGCcNTJF6+5k1fDuR23HJh
+         kq6AV6I7WP6KC1CI+/yfVkgUVPxWd9sk9lzaVoyOGapWdtyx19ifylr98Q4P0fo+xD2j
+         aTSQhLlPEWIob0ATvPClsbQRYVD5ZZXifbROIQuFLQVxLGYMApoPfu/YurbT6FsnZ6q3
+         L1Le0vZ3Gw2smlKPLYEsqAcooOPUP3XY4LIAKCb/EqLjuxuvftHnrXO/eP+Y68+D2aXV
+         C1PQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV/mxB5QmDNkSPcoXUSfLTn9ZVwMWp1GPc7lnYNwxLQi9P1tn/eNZwvrIsoA+osPo9pvS/piHlEv8/GTha8K3YdHhcJefaNIdeh+SS2HcM=
+X-Gm-Message-State: AOJu0YwYiY4ZCz7qRE3Agidgf9Fu3krlpV3+1AB093qEjKPsaRSstSEB
+	0Rm2kZ6A2pHaxvZ5DFm6X40i4f3D4AwcCoJXA6IR5lOFuAOYeNwhsNL9UR+GKw==
+X-Google-Smtp-Source: AGHT+IGUbNRg630Coyd3CF7XZhW0LX3oS9KngjA6LsGRJGzd2lRe105axRScO8mP+XDDOcd911/WQg==
+X-Received: by 2002:a17:907:7e97:b0:a72:7a71:7f4f with SMTP id a640c23a62f3a-a7d858b3d6cmr399153866b.7.1722412931088;
+        Wed, 31 Jul 2024 01:02:11 -0700 (PDT)
+Message-ID: <cb785319-ab42-44d6-b2df-5777fe829eae@suse.com>
+Date: Wed, 31 Jul 2024 10:02:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v12 2/7] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+Subject: Re: [PATCH v2 1/2] x86/dom0: fix restoring %cr3 and the mapcache
+ override on PV build error
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
-References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
- <20240708114124.407797-3-Jiqian.Chen@amd.com> <Zqnswi7ihOhMxPsi@macbook>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240730152855.48745-1-roger.pau@citrix.com>
+ <20240730152855.48745-2-roger.pau@citrix.com>
+ <5e5cc6b2-cdf3-4670-a2dc-2e23dc22d520@suse.com> <ZqnuhBkM9hpSbSw1@macbook>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,43 +113,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zqnswi7ihOhMxPsi@macbook>
+In-Reply-To: <ZqnuhBkM9hpSbSw1@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 31.07.2024 09:50, Roger Pau Monné wrote:
-> On Mon, Jul 08, 2024 at 07:41:19PM +0800, Jiqian Chen wrote:
->> --- a/xen/arch/x86/physdev.c
->> +++ b/xen/arch/x86/physdev.c
->> @@ -323,7 +323,11 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->>          if ( !d )
->>              break;
->>  
->> -        ret = physdev_map_pirq(d, map.type, &map.index, &map.pirq, &msi);
->> +        /* Only mapping when the subject domain has a notion of PIRQ */
->> +        if ( !is_hvm_domain(d) || has_pirq(d) )
+On 31.07.2024 09:57, Roger Pau Monné wrote:
+> On Wed, Jul 31, 2024 at 08:32:03AM +0200, Jan Beulich wrote:
+>> On 30.07.2024 17:28, Roger Pau Monne wrote:
+>>> --- a/xen/arch/x86/pv/dom0_build.c
+>>> +++ b/xen/arch/x86/pv/dom0_build.c
+>>> @@ -825,6 +825,8 @@ int __init dom0_construct_pv(struct domain *d,
+>>>      rc = elf_load_binary(&elf);
+>>>      if ( rc < 0 )
+>>>      {
+>>> +        mapcache_override_current(NULL);
+>>> +        switch_cr3_cr4(current->arch.cr3, read_cr4());
+>>>          printk("Failed to load the kernel binary\n");
+>>>          goto out;
+>>>      }
+>>
+>> Just below here we have
+>>
+>>     bootstrap_map(NULL);
+>>
+>> This too is wanted in the error case aiui. Happy to move it up immediately
+>> ahead of the if() while committing, so long as you agree. Then:
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > 
-> I'm afraid this is not true.  It's fine to map interrupts to HVM
-> domains that don't have XENFEAT_hvm_pirqs enabled.  has_pirq() simply
-> allow HVM domains to route interrupts from devices (either emulated or
-> passed through) over event channels.
-> 
-> It might have worked in the past (when using a version of Xen < 4.19)
-> because XENFEAT_hvm_pirqs was enabled by default for HVM guests.
-> 
-> physdev_map_pirq() will work fine when used against domains that don't
-> have XENFEAT_hvm_pirqs enabled, and it needs to be kept this way.
-> 
-> I think you want to allow PHYSDEVOP_{,un}map_pirq for HVM domains, but
-> keep the code in do_physdev_op() as-is.  You will have to check
-> whether the current paths in do_physdev_op() are not making
-> assumptions about XENFEAT_hvm_pirqs being enabled when the calling
-> domain is of HVM type.  I don't think that's the case, but better
-> check.
+> I'm happy with this, but note there are further instances of error
+> paths above this one that already don't remove the bootstrap mappings.
 
-Yet the goal is to disallow mapping into PVH domains. The use of
-has_pirq() was aiming at that. If that predicate can't be used (anymore)
-for this purpose, which one is appropriate now?
+Hmm, you're right. I'll leave that untouched then.
 
 Jan
 
