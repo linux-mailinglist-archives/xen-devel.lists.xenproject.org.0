@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 973C494271D
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 08:45:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768249.1179018 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E86C942862
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 09:51:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768258.1179028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ34t-0004TU-NS; Wed, 31 Jul 2024 06:44:51 +0000
+	id 1sZ46T-0006Dy-EN; Wed, 31 Jul 2024 07:50:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768249.1179018; Wed, 31 Jul 2024 06:44:51 +0000
+Received: by outflank-mailman (output) from mailman id 768258.1179028; Wed, 31 Jul 2024 07:50:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ34t-0004Ru-Kh; Wed, 31 Jul 2024 06:44:51 +0000
-Received: by outflank-mailman (input) for mailman id 768249;
- Wed, 31 Jul 2024 06:44:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9TNE=O7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZ34s-0004Rd-CW
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 06:44:50 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 61844ffd-4f08-11ef-8776-851b0ebba9a2;
- Wed, 31 Jul 2024 08:44:48 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5a3b866ebc9so7441542a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 23:44:48 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad92ffbsm739347166b.171.2024.07.30.23.44.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jul 2024 23:44:47 -0700 (PDT)
+	id 1sZ46T-0006Bg-B2; Wed, 31 Jul 2024 07:50:33 +0000
+Received: by outflank-mailman (input) for mailman id 768258;
+ Wed, 31 Jul 2024 07:50:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=d79+=O7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sZ46S-0006Ba-Ht
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 07:50:32 +0000
+Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
+ [2607:f8b0:4864:20::f2f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8eeb18e3-4f11-11ef-bc01-fd08da9f4363;
+ Wed, 31 Jul 2024 09:50:30 +0200 (CEST)
+Received: by mail-qv1-xf2f.google.com with SMTP id
+ 6a1803df08f44-6b97097f7fdso34106006d6.0
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 00:50:30 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6bb3faf453esm71481326d6.131.2024.07.31.00.50.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 31 Jul 2024 00:50:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +44,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61844ffd-4f08-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 8eeb18e3-4f11-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722408288; x=1723013088; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LhroYgtrHmoaNenjWMxK/tFHgoPEfidNBY64i/Togs4=;
-        b=LZmEpP7sb3VTlDU9WFUEvVtdETbQUsBiDsEpgCNqCRt6DzL2rrs5v+NdCd+V1oa99f
-         rcHP+5B9ZDyVOQrgysqfmDaKTA5/mbUPnDR5JeN0aGN4S1t1dnrt2JSsS4QApTRc1eZa
-         4PBpueovH80359yHLsarI52CHQO5EcPJlI017ALgwEY09Am9taMehGmE9erzUat161Y3
-         lur+W76do50YfxZpgXh/j1jhSPT2skUn0mAYuxOecN8AhoE3Sqy66wMU6Xzjvaz1+Te0
-         6TkA301CXyBQSva5XKGGk3gf6XjK2IfxrjXpaGiDYkD4AUNq+R4X/Ibhgh5T55fdGsoJ
-         Az+Q==
+        d=citrix.com; s=google; t=1722412230; x=1723017030; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=DXT14CdfpoGU7FzQLw0XkRt6FSOWSaAp0XKFGX7Sucw=;
+        b=mghieoNvfksv0XPP2cltWQzqPWAcxbYQEdKDoRa4tbXy5JJoqH6D1V5mUPPXRa94RP
+         D0Ip40AR9yo6lejMzeEdCrQkf2JppdytWOcNjXnIko/hewXt+chqiBMbeSTf6Yu17SB+
+         /yrQWyi8JMN32nny4ugNcfFmgx/rykbyN3azk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722408288; x=1723013088;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1722412230; x=1723017030;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LhroYgtrHmoaNenjWMxK/tFHgoPEfidNBY64i/Togs4=;
-        b=UM8KddOuj8hfG/vVqE6fGzyaIERDcQFoq4pHYEMcQSddGeoy9IK8TYQsIy3Th+Zz0/
-         rBdnG0eHD65cFdtVndwXQnWoXf1IEET+FDQ4WLzxQsVNTn2IIgctB52OEpIzScjslEOv
-         P+wbrWP/+nAUH0kayB2EOmkhCh8oDuiVlVkHz5St8elgZeC/ZGIgielt/9Rqwsmkfs5p
-         +KJHB16OVrswEkxKOc41V4sjWJeflwPqTylVSoCjOZmnVYz4LtKtpAojehmgUz73VSyi
-         sezglLP1/yooPlXjQ8fdjiB2FeWRaPZSKaE5HCkFSWscJPhL9g3/WXiq5RoCl8pz76lA
-         frVw==
-X-Forwarded-Encrypted: i=1; AJvYcCWWANsWGhTatadO9Z+Req4yXcejRb44YMCfpmfTJ6JIIs1Dett0YgNSEQWYC4No+f6UCHhFFg9ydMisEkDarG8dtC6RapZJsknJQsT+dEk=
-X-Gm-Message-State: AOJu0YzjAZFRrjRnyiMrdSJIn16kqHyJkDzbJ408Z4tyO1k9vih8GlqX
-	buMMmMAf7u+x26oVtXyzrPMnCrh4FRe0owiaUG1xiIffKjOqi5knFFFWydpebvFLaTn6sEWN/gw
-	=
-X-Google-Smtp-Source: AGHT+IGMhpKo/iAjO4bUmjREmYWg0UXJa9Yy3ff6iD25x6fjI81wdnPhfFaj3scLmrqK7E33GFRmdw==
-X-Received: by 2002:a17:906:f59f:b0:a7d:3617:b5f5 with SMTP id a640c23a62f3a-a7d401290d9mr881599966b.42.1722408288013;
-        Tue, 30 Jul 2024 23:44:48 -0700 (PDT)
-Message-ID: <3918b171-b908-4962-8fdf-5236056902f8@suse.com>
-Date: Wed, 31 Jul 2024 08:44:46 +0200
+        bh=DXT14CdfpoGU7FzQLw0XkRt6FSOWSaAp0XKFGX7Sucw=;
+        b=SiN+bDOlXw4+60IC7c5QS2O1eARgKHXYSBm5q1jvvf62brshTEqvzfDKQZnA1Ox7hb
+         dXTLouTILu5K1YFdmPHmxkMwQHM5lqxEKrlA4SlucQjb4ItSBhsz8CfslmL0717s2YuR
+         mV9fcey8KhzWTf2ItrA+eGVpqmbJAdd1Q8SY9HvG6zk+xz8AhdUDIdO2fZFvLNZBOc+z
+         iMQyuuCrBZporT5PerP8j4S0fWB1dyYUUKFA3DquvDGNVGHOfdwxQSVHhrxBhSAb1EiX
+         QJKZdMyUaYdnjLIJXfBN+s+2J3PmiGQ+6fLcAnPdJVMqRVNL8ez1v1xmrqXi/PaCnSHW
+         bCEA==
+X-Gm-Message-State: AOJu0YzZDOOwM4/vUSwToiCBF3XFfmVQ8fotM+wck0PEVZokt9kB/6do
+	o08r7EvM6jt93jwK900tWX/UzrZz4WWrSc5QXn5hqw/I9BEWObMCe9ug17SnCj0=
+X-Google-Smtp-Source: AGHT+IED3v6dpu2H30Wa/dLq0yWRyEaCgFCNe7dx7/R9Qu746b+AK0hmlAHQQKKjTy3KtWrq1SYX5g==
+X-Received: by 2002:ad4:5ce3:0:b0:6b5:e9f9:f1b2 with SMTP id 6a1803df08f44-6bb559b7304mr222360496d6.13.1722412229518;
+        Wed, 31 Jul 2024 00:50:29 -0700 (PDT)
+Date: Wed, 31 Jul 2024 09:50:26 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+	Huang Rui <ray.huang@amd.com>
+Subject: Re: [XEN PATCH v12 2/7] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+Message-ID: <Zqnswi7ihOhMxPsi@macbook>
+References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
+ <20240708114124.407797-3-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] x86/dom0: only disable SMAP for the PV dom0 build
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240730152855.48745-1-roger.pau@citrix.com>
- <20240730152855.48745-3-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240730152855.48745-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20240708114124.407797-3-Jiqian.Chen@amd.com>
 
-On 30.07.2024 17:28, Roger Pau Monne wrote:
-> The PVH dom0 builder doesn't switch page tables and has no need to run with
-> SMAP disabled.
+On Mon, Jul 08, 2024 at 07:41:19PM +0800, Jiqian Chen wrote:
+> If run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
+> a passthrough device by using gsi, see qemu code
+> xen_pt_realize->xc_physdev_map_pirq and libxl code
+> pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
+> will call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq
+> is not allowed because currd is PVH dom0 and PVH has no
+> X86_EMU_USE_PIRQ flag, it will fail at has_pirq check.
 > 
-> Use stac() and clac(), as that's safe to use even if events would hit in the
-> middle of the region with SMAP disabled.  Nesting stac() and clac() calls is
-> not safe, so the stac() call is done strictly after elf_load_binary() because
-> that uses raw_{copy_to,clear}_guest() accessors which toggle SMAP.
-
-And that was the main concern causing the CR4.SMAP override to be used instead,
-iirc. While I'm sure you've properly audited all code paths, how can we be sure
-there's not going to be another stac() or clac() added somewhere? Or setting of
-EFLAGS as a whole, clearing EFLAGS.AC without that being explicit? I think we'd
-be better off sticking to the fiddling with CR4.
-
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Considering the bug Andrew pointed out on the code you remove from setup.c,
-don't we want a Fixes: tag as well?
-
-> --- a/xen/arch/x86/pv/dom0_build.c
-> +++ b/xen/arch/x86/pv/dom0_build.c
-> @@ -830,6 +830,15 @@ int __init dom0_construct_pv(struct domain *d,
->          printk("Failed to load the kernel binary\n");
->          goto out;
->      }
+> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
+> PHYSDEVOP_unmap_pirq for the removal device path to unmap pirq.
+> And add a new check to prevent (un)map when the subject domain
+> doesn't have a notion of PIRQ.
+> 
+> So that the interrupt of a passthrough device can be
+> successfully mapped to pirq for domU with a notion of PIRQ
+> when dom0 is PVH
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+>  xen/arch/x86/hvm/hypercall.c |  6 ++++++
+>  xen/arch/x86/physdev.c       | 12 ++++++++++--
+>  2 files changed, 16 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
+> index 0fab670a4871..03ada3c880bd 100644
+> --- a/xen/arch/x86/hvm/hypercall.c
+> +++ b/xen/arch/x86/hvm/hypercall.c
+> @@ -71,8 +71,14 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>  
+>      switch ( cmd )
+>      {
+> +        /*
+> +        * Only being permitted for management of other domains.
+> +        * Further restrictions are enforced in do_physdev_op.
+> +        */
+>      case PHYSDEVOP_map_pirq:
+>      case PHYSDEVOP_unmap_pirq:
+> +        break;
 > +
-> +    /*
-> +     * Disable SMAP to allow user-accesses when running on dom0 page-tables.
-> +     * Note this must be done after elf_load_binary(), as such helper uses
-> +     * raw_{copy_to,clear}_guest() helpers which internally call stac()/clac()
-> +     * and those calls would otherwise nest with the ones here.
+>      case PHYSDEVOP_eoi:
+>      case PHYSDEVOP_irq_status_query:
+>      case PHYSDEVOP_get_free_pirq:
+> diff --git a/xen/arch/x86/physdev.c b/xen/arch/x86/physdev.c
+> index d6dd622952a9..9f30a8c63a06 100644
+> --- a/xen/arch/x86/physdev.c
+> +++ b/xen/arch/x86/physdev.c
+> @@ -323,7 +323,11 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>          if ( !d )
+>              break;
+>  
+> -        ret = physdev_map_pirq(d, map.type, &map.index, &map.pirq, &msi);
+> +        /* Only mapping when the subject domain has a notion of PIRQ */
+> +        if ( !is_hvm_domain(d) || has_pirq(d) )
 
-Just in case you and Andrew would outvote me on which approach to take:
-I'm okay with "helpers" here, but the earlier "such helper" reads a little
-odd to me. Imo using "that" or "it" instead would be better. Not the least
-because personally a function like elf_load_binary() goes beyond what I'd
-call a mere "helper" (in that case dom0_construct_pv() toos could be deemed
-a helper, etc).
+I'm afraid this is not true.  It's fine to map interrupts to HVM
+domains that don't have XENFEAT_hvm_pirqs enabled.  has_pirq() simply
+allow HVM domains to route interrupts from devices (either emulated or
+passed through) over event channels.
 
-Jan
+It might have worked in the past (when using a version of Xen < 4.19)
+because XENFEAT_hvm_pirqs was enabled by default for HVM guests.
+
+physdev_map_pirq() will work fine when used against domains that don't
+have XENFEAT_hvm_pirqs enabled, and it needs to be kept this way.
+
+I think you want to allow PHYSDEVOP_{,un}map_pirq for HVM domains, but
+keep the code in do_physdev_op() as-is.  You will have to check
+whether the current paths in do_physdev_op() are not making
+assumptions about XENFEAT_hvm_pirqs being enabled when the calling
+domain is of HVM type.  I don't think that's the case, but better
+check.
+
+Thanks, Roger.
 
