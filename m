@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B19994397D
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 01:47:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769183.1180071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25271943982
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 01:50:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769190.1180081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZJ1w-0008Iq-NQ; Wed, 31 Jul 2024 23:46:52 +0000
+	id 1sZJ5V-0001JH-4S; Wed, 31 Jul 2024 23:50:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769183.1180071; Wed, 31 Jul 2024 23:46:52 +0000
+Received: by outflank-mailman (output) from mailman id 769190.1180081; Wed, 31 Jul 2024 23:50:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZJ1w-0008Fk-Jz; Wed, 31 Jul 2024 23:46:52 +0000
-Received: by outflank-mailman (input) for mailman id 769183;
- Wed, 31 Jul 2024 23:46:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sZJ5V-0001HO-1r; Wed, 31 Jul 2024 23:50:33 +0000
+Received: by outflank-mailman (input) for mailman id 769190;
+ Wed, 31 Jul 2024 23:50:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gQnf=O7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sZJ1v-0008Fe-9t
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 23:46:51 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 261495d4-4f97-11ef-8776-851b0ebba9a2;
- Thu, 01 Aug 2024 01:46:48 +0200 (CEST)
+ id 1sZJ5T-0001HI-9o
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 23:50:31 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aa3f56c7-4f97-11ef-bc02-fd08da9f4363;
+ Thu, 01 Aug 2024 01:50:29 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id D0079CE1847;
- Wed, 31 Jul 2024 23:46:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FFB0C116B1;
- Wed, 31 Jul 2024 23:46:42 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 44D896258C;
+ Wed, 31 Jul 2024 23:50:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A69C116B1;
+ Wed, 31 Jul 2024 23:50:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,156 +41,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 261495d4-4f97-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: aa3f56c7-4f97-11ef-bc02-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722469603;
-	bh=AC0JgQP8y+qfpdID5AphXitvMlcdAlEYB891zOwDFpE=;
+	s=k20201202; t=1722469828;
+	bh=3OWwBdL1Ybs3HeunaI06xAEPucJ9zvpO+S7OZuXuDBk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LEyEJiR/wuzChYWtvQrSIU1V8pO2tLXeIOAzniaC9wMk65iEyLMrb4DbYhEdCKRH8
-	 WwZgO0l1PSHyzxG2CSZbKK6WW24STSqKr35rjFQanVETuZ6KKgUw903ImbtQHweZU9
-	 KUe9wywkoFGreBh/GYLv3BW1aFIKLsSaZBfxS+BkkLZfnbQskBX8BP8YgW9LqAOP/6
-	 3JtPE0k8Ua7hldQdoF22aS5XgHfj6L1Y0a0klpes5LmSq3POnj6iOzJU/ulNmLL/bo
-	 ou/jnVPh0FLoMVSejN+ixtgPmgsIifHWVip9gUXmG46lY4czIn8lGu8DHQBm1CeTOl
-	 ugCu+Aw5ZT9Xg==
-Date: Wed, 31 Jul 2024 16:46:41 -0700 (PDT)
+	b=Ro17kujiE8CS464t/m9sFziv5KH5aDIzBfSi8uajkKoJzCk9qh7c6XpOzxm2sUzNQ
+	 ENYQx2FbDcQVYfT0BFWo6zWDjUTvbpwtOaw9pv9yPFk64N96CAyps02hBVOgavkQjL
+	 3TVuIpungq3RWaafN4V4jD+E0PA0c0HLnnib090Wq/DiCIF8WMlzhTnu3HNPud6R/X
+	 0bo+whQ8lg2XXki9wVECG80tWCf+ohGoDsfhkWd+jNIiM95KEtIupumqU8gyomGum2
+	 tFwnKTYFod6Br+29IN460eZo4bZsfU2x5OEw1lLq/KBTKgFFQ5xrc67VrDRy8SnJLa
+	 1tXWbS5vGPnDw==
+Date: Wed, 31 Jul 2024 16:50:26 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-cc: sstabellini@kernel.org, bertrand.marquis@arm.com, michal.orzel@amd.com, 
-    artem_mygaiev@epam.com, julien@xen.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 1/2] docs: Introduce Fusa Requirement and define
- maintainers
-In-Reply-To: <20240731163614.616162-2-ayan.kumar.halder@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2407311517480.4857@ubuntu-linux-20-04-desktop>
-References: <20240731163614.616162-1-ayan.kumar.halder@amd.com> <20240731163614.616162-2-ayan.kumar.halder@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] docs/misra: add R13.2 and R18.2 to rules.rst
+In-Reply-To: <6575beb5-645a-470a-89a1-8485adeace60@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2407311647170.4857@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2407301626460.4857@ubuntu-linux-20-04-desktop> <6575beb5-645a-470a-89a1-8485adeace60@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 31 Jul 2024, Ayan Kumar Halder wrote:
-> The FUSA folder is expected to contain requirements and other documents
-> to enable safety certification of Xen hypervisor.
-> Added a README to explain how the requirements are categorized, written
-> and their supported status.
+On Wed, 31 Jul 2024, Jan Beulich wrote:
+> On 31.07.2024 01:30, Stefano Stabellini wrote:
+> > --- a/docs/misra/rules.rst
+> > +++ b/docs/misra/rules.rst
+> > @@ -462,6 +462,15 @@ maintainers if you want to suggest a change.
+> >       - Initializer lists shall not contain persistent side effects
+> >       -
+> >  
+> > +   * - `Rule 13.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_02.c>`_
+> > +     - Required
+> > +     - The value of an expression and its persistent side-effects shall
+> > +       be the same under all permitted evaluation orders
+> > +     - Be aware that the static analysis tool Eclair might report
+> > +       several findings for Rule 13.2 of type "caution". These are
+> > +       instances where Eclair is unable to verify that the code is valid
+> > +       in regard to Rule 13.2. Caution reports are not violations.
 > 
-> Added maintainers for the same.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
->  MAINTAINERS              |  9 +++++
->  docs/fusa/reqs/README.md | 75 ++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 84 insertions(+)
->  create mode 100644 docs/fusa/reqs/README.md
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 7c524a8a93..0d328e065c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -314,6 +314,15 @@ F:	xen/arch/x86/include/asm/x86_*/efi*.h
->  F:	xen/common/efi/
->  F:	xen/include/efi/
->  
-> +FUSA
-> +M:	Stefano Stabellini <sstabellini@kernel.org>
-> +M:	Bertrand Marquis <bertrand.marquis@arm.com>
-> +M:	Michal Orzel <michal.orzel@amd.com>
-> +M:	Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> +M:	Artem Mygaiev <artem_mygaiev@epam.com>
-> +S:	Supported
-> +F:	docs/fusa/
-> +
->  GDBSX DEBUGGER
->  M:	Elena Ufimtseva <elena.ufimtseva@oracle.com>
->  S:	Supported
-> diff --git a/docs/fusa/reqs/README.md b/docs/fusa/reqs/README.md
-> new file mode 100644
-> index 0000000000..69b8d3a5c8
-> --- /dev/null
-> +++ b/docs/fusa/reqs/README.md
-> @@ -0,0 +1,75 @@
-> +This folder contains a set of requirements describing Xen and its implementation
-> +in a form suitable for a safety certification process.
-> +The status is experimental and it is maintained on a best effort basis.
-> +
-> +The requirements writing style is inspired from the ANSI/IEEE guide to Software
-> +Requirements Standard 830-1984.
+> Which doesn't make clear what our take is towards new code people may
+> submit.
+
+Good point, see my comment below
 
 
-I think it would be helpful to mention that they are currently
-experimental and may be slightly out of sync with the code. We are
-actively working on a process to keep them updated, more details to
-follow.
-
-
-> +The requirements are categorized as follows :-
-> +
-> +1. Market requirements - They define the high level functionalities of the
-> +hypervisor without going into concepts specific to Xen. Those should allow a
-> +system architect to understand wether Xen is providing the functionalities it
-> +needs for its system. This is the top level of the requirements.
-> +
-> +2. Product requirements - They define the Xen specific concepts and interfaces
-> +provided by Xen without going into implementation details. One or several of
-> +those requirements are linked to each market requirement. An Architect can use
-> +them understand how Xen fulfils a market need and design how Xen should be used
-> +in his system.
-> +
-> +3. Design requirements - They describe what the software implementation is doing
-> +from a technical point of view. One or several design requirement together
-> +define how product requirements are fulfilled technically and are linked to
-> +them. An implementer can use them to know how to write or understand the Xen
-> +code.
-> +
-> +The requirements are linked using OpenFastTrace
-> +(https://github.com/itsallcode/openfasttrace/blob/main/doc/user_guide.md).
-> +OpenFastTrace parses through the requirements and generates a traceability
-> +report.
-> +
-> +The following is the skeleton for a requirement.
-> +
-> +Title  /* Title of the requirement */
-> +-----
-> +
-> +`unique_tag`
-> +/*
-> + * Each requirement needs to have a unique tag associated. The format is
-> + * req_type~name~revision.
-> + *
-> + * Thus, it consists of three components :-
-> + * requirement type - This denotes the category of requirement. Thus, it shall
-> + * be 'XenMkt', 'XenProd' or 'XenSwdgn' to denote market, product or design
-> + * requirement.
-> + * name - This denotes name of the requirement. In case of architecture specific
-> + * requirements, this starts with the architecture type (ie x86_64, arm64).
-> + * revision number - This gets incremented each time the requirement is modified.
-> + */
-> +
-> +Description:
-> +This shall describe the requirement in a definitive tone. In other words,
-> +the requirement begins with 'Xen shall ...'. Further, the description is
-> +expected to be unambiguous and consistent.
-> +
-> +Rationale:
-> +This describes a rationale explaining the reason of the presence of the
-> +requirement when this can help the reader. This field can be left blank.
-> +
-> +Comments:
-> +This describes the use cases for the requirement when this can help the
-> +reader. This field can be left blank as well.
-> +
-> +Covers:
-> +This denotes the unique_tag of the parent. This field is non existent for the
-> +market requirement as it is the top level.
-> +
-> +Needs:
-> +This denotes the requirement type of its children. This field is non existent
-> +for the design requirements as there are no subsequent requirements linked to
-> +them.
-> +
-> +
-> +The requirements are expected to the technically correct and follow the above
-> +guidelines.
-> -- 
-> 2.25.1
+> > @@ -583,6 +592,15 @@ maintainers if you want to suggest a change.
+> >         submitting new patches please try to decrease the number of
+> >         violations when possible.
+> >  
+> > +   * - `Rule 18.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_18_02.c>`_
+> > +     - Required
+> > +     - Subtraction between pointers shall only be applied to pointers
+> > +       that address elements of the same array
+> > +     - Be aware that the static analysis tool Eclair might report
+> > +       several findings for Rule 18.2 of type "caution". These are
+> > +       instances where Eclair is unable to verify that the code is valid
+> > +       in regard to Rule 18.2. Caution reports are not violations.
 > 
+> And while the same wording is used here, I think it is pretty clear for
+> this that we'd reject changes where bad subtractions are used. IOW even
+> more so important to clarify the (possibly different) positions on what
+> is going to be added into the code base.
+
+In both of these cases, we would reject code that doesn't follow R13.2
+and R18.2. I'll change it to the following:
+
+
+Be aware that the static analysis tool Eclair might report several
+findings for Rule 18.2 of type "caution". These are instances where
+Eclair is unable to verify that the code is valid in regard to Rule
+18.2. Caution reports are not violations. Regardless, new code is
+expected to follow this rule.
 
