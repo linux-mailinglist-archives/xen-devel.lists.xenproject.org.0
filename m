@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 406999437F7
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 23:27:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769089.1179976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85B5F9437FD
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 23:28:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769099.1179986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZGpq-00025i-8q; Wed, 31 Jul 2024 21:26:14 +0000
+	id 1sZGrV-0002qT-Ij; Wed, 31 Jul 2024 21:27:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769089.1179976; Wed, 31 Jul 2024 21:26:14 +0000
+Received: by outflank-mailman (output) from mailman id 769099.1179986; Wed, 31 Jul 2024 21:27:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZGpq-00023W-44; Wed, 31 Jul 2024 21:26:14 +0000
-Received: by outflank-mailman (input) for mailman id 769089;
- Wed, 31 Jul 2024 21:26:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sZGpo-00023L-HL; Wed, 31 Jul 2024 21:26:12 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sZGpo-0004yL-D2; Wed, 31 Jul 2024 21:26:12 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sZGpn-0004bP-UM; Wed, 31 Jul 2024 21:26:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sZGpn-0005mR-Tu; Wed, 31 Jul 2024 21:26:11 +0000
+	id 1sZGrV-0002ni-Fw; Wed, 31 Jul 2024 21:27:57 +0000
+Received: by outflank-mailman (input) for mailman id 769099;
+ Wed, 31 Jul 2024 21:27:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8eAs=O7=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
+ id 1sZGrU-0002nc-US
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 21:27:56 +0000
+Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bef3cc30-4f83-11ef-8776-851b0ebba9a2;
+ Wed, 31 Jul 2024 23:27:53 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by sonata.ens-lyon.org (Postfix) with ESMTP id 5335FA02F7;
+ Wed, 31 Jul 2024 23:27:53 +0200 (CEST)
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+ by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 6Iz8zjDtMuoK; Wed, 31 Jul 2024 23:27:53 +0200 (CEST)
+Received: from begin (aamiens-653-1-111-57.w83-192.abo.wanadoo.fr
+ [83.192.234.57])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id 16AB0A02F3;
+ Wed, 31 Jul 2024 23:27:53 +0200 (CEST)
+Received: from samy by begin with local (Exim 4.98)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1sZGrQ-0000000AtAZ-2sPc; Wed, 31 Jul 2024 23:27:52 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,95 +52,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=4+9Nl8CbQqOaz8rsMA2pCnu3jR5rmYrMKl7Q8/+9j60=; b=YiUe8SnFDHCo2JBDDcADfwCpO3
-	gi1dE4td7PD246KWHblcrmfk5+CketVjPU2r85XxUihRsxj3gXS2OrqIpk8jCnez3WkFmxEsoQNS/
-	0SkPWsIpK3n8GklMKeTH9LlNbVrs6H7SQuANWBTAxyYoGE0ttYuHz+5A1JhsQM2dKneU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187088-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: bef3cc30-4f83-11ef-8776-851b0ebba9a2
+Date: Wed, 31 Jul 2024 23:27:52 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+Subject: Re: [PATCH 2/3] mini-os: mm: switch need_pgt() to use walk_pt()
+Message-ID: <20240731212752.zd5njpd7kgoc433d@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org, wl@xen.org
+References: <20240731130026.8467-1-jgross@suse.com>
+ <20240731130026.8467-3-jgross@suse.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 187088: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
-X-Osstest-Versions-This:
-    xen=e05e3cedb6dbe50e43b1d6a647c16a47219fde1d
-X-Osstest-Versions-That:
-    xen=6979e17b3f8a18d2ba5dbd4f0623c4061dae0dfc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 31 Jul 2024 21:26:11 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240731130026.8467-3-jgross@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 
-flight 187088 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187088/
+Hello,
 
-Regressions :-(
+Juergen Gross, le mer. 31 juil. 2024 15:00:25 +0200, a ecrit:
+> -pgentry_t *need_pgt(unsigned long va)
+> +static int need_pgt_func(unsigned long va, unsigned int lvl, bool is_leaf,
+> +                         pgentry_t *pte, void *par)
+>  {
+[...]
+> +    if ( lvl == L1_FRAME || (*pte & _PAGE_PRESENT) )
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 187068
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 187068
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 187068
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 187068
+Did you mean (*pte & _PAGE_PSE)?
 
-version targeted for testing:
- xen                  e05e3cedb6dbe50e43b1d6a647c16a47219fde1d
-baseline version:
- xen                  6979e17b3f8a18d2ba5dbd4f0623c4061dae0dfc
+>      {
+> +        *result = pte;
+> +        return 1;
+>      }
 
-Last test of basis   187068  2024-07-31 02:02:09 Z    0 days
-Failing since        187075  2024-07-31 11:02:13 Z    0 days    2 attempts
-Testing same since   187088  2024-07-31 17:00:43 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Federico Serafini <federico.serafini@bugseng.com>
-  Fouad Hilly <fouad.hilly@cloud.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
-  Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Simone Ballarin  <simone.ballarin@bugseng.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 383 lines long.)
+Samuel
 
