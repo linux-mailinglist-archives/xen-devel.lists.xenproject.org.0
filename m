@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C6D49431B8
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 16:10:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768810.1179696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 230D09431C4
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 16:12:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768817.1179706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZA20-0008BH-PS; Wed, 31 Jul 2024 14:10:20 +0000
+	id 1sZA45-0000Iw-4Y; Wed, 31 Jul 2024 14:12:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768810.1179696; Wed, 31 Jul 2024 14:10:20 +0000
+Received: by outflank-mailman (output) from mailman id 768817.1179706; Wed, 31 Jul 2024 14:12:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZA20-000889-Lz; Wed, 31 Jul 2024 14:10:20 +0000
-Received: by outflank-mailman (input) for mailman id 768810;
- Wed, 31 Jul 2024 14:10:18 +0000
+	id 1sZA45-0000GZ-0v; Wed, 31 Jul 2024 14:12:29 +0000
+Received: by outflank-mailman (input) for mailman id 768817;
+ Wed, 31 Jul 2024 14:12:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=d79+=O7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sZA1y-000881-Ee
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 14:10:18 +0000
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [2607:f8b0:4864:20::f2e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9TNE=O7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sZA44-0000GT-AF
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 14:12:28 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c01941b-4f46-11ef-8776-851b0ebba9a2;
- Wed, 31 Jul 2024 16:10:16 +0200 (CEST)
-Received: by mail-qv1-xf2e.google.com with SMTP id
- 6a1803df08f44-6b7b28442f9so64691356d6.3
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 07:10:16 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6bb3fb07bf7sm74278626d6.137.2024.07.31.07.10.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 Jul 2024 07:10:14 -0700 (PDT)
+ id e9e928d5-4f46-11ef-8776-851b0ebba9a2;
+ Wed, 31 Jul 2024 16:12:26 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a7a8e73b29cso459797766b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 07:12:26 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acab22ff1sm773816666b.35.2024.07.31.07.12.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 31 Jul 2024 07:12:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,108 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c01941b-4f46-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: e9e928d5-4f46-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722435015; x=1723039815; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=GMZrjJE3ANwP3wPaNAJgY84KzcpUhc121LUvBj00zl8=;
-        b=LabitAz0V4Bur/2hCncThGVnSC+0tjcng8ZH/ZQ6AmOVEVw62GaC+sKw1eQzbuASOC
-         cITxg9UNyg8iMBsqzWJPI/maDGYLGhgkfHTGSV56bYt8SbS1hVzkz89LxN7f0hDGj9yl
-         cK6/36kvqYRDGHvxzg2HWjmOvyHlUTvSMdLE4=
+        d=suse.com; s=google; t=1722435146; x=1723039946; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=+TAyoyIqnH8cIcRiaj90o1rkWu+glJGqWkl7UmKVSYk=;
+        b=dYqOOO19Fkr8UfLmxVnFnxNjeE+Mk5/xbIm6Qfwmdp8VpLWcTa2vL3vGEqcmRU7JXk
+         RnBeeibHXCjtvLAacRSAhiGf8PDhZC2zW20TmqBP8PGzrbf7JHFj9vvcRdilHXBcX2Ye
+         lkSSgmIsH+U5F0sqYcrTv2LsY5PKsYU9c/LR6adoH/4hwy+XJfZ/4LEInyhK9zPenoJv
+         7WatANrK997XezEIXO3Et4PKXAAkT0Gt0rxm8auZAOamdtbR6Lv0SjO4AJ8cnPs4YQLg
+         TAA28mF7vqoT9juEXi2Rc9kXbzFlHDjDkydLZBAkivo8rotO/RgkKci1dluRvze3vK2T
+         kwDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722435015; x=1723039815;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GMZrjJE3ANwP3wPaNAJgY84KzcpUhc121LUvBj00zl8=;
-        b=Ww3icFHbBeszOfmU9LfVRS6LqxJT0OSm47xziaV83PStljysMFhPkXclvd53Ug2MpW
-         Cckpg9n10OVHzfh/lXLaFCzJExMtEC1ryZkAzXx0X8quvQnySRmTDxm81BLHDf7GgN00
-         1lP4+XWVp7BCa8o32WbrTSogV37p0cHiUHBwn8SZbpclXmpJDo6Z/0y7Iv5RtmaB2hPV
-         Ipk/MyPn01nrVZaHvWcm+0YS+JK7JWIlSY/u4u+eiMKCio/X/P5z7jFju+w+ZbiyFZa9
-         HbIgDypY+vsRlVcyKWmvyhnmvhctgDTG+J7p6fUrfk0FW4B/m2+8lnSZyw9GuKfgUlzr
-         IKVg==
-X-Forwarded-Encrypted: i=1; AJvYcCWYTpMdv6EN3HwUSaXJ8P8j79TR1ARqEpPWTRqA3R+ttp9GZqqGmDrxdCYDW0cwmsaE89mIR3DqfVDkDuSC9gLyZeARfyWGq9t3QfOdc8g=
-X-Gm-Message-State: AOJu0YxRttvFRPb4w1XqnrMVp+eqbLG5p4uYL6tULYvwrurZGV9ehLcS
-	Jg6W2TYKU1/FTMehxoW6CxhWHfek2nkhoOfZGMIeGuXWFoIWhFnb8Wbo8EqGBQCGTIPoWU7zb8u
-	G
-X-Google-Smtp-Source: AGHT+IF+zQEYiBqChA4GxhRz8d1E6ZdiAh9jMJIkJv5wou13gjxJCRCMyc1v3q+2+ACIv6DNYve7BQ==
-X-Received: by 2002:a05:6214:19ee:b0:6b0:729c:5efc with SMTP id 6a1803df08f44-6bb55b156d4mr180870316d6.56.1722435014820;
-        Wed, 31 Jul 2024 07:10:14 -0700 (PDT)
-Date: Wed, 31 Jul 2024 16:10:12 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 2/2] x86/dom0: only disable SMAP for the PV dom0 build
-Message-ID: <ZqpFxHxA0g0KrCC-@macbook>
-References: <20240730152855.48745-1-roger.pau@citrix.com>
- <20240730152855.48745-3-roger.pau@citrix.com>
- <3918b171-b908-4962-8fdf-5236056902f8@suse.com>
- <Zqo7Q-leDNCXs4Fr@macbook>
- <e0000e62-5b00-4a00-85fe-8a6c8e7281b9@suse.com>
+        d=1e100.net; s=20230601; t=1722435146; x=1723039946;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+TAyoyIqnH8cIcRiaj90o1rkWu+glJGqWkl7UmKVSYk=;
+        b=rrpsLSOAf+fbQV+lbCoOR4x+JOZhmwK9RR8FnD76V4s3cHUvxmFcokhybzHXRZ+6ED
+         ojTPK7r9BAIISSvNe5IvYbJ7jbTML8aBIwOGEvTgCb9KadMMAn9HuVeD7d9CMjYe+k+3
+         clF4GWqgOXSuWbiFOyjsO9g/1CU2bbz6vPTSqF1QcwKPS1XYqFtuUBD/0O6XrYlaCa7n
+         t44lUTAUifXYlZdzP2bJp8lzipSSgLJnJvPUKZ0HC1qwV9TxdiSgXuPkwD1V4FCFlTfV
+         +w6UN/hC1geHbe8DodrdexwlHesWLPSJS3RsAmNyOp9/P27117RNLEGeHrPX3hvHkHRa
+         DbkA==
+X-Forwarded-Encrypted: i=1; AJvYcCWbzraLRCQtl4Ec7HfMRUhIzLX6dv+l0hL7pGShxdSEIXxoWiaUTkpmoi+CwxpJnXx28INHoYKAp+AmbTgE/h5KC1PtegaU8VFi1JPDBtk=
+X-Gm-Message-State: AOJu0YwO16bbl/bA5liJuNdJUgCMmZrIaq7i0W0qYVatwI9lXh8wcy3x
+	ZPE0BJ0OuwDL5U/URHEE0VgFmAgRprRC/1tuur7eHpYZY7ETA5yGJ4XEaDg43w==
+X-Google-Smtp-Source: AGHT+IEoBJG07FJFs0E2E+6MRXcncvCLdmCFO8+GxQXun7W8mz7i86soTcFZrRWTaP1fILO70zslaw==
+X-Received: by 2002:a17:907:9483:b0:a7a:83f8:cfd5 with SMTP id a640c23a62f3a-a7d3ff9f2f8mr989134366b.18.1722435145567;
+        Wed, 31 Jul 2024 07:12:25 -0700 (PDT)
+Message-ID: <67896aad-8cec-4bb7-a9dd-c244aae61c85@suse.com>
+Date: Wed, 31 Jul 2024 16:12:24 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/domain: Factor domlist_{insert,remove}() out of
+ domain_{create,destroy}()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240731120406.3429430-1-andrew.cooper3@citrix.com>
+ <33cde4c7-e00a-47e0-b752-82e514df99d3@suse.com>
+ <1de0e761-0c87-4a7f-a7a9-3c468489c410@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1de0e761-0c87-4a7f-a7a9-3c468489c410@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <e0000e62-5b00-4a00-85fe-8a6c8e7281b9@suse.com>
 
-On Wed, Jul 31, 2024 at 03:39:35PM +0200, Jan Beulich wrote:
-> On 31.07.2024 15:25, Roger Pau Monné wrote:
-> > On Wed, Jul 31, 2024 at 08:44:46AM +0200, Jan Beulich wrote:
-> >> On 30.07.2024 17:28, Roger Pau Monne wrote:
-> >>> The PVH dom0 builder doesn't switch page tables and has no need to run with
-> >>> SMAP disabled.
-> >>>
-> >>> Use stac() and clac(), as that's safe to use even if events would hit in the
-> >>> middle of the region with SMAP disabled.  Nesting stac() and clac() calls is
-> >>> not safe, so the stac() call is done strictly after elf_load_binary() because
-> >>> that uses raw_{copy_to,clear}_guest() accessors which toggle SMAP.
-> >>
-> >> And that was the main concern causing the CR4.SMAP override to be used instead,
-> >> iirc. While I'm sure you've properly audited all code paths, how can we be sure
-> >> there's not going to be another stac() or clac() added somewhere? Or setting of
-> >> EFLAGS as a whole, clearing EFLAGS.AC without that being explicit? I think we'd
-> >> be better off sticking to the fiddling with CR4.
-> > 
-> > On approach I didn't test would be to add ASSERTs in stac/clac
-> > functions to ensure that the state is as intended.  IOW: for stac we
-> > would assert that the AC flag is not set, while for clac we would do
-> > the opposite and assert that it's set before clearing it.
-> > 
-> > That should detect nesting.
+On 31.07.2024 16:07, Andrew Cooper wrote:
+> On 31/07/2024 1:14 pm, Jan Beulich wrote:
+>> On 31.07.2024 14:04, Andrew Cooper wrote:
+>>> --- a/xen/common/domain.c
+>>> +++ b/xen/common/domain.c
+>>> @@ -64,6 +64,57 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
+>>>  static struct domain *domain_hash[DOMAIN_HASH_SIZE];
+>>>  struct domain *domain_list;
+>>>  
+>>> +/*
+>>> + * Insert a domain into the domlist/hash.  This allows the domain to be looked
+>>> + * up by domid, and therefore to be the subject of hypercalls/etc.
+>>> + */
+>>> +static void domlist_insert(struct domain *d)
+>>> +{
+>>> +    struct domain **pd;
+>>> +
+>>> +    spin_lock(&domlist_update_lock);
+>>> +
+>>> +    /* domain_list is maintained in domid order. */
+>>> +    pd = &domain_list;
+>> Make this the initializer of the variable, if ...
+>>
+>>> +    for ( ; *pd != NULL; pd = &(*pd)->next_in_list )
+>> ... isn't to be the starting clause of the for()?
 > 
-> Yet it would also refuse non-paired uses which are in principle okay.
-
-While such non-paired uses could be fine, it would seem to point to
-other issues, as I would expect stac/clac to always be paired unless
-it's a non-return path (a panic or similar).
-
-> Plus is requires respective code paths to be taken for such assertions
-> to trigger.
-
-It does.  It seems more reliable to me to use stac/clac, rather than
-fiddling with %cr4, however there's the nesting issue.  I think we
-need to reach consensus as to which approach is to be used.
-
-> >>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>
-> >> Considering the bug Andrew pointed out on the code you remove from setup.c,
-> >> don't we want a Fixes: tag as well?
-> > 
-> > No, I think the current code is correct, it was my change that was
-> > incorrect.
+> Ok.
 > 
-> Hmm, no I think there was an issue also before, from the cpu_has_smap
-> use in the restore-CR4 conditional: We'd enable SMAP there even if on
-> the command line there was "smap=hvm". While we clear FEATURE_SMAP
-> when "smap=off", we keep the feature available when "smap=hvm". Thus
-> we'd pointlessly write CR4 in the first if() and then enable SMAP in
-> the second one, even though it wasn't enabled earlier on.
+>>
+>>> +        if ( (*pd)->domain_id > d->domain_id )
+>>> +            break;
+>>> +
+>>> +    d->next_in_list = *pd;
+>>> +    d->next_in_hashbucket = domain_hash[DOMAIN_HASH(d->domain_id)];
+>>> +    rcu_assign_pointer(*pd, d);
+>>> +    rcu_assign_pointer(domain_hash[DOMAIN_HASH(d->domain_id)], d);
+>> Maybe worth putting the hash in a local variable?
+> 
+> Ok.
+> 
+>>
+>>> +    spin_unlock(&domlist_update_lock);
+>>> +}
+>>> +
+>>> +/*
+>>> + * Remove a domain from the domlist/hash.  This means the domain can no longer
+>>> + * be looked up by domid, and therefore can no longer be the subject of
+>>> + * *subsequent* hypercalls/etc.  In-progress hypercalls/etc can still operate
+>>> + * on the domain.
+>>> + */
+>>> +static void domlist_remove(struct domain *d)
+>>> +{
+>>> +    struct domain **pd = &domain_list;
+>>> +
+>>> +    spin_lock(&domlist_update_lock);
+>>> +
+>>> +    pd = &domain_list;
+>> pd already has an initializer.
+> 
+> Ah - that was a copy&paste error of mine.  I'll drop the initialiser.
 
-Oh yes, that one.  I was thinking about the one related to IST and
-cr4_pv32_mask.  I will add the fixes tag.
+The initializer? Then please also don't switch to making it the initializer
+in domlist_insert(), but rather move it into the for(). I think the two
+functions want to remain in sync in this regard.
 
-Thanks, Roger.
+> The code I copied from strictly initialises *pd with the update lock
+> held.  As we're only taking the address of pointer, I think it's safe to
+> be outside, but its also just an LEA so also not interesting to
+> initialise outside.
+
+One can really view it both ways, I suppose. The compiler is also free to
+move it, even across the spin_lock(), aiui.
+
+Jan
 
