@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2F5194389B
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 00:08:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769147.1180037 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAB2D94392B
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 01:04:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769163.1180052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZHU4-0001mu-8p; Wed, 31 Jul 2024 22:07:48 +0000
+	id 1sZIM0-0001Ve-Af; Wed, 31 Jul 2024 23:03:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769147.1180037; Wed, 31 Jul 2024 22:07:48 +0000
+Received: by outflank-mailman (output) from mailman id 769163.1180052; Wed, 31 Jul 2024 23:03:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZHU4-0001lD-5L; Wed, 31 Jul 2024 22:07:48 +0000
-Received: by outflank-mailman (input) for mailman id 769147;
- Wed, 31 Jul 2024 22:07:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sZIM0-0001Ti-7W; Wed, 31 Jul 2024 23:03:32 +0000
+Received: by outflank-mailman (input) for mailman id 769163;
+ Wed, 31 Jul 2024 23:03:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gQnf=O7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sZHU2-0001l7-Rp
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 22:07:46 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4fb55370-4f89-11ef-bc02-fd08da9f4363;
- Thu, 01 Aug 2024 00:07:45 +0200 (CEST)
+ id 1sZILy-0001Tc-SC
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 23:03:30 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 18d73c4a-4f91-11ef-8776-851b0ebba9a2;
+ Thu, 01 Aug 2024 01:03:28 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id DA4B4CE16B7;
- Wed, 31 Jul 2024 22:07:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876A6C116B1;
- Wed, 31 Jul 2024 22:07:41 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3202962603;
+ Wed, 31 Jul 2024 23:03:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE8DC116B1;
+ Wed, 31 Jul 2024 23:03:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,94 +41,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4fb55370-4f89-11ef-bc02-fd08da9f4363
+X-Inumbo-ID: 18d73c4a-4f91-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722463662;
-	bh=lPcHPtCyt/+swhJML+l071bNUYE+IlYVfGp36N9DWN4=;
+	s=k20201202; t=1722467006;
+	bh=wAtVXMIt1HCt202CvoVAR17kHrD+uQxKCEpiwXwDrQ8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=tG8fCcdvWStSHmOgY3X0q5CiF1SLqP50eDCNknrlPdujwYoJEp/O7tdyi04OjQh8v
-	 CHRe9H6hXzoxO2HHEz8X8QLBotSlXP6BX6YZWCh5D1pF93W6vY7y3E9WXY5wbjwD1a
-	 e0bW1j2JkvpIT7IYHVibKY8uRFgDpUEX7CMdbnGMq+y173NozuBLYbWJVQ4v/dfSca
-	 eY/L0N3fCNk8Zbtt6fTipRZ1DBdqfu3k0FwaKaCVl25D7wGr33ehmal7v17HB9Jgu0
-	 y+AGwSxQejlrdqOGzOFK95ZWO4HGsKDsDQ8MQwgl3sUakflQQYiDumi7a2+fULPJQL
-	 rO6/a4CQrKO3A==
-Date: Wed, 31 Jul 2024 15:07:41 -0700 (PDT)
+	b=Q6CvsIFhsSaQ8iwxDug52Mz/Z78MH7lGEus1XnG+/gk03ar3Y5Lafm4nfJpbeXUaR
+	 Ny5nyB/0UpUKfwg53TBIM//qXGxrZ0z5Gh5E0jmrfhagN6kFndNe00sehbV65mm0Mm
+	 Ize9/iCMyhZN23wA+KJzeO/XAgtUoJ1SdFGoq2OuOqCW/61frv0+m8x+LHtjHZUuHV
+	 i9ZCt2lECBKVeYdy8yscW9kAO3GrTMLNrjcQXwSMoDFXN00dFxij2dNFZC8NLqgdHf
+	 Eu6ejRLvaejrfzpLW82xBwVTHcYLn/eaiIDKaTrcwz7VIVzp/jyYPqalyF2l9FUP43
+	 PLLQzTAz3GZvg==
+Date: Wed, 31 Jul 2024 16:03:24 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <JBeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] x86/domain: Fix domlist_insert() updating the domain
- hash
-In-Reply-To: <20240731203355.3652182-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2407311507240.4857@ubuntu-linux-20-04-desktop>
-References: <20240731203355.3652182-1-andrew.cooper3@citrix.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [XEN PATCH] automation/eclair_analysis: add Rule 18.6 to the
+ clean guidelines
+In-Reply-To: <c4dddc9468224e037f42ef77eb8407ba9a71207e.1722429655.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2407311603020.4857@ubuntu-linux-20-04-desktop>
+References: <c4dddc9468224e037f42ef77eb8407ba9a71207e.1722429655.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 31 Jul 2024, Andrew Cooper wrote:
-> A last minute review request was to dedup the expression calculating the
-> domain hash bucket.
+On Wed, 31 Jul 2024, Nicola Vetrini wrote:
+> MISRA C Rule 18.6 states: "The address of an object with automatic
+> storage shall not be copied to another object that persists after
+> the first object has ceased to exist."
 > 
-> While the code reads correctly, it is buggy because rcu_assign_pointer() is a
-> criminally stupid API assigning by name not value, and - contrary to it's name
-> - does not hide an indirection.
+> The rule is set as monitored and tagged clean, in order to block
+> the CI on any violations that may arise, allowing the presence
+> of cautions (currently there are no violations).
 > 
-> Therefore, rcu_assign_pointer(bucket, d); updates the local bucket variable on
-> the stack, not domain_hash[], causing all subsequent domid lookups to fail.
+> No functional change.
 > 
-> Rework the logic to use pd in the same way that domlist_remove() does.
-> 
-> Fixes: 19995bc70cc6 ("xen/domain: Factor domlist_{insert,remove}() out of domain_{create,destroy}()")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
+>  automation/eclair_analysis/ECLAIR/monitored.ecl | 1 +
+>  automation/eclair_analysis/ECLAIR/tagging.ecl   | 1 +
+>  2 files changed, 2 insertions(+)
 > 
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1395978459
-> ---
->  xen/common/domain.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 8d8f40ccb245..92263a4fbdc5 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -70,7 +70,7 @@ struct domain *domain_list;
->   */
->  static void domlist_insert(struct domain *d)
->  {
-> -    struct domain **pd, *bucket;
-> +    struct domain **pd;
->  
->      spin_lock(&domlist_update_lock);
->  
-> @@ -79,12 +79,12 @@ static void domlist_insert(struct domain *d)
->          if ( (*pd)->domain_id > d->domain_id )
->              break;
->  
-> -    bucket = domain_hash[DOMAIN_HASH(d->domain_id)];
-> -
->      d->next_in_list = *pd;
-> -    d->next_in_hashbucket = bucket;
->      rcu_assign_pointer(*pd, d);
-> -    rcu_assign_pointer(bucket, d);
-> +
-> +    pd = &domain_hash[DOMAIN_HASH(d->domain_id)];
-> +    d->next_in_hashbucket = *pd;
-> +    rcu_assign_pointer(*pd, d);
->  
->      spin_unlock(&domlist_update_lock);
->  }
+> diff --git a/automation/eclair_analysis/ECLAIR/monitored.ecl b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> index 9ffaebbdc378..8a7e3f3ceaa9 100644
+> --- a/automation/eclair_analysis/ECLAIR/monitored.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> @@ -32,6 +32,7 @@
+>  -enable=MC3R1.R17.4
+>  -enable=MC3R1.R17.5
+>  -enable=MC3R1.R17.6
+> +-enable=MC3R1.R18.6
+>  -enable=MC3R1.R19.1
+>  -enable=MC3R1.R20.12
+>  -enable=MC3R1.R20.13
+> diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
+> index b829655ca0bc..e7b32773e60e 100644
+> --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+> @@ -67,6 +67,7 @@ MC3R1.R17.3||
+>  MC3R1.R17.4||
+>  MC3R1.R17.5||
+>  MC3R1.R17.6||
+> +MC3R1.R18.6||
+>  MC3R1.R18.8||
+>  MC3R1.R20.2||
+>  MC3R1.R20.3||
 > -- 
-> 2.39.2
+> 2.34.1
 > 
 
