@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 659C4942F86
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 15:01:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768602.1179498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56700942FAA
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 15:04:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768652.1179576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ8wm-0004gf-FF; Wed, 31 Jul 2024 13:00:52 +0000
+	id 1sZ8zl-00070M-Ko; Wed, 31 Jul 2024 13:03:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768602.1179498; Wed, 31 Jul 2024 13:00:52 +0000
+Received: by outflank-mailman (output) from mailman id 768652.1179576; Wed, 31 Jul 2024 13:03:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ8wm-0004eu-8S; Wed, 31 Jul 2024 13:00:52 +0000
-Received: by outflank-mailman (input) for mailman id 768602;
- Wed, 31 Jul 2024 13:00:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Q60C=O7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sZ8wk-0003df-AV
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 13:00:50 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e423661e-4f3c-11ef-8776-851b0ebba9a2;
- Wed, 31 Jul 2024 15:00:42 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AC44B21B78;
- Wed, 31 Jul 2024 13:00:45 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 78D3213297;
- Wed, 31 Jul 2024 13:00:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id MBYPHH01qmYAWQAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 31 Jul 2024 13:00:45 +0000
+	id 1sZ8zl-0006yB-He; Wed, 31 Jul 2024 13:03:57 +0000
+Received: by outflank-mailman (input) for mailman id 768652;
+ Wed, 31 Jul 2024 13:03:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=d79+=O7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sZ8zj-0006y1-OX
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 13:03:55 +0000
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
+ [2607:f8b0:4864:20::731])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 56e5af3e-4f3d-11ef-bc01-fd08da9f4363;
+ Wed, 31 Jul 2024 15:03:54 +0200 (CEST)
+Received: by mail-qk1-x731.google.com with SMTP id
+ af79cd13be357-7a1d024f775so364550485a.2
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 06:03:54 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7a1fc0a04a3sm223399185a.18.2024.07.31.06.03.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 31 Jul 2024 06:03:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,223 +44,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e423661e-4f3c-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1722430845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tSF1mgyyRozqIhqSscGGgmQznHAJUWT1VxHYxdygHx8=;
-	b=AHTTS6nCUZ7FhXGl14JRg8q5Vm0NskVBAKF2Soyes8jqrhNIxBqB4rkOO4WDgPt3HRzlH4
-	jO5Y6gq+0kY//GsR2cfd6F0IdKzpAcg8UtKzru7NhXdvUTDnAUiYj73i7eUbp8hExOYVEk
-	FOECsX7c4KBY/lHS+A8dlA2Ip83QIRU=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1722430845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tSF1mgyyRozqIhqSscGGgmQznHAJUWT1VxHYxdygHx8=;
-	b=AHTTS6nCUZ7FhXGl14JRg8q5Vm0NskVBAKF2Soyes8jqrhNIxBqB4rkOO4WDgPt3HRzlH4
-	jO5Y6gq+0kY//GsR2cfd6F0IdKzpAcg8UtKzru7NhXdvUTDnAUiYj73i7eUbp8hExOYVEk
-	FOECsX7c4KBY/lHS+A8dlA2Ip83QIRU=
-From: Juergen Gross <jgross@suse.com>
-To: minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org,
-	wl@xen.org,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 3/3] mini-os: mm: convert set_readonly() to use walk_pt()
-Date: Wed, 31 Jul 2024 15:00:26 +0200
-Message-ID: <20240731130026.8467-4-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240731130026.8467-1-jgross@suse.com>
-References: <20240731130026.8467-1-jgross@suse.com>
+X-Inumbo-ID: 56e5af3e-4f3d-11ef-bc01-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1722431033; x=1723035833; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=TAVdmlTYZ1Uk4pYSOcVvTJTpIhudSsftIlI6WZ/jnGk=;
+        b=FTKCr9BXuXXOSfEk/HgMatcWMfPV/85hqzQDND0MJ3vPZtXPzroImfrABCIuudz1J6
+         X0a9r7V4CNGgyAEo8zWISl07ResO+h/YSpsBbxWl3ecZRs82I8YyMRrFsy8z1K5A08F8
+         ZAaeOteRBdktYhWyLhpHVHG/zKmyt9mw+58Ic=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722431033; x=1723035833;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=TAVdmlTYZ1Uk4pYSOcVvTJTpIhudSsftIlI6WZ/jnGk=;
+        b=VihiOerC3IkzCoORLLgr+6CFThMdqUNcISCRZ+Ldtx5Vjt/oxhsl3848rtnorgcp1v
+         7jBrK6smxfQgtzUfN6jnbzv2G2/zaj6Ph+uXM5nSGDzvabDNW0lIjLf28BvrbFU0GPld
+         doxZMnvyaF32aeBeLLQZ4qPfBQ4R5Qzy2s61w5MQJH+tQVyR2DFQYyW3iBdeo/u+DD9y
+         lU5xkpeaNdkc+6I+dbaprh9tY2C35X6MN15nAxPf4J8CTIJqwgPrV594DLpd4tSpLNe6
+         w9L3gmssJfNpfLjBpMFeqT14PMti/HZFfVSIri08cWDjaK9eBwHqqSwQCK4StB4ZId/M
+         WhTQ==
+X-Gm-Message-State: AOJu0Yw9yQrA3hewsmJ35RNH5DsaYBuENUK99fs9uOuJfMnSesXiv7fO
+	yFIvU+EMmfLSaJsy8RPCuXx7Fjcu/L4+NXNdcj2kDZSYakWe1OX1gfnZUV37b8A=
+X-Google-Smtp-Source: AGHT+IE7Key7ukTATcE5lzwiGcjjRzus4ikYMQXkQoAaDZLf1wNhNWgEJTJIYgQxBemmqc4F4hKcug==
+X-Received: by 2002:a05:620a:4310:b0:79f:12e9:1e6e with SMTP id af79cd13be357-7a1e522a534mr1543690785a.12.1722431033387;
+        Wed, 31 Jul 2024 06:03:53 -0700 (PDT)
+Date: Wed, 31 Jul 2024 15:03:51 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+	Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
+Subject: Re: [XEN PATCH v12 2/7] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+Message-ID: <Zqo2N7CDshL7ZoMK@macbook>
+References: <Zqnswi7ihOhMxPsi@macbook>
+ <0aa0982a-30b3-43cd-9a9e-4542d7cb583f@suse.com>
+ <Zqn014wCEfWhyo1-@macbook>
+ <8ff685a6-0cbd-45cd-a818-4535a040c478@suse.com>
+ <Zqn7HEuooChgRCuf@macbook>
+ <d65ae152-22ee-4a57-8ff4-43ef0c234f5f@suse.com>
+ <ZqoF55yapMxGN_WM@macbook>
+ <fa33fbf8-32b6-48dc-a30c-dd76b021a76d@suse.com>
+ <ZqogJVHV36ytYVP1@macbook>
+ <ff922c7a-aa66-4b23-8b9f-63b0b403ff14@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.60 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spam-Score: -2.60
+In-Reply-To: <ff922c7a-aa66-4b23-8b9f-63b0b403ff14@suse.com>
 
-Instead of having another copy of a page table walk in set_readonly(),
-just use walk_pt().
+On Wed, Jul 31, 2024 at 01:39:40PM +0200, Jan Beulich wrote:
+> On 31.07.2024 13:29, Roger Pau Monné wrote:
+> > On Wed, Jul 31, 2024 at 11:55:35AM +0200, Jan Beulich wrote:
+> >> On 31.07.2024 11:37, Roger Pau Monné wrote:
+> >>> On Wed, Jul 31, 2024 at 11:02:01AM +0200, Jan Beulich wrote:
+> >>>> On 31.07.2024 10:51, Roger Pau Monné wrote:
+> >>>>> I agree with (a), but I don't think enabling PVH dom0 usage of the
+> >>>>> hypercalls should be gated on this.  As said a PV dom0 is already
+> >>>>> capable of issuing PHYSDEVOP_{,un}map_pirq operations against a PVH
+> >>>>> domU.
+> >>>>
+> >>>> Okay, I can accept that as an intermediate position. We ought to deny
+> >>>> such requests at some point though for PVH domains, the latest in the
+> >>>> course of making vPCI work there.
+> >>>
+> >>> Hm, once physdev_map_pirq() works as intended against PVH domains, I
+> >>> don't see why we would prevent the usage of PHYSDEVOP_{,un}map_pirq
+> >>> against such domains.
+> >>
+> >> Well. If it can be made work as intended, then I certainly agree. However,
+> >> without even the concept of pIRQ in PVH I'm having a hard time seeing how
+> >> it can be made work. Iirc you were advocating for us to not introduce pIRQ
+> >> into PVH.
+> > 
+> > From what I'm seeing here the intention is to expose
+> > PHYSDEVOP_{,un}map_pirq to PVH dom0, so there must be some notion of
+> > pIRQs or akin in a PVH dom0?  Even if only for passthrough needs.
+> 
+> Only in so far as it is an abstract, handle-like value pertaining solely
+> to the target domain.
+> 
+> >> Maybe you're thinking of re-using the sub-ops, requiring PVH domains to
+> >> pass in GSIs?
+> > 
+> > I think that was one my proposals, to either introduce a new
+> > hypercall that takes a GSI, or to modify the PHYSDEVOP_{,un}map_pirq
+> > in an ABI compatible way so that semantically the field could be a GSI
+> > rather than a pIRQ.  We however would also need a way to reference an
+> > MSI entry.
+> 
+> Of course.
+> 
+> > My main concern is not with pIRQs by itself, pIRQs are just an
+> > abstract way to reference interrupts, my concern and what I wanted to
+> > avoid on PVH is being able to route pIRQs over event channels.  IOW:
+> > have interrupts from physical devices delivered over event channels.
+> 
+> Oh, I might have slightly misunderstood your intentions then.
 
-As it will be needed later anyway, split out the TLB flushing into a
-dedicated function.
+My intention would be to not even use pIRQs at all, in order to avoid
+the temptation of the guest itself managing interrupts using
+hypercalls, hence I would have preferred that abstract interface to be
+something else.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- arch/x86/mm.c | 119 +++++++++++++++++++++-----------------------------
- 1 file changed, 50 insertions(+), 69 deletions(-)
+Maybe we could even expose the Xen IRQ space directly, and just use
+that as interrupt handles, but since I'm not the one doing the work
+I'm not sure it's fair to ask for something that would require more
+changes internally to Xen.
 
-diff --git a/arch/x86/mm.c b/arch/x86/mm.c
-index accde291..90992068 100644
---- a/arch/x86/mm.c
-+++ b/arch/x86/mm.c
-@@ -397,92 +397,73 @@ static void build_pagetable(unsigned long *start_pfn, unsigned long *max_pfn)
-  * Mark portion of the address space read only.
-  */
- extern struct shared_info shared_info;
--static void set_readonly(void *text, void *etext)
--{
--    unsigned long start_address =
--        ((unsigned long) text + PAGE_SIZE - 1) & PAGE_MASK;
--    unsigned long end_address = (unsigned long) etext;
--    pgentry_t *tab = pt_base, page;
--    unsigned long mfn = pfn_to_mfn(virt_to_pfn(pt_base));
--    unsigned long offset;
--    unsigned long page_size = PAGE_SIZE;
-+
-+struct set_readonly_par {
-+    unsigned long etext;
- #ifdef CONFIG_PARAVIRT
--    int count = 0;
--    int rc;
-+    unsigned int count;
- #endif
-+};
- 
--    printk("setting %p-%p readonly\n", text, etext);
-+static int set_readonly_func(unsigned long va, unsigned int lvl, bool is_leaf,
-+                             pgentry_t *pte, void *par)
-+{
-+    struct set_readonly_par *ro = par;
- 
--    while ( start_address + page_size <= end_address )
--    {
--        tab = pt_base;
--        mfn = pfn_to_mfn(virt_to_pfn(pt_base));
-+    if ( !is_leaf )
-+        return 0;
- 
--#if defined(__x86_64__)
--        offset = l4_table_offset(start_address);
--        page = tab[offset];
--        mfn = pte_to_mfn(page);
--        tab = to_virt(mfn_to_pfn(mfn) << PAGE_SHIFT);
--#endif
--        offset = l3_table_offset(start_address);
--        page = tab[offset];
--        mfn = pte_to_mfn(page);
--        tab = to_virt(mfn_to_pfn(mfn) << PAGE_SHIFT);
--        offset = l2_table_offset(start_address);        
--        if ( !(tab[offset] & _PAGE_PSE) )
--        {
--            page = tab[offset];
--            mfn = pte_to_mfn(page);
--            tab = to_virt(mfn_to_pfn(mfn) << PAGE_SHIFT);
-+    if ( va + (1UL << ptdata[lvl].shift) > ro->etext )
-+        return 1;
- 
--            offset = l1_table_offset(start_address);
--        }
-+    if ( va == (unsigned long)&shared_info )
-+    {
-+        printk("skipped %lx\n", va);
-+        return 0;
-+    }
- 
--        if ( start_address != (unsigned long)&shared_info )
--        {
- #ifdef CONFIG_PARAVIRT
--            mmu_updates[count].ptr = 
--                ((pgentry_t)mfn << PAGE_SHIFT) + sizeof(pgentry_t) * offset;
--            mmu_updates[count].val = tab[offset] & ~_PAGE_RW;
--            count++;
-+    mmu_updates[ro->count].ptr = virt_to_mach(pte);
-+    mmu_updates[ro->count].val = *pte & ~_PAGE_RW;
-+    ro->count++;
-+
-+    if ( (ro->count == L1_PAGETABLE_ENTRIES ||
-+          va + 2 * PAGE_SIZE > ro->etext) &&
-+         HYPERVISOR_mmu_update(mmu_updates, ro->count, NULL, DOMID_SELF) < 0 )
-+    {
-+        printk("ERROR: set_readonly(): PTE could not be updated\n");
-+        do_exit();
-+    }
- #else
--            tab[offset] &= ~_PAGE_RW;
-+    *pte &= ~_PAGE_RW;
- #endif
--        }
--        else
--            printk("skipped %lx\n", start_address);
- 
--        start_address += page_size;
-+    return 0;
-+}
- 
- #ifdef CONFIG_PARAVIRT
--        if ( count == L1_PAGETABLE_ENTRIES || 
--             start_address + page_size > end_address )
--        {
--            rc = HYPERVISOR_mmu_update(mmu_updates, count, NULL, DOMID_SELF);
--            if ( rc < 0 )
--            {
--                printk("ERROR: set_readonly(): PTE could not be updated\n");
--                do_exit();
--            }
--            count = 0;
--        }
--#else
--        if ( start_address == (1UL << L2_PAGETABLE_SHIFT) )
--            page_size = 1UL << L2_PAGETABLE_SHIFT;
--#endif
--    }
-+static void tlb_flush(void)
-+{
-+    mmuext_op_t op = { .cmd = MMUEXT_TLB_FLUSH_ALL };
-+    int count;
- 
--#ifdef CONFIG_PARAVIRT
--    {
--        mmuext_op_t op = {
--            .cmd = MMUEXT_TLB_FLUSH_ALL,
--        };
--        int count;
--        HYPERVISOR_mmuext_op(&op, 1, &count, DOMID_SELF);
--    }
-+    HYPERVISOR_mmuext_op(&op, 1, &count, DOMID_SELF);
-+}
- #else
-+static void tlb_flush(void)
-+{
-     write_cr3((unsigned long)pt_base);
-+}
- #endif
-+
-+static void set_readonly(void *text, void *etext)
-+{
-+    struct set_readonly_par setro = { .etext = (unsigned long)etext };
-+    unsigned long start_address = PAGE_ALIGN((unsigned long)text);
-+
-+    printk("setting %p-%p readonly\n", text, etext);
-+    walk_pt(start_address, setro.etext, set_readonly_func, &setro);
-+    tlb_flush();
- }
- 
- /*
--- 
-2.43.0
+> >> I think I suggested something along these lines also to
+> >> Jiqian, yet with the now intended exposure to !has_pirq() domains I'm
+> >> not sure this could be made work reliably.
+> > 
+> > I'm afraid I've been lacking behind on reviewing those series.
+> > 
+> >> Which reminds me of another question I had: What meaning does the pirq
+> >> field have right now, if Dom0 would issue the request against a PVH DomU?
+> >> What meaning will it have for a !has_pirq() HVM domain?
+> > 
+> > The pirq field could be a way to reference an interrupt.  It doesn't
+> > need to be exposed to the PVH domU at all, but it's a way for the
+> > device model to identify which interrupt should be mapped to which
+> > domain.
+> 
+> Since pIRQ-s are per-domain, _that_ kind of association won't be
+> helped. But yes, as per above it could serve as an abstract handle-
+> like value.
 
+I would be fine with doing the interrupt bindings based on IRQs
+instead of pIRQs, but I'm afraid that would require more changes to
+hypercalls and Xen internals.
+
+At some point I need to work on a new interface to do passthrough, so
+that we can remove the usage of domctls from QEMU.  That might be a
+good opportunity to switch from using pIRQs.
+
+Thanks, Roger.
 
