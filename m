@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5159994268E
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 08:23:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768224.1178988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E77894269A
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 08:26:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768231.1178998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ2k8-0007zW-Kd; Wed, 31 Jul 2024 06:23:24 +0000
+	id 1sZ2ml-0000RK-1c; Wed, 31 Jul 2024 06:26:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768224.1178988; Wed, 31 Jul 2024 06:23:24 +0000
+Received: by outflank-mailman (output) from mailman id 768231.1178998; Wed, 31 Jul 2024 06:26:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ2k8-0007wu-Hx; Wed, 31 Jul 2024 06:23:24 +0000
-Received: by outflank-mailman (input) for mailman id 768224;
- Wed, 31 Jul 2024 06:23:22 +0000
+	id 1sZ2mk-0000Oq-V0; Wed, 31 Jul 2024 06:26:06 +0000
+Received: by outflank-mailman (input) for mailman id 768231;
+ Wed, 31 Jul 2024 06:26:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9TNE=O7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZ2k6-0007wo-Pm
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 06:23:22 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1sZ2mj-0000Ob-Ex
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 06:26:05 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6252931a-4f05-11ef-bc01-fd08da9f4363;
- Wed, 31 Jul 2024 08:23:21 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a7abf92f57bso687642666b.2
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 23:23:21 -0700 (PDT)
+ id c31d69fc-4f05-11ef-bc01-fd08da9f4363;
+ Wed, 31 Jul 2024 08:26:04 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a7a9a7af0d0so697965966b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 23:26:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acac61218sm734782966b.94.2024.07.30.23.23.20
+ a640c23a62f3a-a7acab23f62sm736170366b.16.2024.07.30.23.26.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jul 2024 23:23:20 -0700 (PDT)
+ Tue, 30 Jul 2024 23:26:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6252931a-4f05-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: c31d69fc-4f05-11ef-bc01-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722407001; x=1723011801; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722407163; x=1723011963; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=j34XI5wjhTwlsln1V0zSLuppoKI1G8c1DTFaIjYrNj0=;
-        b=d3pgNYKmIcEEs+AWPQ35XKGFSCC2xreI2bVn4NXAEK+73xvQhl267CzUvwoaUt3a2R
-         xLDE0d0gT4J6h/54YjKwiYqIDd/kPNqiOAdfsyWv4nkvseFFukPpA8cI7PMpcoyWHTdr
-         7azdo2fwAQDj3rcYjByfETm7mbEXcRjGsdMTkAUCtWO/DonezenxWjsTnD3RONk5uhC+
-         gYhwH2xCuHQxIzel57G6BBwO5Y6Mnv8Y3NNfoP7Wihd+Nh9+cEc322/eiFDgDkMd2NCB
-         zpnvRQnPtdBebh6uvaYIYpCyOvl83xRcQRZR55L8GW+ppTWj7nL3ux1AmDsjY419Yv24
-         3WdQ==
+        bh=JrjF6L5WcSMM40/SdRL6ldbH43TXBjMIj6JkVAnEW9Y=;
+        b=Vdry2fXbWb/rY1AFnTqylOqu9LTnha3wQinWR3hY1FB+Hq5JmSNJDUQM/vBKqXHuqy
+         ws9r5+qhr0eYgeohlTH7OAUlfCls6rhxhvT+evbPb6Tmgxn+B4fmaKv+UcJ2BCsyhAEo
+         GBrx3at1QbXIpt8lRxrnpFVe/ycpXJgmoCFJTY+NItOcCM/ks/gTcHCwrMVDtL/BwUxB
+         xnVISYjYFOW+5CZDKsh8sWjlRo5QYwvRR24XWo7YPf72T1Qg9gIDxou5qHxK4YJnLTvf
+         /uoYh8fJF0qXuZai+dk0gWdmMus27zWXNHAT5LqogVzMZS11daChKsubxNn+ylamqWLP
+         4I9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722407001; x=1723011801;
+        d=1e100.net; s=20230601; t=1722407163; x=1723011963;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=j34XI5wjhTwlsln1V0zSLuppoKI1G8c1DTFaIjYrNj0=;
-        b=i+QvjB4gUGVoi0tlZO0OwmQojBMr0KYywFexgIDie4FcHtykuveeRlh7VCx15UCblR
-         C+89xx7Bf+pLBKcv2juXLk6AwbsHPnO1wYFkqhjAe7qTssL16uKQrmiHhhA5YNa9AA22
-         UVaCMmS0LT61bTDmJTAt0gXNHlXd6cfYbysKbS90MCXdSc4D8L7muvZYvguqZoJidp1D
-         zGHuJwGEPuiBemZAC4uPGVz6JN4fbSuJsRLA42UyeP0UUvG2E/tShJqKK3gaN04MYbj5
-         RprmvpDXLtwuauOS+VaGMcTRmpvzQ0SnG1J3w09AX47yztKQ1Xj0QkT/iO9jOS8I2WDw
-         E0uA==
-X-Forwarded-Encrypted: i=1; AJvYcCXAOGPeu3FnrXb997EZ8/TAGeR0o3kec9FvYMdus84R6/04gmMIr6eH+9ml9UQvc3+j7bqjRQIdNHc6aC1EhmfgqoXlwvueTpTdUL2SBd8=
-X-Gm-Message-State: AOJu0YxtcB49spaO4iAyY+njamF5VBB2Oo0au59jrusljBzXFKnN5TaJ
-	8Htwvz2VcZLI9+3+FhzV0pDV2IfvGcFCajw47Sxy8safQfV7/PwVPshsGmi5bg==
-X-Google-Smtp-Source: AGHT+IGS/qoqQh/c4wxfFeIlv5o8HUrBBaPAu1RWRHNX8AXx3wnyoeM+MrDpOSiZCL8th1ufdTjcYA==
-X-Received: by 2002:a17:907:7e9d:b0:a77:aa6d:e0c7 with SMTP id a640c23a62f3a-a7d3fff5d65mr932785966b.30.1722407000890;
-        Tue, 30 Jul 2024 23:23:20 -0700 (PDT)
-Message-ID: <6575beb5-645a-470a-89a1-8485adeace60@suse.com>
-Date: Wed, 31 Jul 2024 08:23:19 +0200
+        bh=JrjF6L5WcSMM40/SdRL6ldbH43TXBjMIj6JkVAnEW9Y=;
+        b=Wf42dKVwcUWjU7ELOprIqYdQZ5l2Q1TRao/VlMpkmQx/GK2JqtWNWjCnDBsviwTN7W
+         84wNi/hWQnJnO8ZanHYkI1JwTc/hXQ0UhAyiBqPKUEPmeLj28fYu3Ia24KzgpeKbBvmM
+         m0BUz6QMmG95BorLcIBdCaDS45hIvL3cupwzL/p2OcPeKmjRju8oNFyOjwIyZCj5vjoO
+         1YkVP5Y+MtW3Jl0fsm9qKXalx+B4UDoF3VcqvEEplKKUXb+GXz/imIh4mYog+8KKTBl1
+         VCSXbUmdlmaK2lKcZ2zE6vVRvg7dZSB559V5Lw4pW9HaHjjrFrJ9DWb+UTABDL5IxZqP
+         odXw==
+X-Forwarded-Encrypted: i=1; AJvYcCUBpbx3AiMWPdu0gKOmaIHge9efepvPZ/1thDEcMx8sYUakCXb1izk17u604XkoNDHyq7BAZQm/AcDdOaTrPQmUbHp0DiJQkGvLoUCpKAQ=
+X-Gm-Message-State: AOJu0YwY8A/baSD/GklT8ln0XZ7UAUV+RawM+E+mgQ9IhoMltcPCgQLc
+	9eNLQv3YNrJBu1fSVfyaKr0t7L9617BAuOTZOeFH8rPP0DnHPuUQWVyw2tglVA==
+X-Google-Smtp-Source: AGHT+IF/0hlhY07Af7abz7YRJFgToHhWyzX+ZkWoyoDi/zHTP6shIpX9qepIwUQT6wkYt7eQxhXXCg==
+X-Received: by 2002:a17:906:dc8b:b0:a7a:a4be:2f98 with SMTP id a640c23a62f3a-a7d3ff7bceamr1011136466b.10.1722407163367;
+        Tue, 30 Jul 2024 23:26:03 -0700 (PDT)
+Message-ID: <8701cfdf-a44c-4bec-8190-7d38e8267a78@suse.com>
+Date: Wed, 31 Jul 2024 08:26:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/misra: add R13.2 and R18.2 to rules.rst
-To: Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v3] x86/altcall: further refine clang workaround
+To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
  xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2407301626460.4857@ubuntu-linux-20-04-desktop>
+References: <20240730155305.49172-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,46 +112,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2407301626460.4857@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20240730155305.49172-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.07.2024 01:30, Stefano Stabellini wrote:
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -462,6 +462,15 @@ maintainers if you want to suggest a change.
->       - Initializer lists shall not contain persistent side effects
->       -
+On 30.07.2024 17:53, Roger Pau Monne wrote:
+> The current code in ALT_CALL_ARG() won't successfully workaround the clang
+> code-generation issue if the arg parameter has a size that's not a power of 2.
+> While there are no such sized parameters at the moment, improve the workaround
+> to also be effective when such sizes are used.
+> 
+> Instead of using a union with a long use an unsigned long that's first
+> initialized to 0 and afterwards set to the argument value.
+> 
+> Reported-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> Suggested-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Albeit if you don't mind ...
+
+> --- a/xen/arch/x86/include/asm/alternative.h
+> +++ b/xen/arch/x86/include/asm/alternative.h
+> @@ -169,27 +169,25 @@ extern void alternative_branches(void);
 >  
-> +   * - `Rule 13.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_02.c>`_
-> +     - Required
-> +     - The value of an expression and its persistent side-effects shall
-> +       be the same under all permitted evaluation orders
-> +     - Be aware that the static analysis tool Eclair might report
-> +       several findings for Rule 13.2 of type "caution". These are
-> +       instances where Eclair is unable to verify that the code is valid
-> +       in regard to Rule 13.2. Caution reports are not violations.
+>  #ifdef CONFIG_CC_IS_CLANG
+>  /*
+> - * Use a union with an unsigned long in order to prevent clang from
+> - * skipping a possible truncation of the value.  By using the union any
+> - * truncation is carried before the call instruction, in turn covering
+> - * for ABI-non-compliance in that the necessary clipping / extension of
+> - * the value is supposed to be carried out in the callee.
+> + * Clang doesn't follow the psABI and doesn't truncate parameter values at the
+> + * callee.  This can lead to bad code being generated when using alternative
+> + * calls.
+>   *
+> - * Note this behavior is not mandated by the standard, and hence could
+> - * stop being a viable workaround, or worse, could cause a different set
+> - * of code-generation issues in future clang versions.
+> + * Workaround it by using a temporary intermediate variable that's zeroed
+> + * before being assigned the parameter value, as that forces clang to zero the
+> + * register at the caller.
+>   *
+>   * This has been reported upstream:
+>   * https://github.com/llvm/llvm-project/issues/12579
+>   * https://github.com/llvm/llvm-project/issues/82598
+>   */
+>  #define ALT_CALL_ARG(arg, n)                                            \
+> -    register union {                                                    \
+> -        typeof(arg) e[sizeof(long) / sizeof(arg)];                      \
+> -        unsigned long r;                                                \
+> -    } a ## n ## _ asm ( ALT_CALL_arg ## n ) = {                         \
+> -        .e[0] = ({ BUILD_BUG_ON(sizeof(arg) > sizeof(void *)); (arg); })\
+> -    }
+> +    register unsigned long a ## n ## _ asm ( ALT_CALL_arg ## n ) = ({   \
+> +        unsigned long tmp = 0;                                          \
+> +        *(typeof(arg) *)&tmp = (arg);                                   \
+> +        BUILD_BUG_ON(sizeof(arg) > sizeof(unsigned long));              \
 
-Which doesn't make clear what our take is towards new code people may
-submit.
-
-> @@ -583,6 +592,15 @@ maintainers if you want to suggest a change.
->         submitting new patches please try to decrease the number of
->         violations when possible.
->  
-> +   * - `Rule 18.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_18_02.c>`_
-> +     - Required
-> +     - Subtraction between pointers shall only be applied to pointers
-> +       that address elements of the same array
-> +     - Be aware that the static analysis tool Eclair might report
-> +       several findings for Rule 18.2 of type "caution". These are
-> +       instances where Eclair is unable to verify that the code is valid
-> +       in regard to Rule 18.2. Caution reports are not violations.
-
-And while the same wording is used here, I think it is pretty clear for
-this that we'd reject changes where bad subtractions are used. IOW even
-more so important to clarify the (possibly different) positions on what
-is going to be added into the code base.
+... I'd like to switch around these two lines while committing.
 
 Jan
+
+> +        tmp;                                                            \
+> +    })
+>  #else
+>  #define ALT_CALL_ARG(arg, n) \
+>      register typeof(arg) a ## n ## _ asm ( ALT_CALL_arg ## n ) = \
+
 
