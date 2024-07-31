@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18941943437
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 18:37:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768991.1179914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2AE5943457
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 18:47:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769019.1179926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZCJo-0002br-OK; Wed, 31 Jul 2024 16:36:52 +0000
+	id 1sZCTh-0005PH-Lt; Wed, 31 Jul 2024 16:47:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768991.1179914; Wed, 31 Jul 2024 16:36:52 +0000
+Received: by outflank-mailman (output) from mailman id 769019.1179926; Wed, 31 Jul 2024 16:47:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZCJo-0002ZF-KL; Wed, 31 Jul 2024 16:36:52 +0000
-Received: by outflank-mailman (input) for mailman id 768991;
- Wed, 31 Jul 2024 16:36:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sZCTh-0005NR-J9; Wed, 31 Jul 2024 16:47:05 +0000
+Received: by outflank-mailman (input) for mailman id 769019;
+ Wed, 31 Jul 2024 16:47:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HDmI=O7=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1sZCJm-0001qR-V8
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 16:36:51 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20601.outbound.protection.outlook.com
- [2a01:111:f403:2415::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 150f12a4-4f5b-11ef-bc01-fd08da9f4363;
- Wed, 31 Jul 2024 18:36:49 +0200 (CEST)
-Received: from SA9P223CA0018.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::23)
- by SN7PR12MB8103.namprd12.prod.outlook.com (2603:10b6:806:355::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.21; Wed, 31 Jul
- 2024 16:36:45 +0000
-Received: from SA2PEPF000015C7.namprd03.prod.outlook.com
- (2603:10b6:806:26:cafe::a2) by SA9P223CA0018.outlook.office365.com
- (2603:10b6:806:26::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.35 via Frontend
- Transport; Wed, 31 Jul 2024 16:36:45 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF000015C7.mail.protection.outlook.com (10.167.241.197) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7828.19 via Frontend Transport; Wed, 31 Jul 2024 16:36:44 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 31 Jul
- 2024 11:36:43 -0500
-Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Wed, 31 Jul 2024 11:36:42 -0500
+ <SRS0=F/qb=O7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sZCTf-0005BK-N9
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 16:47:03 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8293bb66-4f5c-11ef-8776-851b0ebba9a2;
+ Wed, 31 Jul 2024 18:47:02 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a7aabb71bb2so816321466b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 09:47:02 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7acab536cesm786447566b.84.2024.07.31.09.47.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 31 Jul 2024 09:47:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,878 +45,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 150f12a4-4f5b-11ef-bc01-fd08da9f4363
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TqyquOu/LGLT1qOOi9KmBSKD8OP+zPLS9CMvXfX98yo2v6OTIpPqZT8oqYxEj/5cgi6ibGueO+O3NUvwanKvCuyB/+sBToRMMw6vzb2PAGyZfOMX31/hGfKy8hhys5d8jiHp30A2rKAxgPdLGsjPWJXypnWNWCwLkQPq3j/qxPMe7UF0cfnx5CnCPMGyFjNJQ5gTlB7M+9QW+C2fT0PLBVlZ1kx74FbywwOZkAJfS6VA8D/ZKD715469CFkR8JmBAixwxYODKrDGtGGkQYjnVI7hDuZMxgoQtDqCK6EajlKRVN8vByIbgPMz0uNMqJnSRa/dIjDLtHaJ2RmuFZxY/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kBXgRjh5xjfF1yHaJmzjGnCzrgVZE3+PjGkwDH+2Dl4=;
- b=w93eKxLsIdqjc5BtnXHRcHgo+qzWo2Co1HxuhuMPjZCTJoVXfRhVChwSZMMASOK8fb+wENiKNyqQTIS0yBaYvSRvs1DW6MeMjR0fJ+hCqqEdWsIjCoA6aYFDMC4cMoKrhIJUlny8k/Mb/4Vu1OO7HQ6LKGZHFu+KqS3qvCAYZ8SssQcZJ6QOJGMG9gQPF8RrCIJm+1JRqUL/RiafQvfYmbiBQTE9w9oFfZBr0J4+ENo/vC4SrpPwKKBetRN7NhIpScplF9Ix4o1jkVmlUTlwPcevKOgJVUCg6jmAiNJKe0lW+e9Rxw+rLJvfTxOMPveETDbnTqi8rq2R0pngV5Zrsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kBXgRjh5xjfF1yHaJmzjGnCzrgVZE3+PjGkwDH+2Dl4=;
- b=CTWTmMxfJAGDe3iFCSaV/68BF4oRh0KzFPc5rt3CWKCaktaVlvupnJa7ygjyUdf3w6jihN66FkaMuMSFY+TNXenHihBQfCBTXxrEhNWLbF0oEh62D16NWcbrtWmDCzZmeOCxPOyFaJJGj4ttf0KCZTukrEh3uFUhKKA+JKeAuZQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-To: <sstabellini@kernel.org>, <bertrand.marquis@arm.com>,
-	<michal.orzel@amd.com>, <ayan.kumar.halder@amd.com>,
-	<artem_mygaiev@epam.com>, <julien@xen.org>
-CC: <xen-devel@lists.xenproject.org>
-Subject: [PATCH 2/2] docs: fusa : reqs: Added a sample of requirements [DO_NOT_MERGE]
-Date: Wed, 31 Jul 2024 17:36:14 +0100
-Message-ID: <20240731163614.616162-3-ayan.kumar.halder@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240731163614.616162-1-ayan.kumar.halder@amd.com>
-References: <20240731163614.616162-1-ayan.kumar.halder@amd.com>
+X-Inumbo-ID: 8293bb66-4f5c-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1722444421; x=1723049221; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=X7GvT4JakZHIAsuI/+PcazpFhy1evIsVaV/HmXZwsuY=;
+        b=UPIyV1NP92hSLYZDnirqrXdHgov/qRJTgiWWLPWXHdwDoCcr6rEzZWEJekFRUkj4Cg
+         qSrL7t4HmVMM4w6Um/dHXuKjVBfAlVZYTRJW2a2/Z/mz2ezzEmQA2KF3ebVjayOu/JtD
+         v+AskMUEPhpUVWQefhdJoXrrjQTTRmc+LAS4g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722444421; x=1723049221;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=X7GvT4JakZHIAsuI/+PcazpFhy1evIsVaV/HmXZwsuY=;
+        b=APYkxdjHpZdMNPsTQ5N0UWXFE93a4J4nVkIeIFRx0OWpaGi4CfZaQFuY2bsUcoECcX
+         +UKhgd/gOZpsZPgzQ9/7SvYe2vI0GfYmfnvTOiz/j6tCzlb1airONG/y/21ND22AkkJs
+         aKy9bRi5hOGwfUi9AEXCnKDn+eRk4Xs0f4W0M9moX0l3+260fhEB9dxNWts4xdIV5m5p
+         +bLvdzvDwm4gFDyn9e/Xf7YFTVbzVH6lRxNvprsjCDPTfRcUXl6jH9aTCIbPoljaCntc
+         o/YfMKezVABCbL9n0ucmKC3bt9KgrjGFE2w0bJLUl34N96hShjqg+owUiO2FUKhGkO51
+         qnAw==
+X-Forwarded-Encrypted: i=1; AJvYcCV4SgKBwQlRzhjk2JLb4NqFHjveWGcffeB4fErJQqMWv+H8NkYv1yK0jpLdzqDOUvCa8wttt8yKK1pFm+oYg6crQvXmNomNoTgMyTih2FI=
+X-Gm-Message-State: AOJu0Yx4s8k2rL/8mbau8c4KVR7Sils7PWdr3YdWdvNsS0zNUFjFMb6B
+	S2nKT3bIeJRPjbUIVJb+FC6oDtJUjv8MvGabcaFR90pPF+fcRHNGiTF2VLFxgME=
+X-Google-Smtp-Source: AGHT+IEGdSnD+oYgAbwL1NaAtJmeYpj7IFthJ7cQLrcUNYR2Kh++n8GnJUwFQidVHlBAuZ82DlOVVA==
+X-Received: by 2002:a17:907:18c6:b0:a7d:a080:bb3 with SMTP id a640c23a62f3a-a7da0800e94mr134395366b.33.1722444421263;
+        Wed, 31 Jul 2024 09:47:01 -0700 (PDT)
+Message-ID: <e560b170-b00f-415c-9e45-3c287ffd3b3b@citrix.com>
+Date: Wed, 31 Jul 2024 17:47:00 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] x86/dom0: only disable SMAP for the PV dom0 build
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20240730152855.48745-1-roger.pau@citrix.com>
+ <20240730152855.48745-3-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240730152855.48745-3-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: ayan.kumar.halder@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C7:EE_|SN7PR12MB8103:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec1766cf-156e-4fde-e843-08dcb17ef6f7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?ODm7aVhC/tFpzc5B12fuWIQrAUmD3AmK+26dqo2sDfZm0nEG2nNQnBrejuKc?=
- =?us-ascii?Q?3zEgupH+zZ2ZkDpcyoJGFE3Is9RqIJjwz0ugA+xOiRT8aVMQPadJh2fhS4ZQ?=
- =?us-ascii?Q?xwwq8y5L1MtxeKpkhHbLiVxlugzIp+4C5Y5wQOewzQjV7GP7lJ9kUAXEf3At?=
- =?us-ascii?Q?IEV3pqvE/cxRY+HQN627n9B51Tt9K4xyt30Q5zwLWXLKZsnPBOUJOrc4RXs6?=
- =?us-ascii?Q?UBdG9+Nn9zZrvRwNviISPMxnXZdSvaeP+uv5ipm/VFhY6tM+uIke2N9SVW0X?=
- =?us-ascii?Q?6Mr1QGQz0YjXh9hvOKkRZORJnEFKwPpGrRojpsvVqusXvPpqUDgD4TrSMJAl?=
- =?us-ascii?Q?R5j+ydttRBqyxvvRgXqzi1IYIM7c0Olfzi/YAd8B9dkzZPtIwrP0QV+geSAf?=
- =?us-ascii?Q?WDl2h+34bDXVWy0D+raqsddev53UxZMScwIk3R993LjcpJQip8p1aRwl9HaA?=
- =?us-ascii?Q?FllqcamtGIr+us2drT9QMjT3CyXacVonSgnL7fvQe7jLCoEdimdXLxZGclms?=
- =?us-ascii?Q?tPNDCrN7v5mU78by5+HW4g+T+anYdN1hgo4aJs/MesK6ZLS25DNKRk5sKFF1?=
- =?us-ascii?Q?PEyu9g8O0MF+bVjIjXpD1h0gfsGTbk+jXtYYmyA4C6nO/54Uf+y926HurjG+?=
- =?us-ascii?Q?T47YZ9WX+VCrWMc8I5q4A0rOEBOiK44nnIsWVs3WanTX0DaJcefjUDUoqPMk?=
- =?us-ascii?Q?qBtF6t3iCApOF6qk0Uh/Gm7DE7NFMfB+YSM3zMlwtkR/WdPELVxaUzVIUTlJ?=
- =?us-ascii?Q?qcYKiPrUaz9+s56Nio/OPhfor28qtc+n3YUS3YBWUwRy6bjk1sJSg+XsQsVV?=
- =?us-ascii?Q?J+56ZNfY4/6TViLIEDKeF7zhdhi+a9rhf/fCsPhu/BZBCRM0Vju2UJ4Egv0I?=
- =?us-ascii?Q?6vqGTAeBxI+sPwxelyq3CXozoeDyoWtMf5Re+5xc/lAmsiYGLecPl4kTSOq2?=
- =?us-ascii?Q?xKFsJn5kLQj0Wj3JLiIdg1YYTx5zs8TLSY85oOcD4t46JgVAeQhe7sHP39F8?=
- =?us-ascii?Q?NMcpm74Cevm/NLIkXD+MvpdhaaNe+7ZcjXgCYUtX6CrAu5EKU7B9tzOjgVsd?=
- =?us-ascii?Q?fwH8nVZcYFkXIcvjsesTfwWcMK8lnx1K5KVDRlHv99UFEmQvhSzmScoFU4k8?=
- =?us-ascii?Q?d+2m4Xo84PBmwElH+sJCNnTWgWD02DRw+mt3Sw59a5XGShtOOjsczRuaVvWV?=
- =?us-ascii?Q?9uKEIJfEhJHVXIHGlcHna1J9kvZHxkuJq/S7ZOvBk5QMqkS5yiyXtwUhvh6H?=
- =?us-ascii?Q?hQgh5wShDZ11KiEQq5plflxiLTSlOA57jM1IK6rVFyTJfD60+RIyw47J/tjX?=
- =?us-ascii?Q?s73anBCLWQZLXhQIb+pyfWqnt7nLp3WcuhRn7C/G23b0oe5KBdWKRo7uUbq3?=
- =?us-ascii?Q?8SKH9MuR8FQJtDpE83tr2kYFszTF?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2024 16:36:44.6267
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec1766cf-156e-4fde-e843-08dcb17ef6f7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF000015C7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8103
 
-Added a sample of market, product and design requirements. This is to
-help explain how we are writing the requirements and understand the
-context of the first patch.
-We will be sending these requirements for review in the subsequent
-patches.
+On 30/07/2024 4:28 pm, Roger Pau Monne wrote:
+> The PVH dom0 builder doesn't switch page tables and has no need to run with
+> SMAP disabled.
+>
+> Use stac() and clac(), as that's safe to use even if events would hit in the
+> middle of the region with SMAP disabled.  Nesting stac() and clac() calls is
+> not safe, so the stac() call is done strictly after elf_load_binary() because
+> that uses raw_{copy_to,clear}_guest() accessors which toggle SMAP.
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Please do not merge this patch.
+Summarising a discussion on Matrix.
 
-Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
----
- .../reqs/design_reqs/arm64/emulated_uart.rst  | 240 ++++++++++++++++++
- .../reqs/design_reqs/arm64/generic_timer.rst  | 146 +++++++++++
- docs/fusa/reqs/design_reqs/xen_version.rst    | 207 +++++++++++++++
- docs/fusa/reqs/market_reqs/reqs.rst           |  77 ++++++
- docs/fusa/reqs/product_reqs/reqs.rst          |  64 +++++
- 5 files changed, 734 insertions(+)
- create mode 100644 docs/fusa/reqs/design_reqs/arm64/emulated_uart.rst
- create mode 100644 docs/fusa/reqs/design_reqs/arm64/generic_timer.rst
- create mode 100644 docs/fusa/reqs/design_reqs/xen_version.rst
- create mode 100644 docs/fusa/reqs/market_reqs/reqs.rst
- create mode 100644 docs/fusa/reqs/product_reqs/reqs.rst
+There are 3 options.
 
-diff --git a/docs/fusa/reqs/design_reqs/arm64/emulated_uart.rst b/docs/fusa/reqs/design_reqs/arm64/emulated_uart.rst
-new file mode 100644
-index 0000000000..483db92fa8
---- /dev/null
-+++ b/docs/fusa/reqs/design_reqs/arm64/emulated_uart.rst
-@@ -0,0 +1,240 @@
-+UART
-+====
-+
-+The following are the requirements related to SBSA UART [1] emulated and
-+exposed by Xen to Arm64 domains.
-+
-+Probe the UART device tree node
-+-------------------------------
-+
-+`XenSwdgn~arm64_uart_probe_dt_node~1`
-+
-+Description:
-+Xen shall generate a device tree node for the SBSA UART (in accordance to Arm
-+SBSA UART device tree binding [2]) to allow domains to probe it.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Transmit data in software polling mode
-+--------------------------------------
-+
-+`XenSwdgn~arm64_uart_transmit_data_poll_mode~1`
-+
-+Description:
-+Domain shall transmit data in polling mode (i.e. without involving interrupts).
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Transmit data in interrupt driven mode
-+--------------------------------------
-+
-+`XenSwdgn~arm64_uart_transmit_data_irq_mode~1`
-+
-+Description:
-+Domain shall transmit data in interrupt driven mode.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Receive data in software polling mode
-+-------------------------------------
-+
-+`XenSwdgn~arm64_uart_receive_data_polling_mode~1`
-+
-+Description:
-+Domain shall receive data in polling mode (i.e. without involving interrupts).
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Receive data in interrupt driven mode
-+-------------------------------------
-+
-+`XenSwdgn~arm64_uart_receive_data_interrupt_driven_mode~1`
-+
-+Description:
-+Domain shall receive data in interrupt driven mode.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Access UART data register
-+-------------------------
-+
-+`XenSwdgn~arm64_uart_access_data_register~1`
-+
-+Description:
-+Domain shall access (read/write) UART data register.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Access UART receive status register
-+-----------------------------------
-+
-+`XenSwdgn~arm64_uart_access_receive_status_register~1`
-+
-+Description:
-+Domain shall access (read/write) UART receive status register.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Access UART flag register
-+-------------------------
-+
-+`XenSwdgn~arm64_uart_access_flag_register~1`
-+
-+Description:
-+Domain shall access (read only) UART flag register.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Access UART mask set/clear register
-+-----------------------------------
-+
-+`XenSwdgn~arm64_uart_access_mask_register~1`
-+
-+Description:
-+Domain shall access (read/write) UART mask set/clear register.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Access UART raw interrupt status register
-+-----------------------------------------
-+
-+`XenSwdgn~arm64_uart_access_raw_interrupt_status_register~1`
-+
-+Description:
-+Domain shall access (read only) UART raw interrupt status register.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Access UART masked interrupt status register
-+--------------------------------------------
-+
-+`XenSwdgn~arm64_uart_access_mask_irq_status_register~1`
-+
-+Description:
-+Domain shall access (read only) UART masked interrupt status register.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Access UART interrupt clear register
-+------------------------------------
-+
-+`XenSwdgn~arm64_uart_access_irq_clear_register~1`
-+
-+Description:
-+Domain shall access (write only) UART interrupt clear register.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Receive UART TX interrupt
-+-------------------------
-+
-+`XenSwdgn~arm64_uart_receive_tx_irq~1`
-+
-+Description:
-+Domain shall receive UART TX interrupt
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Receive UART RX interrupt reception
-+-----------------------------------
-+
-+`XenSwdgn~arm64_uart_receive_rx_irq~1`
-+
-+Description:
-+Domain shall receive UART RX interrupt
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+Initial State
-+=============
-+
-+Access UART in an initial (reset) state
-+---------------------------------------
-+
-+`XenSwdgn~arm64_uart_access_reset_state~1`
-+
-+Description:
-+Domain shall be given the access to the UART in a state, where all registers
-+hold the reset value according to the specification [3] (only for registers
-+implemented as part of SBSA UART).
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_uart~1`
-+
-+| [1] Arm Base System Architecture, chapter B
-+| [2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/serial/arm_sbsa_uart.txt
-+| [3] PrimeCell UART (PL011)
-diff --git a/docs/fusa/reqs/design_reqs/arm64/generic_timer.rst b/docs/fusa/reqs/design_reqs/arm64/generic_timer.rst
-new file mode 100644
-index 0000000000..00228448a3
---- /dev/null
-+++ b/docs/fusa/reqs/design_reqs/arm64/generic_timer.rst
-@@ -0,0 +1,146 @@
-+Generic Timer
-+=============
-+
-+The following are the requirements related to ARM Generic Timer [1] interface
-+exposed by Xen to Arm64 domains.
-+
-+Probe the Generic Timer device tree node from a domain
-+------------------------------------------------------
-+
-+`XenSwdgn~arm64_probe_generic_timer_dt~1`
-+
-+Description:
-+Xen shall generate a device tree node for the Generic Timer (in accordance to
-+ARM architected timer device tree binding [2]) to allow domains to probe it.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_timer~1`
-+
-+Read system counter frequency
-+-----------------------------
-+
-+`XenSwdgn~arm64_read_system_counter_freq~1`
-+
-+Description:
-+Domain shall read the frequency of the system counter (either via CNTFRQ_EL0
-+register or "clock-frequency" device tree property if present).
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_timer~1`
-+
-+Access CNTKCTL_EL1 system register from a domain
-+------------------------------------------------
-+
-+`XenSwdgn~arm64_access_cntkctl_el1_system_register~1`
-+
-+Description:
-+Domain shall access the counter-timer kernel control register to allow
-+controlling the access to the timer from userspace (EL0).
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_timer~1`
-+
-+Access virtual timer from a domain
-+----------------------------------
-+
-+`XenSwdgn~arm64_access_virtual_timer~1`
-+
-+Description:
-+Domain shall access and make use of the virtual timer by accessing the following
-+system registers:
-+CNTVCT_EL0,
-+CNTV_CTL_EL0,
-+CNTV_CVAL_EL0,
-+CNTV_TVAL_EL0.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_timer~1`
-+
-+Access physical timer from a domain
-+-----------------------------------
-+
-+`XenSwdgn~arm64_access_physical_timer~1`
-+
-+Description:
-+Domain shall access and make use of the physical timer by accessing the
-+following system registers:
-+CNTPCT_EL0,
-+CNTP_CTL_EL0,
-+CNTP_CVAL_EL0,
-+CNTP_TVAL_EL0.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_timer~1`
-+
-+Trigger the virtual timer interrupt from a domain
-+-------------------------------------------------
-+
-+`XenSwdgn~arm64_trigger_virtual_timer_interrupt~1`
-+
-+Description:
-+Domain shall program the virtual timer to generate the interrupt when the
-+asserted condition is met.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_timer~1`
-+
-+Trigger the physical timer interrupt from a domain
-+--------------------------------------------------
-+
-+`XenSwdgn~arm64_trigger_physical_timer_interrupt~1`
-+
-+Description:
-+Domain shall program the physical timer to generate the interrupt when the
-+asserted condition is met.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_timer~1`
-+
-+Assumption of Use on the Firmware
-+=================================
-+
-+Expose system timer frequency
-+-----------------------------
-+
-+`XenSwdgn~arm64_program_cntfrq_el0_or_dt_prop_system_timer_freq~1`
-+
-+Description:
-+Underlying firmware shall program CNTFRQ_EL0 with the system timer frequency.
-+As an alternative, "clock-frequency" dt property (in the host device tree) can
-+also be used to specify the system timer frequency. This helps in case of buggy
-+firmware when CNTFRQ_EL0 is programmed incorrectly or not programmed at all.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~emulated_timer~1`
-diff --git a/docs/fusa/reqs/design_reqs/xen_version.rst b/docs/fusa/reqs/design_reqs/xen_version.rst
-new file mode 100644
-index 0000000000..c5c58bb2df
---- /dev/null
-+++ b/docs/fusa/reqs/design_reqs/xen_version.rst
-@@ -0,0 +1,207 @@
-+Hypercall xen_version
-+=====================
-+
-+The following are the requirements related to __HYPERVISOR_xen_version hypercall
-+[1] exposed by Xen to Arm64 and AMD64 PVH domains.
-+
-+Access hypercall __HYPERVISOR_xen_version for getting xen version
-+-----------------------------------------------------------------
-+
-+`XenSwdgn~access_hyp_xen_version_read_ver~1`
-+
-+Description:
-+Domain shall access __HYPERVISOR_xen_version passing XENVER_version
-+as a command.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Validate the xen version returned by the XENVER_version command
-+---------------------------------------------------------------
-+
-+`XenSwdgn~validate_version_hyp_xen_version~1`
-+
-+Description:
-+The xen version returned should correspond to 4.18.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Access hypercall __HYPERVISOR_xen_version for getting xen extraversion
-+----------------------------------------------------------------------
-+
-+`XenSwdgn~access_hyp_xen_version_get_extraversion~1`
-+
-+Description:
-+Domain shall access __HYPERVISOR_xen_version passing XENVER_extraversion as a
-+command.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Access hypercall __HYPERVISOR_xen_version for getting compile information
-+-------------------------------------------------------------------------
-+
-+`XenSwdgn~access_hyp_xen_version_get_compile_info~1`
-+
-+Description:
-+Domain shall access __HYPERVISOR_xen_version passing XENVER_compile_info as a
-+command.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Access hypercall __HYPERVISOR_xen_version for getting capabilities
-+------------------------------------------------------------------
-+
-+`XenSwdgn~access_hyp_xen_version_get_capabilities~1`
-+
-+Description:
-+Domain shall access __HYPERVISOR_xen_version passing XENVER_capabilities as a
-+command.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Validate the capabilities returned by XENVER_capabilities command
-+-----------------------------------------------------------------
-+
-+`XenSwdgn~validate_cap_return_xenver_capabilities~1`
-+
-+Description:
-+For Arm64, the capabilities returned should be xen-*-aarch64 string.
-+For AMD64 PVH, the capabilities returned should be hvm-*-x86_64 string.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Access hypercall __HYPERVISOR_xen_version for getting changeset
-+---------------------------------------------------------------
-+
-+`XenSwdgn~access_hyp_xen_version_get_changeset~1`
-+
-+Description:
-+Domain shall access __HYPERVISOR_xen_version passing XENVER_changeset
-+as a command.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Access hypercall __HYPERVISOR_xen_version for getting features
-+--------------------------------------------------------------
-+
-+`XenSwdgn~access_hyp_xen_version_get_features~1`
-+
-+Description:
-+Domain shall access __HYPERVISOR_xen_version passing XENVER_get_features as a
-+command.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Check supported features returned by the XENVER_get_features command when the submap index passed is 0
-+------------------------------------------------------------------------------------------------------
-+
-+`XenSwdgn~check_supported_features_xenver_get_features~1`
-+
-+Description:
-+For Arm64, the bit position corresponding to the supported features should be 1.
-+Examples of Arm64 supported features:
-+
-+ * XENFEAT_ARM_SMCCC_supported
-+
-+For AMD64 PVH, the bit positions corresponding to the supported features should
-+be 1.
-+Examples of AMD64 PVH supported features:
-+
-+ * XENFEAT_memory_op_vnode_supported
-+ * XENFEAT_vcpu_time_phys_area
-+ * XENFEAT_runstate_phys_area
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Access hypercall __HYPERVISOR_xen_version for getting guest handle
-+------------------------------------------------------------------
-+
-+`XenSwdgn~access_hyp_xen_version_get_guest_handle~1`
-+
-+Description:
-+Domain shall access __HYPERVISOR_xen_version passing XENVER_guest_handle as a
-+command.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Access hypercall __HYPERVISOR_xen_version for getting xen pagesize
-+------------------------------------------------------------------
-+
-+`XenSwdgn~access_hyp_xen_version_get_xen_pagesize~1`
-+
-+Description:
-+Domain shall access __HYPERVISOR_xen_version passing XENVER_pagesize
-+as a command and NULL as the guest handle.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+Validate the page size returned by XENVER_pagesize command
-+----------------------------------------------------------
-+
-+`XenSwdgn~validate_page_size_xenver_pagesize_cmd~1`
-+
-+Description:
-+The returned page size should be 4KB.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenProd~version_hypercall~1`
-+
-+| [1] https://xenbits.xenproject.org/gitweb/?p=xen.git;a=blob;f=xen/include/public/version.h;hb=HEAD
-diff --git a/docs/fusa/reqs/market_reqs/reqs.rst b/docs/fusa/reqs/market_reqs/reqs.rst
-new file mode 100644
-index 0000000000..a3f84cd503
---- /dev/null
-+++ b/docs/fusa/reqs/market_reqs/reqs.rst
-@@ -0,0 +1,77 @@
-+Functional Requirements
-+=======================
-+
-+Run Arm64 VMs
-+-------------
-+
-+`XenMkt~run_arm64_vms~1`
-+
-+Description:
-+Xen shall run Arm64 VMs.
-+
-+Rationale:
-+
-+Comments:
-+
-+Needs:
-+ - XenProd
-+
-+Run AMD-x86 VMs
-+---------------
-+
-+`XenMkt~run_x86_vms~1`
-+
-+Description:
-+Xen shall run AMD-x86 VMs.
-+
-+Rationale:
-+
-+Comments:
-+
-+Needs:
-+ - XenProd
-+
-+Support non paravirtualised VMs
-+-------------------------------
-+
-+`XenMkt~non_pv_vms_support~1`
-+
-+Description:
-+Xen shall support running guests which are not virtualisation aware.
-+
-+Rationale:
-+
-+Comments:
-+
-+Needs:
-+ - XenProd
-+
-+Provide console to the VMs
-+--------------------------
-+
-+`XenMkt~provide_console_vms~1`
-+
-+Description:
-+Xen shall provide a console to a VM.
-+
-+Rationale:
-+
-+Comments:
-+
-+Needs:
-+ - XenProd
-+
-+Provide timer to the VMs
-+------------------------
-+
-+`XenMkt~provide_timer_vms~1`
-+
-+Description:
-+Xen shall provide a timer to a VM.
-+
-+Rationale:
-+
-+Comments:
-+
-+Needs:
-+ - XenProd
-diff --git a/docs/fusa/reqs/product_reqs/reqs.rst b/docs/fusa/reqs/product_reqs/reqs.rst
-new file mode 100644
-index 0000000000..9954b7532a
---- /dev/null
-+++ b/docs/fusa/reqs/product_reqs/reqs.rst
-@@ -0,0 +1,64 @@
-+Domain Creation And Runtime
-+===========================
-+
-+Emulated UART
-+-------------
-+
-+`XenProd~emulated_uart~1`
-+
-+Description:
-+Xen shall emulate Arm SBSA UART on behalf of the domains.
-+
-+Rationale:
-+
-+Comments:
-+The domains can use it to write/read to/from the console.
-+
-+Covers:
-+ - `XenMkt~run_arm64_vms~1`
-+ - `XenMkt~non_pv_vms_support~1`
-+ - `XenMkt~provide_console_vms~1`
-+
-+Needs:
-+ - XenSwdgn
-+
-+Emulated Timer
-+--------------
-+
-+`XenProd~emulated_timer~1`
-+
-+Description:
-+Xen shall emulate Arm Generic Timer timer on behalf of domains.
-+
-+Rationale:
-+
-+Comments:
-+The domains can use it for e.g. scheduling.
-+
-+Covers:
-+ - `XenMkt~run_arm64_vms~1`
-+ - `XenMkt~non_pv_vms_support~1`
-+ - `XenMkt~provide_timer_vms~1`
-+
-+Needs:
-+ - XenSwdgn
-+
-+Version Hypercall
-+-----------------
-+
-+`XenProd~version_hypercall~1`
-+
-+Description:
-+Xen shall provide an interface to expose Xen version, type and compile
-+information.
-+
-+Rationale:
-+
-+Comments:
-+
-+Covers:
-+ - `XenMkt~run_arm64_vms~1`
-+ - `XenMkt~run_x86_vms~1`
-+
-+Needs:
-+ - XenSwdgn
--- 
-2.25.1
+1) Simply reposition the write_cr4()/cr4_pv32_mask adjustments.
+2) This form (use stac/clac instead of playing with cr4).
+3) Delay the original set_in_cr4(SMAP).
 
+As proved by the confusion thus far, cr4_pv32_mask adjustments are
+fragile and can go unnoticed in the general case (need a lucky watchdog
+NMI hit to trigger).  Hence I'd prefer to remove the adjustments.
+
+Using stac()/clac() is much easier.  It is fragile because of nesting
+(no AC save/restore infrastructure), but any mistake here will be picked
+up reliably in Gitlab CI because both adl-* and zen3p-* support SMAP.
+
+Personally I think option 2 is better than 1, hence why I suggested it. 
+It's got a fragile corner case but will be spotted reliably.
+
+However, it occurs to me that option 3 exists as well... just delay
+setting SMAP until after dom0 is made.  We have form now with only
+activating CET-SS on the way out of __start_xen().
+
+Furthermore, option 3 would allow us to move the cr4_pv32_mask
+adjustment into set_in_cr4() and never need to opencode it.
+
+(Although this is a bit tricky given the current code layout. 
+cr4_pv32_mask also wants to be __ro_after_init and non-existent in a
+!PV32 build.)
+
+~Andrew
 
