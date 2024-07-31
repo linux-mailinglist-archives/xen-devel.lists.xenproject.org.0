@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7446F9426E5
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 08:32:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768240.1179008 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 973C494271D
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 08:45:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768249.1179018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ2sa-0002Ow-LH; Wed, 31 Jul 2024 06:32:08 +0000
+	id 1sZ34t-0004TU-NS; Wed, 31 Jul 2024 06:44:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768240.1179008; Wed, 31 Jul 2024 06:32:08 +0000
+Received: by outflank-mailman (output) from mailman id 768249.1179018; Wed, 31 Jul 2024 06:44:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ2sa-0002MG-IJ; Wed, 31 Jul 2024 06:32:08 +0000
-Received: by outflank-mailman (input) for mailman id 768240;
- Wed, 31 Jul 2024 06:32:07 +0000
+	id 1sZ34t-0004Ru-Kh; Wed, 31 Jul 2024 06:44:51 +0000
+Received: by outflank-mailman (input) for mailman id 768249;
+ Wed, 31 Jul 2024 06:44:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9TNE=O7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZ2sZ-0002MA-8d
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 06:32:07 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
+ id 1sZ34s-0004Rd-CW
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 06:44:50 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a72d72b-4f06-11ef-8776-851b0ebba9a2;
- Wed, 31 Jul 2024 08:32:05 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-52efbb55d24so8111247e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 23:32:05 -0700 (PDT)
+ id 61844ffd-4f08-11ef-8776-851b0ebba9a2;
+ Wed, 31 Jul 2024 08:44:48 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5a3b866ebc9so7441542a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2024 23:44:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad9ef91sm725867466b.183.2024.07.30.23.32.03
+ a640c23a62f3a-a7acad92ffbsm739347166b.171.2024.07.30.23.44.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jul 2024 23:32:04 -0700 (PDT)
+ Tue, 30 Jul 2024 23:44:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a72d72b-4f06-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 61844ffd-4f08-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722407524; x=1723012324; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722408288; x=1723013088; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1GSKa4f7XN86eBIV5WX+6+lIGbwbj1hfTVZhfLjj3KE=;
-        b=guhB5A1yX6mHV0jU3cxe+uErqreW+c36QxpBDO/gkJxPBR+DzjG8blqMaYxMJTIJmY
-         IV42Y1T9NX88nOsraZ1QbW1EPxrWegRUssuns9fOCNactAp4mUznXoOF/5PhnoGsBCCD
-         u2YwYX2N657+f/3TAwhEB5EVOC/GsO9nav54P+TuJndLZIbAo1Hr0BuSnMTydUvrfJwj
-         5s+04t/wRe3WlCxNCEae0gCX/rq6ulMrQGqgrWGlpd0QFNMEEHpntLrPKpDoZoIJQPv/
-         t8anOGd+Qbv8x/S4Sh7cvjvGNnpTlXmGtof29eBtXW06BplJSYyjUyq8Am3YKE7BcjgF
-         04jQ==
+        bh=LhroYgtrHmoaNenjWMxK/tFHgoPEfidNBY64i/Togs4=;
+        b=LZmEpP7sb3VTlDU9WFUEvVtdETbQUsBiDsEpgCNqCRt6DzL2rrs5v+NdCd+V1oa99f
+         rcHP+5B9ZDyVOQrgysqfmDaKTA5/mbUPnDR5JeN0aGN4S1t1dnrt2JSsS4QApTRc1eZa
+         4PBpueovH80359yHLsarI52CHQO5EcPJlI017ALgwEY09Am9taMehGmE9erzUat161Y3
+         lur+W76do50YfxZpgXh/j1jhSPT2skUn0mAYuxOecN8AhoE3Sqy66wMU6Xzjvaz1+Te0
+         6TkA301CXyBQSva5XKGGk3gf6XjK2IfxrjXpaGiDYkD4AUNq+R4X/Ibhgh5T55fdGsoJ
+         Az+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722407524; x=1723012324;
+        d=1e100.net; s=20230601; t=1722408288; x=1723013088;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1GSKa4f7XN86eBIV5WX+6+lIGbwbj1hfTVZhfLjj3KE=;
-        b=Ts1Kn3VFJ4ynMZGp+RTThJ/22qA+GVuagHSmN6GN7FSmE2RQYhakqHhWovwiI0I78V
-         fimDLGDI/tcWVkmOAwHXEnXrfIB7HxNgVIvrdpmye4rDxgMUUF9ykLKIgkv8e0XYlAli
-         jb8pR45kvZWqHm9PnQVgVRxBpcst5FfUIkQ+2bpWFfw7b1Iy6d8phuci9+bLaqCyyv1Q
-         Mlbd/iDuYJeDhcfqUiWJPUS0H6X18y0wgSg5yngvl3yrmJdXCN30BgcMJFudB/7U6LAN
-         sENVwE3NBLtlCrPRgh4OexAQguHhfPJEamTjZPK82XxFQkNkhNG0aS6qjLXtWOsIS6f9
-         yA0A==
-X-Forwarded-Encrypted: i=1; AJvYcCXax7iyVN0Nyk7zUEpCHqbLOFObmpdzH+WwnVjPSz2smyd74MN+Phs2wUND7LHEebjQ5DAvOwqRarcaWa4A/MwoKTGGN6mgVht0Fqjcms8=
-X-Gm-Message-State: AOJu0YycaKnscRtuW5k22RfTCRcjIC3yHk+xwT/q6peN3l/+ERWANEJq
-	vA9jsB1hgDv7fsMUkL26JlX1ckh1Wfd+OcpNPM1DQT7j3pyKlfqhKYGhAbeH/DbvnuOr1HfRbwk
+        bh=LhroYgtrHmoaNenjWMxK/tFHgoPEfidNBY64i/Togs4=;
+        b=UM8KddOuj8hfG/vVqE6fGzyaIERDcQFoq4pHYEMcQSddGeoy9IK8TYQsIy3Th+Zz0/
+         rBdnG0eHD65cFdtVndwXQnWoXf1IEET+FDQ4WLzxQsVNTn2IIgctB52OEpIzScjslEOv
+         P+wbrWP/+nAUH0kayB2EOmkhCh8oDuiVlVkHz5St8elgZeC/ZGIgielt/9Rqwsmkfs5p
+         +KJHB16OVrswEkxKOc41V4sjWJeflwPqTylVSoCjOZmnVYz4LtKtpAojehmgUz73VSyi
+         sezglLP1/yooPlXjQ8fdjiB2FeWRaPZSKaE5HCkFSWscJPhL9g3/WXiq5RoCl8pz76lA
+         frVw==
+X-Forwarded-Encrypted: i=1; AJvYcCWWANsWGhTatadO9Z+Req4yXcejRb44YMCfpmfTJ6JIIs1Dett0YgNSEQWYC4No+f6UCHhFFg9ydMisEkDarG8dtC6RapZJsknJQsT+dEk=
+X-Gm-Message-State: AOJu0YzjAZFRrjRnyiMrdSJIn16kqHyJkDzbJ408Z4tyO1k9vih8GlqX
+	buMMmMAf7u+x26oVtXyzrPMnCrh4FRe0owiaUG1xiIffKjOqi5knFFFWydpebvFLaTn6sEWN/gw
 	=
-X-Google-Smtp-Source: AGHT+IECMvpSA2Nyszr3un5OB4MbrF+mBEBQnrLSh5NP640+6p0DdOpbbl36uDZ5TV23tE2z9tjj8g==
-X-Received: by 2002:a05:6512:2527:b0:530:ac41:4cb with SMTP id 2adb3069b0e04-530ac410765mr3989736e87.3.1722407524364;
-        Tue, 30 Jul 2024 23:32:04 -0700 (PDT)
-Message-ID: <5e5cc6b2-cdf3-4670-a2dc-2e23dc22d520@suse.com>
-Date: Wed, 31 Jul 2024 08:32:03 +0200
+X-Google-Smtp-Source: AGHT+IGMhpKo/iAjO4bUmjREmYWg0UXJa9Yy3ff6iD25x6fjI81wdnPhfFaj3scLmrqK7E33GFRmdw==
+X-Received: by 2002:a17:906:f59f:b0:a7d:3617:b5f5 with SMTP id a640c23a62f3a-a7d401290d9mr881599966b.42.1722408288013;
+        Tue, 30 Jul 2024 23:44:48 -0700 (PDT)
+Message-ID: <3918b171-b908-4962-8fdf-5236056902f8@suse.com>
+Date: Wed, 31 Jul 2024 08:44:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86/dom0: fix restoring %cr3 and the mapcache
- override on PV build error
+Subject: Re: [PATCH v2 2/2] x86/dom0: only disable SMAP for the PV dom0 build
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20240730152855.48745-1-roger.pau@citrix.com>
- <20240730152855.48745-2-roger.pau@citrix.com>
+ <20240730152855.48745-3-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,36 +112,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240730152855.48745-2-roger.pau@citrix.com>
+In-Reply-To: <20240730152855.48745-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 30.07.2024 17:28, Roger Pau Monne wrote:
-> One of the error paths in the PV dom0 builder section that runs on the guest
-> page-tables wasn't restoring the Xen value of %cr3, neither removing the
-> mapcache override.
+> The PVH dom0 builder doesn't switch page tables and has no need to run with
+> SMAP disabled.
+> 
+> Use stac() and clac(), as that's safe to use even if events would hit in the
+> middle of the region with SMAP disabled.  Nesting stac() and clac() calls is
+> not safe, so the stac() call is done strictly after elf_load_binary() because
+> that uses raw_{copy_to,clear}_guest() accessors which toggle SMAP.
 
-s/neither/nor/ ?
+And that was the main concern causing the CR4.SMAP override to be used instead,
+iirc. While I'm sure you've properly audited all code paths, how can we be sure
+there's not going to be another stac() or clac() added somewhere? Or setting of
+EFLAGS as a whole, clearing EFLAGS.AC without that being explicit? I think we'd
+be better off sticking to the fiddling with CR4.
+
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Considering the bug Andrew pointed out on the code you remove from setup.c,
+don't we want a Fixes: tag as well?
 
 > --- a/xen/arch/x86/pv/dom0_build.c
 > +++ b/xen/arch/x86/pv/dom0_build.c
-> @@ -825,6 +825,8 @@ int __init dom0_construct_pv(struct domain *d,
->      rc = elf_load_binary(&elf);
->      if ( rc < 0 )
->      {
-> +        mapcache_override_current(NULL);
-> +        switch_cr3_cr4(current->arch.cr3, read_cr4());
+> @@ -830,6 +830,15 @@ int __init dom0_construct_pv(struct domain *d,
 >          printk("Failed to load the kernel binary\n");
 >          goto out;
 >      }
+> +
+> +    /*
+> +     * Disable SMAP to allow user-accesses when running on dom0 page-tables.
+> +     * Note this must be done after elf_load_binary(), as such helper uses
+> +     * raw_{copy_to,clear}_guest() helpers which internally call stac()/clac()
+> +     * and those calls would otherwise nest with the ones here.
 
-Just below here we have
-
-    bootstrap_map(NULL);
-
-This too is wanted in the error case aiui. Happy to move it up immediately
-ahead of the if() while committing, so long as you agree. Then:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Just in case you and Andrew would outvote me on which approach to take:
+I'm okay with "helpers" here, but the earlier "such helper" reads a little
+odd to me. Imo using "that" or "it" instead would be better. Not the least
+because personally a function like elf_load_binary() goes beyond what I'd
+call a mere "helper" (in that case dom0_construct_pv() toos could be deemed
+a helper, etc).
 
 Jan
 
