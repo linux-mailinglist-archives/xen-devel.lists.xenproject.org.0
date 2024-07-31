@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8113942BA4
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 12:09:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768440.1179224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18B47942D44
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 13:30:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768483.1179310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ6G3-00051d-Ge; Wed, 31 Jul 2024 10:08:35 +0000
+	id 1sZ7Wf-0000ec-0a; Wed, 31 Jul 2024 11:29:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768440.1179224; Wed, 31 Jul 2024 10:08:35 +0000
+Received: by outflank-mailman (output) from mailman id 768483.1179310; Wed, 31 Jul 2024 11:29:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ6G3-0004zb-DN; Wed, 31 Jul 2024 10:08:35 +0000
-Received: by outflank-mailman (input) for mailman id 768440;
- Wed, 31 Jul 2024 10:08:33 +0000
+	id 1sZ7We-0000bP-UB; Wed, 31 Jul 2024 11:29:48 +0000
+Received: by outflank-mailman (input) for mailman id 768483;
+ Wed, 31 Jul 2024 11:29:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F/qb=O7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sZ6G1-0004zV-Oa
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 10:08:33 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ <SRS0=d79+=O7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sZ7Wd-0000bJ-QZ
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 11:29:47 +0000
+Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
+ [2607:f8b0:4864:20::836])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d70d24d9-4f24-11ef-8776-851b0ebba9a2;
- Wed, 31 Jul 2024 12:08:31 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5af326eddb2so1362440a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 03:08:31 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acadb8039sm739117966b.200.2024.07.31.03.08.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Jul 2024 03:08:30 -0700 (PDT)
+ id 2cd83a6f-4f30-11ef-8776-851b0ebba9a2;
+ Wed, 31 Jul 2024 13:29:40 +0200 (CEST)
+Received: by mail-qt1-x836.google.com with SMTP id
+ d75a77b69052e-44fedc06c03so28684611cf.3
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 04:29:45 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6bb3faedcbasm72667786d6.124.2024.07.31.04.29.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 31 Jul 2024 04:29:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +44,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d70d24d9-4f24-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 2cd83a6f-4f30-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722420511; x=1723025311; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q0bkKBbZiwjP7hq21Qyqw1jG2N410q+6W1j0I7SaVDY=;
-        b=XAIw58TPOWQJzvQOtO3WthFzgD6jdMEDWZk5JcG3mOEHJVCsoWRikb9y1Pt7kIT/F3
-         X6coa+deX1Y2rbK+bVgKvQq9/QT/sMT24YCFV9Q8u40q+5tVCBB/JQbdB2uLhWFWwIg1
-         suNFDZ949VkbBRaZq8HTvRnZRNTzyURIzNjxs=
+        d=citrix.com; s=google; t=1722425384; x=1723030184; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=+mfjVkKzoK5YbrZBfFB9sf+nRfQTAY5ljtT5uPPCyv8=;
+        b=WYEfRiYo0zEu0AIa2M4i56mbGwgm5PyZF6grLGc7zMnUZVyWXY2Jq0fKwGn1YAXOxJ
+         JEy9OlKateM6r1uhnOwFrQ/Y/MfS234z6s0H/Yv2bdi1l4ecHc0fvVylZLDojxzcbDMe
+         JLsq9N9kQkJMU6SWBb9J2XmrJTnMbVm3hQI28=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722420511; x=1723025311;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Q0bkKBbZiwjP7hq21Qyqw1jG2N410q+6W1j0I7SaVDY=;
-        b=G6sLd2n+jC4f5oBORqV9yy5fS6msrM9mRWrGmFDCP9J9yCDMewqxJpIYY/xVAWyGq1
-         Y8dL/4rndCzNcGxhYWRcmKgXgxDfO7mZRfPbVrhemVrmsnjEMeby5Ec3VanqEqEbfyjq
-         EMeQK4qcTToC/YI9PuIO2G7iZ6AcxQV4fIa5sPs2BxCy+JBQG9FDPRyyXIyi1acHbfkF
-         /gXpnNaP9nHji2CJkxWCKtc7brj7judI5nDihtpwYRk8ZJVz7/HnIT5FH4CBLi3JEfsk
-         75imCxATrQzlp+6gVIpLk8MsBgqg5x2FmPFyTQC5YfpBGjj6XVnIK/toS4V/Y7RVecVp
-         LaoA==
-X-Gm-Message-State: AOJu0YyzMUYxkCS2NI0M+MPF66JV53D4zo+4ET/pfwRLb7ImgMok8Glq
-	JS7tO+LbSbuZ33HK54V4kDYs2az5QhpRUcy377uzetW9vCHeHxdimjL0QjZUXhpEXgeXJAoBe2j
-	V
-X-Google-Smtp-Source: AGHT+IEAdfbAGTSL8qlfuGa6P4XNUPUK8uVgy9GdE3tSu8yW192QbiYYWjCzZPISkzDSE4peRtTvCQ==
-X-Received: by 2002:a17:907:31ca:b0:a77:ca3b:996c with SMTP id a640c23a62f3a-a7d85963ecdmr522618566b.16.1722420510491;
-        Wed, 31 Jul 2024 03:08:30 -0700 (PDT)
-Message-ID: <3ca84670-9201-49a5-9643-1cfbcaefb830@citrix.com>
-Date: Wed, 31 Jul 2024 11:08:28 +0100
+        d=1e100.net; s=20230601; t=1722425384; x=1723030184;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+mfjVkKzoK5YbrZBfFB9sf+nRfQTAY5ljtT5uPPCyv8=;
+        b=C5cGbd7cBWGIXzWty4sD1Td0rgjZvM8JQ+qPE5S/fVNjU++8uRwE8BVxC1n2Gawzh4
+         L3tla66a8SfHUWB42OCWQ2bfuFHjYgO4Wu2nYNm5/b4eN4IeGJxnhxUfVHePKQeTotJT
+         O8UOZMtH6WKWSrHAhIZMBE5nKnSpDAXMtcktdiKARDr6//oXV3KAlYXHzu0LaWzwrejL
+         tAbsQbkboIF2yeCeNA+1kVaDPClx4JQYgxYov/tcp1do1L1FuRTtInhicDWQKgBjSKHj
+         xlLqC0XtAgLXr0g3m0NVPXW9/XeHymVzoUgMW+9a3MlKuh+iMi1+3FD5MHNtR7RkXh/Z
+         +zpQ==
+X-Gm-Message-State: AOJu0YySp/hROtIxD+XSDPeYD3U/jJPueBsBfWq48QIr065rjIvC/imP
+	JJfCVUmJieIEKd+hkmleRpLyaavplmIiYGsdI1Ca1LapfHxXzdr+ZFOuiB6Vr+g=
+X-Google-Smtp-Source: AGHT+IFNHtCILnmRagpKPlogs0xGFLDHP9CwWo6gzywias2XBguZKk2qhHIvPOB69mPjWKHm31dslg==
+X-Received: by 2002:a05:6214:5014:b0:6b7:99f6:98b0 with SMTP id 6a1803df08f44-6bb559d535dmr157429376d6.17.1722425383699;
+        Wed, 31 Jul 2024 04:29:43 -0700 (PDT)
+Date: Wed, 31 Jul 2024 13:29:41 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+	Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
+Subject: Re: [XEN PATCH v12 2/7] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+Message-ID: <ZqogJVHV36ytYVP1@macbook>
+References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
+ <20240708114124.407797-3-Jiqian.Chen@amd.com>
+ <Zqnswi7ihOhMxPsi@macbook>
+ <0aa0982a-30b3-43cd-9a9e-4542d7cb583f@suse.com>
+ <Zqn014wCEfWhyo1-@macbook>
+ <8ff685a6-0cbd-45cd-a818-4535a040c478@suse.com>
+ <Zqn7HEuooChgRCuf@macbook>
+ <d65ae152-22ee-4a57-8ff4-43ef0c234f5f@suse.com>
+ <ZqoF55yapMxGN_WM@macbook>
+ <fa33fbf8-32b6-48dc-a30c-dd76b021a76d@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: init-dom0less: Weird use of cpupool in xl dominfo
-To: xen-devel@lists.xenproject.org
-References: <20240731100359.529751-1-a-singh21@ti.com>
-Content-Language: en-GB
-Cc: Juergen Gross <jgross@suse.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240731100359.529751-1-a-singh21@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fa33fbf8-32b6-48dc-a30c-dd76b021a76d@suse.com>
 
-On 31/07/2024 11:03 am, Amneesh Singh wrote:
-> Hello, I was going through the source code for init-dom0less as I was
-> facing some issue after applying this patchset. Feel free to ignore it
-> however, as it seems unrelated to the issue I am encountering.
->
-> https://lists.xenproject.org/archives/html/xen-devel/2024-05/msg01825.html
->
-> One peculiar thing I noticed was that the "cpupool" field is being used
-> as a bitfield to check individual vCPUs. However afaik, "cpupool" is
-> supposed to be the cpupool *ID*. That matches the fact that the cpupool
-> value for all my VMs is 0, as I only have a single cpupool (id = 0). Am
-> I overlooking something, or am I correct? Here is the relevant code:
->
-> https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=tools/helpers/init-dom0less.c;h=fee93459c4b9da59446a2f8dfcf5cbfc4d95aeab;hb=HEAD#l176
+On Wed, Jul 31, 2024 at 11:55:35AM +0200, Jan Beulich wrote:
+> On 31.07.2024 11:37, Roger Pau Monné wrote:
+> > On Wed, Jul 31, 2024 at 11:02:01AM +0200, Jan Beulich wrote:
+> >> On 31.07.2024 10:51, Roger Pau Monné wrote:
+> >>> I agree with (a), but I don't think enabling PVH dom0 usage of the
+> >>> hypercalls should be gated on this.  As said a PV dom0 is already
+> >>> capable of issuing PHYSDEVOP_{,un}map_pirq operations against a PVH
+> >>> domU.
+> >>
+> >> Okay, I can accept that as an intermediate position. We ought to deny
+> >> such requests at some point though for PVH domains, the latest in the
+> >> course of making vPCI work there.
+> > 
+> > Hm, once physdev_map_pirq() works as intended against PVH domains, I
+> > don't see why we would prevent the usage of PHYSDEVOP_{,un}map_pirq
+> > against such domains.
+> 
+> Well. If it can be made work as intended, then I certainly agree. However,
+> without even the concept of pIRQ in PVH I'm having a hard time seeing how
+> it can be made work. Iirc you were advocating for us to not introduce pIRQ
+> into PVH.
 
-CC'ing relevant people.
+From what I'm seeing here the intention is to expose
+PHYSDEVOP_{,un}map_pirq to PVH dom0, so there must be some notion of
+pIRQs or akin in a PVH dom0?  Even if only for passthrough needs.
 
-But yes - that looks distinctly wrong.
+> Maybe you're thinking of re-using the sub-ops, requiring PVH domains to
+> pass in GSIs?
 
-~Andrew
+I think that was one my proposals, to either introduce a new
+hypercall that takes a GSI, or to modify the PHYSDEVOP_{,un}map_pirq
+in an ABI compatible way so that semantically the field could be a GSI
+rather than a pIRQ.  We however would also need a way to reference an
+MSI entry.
+
+My main concern is not with pIRQs by itself, pIRQs are just an
+abstract way to reference interrupts, my concern and what I wanted to
+avoid on PVH is being able to route pIRQs over event channels.  IOW:
+have interrupts from physical devices delivered over event channels.
+
+> I think I suggested something along these lines also to
+> Jiqian, yet with the now intended exposure to !has_pirq() domains I'm
+> not sure this could be made work reliably.
+
+I'm afraid I've been lacking behind on reviewing those series.
+
+> Which reminds me of another question I had: What meaning does the pirq
+> field have right now, if Dom0 would issue the request against a PVH DomU?
+> What meaning will it have for a !has_pirq() HVM domain?
+
+The pirq field could be a way to reference an interrupt.  It doesn't
+need to be exposed to the PVH domU at all, but it's a way for the
+device model to identify which interrupt should be mapped to which
+domain.
+
+Thanks, Roger.
 
