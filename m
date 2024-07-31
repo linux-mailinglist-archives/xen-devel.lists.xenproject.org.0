@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA297942E50
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 14:24:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768538.1179369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD3E6942E6E
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 14:30:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768547.1179379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ8N8-00035N-2W; Wed, 31 Jul 2024 12:24:02 +0000
+	id 1sZ8Ss-0004Au-NA; Wed, 31 Jul 2024 12:29:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768538.1179369; Wed, 31 Jul 2024 12:24:02 +0000
+Received: by outflank-mailman (output) from mailman id 768547.1179379; Wed, 31 Jul 2024 12:29:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ8N7-00032s-Vq; Wed, 31 Jul 2024 12:24:01 +0000
-Received: by outflank-mailman (input) for mailman id 768538;
- Wed, 31 Jul 2024 12:24:00 +0000
+	id 1sZ8Ss-00048M-Jh; Wed, 31 Jul 2024 12:29:58 +0000
+Received: by outflank-mailman (input) for mailman id 768547;
+ Wed, 31 Jul 2024 12:29:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9TNE=O7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZ8N6-00032m-96
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 12:24:00 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1sZ8Sq-00048G-UH
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 12:29:56 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c03a5755-4f37-11ef-8776-851b0ebba9a2;
- Wed, 31 Jul 2024 14:23:54 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5a15c2dc569so4934197a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 05:23:58 -0700 (PDT)
+ id 93b2127a-4f38-11ef-8776-851b0ebba9a2;
+ Wed, 31 Jul 2024 14:29:48 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a7a9e25008aso751612266b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 05:29:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ac64eb3146sm8641705a12.66.2024.07.31.05.23.57
+ a640c23a62f3a-a7acadb8356sm757962266b.206.2024.07.31.05.29.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Jul 2024 05:23:57 -0700 (PDT)
+ Wed, 31 Jul 2024 05:29:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c03a5755-4f37-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 93b2127a-4f38-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722428638; x=1723033438; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722428992; x=1723033792; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=B27pjRdnhyBOcqpeMg3qCW584FZBVzYWW63ojgafWRc=;
-        b=NO53XN4dQsm2Bhij61PBj1GbD+PX5c3vAf4xkLXpwd5qlEF2muqTAdA2HRhSaT29b6
-         cygOj+xG97yY+cCPf3Bbc+korDdCx7OyCY+wuVwt2NfbnNEwQuH5nlqSsLlNnN8mDeQJ
-         yqS/pVYrroQOdtUl33jEKK3Ng2Qm6dkh7z8vKyzLpTKqVu68tUw1G4IDcPOCSTEEXiKy
-         bBwfhk7C7n3IDKNRrLWL1iVkes9mTGXRU13pRNwKupp0ZWdPvHvuX4/vNeQmqCTgOp6c
-         HhmNNjjDE8QNYJe4RYuJnfy884wsRxtxVBg9X/pPbRDGmo44aojOHfDtAALhgdzMy1JG
-         iGUA==
+        bh=DpP4bzy/tFgSNC6PJ1fGRQr9x7zr6c4o4Hjki5lXEJk=;
+        b=epsWy2rBrOc6peOdhzlhgwCpM5Wl8gzxIEzlCryqWIZtZehNjx8C/bfwlLuae0+8Ee
+         Rpq6LZxhn+unXPld5S3veacHvGSgFfgkaz4g/xAQ1l0enGMbHb8J0CIrSvggsMLeuiyV
+         LQs/dH5z+nIGTzWFXgDfxGhuwvu3LSk1deF+MhR/Ppc2kU/Ku7SX+8cuIbPVOoypr570
+         IhCsBDxpspvu9ob/CXnAwfVz03b9yA0SAiDOEvGGBhovDUIZY2Pdxa5oMtZwiIk4+uWL
+         l5mpwp4DK1zGuPBwxkqgCr1XNSd/6Hv0wB6quGWBO9TxpPfDc0OjKk9ixnTDVT+kkDCO
+         3UGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722428638; x=1723033438;
+        d=1e100.net; s=20230601; t=1722428992; x=1723033792;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=B27pjRdnhyBOcqpeMg3qCW584FZBVzYWW63ojgafWRc=;
-        b=Vs2DhvzM3/eQDWYYpZdd432RsvjOYPDIr2B6/N/J5WDoVovBoVTcT8IelKI4afD8xn
-         4g1mTKhKt0ogw8/d8PSMeXCMtKdEYHJ6+gJwh7/AWD8Mu6BSbxEtLfubi1Y8kCyUY4on
-         3E7AzXxfLVYl4cxUvZ9VYinQ4WcEAAJJtFFMKkL6PiKE5nZLK+TonEfdIK6qTtpwEDQM
-         IwTe3E/Nk34v/sT76pAUNzj5jdqF+wzam7pGNsm/uiDH4j4OjpZdVOBY3F/bl5FrvVBr
-         QJ8Gqh7FhFGUJef25E5ACCs9b35Owui+u46twl/NdC73oYa1G2HY4SguRDhw150lHzT5
-         37wQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVsWORWJrVY3Rge8KC6IZkXrDG37vQyeysx7ecAor8miZ0Fa9f7f9YeQ1x3BQmNIbT2ndr54eYB6AAlMqvf5/CLzUnh9SCU5ABIOLyghvk=
-X-Gm-Message-State: AOJu0YxvC9DaO1HiyQj1MbLJ9YwftFlmk2Ggqzw6hkGWUtsRJcHKCpcW
-	fcoBIeI33h9EdhKofDheFfeYYMv5ayvCjhwM22Y+3imTZ1ojGmvT1Gz1zUNekg==
-X-Google-Smtp-Source: AGHT+IFjp9VYsbonbw0qpeyzwQawhNsXpu87dYyAY9QyRmNs1wLikLNvEdYY/RXm83Bd3F2Mm7fI0A==
-X-Received: by 2002:a50:9ee6:0:b0:5a7:464a:abf with SMTP id 4fb4d7f45d1cf-5b02317d025mr11413672a12.24.1722428637734;
-        Wed, 31 Jul 2024 05:23:57 -0700 (PDT)
-Message-ID: <cc92ed50-89f7-48c9-b0e1-cd61a020001c@suse.com>
-Date: Wed, 31 Jul 2024 14:23:56 +0200
+        bh=DpP4bzy/tFgSNC6PJ1fGRQr9x7zr6c4o4Hjki5lXEJk=;
+        b=q84HbktP3AW3KKb8qUNrVGmGSlkC9nloz6ud2JhP395nJZdSoX5a7gB16AmPyYsVQJ
+         494be2FVdFGMJ6tf7n+JQyP+xmdsU+qj2/eRtiSB+pGqAJ0BhBhl9aJpOL6opVJH4wWJ
+         ynLYR/lz69zg8qw+Wvs+laL01OOdEEjt4vyzqii3hMJ6GvX8elSdsuglrEyXZyfmktuJ
+         8JhOKw67jA6/SHkRhOjhHkOoc3qswrRfurolSRftIaA7h+Y3/H+fmn8cD5JZ2g+A8ylB
+         6PC7/n/ZWVISR1vvZsDOynD78zFp9fbCM65ci9fjYVOS+BfMYz0ZZ5KgsIa1HVSig/Uc
+         a3Lw==
+X-Forwarded-Encrypted: i=1; AJvYcCUB0X1YZuA0LEiEa9144S3w4e8iOk8VyojGFXNbR0tyQDI9jbcaFKwt08mDPNBlpnLtYUjYWhhw2RwWudHk/+vEkGDgbTtZOkp6ZDd8eu8=
+X-Gm-Message-State: AOJu0Ywr7J+/ciTLDJRmBBl5ywjlf+DnxSO5emoe8QHsDZ5PAMMGrzxn
+	qjWLs7VAGBnDIa55w5HLJE5F79tEIhxnSiN9iDU1syJ/lA/cBlJbkrX/H0myug==
+X-Google-Smtp-Source: AGHT+IFs+mCSVRmgLdtjvq8X7A4P0gvmr1q0/2GwlHQs/X6R2HHGutF9mWFLFRoDs2BZASrHFgblEw==
+X-Received: by 2002:a17:906:f58c:b0:a7a:9144:e254 with SMTP id a640c23a62f3a-a7d3ffdbe12mr975966466b.10.1722428992441;
+        Wed, 31 Jul 2024 05:29:52 -0700 (PDT)
+Message-ID: <1494c80d-9056-4922-a5e1-33cfdb1e41cf@suse.com>
+Date: Wed, 31 Jul 2024 14:29:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v5 09/13] x86/vmx: guard access to cpu_has_vmx_* in
- common code
+Subject: Re: [XEN PATCH v5 10/13] x86/vpmu: guard calls to vmx/svm functions
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
 References: <cover.1722333634.git.Sergiy_Kibrik@epam.com>
- <c2961c8b67041883ce5a5f6d0511a31dc7fbe22d.1722333634.git.Sergiy_Kibrik@epam.com>
+ <fda81012adec8c4993acd83076f1a46f2d71d668.1722333634.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,48 +114,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c2961c8b67041883ce5a5f6d0511a31dc7fbe22d.1722333634.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <fda81012adec8c4993acd83076f1a46f2d71d668.1722333634.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.07.2024 12:33, Sergiy Kibrik wrote:
-> There're several places in common code, outside of arch/x86/hvm/vmx,
-> where cpu_has_vmx_* get accessed without checking whether VMX supported first.
-> These macros rely on global variables defined in vmx code, so when VMX support
-> is disabled accesses to these variables turn into build failures.
-> 
-> To overcome these failures, build-time check is done before accessing global
-> variables, so that DCE would remove these variables.
-> 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> Acked-by: Paul Durrant <paul@xen.org>
-> CC: Andrew Cooper <andrew.cooper3@citrix.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> ---
-> changes in v5:
->  - change kconfig option name VMX -> INTEL_VMX
->  - do not change .c files, only modify macros in vmcs.h
+On 30.07.2024 12:35, Sergiy Kibrik wrote:
+> @@ -266,10 +268,10 @@ static inline void __core2_vpmu_save(struct vcpu *v)
+>          rdmsrl(MSR_P6_EVNTSEL(i), xen_pmu_cntr_pair[i].control);
+>      }
+>  
+> -    if ( !is_hvm_vcpu(v) )
+> +    if ( !is_vmx_vcpu(v) )
 
-Better, yet still not going far enough, as indicated earlier:
+With this ...
 
-> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> @@ -300,13 +300,15 @@ extern u64 vmx_ept_vpid_cap;
->  #define cpu_has_wbinvd_exiting \
->      (vmx_secondary_exec_control & SECONDARY_EXEC_WBINVD_EXITING)
->  #define cpu_has_vmx_virtualize_apic_accesses \
-> -    (vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES)
-> +    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-> +     vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES)
+>          rdmsrl(MSR_CORE_PERF_GLOBAL_STATUS, core2_vpmu_cxt->global_status);
+>      /* Save MSR to private context to make it fork-friendly */
+> -    else if ( mem_sharing_enabled(v->domain) )
+> +    else if ( is_vmx_vcpu(v) && mem_sharing_enabled(v->domain) )
 
-Why does this change but the earlier cpu_has_wbinvd_exiting or ...
+... why this further change?
 
->  #define cpu_has_vmx_tpr_shadow \
->      (vmx_cpu_based_exec_control & CPU_BASED_TPR_SHADOW)
->  #define cpu_has_vmx_vnmi \
->      (vmx_pin_based_exec_control & PIN_BASED_VIRTUAL_NMIS)
+> @@ -326,14 +328,14 @@ static inline void __core2_vpmu_load(struct vcpu *v)
+>      if ( vpmu_is_set(vcpu_vpmu(v), VPMU_CPU_HAS_DS) )
+>          wrmsrl(MSR_IA32_DS_AREA, core2_vpmu_cxt->ds_area);
+>  
+> -    if ( !is_hvm_vcpu(v) )
+> +    if ( !is_vmx_vcpu(v) )
+>      {
+>          wrmsrl(MSR_CORE_PERF_GLOBAL_OVF_CTRL, core2_vpmu_cxt->global_ovf_ctrl);
+>          core2_vpmu_cxt->global_ovf_ctrl = 0;
+>          wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL, core2_vpmu_cxt->global_ctrl);
+>      }
+>      /* Restore MSR from context when used with a fork */
+> -    else if ( mem_sharing_is_fork(v->domain) )
+> +    else if ( is_vmx_vcpu(v) && mem_sharing_is_fork(v->domain) )
+>          vmx_write_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
+>                              core2_vpmu_cxt->global_ctrl);
+>  }
 
-... these two (and several more elsewhere) don't?
+Same here. With those dropped (I could do so while committing, as long as you
+agree):
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
