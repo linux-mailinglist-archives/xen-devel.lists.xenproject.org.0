@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32106942F85
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 15:00:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.768595.1179476 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 659C4942F86
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2024 15:01:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.768602.1179498 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ8wc-00046d-Vw; Wed, 31 Jul 2024 13:00:42 +0000
+	id 1sZ8wm-0004gf-FF; Wed, 31 Jul 2024 13:00:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 768595.1179476; Wed, 31 Jul 2024 13:00:42 +0000
+Received: by outflank-mailman (output) from mailman id 768602.1179498; Wed, 31 Jul 2024 13:00:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZ8wc-00044M-Rv; Wed, 31 Jul 2024 13:00:42 +0000
-Received: by outflank-mailman (input) for mailman id 768595;
- Wed, 31 Jul 2024 13:00:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sZ8wm-0004eu-8S; Wed, 31 Jul 2024 13:00:52 +0000
+Received: by outflank-mailman (input) for mailman id 768602;
+ Wed, 31 Jul 2024 13:00:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Q60C=O7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sZ8wb-0003KO-4j
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 13:00:41 +0000
+ id 1sZ8wk-0003df-AV
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2024 13:00:50 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e35a8783-4f3c-11ef-bc01-fd08da9f4363;
- Wed, 31 Jul 2024 15:00:40 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e423661e-4f3c-11ef-8776-851b0ebba9a2;
+ Wed, 31 Jul 2024 15:00:42 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 16A1921B61;
- Wed, 31 Jul 2024 13:00:40 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AC44B21B78;
+ Wed, 31 Jul 2024 13:00:45 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DA8ED13297;
- Wed, 31 Jul 2024 13:00:39 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 78D3213297;
+ Wed, 31 Jul 2024 13:00:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id MN3LM3c1qmb5WAAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 31 Jul 2024 13:00:39 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id MBYPHH01qmYAWQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 31 Jul 2024 13:00:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,157 +51,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e35a8783-4f3c-11ef-bc01-fd08da9f4363
+X-Inumbo-ID: e423661e-4f3c-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1722430840; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1722430845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YykKbfS2IJgdkLFFy5acGGcdbHS6FrMXXxAPIolzhxo=;
-	b=kda6Ht6lVqFoJ4aXkKYbYjrHIHDfJufboK/HmgvGZMikS/y3QTjMtOYt8GD/q2mJ5gCKPz
-	Vfqy3lygv1CAqPI7Xx+n3rSw3Bssy4VJHhEmy3zqfxbvMFFRp8G917U5bk+EYMmtwsViCH
-	4YQo/5C/eXy43bpjCoOTnyBarwyQ3NM=
+	bh=tSF1mgyyRozqIhqSscGGgmQznHAJUWT1VxHYxdygHx8=;
+	b=AHTTS6nCUZ7FhXGl14JRg8q5Vm0NskVBAKF2Soyes8jqrhNIxBqB4rkOO4WDgPt3HRzlH4
+	jO5Y6gq+0kY//GsR2cfd6F0IdKzpAcg8UtKzru7NhXdvUTDnAUiYj73i7eUbp8hExOYVEk
+	FOECsX7c4KBY/lHS+A8dlA2Ip83QIRU=
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1722430840; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1722430845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YykKbfS2IJgdkLFFy5acGGcdbHS6FrMXXxAPIolzhxo=;
-	b=kda6Ht6lVqFoJ4aXkKYbYjrHIHDfJufboK/HmgvGZMikS/y3QTjMtOYt8GD/q2mJ5gCKPz
-	Vfqy3lygv1CAqPI7Xx+n3rSw3Bssy4VJHhEmy3zqfxbvMFFRp8G917U5bk+EYMmtwsViCH
-	4YQo/5C/eXy43bpjCoOTnyBarwyQ3NM=
+	bh=tSF1mgyyRozqIhqSscGGgmQznHAJUWT1VxHYxdygHx8=;
+	b=AHTTS6nCUZ7FhXGl14JRg8q5Vm0NskVBAKF2Soyes8jqrhNIxBqB4rkOO4WDgPt3HRzlH4
+	jO5Y6gq+0kY//GsR2cfd6F0IdKzpAcg8UtKzru7NhXdvUTDnAUiYj73i7eUbp8hExOYVEk
+	FOECsX7c4KBY/lHS+A8dlA2Ip83QIRU=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	wl@xen.org,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 2/3] mini-os: mm: switch need_pgt() to use walk_pt()
-Date: Wed, 31 Jul 2024 15:00:25 +0200
-Message-ID: <20240731130026.8467-3-jgross@suse.com>
+Subject: [PATCH 3/3] mini-os: mm: convert set_readonly() to use walk_pt()
+Date: Wed, 31 Jul 2024 15:00:26 +0200
+Message-ID: <20240731130026.8467-4-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240731130026.8467-1-jgross@suse.com>
 References: <20240731130026.8467-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
 X-Spamd-Result: default: False [-2.60 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
 	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
 	FUZZY_BLOCKED(0.00)[rspamd.com];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Level: 
 X-Spam-Flag: NO
 X-Spam-Score: -2.60
 
-Instead of open coding a page table walk, use walk_pt() in need_pgt().
+Instead of having another copy of a page table walk in set_readonly(),
+just use walk_pt().
+
+As it will be needed later anyway, split out the TLB flushing into a
+dedicated function.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- arch/x86/mm.c | 66 +++++++++++++++++++--------------------------------
- 1 file changed, 24 insertions(+), 42 deletions(-)
+ arch/x86/mm.c | 119 +++++++++++++++++++++-----------------------------
+ 1 file changed, 50 insertions(+), 69 deletions(-)
 
 diff --git a/arch/x86/mm.c b/arch/x86/mm.c
-index cc4d41e9..accde291 100644
+index accde291..90992068 100644
 --- a/arch/x86/mm.c
 +++ b/arch/x86/mm.c
-@@ -518,57 +518,39 @@ static pgentry_t *get_pgt(unsigned long va)
-  * return a valid PTE for a given virtual address. If PTE does not exist,
-  * allocate page-table pages.
+@@ -397,92 +397,73 @@ static void build_pagetable(unsigned long *start_pfn, unsigned long *max_pfn)
+  * Mark portion of the address space read only.
   */
--pgentry_t *need_pgt(unsigned long va)
-+static int need_pgt_func(unsigned long va, unsigned int lvl, bool is_leaf,
-+                         pgentry_t *pte, void *par)
- {
-+    pgentry_t **result = par;
-     unsigned long pt_mfn;
--    pgentry_t *tab;
-     unsigned long pt_pfn;
--    unsigned offset;
-+    unsigned int idx;
+ extern struct shared_info shared_info;
+-static void set_readonly(void *text, void *etext)
+-{
+-    unsigned long start_address =
+-        ((unsigned long) text + PAGE_SIZE - 1) & PAGE_MASK;
+-    unsigned long end_address = (unsigned long) etext;
+-    pgentry_t *tab = pt_base, page;
+-    unsigned long mfn = pfn_to_mfn(virt_to_pfn(pt_base));
+-    unsigned long offset;
+-    unsigned long page_size = PAGE_SIZE;
++
++struct set_readonly_par {
++    unsigned long etext;
+ #ifdef CONFIG_PARAVIRT
+-    int count = 0;
+-    int rc;
++    unsigned int count;
+ #endif
++};
  
--    tab = pt_base;
--    pt_mfn = virt_to_mfn(pt_base);
+-    printk("setting %p-%p readonly\n", text, etext);
++static int set_readonly_func(unsigned long va, unsigned int lvl, bool is_leaf,
++                             pgentry_t *pte, void *par)
++{
++    struct set_readonly_par *ro = par;
+ 
+-    while ( start_address + page_size <= end_address )
+-    {
+-        tab = pt_base;
+-        mfn = pfn_to_mfn(virt_to_pfn(pt_base));
 +    if ( !is_leaf )
 +        return 0;
  
 -#if defined(__x86_64__)
--    offset = l4_table_offset(va);
--    if ( !(tab[offset] & _PAGE_PRESENT) )
--    {
--        pt_pfn = virt_to_pfn(alloc_page());
--        if ( !pt_pfn )
--            return NULL;
--        new_pt_frame(&pt_pfn, pt_mfn, offset, L3_FRAME);
--    }
--    ASSERT(tab[offset] & _PAGE_PRESENT);
--    pt_mfn = pte_to_mfn(tab[offset]);
--    tab = mfn_to_virt(pt_mfn);
+-        offset = l4_table_offset(start_address);
+-        page = tab[offset];
+-        mfn = pte_to_mfn(page);
+-        tab = to_virt(mfn_to_pfn(mfn) << PAGE_SHIFT);
 -#endif
--    offset = l3_table_offset(va);
--    if ( !(tab[offset] & _PAGE_PRESENT) ) 
--    {
--        pt_pfn = virt_to_pfn(alloc_page());
--        if ( !pt_pfn )
--            return NULL;
--        new_pt_frame(&pt_pfn, pt_mfn, offset, L2_FRAME);
--    }
--    ASSERT(tab[offset] & _PAGE_PRESENT);
--    pt_mfn = pte_to_mfn(tab[offset]);
--    tab = mfn_to_virt(pt_mfn);
--    offset = l2_table_offset(va);
--    if ( !(tab[offset] & _PAGE_PRESENT) )
-+    if ( lvl == L1_FRAME || (*pte & _PAGE_PRESENT) )
-     {
--        pt_pfn = virt_to_pfn(alloc_page());
--        if ( !pt_pfn )
--            return NULL;
--        new_pt_frame(&pt_pfn, pt_mfn, offset, L1_FRAME);
-+        *result = pte;
+-        offset = l3_table_offset(start_address);
+-        page = tab[offset];
+-        mfn = pte_to_mfn(page);
+-        tab = to_virt(mfn_to_pfn(mfn) << PAGE_SHIFT);
+-        offset = l2_table_offset(start_address);        
+-        if ( !(tab[offset] & _PAGE_PSE) )
+-        {
+-            page = tab[offset];
+-            mfn = pte_to_mfn(page);
+-            tab = to_virt(mfn_to_pfn(mfn) << PAGE_SHIFT);
++    if ( va + (1UL << ptdata[lvl].shift) > ro->etext )
 +        return 1;
-     }
--    ASSERT(tab[offset] & _PAGE_PRESENT);
--    if ( tab[offset] & _PAGE_PSE )
--        return &tab[offset];
  
--    pt_mfn = pte_to_mfn(tab[offset]);
--    tab = mfn_to_virt(pt_mfn);
-+    pt_mfn = virt_to_mfn(pte);
-+    pt_pfn = virt_to_pfn(alloc_page());
-+    if ( !pt_pfn )
-+        return -1;
-+    idx = (va >> ptdata[lvl].shift) & (ptdata[lvl].entries - 1);
-+    new_pt_frame(&pt_pfn, pt_mfn, idx, lvl - 1);
+-            offset = l1_table_offset(start_address);
+-        }
++    if ( va == (unsigned long)&shared_info )
++    {
++        printk("skipped %lx\n", va);
++        return 0;
++    }
  
--    offset = l1_table_offset(va);
--    return &tab[offset];
+-        if ( start_address != (unsigned long)&shared_info )
+-        {
+ #ifdef CONFIG_PARAVIRT
+-            mmu_updates[count].ptr = 
+-                ((pgentry_t)mfn << PAGE_SHIFT) + sizeof(pgentry_t) * offset;
+-            mmu_updates[count].val = tab[offset] & ~_PAGE_RW;
+-            count++;
++    mmu_updates[ro->count].ptr = virt_to_mach(pte);
++    mmu_updates[ro->count].val = *pte & ~_PAGE_RW;
++    ro->count++;
++
++    if ( (ro->count == L1_PAGETABLE_ENTRIES ||
++          va + 2 * PAGE_SIZE > ro->etext) &&
++         HYPERVISOR_mmu_update(mmu_updates, ro->count, NULL, DOMID_SELF) < 0 )
++    {
++        printk("ERROR: set_readonly(): PTE could not be updated\n");
++        do_exit();
++    }
+ #else
+-            tab[offset] &= ~_PAGE_RW;
++    *pte &= ~_PAGE_RW;
+ #endif
+-        }
+-        else
+-            printk("skipped %lx\n", start_address);
+ 
+-        start_address += page_size;
 +    return 0;
 +}
-+
-+pgentry_t *need_pgt(unsigned long va)
-+{
-+    pgentry_t *tab = NULL;
-+
-+    walk_pt(va, va, need_pgt_func, &tab);
-+    return tab;
- }
- EXPORT_SYMBOL(need_pgt);
  
+ #ifdef CONFIG_PARAVIRT
+-        if ( count == L1_PAGETABLE_ENTRIES || 
+-             start_address + page_size > end_address )
+-        {
+-            rc = HYPERVISOR_mmu_update(mmu_updates, count, NULL, DOMID_SELF);
+-            if ( rc < 0 )
+-            {
+-                printk("ERROR: set_readonly(): PTE could not be updated\n");
+-                do_exit();
+-            }
+-            count = 0;
+-        }
+-#else
+-        if ( start_address == (1UL << L2_PAGETABLE_SHIFT) )
+-            page_size = 1UL << L2_PAGETABLE_SHIFT;
+-#endif
+-    }
++static void tlb_flush(void)
++{
++    mmuext_op_t op = { .cmd = MMUEXT_TLB_FLUSH_ALL };
++    int count;
+ 
+-#ifdef CONFIG_PARAVIRT
+-    {
+-        mmuext_op_t op = {
+-            .cmd = MMUEXT_TLB_FLUSH_ALL,
+-        };
+-        int count;
+-        HYPERVISOR_mmuext_op(&op, 1, &count, DOMID_SELF);
+-    }
++    HYPERVISOR_mmuext_op(&op, 1, &count, DOMID_SELF);
++}
+ #else
++static void tlb_flush(void)
++{
+     write_cr3((unsigned long)pt_base);
++}
+ #endif
++
++static void set_readonly(void *text, void *etext)
++{
++    struct set_readonly_par setro = { .etext = (unsigned long)etext };
++    unsigned long start_address = PAGE_ALIGN((unsigned long)text);
++
++    printk("setting %p-%p readonly\n", text, etext);
++    walk_pt(start_address, setro.etext, set_readonly_func, &setro);
++    tlb_flush();
+ }
+ 
+ /*
 -- 
 2.43.0
 
