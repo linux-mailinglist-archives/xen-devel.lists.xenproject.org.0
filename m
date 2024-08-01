@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3696A945134
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 18:59:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769901.1180778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E39D945278
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 20:00:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769917.1180786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZZ8t-0003lh-Ur; Thu, 01 Aug 2024 16:59:07 +0000
+	id 1sZa5k-00040b-0e; Thu, 01 Aug 2024 17:59:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769901.1180778; Thu, 01 Aug 2024 16:59:07 +0000
+Received: by outflank-mailman (output) from mailman id 769917.1180786; Thu, 01 Aug 2024 17:59:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZZ8t-0003iX-Rs; Thu, 01 Aug 2024 16:59:07 +0000
-Received: by outflank-mailman (input) for mailman id 769901;
- Thu, 01 Aug 2024 16:59:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sZZ8s-0003iN-V9; Thu, 01 Aug 2024 16:59:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sZZ8s-00022a-JU; Thu, 01 Aug 2024 16:59:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sZZ8s-0008IB-6C; Thu, 01 Aug 2024 16:59:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sZZ8s-0002XG-5h; Thu, 01 Aug 2024 16:59:06 +0000
+	id 1sZa5j-0003yp-Tx; Thu, 01 Aug 2024 17:59:55 +0000
+Received: by outflank-mailman (input) for mailman id 769917;
+ Thu, 01 Aug 2024 17:59:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SIAI=PA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sZa5j-0003yj-6H
+ for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 17:59:55 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d9788a9b-502f-11ef-8776-851b0ebba9a2;
+ Thu, 01 Aug 2024 19:59:52 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 0D05D6293D;
+ Thu,  1 Aug 2024 17:59:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB7BC32786;
+ Thu,  1 Aug 2024 17:59:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +42,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=fnwzHwEjSNTNyRv8zOIJ6ACumfAO6HHBqRWu0xl5kqI=; b=PyeBDUZyCIzY0uu8gqM2lR4wDt
-	GXiURWaH68DP6VFwXkaM/kz6E3o7FLaINK5r9wNf+UDDsVQB8zYuxcAoeObCIBl4QhU0htf8hvbTG
-	YTxuV3LcyTB1JTp4i1j2e3VrltDYvQ3D1gTBdPTDoEgg71ix/HIWxZiM0lIosLOLqe18=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187109-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d9788a9b-502f-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1722535190;
+	bh=AaV8E08fJOUeaK01SwQIJR9LSOTp2AxvAyxxtcAjlmU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=hNX7p5V6DGQLE6lU8fSjgWi3B9x8OGYMaYudshTwSaQTQdXIEOTanjfTVIdVOVDZI
+	 tdF/gbH9NpYXyj6JSNhblNRo5RlFd9WzJEIi6+oJWZpvyVpsHTW30QmTqSAQmsHDOf
+	 tndQvlvhAwM+MSt7AySWra3HMA+JdwsOWAXXANC4uO8NV3nRdbVVqWN0/w3veMXg4x
+	 4RN4mOE/ic1JNj0ZDY9xSLlcjX1n9tSgIlZZ8zhjB4aagENq51gQUUU90jxb71RysZ
+	 3kDqSCFOg+Euu16rtg0FX9jbB1O1u2psc2+FTCOw3KATXBFuIaSyVQ82L7Mdc+U0dI
+	 1kDFjL9IBCSBA==
+Date: Thu, 1 Aug 2024 10:59:46 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] docs/misra: add R13.2 and R18.2 to rules.rst
+In-Reply-To: <dd463c03-71ca-4333-ac3f-629241b0f9bc@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2408011044320.4857@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2407301626460.4857@ubuntu-linux-20-04-desktop> <6575beb5-645a-470a-89a1-8485adeace60@suse.com> <alpine.DEB.2.22.394.2407311647170.4857@ubuntu-linux-20-04-desktop> <dd463c03-71ca-4333-ac3f-629241b0f9bc@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 187109: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=2d5390053ff934ec1e94b84f5bb67400b3b75841
-X-Osstest-Versions-That:
-    ovmf=a679ceca974e94a659f9b6b9e7a7900644220ef9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 01 Aug 2024 16:59:06 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 187109 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187109/
+On Thu, 1 Aug 2024, Jan Beulich wrote:
+> On 01.08.2024 01:50, Stefano Stabellini wrote:
+> > On Wed, 31 Jul 2024, Jan Beulich wrote:
+> >> On 31.07.2024 01:30, Stefano Stabellini wrote:
+> >>> --- a/docs/misra/rules.rst
+> >>> +++ b/docs/misra/rules.rst
+> >>> @@ -462,6 +462,15 @@ maintainers if you want to suggest a change.
+> >>>       - Initializer lists shall not contain persistent side effects
+> >>>       -
+> >>>  
+> >>> +   * - `Rule 13.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_02.c>`_
+> >>> +     - Required
+> >>> +     - The value of an expression and its persistent side-effects shall
+> >>> +       be the same under all permitted evaluation orders
+> >>> +     - Be aware that the static analysis tool Eclair might report
+> >>> +       several findings for Rule 13.2 of type "caution". These are
+> >>> +       instances where Eclair is unable to verify that the code is valid
+> >>> +       in regard to Rule 13.2. Caution reports are not violations.
+> >>
+> >> Which doesn't make clear what our take is towards new code people may
+> >> submit.
+> > 
+> > Good point, see my comment below
+> > 
+> > 
+> >>> @@ -583,6 +592,15 @@ maintainers if you want to suggest a change.
+> >>>         submitting new patches please try to decrease the number of
+> >>>         violations when possible.
+> >>>  
+> >>> +   * - `Rule 18.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_18_02.c>`_
+> >>> +     - Required
+> >>> +     - Subtraction between pointers shall only be applied to pointers
+> >>> +       that address elements of the same array
+> >>> +     - Be aware that the static analysis tool Eclair might report
+> >>> +       several findings for Rule 18.2 of type "caution". These are
+> >>> +       instances where Eclair is unable to verify that the code is valid
+> >>> +       in regard to Rule 18.2. Caution reports are not violations.
+> >>
+> >> And while the same wording is used here, I think it is pretty clear for
+> >> this that we'd reject changes where bad subtractions are used. IOW even
+> >> more so important to clarify the (possibly different) positions on what
+> >> is going to be added into the code base.
+> > 
+> > In both of these cases, we would reject code that doesn't follow R13.2
+> > and R18.2.
+> 
+> But we shouldn't (unconditionally) do so for for 13.2, should we?
+> 
+> > I'll change it to the following:
+> > 
+> > 
+> > Be aware that the static analysis tool Eclair might report several
+> > findings for Rule 18.2 of type "caution". These are instances where
+> > Eclair is unable to verify that the code is valid in regard to Rule
+> > 18.2. Caution reports are not violations. Regardless, new code is
+> > expected to follow this rule.
+> 
+> I'm fine with this for 18.2, but not so much for 13.2.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 2d5390053ff934ec1e94b84f5bb67400b3b75841
-baseline version:
- ovmf                 a679ceca974e94a659f9b6b9e7a7900644220ef9
+Let me clarify something about R13.2. I expect we are aligned on this.
 
-Last test of basis   187108  2024-08-01 13:45:09 Z    0 days
-Testing same since   187109  2024-08-01 15:41:27 Z    0 days    1 attempts
+Rule 13.2 only expects that "the value of an expression and its persistent
+side-effects shall be the same under all permitted evaluation orders"
+and nothing more.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ardb@kernel.org>
+It is an outstanding limitation of static analyzers such as ECLAIR
+that they cannot be certain that "the value of an expression and its
+persistent side-effects shall be the same under all permitted evaluation
+orders". So one way to make ECLAIR happy is to change this code:
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+1)
+func1(param1, func2(a), func3(b);
 
+into this code:
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+2)
+param2 = func2(a);
+param3 = func3(b);
+func1(param1, param2, param3);
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Rule 13.2 is not asking us to change 1) into 2). 1) is acceptable. It is
+just that ECLAIR cannot help us ensure that 1) is compliant with Rule
+13.2. It is totally fine to accept new code written in the form 1), of
+course only if "the value of an expression and its persistent
+side-effects shall be the same under all permitted evaluation orders".
+It would likely increase the number of ECLAIR cautions, but it is not
+necessarily a problem, and the ECLAIR Gitlab job will not fail.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   a679ceca97..2d5390053f  2d5390053ff934ec1e94b84f5bb67400b3b75841 -> xen-tested-master
+If one of the reviewers discovers that 1) doesn't comply with Rule 13.2
+due to manual review, then they should ask the contributor to change the
+code. That is a good idea because we wouldn't want the value of an
+expression to be dependant on the evaluation order which GCC cannot
+guarantee.
 
