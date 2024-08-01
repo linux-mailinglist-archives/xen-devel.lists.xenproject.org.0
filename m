@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E1F1944533
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 09:13:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769377.1180249 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7180594454D
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 09:19:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769385.1180258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZPzN-0003mx-To; Thu, 01 Aug 2024 07:12:41 +0000
+	id 1sZQ5X-0004xa-Hz; Thu, 01 Aug 2024 07:19:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769377.1180249; Thu, 01 Aug 2024 07:12:41 +0000
+Received: by outflank-mailman (output) from mailman id 769385.1180258; Thu, 01 Aug 2024 07:19:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZPzN-0003kW-QA; Thu, 01 Aug 2024 07:12:41 +0000
-Received: by outflank-mailman (input) for mailman id 769377;
- Thu, 01 Aug 2024 07:12:40 +0000
+	id 1sZQ5X-0004ut-FE; Thu, 01 Aug 2024 07:19:03 +0000
+Received: by outflank-mailman (input) for mailman id 769385;
+ Thu, 01 Aug 2024 07:19:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/4YK=PA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZPzM-0003kQ-Si
- for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 07:12:40 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1sZQ5W-0004un-Hy
+ for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 07:19:02 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6f63440a-4fd5-11ef-8776-851b0ebba9a2;
- Thu, 01 Aug 2024 09:12:38 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5b391c8abd7so5279253a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 00:12:38 -0700 (PDT)
+ id 52f22bb3-4fd6-11ef-8776-851b0ebba9a2;
+ Thu, 01 Aug 2024 09:19:00 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a7d89bb07e7so359865266b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 00:19:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5b64c074f9fsm1415119a12.97.2024.08.01.00.12.37
+ a640c23a62f3a-a7acadb8072sm853418866b.196.2024.08.01.00.18.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Aug 2024 00:12:37 -0700 (PDT)
+ Thu, 01 Aug 2024 00:18:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f63440a-4fd5-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 52f22bb3-4fd6-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722496358; x=1723101158; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JCvBVunI7k6bNFY/+1qRSnA/qiHEmcNRmmy34+GfdY0=;
-        b=CbRr21RRyHPqJU8b+CEiurQzt/Bn4Ya6ywcJI6O5aFdBoMuIW95sX9YO1GVYsk1J4F
-         hxPgPheznnHNjJ8JvJYzJzA1eoaUkf9ZrD0TkQ3rQ0dfMnkqlVQFuoyoXXniIRusxWKF
-         aKzoVtuGaeQKst66r5chQSu1jLXwLAjdFziUuREvrJ8DI8XWzDpa+IAPka7Z2qRoevqC
-         +zTwh+OtOD9DJXdYLv/QYARBTAfy+1P/SY3WkjlI9JMqxJepztbUmE+UlnltsWBizaeH
-         TmEpS2feJE1wd9NewvKlDMHR+OuLhyfHGWGUfVGI0mof1W8I0RDRdVY//VbM0pK2MgZ0
-         xyeQ==
+        d=suse.com; s=google; t=1722496740; x=1723101540; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cXWYNbgdry2va3J1g0/Mel9z+qK9Zc6esLgfAqzyg34=;
+        b=KGO81fV+N/1ymHU1X3w8CzNPO0JcWXTPBueJ1vFOFXw6D/7cHKEcALy52spwt/dXdP
+         8OGTTs3bwh2mTN0yuppVMEl58gXIunI1DV9+DTFOOSdF39+fuK9mpIeoHL//s39s1XaK
+         u1DIeNQkXQcTjn6zRuIHDUcx5pFg7HN3aRD/6+/yIyMP8Y4l7WcJdQTk2IleuhXr97yf
+         fAU/C+CGMN7B2qYQstlNcHbjJyiX6n9noPeH3zzXyKx17+riuwrMOgEDHEU0FW13LQRG
+         zYxCVtPVIib6NeB/1cG0KgCZDbSpMPl+Lkok7czD0J47Q/+kDDPynE+f6haKYdsH0JrG
+         ePnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722496358; x=1723101158;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=JCvBVunI7k6bNFY/+1qRSnA/qiHEmcNRmmy34+GfdY0=;
-        b=frS2+OZKL2wKSTLGh5kmvfouW16LTLeXNUzOmPXoNosLmUrTUaXSd54oeUH/6yQtxI
-         PQHReCIQ8VAqWA4lNcuvxfJH8UBvJWQvPy0m3EMCISJURXT3JPmUtGW5adcdAL7FonL7
-         Ai6PHZYaUy9AjGw4NOKNax+/9AN+tI38FC825i+ulwtAgteFW/rESkcMBsoJquesugPU
-         l08IFkuoN8bwjLdpm/D/Yq50XnlqOx0h3OfPFku3RgTGdgLWR9CRpaOKQ9n93Ng3zfe7
-         a/vB46oYCMq7+AMUwmVDoZf63YvVtnysp5nU/bVOoHN/WVLIbBClU8JIl77scgXHEc59
-         LXFQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXMqhBsgXkk4g13FZoyHM5I0Lp3FhASJ+Up6MTUSe7ZEgmgjTnLqRvxno7Aw9R4pe7bURqkZE7rizRD2pUR5eZyuYYDtpAuLTSQkjDkXbA=
-X-Gm-Message-State: AOJu0YxzkujGGI7xwSkRSqBWMH83NtXY3A8eCQ3SlSrrV/maBkzUus+J
-	Gl5z9vuTn6dVYCT45UFNHraStqITSVK8gQuyPyPMUEJsMlatqIrPjolm9ZFGjQ==
-X-Google-Smtp-Source: AGHT+IFyPYTM556tBxEUe9ieQR8UiaO/hHkAeTOpdZjR8RslOjzrgVggrPijjYvHnFKJV/BeKuE+FQ==
-X-Received: by 2002:a05:6402:742:b0:57c:d237:4fd with SMTP id 4fb4d7f45d1cf-5b6fe530a8amr904664a12.4.1722496358031;
-        Thu, 01 Aug 2024 00:12:38 -0700 (PDT)
-Message-ID: <9c0a102a-9031-4536-8a36-ab62812bc2c4@suse.com>
-Date: Thu, 1 Aug 2024 09:12:36 +0200
+        d=1e100.net; s=20230601; t=1722496740; x=1723101540;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cXWYNbgdry2va3J1g0/Mel9z+qK9Zc6esLgfAqzyg34=;
+        b=LEcBNvZKzmoWyA5SPDU1ThlhcsaA9c2TZdyP6ibXJh5kXWCbFudhexkIIDqpDjyF3i
+         9G4bAl9tmhA4T8I44xUueFjPn9Z/AsVrbUIZ3zLFokFwkXatYkmdjeY9qb6wqxzZq2TY
+         bASw35NvvfgMaROSggFLfXW4CAGBxy3FNyLkPpZpaInrQZ/Ii+SWK0xupJrJ3PLKUqVI
+         RRVzqbvelO7c8knbk7dtwQQwI/1txV4tV6BL71b0ZnEE0JHXHc2gnZab7fi0IFAf0Dqp
+         6XxwmdQW9MFr5UPdxzFU5lprucBIpLtPL/VdkWvpHIrk7Nd8PQNSDmerJn/81K96OBmM
+         QKDg==
+X-Gm-Message-State: AOJu0YwtWn2zomTCIakwWlc91L9yU1PEC5FPOyQZbKXaO/QvTXh1FCB+
+	jgcbvR/+afQRdwnTjWkeBN7FBDS1aAFTbqndaQi8Y5GouA+A792g8x/OD0aQQj7m+49vU9agWvs
+	=
+X-Google-Smtp-Source: AGHT+IEeH4qvuSfymUkt7FgY/yK/7+Y8yXczxVdaV3xcRBY1/QmYdlHold1mh5O82SQkgrkDBqMlJQ==
+X-Received: by 2002:a17:907:9688:b0:a7a:b9dd:775a with SMTP id a640c23a62f3a-a7daf79561cmr98251966b.67.1722496739900;
+        Thu, 01 Aug 2024 00:18:59 -0700 (PDT)
+Message-ID: <fb9589e3-a4d4-4278-b8e2-65ae7c3c02b9@suse.com>
+Date: Thu, 1 Aug 2024 09:18:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] x86/dom0: only disable SMAP for the PV dom0 build
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20240730152855.48745-1-roger.pau@citrix.com>
- <20240730152855.48745-3-roger.pau@citrix.com>
- <e560b170-b00f-415c-9e45-3c287ffd3b3b@citrix.com>
+Subject: Re: [PATCH 2/2] docs: fusa : reqs: Added a sample of requirements
+ [DO_NOT_MERGE]
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
+ bertrand.marquis@arm.com, michal.orzel@amd.com, artem_mygaiev@epam.com,
+ julien@xen.org
+References: <20240731163614.616162-1-ayan.kumar.halder@amd.com>
+ <20240731163614.616162-3-ayan.kumar.halder@amd.com>
 Content-Language: en-US
-Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,57 +114,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e560b170-b00f-415c-9e45-3c287ffd3b3b@citrix.com>
+In-Reply-To: <20240731163614.616162-3-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 31.07.2024 18:47, Andrew Cooper wrote:
-> On 30/07/2024 4:28 pm, Roger Pau Monne wrote:
->> The PVH dom0 builder doesn't switch page tables and has no need to run with
->> SMAP disabled.
->>
->> Use stac() and clac(), as that's safe to use even if events would hit in the
->> middle of the region with SMAP disabled.  Nesting stac() and clac() calls is
->> not safe, so the stac() call is done strictly after elf_load_binary() because
->> that uses raw_{copy_to,clear}_guest() accessors which toggle SMAP.
->>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 31.07.2024 18:36, Ayan Kumar Halder wrote:
+> Added a sample of market, product and design requirements. This is to
+> help explain how we are writing the requirements and understand the
+> context of the first patch.
+> We will be sending these requirements for review in the subsequent
+> patches.
 > 
-> Summarising a discussion on Matrix.
+> Please do not merge this patch.
 > 
-> There are 3 options.
-> 
-> 1) Simply reposition the write_cr4()/cr4_pv32_mask adjustments.
-> 2) This form (use stac/clac instead of playing with cr4).
-> 3) Delay the original set_in_cr4(SMAP).
-> 
-> As proved by the confusion thus far, cr4_pv32_mask adjustments are
-> fragile and can go unnoticed in the general case (need a lucky watchdog
-> NMI hit to trigger).  Hence I'd prefer to remove the adjustments.
-> 
-> Using stac()/clac() is much easier.  It is fragile because of nesting
-> (no AC save/restore infrastructure), but any mistake here will be picked
-> up reliably in Gitlab CI because both adl-* and zen3p-* support SMAP.
-> 
-> Personally I think option 2 is better than 1, hence why I suggested it. 
-> It's got a fragile corner case but will be spotted reliably.
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+>  .../reqs/design_reqs/arm64/emulated_uart.rst  | 240 ++++++++++++++++++
+>  .../reqs/design_reqs/arm64/generic_timer.rst  | 146 +++++++++++
+>  docs/fusa/reqs/design_reqs/xen_version.rst    | 207 +++++++++++++++
+>  docs/fusa/reqs/market_reqs/reqs.rst           |  77 ++++++
+>  docs/fusa/reqs/product_reqs/reqs.rst          |  64 +++++
+>  5 files changed, 734 insertions(+)
+>  create mode 100644 docs/fusa/reqs/design_reqs/arm64/emulated_uart.rst
+>  create mode 100644 docs/fusa/reqs/design_reqs/arm64/generic_timer.rst
+>  create mode 100644 docs/fusa/reqs/design_reqs/xen_version.rst
 
-... when code paths in question are always taken. Any such operation on
-a rarely taken code path quite likely won't be spotted by mere testing.
+Just one formal comment here: New files want to prefer - over _ in
+their names, unless specific reasons exist why - cannot be used.
 
 Jan
-
-> However, it occurs to me that option 3 exists as well... just delay
-> setting SMAP until after dom0 is made.  We have form now with only
-> activating CET-SS on the way out of __start_xen().
-> 
-> Furthermore, option 3 would allow us to move the cr4_pv32_mask
-> adjustment into set_in_cr4() and never need to opencode it.
-> 
-> (Although this is a bit tricky given the current code layout. 
-> cr4_pv32_mask also wants to be __ro_after_init and non-existent in a
-> !PV32 build.)
-> 
-> ~Andrew
-
 
