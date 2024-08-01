@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4148944C27
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 15:02:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769723.1180621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16878944CBB
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 15:11:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769736.1180631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZVRM-0003Rx-9i; Thu, 01 Aug 2024 13:01:56 +0000
+	id 1sZVag-0005QX-8P; Thu, 01 Aug 2024 13:11:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769723.1180621; Thu, 01 Aug 2024 13:01:56 +0000
+Received: by outflank-mailman (output) from mailman id 769736.1180631; Thu, 01 Aug 2024 13:11:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZVRM-0003PX-6Q; Thu, 01 Aug 2024 13:01:56 +0000
-Received: by outflank-mailman (input) for mailman id 769723;
- Thu, 01 Aug 2024 13:01:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8r7L=PA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sZVRK-0003PH-Jd
- for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 13:01:54 +0000
-Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
- [2607:f8b0:4864:20::f30])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 389f8358-5006-11ef-8776-851b0ebba9a2;
- Thu, 01 Aug 2024 15:01:52 +0200 (CEST)
-Received: by mail-qv1-xf30.google.com with SMTP id
- 6a1803df08f44-6b797fb1c4aso46999676d6.2
- for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 06:01:52 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6bb79e5600bsm27063906d6.33.2024.08.01.06.01.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Aug 2024 06:01:50 -0700 (PDT)
+	id 1sZVag-0005Np-5U; Thu, 01 Aug 2024 13:11:34 +0000
+Received: by outflank-mailman (input) for mailman id 769736;
+ Thu, 01 Aug 2024 13:11:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/4YK=PA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sZVae-0005Nh-Se
+ for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 13:11:32 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 920dd306-5007-11ef-bc02-fd08da9f4363;
+ Thu, 01 Aug 2024 15:11:31 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-52f01993090so10330401e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 06:11:31 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5ac64eb3a95sm10056078a12.61.2024.08.01.06.11.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 01 Aug 2024 06:11:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,139 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 389f8358-5006-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 920dd306-5007-11ef-bc02-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722517311; x=1723122111; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Au+57fpcyFGJDnYuwgFlo6w8InT1GALMqmisZDjrkXQ=;
-        b=k8jmb80I9NqTC0o79TNqL2Hof/f+8KP6zv3uELCrJW4BPga5qTw2hpchLOYIXbqRv+
-         ohzFeu8l/3GsyEvw9SOb+gEeEm8oqw0Ba8NzpoBWZeIxrtKsM1MPceKrIplxK2nXkrkU
-         o5wXg+4cXXaz95DuzB8Yq/i+I5s+bR3/UsOgU=
+        d=suse.com; s=google; t=1722517891; x=1723122691; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=tPaGhsM7MflGvFGh6jb6p9SngIPeCMIN8hRaBgZRVEg=;
+        b=KUcHXlep12RhqnJFQXaNoMC0UP4/jHeb9eWGVKbjBSe7B/udiTK7Kf0DSqIbgtixWW
+         W+BjzN8fEpLHil2Ih6whksEjX4f03UQsk5W8SeE3FuS/znH1JP2AweB77Az9OT4lbxY8
+         dgDgs56Mumo29NwUDj/PuP0JBYQRXfZAvLwZrEFbuiFh28O5IFgVnLRVa3UclOAcvYLQ
+         RZvTyaEdstBlLD950bBvH7lm4KJWvbpccM1OWBYsXU/znEALND3FD+gw2mugqp/9+iIA
+         z5X7QXQObAO3uG9DjMEF3TUQE9WbbpUDg+Cap40tin0Wb16fzh6HcSGdtsqnV/VrLpYk
+         fs0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722517311; x=1723122111;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1722517891; x=1723122691;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Au+57fpcyFGJDnYuwgFlo6w8InT1GALMqmisZDjrkXQ=;
-        b=aTyE4DZ3oTQ1YQcj8Da6HJgZpeeiMhxC93/ezeuAI9ILOSNhRcEYc/Ohn5M2aWS0Cx
-         FRgi+X0fMAFJ7KIDy3omrnl3GfvgZohR6QTzYpfJJsApQwNpoyuKOZ+UjIVQSTS44lVP
-         L58uczvVuS5j3WWqA66FUACnF10wgzWYsF3sPeDdyYCLU6i4kYLaQMJ/9s9eFNIMhvTY
-         eIGTnnaYXlDzwSuEp0FMaQe3MMmc0358A/d0D/UyGNv+bAo+xuBPHySJd8Rf0QBlAq4A
-         5qSDNgFjbtRZQTlPCROjUc34J1qbwJ1KB4tWOXY9FfeQAh4NrB76B7XL4ggUqVhzA2/+
-         dw+A==
-X-Gm-Message-State: AOJu0YxkZD14eDE8jQGyPMgaMHIMfFte8E8JonEfPJ2aJlrcAFGupdCO
-	L0XqhuXyMqsBl3Wmx5hb96d1Hg2LirVgSHFMi0vMOYtn5+f6XP0MRdftWtEAZ94=
-X-Google-Smtp-Source: AGHT+IGJyBCskeQfAZU9MbzIRlHg5HY7Kq3D+91RyYQvg7ibc2kK1jj4Goe3NR+fPqn3Zdn6Kk18iA==
-X-Received: by 2002:a05:6214:5988:b0:6b7:4319:ad6f with SMTP id 6a1803df08f44-6bb8d795792mr4514346d6.36.1722517311329;
-        Thu, 01 Aug 2024 06:01:51 -0700 (PDT)
-Date: Thu, 1 Aug 2024 15:01:41 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
-	Huang Rui <ray.huang@amd.com>
-Subject: Re: [RFC XEN PATCH v12 6/7] tools: Add new function to get gsi from
- dev
-Message-ID: <ZquHNURGoADdCy6y@macbook>
-References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
- <20240708114124.407797-7-Jiqian.Chen@amd.com>
+        bh=tPaGhsM7MflGvFGh6jb6p9SngIPeCMIN8hRaBgZRVEg=;
+        b=ZPS+JlURozAjItFW33HrN8w5q5850DbHpiLvFamY0tv+lUsP8vqCAq/IZTeCyyxaN7
+         vzyX/VXskEexwuPE3yJ21BeavhA50QId+F0lgEMEvJ0k5pcAZcECgrisFyBFCX8ALAJw
+         YwaGWkaoUzEgRjw9oVcCCOpl1EBVKBDF/rAFG7q2rHZQ59m0wzOqviwb8arzvJ4DX9P5
+         PSNQLVv4eCHQEiQyReO4thAzhkNUBE/TDaYRQNplsiDXSRqhPBWeDgDuXFLp9Y2nGTRv
+         Yja2Zs682uVrFHEs7JHdEYArQN0LGyiayZ8jol9v2q6FlkW06YR9x1hzpxEw4BFSnpTy
+         +UNw==
+X-Forwarded-Encrypted: i=1; AJvYcCXjZCZveRp1BXgGSIHuHs03KwGoWE2T8Gpe278m6vkF5aBzK0DXevUagMTDCOpeSBWFnQe9jZoMi7u0v9KNzzySbqUeSVTUGrMFqBojobI=
+X-Gm-Message-State: AOJu0YxS+99Bbiq3J/6EylRILF+oT4ErdTQdcniI9AeX14Lah3BnhV5v
+	kmGYsuiAB0syfwuh/cdoZcEkMe4Qc7gK+sqSaqVlrmWZh/gpquNDHmbLy1adEQ==
+X-Google-Smtp-Source: AGHT+IGki6ui5oE42OlBASHVAr0OyYh9s+++s79F/9t6E68LjnUvPzAaNhR3wvTRTnzsLW9RGKA1Qw==
+X-Received: by 2002:ac2:434f:0:b0:52e:f77b:bb58 with SMTP id 2adb3069b0e04-530b61c8df8mr1509318e87.36.1722517891026;
+        Thu, 01 Aug 2024 06:11:31 -0700 (PDT)
+Message-ID: <d2b95ad1-fc61-4c86-b0d7-530720e1e483@suse.com>
+Date: Thu, 1 Aug 2024 15:11:29 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20240708114124.407797-7-Jiqian.Chen@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v12 4/7] x86/domctl: Add hypercall to set the access
+ of x86 gsi
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, George Dunlap <gwd@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
+References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
+ <20240708114124.407797-5-Jiqian.Chen@amd.com> <ZqtsQwZNyFzflDQt@macbook>
+ <ec95b413-519d-46a4-be41-ebb6a375612a@suse.com> <ZquCatoi50cNI3qR@macbook>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZquCatoi50cNI3qR@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 08, 2024 at 07:41:23PM +0800, Jiqian Chen wrote:
-> When passthrough a device to domU, QEMU and xl tools use its gsi
-> number to do pirq mapping, see QEMU code
-> xen_pt_realize->xc_physdev_map_pirq, and xl code
-> pci_add_dm_done->xc_physdev_map_pirq, but the gsi number is got
-> from file /sys/bus/pci/devices/<sbdf>/irq, that is wrong, because
-> irq is not equal with gsi, they are in different spaces, so pirq
-> mapping fails.
+On 01.08.2024 14:41, Roger Pau Monné wrote:
+> On Thu, Aug 01, 2024 at 01:36:16PM +0200, Jan Beulich wrote:
+>> On 01.08.2024 13:06, Roger Pau Monné wrote:
+>>> On Mon, Jul 08, 2024 at 07:41:21PM +0800, Jiqian Chen wrote:
+>>>> Remaining comment @Daniel P . Smith:
+>>>> +        ret = -EPERM;
+>>>> +        if ( !irq_access_permitted(currd, irq) ||
+>>>> +             xsm_irq_permission(XSM_HOOK, d, irq, access_flag) )
+>>>> +            goto gsi_permission_out;
+>>>> Is it okay to issue the XSM check using the translated value, 
+>>>> not the one that was originally passed into the hypercall?
+>>>
+>>> FWIW, I don't see the GSI -> IRQ translation much different from the
+>>> pIRQ -> IRQ translation done by pirq_access_permitted(), which is also
+>>> ahead of the xsm check.
+>>
+>> The question (which I raised originally) isn't an ordering one, but an
+>> auditing one: Is it okay to pass the XSM hook a value that isn't what
+>> was passed into the hypercall?
 > 
-> And in current codes, there is no method to get gsi for userspace.
-> For above purpose, add new function to get gsi, and the
-> corresponding ioctl is implemented on linux kernel side.
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> Signed-off-by: Chen Jiqian <Jiqian.Chen@amd.com>
-> ---
-> RFC: it needs to wait for the corresponding third patch on linux kernel side to be merged.
-> https://lore.kernel.org/xen-devel/20240607075109.126277-4-Jiqian.Chen@amd.com/
-> This patch must be merged after the patch on linux kernel side
-> 
-> CC: Anthony PERARD <anthony@xenproject.org>
-> Remaining comment @Anthony PERARD:
-> Do I need to make " opening of /dev/xen/privcmd " as a single function, then use it in this
-> patch and other libraries?
-> ---
->  tools/include/xen-sys/Linux/privcmd.h |  7 ++++++
->  tools/include/xenctrl.h               |  2 ++
->  tools/libs/ctrl/xc_physdev.c          | 35 +++++++++++++++++++++++++++
->  3 files changed, 44 insertions(+)
-> 
-> diff --git a/tools/include/xen-sys/Linux/privcmd.h b/tools/include/xen-sys/Linux/privcmd.h
-> index bc60e8fd55eb..4cf719102116 100644
-> --- a/tools/include/xen-sys/Linux/privcmd.h
-> +++ b/tools/include/xen-sys/Linux/privcmd.h
-> @@ -95,6 +95,11 @@ typedef struct privcmd_mmap_resource {
->  	__u64 addr;
->  } privcmd_mmap_resource_t;
->  
-> +typedef struct privcmd_gsi_from_pcidev {
-> +	__u32 sbdf;
-> +	__u32 gsi;
-> +} privcmd_gsi_from_pcidev_t;
-> +
->  /*
->   * @cmd: IOCTL_PRIVCMD_HYPERCALL
->   * @arg: &privcmd_hypercall_t
-> @@ -114,6 +119,8 @@ typedef struct privcmd_mmap_resource {
->  	_IOC(_IOC_NONE, 'P', 6, sizeof(domid_t))
->  #define IOCTL_PRIVCMD_MMAP_RESOURCE				\
->  	_IOC(_IOC_NONE, 'P', 7, sizeof(privcmd_mmap_resource_t))
-> +#define IOCTL_PRIVCMD_GSI_FROM_PCIDEV				\
-> +	_IOC(_IOC_NONE, 'P', 10, sizeof(privcmd_gsi_from_pcidev_t))
->  #define IOCTL_PRIVCMD_UNIMPLEMENTED				\
->  	_IOC(_IOC_NONE, 'P', 0xFF, 0)
->  
-> diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-> index 9ceca0cffc2f..3720e22b399a 100644
-> --- a/tools/include/xenctrl.h
-> +++ b/tools/include/xenctrl.h
-> @@ -1641,6 +1641,8 @@ int xc_physdev_unmap_pirq(xc_interface *xch,
->                            uint32_t domid,
->                            int pirq);
->  
-> +int xc_physdev_gsi_from_pcidev(xc_interface *xch, uint32_t sbdf);
-> +
->  /*
->   *  LOGGING AND ERROR REPORTING
->   */
-> diff --git a/tools/libs/ctrl/xc_physdev.c b/tools/libs/ctrl/xc_physdev.c
-> index e9fcd755fa62..54edb0f3c0dc 100644
-> --- a/tools/libs/ctrl/xc_physdev.c
-> +++ b/tools/libs/ctrl/xc_physdev.c
-> @@ -111,3 +111,38 @@ int xc_physdev_unmap_pirq(xc_interface *xch,
->      return rc;
->  }
->  
-> +int xc_physdev_gsi_from_pcidev(xc_interface *xch, uint32_t sbdf)
+> But that's also the case with the current XEN_DOMCTL_irq_permission
+> implementation?  As the hypercall parameter is a pIRQ, and the XSM
+> check is done against the translated IRQ obtained from the pIRQ
+> parameter.
 
-FWIW, I'm not sure it's fine to use the xc_physdev prefix here, as
-this is not a PHYSDEVOP hypercall.
+In a way you're right, but in a way there's also a meaningful difference:
+There we translate between internal numbering spaces. Here we first
+translate a quantity in a numbering space superimposed onto us to an
+internal representation. Flask, otoh, in such a situation may prefer to
+see the external representation of the resource.
 
-As Anthony suggested, it would be better placed in xc_linux.c, and
-possibly named xc_pcidev_get_gsi() or similar, to avoid polluting the
-xc_physdev namespace.
-
-Thanks, Roger.
+Jan
 
