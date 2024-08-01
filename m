@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 522689444C7
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 08:51:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769357.1180229 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D02594450A
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 09:00:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769366.1180238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZPey-0007rC-0V; Thu, 01 Aug 2024 06:51:36 +0000
+	id 1sZPmb-0000gF-Ou; Thu, 01 Aug 2024 06:59:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769357.1180229; Thu, 01 Aug 2024 06:51:35 +0000
+Received: by outflank-mailman (output) from mailman id 769366.1180238; Thu, 01 Aug 2024 06:59:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZPex-0007p9-Tr; Thu, 01 Aug 2024 06:51:35 +0000
-Received: by outflank-mailman (input) for mailman id 769357;
- Thu, 01 Aug 2024 06:51:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sZPmb-0000dU-MJ; Thu, 01 Aug 2024 06:59:29 +0000
+Received: by outflank-mailman (input) for mailman id 769366;
+ Thu, 01 Aug 2024 06:59:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/4YK=PA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZPew-0007p3-Gy
- for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 06:51:34 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7d2e5c13-4fd2-11ef-bc02-fd08da9f4363;
- Thu, 01 Aug 2024 08:51:33 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-58f9874aeb4so8571876a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 23:51:33 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5afb9422c41sm8040494a12.82.2024.07.31.23.51.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Jul 2024 23:51:32 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sZPma-0000dK-F6; Thu, 01 Aug 2024 06:59:28 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sZPma-0007C2-Ag; Thu, 01 Aug 2024 06:59:28 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sZPmZ-0006Vq-RW; Thu, 01 Aug 2024 06:59:27 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sZPmZ-0001D4-R7; Thu, 01 Aug 2024 06:59:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d2e5c13-4fd2-11ef-bc02-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722495093; x=1723099893; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Iw0FdXvWopMmtv3WWqa1QquEiClC7ojuYfpH3nCtSu8=;
-        b=XFn0OSPf+mP1rwQ7ZJzrJUjfNkPiY7M63ETwLNv4k5CdZn9lrJt50YPKhnze8klB+/
-         As3+cylIUiM8F9gMFS1gvHb59P9YtZA0Povwp/N4E1XOkvPrvpy6fOtyQ2inCLWczaq8
-         J44/3LYhyZSSGecshw1Gh5c7VYpu6eqloUQzyo9IxAB3q0oA6nzlmz6R2kxc/6FeNd+l
-         ZB4OD4lTtbpa0uPRM7A27WLLPuz5x602lDrbJiFLkzpSuFspRK2atGrXwvVoslvmz5iB
-         FAHJAjGSXRrxgticcPrk09Egs0ixZSTAmMJtg5a8+kDjKKweYOd2tg2Om70p3gtT7x7Z
-         zkVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722495093; x=1723099893;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Iw0FdXvWopMmtv3WWqa1QquEiClC7ojuYfpH3nCtSu8=;
-        b=OoC6Obuln6lghVKtjML+c2XhOfXGgOsM6kG0BjnDXholYz7G3BjU9KtvE+5eU9DBMo
-         j4c9Ye40+r2U/EOLmPCBccOesAX0fR2jF1IfUqqUxD8fdRIR1fPVtjzts9qI98gGiaKR
-         sJnGgBCBFfuGsFoFbVygMtFMhi06MuxkP3eOCtAzPFeeQIcn6viA8bSrH73TMlxPOhGs
-         HxXATOmdVz+NG3NcR4X1oIzZhtLzcQcZnetM8IZ754Uvl+wk4faYgHXOZJcObbFR/5i+
-         WlIyVyh8Y2p5RgraGss2rvySOfsSFEH5j0FJYbhBZdU5BlqTZcXPIS8Wx078AHFxLQHh
-         HyQA==
-X-Forwarded-Encrypted: i=1; AJvYcCXAOCuw8qPH/zLNWwHOUzby6GKgVDUyI6qt9BS5K3P3yQLF+gQPEBicaqxxmxhdN6MSmErrEjJxei10e9sMVoYCsgJIWHihnuwZJjpqln4=
-X-Gm-Message-State: AOJu0Yxvc9QLRk8w+e7Up4cE8g0iFKvQVIElNOr00aQZOxPdWtbGoELh
-	nj7jpjtzGDmfiney4MbDV+oP63yZuOy0INHDiwao07dkcui5U7FEGlKnE/NLdg==
-X-Google-Smtp-Source: AGHT+IGStOgKG5VZt2/0+mARofYj18crXrMEszghFl4JFvrrWAMuJQliT4EM0e1occCPUBb6Ay9PgQ==
-X-Received: by 2002:aa7:d602:0:b0:5a1:b9c0:7758 with SMTP id 4fb4d7f45d1cf-5b7008ad19cmr806980a12.33.1722495092719;
-        Wed, 31 Jul 2024 23:51:32 -0700 (PDT)
-Message-ID: <dd463c03-71ca-4333-ac3f-629241b0f9bc@suse.com>
-Date: Thu, 1 Aug 2024 08:51:31 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=9BTR1gwWUP7M2+e5gzvymifDhbuyNPjKgbhPP6NAH94=; b=DENwjRSM2A/7aaAdj78M3eHmFc
+	X890SxNcjJRchbqsXMpMGFYrGkHwn7sK5rUa4XhSzImA2ew+btMebuNflr4pAwMgnkmoi3WmKHIqA
+	5tC7bJFbtpmTdHWrX1BwtJgIvjbekUoosHmytNjN/2MWaKijz2BzfyDVeJTmg/zeVAoI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187100-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/misra: add R13.2 and R18.2 to rules.rst
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2407301626460.4857@ubuntu-linux-20-04-desktop>
- <6575beb5-645a-470a-89a1-8485adeace60@suse.com>
- <alpine.DEB.2.22.394.2407311647170.4857@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2407311647170.4857@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 187100: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=7e5a5ae154cb4c1e5c3d148a2ba21cc2764e96e6
+X-Osstest-Versions-That:
+    ovmf=eed43245dfdd6d616f7a7d72ba4ca52de3d59584
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 01 Aug 2024 06:59:27 +0000
 
-On 01.08.2024 01:50, Stefano Stabellini wrote:
-> On Wed, 31 Jul 2024, Jan Beulich wrote:
->> On 31.07.2024 01:30, Stefano Stabellini wrote:
->>> --- a/docs/misra/rules.rst
->>> +++ b/docs/misra/rules.rst
->>> @@ -462,6 +462,15 @@ maintainers if you want to suggest a change.
->>>       - Initializer lists shall not contain persistent side effects
->>>       -
->>>  
->>> +   * - `Rule 13.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_02.c>`_
->>> +     - Required
->>> +     - The value of an expression and its persistent side-effects shall
->>> +       be the same under all permitted evaluation orders
->>> +     - Be aware that the static analysis tool Eclair might report
->>> +       several findings for Rule 13.2 of type "caution". These are
->>> +       instances where Eclair is unable to verify that the code is valid
->>> +       in regard to Rule 13.2. Caution reports are not violations.
->>
->> Which doesn't make clear what our take is towards new code people may
->> submit.
-> 
-> Good point, see my comment below
-> 
-> 
->>> @@ -583,6 +592,15 @@ maintainers if you want to suggest a change.
->>>         submitting new patches please try to decrease the number of
->>>         violations when possible.
->>>  
->>> +   * - `Rule 18.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_18_02.c>`_
->>> +     - Required
->>> +     - Subtraction between pointers shall only be applied to pointers
->>> +       that address elements of the same array
->>> +     - Be aware that the static analysis tool Eclair might report
->>> +       several findings for Rule 18.2 of type "caution". These are
->>> +       instances where Eclair is unable to verify that the code is valid
->>> +       in regard to Rule 18.2. Caution reports are not violations.
->>
->> And while the same wording is used here, I think it is pretty clear for
->> this that we'd reject changes where bad subtractions are used. IOW even
->> more so important to clarify the (possibly different) positions on what
->> is going to be added into the code base.
-> 
-> In both of these cases, we would reject code that doesn't follow R13.2
-> and R18.2.
+flight 187100 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187100/
 
-But we shouldn't (unconditionally) do so for for 13.2, should we?
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 7e5a5ae154cb4c1e5c3d148a2ba21cc2764e96e6
+baseline version:
+ ovmf                 eed43245dfdd6d616f7a7d72ba4ca52de3d59584
 
-> I'll change it to the following:
-> 
-> 
-> Be aware that the static analysis tool Eclair might report several
-> findings for Rule 18.2 of type "caution". These are instances where
-> Eclair is unable to verify that the code is valid in regard to Rule
-> 18.2. Caution reports are not violations. Regardless, new code is
-> expected to follow this rule.
+Last test of basis   187093  2024-07-31 23:11:29 Z    0 days
+Testing same since   187100  2024-08-01 05:13:19 Z    0 days    1 attempts
 
-I'm fine with this for 18.2, but not so much for 13.2.
+------------------------------------------------------------
+People who touched revisions under test:
+  Michael Kubacki <michael.kubacki@microsoft.com>
 
-Jan
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   eed43245df..7e5a5ae154  7e5a5ae154cb4c1e5c3d148a2ba21cc2764e96e6 -> xen-tested-master
 
