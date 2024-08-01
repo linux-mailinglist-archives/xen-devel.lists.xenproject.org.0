@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6690F944991
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 12:43:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769552.1180445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95CCE9449A3
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 12:46:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769561.1180455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZTH6-0007hk-SA; Thu, 01 Aug 2024 10:43:12 +0000
+	id 1sZTKI-00006p-DY; Thu, 01 Aug 2024 10:46:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769552.1180445; Thu, 01 Aug 2024 10:43:12 +0000
+Received: by outflank-mailman (output) from mailman id 769561.1180455; Thu, 01 Aug 2024 10:46:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZTH6-0007fm-PP; Thu, 01 Aug 2024 10:43:12 +0000
-Received: by outflank-mailman (input) for mailman id 769552;
- Thu, 01 Aug 2024 10:43:11 +0000
+	id 1sZTKI-0008Vt-9t; Thu, 01 Aug 2024 10:46:30 +0000
+Received: by outflank-mailman (input) for mailman id 769561;
+ Thu, 01 Aug 2024 10:46:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/4YK=PA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZTH5-0007fg-5V
- for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 10:43:11 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1sZTKG-0008Vn-Ot
+ for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 10:46:28 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d80b849d-4ff2-11ef-bc02-fd08da9f4363;
- Thu, 01 Aug 2024 12:43:09 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5a2ffc34431so5248485a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 03:43:09 -0700 (PDT)
+ id 4e0e1dbd-4ff3-11ef-bc02-fd08da9f4363;
+ Thu, 01 Aug 2024 12:46:27 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a7b2dbd81e3so890472066b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 03:46:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5b10e20dbb8sm7148137a12.49.2024.08.01.03.43.08
+ a640c23a62f3a-a7d9fbe215bsm179485966b.59.2024.08.01.03.46.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Aug 2024 03:43:08 -0700 (PDT)
+ Thu, 01 Aug 2024 03:46:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d80b849d-4ff2-11ef-bc02-fd08da9f4363
+X-Inumbo-ID: 4e0e1dbd-4ff3-11ef-bc02-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722508989; x=1723113789; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BfIK8WZ+cDVccf0b2369vE80PaWqGzpN+WawDVlfbqI=;
-        b=W2aIZVvBEGvCiSgU0pLcbzSsX849RnGJ6AzGCWPpJytiLTa+PR987xoKYEl/X8ZKzk
-         r73APx+yf2Wi7fDYiH5JW/C3pI4NeG1xoVvdI8JY0FW+qCTqH5P/D7NeuQ5xPNQXk5VB
-         VqlQAhRhBztrWMJU/N7HLAbxeMD753tutyBVEZru9EZYY0ESLKTRAWbBnCDOdYrMWGpK
-         +3Ho4vNKqHDPhuQaC1whHJkEUlvXvcnhZjdwv7Ev2SaIAt4B9qoElTtOuBXrfRT4Rg4R
-         vUu/LRQUZcYFZMpd6BKdq8RRt1hwxSesWzAbJly816mp/fo3MUTmL2SJQ+4bZg+27NXG
-         3ufg==
+        d=suse.com; s=google; t=1722509187; x=1723113987; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Yfnf2cbvTIxo8WfSAHirmqemjHa941ZgfAsY0pOgQ0M=;
+        b=WznavFH54llMCxVduu1EoRoNnfEWqsQxoM1XLeG2NzZJfNaHiVvAKuBjsZH06bHSGv
+         A44j3U5ZyS2KuDWX/pcquef5xrnyyTg4k0uw63cFiaAo9ocx4ZFrKH+p85QARur6q0rM
+         G6kEyRwuprnqFEugT+9dktbP/2+z8hrASmthcqlT4o+VxAIW4Q3RUFhDnj1wskL6M5ed
+         YKFuqDSF9Xv55Rdl8SR0rHmnjR+H6eyGsAAWkJ24SbnNdbxNu20e3C0uJ1wpI5ycWqjZ
+         olKTzKtuMkkZgmmXD6MqKSL8s+15+DIA3Pj2qEfcfmf5gPmh5+qG2tX5ascP5+N5TEnJ
+         /KoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722508989; x=1723113789;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BfIK8WZ+cDVccf0b2369vE80PaWqGzpN+WawDVlfbqI=;
-        b=hiUIAHLB2a/T16vhwKWZUCYax2HbshTDdrjO8pyY5lIsWGTZV9Rre8uYV7pZr0EAqX
-         ZU/jwDb4puKD24K/j32URoB4xOgFCmOZfNeScosSH1VGT+YthmRtT9tH7rJisPLbNc4p
-         7tLHlMMhoD5DPeQD3UhKcQlJ2EJs0N/PoHTrT3OJIeRckUP9WM2kwSkjmLek6yJi74z8
-         YdA4aMweaKCc0URDmPZ1NU1BGIPU/YZShxpMkJiQDzWsPAPlUT4U6V31utqzsmd2ead+
-         GYiO0iQ+WmvwIrI3QH2JSSYIB1fIlV/g2NaYDNxCcMXFhni6KMSJpwKoCEmQPCWoQLys
-         eBXg==
-X-Forwarded-Encrypted: i=1; AJvYcCUyf4xxkUCsgob0mgNaDeN3qnSfRbrI15RHtYADz9rhD2KsPqsbDqWkvWI8o2mN66GCOl40aMXbOL0fMX8G4TZEEKIsvop2IZs5qVtMTfg=
-X-Gm-Message-State: AOJu0YzRQuWbmctr/aG5PdZ7Dw/Y1TtkD0RX2hqpD0MIFK5ohwueR9nh
-	o9JtD6RSVFP7mmMtwL9gYjue5O/c2WIOPIq7Rpp5C1PGKBlJFnno/58MEsUwAA==
-X-Google-Smtp-Source: AGHT+IFHkyTgdZ9V+YUDegOLN/ZBwZPbFxSrjXMDBRCbl89aZUbkbiMu/GpwCKWEgj6jndpzuLZs1A==
-X-Received: by 2002:aa7:c04a:0:b0:5a7:464a:abf with SMTP id 4fb4d7f45d1cf-5b7008ae7d3mr1756875a12.24.1722508989067;
-        Thu, 01 Aug 2024 03:43:09 -0700 (PDT)
-Message-ID: <afc24e73-78e8-4088-9292-33560e599cbe@suse.com>
-Date: Thu, 1 Aug 2024 12:43:07 +0200
+        d=1e100.net; s=20230601; t=1722509187; x=1723113987;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Yfnf2cbvTIxo8WfSAHirmqemjHa941ZgfAsY0pOgQ0M=;
+        b=mvcnL2d2KngJOCFnj/H3nZrFj/Y/J5gvUAl59GVgCLotoBlxXTP08BJJz81fABQUKB
+         DCU2hgLA+gdBm4GqLwD8dWikCIVvlHZv5tNxhJvSW6/YsDCdjm5NL3aMZctw7JnNjonQ
+         aoudDZo+37oaTijUiujFPFirV0ce6vgaFWAGsdCvg3NO7g0qj4CB5I4c6WJmaZzjvAaF
+         Pi1SaTIgS3iMtaPvDJ/NqJoMR7ENX175UW9NeAjqQ1BnEfqdj/TRL2x/MWS/O0FJJGcc
+         kYMKqy6E45Du8dR5Xd4apNFXc/YGVDbbinDrDEFRtWdPGMgE9XBfmbEFSbR4J/O+JjCk
+         PGTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVDUUvOkO5XYU1/lGm5sOAe5v9QEXJL0Fzyau92tqQ5p++26yudAyi2LAiEFLhpJfqpMam/cHTWIAyBi1YQyo9I5tT6JWob23sHne1uVUA=
+X-Gm-Message-State: AOJu0Ywkfj1YCP0+CGMvp6nS4dvEB4p04Wp4/Jjy0Q47+Htqz4cWw4vu
+	59RhZQqeFQqYWAmePDBu2K9YWHraCqYZjrI/Nx9GAKoykvLfK3YRSE+qcqxlDw==
+X-Google-Smtp-Source: AGHT+IHrrHSawVa7dVnq8LayCBA0Ed7Dg84j/KqgoGLgAFS7IGeCtIX8RDA+ORXwqW9PTGsK3+U6zA==
+X-Received: by 2002:a17:907:a701:b0:a7a:a763:8438 with SMTP id a640c23a62f3a-a7daf617297mr114104766b.55.1722509187173;
+        Thu, 01 Aug 2024 03:46:27 -0700 (PDT)
+Message-ID: <f530ce42-a98f-4742-ab3d-a866fc9efdb9@suse.com>
+Date: Thu, 1 Aug 2024 12:46:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 8/9] xen/riscv: page table handling
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
- <595c7b6736d6f718bafc7a677fb13881584ce4dc.1721834549.git.oleksii.kurochko@gmail.com>
- <c2496115-5c42-4cbb-8dde-686a97259609@suse.com>
- <04b40498494cbbd0d78744d87a2310e211f26b85.camel@gmail.com>
-Content-Language: en-US
+Subject: Re: [PATCH v3] x86/dom0: delay setting SMAP after dom0 build is done
 From: Jan Beulich <jbeulich@suse.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240801095201.91180-1-roger.pau@citrix.com>
+ <988147f4-3de2-4aae-99cc-7d0ba48b158f@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,174 +111,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <04b40498494cbbd0d78744d87a2310e211f26b85.camel@gmail.com>
+In-Reply-To: <988147f4-3de2-4aae-99cc-7d0ba48b158f@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.08.2024 11:33, oleksii.kurochko@gmail.com wrote:
-> On Tue, 2024-07-30 at 16:22 +0200, Jan Beulich wrote:
->> On 24.07.2024 17:31, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/page.h
->>> +++ b/xen/arch/riscv/include/asm/page.h
->>> @@ -34,6 +34,7 @@
->>>  #define PTE_LEAF_DEFAULT            (PTE_VALID | PTE_READABLE |
->>> PTE_WRITABLE)
->>>  #define PTE_TABLE                   (PTE_VALID)
->>>  
->>> +#define PAGE_HYPERVISOR_RO          (PTE_VALID | PTE_READABLE)
->>>  #define PAGE_HYPERVISOR_RW          (PTE_VALID | PTE_READABLE |
->>> PTE_WRITABLE)
->>
->> No PAGE_HYPERVISOR_RX?
-> I haven't used it at the moment, so I haven't provided it.
-
-I'm inclined to suggest to put it there right away. You will need it
-rather sooner than later.
-
->>> +    unsigned long pbmt:2;
->>> +    unsigned long n:1;
->>> +#elif RV_STAGE1_MODE == SATP_MODE_SV48
->>> +    unsigned long ppn0:9;
->>> +    unsigned long ppn1:9;
->>> +    unsigned long ppn2:9;
->>> +    unsigned long ppn3:17;
->>> +    unsigned long rsw2:7;
->>> +    unsigned long pbmt:2;
->>> +    unsigned long n:1;
->>> +#else
->>> +#error "Add proper bits for SATP_MODE"
->>> +#endif
->>> +} pt_t;
->>
->> I can't spot a use anywhere of e.g. ppn0. Would be nice to understand
->> in
->> what contexts these bitfields are going to be used. I notice you
->> specifically
->> don't use them in e.g. pte_is_table().
-> I don't use them at the moment. I just introduced them for the possible
-> future using. I can re-check what of them I am using in my private
-> branches and come up here only with that one which are really used.
-
-Just to clarify: If you need any of the bitfields, then of course you
-want to introduce all of them, properly named. Yet with the PTE_*
-constants I'm wondering whether really you need them in addition.
-
->>> +/* Sanity check of the entry */
->>> +static bool xen_pt_check_entry(pte_t entry, mfn_t mfn, unsigned
->>> int level,
->>> +                               unsigned int flags)
->>
->> The comment wants extending to indicate what the parameters mean wrt
->> what
->> is going to be checked. For example, ...
->>
->>> +{
->>> +    /* Sanity check when modifying an entry. */
->>> +    if ( mfn_eq(mfn, INVALID_MFN) )
->>
->> ... it's unclear to me why incoming INVALID_MFN would indicate
->> modification
->> of an entry, whereas further down _PAGE_PRESENT supposedly indicates
->> insertion.
-> The statement inside if isn't correct. It should be:
->    if ( (flags & _PAGE_PRESENT) && mfn_eq(mfn, INVALID_MFN) )
+On 01.08.2024 12:28, Jan Beulich wrote:
+> On 01.08.2024 11:52, Roger Pau Monne wrote:
+>> @@ -2048,6 +2040,18 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>      if ( !dom0 )
+>>          panic("Could not set up DOM0 guest OS\n");
+>>  
+>> +    /*
+>> +     * Enable SMAP only after being done with the domain building phase, as the
+>> +     * PV builder switches to the domain page-tables and must be run with SMAP
+>> +     * disabled.
+>> +     */
+>> +    if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+>> +    {
+>> +        ASSERT(mmu_cr4_features & X86_CR4_SMAP);
+>> +        write_cr4(read_cr4() | X86_CR4_SMAP);
+>> +        cr4_pv32_mask = mmu_cr4_features & XEN_CR4_PV32_BITS;
+>> +    }
 > 
-> INVALID_MFN indicates modification because of how xen_pt_update() is
-> used:
->    int map_pages_to_xen(unsigned long virt,
->                         mfn_t mfn,
->                         unsigned long nr_mfns,
->                         unsigned int flags)
->    {
->        return xen_pt_update(virt, mfn, nr_mfns, flags);
->    }
->    
->    int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
->    {
->        return xen_pt_update(virt, INVALID_MFN, nr_mfns, _PAGE_PRESENT);
->    }
->    
->    int destroy_xen_mappings(unsigned long s, unsigned long e)
->    {
->        ASSERT(IS_ALIGNED(s, PAGE_SIZE));
->        ASSERT(IS_ALIGNED(e, PAGE_SIZE));
->        ASSERT(s <= e);
->        return xen_pt_update(s, INVALID_MFN, (e - s) >> PAGE_SHIFT, 0);
->    }
->    
->    int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int
->    nf)
->    {
->        ASSERT(IS_ALIGNED(s, PAGE_SIZE));
->        ASSERT(IS_ALIGNED(e, PAGE_SIZE));
->        ASSERT(s <= e);
->        return xen_pt_update(s, INVALID_MFN, (e - s) >> PAGE_SHIFT, nf);
->    }
-> 
-> The idea is the following:
->   the MFN is not valid and we are not populating page table. This means
-> we either modify entry or remove an entry.
+> Similarly for the BSP here: If we take an NMI between setting CR4.SMAP and
+> setting the bit in cr4_pv32_mask, cr4_pv32_restore() would hit the BUG
+> there if I'm not mistaken. I further fear that switching things around won't
+> help either. The code you remove from create_dom0() looks to have the same
+> issue. The only NMI-safe sequence looks to be: Clear both bits from %cr4,
+> update cr4_pv32_mask as wanted, and then write %cr4 with the bits from
+> cr4_pv32_mask ORed in.
 
-Right. My request stands though: The comment ahead of the function wants
-extending to state how it is to be used correctly.
-
->>> +    mfn = pte_get_mfn(*entry);
->>> +
->>> +    xen_unmap_table(*table);
->>> +    *table = xen_map_table(mfn);
->>> +
->>> +    return XEN_TABLE_NORMAL_PAGE;
->>> +}
->>
->> Normal page? Not normal table?
-> It just mean that this points not to super_page so potenially the in
-> the next one table will have an entry that would be normal page.
-
-Or a normal page table, if you haven't reached leaf level yet. IOW maybe
-better XEN_TABLE_NORMAL, covering both cases?
-
->>> +    unsigned int target = arch_target;
->>> +    pte_t *table;
->>> +    /*
->>> +     * The intermediate page tables are read-only when the MFN is
->>> not valid
->>> +     * This means we either modify permissions or remove an entry.
->>> +     */
->>> +    bool read_only = mfn_eq(mfn, INVALID_MFN);
->>
->> I'm afraid I can't make a connection between the incoming MFN being
->> INVALID_MFN and intermediate tables being intended to remain
->> unaltered.
-> 
-> It is becuase of xen_pt_update() is used:
->    int __init populate_pt_range(unsigned long virt, unsigned long
->    nr_mfns)
->    {
->        return xen_pt_update(virt, INVALID_MFN, nr_mfns, _PAGE_PRESENT);
->    }
-> So if pt is only populated then they are read_only and so they shouldn't
-> be allocated what means ptes are only or being removed or modified.
-
-Like above, such special assumptions would better be put in a comment.
-
->>> +int map_pages_to_xen(unsigned long virt,
->>> +                     mfn_t mfn,
->>> +                     unsigned long nr_mfns,
->>> +                     unsigned int flags)
->>> +{
->>> +    return xen_pt_update(virt, mfn, nr_mfns, flags);
->>> +}
->>
->> Why this wrapping of two functions taking identical arguments?
-> map_pages_to_xen() sounds more clear regarding the way how it should be
-> used.
-> 
-> xen_pt_update() will be also used inside other functions. Look at the
-> example above.
-
-They could as well use map_pages_to_xen() then? Or else the wrapper may
-want to check (assert) that it is _not_ called with one of the special
-case arguments that xen_pt_update() knows how to deal with?
+Argh - and that would need doing simultaneously on all CPUs, as it seems.
+Getting a little too complicated, I guess.
 
 Jan
 
