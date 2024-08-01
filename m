@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CC73944A80
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 13:37:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769608.1180495 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69347944A85
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 13:39:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769619.1180504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZU6X-00014l-Ja; Thu, 01 Aug 2024 11:36:21 +0000
+	id 1sZU9H-0001r0-3b; Thu, 01 Aug 2024 11:39:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769608.1180495; Thu, 01 Aug 2024 11:36:21 +0000
+Received: by outflank-mailman (output) from mailman id 769619.1180504; Thu, 01 Aug 2024 11:39:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZU6X-00012I-GQ; Thu, 01 Aug 2024 11:36:21 +0000
-Received: by outflank-mailman (input) for mailman id 769608;
- Thu, 01 Aug 2024 11:36:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sZU9H-0001pW-0l; Thu, 01 Aug 2024 11:39:11 +0000
+Received: by outflank-mailman (input) for mailman id 769619;
+ Thu, 01 Aug 2024 11:39:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/4YK=PA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZU6V-00011t-OW
- for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 11:36:19 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 44bafc1d-4ffa-11ef-bc02-fd08da9f4363;
- Thu, 01 Aug 2024 13:36:18 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a7ab63a388bso510317966b.1
- for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 04:36:18 -0700 (PDT)
+ id 1sZU9F-0001pQ-Aw
+ for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 11:39:09 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a947ca2f-4ffa-11ef-8776-851b0ebba9a2;
+ Thu, 01 Aug 2024 13:39:07 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-52f008aa351so9941080e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 04:39:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ac60918cb4sm10069685a12.0.2024.08.01.04.36.17
+ 4fb4d7f45d1cf-5ac64eb3aacsm10013068a12.64.2024.08.01.04.39.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Aug 2024 04:36:17 -0700 (PDT)
+ Thu, 01 Aug 2024 04:39:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44bafc1d-4ffa-11ef-bc02-fd08da9f4363
+X-Inumbo-ID: a947ca2f-4ffa-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722512178; x=1723116978; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722512347; x=1723117147; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iawzlA4G7XRT8YTrL3OcBNppLD/qXnwZmoNYDWYsy80=;
-        b=M9QhCF/0aM33t4CSaGPLHIe9oT1riUH0PfFbZ4icKDwC3tEIJ7Fm91Q/r02ptRRfLc
-         XMr0g4ANBqhZfpFx152mdqdxvrcGado2QhBahfyGpap85443XNUDBSftHffMavRQ/lzP
-         W0svDLy5O+wNXodEa2JD4oP0GLEI39oSEg7aDoe263ylB4t+3NYJZVzww3XAgTlstxME
-         gng3bSJmflPj5lWBseItoKD8KiUUNt2yvRjFg5clbxPRuxb1eGCKjbtGiVp8mcenqTjJ
-         aUnYsvbxdA0unVfWrzV1TcNPHFFKD+KMLFOhuKvh1XZOiLeuKJ/2KYH2QZYD4eMNbqp5
-         5VEw==
+        bh=M05uZ0koUYcpV7q+n1GeR7wzIafZ+gDMPMR1VwSr0rY=;
+        b=NMKKyt1Q51xtgiIGqWgx1r+HcdUOZDuRAacbfBJWL5WoSdEOzBJZV/blXXOPAfud8E
+         zGWWaGmsFd9e4Gr9rSkGmdhc5UC/RyHWEinf9zwr7Xru77tk4YkdByOu4DfmwQXOPSQm
+         hc8DU3KswgcVpFRWn+FMiKyehk56zUsiH/naZ7rEFU3nuF6GmjLLT+Qc7us8hnPhCwLo
+         lvXy95OL68rS8F8U6osQZpAnqwlgZ1pjO3bQbOEZtgKRqKS6CIR0tkrOPhJOzPCkHyEz
+         fJbMEp7/l/zabMDFoOkpwsje9pV09him1OIXpNsFADchr6PeDAhvuQISiPPQyDe5CUWJ
+         3wZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722512178; x=1723116978;
+        d=1e100.net; s=20230601; t=1722512347; x=1723117147;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iawzlA4G7XRT8YTrL3OcBNppLD/qXnwZmoNYDWYsy80=;
-        b=Xi6o+rdYVn/YXdvpG7fvXstIc1+nxmvOEa6QGgsM4Fdgho6/RKNeWn1PDlV3iisMsr
-         6WOuPSvV231Do1O0A8CkYwT0rgN6e793mQXDZsMp3OQd3YPvArRxwygaF1uQOBHZbOp4
-         BFEEW896zRy5AmUPon1x3AA/hJKbX+VFqnr+XuYLQb+kfo8+vNzRiAOnxACtRjL60jy4
-         2s7dy6m/xnjOspt/0tdHfWmjD3FxrlErLVZ2J/W4J97cJjW14jU4jlX9MY68lYxhrRqT
-         gV14Wc9RKz+/7oHWbDrwXSueI535kYQZq5P4akcah/Vz2Ru5zLqO49dzNjC3gQkDAZ7X
-         qu5w==
-X-Gm-Message-State: AOJu0YwFqwhw4BGixDTXqOMNuAmgt7MqCGduyuJuNkI22bwVN2VIESRF
-	Jds7VBYjGSCBuuGhafuh8DR8lk8x13NWlJaO5jijr0cozIEnq7v91Z6AvN49rw==
-X-Google-Smtp-Source: AGHT+IHPWO9bAMp5hBjL+QJejIqFeeHuJXTI9RAtV6gi6E8vckSUqYVigfTLCxXZnpxoYve5GNQ4eQ==
-X-Received: by 2002:a05:6402:148a:b0:5af:758a:693b with SMTP id 4fb4d7f45d1cf-5b6fe92514amr1772177a12.4.1722512177926;
-        Thu, 01 Aug 2024 04:36:17 -0700 (PDT)
-Message-ID: <ec95b413-519d-46a4-be41-ebb6a375612a@suse.com>
-Date: Thu, 1 Aug 2024 13:36:16 +0200
+        bh=M05uZ0koUYcpV7q+n1GeR7wzIafZ+gDMPMR1VwSr0rY=;
+        b=A/dbs0rmNi23cJtczH6gLn9dTiNuyhCQlTpbRu24OJUDxHHHCBnbVhQ+btFLtaGa+u
+         lb78YOOAeVscy7p/Xl43ksFamQuVZ2L/W4jH1W8KWYcFrHsIlcHBJnb5UzMgtNT2WvY3
+         BhqBWUG2HTm6aVbj5bN5IHooD3L5UHNTQ9HqHRKbhWpY4nE2PSDbjGR9tjjqYAgo7ZSo
+         45hPFnxt/E1KNOYPnAw2MqkeO/2YEVIDOwHpeo0fdztdqctvHP66ymR/sJJQLHZXGkBQ
+         y2qqsPPXVXOk1z8kQM00sKHOSKnGO2BI9eJpFfIi48kJWYnKHamhuOm5Y1GCEe7am3Xz
+         WplA==
+X-Forwarded-Encrypted: i=1; AJvYcCXrToHoyqM/RYJTk2eLlS236RYrHeIUCV4jUsAxFsUuzguD0SV42efs75Cx5FxFIhMbJWrIcwpSeyyrG35JFU5jrufFs9nT3ZSYVQTWxWQ=
+X-Gm-Message-State: AOJu0YwNQxRqUJdjNVrPJ53VP1tngggM78maUR7NB4gK6MFWwZKxXa8E
+	vYTJ7ZinGl7kb7bFqpEMxH7RdlvmsY0ujqT+cQRSZzQFIQ4YoMcmE0baQqpTug==
+X-Google-Smtp-Source: AGHT+IGk6g3SKmz43QaJz4xZBlqonYejxLu8OjGD0P9YlAiIhfZPO6LMqceEgoyTR6CO+QO/OekXbA==
+X-Received: by 2002:a05:6512:1c9:b0:52c:e030:144e with SMTP id 2adb3069b0e04-530b61f5572mr1137420e87.47.1722512346583;
+        Thu, 01 Aug 2024 04:39:06 -0700 (PDT)
+Message-ID: <b9356c61-d927-45cf-857d-e9c80e9587eb@suse.com>
+Date: Thu, 1 Aug 2024 13:39:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v12 4/7] x86/domctl: Add hypercall to set the access
- of x86 gsi
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
+Subject: Re: [XEN PATCH v5 13/13] x86/hvm: make AMD-V and Intel VT-x support
+ configurable
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
-References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
- <20240708114124.407797-5-Jiqian.Chen@amd.com> <ZqtsQwZNyFzflDQt@macbook>
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
+References: <cover.1722333634.git.Sergiy_Kibrik@epam.com>
+ <827008e4af26814e4cd4bf6abbb92c77fc136aa8.1722333634.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,32 +116,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZqtsQwZNyFzflDQt@macbook>
+In-Reply-To: <827008e4af26814e4cd4bf6abbb92c77fc136aa8.1722333634.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.08.2024 13:06, Roger Pau Monné wrote:
-> On Mon, Jul 08, 2024 at 07:41:21PM +0800, Jiqian Chen wrote:
->> Remaining comment @Daniel P . Smith:
->> +        ret = -EPERM;
->> +        if ( !irq_access_permitted(currd, irq) ||
->> +             xsm_irq_permission(XSM_HOOK, d, irq, access_flag) )
->> +            goto gsi_permission_out;
->> Is it okay to issue the XSM check using the translated value, 
->> not the one that was originally passed into the hypercall?
-> 
-> FWIW, I don't see the GSI -> IRQ translation much different from the
-> pIRQ -> IRQ translation done by pirq_access_permitted(), which is also
-> ahead of the xsm check.
+On 30.07.2024 12:41, Sergiy Kibrik wrote:
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -123,11 +123,25 @@ config HVM
+>  	  If unsure, say Y.
+>  
+>  config AMD_SVM
+> -	def_bool HVM
+> +	bool "AMD-V" if EXPERT
+> +	depends on HVM
+> +	default HVM
+> +	help
+> +	  Enables virtual machine extensions on platforms that implement the
+> +	  AMD Virtualization Technology (AMD-V).
+> +	  If your system includes a processor with AMD-V support, say Y.
+> +	  If in doubt, say Y.
+>  
+>  config INTEL_VMX
+> -	def_bool HVM
+> +	bool "Intel VT-x" if EXPERT
+> +	depends on HVM
+> +	default HVM
+>  	select ARCH_IOREQ_COMPLETION
+> +	help
+> +	  Enables virtual machine extensions on platforms that implement the
+> +	  Intel Virtualization Technology (Intel VT-x).
+> +	  If your system includes a processor with Intel VT-x support, say Y.
+> +	  If in doubt, say Y.
 
-The question (which I raised originally) isn't an ordering one, but an
-auditing one: Is it okay to pass the XSM hook a value that isn't what
-was passed into the hypercall?
-
-And Daniel, please, can you finally take a moment to help here, in your
-role as XSM maintainer? Elsewhere you complained you weren't Cc-ed or
-asked; now that you were asked, you haven't responded for weeks if not
-months.
+Despite my earlier ack: It appears to make little sense to use "default HVM"
+when there's also "depends on HVM". "default y" would be more clear imo, even
+if just slightly.
 
 Jan
 
