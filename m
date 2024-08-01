@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D1DE9444C0
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 08:50:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769350.1180218 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 522689444C7
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 08:51:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769357.1180229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZPd9-0006RW-MY; Thu, 01 Aug 2024 06:49:43 +0000
+	id 1sZPey-0007rC-0V; Thu, 01 Aug 2024 06:51:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769350.1180218; Thu, 01 Aug 2024 06:49:43 +0000
+Received: by outflank-mailman (output) from mailman id 769357.1180229; Thu, 01 Aug 2024 06:51:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZPd9-0006Pk-JM; Thu, 01 Aug 2024 06:49:43 +0000
-Received: by outflank-mailman (input) for mailman id 769350;
- Thu, 01 Aug 2024 06:49:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sZPex-0007p9-Tr; Thu, 01 Aug 2024 06:51:35 +0000
+Received: by outflank-mailman (input) for mailman id 769357;
+ Thu, 01 Aug 2024 06:51:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/4YK=PA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZPd8-0006Pb-4i
- for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 06:49:42 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 396be7cb-4fd2-11ef-8776-851b0ebba9a2;
- Thu, 01 Aug 2024 08:49:40 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a6265d3ba8fso621656266b.0
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 23:49:40 -0700 (PDT)
+ id 1sZPew-0007p3-Gy
+ for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 06:51:34 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7d2e5c13-4fd2-11ef-bc02-fd08da9f4363;
+ Thu, 01 Aug 2024 08:51:33 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-58f9874aeb4so8571876a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2024 23:51:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acab4f7aesm854926366b.53.2024.07.31.23.49.38
+ 4fb4d7f45d1cf-5afb9422c41sm8040494a12.82.2024.07.31.23.51.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Jul 2024 23:49:38 -0700 (PDT)
+ Wed, 31 Jul 2024 23:51:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 396be7cb-4fd2-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 7d2e5c13-4fd2-11ef-bc02-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722494979; x=1723099779; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722495093; x=1723099893; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YjTq209aYTlC9q8ZTS+JkrpnIxI9RuX/H0fIKvIvHUE=;
-        b=LirezZndcnJWPGqJLoYuyEji6a9MIQcGIMbvJ1TVCG9JvbN4JHN/5sjNLMgRcuEfZk
-         H+99e6LQzBn3KVByuCCq5PiKsDfdi0YNkO/GvhTcph0jkEIfH4vozm0fjosGJm25N5YV
-         kvGKDsGwEFk1na0tMNwq2TmORJhuHzMa3OP9O4n0jf1JCTOiqsDp4NbQeaaS6ah3Jh4D
-         tiCLzx0I7wD4RSLcBoE93ZzBMZG4tCCx/MOCLwuvGUrj/yohXv2iHhi6V2ONs+5T5Fl9
-         uwfAiT8VMbBKC1NarKXV3EfDMdSMQQmfZ63mGl9bafLNUcPE5hit60kspCXHIdH0ffsK
-         +fTg==
+        bh=Iw0FdXvWopMmtv3WWqa1QquEiClC7ojuYfpH3nCtSu8=;
+        b=XFn0OSPf+mP1rwQ7ZJzrJUjfNkPiY7M63ETwLNv4k5CdZn9lrJt50YPKhnze8klB+/
+         As3+cylIUiM8F9gMFS1gvHb59P9YtZA0Povwp/N4E1XOkvPrvpy6fOtyQ2inCLWczaq8
+         J44/3LYhyZSSGecshw1Gh5c7VYpu6eqloUQzyo9IxAB3q0oA6nzlmz6R2kxc/6FeNd+l
+         ZB4OD4lTtbpa0uPRM7A27WLLPuz5x602lDrbJiFLkzpSuFspRK2atGrXwvVoslvmz5iB
+         FAHJAjGSXRrxgticcPrk09Egs0ixZSTAmMJtg5a8+kDjKKweYOd2tg2Om70p3gtT7x7Z
+         zkVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722494979; x=1723099779;
+        d=1e100.net; s=20230601; t=1722495093; x=1723099893;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YjTq209aYTlC9q8ZTS+JkrpnIxI9RuX/H0fIKvIvHUE=;
-        b=me+Z9N160aj4fICBHmj7YpbtVAZMwFczot/bJgQsZtaPR44rebqABHHdHNBxdZzZ02
-         BL/63Sz3fg80TO91hm2qEFgFnFTw+ogErHRc4xfq+OlFb+3RGXz886tIazJuufgik1bR
-         pbGJW7uufDC1mOKRvgoxfgwtFmBc5Nnq3oGqmr0C891AH1JqR9fpfKlBRGcMOK+oEaxs
-         XSV+bzHKzqFVXBUSFJN7JGxR1GA93W615VqlcNe0qeixVDnRYA5Ra4esq5PIvnGt513Y
-         oBkftGJBpz5EreM7OblDwDyW//9IvMxwk/inTvI5ytpv0oDWED60xXNZToqbijIJhxDp
-         U5Hg==
-X-Gm-Message-State: AOJu0Yz/YprQX5xE64ziUqGWw/dRFYolXsCsyq78W/TLsI8bENiy07Uz
-	IZcOBx79e85OSy9YGGssC/pxdenAKwfs2p7GCuyjz8DrtZaLRLDcuBSrj4nlDA==
-X-Google-Smtp-Source: AGHT+IE6BtnZgylyUonDzOmg6Wfz+1mTtuYNEHaxll+YVyUlSYaaYMpZwzTJqhScf+hhez4LgBO+gA==
-X-Received: by 2002:a17:907:7249:b0:a72:41e7:fef4 with SMTP id a640c23a62f3a-a7daf65954bmr90631266b.68.1722494979167;
-        Wed, 31 Jul 2024 23:49:39 -0700 (PDT)
-Message-ID: <1a35b90d-969c-4ef2-8dd1-4dc36f56fa30@suse.com>
-Date: Thu, 1 Aug 2024 08:49:37 +0200
+        bh=Iw0FdXvWopMmtv3WWqa1QquEiClC7ojuYfpH3nCtSu8=;
+        b=OoC6Obuln6lghVKtjML+c2XhOfXGgOsM6kG0BjnDXholYz7G3BjU9KtvE+5eU9DBMo
+         j4c9Ye40+r2U/EOLmPCBccOesAX0fR2jF1IfUqqUxD8fdRIR1fPVtjzts9qI98gGiaKR
+         sJnGgBCBFfuGsFoFbVygMtFMhi06MuxkP3eOCtAzPFeeQIcn6viA8bSrH73TMlxPOhGs
+         HxXATOmdVz+NG3NcR4X1oIzZhtLzcQcZnetM8IZ754Uvl+wk4faYgHXOZJcObbFR/5i+
+         WlIyVyh8Y2p5RgraGss2rvySOfsSFEH5j0FJYbhBZdU5BlqTZcXPIS8Wx078AHFxLQHh
+         HyQA==
+X-Forwarded-Encrypted: i=1; AJvYcCXAOCuw8qPH/zLNWwHOUzby6GKgVDUyI6qt9BS5K3P3yQLF+gQPEBicaqxxmxhdN6MSmErrEjJxei10e9sMVoYCsgJIWHihnuwZJjpqln4=
+X-Gm-Message-State: AOJu0Yxvc9QLRk8w+e7Up4cE8g0iFKvQVIElNOr00aQZOxPdWtbGoELh
+	nj7jpjtzGDmfiney4MbDV+oP63yZuOy0INHDiwao07dkcui5U7FEGlKnE/NLdg==
+X-Google-Smtp-Source: AGHT+IGStOgKG5VZt2/0+mARofYj18crXrMEszghFl4JFvrrWAMuJQliT4EM0e1occCPUBb6Ay9PgQ==
+X-Received: by 2002:aa7:d602:0:b0:5a1:b9c0:7758 with SMTP id 4fb4d7f45d1cf-5b7008ad19cmr806980a12.33.1722495092719;
+        Wed, 31 Jul 2024 23:51:32 -0700 (PDT)
+Message-ID: <dd463c03-71ca-4333-ac3f-629241b0f9bc@suse.com>
+Date: Thu, 1 Aug 2024 08:51:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v12 1/7] xen/pci: Add hypercall to support reset of
- pcidev
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
- <20240708114124.407797-2-Jiqian.Chen@amd.com> <ZqpeiWhuqPXiTeRZ@macbook>
- <23730906-f6c7-4a9a-bb2f-2969625c741e@suse.com> <ZqpiulPi3FbdpDoF@macbook>
+Subject: Re: [PATCH] docs/misra: add R13.2 and R18.2 to rules.rst
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2407301626460.4857@ubuntu-linux-20-04-desktop>
+ <6575beb5-645a-470a-89a1-8485adeace60@suse.com>
+ <alpine.DEB.2.22.394.2407311647170.4857@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,35 +115,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZqpiulPi3FbdpDoF@macbook>
+In-Reply-To: <alpine.DEB.2.22.394.2407311647170.4857@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 31.07.2024 18:13, Roger Pau Monné wrote:
-> On Wed, Jul 31, 2024 at 05:58:54PM +0200, Jan Beulich wrote:
->> On 31.07.2024 17:55, Roger Pau Monné wrote:
->>> On Mon, Jul 08, 2024 at 07:41:18PM +0800, Jiqian Chen wrote:
->>>> --- a/xen/drivers/vpci/vpci.c
->>>> +++ b/xen/drivers/vpci/vpci.c
->>>> @@ -172,6 +172,16 @@ int vpci_assign_device(struct pci_dev *pdev)
->>>>  
->>>>      return rc;
->>>>  }
->>>> +
->>>> +int vpci_reset_device_state(struct pci_dev *pdev,
->>>> +                            uint32_t reset_type)
->>>
->>> There's probably no use in passing reset_type to
->>> vpci_reset_device_state() if it's ignored?
+On 01.08.2024 01:50, Stefano Stabellini wrote:
+> On Wed, 31 Jul 2024, Jan Beulich wrote:
+>> On 31.07.2024 01:30, Stefano Stabellini wrote:
+>>> --- a/docs/misra/rules.rst
+>>> +++ b/docs/misra/rules.rst
+>>> @@ -462,6 +462,15 @@ maintainers if you want to suggest a change.
+>>>       - Initializer lists shall not contain persistent side effects
+>>>       -
+>>>  
+>>> +   * - `Rule 13.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_02.c>`_
+>>> +     - Required
+>>> +     - The value of an expression and its persistent side-effects shall
+>>> +       be the same under all permitted evaluation orders
+>>> +     - Be aware that the static analysis tool Eclair might report
+>>> +       several findings for Rule 13.2 of type "caution". These are
+>>> +       instances where Eclair is unable to verify that the code is valid
+>>> +       in regard to Rule 13.2. Caution reports are not violations.
 >>
->> I consider this forward-looking. It seems rather unlikely that in the
->> longer run the reset type doesn't matter.
+>> Which doesn't make clear what our take is towards new code people may
+>> submit.
 > 
-> I'm fine with having it in the hypercall interface, but passing it to
-> vpci_reset_device_state() can be done once there's a purpose for it,
-> and it won't change any public facing interface.
+> Good point, see my comment below
+> 
+> 
+>>> @@ -583,6 +592,15 @@ maintainers if you want to suggest a change.
+>>>         submitting new patches please try to decrease the number of
+>>>         violations when possible.
+>>>  
+>>> +   * - `Rule 18.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_18_02.c>`_
+>>> +     - Required
+>>> +     - Subtraction between pointers shall only be applied to pointers
+>>> +       that address elements of the same array
+>>> +     - Be aware that the static analysis tool Eclair might report
+>>> +       several findings for Rule 18.2 of type "caution". These are
+>>> +       instances where Eclair is unable to verify that the code is valid
+>>> +       in regard to Rule 18.2. Caution reports are not violations.
+>>
+>> And while the same wording is used here, I think it is pretty clear for
+>> this that we'd reject changes where bad subtractions are used. IOW even
+>> more so important to clarify the (possibly different) positions on what
+>> is going to be added into the code base.
+> 
+> In both of these cases, we would reject code that doesn't follow R13.2
+> and R18.2.
 
-Jiqian, just to clarify: I'm okay either way.
+But we shouldn't (unconditionally) do so for for 13.2, should we?
+
+> I'll change it to the following:
+> 
+> 
+> Be aware that the static analysis tool Eclair might report several
+> findings for Rule 18.2 of type "caution". These are instances where
+> Eclair is unable to verify that the code is valid in regard to Rule
+> 18.2. Caution reports are not violations. Regardless, new code is
+> expected to follow this rule.
+
+I'm fine with this for 18.2, but not so much for 13.2.
 
 Jan
 
