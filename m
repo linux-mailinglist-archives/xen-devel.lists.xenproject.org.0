@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16878944CBB
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 15:11:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769736.1180631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC375944CF0
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 15:16:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769746.1180642 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZVag-0005QX-8P; Thu, 01 Aug 2024 13:11:34 +0000
+	id 1sZVf9-0006MO-Q1; Thu, 01 Aug 2024 13:16:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769736.1180631; Thu, 01 Aug 2024 13:11:34 +0000
+Received: by outflank-mailman (output) from mailman id 769746.1180642; Thu, 01 Aug 2024 13:16:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZVag-0005Np-5U; Thu, 01 Aug 2024 13:11:34 +0000
-Received: by outflank-mailman (input) for mailman id 769736;
- Thu, 01 Aug 2024 13:11:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sZVf9-0006JE-MY; Thu, 01 Aug 2024 13:16:11 +0000
+Received: by outflank-mailman (input) for mailman id 769746;
+ Thu, 01 Aug 2024 13:16:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/4YK=PA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZVae-0005Nh-Se
- for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 13:11:32 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 920dd306-5007-11ef-bc02-fd08da9f4363;
- Thu, 01 Aug 2024 15:11:31 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-52f01993090so10330401e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 06:11:31 -0700 (PDT)
+ id 1sZVf7-0006J8-LH
+ for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 13:16:09 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 368046c1-5008-11ef-8776-851b0ebba9a2;
+ Thu, 01 Aug 2024 15:16:07 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a7ab5fc975dso628301466b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 06:16:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5ac64eb3a95sm10056078a12.61.2024.08.01.06.11.30
+ a640c23a62f3a-a7acadb021asm896516466b.188.2024.08.01.06.16.06
+ for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Aug 2024 06:11:30 -0700 (PDT)
+ Thu, 01 Aug 2024 06:16:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +46,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 920dd306-5007-11ef-bc02-fd08da9f4363
+X-Inumbo-ID: 368046c1-5008-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722517891; x=1723122691; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722518167; x=1723122967; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tPaGhsM7MflGvFGh6jb6p9SngIPeCMIN8hRaBgZRVEg=;
-        b=KUcHXlep12RhqnJFQXaNoMC0UP4/jHeb9eWGVKbjBSe7B/udiTK7Kf0DSqIbgtixWW
-         W+BjzN8fEpLHil2Ih6whksEjX4f03UQsk5W8SeE3FuS/znH1JP2AweB77Az9OT4lbxY8
-         dgDgs56Mumo29NwUDj/PuP0JBYQRXfZAvLwZrEFbuiFh28O5IFgVnLRVa3UclOAcvYLQ
-         RZvTyaEdstBlLD950bBvH7lm4KJWvbpccM1OWBYsXU/znEALND3FD+gw2mugqp/9+iIA
-         z5X7QXQObAO3uG9DjMEF3TUQE9WbbpUDg+Cap40tin0Wb16fzh6HcSGdtsqnV/VrLpYk
-         fs0g==
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=KIlJt0Dm6+MO9ZJxLHt8WiA1qer2aN0kK9w3KAfqEpk=;
+        b=Y+gO9LLluD2Q50Pny6XOhPx6Wkkl3n7hut/FbykOiOjQ607NxTlOHdEEF03QaLtZ9s
+         XcwifU4TP6sc5Iiiy0VPa/EPuOhBLo+JUbYUKyseV8pZoQ5HxbIT3lqa2XCjzSBxYv7m
+         +nMKAWMceq8KWEgvzkQ+/eocZ1HiZf6vyHBVZ1gNZa0u04hOziOp6ywweIv+3+7bwK78
+         rSs0bFUBrPmNi1bocDcomjCmCOWMHXQ+p+kfJtazBsLiHCzkDoJQNx+gEAPevnP8ASYX
+         oc74SqX1Wk3l8ni+oK7pTWs+7d8W2gCYcys2BlHSArsTm+eeuPCd5C9TPY6xVwWerEs6
+         FBbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722517891; x=1723122691;
+        d=1e100.net; s=20230601; t=1722518167; x=1723122967;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tPaGhsM7MflGvFGh6jb6p9SngIPeCMIN8hRaBgZRVEg=;
-        b=ZPS+JlURozAjItFW33HrN8w5q5850DbHpiLvFamY0tv+lUsP8vqCAq/IZTeCyyxaN7
-         vzyX/VXskEexwuPE3yJ21BeavhA50QId+F0lgEMEvJ0k5pcAZcECgrisFyBFCX8ALAJw
-         YwaGWkaoUzEgRjw9oVcCCOpl1EBVKBDF/rAFG7q2rHZQ59m0wzOqviwb8arzvJ4DX9P5
-         PSNQLVv4eCHQEiQyReO4thAzhkNUBE/TDaYRQNplsiDXSRqhPBWeDgDuXFLp9Y2nGTRv
-         Yja2Zs682uVrFHEs7JHdEYArQN0LGyiayZ8jol9v2q6FlkW06YR9x1hzpxEw4BFSnpTy
-         +UNw==
-X-Forwarded-Encrypted: i=1; AJvYcCXjZCZveRp1BXgGSIHuHs03KwGoWE2T8Gpe278m6vkF5aBzK0DXevUagMTDCOpeSBWFnQe9jZoMi7u0v9KNzzySbqUeSVTUGrMFqBojobI=
-X-Gm-Message-State: AOJu0YxS+99Bbiq3J/6EylRILF+oT4ErdTQdcniI9AeX14Lah3BnhV5v
-	kmGYsuiAB0syfwuh/cdoZcEkMe4Qc7gK+sqSaqVlrmWZh/gpquNDHmbLy1adEQ==
-X-Google-Smtp-Source: AGHT+IGki6ui5oE42OlBASHVAr0OyYh9s+++s79F/9t6E68LjnUvPzAaNhR3wvTRTnzsLW9RGKA1Qw==
-X-Received: by 2002:ac2:434f:0:b0:52e:f77b:bb58 with SMTP id 2adb3069b0e04-530b61c8df8mr1509318e87.36.1722517891026;
-        Thu, 01 Aug 2024 06:11:31 -0700 (PDT)
-Message-ID: <d2b95ad1-fc61-4c86-b0d7-530720e1e483@suse.com>
-Date: Thu, 1 Aug 2024 15:11:29 +0200
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KIlJt0Dm6+MO9ZJxLHt8WiA1qer2aN0kK9w3KAfqEpk=;
+        b=txC8rorJ+LtYb6NsWgb79X4nEjkoi4nX7R93TlAlJNYVrKaxOG8CCcJS/RfyRVUX5v
+         6Xamfb3+2tHEDdji9/se0bCMQGwniXIxH86YFqjEE77oiGXUyJnfHrMmyTYcvrjRGWxW
+         jK4HA0ulaZ9zJEuAK53j/erG/iF6Vv9sDzHAXt+N8IFXz18jsY0c3ZSMImWuTBksBn3W
+         /Sn+VZQo4UisKIDbL/mJ34wQPek/dLaRis0rUeVfFYRSn88O8KuXAlFr7aEC2hg194tb
+         kRixoVrKYYft9LXFSOOBPT9XYU/NDRd7Fbt3OIy48YfB7nk6gRdMPDOg504vuCXHoBqD
+         kGmA==
+X-Gm-Message-State: AOJu0YwFCh237UxWW2WwKyRk/A4P46PPD/ujFrlXjSHnzTImD+N2IZdl
+	ToRn1ETa+RzohlhZAjLtoMFikQJ+PpPVb1wkBrb1ntRrr8tUACtRVAA+H1EISVO5lLlh6EsZF4E
+	=
+X-Google-Smtp-Source: AGHT+IGu6I6Tp0BlbFIv6OsMUavM6tOhZnCT4h/iPRBsz9QU9UCC6GRpOm+sDhKgSFXTEN0KvSu54g==
+X-Received: by 2002:a17:907:7fa1:b0:a77:da14:8403 with SMTP id a640c23a62f3a-a7dc4da9bb4mr11244766b.2.1722518166898;
+        Thu, 01 Aug 2024 06:16:06 -0700 (PDT)
+Message-ID: <a074fa7e-1c8c-4631-b560-b9f3d392d32a@suse.com>
+Date: Thu, 1 Aug 2024 15:16:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v12 4/7] x86/domctl: Add hypercall to set the access
- of x86 gsi
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, George Dunlap <gwd@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
-References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
- <20240708114124.407797-5-Jiqian.Chen@amd.com> <ZqtsQwZNyFzflDQt@macbook>
- <ec95b413-519d-46a4-be41-ebb6a375612a@suse.com> <ZquCatoi50cNI3qR@macbook>
+Subject: Re: xen | Failed pipeline for staging | 1c4fb9bb
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <66ab862e37ff4_2e28037507127b@gitlab-sidekiq-catchall-v2-6785bcc687-745p7.mail>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,40 +110,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZquCatoi50cNI3qR@macbook>
+In-Reply-To: <66ab862e37ff4_2e28037507127b@gitlab-sidekiq-catchall-v2-6785bcc687-745p7.mail>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.08.2024 14:41, Roger Pau Monné wrote:
-> On Thu, Aug 01, 2024 at 01:36:16PM +0200, Jan Beulich wrote:
->> On 01.08.2024 13:06, Roger Pau Monné wrote:
->>> On Mon, Jul 08, 2024 at 07:41:21PM +0800, Jiqian Chen wrote:
->>>> Remaining comment @Daniel P . Smith:
->>>> +        ret = -EPERM;
->>>> +        if ( !irq_access_permitted(currd, irq) ||
->>>> +             xsm_irq_permission(XSM_HOOK, d, irq, access_flag) )
->>>> +            goto gsi_permission_out;
->>>> Is it okay to issue the XSM check using the translated value, 
->>>> not the one that was originally passed into the hypercall?
->>>
->>> FWIW, I don't see the GSI -> IRQ translation much different from the
->>> pIRQ -> IRQ translation done by pirq_access_permitted(), which is also
->>> ahead of the xsm check.
->>
->> The question (which I raised originally) isn't an ordering one, but an
->> auditing one: Is it okay to pass the XSM hook a value that isn't what
->> was passed into the hypercall?
+On 01.08.2024 14:57, GitLab wrote:
 > 
-> But that's also the case with the current XEN_DOMCTL_irq_permission
-> implementation?  As the hypercall parameter is a pIRQ, and the XSM
-> check is done against the translated IRQ obtained from the pIRQ
-> parameter.
+> 
+> Pipeline #1396969716 has failed!
+> 
+> Project: xen ( https://gitlab.com/xen-project/hardware/xen )
+> Branch: staging ( https://gitlab.com/xen-project/hardware/xen/-/commits/staging )
+> 
+> Commit: 1c4fb9bb ( https://gitlab.com/xen-project/hardware/xen/-/commit/1c4fb9bb49b7babbcaa0b62384841ba4acb49356 )
+> Commit Message: x86/vmx: replace CONFIG_HVM with CONFIG_INTEL_V...
+> Commit Author: Sergiy Kibrik
+> Committed by: Jan Beulich ( https://gitlab.com/jbeulich )
+> 
+> 
+> Pipeline #1396969716 ( https://gitlab.com/xen-project/hardware/xen/-/pipelines/1396969716 ) triggered by Jan Beulich ( https://gitlab.com/jbeulich )
+> had 1 failed job.
+> 
+> Job #7482814581 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/7482814581/raw )
+> 
+> Stage: test
+> Name: adl-pci-hvm-x86-64-gcc-debug
 
-In a way you're right, but in a way there's also a meaningful difference:
-There we translate between internal numbering spaces. Here we first
-translate a quantity in a numbering space superimposed onto us to an
-internal representation. Flask, otoh, in such a situation may prefer to
-see the external representation of the resource.
+The only anomaly (not Xen-related) I can spot in the log is
+
+** read zero bytes from stdin **
+
+Terminating...
+Thanks for using picocom
+
+How to explain that I have no clue.
 
 Jan
 
