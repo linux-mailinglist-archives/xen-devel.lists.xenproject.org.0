@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 279B5944FDF
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 18:03:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769862.1180747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D349945063
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 18:18:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769874.1180756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZYGL-0002Ff-G2; Thu, 01 Aug 2024 16:02:45 +0000
+	id 1sZYVC-0004ev-MB; Thu, 01 Aug 2024 16:18:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769862.1180747; Thu, 01 Aug 2024 16:02:45 +0000
+Received: by outflank-mailman (output) from mailman id 769874.1180756; Thu, 01 Aug 2024 16:18:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZYGL-0002Ds-B8; Thu, 01 Aug 2024 16:02:45 +0000
-Received: by outflank-mailman (input) for mailman id 769862;
- Thu, 01 Aug 2024 16:02:43 +0000
+	id 1sZYVC-0004de-JZ; Thu, 01 Aug 2024 16:18:06 +0000
+Received: by outflank-mailman (input) for mailman id 769874;
+ Thu, 01 Aug 2024 16:18:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8r7L=PA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sZYGJ-0002Di-GQ
- for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 16:02:43 +0000
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [2607:f8b0:4864:20::735])
+ id 1sZYVA-0004dY-VB
+ for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 16:18:04 +0000
+Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
+ [2607:f8b0:4864:20::f2d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7b101750-501f-11ef-8776-851b0ebba9a2;
- Thu, 01 Aug 2024 18:02:41 +0200 (CEST)
-Received: by mail-qk1-x735.google.com with SMTP id
- af79cd13be357-7a1d6f47112so450991585a.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 09:02:41 -0700 (PDT)
+ id a001faa3-5021-11ef-8776-851b0ebba9a2;
+ Thu, 01 Aug 2024 18:18:02 +0200 (CEST)
+Received: by mail-qv1-xf2d.google.com with SMTP id
+ 6a1803df08f44-6bb5a4668faso36647956d6.2
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 09:18:02 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7a34f6e9dd2sm2499485a.39.2024.08.01.09.02.39
+ 6a1803df08f44-6bb99b5d0b0sm32846d6.124.2024.08.01.09.18.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Aug 2024 09:02:39 -0700 (PDT)
+ Thu, 01 Aug 2024 09:18:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,100 +44,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b101750-501f-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: a001faa3-5021-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722528160; x=1723132960; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9nZVoL1BNgRXsYNGRKYQkK2x9+fw9cbTiX2OS2v2Elc=;
-        b=EodysOKdhYJ39qbzTExZ+Et9uf+YwneoYjp/JuQ/9MUZmXxg0kvwt79lBQhKsrRR9a
-         em9m1Kpq0OfRXhKBEputMN8ilhz78USdk38a53e1MQWlxbYCy8Japvf2YFt5E0k0yz44
-         TaJAit5fJas+Fmze1/OeDUTn1cH8VxKnEJ+u0=
+        d=citrix.com; s=google; t=1722529081; x=1723133881; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3/ARuhRsNaiuIPRwu1nLQkVqTSbqQTI1K6+W0XQ7am4=;
+        b=tHHG/6wlvU8zuLkxJ4/FLd8EhCfK2mb13mYkKDuUXgzzUp8LlkvPfKq361SYOiPk1w
+         KaHPZQpudDnsgSmYRZ41NsexWD6SVM9PoI1RpDeDrCrAPBVWH+VsfJM6FDFHIEkq6YoW
+         ycrusMXjVLfm+LfhrQzXVrg/Pd20oTTgpDpcI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722528160; x=1723132960;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9nZVoL1BNgRXsYNGRKYQkK2x9+fw9cbTiX2OS2v2Elc=;
-        b=bFnqoR46G08LZMBWw0j39p/F098nYQPRBOV0mhEPR7gSgroBzVI8+b1ZaigqG87VNR
-         bxO7kv5Koop+q8sDSJ53PrAlJ+XsJfQMjYkfUlt4U1mF07J2WpwWLzr8CKJrcsSo8AB8
-         aqwM2qbRwtwi2Ydui/8yPJm011YvdJfHmM9YvRVTFBxdPmIO6mSFbhVJx+SShN4IBBa6
-         i7W2MaZm3C8GxDEmjbLwetZOxx5HOBXUQfiRGvoVkiVmiRl4gyTAvXSUsMEa7i3m4Pht
-         zOr5mmTcjrYqBBXOHRa1O4hFDkgbbYb+StfT87PD1Vbe+JEKvm+Uis1Go1fwR+4WyEHp
-         A24w==
-X-Forwarded-Encrypted: i=1; AJvYcCW9RF1Op6EKtxm/7UqwbD+Yta01/W68Dg7dn176gPUarS3+0zfVh6xH5RJEp4zB17A11Y6dG/vLy4RdYOz/FsXr81V2d91cr2N9B4vbOYw=
-X-Gm-Message-State: AOJu0YyR2tRFCs1sFhbdZQfQ60LZnTUXWVr17knjaWCk+GYXqhilcHGA
-	uxuZiV51QWE8PdmgphU7wBbVjeIGFEFvh0tlL+amOVtGN1jEFFkpUa/gSnMNHaI=
-X-Google-Smtp-Source: AGHT+IHn/R8Zlt4tHdGqBJ9GpCVX8cFYlzIdm5tSAX+H1UjMAWKygtF/fe7YtbzSVOxZWB++bsKWLw==
-X-Received: by 2002:a05:620a:440e:b0:79d:5503:a925 with SMTP id af79cd13be357-7a34ef456b7mr49189385a.35.1722528160349;
-        Thu, 01 Aug 2024 09:02:40 -0700 (PDT)
-Date: Thu, 1 Aug 2024 18:02:34 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3] x86/dom0: delay setting SMAP after dom0 build is done
-Message-ID: <ZquxmnpCKFohGdo9@macbook>
-References: <20240801095201.91180-1-roger.pau@citrix.com>
- <988147f4-3de2-4aae-99cc-7d0ba48b158f@suse.com>
- <ZquraLjpMe9fToZd@macbook>
- <f3aedd33-f3ac-4a75-82db-5da827a6fc5e@suse.com>
+        d=1e100.net; s=20230601; t=1722529081; x=1723133881;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3/ARuhRsNaiuIPRwu1nLQkVqTSbqQTI1K6+W0XQ7am4=;
+        b=lSzLR/ugQYXFHlkcn8ue9KCk0IEfaAS7bz8YbA/h6xcxtkPaivbrIOneLJNcc0bqoK
+         XA24n3SKF5LEmTimlY2sCU1kgeaxSckiOX5KWoxZwsdHF6EV1vWdAApbQZ2xelwlNIJa
+         FN2B+AbePiszTftF6163oD4MU7fAUefeSNicNu+sqDveG6m4R4ysbHVaygi5mlN8gfFW
+         +J3asvNBWH8HbfsLdc29BtJC5v1NUc5kvKszcRWPlVT4QyPMze9/0MrZCSNrJ+GtoAbn
+         FgjXAdSAwmpeuwhaprwtDkK1gLPuszap9HrbamNn88vdqGLdfoq5iyufLMxYtFSRYQGZ
+         lNxg==
+X-Gm-Message-State: AOJu0YxtNUD493XBGpiaMXAWKxyAxaFn3Zpc9P6IHuEaGJcYajXhHGfa
+	pd77SIPn2i48awtpI6AYlaDwLXw3KgJwlkXBeBfQZRTAl/OFfl0V13zCaY/VRIDqfJwiFS0od2E
+	S
+X-Google-Smtp-Source: AGHT+IFO/rWeumFqH0B5iLXR8PFwzwGoJfb59JcIhxPp7M3Ne17LK97renedcpnge+DVS6DbvZWHkw==
+X-Received: by 2002:a05:6214:5bc2:b0:6b5:e202:bd78 with SMTP id 6a1803df08f44-6bb98417517mr6761646d6.44.1722529080891;
+        Thu, 01 Aug 2024 09:18:00 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v3] x86/shutdown: change default reboot method preference
+Date: Thu,  1 Aug 2024 18:17:53 +0200
+Message-ID: <20240801161753.94399-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f3aedd33-f3ac-4a75-82db-5da827a6fc5e@suse.com>
 
-On Thu, Aug 01, 2024 at 05:58:38PM +0200, Jan Beulich wrote:
-> On 01.08.2024 17:36, Roger Pau Monné wrote:
-> > On Thu, Aug 01, 2024 at 12:28:06PM +0200, Jan Beulich wrote:
-> >> On 01.08.2024 11:52, Roger Pau Monne wrote:
-> >>> @@ -1907,16 +1890,25 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-> >>>      if ( cpu_has_smep && opt_smep != SMEP_HVM_ONLY )
-> >>>          setup_force_cpu_cap(X86_FEATURE_XEN_SMEP);
-> >>>      if ( boot_cpu_has(X86_FEATURE_XEN_SMEP) )
-> >>> +    {
-> >>>          set_in_cr4(X86_CR4_SMEP);
-> >>> +        cr4_pv32_mask = mmu_cr4_features & XEN_CR4_PV32_BITS;
-> >>
-> >> Could be just "cr4_pv32_mask = X86_CR4_SMEP" now?
-> > 
-> > Yes, indeed, same below then.
-> > 
-> >>> +    }
-> >>>  
-> >>>      if ( !opt_smap )
-> >>>          setup_clear_cpu_cap(X86_FEATURE_SMAP);
-> >>>      if ( cpu_has_smap && opt_smap != SMAP_HVM_ONLY )
-> >>>          setup_force_cpu_cap(X86_FEATURE_XEN_SMAP);
-> >>>      if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
-> >>> -        set_in_cr4(X86_CR4_SMAP);
-> >>> -
-> >>> -    cr4_pv32_mask = mmu_cr4_features & XEN_CR4_PV32_BITS;
-> >>> +        /*
-> >>> +         * Set SMAP on the %cr4 mask so that it's set for APs on bringup, but
-> >>> +         * don't set for the BSP until domain building is done.
-> >>> +         *
-> >>> +         * Don't set it in cr4_pv32_mask either, until it's also set on the
-> >>> +         * BSP.  Otherwise the BUG in cr4_pv32_restore would trigger for events
-> >>> +         * received on the BSP.
-> >>> +         */
-> >>> +        mmu_cr4_features |= X86_CR4_SMAP;
-> >>
-> >> Don't you put APs at risk this way of triggering the BUG in cr4_pv32_restore()?
-> >> They'll have the bit set in %cr4, but the bit remains clear in cr4_pv32_mask
-> >> until much later.
-> > 
-> > As long as the bit is set in %cr4, but not in cr4_pv32_mask the BUG in
-> > cr4_pv32_restore won't hit.
-> 
-> Hmm, you're right. Despite staring at that for quite some time, I got
-> it wrong. Feel free to add
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> then, preferably with said minor adjustment (left in context above).
+The current logic to chose the preferred reboot method is based on the mode Xen
+has been booted into, so if the box is booted from UEFI, the preferred reboot
+method will be to use the ResetSystem() run time service call.
 
-Sure, thanks!
+However, that method seems to be widely untested, and quite often leads to a
+result similar to:
 
-Will adjust and send v4.
+Hardware Dom0 shutdown: rebooting machine
+----[ Xen-4.18-unstable  x86_64  debug=y  Tainted:   C    ]----
+CPU:    0
+RIP:    e008:[<0000000000000017>] 0000000000000017
+RFLAGS: 0000000000010202   CONTEXT: hypervisor
+[...]
+Xen call trace:
+   [<0000000000000017>] R 0000000000000017
+   [<ffff83207eff7b50>] S ffff83207eff7b50
+   [<ffff82d0403525aa>] F machine_restart+0x1da/0x261
+   [<ffff82d04035263c>] F apic_wait_icr_idle+0/0x37
+   [<ffff82d040233689>] F smp_call_function_interrupt+0xc7/0xcb
+   [<ffff82d040352f05>] F call_function_interrupt+0x20/0x34
+   [<ffff82d04033b0d5>] F do_IRQ+0x150/0x6f3
+   [<ffff82d0402018c2>] F common_interrupt+0x132/0x140
+   [<ffff82d040283d33>] F arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0x113/0x129
+   [<ffff82d04028436c>] F arch/x86/acpi/cpu_idle.c#acpi_processor_idle+0x3eb/0x5f7
+   [<ffff82d04032a549>] F arch/x86/domain.c#idle_loop+0xec/0xee
+
+****************************************
+Panic on CPU 0:
+FATAL TRAP: vector = 6 (invalid opcode)
+****************************************
+
+Which in most cases does lead to a reboot, however that's unreliable.
+
+Change the default reboot preference to prefer ACPI over UEFI if available and
+not in reduced hardware mode.
+
+This is in line to what Linux does, so it's unlikely to cause issues on current
+and future hardware, since there's a much higher chance of vendors testing
+hardware with Linux rather than Xen.
+
+Add a special case for one Acer model that does require being rebooted using
+ResetSystem().  See Linux commit 0082517fa4bce for rationale.
+
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+Changes since v2:
+ - Rebase and remove incorrect paragraph from the commit message.
+
+Changes since v1:
+ - Add special case for Acer model to use UEFI reboot.
+ - Adjust commit message.
+---
+ xen/arch/x86/shutdown.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/x86/shutdown.c b/xen/arch/x86/shutdown.c
+index acceec2a385d..fa60d1638d58 100644
+--- a/xen/arch/x86/shutdown.c
++++ b/xen/arch/x86/shutdown.c
+@@ -150,19 +150,20 @@ static void default_reboot_type(void)
+ 
+     if ( xen_guest )
+         reboot_type = BOOT_XEN;
++    else if ( !acpi_disabled && !acpi_gbl_reduced_hardware )
++        reboot_type = BOOT_ACPI;
+     else if ( efi_enabled(EFI_RS) )
+         reboot_type = BOOT_EFI;
+-    else if ( acpi_disabled )
+-        reboot_type = BOOT_KBD;
+     else
+-        reboot_type = BOOT_ACPI;
++        reboot_type = BOOT_KBD;
+ }
+ 
+ static int __init cf_check override_reboot(const struct dmi_system_id *d)
+ {
+     enum reboot_type type = (long)d->driver_data;
+ 
+-    if ( type == BOOT_ACPI && acpi_disabled )
++    if ( (type == BOOT_ACPI && acpi_disabled) ||
++         (type == BOOT_EFI && !efi_enabled(EFI_RS)) )
+         type = BOOT_KBD;
+ 
+     if ( reboot_type != type )
+@@ -172,6 +173,7 @@ static int __init cf_check override_reboot(const struct dmi_system_id *d)
+             [BOOT_KBD]  = "keyboard controller",
+             [BOOT_ACPI] = "ACPI",
+             [BOOT_CF9]  = "PCI",
++            [BOOT_EFI]  = "UEFI",
+         };
+ 
+         reboot_type = type;
+@@ -492,6 +494,15 @@ static const struct dmi_system_id __initconstrel reboot_dmi_table[] = {
+             DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+             DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R740")),
+     },
++    {    /* Handle problems with rebooting on Acer TravelMate X514-51T. */
++        .callback = override_reboot,
++        .driver_data = (void *)(long)BOOT_EFI,
++        .ident = "Acer TravelMate X514-51T",
++        .matches = {
++            DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
++            DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate X514-51T"),
++        },
++    },
+     { }
+ };
+ 
+-- 
+2.45.2
+
 
