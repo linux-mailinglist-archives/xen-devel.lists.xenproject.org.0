@@ -2,37 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B5349448D5
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 11:52:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.769511.1180411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0509F944922
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2024 12:13:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.769521.1180426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZSTo-0007Qu-No; Thu, 01 Aug 2024 09:52:16 +0000
+	id 1sZSnR-0002Ss-E5; Thu, 01 Aug 2024 10:12:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 769511.1180411; Thu, 01 Aug 2024 09:52:16 +0000
+Received: by outflank-mailman (output) from mailman id 769521.1180426; Thu, 01 Aug 2024 10:12:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZSTo-0007Or-Kl; Thu, 01 Aug 2024 09:52:16 +0000
-Received: by outflank-mailman (input) for mailman id 769511;
- Thu, 01 Aug 2024 09:52:14 +0000
+	id 1sZSnR-0002P4-BJ; Thu, 01 Aug 2024 10:12:33 +0000
+Received: by outflank-mailman (input) for mailman id 769521;
+ Thu, 01 Aug 2024 10:12:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8r7L=PA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sZSTm-0007Ok-Kj
- for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 09:52:14 +0000
-Received: from mail-vk1-xa34.google.com (mail-vk1-xa34.google.com
- [2607:f8b0:4864:20::a34])
+ <SRS0=5eeJ=PA=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
+ id 1sZSnQ-0002Oc-H0
+ for xen-devel@lists.xenproject.org; Thu, 01 Aug 2024 10:12:32 +0000
+Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b9d38029-4feb-11ef-bc02-fd08da9f4363;
- Thu, 01 Aug 2024 11:52:13 +0200 (CEST)
-Received: by mail-vk1-xa34.google.com with SMTP id
- 71dfb90a1353d-4ef33a09a3aso1903529e0c.2
- for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 02:52:13 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7a1f89bf270sm364034485a.92.2024.08.01.02.52.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Aug 2024 02:52:11 -0700 (PDT)
+ id 8f9d9f25-4fee-11ef-bc02-fd08da9f4363;
+ Thu, 01 Aug 2024 12:12:30 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by sonata.ens-lyon.org (Postfix) with ESMTP id 003CBA037E;
+ Thu,  1 Aug 2024 12:12:30 +0200 (CEST)
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+ by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id WJolNPPUTo0l; Thu,  1 Aug 2024 12:12:29 +0200 (CEST)
+Received: from begin (nat-inria-interne-52-gw-01-bso.bordeaux.inria.fr
+ [194.199.1.52])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id C05F4A0379;
+ Thu,  1 Aug 2024 12:12:29 +0200 (CEST)
+Received: from samy by begin with local (Exim 4.98)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1sZSnN-00000001izo-0gSX; Thu, 01 Aug 2024 12:12:29 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,158 +52,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9d38029-4feb-11ef-bc02-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1722505931; x=1723110731; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vv24Nkq+CALwNaNI0CiPnEvsAwhncXufp7Aqqd0cSX0=;
-        b=SfP0VuEtms+JyyMj4rvFFrD9mX0MONyeercp2vj53uM6Ac2fRjv4P4C6DIC4pqyNtV
-         1Xx+9JJs5r7L+wjdO87EguvQR6S/7YhyAOcfPjdGjDnCHaI+Hx0bRKNgzgEsu/7KmoWL
-         xLOnlwNrLFugEoPYKCgOYEC0O3uF+338ptSsI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722505931; x=1723110731;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vv24Nkq+CALwNaNI0CiPnEvsAwhncXufp7Aqqd0cSX0=;
-        b=qzPCw7Z88LOngrQksvlWyWbZWzaiACyohkN6BEPuxXE3NkHyiM290OioopTVrUKbQ9
-         +R/iiKO8TlJeBieqPxFz6msfd7g5dQzC/bjfuV/KdSVuIUtn6+A+99doqEiXmG3une0v
-         r9BEbwJjjR0bu/ZFylfWIki7DW0jpx1+ttTox2o7Zc+QWYo3go7nvV5EdCefza00Fpp2
-         Q4n9hawSYhpZGfs0zO32vRrXBpJp/pUiFLCfOToDNt+igDtfSmPq+oeWgATi6glIO/1U
-         oKs71sxuBLyc4kBM6sS4aFeSfhejdnXwzKQBfYehyFPOf6FjsJufDcSb1vG4Nm3NsQZn
-         j5Yw==
-X-Gm-Message-State: AOJu0YzWlRTS6qM7JBIqIsrLr9j9muqJ41mB1DYO55fdXVjkzFdSVv9v
-	Ckd6SxO6t8uq5/r5e9kbjqZggYT6ue0WqLcqhbViz44M/8uDnxVqck+Xrj0WRWr0yG+c89nVDTg
-	a
-X-Google-Smtp-Source: AGHT+IHXI+mEjXXBuGLLrbcpkku3LlHnHtNWcXP1kh0pZb4qC5TXgctR+aeEYo0vztgtpegj0VLVvw==
-X-Received: by 2002:a05:6102:1629:b0:48f:db56:f038 with SMTP id ada2fe7eead31-494506d279amr2427846137.7.1722505931423;
-        Thu, 01 Aug 2024 02:52:11 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v3] x86/dom0: delay setting SMAP after dom0 build is done
-Date: Thu,  1 Aug 2024 11:52:01 +0200
-Message-ID: <20240801095201.91180-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.45.2
+X-Inumbo-ID: 8f9d9f25-4fee-11ef-bc02-fd08da9f4363
+Date: Thu, 1 Aug 2024 12:12:29 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+Subject: Re: [PATCH 2/3] mini-os: mm: switch need_pgt() to use walk_pt()
+Message-ID: <20240801101229.5htyrethv55xmh3x@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+References: <20240731130026.8467-1-jgross@suse.com>
+ <20240731130026.8467-3-jgross@suse.com>
+ <20240731212752.zd5njpd7kgoc433d@begin>
+ <8fef9511-c5d0-49a9-a800-6087f03b3199@suse.com>
+ <20240801073923.32s6i4enoq6qafa5@begin>
+ <7fa3bca4-1ef4-4c95-bf92-de87c7c8fc96@suse.com>
+ <20240801091535.rpspqy2k73tjy6ms@begin>
+ <894c9552-ef2b-4255-b429-ad3df4f5c0cc@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <894c9552-ef2b-4255-b429-ad3df4f5c0cc@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 
-Delay setting X86_CR4_SMAP on the BSP until the domain building is done, so
-that there's no need to disable SMAP.  Note however that SMAP is enabled for
-the APs on bringup, as domain builder code strictly run on the BSP.  Delaying
-the setting for the APs would mean having to do a callfunc IPI later in order
-to set it on all the APs.
+Jürgen Groß, le jeu. 01 août 2024 11:25:31 +0200, a ecrit:
+> On 01.08.24 11:15, Samuel Thibault wrote:
+> > Jürgen Groß, le jeu. 01 août 2024 10:13:07 +0200, a ecrit:
+> > > On 01.08.24 09:39, Samuel Thibault wrote:
+> > > > Jürgen Groß, le jeu. 01 août 2024 07:56:36 +0200, a ecrit:
+> > > > > On 31.07.24 23:27, Samuel Thibault wrote:
+> > > > > > Hello,
+> > > > > > 
+> > > > > > Juergen Gross, le mer. 31 juil. 2024 15:00:25 +0200, a ecrit:
+> > > > > > > -pgentry_t *need_pgt(unsigned long va)
+> > > > > > > +static int need_pgt_func(unsigned long va, unsigned int lvl, bool is_leaf,
+> > > > > > > +                         pgentry_t *pte, void *par)
+> > > > > > >     {
+> > > > > > [...]
+> > > > > > > +    if ( lvl == L1_FRAME || (*pte & _PAGE_PRESENT) )
+> > > > > > 
+> > > > > > Did you mean (*pte & _PAGE_PSE)?
+> > > > > 
+> > > > > No.
+> > > > 
+> > > > I don't understand: it doesn't map what I know of need_pgt and what the
+> > > > existing code is doing.
+> > > > 
+> > > > AIKI, the point of need_pgt is to make sure there is a L1 page table
+> > > > entry for a VA, and return it, so the caller can put in it at pte for a
+> > > > mfn or such. In the case a PSE is met, we don't go further, and it's up
+> > > > to the caller to decide what it wants to do (most often it's actually
+> > > > unexpected and asserted out). In both cases, the PRESENT bit of the
+> > > > pte whose address is returned does not matter, most often it's the
+> > > > caller which will set it.
+> > > > 
+> > > > The existing code for need_pgt thus always adds page table entries down
+> > > > to level1 (except if _PAGE_PSE is met, i.e. a large page was already set
+> > > > up): the termination was:
+> > > > 
+> > > > [... walk down to level 2]
+> > > 
+> > > You have omitted:
+> > > 
+> > >         ASSERT(tab[offset] & _PAGE_PRESENT);
+> > 
+> > Right, that confirms that we never set PSE without PRESENT. We probably
+> > want to keep that assertion in the PSE case.
+> 
+> Hmm, I'm not sure.
+> 
+> The hardware allows to have any bit set in the PTE when PRESENT isn't set.
+> It will never look at any other bit in this case. Why should the software
+> require something different here?
 
-The fixes tag is to account for the wrong usage of cpu_has_smap in
-create_dom0(), it should instead have used
-boot_cpu_has(X86_FEATURE_XEN_SMAP).
+To document&check what we expect to be producing.
 
-While there also make cr4_pv32_mask __ro_after_init.
+> > But we still want to continue walking down to level1 (or pse) even when
+> > L4/L3/L2 have PRESENT.
+> 
+> We do that. In this case the is_leaf flag won't be set and need_pgt_func()
+> will return early with the return value 0, meaning that the walk will be
+> continued.
 
-Fixes: 493ab190e5b1 ('xen/sm{e, a}p: allow disabling sm{e, a}p for Xen itself')
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v2:
- - Change approach.
- - Add fixes tag.
----
- xen/arch/x86/setup.c | 46 ++++++++++++++++++++++++--------------------
- 1 file changed, 25 insertions(+), 21 deletions(-)
+Ah, I missed that indeed, I had not integrated that is_leaf is 1 also in
+the case of missing level>1 page. It'd probably be useful to emphasize
+in patch 1:
 
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index eee20bb1753c..3f792a7a8f39 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -80,7 +80,7 @@ int8_t __initdata opt_probe_port_aliases = -1;
- boolean_param("probe-port-aliases", opt_probe_port_aliases);
- 
- /* Only used in asm code and within this source file */
--unsigned long asmlinkage __read_mostly cr4_pv32_mask;
-+unsigned long asmlinkage __ro_after_init cr4_pv32_mask;
- 
- /* **** Linux config option: propagated to domain0. */
- /* "acpi=off":    Sisables both ACPI table parsing and interpreter. */
-@@ -955,26 +955,9 @@ static struct domain *__init create_dom0(const module_t *image,
-         }
-     }
- 
--    /*
--     * Temporarily clear SMAP in CR4 to allow user-accesses in construct_dom0().
--     * This saves a large number of corner cases interactions with
--     * copy_from_user().
--     */
--    if ( cpu_has_smap )
--    {
--        cr4_pv32_mask &= ~X86_CR4_SMAP;
--        write_cr4(read_cr4() & ~X86_CR4_SMAP);
--    }
--
-     if ( construct_dom0(d, image, headroom, initrd, cmdline) != 0 )
-         panic("Could not construct domain 0\n");
- 
--    if ( cpu_has_smap )
--    {
--        write_cr4(read_cr4() | X86_CR4_SMAP);
--        cr4_pv32_mask |= X86_CR4_SMAP;
--    }
--
-     return d;
- }
- 
-@@ -1907,16 +1890,25 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-     if ( cpu_has_smep && opt_smep != SMEP_HVM_ONLY )
-         setup_force_cpu_cap(X86_FEATURE_XEN_SMEP);
-     if ( boot_cpu_has(X86_FEATURE_XEN_SMEP) )
-+    {
-         set_in_cr4(X86_CR4_SMEP);
-+        cr4_pv32_mask = mmu_cr4_features & XEN_CR4_PV32_BITS;
-+    }
- 
-     if ( !opt_smap )
-         setup_clear_cpu_cap(X86_FEATURE_SMAP);
-     if ( cpu_has_smap && opt_smap != SMAP_HVM_ONLY )
-         setup_force_cpu_cap(X86_FEATURE_XEN_SMAP);
-     if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
--        set_in_cr4(X86_CR4_SMAP);
--
--    cr4_pv32_mask = mmu_cr4_features & XEN_CR4_PV32_BITS;
-+        /*
-+         * Set SMAP on the %cr4 mask so that it's set for APs on bringup, but
-+         * don't set for the BSP until domain building is done.
-+         *
-+         * Don't set it in cr4_pv32_mask either, until it's also set on the
-+         * BSP.  Otherwise the BUG in cr4_pv32_restore would trigger for events
-+         * received on the BSP.
-+         */
-+        mmu_cr4_features |= X86_CR4_SMAP;
- 
-     if ( boot_cpu_has(X86_FEATURE_FSGSBASE) )
-         set_in_cr4(X86_CR4_FSGSBASE);
-@@ -2048,6 +2040,18 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-     if ( !dom0 )
-         panic("Could not set up DOM0 guest OS\n");
- 
-+    /*
-+     * Enable SMAP only after being done with the domain building phase, as the
-+     * PV builder switches to the domain page-tables and must be run with SMAP
-+     * disabled.
-+     */
-+    if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
-+    {
-+        ASSERT(mmu_cr4_features & X86_CR4_SMAP);
-+        write_cr4(read_cr4() | X86_CR4_SMAP);
-+        cr4_pv32_mask = mmu_cr4_features & XEN_CR4_PV32_BITS;
-+    }
-+
-     heap_init_late();
- 
-     init_trace_bufs();
--- 
-2.45.2
++ * is_leaf: true if PTE doesn't address another page table
 
+it should explicitly say (L1 PTE, or PSE, or not present yet)
+
+The *pte & _PAGE_PRESENT test alone still looks surprising to the
+reader, though: we don't return because the page is present, but because
+we reached the last possible level that we could fill, which is either
+L1, or an existing PSE. It is true that when is_leaf is 1, if it's not
+L1 but present, it's necessarily a PSE, but it's clearer to the reader
+to write what we meant: L1 or PSE, so something like:
+
+if ( lvl == L1_FRAME || (*pte & _PAGE_PRESENT) ) {
+    assert ( lvl == L1_FRAME || (*pte & _PAGE_PSE) ); // we are at last possible level
+    [...]
+}
+
+Samuel
 
