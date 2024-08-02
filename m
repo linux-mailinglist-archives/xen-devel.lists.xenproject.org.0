@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65A03945AC9
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 11:18:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.770788.1181379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B560945AD7
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 11:22:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.770796.1181389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZoQ9-0000LD-7I; Fri, 02 Aug 2024 09:17:57 +0000
+	id 1sZoU3-0001sc-PS; Fri, 02 Aug 2024 09:21:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 770788.1181379; Fri, 02 Aug 2024 09:17:57 +0000
+Received: by outflank-mailman (output) from mailman id 770796.1181389; Fri, 02 Aug 2024 09:21:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZoQ9-0000Io-2k; Fri, 02 Aug 2024 09:17:57 +0000
-Received: by outflank-mailman (input) for mailman id 770788;
- Fri, 02 Aug 2024 09:17:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sZoU3-0001pz-MK; Fri, 02 Aug 2024 09:21:59 +0000
+Received: by outflank-mailman (input) for mailman id 770796;
+ Fri, 02 Aug 2024 09:21:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bU9L=PB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZoQ7-00005g-A2
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 09:17:55 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 191ee0d9-50b0-11ef-8776-851b0ebba9a2;
- Fri, 02 Aug 2024 11:17:53 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-52efbb55d24so12251512e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 02:17:53 -0700 (PDT)
+ id 1sZoU1-0001pr-Pl
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 09:21:57 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a9fbba4d-50b0-11ef-bc03-fd08da9f4363;
+ Fri, 02 Aug 2024 11:21:56 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5afa207b8bfso8397285a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 02:21:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9d4379asm75221166b.138.2024.08.02.02.17.51
+ a640c23a62f3a-a7dc9d45452sm75452066b.111.2024.08.02.02.21.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Aug 2024 02:17:52 -0700 (PDT)
+ Fri, 02 Aug 2024 02:21:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 191ee0d9-50b0-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: a9fbba4d-50b0-11ef-bc03-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722590273; x=1723195073; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722590516; x=1723195316; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8ZK76z8aIs69JD8JU7H2Y5Zjmu8Sx0T3prGDbGcYxwk=;
-        b=R8T2UqnzkeEo33+zoYzul1/iJ2xdD4q38m/fj8idtow2pxoe91TEZRL5rgJoJ/MKPK
-         eLWRnnfuwNkWUEB3g1zY6U658fiWyRmbDD304vZzIuVVFoVJDyymOvYfTCEB7nTjxBV5
-         aMAzQWM3tBllI7nHnR0iC7RlRnc8NYoivBydG8PgsB0Zix8JfJ0la26YZy+q+Sn24uDK
-         TSKdDyFlIP1ryG0TEwcd2JM+aBdKb423O+eCN/pD/cB70mRvZZbz1VN2XIrlJeT1LisN
-         l41kxuP45aTEi2QegtDoR7O+QpH5x3c6ExA6YzTk5AYaCBXP6LFdUPhpKDjLyzEmUalV
-         0unQ==
+        bh=N8+EJYI9leEtgevuRyDON90kG9LR0bATAV0PxKKihd8=;
+        b=G03HjcEenn9MIU6zxtlcz9VSFSji3x3WrNoNTosbkvJpE1glHpVpkmuKSb9aEJLM5B
+         g+AkwirxfPeo7jbe+b0NF2Ap5G3lyrf7beShWxGEaf/uulrpTpzdQyCyUgfXZTBOIgn2
+         VMFSvwHJRtSRhmgF4or1bBLLG3hqbcVN/ov9W9qt1jLPBmIoDnuaqlN0NHfcR++n3jNe
+         S4WOhJZyELnw6hFpJQwRHN5rg7v4/Zn3h0pxH+RbCu3XBUP8yuWPANyl8aiGRscz786Z
+         ynakVVpY7VeN6JczQAfFnrU8dB/OtTh4DdlMUNuuimxHdmArb/nJR+V/dbd/YW7dwdyV
+         pyew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722590273; x=1723195073;
+        d=1e100.net; s=20230601; t=1722590516; x=1723195316;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8ZK76z8aIs69JD8JU7H2Y5Zjmu8Sx0T3prGDbGcYxwk=;
-        b=ROH5N7cRs5zphmEXcxECR4lvC22Q6TMAzwUkkXwc1eaTVgbd7D3ucVub2HimY260VQ
-         tUlHeurUXk/zKHo4VGz3H5YhRwgoUtIOB9Jxqa8CL49GExpbVhpvgjtw78/WdgJMXET7
-         mO+YGeKhr2pVjF9c1YB6oOJmUBH3lanjJA5PyrtToDhwI1KhuZqNwt1UJclxXk3VKx1D
-         O8Qc9gfvLxB/98ZIpRbrFgZ475/tfgowNIqnscGgLYzAG5pu0IzG2bVsL//7zBvAV/7F
-         itdXr8b9E1uAmTH12GhjA4iEKJAJuep8qLc187BijDrLbX8DhGqF07yFly7TOwZ357Og
-         43Ig==
-X-Forwarded-Encrypted: i=1; AJvYcCVvXP4voCEOjRnVwzEOEWQxsyTR3yB7y8IqTMWMGq2vUDVqT7JvKepurX8yzb9BuspsFN5LrRBZ8soUVoOxyk8V3n12oQfrzBzde3GkKJw=
-X-Gm-Message-State: AOJu0YxMJUoK60UuNgnf7GAeUbi4+m/EvM7otOPb1bG9Qf3nCnOuEB/Y
-	x1DsnFyI6b44PpQZK5vU4h7RcQktBjh3kQ2yCbogrCbMZom5eRINpYNrOfBgnw==
-X-Google-Smtp-Source: AGHT+IEZa+3Rnvqd7ejylT4hm530vMludnq4Qyn2gi9imnnFCTi0ah98oKOhSIBGMWqOhwWNhdIXYQ==
-X-Received: by 2002:ac2:4e0b:0:b0:52c:db76:2a7a with SMTP id 2adb3069b0e04-530bb393e72mr2318788e87.34.1722590273174;
-        Fri, 02 Aug 2024 02:17:53 -0700 (PDT)
-Message-ID: <ec1a68d4-a3a5-4c47-ad8c-9055abc9a2ec@suse.com>
-Date: Fri, 2 Aug 2024 11:17:50 +0200
+        bh=N8+EJYI9leEtgevuRyDON90kG9LR0bATAV0PxKKihd8=;
+        b=XMuwjzhkFIp1kmGkN1kM0PFpzMxKn8T9GCqiBHnvR1bJ5plRV2rKM+DgS0GHT1WIWB
+         vjkPsQ6/8vQZh5Htl91r+o/U5PCN7Y1I1xcYBND+IHYhKq9ho9h8B/XXf9zJ7DJvuCHM
+         ORVYyyL24phsjPseEOpSxWyVO97uh40UIXYp9Lz8cuwL8n6/XC9/KjhOO9ain1/BkDmP
+         iALavaHlnUIWyy0QcCWjxKLQcfJi50xvv6sEowvvH/IIZMeP910M8JARg2qZsO/DviSE
+         1IGShRQSxtCCutRn3kV7Npc0qoeHAitDJOby3oNVrx1NuXPh6GPXTQflzCeko4KQUj+X
+         NuVQ==
+X-Gm-Message-State: AOJu0YyNmrY0HUMRRATCl6FtUYEf/w+QA1ebmG/A5wO/K+yKGWRnzLLP
+	eFtkNg3B1ZJXPytByzLxFFFBB4n2xwRz0t21CdqlK8GAnie4pAr7G4yg5mbvK2gZRRqZpPn1qYk
+	=
+X-Google-Smtp-Source: AGHT+IFw5FdcHNqUG3khxmyZgbSor5C+nryqVw/byjc7PMgUEHIr8wTfk8iZQ8vGkiHA0SUTTqQ+fg==
+X-Received: by 2002:a17:907:72c9:b0:a7a:d093:f843 with SMTP id a640c23a62f3a-a7dc50feae0mr206020966b.63.1722590516242;
+        Fri, 02 Aug 2024 02:21:56 -0700 (PDT)
+Message-ID: <83e20f26-ae59-4191-a12d-f31f779c91e2@suse.com>
+Date: Fri, 2 Aug 2024 11:21:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v12 2/7] x86/pvh: Allow (un)map_pirq when dom0 is PVH
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>
-References: <Zqn7HEuooChgRCuf@macbook>
- <d65ae152-22ee-4a57-8ff4-43ef0c234f5f@suse.com> <ZqoF55yapMxGN_WM@macbook>
- <fa33fbf8-32b6-48dc-a30c-dd76b021a76d@suse.com> <ZqogJVHV36ytYVP1@macbook>
- <ff922c7a-aa66-4b23-8b9f-63b0b403ff14@suse.com> <Zqo2N7CDshL7ZoMK@macbook>
- <BL1PR12MB584914D078416A5F0ECA0AE0E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZqyUxv7UcaRcksCG@macbook>
- <BL1PR12MB584967C87F8EBC9B753C7B10E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
- <ZqyaWryc_42KSnK_@macbook>
- <BL1PR12MB58493838F5F7A13AC3DC80E5E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v11 4/5] xen/riscv: enable GENERIC_BUG_FRAME
+To: oleksii.kurochko@gmail.com
+Cc: xen-devel@lists.xenproject.org
+References: <cover.1721731887.git.oleksii.kurochko@gmail.com>
+ <b79bcfb9031564fc8d275af66fa94c1e82e54de2.1721731887.git.oleksii.kurochko@gmail.com>
+ <7c03ed78-7c80-45bf-acf3-a916b7abb7d5@suse.com>
+ <6c379c6a0ac3e046c67647fa63d085a341906224.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,25 +113,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB58493838F5F7A13AC3DC80E5E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <6c379c6a0ac3e046c67647fa63d085a341906224.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02.08.2024 10:40, Chen, Jiqian wrote:
-> On 2024/8/2 16:35, Roger Pau Monné wrote:
->> On Fri, Aug 02, 2024 at 08:17:15AM +0000, Chen, Jiqian wrote:
->>> On 2024/8/2 16:11, Roger Pau Monné wrote:
->>>> I think this patch needs to be adjusted to drop the change to
->>>> xen/arch/x86/physdev.c, as just allowing PHYSDEVOP_{,un}map_pirq
->>>> without any change to do_physdev_op() should result in the correct
->>>> behavior.
->>> Do you mean that I don't need to add any further restrictions in do_physdev_op(), just simply allow PHYSDEVOP_{,un}map_pirq in hvm_physdev_op() ?
+On 02.08.2024 11:14, oleksii.kurochko@gmail.com wrote:
+> On Mon, 2024-07-29 at 15:00 +0200, Jan Beulich wrote:
+>>> To have working BUG(), WARN(), ASSERT, run_in_exception_handler()
+>>> it is needed to enable GENERIC_BUG_FRAME.
+>>>
+>>> ebreak is used as BUG_insn so when macros from <xen/bug.h> are
+>>> used, an exception with BREAKPOINT cause will be generated.
+>>>
+>>> ebreak triggers a debug trap, which starts in debug mode and is
+>>> then filtered by every mode. A debugger will first handle the
+>>> debug trap and check if ebreak was set by it or not. If not,
+>>> CAUSE_BREAKPOINT will be generated for the mode where the ebreak
+>>> instruction was executed.
 >>
->> That's my understanding, yes, no further restrictions should be added.
-> 
-> Are you okey with this?
+>> Here and in the similar code comment you talk about an external
+>> debugger, requiring debug mode, which is an optional feature. In
+>> my earlier comments what I was referring to was pure software
+>> debugging. I continue to fail to see how properly distinguishing
+>> ebreak uses for breakpoints from ebreak uses for e.g. BUG() and
+>> WARN() is going to be feasible.
+> GDB keeps track of what addresses it has breakpoints at.
 
-I think I already indicated so - yes, for the time being.
+Of course it does. But in Xen how do you decide whether to trigger
+the debugger when you've hit an ebreak? (Just to repeat, my question
+is about the purely software debugging case; no hardware debugging
+extensions. In such a case, aiui, Xen gains control first and then
+decides whether to trigger the debugger, or whether to handle the
+exception internally. Sure, none of this infrastructure is in place
+right now, but imo it wants taking into consideration.)
+
+> And if QEMU is being used, GDB isn't actually inserting ebreak
+> instructions because QEMU has an infinite amount of "hardware"
+> breakpoints.
+> 
+> If it answers your original question I could add this to commit
+> message/code in the next patch version.
+
+I'm afraid it still doesn't.
 
 Jan
 
