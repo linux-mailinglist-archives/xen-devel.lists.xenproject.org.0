@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B181945AB7
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 11:17:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.770782.1181369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65A03945AC9
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 11:18:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.770788.1181379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZoPD-0008D8-UP; Fri, 02 Aug 2024 09:16:59 +0000
+	id 1sZoQ9-0000LD-7I; Fri, 02 Aug 2024 09:17:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 770782.1181369; Fri, 02 Aug 2024 09:16:59 +0000
+Received: by outflank-mailman (output) from mailman id 770788.1181379; Fri, 02 Aug 2024 09:17:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZoPD-0008Az-QW; Fri, 02 Aug 2024 09:16:59 +0000
-Received: by outflank-mailman (input) for mailman id 770782;
- Fri, 02 Aug 2024 09:16:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sZoQ9-0000Io-2k; Fri, 02 Aug 2024 09:17:57 +0000
+Received: by outflank-mailman (input) for mailman id 770788;
+ Fri, 02 Aug 2024 09:17:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bU9L=PB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZoPC-0008Ar-Pl
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 09:16:58 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f7aec022-50af-11ef-bc03-fd08da9f4363;
- Fri, 02 Aug 2024 11:16:57 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-52efaae7edfso8032028e87.2
- for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 02:16:57 -0700 (PDT)
+ id 1sZoQ7-00005g-A2
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 09:17:55 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 191ee0d9-50b0-11ef-8776-851b0ebba9a2;
+ Fri, 02 Aug 2024 11:17:53 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-52efbb55d24so12251512e87.1
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 02:17:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5b839610c77sm857100a12.9.2024.08.02.02.16.56
+ a640c23a62f3a-a7dc9d4379asm75221166b.138.2024.08.02.02.17.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Aug 2024 02:16:56 -0700 (PDT)
+ Fri, 02 Aug 2024 02:17:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7aec022-50af-11ef-bc03-fd08da9f4363
+X-Inumbo-ID: 191ee0d9-50b0-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722590217; x=1723195017; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722590273; x=1723195073; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ldbi6SSx2WfjmQDZURnzPjhUzF/sNPYST4E6keKp9Lc=;
-        b=RQGXAVZ0Htl3UU9WRUdScWcm3qWyvcY0uXLEoVyWdDNDJAa/wdbYkecC9Vwnf0S1Hi
-         OIsLurwyuv7SsyTvQVFdRkOhhXBzpNPBhuFhtjfet+hheUTzE2J+1jU2dPPdXBUz+eXi
-         DtROQGeeT6D3gTUZRKaywKVwkaEPUdm+Ov9jFwcLpzyG4Ew5SnWqEZgbU6vzqdTVxvYn
-         NblXdLscptwI6lrUD8xhR1JzY9g5OmfeuWzzXmOCqEz8sppORijMz4nCp2MvmBkAbL7t
-         Mk41L6TOnWJgopaFxiagpA5esCOPkshv7QrRZzPK9vhtsXxAmfS+qOAr8X/CzsJiJ/4A
-         EVGQ==
+        bh=8ZK76z8aIs69JD8JU7H2Y5Zjmu8Sx0T3prGDbGcYxwk=;
+        b=R8T2UqnzkeEo33+zoYzul1/iJ2xdD4q38m/fj8idtow2pxoe91TEZRL5rgJoJ/MKPK
+         eLWRnnfuwNkWUEB3g1zY6U658fiWyRmbDD304vZzIuVVFoVJDyymOvYfTCEB7nTjxBV5
+         aMAzQWM3tBllI7nHnR0iC7RlRnc8NYoivBydG8PgsB0Zix8JfJ0la26YZy+q+Sn24uDK
+         TSKdDyFlIP1ryG0TEwcd2JM+aBdKb423O+eCN/pD/cB70mRvZZbz1VN2XIrlJeT1LisN
+         l41kxuP45aTEi2QegtDoR7O+QpH5x3c6ExA6YzTk5AYaCBXP6LFdUPhpKDjLyzEmUalV
+         0unQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722590217; x=1723195017;
+        d=1e100.net; s=20230601; t=1722590273; x=1723195073;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ldbi6SSx2WfjmQDZURnzPjhUzF/sNPYST4E6keKp9Lc=;
-        b=btrdiebjeKC2RfWuXT3+ToTwEI01vYKc+7aToD2p+h0kE5wvzh0z06dzj7dUApKOYf
-         mGQRl2bjNbVjp5qGRYJB1td0VEqnZeAOKylNXHAzbIsJ8zIMLu6AsiheWnvIQ9hNC9BN
-         lLQBNbKxFItYiuRQgxr0T1E++fsOGy8t3ZlecalivfPoGWJAOArgWHhbD7FwuHT6m8LM
-         TwigFtCZt9wYsB8RiNT3e2cGQqOFSj2DgausYtGOgx0aK2pxzpyq68hkQpIQPaEy26BK
-         AdobKh3t2zAfxOzCoc1e6+4umHvq9q/JFXqivgbxddvd1CECQ39qBQ7NXYegTTd8k5Pt
-         MAoQ==
-X-Gm-Message-State: AOJu0Yz1CxPHea1vH+j0+JF/WE5JfN7ZXyJUUP/Dz43R5IUUZzgvvdAT
-	g1jmSCLefZa+7sZwsdcqmdk+2Z8dkEl0d4PGNHMNvbe2c25wr2ofXAbu4kqK2MrVtRMNah4PTCA
-	=
-X-Google-Smtp-Source: AGHT+IErRr3g3Mt4PXf7WAiOaZNq6Ic/dbjKvEaLKnvQNyJQF4TpPMR5qBc53J+0UolN8Kbjv7+EIQ==
-X-Received: by 2002:a05:6512:104f:b0:52e:9b92:49ad with SMTP id 2adb3069b0e04-530bb354fe8mr1664114e87.0.1722590217060;
-        Fri, 02 Aug 2024 02:16:57 -0700 (PDT)
-Message-ID: <72931086-36d7-4761-be55-6be45a430cac@suse.com>
-Date: Fri, 2 Aug 2024 11:16:55 +0200
+        bh=8ZK76z8aIs69JD8JU7H2Y5Zjmu8Sx0T3prGDbGcYxwk=;
+        b=ROH5N7cRs5zphmEXcxECR4lvC22Q6TMAzwUkkXwc1eaTVgbd7D3ucVub2HimY260VQ
+         tUlHeurUXk/zKHo4VGz3H5YhRwgoUtIOB9Jxqa8CL49GExpbVhpvgjtw78/WdgJMXET7
+         mO+YGeKhr2pVjF9c1YB6oOJmUBH3lanjJA5PyrtToDhwI1KhuZqNwt1UJclxXk3VKx1D
+         O8Qc9gfvLxB/98ZIpRbrFgZ475/tfgowNIqnscGgLYzAG5pu0IzG2bVsL//7zBvAV/7F
+         itdXr8b9E1uAmTH12GhjA4iEKJAJuep8qLc187BijDrLbX8DhGqF07yFly7TOwZ357Og
+         43Ig==
+X-Forwarded-Encrypted: i=1; AJvYcCVvXP4voCEOjRnVwzEOEWQxsyTR3yB7y8IqTMWMGq2vUDVqT7JvKepurX8yzb9BuspsFN5LrRBZ8soUVoOxyk8V3n12oQfrzBzde3GkKJw=
+X-Gm-Message-State: AOJu0YxMJUoK60UuNgnf7GAeUbi4+m/EvM7otOPb1bG9Qf3nCnOuEB/Y
+	x1DsnFyI6b44PpQZK5vU4h7RcQktBjh3kQ2yCbogrCbMZom5eRINpYNrOfBgnw==
+X-Google-Smtp-Source: AGHT+IEZa+3Rnvqd7ejylT4hm530vMludnq4Qyn2gi9imnnFCTi0ah98oKOhSIBGMWqOhwWNhdIXYQ==
+X-Received: by 2002:ac2:4e0b:0:b0:52c:db76:2a7a with SMTP id 2adb3069b0e04-530bb393e72mr2318788e87.34.1722590273174;
+        Fri, 02 Aug 2024 02:17:53 -0700 (PDT)
+Message-ID: <ec1a68d4-a3a5-4c47-ad8c-9055abc9a2ec@suse.com>
+Date: Fri, 2 Aug 2024 11:17:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [xen-4.19-testing test] 187097: regressions - FAIL
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: xen-devel@lists.xenproject.org,
- osstest service owner <osstest-admin@xenproject.org>
-References: <osstest-187097-mainreport@xen.org>
- <73902a85-2750-4684-b6f5-33dd67c72172@suse.com> <ZqyRBbeY8KAzdjXV@l14>
+Subject: Re: [XEN PATCH v12 2/7] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+ "Huang, Ray" <Ray.Huang@amd.com>
+References: <Zqn7HEuooChgRCuf@macbook>
+ <d65ae152-22ee-4a57-8ff4-43ef0c234f5f@suse.com> <ZqoF55yapMxGN_WM@macbook>
+ <fa33fbf8-32b6-48dc-a30c-dd76b021a76d@suse.com> <ZqogJVHV36ytYVP1@macbook>
+ <ff922c7a-aa66-4b23-8b9f-63b0b403ff14@suse.com> <Zqo2N7CDshL7ZoMK@macbook>
+ <BL1PR12MB584914D078416A5F0ECA0AE0E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZqyUxv7UcaRcksCG@macbook>
+ <BL1PR12MB584967C87F8EBC9B753C7B10E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZqyaWryc_42KSnK_@macbook>
+ <BL1PR12MB58493838F5F7A13AC3DC80E5E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,41 +126,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZqyRBbeY8KAzdjXV@l14>
+In-Reply-To: <BL1PR12MB58493838F5F7A13AC3DC80E5E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02.08.2024 09:55, Anthony PERARD wrote:
-> On Fri, Aug 02, 2024 at 08:33:09AM +0200, Jan Beulich wrote:
->> On 01.08.2024 23:38, osstest service owner wrote:
->>> flight 187097 xen-4.19-testing real [real]
->>> flight 187112 xen-4.19-testing real-retest [real]
->>> http://logs.test-lab.xenproject.org/osstest/logs/187097/
->>> http://logs.test-lab.xenproject.org/osstest/logs/187112/
->>>
->>> Regressions :-(
->>>
->>> Tests which did not succeed and are blocking,
->>> including tests which could not be run:
->>>  test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop       fail REGR. vs. 187044
+On 02.08.2024 10:40, Chen, Jiqian wrote:
+> On 2024/8/2 16:35, Roger Pau Monné wrote:
+>> On Fri, Aug 02, 2024 at 08:17:15AM +0000, Chen, Jiqian wrote:
+>>> On 2024/8/2 16:11, Roger Pau Monné wrote:
+>>>> I think this patch needs to be adjusted to drop the change to
+>>>> xen/arch/x86/physdev.c, as just allowing PHYSDEVOP_{,un}map_pirq
+>>>> without any change to do_physdev_op() should result in the correct
+>>>> behavior.
+>>> Do you mean that I don't need to add any further restrictions in do_physdev_op(), just simply allow PHYSDEVOP_{,un}map_pirq in hvm_physdev_op() ?
 >>
->> Hmm, this is now pretty persistent in failing. Yet none of the changes
->> under test should have affected behavior in any way. Ideas, anyone?
+>> That's my understanding, yes, no further restrictions should be added.
 > 
-> This test passed only a single time, across all branches in the last
-> year. And that happen to be on the new stable branch.
+> Are you okey with this?
 
-Oh, wow - I didn't even think of this as a possibility; I could have
-checked myself otherwise.
-
-> http://logs.test-lab.xenproject.org/osstest/results/history/test-amd64-amd64-xl-qemut-ws16-amd64/ALL.html
-> 
-> The success rate is incredebly low.
-> 
-> force-push ?
-
-Yes. No idea how force-pushes work these days, though. Nor did I ever
-do any myself.
+I think I already indicated so - yes, for the time being.
 
 Jan
 
