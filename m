@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 360BA945E38
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 14:59:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.771134.1181719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF661945E69
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 15:13:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.771158.1181729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZrsX-0006w2-TG; Fri, 02 Aug 2024 12:59:29 +0000
+	id 1sZs5L-0001mn-5d; Fri, 02 Aug 2024 13:12:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 771134.1181719; Fri, 02 Aug 2024 12:59:29 +0000
+Received: by outflank-mailman (output) from mailman id 771158.1181729; Fri, 02 Aug 2024 13:12:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZrsX-0006tt-Pp; Fri, 02 Aug 2024 12:59:29 +0000
-Received: by outflank-mailman (input) for mailman id 771134;
- Fri, 02 Aug 2024 12:59:28 +0000
+	id 1sZs5L-0001kA-2l; Fri, 02 Aug 2024 13:12:43 +0000
+Received: by outflank-mailman (input) for mailman id 771158;
+ Fri, 02 Aug 2024 13:12:41 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sZrsW-0006tj-Bi; Fri, 02 Aug 2024 12:59:28 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1sZs5J-0001k4-IK
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 13:12:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sZrsW-0005Qu-8U; Fri, 02 Aug 2024 12:59:28 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sZrsV-0002XU-VH; Fri, 02 Aug 2024 12:59:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sZrsV-00074b-UT; Fri, 02 Aug 2024 12:59:27 +0000
+ (envelope-from <julien@xen.org>)
+ id 1sZs5E-0005jD-Ao; Fri, 02 Aug 2024 13:12:36 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sZs5E-00036G-2g; Fri, 02 Aug 2024 13:12:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +39,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=MJhm09PyrdgO8RjnPLmxNJR8xiSbwkXLk2aD1WlEuIg=; b=NU45m6DmPUkUlwPp6T0C88Dh1M
-	7v3WPOh0bb4rbr5xr3zzWBJQs6wqf5EByvfdm071RFZc088HTpV2Nw+T0Vuam/WcdkxSudE56pw2l
-	0ZcwYK0UvuJuT617AGX40cObwfl2u0QYrTFW1CXUQ1zfEMQ1CbpERULRq2t2AfJhuRTk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187122-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=JupsZZ+Diqhv/xf89O+5VVu+c/Z5WfGq1+1dwyo21PE=; b=EptXq9PrF7SsddQJMKUEq6/mEY
+	G7lXscW48vnzV6mI/G2XAS1xgpQcJjiu0BxIGVjwgSHY8yCPKQqB36Tt0m1ckmSrFPNtpURP8dxcn
+	f5DYD8ThxKLi+/d5rDTxuq1qmdcw+loLfbirZV86EAvvO8ed7f3lHFHNMaj/mO5fo9sc=;
+Message-ID: <1e6049c6-9474-40a4-a560-03294f945898@xen.org>
+Date: Fri, 2 Aug 2024 14:12:34 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 187122: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=24a375fcdd26ce5a36bde69b92f638420fddf9c8
-X-Osstest-Versions-That:
-    ovmf=4f5de749cb2247a4ead21523f2d9deb389291636
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 02 Aug 2024 12:59:27 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/4] xen: arm: Add an empty stub for
+ update_identity_mapping()
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, sstabellini@kernel.org,
+ bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com
+Cc: xen-devel@lists.xenproject.org
+References: <20240802121443.1531693-1-ayan.kumar.halder@amd.com>
+ <20240802121443.1531693-2-ayan.kumar.halder@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240802121443.1531693-2-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 187122 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187122/
+Hi Ayan,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 24a375fcdd26ce5a36bde69b92f638420fddf9c8
-baseline version:
- ovmf                 4f5de749cb2247a4ead21523f2d9deb389291636
+On 02/08/2024 13:14, Ayan Kumar Halder wrote:
+> This is in continuation to commit
+> f661a20aa880: "Extract MMU-specific MM code".
+> 
+> update_identity_mapping() is defined for MMU specific logic.
+> It is invoked from smpboot.c. Thus, we add an empty stub to avoid
+> if-defery.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+>   xen/arch/arm/include/asm/arm64/mm.h | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/arm64/mm.h b/xen/arch/arm/include/asm/arm64/mm.h
+> index e0bd23a6ed..f595205fa3 100644
+> --- a/xen/arch/arm/include/asm/arm64/mm.h
+> +++ b/xen/arch/arm/include/asm/arm64/mm.h
+> @@ -14,6 +14,7 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
+>   
+>   void arch_setup_page_tables(void);
+>   
+> +#ifdef CONFIG_MMU
+>   /*
+>    * Enable/disable the identity mapping in the live page-tables (i.e.
+>    * the one pointed by TTBR_EL2).
+> @@ -22,6 +23,11 @@ void arch_setup_page_tables(void);
+>    * supported.
+>    */
+>   void update_identity_mapping(bool enable);
+> +#else /* CONFIG_MMU */
+> +static inline void update_identity_mapping(bool enable)
+> +{
+> +}
+> +#endif /* CONFIG_MMU */
 
-Last test of basis   187120  2024-08-02 08:11:33 Z    0 days
-Testing same since   187122  2024-08-02 10:13:19 Z    0 days    1 attempts
+The name of the function reads a bit odd in the context of the MPU. How 
+about providing a new helper called update_boot_mapping()? For MPU, it 
+would still be empty (assuming this is the right approach) whereas for 
+the MMU it would call update_identity_mapping().
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jiaxin Wu <jiaxin.wu@intel.com>
+Cheers,
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+-- 
+Julien Grall
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   4f5de749cb..24a375fcdd  24a375fcdd26ce5a36bde69b92f638420fddf9c8 -> xen-tested-master
 
