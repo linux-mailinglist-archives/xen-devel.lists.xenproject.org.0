@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C2D9945D3C
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 13:27:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.771028.1181609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35DB8945DA0
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 14:06:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.771042.1181619 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZqQi-0002WF-Nu; Fri, 02 Aug 2024 11:26:40 +0000
+	id 1sZr23-0000iG-Ng; Fri, 02 Aug 2024 12:05:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 771028.1181609; Fri, 02 Aug 2024 11:26:40 +0000
+Received: by outflank-mailman (output) from mailman id 771042.1181619; Fri, 02 Aug 2024 12:05:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZqQi-0002SU-Kp; Fri, 02 Aug 2024 11:26:40 +0000
-Received: by outflank-mailman (input) for mailman id 771028;
- Fri, 02 Aug 2024 11:26:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sZr23-0000fV-KN; Fri, 02 Aug 2024 12:05:15 +0000
+Received: by outflank-mailman (input) for mailman id 771042;
+ Fri, 02 Aug 2024 12:05:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=14L3=PB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sZqQh-0002QR-0z
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 11:26:39 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1487611a-50c2-11ef-8776-851b0ebba9a2;
- Fri, 02 Aug 2024 13:26:37 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-52f00ad303aso12277064e87.2
- for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 04:26:37 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-530bba3d075sm201593e87.268.2024.08.02.04.26.35
+ <SRS0=AAnW=PB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sZr22-0000fP-FQ
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 12:05:14 +0000
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [2607:f8b0:4864:20::82c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 78da1d5c-50c7-11ef-bc03-fd08da9f4363;
+ Fri, 02 Aug 2024 14:05:13 +0200 (CEST)
+Received: by mail-qt1-x82c.google.com with SMTP id
+ d75a77b69052e-44f6700addcso34035741cf.2
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 05:05:13 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-4518a6e5c35sm6788891cf.47.2024.08.02.05.05.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Aug 2024 04:26:35 -0700 (PDT)
+ Fri, 02 Aug 2024 05:05:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,75 +44,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1487611a-50c2-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 78da1d5c-50c7-11ef-bc03-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722597996; x=1723202796; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=YaAP7smygLkz3CuBgBU7MLOgysw2GlGv+eXZXZeMU+o=;
-        b=EJaXTPlyqycjQTgBd8ad9TA0UhjypJA+Pqc/PYoUiqgkS+ppjLKEIjCf/o3WGGSsv6
-         UNpAR9GiJiu1ySv1xnTx6iAypza/8QXpzk6NZqXXI+xOnOZeyHTwEnODGhwQuY29dXuU
-         ApCiFp0HbeXj3IvdI2bLzAPP/LtuiVzSLfpCjb2BXtOX+jaKnd5ig+Qbh7zlgVy/OQik
-         VEZdl6QvkFEPZiqy8BTmB1qwAMdK0QLUe0Cacy7wVfUQ86YRIoYuc+7GBKiliD7MafXD
-         wyGd1825/RQtVo+fYXtKkh0jEIXWbD2XIxVwiH09wnt8e/vNEEZr9IYA4wpNg64VwSaw
-         82EQ==
+        d=citrix.com; s=google; t=1722600312; x=1723205112; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=hVJg0+nu4wkHktptE3dFs15rYFV2ig63vkdRke6igDY=;
+        b=Q/89laYNR/3N/9ZUyYgi4liCSjkgPIzn1g97Cy5KsJEGtzaP864UqsZHItcNUkrgzT
+         gtvKP93dwXP3yBWYVnEz4uwWQ9GiVKtxay3H9JpwUM7eioYGKwWCgIRHW80xatUYmdH8
+         ED7wTVhE0LAv2Qaakca8ba0sccIVTUsu4UbX8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722597996; x=1723202796;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=YaAP7smygLkz3CuBgBU7MLOgysw2GlGv+eXZXZeMU+o=;
-        b=tEdEOb/+9H9AQ2l7mmKB4e38D6ZrynlgNSiMISlsTbB6SRJV5/KlZsdvMBXkZE4VLU
-         IDeiYCPv6r/YyW3B4Gq0K1U8hqFCj+Leq54WwYKfWHSSazPkeVSnL9z9bpGY/4GRw4c/
-         Pw2Mj8h9P/Mhv6xm9rk12E9wAJyPeWoRD1b1Z+pNTbfQgxxmWg+zC5xIu8dBIGRp/xLa
-         2lTzhcD+N8r0OIGgONKbsI2C+YEbOi5o/PHZMJRpfJXr9NEOHnyRv9UtnQdGqfoAm0ht
-         Z47ab8WqYFmjljCZJ0pYjlMFZG27gbVdqj8V2+foCzVMCD0b2ddCT/bLEUcoFnwSEqog
-         J6pw==
-X-Gm-Message-State: AOJu0YzQMsK02TLGcex6uecH0vp6bNiKgk9QBz6PrlnLSlbVv27ca2Sn
-	R51zv1s0zaOHGWXn+qPlzCpCxRZzdcR7fh4s2tPqDxbSKubjKiWY
-X-Google-Smtp-Source: AGHT+IEl6snRdxuhBwAEONwVjY8XhE6pjDejADBKmvzhb+LJsoK1BmUCXi8mtWmMmDMqc7/NHlvLbg==
-X-Received: by 2002:a05:6512:b98:b0:52c:c9bb:2ba4 with SMTP id 2adb3069b0e04-530bb3cde63mr1869125e87.46.1722597995939;
-        Fri, 02 Aug 2024 04:26:35 -0700 (PDT)
-Message-ID: <2d61a90941e2df7b24907b8578a425ea6bfe15c7.camel@gmail.com>
-Subject: Re: [PATCH v11 4/5] xen/riscv: enable GENERIC_BUG_FRAME
-From: oleksii.kurochko@gmail.com
+        d=1e100.net; s=20230601; t=1722600312; x=1723205112;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hVJg0+nu4wkHktptE3dFs15rYFV2ig63vkdRke6igDY=;
+        b=YXShiwf3fGR54xqyDxF3IKGr5d/gcKUcqDVlO3Kvpx7LazBQCflm9tToaICaOvnGC0
+         g/zlXSBQDKmQmwbHQnJ0ZO4tAN6dZyEe8MCcpmyettPLN1Fq45o42zj3DKT0REp+5OgE
+         YNpxrQ6kr0KQOPVHis78Jijc3thPalgR0diImj2zK0M8w/Pkacw74T2HaHUxbRKSOqS2
+         ABo/hOQDmAN9R7t3eqK2ijhAlGPNzBg2TiIP0TMjPDV3pD4hj3GHRGjp6DM7Aqgl1qv5
+         IVuRbVYRfj5dCPf57XTO53XBOxzjJ8NsmgJx3g475MC14kZ7WV6K3P7SRwf7uAG6CpBE
+         k9Yg==
+X-Gm-Message-State: AOJu0Yyrw/LfQil6gPc99LuYk3+9o4iBFZnPKxOShchU5Xooas3fEsky
+	0h3BfCnD4RR3A8UBKudOeT5FjZMyrcFEM+wiwTwCjx4h75kUbLXJLCIA9SddJyc=
+X-Google-Smtp-Source: AGHT+IHeF40GD7omxwOogNikdKICNXxzXqHXdcGsQGpV2pXlHpmWtWqAMp3K2GRxEVuGSEHBdOvBxQ==
+X-Received: by 2002:ac8:580a:0:b0:447:f89a:4d37 with SMTP id d75a77b69052e-4518929e522mr35873881cf.44.1722600312002;
+        Fri, 02 Aug 2024 05:05:12 -0700 (PDT)
+Date: Fri, 2 Aug 2024 14:05:08 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Date: Fri, 02 Aug 2024 13:26:35 +0200
-In-Reply-To: <6f339355-4f82-4b84-b437-cc72dc063b64@suse.com>
-References: <cover.1721731887.git.oleksii.kurochko@gmail.com>
-	 <b79bcfb9031564fc8d275af66fa94c1e82e54de2.1721731887.git.oleksii.kurochko@gmail.com>
-	 <7c03ed78-7c80-45bf-acf3-a916b7abb7d5@suse.com>
-	 <6c379c6a0ac3e046c67647fa63d085a341906224.camel@gmail.com>
-	 <83e20f26-ae59-4191-a12d-f31f779c91e2@suse.com>
-	 <a16ac4cd3fe0143e40f8b5ec993cd6049d41ea3d.camel@gmail.com>
-	 <1d3ef706-fa3d-4dee-818c-83904012ca35@suse.com>
-	 <1b3aff2873f3e9a46b6dd7936717c32945ecf30f.camel@gmail.com>
-	 <6f339355-4f82-4b84-b437-cc72dc063b64@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+	Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
+Subject: Re: [XEN PATCH v12 4/7] x86/domctl: Add hypercall to set the access
+ of x86 gsi
+Message-ID: <ZqzLdLAakJ6AGg9O@macbook>
+References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
+ <20240708114124.407797-5-Jiqian.Chen@amd.com>
+ <ZqyT7ocbP6AZEb_S@macbook>
+ <d5a6b8e4-d848-4b37-83f2-e492c9e99484@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d5a6b8e4-d848-4b37-83f2-e492c9e99484@suse.com>
 
-On Fri, 2024-08-02 at 13:18 +0200, Jan Beulich wrote:
-> On 02.08.2024 13:02, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > There is something what we need is mentioned here:
-> > https://github.com/riscv-non-isa/riscv-asm-manual/blob/main/riscv-asm.m=
-d#instruction-aliases
-> > But the problem is that is "de-facto" standard, but not really
-> > standard
-> > instruction. Anyway, I will update the patch to use (C0001073)
-> > instead
-> > of ebreak.
->=20
-> Well, the official spec, in the C extension, mentions 0x0000 as
-> "defined
-> illegal instruction". Wouldn't using that work? It's going to be
-> undefined
-> no matter whether the C extension is actually implemented.
-It should work. I will use 0x0000 then. Thanks.
+On Fri, Aug 02, 2024 at 11:40:53AM +0200, Jan Beulich wrote:
+> On 02.08.2024 10:08, Roger Pau Monné wrote:
+> > On Mon, Jul 08, 2024 at 07:41:21PM +0800, Jiqian Chen wrote:
+> >> Some type of domains don't have PIRQs, like PVH, it doesn't do
+> >> PHYSDEVOP_map_pirq for each gsi. When passthrough a device
+> >> to guest base on PVH dom0, callstack
+> >> pci_add_dm_done->XEN_DOMCTL_irq_permission will fail at function
+> >> domain_pirq_to_irq, because PVH has no mapping of gsi, pirq and
+> >> irq on Xen side.
+> >> What's more, current hypercall XEN_DOMCTL_irq_permission requires
+> >> passing in pirq to set the access of irq, it is not suitable for
+> >> dom0 that doesn't have PIRQs.
+> >>
+> >> So, add a new hypercall XEN_DOMCTL_gsi_permission to grant/deny
+> >> the permission of irq(translate from x86 gsi) to dumU when dom0
+> >> has no PIRQs.
+> > 
+> > I've been wondering about this, and if the hypercall is strictly to
+> > resolve GSIs into IRQs, isn't that the case that Xen identity maps GSI
+> > into the IRQ space, and hence no translation is required?
+> 
+> It was a long-winded discussion to clarify that in obscure cases
+> translation is required: Whenever there's a source override in ACPI.
 
-~ Oleksii
+Right, I see it's a bit convoluted to get the overrides, as those are
+indexed by IO-APIC pin, so we need to resolve the GSI -> (ioapic, pin)
+first and then check for any possible overrides.
 
+Might be helpful to mention in the commit description that the GSI to
+IRQ translation is done to account for ACPI overrides, as otherwise
+GSIs are identity mapped into IRQs.
+
+Thanks, Roger.
 
