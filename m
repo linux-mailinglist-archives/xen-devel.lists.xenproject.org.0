@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 205809459D2
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 10:24:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.770522.1181289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 744C8945A09
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 10:36:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.770675.1181309 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZnZm-0002qm-9g; Fri, 02 Aug 2024 08:23:50 +0000
+	id 1sZnlK-0005sS-N5; Fri, 02 Aug 2024 08:35:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 770522.1181289; Fri, 02 Aug 2024 08:23:50 +0000
+Received: by outflank-mailman (output) from mailman id 770675.1181309; Fri, 02 Aug 2024 08:35:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZnZm-0002o1-6V; Fri, 02 Aug 2024 08:23:50 +0000
-Received: by outflank-mailman (input) for mailman id 770522;
- Fri, 02 Aug 2024 08:23:49 +0000
+	id 1sZnlK-0005pN-K9; Fri, 02 Aug 2024 08:35:46 +0000
+Received: by outflank-mailman (input) for mailman id 770675;
+ Fri, 02 Aug 2024 08:35:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uPwv=PB=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1sZnZl-0002nv-5P
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 08:23:49 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2060d.outbound.protection.outlook.com
- [2a01:111:f403:200a::60d])
+ <SRS0=AAnW=PB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sZnlJ-0005pH-4n
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 08:35:45 +0000
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [2607:f8b0:4864:20::72a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 89a0bf5f-50a8-11ef-bc03-fd08da9f4363;
- Fri, 02 Aug 2024 10:23:48 +0200 (CEST)
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
- by PH8PR12MB7111.namprd12.prod.outlook.com (2603:10b6:510:22d::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7784.19; Fri, 2 Aug
- 2024 08:23:43 +0000
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::b77f:9333:3a5a:d285]) by BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::b77f:9333:3a5a:d285%3]) with mapi id 15.20.7828.021; Fri, 2 Aug 2024
- 08:23:43 +0000
+ id 350c6f1b-50aa-11ef-bc03-fd08da9f4363;
+ Fri, 02 Aug 2024 10:35:44 +0200 (CEST)
+Received: by mail-qk1-x72a.google.com with SMTP id
+ af79cd13be357-7a1dcc7bc05so482924885a.0
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 01:35:44 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7a34f6dcf20sm67904185a.20.2024.08.02.01.35.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Aug 2024 01:35:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,166 +44,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89a0bf5f-50a8-11ef-bc03-fd08da9f4363
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NC9+UDxbOEA+nJ3pHEYrGoU0aboPMo+MOdMdnnNKRm/XufO8MVhNBaML4p9ma24NBz+nds5vhrfCwVvLOXnt/XTx85Ltil8fKqg4tTHtAbhwliiwnXX0lDJIH5QHpPS4lWmRv/d4eJUY+4Dtv1f2YSQP2B/93GwpPNOtnAJdDz1KOSjqu67KAElJ6n8uZaN1XTXh+mGqggC+3LZmbKJa8gylGSpgJHPxpx0igYWGCZhuk+FN1C20v2i22KYZ0jV7QbVbo89z0cqDAy9CEw6X+zfUnUPiGb5MuCNro/xt0n9k18jmbsIZwx8MScdXnxXNgs/W2kXeTc/sSyj28tdTLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i187gn9CPcijMwA5t3I7vtgJ6MsrVrT4NuyA0N6lhTM=;
- b=DYKGJCQWf0SvAdW3iRgvAN7lFBpvKKMYipyh/3zLsB2ljWICAnEItHDkSKGrQvPhVXfUEcTMk/8g5/FrL151MYz4Iy+YvXRsyD8rm1ro6MptpsyuW9tmgFTxD2XHHPut8wwVHpBlZdGnjeqyJU75aUpiIr3rjArrTKMpCJkDPgbLoBoCd79hceJiGu84EKaTgki9uNqkUewrppGlbNLymryzK8avO3Aa1ZYLRbRaLjMppJpbo2SsR3qJ66zBxdvJaoDfgv24BjbttihDJX3hGDWJjG3Mi5Rkb8+jji+Ir5zrAy4Rrqptkl8j75pkfM0JZnEcI7caincSV3gh9feJag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i187gn9CPcijMwA5t3I7vtgJ6MsrVrT4NuyA0N6lhTM=;
- b=M7vDAkmZAOELHCavN+GLgtJfTDIiFyxDJuTs4q9z+OzLZ5WLNG0Co9NVEI/VaEpYCkF9yuYGFDPUvpRvD0gRbmtnsMsxDNExKjlo6evVVcd6MyvvpyuOt4TpMNFmZp8dJczyQOFJ3XN/nMktyN4IPJj0kgNTNuOfe0SZJ60TdqY=
-From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Jan
- Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Wei
- Liu <wl@xen.org>, George Dunlap <gwd@xenproject.org>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
-	<anthony@xenproject.org>, Juergen Gross <jgross@suse.com>, "Daniel P . Smith"
-	<dpsmith@apertussolutions.com>, "Hildebrand, Stewart"
-	<Stewart.Hildebrand@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Chen,
- Jiqian" <Jiqian.Chen@amd.com>
-Subject: Re: [XEN PATCH v12 4/7] x86/domctl: Add hypercall to set the access
- of x86 gsi
-Thread-Topic: [XEN PATCH v12 4/7] x86/domctl: Add hypercall to set the access
- of x86 gsi
-Thread-Index: AQHa0SvYL4tONjoIyEuzfSK6fk2TK7ITw+cAgACJIwA=
-Date: Fri, 2 Aug 2024 08:23:43 +0000
-Message-ID:
- <BL1PR12MB5849D2461AEFEF735A1A2F17E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
-References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
- <20240708114124.407797-5-Jiqian.Chen@amd.com> <ZqyT7ocbP6AZEb_S@macbook>
-In-Reply-To: <ZqyT7ocbP6AZEb_S@macbook>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-imapappendstamp: BL1PR12MB5849.namprd12.prod.outlook.com
- (15.20.7828.000)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|PH8PR12MB7111:EE_
-x-ms-office365-filtering-correlation-id: 20e8429e-8e6a-4b3d-5fa9-08dcb2cc6bf5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|7416014|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?L1QzU0lLYVpUcVMzeWNOUFNjSm15RmFDRUk3ZG45am9PZG4xZ1NnVFZNcFFu?=
- =?utf-8?B?WUViMmx1ZG9ZRExRTkJzbHlmeG5iclEzTXVreDBUQlM1ODAwelBvWnJzdjgy?=
- =?utf-8?B?ZE9LUm5xRk95dXFHSWVpSEd5UHZ3N0hSdHcwMlU3M21kbVIzaTZBRzN2VFNI?=
- =?utf-8?B?bVFHRjYxNFpYSHBab0x4bGRIeXZ6TnpGUzlrMENIYzNLQVJBUWxjcHlQTFFn?=
- =?utf-8?B?ZEY2b2ZYZGMxanJBajhOMENEcitvSGVPK0kzV293OHZMRU0raDNsOWpPYXFN?=
- =?utf-8?B?WDhSalBwcjJDbFpSbFJtSEMwcUtrR3BFaEh0YjF2RVQrbmovNFdRSWkxS2JL?=
- =?utf-8?B?ZkRydWRWU0xhbWVSZGEybVlZU1hRS1hDdU1FbEdSZ0JYT2ZuY3lDM3FHSDdm?=
- =?utf-8?B?eUxFRnVKUVFGbnZoaTRZTU55d0hmN1hqSm83ckQ3UU4yYTJnOEtXUHFycXJx?=
- =?utf-8?B?NjdBWVpDejhPWWNmR3JUM0NyUldVajdmRTVLUThlZTR1ejRHdGZZY1M4YUdJ?=
- =?utf-8?B?dlFLcEFPVC9YenRGKy8zVFFDQU1OU2VSTjJINWcwTUl2Q0tVK1VYb1RJdVhu?=
- =?utf-8?B?V2x4VEJRUDd5UThYRXh0NFNCNThteThWRkFJRit3VTFzbExiVHBybGR0TDlX?=
- =?utf-8?B?NUJaQjV3bDgwRVVRM0VGaDJobStUMjdUM3JtTGI0RWhSVnlKRi9VUitBR3hl?=
- =?utf-8?B?cVdwSTVOeFY1MDIzUENOMHI4NklzdElJS0w4Um93NDBWZnBpeUl3Tkd5U2VB?=
- =?utf-8?B?ZmdaZzVNLzJrU3hVTkhYTUs4R0NtWklpSlloTWdTZW9HeDZFM0ZxdGpvNzBv?=
- =?utf-8?B?RnVTWG5IbkEzS0IvSnhQYjYvLzNEdUlyMUo3K1BHNVdZaFBhZ05USlZ3b2Vp?=
- =?utf-8?B?VlBxY29LTU1ncnJzSDg5TFJNTG9ickpLbHhiSFdYSFpVdVZZakJXcXQ4Skh5?=
- =?utf-8?B?aGNLV0EyL3JtRFBrc0xGNTR3V011Y3FPOUFzNnRWcm1PdXNzV1JwczZhNzZu?=
- =?utf-8?B?ODZ3dXZzSnRxaWVzbW5xdzVDT2QzVGZOOGtsV20zbzdHTjU2S1NGdTQ3aFFG?=
- =?utf-8?B?cEtqUlQxNC9KWUxxWjkzNWJKQmhjR3VGbnJtSmprdmVkY3h3aDVnbWN1Tjgr?=
- =?utf-8?B?OG1DWjBiejdYSXRycEJEeEhqL2dKV0RhTG9yOXN0Rm5SRm9pd3E4eWR2U3BU?=
- =?utf-8?B?SDBYUGtnTUtpbXFYRmVGaU9EN0VHMEptSm9PYmtRUHVqa2JxcUhKQ0lCdGp6?=
- =?utf-8?B?YmFjMVU5eStNN0lZTVVwRGRtL29xZUI4S0c4VVRUME9GZnpsbnUvTDJpZzl1?=
- =?utf-8?B?MUQ0dUNmVEZrVytqbGdkSkRVa2lRczFkMXZkVTNJVkt4OFhRNWZacXRPU1BT?=
- =?utf-8?B?NzRjZmsxWS9TaVhSQVZ4VW52VmhpUlVFMVlnMXQ5UmxwbTFKdFEwdDBnSkYx?=
- =?utf-8?B?WUNadUQ4YlZ2K244R0pEL0RCeEhCcVJpWkR1V1N1UVZlbG53L2FGVHJxdGVr?=
- =?utf-8?B?a0lseXl3eDVVZHNYNUxoZW5YMEQ1SDNTSy8zSXZiNzN4am1xRjFWOElCTTZY?=
- =?utf-8?B?OW05bEhyblVKbjJNV2k0c29GYnh4cFBwTWIwdnBFVk12SjB1dTZ3cFJBY1hS?=
- =?utf-8?B?YkxGcWdGRTlHZmlMQ3c3aFRWY21idTM1ZHluMFBxeFhMNlg5UktlVUFrZVE3?=
- =?utf-8?B?L05HWVVLVlRSVXFGQS9qUVlGQzdSamxGRDcyN0dIUVA4MVcrblZHcGUwOGth?=
- =?utf-8?B?MEVtY0Vjd0dWTXFuRWZwYzcyVWs4djBmWHFTV0htL2JBZXJORlkzdk85a0NQ?=
- =?utf-8?B?K05wUVI4UXhQcFFrSmEzVGxDSzZ6bDQ2MlBIbTh3am1ITGpkd2JDaHpleENw?=
- =?utf-8?B?anhjZW1hYVRVNExHQ3hYWlZmSS9aODliY2pENnJJaGQvaHc9PQ==?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Z0tVdXhjeUZWUkdub2RtaFNLa2lmOHBaVnlwaUpmN0RIclFWT0xCV01HeC9G?=
- =?utf-8?B?QXkrUEZ0cTJhUVMyYkcybFprVk5pV2dLYzZmZjVKNmZjbEQvVVNKVUZVNm1S?=
- =?utf-8?B?MHZSZ0ozb0U3d29rQlh2QWNpckR2d1M2empKZVZxclJhbWIvRkU5T1FpNUd6?=
- =?utf-8?B?TGN1NjQ4Tm50MTk2NjZBZXV6SnZtaUNkT0lJbE9XTkRmMGhGR2Jud21Cd3Az?=
- =?utf-8?B?Y2t6S0VZOGJCZm5MRVBYUDJYaGxIYkNYbnZGcUVkRXhNa1BGa1Q2WWFiaFdi?=
- =?utf-8?B?S1grbkZLTzlvS2dVSEh2U3dIK1RwSHBKWFNYMlBNcGVmMndLNDAwY3RGNU4r?=
- =?utf-8?B?ZTVRSVYyWXNhbzdXMXAwNXNSSTF0WWRIMmxuR3dkQ21HakVLODJ6ZG0xSmM3?=
- =?utf-8?B?QkM1c0dTN0FVd0RvVFpiWk5PbGI4MXdzK0U3V0dzRGZlOG9teWhsKzFlcFpk?=
- =?utf-8?B?bW5QQW91cTZ0UUFVYjVGdWhqQ0FiQW8yRGRVUlBHNmZVZmMyNjZxOHR0OXpH?=
- =?utf-8?B?R2VEUXVpY1hYSTB2eHNvdDQxQlkrclRxZTNXNytCc2RYQ05JcXdRYlVyRGVx?=
- =?utf-8?B?bjNXYnB6dmZtVjhlT3ZkSzhkODEyMEYwZ2xWeUsxSjdMTzI2VUtqRUdjMGJT?=
- =?utf-8?B?VU1RVlhKcFpVQnNkb3pRZmwyZVQxOXljYjFLYXhIbkJQWkthd0QrQnJVMUMy?=
- =?utf-8?B?cnVVTS8xQktmVVhYY3d0Nno5Uy9ZSUNEZzgvZHZabVdKRW9wQW9CaHhJWGxx?=
- =?utf-8?B?eFBMKzg2S0k0RnF0QW1KSjFwMHZJL3Z1ckNEMlkrVHJiMERSMFFISi9iMy9z?=
- =?utf-8?B?d2JaYzgxM0pmek1TRWpVTEdYVmxsMEpXdUNQTUh2TlBVa0VSVGg3VUVuM24v?=
- =?utf-8?B?N28zWDVzMUlGUXo1a1F0QWJ6RTVFRXVnTHJDZXFxeWhkVTlFOEtrK09IaitP?=
- =?utf-8?B?NnVOVkRPYis4Tm1lVkhDc1kxWDdZNG53NmxSenRUQkRFYVpod2VybkRiMTc1?=
- =?utf-8?B?M1lYOHNVOVBtbHhiZGJkZ0w1T3dNZDRpR0NBaXlDVlBINmN0VUFzU3RJTDYw?=
- =?utf-8?B?a1FzVVJKY2s2WFM4aTNVdFdVb3V6aWo2QU9GQXN2Z0UrUXl6RFExTFh0SjVZ?=
- =?utf-8?B?dnQ1RlEyaC90clNOaVNtdS9XMzJ4bGdKN3JLY2Z6L3JYcFllY1FrV1JaTXg3?=
- =?utf-8?B?WmxzT0F2VVFQamZxRG1TUkdLTnEyc3padXVtVjNOQlluaWtMenh5TlJxQzM0?=
- =?utf-8?B?YjkwdURMZTNoeERuMTJkaUNCZFdvOW5wKzBrWkJHKzFWeGVTcFdWeEZJdWEv?=
- =?utf-8?B?bGxhektzNUZEL0lhUE5KWm90K3BrcWFNaHJvVXA0OWN3WlFpVnZHWEtFRjlx?=
- =?utf-8?B?VkRXTit3cGtWOTVNbE5GdGtncDlkeHF6Vm9aK2pFUzhKc1NjVTZrQU5xYVRz?=
- =?utf-8?B?d2xyZFYzZ2xjbkx3ZWpPeHFYbU9NVm83d2RIQzUwQkNBelluVE8zMVNDRmk0?=
- =?utf-8?B?K0F4bUQ2MkNJbmczR2tFL1RrZFE2aTl6RW1mUGtrelBlaTRCNm5QTUFRZ1R1?=
- =?utf-8?B?MTJQVGZucmxqelkzMXRMNnNqVVBoMmh2c1NLQnBtaEtRd0x4a0RzS3hMOFlZ?=
- =?utf-8?B?RlhCYWg2MUJOZStYYTFOTEJiVFl4anBZU0tZOVZla2hRUVEveUREcnIzMHhK?=
- =?utf-8?B?VmRJT2tnd2g3czVhUHRuVlpnbHl6emdvTWRZZVhYQi9hWFFnekhZNDFzLzYv?=
- =?utf-8?B?QjhkWEM3VVIzaDY3cHp3ZDVVTmFwMXVMRjB6SFQvR3VSaHVCY0IxbXZYQ1Z6?=
- =?utf-8?B?RXJTbnhVZ1JoRVV3V2wxQThFYkMyL29JQytQR0VJRDVXRk9tUnIxeHpCY0JJ?=
- =?utf-8?B?QXpvenU0RzdBa25JTjJwcTBuOFlwRXA5Q3lDcnFpR1M2cmhWVmovczR2MXdo?=
- =?utf-8?B?UkpuVi9JMlZwb3k2eWlCcUR3YVpPRG9venA5MDcveTAyUHN2eHZVcVVYSTVr?=
- =?utf-8?B?bmJjaWNMbUxtN01WVXVpOTJ5UE9qV0xEczZqZU94NzJ5SFo0c1BBWEh4dWhI?=
- =?utf-8?B?UHJOWFpGN2FVR3doWUdtTmNUMTdvVlQyUkVLOS8zUmpkOWJ3VWVqQlExU3dY?=
- =?utf-8?Q?+A9g=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <9295BB0216942D4E8C38E1B11B8AC931@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 350c6f1b-50aa-11ef-bc03-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1722587743; x=1723192543; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=IsXXsBEw2nBwJhLPq7U38pcK5WWigxV/U3pzN3u3zSQ=;
+        b=ozidcaftSp0n0SangJDa5fGDCQlDVLGeIaLB/yreW9B3fyhqrMALK6UaNncuXvlDlk
+         6wmpvX1C5HEJLwW7LFyaD7dRTVwJsIUNrMmZpE8Cm0ylVbueeyzrAalsj6gPdXg75oWz
+         8g0vTOOP3ihG1eQb9Yee0moK2J8BGJiTJjw/w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722587743; x=1723192543;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=IsXXsBEw2nBwJhLPq7U38pcK5WWigxV/U3pzN3u3zSQ=;
+        b=AEjm0wx91sCZJMI65CdWQxWcEvY8NomlEzheWcRVndCdP0m9oM8NIK0wpBiMuYBE4h
+         EjtsR69T+jL7OHWYAUNDAJ3cULtSnoCCzqbbUw95vicrbi/7yQ6JEEG8ZIYEl6O4blqX
+         0KCvliH/aehhMcAbc5ZLgpQyFepru3zp/hhI2Pj5efMlOUuyPW/TAxFOIcpNQb/j5B3P
+         jw+LnoKKnfufm/bKyaU2bbugJr5rhtd6KC15BejG9nBMXbOsWOPy7vOH/Li2djLx3/xA
+         VZt2VJaZjBzNwinINygDWx2mdOUdPz83gTXVPmR9vpiJGrAOO1QnGe/hyVKz+MFHLYbf
+         1+1g==
+X-Forwarded-Encrypted: i=1; AJvYcCU3HJlllAUx6t8l6GLVWY3bD4tYYLVVOq7SZAvTpV/xEtWoicejHPxO3dUdJLYro7mSUS/SM1g1KgyXaLWnp4wFQuAA9F5Cn4diEs8DztQ=
+X-Gm-Message-State: AOJu0Yx26M2M0yHPrCJrNWFLoLjzSR0QeZbsloJ5lbMGrgvKs5V1Nh+q
+	DZMsJpAQtBLAqxECTZ+7rO90+srZ7I+SpRcP0TEgDr4GYq2U/O78bAOOSfsMC3o=
+X-Google-Smtp-Source: AGHT+IHiKaeEvd4bGvpv/xB1+MymkpTpsSWgHAAWv0J+wyGosWTW+yFAqXGk8qWRkXt7vxyCiK2AMw==
+X-Received: by 2002:a05:620a:17a2:b0:79f:12e9:1e71 with SMTP id af79cd13be357-7a34edb4c89mr361540685a.0.1722587742072;
+        Fri, 02 Aug 2024 01:35:42 -0700 (PDT)
+Date: Fri, 2 Aug 2024 10:35:38 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>
+Subject: Re: [XEN PATCH v12 2/7] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+Message-ID: <ZqyaWryc_42KSnK_@macbook>
+References: <Zqn7HEuooChgRCuf@macbook>
+ <d65ae152-22ee-4a57-8ff4-43ef0c234f5f@suse.com>
+ <ZqoF55yapMxGN_WM@macbook>
+ <fa33fbf8-32b6-48dc-a30c-dd76b021a76d@suse.com>
+ <ZqogJVHV36ytYVP1@macbook>
+ <ff922c7a-aa66-4b23-8b9f-63b0b403ff14@suse.com>
+ <Zqo2N7CDshL7ZoMK@macbook>
+ <BL1PR12MB584914D078416A5F0ECA0AE0E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZqyUxv7UcaRcksCG@macbook>
+ <BL1PR12MB584967C87F8EBC9B753C7B10E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20e8429e-8e6a-4b3d-5fa9-08dcb2cc6bf5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Aug 2024 08:23:43.3663
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: M/EInlKYvuyJiC0ARrSyTedC4RLChJ56snTS5NOeGsn6FC/p2ySiNTw0oB5kuqf64DMJ/Bt5nCxSUE4qaQZhLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7111
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB584967C87F8EBC9B753C7B10E7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-T24gMjAyNC84LzIgMTY6MDgsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+IE9uIE1vbiwgSnVs
-IDA4LCAyMDI0IGF0IDA3OjQxOjIxUE0gKzA4MDAsIEppcWlhbiBDaGVuIHdyb3RlOg0KPj4gU29t
-ZSB0eXBlIG9mIGRvbWFpbnMgZG9uJ3QgaGF2ZSBQSVJRcywgbGlrZSBQVkgsIGl0IGRvZXNuJ3Qg
-ZG8NCj4+IFBIWVNERVZPUF9tYXBfcGlycSBmb3IgZWFjaCBnc2kuIFdoZW4gcGFzc3Rocm91Z2gg
-YSBkZXZpY2UNCj4+IHRvIGd1ZXN0IGJhc2Ugb24gUFZIIGRvbTAsIGNhbGxzdGFjaw0KPj4gcGNp
-X2FkZF9kbV9kb25lLT5YRU5fRE9NQ1RMX2lycV9wZXJtaXNzaW9uIHdpbGwgZmFpbCBhdCBmdW5j
-dGlvbg0KPj4gZG9tYWluX3BpcnFfdG9faXJxLCBiZWNhdXNlIFBWSCBoYXMgbm8gbWFwcGluZyBv
-ZiBnc2ksIHBpcnEgYW5kDQo+PiBpcnEgb24gWGVuIHNpZGUuDQo+PiBXaGF0J3MgbW9yZSwgY3Vy
-cmVudCBoeXBlcmNhbGwgWEVOX0RPTUNUTF9pcnFfcGVybWlzc2lvbiByZXF1aXJlcw0KPj4gcGFz
-c2luZyBpbiBwaXJxIHRvIHNldCB0aGUgYWNjZXNzIG9mIGlycSwgaXQgaXMgbm90IHN1aXRhYmxl
-IGZvcg0KPj4gZG9tMCB0aGF0IGRvZXNuJ3QgaGF2ZSBQSVJRcy4NCj4+DQo+PiBTbywgYWRkIGEg
-bmV3IGh5cGVyY2FsbCBYRU5fRE9NQ1RMX2dzaV9wZXJtaXNzaW9uIHRvIGdyYW50L2RlbnkNCj4+
-IHRoZSBwZXJtaXNzaW9uIG9mIGlycSh0cmFuc2xhdGUgZnJvbSB4ODYgZ3NpKSB0byBkdW1VIHdo
-ZW4gZG9tMA0KPj4gaGFzIG5vIFBJUlFzLg0KPiANCj4gSSd2ZSBiZWVuIHdvbmRlcmluZyBhYm91
-dCB0aGlzLCBhbmQgaWYgdGhlIGh5cGVyY2FsbCBpcyBzdHJpY3RseSB0bw0KPiByZXNvbHZlIEdT
-SXMgaW50byBJUlFzLCBpc24ndCB0aGF0IHRoZSBjYXNlIHRoYXQgWGVuIGlkZW50aXR5IG1hcHMg
-R1NJDQo+IGludG8gdGhlIElSUSBzcGFjZSwgYW5kIGhlbmNlIG5vIHRyYW5zbGF0aW9uIGlzIHJl
-cXVpcmVkPw0KWWVzLCBmb3IgZ3NpcyB0aGF0IGhhcyBubyBlbnRyaWVzIGluIG1wX2lycXMsIHhl
-biBkbyB0aGUgaWRlbnRpdHkgbWFwcy4NCkkgd2lsbCBkZWxldGUgdGhlIHdvcmRzICJ0cmFuc2xh
-dGUgLi4iDQoNCj4gDQo+IFRoYW5rcywgUm9nZXIuDQoNCi0tIA0KQmVzdCByZWdhcmRzLA0KSmlx
-aWFuIENoZW4uDQo=
+On Fri, Aug 02, 2024 at 08:17:15AM +0000, Chen, Jiqian wrote:
+> On 2024/8/2 16:11, Roger Pau Monné wrote:
+> > On Fri, Aug 02, 2024 at 02:37:24AM +0000, Chen, Jiqian wrote:
+> >> On 2024/7/31 21:03, Roger Pau Monné wrote:
+> >>> On Wed, Jul 31, 2024 at 01:39:40PM +0200, Jan Beulich wrote:
+> >>>> On 31.07.2024 13:29, Roger Pau Monné wrote:
+> >>>>> On Wed, Jul 31, 2024 at 11:55:35AM +0200, Jan Beulich wrote:
+> >>>>>> On 31.07.2024 11:37, Roger Pau Monné wrote:
+> >>>>>>> On Wed, Jul 31, 2024 at 11:02:01AM +0200, Jan Beulich wrote:
+> >>>>>>>> On 31.07.2024 10:51, Roger Pau Monné wrote:
+> >>>>>>>>> I agree with (a), but I don't think enabling PVH dom0 usage of the
+> >>>>>>>>> hypercalls should be gated on this.  As said a PV dom0 is already
+> >>>>>>>>> capable of issuing PHYSDEVOP_{,un}map_pirq operations against a PVH
+> >>>>>>>>> domU.
+> >>>>>>>>
+> >>>>>>>> Okay, I can accept that as an intermediate position. We ought to deny
+> >>>>>>>> such requests at some point though for PVH domains, the latest in the
+> >>>>>>>> course of making vPCI work there.
+> >>>>>>>
+> >>>>>>> Hm, once physdev_map_pirq() works as intended against PVH domains, I
+> >>>>>>> don't see why we would prevent the usage of PHYSDEVOP_{,un}map_pirq
+> >>>>>>> against such domains.
+> >>>>>>
+> >>>>>> Well. If it can be made work as intended, then I certainly agree. However,
+> >>>>>> without even the concept of pIRQ in PVH I'm having a hard time seeing how
+> >>>>>> it can be made work. Iirc you were advocating for us to not introduce pIRQ
+> >>>>>> into PVH.
+> >>>>>
+> >>>>> From what I'm seeing here the intention is to expose
+> >>>>> PHYSDEVOP_{,un}map_pirq to PVH dom0, so there must be some notion of
+> >>>>> pIRQs or akin in a PVH dom0?  Even if only for passthrough needs.
+> >>>>
+> >>>> Only in so far as it is an abstract, handle-like value pertaining solely
+> >>>> to the target domain.
+> >>>>
+> >>>>>> Maybe you're thinking of re-using the sub-ops, requiring PVH domains to
+> >>>>>> pass in GSIs?
+> >>>>>
+> >>>>> I think that was one my proposals, to either introduce a new
+> >>>>> hypercall that takes a GSI, or to modify the PHYSDEVOP_{,un}map_pirq
+> >>>>> in an ABI compatible way so that semantically the field could be a GSI
+> >>>>> rather than a pIRQ.  We however would also need a way to reference an
+> >>>>> MSI entry.
+> >>>>
+> >>>> Of course.
+> >>>>
+> >>>>> My main concern is not with pIRQs by itself, pIRQs are just an
+> >>>>> abstract way to reference interrupts, my concern and what I wanted to
+> >>>>> avoid on PVH is being able to route pIRQs over event channels.  IOW:
+> >>>>> have interrupts from physical devices delivered over event channels.
+> >>>>
+> >>>> Oh, I might have slightly misunderstood your intentions then.
+> >>>
+> >>> My intention would be to not even use pIRQs at all, in order to avoid
+> >>> the temptation of the guest itself managing interrupts using
+> >>> hypercalls, hence I would have preferred that abstract interface to be
+> >>> something else.
+> >>>
+> >>> Maybe we could even expose the Xen IRQ space directly, and just use
+> >>> that as interrupt handles, but since I'm not the one doing the work
+> >>> I'm not sure it's fair to ask for something that would require more
+> >>> changes internally to Xen.
+> >>>
+> >>>>>> I think I suggested something along these lines also to
+> >>>>>> Jiqian, yet with the now intended exposure to !has_pirq() domains I'm
+> >>>>>> not sure this could be made work reliably.
+> >>>>>
+> >>>>> I'm afraid I've been lacking behind on reviewing those series.
+> >>>>>
+> >>>>>> Which reminds me of another question I had: What meaning does the pirq
+> >>>>>> field have right now, if Dom0 would issue the request against a PVH DomU?
+> >>>>>> What meaning will it have for a !has_pirq() HVM domain?
+> >>>>>
+> >>>>> The pirq field could be a way to reference an interrupt.  It doesn't
+> >>>>> need to be exposed to the PVH domU at all, but it's a way for the
+> >>>>> device model to identify which interrupt should be mapped to which
+> >>>>> domain.
+> >>>>
+> >>>> Since pIRQ-s are per-domain, _that_ kind of association won't be
+> >>>> helped. But yes, as per above it could serve as an abstract handle-
+> >>>> like value.
+> >>>
+> >>> I would be fine with doing the interrupt bindings based on IRQs
+> >>> instead of pIRQs, but I'm afraid that would require more changes to
+> >>> hypercalls and Xen internals.
+> >>>
+> >>> At some point I need to work on a new interface to do passthrough, so
+> >>> that we can remove the usage of domctls from QEMU.  That might be a
+> >>> good opportunity to switch from using pIRQs.
+> >>
+> >> Thanks for your input, but I may be a bit behind you with my knowledge and can't fully understand the discussion.
+> >> How should I modify this question later?
+> >> Should I add a new hypercall specifically for passthrough?
+> >> Or if it is to prevent the (un)map from being used for PVH guests, can I just add a new function to check if the subject domain is a PVH type? Like is_pvh_domain().
+> > 
+> > I think that would be part of a new interface, as said before I don't
+> > think it would be fair to force you to do all this work.  I won't
+> > oppose with the approach to attempt to re-use the existing interfaces
+> > as much as possible.
+> Thanks.
+> 
+> > 
+> > I think this patch needs to be adjusted to drop the change to
+> > xen/arch/x86/physdev.c, as just allowing PHYSDEVOP_{,un}map_pirq
+> > without any change to do_physdev_op() should result in the correct
+> > behavior.
+> Do you mean that I don't need to add any further restrictions in do_physdev_op(), just simply allow PHYSDEVOP_{,un}map_pirq in hvm_physdev_op() ?
+
+That's my understanding, yes, no further restrictions should be added.
+
+Thanks, Roger.
 
