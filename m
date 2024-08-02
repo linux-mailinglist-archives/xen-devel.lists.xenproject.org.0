@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 872C3945E31
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 14:57:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.771128.1181708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 360BA945E38
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 14:59:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.771134.1181719 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZrqn-0006N3-JJ; Fri, 02 Aug 2024 12:57:41 +0000
+	id 1sZrsX-0006w2-TG; Fri, 02 Aug 2024 12:59:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 771128.1181708; Fri, 02 Aug 2024 12:57:41 +0000
+Received: by outflank-mailman (output) from mailman id 771134.1181719; Fri, 02 Aug 2024 12:59:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZrqn-0006LH-Fw; Fri, 02 Aug 2024 12:57:41 +0000
-Received: by outflank-mailman (input) for mailman id 771128;
- Fri, 02 Aug 2024 12:57:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tTZu=PB=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1sZrqm-0006EW-TC
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 12:57:40 +0000
-Received: from galois.linutronix.de (galois.linutronix.de
- [2a0a:51c0:0:12e:550::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cc42b336-50ce-11ef-bc03-fd08da9f4363;
- Fri, 02 Aug 2024 14:57:40 +0200 (CEST)
+	id 1sZrsX-0006tt-Pp; Fri, 02 Aug 2024 12:59:29 +0000
+Received: by outflank-mailman (input) for mailman id 771134;
+ Fri, 02 Aug 2024 12:59:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sZrsW-0006tj-Bi; Fri, 02 Aug 2024 12:59:28 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sZrsW-0005Qu-8U; Fri, 02 Aug 2024 12:59:28 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sZrsV-0002XU-VH; Fri, 02 Aug 2024 12:59:28 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sZrsV-00074b-UT; Fri, 02 Aug 2024 12:59:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,47 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc42b336-50ce-11ef-bc03-fd08da9f4363
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1722603459;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O5e/6G+UM25BxlQUWxbyryv4bOzCBkl7nWu90dDPr9o=;
-	b=Dup5ih/c9Ll7xhiCpSGh6zVCY45x1W4PsqPA+PCB2DM3mpo1gNzQsSzdGifc36R5UOEEze
-	ZBf+q+DoMqnSL3mH7Z3U9AYqpEE2HTPJ5mEQ+w3MpLBalmERpW8IHVyYlTI6tZwnyqmDGk
-	grL+8QKBU0YhDQEo10R4xMukgMgisptf2ry2Lj0mg9VVdDgHK5Ehd9UtfgPaWfHk0dEofp
-	uUugO96lR/VPSIbBdV8M5v6s+snNRFloDqJwNg46jkP7iekI51Da/tMj19GJLXlys6cOTf
-	n/Q6aBK67Le/w2zLg8JrQtoV2R5E52HHF89/tHif4Mt6QqgtK+ZUanD/ew8ZNg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1722603459;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O5e/6G+UM25BxlQUWxbyryv4bOzCBkl7nWu90dDPr9o=;
-	b=EubcF067iHPxmtEKaSAyakWHQcL1X08DPzdAbR8Q5dHoQQix8euEBg5kr2mEjOPGylVXfE
-	Q5JLjuPUIADNINDA==
-To: Alexey Dobriyan <adobriyan@gmail.com>, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] xen, pvh: fix unbootable VMs by inlining memset in
- xen_prepare_pvh
-In-Reply-To: <3fe4502f-020e-46de-976a-b32a76de478a@p183>
-References: <a9f505a6-fd31-4cfa-a193-d21638bb14f1@p183>
- <3fe4502f-020e-46de-976a-b32a76de478a@p183>
-Date: Fri, 02 Aug 2024 14:57:38 +0200
-Message-ID: <87cymr13r1.ffs@tglx>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=MJhm09PyrdgO8RjnPLmxNJR8xiSbwkXLk2aD1WlEuIg=; b=NU45m6DmPUkUlwPp6T0C88Dh1M
+	7v3WPOh0bb4rbr5xr3zzWBJQs6wqf5EByvfdm071RFZc088HTpV2Nw+T0Vuam/WcdkxSudE56pw2l
+	0ZcwYK0UvuJuT617AGX40cObwfl2u0QYrTFW1CXUQ1zfEMQ1CbpERULRq2t2AfJhuRTk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187122-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: [ovmf test] 187122: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=24a375fcdd26ce5a36bde69b92f638420fddf9c8
+X-Osstest-Versions-That:
+    ovmf=4f5de749cb2247a4ead21523f2d9deb389291636
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 02 Aug 2024 12:59:27 +0000
 
-On Fri, Aug 02 2024 at 11:53, Alexey Dobriyan wrote:
-> If this memset() is not inlined than PVH early boot code can call
-> into KASAN-instrumented memset() which results in unbootable VMs.
->
-> Ubuntu's 22.04.4 LTS gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04)
-> doesn't inline this memset but inlines __builtin_memset.
+flight 187122 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187122/
 
-memset() ......
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 24a375fcdd26ce5a36bde69b92f638420fddf9c8
+baseline version:
+ ovmf                 4f5de749cb2247a4ead21523f2d9deb389291636
 
+Last test of basis   187120  2024-08-02 08:11:33 Z    0 days
+Testing same since   187122  2024-08-02 10:13:19 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jiaxin Wu <jiaxin.wu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   4f5de749cb..24a375fcdd  24a375fcdd26ce5a36bde69b92f638420fddf9c8 -> xen-tested-master
 
