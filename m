@@ -2,47 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7455A94595E
+	by mail.lfdr.de (Postfix) with ESMTPS id C56CA94595F
 	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 09:59:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.770296.1181249 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.770298.1181258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZnBt-00044y-LP; Fri, 02 Aug 2024 07:59:09 +0000
+	id 1sZnCA-0004TQ-Sp; Fri, 02 Aug 2024 07:59:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 770296.1181249; Fri, 02 Aug 2024 07:59:09 +0000
+Received: by outflank-mailman (output) from mailman id 770298.1181258; Fri, 02 Aug 2024 07:59:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZnBt-00043U-If; Fri, 02 Aug 2024 07:59:09 +0000
-Received: by outflank-mailman (input) for mailman id 770296;
- Fri, 02 Aug 2024 07:59:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jwYV=PB=ti.com=a-singh21@srs-se1.protection.inumbo.net>)
- id 1sZnBr-00043L-Ie
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 07:59:07 +0000
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 15fdf6cc-50a5-11ef-bc03-fd08da9f4363;
- Fri, 02 Aug 2024 09:59:05 +0200 (CEST)
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 4727x3uc062631
- for <xen-devel@lists.xenproject.org>; Fri, 2 Aug 2024 02:59:03 -0500
-Received: from DLEE112.ent.ti.com (dlee112.ent.ti.com [157.170.170.23])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 4727x3Mj001183
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <xen-devel@lists.xenproject.org>; Fri, 2 Aug 2024 02:59:03 -0500
-Received: from DLEE113.ent.ti.com (157.170.170.24) by DLEE112.ent.ti.com
- (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 2
- Aug 2024 02:59:03 -0500
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE113.ent.ti.com
- (157.170.170.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Fri, 2 Aug 2024 02:59:03 -0500
-Received: from localhost (nightbug.dhcp.ti.com [172.24.227.225])
- by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 4727x2Vd095063;
- Fri, 2 Aug 2024 02:59:03 -0500
+	id 1sZnCA-0004Rl-Q1; Fri, 02 Aug 2024 07:59:26 +0000
+Received: by outflank-mailman (input) for mailman id 770298;
+ Fri, 02 Aug 2024 07:59:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AAnW=PB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sZnC9-0004Nv-JY
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 07:59:25 +0000
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [2607:f8b0:4864:20::733])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 215722ef-50a5-11ef-8776-851b0ebba9a2;
+ Fri, 02 Aug 2024 09:59:23 +0200 (CEST)
+Received: by mail-qk1-x733.google.com with SMTP id
+ af79cd13be357-7a1d0ad7113so530042885a.2
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 00:59:23 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7a34f6eaa32sm65494285a.41.2024.08.02.00.59.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 02 Aug 2024 00:59:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,125 +44,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15fdf6cc-50a5-11ef-bc03-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1722585543;
-	bh=gZkjzNK7QXC6oq7e03E4AvztlDUFXDZuTdvb6Y0z2xw=;
-	h=From:To:CC:Subject:Date;
-	b=usv4kR9R8ilG0VL1uN6sqpusOGLNHoavPu3v2LfQsOc97UZ54jNk7GYK0OJFhLz+n
-	 nFkFyMFXZ6xATI2ckNq80as1xpLzRRSmd5gEILEC+hq7nVxVLi6g0Yv1b+F0hxcxVP
-	 NVMHyKm6haWxVFiFOu67RcMr3Mvx62DMGZidr++0=
-From: Amneesh Singh <a-singh21@ti.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Amneesh Singh <a-singh21@ti.com>
-Subject: [PATCH] tools/helpers/init-dom0less: fix vcpu availability
-Date: Fri, 2 Aug 2024 13:28:25 +0530
-Message-ID: <20240802075823.116920-1-a-singh21@ti.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 215722ef-50a5-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1722585562; x=1723190362; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Nk5chRwyGMNH4RApFfMxbG71pBrT7O72w2Y9RG0+qgk=;
+        b=kIBL7fnb+BwaoC5uRhGbPjQgbJWeuRVKjigjYtVEUB3A/RkQMA/ybexqDCAvrUNdz8
+         8B/2uiUagL3QXTljwjsWzYEBlPhkBVh+jLVWvC1mcytyUNUCmNxV4ugec96nF6MkOH0u
+         S75Ld5nUTmcxiCMmkyaoLj4090wgy7B0NkqV4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722585562; x=1723190362;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Nk5chRwyGMNH4RApFfMxbG71pBrT7O72w2Y9RG0+qgk=;
+        b=CPfNjFU/tGvpcPkcdgLC10LF3QjYWaR5f6/WEXH70ABNmkzTEx27zhLObUFJ4f+61u
+         jjlXVKZm1kNUfEleTSkhwCpL6E+gcBaXWCLLtf6owoN/EKU/tTqbl0UyG04bnDKw/Mms
+         tQQx8mNcpQBQGNrSQRuYs9pic/M3Psv2HYaEqHdrWeaZyrQ7q0DQ7wZJN/fn2DCV7IP1
+         LZJZA8rNLayiaLP0h30NH7z6ioUhdIvZ6bFa+fHyx7wpAeIi8eZ2EtGMDsbc5HK81GM9
+         nfJsUGLxGlaoBn6YIrZAH3WNQOmRINWJsm6v+kVIpWBHrrOIyEalwVoAKkHrYdIEMpck
+         eTKA==
+X-Gm-Message-State: AOJu0YwIGmUaxFkYeCYOF6j/DM5jeyjJMLtcGf8ygC2aiMrUmpfJhONS
+	++N7Qpk4J7A1DcneGdEt4r6iW0Q8Zmr0RKnzSwtBdA1yxJ1hwyTVhWowUpKugNbV4hV1x5IJnuM
+	o
+X-Google-Smtp-Source: AGHT+IFjmTsYkFoLwK8EMDNhaHWFP2GJbCf0gVCnLpIVOvsVSjflh7dnOo5WP6XoJwfZPUXwyxdrgA==
+X-Received: by 2002:a05:620a:2988:b0:79d:6dd7:5da0 with SMTP id af79cd13be357-7a34efc1241mr307126185a.47.1722585562444;
+        Fri, 02 Aug 2024 00:59:22 -0700 (PDT)
+Date: Fri, 2 Aug 2024 09:59:20 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>
+Subject: Re: [XEN PATCH v12 4/7] x86/domctl: Add hypercall to set the access
+ of x86 gsi
+Message-ID: <ZqyR2Pdh1fte8kdi@macbook>
+References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
+ <20240708114124.407797-5-Jiqian.Chen@amd.com>
+ <ZqtsQwZNyFzflDQt@macbook>
+ <BL1PR12MB58490598FF7FEAE291DCDAABE7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+In-Reply-To: <BL1PR12MB58490598FF7FEAE291DCDAABE7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-Currently, writing at cpu/<cpu>/availability in xenstore fails for a
-couple of reasons: a trailing slash in the path and the fact that
-cpupool isn't a bitmap but the cpupool id. This patch fixes this by
-just getting libxl_vcpuinfo for each dom0less domain.
+On Fri, Aug 02, 2024 at 03:10:27AM +0000, Chen, Jiqian wrote:
+> On 2024/8/1 19:06, Roger Pau Monné wrote:
+> > We might as well declare the flags field as uint32_t and avoid the
+> > padding field.
+> So, should this struct be like below? Then I just need to check whether everything except the lowest bit is 0.
+> struct xen_domctl_gsi_permission {
+>     uint32_t gsi;
+> /* Lowest bit used to signal grant/revoke action. */
+> #define XEN_DOMCTL_GSI_REVOKE 0
+> #define XEN_DOMCTL_GSI_GRANT  1
+> #define XEN_DOMCTL_GSI_PERMISSION_MASK 1
 
-Signed-off-by: Amneesh Singh <a-singh21@ti.com>
----
- tools/helpers/init-dom0less.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+Maybe ACTION_MASK rather than PERMISSION_MASK?
 
-diff --git a/tools/helpers/init-dom0less.c b/tools/helpers/init-dom0less.c
-index fee9345..a8cdc6d 100644
---- a/tools/helpers/init-dom0less.c
-+++ b/tools/helpers/init-dom0less.c
-@@ -99,8 +99,8 @@ static bool do_xs_write_vm(struct xs_handle *xsh, xs_transaction_t t,
-  * domain started by xl/libxl.
-  */
- static int create_xenstore(struct xs_handle *xsh,
--                           libxl_dominfo *info, libxl_uuid uuid,
--                           evtchn_port_t xenstore_port)
-+                           libxl_dominfo *info, libxl_vcpuinfo *vcpuinfo,
-+                           libxl_uuid uuid, evtchn_port_t xenstore_port)
- {
-     domid_t domid;
-     unsigned int i;
-@@ -168,13 +168,13 @@ retry_transaction:
-     if (!do_xs_write_dom(xsh, t, domid, "vm", vm_val_str)) goto err;
-     if (!do_xs_write_dom(xsh, t, domid, "name", dom_name_str)) goto err;
-     if (!do_xs_write_dom(xsh, t, domid, "cpu", "")) goto err;
--    for (i = 0; i < info->vcpu_max_id; i++) {
--        rc = snprintf(cpu_str, STR_MAX_LENGTH, "cpu/%u/availability/", i);
-+    for (i = 0; i <= info->vcpu_max_id; i++) {
-+        rc = snprintf(cpu_str, STR_MAX_LENGTH, "cpu/%u/availability", i);
-         if (rc < 0 || rc >= STR_MAX_LENGTH)
-             goto err;
-         rc = -EIO;
-         if (!do_xs_write_dom(xsh, t, domid, cpu_str,
--                             (info->cpupool & (1 << i)) ? "online" : "offline"))
-+                             vcpuinfo[i].online ? "online" : "offline"))
-             goto err;
-     }
- 
-@@ -225,7 +225,8 @@ err:
- static int init_domain(struct xs_handle *xsh,
-                        struct xc_interface_core *xch,
-                        xenforeignmemory_handle *xfh,
--                       libxl_dominfo *info)
-+                       libxl_dominfo *info,
-+                       libxl_vcpuinfo *vcpuinfo)
- {
-     libxl_uuid uuid;
-     uint64_t xenstore_evtchn, xenstore_pfn;
-@@ -278,7 +279,7 @@ static int init_domain(struct xs_handle *xsh,
-     if (rc < 0)
-         return rc;
- 
--    rc = create_xenstore(xsh, info, uuid, xenstore_evtchn);
-+    rc = create_xenstore(xsh, info, vcpuinfo, uuid, xenstore_evtchn);
-     if (rc)
-         err(1, "writing to xenstore");
- 
-@@ -300,7 +301,7 @@ int main(int argc, char **argv)
- {
-     libxl_dominfo *info = NULL;
-     libxl_ctx *ctx;
--    int nb_vm = 0, rc = 0, i;
-+    int nb_vm = 0, nb_vcpu = 0, nr_cpus = 0, rc = 0, i;
-     struct xs_handle *xsh = NULL;
-     struct xc_interface_core *xch = NULL;
-     xenforeignmemory_handle *xfh = NULL;
-@@ -330,14 +331,17 @@ int main(int argc, char **argv)
- 
-     for (i = 0; i < nb_vm; i++) {
-         domid_t domid = info[i].domid;
-+        libxl_vcpuinfo *vcpuinfo;
- 
-         /* Don't need to check for Dom0 */
-         if (!domid)
-             continue;
- 
-+        vcpuinfo = libxl_list_vcpu(ctx, domid, &nb_vcpu, &nr_cpus);
-+
-         printf("Checking domid: %u\n", domid);
-         if (!domain_exists(xsh, domid)) {
--            rc = init_domain(xsh, xch, xfh, &info[i]);
-+            rc = init_domain(xsh, xch, xfh, &info[i], vcpuinfo);
-             if (rc < 0) {
-                 fprintf(stderr, "init_domain failed.\n");
-                 goto out;
-@@ -345,6 +349,8 @@ int main(int argc, char **argv)
-         } else {
-             printf("Domain %u has already been initialized\n", domid);
-         }
-+
-+        libxl_vcpuinfo_list_free(vcpuinfo, nb_vcpu);
-     }
- out:
-     libxl_dominfo_list_free(info, nb_vm);
--- 
-2.34.1
+>     uint32_t access_flag;    /* flag to specify enable/disable of x86 gsi access */
 
+I would again be fine naming this just flags and the comment is likely
+to go stale quite soon if we add more flags.  However given the
+simplicity of this hypercall I'm unsure whether any new flags could
+appear.
+
+Thanks, Roger.
 
