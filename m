@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D964945C2A
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 12:30:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.770943.1181528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2803E945C8C
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 12:53:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.770959.1181539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZpYG-0005gi-3C; Fri, 02 Aug 2024 10:30:24 +0000
+	id 1sZpuU-0001IS-Sh; Fri, 02 Aug 2024 10:53:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 770943.1181528; Fri, 02 Aug 2024 10:30:24 +0000
+Received: by outflank-mailman (output) from mailman id 770959.1181539; Fri, 02 Aug 2024 10:53:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZpYG-0005eR-0S; Fri, 02 Aug 2024 10:30:24 +0000
-Received: by outflank-mailman (input) for mailman id 770943;
- Fri, 02 Aug 2024 10:30:23 +0000
+	id 1sZpuU-0001GC-PD; Fri, 02 Aug 2024 10:53:22 +0000
+Received: by outflank-mailman (input) for mailman id 770959;
+ Fri, 02 Aug 2024 10:53:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bU9L=PB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZpYF-0005eL-0q
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 10:30:23 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3869ed2a-50ba-11ef-bc03-fd08da9f4363;
- Fri, 02 Aug 2024 12:30:21 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a7a9a369055so876594266b.3
- for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 03:30:21 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9d4dd45sm82391366b.104.2024.08.02.03.30.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Aug 2024 03:30:20 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SQaU=PB=epam.com=prvs=4944f0ddb9=sergiy_kibrik@srs-se1.protection.inumbo.net>)
+ id 1sZpuT-0001G6-DB
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 10:53:21 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6db0ffb7-50bd-11ef-bc03-fd08da9f4363;
+ Fri, 02 Aug 2024 12:53:20 +0200 (CEST)
+Received: from pps.filterd (m0174681.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4728unHP019684;
+ Fri, 2 Aug 2024 10:53:09 GMT
+Received: from as8pr04cu009.outbound.protection.outlook.com
+ (mail-westeuropeazlp17011029.outbound.protection.outlook.com [40.93.65.29])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 40rjd029jk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 02 Aug 2024 10:53:09 +0000 (GMT)
+Received: from AS8PR03MB9192.eurprd03.prod.outlook.com (2603:10a6:20b:5c0::11)
+ by AS2PR03MB9395.eurprd03.prod.outlook.com (2603:10a6:20b:59d::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.27; Fri, 2 Aug
+ 2024 10:53:06 +0000
+Received: from AS8PR03MB9192.eurprd03.prod.outlook.com
+ ([fe80::baa9:29b3:908:ed7d]) by AS8PR03MB9192.eurprd03.prod.outlook.com
+ ([fe80::baa9:29b3:908:ed7d%4]) with mapi id 15.20.7828.023; Fri, 2 Aug 2024
+ 10:53:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,153 +53,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3869ed2a-50ba-11ef-bc03-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722594621; x=1723199421; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F22XMe4vty8J1P+rIV7UcvVeYo+tLPb7wD4NewjtCto=;
-        b=cvjjeVrtB4NJuf0cVOIChLj2gLoxlaoW1Oq9O2dY5592nBlp678dYu3FJgqq7dcNaA
-         GvK2GmrezfSANnqF0XgjdOxUuJ03GGj1REFVlHUAcvXuz/L0Ufi0DstSFQwbbWXkT4Ll
-         4J/2ir8/v4pupakQ5CDtDX9XhSiMUF+m+rYh+4ejigEz58cSGJ4kgd1s9mxX6ILXkJqS
-         QGpRUI/es3AYenTc0fXspjTJOAlEo8vOfmD2hqnyf5d7E+UJDGU8P/+XDYbKpB0hd3ji
-         Uz7vfdWAMSrAnjtLRksH39vyjwVfDFAnVGlMJUpYzJyGzZCOGCpuMSkY11zc2ifTc5fZ
-         blvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722594621; x=1723199421;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=F22XMe4vty8J1P+rIV7UcvVeYo+tLPb7wD4NewjtCto=;
-        b=Cx0s4LMu/vcCvhTbtGZKCtFKjycnq0stCo20qEAu5haP163tGmEbFMytkAF3TnRRGY
-         sPeIL7lMMSJpkqxBIeVaw5utHy54ItdqYnu14lc3oRSHK3Q+rtFbWv9WYvIDRhsBmYJc
-         OKVIqEbTIVt5oXIxcyu1wUb8J3pHm6Xs5ZmCiWdJDSdDAKTIBzoJtQSRaOc7a0m+Bnqb
-         nAT48gMlF8QsKOFSdvRTs1wVVkaydv6OHkSr2uArcq+aGfAxWdG+lZcJnYBiCnquFKu9
-         3RQoY/ZLQPDXg8gkApTowny0jrEBctGDKzEf1B5PZbIjslB2su6aXnYwmln0p105zXFv
-         BKPA==
-X-Gm-Message-State: AOJu0Yxq9kZh+HkS+Jj1dzWFHbXpqCdADEhyvXPwheQTEE3C5T+8rYVn
-	M7aZtAJRBxgeoeNFy44p3dsDWwohNoGA27GN7XCtlqJ9oJimRbbmO7jyX+cM/w==
-X-Google-Smtp-Source: AGHT+IGqaaXcyfeWsiDk9FWXE2tjerza4uMCaAmuGD0hGWRFJKx49bmLKlGcDmLvSqq3zb2TvoXprw==
-X-Received: by 2002:a17:907:3da4:b0:a7a:a3f7:38a2 with SMTP id a640c23a62f3a-a7dc4fefd18mr282784266b.41.1722594620590;
-        Fri, 02 Aug 2024 03:30:20 -0700 (PDT)
-Message-ID: <1d3ef706-fa3d-4dee-818c-83904012ca35@suse.com>
-Date: Fri, 2 Aug 2024 12:30:18 +0200
-MIME-Version: 1.0
+X-Inumbo-ID: 6db0ffb7-50bd-11ef-bc03-fd08da9f4363
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OKA5tuXM5msTfUzmW+U5eciEvxgbsMJhSN4oEeeE2AopHKsqAT+RNLk4XrvYczBuLd3NFzn6347TxYyZkAr5fCFlhzMqzYyJac+I+0gFs8ipJk6HToYSDmJq/DviMpE3AJiHwrQXqMAhRpZuBu1gXaz9B9lbeBg4lngiCUzg6aaxtMSgfZVVYh3kiaiGrlE65PuIi1C/QXeyCbikiQky4uTBsML9gqjKhg0JZkm02DV4jPDhQyct4kQMQWSS4+cdfhRAwbZVr5htLCj1CFxwUw1l4fG+QYIDQOTOE33u44koJpRSUiJ8H37YqCswBx7JxOX5Vzfi3lRLous8REAL0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=twp8q0lDoPWw47l5n3lTxsMj9kwYVZfhW/a8qtrss38=;
+ b=QsyNOd7+4Kee4wK8fAY1cvu53XPuY8gtIsMhup0ZGqQsaJXyBctS3X6jPBE9zaS3y2hptqU7Ai6g/+0h/4T6ucq3WIEEea6qDotdHDTg0nck87vszB8c0lzr/AHLC9BSVPDTTpaWeKUfRRMaMVZXfDi1uGkqSMwv8FtzNQRB3LIe9QOBhAS45XBGsQ4kJ13t/uF/kLWi+YqOsTQ9nIHV5j2IoOSl1Pw2LH+1OBniRxLkbB0KsbxFndXrIG/QJqo6MYvNscFH+nVSAgoXwPSA7ZLWI8mB4Ky2zwrPw4baU0yclK0GAuIsr0XBZk0iUk7L6VUqPGDOUzxkiACzUdB0kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=twp8q0lDoPWw47l5n3lTxsMj9kwYVZfhW/a8qtrss38=;
+ b=hV+uyO5ttj1OyYEdkAwCfTJcGNWjnWkeSaeFxpgQsUHDvTmKkJMwcQ02oANa03U6WdRjkJUV5AA6Qgzb9GoItzL4aYgcfkxB3VHJvw184tFtfe2Tr8UxAIGMk4qFMM21p0BZaFJGOfoPh3WCIKbtiJZjB+th2BPVzlicCfTB884X2k0/2Wi308lw0gQE23+I1klhxl+RosLq0J4ge6E63mWlYlQC1VciRs/8MZUlx9Xk1c3s8DksvIII+CFzAy+o2rhzJL6IaCUc9tU3/sSSkZ1kUI3HVreCfsrtqQObemwvFKjR0YlZYszEugJhv5y9hPI101k6hxUMSqyQsDwZ1A==
+Message-ID: <ccd77283-4b88-4351-a3f9-bd4240b9b845@epam.com>
+Date: Fri, 2 Aug 2024 13:53:04 +0300
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 4/5] xen/riscv: enable GENERIC_BUG_FRAME
-To: oleksii.kurochko@gmail.com
-Cc: xen-devel@lists.xenproject.org
-References: <cover.1721731887.git.oleksii.kurochko@gmail.com>
- <b79bcfb9031564fc8d275af66fa94c1e82e54de2.1721731887.git.oleksii.kurochko@gmail.com>
- <7c03ed78-7c80-45bf-acf3-a916b7abb7d5@suse.com>
- <6c379c6a0ac3e046c67647fa63d085a341906224.camel@gmail.com>
- <83e20f26-ae59-4191-a12d-f31f779c91e2@suse.com>
- <a16ac4cd3fe0143e40f8b5ec993cd6049d41ea3d.camel@gmail.com>
+Subject: Re: [XEN PATCH v5 09/13] x86/vmx: guard access to cpu_has_vmx_* in
+ common code
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+        Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+        xen-devel@lists.xenproject.org
+References: <cover.1722333634.git.Sergiy_Kibrik@epam.com>
+ <c2961c8b67041883ce5a5f6d0511a31dc7fbe22d.1722333634.git.Sergiy_Kibrik@epam.com>
+ <cc92ed50-89f7-48c9-b0e1-cd61a020001c@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a16ac4cd3fe0143e40f8b5ec993cd6049d41ea3d.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Sergiy Kibrik <sergiy_kibrik@epam.com>
+In-Reply-To: <cc92ed50-89f7-48c9-b0e1-cd61a020001c@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BE1P281CA0218.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:88::8) To AS8PR03MB9192.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5c0::11)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR03MB9192:EE_|AS2PR03MB9395:EE_
+X-MS-Office365-Filtering-Correlation-Id: 541dbef5-8c74-4c34-215e-08dcb2e14a22
+X-LD-Processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SnBvZFhCY3FPRmNYUzBXZVNpMmEzQ0FHbGFXcmdaeDNaeGdpVVJvNGJFZVNG?=
+ =?utf-8?B?SkwvQTl1eUdXMTFuVVJZVUYvY0dRWVh1K3FTR010dndkczQwaDgzNUVLVVVZ?=
+ =?utf-8?B?b2JzRnhPVk5yb3ZKakJJYkhSTkpoSlZ3bFNYMENnWU1UWGVyVkNGUytoM3N2?=
+ =?utf-8?B?eCtqeW00RFR3WUNKTDdaTmxHbUpMQVNaMU5nK2Rqekp2WGhDWTdqdGIxU3pq?=
+ =?utf-8?B?ZUJSRFNRNWp5TnNKejF1REdOalBFNGtSWlBUS0UrYko4M1BXWHgwcEpKQmFp?=
+ =?utf-8?B?VlZLRWJrQVhVNGZmdGVlUGY2ZzY3UWp0dmFLK29QNXRMSEdtSDlmQ29Hd1RJ?=
+ =?utf-8?B?R1J2QUhZWTl5d0tNVW9tRncwRXNpRjdmRktVSGUvYVd3Nk5IYTdRMFlHMnZ3?=
+ =?utf-8?B?djZ2TVU4aHF6UnZoNXJuUjN1MnBqRmJNaXp4ank1NWZ5S2FtMXdpeHhkcjhS?=
+ =?utf-8?B?a2tUWjM3UjZpR1gzVlh4MTJUbHh2S2ExdzhPZENrdTZPU29FNVVsS1oyWWtw?=
+ =?utf-8?B?VkoyQ0FUVHVKWCtKNHUwM0dnSFJNQ1FTMi9qTjdrbllxRnZwYmEzaWpwdmJr?=
+ =?utf-8?B?Wk52WVBBell5SUVFU3hRa1dxZEg0d20vbXhTdzZUN3g4bnhUQU1jVTVrL21j?=
+ =?utf-8?B?Rkc5VEhrekxKc01Jb3pEVTJjdDFnaVZ0QUtDRkxpQWR5SXh3eXF4M1pzWS9T?=
+ =?utf-8?B?ZjZyeVc5cVE3bG9YaXdQc215MUI1N2NaaVcrVkNUQjBpSkdUa1RjNFI1aEdO?=
+ =?utf-8?B?dTMvR2xDOExPaDhoNmNROGZJd0dieXlxeHhDdkJEUHlQSXB1WWh2QnJHdytt?=
+ =?utf-8?B?SS9BaTFVV0Q1ZlFYLzVFNUJ2eFA4c3VvL01JMkN1RHdvRElSNlRkTDZ0aFo0?=
+ =?utf-8?B?WWlkMVVCY3psMzN5bDRQQUNPR3l6SFF3T0FDTk1pMk5xaFhzVmswb0o0STZT?=
+ =?utf-8?B?WDFObTJtR0orQnh2czV2NGdmSXA5OUtrRlFwNkN3K3FtY2VFaWlTSG9GNW5Y?=
+ =?utf-8?B?Qi9STklIV2ZPdndqT0YzRnp4akdYTnB3VlpwajJVZVBWaEVEY0xnQXgvbmNz?=
+ =?utf-8?B?Q2VmczhZaFRzYy9BV1FDL3U4MEZUUjhYOEhzU0k1SkZFeXpNQkkrU0Z0T0Y0?=
+ =?utf-8?B?Z2JvYmJnajE1blB1dFRWbzQvNm9XeXllREJSNHR1MGFPdmc1dFhNTjJKVG5r?=
+ =?utf-8?B?TzlqWXFMRXVjUVhZNmRma1QzdksyMWNEQ1lpUUZCRjlLUlJDTHhQd2Q1SVpu?=
+ =?utf-8?B?RDJaY2tEYTB3VFV5ckc1MlZLUVh2NlBoSXFFUHhHZzlZRXJLT1Rwc2ZIQjR3?=
+ =?utf-8?B?dVFzQlluSXVuRmRQa293ZmlWRFdQaHpJdUFkaTcwcDVOdTZFQUJ5QUZzaXhE?=
+ =?utf-8?B?eE5ab1dLZm93N1krdnBNd3ZMdFN6RW5KT1hmVHAyT0Z5YTVqNmN2a0M1VmFE?=
+ =?utf-8?B?YlVLWUFGZVhSVWQ4aGI1S1JLdlFQRnJtMWJ2REpwT0JPTUJiWm5rSDBEYXFS?=
+ =?utf-8?B?VVE2andjZlNDYXVwWnF2U0lRZ1VuWitaQlhlSkFPN2l4a1N6M21jcUZHWllP?=
+ =?utf-8?B?eTFqVWtXMWUzZU5OSzFSR1hRdnpjYkVEa28wR0xndUpIZE1CSWh5RzcxRUM3?=
+ =?utf-8?B?QWVUUzA5OUJVYmhoNHVMYXlOVXF5T1ltUDZzLyt6bHBvcGg4SGJCQmhWMitH?=
+ =?utf-8?B?ZkdBRXBuU0JKaGk2Mi9sb1ExZ0p4OUVFaVBOcTVRYzN6aW10MHFza3o0dll0?=
+ =?utf-8?B?NlBrZUlzWkc0S1hVcmhmL1hJNE1ZZmtOQkVTRHdod3F1K1RsRkdIblBBRDBF?=
+ =?utf-8?B?THQwMEw1OEFnMDdrZWd6UT09?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR03MB9192.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q1JScHVxSGIxbDJaZ2NqbUlXZHQ3S2FOUlc3ckdwdDVETWZkajhOVzFQeGJx?=
+ =?utf-8?B?ZnpERFNEYmNWbVhFMkdSaXB2WS9DN0hZWnI0MUV3STFmdmxlK0wxZVFlOFQ0?=
+ =?utf-8?B?YnAvenR1SEN6eWd1TlE4YUpURHlmQnFjVE5BRzFCSDcwYVIzK2UyYnZKOTRx?=
+ =?utf-8?B?NllBN0tKeVpHNVk1cEgyYitqK0RRZERVWXBTRW1xWVF0Y0tsN2M4aUt1VGVp?=
+ =?utf-8?B?NHl5dS83WjM3dlppQkM0VDdoUllmQTBQaWJqdUd5NG95Z0ZnSmc1WXU3TTR0?=
+ =?utf-8?B?L3dhVEp0NXFWeThuU2xzcHQ4RUwySHo3NGJicjVnVURaUE54K0RGcEZNS0gx?=
+ =?utf-8?B?emErbkRjSjU1Vmw3eTZJNDM4SEZSMThZcTJvOGhDeENQRzRyZ3l6Y2dzRmo1?=
+ =?utf-8?B?ZzZ5a2RtaEFMUHZkL2NvR2s1UHBzZ1haZkpzdCtNVnByanJOdG5xbDF6TVdX?=
+ =?utf-8?B?R2JjQ3JrQ3ZNU0ZRY0R3bktocjV2SjBaaDhhL0ptSFk2aXg0K0FXRG4ydEVO?=
+ =?utf-8?B?TEtacHdXMUlTbVhvSTNMeVpQTkdaM0tsbkpUbVdOVFR6dXRPK05vMEFDVTR1?=
+ =?utf-8?B?MkJBT3VRTHk1NW5oZzhSbU5QT0ZoSWJqdFpPN2tYemViRFBZTDFkVXdHODlB?=
+ =?utf-8?B?Sm02Vmx5Sis1ZUF6K3ZPOUw3TGZEdWZjSHpZcmxjV3l2RkFCdmZrTVNMVjdQ?=
+ =?utf-8?B?RjgxbE1wZ3lBREY5WXd3d0NFZDYrb2dDU1B6aitIZlROTmwySHFLUUN0dFFK?=
+ =?utf-8?B?RUh0UTd1d2JCYkRsbWdhMG80V3FvSC9OU3JnVjIxcEw5dktGSThDalpESVNH?=
+ =?utf-8?B?dVBLSmswdnZJeitDcStZclhzWGhLWkhMY3hyOWlrSWVPYUpsQ3YwaUJWaG0z?=
+ =?utf-8?B?bWhFQ1diQ05WWjZsR0MyVFYzZFJtVEgxV3gycklnSUY1Wk4rK1RLcDN3YUc0?=
+ =?utf-8?B?dThqYTdkalUvR3ZoVHpybFdDc2lWNTQxZTg5bGMwc0NYY3B1MDNoOE1JUFht?=
+ =?utf-8?B?QTloUjI3UHhBUllSdHdRb0Y1VVJKN01UMytYeVpSTUE1Rk9TRi81M2tScTc3?=
+ =?utf-8?B?UnVQdUowQWRHa2NLVWNkeFBDb1FCaGV3a1FuL2dsMWNQcFNpYUNvdGc5NE1o?=
+ =?utf-8?B?YWFGQ3pWYnJmMk50SGc5ZWhrMHBGSTVsczFEMUFtNHFrU2JLblNWRmlCdHRX?=
+ =?utf-8?B?L05heTNLMHJIK2hiOGpIcWI1cG54V1R4eFJWV2pYREljb0syTUhHRmQ2bmox?=
+ =?utf-8?B?OHpWUGJZRWVscVF3K3BFSVd0Y0xPREx6L1VpeVUxU0kwYkdBV0JRNGpMMDgz?=
+ =?utf-8?B?K05SMmdqbWdDdGZHbGNaTnVxL3hXeWZGTFdyallrUmFKdDZqZVdYUlA0L1Nw?=
+ =?utf-8?B?NEdtZUFJSUZzejlkNjBGdW9BZ09yVXNIVHBiL1lFMWp3MDBsc3ViU2UwYk1B?=
+ =?utf-8?B?S1hBZ21paWNTenFGdTlnY00rMDR1dkpyRXpLR3BSejVKZFUwWGt2ZTZUU09u?=
+ =?utf-8?B?ZWE3UU4vcFBuUk50Q3JWL202RUNhZ08zUUJrUkgyaklTekJOTU1QbjMxS0VJ?=
+ =?utf-8?B?YUN5bVRyOUpPWXlIZHJJcW5TZWx1TElrL3EvYVFnNWtDVFZMMFF3aW1UYmdQ?=
+ =?utf-8?B?NmFJZVpnb3ZYUXZEYjVQeVV4OC8yVlhZZlNON0FpQy9JV0h4Y05WRmYwMTND?=
+ =?utf-8?B?UDZBRlIyRVJlWnRWdkxENTMrMk54TnoxcmxCYmhQQjVEZVBJTGNWU2NPOER6?=
+ =?utf-8?B?RFNZNGY2L3FXWWF2TlNMOHRtc1VpOElGVmdacnFPczBWUXNWZi9jenhKdDds?=
+ =?utf-8?B?dFYwcDNMRGJRbXNzNXZEcHVzMktFbXVid3J6K0Y2U0h4VE9adWJhOFVoUGpX?=
+ =?utf-8?B?a2ZMT3FjK25OamF2QlhWUGNicTY1eldZWDdPS2FLUUhBandKNmRVZlpjbWRV?=
+ =?utf-8?B?TGozUlgvT2pEcFpzRStzdi9XTGtSY0pLdkdPREpVSTlVQjA2WlN6Ni9BQ3RW?=
+ =?utf-8?B?TjZOdDlvdmFGdlUwL1ZYeWdMT0ZLWlJSeEZmYnR5S0c2SkRsY2M1MlZvaTBG?=
+ =?utf-8?B?M0JKZ04xTUdWek01eVduVFJaWjd0U25mNnNCczlNT1ptOGlZVXF0TXNZKy9t?=
+ =?utf-8?Q?peImQ5QdepK6S3ER0bT54JaFB?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 541dbef5-8c74-4c34-215e-08dcb2e14a22
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR03MB9192.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2024 10:53:06.2071
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UU2HUSee2hl/Ztf2btGpsHn+n6LJOcC4G+hVwhFf/3jJKeQ/e+epGnVB87I+jQtLuI9VsDsttSE63MwJPGtiOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9395
+X-Proofpoint-GUID: Ll_cGk91SQTtfhOWQcF4L_AVO1TY_1rV
+X-Proofpoint-ORIG-GUID: Ll_cGk91SQTtfhOWQcF4L_AVO1TY_1rV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-02_07,2024-08-01_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 impostorscore=0 phishscore=0
+ malwarescore=0 mlxlogscore=999 clxscore=1015 adultscore=0 mlxscore=0
+ bulkscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2408020073
 
-On 02.08.2024 12:22, oleksii.kurochko@gmail.com wrote:
-> On Fri, 2024-08-02 at 11:21 +0200, Jan Beulich wrote:
->> On 02.08.2024 11:14, oleksii.kurochko@gmail.com wrote:
->>> On Mon, 2024-07-29 at 15:00 +0200, Jan Beulich wrote:
->>>>> To have working BUG(), WARN(), ASSERT,
->>>>> run_in_exception_handler()
->>>>> it is needed to enable GENERIC_BUG_FRAME.
->>>>>
->>>>> ebreak is used as BUG_insn so when macros from <xen/bug.h> are
->>>>> used, an exception with BREAKPOINT cause will be generated.
->>>>>
->>>>> ebreak triggers a debug trap, which starts in debug mode and is
->>>>> then filtered by every mode. A debugger will first handle the
->>>>> debug trap and check if ebreak was set by it or not. If not,
->>>>> CAUSE_BREAKPOINT will be generated for the mode where the
->>>>> ebreak
->>>>> instruction was executed.
->>>>
->>>> Here and in the similar code comment you talk about an external
->>>> debugger, requiring debug mode, which is an optional feature. In
->>>> my earlier comments what I was referring to was pure software
->>>> debugging. I continue to fail to see how properly distinguishing
->>>> ebreak uses for breakpoints from ebreak uses for e.g. BUG() and
->>>> WARN() is going to be feasible.
->>> GDB keeps track of what addresses it has breakpoints at.
+31.07.24 15:23, Jan Beulich:
+> On 30.07.2024 12:33, Sergiy Kibrik wrote:
+>> There're several places in common code, outside of arch/x86/hvm/vmx,
+>> where cpu_has_vmx_* get accessed without checking whether VMX supported first.
+>> These macros rely on global variables defined in vmx code, so when VMX support
+>> is disabled accesses to these variables turn into build failures.
 >>
->> Of course it does. But in Xen how do you decide whether to trigger
->> the debugger when you've hit an ebreak? (Just to repeat, my question
->> is about the purely software debugging case; no hardware debugging
->> extensions. In such a case, aiui, Xen gains control first and then
->> decides whether to trigger the debugger, or whether to handle the
->> exception internally. Sure, none of this infrastructure is in place
->> right now, but imo it wants taking into consideration.)
-> Well, then something like KGDB is needed for Xen and mechanism to
-> notify guests to something similar to:
-> 
-> Right now Xen detects that 'ebreak' is inserted by using the function
-> do_bug_frame():
-> ```
->     case CAUSE_BREAKPOINT:
->         if ( do_bug_frame(cpu_regs, pc) >= 0 )
->         {
->             if ( !(is_kernel_text(pc) || is_kernel_inittext(pc)) )
->             {
->                 printk("Something wrong with PC: %#lx\n", pc);
->                 die();
->             }
-> 
->             cpu_regs->sepc += GET_INSN_LENGTH(*(uint16_t *)pc);
->         }
-> ```
-> 
-> So if do_bug_frame() return < 0 then it should be ebreak inserted by
-> the debugger so need to notify GDB that he should handle that.
-> At the moment I think we can add():
-> ```
->         if ( do_bug_frame(cpu_regs, pc) >= 0 )
->         {
-> 		...
-> 
->             cpu_regs->sepc += GET_INSN_LENGTH(*(uint16_t *)pc);
->         }
-> 	else
-> 	{
-> 	    printk("this is not Xen's ebreak\n");
->             die();
->         }
-> ```
+>> To overcome these failures, build-time check is done before accessing global
+>> variables, so that DCE would remove these variables.
+>>
+>> Signed-off-by: Sergiy Kibrik<Sergiy_Kibrik@epam.com>
+>> Acked-by: Paul Durrant<paul@xen.org>
+>> CC: Andrew Cooper<andrew.cooper3@citrix.com>
+>> CC: Jan Beulich<jbeulich@suse.com>
+>> ---
+>> changes in v5:
+>>   - change kconfig option name VMX -> INTEL_VMX
+>>   - do not change .c files, only modify macros in vmcs.h
+> Better, yet still not going far enough, as indicated earlier:
 
-Except that, as previously said, this will break if the debugger inserted
-a breakpoint where Xen already has an ebreak. That's where we started from
-in this discussion. Recall that my question was how the use of ebreak can
-be correct / reliable here. It is for a reason that on x86 we do not use
-the shorter INT3 instruction, but the longer UD2 one for BUG() etc.
+I must've misunderstood your earlier suggestion. Are we talking about 
+modifying all of cpu_has_vmx_* macros -- even though most of them used 
+internally to VMX code and don't cause any trouble in common code?
 
-Jan
+   -Sergiy
 
