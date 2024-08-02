@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 643359457EA
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 08:05:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.770146.1181073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AEBE9457EF
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 08:07:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.770155.1181083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZlPO-00027a-Qp; Fri, 02 Aug 2024 06:04:58 +0000
+	id 1sZlRE-00038q-8T; Fri, 02 Aug 2024 06:06:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 770146.1181073; Fri, 02 Aug 2024 06:04:58 +0000
+Received: by outflank-mailman (output) from mailman id 770155.1181083; Fri, 02 Aug 2024 06:06:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZlPO-00024l-NT; Fri, 02 Aug 2024 06:04:58 +0000
-Received: by outflank-mailman (input) for mailman id 770146;
- Fri, 02 Aug 2024 06:04:57 +0000
+	id 1sZlRE-00037M-59; Fri, 02 Aug 2024 06:06:52 +0000
+Received: by outflank-mailman (input) for mailman id 770155;
+ Fri, 02 Aug 2024 06:06:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bU9L=PB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZlPN-00024f-OP
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 06:04:57 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1sZlRC-00037E-Rf
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 06:06:50 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 249f4f61-5095-11ef-bc03-fd08da9f4363;
- Fri, 02 Aug 2024 08:04:56 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a7aa212c1c9so978343066b.2
- for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 23:04:56 -0700 (PDT)
+ id 6810abed-5095-11ef-bc03-fd08da9f4363;
+ Fri, 02 Aug 2024 08:06:50 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a7a8e73b29cso643761866b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 23:06:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9ec727esm57001266b.197.2024.08.01.23.04.55
+ a640c23a62f3a-a7dc9bc3ca6sm57989266b.20.2024.08.01.23.06.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Aug 2024 23:04:55 -0700 (PDT)
+ Thu, 01 Aug 2024 23:06:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 249f4f61-5095-11ef-bc03-fd08da9f4363
+X-Inumbo-ID: 6810abed-5095-11ef-bc03-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722578696; x=1723183496; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722578809; x=1723183609; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BJdR8UlgH022Xk2viPR1cQw/vL8as1dX7BdU+jDvN6o=;
-        b=S5qWMsoHzvzhUz5dJO+709sR++5zomAtfNZa7xsxB93t1g650iZmCy7lSq2p+rH0lT
-         0YV0mlnSl6IEeDBpEqT4qTFXEJXGM1M7k/qJ9WJj1wbgIo+jaKStTlk40nWr+4I58bjG
-         9VMGl5tGLo+Dx+6idZdWAPU72GIXorBnaf2fqenwHw6OWPNYizSlvCfFH+Z2TeZnX/mc
-         8VqEbFvo6taAhw+8VFD8SjOqk+pVUvejT0CQf7YtLK1SR8Glk0uCf1z5+1Fa7x8K3CUa
-         K0rorysJqMaUNwbEBF8z+6FUv+d87m9crR//O/ljVoJkrbkTBwraNcu1NUGWCqo+CvQO
-         ZTqQ==
+        bh=RoH/DL+nQ38hS1GDHQNCm2eEyYeGyiIBgf7i+VwjW7M=;
+        b=BjZb+KGwsh339d6BpUAumRwrara2Db3ZGArPqK4yQDFovvogXVmuODqxX/FDdjh/sp
+         ee9nOzMxKjMgsvONI0UqUs/82RgCJMXHsvP7nLifrfFaatZXY2YhY8kaYdPjsOg/oLiq
+         mplmqB5uca/wJGtoI1BY2z7S7RkT/yd2aztrDpVYePFvt706m3fddZiXXYEdMkHnJEK1
+         gb9gNQAqwPliw79oN882c4g13nSLUprdVHpVOso7r1n5SQ7gL1R4yFbi/AyKgW7Sl3R8
+         0KSuWrmuNs6LNBMrvEmmJFfz2n+atwQoAEHvErE5crEQmYINzduXV3jWUUmdlFfmAB1h
+         tgIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722578696; x=1723183496;
+        d=1e100.net; s=20230601; t=1722578809; x=1723183609;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BJdR8UlgH022Xk2viPR1cQw/vL8as1dX7BdU+jDvN6o=;
-        b=TIVnhIWjEqkkxQ2nDRTzQWJ4jz0FZWlzTOZThRXKz65lh4mH5rIO+Ny6zMfl9cchmm
-         SpJjEuv0HpysMV5By0F4VTNWiuprJplYaWLBI0iOnl3CJrYG9nDLDE703lwJXBPrvLQU
-         Fnc3ed5m5kuhSBWbxjtwqFcxP2YQc7gIdLJgUBl6vdUnHJXktoo1N3p7wuaF+j47I/l7
-         j6j9A5rLi2ADlB6UuICTb27bsL/DPnS9kP7VvyoKqpYJq8vc/8mr2q1vQ/H90Uw9kL7k
-         Y74NM3t+A6qQUOiFiK2PEezTMvfKT8Fj/4HGdmT4DcFUc0nTJzUXopomiLNS7H9q/i92
-         SJRA==
-X-Forwarded-Encrypted: i=1; AJvYcCUMW0/Bl1FOI9vvxWM9LqvzCKL5ejtevnsdFnGiqbWDUuku4RuKxvtNeNy18/Av+Eme7dsKXQlPliX4Ff6ukJNz0HLlyLdmnjIahJ/HHD0=
-X-Gm-Message-State: AOJu0Yw8b7LJzfqmPj3/t6hwumvQUQVLWeyCY/kR1KAOefLB3vSDQw3m
-	AST8axn3adrJkHnuoTtsQLqgKhJkx82MNTGA5t6v4ICttWdiuERBli4FVp2akmxl1s6dS9ISbI0
-	=
-X-Google-Smtp-Source: AGHT+IEHnZfkUden+bNOzCnmuX4gokZ7N0CaV9pjDhrFWAjINaAoTOSHqXiu3AO2xC8vgYeFj6zC5Q==
-X-Received: by 2002:a17:906:bc0f:b0:a7a:c812:36c5 with SMTP id a640c23a62f3a-a7dc509f924mr180718066b.46.1722578696021;
-        Thu, 01 Aug 2024 23:04:56 -0700 (PDT)
-Message-ID: <d9cbddc0-cb5c-4ce9-9bda-be0b97719799@suse.com>
-Date: Fri, 2 Aug 2024 08:04:54 +0200
+        bh=RoH/DL+nQ38hS1GDHQNCm2eEyYeGyiIBgf7i+VwjW7M=;
+        b=b2AUKDsYYQwWvIbBjJ57A6dhprUvclBFpIPvcHMyGfX2YrQ7DND2l6qEz53/6rXX7L
+         Q4f3FsQBMgexGT52d6iRm4TEXXX33+tjlJsXq+XqDFgJiYPQCJVuSwswyRbfyBfOycHZ
+         oKwnwl71pZCztkNSNEhIL9AqrIW956Mv4Inw8w2hQhBHi/YqD9q9C6gmNT59ezBq5ufM
+         2clRpoC0QrqLSY1oFBKY5H8cu/z0UKoWyIIL36X0KmS9pSBCUFQm5JmgsTwSrw2m2RWM
+         d2M5XlSoL0qDHUKovcNOR8teHKPd1S5LHa2tTYRIvrcNT0AKtvlQYF8npG8l16AbJBbj
+         r17w==
+X-Forwarded-Encrypted: i=1; AJvYcCUKElNVB6tSCMFg8ESWZF75VYloi2hVZ4G2bQhH1URY2JDxjeHOPZOvPPP7Z0XSafVan3qLkYvn+BZLbA2sl5Urh32nsUUwLlyVbY62WoY=
+X-Gm-Message-State: AOJu0Yz2UYITBq8xJ0thBmnnf8G8LMITGSMUiUKqIAYm2NPr3+inqSHZ
+	DCBp9B1CR7BvOVZgTnfCo6qMNgQdP84J66vmG5Js22+CcJ2nPz0Xx0i2Y4IaIQ==
+X-Google-Smtp-Source: AGHT+IFhiJAkQLqWivOZjJB30J5mZa4hCf9qqLPJjaMlOJhhFxipESrBccTcO86s7BC5ew0UUkmGSw==
+X-Received: by 2002:a17:907:7e9e:b0:a6f:e47d:a965 with SMTP id a640c23a62f3a-a7dc502e77amr168761066b.41.1722578809179;
+        Thu, 01 Aug 2024 23:06:49 -0700 (PDT)
+Message-ID: <8e110bfd-d6c6-4a24-8062-f728a4cf0a20@suse.com>
+Date: Fri, 2 Aug 2024 08:06:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 2/5] xen/riscv: introduce decode_cause() stuff
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
+Subject: Re: [PATCH] docs/misra: add R13.2 and R18.2 to rules.rst
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
  xen-devel@lists.xenproject.org
-References: <cover.1721731887.git.oleksii.kurochko@gmail.com>
- <335b0b49720b3524b6c89c5ce62d3377a4bb1fb8.1721731887.git.oleksii.kurochko@gmail.com>
- <a2ad6557-8162-4f06-84c6-b79c049cb326@suse.com>
- <44b01293f3e318b6f4d1c3aff3f1b38349676bc0.camel@gmail.com>
+References: <alpine.DEB.2.22.394.2407301626460.4857@ubuntu-linux-20-04-desktop>
+ <6575beb5-645a-470a-89a1-8485adeace60@suse.com>
+ <alpine.DEB.2.22.394.2407311647170.4857@ubuntu-linux-20-04-desktop>
+ <dd463c03-71ca-4333-ac3f-629241b0f9bc@suse.com>
+ <alpine.DEB.2.22.394.2408011044320.4857@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,128 +117,107 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <44b01293f3e318b6f4d1c3aff3f1b38349676bc0.camel@gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2408011044320.4857@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.08.2024 22:05, oleksii.kurochko@gmail.com wrote:
-> On Thu, 2024-08-01 at 13:44 +0200, Jan Beulich wrote:
->> On 24.07.2024 17:31, Oleksii Kurochko wrote:
->>> The patch introduces stuff needed to decode a reason of an
->>> exception.
+On 01.08.2024 19:59, Stefano Stabellini wrote:
+> On Thu, 1 Aug 2024, Jan Beulich wrote:
+>> On 01.08.2024 01:50, Stefano Stabellini wrote:
+>>> On Wed, 31 Jul 2024, Jan Beulich wrote:
+>>>> On 31.07.2024 01:30, Stefano Stabellini wrote:
+>>>>> --- a/docs/misra/rules.rst
+>>>>> +++ b/docs/misra/rules.rst
+>>>>> @@ -462,6 +462,15 @@ maintainers if you want to suggest a change.
+>>>>>       - Initializer lists shall not contain persistent side effects
+>>>>>       -
+>>>>>  
+>>>>> +   * - `Rule 13.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_02.c>`_
+>>>>> +     - Required
+>>>>> +     - The value of an expression and its persistent side-effects shall
+>>>>> +       be the same under all permitted evaluation orders
+>>>>> +     - Be aware that the static analysis tool Eclair might report
+>>>>> +       several findings for Rule 13.2 of type "caution". These are
+>>>>> +       instances where Eclair is unable to verify that the code is valid
+>>>>> +       in regard to Rule 13.2. Caution reports are not violations.
+>>>>
+>>>> Which doesn't make clear what our take is towards new code people may
+>>>> submit.
 >>>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> Acked-by: Alistair Francis <alistair.francis@wdc.com>
->>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>> ---
->>> Changes in V11:
->>>  - Nothing changed. Only rebase.
->>> ---
->>> Changes in V10:
->>>  - add Acked-by: Jan Beulich <jbeulich@suse.com>
->>> ---
->>> Changes in V9:
->>>  - This patch was reverted as breaks both release and randconfig
->>> builds.
->>>    I don't see the failures now. ( probably it was because of
->>> printk usage
->>>    which was not ready at that moment ).
->>>  - drop inclusion of <asm/csr.h> and <asm/early_printk.h>
->>>  - add <asm/riscv_encoding.h> for CAUSE_* in decode_trap_cause().
->>> ---
->>> Changes in V8:
->>>   - fix typo in return string from decode_reserved_interrupt_cause
->>>   - add Acked-by: Alistair Francis <alistair.francis@wdc.com>
->>> ---
->>> Changes in V7:
->>>  - Nothing changed. Only rebase.
->>> ---
->>> Changes in V6:
->>>  - Remove usage of LINK_TO_LOAD() due to the MMU being enabled
->>> first.
->>>  - Change early_printk() to printk()
->>> ---
->>> Changes in V5:
->>>   - Remove <xen/error.h> from riscv/traps/c as nothing would
->>> require
->>>     inclusion.
->>>   - decode_reserved_interrupt_cause(), decode_interrupt_cause(),
->>> decode_cause, do_unexpected_trap()
->>>     were made as static they are expected to be used only in
->>> traps.c
->>>   - use LINK_TO_LOAD() for addresses which can be linker time
->>> relative.
->>> ---
->>> Changes in V4:
->>>   - fix string in decode_reserved_interrupt_cause()
->>> ---
->>> Changes in V3:
->>>   - Nothing changed
->>> ---
->>> Changes in V2:
->>>   - Make decode_trap_cause() more optimization friendly.
->>>   - Merge the pathc which introduces do_unexpected_trap() to the
->>> current one.
->>> ---
->>>  xen/arch/riscv/traps.c | 80
->>> +++++++++++++++++++++++++++++++++++++++++-
->>>  1 file changed, 79 insertions(+), 1 deletion(-)
+>>> Good point, see my comment below
 >>>
->>> diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
->>> index 5415cf8d90..37cec40dfa 100644
->>> --- a/xen/arch/riscv/traps.c
->>> +++ b/xen/arch/riscv/traps.c
->>> @@ -9,13 +9,91 @@
->>>  #include <xen/sched.h>
->>>  
->>>  #include <asm/processor.h>
->>> +#include <asm/riscv_encoding.h>
->>>  #include <asm/traps.h>
->>>  
->>> -void do_trap(struct cpu_user_regs *cpu_regs)
->>> +static const char *decode_trap_cause(unsigned long cause)
->>> +{
->>> +    static const char *const trap_causes[] = {
->>> +        [CAUSE_MISALIGNED_FETCH] = "Instruction Address
->>> Misaligned",
->>> +        [CAUSE_FETCH_ACCESS] = "Instruction Access Fault",
->>> +        [CAUSE_ILLEGAL_INSTRUCTION] = "Illegal Instruction",
->>> +        [CAUSE_BREAKPOINT] = "Breakpoint",
->>> +        [CAUSE_MISALIGNED_LOAD] = "Load Address Misaligned",
->>> +        [CAUSE_LOAD_ACCESS] = "Load Access Fault",
->>> +        [CAUSE_MISALIGNED_STORE] = "Store/AMO Address Misaligned",
->>> +        [CAUSE_STORE_ACCESS] = "Store/AMO Access Fault",
->>> +        [CAUSE_USER_ECALL] = "Environment Call from U-Mode",
->>> +        [CAUSE_SUPERVISOR_ECALL] = "Environment Call from S-Mode",
->>> +        [CAUSE_MACHINE_ECALL] = "Environment Call from M-Mode",
->>> +        [CAUSE_FETCH_PAGE_FAULT] = "Instruction Page Fault",
->>> +        [CAUSE_LOAD_PAGE_FAULT] = "Load Page Fault",
->>> +        [CAUSE_STORE_PAGE_FAULT] = "Store/AMO Page Fault",
->>> +        [CAUSE_FETCH_GUEST_PAGE_FAULT] = "Instruction Guest Page
->>> Fault",
->>> +        [CAUSE_LOAD_GUEST_PAGE_FAULT] = "Load Guest Page Fault",
->>> +        [CAUSE_VIRTUAL_INST_FAULT] = "Virtualized Instruction
->>> Fault",
->>> +        [CAUSE_STORE_GUEST_PAGE_FAULT] = "Guest Store/AMO Page
->>> Fault",
->>> +    };
->>> +
->>> +    if ( cause < ARRAY_SIZE(trap_causes) && trap_causes[cause] )
->>> +        return trap_causes[cause];
->>> +    return "UNKNOWN";
->>> +}
+>>>
+>>>>> @@ -583,6 +592,15 @@ maintainers if you want to suggest a change.
+>>>>>         submitting new patches please try to decrease the number of
+>>>>>         violations when possible.
+>>>>>  
+>>>>> +   * - `Rule 18.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_18_02.c>`_
+>>>>> +     - Required
+>>>>> +     - Subtraction between pointers shall only be applied to pointers
+>>>>> +       that address elements of the same array
+>>>>> +     - Be aware that the static analysis tool Eclair might report
+>>>>> +       several findings for Rule 18.2 of type "caution". These are
+>>>>> +       instances where Eclair is unable to verify that the code is valid
+>>>>> +       in regard to Rule 18.2. Caution reports are not violations.
+>>>>
+>>>> And while the same wording is used here, I think it is pretty clear for
+>>>> this that we'd reject changes where bad subtractions are used. IOW even
+>>>> more so important to clarify the (possibly different) positions on what
+>>>> is going to be added into the code base.
+>>>
+>>> In both of these cases, we would reject code that doesn't follow R13.2
+>>> and R18.2.
 >>
->> While I committed this as-is, two more points: First, as soon any any
->> such array access becomes potentially reachable because of guest
->> activity, it wants to use array_access_nospec() or alike.
-> Could you please explain why ( specifically ) guest activity affects if
-> array access becomes potentially reachable? 
+>> But we shouldn't (unconditionally) do so for for 13.2, should we?
+>>
+>>> I'll change it to the following:
+>>>
+>>>
+>>> Be aware that the static analysis tool Eclair might report several
+>>> findings for Rule 18.2 of type "caution". These are instances where
+>>> Eclair is unable to verify that the code is valid in regard to Rule
+>>> 18.2. Caution reports are not violations. Regardless, new code is
+>>> expected to follow this rule.
+>>
+>> I'm fine with this for 18.2, but not so much for 13.2.
+> 
+> Let me clarify something about R13.2. I expect we are aligned on this.
+> 
+> Rule 13.2 only expects that "the value of an expression and its persistent
+> side-effects shall be the same under all permitted evaluation orders"
+> and nothing more.
+> 
+> It is an outstanding limitation of static analyzers such as ECLAIR
+> that they cannot be certain that "the value of an expression and its
+> persistent side-effects shall be the same under all permitted evaluation
+> orders". So one way to make ECLAIR happy is to change this code:
+> 
+> 1)
+> func1(param1, func2(a), func3(b);
+> 
+> into this code:
+> 
+> 2)
+> param2 = func2(a);
+> param3 = func3(b);
+> func1(param1, param2, param3);
+> 
+> Rule 13.2 is not asking us to change 1) into 2). 1) is acceptable. It is
+> just that ECLAIR cannot help us ensure that 1) is compliant with Rule
+> 13.2. It is totally fine to accept new code written in the form 1), of
+> course only if "the value of an expression and its persistent
+> side-effects shall be the same under all permitted evaluation orders".
+> It would likely increase the number of ECLAIR cautions, but it is not
+> necessarily a problem, and the ECLAIR Gitlab job will not fail.
+> 
+> If one of the reviewers discovers that 1) doesn't comply with Rule 13.2
+> due to manual review, then they should ask the contributor to change the
+> code. That is a good idea because we wouldn't want the value of an
+> expression to be dependant on the evaluation order which GCC cannot
+> guarantee.
 
-Anything the guest can affect wants to be as immune as possible towards
-the guest trying to drive speculation the wrong way, and thus be able
-to infer information from resulting internal state of the CPU. I'm sure
-you're aware of at least the fact that there was a multitude of such
-issues over the last several years.
+Okay, if that is our interpretation of the rule for practical purposes,
+then I'm no longer concerned.
 
 Jan
 
