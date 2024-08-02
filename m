@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B422194580B
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 08:27:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.770170.1181102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2CF194580F
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 08:30:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.770179.1181112 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZllR-0007HT-1m; Fri, 02 Aug 2024 06:27:45 +0000
+	id 1sZloD-0000NK-Hd; Fri, 02 Aug 2024 06:30:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 770170.1181102; Fri, 02 Aug 2024 06:27:45 +0000
+Received: by outflank-mailman (output) from mailman id 770179.1181112; Fri, 02 Aug 2024 06:30:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZllQ-0007Fl-US; Fri, 02 Aug 2024 06:27:44 +0000
-Received: by outflank-mailman (input) for mailman id 770170;
- Fri, 02 Aug 2024 06:27:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sZloD-0000KO-EW; Fri, 02 Aug 2024 06:30:37 +0000
+Received: by outflank-mailman (input) for mailman id 770179;
+ Fri, 02 Aug 2024 06:30:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bU9L=PB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZllP-0007Fd-2c
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 06:27:43 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 519452d1-5098-11ef-8776-851b0ebba9a2;
- Fri, 02 Aug 2024 08:27:41 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a728f74c23dso1010598466b.1
- for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 23:27:41 -0700 (PDT)
+ id 1sZloC-0000KH-I3
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 06:30:36 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ba02c628-5098-11ef-bc03-fd08da9f4363;
+ Fri, 02 Aug 2024 08:30:35 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2ef248ab2aeso112702621fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 23:30:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9bc3d84sm59998066b.6.2024.08.01.23.27.39
+ a640c23a62f3a-a7dc9ec7311sm58953366b.195.2024.08.01.23.30.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Aug 2024 23:27:39 -0700 (PDT)
+ Thu, 01 Aug 2024 23:30:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 519452d1-5098-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: ba02c628-5098-11ef-bc03-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722580060; x=1723184860; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722580235; x=1723185035; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MMulInYZDUHLX2pCK42N94BJlYfJ/m5rIU1GCEr+IZ8=;
-        b=d4zSQsXoNavZLUimaKjuTxeF0PrXd8ltmWH3+lBxNU5QTB29zrVffXIpJf8kaopPlK
-         w9cvlYortdqXLZlIr8IF1Wp/v0L8T5dvQtxDr+aE9twf5sMLT9bmH5IUNs3IeXYq+QMN
-         o6tpbsAxgCQWExHc1CUVnRR+MiXdR6KTkY9RXt3ele/hjLr+5u5RlBLZKMFEBcUZobDK
-         /l8tvYCWrXobNeYxn7eCwp78P/Mj6o5GsrJh86iQ1G8k1FWJUbWm2udBOpreTFKjNByb
-         FsuubCMhHDZaYoRffAzp6uPo0YK6m9jb40V41UK/QqSzlss54rIMs1cuEIYPl+bWZLhg
-         fLcw==
+        bh=y2RdBw5XcQjQNw+V4TlDKBwnZ94TfWoC+/ovto3/93I=;
+        b=DeKuAtazszIBlOexzgdU94tRDHNZ/b83EvgqOSJoFo63xGRBt3a5+nL4fVNeEtQ1Ar
+         EKD1AaAjvNUglfPmFM20xp0To5PXQk0Y/Z/JM6Pz67c4NUONXDaNr4y7d29dvRoZGJBQ
+         EvvZGYA8IBwhf1vnDJ1uMebIALMHnNNPc9foNOQ0NLssKcgGzmDTTv0LY69NMg8NBE/y
+         vPN/A02sRx617qWYaDekgtfd9CuHHZd+cSQ7ExyFm/JYdLgybXTrsQwKSuMhP/xhjlsU
+         xcMMveJPwQSSz092UPFWIi0XPWSQto7SVve5tRVyoGHlCX9hz2d3yngkdfL+vC8ViHac
+         CJYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722580060; x=1723184860;
+        d=1e100.net; s=20230601; t=1722580235; x=1723185035;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MMulInYZDUHLX2pCK42N94BJlYfJ/m5rIU1GCEr+IZ8=;
-        b=ZhNh//cxotV44eWQA7G0d3H/zyyNutxZ7Trej6ebaUvG+IwQq6ZUA/5c8jhkoWLq4T
-         KHxfAXJOvT1PyjTJKERli6iGXI0BOU/BA9UeY1jduYd4KAAEz0UfNDXLdVtgssZ5FeIp
-         znz+GXNN/HpM6wA7zumI8Wg9R5nAhZy3af0E610/D98DkGHgC4d9jqhCI6ZSKVgEbX8H
-         itYyu0IZ0Mo2AEFugGKOpwsa2rkjPEwqTHofUE+aws+qF05dsEhVqJVWGPhVrnvbdOkE
-         x0BQNNlYuPV0zj0W2JBxwDHKrqsrNplZUzLm0IvDCWb0MaN5t8tNb6FKyBt21QHHunq+
-         y05Q==
-X-Gm-Message-State: AOJu0Yx6mpeBVFX3Xfmxn7Ncxho5VRvONes9YRFL1QyLQw2lxJEbXzCA
-	du+FCyAz6uKYg3iFcCsK0RtrC+8IGtBWHqtwpFcvav6QTXck0OpmXQKWNid5wg==
-X-Google-Smtp-Source: AGHT+IHrs9poE0lUj0qPr3GyL+ePpnPZa13Is2jzxYq5NjcgtztGNePe36rjDbY4Nd+q0c0jtxS3oA==
-X-Received: by 2002:a17:907:7f29:b0:a77:cd4f:e4f5 with SMTP id a640c23a62f3a-a7dc50feb0cmr193969366b.68.1722580059940;
-        Thu, 01 Aug 2024 23:27:39 -0700 (PDT)
-Message-ID: <bd03a532-e404-483f-a04b-b19c3d6fa993@suse.com>
-Date: Fri, 2 Aug 2024 08:27:38 +0200
+        bh=y2RdBw5XcQjQNw+V4TlDKBwnZ94TfWoC+/ovto3/93I=;
+        b=YNGIfQuWzl1ZuxXx/y9zL9fiN3zId52hDcNf2AQGsRNhshKBn1Hh6XI4MipF/VwJBk
+         yBB9TS3crK/tpOMQpOB2SfuOqOBN1n+affRF1UrI1kY/OSulMBO7RsZQ+8yrNRGoO5Wx
+         FtUTDRr3nCYs0krrRgeyjngwYtiDTyJ/twyLN2ixUkn/+e6ScbgyvgjmPBpGiyZIRSxN
+         +NQjPwKFuIT2ELXZG9tdfOFeUx81eqXo/TWrRdjv2TeAXKuf3JwoL1E5FdbvtdJi/h/4
+         xNYGt8U+shodDW2QCHOg/+Ll4B7PLlZSEXowVEscuh5A13mLIyen5uMcoDn1mgPDEhN4
+         e83Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVdqao7cCaJp+Bjp5E+aWBNub3Im3LYAQoOBoljkHe889+e2wdWRKCA4qOP7ODHLl6ICL18tqcusNFyzh+raBZy0t1IMelFmgvMoWzlFoU=
+X-Gm-Message-State: AOJu0Yy5ywnt0QrLSE4sjT0VoGBWo0HhusI4XEeSicsor/7lNmtZlQCe
+	Z5fc43gM8F9Wl2jocERgR+MDRAI9aXUKL4rlrrIRT/mK2FNGnulnfGt0mkPu1A==
+X-Google-Smtp-Source: AGHT+IE3QyrK+rRbvpSIRyDiSSwHvO6nGZjE4g37JRSoj5PuSXRsY1JWsosbYRJU1oWggQUyN+JhPw==
+X-Received: by 2002:a2e:320b:0:b0:2ef:28ed:1ff2 with SMTP id 38308e7fff4ca-2f15aa88cb7mr20661931fa.9.1722580235134;
+        Thu, 01 Aug 2024 23:30:35 -0700 (PDT)
+Message-ID: <8a2e672c-151d-4081-aeb9-db87c568b1a6@suse.com>
+Date: Fri, 2 Aug 2024 08:30:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v12 4/7] x86/domctl: Add hypercall to set the access
- of x86 gsi
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20240708114124.407797-1-Jiqian.Chen@amd.com>
- <20240708114124.407797-5-Jiqian.Chen@amd.com> <ZqtsQwZNyFzflDQt@macbook>
- <BL1PR12MB58490598FF7FEAE291DCDAABE7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v3] x86/shutdown: change default reboot method preference
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20240801161753.94399-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,47 +112,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB58490598FF7FEAE291DCDAABE7B32@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <20240801161753.94399-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02.08.2024 05:10, Chen, Jiqian wrote:
-> On 2024/8/1 19:06, Roger Pau Monné wrote:
->> On Mon, Jul 08, 2024 at 07:41:21PM +0800, Jiqian Chen wrote:
->>> --- a/xen/include/public/domctl.h
->>> +++ b/xen/include/public/domctl.h
->>> @@ -464,6 +464,13 @@ struct xen_domctl_irq_permission {
->>>      uint8_t pad[3];
->>>  };
->>>  
->>> +/* XEN_DOMCTL_gsi_permission */
->>> +struct xen_domctl_gsi_permission {
->>> +    uint32_t gsi;
->>> +#define XEN_DOMCTL_GSI_PERMISSION_MASK 1
->>
->> IMO this would be better named GRANT or similar, maybe something like:
->>
->> /* Low bit used to signal grant/revoke action. */
->> #define XEN_DOMCTL_GSI_REVOKE 0
->> #define XEN_DOMCTL_GSI_GRANT  1
->>
->>> +    uint8_t access_flag;    /* flag to specify enable/disable of x86 gsi access */
->>> +    uint8_t pad[3];
->>
->> We might as well declare the flags field as uint32_t and avoid the
->> padding field.
-> So, should this struct be like below? Then I just need to check whether everything except the lowest bit is 0.
-> struct xen_domctl_gsi_permission {
->     uint32_t gsi;
-> /* Lowest bit used to signal grant/revoke action. */
-> #define XEN_DOMCTL_GSI_REVOKE 0
-> #define XEN_DOMCTL_GSI_GRANT  1
-> #define XEN_DOMCTL_GSI_PERMISSION_MASK 1
->     uint32_t access_flag;    /* flag to specify enable/disable of x86 gsi access */
-> };
+On 01.08.2024 18:17, Roger Pau Monne wrote:
+> Change the default reboot preference to prefer ACPI over UEFI if available and
+> not in reduced hardware mode.
 
-Yet then why "access_flags"? You can't foresee what meaning the other bits may
-gain. That meaning may (and likely will) not be access related at all.
+Imo such a change in default behavior wants to come with a CHANGELOG.md entry.
 
 Jan
+
 
