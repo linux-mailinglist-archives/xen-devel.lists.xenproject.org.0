@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E271C945CE5
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 13:09:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.770990.1181568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E95E945CE6
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 13:10:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.770998.1181579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZq9M-0005UI-Ja; Fri, 02 Aug 2024 11:08:44 +0000
+	id 1sZqAg-0006vg-TR; Fri, 02 Aug 2024 11:10:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 770990.1181568; Fri, 02 Aug 2024 11:08:44 +0000
+Received: by outflank-mailman (output) from mailman id 770998.1181579; Fri, 02 Aug 2024 11:10:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZq9M-0005Sd-Gm; Fri, 02 Aug 2024 11:08:44 +0000
-Received: by outflank-mailman (input) for mailman id 770990;
- Fri, 02 Aug 2024 11:08:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=14L3=PB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sZq9K-0005SW-Fp
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 11:08:42 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 937bc4bf-50bf-11ef-bc03-fd08da9f4363;
- Fri, 02 Aug 2024 13:08:41 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2f149845fbaso44492541fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 04:08:41 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f15e25dfe2sm1316341fa.112.2024.08.02.04.08.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Aug 2024 04:08:40 -0700 (PDT)
+	id 1sZqAg-0006tU-Q5; Fri, 02 Aug 2024 11:10:06 +0000
+Received: by outflank-mailman (input) for mailman id 770998;
+ Fri, 02 Aug 2024 11:10:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bU9L=PB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sZqAf-0006kJ-Il
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 11:10:05 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c42640fd-50bf-11ef-8776-851b0ebba9a2;
+ Fri, 02 Aug 2024 13:10:03 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-52efbc57456so7964363e87.1
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 04:10:03 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5b83a152e41sm968711a12.47.2024.08.02.04.10.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 02 Aug 2024 04:10:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,222 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 937bc4bf-50bf-11ef-bc03-fd08da9f4363
+X-Inumbo-ID: c42640fd-50bf-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722596921; x=1723201721; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=ojFO8cXjPSdfB5lF9L82J6BKszmfAWhCwc440r7e/OU=;
-        b=IbRwVoBSueyUO4FjB2gSOR6qL/TLgfs9eBMRz3s8XBHnMzZXfrFOi5ydrRxu+o0YFf
-         7/FD8F6EOqE064xwC5jqWfxMs95J4dwLn8Go1JYxVSJGHx8sFYchkkkQygXanbpck3wE
-         /EvUFukzJ/IeVn84ynqlQ5JWs5NVKwJJzVFaR+MQ9YEsPaT5NikTzye53+33J4jYle0t
-         S2oS677EtM5Uvj8ZgpfPbnCU9/bPF2fr2ybqZGbH2f3z42d3dO8fgFNlFJ70Tm6pkOWW
-         y0nJzOd2A9ImWO6uOZS2GQVC1YBrYRY1YvDRCR9YlfdsfVLiNC+bMNgAqsxB491wYoNf
-         YBFg==
+        d=suse.com; s=google; t=1722597003; x=1723201803; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=VQVTKoyS6NDUODlV2oYjuCieTKBHODztz3IrYmLdUMc=;
+        b=NgFII3UqPJ2xrL47m+WBm11O+qHziAwW5YWMF9bs6sQ9nTzvid10kq/s9rkpZBZ7QT
+         x6Z18OHejN6uMRkVcDM9IQA/uAMVva7F9Z6yE9hJr7zkHojjOs656HBCuf7c2sFXY0oG
+         H5j+EMREnHlDYn7iGbXcm2Spe8NMhxmLo5Lv377gkdkD2VisCczXEc7V7Su6q1vgyDQB
+         XgFUhBrGemM3mM63M8Gyi43VvQ+Ty7yLgscmQfYnsh857bMNNp/1DNWa+UHK4IVgh4KF
+         yAgMTwtiQML0jFGddB3ea06P7xMt7V3v2EfDidYoY+5x8QOQCX0cwz2CfvhvE1sqRxdD
+         ME2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722596921; x=1723201721;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ojFO8cXjPSdfB5lF9L82J6BKszmfAWhCwc440r7e/OU=;
-        b=ZCrthxqVvjxjSXucedykKzPClkKgi2tUtd1S0RYE13miJ+daYCpSrhUmPOtxWjMI4r
-         ewj7FqqMKQJSbzln5fn8r/Wot/M7Grs37HSMxsBncXVqRQEcxaQel8VXiYOyvWCc3HiS
-         UDKR+ZDhdkEWw91fOpu7WbKmRq/nc1uNfbYq5AlHXoDLGtoGpGHAIpITRab+4PgchVpe
-         WXSy/4T7j1U0N+S3LGWrAQk86ekVdV+EdjXc9hVW1xj0eypg+QfIs8MqEYduFgZQ8KF9
-         OPJx9T3LeKzbLqI/qyFySLxIfKK/cXOppeeHHkDpkJEexjaEhsXMZNrgeE+XzNiZ7m3c
-         OHlQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUrVLnrsnpNNyUEZIZeM351TfiLM6wh7g01yBjlMTaSfaatl991vhZeZtOl6W1FiEybIDnR8JVtyyWHEt/mkavVX4sYDLr4UDvbhXxBHQo=
-X-Gm-Message-State: AOJu0YyUWqJy4jPPiND/NbskDXptx288kma/itjphoRafyJJLIvhWId3
-	MiZM9mrFkKbeSnhB4dkDv1ZV5jE6hexAM7tShSVL2NsvcJLgfoHK
-X-Google-Smtp-Source: AGHT+IH/VVOf4/KSHbMUXdzeyy2e9Xv2n0S8O9JofUfnqwAy/rjU5RMzB6nmu3gzfAnLyvzSKT2s+w==
-X-Received: by 2002:a2e:86cf:0:b0:2ef:2d80:b903 with SMTP id 38308e7fff4ca-2f15aa71966mr23642691fa.8.1722596920500;
-        Fri, 02 Aug 2024 04:08:40 -0700 (PDT)
-Message-ID: <2666e025bd7a5bade7ca35f2d26a980094fdf823.camel@gmail.com>
-Subject: Re: [PATCH v4] x86/shutdown: change default reboot method preference
-From: oleksii.kurochko@gmail.com
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Community Manager <community.manager@xenproject.org>, Jan Beulich
-	 <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Marek
- =?ISO-8859-1?Q?Marczykowski-G=F3recki?=
-	 <marmarek@invisiblethingslab.com>
-Date: Fri, 02 Aug 2024 13:08:39 +0200
-In-Reply-To: <20240802105613.99197-1-roger.pau@citrix.com>
-References: <20240802105613.99197-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1722597003; x=1723201803;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VQVTKoyS6NDUODlV2oYjuCieTKBHODztz3IrYmLdUMc=;
+        b=BVtLbBZhQTFVr/m0rl2vkCVY7Yoj6ndZLk7Dy/B/yg0dNAn4lhhuaWNdejkzCvdrx2
+         W3I19lQIzHGg+plySLr93E1ZIxZGpRrbWN6eRvW2TBHktsj9RS1DNhnCg9BtCAfL28+W
+         g8j2AIH8U7hOznDXuADobZz412aISLnQ36w3sIZNr8+Py+99+r8DdoY54HKQSDhDNjop
+         v70Rdznvw44yXomSnPpDUH+vcVKo2TlVhs2SogqY7vdeGtDScPrLIyx8dhpiFqyecZPS
+         IMnRQKQVRQF3uQFQs/4XboJob6EtxN5tgghPTU3Z7GA4Nwyxzd1tuMSO75NhoWl57ulD
+         qK0Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWVNmmVXF13d6yNTrW1VOJjF50UTnt13WH9TTwURm3Zu9kPL0Sw0HXvBkPBDWxTP2j24EF4xDnZes2HUIRX7QHUv1Y/j8SXGKw9yNySM48=
+X-Gm-Message-State: AOJu0YwrwNbd3JL4VVvufVvJPV4IoyALU7OTaB+ECkSwsgaRMHQwQC3N
+	vWk1FuzgEEHsLmnlRzWbciIRRBF2ozTggT9CV7wLROMHLFGEtv/Z+ypTqZwaSQ==
+X-Google-Smtp-Source: AGHT+IHlyvBwRwMVhXponBmYBkh+X9Sp1H8HkMTR7Ul9m7+U/Wh6UAH+JChmzr+G8vPGeSEn3umSBQ==
+X-Received: by 2002:a05:6512:3e06:b0:52e:9a91:bba3 with SMTP id 2adb3069b0e04-530bb36ba51mr2065994e87.15.1722597002496;
+        Fri, 02 Aug 2024 04:10:02 -0700 (PDT)
+Message-ID: <fc8de47e-1b67-4dad-a01a-714fe0005de0@suse.com>
+Date: Fri, 2 Aug 2024 13:10:00 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v5 09/13] x86/vmx: guard access to cpu_has_vmx_* in
+ common code
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1722333634.git.Sergiy_Kibrik@epam.com>
+ <c2961c8b67041883ce5a5f6d0511a31dc7fbe22d.1722333634.git.Sergiy_Kibrik@epam.com>
+ <cc92ed50-89f7-48c9-b0e1-cd61a020001c@suse.com>
+ <ccd77283-4b88-4351-a3f9-bd4240b9b845@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ccd77283-4b88-4351-a3f9-bd4240b9b845@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2024-08-02 at 12:56 +0200, Roger Pau Monne wrote:
-> The current logic to chose the preferred reboot method is based on
-> the mode Xen
-> has been booted into, so if the box is booted from UEFI, the
-> preferred reboot
-> method will be to use the ResetSystem() run time service call.
->=20
-> However, that method seems to be widely untested, and quite often
-> leads to a
-> result similar to:
->=20
-> Hardware Dom0 shutdown: rebooting machine
-> ----[ Xen-4.18-unstable=C2=A0 x86_64=C2=A0 debug=3Dy=C2=A0 Tainted:=C2=A0=
-=C2=A0 C=C2=A0=C2=A0=C2=A0 ]----
-> CPU:=C2=A0=C2=A0=C2=A0 0
-> RIP:=C2=A0=C2=A0=C2=A0 e008:[<0000000000000017>] 0000000000000017
-> RFLAGS: 0000000000010202=C2=A0=C2=A0 CONTEXT: hypervisor
-> [...]
-> Xen call trace:
-> =C2=A0=C2=A0 [<0000000000000017>] R 0000000000000017
-> =C2=A0=C2=A0 [<ffff83207eff7b50>] S ffff83207eff7b50
-> =C2=A0=C2=A0 [<ffff82d0403525aa>] F machine_restart+0x1da/0x261
-> =C2=A0=C2=A0 [<ffff82d04035263c>] F apic_wait_icr_idle+0/0x37
-> =C2=A0=C2=A0 [<ffff82d040233689>] F smp_call_function_interrupt+0xc7/0xcb
-> =C2=A0=C2=A0 [<ffff82d040352f05>] F call_function_interrupt+0x20/0x34
-> =C2=A0=C2=A0 [<ffff82d04033b0d5>] F do_IRQ+0x150/0x6f3
-> =C2=A0=C2=A0 [<ffff82d0402018c2>] F common_interrupt+0x132/0x140
-> =C2=A0=C2=A0 [<ffff82d040283d33>] F
-> arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0x113/0x129
-> =C2=A0=C2=A0 [<ffff82d04028436c>] F
-> arch/x86/acpi/cpu_idle.c#acpi_processor_idle+0x3eb/0x5f7
-> =C2=A0=C2=A0 [<ffff82d04032a549>] F arch/x86/domain.c#idle_loop+0xec/0xee
->=20
-> ****************************************
-> Panic on CPU 0:
-> FATAL TRAP: vector =3D 6 (invalid opcode)
-> ****************************************
->=20
-> Which in most cases does lead to a reboot, however that's unreliable.
->=20
-> Change the default reboot preference to prefer ACPI over UEFI if
-> available and
-> not in reduced hardware mode.
->=20
-> This is in line to what Linux does, so it's unlikely to cause issues
-> on current
-> and future hardware, since there's a much higher chance of vendors
-> testing
-> hardware with Linux rather than Xen.
->=20
-> Add a special case for one Acer model that does require being
-> rebooted using
-> ResetSystem().=C2=A0 See Linux commit 0082517fa4bce for rationale.
->=20
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> Acked-by: Marek Marczykowski-G=C3=B3recki
-> <marmarek@invisiblethingslab.com>
-> ---
-> Changes since v3:
-> =C2=A0- Add changelog entry.
->=20
-> Changes since v2:
-> =C2=A0- Rebase and remove incorrect paragraph from the commit message.
->=20
-> Changes since v1:
-> =C2=A0- Add special case for Acer model to use UEFI reboot.
-> =C2=A0- Adjust commit message.
-> ---
-> =C2=A0CHANGELOG.md=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 2 ++
-> =C2=A0xen/arch/x86/shutdown.c | 19 +++++++++++++++----
-> =C2=A02 files changed, 17 insertions(+), 4 deletions(-)
->=20
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index eeaaa8b2741d..5521ae5bb37a 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -7,6 +7,8 @@ The format is based on [Keep a
-> Changelog](https://keepachangelog.com/en/1.0.0/)
-> =C2=A0## [4.20.0
-> UNRELEASED](https://xenbits.xenproject.org/gitweb/?p=3Dxen.git;a=3Dshortl
-> og;h=3Dstaging) - TBD
-> =C2=A0
-> =C2=A0### Changed
-> + - On x86:
-> +=C2=A0=C2=A0 - Prefer ACPI reboot over UEFI ResetSystem() run time servi=
-ce
-> call.
-Acked-By: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On 02.08.2024 12:53, Sergiy Kibrik wrote:
+> 31.07.24 15:23, Jan Beulich:
+>> On 30.07.2024 12:33, Sergiy Kibrik wrote:
+>>> There're several places in common code, outside of arch/x86/hvm/vmx,
+>>> where cpu_has_vmx_* get accessed without checking whether VMX supported first.
+>>> These macros rely on global variables defined in vmx code, so when VMX support
+>>> is disabled accesses to these variables turn into build failures.
+>>>
+>>> To overcome these failures, build-time check is done before accessing global
+>>> variables, so that DCE would remove these variables.
+>>>
+>>> Signed-off-by: Sergiy Kibrik<Sergiy_Kibrik@epam.com>
+>>> Acked-by: Paul Durrant<paul@xen.org>
+>>> CC: Andrew Cooper<andrew.cooper3@citrix.com>
+>>> CC: Jan Beulich<jbeulich@suse.com>
+>>> ---
+>>> changes in v5:
+>>>   - change kconfig option name VMX -> INTEL_VMX
+>>>   - do not change .c files, only modify macros in vmcs.h
+>> Better, yet still not going far enough, as indicated earlier:
+> 
+> I must've misunderstood your earlier suggestion. Are we talking about 
+> modifying all of cpu_has_vmx_* macros -- even though most of them used 
+> internally to VMX code and don't cause any trouble in common code?
 
-Thanks.
+Yes. Where exactly they're used can change any moment (in principle at
+least).
 
-~ Oleksii
-
-> =C2=A0
-> =C2=A0### Added
-> =C2=A0
-> diff --git a/xen/arch/x86/shutdown.c b/xen/arch/x86/shutdown.c
-> index acceec2a385d..fa60d1638d58 100644
-> --- a/xen/arch/x86/shutdown.c
-> +++ b/xen/arch/x86/shutdown.c
-> @@ -150,19 +150,20 @@ static void default_reboot_type(void)
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0 if ( xen_guest )
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reboot_type =3D BOOT_XEN=
-;
-> +=C2=A0=C2=A0=C2=A0 else if ( !acpi_disabled && !acpi_gbl_reduced_hardwar=
-e )
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reboot_type =3D BOOT_ACPI;
-> =C2=A0=C2=A0=C2=A0=C2=A0 else if ( efi_enabled(EFI_RS) )
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reboot_type =3D BOOT_EFI=
-;
-> -=C2=A0=C2=A0=C2=A0 else if ( acpi_disabled )
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reboot_type =3D BOOT_KBD;
-> =C2=A0=C2=A0=C2=A0=C2=A0 else
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reboot_type =3D BOOT_ACPI;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reboot_type =3D BOOT_KBD;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static int __init cf_check override_reboot(const struct
-> dmi_system_id *d)
-> =C2=A0{
-> =C2=A0=C2=A0=C2=A0=C2=A0 enum reboot_type type =3D (long)d->driver_data;
-> =C2=A0
-> -=C2=A0=C2=A0=C2=A0 if ( type =3D=3D BOOT_ACPI && acpi_disabled )
-> +=C2=A0=C2=A0=C2=A0 if ( (type =3D=3D BOOT_ACPI && acpi_disabled) ||
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (type =3D=3D BOOT_EFI &=
-& !efi_enabled(EFI_RS)) )
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 type =3D BOOT_KBD;
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0 if ( reboot_type !=3D type )
-> @@ -172,6 +173,7 @@ static int __init cf_check override_reboot(const
-> struct dmi_system_id *d)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-[BOOT_KBD]=C2=A0 =3D "keyboard controller",
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-[BOOT_ACPI] =3D "ACPI",
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-[BOOT_CF9]=C2=A0 =3D "PCI",
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [BOOT=
-_EFI]=C2=A0 =3D "UEFI",
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reboot_type =3D type;
-> @@ -492,6 +494,15 @@ static const struct dmi_system_id __initconstrel
-> reboot_dmi_table[] =3D {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R740")),
-> =C2=A0=C2=A0=C2=A0=C2=A0 },
-> +=C2=A0=C2=A0=C2=A0 {=C2=A0=C2=A0=C2=A0 /* Handle problems with rebooting=
- on Acer TravelMate X514-
-> 51T. */
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .callback =3D override_reboot=
-,
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .driver_data =3D (void *)(lon=
-g)BOOT_EFI,
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .ident =3D "Acer TravelMate X=
-514-51T",
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .matches =3D {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DMI_M=
-ATCH(DMI_SYS_VENDOR, "Acer"),
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DMI_M=
-ATCH(DMI_PRODUCT_NAME, "TravelMate X514-51T"),
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
-> +=C2=A0=C2=A0=C2=A0 },
-> =C2=A0=C2=A0=C2=A0=C2=A0 { }
-> =C2=A0};
-> =C2=A0
-
+Jan
 
