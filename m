@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2CF194580F
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 08:30:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.770179.1181112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FA06945811
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 08:33:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.770188.1181123 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZloD-0000NK-Hd; Fri, 02 Aug 2024 06:30:37 +0000
+	id 1sZlqj-0000wj-Tp; Fri, 02 Aug 2024 06:33:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 770179.1181112; Fri, 02 Aug 2024 06:30:37 +0000
+Received: by outflank-mailman (output) from mailman id 770188.1181123; Fri, 02 Aug 2024 06:33:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZloD-0000KO-EW; Fri, 02 Aug 2024 06:30:37 +0000
-Received: by outflank-mailman (input) for mailman id 770179;
- Fri, 02 Aug 2024 06:30:36 +0000
+	id 1sZlqj-0000tl-Qb; Fri, 02 Aug 2024 06:33:13 +0000
+Received: by outflank-mailman (input) for mailman id 770188;
+ Fri, 02 Aug 2024 06:33:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bU9L=PB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sZloC-0000KH-I3
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 06:30:36 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
+ id 1sZlqi-0000te-Cx
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 06:33:12 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba02c628-5098-11ef-bc03-fd08da9f4363;
- Fri, 02 Aug 2024 08:30:35 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2ef248ab2aeso112702621fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 23:30:35 -0700 (PDT)
+ id 16b5e820-5099-11ef-bc03-fd08da9f4363;
+ Fri, 02 Aug 2024 08:33:11 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-59f9f59b827so11336485a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2024 23:33:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9ec7311sm58953366b.195.2024.08.01.23.30.34
+ 4fb4d7f45d1cf-5b83c22db71sm658241a12.94.2024.08.01.23.33.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Aug 2024 23:30:34 -0700 (PDT)
+ Thu, 01 Aug 2024 23:33:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba02c628-5098-11ef-bc03-fd08da9f4363
+X-Inumbo-ID: 16b5e820-5099-11ef-bc03-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722580235; x=1723185035; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=y2RdBw5XcQjQNw+V4TlDKBwnZ94TfWoC+/ovto3/93I=;
-        b=DeKuAtazszIBlOexzgdU94tRDHNZ/b83EvgqOSJoFo63xGRBt3a5+nL4fVNeEtQ1Ar
-         EKD1AaAjvNUglfPmFM20xp0To5PXQk0Y/Z/JM6Pz67c4NUONXDaNr4y7d29dvRoZGJBQ
-         EvvZGYA8IBwhf1vnDJ1uMebIALMHnNNPc9foNOQ0NLssKcgGzmDTTv0LY69NMg8NBE/y
-         vPN/A02sRx617qWYaDekgtfd9CuHHZd+cSQ7ExyFm/JYdLgybXTrsQwKSuMhP/xhjlsU
-         xcMMveJPwQSSz092UPFWIi0XPWSQto7SVve5tRVyoGHlCX9hz2d3yngkdfL+vC8ViHac
-         CJYA==
+        d=suse.com; s=google; t=1722580391; x=1723185191; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cCH0OmhfowYSiBOTZGUEyukD5vkf0pEdf7IQQQvXU5A=;
+        b=RGORpsqV+3t8/O87vu2R0vAnYs4Vlbuqgw7lKKNRzySUAqODRJZ6nRaBN1cqWN/BIU
+         dpyJlZ2SGNmuiR6BzPndc4XAP4IW0qcTA+R4p55W03pbhYHCI77UCU1BrUuZLSwsYzB9
+         28DXp2LuH07EKynMibz6MUbErxksc5CQBXXsXQbmJQWDpvgkItS+2Id4G8nSFWebbPvx
+         ubj2begQOFAO7MPaQomMXQtwdzrBvzoeLLkW2LhfljkF30OqWml+JejIJ+/5WeLeXJgJ
+         f9xxsyuDGk4TWZWhHfUoAzDE/4Z6+1pCi7PAszh7P+XjPxtZJ6AWHCZAWiBG8b6gtiVh
+         wXLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722580235; x=1723185035;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=y2RdBw5XcQjQNw+V4TlDKBwnZ94TfWoC+/ovto3/93I=;
-        b=YNGIfQuWzl1ZuxXx/y9zL9fiN3zId52hDcNf2AQGsRNhshKBn1Hh6XI4MipF/VwJBk
-         yBB9TS3crK/tpOMQpOB2SfuOqOBN1n+affRF1UrI1kY/OSulMBO7RsZQ+8yrNRGoO5Wx
-         FtUTDRr3nCYs0krrRgeyjngwYtiDTyJ/twyLN2ixUkn/+e6ScbgyvgjmPBpGiyZIRSxN
-         +NQjPwKFuIT2ELXZG9tdfOFeUx81eqXo/TWrRdjv2TeAXKuf3JwoL1E5FdbvtdJi/h/4
-         xNYGt8U+shodDW2QCHOg/+Ll4B7PLlZSEXowVEscuh5A13mLIyen5uMcoDn1mgPDEhN4
-         e83Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVdqao7cCaJp+Bjp5E+aWBNub3Im3LYAQoOBoljkHe889+e2wdWRKCA4qOP7ODHLl6ICL18tqcusNFyzh+raBZy0t1IMelFmgvMoWzlFoU=
-X-Gm-Message-State: AOJu0Yy5ywnt0QrLSE4sjT0VoGBWo0HhusI4XEeSicsor/7lNmtZlQCe
-	Z5fc43gM8F9Wl2jocERgR+MDRAI9aXUKL4rlrrIRT/mK2FNGnulnfGt0mkPu1A==
-X-Google-Smtp-Source: AGHT+IE3QyrK+rRbvpSIRyDiSSwHvO6nGZjE4g37JRSoj5PuSXRsY1JWsosbYRJU1oWggQUyN+JhPw==
-X-Received: by 2002:a2e:320b:0:b0:2ef:28ed:1ff2 with SMTP id 38308e7fff4ca-2f15aa88cb7mr20661931fa.9.1722580235134;
-        Thu, 01 Aug 2024 23:30:35 -0700 (PDT)
-Message-ID: <8a2e672c-151d-4081-aeb9-db87c568b1a6@suse.com>
-Date: Fri, 2 Aug 2024 08:30:33 +0200
+        d=1e100.net; s=20230601; t=1722580391; x=1723185191;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cCH0OmhfowYSiBOTZGUEyukD5vkf0pEdf7IQQQvXU5A=;
+        b=NgDEVFPnztqXbbvHyKarGmqErVtZYRsg3l2mgacH8+giU4Q+Xmwk8+oOtrjoVcIb+f
+         psiCyy1b9qJwVdAfJm38PTFS/VV6sPXuBCT8wAGxyEwnGIm0zPK06d8+5ohbg9mSPSK1
+         D5mJfV7TOW1erfKmu3Ivs/gX3zphPWHm+ljX2dtiLKIstJyt9tLLsgSBziZJ/xlg3mib
+         +Jzhi9QQ3mXJwayBuG63Mn2Im92CYc/iT1B05YIZXGMchIwPItcEXJLGIxNl+uProHK7
+         zfuckE6vcFMC/Z/YX9xLQyBKbb+sC9OGkoYGFW34bDiFmf+LYsHpvOKY+bYy8x9sOZ7N
+         E2Mg==
+X-Gm-Message-State: AOJu0YyrimH60mUTTq/OXna1ZFO2+aThkBOgWtPDWE8G0R4ZEer0TsSn
+	8f35n4kMDBb+UaGSoz++A4SiDqT8gxqlueGeCuHSJTC2fmaWtx03X80arubfkkBtgb9zihE1c3o
+	=
+X-Google-Smtp-Source: AGHT+IGaPOZNWP8vTiJrW8RFlr39QlqHjv5TQ6x2kujomI7n/sdBTXQ30XK1YU2AEnrglB72JLFupQ==
+X-Received: by 2002:a05:6402:a50:b0:578:60a6:7c69 with SMTP id 4fb4d7f45d1cf-5b7f5413b46mr1607861a12.30.1722580390719;
+        Thu, 01 Aug 2024 23:33:10 -0700 (PDT)
+Message-ID: <73902a85-2750-4684-b6f5-33dd67c72172@suse.com>
+Date: Fri, 2 Aug 2024 08:33:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/shutdown: change default reboot method preference
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20240801161753.94399-1-roger.pau@citrix.com>
+Subject: Re: [xen-4.19-testing test] 187097: regressions - FAIL
+To: xen-devel@lists.xenproject.org
+References: <osstest-187097-mainreport@xen.org>
 Content-Language: en-US
+Cc: osstest service owner <osstest-admin@xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,16 +110,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240801161753.94399-1-roger.pau@citrix.com>
+In-Reply-To: <osstest-187097-mainreport@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.08.2024 18:17, Roger Pau Monne wrote:
-> Change the default reboot preference to prefer ACPI over UEFI if available and
-> not in reduced hardware mode.
+On 01.08.2024 23:38, osstest service owner wrote:
+> flight 187097 xen-4.19-testing real [real]
+> flight 187112 xen-4.19-testing real-retest [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/187097/
+> http://logs.test-lab.xenproject.org/osstest/logs/187112/
+> 
+> Regressions :-(
+> 
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop       fail REGR. vs. 187044
 
-Imo such a change in default behavior wants to come with a CHANGELOG.md entry.
+Hmm, this is now pretty persistent in failing. Yet none of the changes
+under test should have affected behavior in any way. Ideas, anyone?
 
 Jan
-
 
