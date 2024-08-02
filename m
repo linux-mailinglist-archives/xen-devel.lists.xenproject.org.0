@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6187A945EA2
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 15:26:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.771171.1181740 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7BE9945EA6
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2024 15:27:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.771179.1181749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZsIE-0003yk-9v; Fri, 02 Aug 2024 13:26:02 +0000
+	id 1sZsJl-00057F-I1; Fri, 02 Aug 2024 13:27:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 771171.1181740; Fri, 02 Aug 2024 13:26:02 +0000
+Received: by outflank-mailman (output) from mailman id 771179.1181749; Fri, 02 Aug 2024 13:27:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sZsIE-0003vx-5y; Fri, 02 Aug 2024 13:26:02 +0000
-Received: by outflank-mailman (input) for mailman id 771171;
- Fri, 02 Aug 2024 13:26:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FJ6P=PB=suse.com=nik.borisov@srs-se1.protection.inumbo.net>)
- id 1sZsIC-0003vr-Sx
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 13:26:00 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1f470ef-50d2-11ef-bc03-fd08da9f4363;
- Fri, 02 Aug 2024 15:25:59 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2eeb1ba0468so121538961fa.0
- for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2024 06:25:59 -0700 (PDT)
-Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [109.121.143.186])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5b83b92b970sm1125275a12.72.2024.08.02.06.25.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Aug 2024 06:25:58 -0700 (PDT)
+	id 1sZsJl-00055d-FK; Fri, 02 Aug 2024 13:27:37 +0000
+Received: by outflank-mailman (input) for mailman id 771179;
+ Fri, 02 Aug 2024 13:27:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1sZsJj-00055V-UA
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2024 13:27:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sZsJf-00063b-QM; Fri, 02 Aug 2024 13:27:31 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sZsJf-0003ux-Ht; Fri, 02 Aug 2024 13:27:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +39,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1f470ef-50d2-11ef-bc03-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722605159; x=1723209959; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=cJhmQirVizUqOCgmsekY21nCq2G6MWUHMhqZQdlEfZc=;
-        b=MXynIDcbyaftastIns+hsE3wav89LHzmYWLr9KYn98BH8W4KURCF8KNjFmV2wpZKs8
-         vvjkZwrC3mRCSIRcG041BMm3cCb+oIBRUPpJH1bWFTZQ0yeZTcWyzp8DfQB3FcIYeH1i
-         zO6A/OrwYJbTXw99hU5MvzXlkM4vkRTePdbXNnpylHQ/tsc+nclkgxpkIiN3jDPMd3Hl
-         75sH82xg0cRAmBqja79mUiAXGY3cwuRLqUThvLpqW/HCE0A5Zv25WumnlP69WUrJOnRQ
-         v6UXbOx059hDiYYUB4KYYdulvbCTfmtmDRAVxizx7Ox3VqT/IZvuqnVAVBXOpNkkBifK
-         skRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722605159; x=1723209959;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cJhmQirVizUqOCgmsekY21nCq2G6MWUHMhqZQdlEfZc=;
-        b=IB8d8EGDx+Vi359viCKJmKmqGkPeVxgC5t/3Kh2asZEGYfNkZwmUc9syaTwal27My0
-         HUgi/7JQjOFejgSADqjToADTdVUze/8uM2Lxf80dr3H9fvkxMAD+/7rGt495lU8iV58d
-         Zmzj03B5OneeKJp/8UvlVM8AkyUa25EjiItZjB8DbqJybY9NBAWFoD0eOXTiFUmmajE3
-         yahufkBY7K1MIy4NF2jEItjbbPdkr+rypOK2NIQgaKUj0eJJkCN3sa3tkBqMiAJoZRnB
-         9rjqav0hyZ5hpuoQjg4A45P6QGH4GTTirhTa7mBLwbJr3qfNQUk0cfz65LjW4CzZqz7N
-         Uagg==
-X-Gm-Message-State: AOJu0YyZLbhCMKkU6bxKEYGsJrTXkuo2Ek2ZVxgQHNI9oAG3EDtvTPq3
-	GOvezqPUSt7Jnu4TGCdSJ6fiTRzABUWAWhoSzPqpkYifX2m0jwiXdPuNVIvYvVg=
-X-Google-Smtp-Source: AGHT+IHBvsYwfwOgou5WXpOcO14cjQZULKYPfbBjoNyalongwp4wd13+FAnvLOiLZkJZEUFWOqqo9w==
-X-Received: by 2002:a2e:88d9:0:b0:2ef:2617:8952 with SMTP id 38308e7fff4ca-2f15aaa8480mr22670781fa.18.1722605159128;
-        Fri, 02 Aug 2024 06:25:59 -0700 (PDT)
-Message-ID: <824e522d-c9e2-4e24-8ce6-aca6573db06a@suse.com>
-Date: Fri, 2 Aug 2024 16:25:56 +0300
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=VlUTGn6xtobJG8lTUxNL8lDtfe2NNnec5m5HU9Fti6U=; b=WQnrIO7n9JoLVV37I4QsbiS8+X
+	KKL5idpBtk6RdKNHu8V2Yd41lQLpiuT5/ismKQ2urkklG3985bmJIcr1kON54YAzuQPrRfWXrLlwh
+	vPyfTN1SKh4z2mQn0HqvPej7xn0Qc/vRFtpbUr6cgECXSGNkB/SAqOUVLOQE8toEwxqE=;
+Message-ID: <a17d0c07-3f98-4eab-9f84-77d64b562cbf@xen.org>
+Date: Fri, 2 Aug 2024 14:27:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/cpu: fix unbootable VMs by inlining memcmp in
- hypervisor_cpuid_base
-To: Alexey Dobriyan <adobriyan@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
-References: <a9f505a6-fd31-4cfa-a193-d21638bb14f1@p183>
- <304592cf-e4a7-4ba1-baa6-4941c60f0e3c@p183>
-From: Nikolay Borisov <nik.borisov@suse.com>
-Content-Language: en-US
-In-Reply-To: <304592cf-e4a7-4ba1-baa6-4941c60f0e3c@p183>
+Subject: Re: [PATCH v1 2/4] xen: arm: make VMAP only support in MMU system
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, sstabellini@kernel.org,
+ bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com
+Cc: xen-devel@lists.xenproject.org, Penny Zheng <penny.zheng@arm.com>,
+ Wei Chen <wei.chen@arm.com>
+References: <20240802121443.1531693-1-ayan.kumar.halder@amd.com>
+ <20240802121443.1531693-3-ayan.kumar.halder@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240802121443.1531693-3-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
+On 02/08/2024 13:14, Ayan Kumar Halder wrote:
+> From: Penny Zheng <penny.zheng@arm.com>
+> 
+> VMAP is widely used in ALTERNATIVE feature, CPUERRATA feature, etc to
+> remap a range of memory with new memory attributes. Since this is
+> highly dependent on virtual address translation, we choose to fold VMAP
+> in MMU system.
+> 
+> In this patch, we introduce a new Kconfig CONFIG_HAS_VMAP, and make it
+> only support in MMU system on ARM architecture. And we make features
+> like ALTERNATIVE, CPUERRATA, etc, now depend on VMAP.
 
-On 2.08.24 г. 11:50 ч., Alexey Dobriyan wrote:
-> If this memcmp() is not inlined then PVH early boot code can call
-> into KASAN-instrumented memcmp() which results in unbootable VMs:
-> 
-> 	pvh_start_xen
-> 	xen_prepare_pvh
-> 	xen_cpuid_base
-> 	hypervisor_cpuid_base
-> 	memcmp
-> 
-> Ubuntu's gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04) inlines
-> memcmp with patch and the bug is partially fixed.
-> 
-> Leave FIXME just in case someone cares enough to compare 3 pairs of
-> integers like 3 pairs of integers.
-> 
-> Signed-off-by: Alexey Dobriyan <adobriyan@gmail.com>
-> ---
-> 
->   arch/x86/include/asm/cpuid.h | 15 ++++++++++++++-
->   1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/include/asm/cpuid.h b/arch/x86/include/asm/cpuid.h
-> index 6b122a31da06..3eca7824430e 100644
-> --- a/arch/x86/include/asm/cpuid.h
-> +++ b/arch/x86/include/asm/cpuid.h
-> @@ -196,7 +196,20 @@ static inline uint32_t hypervisor_cpuid_base(const char *sig, uint32_t leaves)
->   	for_each_possible_hypervisor_cpuid_base(base) {
->   		cpuid(base, &eax, &signature[0], &signature[1], &signature[2]);
->   
-> -		if (!memcmp(sig, signature, 12) &&
-> +		/*
-> +		 * FIXME rewrite cpuid comparators to accept uint32_t[3].
-> +		 *
-> +		 * This memcmp()
-> +		 * a) is called from PVH early boot code
-> +		 *    before instrumentation is set up,
-> +		 * b) may be compiled to "call memcmp" (not inlined),
-> +		 * c) memcmp() itself may be instrumented.
-> +		 *
-> +		 * Any combination of 2 is fine, but all 3 aren't.
-> +		 *
-> +		 * Force inline this function call.
-> +		 */
-> +		if (!__builtin_memcmp(sig, signature, 12) &&
+While I agree that alternative should depend on VMAP (for now), I feel 
+this is incorrect for CPUERRATA. Very likely, you will need to deal with 
+them on the MPU.
 
-Instead of putting this giant FIXME, why not simply do the comparison as 
-ints, i.e ((uint32_t)&sig[0]) == signature1 && ((uitn32_t)&sig[4]) == 
-signature2 && ((uint32_t)&sig[8] == signature_3  and be done with it?
+Before making any suggestion, would you be able to clarify how you 
+envision to deal with errata? Will they be selected at built time or 
+boot time?
 
->   		    (leaves == 0 || ((eax - base) >= leaves)))
->   			return base;
->   	}
-> 
+Cheers,
+
+-- 
+Julien Grall
+
 
