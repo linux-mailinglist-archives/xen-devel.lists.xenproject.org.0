@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E91194794C
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 12:21:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.771986.1182419 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5A7F94796A
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 12:23:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.771995.1182430 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1saupv-0002g2-32; Mon, 05 Aug 2024 10:21:07 +0000
+	id 1sausN-0003Ex-FV; Mon, 05 Aug 2024 10:23:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 771986.1182419; Mon, 05 Aug 2024 10:21:07 +0000
+Received: by outflank-mailman (output) from mailman id 771995.1182430; Mon, 05 Aug 2024 10:23:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1saupv-0002df-0L; Mon, 05 Aug 2024 10:21:07 +0000
-Received: by outflank-mailman (input) for mailman id 771986;
- Mon, 05 Aug 2024 10:21:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sausN-0003DS-Cd; Mon, 05 Aug 2024 10:23:39 +0000
+Received: by outflank-mailman (input) for mailman id 771995;
+ Mon, 05 Aug 2024 10:23:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1saupu-0002dZ-2C
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 10:21:06 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1saupt-0005Og-1y; Mon, 05 Aug 2024 10:21:05 +0000
-Received: from [15.248.2.233] (helo=[10.24.67.21])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1saups-00044I-QZ; Mon, 05 Aug 2024 10:21:04 +0000
+ (envelope-from <SRS0=I4ub=PE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sausM-0003DM-4J
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 10:23:38 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c62b870f-5314-11ef-8776-851b0ebba9a2;
+ Mon, 05 Aug 2024 12:23:36 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a7a83a968ddso1368153066b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 03:23:36 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc9bc3c8bsm440185466b.1.2024.08.05.03.23.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Aug 2024 03:23:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,162 +45,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Gmo3FN4NHUF1UcZ25SglyBsgf4fSL0u0+jIBTiXG2tQ=; b=qiw6yKsaaTBHoGMs9Ol4bJIRh8
-	PlSyIGF/CvecZr5Z30+wBIB8uj+U9BfybshOYOnR/OAMGD6nuth+1HwKlTeMMTYkJo6hoVzE5Ndum
-	bUvQoafvfD1yVbmvvuyCIn1UzcOjTYz1swyKqGj39oATFH1Zjg8MqvgTnQHYN2oWgzkw=;
-Message-ID: <00822b8c-d77a-4603-a2b3-47abff50a277@xen.org>
-Date: Mon, 5 Aug 2024 11:21:02 +0100
+X-Inumbo-ID: c62b870f-5314-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1722853415; x=1723458215; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=N1rQ+j9xKh/S7MKfQQ/ldOL7Ldf5NR4IuMQQniQe7t0=;
+        b=Uuj9C8UXLmuM2+iW1WdVxksXYWCgvz7NDZru5BfuUNKsNcjmDnfdwln8e3EMP9IsoN
+         9ARpNYbIo82feeSLicTE4XYw4/QH4ZSM+dGFVx443Ec+QwpYXT8EXBSsuHH/EKBcSgDc
+         trdUidIyBAszQzrM7/MtXmTTLjnZzoXmgGuZTzliE6BZklvGF0/0WmSGo7sbRR8XySUs
+         VQ5bnhAN54xIsv9d339CPXnZAfP54klUkRockCGvhJRgAAqLPfcF/neMFsA64kXgRIRk
+         ZxpxV9aLwT/hEaIdoSpvY9P1j2pbLFbMg7jGuvKsvfCa7RAiEhNvJmhhweIAOwe+Ixdg
+         tyBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722853415; x=1723458215;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=N1rQ+j9xKh/S7MKfQQ/ldOL7Ldf5NR4IuMQQniQe7t0=;
+        b=LVrFSfdddmvaqkw3UB0HQ1zShUjc9kjKZ/tRF4ichkobYHBh1LE7ehjNHO/y1stZVi
+         UT+z5dQM0yYNKLoRFJdOy+Mu8hCRx5Gc07al2ZPkUtodnsCJmu5Szkd2yED5avy+eByH
+         KZ1whPcqlMx27wLXPapIWWAm/JERJLouloKZ9UxCCclrSWQmOF/5akoAj5Pxe6BOjFim
+         Z4m6blfsrg7rYoPNR1eAMrfo6rBKlLBidLQMwXUVE6Rw6o387Bxnp0tF1XrvTImmS/zN
+         5ZWN4wtU2lkSZI3K+YoHgD1amILrwdKAlosAPhjKRR3XZ4K4TMqyrScfDw4oU2aPDzwZ
+         3K6w==
+X-Gm-Message-State: AOJu0Ywbj/gCya4GPx1Rs2ZRT8A6IEn1mfYL5YRjhIeQIdNwJYuF/68h
+	jNWwniELUKYsbX2yidtXTVul9UY6LDdD3n0cp3KqeQu2YxaXsLovm2JOeNUW4f1jKiE6pWinYQU
+	=
+X-Google-Smtp-Source: AGHT+IEH5Gvoz3vrU+v/Y28Svj6J/Quuy0DbALDjFdkfZWgXaXJ2GQq2SK/51TEs3KF0pdv1PPCJ9Q==
+X-Received: by 2002:a17:907:d22:b0:a7d:2fb2:d852 with SMTP id a640c23a62f3a-a7dc50a4b64mr798017366b.52.1722853415392;
+        Mon, 05 Aug 2024 03:23:35 -0700 (PDT)
+Message-ID: <71df7167-fa92-405e-bf5b-a307e990e5a3@suse.com>
+Date: Mon, 5 Aug 2024 12:23:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/9] xen/common: Move Arm's bootfdt.c to common
-Content-Language: en-GB
-To: oleksii.kurochko@gmail.com, xen-devel@lists.xenproject.org
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
- <35558886445c39c0f570632d355b42bb764dbdc4.1721834549.git.oleksii.kurochko@gmail.com>
- <4af8ef8c-b3c1-48b4-930b-72f8ef7d26d7@xen.org>
- <ca3829ee2de52277c2f6ad0aa400405895dbeee3.camel@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <ca3829ee2de52277c2f6ad0aa400405895dbeee3.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ Marek Marczykowski <marmarek@invisiblethingslab.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/shutdown: use DMI_MATCH2()
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+... to please Misra C:2012 Rule 9.3 (Arrays shall not be partially
+initialized).
 
+Fixes: d81dd3130351 ("x86/shutdown: change default reboot method preference")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Cc-ing REST since the two other x86 maintainers are away, yet the CI will
+want fixing.
 
-On 05/08/2024 11:04, oleksii.kurochko@gmail.com wrote:
-> Hi Julien,
-
-Hi Oleksii,
-
-> 
-> On Mon, 2024-08-05 at 10:31 +0100, Julien Grall wrote:
->> Hi Oleksii,
->>
->> On 24/07/2024 16:31, Oleksii Kurochko wrote:
->>> From: Shawn Anastasio <sanastasio@raptorengineering.com>
->>>
->>> Move Arm's bootfdt.c to xen/common so that it can be used by other
->>> device tree architectures like PPC and RISCV.
->>>
->>> Suggested-by: Julien Grall <julien@xen.org>
->>> Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
->>> Acked-by: Julien Grall <julien@xen.org>
->>
->> On Matrix you asked me to review this patch again. This wasn't
->> obvious
->> given you kept my ack. If you think a review is needed, then please
->> either drop the ack or explain why you keep it and ask if it is fine.
->>
->> Also, I tend to list in the changes where this was acked. In this
->> case,
->> you said I acked v4.
->>
->> Anyway, before confirming my ack, I would like to ask some
->> clarification.
->>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> ---
->>> Changes in V7:
->>>    - Nothing changed. Only rebase.
->>> ---
->>> Changes in V6:
->>>    - update the version of the patch to v6.
->>> ---
->>> Changes in V5:
->>>    - add xen/include/xen/bootfdt.h to MAINTAINERS file.
->>
->> I don't see any change in MAINTAINERS within this patch. Did you
->> happen
->> to copy/paste all the changes made in the series?
-> This change should be mentioned in this patch. It is part of the
-> previous patch (
-> https://lore.kernel.org/xen-devel/102f8b60c55cdf2db5890b9fb1c2fb66e61c4a67.1721834549.git.oleksii.kurochko@gmail.com/
-> )
-> 
->>
->> In fact the only change related to this patch doesn't seem to be
->> listed.
->>
->> [...]
->>
->>> +#ifndef CONFIG_STATIC_SHM
->>> +static inline int process_shm_node(const void *fdt, int node,
->>> +                                   uint32_t address_cells,
->>> uint32_t size_cells)
->>> +{
->>> +    printk("CONFIG_STATIC_SHM must be enabled for parsing static
->>> shared"
->>> +            " memory nodes\n");
->>> +    return -EINVAL;
->>> +}
->>> +#endif
->>
->> I see you duplicated the stub from arch/arm/include/static-shmem.h.
->> But
->> the one in static-shmem.h will now be unreachable. I think it needs
->> to
->> be removed.
-> Overlooked that. Originally I added that to make Xen RISC-V and PPC
-> build happy as early_scan_node() code uses process_shm_node():
->     static int __init early_scan_node(const void *fdt,
->                                       int node, const char *name, int
->     depth,
->                                       u32 address_cells, u32 size_cells,
->                                       void *data)
->     {
->     ...
->         else if ( depth == 2 && device_tree_node_compatible(fdt, node,
->     "xen,domain") )
->             rc = process_domain_node(fdt, node, name, address_cells,
->     size_cells);
->         else if ( depth <= 3 && device_tree_node_compatible(fdt, node,
->     "xen,domain-shared-memory-v1") )
->             rc = process_shm_node(fdt, node, address_cells, size_cells);
->     
->         if ( rc < 0 )
->             printk("fdt: node `%s': parsing failed\n", name);
->         return rc;
->     }
-> 
-> Instead of introducing stub for process_shm_node() when
-> CONFIG_STATIC_SHM I think it would be better to add "#ifdef
-> CONFIG_STATIC_SHM" to early_scan_node():
-> 
->     static int __init early_scan_node(const void *fdt,
->                                       int node, const char *name, int
->     depth,
->                                       u32 address_cells, u32 size_cells,
->                                       void *data)
->     {
->     ...
->         else if ( depth == 2 && device_tree_node_compatible(fdt, node,
->     "xen,domain") )
->             rc = process_domain_node(fdt, node, name, address_cells,
->     size_cells);
->     #ifdef CONFIG_STATIC_SHM
->         else if ( depth <= 3 && device_tree_node_compatible(fdt, node,
->     "xen,domain-shared-memory-v1") )
->             rc = process_shm_node(fdt, node, address_cells, size_cells);
->     #endif
-
-With this proposal, you would not throw an error if the user specify 
-"xen,domain-shared-memory-v1" but Xen is not able to support it. This 
-will be a change of behavior for Arm.
-
-So my preferred approach is to stick with the existing patch and an 
-explanation in the commit message.
-
-Cheers,
-
--- 
-Julien Grall
-
+--- a/xen/arch/x86/shutdown.c
++++ b/xen/arch/x86/shutdown.c
+@@ -498,10 +498,9 @@ static const struct dmi_system_id __init
+         .callback = override_reboot,
+         .driver_data = (void *)(long)BOOT_EFI,
+         .ident = "Acer TravelMate X514-51T",
+-        .matches = {
++        DMI_MATCH2(
+             DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
+-            DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate X514-51T"),
+-        },
++            DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate X514-51T")),
+     },
+     { }
+ };
 
