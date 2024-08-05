@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3B409478AD
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 11:45:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.771931.1182369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C67F9478AF
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 11:47:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.771948.1182380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sauGc-0001eo-Du; Mon, 05 Aug 2024 09:44:38 +0000
+	id 1sauJ3-0002pz-Qu; Mon, 05 Aug 2024 09:47:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 771931.1182369; Mon, 05 Aug 2024 09:44:38 +0000
+Received: by outflank-mailman (output) from mailman id 771948.1182380; Mon, 05 Aug 2024 09:47:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sauGc-0001cR-B9; Mon, 05 Aug 2024 09:44:38 +0000
-Received: by outflank-mailman (input) for mailman id 771931;
- Mon, 05 Aug 2024 09:44:37 +0000
+	id 1sauJ3-0002no-Ng; Mon, 05 Aug 2024 09:47:09 +0000
+Received: by outflank-mailman (input) for mailman id 771948;
+ Mon, 05 Aug 2024 09:47:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=006L=PE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sauGb-0001aQ-7x
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 09:44:37 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ <SRS0=kPoy=PE=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1sauJ1-0002ni-Si
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 09:47:08 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2417::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5336454a-530f-11ef-8776-851b0ebba9a2;
- Mon, 05 Aug 2024 11:44:35 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5a1c49632deso12764238a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 02:44:35 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5babb4ec55csm2319308a12.47.2024.08.05.02.44.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Aug 2024 02:44:34 -0700 (PDT)
+ id abd949a2-530f-11ef-8776-851b0ebba9a2;
+ Mon, 05 Aug 2024 11:47:05 +0200 (CEST)
+Received: from BYAPR01CA0070.prod.exchangelabs.com (2603:10b6:a03:94::47) by
+ SJ1PR12MB6291.namprd12.prod.outlook.com (2603:10b6:a03:456::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.26; Mon, 5 Aug
+ 2024 09:47:01 +0000
+Received: from SJ5PEPF000001CD.namprd05.prod.outlook.com
+ (2603:10b6:a03:94:cafe::e6) by BYAPR01CA0070.outlook.office365.com
+ (2603:10b6:a03:94::47) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.25 via Frontend
+ Transport; Mon, 5 Aug 2024 09:47:01 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ5PEPF000001CD.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7849.8 via Frontend Transport; Mon, 5 Aug 2024 09:47:01 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 5 Aug
+ 2024 04:47:00 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 5 Aug 2024 04:46:58 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +59,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5336454a-530f-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722851075; x=1723455875; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=mzuxSTbL5Cxx/kk9TbbpNOLZT/vyDNKq19mBiAE1u34=;
-        b=dK0KKzZPkQozkSjzbJJWYRHjYsZRAjTNQzAakmYG+okKulsGhFD8PThw+1i5OfsDzE
-         1b0vK2NAQ0XMrrrMYjBKpAdg01VpEODAIoSSijDoTnGhhsmJuO5qI5Hxk0lWMZ0vkIrl
-         Yz9/tMCUkU6ScodQ5GM9A0+StoPtJFfqHLrV6wye8pDrHkwKhnd+K/eCsEMog0hFo3ve
-         K+UAwlDgIpRI4L7o6gIrBUfLZ0RuSb5g3rP2m1wbAIk2APx8fSxLFyv/NJMw1ksjWJDO
-         LmSfoiSlSRi+W85dt0V0QFUeZJrjHtkmfR8h6iruTekfclcvt4AQLBX2qk6rRUqYoU0N
-         7QIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722851075; x=1723455875;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=mzuxSTbL5Cxx/kk9TbbpNOLZT/vyDNKq19mBiAE1u34=;
-        b=LT1u6MTVrAy5plX+cYeUnstRE9CWIjGtgLuxmK3CXEfawatGh/fC9a3jUJDnWYEmy+
-         NNbj0XhsacP94bYT8rsTmvChj4bbEWInX68FCjPrZ2Z195g/jyBQ+kpcx9zftIpuV2p1
-         +z8mr8xFf1m2GJ3LlbVwPYWMqWs3cxFhuMZR885DB2/l8bvR4JhEZC98mSL41/KHQ3SD
-         5n3rehNLGax7Msa5YTLQfbN3MugIUl1RBbznVlyAAcJwza61UCwQ08gG9JdEqy8gTVH1
-         1O3Z6dXppZQ+fpRfcW9FTrUMUZvRhpO49p1Q+e8Xc5e9HeF78FzoXDd+oJDzlq48WWYP
-         G0kw==
-X-Forwarded-Encrypted: i=1; AJvYcCXM/eANoPWWtXuI7UGCvG+zoPI37cJQMKgvxd3MWadVkq2pcuqDC7Xw8N8gCDC3+Phu+VuEdW86J5CI+R7ehUCy6hWDcyheq3BiS1Asrws=
-X-Gm-Message-State: AOJu0Yw7qvt9kgHcmBGbAAQ6jstWSaBt542+NAmDBurrk5f64NXJAsce
-	b5WYZQghg+zMCxd6rloTabplCO9QdWpjAtUhdEv4si6qWudK5j1T0jSmhg==
-X-Google-Smtp-Source: AGHT+IFz7Q/QeZaa7/2D31He2kegrSgerncFwKVtSpE4CxAkxCn9OZmGjY4cEeiaLM7hWSKkFDBM7w==
-X-Received: by 2002:a05:6402:14da:b0:5a1:aa6d:9469 with SMTP id 4fb4d7f45d1cf-5b7f5dc6bc2mr7208845a12.38.1722851074836;
-        Mon, 05 Aug 2024 02:44:34 -0700 (PDT)
-Message-ID: <3c03ff921b8c1950eb8376e94cdfb490ea28bf4b.camel@gmail.com>
-Subject: Re: [PATCH v7 1/9] xen/device-tree: Move Arm's setup.c bootinfo
- functions to common
-From: oleksii.kurochko@gmail.com
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>,  "Daniel P. Smith"
- <dpsmith@apertussolutions.com>
-Date: Mon, 05 Aug 2024 11:44:33 +0200
-In-Reply-To: <309d42dc-e540-4fbe-a69e-2be6414deb70@xen.org>
-References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
-	 <102f8b60c55cdf2db5890b9fb1c2fb66e61c4a67.1721834549.git.oleksii.kurochko@gmail.com>
-	 <309d42dc-e540-4fbe-a69e-2be6414deb70@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+X-Inumbo-ID: abd949a2-530f-11ef-8776-851b0ebba9a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZOIqbavgocNcsvRUKgLRbHjSdisN2u5TYmUva+LThGskQN1KrWRkEAQTarN+0iSwURW45GXApLgw94RXM19ETpo52Eoq3vqZ0BbVcUvp+nuTC2Yqn3PAAaqE6IeOd1tkt2BlJwIuQU/+0BbwkPW/YRyARlOKYKKuXNbrGvjOE1f5tD09KG2ga1HojlvMfOuzbomxdHqbI6/aLslUOjSeKEb/GGhfgKec4UEF7LPXWzepLZgZdDZLGhuFxdSDqx9y/kQt6uMnKZTnqGwZ4AuIDJi4C2GOzg9DvssHBGq8x9sITc6Kwy5Puj3uMhcIkebzOstiakaqZLJowO7HPtcOqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E99LVFsQWeJISOVn+4uedavONNTPguCtZ0S6JTbRGIs=;
+ b=cFWz0970H4STx8k+r7O8RFWFm3lgVEtbID2iWULNP9+x7uKF6yOliLM1MUuPPyU3jT23/r30zHKJqTSN29nvRiITQsH39fUr1EQLXdLQwEeo1w12xsB5FPgS0/8GilAkhZL8RNhlJrOS1M9nRvXBsybwfQBlyJdJeIXKRjp8mVcxdIp8uVqDXg4Ho7hF7vnYqbzKbz9riEqm/6HkS0+IB6LZW3SqPnFd/5PF9KjnBg+ozEbEyuv4PpZEZ3Atrmvd9aMi63w1kXABTovavvX9g3gCWXQQ6w+oGqIIMgffp0D3D7hxPG9eBIw4pzgnglaTqPmsEPJF9Io4yLimYcedNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E99LVFsQWeJISOVn+4uedavONNTPguCtZ0S6JTbRGIs=;
+ b=mw55oU7GFtR5q/hr0bCM6wuhMDanyfRQBkvBJXxcQ5498yyR74fBZnsjlr96mWt95LZKFGK9dUJ1xdML9BMCcWHdXV1x9tbPY4/YDlOu+TW2zoi0/ttkRJ5OanVhu6I9tSSSsRglZIgXYcFxWagwxTykLOSt3Yq3tcjraNjYNz0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <15c5709f-a81c-4ca4-8851-89938a5a6141@amd.com>
+Date: Mon, 5 Aug 2024 11:46:58 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] docs: Introduce Fusa Requirement and define
+ maintainers
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, <sstabellini@kernel.org>,
+	<bertrand.marquis@arm.com>, <artem_mygaiev@epam.com>, <julien@xen.org>
+CC: <xen-devel@lists.xenproject.org>
+References: <20240802094614.1114227-1-ayan.kumar.halder@amd.com>
+ <20240802094614.1114227-2-ayan.kumar.halder@amd.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240802094614.1114227-2-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|SJ1PR12MB6291:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae6d3d39-29e9-490d-b1e8-08dcb5338e72
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?T0MvTC80Skh3U1VaOU9HRDVpRUVReG5ZdVJudXkxeWp2NG9FYno0ajVBeWxx?=
+ =?utf-8?B?M0VsbjIwU0Rja3lrR3RkWkZCT1hMcjZ5ckc2bUtXMTdIeWNzYngwNlpIRmRL?=
+ =?utf-8?B?OExQUHZ1NVVjZEVyMEFHMUR5MXlvZnJEa1NpSVVPcnVQbWFvNW5oZ3lWV0w0?=
+ =?utf-8?B?ckY4elNXQ0x6MW1aM1ZRT09WcTA3bWc0UGxzc2UrVnVLUElSL2RMS1oxTHBl?=
+ =?utf-8?B?N1EzL0hQRE9xUjRudDFwVEYyeStuUWg4UU04ZE9BY1k4T2hSQ3ZLVzB2Y082?=
+ =?utf-8?B?MDJPYkFjVGlTRjUvbTJEVDV6MkwxVUwxNFYyRmRyeElrZVJ2cCtubkRzK2dv?=
+ =?utf-8?B?a2xqVU5SWkN5NjJ1RDFRZ0VMT2dLc3BRVUZPMi9qYzZIWTZ2c0JBWktSTEw0?=
+ =?utf-8?B?a2JaeW5ZWVlZVStSdzFtLyt4Slc0VUVSOUhBV3lwUEt3SGxveUMzdkdYczdw?=
+ =?utf-8?B?SnI4SmQ1ZnJWcUlyNVN3ZTRRRXAyYnJKYnpycEJUeEJvbkd0aHdjU3U0VUhm?=
+ =?utf-8?B?cVp2THdBMm4zMWt1OElpRmpNd2R2Z05mRW9UZU9sYnlaZDhOVkNYWDZjdk9R?=
+ =?utf-8?B?Sll3Z0NwekdOK05YcWRDUE5vVWRONUJUVFM5dmxENkJjdExXZk9mSFZYdTdm?=
+ =?utf-8?B?anEvTTE5VUh4Q09pdGFyQzEzQk1Xb3pYSTM2S1U2SmVBM0xESkg1Wk1kWGww?=
+ =?utf-8?B?QjgrVlJISTFmbzhmcWJPSG1CRmU4WnhlMFpsaU03eWdzQ1IyU0IzMTRBT2VV?=
+ =?utf-8?B?QWJNaHVvQXliME5UR0RrbVhSTUozckV1Y3Bpb0ExZHBiZEd1SjBERWJoM0hN?=
+ =?utf-8?B?NEhmSFZFNkRvbFFwdmp4LzdGaGFScXYxU1pVOWZTMXhKUWJHTnZINmZOZW9R?=
+ =?utf-8?B?NCt0aVZWdjdwcDVEL1ZESys1dFo3VStWTXg0VDFUY0RwKzZUYTAxWEVyLzJn?=
+ =?utf-8?B?TXBWSWYxL3ZqZmVWTkFCQ1Y2Y2VkeUhhd2d5K0RicnhZS0lhTXI0em9rWm5K?=
+ =?utf-8?B?ZW9tRmdXZ1NGTWdkR04wZ1lZYVQ3elgzZ3FlN2FiZUg5S0U4VVhCaFordXNy?=
+ =?utf-8?B?Sk1ERnM2Q28zT2dET3ZVYWZqMmE5ekhLUlRPSEQ3Q2JpdGFRMFB5Q044d3k1?=
+ =?utf-8?B?Nkw3Y2tjTEYwMjhpK1pJVHhHWWJ1VFZsRDEwVnhKYWczSDBORzJHTHkvQzhH?=
+ =?utf-8?B?Z21rWmlZTGxUTC9NWkQ1WExiRnhoZnUxQTJOYWdxa1RyaGJLZTJnYm9paldx?=
+ =?utf-8?B?YjlyV1BwZ0FxL0NmR3dtOEttWEdqZ3Z2cTRaeFo5YUFJRFFLZE9tYXZVOCs3?=
+ =?utf-8?B?NExnU1VvVlhDbUpxRGtHWFFBT1loalNWQlI1Zyt2cmxpNS9BWHBPR3hLa0Zp?=
+ =?utf-8?B?ZlgrSldLWmx0RmpuUXF5NzlNNUtnNkh2dVQrc1RhOTQ2dGwwdFk1aXZIL0FF?=
+ =?utf-8?B?bVFnMFVrNmZuaGpKRWR1UlQxMVBJQ1RLT1ZvNTJmMytsMVpMQTlDMEVPMnJw?=
+ =?utf-8?B?aFVJcHNRQVlLVStTUElFaC9RS3Y5eWZRSmVrQU9TUWZxMUoxZFhxbjRQN0VG?=
+ =?utf-8?B?SzEwZ1BPcFRHa1dwb1RwQ2gzWmoxYXN3VHZlNG5CQnFUcGI0MkExeGxXZ2Vr?=
+ =?utf-8?B?K0lnUFJpRCs5WmpiQzJBUXhhSVdnZjlwb2dGMDFtd2dKcjBEa1BCQytoQU9v?=
+ =?utf-8?B?WmFJOFE4SzZRRHlPVDZZSFg4Z1pHWnE0ZnN1cFBjWVRFRUovUGJQMXE1ZlpT?=
+ =?utf-8?B?SXYrOHoza3FWMVhXRTZpaDNiSjdoR0hMeGcvd1ZrbFJ0RXJnMW1kdnN4VmIr?=
+ =?utf-8?B?eFZpcUhyZkRFZFovQThMcG0wempHZC9BdmpUWkFMejR1a1ZhY1NCTUVoY1Fv?=
+ =?utf-8?B?WkdBbDZNbDFXaUtud2plZVl3Y1pLd0poUjZqbXVvL3I4aTN5UnY2c1pwTlhN?=
+ =?utf-8?Q?l0lGNf77141Nw4mkAquAhqkjkta3AP9C?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2024 09:47:01.6046
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae6d3d39-29e9-490d-b1e8-08dcb5338e72
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001CD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6291
 
-Hi Julien,
+Hi Ayan,
 
-On Mon, 2024-08-05 at 10:08 +0100, Julien Grall wrote:
-> Hi,
->=20
-> On 24/07/2024 16:31, Oleksii Kurochko wrote:
-> > Changes in V5:
-> > =C2=A0 - add xen/include/xen/bootfdt.h to MAINTAINERS file.
-> > =C2=A0 - drop message "Early device tree parsing and".
-> > =C2=A0 - After rebase on top of the current staging the following
-> > changes were done:
-> > =C2=A0=C2=A0=C2=A0 - init bootinfo variable in <common/device-tree/boot=
-info.c>
-> > with BOOTINFO_INIT;
-> > =C2=A0=C2=A0=C2=A0 - update the code of dt_unreserved_regions():
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_STATIC_SHM related ch=
-anges and getting of
-> > reserved_mem
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bootinfo_get_shmem() ??
-> > =C2=A0=C2=A0=C2=A0 - update the code of meminfo_overlap_check():
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 add check ( INVALID_PADDR =
-=3D=3D bank_start ) to if case.
-> > =C2=A0=C2=A0=C2=A0 - update the code of check_reserved_regions_overlap(=
-):
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_STATIC_SHM related ch=
-anges.
-> > =C2=A0=C2=A0=C2=A0 - struct bootinfo was updated ( CONFIG_STATIC_SHM ch=
-anges )
-> > =C2=A0=C2=A0=C2=A0 - add shared_meminfo ( because of CONFIG_STATIC_SHM =
-)
-> > =C2=A0=C2=A0=C2=A0 - struct struct membanks was update with __struct gr=
-oup so
-> > <xen/kernel> is
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 neeeded to be included in bootfdt.h
-> > =C2=A0=C2=A0=C2=A0 - move BOOTINFO_ACPI_INIT, BOOTINFO_SHMEM_INIT, BOOT=
-INFO_INIT
-> > to generic bootfdt.h
-> > =C2=A0=C2=A0=C2=A0 - bootinfo_get_reserved_mem(), bootinfo_get_mem(),
-> > bootinfo_get_acpi(),
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bootinfo_get_shmem() and bootinfo_get_sh=
-mem_extra() were
-> > moved to xen/bootfdt.h
-> > =C2=A0 - s/arm32/CONFIG_SEPARATE_XENHEAP/
->=20
-> I think this change deserve a comment in the commit message.
-Sure, I will mention that ( IIUC only this
-"s/arm32/CONFIG_SEPARATE_XENHEAP/" should be mentioned ).
+On 02/08/2024 11:46, Ayan Kumar Halder wrote:
+> The FUSA folder is expected to contain requirements and other documents
+> to enable safety certification of Xen hypervisor.
+> Added a README to explain how the requirements are categorized, written
+> and their supported status.
+> 
+> Added maintainers for the same.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> Acked-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes from :-
+> 
+> v1 - 1. Added a comment from Stefano.
+> 2. Added Ack.
+> 
+>  MAINTAINERS              |  9 +++++
+>  docs/fusa/reqs/README.md | 78 ++++++++++++++++++++++++++++++++++++++++
+I have 2 questions:
+1) Most of our docs are written in RST, same will be true for requirements docs. Any specific reason for using markdown?
+2) In the current form of this patch, docs/fusa won't be part of the generated Xen docs. Is this intended? Don't we want to
+include it?
 
->=20
-> [...]
->=20
-> > --- /dev/null
-> > +++ b/xen/common/device-tree/bootinfo.c
-> > @@ -0,0 +1,459 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> > +/*
-> > + * Derived from $xen/arch/arm/setup.c.
->=20
-> I would suggest to mention the version of Xen this is derived from.
-Will it be enough only Xen version without commit hash?
+Apart from that:
+Acked-by: Michal Orzel <michal.orzel@amd.com>
 
->=20
-> Acked-by: Julien Grall <jgrall@amazon.com>
-Thanks!
-
-~ Oleksii
+~Michal
 
