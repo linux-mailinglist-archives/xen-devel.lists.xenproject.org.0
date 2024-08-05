@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 774FD9483CC
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 23:01:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772363.1182809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F1589483D9
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 23:10:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772371.1182819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sb4pU-00011t-0o; Mon, 05 Aug 2024 21:01:20 +0000
+	id 1sb4xw-0002f4-TW; Mon, 05 Aug 2024 21:10:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772363.1182809; Mon, 05 Aug 2024 21:01:19 +0000
+Received: by outflank-mailman (output) from mailman id 772371.1182819; Mon, 05 Aug 2024 21:10:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sb4pT-000105-Tv; Mon, 05 Aug 2024 21:01:19 +0000
-Received: by outflank-mailman (input) for mailman id 772363;
- Mon, 05 Aug 2024 21:01:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sb4xw-0002bs-Qi; Mon, 05 Aug 2024 21:10:04 +0000
+Received: by outflank-mailman (input) for mailman id 772371;
+ Mon, 05 Aug 2024 21:10:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+Idk=PE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sb4pS-0000zy-Ub
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 21:01:18 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id da7aa8d3-536d-11ef-8776-851b0ebba9a2;
- Mon, 05 Aug 2024 23:01:16 +0200 (CEST)
+ id 1sb4xu-0002Ez-VC
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 21:10:02 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 12960084-536f-11ef-bc04-fd08da9f4363;
+ Mon, 05 Aug 2024 23:10:00 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 84CF560C74;
- Mon,  5 Aug 2024 21:01:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EFB2C32782;
- Mon,  5 Aug 2024 21:01:13 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 1C45BCE0B89;
+ Mon,  5 Aug 2024 21:09:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1B5EC32782;
+ Mon,  5 Aug 2024 21:09:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,63 +41,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da7aa8d3-536d-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 12960084-536f-11ef-bc04-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722891674;
-	bh=IB1+KeSKSkZ4PVC2DdCuvNjm4O98/WWrETEdHGV17kw=;
+	s=k20201202; t=1722892193;
+	bh=9CMcrHK/+sJ2mFm1ONU1jdDiD1dAJ5Xr5U6REbOE2K8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=stYwPTWi0AF6emv658UZRAFBdPxPh9epP6w4p6aa7sll4TBex5BXAQMMb9z5BgL88
-	 w8pAgWJ7IwkUfwAp7uaj6iZ3q+UWmAfyDNjSsVKFzGfhCCMTqfcWTd+D+7kEZSi8sJ
-	 jp6Ev23bNJdLaRYW/Dh6XTLXzpazoXyIz7BlOhfLI1sASfeON7jXbbCcUsG81Xv8Wa
-	 L3ew1/3oC16qKVFboi5rN7y31GXcDosTGvZDVa0ZSk8EMXfHShLAGz8YBsc3DZdwRO
-	 LtvD969G2gP3ZYZsnIs7QCI5GZt1vvE+e5h+bTq8rr01CwHx/lNFjXcN2SJKrg2C1i
-	 pgYxp3qLGbDng==
-Date: Mon, 5 Aug 2024 14:01:09 -0700 (PDT)
+	b=Ii6OkRVGHezxfx0GIyvC5Noonj9lkrOtn0vJO55+3Q50iBNYSm8lH3PVS58Krh+fk
+	 +VdU6h4gOwARPE3vfrLinmtnArDK3ZJEfiVFbVmyNfUMj80Sb/ouu/RKCxr+6rKbkv
+	 ZvNMIM7IQnP2UgEV/TZR/m2le6n10EtMYLvWGD9s0J/PLx5cQVItXAVQ6U4q8VOhkO
+	 Jb+WY55Qzuxpg7qFKwFy8qphWiFy9mhuqyRtMo0Wd//iZNoDzbA+yRMaCDOz4sEIG7
+	 cz0bHaT9t3sDypYHwMFM4RIR6j08JUv6ax3skhDKPgy5ehsANylNKhwnoPiSGzyZX1
+	 QdT1vzu0f9uoA==
+Date: Mon, 5 Aug 2024 14:09:51 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Marek Marczykowski <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH] x86/shutdown: use DMI_MATCH2()
-In-Reply-To: <71df7167-fa92-405e-bf5b-a307e990e5a3@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2408051401030.4954@ubuntu-linux-20-04-desktop>
-References: <71df7167-fa92-405e-bf5b-a307e990e5a3@suse.com>
+To: Federico Serafini <federico.serafini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH 1/2] automation/eclair: sort monitored guidelines
+ with -V
+In-Reply-To: <cc69ad735dd53b10237981ded44229f8e6894076.1722842330.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2408051409450.4954@ubuntu-linux-20-04-desktop>
+References: <cover.1722842330.git.federico.serafini@bugseng.com> <cc69ad735dd53b10237981ded44229f8e6894076.1722842330.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 5 Aug 2024, Jan Beulich wrote:
-> ... to please Misra C:2012 Rule 9.3 (Arrays shall not be partially
-> initialized).
+On Mon, 5 Aug 2024, Federico Serafini wrote:
+> To improve readability, sort guidelines with -V.
 > 
-> Fixes: d81dd3130351 ("x86/shutdown: change default reboot method preference")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> No functional change.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 > ---
-> Cc-ing REST since the two other x86 maintainers are away, yet the CI will
-> want fixing.
+>  .../eclair_analysis/ECLAIR/monitored.ecl      | 92 +++++++++----------
+>  1 file changed, 46 insertions(+), 46 deletions(-)
 > 
-> --- a/xen/arch/x86/shutdown.c
-> +++ b/xen/arch/x86/shutdown.c
-> @@ -498,10 +498,9 @@ static const struct dmi_system_id __init
->          .callback = override_reboot,
->          .driver_data = (void *)(long)BOOT_EFI,
->          .ident = "Acer TravelMate X514-51T",
-> -        .matches = {
-> +        DMI_MATCH2(
->              DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-> -            DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate X514-51T"),
-> -        },
-> +            DMI_MATCH(DMI_PRODUCT_NAME, "TravelMate X514-51T")),
->      },
->      { }
->  };
+> diff --git a/automation/eclair_analysis/ECLAIR/monitored.ecl b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> index 8a7e3f3cea..7b085a329a 100644
+> --- a/automation/eclair_analysis/ECLAIR/monitored.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> @@ -2,58 +2,17 @@
+>  -enable=MC3R1.D1.1
+>  -enable=MC3R1.D2.1
+>  -enable=MC3R1.D4.1
+> +-enable=MC3R1.D4.3
+> +-enable=MC3R1.D4.7
+>  -enable=MC3R1.D4.10
+>  -enable=MC3R1.D4.11
+>  -enable=MC3R1.D4.12
+>  -enable=MC3R1.D4.14
+> --enable=MC3R1.D4.3
+> --enable=MC3R1.D4.7
+> --enable=MC3R1.R10.1
+> --enable=MC3R1.R10.2
+>  -enable=MC3R1.R1.1
+> --enable=MC3R1.R11.1
+> --enable=MC3R1.R11.7
+> --enable=MC3R1.R11.8
+> --enable=MC3R1.R11.9
+> --enable=MC3R1.R12.5
+>  -enable=MC3R1.R1.3
+> --enable=MC3R1.R13.6
+> --enable=MC3R1.R13.1
+>  -enable=MC3R1.R1.4
+> --enable=MC3R1.R14.1
+> --enable=MC3R1.R14.4
+> --enable=MC3R1.R16.2
+> --enable=MC3R1.R16.3
+> --enable=MC3R1.R16.4
+> --enable=MC3R1.R16.6
+> --enable=MC3R1.R16.7
+> --enable=MC3R1.R17.1
+> --enable=MC3R1.R17.3
+> --enable=MC3R1.R17.4
+> --enable=MC3R1.R17.5
+> --enable=MC3R1.R17.6
+> --enable=MC3R1.R18.6
+> --enable=MC3R1.R19.1
+> --enable=MC3R1.R20.12
+> --enable=MC3R1.R20.13
+> --enable=MC3R1.R20.14
+> --enable=MC3R1.R20.4
+> --enable=MC3R1.R20.7
+> --enable=MC3R1.R20.9
+>  -enable=MC3R1.R2.1
+> --enable=MC3R1.R21.10
+> --enable=MC3R1.R21.13
+> --enable=MC3R1.R21.17
+> --enable=MC3R1.R21.18
+> --enable=MC3R1.R21.19
+> --enable=MC3R1.R21.20
+> --enable=MC3R1.R21.21
+> --enable=MC3R1.R21.9
+>  -enable=MC3R1.R2.2
+> --enable=MC3R1.R22.2
+> --enable=MC3R1.R22.4
+> --enable=MC3R1.R22.5
+> --enable=MC3R1.R22.6
+>  -enable=MC3R1.R2.6
+>  -enable=MC3R1.R3.1
+>  -enable=MC3R1.R3.2
+> @@ -72,32 +31,73 @@
+>  -enable=MC3R1.R7.3
+>  -enable=MC3R1.R7.4
+>  -enable=MC3R1.R8.1
+> --enable=MC3R1.R8.10
+> --enable=MC3R1.R8.12
+> --enable=MC3R1.R8.14
+>  -enable=MC3R1.R8.2
+>  -enable=MC3R1.R8.3
+>  -enable=MC3R1.R8.4
+>  -enable=MC3R1.R8.5
+>  -enable=MC3R1.R8.6
+>  -enable=MC3R1.R8.8
+> +-enable=MC3R1.R8.10
+> +-enable=MC3R1.R8.12
+> +-enable=MC3R1.R8.14
+>  -enable=MC3R1.R9.2
+>  -enable=MC3R1.R9.3
+>  -enable=MC3R1.R9.4
+>  -enable=MC3R1.R9.5
+> +-enable=MC3R1.R10.1
+> +-enable=MC3R1.R10.2
+> +-enable=MC3R1.R11.1
+> +-enable=MC3R1.R11.7
+> +-enable=MC3R1.R11.8
+> +-enable=MC3R1.R11.9
+> +-enable=MC3R1.R12.5
+> +-enable=MC3R1.R13.1
+> +-enable=MC3R1.R13.6
+> +-enable=MC3R1.R14.1
+> +-enable=MC3R1.R14.4
+> +-enable=MC3R1.R16.2
+> +-enable=MC3R1.R16.3
+> +-enable=MC3R1.R16.4
+> +-enable=MC3R1.R16.6
+> +-enable=MC3R1.R16.7
+> +-enable=MC3R1.R17.1
+> +-enable=MC3R1.R17.3
+> +-enable=MC3R1.R17.4
+> +-enable=MC3R1.R17.5
+> +-enable=MC3R1.R17.6
+> +-enable=MC3R1.R18.6
+>  -enable=MC3R1.R18.8
+> +-enable=MC3R1.R19.1
+>  -enable=MC3R1.R20.2
+>  -enable=MC3R1.R20.3
+> +-enable=MC3R1.R20.4
+>  -enable=MC3R1.R20.6
+> +-enable=MC3R1.R20.7
+> +-enable=MC3R1.R20.9
+>  -enable=MC3R1.R20.11
+> +-enable=MC3R1.R20.12
+> +-enable=MC3R1.R20.13
+> +-enable=MC3R1.R20.14
+>  -enable=MC3R1.R21.3
+>  -enable=MC3R1.R21.4
+>  -enable=MC3R1.R21.5
+>  -enable=MC3R1.R21.7
+>  -enable=MC3R1.R21.8
+> +-enable=MC3R1.R21.9
+> +-enable=MC3R1.R21.10
+>  -enable=MC3R1.R21.12
+> +-enable=MC3R1.R21.13
+> +-enable=MC3R1.R21.17
+> +-enable=MC3R1.R21.18
+> +-enable=MC3R1.R21.19
+> +-enable=MC3R1.R21.20
+> +-enable=MC3R1.R21.21
+>  -enable=MC3R1.R22.1
+> +-enable=MC3R1.R22.2
+>  -enable=MC3R1.R22.3
+> +-enable=MC3R1.R22.4
+> +-enable=MC3R1.R22.5
+> +-enable=MC3R1.R22.6
+>  -enable=MC3R1.R22.7
+>  -enable=MC3R1.R22.8
+>  -enable=MC3R1.R22.9
+> -- 
+> 2.34.1
 > 
 
