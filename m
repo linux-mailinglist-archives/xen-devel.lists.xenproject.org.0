@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D35B947EF4
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 18:02:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772298.1182748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5B5B947EFB
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 18:08:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772308.1182758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sb0AT-000605-4E; Mon, 05 Aug 2024 16:02:41 +0000
+	id 1sb0Fg-0007IO-Ls; Mon, 05 Aug 2024 16:08:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772298.1182748; Mon, 05 Aug 2024 16:02:41 +0000
+Received: by outflank-mailman (output) from mailman id 772308.1182758; Mon, 05 Aug 2024 16:08:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sb0AT-0005xp-0V; Mon, 05 Aug 2024 16:02:41 +0000
-Received: by outflank-mailman (input) for mailman id 772298;
- Mon, 05 Aug 2024 16:02:40 +0000
+	id 1sb0Fg-0007GQ-J1; Mon, 05 Aug 2024 16:08:04 +0000
+Received: by outflank-mailman (input) for mailman id 772308;
+ Mon, 05 Aug 2024 16:08:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=006L=PE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sb0AS-0005xj-7n
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 16:02:40 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=I4ub=PE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sb0Ff-0007GK-Mb
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 16:08:03 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23909ace-5344-11ef-bc03-fd08da9f4363;
- Mon, 05 Aug 2024 18:02:39 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a7a9cf7d3f3so1307008666b.1
- for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 09:02:39 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9d437f5sm462243566b.125.2024.08.05.09.02.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Aug 2024 09:02:38 -0700 (PDT)
+ id e45d98f3-5344-11ef-bc03-fd08da9f4363;
+ Mon, 05 Aug 2024 18:08:02 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a7ac469e4c4so987526766b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 09:08:02 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc96c8b49sm465315166b.0.2024.08.05.09.08.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Aug 2024 09:08:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +45,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23909ace-5344-11ef-bc03-fd08da9f4363
+X-Inumbo-ID: e45d98f3-5344-11ef-bc03-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722873759; x=1723478559; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=6yxsVWFOrJPfBxYTPcsTdHoghvDcDOv2KcXLSMOwrA8=;
-        b=INbIjSC63SiKLzT1KKMPn7lsxnCWMSUWQrZ6BaSqgT/N/Lv0aVei/sH1AITF5Yinqr
-         5+atsBqtgYR8B948GBqxEVRvUG45JVxXYJG2K0Ve/KeDLPF2cLimFau7n166zphtLPva
-         726qM1ocYqARZtS31DWsxCaeAALPJDu+UZo9w9f+R3huQXK3qFMUxz8tfPv5keNPXXL5
-         ZFG11GDN0WAjypAhJBIUsTig+CXeoZQG2eHgYgpgeRjdFFQSgmPott0+onWHNXHlifZK
-         vU2pWTnQnldltkkp3xRCWi6bzbhR7C9VeB9DG935Xh1yeGptLRWK+6UdXt9I/e4wiRjK
-         VsGw==
+        d=suse.com; s=google; t=1722874082; x=1723478882; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=9BeLD2yw9ngxAoRu/G9OxnIu35gemIMBK0FkFDCdWeE=;
+        b=U5epyj7GIdkz90GPvu0m0mzcxRHOPg/ufM3KdhsGXoelAGztW41KYhMcsQmcNk31ce
+         F8l8pwLTd9cWKguCvsg/r+PeLmL4QRUae+5I5fddUMLEXNs0WEFknDcxHzi/jER5eMSV
+         gwgUHl1V96jN8e9bB/ZSgHwvN2VH0DDCDAwj+EVDzeIXgfSjkSA2OD/etiYUMC39nffa
+         25UKivBGZlyGKbmGJoCq/iUSYaoM7QbMmEg++dyDht9hN9AauW7L/iQMiYOqtZryjSWq
+         /Zul1d76bgqsVs2BNLef8kDMiMs9roHvCPobhXnGHfdcdWDlrMlxcC/uPqTR0sbvITnf
+         sOLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722873759; x=1723478559;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6yxsVWFOrJPfBxYTPcsTdHoghvDcDOv2KcXLSMOwrA8=;
-        b=oI6qHpwD0GGQ3YcO571O4FQsEqqInZsTk6JJOnehYWg2zkqovP2gaf81KaChhPPmU9
-         kvfo1KobBHTnPOB5npYBiAdeWOI7TwJUmb1mwenqWSWn3QUymMiuW+JqhNbimlpE0fls
-         GHt0htTFdvwuxx7HB3Qz1vZcKgETrQrrZJQkkpIiSyVkOBbGGP41paMMu/IgqrKNkogb
-         ck9WHz3gw3Fn2Jcn969nt43od+jnb9Btt33QwyA8B/7QQSx2iIUGGSAg6/5XjyLv+irp
-         B52mBUd5J+IhCLGWEwjrnTt0RGdxLKj3NhXiX6jJaW3BfeilBN/UANE7w2tgUU4LrfRj
-         LOyg==
-X-Forwarded-Encrypted: i=1; AJvYcCXNuNnroWTW0OXnibgB/LyGaYQa72KD/1jbeHuWLtIu3GU0N1JwDWrhHw/AATJWWUlKVwHocM15loq3tnKco5Sp5vwJIojpPV2+MWvn3UE=
-X-Gm-Message-State: AOJu0YxOPDtdPuy682vO4aAv1eWFLYeS/TTUZWcu5Tls0taEPf1PI2w3
-	F/6QFJjwLALDrvPKlXrozf/hxWj0fCMYZEIWDqUzLQwfiftgUd2y
-X-Google-Smtp-Source: AGHT+IGrDFDLwlyVSKXwOtYEYDVh01p6oxiQoUDhxPfSIJQtJcgkWxhNoBHx/HiPe24S59GYgS2ZVg==
-X-Received: by 2002:a17:907:7d94:b0:a77:cd51:3b32 with SMTP id a640c23a62f3a-a7dc51600b4mr860203466b.62.1722873758297;
-        Mon, 05 Aug 2024 09:02:38 -0700 (PDT)
-Message-ID: <ca7ba33e8314d776a1c7928730ab58eeec58dde7.camel@gmail.com>
-Subject: Re: [PATCH v3 4/9] xen/riscv: setup fixmap mapping
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
- <michal.orzel@amd.com>
-Date: Mon, 05 Aug 2024 18:02:36 +0200
-In-Reply-To: <d68f3047-5b12-4802-aac3-bb0b9c76cb08@suse.com>
-References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
-	 <04576976b82b97442f645b83b3d62475d144af8e.1721834549.git.oleksii.kurochko@gmail.com>
-	 <917cc521-c0c4-49e8-bc40-948679398bc6@suse.com>
-	 <afbbf9ed7c575e3b2c3f9a668db0b27258822ee0.camel@gmail.com>
-	 <d68f3047-5b12-4802-aac3-bb0b9c76cb08@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1722874082; x=1723478882;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9BeLD2yw9ngxAoRu/G9OxnIu35gemIMBK0FkFDCdWeE=;
+        b=tsQD8hFAZl3KEEcj8t+VLGlvsEQOaCv1dSdp3/cqR8lDFbjgN9JKfRRd38YWONQgUm
+         hDnzQMPLPjK/E8c7i5DjpCZf7tC+nWKW8+MU8lJOJsrG4RxAzjLmuK6K0uKN1tCzlD6K
+         8Yctdp2uCsPcvwgGO7Hk3CzbjzYS1cggcIBR8p/LcsSHU7kM7vEDN0uub00RVGAWJsyI
+         Wf7Ndo1iR2c4bvH4nErTGqRdJU1LrArzmOveJBlfzodMpGgixHpvFJOMIFBnyj/0pEDK
+         3CfKluvZYKnWOi5GbDxguV8REcbulY71gQjbrQeosadByh4hX2zNUOIxNco43rso+EOp
+         PvYQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUixuXJ/IdYmmsrPux9hWGzN6NWLMugbW5xb/BzSYuHun9XsyaFfar0D1m5gy9hDoimZtx9BpWrOUY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwL3kKE3ulk9Wl9n6WyNdY04zsFr0ujjt+7anIoF3Kftg3Jiaii
+	Ex67etfFWTw0tEp7Y9Ev2Cpfp3sd4DuJJfc+eoAqsfoyqdRs87fY6NSdwMgosw==
+X-Google-Smtp-Source: AGHT+IFioB2f2YKEN+6Pnqo4hgrKxU+KZGVoIoSjD0yYTI+w/zkAcZpv0S8ZB/dxwdEB7Oa4jKUUrw==
+X-Received: by 2002:a17:907:868d:b0:a77:cdae:6a59 with SMTP id a640c23a62f3a-a7dbe6302e4mr1144738466b.21.1722874082007;
+        Mon, 05 Aug 2024 09:08:02 -0700 (PDT)
+Message-ID: <d9440569-037e-4b8e-b092-250c5eb569bc@suse.com>
+Date: Mon, 5 Aug 2024 18:08:01 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] x86/emul: Fix misaligned IO breakpoint behaviour in
+ PV guests
+To: Matthew Barnes <matthew.barnes@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <88d0c78e7fecac79d4ef958962c59836c966cc91.1722871218.git.matthew.barnes@cloud.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <88d0c78e7fecac79d4ef958962c59836c966cc91.1722871218.git.matthew.barnes@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2024-08-05 at 17:45 +0200, Jan Beulich wrote:
-> On 05.08.2024 17:13, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > On Mon, 2024-07-29 at 15:35 +0200, Jan Beulich wrote:
-> > > > +=C2=A0=C2=A0=C2=A0 }
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 BUG_ON(pte_is_valid(*pte));
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 tmp =3D paddr_to_pte(LINK_TO_LOAD((unsigned
-> > > > long)&xen_fixmap),
-> > > > PTE_TABLE);
-> > >=20
-> > > I'm a little puzzled by the use of LINK_TO_LOAD() (and
-> > > LOAD_TO_LINK()
-> > > a
-> > > little further up) here. Don't you have functioning __pa() and
-> > > __va()?
-> > Can __pa() and __va() be used in this case?
-> >=20
-> > According to comments for other architectures, these macros are
-> > used
-> > for converting between Xen heap virtual addresses (VA) and machine
-> > addresses (MA). I may have misunderstood what is meant by the Xen
-> > heap
-> > in this context, but I'm not sure if xen_fixmap[] and page tables
-> > are
-> > considered part of the Xen heap.
->=20
-> I didn't check Arm, but on x86 virt_to_maddr() (underlying __pa())
-> has
-> special case code to also allow addresses within the Xen image
-> (area).
+On 05.08.2024 17:36, Matthew Barnes wrote:
+> When hardware breakpoints are configured on misaligned IO ports, the
+> hardware will mask the addresses based on the breakpoint width during
+> comparison.
+> 
+> For PV guests, misaligned IO breakpoints do not behave the same way, and
+> therefore yield different results.
+> 
+> This patch tweaks the emulation of IO breakpoints for PV guests such
+> that they reproduce the same behaviour as hardware.
+> 
+> Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
 
-Yes, it is true for __virt_to_maddr:
-   static inline unsigned long __virt_to_maddr(unsigned long va)
-   {
-       ASSERT(va < DIRECTMAP_VIRT_END);
-       if ( va >=3D DIRECTMAP_VIRT_START )
-           va -=3D DIRECTMAP_VIRT_START;
-       else
-       {
-           BUILD_BUG_ON(XEN_VIRT_END - XEN_VIRT_START !=3D GB(1));
-           /* Signed, so ((long)XEN_VIRT_START >> 30) fits in an imm32. */
-           ASSERT(((long)va >> (PAGE_ORDER_1G + PAGE_SHIFT)) =3D=3D
-                  ((long)XEN_VIRT_START >> (PAGE_ORDER_1G + PAGE_SHIFT)));
-  =20
-           va +=3D xen_phys_start - XEN_VIRT_START;
-       }
-       return (va & ma_va_bottom_mask) |
-              ((va << pfn_pdx_hole_shift) & ma_top_mask);
-   }
-  =20
-But in case of __maddr_to_virt ( __va() ) it is using directmap region:
-   static inline void *__maddr_to_virt(unsigned long ma)
-   {
-       ASSERT(pfn_to_pdx(ma >> PAGE_SHIFT) < (DIRECTMAP_SIZE >>
-   PAGE_SHIFT));
-       return (void *)(DIRECTMAP_VIRT_START +
-                       ((ma & ma_va_bottom_mask) |
-                        ((ma & ma_top_mask) >> pfn_pdx_hole_shift)));
-   }
+No Fixes: tag?
 
-But I have to use both __va() and __pa().
-__va() inside cycle to find L1 page table:
+> --- a/xen/arch/x86/pv/emul-priv-op.c
+> +++ b/xen/arch/x86/pv/emul-priv-op.c
+> @@ -324,7 +324,7 @@ static unsigned int check_guest_io_breakpoint(struct vcpu *v,
+>                                                unsigned int len)
+>  {
+>      unsigned int width, i, match = 0;
+> -    unsigned long start;
+> +    unsigned long start, debug_mask;
+>  
+>      if ( !v->arch.pv.dr7_emul || !(v->arch.pv.ctrlreg[4] & X86_CR4_DE) )
+>          return 0;
+> @@ -346,7 +346,9 @@ static unsigned int check_guest_io_breakpoint(struct vcpu *v,
+>          case DR_LEN_8: width = 8; break;
+>          }
+>  
+> -        if ( (start < (port + len)) && ((start + width) > port) )
+> +        debug_mask = (~(width - 1u));
 
-    for ( i =3D HYP_PT_ROOT_LEVEL; i-- > 1; )
-    {
-        BUG_ON(!pte_is_valid(*pte));
+Maybe simply alter "start" directly:
 
-        pte =3D (pte_t *)LOAD_TO_LINK(pte_to_paddr(*pte));
-        pte =3D &pte[pt_index(i, FIXMAP_ADDR(0))];
-    }
+        start &= ~(width - 1UL);
 
-__pa() to set a physical address of L0 page table:
-    tmp =3D paddr_to_pte(LINK_TO_LOAD((unsigned long)&xen_fixmap),
-PTE_TABLE);
-    write_pte(pte, tmp);
+I've switched to making the resulting mask an unsigned long quantity at the
+same time, as I don't think we ought to masking off the top 32 bits.
 
+Then ...
 
-~ Oleksii
+> +        if ( ((start & debug_mask) < (port + len)) && (((start & debug_mask) + width) > port) )
+
+... I also won't need to complain that this line now is too long.
+
+Jan
 
