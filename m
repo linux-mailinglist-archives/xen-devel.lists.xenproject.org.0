@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72B3B947E34
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 17:35:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772244.1182688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4CC5947E40
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 17:36:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772252.1182698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sazjC-0005oi-U7; Mon, 05 Aug 2024 15:34:30 +0000
+	id 1sazl4-0006ko-8O; Mon, 05 Aug 2024 15:36:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772244.1182688; Mon, 05 Aug 2024 15:34:30 +0000
+Received: by outflank-mailman (output) from mailman id 772252.1182698; Mon, 05 Aug 2024 15:36:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sazjC-0005mB-Qt; Mon, 05 Aug 2024 15:34:30 +0000
-Received: by outflank-mailman (input) for mailman id 772244;
- Mon, 05 Aug 2024 15:34:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sazl4-0006in-5B; Mon, 05 Aug 2024 15:36:26 +0000
+Received: by outflank-mailman (input) for mailman id 772252;
+ Mon, 05 Aug 2024 15:36:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=006L=PE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sazjC-0005m5-0o
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 15:34:30 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 336fa4f3-5340-11ef-8776-851b0ebba9a2;
- Mon, 05 Aug 2024 17:34:27 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-52efa9500e0so12462284e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 08:34:27 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
+ <SRS0=Prgv=PE=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
+ id 1sazl2-0006g7-Jv
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 15:36:24 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 787c8cc6-5340-11ef-bc03-fd08da9f4363;
+ Mon, 05 Aug 2024 17:36:23 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5a156557029so15359430a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 08:36:23 -0700 (PDT)
+Received: from EMEAENGAAD91498.citrite.net ([217.156.233.154])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-530bba29fefsm1164111e87.179.2024.08.05.08.34.26
+ 4fb4d7f45d1cf-5b839c24084sm5034957a12.30.2024.08.05.08.36.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Aug 2024 08:34:26 -0700 (PDT)
+ Mon, 05 Aug 2024 08:36:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +45,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 336fa4f3-5340-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 787c8cc6-5340-11ef-bc03-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722872067; x=1723476867; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=LD20EJ+qCgeHjbro+8+iDkgyD+LlruaDhC7VGm1lfR0=;
-        b=PwrMTBU0Mju8SKikpzPzoap4HWmTOMarKrfZACe/IHWcX1c5vKowURhEwV1vXzC0Cu
-         ZwuahQEEzdPEktFmla2bF3TyofUiYcRw+o/2dC3Z4IwYxDE96XzU4RXBu5A4IphUYTRT
-         RP0z49cNGlhn3AxWTVbnUN/39L2Y+QktTzkRwpOPoJclmrWyCcUEqfiyfo/el+1LzK6p
-         55D96ukMonL/oBnxOtdZm+1d3Qq9h0fzyJjwWFzr8hp15JfVan3azV+b08rnefH5PAWo
-         HYqeWZ5Q1Vri5+DgoNhAo6XhROPT7sPXMoYyYOGYadWQcoEkiZQSr0HRj+LoXZNRNSq/
-         jx5A==
+        d=cloud.com; s=cloud; t=1722872183; x=1723476983; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+MMMGxN2ape1bNpYFITLCt9gyz15hVErQ7V7ZB8BCQc=;
+        b=MaDZlG7q5pbg3uQC5DOi18/DRTVkVxj9/GYqdKSoMtJEDc1cV/d0n78b84JgjbpdCm
+         GPc+hRPYWe/OkfZXgZgplTWtqbQydwIWUk8/lPFZDkRkfMF00i3UNpE28jeckNQ/UBxX
+         xHDPfLPrtuCKq4LTw8SuZ3ORO1dHsNmP/na1Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722872067; x=1723476867;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LD20EJ+qCgeHjbro+8+iDkgyD+LlruaDhC7VGm1lfR0=;
-        b=GuG6UyYRzYGct7U8dYLJv/mjl7/3/Pkq+tT35zMzy4dtm0qlnDr7SN0W+WfPzHOaUh
-         Ln1eA2CRGSGoPeOtrli1cK6lMu9yrOMKvH87Vm25ojpfPDzrm7W6N83IzKSqwLE79wq1
-         qOWefLP+w/vV8X2qEI0agI14WI3Ko8RqQhkDjEDqokJAB3yfa1xVkVwV5yIPbnIWs0sb
-         Cp6GR6juTVfFOZ6331QFSV6fiwbcn2jaQt639RrmrHiBfltAD26TycOvUWyZaG8vsgCz
-         6W4inoKuZtuUgAc15HEiOOzZD/aZKbdcDD6Peduc7gvgYLWVMGCDt+39JmQuI/UElStm
-         iHFA==
-X-Forwarded-Encrypted: i=1; AJvYcCVWS0YBJMq3VWtbKgxZlc6nZzqqlD+Pt0P9KD51cHeBB6ZRFdvqxHGuGliQAJ1+V5Gu50s2ydXHHeLUun7ZuigC8PSkFpSeZq0ZH0D15uw=
-X-Gm-Message-State: AOJu0Yyn2GP5YkLr3XpTDK6U/9BRCWfQaDG13febeR8B65/6GJNIUTzu
-	XtnkWPCJlIqQkLA66T33cR2G2yTn84AwDyWHQSyJeVuh1z8TXbQn
-X-Google-Smtp-Source: AGHT+IHJZs2TDIUGCJCSi4FpUBddaDXYZO6rAGJYpLJUVfVzoUNL33yUCEO8zFolVsSmADKqfXL+ig==
-X-Received: by 2002:a05:6512:401d:b0:530:ac6e:ea2f with SMTP id 2adb3069b0e04-530bb39d218mr8442502e87.37.1722872067052;
-        Mon, 05 Aug 2024 08:34:27 -0700 (PDT)
-Message-ID: <fba675f7256aec1492f8446b0a0716e05bc91c54.camel@gmail.com>
-Subject: Re: [PATCH v3 4/9] xen/riscv: setup fixmap mapping
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
- <michal.orzel@amd.com>
-Date: Mon, 05 Aug 2024 17:34:25 +0200
-In-Reply-To: <afbbf9ed7c575e3b2c3f9a668db0b27258822ee0.camel@gmail.com>
-References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
-	 <04576976b82b97442f645b83b3d62475d144af8e.1721834549.git.oleksii.kurochko@gmail.com>
-	 <917cc521-c0c4-49e8-bc40-948679398bc6@suse.com>
-	 <afbbf9ed7c575e3b2c3f9a668db0b27258822ee0.camel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1722872183; x=1723476983;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+MMMGxN2ape1bNpYFITLCt9gyz15hVErQ7V7ZB8BCQc=;
+        b=h7xCqNdWNLHmZgbGEExv7aW09dwoPoHIJbWR7kTheRzOWbcCYB69h3PnqJFNQRqkfT
+         YmZ5R/Sbn75IG9bttki/c6EbnScA0wXvSLZeclY3eGoVbpDBhWihkBDMGfo5mRmgiURv
+         G2aJVIh2PkwLH6LRIezDzRsWpLXqYoWFMc2wPDFXGpVjVZpNmmlccbDH7yjD+ElMUKl8
+         DSDp9XHGNTvBNVykkHY4gZeYTEAS0JYk70ncRJd/HYRnmMad4Y/vXkZOMoLbMtPx/Gmn
+         CL5RIXnCe0zJvd++vy2bGbnODXPSBO6bEP25NPCaVNFii+70kH/QI5gHDNOm/OfU9khe
+         A/Vg==
+X-Gm-Message-State: AOJu0Yxx0tom3ZWpN/XZzvND+3EuMQAs6O7rqjE1y6rwPk8X3XLm14nW
+	tc6qWlUIyvRS9GWPrMtAeG3sBgvX4hO/S3V/FKZPXWGiDVeSiIdAA+ndCk6tpuIm8LHOwJ/m43q
+	H
+X-Google-Smtp-Source: AGHT+IEaxLbhD+/3nmdFqwJz0D5GFn1XhsnekeUBQTH+EmFNhLQROZ27ebimh8f7yKMhQgbpHmdkUw==
+X-Received: by 2002:a50:e602:0:b0:5a2:1b9d:1d3d with SMTP id 4fb4d7f45d1cf-5b7f5414380mr8359471a12.29.1722872182592;
+        Mon, 05 Aug 2024 08:36:22 -0700 (PDT)
+From: Matthew Barnes <matthew.barnes@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Matthew Barnes <matthew.barnes@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH] x86/emul: Fix misaligned IO breakpoint behaviour in PV guests
+Date: Mon,  5 Aug 2024 16:36:08 +0100
+Message-Id: <88d0c78e7fecac79d4ef958962c59836c966cc91.1722871218.git.matthew.barnes@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2024-08-05 at 17:13 +0200, oleksii.kurochko@gmail.com wrote:
-> On Mon, 2024-07-29 at 15:35 +0200, Jan Beulich wrote:
-> > > +=C2=A0=C2=A0=C2=A0 }
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0 BUG_ON(pte_is_valid(*pte));
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0 tmp =3D paddr_to_pte(LINK_TO_LOAD((unsigned long)=
-&xen_fixmap),
-> > > PTE_TABLE);
-> >=20
-> > I'm a little puzzled by the use of LINK_TO_LOAD() (and
-> > LOAD_TO_LINK()
-> > a
-> > little further up) here. Don't you have functioning __pa() and
-> > __va()?
-> Can __pa() and __va() be used in this case?
->=20
-> According to comments for other architectures, these macros are used
-> for converting between Xen heap virtual addresses (VA) and machine
-> addresses (MA). I may have misunderstood what is meant by the Xen
-> heap
-> in this context, but I'm not sure if xen_fixmap[] and page tables are
-> considered part of the Xen heap.
+When hardware breakpoints are configured on misaligned IO ports, the
+hardware will mask the addresses based on the breakpoint width during
+comparison.
 
-One more thing: can we use __pa() and __va() in setup_fixmap()?
+For PV guests, misaligned IO breakpoints do not behave the same way, and
+therefore yield different results.
 
-As I understand it, to define __pa() and __va(), the DIRECTMAP mapping
-should be mapped first. However, this requires information about RAM
-banks, which is provided in the device tree file. But we can't map
-device tree without fixmap. Am I missing something?
+This patch tweaks the emulation of IO breakpoints for PV guests such
+that they reproduce the same behaviour as hardware.
 
-~ Oleksii
+Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+---
+ xen/arch/x86/pv/emul-priv-op.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
+index f101510a1bab..02901a379b2a 100644
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -324,7 +324,7 @@ static unsigned int check_guest_io_breakpoint(struct vcpu *v,
+                                               unsigned int len)
+ {
+     unsigned int width, i, match = 0;
+-    unsigned long start;
++    unsigned long start, debug_mask;
+ 
+     if ( !v->arch.pv.dr7_emul || !(v->arch.pv.ctrlreg[4] & X86_CR4_DE) )
+         return 0;
+@@ -346,7 +346,9 @@ static unsigned int check_guest_io_breakpoint(struct vcpu *v,
+         case DR_LEN_8: width = 8; break;
+         }
+ 
+-        if ( (start < (port + len)) && ((start + width) > port) )
++        debug_mask = (~(width - 1u));
++
++        if ( ((start & debug_mask) < (port + len)) && (((start & debug_mask) + width) > port) )
+             match |= 1u << i;
+     }
+ 
+-- 
+2.34.1
+
 
