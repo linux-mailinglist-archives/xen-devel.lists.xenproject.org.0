@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBA009476F2
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 10:12:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.771827.1182255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49EA19476FC
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 10:13:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.771835.1182265 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1saspN-0008Lq-Gs; Mon, 05 Aug 2024 08:12:25 +0000
+	id 1sasqK-0000RC-R4; Mon, 05 Aug 2024 08:13:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 771827.1182255; Mon, 05 Aug 2024 08:12:25 +0000
+Received: by outflank-mailman (output) from mailman id 771835.1182265; Mon, 05 Aug 2024 08:13:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1saspN-0008JN-Dv; Mon, 05 Aug 2024 08:12:25 +0000
-Received: by outflank-mailman (input) for mailman id 771827;
- Mon, 05 Aug 2024 08:12:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sasqK-0000O5-Ns; Mon, 05 Aug 2024 08:13:24 +0000
+Received: by outflank-mailman (input) for mailman id 771835;
+ Mon, 05 Aug 2024 08:13:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Dvoq=PE=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1saspL-0008JH-3S
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 08:12:23 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6fca85f6-5302-11ef-8776-851b0ebba9a2;
- Mon, 05 Aug 2024 10:12:20 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CF61A21B7A;
- Mon,  5 Aug 2024 08:12:19 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A210B13254;
- Mon,  5 Aug 2024 08:12:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ohfEJWOJsGZdVwAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 05 Aug 2024 08:12:19 +0000
+ (envelope-from <SRS0=I4ub=PE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sasqK-0000Is-4N
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 08:13:24 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 95408a96-5302-11ef-bc03-fd08da9f4363;
+ Mon, 05 Aug 2024 10:13:23 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a7aa4ca9d72so1186361566b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 01:13:23 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc9ecb085sm420682166b.212.2024.08.05.01.13.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Aug 2024 01:13:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,250 +45,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fca85f6-5302-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1722845539; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ltVcg4amxt6pccipxB3f7kEjMqgZuYFi/jPyHyc77rI=;
-	b=KKsPe7RCZD3cM+mdXjhn5h1W1VmVDSKxgOyVW98J+0ZVg0GQsTUl5WzpKnTXQcXahrYryz
-	QNDpdRK3GGLbwsZO7t0A24QqXBGGqUkmxMLQ4Yphembx5zq892ldihcixHas6mqoRNPCRb
-	h514lT894WFK8MuuwTDk8HRndvEsmLY=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1722845539; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ltVcg4amxt6pccipxB3f7kEjMqgZuYFi/jPyHyc77rI=;
-	b=KKsPe7RCZD3cM+mdXjhn5h1W1VmVDSKxgOyVW98J+0ZVg0GQsTUl5WzpKnTXQcXahrYryz
-	QNDpdRK3GGLbwsZO7t0A24QqXBGGqUkmxMLQ4Yphembx5zq892ldihcixHas6mqoRNPCRb
-	h514lT894WFK8MuuwTDk8HRndvEsmLY=
-Message-ID: <a5fb0aa4-3d8d-49bf-8669-6dc81c4564ed@suse.com>
-Date: Mon, 5 Aug 2024 10:12:19 +0200
+X-Inumbo-ID: 95408a96-5302-11ef-bc03-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1722845603; x=1723450403; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RSVAtk8ASxSlNuTkSOv8+pp8eaYCgFgeM8xdbggOScc=;
+        b=JzW7hEueux6DMnjAZZR2BZ49wW3j5JXzuNgtkTvIdInUELZO8uKrDXRuaGayKbFmcz
+         Zt0W3ECgKN8JxiDHkd1zDmOSNGvR3MoWy5Hx2Q6WfmBvVKANfBySW9dGFkTWsGlc/4Qq
+         gxyNx//mlK3g/QKTxekInXX4Sua9R+/6yFc5BPzk82LyIbS13vgqjZMnMqbUFR+NkZpx
+         GDBd9b34l0ZugzfoJM2n3etwBIJXnc2O/3kAsj5jVb4M8JcM0otONLTs9yoct6GaKez6
+         4erh3fI7L9CNJhVaX3Vu5AS1H19RQhflsIZAMNoJ7Zl8qdLxIIP1Qp8XiC9bBoE0rEiz
+         5MIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722845603; x=1723450403;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RSVAtk8ASxSlNuTkSOv8+pp8eaYCgFgeM8xdbggOScc=;
+        b=bu+IUxfLwKtCGp67gRw5WiAotJ9lKbHutiC3vG44hR9IM5KyBjTYJybB4U9LYah5Qm
+         j3nP3V4GT+FG/5ELdhwKyLpmU4gWxfqbB0dfqSBT7U35sd8RWyPqYUevbNqNo9djFOsR
+         7wYJvNd+ArL3jEN2M2sJ4ssDTys0+sREA0LOUv779l9KXtoldNDM03bgxJhr/cJwJyjE
+         xbAYovVfTZUXoUpgrMrAkf91mDd8nidQMZN46IV2SoqmTqbNEzylTWiSg43/smVdb1L5
+         mj+An2kitQ7RZQBzh0denN0TwDYeihQDGZkimF8jrtXMWAWgBjPavtVdN/HPjStwaTU8
+         w6EA==
+X-Forwarded-Encrypted: i=1; AJvYcCW3P3G34SoqrTmMPAtJ612XMDWCdR5rKsrhe9oSkEQuPE3zNuZCWh8le9TxfjCBzddVIa3w8ECUSXU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzIujv3UdlKnWgxjOadNTPOLCwYU4SMnSlwrQSmVoxk5e50rqF3
+	2UvYAZlpesMvM60iVLkbI2zD3rpgA9Y+nU54915ErpxPzy4sSlRvTwpdBagbSw==
+X-Google-Smtp-Source: AGHT+IE5ZRJCjb3GqsOmwC+xbgcZTTM2VpGf8UcOIyb+KQACkjiBdiAfi7ZL7+GH5plWx6S7KjODbA==
+X-Received: by 2002:a17:907:c009:b0:a7d:cf4f:1817 with SMTP id a640c23a62f3a-a7dcf4f1a38mr702447866b.0.1722845602460;
+        Mon, 05 Aug 2024 01:13:22 -0700 (PDT)
+Message-ID: <ee4d05f4-f533-4f03-99ba-65ddefa54d82@suse.com>
+Date: Mon, 5 Aug 2024 10:13:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [KEXEC] Lacking documentation and kexec failure with Xen 4.19-rc4
- and 4.20-dev on linux host
-To: A Kundu <avikalpa@yahoo.com>, xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com
-References: <05395ed2-3bf3-4926-8e24-c2e7ff37ed26.ref@yahoo.com>
- <05395ed2-3bf3-4926-8e24-c2e7ff37ed26@yahoo.com>
+Subject: Re: kexec failure with Xen 4.19-rc4 and 4.20-dev on linux host
+To: Juergen Gross <jgross@suse.com>, A Kundu <avikalpa@yahoo.com>
+Cc: kexec@lists.infradead.org, horms@verge.net.au,
+ xen-devel@lists.xenproject.org, Baoquan He <bhe@redhat.com>,
+ andrew.cooper3@citrix.com
+References: <05395ed2-3bf3-4926-8e24-c2e7ff37ed26@yahoo.com>
+ <cebc7800-df78-4f90-9f8e-82e3f9120b6e@yahoo.com>
+ <ZqxUMgcEHakeFPaU@MiWiFi-R3L-srv>
+ <abaceb99-4b80-49d7-ab7f-b190f73e858d@yahoo.com>
+ <ac57dec1-68a3-471d-8f4c-c87fd9dca619@suse.com>
+ <dc5c9dff-6bee-493a-8315-b2eee48bd802@yahoo.com>
+ <18032298-e535-4405-890e-6ab9d54cf7e3@suse.com>
+ <74bac0d8-de7a-41df-87ed-b7e2d4140ade@suse.com>
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <05395ed2-3bf3-4926-8e24-c2e7ff37ed26@yahoo.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------B2ZOMl0aUfKfh4a4NwiTWw4y"
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.19 / 50.00];
-	SIGNED_PGP(-2.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[yahoo.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[yahoo.com,lists.xenproject.org];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	HAS_ATTACHMENT(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -3.19
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <74bac0d8-de7a-41df-87ed-b7e2d4140ade@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------B2ZOMl0aUfKfh4a4NwiTWw4y
-Content-Type: multipart/mixed; boundary="------------8FHjDX5se0YtTY2kFe0iFJn0";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: A Kundu <avikalpa@yahoo.com>, xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com
-Message-ID: <a5fb0aa4-3d8d-49bf-8669-6dc81c4564ed@suse.com>
-Subject: Re: [KEXEC] Lacking documentation and kexec failure with Xen 4.19-rc4
- and 4.20-dev on linux host
-References: <05395ed2-3bf3-4926-8e24-c2e7ff37ed26.ref@yahoo.com>
- <05395ed2-3bf3-4926-8e24-c2e7ff37ed26@yahoo.com>
-In-Reply-To: <05395ed2-3bf3-4926-8e24-c2e7ff37ed26@yahoo.com>
+On 05.08.2024 09:52, Juergen Gross wrote:
+> On 05.08.24 08:01, Jan Beulich wrote:
+>> On 04.08.2024 15:17, A Kundu wrote:
+>>> On 8/2/24 13:25, Jan Beulich wrote:
+>>>   > On 02.08.2024 09:28, A Kundu wrote:
+>>>   >> On 8/2/24 09:06, Baoquan He wrote:
+>>>   >>> On 07/31/24 at 06:34pm, A Kundu wrote:
+>>>   >>>> I am experiencing issues using kexec to load Xen 4.17(debian's apt
+>>> version),
+>>>   >>>> Xen 4.19-rc4 (compiled from source) and 4.20-dev (compiled from
+>>> source) on a
+>>>   >>>> debian host.
+>>>   >>> You should CC this to XEN dev list so that XEN dev knows this and may
+>>>   >>> provide help. Not everyone is interested in and knows XEN.
+>>>   >>>
+>>>   >>>> System information:
+>>>   >>>> $ uname -a
+>>>   >>>> Linux host 6.9.10-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.9.10-1
+>>> (2024-07-19)
+>>>   >>>> x86_64 GNU/Linux
+>>>   >>>>
+>>>   >>>> $ kexec --version # compiled from source tarball with ./configure
+>>> --with-xen
+>>>   >>>> kexec-tools 2.0.29
+>>>   >>>>
+>>>   >>>> Steps to reproduce:
+>>>   >>>>
+>>>   >>>> 1. Set variables:
+>>>   >>>>
+>>>   >>>> XEN_HYPERVISOR="/boot/xen.gz"
+>>>   >>>> XEN_CMD="dom0_mem=6G dom0_max_vcpus=6 dom0_vcpus_pin cpufreq=xen"
+>>>   >>>>
+>>>   >>>> 2. Attempt to load Xen 4.19-rc4:
+>>>   >>>>
+>>>   >>>> # kexec -l "$XEN_HYPERVISOR" --command-line="$XEN_CMD"
+>>>   >>>> Could not find a free area of memory of 0x3b6001 bytes...
+>>>   >>>> elf_exec_build_load_relocatable: ELF exec load failed
+>>>   >>>>
+>>>   >>>> 3. Attempt to load Xen 4.20-dev:
+>>>   >>>>
+>>>   >>>> # kexec -l "$XEN_HYPERVISOR" --command-line="$XEN_CMD"
+>>>   >>>> Could not find a free area of memory of 0x3f8001 bytes...
+>>>   >>>> elf_exec_build_load_relocatable: ELF exec load failed
+>>>   >>>>
+>>>   >>>> 4. Attempt to load Xen 4.17 (from debian rrepositories):
+>>>   >>>> # kexec -l /boot/xen-4.17-amd64.gz --command-line="$XEN_CMD"
+>>>   >>>> Could not find a free area of memory of 0x3b4001 bytes...
+>>>   >>>> elf_exec_build_load_relocatable: ELF exec load failed
+>>>   >
+>>>   > And with all of them saying effectively the same, did you verify you
+>>>   > actually have a sufficiently large area reserved? The obvious
+>>>   > place for you to look at is Xen's boot log (obtained via serial
+>>>   > console or "xl dmesg" immediately after booting the system). If you
+>>>   > find everything as expected there, ...
+>>>   >
+>>>   >>>> If you need any further information to investigate this problem,
+>>>   >>>> please let me know.
+>>>   >
+>>>   > ... please provide that boot log.
+>>>
+>>> I have also followed up on your suggestion to check the Xen boot log
+>>> using "xl dmesg", but unfortunately, I received the following error:
+>>>
+>>> xencall: error: Could not obtain handle on privileged command interface:
+>>> No such file or directory
+>>> libxl: error: libxl.c:102:libxl_ctx_alloc: cannot open libxc handle: No
+>>> such file or directory
+>>> cannot init xl context
+>>>
+>>> This indicates that Xen did not boot successfully, so there are no logs
+>>> available.
+>>
+>> The fact that you have Dom0 up makes clear that Xen booted okay(ish). The
+>> fact that you get "No such file or directory" from xencall suggests you
+>> either didn't load the xen-privcmd driver (normally arrangements are made
+>> by distros for this to happen automatically), or you didn't even build it.
+> 
+> The messages seen don't indicate that Xen booted okay(ish). I get the same
+> messages when having booted the Linux kernel on bare metal without Xen.
 
---------------8FHjDX5se0YtTY2kFe0iFJn0
-Content-Type: multipart/mixed; boundary="------------gCy8dGgYXAbGQPV0qSxi6kWN"
+Hmm, I didn't even think of this as a possible case, considering the question
+was forwarded to xen-devel (from a kexec list). I'm afraid Xen simply plays
+no role when setting up kexec (to whatever target) from a bare metal env.
 
---------------gCy8dGgYXAbGQPV0qSxi6kWN
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMzAuMDcuMjQgMDY6MDIsIEEgS3VuZHUgd3JvdGU6DQo+IEkgYW0gZXhwZXJpZW5jaW5n
-IGlzc3VlcyB1c2luZyBrZXhlYyB0byBsb2FkIFhlbiA0LjE5LXJjNCBhbmQNCj4gNC4yMC1k
-ZXYgb24gYSBkZWJpYW4gaG9zdC4NCj4gDQo+IFRoZSBjdXJyZW50IGRvY3VtZW50YXRpb24g
-YXQNCj4gaHR0cHM6Ly94ZW5iaXRzLnhlbnByb2plY3Qub3JnL2RvY3MvNC4xOS10ZXN0aW5n
-L21pc2Mva2V4ZWNfYW5kX2tkdW1wLnR4dA0KPiBhcHBlYXJzIHRvIGJlIG1pc3NpbmcgY3J1
-Y2lhbCBkZXRhaWxzIG9uIHByb3Blcmx5IHVzaW5nIGtleGVjDQo+IHdpdGggdGhlIC0tdm1t
-IG9wdGlvbiBmb3IgbG9hZGluZyBYZW4uDQo+IA0KPiBrZXhlYyBjb21wbGFpbnMgdGhlIC0t
-dm1tIG9wdGlvbiBpcyBub3QgcHJlc2VudC4NCj4gDQo+IFN5c3RlbSBpbmZvcm1hdGlvbjoN
-Cj4gJCB1bmFtZSAtYQ0KPiBMaW51eCBob3N0IDYuOS4xMC1hbWQ2NCAjMSBTTVAgUFJFRU1Q
-VF9EWU5BTUlDIERlYmlhbiA2LjkuMTAtMSAoMjAyNC0wNy0xOSkgDQo+IHg4Nl82NCBHTlUv
-TGludXgNCj4gDQo+ICQga2V4ZWMgLS12ZXJzaW9uICMgY29tcGlsZWQgZnJvbSBzb3VyY2Ug
-dGFyYmFsbCB3aXRoIC4vY29uZmlndXJlIC0td2l0aC14ZW4NCj4ga2V4ZWMtdG9vbHMgMi4w
-LjI5DQo+IA0KPiBTdGVwcyB0byByZXByb2R1Y2U6DQo+IA0KPiAxLiBTZXQgdmFyaWFibGVz
-Og0KPiANCj4gWEVOX0hZUEVSVklTT1I9Ii9ib290L3hlbi5neiINCj4gWEVOX0NNRD0iZG9t
-MF9tZW09NkcgZG9tMF9tYXhfdmNwdXM9NiBkb20wX3ZjcHVzX3BpbiBjcHVmcmVxPXhlbiIN
-Cj4gDQo+IDIuIEF0dGVtcHQgdG8gbG9hZCBYZW4gNC4xOS1yYzQ6DQo+IA0KPiAjIGtleGVj
-IC1sICIkWEVOX0hZUEVSVklTT1IiIC0tY29tbWFuZC1saW5lPSIkWEVOX0NNRCINCj4gQ291
-bGQgbm90IGZpbmQgYSBmcmVlIGFyZWEgb2YgbWVtb3J5IG9mIDB4M2I2MDAxIGJ5dGVzLi4u
-DQo+IGVsZl9leGVjX2J1aWxkX2xvYWRfcmVsb2NhdGFibGU6IEVMRiBleGVjIGxvYWQgZmFp
-bGVkDQo+IA0KPiAzLiBBdHRlbXB0IHRvIGxvYWQgWGVuIDQuMjAtZGV2Og0KPiANCj4gIyBr
-ZXhlYyAtbCAiJFhFTl9IWVBFUlZJU09SIiAtLWNvbW1hbmQtbGluZT0iJFhFTl9DTUQiDQo+
-IENvdWxkIG5vdCBmaW5kIGEgZnJlZSBhcmVhIG9mIG1lbW9yeSBvZiAweDNmODAwMSBieXRl
-cy4uLg0KPiBlbGZfZXhlY19idWlsZF9sb2FkX3JlbG9jYXRhYmxlOiBFTEYgZXhlYyBsb2Fk
-IGZhaWxlZA0KPiANCj4gNC4gRm9sbG93IHRoZSBzdGVwcyBpbiB0aGUgWGVuIG1hbnVhbCBh
-dCBtaXNjL2tleGVjX2FuZF9rZHVtcC50eHQ6DQo+IA0KPiAjIFNldCB2YXJpYWJsZXMNCj4g
-DQo+IFhFTl9JTUFHRT0iL2Jvb3QveGVuLTQuMTktcmMuZ3oiDQo+IERPTTBfSU1BR0U9Ii9i
-b290L3ZtbGludXotNi45LjEwLWFtZDY0Ig0KPiBET00wX0lOSVRSRD0iL2Jvb3QvaW5pdHJk
-LmltZy02LjkuMTAtYW1kNjQiDQo+IERPTTBfTUVNT1JZPSI2RyINCj4gRE9NMF9DUFVTPSIw
-LTUiDQo+IA0KPiAjIFByZXBhcmUgWGVuIGFuZCBkb20wIGNvbW1hbmQgbGluZSBhcmd1bWVu
-dHMNCj4gDQo+IFhFTl9BUkdTPSJuby1yZWFsLW1vZGUgZG9tMF9tZW09JHtET00wX01FTU9S
-WX0iDQo+IERPTTBfQVJHUz0ibWF4X2NwdXM9NiBkb20wX21heF92Y3B1cz02IGRvbTBfdmNw
-dXNfcGluIg0KPiANCj4gIyBMb2FkIFhlbiBhbmQgZG9tMCBrZXJuZWwNCj4gDQo+IGtleGVj
-IC1sIC0tYXBwZW5kPSIke1hFTl9BUkdTfSAtLSAke0RPTTBfQVJHU30iIC0taW5pdHJkPSR7
-RE9NMF9JTklUUkR9IFwNCj4gIMKgIC0tdm1tPSR7WEVOX0lNQUdFfSAke0RPTTBfSU1BR0V9
-DQo+IA0KPiBSZXN1bHQ6DQo+IGtleGVjOiB1bnJlY29nbml6ZWQgb3B0aW9uICctLXZtbT0v
-Ym9vdC94ZW4tNC4xOS1yYy5neicNCj4gDQo+IEkgaGF2ZSB0cmllZCBjb21waWxpbmcga2V4
-ZWMtdG9vbHMgMi4wLjI5IGZyb20gc291cmNlIHVzaW5nDQo+IC4vY29uZmlndXJlIC0td2l0
-aC14ZW4sIGFzIHdlbGwgYXMgdXNpbmcgZGViaWFuJ3MgYXB0IHZlcnNpb24sIGJ1dA0KPiBi
-b3RoIHJlc3VsdCBpbiB0aGUgc2FtZSAidW5yZWNvZ25pemVkIG9wdGlvbiAnLS12bW0nIiBl
-cnJvci4NCj4gDQo+IFBsZWFzZSBwcm92aWRlIGd1aWRhbmNlIG9uIHRoZSBjb3JyZWN0IHN0
-ZXBzIHRvIGdldCBrZXhlYyB3b3JraW5nDQo+IGZvciBsb2FkaW5nIFhlbiA0LjE5LXJjNCBh
-bmQgNC4yMC1kZXYuIEFkZGl0aW9uYWxseSwgSSBraW5kbHkNCj4gcmVxdWVzdCB0aGF0IHRo
-ZSBkb2N1bWVudGF0aW9uIGJlIHVwZGF0ZWQgd2l0aCB0aGVzZSBkZXRhaWxzIHRvDQo+IGFz
-c2lzdCBvdGhlciB1c2VycyB3aG8gbWF5IGVuY291bnRlciB0aGlzIGlzc3VlLg0KDQpUaGUg
-bWVudGlvbmVkIGRvY3VtZW50YXRpb24gaGFzbid0IHNlZW4gYW55IHVwZGF0ZXMgc2luY2Ug
-MjAwOCBpbiB0aGUNCnBhcnQgeW91IGFyZSBpbnRlcmVzdGVkIGluLiBJIGJlbGlldmUgdGhl
-IG1vc3Qgc2FuZSBhY3Rpb24gd291bGQgYmUgdG8NCnJlbW92ZSB0aGUgIktleGVjIiBjaGFw
-dGVyIGNvbXBsZXRlbHkuDQoNCldpdGggWGVuIEknbSBub3QgYXdhcmUgb2YgYW55IHVzZSBj
-YXNlIG5vd2FkYXlzIG90aGVyIHRoYW4gdGhhdCBleHBsYWluZWQNCmluIHRoZSAiS2R1bXAi
-IGNoYXB0ZXIuDQoNCg0KSnVlcmdlbg0K
---------------gCy8dGgYXAbGQPV0qSxi6kWN
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------gCy8dGgYXAbGQPV0qSxi6kWN--
-
---------------8FHjDX5se0YtTY2kFe0iFJn0--
-
---------------B2ZOMl0aUfKfh4a4NwiTWw4y
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmawiWMFAwAAAAAACgkQsN6d1ii/Ey8h
-ugf8DO78EgYpWXfEHRO+xxTRLnhUd+k7XBQXZR5eII6KhedBz/3gdMUV2IqnfLLK51Y1tOPX/2x8
-tpIC/wr/k+V4wLPG6Fwqz8B11soUrJEczKIM49hBrjYmGUC8LIdzgdisgTcEFT98UeRnWof1JVZc
-9XhUJakr57SbKaECClPNdBfRoni/Pg399FdfvtdXnwZt8noIPPe6+CeN7UqETDQesGwno61ifP6i
-WxW4ZKOfbAzPgGkVU/nIXJ0EMB89EgLgJVXOhoaD6Gcap+lGXB5lEQlbwPMU8peEp0ZMGztuNuBm
-pYn+A+73ZOjhktyqHWDhrHzVeD3fj85bIBiO44lMQw==
-=khBV
------END PGP SIGNATURE-----
-
---------------B2ZOMl0aUfKfh4a4NwiTWw4y--
+Jan
 
