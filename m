@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3B2A947BCD
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 15:26:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772169.1182603 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D8F5947C29
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 15:47:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772179.1182612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1saxjJ-0008IO-Ej; Mon, 05 Aug 2024 13:26:29 +0000
+	id 1say2o-0003Ds-V0; Mon, 05 Aug 2024 13:46:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772169.1182603; Mon, 05 Aug 2024 13:26:29 +0000
+Received: by outflank-mailman (output) from mailman id 772179.1182612; Mon, 05 Aug 2024 13:46:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1saxjJ-0008FH-Au; Mon, 05 Aug 2024 13:26:29 +0000
-Received: by outflank-mailman (input) for mailman id 772169;
- Mon, 05 Aug 2024 13:26:28 +0000
+	id 1say2o-0003Bc-RQ; Mon, 05 Aug 2024 13:46:38 +0000
+Received: by outflank-mailman (input) for mailman id 772179;
+ Mon, 05 Aug 2024 13:46:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I4ub=PE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1saxjH-0008FB-Vu
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 13:26:27 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1say2n-0003BW-HI
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 13:46:37 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5123bfbd-532e-11ef-bc03-fd08da9f4363;
- Mon, 05 Aug 2024 15:26:26 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so1058042766b.2
- for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 06:26:26 -0700 (PDT)
+ id 223aee22-5331-11ef-bc03-fd08da9f4363;
+ Mon, 05 Aug 2024 15:46:36 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-52f025ab3a7so14463903e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 06:46:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9ec7311sm450930166b.195.2024.08.05.06.26.25
+ a640c23a62f3a-a7dc9ec4875sm452370766b.191.2024.08.05.06.46.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Aug 2024 06:26:25 -0700 (PDT)
+ Mon, 05 Aug 2024 06:46:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5123bfbd-532e-11ef-bc03-fd08da9f4363
+X-Inumbo-ID: 223aee22-5331-11ef-bc03-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722864386; x=1723469186; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722865596; x=1723470396; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=+LzdTN0LrxG38E8N8sPxyACXjQToDaja2vpqjapp9Eg=;
-        b=RdJmJdVBRZeoxP0pmdm9ihdh4hHZINOR2KgzvUyeDCzabyD+jqwaB7EIUntFWBdwcF
-         S3d4L7/RIdGhc9jGrKypiIDcQ1lXeSah1T4KpLU/9cPwGeXuI6HRGWE4ql6oqHNaiXf1
-         zK5C5uTNLoDGeSrmcjOmc5O7x05svH2io65P6OvTbpitgMbEVpG6pG0TzHZ95/5/R2rO
-         2U1o5A4AzPUO/N29qP/Th1k6x16q0sfERkkui5wJljTQs6amEV42FNSX2QUJ0pLG3kJd
-         2GRnzb0MQBgqagLTUFvFkcjp8wHfhMDZMLrjJlfF4sRlfuYsdacp2f6pDyskKpj7EV5+
-         9a1g==
+        bh=He/VNCUucT/Fwk6jTYK47AImSamRG/7DWHnSj9sWCVw=;
+        b=KDoeMq7vxjkajdYcWIsLfZnHzhauV2ORSZmhUOjcPkmwEQBObUPSmCFKAq4YwCn/wH
+         x6+3M8+0gReSYVYP/POzmnLp5JZrTBk+ge0rwIJXofqC4emN/tq0Mv+oabejbGjfsZPt
+         5TaDxKaSBow2PPl3gxzSBfAcAJHRFYVcK0Xn1W9RYVIDcaTKKQuVMw1rzDEslzXzSUJN
+         y9Zx0mVBOBzLY6MqR75hlRCmK8OwXrszWdddpjGOXqsKtguZOWj2tuWIhkdRnoyv/FvR
+         k7KcQJo6OUZ37tbor5mDyoB/1izZe+sZdl4GyooEnkO+OZ6Q4epETP+3Hr2STRZwfzih
+         Q4ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722864386; x=1723469186;
+        d=1e100.net; s=20230601; t=1722865596; x=1723470396;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+LzdTN0LrxG38E8N8sPxyACXjQToDaja2vpqjapp9Eg=;
-        b=Vy5xd7B5OdV0IKVaA8Tie0/Z0RGCOf86rrvUz6QXZdJ3tcPjBpVZfiiYigPtSgQLpE
-         tAZ6kqkX0q1IqQEnqsJkXEEAcUsgf/cadFNYBjcSfpeFgWGYm/CS4f2Ozfcok4ME8h4Z
-         NSa+0dKMYMlmGQQhnEbnShGvLGqSn1kmu6Ui2k2aL8ThM2wBCLEHADH0bQdkejOqOsin
-         p3Pzkmy46Y2kUj+rz90kye39O6KNOSDdvVq0f14loBUrcf4Y43/1eFTEaHOHkr4K/xoZ
-         1bzoTKfEwzh/WLmPjZmlAk5zLMv4vrRS9GScY7ZDLXEbcP3ctdsNz2xeBF1EVhb0TD5Q
-         opZw==
-X-Gm-Message-State: AOJu0YyjY1ixAVYt1qdBig0deGJ6b1NRlR/WV31TCq9YClh7UR6Q1bQF
-	vWgSj6me8zKp+b+QUtJwbOCQe1GbaUV/I9rFCmm+NYKAlH8LLDY9ALiUVZXmgVE0yXvobs6O+ho
+        bh=He/VNCUucT/Fwk6jTYK47AImSamRG/7DWHnSj9sWCVw=;
+        b=vEIaGA7+NE+Is/ARG75fdx1k9zeKYDqe9eSVuf48rZt9VeCNJghRB0iD5+XNoYZmXV
+         EOEaeR94UEynWcvPtKoDBOZpJ0nY/ROt0zjMwkQHbDUtz3lI68VG3W0PEPlYw7W5TlcP
+         plGHrOLQYl2SEVqqs+N/PwG9d3rsoX1pzgDvhywEt8+Wqn0DJxXEGFgfyxwZH1bt9tDb
+         ftAm/aYVc3hx7EQ+orK0TFT2NsMKv/Y64o9TKQ5pe65kKkUwHqCvyz7aCfHoZIbUjQS1
+         01KCcoZ1BGXS8smX6qecojcBtBPd46fcOSDluLPjy/ESdiT0eCKpS+5ITU28Env1PUTF
+         ginw==
+X-Gm-Message-State: AOJu0Yya1s+1TKzNnI32y7KYGDdXva5JXvlR+geQX+uj/Fci+ffKrdkD
+	9wU7xtLK1DD9gtOx4Vv87vWsD8JHSHL6NPX752QMlzOtQic5x+AD31kaayd7NGCnohXuQupjAms
 	=
-X-Google-Smtp-Source: AGHT+IEaSEApBX9iP9WPNnL2z7ZkuNTBn/gY4lvs+wzc4dIaNoeI7NG7bGtwnguukxMUlhzFhUkQYg==
-X-Received: by 2002:a17:907:2d08:b0:a7a:929f:c0ce with SMTP id a640c23a62f3a-a7dc4df9533mr670154366b.19.1722864386087;
-        Mon, 05 Aug 2024 06:26:26 -0700 (PDT)
-Message-ID: <81ae365f-98b4-4bb6-bbb6-c5423dfda038@suse.com>
-Date: Mon, 5 Aug 2024 15:26:26 +0200
+X-Google-Smtp-Source: AGHT+IGy9jZ7RLTGmvjzn0RBpgGWrPBiXl/l3d9ErdNVjjA70cR6cjXQkd6yFekvTpn3cmZdM8ccGQ==
+X-Received: by 2002:a05:6512:3a6:b0:530:d088:2348 with SMTP id 2adb3069b0e04-530d09aac9dmr1316004e87.54.1722865595714;
+        Mon, 05 Aug 2024 06:46:35 -0700 (PDT)
+Message-ID: <9f73c7bd-4aa3-4a66-a12c-4bfda6aa233a@suse.com>
+Date: Mon, 5 Aug 2024 15:46:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -85,7 +85,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86emul: don't call ->read_segment() with x86_seg_none
+Subject: [PATCH] x86emul: avoid UB shift in AVX512 VPMOV* handling
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -112,31 +112,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-LAR, LSL, VERR, and VERW emulation involve calling protmode_load_seg()
-with x86_seg_none. The fuzzer's read_segment() hook function has an
-assertion which triggers in this case. Calling the hook function,
-however, makes little sense for those insns, as there's no data to
-retrieve. Instead zero-filling the output structure is what properly
-corresponds to those insns being invoked with a NUL selector.
+For widening and narrowing moves, operand (vector) size is calculated
+from a table. This calculation, for the AVX512 cases, lives ahead of
+validation of EVEX.L'L (which cannot be 3 without raising #UD). Account
+for the later checking by adjusting the constants in the expression such
+that even EVEX.L'L == 3 will yield a non-UB shift (read: shift count
+reliably >= 0).
 
-Fixes: 06a3b8cd7ad2 ("x86emul: support LAR/LSL/VERR/VERW")
-Oss-fuzz: 70918
+Fixes: 3988beb08 ("x86emul: support AVX512{F,BW} zero- and sign-extending moves")
+Oss-fuzz: 70914
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-It is pure guesswork that one of those insns did trigger the assertion.
-The report from oss-fuzz sadly lacks details on the insn under
-emulation. I'm further surprised that AFL never found this.
 
 --- a/xen/arch/x86/x86_emulate/x86_emulate.c
 +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -839,7 +839,8 @@ protmode_load_seg(
-         case x86_seg_tr:
-             goto raise_exn;
+@@ -5788,7 +5788,7 @@ x86_emulate(
+             d = DstMem | SrcReg | TwoOp;
          }
--        if ( !_amd_like(cp) || vcpu_has_nscb() || !ops->read_segment ||
-+        if ( seg == x86_seg_none || !_amd_like(cp) || vcpu_has_nscb() ||
-+             !ops->read_segment ||
-              ops->read_segment(seg, sreg, ctxt) != X86EMUL_OKAY )
-             memset(sreg, 0, sizeof(*sreg));
-         else
+         generate_exception_if(evex.brs, X86_EXC_UD);
+-        op_bytes = 32 >> (pmov_convert_delta[b & 7] + 1 - evex.lr);
++        op_bytes = 64 >> (pmov_convert_delta[b & 7] + 2 - evex.lr);
+         elem_bytes = (b & 7) < 3 ? 1 : (b & 7) != 5 ? 2 : 4;
+         goto avx512f_no_sae;
+ 
 
