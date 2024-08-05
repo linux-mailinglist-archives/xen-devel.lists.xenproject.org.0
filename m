@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB289947E64
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 17:42:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772260.1182708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E422947E70
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 17:46:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772268.1182718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sazqM-0008Ge-Rw; Mon, 05 Aug 2024 15:41:54 +0000
+	id 1sazu0-0000RV-Ad; Mon, 05 Aug 2024 15:45:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772260.1182708; Mon, 05 Aug 2024 15:41:54 +0000
+Received: by outflank-mailman (output) from mailman id 772268.1182718; Mon, 05 Aug 2024 15:45:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sazqM-0008E0-Ol; Mon, 05 Aug 2024 15:41:54 +0000
-Received: by outflank-mailman (input) for mailman id 772260;
- Mon, 05 Aug 2024 15:41:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sazu0-0000PQ-7G; Mon, 05 Aug 2024 15:45:40 +0000
+Received: by outflank-mailman (input) for mailman id 772268;
+ Mon, 05 Aug 2024 15:45:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I4ub=PE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sazqL-0008Du-CS
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 15:41:53 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3baaa5d5-5341-11ef-8776-851b0ebba9a2;
- Mon, 05 Aug 2024 17:41:51 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a7a91cdcc78so569772766b.3
- for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 08:41:51 -0700 (PDT)
+ id 1saztz-0000PJ-4o
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 15:45:39 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c2dfb6f3-5341-11ef-bc03-fd08da9f4363;
+ Mon, 05 Aug 2024 17:45:38 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5af6a1afa63so11957004a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 08:45:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5baff14989fsm2446690a12.55.2024.08.05.08.41.49
+ a640c23a62f3a-a7dc9e83e93sm459814766b.166.2024.08.05.08.45.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Aug 2024 08:41:50 -0700 (PDT)
+ Mon, 05 Aug 2024 08:45:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3baaa5d5-5341-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: c2dfb6f3-5341-11ef-bc03-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722872510; x=1723477310; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722872737; x=1723477537; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=whlPeet9tumQdwGZh3kKRJwNp4fjd104vNOWSO00Izo=;
-        b=cD9kdfsaSXwcPq7CYmDzfTqdZro7Yr0J5LiYD1wscJR6davo3M0zIYupJ/e1TSf2e/
-         0mM5BrTrbBkMkMhzhHsWfVi7z7airsskXzh5Lwt+K14oaurvSobb6c2aaw34Gu0H82DH
-         V6mWzVXXRokFbqcHOt2oCb/+AsbWCV1o8jJ+XscqbSp3jsJ0tOGFRRNMyzqilG/KIrhX
-         fbrzKeJ2yTEhhPB7XqssSfQLSr/w9SyDpGmPuLVkyDZqyzERGAZx2czaC15Qb6c3cEi3
-         lnsWzMZ/Y79DcSrTthBa9kLqMSMekinLrdU5cyZBbELTCKEoAAfJjOz3GfsztIla8XM8
-         0yoA==
+        bh=uTXiuz2E7nzM9sjWOqGHxzR6Zq6rjXqESyWGNGV1XJw=;
+        b=ML37ttH0o4YVbi4NiMCGQ43b72Po9BpwQ3Qk/qgjAbcysDK6X4w8x3/2VjXGrSQHmg
+         4CDEenJlf/jP+dmino06hISY3LbrRkBMp91t/fgs+TzzHa+hfWFd871C+1FLxn7UZrMR
+         a91+oNynAfmuNKw0HgyupzR7GyzLxvUAZfXN/RViL+I1heRZ7QYrzF6p31iAGmDJA+LO
+         SZ1ijUHJPIF0nCCUIGYyi3wf4b65bbGluc4WwthATsvMapBsi9qtC4HP4ZXM9MBUQ5wr
+         paS1DLYzMliI0ZS0ebUAg9C+B+RjdxOkLFFtqcGAQPwPIysJOfR0qebXrZa89Rc9GVOY
+         jIww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722872510; x=1723477310;
+        d=1e100.net; s=20230601; t=1722872737; x=1723477537;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=whlPeet9tumQdwGZh3kKRJwNp4fjd104vNOWSO00Izo=;
-        b=lA+cOk0fDltsiGOHc7TnCLkDPm8nkRjZYBERP443/gjQZv+2ls4sUiYqUVa+B6Qo1q
-         gfVvQMm2qPpQbfSfZxmLhPCS9+xN/v8z1L6om0KRtTyO+UyYy95qLti+9UA/9gdRvfdm
-         7aSPc8xHjEQuTmXIg2Bo8z9wON54N5CTl04lA925dN6ylpfkWPUHBbFTHgrFbwzO7QDQ
-         zu5zsG5SdrTFXJaVjNCt2hGwpZuaFQq8bSD994M5fP9lFeySTbeHNhX2lFZZzSDuzkQ7
-         WHviT82wTu0m3VJrKhyOFjEVVt+4kvfTg70syVVOP4fph0rhTCMypfhZTdMmXafnzAQh
-         ddDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXYKahZb1RYfsS2001XDKwC4iHcRRip+nv1nQP568L96BQ9jbugR74lM2w4/HVm0burXimjvQsnsA60NdssH+Lj8oyod30Ppee8fdE3wI0=
-X-Gm-Message-State: AOJu0YyHuSb0kx7rWEAffZwqHf2LDyjbfrONdi3j4NVkb/QXQ58sLZwk
-	ZV1w+7lpXijeAmS60lhpiGnEGgEfyZTnLcQTsdQH9ZxNjQuqCGBxzp+ebrIz9Q==
-X-Google-Smtp-Source: AGHT+IHnj9s28UqsmVG+caybjitodkmU0CItj/80rhMoOkjyjkq+ajN7bpuRF1b6wisPagLH3syf8g==
-X-Received: by 2002:a05:6402:1657:b0:5a1:4f76:1a1b with SMTP id 4fb4d7f45d1cf-5b7f3ad8779mr10437536a12.15.1722872510347;
-        Mon, 05 Aug 2024 08:41:50 -0700 (PDT)
-Message-ID: <0245feaa-6cf2-4f44-843f-38cdcc6b7a42@suse.com>
-Date: Mon, 5 Aug 2024 17:41:50 +0200
+        bh=uTXiuz2E7nzM9sjWOqGHxzR6Zq6rjXqESyWGNGV1XJw=;
+        b=hAoR9OYydfOJ9dETxBDHGXf40iaJEnGvH8waGEgbpr3Savx08UWL+TEbIIIXYKyKPk
+         nLXmq0vRuKaEHuq8dEIkLStbalF8L5cM+zNc0KsQQNaAwCkF/m70Iajkx9FSorNU0dBd
+         yQN2Q6j9Wl1NwJRx9nu+pCMq1VEzZkbWar0MM0uT0DVB+VEuIgVQWB9Ler5LwySSK39o
+         PC0VwZpXOlnTUj15J+LRFUwrshzow8B2lZjvDf9aKQR2xA0L9DanaQK+ibRttankHYCi
+         D7qEriAC+QlfKFoYLUO1XBeeu05ST34Y5aKBcw1A1FLnHPh1flX0WFlsmYDwgk3FPC4X
+         Nudw==
+X-Forwarded-Encrypted: i=1; AJvYcCVGP4/pZhqDPU3Lq3ktqP0F3IwYRJ6d+NDgXOCbIg+tu/jiWLUQLtjpIzgPf0khxnxloWnuc3rpnee0GIuuCc1YnNH+vPTBYB9me6q4KUE=
+X-Gm-Message-State: AOJu0YwCTeNINduBb75LYHx7zimsqcb1cjHjovlGvCtRLZJ2tlJagntQ
+	F3pqTct0nsTaYX83jYEBeMvnb92I6qItZR4VDykKAs21gI+dXcfaK89zkuQSZg==
+X-Google-Smtp-Source: AGHT+IHg4tnknpAMo2XKplmqlo7xLD7h5Q1ouXahz3QlwrBz/DBSlsgsVh1ZaSlCmQdg892nnUzNVg==
+X-Received: by 2002:a17:907:d25:b0:a72:8d40:52b8 with SMTP id a640c23a62f3a-a7dc4db57e9mr934882566b.3.1722872737414;
+        Mon, 05 Aug 2024 08:45:37 -0700 (PDT)
+Message-ID: <d68f3047-5b12-4802-aac3-bb0b9c76cb08@suse.com>
+Date: Mon, 5 Aug 2024 17:45:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 1/3] xen/riscv: enable GENERIC_BUG_FRAME
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3 4/9] xen/riscv: setup fixmap mapping
+To: oleksii.kurochko@gmail.com
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1722605952.git.oleksii.kurochko@gmail.com>
- <3d507ce45606d22e9fa07dd6087870c16b5c4a4e.1722605952.git.oleksii.kurochko@gmail.com>
+ xen-devel@lists.xenproject.org, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
+ <04576976b82b97442f645b83b3d62475d144af8e.1721834549.git.oleksii.kurochko@gmail.com>
+ <917cc521-c0c4-49e8-bc40-948679398bc6@suse.com>
+ <afbbf9ed7c575e3b2c3f9a668db0b27258822ee0.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,88 +118,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3d507ce45606d22e9fa07dd6087870c16b5c4a4e.1722605952.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <afbbf9ed7c575e3b2c3f9a668db0b27258822ee0.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02.08.2024 15:54, Oleksii Kurochko wrote:
-> Enable GENERIC_BUG_FRAME to support BUG(), WARN(), ASSERT,
-> and run_in_exception_handler().
+On 05.08.2024 17:13, oleksii.kurochko@gmail.com wrote:
+> On Mon, 2024-07-29 at 15:35 +0200, Jan Beulich wrote:
+>>> +    }
+>>> +
+>>> +    BUG_ON(pte_is_valid(*pte));
+>>> +
+>>> +    tmp = paddr_to_pte(LINK_TO_LOAD((unsigned long)&xen_fixmap),
+>>> PTE_TABLE);
+>>
+>> I'm a little puzzled by the use of LINK_TO_LOAD() (and LOAD_TO_LINK()
+>> a
+>> little further up) here. Don't you have functioning __pa() and
+>> __va()?
+> Can __pa() and __va() be used in this case?
 > 
-> The 0x0000 opcode is used for BUG_INSTR, which, when macros from
-> <xen/bug.h> are used, triggers an exception with the
-> ILLEGAL_INSTRUCTION cause.
-> This opcode is encoded as a 2-byte instruction and is invalid if
-> CONFIG_RISCV_ISA_C is enabled or not.
+> According to comments for other architectures, these macros are used
+> for converting between Xen heap virtual addresses (VA) and machine
+> addresses (MA). I may have misunderstood what is meant by the Xen heap
+> in this context, but I'm not sure if xen_fixmap[] and page tables are
+> considered part of the Xen heap.
 
-Yes, but there's a caveat: Without the C extension instructions have
-to be aligned on 32-bit boundaries. You can't just go and insert a
-16-bit item there. When RISCV_ISA_C is not set, I think you want to
-insert two such 16-bit zeroes. Beware of an alignment handling bug
-in the assembler - don't think of using an alignment directive here.
-
-> Update the commit above the definition of INS_LENGTH_MASK as ebreak
-
-s/commit/comment/?
-
-> --- a/xen/arch/riscv/include/asm/bug.h
-> +++ b/xen/arch/riscv/include/asm/bug.h
-> @@ -9,7 +9,11 @@
->  
->  #ifndef __ASSEMBLY__
->  
-> -#define BUG_INSTR "ebreak"
-> +#include <xen/stringify.h>
-> +
-> +#define BUG_OPCODE  0x0000
-
-You don't really use this other than ...
-
-> +#define BUG_INSTR ".hword " __stringify(BUG_OPCODE)
-
-... here - does this really warrant a separate #define _and_ inclusion of
-stringify.h?
-
-Furthermore you want to avoid using .hword (or any data generating
-directive), to avoid disturbing disassembly. Please use .insn if at all
-possible. I understand though that in certain cases you won't be able to
-use .insn. Yet for the common case (more recent binutils) you'd still
-better avoid .hword or alike, imo.
-
-> @@ -103,7 +104,29 @@ static void do_unexpected_trap(const struct cpu_user_regs *regs)
->  
->  void do_trap(struct cpu_user_regs *cpu_regs)
->  {
-> -    do_unexpected_trap(cpu_regs);
-> +    register_t pc = cpu_regs->sepc;
-> +    unsigned long cause = csr_read(CSR_SCAUSE);
-> +
-> +    switch ( cause )
-> +    {
-> +    case CAUSE_ILLEGAL_INSTRUCTION:
-> +        if ( do_bug_frame(cpu_regs, pc) >= 0 )
-> +        {
-> +            if ( !(is_kernel_text(pc) || is_kernel_inittext(pc)) )
-> +            {
-> +                printk("Something wrong with PC: %#lx\n", pc);
-> +                die();
-> +            }
-> +
-> +            cpu_regs->sepc += GET_INSN_LENGTH(*(uint16_t *)pc);
-> +
-> +            break;
-> +        }
-> +
-> +    default:
-
-The falling-through here wants annotating, preferably with the pseudo-
-keyword.
+I didn't check Arm, but on x86 virt_to_maddr() (underlying __pa()) has
+special case code to also allow addresses within the Xen image (area).
 
 Jan
-
-> +        do_unexpected_trap(cpu_regs);
-> +        break;
-> +    }
->  }
 
 
