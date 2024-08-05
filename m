@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E422947E70
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 17:46:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772268.1182718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 260C8947E8C
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2024 17:48:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772279.1182728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sazu0-0000RV-Ad; Mon, 05 Aug 2024 15:45:40 +0000
+	id 1sazwd-0001m4-Oa; Mon, 05 Aug 2024 15:48:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772268.1182718; Mon, 05 Aug 2024 15:45:40 +0000
+Received: by outflank-mailman (output) from mailman id 772279.1182728; Mon, 05 Aug 2024 15:48:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sazu0-0000PQ-7G; Mon, 05 Aug 2024 15:45:40 +0000
-Received: by outflank-mailman (input) for mailman id 772268;
- Mon, 05 Aug 2024 15:45:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sazwd-0001kZ-Ln; Mon, 05 Aug 2024 15:48:23 +0000
+Received: by outflank-mailman (input) for mailman id 772279;
+ Mon, 05 Aug 2024 15:48:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=I4ub=PE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1saztz-0000PJ-4o
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 15:45:39 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c2dfb6f3-5341-11ef-bc03-fd08da9f4363;
- Mon, 05 Aug 2024 17:45:38 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5af6a1afa63so11957004a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 08:45:38 -0700 (PDT)
+ id 1sazwb-0001kQ-Qj
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2024 15:48:21 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2334df70-5342-11ef-8776-851b0ebba9a2;
+ Mon, 05 Aug 2024 17:48:19 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5a20de39cfbso13631262a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2024 08:48:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9e83e93sm459814766b.166.2024.08.05.08.45.36
+ 4fb4d7f45d1cf-5bb88d1d9a3sm1683960a12.26.2024.08.05.08.48.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Aug 2024 08:45:37 -0700 (PDT)
+ Mon, 05 Aug 2024 08:48:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2dfb6f3-5341-11ef-bc03-fd08da9f4363
+X-Inumbo-ID: 2334df70-5342-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722872737; x=1723477537; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1722872899; x=1723477699; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uTXiuz2E7nzM9sjWOqGHxzR6Zq6rjXqESyWGNGV1XJw=;
-        b=ML37ttH0o4YVbi4NiMCGQ43b72Po9BpwQ3Qk/qgjAbcysDK6X4w8x3/2VjXGrSQHmg
-         4CDEenJlf/jP+dmino06hISY3LbrRkBMp91t/fgs+TzzHa+hfWFd871C+1FLxn7UZrMR
-         a91+oNynAfmuNKw0HgyupzR7GyzLxvUAZfXN/RViL+I1heRZ7QYrzF6p31iAGmDJA+LO
-         SZ1ijUHJPIF0nCCUIGYyi3wf4b65bbGluc4WwthATsvMapBsi9qtC4HP4ZXM9MBUQ5wr
-         paS1DLYzMliI0ZS0ebUAg9C+B+RjdxOkLFFtqcGAQPwPIysJOfR0qebXrZa89Rc9GVOY
-         jIww==
+        bh=8pwD5E1cYfrRyZTIXFKA990Wqf+kRr0bcG+ogXOoR4g=;
+        b=cS4D18ZsMXM39PLvqSWv9z62jyQ949nbL8uszvQg5tzWI4lRY0OFUycMFJTmgvuiuq
+         ael00YyQrY9E8i29T9RwPwvnF0H2WcVAhXJJyUqEmEMSpdhE3xehUzPA48elqZ8vDYOZ
+         6TiMWA0pp1XVZL32oriW2IwNdQIcmV91XxGzhAh5L6flwJc0bmAs9A1YhPWzYt0hVesA
+         OItmtSNygg5h7WBajVCDRWjxM6N856IYPim0MKaxBVJewh81e7+WIk64K09xhSTn0Feq
+         kUo3+sBgCTeT5f99JwqaARiAsBDv4K9CPW7k18uH2sEsbZMaPJwU+1mc8EvLBODWMxUO
+         OkxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722872737; x=1723477537;
+        d=1e100.net; s=20230601; t=1722872899; x=1723477699;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uTXiuz2E7nzM9sjWOqGHxzR6Zq6rjXqESyWGNGV1XJw=;
-        b=hAoR9OYydfOJ9dETxBDHGXf40iaJEnGvH8waGEgbpr3Savx08UWL+TEbIIIXYKyKPk
-         nLXmq0vRuKaEHuq8dEIkLStbalF8L5cM+zNc0KsQQNaAwCkF/m70Iajkx9FSorNU0dBd
-         yQN2Q6j9Wl1NwJRx9nu+pCMq1VEzZkbWar0MM0uT0DVB+VEuIgVQWB9Ler5LwySSK39o
-         PC0VwZpXOlnTUj15J+LRFUwrshzow8B2lZjvDf9aKQR2xA0L9DanaQK+ibRttankHYCi
-         D7qEriAC+QlfKFoYLUO1XBeeu05ST34Y5aKBcw1A1FLnHPh1flX0WFlsmYDwgk3FPC4X
-         Nudw==
-X-Forwarded-Encrypted: i=1; AJvYcCVGP4/pZhqDPU3Lq3ktqP0F3IwYRJ6d+NDgXOCbIg+tu/jiWLUQLtjpIzgPf0khxnxloWnuc3rpnee0GIuuCc1YnNH+vPTBYB9me6q4KUE=
-X-Gm-Message-State: AOJu0YwCTeNINduBb75LYHx7zimsqcb1cjHjovlGvCtRLZJ2tlJagntQ
-	F3pqTct0nsTaYX83jYEBeMvnb92I6qItZR4VDykKAs21gI+dXcfaK89zkuQSZg==
-X-Google-Smtp-Source: AGHT+IHg4tnknpAMo2XKplmqlo7xLD7h5Q1ouXahz3QlwrBz/DBSlsgsVh1ZaSlCmQdg892nnUzNVg==
-X-Received: by 2002:a17:907:d25:b0:a72:8d40:52b8 with SMTP id a640c23a62f3a-a7dc4db57e9mr934882566b.3.1722872737414;
-        Mon, 05 Aug 2024 08:45:37 -0700 (PDT)
-Message-ID: <d68f3047-5b12-4802-aac3-bb0b9c76cb08@suse.com>
-Date: Mon, 5 Aug 2024 17:45:37 +0200
+        bh=8pwD5E1cYfrRyZTIXFKA990Wqf+kRr0bcG+ogXOoR4g=;
+        b=NckwEDn2Ms3rYdgqodIrokUc2wxQ0eRtBEK/ZqNPMIrkt5zIjfdfZQjQbsWSOvxx0a
+         CBTlqV3JUjjzw4UayOZmkuCuK/jxRezNsix134YfgdIuaKBwcwNhxZoTLVDUMytk6r5s
+         2zcbHtD8deveMQ41wTQsuvcL3UOfPP7eCPB8+z0qBvXVs83CTiaUd+cBiXS2Fgucp8HL
+         +ibNrlBvLx4Lmql3BIIiRIO5Oiie5oneLOXmDqf0p3sLMgL9ruFL21rTLpeWAEkHtebn
+         joouEYEhCO2mAO6o+J4URue8qvt/W3WbO5y8XTZ59xV4PQ3E4cKEtrHqWd3Yk8Dzrn7g
+         HyRA==
+X-Forwarded-Encrypted: i=1; AJvYcCW/IuOjp+3AKaColzIX6ptWKNTuYfQZl9DxHH1YZbL66hfuP9XUJrea9q0KtF98VMEsxAbM7YqVUQMp+VTsj5XK9/gYJ3QCCr+r04dPfmk=
+X-Gm-Message-State: AOJu0YwxjiFj/iMcDERM/PFrt1sL+fRUksxQ1REg4zocZiaKboaQ2hMq
+	Jqe0XEy5er0aYJ/C1oz1CZ2JrGQYPX7we7BxOwM628MEoDpwyGN/0gUqmEI4kg==
+X-Google-Smtp-Source: AGHT+IGEkH1gwSSLrASEw6niAb06QoExu7GdG0CZmsneVvOpYe58inqevJFIWvsuBRV0h7vDTlc5iA==
+X-Received: by 2002:a50:ed08:0:b0:5a3:af31:9ae4 with SMTP id 4fb4d7f45d1cf-5b7f36f58ccmr9734335a12.5.1722872898989;
+        Mon, 05 Aug 2024 08:48:18 -0700 (PDT)
+Message-ID: <85bf5a08-9d47-4f9f-b1e8-ca12e610f393@suse.com>
+Date: Mon, 5 Aug 2024 17:48:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 4/9] xen/riscv: setup fixmap mapping
@@ -93,6 +93,7 @@ References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
  <04576976b82b97442f645b83b3d62475d144af8e.1721834549.git.oleksii.kurochko@gmail.com>
  <917cc521-c0c4-49e8-bc40-948679398bc6@suse.com>
  <afbbf9ed7c575e3b2c3f9a668db0b27258822ee0.camel@gmail.com>
+ <fba675f7256aec1492f8446b0a0716e05bc91c54.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,34 +119,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <afbbf9ed7c575e3b2c3f9a668db0b27258822ee0.camel@gmail.com>
+In-Reply-To: <fba675f7256aec1492f8446b0a0716e05bc91c54.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05.08.2024 17:13, oleksii.kurochko@gmail.com wrote:
-> On Mon, 2024-07-29 at 15:35 +0200, Jan Beulich wrote:
->>> +    }
->>> +
->>> +    BUG_ON(pte_is_valid(*pte));
->>> +
->>> +    tmp = paddr_to_pte(LINK_TO_LOAD((unsigned long)&xen_fixmap),
->>> PTE_TABLE);
+On 05.08.2024 17:34, oleksii.kurochko@gmail.com wrote:
+> On Mon, 2024-08-05 at 17:13 +0200, oleksii.kurochko@gmail.com wrote:
+>> On Mon, 2024-07-29 at 15:35 +0200, Jan Beulich wrote:
+>>>> +    }
+>>>> +
+>>>> +    BUG_ON(pte_is_valid(*pte));
+>>>> +
+>>>> +    tmp = paddr_to_pte(LINK_TO_LOAD((unsigned long)&xen_fixmap),
+>>>> PTE_TABLE);
+>>>
+>>> I'm a little puzzled by the use of LINK_TO_LOAD() (and
+>>> LOAD_TO_LINK()
+>>> a
+>>> little further up) here. Don't you have functioning __pa() and
+>>> __va()?
+>> Can __pa() and __va() be used in this case?
 >>
->> I'm a little puzzled by the use of LINK_TO_LOAD() (and LOAD_TO_LINK()
->> a
->> little further up) here. Don't you have functioning __pa() and
->> __va()?
-> Can __pa() and __va() be used in this case?
+>> According to comments for other architectures, these macros are used
+>> for converting between Xen heap virtual addresses (VA) and machine
+>> addresses (MA). I may have misunderstood what is meant by the Xen
+>> heap
+>> in this context, but I'm not sure if xen_fixmap[] and page tables are
+>> considered part of the Xen heap.
 > 
-> According to comments for other architectures, these macros are used
-> for converting between Xen heap virtual addresses (VA) and machine
-> addresses (MA). I may have misunderstood what is meant by the Xen heap
-> in this context, but I'm not sure if xen_fixmap[] and page tables are
-> considered part of the Xen heap.
+> One more thing: can we use __pa() and __va() in setup_fixmap()?
+> 
+> As I understand it, to define __pa() and __va(), the DIRECTMAP mapping
+> should be mapped first. However, this requires information about RAM
+> banks, which is provided in the device tree file. But we can't map
+> device tree without fixmap. Am I missing something?
 
-I didn't check Arm, but on x86 virt_to_maddr() (underlying __pa()) has
-special case code to also allow addresses within the Xen image (area).
+Depends on further plans. In principle VA <-> PA translation within the
+directmap range and within the Xen image range is purely arithmetic, not
+requiring any mappings to have been established. You don't access any
+of the referenced memory in the course of doing the translation, after
+all.
 
 Jan
-
 
