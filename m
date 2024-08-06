@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1793948B7A
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 10:41:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772563.1183005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 156F8948BD5
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 11:00:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772572.1183014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbFjv-0005Gf-Oz; Tue, 06 Aug 2024 08:40:19 +0000
+	id 1sbG33-00005V-Ai; Tue, 06 Aug 2024 09:00:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772563.1183005; Tue, 06 Aug 2024 08:40:19 +0000
+Received: by outflank-mailman (output) from mailman id 772572.1183014; Tue, 06 Aug 2024 09:00:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbFjv-0005EC-Lz; Tue, 06 Aug 2024 08:40:19 +0000
-Received: by outflank-mailman (input) for mailman id 772563;
- Tue, 06 Aug 2024 08:40:18 +0000
+	id 1sbG33-0008VG-7f; Tue, 06 Aug 2024 09:00:05 +0000
+Received: by outflank-mailman (input) for mailman id 772572;
+ Tue, 06 Aug 2024 09:00:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kFQN=PF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sbFju-0005E6-Eh
- for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 08:40:18 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1sbG32-0008Cu-00
+ for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 09:00:04 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80f440f4-53cf-11ef-8776-851b0ebba9a2;
- Tue, 06 Aug 2024 10:40:16 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5b9d48d1456so953333a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 06 Aug 2024 01:40:16 -0700 (PDT)
+ id 435ec9e7-53d2-11ef-8776-851b0ebba9a2;
+ Tue, 06 Aug 2024 11:00:01 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a728f74c23dso46156766b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Aug 2024 02:00:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5b83b82c16dsm5762194a12.76.2024.08.06.01.40.14
+ a640c23a62f3a-a7dc9bc4230sm530019166b.32.2024.08.06.02.00.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Aug 2024 01:40:14 -0700 (PDT)
+ Tue, 06 Aug 2024 02:00:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80f440f4-53cf-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 435ec9e7-53d2-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722933616; x=1723538416; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qkisf6jKS1KBlAD8Y7IQ5SHgqiPRA1qETu3BaY5rjXQ=;
-        b=RRlTRRyUkoa/XMPH3zRRJC/lHzLyVzqF9nfV5GBRjUyO+gVNnUNzsdK+Z7VfpvZOZW
-         31A95s6d0skrlU80e/xdR6pHaZJA5c400k5nI6l29UU+LzL332mYTuoOJ+nmTt4LxPHZ
-         lJHdKrYqwnRbG7wEg/WY9rZ6RmQD9KZ0Kj7J9M77sTPwF3Cy5p75J+0imyB+o2Ttvxtp
-         tA3Y9hc621Pic0PQ8rmZ7prcI8jEX/5SQSV9RB8jPSXunvRX+yz5asp+GeAs3L5xhBtW
-         ZIyPTkKnlssqznwwny6h8wP6eZJwxkB3lTogRzl7yUDdaq5ioaSwwppHgCvf4i0TYRLu
-         08PA==
+        d=suse.com; s=google; t=1722934801; x=1723539601; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=nOW7CBVDpL6vf5ChcaCrkQX6d4lPmpje+mFf5nrIlNA=;
+        b=D0N+HLeoifibumug5IXABHnDbsx1vWoEK6RA5nMzHawx5IaAkBQr2GhcsGQmlBRNRX
+         A5FG2dk/SzehnSNSxOVZOjcD+eNnjEMhXTlzkBtQac9cK1DFPSsQYosy9KBcsNDhIn99
+         dMKJaKq7n0vMLSu1h/2HG17rnCKlF55jVHKO0LU75MHqaHKC+QutqBfQd6Wv9/V5MoDm
+         vYxl3amgVwRqfvZUMJq2oeN5F5k5USnlarDDNpCsN5ww1XOwcMwCUQ9QKh5jbjTvxE/H
+         bcVGHjYKXKDnlDEAkMmklNH8HokeJz+kALen/rT5zkvUEkDbct2U/yh7gImnVkxODdWY
+         14sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722933616; x=1723538416;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qkisf6jKS1KBlAD8Y7IQ5SHgqiPRA1qETu3BaY5rjXQ=;
-        b=HaBkDs/zfcXXIhG4hD35ejathCc5f5JtmyK4/8YAPJcNhIRXJFJRuQHzcwDv9XhqW1
-         TJqRGN9SasuZZQ9F6g8jCQFPQPlVAb65yyt7Q/LyCNZmy4clPBt6nu4bbK+WJqhmsqFi
-         E9aP6oXx0nppeBfhzZvJ6BtHBYj6mTP9tla9Xst7b/nqvaQ9CJSjEa2Je85ZbbyhjgX5
-         geepeKRiv6MutqdHgZwu37mf0p1dEM2MqNnOtqdOFFBcrt1YtjkdsL66OUykrRckoK70
-         MZumE0vTN88rpQ1HiHevd0KDc1HQ8yq2XynkiEHINluhWoB+ZHq1vl+7MVZx9AZUs+X5
-         gHpg==
-X-Gm-Message-State: AOJu0Yx45rXRmOGW+eg9biLSDLhXrvh5VDec9uCYtbcTq5IDEyF511FZ
-	6a1VOW+FR8zAzXNrlppNeXIVcPK83WYnsSQ0Q2aDs6NWgj5cV2YMu4j87JYAMml4p5+iNS+D2xQ
-	=
-X-Google-Smtp-Source: AGHT+IHLl/hRXVYdwQxx+Y2CTKXIa4SvbyLpy/Ov1B+knkc7lTeRU9sd6MloV7lTBnxq+dNjbTewhQ==
-X-Received: by 2002:aa7:d3cd:0:b0:5af:384e:bc0f with SMTP id 4fb4d7f45d1cf-5b80cea2fc8mr11985285a12.16.1722933615609;
-        Tue, 06 Aug 2024 01:40:15 -0700 (PDT)
-Message-ID: <ad3b9873-b478-4448-8395-498399040324@suse.com>
-Date: Tue, 6 Aug 2024 10:40:14 +0200
+        d=1e100.net; s=20230601; t=1722934801; x=1723539601;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nOW7CBVDpL6vf5ChcaCrkQX6d4lPmpje+mFf5nrIlNA=;
+        b=wk7n4JpgEE7wIHwGVNJl1GnS7vRy547NEORKLZO9JB42GLzb5APE38/elupi+TBt8r
+         hk+GYFzuQ3iHFejlqjX6AMCLED4Ojm7Y3YgapsVWlYh8qng6J6KT4kr9IqhSbDplgdzd
+         v501jk3EbA5mu9KMV6ETkYOsVcwnSJh4RFtWY8oVC5B0IhnJNWAd1bWAJI1EsNPms1ks
+         FYhUoxRpcXoopGkw08nGGIdltJJ1W3GdTjMPVLNVHv4pFs8ZO1lUAc8Z+G+I41kiBDgj
+         Fc90e8Q9EDW3HQ3VuDjEPH3+82roZ/aK0HCOfLG+iFPvolDvCQQPybyVoOUTLUkr+u4/
+         bpbA==
+X-Gm-Message-State: AOJu0Yz4glta7ocwZ9oprvEVEAkgexs4toySVJPUdp/iCmUUuSfQRG+2
+	7yYmYKiov3b6R+AzMEI0n1tn6cY1kIZy675J7HVDemTrJ0zNOCQxqNer+yTcqQ==
+X-Google-Smtp-Source: AGHT+IFG8UaTIEZCWmBTtTwkQapdTMPO/I099QIM5lUODmdRGc7aJMgRvcqXfomZCJa81oXjCcpgWg==
+X-Received: by 2002:a17:907:e87:b0:a7a:a7b8:ada3 with SMTP id a640c23a62f3a-a7dc4d8f7f4mr1136308166b.3.1722934800739;
+        Tue, 06 Aug 2024 02:00:00 -0700 (PDT)
+Message-ID: <c4dac0ae-a8f4-4121-ad2e-f7cd61b6e3a8@suse.com>
+Date: Tue, 6 Aug 2024 11:00:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: Help with Understanding vcpu xstate restore error during vm
+ migration
+To: Fonyuy-Asheri Caleb <fonyuy-asheri.caleb@inria.fr>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <60751777.2038091.1720694327760.JavaMail.zimbra@inria.fr>
+ <1546743760.2065506.1720696161057.JavaMail.zimbra@inria.fr>
+ <8f8dac21-92fe-4760-8578-2fbfde2f2c14@citrix.com>
+ <1557490999.4048664.1721029086794.JavaMail.zimbra@inria.fr>
+ <77f1ff6e-a7dd-45c8-b706-429674b559f2@suse.com>
+ <ece26efe-c1af-4fd2-910d-01a33beda5cc@citrix.com>
+ <120712863.15929301.1722927890402.JavaMail.zimbra@inria.fr>
+ <0f69e94a-5720-4f1f-b51d-b4fb2c6bbe0b@suse.com>
+ <674914344.15937452.1722929654769.JavaMail.zimbra@inria.fr>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Jason Andryuk <jason.andryuk@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] libxl/disk: avoid aliasing of abs()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -109,34 +119,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <674914344.15937452.1722929654769.JavaMail.zimbra@inria.fr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Tool chains with -Wshadow enabled by default won't like the function
-parameter name "abs", for aliasing stdlib.h's abs(). Rename the
-parameter to what other similar functions use.
+On 06.08.2024 09:34, Fonyuy-Asheri Caleb wrote:
+>> If what you say in the earlier paragraph was the case with upstream Xen and
+>> without you restricting what the guest being migrated was able to see on the
+>> source host, then I think that would indicate a bug somewhere. Yet you don't
+>> provide enough details to be certain.
+> 
+> Sorry for not specifying. I am still in the same context as stated previously. 
+> I haven't made any modifications to xen and no restrictions on what the guest can see. 
 
-Fixes: a18b50614d97 ("libxl: Enable stubdom cdrom changing")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Wasn't it the case that previously you observed AVX disabled, because of
+GDS? With AVX disabled, AVX512 would be implicitly disabled, too. Then
+migrating from an AVX512-capable host to an AVX512-incapable one would
+of course work. Yet of course this is only an example, because I don't
+know whether AVX512 is what your new inquiry would have been about. As
+indicated - please provide sufficient detail so we actually know what
+you're doing and what you observe.
 
---- a/tools/libs/light/libxl_disk.c
-+++ b/tools/libs/light/libxl_disk.c
-@@ -935,7 +935,7 @@ static void cdrom_insert_stubdom_disk_ad
-                                              libxl__ao_device *aodev);
- static void cdrom_insert_stubdom_query_fdset(libxl__egc *egc,
-                                              libxl__ev_time *ev,
--                                             const struct timeval *abs,
-+                                             const struct timeval *requested_abs,
-                                              int rc);
- static void cdrom_insert_stubdom_parse_fdset(libxl__egc *egc,
-                                              libxl__ev_qmp *qmp,
-@@ -1259,7 +1259,7 @@ static void cdrom_insert_stubdom_disk_ad
- 
- static void cdrom_insert_stubdom_query_fdset(libxl__egc *egc,
-                                              libxl__ev_time *ev,
--                                             const struct timeval *abs,
-+                                             const struct timeval *requested_abs,
-                                              int rc)
- {
-     EGC_GC;
+Jan
 
