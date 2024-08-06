@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38D73948BE9
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 11:05:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772589.1183035 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C34BD948C0D
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 11:17:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772602.1183045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbG83-0001T2-7C; Tue, 06 Aug 2024 09:05:15 +0000
+	id 1sbGJP-00047b-7J; Tue, 06 Aug 2024 09:16:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772589.1183035; Tue, 06 Aug 2024 09:05:15 +0000
+Received: by outflank-mailman (output) from mailman id 772602.1183045; Tue, 06 Aug 2024 09:16:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbG83-0001QP-4F; Tue, 06 Aug 2024 09:05:15 +0000
-Received: by outflank-mailman (input) for mailman id 772589;
- Tue, 06 Aug 2024 09:05:14 +0000
+	id 1sbGJP-000467-4a; Tue, 06 Aug 2024 09:16:59 +0000
+Received: by outflank-mailman (input) for mailman id 772602;
+ Tue, 06 Aug 2024 09:16:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sbG82-0001QA-9d; Tue, 06 Aug 2024 09:05:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1sbGJN-000461-RK
+ for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 09:16:57 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sbG82-0001hT-10; Tue, 06 Aug 2024 09:05:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sbG81-0004Fo-Nk; Tue, 06 Aug 2024 09:05:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sbG81-0000LN-N9; Tue, 06 Aug 2024 09:05:13 +0000
+ (envelope-from <julien@xen.org>)
+ id 1sbGJN-0001up-81; Tue, 06 Aug 2024 09:16:57 +0000
+Received: from [15.248.3.88] (helo=[10.24.67.24])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sbGJN-0001jF-0X; Tue, 06 Aug 2024 09:16:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +39,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=bpCz1vGzZOvQw1RFW61NNZCPqolzYIZOHNz73Ax7ycM=; b=Br9GZ9j5bhgwzNLKtq8hX+6BGA
-	CCiRhufS2R5znRt8VJKEdaJo1vXdcdMZVnsey/zjrEik8mZb5RFfvm7tsl+qHXWdIWvcs2bWDKr3n
-	RCAFlqieI3ntdFZ0bmYoWCJqm5sWd5b7zUHazNHwWDPSADqX5plB5SLztakwv4Xy0z9U=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187168-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:Cc:
+	References:To:Subject:MIME-Version:Date:Message-ID;
+	bh=SN3hoKBjMyUWtJllNwW7DnmkEjQwYN22OSSQfPIAx34=; b=dmw//Y9Q0fEPeh7x/4NTVrLeXV
+	DWT3IXetFcgpUxNRLAkDluX2M+m+vrFoVNEcBXYZPIUzK63jr1Z++haDc99jUPj5P8YEhqypiQTnU
+	KexzJuajeU9uzR7fWDd8C1zFrqrcA6i10UeuKtH7E1Xk8CguaMOFKLdF9gCaqOzU6Rdk=;
+Message-ID: <b7ef34fe-f6eb-45e8-8f6a-0e2c4bd0175b@xen.org>
+Date: Tue, 6 Aug 2024 10:16:55 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 187168: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=a29a9cce5f9afa32560d966e501247246ec96ef6
-X-Osstest-Versions-That:
-    ovmf=472be4d139b26c50949cf30eeb47640810e5ef2c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 06 Aug 2024 09:05:13 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drivers: char: omap-uart: add "clock-hz" option
+Content-Language: en-GB
+To: Amneesh Singh <a-singh21@ti.com>, xen-devel@lists.xenproject.org
+References: <20240719113313.145587-1-a-singh21@ti.com>
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240719113313.145587-1-a-singh21@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 187168 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187168/
+Hi,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 a29a9cce5f9afa32560d966e501247246ec96ef6
-baseline version:
- ovmf                 472be4d139b26c50949cf30eeb47640810e5ef2c
+On 19/07/2024 12:33, Amneesh Singh wrote:
+> Quite a few TI K3 devices do not have clock-frequency specified in their
+> respective UART nodes.
 
-Last test of basis   187166  2024-08-06 03:43:14 Z    0 days
-Testing same since   187168  2024-08-06 06:11:29 Z    0 days    1 attempts
+Can you outline why fixing the device-tree is not solution?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Aaron Pop <aaronpop@microsoft.com>
-  kuqin12 <42554914+kuqin12@users.noreply.github.com>
+> However hard-coding the frequency is not a
+ > solution as the function clock input can differ between SoCs.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Can you provide some details how Linux is handling those SoCs?
 
+> So,
+> similar to com1/com2, let the user pass the frequency as a dtuart option
+> via the bootargs. If not specified it will fallback to the same DT
+> parsing as before. For example, dtuart=serial2:clock-hz=48000000 can be
+> a valid bootarg.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Regardless my questions, any change to the command line needs to be 
+documented in docs/misc/xen-command-line.pandoc.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Cheers,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+-- 
+Julien Grall
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   472be4d139..a29a9cce5f  a29a9cce5f9afa32560d966e501247246ec96ef6 -> xen-tested-master
 
