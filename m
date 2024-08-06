@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9861D948D74
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 13:09:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772815.1183257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C32D4948DE2
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 13:41:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772826.1183266 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbI3L-0000Sq-Jd; Tue, 06 Aug 2024 11:08:31 +0000
+	id 1sbIZ7-0006Va-0T; Tue, 06 Aug 2024 11:41:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772815.1183257; Tue, 06 Aug 2024 11:08:31 +0000
+Received: by outflank-mailman (output) from mailman id 772826.1183266; Tue, 06 Aug 2024 11:41:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbI3L-0000Qx-Gr; Tue, 06 Aug 2024 11:08:31 +0000
-Received: by outflank-mailman (input) for mailman id 772815;
- Tue, 06 Aug 2024 11:08:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sbI3J-0000Qr-Oy
- for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 11:08:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sbI3J-0003y5-3W; Tue, 06 Aug 2024 11:08:29 +0000
-Received: from [15.248.3.88] (helo=[10.24.67.24])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sbI3I-0000tR-T0; Tue, 06 Aug 2024 11:08:29 +0000
+	id 1sbIZ6-0006T5-U5; Tue, 06 Aug 2024 11:41:20 +0000
+Received: by outflank-mailman (input) for mailman id 772826;
+ Tue, 06 Aug 2024 11:41:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HPS5=PF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sbIZ5-0006Sz-Cc
+ for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 11:41:19 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cb89295f-53e8-11ef-bc04-fd08da9f4363;
+ Tue, 06 Aug 2024 13:41:18 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-52f01ec08d6so612320e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Aug 2024 04:41:18 -0700 (PDT)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-530bba07891sm1466093e87.22.2024.08.06.04.41.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Aug 2024 04:41:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,101 +44,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=1bvXE5uRH/Dv/062MxORbx12HueYP6+rEdAcvS7ItMk=; b=bdqp/4Vk4tvRmrDtNmzFsDZuJl
-	/jVdLAZAREEO5YCg94r1c7N7AcCZ3Ctqnlow68eL9D+shBtnLdYifNIcGo9aS5ggDpEr85eg27RbH
-	bydljk1LhVE5tiuY3bkzDyBpFeaBdWuzXYgXlWnvkmpAAw+9y/hrssgjOvEYhKWmAt0s=;
-Message-ID: <ff6a7077-efbb-4002-9426-a9f05760f8f8@xen.org>
-Date: Tue, 6 Aug 2024 12:08:27 +0100
+X-Inumbo-ID: cb89295f-53e8-11ef-bc04-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1722944477; x=1723549277; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=q5upltfC9xlBQsVci2xz+gISSqYTLts91WnziLkDiE0=;
+        b=hxgjNWA9tKSSQZy2Hd9ivWVtqTii3qL23zOgeFnDXN3w2ZNiyPiuKjt2XoJHzQ4irh
+         ZyKgU3bJl+8MDF9zC3n4InpyL9yMv7BnDO+u48PDZvXMyPSJKnEWSUYeP7LD2TQ2pzqF
+         cd9+jfTUiMfwV7IR96Oi7SdIO23CFE/4KlIxFihTAwDOU0hJVfZYO2wMpsZESWHM6+sQ
+         S1UBt4fynHmaslqKjav0tVrTUbeHwW+1/qPxtpiX2PhgdwbDDKhWhi0Os85So9RBu7Cr
+         wptkhQpB02QnzIZiXzcb5HZZojdJVEcazRAw6esm0GFd13sgj841ts44S1Xz7uF0uxTm
+         XsDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722944477; x=1723549277;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=q5upltfC9xlBQsVci2xz+gISSqYTLts91WnziLkDiE0=;
+        b=Z7qHvihjkZNtkurt22sH3lSDCELRpKkO0lbP6XV+9qhBZdh5jXkj438EnMr2X0nZiV
+         YCWoHyB/Q2OZt/ByOlZtloaNQ002tkdWOfVI7hVeswVMgukSUo5RSSzvVzMLGoZY6KLg
+         LWNUsCGzmSMlnh4MxBg5Yt7iNcTeOWEgWIsEHnDnDG9NjIamFoAths1sWeXk4/nl6QG1
+         q7k40aCi0QmdKIyMe5Y2cwxspmSU0NuzMYGVdDQINMf1SeQ3uxVeXOIXiFj8mJZU0bdK
+         n+aBCzIiOYeGH7C/NJDpWzHkVezXIsOuNJqW/obmo8x1jisnkTd6kLQNt6xSNI+LmaOw
+         vFdw==
+X-Gm-Message-State: AOJu0Yz4VFJdEh5fUd+ljp6ofrcFkK4MJIjDXEG7QQ4yssNMBS6JO04H
+	+H9qL+Pi1zaz1zuMoGxokvWUD/PG+sKgBQWh5VEnHQbSmSsk0ejrjDD3/g==
+X-Google-Smtp-Source: AGHT+IF34GC2zjw3ILcydfrdcGbCtCq8kocU7Q66JTBHp7tgOAPJsD0Sc17utXxnKcdm3NHCC5ohrw==
+X-Received: by 2002:a05:6512:3d04:b0:52e:9b15:1c60 with SMTP id 2adb3069b0e04-530bb3a5035mr11155570e87.48.1722944477156;
+        Tue, 06 Aug 2024 04:41:17 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v2 0/2] Common device tree stuff
+Date: Tue,  6 Aug 2024 13:41:12 +0200
+Message-ID: <cover.1722941799.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drivers: char: omap-uart: add "clock-hz" option
-Content-Language: en-GB
-To: Amneesh Singh <a-singh21@ti.com>
-Cc: xen-devel@lists.xenproject.org,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20240719113313.145587-1-a-singh21@ti.com>
- <b7ef34fe-f6eb-45e8-8f6a-0e2c4bd0175b@xen.org>
- <njlq7laeswww46izwpkzuvnvu3lcycv7kc6dt2urbrpimj6uej@tzjuwwhwwqmp>
- <8c12dc98-bc9f-49bf-bc18-ddae99fa7312@xen.org>
- <csvohhbfi7ilqjzmozhb7u75jp7kfncpyj335hz5vksjw7lr46@57puayor4b4r>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <csvohhbfi7ilqjzmozhb7u75jp7kfncpyj335hz5vksjw7lr46@57puayor4b4r>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The current patch series introduces the common device tree functions
+between several architectures: Arm, PPC, RISC-V.
 
-On 06/08/2024 11:35, Amneesh Singh wrote:
-> On 10:56-20240806, Julien Grall wrote:
->> On 06/08/2024 10:50, Amneesh Singh wrote:
->>> On 10:16-20240806, Julien Grall wrote:
->>>> Hi,
->>>>
->>>> On 19/07/2024 12:33, Amneesh Singh wrote:
->>>>> Quite a few TI K3 devices do not have clock-frequency specified in their
->>>>> respective UART nodes.
->>>>
->>>> Can you outline why fixing the device-tree is not solution?
->>> Because other frequencies, say 96MHz or 192 MHz are also valid inputs.
->>
->> Are you saying this is configurable by the user? Or do you mean the
->> firmware can configure it?
-> u-boot or some other bootloader are free to configure it. And usually,
-> linux's clock driver will pick it up using clk_get_rate (if not
-> specified in the DT), I think. Now, in case we add the frequency to the
-> DT, it may not match with the actual frequency configured before Xen
-> initialisation. Since, there is no equivalent to clk_get_rate under Xen,
-> and the fact I'm using imagebuilder, I found it easier to pass the
-> frequency the way I did.
+Originally these patches were a part of Shawn's patch series [1].
+At that moment it was v4 version of this patches.
 
-Thanks for the explanation. I haven't looked in details, but how 
-difficult would it be to implement clk_get_rate() (at least just enough 
-to work for the UART) in Xen?
+After RISC-V started to need this changes these patches have been
+rebased on top of the current staging with addional updates after
+rebase.
+For some time, these patches from v5 to v7 version were the part of
+the patch series [2] but not to block almost ready patches for merging
+it was decided to move them to separate patch series.
 
->>>>
->>>>> However hard-coding the frequency is not a
->>>>    > solution as the function clock input can differ between SoCs.
->>>>
->>>> Can you provide some details how Linux is handling those SoCs?
->>> Yes, like omap-uart under xen, the 8250_omap driver also parses the DT,
->>> but unlike omap-uart, falls back to clk_get_rate() and if the value is
->>> still zero, it defaults to 48MHz.
->>
->> Thanks for the information. Then my next question is why Linux can get
->> away with a default value and not Xen?
-> Sure why not? I guess, we can use a default value if everything fails
-> but there should still be a way for the user to specify the frequency.
+CI tests results:
+ https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1402476423
 
-I think I am still missing something. Why would Xen allow the user to 
-specify the clock speed if Linux doesn't? At least to me, it is more 
-likely that a user would want to boot Linux on your HW than Xen...
+[1]
+https://lore.kernel.org/xen-devel/cover.1712893887.git.sanastasio@raptorengineering.com/
 
-> Of course, we can instead just force the user to change the DT slightly
-> by just specifying the frequency. However, I feel it is easier to add it
-> here, especially when there's already a method to pass these options via
-> the command-line in place.
- > I believe, this is the best we can do with this.
+[2]
+https://lore.kernel.org/xen-devel/cover.1721834549.git.oleksii.kurochko@gmail.com/
+---
+Changes in v2:
+ - add Acked-by: Julien Grall <julien@xen.org> for Patch 2
+ - rename xen/common/device_tree.c to xen/common/device-tree.c
+ - update MAINTAINERS file: drop xen/common/device_tree.c from it.
+ - make diff smaller using git's options:
+      --diff-algorithm=minimal --find-renames
+---
 
-The problem is the command line is OS/hypervisor specific. But the 
-problem you describe doesn't seem Xen specific. This is where the DT is 
-handy because you describe once and it can be used everywhere.
+Shawn Anastasio (2):
+  xen/device-tree: Move Arm's setup.c bootinfo functions to common
+  xen/common: Move Arm's bootfdt.c to common
 
-Overall, at the moment, I don't think the command line option is the 
-right approach. If I am not mistaken, it would make Xen less 
-user-friendly (compare to Linux) to boot on your HW as the user would 
-need to specify the clockspeed on the command line. I think we should 
-investigate other approaches such as implementing partially 
-clk_get_rate() (if this is how Linux manage to retrieve the clock speed 
-without any command line option).
-
-Cheers,
+ MAINTAINERS                                   |   3 +-
+ xen/arch/arm/Makefile                         |   1 -
+ xen/arch/arm/include/asm/setup.h              | 198 +-------
+ xen/arch/arm/include/asm/static-shmem.h       |   9 -
+ xen/arch/arm/setup.c                          | 432 -----------------
+ xen/common/Makefile                           |   2 +-
+ xen/common/device-tree/Makefile               |   3 +
+ .../arm => common/device-tree}/bootfdt.c      |  24 +-
+ xen/common/device-tree/bootinfo.c             | 459 ++++++++++++++++++
+ .../device-tree.c}                            |   0
+ xen/include/xen/bootfdt.h                     | 209 ++++++++
+ 11 files changed, 694 insertions(+), 646 deletions(-)
+ create mode 100644 xen/common/device-tree/Makefile
+ rename xen/{arch/arm => common/device-tree}/bootfdt.c (98%)
+ create mode 100644 xen/common/device-tree/bootinfo.c
+ rename xen/common/{device_tree.c => device-tree/device-tree.c} (100%)
+ create mode 100644 xen/include/xen/bootfdt.h
 
 -- 
-Julien Grall
+2.45.2
 
 
