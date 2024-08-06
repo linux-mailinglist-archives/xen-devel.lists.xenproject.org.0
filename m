@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39E1B948C9F
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 12:12:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772721.1183166 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF52D948CA0
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 12:15:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772729.1183177 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbHAg-0002tm-Ll; Tue, 06 Aug 2024 10:12:02 +0000
+	id 1sbHDY-0003Tg-2v; Tue, 06 Aug 2024 10:15:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772721.1183166; Tue, 06 Aug 2024 10:12:02 +0000
+Received: by outflank-mailman (output) from mailman id 772729.1183177; Tue, 06 Aug 2024 10:15:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbHAg-0002rL-JE; Tue, 06 Aug 2024 10:12:02 +0000
-Received: by outflank-mailman (input) for mailman id 772721;
- Tue, 06 Aug 2024 10:12:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sbHDX-0003RA-Ve; Tue, 06 Aug 2024 10:14:59 +0000
+Received: by outflank-mailman (input) for mailman id 772729;
+ Tue, 06 Aug 2024 10:14:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HPS5=PF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sbHAf-0002rF-9r
- for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 10:12:01 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 510b71d8-53dc-11ef-8776-851b0ebba9a2;
- Tue, 06 Aug 2024 12:11:59 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-52f00ad303aso854924e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 06 Aug 2024 03:11:59 -0700 (PDT)
+ id 1sbHDW-0003R4-R6
+ for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 10:14:58 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bbb62401-53dc-11ef-bc04-fd08da9f4363;
+ Tue, 06 Aug 2024 12:14:58 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a7b2dbd81e3so63887666b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Aug 2024 03:14:58 -0700 (PDT)
 Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9c6627esm535870466b.95.2024.08.06.03.11.57
+ a640c23a62f3a-a7dc9d437c6sm532820866b.129.2024.08.06.03.14.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Aug 2024 03:11:57 -0700 (PDT)
+ Tue, 06 Aug 2024 03:14:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +45,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 510b71d8-53dc-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: bbb62401-53dc-11ef-bc04-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722939118; x=1723543918; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1722939297; x=1723544097; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=1XwduJp1zaq5JLdw8QoROqS1iDa5pAJHna5xKRYNEZo=;
-        b=SgA9SLS/VO2i2FmoU4ofYE2XWUhDkB25fmj4bdqpylURU4WWSjtPbTMoILxENPnWxa
-         RWffxYU4yK1NyoJ8TYuJE8sPDzx7jGo6etjTlTAWPVo0QGTCbIawXcb9XAGqw2aqUgwI
-         vLpA541MgXsyZehBsayhWe1ptT30gYZlaD4OFyZ0yC1YI0v20UAyUa4uZF/xHoA4vy0b
-         0vE4Rumo20im9l+POgODpYVf8DiAcGwR83/+jd6pOwHmhze5QHt1qR2HrzbeybKOWt3Y
-         OFGei7r3jcQH8MHMTmHLiZHuD2jvCKwgIVEi6TRUQCDteXq3Ic+UCpj0ryTubtFKa/9+
-         YqTw==
+        bh=nZtmgBig573h2DSlpGLZvZ9aWWXikos4tIwVudaTY9I=;
+        b=NxfF+gqSvJIWcvVhhK2ZgmNz/jN1umD6Whi9TOniVghtwB8rujwVd9DBl4d0O+r5RD
+         lYQ60Cgf+WYNK7BpMvl7bTTi7Fx2AEVhfiyardwE+jljb7lr/qj8ghayAjVYyciLod4m
+         Wdsh+FJGQEst2bC62BZi8qo/c0j5xCZGiNZS/sv0VBmstGcSRuEyzJGT+QhSlhGjxPiw
+         exsLyun6Bj6+V8SCm9OaChq366UzGMacmnuGMj66flrmMwib6zV0iShaio3hfoUSZPU1
+         f85XzHeNjiSH4MQnBwf+WLHiFJJ1ZPu4S4xCXF1X/c5PYAWTl/JNajNCr3Y/Cf30o+IK
+         8Dvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722939118; x=1723543918;
+        d=1e100.net; s=20230601; t=1722939297; x=1723544097;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1XwduJp1zaq5JLdw8QoROqS1iDa5pAJHna5xKRYNEZo=;
-        b=GHhGDooZUpyBiaGt5050OSVsQM3GSIXwAy5BBgqxDLBGdLbeta9xR2ZtERbt5CzkIa
-         qb9g606b7WuuZ2MwLxwt/C6I0ZeyLYf1pReADNx7uorTCnrcTENwoONbur27FbrDljr2
-         hq1J28+dA7kTvAFXWd0HUqbYqDM+DBZKID09ZPEfk2JCzBfVdzfOz63JZ9wIR9MoM/Ze
-         soKwFG1TPd2t63mRCWOpFYpWm204cj6llBwztpWudU+qwuK+zqVouPkUAK3XTCpxlOf3
-         dnYww67dC97rsi5U3d5dknaQoyuidR4tlv1pGczbzyvq2bTbGQGI0csxA6LIb/JMgd2X
-         BnTA==
-X-Forwarded-Encrypted: i=1; AJvYcCWA7GhRQ/kBDjv7Z4xPLyyZLJzjaxkTQoMPJSuCy8INlvqLg6fg1ZZfbtBFe9F0YG40pO0gp4DWfLZ4hk/fYldjLja+SGNRjewqdennN7s=
-X-Gm-Message-State: AOJu0YxjhfvAxnt6B2VrM30NNA575oJDgaRS6M57YkkdVZo8ncgxqy9U
-	4n3JgUiiMEBh3+JfTWk/C/EYBo6jEgN7ibDCzIQPwyWNP16HfJM/
-X-Google-Smtp-Source: AGHT+IHRY+xNoJ0f8yJ6AZhRE8v+X6Y/g0y1pCMvfoSnd/zYE0xZix7n5Q/ZyUWPhy/spd6Ch33Xpg==
-X-Received: by 2002:a05:6512:3d20:b0:530:9d86:6322 with SMTP id 2adb3069b0e04-530bb3ca42cmr10572274e87.41.1722939118036;
-        Tue, 06 Aug 2024 03:11:58 -0700 (PDT)
-Message-ID: <89d6b01ac85899c85f1dbfdaa907435e12de75c2.camel@gmail.com>
-Subject: Re: [PATCH v12 1/3] xen/riscv: enable GENERIC_BUG_FRAME
+        bh=nZtmgBig573h2DSlpGLZvZ9aWWXikos4tIwVudaTY9I=;
+        b=mroZXVbABgXW/AZBH3sgzpHPLw6LJUQXwy6NBT1hFCLvJTU0UBD13ZzvodDnP4US1Q
+         NsgPCwJcDIftTm0/BpM2ij10m4s/a7TPcs7DOmUUJjffllj1uuSIfQXPf3Q2ZmJwFFDp
+         6ETCds75d9Fxt5Y1HwNqlBkFCaDzb4np1pP/Okp6MTOCuqZOE6N+DRjgQd4PbZtW6fuq
+         GsFALOgEiKPIwZPoCXfXAjYACIacIBaF80PTz6gs+hOdgXhC+RJY/3ZogQBWVAARrA0u
+         mdyswjC9h5BYbyuw/CJrhT8L669aoqCUw/JrdfaShCA2Eapyey4RgejL1xGQry35fN1k
+         XUog==
+X-Forwarded-Encrypted: i=1; AJvYcCVKa3nnC3r9Bq7OspzlqKd2GLNClBgcVMDdwlUol5rp6+woIY3fJ7gM8SCMH0kKkqgFOo7FzKHkmyMIfSoCetvYc4N1JLRWe//UXQUwdEU=
+X-Gm-Message-State: AOJu0Yx9RA3rC4KTdCfZ7eQSE/nsgQmP/lcIXzNeFEDy8tDR9zBTLcYY
+	EQdf82VTbok2VLf8XRUXNFGoDuNNNbQFiQcAXA7pSxkCl1iLsyRb
+X-Google-Smtp-Source: AGHT+IEPx8/rH86O8Pb8tRszfj3QBvywmJ/icjae4zgynPAomDgdK0fTYthafIervJASTW1tPxazVw==
+X-Received: by 2002:a17:906:d554:b0:a72:6849:cb0f with SMTP id a640c23a62f3a-a7dc5100463mr976345266b.62.1722939297178;
+        Tue, 06 Aug 2024 03:14:57 -0700 (PDT)
+Message-ID: <95e26b56c36354bedc05c5b437d0ef70b0a52693.camel@gmail.com>
+Subject: Re: [PATCH v3 4/9] xen/riscv: setup fixmap mapping
 From: oleksii.kurochko@gmail.com
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
  <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
  Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Tue, 06 Aug 2024 12:11:56 +0200
-In-Reply-To: <0245feaa-6cf2-4f44-843f-38cdcc6b7a42@suse.com>
-References: <cover.1722605952.git.oleksii.kurochko@gmail.com>
-	 <3d507ce45606d22e9fa07dd6087870c16b5c4a4e.1722605952.git.oleksii.kurochko@gmail.com>
-	 <0245feaa-6cf2-4f44-843f-38cdcc6b7a42@suse.com>
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+ <michal.orzel@amd.com>
+Date: Tue, 06 Aug 2024 12:14:56 +0200
+In-Reply-To: <6a945181-96e8-4816-a2a8-aac6fdd1dfbb@suse.com>
+References: <cover.1721834549.git.oleksii.kurochko@gmail.com>
+	 <04576976b82b97442f645b83b3d62475d144af8e.1721834549.git.oleksii.kurochko@gmail.com>
+	 <917cc521-c0c4-49e8-bc40-948679398bc6@suse.com>
+	 <887c062b02e9eae9953759275d97c1fafd608d28.camel@gmail.com>
+	 <6a945181-96e8-4816-a2a8-aac6fdd1dfbb@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
 MIME-Version: 1.0
 
-On Mon, 2024-08-05 at 17:41 +0200, Jan Beulich wrote:
-> On 02.08.2024 15:54, Oleksii Kurochko wrote:
-> > Enable GENERIC_BUG_FRAME to support BUG(), WARN(), ASSERT,
-> > and run_in_exception_handler().
+On Tue, 2024-08-06 at 11:59 +0200, Jan Beulich wrote:
+> On 06.08.2024 11:49, oleksii.kurochko@gmail.com=C2=A0wrote:
+> > On Mon, 2024-07-29 at 15:35 +0200, Jan Beulich wrote:
+> > > > +=C2=A0=C2=A0=C2=A0 write_pte(pte, tmp);
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 sfence_vma();
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 printk("(XEN) fixmap is mapped\n");
+> > >=20
+> > > Why the (XEN) prefix? And perhaps why the printk() in the first
+> > > place?
+> > printk() is available after common code started to be buildable and
+> > can
+> > be used here as we have already introduced early_puts() which uses
+> > sbi_console_putchar(). So it doesn't matter if we use printk() or
+> > early_printk() here the result will be the same the call of
+> > sbi_console_putchar().
 > >=20
-> > The 0x0000 opcode is used for BUG_INSTR, which, when macros from
-> > <xen/bug.h> are used, triggers an exception with the
-> > ILLEGAL_INSTRUCTION cause.
-> > This opcode is encoded as a 2-byte instruction and is invalid if
-> > CONFIG_RISCV_ISA_C is enabled or not.
+> > Am I missing something?
 >=20
-> Yes, but there's a caveat: Without the C extension instructions have
-> to be aligned on 32-bit boundaries. You can't just go and insert a
-> 16-bit item there. When RISCV_ISA_C is not set, I think you want to
-> insert two such 16-bit zeroes. Beware of an alignment handling bug
-> in the assembler - don't think of using an alignment directive here.
-Then probably it will be better to define BUG_INSTR as:
- #define BUG_INSTR "UNIMP"
-and let compiler to provide proper opcode.
+> Apparently yes, as you answered neither of my questions. To put them
+> differently: What value does this log message have, outside of your
+> own development activities?=C2=A0
+Probably there is no any value. Just show that mapping of fixmap has
+been finished. I think that we can really this printk.
 
-Or define BUG_INSTRT always as 0x00000000 will be better?
->=20
->=20
-> > --- a/xen/arch/riscv/include/asm/bug.h
-> > +++ b/xen/arch/riscv/include/asm/bug.h
-> > @@ -9,7 +9,11 @@
-> > =C2=A0
-> > =C2=A0#ifndef __ASSEMBLY__
-> > =C2=A0
-> > -#define BUG_INSTR "ebreak"
-> > +#include <xen/stringify.h>
-> > +
-> > +#define BUG_OPCODE=C2=A0 0x0000
->=20
-> You don't really use this other than ...
->=20
-> > +#define BUG_INSTR ".hword " __stringify(BUG_OPCODE)
->=20
-> ... here - does this really warrant a separate #define _and_
-> inclusion of
-> stringify.h?
->=20
-> Furthermore you want to avoid using .hword (or any data generating
-> directive), to avoid disturbing disassembly. Please use .insn if at
-> all
-> possible. I understand though that in certain cases you won't be able
-> to
-> use .insn. Yet for the common case (more recent binutils) you'd still
-> better avoid .hword or alike, imo.
->=20
-> > @@ -103,7 +104,29 @@ static void do_unexpected_trap(const struct
-> > cpu_user_regs *regs)
-> > =C2=A0
-> > =C2=A0void do_trap(struct cpu_user_regs *cpu_regs)
-> > =C2=A0{
-> > -=C2=A0=C2=A0=C2=A0 do_unexpected_trap(cpu_regs);
-> > +=C2=A0=C2=A0=C2=A0 register_t pc =3D cpu_regs->sepc;
-> > +=C2=A0=C2=A0=C2=A0 unsigned long cause =3D csr_read(CSR_SCAUSE);
-> > +
-> > +=C2=A0=C2=A0=C2=A0 switch ( cause )
-> > +=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0 case CAUSE_ILLEGAL_INSTRUCTION:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( do_bug_frame(cpu_regs,=
- pc) >=3D 0 )
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if =
-( !(is_kernel_text(pc) || is_kernel_inittext(pc)) )
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 printk("Something wrong with PC: %#lx\n", pc);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 die();
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 cpu=
-_regs->sepc +=3D GET_INSN_LENGTH(*(uint16_t *)pc);
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bre=
-ak;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > +
-> > +=C2=A0=C2=A0=C2=A0 default:
->=20
-> The falling-through here wants annotating, preferably with the
-> pseudo-
-> keyword.
-What kind of pseudo-keyword? I though about /* goto default */ to
-underline that CAUSE_ILLEGAL_INSTRUCTION should be close to "default:".
+> What value does the explicit (XEN) have
+> when printk() prepends such a prefix already anyway?
+I thought that I answered on this question before that there is no any
+sense in the explicit "(XEN)".
 
 ~ Oleksii
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 do_unexpected_trap(cpu_regs=
-);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
-> > +=C2=A0=C2=A0=C2=A0 }
-> > =C2=A0}
->=20
-
 
