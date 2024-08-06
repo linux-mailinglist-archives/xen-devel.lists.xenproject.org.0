@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5705B9492E5
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 16:23:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772909.1183350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7746E949464
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 17:22:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772919.1183360 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbL68-0001QI-0R; Tue, 06 Aug 2024 14:23:36 +0000
+	id 1sbLzx-0002G1-3e; Tue, 06 Aug 2024 15:21:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772909.1183350; Tue, 06 Aug 2024 14:23:35 +0000
+Received: by outflank-mailman (output) from mailman id 772919.1183360; Tue, 06 Aug 2024 15:21:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbL67-0001OW-Td; Tue, 06 Aug 2024 14:23:35 +0000
-Received: by outflank-mailman (input) for mailman id 772909;
- Tue, 06 Aug 2024 14:23:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kFQN=PF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sbL67-0001OQ-0E
- for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 14:23:35 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7657badc-53ff-11ef-bc04-fd08da9f4363;
- Tue, 06 Aug 2024 16:23:34 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5a1f9bc80e3so337584a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 06 Aug 2024 07:23:34 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5b839b2b96bsm6017951a12.23.2024.08.06.07.23.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Aug 2024 07:23:32 -0700 (PDT)
+	id 1sbLzx-0002Dq-0p; Tue, 06 Aug 2024 15:21:17 +0000
+Received: by outflank-mailman (input) for mailman id 772919;
+ Tue, 06 Aug 2024 15:21:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9A+u=PF=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1sbLzv-0002Dk-Jf
+ for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 15:21:15 +0000
+Received: from fout2-smtp.messagingengine.com (fout2-smtp.messagingengine.com
+ [103.168.172.145]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8246e722-5407-11ef-8776-851b0ebba9a2;
+ Tue, 06 Aug 2024 17:21:10 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 886391389716;
+ Tue,  6 Aug 2024 11:21:09 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Tue, 06 Aug 2024 11:21:09 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 6 Aug 2024 11:21:08 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,170 +43,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7657badc-53ff-11ef-bc04-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1722954213; x=1723559013; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Or5KMDJPnWhnjeiGi70Y2ulkd7njF+gdNZa2YENPn+0=;
-        b=IxcAwKRw/wNEF9iANTSPiDDBv/dv3b0iHtmv+Vu2io4BENXDqST7Mx5JistthOdOFu
-         r7SOn9C1NuD/ep0FzbA3ZrbPMra838HC4LgBySRCc55nJJL5tfmB7ItGSgjKdpauFgO8
-         uz+bh2wwleVNewR/Wky4iot2KWm6lXnkX1Q0/qrft3Onrg+brVvxy02d9log4smKzHgr
-         XeTHPZlc5Mj4RI02iMVSBtbHAQAyWIT1zp+3ABBtnieUtFSnFr9K4/dBaXu2WJ5cCWN7
-         9mMovBFvvtHBevFew8/j5mHk4KuIqb6p3djZJif8M6B8g+gNnrg6HBqVz/iWb0uvWhrJ
-         j4fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722954213; x=1723559013;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Or5KMDJPnWhnjeiGi70Y2ulkd7njF+gdNZa2YENPn+0=;
-        b=ug7sJUbfK1iQmEfE0W+b9vC6IMy2CGhE3pw5WgHBVl/zyZ9Fx4yKqRbhDcoRIFQySq
-         6uNl/Uc7JyE7dR6egaAcJ9qOgRQ6KZn4oA0hNrfQ+l5UjuniZ84X+85Tc4SJr/AM84ED
-         djQAmt/ciEYUMMeAf/ZRxfIuEYNLZj3CQJZoUOgGe+ZsYamOS6ADkf8JhUcVFZCrF7pj
-         Gf/zP0Mw5lYBvfSBijiYQRD9s1P3Wg0bb3yauYXASc8VfdaXsDXrwXrfXEeXG2GFf3ZC
-         E6sbvsr8cE9+2FYBi2FOhEu2pTTvVN98WA7BCbM/BzSoVNmFVgRT0uf3RmolTUZG+ABe
-         oSeQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVgD6Emm5LcC4cPYOLnbUzfHw4kxiE/vWNG7Hxln7j0DkmJv7SyRrENsLYYf5bDTdu/UgmofFib1fmPABD0F2X4PZyMKRyYLff5dSmSOyk=
-X-Gm-Message-State: AOJu0Yxdv0clmtmqCwZ2m9+hEGdjQEajKHgsDh2DWP4IV/HQ8yEvd9AK
-	nyyoGvAuJUPcNtdBNwej7Jbe5p81/+BUacZarP2NBa0GdXbAM//+7El1HJPaVDNsvKFKagl6l48
-	=
-X-Google-Smtp-Source: AGHT+IENlHB0cvVqyXkGZgpGzu1jJA9yVQlWrz6sZ6oUgnahqpGuMGlH43v5WVpev6R5GSB/csdhHQ==
-X-Received: by 2002:aa7:cad6:0:b0:5a2:80f:a6dd with SMTP id 4fb4d7f45d1cf-5b7f3ad811bmr14197828a12.14.1722954213184;
-        Tue, 06 Aug 2024 07:23:33 -0700 (PDT)
-Message-ID: <1bd59e0a-0468-4944-b9bb-d9aae5fe55b5@suse.com>
-Date: Tue, 6 Aug 2024 16:23:32 +0200
+X-Inumbo-ID: 8246e722-5407-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1722957669;
+	 x=1723044069; bh=rUeUpyM7lcuXXD37NZVfHe8cuZcDSbwZr4aitJQxSa8=; b=
+	u38mMJibfdPMwqwbKxrVOA1bHAd41OT7PeBEW0+yWxs32miEhrXiUsiOg4+AZKF5
+	CAapq7IH/i/6Q6HM/tSJSKsPgq5sXrNk5647FMF/0fjMOBnV1KS8ssdmPNQyrQnP
+	/PvTuG4xAdz3ZUVVoc6lEs8nF/EvY5j7X9mVszi8igfCZejuribwKIaLUyQ/4iyt
+	6TiZVHLjsqGqVcuC/zZHh3Y1N+1gnNOWTGwK88m0KPh+m4JGbWB5KfnZBAhm4xjp
+	M0xvWONT4GWuZzLHqubxJ82B3+tmdTRE1YktOVvzvFqz8Eu/YMcwBWW8ngQNvj98
+	QGJ/u6MNz8BAR82Alh/OmQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1722957669; x=1723044069; bh=rUeUpyM7lcuXXD37NZVfHe8cuZcD
+	SbwZr4aitJQxSa8=; b=BFwyOZ7mG2sxmxsuOD3SoeuDoFBMmHqa9DcainY698Ha
+	pJXcSQlNf3kdzO2JHNnTR8J/B1ZFQ3E1/VqDAGuxZ3D1EVWINngi4rK5D6aXKP3K
+	OX656mN4N5kiyEqwWedGu2fA+EDlGEKr+YRyC8oSFSuURGNiVKE2FXvsz1U1yjy4
+	iV+LRBrrHE3WyH/tXTTuKipLNF8n9mhOKmH6uL7Zb0cUUS5EZYUMpNTp0MTsvYGB
+	W/PgBL7QVT4RnpmdCGoNJxbatw19TOhxpx+xMfTVozz3dmFoSMWAza03+HYaMNif
+	9BFzMKk1U/LCOe/F69MZN2cg2TKYLR09egN8yIzsbA==
+X-ME-Sender: <xms:ZT-yZhDhnX-J0OrLbX0cx4evNlv9PbuLqbBs0B5l1xHTRNgIOgGXMw>
+    <xme:ZT-yZvhPI9EU5lH2jk-RMwCIYz7r8MKrMujEvmkuEYYtjvqO2QWTVQcEFkcUraJFU
+    6eF1gMJ1HJNvA>
+X-ME-Received: <xmr:ZT-yZsk04oXTUG3v6YT0t1RLAY01FXxQkxsHGli8P8J10V8stuhSaaETozwATsxICG-kjlM72xBrG7Z2Kj1yDm60PRkya4motw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrkeekgdekjecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetueeg
+    fefhffdvffetleeltdelkedvlefhkeehgfehhffhheehudeitdegheejleenucffohhmrg
+    hinhepkhgvrhhnvghlrdhorhhgpdhgihhthhhusgdrtghomhenucevlhhushhtvghrufhi
+    iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedt
+X-ME-Proxy: <xmx:ZT-yZrx77HhOZkunAu8klgNJNnfcnwG5ezgmdx1HFGRjas95plJ1Ng>
+    <xmx:ZT-yZmRbb0lQlbd8fPFm3GK8RyHTGOTZR5LpadW-p8FvBkz9ZO6WSA>
+    <xmx:ZT-yZuZdnMnqphdUsWrbKeX0pqZruavHfngVMBC_JIAFnAowBs6_YA>
+    <xmx:ZT-yZnQwlso1s_X5PKkClKxLOAOMRU9SuWPxPUJxwBVy87ZgKCxMrg>
+    <xmx:ZT-yZhfxXK_z2qPVxpglmrgasOq9-XvK7y9V485kXV5XlI37iblupN3E>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 6 Aug 2024 17:21:04 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: ACPI NVS range conflicting with Dom0 page tables (or kernel
+ image)
+Message-ID: <ZrI_YSBSiC7w5iP6@mail-itl>
+References: <a5a8a016-2107-46fb-896b-2baaf66566d4@suse.com>
+ <ZnBCFgHltVqj2FDh@mail-itl>
+ <6a7508dd-9f81-4fce-9c83-8b4fae924d48@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 1/3] xen/riscv: enable GENERIC_BUG_FRAME
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1722605952.git.oleksii.kurochko@gmail.com>
- <3d507ce45606d22e9fa07dd6087870c16b5c4a4e.1722605952.git.oleksii.kurochko@gmail.com>
- <0245feaa-6cf2-4f44-843f-38cdcc6b7a42@suse.com>
- <89d6b01ac85899c85f1dbfdaa907435e12de75c2.camel@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <89d6b01ac85899c85f1dbfdaa907435e12de75c2.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="+/Jd73saw8PY1hkU"
+Content-Disposition: inline
+In-Reply-To: <6a7508dd-9f81-4fce-9c83-8b4fae924d48@suse.com>
 
-On 06.08.2024 12:11, oleksii.kurochko@gmail.com wrote:
-> On Mon, 2024-08-05 at 17:41 +0200, Jan Beulich wrote:
->> On 02.08.2024 15:54, Oleksii Kurochko wrote:
->>> Enable GENERIC_BUG_FRAME to support BUG(), WARN(), ASSERT,
->>> and run_in_exception_handler().
->>>
->>> The 0x0000 opcode is used for BUG_INSTR, which, when macros from
->>> <xen/bug.h> are used, triggers an exception with the
->>> ILLEGAL_INSTRUCTION cause.
->>> This opcode is encoded as a 2-byte instruction and is invalid if
->>> CONFIG_RISCV_ISA_C is enabled or not.
->>
->> Yes, but there's a caveat: Without the C extension instructions have
->> to be aligned on 32-bit boundaries. You can't just go and insert a
->> 16-bit item there. When RISCV_ISA_C is not set, I think you want to
->> insert two such 16-bit zeroes. Beware of an alignment handling bug
->> in the assembler - don't think of using an alignment directive here.
-> Then probably it will be better to define BUG_INSTR as:
->  #define BUG_INSTR "UNIMP"
-> and let compiler to provide proper opcode.
-> 
-> Or define BUG_INSTRT always as 0x00000000 will be better?
 
-I don't know.
+--+/Jd73saw8PY1hkU
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 6 Aug 2024 17:21:04 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: ACPI NVS range conflicting with Dom0 page tables (or kernel
+ image)
 
->>> --- a/xen/arch/riscv/include/asm/bug.h
->>> +++ b/xen/arch/riscv/include/asm/bug.h
->>> @@ -9,7 +9,11 @@
->>>  
->>>  #ifndef __ASSEMBLY__
->>>  
->>> -#define BUG_INSTR "ebreak"
->>> +#include <xen/stringify.h>
->>> +
->>> +#define BUG_OPCODE  0x0000
->>
->> You don't really use this other than ...
->>
->>> +#define BUG_INSTR ".hword " __stringify(BUG_OPCODE)
->>
->> ... here - does this really warrant a separate #define _and_
->> inclusion of
->> stringify.h?
->>
->> Furthermore you want to avoid using .hword (or any data generating
->> directive), to avoid disturbing disassembly. Please use .insn if at
->> all
->> possible. I understand though that in certain cases you won't be able
->> to
->> use .insn. Yet for the common case (more recent binutils) you'd still
->> better avoid .hword or alike, imo.
->>
->>> @@ -103,7 +104,29 @@ static void do_unexpected_trap(const struct
->>> cpu_user_regs *regs)
->>>  
->>>  void do_trap(struct cpu_user_regs *cpu_regs)
->>>  {
->>> -    do_unexpected_trap(cpu_regs);
->>> +    register_t pc = cpu_regs->sepc;
->>> +    unsigned long cause = csr_read(CSR_SCAUSE);
->>> +
->>> +    switch ( cause )
->>> +    {
->>> +    case CAUSE_ILLEGAL_INSTRUCTION:
->>> +        if ( do_bug_frame(cpu_regs, pc) >= 0 )
->>> +        {
->>> +            if ( !(is_kernel_text(pc) || is_kernel_inittext(pc)) )
->>> +            {
->>> +                printk("Something wrong with PC: %#lx\n", pc);
->>> +                die();
->>> +            }
->>> +
->>> +            cpu_regs->sepc += GET_INSN_LENGTH(*(uint16_t *)pc);
->>> +
->>> +            break;
->>> +        }
->>> +
->>> +    default:
->>
->> The falling-through here wants annotating, preferably with the
->> pseudo-
->> keyword.
-> What kind of pseudo-keyword? I though about /* goto default */ to
-> underline that CAUSE_ILLEGAL_INSTRUCTION should be close to "default:".
+On Tue, Aug 06, 2024 at 04:12:32PM +0200, J=C3=BCrgen Gro=C3=9F wrote:
+> Marek,
+>=20
+> On 17.06.24 16:03, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Mon, Jun 17, 2024 at 01:22:37PM +0200, Jan Beulich wrote:
+> > > Hello,
+> > >=20
+> > > while it feels like we had a similar situation before, I can't seem t=
+o be
+> > > able to find traces thereof, or associated (Linux) commits.
+> >=20
+> > Is it some AMD Threadripper system by a chance? Previous thread on this
+> > issue:
+> > https://lore.kernel.org/xen-devel/CAOCpoWdOH=3DxGxiQSC1c5Ueb1THxAjH4WiZ=
+bCZq-QT+d_KAk3SA@mail.gmail.com/
+> >=20
+> > > With
+> > >=20
+> > > (XEN)  Dom0 kernel: 64-bit, PAE, lsb, paddr 0x1000000 -> 0x4000000
+> > > ...
+> > > (XEN)  Dom0 alloc.:   0000000440000000->0000000448000000 (619175 page=
+s to be allocated)
+> > > ...
+> > > (XEN)  Loaded kernel: ffffffff81000000->ffffffff84000000
+> > >=20
+> > > the kernel occupies the space from 16Mb to 64Mb in the initial alloca=
+tion.
+> > > Page tables come (almost) directly above:
+> > >=20
+> > > (XEN)  Page tables:   ffffffff84001000->ffffffff84026000
+> > >=20
+> > > I.e. they're just above the 64Mb boundary. Yet sadly in the host E820=
+ map
+> > > there is
+> > >=20
+> > > (XEN)  [0000000004000000, 0000000004009fff] (ACPI NVS)
+> > >=20
+> > > i.e. a non-RAM range starting at 64Mb. The kernel (currently) won't t=
+olerate
+> > > such an overlap (also if it was overlapping the kernel image, e.g. if=
+ on the
+> > > machine in question s sufficiently much larger kernel was used). Yet =
+with its
+> > > fundamental goal of making its E820 match the host one I'm also in tr=
+ouble
+> > > thinking of possible solutions / workarounds. I certainly do not see =
+Xen
+> > > trying to cover for this, as the E820 map re-arrangement is purely a =
+kernel
+> > > side decision (forward ported kernels got away without, and what e.g.=
+ the
+> > > BSDs do is entirely unknown to me).
+> >=20
+> > In Qubes we have worked around the issue by moving the kernel lower
+> > (CONFIG_PHYSICAL_START=3D0x200000):
+> > https://github.com/QubesOS/qubes-linux-kernel/commit/3e8be4ac1682370977=
+d4d0dc1d782c428d860282
+> >=20
+> > Far from ideal, but gets it bootable...
+> >=20
+>=20
+> could you test the attached kernel patches? They should fix the issue wit=
+hout
+> having to modify CONFIG_PHYSICAL_START.
+>=20
+> I have tested them to boot up without problem on my test system, but I do=
+n't
+> have access to a system showing the E820 map conflict you are seeing.
+>=20
+> The patches have been developed against kernel 6.11-rc2, but I think they
+> should apply to a 6.10 and maybe even an older kernel.
 
-In compiler.h we define "fallthrough" specifically for purposes like
-this.
+Sure, but tomorrow-ish.
 
-Jan
+> If possible it would be nice to verify suspend to disk still working, as
+> the kernel will need to access the ACPI NVS area in this case.
+
+That might be harder, as Qubes OS doesn't support suspend to disk, but
+I'll see if something can be done.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--+/Jd73saw8PY1hkU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmayP2EACgkQ24/THMrX
+1yw1rwf/dK/+E6YFeHh5RyUesBDO8XGSgWFN00iLaDoop3SZGuTYPBoQXia18raw
+nWWbsYkUEKnuBOFZw8wt7eKAF9wL5iUOrd+7SPeWuIdvpmaqovEQr86yK7oXG9nq
+OBBteiYXMpf4wtxsGh9gY3yINo7qGeSCSzjHyETuHI0mHpIAL1pso+vtLL40v67s
+iA0RBg2vbGUBTSWGe0lQBKJ71sqjz//5x8v9SKlYidoME4KCZneCvHz6g2QdtKPX
+fUeLdr/wZTbQZKg1StLQmISR8s4Hdjby9Ed7XYPgHfaQASSjLsXitT5HYc2fy+eF
+XfXmghlrK49cOl//Z498UFj1klad2Q==
+=OpvJ
+-----END PGP SIGNATURE-----
+
+--+/Jd73saw8PY1hkU--
 
