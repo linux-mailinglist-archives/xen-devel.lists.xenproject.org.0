@@ -2,37 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF057948DE3
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 13:41:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.772827.1183276 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01E97948E27
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 13:51:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.772854.1183297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbIZB-0006jw-8k; Tue, 06 Aug 2024 11:41:25 +0000
+	id 1sbIiC-0001K8-Dv; Tue, 06 Aug 2024 11:50:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 772827.1183276; Tue, 06 Aug 2024 11:41:25 +0000
+Received: by outflank-mailman (output) from mailman id 772854.1183297; Tue, 06 Aug 2024 11:50:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbIZB-0006hq-5N; Tue, 06 Aug 2024 11:41:25 +0000
-Received: by outflank-mailman (input) for mailman id 772827;
- Tue, 06 Aug 2024 11:41:23 +0000
+	id 1sbIiC-0001Hk-AY; Tue, 06 Aug 2024 11:50:44 +0000
+Received: by outflank-mailman (input) for mailman id 772854;
+ Tue, 06 Aug 2024 11:50:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HPS5=PF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sbIZ9-0006hC-2X
- for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 11:41:23 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ctxO=PF=ti.com=a-singh21@srs-se1.protection.inumbo.net>)
+ id 1sbIiB-0001Hc-05
+ for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 11:50:43 +0000
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc647c82-53e8-11ef-8776-851b0ebba9a2;
- Tue, 06 Aug 2024 13:41:19 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-52fcc56c882so3887358e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 06 Aug 2024 04:41:19 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-530bba07891sm1466093e87.22.2024.08.06.04.41.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Aug 2024 04:41:18 -0700 (PDT)
+ id 178c0f6d-53ea-11ef-8776-851b0ebba9a2;
+ Tue, 06 Aug 2024 13:50:39 +0200 (CEST)
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 476BoQcq016373;
+ Tue, 6 Aug 2024 06:50:26 -0500
+Received: from DLEE110.ent.ti.com (dlee110.ent.ti.com [157.170.170.21])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 476BoQ4R009825
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 6 Aug 2024 06:50:26 -0500
+Received: from DLEE106.ent.ti.com (157.170.170.36) by DLEE110.ent.ti.com
+ (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 6
+ Aug 2024 06:50:25 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE106.ent.ti.com
+ (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Tue, 6 Aug 2024 06:50:25 -0500
+Received: from localhost (nightbug.dhcp.ti.com [172.24.227.225])
+ by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 476BoPT0044809;
+ Tue, 6 Aug 2024 06:50:25 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,265 +54,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc647c82-53e8-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722944479; x=1723549279; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vG5ncRvairjCkr+MpN3fScaqyU5Vca5xbMf9rFGyo/E=;
-        b=RDaCIuR6YgiHcFVzLhqf1M/lsvRnPRT7GRD0wurekTkZaGFnRkII+7/+ELHJXREBkk
-         dTtriFXRFpbVqobsR400oc5KF6Zjg6e+gKazgzmUyOyZHunxZ1d4vWr0N/IxnL1VP99p
-         y84Hq3fqVtoUJgjYGKIu0uhtBGvPaWevjTyXxXr0E8oU+2G7Zd/a+885uf0bp7mNPpvQ
-         K8qU/lqTJhbsVv1KrOWuBIa4Bf0ekrfqB5n2/Ako376nu4AvU6l2Nj0PnqGDjInEjpwi
-         KZBxdxG/8+tJDnCedzhMYlWfltvmuGfzCHbLsx1sfsTamhx3h8QF5LlDektkkNW/4iEl
-         bdoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722944479; x=1723549279;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vG5ncRvairjCkr+MpN3fScaqyU5Vca5xbMf9rFGyo/E=;
-        b=Jy5JeWR1GjkYsLhNPuYqaTlzzRkY6CuVvTXVqekFc3/xi/hNPGLWNadGBJVRRniX2H
-         K9P8DfjBJTU+WSxLYLHuSEZhsddj/nIyRJtHPtE1Pp27ndZDemccTIKCXEW5z+ZH7zV7
-         EtddAy2iXZt3d+ewjOD0SExX/YoOAK3qd+9vl+v0LqoCmx1NitKw4hlTBNQcjYLKyug+
-         qFV7fPBC8GKh+ShWTZzBB5ATwirk2QYCX3HSlenVcWTA4TACzNdkxNP/5f0nTM2aUz49
-         dBaif1jCgDV4i3nOm9VBgmrZNPGzE5wQwi4ZxnD4BdLYOghphtwaErUS1QIMTEMvsSzB
-         Ym/A==
-X-Gm-Message-State: AOJu0YwYL4S4rdh8fn3iOqolPG+3+NARqTljPvt8hSP37Srj4tYgOzJg
-	hLiDBKZQV0TZE5jkAgv1R/ac9oVFxlRw6nIQhvFYc1Vx8VZZc5WukfJ44g==
-X-Google-Smtp-Source: AGHT+IEB7EuJa6UojpkoU5DZ+m4t37Ub0hQd0f/BxUhDU5i8Bgfw7ccYoRWRlEQLyx8Sa1w6/Vhx0w==
-X-Received: by 2002:a05:6512:3b06:b0:52c:ad70:6feb with SMTP id 2adb3069b0e04-530bb2e8691mr4009661e87.20.1722944478939;
-        Tue, 06 Aug 2024 04:41:18 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v2 2/2] xen/common: Move Arm's bootfdt.c to common
-Date: Tue,  6 Aug 2024 13:41:14 +0200
-Message-ID: <c98165b4e168d74e8bca91ba7c111e6faaa309a4.1722941799.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <cover.1722941799.git.oleksii.kurochko@gmail.com>
-References: <cover.1722941799.git.oleksii.kurochko@gmail.com>
+X-Inumbo-ID: 178c0f6d-53ea-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1722945026;
+	bh=ITZ380bjRYsLPXZoSRvWEuPfymBXO69Wp3tIMO2jzbw=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To;
+	b=fPAe0u17Z6+xcan208mN66WJNiurIRk/JZ8wq+HALXEudB3UvNyE/+v3FfLqfH1oH
+	 vB1qwonTvneXh/qietZdqM1Wr4KNou76xSTzfKyBicX7KwarqR1OQDHRPVmRIC1x04
+	 nCheLhder0KqdbnDImvKrPY5QV1UPn8VyWFmhEmQ=
+Date: Tue, 6 Aug 2024 17:20:24 +0530
+From: Amneesh Singh <a-singh21@ti.com>
+To: Julien Grall <julien@xen.org>
+CC: <xen-devel@lists.xenproject.org>,
+        Bertrand Marquis
+	<bertrand.marquis@arm.com>,
+        Michal Orzel <michal.orzel@amd.com>,
+        Stefano
+ Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] drivers: char: omap-uart: add "clock-hz" option
+Message-ID: <pm2tulzvwuexw6stt2gx6nxbhnmqy36tbswde7j26wtq3x6wob@hyxxarp32or5>
+References: <20240719113313.145587-1-a-singh21@ti.com>
+ <b7ef34fe-f6eb-45e8-8f6a-0e2c4bd0175b@xen.org>
+ <njlq7laeswww46izwpkzuvnvu3lcycv7kc6dt2urbrpimj6uej@tzjuwwhwwqmp>
+ <8c12dc98-bc9f-49bf-bc18-ddae99fa7312@xen.org>
+ <csvohhbfi7ilqjzmozhb7u75jp7kfncpyj335hz5vksjw7lr46@57puayor4b4r>
+ <ff6a7077-efbb-4002-9426-a9f05760f8f8@xen.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <ff6a7077-efbb-4002-9426-a9f05760f8f8@xen.org>
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
+Hi
 
-Move Arm's bootfdt.c to xen/common so that it can be used by other
-device tree architectures like PPC and RISCV.
+On 12:08-20240806, Julien Grall wrote:
+> Hi,
+> 
+> On 06/08/2024 11:35, Amneesh Singh wrote:
+> > On 10:56-20240806, Julien Grall wrote:
+> >> On 06/08/2024 10:50, Amneesh Singh wrote:
+> >>> On 10:16-20240806, Julien Grall wrote:
+> >>>> Hi,
+> >>>>
+> >>>> On 19/07/2024 12:33, Amneesh Singh wrote:
+> >>>>> Quite a few TI K3 devices do not have clock-frequency specified in their
+> >>>>> respective UART nodes.
+> >>>>
+> >>>> Can you outline why fixing the device-tree is not solution?
+> >>> Because other frequencies, say 96MHz or 192 MHz are also valid inputs.
+> >>
+> >> Are you saying this is configurable by the user? Or do you mean the
+> >> firmware can configure it?
+> > u-boot or some other bootloader are free to configure it. And usually,
+> > linux's clock driver will pick it up using clk_get_rate (if not
+> > specified in the DT), I think. Now, in case we add the frequency to the
+> > DT, it may not match with the actual frequency configured before Xen
+> > initialisation. Since, there is no equivalent to clk_get_rate under Xen,
+> > and the fact I'm using imagebuilder, I found it easier to pass the
+> > frequency the way I did.
+> 
+> Thanks for the explanation. I haven't looked in details, but how
+> difficult would it be to implement clk_get_rate() (at least just enough
+> to work for the UART) in Xen?
+To be honest, I have no idea, I am not at all familiar with linux's
+clock API. I just did this to get UART to work under Xen.
+> >>>>
+> >>>>> However hard-coding the frequency is not a
+> >>>>    > solution as the function clock input can differ between SoCs.
+> >>>>
+> >>>> Can you provide some details how Linux is handling those SoCs?
+> >>> Yes, like omap-uart under xen, the 8250_omap driver also parses the DT,
+> >>> but unlike omap-uart, falls back to clk_get_rate() and if the value is
+> >>> still zero, it defaults to 48MHz.
+> >>
+> >> Thanks for the information. Then my next question is why Linux can get
+> >> away with a default value and not Xen?
+> > Sure why not? I guess, we can use a default value if everything fails
+> > but there should still be a way for the user to specify the frequency.
+> 
+> I think I am still missing something. Why would Xen allow the user to
+> specify the clock speed if Linux doesn't? At least to me, it is more
+> likely that a user would want to boot Linux on your HW than Xen...
+That was not worded correctly, apologies. What I meant was a way for
+the user to specify it since apart from DT, unlike linux, there is no
+way for Xen to determine the frequency other than using default of
+course.
+> 
+> > Of course, we can instead just force the user to change the DT slightly
+> > by just specifying the frequency. However, I feel it is easier to add it
+> > here, especially when there's already a method to pass these options via
+> > the command-line in place.
+>  > I believe, this is the best we can do with this.
+> 
+> The problem is the command line is OS/hypervisor specific. But the
+> problem you describe doesn't seem Xen specific. This is where the DT is
+> handy because you describe once and it can be used everywhere.
+> 
+> Overall, at the moment, I don't think the command line option is the
+> right approach. If I am not mistaken, it would make Xen less
+> user-friendly (compare to Linux) to boot on your HW as the user would
+You are correct that it's an extra step, but curently, it's either
+specifying it in the bootarg or specifying in the DT. Both are the
+things that the user would have to do. I just went with what was easier
+for me as a user. It is pretty similar to the current com1/com2
+interface anyway.
 
-Remove stubs for process_shm_node() and early_print_info_shmem()
-from $xen/arch/arm/include/asm/static-shmem.h.
-These stubs are removed to avoid introducing them for architectures
-that do not support CONFIG_STATIC_SHM.
-The process_shm_node() stub is now implemented in common code to
-maintain the current behavior of early_scan_code() on ARM.
-The early_print_info_shmem() stub is only used in early_print_info(),
-so it's now guarded with #ifdef CONFIG_STATIC_SHM ... #endif.
+> need to specify the clockspeed on the command line. I think we should
+> investigate other approaches such as implementing partially
+> clk_get_rate() (if this is how Linux manage to retrieve the clock speed
+> without any command line option).
+I guess, we can just ditch the entire idea, and just use the a default
+fallback and just print a message informing the user that there is no
+frequency in the DT. I do not think implementing clk_get_rate (or any
+clock API) is feasible or worth the effort to be completely honest.
+What do you think? I do not particularly have any issues with that. I 
+feel like this is a niche case (at least now) anyway.
+> 
+> Cheers,
+> 
+> --
+> Julien Grall
+> 
+>
 
-Suggested-by: Julien Grall <julien@xen.org>
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
----
-Changes in V9:
- - add Acked-by: Julien Grall <jgrall@amazon.com>
----
-Changes in V8:
- - Fix the change log for this patch ( accidentally the change log of the previous
-   patch was copied to this ).
- - Drop the stub of process_shm_node() and early_print_info_shmem() in
-   xen/arch/arm/include/asm/static-shmem.h as it is moved to common code to not
-   re-introduce the same stub for each architecture which doesn't support
-   CONFIG_STATIC_SHM now.
- - Drop Acked-by: Julien Grall <julien@xen.org> as after the Ack additional changes were
-   done so an additional review is needed.
----
-Changes in V7:
- - Nothing changed. Only rebase.
----
-Changes in V6:
- - update the version of the patch to v6.
----
-Changes in v5:
- - After rebase the Shawn's patch v4 on top of current staging the following
-   was done:
-   - add guard #ifdef CONFIG_STATIC_SHM around inclusion of <asm/static-shmem.h>
-     in common/device-tree/bootfdt.c.
-   - add stub for process_shm_node() in case CONFIG_STATIC_SHM isn't enabled.
-   - add guard around #ifdef CONFIG_STATIC_SHM aroud early_print_info_shmem() in
-     early_print_info().
----
-Changes in v4:
-  - move function prototypes to patch 2's xen/include/bootfdt.h
-  - clean up #includes
----
- xen/arch/arm/Makefile                         |  1 -
- xen/arch/arm/include/asm/setup.h              | 13 ----------
- xen/arch/arm/include/asm/static-shmem.h       |  9 -------
- xen/common/device-tree/Makefile               |  1 +
- .../arm => common/device-tree}/bootfdt.c      | 24 +++++++++++++++----
- xen/include/xen/bootfdt.h                     | 14 +++++++++++
- 6 files changed, 34 insertions(+), 28 deletions(-)
- rename xen/{arch/arm => common/device-tree}/bootfdt.c (98%)
-
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 45dc29ea53..da9c979dc4 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -10,7 +10,6 @@ obj-$(CONFIG_TEE) += tee/
- obj-$(CONFIG_HAS_VPCI) += vpci.o
- 
- obj-$(CONFIG_HAS_ALTERNATIVE) += alternative.o
--obj-y += bootfdt.init.o
- obj-y += cpuerrata.o
- obj-y += cpufeature.o
- obj-y += decode.o
-diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-index 1748be29e5..64c227d171 100644
---- a/xen/arch/arm/include/asm/setup.h
-+++ b/xen/arch/arm/include/asm/setup.h
-@@ -41,19 +41,6 @@ void fw_unreserved_regions(paddr_t s, paddr_t e,
-                            void (*cb)(paddr_t ps, paddr_t pe),
-                            unsigned int first);
- 
--bool check_reserved_regions_overlap(paddr_t region_start, paddr_t region_size);
--
--struct bootmodule *add_boot_module(bootmodule_kind kind,
--                                   paddr_t start, paddr_t size, bool domU);
--struct bootmodule *boot_module_find_by_kind(bootmodule_kind kind);
--struct bootmodule * boot_module_find_by_addr_and_kind(bootmodule_kind kind,
--                                                             paddr_t start);
--void add_boot_cmdline(const char *name, const char *cmdline,
--                      bootmodule_kind kind, paddr_t start, bool domU);
--struct bootcmdline *boot_cmdline_find_by_kind(bootmodule_kind kind);
--struct bootcmdline * boot_cmdline_find_by_name(const char *name);
--const char *boot_module_kind_as_string(bootmodule_kind kind);
--
- void init_pdx(void);
- void setup_mm(void);
- 
-diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
-index 806ee41cfc..fd0867c4f2 100644
---- a/xen/arch/arm/include/asm/static-shmem.h
-+++ b/xen/arch/arm/include/asm/static-shmem.h
-@@ -80,15 +80,6 @@ static inline int process_shm_chosen(struct domain *d,
-     return 0;
- }
- 
--static inline int process_shm_node(const void *fdt, int node,
--                                   uint32_t address_cells, uint32_t size_cells)
--{
--    printk("CONFIG_STATIC_SHM must be enabled for parsing static shared memory nodes\n");
--    return -EINVAL;
--}
--
--static inline void early_print_info_shmem(void) {};
--
- static inline void init_sharedmem_pages(void) {};
- 
- static inline int remove_shm_from_rangeset(const struct kernel_info *kinfo,
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index f813f7555f..990abd571a 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -1,2 +1,3 @@
-+obj-y += bootfdt.init.o
- obj-y += bootinfo.init.o
- obj-y += device-tree.o
-diff --git a/xen/arch/arm/bootfdt.c b/xen/common/device-tree/bootfdt.c
-similarity index 98%
-rename from xen/arch/arm/bootfdt.c
-rename to xen/common/device-tree/bootfdt.c
-index 6e060111d9..f7998979c1 100644
---- a/xen/arch/arm/bootfdt.c
-+++ b/xen/common/device-tree/bootfdt.c
-@@ -4,18 +4,20 @@
-  *
-  * Copyright (C) 2012-2014 Citrix Systems, Inc.
-  */
--#include <xen/types.h>
--#include <xen/lib.h>
--#include <xen/kernel.h>
--#include <xen/init.h>
--#include <xen/efi.h>
-+
-+#include <xen/bootfdt.h>
- #include <xen/device_tree.h>
-+#include <xen/efi.h>
-+#include <xen/init.h>
-+#include <xen/kernel.h>
- #include <xen/lib.h>
- #include <xen/libfdt/libfdt-xen.h>
- #include <xen/sort.h>
- #include <xsm/xsm.h>
- #include <asm/setup.h>
-+#ifdef CONFIG_STATIC_SHM
- #include <asm/static-shmem.h>
-+#endif
- 
- static void __init __maybe_unused build_assertions(void)
- {
-@@ -436,6 +438,16 @@ static int __init process_domain_node(const void *fdt, int node,
-                                    MEMBANK_STATIC_DOMAIN);
- }
- 
-+#ifndef CONFIG_STATIC_SHM
-+static inline int process_shm_node(const void *fdt, int node,
-+                                   uint32_t address_cells, uint32_t size_cells)
-+{
-+    printk("CONFIG_STATIC_SHM must be enabled for parsing static shared"
-+            " memory nodes\n");
-+    return -EINVAL;
-+}
-+#endif
-+
- static int __init early_scan_node(const void *fdt,
-                                   int node, const char *name, int depth,
-                                   u32 address_cells, u32 size_cells,
-@@ -495,7 +507,9 @@ static void __init early_print_info(void)
-                mem_resv->bank[i].start,
-                mem_resv->bank[i].start + mem_resv->bank[i].size - 1);
-     }
-+#ifdef CONFIG_STATIC_SHM
-     early_print_info_shmem();
-+#endif
-     printk("\n");
-     for ( i = 0 ; i < cmds->nr_mods; i++ )
-         printk("CMDLINE[%"PRIpaddr"]:%s %s\n", cmds->cmdline[i].start,
-diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
-index c39428d5f5..16fa05f38f 100644
---- a/xen/include/xen/bootfdt.h
-+++ b/xen/include/xen/bootfdt.h
-@@ -157,6 +157,20 @@ struct bootinfo {
- 
- extern struct bootinfo bootinfo;
- 
-+bool check_reserved_regions_overlap(paddr_t region_start,
-+                                    paddr_t region_size);
-+
-+struct bootmodule *add_boot_module(bootmodule_kind kind,
-+                                   paddr_t start, paddr_t size, bool domU);
-+struct bootmodule *boot_module_find_by_kind(bootmodule_kind kind);
-+struct bootmodule * boot_module_find_by_addr_and_kind(bootmodule_kind kind,
-+                                                             paddr_t start);
-+void add_boot_cmdline(const char *name, const char *cmdline,
-+                      bootmodule_kind kind, paddr_t start, bool domU);
-+struct bootcmdline *boot_cmdline_find_by_kind(bootmodule_kind kind);
-+struct bootcmdline * boot_cmdline_find_by_name(const char *name);
-+const char *boot_module_kind_as_string(bootmodule_kind kind);
-+
- void populate_boot_allocator(void);
- 
- size_t boot_fdt_info(const void *fdt, paddr_t paddr);
--- 
-2.45.2
-
+Regards
+Amneesh
 
