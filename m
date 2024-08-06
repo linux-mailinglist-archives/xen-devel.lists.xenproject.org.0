@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFF30949818
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2024 21:16:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773112.1183579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA9A1949B46
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2024 00:24:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773127.1183601 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbPew-0007cc-MR; Tue, 06 Aug 2024 19:15:50 +0000
+	id 1sbSab-0001RF-JD; Tue, 06 Aug 2024 22:23:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773112.1183579; Tue, 06 Aug 2024 19:15:50 +0000
+Received: by outflank-mailman (output) from mailman id 773127.1183601; Tue, 06 Aug 2024 22:23:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbPew-0007Zg-Jv; Tue, 06 Aug 2024 19:15:50 +0000
-Received: by outflank-mailman (input) for mailman id 773112;
- Tue, 06 Aug 2024 19:15:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7YTl=PF=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1sbPeu-0007Za-Bd
- for xen-devel@lists.xenproject.org; Tue, 06 Aug 2024 19:15:48 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48997b22-5428-11ef-bc04-fd08da9f4363;
- Tue, 06 Aug 2024 21:15:46 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id E86014EE0738;
- Tue,  6 Aug 2024 21:15:45 +0200 (CEST)
+	id 1sbSab-0001P1-Gf; Tue, 06 Aug 2024 22:23:33 +0000
+Received: by outflank-mailman (input) for mailman id 773127;
+ Tue, 06 Aug 2024 22:23:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sbSaa-0001Or-BI; Tue, 06 Aug 2024 22:23:32 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sbSaa-0007pv-0G; Tue, 06 Aug 2024 22:23:32 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sbSaZ-0003b6-EQ; Tue, 06 Aug 2024 22:23:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sbSaZ-0002F3-Dq; Tue, 06 Aug 2024 22:23:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,201 +42,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48997b22-5428-11ef-bc04-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=RVnIF0/FvbtIXvOHXTLgx3Yc4yGnO948SspkbtSsZVQ=; b=UZyF28wAT8xEp822neRmaTd03S
+	097t9/ocy0Y9nQXGVDMQYSSOLrh8UswybnbgUqQDiDSTaHmxs5+qMHt9bMSFfrN/lmHbPMCEro0s6
+	w1x/p1WJzgxsxFASgXUylBMyxC8ZCtZBfj5CcTm2ZEGVhmXjExaKim/MpDMmWcDUK2f4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187173-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Tue, 06 Aug 2024 21:15:45 +0200
-From: Simone Ballarin <simone.ballarin@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com
-Subject: Re: [PATCH] automation: fix eclair scanning for merge requests
-In-Reply-To: <alpine.DEB.2.22.394.2408061124280.4954@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2408011500280.114241@ubuntu-linux-20-04-desktop>
- <f5990dbcf0131768fdfd35bfdfd8930c@bugseng.com>
- <alpine.DEB.2.22.394.2408051712320.4954@ubuntu-linux-20-04-desktop>
- <876a1792599b8a10fb49eefb10d475bc@bugseng.com>
- <alpine.DEB.2.22.394.2408061124280.4954@ubuntu-linux-20-04-desktop>
-Message-ID: <481901df1269750bba2da4294f32fd14@bugseng.com>
-X-Sender: simone.ballarin@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 187173: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=2dbb61001b335c8f980b39ef9fa05fe5b2bca3e6
+X-Osstest-Versions-That:
+    xen=44a37c7832e49cdee103a0af392b7c12705bdc25
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 06 Aug 2024 22:23:31 +0000
 
-On 2024-08-06 20:25, Stefano Stabellini wrote:
-> On Tue, 6 Aug 2024, Simone Ballarin wrote:
->> On 2024-08-06 03:03, Stefano Stabellini wrote:
->> > On Sat, 3 Aug 2024, Nicola Vetrini wrote:
->> > > On 2024-08-02 00:06, Stefano Stabellini wrote:
->> > > > The ECLAIR jobs part of the Gitlab CI pipeline fail reliably when the
->> > > > pipeline is started from a merge request. This is the error:
->> > > >
->> > > > Unexpected event pull_request
->> > > >
->> > > > The error is a consequence of action.settings setting event=pull_request
->> > > > for merge_request_event. Given that we don't need any special behavior
->> > > > from ECLAIR for merge requests, just run the regular scan, change
->> > > > action.settings to set event=push for merge_request_event (same as for
->> > > > pipeline triggered by git push).
->> > > >
->> > >
->> > > According to my analysis, the error stems from the fact that
->> > > automation/scripts/eclair unconditionally calls action_push.sh, which is
->> > > not
->> > > designed to handle merge requests (that would be action_pull_request.sh).
->> > > One
->> > > approach, that needs to be tested, could be to execute that second script
->> > > based on the value of ${CI_PIPELINE_SOURCE}.
->> > >
->> > > The main difference the approach taken in this patch is that the analysis
->> > > results will be relative to the nearest merge point with the staging tree.
->> > > If
->> > > that's not something that is desired, then this approach looks good to me.
->> >
->> > You are right. I tested the below and it works as expected, see:
->> > https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/1401863307
->> >
->> >
->> 
->> Hi Stefano,
->> 
->> the patch looks ok. Don't know whether is should be submitted again. 
->> Only one
->> minor nit:
->> 
->> > ---
->> > From dee036081cb367862daba264e1eb84ca2505f678 Mon Sep 17 00:00:00 2001
->> > From: Stefano Stabellini <stefano.stabellini@amd.com>
->> > Date: Mon, 5 Aug 2024 14:24:23 -0700
->> > Subject: [PATCH] automation: fix eclair gitlab jobs for merge requests
->> >
->> > The "eclair" script calls action_push.sh even for merge request, while
->> > instead action_pull_request.sh should be called, resulting in a job
->> > failure with this error:
->> >
->> > Unexpected event pull_request
->> >
->> > Fix the script to call action_pull_request.sh appropriately.
->> >
->> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->> > ---
->> >  automation/eclair_analysis/ECLAIR/action_pull_request.sh | 2 +-
->> >  automation/scripts/eclair                                | 9 ++++++++-
->> >  2 files changed, 9 insertions(+), 2 deletions(-)
->> >  mode change 100644 => 100755
->> > automation/eclair_analysis/ECLAIR/action_pull_request.sh
->> >
->> > diff --git a/automation/eclair_analysis/ECLAIR/action_pull_request.sh
->> > b/automation/eclair_analysis/ECLAIR/action_pull_request.sh
->> > old mode 100644
->> > new mode 100755
->> > index 68f7e6282e..812238e07f
->> > --- a/automation/eclair_analysis/ECLAIR/action_pull_request.sh
->> > +++ b/automation/eclair_analysis/ECLAIR/action_pull_request.sh
->> > @@ -3,7 +3,7 @@
->> >  set -eu
->> >
->> >  usage() {
->> > -    echo "Usage: $0 WTOKEN ANALYSIS_OUTPUT_DIR COMMIT_ID" >&2
->> > +    echo "Usage: $0 WTOKEN ANALYSIS_OUTPUT_DIR" >&2
->> >      exit 2
->> >  }
->> >
->> > diff --git a/automation/scripts/eclair b/automation/scripts/eclair
->> > index ebcaf09b54..97d743ab53 100755
->> > --- a/automation/scripts/eclair
->> > +++ b/automation/scripts/eclair
->> > @@ -21,5 +21,12 @@ ex=0
->> >  # Fail in case of new reports for clean guidelines
->> >  "${ECLAIR_DIR}/action_check_clean_regressions.sh" "${ECLAIR_OUTPUT_DIR}" ||
->> > ex=$?
->> >
->> > -"${ECLAIR_DIR}/action_push.sh" "${WTOKEN}" "${ECLAIR_OUTPUT_DIR}"
->> > +case "${CI_PIPELINE_SOURCE}" in
->> > +merge_request_event)
->> > +    "${ECLAIR_DIR}/action_pull_request.sh" "${WTOKEN}"
->> > "${ECLAIR_OUTPUT_DIR}"
->> > +    ;;
->> > +push | pipeline | web | schedule)
->> > +    "${ECLAIR_DIR}/action_push.sh" "${WTOKEN}" "${ECLAIR_OUTPUT_DIR}"
->> > +    ;;
->> > +esac
->> 
->> here I think it's better to give an error if the event is not handled.
->> Something similar to
->> 
->> *)
->>     echo "Unexpected event ${CI_PIPELINE_SOURCE}" >&2
->>     ex=1
->>     ;;
-> 
-> Good suggestion. Here is the updated patch, please ack.
-> 
-> ---
-> 
-> From f49aacb3f281eca073ccdd9fd1326d79b58b7ed2 Mon Sep 17 00:00:00 2001
-> From: Stefano Stabellini <stefano.stabellini@amd.com>
-> Date: Mon, 5 Aug 2024 14:24:23 -0700
-> Subject: [PATCH v3] automation: fix eclair gitlab jobs for merge 
-> requests
-> 
-> The "eclair" script calls action_push.sh even for merge request, while
-> instead action_pull_request.sh should be called, resulting in a job
-> failure with this error:
-> 
-> Unexpected event pull_request
-> 
-> Fix the script to call action_pull_request.sh appropriately.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-Reviewed-by: Simone Ballarin <simone.ballarin@bugseng.com>
-> ---
-> Changes in v3:
-> - handle unexpected ${CI_PIPELINE_SOURCE}
-> ---
->  .../eclair_analysis/ECLAIR/action_pull_request.sh   |  2 +-
->  automation/scripts/eclair                           | 13 ++++++++++++-
->  2 files changed, 13 insertions(+), 2 deletions(-)
->  mode change 100644 => 100755 
-> automation/eclair_analysis/ECLAIR/action_pull_request.sh
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/action_pull_request.sh 
-> b/automation/eclair_analysis/ECLAIR/action_pull_request.sh
-> old mode 100644
-> new mode 100755
-> index 68f7e6282e..812238e07f
-> --- a/automation/eclair_analysis/ECLAIR/action_pull_request.sh
-> +++ b/automation/eclair_analysis/ECLAIR/action_pull_request.sh
-> @@ -3,7 +3,7 @@
->  set -eu
-> 
->  usage() {
-> -    echo "Usage: $0 WTOKEN ANALYSIS_OUTPUT_DIR COMMIT_ID" >&2
-> +    echo "Usage: $0 WTOKEN ANALYSIS_OUTPUT_DIR" >&2
->      exit 2
->  }
-> 
-> diff --git a/automation/scripts/eclair b/automation/scripts/eclair
-> index ebcaf09b54..3ec760bab8 100755
-> --- a/automation/scripts/eclair
-> +++ b/automation/scripts/eclair
-> @@ -21,5 +21,16 @@ ex=0
->  # Fail in case of new reports for clean guidelines
->  "${ECLAIR_DIR}/action_check_clean_regressions.sh" 
-> "${ECLAIR_OUTPUT_DIR}" || ex=$?
-> 
-> -"${ECLAIR_DIR}/action_push.sh" "${WTOKEN}" "${ECLAIR_OUTPUT_DIR}"
-> +case "${CI_PIPELINE_SOURCE}" in
-> +merge_request_event)
-> +    "${ECLAIR_DIR}/action_pull_request.sh" "${WTOKEN}" 
-> "${ECLAIR_OUTPUT_DIR}"
-> +    ;;
-> +push | pipeline | web | schedule)
-> +    "${ECLAIR_DIR}/action_push.sh" "${WTOKEN}" "${ECLAIR_OUTPUT_DIR}"
-> +    ;;
-> +*)
-> +    echo "Unexpected event ${CI_PIPELINE_SOURCE}" >&2
-> +    ex=1
-> +    ;;
-> +esac
->  [ "${ex}" = 0 ] || exit "${ex}"
+flight 187173 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187173/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  2dbb61001b335c8f980b39ef9fa05fe5b2bca3e6
+baseline version:
+ xen                  44a37c7832e49cdee103a0af392b7c12705bdc25
+
+Last test of basis   187169  2024-08-06 07:00:33 Z    0 days
+Testing same since   187173  2024-08-06 19:02:13 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+  Shawn Anastasio <sanastasio@raptorengineering.com>
+  Stewart Hildebrand <stewart.hildebrand@amd.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   44a37c7832..2dbb61001b  2dbb61001b335c8f980b39ef9fa05fe5b2bca3e6 -> smoke
 
