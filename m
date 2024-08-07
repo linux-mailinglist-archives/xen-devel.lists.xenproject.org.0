@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A0C94A8F0
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2024 15:49:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773502.1183974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F370C94AA74
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2024 16:40:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773553.1183994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbh20-00068w-8d; Wed, 07 Aug 2024 13:48:48 +0000
+	id 1sbhou-00006I-2p; Wed, 07 Aug 2024 14:39:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773502.1183974; Wed, 07 Aug 2024 13:48:48 +0000
+Received: by outflank-mailman (output) from mailman id 773553.1183994; Wed, 07 Aug 2024 14:39:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbh20-00067o-3T; Wed, 07 Aug 2024 13:48:48 +0000
-Received: by outflank-mailman (input) for mailman id 773502;
- Wed, 07 Aug 2024 13:48:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nE80=PG=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sbh1x-0005AI-Tx
- for xen-devel@lists.xenproject.org; Wed, 07 Aug 2024 13:48:45 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3d58bc4-54c3-11ef-bc04-fd08da9f4363;
- Wed, 07 Aug 2024 15:48:45 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5bb8e62570fso2684663a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2024 06:48:45 -0700 (PDT)
-Received: from EMEAENGAAD19049.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5b83960f353sm7017710a12.15.2024.08.07.06.48.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Aug 2024 06:48:43 -0700 (PDT)
+	id 1sbhot-0008VV-W0; Wed, 07 Aug 2024 14:39:19 +0000
+Received: by outflank-mailman (input) for mailman id 773553;
+ Wed, 07 Aug 2024 14:39:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=628V=PG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sbhos-0008VP-Hm
+ for xen-devel@lists.xenproject.org; Wed, 07 Aug 2024 14:39:18 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d27ed480-54ca-11ef-8776-851b0ebba9a2;
+ Wed, 07 Aug 2024 16:39:16 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-52f04b3cb33so4365702e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2024 07:39:16 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc9e841a7sm649381666b.179.2024.08.07.07.39.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Aug 2024 07:39:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,205 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3d58bc4-54c3-11ef-bc04-fd08da9f4363
+X-Inumbo-ID: d27ed480-54ca-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723038524; x=1723643324; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=j0P2O0so3M3+faOWsBdEY2/POlgK4yVIXKMk2Q6OuFU=;
-        b=iAoiPvx3eMS3A+aZnAIzNn02TKhWoTZGBKy4BjNlv1A0OApXKCZzVuHnzS1hxN54ad
-         exjUozp6ApvCoRNNLG3ue40u4U00SIUCpUXvtq6xZ/sAaeMKj3BLB8X5t9n7TWGpkHd0
-         vlX5Uzm5z24KUryTXGQBoCBLbFOJgmCFiwyPo=
+        d=suse.com; s=google; t=1723041556; x=1723646356; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rV8lX1PlLqJsOe3OdUMnd/J2qEfLznI40xZkelHj5I0=;
+        b=LB5JVC6+3FIR3QQWtYj0MKOrelesJz9QhyxnOp7JMxkAC+j+0mwU5T6VyncIYTYIoj
+         flXFgos/hcF9w+8VmQmrbByvGGiupI+HE5tt0A6BfN5+nEWnGulAg0A/jV/5q5Ix5orp
+         7owGdzeNENrBWdFymjQDf1TI7Ita2QgsGxWGFgvMqhMuy5Mm9VoKRepvo8AOewOmaw8Z
+         X0w8i/CWKC3/bZhq9rgcYj+WHv6MTiGp4ZkGBNzuY1N9uV4qX8gR/buGIHPnwJVMbuWg
+         j2ilkYSoggQpjG/2QFdRpBmRvKy/rPMLzcDuWIG+W8hXEuthe3p6kwAc/BqCM5oIeunT
+         6xow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723038524; x=1723643324;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=j0P2O0so3M3+faOWsBdEY2/POlgK4yVIXKMk2Q6OuFU=;
-        b=Vo895biDKg1Ejz9G/nKeGRzdJF1jFMY8BoouipR5nqg5BC+oj6Gt16iF0GYblCE5dp
-         2lpn0zw80ArKrrGHa94OyAcUVkp4Hu567291Qbj+Sq9nC08MMrbSWplcCCMSXaQZMwp6
-         z/8iIsGPbYRl7VZ67gEpS3UkQDs8RKEXlwmrBPDkSiCdXgNCl35JrZ8qQktd80cYNlg9
-         oBb4oMSGisZe45sPJ3HdGM3KBAWrPks7k/DybJ8/AKm8SJ71nnLNgJKYafo8P5kXYfQG
-         zwAd5QPqj4ZVoytIvbO7mFmQpOHL7LnnVj0QqpdSwMA5iTnMvcxO/+kPtcwVKMA8XW46
-         iRsw==
-X-Gm-Message-State: AOJu0YwKvGetLtxhO2K4BXnYfr9uH0PR5ch2rvHZGZq1Xl9GaDrF7u6z
-	5ciP+E99vVoOvOtZJPEGdcNh9F/wYhwldBb/Mr0Vd+9QaVrrtXrs2R4shdp4RrMfu/hg1fUfzux
-	K
-X-Google-Smtp-Source: AGHT+IFxiUbA4aqh8QoSftI9J0K9AalqflVdBk2c6Kh9BR0drMFevjsJzg2bcxaav/UmEHj0VqlgvA==
-X-Received: by 2002:aa7:c3cc:0:b0:5a0:e62c:61bd with SMTP id 4fb4d7f45d1cf-5b7f5413b5cmr12727946a12.29.1723038524429;
-        Wed, 07 Aug 2024 06:48:44 -0700 (PDT)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 5/5] x86: Rollback relocation in case of EFI multiboot
-Date: Wed,  7 Aug 2024 14:48:19 +0100
-Message-ID: <20240807134819.8987-6-alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
-References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
+        d=1e100.net; s=20230601; t=1723041556; x=1723646356;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rV8lX1PlLqJsOe3OdUMnd/J2qEfLznI40xZkelHj5I0=;
+        b=RfXcJ4SKjYkHjhYYVD2Z90r8jD43P0rx+cqD/a13YuQH/4Cl2PqpRdkmoDnKESiQ+5
+         i/KA1h8+2lyfiwchyPvaJFPr/sFMxDQCewjYWSoXj2mzNycZ8Fd6lyP5vswihpkr/fzL
+         S9I989YxDPC+D+yZm2bxJpr7kD4B73au0lB4vudIooxYHsg+W2dqiMMsJXtvH29RfLI+
+         5i5W7ZTknALD5WYKQ2nDQ5M2nq9l0OZOGqJys/gk97AoJnTDTyRao3jwxIbvu5HRLLVC
+         M9dNMC2Kj1Tst0ijtdwiiiC+tsd1D67zFncW+UscC/JXJ5K9NK947ElIY1nzWInm6Bu6
+         xGAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXHFOZglZ7EWEm8RnGX7hS3ccdTWXW78ejdpEB5MYOKT9ALXzKZwxdGnGTNtX4hnGXKXejQw+7FByJK8thIEWUsAmWnzB4P8EmCgkMUKiY=
+X-Gm-Message-State: AOJu0YzFj3wphgWgfe4JXDycb2IZimk3jUCyan7SUAWL16MKKxNJdIgU
+	FNy/BGZTjJuiyXTfxBVo3o2CqfmzceXZ9eHQ3LfLqiUZrjh70FzC94eIJ0sHNw==
+X-Google-Smtp-Source: AGHT+IGX0/uR4KmM4tEtp9euSANWYm8Ugg7qMsBiN9nb9yFSY0VTQZAVZAtuTS0x37qqRVk2oZIvIg==
+X-Received: by 2002:a05:6512:b07:b0:529:b718:8d00 with SMTP id 2adb3069b0e04-530bb3734f5mr15518173e87.8.1723041555693;
+        Wed, 07 Aug 2024 07:39:15 -0700 (PDT)
+Message-ID: <714d14c9-cd5e-4456-84ac-379e736c31c1@suse.com>
+Date: Wed, 7 Aug 2024 16:39:14 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 1/2] xen/riscv: enable GENERIC_BUG_FRAME
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1722960083.git.oleksii.kurochko@gmail.com>
+ <516ada36487fd57f7a784f9fb3fe328f5365bd85.1722960083.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <516ada36487fd57f7a784f9fb3fe328f5365bd85.1722960083.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-In case EFI not multiboot rolling back relocation is done in
-efi_arch_post_exit_boot, called by efi_start however this is
-not done in multiboot code path.
-Do it also for this path to make it work correctly.
+On 06.08.2024 18:37, Oleksii Kurochko wrote:
+> Enable GENERIC_BUG_FRAME to support BUG(), WARN(), ASSERT,
+> and run_in_exception_handler().
+> 
+> "UNIMP" is used for BUG_INSTR, which, when macros from <xen/bug.h>
+> are used, triggers an exception with the ILLEGAL_INSTRUCTION cause.
+> This instruction is encoded as a 2-byte instruction when
+> CONFIG_RISCV_ISA_C is enabled:
+>   ffffffffc0046ba0:       0000                    unimp
+> and is encoded as a 4-byte instruction when CONFIG_RISCV_ISA_C
+> ins't enabled:
+>   ffffffffc005a460:       c0001073                unimp
+> 
+> Using 'ebreak' as BUG_INSTR does not guarantee proper handling of macros
+> from <xen/bug.h>. If a debugger inserts a breakpoint (using the 'ebreak'
+> instruction) at a location where Xen already uses 'ebreak', it
+> creates ambiguity. Xen cannot distinguish whether the 'ebreak'
+> instruction is inserted by the debugger or is part of Xen's own code.
+> 
+> Remove BUG_INSN_32 and BUG_INSN_16 macros as they encode the ebreak
+> instruction, which is no longer used for BUG_INSN.
+> 
+> Update the comment above the definition of INS_LENGTH_MASK as instead of
+> 'ebreak' instruction 'unimp' instruction is used.
+> 
+> <xen/lib.h> is included for the reason that panic() and printk() are
+> used in common/bug.c and RISC-V fails if it is not included.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
----
- xen/arch/x86/boot/head.S  | 29 +++++++++++++++---
- xen/arch/x86/boot/reloc.c | 63 ++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 87 insertions(+), 5 deletions(-)
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index abfa3d82f7..75ac74a589 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -352,6 +352,7 @@ __efi64_mb2_start:
-         and     $~15,%rsp
- 
-         /* Save Multiboot2 magic on the stack. */
-+        shlq    $32, %rax
-         push    %rax
- 
-         /* Save EFI ImageHandle on the stack. */
-@@ -382,11 +383,24 @@ __efi64_mb2_start:
-         /* Just pop an item from the stack. */
-         pop     %rax
- 
--        /* Restore Multiboot2 magic. */
--        pop     %rax
-+        /* Prepare stack for relocation call */
-+        subq    $16, %rsp
-+        lea     l2_bootmap(%rip), %ecx
-+        movl    %ecx, 16(%rsp)
-+        lea     l3_bootmap(%rip), %ecx
-+        movl    %ecx, 12(%rsp)
-+        lea     __base_relocs_end(%rip), %ecx
-+        movl    %ecx, 8(%rsp)
-+        lea     __base_relocs_start(%rip), %ecx
-+        movl    %ecx, 4(%rsp)
-+        lea     __image_base__(%rip),%rsi
-+        movl    %esi, (%rsp)
-+        movabsq $__XEN_VIRT_START, %rcx
-+        subq    %rsi, %rcx
-+        push    %rcx
- 
--        /* Jump to trampoline_setup after switching CPU to x86_32 mode. */
--        lea     trampoline_setup(%rip),%r15
-+        /* Jump to trampoline_efi_setup after switching CPU to x86_32 mode. */
-+        lea     trampoline_efi_setup(%rip),%r15
- 
- x86_32_switch:
-         mov     %r15,%rdi
-@@ -557,6 +571,12 @@ __start:
-         and     $~(MULTIBOOT2_TAG_ALIGN-1),%ecx
-         jmp     .Lmb2_tsize
- 
-+trampoline_efi_setup:
-+        movb    $1, %al
-+        call    reloc
-+        pop     %eax
-+        jmp     trampoline_setup
-+
- trampoline_bios_setup:
-         /*
-          * Called on legacy BIOS platforms only.
-@@ -627,6 +647,7 @@ trampoline_setup:
-         push    %ecx                /* Bottom-most low-memory stack address. */
-         push    %ebx                /* Multiboot / PVH information address. */
-         push    %eax                /* Magic number. */
-+        movb    $0, %al
-         call    reloc
- #ifdef CONFIG_PVH_GUEST
-         cmpb    $0, sym_esi(pvh_boot)
-diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
-index 4033557481..3aa97a99d0 100644
---- a/xen/arch/x86/boot/reloc.c
-+++ b/xen/arch/x86/boot/reloc.c
-@@ -23,7 +23,9 @@ asm (
-     "    .text                         \n"
-     "    .globl _start                 \n"
-     "_start:                           \n"
--    "    jmp  reloc                    \n"
-+    "    cmpb $0, %al                  \n"
-+    "    je   reloc                    \n"
-+    "    jmp  reloc_pe_back            \n"
-     );
- 
- #include "defs.h"
-@@ -375,6 +377,65 @@ void *__stdcall reloc(uint32_t magic, uint32_t in, uint32_t trampoline,
-     }
- }
- 
-+struct pe_base_relocs {
-+    u32 rva;
-+    u32 size;
-+    u16 entries[];
-+};
-+
-+#define PE_BASE_RELOC_ABS      0
-+#define PE_BASE_RELOC_HIGHLOW  3
-+#define PE_BASE_RELOC_DIR64   10
-+
-+void __stdcall reloc_pe_back(long long delta,
-+                             uint32_t xen_phys_start,
-+                             const struct pe_base_relocs *__base_relocs_start,
-+                             const struct pe_base_relocs *__base_relocs_end,
-+                             char *l3_bootmap, char *l2_bootmap)
-+{
-+    const struct pe_base_relocs *base_relocs;
-+
-+    for ( base_relocs = __base_relocs_start; base_relocs < __base_relocs_end; )
-+    {
-+        unsigned int i = 0, n;
-+
-+        n = (base_relocs->size - sizeof(*base_relocs)) /
-+            sizeof(*base_relocs->entries);
-+
-+        /*
-+         * Relevant l{2,3}_bootmap entries get initialized explicitly in
-+         * efi_arch_memory_setup(), so we must not apply relocations there.
-+         * l2_directmap's first slot, otoh, should be handled normally, as
-+         * efi_arch_memory_setup() won't touch it (xen_phys_start should
-+         * never be zero).
-+         */
-+        if ( xen_phys_start + base_relocs->rva == (unsigned long)l3_bootmap ||
-+             xen_phys_start + base_relocs->rva == (unsigned long)l2_bootmap )
-+            i = n;
-+
-+        for ( ; i < n; ++i )
-+        {
-+            unsigned long addr = xen_phys_start + base_relocs->rva +
-+                                 (base_relocs->entries[i] & 0xfff);
-+
-+            switch ( base_relocs->entries[i] >> 12 )
-+            {
-+            case PE_BASE_RELOC_ABS:
-+                break;
-+            case PE_BASE_RELOC_HIGHLOW:
-+                if ( delta )
-+                    *(u32 *)addr += delta;
-+                break;
-+            case PE_BASE_RELOC_DIR64:
-+                if ( delta )
-+                    *(u64 *)addr += delta;
-+                break;
-+            }
-+        }
-+        base_relocs = (const void *)(base_relocs->entries + i + (i & 1));
-+    }
-+}
-+
- /*
-  * Local variables:
-  * mode: C
--- 
-2.45.2
+Just one more (cosmetic) question:
 
+> --- a/xen/arch/riscv/include/asm/bug.h
+> +++ b/xen/arch/riscv/include/asm/bug.h
+> @@ -9,7 +9,7 @@
+>  
+>  #ifndef __ASSEMBLY__
+>  
+> -#define BUG_INSTR "ebreak"
+> +#define BUG_INSTR "UNIMP"
+
+Deliberately all uppercase?
+
+Jan
 
