@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF9D694AD15
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2024 17:40:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773594.1184034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4781794AD70
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2024 17:55:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773603.1184044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbilZ-00039R-BV; Wed, 07 Aug 2024 15:39:57 +0000
+	id 1sbj08-00067t-Jw; Wed, 07 Aug 2024 15:55:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773594.1184034; Wed, 07 Aug 2024 15:39:57 +0000
+Received: by outflank-mailman (output) from mailman id 773603.1184044; Wed, 07 Aug 2024 15:55:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbilZ-00037A-8r; Wed, 07 Aug 2024 15:39:57 +0000
-Received: by outflank-mailman (input) for mailman id 773594;
- Wed, 07 Aug 2024 15:39:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sbj08-00065P-HI; Wed, 07 Aug 2024 15:55:00 +0000
+Received: by outflank-mailman (input) for mailman id 773603;
+ Wed, 07 Aug 2024 15:54:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8zg6=PG=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
- id 1sbilY-00036l-09
- for xen-devel@lists.xenproject.org; Wed, 07 Aug 2024 15:39:56 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4a8069d7-54d3-11ef-8776-851b0ebba9a2;
- Wed, 07 Aug 2024 17:39:53 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a7aada2358fso178978566b.0
- for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2024 08:39:53 -0700 (PDT)
-Received: from EMEAENGAAD91498.citrite.net ([217.156.233.154])
+ <SRS0=YcC0=PG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sbj07-00065J-E6
+ for xen-devel@lists.xenproject.org; Wed, 07 Aug 2024 15:54:59 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 657cd022-54d5-11ef-bc04-fd08da9f4363;
+ Wed, 07 Aug 2024 17:54:58 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5a309d1a788so2187394a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2024 08:54:58 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9e83848sm659353366b.177.2024.08.07.08.39.51
+ 4fb4d7f45d1cf-5b83b82bf63sm7158115a12.75.2024.08.07.08.54.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Aug 2024 08:39:52 -0700 (PDT)
+ Wed, 07 Aug 2024 08:54:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,80 +45,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a8069d7-54d3-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 657cd022-54d5-11ef-bc04-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723045193; x=1723649993; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UmDI4Dz84kXGt5jmXeHADz7wjjK1TvXqao2udkFRzFU=;
-        b=YYik4yjS/jkj//IfceODnxa+oj6GzRXk9nO6hMy2p80/aNshYoSbpITJnMHdAqQyOS
-         /lRpMQF3jIUhWtcCHLhc0AsgYd3MJ09zVItZK1uCKcwprmnuL1wb+nio4JCzr2eZeznL
-         n9fqp/9NzknGjC6/y50/5ofoHXjAGRYKK5Am4=
+        d=gmail.com; s=20230601; t=1723046097; x=1723650897; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=qRX8RVG4FEOsacXpgLDq2I3cLU9cm+hxNM7YEM968OE=;
+        b=NA7cnjYssTfTsL60r2TbtuDke+YvQKngTg+21PNKeke2QZtx2Zs/n6SLSoR2hUkYnn
+         k2jMD6ntjDl1mOMOhO8WjonF6EtuGnsruxOmJI5/vW1UqnE/AwDMJ1KC70bTZc44OR1/
+         mdy8HX4cWYHaZByryHfkBRl6pE1T4CLMiHj5odwDTz06SZphqgfAb5Bd4tnkvQyelImB
+         AL61XNn2Ar6FGXWuGpsecU6jVsvA5c7rShmCN2ku4LM4D6k9RA17jEru8GeMzprbxI/t
+         gueq9SpaqEtUqCinYfdZnvP3a/sseYYCfnvswfvnCsuwWQ18q6eCRkfF3om1iLybjsF5
+         xYQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723045193; x=1723649993;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UmDI4Dz84kXGt5jmXeHADz7wjjK1TvXqao2udkFRzFU=;
-        b=LYP7qBWj2xAJ2YGQ5wS4bolIZ/NB/ltbdCEczaUg0M+XUgH1Cp6fFHFr7gske6d6ba
-         KyhkGFF7djhSoI2ShqrednTWakjsUxrV8MynuoOcJhL/l/OFqbQRazJ9eZOyU2vuWP1W
-         6V75nqx1xVq/ffN3h22pL0VDr2rZh7KzQ4Kxbij1FVUsHiXZzB8iUfzQk05u3vY2pD1T
-         Q9CntFndaKIJtAc1GBGzX5ao3NSUHqvGKToFJFqw6zvVwIoz7ypVnWV40CUpsToJSY9x
-         u4wqLborApT1cKg8BeKkdxU+aseLLcDWhVOI3s501DnQkskps4p55ra3wAjpHe/YpiYU
-         PV8A==
-X-Gm-Message-State: AOJu0YzMgS6YEcug7l0xCXlSmFC2HIdqo7cC9ilZ3NBo7eu261LRadyg
-	EaUrdbiOTs/xcCBrg75sfQH45ke/Al0TNT2hkBQI9TJ2inL+FkybIQhMIU061DbDb3+4DPOHuH5
-	P
-X-Google-Smtp-Source: AGHT+IHUaiC7CK6CdZ199QZAgPkzDI8L6GWOCXVbHNwek8ATHbDzH//F+Chui1fY3ZszYHvOcl2DaA==
-X-Received: by 2002:a17:906:dc8f:b0:a7d:88c4:2897 with SMTP id a640c23a62f3a-a8078fef41cmr230132166b.2.1723045192458;
-        Wed, 07 Aug 2024 08:39:52 -0700 (PDT)
-From: Matthew Barnes <matthew.barnes@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Matthew Barnes <matthew.barnes@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH v2] x86/emul: Fix misaligned IO breakpoint behaviour in PV guests
-Date: Wed,  7 Aug 2024 16:39:37 +0100
-Message-Id: <4219d12fcd075635c8c2548c5d14471642af3038.1723045077.git.matthew.barnes@cloud.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20230601; t=1723046097; x=1723650897;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qRX8RVG4FEOsacXpgLDq2I3cLU9cm+hxNM7YEM968OE=;
+        b=PjJU9T9nLO244ESM4dKNBIStwFoSakSsIg7AIz8aUZwagkPU028dOejEI1ReBcruyb
+         5O7ZqDm2F64DJYvoEdhOteBedctp0fawAxmrloi20v+FkbnQQAEkiLcJA6tgJ2zGgTok
+         lD/e1s7+PB5egeqAVq4BWgiV0lJa2ljU1+IPnHCiD2t08amE8Oirv4lMRToKiv8L82+j
+         DZCiySeTD6T6WTR8ZkapQDvRvmCYQmB9jbP6r4qvoUAzw21VPJWoqzrOlVZwceCcgYlK
+         eWn5i5mMfbbG1ej7Gufo3x5PsoVNNJTWPIOKj6cSSoGSlmuRrVnGb6B6P1rShNZBTCBO
+         2yCg==
+X-Forwarded-Encrypted: i=1; AJvYcCUFAnJ/YwECebVIa1D4BhfP1ykDiH+WW3sYh2yTUkLJMEKxqdBa61EBLoE7gPS1tsilEkyVnfPJfqsXKBURfpquWSTrlnzbYelIZCKXwXg=
+X-Gm-Message-State: AOJu0YxX+WueUc9B8qz+6Of+5VpCHqogUqtna5LpezL8+b0YZKVWlxK8
+	nyam9hyC/mOV/DiLpC2d+cK7eNgs3WFCwMDCluiUsL7nl7qi5VWs
+X-Google-Smtp-Source: AGHT+IFjMrV0NJeyQxj1R2xI3QLqmUlC7KzJBSb8IhsDOX4MbKIh/D7av/2y4LjL7o2GIAvtGJUEaA==
+X-Received: by 2002:a50:a6d4:0:b0:5b8:3cff:718b with SMTP id 4fb4d7f45d1cf-5b83cff72d6mr13073485a12.16.1723046097148;
+        Wed, 07 Aug 2024 08:54:57 -0700 (PDT)
+Message-ID: <541ad417f440744b2a4238f5a5c5d65deefe81f4.camel@gmail.com>
+Subject: Re: [PATCH v13 1/2] xen/riscv: enable GENERIC_BUG_FRAME
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Wed, 07 Aug 2024 17:54:56 +0200
+In-Reply-To: <714d14c9-cd5e-4456-84ac-379e736c31c1@suse.com>
+References: <cover.1722960083.git.oleksii.kurochko@gmail.com>
+	 <516ada36487fd57f7a784f9fb3fe328f5365bd85.1722960083.git.oleksii.kurochko@gmail.com>
+	 <714d14c9-cd5e-4456-84ac-379e736c31c1@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When hardware breakpoints are configured on misaligned IO ports, the
-hardware will mask the addresses based on the breakpoint width during
-comparison.
+On Wed, 2024-08-07 at 16:39 +0200, Jan Beulich wrote:
+> On 06.08.2024 18:37, Oleksii Kurochko wrote:
+> > Enable GENERIC_BUG_FRAME to support BUG(), WARN(), ASSERT,
+> > and run_in_exception_handler().
+> >=20
+> > "UNIMP" is used for BUG_INSTR, which, when macros from <xen/bug.h>
+> > are used, triggers an exception with the ILLEGAL_INSTRUCTION cause.
+> > This instruction is encoded as a 2-byte instruction when
+> > CONFIG_RISCV_ISA_C is enabled:
+> > =C2=A0 ffffffffc0046ba0:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0000=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unimp
+> > and is encoded as a 4-byte instruction when CONFIG_RISCV_ISA_C
+> > ins't enabled:
+> > =C2=A0 ffffffffc005a460:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 c0001073=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 unimp
+> >=20
+> > Using 'ebreak' as BUG_INSTR does not guarantee proper handling of
+> > macros
+> > from <xen/bug.h>. If a debugger inserts a breakpoint (using the
+> > 'ebreak'
+> > instruction) at a location where Xen already uses 'ebreak', it
+> > creates ambiguity. Xen cannot distinguish whether the 'ebreak'
+> > instruction is inserted by the debugger or is part of Xen's own
+> > code.
+> >=20
+> > Remove BUG_INSN_32 and BUG_INSN_16 macros as they encode the ebreak
+> > instruction, which is no longer used for BUG_INSN.
+> >=20
+> > Update the comment above the definition of INS_LENGTH_MASK as
+> > instead of
+> > 'ebreak' instruction 'unimp' instruction is used.
+> >=20
+> > <xen/lib.h> is included for the reason that panic() and printk()
+> > are
+> > used in common/bug.c and RISC-V fails if it is not included.
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>=20
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+Thanks.
 
-For PV guests, misaligned IO breakpoints do not behave the same way, and
-therefore yield different results.
+>=20
+> Just one more (cosmetic) question:
+>=20
+> > --- a/xen/arch/riscv/include/asm/bug.h
+> > +++ b/xen/arch/riscv/include/asm/bug.h
+> > @@ -9,7 +9,7 @@
+> > =C2=A0
+> > =C2=A0#ifndef __ASSEMBLY__
+> > =C2=A0
+> > -#define BUG_INSTR "ebreak"
+> > +#define BUG_INSTR "UNIMP"
+>=20
+> Deliberately all uppercase?
+It could be lowercase without any issue. It was mentioned in uppercase
+in RISC-V assembly manual:
+```
+To better diagnose situations where the program flow reaches an
+unexpected
+location, you might want to emit there an instruction that's known to
+trap. You
+can use an `UNIMP` pseudoinstruction, ...
+```
 
-This patch tweaks the emulation of IO breakpoints for PV guests such
-that they reproduce the same behaviour as hardware.
-
-Fixes: bec9e3205018 ("x86: emulate I/O port access breakpoints")
-Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
----
-Changes in v2:
-- Refactor breakpoint port masking to be more succinct
-- Add 'Fixes' line to commit message
----
- xen/arch/x86/pv/emul-priv-op.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index f101510a1bab..aa11ecadaac0 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -346,6 +346,8 @@ static unsigned int check_guest_io_breakpoint(struct vcpu *v,
-         case DR_LEN_8: width = 8; break;
-         }
- 
-+        start &= ~(width - 1UL);
-+
-         if ( (start < (port + len)) && ((start + width) > port) )
-             match |= 1u << i;
-     }
--- 
-2.34.1
-
+~ Oleksii
 
