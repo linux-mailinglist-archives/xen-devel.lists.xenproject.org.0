@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76272949F08
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2024 07:15:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773198.1183644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C439E949F12
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2024 07:20:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773207.1183656 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbZ0r-0005SP-PL; Wed, 07 Aug 2024 05:15:05 +0000
+	id 1sbZ6B-0007No-He; Wed, 07 Aug 2024 05:20:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773198.1183644; Wed, 07 Aug 2024 05:15:05 +0000
+Received: by outflank-mailman (output) from mailman id 773207.1183656; Wed, 07 Aug 2024 05:20:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbZ0r-0005PF-M8; Wed, 07 Aug 2024 05:15:05 +0000
-Received: by outflank-mailman (input) for mailman id 773198;
- Wed, 07 Aug 2024 05:15:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sbZ6B-0007Kc-EU; Wed, 07 Aug 2024 05:20:35 +0000
+Received: by outflank-mailman (input) for mailman id 773207;
+ Wed, 07 Aug 2024 05:20:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=n6VL=PG=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1sbZ0q-0005P9-3Z
- for xen-devel@lists.xenproject.org; Wed, 07 Aug 2024 05:15:04 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2415::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fec3fcee-547b-11ef-8776-851b0ebba9a2;
- Wed, 07 Aug 2024 07:15:01 +0200 (CEST)
-Received: from BY5PR04CA0028.namprd04.prod.outlook.com (2603:10b6:a03:1d0::38)
- by IA1PR12MB7757.namprd12.prod.outlook.com (2603:10b6:208:422::17)
+ id 1sbZ69-0007KW-Pi
+ for xen-devel@lists.xenproject.org; Wed, 07 Aug 2024 05:20:33 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2061e.outbound.protection.outlook.com
+ [2a01:111:f403:2414::61e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c418c1fb-547c-11ef-bc04-fd08da9f4363;
+ Wed, 07 Aug 2024 07:20:32 +0200 (CEST)
+Received: from BL1P222CA0009.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::14)
+ by BL3PR12MB6476.namprd12.prod.outlook.com (2603:10b6:208:3bc::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.26; Wed, 7 Aug
- 2024 05:14:57 +0000
-Received: from SJ5PEPF000001E9.namprd05.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::f1) by BY5PR04CA0028.outlook.office365.com
- (2603:10b6:a03:1d0::38) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 05:20:29 +0000
+Received: from BL02EPF0002992D.namprd02.prod.outlook.com
+ (2603:10b6:208:2c7:cafe::21) by BL1P222CA0009.outlook.office365.com
+ (2603:10b6:208:2c7::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.27 via Frontend
- Transport; Wed, 7 Aug 2024 05:14:57 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001E9.mail.protection.outlook.com (10.167.242.197) with Microsoft
+ Transport; Wed, 7 Aug 2024 05:20:29 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0002992D.mail.protection.outlook.com (10.167.249.58) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Wed, 7 Aug 2024 05:14:57 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7849.8 via Frontend Transport; Wed, 7 Aug 2024 05:20:28 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 Aug
- 2024 00:14:55 -0500
-Received: from [172.23.60.101] (10.180.168.240) by SATLEXMB03.amd.com
+ 2024 00:20:28 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 Aug
+ 2024 00:20:27 -0500
+Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 7 Aug 2024 00:14:55 -0500
+ Transport; Wed, 7 Aug 2024 00:20:27 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,163 +63,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fec3fcee-547b-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: c418c1fb-547c-11ef-bc04-fd08da9f4363
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qunMY/39g8IznVoUGBWOnTGmBvX6382LkjYzxFZYZ4jFi2uKjlY0D9ZEb94PRBwP7lRIOZqwHWl4RiUbIjfDRech24En2eNHf55hB6uabwcT+iojWMyqGVVgZihHpH7w5oSbjtyt3J4mLcuLpNvrD4qYVPXL0a5lu0Wl5ji4X/oYLqLspU7L41LRoVvtSBi0hiCZoKlVBTJXZgCvKk4fnSZo708nUjnXZ571rEsZXzVfQirei6ZYGW7BtIpPQgr+GPwcp0XS/csJn/Dxkhj/WGRXzuCxQVvcUZNNJqR8/K//b3LM7BCMVdehwjnewqEQk7Ao/BSYGZrzsQLu34Pf8g==
+ b=sNafmEuUyboh9fbDadnluUUS/jxtULnp6wIwpOI/D7iBTtJXPsNfVWyKwXp3ZZUGKYWz5ThJISnzrj1n4UT2aX3diVgrOjmUytIKui/CN1Tu0banalOYWFrGEKEg6Av4K/3Q5Nuja8UtCnLkIgglEpByT4fmtW5DIOAjVUxxg1iFYaPjrCEnX+enxjPfkJaQaHfS+grLriZzZKl+j7dBe47V51Lydq1Fkem9fWi1v5P2r5jAtI5ZA1970IwKNwycvgTNVW71ahYy5H8inAVo4NNx6LJp+PrIy74AAmnr6yLS4BrxA8D5hJ4dUS8ydAHuSYsiSc83PVG+kjlp2uu/Vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hozdtx6yrd2950c3UReUlDos23J9H9xc0mZfXU9SHWY=;
- b=bQR8MwWJF9A5unGwrqNs4JmMbG3CHR8/HIvPVNwNNatiDirv9qFfT4KVqlUSRWuaEqNEZhi97CUCdMuh9L9eSjmY7z60GNKXJst9roNCtqHwUIaJn13vArpQN99F21AlI25Vq7LzR6xHbB9TlkYrMDUSb0h1eKrebn9uj3AVJuyo39n6rCvt/O9MHyihaNzGnXBiwVb1xv1ZEUNc3h9IAvj76XJ3C+E+MbOpCCYvEINMVD3inP+7yTjgw7PHjghr3p24riZ4PdxTTovOudliLsxbeWyieuFJA5+lU6xkMMTi4QmnvHvYPjNkc8DJh+4WR7hqLt43NptZo6DCyeyv9Q==
+ bh=aT5c0LeWRQMJB4XifmOf9ZnmeErl11LgIobwRxzYzNE=;
+ b=dJlB307mu0I0LkmCoA7dFnSuqXnhUeEauSnIesHs3RxYKBSiJyOCgtB1OrEwrXWd/0+FmvWNytMoQbxWu+Ds0IHuVWDkj77YCWYWdUpVi4VG4qXbZIYM5hymK4F4TWywhBXvqvurmkXDFzTFAdj4Qy2PAzSAgQKaLC/ZTStcD1tMQK20rQoI01ToBAE1WuirXsblo8zzB9+I0/atN/25g9SzytZv2SY4m+Nycsbv7Obd9pdly0g3IxwShOvlyVaQf5Mt0bDU8Y3pvlendbpCRXx2RHckFX1VIoWkwinqwe8GeDoZ6zCqnEm8IWpic2CK9j4q2dn0jxn+z+xv9sgwnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hozdtx6yrd2950c3UReUlDos23J9H9xc0mZfXU9SHWY=;
- b=wZzNBnRTsrt/5Id00RvW2L3m2n20I/B6UJigTtGFkMpw38oXZ4pVwbApT8jleYSmfbyonNqOdySxMdljrLgJOTVXFgvUqWMcRx6XbXSFQMoF94g51A+5gpYGLVsVn1si8T2yI+otIXoxqCgV5mqA5oBqSYUCOAckxrnSWwhd9/Y=
+ bh=aT5c0LeWRQMJB4XifmOf9ZnmeErl11LgIobwRxzYzNE=;
+ b=xxmXf1jyA3ugZO+BLzy/rX2MOTVZF5NCZYBNiChy/Kp44tvXJmSzNZgdrmclM4AkE03BJnbX9QIF9y4ywcoT4lE7De41Rp0FmdtvVV7uKVuwZkN0GWJokOykf/B/kreM/YW4CHNNXhh2t3cEED+fP6PlcM8YbLeyPJ6J3NKVpKI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <6e4b8820-5cb4-4f8b-8fff-b77ae49fbe38@amd.com>
-Date: Wed, 7 Aug 2024 01:14:54 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/msi: fix locking for SRIOV devices
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Teddy Astie
-	<teddy.astie@vates.tech>, <xen-devel@lists.xenproject.org>
-References: <20240805210956.364624-1-stewart.hildebrand@amd.com>
- <38836a27-951f-49c8-a10e-e19b910a8444@suse.com>
-Content-Language: en-US
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <38836a27-951f-49c8-a10e-e19b910a8444@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
+To: <xen-devel@lists.xenproject.org>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Teddy Astie
+	<teddy.astie@vates.tech>
+Subject: [PATCH v2] x86/msi: fix locking for SR-IOV devices
+Date: Wed, 7 Aug 2024 01:20:08 -0400
+Message-ID: <20240807052011.582099-1-stewart.hildebrand@amd.com>
+X-Mailer: git-send-email 2.46.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E9:EE_|IA1PR12MB7757:EE_
-X-MS-Office365-Filtering-Correlation-Id: f02e5d3e-9efa-46f9-3c8d-08dcb69fe11e
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992D:EE_|BL3PR12MB6476:EE_
+X-MS-Office365-Filtering-Correlation-Id: 936c4f55-bf2c-4be9-8988-08dcb6a0a69d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?djh5NnZncmJtVkJnaUZtWC9obWFDL0lDMzVtTThWamc3SDlyV3JvZ0syVncx?=
- =?utf-8?B?elVPMGRhdzN4Z0Z0REVzTHhxbXRuRk1vNUJiZ0pZQ21Ka2lDTDZ2ZXlxWmJS?=
- =?utf-8?B?QjF3cGNRZHUrbVpxei92aWgvTExOV2tOZkY0cmovNk9xMmcxZlgrenVRMU1k?=
- =?utf-8?B?Q2FWdVg4YTRId1pOZytNVmV4bVpzTE1qYWNlTlpidHFkMVQrekp4NGxHWklW?=
- =?utf-8?B?VG9NRFhxTEpmYWQ2dEYyLzFYcEtJT1VDcGIvZ0ZjdUlLbW10M2RYbm5hUFNC?=
- =?utf-8?B?ZFMxanJJa1lZZ2tldWdjSE5VSnJReEx6RG1uMHVtZ0V1WW90NWhJc28xejZi?=
- =?utf-8?B?dTAzSUVTQytHMmhCUVc1NWlpWitmMjJOV1ZUSGhqNHZWUzV4NldWNFp5ZHFO?=
- =?utf-8?B?cnVQTmdXaTRTc1FyT09Da1c1TXY1eFNDZXF2b2hUb2hKdXBlcHRuZ3NVTWJV?=
- =?utf-8?B?c2QrMHF6VFhwczFlS0pSWXY0blkzMlEvcVYzeU1ZOCtiZEdvdWV0a3NwOEIr?=
- =?utf-8?B?RC9LSW9XZVpIempadjU1OTV0eFhaNFFHUU5Gc3RBYUtjS3NUejBwWlF4Nm9p?=
- =?utf-8?B?QjRZcWhMVngwYmVQUlZTbC8vRTZOcm1qdmRxaC82azBIclB3TjFncG5oSEtx?=
- =?utf-8?B?dW8yNTIydGxtTVFKUG9wSmNXc1lPc1FPVzIrK2YyVUZOVDBDNm9zWkorVFVU?=
- =?utf-8?B?OVpJZ043cEtxb2IzM244TE5QWHNJV2FjOHJGZ0NjOGdQSWpMRUh0TjJWeVhs?=
- =?utf-8?B?R3FOTzA5WERYN2l4dVBZT3pMNXJ1YlZtTTZnWWN3M1ljd2llWVc5R043L0V4?=
- =?utf-8?B?MndyN0dLcWl2MFBDWDNPWGQ1TCtjK3M5ZnZ2TlFRNk9lOXlqenJ2anhjc1ZQ?=
- =?utf-8?B?MFVUUmk5QU1leVlsZ250dEFnbTB2WE9qSVBpRFN1RExtUkNVUXZzRit6cU5v?=
- =?utf-8?B?b2dCaWtuZ2NPWjF2VTY2Zld4RkNHKzY5YUNYRS9aUjBpa0VCU2JWdkhIM0Zu?=
- =?utf-8?B?d2lweEgzdU9HUGMxOUx4UVhmbDBNM1hvQ2VybXNEcnNublFvREg3UjYxV21E?=
- =?utf-8?B?VjVINzRjSFR5QUFzNDVZbElNenAvb01EWlJxa3JIQ2ZHN3BocTFtUkJzOEEy?=
- =?utf-8?B?K3hzYWg4b3pndFhCaWVhV1FRVC9MaHBUVGE4Mi9JMklrVWRBekNJSjQxa2xD?=
- =?utf-8?B?ZUcvQjB6N0NoSUdJZXZhUHhtbHZtakxqbXJCcU9wMFFjOUFPYldmNUxJdWY3?=
- =?utf-8?B?ZTNjVTJPaHkxS3puMERQS3hHWnh1Q3FnQ1dkYVZXRHZibk1SenRiUWl4OEFr?=
- =?utf-8?B?UVJwTWg1b1hMRkxicFJteTNLa3V0aTlaNlgvSnkrWTJ0QzE2dmNRUlRyekE1?=
- =?utf-8?B?N3ZiNzdJZzhMQWJuNXNUTTloRHpURVRaV3FhMURYaEJuQzdYQ1JrN05YcDd3?=
- =?utf-8?B?RExVdXR2QWJ5ZDhEMk51cFNXVkcvalc5REdncHJkaVBuMEUycEsyTTdSNFJX?=
- =?utf-8?B?aGdqZEt2NXNEOUdsWnFLUjBocm53dTR3aVFhdDRVZ1FwdldLc1d4bS9nSWsx?=
- =?utf-8?B?WnFXRjZ0cm5wM3djZjFuRnZDTTA4ZjVYM3ZtaWNmUEJueW93cUlaZGttL09P?=
- =?utf-8?B?Wm1rUXFxekpVbXJreXJ2bFo4SGxtNTRKTWtxYmN5ekk4OGQ2Tnh0bSs5MjBv?=
- =?utf-8?B?dlpMdkxGNXd5VE1kTFJQZDNGVWwzZEI2YmdYcENFbmR0NGViK0NoUlJyN1lo?=
- =?utf-8?B?Uktua25Cc1VTcHo3NE96b0hGcE9RVkhhOU9pZS8yKzdkaG5SQlZLc3hWd3Vu?=
- =?utf-8?B?YVJVTHVGNjE3ZklGNVdhbVFVUVJhYkhEeTZsZzFzdU5CdU5Jb0E0dk1GSHVZ?=
- =?utf-8?B?NHZHcUE4bVRtOUdKbVRFQUZyTmZ5Y2w5MGp3dlNEWjFvcERaQ0V1NFk0dWdL?=
- =?utf-8?Q?+I6m+najUrjfcZK4Lkd35TsvflnnPTsO?=
+	=?us-ascii?Q?yLxxZ3cqf+Kwd7RZMyc5p0LegCXN/gfwbGQKBWCrlMnO/x1xAulk6yxIDq21?=
+ =?us-ascii?Q?hibHxYtNC4HOHgXSBWiJKzgdn5QKqhNvByWLSj+ew4EcJDGQo0/N+oGYGtms?=
+ =?us-ascii?Q?afFPg4z5R2CkF7rQQlEnbtLYkHrPFqkotGeEGRJQu0czbAxS/JCbBNpI5d7A?=
+ =?us-ascii?Q?N8+4p56AT6F7i/sGYUegg8KJNVDrUSWzBB9babJYNKZe5dvE2m882BMqCkQo?=
+ =?us-ascii?Q?ImT90bWNbAp4hEl6gB19vKcz6RDhoF6dhBn4CgOAdUcGmOxg6XDQNHuxTHcB?=
+ =?us-ascii?Q?S6l8duK7M4znu5ByBgRZQbyWaDnuzrFwCaQ+3n5FMrINwW8Q9QdjjxB/fb0L?=
+ =?us-ascii?Q?wx2faGXyMxoog+qom+gb08JGWKpYzfiTlEmqNmeKsNa3OjnV1xnAXttf/YDE?=
+ =?us-ascii?Q?T7EqZfBJ3ncmhMLgSDpyZQeB3rrvJxIzPRpmh901BpgGazogYS4sXTzRK2fx?=
+ =?us-ascii?Q?NSFFvAN6OxbbAdFeApL/htrbU0NBKKR4W8WqvT3R1/D8rGee2avsd+rHnRJu?=
+ =?us-ascii?Q?D7ryYFHDbnL8V9kvYWUOOvUM7+5EBDpkoC30SqwYvYSTofSECPgX+xA4O7r+?=
+ =?us-ascii?Q?HfpSHNnblWONFtROpBjXdmbCST65C0RbZAIgqtd92kjKGoUl7sBSJe0113T2?=
+ =?us-ascii?Q?rTzYiPagSdHh/uti9HIZ3TxboPZsmu8JelDf5tS20+jXWv90U29gcSAIoKgf?=
+ =?us-ascii?Q?kPnnPjVjELJ2oN4r3AOucsvs4AHlLvzQp6DXrZw9SLoiHsP1NFZ9Ca3GgXTJ?=
+ =?us-ascii?Q?ej8Bt5u67YfihWZ9Q3Hr4+WMgqfndlzERf2w8iONyCvZcJK016R91sIlZUT8?=
+ =?us-ascii?Q?+M6SQo5FmzN2HFK2cUfNyax+YkH5D8OXfEbqF4TFWG0R+8B5B4R7C4QgftPU?=
+ =?us-ascii?Q?mvN63o14mn/nmAbh3qJdeP8xKYsGsA18cTXYfo7Rwczq99uifbmA7BEywscM?=
+ =?us-ascii?Q?wTAzQR//gEI2lg5SLnm7u3ArxRDDPsxfgYuM7bRTZfkv5AgJqQV3vA3i2OOI?=
+ =?us-ascii?Q?Kd/hs1dUjcJ62/4OLJ1ZpfusllRrwp20/++BdxGsFYrEfXoypt4iTV4u1sAZ?=
+ =?us-ascii?Q?X/H/BiriEMzoX2gsGe51GIPiG5SXHOUHwaYUk4fMqeKztqfthebXiIUKvE23?=
+ =?us-ascii?Q?SYXXgpe/zq0zxj2THOKoNGf23J7VTnPwtOkELotLaEbN86oJWIouDRe6pu+c?=
+ =?us-ascii?Q?69G+G+UsnVmMnr4Hmcu4JUAvvtbA4VSiJ0/9kPjRF7De43+CWAihd8G3cdLq?=
+ =?us-ascii?Q?Z4vaC5bUxhQxVHmsg/pXq3IrD4HD2qkrxhTV93e9DfVnP9RFvH3p+lB15e6n?=
+ =?us-ascii?Q?P0WeR/KJLPSQcWGtmM0sQoDG8LzFfIwEbVO8OwZAehSTbJbWg5K778j3qvzS?=
+ =?us-ascii?Q?1ximmPMQI1zGsylacBuytp7tqYkHI1Vcs/Tv/A8zcq2DO4z+FR/hrcJ8//RO?=
+ =?us-ascii?Q?gsKzKKKmc/MG5pXhQHgbrewa1mGBmIOf?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2024 05:14:57.1272
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2024 05:20:28.5507
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f02e5d3e-9efa-46f9-3c8d-08dcb69fe11e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 936c4f55-bf2c-4be9-8988-08dcb6a0a69d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001E9.namprd05.prod.outlook.com
+	BL02EPF0002992D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7757
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6476
 
-On 8/6/24 02:25, Jan Beulich wrote:
-> On 05.08.2024 23:09, Stewart Hildebrand wrote:
->> In commit 4f78438b45e2 ("vpci: use per-domain PCI lock to protect vpci
->> structure") a lock moved from allocate_and_map_msi_pirq() to the caller
->> and changed from pcidevs_lock() to read_lock(&d->pci_lock). However, one
->> call path wasn't updated to reflect the change, leading to a failed
->> assertion observed on debug builds of Xen when an SRIOV device is
->> present with one or more VFs enabled:
->>
->> (XEN) Assertion 'd || pcidevs_locked()' failed at drivers/passthrough/pci.c:535
->> (XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Not tainted ]----
-> 
-> There must be more to this than just "SR-IOV with VFs enabled"? The
-> locking change has been there for quite a while, yet the issue was
-> noticed only know.
+In commit 4f78438b45e2 ("vpci: use per-domain PCI lock to protect vpci
+structure") a lock moved from allocate_and_map_msi_pirq() to the caller
+and changed from pcidevs_lock() to read_lock(&d->pci_lock). However, one
+call path wasn't updated to reflect the change, leading to a failed
+assertion observed under the following conditions:
 
-Yes, the conditions as far as I can tell are:
 * PV dom0
-* Debug build (debug=y) only
-* There is a SR-IOV device in the system with one or more VFs enabled/configured
+* Debug build (debug=y) of Xen
+* There is an SR-IOV device in the system with one or more VFs enabled
 * Dom0 has loaded the driver for the VF and enabled MSI-X
 
-The assert triggers when dom0 loads the VF driver and enables MSI-X
-before PHYSDEVOP_prepare_msix is invoked.
+(XEN) Assertion 'd || pcidevs_locked()' failed at drivers/passthrough/pci.c:535
+(XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Not tainted ]----
+...
+(XEN) Xen call trace:
+(XEN)    [<ffff82d040284da8>] R pci_get_pdev+0x4c/0xab
+(XEN)    [<ffff82d040344f5c>] F arch/x86/msi.c#read_pci_mem_bar+0x58/0x272
+(XEN)    [<ffff82d04034530e>] F arch/x86/msi.c#msix_capability_init+0x198/0x755
+(XEN)    [<ffff82d040345dad>] F arch/x86/msi.c#__pci_enable_msix+0x82/0xe8
+(XEN)    [<ffff82d0403463e5>] F pci_enable_msi+0x3f/0x78
+(XEN)    [<ffff82d04034be2b>] F map_domain_pirq+0x2a4/0x6dc
+(XEN)    [<ffff82d04034d4d5>] F allocate_and_map_msi_pirq+0x103/0x262
+(XEN)    [<ffff82d04035da5d>] F physdev_map_pirq+0x210/0x259
+(XEN)    [<ffff82d04035e798>] F do_physdev_op+0x9c3/0x1454
+(XEN)    [<ffff82d040329475>] F pv_hypercall+0x5ac/0x6af
+(XEN)    [<ffff82d0402012d3>] F lstar_enter+0x143/0x150
 
->> @@ -829,7 +829,8 @@ static int msix_capability_init(struct pci_dev *dev,
->>              vf = dev->sbdf.bdf;
->>          }
->>  
->> -        table_paddr = read_pci_mem_bar(seg, pbus, pslot, pfunc, bir, vf);
->> +        table_paddr = read_pci_mem_bar(dev->domain, seg, pbus, pslot, pfunc,
->> +                                       bir, vf);
-> 
-> While dev->domain is the owner of dev (seg:bus:slot.func), it may not be
-> the owner of seg:pbus:pslot.pfunc. Or if it (reliably) is, I'd expect the
-> guarantees towards that to be spelled out in the description. (Dependency
-> on ordering of toolstack operations likely wouldn't count as a guarantee
-> to me. Yet if I'm not mistaken there's a problem in all cases if the VF
-> was already moved to DomIO, before the DomU is started.)
+In read_pci_mem_bar(), the VF obtains the pdev pointer for its
+associated PF to access the vf_rlen array. This array is initialized in
+pci_add_device() and doesn't change afterwards. Copy the array to the
+pdev of the VF, and remove the troublesome call to pci_get_pdev().
 
-On the possibility that they're not the same (now or in the future),
-disregard this patch.
+Fixes: 4f78438b45e2 ("vpci: use per-domain PCI lock to protect vpci structure")
+Reported-by: Teddy Astie <teddy.astie@vates.tech>
+Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+---
+Candidate for backport to 4.19
 
-> Further to this, until realizing that the code path leading here is
-> accessible only for Dom0, I suspected a security angle to this, and hence
-> didn't respond publicly on Matrix. I noticed, however, that apparently
-> there's another instance of the same issue (via the other call site of
-> allocate_and_map_msi_pirq(), i.e. from vpci_msix_arch_enable_entry()
-> through vpci_msi_enable()). Imo that wants dealing with at the same time
-> (potentially requiring a different overall approach).
+v1->v2:
+* remove call to pci_get_pdev()
+---
+ xen/arch/x86/msi.c            | 23 ++++++++++-------------
+ xen/drivers/passthrough/pci.c |  7 +++++++
+ 2 files changed, 17 insertions(+), 13 deletions(-)
 
-There's a simpler way to solve this: the VF doesn't strictly need to
-obtain the pdev of its associated PF, so the call to pci_get_pdev() can
-be removed from read_pci_mem_bar(). Patch to follow...
+diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
+index 0c97fbb3fc03..5b28fb19b78f 100644
+--- a/xen/arch/x86/msi.c
++++ b/xen/arch/x86/msi.c
+@@ -662,7 +662,8 @@ static int msi_capability_init(struct pci_dev *dev,
+     return 0;
+ }
+ 
+-static u64 read_pci_mem_bar(u16 seg, u8 bus, u8 slot, u8 func, u8 bir, int vf)
++static u64 read_pci_mem_bar(struct pci_dev *pdev, u16 seg, u8 bus, u8 slot,
++                            u8 func, u8 bir, int vf)
+ {
+     u8 limit;
+     u32 addr, base = PCI_BASE_ADDRESS_0;
+@@ -670,19 +671,15 @@ static u64 read_pci_mem_bar(u16 seg, u8 bus, u8 slot, u8 func, u8 bir, int vf)
+ 
+     if ( vf >= 0 )
+     {
+-        struct pci_dev *pdev = pci_get_pdev(NULL,
+-                                            PCI_SBDF(seg, bus, slot, func));
++        pci_sbdf_t pf_sbdf = PCI_SBDF(seg, bus, slot, func);
+         unsigned int pos;
+         uint16_t ctrl, num_vf, offset, stride;
+ 
+-        if ( !pdev )
+-            return 0;
+-
+-        pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_SRIOV);
+-        ctrl = pci_conf_read16(pdev->sbdf, pos + PCI_SRIOV_CTRL);
+-        num_vf = pci_conf_read16(pdev->sbdf, pos + PCI_SRIOV_NUM_VF);
+-        offset = pci_conf_read16(pdev->sbdf, pos + PCI_SRIOV_VF_OFFSET);
+-        stride = pci_conf_read16(pdev->sbdf, pos + PCI_SRIOV_VF_STRIDE);
++        pos = pci_find_ext_capability(pf_sbdf, PCI_EXT_CAP_ID_SRIOV);
++        ctrl = pci_conf_read16(pf_sbdf, pos + PCI_SRIOV_CTRL);
++        num_vf = pci_conf_read16(pf_sbdf, pos + PCI_SRIOV_NUM_VF);
++        offset = pci_conf_read16(pf_sbdf, pos + PCI_SRIOV_VF_OFFSET);
++        stride = pci_conf_read16(pf_sbdf, pos + PCI_SRIOV_VF_STRIDE);
+ 
+         if ( !pos ||
+              !(ctrl & PCI_SRIOV_CTRL_VFE) ||
+@@ -829,7 +826,7 @@ static int msix_capability_init(struct pci_dev *dev,
+             vf = dev->sbdf.bdf;
+         }
+ 
+-        table_paddr = read_pci_mem_bar(seg, pbus, pslot, pfunc, bir, vf);
++        table_paddr = read_pci_mem_bar(dev, seg, pbus, pslot, pfunc, bir, vf);
+         WARN_ON(msi && msi->table_base != table_paddr);
+         if ( !table_paddr )
+         {
+@@ -852,7 +849,7 @@ static int msix_capability_init(struct pci_dev *dev,
+ 
+         pba_offset = pci_conf_read32(dev->sbdf, msix_pba_offset_reg(pos));
+         bir = (u8)(pba_offset & PCI_MSIX_BIRMASK);
+-        pba_paddr = read_pci_mem_bar(seg, pbus, pslot, pfunc, bir, vf);
++        pba_paddr = read_pci_mem_bar(dev, seg, pbus, pslot, pfunc, bir, vf);
+         WARN_ON(!pba_paddr);
+         pba_paddr += pba_offset & ~PCI_MSIX_BIRMASK;
+ 
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index 5a446d3dcee0..3a6a6abe205e 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -654,6 +654,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+     const char *type;
+     int ret;
+     bool pf_is_extfn = false;
++    uint64_t vf_rlen[6] = { 0 };
+ 
+     if ( !info )
+         type = "device";
+@@ -664,7 +665,10 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+                             PCI_SBDF(seg, info->physfn.bus,
+                                      info->physfn.devfn));
+         if ( pdev )
++        {
+             pf_is_extfn = pdev->info.is_extfn;
++            memcpy(vf_rlen, pdev->vf_rlen, sizeof(pdev->vf_rlen));
++        }
+         pcidevs_unlock();
+         if ( !pdev )
+             pci_add_device(seg, info->physfn.bus, info->physfn.devfn,
+@@ -700,7 +704,10 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+          * extended function.
+          */
+         if ( pdev->info.is_virtfn )
++        {
+             pdev->info.is_extfn = pf_is_extfn;
++            memcpy(pdev->vf_rlen, vf_rlen, sizeof(pdev->vf_rlen));
++        }
+     }
+ 
+     if ( !pdev->info.is_virtfn && !pdev->vf_rlen[0] )
 
-> The code path leading here being accessible only for Dom0 likely is also
-> a mistake (read: overly strict). In principle it ought to be possible to
-> move a PF to a driver domain, for the VFs to then be assigned to
-> individual DomU-s. In such a case I expect it shouldn't be Dom0 to invoke
-> PHYSDEVOP_prepare_msix.
-> 
-> Jan
+base-commit: 6b9b96ddebf269579730ff2a65f324505bc2aba9
+-- 
+2.46.0
 
 
