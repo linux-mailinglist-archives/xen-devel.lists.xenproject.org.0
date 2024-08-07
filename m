@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 511A094ACB4
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2024 17:22:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773583.1184024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF9D694AD15
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2024 17:40:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773594.1184034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbiTn-0000UQ-SP; Wed, 07 Aug 2024 15:21:35 +0000
+	id 1sbilZ-00039R-BV; Wed, 07 Aug 2024 15:39:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773583.1184024; Wed, 07 Aug 2024 15:21:35 +0000
+Received: by outflank-mailman (output) from mailman id 773594.1184034; Wed, 07 Aug 2024 15:39:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbiTn-0000Rk-Pp; Wed, 07 Aug 2024 15:21:35 +0000
-Received: by outflank-mailman (input) for mailman id 773583;
- Wed, 07 Aug 2024 15:21:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=628V=PG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sbiTm-0000Re-20
- for xen-devel@lists.xenproject.org; Wed, 07 Aug 2024 15:21:34 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba14c51f-54d0-11ef-bc04-fd08da9f4363;
- Wed, 07 Aug 2024 17:21:32 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a7a81bd549eso163638266b.3
- for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2024 08:21:32 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9bc3d09sm656255366b.17.2024.08.07.08.21.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Aug 2024 08:21:31 -0700 (PDT)
+	id 1sbilZ-00037A-8r; Wed, 07 Aug 2024 15:39:57 +0000
+Received: by outflank-mailman (input) for mailman id 773594;
+ Wed, 07 Aug 2024 15:39:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8zg6=PG=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
+ id 1sbilY-00036l-09
+ for xen-devel@lists.xenproject.org; Wed, 07 Aug 2024 15:39:56 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4a8069d7-54d3-11ef-8776-851b0ebba9a2;
+ Wed, 07 Aug 2024 17:39:53 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a7aada2358fso178978566b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2024 08:39:53 -0700 (PDT)
+Received: from EMEAENGAAD91498.citrite.net ([217.156.233.154])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc9e83848sm659353366b.177.2024.08.07.08.39.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Aug 2024 08:39:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,167 +45,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba14c51f-54d0-11ef-bc04-fd08da9f4363
+X-Inumbo-ID: 4a8069d7-54d3-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723044092; x=1723648892; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0Y0HdTaxLAKW7NWU8atRiLHK9vVzCaHiSQfFFTOAwMw=;
-        b=Dm7SYsumiJQjxzCU3FspCXPvrbJQ6QY4T3MA9WXznUFb5Z8lMDchRa7W8TztrUm1a9
-         DRq1vxyZj6IpF6rFUEECl866ERKZO6BDCfOP/clwPpxtLL64NPtP9hgSy/t5uUkMshKF
-         AHTDHvlO+59cDnCFDMQ6oiAGSDm2GbPmDQk478CheiYJDQcOj6CbYIsuqUv0p4RFsS6/
-         YD8VjjiQV863OluHuM6VLeKiB6oTHW1oHDo52NbcdQUuz2UDdxU/XxrOzSVky3eBqhXj
-         T3jYrZoWDAzxOyDJohZO/eOnBVgZMkG6meuXFxPE3z3WNwlQgKY7ffdU44Q91wVhNlaI
-         ovXg==
+        d=cloud.com; s=cloud; t=1723045193; x=1723649993; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=UmDI4Dz84kXGt5jmXeHADz7wjjK1TvXqao2udkFRzFU=;
+        b=YYik4yjS/jkj//IfceODnxa+oj6GzRXk9nO6hMy2p80/aNshYoSbpITJnMHdAqQyOS
+         /lRpMQF3jIUhWtcCHLhc0AsgYd3MJ09zVItZK1uCKcwprmnuL1wb+nio4JCzr2eZeznL
+         n9fqp/9NzknGjC6/y50/5ofoHXjAGRYKK5Am4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723044092; x=1723648892;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0Y0HdTaxLAKW7NWU8atRiLHK9vVzCaHiSQfFFTOAwMw=;
-        b=DE65xxQeycK1ceoMRmp9qr2B6kVsav15UN+6KaCHhdooJi0UsMFtW7rdUp6qMGo01Q
-         jcyIpyN10maF4EFxZZ3KkeaDFRQnIn3AJ0HQEjTNcv20bZjW1fWvBn+KlL/+CgMCAXbB
-         4JuUTUhfawjm6U1s7VNzrGarcTCx39vtimMWcCutIjabEqZYw3hyCD+iKOWWgtTPF5U8
-         l5J6g75iL8P5DxCCnwXyvbivUEBwIeqI8wpknctcRBScjT+bOLQC/YOVSOXv0E+9Rjx0
-         NNiyUQJlY4FFyyzGTa9xfHSFkfjiXAzfs9NLuLKb5MmU+C5gliuSHXhgXWGI718igU7K
-         xlvg==
-X-Forwarded-Encrypted: i=1; AJvYcCUrMYmWN+FkVSqAL38BzLGoJ3kS3dGaSPSNCGWmmtpznZLKVeBDRqGXCq7AhGRP1v7LzG2t5lkJyJKG4p8goRizbzsrKV/FfoR6K6v0SFQ=
-X-Gm-Message-State: AOJu0YzHU9Rw3G59tTkY8crevgJTocSFzGWPp6wSQ/z7UU2Jowoc2Mdz
-	9PtZfVtU8NCh7AJC1SyYpCV/AN/virFbVknc4JnHyJ4axawem83wvLPoIOEadg==
-X-Google-Smtp-Source: AGHT+IHTDt3c8CNRTfHLm0hUzzh+1ZvtydKydFRA6khQMmb4R5yI4S4VTJIhGa8aj0KgZEzCDxxCOQ==
-X-Received: by 2002:a17:906:730f:b0:a6f:501d:c224 with SMTP id a640c23a62f3a-a7dc5100bbcmr1452286766b.57.1723044091696;
-        Wed, 07 Aug 2024 08:21:31 -0700 (PDT)
-Message-ID: <1b0475fe-4371-4bf7-a469-aa580648f210@suse.com>
-Date: Wed, 7 Aug 2024 17:21:31 +0200
+        d=1e100.net; s=20230601; t=1723045193; x=1723649993;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UmDI4Dz84kXGt5jmXeHADz7wjjK1TvXqao2udkFRzFU=;
+        b=LYP7qBWj2xAJ2YGQ5wS4bolIZ/NB/ltbdCEczaUg0M+XUgH1Cp6fFHFr7gske6d6ba
+         KyhkGFF7djhSoI2ShqrednTWakjsUxrV8MynuoOcJhL/l/OFqbQRazJ9eZOyU2vuWP1W
+         6V75nqx1xVq/ffN3h22pL0VDr2rZh7KzQ4Kxbij1FVUsHiXZzB8iUfzQk05u3vY2pD1T
+         Q9CntFndaKIJtAc1GBGzX5ao3NSUHqvGKToFJFqw6zvVwIoz7ypVnWV40CUpsToJSY9x
+         u4wqLborApT1cKg8BeKkdxU+aseLLcDWhVOI3s501DnQkskps4p55ra3wAjpHe/YpiYU
+         PV8A==
+X-Gm-Message-State: AOJu0YzMgS6YEcug7l0xCXlSmFC2HIdqo7cC9ilZ3NBo7eu261LRadyg
+	EaUrdbiOTs/xcCBrg75sfQH45ke/Al0TNT2hkBQI9TJ2inL+FkybIQhMIU061DbDb3+4DPOHuH5
+	P
+X-Google-Smtp-Source: AGHT+IHUaiC7CK6CdZ199QZAgPkzDI8L6GWOCXVbHNwek8ATHbDzH//F+Chui1fY3ZszYHvOcl2DaA==
+X-Received: by 2002:a17:906:dc8f:b0:a7d:88c4:2897 with SMTP id a640c23a62f3a-a8078fef41cmr230132166b.2.1723045192458;
+        Wed, 07 Aug 2024 08:39:52 -0700 (PDT)
+From: Matthew Barnes <matthew.barnes@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Matthew Barnes <matthew.barnes@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH v2] x86/emul: Fix misaligned IO breakpoint behaviour in PV guests
+Date: Wed,  7 Aug 2024 16:39:37 +0100
+Message-Id: <4219d12fcd075635c8c2548c5d14471642af3038.1723045077.git.matthew.barnes@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/msi: fix locking for SR-IOV devices
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-References: <20240807052011.582099-1-stewart.hildebrand@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240807052011.582099-1-stewart.hildebrand@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.08.2024 07:20, Stewart Hildebrand wrote:
-> --- a/xen/arch/x86/msi.c
-> +++ b/xen/arch/x86/msi.c
-> @@ -662,7 +662,8 @@ static int msi_capability_init(struct pci_dev *dev,
->      return 0;
->  }
->  
-> -static u64 read_pci_mem_bar(u16 seg, u8 bus, u8 slot, u8 func, u8 bir, int vf)
-> +static u64 read_pci_mem_bar(struct pci_dev *pdev, u16 seg, u8 bus, u8 slot,
-> +                            u8 func, u8 bir, int vf)
->  {
+When hardware breakpoints are configured on misaligned IO ports, the
+hardware will mask the addresses based on the breakpoint width during
+comparison.
 
-First I thought this was a leftover from the earlier version. But you need
-it for accessing the vf_rlen[] field. Yet that's properly misleading,
-especially when considering that the fix also wants backporting. What pdev
-represents here changes. I think you want to pass in just vf_rlen (if we
-really want to go this route; I'm a little wary of this repurposing of the
-field, albeit I see no real technical issue).
+For PV guests, misaligned IO breakpoints do not behave the same way, and
+therefore yield different results.
 
-Of course there's a BUILD_BUG_ON() which we need to get creative with, in
-order to now outright drop it (see also below).
+This patch tweaks the emulation of IO breakpoints for PV guests such
+that they reproduce the same behaviour as hardware.
 
-> @@ -670,19 +671,15 @@ static u64 read_pci_mem_bar(u16 seg, u8 bus, u8 slot, u8 func, u8 bir, int vf)
->  
->      if ( vf >= 0 )
->      {
-> -        struct pci_dev *pdev = pci_get_pdev(NULL,
-> -                                            PCI_SBDF(seg, bus, slot, func));
-> +        pci_sbdf_t pf_sbdf = PCI_SBDF(seg, bus, slot, func);
+Fixes: bec9e3205018 ("x86: emulate I/O port access breakpoints")
+Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+---
+Changes in v2:
+- Refactor breakpoint port masking to be more succinct
+- Add 'Fixes' line to commit message
+---
+ xen/arch/x86/pv/emul-priv-op.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I think this wants naming just "sbdf" and moving to function scope. There
-are more places in the function which, in a subsequent change, could also
-benefit from this new local variable.
+diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
+index f101510a1bab..aa11ecadaac0 100644
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -346,6 +346,8 @@ static unsigned int check_guest_io_breakpoint(struct vcpu *v,
+         case DR_LEN_8: width = 8; break;
+         }
+ 
++        start &= ~(width - 1UL);
++
+         if ( (start < (port + len)) && ((start + width) > port) )
+             match |= 1u << i;
+     }
+-- 
+2.34.1
 
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -654,6 +654,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->      const char *type;
->      int ret;
->      bool pf_is_extfn = false;
-> +    uint64_t vf_rlen[6] = { 0 };
-
-The type of this variable needs to be tied to that of the struct field
-you copy to/from. Otherwise, if the struct field changes type ...
-
-> @@ -664,7 +665,10 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->                              PCI_SBDF(seg, info->physfn.bus,
->                                       info->physfn.devfn));
->          if ( pdev )
-> +        {
->              pf_is_extfn = pdev->info.is_extfn;
-> +            memcpy(vf_rlen, pdev->vf_rlen, sizeof(pdev->vf_rlen));
-
-... there'll be nothing for the compiler to tell us. Taken together with
-the BUILD_BUG_ON() related remark further up, I think you want to
-introduce a typedef and/or struct here to make things properly typesafe
-(as then you can avoid the use of memcpy()).
-
-Seeing the conditional we're in, what if we take ...
-
-> +        }
->          pcidevs_unlock();
->          if ( !pdev )
->              pci_add_device(seg, info->physfn.bus, info->physfn.devfn,
-
-... this fallback path?
-
-> @@ -700,7 +704,10 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->           * extended function.
->           */
->          if ( pdev->info.is_virtfn )
-> +        {
->              pdev->info.is_extfn = pf_is_extfn;
-> +            memcpy(pdev->vf_rlen, vf_rlen, sizeof(pdev->vf_rlen));
-> +        }
->      }
-
-Similarly here - what if the enclosing if()'s condition is false? Even
-if these cases couldn't be properly taken care of, they'd at least need
-discussing in the description. In this context note how in a subsequent
-invocation of pci_add_device() for the PF the missing data in vf_rlen[]
-would actually be populated into the placeholder struct that the
-fallback invocation of pci_add_device() would have created. Yet the
-previously created VF's struct wouldn't be updated (afaict). This was,
-iirc, the main reason to always consult the PF's ->vf_rlen[].
-
-An alternative approach might be to add a link from VF to PF, while
-making sure that the PF struct won't be de-allocated until all its VFs
-have gone away. That would then also allow to eliminate the problematic
-pci_get_pdev().
-
-Jan
 
