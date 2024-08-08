@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A78F94B7F1
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 09:34:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773744.1184182 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2B4694B839
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 09:50:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773753.1184192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbxf6-0004wv-Sk; Thu, 08 Aug 2024 07:34:16 +0000
+	id 1sbxtv-0007dc-2A; Thu, 08 Aug 2024 07:49:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773744.1184182; Thu, 08 Aug 2024 07:34:16 +0000
+Received: by outflank-mailman (output) from mailman id 773753.1184192; Thu, 08 Aug 2024 07:49:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbxf6-0004vG-Py; Thu, 08 Aug 2024 07:34:16 +0000
-Received: by outflank-mailman (input) for mailman id 773744;
- Thu, 08 Aug 2024 07:34:15 +0000
+	id 1sbxtu-0007ax-VM; Thu, 08 Aug 2024 07:49:34 +0000
+Received: by outflank-mailman (input) for mailman id 773753;
+ Thu, 08 Aug 2024 07:49:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gzZp=PH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sbxf5-0004vA-KC
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 07:34:15 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1sbxtt-0007ar-Qa
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 07:49:33 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9c8e5a94-5558-11ef-bc04-fd08da9f4363;
- Thu, 08 Aug 2024 09:34:14 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5a309d1a788so616204a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 00:34:14 -0700 (PDT)
+ id bfcb38b7-555a-11ef-bc04-fd08da9f4363;
+ Thu, 08 Aug 2024 09:49:32 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5b8c2a61386so793775a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 00:49:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9bc3c4fsm713666766b.33.2024.08.08.00.34.13
+ 4fb4d7f45d1cf-5bbb2d34a69sm369770a12.70.2024.08.08.00.49.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Aug 2024 00:34:13 -0700 (PDT)
+ Thu, 08 Aug 2024 00:49:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c8e5a94-5558-11ef-bc04-fd08da9f4363
+X-Inumbo-ID: bfcb38b7-555a-11ef-bc04-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723102454; x=1723707254; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723103372; x=1723708172; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FvbSpkbhROaKt0ZoBbzbmF66E7ChOpZajBTvXGE0qWg=;
-        b=Pdf+/tLKbIyg3uHuP+/tXGou3wdnNE8bGFBXGkq67TbG+X8YIGJNHoZGXBv/ACcmUK
-         B16HkLdy1U3gUs11GD4tJr7Jzflco81lkYpdUZAeWMzVX9FC7vOh0DF/HbsyZYViYd8/
-         zxBi54rTZMua0kEm93DeawwxCs8uMBN4evJn1n3cD0QUk/rTn3z/BjmpviZ4C7DZxvan
-         rgYiiZ8RGV55WpCxoSG/j4NMo6lU/W3BMcGpXB2uokpWxjFFg4padB3a5EmcU3tyH31p
-         P8vSYuAIEHqnVSyr9UutRG92MWn4fnq+D/DJhAf36ZeU+BPyvAThdfV0E/OMi2ZilQJn
-         fHqA==
+        bh=dy+N9f0P7qZ431Chc19ivswpPwLGLpvsx4lm/PF1zX8=;
+        b=bSgJ5NkoB7jyJz6d5WVbaE9zC603pmRHFGfM+qq/JYSQmjYYJgfCI5d8wLVtdnR0B8
+         BZMDDvgqEHcvAZLBMWJBBtiDU6Jeq+in0hC/19ndifpby03pIXU1qnTJU5GRO68/kG8p
+         II0lixVk6o8Ynn5fcIPcSbDpCK461jTSFZjLhUGXzvRSLY3RvR6BQx8q8LyA4Sez6x/x
+         OxWjz6ar8JC22TfrEfca55M1HvSCmrBGx/hrmD9sKmGGOWdSGJsS4EaSRj1Uq6hS4WSd
+         H+ABW1Ld0nuPUwXg8X2vXjGxLtJHRP5dUGoFIPbpRjZEVVM24jwXjk4msuLRTd1gGqhQ
+         0skw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723102454; x=1723707254;
+        d=1e100.net; s=20230601; t=1723103372; x=1723708172;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FvbSpkbhROaKt0ZoBbzbmF66E7ChOpZajBTvXGE0qWg=;
-        b=HPbeyYnhWEZeP7MWJ5moMAAYVMJA9F8DsTJFbjI7qhVqaYIcAIFtyWIhu4CKwsktmH
-         xuqKAe7n9moNSkVzcfzY94bdmStUYL0/W0lT98KQh6Vdu+MSlgf44ebmZ2pmQVYDQrMi
-         0bOKUrBxPKAlK0FYL+gNCCvuMG2zE8EkvFyOJQr8dQ9xkg01hhgOpvtePVKI4y9rXouC
-         Q9C6R/le3iDHWSQqICW1s0nFeKz91jVyKpJvyhxWCG3K3nPxxjE8iBoD4XZVx2S+5+A2
-         0IoMtjgq9W0Z8UYqj77Q62xdtK7r7T8Ap8k6wl0q83KU1yaPzh78m3rNhYf5is84c6Jv
-         lc/A==
-X-Forwarded-Encrypted: i=1; AJvYcCVZlyIjcAOoOmGkUDDwOZfSoRMb1FJGXZtDJklbi5WToL9mvhCnwPkGwWX56lQSOXKkU65QMq0+dhot24riXuMOnEqhXuUfXPiygzCMjmQ=
-X-Gm-Message-State: AOJu0Yzt8nSURa/VSLkE05/h/jNBBRsZU5PnzguSZo0wBvOAY8rxBwAR
-	eSdslWbvPXNimbmoJUH/D5XVKu97Nxgnh+I0dyvNx/wSHlozwrtiRaHILGyiUQ==
-X-Google-Smtp-Source: AGHT+IEO0e2aAnHSJQ8Q3xHrwm7bYfM0DFHfQrEC03pasgqcdlWv3LhgQt4X3tK+4UxXGpzleX3ngg==
-X-Received: by 2002:a17:907:f714:b0:a7a:9f0f:ab2b with SMTP id a640c23a62f3a-a8090db15e6mr64311566b.32.1723102453621;
-        Thu, 08 Aug 2024 00:34:13 -0700 (PDT)
-Message-ID: <ad72cc97-b9dd-4e7e-93f6-333805e40785@suse.com>
-Date: Thu, 8 Aug 2024 09:34:12 +0200
+        bh=dy+N9f0P7qZ431Chc19ivswpPwLGLpvsx4lm/PF1zX8=;
+        b=ln8XhIyECXbvS5228cPrUYmjiSs0oFEYa3gc1GT9wv8n+WE5Aira/Rx6SDpJqt0ExT
+         P2XJgmHsuSph9LR1/71zLxQmqfhsFL3zYMcOimRlcePbxQXqJ8oSKBqpYQbZYpyRPE+Q
+         OW6n9kZ3r82xeP1+5CP/6GdhvVyxa0ZgzYg0hRApzvjvR0TeVU1Bo7JTgKi4u1HBjfa+
+         D5GlYjkEjoAFkadzaxBvdDF9CBxsFidE/guad2W3nSy28UPqRaWd13e2tgWNj6a11yVm
+         z+lXPi3jtYHNJNw0FDz6mL3De9XY8d5i1E9mpU9ExGhzh5i06QbaikG4dU6oekL5kPUy
+         NSUA==
+X-Forwarded-Encrypted: i=1; AJvYcCWuyqfNjleaNOTB3uiNO3i8cfAiUvknkMz2e/86p/3POdIMZgnxfoS3bGcU+tryF8MnccWfCWAaVfsaz/hPkZrR38/gl3hjWGSEINLVypw=
+X-Gm-Message-State: AOJu0Yx19CDDaaVZX1dnfRUm1JW0vYb/bYd6MiFJMjY8y5pcblpxLnNY
+	gldbQo3QoKoXGA7pyQYMVZVwPhWgUKlI0p/oFiAktaog+z3mTC57T6Sg+1w98Q==
+X-Google-Smtp-Source: AGHT+IFr/U85rnSIZALNdBIx2UOvzx6GmS6M3+hn2qhYW+AXAGBJm3ri3YpVysrhcusy8Xiajp0TNQ==
+X-Received: by 2002:a05:6402:1d4d:b0:578:60a6:7c69 with SMTP id 4fb4d7f45d1cf-5bbb23def27mr701785a12.30.1723103371677;
+        Thu, 08 Aug 2024 00:49:31 -0700 (PDT)
+Message-ID: <7f1e17dd-d105-4f6c-87d3-69f3dca4ab82@suse.com>
+Date: Thu, 8 Aug 2024 09:49:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] x86: Put trampoline in .init.data section
+Subject: Re: [PATCH 2/5] x86: Fix early output messages in case of EFI
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
  Frediano Ziglio <frediano.ziglio@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
- <20240807134819.8987-2-alejandro.vallejo@cloud.com>
+ <20240807134819.8987-3-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,49 +114,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240807134819.8987-2-alejandro.vallejo@cloud.com>
+In-Reply-To: <20240807134819.8987-3-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 07.08.2024 15:48, Alejandro Vallejo wrote:
-> This change allows to put the trampoline in a separate, not executable
-> section. The trampoline contains a mix of code and data (data which
-> is modified from C code during early start so must be writable).
-> This is in preparation for W^X patch in order to satisfy UEFI CA
-> memory mitigation requirements.
+> If code is loaded by EFI the loader will relocate the image
+> under 4GB.
 
-Which, aiui, has the downside of disassembly of the section no longer
-happening by default, when using objdump or similar tools, which go from
-section attributes. Why is it being in .init.text (and hence RX) not
-appropriate? It should - in principle at least - be possible to avoid
-all in-place writing to it, but instead only ever write to its relocated
-copy. Quite a bit more code churn of course.
+This is the MB2 EFI path you're talking about? Since there are two paths,
+I think this needs clearly separating in all descriptions.
 
-I wonder if we shouldn't put the trampoline in its own section, RWX in
-the object file, and switched to whatever appropriate in the binary
-(which really may be RX, not RW).
+If it is the MB2 path, then "relocate" isn't quite correct, I think:
+Relocations aren't applied in that case, as none are present in xen.gz.
+I'd rather call this "put at an address below 4G". However, that isn't
+any different from the non-EFI MB1/2 paths, is it? I feel like I'm
+missing something here.
 
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -870,6 +870,8 @@ cmdline_parse_early:
->  reloc:
->          .incbin "reloc.bin"
->  
-> +        .section .init.data, "aw", @progbits
-> +        .align 4
+> This cause offsets in x86 code generated by
+> sym_offs(SYMBOL) to be relocated too (basically they won't be
+> offsets from image base). In order to get real offset the
+> formulae "sym_offs(SYMBOL) - sym_offs(__image_base__)" is
+> used instead.
 
-Is the .align really needed here? I think ...
+The main calculations of %esi are, if I'm not mistaken,
 
->  ENTRY(trampoline_start)
+        /* Store Xen image load base address in place accessible for 32-bit code. */
+        lea     __image_base__(%rip),%esi
 
-... ENTRY() covers this properly? And actually in a better way, using
-CODE_FILL (which ultimately we will want to switch from 0x90 to 0xcc, I
-suppose) rather than whatever the assembler puts in by default for data
-sections.
+and
+
+        /* Calculate the load base address. */
+        call    1f
+1:      pop     %esi
+        sub     $sym_offs(1b), %esi
+
+i.e. both deliberately %rip-relative to be position-independent. What's
+wrong with this?
+
+There are many more uses of sym_esi(). Why is it only this single one
+which poses a problem?
+
+> Also, in some case %esi register (that should point to
+> __image_base__ addresss) is not set so compute in all cases.
+
+Which "some case" is this?
+
+> Code tested forcing failures in the code.
+> 
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+
+No Fixes: tag?
 
 Jan
-
->  #include "trampoline.S"
->  ENTRY(trampoline_end)
-
 
