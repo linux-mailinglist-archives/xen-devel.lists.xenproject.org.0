@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9FF194B9B3
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 11:30:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773800.1184233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B5E994B9C4
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 11:37:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773811.1184246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbzSf-0000O1-Mk; Thu, 08 Aug 2024 09:29:33 +0000
+	id 1sbzZn-0002QG-F8; Thu, 08 Aug 2024 09:36:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773800.1184233; Thu, 08 Aug 2024 09:29:33 +0000
+Received: by outflank-mailman (output) from mailman id 773811.1184246; Thu, 08 Aug 2024 09:36:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbzSf-0000Lw-Jd; Thu, 08 Aug 2024 09:29:33 +0000
-Received: by outflank-mailman (input) for mailman id 773800;
- Thu, 08 Aug 2024 09:29:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gzZp=PH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sbzSe-0000Lq-Pl
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 09:29:32 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6dfd453-5568-11ef-8776-851b0ebba9a2;
- Thu, 08 Aug 2024 11:29:30 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5b3fff87e6bso775236a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 02:29:30 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bbb2bf962dsm448854a12.15.2024.08.08.02.29.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Aug 2024 02:29:29 -0700 (PDT)
+	id 1sbzZn-0002NI-Bi; Thu, 08 Aug 2024 09:36:55 +0000
+Received: by outflank-mailman (input) for mailman id 773811;
+ Thu, 08 Aug 2024 09:36:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vpfq=PH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1sbzZl-0002NC-LZ
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 09:36:53 +0000
+Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
+ [2607:f8b0:4864:20::c32])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bddd4c8d-5569-11ef-bc04-fd08da9f4363;
+ Thu, 08 Aug 2024 11:36:52 +0200 (CEST)
+Received: by mail-oo1-xc32.google.com with SMTP id
+ 006d021491bc7-5d5c324267aso407750eaf.0
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 02:36:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,210 +40,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6dfd453-5568-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: bddd4c8d-5569-11ef-bc04-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723109370; x=1723714170; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=np7STbx2lMKh44IZp2I+buIAIwrFbrKnBvYJBYd/X8s=;
-        b=HSIUxB9IoUp8BLrdQKb0tPZCd0Te6cavij3FCWfLEQniiYPWX9EaC4qobV73V3soSj
-         X196uhuP53QZ4B4YKxW7XwvB/sfud/C6sqKsfsZZXpQZfG7lZtOgAgiQbfsDeo+6BF/V
-         h6H7IE6Vh1+q+FO37ODhCt1zSL4fEtRIOeQoLrgt73pDFx9GeKU95fetZVZmxS8WJ9uB
-         SmnQ/gMUMHDZ08zp+1AXuNKV+nsjMtXm7HNMbNzFRoNg6VJKykvZ+O1me83N9bvn2y/d
-         ZSUYYTrRo8K7Dat1dciNGnH9WOLdplGn4dolmAqW64dlW+X8AlEklCGgr4n25Mze5L8T
-         gNeg==
+        d=cloud.com; s=cloud; t=1723109811; x=1723714611; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BAaPz5K8D2s3Jt9n5ajrSs4DeRMUrIEj3bmYYi/KbZM=;
+        b=IUF8Als1puJw5I4BkgBgclMDS2Bod6s0u8rb5QIN7X+v9oWTcK5ru6rV94eEqQJRGh
+         Npe0h/cDnBVSntJY/spoomss2Lu9XJYwpviRx5Zul1HWvf0jG8ePUmZMQ3stozboLysj
+         M/0XdHWHZsPR8eU1PXyJ/Iepoy0b020KOJrII=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723109370; x=1723714170;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=np7STbx2lMKh44IZp2I+buIAIwrFbrKnBvYJBYd/X8s=;
-        b=DSAZAvhGle8TPUg+DoPlGGoE4JA48ThXdHEfG6ZMUmvX4v1kj8zZFiIochU2Hd39ZT
-         QDGWFgVBcuaKQPuKPTtpdosHawHmjq97WYC5rJEnMbqEJXJOxBvm2BVSftGlcBQZ/ean
-         3vpfi0bUBq80Lbc69BKstDb0vBeNvtGgRKgvNV2sdVuLp5JZrzOs5q11emhuyCHzzfWg
-         2wgKvR50qPCcPqy0g9F4y321gV8VrtC1t6bcCDP8fppB6PMLlO2YUA73X+rHzGFct0y9
-         59WSXFH/9yFOf086gpY8hLm1C+KSNxRfqJ1C5avbg33hi9jwIiM664GQbBbW2yQOH6jx
-         E8Uw==
-X-Gm-Message-State: AOJu0Yz76DHy0hDiIIg9H2XpPADOO3iB/JOjsymmmxfakVOZRHmI582f
-	90eDWJJlDijGa+F98zs8ITF4bhkLZ1FuvSrTaFS9DflAGxnQpioMLEmF9hFDS+zq5xv9bqCqP54
-	=
-X-Google-Smtp-Source: AGHT+IFK9ep32stWhgWOYotxk8xMsHwkVWyrvn+Eq6X8aOgVvO838LzZanFjU5vKI6oie3Xzol8dwQ==
-X-Received: by 2002:a05:6402:34cb:b0:5af:874d:1b7b with SMTP id 4fb4d7f45d1cf-5bbb218dfadmr1110563a12.1.1723109369836;
-        Thu, 08 Aug 2024 02:29:29 -0700 (PDT)
-Message-ID: <bd4c8ef5-a6bb-42ae-9b69-c3d14eeac55e@suse.com>
-Date: Thu, 8 Aug 2024 11:29:29 +0200
+        d=1e100.net; s=20230601; t=1723109811; x=1723714611;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BAaPz5K8D2s3Jt9n5ajrSs4DeRMUrIEj3bmYYi/KbZM=;
+        b=AQs24vjj1WFHpPT4IMieorXDDCJNfJT7gclFHu/7j2yNp9Kut1ixtfsiYy6EEP1K+T
+         2fNNt2l6kFiXzPjNKzTi0OaoQibJUPdRd5jkTaWY/YZmah+UJyoRu41pjb6n9Z/TOT0Z
+         nhS+HcasdWCewgYBr+Y3l/yMt+l5UFDJg5fepX4lTuPr3fWYSQlUquaa3/14Kh9k/Alk
+         VPEWRlPPfDD2+rr3GwBFF64/GyelpmmtY2J8QKvtXk9Y9ApRUQCtpgB5qujLmQKXC2vp
+         R7SkzQOmOXYI6964LZpr5eBZtun6g5qvIu9ONM1RdIML5yLuXgofCsrtjUCB+aGoKV18
+         zofg==
+X-Gm-Message-State: AOJu0Yz4E0F0xTa5ZVufyqv64MWq1YWyEfjCWUgL6zgk7G9UL70KXDu1
+	G7/3E4P3bknpzXWawYQn0EEpay1iJpUePz0Sz6Z4EP9X0sMIbMwEo4PRPWpWOsVe3XHbb1hBNZw
+	4OThmbRKuc+qJhdFeBap+j1xu+QnrSgFS4rONEg==
+X-Google-Smtp-Source: AGHT+IF0BDU9dAFRJtIpY1RiU947qjI0XkobVCwvkMhhxD+ukjd0b12fUfZ24Vgg92HUKPhqqDcmPQesgmXOdNKCSmw=
+X-Received: by 2002:a05:6820:1e8b:b0:5d8:750:21b with SMTP id
+ 006d021491bc7-5d8559e5bd7mr1283914eaf.1.1723109811101; Thu, 08 Aug 2024
+ 02:36:51 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] x86: Fix early output messages in case of EFI
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
- <20240807134819.8987-3-alejandro.vallejo@cloud.com>
- <7f1e17dd-d105-4f6c-87d3-69f3dca4ab82@suse.com>
- <CACHz=ZjYdBcB_S1tpXpuRQDKGAKY=SrgTEy8_0Wyq_q+bOBfHg@mail.gmail.com>
-Content-Language: en-US
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZjYdBcB_S1tpXpuRQDKGAKY=SrgTEy8_0Wyq_q+bOBfHg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <f2186827-62e6-4b24-8a6c-0c2a9499c232@suse.com>
+In-Reply-To: <f2186827-62e6-4b24-8a6c-0c2a9499c232@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Thu, 8 Aug 2024 10:36:40 +0100
+Message-ID: <CACHz=ZiSJxdv_jVuE8sq6=JVcpXerKD0-TJxvium++8jpQEnsw@mail.gmail.com>
+Subject: Re: [PATCH] x86: slightly simplify MB2/EFI "magic" check
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-(re-adding xen-devel@)
+On Thu, Aug 8, 2024 at 9:49=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> A few dozen lines down from here we repeatedly use a pattern involving
+> just a single (conditional) branch. Do so also when checking for the
+> boot loader magic value.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> I further question the placement of the clearing of vga_text_buffer,
+> just out of context: Shouldn't that be placed with the increments of
+> efi_platform and skip_realmode? Or else is the terminology in comments
+> ("on EFI platforms") wrong in one of the two places? In the end, if we
+> are entered at __efi64_mb2_start but the magic doesn't match, we simply
+> don't know what environment we're in. There may or may not be a VGA
+> console at the default address, so we may as well (try to) write to it
+> (just like we do when entered at start).
+>
 
-On 08.08.2024 10:33, Frediano Ziglio wrote:
-> On Thu, Aug 8, 2024 at 8:49 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 07.08.2024 15:48, Alejandro Vallejo wrote:
->>> If code is loaded by EFI the loader will relocate the image
->>> under 4GB.
->>
->> This is the MB2 EFI path you're talking about? Since there are two paths,
->> I think this needs clearly separating in all descriptions.
->>
->> If it is the MB2 path, then "relocate" isn't quite correct, I think:
->> Relocations aren't applied in that case, as none are present in xen.gz.
->> I'd rather call this "put at an address below 4G". However, that isn't
->> any different from the non-EFI MB1/2 paths, is it? I feel like I'm
->> missing something here.
->>
-> 
-> Yes, xen.gz has no relocation, but xen.efi has them,
+I don't think __efi64_mb2_start should be ever get called by anything
+else than multiboot2. Was EFI supported by multiboot version 1 maybe?
+As far as I can see we will print an error and halt the machine so we
+expect something really wrong to have happened.
+We could indeed be in a position where we have VGA available. Or EFI?
+Or not? As said something really weird and unexpected happened. Maybe
+the safer way would be to print on serial and try to print on VGA in
+this case. At the moment we mix the 2 prints (each character is
+duplicated), printing all message to serial and then trying to print
+all message to VGA and then halt could be an option.
 
-Of course, I know. I was the one to actually add them, after all. But:
-Are you (silently) adding a 4th way of booting Xen, using xen.efi yet
-not its PE-header-specified entry point? So far we had three ways only:
-Non-EFI (xen.gz:start), native EFI (xen.efi:efi_start), and GrUB2+EFI
-(xen.gz:__efi64_mb2_start). You effectively suggest GrUB2+EFI
-(xen.efi:__efi64_mb2_start), if I'm not mistaken. Where is such a mode
-even specified? When using the MB2 entry point, it's not obvious at all
-whether the boot loader is even supposed to be respecting the .reloc
-section of the PE binary (imo that's contrary to the original idea of
-multiboot).
+> --- a/xen/arch/x86/boot/head.S
+> +++ b/xen/arch/x86/boot/head.S
+> @@ -233,13 +233,11 @@ __efi64_mb2_start:
+>
+>          /* Check for Multiboot2 bootloader. */
+>          cmp     $MULTIBOOT2_BOOTLOADER_MAGIC,%eax
+> -        je      .Lefi_multiboot2_proto
+>
+>          /* Jump to .Lnot_multiboot after switching CPU to x86_32 mode. *=
+/
+>          lea     .Lnot_multiboot(%rip), %r15
+> -        jmp     x86_32_switch
+> +        jne     x86_32_switch
+>
 
-> Normally probably you are using xen.gz instead of xen.efi however we
-> are adding multiboot with PE support and secure boot so we need to use
-> PE format for signing.
+It looks good to me. Maybe a bit less readable.
 
-Note how here is the first time that you actually mention you're adding
-a new boot mode. That's quite relevant as context for the entire series,
-I would say.
+> -.Lefi_multiboot2_proto:
+>          /* Zero EFI SystemTable, EFI ImageHandle addresses and cmdline. =
+*/
+>          xor     %esi,%esi
+>          xor     %edi,%edi
+>
 
->>> This cause offsets in x86 code generated by
->>> sym_offs(SYMBOL) to be relocated too (basically they won't be
->>> offsets from image base). In order to get real offset the
->>> formulae "sym_offs(SYMBOL) - sym_offs(__image_base__)" is
->>> used instead.
->>
->> The main calculations of %esi are, if I'm not mistaken,
->>
->>         /* Store Xen image load base address in place accessible for 32-bit code. */
->>         lea     __image_base__(%rip),%esi
->>
-> 
-> Which is correct
-> 
->> and
->>
->>         /* Calculate the load base address. */
->>         call    1f
->> 1:      pop     %esi
->>         sub     $sym_offs(1b), %esi
->>
->> i.e. both deliberately %rip-relative to be position-independent. What's
->> wrong with this?
->>
-> 
-> This can be wrong if sym_offs(1b) was relocated and not patched by
-> efi_arch_relocate_image.
-
-Of course, if in the course of GrUB's loading of xen.efi base relocations
-are applied (unlike when loading an ELF binary, where afaik base relocs
-would be ignored, even if there were any), then this calculation is of
-course going to be wrong. Can't we correct it though, to properly resemble
-PIC code:
-
-        /* Calculate the load base address. */
-        call    1f
-1:      pop     %esi
-        sub     1b - start, %esi
-
-or (because start is in a different section):
-
-        /* Calculate the load base address. */
-        call    1f
-1:      pop     %esi
-        sub     $sym_offs(1b), %esi
-        add     $sym_offs(start), %esi
-
-(or something along these lines)?
-
-> Consider .Lnot_multiboot label call, here we didn't set %esi and in my
-> case (GRUB using PE) the EFI version was used.
-
-How does %esi matter at .Lnot_multiboot? It starts mattering from
-x86_32_switch onwards, and it is being set there.
-
->> There are many more uses of sym_esi(). Why is it only this single one
->> which poses a problem?
-> 
-> Because potentially %esi is not set (see above example, but better to
-> make sure is always valid) and becase potentially for EFI code is
-> relocated.
-> IMO stripping relocation and calling C code (like efi_multiboot2)
-> supposed to be execute at a different location is a bomb waiting to
-> explode.
-
-Yet that has been working fine for xen.gz? There definitely is a risk,
-but that risk isn't new afaict.
-
->>> Also, in some case %esi register (that should point to
->>> __image_base__ addresss) is not set so compute in all cases.
->>
->> Which "some case" is this?
-> 
-> In __efi64_mb2_start path there are some. Note that we use %rsi for
-> different purposes there.
-
-All cases there where %esi would matter branch to x86_32_switch first
-afaics. As mentioned, %esi is being set one of the first things after
-the x86_32_switch label.
-
->>> Code tested forcing failures in the code.
->>>
->>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
->>
->> No Fixes: tag?
-> 
-> Not sure here, should I open some ticker and refer to it?
-
-Well, now that I learned that you're trying to add a new boot mode,
-there's no need for a Fixes: tag. Yet the patch title then also
-shouldn't say "Fix" - that made it look like you're addressing some
-problem with one of the existing boot modes we have.
-
-Jan
+Frediano
 
