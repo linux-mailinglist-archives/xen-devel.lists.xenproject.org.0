@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C1D494BB12
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 12:32:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773881.1184315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81CBF94BB47
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 12:37:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773892.1184326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sc0Ql-0007CH-Oi; Thu, 08 Aug 2024 10:31:39 +0000
+	id 1sc0Vf-0007xY-AQ; Thu, 08 Aug 2024 10:36:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773881.1184315; Thu, 08 Aug 2024 10:31:39 +0000
+Received: by outflank-mailman (output) from mailman id 773892.1184326; Thu, 08 Aug 2024 10:36:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sc0Ql-0007Ap-M0; Thu, 08 Aug 2024 10:31:39 +0000
-Received: by outflank-mailman (input) for mailman id 773881;
- Thu, 08 Aug 2024 10:31:38 +0000
+	id 1sc0Vf-0007w3-7R; Thu, 08 Aug 2024 10:36:43 +0000
+Received: by outflank-mailman (input) for mailman id 773892;
+ Thu, 08 Aug 2024 10:36:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6I4s=PH=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1sc0Qj-0007Aj-OR
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 10:31:38 +0000
-Received: from fhigh2-smtp.messagingengine.com
- (fhigh2-smtp.messagingengine.com [103.168.172.153])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gzZp=PH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sc0Vd-0007uh-6u
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 10:36:41 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61b583d2-5571-11ef-bc04-fd08da9f4363;
- Thu, 08 Aug 2024 12:31:34 +0200 (CEST)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailfhigh.nyi.internal (Postfix) with ESMTP id A269C1146C2A;
- Thu,  8 Aug 2024 06:31:32 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Thu, 08 Aug 2024 06:31:32 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 8 Aug 2024 06:31:31 -0400 (EDT)
+ id 18841c8a-5572-11ef-bc04-fd08da9f4363;
+ Thu, 08 Aug 2024 12:36:39 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a7aa4bf4d1eso108034766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 03:36:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc9ec8884sm725231766b.193.2024.08.08.03.36.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Aug 2024 03:36:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,224 +45,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61b583d2-5571-11ef-bc04-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm3; t=1723113092; x=1723199492; bh=MX
-	44/EWhOUxV2E2PRqPcKlXwkRrpynBXksdVpdffh/o=; b=Sfzg6hgXJ1wKHB9P/L
-	+Fel/YzCpIfhYgYm/2ItWvfwPJRzbHti4ZIUPmVBCvaZYLlnjPW78aHFUpWsZHbT
-	AQFOU/RWjxM6F6StxaKYPoC1+4vrR0qLmazfcnUbwHfjwN3RwJEM5bEgs5ZnNm0H
-	xTJFKOoSAFqgkGVH5ovD73lTbj5iD9eL4Ic0rzxqBzRK5VdKcoSn6rliFrmiELtr
-	AKBpksKgFzOvPgG+q6TpguvENTi0KzaZN4dGXsTVxAgduGWkBUy2GiftfpIUAaRZ
-	jhfAxdGXdFukphepXXQegqdObXN2T2/bIaDGSLw8tyRGwPzO3SC32ECMMAO9yqBk
-	QzMg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1723113092; x=1723199492; bh=MX44/EWhOUxV2E2PRqPcKlXwkRrpynBXksd
-	Vpdffh/o=; b=k+p26n/Y3/RUqrhpgNcikgQf5f/0GmeD7IPqTmvi+EofKyVm734
-	TjADUpCWWvFZ4nnMnivCcpEeT0oo2gaG4HZjhUrU1v1aXSh8LJAV6Sw/OPzUd/08
-	2D9isZCEol7pojvle//jXE8IiuHe2WfwSbfpnpgDepAzvyuWlegADrCXODsK6nsy
-	pELW6o4IxH/nlkux0dirrP9xlfY7N+3Nul0CCHZCfObUEALteAfMORVf4vSn9ZLN
-	dgjLWzzsy4RZIiklUQcsw+fU4oUtAqDLcB1/Pot6UEXYJN4HPYjqC04bLsWQ4Xeo
-	CIkzNZm5MyjDY+Oao8IOZ+dTG6LZgtiAlQg==
-X-ME-Sender: <xms:hJ60ZgECmiSryqumJyj4CpKH6jbimkWZO4XJJrSfAK2Ywcq9QapKgQ>
-    <xme:hJ60ZpXcQfLAkcBNYklqZ206ZhST5MegOG5jP1QeTsVcSc3SE2PBvuVbXB1yT2AF3
-    XOn4KG7d2Aang>
-X-ME-Received: <xmr:hJ60ZqIh9djv6u8XbYmWzfoQ-HKLiFvPwxIpDnkdpKZ9Uy3e1OnJ-IA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrledvgddvlecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
-    tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
-    hsucdlqddutddtmdenucfjughrpeffhffvvefukfggtggusehgtderredttdejnecuhfhr
-    ohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmh
-    grrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrght
-    thgvrhhnpeehgfeuvdejkeeikeeludelteevfeegffegteefffetheetffduudejuedugf
-    dvteenucffohhmrghinhepqhhusggvshdqohhsrdhorhhgpdhgihhthhhusgdrtghomhen
-    ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmh
-    grrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphht
-    thhopeehpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlse
-    hlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehjghhrohhsshes
-    shhushgvrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrd
-    horhhgpdhrtghpthhtohepohhlvghkshgrnhgurhgpthihshhhtghhvghnkhhosegvphgr
-    mhdrtghomhdprhgtphhtthhopehrvghgrhgvshhsihhonhhssehlihhsthhsrdhlihhnuh
-    igrdguvghv
-X-ME-Proxy: <xmx:hJ60ZiFK0l7BtgmVhziBoIOkfp6sZckUZStschxVBC9zR2ytrNAj9w>
-    <xmx:hJ60ZmX60n78_jvGaZmsCaYL6EymfslYmknDzO1CJplaPCk3sIOfRA>
-    <xmx:hJ60ZlP3zXhYPP-iRvLbxHrdS2cOpZ6khrTYzNQBmp4UG7D2WJlYAw>
-    <xmx:hJ60Zt1xCOmu9eXBsSpXeM9hTXsFX4q4g77MOeNupKAK9lXM8tesBg>
-    <xmx:hJ60Zkx_sVU4AhNMumtRm3FetoBMlX98_yXouWAjz0O3_EO9Rt-3XwHY>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 8 Aug 2024 12:31:13 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	regressions@lists.linux.dev
-Subject: [REGRESSION] kernel NULL pointer dereference in xen-balloon with mem
- hotplug
-Message-ID: <ZrSecpuTN9zgtqYu@mail-itl>
+X-Inumbo-ID: 18841c8a-5572-11ef-bc04-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1723113399; x=1723718199; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PzDA/usYkved4BZbdw6J/ufK5oGICJQfOYw2WjQpl8A=;
+        b=eKyRSsGVw21zOaGDeo+SGLhjWlQKwCQGazm4mx+blsCo7acg9XUfa8PKVpGvquSM1Q
+         dwenQ7wBxmo0dCOdJvA6EGeAoTfVy2jIkqX3hpgUJxG8qEBCXyMftilD/EC1CHVhuXpk
+         wEyJ+cabHTpABZlyINNC5YzRNzyaqz8+NSd3tsgQRvaNqbjeCn0faozhbFF+fPpXvKD1
+         pLeJhaqtHIxn4/b/00KtAzzGVP+JaQ0dCnfPjwbW3HSE4kpxPPZM2a+GkNnN7l/vyPZh
+         uqHf+82SuoRq7xAPsVrz6QLM1KHhS6c8O4Bva51n0PKoiDB+PUzlhZKhsavR4M/Sw0A+
+         MLYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723113399; x=1723718199;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PzDA/usYkved4BZbdw6J/ufK5oGICJQfOYw2WjQpl8A=;
+        b=o4HHs/XEpHtX3kru91YAJOpgqUNcbsfhjN4PNNDvyleOhnyjmquCL21jBa/leoapaP
+         OyKxGHMTabjjj1Qq6K8QpeTTeNOnFJV6/Evy7yNiySPgmNYGQQh1XU0Kiq4clccCa28O
+         U7hO5k+kBg7eeHty618Q8uil2l86ZHrswQ69qf8atTCDpRwqUwxPg8NbdQ4NJjvI90Ya
+         KGJajtOkJYFQls7bNzG/ZWMHawU9WH6zwZv0hxjEirD0orBW7FJNyAGFajSJpMzlRBL2
+         HDErHjajHyxPJC2pU1v/n5/6n2uDKosvmmX895H/rTeHl+jdwsaXyrK7/r1jiOfRxl7N
+         FsXA==
+X-Forwarded-Encrypted: i=1; AJvYcCVTXwDVreXNNIZr6YTPMDMyBAqDIMPUoff6+HUKBOfzxmVvHSg1DzwjKwD02Lyp1rwMF/Felyr+Krsphe4wAG/MbCMTt6+8TwfGGidWpY0=
+X-Gm-Message-State: AOJu0YxP80tJ/K7+htzwsMHPMq/ca6lllVeJQd/FoA9VqaO6GWZubE3q
+	0t4aU6s4VdFw5NQuxuWWFZcuiQ/vhevYhB5Mv7IOnpfkYG5UTBiHak65L1pa1xF2xGT+osoJ4BM
+	=
+X-Google-Smtp-Source: AGHT+IEMTnYrws1JouxtNS0vn5DA4Doi61pLKO9PCaIXmrdlRv8i6zKbQv8n3mDxueDKMefy0pl9Jw==
+X-Received: by 2002:a17:907:944c:b0:a7a:c083:8575 with SMTP id a640c23a62f3a-a80907c97e5mr94279066b.0.1723113399146;
+        Thu, 08 Aug 2024 03:36:39 -0700 (PDT)
+Message-ID: <68a1b0cf-24a4-49a2-a398-6fa56a6bcdc3@suse.com>
+Date: Thu, 8 Aug 2024 12:36:38 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="kt7u1tiUe8A/rt3t"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] x86: Rollback relocation in case of EFI multiboot
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
+ <20240807134819.8987-6-alejandro.vallejo@cloud.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240807134819.8987-6-alejandro.vallejo@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 07.08.2024 15:48, Alejandro Vallejo wrote:
+> --- a/xen/arch/x86/boot/head.S
+> +++ b/xen/arch/x86/boot/head.S
+> @@ -352,6 +352,7 @@ __efi64_mb2_start:
+>          and     $~15,%rsp
+>  
+>          /* Save Multiboot2 magic on the stack. */
+> +        shlq    $32, %rax
 
---kt7u1tiUe8A/rt3t
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 8 Aug 2024 12:31:13 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	regressions@lists.linux.dev
-Subject: [REGRESSION] kernel NULL pointer dereference in xen-balloon with mem
- hotplug
+As indicated for the earlier patch: No insn suffixes please when they're
+not actually needed to clarify operand size. (Or else at the very least
+be consistent and have suffixes everywhere. Comment applies throughout
+the patch.)
 
-Hi,
+Additionally there's some trickery going on here which absolutely needs
+commenting, at least lightly. Aiui ...
 
-When testing Linux 6.11-rc2, I've got the crash like below. It's a PVH
-guest started with 400MB memory, and then extended via mem hotplug (I
-don't know to what exact size it was at this time, but up to 4GB), it
-was quite early in the domU boot process, I suspect it could be the
-first mem hotplug even happening there.
-Unfortunately I don't have reliable reproducer, it crashed only once
-over several test runs. I don't remember seeing such crash before, so it
-looks like a regression in 6.11. I'm not sure if that matters, but it's
-on ADL, very similar to the qubes-hw2 gitlab runner.
+>          push    %rax
+>  
+>          /* Save EFI ImageHandle on the stack. */
+> @@ -382,11 +383,24 @@ __efi64_mb2_start:
+>          /* Just pop an item from the stack. */
+>          pop     %rax
+>  
+> -        /* Restore Multiboot2 magic. */
+> -        pop     %rax
 
-The crash message:
+... you eliminate this in favor of ...
 
-    [    3.606538] BUG: kernel NULL pointer dereference, address: 000000000=
-0000000
-    [    3.606556] #PF: supervisor read access in kernel mode
-    [    3.606568] #PF: error_code(0x0000) - not-present page
-    [    3.606580] PGD 0 P4D 0=20
-    [    3.606590] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
-    [    3.606603] CPU: 1 UID: 0 PID: 45 Comm: xen-balloon Not tainted 6.11=
-=2E0-0.rc2.1.qubes.1.fc37.x86_64 #1
-    [    3.606623] RIP: 0010:phys_pmd_init+0x96/0x500
-    [    3.606636] Code: 89 ed 48 c1 e8 12 48 81 e7 00 00 e0 ff 25 f8 0f 00=
- 00 4c 8d af 00 00 20 00 4c 8d 24 03 48 8b 1c 24 4c 39 fd 0f 83 89 02 00 00=
- <49> 8b 0c 24 48 f7 c1 9f ff ff ff 0f 84 b6 01 00 00 48 8b 05 d2 99
-    [    3.606680] RSP: 0018:ffffc90000987b90 EFLAGS: 00010287
-    [    3.606695] RAX: 0000000000000000 RBX: 8000000000000163 RCX: 0000000=
-000000004
-    [    3.606713] RDX: 0000000090000000 RSI: 0000000080000000 RDI: 0000000=
-080000000
-    [    3.606729] RBP: 0000000080000000 R08: 8000000000000163 R09: 0000000=
-000000001
-    [    3.606748] R10: 0000000000000000 R11: 0000000000ffff0a R12: 0000000=
-000000000
-    [    3.606766] R13: 0000000080200000 R14: 0000000000000000 R15: 0000000=
-090000000
-    [    3.606784] FS:  0000000000000000(0000) GS:ffff888018500000(0000) kn=
-lGS:0000000000000000
-    [    3.606802] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    [    3.606819] CR2: 0000000000000000 CR3: 00000000107bc000 CR4: 0000000=
-000750ef0
-    [    3.606840] PKRU: 55555554
-    [    3.606847] Call Trace:
-    [    3.606854]  <TASK>
-    [    3.606862]  ? __die+0x23/0x70
-    [    3.606876]  ? page_fault_oops+0x95/0x190
-    [    3.606887]  ? exc_page_fault+0x76/0x190
-    [    3.606900]  ? asm_exc_page_fault+0x26/0x30
-    [    3.606917]  ? phys_pmd_init+0x96/0x500
-    [    3.606927]  phys_pud_init+0xe8/0x4f0
-    [    3.606940]  __kernel_physical_mapping_init+0x1d5/0x380
-    [    3.606955]  ? synchronize_rcu_normal.part.0+0x45/0x70
-    [    3.606971]  init_memory_mapping+0xb0/0x1f0
-    [    3.606983]  arch_add_memory+0x2f/0x50
-    [    3.606997]  add_memory_resource+0xff/0x2c0
-    [    3.607008]  reserve_additional_memory+0x162/0x1d0
-    [    3.607026]  balloon_thread+0xe4/0x490
-    [    3.607041]  ? __pfx_autoremove_wake_function+0x10/0x10
-    [    3.607060]  ? __pfx_balloon_thread+0x10/0x10
-    [    3.607076]  kthread+0xcf/0x100
-    [    3.607090]  ? __pfx_kthread+0x10/0x10
-    [    3.607101]  ret_from_fork+0x31/0x50
-    [    3.607112]  ? __pfx_kthread+0x10/0x10
-    [    3.607123]  ret_from_fork_asm+0x1a/0x30
-    [    3.607135]  </TASK>
-    [    3.607141] Modules linked in: xenfs binfmt_misc nft_reject_inet nf_=
-reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nf_conntrack nf_defrag_ipv6 nf=
-_defrag_ipv4 nf_tables nfnetlink intel_rapl_msr intel_rapl_common intel_unc=
-ore_frequency_common crct10dif_pclmul crc32_pclmul crc32c_intel polyval_clm=
-ulni polyval_generic ghash_clmulni_intel sha512_ssse3 sha256_ssse3 sha1_sss=
-e3 xen_netfront xen_privcmd xen_gntdev xen_gntalloc xen_blkback xen_evtchn =
-loop fuse ip_tables overlay xen_blkfront
-    [    3.607266] CR2: 0000000000000000
-    [    3.607277] ---[ end trace 0000000000000000 ]---
-    [    3.607291] RIP: 0010:phys_pmd_init+0x96/0x500
-    [    3.607307] Code: 89 ed 48 c1 e8 12 48 81 e7 00 00 e0 ff 25 f8 0f 00=
- 00 4c 8d af 00 00 20 00 4c 8d 24 03 48 8b 1c 24 4c 39 fd 0f 83 89 02 00 00=
- <49> 8b 0c 24 48 f7 c1 9f ff ff ff 0f 84 b6 01 00 00 48 8b 05 d2 99
-    [    3.607356] RSP: 0018:ffffc90000987b90 EFLAGS: 00010287
-    [    3.607371] RAX: 0000000000000000 RBX: 8000000000000163 RCX: 0000000=
-000000004
-    [    3.607389] RDX: 0000000090000000 RSI: 0000000080000000 RDI: 0000000=
-080000000
-    [    3.607406] RBP: 0000000080000000 R08: 8000000000000163 R09: 0000000=
-000000001
-    [    3.607428] R10: 0000000000000000 R11: 0000000000ffff0a R12: 0000000=
-000000000
-    [    3.607449] R13: 0000000080200000 R14: 0000000000000000 R15: 0000000=
-090000000
-    [    3.607469] FS:  0000000000000000(0000) GS:ffff888018500000(0000) kn=
-lGS:0000000000000000
-    [    3.607488] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    [    3.607504] CR2: 0000000000000000 CR3: 00000000107bc000 CR4: 0000000=
-000750ef0
-    [    3.607525] PKRU: 55555554
-    [    3.607533] Kernel panic - not syncing: Fatal exception
-    [    3.607599] Kernel Offset: disabled
+> +        /* Prepare stack for relocation call */
+> +        subq    $16, %rsp
 
-Full domU log:
-https://openqa.qubes-os.org/tests/108883/file/system_tests-qubes.tests.inte=
-g.vm_qrexec_gui.TC_20_NonAudio_whonix-workstation-17.test_105.guest-test-in=
-st-vm2.log
-Other logs, including dom0 and Xen messages:
-https://openqa.qubes-os.org/tests/108883#downloads
+... using the low half of that stack slot here for the last function
+argument, then POPing %eax entirely elsewhere, in trampoline_efi_setup.
 
-Kernel config is build from merging
-https://github.com/QubesOS/qubes-linux-kernel/blob/005ae1ac3819d957379e48fb=
-2cfd33f511a47275/config-base
-with
-https://github.com/QubesOS/qubes-linux-kernel/blob/005ae1ac3819d957379e48fb=
-2cfd33f511a47275/config-qubes
-(options set in the latter takes precedence)
-Especially, it has:
-CONFIG_XEN_BALLOON_MEMORY_HOTPLUG=3Dy
-CONFIG_XEN_UNPOPULATED_ALLOC=3Dy
+> +        lea     l2_bootmap(%rip), %ecx
+> +        movl    %ecx, 16(%rsp)
+> +        lea     l3_bootmap(%rip), %ecx
+> +        movl    %ecx, 12(%rsp)
+> +        lea     __base_relocs_end(%rip), %ecx
+> +        movl    %ecx, 8(%rsp)
+> +        lea     __base_relocs_start(%rip), %ecx
+> +        movl    %ecx, 4(%rsp)
+> +        lea     __image_base__(%rip),%rsi
 
-#regzbot introduced: v6.10..v6.11-rc2
+Nit: Consistently blanks after commas please in new code.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+> +        movl    %esi, (%rsp)
 
---kt7u1tiUe8A/rt3t
-Content-Type: application/pgp-signature; name="signature.asc"
+Since a 32-bit value suffices, why a 64-bit LEA above?
 
------BEGIN PGP SIGNATURE-----
+> +        movabsq $__XEN_VIRT_START, %rcx
+> +        subq    %rsi, %rcx
+> +        push    %rcx
+>  
+> -        /* Jump to trampoline_setup after switching CPU to x86_32 mode. */
+> -        lea     trampoline_setup(%rip),%r15
+> +        /* Jump to trampoline_efi_setup after switching CPU to x86_32 mode. */
+> +        lea     trampoline_efi_setup(%rip),%r15
+>  
+>  x86_32_switch:
+>          mov     %r15,%rdi
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAma0nnIACgkQ24/THMrX
-1yyw4wf/VHGBECVm870HmY0iwiXw0Wjf7qkIVuUbdK4O/z3R5o8tcv1MnkMM8wQG
-otXtOP6C3QN5GP0iILNlObzmsrtFpNXFDoDi8fWZkHJ2nOHo3tr9iGaOzlB+L2KM
-XpAT5n9JFSHAz8xY/DbU81m2CGGMvvRXTq9o6d/B5wO9lYbqOSN5yjPZHCifsHb9
-Vsnf3c0hzk2qBCzb5wq806kOit37+8RHjYy0vPQVjPwaZmTwT6NRxvunDmTjCXz2
-H2F93zXnRaC/6KGICTFJCjOYOYyLGhXUbYO+EOuVys6XDHQFO1YXa5Ob/1ylFVFg
-CI79rS8pTHkv9Il8KfiwnNc8ovwEAQ==
-=ZqgP
------END PGP SIGNATURE-----
+All of the changes here are benign to the existing MB2/EFI code path just
+because __base_relocs_start[] is empty there, aiui. That could certainly
+do with making explicit in the description. Initially I meant to indicate
+that apparently you're breaking that path.
 
---kt7u1tiUe8A/rt3t--
+> --- a/xen/arch/x86/boot/reloc.c
+> +++ b/xen/arch/x86/boot/reloc.c
+> @@ -23,7 +23,9 @@ asm (
+>      "    .text                         \n"
+>      "    .globl _start                 \n"
+>      "_start:                           \n"
+> -    "    jmp  reloc                    \n"
+> +    "    cmpb $0, %al                  \n"
+> +    "    je   reloc                    \n"
+
+While minor here, I think we should generally prefer TEST (and then JZ)
+over CMP when checking for 0. I wonder though whether we really want to
+go with this kind of multiplexing. A new reloc-pe.c may be a cleaner
+approach. This may then (possibly later) also allow to (more easily)
+exclude this code when linking xen-syms.
+
+> @@ -375,6 +377,65 @@ void *__stdcall reloc(uint32_t magic, uint32_t in, uint32_t trampoline,
+>      }
+>  }
+>  
+> +struct pe_base_relocs {
+> +    u32 rva;
+> +    u32 size;
+> +    u16 entries[];
+
+uint<N>_t please in new code (but see also at the bottom).
+
+> +};
+> +
+> +#define PE_BASE_RELOC_ABS      0
+> +#define PE_BASE_RELOC_HIGHLOW  3
+> +#define PE_BASE_RELOC_DIR64   10
+> +
+> +void __stdcall reloc_pe_back(long long delta,
+> +                             uint32_t xen_phys_start,
+> +                             const struct pe_base_relocs *__base_relocs_start,
+> +                             const struct pe_base_relocs *__base_relocs_end,
+> +                             char *l3_bootmap, char *l2_bootmap)
+
+You only ever use the last two when cast to unsigned long. What's wrong
+with declaring them as unsigned long right away? xen_phys_start may also
+want to have unsigned long type.
+
+> +{
+> +    const struct pe_base_relocs *base_relocs;
+> +
+> +    for ( base_relocs = __base_relocs_start; base_relocs < __base_relocs_end; )
+> +    {
+> +        unsigned int i = 0, n;
+> +
+> +        n = (base_relocs->size - sizeof(*base_relocs)) /
+> +            sizeof(*base_relocs->entries);
+> +
+> +        /*
+> +         * Relevant l{2,3}_bootmap entries get initialized explicitly in
+> +         * efi_arch_memory_setup(), so we must not apply relocations there.
+> +         * l2_directmap's first slot, otoh, should be handled normally, as
+> +         * efi_arch_memory_setup() won't touch it (xen_phys_start should
+> +         * never be zero).
+> +         */
+> +        if ( xen_phys_start + base_relocs->rva == (unsigned long)l3_bootmap ||
+> +             xen_phys_start + base_relocs->rva == (unsigned long)l2_bootmap )
+> +            i = n;
+> +
+> +        for ( ; i < n; ++i )
+> +        {
+> +            unsigned long addr = xen_phys_start + base_relocs->rva +
+> +                                 (base_relocs->entries[i] & 0xfff);
+> +
+> +            switch ( base_relocs->entries[i] >> 12 )
+> +            {
+> +            case PE_BASE_RELOC_ABS:
+> +                break;
+> +            case PE_BASE_RELOC_HIGHLOW:
+> +                if ( delta )
+> +                    *(u32 *)addr += delta;
+> +                break;
+> +            case PE_BASE_RELOC_DIR64:
+> +                if ( delta )
+> +                    *(u64 *)addr += delta;
+> +                break;
+> +            }
+
+Except for the dropped default case (which imo needs to be there, just
+that you can't use blexit() here), the body of the function looks like
+a plain copy of efi_arch_relocate_image(). We want to avoid such
+(source) duplication, and rather put the logic in e.g. a header
+included by both parties.
+
+Jan
 
