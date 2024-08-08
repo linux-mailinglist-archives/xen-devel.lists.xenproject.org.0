@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C2F494BF18
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 16:05:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.774307.1184778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D01CA94BF2D
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 16:10:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.774317.1184787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sc3kt-0006hp-9O; Thu, 08 Aug 2024 14:04:39 +0000
+	id 1sc3qE-0001B3-QF; Thu, 08 Aug 2024 14:10:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 774307.1184778; Thu, 08 Aug 2024 14:04:39 +0000
+Received: by outflank-mailman (output) from mailman id 774317.1184787; Thu, 08 Aug 2024 14:10:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sc3kt-0006gA-5a; Thu, 08 Aug 2024 14:04:39 +0000
-Received: by outflank-mailman (input) for mailman id 774307;
- Thu, 08 Aug 2024 14:04:37 +0000
+	id 1sc3qE-00018k-Nb; Thu, 08 Aug 2024 14:10:10 +0000
+Received: by outflank-mailman (input) for mailman id 774317;
+ Thu, 08 Aug 2024 14:10:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gzZp=PH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sc3kr-0006g4-KD
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 14:04:37 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
+ id 1sc3qD-00011i-4N
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 14:10:09 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24959d70-558f-11ef-8776-851b0ebba9a2;
- Thu, 08 Aug 2024 16:04:35 +0200 (CEST)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2f149845fbaso11381071fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 07:04:35 -0700 (PDT)
+ id ea487ef0-558f-11ef-8776-851b0ebba9a2;
+ Thu, 08 Aug 2024 16:10:07 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-52efd8807aaso1135878e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 07:10:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bbb2bf841asm658654a12.5.2024.08.08.07.04.33
+ a640c23a62f3a-a7dc9c0cc2asm745458666b.63.2024.08.08.07.10.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Aug 2024 07:04:34 -0700 (PDT)
+ Thu, 08 Aug 2024 07:10:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24959d70-558f-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: ea487ef0-558f-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723125875; x=1723730675; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723126207; x=1723731007; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F3Hiwn83/hPkHG9ZCiIgmFLjceHba451PSwmIJ/BWag=;
-        b=O/x9OopAdvPa6rO/EnNcjP6u/xt2rLaI+tWEDAh1rP30MgWDzeBUt5VA8V6SPRQXaS
-         X7y43rw6Emga58TmTTh2cUuGadD8Zmaf/hQTkeTyPmGLJ9u4VxBcpm0kOTDc+EH5bjuj
-         8UHRSoDBCfASpjdjc9b7IAunnoUDHWvxXlA75iqEdYQx3UqPhzk0e6da3IqS9W7Z1wc/
-         Ubnl7Ft/v7qDdOg2o6RgtzRa2YhESgCMacXSvdviPVpbB1Y5A76gWZMcDWm5BVGuD1iI
-         SL/cofxC4VMO6Sf7+apjdsJZ4KpsjmZBRe8UOqr88cMpPhH6C4zraoClik+gv0i9jDWm
-         xYLA==
+        bh=fz7OM67V+Q4sMkAh3kEyC5umDcwm4wOSg5gaazlgMNA=;
+        b=AvfL6kHnfvcnQ+YHsK2PRTLFkMURzknOdrIjorcz9+nwkZkkeo0JqItWz09jc22QrH
+         Uk60s3HI3Y4pCDXLUjLHJarfIrGhqAvtIb94bGwC10XNijl6KiYEKvNwPRZbZJgI2uqK
+         syxjTtafFSz+jHjkUomJvzVCSEshtm5mP1PRXXNYBprRPF5+VVsArtFGJn5BJrj56bME
+         WZYwh8eRnuYi9k2BtmDbQM9fqe69RGEz/Xvo4poW0uXoOMbx4Xq1tDLfXOVdOfm2vqOH
+         G7Ne3XdrGga4qvywIMjAgpNYQgO84BAYZDYTgKrWnxj1Uj/rEwZNWdi/NUAneP0egiTx
+         5O0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723125875; x=1723730675;
+        d=1e100.net; s=20230601; t=1723126207; x=1723731007;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=F3Hiwn83/hPkHG9ZCiIgmFLjceHba451PSwmIJ/BWag=;
-        b=WAbHDfXCClcy9Sv9hVZyGeVyeAn6NSWMqt6ngqbg1VXiccJXefPTzPAEn+icRPjfJj
-         xwgWAIqDP0+nu1oqXaObTZHZx5s865mmTH/ASsJYSdaylGvGSagND16oWBDvlu8yvcet
-         9ilQk3C+clTp8/YC30UZRp9gA0C8Wi4azZ+nr+Pvo1IiHz4zC44i2IznaSbsUrgjIEMb
-         uhTT9k9PQeW7gcIimNiSsfJTDa43coiHbHdvm3pT1ohLPvZVIpPvUyGTolR3ioHztLP1
-         cadc1uc4nRb6BdN4fccc2W+KuWtHuMGJw0U7FwAR3Y4M+CA1VMiFrmNkziS4itdglqB1
-         /DvQ==
-X-Gm-Message-State: AOJu0YzokAuQVEw4dYBeKaB1Ie2tDGJxTJPeoKK6TRBMjnhZtHaeXrY7
-	R4XT5ITTwG9NwQglaTMJ4DCjbwG63zjpqOJ/6vKF/9bCUbVos3qXmlF0tVvNVA==
-X-Google-Smtp-Source: AGHT+IG44mFLqcGbvRUJdVwV24iQGHsI8hYShcqkZ2Qx7qzDu0NWYYwQh8ytUSWeGg3NNXaWEmkIqg==
-X-Received: by 2002:a05:6512:3350:b0:52e:f950:31f3 with SMTP id 2adb3069b0e04-530e585b975mr1247762e87.35.1723125874543;
-        Thu, 08 Aug 2024 07:04:34 -0700 (PDT)
-Message-ID: <2e0eac09-4065-4f1c-ba09-70cf9ff9e834@suse.com>
-Date: Thu, 8 Aug 2024 16:04:33 +0200
+        bh=fz7OM67V+Q4sMkAh3kEyC5umDcwm4wOSg5gaazlgMNA=;
+        b=Hs6WF37ulCjAr712ctNIToxmH5lamI3GsBlQiwFRl85MGYycC1fIiuD3KiwT2c77rV
+         bBHKWzKUlU8Z/+KMTZQQjeatuu/2+tT7lVX/PztvscP48+BEAhJp1cJPLTkGwngBM29r
+         evCiPOdj94x2OqGcFJ3zgWay/Po6aTnCgjpG+/vdKDMoXnrZHlEk+5qtWeswd1mGGe6O
+         f70YhbInzQLne/4S7Rz8lBlTFRBggHKCuCmSaoUxVGn39+T9MfdtZsFi3yYLrNX3orAI
+         rQS5f53/7fvlAJiqSaFVclgKTUKqskF3ad8q63KI5zqHf9Xl3YheTqK7C0nvH06wFCaP
+         XLJg==
+X-Forwarded-Encrypted: i=1; AJvYcCW2ZCbKORtOh++1fiMQfxvlg77pHyIuOCwzVu7AgRKWWnZOqYKAsuBjiJfb72ooNa4EUUY60dxMnVXkKEJNskpP3UpIppHC5/s5pBwgZSI=
+X-Gm-Message-State: AOJu0YyMwSdY27ErVaxl1ud1PqncfNSAYIFM/isrpXBX/i7aTaVg4/M1
+	vtvjnNS5WgeARbRS0X+K22BxkSsAT6/k51WkfLdTgkVLMtGY77mIYq7GMmN94Q==
+X-Google-Smtp-Source: AGHT+IEIWVKDQXoB7DXQ5/2rLddR/leRKMZqk2QwHIiGZj+LpsV0CWAej3/HEE7mhocJ2R6a0dJcJA==
+X-Received: by 2002:a05:6512:b03:b0:530:db85:e02a with SMTP id 2adb3069b0e04-530e5875653mr1591848e87.22.1723126206430;
+        Thu, 08 Aug 2024 07:10:06 -0700 (PDT)
+Message-ID: <b1b7eaea-450c-44bd-b97a-491183a292ff@suse.com>
+Date: Thu, 8 Aug 2024 16:10:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] x86: Fix early output messages in case of EFI
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
- <20240807134819.8987-3-alejandro.vallejo@cloud.com>
- <7f1e17dd-d105-4f6c-87d3-69f3dca4ab82@suse.com>
- <CACHz=ZjYdBcB_S1tpXpuRQDKGAKY=SrgTEy8_0Wyq_q+bOBfHg@mail.gmail.com>
- <bd4c8ef5-a6bb-42ae-9b69-c3d14eeac55e@suse.com>
- <CACHz=ZgRK2DMHmiAVsBo1WJVBxbnTka3-CcpgopKB-6gWs5ZSw@mail.gmail.com>
- <57e01574-2e06-4dd3-bf7f-91b5a19477b1@suse.com>
- <CACHz=Zi56VX7VE9ESRhm-3YJCqKV9z3yZKY+nWrz827e0t+rnw@mail.gmail.com>
+Subject: Re: [PATCH v5 01/10] tools/hvmloader: Fix non-deterministic cpuid()
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240808134251.29995-1-alejandro.vallejo@cloud.com>
+ <20240808134251.29995-2-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,24 +114,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=Zi56VX7VE9ESRhm-3YJCqKV9z3yZKY+nWrz827e0t+rnw@mail.gmail.com>
+In-Reply-To: <20240808134251.29995-2-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.08.2024 15:17, Frediano Ziglio wrote:
-> The computation of %esi is correct after the additional "add" command,
-> in the sense it will point to the current base (under 4GB) however
-> then you will use syms_esi(foo) thinking "if %esi is correct then also
-> syms_esi is correct" and it isn't.
-> So either you need to add another offset to make syms_esi(foo) correct
-> having %esi not pointing to the base or assuming that syms_esi(foo)
-> would need fixing.
-> Potentially the first option would be better, you just need to
-> remember to correct %esi after rolling back relocations.
+On 08.08.2024 15:42, Alejandro Vallejo wrote:
+> hvmloader's cpuid() implementation deviates from Xen's in that the value
+> passed on ecx is unspecified. This means that when used on leaves that
+> implement subleaves it's unspecified which one you get; though it's more
+> than likely an invalid one.
+> 
+> Import Xen's implementation so there are no surprises.
+> 
+> Fixes: 318ac791f9f9 ("Add utilities needed for SMBIOS generation to
+> hvmloader")
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-Right, the preferred goal is to have sym_esi() working right, so you
-wouldn't need to touch all of them. The number of direct uses of %esi
-is, I think, far smaller.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Minor remark: A Fixes: tag wants to go all on a single line.
+
+> --- a/tools/firmware/hvmloader/util.c
+> +++ b/tools/firmware/hvmloader/util.c
+> @@ -267,15 +267,6 @@ memcmp(const void *s1, const void *s2, unsigned n)
+>      return 0;
+>  }
+>  
+> -void
+> -cpuid(uint32_t idx, uint32_t *eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx)
+> -{
+> -    asm volatile (
+> -        "cpuid"
+> -        : "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx)
+> -        : "0" (idx) );
+
+Compared to the original ...
+
+> --- a/tools/firmware/hvmloader/util.h
+> +++ b/tools/firmware/hvmloader/util.h
+> @@ -184,9 +184,30 @@ int uart_exists(uint16_t uart_base);
+>  int lpt_exists(uint16_t lpt_base);
+>  int hpet_exists(unsigned long hpet_base);
+>  
+> -/* Do cpuid instruction, with operation 'idx' */
+> -void cpuid(uint32_t idx, uint32_t *eax, uint32_t *ebx,
+> -           uint32_t *ecx, uint32_t *edx);
+> +/* Some CPUID calls want 'count' to be placed in ecx */
+> +static inline void cpuid_count(
+> +    uint32_t leaf,
+> +    uint32_t subleaf,
+> +    uint32_t *eax,
+> +    uint32_t *ebx,
+> +    uint32_t *ecx,
+> +    uint32_t *edx)
+> +{
+> +    asm volatile ( "cpuid"
+> +          : "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx)
+> +          : "a" (leaf), "c" (subleaf) );
+
+... you alter indentation, without it becoming clear why you do so. Imo
+there are only two ways of indenting this which are conforming to our
+style - either as it was (secondary lines indented by one more level,
+i.e. 4 more spaces) or
+
+    asm volatile ( "cpuid"
+                   : "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx)
+                   : "a" (leaf), "c" (subleaf) );
+
+I guess I'll take the liberty and adjust while committing.
 
 Jan
 
