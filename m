@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D764994BE6E
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 15:18:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.774107.1184598 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 667BB94BE76
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 15:20:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.774115.1184607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sc31v-0003ZK-AB; Thu, 08 Aug 2024 13:18:11 +0000
+	id 1sc33n-0005Kh-Kf; Thu, 08 Aug 2024 13:20:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 774107.1184598; Thu, 08 Aug 2024 13:18:11 +0000
+Received: by outflank-mailman (output) from mailman id 774115.1184607; Thu, 08 Aug 2024 13:20:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sc31v-0003XO-7W; Thu, 08 Aug 2024 13:18:11 +0000
-Received: by outflank-mailman (input) for mailman id 774107;
- Thu, 08 Aug 2024 13:18:10 +0000
+	id 1sc33n-0005J9-Hk; Thu, 08 Aug 2024 13:20:07 +0000
+Received: by outflank-mailman (input) for mailman id 774115;
+ Thu, 08 Aug 2024 13:20:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vpfq=PH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1sc31u-0003Wz-6O
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 13:18:10 +0000
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [2607:f8b0:4864:20::22c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7510b3d-5588-11ef-bc04-fd08da9f4363;
- Thu, 08 Aug 2024 15:18:09 +0200 (CEST)
-Received: by mail-oi1-x22c.google.com with SMTP id
- 5614622812f47-3db18c4927bso700983b6e.1
- for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 06:18:09 -0700 (PDT)
+ <SRS0=6I4s=PH=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1sc33l-00053o-GG
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 13:20:05 +0000
+Received: from fout7-smtp.messagingengine.com (fout7-smtp.messagingengine.com
+ [103.168.172.150]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eb692b5e-5588-11ef-bc04-fd08da9f4363;
+ Thu, 08 Aug 2024 15:20:03 +0200 (CEST)
+Received: from compute8.internal (compute8.nyi.internal [10.202.2.227])
+ by mailfout.nyi.internal (Postfix) with ESMTP id 24D75138FCE4;
+ Thu,  8 Aug 2024 09:20:02 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute8.internal (MEProxy); Thu, 08 Aug 2024 09:20:02 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 8 Aug 2024 09:20:01 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,166 +43,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7510b3d-5588-11ef-bc04-fd08da9f4363
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723123088; x=1723727888; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=e1fpPuQl8cYOlzY3fFlpG5q796ahEHADyk8dq9quYXs=;
-        b=ktvtWOFE2gFApY0ZHUlP9rpARAPdsb5vFU9Tngb0KJbCrEiIiW4mXnX1BILAe2zaDM
-         KbXBFKUDXH7uNEdhkNpIjrLhWe/fSgsw+tene8NZJPmUmL+Xx6cfwGz11M/tr60YLP6S
-         0Sg2DROFtwmxAdy5k6HQ2xpOU0CZtU2MdW+V8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723123088; x=1723727888;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=e1fpPuQl8cYOlzY3fFlpG5q796ahEHADyk8dq9quYXs=;
-        b=ocTuGx1tXaM8AQ7ihN2gIQC10bcIdQmI0UzGMzcSJFE0o8c6Ui3eBc5j2We91Uc3tP
-         NLy2P/WKoFcf8XhfelEIc/uHt+6e/a1r96bUe7u7rxhtUeSvuEFfP2Z/Bl1bD9Hckrfj
-         OTQ9kPfiws6Pv+xZCiLgKZifBUuBc66hs/10Vq6BBBRQg0/sEBtFiEvusGCMuXZslkWP
-         obprV8kxpS/mk6cj1Jz14U3BsJzBk2gAesrCTRuTTk9Zj7/o7syypwPmIY7lCAmTArIg
-         NvmPv+4LepnkLb36FuP9h5ml0ZizIQJrCQJ1gmbdXHiqnbPu4qMQLWbtjgcCLRu2mI7t
-         VYuw==
-X-Gm-Message-State: AOJu0YxJgVHwxLA8OZ/DOmirT2+6usTVBTMfAVQC6VUvQNHOfjaFIZxN
-	cq7GyAIY9zoY8wNV2K13f0Fuws8l5gUNVt8BIYJwdzEv1/ZZwAhFdYJKH9YLUBQzJW+zvzIPS/a
-	YymPMo996KG7sIc8pH1K/TatqNfoTOE+d8rjDKQ==
-X-Google-Smtp-Source: AGHT+IEzYKql+mWs+1TWxBJ9+Oo4RWDEnvEbru+4R8kVz4Zt3lL3gojMFpPFHvA79bmZMHzaqENFe6Wm1FK5D2v+3ak=
-X-Received: by 2002:a54:4790:0:b0:3da:b3c2:b4c0 with SMTP id
- 5614622812f47-3dc3b455a2amr1812443b6e.31.1723123087578; Thu, 08 Aug 2024
- 06:18:07 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
- <20240807134819.8987-3-alejandro.vallejo@cloud.com> <7f1e17dd-d105-4f6c-87d3-69f3dca4ab82@suse.com>
- <CACHz=ZjYdBcB_S1tpXpuRQDKGAKY=SrgTEy8_0Wyq_q+bOBfHg@mail.gmail.com>
- <bd4c8ef5-a6bb-42ae-9b69-c3d14eeac55e@suse.com> <CACHz=ZgRK2DMHmiAVsBo1WJVBxbnTka3-CcpgopKB-6gWs5ZSw@mail.gmail.com>
- <57e01574-2e06-4dd3-bf7f-91b5a19477b1@suse.com>
-In-Reply-To: <57e01574-2e06-4dd3-bf7f-91b5a19477b1@suse.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Thu, 8 Aug 2024 14:17:56 +0100
-Message-ID: <CACHz=Zi56VX7VE9ESRhm-3YJCqKV9z3yZKY+nWrz827e0t+rnw@mail.gmail.com>
-Subject: Re: [PATCH 2/5] x86: Fix early output messages in case of EFI
+X-Inumbo-ID: eb692b5e-5588-11ef-bc04-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1723123202;
+	 x=1723209602; bh=cWGrgl5FGkOpZf+r63CqwvJvu4/37TZjtbNVyIWg0To=; b=
+	JKOjTZ4u/YUECYEtNtouI0M35TkLbRCbSihXcCGLSzARNW4WffQwoe5aynw+Cuay
+	UJT0lWjBV0Fuy+WOYqHvWipdAx4YidOHMa0hwWBgcQFhhQJgDYbJOeI5p6VGuWIK
+	NZTOi1dUlgtbiDZtL1jPoM+USw4u5ixGpjrhfrBMGCuEvHL/PogqvJwSpYjJpTAA
+	zed8YCwHFdjEo3DdY0u66pxPMC9T3vqaN7/SEpgRNZWRSWfroQeywzaBvN3gJ7Ff
+	u5sVIGLXSsBJSfb/D0B1F4WqlIVVN8Dl7+eQtjcEAGtVDsu4xHppLeswLsucmYd9
+	vpTUi8AIZsqwfF0iMsueCw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1723123202; x=1723209602; bh=cWGrgl5FGkOpZf+r63CqwvJvu4/3
+	7TZjtbNVyIWg0To=; b=q10wdtnM6SF2s/y/a/SIwYTQRpbKU8hpJ2RDIizdW+tp
+	73t39l4i4g++aY+kcxf9jtROOx2Y7eMXjZl15vsAFfCiYdTgPCzQDkjq+70rHkHx
+	agDiHPiS/nj366VGVaeRxvTFegoJe5wLb2q3+ywjn2JFsKRIpBavZC3x4j/Zi69a
+	7numRBtGGaDfxFQ47Qh1ZfceoKxjgG2fUiTRwUswon6/oera9Yu17j03FXl2HJ/Y
+	mtOBru8M9UJX0yyZ6NuPnM75fkJOPK2fPvshushJyHJl+tvzsDtnzWSEWgvrobtg
+	T1yun+VbTVNMLlVkh+QOatrmmLM8wiWeZFybBi3HTw==
+X-ME-Sender: <xms:Aca0Zj4nXGS7bQ-zuoCu7Sp-eCpAEVSYcjouhldwUJQjMePbJ7ZOlQ>
+    <xme:Aca0Zo6FnL8fUsEILLSjz_2e33eeZNPBxBS6PowNsy2Gat6U88QoMG87mokbNIklt
+    yxCmsYcHEztyA>
+X-ME-Received: <xmr:Aca0ZqfJ6m9DLGVIBlmeK6NuSMKPALAK5tIDnavJgq5gCenV47Ro-4X5air9dEf_EsvZ9fTCvlRibgLwLvIyWhW_28Jxhg2OOA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrledvgdeivdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
+    tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
+    hsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecu
+    hfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrg
+    hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffr
+    rghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegue
+    etfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhm
+    pehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsg
+    gprhgtphhtthhopedvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehjsggvuhhl
+    ihgthhesshhushgvrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtsh
+    drgigvnhhprhhojhgvtghtrdhorhhg
+X-ME-Proxy: <xmx:Aca0ZkJS-5RkJ5ciyoUfDCzHo8zKaT-OsjamG5CjEBh5abPOwRwyVA>
+    <xmx:Aca0ZnIWBYj3uwi-HDo9lDgzv_GuwuhD8E13GpNU4aVbi9RnqIqn3g>
+    <xmx:Aca0ZtyWU4qOBFhxUyt8-9_LZRJLflGPzW6aafJtElu0eBYJeTwiVA>
+    <xmx:Aca0ZjJ1jkygZ_muHpR2sGQ_iy0AzmkRcWlypr6AD8txNa0tu6m2zw>
+    <xmx:Asa0ZtijXUlVnLBOQRnAkyFbncwEVwqFHO6PHf26s1tmHTej53v1XD8i>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 8 Aug 2024 15:19:58 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Alejandro Vallejo <alejandro.vallejo@cloud.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Assertion failed at arch/x86/genapic/x2apic.c:38 on S3 resume
+ nested in KVM on AMD
+Message-ID: <ZrTF_28uPHjPabn2@mail-itl>
+References: <Zp--KHAFuDVnH1Oq@mail-itl>
+ <579fd84d-0a31-43b3-8ce1-f826134cd8a2@suse.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="CJd+PFfbWa/s+trf"
+Content-Disposition: inline
+In-Reply-To: <579fd84d-0a31-43b3-8ce1-f826134cd8a2@suse.com>
+
+
+--CJd+PFfbWa/s+trf
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 8 Aug 2024 15:19:58 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Assertion failed at arch/x86/genapic/x2apic.c:38 on S3 resume
+ nested in KVM on AMD
 
-On Thu, Aug 8, 2024 at 1:58=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 08.08.2024 14:50, Frediano Ziglio wrote:
-> > On Thu, Aug 8, 2024 at 10:29=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>
-> >> (re-adding xen-devel@)
->
-> Did you notice this in my earlier reply? You dropped the list again.
->
+On Thu, Aug 08, 2024 at 01:22:30PM +0200, Jan Beulich wrote:
+> On 23.07.2024 16:28, Marek Marczykowski-G=C3=B3recki wrote:
+> > I'm observing a crash like the one below when trying to resume from S3.
+> > It happens on Xen nested in KVM (QEMU 9.0, Linux 6.9.3) but only on AMD.
+> > The very same software stack on Intel works just fine. QEMU is running
+> > with "-cpu host,+svm,+invtsc -machine q35,kernel-irqchip=3Dsplit -device
+> > amd-iommu,intremap=3Don -smp 2" among others.
+> >=20
+> >     (XEN) Preparing system for ACPI S3 state.
+> >     (XEN) Disabling non-boot CPUs ...
+> >     (XEN) Broke affinity for IRQ1, new: {0-1}
+> >     (XEN) Broke affinity for IRQ20, new: {0-1}
+> >     (XEN) Broke affinity for IRQ22, new: {0-1}
+> >     (XEN) Entering ACPI S3 state.
+> >     (XEN) Finishing wakeup from ACPI S3 state.
+> >     (XEN) Enabling non-boot CPUs  ...
+> >     (XEN) Assertion 'cpumask_test_cpu(this_cpu, per_cpu(cluster_cpus, t=
+his_cpu))' failed at arch/x86/genapic/x2apic.c:38
+> >     (XEN) ----[ Xen-4.20  x86_64  debug=3Dy  Not tainted ]----
+> >     (XEN) CPU:    1
+> >     (XEN) RIP:    e008:[<ffff82d04028862b>] x2apic.c#init_apic_ldr_x2ap=
+ic_cluster+0x8a/0x1b9
+> >     (XEN) RFLAGS: 0000000000010096   CONTEXT: hypervisor
+> >     (XEN) rax: ffff830278a25f50   rbx: 0000000000000001   rcx: ffff82d0=
+405e1700
+> >     (XEN) rdx: 0000003233412000   rsi: ffff8302739da2d8   rdi: 00000000=
+00000000
+> >     (XEN) rbp: 00000000000000c8   rsp: ffff8302739d7e78   r8:  00000000=
+00000001
+> >     (XEN) r9:  ffff8302739d7fa0   r10: 0000000000000001   r11: 00000000=
+00000000
+> >     (XEN) r12: 0000000000000001   r13: 0000000000000001   r14: 00000000=
+00000000
+> >     (XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4: 00000000=
+007506e0
+> >     (XEN) cr3: 000000007fa7a000   cr2: 0000000000000000
+> >     (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 00000000=
+00000000
+> >     (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e0=
+08
+> >     (XEN) Xen code around <ffff82d04028862b> (x2apic.c#init_apic_ldr_x2=
+apic_cluster+0x8a/0x1b9):
+> >     (XEN)  cf 82 ff ff eb b7 0f 0b <0f> 0b 48 8d 05 9c fc 33 00 48 8b 0=
+d a5 0a 35 00
+> >     (XEN) Xen stack trace from rsp=3Dffff8302739d7e78:
+> >     (XEN)    0000000000000000 00000000000000c8 0000000000000001 0000000=
+000000001
+> >     (XEN)    0000000000000000 ffff82d0402f1d83 ffff8302739d7fff 0000000=
+0000000c8
+> >     (XEN)    0000000000000001 0000000000000001 ffff82d04031adb9 0000000=
+000000001
+> >     (XEN)    0000000000000000 0000000000000000 0000000000000000 ffff82d=
+040276677
+> >     (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000=
+000000000
+> >     (XEN)    ffff88810037c000 0000000000000001 0000000000000246 deadbee=
+fdeadf00d
+> >     (XEN)    0000000000000001 aaaaaaaaaaaaaaaa 0000000000000000 fffffff=
+f811d130a
+> >     (XEN)    deadbeefdeadf00d deadbeefdeadf00d deadbeefdeadf00d 0000010=
+000000000
+> >     (XEN)    ffffffff811d130a 000000000000e033 0000000000000246 ffffc90=
+0400b3ef8
+> >     (XEN)    000000000000e02b 000000000000beef 000000000000beef 0000000=
+00000beef
+> >     (XEN)    000000000000beef 0000e01000000001 ffff8302739de000 0000003=
+233412000
+> >     (XEN)    00000000007506e0 0000000000000000 0000000000000000 0000000=
+200000000
+> >     (XEN)    0000000000000002
+> >     (XEN) Xen call trace:
+> >     (XEN)    [<ffff82d04028862b>] R x2apic.c#init_apic_ldr_x2apic_clust=
+er+0x8a/0x1b9
+> >     (XEN)    [<ffff82d0402f1d83>] S setup_local_APIC+0x26/0x449
+> >     (XEN)    [<ffff82d04031adb9>] S start_secondary+0x1c4/0x37a
+> >     (XEN)    [<ffff82d040276677>] S __high_start+0x87/0xd0
+> >     (XEN)=20
+> >     (XEN)=20
+> >     (XEN) ****************************************
+> >     (XEN) Panic on CPU 1:
+> >     (XEN) Assertion 'cpumask_test_cpu(this_cpu, per_cpu(cluster_cpus, t=
+his_cpu))' failed at arch/x86/genapic/x2apic.c:38
+> >     (XEN) ****************************************
+>=20
+> Would you mind giving the patch below a try?
 
-Yes, later, sorry for that.
-
-> >> On 08.08.2024 10:33, Frediano Ziglio wrote:
-> >>> On Thu, Aug 8, 2024 at 8:49=E2=80=AFAM Jan Beulich <jbeulich@suse.com=
-> wrote:
-> >>>>> This cause offsets in x86 code generated by
-> >>>>> sym_offs(SYMBOL) to be relocated too (basically they won't be
-> >>>>> offsets from image base). In order to get real offset the
-> >>>>> formulae "sym_offs(SYMBOL) - sym_offs(__image_base__)" is
-> >>>>> used instead.
-> >>>>
-> >>>> The main calculations of %esi are, if I'm not mistaken,
-> >>>>
-> >>>>         /* Store Xen image load base address in place accessible for=
- 32-bit code. */
-> >>>>         lea     __image_base__(%rip),%esi
-> >>>>
-> >>>
-> >>> Which is correct
-> >>>
-> >>>> and
-> >>>>
-> >>>>         /* Calculate the load base address. */
-> >>>>         call    1f
-> >>>> 1:      pop     %esi
-> >>>>         sub     $sym_offs(1b), %esi
-> >>>>
-> >>>> i.e. both deliberately %rip-relative to be position-independent. Wha=
-t's
-> >>>> wrong with this?
-> >>>>
-> >>>
-> >>> This can be wrong if sym_offs(1b) was relocated and not patched by
-> >>> efi_arch_relocate_image.
-> >>
-> >> Of course, if in the course of GrUB's loading of xen.efi base relocati=
-ons
-> >> are applied (unlike when loading an ELF binary, where afaik base reloc=
-s
-> >> would be ignored, even if there were any), then this calculation is of
-> >> course going to be wrong. Can't we correct it though, to properly rese=
-mble
-> >> PIC code:
-> >>
-> >>         /* Calculate the load base address. */
-> >>         call    1f
-> >> 1:      pop     %esi
-> >>         sub     1b - start, %esi
-> >>
-> >> or (because start is in a different section):
-> >>
-> >>         /* Calculate the load base address. */
-> >>         call    1f
-> >> 1:      pop     %esi
-> >>         sub     $sym_offs(1b), %esi
-> >>         add     $sym_offs(start), %esi
-> >>
-> >> (or something along these lines)?
-> >>
-> >
-> > Yes, that works. But is a bit painfull, I mean, the %esi will point to
-> > the correct address, but still you will use something like
-> > syms_esi(foo) expecting to work but it won't as there will be applied
-> > a relocation offset.
->
-> I find your reply contradictory in itself. You first say this works, to
-> then say it can't work. The underlying idea has to be to establish %esi
-> such that it works uniformly.
->
-
-The computation of %esi is correct after the additional "add" command,
-in the sense it will point to the current base (under 4GB) however
-then you will use syms_esi(foo) thinking "if %esi is correct then also
-syms_esi is correct" and it isn't.
-So either you need to add another offset to make syms_esi(foo) correct
-having %esi not pointing to the base or assuming that syms_esi(foo)
-would need fixing.
-Potentially the first option would be better, you just need to
-remember to correct %esi after rolling back relocations.
-
-> > On 32bit PIC code you could use something like
-> > foo@GOTOFF(%esi), assuing %esi is pointing to the global offset table.
-> > I was trying to use that but linker is complaining a bit as generating
-> > a 64bit relocation. The x64 architecture supports such relocation as
-> > 32bit but I didn't find a way to tell assembler to use the 32bit
-> > version instead of the 64bit one. Also I didn't find a way to set
-> > _GLOBAL_OFFSET_TABLE_ where I want it to be, it looks like that if the
-> > linker is not generating it is not picking up the forcedly set symbol.
->
-> Even if the toolchain permitted this: We don't have and don't want to
-> have any GOT. Note how the linker script actually has an assertion for
-> .got to be empty (plus a few more ones for other sections).
->
-
-I know, @GOTOFF does not generate .got entries, that's the reason I
-tried to use it and tell linker my idea of _GLOBAL_OFFSET_TABLE_. It's
-just that we need real offsets without relocations and I was looking
-at a way to get it. That would simply solve the relocation issue
-without having to offset %esi to some weird value.
+Yes, this seems to fix the issue, thanks!
 
 > Jan
+>=20
+> x86/x2APIC: correct cluster tracking upon CPUs going down for S3
+>=20
+> Downing CPUs for S3 is somewhat special: Since we can expect the system
+> to come back up in exactly the same hardware configuration, per-CPU data
+> for the secondary CPUs isn't de-allocated (and then cleared upon re-
+> allocation when the CPUs are being brought back up). Therefore the
+> cluster_cpus per-CPU pointer will retain its value for all CPUs other
+> than the final one in a cluster (i.e. in particular for all CPUs in the
+> same cluster as CPU0). That, however, is in conflict with the assertion
+> early in init_apic_ldr_x2apic_cluster().
+>=20
+> Note that the issue is avoided on Intel hardware, where we park CPUs
+> instead of bringing them down.
 
-Frediano
+I wonder why I don't hit this issue on baremetal AMD, only on nested.
+Anyway,
+
+Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+
+> Extend the bypassing of the freeing to the suspend case, thus making
+> suspend/resume also a tiny bit faster.
+>=20
+> Fixes: 2e6c8f182c9c ("x86: distinguish CPU offlining from CPU removal")
+> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+=2Ecom>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>=20
+> --- a/xen/arch/x86/genapic/x2apic.c
+> +++ b/xen/arch/x86/genapic/x2apic.c
+> @@ -228,7 +228,8 @@ static int cf_check update_clusterinfo(
+>      case CPU_UP_CANCELED:
+>      case CPU_DEAD:
+>      case CPU_REMOVE:
+> -        if ( park_offline_cpus =3D=3D (action !=3D CPU_REMOVE) )
+> +        if ( park_offline_cpus =3D=3D (action !=3D CPU_REMOVE) ||
+> +             system_state =3D=3D SYS_STATE_suspend )
+>              break;
+>          if ( per_cpu(cluster_cpus, cpu) )
+>          {
+>=20
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--CJd+PFfbWa/s+trf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAma0xf8ACgkQ24/THMrX
+1yyKrAf8Cf2bkeX0TG+0HmYpuJRkvV+kEQzoaJVu7s/pQ8FsheUNvE+U1bFLs7DG
+/OvJQ2sfbIcMIeSmQ0TOHbuYSJUcRGB9vaFqilSY+oEddRHEdKTDFS0r8eOHk8JN
+1Ipr8LlIeuqGulxsoNI+u2O/FeCExnyNri7Aszq8UqpmXPLkSQ+qthups/KRi/oa
+7c4qhzdTjb6kGGy8qO7gamMWkMJYxaIhBaOXPisP0x/VGLs9qOB/jhkm9BB6PsLI
+FFOfhdx1By6oIFDFYzdKnp68QCKaD5ORvu/WwP8vbK5d8juDJ+09aqG6P7l6gZsw
+d6Xkf2dO2f9o4gNkdNFPvyo2Jyh/QA==
+=eIeI
+-----END PGP SIGNATURE-----
+
+--CJd+PFfbWa/s+trf--
 
