@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 966A094B6F9
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 08:55:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773726.1184163 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B64C94B72D
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 09:12:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773735.1184173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbx2V-0006EG-Lz; Thu, 08 Aug 2024 06:54:23 +0000
+	id 1sbxJ6-0001JW-4o; Thu, 08 Aug 2024 07:11:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773726.1184163; Thu, 08 Aug 2024 06:54:23 +0000
+Received: by outflank-mailman (output) from mailman id 773735.1184173; Thu, 08 Aug 2024 07:11:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbx2V-0006BY-IX; Thu, 08 Aug 2024 06:54:23 +0000
-Received: by outflank-mailman (input) for mailman id 773726;
- Thu, 08 Aug 2024 06:54:22 +0000
+	id 1sbxJ6-0001HA-1j; Thu, 08 Aug 2024 07:11:32 +0000
+Received: by outflank-mailman (input) for mailman id 773735;
+ Thu, 08 Aug 2024 07:11:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gzZp=PH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sbx2U-0006BQ-F3
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 06:54:22 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1sbxJ4-0001H4-Fz
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 07:11:30 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09f0bd00-5553-11ef-bc04-fd08da9f4363;
- Thu, 08 Aug 2024 08:54:21 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5a3b866ebc9so657351a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2024 23:54:21 -0700 (PDT)
+ id 6e799b77-5555-11ef-bc04-fd08da9f4363;
+ Thu, 08 Aug 2024 09:11:28 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5a1337cfbb5so774524a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 00:11:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bbb2e5e717sm326021a12.85.2024.08.07.23.54.20
+ 4fb4d7f45d1cf-5bbb2e5ed4asm343835a12.83.2024.08.08.00.11.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Aug 2024 23:54:20 -0700 (PDT)
+ Thu, 08 Aug 2024 00:11:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09f0bd00-5553-11ef-bc04-fd08da9f4363
+X-Inumbo-ID: 6e799b77-5555-11ef-bc04-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723100060; x=1723704860; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723101088; x=1723705888; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wjxPx5bBvGFmvmqASkZblaZ3W3BnBimY0US45zLzZFs=;
-        b=DcOKvz4Ly2eeXarwtnNygiyisGLzCvPnj7hIwnEukj4OAmGuLeXFlD1vd6lM7OvJl/
-         tL833CQcNs4f/oKIbcKAKPX2QAgDUi86YRYeTlWQQd5052o0cCJLwTNLubav5DJA3E3k
-         NFlcryNbJR5o6hotctsQ0ZCLl8FoTyoz8aDbbapJ5h2AeElGaOFXEZVrNDcHeO+wPl54
-         CNgDOKO3zN5hoTLgqI8VxYfEWO8NvTqvwRBY259qSdOXOJH6cAdTVcsefquifkbLq4FR
-         vuwN1i2ev9PTcT0pCKD74eIWF7iccUAvFkmcW4GaTTyuQUdy/Xi9xXkxMaKb2QsLc4+E
-         u13g==
+        bh=OIbBZ7rPq/lWNPoeKV3SIykU/mWcxqiwdGJ9AXQk8T4=;
+        b=WKGqvA0emJxI0x1nqGXInFgppw3RXbsyJYAhE7a3zqlG+9BU2h4KmGSExqBAD+PimN
+         TPx5qMXDLgZAKgS76VF45MYo3MiYIbneLCTFp04zA2+m1kHu7Mvoc3PApWzDo+LwjZjQ
+         8hSO+yfQK7cnE884MGpXNT8qSh+d/okY8964Uv4HjWdOCb4TUYb66dH5ZkCsvNIoZn/w
+         jlshzGrfDPrY3CpwIEXGGfY1PCAFpZbni4FdkEERQEKHNS4rvKPMkdZv4OqNL1UpRNG6
+         kImOYLnnGjyQy1AD8JhE8N1iEwpsJuTgPn3IGzpdoyXxai9ilKofYyRDQSvz2Uy+2hKx
+         7hDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723100060; x=1723704860;
+        d=1e100.net; s=20230601; t=1723101088; x=1723705888;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wjxPx5bBvGFmvmqASkZblaZ3W3BnBimY0US45zLzZFs=;
-        b=OakkkUtRJJm0BvS8xeB2K7pajAtMrQ+k8aUm/e3baduihaHmJUN3r3r0a1inh8CTHh
-         uR6vb9jFX1NNdkVdDyb/yEERHJcybBZa03rO4YTIO6jTSKsV92a0bXAPTeS1hpfq5myj
-         kGWjsbLkXvhYhc3xphs90dxJekpm/AWDfX9Fz/qkDqkTULEJX+VfL/yWq+v4mfvKroCB
-         JPbwBmfAFnpHbzsGMWzGW0gUChITS9LguG2RvCeFREYJ9nZHZBRilh6BBvD/smRoxbQE
-         m8tui+LUAU1q9YEuWDppH6iGQL29ebAw+zDJuG/+BBCP83GQ59YhNPp2dYY37ZjA9fei
-         r8XA==
-X-Forwarded-Encrypted: i=1; AJvYcCUNRaKC1ukOaiHrvj4gSNpwnfWBn0U324kLXUt+UVQj498KQ9t+l0Id2oOhWEJxlENvv6EY+1YEbfWbal7d3cBGNs90NGR+dmuZtDzW2fU=
-X-Gm-Message-State: AOJu0YwML9V7gHpS+uZGviJKfZlg4EGUMkIHjxV9iBwLXAr42H0QS79d
-	LLcdkQ8M5JTX3kqDAuvyCXQ0rCZ7echCC1EK7bWNBXxLfyfi+ZBiUscU2TTdtA==
-X-Google-Smtp-Source: AGHT+IHlVfH3qZ3THZ8Y8RDriFS7qu69aGRzSmw46WQ54OdNbwfyqJmCPRdviYIApZANOWpXB19LtA==
-X-Received: by 2002:a05:6402:274d:b0:58b:9561:650b with SMTP id 4fb4d7f45d1cf-5bbb23f6b24mr839205a12.25.1723100060438;
-        Wed, 07 Aug 2024 23:54:20 -0700 (PDT)
-Message-ID: <9ec8cee5-649d-4a7c-b1e2-0c6c83daee0b@suse.com>
-Date: Thu, 8 Aug 2024 08:54:19 +0200
+        bh=OIbBZ7rPq/lWNPoeKV3SIykU/mWcxqiwdGJ9AXQk8T4=;
+        b=Fu5+T4uNu8hCd4r7F21tqRuMOn92l7RkcACfmor3OV3hvWp86BgH2Q+vesGuMgR46y
+         VOhOTI79MsEq0AGLMVPFiC5lRMolxfVkiXXGtzOqe1/Cu1y58GkIIysyHmET7H3Gm+Gy
+         6lxN6UzR+TxYvFVuvUWcsV39IbXrtAl26iVHhF8PfP8KtWccYQxftFOaiIxxXxs0+SZD
+         KttiZcH/yns3G1vR0z0zkpMU934WMrZIQj8gDSG2cuqolc/0bp0CPyWRouZfFADM63FB
+         uPC43jg1v3r22p5GIY2kdtxWc2qdJl2kw3eJ0hUNpEXk5YvNhH+30+v3Q5/slLZnP2qn
+         rg5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUooAUf9g8jTbTGbm+n5opxTeULufrjVO6l/hSB2dkQglxVk+oJMUT6nHplQsPfCW/GQwsnLzNhtG4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy98rKVYNG2eXHXgQsde9EHS7rCtDasqylzGt2NKDpRNisVmAUV
+	BKQAQ7+Eir04iIpmY4bAyB6tNkcl9/0c9TWrE2JQv1W8afvT21DJtXxY0eJ1RQ==
+X-Google-Smtp-Source: AGHT+IEer2cc+CiMlWUWJFGP/fJ+qH/zZ6AS8HK4X+1hetHPA74wA1gweLE/fKB8gJxYahOQyn530A==
+X-Received: by 2002:a05:6402:5206:b0:587:86d8:8b54 with SMTP id 4fb4d7f45d1cf-5bbb2182b28mr820282a12.4.1723101087951;
+        Thu, 08 Aug 2024 00:11:27 -0700 (PDT)
+Message-ID: <5e081ae3-25b1-48cd-8878-8efd47b57032@suse.com>
+Date: Thu, 8 Aug 2024 09:11:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] x86/emul: Fix misaligned IO breakpoint behaviour
- in PV guests
-To: Matthew Barnes <matthew.barnes@cloud.com>
+Subject: Re: [XEN PATCH v2] x86/intel: optional build of PSR support
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <4219d12fcd075635c8c2548c5d14471642af3038.1723045077.git.matthew.barnes@cloud.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240801084453.1163506-1-Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,25 +112,75 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4219d12fcd075635c8c2548c5d14471642af3038.1723045077.git.matthew.barnes@cloud.com>
+In-Reply-To: <20240801084453.1163506-1-Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.08.2024 17:39, Matthew Barnes wrote:
-> When hardware breakpoints are configured on misaligned IO ports, the
-> hardware will mask the addresses based on the breakpoint width during
-> comparison.
-> 
-> For PV guests, misaligned IO breakpoints do not behave the same way, and
-> therefore yield different results.
-> 
-> This patch tweaks the emulation of IO breakpoints for PV guests such
-> that they reproduce the same behaviour as hardware.
-> 
-> Fixes: bec9e3205018 ("x86: emulate I/O port access breakpoints")
-> Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+On 01.08.2024 10:44, Sergiy Kibrik wrote:
+> --- a/xen/arch/x86/domctl.c
+> +++ b/xen/arch/x86/domctl.c
+> @@ -1162,6 +1162,7 @@ long arch_do_domctl(
+>      }
+>  
+>      case XEN_DOMCTL_psr_cmt_op:
+> +#ifdef CONFIG_INTEL
+>          if ( !psr_cmt_enabled() )
+>          {
+>              ret = -ENODEV;
+> @@ -1190,11 +1191,16 @@ long arch_do_domctl(
+>              ret = -ENOSYS;
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+This pre-existing use of -ENOSYS is imo wrong; should be -EINVAL or -EOPNOTSUPP.
 
+>              break;
+>          }
+> +
+> +#else /* CONFIG_INTEL */
+> +        ret = -ENOSYS;
 
+This use therefore is imo wrong, too. However, can't we avoid #ifdef-ary here
+altogether by supplying a stub psr_cmt_enabled() (plus keeping the decls
+visible for psr_{alloc,free}_rmid())? Similarly for the respective code in
+sysctl.c then.
+
+> +#endif
+>          break;
+>  
+>      case XEN_DOMCTL_psr_alloc:
+>          switch ( domctl->u.psr_alloc.cmd )
+>          {
+> +#ifdef CONFIG_INTEL
+>          case XEN_DOMCTL_PSR_SET_L3_CBM:
+>              ret = psr_set_val(d, domctl->u.psr_alloc.target,
+>                                domctl->u.psr_alloc.data,
+> @@ -1257,6 +1263,8 @@ long arch_do_domctl(
+>  
+>  #undef domctl_psr_get_val
+>  
+> +#endif /* CONFIG_INTEL */
+> +
+>          default:
+>              ret = -EOPNOTSUPP;
+>              break;
+
+Here (and again for the respective sysctl code) otoh I'm okay with the #ifdef.
+
+> @@ -225,10 +233,11 @@ long arch_do_sysctl(
+>  
+>      case XEN_SYSCTL_psr_alloc:
+>      {
+> -        uint32_t data[PSR_INFO_ARRAY_SIZE] = { };
+> +        uint32_t __maybe_unused data[PSR_INFO_ARRAY_SIZE] = { };
+
+Remark to Andrew: Leaving aside the fact that the initializer here stands in
+the way of doing so, the need for this (imo ugly) attribute is one of the
+reasons why generally I'd prefer such declarations to live ...
+
+>          switch ( sysctl->u.psr_alloc.cmd )
+>          {
+> +#ifdef CONFIG_INTEL
+
+... immediately inside the switch() accessing them.
+
+Jan
 
