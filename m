@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11DAB94BEAE
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 15:43:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.774176.1184688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA5B294BEBE
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 15:47:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.774227.1184738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sc3Px-0004kb-Eg; Thu, 08 Aug 2024 13:43:01 +0000
+	id 1sc3Ta-0008I3-0F; Thu, 08 Aug 2024 13:46:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 774176.1184688; Thu, 08 Aug 2024 13:43:01 +0000
+Received: by outflank-mailman (output) from mailman id 774227.1184738; Thu, 08 Aug 2024 13:46:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sc3Px-0004hC-B8; Thu, 08 Aug 2024 13:43:01 +0000
-Received: by outflank-mailman (input) for mailman id 774176;
- Thu, 08 Aug 2024 13:42:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sc3TZ-0008H5-SR; Thu, 08 Aug 2024 13:46:45 +0000
+Received: by outflank-mailman (input) for mailman id 774227;
+ Thu, 08 Aug 2024 13:46:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zgd2=PH=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sc3Pv-0002jZ-Md
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 13:42:59 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1fbddc41-558c-11ef-bc04-fd08da9f4363;
- Thu, 08 Aug 2024 15:42:59 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a728f74c23dso109161666b.1
- for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 06:42:59 -0700 (PDT)
+ id 1sc3Py-0003nA-Gr
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 13:43:02 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2067c9fe-558c-11ef-8776-851b0ebba9a2;
+ Thu, 08 Aug 2024 15:43:00 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a7ac449a0e6so97726866b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 06:43:00 -0700 (PDT)
 Received: from EMEAENGAAD19049.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9ecb551sm741537166b.223.2024.08.08.06.42.57
+ a640c23a62f3a-a7dc9ecb551sm741537166b.223.2024.08.08.06.42.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Aug 2024 06:42:57 -0700 (PDT)
+ Thu, 08 Aug 2024 06:42:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,190 +45,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fbddc41-558c-11ef-bc04-fd08da9f4363
+X-Inumbo-ID: 2067c9fe-558c-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723124578; x=1723729378; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1723124579; x=1723729379; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=m48u/GdGc4dt8JDS23gHEKeM1ld2/77KdzYrt97Of94=;
-        b=HxiR+QXllcTe5SIve620DTPQeoj6qR1AByWMbw3BtkhNytI6lr4VhjpkwnmnUeNfSg
-         Xmkhw8imHXrdia9/m7AqcPN0gX1KfEvtskIbKkr9GhxqZF8pWXE/B34t/PfvUxYSh5g/
-         PG+bmFoxs1SzQB8QLXlmuOtWGg3moSzjA2LSM=
+        bh=+VTFN78Dy6ubfo7KXBLIYL/Uzr8lciQjuQrkAaGjtnE=;
+        b=YJXNETU7ePWL1C2wi6asw21A6NPyZ3NnoYFC6h60/ZWgm4v4EtCv+szaWByk0d1ip9
+         gT4O46+KBnhA+F0ZvRty1hPtcBy7ZZYmfl45x+FQoPqbCX4KugUnIosIbSDupjLUi4Pa
+         NexjDIYD97i5ITut1E7McMgvhpZb4G6TOoiDg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723124578; x=1723729378;
+        d=1e100.net; s=20230601; t=1723124579; x=1723729379;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=m48u/GdGc4dt8JDS23gHEKeM1ld2/77KdzYrt97Of94=;
-        b=Wo6LGSmRL5f/dLI+8JEbkbPaCtCFEstVESEeQric1OIn/q2F13V/gWS7hkyICL13ah
-         rSlEIvkvo9TxG5ykGlrVBTT6BoMwvWcIzYzTN0EC5av4NvYh/KjCDgQTT4EeitWRMvGx
-         +qTFs6uNfaRk+YKAdmpc3Nw8c6qFcThUAxtYvwDqT+J4PmJfpmxcK1+6VWlO4g1c/i1z
-         dY2XHjDKXZNojqVQIP7TbE1MxZEblfU/2/A02be1WOYv9u9gLKodryo8ON/TxnSNsDrM
-         j3Vd02iM30iu99nHCVMZUjKsp72mBbYmSwJmII2psuHN6KyTpdJsQPsZnoCFF9sg9J8E
-         4tuw==
-X-Gm-Message-State: AOJu0YyGjuCBaYIEYWB+CCbXdkixJYlNVg1jiUBYwD4965G17HcfGZPU
-	oXy+ZV28LSsOJCuVO2OvMoq1mHwrcCPAeRDBje3ZMp351x0omAZM2wjrLEUqDVpo/XTLyx1bHKF
-	0
-X-Google-Smtp-Source: AGHT+IG5xlBgPWGBV+bvZoU3GFLz+ML1HJ9O5ctJOBxa+Plc/GHfcNRz8omRfI6Vg1lzm2pP9h5rSg==
-X-Received: by 2002:a17:907:7f88:b0:a72:7fea:5800 with SMTP id a640c23a62f3a-a8090ee36e5mr157675166b.63.1723124578171;
-        Thu, 08 Aug 2024 06:42:58 -0700 (PDT)
+        bh=+VTFN78Dy6ubfo7KXBLIYL/Uzr8lciQjuQrkAaGjtnE=;
+        b=bFvQvcx3CBzea7ffe5voru2ptJIDEKVDFwcxllYoDsrWLYhRvEnByLpg6+kV3+dDVc
+         vhUS6inFjX1eMYgtGzG300oxi6IHFDSepccL/4BtQk2nxv3k86Z68jzIgNLhIXKfF7rQ
+         a0GrNjNID5s1ssYWEn/L8vldh4KwcCe/Mzyac6nPMhGp7zPR05JO+8l/RtNP302Tt1Mn
+         lDlFo7jH2ZGW9NzJU1CEa8ZAQjUJo+nhZ9g70fUHF7DLGmRHccfxOxPg5Pyg8ik67w84
+         nYPJyt1j9tkHmJEJXodFfYEq1gjGCzDSeUWfftznXBa/HCDKY9/YX2XVFgjukDLfb/J7
+         41hw==
+X-Gm-Message-State: AOJu0YwoGThnueJ3355n1hjAcprwHHSVSkKErha0Y2vheIOXU7ySmtnd
+	JHAc1hTJaZo+r4oiaNdNSrCvZGkiUrc9OmxfvsamxeNkkZuLOhEDJhis4nmYoM2Z74F4iQWm8A2
+	J
+X-Google-Smtp-Source: AGHT+IHqoPLOpx13tl55zLu8oJpbBkuLBnVeSmOk3BfepcIKxtoZfuEmvq2zx5ODjvJtDyIbKXY6Cw==
+X-Received: by 2002:a17:907:2d0c:b0:a77:da14:8409 with SMTP id a640c23a62f3a-a8090e4e0dcmr153843766b.48.1723124579044;
+        Thu, 08 Aug 2024 06:42:59 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v5 02/10] x86/vlapic: Move lapic migration checks to the check hooks
-Date: Thu,  8 Aug 2024 14:42:42 +0100
-Message-ID: <20240808134251.29995-3-alejandro.vallejo@cloud.com>
+Subject: [PATCH v5 03/10] xen/x86: Add initial x2APIC ID to the per-vLAPIC save area
+Date: Thu,  8 Aug 2024 14:42:43 +0100
+Message-ID: <20240808134251.29995-4-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240808134251.29995-1-alejandro.vallejo@cloud.com>
 References: <20240808134251.29995-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-While doing this, factor out checks common to architectural and hidden
-state.
+This allows the initial x2APIC ID to be sent on the migration stream.
+This allows further changes to topology and APIC ID assignment without
+breaking existing hosts. Given the vlapic data is zero-extended on
+restore, fix up migrations from hosts without the field by setting it to
+the old convention if zero.
+
+The hardcoded mapping x2apic_id=2*vcpu_id is kept for the time being,
+but it's meant to be overriden by toolstack on a later patch with
+appropriate values.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 v5:
   * No change
 ---
- xen/arch/x86/hvm/vlapic.c | 81 +++++++++++++++++++++++++--------------
- 1 file changed, 53 insertions(+), 28 deletions(-)
+ xen/arch/x86/cpuid.c                   | 14 +++++---------
+ xen/arch/x86/hvm/vlapic.c              | 22 ++++++++++++++++++++--
+ xen/arch/x86/include/asm/hvm/vlapic.h  |  1 +
+ xen/include/public/arch-x86/hvm/save.h |  2 ++
+ 4 files changed, 28 insertions(+), 11 deletions(-)
 
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+index 2a777436ee27..dcbdeabadce9 100644
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -138,10 +138,9 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+         const struct cpu_user_regs *regs;
+ 
+     case 0x1:
+-        /* TODO: Rework topology logic. */
+         res->b &= 0x00ffffffu;
+         if ( is_hvm_domain(d) )
+-            res->b |= (v->vcpu_id * 2) << 24;
++            res->b |= vlapic_x2apic_id(vcpu_vlapic(v)) << 24;
+ 
+         /* TODO: Rework vPMU control in terms of toolstack choices. */
+         if ( vpmu_available(v) &&
+@@ -311,18 +310,15 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+ 
+     case 0xb:
+         /*
+-         * In principle, this leaf is Intel-only.  In practice, it is tightly
+-         * coupled with x2apic, and we offer an x2apic-capable APIC emulation
+-         * to guests on AMD hardware as well.
+-         *
+-         * TODO: Rework topology logic.
++         * Don't expose topology information to PV guests. Exposed on HVM
++         * along with x2APIC because they are tightly coupled.
+          */
+-        if ( p->basic.x2apic )
++        if ( is_hvm_domain(d) && p->basic.x2apic )
+         {
+             *(uint8_t *)&res->c = subleaf;
+ 
+             /* Fix the x2APIC identifier. */
+-            res->d = v->vcpu_id * 2;
++            res->d = vlapic_x2apic_id(vcpu_vlapic(v));
+         }
+         break;
+ 
 diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 2ec95942713e..521b98988be9 100644
+index 521b98988be9..0e0699fc8279 100644
 --- a/xen/arch/x86/hvm/vlapic.c
 +++ b/xen/arch/x86/hvm/vlapic.c
-@@ -1554,60 +1554,85 @@ static void lapic_load_fixup(struct vlapic *vlapic)
-                v, vlapic->loaded.id, vlapic->loaded.ldr, good_ldr);
- }
- 
--static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
--{
--    unsigned int vcpuid = hvm_load_instance(h);
--    struct vcpu *v;
--    struct vlapic *s;
- 
-+static int lapic_check_common(const struct domain *d, unsigned int vcpuid)
-+{
-     if ( !has_vlapic(d) )
-         return -ENODEV;
- 
-     /* Which vlapic to load? */
--    if ( vcpuid >= d->max_vcpus || (v = d->vcpu[vcpuid]) == NULL )
-+    if ( !domain_vcpu(d, vcpuid) )
-     {
-         dprintk(XENLOG_G_ERR, "HVM restore: dom%d has no apic%u\n",
-                 d->domain_id, vcpuid);
-         return -EINVAL;
-     }
--    s = vcpu_vlapic(v);
- 
--    if ( hvm_load_entry_zeroextend(LAPIC, h, &s->hw) != 0 )
-+    return 0;
-+}
-+
-+static int cf_check lapic_check_hidden(const struct domain *d,
-+                                       hvm_domain_context_t *h)
-+{
-+    unsigned int vcpuid = hvm_load_instance(h);
-+    struct hvm_hw_lapic s;
-+    int rc;
-+
-+    if ( (rc = lapic_check_common(d, vcpuid)) )
-+        return rc;
-+
-+    if ( hvm_load_entry_zeroextend(LAPIC, h, &s) != 0 )
-+        return -ENODATA;
-+
-+    /* EN=0 with EXTD=1 is illegal */
-+    if ( (s.apic_base_msr & (APIC_BASE_ENABLE | APIC_BASE_EXTD)) ==
-+         APIC_BASE_EXTD )
-         return -EINVAL;
- 
-+    return 0;
-+}
-+
-+static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
-+{
-+    unsigned int vcpuid = hvm_load_instance(h);
-+    struct vcpu *v = d->vcpu[vcpuid];
-+    struct vlapic *s = vcpu_vlapic(v);
-+
-+    if ( hvm_load_entry_zeroextend(LAPIC, h, &s->hw) != 0 )
-+        ASSERT_UNREACHABLE();
-+
-     s->loaded.hw = 1;
-     if ( s->loaded.regs )
-         lapic_load_fixup(s);
- 
--    if ( !(s->hw.apic_base_msr & APIC_BASE_ENABLE) &&
--         unlikely(vlapic_x2apic_mode(s)) )
--        return -EINVAL;
--
-     hvm_update_vlapic_mode(v);
- 
-     return 0;
- }
- 
--static int cf_check lapic_load_regs(struct domain *d, hvm_domain_context_t *h)
-+static int cf_check lapic_check_regs(const struct domain *d,
-+                                     hvm_domain_context_t *h)
+@@ -1073,7 +1073,7 @@ static uint32_t x2apic_ldr_from_id(uint32_t id)
+ static void set_x2apic_id(struct vlapic *vlapic)
  {
-     unsigned int vcpuid = hvm_load_instance(h);
--    struct vcpu *v;
--    struct vlapic *s;
-+    int rc;
+     const struct vcpu *v = vlapic_vcpu(vlapic);
+-    uint32_t apic_id = v->vcpu_id * 2;
++    uint32_t apic_id = vlapic->hw.x2apic_id;
+     uint32_t apic_ldr = x2apic_ldr_from_id(apic_id);
  
--    if ( !has_vlapic(d) )
--        return -ENODEV;
-+    if ( (rc = lapic_check_common(d, vcpuid)) )
-+        return rc;
+     /*
+@@ -1453,7 +1453,7 @@ void vlapic_reset(struct vlapic *vlapic)
+     if ( v->vcpu_id == 0 )
+         vlapic->hw.apic_base_msr |= APIC_BASE_BSP;
  
--    /* Which vlapic to load? */
--    if ( vcpuid >= d->max_vcpus || (v = d->vcpu[vcpuid]) == NULL )
--    {
--        dprintk(XENLOG_G_ERR, "HVM restore: dom%d has no apic%u\n",
--                d->domain_id, vcpuid);
--        return -EINVAL;
--    }
--    s = vcpu_vlapic(v);
-+    if ( !hvm_get_entry(LAPIC_REGS, h) )
-+        return -ENODATA;
+-    vlapic_set_reg(vlapic, APIC_ID, (v->vcpu_id * 2) << 24);
++    vlapic_set_reg(vlapic, APIC_ID, SET_xAPIC_ID(vlapic->hw.x2apic_id));
+     vlapic_do_init(vlapic);
+ }
+ 
+@@ -1521,6 +1521,16 @@ static void lapic_load_fixup(struct vlapic *vlapic)
+     const struct vcpu *v = vlapic_vcpu(vlapic);
+     uint32_t good_ldr = x2apic_ldr_from_id(vlapic->loaded.id);
+ 
++    /*
++     * Loading record without hw.x2apic_id in the save stream, calculate using
++     * the traditional "vcpu_id * 2" relation. There's an implicit assumption
++     * that vCPU0 always has x2APIC0, which is true for the old relation, and
++     * still holds under the new x2APIC generation algorithm. While that case
++     * goes through the conditional it's benign because it still maps to zero.
++     */
++    if ( !vlapic->hw.x2apic_id )
++        vlapic->hw.x2apic_id = v->vcpu_id * 2;
 +
-+    return 0;
-+}
+     /* Skip fixups on xAPIC mode, or if the x2APIC LDR is already correct */
+     if ( !vlapic_x2apic_mode(vlapic) ||
+          (vlapic->loaded.ldr == good_ldr) )
+@@ -1589,6 +1599,13 @@ static int cf_check lapic_check_hidden(const struct domain *d,
+          APIC_BASE_EXTD )
+         return -EINVAL;
+ 
++    /*
++     * Fail migrations from newer versions of Xen where
++     * rsvd_zero is interpreted as something else.
++     */
++    if ( s.rsvd_zero )
++        return -EINVAL;
 +
-+static int cf_check lapic_load_regs(struct domain *d, hvm_domain_context_t *h)
-+{
-+    unsigned int vcpuid = hvm_load_instance(h);
-+    struct vcpu *v = d->vcpu[vcpuid];
-+    struct vlapic *s = vcpu_vlapic(v);
- 
-     if ( hvm_load_entry(LAPIC_REGS, h, s->regs) != 0 )
--        return -EINVAL;
-+        ASSERT_UNREACHABLE();
- 
-     s->loaded.id = vlapic_get_reg(s, APIC_ID);
-     s->loaded.ldr = vlapic_get_reg(s, APIC_LDR);
-@@ -1624,9 +1649,9 @@ static int cf_check lapic_load_regs(struct domain *d, hvm_domain_context_t *h)
      return 0;
  }
  
--HVM_REGISTER_SAVE_RESTORE(LAPIC, lapic_save_hidden, NULL,
-+HVM_REGISTER_SAVE_RESTORE(LAPIC, lapic_save_hidden, lapic_check_hidden,
-                           lapic_load_hidden, 1, HVMSR_PER_VCPU);
--HVM_REGISTER_SAVE_RESTORE(LAPIC_REGS, lapic_save_regs, NULL,
-+HVM_REGISTER_SAVE_RESTORE(LAPIC_REGS, lapic_save_regs, lapic_check_regs,
-                           lapic_load_regs, 1, HVMSR_PER_VCPU);
+@@ -1667,6 +1684,7 @@ int vlapic_init(struct vcpu *v)
+     }
  
- int vlapic_init(struct vcpu *v)
+     vlapic->pt.source = PTSRC_lapic;
++    vlapic->hw.x2apic_id = 2 * v->vcpu_id;
+ 
+     vlapic->regs_page = alloc_domheap_page(v->domain, MEMF_no_owner);
+     if ( !vlapic->regs_page )
+diff --git a/xen/arch/x86/include/asm/hvm/vlapic.h b/xen/arch/x86/include/asm/hvm/vlapic.h
+index 2c4ff94ae7a8..85c4a236b9f6 100644
+--- a/xen/arch/x86/include/asm/hvm/vlapic.h
++++ b/xen/arch/x86/include/asm/hvm/vlapic.h
+@@ -44,6 +44,7 @@
+ #define vlapic_xapic_mode(vlapic)                               \
+     (!vlapic_hw_disabled(vlapic) && \
+      !((vlapic)->hw.apic_base_msr & APIC_BASE_EXTD))
++#define vlapic_x2apic_id(vlapic) ((vlapic)->hw.x2apic_id)
+ 
+ /*
+  * Generic APIC bitmap vector update & search routines.
+diff --git a/xen/include/public/arch-x86/hvm/save.h b/xen/include/public/arch-x86/hvm/save.h
+index 7ecacadde165..1c2ec669ffc9 100644
+--- a/xen/include/public/arch-x86/hvm/save.h
++++ b/xen/include/public/arch-x86/hvm/save.h
+@@ -394,6 +394,8 @@ struct hvm_hw_lapic {
+     uint32_t             disabled; /* VLAPIC_xx_DISABLED */
+     uint32_t             timer_divisor;
+     uint64_t             tdt_msr;
++    uint32_t             x2apic_id;
++    uint32_t             rsvd_zero;
+ };
+ 
+ DECLARE_HVM_SAVE_TYPE(LAPIC, 5, struct hvm_hw_lapic);
 -- 
 2.45.2
 
