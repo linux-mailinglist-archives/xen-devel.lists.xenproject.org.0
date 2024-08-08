@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1180F94BA85
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 12:09:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773850.1184286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1232F94BA88
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 12:11:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773858.1184297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sc04q-000135-GF; Thu, 08 Aug 2024 10:09:00 +0000
+	id 1sc06w-0002WM-So; Thu, 08 Aug 2024 10:11:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773850.1184286; Thu, 08 Aug 2024 10:09:00 +0000
+Received: by outflank-mailman (output) from mailman id 773858.1184297; Thu, 08 Aug 2024 10:11:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sc04q-00010V-Cd; Thu, 08 Aug 2024 10:09:00 +0000
-Received: by outflank-mailman (input) for mailman id 773850;
- Thu, 08 Aug 2024 10:08:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sc06w-0002TJ-P5; Thu, 08 Aug 2024 10:11:10 +0000
+Received: by outflank-mailman (input) for mailman id 773858;
+ Thu, 08 Aug 2024 10:11:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JkzM=PH=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1sc04o-00010O-VO
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 10:08:59 +0000
+ id 1sc06v-0002TB-U0
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 10:11:09 +0000
 Received: from pb-smtp21.pobox.com (pb-smtp21.pobox.com [173.228.157.53])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38e74763-556e-11ef-bc04-fd08da9f4363;
- Thu, 08 Aug 2024 12:08:57 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 84df10d6-556e-11ef-8776-851b0ebba9a2;
+ Thu, 08 Aug 2024 12:11:05 +0200 (CEST)
 Received: from pb-smtp21.pobox.com (unknown [127.0.0.1])
- by pb-smtp21.pobox.com (Postfix) with ESMTP id 2437531CAF;
- Thu,  8 Aug 2024 06:08:55 -0400 (EDT)
+ by pb-smtp21.pobox.com (Postfix) with ESMTP id 2B10B31D10;
+ Thu,  8 Aug 2024 06:11:03 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 Received: from pb-smtp21.sea.icgroup.com (unknown [127.0.0.1])
- by pb-smtp21.pobox.com (Postfix) with ESMTP id 1C52931CAE;
- Thu,  8 Aug 2024 06:08:55 -0400 (EDT)
+ by pb-smtp21.pobox.com (Postfix) with ESMTP id 242D931D0F;
+ Thu,  8 Aug 2024 06:11:03 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 Received: from localhost (unknown [185.130.54.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by pb-smtp21.pobox.com (Postfix) with ESMTPSA id 8FC1A31CAD;
- Thu,  8 Aug 2024 06:08:50 -0400 (EDT)
+ by pb-smtp21.pobox.com (Postfix) with ESMTPSA id EDA2D31D0C;
+ Thu,  8 Aug 2024 06:10:58 -0400 (EDT)
  (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -50,200 +50,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38e74763-556e-11ef-bc04-fd08da9f4363
+X-Inumbo-ID: 84df10d6-556e-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
 	:subject:date:message-id:in-reply-to:references:mime-version
-	:content-transfer-encoding; s=sasl; bh=rLkBK7EmUw733LUBbAQ/wJYe5
-	yKogIWbC4rHjZir5Ao=; b=bto60RDINWmeaM2SuyuKtMc1rGwz+0SGPAjVuNu3c
-	9982G0z6rUQts0Sz5JvbxcuSlx9ANPGbTikadmo5nwrI9QwIgpIHKaWZJIJrkZJY
-	3L6AyAO3v4K1Pf9TCFraZhh8wtD+4KD2hWwNMRvM5x+e3VQ1Vkltl/55KmZf9YLB
-	vk=
+	:content-transfer-encoding; s=sasl; bh=jkj3n75J3Xa5OS3eW3QITrbx8
+	NB9ZCV+n3azsRyLMWo=; b=ZrnBXFqfjRdTXCMRKFiLpgwQVGpjlRg1lpgpcToF0
+	oJUWy8oVvGDhvNpfToPLtn47rcdWdms1xgW3MxKj107NbeaUNzzh6854/pqJdIhF
+	uFD4AQklESB+fC8gcJBi0UbWByxn+Ld3edNX0S1DiPb5kCaSjps/1r67mZ26aIWi
+	yA=
 From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 To: xen-devel@lists.xenproject.org
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	Paul Durrant <paul@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [XEN PATCH v6 1/3] x86/vmx: guard access to cpu_has_vmx_* in common code
-Date: Thu,  8 Aug 2024 13:08:46 +0300
-Message-Id: <6486b627fd3bdcca3ad877ed6c97ca5cbc51d8e3.1723110344.git.Sergiy_Kibrik@epam.com>
+	Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Julien Grall <julien@xen.org>
+Subject: [XEN PATCH v6 2/3] ioreq: do not build arch_vcpu_ioreq_completion() for non-VMX configurations
+Date: Thu,  8 Aug 2024 13:10:54 +0300
+Message-Id: <04e5397ecfcdb4d5680c7d36f71c4b471004ccd0.1723110344.git.Sergiy_Kibrik@epam.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1723110344.git.Sergiy_Kibrik@epam.com>
 References: <cover.1723110344.git.Sergiy_Kibrik@epam.com>
 MIME-Version: 1.0
 X-Pobox-Relay-ID:
- 359DBB58-556E-11EF-AD78-E92ED1CD468F-90055647!pb-smtp21.pobox.com
+ 8223E5EC-556E-11EF-8DA7-E92ED1CD468F-90055647!pb-smtp21.pobox.com
 Content-Transfer-Encoding: quoted-printable
 
-There're several places in common code, outside of arch/x86/hvm/vmx,
-where cpu_has_vmx_* get accessed without checking whether VMX supported f=
-irst.
-These macros rely on global variables defined in vmx code, so when VMX su=
-pport
-is disabled accesses to these variables turn into build failures.
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
 
-To overcome these failures, build-time check is done before accessing glo=
-bal
-variables, so that DCE would remove these variables.
+VIO_realmode_completion is specific to vmx realmode and thus the function
+arch_vcpu_ioreq_completion() has actual handling work only in VMX-enabled=
+ build,
+as for the rest x86 and ARM build configurations it is basically a stub.
 
+Here a separate configuration option ARCH_IOREQ_COMPLETION introduced tha=
+t tells
+whether the platform we're building for requires any specific ioreq compl=
+etion
+handling. As of now only VMX has such requirement, so the option is selec=
+ted
+by INTEL_VMX, for other configurations a generic default stub is provided
+(it is ARM's version of arch_vcpu_ioreq_completion() moved to common head=
+er).
+
+Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Acked-by: Paul Durrant <paul@xen.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Julien Grall <julien@xen.org>
 CC: Jan Beulich <jbeulich@suse.com>
 ---
 changes in v6:
- - guard all of cpu_has_vmx_* macros
+ - rename option ARCH_IOREQ_COMPLETION -> ARCH_VCPU_IOREQ_COMPLETION
+ - put a comment with brief option's description
 changes in v5:
- - change kconfig option name VMX -> INTEL_VMX
- - do not change .c files, only modify macros in vmcs.h
+ - introduce ARCH_IOREQ_COMPLETION option & put arch_vcpu_ioreq_completio=
+n() under it
+ - description changed
 changes in v4:
- - use IS_ENABLED(CONFIG_VMX) instead of using_vmx
+ - move whole arch_vcpu_ioreq_completion() under CONFIG_VMX and remove
+   ARM's variant of this handler, as Julien suggested
 ---
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h | 90 ++++++++++++++++---------
- 1 file changed, 60 insertions(+), 30 deletions(-)
+ xen/Kconfig              |  6 ++++++
+ xen/arch/arm/ioreq.c     |  6 ------
+ xen/arch/x86/Kconfig     |  1 +
+ xen/arch/x86/hvm/ioreq.c |  2 ++
+ xen/include/xen/ioreq.h  | 10 ++++++++++
+ 5 files changed, 19 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/inclu=
-de/asm/hvm/vmx/vmcs.h
-index 58140af691..939b87eb50 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -298,69 +298,99 @@ extern u64 vmx_ept_vpid_cap;
- #define VMX_TSC_MULTIPLIER_MAX                  0xffffffffffffffffULL
+diff --git a/xen/Kconfig b/xen/Kconfig
+index e459cdac0c..b8d08af374 100644
+--- a/xen/Kconfig
++++ b/xen/Kconfig
+@@ -95,4 +95,10 @@ config LTO
+ config ARCH_SUPPORTS_INT128
+ 	bool
 =20
- #define cpu_has_wbinvd_exiting \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_WBINVD_EXITING)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_WBINVD_EXITING)
- #define cpu_has_vmx_virtualize_apic_accesses \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSE=
-S)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSE=
-S)
- #define cpu_has_vmx_tpr_shadow \
--    (vmx_cpu_based_exec_control & CPU_BASED_TPR_SHADOW)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_cpu_based_exec_control & CPU_BASED_TPR_SHADOW)
- #define cpu_has_vmx_vnmi \
--    (vmx_pin_based_exec_control & PIN_BASED_VIRTUAL_NMIS)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_pin_based_exec_control & PIN_BASED_VIRTUAL_NMIS)
- #define cpu_has_vmx_msr_bitmap \
--    (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_MSR_BITMAP)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_MSR_BITMAP)
- #define cpu_has_vmx_secondary_exec_control \
--    (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS)
- #define cpu_has_vmx_tertiary_exec_control \
--    (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS)
- #define cpu_has_vmx_ept \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_EPT)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_EPT)
- #define cpu_has_vmx_dt_exiting \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_DESCRIPTOR_TABLE_EXITIN=
-G)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_DESCRIPTOR_TABLE_EXITIN=
-G)
- #define cpu_has_vmx_rdtscp \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_RDTSCP)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_RDTSCP)
- #define cpu_has_vmx_vpid \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VPID)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VPID)
- #define cpu_has_monitor_trap_flag \
--    (vmx_cpu_based_exec_control & CPU_BASED_MONITOR_TRAP_FLAG)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_cpu_based_exec_control & CPU_BASED_MONITOR_TRAP_FLAG)
- #define cpu_has_vmx_pat \
--    (vmx_vmentry_control & VM_ENTRY_LOAD_GUEST_PAT)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_vmentry_control & VM_ENTRY_LOAD_GUEST_PAT)
- #define cpu_has_vmx_efer \
--    (vmx_vmentry_control & VM_ENTRY_LOAD_GUEST_EFER)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_vmentry_control & VM_ENTRY_LOAD_GUEST_EFER)
- #define cpu_has_vmx_unrestricted_guest \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_UNRESTRICTED_GUEST)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_UNRESTRICTED_GUEST)
- #define vmx_unrestricted_guest(v)               \
-     ((v)->arch.hvm.vmx.secondary_exec_control & \
-      SECONDARY_EXEC_UNRESTRICTED_GUEST)
- #define cpu_has_vmx_ple \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_PAUSE_LOOP_EXITING)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_PAUSE_LOOP_EXITING)
- #define cpu_has_vmx_invpcid \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_INVPCID)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_INVPCID)
- #define cpu_has_vmx_apic_reg_virt \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_APIC_REGISTER_VIRT)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_APIC_REGISTER_VIRT)
- #define cpu_has_vmx_virtual_intr_delivery \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY)
- #define cpu_has_vmx_virtualize_x2apic_mode \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE)
- #define cpu_has_vmx_posted_intr_processing \
--    (vmx_pin_based_exec_control & PIN_BASED_POSTED_INTERRUPT)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_pin_based_exec_control & PIN_BASED_POSTED_INTERRUPT)
- #define cpu_has_vmx_vmcs_shadowing \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VMCS_SHADOWING)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VMCS_SHADOWING)
- #define cpu_has_vmx_vmfunc \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VM_FUNCTIONS)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VM_FUNCTIONS)
- #define cpu_has_vmx_virt_exceptions \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS)
- #define cpu_has_vmx_pml \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_PML)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_PML)
- #define cpu_has_vmx_mpx \
--    ((vmx_vmexit_control & VM_EXIT_CLEAR_BNDCFGS) && \
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     (vmx_vmexit_control & VM_EXIT_CLEAR_BNDCFGS) && \
-      (vmx_vmentry_control & VM_ENTRY_LOAD_BNDCFGS))
- #define cpu_has_vmx_xsaves \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_XSAVES)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_XSAVES)
- #define cpu_has_vmx_tsc_scaling \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_TSC_SCALING)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_TSC_SCALING)
- #define cpu_has_vmx_bus_lock_detection \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_BUS_LOCK_DETECTION)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_BUS_LOCK_DETECTION)
- #define cpu_has_vmx_notify_vm_exiting \
--    (vmx_secondary_exec_control & SECONDARY_EXEC_NOTIFY_VM_EXITING)
-+    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-+     vmx_secondary_exec_control & SECONDARY_EXEC_NOTIFY_VM_EXITING)
++#
++# For platforms that require specific handling of ioreq completion event=
+s
++#
++config ARCH_VCPU_IOREQ_COMPLETION
++	bool
++
+ source "Kconfig.debug"
+diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
+index 5df755b48b..2e829d2e7f 100644
+--- a/xen/arch/arm/ioreq.c
++++ b/xen/arch/arm/ioreq.c
+@@ -135,12 +135,6 @@ bool arch_ioreq_complete_mmio(void)
+     return false;
+ }
 =20
- #define VMCS_RID_TYPE_MASK              0x80000000U
+-bool arch_vcpu_ioreq_completion(enum vio_completion completion)
+-{
+-    ASSERT_UNREACHABLE();
+-    return true;
+-}
+-
+ /*
+  * The "legacy" mechanism of mapping magic pages for the IOREQ servers
+  * is x86 specific, so the following hooks don't need to be implemented =
+on Arm:
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 7ef5c8bc48..74e081c7bd 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -127,6 +127,7 @@ config AMD_SVM
 =20
+ config INTEL_VMX
+ 	def_bool HVM
++	select ARCH_VCPU_IOREQ_COMPLETION
+=20
+ config XEN_SHSTK
+ 	bool "Supervisor Shadow Stacks"
+diff --git a/xen/arch/x86/hvm/ioreq.c b/xen/arch/x86/hvm/ioreq.c
+index 4eb7a70182..5c3d0c69aa 100644
+--- a/xen/arch/x86/hvm/ioreq.c
++++ b/xen/arch/x86/hvm/ioreq.c
+@@ -29,6 +29,7 @@ bool arch_ioreq_complete_mmio(void)
+     return handle_mmio();
+ }
+=20
++#ifdef CONFIG_VCPU_ARCH_IOREQ_COMPLETION
+ bool arch_vcpu_ioreq_completion(enum vio_completion completion)
+ {
+     switch ( completion )
+@@ -51,6 +52,7 @@ bool arch_vcpu_ioreq_completion(enum vio_completion com=
+pletion)
+=20
+     return true;
+ }
++#endif
+=20
+ static gfn_t hvm_alloc_legacy_ioreq_gfn(struct ioreq_server *s)
+ {
+diff --git a/xen/include/xen/ioreq.h b/xen/include/xen/ioreq.h
+index cd399adf17..29a17e8ff5 100644
+--- a/xen/include/xen/ioreq.h
++++ b/xen/include/xen/ioreq.h
+@@ -111,7 +111,17 @@ void ioreq_domain_init(struct domain *d);
+ int ioreq_server_dm_op(struct xen_dm_op *op, struct domain *d, bool *con=
+st_op);
+=20
+ bool arch_ioreq_complete_mmio(void);
++
++#ifdef CONFIG_VCPU_ARCH_IOREQ_COMPLETION
+ bool arch_vcpu_ioreq_completion(enum vio_completion completion);
++#else
++static inline bool arch_vcpu_ioreq_completion(enum vio_completion comple=
+tion)
++{
++    ASSERT_UNREACHABLE();
++    return true;
++}
++#endif
++
+ int arch_ioreq_server_map_pages(struct ioreq_server *s);
+ void arch_ioreq_server_unmap_pages(struct ioreq_server *s);
+ void arch_ioreq_server_enable(struct ioreq_server *s);
 --=20
 2.25.1
 
