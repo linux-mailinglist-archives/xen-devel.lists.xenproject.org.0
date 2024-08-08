@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B64C94B72D
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 09:12:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.773735.1184173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A78F94B7F1
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2024 09:34:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.773744.1184182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbxJ6-0001JW-4o; Thu, 08 Aug 2024 07:11:32 +0000
+	id 1sbxf6-0004wv-Sk; Thu, 08 Aug 2024 07:34:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 773735.1184173; Thu, 08 Aug 2024 07:11:32 +0000
+Received: by outflank-mailman (output) from mailman id 773744.1184182; Thu, 08 Aug 2024 07:34:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sbxJ6-0001HA-1j; Thu, 08 Aug 2024 07:11:32 +0000
-Received: by outflank-mailman (input) for mailman id 773735;
- Thu, 08 Aug 2024 07:11:30 +0000
+	id 1sbxf6-0004vG-Py; Thu, 08 Aug 2024 07:34:16 +0000
+Received: by outflank-mailman (input) for mailman id 773744;
+ Thu, 08 Aug 2024 07:34:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gzZp=PH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sbxJ4-0001H4-Fz
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 07:11:30 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1sbxf5-0004vA-KC
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2024 07:34:15 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e799b77-5555-11ef-bc04-fd08da9f4363;
- Thu, 08 Aug 2024 09:11:28 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5a1337cfbb5so774524a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 00:11:28 -0700 (PDT)
+ id 9c8e5a94-5558-11ef-bc04-fd08da9f4363;
+ Thu, 08 Aug 2024 09:34:14 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5a309d1a788so616204a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2024 00:34:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bbb2e5ed4asm343835a12.83.2024.08.08.00.11.27
+ a640c23a62f3a-a7dc9bc3c4fsm713666766b.33.2024.08.08.00.34.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Aug 2024 00:11:27 -0700 (PDT)
+ Thu, 08 Aug 2024 00:34:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e799b77-5555-11ef-bc04-fd08da9f4363
+X-Inumbo-ID: 9c8e5a94-5558-11ef-bc04-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723101088; x=1723705888; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723102454; x=1723707254; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OIbBZ7rPq/lWNPoeKV3SIykU/mWcxqiwdGJ9AXQk8T4=;
-        b=WKGqvA0emJxI0x1nqGXInFgppw3RXbsyJYAhE7a3zqlG+9BU2h4KmGSExqBAD+PimN
-         TPx5qMXDLgZAKgS76VF45MYo3MiYIbneLCTFp04zA2+m1kHu7Mvoc3PApWzDo+LwjZjQ
-         8hSO+yfQK7cnE884MGpXNT8qSh+d/okY8964Uv4HjWdOCb4TUYb66dH5ZkCsvNIoZn/w
-         jlshzGrfDPrY3CpwIEXGGfY1PCAFpZbni4FdkEERQEKHNS4rvKPMkdZv4OqNL1UpRNG6
-         kImOYLnnGjyQy1AD8JhE8N1iEwpsJuTgPn3IGzpdoyXxai9ilKofYyRDQSvz2Uy+2hKx
-         7hDQ==
+        bh=FvbSpkbhROaKt0ZoBbzbmF66E7ChOpZajBTvXGE0qWg=;
+        b=Pdf+/tLKbIyg3uHuP+/tXGou3wdnNE8bGFBXGkq67TbG+X8YIGJNHoZGXBv/ACcmUK
+         B16HkLdy1U3gUs11GD4tJr7Jzflco81lkYpdUZAeWMzVX9FC7vOh0DF/HbsyZYViYd8/
+         zxBi54rTZMua0kEm93DeawwxCs8uMBN4evJn1n3cD0QUk/rTn3z/BjmpviZ4C7DZxvan
+         rgYiiZ8RGV55WpCxoSG/j4NMo6lU/W3BMcGpXB2uokpWxjFFg4padB3a5EmcU3tyH31p
+         P8vSYuAIEHqnVSyr9UutRG92MWn4fnq+D/DJhAf36ZeU+BPyvAThdfV0E/OMi2ZilQJn
+         fHqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723101088; x=1723705888;
+        d=1e100.net; s=20230601; t=1723102454; x=1723707254;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OIbBZ7rPq/lWNPoeKV3SIykU/mWcxqiwdGJ9AXQk8T4=;
-        b=Fu5+T4uNu8hCd4r7F21tqRuMOn92l7RkcACfmor3OV3hvWp86BgH2Q+vesGuMgR46y
-         VOhOTI79MsEq0AGLMVPFiC5lRMolxfVkiXXGtzOqe1/Cu1y58GkIIysyHmET7H3Gm+Gy
-         6lxN6UzR+TxYvFVuvUWcsV39IbXrtAl26iVHhF8PfP8KtWccYQxftFOaiIxxXxs0+SZD
-         KttiZcH/yns3G1vR0z0zkpMU934WMrZIQj8gDSG2cuqolc/0bp0CPyWRouZfFADM63FB
-         uPC43jg1v3r22p5GIY2kdtxWc2qdJl2kw3eJ0hUNpEXk5YvNhH+30+v3Q5/slLZnP2qn
-         rg5Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUooAUf9g8jTbTGbm+n5opxTeULufrjVO6l/hSB2dkQglxVk+oJMUT6nHplQsPfCW/GQwsnLzNhtG4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy98rKVYNG2eXHXgQsde9EHS7rCtDasqylzGt2NKDpRNisVmAUV
-	BKQAQ7+Eir04iIpmY4bAyB6tNkcl9/0c9TWrE2JQv1W8afvT21DJtXxY0eJ1RQ==
-X-Google-Smtp-Source: AGHT+IEer2cc+CiMlWUWJFGP/fJ+qH/zZ6AS8HK4X+1hetHPA74wA1gweLE/fKB8gJxYahOQyn530A==
-X-Received: by 2002:a05:6402:5206:b0:587:86d8:8b54 with SMTP id 4fb4d7f45d1cf-5bbb2182b28mr820282a12.4.1723101087951;
-        Thu, 08 Aug 2024 00:11:27 -0700 (PDT)
-Message-ID: <5e081ae3-25b1-48cd-8878-8efd47b57032@suse.com>
-Date: Thu, 8 Aug 2024 09:11:27 +0200
+        bh=FvbSpkbhROaKt0ZoBbzbmF66E7ChOpZajBTvXGE0qWg=;
+        b=HPbeyYnhWEZeP7MWJ5moMAAYVMJA9F8DsTJFbjI7qhVqaYIcAIFtyWIhu4CKwsktmH
+         xuqKAe7n9moNSkVzcfzY94bdmStUYL0/W0lT98KQh6Vdu+MSlgf44ebmZ2pmQVYDQrMi
+         0bOKUrBxPKAlK0FYL+gNCCvuMG2zE8EkvFyOJQr8dQ9xkg01hhgOpvtePVKI4y9rXouC
+         Q9C6R/le3iDHWSQqICW1s0nFeKz91jVyKpJvyhxWCG3K3nPxxjE8iBoD4XZVx2S+5+A2
+         0IoMtjgq9W0Z8UYqj77Q62xdtK7r7T8Ap8k6wl0q83KU1yaPzh78m3rNhYf5is84c6Jv
+         lc/A==
+X-Forwarded-Encrypted: i=1; AJvYcCVZlyIjcAOoOmGkUDDwOZfSoRMb1FJGXZtDJklbi5WToL9mvhCnwPkGwWX56lQSOXKkU65QMq0+dhot24riXuMOnEqhXuUfXPiygzCMjmQ=
+X-Gm-Message-State: AOJu0Yzt8nSURa/VSLkE05/h/jNBBRsZU5PnzguSZo0wBvOAY8rxBwAR
+	eSdslWbvPXNimbmoJUH/D5XVKu97Nxgnh+I0dyvNx/wSHlozwrtiRaHILGyiUQ==
+X-Google-Smtp-Source: AGHT+IEO0e2aAnHSJQ8Q3xHrwm7bYfM0DFHfQrEC03pasgqcdlWv3LhgQt4X3tK+4UxXGpzleX3ngg==
+X-Received: by 2002:a17:907:f714:b0:a7a:9f0f:ab2b with SMTP id a640c23a62f3a-a8090db15e6mr64311566b.32.1723102453621;
+        Thu, 08 Aug 2024 00:34:13 -0700 (PDT)
+Message-ID: <ad72cc97-b9dd-4e7e-93f6-333805e40785@suse.com>
+Date: Thu, 8 Aug 2024 09:34:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] x86/intel: optional build of PSR support
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH 1/5] x86: Put trampoline in .init.data section
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240801084453.1163506-1-Sergiy_Kibrik@epam.com>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
+ <20240807134819.8987-2-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,75 +114,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240801084453.1163506-1-Sergiy_Kibrik@epam.com>
+In-Reply-To: <20240807134819.8987-2-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.08.2024 10:44, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/domctl.c
-> +++ b/xen/arch/x86/domctl.c
-> @@ -1162,6 +1162,7 @@ long arch_do_domctl(
->      }
+On 07.08.2024 15:48, Alejandro Vallejo wrote:
+> This change allows to put the trampoline in a separate, not executable
+> section. The trampoline contains a mix of code and data (data which
+> is modified from C code during early start so must be writable).
+> This is in preparation for W^X patch in order to satisfy UEFI CA
+> memory mitigation requirements.
+
+Which, aiui, has the downside of disassembly of the section no longer
+happening by default, when using objdump or similar tools, which go from
+section attributes. Why is it being in .init.text (and hence RX) not
+appropriate? It should - in principle at least - be possible to avoid
+all in-place writing to it, but instead only ever write to its relocated
+copy. Quite a bit more code churn of course.
+
+I wonder if we shouldn't put the trampoline in its own section, RWX in
+the object file, and switched to whatever appropriate in the binary
+(which really may be RX, not RW).
+
+> --- a/xen/arch/x86/boot/head.S
+> +++ b/xen/arch/x86/boot/head.S
+> @@ -870,6 +870,8 @@ cmdline_parse_early:
+>  reloc:
+>          .incbin "reloc.bin"
 >  
->      case XEN_DOMCTL_psr_cmt_op:
-> +#ifdef CONFIG_INTEL
->          if ( !psr_cmt_enabled() )
->          {
->              ret = -ENODEV;
-> @@ -1190,11 +1191,16 @@ long arch_do_domctl(
->              ret = -ENOSYS;
+> +        .section .init.data, "aw", @progbits
+> +        .align 4
 
-This pre-existing use of -ENOSYS is imo wrong; should be -EINVAL or -EOPNOTSUPP.
+Is the .align really needed here? I think ...
 
->              break;
->          }
-> +
-> +#else /* CONFIG_INTEL */
-> +        ret = -ENOSYS;
+>  ENTRY(trampoline_start)
 
-This use therefore is imo wrong, too. However, can't we avoid #ifdef-ary here
-altogether by supplying a stub psr_cmt_enabled() (plus keeping the decls
-visible for psr_{alloc,free}_rmid())? Similarly for the respective code in
-sysctl.c then.
-
-> +#endif
->          break;
->  
->      case XEN_DOMCTL_psr_alloc:
->          switch ( domctl->u.psr_alloc.cmd )
->          {
-> +#ifdef CONFIG_INTEL
->          case XEN_DOMCTL_PSR_SET_L3_CBM:
->              ret = psr_set_val(d, domctl->u.psr_alloc.target,
->                                domctl->u.psr_alloc.data,
-> @@ -1257,6 +1263,8 @@ long arch_do_domctl(
->  
->  #undef domctl_psr_get_val
->  
-> +#endif /* CONFIG_INTEL */
-> +
->          default:
->              ret = -EOPNOTSUPP;
->              break;
-
-Here (and again for the respective sysctl code) otoh I'm okay with the #ifdef.
-
-> @@ -225,10 +233,11 @@ long arch_do_sysctl(
->  
->      case XEN_SYSCTL_psr_alloc:
->      {
-> -        uint32_t data[PSR_INFO_ARRAY_SIZE] = { };
-> +        uint32_t __maybe_unused data[PSR_INFO_ARRAY_SIZE] = { };
-
-Remark to Andrew: Leaving aside the fact that the initializer here stands in
-the way of doing so, the need for this (imo ugly) attribute is one of the
-reasons why generally I'd prefer such declarations to live ...
-
->          switch ( sysctl->u.psr_alloc.cmd )
->          {
-> +#ifdef CONFIG_INTEL
-
-... immediately inside the switch() accessing them.
+... ENTRY() covers this properly? And actually in a better way, using
+CODE_FILL (which ultimately we will want to switch from 0x90 to 0xcc, I
+suppose) rather than whatever the assembler puts in by default for data
+sections.
 
 Jan
+
+>  #include "trampoline.S"
+>  ENTRY(trampoline_end)
+
 
