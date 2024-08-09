@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62CD894CD6E
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2024 11:36:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.774590.1185042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9117194CD81
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2024 11:45:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.774600.1185052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1scM1N-000355-OS; Fri, 09 Aug 2024 09:34:53 +0000
+	id 1scMBO-00057K-K0; Fri, 09 Aug 2024 09:45:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 774590.1185042; Fri, 09 Aug 2024 09:34:53 +0000
+Received: by outflank-mailman (output) from mailman id 774600.1185052; Fri, 09 Aug 2024 09:45:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1scM1N-00032l-L7; Fri, 09 Aug 2024 09:34:53 +0000
-Received: by outflank-mailman (input) for mailman id 774590;
- Fri, 09 Aug 2024 09:34:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1scMBO-00055E-HI; Fri, 09 Aug 2024 09:45:14 +0000
+Received: by outflank-mailman (input) for mailman id 774600;
+ Fri, 09 Aug 2024 09:45:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TQMG=PI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1scM1M-000326-TN
- for xen-devel@lists.xenproject.org; Fri, 09 Aug 2024 09:34:52 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a0ea234e-5632-11ef-bc04-fd08da9f4363;
- Fri, 09 Aug 2024 11:34:52 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5b5b67d0024so2114703a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 09 Aug 2024 02:34:52 -0700 (PDT)
+ id 1scMBN-000558-Ek
+ for xen-devel@lists.xenproject.org; Fri, 09 Aug 2024 09:45:13 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 104cb18f-5634-11ef-8776-851b0ebba9a2;
+ Fri, 09 Aug 2024 11:45:08 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5bb85e90ad5so1696455a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Aug 2024 02:45:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bbb2c6f6ebsm1373929a12.56.2024.08.09.02.34.50
+ a640c23a62f3a-a7dc9c0ca0bsm823132366b.74.2024.08.09.02.45.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Aug 2024 02:34:51 -0700 (PDT)
+ Fri, 09 Aug 2024 02:45:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0ea234e-5632-11ef-bc04-fd08da9f4363
+X-Inumbo-ID: 104cb18f-5634-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723196092; x=1723800892; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vie/7mTHBG1wCPOj38RBCAuED74DuAm56LUWZFPnkBM=;
-        b=D6B6nLwsUAWLlW6r7sJJH0Fzspkq4AOxo7ELhdt+us8ws/P3VdeML+3gmz1m5ed8Kl
-         yTGip6rW7R7tkw0gWt33G4DHY90zbnGRPxgD+4M01f0h4qLF7HfUzRM3aUkFll4KAw2p
-         wi6FI5BX9PiXFd/9RmojlGwf6UzZO2vIYIqRJD+yjEf6VdFUIYyOoVw6khJUFBwyM18S
-         UnLiVgokJlWZCA/duYDlJu1e5eLvkT68cqHhWUHgT8Z1qFG5lVgKTp4hoTpeRDamTNV8
-         9rnVNvDayRRv10EklO5pHChfgPn9zf5Ld3iCvcFfWlPhEHtm+BL3qrZWa3X72Wscx5xk
-         7bNQ==
+        d=suse.com; s=google; t=1723196711; x=1723801511; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=bfXHI7YRjtVXLrVhuwcVI4WW/iq2ERr9gXv13LmzL3Q=;
+        b=ZkV/XNAqCxChWG1PivGeNluSqzYb6HCVWcghKAJIECIbGW8kuQ5wS4bUulgsxKhFEx
+         bVDmu1NXrvxeUr4U2/PrClqvpvX4QbevsqmcKw9GF33xQ3/5d2+g6RuTWgn75sh0HmXL
+         muhVjiJiBDmKgNjUSXs9ACX9tdQD7/oz6P2JJiPZx8Oy/XUTbbmKhbYV2DNvv/kt6YGJ
+         KWzHA523RPpQd6GMdk+duNaZbacwOBtYRvEhbtBengSpl1zGzjqTy+5bDwvu1uHk3Z5W
+         2aVkuS5KsLrUhnRvzlKtI/kO/FDoXwFy2qp/r+13w3Ns3z4pSqQA1IRQhSI9X2LLNMiX
+         RYgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723196092; x=1723800892;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vie/7mTHBG1wCPOj38RBCAuED74DuAm56LUWZFPnkBM=;
-        b=rI/OnltN/wibk+oWfL/cw3La6+yNdWJt4Qrx49/fKaC61yQfP6OkGYI5Bh7ejfwCig
-         xYXfRt5p1obBA4i03h1PQhjHEJf931OvQ4t2Pjf7eZLne4u9PQZdqPWsklahCIF1Bwtz
-         h22zJGqXsRQFia3Lwi3eTekvV7D5yjpEE+vPt6ozJMSsNbf1ejJRWe4g9VS4Tr3uG3pT
-         PaZX7kyEHRFKJkbjVwvIDILWA9M3/ykAHjwmlNLGhcP/tOdi2wslpR5YxVvQfcasw8bA
-         SIS9TEcbmV36DEjfvWDU3hCokab0QOn/rTkibdmkb6ILeNQ2yNRgiIuizKFuvCCgNbWm
-         VOhQ==
-X-Gm-Message-State: AOJu0Yxa8fE5u6qa6E19LGhgtVUjfOUq4FYIuixbDFJfQVeL+WMwxyur
-	Kw0bZQVSIgqKv1BL3pTNFfq/JxZA0Cu6pxdqjspdMR9MoCX5MBtcyfXJsQWxzg==
-X-Google-Smtp-Source: AGHT+IFsn6TdwlATxR82p8PfhpY1Qz9V1q4vsqmOFbRGHEsrGudFsSG5tZKjX0udTTs6XfjR2lLkYg==
-X-Received: by 2002:a05:6402:2742:b0:59e:b95d:e744 with SMTP id 4fb4d7f45d1cf-5bd0a63e264mr624000a12.29.1723196091641;
-        Fri, 09 Aug 2024 02:34:51 -0700 (PDT)
-Message-ID: <724aa3bd-26a0-4a01-8be5-69fa838ee9ba@suse.com>
-Date: Fri, 9 Aug 2024 11:34:50 +0200
+        d=1e100.net; s=20230601; t=1723196711; x=1723801511;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bfXHI7YRjtVXLrVhuwcVI4WW/iq2ERr9gXv13LmzL3Q=;
+        b=OV6YGnX1iAkjz+a0FN/pXylgoHyDhsNtAtIc5CxZbbwcahCatY0RSBOcseGsveishw
+         tXFSuqXIiqoq3NTQMU1fozYhaw4ak+Qxu/1DCC7S82/0PGVj5clearKfuP0Fuqyecgq5
+         5oUu3ek2bJ0KpOLMBIdah9SqJnOK4QLvxqbaX1ZlkCbQ5qVUCZO6HQTXgXyp1VgUgQu3
+         4AxWOn0euu4rw4WFmguSUXp9OfkQrncAj75ESlPIucPQEcSQZv8OUtDbp2Ul0527gGsP
+         Tw42LnHt5CKkaejuiTrCywjq5/MVfqf/BI4y207up8Mf4C3M8CPBS5hqZ8iu55BbK7ba
+         A0rg==
+X-Forwarded-Encrypted: i=1; AJvYcCWNbBwev+uyuRjLS2YZLkhFgfBiSaNwk9CU5TqAAshaH1Yx2lYzWpR34IsnupeIzIPFrN2yYpRqu310t7gylMrWIne4kNGb6VEp8hUk5Bs=
+X-Gm-Message-State: AOJu0YyHdySZwEzjnD3oIrbAfRofYPzDYDbJnjm9RGUNkYyrZHoPNW5e
+	1CIFiA2zptnlXcdquMF5d0aAwD/WS/O48AAGIE/lZ+y2qgIUygu9ldE56nmzvA==
+X-Google-Smtp-Source: AGHT+IHXEVmAihnXwyVjAcegGO2zuDmd5+TRNNiO5xOEembNdL9LIMP2KZqkz3FjqAEANanlRGVsqA==
+X-Received: by 2002:a17:907:7ea1:b0:a7a:8cfb:6568 with SMTP id a640c23a62f3a-a80aa67340dmr72208466b.57.1723196710628;
+        Fri, 09 Aug 2024 02:45:10 -0700 (PDT)
+Message-ID: <64e0ac51-690d-4c44-85fb-6a0b8415fcb7@suse.com>
+Date: Fri, 9 Aug 2024 11:45:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] xen: arm: make VMAP only support in MMU system
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: xen-devel@lists.xenproject.org, Penny Zheng <penny.zheng@arm.com>,
- Wei Chen <wei.chen@arm.com>, sstabellini@kernel.org,
- bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
- julien@xen.org
-References: <20240808120936.3299937-1-ayan.kumar.halder@amd.com>
- <20240808120936.3299937-3-ayan.kumar.halder@amd.com>
- <bc643306-a41a-41bb-b7b7-b7c67f9e5bdf@suse.com>
- <3c491d8f-6180-46d7-a996-049df88a023e@amd.com>
-Content-Language: en-US
+Subject: Re: [PATCH 5/5] xen: tolerate ACPI NVS memory overlapping with Xen
+ allocated memory
 From: Jan Beulich <jbeulich@suse.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org
+References: <20240807104110.18117-1-jgross@suse.com>
+ <20240807104110.18117-6-jgross@suse.com>
+ <90d67e10-6e35-487e-a9e7-611a0fa3b00b@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,70 +119,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3c491d8f-6180-46d7-a996-049df88a023e@amd.com>
+In-Reply-To: <90d67e10-6e35-487e-a9e7-611a0fa3b00b@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08.08.2024 17:50, Ayan Kumar Halder wrote:
-> On 08/08/2024 13:49, Jan Beulich wrote:
->> On 08.08.2024 14:09, Ayan Kumar Halder wrote:
->>> @@ -58,9 +58,13 @@ config PADDR_BITS
->>>   	default 40 if ARM_PA_BITS_40
->>>   	default 48 if ARM_64
->>>   
->>> +config HAS_VMAP
->>> +	def_bool y
->> With this being always enabled, ...
+On 07.08.2024 14:05, Jan Beulich wrote:
+> On 07.08.2024 12:41, Juergen Gross wrote:
+>> In order to minimize required special handling for running as Xen PV
+>> dom0, the memory layout is modified to match that of the host. This
+>> requires to have only RAM at the locations where Xen allocated memory
+>> is living. Unfortunately there seem to be some machines, where ACPI
+>> NVS is located at 64 MB, resulting in a conflict with the loaded
+>> kernel or the initial page tables built by Xen.
+>>
+>> As ACPI NVS needs to be accessed by the kernel only for saving and
+>> restoring it across suspend operations, it can be relocated in the
+>> dom0's memory map by swapping it with unused RAM (this is possible
+>> via modification of the dom0 P2M map).
 > 
-> I had to define the config somewhere. It seemed this is the correct 
-> place to define as HAS_VMAP will be turned off when MPU is introduced.
-> 
-> So, it will be
-> 
-> config HAS_VMAP
-> 
->             def_bool n
-> 
-> At that time, only MMU will select HAS_VMAP.
+> While the kernel may not (directly) need to access it for other purposes,
+> what about AML accessing it? As you can't advertise the movement to ACPI,
+> and as non-RAM mappings are carried out by drivers/acpi/osl.c:acpi_map()
+> using acpi_os_ioremap(), phys-to-machine translations won't cover for
+> that (unless I'm overlooking something, which unfortunately seems like I
+> might be).
 
-Well, but why is it not simply
-
-config HAS_VMAP
-	bool
-
-from the very beginning? (There should never be "def_bool n" imo, btw.)
-
->>> --- a/xen/include/xen/vmap.h
->>> +++ b/xen/include/xen/vmap.h
->>> @@ -141,7 +141,9 @@ void *arch_vmap_virt_end(void);
->>>   /* Initialises the VMAP_DEFAULT virtual range */
->>>   static inline void vm_init(void)
->>>   {
->>> +#ifdef CONFIG_MMU
->>>       vm_init_type(VMAP_DEFAULT, (void *)VMAP_VIRT_START, arch_vmap_virt_end());
->>> +#endif
->>>   }
->> What about non-Arm, which all have MMUs but no corresponding Kconfig
->> setting?
-> 
-> AFAICS , the only file that is of our concern xen/common/vmap.c It is 
-> enclosed with VMAP_VIRT_START which is defined in mmu specific file 
-> (xen/arch/arm/include/asm/mmu/layout.h).
-> 
-> So, it will not be compiled for Arm MPU arch.
-
-Yet that wasn't my question. I asked about non-Arm, for all of which it
-looks like you're changing behavior of vm_init() (by suddenly making it
-do nothing).
-
->> And why is this not CONFIG_HAS_VMAP anyway (with HAS_VMAP
->> properly moved to common/Kconfig, where e.g. HAS_PMAP also lives,
->> and then unconditionally selected by all other architectures)?
-> 
-> I am not sure why CONFIG_HAS_VMAP should be moved to common/Kconfig when 
-> it will be selected/deselected only for Arm architecture.
-
-Because you will want to use that (not MMU) in vm_init().
+Thinking some more about this, the above may be pointing in the wrong
+direction. If from acpi_os_ioremap() downwards no address translation
+(PFN -> MFN) occurred, then what's coming from AML would still be
+handled correctly as far as page table entries go. The problem then
+might instead be that the mapping would appear to be covering RAM, not
+the ACPI NVS region (and there may be checks for that).
 
 Jan
 
