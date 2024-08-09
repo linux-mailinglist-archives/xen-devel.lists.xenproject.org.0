@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EFFC94D0CA
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2024 15:05:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.774744.1185172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3DB194D0CD
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2024 15:05:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.774752.1185182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1scPIB-0000ih-VZ; Fri, 09 Aug 2024 13:04:27 +0000
+	id 1scPJ3-0001CB-7v; Fri, 09 Aug 2024 13:05:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 774744.1185172; Fri, 09 Aug 2024 13:04:27 +0000
+Received: by outflank-mailman (output) from mailman id 774752.1185182; Fri, 09 Aug 2024 13:05:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1scPIB-0000gK-T1; Fri, 09 Aug 2024 13:04:27 +0000
-Received: by outflank-mailman (input) for mailman id 774744;
- Fri, 09 Aug 2024 13:04:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dBfy=PI=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1scPI9-0000fj-Hs
- for xen-devel@lists.xenproject.org; Fri, 09 Aug 2024 13:04:25 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e644dc82-564f-11ef-8776-851b0ebba9a2;
- Fri, 09 Aug 2024 15:04:23 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a7a94478a4eso506971566b.1
- for <xen-devel@lists.xenproject.org>; Fri, 09 Aug 2024 06:04:23 -0700 (PDT)
-Received: from EMEAENGAAD19049.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7dc9d437a5sm835020266b.101.2024.08.09.06.04.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Aug 2024 06:04:22 -0700 (PDT)
+	id 1scPJ3-0001AZ-4z; Fri, 09 Aug 2024 13:05:21 +0000
+Received: by outflank-mailman (input) for mailman id 774752;
+ Fri, 09 Aug 2024 13:05:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TQMG=PI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1scPJ1-00013P-V8
+ for xen-devel@lists.xenproject.org; Fri, 09 Aug 2024 13:05:19 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0732c9bd-5650-11ef-bc04-fd08da9f4363;
+ Fri, 09 Aug 2024 15:05:19 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-58ef19aa69dso2069448a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Aug 2024 06:05:19 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5bbb2bf96f5sm1518564a12.14.2024.08.09.06.05.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Aug 2024 06:05:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +45,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e644dc82-564f-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 0732c9bd-5650-11ef-bc04-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723208663; x=1723813463; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IqFJjaRsLh2UOFChJjBNPbupmjhv4JBVg7GbkBcuHVg=;
-        b=RPAiPK5yRVeS8Yvn++GWkh7szcfN16PDKTPj7/srXK82tEqbH+ViVDhEI/w5OxfBtX
-         WSTRbPjkebkNXuaqX5JmVwySWKWKeUtUKJgcfFhgd2eEb2eTOIX/oqv0zpYsYGm1RDG2
-         qymG9QSFnDmPqUxXw+AtdnL96SFtSfGzC+i0o=
+        d=suse.com; s=google; t=1723208718; x=1723813518; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BEqg5SLuQGxr6NW9TobcbXN7WqjttX+TdB+5hbj6Sy8=;
+        b=GGzfe4WdXgPmbqQzyN8mqjGaXWGIgaZez08K0PYwqo30n8oqH81pfrfxpje39CBZzU
+         XI5B6sqSLyqYqGNdaHnaLucT9/3+tNuS4WjJrkfQanCdHWmt6VCtYyo7Pwjbz5neW73X
+         zuL09zossnh7issH9fvXbebk65I6DW6wvz3zgW5e4v4taX/WGoKcP5Ten4p/nJG4fYAO
+         DcQmgs3gcTRurGcTL2s+47PwyYf85TQm2M+TpwT+efO5WY1qS6OCk3tApb9RO+Uh0ec2
+         5NFEixccWm05Z/31C3/Aep3DXMiB37UnIyLheYs3b8r8gxy6gUpGCn9Hrm+rSStZ74xu
+         EegQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723208663; x=1723813463;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IqFJjaRsLh2UOFChJjBNPbupmjhv4JBVg7GbkBcuHVg=;
-        b=NUsXZyTL8VU5iyIjP33QCKwL2KyXz8S0kuzFj8tCsZ7FTJ2Zg2FnXGQUiFctVbGMb8
-         oG0bjSd8+OEFmxgNK74fWqgFdYjwfdukG+Lug3sAbmJRsUjq8IgoXL1XJ2XCtUClipb8
-         9fDnn58XxOytiuRBb9vEvbTH+VZyw4fbBLqP4z74WVyd5DTjHGAaOvAXzI1XyZ7aOYrx
-         dtx3UfY1Ztn8joGT3Xn1brlh1ZljVE2gmlyQ3M9cTp0qoeNSuL/wlkYA0pJkyy1eH+df
-         r+uTFvjV3hT8ImmYEIoPJENRur+EKOA274NLMRM7VNL8euso3RcEeKjZr6UPt5m1fzhA
-         O04g==
-X-Gm-Message-State: AOJu0YyXCLMpX+/zPjnFxQxF2AlOI3dhXokHnzRw756FSd9ddrAiT17X
-	Qh7btZi01HNQe96kpg4eT5oPr8KaBXT2znHPJKnnrVE8sf6UDMxypWcXeifTUFcd/85k4185Iql
-	B
-X-Google-Smtp-Source: AGHT+IF3a2+rZm0LdS0N84wcXkZrMpkLEAxaKgpUmxpZyi4RX8szJX/zSNJo8B4xU11eluiNC+6uLA==
-X-Received: by 2002:a17:906:f59f:b0:a77:db39:cc04 with SMTP id a640c23a62f3a-a8091ef4436mr453145066b.11.1723208662561;
-        Fri, 09 Aug 2024 06:04:22 -0700 (PDT)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [RFC PATCH] xen: Remove -Wdeclaration-after-statement
-Date: Fri,  9 Aug 2024 14:04:18 +0100
-Message-ID: <20240809130418.10431-1-alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.45.2
+        d=1e100.net; s=20230601; t=1723208718; x=1723813518;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BEqg5SLuQGxr6NW9TobcbXN7WqjttX+TdB+5hbj6Sy8=;
+        b=OPKZNlxWU1+2n3M66mHHkoW1FrXwZTLoEMBLPQVlvOkQUQpW0d4RIx+EHPjz1tsdeT
+         RjN2hb9pRBRWfNpBgMfkGncOu1AGvO8tOmczrd3Qi9ogdCRn9tcEa+f9jh+yQTMH76Nm
+         cF4pznrstY4ELNOcODKe5etYQjoxYoHKcJSmKH33V10R+bybhJI6c4Ksh9rGkeExsA2z
+         cjafYuhBJqHJAFfSz61y8UDPGgRkfHiei5s5lHz6sIyLgHLufYmjYfSQzyQ+QSdcCzIV
+         aDio10Kf/BHxZDCkap2eq+goRfNS4thzfmsSwXWl84/U4j98CtF04cpWHp45H7pewyvS
+         +++w==
+X-Forwarded-Encrypted: i=1; AJvYcCUOrkFBo2PlSlHKLKKC9SprbBAecqR554cR0KzHiahak97PLVhEjnbjuiN+TmZH4cfOrDlkmByU+rU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzLszsQrRL2Ul8s9LTPuyJEe7Ggrbzzln96mc+VEpr7IWF3x6Hj
+	+ZsST7s0EIQcwfnB1SiLZVk2h4gyOX0BWcXg2ja/31wGpoc7u14BFALMIxAIbq6wrGNqaGBh60U
+	=
+X-Google-Smtp-Source: AGHT+IFA3dmlp2kKsleNkpSo5ltZZUCAwn/Q4IKIMoyS4bGXioxVKcUNAwf8tLM622zrmi7WwWj50g==
+X-Received: by 2002:a05:6402:40d2:b0:5ba:cb82:a776 with SMTP id 4fb4d7f45d1cf-5bd0a535cefmr1137750a12.9.1723208718268;
+        Fri, 09 Aug 2024 06:05:18 -0700 (PDT)
+Message-ID: <85a9263b-24cf-47ba-ba83-c2c988dee5c2@suse.com>
+Date: Fri, 9 Aug 2024 15:05:17 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/msi: fix locking for SR-IOV devices
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+References: <20240807052011.582099-1-stewart.hildebrand@amd.com>
+ <1b0475fe-4371-4bf7-a469-aa580648f210@suse.com>
+ <62523c87-9c93-4b71-a71b-e852fce3136d@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <62523c87-9c93-4b71-a71b-e852fce3136d@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This warning only makes sense when developing using a compiler with C99
-support on a codebase meant to be built with C89 compilers too, and
-that's no longer the case (nor should it be, as it's been 25 years since
-C99 came out already).
+On 09.08.2024 06:09, Stewart Hildebrand wrote:
+> On 8/7/24 11:21, Jan Beulich wrote:
+>> On 07.08.2024 07:20, Stewart Hildebrand wrote:
+>>> --- a/xen/arch/x86/msi.c
+>>> +++ b/xen/arch/x86/msi.c
+>>> @@ -662,7 +662,8 @@ static int msi_capability_init(struct pci_dev *dev,
+>>>      return 0;
+>>>  }
+>>>  
+>>> -static u64 read_pci_mem_bar(u16 seg, u8 bus, u8 slot, u8 func, u8 bir, int vf)
+>>> +static u64 read_pci_mem_bar(struct pci_dev *pdev, u16 seg, u8 bus, u8 slot,
+>>> +                            u8 func, u8 bir, int vf)
+>>>  {
+>>
+>> First I thought this was a leftover from the earlier version. But you need
+>> it for accessing the vf_rlen[] field. Yet that's properly misleading,
+>> especially when considering that the fix also wants backporting. What pdev
+>> represents here changes. I think you want to pass in just vf_rlen (if we
+>> really want to go this route; I'm a little wary of this repurposing of the
+>> field, albeit I see no real technical issue).
+> 
+> I like your idea below of using a struct, so I'll pass a pointer to the
+> new struct.
+> 
+>> Of course there's a BUILD_BUG_ON() which we need to get creative with, in
+>> order to now outright drop it (see also below).
+> 
+> I suppose this BUILD_BUG_ON() is redundant with the one in
+> pci_add_device()...
 
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
----
-Yes, I'm opening this can of worms. I'd like to hear others people's
-thoughts on this and whether this is something MISRA has views on. If
-there's an ulterior non-obvious reason besides stylistic preference I
-think it should be documented somewhere, but I haven't seen such an
-explanation.
+"Redundant" can be positive or negative. Your response sounds as if you
+thought one could be dropped, yet I think we want them in both places.
 
-IMO, the presence of this warning causes several undesirable effects:
+>>> --- a/xen/drivers/passthrough/pci.c
+>>> +++ b/xen/drivers/passthrough/pci.c
+>>> @@ -654,6 +654,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>>>      const char *type;
+>>>      int ret;
+>>>      bool pf_is_extfn = false;
+>>> +    uint64_t vf_rlen[6] = { 0 };
+>>
+>> The type of this variable needs to be tied to that of the struct field
+>> you copy to/from. Otherwise, if the struct field changes type ...
+>>
+>>> @@ -664,7 +665,10 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>>>                              PCI_SBDF(seg, info->physfn.bus,
+>>>                                       info->physfn.devfn));
+>>>          if ( pdev )
+>>> +        {
+>>>              pf_is_extfn = pdev->info.is_extfn;
+>>> +            memcpy(vf_rlen, pdev->vf_rlen, sizeof(pdev->vf_rlen));
+>>
+>> ... there'll be nothing for the compiler to tell us. Taken together with
+>> the BUILD_BUG_ON() related remark further up, I think you want to
+>> introduce a typedef and/or struct here to make things properly typesafe
+>> (as then you can avoid the use of memcpy()).
+> 
+> Here's what I'm thinking:
+> 
+> struct vf_info {
+>     uint64_t vf_rlen[PCI_SRIOV_NUM_BARS];
+>     unsigned int refcnt;
+> };
+> 
+> struct pci_dev {
+>     ...
+>     struct vf_info *vf_info;
+>     ...
+> };
 
-  1. Small functions are hampered by the preclusion of check+declare
-     patterns that improve readability via concision. e.g: Consider a
-     silly example like:
+I don't (yet) see the need for refcnt, and I also don't see why it wouldn't
+continue to be embedded in struct pci_dev. Specifically ...
 
-     /* with warning */                     /* without warning */
-     void foo(uint8_t *p)                   void foo(uint8_t *p)
-     {                                      {
-         uint8_t  tmp1;                         if ( !p )
-         uint16_t tmp2;                             return;
-         uint32_t tmp3;
-                                                uint8_t  tmp1 = OFFSET1 + *p;
-         if ( !p )                              uint16_t tmp2 = OFFSET2 + *p;
-             return;                            uint32_t tmp3 = OFFSET3 + *p;
+>> An alternative approach might be to add a link from VF to PF, while
+>> making sure that the PF struct won't be de-allocated until all its VFs
+>> have gone away. That would then also allow to eliminate the problematic
+>> pci_get_pdev().
+> 
+> I think I can add a link to a new reference-counted struct with just the
+> info needed (see the proposed struct above).
 
-         tmp1 = OFFSET1 + *p;                   /* Lots of uses of `tmpX` */
-         tmp2 = OFFSET2 + *p;               }
-         tmp2 = OFFSET2 + *p;
+... I think having a link from VF to its PF may turn out helpful in the
+future for other purposes, too.
 
-         /* Lots of uses of tmpX */
-     }
-
-  2. Promotes scope-creep. On small functions it doesn't matter much,
-     but on bigger ones to prevent declaring halfway through the body
-     needlessly increases variable scope to the full scope in which they
-     are defined rather than the subscope of point-of-declaration to
-     end-of-current-scope. In cases in which they can be trivially
-     defined at that point, it also means they can be trivially misused
-     before they are meant to. i.e: On the example in (1) assume the
-     conditional in "with warning" is actually a large switch statement.
-
-  3. It facilitates a disconnect between time-of-declaration and
-     time-of-use that lead very easily to "use-before-init" bugs.
-     While a modern compiler can alleviate the most egregious cases of
-     this, there's cases it simply cannot cover. A conditional
-     initialization on anything with external linkage combined with a
-     conditional use on something else with external linkage will squash
-     the warning of using an uninitialised variable. Things are worse
-     where the variable in question is preinitialised to something
-     credible (e.g: a pointer to NULL), as then that can be misused
-     between its declaration and its original point of intended use.
-
-So... thoughts? yay or nay?
----
- xen/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/Makefile b/xen/Makefile
-index 2e1a925c8417..288b7ac8bb2d 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -394,7 +394,7 @@ CFLAGS-$(CONFIG_CC_SPLIT_SECTIONS) += -ffunction-sections -fdata-sections
- 
- CFLAGS += -nostdinc -fno-builtin -fno-common
- CFLAGS += -Werror -Wredundant-decls -Wwrite-strings -Wno-pointer-arith
--CFLAGS += -Wdeclaration-after-statement -Wuninitialized
-+CFLAGS += -Wuninitialized
- $(call cc-option-add,CFLAGS,CC,-Wvla)
- $(call cc-option-add,CFLAGS,CC,-Wflex-array-member-not-at-end)
- $(call cc-option-add,CFLAGS,CC,-Winit-self)
--- 
-2.45.2
-
+Jan
 
