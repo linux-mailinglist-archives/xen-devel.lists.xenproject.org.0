@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3151A94CE8E
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2024 12:24:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.774639.1185092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B13F94CECD
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2024 12:38:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.774650.1185102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1scMmQ-00059Z-1t; Fri, 09 Aug 2024 10:23:30 +0000
+	id 1scMzZ-0007uG-6V; Fri, 09 Aug 2024 10:37:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 774639.1185092; Fri, 09 Aug 2024 10:23:30 +0000
+Received: by outflank-mailman (output) from mailman id 774650.1185102; Fri, 09 Aug 2024 10:37:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1scMmP-000585-VS; Fri, 09 Aug 2024 10:23:29 +0000
-Received: by outflank-mailman (input) for mailman id 774639;
- Fri, 09 Aug 2024 10:23:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1scMzZ-0007s8-3P; Fri, 09 Aug 2024 10:37:05 +0000
+Received: by outflank-mailman (input) for mailman id 774650;
+ Fri, 09 Aug 2024 10:37:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RF4x=PI=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1scMmO-00057z-HG
- for xen-devel@lists.xenproject.org; Fri, 09 Aug 2024 10:23:28 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6a8c4d9e-5639-11ef-bc04-fd08da9f4363;
- Fri, 09 Aug 2024 12:23:27 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5b7b6a30454so2340325a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 09 Aug 2024 03:23:27 -0700 (PDT)
+ <SRS0=dBfy=PI=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1scMzX-0007s2-VT
+ for xen-devel@lists.xenproject.org; Fri, 09 Aug 2024 10:37:04 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4fedac24-563b-11ef-8776-851b0ebba9a2;
+ Fri, 09 Aug 2024 12:37:01 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a7aa086b077so194631466b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Aug 2024 03:37:01 -0700 (PDT)
+Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc9d8a4b1sm832735766b.151.2024.08.09.03.36.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Aug 2024 03:37:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,121 +44,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a8c4d9e-5639-11ef-bc04-fd08da9f4363
+X-Inumbo-ID: 4fedac24-563b-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1723199007; x=1723803807; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=g3OZ6i3t+Jrt4X67Jea4ruZJY8L9jivWEm6rl2B9hLI=;
-        b=Zzv7fB6zLPTKEZSZhV7gDrzpO+5vdgkPeePky1V2xVeNSEtyNwm6sjpY3EmScUc13d
-         1qRld6Q+5Galf8ZMy/k8K3QPZ4nxZ75W/YD78zt3c3qEpRQ+FH0dFoH4nSkP0gA3supG
-         hqpzlZ8H8BP8vGPoCGdVlGdyvjmaUeqhNpLo+QT1UQvSmyS0bMFeBNs5vAyAL2SXWl7g
-         ooahUqdAW6lb404SbCfiOrEGcst4J6t9VIa2wi48BXjwFN1z1zvWC0PHO60fOq5AbzlA
-         jci05l0xjzm9shJ7ec9uwJjU93SUOaXc3S3HNVl5pqcMduOKhkZW6XK/ZiBx/UbFYqhX
-         3nJw==
+        d=cloud.com; s=cloud; t=1723199821; x=1723804621; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rOJZysuO7YX6C+HiR3FdpKHjYZKOT3NccPJkp3Z5Ok0=;
+        b=C6Wm6Cvx7q6VXrrTw1kuek6p6ncxkgzCfZndy1S9ueGJy84y6ub71WAnQFBSfSN1vG
+         wlMxTU4RSedE9p6CRqi0LyZfNGRUzd0i8DuILxxPB+15C1ZPA99JRgGJ0BtUE5iraXrO
+         6LAJmfafNY8MKkosbtsAYzl+ouB5ghcrd7hl4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723199007; x=1723803807;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=g3OZ6i3t+Jrt4X67Jea4ruZJY8L9jivWEm6rl2B9hLI=;
-        b=h6CRJpHX1d9sKPAtiTYRqzWbitUYFSgITumYnNzBUA8LI3BajWTYypzCBz9y1PEmi/
-         mJ+EuAxFiEhtEavwo4Z31gzImYlvYOteIkX7LjaCm1uxQbuf/OLEBF74aapE9L83r6Tj
-         G8iRFOBAH3o0Y+9zU2WubTnEej/NI37uaYyndWbjOeA4rB+cbbGHN7zhZnLli76s7qkp
-         2N+DCOpNL2FCJWspZQ4vrxUulx8l/IRuB1XeO9j6XO72daEM76UDN3J48ZAeQGBPr9au
-         bXKVH1LG75fMeBGf7HdLTwnRy2Zj9LFzqj7dBCQ7j9tEYHN8dU8NvY7+jpGe+AzXRfM9
-         q4xw==
-X-Gm-Message-State: AOJu0YwZ63fTd0E4BYA1zjNvFHdMRzP5d1a08g5kVcnl/ubWM+2ekF2m
-	u6JHtjLJFbzKwVND5KA5hKxLmeAI/N9rPnWHBLpcAhlPYchh/cccuwlQ1KYTl0+Cg/WZVPtnp/v
-	QY8K25nY19q7Lq1d9fHAjMrATGyg=
-X-Google-Smtp-Source: AGHT+IHxefxRbpMyBF4ZHZCeVerzHxDhh0qFok2KXYqAJX5pQIT9ZaQD9x6KqE5CIzDpGTxA9efclW9DEnvN6AsILB0=
-X-Received: by 2002:a05:6402:2791:b0:5a2:763e:b8bf with SMTP id
- 4fb4d7f45d1cf-5bd0a61181fmr1021909a12.25.1723199006291; Fri, 09 Aug 2024
- 03:23:26 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240522132829.1278625-1-edgar.iglesias@gmail.com>
- <20240522132829.1278625-2-edgar.iglesias@gmail.com> <7AA016AF-03B0-4321-B0B9-FBDD60B24557@arm.com>
-In-Reply-To: <7AA016AF-03B0-4321-B0B9-FBDD60B24557@arm.com>
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Date: Fri, 9 Aug 2024 12:23:14 +0200
-Message-ID: <CAJy5ezqz8oHfv_an9DtoGwJK2M6d_HO_QhUVvwd7k8wdmibG4w@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1] xen/arm: smmuv3: Mark more init-only functions
- with __init
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <Bertrand.Marquis@arm.com>, "michal.orzel@amd.com" <michal.orzel@amd.com>, 
-	"Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>, 
-	"edgar.iglesias@amd.com" <edgar.iglesias@amd.com>
-Content-Type: multipart/alternative; boundary="000000000000a5bf2e061f3d88dc"
-
---000000000000a5bf2e061f3d88dc
-Content-Type: text/plain; charset="UTF-8"
+        d=1e100.net; s=20230601; t=1723199821; x=1723804621;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=rOJZysuO7YX6C+HiR3FdpKHjYZKOT3NccPJkp3Z5Ok0=;
+        b=WRCyAvEzj/GEDTT7VmvHUb5urgoz8yWDbFKn+UkMM8HKG6BjswlDnoBENWX3PJ16Yp
+         e8FUrXS8ocpix4Xoc/WCNZcjpqo/6mo3lVuskctvCYMW2RZ3ZyjA06XFJTq0nnBkW2F8
+         Pz+lZRzgWPkG/y2/+bBIMkYFL5kyzy9rXutwEVM87g9/hUwU3sTcFJ0hF3HT5F9ivaUG
+         ChaCWh2TBYywVTKGxqaBvhe7oPh+8fNcyO14H689VJAqENS/I0gzFaJr60PR7/AJ8O2P
+         kvrr3YNqMK2g5qzhMDE5PEYT7sTF9E9RpIVCNyvcGHpMbt6FWMI5Ae/JCCHdx9l4EGYU
+         LyEg==
+X-Forwarded-Encrypted: i=1; AJvYcCV/IOB/FJ4WlXd0+Aj20SbUHgo+UdWTKfAQcEIDg5ghZmrFyjUMOdrHbfRvlMRyB//iJoeEus0Ez5E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyZc9HTiXOKensm8vAMP91Db2cseQFSJXk3+SNQHOWTDDRo5Zdn
+	fX3aBIpivq5aO5WYf1+hAmkwvRrPH9qdC5y8f290D1yMB/xOo06hsduILEG8mzM=
+X-Google-Smtp-Source: AGHT+IGlimiv/HRU8LRFYMwY+vsN7xzqrqZgXQdlTIFvxZayrah58MkyG10eu9tHKoECnicAqiHaFg==
+X-Received: by 2002:a17:907:e6a4:b0:a7a:929f:c0cb with SMTP id a640c23a62f3a-a80aa5eb16amr85493866b.38.1723199820960;
+        Fri, 09 Aug 2024 03:37:00 -0700 (PDT)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 09 Aug 2024 11:36:58 +0100
+Message-Id: <D3BBCS1WZ3FI.KYTC0BZLDUM9@cloud.com>
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH v1 1/2] x86/intel: optional build of intel.c
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Sergiy Kibrik" <Sergiy_Kibrik@epam.com>,
+ <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.17.0
+References: <cover.1723196909.git.Sergiy_Kibrik@epam.com>
+ <25e80b9271607da56abf9d4193e4d91b3d00bd9c.1723196909.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <25e80b9271607da56abf9d4193e4d91b3d00bd9c.1723196909.git.Sergiy_Kibrik@epam.com>
 
-On Wed, Jun 5, 2024 at 11:55=E2=80=AFAM Rahul Singh <Rahul.Singh@arm.com> w=
-rote:
-
-> Hi Edgar,
+On Fri Aug 9, 2024 at 11:09 AM BST, Sergiy Kibrik wrote:
+> With specific config option INTEL in place and most of the code that depe=
+nds
+> on intel.c now can be optionally enabled/disabled it's now possible to pu=
+t
+> the whole intel.c under INTEL option as well. This will allow for a Xen b=
+uild
+> without Intel CPU support.
 >
-> > On 22 May 2024, at 2:28=E2=80=AFPM, Edgar E. Iglesias <edgar.iglesias@g=
-mail.com>
-> wrote:
-> >
-> > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-> >
-> > Move more functions that are only called at init to
-> > the .init.text section.
-> >
-> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> ---
+>  xen/arch/x86/cpu/Makefile            | 6 +++---
+>  xen/arch/x86/cpu/common.c            | 4 +++-
+>  xen/arch/x86/include/asm/processor.h | 7 ++++---
+>  3 files changed, 10 insertions(+), 7 deletions(-)
 >
-> Acked-by: Rahul Singh <rahul.singh@arm.com>
-> Tested-by: Rahul Singh <rahul.singh@arm.com>
->
-> Regards,
-> Rahul
->
+> diff --git a/xen/arch/x86/cpu/Makefile b/xen/arch/x86/cpu/Makefile
+> index eafce5f204..020c86bda3 100644
+> --- a/xen/arch/x86/cpu/Makefile
+> +++ b/xen/arch/x86/cpu/Makefile
+> @@ -6,10 +6,10 @@ obj-y +=3D amd.o
+>  obj-y +=3D centaur.o
+>  obj-y +=3D common.o
+>  obj-y +=3D hygon.o
+> -obj-y +=3D intel.o
+> -obj-y +=3D intel_cacheinfo.o
+> +obj-$(CONFIG_INTEL) +=3D intel.o
+> +obj-$(CONFIG_INTEL) +=3D intel_cacheinfo.o
+>  obj-y +=3D mwait-idle.o
+> -obj-y +=3D shanghai.o
+> +obj-$(CONFIG_INTEL) +=3D shanghai.o
 
-Ping!
+Why pick this one too? It's based on VIA IP, aiui.
 
-This still rebases cleanly on top of master but let me know if I should
-resend.
+>  obj-y +=3D vpmu.o
+>  obj-$(CONFIG_AMD) +=3D vpmu_amd.o
+>  obj-$(CONFIG_INTEL) +=3D vpmu_intel.o
+> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+> index ff4cd22897..50ce13f81c 100644
+> --- a/xen/arch/x86/cpu/common.c
+> +++ b/xen/arch/x86/cpu/common.c
+> @@ -336,11 +336,13 @@ void __init early_cpu_init(bool verbose)
+> =20
+>  	c->x86_vendor =3D x86_cpuid_lookup_vendor(ebx, ecx, edx);
+>  	switch (c->x86_vendor) {
+> +#ifdef CONFIG_INTEL
+>  	case X86_VENDOR_INTEL:    intel_unlock_cpuid_leaves(c);
+>  				  actual_cpu =3D intel_cpu_dev;    break;
+> +	case X86_VENDOR_SHANGHAI: actual_cpu =3D shanghai_cpu_dev; break;
+> +#endif
+>  	case X86_VENDOR_AMD:      actual_cpu =3D amd_cpu_dev;      break;
+>  	case X86_VENDOR_CENTAUR:  actual_cpu =3D centaur_cpu_dev;  break;
+> -	case X86_VENDOR_SHANGHAI: actual_cpu =3D shanghai_cpu_dev; break;
+>  	case X86_VENDOR_HYGON:    actual_cpu =3D hygon_cpu_dev;    break;
+>  	default:
+>  		actual_cpu =3D default_cpu;
+> diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/=
+asm/processor.h
+> index 66463f6a6d..a88d45252b 100644
+> --- a/xen/arch/x86/include/asm/processor.h
+> +++ b/xen/arch/x86/include/asm/processor.h
+> @@ -507,15 +507,16 @@ static inline uint8_t get_cpu_family(uint32_t raw, =
+uint8_t *model,
+>  extern int8_t opt_tsx;
+>  extern bool rtm_disabled;
+>  void tsx_init(void);
+> +void update_mcu_opt_ctrl(void);
+> +void set_in_mcu_opt_ctrl(uint32_t mask, uint32_t val);
+>  #else
+>  #define opt_tsx      0     /* explicitly indicate TSX is off */
+>  #define rtm_disabled false /* RTM was not force-disabled */
+>  static inline void tsx_init(void) {}
+> +static inline void update_mcu_opt_ctrl(void) {}
+> +static inline void set_in_mcu_opt_ctrl(uint32_t mask, uint32_t val) {}
+>  #endif
+> =20
+> -void update_mcu_opt_ctrl(void);
+> -void set_in_mcu_opt_ctrl(uint32_t mask, uint32_t val);
+> -
+>  enum ap_boot_method {
+>      AP_BOOT_NORMAL,
+>      AP_BOOT_SKINIT,
 
-Best regards,
-Edgar
 
---000000000000a5bf2e061f3d88dc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">On Wed, Jun 5, 2024 at 11:55=E2=80=AFAM R=
-ahul Singh &lt;<a href=3D"mailto:Rahul.Singh@arm.com">Rahul.Singh@arm.com</=
-a>&gt; wrote:<br></div><div class=3D"gmail_quote"><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">Hi Edgar,<br>
-<br>
-&gt; On 22 May 2024, at 2:28=E2=80=AFPM, Edgar E. Iglesias &lt;<a href=3D"m=
-ailto:edgar.iglesias@gmail.com" target=3D"_blank">edgar.iglesias@gmail.com<=
-/a>&gt; wrote:<br>
-&gt; <br>
-&gt; From: &quot;Edgar E. Iglesias&quot; &lt;<a href=3D"mailto:edgar.iglesi=
-as@amd.com" target=3D"_blank">edgar.iglesias@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; Move more functions that are only called at init to<br>
-&gt; the .init.text section.<br>
-&gt; <br>
-&gt; Signed-off-by: Edgar E. Iglesias &lt;<a href=3D"mailto:edgar.iglesias@=
-amd.com" target=3D"_blank">edgar.iglesias@amd.com</a>&gt;<br>
-<br>
-Acked-by: Rahul Singh &lt;<a href=3D"mailto:rahul.singh@arm.com" target=3D"=
-_blank">rahul.singh@arm.com</a>&gt;<br>
-Tested-by: Rahul Singh &lt;<a href=3D"mailto:rahul.singh@arm.com" target=3D=
-"_blank">rahul.singh@arm.com</a>&gt;<br>
-<br>
-Regards,<br>
-Rahul<br></blockquote><div><br></div><div>Ping!</div><div><br></div><div>Th=
-is still rebases cleanly on top of master but let me know if I should resen=
-d.</div><div><br></div><div>Best regards,</div><div>Edgar</div></div></div>
-
---000000000000a5bf2e061f3d88dc--
+Cheers,
+Alejandro
 
