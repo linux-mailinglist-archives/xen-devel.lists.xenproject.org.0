@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FAE394D0BC
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2024 15:00:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.774734.1185162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EFFC94D0CA
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2024 15:05:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.774744.1185172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1scPDs-0007df-Fe; Fri, 09 Aug 2024 13:00:00 +0000
+	id 1scPIB-0000ih-VZ; Fri, 09 Aug 2024 13:04:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 774734.1185162; Fri, 09 Aug 2024 13:00:00 +0000
+Received: by outflank-mailman (output) from mailman id 774744.1185172; Fri, 09 Aug 2024 13:04:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1scPDs-0007bx-Cf; Fri, 09 Aug 2024 13:00:00 +0000
-Received: by outflank-mailman (input) for mailman id 774734;
- Fri, 09 Aug 2024 12:59:58 +0000
+	id 1scPIB-0000gK-T1; Fri, 09 Aug 2024 13:04:27 +0000
+Received: by outflank-mailman (input) for mailman id 774744;
+ Fri, 09 Aug 2024 13:04:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TQMG=PI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1scPDq-0007br-Nd
- for xen-devel@lists.xenproject.org; Fri, 09 Aug 2024 12:59:58 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dBfy=PI=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1scPI9-0000fj-Hs
+ for xen-devel@lists.xenproject.org; Fri, 09 Aug 2024 13:04:25 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4713ffd4-564f-11ef-8776-851b0ebba9a2;
- Fri, 09 Aug 2024 14:59:56 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2f1a7faa4d5so5480941fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 09 Aug 2024 05:59:56 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bbb2c2019bsm1492797a12.31.2024.08.09.05.59.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Aug 2024 05:59:55 -0700 (PDT)
+ id e644dc82-564f-11ef-8776-851b0ebba9a2;
+ Fri, 09 Aug 2024 15:04:23 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a7a94478a4eso506971566b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Aug 2024 06:04:23 -0700 (PDT)
+Received: from EMEAENGAAD19049.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc9d437a5sm835020266b.101.2024.08.09.06.04.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Aug 2024 06:04:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4713ffd4-564f-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: e644dc82-564f-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723208396; x=1723813196; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8dXFKAXsET8zCDF26ypU+CnJma96sPkAGZ7tjqlOgXI=;
-        b=F9HpAYc2cj5ww/zM1bKvWiBqAwX/sgzFw23O8g52amOFMvY3DXLX8SgfdG7G99BJHl
-         zTSefXQKz4X44/N18lBq9DQvEeVVHZgY2pofxycO9jtTtpCyyf1rvbvkRmHI9mBdJgVV
-         TKR1xg19nTEU/iu7DaMHdWSffgYqGzcEmfuQl82nHzUCU5LcrLO1s9l3VGeDKgaB5yCu
-         hFXqbhR9M4KPNLKT8FO2AR0DHxV4/yQyQgvVJN/JhwOFgsufe3L4bIcF07553wUX1atp
-         3qVgV0huqxA2G39sdvY3NG53j/eu4R1aBj6wWNJl09WaqeBYeCFUgFE5U8MTUv0hPP5X
-         Qqmw==
+        d=cloud.com; s=cloud; t=1723208663; x=1723813463; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=IqFJjaRsLh2UOFChJjBNPbupmjhv4JBVg7GbkBcuHVg=;
+        b=RPAiPK5yRVeS8Yvn++GWkh7szcfN16PDKTPj7/srXK82tEqbH+ViVDhEI/w5OxfBtX
+         WSTRbPjkebkNXuaqX5JmVwySWKWKeUtUKJgcfFhgd2eEb2eTOIX/oqv0zpYsYGm1RDG2
+         qymG9QSFnDmPqUxXw+AtdnL96SFtSfGzC+i0o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723208396; x=1723813196;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8dXFKAXsET8zCDF26ypU+CnJma96sPkAGZ7tjqlOgXI=;
-        b=ZuKm0IWA3hudNLwJjoe+mWj0WtGoNydfgtyDjkYhPfpXWqQS/+MgNdYbXnt8lPWGeV
-         KH5Qyo9hBz90En4349hXtlij/TykFbo6gK9PcZYuF1L+To4mB0HFZ4ufmrLDTH3s+P0t
-         4FKjukdAio1HlrJqiH+tTORH6E7sSxWcQUzCCBDSxg8ZB87OVMGOTT6lMfZBEDoKqYl8
-         mKCLbxL6ZntS/vjv5Md4j8eBzp5CjjmICm/AcCE8rbjY6Zsf60te5kiHEKVzm6QJdz+B
-         62FaPzg63OQiEAODl4+K7XpvV3uQm2SFzVkaHcWySB42fgfgW8bgTFhIy06sXEmyGXVy
-         IGcA==
-X-Forwarded-Encrypted: i=1; AJvYcCX2/bg2OkPySkqm6z2PHNd/v1f8x4J4IFXhHi5eAdyx1rJ2puAvo1todXYZ8plvSngFzvHmjWlg6l0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx/gLUy6CAv/YEsYpmn1KzjeNd04lEQLOEEB5rXZ7lKiPBF6suo
-	gah8gB6WXwAfwpvfCmT+rhcMHNo0XAKJvHOq3c1wwQngg05RZArC1aFEiRIyIz6u4eCIaQAjvn4
-	=
-X-Google-Smtp-Source: AGHT+IEA3f9u2beWXtQ5kMr4Pa5g1fOm3HzWMz8B5qk96RPgetzCMSr1+a9xQQVvjxcRzt947qCuMA==
-X-Received: by 2002:a2e:4c02:0:b0:2ef:206c:37c4 with SMTP id 38308e7fff4ca-2f1a6ce6eacmr11312441fa.33.1723208395913;
-        Fri, 09 Aug 2024 05:59:55 -0700 (PDT)
-Message-ID: <7f0a7c9e-0cac-48ae-b7aa-5c90a1a5f4ca@suse.com>
-Date: Fri, 9 Aug 2024 14:59:55 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] x86: Set xen_phys_start and trampoline_xen_phys_start
- earlier
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
+        d=1e100.net; s=20230601; t=1723208663; x=1723813463;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IqFJjaRsLh2UOFChJjBNPbupmjhv4JBVg7GbkBcuHVg=;
+        b=NUsXZyTL8VU5iyIjP33QCKwL2KyXz8S0kuzFj8tCsZ7FTJ2Zg2FnXGQUiFctVbGMb8
+         oG0bjSd8+OEFmxgNK74fWqgFdYjwfdukG+Lug3sAbmJRsUjq8IgoXL1XJ2XCtUClipb8
+         9fDnn58XxOytiuRBb9vEvbTH+VZyw4fbBLqP4z74WVyd5DTjHGAaOvAXzI1XyZ7aOYrx
+         dtx3UfY1Ztn8joGT3Xn1brlh1ZljVE2gmlyQ3M9cTp0qoeNSuL/wlkYA0pJkyy1eH+df
+         r+uTFvjV3hT8ImmYEIoPJENRur+EKOA274NLMRM7VNL8euso3RcEeKjZr6UPt5m1fzhA
+         O04g==
+X-Gm-Message-State: AOJu0YyXCLMpX+/zPjnFxQxF2AlOI3dhXokHnzRw756FSd9ddrAiT17X
+	Qh7btZi01HNQe96kpg4eT5oPr8KaBXT2znHPJKnnrVE8sf6UDMxypWcXeifTUFcd/85k4185Iql
+	B
+X-Google-Smtp-Source: AGHT+IF3a2+rZm0LdS0N84wcXkZrMpkLEAxaKgpUmxpZyi4RX8szJX/zSNJo8B4xU11eluiNC+6uLA==
+X-Received: by 2002:a17:906:f59f:b0:a77:db39:cc04 with SMTP id a640c23a62f3a-a8091ef4436mr453145066b.11.1723208662561;
+        Fri, 09 Aug 2024 06:04:22 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
- <20240807134819.8987-4-alejandro.vallejo@cloud.com>
- <cf819b39-6ce8-4446-b7b6-a1b247f45400@suse.com>
- <CACHz=ZgwPunPO771EbX1hKEdmXC1ysBQ7RzYK8K1pakyBS927A@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZgwPunPO771EbX1hKEdmXC1ysBQ7RzYK8K1pakyBS927A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [RFC PATCH] xen: Remove -Wdeclaration-after-statement
+Date: Fri,  9 Aug 2024 14:04:18 +0100
+Message-ID: <20240809130418.10431-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.45.2
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 09.08.2024 14:48, Frediano Ziglio wrote:
-> On Thu, Aug 8, 2024 at 9:25 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 07.08.2024 15:48, Alejandro Vallejo wrote:
->>> No reason to wait, if Xen image is loaded by EFI (not multiboot
->>> EFI path) these are set in efi_arch_load_addr_check, but
->>> not in the multiboot EFI code path.
->>> This change makes the 2 code paths more similar and allows
->>> the usage of these variables if needed.
->>
->> I'm afraid I'm struggling with any "similarity" argument here. Imo it
->> would be better what, if anything, needs (is going to need) either or
->> both of these set earlier. Which isn't to say it's wrong to do early
->> what can be done early, just that ...
->>
-> 
-> About similarity is that some part of EFI code expect xen_phys_start
-> to be initialized so this change make sure that if in the future these
-> paths are called even for this case they won't break.
-> 
->>> --- a/xen/arch/x86/boot/head.S
->>> +++ b/xen/arch/x86/boot/head.S
->>> @@ -259,6 +259,11 @@ __efi64_mb2_start:
->>>          jmp     x86_32_switch
->>>
->>>  .Lefi_multiboot2_proto:
->>> +        /* Save Xen image load base address for later use. */
->>> +        lea     __image_base__(%rip),%rsi
->>> +        movq    %rsi, xen_phys_start(%rip)
->>> +        movl    %esi, trampoline_xen_phys_start(%rip)
->>
->> ... this path is EFI only if I'm not mistaken, while ...
->>
->>> @@ -605,10 +610,6 @@ trampoline_setup:
->>>           * Called on legacy BIOS and EFI platforms.
->>>           */
->>>
->>> -        /* Save Xen image load base address for later use. */
->>> -        mov     %esi, sym_esi(xen_phys_start)
->>> -        mov     %esi, sym_esi(trampoline_xen_phys_start)
->>
->> ... the comment in context is pretty clear about this code also being
->> used in the non-EFI case. It is, however, the case that %esi is 0 in
->> that case. Yet surely you want to mention this in the description, to
->> clarify the correctness of the change.
-> 
-> Restored this code.
+This warning only makes sense when developing using a compiler with C99
+support on a codebase meant to be built with C89 compilers too, and
+that's no longer the case (nor should it be, as it's been 25 years since
+C99 came out already).
 
-Was my analysis wrong then and it's actually needed for some specific
-case?
+Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+---
+Yes, I'm opening this can of worms. I'd like to hear others people's
+thoughts on this and whether this is something MISRA has views on. If
+there's an ulterior non-obvious reason besides stylistic preference I
+think it should be documented somewhere, but I haven't seen such an
+explanation.
 
-Jan
+IMO, the presence of this warning causes several undesirable effects:
+
+  1. Small functions are hampered by the preclusion of check+declare
+     patterns that improve readability via concision. e.g: Consider a
+     silly example like:
+
+     /* with warning */                     /* without warning */
+     void foo(uint8_t *p)                   void foo(uint8_t *p)
+     {                                      {
+         uint8_t  tmp1;                         if ( !p )
+         uint16_t tmp2;                             return;
+         uint32_t tmp3;
+                                                uint8_t  tmp1 = OFFSET1 + *p;
+         if ( !p )                              uint16_t tmp2 = OFFSET2 + *p;
+             return;                            uint32_t tmp3 = OFFSET3 + *p;
+
+         tmp1 = OFFSET1 + *p;                   /* Lots of uses of `tmpX` */
+         tmp2 = OFFSET2 + *p;               }
+         tmp2 = OFFSET2 + *p;
+
+         /* Lots of uses of tmpX */
+     }
+
+  2. Promotes scope-creep. On small functions it doesn't matter much,
+     but on bigger ones to prevent declaring halfway through the body
+     needlessly increases variable scope to the full scope in which they
+     are defined rather than the subscope of point-of-declaration to
+     end-of-current-scope. In cases in which they can be trivially
+     defined at that point, it also means they can be trivially misused
+     before they are meant to. i.e: On the example in (1) assume the
+     conditional in "with warning" is actually a large switch statement.
+
+  3. It facilitates a disconnect between time-of-declaration and
+     time-of-use that lead very easily to "use-before-init" bugs.
+     While a modern compiler can alleviate the most egregious cases of
+     this, there's cases it simply cannot cover. A conditional
+     initialization on anything with external linkage combined with a
+     conditional use on something else with external linkage will squash
+     the warning of using an uninitialised variable. Things are worse
+     where the variable in question is preinitialised to something
+     credible (e.g: a pointer to NULL), as then that can be misused
+     between its declaration and its original point of intended use.
+
+So... thoughts? yay or nay?
+---
+ xen/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/Makefile b/xen/Makefile
+index 2e1a925c8417..288b7ac8bb2d 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -394,7 +394,7 @@ CFLAGS-$(CONFIG_CC_SPLIT_SECTIONS) += -ffunction-sections -fdata-sections
+ 
+ CFLAGS += -nostdinc -fno-builtin -fno-common
+ CFLAGS += -Werror -Wredundant-decls -Wwrite-strings -Wno-pointer-arith
+-CFLAGS += -Wdeclaration-after-statement -Wuninitialized
++CFLAGS += -Wuninitialized
+ $(call cc-option-add,CFLAGS,CC,-Wvla)
+ $(call cc-option-add,CFLAGS,CC,-Wflex-array-member-not-at-end)
+ $(call cc-option-add,CFLAGS,CC,-Winit-self)
+-- 
+2.45.2
+
 
