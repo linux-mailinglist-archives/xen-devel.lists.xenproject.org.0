@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BECFB94D739
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2024 21:25:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.774953.1185341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80D4794D8B0
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Aug 2024 00:23:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.774973.1185352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1scVEg-0001tx-Dw; Fri, 09 Aug 2024 19:25:14 +0000
+	id 1scXzl-0002mQ-H2; Fri, 09 Aug 2024 22:22:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 774953.1185341; Fri, 09 Aug 2024 19:25:14 +0000
+Received: by outflank-mailman (output) from mailman id 774973.1185352; Fri, 09 Aug 2024 22:22:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1scVEg-0001rq-BC; Fri, 09 Aug 2024 19:25:14 +0000
-Received: by outflank-mailman (input) for mailman id 774953;
- Fri, 09 Aug 2024 19:25:13 +0000
+	id 1scXzl-0002kq-E5; Fri, 09 Aug 2024 22:22:01 +0000
+Received: by outflank-mailman (input) for mailman id 774973;
+ Fri, 09 Aug 2024 22:22:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=waF5=PI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1scVEf-0001rk-Hl
- for xen-devel@lists.xenproject.org; Fri, 09 Aug 2024 19:25:13 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1scXzk-0002kk-9A
+ for xen-devel@lists.xenproject.org; Fri, 09 Aug 2024 22:22:00 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 179b244c-5685-11ef-8776-851b0ebba9a2;
- Fri, 09 Aug 2024 21:25:11 +0200 (CEST)
+ id c8dbb91f-569d-11ef-8776-851b0ebba9a2;
+ Sat, 10 Aug 2024 00:21:56 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 381DC61767;
- Fri,  9 Aug 2024 19:25:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8C1C32782;
- Fri,  9 Aug 2024 19:25:08 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id B7435CE180B;
+ Fri,  9 Aug 2024 22:21:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FA01C32782;
+ Fri,  9 Aug 2024 22:21:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,109 +42,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 179b244c-5685-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: c8dbb91f-569d-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723231509;
-	bh=Pn7fV/Ax6GfTPY1qzSmiQw6+6NE+7FZHc8ndrA91tUM=;
+	s=k20201202; t=1723242110;
+	bh=PrNwgsGz4IBAQJsAwidi/ZJL1yTvraA18BklKUU+izw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=YobYYuRd+C18iBW3asbH7PfSaSufbTWrM/7sjddnMFNuousuDFeYccCozsRUL88tu
-	 PhGwYV5TLtWXTZHrxOjCKbpUSbPlI9ICnxbX94eWimyaYOmIaA3YvdVKdQMEm5Aew/
-	 6fTT8g/joFNNH6Ntlqj4dRjMR+10T2EnnbRSotifVYsMRGCsqcddlW54wnea9R/re6
-	 1Xy6jvW4Lr7ZRMobv08YyEdApW1XSRK6KdXKiByKxYvKTnQtPbUd7ANmPVpLz5UWX7
-	 X855lnHavCuJHOJnJexyTQ6kaDu+jLFxNJOhbj/qt8VazeDjL/MP7Z+jF6SnQ8RCny
-	 rCk31EQ4ubkNQ==
-Date: Fri, 9 Aug 2024 12:25:03 -0700 (PDT)
+	b=erln7huUmdj2aaRSEx9VLZdNxgAkLVTBwVfU1jqkRrMKRF0LsJaVyqOyMYHzvpFJq
+	 UTbweGO0YaLgHrkLQKZtw5teELOm8llpDqYMTb1MKme9tMzl0lvmjSxVQRvnc30u58
+	 QKxxWuU3If1dXPDu4k2Lf/2Y1osH2iDBOz0BGdt4absz7RgmGYM3OgquC4J0FUSlpk
+	 yaovFa0xOSuNYX03MqTpgVAzMtWH6g9sK0GrIVZqv3ftfXSboxbLwj7J1bMfpT3JDx
+	 7gGLjjdmTl8DeRdAnfv8WkMu4FpSAy4BhfkutBfyNr0LtvSdSecMazHBY3obTbanUs
+	 BiEHcGB4LuRAg==
+Date: Fri, 9 Aug 2024 15:21:48 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [RFC PATCH] xen: Remove -Wdeclaration-after-statement
-In-Reply-To: <20240809130418.10431-1-alejandro.vallejo@cloud.com>
-Message-ID: <alpine.DEB.2.22.394.2408091217370.200407@ubuntu-linux-20-04-desktop>
-References: <20240809130418.10431-1-alejandro.vallejo@cloud.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] x86emul: don't call ->read_segment() with x86_seg_none
+In-Reply-To: <d4ea2213-4c12-40d2-ba12-64f2e7e492c6@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2408091515050.200407@ubuntu-linux-20-04-desktop>
+References: <81ae365f-98b4-4bb6-bbb6-c5423dfda038@suse.com> <alpine.DEB.2.22.394.2408061117080.4954@ubuntu-linux-20-04-desktop> <d4ea2213-4c12-40d2-ba12-64f2e7e492c6@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-Adding Roberto
+On Wed, 7 Aug 2024, Jan Beulich wrote:
+> On 06.08.2024 20:24, Stefano Stabellini wrote:
+> > On Mon, 5 Aug 2024, Jan Beulich wrote:
+> >> LAR, LSL, VERR, and VERW emulation involve calling protmode_load_seg()
+> >> with x86_seg_none. The fuzzer's read_segment() hook function has an
+> >> assertion which triggers in this case. Calling the hook function,
+> >> however, makes little sense for those insns, as there's no data to
+> >> retrieve. Instead zero-filling the output structure is what properly
+> >> corresponds to those insns being invoked with a NUL selector.
+> >>
+> >> Fixes: 06a3b8cd7ad2 ("x86emul: support LAR/LSL/VERR/VERW")
+> >> Oss-fuzz: 70918
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > 
+> > Looking at oss-fuzz's report and at this patch I think it is correct
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> 
+> S-o-b?
 
-Does MISRA have a view on this? I seem to remember this is discouraged?
+Sorry I meant reviewed-by
 
 
-On Fri, 9 Aug 2024, Alejandro Vallejo wrote:
-> This warning only makes sense when developing using a compiler with C99
-> support on a codebase meant to be built with C89 compilers too, and
-> that's no longer the case (nor should it be, as it's been 25 years since
-> C99 came out already).
+> > That said, there are a few other places where read_segment is called
+> > without any checks for seg being x86_seg_none. The hvm implementation of
+> > read_segment (hvmemul_read_segment) seems to return error if
+> > x86_seg_none is passed as an argument, but there is no return error
+> > checks any time we call ops->read_segment in x86_emulate.c.
 > 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> ---
-> Yes, I'm opening this can of worms. I'd like to hear others people's
-> thoughts on this and whether this is something MISRA has views on. If
-> there's an ulterior non-obvious reason besides stylistic preference I
-> think it should be documented somewhere, but I haven't seen such an
-> explanation.
+> There is a pretty limited number of cases where x86_seg_none is used.
+> For example, state->ea.mem.seg cannot hold this value.
+> realmode_load_seg() also cannot be passed this value. We could add
+> assertions to that effect, yet that can get unwieldy as further
+> x86_seg_* enumerators are added (see "x86: introduce x86_seg_sys"; I
+> expect we'll need at least one more when adding VMX/SVM insn emulation,
+> where physical addresses are used as insn operands).
 > 
-> IMO, the presence of this warning causes several undesirable effects:
+> > It seems that there might still be an issue?
 > 
->   1. Small functions are hampered by the preclusion of check+declare
->      patterns that improve readability via concision. e.g: Consider a
->      silly example like:
-> 
->      /* with warning */                     /* without warning */
->      void foo(uint8_t *p)                   void foo(uint8_t *p)
->      {                                      {
->          uint8_t  tmp1;                         if ( !p )
->          uint16_t tmp2;                             return;
->          uint32_t tmp3;
->                                                 uint8_t  tmp1 = OFFSET1 + *p;
->          if ( !p )                              uint16_t tmp2 = OFFSET2 + *p;
->              return;                            uint32_t tmp3 = OFFSET3 + *p;
-> 
->          tmp1 = OFFSET1 + *p;                   /* Lots of uses of `tmpX` */
->          tmp2 = OFFSET2 + *p;               }
->          tmp2 = OFFSET2 + *p;
-> 
->          /* Lots of uses of tmpX */
->      }
-> 
->   2. Promotes scope-creep. On small functions it doesn't matter much,
->      but on bigger ones to prevent declaring halfway through the body
->      needlessly increases variable scope to the full scope in which they
->      are defined rather than the subscope of point-of-declaration to
->      end-of-current-scope. In cases in which they can be trivially
->      defined at that point, it also means they can be trivially misused
->      before they are meant to. i.e: On the example in (1) assume the
->      conditional in "with warning" is actually a large switch statement.
-> 
->   3. It facilitates a disconnect between time-of-declaration and
->      time-of-use that lead very easily to "use-before-init" bugs.
->      While a modern compiler can alleviate the most egregious cases of
->      this, there's cases it simply cannot cover. A conditional
->      initialization on anything with external linkage combined with a
->      conditional use on something else with external linkage will squash
->      the warning of using an uninitialised variable. Things are worse
->      where the variable in question is preinitialised to something
->      credible (e.g: a pointer to NULL), as then that can be misused
->      between its declaration and its original point of intended use.
-> 
-> So... thoughts? yay or nay?
+> In my auditing I didn't spot any.
 
-In my opinion, there are some instances where mixing declarations and
-statements would enhance the code, but these are uncommon. Given the
-choice between:
-
-1) declarations always first
-2) declarations always mixed with statements
-
-I would choose 1).
-
-One could say that mixing declarations with statements should be done
-only when appropriate, but the challenge lies in the subjective nature
-of "when appropriate." Different individuals have varying
-interpretations of this, which could lead to unnecessary bikeshedding.
-
-For these reasons, I do not support mixing declarations and statements.
+Following your explanation I come to the same conclusion as you, so I
+think it is OK. But knowing that state->ea.mem.seg cannot hold this
+value and realmode_load_seg() also cannot be passed this value is not
+something for the casual observer, so in my opinion there is room here
+for making the code more resilient and more obvious by always checking
+the return value of read_segment.
 
