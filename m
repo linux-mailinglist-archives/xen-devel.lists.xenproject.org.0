@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DE2694EDA8
+	by mail.lfdr.de (Postfix) with ESMTPS id 758C794EDA9
 	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 15:06:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.775487.1185696 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.775488.1185703 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdUke-00077R-0e; Mon, 12 Aug 2024 13:06:20 +0000
+	id 1sdUke-0007CQ-9q; Mon, 12 Aug 2024 13:06:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 775487.1185696; Mon, 12 Aug 2024 13:06:19 +0000
+Received: by outflank-mailman (output) from mailman id 775488.1185703; Mon, 12 Aug 2024 13:06:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdUkd-00074v-Tx; Mon, 12 Aug 2024 13:06:19 +0000
-Received: by outflank-mailman (input) for mailman id 775487;
+	id 1sdUke-00077c-5I; Mon, 12 Aug 2024 13:06:20 +0000
+Received: by outflank-mailman (input) for mailman id 775488;
  Mon, 12 Aug 2024 13:06:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FAji=PL=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1sdUkc-00074b-3o
+ id 1sdUkc-00074b-Ss
  for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 13:06:18 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a955124c-58ab-11ef-bc05-fd08da9f4363;
- Mon, 12 Aug 2024 15:06:17 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-52ef95ec938so4298569e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 06:06:17 -0700 (PDT)
+ id a9d20988-58ab-11ef-bc05-fd08da9f4363;
+ Mon, 12 Aug 2024 15:06:18 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2eeb1ba040aso58542581fa.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 06:06:18 -0700 (PDT)
 Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53200f3f7cbsm733690e87.246.2024.08.12.06.06.15
+ 38308e7fff4ca-2f29203d817sm8573481fa.99.2024.08.12.06.06.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Aug 2024 06:06:15 -0700 (PDT)
+ Mon, 12 Aug 2024 06:06:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a955124c-58ab-11ef-bc05-fd08da9f4363
+X-Inumbo-ID: a9d20988-58ab-11ef-bc05-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1723467977; x=1724072777; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=CShc+/eJ/eiKg8FqCgbRmAZvWuQTxo7AG/GfIA6PJS0=;
-        b=DsbKZvXphmQJTapC7Dp39ETX7mdK+WRjmteye6iGn/PEQMZD9PqOtz2aBrui+O042M
-         d4oSmbAAQrC9rC/yJT4k5T0ZSQdXi2CNOZHtx0g53FP4jFvX/Vsp5fOGvBMGCe00U1UL
-         wNEBktXHtvHn+kAY4DuaGCuTHnAoYMFI40akmvd09KYAqXrPCOc7McyfMXoZx8rlbMr2
-         run7/341ohcTnRgaz8eHiYgoz52p5ViEM2kYRCP1dWTV9JbqGEOI8/wAaku06ZcYMnjH
-         cIiUE13K85Xz10xr5IWaA6lcaMYBYQu27Y9Q5z6JUJ32WxMWUmKuBBp4ORA5ZoI1KxIk
-         lOqQ==
+        d=gmail.com; s=20230601; t=1723467978; x=1724072778; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FnvsVFgAwwQYqvVPxF+lYxfpYXdBbERxwoGEJpJUJUI=;
+        b=VNUXtoyXxFeQlfzRQujuWTNEWNDBK4+r8lCcvyE94P6T69/+izCk04ZsdYYCvuf6XZ
+         w2zvox0fZUY/mMmxzzhtSoijQP5HaOuT6T+1CW+v0JtPUl6u8S33U1o095yLy+4+SHmf
+         CDLqczOsstpMFnO6d6ofUQkcMfu1d1WA0oZd7skyQSr+hKGIeJq1fKeckB1lUD0wdgRJ
+         7UR5nUblFA0ftuKR6QswhIbuCsy3yi3Lt4ObIR6UBCKwo6k3REiXf8oNyDNyMqU6hsdV
+         qOBdO4qfKIZ5iz2A2wV1nM3Gp7JQyo17zNvT1CBFse4Psilp8tuPt96wSqsQYSNLSRG1
+         rijg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723467977; x=1724072777;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=CShc+/eJ/eiKg8FqCgbRmAZvWuQTxo7AG/GfIA6PJS0=;
-        b=ftEfiiTDSZejJwFrd8nVzJPkUI8qc707Wt0R5kteKYFQ98Mtrn8+bbCMk4neeN9o1J
-         K1xPvapA9tbsdyB92KavCqFAFEJHneGsMopu+HnOc9YtRS9bDPrW1o6zyrdYmCSFQTuf
-         mySsYU5lRwAq6oYJEWuFhCtxVkHpAiNhUu5TjsPRc+k02m96CeU0xVKAB0YHYQwcEjWg
-         2K+FK2gO0KiKK7FU5IrKo/Glx9CfsvbNz/6x+XY1wAx5d8gS9hEJd+6TKQvOhpWpcslV
-         KrUryHHe1bMwCwd7e4THXxE38e2gvzu7E+RmcVvGtNc96MANBshrOKPFSK2wa3FBsbkI
-         jm7g==
-X-Forwarded-Encrypted: i=1; AJvYcCWOhZ4f/gziq1TXXvMxycEHIcEba94hk0i4FexBl7n1R/YWhXT7J4C3LVBkrX195iCPH0BOOETP3/ofszZfcYVB0r6AxbmrbkJrEu4E8SY=
-X-Gm-Message-State: AOJu0YxHf9K+1Osrs2txzK39HO4/sWhNicPjEgzVdXGwG7bAPLFtvWMj
-	OSFLQ0FYVcGXoBBFPq9gDzuDdDPlDYdFEdWikFbZuFijN6nTTtRw
-X-Google-Smtp-Source: AGHT+IGyAfAGEwHpXN3mXDKP16d0LaryN/gTiqmKRJmEMkapDIMD5759JSxXq0T/pSPMTWqkAaeRxA==
-X-Received: by 2002:a05:6512:696:b0:52c:d6d7:9dd0 with SMTP id 2adb3069b0e04-53213658bdamr53118e87.20.1723467976051;
-        Mon, 12 Aug 2024 06:06:16 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1723467978; x=1724072778;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=FnvsVFgAwwQYqvVPxF+lYxfpYXdBbERxwoGEJpJUJUI=;
+        b=c8KMtCIKlelOfWneO5Z3xVcRpewFd99Wu4FSVCdVOAatmvcmW4XByU0AaW+m3L4uz0
+         DLHvD/kwd04RTdQ7NoFYYSvgTfbbsGna9l738qS9rSavM/S2tIT8xrur98UiwAVrC2GE
+         YjI/4WYFCiStCcH31fWu8cEwI4HBwR/OeliHpF4XECA1jtbeas8zhgvhrWN41uoInhwp
+         fxM7XFnQFwWsi/L2eUL13AZbieW3CXZo2ufDcZsJsMVdiJ0Pcy7qDvggbLeu8y7SW0CO
+         +EDYXDmi3ns25FKMD7iM+Op04PojDRenv8h31WCfsrLwArSMGnJB0wP8jj1xExj0J0T5
+         RsMw==
+X-Forwarded-Encrypted: i=1; AJvYcCVkjDmGjqH2VD+pvhwDPoYnV//v4qvUHKyG4g0ArqFmeUtehrwvLAh+6Ak07fdZnRDblnqPjLdVTDcfAMyDc0Li9CVnFXP1zs9YALh/w58=
+X-Gm-Message-State: AOJu0YxE0m0KOjh9cbMFZDW2E1r0W8z8u0eLiLo5uqcwyAqoIFMGQRyC
+	l1ayyFHyf0LHiDZqeldVGgoiilRbg+FePNZxHLe/Lwh4SpftOdae
+X-Google-Smtp-Source: AGHT+IEH+rt8R3wDG+QKY36k4z1epabtE0qsH5Q2v+VF3qRP2OiK5eGbpOcoKlfiNpSaMtmPoTatVw==
+X-Received: by 2002:a2e:721a:0:b0:2ef:1d79:cae7 with SMTP id 38308e7fff4ca-2f2b714cfddmr1523661fa.14.1723467977110;
+        Mon, 12 Aug 2024 06:06:17 -0700 (PDT)
 From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
 To: qemu-devel@nongnu.org
 Cc: sstabellini@kernel.org,
@@ -86,66 +87,34 @@ Cc: sstabellini@kernel.org,
 	jason.andryuk@amd.com,
 	edgar.iglesias@amd.com,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v1 00/10] xen: pvh: Partial QOM:fication with new x86 PVH machine
-Date: Mon, 12 Aug 2024 15:05:55 +0200
-Message-ID: <20240812130606.90410-1-edgar.iglesias@gmail.com>
+Subject: [PATCH v1 01/10] MAINTAINERS: Add docs/system/arm/xenpvh.rst
+Date: Mon, 12 Aug 2024 15:05:56 +0200
+Message-ID: <20240812130606.90410-2-edgar.iglesias@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240812130606.90410-1-edgar.iglesias@gmail.com>
+References: <20240812130606.90410-1-edgar.iglesias@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 
-This series breaks-out parts of the ARM PVH support into a reusable
-QOM module. There's a bit of refactoring and some bug-fixes along
-the way.
+Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+---
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-Finally we add a new x86 xen-pvh machine using the new xen-pvh-common
-module.
-
-The corresponding changes Xen for PVH x86 are work in progress
-(by Xenia Ragiadakou). You can find a current version here:
-https://github.com/edgarigl/xen/tree/edgar/virtio-pvh-upstream 
-
-I've briefly described the steps to run Xen PVH x86 guests here
-(including example guest kernel config, xl.cfg and xl command-lines):
-https://github.com/edgarigl/docs/blob/master/xen/pvh/xenpvh-x86.md
-
-Cheers,
-Edgar
-
-Edgar E. Iglesias (10):
-  MAINTAINERS: Add docs/system/arm/xenpvh.rst
-  hw/arm: xenpvh: Update file header to use SPDX
-  hw/arm: xenpvh: Tweak machine description
-  hw/arm: xenpvh: Add support for SMP guests
-  hw/arm: xenpvh: Break out a common PVH module
-  hw/arm: xenpvh: Rename xen_arm.c -> xen-pvh.c
-  hw/arm: xenpvh: Reverse virtio-mmio creation order
-  hw/xen: pvh-common: Add support for creating PCIe/GPEX
-  hw/i386/xen: Add a Xen PVH x86 machine
-  docs/system/i386: xenpvh: Add a basic description
-
- MAINTAINERS                     |   2 +
- docs/system/i386/xenpvh.rst     |  49 ++++++
- docs/system/target-i386.rst     |   1 +
- hw/arm/meson.build              |   2 +-
- hw/arm/trace-events             |   5 -
- hw/arm/xen-pvh.c                | 165 ++++++++++++++++++++
- hw/arm/xen_arm.c                | 267 --------------------------------
- hw/i386/xen/meson.build         |   1 +
- hw/i386/xen/xen-pvh.c           | 196 +++++++++++++++++++++++
- hw/xen/meson.build              |   1 +
- hw/xen/trace-events             |   4 +
- hw/xen/xen-pvh-common.c         | 262 +++++++++++++++++++++++++++++++
- include/hw/xen/xen-pvh-common.h |  53 +++++++
- 13 files changed, 735 insertions(+), 273 deletions(-)
- create mode 100644 docs/system/i386/xenpvh.rst
- create mode 100644 hw/arm/xen-pvh.c
- delete mode 100644 hw/arm/xen_arm.c
- create mode 100644 hw/i386/xen/xen-pvh.c
- create mode 100644 hw/xen/xen-pvh-common.c
- create mode 100644 include/hw/xen/xen-pvh-common.h
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 10af212632..a24c2e14d9 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -559,6 +559,7 @@ F: include/hw/xen/
+ F: include/sysemu/xen.h
+ F: include/sysemu/xen-mapcache.h
+ F: stubs/xen-hw-stub.c
++F: docs/system/arm/xenpvh.rst
+ 
+ Guest CPU Cores (NVMM)
+ ----------------------
 -- 
 2.43.0
 
