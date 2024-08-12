@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B897194E7EC
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 09:36:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.775382.1185600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A232C94E873
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 10:23:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.775393.1185610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdPag-0008S2-At; Mon, 12 Aug 2024 07:35:42 +0000
+	id 1sdQJc-0000DI-TO; Mon, 12 Aug 2024 08:22:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 775382.1185600; Mon, 12 Aug 2024 07:35:42 +0000
+Received: by outflank-mailman (output) from mailman id 775393.1185610; Mon, 12 Aug 2024 08:22:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdPag-0008QR-83; Mon, 12 Aug 2024 07:35:42 +0000
-Received: by outflank-mailman (input) for mailman id 775382;
- Mon, 12 Aug 2024 07:35:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dTGf=PL=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1sdPae-0008QL-Ib
- for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 07:35:40 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20627.outbound.protection.outlook.com
- [2a01:111:f403:240a::627])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7711cde0-587d-11ef-8776-851b0ebba9a2;
- Mon, 12 Aug 2024 09:35:37 +0200 (CEST)
-Received: from DS7PR03CA0025.namprd03.prod.outlook.com (2603:10b6:5:3b8::30)
- by SA1PR12MB6725.namprd12.prod.outlook.com (2603:10b6:806:254::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.15; Mon, 12 Aug
- 2024 07:35:33 +0000
-Received: from CY4PEPF0000E9D5.namprd05.prod.outlook.com
- (2603:10b6:5:3b8:cafe::88) by DS7PR03CA0025.outlook.office365.com
- (2603:10b6:5:3b8::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.33 via Frontend
- Transport; Mon, 12 Aug 2024 07:35:33 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D5.mail.protection.outlook.com (10.167.241.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Mon, 12 Aug 2024 07:35:32 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 12 Aug
- 2024 02:35:31 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 12 Aug 2024 02:35:30 -0500
+	id 1sdQJc-0000B3-QT; Mon, 12 Aug 2024 08:22:08 +0000
+Received: by outflank-mailman (input) for mailman id 775393;
+ Mon, 12 Aug 2024 08:22:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=PyEi=PL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sdQJc-0000Ax-8q
+ for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 08:22:08 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f5f4dbc1-5883-11ef-bc05-fd08da9f4363;
+ Mon, 12 Aug 2024 10:22:06 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a7a975fb47eso454253866b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 01:22:06 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a80bb11a56dsm209069966b.93.2024.08.12.01.22.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Aug 2024 01:22:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,240 +45,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7711cde0-587d-11ef-8776-851b0ebba9a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Bj4m1oXr7MH0Fkg8tAHSUjdx3EE353dRbPJw7AIz8aNUf6IP5PuW2Kb9HulneR6JSRNfHF1GBWjEcYRIKxmHaLpyqXtM8LmpX6cGwvT+Gv7YwbrdfTzr7xq7mxJJfYzXirjyJebeNoNCM7h+DyJBYtlJPmqguyEWsvTOO/UKIXW7cxlff/X/YsT4uMgiKiq3V4GdgTaJJXxLD+vvC69fbRcfdi2LJ53O2vsAP58UQbncWllH6fVNuKS/EjEraMhUV5C0nMk2pmKtR+dWzXjoBLpJ2fiG5z053U5r92CbeAnCpkgvXy2emp6TDuV5XjZO/4m6SM7lqqt+U0sSJG5OOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BmXqXIQcNe6nb7ai1cQ1cYGkGPs2Yvha26R08eg1O18=;
- b=DQ1hZ0f/sqX/mf8dO8Brc5a/6Ex/lQyGw/PXL19CiAGhspgwAzviNQ1Tn1qAmILfu3l+m0TSInxwlwqGo05rGjAqNYqwW3PnLiL1fLXETlqEvjEE+nb8uvessnqLlojjKxNIAEzXF582FJmkS43fhlYhI3kqD5lRya8FvA1w6/2y7riLfNN+Yqk/XpYsni3Gd3i+mLl47RkUm8OvrNuC8/XGxF5MiXzp1ulBCpojvSNn3hWHoQMCYAUWheIaNlaYwhISN3HVv/Hqj6SMwj9fp2ctCpRHwQCpuq+OO/U72apeXFadF8HlWnvvA/cx9Jyv+j5PWaQMS8DD7TJ2gSBFrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BmXqXIQcNe6nb7ai1cQ1cYGkGPs2Yvha26R08eg1O18=;
- b=0yHCt7+loRbo/xGHD0PQqZgeYSuyNBL5v7kwLZPOyiUDX3F73kboEMOrrVlYJbPRnOpNucNPl+qeC5hFFOvyku+b/HdnhDOZp0SBzivebOgaS9dOyflpUbFqYvtqPVg7adSvIzmMKo5fMB5zC8QF3UcTktJv5ovE8gTJLmkHF1Q=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <2baf9636-93f2-4f70-9e22-266002302d56@amd.com>
-Date: Mon, 12 Aug 2024 09:35:30 +0200
+X-Inumbo-ID: f5f4dbc1-5883-11ef-bc05-fd08da9f4363
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1723450926; x=1724055726; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=V12cU1I7zzztQOzO3TirffQGIbp8+sEvf3rquR7zulM=;
+        b=R/jmUEx7wfxHw2zFG/hmWaOUot0Cje0dLyUlB1GzYM663FjmZ6CII7jFhgiu9Ve0fD
+         AD7jmMxKMZJ9mw4hpT8hiA7O1Vhk4r24GGN1wosE0rgT/RVY4BW5C1LJNbr83EcyJH+F
+         SluyjIdqfCG0kYjnHeUGpRCIuyDcpY1s6CiiEVAcpHKt3ztTRJDMa69dXaNKtZ6b10sR
+         CjQ3cFCstAvIzWr8ua841uabOc6jE8XaE/Wm2PB0YogJSi2rmKKn0yGPC7+szVfYgGpI
+         vOD6+YmIdf2xpcakP4bhKWK21MrGDcWsN7eki6nwOjAQp8gUTEl5hzVreoIwQaCcaW6R
+         1azw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723450926; x=1724055726;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=V12cU1I7zzztQOzO3TirffQGIbp8+sEvf3rquR7zulM=;
+        b=IRm6Z54VX8O+IdleZ0R5R8qVK7oR2Qcl/16wKXNlSuq89xmQJs3Gqry0yCUoQho1/B
+         zm8F9bGiauh01oox3s1+bBPeeCxNIVsXtQ6mW89CSHMZ8EsMvb1FuQ1nG3if9wiJjtqv
+         YL49c9WBum5fpZnrswrqwq4q1AzHXZTYNuEfez01piF1qAtyiE+UU3I2t2GRIWcP23Tg
+         FR3VmIKg5DN8R0aTwAOwKJ328dNOOn+y1VXOCdK89n1PglE2AdRLNl8Vpd8xZnaMmDXQ
+         Iof8FjZF7j47yCqWXpSB8RNnr8ug/EU0bB5EQzfwZ+MqoyFHwQObv9mEP17upXcr0mLg
+         pQew==
+X-Forwarded-Encrypted: i=1; AJvYcCXuYXbOvsr7rEHbeyWt6/ckYfC8y3ZcsDIVX/fdWrUEFew7Ah4rR6LYr5nRmizB4Aw27gZvamh7nzBJjfJFGvSKQPO3/NgU7WBoCFmixm4=
+X-Gm-Message-State: AOJu0Yw/SxlbEm/T/dVVnzizGgVNNWHUASmhA657L+VUXwpiJisW3qeu
+	00HjKJ+lq+fuA2JYVOaLp1+iNxPiQmkHYYYBoWM7G6aMES++XPQUPC1Ciepdwg==
+X-Google-Smtp-Source: AGHT+IGYf4QnxrWOGmpE/BL7LY5pi34ZU+d1R5GzvMs0n/MF1vT1/qrxkY5x6cMHYhXLkt1mRgyrRw==
+X-Received: by 2002:a17:907:f14a:b0:a77:c9cc:f96f with SMTP id a640c23a62f3a-a80aa556817mr605905566b.7.1723450925546;
+        Mon, 12 Aug 2024 01:22:05 -0700 (PDT)
+Message-ID: <26c5f44a-4083-4cbc-a3e8-13895a13df01@suse.com>
+Date: Mon, 12 Aug 2024 10:22:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] automation: use expect to run QEMU
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <cardoe@cardoe.com>
-References: <alpine.DEB.2.22.394.2408091700560.298534@ubuntu-linux-20-04-desktop>
- <20240810065920.415345-3-stefano.stabellini@amd.com>
+Subject: Re: [PATCH v2] x86/msi: fix locking for SR-IOV devices
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+References: <20240807052011.582099-1-stewart.hildebrand@amd.com>
+ <1b0475fe-4371-4bf7-a469-aa580648f210@suse.com>
+ <62523c87-9c93-4b71-a71b-e852fce3136d@amd.com>
+ <85a9263b-24cf-47ba-ba83-c2c988dee5c2@suse.com>
+ <7c28c7b2-0af0-4f9f-a171-5d8272254f9b@amd.com>
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240810065920.415345-3-stefano.stabellini@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7c28c7b2-0af0-4f9f-a171-5d8272254f9b@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D5:EE_|SA1PR12MB6725:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac907cea-ea8e-4121-4cb6-08dcbaa158ff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZXMvMERhY3FtRVJsWDdTRFN4WkJhUk90Skh2TDlzQWxMbXMwVmJXLytyR2RU?=
- =?utf-8?B?K0pjZUEycHh1RDV6b1d2YkF5NU1sWHFRZ0JEUW1NaWxPVWdTZjBhNEloRSti?=
- =?utf-8?B?T1ZoS1lVOEtRVkMzRVNxTVI2OXdkMUlzalBnczZqTncrQjZhQlJqVjh1Tm1P?=
- =?utf-8?B?K0NjNEtrbTIrY1VUcSs0VVpaVTRsSEpzMFovdnVtczV0SzlhdDZ4dHF4aEhQ?=
- =?utf-8?B?TmpCZklDQnpYbFk1RGxSOWhpYXJkQ2M5NXRNT2JiY2tqaWs3UWFrRmxXNnl3?=
- =?utf-8?B?akJIYmYwcFNiL0VTSytMTUJCZFdiTk15VmFEMGFCcmRxOEZBV054aktwVm8y?=
- =?utf-8?B?Ulk0Vmh3amU3Z2tsZ2NWemk2YjNxRFBkaW0xdXRodFZQRVJNcVZCYWRpR0dq?=
- =?utf-8?B?VHd2MnpSN3RHR2xPVC94VEkrL2FlbW9tNTArSjNnU3hJMzlEK0RZL3Biak5w?=
- =?utf-8?B?d2VRTXpIZVFNbUdZekJubk9YQjNqa0oxQUtGbTY0MFVFSkI3WXpETllZd0Iy?=
- =?utf-8?B?QndQRUpOM3EraFpFYVdxVmxQOHdtSFJRdU1kS25FWGNQcThGRHNqUzRJOUlw?=
- =?utf-8?B?MDJjYzVUdUFBL1NhYTMxZUNPcStqV1ZiYWFEcG15ZjJsNEZQSGhWcFhIQms5?=
- =?utf-8?B?cnZiYmRDbFFJOE5jZUtLY1N3WEFzYWN1SWIvQ1FQM2x4aTk4a05DVnNPUkxh?=
- =?utf-8?B?S2VYU0NtbDJkNG9TNmh4a0w3T0dLRzZHUnE2Y2ovNXZZbktCWnVaZjRHM1l6?=
- =?utf-8?B?U0N2ZnNESy9CSXNDZ0swRWl0alJUZlA1VUlsY2xobHRzc2QzWFpWd1h6RjVI?=
- =?utf-8?B?R0NlL09zWlA0VjhFYTI5T2V0MEpkK09jK2JYeHZBdmJRMU54VEltdDZ5R3dC?=
- =?utf-8?B?dXVCL2lvU3psY3JZMzdWK0dPa1paMHJ0bUNtNEZ3dFRwenJxQkNaeCswU29N?=
- =?utf-8?B?ZHFOQm5OeXlRQXlNb1ZNMWljcFYzSlR0UnZId3ZqQVZMek9rZ2V5U1Z3Wm1t?=
- =?utf-8?B?VFpYeVB4enJuZzc5UzFCc2h6MEFwWnJ6dktoZy9uRmdCVVN6WjlaeXNJYzcy?=
- =?utf-8?B?anJ3R3FIZzRQcW9kaVVnK3YvdXdtOSt0VytwSTh0Z1pBaERlaTd1UEZaZzNT?=
- =?utf-8?B?aGtQVkZvd1FwRGVJMTIvUzBZU2pzT1NBcVZldGpkN0srdW5WUGl5d0pRVFdP?=
- =?utf-8?B?NzByNHovVGxSSERpb3k2VW9jdzFuM1VGRU5CU2JBZ296alBNUm5vUCtEUy92?=
- =?utf-8?B?VUN1RkZiRkwzdUpVc2IzRGFFRWNHL0N5cjZpLzRqWG5nRklteE9xdzhjWGk2?=
- =?utf-8?B?S1htZ0E3SkM4dVdLQmg2U2NXUUhRMGZlbUpLREtBcklzVU93VDlaVHJuUFpP?=
- =?utf-8?B?WUFBZWlGeW85cWxDMGVab0lZaGtyUEgxNmorNStGTHNscC9lQ05IYjJneFNK?=
- =?utf-8?B?REh1MUFTMGl4RzMvdUk5NFNVS1lZamNWTSt4SmR6RGFRcjdRM0pGOExDeXZq?=
- =?utf-8?B?eHdwcnVKU2x1YUhPM29SaEtUaGNzcU5hRjJoVmkvVExYeFFFRUdPK2lEZDRn?=
- =?utf-8?B?NmdwWE1ndnI3eGRpb0NnS1VpS3ZROVlnOTVudFl4bUNYd3pRSERJZGpXU0lz?=
- =?utf-8?B?RmNaZmxaQkFTdmJROHBZYi9Bam9PcXp2cm1Rd29GZ2lZbk9qRlZpUjc5MWZU?=
- =?utf-8?B?TkdsQWUwZjJJLzRkY1M5OUVkenpabXBsVGRLWGZ4TWpTRGdjNGg1U0pCczRR?=
- =?utf-8?B?djZrenp5S00yS2dENDkrT21ESWx2SG5rRGZWUnlzSHM4Rk95bnZsTFZKV3d5?=
- =?utf-8?B?aFBIazUwNW1tWGE0UEdpSkx5WTJHRi85bTVxL2g1eGgvcFhGalZoUkVEY3V5?=
- =?utf-8?B?bUpueGlHMFFnZ0pPUHB5d1IybndZTThkZHJ0ZDUxa3lsSVYxNTlreVNRWEFZ?=
- =?utf-8?Q?/zLhqlqJtoy7g/eC4Gm/+qhT3YC3vuWr?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2024 07:35:32.3676
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac907cea-ea8e-4121-4cb6-08dcbaa158ff
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9D5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6725
 
-Hi Stefano,
-
-On 10/08/2024 08:59, Stefano Stabellini wrote:
-> Use expect to invoke QEMU so that we can terminate the test as soon as
-> we get the right string in the output instead of waiting until the
-> final timeout.
-This is a great improvement.
-
+On 09.08.2024 17:02, Stewart Hildebrand wrote:
+> On 8/9/24 09:05, Jan Beulich wrote:
+>> On 09.08.2024 06:09, Stewart Hildebrand wrote:
+>>> On 8/7/24 11:21, Jan Beulich wrote:
+>>>> On 07.08.2024 07:20, Stewart Hildebrand wrote:
+>>>>> --- a/xen/arch/x86/msi.c
+>>>>> +++ b/xen/arch/x86/msi.c
+>>>>> @@ -662,7 +662,8 @@ static int msi_capability_init(struct pci_dev *dev,
+>>>>>      return 0;
+>>>>>  }
+>>>>>  
+>>>>> -static u64 read_pci_mem_bar(u16 seg, u8 bus, u8 slot, u8 func, u8 bir, int vf)
+>>>>> +static u64 read_pci_mem_bar(struct pci_dev *pdev, u16 seg, u8 bus, u8 slot,
+>>>>> +                            u8 func, u8 bir, int vf)
+>>>>>  {
+>>>>
+>>>> First I thought this was a leftover from the earlier version. But you need
+>>>> it for accessing the vf_rlen[] field. Yet that's properly misleading,
+>>>> especially when considering that the fix also wants backporting. What pdev
+>>>> represents here changes. I think you want to pass in just vf_rlen (if we
+>>>> really want to go this route; I'm a little wary of this repurposing of the
+>>>> field, albeit I see no real technical issue).
+>>>
+>>> I like your idea below of using a struct, so I'll pass a pointer to the
+>>> new struct.
+>>>
+>>>> Of course there's a BUILD_BUG_ON() which we need to get creative with, in
+>>>> order to now outright drop it (see also below).
+>>>
+>>> I suppose this BUILD_BUG_ON() is redundant with the one in
+>>> pci_add_device()...
+>>
+>> "Redundant" can be positive or negative. Your response sounds as if you
+>> thought one could be dropped, yet I think we want them in both places.
+>>
+>>>>> --- a/xen/drivers/passthrough/pci.c
+>>>>> +++ b/xen/drivers/passthrough/pci.c
+>>>>> @@ -654,6 +654,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>>>>>      const char *type;
+>>>>>      int ret;
+>>>>>      bool pf_is_extfn = false;
+>>>>> +    uint64_t vf_rlen[6] = { 0 };
+>>>>
+>>>> The type of this variable needs to be tied to that of the struct field
+>>>> you copy to/from. Otherwise, if the struct field changes type ...
+>>>>
+>>>>> @@ -664,7 +665,10 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>>>>>                              PCI_SBDF(seg, info->physfn.bus,
+>>>>>                                       info->physfn.devfn));
+>>>>>          if ( pdev )
+>>>>> +        {
+>>>>>              pf_is_extfn = pdev->info.is_extfn;
+>>>>> +            memcpy(vf_rlen, pdev->vf_rlen, sizeof(pdev->vf_rlen));
+>>>>
+>>>> ... there'll be nothing for the compiler to tell us. Taken together with
+>>>> the BUILD_BUG_ON() related remark further up, I think you want to
+>>>> introduce a typedef and/or struct here to make things properly typesafe
+>>>> (as then you can avoid the use of memcpy()).
+>>>
+>>> Here's what I'm thinking:
+>>>
+>>> struct vf_info {
+>>>     uint64_t vf_rlen[PCI_SRIOV_NUM_BARS];
+>>>     unsigned int refcnt;
+>>> };
+>>>
+>>> struct pci_dev {
+>>>     ...
+>>>     struct vf_info *vf_info;
+>>>     ...
+>>> };
+>>
+>> I don't (yet) see the need for refcnt, and I also don't see why it wouldn't
+>> continue to be embedded in struct pci_dev. Specifically ...
+>>
+>>>> An alternative approach might be to add a link from VF to PF, while
+>>>> making sure that the PF struct won't be de-allocated until all its VFs
+>>>> have gone away. That would then also allow to eliminate the problematic
+>>>> pci_get_pdev().
+>>>
+>>> I think I can add a link to a new reference-counted struct with just the
+>>> info needed (see the proposed struct above).
+>>
+>> ... I think having a link from VF to its PF may turn out helpful in the
+>> future for other purposes, too.
 > 
-> For timeout, instead of an hardcoding the value, use a Gitlab CI
-> variable "QEMU_TIMEOUT" that can be changed depending on the latest
-> status of the Gitlab CI runners.
-What is the current value of QEMU_TIMEOUT? I don't see it being mentioned anywhere.
-Could tests define this env var if needed? What would be the precedence then?
-I'm thinking that some tests don't need a very big timeout that otherwise is necessary
-for longer tests (e.g. xtf test does not need to wait 720s). 
-
+> Continue to embed in struct pci_dev: okay.
 > 
-> Note that for simplicity in the case of dom0less test, the script only
-> checks for the $passed string. That is because the dom0 prompt and the
-> $passed string could happen in any order making it difficult to check
-> with expect which checks for strings in a specific order.
-I use expect in my local testing too and I search for both strings. More below.
-
+> Link from VF to PF: assuming you mean a link to the PF's
+> struct pci_dev *, okay.
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> ---
->  automation/scripts/qemu-alpine-x86_64.sh      | 15 +++----
->  automation/scripts/qemu-key.ex                | 42 +++++++++++++++++++
->  automation/scripts/qemu-smoke-dom0-arm32.sh   | 15 ++++---
->  automation/scripts/qemu-smoke-dom0-arm64.sh   | 15 ++++---
->  .../scripts/qemu-smoke-dom0less-arm32.sh      | 14 +++----
->  .../scripts/qemu-smoke-dom0less-arm64.sh      | 14 +++----
->  automation/scripts/qemu-smoke-ppc64le.sh      | 12 +++---
->  automation/scripts/qemu-smoke-riscv64.sh      | 12 +++---
->  automation/scripts/qemu-smoke-x86-64.sh       | 14 +++----
->  automation/scripts/qemu-xtf-dom0less-arm64.sh | 14 +++----
->  10 files changed, 97 insertions(+), 70 deletions(-)
->  create mode 100755 automation/scripts/qemu-key.ex
-> 
-> diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
-> index 8e398dcea3..24b23a573c 100755
-> --- a/automation/scripts/qemu-alpine-x86_64.sh
-> +++ b/automation/scripts/qemu-alpine-x86_64.sh
-> @@ -77,18 +77,15 @@ EOF
->  # Run the test
->  rm -f smoke.serial
->  set +e
-> -timeout -k 1 720 \
-> -qemu-system-x86_64 \
-> +export qemu_cmd="qemu-system-x86_64 \
-Usually (even respected by analyze.sh) exported env variables are written in capital letters
+> Ensuring the PF's struct pci_dev * won't be de-allocated until the VFs
+> are gone: I don't think we want to impose any sort of ordering on
+> whether the toolstack removes VFs or PFs first. So, if not reference
+> counting (i.e. how many VFs are referring back to the PF), how else
+> would we make sure that the PF struct won't be de-allocated until all
+> its VFs have gone away?
 
->      -cpu qemu64,+svm \
->      -m 2G -smp 2 \
->      -monitor none -serial stdio \
->      -nographic \
->      -device virtio-net-pci,netdev=n0 \
-> -    -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0 |& \
-> -        # Remove carriage returns from the stdout output, as gitlab
-> -        # interface chokes on them
-> -        tee smoke.serial | sed 's/\r//'
-> +    -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0"
->  
-> -set -e
-> -(grep -q "Domain-0" smoke.serial && grep -q "BusyBox" smoke.serial) || exit 1
-> -exit 0
-> +export qemu_log="smoke.serial"
-> +export log_msg="Domain-0"
-> +export passed="BusyBox"
-NIT: one empty line here for readability
+Have the PF have a linked list of its VFs, and de-allocate the PF struct
+only when that list is empty. (When putting in a VF->PF link, I was
+taking it as obvious that then we also want a link the other way around,
+i.e. a linked list attached to the PF's struct.) For non-PF devices that
+list (if we need to instantiate it in all cases in the first place) will
+always be empty.
 
-> +./automation/scripts/qemu-key.ex
-> diff --git a/automation/scripts/qemu-key.ex b/automation/scripts/qemu-key.ex
-NIT: usually expect script have '.exp' extension.
-
-> new file mode 100755
-> index 0000000000..569ef2781f
-> --- /dev/null
-> +++ b/automation/scripts/qemu-key.ex
-> @@ -0,0 +1,42 @@
-> +#!/usr/bin/expect -f
-> +
-> +set timeout $env(QEMU_TIMEOUT)
-> +
-> +log_file -a $env(qemu_log)
-> +
-> +match_max 10000
-> +
-> +eval spawn $env(qemu_cmd)
-> +
-> +expect_after {
-> +    -re "(.*)\r" {
-> +        exp_continue
-> +    }
-> +    timeout {send_user "ERROR-Timeout!\n"; exit 1}
-> +    eof {send_user "ERROR-EOF!\n"; exit 1}
-> +}
-> +
-> +if {[info exists env(uboot_cmd)]} {
-> +    expect "=>"
-> +
-> +    send "$env(uboot_cmd)\r"
-> +}
-> +
-> +if {[info exists env(log_msg)]} {
-> +    expect "$env(log_msg)"
-> +}
-> +
-> +if {[info exists env(xen_cmd)]} {
-> +    send "$env(xen_cmd)\r"
-> +}
-Does not seem to be used at all. For now, I'd suggest to drop it.
-
-> +
-> +if {[info exists env(passed)]} {
-> +    expect {
-> +        "$env(passed)" {
-> +            exit 0
-> +        }
-> +    }
-> +}
-As said above, in my local testing, I search for both strings (after all we should test that dom0 works too) as follows:
-
-if {[info exists env(dom0_passed)] && [info exists env(domu_passed)]} {
-    expect {
-        "$env(dom0_passed)" {
-            expect "$env(domu_passed)"
-            exit 0
-        }
-        "$env(domu_passed)" {
-            expect "$env(dom0_passed)"
-            exit 0
-        }
-    }
-}
-
-Apart from that:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-
-~Michal
+Jan
 
