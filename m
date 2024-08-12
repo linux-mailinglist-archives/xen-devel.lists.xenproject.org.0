@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D406494E3E9
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 01:57:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.775334.1185559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8D5F94E750
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 09:00:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.775355.1185569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdIPq-0003rk-Fz; Sun, 11 Aug 2024 23:56:02 +0000
+	id 1sdP1G-0001Xt-1l; Mon, 12 Aug 2024 06:59:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 775334.1185559; Sun, 11 Aug 2024 23:56:02 +0000
+Received: by outflank-mailman (output) from mailman id 775355.1185569; Mon, 12 Aug 2024 06:59:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdIPq-0003pT-D5; Sun, 11 Aug 2024 23:56:02 +0000
-Received: by outflank-mailman (input) for mailman id 775334;
- Sun, 11 Aug 2024 23:56:01 +0000
+	id 1sdP1F-0001Vv-VB; Mon, 12 Aug 2024 06:59:05 +0000
+Received: by outflank-mailman (input) for mailman id 775355;
+ Mon, 12 Aug 2024 06:59:04 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1sdIPp-0003pH-Af; Sun, 11 Aug 2024 23:56:01 +0000
+ id 1sdP1E-0001Vl-AB; Mon, 12 Aug 2024 06:59:04 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1sdIPp-0007XO-3p; Sun, 11 Aug 2024 23:56:01 +0000
+ id 1sdP1E-0002e9-52; Mon, 12 Aug 2024 06:59:04 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1sdIPo-0003eb-LY; Sun, 11 Aug 2024 23:56:00 +0000
+ id 1sdP1D-00045C-J0; Mon, 12 Aug 2024 06:59:03 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sdIPo-0005LY-L5; Sun, 11 Aug 2024 23:56:00 +0000
+ id 1sdP1D-0004sB-I4; Mon, 12 Aug 2024 06:59:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,15 +45,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=XWe5oKQxIZVDyul3U8buZicqQ/oC3sL0ws+aDiJPEco=; b=calbX0Nm5RwR+Hzhq/eh6UHVbM
-	GtKK7yBbFrO0DyNU4TFePYZACnWQUUyFKmN5OfEMrhYxyNAN1L2uC/lIZJ20ls3o5rqEoA3lPcYyQ
-	tFD7SfVPmilE2qIvfHXl+zOOr6kpr3H81Wh+zU0iISh93btrRXKjdWN9i026V/kO2Eg0=;
+	bh=0dJd5a+R8lbpMUPJFCBbURLuTHkTx/PVaP9ttwNxvlU=; b=M23vxN9b7w0cMOvJpwcZllYaDs
+	ovgb76zARHMIOdNByEEdGvxUK2owlW7aMz5mxZxCDmBjtZtTazqH2N9FT/rNNKtnEaWp4pU7xZH0q
+	kptkNrNnyULO/2kH2OXZySuQZM9lrWEC4YrM+5FAbq1yvf+rTKDB2hJWjPrsh8OviFOs=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187212-mainreport@xen.org>
+Message-ID: <osstest-187214-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [linux-linus test] 187212: regressions - FAIL
+Subject: [linux-linus test] 187214: regressions - FAIL
 X-Osstest-Failures:
     linux-linus:test-arm64-arm64-examine:reboot:fail:regression
     linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
@@ -81,8 +81,6 @@ X-Osstest-Failures:
     linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
     linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
@@ -93,17 +91,19 @@ X-Osstest-Failures:
     linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
 X-Osstest-Versions-This:
-    linux=5189dafa4cf950e675f02ee04b577dfbbad0d9b1
+    linux=7c626ce4bae1ac14f60076d00eafe71af30450ba
 X-Osstest-Versions-That:
     linux=f83e38fc9f1092f8a7a65ff2ea6a1ea6502efaf0
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 11 Aug 2024 23:56:00 +0000
+Date: Mon, 12 Aug 2024 06:59:03 +0000
 
-flight 187212 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187212/
+flight 187214 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187214/
 
 Regressions :-(
 
@@ -137,8 +137,6 @@ Tests which did not succeed, but are not blocking:
  test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
  test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
  test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
  test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
  test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
  test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
@@ -149,20 +147,22 @@ Tests which did not succeed, but are not blocking:
  test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
  test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
  test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
  test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
  test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
 
 version targeted for testing:
- linux                5189dafa4cf950e675f02ee04b577dfbbad0d9b1
+ linux                7c626ce4bae1ac14f60076d00eafe71af30450ba
 baseline version:
  linux                f83e38fc9f1092f8a7a65ff2ea6a1ea6502efaf0
 
 Last test of basis   186827  2024-07-16 19:43:06 Z   26 days
-Failing since        186925  2024-07-20 09:44:52 Z   22 days   48 attempts
-Testing same since   187208  2024-08-11 00:44:19 Z    0 days    3 attempts
+Failing since        186925  2024-07-20 09:44:52 Z   22 days   49 attempts
+Testing same since   187214  2024-08-12 00:14:05 Z    0 days    1 attempts
 
 ------------------------------------------------------------
-2109 people touched revisions under test,
+2123 people touched revisions under test,
 not listing them all
 
 jobs:
@@ -265,5 +265,5 @@ Test harness code can be found at
 
 Not pushing.
 
-(No revision log; it would be 237681 lines long.)
+(No revision log; it would be 239293 lines long.)
 
