@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D54094ED44
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 14:43:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.775467.1185676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD4CB94EDA2
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 15:04:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.775479.1185686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdUNs-0002m3-8e; Mon, 12 Aug 2024 12:42:48 +0000
+	id 1sdUih-0006Oi-La; Mon, 12 Aug 2024 13:04:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 775467.1185676; Mon, 12 Aug 2024 12:42:48 +0000
+Received: by outflank-mailman (output) from mailman id 775479.1185686; Mon, 12 Aug 2024 13:04:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdUNs-0002kS-62; Mon, 12 Aug 2024 12:42:48 +0000
-Received: by outflank-mailman (input) for mailman id 775467;
- Mon, 12 Aug 2024 12:42:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sdUih-0006Mj-Ij; Mon, 12 Aug 2024 13:04:19 +0000
+Received: by outflank-mailman (input) for mailman id 775479;
+ Mon, 12 Aug 2024 13:04:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JhuI=PL=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1sdUNq-0002kM-Me
- for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 12:42:46 +0000
-Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
- [2607:f8b0:4864:20::c2b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f2222b7-58a8-11ef-bc05-fd08da9f4363;
- Mon, 12 Aug 2024 14:42:45 +0200 (CEST)
-Received: by mail-oo1-xc2b.google.com with SMTP id
- 006d021491bc7-5d5c324267aso2565154eaf.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 05:42:45 -0700 (PDT)
+ <SRS0=t0sR=PL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sdUig-0006Md-Oi
+ for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 13:04:18 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 60814b29-58ab-11ef-8776-851b0ebba9a2;
+ Mon, 12 Aug 2024 15:04:15 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a7ad02501c3so519208066b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 06:04:15 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a80bb0e0643sm228062366b.47.2024.08.12.06.04.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Aug 2024 06:04:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,162 +45,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f2222b7-58a8-11ef-bc05-fd08da9f4363
+X-Inumbo-ID: 60814b29-58ab-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723466564; x=1724071364; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BRf+pPvCu+jn0xLuEppOz887jSyZYBS2gnlP85aMlwI=;
-        b=CitaaBkDYqe0TyED5ebLVPsdU1AOs3vwCadbDzAweENtB6l5uMdGT3oNV/Z/CeCX3f
-         I4TyQ5TOm3iKLFdjg52ROUNBcr3hum4d5SjkGC56phRs9ygl4HHOCHS6FssyaB41/h1H
-         zbw9rTn6lRTHrQOtPE0GAdz4BX2rXvSAaNnGs=
+        d=citrix.com; s=google; t=1723467855; x=1724072655; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=o+3HOJlQ0IGpR2wCuV6uV+BTcwB/YqqQtFkrIQUjEqQ=;
+        b=pQZ9kvntVgp9BaXA0DU0irno10a5CtF9AlzxZzanEbcSm+/sXxvBczYzrgXyqhBA2k
+         TCE02aam/pCsL6REJnVrlKfSKMxJ2nV1Ht8OdbtwAGqY8Rp8CKXyJoLmWPRzyZsBEa+L
+         nFu3LBLHhE2ijeUcJ8go+EDWAM9DkrpAawLN0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723466564; x=1724071364;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=BRf+pPvCu+jn0xLuEppOz887jSyZYBS2gnlP85aMlwI=;
-        b=EHPADhp3t2muN/qkse6XnM60TzKmAquhDYgSlI4fiuM2VHjYT0G1G7ar1dq5l9qWi0
-         8Gg4hqRDlpDrfuYBma83pnAgiJ61l773U9ck+7DCoq/Ic2WkWfq/zj16Zn2cY58JHkyA
-         +nK7XFaTaRetFpEgpvi91u4LdapT6lYbCBZaI9k6+OZddRqltehGjaz47jOl8qChs8Lz
-         n0cEk/8/H1kLMYcV33+xoFoiXQyNtKnb0vaH4t5db/SLtDxBWc8xfugruXooZJcMteom
-         EFcOlirPa3e+LxZjTs577TSlRKvF+YXRju5FBn6Lz560O6pEdhOj0kh+LKuRIKaVPthi
-         BbgA==
-X-Forwarded-Encrypted: i=1; AJvYcCWe4isEdMxrL2dy4pVYEgq8OU4bSSZq/T2ntSXfK+oPKPqupYdf0Z1YzOitJveopDc9h0zW2JnaEtbsuUAXKcshjeSPrhnysyo0sYsMaAA=
-X-Gm-Message-State: AOJu0YwWPisThSSnS0xfDcqsMPiGbzYngJ9KlRIbVPh9EgjwOGfLzOjS
-	cP7fNh9YbdFhQsda6GKAGWOtdLKPBVJYKG87R2va5Nv4GE/J8WQz7sYyZWICqQioBYjmUWn/EXY
-	j0hFMxexci2prA+tSt+Xr+FPuSoeeBzeCixxemw==
-X-Google-Smtp-Source: AGHT+IFkSC0Qd1NEe+qFZ1hFgfPoITDSZRrvnl8rgbOuPP7dakfmcW1VOoPu5uhEa6AxlG7lmGRrhuHliqCP/pykU6A=
-X-Received: by 2002:a05:6820:2295:b0:5c4:e8d:58be with SMTP id
- 006d021491bc7-5da687f9778mr330429eaf.3.1723466564243; Mon, 12 Aug 2024
- 05:42:44 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1723467855; x=1724072655;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=o+3HOJlQ0IGpR2wCuV6uV+BTcwB/YqqQtFkrIQUjEqQ=;
+        b=HMGTQ9qf9oTAvRk3yCUUAL02e7CAq8EfbwQ4NCjq8mx8CrPR/UVYwqq1OOk28WYvQ6
+         0Snu3RWU5nmiqGvpXm0VnDaqvi/JyTZ5f/HcCvIO+m8KxY72qD6FChbyEk1N5sMaVXsd
+         StfKrgsYoGAFZOdfRwC69mDTDVawfLYha3w5/8vVT54phwBoI+A0XqYX+Blop0Sk1Erh
+         Y2DYRmvhKfZ0Jq+DWkSPA8tePzWtd3OeNwZt2z0YKvUjWkJAcRcVGa+wGDIVYQXfX3NC
+         stVkki3LEI7P1Wef7HfxxMIRpUAxWAr3ilh9xt0gDqvCL1GwozU3ygIYlMY88HfbnHEW
+         nPbA==
+X-Forwarded-Encrypted: i=1; AJvYcCW966qfC7QLzalV3P+hTM9ZI8Mh61mewEOpgd0V9vWMObLLWldlEuEY3x9Bu39Nal56IeKjQufD+3gGlt7mzXHQJwtaAY2rBkmwFY2Vnng=
+X-Gm-Message-State: AOJu0YzyPcjacZlxpq9oaY5HTA5WazeIbehgW+7u8b1HM1+HbgZBgeK9
+	Y9PP32bOID2+PRIXzk+9CXA4zHfVp8SmkXd4rVYoMvTII30ad2f8Cy+za5pTprgLy6PjCSTEZib
+	C
+X-Google-Smtp-Source: AGHT+IHk03lz1T/6miy2aoL4WJ28V9nwqCGCnf7/ib91Ka4pBOw3ifiGQKlRgAJrTRpJ9LjTa5xrxw==
+X-Received: by 2002:a17:907:c8a3:b0:a7a:3928:3529 with SMTP id a640c23a62f3a-a80ed1bfe86mr20242066b.13.1723467854716;
+        Mon, 12 Aug 2024 06:04:14 -0700 (PDT)
+Message-ID: <a7d15429-ce49-43b1-9bbd-7b0129094388@citrix.com>
+Date: Mon, 12 Aug 2024 14:04:11 +0100
 MIME-Version: 1.0
-References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
- <20240807134819.8987-4-alejandro.vallejo@cloud.com> <cf819b39-6ce8-4446-b7b6-a1b247f45400@suse.com>
- <CACHz=ZgwPunPO771EbX1hKEdmXC1ysBQ7RzYK8K1pakyBS927A@mail.gmail.com>
- <7f0a7c9e-0cac-48ae-b7aa-5c90a1a5f4ca@suse.com> <CACHz=ZgCodGsFdyKe+F4gY3nAnymHLQ0T23CWSqauEhbm=Ubeg@mail.gmail.com>
- <14fc293a-4a0d-4de2-b468-bd0ef8c912b1@suse.com> <CACHz=Zj+LKKvPxTd8SGYthBTPiC6bEPrZg0nt=ehpOJ4JwqoiQ@mail.gmail.com>
- <bdc1083b-f6bd-4e4e-b56d-9e1fc09393e9@suse.com>
-In-Reply-To: <bdc1083b-f6bd-4e4e-b56d-9e1fc09393e9@suse.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Mon, 12 Aug 2024 13:42:33 +0100
-Message-ID: <CACHz=Zj-ZFT=xXcVQS9opVLFvcSGFAGtCWHev+MXQHLwzCPdrQ@mail.gmail.com>
-Subject: Re: [PATCH 3/5] x86: Set xen_phys_start and trampoline_xen_phys_start earlier
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86emul: don't call ->read_segment() with x86_seg_none
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <81ae365f-98b4-4bb6-bbb6-c5423dfda038@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <81ae365f-98b4-4bb6-bbb6-c5423dfda038@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 12, 2024 at 9:41=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
+On 05/08/2024 2:26 pm, Jan Beulich wrote:
+> LAR, LSL, VERR, and VERW emulation involve calling protmode_load_seg()
+> with x86_seg_none. The fuzzer's read_segment() hook function has an
+> assertion which triggers in this case. Calling the hook function,
+> however, makes little sense for those insns, as there's no data to
+> retrieve. Instead zero-filling the output structure is what properly
+> corresponds to those insns being invoked with a NUL selector.
 >
-> On 09.08.2024 16:34, Frediano Ziglio wrote:
-> > On Fri, Aug 9, 2024 at 3:02=E2=80=AFPM Jan Beulich <jbeulich@suse.com> =
-wrote:
-> >>
-> >> On 09.08.2024 15:50, Frediano Ziglio wrote:
-> >>> On Fri, Aug 9, 2024 at 1:59=E2=80=AFPM Jan Beulich <jbeulich@suse.com=
-> wrote:
-> >>>>
-> >>>> On 09.08.2024 14:48, Frediano Ziglio wrote:
-> >>>>> On Thu, Aug 8, 2024 at 9:25=E2=80=AFAM Jan Beulich <jbeulich@suse.c=
-om> wrote:
-> >>>>>> On 07.08.2024 15:48, Alejandro Vallejo wrote:
-> >>>>>>> No reason to wait, if Xen image is loaded by EFI (not multiboot
-> >>>>>>> EFI path) these are set in efi_arch_load_addr_check, but
-> >>>>>>> not in the multiboot EFI code path.
-> >>>>>>> This change makes the 2 code paths more similar and allows
-> >>>>>>> the usage of these variables if needed.
-> >>>>>>
-> >>>>>> I'm afraid I'm struggling with any "similarity" argument here. Imo=
- it
-> >>>>>> would be better what, if anything, needs (is going to need) either=
- or
-> >>>>>> both of these set earlier. Which isn't to say it's wrong to do ear=
-ly
-> >>>>>> what can be done early, just that ...
-> >>>>>>
-> >>>>>
-> >>>>> About similarity is that some part of EFI code expect xen_phys_star=
-t
-> >>>>> to be initialized so this change make sure that if in the future th=
-ese
-> >>>>> paths are called even for this case they won't break.
-> >>>>>
-> >>>>>>> --- a/xen/arch/x86/boot/head.S
-> >>>>>>> +++ b/xen/arch/x86/boot/head.S
-> >>>>>>> @@ -259,6 +259,11 @@ __efi64_mb2_start:
-> >>>>>>>          jmp     x86_32_switch
-> >>>>>>>
-> >>>>>>>  .Lefi_multiboot2_proto:
-> >>>>>>> +        /* Save Xen image load base address for later use. */
-> >>>>>>> +        lea     __image_base__(%rip),%rsi
-> >>>>>>> +        movq    %rsi, xen_phys_start(%rip)
-> >>>>>>> +        movl    %esi, trampoline_xen_phys_start(%rip)
-> >>>>>>
-> >>>>>> ... this path is EFI only if I'm not mistaken, while ...
-> >>>>>>
-> >>>>>>> @@ -605,10 +610,6 @@ trampoline_setup:
-> >>>>>>>           * Called on legacy BIOS and EFI platforms.
-> >>>>>>>           */
-> >>>>>>>
-> >>>>>>> -        /* Save Xen image load base address for later use. */
-> >>>>>>> -        mov     %esi, sym_esi(xen_phys_start)
-> >>>>>>> -        mov     %esi, sym_esi(trampoline_xen_phys_start)
-> >>>>>>
-> >>>>>> ... the comment in context is pretty clear about this code also be=
-ing
-> >>>>>> used in the non-EFI case. It is, however, the case that %esi is 0 =
-in
-> >>>>>> that case. Yet surely you want to mention this in the description,=
- to
-> >>>>>> clarify the correctness of the change.
-> >>>>>
-> >>>>> Restored this code.
-> >>>>
-> >>>> Was my analysis wrong then and it's actually needed for some specifi=
-c
-> >>>> case?
-> >>>
-> >>> Not clear to what exactly you are referring.
-> >>> That later part of code (which was removed) is still needed in case o=
-f no-EFI.
-> >>
-> >> Is it? Under what conditions would %esi be non-zero? As indicated by m=
-y earlier
-> >> reply, I think it would never be. In which case the two stores are poi=
-ntless.
-> >
-> > I really don't follow, %esi at that point should be the address where
-> > the executable is loader, which should not be zero.
->
-> In the PVH entry point it'll be, but else? Note this code in setup.c:
->
->         /* Is the region suitable for relocating Xen? */
->         if ( !xen_phys_start && e <=3D limit )
->
-> That relocating of Xen wouldn't happen if we stored a non-zero value in
-> the default (xen.gz with grub1/2) case. Also take a look at Xen before
-> the EFI/MB2 path was added. xen_phys_start wasn't even written from
-> head.S at that time. And if it's for the PVH entry point alone, that
-> code then would want moving into the CONFIG_PVH_GUEST section (if at all
-> possible). Or, if the reason for the change really is "just in case",
-> another option of course is to leave these two insn in the one central
-> place they are at right now.
->
+> Fixes: 06a3b8cd7ad2 ("x86emul: support LAR/LSL/VERR/VERW")
+> Oss-fuzz: 70918
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> It is pure guesswork that one of those insns did trigger the assertion.
 
-Hi,
-  as I said I added back the lines in the original place too (I didn't
-still send that update, I want to finish other changes you suggested).
-The reason I added these lines is the usage in efi-boot.h, it has
-nothing to do with PVH. Yes, at the moment that part of the code is
-executed only on direct EFI program so it's not impacting these paths
-but better safe than sorry.
+Tamas handed me the repro seeing as I don't have access to the bugs.  It
+was VERR/VERW.
 
-> Jan
+> The report from oss-fuzz sadly lacks details on the insn under
+> emulation.
 
-Frediano
+I've got a still-pending patch to add `--debug` to the harness to dump
+that information.
+
+> I'm further surprised that AFL never found this.
+
+I haven't done any AFL testing since 06a3b8cd7ad2 was added.
+
+This crash is specific to VERW/etc with a NULL selector, which will be a
+rare combination to encounter.
+
+>
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+> @@ -839,7 +839,8 @@ protmode_load_seg(
+>          case x86_seg_tr:
+>              goto raise_exn;
+>          }
+> -        if ( !_amd_like(cp) || vcpu_has_nscb() || !ops->read_segment ||
+> +        if ( seg == x86_seg_none || !_amd_like(cp) || vcpu_has_nscb() ||
+> +             !ops->read_segment ||
+>               ops->read_segment(seg, sreg, ctxt) != X86EMUL_OKAY )
+>              memset(sreg, 0, sizeof(*sreg));
+>          else
+
+While this fixes the crash, I'm not sure it will behave correctly for
+VERR/VERW.
+
+protmode_load_seg() is unconditionally X86EMUL_OKAY for a NULL selector,
+and VERW checks for type != 0x8 which an empty attr will pass.
+
+Interestingly, both Intel and AMD state that the NULL selector is
+neither readable nor writeable.
+
+Also, looking at the emulator logic, we're missing the DPL vs
+CPL/RPL/Conforming checks.
+
+~Andrew
 
