@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17E1B94ECEE
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 14:25:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.775457.1185667 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D54094ED44
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 14:43:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.775467.1185676 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdU5v-0007lo-SA; Mon, 12 Aug 2024 12:24:15 +0000
+	id 1sdUNs-0002m3-8e; Mon, 12 Aug 2024 12:42:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 775457.1185667; Mon, 12 Aug 2024 12:24:15 +0000
+Received: by outflank-mailman (output) from mailman id 775467.1185676; Mon, 12 Aug 2024 12:42:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdU5v-0007k9-Oz; Mon, 12 Aug 2024 12:24:15 +0000
-Received: by outflank-mailman (input) for mailman id 775457;
- Mon, 12 Aug 2024 12:24:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sdUNs-0002kS-62; Mon, 12 Aug 2024 12:42:48 +0000
+Received: by outflank-mailman (input) for mailman id 775467;
+ Mon, 12 Aug 2024 12:42:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KPBI=PL=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sdU5u-0007k2-Re
- for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 12:24:14 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c874ff3f-58a5-11ef-8776-851b0ebba9a2;
- Mon, 12 Aug 2024 14:24:12 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-52f00ad303aso5763516e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 05:24:12 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80bb08fe5dsm225141766b.3.2024.08.12.05.24.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Aug 2024 05:24:11 -0700 (PDT)
+ <SRS0=JhuI=PL=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1sdUNq-0002kM-Me
+ for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 12:42:46 +0000
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
+ [2607:f8b0:4864:20::c2b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5f2222b7-58a8-11ef-bc05-fd08da9f4363;
+ Mon, 12 Aug 2024 14:42:45 +0200 (CEST)
+Received: by mail-oo1-xc2b.google.com with SMTP id
+ 006d021491bc7-5d5c324267aso2565154eaf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 05:42:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,93 +40,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c874ff3f-58a5-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 5f2222b7-58a8-11ef-bc05-fd08da9f4363
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723465452; x=1724070252; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1723466564; x=1724071364; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1EiMNcbDrL/oKXG+2/BbSSs8YnNkAmn62VdQTdoY164=;
-        b=KapjBUTAbOrW+Dz/3ByK0cLEsIYPgi2X1n0oXA005zXm61DESiT5JNWy96IT9+RP3/
-         FyGHLGbzfyrEhzcO9w4hdOo1TXn/f6b+y/XehrtIePk8XI8dm1Y6ZDZlseX8oK2FrO+S
-         EQ6W14+Ami55IbZCzAvCZ+SZ/2SfN0GelpsK8=
+        bh=BRf+pPvCu+jn0xLuEppOz887jSyZYBS2gnlP85aMlwI=;
+        b=CitaaBkDYqe0TyED5ebLVPsdU1AOs3vwCadbDzAweENtB6l5uMdGT3oNV/Z/CeCX3f
+         I4TyQ5TOm3iKLFdjg52ROUNBcr3hum4d5SjkGC56phRs9ygl4HHOCHS6FssyaB41/h1H
+         zbw9rTn6lRTHrQOtPE0GAdz4BX2rXvSAaNnGs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723465452; x=1724070252;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=1EiMNcbDrL/oKXG+2/BbSSs8YnNkAmn62VdQTdoY164=;
-        b=Q7WYN+/ilsn/yTqkWxzU0Kc+zkGT63GAV+vFfbCD4gK8o/LI33JjbE/1HxvTtUZF4b
-         iSqszyHMqCj8kfc73O26y9KrT4EEISdw9bDINKmXIkWEplyNKVpF5BEQAKJG7dGYPKWQ
-         Em5uQ+HKSW0PFA/27X1tb30qKTjwW2URY9POa1bsc5DRlsCvdBN7epjX24PLdDZeqfOE
-         aI+oki8vZdUZcf0D3rmjYdUddlOf+9RBJ2+GP9kS4xkVPNT9Gr0X4o5mcCFLdPD1EZoA
-         CTOaR1v64RweqS3kuyHLYgCdMaLi/BSrzEmime4b/kBO0MUSInamumRBH+Ba9stm0DEQ
-         znew==
-X-Forwarded-Encrypted: i=1; AJvYcCW6j3vCs+CDNUDs2S/KAn0MQyVoJY+QxcwihdXcgYVTss5PqfjkdqCI56mgiIL1E8XAL1+9WSlEton1iVV1edJQyKMjaDv4SqMb6rhEiQk=
-X-Gm-Message-State: AOJu0YxaaBWA78WdgsGFp1md7WvemDSWPfGBMIK3LkDT4ZKtOjqS+1lD
-	vsVRcPFGxNmmqhF46PRY1sDCwTh1ejYD1wSWVL9h/KZ+FriEl7dBmcNyc1rO354KVdCpDf877iu
-	v
-X-Google-Smtp-Source: AGHT+IGJ85U7OLxVwY1+ip45LBTIutbtmvof9lFfwCwGRGZ655E0dWxjk/XBByPiOzS9uRyrFAc7qw==
-X-Received: by 2002:a05:6512:3d8a:b0:52c:8df9:2e6f with SMTP id 2adb3069b0e04-530ee9d1a39mr6541914e87.42.1723465452094;
-        Mon, 12 Aug 2024 05:24:12 -0700 (PDT)
-Mime-Version: 1.0
+        d=1e100.net; s=20230601; t=1723466564; x=1724071364;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BRf+pPvCu+jn0xLuEppOz887jSyZYBS2gnlP85aMlwI=;
+        b=EHPADhp3t2muN/qkse6XnM60TzKmAquhDYgSlI4fiuM2VHjYT0G1G7ar1dq5l9qWi0
+         8Gg4hqRDlpDrfuYBma83pnAgiJ61l773U9ck+7DCoq/Ic2WkWfq/zj16Zn2cY58JHkyA
+         +nK7XFaTaRetFpEgpvi91u4LdapT6lYbCBZaI9k6+OZddRqltehGjaz47jOl8qChs8Lz
+         n0cEk/8/H1kLMYcV33+xoFoiXQyNtKnb0vaH4t5db/SLtDxBWc8xfugruXooZJcMteom
+         EFcOlirPa3e+LxZjTs577TSlRKvF+YXRju5FBn6Lz560O6pEdhOj0kh+LKuRIKaVPthi
+         BbgA==
+X-Forwarded-Encrypted: i=1; AJvYcCWe4isEdMxrL2dy4pVYEgq8OU4bSSZq/T2ntSXfK+oPKPqupYdf0Z1YzOitJveopDc9h0zW2JnaEtbsuUAXKcshjeSPrhnysyo0sYsMaAA=
+X-Gm-Message-State: AOJu0YwWPisThSSnS0xfDcqsMPiGbzYngJ9KlRIbVPh9EgjwOGfLzOjS
+	cP7fNh9YbdFhQsda6GKAGWOtdLKPBVJYKG87R2va5Nv4GE/J8WQz7sYyZWICqQioBYjmUWn/EXY
+	j0hFMxexci2prA+tSt+Xr+FPuSoeeBzeCixxemw==
+X-Google-Smtp-Source: AGHT+IFkSC0Qd1NEe+qFZ1hFgfPoITDSZRrvnl8rgbOuPP7dakfmcW1VOoPu5uhEa6AxlG7lmGRrhuHliqCP/pykU6A=
+X-Received: by 2002:a05:6820:2295:b0:5c4:e8d:58be with SMTP id
+ 006d021491bc7-5da687f9778mr330429eaf.3.1723466564243; Mon, 12 Aug 2024
+ 05:42:44 -0700 (PDT)
+MIME-Version: 1.0
+References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
+ <20240807134819.8987-4-alejandro.vallejo@cloud.com> <cf819b39-6ce8-4446-b7b6-a1b247f45400@suse.com>
+ <CACHz=ZgwPunPO771EbX1hKEdmXC1ysBQ7RzYK8K1pakyBS927A@mail.gmail.com>
+ <7f0a7c9e-0cac-48ae-b7aa-5c90a1a5f4ca@suse.com> <CACHz=ZgCodGsFdyKe+F4gY3nAnymHLQ0T23CWSqauEhbm=Ubeg@mail.gmail.com>
+ <14fc293a-4a0d-4de2-b468-bd0ef8c912b1@suse.com> <CACHz=Zj+LKKvPxTd8SGYthBTPiC6bEPrZg0nt=ehpOJ4JwqoiQ@mail.gmail.com>
+ <bdc1083b-f6bd-4e4e-b56d-9e1fc09393e9@suse.com>
+In-Reply-To: <bdc1083b-f6bd-4e4e-b56d-9e1fc09393e9@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 12 Aug 2024 13:42:33 +0100
+Message-ID: <CACHz=Zj-ZFT=xXcVQS9opVLFvcSGFAGtCWHev+MXQHLwzCPdrQ@mail.gmail.com>
+Subject: Re: [PATCH 3/5] x86: Set xen_phys_start and trampoline_xen_phys_start earlier
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 12 Aug 2024 13:24:10 +0100
-Message-Id: <D3DXIHMBKVC1.21P79JH7NMMG4@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v1 1/2] x86/intel: optional build of intel.c
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>, "Sergiy Kibrik"
- <sergiy_kibrik@epam.com>, <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.17.0
-References: <cover.1723196909.git.Sergiy_Kibrik@epam.com>
- <25e80b9271607da56abf9d4193e4d91b3d00bd9c.1723196909.git.Sergiy_Kibrik@epam.com> <D3BBCS1WZ3FI.KYTC0BZLDUM9@cloud.com> <dab7d359-4433-448f-b781-03544fd4b68d@epam.com> <d449f8dc-2d59-4836-b26a-b29a83f7d6fb@suse.com>
-In-Reply-To: <d449f8dc-2d59-4836-b26a-b29a83f7d6fb@suse.com>
 
-On Mon Aug 12, 2024 at 10:58 AM BST, Jan Beulich wrote:
-> On 12.08.2024 11:40, Sergiy Kibrik wrote:
-> > 09.08.24 13:36, Alejandro Vallejo:
-> >> On Fri Aug 9, 2024 at 11:09 AM BST, Sergiy Kibrik wrote:
-> >>> --- a/xen/arch/x86/cpu/Makefile
-> >>> +++ b/xen/arch/x86/cpu/Makefile
-> >>> @@ -6,10 +6,10 @@ obj-y +=3D amd.o
-> >>>   obj-y +=3D centaur.o
-> >>>   obj-y +=3D common.o
-> >>>   obj-y +=3D hygon.o
-> >>> -obj-y +=3D intel.o
-> >>> -obj-y +=3D intel_cacheinfo.o
-> >>> +obj-$(CONFIG_INTEL) +=3D intel.o
-> >>> +obj-$(CONFIG_INTEL) +=3D intel_cacheinfo.o
-> >>>   obj-y +=3D mwait-idle.o
-> >>> -obj-y +=3D shanghai.o
-> >>> +obj-$(CONFIG_INTEL) +=3D shanghai.o
+On Mon, Aug 12, 2024 at 9:41=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 09.08.2024 16:34, Frediano Ziglio wrote:
+> > On Fri, Aug 9, 2024 at 3:02=E2=80=AFPM Jan Beulich <jbeulich@suse.com> =
+wrote:
 > >>
-> >> Why pick this one too? It's based on VIA IP, aiui.
-> >=20
-> > shanghai.c and intel.c both use init_intel_cacheinfo() routine, so=20
-> > there's build dependency on Intel code.
-
-My point is that the use of Intel functions on Shanghai and not Centaur is
-accidental. If shanghai goes under Intel so should Centaur (imo).
-
+> >> On 09.08.2024 15:50, Frediano Ziglio wrote:
+> >>> On Fri, Aug 9, 2024 at 1:59=E2=80=AFPM Jan Beulich <jbeulich@suse.com=
+> wrote:
+> >>>>
+> >>>> On 09.08.2024 14:48, Frediano Ziglio wrote:
+> >>>>> On Thu, Aug 8, 2024 at 9:25=E2=80=AFAM Jan Beulich <jbeulich@suse.c=
+om> wrote:
+> >>>>>> On 07.08.2024 15:48, Alejandro Vallejo wrote:
+> >>>>>>> No reason to wait, if Xen image is loaded by EFI (not multiboot
+> >>>>>>> EFI path) these are set in efi_arch_load_addr_check, but
+> >>>>>>> not in the multiboot EFI code path.
+> >>>>>>> This change makes the 2 code paths more similar and allows
+> >>>>>>> the usage of these variables if needed.
+> >>>>>>
+> >>>>>> I'm afraid I'm struggling with any "similarity" argument here. Imo=
+ it
+> >>>>>> would be better what, if anything, needs (is going to need) either=
+ or
+> >>>>>> both of these set earlier. Which isn't to say it's wrong to do ear=
+ly
+> >>>>>> what can be done early, just that ...
+> >>>>>>
+> >>>>>
+> >>>>> About similarity is that some part of EFI code expect xen_phys_star=
+t
+> >>>>> to be initialized so this change make sure that if in the future th=
+ese
+> >>>>> paths are called even for this case they won't break.
+> >>>>>
+> >>>>>>> --- a/xen/arch/x86/boot/head.S
+> >>>>>>> +++ b/xen/arch/x86/boot/head.S
+> >>>>>>> @@ -259,6 +259,11 @@ __efi64_mb2_start:
+> >>>>>>>          jmp     x86_32_switch
+> >>>>>>>
+> >>>>>>>  .Lefi_multiboot2_proto:
+> >>>>>>> +        /* Save Xen image load base address for later use. */
+> >>>>>>> +        lea     __image_base__(%rip),%rsi
+> >>>>>>> +        movq    %rsi, xen_phys_start(%rip)
+> >>>>>>> +        movl    %esi, trampoline_xen_phys_start(%rip)
+> >>>>>>
+> >>>>>> ... this path is EFI only if I'm not mistaken, while ...
+> >>>>>>
+> >>>>>>> @@ -605,10 +610,6 @@ trampoline_setup:
+> >>>>>>>           * Called on legacy BIOS and EFI platforms.
+> >>>>>>>           */
+> >>>>>>>
+> >>>>>>> -        /* Save Xen image load base address for later use. */
+> >>>>>>> -        mov     %esi, sym_esi(xen_phys_start)
+> >>>>>>> -        mov     %esi, sym_esi(trampoline_xen_phys_start)
+> >>>>>>
+> >>>>>> ... the comment in context is pretty clear about this code also be=
+ing
+> >>>>>> used in the non-EFI case. It is, however, the case that %esi is 0 =
+in
+> >>>>>> that case. Yet surely you want to mention this in the description,=
+ to
+> >>>>>> clarify the correctness of the change.
+> >>>>>
+> >>>>> Restored this code.
+> >>>>
+> >>>> Was my analysis wrong then and it's actually needed for some specifi=
+c
+> >>>> case?
+> >>>
+> >>> Not clear to what exactly you are referring.
+> >>> That later part of code (which was removed) is still needed in case o=
+f no-EFI.
+> >>
+> >> Is it? Under what conditions would %esi be non-zero? As indicated by m=
+y earlier
+> >> reply, I think it would never be. In which case the two stores are poi=
+ntless.
+> >
+> > I really don't follow, %esi at that point should be the address where
+> > the executable is loader, which should not be zero.
 >
-> Yet Shanghai isn't as directly a clone of Intel CPUs as Hygon ones are
-> for AMD. So at the very least you want to justify your choice in the
-> description. After all there's also the alternative of having a separate
-> SHANGHAI Kconfig setting, which would merely have "select INTEL" or
-> "depends on INTEL".
+> In the PVH entry point it'll be, but else? Note this code in setup.c:
 >
+>         /* Is the region suitable for relocating Xen? */
+>         if ( !xen_phys_start && e <=3D limit )
+>
+> That relocating of Xen wouldn't happen if we stored a non-zero value in
+> the default (xen.gz with grub1/2) case. Also take a look at Xen before
+> the EFI/MB2 path was added. xen_phys_start wasn't even written from
+> head.S at that time. And if it's for the PVH entry point alone, that
+> code then would want moving into the CONFIG_PVH_GUEST section (if at all
+> possible). Or, if the reason for the change really is "just in case",
+> another option of course is to leave these two insn in the one central
+> place they are at right now.
+>
+
+Hi,
+  as I said I added back the lines in the original place too (I didn't
+still send that update, I want to finish other changes you suggested).
+The reason I added these lines is the usage in efi-boot.h, it has
+nothing to do with PVH. Yes, at the moment that part of the code is
+executed only on direct EFI program so it's not impacting these paths
+but better safe than sorry.
+
 > Jan
 
-That's one option, another is for the Kconfig options to explicitly state w=
-hich
-vendors they apply to. I'd be fine with either. It's less fine for CONFIG_I=
-NTEL
-to cover a VIA derivative and not the other.
-
-Cheers,
-Alejandro
+Frediano
 
