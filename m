@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB51794EDB4
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 15:06:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.775505.1185796 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DE4794EDF7
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 15:21:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.775587.1185807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdUkv-00027N-3N; Mon, 12 Aug 2024 13:06:37 +0000
+	id 1sdUyK-00085i-3s; Mon, 12 Aug 2024 13:20:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 775505.1185796; Mon, 12 Aug 2024 13:06:37 +0000
+Received: by outflank-mailman (output) from mailman id 775587.1185807; Mon, 12 Aug 2024 13:20:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdUku-00021j-Tw; Mon, 12 Aug 2024 13:06:36 +0000
-Received: by outflank-mailman (input) for mailman id 775505;
- Mon, 12 Aug 2024 13:06:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sdUyK-00083h-1M; Mon, 12 Aug 2024 13:20:28 +0000
+Received: by outflank-mailman (input) for mailman id 775587;
+ Mon, 12 Aug 2024 13:20:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FAji=PL=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1sdUks-00074b-Ke
- for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 13:06:34 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b31e9298-58ab-11ef-bc05-fd08da9f4363;
- Mon, 12 Aug 2024 15:06:34 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2ef2c56d9dcso49208671fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 06:06:34 -0700 (PDT)
-Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f29203d7ebsm8631921fa.83.2024.08.12.06.06.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Aug 2024 06:06:31 -0700 (PDT)
+ <SRS0=KPBI=PL=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sdUyJ-00083b-1g
+ for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 13:20:27 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a2667d3d-58ad-11ef-8776-851b0ebba9a2;
+ Mon, 12 Aug 2024 15:20:25 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-52f01b8738dso3615751e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 06:20:25 -0700 (PDT)
+Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a80bb2136d1sm227786066b.155.2024.08.12.06.20.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Aug 2024 06:20:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +44,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b31e9298-58ab-11ef-bc05-fd08da9f4363
+X-Inumbo-ID: a2667d3d-58ad-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1723467993; x=1724072793; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1723468824; x=1724073624; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mKBi8KqYhGDFlqsXHx9Zw2bI17GecQkQjZL9UWM7DqA=;
-        b=kuUQm91TepPzeX6i4z1QYb7s6hZ1cgAqABPCKGKu3MpvVpr3auZGk9Gu5Y8GxOXU4R
-         dG3+QI60Hkt+HGY+sZQDjC4yNd+sMiyIKGQMUjYKxmKzqBaGYQYpOJxQbprVWIVV/aQi
-         jC2hLBR+8Um+vX2yrQJ4GakXk0U0xzC/VDyUCLU7WPyKeXGoy/DUSJUZzG+EGibEYKCb
-         u75k7Qf1pWuU1Wxa3ceInxEL8pMjSpZRMLiN2FEvkhudXPRxBjnRk0ki7ETHBU1NcHki
-         EDA1UllcrgHGNDuqy+S+vAGtg3J3c8zWNJFOw8Cj+kzqYhxIoEoS/S0Bbqa6X5uVB8ZZ
-         ZsoA==
+        bh=JhC2OqDl1puffudqOP75LOp4l/A/qZYepve+hh1qMuk=;
+        b=db96YkBaQn1dFw/rF5QFTx+tmSOX09QNuYlsncLMhV8AwREV5znYsgDkaryuiN6v5e
+         lnqxYTt48ccR24afdi76rXyf4zLcsGsjnxFH1xWcZ4/yykFaiuEYNgUAv8UWIYOtE3Y8
+         z9GpyxkMzpBIv7b1EJ1IE4yWcxSEf9v/N9Gb0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723467993; x=1724072793;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=mKBi8KqYhGDFlqsXHx9Zw2bI17GecQkQjZL9UWM7DqA=;
-        b=fxz+z/kKGCW5Z6RBh2uWQwGoM3CjRqjUVpn8ZpYhisgSP7AxxYEgYTL9rUx1/0C1WK
-         sxZb674F2cc7xYkph6pfwQOPgi46nJxJ0e0RAYTZtYIL3/0NlbM4XOTRK4u3hAUD8glD
-         NUny34tMO//VFuGBsnTwOpkxij+EImTo8XWvArrqUe12YBWhqQY4UEil/N0d6boKQwH/
-         kgSrbOWBNKDWkCbK5C24Ny1wzu4rPvFFlYXFz1TfjdyB9AS4Lo7HqFP5GbRSILQM5xTX
-         fuTGVQgMYGr6NoOuXkN5al9rmLwRdtnvx03CepD6KaOIsKVcmUAK9BAaXcDhDA3LjtSU
-         nIZg==
-X-Forwarded-Encrypted: i=1; AJvYcCV0koXZNFNYmnG5EMsSZtW1eAK7qvoedo/fT/NoyxueC9hFnUBzbsVAhmxhF5sjpazxjeEA8PBediNHERlEo0W+1MunBLUjRupfgHIgf2A=
-X-Gm-Message-State: AOJu0Yz0fDrc6uOH/anVEM4WeSah0Jq8eCv2diY48k9ndNU4Jbi2yl4r
-	mnQbh1edhGPOcfUMrLgzq6GpcfOgYweyfFb4FrnBG4c0mEJv5B2+
-X-Google-Smtp-Source: AGHT+IFc8uBG8fAqe8QiFu7qL5vOSuGxpFRzQNhkfUh2olLgNFB3zwVq8FCW9cJURrXcMaKyPvPWuQ==
-X-Received: by 2002:a2e:9c10:0:b0:2ef:22bc:6fb0 with SMTP id 38308e7fff4ca-2f2b7179ecbmr1400471fa.34.1723467992891;
-        Mon, 12 Aug 2024 06:06:32 -0700 (PDT)
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-To: qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org,
-	anthony@xenproject.org,
-	paul@xen.org,
-	peter.maydell@linaro.org,
-	alex.bennee@linaro.org,
-	xenia.ragiadakou@amd.com,
-	jason.andryuk@amd.com,
-	edgar.iglesias@amd.com,
-	xen-devel@lists.xenproject.org,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: [PATCH v1 10/10] docs/system/i386: xenpvh: Add a basic description
-Date: Mon, 12 Aug 2024 15:06:05 +0200
-Message-ID: <20240812130606.90410-11-edgar.iglesias@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240812130606.90410-1-edgar.iglesias@gmail.com>
-References: <20240812130606.90410-1-edgar.iglesias@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20230601; t=1723468824; x=1724073624;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=JhC2OqDl1puffudqOP75LOp4l/A/qZYepve+hh1qMuk=;
+        b=vFvew/qwWzIWJAKWmFsOOZfw7RmllvSaUuNWaA2ccrZ0sUFZ9ehdQNYHgJhATNNKzB
+         IYMSkoSSVb0a8NnOii/0Nm7AC2FCihq0ZA3LB+fnS8dCjWqNqIbj/l246TOU6JS4RMhV
+         OGXA0AtdNVsTLMvLBGGq32xFt/fzXXtnuic/n1MSNztJL3xxrzO1oWc4Wps0QM3OYclZ
+         rySggQLqQGemCS0ANtUy640fJi1tOTIgYXRmQynkwoUE/50D5bNx9FulFdAYR9m2INn1
+         XskXVf2Hc6YwP8II2fWVOiSYY+dLkkrdz9uWRRnrVKtjdguNszTF06Dv0Q7iqLnKk+cB
+         14UQ==
+X-Gm-Message-State: AOJu0Yyk2fLckEHS3X61fLSITxrrKE4WX5F5gg28YvDWfolQx2tKGbHh
+	5v5hyAEePdk4pk6R8z68feLD8k8TxahVX4vYu69znar2fMcr4EFDxn6w0+ENslI=
+X-Google-Smtp-Source: AGHT+IGaFovc/mOscy3BLvf3ZgXoCeeUWfFL9FBEy/9iofOVz6tw2T5/DSZD0nWI2gpSnzSp6ukABw==
+X-Received: by 2002:a05:6512:2215:b0:52e:9cf0:69db with SMTP id 2adb3069b0e04-53213684cd6mr83047e87.46.1723468824050;
+        Mon, 12 Aug 2024 06:20:24 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 12 Aug 2024 14:20:22 +0100
+Message-Id: <D3DYPIPLBSEA.14PVSCSI619Y8@cloud.com>
+Cc: "Xen-devel" <xen-devel@lists.xenproject.org>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>
+Subject: Re: [RFC PATCH] xen: Remove -Wdeclaration-after-statement
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Stefano Stabellini" <sstabellini@kernel.org>
+X-Mailer: aerc 0.17.0
+References: <20240809130418.10431-1-alejandro.vallejo@cloud.com>
+ <alpine.DEB.2.22.394.2408091217370.200407@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2408091217370.200407@ubuntu-linux-20-04-desktop>
 
-From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+On Fri Aug 9, 2024 at 8:25 PM BST, Stefano Stabellini wrote:
+> Adding Roberto
+>
+> Does MISRA have a view on this? I seem to remember this is discouraged?
+>
 
-Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
----
- MAINTAINERS                 |  1 +
- docs/system/i386/xenpvh.rst | 49 +++++++++++++++++++++++++++++++++++++
- docs/system/target-i386.rst |  1 +
- 3 files changed, 51 insertions(+)
- create mode 100644 docs/system/i386/xenpvh.rst
+I'd be surprised if MISRA didn't promote declaring close to first use to av=
+oid
+use-before-init, but you very clearly have a lot more exposure to it than I=
+ do.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a24c2e14d9..da4c9d4d46 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -560,6 +560,7 @@ F: include/sysemu/xen.h
- F: include/sysemu/xen-mapcache.h
- F: stubs/xen-hw-stub.c
- F: docs/system/arm/xenpvh.rst
-+F: docs/system/i386/xenpvh.rst
- 
- Guest CPU Cores (NVMM)
- ----------------------
-diff --git a/docs/system/i386/xenpvh.rst b/docs/system/i386/xenpvh.rst
-new file mode 100644
-index 0000000000..354250f073
---- /dev/null
-+++ b/docs/system/i386/xenpvh.rst
-@@ -0,0 +1,49 @@
-+Xen PVH machine (``xenpvh``)
-+=========================================
-+
-+Xen supports a spectrum of types of guests that vary in how they depend
-+on HW virtualization features, emulation models and paravirtualization.
-+PVH is a mode that uses HW virtualization features (like HVM) but tries
-+to avoid emulation models and instead use passthrough or
-+paravirtualized devices.
-+
-+QEMU can be used to provide PV virtio devices on an emulated PCIe controller.
-+That is the purpose of this minimal machine.
-+
-+Supported devices
-+-----------------
-+
-+The x86 Xen PVH QEMU machine provide the following devices:
-+
-+- RAM
-+- GPEX host bridge
-+- virtio-pci devices
-+
-+The idea is to only connect virtio-pci devices but in theory any compatible
-+PCI device model will work depending on Xen and guest support.
-+
-+Running
-+-------
-+
-+The Xen tools will typically construct a command-line and launch QEMU
-+for you when needed. But here's an example of what it can look like in
-+case you need to construct one manually:
-+
-+.. code-block:: console
-+
-+    qemu-system-i386 -xen-domid 3 -no-shutdown        \
-+      -chardev socket,id=libxl-cmd,path=/var/run/xen/qmp-libxl-3,server=on,wait=off \
-+      -mon chardev=libxl-cmd,mode=control             \
-+      -chardev socket,id=libxenstat-cmd,path=/var/run/xen/qmp-libxenstat-3,server=on,wait=off \
-+      -mon chardev=libxenstat-cmd,mode=control        \
-+      -nodefaults                                     \
-+      -no-user-config                                 \
-+      -xen-attach -name g0                            \
-+      -vnc none                                       \
-+      -display none                                   \
-+      -device virtio-net-pci,id=nic0,netdev=net0,mac=00:16:3e:5c:81:78 \
-+      -netdev type=tap,id=net0,ifname=vif3.0-emu,br=xenbr0,script=no,downscript=no \
-+      -smp 4,maxcpus=4                                \
-+      -nographic                                      \
-+      -machine xenpvh,ram-low-base=0,ram-low-size=2147483648,ram-high-base=4294967296,ram-high-size=2147483648,pci-ecam-base=824633720832,pci-ecam-size=268435456,pci-mmio-base=4026531840,pci-mmio-size=33554432,pci-mmio-high-base=824902156288,pci-mmio-high-size=68719476736 \
-+      -m 4096
-diff --git a/docs/system/target-i386.rst b/docs/system/target-i386.rst
-index 1b8a1f248a..23e84e3ba7 100644
---- a/docs/system/target-i386.rst
-+++ b/docs/system/target-i386.rst
-@@ -26,6 +26,7 @@ Architectural features
-    i386/cpu
-    i386/hyperv
-    i386/xen
-+   i386/xenpvh
-    i386/kvm-pv
-    i386/sgx
-    i386/amd-memory-encryption
--- 
-2.43.0
+I'm quite curious about what its preference is and the rationale for it.
 
+>
+> On Fri, 9 Aug 2024, Alejandro Vallejo wrote:
+> > This warning only makes sense when developing using a compiler with C99
+> > support on a codebase meant to be built with C89 compilers too, and
+> > that's no longer the case (nor should it be, as it's been 25 years sinc=
+e
+> > C99 came out already).
+> >=20
+> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> > ---
+> > Yes, I'm opening this can of worms. I'd like to hear others people's
+> > thoughts on this and whether this is something MISRA has views on. If
+> > there's an ulterior non-obvious reason besides stylistic preference I
+> > think it should be documented somewhere, but I haven't seen such an
+> > explanation.
+> >=20
+> > IMO, the presence of this warning causes several undesirable effects:
+> >=20
+> >   1. Small functions are hampered by the preclusion of check+declare
+> >      patterns that improve readability via concision. e.g: Consider a
+> >      silly example like:
+> >=20
+> >      /* with warning */                     /* without warning */
+> >      void foo(uint8_t *p)                   void foo(uint8_t *p)
+> >      {                                      {
+> >          uint8_t  tmp1;                         if ( !p )
+> >          uint16_t tmp2;                             return;
+> >          uint32_t tmp3;
+> >                                                 uint8_t  tmp1 =3D OFFSE=
+T1 + *p;
+> >          if ( !p )                              uint16_t tmp2 =3D OFFSE=
+T2 + *p;
+> >              return;                            uint32_t tmp3 =3D OFFSE=
+T3 + *p;
+> >=20
+> >          tmp1 =3D OFFSET1 + *p;                   /* Lots of uses of `t=
+mpX` */
+> >          tmp2 =3D OFFSET2 + *p;               }
+> >          tmp2 =3D OFFSET2 + *p;
+> >=20
+> >          /* Lots of uses of tmpX */
+> >      }
+> >=20
+> >   2. Promotes scope-creep. On small functions it doesn't matter much,
+> >      but on bigger ones to prevent declaring halfway through the body
+> >      needlessly increases variable scope to the full scope in which the=
+y
+> >      are defined rather than the subscope of point-of-declaration to
+> >      end-of-current-scope. In cases in which they can be trivially
+> >      defined at that point, it also means they can be trivially misused
+> >      before they are meant to. i.e: On the example in (1) assume the
+> >      conditional in "with warning" is actually a large switch statement=
+.
+> >=20
+> >   3. It facilitates a disconnect between time-of-declaration and
+> >      time-of-use that lead very easily to "use-before-init" bugs.
+> >      While a modern compiler can alleviate the most egregious cases of
+> >      this, there's cases it simply cannot cover. A conditional
+> >      initialization on anything with external linkage combined with a
+> >      conditional use on something else with external linkage will squas=
+h
+> >      the warning of using an uninitialised variable. Things are worse
+> >      where the variable in question is preinitialised to something
+> >      credible (e.g: a pointer to NULL), as then that can be misused
+> >      between its declaration and its original point of intended use.
+> >=20
+> > So... thoughts? yay or nay?
+>
+> In my opinion, there are some instances where mixing declarations and
+> statements would enhance the code, but these are uncommon. Given the
+> choice between:
+>
+> 1) declarations always first
+> 2) declarations always mixed with statements
+>
+> I would choose 1).
+
+FWIW, so would I under those contraints. But let me at least try to persuad=
+e
+you. There's at least two more arguments to weigh:
+
+  1. It wasn't that long ago that we had to resort to GNU extensions to wor=
+k
+     around this restriction. It's mildly annoying having to play games wit=
+h
+     compiler extensions because we're purposely restricting our use of the
+     language.
+
+     See the clang codegen workaround:
+        https://lore.kernel.org/xen-devel/D2ZM0D609TOQ.2GQQWR1QALUPA@cloud.=
+com/
+
+  2. There's an existing divide between toolstack and hypervisor. Toolstack
+     already allows this kind of mixing, and it's hard not-to due to extern=
+al
+     dependencies. While style doesn't have to match 1:1, it'd be (imo)
+     preferrable to try and remove avoidable differences.
+
+     See (40be6307ec00: "Only compile the hypervisor with -Wdeclaration-aft=
+er-statement")
+         https://lore.kernel.org/xen-devel/20231205183226.26636-1-julien@xe=
+n.org/
+
+With this in mind, ...
+
+>
+> One could say that mixing declarations with statements should be done
+> only when appropriate, but the challenge lies in the subjective nature
+> of "when appropriate." Different individuals have varying
+> interpretations of this, which could lead to unnecessary bikeshedding.
+
+... I do agree that whatever changes we introduce, considering the usual
+complaints about the review process, should be in a direction of measurable
+objectivity so as to minimize unproductive nitpicking.
+
+In that sense, a differently worded choice is:
+
+  1. Declarations always at the beginning of the scope closest to first use=
+.
+  2. Declarations always closest to first use.
+
+They really aren't that different, and we do already make reviews asking fo=
+r
+declarations to be moved to the closest scope. Given this choice I definite=
+ly
+prefer (2), in part because it removes the uncertainty from review that tru=
+e
+freeform declarations would allow, better aligns our dialect of C with the
+current standard and aligns the hypervisor style (slightly) with the tools =
+it
+requires.
+
+Plus the advantages I already mentioned in the original email.
+
+>
+> For these reasons, I do not support mixing declarations and statements.
+
+Pending whatever MISRA has to say on the matter, I hope these arguments can
+steer your view.
+
+Cheers,
+Alejandrq
 
