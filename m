@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 575D994F180
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 17:17:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.775642.1185867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B135594F191
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 17:24:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.775650.1185877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdWmk-0006DB-Cm; Mon, 12 Aug 2024 15:16:38 +0000
+	id 1sdWtd-0007mn-6Q; Mon, 12 Aug 2024 15:23:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 775642.1185867; Mon, 12 Aug 2024 15:16:38 +0000
+Received: by outflank-mailman (output) from mailman id 775650.1185877; Mon, 12 Aug 2024 15:23:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdWmk-0006Bg-9P; Mon, 12 Aug 2024 15:16:38 +0000
-Received: by outflank-mailman (input) for mailman id 775642;
- Mon, 12 Aug 2024 15:16:36 +0000
+	id 1sdWtd-0007jw-39; Mon, 12 Aug 2024 15:23:45 +0000
+Received: by outflank-mailman (input) for mailman id 775650;
+ Mon, 12 Aug 2024 15:23:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PyEi=PL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sdWmi-0006Ba-NI
- for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 15:16:36 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
+ id 1sdWtb-0007jq-Ay
+ for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 15:23:43 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc4636e3-58bd-11ef-8776-851b0ebba9a2;
- Mon, 12 Aug 2024 17:16:34 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2f16d2f2b68so62783081fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 08:16:34 -0700 (PDT)
+ id dafdc32b-58be-11ef-8776-851b0ebba9a2;
+ Mon, 12 Aug 2024 17:23:41 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-52efd8807aaso5844376e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 08:23:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80bb213171sm239934166b.145.2024.08.12.08.16.32
+ a640c23a62f3a-a80bb1cd2a8sm238536666b.117.2024.08.12.08.23.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Aug 2024 08:16:32 -0700 (PDT)
+ Mon, 12 Aug 2024 08:23:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc4636e3-58bd-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: dafdc32b-58be-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723475793; x=1724080593; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723476221; x=1724081021; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vJlF/1aluWYLhlaTudjdloSWaJM08MCh0Ia8vV9VbVI=;
-        b=YzMXPhgfnMfGOONAJpJEciTLusT1onBTQ7cvD6uRTPZ5kJH2ridZ+gSlJIw15Okvs8
-         B3kBl8oFa6lSXS6rnXvW69PBNdsa6BkUyM442tlZmL3rvijuafd8+eBTC+6sX6NP9rWP
-         fKda330Og6eJDek9805qJq7CuMngL0u1Pa5hyJ2cSqVFD749Idv4Zwdbj23KC5eEdjqo
-         saCXj8ILG2PWgI18FPsjUxW1wwxY4FPK2O6WBjJCLUAYqyDiQT6Rof35x4SPTPkb91j9
-         YQHLoy0KEz+qjgp5XV9BnOG2ujAGnaPw3EYt7Z5od4/ACUPUt7HrtHT2/152HbmGFWnO
-         xFUw==
+        bh=qhIYaTMAVJpgePzorqAz+VjGruhNy9tnxPZ1FYjL5e0=;
+        b=IQEYmJjddP93X+g053rnl8TogophbyvHkgjaQndiFsivPA04DpJngaMrPZXpQ9D236
+         lU3c2AkKHCRlJwA+C19MVgw8UpLXnUXRi+B1VtOJIaZrZ+Iqjw6Y0yGAmHOgvmlBnN5o
+         GUuMUg4xnOGA4aciDY4KsODQtTn9sCuEigf5oFetxIsfvgK4nMEWJHDmmWmy9/QrZAWu
+         CUE7K6LzwIMrSkrp8aGLQMvDBX+QhbD4tHImsjQc4nlacFKulbFimNCvDAmVe2J2jLTY
+         ljTcR5CHjFvzJNIiNhZLe5ucNZmfcv0TA1q6oyMYxsxeAF5+H98QRK5J1+HGKAU3TnrI
+         7EtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723475793; x=1724080593;
+        d=1e100.net; s=20230601; t=1723476221; x=1724081021;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vJlF/1aluWYLhlaTudjdloSWaJM08MCh0Ia8vV9VbVI=;
-        b=PyhBrBGr2DBH+wEHGCODhcNC0KexxQQ8e13GpycY5D6DaiiCLha7al5bCAqz6Q3jrY
-         1D7CBXMVAjhcn5VC6GhgDkZCUhQvXlcQewSmCVQImx7Tb1gWZZ/nThYukVdLsbOIQCzQ
-         u5SlvO1rVnUsxNM0BOtHUb0WaoaumyQ+1aj7oKPOOfPW9yy+6K8X70j7MQZT9VFIO9hI
-         cIoOvkRVKk9SKnpWIjI3Tuz9rsJ25fVCUPHPuHMjyI1Lh4z+FwM9P1ozb6nIEUliUskb
-         fODsOfdW5OU77aAvzokAn0qx5TP8WgsQeL7GGZ1cn5ZBpd+pmaKl7Jqwn172jHMtX1pp
-         DPlA==
-X-Forwarded-Encrypted: i=1; AJvYcCUVfQ3eg3HvVe50XdZu7jiJdlGSeMie2IAAVQMLi0tMCDfwpVl1rwWjaYVYTwKwcmDvMqezohBS7nDFhp0DRKV9kN8PH0fQES/z99B4Kss=
-X-Gm-Message-State: AOJu0YyMHvFxFS1qaXJPQEcINuLJlvfDgdX4s84TnC+6dK1mrvIV9Ten
-	pt+aygjdAZgqahdgp4mGR5rMDqnlN9X/T4JkbhoccupywEsM3ynzbLNGgDSKQw==
-X-Google-Smtp-Source: AGHT+IGTs5Buaeky/TI2RHFJk430ODM/lI1hFqOJ3doJTTdxxKXMUvxOFY7SL/u+tfbw163H5wjbdA==
-X-Received: by 2002:a2e:8ed3:0:b0:2ef:1ba9:dc5a with SMTP id 38308e7fff4ca-2f2b715cb8cmr5919481fa.28.1723475793226;
-        Mon, 12 Aug 2024 08:16:33 -0700 (PDT)
-Message-ID: <dea252cf-e853-4eab-a71a-9575f32e9381@suse.com>
-Date: Mon, 12 Aug 2024 17:16:32 +0200
+        bh=qhIYaTMAVJpgePzorqAz+VjGruhNy9tnxPZ1FYjL5e0=;
+        b=wMvrft2EhSJU03aMa68b6N4ksdk5ifb7g7LJjG5RPmJYz85M/zGAW60DF2Q4UlSri5
+         vizwqRrJwj6f3LY4+TuQVbCiN8FuyhJY2QIdK6RZvw2AVW5gsDlvUzltbBz8w+J3btRb
+         2GuXOMZ/brvtM1m3i4Oz73noOM+xIyN3jWdkfU8elZZBEpEQUjh+j0j9Fd2FvbF7iyb7
+         zMgaqAJUnaHm5Xw3BHHCkr9EmFZq9mInhG5suFizHwCpxBxpwBlhKTQLM6d1plU1hUfm
+         LXJZBA7cFfOS8+OyYwOJysG1vcZWKA7EGBR6Ebl+mnXo+eSzmoZVejTsyHhbX3IvqnlH
+         1heQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUka9u+h7A7HnEGiQNCjQLPIkqpuHu+29CT3bTq1z0K+nr6vtkCmMesAQh7QRrPH1Gj5/hWO+wnPEI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzbhbsr2acLBmS4/4lsd5tgNg5xgDpc1+1EWkw5RFfH8niB/Kit
+	6kFnGn4esAe6ym3HKj3DxwCIegl01nLB+fKA/cCwVCchrAiFxrZCjykb6ciYNg==
+X-Google-Smtp-Source: AGHT+IFMEtYoxOESwPbTH52lSLHbxRrjOF7w4ReMkt5csNmk/I/Q5vf0LIxb9iW6VoUfPhoTudKBCQ==
+X-Received: by 2002:a05:6512:239c:b0:52f:368:5018 with SMTP id 2adb3069b0e04-5321368447dmr415174e87.43.1723476220637;
+        Mon, 12 Aug 2024 08:23:40 -0700 (PDT)
+Message-ID: <7f001aa8-ee42-4617-8fc4-e4a45d4228e2@suse.com>
+Date: Mon, 12 Aug 2024 17:23:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86/fpu: Combine fpu_ctxt and xsave_area in
- arch_vcpu
+Subject: Re: [PATCH v2 2/2] x86/fpu: Split fpu_setup_fpu() in two
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240808134150.29927-1-alejandro.vallejo@cloud.com>
- <20240808134150.29927-2-alejandro.vallejo@cloud.com>
+ <20240808134150.29927-3-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,31 +113,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240808134150.29927-2-alejandro.vallejo@cloud.com>
+In-Reply-To: <20240808134150.29927-3-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 08.08.2024 15:41, Alejandro Vallejo wrote:
-> --- a/xen/arch/x86/domctl.c
-> +++ b/xen/arch/x86/domctl.c
-> @@ -1344,7 +1344,10 @@ void arch_get_info_guest(struct vcpu *v, vcpu_guest_context_u c)
->  #define c(fld) (c.nat->fld)
->  #endif
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -1164,10 +1164,25 @@ static int cf_check hvm_load_cpu_ctxt(struct domain *d, hvm_domain_context_t *h)
+>      seg.attr = ctxt.ldtr_arbytes;
+>      hvm_set_segment_register(v, x86_seg_ldtr, &seg);
 >  
-> -    memcpy(&c.nat->fpu_ctxt, v->arch.fpu_ctxt, sizeof(c.nat->fpu_ctxt));
-> +    memcpy(&c.nat->fpu_ctxt, &v->arch.xsave_area->fpu_sse,
-> +           sizeof(c.nat->fpu_ctxt));
-> +    BUILD_BUG_ON(sizeof(c.nat->fpu_ctxt) != sizeof(fpusse_t));
+> -    /* Cover xsave-absent save file restoration on xsave-capable host. */
+> -    vcpu_setup_fpu(v, xsave_enabled(v) ? NULL : v->arch.xsave_area,
+> -                   ctxt.flags & XEN_X86_FPU_INITIALISED ? ctxt.fpu_regs : NULL,
+> -                   FCW_RESET);
+> +    /*
+> +     * On Xen 4.1 and later the FPU state is restored on later HVM context in
+> +     * the migrate stream, so what we're doing here is initialising the FPU
+> +     * state for guests from even older versions of Xen.
+> +     *
+> +     * In particular:
+> +     *   1. If there's an XSAVE context later in the stream what we do here for
+> +     *      the FPU doesn't matter because it'll be overriden later.
+> +     *   2. If there isn't and the guest didn't use extended states it's still
+> +     *      fine because we have all the information we need here.
+> +     *   3. If there isn't and the guest DID use extended states (could've
+> +     *      happened prior to Xen 4.1) then we're in a pickle because we have
+> +     *      to make up non-existing state. For this case we initialise the FPU
+> +     *      as using x87/SSE only because the rest of the state is gone.
 
-While it may seem unlikely that it would change going forward, I think
-that such build-time checks should make no implications at all. I.e.
-here the right side ought to be sizeof(v->arch.xsave_area->fpu_sse)
-even if that's longer.
-
-Personally I also think that BUILD_BUG_ON(), just like BUG_ON(), would
-better live ahead of the construct they're for.
-
-Same again in at least one more place.
+Was this really possible to happen? Guests wouldn't have been able to
+turn on CR4.OSXSAVE, would they?
 
 Jan
 
