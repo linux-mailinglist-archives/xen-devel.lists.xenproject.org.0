@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DE4794EDF7
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 15:21:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.775587.1185807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF9BA94EF22
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2024 16:06:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.775597.1185816 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdUyK-00085i-3s; Mon, 12 Aug 2024 13:20:28 +0000
+	id 1sdVft-00086c-Cw; Mon, 12 Aug 2024 14:05:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 775587.1185807; Mon, 12 Aug 2024 13:20:28 +0000
+Received: by outflank-mailman (output) from mailman id 775597.1185816; Mon, 12 Aug 2024 14:05:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdUyK-00083h-1M; Mon, 12 Aug 2024 13:20:28 +0000
-Received: by outflank-mailman (input) for mailman id 775587;
- Mon, 12 Aug 2024 13:20:27 +0000
+	id 1sdVft-00084H-AI; Mon, 12 Aug 2024 14:05:29 +0000
+Received: by outflank-mailman (input) for mailman id 775597;
+ Mon, 12 Aug 2024 14:05:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KPBI=PL=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sdUyJ-00083b-1g
- for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 13:20:27 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=PyEi=PL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sdVfs-00084B-7b
+ for xen-devel@lists.xenproject.org; Mon, 12 Aug 2024 14:05:28 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2667d3d-58ad-11ef-8776-851b0ebba9a2;
- Mon, 12 Aug 2024 15:20:25 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-52f01b8738dso3615751e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 06:20:25 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80bb2136d1sm227786066b.155.2024.08.12.06.20.23
+ id eb88e83f-58b3-11ef-8776-851b0ebba9a2;
+ Mon, 12 Aug 2024 16:05:24 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5b8c2a6135eso434881a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Aug 2024 07:05:24 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5bd187f5671sm2165380a12.3.2024.08.12.07.05.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Aug 2024 06:20:23 -0700 (PDT)
+ Mon, 12 Aug 2024 07:05:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,202 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2667d3d-58ad-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: eb88e83f-58b3-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723468824; x=1724073624; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JhC2OqDl1puffudqOP75LOp4l/A/qZYepve+hh1qMuk=;
-        b=db96YkBaQn1dFw/rF5QFTx+tmSOX09QNuYlsncLMhV8AwREV5znYsgDkaryuiN6v5e
-         lnqxYTt48ccR24afdi76rXyf4zLcsGsjnxFH1xWcZ4/yykFaiuEYNgUAv8UWIYOtE3Y8
-         z9GpyxkMzpBIv7b1EJ1IE4yWcxSEf9v/N9Gb0=
+        d=suse.com; s=google; t=1723471524; x=1724076324; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=JX1QH7IOkjSMUhCLKa0/jbvdEy/KbXTGBFZkU/dLY4M=;
+        b=eZV43b93P0SnoOMY+lfmH7RnXJOuS7aqoY/qnwD5/1Ngi0GgLhlVLmWyOtPEZy6i2W
+         ehqxqfW3A95ezGObkj9cNChZl9bysfWXq+YdIYWNNGF0ml26oJULHEbFdbPikdAJx6aQ
+         ZujWOADuP6ygLK5fUDxPfABGJeCdbM1uMFF/9yWcFFh1Z+LdB6lb+W4mT9E+HUrHcYD6
+         ITQ3JX7bggInj3JcHq2tIJtBo3sBIL4XPxpyO6aplhYiw7NebYjOYu53AEMLbq3p0wC9
+         Th4VqYnoInQ46AcfE9wRMPELGAojhNEjfyTE/rCR0t50KVJf5eWa/09TRsJbVMLoxYD1
+         xMFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723468824; x=1724073624;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=JhC2OqDl1puffudqOP75LOp4l/A/qZYepve+hh1qMuk=;
-        b=vFvew/qwWzIWJAKWmFsOOZfw7RmllvSaUuNWaA2ccrZ0sUFZ9ehdQNYHgJhATNNKzB
-         IYMSkoSSVb0a8NnOii/0Nm7AC2FCihq0ZA3LB+fnS8dCjWqNqIbj/l246TOU6JS4RMhV
-         OGXA0AtdNVsTLMvLBGGq32xFt/fzXXtnuic/n1MSNztJL3xxrzO1oWc4Wps0QM3OYclZ
-         rySggQLqQGemCS0ANtUy640fJi1tOTIgYXRmQynkwoUE/50D5bNx9FulFdAYR9m2INn1
-         XskXVf2Hc6YwP8II2fWVOiSYY+dLkkrdz9uWRRnrVKtjdguNszTF06Dv0Q7iqLnKk+cB
-         14UQ==
-X-Gm-Message-State: AOJu0Yyk2fLckEHS3X61fLSITxrrKE4WX5F5gg28YvDWfolQx2tKGbHh
-	5v5hyAEePdk4pk6R8z68feLD8k8TxahVX4vYu69znar2fMcr4EFDxn6w0+ENslI=
-X-Google-Smtp-Source: AGHT+IGaFovc/mOscy3BLvf3ZgXoCeeUWfFL9FBEy/9iofOVz6tw2T5/DSZD0nWI2gpSnzSp6ukABw==
-X-Received: by 2002:a05:6512:2215:b0:52e:9cf0:69db with SMTP id 2adb3069b0e04-53213684cd6mr83047e87.46.1723468824050;
-        Mon, 12 Aug 2024 06:20:24 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1723471524; x=1724076324;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JX1QH7IOkjSMUhCLKa0/jbvdEy/KbXTGBFZkU/dLY4M=;
+        b=iXreGFOMjjO0PL6GTGIs7ZEXDoGTQhg8daJ301nFXyef+YqiwzzjzYevdL5pQy0RI/
+         1H7DBtoAq/D7+MDPPU8xqcMaILisuFZjUfMwbU6S1Q2jPyOtbEUr9aJPUCnQaCBYnt7o
+         qen9qPgxxlE7rmIKkU8LCWS9KvWDKJijFV81k3fOvhnSeyFke9xoVpO/jdEkh1fQa/QB
+         46AuqladDjb6tyP+hW50dcFn7/eNyhPxiMVDF8mAzSzUdyIeWvV/DJH15mMu89xCCbWg
+         hF0ybwrxXZvxdzJMnHt4gD6yN/1X8ndl8mCX+J/q4XTyxKn+Ccyga7LoX8CEtfCXvRw/
+         itbw==
+X-Forwarded-Encrypted: i=1; AJvYcCUjGHuyzD1aU4JwSH/nxpSMnnTGSCxu1iNPDGQnq0ZHG2C8YFpVUXCT6g1RnRgB6e5EVE6+Me+kbaEX54pxgCSvoFrnBOEvLVZfTruMO6Q=
+X-Gm-Message-State: AOJu0YwvEwwpnspInCv3++JFAKxPhnDNQAmxcrunLY2VrF2L6l99YMvN
+	L7Rb7IzGiRswJ6CSPrPjooY7dB1YhsRyqZF2K8EPmHM5iOjaaOUeapoYA1vnvA==
+X-Google-Smtp-Source: AGHT+IEUWImIy7cFwJOntnWHhmPAMC5i74plkYYac0jZeFivsaZMvxJO/sg8lbPYqRDWOn5/OjpNlg==
+X-Received: by 2002:a05:6402:13d3:b0:5bb:723:a189 with SMTP id 4fb4d7f45d1cf-5bd450f71bcmr259757a12.14.1723471524008;
+        Mon, 12 Aug 2024 07:05:24 -0700 (PDT)
+Message-ID: <e0081fc2-c631-45a0-a847-edc8dcc3988e@suse.com>
+Date: Mon, 12 Aug 2024 16:05:23 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86emul: don't call ->read_segment() with x86_seg_none
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <81ae365f-98b4-4bb6-bbb6-c5423dfda038@suse.com>
+ <a7d15429-ce49-43b1-9bbd-7b0129094388@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a7d15429-ce49-43b1-9bbd-7b0129094388@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 12 Aug 2024 14:20:22 +0100
-Message-Id: <D3DYPIPLBSEA.14PVSCSI619Y8@cloud.com>
-Cc: "Xen-devel" <xen-devel@lists.xenproject.org>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien
- Grall" <julien@xen.org>
-Subject: Re: [RFC PATCH] xen: Remove -Wdeclaration-after-statement
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Stefano Stabellini" <sstabellini@kernel.org>
-X-Mailer: aerc 0.17.0
-References: <20240809130418.10431-1-alejandro.vallejo@cloud.com>
- <alpine.DEB.2.22.394.2408091217370.200407@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2408091217370.200407@ubuntu-linux-20-04-desktop>
+Content-Transfer-Encoding: 7bit
 
-On Fri Aug 9, 2024 at 8:25 PM BST, Stefano Stabellini wrote:
-> Adding Roberto
->
-> Does MISRA have a view on this? I seem to remember this is discouraged?
->
+On 12.08.2024 15:04, Andrew Cooper wrote:
+> On 05/08/2024 2:26 pm, Jan Beulich wrote:
+>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>> @@ -839,7 +839,8 @@ protmode_load_seg(
+>>          case x86_seg_tr:
+>>              goto raise_exn;
+>>          }
+>> -        if ( !_amd_like(cp) || vcpu_has_nscb() || !ops->read_segment ||
+>> +        if ( seg == x86_seg_none || !_amd_like(cp) || vcpu_has_nscb() ||
+>> +             !ops->read_segment ||
+>>               ops->read_segment(seg, sreg, ctxt) != X86EMUL_OKAY )
+>>              memset(sreg, 0, sizeof(*sreg));
+>>          else
+> 
+> While this fixes the crash, I'm not sure it will behave correctly for
+> VERR/VERW.
+> 
+> protmode_load_seg() is unconditionally X86EMUL_OKAY for a NULL selector,
+> and VERW checks for type != 0x8 which an empty attr will pass.
 
-I'd be surprised if MISRA didn't promote declaring close to first use to av=
-oid
-use-before-init, but you very clearly have a lot more exposure to it than I=
- do.
+That's past an sreg.s check, which will have failed (for sreg coming back
+all clear).
 
-I'm quite curious about what its preference is and the rationale for it.
+Also if there was a concern here, it would be orthogonal to the adding of
+the seg_none check: It would then have been similarly an issue for all
+possibilities of taking the memset() path.
 
->
-> On Fri, 9 Aug 2024, Alejandro Vallejo wrote:
-> > This warning only makes sense when developing using a compiler with C99
-> > support on a codebase meant to be built with C89 compilers too, and
-> > that's no longer the case (nor should it be, as it's been 25 years sinc=
-e
-> > C99 came out already).
-> >=20
-> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> > ---
-> > Yes, I'm opening this can of worms. I'd like to hear others people's
-> > thoughts on this and whether this is something MISRA has views on. If
-> > there's an ulterior non-obvious reason besides stylistic preference I
-> > think it should be documented somewhere, but I haven't seen such an
-> > explanation.
-> >=20
-> > IMO, the presence of this warning causes several undesirable effects:
-> >=20
-> >   1. Small functions are hampered by the preclusion of check+declare
-> >      patterns that improve readability via concision. e.g: Consider a
-> >      silly example like:
-> >=20
-> >      /* with warning */                     /* without warning */
-> >      void foo(uint8_t *p)                   void foo(uint8_t *p)
-> >      {                                      {
-> >          uint8_t  tmp1;                         if ( !p )
-> >          uint16_t tmp2;                             return;
-> >          uint32_t tmp3;
-> >                                                 uint8_t  tmp1 =3D OFFSE=
-T1 + *p;
-> >          if ( !p )                              uint16_t tmp2 =3D OFFSE=
-T2 + *p;
-> >              return;                            uint32_t tmp3 =3D OFFSE=
-T3 + *p;
-> >=20
-> >          tmp1 =3D OFFSET1 + *p;                   /* Lots of uses of `t=
-mpX` */
-> >          tmp2 =3D OFFSET2 + *p;               }
-> >          tmp2 =3D OFFSET2 + *p;
-> >=20
-> >          /* Lots of uses of tmpX */
-> >      }
-> >=20
-> >   2. Promotes scope-creep. On small functions it doesn't matter much,
-> >      but on bigger ones to prevent declaring halfway through the body
-> >      needlessly increases variable scope to the full scope in which the=
-y
-> >      are defined rather than the subscope of point-of-declaration to
-> >      end-of-current-scope. In cases in which they can be trivially
-> >      defined at that point, it also means they can be trivially misused
-> >      before they are meant to. i.e: On the example in (1) assume the
-> >      conditional in "with warning" is actually a large switch statement=
-.
-> >=20
-> >   3. It facilitates a disconnect between time-of-declaration and
-> >      time-of-use that lead very easily to "use-before-init" bugs.
-> >      While a modern compiler can alleviate the most egregious cases of
-> >      this, there's cases it simply cannot cover. A conditional
-> >      initialization on anything with external linkage combined with a
-> >      conditional use on something else with external linkage will squas=
-h
-> >      the warning of using an uninitialised variable. Things are worse
-> >      where the variable in question is preinitialised to something
-> >      credible (e.g: a pointer to NULL), as then that can be misused
-> >      between its declaration and its original point of intended use.
-> >=20
-> > So... thoughts? yay or nay?
->
-> In my opinion, there are some instances where mixing declarations and
-> statements would enhance the code, but these are uncommon. Given the
-> choice between:
->
-> 1) declarations always first
-> 2) declarations always mixed with statements
->
-> I would choose 1).
+> Interestingly, both Intel and AMD state that the NULL selector is
+> neither readable nor writeable.
 
-FWIW, so would I under those contraints. But let me at least try to persuad=
-e
-you. There's at least two more arguments to weigh:
+Which makes sense, doesn't it? A nul selector is really more like a
+system segment in this regard (for VERR/VERW).
 
-  1. It wasn't that long ago that we had to resort to GNU extensions to wor=
-k
-     around this restriction. It's mildly annoying having to play games wit=
-h
-     compiler extensions because we're purposely restricting our use of the
-     language.
+> Also, looking at the emulator logic, we're missing the DPL vs
+> CPL/RPL/Conforming checks.
 
-     See the clang codegen workaround:
-        https://lore.kernel.org/xen-devel/D2ZM0D609TOQ.2GQQWR1QALUPA@cloud.=
-com/
+There's surely nothing "conforming" for a nul selector. Hence perhaps you
+refer to something entirely unrelated?
 
-  2. There's an existing divide between toolstack and hypervisor. Toolstack
-     already allows this kind of mixing, and it's hard not-to due to extern=
-al
-     dependencies. While style doesn't have to match 1:1, it'd be (imo)
-     preferrable to try and remove avoidable differences.
-
-     See (40be6307ec00: "Only compile the hypervisor with -Wdeclaration-aft=
-er-statement")
-         https://lore.kernel.org/xen-devel/20231205183226.26636-1-julien@xe=
-n.org/
-
-With this in mind, ...
-
->
-> One could say that mixing declarations with statements should be done
-> only when appropriate, but the challenge lies in the subjective nature
-> of "when appropriate." Different individuals have varying
-> interpretations of this, which could lead to unnecessary bikeshedding.
-
-... I do agree that whatever changes we introduce, considering the usual
-complaints about the review process, should be in a direction of measurable
-objectivity so as to minimize unproductive nitpicking.
-
-In that sense, a differently worded choice is:
-
-  1. Declarations always at the beginning of the scope closest to first use=
-.
-  2. Declarations always closest to first use.
-
-They really aren't that different, and we do already make reviews asking fo=
-r
-declarations to be moved to the closest scope. Given this choice I definite=
-ly
-prefer (2), in part because it removes the uncertainty from review that tru=
-e
-freeform declarations would allow, better aligns our dialect of C with the
-current standard and aligns the hypervisor style (slightly) with the tools =
-it
-requires.
-
-Plus the advantages I already mentioned in the original email.
-
->
-> For these reasons, I do not support mixing declarations and statements.
-
-Pending whatever MISRA has to say on the matter, I hope these arguments can
-steer your view.
-
-Cheers,
-Alejandrq
+Jan
 
