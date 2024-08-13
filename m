@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37DED950FCE
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 00:37:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776676.1186844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE97C950FE5
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 00:53:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776686.1186854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1se087-0008Tz-Rt; Tue, 13 Aug 2024 22:36:39 +0000
+	id 1se0Ne-00033H-3I; Tue, 13 Aug 2024 22:52:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776676.1186844; Tue, 13 Aug 2024 22:36:39 +0000
+Received: by outflank-mailman (output) from mailman id 776686.1186854; Tue, 13 Aug 2024 22:52:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1se087-0008Qz-Ok; Tue, 13 Aug 2024 22:36:39 +0000
-Received: by outflank-mailman (input) for mailman id 776676;
- Tue, 13 Aug 2024 22:36:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nBzl=PM=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1se085-0008Qt-P5
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 22:36:37 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7dae220e-59c4-11ef-8776-851b0ebba9a2;
- Wed, 14 Aug 2024 00:36:34 +0200 (CEST)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
- by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 47DMaNHg032427
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 13 Aug 2024 18:36:29 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.18.1/8.15.2/Submit) id 47DMaNsm032426;
- Tue, 13 Aug 2024 15:36:23 -0700 (PDT) (envelope-from ehem)
+	id 1se0Ne-00030M-0O; Tue, 13 Aug 2024 22:52:42 +0000
+Received: by outflank-mailman (input) for mailman id 776686;
+ Tue, 13 Aug 2024 22:52:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jgOn=PM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1se0Nc-00030F-9E
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 22:52:40 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bbf4147b-59c6-11ef-a505-bb4a2ccca743;
+ Wed, 14 Aug 2024 00:52:38 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id C4AFB61903;
+ Tue, 13 Aug 2024 22:52:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19E9C32782;
+ Tue, 13 Aug 2024 22:52:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,84 +41,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7dae220e-59c4-11ef-8776-851b0ebba9a2
-Date: Tue, 13 Aug 2024 15:36:23 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-Cc: Andrei Semenov <andrei.semenov@vates.tech>, xen-devel@lists.xenproject.org,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: AMD EPYC virtual network performances
-Message-ID: <Zrvf5wgm6xEI63x2@mattapan.m5p.com>
-References: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
- <352bba40-27fc-416b-985f-20e66c0c4b72@suse.com>
- <Zrqykdarr7JHaeOZ@mattapan.m5p.com>
- <ab4ca68e-ec1b-467f-9b89-38f63cc19b7c@suse.com>
- <ZruckufSjT0GkpJt@mattapan.m5p.com>
- <d556e168-8542-4b93-81a9-a7054b5b69ba@suse.com>
+X-Inumbo-ID: bbf4147b-59c6-11ef-a505-bb4a2ccca743
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1723589555;
+	bh=/9E0bV+7de54mixbbQS3JvL8Qj9PklPehoTxAy+Sxcs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=B8dh8xal5x36LJnouHDGBoZOprSPE9UDE4eH0Q/ZwWwldb5GrwYDoTu3tOERwkW+Z
+	 zald+nejF3aLYlmCP16dQnesfsPyW4n7lDlpBSNRwEK0QAoltX1DZKJUJGeM+/EfDQ
+	 1yR9keeLxcHP6j+DHnJpN3JxuuT9o0tx4qgEnrGZ9ywn7X+w7SvT6dT3CcQYqGni/a
+	 a69w5E7GxY600EBu0uRdpwZMungKU3eOAfu9iIqnSj9A5cMM+XCDeQZ+i6875UpKkZ
+	 UkNPVmVjO5hAlOjmqnco2uKDtyYYxwdVBGbHhL2Ur2kwM+JP83XC0JC2jWkmncBK5H
+	 hTgdDZva1rHfg==
+Date: Tue, 13 Aug 2024 15:52:32 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, qemu-devel@nongnu.org, 
+    anthony@xenproject.org, paul@xen.org, peter.maydell@linaro.org, 
+    alex.bennee@linaro.org, xenia.ragiadakou@amd.com, jason.andryuk@amd.com, 
+    edgar.iglesias@amd.com, xen-devel@lists.xenproject.org, 
+    qemu-arm@nongnu.org
+Subject: Re: [PATCH v1 04/10] hw/arm: xenpvh: Add support for SMP guests
+In-Reply-To: <ZruRm34zIMtUm7oH@zapote>
+Message-ID: <alpine.DEB.2.22.394.2408131550080.298534@ubuntu-linux-20-04-desktop>
+References: <20240812130606.90410-1-edgar.iglesias@gmail.com> <20240812130606.90410-5-edgar.iglesias@gmail.com> <alpine.DEB.2.22.394.2408121650590.298534@ubuntu-linux-20-04-desktop> <ZruRm34zIMtUm7oH@zapote>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d556e168-8542-4b93-81a9-a7054b5b69ba@suse.com>
-X-Spam-Status: No, score=0.3 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Aug 13, 2024 at 08:55:42PM +0200, Jürgen Groß wrote:
-> On 13.08.24 19:49, Elliott Mitchell wrote:
-> > On Tue, Aug 13, 2024 at 01:16:06PM +0200, Jürgen Groß wrote:
+On Tue, 13 Aug 2024, Edgar E. Iglesias wrote:
+> On Mon, Aug 12, 2024 at 06:47:17PM -0700, Stefano Stabellini wrote:
+> > On Mon, 12 Aug 2024, Edgar E. Iglesias wrote:
+> > > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 > > > 
-> > > I don't see a connection here, as spurious interrupts (as seen by the
-> > > hypervisor in your case) and spurious events (as seen by Andrei) are
-> > > completely different (hardware vs. software level).
+> > > Add SMP support for Xen PVH ARM guests. Create max_cpus ioreq
+> > > servers to handle hotplug.
+> > > 
+> > > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> > > ---
+> > >  hw/arm/xen_arm.c | 5 +++--
+> > >  1 file changed, 3 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/hw/arm/xen_arm.c b/hw/arm/xen_arm.c
+> > > index 5f75cc3779..ef8315969c 100644
+> > > --- a/hw/arm/xen_arm.c
+> > > +++ b/hw/arm/xen_arm.c
+> > > @@ -173,7 +173,7 @@ static void xen_arm_init(MachineState *machine)
+> > >  
+> > >      xen_init_ram(machine);
+> > >  
+> > > -    xen_register_ioreq(xam->state, machine->smp.cpus, &xen_memory_listener);
+> > > +    xen_register_ioreq(xam->state, machine->smp.max_cpus, &xen_memory_listener);
+> > >  
+> > >      xen_create_virtio_mmio_devices(xam);
+> > >  
+> > > @@ -218,7 +218,8 @@ static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
+> > >      MachineClass *mc = MACHINE_CLASS(oc);
+> > >      mc->desc = "Xen PVH ARM machine";
+> > >      mc->init = xen_arm_init;
+> > > -    mc->max_cpus = 1;
+> > > +    /* MAX number of vcpus supported by Xen.  */
+> > > +    mc->max_cpus = GUEST_MAX_VCPUS;
 > > 
-> > The entries seem to appear at an average of about 1/hour.  Could be most
-> > events are being dropped and 10x that number are occuring.  If so, those
-> > extras could be turning into spurious events seen by various domains.
+> > Will this cause allocations of data structures with 128 elements?
+> > Looking at hw/xen/xen-hvm-common.c:xen_do_ioreq_register it seems
+> > possible? Or hw/xen/xen-hvm-common.c:xen_do_ioreq_register is called
 > 
-> Even 10 spurious events per hour should not have a measurable impact
-> on performance.
-
-Come to think of it, depending upon time that domain is sometimes low
-activity (build so it is either pegging or idle).  The 1/hour was during
-idle times, so during busy times it might be much worse.  I haven't been
-tracking `xl dmesg` as carefully recently.
-
-Do the maintainers ever run machines with "iommu=debug"?  I'm actually
-rather concerned *anything* spurious is showing up as I'm left suspecting
-there may have been something lurking for some time.
-
-> > There is a possibility spurious interrupts are being turned into spurious
-> > events by the back-end drivers.
+> Yes, in theory there's probably overhead with this but as you correctly
+> noted below, a PVH aware xl will set the max_cpus option to a lower value.
 > 
-> No, I don't think so.
+> With a non-pvh aware xl, I was a little worried about the overhead
+> but I couldn't see any visible slow-down on ARM neither in boot or in network
+> performance (I didn't run very sophisticated benchmarks).
+ 
+What do you mean by "non-pvh aware xl"? All useful versions of xl
+support pvh?
+
+> > later on with the precise vCPU value which should be provided to QEMU
+> > via the -smp command line option
+> > (tools/libs/light/libxl_dm.c:libxl__build_device_model_args_new)?
 > 
-> > Jürgen Groß, what is the performance impact of "iommu=debug"?  Seems to
-> > mostly cause more reporting and have minimal/no performance effect.
-> 
-> I guess you are referring to the Xen option? I'm no expert in this
-> area.
+> Yes, a pvh aware xl will for example pass -smp 2,maxcpus=4 based on
+> values from the xl.cfg. If the user doesn't set maxvcpus in xl.cfg, xl
+> will set maxvcpus to the same value as vcpus.
 
-Drat.  I haven't noticed much, which would match with simply enabling a
-bunch of debugging printk()s (alas I'm not monitoring performance closely
-enough to be sure).  Guess I wait for Andrei Semenov to state a comfort
-level with trying "iommu=debug".
-
-
-My guess is Andrei Semenov's issue is quite widespread.  I hadn't noticed
-the issue until trying `find /sys/devices -name spurious_events -print`.
-
-If you don't know where to look, Linux is apparently pretty good at
-hiding this sort of issue.  The impact may not seem too severe if your
-baseline was infected.
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+OK good. In that case if this is just an initial value meant to be
+overwritten, I think it is best to keep it as 1.
 
