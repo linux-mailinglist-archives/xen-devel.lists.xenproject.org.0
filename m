@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17EAB950A3E
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 18:34:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776450.1186601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D353E950ADB
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 18:59:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776461.1186610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sduT6-0007Qz-VU; Tue, 13 Aug 2024 16:33:56 +0000
+	id 1sdurA-00036u-R1; Tue, 13 Aug 2024 16:58:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776450.1186601; Tue, 13 Aug 2024 16:33:56 +0000
+Received: by outflank-mailman (output) from mailman id 776461.1186610; Tue, 13 Aug 2024 16:58:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sduT6-0007PV-S5; Tue, 13 Aug 2024 16:33:56 +0000
-Received: by outflank-mailman (input) for mailman id 776450;
- Tue, 13 Aug 2024 16:33:55 +0000
+	id 1sdurA-00034t-O2; Tue, 13 Aug 2024 16:58:48 +0000
+Received: by outflank-mailman (input) for mailman id 776461;
+ Tue, 13 Aug 2024 16:58:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EOoy=PM=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sduT5-0007PP-A4
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 16:33:55 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ <SRS0=tv38=PM=bounce.vates.tech=bounce-md_30504962.66bb90c2.v1-9abbdabd518f480499dff21353c628dc@srs-se1.protection.inumbo.net>)
+ id 1sdur8-00034n-CH
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 16:58:46 +0000
+Received: from mail135-13.atl141.mandrillapp.com
+ (mail135-13.atl141.mandrillapp.com [198.2.135.13])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d312d730-5991-11ef-8776-851b0ebba9a2;
- Tue, 13 Aug 2024 18:33:52 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5bb8e62575eso2222236a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 09:33:52 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bd343e484esm1913466a12.95.2024.08.13.09.33.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Aug 2024 09:33:50 -0700 (PDT)
+ id 4c34b996-5995-11ef-8776-851b0ebba9a2;
+ Tue, 13 Aug 2024 18:58:44 +0200 (CEST)
+Received: from pmta14.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail135-13.atl141.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WjyJf3BtvzNCdJ0M
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 16:58:42 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 9abbdabd518f480499dff21353c628dc; Tue, 13 Aug 2024 16:58:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,103 +43,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d312d730-5991-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723566831; x=1724171631; darn=lists.xenproject.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=x0qShhTQymlQRj8RBJVu0uLqhFXz8Uwy5O32YELhPXE=;
-        b=cafDcfhZstKOJUOvIMvIGFNQm1A2im4qDtu4hk3H9aCuaZZSPw/G9aqciIDAXKjOec
-         XhDgeHxMSTOIV+tMwnMkebo4DQPLQENXELIqTOSvPCiGNeucVq0ltxgm2tQf1fJhCxbS
-         OGcb0UT03G2XboE5091SaxEpD2QfidnlSzSsA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723566831; x=1724171631;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=x0qShhTQymlQRj8RBJVu0uLqhFXz8Uwy5O32YELhPXE=;
-        b=lMj+9/0El180kr3k+n4k2y+8CAOHmLyv98ioLHOX9AQNdo5A4eSwCx26hhZHKRgYR9
-         I4sKagSQRNbHVL3A5tMVD87GOxukPolI2O5i8cagPaaLLzVTKazx6eP6BLd+UofdCHBL
-         bgj9mR1uyHZQCA+gcB/nU+cDSZwE6LHzzTEFKVhUR65Z1bVkejV5Z/GDnFIhgIse6xs6
-         5ynijc5Z1I8u5ePKF7qB4pdHr9nqlvZY/ZOL1sMf+IIwksM6Uhm+Hb+8Qw5Gl2CRpTEu
-         xYGcJ7yYDKX3Nq0pqTHJBgT62/5BiuR8Me6UQLVjDXw9rIL5qkGmu9naR5huGmQgFHXL
-         I9ow==
-X-Forwarded-Encrypted: i=1; AJvYcCWGyjk1wFZoAAs7IOFITD2F3Ayh4yYNOr0AvBTkDGM+xTVjlKakamvcUwjMnIwDJTT9hreX2pvLitPhSc4z/nMngs2bLxuTFkHoKiuSmIY=
-X-Gm-Message-State: AOJu0YxpPzqgc3+bilzk89Ffv0ACegX8UMKjs8riMGBbcDVBV8scuXPu
-	Gr6R8ELD4U860QVOLL5V7SjukEHkVb/y+N7zQFvQjlqDl/FOn6vk2QK8XJ24YZ4=
-X-Google-Smtp-Source: AGHT+IFiwaiEFXirdC6Wt6fyVq8saqaXmZU64ekcG7onN50GsIleC7SyfbgnWMvHzFIAUfV5Xw3C7w==
-X-Received: by 2002:a05:6402:2549:b0:5a2:3df7:bb6a with SMTP id 4fb4d7f45d1cf-5bea1cb38f1mr48200a12.31.1723566831161;
-        Tue, 13 Aug 2024 09:33:51 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 13 Aug 2024 17:33:49 +0100
-Message-Id: <D3EXG6HDKMYR.15275C42NLLBL@cloud.com>
-Subject: Re: [PATCH v3 2/2] x86/fpu: Split fpu_setup_fpu() in three
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Xen-devel"
- <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.17.0
-References: <20240813142119.29012-1-alejandro.vallejo@cloud.com>
- <20240813142119.29012-3-alejandro.vallejo@cloud.com>
- <c83942d9-bb55-45c2-9a44-314266ce14c0@suse.com>
-In-Reply-To: <c83942d9-bb55-45c2-9a44-314266ce14c0@suse.com>
+X-Inumbo-ID: 4c34b996-5995-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1723568322; x=1723828822;
+	bh=vt0yScILe+G19ItC5DM4FFHAC7hnaAPVRlzZV5ULaWg=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=C2YJ/qJNjXRyPbhlX0QZPwTIDgZwvgb63oY29O8RQifEpPuZqJL5U2claiLcP+N7s
+	 HlE0t31KmJ8+8JixW2VJVvwQuYxdsQUwSeaTAaPtJZt87RX+ZwmByEdGWQ7CspJSIF
+	 wTvdtPZvWUc10OJ55g+yXTatHGMxBIF6fJo+dHZo7TwMFzWF81MeUf6wF8PEVS0bYn
+	 1xpmVz0w9SWUgz/jHkC+XbNEFHOpBaxRX+HahopVjPLQHdaKgfXkZbyWh5QSPS5ME6
+	 /TSc0lnrptsVlFNuX+dRVhovENPCj6keD6L6x1Ttyx3k3hJgmh9z72sL4QQX4fzY9v
+	 T3ERfsiU2OC7A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1723568322; x=1723828822; i=anthony.perard@vates.tech;
+	bh=vt0yScILe+G19ItC5DM4FFHAC7hnaAPVRlzZV5ULaWg=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=lMY5XBG2vmA6S2cvtTN1Mu9z6mtM+OOv9vFqj8xa6cIo2rwKqMAObrFY4ITAC7OBB
+	 aU/zP+TzpCSWqS96EPVptE+cqVGFE9rCyFwMO+2eKf+5PPX3xbqgs12CIlR2n4ceIV
+	 gaouul+fzPmY4U8uhy7S86fov9qO3lLGgBOTBapQjv9jSVKy9mHEmZIStsOsU+wuia
+	 s39MEyf7Etqfb/7zO3BBcmyhetN1z0sGkSWzkc2b4DhjqUGdtQdQl/kekaCOIzFij9
+	 /K3KeR0LBsEpSKydP7kCzgy/yaJQpQijrDueiHKAFvxDnlv7FkPxPl1VhFXQlaRzgj
+	 aUcR22JbyU+bg==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20libxl/disk:=20avoid=20aliasing=20of=20abs()?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1723568321404
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Jason Andryuk <jason.andryuk@amd.com>
+Message-Id: <ZruQwD2bh7cOADfL@l14>
+References: <ad3b9873-b478-4448-8395-498399040324@suse.com>
+In-Reply-To: <ad3b9873-b478-4448-8395-498399040324@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.9abbdabd518f480499dff21353c628dc?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240813:md
+Date: Tue, 13 Aug 2024 16:58:42 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Tue Aug 13, 2024 at 3:32 PM BST, Jan Beulich wrote:
-> On 13.08.2024 16:21, Alejandro Vallejo wrote:
-> > It was trying to do too many things at once and there was no clear way =
-of
-> > defining what it was meant to do. This commit splits the function in th=
-ree.
-> >=20
-> >   1. A function to return the FPU to power-on reset values.
-> >   2. A function to return the FPU to default values.
-> >   3. A x87/SSE state loader (equivalent to the old function when it too=
-k a data
-> >      pointer).
-> >=20
-> > While at it, make sure the abridged tag is consistent with the manuals =
-and
-> > start as 0xFF.
-> >=20
-> > Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
->
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->
-> > ---
-> > v3:
-> >   * Adjust commit message, as the split is now in 3.
-> >   * Remove bulky comment, as the rationale for it turned out to be
-> >     unsubstantiated. I can't find proof in xen-devel of the stream
-> >     operating the way I claimed, and at that point having the comment
-> >     at all is pointless
->
-> So you deliberately removed the comment altogether, not just point 3 of i=
-t?
->
-> Jan
+On Tue, Aug 06, 2024 at 10:40:14AM +0200, Jan Beulich wrote:
+> Tool chains with -Wshadow enabled by default won't like the function
+> parameter name "abs", for aliasing stdlib.h's abs(). Rename the
+> parameter to what other similar functions use.
+> 
+> Fixes: a18b50614d97 ("libxl: Enable stubdom cdrom changing")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Yes. The other two cases can be deduced pretty trivially from the condition=
-al,
-I reckon. I commented them more heavily in order to properly introduce (3),=
- but
-seeing how it was all a midsummer dream might as well reduce clutter.
+Acked-by: Anthony PERARD <anthony.perard@vates.tech>
 
-I got as far as the original implementation of XSAVE in Xen and it seems to
-have been tested against many combinations of src and dst, none of which wa=
-s
-that ficticious "xsave enabled + xsave context missing". I suspect the
-xsave_enabled(v) was merely avoiding writing to the XSAVE buffer just for
-efficiency (however minor effect it might have had). I just reverse enginee=
-ring
-it wrong.
+Thanks,
 
-Which reminds me. Thanks for mentioning that, because it was really just
-guesswork on my part.
+-- 
 
-Cheers,
-Alejandro
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
