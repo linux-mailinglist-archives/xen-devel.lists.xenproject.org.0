@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DDEE9507B2
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 16:33:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776375.1186490 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D485C9508BC
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 17:18:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776405.1186560 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdsZz-0001mC-40; Tue, 13 Aug 2024 14:32:55 +0000
+	id 1sdtGl-0001cZ-Vw; Tue, 13 Aug 2024 15:17:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776375.1186490; Tue, 13 Aug 2024 14:32:55 +0000
+Received: by outflank-mailman (output) from mailman id 776405.1186560; Tue, 13 Aug 2024 15:17:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdsZz-0001kg-13; Tue, 13 Aug 2024 14:32:55 +0000
-Received: by outflank-mailman (input) for mailman id 776375;
- Tue, 13 Aug 2024 14:32:53 +0000
+	id 1sdtGl-0001b1-Si; Tue, 13 Aug 2024 15:17:07 +0000
+Received: by outflank-mailman (input) for mailman id 776405;
+ Tue, 13 Aug 2024 15:17:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Wdkt=PM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sdsZx-0001ka-Mc
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 14:32:53 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ynFR=PM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sdtGk-0001av-Jy
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 15:17:06 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb9125c2-5980-11ef-8776-851b0ebba9a2;
- Tue, 13 Aug 2024 16:32:51 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so92292366b.2
- for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 07:32:51 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80f411bdc0sm74254166b.118.2024.08.13.07.32.50
+ id 15de13c6-5987-11ef-8776-851b0ebba9a2;
+ Tue, 13 Aug 2024 17:16:59 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-52efc60a6e6so7455340e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 08:16:59 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-429c7fab973sm139802975e9.43.2024.08.13.08.16.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Aug 2024 07:32:50 -0700 (PDT)
+ Tue, 13 Aug 2024 08:16:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb9125c2-5980-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 15de13c6-5987-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723559571; x=1724164371; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q+jIfCnMul7T+8VekLcYK+HUC6tkq529KeTfF6Amox4=;
-        b=LlSnu3rJrFJCNa5J8CqDUgoLZ0Cqpglfx6lQDIBKHh9eymr6pXZ5a754miwDXAOsga
-         u3yDH69PJlEZ3PSbcksNLsZASv8jtN4Ms5zAa/VCLwNY9WJ5O82oXqZx4KcHUAKsV4Bv
-         y+OPlwqvQXaiPIyC5yc+NagSMMFW5BRQyC/n1uAt6yoqrapnMCi8o+ldBx2nSdQKCYmp
-         FduwsogIjWeTjX8Ho05ZPXbZ7LTQSDsmEQWBfbxhHn68VU8og3ymRzMuySs73Bk5yzxR
-         kfc8Z/1hRRybSkEXULo3CLCpPSsZ+HtiEJtMlFerg6L6z8fWmHgHufTuo1tHa47liOhR
-         Zhvg==
+        d=citrix.com; s=google; t=1723562219; x=1724167019; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=P/6wPJg8aqBR+MdWID8Uj7flyU4c/Mk7eHRI0AvcN2U=;
+        b=c6ih0Zn0w9udjoJeQuc5R4p6PS/lzyByIXoLAxnhsa/94NZ7WjBkCtk4MI+/246yR9
+         SMMu1WS2JS7b9I6sgT+Y8A7lMaWSXJerOiOEkTaGpmi8r/RmdigDJiXyV8pSvLeLZLLj
+         d1gevl2X5i8xMuFNx3RzAFDXapFv7whg7IIB4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723559571; x=1724164371;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q+jIfCnMul7T+8VekLcYK+HUC6tkq529KeTfF6Amox4=;
-        b=gW645jrXHoY2Aav0gibdngaYknAfRdN6el1FsPdAikWO9W79jgx4gGPC28me8hJ1vt
-         pJQ0PZ+tZUZ9X5BzNV74wWfplxl+p9x5nCJL8QRoaylUnqRcfPe4FOp5f79ARQeNMe17
-         1stjMqjfO07HTsoEDHq1OpjRb5aJjD4KHLkz5LNBEd691YYDkVF0MAyQlU+3i00PnLfE
-         4xgxm5N6P04Ao5xNLk7DW7VRKC0lclM3BhIwqwByh63ILyNPtTUr90Jgm96QOoIL6uSn
-         f1pdEwVuDt8z41f2xyFEAL27f/qMD3dNDi9wtyHUyKWGspE4o7klwOSpC+YYIvlroKtB
-         +DDA==
-X-Forwarded-Encrypted: i=1; AJvYcCWbjg3UVUKnPSGXks8+1LIoOv9KPhIsQAgnQL6Bbo3inF/uYQ1diLE08ZZSr+RMNf4D3RoseWIERKP8vG6KUp52amkkj3HdPANAu6VFx2Y=
-X-Gm-Message-State: AOJu0YwhYsSodaoy4Jhj3MMC8gAKcGpPp3Sikipxw9nbEbiZ56Lhie2b
-	Zs3kcP1wz61sav/N3Q+5lYjEwWacS+UMRAtYr0sVewU7Uw6D4prrs+jmakk2Aw==
-X-Google-Smtp-Source: AGHT+IHw67pHD1kmhjEOD75xGZJMRUJNpiGLniNKfCxcMKh9uDk0EivYwq3ZEBYC/fcEwu/2ih5sFw==
-X-Received: by 2002:a17:907:efc8:b0:a80:7193:bd88 with SMTP id a640c23a62f3a-a80ed258a0fmr299388066b.36.1723559570943;
-        Tue, 13 Aug 2024 07:32:50 -0700 (PDT)
-Message-ID: <c83942d9-bb55-45c2-9a44-314266ce14c0@suse.com>
-Date: Tue, 13 Aug 2024 16:32:49 +0200
+        d=1e100.net; s=20230601; t=1723562219; x=1724167019;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=P/6wPJg8aqBR+MdWID8Uj7flyU4c/Mk7eHRI0AvcN2U=;
+        b=d0k0faoN2o204ji9d7tlVK2WfWW/1hWURMKCwPSfuK5iN/Kjdn4fLMgqXIM6j4tWMI
+         6qK9CEBsnyUSaRngQ7h2u87qKNXnuLegRiOPOscPTIEsXy+47P4h2B6tuZFhG5BEUg3j
+         fAHhkKuEz2ekTSboP/WzCAcEOk8HY06OpOSdDIJ4TaZ0V3YhygS+EyLnFvG9yIZrZ7Kt
+         KSo3jyriHWQJQOb60TlLLU+7WIN5g17oqZQ49d7H6F6676AcicrI06sSeksOIJe+QHho
+         nfxEZBqFQDpK4LYuaZpRfEtXD+YygKdEodZ1IGlsDpUhsTUeLduaju/M8UGMXKNjOscU
+         Ot5g==
+X-Forwarded-Encrypted: i=1; AJvYcCVtCG8hTI8GbvjD+GBOlWRkK58lsDblSqrkzEFBm7ZixTLWX5M9rhfwDliDZtY7fdJ5/MASn0JGE539Ii/KkhnlPnrw3Sg1OTO7WBBuoUM=
+X-Gm-Message-State: AOJu0YxGQ3w+Y16edsRbdhDRkFoK4BJn5cCPPaokppnyE9r1xPSuS9t7
+	s1ICDeCalNrlqh7YEAZp2mvaw+r+DW4GJOY/G1MjjugJw1rZU8uFot66Vd0G3DU=
+X-Google-Smtp-Source: AGHT+IHEpXOthdbTqmOZyH+h7Xc/lrvYXocF95uysip0fR8mJ1LDsm96ua4rrhVIwcFUc1Z/fFM4Gw==
+X-Received: by 2002:a05:6512:b94:b0:52c:dba6:b4cb with SMTP id 2adb3069b0e04-53213657bc6mr2499399e87.13.1723562218734;
+        Tue, 13 Aug 2024 08:16:58 -0700 (PDT)
+Message-ID: <e4f923c9-5b30-4876-bcf1-7a229b59fb21@citrix.com>
+Date: Tue, 13 Aug 2024 16:16:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] x86/fpu: Split fpu_setup_fpu() in three
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240813142119.29012-1-alejandro.vallejo@cloud.com>
- <20240813142119.29012-3-alejandro.vallejo@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240813142119.29012-3-alejandro.vallejo@cloud.com>
+Subject: Re: [PATCH] x86emul: fix UB multiplications in S/G handling
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <7c4cb0ee-cddf-434a-95d9-58cec0efd976@suse.com>
+ <56e05b29-0fad-426b-bfec-60080e83b3ca@citrix.com>
+Content-Language: en-GB
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <56e05b29-0fad-426b-bfec-60080e83b3ca@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.08.2024 16:21, Alejandro Vallejo wrote:
-> It was trying to do too many things at once and there was no clear way of
-> defining what it was meant to do. This commit splits the function in three.
-> 
->   1. A function to return the FPU to power-on reset values.
->   2. A function to return the FPU to default values.
->   3. A x87/SSE state loader (equivalent to the old function when it took a data
->      pointer).
-> 
-> While at it, make sure the abridged tag is consistent with the manuals and
-> start as 0xFF.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+On 13/08/2024 2:19 pm, Andrew Cooper wrote:
+> On 13/08/2024 1:43 pm, Jan Beulich wrote:
+>> The conversion of the shifts to multiplications by the commits tagged
+>> below still wasn't quite right: The multiplications (of signed values)
+>> can overflow, too. As of 298556c7b5f8 ("x86emul: correct 32-bit address
+>> handling for AVX2 gathers") signed multiplication wasn't necessary
+>> anymore, though: The necessary sign-extension (if any) will happen as
+>> well when using intermediate variables of unsigned long types, and
+>> excess address bits are chopped off by truncate_ea().
+>>
+>> Fixes: b6a907f8c83d ("x86emul: replace UB shifts")
+>> Fixes: 21de9680eb59 ("x86emul: replace further UB shifts")
+>> Oss-fuzz: 71138
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+It's too late on this one, but it occurs to me that we probably want
 
-> ---
-> v3:
->   * Adjust commit message, as the split is now in 3.
->   * Remove bulky comment, as the rationale for it turned out to be
->     unsubstantiated. I can't find proof in xen-devel of the stream
->     operating the way I claimed, and at that point having the comment
->     at all is pointless
+Link: https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=71138
 
-So you deliberately removed the comment altogether, not just point 3 of it?
+rather than an abstract Oss-fuzz number.  The bugtracker entry becomes
+public after 90d or when ClusterFuzz thinks we've fixed the bug, and the
+full link will be more useful to anyone interested.
 
-Jan
+~Andrew
 
