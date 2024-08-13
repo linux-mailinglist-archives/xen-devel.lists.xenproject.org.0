@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BC0694FB57
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 03:48:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.775851.1186055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6806A94FB83
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 03:58:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.775876.1186075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdgeT-0006C9-MT; Tue, 13 Aug 2024 01:48:45 +0000
+	id 1sdgn3-0000rW-MV; Tue, 13 Aug 2024 01:57:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 775851.1186055; Tue, 13 Aug 2024 01:48:45 +0000
+Received: by outflank-mailman (output) from mailman id 775876.1186075; Tue, 13 Aug 2024 01:57:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdgeT-0006AR-JD; Tue, 13 Aug 2024 01:48:45 +0000
-Received: by outflank-mailman (input) for mailman id 775851;
- Tue, 13 Aug 2024 01:48:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sdgn3-0000pX-JS; Tue, 13 Aug 2024 01:57:37 +0000
+Received: by outflank-mailman (input) for mailman id 775876;
+ Tue, 13 Aug 2024 01:57:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jgOn=PM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sdgeR-0004dr-CZ
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 01:48:43 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a5aa4f3-5916-11ef-8776-851b0ebba9a2;
- Tue, 13 Aug 2024 03:48:41 +0200 (CEST)
+ id 1sdgei-0004Ab-6D
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 01:49:00 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 34470c8a-5916-11ef-a505-bb4a2ccca743;
+ Tue, 13 Aug 2024 03:48:59 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5DB7561524;
- Tue, 13 Aug 2024 01:48:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C015EC4AF0E;
- Tue, 13 Aug 2024 01:48:38 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id A8E57CE1098;
+ Tue, 13 Aug 2024 01:48:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D283BC4AF0D;
+ Tue, 13 Aug 2024 01:48:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,30 +41,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a5aa4f3-5916-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 34470c8a-5916-11ef-a505-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723513720;
-	bh=G6inMSvY1KniC+SCcLnpUK0HXdFGeYhyTMLJYR3qE7w=;
+	s=k20201202; t=1723513735;
+	bh=w8vlPPtODSw90+pIoQfmtnrCRRyHr5wjswxQko6T8mI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VjyXlIeV4kQ2WzOXxbxlCYIi6UptcMnZdLkoF3e8r9kG9Ydz9kfLxBg0T+sUZjXsp
-	 +gFY6p8zEleJAxF4daY4Thi9wrUbvtKoB1i4cpy+yGyGtS71GK2Xc4v5UjlWfAhdbe
-	 IZgsZHbTVJbIwe4ZLarKn+gz6MXKmItENYqdNHeaCNcx/0Bu2JGQY3izVXAsQ0mxde
-	 UiChJOKpQ3J5uoYOTID4Co8tygjuhxjYGEyHodpHPFPEEKFqnJaOgVJTBiMLZoMr5T
-	 YyFvzWDroSIVEPuoaR/TQrTorGLZK6chHtgsHS119qk8DXjgGyMYzWNX7UAsBCG0j+
-	 iqM1M7sYw+VkQ==
-Date: Mon, 12 Aug 2024 18:48:37 -0700 (PDT)
+	b=rDoU1HSpXyr5PS2/vrk44E8rfd91Rkv9HimR5BfNA3XLSVeeml4JyeV4Fj3u2j9Ri
+	 4RzsyGnIuwaP/3byeB5pshu7bj70M0sHdIHJGLWh7bVDuYr/9U5nk5R9WevIVaW7jW
+	 OtJMnyPeZMbQID9OQcONtz/CTdmqfmp2vU8KGji9NIMxfIU1DSc+v/0f0lrgWjIOHs
+	 I2694k81jPSwrjiRq/NnQtsqVdaWxlXlZcZQSMJKlYonOxjYHCDUra/UWphSJXa6iv
+	 Xdu+EAYBa/CKj1CJOSwuU68/M5Ql+8p5Fxa7/Xx4hOgFteGGwfQgodZt3TII/MuiHq
+	 VzitMcQMMTOvA==
+Date: Mon, 12 Aug 2024 18:48:52 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
 cc: qemu-devel@nongnu.org, sstabellini@kernel.org, anthony@xenproject.org, 
     paul@xen.org, peter.maydell@linaro.org, alex.bennee@linaro.org, 
     xenia.ragiadakou@amd.com, jason.andryuk@amd.com, edgar.iglesias@amd.com, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 08/10] hw/xen: pvh-common: Add support for creating
- PCIe/GPEX
-In-Reply-To: <20240812130606.90410-9-edgar.iglesias@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2408121822370.298534@ubuntu-linux-20-04-desktop>
-References: <20240812130606.90410-1-edgar.iglesias@gmail.com> <20240812130606.90410-9-edgar.iglesias@gmail.com>
+    xen-devel@lists.xenproject.org, "Michael S. Tsirkin" <mst@redhat.com>, 
+    Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
+    Paolo Bonzini <pbonzini@redhat.com>, 
+    Richard Henderson <richard.henderson@linaro.org>, 
+    Eduardo Habkost <eduardo@habkost.net>
+Subject: Re: [PATCH v1 09/10] hw/i386/xen: Add a Xen PVH x86 machine
+In-Reply-To: <20240812130606.90410-10-edgar.iglesias@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2408121840230.298534@ubuntu-linux-20-04-desktop>
+References: <20240812130606.90410-1-edgar.iglesias@gmail.com> <20240812130606.90410-10-edgar.iglesias@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -73,167 +75,252 @@ Content-Type: text/plain; charset=US-ASCII
 On Mon, 12 Aug 2024, Edgar E. Iglesias wrote:
 > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 > 
-> Add support for optionally creating a PCIe/GPEX controller.
+> This adds a Xen PVH x86 machine based on the PVH Common
+> module used by the ARM PVH machine.
 > 
 > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
 > ---
->  hw/xen/xen-pvh-common.c         | 66 +++++++++++++++++++++++++++++++++
->  include/hw/xen/xen-pvh-common.h | 10 ++++-
->  2 files changed, 75 insertions(+), 1 deletion(-)
+>  hw/i386/xen/meson.build |   1 +
+>  hw/i386/xen/xen-pvh.c   | 196 ++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 197 insertions(+)
+>  create mode 100644 hw/i386/xen/xen-pvh.c
 > 
-> diff --git a/hw/xen/xen-pvh-common.c b/hw/xen/xen-pvh-common.c
-> index 69a2dbdb6d..b1432e4bd9 100644
-> --- a/hw/xen/xen-pvh-common.c
-> +++ b/hw/xen/xen-pvh-common.c
-> @@ -120,6 +120,59 @@ static void xen_enable_tpm(XenPVHCommonState *s)
->  }
->  #endif
+> diff --git a/hw/i386/xen/meson.build b/hw/i386/xen/meson.build
+> index 3f0df8bc07..c73c62b8e3 100644
+> --- a/hw/i386/xen/meson.build
+> +++ b/hw/i386/xen/meson.build
+> @@ -4,6 +4,7 @@ i386_ss.add(when: 'CONFIG_XEN', if_true: files(
+>  ))
+>  i386_ss.add(when: ['CONFIG_XEN', xen], if_true: files(
+>    'xen-hvm.c',
+> +  'xen-pvh.c',
+>  ))
 >  
-> +static void xen_set_pci_intx_irq(void *opaque, int irq, int level)
+>  i386_ss.add(when: 'CONFIG_XEN_BUS', if_true: files(
+> diff --git a/hw/i386/xen/xen-pvh.c b/hw/i386/xen/xen-pvh.c
+> new file mode 100644
+> index 0000000000..9c3d3fc58d
+> --- /dev/null
+> +++ b/hw/i386/xen/xen-pvh.c
+> @@ -0,0 +1,196 @@
+> +/*
+> + * QEMU Xen PVH x86 Machine
+> + *
+> + * Copyright (c) 2024 Advanced Micro Devices, Inc.
+> + * Written by Edgar E. Iglesias <edgar.iglesias@amd.com>
+> + *
+> + * SPDX-License-Identifier: GPL-2.0-or-later
+> + */
+> +
+> +#include "qemu/osdep.h"
+> +#include "qapi/error.h"
+> +#include "qapi/visitor.h"
+> +#include "qemu/error-report.h"
+> +#include "hw/boards.h"
+> +#include "sysemu/sysemu.h"
+> +#include "hw/xen/arch_hvm.h"
+> +#include "hw/xen/xen.h"
+> +#include "hw/xen/xen-pvh-common.h"
+> +
+> +#define TYPE_XEN_PVH_X86  MACHINE_TYPE_NAME("xenpvh")
+> +OBJECT_DECLARE_SIMPLE_TYPE(XenPVHx86State, XEN_PVH_X86)
+> +
+> +#define PVH_MAX_CPUS 128
+> +
+> +struct XenPVHx86State {
+> +    /*< private >*/
+> +    MachineState parent;
+> +
+> +    DeviceState *cpu[PVH_MAX_CPUS];
+> +    XenPVHCommonState pvh;
+> +
+> +    /*
+> +     * We provide these properties to allow Xen to move things to other
+> +     * addresses for example when users need to accomodate the memory-map
+> +     * for 1:1 mapped devices/memory.
+> +     */
+> +    struct {
+> +        MemMapEntry ram_low, ram_high;
+> +        MemMapEntry pci_ecam, pci_mmio, pci_mmio_high;
+
+Can we use the same properties already present under XenPVHCommonState?
+
+
+
+> +    } cfg;
+> +};
+> +
+> +static void xenpvh_cpu_new(MachineState *ms,
+> +                           XenPVHx86State *xp,
+> +                           int cpu_idx,
+> +                           int64_t apic_id)
 > +{
-> +    if (xen_set_pci_intx_level(xen_domid, 0, 0, 0, irq, level)) {
+> +    Object *cpu = object_new(ms->cpu_type);
+> +
+> +    object_property_add_child(OBJECT(ms), "cpu[*]", cpu);
+> +    object_property_set_uint(cpu, "apic-id", apic_id, &error_fatal);
+> +    qdev_realize(DEVICE(cpu), NULL, &error_fatal);
+> +    object_unref(cpu);
+> +
+> +    xp->cpu[cpu_idx] = DEVICE(cpu);
 
-Looking at the implementation of XEN_DMOP_set_pci_intx_level in
-xen/arch/x86/hvm/dm.c, it looks like the device parameter of
-xen_set_pci_intx_level is required?
+
+Why do we need to create CPU devices in QEMU given that we are only
+doing device emulation? I guess it is because ....
 
 
-> +        error_report("xendevicemodel_set_pci_intx_level failed");
-> +    }
+
 > +}
 > +
-> +static inline void xenpvh_gpex_init(XenPVHCommonState *s,
-> +                                    MemoryRegion *sysmem,
-> +                                    hwaddr ecam_base, hwaddr ecam_size,
-> +                                    hwaddr mmio_base, hwaddr mmio_size,
-> +                                    hwaddr mmio_high_base,
-> +                                    hwaddr mmio_high_size,
-> +                                    int intx_irq_base)
+> +static void xenpvh_init(MachineState *ms)
 > +{
-> +    MemoryRegion *ecam_reg;
-> +    MemoryRegion *mmio_reg;
-> +    DeviceState *dev;
+> +    XenPVHx86State *xp = XEN_PVH_X86(ms);
+> +    const struct {
+> +        const char *name;
+> +        MemMapEntry *map;
+> +    } map[] = {
+> +        { "ram-low", &xp->cfg.ram_low },
+> +        { "ram-high", &xp->cfg.ram_high },
+> +        { "pci-ecam", &xp->cfg.pci_ecam },
+> +        { "pci-mmio", &xp->cfg.pci_mmio },
+> +        { "pci-mmio-high", &xp->cfg.pci_mmio_high },
+> +    };
 > +    int i;
 > +
-> +    object_initialize_child(OBJECT(s), "gpex", &s->pci.gpex,
-> +                            TYPE_GPEX_HOST);
-> +    dev = DEVICE(&s->pci.gpex);
-> +    sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
+> +    object_initialize_child(OBJECT(ms), "pvh", &xp->pvh, TYPE_XEN_PVH_COMMON);
+> +    object_property_set_int(OBJECT(&xp->pvh), "max-cpus", ms->smp.max_cpus,
+> +                            &error_abort);
+> +    object_property_set_int(OBJECT(&xp->pvh), "ram-size", ms->ram_size,
+> +                            &error_abort);
 > +
-> +    ecam_reg = sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 0);
-> +    memory_region_add_subregion(sysmem, ecam_base, ecam_reg);
-
-I notice we don't use ecam_size anywhere? Is that because the size is
-standard?
-
-
-> +    mmio_reg = sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 1);
+> +    for (i = 0; i < ARRAY_SIZE(map); i++) {
+> +        g_autofree char *base_name = g_strdup_printf("%s-base", map[i].name);
+> +        g_autofree char *size_name = g_strdup_printf("%s-size", map[i].name);
 > +
-> +    if (mmio_size) {
-> +        memory_region_init_alias(&s->pci.mmio_alias, OBJECT(dev), "pcie-mmio",
-> +                                 mmio_reg, mmio_base, mmio_size);
-> +        memory_region_add_subregion(sysmem, mmio_base, &s->pci.mmio_alias);
+> +        object_property_set_int(OBJECT(&xp->pvh), base_name, map[i].map->base,
+> +                                 &error_abort);
+> +        object_property_set_int(OBJECT(&xp->pvh), size_name, map[i].map->size,
+> +                                 &error_abort);
 > +    }
 > +
-> +    if (mmio_high_size) {
-> +        memory_region_init_alias(&s->pci.mmio_high_alias, OBJECT(dev),
-> +                "pcie-mmio-high",
-> +                mmio_reg, mmio_high_base, mmio_high_size);
-> +        memory_region_add_subregion(sysmem, mmio_high_base,
-> +                &s->pci.mmio_high_alias);
-> +    }
+> +    /* GSI's 16 - 20 are used for legacy PCIe INTX IRQs.  */
+> +    object_property_set_int(OBJECT(&xp->pvh), "pci-intx-irq-base", 16,
+> +                            &error_abort);
 > +
-> +    for (i = 0; i < GPEX_NUM_IRQS; i++) {
-> +        qemu_irq irq = qemu_allocate_irq(xen_set_pci_intx_irq, s, i);
+> +    sysbus_realize(SYS_BUS_DEVICE(&xp->pvh), &error_abort);
 > +
-> +        sysbus_connect_irq(SYS_BUS_DEVICE(dev), i, irq);
-> +        gpex_set_irq_num(GPEX_HOST(dev), i, intx_irq_base + i);
-> +        xen_set_pci_link_route(i, intx_irq_base + i);
+> +    /* Create dummy cores. This will indirectly create the APIC MSI window.  */
 
-xen_set_pci_link_route is not currently implemented on ARM?
-
-Looking at hw/i386/pc_piix.c:piix_intx_routing_notifier_xen it seems
-that the routing is much more complex over there. But looking at other
-machines that use GPEX such as hw/arm/virt.c it looks like the routing
-is straightforward the same way as in this patch.
-
-I thought that PCI interrupt pin swizzling was required, but maybe not ?
-
-It is totally fine if we do something different, simpler, than
-hw/i386/pc_piix.c:piix_intx_routing_notifier_xen. I just want to make
-sure that things remain consistent between ARM and x86, and also between
-Xen and QEMU view of virtual PCI interrupt routing.
+... of the APIC MSI window ?
 
 
 
+> +    for (i = 0; i < ms->smp.cpus; i++) {
+> +        xenpvh_cpu_new(ms, xp, i, i);
 > +    }
 > +}
 > +
->  static void xen_pvh_realize(DeviceState *dev, Error **errp)
->  {
->      XenPVHCommonState *s = XEN_PVH_COMMON(dev);
-> @@ -152,6 +205,14 @@ static void xen_pvh_realize(DeviceState *dev, Error **errp)
->          warn_report("tpm-base-addr is not provided. TPM will not be enabled");
->      }
->  #endif
+> +#define XENPVH_PROP_MEMMAP_SETTER(n, f)                                    \
+> +static void xenpvh_set_ ## n ## _ ## f(Object *obj, Visitor *v,            \
+> +                                       const char *name, void *opaque,     \
+> +                                       Error **errp)                       \
+> +{                                                                          \
+> +    XenPVHx86State *xp = XEN_PVH_X86(obj);                                 \
+> +    uint64_t value;                                                        \
+> +                                                                           \
+> +    if (!visit_type_size(v, name, &value, errp)) {                         \
+> +        return;                                                            \
+> +    }                                                                      \
+> +    xp->cfg.n.f = value;                                                   \
+> +}
 > +
-> +    if (s->cfg.ecam.size) {
-> +        xenpvh_gpex_init(s, sysmem,
-> +                         s->cfg.ecam.base, s->cfg.ecam.size,
-> +                         s->cfg.mmio.base, s->cfg.mmio.size,
-> +                         s->cfg.mmio_high.base, s->cfg.mmio_high.size,
-> +                         s->cfg.pci_intx_irq_base);
-> +    }
->  }
->  
->  #define DEFINE_PROP_MEMMAP(n, f) \
-> @@ -165,10 +226,15 @@ static Property xen_pvh_properties[] = {
->      DEFINE_PROP_MEMMAP("ram-high", ram_high),
->      DEFINE_PROP_MEMMAP("virtio-mmio", virtio_mmio),
->      DEFINE_PROP_MEMMAP("tpm", tpm),
-> +    DEFINE_PROP_MEMMAP("pci-ecam", ecam),
-> +    DEFINE_PROP_MEMMAP("pci-mmio", mmio),
-> +    DEFINE_PROP_MEMMAP("pci-mmio-high", mmio_high),
->      DEFINE_PROP_UINT32("virtio-mmio-num", XenPVHCommonState,
->                         cfg.virtio_mmio_num, 0),
->      DEFINE_PROP_UINT32("virtio-mmio-irq-base", XenPVHCommonState,
->                         cfg.virtio_mmio_irq_base, 0),
-> +    DEFINE_PROP_UINT32("pci-intx-irq-base", XenPVHCommonState,
-> +                       cfg.pci_intx_irq_base, 0),
->      DEFINE_PROP_END_OF_LIST()
->  };
->  
-> diff --git a/include/hw/xen/xen-pvh-common.h b/include/hw/xen/xen-pvh-common.h
-> index e958b441fd..faacfca70e 100644
-> --- a/include/hw/xen/xen-pvh-common.h
-> +++ b/include/hw/xen/xen-pvh-common.h
-> @@ -29,17 +29,25 @@ typedef struct XenPVHCommonState {
->          MemoryRegion high;
->      } ram;
->  
-> +    struct {
-> +        GPEXHost gpex;
-> +        MemoryRegion mmio_alias;
-> +        MemoryRegion mmio_high_alias;
-> +    } pci;
+> +#define XENPVH_PROP_MEMMAP_GETTER(n, f)                                    \
+> +static void xenpvh_get_ ## n ## _ ## f(Object *obj, Visitor *v,            \
+> +                                       const char *name, void *opaque,     \
+> +                                       Error **errp)                       \
+> +{                                                                          \
+> +    XenPVHx86State *xp = XEN_PVH_X86(obj);                                 \
+> +    uint64_t value = xp->cfg.n.f;                                          \
+> +                                                                           \
+> +    visit_type_uint64(v, name, &value, errp);                              \
+> +}
 > +
->      struct {
->          uint64_t ram_size;
->          uint32_t max_cpus;
->          uint32_t virtio_mmio_num;
->          uint32_t virtio_mmio_irq_base;
-> +        uint32_t pci_intx_irq_base;
->          struct {
->              uint64_t base;
->              uint64_t size;
->          } ram_low, ram_high,
->            virtio_mmio,
-> -          tpm;
-> +          tpm,
-> +          ecam, mmio, mmio_high;
->      } cfg;
->  } XenPVHCommonState;
->  #endif
+> +#define XENPVH_PROP_MEMMAP(n)              \
+> +    XENPVH_PROP_MEMMAP_SETTER(n, base)     \
+> +    XENPVH_PROP_MEMMAP_SETTER(n, size)     \
+> +    XENPVH_PROP_MEMMAP_GETTER(n, base)     \
+> +    XENPVH_PROP_MEMMAP_GETTER(n, size)
+> +
+> +
+> +XENPVH_PROP_MEMMAP(ram_low)
+> +XENPVH_PROP_MEMMAP(ram_high)
+> +XENPVH_PROP_MEMMAP(pci_ecam)
+> +XENPVH_PROP_MEMMAP(pci_mmio)
+> +XENPVH_PROP_MEMMAP(pci_mmio_high)
+
+I would make all of these common with ARM. It wouldn't hurt to make them
+configurable on ARM too, in fact we might need it for 1:1 mapped guests
+
+
+
+> +static void xenpvh_instance_init(Object *obj)
+> +{
+> +    XenPVHx86State *xp = XEN_PVH_X86(obj);
+> +
+> +    /* Default memmap.  */
+> +    xp->cfg.ram_low.base = 0x0;
+> +    xp->cfg.ram_low.size = 0x80000000U;
+> +    xp->cfg.ram_high.base = 0xC000000000ULL;
+> +    xp->cfg.ram_high.size = 0x4000000000ULL;
+> +}
+> +
+> +static void xenpvh_machine_class_init(ObjectClass *oc, void *data)
+> +{
+> +    MachineClass *mc = MACHINE_CLASS(oc);
+> +
+> +    mc->desc = "Xen PVH x86 machine";
+> +    mc->init = xenpvh_init;
+> +    mc->max_cpus = PVH_MAX_CPUS;
+> +    mc->default_cpu_type = TARGET_DEFAULT_CPU_TYPE;
+> +    mc->default_machine_opts = "accel=xen";
+> +    /* Set explicitly here to make sure that real ram_size is passed */
+> +    mc->default_ram_size = 0;
+> +
+> +#define OC_MEMMAP_PROP(c, prop_name, name)                               \
+> +do {                                                                     \
+> +    object_class_property_add(c, prop_name "-base", "uint64_t",          \
+> +                              xenpvh_get_ ## name ## _base,              \
+> +                              xenpvh_set_ ## name ## _base, NULL, NULL); \
+> +    object_class_property_set_description(oc, prop_name "-base",         \
+> +                              prop_name " base address");                \
+> +    object_class_property_add(c, prop_name "-size", "uint64_t",          \
+> +                              xenpvh_get_ ## name ## _size,              \
+> +                              xenpvh_set_ ## name ## _size, NULL, NULL); \
+> +    object_class_property_set_description(oc, prop_name "-size",         \
+> +                              prop_name " size of memory region");       \
+> +} while (0)
+> +
+> +    OC_MEMMAP_PROP(oc, "ram-low", ram_low);
+> +    OC_MEMMAP_PROP(oc, "ram-high", ram_high);
+> +    OC_MEMMAP_PROP(oc, "pci-ecam", pci_ecam);
+> +    OC_MEMMAP_PROP(oc, "pci-mmio", pci_mmio);
+> +    OC_MEMMAP_PROP(oc, "pci-mmio-high", pci_mmio_high);
+> +}
+> +
+> +static const TypeInfo xenpvh_machine_type = {
+> +    .name = TYPE_XEN_PVH_X86,
+> +    .parent = TYPE_MACHINE,
+> +    .class_init = xenpvh_machine_class_init,
+> +    .instance_init = xenpvh_instance_init,
+> +    .instance_size = sizeof(XenPVHx86State),
+> +};
+> +
+> +static void xenpvh_machine_register_types(void)
+> +{
+> +    type_register_static(&xenpvh_machine_type);
+> +}
+> +
+> +type_init(xenpvh_machine_register_types)
 > -- 
 > 2.43.0
 > 
