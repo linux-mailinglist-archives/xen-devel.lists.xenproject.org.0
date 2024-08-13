@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EEC694FF15
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 09:50:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776030.1186185 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E012F94FFAE
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 10:23:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776043.1186194 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdmIS-0005ft-LJ; Tue, 13 Aug 2024 07:50:24 +0000
+	id 1sdmnB-00034b-3F; Tue, 13 Aug 2024 08:22:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776030.1186185; Tue, 13 Aug 2024 07:50:24 +0000
+Received: by outflank-mailman (output) from mailman id 776043.1186194; Tue, 13 Aug 2024 08:22:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdmIS-0005dD-Hx; Tue, 13 Aug 2024 07:50:24 +0000
-Received: by outflank-mailman (input) for mailman id 776030;
- Tue, 13 Aug 2024 07:50:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sdmnB-000339-05; Tue, 13 Aug 2024 08:22:09 +0000
+Received: by outflank-mailman (input) for mailman id 776043;
+ Tue, 13 Aug 2024 08:22:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Wdkt=PM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sdmIR-0005d7-58
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 07:50:23 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b0eed6cd-5948-11ef-8776-851b0ebba9a2;
- Tue, 13 Aug 2024 09:50:21 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a7a975fb47eso53349766b.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 00:50:21 -0700 (PDT)
+ id 1sdmn9-000333-Dm
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 08:22:07 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 201b7f0b-594d-11ef-a505-bb4a2ccca743;
+ Tue, 13 Aug 2024 10:22:06 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5bd1a9bdce4so3294520a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 01:22:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80f3f4d20dsm46422766b.7.2024.08.13.00.50.20
+ a640c23a62f3a-a80f414e1c1sm49264166b.171.2024.08.13.01.22.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Aug 2024 00:50:20 -0700 (PDT)
+ Tue, 13 Aug 2024 01:22:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0eed6cd-5948-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 201b7f0b-594d-11ef-a505-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723535421; x=1724140221; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723537325; x=1724142125; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iU16W9vrjcNSJGiegNTNZzPvUXM7To+t+VTlQLrW9mU=;
-        b=ZcB3VC/ZD6pL2MBo491/jOS9WEtiUIeprYWynM+9sfzH89wxPeOLpEJgxlFbZ663pj
-         H8UPC2LQv8CIIpa9uxO1A6Ps51+LEQ5//u5ysvVVmD3jtQCgEdy0L4cIBVcHd5CJ/6tx
-         TPGz5DCu1E29DS+zQ9ddDBH4svFE6YA5NDv2qZR4kK6OT2b6cloqgwJPWKpjnBk/LWHz
-         CBW3av3gimJXjZHAYQj9ODLfZc/D8f8kUsusPLg5s2wP7So8wIO6amADIyuCdpsMcT/b
-         lT97J4T8Mq4IfQEWbUMMs6gWFen0l3l3I8FxyW4nWaTZbltfHm7gX9saLTRiSKzV4fOR
-         LJbA==
+        bh=ZU+iJbV0mDtYpEiwtH4San+Tbr7mMkd0jWfaumuGKEc=;
+        b=QI/TDJOmKdkG4ZFTkdVaG0woo9GV0sW9eU1tORDFZLsZq8wy9S06edAp0+GlLmP3X0
+         kz8DoeGwF7gtDDNy1T9pQzDRl8/vs0/GRlPZfhV8/flhKJUDYRQQqD4TAmWZZHxY+90c
+         QaF3IsjdR6x+is8yl7sEjyyilPDOXerzNgNdqFi13wiIAeP6qqGNoiF78TqzvEoFctMa
+         FDMpuHcJNpAaoEdtvIw9/a1H73E/fHiM8PPzc5hlY7J/tQ0z0k/w4dOkR3bJVi4M+ab4
+         6fQfpJo2s8WSOQppdBmuqeAqkSmqL/TWaSI0Z+Fp0GF1ISDh2wS6RYbogbPDzPnOF760
+         0lAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723535421; x=1724140221;
+        d=1e100.net; s=20230601; t=1723537325; x=1724142125;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iU16W9vrjcNSJGiegNTNZzPvUXM7To+t+VTlQLrW9mU=;
-        b=bsBE5fYEubzayHtWPiWbDbW51meJL/yTajofpI+KTsNqDhibgRq2INGKis/OEv7K/Q
-         vaMbqhUACVcTN7Kni8q6HVuAduS4UfWLhOh/TD4+TAyVe4pYAs09b0aYYr2Dpi0r0D6q
-         h/lMFKsRAnS1QvAQmVuwOeyWPLDFfLkssloBeblAAxWk0y/hV2ZWPnTSweDe+UtIia28
-         +ZdA7e6Lh9NRWcIfl9Gc7hpwU+4ThfRQ8NH4iL35uI+jrQrjKhdjDBRONQEFVw8sZ9lW
-         sjVrx3dc4tqwPDap+uhuZc2kWCc73KUB/iZVm7rMHOmtC1uS5QkiLti0vQxsEtAaMn+r
-         ZHvA==
-X-Forwarded-Encrypted: i=1; AJvYcCVuK0gcusXQAXMHgWxkPp8gRPNgDIIfsAme2Vy6lEn8nY72675eO7GqeZHBMGQbyZaWneGgQAsSoeY48XlhAzbm+l3gdFa9KwbpVd1k8i8=
-X-Gm-Message-State: AOJu0Yw5V5+lHuApCvwr30BKgqk0KbyLQIaF6gjig61/5QJaaL3aRrVt
-	EZgf0ye9v33elX187YxaZkh531QFqYMfqkCb+w5KW+aLr4Tlpaffc47ta3VWdw==
-X-Google-Smtp-Source: AGHT+IGvCAgRnWyZF4QJnS+ktMfHnZIMGIjjnPqFA2h7vfrG/ZtJLLTdsfk5Rklatab0Yy0Ecp5KNA==
-X-Received: by 2002:a17:907:2d8f:b0:a80:f7db:3e7 with SMTP id a640c23a62f3a-a80f7db06e0mr70556166b.5.1723535420538;
-        Tue, 13 Aug 2024 00:50:20 -0700 (PDT)
-Message-ID: <abdac4dc-b8e4-46ad-bd4b-c39caa868a9f@suse.com>
-Date: Tue, 13 Aug 2024 09:50:19 +0200
+        bh=ZU+iJbV0mDtYpEiwtH4San+Tbr7mMkd0jWfaumuGKEc=;
+        b=HnCTz0irsVKr3jIQw5tYNFsrd42EqdrTaHXmnBMjjW4yukxORJ4s+DJcYbsIhBXSv4
+         xkkPbP+M6K7tp9MjyVNID1oRfQ+qIZwq0jVYoNIFA0lA7IO7R/URIy1bFzrxTEje5lAL
+         qnH21Sdg2gDhB5DCVPyA22wXlYBULelem6y3neD6AHOeGMpbS6Ds1xGVQSC9X1MBs0EZ
+         5t+owGDWqcDAyNuTqYp5/HJ5/qq4Q7Da7H3/6nC4qwlxCftbFdYHcdZkSS0GtD0xk8HX
+         cvpaRJMWaVGhaZb+XsdP1o8e4bWZh9UocWKhgBcZ2npfV+PHZLQl9mfa6VUkA+LmYF7b
+         ySwA==
+X-Forwarded-Encrypted: i=1; AJvYcCUCQxF4Lbv6Vf4v++OFGM7bIKxDq8Dc/BdwU7k1PA3eV1DEFKZpJA3L7+bQdK7PICxFyE1b1Iog9B4lKc1mvh1DT5Sho9UxyrdubhrTZSE=
+X-Gm-Message-State: AOJu0YxLGO97yEyYqs8DyUof4OKzNPw72qyyJzNnRGlKa4WehZTdUbLL
+	82ZDS1d0uwxHoZ4k1eX2E7mpiA6Z+UsKBTIyAs+6uVHsXVyl8mnnlOrOuoxpLw==
+X-Google-Smtp-Source: AGHT+IG87xwq6QTNVjirV8RYJikk3tuWsqy2AghRQMbFq6AI3UXQsOUpwd+rug0PT5kvAp8Ca/2bhw==
+X-Received: by 2002:a17:907:608a:b0:a7d:391f:17af with SMTP id a640c23a62f3a-a80ed2c4690mr168617466b.51.1723537325132;
+        Tue, 13 Aug 2024 01:22:05 -0700 (PDT)
+Message-ID: <07f19bb5-bd76-4158-875e-48f74e427a89@suse.com>
+Date: Tue, 13 Aug 2024 10:22:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 2/2] x86/amd: optional build of amd.c
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1723196909.git.Sergiy_Kibrik@epam.com>
- <5632b05e993cca78a58b800dd37165ccd80b944f.1723196909.git.Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH v4 2/7] xen/riscv: set up fixmap mappings
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1723214540.git.oleksii.kurochko@gmail.com>
+ <1c1c0f912a9abbb542baa1ce92e75d64ec8043e9.1723214540.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,57 +115,111 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5632b05e993cca78a58b800dd37165ccd80b944f.1723196909.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <1c1c0f912a9abbb542baa1ce92e75d64ec8043e9.1723214540.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.08.2024 12:11, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/include/asm/amd.h
-> +++ b/xen/arch/x86/include/asm/amd.h
-> @@ -158,13 +158,21 @@
->  #define is_zen4_uarch()   boot_cpu_has(X86_FEATURE_AUTO_IBRS)
+On 09.08.2024 18:19, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/include/asm/config.h
+> +++ b/xen/arch/riscv/include/asm/config.h
+> @@ -74,6 +74,14 @@
+>  #error "unsupported RV_STAGE1_MODE"
+>  #endif
 >  
->  struct cpuinfo_x86;
-> +#ifdef CONFIG_AMD
->  int cpu_has_amd_erratum(const struct cpuinfo_x86 *cpu, int osvw_id, ...);
-> +#else
-> +static inline int cpu_has_amd_erratum(const struct cpuinfo_x86 *cpu, int osvw_id, ...)
+> +#define XEN_VIRT_SIZE           MB(2)
+> +
+> +#define BOOT_FDT_VIRT_START     (XEN_VIRT_START + XEN_VIRT_SIZE)
+> +#define BOOT_FDT_VIRT_SIZE      MB(4)
+> +
+> +#define FIXMAP_BASE             (BOOT_FDT_VIRT_START + BOOT_FDT_VIRT_SIZE)
+> +#define FIXMAP_ADDR(n)          (FIXMAP_BASE + (n) * PAGE_SIZE)
 
-Nit: Too long line.
+Just to confirm: Did you consider leaving gaps between the regions, but
+then discarded that idea for whatever reason? It's not like you're tight
+on address space.
 
+As to FIXMAP_ADDR() - wouldn't that be a better fit in fixmap.h?
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/fixmap.h
+> @@ -0,0 +1,44 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * fixmap.h: compile-time virtual memory allocation
+> + */
+> +#ifndef ASM_FIXMAP_H
+> +#define ASM_FIXMAP_H
+> +
+> +#include <xen/bug.h>
+> +#include <xen/page-size.h>
+> +#include <xen/pmap.h>
+> +
+> +#include <asm/page.h>
+> +
+> +/* Fixmap slots */
+> +#define FIX_PMAP_BEGIN (0) /* Start of PMAP */
+> +#define FIX_PMAP_END (FIX_PMAP_BEGIN + NUM_FIX_PMAP - 1) /* End of PMAP */
+> +#define FIX_MISC (FIX_PMAP_END + 1)  /* Ephemeral mappings of hardware */
+> +
+> +#define FIX_LAST (FIX_MISC + 1) /* +1 means a guard slot */
+
+As per my comment on the earlier version: No, I don't think this arranges
+for a guard slot. It merely arranges for FIX_MISC to not trigger the
+BUG_ON() in virt_to_fix().
+
+> --- a/xen/arch/riscv/include/asm/page.h
+> +++ b/xen/arch/riscv/include/asm/page.h
+> @@ -81,6 +81,12 @@ static inline void flush_page_to_ram(unsigned long mfn, bool sync_icache)
+>      BUG_ON("unimplemented");
+>  }
+>  
+> +/* Write a pagetable entry. */
+> +static inline void write_pte(pte_t *p, pte_t pte)
 > +{
-> +    return false;
-
-I wouldn't mind if you consistently changed the function to return
-bool, but as long as it returns int I don't think it should be returning
-false.
-
-> @@ -173,5 +181,19 @@ extern bool amd_virt_spec_ctrl;
->  bool amd_setup_legacy_ssbd(void);
->  void amd_set_legacy_ssbd(bool enable);
->  void amd_set_cpuid_user_dis(bool enable);
-> +#else
-> +static inline void amd_set_cpuid_user_dis(bool enable) {}
-> +static inline void amd_set_legacy_ssbd(bool enable) {}
-> +static inline bool amd_setup_legacy_ssbd(void)
-> +{
-> +    return false;
+> +    *p = pte;
 > +}
 
-Nit: Would be a little nicer if these were in the same order as their
-corresponding declarations. However, along the lines of one of my
-comments on the Intel counterpart patch ...
+No use of write_atomic() here? And no read_pte() counterpart right away (then
+also properly using read_atomic())?
 
-> +#define amd_acpi_c1e_quirk (false)
-> +#define amd_virt_spec_ctrl (false)
-> +#define amd_legacy_ssbd (false)
+> @@ -191,6 +195,45 @@ static bool __init check_pgtbl_mode_support(struct mmu_desc *mmu_desc,
+>      return is_mode_supported;
+>  }
+>  
+> +void __init setup_fixmap_mappings(void)
+> +{
+> +    pte_t *pte, tmp;
+> +    unsigned int i;
 > +
-> +static inline void amd_check_disable_c1e(unsigned int port, u8 value) {}
-> +#endif
+> +    BUILD_BUG_ON(FIX_LAST >= PAGETABLE_ENTRIES);
+> +
+> +    pte = &stage1_pgtbl_root[pt_index(HYP_PT_ROOT_LEVEL, FIXMAP_ADDR(0))];
+> +
+> +    /*
+> +     * In RISC-V page table levels are numbered from Lx to L0 where
+> +     * x is the highest page table level for currect  MMU mode ( for example,
+> +     * for Sv39 has 3 page tables so the x = 2 (L2 -> L1 -> L0) ).
+> +     *
+> +     * In this cycle we want to find L1 page table because as L0 page table
+> +     * xen_fixmap[] will be used.
+> +     */
+> +    for ( i = HYP_PT_ROOT_LEVEL; i-- > 1; )
+> +    {
+> +        BUG_ON(!pte_is_valid(*pte));
+> +
+> +        pte = (pte_t *)LOAD_TO_LINK(pte_to_paddr(*pte));
+> +        pte = &pte[pt_index(i, FIXMAP_ADDR(0))];
+> +    }
+> +
+> +    BUG_ON(pte_is_valid(*pte));
+> +
+> +    tmp = paddr_to_pte(LINK_TO_LOAD((unsigned long)&xen_fixmap), PTE_TABLE);
+> +    write_pte(pte, tmp);
+> +
+> +    RISCV_FENCE(rw, rw);
 
-... question overall is how many of these stubs are really required,
-once clearly AMD-only code is properly taken care of (perhaps not just
-in spec_ctrl.c).
+In the changes section you say "r,r", and I was wondering about that. I
+take it that "rw,rw" is really what's needed here.
 
 Jan
 
