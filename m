@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 631D395053E
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 14:40:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776208.1186344 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29630950556
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 14:43:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776215.1186354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdqp8-0000rF-9H; Tue, 13 Aug 2024 12:40:26 +0000
+	id 1sdqs6-0001Pd-Md; Tue, 13 Aug 2024 12:43:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776208.1186344; Tue, 13 Aug 2024 12:40:26 +0000
+Received: by outflank-mailman (output) from mailman id 776215.1186354; Tue, 13 Aug 2024 12:43:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdqp8-0000ps-6U; Tue, 13 Aug 2024 12:40:26 +0000
-Received: by outflank-mailman (input) for mailman id 776208;
- Tue, 13 Aug 2024 12:40:25 +0000
+	id 1sdqs6-0001O0-Js; Tue, 13 Aug 2024 12:43:30 +0000
+Received: by outflank-mailman (input) for mailman id 776215;
+ Tue, 13 Aug 2024 12:43:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EOoy=PM=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sdqp7-0000pT-8X
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 12:40:25 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Wdkt=PM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sdqs4-0001Nu-W7
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 12:43:28 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35e2b92a-5971-11ef-a505-bb4a2ccca743;
- Tue, 13 Aug 2024 14:40:24 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5b8c2a6135dso6276787a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 05:40:24 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5be9a0946easm409939a12.55.2024.08.13.05.40.22
+ id a34cfe82-5971-11ef-a505-bb4a2ccca743;
+ Tue, 13 Aug 2024 14:43:27 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2f16d2f2b68so76132911fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 05:43:27 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a80f4184ebesm66520666b.207.2024.08.13.05.43.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Aug 2024 05:40:23 -0700 (PDT)
+ Tue, 13 Aug 2024 05:43:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,110 +45,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35e2b92a-5971-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: a34cfe82-5971-11ef-a505-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723552824; x=1724157624; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wQEBnOfKllVY+kVrofMMNPEdDjB5AuMAdrl5+DwXEus=;
-        b=d1OOpDkhmB0++kVnI4Uo9u5ECjgIYNF/7w1jGJpf946Zsbo5PyeW7Oy5pRccYMU3Sm
-         AgYfvR3mhp0TCwW89sJs7PWtcIIBqcgWcKKPw9VT45S/UOQRLmBZOyWE8Xl7HnpMOOsK
-         9w5Wgo52b6iAbRvic5MgbX1AgzHZ3qeom0UuY=
+        d=suse.com; s=google; t=1723553007; x=1724157807; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=bBFlkNqdIcaDTKI7Hj0DnxlgQqUGJhNIkJ18JFeV0Bo=;
+        b=JRr+lGeXSuU95pTC5Mr+orj4Ry4bzEiZCzqWZIBJtwdzmj+GKIEqt31V74vg8+4Oa7
+         2n0J09+iGyJcaT26lUYyqVI6AEt7avS1+/ZftC9kwsDfJWf92PaFynmJQRI18PRjj/p7
+         X4yTpom+UFOgsH1kuhysm3m7h/3E4pkEh84qPVqZsnPtcRc/43q3R0bK0QqrkldMgyKD
+         l0CCacaqUCSfJftwTe/iOvDt+yJ42TLRzIHiZBDUe2v5hM2Ya8qAgVJXQ0fQpOR7//P4
+         WHOtPEK+r3E45jsOzM6lVjNu0mFFFBQna08e1SPvcgjQSm76LxBSoec9Vf1S/Tk2S8IE
+         pc8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723552824; x=1724157624;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=wQEBnOfKllVY+kVrofMMNPEdDjB5AuMAdrl5+DwXEus=;
-        b=rtvqvYy1k54+kr0oJjf8H108vEeS4y7fpOmkGrEkdmPMUMRjwkvzfIcSDlpGHrRTFZ
-         YCTZSHyoXEsCR2/1NY5eJiRTEglcjy7diap6dELbyOh/Ze6k4ofLsievjIf4eLwQ626X
-         rw+zaQtxkAzwMOCVVlxNQHy4yzPHgyL3k8XxWgWDNMIEfLYyQX7OCbIoTQwBWCwmYe0q
-         qI3qWJQm/tTp4SRdC9HsdIEayGU9ahuvkvU+m42LRYn8k+sSOKpjfQrhexfDgFPtMdZD
-         g8zGlDhGCRphpwDpUoEIXARrz3vYO9DsX691aaZnC9iPifrLpv4DqB0KZ1bLJsFE+1Dd
-         qXOw==
-X-Forwarded-Encrypted: i=1; AJvYcCVPDrV17rpo2jHHlkPbGoEqFgFATf9uEF7p7GwXdCULfA2zVDGW/vWJc3+2mm+veRsNJOCOLwF+Tpio891enZtF2N02cQ4iS7ZVqF3KIwU=
-X-Gm-Message-State: AOJu0YyBpyd61WVE9ULG3IJMZPBcyyNEV0iNlueF5XOkG/1RxO9RsVAt
-	Wm6zvC+ea77eye7n4Gj0WiMTf4/7OXnJb6r7da9ag1EJWd+cMZH9Nz33jNNGlgU=
-X-Google-Smtp-Source: AGHT+IHMciy8q1FOxet9Zm1VGxcEGjGy4cxaAipK70SV/z04ihtp/s0sfXxxTg7OkulFDKicVdSbHw==
-X-Received: by 2002:a05:6402:35c8:b0:5a2:6e1c:91e9 with SMTP id 4fb4d7f45d1cf-5bd44c14c71mr2626804a12.7.1723552823602;
-        Tue, 13 Aug 2024 05:40:23 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1723553007; x=1724157807;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bBFlkNqdIcaDTKI7Hj0DnxlgQqUGJhNIkJ18JFeV0Bo=;
+        b=sGPAqJYOrTHW5tyrtnqErBBuXefa9QqBSEhwejgrdqvnAQwzcJACyOPw87RCa7YIoq
+         vBt6JnlxT1yPP8/F2fIRX33ac1iCrrnEP5Oa9xe/LKYKBp/c8wTNlsPP6I8wYsKd9uO5
+         A98NjaMau67ItGQZGxOd/4IyIJWdAlxX5L1O2Efj7y5ZJHSVUObrLBOJK+ommgzn0Pig
+         5uHxE+xjSbY8SSB2N/bvDu7/nHtZ5Q15ZmLbIM2fpSl4MS94jtYG/Lj7ld3MDaTRshKs
+         hsnSIBuhZO8dwUihX5IK/jGW+7+TNe62M0i0FrH3e0xdh/DdoZANXAtLcRATxVkiKu+F
+         x4Mw==
+X-Gm-Message-State: AOJu0YycxOijHi6yzCbWnNFqZMVybfr2YEkkLOIKpNsILnBS/CcNZ9WK
+	CwVlCNATBYMcopa5mzkB5qjMtuQEXQuo/DOzKmEQm9ZlxAkb8c+uHq5unTg2ddoXJ032tOFWUHE
+	=
+X-Google-Smtp-Source: AGHT+IHUh4Rh34TvvE4e+LI0ah55p+cV38rlYwp+hW8d31tGgvp+ztqWu1J0aKV+O9rGWgmxXrSFBA==
+X-Received: by 2002:a2e:9e57:0:b0:2f0:1f15:5a16 with SMTP id 38308e7fff4ca-2f2b714f489mr27958471fa.13.1723553007037;
+        Tue, 13 Aug 2024 05:43:27 -0700 (PDT)
+Message-ID: <7c4cb0ee-cddf-434a-95d9-58cec0efd976@suse.com>
+Date: Tue, 13 Aug 2024 14:43:25 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86emul: fix UB multiplications in S/G handling
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 13 Aug 2024 13:40:21 +0100
-Message-Id: <D3ESHFJW8P2L.1YUEIVC4C77KJ@cloud.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
- =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Xen-devel"
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 2/2] x86/fpu: Split fpu_setup_fpu() in two
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Jan Beulich" <jbeulich@suse.com>
-X-Mailer: aerc 0.17.0
-References: <20240808134150.29927-1-alejandro.vallejo@cloud.com>
- <20240808134150.29927-3-alejandro.vallejo@cloud.com>
- <7f001aa8-ee42-4617-8fc4-e4a45d4228e2@suse.com>
-In-Reply-To: <7f001aa8-ee42-4617-8fc4-e4a45d4228e2@suse.com>
+Content-Transfer-Encoding: 7bit
 
-On Mon Aug 12, 2024 at 4:23 PM BST, Jan Beulich wrote:
-> On 08.08.2024 15:41, Alejandro Vallejo wrote:
-> > --- a/xen/arch/x86/hvm/hvm.c
-> > +++ b/xen/arch/x86/hvm/hvm.c
-> > @@ -1164,10 +1164,25 @@ static int cf_check hvm_load_cpu_ctxt(struct do=
-main *d, hvm_domain_context_t *h)
-> >      seg.attr =3D ctxt.ldtr_arbytes;
-> >      hvm_set_segment_register(v, x86_seg_ldtr, &seg);
-> > =20
-> > -    /* Cover xsave-absent save file restoration on xsave-capable host.=
- */
-> > -    vcpu_setup_fpu(v, xsave_enabled(v) ? NULL : v->arch.xsave_area,
-> > -                   ctxt.flags & XEN_X86_FPU_INITIALISED ? ctxt.fpu_reg=
-s : NULL,
-> > -                   FCW_RESET);
-> > +    /*
-> > +     * On Xen 4.1 and later the FPU state is restored on later HVM con=
-text in
-> > +     * the migrate stream, so what we're doing here is initialising th=
-e FPU
-> > +     * state for guests from even older versions of Xen.
-> > +     *
-> > +     * In particular:
-> > +     *   1. If there's an XSAVE context later in the stream what we do=
- here for
-> > +     *      the FPU doesn't matter because it'll be overriden later.
-> > +     *   2. If there isn't and the guest didn't use extended states it=
-'s still
-> > +     *      fine because we have all the information we need here.
-> > +     *   3. If there isn't and the guest DID use extended states (coul=
-d've
-> > +     *      happened prior to Xen 4.1) then we're in a pickle because =
-we have
-> > +     *      to make up non-existing state. For this case we initialise=
- the FPU
-> > +     *      as using x87/SSE only because the rest of the state is gon=
-e.
->
-> Was this really possible to happen? Guests wouldn't have been able to
-> turn on CR4.OSXSAVE, would they?
->
-> Jan
+The conversion of the shifts to multiplications by the commits tagged
+below still wasn't quite right: The multiplications (of signed values)
+can overflow, too. As of 298556c7b5f8 ("x86emul: correct 32-bit address
+handling for AVX2 gathers") signed multiplication wasn't necessary
+anymore, though: The necessary sign-extension (if any) will happen as
+well when using intermediate variables of unsigned long types, and
+excess address bits are chopped off by truncate_ea().
 
-You may be right, but my reading of the comment and the code was that
-xsave_enabled(v) might be set and the XSAVE hvm context might be missing in=
- the
-stream. The archives didn't shed a lot more light than what the code alread=
-y
-gives away.
+Fixes: b6a907f8c83d ("x86emul: replace UB shifts")
+Fixes: 21de9680eb59 ("x86emul: replace further UB shifts")
+Oss-fuzz: 71138
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Otherwise it would've been far simpler to unconditionally pass
-v->arch.xsave_area to the second parameter and let the xsave area to be
-overriden by the follow-up HVM context with its actual state.
-
-If my understanding is wrong, I'm happy to remove (3), as I don't think it
-affects the code anyway. I thought however that it was a relevant data poin=
-t
-to leave paper trail for.
-
-Cheers,
-Alejandro
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -6369,11 +6369,11 @@ x86_emulate(
+         {
+             if ( (vex.w ? mask.qw[i] : mask.dw[i]) < 0 )
+             {
+-                signed long idx = b & 1 ? index.qw[i] : index.dw[i];
++                unsigned long idx = b & 1 ? index.qw[i] : index.dw[i];
+ 
+                 rc = ops->read(ea.mem.seg,
+                                truncate_ea(ea.mem.off +
+-                                           idx * (1 << state->sib_scale)),
++                                           (idx << state->sib_scale)),
+                                (void *)mmvalp + i * op_bytes, op_bytes, ctxt);
+                 if ( rc != X86EMUL_OKAY )
+                 {
+@@ -6489,14 +6489,14 @@ x86_emulate(
+ 
+         for ( i = 0; op_mask; ++i )
+         {
+-            long idx = b & 1 ? index.qw[i] : index.dw[i];
++            unsigned long idx = b & 1 ? index.qw[i] : index.dw[i];
+ 
+             if ( !(op_mask & (1 << i)) )
+                 continue;
+ 
+             rc = ops->read(ea.mem.seg,
+                            truncate_ea(ea.mem.off +
+-                                       idx * (1 << state->sib_scale)),
++                                       (idx << state->sib_scale)),
+                            (void *)mmvalp + i * op_bytes, op_bytes, ctxt);
+             if ( rc != X86EMUL_OKAY )
+             {
+@@ -6643,9 +6643,9 @@ x86_emulate(
+ 
+         for ( i = 0; op_mask; ++i )
+         {
+-            long idx = (b & 1 ? index.qw[i]
+-                              : index.dw[i]) * (1 << state->sib_scale);
+-            unsigned long offs = truncate_ea(ea.mem.off + idx);
++            unsigned long idx = b & 1 ? index.qw[i] : index.dw[i];
++            unsigned long offs = truncate_ea(ea.mem.off +
++                                             (idx << state->sib_scale));
+             unsigned int j, slot;
+ 
+             if ( !(op_mask & (1 << i)) )
+@@ -6663,11 +6663,10 @@ x86_emulate(
+              */
+             for ( j = (slot = i) + 1; j < n; ++j )
+             {
+-                long idx2 = (b & 1 ? index.qw[j]
+-                                   : index.dw[j]) * (1 << state->sib_scale);
+-
++                idx = b & 1 ? index.qw[j] : index.dw[j];
+                 if ( (op_mask & (1 << j)) &&
+-                     truncate_ea(ea.mem.off + idx2) == offs )
++                     truncate_ea(ea.mem.off +
++                                 (idx << state->sib_scale)) == offs )
+                     slot = j;
+             }
+ 
 
