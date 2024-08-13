@@ -2,56 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A09E9950193
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 11:51:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776092.1186245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A061C9501AD
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 11:53:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776099.1186255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdoAe-0002lW-6P; Tue, 13 Aug 2024 09:50:28 +0000
+	id 1sdoDc-0003Ji-Jq; Tue, 13 Aug 2024 09:53:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776092.1186245; Tue, 13 Aug 2024 09:50:28 +0000
+Received: by outflank-mailman (output) from mailman id 776099.1186255; Tue, 13 Aug 2024 09:53:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdoAe-0002jy-38; Tue, 13 Aug 2024 09:50:28 +0000
-Received: by outflank-mailman (input) for mailman id 776092;
- Tue, 13 Aug 2024 09:50:26 +0000
+	id 1sdoDc-0003Hl-Gy; Tue, 13 Aug 2024 09:53:32 +0000
+Received: by outflank-mailman (input) for mailman id 776099;
+ Tue, 13 Aug 2024 09:53:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nDAI=PM=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1sdoAc-0002js-4M
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 09:50:26 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20602.outbound.protection.outlook.com
- [2a01:111:f403:2416::602])
+ <SRS0=tqRM=PM=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1sdoDb-0003Hf-Ld
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 09:53:31 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7576c8ec-5959-11ef-a505-bb4a2ccca743;
- Tue, 13 Aug 2024 11:50:24 +0200 (CEST)
-Received: from LV3P220CA0020.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::7)
- by SA1PR12MB7224.namprd12.prod.outlook.com (2603:10b6:806:2bb::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.22; Tue, 13 Aug
- 2024 09:50:19 +0000
-Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
- (2603:10b6:408:234:cafe::e1) by LV3P220CA0020.outlook.office365.com
- (2603:10b6:408:234::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.22 via Frontend
- Transport; Tue, 13 Aug 2024 09:50:18 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7897.4 via Frontend Transport; Tue, 13 Aug 2024 09:50:18 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 Aug
- 2024 04:50:18 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 Aug
- 2024 04:50:18 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 13 Aug 2024 04:50:16 -0500
+ id e54339bc-5959-11ef-a505-bb4a2ccca743;
+ Tue, 13 Aug 2024 11:53:30 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a7d26c2297eso604151166b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 02:53:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,130 +40,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7576c8ec-5959-11ef-a505-bb4a2ccca743
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RPRpTPuiTvvJAKaye5HBwiSJBirSYR+gAqtkNsS76qEL+tVAwq8lS8wv4qSeri91Qxog0NEPoxM3XnvHL4Ohb7jjl2pJjPIUwUTO1ID6yhNSxhGxU+EzsThyfm/5VdgiXlIUpHuCW1wHNZYhtpX8uY21FryLoqad1O+yuoP3U8z5NdWZBKUH+jgMFtCRbifkxkC1yfNBvxQxH96oGI4PRpSdxxFK69WsY9N0Qk1kXnlTAOq3e4FF2uUntmtkwY7rzw0q6X8W1kLR5pHUYP5TUgwze1ZTcitMsKZ9R+rtA0GeJg4OIdIY7taIkKtWzGgU0t/QnrUNOFxBtSZSTp3aKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YJ/LvH3zV8PEFWrbfGmZ8AE8YfMQ1Ai3D24Nvr6WKhM=;
- b=CjrFxTd+sMrV4FHtplolOBKWw2bEQ8QQ8t8pr7vTNo4nkfa4OGgkfLLiqgj/gmMFGwGqskKx9gzQdUNFpho3HEK/KcEhdlkjTcjcrv/FhsVJRzoJTn9TbXrkjCSaFWgBypm+cUl4zHNgaF4tK7vAPvznN15rvN4luxPERoPPvKJ+gaLO4tZiSadUofnvgj5BKSs/LpIo+bKwxZPA8aRc/TR2uDlhURyJ40h/KDYtyx2WhMYKA9XhUBR0lvD8FDIIs4JDXsl+mPxThXYdng/Ap9Esq0XWJ6NNlIEsbeDzwWEaAH/bZcIxRndBmM8LC0qUeRVja8/LnBB9dYBQou2b+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YJ/LvH3zV8PEFWrbfGmZ8AE8YfMQ1Ai3D24Nvr6WKhM=;
- b=qugBoLUBNvLj7/kpgiL98l7soPnnsR+Z2VsG1Gjd4NyhhYhCes6azRCenwKKD9jFoqsjmFW59zmxxUC+IzCaoC1mEgPJy38SLjDlSgdMM+MHvr15lR6NHqi/iY+NpKmSzZUarQcWkgFvjZPxSj/zg6aPuQwwb/0jBpNrgkA3VjQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <ed6f6b1b-cab3-4369-901f-80907af8e7c2@amd.com>
-Date: Tue, 13 Aug 2024 11:50:11 +0200
+X-Inumbo-ID: e54339bc-5959-11ef-a505-bb4a2ccca743
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1723542810; x=1724147610; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SAfJZaiUMefJ2qlSYDOVvyNgZLULawJJLqsegllNfuw=;
+        b=eMcbV/0yo5aQ35Y19GFiMc8eLyDf4bjbykIhaI/8VMT3S7hJODPNAsIbkqPj8TmTMh
+         RPb21fVY14aUIDs7v/1sv5qunVUtx110oaioUtSLHHnAkEZzOFZt5Dlg71C+O7g0HWpn
+         PkH2W+0Ai78rWQVT2UHForrMjO3/uwyFazri8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723542810; x=1724147610;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=SAfJZaiUMefJ2qlSYDOVvyNgZLULawJJLqsegllNfuw=;
+        b=o/WUiIBKXA8AFlJ2A/Mje6dtgB87shueLECvMXWkeuPFZnCp31J1XzjXF1YAfxpCAQ
+         GnXemlgs9mK9OJXxLt2EQFgf4twfxWvNX1yxRD8VzS801dd3XV1r+NcHlu4/Nh9rWvtw
+         R5wKqs8bY/ckndkb3xeoch1iF23GhW0YgecGdZUrjTeCaxdt1Dv7vSaljev8mPtR9M1j
+         yLAC+to4RbIqQtjfRaNQBBLiP8gE+9FLLGVk6RS+Hy1Wmitt7gh6Aa71yMmuM7CX5LiQ
+         pI5a6/4CuQlDePoP95w84Tq4tXx512LGllEsbc/3oU/UFiyQx1YIKhUInLGJ2PcIH+Zo
+         3W6g==
+X-Gm-Message-State: AOJu0Yy/sUTCGfZI9OKldHCqE9xaHgYtubnOXHrL1Ru9ogXo1DNE6Jfx
+	/g3P/IS3ehUI5XctCiu0sezrgipBcVv4Vqt5HnujZ4651o1ufFXiZ6HOTJed9viG3lL+H4Ikb4/
+	4cILOS/yzY97HCgEG6WoKEjBH7KAm44SyXqho1w==
+X-Google-Smtp-Source: AGHT+IG6PH6g+jl+oZl842zhhqt0Vt8HkLSKibaZYD/YQlh4APjANkBl1uufn8uasHYkUdEY1hJokrbVS+t95v6IZbU=
+X-Received: by 2002:a17:907:e68d:b0:a6f:dc17:500a with SMTP id
+ a640c23a62f3a-a80ed1cef94mr212197266b.23.1723542809928; Tue, 13 Aug 2024
+ 02:53:29 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Arm: correct FIX_LAST
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>
-References: <ad60ded1-5feb-4fd9-8cf8-6dee2e153d11@suse.com>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <ad60ded1-5feb-4fd9-8cf8-6dee2e153d11@suse.com>
+References: <20240809130418.10431-1-alejandro.vallejo@cloud.com>
+In-Reply-To: <20240809130418.10431-1-alejandro.vallejo@cloud.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Tue, 13 Aug 2024 10:53:15 +0100
+Message-ID: <CACHz=Zg=CDv=rmsmYCSvQ7GbaXyXCt0vXNDoBChiOXYucE7w4w@mail.gmail.com>
+Subject: Re: [RFC PATCH] xen: Remove -Wdeclaration-after-statement
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|SA1PR12MB7224:EE_
-X-MS-Office365-Filtering-Correlation-Id: a4f5310a-0945-4647-e773-08dcbb7d5731
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?emI3TTRKOTIwb3RKQmd2d05BckpLbEV3amlJbEFzQWR2TWpEMmtHaU9VRC9U?=
- =?utf-8?B?MC8yZ0NHWFhvK1ByU3VzdFMrNFBLTUhQNW4vbEppZ3M4VkFXRFloMTZSS250?=
- =?utf-8?B?QVA1dmJsU3FBOHN1SmM1YUhGcyttZlVmcElFVnlGL3daM0RGMVcyaFd1V3Fi?=
- =?utf-8?B?WmgxOWdLd3RlQktXaE4va0JXZTdsRHFEdGV0KzVxMDlyYWpZbFVQQnRIQU1r?=
- =?utf-8?B?Tkw5UW0vU0RaWm5yTmZObnNpV2Q2VkY3eWNxOTR5a0x1bW40Zjl3dnBZOERS?=
- =?utf-8?B?dlIrYTh1emYxeUh0WWh4aGdGRTJtT3dydko4R1BBOE1LVERGYUNwK1BZRVRC?=
- =?utf-8?B?T05KdXNnRXUxRlhOWWIxcmhlYWFMZysweVJrQVNVM0tNUDd2TEtKNkdkK0N2?=
- =?utf-8?B?d2tzTmVhK3BZNzNwREZVaTI1a0FNSHpPRUNZNWdJWXp1eVg1SkJhcjh0aW1Y?=
- =?utf-8?B?YUJkMWE1Z0JsSkhkVGxJbFRXTW1DaW1tN1NKZThMczZ1T2FIcElySE9TNm5D?=
- =?utf-8?B?U285Q0FzMTJmbTZNSjFnUlRWWFdsWTlZMzVxbmVwMFFwaSsxWmk0QVZHVy9Y?=
- =?utf-8?B?K1YrQWp4MkZDOFp6cWxINFVvWUJzbEIyKzBUZUNaeXlWL041YzNuR3dRY0pt?=
- =?utf-8?B?WnFSdllpZ0w0WHp5MjN6QkdyRWRFektjTHlGQkI4MTI3cTJPd29nSzBBSGlx?=
- =?utf-8?B?cWlMZno5RUhKZWhzZFkwL09TN0plRkZuUmxsbUxTZTdwVjV2WkRybkp0VEJt?=
- =?utf-8?B?aVYxSTVNZXhUSjFTYng2RG9DWmFBLy9kU3pCSFpOMTVubXJTSnZIdkJwMUJT?=
- =?utf-8?B?Mk5YSVBoWDZTNmlRbjMzandoOFBCdTk3YXdJZ3VtYXJPMmhLTlJaRU9ZK01a?=
- =?utf-8?B?dEd0eVpWZzArVWY3UWt5Qy9XUFhiYmZkWXV6NFBCNzZwaXRVRGQreDcwWU40?=
- =?utf-8?B?cGRMMzUxSUtGVFVoYmhRMC9kZHgvaHZWcktycVdhZWFncXlXdnBIbTdoQ0I4?=
- =?utf-8?B?enpqNjY3QmhpamxMT1FBNi96VzZKdksvdWo1V2ZJVWthL3RVeWplWUI4NUxi?=
- =?utf-8?B?VlllVkhtbjFnODNCZW1xNVdqRWhKTXhySC9jbzM5bUljTDdaQm1NM1FGbW9w?=
- =?utf-8?B?QmVaUjdrK2tHdzB3dzM2WkN6bkVPNjc4SnRadWo2djI0OVZ3VGQrSVVwek5h?=
- =?utf-8?B?WElRQjJCb1BtV21DNWVvS21pOGpEUnQzUC9JL3VTS0lMTXVLeXZNdFU1YVJL?=
- =?utf-8?B?dmkyOGUxK3FySjlKVVprVmpCM292ZkVkQitaNlc4OVFIL1M0b0ZWcmVCUHgz?=
- =?utf-8?B?ampTNFNBUjYxM2hQSWxJTDEwRDhpbEJpK2RRRS94NzJDOGxDcDhjNE5FMGJD?=
- =?utf-8?B?bExGdjFQSnpwVnAzVXU0WVprb1JLTEp6RTNma1lVZW1zb1lJVXl1QU16MWts?=
- =?utf-8?B?bGlDVjkrR0JGMkdKbVFEQjN6SGFRazFqcnNmdXJpcjg2bTdtL0pGYWNNbVBl?=
- =?utf-8?B?K01KTzNsbFFLOGRVamt4R2grcjB4T2Y1eDVuSGhERjVFZGN1aHYvUzVucTdI?=
- =?utf-8?B?OEVsWFpib2xBQ0xVREFOMTd3Z3A5Z1hEMFQwN01kTFR6K2h3RnByZ1VBT0xj?=
- =?utf-8?B?cS9wbkt2QmxWNnJkT2ZsYUx2UXJKcjB1NCtFMnpEMlFjVzEreHJKUXVvU0dl?=
- =?utf-8?B?TDVHSEw4TUYvNDhXWWd5MCtjZHIwR3BhdlZKSjIxYkhuSkk0MmRJN2dOVTFM?=
- =?utf-8?B?TTZ5dm9IeXVyeVJFbUp3T0ZrQ3FTemZwZXRlR0x0bVNOZ0Z5QWQzcC9ub2h5?=
- =?utf-8?B?aXN1NVRNQlg2YXRYQ2FyZUx1bC8zSUNCbjRqQS85WGlGZGRBOFJOR2ZnNitL?=
- =?utf-8?B?Tm5nenJNK3pvTmc4Lys0ZnBEMEhmdGtMWitkcmlBT1B5SHE3azBkS3lyL01m?=
- =?utf-8?Q?nwjfNRV6rh4UWWN2ej8fZMGsjQqTwipT?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2024 09:50:18.7337
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4f5310a-0945-4647-e773-08dcbb7d5731
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B06C.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7224
+Content-Transfer-Encoding: quoted-printable
 
-
-
-On 13/08/2024 10:36, Jan Beulich wrote:
-> 
-> 
-> While reviewing a RISC-V patch cloning the Arm code, I noticed an
-> off-by-1 here: FIX_PMAP_{BEGIN,END} being an inclusive range, FIX_LAST
-> cannot be the same as FIX_PMAP_END, or else the BUG_ON() in
-> virt_to_fix() would trigger if FIX_PMAP_END ended up being used.
-> 
-> Fixes: 4f17357b52f6 ("xen/arm: add Persistent Map (PMAP) infrastructure")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Fri, Aug 9, 2024 at 2:04=E2=80=AFPM Alejandro Vallejo
+<alejandro.vallejo@cloud.com> wrote:
+>
+> This warning only makes sense when developing using a compiler with C99
+> support on a codebase meant to be built with C89 compilers too, and
+> that's no longer the case (nor should it be, as it's been 25 years since
+> C99 came out already).
+>
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 > ---
-> Alternatively the definition of FIXADDR_TOP could be changed, if "last"
-> should retain its strict meaning. Possibly a guard page also wants
-> having at the end of the fixmap range, which could be effected by
-> changing both #define-s at the same time.
-I understand FIX_LAST as the last slot used, so in this regard it should retain its definition.
-That said, I realized that we don't even check that the highest slot is still within the max number
-of fixmap slots (today we have 512 slots). IMO we should gain a BUILD_BUG_ON to catch it.
+> Yes, I'm opening this can of worms. I'd like to hear others people's
+> thoughts on this and whether this is something MISRA has views on. If
+> there's an ulterior non-obvious reason besides stylistic preference I
+> think it should be documented somewhere, but I haven't seen such an
+> explanation.
+>
+> IMO, the presence of this warning causes several undesirable effects:
+>
+>   1. Small functions are hampered by the preclusion of check+declare
+>      patterns that improve readability via concision. e.g: Consider a
+>      silly example like:
+>
+>      /* with warning */                     /* without warning */
+>      void foo(uint8_t *p)                   void foo(uint8_t *p)
+>      {                                      {
+>          uint8_t  tmp1;                         if ( !p )
+>          uint16_t tmp2;                             return;
+>          uint32_t tmp3;
+>                                                 uint8_t  tmp1 =3D OFFSET1=
+ + *p;
+>          if ( !p )                              uint16_t tmp2 =3D OFFSET2=
+ + *p;
+>              return;                            uint32_t tmp3 =3D OFFSET3=
+ + *p;
+>
+>          tmp1 =3D OFFSET1 + *p;                   /* Lots of uses of `tmp=
+X` */
+>          tmp2 =3D OFFSET2 + *p;               }
+>          tmp2 =3D OFFSET2 + *p;
+>
+>          /* Lots of uses of tmpX */
+>      }
+>
+>   2. Promotes scope-creep. On small functions it doesn't matter much,
+>      but on bigger ones to prevent declaring halfway through the body
+>      needlessly increases variable scope to the full scope in which they
+>      are defined rather than the subscope of point-of-declaration to
+>      end-of-current-scope. In cases in which they can be trivially
+>      defined at that point, it also means they can be trivially misused
+>      before they are meant to. i.e: On the example in (1) assume the
+>      conditional in "with warning" is actually a large switch statement.
+>
+>   3. It facilitates a disconnect between time-of-declaration and
+>      time-of-use that lead very easily to "use-before-init" bugs.
+>      While a modern compiler can alleviate the most egregious cases of
+>      this, there's cases it simply cannot cover. A conditional
+>      initialization on anything with external linkage combined with a
+>      conditional use on something else with external linkage will squash
+>      the warning of using an uninitialised variable. Things are worse
+>      where the variable in question is preinitialised to something
+>      credible (e.g: a pointer to NULL), as then that can be misused
+>      between its declaration and its original point of intended use.
+>
+> So... thoughts? yay or nay?
 
-With:
-#define FIXADDR_TOP FIXMAP_ADDR(FIX_LAST + 1)
-and sth like:
-BUILD_BUG_ON(FIXADDR_TOP >= BOOT_FDT_VIRT_START);
-possibly in build_assertions() in setup.c, we would:
- - fix off-by-1 issue
- - catch out-of-slot issue
- - gain a guard page
+Hi,
+   I personally agree with this change. Even compiler is stating that
+this is just C89 compatibility.
+Yes, it's question of style and surely having all declaration at the
+beginning reduce the options however there are technical reason why
+having mixed declarations can help
+- you can use "const" to tell compiler (and code editor) that
+something should not be changed;
+- in many cases reduces commit changes;
 
-~Michal
+> ---
+>  xen/Makefile | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/xen/Makefile b/xen/Makefile
+> index 2e1a925c8417..288b7ac8bb2d 100644
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -394,7 +394,7 @@ CFLAGS-$(CONFIG_CC_SPLIT_SECTIONS) +=3D -ffunction-se=
+ctions -fdata-sections
+>
+>  CFLAGS +=3D -nostdinc -fno-builtin -fno-common
+>  CFLAGS +=3D -Werror -Wredundant-decls -Wwrite-strings -Wno-pointer-arith
+> -CFLAGS +=3D -Wdeclaration-after-statement -Wuninitialized
+> +CFLAGS +=3D -Wuninitialized
+>  $(call cc-option-add,CFLAGS,CC,-Wvla)
+>  $(call cc-option-add,CFLAGS,CC,-Wflex-array-member-not-at-end)
+>  $(call cc-option-add,CFLAGS,CC,-Winit-self)
+
+Frediano
 
