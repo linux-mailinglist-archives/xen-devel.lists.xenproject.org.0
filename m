@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91BDA94FE93
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 09:21:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776003.1186156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8980394FED0
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 09:32:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776013.1186166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdlpV-0007ev-22; Tue, 13 Aug 2024 07:20:29 +0000
+	id 1sdm0M-0001RP-Vk; Tue, 13 Aug 2024 07:31:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776003.1186156; Tue, 13 Aug 2024 07:20:29 +0000
+Received: by outflank-mailman (output) from mailman id 776013.1186166; Tue, 13 Aug 2024 07:31:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdlpU-0007bl-VI; Tue, 13 Aug 2024 07:20:28 +0000
-Received: by outflank-mailman (input) for mailman id 776003;
- Tue, 13 Aug 2024 07:20:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sdm0M-0001OF-Si; Tue, 13 Aug 2024 07:31:42 +0000
+Received: by outflank-mailman (input) for mailman id 776013;
+ Tue, 13 Aug 2024 07:31:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Wdkt=PM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sdlpU-0007bf-5q
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 07:20:28 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 82f3ef34-5944-11ef-8776-851b0ebba9a2;
- Tue, 13 Aug 2024 09:20:26 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-52efbb55d24so9022968e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 00:20:26 -0700 (PDT)
+ id 1sdm0L-0001O6-AB
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 07:31:41 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 14888071-5946-11ef-a505-bb4a2ccca743;
+ Tue, 13 Aug 2024 09:31:40 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2ef248ab2aeso80458161fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 00:31:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80f3fb0692sm44737766b.76.2024.08.13.00.20.24
+ a640c23a62f3a-a80f3fa7093sm46118766b.63.2024.08.13.00.31.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Aug 2024 00:20:24 -0700 (PDT)
+ Tue, 13 Aug 2024 00:31:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82f3ef34-5944-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 14888071-5946-11ef-a505-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723533625; x=1724138425; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723534299; x=1724139099; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZvjhYcFx2EC+2Kc5gul4JEuzdc6rcRyxzA6o+cUaad8=;
-        b=TjNhFY1SEt3iyQsW6/+R+vKGr3sw0h2LruzR5CKTZi/F2CmuX0znkpuB3/raQ9OTTF
-         /rRDQTpQBpt9Cqy3pjPTrCbX2+MQghSIsKr5UO+S5/lukqL89i7pDpr5ysqBgR7gFtDo
-         tR+tY1bIN24z8LW2NEd14uNuTpNN4W6babgwnYEb9NAsD9J/nqrbJ0YV+n0azxXFZj+3
-         AYl1LitO/XpY2ShCpMMpxf1N7Zc9LNYNu5de8d9z2GiX17NJdWvOaIn/0lBgf4YrRNYa
-         n2FI3gK5R1GOVIYeNCH6ruBp6SnLnJ+O/yIj07kwNJgpGlXEcLD7/89144cwbrWl7T+w
-         FMzQ==
+        bh=6sGnAI8AGsF2NkuD50HKhnOzbAnW4OkzrQb2qfJ7fSc=;
+        b=gZ2TpSranIcM/bStLmw+KeGVOQ5QdiDUWfeJ6dzHkxjfUg7kopO5QrvTwpIFqbEZ+P
+         aI5b6xmkFe3nbo0QUr8UkNwkDjHfEuA4TEMPgxY+vMKIdh/m0+RtBK10tgF56vH1jX1j
+         +pp8fMLaWmnO/gKAXLdDLE3wBUrMkUyCuprAHCvOugGie6A+aIGrUiHikYRppQK7KqGe
+         m0HjhOhQHG+veCkia7N3AS2tvd750DYEE2FlPoidUbrhQ0ZmLifN5Q6hiK6jTAQ9TI5w
+         BzR65tuub7/Jyssu3j77QKYWo6syravr/aXIATFS+mkg9SjMMAe/I4KAkN/jpL97dwJt
+         A4xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723533625; x=1724138425;
+        d=1e100.net; s=20230601; t=1723534299; x=1724139099;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZvjhYcFx2EC+2Kc5gul4JEuzdc6rcRyxzA6o+cUaad8=;
-        b=fMAJCaUWzKRb9mQYYFkEMYOQ9K5aFqdUlOamvglAKeX0dpCOCIMA1zBE7lasEF5Go1
-         BPk+V63tXoyT1cJU3ZdM73czkGaaY/NXQAKYWv/B8Ok5gG64E2P2noDcsV2aFIfD86KU
-         vQq3uJG1bv5oSFuRjXv1i8I5K4jN0mtVl/0xVwq4WLGb518UVm3esM4/MpowoqhywUSR
-         NriKlFkeTt0yBpt6RfWQKB3wViFU9WxQf3oCKEHXH+pip+fRnf1Onz/xGIjborsoVtKk
-         epJr59EIoZMLeJlJfkzQe0RkebdLQO2Ha7zXKLsBufedE85t1P9NxT/VEE6npSF6U8Ro
-         6j5A==
-X-Forwarded-Encrypted: i=1; AJvYcCUJJizphboKUtcuyfEnhHcpiLUmq5mnxHN70wrCt+rz9dqtxRl75MIAPE3dtxtmhCb8KHLRqfG2SrcmDkTBE8+JMKqJd1XuNIYvrD7JSzc=
-X-Gm-Message-State: AOJu0YxJmlYVuOAqjntX85Sc29IuzGTCGXLEYTZPD2ypBYQDSORPwdaP
-	BIg4sVlUEotyk5LxuYP/zgjdjMAXJXMq9GU2vKBrBWLDvCvjMK1V01hfsYORtw==
-X-Google-Smtp-Source: AGHT+IFGZ2kT+65QVQSLPNYWh342bovHTyn7P+R+YGqoXEpgSnn48jjsdgR4jstmxYKpxz/fS0PNIQ==
-X-Received: by 2002:a05:6512:687:b0:52e:716a:1898 with SMTP id 2adb3069b0e04-5321369aaf5mr2053975e87.58.1723533625310;
-        Tue, 13 Aug 2024 00:20:25 -0700 (PDT)
-Message-ID: <771870c8-375c-41be-91fd-998dad4befb5@suse.com>
-Date: Tue, 13 Aug 2024 09:20:24 +0200
+        bh=6sGnAI8AGsF2NkuD50HKhnOzbAnW4OkzrQb2qfJ7fSc=;
+        b=fMPlYkfvP1xW6jMxYT4CkV/UjEW4RxK7ZFrjv6XHIXnfnDBEysvcN+jJppusCyUZ6h
+         HAHwDUgZM1xIBDpytCX8Wfht+gQfdleYa9HbwiYcYPk2l1yX1kb7zSOyT1MS1U8gsJmn
+         Sqk520AyNmMMq0iaAW95uGywLzcFK2HQSjlsos6v9i5RKCPyQZElcvj8+2Qbu+biuYSz
+         pTxJsyPJM5pDM8HzsRhbS6JXXa1GJWJe4SYflz1wzCA+8x+PDHrosCcLYdk7J9BTs2l0
+         2CT7kIK8djpbn+gxsqMZ+cyxyii1pgh5zdwJhKYelL8uGI+9FjRJka9MH5xwDV+ms9GB
+         vtcw==
+X-Forwarded-Encrypted: i=1; AJvYcCUneMHjp8ABiuo9zppBpCp/3PEKerB+unZ2Kr+vf9YGKlEKWMuXrt/BK+QerEHwbOezbf2zEj3PP9LcraJwt/oMNxcIMA1VAsSHYmHTnbY=
+X-Gm-Message-State: AOJu0YymxZMG0KMu01bbfNStyMQUH0e0AT8GH2qmyDniCpVpu+2ooutU
+	jNy1Cy5CeAi2KY8YDezEz53hy4UlwTWNBk1eCx1eKQPjZZpd2XnOGgeXKRPAXg==
+X-Google-Smtp-Source: AGHT+IEI18awnUhq0TsLY3XBRWpvGinAFr5d11Gff+gPY1DAgM7ryR7PRl0JL/jMmvyv59G+TkajxQ==
+X-Received: by 2002:a2e:3216:0:b0:2f2:9df8:e64e with SMTP id 38308e7fff4ca-2f2b714e6aamr20541241fa.11.1723534299153;
+        Tue, 13 Aug 2024 00:31:39 -0700 (PDT)
+Message-ID: <952701cd-83d8-4c1f-9f38-ee63ba582d66@suse.com>
+Date: Tue, 13 Aug 2024 09:31:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v6 1/3] x86/vmx: guard access to cpu_has_vmx_* in
- common code
+Subject: Re: [XEN PATCH v6 2/3] ioreq: do not build
+ arch_vcpu_ioreq_completion() for non-VMX configurations
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
 References: <cover.1723110344.git.Sergiy_Kibrik@epam.com>
- <6486b627fd3bdcca3ad877ed6c97ca5cbc51d8e3.1723110344.git.Sergiy_Kibrik@epam.com>
+ <04e5397ecfcdb4d5680c7d36f71c4b471004ccd0.1723110344.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,46 +120,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6486b627fd3bdcca3ad877ed6c97ca5cbc51d8e3.1723110344.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <04e5397ecfcdb4d5680c7d36f71c4b471004ccd0.1723110344.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.08.2024 12:08, Sergiy Kibrik wrote:
-> There're several places in common code, outside of arch/x86/hvm/vmx,
-> where cpu_has_vmx_* get accessed without checking whether VMX supported first.
-> These macros rely on global variables defined in vmx code, so when VMX support
-> is disabled accesses to these variables turn into build failures.
+On 08.08.2024 12:10, Sergiy Kibrik wrote:
+> From: Xenia Ragiadakou <burzalodowa@gmail.com>
 > 
-> To overcome these failures, build-time check is done before accessing global
-> variables, so that DCE would remove these variables.
+> VIO_realmode_completion is specific to vmx realmode and thus the function
+> arch_vcpu_ioreq_completion() has actual handling work only in VMX-enabled build,
+> as for the rest x86 and ARM build configurations it is basically a stub.
 > 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> Acked-by: Paul Durrant <paul@xen.org>
+> Here a separate configuration option ARCH_IOREQ_COMPLETION introduced that tells
 
-I can accept this is being kind of complete, so
-Acked-by: Jan Beulich <jbeulich@suse.com>
-Howver, ...
+Nit: The rename of the option wants to be reflected here, too.
 
-> ---
-> changes in v6:
->  - guard all of cpu_has_vmx_* macros
-
-... this clearly isn't the case. For one ...
-> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-> @@ -298,69 +298,99 @@ extern u64 vmx_ept_vpid_cap;
->  #define VMX_TSC_MULTIPLIER_MAX                  0xffffffffffffffffULL
+> --- a/xen/Kconfig
+> +++ b/xen/Kconfig
+> @@ -95,4 +95,10 @@ config LTO
+>  config ARCH_SUPPORTS_INT128
+>  	bool
 >  
->  #define cpu_has_wbinvd_exiting \
-> -    (vmx_secondary_exec_control & SECONDARY_EXEC_WBINVD_EXITING)
-> +    (IS_ENABLED(CONFIG_INTEL_VMX) && \
-> +     vmx_secondary_exec_control & SECONDARY_EXEC_WBINVD_EXITING)
+> +#
+> +# For platforms that require specific handling of ioreq completion events
+> +#
+> +config ARCH_VCPU_IOREQ_COMPLETION
+> +	bool
 
-... a few lines up from here there is cpu_has_vmx_virt_spec_ctrl. And
-there are quite a few more in vmx.h (don't ask me why things are split
-like this). Yet on the grounds that at least this one block of code
-now is consistent, I think we can leave further adjustments to possible
-later commits.
+If already you add a comment here, then it similarly wants to disambiguate
+things by saying "per-vCPU ioreq completion events" or something along these
+lines.
+
+> --- a/xen/include/xen/ioreq.h
+> +++ b/xen/include/xen/ioreq.h
+> @@ -111,7 +111,17 @@ void ioreq_domain_init(struct domain *d);
+>  int ioreq_server_dm_op(struct xen_dm_op *op, struct domain *d, bool *const_op);
+>  
+>  bool arch_ioreq_complete_mmio(void);
+> +
+> +#ifdef CONFIG_VCPU_ARCH_IOREQ_COMPLETION
+>  bool arch_vcpu_ioreq_completion(enum vio_completion completion);
+> +#else
+> +static inline bool arch_vcpu_ioreq_completion(enum vio_completion completion)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +    return true;
+> +}
+
+My prior comment here remains: Despite pre-existing behavior being to return
+"true" here, I question that to be in line with coding-best-practices.pandoc.
+Imo the generalization of the stub is a good opportunity to adjust that. But
+yes, it could also be done in a separate change. If you really don't want to
+do so right here, then
+Acked-by: Jan Beulich <jbeulich@suse.com>
+with the two cosmetic adjustments (which likely could also be done while
+committing).
 
 Jan
 
