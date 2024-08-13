@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA0B950B47
+	by mail.lfdr.de (Postfix) with ESMTPS id DE1DC950B45
 	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 19:14:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776485.1186650 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.776486.1186661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdv69-0007ct-R0; Tue, 13 Aug 2024 17:14:17 +0000
+	id 1sdv6C-0007tN-3N; Tue, 13 Aug 2024 17:14:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776485.1186650; Tue, 13 Aug 2024 17:14:17 +0000
+Received: by outflank-mailman (output) from mailman id 776486.1186661; Tue, 13 Aug 2024 17:14:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdv69-0007ad-Nw; Tue, 13 Aug 2024 17:14:17 +0000
-Received: by outflank-mailman (input) for mailman id 776485;
- Tue, 13 Aug 2024 17:14:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sdv6B-0007qw-V3; Tue, 13 Aug 2024 17:14:19 +0000
+Received: by outflank-mailman (input) for mailman id 776486;
+ Tue, 13 Aug 2024 17:14:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Rcsl=PM=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1sdv67-0007Zn-QD
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 17:14:15 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060c.outbound.protection.outlook.com
- [2a01:111:f403:2418::60c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75cc493a-5997-11ef-8776-851b0ebba9a2;
- Tue, 13 Aug 2024 19:14:13 +0200 (CEST)
-Received: from BN0PR04CA0074.namprd04.prod.outlook.com (2603:10b6:408:ea::19)
- by SA1PR12MB8988.namprd12.prod.outlook.com (2603:10b6:806:38e::22)
+ id 1sdv6A-0007JM-7z
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 17:14:18 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2061e.outbound.protection.outlook.com
+ [2a01:111:f403:2412::61e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 77edf91e-5997-11ef-a505-bb4a2ccca743;
+ Tue, 13 Aug 2024 19:14:17 +0200 (CEST)
+Received: from CH0PR03CA0057.namprd03.prod.outlook.com (2603:10b6:610:b3::32)
+ by SN7PR12MB6791.namprd12.prod.outlook.com (2603:10b6:806:268::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.22; Tue, 13 Aug
- 2024 17:14:08 +0000
-Received: from MN1PEPF0000ECDA.namprd02.prod.outlook.com
- (2603:10b6:408:ea:cafe::3e) by BN0PR04CA0074.outlook.office365.com
- (2603:10b6:408:ea::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.22 via Frontend
- Transport; Tue, 13 Aug 2024 17:14:07 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MN1PEPF0000ECDA.mail.protection.outlook.com (10.167.242.134) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.20; Tue, 13 Aug
+ 2024 17:14:10 +0000
+Received: from CH1PEPF0000AD80.namprd04.prod.outlook.com
+ (2603:10b6:610:b3:cafe::10) by CH0PR03CA0057.outlook.office365.com
+ (2603:10b6:610:b3::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.33 via Frontend
+ Transport; Tue, 13 Aug 2024 17:14:10 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD80.mail.protection.outlook.com (10.167.244.90) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Tue, 13 Aug 2024 17:14:07 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7849.8 via Frontend Transport; Tue, 13 Aug 2024 17:14:10 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 Aug
- 2024 12:14:05 -0500
+ 2024 12:14:09 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 Aug
+ 2024 12:14:09 -0500
 Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Tue, 13 Aug 2024 12:14:04 -0500
+ Frontend Transport; Tue, 13 Aug 2024 12:14:07 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,185 +63,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75cc493a-5997-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 77edf91e-5997-11ef-a505-bb4a2ccca743
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TnB88TVG1wAJSbR3kgkN+4E6krQLOT5mgZ+ZNXukmgfyFe1ncuFA0JpvQg8ANUsckJO8o2i+Lh72MVDe9YXT1AnZ9lRQ7tpONzdrqtwFMYeMf0EYjVZafdsyUUSGDRFXONdfUiROMQ76UqcrBmbH7Deb3ve1l7xJlRwXH4hhEfYrI9W2vHGE9lDGvDE1eA+2OPnn9fitT2s4E578kvrWpyj9UkKIcpIHCizGZ040z85bHZ8kXHHdKqlfGC867qxGihuMili1iouyHdqSTDWWf4cTDtztfyH/xvd7GvkiefTlWlF++yaNuGgRwRF4/l7YlrjOCpPOf5/V3dTIrOh36A==
+ b=YCAyRdf3T9u/L9pQSSavjL4LC8u0F1E/Lt57eyCzxN09hL6ssS0Ls8kH9SCB3ruwyAifSJpIsN8bJw+OlhWQn8UZDM/iSw8qVCBV49FUoKyw+uxl0pxzeYy6LW4yLjc1PkAdIUU3LR+nkXYMeCpYhQ0EI3bDTr0akgH9EdSfckGo+V1+ayoQbGkVpQBKz4sD2cVtXJRF+eKigC1CLD7KQiO4OZyHAIv1YwOj1p8MB237oLcT0cIOAhsuHYDScUTVO/7ZutkOAnDTc/Xvni/NBJg3t+1VrgcgbWu3eDM3RiuQGq5H98Mr+XWH7kMFOtrHUquQd2rEmoas4Aof1g6NXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GExeTyZpqmeGMzyUHWrGW/i414l2COxtQTsLu5JBV2E=;
- b=ocntKJiLjyUr+JnSd5hqJgkbrrsDTJ7qNIOAGmx3RErVrhu2CVAb0VM96+zIzducStVuYi94S4Rgk/zSZoG7MBa4xVAU3s7M/v8JyrlD6GaRrkgzEnNCcQc2CgwkjTO7XdheQdUQ923kWCfFaSQVqo7dbL/5ZlvjGYpumoZXodiDy/LU+cpFyVJ0enBHbQ9GZx0ER78IsZnfEnNRVWObZVoT69FN3i4nAJ5Dyxa4BiyJuhHq1CK9jvphOwbh1oVU0e+BCAuXs01bkx7zmF0RK5uA8oLvrIN8no5tqfU3Hvxa+38qH+AhzbESNJwyMttJ4hfNEW+5Zi1OdnxENF4oGg==
+ bh=5t/nB18k33JmikWIsTZUH9Fi3nu8O21bDaKGSgVj5HY=;
+ b=W9u3LWuc1P2cqNLvApvRgU87/HsFAJOvNkl8a6zCAciISLZYkvWC+mr8gLDRAGXPEM/UEFnf3QD5jnjdxDAZpvl/vXQ4BIG6C8ELIZ/oKTS5rPcIrxoCFxuFTGDcxoyI54TI6ULGsybviILfEF+1X1tZUP688sSBsU68UxSh4XyBgxaSQg9yGbRECovabm1VasAdVliweORSEbb3wBRg4pNgr+tVC7gS91JSiCV/Boyqcy2JV9PNhxqselKnJ+PG5mHmNlID0oRNMejLsQJcOIdDvKzV8xaMTyDHsA3zwROC/RSxNwYFkcBxz6jnNfqq8wayNTKt2J0gO9KESxZVeg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GExeTyZpqmeGMzyUHWrGW/i414l2COxtQTsLu5JBV2E=;
- b=Fz+zX/gh6RJHOdXYA7B1u4WTJYP8CTiGTvBVZ4yhtAJDf0KyHp2G6/bBRCx47rOWEYC+9B3gVFOoQszra4ty3IsDfFPENosaDFG5IDD+am362b2Qo8QqvcmbW6fgY5+VK6RvQPwmy3Atq73XZymE68WKXrZ+WpuRNxdxVYlLrhs=
+ bh=5t/nB18k33JmikWIsTZUH9Fi3nu8O21bDaKGSgVj5HY=;
+ b=LlLAA4L29tPB1d3hoELRaLuLwJQxhNOIFQ0PR0LzYBqU7OHFLKF5VER2NY+aRqKfTRl5GLv/rdfJLZ1H9LvRqAKm6orClvRPliayN+/VNcs1QwGBoNN2tJ33OvzQc9918+BKRR/j6Ily3rhpxgpPAyV5Z3VsJyFbt3U/ptOt59w=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 To: <sstabellini@kernel.org>, <bertrand.marquis@arm.com>,
 	<michal.orzel@amd.com>, <ayan.kumar.halder@amd.com>,
 	<Volodymyr_Babchuk@epam.com>, <julien@xen.org>, <jbeulich@suse.com>
-CC: <xen-devel@lists.xenproject.org>
-Subject: [PATCH v3 1/4] xen: arm: Add a new helper update_boot_mapping()
-Date: Tue, 13 Aug 2024 18:13:53 +0100
-Message-ID: <20240813171356.46760-2-ayan.kumar.halder@amd.com>
+CC: <xen-devel@lists.xenproject.org>, Penny Zheng <penny.zheng@arm.com>, "Wei
+ Chen" <wei.chen@arm.com>
+Subject: [PATCH v3 2/4] xen: make VMAP only support in MMU system
+Date: Tue, 13 Aug 2024 18:13:54 +0100
+Message-ID: <20240813171356.46760-3-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240813171356.46760-1-ayan.kumar.halder@amd.com>
 References: <20240813171356.46760-1-ayan.kumar.halder@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: ayan.kumar.halder@amd.com does not
+Received-SPF: None (SATLEXMB05.amd.com: ayan.kumar.halder@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDA:EE_|SA1PR12MB8988:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4587ca2-d72a-4139-0076-08dcbbbb5733
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD80:EE_|SN7PR12MB6791:EE_
+X-MS-Office365-Filtering-Correlation-Id: 554ff9d2-33f5-4a54-ccdb-08dcbbbb58d6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?fbNwL5IKGHiu8quXXxlV3ux/ZxBEMDn9R6OMNo+eJpj2X3ynvn/zHENB/Yc0?=
- =?us-ascii?Q?ltL8eYuAlgT3x5oVA/suqgCVGKQmBL+ml5qOrOmQOn8wd6FmU/kVuqPofb0+?=
- =?us-ascii?Q?ikjZSPzvpI8HFlf5iNAGonbOgWwYLSPsdqh2l82B4Fp4NvfSG6NXEl7NreST?=
- =?us-ascii?Q?o+ItZEvGBQquKPEBEmhZRLpTdO0OYYaVZZVch77ncfhpkc0xZYktwGLSAsyH?=
- =?us-ascii?Q?FORgjyHVTCDWccWM6py4Bv0296R6S8jWoBjz9JUoCgD17I3r//EWJCGVkXbU?=
- =?us-ascii?Q?e98ZeKVGCLnEzLRwL14g3nFtfhhzQoErnDvqZFHQNosJ2GMIPlUBdR+r7G35?=
- =?us-ascii?Q?/K+GiMH2T4QxIpGs2Vbu3/9fAvB1xjiy9oXQhynwfYP4WkhEiMg6qvuOgQRJ?=
- =?us-ascii?Q?z4swakWNBbEKUdGxHM/Tp5ujsa9HKaWgXiiX/7jbpgL8TQ6Zf8eCtc3uGjHl?=
- =?us-ascii?Q?nH0Sf6EXtDhMXRGHlULgoYJ8Nbn9gM5aB/F30kzvRHUB9V6aUtzrT8+bG7Tq?=
- =?us-ascii?Q?oeuRqJfsCuSAH5jV7YRZZCdO6Nnvk5m1pjTkPeSxPvFBN6EMjZbD3weJoJyy?=
- =?us-ascii?Q?oq5rCM97ryv0gLzTX6R5PxCrffruu6ELGINapAIf+Vc6Zv1/ak2NSrrh+QPI?=
- =?us-ascii?Q?wsJlVNc1jr8DdC6AgSkoqGEtUziqNUCLijkU3l0sjOJ/usNhLrZSABdt7hSZ?=
- =?us-ascii?Q?xYRNy+HPZE1jC9sPZ9wLR5ikEDJkpR1qKvC96Gk6PEFLODHvWSnOt0l6I0K3?=
- =?us-ascii?Q?76x+Ww/pvLvuXqXmFZK9bDc5Pixuz8XzjLguJfJqRcO9R0GjsyjJPzqxyfVh?=
- =?us-ascii?Q?F6VMPfi7Pwluhqkiu4pSEgKxmM3fmUUSO6kTmAvNBdPafbinjItAtm+DrAcA?=
- =?us-ascii?Q?E0ENP9/G6XiZvRF84JvQQQX2N3uKd7SSwa4hI/VPMcJ1Dl2eArof3S8Gcigl?=
- =?us-ascii?Q?DfEgJdsSbIv/PvgIy0s7U03dW5DMAG0mDHzoyi80bdnxNB1m3tLNBLylquZi?=
- =?us-ascii?Q?JUPpHGnL+s+l8hW/WJfqO1vf+jljUAGzjWxNQeMfTVmdd930JBSIWNh1NNDz?=
- =?us-ascii?Q?OfVXE7EAlHYdNZKigeLOluw9H6kYSljVAjZmuScwhAIcEC6fCyxoR2fVSIzx?=
- =?us-ascii?Q?8ZVVUy84/0LPTJyRoUxfmEmXfiqkhqI0BWoGOLepyBldlaJxYig87H8ShZb8?=
- =?us-ascii?Q?ATy2fEyqmAp8Ea9o0pFjyAnlr4nUvEz4Zr2JAElOoasyFoQxPrNjSrSGyQgD?=
- =?us-ascii?Q?CFKlk9Pj+fbaNDs9Q40T+bj6VBwgahHPF/a/sZ+HT8tBw9BRfALb/HZqtt6c?=
- =?us-ascii?Q?i8TcKGS+i9hAKtXIKG9LKiICo0v3adh2hwdhgvQcIjWdW650SuEMluGagU6U?=
- =?us-ascii?Q?RVq6vwWyHCjTK45/+QgcnyqhKad6sLa9bxYgipr83p0UWjjdmg=3D=3D?=
+	=?us-ascii?Q?aLcuU0YyPYlq67p48ejlMr/PmVKoXUeEu/ME9g00DeNX8PE9AkPD40vewb6f?=
+ =?us-ascii?Q?KVfI0KUf4QziX5f5imAZk6b9Pzpv1SLdMNSOGojlrHkn+/IbVXCanAJoEdQI?=
+ =?us-ascii?Q?sLrFX3yUScL1X+wFWPnKugMpBLIGG9rstLttLlgIvtpZ39aYqoqGXAxRGDZs?=
+ =?us-ascii?Q?jK6GHAUyWgH00n8vcD2dPUAmkHTSXwp6mDapvMhNxV6zXo8mfy1mWHVYmbfg?=
+ =?us-ascii?Q?1aFZGwSgUyl98Zk4JUsHdrN7iiT0AhThqdFNcXPtcD3rynGR2eOt1S9kMw9W?=
+ =?us-ascii?Q?7/q1SeRx1ZZW9UxLYgFwyr79JfsS9LirAuEurAA7nBFZJ+zHIp3uz22mR2UO?=
+ =?us-ascii?Q?103dWrt8wB17YdNOeBK9yhjAUUVCW2uX+UIMLWa7D/74xM7sJ8DS/xzW/jnG?=
+ =?us-ascii?Q?yJZoOF0anqZVCZj9ccOLmWWJp0HiA9J1Xpc07ZwTgrqmFNfoGBw7TiyrfCdY?=
+ =?us-ascii?Q?kNq0wYls12yleWek8OUzMF//OTZI0fEog5zUXNwU60dArKUeOEOEbr4GsO2S?=
+ =?us-ascii?Q?Vo370TQZzTPaHsGTBo1SzBdhtBhTuFXYdSlVOcNEW/RwtGd6yef5sGI4n+pe?=
+ =?us-ascii?Q?bfbgTFkuMWJ41mTRAkCz0HSz7YsO1fdJpReeua4ChxsIgZqZkKdlDxjk/Y+/?=
+ =?us-ascii?Q?8/Sfo4WMgV1zV9qT1g3/3gMiMjr6Tty3DGZbY7jWQM58V8gwMHOKc6VBPfiD?=
+ =?us-ascii?Q?YT5XcuD3mHG43eBKZHxvvIznzWm+k5/Jy1Q0EMjhiABI92NJTJd2kNzi8IJ1?=
+ =?us-ascii?Q?9v0145rZv3oEd//fqpdCzRekmtRMsXiUNzCDg+1zgsXUXQ0OnhjjhJotHHmF?=
+ =?us-ascii?Q?QARiEw4B4Vpqh8zdGxhTZ82rEQCVYFSZmI4f5Y19buoZWAnkcdIveyvOzXxr?=
+ =?us-ascii?Q?pocW5h6YYhPokxMxNCFhUa7CM1ZAPUECN3irxCjOOLzfZX2yzDCKTmifmMVW?=
+ =?us-ascii?Q?gWI/kWCr2+t4c/UdNf46xn8X1M/OJz04n+66o/Mxu4baFvPGqpaUPcK2QHEW?=
+ =?us-ascii?Q?Y0b1qPAwh1qKfh54czQoSV7LHhPbuYeGFpP0HLV08sqcPTpaOm6seeS+/H8B?=
+ =?us-ascii?Q?Sfeot7/KN3rT83AVoK7M0CZxAyQGJfuvC5+WN522MGPSLFktRiJd2BY5Z7Nd?=
+ =?us-ascii?Q?f2b4mpZJimxektPbJ8dD7zhhxJHEaA5pP+/fcZnUDU5gbaiIq/65GFhk/QtD?=
+ =?us-ascii?Q?gMNmx45Zoljax9kWxKTK30IEx/zqYvEyBxglcwqmYoxOthpHoJIvzTwQ12Fa?=
+ =?us-ascii?Q?3/pBYPvJPWLSMqW/CGyedBvBxLbgE3uKkkTJNBKnOXYqR1MhaJ/VlyOMO7jW?=
+ =?us-ascii?Q?1jdzv4OfFCODKkHkMBSmXan14CD8KUwtlhRBqE6Q530hwGBEYyo7YHYPu58O?=
+ =?us-ascii?Q?ZpE5rIyo2I5sFsQLLLFIq5d14CM47CbynEOAVz1gFFPO4EnzRQ=3D=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2024 17:14:07.5381
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2024 17:14:10.2580
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4587ca2-d72a-4139-0076-08dcbbbb5733
+X-MS-Exchange-CrossTenant-Network-Message-Id: 554ff9d2-33f5-4a54-ccdb-08dcbbbb58d6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECDA.namprd02.prod.outlook.com
+	CH1PEPF0000AD80.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8988
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6791
 
-update_boot_mapping() invokes update_identity_mapping() for the MMU specific
-code.
-Later when the MPU code is added, update_boot_mapping() would invoke the
-equivalent.
+From: Penny Zheng <penny.zheng@arm.com>
 
-The common code now invokes update_boot_mapping() instead of
-update_identity_mapping(). So, that there is clear abstraction between the
-common and MMU/MPU specific logic.
+Introduced CONFIG_VMAP which is selected by the architectures that use
+MMU. vm_init() does not do anything if CONFIG_VMAP is not enabled.
 
-This is in continuation to commit
-f661a20aa880: "Extract MMU-specific MM code".
+VMAP is widely used in ALTERNATIVE feature to remap a range of memory
+with new memory attributes. Since this is highly dependent on virtual
+address translation, we choose to fold VMAP in MMU system.
 
-update_identity_mapping() is now marked as static as it is called within
-xen/arch/arm/arm64/mmu/mm.c only. Also, updated the prototype to
-update_boot_mapping() which is now invoked from other files.
+In this patch, we introduce a new Kconfig CONFIG_HAS_VMAP, and make it
+only support in MMU system on ARM architecture. And ALTERNATIVE now
+depends on VMAP.
 
+HARDEN_BRANCH_PREDICTOR is now gated on HAS_VMAP as speculative
+attacks are not possible on non MMU based systems (ie Cortex-R52, R82).
+See https://developer.arm.com/Arm%20Security%20Center/Speculative%20Processor%20Vulnerability.
+
+Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+Signed-off-by: Wei Chen <wei.chen@arm.com>
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 ---
 Changes from :-
 
-v1 - 1. Introduced update_boot_mapping() which invokes
-update_identity_mapping() in MMU specific code.
+v1 - 1. HARDEN_BRANCH_PREDICTOR is now gated on HAS_VMAP.
+2. cpuerrata.c is not gated on HAS_VMAP.
 
-v2 - 1. Make update_identity_mapping() static and update the prototype.
+v2 - 1. Introduced CONFIG_VMAP in common/Kconfig.
+2. Architectures using MMU select this config.
+3. vm_init() now uses CONFIG_VMAP.
 
- xen/arch/arm/arm64/mmu/mm.c         | 7 ++++++-
- xen/arch/arm/arm64/smpboot.c        | 6 +++---
- xen/arch/arm/include/asm/arm64/mm.h | 2 +-
- 3 files changed, 10 insertions(+), 5 deletions(-)
+ xen/arch/arm/Kconfig   | 4 +++-
+ xen/arch/arm/setup.c   | 2 ++
+ xen/arch/x86/Kconfig   | 2 ++
+ xen/common/Kconfig     | 3 +++
+ xen/include/xen/vmap.h | 2 ++
+ 5 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
-index 293acb67e0..1afbbeda5a 100644
---- a/xen/arch/arm/arm64/mmu/mm.c
-+++ b/xen/arch/arm/arm64/mmu/mm.c
-@@ -111,7 +111,7 @@ void __init arch_setup_page_tables(void)
-     prepare_runtime_identity_mapping();
- }
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 21d03d9f44..e30a7da186 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -12,7 +12,7 @@ config ARM_64
+ config ARM
+ 	def_bool y
+ 	select FUNCTION_ALIGNMENT_4B
+-	select HAS_ALTERNATIVE
++	select HAS_ALTERNATIVE if HAS_VMAP
+ 	select HAS_DEVICE_TREE
+ 	select HAS_PASSTHROUGH
+ 	select HAS_UBSAN
+@@ -61,6 +61,7 @@ config PADDR_BITS
+ config MMU
+ 	def_bool y
+ 	select HAS_PMAP
++	select HAS_VMAP
  
--void update_identity_mapping(bool enable)
-+static void update_identity_mapping(bool enable)
- {
-     paddr_t id_addr = virt_to_maddr(_start);
-     int rc;
-@@ -125,6 +125,11 @@ void update_identity_mapping(bool enable)
-     BUG_ON(rc);
- }
+ source "arch/Kconfig"
  
-+void update_boot_mapping(bool enable)
-+{
-+    update_identity_mapping(enable);
-+}
+@@ -171,6 +172,7 @@ config ARM_SSBD
+ 
+ config HARDEN_BRANCH_PREDICTOR
+ 	bool "Harden the branch predictor against aliasing attacks" if EXPERT
++	depends on HAS_VMAP
+ 	default y
+ 	help
+ 	  Speculation attacks against some high-performance processors rely on
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index cb2c0a16b8..7f686d2cca 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -447,7 +447,9 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
+      * It needs to be called after do_initcalls to be able to use
+      * stop_machine (tasklets initialized via an initcall).
+      */
++#ifdef CONFIG_HAS_ALTERNATIVE
+     apply_alternatives_all();
++#endif
+     enable_errata_workarounds();
+     enable_cpu_features();
+ 
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 7ef5c8bc48..32be057978 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -1,6 +1,7 @@
+ config X86_64
+ 	def_bool y
+ 	select 64BIT
++	select HAS_VMAP
+ 
+ config X86
+ 	def_bool y
+@@ -31,6 +32,7 @@ config X86
+ 	select HAS_UBSAN
+ 	select HAS_VPCI if HVM
+ 	select NEEDS_LIBELF
++	select HAS_VMAP
+ 
+ config ARCH_DEFCONFIG
+ 	string
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 565ceda741..188918ec5c 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -77,6 +77,9 @@ config HAS_PIRQ
+ config HAS_PMAP
+ 	bool
+ 
++config HAS_VMAP
++	bool
 +
- extern void switch_ttbr_id(uint64_t ttbr);
+ config HAS_SCHED_GRANULARITY
+ 	bool
  
- typedef void (switch_ttbr_fn)(uint64_t ttbr);
-diff --git a/xen/arch/arm/arm64/smpboot.c b/xen/arch/arm/arm64/smpboot.c
-index a225fae64d..789f352ab6 100644
---- a/xen/arch/arm/arm64/smpboot.c
-+++ b/xen/arch/arm/arm64/smpboot.c
-@@ -112,18 +112,18 @@ int arch_cpu_up(int cpu)
-     if ( !smp_enable_ops[cpu].prepare_cpu )
-         return -ENODEV;
- 
--    update_identity_mapping(true);
-+    update_boot_mapping(true);
- 
-     rc = smp_enable_ops[cpu].prepare_cpu(cpu);
-     if ( rc )
--        update_identity_mapping(false);
-+        update_boot_mapping(false);
- 
-     return rc;
- }
- 
- void arch_cpu_up_finish(void)
+diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
+index fdae37e950..c1dd7ac22f 100644
+--- a/xen/include/xen/vmap.h
++++ b/xen/include/xen/vmap.h
+@@ -141,7 +141,9 @@ void *arch_vmap_virt_end(void);
+ /* Initialises the VMAP_DEFAULT virtual range */
+ static inline void vm_init(void)
  {
--    update_identity_mapping(false);
-+    update_boot_mapping(false);
++#ifdef CONFIG_HAS_VMAP
+     vm_init_type(VMAP_DEFAULT, (void *)VMAP_VIRT_START, arch_vmap_virt_end());
++#endif
  }
  
- /*
-diff --git a/xen/arch/arm/include/asm/arm64/mm.h b/xen/arch/arm/include/asm/arm64/mm.h
-index e0bd23a6ed..ac8d1f5c78 100644
---- a/xen/arch/arm/include/asm/arm64/mm.h
-+++ b/xen/arch/arm/include/asm/arm64/mm.h
-@@ -21,7 +21,7 @@ void arch_setup_page_tables(void);
-  * Note that nested call (e.g. enable=true, enable=true) is not
-  * supported.
-  */
--void update_identity_mapping(bool enable);
-+void update_boot_mapping(bool enable);
- 
- #endif /* __ARM_ARM64_MM_H__ */
- 
+ #endif /* __XEN_VMAP_H__ */
 -- 
 2.25.1
 
