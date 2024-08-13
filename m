@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 331CD94FE57
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 09:02:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.775983.1186134 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B117D94FE68
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 09:09:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.775992.1186145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdlY0-0003Ng-85; Tue, 13 Aug 2024 07:02:24 +0000
+	id 1sdlez-0004YT-0K; Tue, 13 Aug 2024 07:09:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 775983.1186134; Tue, 13 Aug 2024 07:02:24 +0000
+Received: by outflank-mailman (output) from mailman id 775992.1186145; Tue, 13 Aug 2024 07:09:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdlY0-0003L0-5G; Tue, 13 Aug 2024 07:02:24 +0000
-Received: by outflank-mailman (input) for mailman id 775983;
- Tue, 13 Aug 2024 07:02:22 +0000
+	id 1sdley-0004Wd-Sz; Tue, 13 Aug 2024 07:09:36 +0000
+Received: by outflank-mailman (input) for mailman id 775992;
+ Tue, 13 Aug 2024 07:09:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Wdkt=PM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sdlXy-0003KW-UY
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 07:02:22 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1sdlex-0004WX-Aq
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 07:09:35 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc0922e2-5941-11ef-8776-851b0ebba9a2;
- Tue, 13 Aug 2024 09:02:20 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5b5b67d0024so5849944a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 00:02:20 -0700 (PDT)
+ id fde43289-5942-11ef-8776-851b0ebba9a2;
+ Tue, 13 Aug 2024 09:09:33 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a80eab3945eso118956266b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 00:09:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80f3fb069dsm43339466b.80.2024.08.13.00.02.19
+ a640c23a62f3a-a80f411b585sm43846566b.104.2024.08.13.00.09.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Aug 2024 00:02:19 -0700 (PDT)
+ Tue, 13 Aug 2024 00:09:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc0922e2-5941-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: fde43289-5942-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723532540; x=1724137340; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723532973; x=1724137773; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XF2r7HyMcvp3Zgz62HvJXzBMQ9YQZbDu6pAbWtOV6Kc=;
-        b=fHoHP/kILzhMNHOm/awSuXYatUDbsyArRnxrRXHnNusjj3+7TJVNqwJALUFV+y5oTe
-         nGeTZXJjP0+XQBvRZwNwcor47hrnFz59fYd6VVXOwChlshk0cipz0wxhot9+yVmsUdAJ
-         TCmgLMEXe8p9HCLFMJa5ayc3fkKEKekYaSFTow6q7L87XlLeblSOnmAs9n88hwrEA8tJ
-         Ux9wbQCZdVrvnTpiA8nwanI7YGARTkenzR/cUwhG0ccGS5O4T6pTprMCLKtXuIGa+mDc
-         rcBWuO+oDQqBWJV80G+W5uNMLhT0wHt4CEO8lhKoLlyfMsyIOTydk1ZwT+0nICo9IStj
-         kvFQ==
+        bh=UV5mHkDTbnPd/5WYuAL/5+XZ21L5I9EqLcQecmX8Qf0=;
+        b=I3djPK91nBBP3bXG3yhwy+km9Vqvq4YyND2/8c8fbUhXMe60NZmRlR82+P5aNUZC4j
+         LId9h/fQippTEADsQhpmmJjVOrXw+QCY7iTSYqSKQ4+Kxxfpz6ukQUTfDw4HbgkypIqB
+         se2hpjMsONsruF68zwkinRq6dP3S6im5R8zvz2bYXVSDLrm0v6ot3oq6ApJfM/rKOriM
+         BFwcK64sVh3uFjRuJZSsT7RrCDD578ETAJgsr/UuYosNEw0aToOnLiAXYKukj8fk4V7/
+         C16ZRPhSnm+lZ/iw61z8htoI9DuohaG2LngN3Nr9dNjicFiF9pva5Pvu6uLXJe44fclw
+         DvRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723532540; x=1724137340;
+        d=1e100.net; s=20230601; t=1723532973; x=1724137773;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XF2r7HyMcvp3Zgz62HvJXzBMQ9YQZbDu6pAbWtOV6Kc=;
-        b=dI137tvn0DrF509M7AwenBBwMXmUVQdSZK1d6Dm4CmF8QkzroYxrR3bzDL+JLSTD1L
-         OW95sG7U2RlNPuVZIFqsbhqt4KbYynO02P1LJsLiS2qMEFyoA0Db6Ef+y1IAtBK9lYyQ
-         OeQEgN256WtSnWRPDiffHBH7GzcV59AnGuvqxDObdPcLKOjSrcuzgU2rIOayQsUlJDVm
-         NQSdfFH5ubokroA1DGRLJY6f+zyOLkbt1cO4wrmgrx1xq3ptAV7yShc8cjX2cxJuPBbe
-         iL849wth6/jHJN3q9HXvDVbS6rDwQ2ZgFceztP39kL6oXJmcghNpvwzsx/uBfzLzO/FA
-         QwDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU9Omv6AC6/dxSVns0i00Gk3GEZtpxs7Vle9CSuRlmiTbZ/Jec0HU69eQVdrKRjpJ7N4XAmEM8usWmu+dubmbe1oUqOCIg8rMVPqbmMbXI=
-X-Gm-Message-State: AOJu0YybiACWdw45S80nvLNitv+jrmgAyMIUUldqteAjHkSh+0OPpceN
-	v9Hom+AE738ykgjvlBvpJNOf973K8vXb6C+q6KaD+0GgGvhBAYJ5NL2XHouo+8iADU5H4HK149U
-	=
-X-Google-Smtp-Source: AGHT+IFzMLxbVH0sFLPqDUMWPTZ23/p5ZpCK/ryWaU88t9tcMPyfZeTAREl5U0yDFskqqYL9hYUhOA==
-X-Received: by 2002:a17:907:f1e1:b0:a7a:aa35:408e with SMTP id a640c23a62f3a-a80ed2055f4mr179618666b.27.1723532540127;
-        Tue, 13 Aug 2024 00:02:20 -0700 (PDT)
-Message-ID: <2fe91be6-c7be-4d61-ab71-ca6cfdd5ffd9@suse.com>
-Date: Tue, 13 Aug 2024 09:02:19 +0200
+        bh=UV5mHkDTbnPd/5WYuAL/5+XZ21L5I9EqLcQecmX8Qf0=;
+        b=MJNkIlbl2BDNpaAHCvbRlk5C6RxGHqOkL7gGYUYS/asShCS5GQsLu1UOuipu36M+kG
+         COyxYeix7r2i4WSas9G1s2e+QepsXLwsBEiccmhVvPwEcP++svB7UdUHNmn82Uo87ttl
+         lS+bipGecoBXH8KAlVmhU13EpsDgTwASY4vaLwmGO8SZbvahmOvS1F2sZAt9vz2b+VTU
+         LoWXFHoyc3q0Z2cG8s/8O8OdC0S3h4yk+3wXyFYTqzXW4nkWN3I0SVOQZ39TZbGPPCUR
+         WiyiyrcmBuqrZwaqLMQfQA1CBntPj8106xfOYqeqBqJJBnVDvflgZ/9UkRYYAoaGZNgr
+         hldA==
+X-Gm-Message-State: AOJu0Yzcq860g3U4/NQ6ijo703dVVW0MxvDOOnIW1uTjzFQuAkPaM5Nf
+	QqQVIJeKJBQrUrGGtWSXnHpodW5ZQd02+oIfHB96ARDUxo4/ybgQd5+oT0A9Xw==
+X-Google-Smtp-Source: AGHT+IHYBiATnoh5UuoUZZfJpHTOPT2dFlyWs0DTROvngLxBySoeHSFUX0jQ15hP1kPXJYWIlbPNiQ==
+X-Received: by 2002:a17:907:3f9e:b0:a7d:2bf7:5619 with SMTP id a640c23a62f3a-a80ed2d811cmr130227666b.58.1723532972682;
+        Tue, 13 Aug 2024 00:09:32 -0700 (PDT)
+Message-ID: <5fe3ddc4-8317-4129-a06b-73671ef15655@suse.com>
+Date: Tue, 13 Aug 2024 09:09:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: slightly simplify MB2/EFI "magic" check
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <f2186827-62e6-4b24-8a6c-0c2a9499c232@suse.com>
- <18701bb3-7aa3-4f46-8071-be4cf75a2e76@citrix.com>
+Subject: Re: [PATCH v2 2/4] xen: arm: make VMAP only support in MMU system
+To: Ayan Kumar Halder <ayankuma@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: xen-devel@lists.xenproject.org, Penny Zheng <penny.zheng@arm.com>,
+ Wei Chen <wei.chen@arm.com>, sstabellini@kernel.org,
+ bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
+ julien@xen.org
+References: <20240808120936.3299937-1-ayan.kumar.halder@amd.com>
+ <20240808120936.3299937-3-ayan.kumar.halder@amd.com>
+ <bc643306-a41a-41bb-b7b7-b7c67f9e5bdf@suse.com>
+ <3c491d8f-6180-46d7-a996-049df88a023e@amd.com>
+ <724aa3bd-26a0-4a01-8be5-69fa838ee9ba@suse.com>
+ <c5c0a198-97ca-4779-8d1e-91d01b3650ff@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,50 +118,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <18701bb3-7aa3-4f46-8071-be4cf75a2e76@citrix.com>
+In-Reply-To: <c5c0a198-97ca-4779-8d1e-91d01b3650ff@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12.08.2024 23:40, Andrew Cooper wrote:
-> On 08/08/2024 9:49 am, Jan Beulich wrote:
->> --- a/xen/arch/x86/boot/head.S
->> +++ b/xen/arch/x86/boot/head.S
->> @@ -233,13 +233,11 @@ __efi64_mb2_start:
->>  
->>          /* Check for Multiboot2 bootloader. */
->>          cmp     $MULTIBOOT2_BOOTLOADER_MAGIC,%eax
->> -        je      .Lefi_multiboot2_proto
->>  
->>          /* Jump to .Lnot_multiboot after switching CPU to x86_32 mode. */
->>          lea     .Lnot_multiboot(%rip), %r15
->> -        jmp     x86_32_switch
->> +        jne     x86_32_switch
->>  
->> -.Lefi_multiboot2_proto:
->>          /* Zero EFI SystemTable, EFI ImageHandle addresses and cmdline. */
->>          xor     %esi,%esi
->>          xor     %edi,%edi
+On 12.08.2024 18:02, Ayan Kumar Halder wrote:
+> Hi Jan,
 > 
+> On 09/08/2024 10:34, Jan Beulich wrote:
+>> On 08.08.2024 17:50, Ayan Kumar Halder wrote:
+>>> On 08/08/2024 13:49, Jan Beulich wrote:
+>>>> On 08.08.2024 14:09, Ayan Kumar Halder wrote:
+>>>>> @@ -58,9 +58,13 @@ config PADDR_BITS
+>>>>>    	default 40 if ARM_PA_BITS_40
+>>>>>    	default 48 if ARM_64
+>>>>>    
+>>>>> +config HAS_VMAP
+>>>>> +	def_bool y
+>>>> With this being always enabled, ...
+>>> I had to define the config somewhere. It seemed this is the correct
+>>> place to define as HAS_VMAP will be turned off when MPU is introduced.
+>>>
+>>> So, it will be
+>>>
+>>> config HAS_VMAP
+>>>
+>>>              def_bool n
+>>>
+>>> At that time, only MMU will select HAS_VMAP.
+>> Well, but why is it not simply
+>>
+>> config HAS_VMAP
+>> 	bool
+>>
+>> from the very beginning? (There should never be "def_bool n" imo, btw.)
+>>
+>>>>> --- a/xen/include/xen/vmap.h
+>>>>> +++ b/xen/include/xen/vmap.h
+>>>>> @@ -141,7 +141,9 @@ void *arch_vmap_virt_end(void);
+>>>>>    /* Initialises the VMAP_DEFAULT virtual range */
+>>>>>    static inline void vm_init(void)
+>>>>>    {
+>>>>> +#ifdef CONFIG_MMU
+>>>>>        vm_init_type(VMAP_DEFAULT, (void *)VMAP_VIRT_START, arch_vmap_virt_end());
+>>>>> +#endif
+>>>>>    }
+>>>> What about non-Arm, which all have MMUs but no corresponding Kconfig
+>>>> setting?
+>>> AFAICS , the only file that is of our concern xen/common/vmap.c It is
+>>> enclosed with VMAP_VIRT_START which is defined in mmu specific file
+>>> (xen/arch/arm/include/asm/mmu/layout.h).
+>>>
+>>> So, it will not be compiled for Arm MPU arch.
+>> Yet that wasn't my question. I asked about non-Arm, for all of which it
+>> looks like you're changing behavior of vm_init() (by suddenly making it
+>> do nothing).
 > 
-> You've split the logical in two, and now the comment is in the wrong
-> position.
+> Oh now I see what you mean. There is no CONFIG_MMU is x86 , yet it is 
+> used to enclose a common code which is a mistake.
 > 
-> If you're going to make this change, it wants to end up reading:
+> So, we should introduce HAS_VMAP in xen/common/Kconfig and select it 
+> from X86, X86_64 and Arm.
 > 
->     /* Jump to .Lnot_multiboot after switching CPU to x86_32 mode. */
->     lea     .Lnot_multiboot(%rip), %r15
-> 
->     /* Check for Multiboot2 bootloader. */
->     cmp     $MULTIBOOT2_BOOTLOADER_MAGIC,%eax
->     jne     x86_32_switch
-> 
-> 
-> Not that it's really relevant, but this form also macrofuses nicely.
+> Is my understanding correct ?
 
-All true, yet I'm sure you also read my response to Alejandro: Then we
-ought to also change the other similar instances. The goal of this simple
-change, after all, is to get all similar pieces of code into consistent
-shape.
+Almost. On Arm the select would be conditional, depending on (or simply
+from) MMU.
 
 Jan
 
