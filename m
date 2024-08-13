@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44A6D950B49
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 19:15:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776505.1186681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA6F3950B51
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2024 19:20:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776526.1186691 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdv6e-0000fI-Kj; Tue, 13 Aug 2024 17:14:48 +0000
+	id 1sdvBt-0003aZ-4J; Tue, 13 Aug 2024 17:20:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776505.1186681; Tue, 13 Aug 2024 17:14:48 +0000
+Received: by outflank-mailman (output) from mailman id 776526.1186691; Tue, 13 Aug 2024 17:20:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sdv6e-0000cj-Gw; Tue, 13 Aug 2024 17:14:48 +0000
-Received: by outflank-mailman (input) for mailman id 776505;
- Tue, 13 Aug 2024 17:14:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sdvBt-0003Xz-10; Tue, 13 Aug 2024 17:20:13 +0000
+Received: by outflank-mailman (input) for mailman id 776526;
+ Tue, 13 Aug 2024 17:20:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Rcsl=PM=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1sdv6d-0007JM-Q5
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 17:14:47 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20608.outbound.protection.outlook.com
- [2a01:111:f403:2009::608])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 89ff0956-5997-11ef-a505-bb4a2ccca743;
- Tue, 13 Aug 2024 19:14:47 +0200 (CEST)
-Received: from MN2PR02CA0005.namprd02.prod.outlook.com (2603:10b6:208:fc::18)
- by LV2PR12MB5824.namprd12.prod.outlook.com (2603:10b6:408:176::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.23; Tue, 13 Aug
- 2024 17:14:41 +0000
-Received: from MN1PEPF0000ECD7.namprd02.prod.outlook.com
- (2603:10b6:208:fc:cafe::e0) by MN2PR02CA0005.outlook.office365.com
- (2603:10b6:208:fc::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.22 via Frontend
- Transport; Tue, 13 Aug 2024 17:14:41 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MN1PEPF0000ECD7.mail.protection.outlook.com (10.167.242.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Tue, 13 Aug 2024 17:14:41 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 Aug
- 2024 12:14:41 -0500
-Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Tue, 13 Aug 2024 12:14:40 -0500
+ <SRS0=ynFR=PM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sdvBr-0003Xt-N9
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2024 17:20:11 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4ac4ea4c-5998-11ef-8776-851b0ebba9a2;
+ Tue, 13 Aug 2024 19:20:09 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-368440b073bso70676f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2024 10:20:09 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-36e4e51e876sm10981474f8f.73.2024.08.13.10.20.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Aug 2024 10:20:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,161 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89ff0956-5997-11ef-a505-bb4a2ccca743
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mdVWLAXevRfVGlGb8wEf5fDNL1SL4AId9PAuSe+xj9UGHsJOXWj0Qeq79cTAAOmeFANEr471CywhQWFw3mfH3Ilvj7UGDQcU43lV/aVnptlD/IoVkymJPMWUCap8922fo0+lecKX4GpPLu7n7JTIXnZ51DSa7xWb3DNY+bWN2DFd3jdMuHY7G0BytdnB2N+QSt8EobzGJc7aYUnCqHmNZq7qXmJRiMfwSxM8mEd3QC/i+Ncp4P/F5Ov7Us6Q4cwqlKi9+ZDJS/eeEojJO0eanbvd2fp00TEeYMvLOx6Bk7LTsh8onJDFHE5Mr7adMqz+0Qkv74fB4pgL3sT9RcIGfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y8syEudjqafW5Qhsj5GpdRFapDEC7fYWqSfZZMYCnLc=;
- b=AjbMOxaVsGdqEY3gMUX+ZZzZn3c76+m3JGz8j5/eIUq7Rg+C7D2cMqN4Y/VuGea+aZ5SBSWxsnHnyeXTqf4agviHwgS3ozAOH2unwW6XDDpZ44YCHYKw80zxliM3H0ovHWgx6pY2fuki/x6JmT4rzB6Big+JD9eNor8bExeWAvPtnuO0SJh6hpVr31kNMstR4cPs2P+YGEcc+1+7Y9D4SapFE5ORw+904ahKdWILiAIVaEb8V7eULaOtsVR+/l+UJV/Y1h6WMXMHpenDc+VF9o8oNDp8CtHV8qcqjihClK+/Og2MO5ioI+7Gz05Adp9GYmtHWYvzFlMyVxVby+Dphw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y8syEudjqafW5Qhsj5GpdRFapDEC7fYWqSfZZMYCnLc=;
- b=WYKr+BVcPAeHrkEDj8a4SjXu/DE3ILT+Y1/gEuYL3jpa8gehr5JIP36xmPBtqBbDcdAnWWvAD2DB5z9u42fse6fRQJv+gXv0VifGG8xLjy6s9o5aB3BecKGj/ygKnhJO0dPYMWi2nURzaDg6fTopb3xh6Lr3N/aoxVcpakIZyZ4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-To: <sstabellini@kernel.org>, <bertrand.marquis@arm.com>,
-	<michal.orzel@amd.com>, <ayan.kumar.halder@amd.com>,
-	<Volodymyr_Babchuk@epam.com>, <julien@xen.org>, <jbeulich@suse.com>
-CC: <xen-devel@lists.xenproject.org>
-Subject: [PATCH v3 4/4] xen: arm: Enclose access to EL2 MMU specific registers under CONFIG_MMU
-Date: Tue, 13 Aug 2024 18:13:56 +0100
-Message-ID: <20240813171356.46760-5-ayan.kumar.halder@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240813171356.46760-1-ayan.kumar.halder@amd.com>
-References: <20240813171356.46760-1-ayan.kumar.halder@amd.com>
+X-Inumbo-ID: 4ac4ea4c-5998-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1723569609; x=1724174409; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=84sx66JI+FulYoVmyiqu6uT4YzhJNSXXhPlav9Qus3U=;
+        b=GY1L+0z0+izYPr2Am8PZmvFZ3w2CKgbsZtsUEUiBbdQDs8ocNAlb/NSPL6iUxrlQYU
+         9oxiEUYaqTPA/IgDByqxO3TOEnOmAAhsIjWiC70JuUBE40v/NxiJW3lJjtL5YUtgQTyH
+         Iab2GU62HqkV6YmRPi1gM0alScvr4/jNLc4ig=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723569609; x=1724174409;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=84sx66JI+FulYoVmyiqu6uT4YzhJNSXXhPlav9Qus3U=;
+        b=js+g0z4l1UXCDAUrf9IeyoZoKA1TOCyFvys9uOChJatgxc6pcddLkO2Hr1AQqiEKz7
+         dxvmhyDiWTDefIY3dCegnFYLVO9Yr+oSoLf+F57I00z1WMa/iVMVcwATCKKm22KWUs6h
+         iNv6gNpfd26qwAALwSchbTaUknoXROUBEdbQdbybDb+dV9Gg2Jozyejcpd3LI+9+8B6M
+         zcYPQtARyWPvWlIwl7lL7t6Us3uUf8P6H1EwHIpWU6QGZDUfv4104hVkUZv0eQIY93ek
+         wg4JarqEgELYVeSn81VyQ7htT1zD4LF7ZQ01rgOVe9TsfbDjrogCyRpaA5JaiWGeNJXW
+         JM5A==
+X-Forwarded-Encrypted: i=1; AJvYcCVyEjFsozlEwgcRNE1n0l2caXsYurTjiI6oMAUR4LBfvqQMBX9O3W29UCJ5K9HZsxQsGqMxigXiThr24v2seWW6I76qJVwBPg7qw3Z0ZoU=
+X-Gm-Message-State: AOJu0Yx8DO3Ff1xyFWXu0lVbzgxmcVecJ1zRpIDF6NC6J4ZSm3PKVfp7
+	kvPEUDJP1JaSdsUTUdvJmJaLcA/Md5tQbEcFpbhDQSr3pnauR7a6T2Hc+MXCaqA=
+X-Google-Smtp-Source: AGHT+IFTGC62jSGYkGCBeBoI9MiD8GQfXOo+KENKk3RMxfPXu/2PblHRt3RsejLkmmxd/OqMpwzjUw==
+X-Received: by 2002:adf:ebca:0:b0:362:ad01:5435 with SMTP id ffacd0b85a97d-371775c6b2bmr355964f8f.29.1723569608962;
+        Tue, 13 Aug 2024 10:20:08 -0700 (PDT)
+Message-ID: <a93b9398-9cc3-48ed-9570-47204ab80d5f@citrix.com>
+Date: Tue, 13 Aug 2024 18:20:07 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 04/10] hw/arm: xenpvh: Add support for SMP guests
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: qemu-devel@nongnu.org, anthony@xenproject.org, paul@xen.org,
+ peter.maydell@linaro.org, alex.bennee@linaro.org, xenia.ragiadakou@amd.com,
+ jason.andryuk@amd.com, edgar.iglesias@amd.com,
+ xen-devel@lists.xenproject.org, qemu-arm@nongnu.org
+References: <20240812130606.90410-1-edgar.iglesias@gmail.com>
+ <20240812130606.90410-5-edgar.iglesias@gmail.com>
+ <alpine.DEB.2.22.394.2408121650590.298534@ubuntu-linux-20-04-desktop>
+ <ZruRm34zIMtUm7oH@zapote>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ZruRm34zIMtUm7oH@zapote>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: ayan.kumar.halder@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD7:EE_|LV2PR12MB5824:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9072e21-ecc6-4c95-a3a9-08dcbbbb6ba2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?JervzM7SJYMxSror9GyoOpUDbtkJjSrwghk2bLnl/B7HHrsPkvAkas+217gF?=
- =?us-ascii?Q?ngQU06ZdNs0fhKIDMD72wf3697z0++3UiNIdciW8/Oap0H11tmizyqiU3JxR?=
- =?us-ascii?Q?9BxxsqIJ1rjsDubw4l6Qa2OSfTG9ehq5Z3FxK27pFTI7iD5A2I+tvjYQC7+l?=
- =?us-ascii?Q?CnKUbog0hlqMhpDWT/ThC3lay4j6nCX8uE94aQKZAOBr02sBqNiW9xGpAalj?=
- =?us-ascii?Q?C5aejsecMtVfALKUbV1lP0wynn3GOM7mH039NUTPfinx5iFiz37vGAC7eoIh?=
- =?us-ascii?Q?UR97EvFhzUCRt1nxV5xcGX122nAPcKS/KdZN9VCUD++g14NHEFnJRw3OHRks?=
- =?us-ascii?Q?V97u34R+Z7KjzR6fMt/ciLO8vkghbtwF36kNd8bJs7pNPvmKxbRgTTbU9DxL?=
- =?us-ascii?Q?oXuBOj6Po9BGaj0MUjB31H6h5/iyWJZEwcrGXSgvo7jZ+Tgbc/n/XBHxkJET?=
- =?us-ascii?Q?VT72Pz8uaeBZJsjhT4DvBSDZ24c2uW40kfSYGmXwni4ud7Bl7DgAuorjryZg?=
- =?us-ascii?Q?2W9YsFnwT/7by/OTfHZwJn/QXPbrLtVQLVd4kbSKtNzxk3HMH7Y4N9MFc0C4?=
- =?us-ascii?Q?I7Lzj0VAMeYtFAxu/ndwJMRabLRKlvtq4Bvd3JTC26osqW+nYyAa84/AFMKp?=
- =?us-ascii?Q?unpRXRt5lTytrF9ArCFIX9qJZmFIC37y+JstA0JYbKk1Dm+j9doOeauafi5i?=
- =?us-ascii?Q?5CI2gVAEEs8wyGi4CiygvzrFStmjAGf8QM7fxWj55EpLRY6gGFTP8x84ry9l?=
- =?us-ascii?Q?cfVvaSHmtvFzqfD120sL/psRgE/hINgHgFkBnjvgfqjzoR4in3QhPHP2NyI9?=
- =?us-ascii?Q?JAgNadlY1dIXftFPZDM9cbRgFJ+bqm5IuFRAeBIKXn07VR8GXIN8BjAEwsws?=
- =?us-ascii?Q?grsoUs6u2gT4+tEgGk5T7RtOqNnZpYjCG8XfDFnD98bOGnPZbHdHYKa2DQad?=
- =?us-ascii?Q?A2v0/F8UIiulDga4p8V6ifwBpkzUnqv3vsA13AB31CorD8qXBemqj97eUgil?=
- =?us-ascii?Q?F4KSmLUyr01obPSUlo5PYPHxnpSkPD7yihbKTUO5DKInvUedhtqOw9HY2QEv?=
- =?us-ascii?Q?P41K8Dgn6whtf7+jgrAzXNjxe5Cu2oFwmPW2isb0js42/bhFSjZGGmzk2HnU?=
- =?us-ascii?Q?JnsvOCtoNjgF1Js8Q1oP2vJqBmzZaUJRdjRTUbLPSY/TsmrRhqgB5dyT/zvK?=
- =?us-ascii?Q?6TkMCjR9gf/kjNajpdMY5u675sOCLT9w7NoSZxGFYvoJ4flW567s7XdVCRpq?=
- =?us-ascii?Q?ry/0petoxFKatbuZKVgaucSCQRxTMLuiKM8c9h6TRkEu2mz3MrMkTMBlquQY?=
- =?us-ascii?Q?Trm3UKO4WnZAX3B2qRdMbkGdpbujZITSkCiIXCLCdk/qJehr5nyPxzGgJDmz?=
- =?us-ascii?Q?QH5KiPb9QAQHkOOlRzdRpZQcGMsS/r/fN7hVrJrqSgxOy2qevnpleEicNhBD?=
- =?us-ascii?Q?OdxeZBk7DphCYTj+mT2G2ITrqomTdRWz?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2024 17:14:41.8085
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9072e21-ecc6-4c95-a3a9-08dcbbbb6ba2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD7.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5824
 
-All the EL2 MMU specific registers are enclosed within CONFIG_MMU.
+On 13/08/2024 6:02 pm, Edgar E. Iglesias wrote:
+> On Mon, Aug 12, 2024 at 06:47:17PM -0700, Stefano Stabellini wrote:
+>> On Mon, 12 Aug 2024, Edgar E. Iglesias wrote:
+>>> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+>>>
+>>> Add SMP support for Xen PVH ARM guests. Create max_cpus ioreq
+>>> servers to handle hotplug.
+>>>
+>>> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+>>> ---
+>>>  hw/arm/xen_arm.c | 5 +++--
+>>>  1 file changed, 3 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/hw/arm/xen_arm.c b/hw/arm/xen_arm.c
+>>> index 5f75cc3779..ef8315969c 100644
+>>> --- a/hw/arm/xen_arm.c
+>>> +++ b/hw/arm/xen_arm.c
+>>> @@ -173,7 +173,7 @@ static void xen_arm_init(MachineState *machine)
+>>>  
+>>>      xen_init_ram(machine);
+>>>  
+>>> -    xen_register_ioreq(xam->state, machine->smp.cpus, &xen_memory_listener);
+>>> +    xen_register_ioreq(xam->state, machine->smp.max_cpus, &xen_memory_listener);
+>>>  
+>>>      xen_create_virtio_mmio_devices(xam);
+>>>  
+>>> @@ -218,7 +218,8 @@ static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
+>>>      MachineClass *mc = MACHINE_CLASS(oc);
+>>>      mc->desc = "Xen PVH ARM machine";
+>>>      mc->init = xen_arm_init;
+>>> -    mc->max_cpus = 1;
+>>> +    /* MAX number of vcpus supported by Xen.  */
+>>> +    mc->max_cpus = GUEST_MAX_VCPUS;
 
-Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
----
-Changes from :
+The only suitable number here is the one you get back from XEN_DMOP_nr_vcpus
 
-v1 -
-1. 'vttbr_el2' field is enclosed with ifdef.
-2. No movement of code.
+GUEST_MAX_VCPUS is and has always been bogus as a compile time constant
+in the Xen public headers (yes, ARM inherited it from x86, but it should
+have never been copied to start with).  Please do not introduce any
+further uses of it.
 
-v2 -
-1. Enclosed 'vttbr_el2' access in show_registers() and vcpu_show_registers().
-
- xen/arch/arm/traps.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index aac6c599f8..737f4d65e3 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -720,8 +720,10 @@ struct reg_ctxt {
-     uint32_t ifsr32_el2;
- #endif
- 
-+#ifdef CONFIG_MMU
-     /* Hypervisor-side state */
-     uint64_t vttbr_el2;
-+#endif
- };
- 
- static const char *mode_string(register_t cpsr)
-@@ -919,12 +921,16 @@ static void _show_registers(const struct cpu_user_regs *regs,
- #endif
-     }
-     printk("  VTCR_EL2: %"PRIregister"\n", READ_SYSREG(VTCR_EL2));
-+#ifdef CONFIG_MMU
-     printk(" VTTBR_EL2: %016"PRIx64"\n", ctxt->vttbr_el2);
-+#endif
-     printk("\n");
- 
-     printk(" SCTLR_EL2: %"PRIregister"\n", READ_SYSREG(SCTLR_EL2));
-     printk("   HCR_EL2: %"PRIregister"\n", READ_SYSREG(HCR_EL2));
-+#ifdef CONFIG_MMU
-     printk(" TTBR0_EL2: %016"PRIx64"\n", READ_SYSREG64(TTBR0_EL2));
-+#endif
-     printk("\n");
-     printk("   ESR_EL2: %"PRIregister"\n", regs->hsr);
-     printk(" HPFAR_EL2: %"PRIregister"\n", READ_SYSREG(HPFAR_EL2));
-@@ -956,7 +962,9 @@ void show_registers(const struct cpu_user_regs *regs)
-     if ( guest_mode(regs) && is_32bit_domain(current->domain) )
-         ctxt.ifsr32_el2 = READ_SYSREG(IFSR32_EL2);
- #endif
-+#ifdef CONFIG_MMU
-     ctxt.vttbr_el2 = READ_SYSREG64(VTTBR_EL2);
-+#endif
- 
-     _show_registers(regs, &ctxt, guest_mode(regs), current);
- }
-@@ -979,7 +987,9 @@ void vcpu_show_registers(const struct vcpu *v)
-     ctxt.ifsr32_el2 = v->arch.ifsr;
- #endif
- 
-+#ifdef CONFIG_MMU
-     ctxt.vttbr_el2 = v->domain->arch.p2m.vttbr;
-+#endif
- 
-     _show_registers(&v->arch.cpu_info->guest_cpu_user_regs, &ctxt, 1, v);
- }
--- 
-2.25.1
-
+~Andrew
 
