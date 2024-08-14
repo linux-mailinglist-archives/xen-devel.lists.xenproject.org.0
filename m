@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7530951B25
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 14:50:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777143.1187332 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 574F9951B4B
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 15:00:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777154.1187343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seDSF-0007tf-RE; Wed, 14 Aug 2024 12:50:19 +0000
+	id 1seDbk-0001jO-NA; Wed, 14 Aug 2024 13:00:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777143.1187332; Wed, 14 Aug 2024 12:50:19 +0000
+Received: by outflank-mailman (output) from mailman id 777154.1187343; Wed, 14 Aug 2024 13:00:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seDSF-0007rR-OR; Wed, 14 Aug 2024 12:50:19 +0000
-Received: by outflank-mailman (input) for mailman id 777143;
- Wed, 14 Aug 2024 12:50:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1seDbk-0001hI-KJ; Wed, 14 Aug 2024 13:00:08 +0000
+Received: by outflank-mailman (input) for mailman id 777154;
+ Wed, 14 Aug 2024 13:00:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DSq6=PN=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1seDSE-0006XY-GW
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 12:50:18 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20607.outbound.protection.outlook.com
- [2a01:111:f403:2416::607])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c092f3d7-5a3b-11ef-8776-851b0ebba9a2;
- Wed, 14 Aug 2024 14:50:16 +0200 (CEST)
-Received: from BY3PR04CA0016.namprd04.prod.outlook.com (2603:10b6:a03:217::21)
- by CYYPR12MB8871.namprd12.prod.outlook.com (2603:10b6:930:c2::21)
+ id 1seDbi-0001c0-Oi
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 13:00:06 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2415::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1ff8b59b-5a3d-11ef-a505-bb4a2ccca743;
+ Wed, 14 Aug 2024 15:00:05 +0200 (CEST)
+Received: from BN9PR03CA0082.namprd03.prod.outlook.com (2603:10b6:408:fc::27)
+ by IA1PR12MB6188.namprd12.prod.outlook.com (2603:10b6:208:3e4::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.23; Wed, 14 Aug
- 2024 12:50:11 +0000
-Received: from MWH0EPF000971E9.namprd02.prod.outlook.com
- (2603:10b6:a03:217:cafe::81) by BY3PR04CA0016.outlook.office365.com
- (2603:10b6:a03:217::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.22 via Frontend
- Transport; Wed, 14 Aug 2024 12:50:11 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E9.mail.protection.outlook.com (10.167.243.71) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.22; Wed, 14 Aug
+ 2024 13:00:01 +0000
+Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
+ (2603:10b6:408:fc:cafe::23) by BN9PR03CA0082.outlook.office365.com
+ (2603:10b6:408:fc::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.33 via Frontend
+ Transport; Wed, 14 Aug 2024 13:00:01 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Wed, 14 Aug 2024 12:50:10 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7849.8 via Frontend Transport; Wed, 14 Aug 2024 13:00:01 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 Aug
- 2024 07:50:09 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ 2024 08:00:01 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 Aug
- 2024 07:50:09 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 14 Aug 2024 07:50:07 -0500
+ 2024 08:00:00 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 14 Aug 2024 07:59:59 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,199 +63,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c092f3d7-5a3b-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 1ff8b59b-5a3d-11ef-a505-bb4a2ccca743
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g/DIrhf8fgFn4hpqE6RWcgazj361lo85RKXsHU66ZUUaifdkK3aNsbb6kWC66yTeg3HkiVsdJhTt/8CtwOoEoPdbY+Qw18V/2ajngslgcxZebiKwpAQ9r6tOPx33XO0yF5cPS71xbVlXhsAuJtBReltvhln3QnVNhAwjU8pQAKNelhVa9p4lRcBWlzFQpyxQ9RjEfCMzoNLp3XqACGfWaoKNnbF4rrLG9DmjRIKTtFzthUVxzdLrc9PElaA8hAdXB1drUmEOYhDDHyYRjDDRVSMb7socoITvWKonSpTLaIdaMBy7l/sizZTDOwi9DBAfEvVMMp4hyFbVvnju2as1tg==
+ b=qtU5wuigAjecn2L6EkzsXmba5EprJawz4PmfZ3XrdqWP//aMPwJlQa61IfI/PkEIXIO25jS+GgOGTUUvrhpwhHHeq+Tsk9xrp/qZ9mYT5zqcqF4azeiC5p/tFNmLDpcKHYvltupVETRsU8XIbkcNtukCr/PsS3edEkem4te4tVjotfzWwttXXLxOSrntI5IA9shmKGahprCBSej3sHgLjUumK3w1TvLHbewo5PflQrrLk6Hk5kO6rbIyP+//BV4zVTM0ZNF/OsVBTL6lskWUpyVXgYv831XBhaR84Wd//lE81cJTpi/0+1sH7g84Q6sGcizs/qQ1Oma/QtCu/yNosQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EDT/PTe6Y5fTipC6iRJxvSsn50WTw1GGRwK8lw6qSPU=;
- b=GO0kCrssnWCjlDcQHbn03LICvEjw5q0yNLFfNoj2/aFj0IpQSW8pOv+4oYkXVl5JZskCbeiNWonq3mBVf0ZMqD6dd3lch/cjsqdW2YI1U3qhgXpLrg+pytqlrnilAvn1U9kbjHCt9cpLAQJPeMzmUsia9iIMBxIYDCjqzzxOzvf8Uam0iBOSSJQfm1advaXmIWlCFX33gxrmdkkkdlHCXMYJOgzWI6/Mf5Xcgpwi7LG3IyH917Q7t6BLGiagq/owiYZsuSp0ea0iqooHWkb+cpCHU+hr5HB0R4lLIQ95ycpUFr2HB6ltn+1T8VEmHMTv6uIqwx+LmLqoC9wRdjD4cg==
+ bh=AhNIUO9vBkPVQxb8J5KNnZujQc1BlrgUWDnwnkizL1A=;
+ b=zEPg6OhtLgXjCmQqYd58OFaMRDbnvoGjfPyC8rsVRLayAijLsPdh3LsWQN12kP4z5XVktXGERtvqPKrjv609APH2gy2f1mjSyTKW82rS/qJHmaqhbcDj5LxECSz6g6f5m1sAECVTa78OfFxhC8nqBXgNhq3ew8+Q69Ut78uebjZ0fS/MtgLgfIjlY+YQoLtlvldBFbP1u22drNRmg4YT1Bp3ZYWx5F/u4I7mEdTpz3uFL2gxAtoa0NWs+OiH2M0Cn0/COeptdABJINitAld292mF4t0nthMQrqbHyW7GzS8KpQRlzhZHhUaOKD5xL+uR5KXeRwqh16c4HtzPj9pOQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EDT/PTe6Y5fTipC6iRJxvSsn50WTw1GGRwK8lw6qSPU=;
- b=rTiJp1pWRaSdmeYV5kbweCTuy/e1yMNpqIj7v+yYkozDYMMwuaeky/myXxZxsqYpttbMW++hkWjri+6PvSHY80kcxXD1WXZxa1k1rU1BPm/ebd3eAw3aUP2l6y0k6do9eapff6DaQlpAMGdRxCTjRMLEb2FCjcCJDiRS1o3AHQg=
+ bh=AhNIUO9vBkPVQxb8J5KNnZujQc1BlrgUWDnwnkizL1A=;
+ b=ues1gmSHszSdlJp2LD3jhv89jBDV9O7FaDmrV5KE1QnQTlKuynMEeKsrj2NQZAzoM1wXgGQ7iulHfnk0rDgtyCsvWo14u8cx7OXLQWpVHNlqBnNTqklwdBF5KiJ4mmjS11NVSO6ZZHBb2Llnd26inRf+9LAhDB9/tkLQdVIVYj4=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <d1144ab4-a342-452b-bd03-a67409657fa7@amd.com>
-Date: Wed, 14 Aug 2024 14:50:07 +0200
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <dd7948b5-070a-4c9f-8e10-b51f1490ca09@amd.com>
+Date: Wed, 14 Aug 2024 14:59:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] xen: arm: Add a new helper update_boot_mapping()
+Subject: Re: [PATCH v3 3/4] xen: arm: Move the functions of domain_page to MMU
+ specific
 To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, <sstabellini@kernel.org>,
 	<bertrand.marquis@arm.com>, <Volodymyr_Babchuk@epam.com>, <julien@xen.org>,
 	<jbeulich@suse.com>
 CC: <xen-devel@lists.xenproject.org>
 References: <20240813171356.46760-1-ayan.kumar.halder@amd.com>
- <20240813171356.46760-2-ayan.kumar.halder@amd.com>
+ <20240813171356.46760-4-ayan.kumar.halder@amd.com>
 Content-Language: en-US
 From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240813171356.46760-2-ayan.kumar.halder@amd.com>
+In-Reply-To: <20240813171356.46760-4-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E9:EE_|CYYPR12MB8871:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b0d00ce-23cc-4ab8-75da-08dcbc5fa246
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|IA1PR12MB6188:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a0b4845-5fda-43f2-31ad-08dcbc61025b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
+	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MWN6T3d3OC9xanN1Qm1sTm1taFdpUGdwcXhLc2kzc0RqSTMvUDJIOE5aTjU3?=
- =?utf-8?B?UGxPQUNzQmZvci9kaWdCL3ROL1dxVUlJQlhJZm9uanBWNk9kK3BpYTBINVpz?=
- =?utf-8?B?dzhPMFlVSTBEY2dXdUtEdW5WcGVTUkRjU1lmaVlTSkV6MHFrWlpKbEdUOVA0?=
- =?utf-8?B?U05sVi9oNTdWK1JyN1VIU3BLSXU4YTZCUFV4RnJUN2JESVRMbHAzaVlWWk5Z?=
- =?utf-8?B?SUtmTGVLMVhlU2FiVll2NFI2MmZtQWFrWllWaFVsdnZuS0MzMjlFa0JTZmZT?=
- =?utf-8?B?R04vM2h6YXV3Q0VDZTV1TmsvZDRUc1JKZW15aHh4WWlQbWtUcWUzNGNrSGpr?=
- =?utf-8?B?Yzkrc1lORGI3dDdobVdPSkpWYTBTT1EwcEtWVXlHdUZpZURja1JlVzlyeTZ2?=
- =?utf-8?B?aDlnVHUxRnpLS2o5cUNEWnJPYm1mQ1ZmUnhMWnJWZEZnWVdUTEJZSUJreW1q?=
- =?utf-8?B?RnpybWJ4R1pTN2ZZYVh2cUtDMk1EbGs5eTl4YmRKem9GQksrMFAyTXA5azdo?=
- =?utf-8?B?dStSa0tzaGNxYUMweCt1MFhaTzA0ZFBuVVJDUGVwdGZwOC9XektlcHk3L21M?=
- =?utf-8?B?b3FBeTBaZXM3N0lWTzNqYm1hdlRxRG11YmgyVjlWYUVPUkQrS2lmU3NKblRh?=
- =?utf-8?B?MFlhUDVEL1FKaTZLck1FRS9BcERRSWxLTE9HWWxTVE0vZTRwaTZFYUtmZ2h5?=
- =?utf-8?B?ck9WTWF3YzQrdEptKzRSQkhLK0QvY1hnNTdsTkpPb1NaaWdWdHNpZjlrZW1v?=
- =?utf-8?B?WExPTTdsWEpJTDVwakprYVhnVkcvdUJPQUs1S0VMUmZncHA4dnJLTFVrcmZM?=
- =?utf-8?B?aVhhZTNSTDlyaklmM3ZNSGFNalFXdjJjYXg3Sk1RSlkxeWVHb0VnL1NvdE53?=
- =?utf-8?B?dFpVYzFuZnRrRVIxQVFSeC9OVW9jL3BuM2JPa016Wm1pUWxERHdPeGt3OVVm?=
- =?utf-8?B?bjRHQU5mWVJrRDgrRkVodVJ6VzNNVEJmZTJmWTBRdC9iRXBnRFhEdUkvd0ph?=
- =?utf-8?B?ZE42azUwYnV1TlBiSXJuMW5rUHhxUUE1WHRkRXRvVWh2eENJMlFmVzhER0Vk?=
- =?utf-8?B?SHZack0vOU5YRjZTd0pRMDk2cFN4WGcwbzhyM1pFVExxNzJOUlZsTEdVNE1o?=
- =?utf-8?B?NHNkdG1nZjlmc1pHUzNrdHFwZnJzVnNISU9udmZWcU5RS0Nxa05EbTdIdWFm?=
- =?utf-8?B?QnJDN0lhRzZZVmpnZGNlQlk5bHlXVXgxNU5XT1VLcklreDJ2WmJXK0RMdGs4?=
- =?utf-8?B?SytwZnN4emJGcEdQODJGUnBGaTdTZFJQVzFqR1k5T3RlN1pLRUpwNldqT0t1?=
- =?utf-8?B?Qnp6UzlTOVNVVit5bmpNUzQ3aE95K2paMERsWGpxZmNtV3BmR05mdk1tWjh2?=
- =?utf-8?B?MXVnNkVKQjkwUGlVeGZiclVNSWpyUjh6NGhmUFM0SEpwTTdmbmR5YjBFWGlz?=
- =?utf-8?B?TzBLTS94cS82dUdJSEF3MldYWWh1eXdGS3c3alNDWjRzU1F1VlpIVnBNRFJq?=
- =?utf-8?B?dzZzdlRZNndaa09rd0wzV2lCcUp1ZXVIeFBWdlZCTVVaSEVhZCtaZHBCZit6?=
- =?utf-8?B?d3c1aTlxRUZpZTRRZzg1NS9iRkQ0R0dtSFoydzJsYUE3SHR3QmxSYUdyUEFF?=
- =?utf-8?B?WU9aSkdpRDQ4SWY0ZXAreTd1aGNuektJY3hBNjJDUHBqZlJWdFZYMDZoTFNy?=
- =?utf-8?B?M0FmNFpjSlV1MVZJOXFqd0liV3lmRTNhMnJKS0FqcnNVZXUzaDFRekRaZFhs?=
- =?utf-8?B?UStnNXNIMVJNYnNUUXB0RDI1d1dDcjduMzJWMmY2RHkrMWZRZFM4Wks5b2dL?=
- =?utf-8?B?eVlHMy9sQnlTZGJVQ2h5QmRFVEtRTzN1V2luSEtwTXpwdGh0UXR0MjYxVm9S?=
- =?utf-8?B?ZFZqUmIyYkxlUUdVS0w0SGtobmphcWFJVEFaRXJDL1N6aHFWeGFWTDRxNVZZ?=
- =?utf-8?Q?aRnbtxSoI1MJ6YEOvD7pM7tUuCQJqVt6?=
+	=?utf-8?B?Vm1ackVDNTd1TURmWHFJcVl2R1lKMGIrdmo1VUlEZmNsN0RxNXZRaEVlbHE4?=
+ =?utf-8?B?blhEQU16cjJvRitxUlIxc3lpVEY3OFZ2dmdibUh0ZkdQTGhZT1JoNUp6Tnox?=
+ =?utf-8?B?UmZ4Y0h5Z3dFRmxnbnh2bGFCam85WmhlejR1bDBaOC9ZZlF4SlpkR3draDg4?=
+ =?utf-8?B?a0FhanJFRTI2THZ5M291RlpmQkx3NHRKb2dMODA0VWtnOUdrMldYY2Z3c0Ez?=
+ =?utf-8?B?ZHpEcGQvMkl6aExYL296SW1RQlJLd241d1U1SlFmUkdUek5jcmQ2cmZwc0ht?=
+ =?utf-8?B?aVdoREV2K1hxTFI5NUlTVUUvV3phOFNmRWtGMXdHdzZkem5xYzBTWFJ3UjhL?=
+ =?utf-8?B?ZVNxK2NTdkMyWTkzVTV1bERadjRlYnRmQzB3MHBZeUlyMWVvVHRSaEI4Y1Y0?=
+ =?utf-8?B?aGpRQ3RhR2xKbmY0M1NhNDUvUlVNNlhpSTlvZTRQYmpKb21NUFVsTXZCbE5N?=
+ =?utf-8?B?R2ttMzJDZnVLNDA0bTg5RFVtNW9naTcyUmEwSHBtNFYzVUNSV2J3Nk1XVlBT?=
+ =?utf-8?B?WVgxNEJoSm54cTFqeHFnZjBRMTVQNWVQWFBTR0htc0pyY2FMRlZMN0p1TVA5?=
+ =?utf-8?B?eENxS2FYL3NlaUNzYnNPRk90ajJCell1WGsrVEYyWEl3bDdGeitEdEpLWVBT?=
+ =?utf-8?B?aDVYbklZeTYrM0RaOU9DYVJqL21LcGdhSktXZFRybXVWeWQ3cEVaY2xCcGJK?=
+ =?utf-8?B?Z2RkazN1Sm9RdC9iQVRmelF0bXV4aWhhck1Db1BVRTVoQ1VrNUpWZmZwaVdm?=
+ =?utf-8?B?UnBINk1BdXBqYkFpUXo2ekZxMHRNdkwwNzNGOStWS0VtRWlDYVMvNThMTjd6?=
+ =?utf-8?B?bnNVNkRTcUtxSkt1ekk1VERUcFlCVXphclVISWNUQmd0emFhK05vVGIwUTVu?=
+ =?utf-8?B?dlBZVHpuOXNUOEYxU21jR3gwazJndHpUeVlkaHNhKysvMWJBZ29KTjhTdmVY?=
+ =?utf-8?B?c3J4Y1ZRYnRpakNFaVE5MzNZcEltYUpKUTdBc2tBS3FqcHFJNHZxQko0S3ZN?=
+ =?utf-8?B?MFZsZ0xwTWhkbUhiUXlZNHA5RnlqOXFkNVN3d0xYT2FxZWJHejg2K1VTVUZu?=
+ =?utf-8?B?LzllWjlOOHpneVVJR3BWZ2ZGdjJoNnR1NlNOeXA4Vml6dUZRaVJRSUNFQTJi?=
+ =?utf-8?B?d1FXa3VQYmJSVWovM0dTVCtyWW95cUllR243YW9qNGhIbURGUFpmeTF5ZTIw?=
+ =?utf-8?B?V1dwN1AxQWVjZmtPVDAvbGpGUk9ySWluZTNHZjJWeDRwOTVBam42TEh4SjF2?=
+ =?utf-8?B?NWpMalphekJPbE5qS096RTgvT1pka2w1ZDVHL2dlUUUxUmVUWE5yVnNvZjIy?=
+ =?utf-8?B?YVkyWGZZTlFvYWQyeG1NT0o4TVBTdTR5bDVtczhRcjJDZW1aOWwyaUhFZitm?=
+ =?utf-8?B?Rm11Zk03RzZWak1XUUdEQ2VTWUNsTUY4VU9wdlZxM2VXZHQrekFYR2VNbmZD?=
+ =?utf-8?B?ckxKTk45WUROdnZkK2pvejExMnZJSkZ3aEpqc0hmNjBXWmY2YkVCbVE4REpG?=
+ =?utf-8?B?bkhFc3VFOGFjNFY4MWwxUmVCaXZHN1Jnam04bUV1QnpUZWt2RHNSNzIxVDM0?=
+ =?utf-8?B?VjkvSHZxZ2FCNjI3UGxkUTFqV3ZncmU4MFIxaGhrUkQ2WnNYWlBaNlZENFZw?=
+ =?utf-8?B?U2hMMkF4eGNldlF0ckxKV0FTWmhnN0t3KzlhbmVpalBlb3BDUitwZW9GR0pC?=
+ =?utf-8?B?RGFDMjJ5RS84TnNPNmk3QXk2RndtQ2d4YUZDZXNGWUxYdE90U0VQM0J4RWZq?=
+ =?utf-8?B?UUVjRHE5cGJQdytseVdIMDFrRjBEd21CZk9WZ0ZvSngyK2ZUQUpnK0dBazI0?=
+ =?utf-8?B?WVdqNVJZSkkzMTEvRXNUamJ0cnE2cG5YQWhBMmlwQi9BcXMwMGQxOGJCbXVM?=
+ =?utf-8?B?VHppQ1RWS0lMM0ZqaXlWRXFTSmV1T0h6czBUUGg0YVdLRWgwT25aOTJZYXNy?=
+ =?utf-8?Q?V47j+hOpzgVVO2m3rym4ZfvUHOT7wh9O?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2024 12:50:10.9115
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2024 13:00:01.6523
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b0d00ce-23cc-4ab8-75da-08dcbc5fa246
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a0b4845-5fda-43f2-31ad-08dcbc61025b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000971E9.namprd02.prod.outlook.com
+	BN2PEPF0000449F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8871
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6188
 
 Hi Ayan,
 
 On 13/08/2024 19:13, Ayan Kumar Halder wrote:
-> update_boot_mapping() invokes update_identity_mapping() for the MMU specific
-> code.
-> Later when the MPU code is added, update_boot_mapping() would invoke the
-> equivalent.
-> 
-> The common code now invokes update_boot_mapping() instead of
-> update_identity_mapping(). So, that there is clear abstraction between the
-> common and MMU/MPU specific logic.
-> 
-> This is in continuation to commit
-> f661a20aa880: "Extract MMU-specific MM code".
-> 
-> update_identity_mapping() is now marked as static as it is called within
-> xen/arch/arm/arm64/mmu/mm.c only. Also, updated the prototype to
-> update_boot_mapping() which is now invoked from other files.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> Changes from :-
-> 
-> v1 - 1. Introduced update_boot_mapping() which invokes
-> update_identity_mapping() in MMU specific code.
-> 
-> v2 - 1. Make update_identity_mapping() static and update the prototype.
-> 
->  xen/arch/arm/arm64/mmu/mm.c         | 7 ++++++-
->  xen/arch/arm/arm64/smpboot.c        | 6 +++---
->  xen/arch/arm/include/asm/arm64/mm.h | 2 +-
->  3 files changed, 10 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
-> index 293acb67e0..1afbbeda5a 100644
-> --- a/xen/arch/arm/arm64/mmu/mm.c
-> +++ b/xen/arch/arm/arm64/mmu/mm.c
-> @@ -111,7 +111,7 @@ void __init arch_setup_page_tables(void)
->      prepare_runtime_identity_mapping();
->  }
->  
-> -void update_identity_mapping(bool enable)
-> +static void update_identity_mapping(bool enable)
->  {
->      paddr_t id_addr = virt_to_maddr(_start);
->      int rc;
-> @@ -125,6 +125,11 @@ void update_identity_mapping(bool enable)
->      BUG_ON(rc);
->  }
->  
-> +void update_boot_mapping(bool enable)
-> +{
-> +    update_identity_mapping(enable);
-> +}
-> +
->  extern void switch_ttbr_id(uint64_t ttbr);
->  
->  typedef void (switch_ttbr_fn)(uint64_t ttbr);
-> diff --git a/xen/arch/arm/arm64/smpboot.c b/xen/arch/arm/arm64/smpboot.c
-> index a225fae64d..789f352ab6 100644
-> --- a/xen/arch/arm/arm64/smpboot.c
-> +++ b/xen/arch/arm/arm64/smpboot.c
-> @@ -112,18 +112,18 @@ int arch_cpu_up(int cpu)
->      if ( !smp_enable_ops[cpu].prepare_cpu )
->          return -ENODEV;
->  
-> -    update_identity_mapping(true);
-> +    update_boot_mapping(true);
->  
->      rc = smp_enable_ops[cpu].prepare_cpu(cpu);
->      if ( rc )
-> -        update_identity_mapping(false);
-> +        update_boot_mapping(false);
->  
->      return rc;
->  }
->  
->  void arch_cpu_up_finish(void)
->  {
-> -    update_identity_mapping(false);
-> +    update_boot_mapping(false);
->  }
->  
->  /*
-> diff --git a/xen/arch/arm/include/asm/arm64/mm.h b/xen/arch/arm/include/asm/arm64/mm.h
-> index e0bd23a6ed..ac8d1f5c78 100644
-> --- a/xen/arch/arm/include/asm/arm64/mm.h
-> +++ b/xen/arch/arm/include/asm/arm64/mm.h
-> @@ -21,7 +21,7 @@ void arch_setup_page_tables(void);
->   * Note that nested call (e.g. enable=true, enable=true) is not
->   * supported.
->   */
-> -void update_identity_mapping(bool enable);
-> +void update_boot_mapping(bool enable);
-The whole point of adding a wrapper was to avoid ambiguity \wrt identity mapping and MPU.
-You changed the name of a function but left the comment which is pretty MMU specific. I think
-it should be moved to update_identity_mapping.
+> Moved init_domheap_mappings(), map_domain_page_global(),
+> unmap_domain_page_global(), map_domain_page(), unmap_domain_page(),
+> domain_page_map_to_mfn() to MMU specific folder.
+Both the commit title and msg seem incorrect (you took them from v1, instead of v2).
 
-Apart from that:
+With that changed (i.e. title and msg taken from v2):
 Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
 ~Michal
