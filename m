@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD243951F1F
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 17:53:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777495.1187632 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31658951F40
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 17:58:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777516.1187652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seGJK-0000aI-00; Wed, 14 Aug 2024 15:53:18 +0000
+	id 1seGOO-0002d2-Q4; Wed, 14 Aug 2024 15:58:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777495.1187632; Wed, 14 Aug 2024 15:53:17 +0000
+Received: by outflank-mailman (output) from mailman id 777516.1187652; Wed, 14 Aug 2024 15:58:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seGJJ-0000Xc-TY; Wed, 14 Aug 2024 15:53:17 +0000
-Received: by outflank-mailman (input) for mailman id 777495;
- Wed, 14 Aug 2024 15:53:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1seGOO-0002aA-NJ; Wed, 14 Aug 2024 15:58:32 +0000
+Received: by outflank-mailman (input) for mailman id 777516;
+ Wed, 14 Aug 2024 15:58:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NhoJ=PN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1seGJH-0000XU-TJ
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 15:53:15 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 50e8761b-5a55-11ef-a505-bb4a2ccca743;
- Wed, 14 Aug 2024 17:53:14 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5a156557026so79583a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 08:53:14 -0700 (PDT)
+ id 1seGOO-0002a4-0M
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 15:58:32 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0c97dd7a-5a56-11ef-8776-851b0ebba9a2;
+ Wed, 14 Aug 2024 17:58:29 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5a1337cfbb5so106194a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 08:58:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5beae5fa625sm553348a12.93.2024.08.14.08.53.13
+ a640c23a62f3a-a80f4184ec9sm187785466b.219.2024.08.14.08.58.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Aug 2024 08:53:13 -0700 (PDT)
+ Wed, 14 Aug 2024 08:58:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50e8761b-5a55-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: 0c97dd7a-5a56-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723650794; x=1724255594; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723651109; x=1724255909; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A2IeALN3Vrq3vvrJcYopiAMEOi+iZY1Mf62fXq4DCts=;
-        b=fa5qcn+8MFjunQwA6OxTeUSlP2evgham8hOIAoxeiTG9E1o9LI4Ji26FBYw8P/B4gf
-         Rowawv05Gk0S3T04gW3j4cFPT7P8XUMegD5EiBoKUSitVjYp1T7yEiAtaxNlD/5XQD0+
-         2eFNImH7LLlKI1Iz9Y2QZi5vzNYUTkiMqrLuwFMXPoxtHA+EjHSc2IbwIqjhXDzQWO5x
-         T0Fs1J34Y+35cvm1NHFbOBvWhHPEvh1WpHd1fr7BK3gnsfGkxBsSCzckhyEQMqp9Necw
-         0chiYMMwl9BQ3j5ehJSRTXKDLZv+u88LSTZ3nkx++FxpA2MYho1BK5m8Aa32fJjt9B7f
-         Btiw==
+        bh=HgLhLx0ki4Prcn8cg+ZnAMezOZadSVby5sGVEOp17Qo=;
+        b=eBTfqJa9TOwLTjLOv92wcx8yApM6C+g6fP45+aERmtc/9glrLJesz40ljWNdUkcnXb
+         frYwjOtXo70P+zrGfZK5xsuSKJnPlYVxNoFA8qKkqwNrYo9Q6urwWPhrCY8I8v+nFQdp
+         4vCW9HtXB0T8BvJr2HKw7wjWKDliF+9M0yb876eV2Zesnem92sGQl1gs7dhi79T2AWxh
+         AzmgrLjOnzl3gifX4SdPmTCVcaf4jmjc82IgxsPFJVktlVUO6xOrVJi7qpQ1P27yAXbn
+         scVv/1ft1fhi3Az6K35Xd3Ca9ZSJkRVsgd9rnJinCfC1ss8PrKwzeUXrPfqNEXxnraRN
+         pX6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723650794; x=1724255594;
+        d=1e100.net; s=20230601; t=1723651109; x=1724255909;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A2IeALN3Vrq3vvrJcYopiAMEOi+iZY1Mf62fXq4DCts=;
-        b=uRDXo/nl8O5qZlLtPLk71Kqj0fvPKkLuuHi97cWPsCtA02HdiSClCa9NDFUpRPw2eI
-         bJoIixgBuxEN8soZl7VbFkI+K2em3naBgjx0G/Gd0CbRi3sRRld20CoBIoPbWiTvYhWr
-         720h7g06pQF+gXG3zlbXQOoUJXhYEcxZuOf63n6r4b9pI0Hv9hiKB2v/OHJwdpDiRxE5
-         SWfHkU2+WyIvObF4vWs1IJeSyCZYzSdayHCT+YOIcGJGWv4+nYMbPIPXOkE7wzjZpQHv
-         kz56PldxaGjIr+9DLWJJNZ3oBRWNoxY6472bihPQ5o9zIC7zHJ/t/n8gaAtqhKZf5H49
-         vDmw==
-X-Forwarded-Encrypted: i=1; AJvYcCW0/BQUJH8sZWGbMHon0BGcMdXhtE/J15i6qNj9PEh+9k6umd8mlik9FTsUiYU+Ly0pOseNjGfQntyfrm56tJi0YGsvdJM02+i6Ez2YMxc=
-X-Gm-Message-State: AOJu0YxmdPaIJvHWyaQ5hHP3nKudUTCSomIXNduWKdbj2TogoBvf+zPZ
-	iSqllEccvVQCe5bO4s0G7J3MIfBvUmu7nxYwg31gOXrake6ORExy5jk06eEuSA==
-X-Google-Smtp-Source: AGHT+IG8pSUDu6nVhZUcf19kE/vFyNTJcWLuViHUe8M0v9g0B+jJaGlkaR4B01K01XxASFY+kE8YGA==
-X-Received: by 2002:a05:6402:11c6:b0:5a3:27bd:e264 with SMTP id 4fb4d7f45d1cf-5bea1c7724amr2815632a12.9.1723650794217;
-        Wed, 14 Aug 2024 08:53:14 -0700 (PDT)
-Message-ID: <959f33b6-3649-45b3-8f31-ec494e60fd80@suse.com>
-Date: Wed, 14 Aug 2024 17:53:12 +0200
+        bh=HgLhLx0ki4Prcn8cg+ZnAMezOZadSVby5sGVEOp17Qo=;
+        b=HLMd9cX7j2Mdn1tGHCco4HfjRqpgbfyldag4jIS7hI4Hy7hVate1Uk8xJUJlEyOhBl
+         +NrohxcoiYrEL02yCx8gzgP06DPL3Vr1RYzeEE+of0axBhw9zJ4XqHGq6D8dP3opHre7
+         Cb5P7bkXTg7MZ8BjSV2Dd+SasGYT8dBk2xFyMawimvy41NAnZiQp0PRQBhXLXfgI8NUu
+         PPVSJbEQg7aJ6HqaoI7fOBHr2H3A3ZUdyYDb3WQiE+iQEWUNMYpLLLZgHW+rL8dig8i5
+         js7TEUgO9KdPwQlOnNhJ0AwoA8oOftazKBDqHAg0YIeE/38tn+uu7lBgH26Cl9oepDeB
+         d2Vw==
+X-Forwarded-Encrypted: i=1; AJvYcCWoe7ZVyP9D0zNivvSp2UmhfCK1KG0cFBIEYmQHpLfohF9m8lndhYlYo01ezm25E9lOuOC7x1KLbtlWjvAX9Cm0bXEsjVbKlwxPIok70Mc=
+X-Gm-Message-State: AOJu0Yz0QDKeDBDUu42LnZPzpxV5ALwtksMqNuBj4GkIy0BZTykkMGs6
+	wEAbvSTpindwkF1+bGcYanjxpegoj3OmHQdsaJAG8WP0wjc3P41nGonQMPT0lg==
+X-Google-Smtp-Source: AGHT+IGyHXwPNydQfyoM/ym/picSbK18+Z+SyvrNMQRDIxoROY7xifgr8jmHnB/YSfjJgduV0coZxw==
+X-Received: by 2002:a17:906:dc93:b0:a80:d683:4d23 with SMTP id a640c23a62f3a-a8367070e5cmr224765866b.62.1723651109093;
+        Wed, 14 Aug 2024 08:58:29 -0700 (PDT)
+Message-ID: <d2a71d20-d3c5-45cc-9e3e-10a0773508a0@suse.com>
+Date: Wed, 14 Aug 2024 17:58:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/7] xen/riscv: introduce and initialize SBI RFENCE
- extension
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH] x86/cpufeatures: Add new cpuid features in SPR to
+ featureset
+To: Matthew Barnes <matthew.barnes@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
  xen-devel@lists.xenproject.org
-References: <cover.1723214540.git.oleksii.kurochko@gmail.com>
- <1a863d06866f86761d23e6da3f4a6ee58c474473.1723214540.git.oleksii.kurochko@gmail.com>
- <77ff59d1-b158-4603-bdbd-67c079ce87c9@suse.com>
- <34cbaff323d9619f8d4cb1d2b8ed12584037ee0d.camel@gmail.com>
+References: <09353a67d79b12f2ff2a9be797866902bcd71825.1723650205.git.matthew.barnes@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,75 +114,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <34cbaff323d9619f8d4cb1d2b8ed12584037ee0d.camel@gmail.com>
+In-Reply-To: <09353a67d79b12f2ff2a9be797866902bcd71825.1723650205.git.matthew.barnes@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.08.2024 17:41, oleksii.kurochko@gmail.com wrote:
-> On Tue, 2024-08-13 at 11:34 +0200, Jan Beulich wrote:
->> On 09.08.2024 18:19, Oleksii Kurochko wrote:
->>> +static unsigned long sbi_major_version(void)
->>> +{
->>> +    return (sbi_spec_version >> SBI_SPEC_VERSION_MAJOR_SHIFT) &
->>> +        SBI_SPEC_VERSION_MAJOR_MASK;
->>> +}
->>
->> Can you use MASK_EXTR() here, allowing to even drop the separate
->> SBI_SPEC_VERSION_MAJOR_SHIFT?
-> I am not sure that:
-> (sbi_spec_version >> SBI_SPEC_VERSION_MAJOR_SHIFT) & 
-> SBI_SPEC_VERSION_MAJOR_MASK == MASK_EXTR(sbi_spec_version,
-> SBI_SPEC_VERSION_MAJOR_MASK)
+On 14.08.2024 17:52, Matthew Barnes wrote:
+> Upon running `xen-cpuid -d` on a host machine with Sapphire Rapids
+> within Dom0, there exist unrecognised features.
 
-How come you're not sure? That's precisely what MASK_EXTR() is for.
-
->>> +static long sbi_ext_base_func(long fid)
->>> +{
->>> +    struct sbiret ret;
->>> +
->>> +    ret = sbi_ecall(SBI_EXT_BASE, fid, 0, 0, 0, 0, 0, 0);
->>> +    if ( !ret.error )
->>> +        return ret.value;
->>> +    else
->>> +        return ret.error;
->>
->> With the folding of two distinct values, how is the caller going to
->> tell failure from success?
-> By checking if the return value is < 0.
-> According to the SBI spec [
-> https://github.com/riscv-non-isa/riscv-sbi-doc/blob/master/src/binary-encoding.adoc?plain=1#L32
-> ] ret.error can be or 0 ( which means success ) or something < 0 if it
-> was a failure.
-
-Right. And what if ret.error was 0, but ret.value was negative?
-
->>> +int sbi_remote_sfence_vma(cpumask_t *cpu_mask,
->>> +                          unsigned long start_addr,
->>> +                          unsigned long size)
->>> +{
->>> +    return __sbi_rfence(SBI_EXT_RFENCE_REMOTE_SFENCE_VMA,
->>> +                        cpu_mask, start_addr, size, 0, 0);
->>
->> No check (not even an assertion) here for __sbi_rfence still being
->> NULL?
-> I thought that it would be enough to have BUG_ON() in sbi_init() but
-> then probably would be better to update the message inside BUG_ON():
->    int __init sbi_init(void)
->    {
->    ....
->    
->        if ( !sbi_has_rfence() )
->        {
->            BUG_ON("At the moment flush_xen_tlb_range_va() uses SBI rfence
->    to "
->                   "flush TLB for all CPUS!");
-
-I never really liked this kind of BUG_ON(). I leave it uncommented in
-code which clearly is only temporary. Plus imo such BUG_ON()s want to
-be next to where the risk is, i.e. in this case ahead of the possible
-NULL deref. Then again, without PV guests and without anything mapped
-at VA 0, you'll crash cleanly anyway. So perhaps my request to add a
-check went too far.
+Without looking at the particular bits yet, just a question up front:
+Why SPR? There's newer hardware available with presumably yet more newly
+used bits. If the goal is to cover everything that's known, this is only
+one step in the right direction. Which would be okay if expressed that
+way, ideally with a plan to subsequently go further.
 
 Jan
 
