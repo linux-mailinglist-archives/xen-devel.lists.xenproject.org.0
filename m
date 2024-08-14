@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0467A9516AF
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 10:36:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776881.1187089 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 005979516FE
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 10:51:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776910.1187099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1se9UR-0007UV-Mg; Wed, 14 Aug 2024 08:36:19 +0000
+	id 1se9ht-0003WU-Rz; Wed, 14 Aug 2024 08:50:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776881.1187089; Wed, 14 Aug 2024 08:36:19 +0000
+Received: by outflank-mailman (output) from mailman id 776910.1187099; Wed, 14 Aug 2024 08:50:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1se9UR-0007Sx-Jj; Wed, 14 Aug 2024 08:36:19 +0000
-Received: by outflank-mailman (input) for mailman id 776881;
- Wed, 14 Aug 2024 08:36:17 +0000
+	id 1se9ht-0003TZ-P5; Wed, 14 Aug 2024 08:50:13 +0000
+Received: by outflank-mailman (input) for mailman id 776910;
+ Wed, 14 Aug 2024 08:50:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NhoJ=PN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1se9TH-0002t1-Kv
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 08:35:07 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1se9hs-0003TT-FJ
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 08:50:12 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1c247907-5a18-11ef-a505-bb4a2ccca743;
- Wed, 14 Aug 2024 10:35:07 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5a156557029so7292163a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 01:35:07 -0700 (PDT)
+ id 372fd2d1-5a1a-11ef-a505-bb4a2ccca743;
+ Wed, 14 Aug 2024 10:50:11 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5a156556fb4so7496911a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 01:50:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80f411af30sm144642066b.131.2024.08.14.01.35.05
+ 4fb4d7f45d1cf-5bd187f4fe2sm3647534a12.9.2024.08.14.01.50.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Aug 2024 01:35:06 -0700 (PDT)
+ Wed, 14 Aug 2024 01:50:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c247907-5a18-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: 372fd2d1-5a1a-11ef-a505-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723624506; x=1724229306; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YimU2DNm3SD/n5KZvLqPxRgRTpILHAbZb+waNB5GDPc=;
-        b=CgNeta0OvPBrOlhDLB+50K8C5bN31WjtG/GGLh2BTheD+kBO0aw2w3cKw2zwW//706
-         dH/yrYqeSMqmZFaXyphSH9GtEN+aqIl+C1srQK60m5EdsrKoE8THA1nmk26v8LxAPq3I
-         7xJ8JoDGtv8P2o4ebNcD9qgIiMd9dCa6YgkNxX17ziXlLq9mGRN4EfLr+3oJ6CnMZ/5Q
-         6iHHOWx2OGXWR7o+bR17YvyNyW788iM68gXYoy46kjNyI/kheA9lF08f9BlMNQfp8xgk
-         L4Hj5tdgUZkp/kEMFrA13zzt7Cm7kQ7DR/uEHM2yM1oYeVXp+PnlAjXDyTee1odFqkQr
-         b2fw==
+        d=suse.com; s=google; t=1723625411; x=1724230211; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=7hLxkBxMMzkiBCwdwoQ+smbiR9BM8Nnccc5v7YtMhc4=;
+        b=N/Ge2nZD7er923msD75jemeRT81juTWazVP2X3twrJirp/wwV0t4tLnUg1pqUgpFzF
+         R4shkiKTX9QhNc3XXXBo7Qps3Civpm/e4zIoN9R/PbLVQjygvpKy7/Tt/W0EjVh+IL9j
+         e3wgG6YhpP+lNken2Vq7+lp+Mra5nKroOUcWvZhrs7dfqXk06wzC5VJVs1a6d9nmtRnp
+         FH7dnYT+2Uc5sMEzBjO/B5+Eht+JkjECxdivmbKG06WI1Vcg1K7y3j3il+yX3F8TNTFe
+         plHLgg0/3NZUDp8zD/19258RTLO12/AlcVHo3QV17SMBJhSpCf5ZT473yZGt4FKKluZO
+         pp1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723624506; x=1724229306;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=YimU2DNm3SD/n5KZvLqPxRgRTpILHAbZb+waNB5GDPc=;
-        b=ZeqY/3w+m0MbPTZcD8mYyVZ8Qp77fsTrJDv55dyB0eKc0aZAGRF0dfgezA8HNNd2Cy
-         rWbnqa2j+A3DQbYvjJcFxxcTRplQWgK0O8PW4jHhlOiL4CC7l7p79Qb5DIg00tvapTHp
-         +mohsjw7OAjsr+qi6Bb4AbJ0CCFzNRUCVtdPvVjfbUgW5a85JNBhjS9wl4q0+S+K863J
-         uG/0oKvuOok2BHZXs6ThPRoDIk82nI1J8PYazgdC6qVMsZ1KhvDex0abMNnYKseItUIq
-         UdKB7b3bTtCn2p9BWH/HXl0hujBhJWdByytVl9cdqtSIIK3gI5Bwi6baXGdDqt2Gyi5N
-         DNng==
-X-Gm-Message-State: AOJu0YxvcqPMSkXygyyO92MxqJqS258cQOjVf7siISbipOjIwk/BGz+j
-	c5zjBwlEE0X24pqyH42dgIAEOe9dzn/+IquacItRVVbZ70kylR7wzqHqLK7r7MutblBSwtIaG3s
+        d=1e100.net; s=20230601; t=1723625411; x=1724230211;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7hLxkBxMMzkiBCwdwoQ+smbiR9BM8Nnccc5v7YtMhc4=;
+        b=S+WvQpcueiL21nwyWp1sDZHY+uWFH5zVzw8IRq+IzahmBKwTxgHgWywdivF7eBX1td
+         Oy/vxqV+T7My6dpj8XLgLTYDB/lk0g16BVncr3XDdlDo5V8nRTbC+Sk5q9ZCHWNFV1Qx
+         o/ZTLAEQQiSeGKX5Bz077fX8iSU0BSncwssP421ZFLwhdWy3fWZt0NI/I0GHUtwIfqPn
+         MadcUU4wG+OepjV+PgtUdOjc8BBoAzpDTT4FFDhQsF0kAFW/Nfy/2apIAOIgkCPnMMTi
+         hJrm3rx508md98Q9j718KlT5FholpJ0fYTO1jfoD5lkXRmAXFjkeZAGC9usZBLtMa+wW
+         pZlQ==
+X-Gm-Message-State: AOJu0YwJNME0WS36c+4FaSeKhiCNlz4d2/aa8s+lTcXK6mrILY6Jx7KB
+	hO8MNh7a4J9NHLtVY48XbzolD3un2oxJYXgxpOyNGTt3/AOMYNAN7rVbWsxfbie5RWSI4xjVNK8
 	=
-X-Google-Smtp-Source: AGHT+IEsGlrcIkp7EAHWdqWTAEUSM/4OCYOArwJwNmmWsFV1hWybwF7FnokKqc1ffFKqyQxpYwlvEA==
-X-Received: by 2002:a17:907:3f07:b0:a7a:b561:3564 with SMTP id a640c23a62f3a-a836704a180mr137822866b.61.1723624506315;
-        Wed, 14 Aug 2024 01:35:06 -0700 (PDT)
-Message-ID: <9653c288-abec-4185-babd-0c197fc249ee@suse.com>
-Date: Wed, 14 Aug 2024 10:35:04 +0200
+X-Google-Smtp-Source: AGHT+IGFYN7ca9CPjRnjpz5/qBpgucjG/0mTwoA++Uor+985PHG6j1Whe85l42qWpq8iCtJz/MfGNA==
+X-Received: by 2002:a05:6402:5205:b0:5be:9bc5:f6b3 with SMTP id 4fb4d7f45d1cf-5bea1c6a749mr1270245a12.2.1723625410733;
+        Wed, 14 Aug 2024 01:50:10 -0700 (PDT)
+Message-ID: <bcfea345-57c1-43d9-82b3-240b685486cc@suse.com>
+Date: Wed, 14 Aug 2024 10:50:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 3/3] x86/CPUID: move bounding of max_{,sub}leaf fields to
- library code
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2 0/9] x86: support AVX10
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <2500a119-1734-44c2-9868-640bcc8ead2d@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,128 +109,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2500a119-1734-44c2-9868-640bcc8ead2d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Break out this logic from calculate_host_policy() to also use it in the
-x86 emulator harness, where subsequently we'll want to avoid open-coding
-AMX maximum palette bounding as well as AVX10 sub-feature pruning.
+AVX10.1 is just a re-branding of certain AVX512 (sub)features, i.e.
+adds no new instructions. Therefore it's mostly relaxation that needs
+doing, plus dealing with the 256-bit-only case that AVX512 itself
+does not allow for. Luckily an unnecessary restriction on the mask
+register insns was taken out again, simplifying the actual emulator
+adjustments quite a bit.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v4: Mark x86_cpu_policy_bound_max_leaves() __init. Add U suffixes.
-    Re-base.
-v2: New.
+AVX10.2 is going to require quite a bit more work; the new patch in
+v2 is merely the relatively simple start thereof.
 
---- a/tools/tests/x86_emulator/x86-emulate.c
-+++ b/tools/tests/x86_emulator/x86-emulate.c
-@@ -76,6 +76,7 @@ bool emul_test_init(void)
-     unsigned long sp;
- 
-     x86_cpu_policy_fill_native(&cp);
-+    x86_cpu_policy_bound_max_leaves(&cp);
- 
-     /*
-      * The emulator doesn't use these instructions, so can always emulate
-@@ -88,6 +89,8 @@ bool emul_test_init(void)
-     cp.feat.wrmsrns = true;
-     cp.extd.clzero = true;
- 
-+    x86_cpu_policy_shrink_max_leaves(&cp);
-+
-     if ( cpu_has_xsave )
-     {
-         unsigned int tmp, ebx;
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -352,28 +352,19 @@ void calculate_raw_cpu_policy(void)
- static void __init calculate_host_policy(void)
- {
-     struct cpu_policy *p = &host_cpu_policy;
--    unsigned int max_extd_leaf;
- 
-     *p = raw_cpu_policy;
- 
--    p->basic.max_leaf =
--        min_t(uint32_t, p->basic.max_leaf,   ARRAY_SIZE(p->basic.raw) - 1);
--    p->feat.max_subleaf =
--        min_t(uint32_t, p->feat.max_subleaf, ARRAY_SIZE(p->feat.raw) - 1);
--
--    max_extd_leaf = p->extd.max_leaf;
--
-     /*
-      * For AMD/Hygon hardware before Zen3, we unilaterally modify LFENCE to be
-      * dispatch serialising for Spectre mitigations.  Extend max_extd_leaf
-      * beyond what hardware supports, to include the feature leaf containing
-      * this information.
-      */
--    if ( cpu_has_lfence_dispatch )
--        max_extd_leaf = max(max_extd_leaf, 0x80000021U);
-+    if ( cpu_has_lfence_dispatch && p->extd.max_leaf < 0x80000021U )
-+        p->extd.max_leaf = 0x80000021U;
- 
--    p->extd.max_leaf = 0x80000000U | min_t(uint32_t, max_extd_leaf & 0xffff,
--                                           ARRAY_SIZE(p->extd.raw) - 1);
-+    x86_cpu_policy_bound_max_leaves(p);
- 
-     x86_cpu_featureset_to_policy(boot_cpu_data.x86_capability, p);
-     recalculate_xstate(p);
---- a/xen/include/xen/lib/x86/cpu-policy.h
-+++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -439,6 +439,12 @@ void x86_cpu_policy_fill_native(struct c
- void x86_cpu_policy_clear_out_of_range_leaves(struct cpu_policy *p);
- 
- /**
-+ * Bound max leaf/subleaf values according to the capacity of the respective
-+ * arrays in struct cpu_policy.
-+ */
-+void x86_cpu_policy_bound_max_leaves(struct cpu_policy *p);
-+
-+/**
-  * Shrink max leaf/subleaf values such that the last respective valid entry
-  * isn't all blank.  While permitted by the spec, such extraneous leaves may
-  * provide undue "hints" to guests.
---- a/xen/lib/x86/cpuid.c
-+++ b/xen/lib/x86/cpuid.c
-@@ -291,6 +291,16 @@ void x86_cpu_policy_clear_out_of_range_l
-                 ARRAY_SIZE(p->extd.raw) - 1);
- }
- 
-+void __init x86_cpu_policy_bound_max_leaves(struct cpu_policy *p)
-+{
-+    p->basic.max_leaf =
-+        min_t(uint32_t, p->basic.max_leaf, ARRAY_SIZE(p->basic.raw) - 1);
-+    p->feat.max_subleaf =
-+        min_t(uint32_t, p->feat.max_subleaf, ARRAY_SIZE(p->feat.raw) - 1);
-+    p->extd.max_leaf = 0x80000000U | min_t(uint32_t, p->extd.max_leaf & 0xffff,
-+                                           ARRAY_SIZE(p->extd.raw) - 1);
-+}
-+
- void x86_cpu_policy_shrink_max_leaves(struct cpu_policy *p)
- {
-     unsigned int i;
---- a/xen/lib/x86/private.h
-+++ b/xen/lib/x86/private.h
-@@ -5,6 +5,7 @@
- 
- #include <xen/bitops.h>
- #include <xen/guest_access.h>
-+#include <xen/init.h>
- #include <xen/kernel.h>
- #include <xen/lib.h>
- #include <xen/nospec.h>
-@@ -28,6 +29,11 @@
- 
- #include <xen-tools/common-macros.h>
- 
-+#define __init
-+#define __initdata
-+#define __initconst
-+#define __initconstrel
-+
- static inline bool test_bit(unsigned int bit, const void *vaddr)
- {
-     const char *addr = vaddr;
+While it probably can be rebased ahead, the series in this form
+depends on the previously submitted "[PATCH v5 0/3] x86/CPUID: leaf
+pruning".
 
+I've tried to be very careful in rebasing ahead of other emulator
+patches I've been carrying, but almost all testing I've done is with
+all of those collectively in place.
+
+1: x86/CPUID: enable AVX10 leaf
+2: x86emul/test: rename "cp"
+3: x86emul: introduce a struct cpu_policy * local in x86_emulate()
+4: x86emul: support AVX10.1
+5: x86emul/test: use simd_check_avx512*() in main()
+6: x86emul/test: drop cpu_has_avx512vl
+7: x86emul: AVX10.1 testing
+8: x86emul/test: engage AVX512VL via command line option
+9: x86emul: support AVX10.2 256-bit embedded rounding / SAE
+
+Jan
 
