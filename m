@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4602E951E26
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 17:09:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777424.1187573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49A53951E73
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 17:22:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777436.1187583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seFc3-0004aa-EC; Wed, 14 Aug 2024 15:08:35 +0000
+	id 1seFpF-0000TY-JJ; Wed, 14 Aug 2024 15:22:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777424.1187573; Wed, 14 Aug 2024 15:08:35 +0000
+Received: by outflank-mailman (output) from mailman id 777436.1187583; Wed, 14 Aug 2024 15:22:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seFc3-0004Y9-Ap; Wed, 14 Aug 2024 15:08:35 +0000
-Received: by outflank-mailman (input) for mailman id 777424;
- Wed, 14 Aug 2024 15:08:34 +0000
+	id 1seFpF-0000R4-Fw; Wed, 14 Aug 2024 15:22:13 +0000
+Received: by outflank-mailman (input) for mailman id 777436;
+ Wed, 14 Aug 2024 15:22:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NhoJ=PN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1seFc2-0004Y3-2S
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 15:08:34 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1seFpD-0000Qy-Dn
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 15:22:11 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12234260-5a4f-11ef-a505-bb4a2ccca743;
- Wed, 14 Aug 2024 17:08:32 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5bb8e62575eso7012a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 08:08:32 -0700 (PDT)
+ id f97a0717-5a50-11ef-a505-bb4a2ccca743;
+ Wed, 14 Aug 2024 17:22:10 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5a309d1a788so35437a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 08:22:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bd1a5e0030sm4017375a12.65.2024.08.14.08.08.30
+ a640c23a62f3a-a80f3fa43f9sm185977866b.53.2024.08.14.08.22.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Aug 2024 08:08:31 -0700 (PDT)
+ Wed, 14 Aug 2024 08:22:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12234260-5a4f-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: f97a0717-5a50-11ef-a505-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723648112; x=1724252912; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723648930; x=1724253730; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=InZA3udHyAMwCEcT7duDMzUbFiwvcQVmCDEYk8ZDAa0=;
-        b=P0WSRCHT9sBmnV5ZD3XJUJRj8EPNy/LOKR+jwtZD5yGCPTh75ApK/ysH5yxioS09Rk
-         i1lE/ZHIpsKENAhVKPpRh1hdLOQeytvi1TZmDtdhbqYN/XI0EtVV8h6NPUQS0JIZor4A
-         v7SX4ZnutC8ZQsQYcPOVCzopkzG+WQddHdxnX68AMDcHsGhkZCGktF0NPWrUQhWZ5xn9
-         9Q1VsB/ZvcV2UUsur7dC5YBTpoeEtCJ0k5AGaMQmoW0DD+RTyb2WQ3ho64JwlfiMQpuy
-         4MhopugYX70INju0XbptEcq9bJThYFQZMMCmrv06qYHYl/YHos+i5z4QlLIInMjmAIkC
-         mFrw==
+        bh=sXY2qYSi5ScBM9veJIF83xeLBE3lDb/YHp+U6rSilUk=;
+        b=Cchlir952PH0tVJiurO4uesClFRq6SdY5a0niKV/Z2hjpI9qpTWa7G6dANy9GgHvW5
+         vkVYRx6GpSpqhGvES4Xb8wCvedmiFhI7MyYfeslfaX7KKy65APkO8g+E+8PPbDuKoya8
+         7qOg1lQbZFfhbcggyXsIKHICchpbwZOShWeMIaquhVhJwNRsO79Hqxt1ENIfdehAzrZQ
+         SJcTpWLvHSQWdglItj89kZafwSNGm6AdSUnvSEvBnKw7hLALtjJE4ywFUOUsmnh7/bt+
+         ftgUDuiA4rg9PYCxmadEJtyQZLhyNTG1/UadMwt4aVj7k4M9gWD4533oibvM7IIPwhF4
+         M95w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723648112; x=1724252912;
+        d=1e100.net; s=20230601; t=1723648930; x=1724253730;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=InZA3udHyAMwCEcT7duDMzUbFiwvcQVmCDEYk8ZDAa0=;
-        b=PtPMlFWV60LFdOTJIaCEnNrkWrGqUaEUYOXzIkN7nW6ChJXmjvr0F+QhiqNKhSLpQx
-         w4pyW7FKMX5A4gSrKOKpKQwYCbNl9J5lb1K4xZMx+fhWO2OC+Cxe8rdeAps6+cyQqVvl
-         kCJNVl8cpcYi9CPVGg1WXF/xRUmXqmNeCQLf34pxbP+sJQhG8VA1Ktpr/7YtnmAKVsUv
-         nNTalSbxkRZNfELnz1weGkhgAFYKyh9tXqpO066l5Smr+6Jw0wNuhFw/K4mUOnX3nubA
-         jdODhPX0pohCoh4AsnDbPSz9lxEN26qmsVem9DrqeTpGVU1Ud+cJbWvo2Rqiq4OtjyIo
-         KzGA==
-X-Forwarded-Encrypted: i=1; AJvYcCVuL1JipMqpY5T2FcjNnWX86dieerGSUbZPt2xQUnBr1GzYXkgQPP7TQOdLeWslhQ3dlhekgtEM4oMbCmeO3JOz5l9LSto7dJ/ymFnwPV8=
-X-Gm-Message-State: AOJu0YwHtRH0GJGXs4FFQg6AOVZcXcEHWPBc8SYHtdmAC9PIPkwXSVEO
-	sDKdLu7ga7TStj2CoZr8hbqDnE+CTWOSvEwM8dmMWP9dv7NVanB8M5sm861E3Q==
-X-Google-Smtp-Source: AGHT+IH3BxPjvY5h1TT95scpEvLAQqY6I9Q2P9FLxdpzHFvmVVbddVrocwZUCG+RdGhFAmLEI9XB3w==
-X-Received: by 2002:a05:6402:34d1:b0:579:73b7:b4cc with SMTP id 4fb4d7f45d1cf-5bea1c6ac1bmr2856981a12.2.1723648111865;
-        Wed, 14 Aug 2024 08:08:31 -0700 (PDT)
-Message-ID: <bede9f51-0278-4c97-9c0d-ee3478373d72@suse.com>
-Date: Wed, 14 Aug 2024 17:08:29 +0200
+        bh=sXY2qYSi5ScBM9veJIF83xeLBE3lDb/YHp+U6rSilUk=;
+        b=p2+QvBrpxtS+hWWyYMdvG8Z/WDvi98YgDNvohO2ieQIXPWzaDTqOwoTzhaTbv2w7U9
+         oTC+f3pVDsC/3yoFS2Uhx9dkECba0wKP4F5Q95TKxkUg93zVZeOazjD09+jAdIEqkuRX
+         utLPCwb2pmEDV3dqA2dPB7Y/5Pxg7fIi59ZFxuqxqH4VGfXgwV9xvRjjd7xKaffHLhIW
+         VY2QHsrS1D2y+GLwckW7Oh8XJBKdztjuzUP1JGOZ1l+R3cB0AKsr3zCPu845A66l8wH2
+         r6OkaMCPIRXl9i1MLrAFj807n64fhSjmNB+D8YXgAizGx5ePkR0BNZCHyOknH5+UM/oL
+         NheQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUsL/9xX77nk2iX70Xi2czRG+5vRhHt3ZRwRygMnq8L96gaUIVaM2M+GoZwNgpZyQpIvSjOdvSD6cIClDNjbwJCK6z2R3wtXxoLxh1MmS0=
+X-Gm-Message-State: AOJu0Yzcebf/dnHlo66wd7uL11zkWKml1ALgobHEZEaVKJisNL6AsJNK
+	Mn6FINC5lX9R7Gcg005npnxtlra9uhyRF/Lm8R2DzBTWZ8sHwnOqdKKOHVxa2Q==
+X-Google-Smtp-Source: AGHT+IGKnikD5uhOpS8Qz+KJdWvevlDwdz+2IBTMqXhUZzvn/1ANIUV+sFLzZMIuvEuD7ycqDlHFgg==
+X-Received: by 2002:a17:907:7f0c:b0:a7a:ab8a:384 with SMTP id a640c23a62f3a-a8367058086mr236262566b.64.1723648929537;
+        Wed, 14 Aug 2024 08:22:09 -0700 (PDT)
+Message-ID: <dfb4678f-0b2d-4d1c-be02-10c4720e57b2@suse.com>
+Date: Wed, 14 Aug 2024 17:22:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/7] xen/riscv: set up fixmap mappings
+Subject: Re: [PATCH v4 4/7] xen/riscv: introduce functionality to work with
+ CPU info
 To: oleksii.kurochko@gmail.com
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -89,9 +90,9 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1723214540.git.oleksii.kurochko@gmail.com>
- <1c1c0f912a9abbb542baa1ce92e75d64ec8043e9.1723214540.git.oleksii.kurochko@gmail.com>
- <07f19bb5-bd76-4158-875e-48f74e427a89@suse.com>
- <9361b63712bffc7bb0cb6bb1fc5954ade18314d2.camel@gmail.com>
+ <452e2960d1f064a2e3abcaae1ac354f48aafd24c.1723214540.git.oleksii.kurochko@gmail.com>
+ <e0285026-40c5-4316-8129-d07801a9c233@suse.com>
+ <ee3a2e61435e860f1ddb6022fbb712a8d890ae3e.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,41 +118,132 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9361b63712bffc7bb0cb6bb1fc5954ade18314d2.camel@gmail.com>
+In-Reply-To: <ee3a2e61435e860f1ddb6022fbb712a8d890ae3e.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14.08.2024 16:21, oleksii.kurochko@gmail.com wrote:
-> On Tue, 2024-08-13 at 10:22 +0200, Jan Beulich wrote:
+On 14.08.2024 16:45, oleksii.kurochko@gmail.com wrote:
+> On Tue, 2024-08-13 at 10:54 +0200, Jan Beulich wrote:
 >> On 09.08.2024 18:19, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/page.h
->>> +++ b/xen/arch/riscv/include/asm/page.h
->>> @@ -81,6 +81,12 @@ static inline void flush_page_to_ram(unsigned
->>> long mfn, bool sync_icache)
->>>      BUG_ON("unimplemented");
->>>  }
+>>> --- a/xen/arch/riscv/include/asm/smp.h
+>>> +++ b/xen/arch/riscv/include/asm/smp.h
+>>> @@ -5,6 +5,8 @@
+>>>  #include <xen/cpumask.h>
+>>>  #include <xen/percpu.h>
 >>>  
->>> +/* Write a pagetable entry. */
->>> +static inline void write_pte(pte_t *p, pte_t pte)
->>> +{
->>> +    *p = pte;
->>> +}
+>>> +#define INVALID_HARTID UINT_MAX
+>>> +
+>>>  DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
+>>>  DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
+>>>  
+>>> @@ -14,6 +16,14 @@ DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
+>>>   */
+>>>  #define park_offline_cpus false
+>>>  
+>>> +void smp_set_bootcpu_id(unsigned long boot_cpu_hartid);
+>>> +
+>>> +/*
+>>> + * Mapping between linux logical cpu index and hartid.
+>>> + */
+>>> +extern unsigned long cpuid_to_hartid_map[NR_CPUS];
+>>> +#define cpuid_to_hartid(cpu) cpuid_to_hartid_map[cpu]
 >>
->> No use of write_atomic() here? And no read_pte() counterpart right
->> away (then
->> also properly using read_atomic())?
-> I wanted to avoid the fence before "*p=pte" which in case of
-> write_atomic() will be present.
+>> How wide can hart IDs be? Wider than 32 bits? If not, why unsigned
+>> long?
+> According to the spec:
+> ```
+> The mhartid CSR is an MXLEN-bit read-only register containing the
+> integer ID of the hardware thread running the code
+> ```
+> where MXLEN can bit 32 and 64.
 
-Well, this goes back to write_atomic() resolving to write{b,w,l,q}() for
-unclear reasons; even the comment in our atomic.h says "For some reason".
-The fence there is of course getting in the way here. I keep forgetting
-about that aspect, because neither x86 nor Arm has anything similar
-afaics.
+Hmm, okay. If the full MXLEN bits can be used, then using unsigned long
+is indeed the right thing here.
 
-> Won't it be enough to use here WRITE_ONCE()?
+>>> @@ -40,6 +41,19 @@ void __init noreturn start_xen(unsigned long
+>>> bootcpu_id,
+>>>  {
+>>>      remove_identity_mapping();
+>>>  
+>>> +    /*
+>>> +     * tp register contains an address of physical cpu
+>>> information.
+>>> +     * So write physical CPU info of boot cpu to tp register
+>>> +     * It will be used later by get_processor_id() ( look at
+>>> +     * <asm/processor.h> ):
+>>> +     *   #define get_processor_id()    (tp->processor_id)
+>>> +     */
+>>> +    asm volatile ( "mv tp, %0" : : "r"((unsigned
+>>> long)&pcpu_info[0]) );
+>>
+>> Perhaps be on the safe side and also add a memory barrier?
+> Do you mean compiler barrier? ( asm volatile ( "..." :: ... : "memory"
+> )? )
 
-Maybe. I'm not entirely sure.
+Yes.
+
+>> Perhaps be on the safe side and do this absolutely first in the
+>> function,
+>> or even in assembly (such that initializers of future variables
+>> declared
+>> at the top of the function end up safe, too)?
+> I am not sure that I am following your part related to put this code in
+> assembler ( instructions in assembly code still code be re-ordered what
+> can affect a time when tp will be set with correct value )
+
+I'm afraid I don't understand this. Instructions can be re-ordered, sure,
+but later instructions are guaranteed to observe the effects on register
+state that earlier instructions caused.
+
+> and what do
+> you mean by "initializers of future variables declared at the top of
+> the function end up safe"
+
+With
+
+void start_xen()
+{
+    int var = func();
+
+    asm volatile ( "mv tp, %0" :: ...);
+    ...
+
+you end up with the requirement that func() must not use anything that
+depends on tp being set. In this simple example it may be easy to say
+"don't use an initializer and call the function afterwards". But that is
+going to be a risky game to play. Look at x86'es __start_xen(). An
+insertion into such a big set of declarations may not pay attention to
+tp not being set yet, when _all_ other C code may reasonably assume tp
+is set.
+
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/smp.c
+>>> @@ -0,0 +1,4 @@
+>>> +#include <xen/smp.h>
+>>> +
+>>> +/* tp points to one of these per cpu */
+>>> +struct pcpu_info pcpu_info[NR_CPUS];
+>>
+>> And they all need setting up statically? Is there a plan to make this
+>> dynamic (which could be recorded in a "fixme" in the comment)?
+> I didn't plan to make allocation of this array dynamic. I don't expect
+> that NR_CPUS will be big.
+
+What is this expectation of yours based on? Other architectures permit
+systems with hundreds or even thousands of CPUs; why would RISC-V be
+different there?
+
+> I can add "fixme" but I am not really
+> understand what will be advantages if pcpu_info[] will be allocated
+> dynamically.
+
+Where possible it's better to avoid static allocations, of which on
+some systems only a very small part may be used. Even if you put yourself
+on the position that many take - memory being cheap - you then still
+waste cache and TLB bandwidth. Furthermore as long as struct pcpu_info
+isn't big enough (and properly aligned) for two successive array entries
+to not share cache lines, you may end up playing cacheline ping-pong
+when a CPU writes to its own array slot.
 
 Jan
 
