@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B2FF951D9C
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 16:46:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777409.1187563 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4602E951E26
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 17:09:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777424.1187573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seFGG-0008Kn-Mz; Wed, 14 Aug 2024 14:46:04 +0000
+	id 1seFc3-0004aa-EC; Wed, 14 Aug 2024 15:08:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777409.1187563; Wed, 14 Aug 2024 14:46:04 +0000
+Received: by outflank-mailman (output) from mailman id 777424.1187573; Wed, 14 Aug 2024 15:08:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seFGG-0008IV-Jc; Wed, 14 Aug 2024 14:46:04 +0000
-Received: by outflank-mailman (input) for mailman id 777409;
- Wed, 14 Aug 2024 14:46:02 +0000
+	id 1seFc3-0004Y9-Ap; Wed, 14 Aug 2024 15:08:35 +0000
+Received: by outflank-mailman (input) for mailman id 777424;
+ Wed, 14 Aug 2024 15:08:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0xrl=PN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1seFGE-0008IN-Sc
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 14:46:02 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NhoJ=PN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1seFc2-0004Y3-2S
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 15:08:34 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ed010192-5a4b-11ef-a505-bb4a2ccca743;
- Wed, 14 Aug 2024 16:46:01 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-52efe4c7c16so3406904e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 07:46:01 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53200f124f4sm1338296e87.123.2024.08.14.07.46.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Aug 2024 07:46:00 -0700 (PDT)
+ id 12234260-5a4f-11ef-a505-bb4a2ccca743;
+ Wed, 14 Aug 2024 17:08:32 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5bb8e62575eso7012a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 08:08:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5bd1a5e0030sm4017375a12.65.2024.08.14.08.08.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Aug 2024 08:08:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,228 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed010192-5a4b-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: 12234260-5a4f-11ef-a505-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1723646761; x=1724251561; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=iyk8oPomjymhHSTmmcIRzawLy1Pqsm4WoNBz95bfB1c=;
-        b=L7v3S4ZU/EpsB92p0Qagc91WTxYrkXRthPmOPhTPFyO11Bt4gJXaHbPkYRJQ2sZ8Y3
-         ODfQgStHRBryRYO+JF8oCGUiXg/Z47OGPKS5arr+F7TWGhCte3PgP1OtHXK43WFbxgng
-         usIcYganV74r4iUQu8HMVhudXs3FZJu9k4MlpW01ow3wvaYAx3LmOn/Is2HBMC5Zu4dv
-         QF5hpxOFxKldvFuMVMwh9Jep8hlnobTGSVMaZ1rNAhcKQaqQbu9eZLhgNeC9hdmWsNUc
-         aqLa9AnyX/zzu+HKEpvRATYa6SZfnTPRXP3FsbeOYSJBl69Zt5rOmastxW/w78dFMXGa
-         R3Ig==
+        d=suse.com; s=google; t=1723648112; x=1724252912; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=InZA3udHyAMwCEcT7duDMzUbFiwvcQVmCDEYk8ZDAa0=;
+        b=P0WSRCHT9sBmnV5ZD3XJUJRj8EPNy/LOKR+jwtZD5yGCPTh75ApK/ysH5yxioS09Rk
+         i1lE/ZHIpsKENAhVKPpRh1hdLOQeytvi1TZmDtdhbqYN/XI0EtVV8h6NPUQS0JIZor4A
+         v7SX4ZnutC8ZQsQYcPOVCzopkzG+WQddHdxnX68AMDcHsGhkZCGktF0NPWrUQhWZ5xn9
+         9Q1VsB/ZvcV2UUsur7dC5YBTpoeEtCJ0k5AGaMQmoW0DD+RTyb2WQ3ho64JwlfiMQpuy
+         4MhopugYX70INju0XbptEcq9bJThYFQZMMCmrv06qYHYl/YHos+i5z4QlLIInMjmAIkC
+         mFrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723646761; x=1724251561;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=iyk8oPomjymhHSTmmcIRzawLy1Pqsm4WoNBz95bfB1c=;
-        b=aZ1q9SBEeXgukItcpSeceUxKu8bE1f/Fr32k0ZfyBpfrTEA4sScOz1imThlFOMWuWy
-         gl3ECa7qOGHSsRY3UJAIDrpuciYQriTNXBpNeePWjUqYBEm9cHnzB+uD4wCq6xHnJyCp
-         v4RAQXRGl8yGPm4wKaZ1worvY6Vag3mFajoexf/7i1t8JGfKhDC4TIV3euf1Bft+BMS8
-         lCts2HLUvPSUwXv8fh3GeWZ0YQP8ttyK1O8yAuwYuxHsBW6nzTST+B5FUheCGYh/d40C
-         9x0W6LQY0Fs/PZPhY+pM6TgIKUbvR8AJuUqaR5bu8UHZ7vIAGbywo+6uZlYKvNIXSf1/
-         Yy4A==
-X-Forwarded-Encrypted: i=1; AJvYcCW1ipinraXV1uh0WroUqkhXn+Iw4qP16be+Qi3IdYyyhNDVU2kOSyay5wI1fRT5cYKimOF2o17lb+Vcgv7JIKNl1gZjpHZRa7mXGX7s8R8=
-X-Gm-Message-State: AOJu0YxNFVngiRg8KVTrrOXJeqqeBqEc9s9Ej564SxwGb3H/IXp6Mslf
-	4FHhWnhByd3Yjbrz4qH1jeWV99IgINmTb+0G73L3RZT/te48xqbq
-X-Google-Smtp-Source: AGHT+IF1mnIvpZhUMzQLgRyVrOl7HyZeDW2wfQf7p1lnBVPmW55E6rvHu8aldajqrsA1qkO0xndhug==
-X-Received: by 2002:a05:6512:2216:b0:52c:cc2e:1c45 with SMTP id 2adb3069b0e04-532eda6bda2mr1992359e87.15.1723646760863;
-        Wed, 14 Aug 2024 07:46:00 -0700 (PDT)
-Message-ID: <ee3a2e61435e860f1ddb6022fbb712a8d890ae3e.camel@gmail.com>
-Subject: Re: [PATCH v4 4/7] xen/riscv: introduce functionality to work with
- CPU info
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Wed, 14 Aug 2024 16:45:59 +0200
-In-Reply-To: <e0285026-40c5-4316-8129-d07801a9c233@suse.com>
-References: <cover.1723214540.git.oleksii.kurochko@gmail.com>
-	 <452e2960d1f064a2e3abcaae1ac354f48aafd24c.1723214540.git.oleksii.kurochko@gmail.com>
-	 <e0285026-40c5-4316-8129-d07801a9c233@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1723648112; x=1724252912;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=InZA3udHyAMwCEcT7duDMzUbFiwvcQVmCDEYk8ZDAa0=;
+        b=PtPMlFWV60LFdOTJIaCEnNrkWrGqUaEUYOXzIkN7nW6ChJXmjvr0F+QhiqNKhSLpQx
+         w4pyW7FKMX5A4gSrKOKpKQwYCbNl9J5lb1K4xZMx+fhWO2OC+Cxe8rdeAps6+cyQqVvl
+         kCJNVl8cpcYi9CPVGg1WXF/xRUmXqmNeCQLf34pxbP+sJQhG8VA1Ktpr/7YtnmAKVsUv
+         nNTalSbxkRZNfELnz1weGkhgAFYKyh9tXqpO066l5Smr+6Jw0wNuhFw/K4mUOnX3nubA
+         jdODhPX0pohCoh4AsnDbPSz9lxEN26qmsVem9DrqeTpGVU1Ud+cJbWvo2Rqiq4OtjyIo
+         KzGA==
+X-Forwarded-Encrypted: i=1; AJvYcCVuL1JipMqpY5T2FcjNnWX86dieerGSUbZPt2xQUnBr1GzYXkgQPP7TQOdLeWslhQ3dlhekgtEM4oMbCmeO3JOz5l9LSto7dJ/ymFnwPV8=
+X-Gm-Message-State: AOJu0YwHtRH0GJGXs4FFQg6AOVZcXcEHWPBc8SYHtdmAC9PIPkwXSVEO
+	sDKdLu7ga7TStj2CoZr8hbqDnE+CTWOSvEwM8dmMWP9dv7NVanB8M5sm861E3Q==
+X-Google-Smtp-Source: AGHT+IH3BxPjvY5h1TT95scpEvLAQqY6I9Q2P9FLxdpzHFvmVVbddVrocwZUCG+RdGhFAmLEI9XB3w==
+X-Received: by 2002:a05:6402:34d1:b0:579:73b7:b4cc with SMTP id 4fb4d7f45d1cf-5bea1c6ac1bmr2856981a12.2.1723648111865;
+        Wed, 14 Aug 2024 08:08:31 -0700 (PDT)
+Message-ID: <bede9f51-0278-4c97-9c0d-ee3478373d72@suse.com>
+Date: Wed, 14 Aug 2024 17:08:29 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/7] xen/riscv: set up fixmap mappings
+To: oleksii.kurochko@gmail.com
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1723214540.git.oleksii.kurochko@gmail.com>
+ <1c1c0f912a9abbb542baa1ce92e75d64ec8043e9.1723214540.git.oleksii.kurochko@gmail.com>
+ <07f19bb5-bd76-4158-875e-48f74e427a89@suse.com>
+ <9361b63712bffc7bb0cb6bb1fc5954ade18314d2.camel@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <9361b63712bffc7bb0cb6bb1fc5954ade18314d2.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2024-08-13 at 10:54 +0200, Jan Beulich wrote:
-> On 09.08.2024 18:19, Oleksii Kurochko wrote:
-> > Introduce struct pcpu_info to store pCPU-related information.
-> > Initially, it includes only processor_id, but it will be extended
-> > to include guest CPU information and temporary variables for
-> > saving/restoring vCPU registers.
-> >=20
-> > Add set_processor_id() and get_processor_id() functions to set
-> > and retrieve the processor_id stored in pcpu_info.
-> >=20
-> > Introduce cpuid_to_hartid_map[NR_CPUS] to map Xen logical CPUs to
-> > hart IDs (physical CPU IDs). Add auxiliary macros cpuid_to_hartid()
-> > for convenient access to this mapping.
-> >=20
-> > Define smp_processor_id() to provide accurate information,
-> > replacing the previous "dummy" value of 0.
-> >=20
-> > Initialize tp registers to point to pcpu_info[0].
-> > Set processor_id to 0 for logical CPU 0 and store the physical CPU
-> > ID
-> > for the current logical CPU in cpuid_to_hartid_map[].
-> >=20
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > Changes in V4:
-> > =C2=A0- wrap id with () inside set_processor_id().
-> > =C2=A0- code style fixes
-> > =C2=A0- update BUG_ON(id > NR_CPUS) in smp_processor_id() and drop the
-> > comment
-> > =C2=A0=C2=A0 above BUG_ON().
-> > =C2=A0- s/__cpuid_to_hartid_map/cpuid_to_hartid_map
-> > =C2=A0- s/cpuid_to_hartid_map/cpuid_to_harti ( here cpuid_to_hartid_map
-> > is the name
-> > =C2=A0=C2=A0 of the macros ).
-> > =C2=A0- update the commit message above the code of TP register
-> > initialization in
-> > =C2=A0=C2=A0 start_xen().
->=20
-> I guess that's once again "comment", not "commit message"?
-Yes, sorry for confusion. It should be comment.
+On 14.08.2024 16:21, oleksii.kurochko@gmail.com wrote:
+> On Tue, 2024-08-13 at 10:22 +0200, Jan Beulich wrote:
+>> On 09.08.2024 18:19, Oleksii Kurochko wrote:
+>>> --- a/xen/arch/riscv/include/asm/page.h
+>>> +++ b/xen/arch/riscv/include/asm/page.h
+>>> @@ -81,6 +81,12 @@ static inline void flush_page_to_ram(unsigned
+>>> long mfn, bool sync_icache)
+>>>      BUG_ON("unimplemented");
+>>>  }
+>>>  
+>>> +/* Write a pagetable entry. */
+>>> +static inline void write_pte(pte_t *p, pte_t pte)
+>>> +{
+>>> +    *p = pte;
+>>> +}
+>>
+>> No use of write_atomic() here? And no read_pte() counterpart right
+>> away (then
+>> also properly using read_atomic())?
+> I wanted to avoid the fence before "*p=pte" which in case of
+> write_atomic() will be present.
 
->=20
-> > --- a/xen/arch/riscv/include/asm/processor.h
-> > +++ b/xen/arch/riscv/include/asm/processor.h
-> > @@ -12,8 +12,32 @@
-> > =C2=A0
-> > =C2=A0#ifndef __ASSEMBLY__
-> > =C2=A0
-> > -/* TODO: need to be implemeted */
-> > -#define smp_processor_id() 0
-> > +#include <xen/bug.h>
-> > +
-> > +register struct pcpu_info *tp asm ("tp");
-> > +
-> > +struct pcpu_info {
-> > +=C2=A0=C2=A0=C2=A0 unsigned int processor_id;
-> > +};
-> > +
-> > +/* tp points to one of these */
-> > +extern struct pcpu_info pcpu_info[NR_CPUS];
-> > +
-> > +#define get_processor_id()=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (tp->processo=
-r_id)
-> > +#define set_processor_id(id)=C2=A0=C2=A0=C2=A0 do { \
-> > +=C2=A0=C2=A0=C2=A0 tp->processor_id =3D (id);=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > +} while (0)
-> > +
-> > +static inline unsigned int smp_processor_id(void)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 unsigned int id;
-> > +
-> > +=C2=A0=C2=A0=C2=A0 id =3D get_processor_id();
-> > +
-> > +=C2=A0=C2=A0=C2=A0 BUG_ON(id > NR_CPUS);
->=20
-> > =3D ?
->=20
-> > --- a/xen/arch/riscv/include/asm/smp.h
-> > +++ b/xen/arch/riscv/include/asm/smp.h
-> > @@ -5,6 +5,8 @@
-> > =C2=A0#include <xen/cpumask.h>
-> > =C2=A0#include <xen/percpu.h>
-> > =C2=A0
-> > +#define INVALID_HARTID UINT_MAX
-> > +
-> > =C2=A0DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
-> > =C2=A0DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
-> > =C2=A0
-> > @@ -14,6 +16,14 @@ DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
-> > =C2=A0 */
-> > =C2=A0#define park_offline_cpus false
-> > =C2=A0
-> > +void smp_set_bootcpu_id(unsigned long boot_cpu_hartid);
-> > +
-> > +/*
-> > + * Mapping between linux logical cpu index and hartid.
-> > + */
-> > +extern unsigned long cpuid_to_hartid_map[NR_CPUS];
-> > +#define cpuid_to_hartid(cpu) cpuid_to_hartid_map[cpu]
->=20
-> How wide can hart IDs be? Wider than 32 bits? If not, why unsigned
-> long?
-According to the spec:
-```
-The mhartid CSR is an MXLEN-bit read-only register containing the
-integer ID of the hardware thread running the code
-```
-where MXLEN can bit 32 and 64.
+Well, this goes back to write_atomic() resolving to write{b,w,l,q}() for
+unclear reasons; even the comment in our atomic.h says "For some reason".
+The fence there is of course getting in the way here. I keep forgetting
+about that aspect, because neither x86 nor Arm has anything similar
+afaics.
 
-> If so, what about RV32 (which generally you at least try cover where
-> easily possible)?
-On RV32 MXLEN will be 32 and unsigned long will be 32-bit too.
+> Won't it be enough to use here WRITE_ONCE()?
 
->=20
-> Is there a reason this needs to be a separate array, rather than
-> being
-> part of struct pcpu_info?
->=20
-> > @@ -40,6 +41,19 @@ void __init noreturn start_xen(unsigned long
-> > bootcpu_id,
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0 remove_identity_mapping();
-> > =C2=A0
-> > +=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * tp register contains an address of physical=
- cpu
-> > information.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * So write physical CPU info of boot cpu to t=
-p register
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * It will be used later by get_processor_id()=
- ( look at
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * <asm/processor.h> ):
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 #define get_processor_id()=C2=
-=A0=C2=A0=C2=A0 (tp->processor_id)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0 asm volatile ( "mv tp, %0" : : "r"((unsigned
-> > long)&pcpu_info[0]) );
->=20
-> Perhaps be on the safe side and also add a memory barrier?
-Do you mean compiler barrier? ( asm volatile ( "..." :: ... : "memory"
-)? )
+Maybe. I'm not entirely sure.
 
->=20
-> Perhaps be on the safe side and do this absolutely first in the
-> function,
-> or even in assembly (such that initializers of future variables
-> declared
-> at the top of the function end up safe, too)?
-I am not sure that I am following your part related to put this code in
-assembler ( instructions in assembly code still code be re-ordered what
-can affect a time when tp will be set with correct value ) and what do
-you mean by "initializers of future variables declared at the top of
-the function end up safe"
->=20
-> Also nit: Blank please between closing quote and opening parenthesis.
-> (Otoh you could omit the blank between the two colons.)
->=20
-> > --- /dev/null
-> > +++ b/xen/arch/riscv/smp.c
-> > @@ -0,0 +1,4 @@
-> > +#include <xen/smp.h>
-> > +
-> > +/* tp points to one of these per cpu */
-> > +struct pcpu_info pcpu_info[NR_CPUS];
->=20
-> And they all need setting up statically? Is there a plan to make this
-> dynamic (which could be recorded in a "fixme" in the comment)?
-I didn't plan to make allocation of this array dynamic. I don't expect
-that NR_CPUS will be big. I can add "fixme" but I am not really
-understand what will be advantages if pcpu_info[] will be allocated
-dynamically.
-
-~ Oleksii
+Jan
 
