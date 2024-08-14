@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB97C9516FF
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 10:51:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776916.1187109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7740951700
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 10:52:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776923.1187119 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1se9j5-00040Y-5w; Wed, 14 Aug 2024 08:51:27 +0000
+	id 1se9jW-0004YC-Gi; Wed, 14 Aug 2024 08:51:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776916.1187109; Wed, 14 Aug 2024 08:51:27 +0000
+Received: by outflank-mailman (output) from mailman id 776923.1187119; Wed, 14 Aug 2024 08:51:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1se9j5-0003ya-1m; Wed, 14 Aug 2024 08:51:27 +0000
-Received: by outflank-mailman (input) for mailman id 776916;
- Wed, 14 Aug 2024 08:51:24 +0000
+	id 1se9jW-0004Vn-DM; Wed, 14 Aug 2024 08:51:54 +0000
+Received: by outflank-mailman (input) for mailman id 776923;
+ Wed, 14 Aug 2024 08:51:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NhoJ=PN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1se9j2-0003yE-Op
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 08:51:24 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1se9jU-0003yE-Vm
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 08:51:53 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 61b2a581-5a1a-11ef-8776-851b0ebba9a2;
- Wed, 14 Aug 2024 10:51:22 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so182210366b.2
- for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 01:51:22 -0700 (PDT)
+ id 72bd90d2-5a1a-11ef-8776-851b0ebba9a2;
+ Wed, 14 Aug 2024 10:51:51 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2ef2cce8be8so70276551fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 01:51:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80f414e18csm148065366b.177.2024.08.14.01.51.21
+ 4fb4d7f45d1cf-5bd1a5dfdbbsm3627397a12.69.2024.08.14.01.51.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Aug 2024 01:51:21 -0700 (PDT)
+ Wed, 14 Aug 2024 01:51:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61b2a581-5a1a-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 72bd90d2-5a1a-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723625482; x=1724230282; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723625511; x=1724230311; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7NIzDq8nKrmgupkcpKHhiCNLWhQt61fPrxdoZjP5mbI=;
-        b=hGjtcdz+ZME3jQx0LtWNOhZb/DeFqSAriHOw9xDzpY29ve2ZRwX65kVTsh6URLECKS
-         nw+NqcrjIbO13uPvhwtXckdgLFWoEAwQcjPXyZhot2f3fbHisRBPNXPnAIvEwhWngONK
-         DFFE6CttElWq4PWzDOKDgAZDF+Y6mAuo4WNjsep3+UBJNaQX4gAo4a/mtlSled+oj86N
-         aqvqSlbtNWv/g+4ah7YzqZnaqD6HvmjrVT4GVZ/VVpszW3DZC2jKJtwxhJ7ZfZ7fgZhh
-         HgkCkgoOgMilp9KlO+yoReTzGI1hMbnEYBuYBY4zZ+a2nUx4ApXIzj69u9TNvm4MrsDa
-         nS2w==
+        bh=dG2vMvLcW/CKv3B8uTWG6y9mz8h5Sex7Ma69J4j6IRs=;
+        b=fPsF4k5PqZFFoeZSoT0urYHtRKEJSvg+8wTm19+ZecYnsOvwicPpEvGrNNQcn6CD5Y
+         KDBh7oViXp27nc0PjXVgB5K42FasYqMaBZzGaSgxN0pK0nYSM9G+vf595bOzVuKFhSjJ
+         CCl5+wPPOgl97mOvfFfbgdhDi+suZ1clQBPL7gz2pxN+H+FFhvPHSpyVgZmfT+UzfYGf
+         B5x9ktKa1ESN3X0macMB//mfnJoSlse+Z+PQyJBK+oDy7x8PaiYHem+yuIE7DZYIX+9W
+         iNMHJWKQ3bs33FIfY2cwk9AePOw6lk/ua1wTYfeMrl2gL/uBBrux3OHkbHva3MjNTGv9
+         1odg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723625482; x=1724230282;
+        d=1e100.net; s=20230601; t=1723625511; x=1724230311;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=7NIzDq8nKrmgupkcpKHhiCNLWhQt61fPrxdoZjP5mbI=;
-        b=nk/ZV6YrYOWcGBq91rR/CHU5QPGv6eUcYS+UUws0pDWrJdumX8+IuQrJHCs7E92oLe
-         BkrFU0qdLx43m7Y4In/05XYKW7CZkc7T+KMj8+uCoWWfAQaGWqrAhcCbr51ns9/fIVNR
-         BJgJ/bhbOH4VDGb9koOeIrR+Rpr/wkFY5MEATvvksjjPYTNL5cyx6XH9r/lA2eHVmKVh
-         7BorUEbV14kVTd9GNlX22bBwPuPPXa48gFqbLW4hk59XQPuRQwI7nqMRB9oUJf/ROgXZ
-         1Pc/vYJu/WFGftC8SPoCmoRiHbfDHQ7pdYMVdyPQC4d0R1qWUww6F/w7zg6EpTxZB6fY
-         +nGQ==
-X-Gm-Message-State: AOJu0YxjAIkqiZpj2f+/SK3rwVa0YLxt5TYxtcbQZ0Q7Gdl+Kyw8Wo8Q
-	bti1YvBqv2TyDA9CJskdyyTsDBs9k94JVfdS75lh3pWUvIvILvWIxHfHfiEuXUra8FgvNgLuP80
+        bh=dG2vMvLcW/CKv3B8uTWG6y9mz8h5Sex7Ma69J4j6IRs=;
+        b=dhZQgOyDx8fdJiu/hgaVTCoGT1CI6XzhvZP8g6O9UDa4S7utDuHwU72UoIFeqbkPcb
+         J17sySq0+NERkZrCACHDmQVabym+OpbEVAhRwYbAzpUUW1xE9W4S7vf/RZTcTiCKaF9m
+         44eAvHzqjNkuHWUKut2Mbdi4hn0yykt35j6AvJVXkGhSO4hYQbtgbZ+/EUlK+ultWd6W
+         gl3hmiQG68xIeTrfdPa9UpqMT3C7Y5Ubdw9Ruagmo2FRe4gaTbtgduQa0yEud4VN21lM
+         FOvWMss4u0a1gqa8Ik1nA4BDewiTYr48n/IDtyUfs5L1lBuymlZVoZi9H+fJ5UL4m+FU
+         a+ZA==
+X-Gm-Message-State: AOJu0YwVjd+eVVnfffdlawtaqVRBo+1s4WyfQ+vV34ZbKRD3rBC7XYlS
+	GtfbqR4R1lLf1PgZJ3XJeP/XIYW7mJdEKJIHmrekHHvjvMqOGM/B7ipdoooJoFmjJzWKiIdZJGA
 	=
-X-Google-Smtp-Source: AGHT+IEyNycA81jEG7Xdtj8sKMuH1EZpK8J8nnKiiyCc/6KwL+CW5qeZuVsBs9CSb8EVTYowZcEbfQ==
-X-Received: by 2002:a17:907:e88:b0:a79:7ec8:f3f3 with SMTP id a640c23a62f3a-a83670c01c0mr104292466b.58.1723625481977;
-        Wed, 14 Aug 2024 01:51:21 -0700 (PDT)
-Message-ID: <27866cd1-495f-4b86-986d-31003dad9c23@suse.com>
-Date: Wed, 14 Aug 2024 10:51:20 +0200
+X-Google-Smtp-Source: AGHT+IH1ClCcbXutHY4znaus4vLnl67NAk0QPYuj/ezD5b1l8gJbxbjCLOZj9uGbIeLgXvdq0LIx/Q==
+X-Received: by 2002:a2e:8185:0:b0:2f3:a06a:4c5 with SMTP id 38308e7fff4ca-2f3aa1c945fmr12984971fa.29.1723625510404;
+        Wed, 14 Aug 2024 01:51:50 -0700 (PDT)
+Message-ID: <fb9e2081-16d5-4dc4-92f5-fb55f313304b@suse.com>
+Date: Wed, 14 Aug 2024 10:51:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 1/9] x86/CPUID: enable AVX10 leaf
+Subject: [PATCH v2 2/9] x86emul/test: rename "cp"
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
@@ -115,289 +115,261 @@ In-Reply-To: <bcfea345-57c1-43d9-82b3-240b685486cc@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-This requires bumping the number of basic leaves we support. Apart from
-this the logic is modeled as closely as possible after that of leaf 7
-handling.
+In preparation of introducing a const struct cpu_policy * local in
+x86_emulate(), rename that global variable to something more suitable:
+"cp" is our commonly used name for function parameters or local
+variables of type struct cpu_policy *, and the present name of the
+global could hence have interfered already.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-The gen-cpuid.py adjustment is merely the minimum needed. It's not
-really clear to me whether someone turning off e.g. AVX512BW might then
-also validly expect AVX10 to be turned off.
+v2: Re-base over dropping of Xeon Phi support.
 
-Spec version 2 leaves unclear what the xstate components are which would
-need enabling for AVX10/256. recalculate_{xstate,misc}() are therefore
-conservative for now.
-
-Do we want to synthesize AVX10 in the policy when all necessary AVX512*
-features are available, thus allowing migration from an AVX10 host to a
-suitable non-AVX10 one?
-
-How a toolstack side equivalent (if any) of the init_dom0_cpuid_policy()
-change would look like is entirely unclear to me. How much should we
-take from the max policy, and how much should we require the user to
-specify (and how would the latter look like)?
----
-v2: Add logic to init_dom0_cpuid_policy(). Drop vsz128 field. Re-base.
-
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -210,7 +210,7 @@ static void recalculate_xstate(struct cp
-     if ( p->feat.mpx )
-         xstates |= X86_XCR0_BNDREGS | X86_XCR0_BNDCSR;
+--- a/tools/fuzz/x86_instruction_emulator/fuzz-emul.c
++++ b/tools/fuzz/x86_instruction_emulator/fuzz-emul.c
+@@ -899,7 +899,7 @@ int LLVMFuzzerTestOneInput(const uint8_t
+     int rc;
  
--    if ( p->feat.avx512f )
-+    if ( p->feat.avx512f || (p->feat.avx10 && p->avx10.vsz512) )
-         xstates |= X86_XCR0_OPMASK | X86_XCR0_ZMM | X86_XCR0_HI_ZMM;
+     /* Not part of the initializer, for old gcc to cope. */
+-    ctxt.cpu_policy = &cp;
++    ctxt.cpu_policy = &cpu_policy;
  
-     if ( p->feat.pku )
-@@ -268,6 +268,16 @@ static void recalculate_misc(struct cpu_
+     /* Reset all global state variables */
+     memset(&input, 0, sizeof(input));
+--- a/tools/tests/x86_emulator/test_x86_emulator.c
++++ b/tools/tests/x86_emulator/test_x86_emulator.c
+@@ -779,7 +779,8 @@ static void zap_fpsel(unsigned int *env,
+         env[3] &= ~0xffff;
+     }
  
-     p->basic.raw[0xc] = EMPTY_LEAF;
+-    if ( cp.x86_vendor != X86_VENDOR_AMD && cp.x86_vendor != X86_VENDOR_HYGON )
++    if ( cpu_policy.x86_vendor != X86_VENDOR_AMD &&
++         cpu_policy.x86_vendor != X86_VENDOR_HYGON )
+         return;
  
-+    zero_leaves(p->basic.raw, 0xe, 0x23);
-+
-+    p->avx10.raw[0].b &= 0x000700ff;
-+    p->avx10.raw[0].c = p->avx10.raw[0].d = 0;
-+    if ( !p->feat.avx10 || !p->avx10.version || !p->avx10.vsz512 )
-+    {
-+        p->feat.avx10 = false;
-+        memset(p->avx10.raw, 0, sizeof(p->avx10.raw));
-+    }
-+
-     p->extd.e1d &= ~CPUID_COMMON_1D_FEATURES;
+     if ( is_32bit )
+@@ -913,7 +914,7 @@ int main(int argc, char **argv)
  
-     /* Most of Power/RAS hidden from guests. */
-@@ -885,6 +895,7 @@ void recalculate_cpuid_policy(struct dom
+     ctxt.regs = &regs;
+     ctxt.force_writeback = 0;
+-    ctxt.cpu_policy = &cp;
++    ctxt.cpu_policy = &cpu_policy;
+     ctxt.lma       = sizeof(void *) == 8;
+     ctxt.addr_size = 8 * sizeof(void *);
+     ctxt.sp_size   = 8 * sizeof(void *);
+@@ -1487,11 +1488,11 @@ int main(int argc, char **argv)
+         goto fail;
+     printf("okay\n");
  
-     p->basic.max_leaf   = min(p->basic.max_leaf,   max->basic.max_leaf);
-     p->feat.max_subleaf = min(p->feat.max_subleaf, max->feat.max_subleaf);
-+    p->avx10.max_subleaf = min(p->avx10.max_subleaf, max->avx10.max_subleaf);
-     p->extd.max_leaf    = 0x80000000U | min(p->extd.max_leaf & 0xffff,
-                                             ((p->x86_vendor & (X86_VENDOR_AMD |
-                                                                X86_VENDOR_HYGON))
-@@ -931,6 +942,8 @@ void recalculate_cpuid_policy(struct dom
- 
-     if ( p->basic.max_leaf < XSTATE_CPUID )
-         __clear_bit(X86_FEATURE_XSAVE, fs);
-+    if ( p->basic.max_leaf < 0x24 )
-+        __clear_bit(X86_FEATURE_AVX10, fs);
- 
-     sanitise_featureset(fs);
- 
-@@ -1000,9 +1013,18 @@ void __init init_dom0_cpuid_policy(struc
-     /* Apply dom0-cpuid= command line settings, if provided. */
-     if ( dom0_cpuid_cmdline )
+-    vendor_native = cp.x86_vendor;
+-    for ( cp.x86_vendor = X86_VENDOR_AMD; ; )
++    vendor_native = cpu_policy.x86_vendor;
++    for ( cpu_policy.x86_vendor = X86_VENDOR_AMD; ; )
      {
-+        const struct cpu_policy *max = is_pv_domain(d)
-+            ? (IS_ENABLED(CONFIG_PV)  ?  &pv_max_cpu_policy : NULL)
-+            : (IS_ENABLED(CONFIG_HVM) ? &hvm_max_cpu_policy : NULL);
-         uint32_t fs[FSCAPINTS];
-         unsigned int i;
+-        unsigned int v = cp.x86_vendor == X86_VENDOR_INTEL;
+-        const char *vendor = cp.x86_vendor == X86_VENDOR_INTEL ? "Intel" : "AMD";
++        unsigned int v = cpu_policy.x86_vendor == X86_VENDOR_INTEL;
++        const char *vendor = cpu_policy.x86_vendor == X86_VENDOR_INTEL ? "Intel" : "AMD";
+         uint64_t *stk = (void *)res + MMAP_SZ - 16;
  
-+        if ( !max )
-+        {
-+            ASSERT_UNREACHABLE();
-+            return;
-+        }
-+
-         x86_cpu_policy_to_featureset(p, fs);
- 
-         for ( i = 0; i < ARRAY_SIZE(fs); ++i )
-@@ -1012,6 +1034,13 @@ void __init init_dom0_cpuid_policy(struc
+         regs.rcx = 2;
+@@ -1527,11 +1528,11 @@ int main(int argc, char **argv)
+             printf("okay\n");
          }
  
-         x86_cpu_featureset_to_policy(fs, p);
-+
-+        /*
-+         * Default-off features with their own leaves need those leaves
-+         * re-populated from the max policy.
-+         */
-+        if ( p->feat.avx10 )
-+            p->avx10 = max->avx10;
+-        if ( cp.x86_vendor == X86_VENDOR_INTEL )
++        if ( cpu_policy.x86_vendor == X86_VENDOR_INTEL )
+             break;
+-        cp.x86_vendor = X86_VENDOR_INTEL;
++        cpu_policy.x86_vendor = X86_VENDOR_INTEL;
      }
+-    cp.x86_vendor = vendor_native;
++    cpu_policy.x86_vendor = vendor_native;
+ #endif /* x86-64 */
+ 
+     printf("%-40s", "Testing shld $1,%ecx,(%edx)...");
+--- a/tools/tests/x86_emulator/x86-emulate.c
++++ b/tools/tests/x86_emulator/x86-emulate.c
+@@ -25,7 +25,7 @@
+ #endif
+ 
+ uint32_t mxcsr_mask = 0x0000ffbf;
+-struct cpu_policy cp;
++struct cpu_policy cpu_policy;
+ 
+ static char fpu_save_area[0x4000] __attribute__((__aligned__((64))));
+ static bool use_xsave;
+@@ -75,21 +75,21 @@ bool emul_test_init(void)
+ 
+     unsigned long sp;
+ 
+-    x86_cpu_policy_fill_native(&cp);
+-    x86_cpu_policy_bound_max_leaves(&cp);
++    x86_cpu_policy_fill_native(&cpu_policy);
++    x86_cpu_policy_bound_max_leaves(&cpu_policy);
  
      /*
-@@ -1044,6 +1073,8 @@ static void __init __maybe_unused build_
-                  sizeof(raw_cpu_policy.feat.raw));
-     BUILD_BUG_ON(sizeof(raw_cpu_policy.xstate) !=
-                  sizeof(raw_cpu_policy.xstate.raw));
-+    BUILD_BUG_ON(sizeof(raw_cpu_policy.avx10) !=
-+                 sizeof(raw_cpu_policy.avx10.raw));
-     BUILD_BUG_ON(sizeof(raw_cpu_policy.extd) !=
-                  sizeof(raw_cpu_policy.extd.raw));
- }
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -87,6 +87,15 @@ void guest_cpuid(const struct vcpu *v, u
-             *res = array_access_nospec(p->xstate.raw, subleaf);
-             break;
- 
-+        case 0x24:
-+            ASSERT(p->avx10.max_subleaf < ARRAY_SIZE(p->avx10.raw));
-+            if ( subleaf > min_t(uint32_t, p->avx10.max_subleaf,
-+                                 ARRAY_SIZE(p->avx10.raw) - 1) )
-+                return;
-+
-+            *res = array_access_nospec(p->avx10.raw, subleaf);
-+            break;
-+
-         default:
-             *res = array_access_nospec(p->basic.raw, leaf);
-             break;
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -334,6 +334,7 @@ XEN_CPUFEATURE(AVX_NE_CONVERT,     15*32
- XEN_CPUFEATURE(AVX_VNNI_INT16,     15*32+10) /*A  AVX-VNNI-INT16 Instructions */
- XEN_CPUFEATURE(PREFETCHI,          15*32+14) /*A  PREFETCHIT{0,1} Instructions */
- XEN_CPUFEATURE(CET_SSS,            15*32+18) /*   CET Supervisor Shadow Stacks safe to use */
-+XEN_CPUFEATURE(AVX10,              15*32+19) /*   AVX10 Converged Vector ISA */
- 
- /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.eax, word 16 */
- XEN_CPUFEATURE(RDCL_NO,            16*32+ 0) /*A  No Rogue Data Cache Load (Meltdown) */
---- a/xen/include/xen/lib/x86/cpu-policy.h
-+++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -85,11 +85,12 @@ unsigned int x86_cpuid_lookup_vendor(uin
-  */
- const char *x86_cpuid_vendor_to_str(unsigned int vendor);
- 
--#define CPUID_GUEST_NR_BASIC      (0xdu + 1)
-+#define CPUID_GUEST_NR_BASIC      (0x24u + 1)
- #define CPUID_GUEST_NR_CACHE      (5u + 1)
- #define CPUID_GUEST_NR_FEAT       (2u + 1)
- #define CPUID_GUEST_NR_TOPO       (1u + 1)
- #define CPUID_GUEST_NR_XSTATE     (62u + 1)
-+#define CPUID_GUEST_NR_AVX10      (0u + 1)
- #define CPUID_GUEST_NR_EXTD_INTEL (0x8u + 1)
- #define CPUID_GUEST_NR_EXTD_AMD   (0x21u + 1)
- #define CPUID_GUEST_NR_EXTD       MAX(CPUID_GUEST_NR_EXTD_INTEL, \
-@@ -255,6 +256,19 @@ struct cpu_policy
-         } comp[CPUID_GUEST_NR_XSTATE];
-     } xstate;
- 
-+    /* Structured AVX10 information leaf: 0x000000024[xx] */
-+    union {
-+        struct cpuid_leaf raw[CPUID_GUEST_NR_AVX10];
-+        struct {
-+            /* Subleaf 0. */
-+            uint32_t max_subleaf;
-+            uint32_t version:8, :9;
-+            bool vsz256:1, vsz512:1;
-+            uint32_t :13;
-+            uint32_t /* c */:32, /* d */:32;
-+        };
-+    } avx10;
-+
-     /* Extended leaves: 0x800000xx */
-     union {
-         struct cpuid_leaf raw[CPUID_GUEST_NR_EXTD];
---- a/xen/lib/x86/cpuid.c
-+++ b/xen/lib/x86/cpuid.c
-@@ -123,6 +123,7 @@ void x86_cpu_policy_fill_native(struct c
-         switch ( i )
-         {
-         case 0x4: case 0x7: case 0xb: case 0xd:
-+        case 0x24:
-             /* Multi-invocation leaves.  Deferred. */
-             continue;
-         }
-@@ -216,6 +217,15 @@ void x86_cpu_policy_fill_native(struct c
-         }
-     }
- 
-+    if ( p->basic.max_leaf >= 0x24 )
-+    {
-+        cpuid_count_leaf(0x24, 0, &p->avx10.raw[0]);
-+
-+        for ( i = 1; i <= MIN(p->avx10.max_subleaf,
-+                              ARRAY_SIZE(p->avx10.raw) - 1); ++i )
-+            cpuid_count_leaf(0x24, i, &p->avx10.raw[i]);
-+    }
-+
-     /* Extended leaves. */
-     cpuid_leaf(0x80000000U, &p->extd.raw[0]);
-     for ( i = 1; i <= MIN(p->extd.max_leaf & 0xffffU,
-@@ -285,6 +295,9 @@ void x86_cpu_policy_clear_out_of_range_l
-                     ARRAY_SIZE(p->xstate.raw) - 1);
-     }
- 
-+    if ( p->basic.max_leaf < 0x24 )
-+        memset(p->avx10.raw, 0, sizeof(p->avx10.raw));
-+
-     zero_leaves(p->extd.raw,
-                 ((p->extd.max_leaf >> 16) == 0x8000
-                  ? (p->extd.max_leaf & 0xffff) + 1 : 0),
-@@ -297,6 +310,8 @@ void __init x86_cpu_policy_bound_max_lea
-         min_t(uint32_t, p->basic.max_leaf, ARRAY_SIZE(p->basic.raw) - 1);
-     p->feat.max_subleaf =
-         min_t(uint32_t, p->feat.max_subleaf, ARRAY_SIZE(p->feat.raw) - 1);
-+    p->avx10.max_subleaf =
-+        min_t(uint32_t, p->avx10.max_subleaf, ARRAY_SIZE(p->avx10.raw) - 1);
-     p->extd.max_leaf = 0x80000000U | min_t(uint32_t, p->extd.max_leaf & 0xffff,
-                                            ARRAY_SIZE(p->extd.raw) - 1);
- }
-@@ -324,6 +339,8 @@ void x86_cpu_policy_shrink_max_leaves(st
+      * The emulator doesn't use these instructions, so can always emulate
+      * them.
       */
-     p->basic.raw[0xd] = p->xstate.raw[0];
+-    cp.basic.movbe = true;
+-    cp.feat.invpcid = true;
+-    cp.feat.adx = true;
+-    cp.feat.rdpid = true;
+-    cp.feat.wrmsrns = true;
+-    cp.extd.clzero = true;
++    cpu_policy.basic.movbe = true;
++    cpu_policy.feat.invpcid = true;
++    cpu_policy.feat.adx = true;
++    cpu_policy.feat.rdpid = true;
++    cpu_policy.feat.wrmsrns = true;
++    cpu_policy.extd.clzero = true;
  
-+    p->basic.raw[0x24] = p->avx10.raw[0];
+-    x86_cpu_policy_shrink_max_leaves(&cp);
++    x86_cpu_policy_shrink_max_leaves(&cpu_policy);
+ 
+     if ( cpu_has_xsave )
+     {
+--- a/tools/tests/x86_emulator/x86-emulate.h
++++ b/tools/tests/x86_emulator/x86-emulate.h
+@@ -69,7 +69,7 @@
+ #define is_canonical_address(x) (((int64_t)(x) >> 47) == ((int64_t)(x) >> 63))
+ 
+ extern uint32_t mxcsr_mask;
+-extern struct cpu_policy cp;
++extern struct cpu_policy cpu_policy;
+ 
+ #define MMAP_SZ 16384
+ bool emul_test_init(void);
+@@ -123,7 +123,7 @@ static inline uint64_t xgetbv(uint32_t x
+ }
+ 
+ /* Intentionally checking OSXSAVE here. */
+-#define cpu_has_xsave     (cp.basic.raw[1].c & (1u << 27))
++#define cpu_has_xsave     (cpu_policy.basic.raw[1].c & (1u << 27))
+ 
+ static inline bool xcr0_mask(uint64_t mask)
+ {
+@@ -133,63 +133,63 @@ static inline bool xcr0_mask(uint64_t ma
+ unsigned int rdpkru(void);
+ void wrpkru(unsigned int val);
+ 
+-#define cache_line_size() (cp.basic.clflush_size * 8)
+-#define cpu_has_fpu        cp.basic.fpu
+-#define cpu_has_mmx        cp.basic.mmx
+-#define cpu_has_fxsr       cp.basic.fxsr
+-#define cpu_has_sse        cp.basic.sse
+-#define cpu_has_sse2       cp.basic.sse2
+-#define cpu_has_sse3       cp.basic.sse3
+-#define cpu_has_pclmulqdq  cp.basic.pclmulqdq
+-#define cpu_has_ssse3      cp.basic.ssse3
+-#define cpu_has_fma       (cp.basic.fma && xcr0_mask(6))
+-#define cpu_has_sse4_1     cp.basic.sse4_1
+-#define cpu_has_sse4_2     cp.basic.sse4_2
+-#define cpu_has_popcnt     cp.basic.popcnt
+-#define cpu_has_aesni      cp.basic.aesni
+-#define cpu_has_avx       (cp.basic.avx  && xcr0_mask(6))
+-#define cpu_has_f16c      (cp.basic.f16c && xcr0_mask(6))
+-
+-#define cpu_has_avx2      (cp.feat.avx2 && xcr0_mask(6))
+-#define cpu_has_bmi1       cp.feat.bmi1
+-#define cpu_has_bmi2       cp.feat.bmi2
+-#define cpu_has_avx512f   (cp.feat.avx512f  && xcr0_mask(0xe6))
+-#define cpu_has_avx512dq  (cp.feat.avx512dq && xcr0_mask(0xe6))
+-#define cpu_has_avx512_ifma (cp.feat.avx512_ifma && xcr0_mask(0xe6))
+-#define cpu_has_avx512cd  (cp.feat.avx512cd && xcr0_mask(0xe6))
+-#define cpu_has_sha        cp.feat.sha
+-#define cpu_has_avx512bw  (cp.feat.avx512bw && xcr0_mask(0xe6))
+-#define cpu_has_avx512vl  (cp.feat.avx512vl && xcr0_mask(0xe6))
+-#define cpu_has_avx512_vbmi (cp.feat.avx512_vbmi && xcr0_mask(0xe6))
+-#define cpu_has_avx512_vbmi2 (cp.feat.avx512_vbmi2 && xcr0_mask(0xe6))
+-#define cpu_has_gfni       cp.feat.gfni
+-#define cpu_has_vaes      (cp.feat.vaes && xcr0_mask(6))
+-#define cpu_has_vpclmulqdq (cp.feat.vpclmulqdq && xcr0_mask(6))
+-#define cpu_has_avx512_vnni (cp.feat.avx512_vnni && xcr0_mask(0xe6))
+-#define cpu_has_avx512_bitalg (cp.feat.avx512_bitalg && xcr0_mask(0xe6))
+-#define cpu_has_avx512_vpopcntdq (cp.feat.avx512_vpopcntdq && xcr0_mask(0xe6))
+-#define cpu_has_movdiri    cp.feat.movdiri
+-#define cpu_has_movdir64b  cp.feat.movdir64b
+-#define cpu_has_avx512_vp2intersect (cp.feat.avx512_vp2intersect && xcr0_mask(0xe6))
+-#define cpu_has_serialize  cp.feat.serialize
+-#define cpu_has_avx512_fp16 (cp.feat.avx512_fp16 && xcr0_mask(0xe6))
+-#define cpu_has_sha512     (cp.feat.sha512 && xcr0_mask(6))
+-#define cpu_has_sm3        (cp.feat.sm3 && xcr0_mask(6))
+-#define cpu_has_sm4        (cp.feat.sm4 && xcr0_mask(6))
+-#define cpu_has_avx_vnni   (cp.feat.avx_vnni && xcr0_mask(6))
+-#define cpu_has_avx512_bf16 (cp.feat.avx512_bf16 && xcr0_mask(0xe6))
+-#define cpu_has_avx_ifma   (cp.feat.avx_ifma && xcr0_mask(6))
+-#define cpu_has_avx_vnni_int8 (cp.feat.avx_vnni_int8 && xcr0_mask(6))
+-#define cpu_has_avx_ne_convert (cp.feat.avx_ne_convert && xcr0_mask(6))
+-#define cpu_has_avx_vnni_int16 (cp.feat.avx_vnni_int16 && xcr0_mask(6))
+-
+-#define cpu_has_xgetbv1   (cpu_has_xsave && cp.xstate.xgetbv1)
+-
+-#define cpu_has_3dnow_ext  cp.extd._3dnowext
+-#define cpu_has_sse4a      cp.extd.sse4a
+-#define cpu_has_xop       (cp.extd.xop  && xcr0_mask(6))
+-#define cpu_has_fma4      (cp.extd.fma4 && xcr0_mask(6))
+-#define cpu_has_tbm        cp.extd.tbm
++#define cache_line_size() (cpu_policy.basic.clflush_size * 8)
++#define cpu_has_fpu        cpu_policy.basic.fpu
++#define cpu_has_mmx        cpu_policy.basic.mmx
++#define cpu_has_fxsr       cpu_policy.basic.fxsr
++#define cpu_has_sse        cpu_policy.basic.sse
++#define cpu_has_sse2       cpu_policy.basic.sse2
++#define cpu_has_sse3       cpu_policy.basic.sse3
++#define cpu_has_pclmulqdq  cpu_policy.basic.pclmulqdq
++#define cpu_has_ssse3      cpu_policy.basic.ssse3
++#define cpu_has_fma       (cpu_policy.basic.fma && xcr0_mask(6))
++#define cpu_has_sse4_1     cpu_policy.basic.sse4_1
++#define cpu_has_sse4_2     cpu_policy.basic.sse4_2
++#define cpu_has_popcnt     cpu_policy.basic.popcnt
++#define cpu_has_aesni      cpu_policy.basic.aesni
++#define cpu_has_avx       (cpu_policy.basic.avx  && xcr0_mask(6))
++#define cpu_has_f16c      (cpu_policy.basic.f16c && xcr0_mask(6))
 +
-     for ( i = p->basic.max_leaf; i; --i )
-         if ( p->basic.raw[i].a | p->basic.raw[i].b |
-              p->basic.raw[i].c | p->basic.raw[i].d )
-@@ -457,6 +474,13 @@ int x86_cpuid_copy_to_buffer(const struc
-             break;
-         }
- 
-+        case 0x24:
-+            for ( subleaf = 0;
-+                  subleaf <= MIN(p->avx10.max_subleaf,
-+                                 ARRAY_SIZE(p->avx10.raw) - 1); ++subleaf )
-+                COPY_LEAF(leaf, subleaf, &p->avx10.raw[subleaf]);
-+            break;
++#define cpu_has_avx2      (cpu_policy.feat.avx2 && xcr0_mask(6))
++#define cpu_has_bmi1       cpu_policy.feat.bmi1
++#define cpu_has_bmi2       cpu_policy.feat.bmi2
++#define cpu_has_avx512f   (cpu_policy.feat.avx512f  && xcr0_mask(0xe6))
++#define cpu_has_avx512dq  (cpu_policy.feat.avx512dq && xcr0_mask(0xe6))
++#define cpu_has_avx512_ifma (cpu_policy.feat.avx512_ifma && xcr0_mask(0xe6))
++#define cpu_has_avx512cd  (cpu_policy.feat.avx512cd && xcr0_mask(0xe6))
++#define cpu_has_sha        cpu_policy.feat.sha
++#define cpu_has_avx512bw  (cpu_policy.feat.avx512bw && xcr0_mask(0xe6))
++#define cpu_has_avx512vl  (cpu_policy.feat.avx512vl && xcr0_mask(0xe6))
++#define cpu_has_avx512_vbmi (cpu_policy.feat.avx512_vbmi && xcr0_mask(0xe6))
++#define cpu_has_avx512_vbmi2 (cpu_policy.feat.avx512_vbmi2 && xcr0_mask(0xe6))
++#define cpu_has_gfni       cpu_policy.feat.gfni
++#define cpu_has_vaes      (cpu_policy.feat.vaes && xcr0_mask(6))
++#define cpu_has_vpclmulqdq (cpu_policy.feat.vpclmulqdq && xcr0_mask(6))
++#define cpu_has_avx512_vnni (cpu_policy.feat.avx512_vnni && xcr0_mask(0xe6))
++#define cpu_has_avx512_bitalg (cpu_policy.feat.avx512_bitalg && xcr0_mask(0xe6))
++#define cpu_has_avx512_vpopcntdq (cpu_policy.feat.avx512_vpopcntdq && xcr0_mask(0xe6))
++#define cpu_has_movdiri    cpu_policy.feat.movdiri
++#define cpu_has_movdir64b  cpu_policy.feat.movdir64b
++#define cpu_has_avx512_vp2intersect (cpu_policy.feat.avx512_vp2intersect && xcr0_mask(0xe6))
++#define cpu_has_serialize  cpu_policy.feat.serialize
++#define cpu_has_avx512_fp16 (cpu_policy.feat.avx512_fp16 && xcr0_mask(0xe6))
++#define cpu_has_sha512     (cpu_policy.feat.sha512 && xcr0_mask(6))
++#define cpu_has_sm3        (cpu_policy.feat.sm3 && xcr0_mask(6))
++#define cpu_has_sm4        (cpu_policy.feat.sm4 && xcr0_mask(6))
++#define cpu_has_avx_vnni   (cpu_policy.feat.avx_vnni && xcr0_mask(6))
++#define cpu_has_avx512_bf16 (cpu_policy.feat.avx512_bf16 && xcr0_mask(0xe6))
++#define cpu_has_avx_ifma   (cpu_policy.feat.avx_ifma && xcr0_mask(6))
++#define cpu_has_avx_vnni_int8 (cpu_policy.feat.avx_vnni_int8 && xcr0_mask(6))
++#define cpu_has_avx_ne_convert (cpu_policy.feat.avx_ne_convert && xcr0_mask(6))
++#define cpu_has_avx_vnni_int16 (cpu_policy.feat.avx_vnni_int16 && xcr0_mask(6))
 +
-         default:
-             COPY_LEAF(leaf, XEN_CPUID_NO_SUBLEAF, &p->basic.raw[leaf]);
-             break;
-@@ -549,6 +573,13 @@ int x86_cpuid_copy_from_buffer(struct cp
-                 array_access_nospec(p->xstate.raw, data.subleaf) = l;
-                 break;
- 
-+            case 0x24:
-+                if ( data.subleaf >= ARRAY_SIZE(p->avx10.raw) )
-+                    goto out_of_range;
++#define cpu_has_xgetbv1   (cpu_has_xsave && cpu_policy.xstate.xgetbv1)
 +
-+                array_access_nospec(p->avx10.raw, data.subleaf) = l;
-+                break;
-+
-             default:
-                 if ( data.subleaf != XEN_CPUID_NO_SUBLEAF )
-                     goto out_of_range;
---- a/xen/lib/x86/policy.c
-+++ b/xen/lib/x86/policy.c
-@@ -21,6 +21,12 @@ int x86_cpu_policies_are_compatible(cons
-     if ( guest->feat.max_subleaf > host->feat.max_subleaf )
-         FAIL_CPUID(7, 0);
++#define cpu_has_3dnow_ext  cpu_policy.extd._3dnowext
++#define cpu_has_sse4a      cpu_policy.extd.sse4a
++#define cpu_has_xop       (cpu_policy.extd.xop  && xcr0_mask(6))
++#define cpu_has_fma4      (cpu_policy.extd.fma4 && xcr0_mask(6))
++#define cpu_has_tbm        cpu_policy.extd.tbm
  
-+    if ( guest->avx10.version > host->avx10.version ||
-+         (guest->avx10.vsz512
-+          ? !host->avx10.vsz512
-+          : guest->avx10.vsz256 && !host->avx10.vsz256 && !host->avx10.vsz512) )
-+        FAIL_CPUID(0x24, 0);
-+
-     if ( guest->extd.max_leaf > host->extd.max_leaf )
-         FAIL_CPUID(0x80000000U, NA);
- 
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -285,7 +285,7 @@ def crunch_numbers(state):
-         # enabled.  Certain later extensions, acting on 256-bit vectors of
-         # integers, better depend on AVX2 than AVX.
-         AVX2: [AVX512F, VAES, VPCLMULQDQ, AVX_VNNI, AVX_IFMA, AVX_VNNI_INT8,
--               AVX_VNNI_INT16, SHA512, SM4],
-+               AVX_VNNI_INT16, SHA512, SM4, AVX10],
- 
-         # AVX512F is taken to mean hardware support for 512bit registers
-         # (which in practice depends on the EVEX prefix to encode) as well
+ int emul_test_cpuid(
+     uint32_t leaf,
 
 
