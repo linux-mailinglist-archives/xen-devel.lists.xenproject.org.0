@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB86A951F14
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 17:51:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777473.1187623 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CD88951F27
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 17:54:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777502.1187644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seGGf-0007XL-H0; Wed, 14 Aug 2024 15:50:33 +0000
+	id 1seGK4-00015C-As; Wed, 14 Aug 2024 15:54:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777473.1187623; Wed, 14 Aug 2024 15:50:33 +0000
+Received: by outflank-mailman (output) from mailman id 777502.1187644; Wed, 14 Aug 2024 15:54:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seGGf-0007Ud-DA; Wed, 14 Aug 2024 15:50:33 +0000
-Received: by outflank-mailman (input) for mailman id 777473;
- Wed, 14 Aug 2024 15:50:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1seGK4-00012y-6D; Wed, 14 Aug 2024 15:54:04 +0000
+Received: by outflank-mailman (input) for mailman id 777502;
+ Wed, 14 Aug 2024 15:54:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lR0F=PN=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1seGGe-0007UX-0Y
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 15:50:32 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef337f63-5a54-11ef-a505-bb4a2ccca743;
- Wed, 14 Aug 2024 17:50:30 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-52f01b8738dso6114641e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 08:50:30 -0700 (PDT)
-Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
+ <SRS0=W8Zn=PN=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
+ id 1seGK3-0000wO-7L
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 15:54:03 +0000
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [2607:f8b0:4864:20::729])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6c5ea128-5a55-11ef-8776-851b0ebba9a2;
+ Wed, 14 Aug 2024 17:54:01 +0200 (CEST)
+Received: by mail-qk1-x729.google.com with SMTP id
+ af79cd13be357-7a3375015f8so466626085a.1
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 08:54:01 -0700 (PDT)
+Received: from mbarnes-x-u.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53200f3daaesm1308152e87.241.2024.08.14.08.50.29
+ af79cd13be357-7a4c7e05db8sm449388285a.124.2024.08.14.08.53.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Aug 2024 08:50:29 -0700 (PDT)
+ Wed, 14 Aug 2024 08:53:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,323 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef337f63-5a54-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: 6c5ea128-5a55-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1723650630; x=1724255430; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=e/gYLaKPeQFOpje6uLnnz3IMiblJW7rg/lR5EngKbeg=;
-        b=LpCq4CIiO4JZdKBz0m3CnVpKEjj8yzEL98I4/eZHk0Xn8sudz/6fkwOf1HT7xWIZYB
-         6VEaFjvGbxKmdDiIaKoJl2eZd1Kip22gVBjyjMi0zWc5NkqUv/peWLqV0CmfNjo1wXbm
-         psc5b5prKd3LbWLxq+n9s6x4cTyUer7SdAQU5oaT/78YkDD9o1gSrVlWN+RZkX/UZ99F
-         RYkbZeyOwJarrHBnktI/jAww0c3RboBAy4RHAO1Qv9zeDU8AbwjKlZk6Z1abByl1UgaX
-         tEkjQTLSLUxNkTJ7aHH62yG6wlAgyZfqQUodXzcS21QXWz3Y8FUZTvn+R8D3Ze7rsoBd
-         escw==
+        d=cloud.com; s=cloud; t=1723650840; x=1724255640; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QG/M0V684VfpYQYWG1KSktx6rzyoliVsgiAOZUPbgck=;
+        b=QHfikBeUTIAC6atWM1hCEmdTLxfhUio/uIQivo6oEsUY5901D1Bf63hmjVKFCtlX2h
+         Ynd6MC90isehY1l5lldsvl91whz82NOBY6To5DnPk2rF45oBAhQRt5vW04JDnVHmBBC3
+         JE/rgHCvUEELxxu/ioXheDp02SHx0MjAz3Kd8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723650630; x=1724255430;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=e/gYLaKPeQFOpje6uLnnz3IMiblJW7rg/lR5EngKbeg=;
-        b=NRXZl6Pr+PbenA6xJGVtzQ+rDBneR1BQS1xuIxHSHotqQaVDLM/ZWAiKn+q0C7geic
-         rj2W2OMP++ec4VNjl9tcxWBP2RLZ38ltnUeJ9kmyiEk7hlOvLjsBJPKsO4sAfvJTrKxd
-         FM8PZaOt9cjFlhHzyLQeSNR/GRyLVF6gxgbOLSw4WSq5PAiRT9oHlXqhO+qZUAgR7DI5
-         RAbp44rLKKysPTN93dMOkAdSkWLpvmgR5eqAk9sDuc6CWDta4Z7vnQiC6Yjzw8ITNq11
-         dQIbENOdXn0rum2SrFrv1gI4tNL2lz0AhY6q63oAsWF3rvp+lf3GQ9lhOvEr7sy5gc6X
-         ZQrQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVN71nTHEBqgXGlz0f1s2JJHQzbtb+0RAsDb50MQ0Q2zYjetRej7Je7i3abA0QZN2v8qFyipA1IA3prpZuf76hn0oOt4H9l015uXPxLErM=
-X-Gm-Message-State: AOJu0YwbFYUzmzkQayKS+075RizNQuqlZ/Jd6QsqVSc/AKKfpo86C+wl
-	V3zl7fM6SgYBJs7iGboUMIfky+5MpkCM83OjItcGgmU4ma26uwsp
-X-Google-Smtp-Source: AGHT+IHcVkvxyTJG9ipRaZHZ+21NOa0KrthTySBhaf/jwCY7RrKJlzsfNGbJbbK5/xKyDBn6ddqmMQ==
-X-Received: by 2002:a05:6512:138b:b0:52c:cc38:592c with SMTP id 2adb3069b0e04-532ed729715mr2265346e87.0.1723650629740;
-        Wed, 14 Aug 2024 08:50:29 -0700 (PDT)
-Date: Wed, 14 Aug 2024 17:50:28 +0200
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: qemu-devel@nongnu.org, anthony@xenproject.org, paul@xen.org,
-	peter.maydell@linaro.org, alex.bennee@linaro.org,
-	xenia.ragiadakou@amd.com, jason.andryuk@amd.com,
-	edgar.iglesias@amd.com, xen-devel@lists.xenproject.org,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>
-Subject: Re: [PATCH v1 09/10] hw/i386/xen: Add a Xen PVH x86 machine
-Message-ID: <ZrzSRPPNYxeh98J4@zapote>
-References: <20240812130606.90410-1-edgar.iglesias@gmail.com>
- <20240812130606.90410-10-edgar.iglesias@gmail.com>
- <alpine.DEB.2.22.394.2408121840230.298534@ubuntu-linux-20-04-desktop>
+        d=1e100.net; s=20230601; t=1723650840; x=1724255640;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QG/M0V684VfpYQYWG1KSktx6rzyoliVsgiAOZUPbgck=;
+        b=t2oql0rs2NWP7g17gotTKNzgykyBMU+I2fuS3HYO47MKUt5bhfrz6zJgPINT65BE/G
+         7mL7waXeuNzFhnVf4r+5XFiEsPz0xlhssVbDSSyXElGghRQdl/tGDOIjyG8SOCWOixNk
+         HdSC1ZCkmyEdLPrNXZ0E0DQjNEv5slBZYqgHlSNCFv6hHzUSskHNbFHrUZYtB3eGpumP
+         OMAf7VFHmouc+GIQnKWbwWByOMekGiXEnT0Va/nWFFk7Ght42NnVMHucmWZh42XI3nK2
+         S7C8wxK8s/tTXJQQJgbhMRq8EQ/D4o8y9jpFncQ/S1B4QEkUxF4oYJIVIYy/GTjmJn0v
+         N74Q==
+X-Gm-Message-State: AOJu0YyjYGkIf/ZUtP/f6enA2tBT1snfitDFywe8swMhEYSlt+EimWqt
+	i/C2bdS3Tpf80a2PCxO71yv5xKHgOclOeJF15feocnX8jCWFVqv44HYWHlFvnHMUMuxSRMj2KiL
+	X
+X-Google-Smtp-Source: AGHT+IE7puL+/qymNHfKF/aQ9f3ZVfT4VU4D/MNvgjPHZCbelsZJz8yCegkmfxE2DxoJGNsay3Z7mA==
+X-Received: by 2002:a05:620a:4152:b0:7a1:e271:ee37 with SMTP id af79cd13be357-7a4ee32ddb9mr387198785a.16.1723650839719;
+        Wed, 14 Aug 2024 08:53:59 -0700 (PDT)
+From: Matthew Barnes <matthew.barnes@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Matthew Barnes <matthew.barnes@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: [PATCH] x86/cpufeatures: Add new cpuid features in SPR to featureset
+Date: Wed, 14 Aug 2024 16:52:54 +0100
+Message-Id: <09353a67d79b12f2ff2a9be797866902bcd71825.1723650205.git.matthew.barnes@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2408121840230.298534@ubuntu-linux-20-04-desktop>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 12, 2024 at 06:48:52PM -0700, Stefano Stabellini wrote:
-> On Mon, 12 Aug 2024, Edgar E. Iglesias wrote:
-> > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-> > 
-> > This adds a Xen PVH x86 machine based on the PVH Common
-> > module used by the ARM PVH machine.
-> > 
-> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> > ---
-> >  hw/i386/xen/meson.build |   1 +
-> >  hw/i386/xen/xen-pvh.c   | 196 ++++++++++++++++++++++++++++++++++++++++
-> >  2 files changed, 197 insertions(+)
-> >  create mode 100644 hw/i386/xen/xen-pvh.c
-> > 
-> > diff --git a/hw/i386/xen/meson.build b/hw/i386/xen/meson.build
-> > index 3f0df8bc07..c73c62b8e3 100644
-> > --- a/hw/i386/xen/meson.build
-> > +++ b/hw/i386/xen/meson.build
-> > @@ -4,6 +4,7 @@ i386_ss.add(when: 'CONFIG_XEN', if_true: files(
-> >  ))
-> >  i386_ss.add(when: ['CONFIG_XEN', xen], if_true: files(
-> >    'xen-hvm.c',
-> > +  'xen-pvh.c',
-> >  ))
-> >  
-> >  i386_ss.add(when: 'CONFIG_XEN_BUS', if_true: files(
-> > diff --git a/hw/i386/xen/xen-pvh.c b/hw/i386/xen/xen-pvh.c
-> > new file mode 100644
-> > index 0000000000..9c3d3fc58d
-> > --- /dev/null
-> > +++ b/hw/i386/xen/xen-pvh.c
-> > @@ -0,0 +1,196 @@
-> > +/*
-> > + * QEMU Xen PVH x86 Machine
-> > + *
-> > + * Copyright (c) 2024 Advanced Micro Devices, Inc.
-> > + * Written by Edgar E. Iglesias <edgar.iglesias@amd.com>
-> > + *
-> > + * SPDX-License-Identifier: GPL-2.0-or-later
-> > + */
-> > +
-> > +#include "qemu/osdep.h"
-> > +#include "qapi/error.h"
-> > +#include "qapi/visitor.h"
-> > +#include "qemu/error-report.h"
-> > +#include "hw/boards.h"
-> > +#include "sysemu/sysemu.h"
-> > +#include "hw/xen/arch_hvm.h"
-> > +#include "hw/xen/xen.h"
-> > +#include "hw/xen/xen-pvh-common.h"
-> > +
-> > +#define TYPE_XEN_PVH_X86  MACHINE_TYPE_NAME("xenpvh")
-> > +OBJECT_DECLARE_SIMPLE_TYPE(XenPVHx86State, XEN_PVH_X86)
-> > +
-> > +#define PVH_MAX_CPUS 128
-> > +
-> > +struct XenPVHx86State {
-> > +    /*< private >*/
-> > +    MachineState parent;
-> > +
-> > +    DeviceState *cpu[PVH_MAX_CPUS];
-> > +    XenPVHCommonState pvh;
-> > +
-> > +    /*
-> > +     * We provide these properties to allow Xen to move things to other
-> > +     * addresses for example when users need to accomodate the memory-map
-> > +     * for 1:1 mapped devices/memory.
-> > +     */
-> > +    struct {
-> > +        MemMapEntry ram_low, ram_high;
-> > +        MemMapEntry pci_ecam, pci_mmio, pci_mmio_high;
-> 
-> Can we use the same properties already present under XenPVHCommonState?
-> 
-> 
-> 
-> > +    } cfg;
-> > +};
-> > +
-> > +static void xenpvh_cpu_new(MachineState *ms,
-> > +                           XenPVHx86State *xp,
-> > +                           int cpu_idx,
-> > +                           int64_t apic_id)
-> > +{
-> > +    Object *cpu = object_new(ms->cpu_type);
-> > +
-> > +    object_property_add_child(OBJECT(ms), "cpu[*]", cpu);
-> > +    object_property_set_uint(cpu, "apic-id", apic_id, &error_fatal);
-> > +    qdev_realize(DEVICE(cpu), NULL, &error_fatal);
-> > +    object_unref(cpu);
-> > +
-> > +    xp->cpu[cpu_idx] = DEVICE(cpu);
-> 
-> 
-> Why do we need to create CPU devices in QEMU given that we are only
-> doing device emulation? I guess it is because ....
-> 
-> 
-> 
-> > +}
-> > +
-> > +static void xenpvh_init(MachineState *ms)
-> > +{
-> > +    XenPVHx86State *xp = XEN_PVH_X86(ms);
-> > +    const struct {
-> > +        const char *name;
-> > +        MemMapEntry *map;
-> > +    } map[] = {
-> > +        { "ram-low", &xp->cfg.ram_low },
-> > +        { "ram-high", &xp->cfg.ram_high },
-> > +        { "pci-ecam", &xp->cfg.pci_ecam },
-> > +        { "pci-mmio", &xp->cfg.pci_mmio },
-> > +        { "pci-mmio-high", &xp->cfg.pci_mmio_high },
-> > +    };
-> > +    int i;
-> > +
-> > +    object_initialize_child(OBJECT(ms), "pvh", &xp->pvh, TYPE_XEN_PVH_COMMON);
-> > +    object_property_set_int(OBJECT(&xp->pvh), "max-cpus", ms->smp.max_cpus,
-> > +                            &error_abort);
-> > +    object_property_set_int(OBJECT(&xp->pvh), "ram-size", ms->ram_size,
-> > +                            &error_abort);
-> > +
-> > +    for (i = 0; i < ARRAY_SIZE(map); i++) {
-> > +        g_autofree char *base_name = g_strdup_printf("%s-base", map[i].name);
-> > +        g_autofree char *size_name = g_strdup_printf("%s-size", map[i].name);
-> > +
-> > +        object_property_set_int(OBJECT(&xp->pvh), base_name, map[i].map->base,
-> > +                                 &error_abort);
-> > +        object_property_set_int(OBJECT(&xp->pvh), size_name, map[i].map->size,
-> > +                                 &error_abort);
-> > +    }
-> > +
-> > +    /* GSI's 16 - 20 are used for legacy PCIe INTX IRQs.  */
-> > +    object_property_set_int(OBJECT(&xp->pvh), "pci-intx-irq-base", 16,
-> > +                            &error_abort);
-> > +
-> > +    sysbus_realize(SYS_BUS_DEVICE(&xp->pvh), &error_abort);
-> > +
-> > +    /* Create dummy cores. This will indirectly create the APIC MSI window.  */
-> 
-> ... of the APIC MSI window ?
+Upon running `xen-cpuid -d` on a host machine with Sapphire Rapids
+within Dom0, there exist unrecognised features.
 
+This patch adds these features as macros to the CPU featureset,
+disabled by default.
 
-Yes, exactly. I did have a first version without the CPUs that only had
-the MSI window but there was a bit of disentanglement needed and some
-other issue that I forgot. Note that with TCG disabled, this doesn't
-have the any CPU emulation so it doesn't affect our small PVH config
-very much. I could look into the MSI windows again though.
+Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+---
+ xen/include/public/arch-x86/cpufeatureset.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
+diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
+index abab78fa86db..db633bd5c128 100644
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -121,6 +121,7 @@ XEN_CPUFEATURE(SMX,           1*32+ 6) /*   Safer Mode Extensions */
+ XEN_CPUFEATURE(EIST,          1*32+ 7) /*   Enhanced SpeedStep */
+ XEN_CPUFEATURE(TM2,           1*32+ 8) /*   Thermal Monitor 2 */
+ XEN_CPUFEATURE(SSSE3,         1*32+ 9) /*A  Supplemental Streaming SIMD Extensions-3 */
++XEN_CPUFEATURE(SDGB,          1*32+11) /*   Silicon Debugging */
+ XEN_CPUFEATURE(FMA,           1*32+12) /*A  Fused Multiply Add */
+ XEN_CPUFEATURE(CX16,          1*32+13) /*A  CMPXCHG16B */
+ XEN_CPUFEATURE(XTPR,          1*32+14) /*   Send Task Priority Messages */
+@@ -181,6 +182,7 @@ XEN_CPUFEATURE(XSAVEOPT,      4*32+ 0) /*A  XSAVEOPT instruction */
+ XEN_CPUFEATURE(XSAVEC,        4*32+ 1) /*A  XSAVEC/XRSTORC instructions */
+ XEN_CPUFEATURE(XGETBV1,       4*32+ 2) /*A  XGETBV with %ecx=1 */
+ XEN_CPUFEATURE(XSAVES,        4*32+ 3) /*S  XSAVES/XRSTORS instructions */
++XEN_CPUFEATURE(XFD,           4*32+ 4) /*   Extended Feature Disable */
+ 
+ /* Intel-defined CPU features, CPUID level 0x00000007:0.ebx, word 5 */
+ XEN_CPUFEATURE(FSGSBASE,      5*32+ 0) /*A  {RD,WR}{FS,GS}BASE instructions */
+@@ -221,6 +223,7 @@ XEN_CPUFEATURE(AVX512_VBMI,   6*32+ 1) /*A  AVX-512 Vector Byte Manipulation Ins
+ XEN_CPUFEATURE(UMIP,          6*32+ 2) /*S  User Mode Instruction Prevention */
+ XEN_CPUFEATURE(PKU,           6*32+ 3) /*H  Protection Keys for Userspace */
+ XEN_CPUFEATURE(OSPKE,         6*32+ 4) /*!  OS Protection Keys Enable */
++XEN_CPUFEATURE(WAITPKG,       6*32+ 5) /*   User-level monitoring support */
+ XEN_CPUFEATURE(AVX512_VBMI2,  6*32+ 6) /*A  Additional AVX-512 Vector Byte Manipulation Instrs */
+ XEN_CPUFEATURE(CET_SS,        6*32+ 7) /*   CET - Shadow Stacks */
+ XEN_CPUFEATURE(GFNI,          6*32+ 8) /*A  Galois Field Instrs */
+@@ -228,13 +231,16 @@ XEN_CPUFEATURE(VAES,          6*32+ 9) /*A  Vector AES Instrs */
+ XEN_CPUFEATURE(VPCLMULQDQ,    6*32+10) /*A  Vector Carry-less Multiplication Instrs */
+ XEN_CPUFEATURE(AVX512_VNNI,   6*32+11) /*A  Vector Neural Network Instrs */
+ XEN_CPUFEATURE(AVX512_BITALG, 6*32+12) /*A  Support for VPOPCNT[B,W] and VPSHUFBITQMB */
++XEN_CPUFEATURE(TME_EN,        6*32+13) /*   TME MSR support */
+ XEN_CPUFEATURE(AVX512_VPOPCNTDQ, 6*32+14) /*A  POPCNT for vectors of DW/QW */
++XEN_CPUFEATURE(LA57,          6*32+16) /*   57-bit linear addressing and five-level paging */
+ XEN_CPUFEATURE(RDPID,         6*32+22) /*A  RDPID instruction */
+ XEN_CPUFEATURE(BLD,           6*32+24) /*   BusLock Detect (#DB trap) support */
+ XEN_CPUFEATURE(CLDEMOTE,      6*32+25) /*A  CLDEMOTE instruction */
+ XEN_CPUFEATURE(MOVDIRI,       6*32+27) /*a  MOVDIRI instruction */
+ XEN_CPUFEATURE(MOVDIR64B,     6*32+28) /*a  MOVDIR64B instruction */
+ XEN_CPUFEATURE(ENQCMD,        6*32+29) /*   ENQCMD{,S} instructions */
++XEN_CPUFEATURE(SGX_LC,        6*32+30) /*   SGX Launch Configuration */
+ XEN_CPUFEATURE(PKS,           6*32+31) /*H  Protection Key for Supervisor */
+ 
+ /* AMD-defined CPU features, CPUID level 0x80000007.edx, word 7 */
+@@ -264,6 +270,7 @@ XEN_CPUFEATURE(BTC_NO,        8*32+29) /*A  Hardware not vulnerable to Branch Ty
+ XEN_CPUFEATURE(IBPB_RET,      8*32+30) /*A  IBPB clears RSB/RAS too. */
+ 
+ /* Intel-defined CPU features, CPUID level 0x00000007:0.edx, word 9 */
++XEN_CPUFEATURE(SGX_KEYS,      9*32+ 1) /*   Attestation Services for Intel SGX */
+ XEN_CPUFEATURE(AVX512_4VNNIW, 9*32+ 2) /*   Xeon Phi AVX512 Neural Network Instructions */
+ XEN_CPUFEATURE(AVX512_4FMAPS, 9*32+ 3) /*   Xeon Phi AVX512 Multiply Accumulation Single Precision */
+ XEN_CPUFEATURE(FSRM,          9*32+ 4) /*A  Fast Short REP MOVS */
+@@ -276,10 +283,13 @@ XEN_CPUFEATURE(TSX_FORCE_ABORT, 9*32+13) /* MSR_TSX_FORCE_ABORT.RTM_ABORT */
+ XEN_CPUFEATURE(SERIALIZE,     9*32+14) /*A  SERIALIZE insn */
+ XEN_CPUFEATURE(HYBRID,        9*32+15) /*   Heterogeneous platform */
+ XEN_CPUFEATURE(TSXLDTRK,      9*32+16) /*a  TSX load tracking suspend/resume insns */
++XEN_CPUFEATURE(PCONFIG,       9*32+18) /*   Platform configuration support */
+ XEN_CPUFEATURE(ARCH_LBR,      9*32+19) /*   Architectural Last Branch Record */
+ XEN_CPUFEATURE(CET_IBT,       9*32+20) /*   CET - Indirect Branch Tracking */
++XEN_CPUFEATURE(AMX_BF16,      9*32+22) /*   Tile computational operations on bfloat16 numbers */
+ XEN_CPUFEATURE(AVX512_FP16,   9*32+23) /*A  AVX512 FP16 instructions */
+ XEN_CPUFEATURE(AMX_TILE,      9*32+24) /*   AMX Tile architecture */
++XEN_CPUFEATURE(AMX_INT8,      9*32+25) /*   Tile computational operations on 8-bit integers */
+ XEN_CPUFEATURE(IBRSB,         9*32+26) /*A  IBRS and IBPB support (used by Intel) */
+ XEN_CPUFEATURE(STIBP,         9*32+27) /*A  STIBP */
+ XEN_CPUFEATURE(L1D_FLUSH,     9*32+28) /*S  MSR_FLUSH_CMD and L1D flush. */
+@@ -363,6 +373,8 @@ XEN_CPUFEATURE(GDS_CTRL,           16*32+25) /*   MCU_OPT_CTRL.GDS_MIT_{DIS,LOCK
+ XEN_CPUFEATURE(GDS_NO,             16*32+26) /*A  No Gather Data Sampling */
+ XEN_CPUFEATURE(RFDS_NO,            16*32+27) /*A  No Register File Data Sampling */
+ XEN_CPUFEATURE(RFDS_CLEAR,         16*32+28) /*!A| Register File(s) cleared by VERW */
++XEN_CPUFEATURE(IGN_UMONITOR_SUPPORT, 16*32+29) /*  UMONITOR Ignore support */
++XEN_CPUFEATURE(MON_UMON_MITG_SUPPORT, 16*32+30) /*  (U)MONITOR Mitigation support */
+ 
+ /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.edx, word 17 */
+ 
+-- 
+2.46.0
 
-> 
-> 
-> 
-> > +    for (i = 0; i < ms->smp.cpus; i++) {
-> > +        xenpvh_cpu_new(ms, xp, i, i);
-> > +    }
-> > +}
-> > +
-> > +#define XENPVH_PROP_MEMMAP_SETTER(n, f)                                    \
-> > +static void xenpvh_set_ ## n ## _ ## f(Object *obj, Visitor *v,            \
-> > +                                       const char *name, void *opaque,     \
-> > +                                       Error **errp)                       \
-> > +{                                                                          \
-> > +    XenPVHx86State *xp = XEN_PVH_X86(obj);                                 \
-> > +    uint64_t value;                                                        \
-> > +                                                                           \
-> > +    if (!visit_type_size(v, name, &value, errp)) {                         \
-> > +        return;                                                            \
-> > +    }                                                                      \
-> > +    xp->cfg.n.f = value;                                                   \
-> > +}
-> > +
-> > +#define XENPVH_PROP_MEMMAP_GETTER(n, f)                                    \
-> > +static void xenpvh_get_ ## n ## _ ## f(Object *obj, Visitor *v,            \
-> > +                                       const char *name, void *opaque,     \
-> > +                                       Error **errp)                       \
-> > +{                                                                          \
-> > +    XenPVHx86State *xp = XEN_PVH_X86(obj);                                 \
-> > +    uint64_t value = xp->cfg.n.f;                                          \
-> > +                                                                           \
-> > +    visit_type_uint64(v, name, &value, errp);                              \
-> > +}
-> > +
-> > +#define XENPVH_PROP_MEMMAP(n)              \
-> > +    XENPVH_PROP_MEMMAP_SETTER(n, base)     \
-> > +    XENPVH_PROP_MEMMAP_SETTER(n, size)     \
-> > +    XENPVH_PROP_MEMMAP_GETTER(n, base)     \
-> > +    XENPVH_PROP_MEMMAP_GETTER(n, size)
-> > +
-> > +
-> > +XENPVH_PROP_MEMMAP(ram_low)
-> > +XENPVH_PROP_MEMMAP(ram_high)
-> > +XENPVH_PROP_MEMMAP(pci_ecam)
-> > +XENPVH_PROP_MEMMAP(pci_mmio)
-> > +XENPVH_PROP_MEMMAP(pci_mmio_high)
-> 
-> I would make all of these common with ARM. It wouldn't hurt to make them
-> configurable on ARM too, in fact we might need it for 1:1 mapped guests
-> 
-
-
-Yes, that was the plan in future patches.
-
-
-> 
-> 
-> > +static void xenpvh_instance_init(Object *obj)
-> > +{
-> > +    XenPVHx86State *xp = XEN_PVH_X86(obj);
-> > +
-> > +    /* Default memmap.  */
-> > +    xp->cfg.ram_low.base = 0x0;
-> > +    xp->cfg.ram_low.size = 0x80000000U;
-> > +    xp->cfg.ram_high.base = 0xC000000000ULL;
-> > +    xp->cfg.ram_high.size = 0x4000000000ULL;
-> > +}
-> > +
-> > +static void xenpvh_machine_class_init(ObjectClass *oc, void *data)
-> > +{
-> > +    MachineClass *mc = MACHINE_CLASS(oc);
-> > +
-> > +    mc->desc = "Xen PVH x86 machine";
-> > +    mc->init = xenpvh_init;
-> > +    mc->max_cpus = PVH_MAX_CPUS;
-> > +    mc->default_cpu_type = TARGET_DEFAULT_CPU_TYPE;
-> > +    mc->default_machine_opts = "accel=xen";
-> > +    /* Set explicitly here to make sure that real ram_size is passed */
-> > +    mc->default_ram_size = 0;
-> > +
-> > +#define OC_MEMMAP_PROP(c, prop_name, name)                               \
-> > +do {                                                                     \
-> > +    object_class_property_add(c, prop_name "-base", "uint64_t",          \
-> > +                              xenpvh_get_ ## name ## _base,              \
-> > +                              xenpvh_set_ ## name ## _base, NULL, NULL); \
-> > +    object_class_property_set_description(oc, prop_name "-base",         \
-> > +                              prop_name " base address");                \
-> > +    object_class_property_add(c, prop_name "-size", "uint64_t",          \
-> > +                              xenpvh_get_ ## name ## _size,              \
-> > +                              xenpvh_set_ ## name ## _size, NULL, NULL); \
-> > +    object_class_property_set_description(oc, prop_name "-size",         \
-> > +                              prop_name " size of memory region");       \
-> > +} while (0)
-> > +
-> > +    OC_MEMMAP_PROP(oc, "ram-low", ram_low);
-> > +    OC_MEMMAP_PROP(oc, "ram-high", ram_high);
-> > +    OC_MEMMAP_PROP(oc, "pci-ecam", pci_ecam);
-> > +    OC_MEMMAP_PROP(oc, "pci-mmio", pci_mmio);
-> > +    OC_MEMMAP_PROP(oc, "pci-mmio-high", pci_mmio_high);
-> > +}
-> > +
-> > +static const TypeInfo xenpvh_machine_type = {
-> > +    .name = TYPE_XEN_PVH_X86,
-> > +    .parent = TYPE_MACHINE,
-> > +    .class_init = xenpvh_machine_class_init,
-> > +    .instance_init = xenpvh_instance_init,
-> > +    .instance_size = sizeof(XenPVHx86State),
-> > +};
-> > +
-> > +static void xenpvh_machine_register_types(void)
-> > +{
-> > +    type_register_static(&xenpvh_machine_type);
-> > +}
-> > +
-> > +type_init(xenpvh_machine_register_types)
-> > -- 
-> > 2.43.0
-> > 
 
