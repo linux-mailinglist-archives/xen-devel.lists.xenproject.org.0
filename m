@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDE4F9516AC
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 10:35:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776852.1187079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ED349516A8
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 10:35:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776838.1187019 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1se9TF-0005A0-7B; Wed, 14 Aug 2024 08:35:05 +0000
+	id 1se9Sn-0003N6-4u; Wed, 14 Aug 2024 08:34:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776852.1187079; Wed, 14 Aug 2024 08:35:05 +0000
+Received: by outflank-mailman (output) from mailman id 776838.1187019; Wed, 14 Aug 2024 08:34:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1se9TF-00057f-0s; Wed, 14 Aug 2024 08:35:05 +0000
-Received: by outflank-mailman (input) for mailman id 776852;
- Wed, 14 Aug 2024 08:35:03 +0000
+	id 1se9Sn-0003KB-1F; Wed, 14 Aug 2024 08:34:37 +0000
+Received: by outflank-mailman (input) for mailman id 776838;
+ Wed, 14 Aug 2024 08:34:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jxPN=PN=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1se9TD-0002t1-KE
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 08:35:03 +0000
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [2607:f8b0:4864:20::b31])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NhoJ=PN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1se9Sl-0002t1-J4
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 08:34:35 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 194a8861-5a18-11ef-a505-bb4a2ccca743;
- Wed, 14 Aug 2024 10:35:02 +0200 (CEST)
-Received: by mail-yb1-xb31.google.com with SMTP id
- 3f1490d57ef6-e0e88873825so6295835276.2
- for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 01:35:02 -0700 (PDT)
-Received: from fziglio-xenia-fedora.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7a4c7e05595sm407786785a.122.2024.08.14.01.35.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Aug 2024 01:35:01 -0700 (PDT)
+ id 08e01e7f-5a18-11ef-a505-bb4a2ccca743;
+ Wed, 14 Aug 2024 10:34:34 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5b01af9b0c9so6675055a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 01:34:34 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a80f411d937sm145127666b.111.2024.08.14.01.34.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Aug 2024 01:34:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,386 +45,413 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 194a8861-5a18-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: 08e01e7f-5a18-11ef-a505-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723624501; x=1724229301; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=C3RLkkdEw+WvOJ6h0uz0D93wDr/BTPYuQooWwQucVfo=;
-        b=Jm05QScSbdxb7nUlMX+0piRorKZwHiGH3zsUozIEigTxKg24CVYfX9puy2e+rfBfgr
-         vxQHrpzNz3fhGzbt7r2oMCI40eH1iXC08B2f8Yq1G1KHjaViIBel3/t7YPqu5BooxjTR
-         gSSDH7foo7nir5C99Lg9LiefxW3ZAg9oDcCWM=
+        d=suse.com; s=google; t=1723624474; x=1724229274; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=LD7RVoUrYY1rDlKvCdkTHU6WjFnBT4YHFAlrub8IVO4=;
+        b=LeNGtusjJsDaGNOCKgMOZKx48z4JIhnNpVYiwTiTlmLNk+BRWM2dstePziFT2ZNCS5
+         ceM7YHQIaBeTJDiol5SLOi1N+ITC2VXF0PbzpAYe8w8hha8rV2sEdEq3iF6Pbtdcg7Xx
+         6LFdRSrV/5NGqk7riZo3nqDhpgUiTY9ZYN1PkdhSbSvQZU/6aEAc0F7t0RiJI5QSb2lI
+         qUA+maaj9BBg5WpYg+GIpZKPiCnWFj7mkSUxBOt7AMFPf/EJ9AW3rI05AACqPm2kScZm
+         LC9c4VCls9/TUszbFj+dEQPXP996x0JY6GcAdahZmM8G4tqTJ8cXdQe75PJECTU7A4+O
+         2UBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723624501; x=1724229301;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=C3RLkkdEw+WvOJ6h0uz0D93wDr/BTPYuQooWwQucVfo=;
-        b=B49CzAUgQhsZ4GZfU8c0lKYkIIihKQseP1kI41McEm5vbLirq9h9QngYvZGmdwGOMW
-         SNqiaA47XqHRii+xFEe1W7SspVaH/8NJ+FcPhanCxihX0UAUn6wSsv42JL/fp1y93CDZ
-         FSBk9dREmVkyhJ+//YYoRTASVjL70jXo+gF35P/dAIq0ou+7wYDRONhaE/uJtqW8/zyP
-         E1xUoiQwCDHhR+K/f66the3JsN3Q++NKppAY1aOhBmpGhZdmH2S4s9EDCH8oPbfqFFxd
-         1AlB/o0pSB9rj7PvXW9yDSqX06iQ5D7lMAOuSqBCBYVOZdsFwWl4UBqHzs+l3fkTy4gy
-         vutg==
-X-Gm-Message-State: AOJu0YyipzgSXuD2WcTJuRzMm8aGFhuipESf5ye8D/oA8HvAr0XyNiko
-	7Frq8Ke0FefR22k8NhKQd2phED2u/6wFltpKzeJRZ1ldmyhr7xkc3zpEFyyU0QQWOJHV505viXh
-	v
-X-Google-Smtp-Source: AGHT+IGKNHJUKcuFo4EaeLXlmE5TDLQ5CU7BIa/3jgXJownF0st8Fk8SKovg0rOsFbAmrWJAlwJQ0A==
-X-Received: by 2002:a05:690c:3405:b0:62f:945a:7bb1 with SMTP id 00721157ae682-6ac9a478546mr20841897b3.42.1723624501462;
-        Wed, 14 Aug 2024 01:35:01 -0700 (PDT)
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v2 5/5] x86: Rollback relocation in case of EFI multiboot
-Date: Wed, 14 Aug 2024 09:34:14 +0100
-Message-ID: <20240814083428.3012-6-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240814083428.3012-1-frediano.ziglio@cloud.com>
-References: <20240814083428.3012-1-frediano.ziglio@cloud.com>
+        d=1e100.net; s=20230601; t=1723624474; x=1724229274;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LD7RVoUrYY1rDlKvCdkTHU6WjFnBT4YHFAlrub8IVO4=;
+        b=jzaLJmKMdcsfVyt6AHE/cKWT+L4vG4d2TjLYyd5UCNJOEiJkSH2Pxza7ZEly2hwU9S
+         3xCq3/nOct7ccu4b7mraNUUTDaBCvBwWZqHTWgN2Qb1TuOTGRPqduoVSbQXR5ci57eEk
+         emFykdxPHhlvozcneZ9JgyAwB8NinBJZa7HHFTmugf25qzSe7hzLeGJXrykx5HVp+MrG
+         5hKCrPU3if2NhgkSYU9ys5JEKgUYz++He/KEuegJ1UHFl53qZZOZ4zohZTHdkyP53yHg
+         xgxH9062zv//rzObhlZCFKN9UNMWdLOqsaWk7cwdHZoAGENpDfFu2QMPcc5FLpKayYDY
+         P2Xg==
+X-Gm-Message-State: AOJu0YygwmBhFf0leNQyRay3K87KPMP1eW9hPWWQmixsWpGyDAN6t76F
+	10D52GNJUxOY0bs3tf/D5T1avnckScgepLHCBIWCasm/KIsQWPIlwWOdf5hE13swQI3TayA8eP8
+	=
+X-Google-Smtp-Source: AGHT+IHWUaziJt40slXYLfx/zS5l1+3OfS3Z5OEo1sRZe3QlOAtQ2/mTjjFrEby006NjocinUX1CmA==
+X-Received: by 2002:a17:907:f765:b0:a7a:c256:3cf with SMTP id a640c23a62f3a-a8366d38ec6mr156646666b.24.1723624474076;
+        Wed, 14 Aug 2024 01:34:34 -0700 (PDT)
+Message-ID: <44d9ae81-14e4-4ade-adda-32f453e32f87@suse.com>
+Date: Wed, 14 Aug 2024 10:34:32 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH v5 2/3] x86/CPUID: shrink max_{,sub}leaf fields according to
+ actual leaf contents
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <2500a119-1734-44c2-9868-640bcc8ead2d@suse.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2500a119-1734-44c2-9868-640bcc8ead2d@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-In case EFI not multiboot rolling back relocation is done in
-efi_arch_post_exit_boot, called by efi_start however this is
-not done in multiboot code path.
-Do it also for this path to make it work correctly.
+Zapping leaf data for out of range leaves is just one half of it: To
+avoid guests (bogusly or worse) inferring information from mere leaf
+presence, also shrink maximum indicators such that the respective
+trailing entry is not all blank (unless of course it's the initial
+subleaf of a leaf that's not the final one).
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+This is also in preparation of bumping the maximum basic leaf we
+support, to ensure guests not getting exposed related features won't
+observe a change in behavior.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/arch/x86/boot/Makefile          |  2 +-
- xen/arch/x86/boot/efi-reloc-image.c | 40 ++++++++++++++
- xen/arch/x86/boot/efi-reloc-image.h | 85 +++++++++++++++++++++++++++++
- xen/arch/x86/boot/head.S            | 44 ++++++++++++---
- xen/arch/x86/efi/efi-boot.h         | 64 ++--------------------
- 5 files changed, 168 insertions(+), 67 deletions(-)
- create mode 100644 xen/arch/x86/boot/efi-reloc-image.c
- create mode 100644 xen/arch/x86/boot/efi-reloc-image.h
+TBD: The use in xc_cpuid_apply_policy() supposedly needs to further
+     respect user (or migration source) max (sub)leaf values (i.e. the
+     function needs calling unconditionally and then higher inputs need
+     putting back); question is where those original values would be
+     recorded / come from. (Supposedly there was a patch from Roger
+     under similar or even the same title, which should have eliminated
+     the need for the patch here, but upon searching I can't find such a
+     patch.)
 ---
-Changes since v1:
-- many style updates;
-- split file for 32 bit relocation;
-- reuse code from header avoiding duplication;
-- add some more comment to assembly code;
+v5: Re-base.
+v4: Re-instate with default policy shrinking dropped, and with
+    81da2b544cbb folded in. Re-base.
+v3: Record the actual non-empty subleaf in p->basic.raw[0x7], rather
+    than subleaf 0. Re-base over Viridian leaf 40000005 addition.
+v2: New.
 
-diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-index 03d8ce3a9e..49792e0acf 100644
---- a/xen/arch/x86/boot/Makefile
-+++ b/xen/arch/x86/boot/Makefile
-@@ -1,6 +1,6 @@
- obj-bin-y += head.o
+--- a/tools/libs/guest/xg_cpuid_x86.c
++++ b/tools/libs/guest/xg_cpuid_x86.c
+@@ -783,6 +783,13 @@ int xc_cpuid_apply_policy(xc_interface *
+         }
+     }
  
--head-bin-objs := cmdline.o reloc.o
-+head-bin-objs := cmdline.o reloc.o efi-reloc-image.o
++    /*
++     * Do not try to shrink the policy if restoring, as that could cause
++     * guest visible changes in the maximum leaf fields.
++     */
++    if ( !restore )
++        x86_cpu_policy_shrink_max_leaves(&p->policy);
++
+     nr_leaves = ARRAY_SIZE(p->leaves);
+     rc = x86_cpuid_copy_to_buffer(&p->policy, p->leaves, &nr_leaves);
+     if ( rc )
+--- a/tools/tests/cpu-policy/test-cpu-policy.c
++++ b/tools/tests/cpu-policy/test-cpu-policy.c
+@@ -8,10 +8,13 @@
+ #include <err.h>
  
- nocov-y   += $(head-bin-objs)
- noubsan-y += $(head-bin-objs)
-diff --git a/xen/arch/x86/boot/efi-reloc-image.c b/xen/arch/x86/boot/efi-reloc-image.c
-new file mode 100644
-index 0000000000..b103e37cd7
---- /dev/null
-+++ b/xen/arch/x86/boot/efi-reloc-image.c
-@@ -0,0 +1,40 @@
-+/*
-+ * efi-reloc-image.c
-+ *
-+ * 32-bit flat memory-map routines for relocating back PE executable.
-+ * This is done with paging disabled to avoid permission issues.
-+ *
-+ * Copyright (c) 2024, Citrix Systems, Inc.
-+ */
-+
-+/*
-+ * This entry point is entered from xen/arch/x86/boot/head.S with:
-+ *   - 0x04(%esp) = __XEN_VIRT_START - xen_phys_start
-+ *   - 0x0c(%esp) = xen_phys_start
-+ *   - 0x10(%esp) = __base_relocs_start
-+ *   - 0x14(%esp) = __base_relocs_end
-+ */
-+asm (
-+    "    .text                         \n"
-+    "    .globl _start                 \n"
-+    "_start:                           \n"
-+    "    jmp    reloc_pe_back          \n"
-+    );
-+
-+#include "defs.h"
-+
-+/* Do not patch page tables. */
-+#define in_page_tables(v) false
-+
-+#define EFI_RELOC_IMAGE_EARLY 1
-+#include "efi-reloc-image.h"
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/x86/boot/efi-reloc-image.h b/xen/arch/x86/boot/efi-reloc-image.h
-new file mode 100644
-index 0000000000..999dd2d2c8
---- /dev/null
-+++ b/xen/arch/x86/boot/efi-reloc-image.h
-@@ -0,0 +1,85 @@
-+/*
-+ * efi-reloc-image.h
-+ *
-+ * Code for relocating back PE executable.
-+ * This code is common between 64 bit and 32 bit.
-+ *
-+ * Copyright (c) 2024, Citrix Systems, Inc.
-+ */
-+
-+#if EFI_RELOC_IMAGE_EARLY != 0 && EFI_RELOC_IMAGE_EARLY != 1
-+#error EFI_RELOC_IMAGE_EARLY must be defined either 0 or 1
-+#endif
-+
-+typedef struct pe_base_relocs {
-+    uint32_t rva;
-+    uint32_t size;
-+    uint16_t entries[];
-+} pe_base_relocs;
-+
-+#define PE_BASE_RELOC_ABS      0
-+#define PE_BASE_RELOC_HIGHLOW  3
-+#define PE_BASE_RELOC_DIR64   10
-+
-+#if EFI_RELOC_IMAGE_EARLY
-+bool __stdcall
-+#else
-+static bool
-+#endif
-+reloc_pe_back(long long delta,
-+              unsigned long xen_phys_start,
-+              const pe_base_relocs *__base_relocs_start,
-+              const pe_base_relocs *__base_relocs_end)
-+{
-+    const struct pe_base_relocs *base_relocs;
-+
-+    for ( base_relocs = __base_relocs_start; base_relocs < __base_relocs_end; )
-+    {
-+        unsigned int i = 0, n;
-+
-+        n = (base_relocs->size - sizeof(*base_relocs)) /
-+            sizeof(*base_relocs->entries);
-+
-+        for ( ; i < n; ++i )
-+        {
-+            unsigned long addr = xen_phys_start + base_relocs->rva +
-+                                 (base_relocs->entries[i] & 0xfff);
-+
-+            switch ( base_relocs->entries[i] >> 12 )
-+            {
-+            case PE_BASE_RELOC_ABS:
-+                break;
-+            case PE_BASE_RELOC_HIGHLOW:
-+                if ( delta )
-+                {
-+                    *(uint32_t *)addr += delta;
-+                    if ( in_page_tables(addr) )
-+                        *(uint32_t *)addr += xen_phys_start;
-+                }
-+                break;
-+            case PE_BASE_RELOC_DIR64:
-+                if ( delta )
-+                {
-+                    *(uint64_t *)addr += delta;
-+                    if ( in_page_tables(addr) )
-+                        *(uint64_t *)addr += xen_phys_start;
-+                }
-+                break;
-+            default:
-+                return false;
-+            }
-+        }
-+        base_relocs = (const void *)(base_relocs->entries + i + (i & 1));
-+    }
-+    return true;
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index 86805389f9..dd3600c14b 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -332,7 +332,8 @@ __efi64_mb2_start:
-          */
-         and     $~15,%rsp
+ #include <xen-tools/common-macros.h>
++#include <xen/asm/x86-defns.h>
+ #include <xen/asm/x86-vendors.h>
+ #include <xen/lib/x86/cpu-policy.h>
+ #include <xen/domctl.h>
  
--        /* Save Multiboot2 magic on the stack. */
-+        /* Save Multiboot2 magic on the stack for a later 32bit call */
-+        shl     $32, %rax
-         push    %rax
- 
-         /* Save EFI ImageHandle on the stack. */
-@@ -363,11 +364,25 @@ __efi64_mb2_start:
-         /* Just pop an item from the stack. */
-         pop     %rax
- 
--        /* Restore Multiboot2 magic. */
--        pop     %rax
-+        /*
-+         * Prepare stack for relocation call.
-+         * Note that we are in 64bit mode but we are going to call a
-+         * function in 32bit mode so the stack is not written with
-+         * push instructions.
-+         */
-+        sub     $16, %rsp
-+        lea     __base_relocs_end(%rip), %ecx
-+        mov     %ecx, 16(%rsp)
-+        lea     __base_relocs_start(%rip), %ecx
-+        mov     %ecx, 12(%rsp)
-+        lea     __image_base__(%rip), %esi
-+        mov     %esi, 8(%rsp)
-+        movabs  $__XEN_VIRT_START, %rcx
-+        sub     %rsi, %rcx
-+        mov     %rcx, (%rsp)
- 
--        /* Jump to trampoline_setup after switching CPU to x86_32 mode. */
--        lea     trampoline_setup(%rip),%r15
-+        /* Jump to trampoline_efi_setup after switching CPU to x86_32 mode. */
-+        lea     trampoline_efi_setup(%rip), %r15
- 
- x86_32_switch:
-         mov     %r15,%rdi
-@@ -539,6 +554,17 @@ __start:
-         and     $~(MULTIBOOT2_TAG_ALIGN-1),%ecx
-         jmp     .Lmb2_tsize
- 
-+trampoline_efi_setup:
-+        call    reloc_pe_back
-+        pop     %eax
++#define XSTATE_FP_SSE  (X86_XCR0_X87 | X86_XCR0_SSE)
 +
-+        /* Calculate the load base address again, adjusting to sym_esi needs */
-+        call    1f
-+1:      pop     %esi
-+        sub     $sym_offs(1b), %esi
-+
-+        jmp     trampoline_setup
-+
- trampoline_bios_setup:
-         /*
-          * Called on legacy BIOS platforms only.
-@@ -867,8 +893,8 @@ trampoline_setup:
-         lret
- 
-         /*
--         * cmdline and reloc are written in C, and linked to be 32bit PIC with
--         * entrypoints at 0 and using the stdcall convention.
-+         * cmdline, reloc and reloc_pe_back are written in C, and linked to be
-+         * 32bit PIC with entrypoints at 0 and using the stdcall convention.
-          */
-         ALIGN
- cmdline_parse_early:
-@@ -878,6 +904,10 @@ cmdline_parse_early:
- reloc:
-         .incbin "reloc.bin"
- 
-+        ALIGN
-+reloc_pe_back:
-+        .incbin "efi-reloc-image.bin"
-+
-         .section .init.data, "aw", @progbits
- 
- ENTRY(trampoline_start)
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index f282358435..4f473a287e 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -36,69 +36,15 @@ extern const intpte_t __page_tables_start[], __page_tables_end[];
- #define in_page_tables(v) ((intpte_t *)(v) >= __page_tables_start && \
-                            (intpte_t *)(v) < __page_tables_end)
- 
--#define PE_BASE_RELOC_ABS      0
--#define PE_BASE_RELOC_HIGHLOW  3
--#define PE_BASE_RELOC_DIR64   10
-+#define EFI_RELOC_IMAGE_EARLY 0
-+#include "../boot/efi-reloc-image.h"
- 
--extern const struct pe_base_relocs {
--    u32 rva;
--    u32 size;
--    u16 entries[];
--} __base_relocs_start[], __base_relocs_end[];
-+extern pe_base_relocs __base_relocs_start[], __base_relocs_end[];
- 
- static void __init efi_arch_relocate_image(unsigned long delta)
- {
--    const struct pe_base_relocs *base_relocs;
--
--    for ( base_relocs = __base_relocs_start; base_relocs < __base_relocs_end; )
--    {
--        unsigned int i = 0, n;
--
--        n = (base_relocs->size - sizeof(*base_relocs)) /
--            sizeof(*base_relocs->entries);
--
--        /*
--         * Relevant l{2,3}_bootmap entries get initialized explicitly in
--         * efi_arch_memory_setup(), so we must not apply relocations there.
--         * l2_directmap's first slot, otoh, should be handled normally, as
--         * efi_arch_memory_setup() won't touch it (xen_phys_start should
--         * never be zero).
--         */
--        if ( xen_phys_start + base_relocs->rva == (unsigned long)l3_bootmap ||
--             xen_phys_start + base_relocs->rva == (unsigned long)l2_bootmap )
--            i = n;
--
--        for ( ; i < n; ++i )
--        {
--            unsigned long addr = xen_phys_start + base_relocs->rva +
--                                 (base_relocs->entries[i] & 0xfff);
--
--            switch ( base_relocs->entries[i] >> 12 )
--            {
--            case PE_BASE_RELOC_ABS:
--                break;
--            case PE_BASE_RELOC_HIGHLOW:
--                if ( delta )
--                {
--                    *(u32 *)addr += delta;
--                    if ( in_page_tables(addr) )
--                        *(u32 *)addr += xen_phys_start;
--                }
--                break;
--            case PE_BASE_RELOC_DIR64:
--                if ( delta )
--                {
--                    *(u64 *)addr += delta;
--                    if ( in_page_tables(addr) )
--                        *(u64 *)addr += xen_phys_start;
--                }
--                break;
--            default:
--                blexit(L"Unsupported relocation type");
--            }
--        }
--        base_relocs = (const void *)(base_relocs->entries + i + (i & 1));
--    }
-+    if (!reloc_pe_back(delta, xen_phys_start, __base_relocs_start, __base_relocs_end))
-+        blexit(L"Unsupported relocation type");
+ static unsigned int nr_failures;
+ #define fail(fmt, ...)                          \
+ ({                                              \
+@@ -576,6 +579,103 @@ static void test_cpuid_out_of_range_clea
+     }
  }
  
- extern const s32 __trampoline_rel_start[], __trampoline_rel_stop[];
--- 
-2.45.2
++static void test_cpuid_maximum_leaf_shrinking(void)
++{
++    static const struct test {
++        const char *name;
++        struct cpu_policy p;
++    } tests[] = {
++        {
++            .name = "basic",
++            .p = {
++                /* Very basic information only. */
++                .basic.max_leaf = 1,
++                .basic.raw_fms = 0xc2,
++            },
++        },
++        {
++            .name = "cache",
++            .p = {
++                /* Cache subleaves present. */
++                .basic.max_leaf = 4,
++                .cache.subleaf[0].type = 1,
++            },
++        },
++        {
++            .name = "feat#0",
++            .p = {
++                /* Subleaf 0 only with some valid bit. */
++                .basic.max_leaf = 7,
++                .feat.max_subleaf = 0,
++                .feat.fsgsbase = 1,
++            },
++        },
++        {
++            .name = "feat#1",
++            .p = {
++                /* Subleaf 1 only with some valid bit. */
++                .basic.max_leaf = 7,
++                .feat.max_subleaf = 1,
++                .feat.avx_vnni = 1,
++            },
++        },
++        {
++            .name = "topo",
++            .p = {
++                /* Topology subleaves present. */
++                .basic.max_leaf = 0xb,
++                .topo.subleaf[0].type = 1,
++            },
++        },
++        {
++            .name = "xstate",
++            .p = {
++                /* First subleaf always valid (and then non-zero). */
++                .basic.max_leaf = 0xd,
++                .xstate.xcr0_low = XSTATE_FP_SSE,
++            },
++        },
++        {
++            .name = "extd",
++            .p = {
++                /* Commonly available information only. */
++                .extd.max_leaf = 0x80000008,
++                .extd.maxphysaddr = 0x28,
++                .extd.maxlinaddr = 0x30,
++            },
++        },
++    };
++
++    printf("Testing CPUID maximum leaf shrinking:\n");
++
++    for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
++    {
++        const struct test *t = &tests[i];
++        struct cpu_policy *p = memdup(&t->p);
++
++        p->basic.max_leaf = ARRAY_SIZE(p->basic.raw) - 1;
++        p->feat.max_subleaf = ARRAY_SIZE(p->feat.raw) - 1;
++        p->extd.max_leaf = 0x80000000 | (ARRAY_SIZE(p->extd.raw) - 1);
++
++        x86_cpu_policy_shrink_max_leaves(p);
++
++        /* Check the the resulting max (sub)leaf values against expecations. */
++        if ( p->basic.max_leaf != t->p.basic.max_leaf )
++             fail("  Test %s basic fail - expected %#x, got %#x\n",
++                  t->name, t->p.basic.max_leaf, p->basic.max_leaf);
++
++        if ( p->extd.max_leaf != t->p.extd.max_leaf )
++             fail("  Test %s extd fail - expected %#x, got %#x\n",
++                  t->name, t->p.extd.max_leaf, p->extd.max_leaf);
++
++        if ( p->feat.max_subleaf != t->p.feat.max_subleaf )
++             fail("  Test %s feat fail - expected %#x, got %#x\n",
++                  t->name, t->p.feat.max_subleaf, p->feat.max_subleaf);
++
++        free(p);
++    }
++}
++
+ static void test_is_compatible_success(void)
+ {
+     static struct test {
+@@ -671,6 +771,7 @@ int main(int argc, char **argv)
+     test_cpuid_serialise_success();
+     test_cpuid_deserialise_failure();
+     test_cpuid_out_of_range_clearing();
++    test_cpuid_maximum_leaf_shrinking();
+ 
+     test_msr_serialise_success();
+     test_msr_deserialise_failure();
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -383,6 +383,8 @@ static void __init calculate_host_policy
+     if ( vpmu_mode == XENPMU_MODE_OFF )
+         p->basic.raw[0xa] = EMPTY_LEAF;
+ 
++    x86_cpu_policy_shrink_max_leaves(p);
++
+     /* 0x000000ce  MSR_INTEL_PLATFORM_INFO */
+     /* probe_cpuid_faulting() sanity checks presence of MISC_FEATURES_ENABLES */
+     p->platform_info.cpuid_faulting = cpu_has_cpuid_faulting;
+@@ -576,12 +578,6 @@ static void __init calculate_pv_max_poli
+ 
+     *p = host_cpu_policy;
+ 
+-    /*
+-     * Some VMs may have a larger-than-necessary feat max_subleaf.  Allow them
+-     * to migrate in.
+-     */
+-    p->feat.max_subleaf = ARRAY_SIZE(p->feat.raw) - 1;
+-
+     x86_cpu_policy_to_featureset(p, fs);
+ 
+     for ( i = 0; i < ARRAY_SIZE(fs); ++i )
+@@ -613,6 +609,14 @@ static void __init calculate_pv_max_poli
+     recalculate_xstate(p);
+ 
+     p->extd.raw[0xa] = EMPTY_LEAF; /* No SVM for PV guests. */
++
++    x86_cpu_policy_shrink_max_leaves(p);
++
++    /*
++     * Some VMs may have a larger-than-necessary feat max_subleaf.  Allow them
++     * to migrate in.
++     */
++    p->feat.max_subleaf = ARRAY_SIZE(p->feat.raw) - 1;
+ }
+ 
+ static void __init calculate_pv_def_policy(void)
+@@ -663,12 +667,6 @@ static void __init calculate_hvm_max_pol
+ 
+     *p = host_cpu_policy;
+ 
+-    /*
+-     * Some VMs may have a larger-than-necessary feat max_subleaf.  Allow them
+-     * to migrate in.
+-     */
+-    p->feat.max_subleaf = ARRAY_SIZE(p->feat.raw) - 1;
+-
+     x86_cpu_policy_to_featureset(p, fs);
+ 
+     mask = hvm_hap_supported() ?
+@@ -774,6 +772,14 @@ static void __init calculate_hvm_max_pol
+     x86_cpu_featureset_to_policy(fs, p);
+     recalculate_xstate(p);
+ 
++    x86_cpu_policy_shrink_max_leaves(p);
++
++    /*
++     * Some VMs may have a larger-than-necessary feat max_subleaf.  Allow them
++     * to migrate in.
++     */
++    p->feat.max_subleaf = ARRAY_SIZE(p->feat.raw) - 1;
++
+     /* It's always possible to emulate CPUID faulting for HVM guests */
+     p->platform_info.cpuid_faulting = true;
+ }
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1060,13 +1060,15 @@ void cpuid_hypervisor_leaves(const struc
+     uint32_t base = is_viridian_domain(d) ? 0x40000100 : 0x40000000;
+     uint32_t idx  = leaf - base;
+     unsigned int limit = is_viridian_domain(d) ? p->hv2_limit : p->hv_limit;
++    unsigned int dflt = is_pv_domain(d) ? XEN_CPUID_MAX_PV_NUM_LEAVES
++                                        : XEN_CPUID_MAX_HVM_NUM_LEAVES;
+ 
+     if ( limit == 0 )
+         /* Default number of leaves */
+-        limit = XEN_CPUID_MAX_NUM_LEAVES;
++        limit = dflt;
+     else
+         /* Clamp toolstack value between 2 and MAX_NUM_LEAVES. */
+-        limit = min(max(limit, 2u), XEN_CPUID_MAX_NUM_LEAVES + 0u);
++        limit = min(max(limit, 2u), dflt);
+ 
+     if ( idx > limit )
+         return;
+--- a/xen/include/public/arch-x86/cpuid.h
++++ b/xen/include/public/arch-x86/cpuid.h
+@@ -117,6 +117,10 @@
+ /* Max. address width in bits taking memory hotplug into account. */
+ #define XEN_CPUID_MACHINE_ADDRESS_WIDTH_MASK (0xffu << 0)
+ 
+-#define XEN_CPUID_MAX_NUM_LEAVES 5
++#define XEN_CPUID_MAX_PV_NUM_LEAVES 5
++#define XEN_CPUID_MAX_HVM_NUM_LEAVES 4
++#define XEN_CPUID_MAX_NUM_LEAVES \
++    (XEN_CPUID_MAX_PV_NUM_LEAVES > XEN_CPUID_MAX_HVM_NUM_LEAVES ? \
++     XEN_CPUID_MAX_PV_NUM_LEAVES : XEN_CPUID_MAX_HVM_NUM_LEAVES)
+ 
+ #endif /* __XEN_PUBLIC_ARCH_X86_CPUID_H__ */
+--- a/xen/include/xen/lib/x86/cpu-policy.h
++++ b/xen/include/xen/lib/x86/cpu-policy.h
+@@ -438,6 +438,13 @@ void x86_cpu_policy_fill_native(struct c
+  */
+ void x86_cpu_policy_clear_out_of_range_leaves(struct cpu_policy *p);
+ 
++/**
++ * Shrink max leaf/subleaf values such that the last respective valid entry
++ * isn't all blank.  While permitted by the spec, such extraneous leaves may
++ * provide undue "hints" to guests.
++ */
++void x86_cpu_policy_shrink_max_leaves(struct cpu_policy *p);
++
+ #ifdef __XEN__
+ #include <public/xen.h>
+ typedef XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_leaf_buffer_t;
+--- a/xen/lib/x86/cpuid.c
++++ b/xen/lib/x86/cpuid.c
+@@ -291,6 +291,45 @@ void x86_cpu_policy_clear_out_of_range_l
+                 ARRAY_SIZE(p->extd.raw) - 1);
+ }
+ 
++void x86_cpu_policy_shrink_max_leaves(struct cpu_policy *p)
++{
++    unsigned int i;
++
++    p->basic.raw[0x4] = p->cache.raw[0];
++
++    for ( i = p->feat.max_subleaf; i; --i )
++        if ( p->feat.raw[i].a | p->feat.raw[i].b |
++             p->feat.raw[i].c | p->feat.raw[i].d )
++            break;
++    p->feat.max_subleaf = i;
++    p->basic.raw[0x7] = p->feat.raw[i];
++
++    p->basic.raw[0xb] = p->topo.raw[0];
++
++    /*
++     * Due to the way xstate gets handled in the hypervisor (see
++     * recalculate_xstate()) there is (for now at least) no need to fiddle
++     * with the xstate subleaves (IOW we assume they're already in consistent
++     * shape, for coming from either hardware or recalculate_xstate()).
++     */
++    p->basic.raw[0xd] = p->xstate.raw[0];
++
++    for ( i = p->basic.max_leaf; i; --i )
++        if ( p->basic.raw[i].a | p->basic.raw[i].b |
++             p->basic.raw[i].c | p->basic.raw[i].d )
++            break;
++    p->basic.max_leaf = i;
++
++    for ( i = p->extd.max_leaf & 0xffff; i; --i )
++        if ( p->extd.raw[i].a | p->extd.raw[i].b |
++             p->extd.raw[i].c | p->extd.raw[i].d )
++            break;
++    if ( i | p->extd.raw[0].b | p->extd.raw[0].c | p->extd.raw[0].d )
++        p->extd.max_leaf = 0x80000000U | i;
++    else
++        p->extd.max_leaf = 0;
++}
++
+ const uint32_t *x86_cpu_policy_lookup_deep_deps(uint32_t feature)
+ {
+     static const uint32_t deep_features[] = INIT_DEEP_FEATURES;
 
 
