@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE2D5952359
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 22:27:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777683.1187781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FB39952468
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 23:02:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777704.1187791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seKa4-0004SA-2s; Wed, 14 Aug 2024 20:26:52 +0000
+	id 1seL76-0002e4-Mo; Wed, 14 Aug 2024 21:01:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777683.1187781; Wed, 14 Aug 2024 20:26:52 +0000
+Received: by outflank-mailman (output) from mailman id 777704.1187791; Wed, 14 Aug 2024 21:01:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seKa3-0004Pr-VV; Wed, 14 Aug 2024 20:26:51 +0000
-Received: by outflank-mailman (input) for mailman id 777683;
- Wed, 14 Aug 2024 20:26:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1seL76-0002ca-Jd; Wed, 14 Aug 2024 21:01:00 +0000
+Received: by outflank-mailman (input) for mailman id 777704;
+ Wed, 14 Aug 2024 21:00:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sQPB=PN=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1seKa2-0004Pl-NY
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 20:26:50 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 86cc453f-5a7b-11ef-8776-851b0ebba9a2;
- Wed, 14 Aug 2024 22:26:47 +0200 (CEST)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 47EKQaWC036496
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Wed, 14 Aug 2024 16:26:42 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.18.1/8.15.2/Submit) id 47EKQZ9p036495;
- Wed, 14 Aug 2024 13:26:35 -0700 (PDT) (envelope-from ehem)
+ (envelope-from <julien@xen.org>) id 1seL75-0002cU-Cb
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 21:00:59 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1seL74-0001pQ-Q9; Wed, 14 Aug 2024 21:00:58 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1seL74-0006gF-Dc; Wed, 14 Aug 2024 21:00:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,83 +40,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86cc453f-5a7b-11ef-8776-851b0ebba9a2
-Date: Wed, 14 Aug 2024 13:26:35 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-Cc: Andrei Semenov <andrei.semenov@vates.tech>, xen-devel@lists.xenproject.org,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: AMD EPYC virtual network performances
-Message-ID: <Zr0S-2QBf3lkBkfS@mattapan.m5p.com>
-References: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
- <352bba40-27fc-416b-985f-20e66c0c4b72@suse.com>
- <Zrqykdarr7JHaeOZ@mattapan.m5p.com>
- <ab4ca68e-ec1b-467f-9b89-38f63cc19b7c@suse.com>
- <ZruckufSjT0GkpJt@mattapan.m5p.com>
- <d556e168-8542-4b93-81a9-a7054b5b69ba@suse.com>
- <Zrvf5wgm6xEI63x2@mattapan.m5p.com>
- <e95ab71d-b985-4ab7-994b-1c562efd5f9f@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=2S8P9lWhk8bwnpOkGtCpc7nBvi39fV4oVc25z4uXCpA=; b=Nxz7WK
+	GydekKWdML94vt3St26CbHKb6TajgC2t67drbUdDMuzd4ZS2p61D4YJq6Gl0uNWf66P2xcwl6Mh9m
+	nNA657KDnc6QwWKKOX/MRStIfiDl3IBEgFhGRarzDFL2hqO7MZJKus6/kI12DZ/uZJhUr3sdEEz2s
+	1E5RbSwVI/k=;
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm64: Hide FEAT_SME
+Date: Wed, 14 Aug 2024 22:00:54 +0100
+Message-Id: <20240814210054.67520-1-julien@xen.org>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <e95ab71d-b985-4ab7-994b-1c562efd5f9f@suse.com>
-X-Spam-Status: No, score=0.3 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=4.0.1
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
 
-On Wed, Aug 14, 2024 at 08:15:38AM +0200, Jürgen Groß wrote:
-> On 14.08.24 00:36, Elliott Mitchell wrote:
-> > On Tue, Aug 13, 2024 at 08:55:42PM +0200, Jürgen Groß wrote:
-> > > On 13.08.24 19:49, Elliott Mitchell wrote:
-> > > > 
-> > > > There is a possibility spurious interrupts are being turned into spurious
-> > > > events by the back-end drivers.
-> > > 
-> > > No, I don't think so.
-> > > 
-> > > > Jürgen Groß, what is the performance impact of "iommu=debug"?  Seems to
-> > > > mostly cause more reporting and have minimal/no performance effect.
-> > > 
-> > > I guess you are referring to the Xen option? I'm no expert in this
-> > > area.
-> > 
-> > Drat.  I haven't noticed much, which would match with simply enabling a
-> > bunch of debugging printk()s (alas I'm not monitoring performance closely
-> > enough to be sure).  Guess I wait for Andrei Semenov to state a comfort
-> > level with trying "iommu=debug".
-> 
-> You didn't answer my question.
+Newer hardware may support FEAT_SME. Xen doesn't have any knowledge but
+it will still expose the feature to the VM. If the OS is trying to use
+SME, then it will crash.
 
-I guess I did not explicitly do so.  I was referring to the Xen
-command-line option.  I was asking in the hope it might be reasonable
-for Andrei Semenov to run with it on for some time.
+Solve by hiding FEAT_SME.
 
+Signed-off-by: Julien Grall <julien@xen.org>
 
-Come to think of it, I now wonder whether "iommu=no-intremap" is part of
-the recipe for having the messages I've seen show up.
+---
 
-I can now state they appear to correlate with activity in the HVM domain
-(which is associated with network/vif activity) which also increases
-Linux's spurious interrupt counters.
-I cannot yet state the HVM domain is the exclusive source of these
-messages.  I am able to run with that domain shutdown, so I've done so.
-If no new messages show up that will seem to attribute those to the HVM
-domain.
+The current approach used to create the domain cpuinfo is to hide
+(i.e. a denylist) what we know Xen is not supporting. The drawback
+with this approach is for newly introduced feature, Xen will expose it
+by default.
 
-The other interesting bit is "iommu=no-intremap" seems to have made the
-messages associated with the software RAID1 issue disappear (possibly
-partially, but not fully mitigated it too).  My observations seem
-insufficient to indicate whether or not these are distinct issues
-though.
+If a kernel is trying to use it then it will crash. I can't really
+make my mind whether it would be better to expose only what we support
+(i.e. use an allowlist).
 
+AFAICT, there is no security concerns with the current approach because
+ID_* registers are not a way to tell the kernel which features are
+supported. A guest kernel could still try to access the new registers.
 
+So the most annoying bits is that booting Xen on a new HW may lead to
+an OS crashing.
+---
+ xen/arch/arm/cpufeature.c             | 3 +++
+ xen/arch/arm/include/asm/cpufeature.h | 4 +++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+index ef77473bf8e3..b45dbe3c668d 100644
+--- a/xen/arch/arm/cpufeature.c
++++ b/xen/arch/arm/cpufeature.c
+@@ -208,6 +208,9 @@ static int __init create_domain_cpuinfo(void)
+     domain_cpuinfo.pfr64.sve = 0;
+     domain_cpuinfo.zfr64.bits[0] = 0;
+ 
++    /* Hide SMT support as Xen does not support it */
++    domain_cpuinfo.pfr64.sme = 0;
++
+     /* Hide MTE support as Xen does not support it */
+     domain_cpuinfo.pfr64.mte = 0;
+ 
+diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
+index c95582044a8a..969e043f5bda 100644
+--- a/xen/arch/arm/include/asm/cpufeature.h
++++ b/xen/arch/arm/include/asm/cpufeature.h
+@@ -207,7 +207,9 @@ struct cpuinfo_arm {
+             unsigned long mte:4;
+             unsigned long ras_frac:4;
+             unsigned long mpam_frac:4;
+-            unsigned long __res1:44;
++            unsigned long __res1:4;
++            unsigned long sme:4;
++            unsigned long __res2:36;
+         };
+     } pfr64;
+ 
 -- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
+2.40.1
 
 
