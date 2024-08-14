@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED253951AEC
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 14:34:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777121.1187312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5818951B26
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 14:50:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777136.1187323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seDCi-0003ni-8f; Wed, 14 Aug 2024 12:34:16 +0000
+	id 1seDRj-0006Zv-KN; Wed, 14 Aug 2024 12:49:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777121.1187312; Wed, 14 Aug 2024 12:34:16 +0000
+Received: by outflank-mailman (output) from mailman id 777136.1187323; Wed, 14 Aug 2024 12:49:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seDCi-0003ks-5z; Wed, 14 Aug 2024 12:34:16 +0000
-Received: by outflank-mailman (input) for mailman id 777121;
- Wed, 14 Aug 2024 12:34:14 +0000
+	id 1seDRj-0006Xe-Gj; Wed, 14 Aug 2024 12:49:47 +0000
+Received: by outflank-mailman (input) for mailman id 777136;
+ Wed, 14 Aug 2024 12:49:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Hw+B=PN=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1seDCg-0003kS-Jn
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 12:34:14 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20616.outbound.protection.outlook.com
- [2a01:111:f403:2412::616])
+ <SRS0=2uER=PN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1seDRh-0006XY-Gb
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 12:49:45 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81ace692-5a39-11ef-8776-851b0ebba9a2;
- Wed, 14 Aug 2024 14:34:12 +0200 (CEST)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by CYXPR12MB9338.namprd12.prod.outlook.com (2603:10b6:930:e5::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.18; Wed, 14 Aug
- 2024 12:34:04 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%4]) with mapi id 15.20.7849.021; Wed, 14 Aug 2024
- 12:34:04 +0000
+ id ad8181ae-5a3b-11ef-8776-851b0ebba9a2;
+ Wed, 14 Aug 2024 14:49:43 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-52efdf02d13so10797457e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 05:49:43 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a80f411af30sm168575866b.131.2024.08.14.05.49.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Aug 2024 05:49:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,211 +45,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81ace692-5a39-11ef-8776-851b0ebba9a2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gG/F8oEy17Y6uSk0Oy/6tOwr/k8EC0d6zP364o4j+SRrzuESOczn4ttbOZgrjHEIDHe7ZbtYuZ/yOQkHZh4815RcZVxC8Hk9DUk+ggfn68n1zthlPhsrulw5+BOL21lGkh83WuioeZxgM4cnhciWUsZHaUAo4P4XgibHW80ouhQmPOFLpda1AKOGlPuFiiFdXwuWfo6IJ6PZEalkiSAMOmVygZCx/94ixhBBaubwxl7uzItNnxp/ZCiIBE/aIOBdcoSwEN2iiL/NIIbrooDza+ej+zZnTvQdHZiauiLHLbOLFgxceV0W5tcRZvin/y74n0pOtRYhhQJ+TK5/XGTl4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q5snA7ZoC6kSUKdod4jCSgSuYwWX4lWrMbduH3a0BNQ=;
- b=cY2zO5pX/pKeSB9YXMZMA+M06Wikc+dad5xOGnn1BZmYpRujrEewqNxSLJOv785eZeF+5PDNUkOdl68Vx6uB8i2yb70Rilb7I7vIP1jgMGEuKsx3UBDBZDG3UCCvAG54/zEWITTdHKRaMHYkEErCzJxnPL3vw+GF5PDdomqc8AuGBSYDVTg/PQb1we7vf8kGFCIqZFseRHBWTpLFGZzZU2oJBCxSQRLEB4KWEfipcdm75wkRwx+qoPOv6JH0owACZU2k/5ZldFGo2Ave+s7D0ATXtOagDiTWVSUpa+WVmumB5Vwl8tBdwRVGVAz9EjB4c2BsKoktv9MRGMaU/7rT2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q5snA7ZoC6kSUKdod4jCSgSuYwWX4lWrMbduH3a0BNQ=;
- b=iDG1QQ6fvtxuUddUs8J+v+qKNWpkasvUMmHgaH0QVoRFB8Aq9h/12WmpSkng/iLT+p/sOd+RZaD4TzO98dWQebl4fwV+wFmbX843s/l3pW6RnsmHSoTfA/mQ9Omh9ue64jy7bTeFj2PqzNYRABi/rvb0R6MwZMg9aVW6h+xtbJ0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <597b358e-3b45-4fba-922d-31208b55d15a@amd.com>
-Date: Wed, 14 Aug 2024 13:33:58 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] xen: make VMAP only support in MMU system
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: xen-devel@lists.xenproject.org, Penny Zheng <penny.zheng@arm.com>,
- Wei Chen <wei.chen@arm.com>, sstabellini@kernel.org,
- bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
- julien@xen.org
-References: <20240813171356.46760-1-ayan.kumar.halder@amd.com>
- <20240813171356.46760-3-ayan.kumar.halder@amd.com>
- <6d333d94-80ad-485c-b024-a45a388b96a4@suse.com>
- <ef789757-8c03-4f97-9bfb-8ec2fd2f4ca2@amd.com>
- <dad27ab7-3cbd-4a8e-8200-adea52b26e55@suse.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <dad27ab7-3cbd-4a8e-8200-adea52b26e55@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0041.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::17) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+X-Inumbo-ID: ad8181ae-5a3b-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1723639783; x=1724244583; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/Ihh9xfJPtNhFhVgEd6wT1qY+qAbVQWArqaQag1gA9g=;
+        b=KBKPXjk/gPRgmu1ppBo7w+Xd/vw9cJKsoZuSz/W+Zn21v0cvFrvhfRr1DR+1KKtuJq
+         GFBC7Y0d7F7Rs5RB/0uiiTcV5uo4vkRP5a4hbf1556dy9aBYvG3FGW3l1dQrG3gDwNwb
+         MmjN8VMAmMi89GbJZwh4hJz+S2oR+FGfCI1yk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723639783; x=1724244583;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/Ihh9xfJPtNhFhVgEd6wT1qY+qAbVQWArqaQag1gA9g=;
+        b=epotqNZQLDUaQRSCGVJwhzvbZZjlXZ6UBJidjwRfrHqFJ8GPCbGfKZizzr9c9+3jnV
+         G7ta5Wj6TYJjKpHVSYgkPjTLLrN3GTkLf7whjp1msDqV+CsKr+Wv8d5/+5TVTN5V6VT7
+         gD4ltGmcn+lHMo9A+4JoPc6d5ZDmRBCqrkFdXfQzSNBa7+XrOrLu0L0cSKF+hb1aO3Fk
+         /7H5VrjucV+Ar5E91FXObdT2jpvr7rsqyynVlL0E98ENdWIRXP5EccK9Mj+IHQ0mv918
+         OYEDyDlHMLse3VEtLV7TEUJ3qVYyIPBxoxfuGMv8ScsoMQHk0gJNBXBplG8+7WJb4CFQ
+         08aA==
+X-Forwarded-Encrypted: i=1; AJvYcCWccd73H4/t1W5OfuvdKHS5zIaGxTFHqtMIyBo+LqFxROW0W8VWPaWwVrU1esII5XmrIvv2JZACAbqlzB6C5agfNJ9ijJiwkjvzAc72KgI=
+X-Gm-Message-State: AOJu0YzgHDs0Vr8HIEKogpCBCi3hIMt//K5yrAmtA8uJ2Oy8WS+HsKr7
+	oxcahZu9pNg08dkeThEs+TElpyio0Heg4Tu0SjvnbSbPHJt6ApHQdn4me5cB/Ug=
+X-Google-Smtp-Source: AGHT+IGzNqm67ZjgSW6Z8Ai9vIW9UaZkOT+hZnU3FyM73+FBo6tPy9wdv+xNSDySJZaU++dp6ziaMQ==
+X-Received: by 2002:a05:6512:3f24:b0:52e:9808:3f48 with SMTP id 2adb3069b0e04-532eda7a549mr2139574e87.21.1723639782460;
+        Wed, 14 Aug 2024 05:49:42 -0700 (PDT)
+Message-ID: <3cc3f16b-bdc2-45e7-9a6b-fd6270e952c2@citrix.com>
+Date: Wed, 14 Aug 2024 13:49:41 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|CYXPR12MB9338:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1b8d334-7a7e-4780-05bd-08dcbc5d61d5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dENhMXYvT0hhSFN1dStVNkxudHhUQmNhTVY4TjFac1V3L3lOMXdPRVMxVkV2?=
- =?utf-8?B?ZEFXUUVWVGlLRHZBQk8xdk94eVZLSHZ0VVN1VFB5b3hSU3lEaDk5WTJGVzZF?=
- =?utf-8?B?eldXdFlYSjE4L3pjbmpudTE2WCtVbUVYQkdKYXlWOGY0YzZIcEZZa2dTMWZI?=
- =?utf-8?B?M0hSQzRXcXkreldoTnVPZU9vb3l4ek9vWHVDb1kvbFBVZFJuNG9iZXpJRlhW?=
- =?utf-8?B?ODdRcHhEVEg1L1JHT1h1cVVwY2JqWDVMaGxTMWs2RzV3c0Z2YklISWlrcXBC?=
- =?utf-8?B?WG5GLzVxVllrVUxYR2hqL2hnN2NESTJWSW9EMUxqdUR0bDNJZ1dVeFFnRVlY?=
- =?utf-8?B?YkhRa3FIb3VFNTJOU2pCWU9Zd2lwUlhYZXRDenBqT0ZQdUhMaGZwR21Pakp1?=
- =?utf-8?B?L2pydFg2Vmh0YmFydENvZHVyTTR0eVBJVmxXYUVzMFlFeWtESmVQZ0ozN05j?=
- =?utf-8?B?emgxZ1drNlVVczNqMlloZTJQVU11Mm4yVzI4V0hnTlhQdUNtbzVqVjNtS2Na?=
- =?utf-8?B?cDE0dzVCSmVoR2x0ZEpzSlhXL2ZOWUhSbnNpZGtQWVkzdE1ud2xGQ0pBampm?=
- =?utf-8?B?T0NWOVdpLzlqYXI3Q0hYbTJseFBZZGYzOXNlRlBGZHRyRnRPcytlN3pPYk1J?=
- =?utf-8?B?L1Y3b1hzNFVWWTJ1QVoxMzFXTXRoVGtWUzlXUlNlMFoyQU1JV0hxR3NRV2lk?=
- =?utf-8?B?bDdYS0wwb29NRXllT3hZbUdwLzBYRTVQNEVXZlU0eW9mc2xkbDcxRE1rbEE4?=
- =?utf-8?B?Q2RBbVNLYngxdkdQUG44WUZHYmV0VXMzUzlxemFJWTE1SjVSL0o1d2pNM1RT?=
- =?utf-8?B?OVlrSm5mc0FGTXNkdGF4Ymt1U0ErdUJ5MEVMeU5RWVh3VnN3dGJGMm5vVFI1?=
- =?utf-8?B?SHEza3RHdHBiY2ZweGp4ZVhiL0lUOVUyMHRRaFJtNHYyTTVlWjYwRnRxclZB?=
- =?utf-8?B?SlNTR2xqYitQdlpaWk1yWlhQSFJvT282aFZCMW5FcldvUmwvdnVaU090SExu?=
- =?utf-8?B?RUl6RC9kQy9LUnJNWFU1UzhoOWgvODFDeVB0MENURGw0bjMxMDVBaGk3Q2pp?=
- =?utf-8?B?Z1QwQ3BzSmR0RGhULzkzM29uSGNPeDJJL2p6U0dNa2V5VER2TTVYQjlnMTE0?=
- =?utf-8?B?QlljMDdIRUxUUVJ4RTVwTGNXb3k3WituOVEva29vT2dDaitDL0Eyb2diVC9X?=
- =?utf-8?B?NXlGT1dERVNwaDNlZUxyblo2dVVEQzdaUmdvTjBFaFZ6L05qSUNmZGplbitG?=
- =?utf-8?B?cUlibllWK1owQTZTL0ZLUGJzejdoelh4MjRUN2ZBdkFtL2dGTmgxZC9BTWVB?=
- =?utf-8?B?eUwycVVwbjNXU1pIQkdUSU83alpoaGZsL3IwY1g3YkdWaFlkVmdXMHd5dDBR?=
- =?utf-8?B?bmQyUXJibjFrdUx2VkJRVWZyMmgyZXhqVXFkTTJzd3VpYVg3RVc4YlZyVVhX?=
- =?utf-8?B?U1VSKzJkU3p4aVl6My9YQVppMmtLVmZicXcyeFZxbnpIVHFIT1lZcndxYzY3?=
- =?utf-8?B?ZXI2MnNheTZFWXAveU5xZDJsdE0rbExIV0M2ZVd3NytxaTR2VlhLMTNKV2N0?=
- =?utf-8?B?SG5aOWlEYU5sd0xJMnFwMW1jVXY5ZThMVm1BR3VPRlhNNFo4UWlNQVIzMjZG?=
- =?utf-8?B?WmRINGlhSFhITVc1TTdtcitkaTZtSm5hcDFjaUFRTG9teE5UMGRpVUk4R3hX?=
- =?utf-8?B?dzMyV2FVU3VSRDhUeUxnSngyMGZjS3BnUEwxTXpDelpwOTBPUmZhWWtjVyt0?=
- =?utf-8?Q?oI1olLHgyYdmJka47c=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WDNBTGhNdGpIQytrOHhCT1RzR05yRDVsaG1RT3VkNXEwNmVTWTNRNUNoOFg2?=
- =?utf-8?B?ckZYWHgxUEhPaGxMNzVWTHhUZ3dweFdGSmdCSnpuWmx3MC82L2tKRTNIRUln?=
- =?utf-8?B?N0hjdWN1VG9vOUh6YWVjR1pYeGNHTXdCcHZlc2ZFM3dQNnBGSE9ob1JLR3Ux?=
- =?utf-8?B?WVYrWENOYkdkNSthejR2UEY1bFd2bzJDaXQ3UU9OSXMwSjhpS1VRMCszQ1dM?=
- =?utf-8?B?ZmJnZ1BIRXh5UG5ueGJCbkJIVUJUTFJCT2RiOFl0b2R3U0lFa3VySGQrUzQ4?=
- =?utf-8?B?UVBWY2IwNHBXaEFuRDlTemtsQXEzZ0l2dk45Ymp6VGkrWG5Oc2VmbzZlSVVG?=
- =?utf-8?B?dFl6NFh2M0Y5RWxSU3RUU3lDOVdITzNpZHJaQnowT1NvTkp0YUVJelQwdEJY?=
- =?utf-8?B?bEVNclgyWkcxSzRJRmQwK0Z1U3luS2tWcVZ1Z0UxUXRoWXl6RE95cUZGRXAz?=
- =?utf-8?B?MGgxLzUwclE5cUpDNXZyUkYxZXB5RDc4Z1dhcjh3ZjQxaGNlOURMK1dVbnF1?=
- =?utf-8?B?Z1I1L0Y1Um5YeWtmc09PZk5ldWI4enJiNjIrd204VVY3MEJ2OUtQcUhNNktn?=
- =?utf-8?B?R1NqTiszQ3BoSThIcXN6L1pPV3pmbzZRN3doaHpPT2U4ZENzcmptdHM2SjVC?=
- =?utf-8?B?a0o0SVZWcWhxQXFUV0hlNkVvUm4wd01nZlJQVHJWam1jTTMxUnZ3Z2hicVh3?=
- =?utf-8?B?b0hXcjdrQ3pZOVN5SE80WXg1NFN5YVdhN2phNHNvSWNzMmlwR0hSbUl4WjNG?=
- =?utf-8?B?NS96eEpIVUttV29RSUJjMkNndk1Oak8vVkFxdyt2eGx5MFZWOEhyeVd4TkF5?=
- =?utf-8?B?aXlzemdHSVV2cm5XekdRczlpRmNIS002Q29OK2l5QkpOVjZyR2ZpUnpFN3Vp?=
- =?utf-8?B?N1FONEdqTUFkQ3lKSHRJYzBnR3FUcDBpWlFvU0FGbEY4KythbDNKYnU1VUta?=
- =?utf-8?B?dmdsMXBWaDk0OVdEWkJFc2dyclcrN29Yc2ZnUG45WnNOMUs1U2VCdE1iUFA1?=
- =?utf-8?B?QkhiUW5qWi9TbVh3T3BtZldEcDhRLzNCanYzZmt3Nk56bFJ1NWc3Zk5zbkdU?=
- =?utf-8?B?TWc3RXREUGROZ1l6OUFqTnpadTNHd3QxWlRRTVA1RjYvc09WbE51L1ArazRH?=
- =?utf-8?B?U2tNVXEyRTdlQWVnMDlWZUZhL25ydHptVlo0SFRRRGd4bDI4ZUZyZXlLS2Zw?=
- =?utf-8?B?TldzbkFLdHV0cUJUdW52V3NEcmh5YXRWNHo0czlqTVdLT2ZEdlc1NGtqalJo?=
- =?utf-8?B?M01JeFdKZCtTZDAyRzNvSTBBOUY2U2xMeW9ESHRWVDN1RW1Ed2l4OGZwNnpM?=
- =?utf-8?B?eHgrTldEajEyZTJrdW1lcDZTWXBiTG1TZVRhZWdEYmZkZzZWdTlsaWQzekF3?=
- =?utf-8?B?QXdNU0o1UUs3QUlYZENQTkdaUlFmQ0FVcHN2WGxoT2hPZU5laE5oU2ZTNkZl?=
- =?utf-8?B?L1JPSEtMOXJmOUl6VDFXaVFKdHJFYzFqZmh3L1ZrVDlsZVRidWZhdnkyR2h5?=
- =?utf-8?B?ZmtXTkRjYUo4NktzR1luamd2aWZlVGZLc3hHYXNGQjBlUnFEL0RIamZlVnN6?=
- =?utf-8?B?WjlCK2Q1QzRZUVI3Ry9mMnhmcHhPRjl2cWM3NE8wc1VMZ0FhVzZkOFFGcURj?=
- =?utf-8?B?ajNMQVFsQThLZ2swd05IVlcvVmlFdmtoM1pZdTY3T0s5M2lxK0xjNWFSUmRX?=
- =?utf-8?B?ZFgrNmhEVFU1NGw2QWNqRDVsSnh3MFBaUHJjeDBNZk9FdHJRR01uSHB2K2k3?=
- =?utf-8?B?L2RSTmpBWnV6UEZkU3YwNFRuYjIzUk5Rc2VvTmc0ODZVNTVJSVh6TkgzSmx0?=
- =?utf-8?B?RmVYbSt2b0ZtcG1jYXBWNEFWMUNXM1laQVJ5b3h5Yk5NZEkrYWo5ditvRmhU?=
- =?utf-8?B?QXBOa053MTZvQml2czVhYkl6YU90Um5GdWtZT1kxd1VPK050S3FDZHdvbGg4?=
- =?utf-8?B?RU1CVjRTdHZYYkJtWDlIMWVtVEt4SVJWTkdSNCtxSmNrSUJ5SUM1YXRHVDlW?=
- =?utf-8?B?MXBCY0VCeFZrejFhVG5QTWFxZk1xSTlFek1jWXlwQWxuLzgzQ1pmNlRNK0JP?=
- =?utf-8?B?TVVteWhmYnhMMTB1MkhaN0tZRHJleU90NHcvZ0JzYXN6ZUNWaEk5ZDN4YlFP?=
- =?utf-8?Q?sKzzLmSu4i+Z/z5xJw2Bx3Q/Q?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1b8d334-7a7e-4780-05bd-08dcbc5d61d5
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2024 12:34:04.1943
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dd4tYomSRvFu0OMc6+Q/N981UVFyKmvg7bR/tzrOC+ZpjYDkXftWMGElf6E8nEcNGESnXX3ST49cQuYiBHm7tg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9338
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86emul: don't call ->read_segment() with x86_seg_none
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <81ae365f-98b4-4bb6-bbb6-c5423dfda038@suse.com>
+ <a7d15429-ce49-43b1-9bbd-7b0129094388@citrix.com>
+ <e0081fc2-c631-45a0-a847-edc8dcc3988e@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <e0081fc2-c631-45a0-a847-edc8dcc3988e@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
-
-On 14/08/2024 12:35, Jan Beulich wrote:
-> On 14.08.2024 12:55, Ayan Kumar Halder wrote:
->> Hi Jan,
+On 12/08/2024 3:05 pm, Jan Beulich wrote:
+> On 12.08.2024 15:04, Andrew Cooper wrote:
+>> On 05/08/2024 2:26 pm, Jan Beulich wrote:
+>>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+>>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>>> @@ -839,7 +839,8 @@ protmode_load_seg(
+>>>          case x86_seg_tr:
+>>>              goto raise_exn;
+>>>          }
+>>> -        if ( !_amd_like(cp) || vcpu_has_nscb() || !ops->read_segment ||
+>>> +        if ( seg == x86_seg_none || !_amd_like(cp) || vcpu_has_nscb() ||
+>>> +             !ops->read_segment ||
+>>>               ops->read_segment(seg, sreg, ctxt) != X86EMUL_OKAY )
+>>>              memset(sreg, 0, sizeof(*sreg));
+>>>          else
+>> While this fixes the crash, I'm not sure it will behave correctly for
+>> VERR/VERW.
 >>
->> On 14/08/2024 07:37, Jan Beulich wrote:
->>> On 13.08.2024 19:13, Ayan Kumar Halder wrote:
->>>> From: Penny Zheng <penny.zheng@arm.com>
->>>>
->>>> Introduced CONFIG_VMAP which is selected by the architectures that use
->>>> MMU. vm_init() does not do anything if CONFIG_VMAP is not enabled.
->>>>
->>>> VMAP is widely used in ALTERNATIVE feature to remap a range of memory
->>>> with new memory attributes. Since this is highly dependent on virtual
->>>> address translation, we choose to fold VMAP in MMU system.
->>>>
->>>> In this patch, we introduce a new Kconfig CONFIG_HAS_VMAP, and make it
->>>> only support in MMU system on ARM architecture. And ALTERNATIVE now
->>>> depends on VMAP.
->>>>
->>>> HARDEN_BRANCH_PREDICTOR is now gated on HAS_VMAP as speculative
->>>> attacks are not possible on non MMU based systems (ie Cortex-R52, R82).
->>>> See https://developer.arm.com/Arm%20Security%20Center/Speculative%20Processor%20Vulnerability.
->>> While I'm not an Arm expert and hence I'm likely missing aspects, I question
->>> the one (Spectre-BHB) vulnerability there to be sufficient to draw a
->>> conclusion towards the usefulness of branch hardening. I would advise
->>> against encoding such a connection in the Kconfig dependencies.
->> AFAIU, to address 'Spectre' like vulnerabilities 'branch hardening' was
->> added.
->>
->> See https://lore.kernel.org/all/E1fNadD-0000fz-9r@rmk-PC.armlinux.org.uk/
->>
->> And from
->> https://lists.linaro.org/archives/list/linux-stable-mirror@lists.linaro.org/message/F4MGL4WT2R7T54NLRDGKFRQNSXF3DZGD/
->>
->> Spectre is valid on MMU based systems.
-> Since then various other issues / flavors were found. I've been focusing
-> on the x86 side of things, but I'd be very surprised if some didn't
-> affect other architectures as well.
+>> protmode_load_seg() is unconditionally X86EMUL_OKAY for a NULL selector,
+>> and VERW checks for type != 0x8 which an empty attr will pass.
+> That's past an sreg.s check, which will have failed (for sreg coming back
+> all clear).
 
-We are talking about Arm here as "HARDEN_BRANCH_PREDICTOR" is specific 
-to Arm.
+Oh, so it is.
 
-https://developer.arm.com/Arm%20Security%20Center/Speculative%20Processor%20Vulnerability 
-covers all the flavours and it does not include Cortex-R82 or R52.
+Any chance I could talk you into folding this hunk in too?
 
-It says the following :-
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c
+b/xen/arch/x86/x86_emulate/x86_emulate.c
+index 902538267051..d4d02c3e2eb3 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -2852,7 +2852,7 @@ x86_emulate(
+                                             &sreg, ctxt, ops) )
+             {
+             case X86EMUL_OKAY:
+-                if ( sreg.s &&
++                if ( sreg.s /* Excludes NULL selector too */ &&
+                      ((modrm_reg & 1) ? ((sreg.type & 0xa) == 0x2)
+                                       : ((sreg.type & 0xa) != 0x8)) )
+                     _regs.eflags |= X86_EFLAGS_ZF;
 
-"Cortex-R cores typically use a closed software stack. In those 
-environments, applications or processes are strictly controlled, and 
-therefore not exploitable"
 
-> Plus branch hardening can be a pre-
-> cautionary measure, too, I think.
-
-The first two Arm non MMU cores that we wish to support in the 
-forthcoming series is Cortex-R82 and R52.
-
-As seen in https://developer.arm.com/documentation/ka005109/latest/, it 
-explicitly states the following about R82
-
-The Cortex-R82 implements the faulting feature (FEAT_FPAC) but is not 
-vulnerable. The Cortex-R82 behaves differently than vulnerable A-class 
-CPUs when speculatively executing past an instruction that authenticates 
-PAC, and that behavior does not allow the attack software to create the 
-"oracle".
-
-We can re-enable branch hardening if we know there is a valid non MMU 
-Arm core which is vulnerable.
-
-Let me know if you are ok with the rationale.
-
-- Ayan
+because it is relevant to judging whether the subsequent logic is
+correct or not.
 
 >
-> Jan
+> Also if there was a concern here, it would be orthogonal to the adding of
+> the seg_none check: It would then have been similarly an issue for all
+> possibilities of taking the memset() path.
+>
+>> Interestingly, both Intel and AMD state that the NULL selector is
+>> neither readable nor writeable.
+> Which makes sense, doesn't it? A nul selector is really more like a
+> system segment in this regard (for VERR/VERW).
+
+In the 32bit days, yes, the NULL selector was entirely unusable, but
+that changed in 64bit.
+
+So IMO it really depends on whether VERR/VERW means "can I use this
+selector for $X", or "what does the GDT/LDT say about $X".
+
+AMD say "Verifies whether a code or data segment specified by the
+segment selector in the 16-bit register or memory operand is readable
+from the current privilege level."
+
+Intel say "Verifies whether the code or data segment specified with the
+source operand is readable (VERR) or writable[sic] (VERW) from the
+current privilege level (CPL)."
+
+So that's clearly the former meaning rather than the latter meaning.
+
+Nevertheless, AMD clearly decided it wasn't worth changing the behaviour
+of the instruction in a 64bit mode, probably for the same reason that
+Intel reused VERW for scrubbing; that no-one had really bought into
+x86's segmented memory model since the 386 replaced the 286.
+
+I just found it odd, that was all.
+
+>
+>> Also, looking at the emulator logic, we're missing the DPL vs
+>> CPL/RPL/Conforming checks.
+> There's surely nothing "conforming" for a nul selector. Hence perhaps you
+> refer to something entirely unrelated?
+
+Sorry, yes.  I think this is a general bug in how we emulate VERW/VERR,
+unrelated to this specific OSS-fuzz report.
+
+~Andrew
 
