@@ -2,36 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8039E951BCC
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 15:26:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777239.1187451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7A18951BF4
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 15:35:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777292.1187495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seE0s-0001uK-Vv; Wed, 14 Aug 2024 13:26:06 +0000
+	id 1seE9p-0007Bb-K6; Wed, 14 Aug 2024 13:35:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777239.1187451; Wed, 14 Aug 2024 13:26:06 +0000
+Received: by outflank-mailman (output) from mailman id 777292.1187495; Wed, 14 Aug 2024 13:35:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seE0s-0001sD-SU; Wed, 14 Aug 2024 13:26:06 +0000
-Received: by outflank-mailman (input) for mailman id 777239;
- Wed, 14 Aug 2024 13:26:05 +0000
+	id 1seE9p-00078c-Gl; Wed, 14 Aug 2024 13:35:21 +0000
+Received: by outflank-mailman (input) for mailman id 777292;
+ Wed, 14 Aug 2024 13:35:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=glz1=PN=xenbits.xen.org=julieng@srs-se1.protection.inumbo.net>)
- id 1seE0r-0001rP-GZ
- for xen-devel@lists.xen.org; Wed, 14 Aug 2024 13:26:05 +0000
-Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
+ <SRS0=DSq6=PN=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1seE9o-00078W-8R
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 13:35:20 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062d.outbound.protection.outlook.com
+ [2a01:111:f403:2414::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bd711bdb-5a40-11ef-8776-851b0ebba9a2;
- Wed, 14 Aug 2024 15:25:59 +0200 (CEST)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julieng@xenbits.xen.org>)
- id 1seE0f-000169-Qj; Wed, 14 Aug 2024 13:25:53 +0000
-Received: from julieng by xenbits.xenproject.org with local (Exim 4.92)
- (envelope-from <julieng@xenbits.xen.org>)
- id 1seE0f-0001zO-Nj; Wed, 14 Aug 2024 13:25:53 +0000
+ id 0af9f933-5a42-11ef-8776-851b0ebba9a2;
+ Wed, 14 Aug 2024 15:35:18 +0200 (CEST)
+Received: from CH0PR03CA0230.namprd03.prod.outlook.com (2603:10b6:610:e7::25)
+ by CYXPR12MB9387.namprd12.prod.outlook.com (2603:10b6:930:e6::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.18; Wed, 14 Aug
+ 2024 13:35:13 +0000
+Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
+ (2603:10b6:610:e7:cafe::aa) by CH0PR03CA0230.outlook.office365.com
+ (2603:10b6:610:e7::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.33 via Frontend
+ Transport; Wed, 14 Aug 2024 13:35:13 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7849.8 via Frontend Transport; Wed, 14 Aug 2024 13:35:12 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 Aug
+ 2024 08:35:11 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 14 Aug 2024 08:35:10 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,169 +59,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd711bdb-5a40-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
-	Content-Transfer-Encoding:Content-Type;
-	bh=0cESxM2Nc/a1Y9sxbNz5glxIoFXz8cls7TNWojCBKls=; b=QRt+ev77BYIZc3zRSzK7lN7N7h
-	HtQFzrEO7QlN1w5asF6q6/a+tsplonxv2w6lQDu2hj6XlRrjC9VJ6InRPccnGALUSZ7pRneaDFQpU
-	uhhzSGScqu2jyBQJfeC+RxJLxt9JoZHNCFB1TIYuwsIZZfTbgAehsdTUzllPIMQVtKBg=;
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+X-Inumbo-ID: 0af9f933-5a42-11ef-8776-851b0ebba9a2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Tr5hZkEyuLJOHKabb5IYU6yLGkrFEmQuMyLxDPK6G3reE3O5r3UazwDD818GLoTt2ZD15/MXKpoN9HoSunVvTn4d9+/fWXfTawtgr3q6AcMmARhq2po3O2ZmxBmUdwMb5kTJaUhvp34T52XDRCcDjdVWNrUflNblYb1slWB1P7jpqNG4pKh8LwZjK42Z54Z49uVXKM348oTbd24gCGG2bNzYhoLPcAbFuZVGq0gpn7c2vSMGECWvbJb0ceNhi1IxNQVbmTdBrIRtKXEjry3XcAfINT8NR5bwyxKyLHrsk4sxusvN9Fjx6y0xzKxJhFXqmtMAP88Fj5GkGRZ11vrhzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZNkXIvgK4aoQrNLQB2bNRdH50rKwGgafH7apV9x0rNw=;
+ b=J89PU4sai9LhQnx3D4e4MgDQ8ulXgiZxQDihNGDYJ+BVKl2AqVFEVrYd65Smg8P9VdJHH5+Eem+fAg2Cpdf/w/VUhm8+myXvjTRAmXJ/KWy6ZYQBPPwPSjmgS3mstiW0YhozR9NHEj8F6Wzyr7jVfIHPExdxJhb/W+yS1BnJ69dv6aqLvj/vbn/77z8wyh9+VTePJi2YBp4I/jXcqbh5Zb+uZnJmQdn7uvdaK8GDJgOsUozzeRZcxKxfzf4yaC+aup8LGs50fcajnb2XLBEhaEjvp0SGgcdEqHFkMC07oRvUHEul1CwV3flGry93H/011RgnTIyRNY7/+1z9hRWVXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZNkXIvgK4aoQrNLQB2bNRdH50rKwGgafH7apV9x0rNw=;
+ b=vSbh1agSG9ZyH8xHsDkQ1le1sjsjV+8I84u/ciIZHSm/rpdyoKjRuTjFkKrR2OoTazEVysWSK50LnH6+MKBlmsMH2VCiC4vJ7I7nqtX6JPsh4cNoANb3dDGOy3nSJELZgPBdQS6eGYOu5IPsQVO0olPuDXF0OylY87CEXfwN2/s=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <4302bda1-2441-4cc7-9bd4-9810ee62a497@amd.com>
+Date: Wed, 14 Aug 2024 15:35:10 +0200
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.509 (Entity 5.509)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 461 v2 (CVE-2024-31146) - PCI device
- pass-through with shared resources
-Message-Id: <E1seE0f-0001zO-Nj@xenbits.xenproject.org>
-Date: Wed, 14 Aug 2024 13:25:53 +0000
-
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xvmalloc: please Misra C:2012 Rule 8.2
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+References: <02755b04-844b-464c-966f-d4fa6068315e@suse.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <02755b04-844b-464c-966f-d4fa6068315e@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|CYXPR12MB9387:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee4b5720-90ce-4df1-6fce-08dcbc65ecc3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?QVdLSnV1c2tEY3FTSEVtK3NjRVdVQ3FLcmxSOTNuM3pDOXp3UjQ2UHZQeXBT?=
+ =?utf-8?B?OWkxOGUwZFp3YnZ0Z0syZXdwTHdjd29lQUpMVSs2dndTN3FCWURaMHlncE9W?=
+ =?utf-8?B?cFNpMzhucHQ2cVJLaks1T015SkM2ZVFXWW9MZUMva01HRDB6QkJERFVvZ01Z?=
+ =?utf-8?B?bUxvZjJCczN5NnFnbTB4d3ovU3pYU2hhZ3V3MG1Sa2RqOHpWZEJ2TEY2L0Jx?=
+ =?utf-8?B?RDFwMTduSzJkRVZEOCs2anhaMjZacGFmZ0ZmNlBkbnVqRWZscXllaiszZEQz?=
+ =?utf-8?B?ZVNyaE5ReGtDTnB3QWQydFdKWGRrdTV2eDFQQTVIY090ck5xenZCaHFyK25S?=
+ =?utf-8?B?d1FZTDVJYmp0TjBHYm01alFNd2pSQUYyZVB5dmdHd3RidVpRQ2QzWDZJcU5J?=
+ =?utf-8?B?UkYxWmVMZGtaek56YisybllqN1o4aDBldTMvT0VGeTJhMjUvSVdMdGlqZUJ5?=
+ =?utf-8?B?N3E1QzZGZjgxd2U2QjB6V29wcEw4VnZxeCs4VVpkbTN5U3NmNlNsWlZDRjh0?=
+ =?utf-8?B?UmxrelN6K1ZTaHNNMCtmUHdFeERSQ1VDQzFjK05rcDF5bHhPYkpkb2NFeVBw?=
+ =?utf-8?B?dXhDZlVGek42MmdiZU5RSWJWdEk1NHpjOVJFRkRVVWluQm10T2Y5bzBJblhS?=
+ =?utf-8?B?ZDBLdi8vcTFzNTA2c0JwV01SZzFMd3RlREZPWnI4UFdrdVNDSGZEMmVDZW5J?=
+ =?utf-8?B?V0R5ekVhRnhUZlE5bWw3d3FKeENJQ3hOTTB5OE9iVHRIMTFuMEV0OTMzWENN?=
+ =?utf-8?B?K1dTMjI3a28vNUd2U1Y0Zm1kYUFkeFhadFdCZ29IWnFNUkNTaWFvbFZVeEQz?=
+ =?utf-8?B?TTlGVW82WUY1VXlRRzl1STNjeDEzUFU1elBHTXJyUmlzOGFweTB5Q2FQanRR?=
+ =?utf-8?B?d3BJaW5Vd3kyRmMzc3J3Vy9lT2FBRHdoQmszOWdhSFdWVlkwWEtibzRVdUpJ?=
+ =?utf-8?B?cE9CTStsNUhNWi8vT0l1ZVNLd1ZXWXdLbDVZRjU1clZnU2JZMktRZmRPM0Fs?=
+ =?utf-8?B?RWxDWFdhczZ0Zi8zZmh0bnRxbk5EQXdTa3lRS1J5bjdSREs4SjZvTjFlY2c0?=
+ =?utf-8?B?TTdLK25NRWRmWlY4MC9iOUFWeE5XTjJoUkdBd1krNUFuYnl5NVE2TlZVNnht?=
+ =?utf-8?B?MDBldzNhU0w0L1FqcXVQQnVCOVFETmF3SUJudTZKYVN5Nk14akxPREQvaWpt?=
+ =?utf-8?B?YlFzUHpOVk9meng0MkJ2QVJOVmthM0l5djJRbVBPQUdsVmJIRmYwNG83SExH?=
+ =?utf-8?B?VDFEZ1A4aytMY2paRW05UGhPL2h5SkpFaTNodkMwblBCV2h3R3pnajRFVkpG?=
+ =?utf-8?B?REJ2ckdFSDdJcU5oa0sxeE8vd0lIMm1OMkQwSmNHOWgzQXdyOVRacGFpdDI3?=
+ =?utf-8?B?YVNFbUFXMnZOZnpsUkxHeUthRHp1d0pFcGNmOEsrMExmbVllcjhqUUoxTFhK?=
+ =?utf-8?B?RHhkOXREZFVES2FQYytvREhBRHNvNlp1a3J4RTBNamwwNEhIYVdBL3hBUzQz?=
+ =?utf-8?B?cXZ6TkJsZis1b0pINlhUV0Iyc1RvRDFTemxLSWpBNURRKzg4R0RMZlJubmNE?=
+ =?utf-8?B?TW5BRjdUd1VlUmVKeW41SldQZW92YklqZnJHUmlWU2lqL3M3WCtJY2owZ2RE?=
+ =?utf-8?B?WnVrazJHRHp1YlFxRG5LWUpLSTJLeVZQUkE3bXp2cFhublN2bi9GK3NVOUZm?=
+ =?utf-8?B?Vk43NnN2Y0JvWG9qeWhVQzF1eGp3U3dkbFlyb0tBN3p0a2llSzM1VUtjSHdY?=
+ =?utf-8?B?UHl1MmdTQkFlUTZGdFdwNUZDY1Jya2ltTzluSGI1ekJ3TW5tNEFBWnE0T1Ux?=
+ =?utf-8?B?ZEtWdUdPbk1PQ0R4Z2VqQklQbXA4U09vU0dvUmlhclhHVzRDN3NJZmFjdjdv?=
+ =?utf-8?B?Zml4SFNqSmEzdnBXSjJGanQvejQrbVpiOHE4M1hpdk85YzR1YSsvZTUwd2lC?=
+ =?utf-8?Q?fRKFOP2IHmm6RkFB8QLA8Etk0r5TtRCq?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2024 13:35:12.7686
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee4b5720-90ce-4df1-6fce-08dcbc65ecc3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD7A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9387
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
 
-            Xen Security Advisory CVE-2024-31146 / XSA-461
-                               version 2
 
-             PCI device pass-through with shared resources
+On 14/08/2024 10:06, Jan Beulich wrote:
+> 
+> 
+> The cloning from xmalloc.h happened long before Misra work started in
+> earnest, leading to the missing parameter name having been overlooked
+> later on.
+> 
+> Fixes: 9102fcd9579f ("mm: introduce xvmalloc() et al and use for grant table allocations")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Michal Orzel <michal.orzel@amd.com>
 
-UPDATES IN VERSION 2
-====================
+~Michal
 
-Public release.
-
-ISSUE DESCRIPTION
-=================
-
-When multiple devices share resources and one of them is to be passed
-through to a guest, security of the entire system and of respective
-guests individually cannot really be guaranteed without knowing
-internals of any of the involved guests.  Therefore such a configuration
-cannot really be security-supported, yet making that explicit was so far
-missing.
-
-Resources the sharing of which is known to be problematic include, but
-are not limited to
-- - PCI Base Address Registers (BARs) of multiple devices mapping to the
-  same page (4k on x86),
-- - INTx lines.
-
-IMPACT
-======
-
-The precise effects when shared resources are in use are system, device,
-guest, and resource specific.  None of privilege escalation, information
-leaks, or Denial of Service (DoS) can be ruled out.
-
-VULNERABLE SYSTEMS
-==================
-
-All systems making use of PCI pass-through are in principle vulnerable,
-when any kind of resource is shared.  Just to re-iterate, even in the
-absence of resource sharing caveats apply to passing through of PCI
-devices to entirely untrusted guests.
-
-MITIGATION
-==========
-
-Passing through only SR-IOV virtual functions or devices with well-
-separated resources will avoid this particular vulnerability.  Passing
-through all devices sharing a given resource to the same guest will also
-avoid this particular vulnerability.
-
-RESOLUTION
-==========
-
-Applying the appropriate attached patch documents this issue.
-
-Note that patches for released versions are generally prepared to
-apply to the stable branches, and may not apply cleanly to the most
-recent release tarball.  Downstreams are encouraged to update to the
-tip of the stable branch before applying these patches.
-
-xsa461.patch           xen-unstable - Xen 4.16.x
-
-$ sha256sum xsa461*
-2415504496508ad87c306aa7257e836d7c2f0bd8849656de5b586f0ab93fd17f  xsa461.patch
-$
-
-DEPLOYMENT DURING EMBARGO
-=========================
-
-Deployment of patches or mitigations is NOT permitted (except where
-all the affected systems and VMs are administered and used only by
-organisations which are members of the Xen Project Security Issues
-Predisclosure List).  Specifically, deployment on public cloud systems
-is NOT permitted.
-
-This is because changing the nature of devices being passed through is
-very likely noticeable by the guest.
-
-Deployment is permitted only AFTER the embargo ends.
-
-(Note: this during-embargo deployment notice is retained in
-post-embargo publicly released Xen Project advisories, even though it
-is then no longer applicable.  This is to enable the community to have
-oversight of the Xen Project Security Team's decisionmaking.)
-
-For more information about permissible uses of embargoed information,
-consult the Xen Project community's agreed Security Policy:
-  http://www.xenproject.org/security-policy.html
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAma8sCkMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZLDkH/i6esACkik7iglEESFgCj0x6fc3KdpVzsCPznmsn
-uWZzBO9xuggoPOONJ70Or7tsIdaYDAkealZrBGreXlPEgd0MOtozLYrvB2IIqJEj
-cKyC4Y04VpBkynaOiLraFvUs0xyC0cew1NZdE/cxr9ewRvvrHVcyBI5GBAMKworh
-g4hjIDOR9ohhvxN2P7Yz59OY+Ojo57t+IlpvPPm+c53bARYR6H/cxyUDLYVlfrk2
-iNPif7Wpi1PU/Sjz5XqBF5mXW+LLsLnbyw8Iyhnjqv1zC/tUdzl1INUBd24eHSjP
-aXnrlExoGAuvUcf/6YVfU0u2dB7iISGYAs2ESeYuxpJnZ8E=
-=LkWz
------END PGP SIGNATURE-----
-
---=separator
-Content-Type: application/octet-stream; name="xsa461.patch"
-Content-Disposition: attachment; filename="xsa461.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpTdWJqZWN0
-OiB4ODYvcGFzcy10aHJvdWdoOiBkb2N1bWVudHMgYXMgc2VjdXJpdHktdW5z
-dXBwb3J0ZWQgd2hlbiBzaGFyaW5nIHJlc291cmNlcwoKV2hlbiBtdWx0aXBs
-ZSBkZXZpY2VzIHNoYXJlIHJlc291cmNlcyBhbmQgb25lIG9mIHRoZW0gaXMg
-dG8gYmUgcGFzc2VkCnRocm91Z2ggdG8gYSBndWVzdCwgc2VjdXJpdHkgb2Yg
-dGhlIGVudGlyZSBzeXN0ZW0gYW5kIG9mIHJlc3BlY3RpdmUKZ3Vlc3RzIGlu
-ZGl2aWR1YWxseSBjYW5ub3QgcmVhbGx5IGJlIGd1YXJhbnRlZWQgd2l0aG91
-dCBrbm93aW5nCmludGVybmFscyBvZiBhbnkgb2YgdGhlIGludm9sdmVkIGd1
-ZXN0cy4gIFRoZXJlZm9yZSBzdWNoIGEgY29uZmlndXJhdGlvbgpjYW5ub3Qg
-cmVhbGx5IGJlIHNlY3VyaXR5LXN1cHBvcnRlZCwgeWV0IG1ha2luZyB0aGF0
-IGV4cGxpY2l0IHdhcyBzbyBmYXIKbWlzc2luZy4KClRoaXMgaXMgWFNBLTQ2
-MSAvIENWRS0yMDI0LTMxMTQ2LgoKU2lnbmVkLW9mZi1ieTogSmFuIEJldWxp
-Y2ggPGpiZXVsaWNoQHN1c2UuY29tPgpSZXZpZXdlZC1ieTogSnVlcmdlbiBH
-cm9zcyA8amdyb3NzQHN1c2UuY29tPgotLS0KVEJEOiBPZiBjb3Vyc2UgdGhl
-IHN5c3RlbSBidXMoZXMpIGlzIGEgLyBhcmUgc2hhcmVkIHJlc291cmNlKHMp
-LCB0b28uCiAgICAgSSdtIGFmcmFpZCBJIGRvbid0IGtub3cgdGhlIGxvdyBs
-ZXZlbCBkZXRhaWxzIG9mIFBDSSB0byBiZSBhYmxlIHRvCiAgICAgdGVsbCB3
-aGV0aGVyIHRoZXJlIGFyZSBhbnkgZmFpcm5lc3MgZ3VhcmFudGVlcyB0aGVy
-ZS4KCi0tLSBhL1NVUFBPUlQubWQKKysrIGIvU1VQUE9SVC5tZApAQCAtODQx
-LDYgKzg0MSwxMSBAQCBUaGlzIGZlYXR1cmUgaXMgbm90IHNlY3VyaXR5IHN1
-cHBvcnRlZDoKIAogT25seSBzeXN0ZW1zIHVzaW5nIElPTU1VcyBhcmUgc3Vw
-cG9ydGVkLgogCitQYXNzaW5nIHRocm91Z2ggb2YgZGV2aWNlcyBzaGFyaW5n
-IHJlc291cmNlcyB3aXRoIGFub3RoZXIgZGV2aWNlIGlzIG5vdAorc2VjdXJp
-dHkgc3VwcG9ydGVkLiAgU3VjaCBzaGFyaW5nIGNvdWxkIGUuZy4gYmUgdGhl
-IHNhbWUgbGluZSBpbnRlcnJ1cHQgYmVpbmcKK3VzZWQgYnkgbXVsdGlwbGUg
-ZGV2aWNlcywgb25lIG9mIHdoaWNoIGlzIHRvIGJlIHBhc3NlZCB0aHJvdWdo
-LCBvciB0d28gc3VjaAorZGV2aWNlcyBoYXZpbmcgbWVtb3J5IEJBUnMgd2l0
-aGluIHRoZSBzYW1lIDRrIHBhZ2UuCisKIE5vdCBjb21wYXRpYmxlIHdpdGgg
-bWlncmF0aW9uLCBwb3B1bGF0ZS1vbi1kZW1hbmQsIGFsdHAybSwKIGludHJv
-c3BlY3Rpb24sIG1lbW9yeSBzaGFyaW5nLCBvciBtZW1vcnkgcGFnaW5nLgog
-Cg==
-
---=separator--
 
