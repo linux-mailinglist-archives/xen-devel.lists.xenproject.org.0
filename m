@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55355951BC8
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 15:25:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777227.1187413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8039E951BCC
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 15:26:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777239.1187451 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seE0V-0000cb-8h; Wed, 14 Aug 2024 13:25:43 +0000
+	id 1seE0s-0001uK-Vv; Wed, 14 Aug 2024 13:26:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777227.1187413; Wed, 14 Aug 2024 13:25:43 +0000
+Received: by outflank-mailman (output) from mailman id 777239.1187451; Wed, 14 Aug 2024 13:26:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seE0V-0000aU-4W; Wed, 14 Aug 2024 13:25:43 +0000
-Received: by outflank-mailman (input) for mailman id 777227;
- Wed, 14 Aug 2024 13:25:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1seE0s-0001sD-SU; Wed, 14 Aug 2024 13:26:06 +0000
+Received: by outflank-mailman (input) for mailman id 777239;
+ Wed, 14 Aug 2024 13:26:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=glz1=PN=xenbits.xen.org=julieng@srs-se1.protection.inumbo.net>)
- id 1seE0T-0000Zz-CW
- for xen-devel@lists.xen.org; Wed, 14 Aug 2024 13:25:41 +0000
+ id 1seE0r-0001rP-GZ
+ for xen-devel@lists.xen.org; Wed, 14 Aug 2024 13:26:05 +0000
 Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b19b2799-5a40-11ef-a505-bb4a2ccca743;
- Wed, 14 Aug 2024 15:25:40 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bd711bdb-5a40-11ef-8776-851b0ebba9a2;
+ Wed, 14 Aug 2024 15:25:59 +0200 (CEST)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julieng@xenbits.xen.org>)
- id 1seE0L-00015O-PH; Wed, 14 Aug 2024 13:25:33 +0000
+ id 1seE0f-000169-Qj; Wed, 14 Aug 2024 13:25:53 +0000
 Received: from julieng by xenbits.xenproject.org with local (Exim 4.92)
  (envelope-from <julieng@xenbits.xen.org>)
- id 1seE0L-0001xk-NV; Wed, 14 Aug 2024 13:25:33 +0000
+ id 1seE0f-0001zO-Nj; Wed, 14 Aug 2024 13:25:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,13 +43,13 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b19b2799-5a40-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: bd711bdb-5a40-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
 	Content-Transfer-Encoding:Content-Type;
-	bh=Y7PBCM24upHm5ZQZt2uHvLuBCEM77iHd0QNUm65etq8=; b=mHpuv4VPDxFyMpp5QLnhLZfZQ7
-	zZxypwhs+Wncl8rjU9e3yNhADBYP/MWTdj8JpuUSS/CoVyyfyk+6s9qUBMVg1w0yFYkBbPu29/daN
-	rPW8xu1ZQzISF1heFn2tEmJMPD0D8dj/TYVlQQhBkiPTQD/DrL8tnWShSMxOWkOl//sc=;
+	bh=0cESxM2Nc/a1Y9sxbNz5glxIoFXz8cls7TNWojCBKls=; b=QRt+ev77BYIZc3zRSzK7lN7N7h
+	HtQFzrEO7QlN1w5asF6q6/a+tsplonxv2w6lQDu2hj6XlRrjC9VJ6InRPccnGALUSZ7pRneaDFQpU
+	uhhzSGScqu2jyBQJfeC+RxJLxt9JoZHNCFB1TIYuwsIZZfTbgAehsdTUzllPIMQVtKBg=;
 Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
 Content-Transfer-Encoding: binary
 MIME-Version: 1.0
@@ -58,10 +58,10 @@ To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
  xen-users@lists.xen.org, oss-security@lists.openwall.com
 From: Xen.org security team <security@xen.org>
 CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 460 v2 (CVE-2024-31145) - error handling in
- x86 IOMMU identity mapping
-Message-Id: <E1seE0L-0001xk-NV@xenbits.xenproject.org>
-Date: Wed, 14 Aug 2024 13:25:33 +0000
+Subject: Xen Security Advisory 461 v2 (CVE-2024-31146) - PCI device
+ pass-through with shared resources
+Message-Id: <E1seE0f-0001zO-Nj@xenbits.xenproject.org>
+Date: Wed, 14 Aug 2024 13:25:53 +0000
 
 --=separator
 Content-Type: text/plain; charset="utf-8"
@@ -71,101 +71,84 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-            Xen Security Advisory CVE-2024-31145 / XSA-460
+            Xen Security Advisory CVE-2024-31146 / XSA-461
                                version 2
 
-             error handling in x86 IOMMU identity mapping
+             PCI device pass-through with shared resources
 
 UPDATES IN VERSION 2
 ====================
 
-Wording updated. Public release.
+Public release.
 
 ISSUE DESCRIPTION
 =================
 
-Certain PCI devices in a system might be assigned Reserved Memory
-Regions (specified via Reserved Memory Region Reporting, "RMRR") for
-Intel VT-d or Unity Mapping ranges for AMD-Vi.  These are typically used
-for platform tasks such as legacy USB emulation.
+When multiple devices share resources and one of them is to be passed
+through to a guest, security of the entire system and of respective
+guests individually cannot really be guaranteed without knowing
+internals of any of the involved guests.  Therefore such a configuration
+cannot really be security-supported, yet making that explicit was so far
+missing.
 
-Since the precise purpose of these regions is unknown, once a device
-associated with such a region is active, the mappings of these regions
-need to remain continuouly accessible by the device.  In the logic
-establishing these mappings, error handling was flawed, resulting in
-such mappings to potentially remain in place when they should have been
-removed again.  Respective guests would then gain access to memory
-regions which they aren't supposed to have access to.
+Resources the sharing of which is known to be problematic include, but
+are not limited to
+- - PCI Base Address Registers (BARs) of multiple devices mapping to the
+  same page (4k on x86),
+- - INTx lines.
 
 IMPACT
 ======
 
-The precise impact is system specific.  Denial of Service (DoS)
-affecting the entire host or individual guests, privilege escalation,
-and information leaks cannot be ruled out.
+The precise effects when shared resources are in use are system, device,
+guest, and resource specific.  None of privilege escalation, information
+leaks, or Denial of Service (DoS) can be ruled out.
 
 VULNERABLE SYSTEMS
 ==================
 
-Only x86 systems passing PCI devices with RMRR/Unity regions through to
-guests are potentially affected.
-
-PCI devices listed in a vm.cfg file have error handling which causes `xl
-create` to abort and tear down the domain, and is thus believed to be
-safe.
-
-PCI devices attached using `xl pci-attach` will result in the command
-returning nonzero, but will not tear down the domain.  VMs which
-continue to run after `xl pci-attach` has failed expose the
-vulnerability.
-
-For x86 Intel hardware, Xen versions 4.0 and later are affected.
-
-For all x86 hardware, Xen versions having the XSA-378 fixes applied /
-backported are affected.
+All systems making use of PCI pass-through are in principle vulnerable,
+when any kind of resource is shared.  Just to re-iterate, even in the
+absence of resource sharing caveats apply to passing through of PCI
+devices to entirely untrusted guests.
 
 MITIGATION
 ==========
 
-Assigning devices using the vm.cfg file for attachment at boot avoids
-the vulnerability.
-
-CREDITS
-=======
-
-This issue was discovered by Teddy Astie of Vates and diagnosed as a
-security issue by Jan Beulich of SUSE.
+Passing through only SR-IOV virtual functions or devices with well-
+separated resources will avoid this particular vulnerability.  Passing
+through all devices sharing a given resource to the same guest will also
+avoid this particular vulnerability.
 
 RESOLUTION
 ==========
 
-Applying the attached patch resolves this issue.
+Applying the appropriate attached patch documents this issue.
 
 Note that patches for released versions are generally prepared to
 apply to the stable branches, and may not apply cleanly to the most
 recent release tarball.  Downstreams are encouraged to update to the
-tip of the respective stable branch before applying these patches.
+tip of the stable branch before applying these patches.
 
-xsa460.patch           xen-unstable - Xen 4.16.x
+xsa461.patch           xen-unstable - Xen 4.16.x
 
-$ sha256sum xsa460*
-f4ca598f71e9ef6b9bc50803df2996b92d2e69afd8e36d9544823d7e56ec1819  xsa460.patch
+$ sha256sum xsa461*
+2415504496508ad87c306aa7257e836d7c2f0bd8849656de5b586f0ab93fd17f  xsa461.patch
 $
 
 DEPLOYMENT DURING EMBARGO
 =========================
 
-Deployment of the patches and/or mitigations described above (or
-others which are substantially similar) is permitted during the
-embargo, even on public-facing systems with untrusted guest users and
-administrators.
+Deployment of patches or mitigations is NOT permitted (except where
+all the affected systems and VMs are administered and used only by
+organisations which are members of the Xen Project Security Issues
+Predisclosure List).  Specifically, deployment on public cloud systems
+is NOT permitted.
 
-But: Distribution of updated software is prohibited (except to other
-members of the predisclosure list).
+This is because changing the nature of devices being passed through is
+very likely noticeable by the guest.
 
-Predisclosure list members who wish to deploy significantly different
-patches and/or mitigations, please contact the Xen Project Security
-Team.
+Deployment is permitted only AFTER the embargo ends.
 
 (Note: this during-embargo deployment notice is retained in
 post-embargo publicly released Xen Project advisories, even though it
@@ -177,87 +160,52 @@ consult the Xen Project community's agreed Security Policy:
   http://www.xenproject.org/security-policy.html
 -----BEGIN PGP SIGNATURE-----
 
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAma8sCIMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZiSUIAMFWxhjNzhsuUGbrUVsO6oDIs7gOcVEsC3BlcsIp
-LqetutOWHwR8B9jHeOjewZjgL/q1031qX+nCCcU/ilZtA7cAiVhPNrh4PSD/D9S5
-RqUG3oSsFjSTtGwVl2JlqlHoE90tXOqLBhZFCJixQzaW3kbCfhDZdmufj8TQYBCQ
-N3ioNAGwvmSeV8QPh8l3P7TRRsMwr0OTWQYtj7r4QuW+dDPJaKzbCpmWVaCPVeI2
-uKUxwwIxSE9J9L1mUR34HIJR/clCFNqlcpc/MmQVz0qprBOh4jNDunN+JNDY1VXR
-3P+N50ZnHCK5w1z+vjeVvZRyp9JDt2LDUj6XJ6G9IdvN1xA=
-=vNzh
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAma8sCkMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZLDkH/i6esACkik7iglEESFgCj0x6fc3KdpVzsCPznmsn
+uWZzBO9xuggoPOONJ70Or7tsIdaYDAkealZrBGreXlPEgd0MOtozLYrvB2IIqJEj
+cKyC4Y04VpBkynaOiLraFvUs0xyC0cew1NZdE/cxr9ewRvvrHVcyBI5GBAMKworh
+g4hjIDOR9ohhvxN2P7Yz59OY+Ojo57t+IlpvPPm+c53bARYR6H/cxyUDLYVlfrk2
+iNPif7Wpi1PU/Sjz5XqBF5mXW+LLsLnbyw8Iyhnjqv1zC/tUdzl1INUBd24eHSjP
+aXnrlExoGAuvUcf/6YVfU0u2dB7iISGYAs2ESeYuxpJnZ8E=
+=LkWz
 -----END PGP SIGNATURE-----
 
 --=separator
-Content-Type: application/octet-stream; name="xsa460.patch"
-Content-Disposition: attachment; filename="xsa460.patch"
+Content-Type: application/octet-stream; name="xsa461.patch"
+Content-Disposition: attachment; filename="xsa461.patch"
 Content-Transfer-Encoding: base64
 
-RnJvbTogVGVkZHkgQXN0aWUgPHRlZGR5LmFzdGllQHZhdGVzLnRlY2g+ClN1
-YmplY3Q6IHg4Ni9JT01NVTogbW92ZSB0cmFja2luZyBpbiBpb21tdV9pZGVu
-dGl0eV9tYXBwaW5nKCkKCklmIGZvciBzb21lIHJlYXNvbiB4bWFsbG9jKCkg
-ZmFpbHMgYWZ0ZXIgaGF2aW5nIG1hcHBlZCB0aGUgcmVzZXJ2ZWQKcmVnaW9u
-cywgYW4gZXJyb3IgaXMgcmVwb3J0ZWQsIGJ1dCB0aGUgcmVnaW9ucyByZW1h
-aW4gbWFwcGVkIGluIHRoZSBQMk0uCgpTaW1pbGFybHkgaWYgYW4gZXJyb3Ig
-b2NjdXJzIGR1cmluZyBzZXRfaWRlbnRpdHlfcDJtX2VudHJ5KCkgKGV4Y2Vw
-dCBvbgp0aGUgZmlyc3QgY2FsbCksIHRoZSBwYXJ0aWFsIG1hcHBpbmdzIG9m
-IHRoZSByZWdpb24gd291bGQgYmUgcmV0YWluZWQKd2l0aG91dCBiZWluZyB0
-cmFja2VkIGFueXdoZXJlLCBhbmQgaGVuY2Ugd2l0aG91dCB0aGVyZSBiZWlu
-ZyBhIHdheSB0bwpyZW1vdmUgdGhlbSBhZ2FpbiBmcm9tIHRoZSBkb21haW4n
-cyBQMk0uCgpNb3ZlIHRoZSBzZXR0aW5nIHVwIG9mIHRoZSBsaXN0IGVudHJ5
-IGFoZWFkIG9mIHRyeWluZyB0byBtYXAgdGhlIHJlZ2lvbi4KSW4gY2FzZXMg
-b3RoZXIgdGhhbiB0aGUgZmlyc3QgbWFwcGluZyBmYWlsaW5nLCBrZWVwIHJl
-Y29yZCBvZiB0aGUgZnVsbApyZWdpb24sIHN1Y2ggdGhhdCBhIHN1YnNlcXVl
-bnQgdW5tYXBwaW5nIHJlcXVlc3QgY2FuIGJlIHByb3Blcmx5IHRvcm4KZG93
-bi4KClRvIGNvbXBlbnNhdGUgZm9yIHRoZSBwb3RlbnRpYWxseSBleGNlc3Mg
-dW5tYXBwaW5nIHJlcXVlc3RzLCBkb24ndCBsb2cgYQp3YXJuaW5nIGZyb20g
-cDJtX3JlbW92ZV9pZGVudGl0eV9lbnRyeSgpIHdoZW4gdGhlcmUgcmVhbGx5
-IHdhcyBub3RoaW5nCm1hcHBlZCBhdCBhIGdpdmVuIEdGTi4KClRoaXMgaXMg
-WFNBLTQ2MCAvIENWRS0yMDI0LTMxMTQ1LgoKRml4ZXM6IDIyMDFiNjdiOTEy
-OCAoIlZULWQ6IGltcHJvdmUgUk1SUiByZWdpb24gaGFuZGxpbmciKQpGaXhl
-czogYzBlMTlkN2M2YzQyICgiSU9NTVU6IGdlbmVyYWxpemUgVlQtZCdzIHRy
-YWNraW5nIG9mIG1hcHBlZCBSTVJSIHJlZ2lvbnMiKQpTaWduZWQtb2ZmLWJ5
-OiBUZWRkeSBBc3RpZSA8dGVkZHkuYXN0aWVAdmF0ZXMudGVjaD4KU2lnbmVk
-LW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpSZXZp
-ZXdlZC1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5j
-b20+CgotLS0gYS94ZW4vYXJjaC94ODYvbW0vcDJtLmMKKysrIGIveGVuL2Fy
-Y2gveDg2L21tL3AybS5jCkBAIC0xMjY3LDkgKzEyNjcsMTEgQEAgaW50IHAy
-bV9yZW1vdmVfaWRlbnRpdHlfZW50cnkoc3RydWN0IGRvbQogICAgIGVsc2UK
-ICAgICB7CiAgICAgICAgIGdmbl91bmxvY2socDJtLCBnZm4sIDApOwotICAg
-ICAgICBwcmludGsoWEVOTE9HX0dfV0FSTklORwotICAgICAgICAgICAgICAg
-Im5vbi1pZGVudGl0eSBtYXAgZCVkOiVseCBub3QgY2xlYXJlZCAobWFwcGVk
-IHRvICVseClcbiIsCi0gICAgICAgICAgICAgICBkLT5kb21haW5faWQsIGdm
-bl9sLCBtZm5feChtZm4pKTsKKyAgICAgICAgaWYgKCAocDJtdCAhPSBwMm1f
-aW52YWxpZCAmJiBwMm10ICE9IHAybV9tbWlvX2RtKSB8fAorICAgICAgICAg
-ICAgIGEgIT0gcDJtX2FjY2Vzc19uIHx8ICFtZm5fZXEobWZuLCBJTlZBTElE
-X01GTikgKQorICAgICAgICAgICBwcmludGsoWEVOTE9HX0dfV0FSTklORwor
-ICAgICAgICAgICAgICAgICAgIm5vbi1pZGVudGl0eSBtYXAgJXBkOiVseCBu
-b3QgY2xlYXJlZCAobWFwcGVkIHRvICVseClcbiIsCisgICAgICAgICAgICAg
-ICAgICBkLCBnZm5fbCwgbWZuX3gobWZuKSk7CiAgICAgICAgIHJldCA9IDA7
-CiAgICAgfQogCi0tLSBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL3g4Ni9p
-b21tdS5jCisrKyBiL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL3g4Ni9pb21t
-dS5jCkBAIC0yNjcsMjQgKzI2NywzNiBAQCBpbnQgaW9tbXVfaWRlbnRpdHlf
-bWFwcGluZyhzdHJ1Y3QgZG9tYWluCiAgICAgaWYgKCBwMm1hID09IHAybV9h
-Y2Nlc3NfeCApCiAgICAgICAgIHJldHVybiAtRU5PRU5UOwogCi0gICAgd2hp
-bGUgKCBiYXNlX3BmbiA8IGVuZF9wZm4gKQotICAgIHsKLSAgICAgICAgaW50
-IGVyciA9IHNldF9pZGVudGl0eV9wMm1fZW50cnkoZCwgYmFzZV9wZm4sIHAy
-bWEsIGZsYWcpOwotCi0gICAgICAgIGlmICggZXJyICkKLSAgICAgICAgICAg
-IHJldHVybiBlcnI7Ci0gICAgICAgIGJhc2VfcGZuKys7Ci0gICAgfQotCiAg
-ICAgbWFwID0geG1hbGxvYyhzdHJ1Y3QgaWRlbnRpdHlfbWFwKTsKICAgICBp
-ZiAoICFtYXAgKQogICAgICAgICByZXR1cm4gLUVOT01FTTsKKwogICAgIG1h
-cC0+YmFzZSA9IGJhc2U7CiAgICAgbWFwLT5lbmQgPSBlbmQ7CiAgICAgbWFw
-LT5hY2Nlc3MgPSBwMm1hOwogICAgIG1hcC0+Y291bnQgPSAxOworCisgICAg
-LyoKKyAgICAgKiBJbnNlcnQgaW50byBsaXN0IGFoZWFkIG9mIG1hcHBpbmcs
-IHNvIHRoZSByYW5nZSBjYW4gYmUgZm91bmQgd2hlbgorICAgICAqIHRyeWlu
-ZyB0byBjbGVhbiB1cC4KKyAgICAgKi8KICAgICBsaXN0X2FkZF90YWlsKCZt
-YXAtPmxpc3QsICZoZC0+YXJjaC5pZGVudGl0eV9tYXBzKTsKIAorICAgIGZv
-ciAoIDsgYmFzZV9wZm4gPCBlbmRfcGZuOyArK2Jhc2VfcGZuICkKKyAgICB7
-CisgICAgICAgIGludCBlcnIgPSBzZXRfaWRlbnRpdHlfcDJtX2VudHJ5KGQs
-IGJhc2VfcGZuLCBwMm1hLCBmbGFnKTsKKworICAgICAgICBpZiAoICFlcnIg
-KQorICAgICAgICAgICAgY29udGludWU7CisKKyAgICAgICAgaWYgKCAobWFw
-LT5iYXNlID4+IFBBR0VfU0hJRlRfNEspID09IGJhc2VfcGZuICkKKyAgICAg
-ICAgeworICAgICAgICAgICAgbGlzdF9kZWwoJm1hcC0+bGlzdCk7CisgICAg
-ICAgICAgICB4ZnJlZShtYXApOworICAgICAgICB9CisgICAgICAgIHJldHVy
-biBlcnI7CisgICAgfQorCiAgICAgcmV0dXJuIDA7CiB9CiAK
+RnJvbTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpTdWJqZWN0
+OiB4ODYvcGFzcy10aHJvdWdoOiBkb2N1bWVudHMgYXMgc2VjdXJpdHktdW5z
+dXBwb3J0ZWQgd2hlbiBzaGFyaW5nIHJlc291cmNlcwoKV2hlbiBtdWx0aXBs
+ZSBkZXZpY2VzIHNoYXJlIHJlc291cmNlcyBhbmQgb25lIG9mIHRoZW0gaXMg
+dG8gYmUgcGFzc2VkCnRocm91Z2ggdG8gYSBndWVzdCwgc2VjdXJpdHkgb2Yg
+dGhlIGVudGlyZSBzeXN0ZW0gYW5kIG9mIHJlc3BlY3RpdmUKZ3Vlc3RzIGlu
+ZGl2aWR1YWxseSBjYW5ub3QgcmVhbGx5IGJlIGd1YXJhbnRlZWQgd2l0aG91
+dCBrbm93aW5nCmludGVybmFscyBvZiBhbnkgb2YgdGhlIGludm9sdmVkIGd1
+ZXN0cy4gIFRoZXJlZm9yZSBzdWNoIGEgY29uZmlndXJhdGlvbgpjYW5ub3Qg
+cmVhbGx5IGJlIHNlY3VyaXR5LXN1cHBvcnRlZCwgeWV0IG1ha2luZyB0aGF0
+IGV4cGxpY2l0IHdhcyBzbyBmYXIKbWlzc2luZy4KClRoaXMgaXMgWFNBLTQ2
+MSAvIENWRS0yMDI0LTMxMTQ2LgoKU2lnbmVkLW9mZi1ieTogSmFuIEJldWxp
+Y2ggPGpiZXVsaWNoQHN1c2UuY29tPgpSZXZpZXdlZC1ieTogSnVlcmdlbiBH
+cm9zcyA8amdyb3NzQHN1c2UuY29tPgotLS0KVEJEOiBPZiBjb3Vyc2UgdGhl
+IHN5c3RlbSBidXMoZXMpIGlzIGEgLyBhcmUgc2hhcmVkIHJlc291cmNlKHMp
+LCB0b28uCiAgICAgSSdtIGFmcmFpZCBJIGRvbid0IGtub3cgdGhlIGxvdyBs
+ZXZlbCBkZXRhaWxzIG9mIFBDSSB0byBiZSBhYmxlIHRvCiAgICAgdGVsbCB3
+aGV0aGVyIHRoZXJlIGFyZSBhbnkgZmFpcm5lc3MgZ3VhcmFudGVlcyB0aGVy
+ZS4KCi0tLSBhL1NVUFBPUlQubWQKKysrIGIvU1VQUE9SVC5tZApAQCAtODQx
+LDYgKzg0MSwxMSBAQCBUaGlzIGZlYXR1cmUgaXMgbm90IHNlY3VyaXR5IHN1
+cHBvcnRlZDoKIAogT25seSBzeXN0ZW1zIHVzaW5nIElPTU1VcyBhcmUgc3Vw
+cG9ydGVkLgogCitQYXNzaW5nIHRocm91Z2ggb2YgZGV2aWNlcyBzaGFyaW5n
+IHJlc291cmNlcyB3aXRoIGFub3RoZXIgZGV2aWNlIGlzIG5vdAorc2VjdXJp
+dHkgc3VwcG9ydGVkLiAgU3VjaCBzaGFyaW5nIGNvdWxkIGUuZy4gYmUgdGhl
+IHNhbWUgbGluZSBpbnRlcnJ1cHQgYmVpbmcKK3VzZWQgYnkgbXVsdGlwbGUg
+ZGV2aWNlcywgb25lIG9mIHdoaWNoIGlzIHRvIGJlIHBhc3NlZCB0aHJvdWdo
+LCBvciB0d28gc3VjaAorZGV2aWNlcyBoYXZpbmcgbWVtb3J5IEJBUnMgd2l0
+aGluIHRoZSBzYW1lIDRrIHBhZ2UuCisKIE5vdCBjb21wYXRpYmxlIHdpdGgg
+bWlncmF0aW9uLCBwb3B1bGF0ZS1vbi1kZW1hbmQsIGFsdHAybSwKIGludHJv
+c3BlY3Rpb24sIG1lbW9yeSBzaGFyaW5nLCBvciBtZW1vcnkgcGFnaW5nLgog
+Cg==
 
 --=separator--
 
