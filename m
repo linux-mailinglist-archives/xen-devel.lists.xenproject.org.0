@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49A53951E73
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 17:22:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777436.1187583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91201951E80
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 17:26:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777445.1187593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seFpF-0000TY-JJ; Wed, 14 Aug 2024 15:22:13 +0000
+	id 1seFt7-00018Q-5y; Wed, 14 Aug 2024 15:26:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777436.1187583; Wed, 14 Aug 2024 15:22:13 +0000
+Received: by outflank-mailman (output) from mailman id 777445.1187593; Wed, 14 Aug 2024 15:26:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seFpF-0000R4-Fw; Wed, 14 Aug 2024 15:22:13 +0000
-Received: by outflank-mailman (input) for mailman id 777436;
- Wed, 14 Aug 2024 15:22:11 +0000
+	id 1seFt7-00015U-2J; Wed, 14 Aug 2024 15:26:13 +0000
+Received: by outflank-mailman (input) for mailman id 777445;
+ Wed, 14 Aug 2024 15:26:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NhoJ=PN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1seFpD-0000Qy-Dn
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 15:22:11 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lR0F=PN=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
+ id 1seFt6-00015O-9m
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 15:26:12 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f97a0717-5a50-11ef-a505-bb4a2ccca743;
- Wed, 14 Aug 2024 17:22:10 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5a309d1a788so35437a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 08:22:10 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a80f3fa43f9sm185977866b.53.2024.08.14.08.22.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Aug 2024 08:22:08 -0700 (PDT)
+ id 893fb369-5a51-11ef-a505-bb4a2ccca743;
+ Wed, 14 Aug 2024 17:26:11 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-52f00ad303aso9049762e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 08:26:11 -0700 (PDT)
+Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53200f42734sm1303062e87.290.2024.08.14.08.26.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Aug 2024 08:26:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,205 +45,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f97a0717-5a50-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: 893fb369-5a51-11ef-a505-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723648930; x=1724253730; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sXY2qYSi5ScBM9veJIF83xeLBE3lDb/YHp+U6rSilUk=;
-        b=Cchlir952PH0tVJiurO4uesClFRq6SdY5a0niKV/Z2hjpI9qpTWa7G6dANy9GgHvW5
-         vkVYRx6GpSpqhGvES4Xb8wCvedmiFhI7MyYfeslfaX7KKy65APkO8g+E+8PPbDuKoya8
-         7qOg1lQbZFfhbcggyXsIKHICchpbwZOShWeMIaquhVhJwNRsO79Hqxt1ENIfdehAzrZQ
-         SJcTpWLvHSQWdglItj89kZafwSNGm6AdSUnvSEvBnKw7hLALtjJE4ywFUOUsmnh7/bt+
-         ftgUDuiA4rg9PYCxmadEJtyQZLhyNTG1/UadMwt4aVj7k4M9gWD4533oibvM7IIPwhF4
-         M95w==
+        d=gmail.com; s=20230601; t=1723649171; x=1724253971; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=cYmZmpJgLLQrHUQazIqEoQJSKSP9xtHfcufNHThOFxA=;
+        b=Xd1/qYc77Z/SPZfvm2foeM6XhNai7qGCxki7jw+KZnVZQh0TB+BRj4vX8uZQHsVIqf
+         DrtFsrxw9Qljg24f3vjuR6R6vIuGd62zMJAYKsm5PFDnPjI23Oa6V5/KQs+L/LbwYqzD
+         W1Gei6L72VV3WIv2nzZsEpzEhJXRx2R1CY7N1YO7A9CxSKqmXotUb40O8lSyMtECClfi
+         Yzsb8TsHf7UmARu9sf41lf34iLDVJXNZe/0K5tQuXR5EucFlHAhyJFDlhWEnBvKwrrrC
+         zB/O79csU/Vt9TgF4kIwe36no3Gq4m9rHLTozZlAEbFDT6v5ppWuSilUOJ7tAcD+9tB4
+         tTlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723648930; x=1724253730;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1723649171; x=1724253971;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sXY2qYSi5ScBM9veJIF83xeLBE3lDb/YHp+U6rSilUk=;
-        b=p2+QvBrpxtS+hWWyYMdvG8Z/WDvi98YgDNvohO2ieQIXPWzaDTqOwoTzhaTbv2w7U9
-         oTC+f3pVDsC/3yoFS2Uhx9dkECba0wKP4F5Q95TKxkUg93zVZeOazjD09+jAdIEqkuRX
-         utLPCwb2pmEDV3dqA2dPB7Y/5Pxg7fIi59ZFxuqxqH4VGfXgwV9xvRjjd7xKaffHLhIW
-         VY2QHsrS1D2y+GLwckW7Oh8XJBKdztjuzUP1JGOZ1l+R3cB0AKsr3zCPu845A66l8wH2
-         r6OkaMCPIRXl9i1MLrAFj807n64fhSjmNB+D8YXgAizGx5ePkR0BNZCHyOknH5+UM/oL
-         NheQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUsL/9xX77nk2iX70Xi2czRG+5vRhHt3ZRwRygMnq8L96gaUIVaM2M+GoZwNgpZyQpIvSjOdvSD6cIClDNjbwJCK6z2R3wtXxoLxh1MmS0=
-X-Gm-Message-State: AOJu0Yzcebf/dnHlo66wd7uL11zkWKml1ALgobHEZEaVKJisNL6AsJNK
-	Mn6FINC5lX9R7Gcg005npnxtlra9uhyRF/Lm8R2DzBTWZ8sHwnOqdKKOHVxa2Q==
-X-Google-Smtp-Source: AGHT+IGKnikD5uhOpS8Qz+KJdWvevlDwdz+2IBTMqXhUZzvn/1ANIUV+sFLzZMIuvEuD7ycqDlHFgg==
-X-Received: by 2002:a17:907:7f0c:b0:a7a:ab8a:384 with SMTP id a640c23a62f3a-a8367058086mr236262566b.64.1723648929537;
-        Wed, 14 Aug 2024 08:22:09 -0700 (PDT)
-Message-ID: <dfb4678f-0b2d-4d1c-be02-10c4720e57b2@suse.com>
-Date: Wed, 14 Aug 2024 17:22:07 +0200
+        bh=cYmZmpJgLLQrHUQazIqEoQJSKSP9xtHfcufNHThOFxA=;
+        b=sMOL3f5eEzBKlnPcvIXF0Ql2goc/jwLu/+NBaP+yBfqsF7l4WYQNHSWTlYURSqeZmI
+         eykCSggcXwyuMi6P0/rb2kJFag+NWTwmcLFIKM3q4eQLIpiJkGMuOuH/hf7I8f2wId5I
+         zGqPxVfy/zYc+Ol8ViOSKYMhlAxdKKf8c/l3f51PgOYveu0x3YoWBggVRxLN1TjVB14p
+         RvrPYIkAx0HvYENzFoAQnsPpvaD3jr/ZlrQ71D26N0Q9GjFutI1FB/FfmBDyXLM4iqSy
+         EF4IM+H64gFG9VaE2MH3wkBY66MTQKYkhvL0v/59GjTc3bmlIayqVdg9XOf24m2k5XQ/
+         M4NQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXjVqfEdPTvPRNZGawh8sn+RkRSCjeYkDt8Yn9o2EpoeF+kMoro9ahjOY8p+k+hpOlY6uqVWMchOzJSEJQnuKdd5tyvtoow9pA8zYsETKw=
+X-Gm-Message-State: AOJu0YwvwzF4z5MhFB01aSW4MNvIwjGzsAlt+04y5T11Dth5QTYojhZx
+	2huZ9FVHla16fLHGpFHEJnSm9Xu2peziqy/GXiqRspVHOZ6IA61p
+X-Google-Smtp-Source: AGHT+IG1Tnr3tLyBrgc/O5GzweCTeGDL9nfPEC8VxaJ8ErG8oekcC7nHueShqJcul+pp0L8HwsIUhw==
+X-Received: by 2002:a05:6512:33cf:b0:52e:9619:e26a with SMTP id 2adb3069b0e04-532eda81a21mr2049698e87.26.1723649169776;
+        Wed, 14 Aug 2024 08:26:09 -0700 (PDT)
+Date: Wed, 14 Aug 2024 17:26:08 +0200
+From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: qemu-devel@nongnu.org, anthony@xenproject.org, paul@xen.org,
+	peter.maydell@linaro.org, alex.bennee@linaro.org,
+	xenia.ragiadakou@amd.com, jason.andryuk@amd.com,
+	edgar.iglesias@amd.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 08/10] hw/xen: pvh-common: Add support for creating
+ PCIe/GPEX
+Message-ID: <ZrzMkI5jGUtXU2qA@zapote>
+References: <20240812130606.90410-1-edgar.iglesias@gmail.com>
+ <20240812130606.90410-9-edgar.iglesias@gmail.com>
+ <alpine.DEB.2.22.394.2408121822370.298534@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/7] xen/riscv: introduce functionality to work with
- CPU info
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1723214540.git.oleksii.kurochko@gmail.com>
- <452e2960d1f064a2e3abcaae1ac354f48aafd24c.1723214540.git.oleksii.kurochko@gmail.com>
- <e0285026-40c5-4316-8129-d07801a9c233@suse.com>
- <ee3a2e61435e860f1ddb6022fbb712a8d890ae3e.camel@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ee3a2e61435e860f1ddb6022fbb712a8d890ae3e.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2408121822370.298534@ubuntu-linux-20-04-desktop>
 
-On 14.08.2024 16:45, oleksii.kurochko@gmail.com wrote:
-> On Tue, 2024-08-13 at 10:54 +0200, Jan Beulich wrote:
->> On 09.08.2024 18:19, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/smp.h
->>> +++ b/xen/arch/riscv/include/asm/smp.h
->>> @@ -5,6 +5,8 @@
->>>  #include <xen/cpumask.h>
->>>  #include <xen/percpu.h>
->>>  
->>> +#define INVALID_HARTID UINT_MAX
->>> +
->>>  DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
->>>  DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
->>>  
->>> @@ -14,6 +16,14 @@ DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
->>>   */
->>>  #define park_offline_cpus false
->>>  
->>> +void smp_set_bootcpu_id(unsigned long boot_cpu_hartid);
->>> +
->>> +/*
->>> + * Mapping between linux logical cpu index and hartid.
->>> + */
->>> +extern unsigned long cpuid_to_hartid_map[NR_CPUS];
->>> +#define cpuid_to_hartid(cpu) cpuid_to_hartid_map[cpu]
->>
->> How wide can hart IDs be? Wider than 32 bits? If not, why unsigned
->> long?
-> According to the spec:
-> ```
-> The mhartid CSR is an MXLEN-bit read-only register containing the
-> integer ID of the hardware thread running the code
-> ```
-> where MXLEN can bit 32 and 64.
+On Mon, Aug 12, 2024 at 06:48:37PM -0700, Stefano Stabellini wrote:
+> On Mon, 12 Aug 2024, Edgar E. Iglesias wrote:
+> > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+> > 
+> > Add support for optionally creating a PCIe/GPEX controller.
+> > 
+> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> > ---
+> >  hw/xen/xen-pvh-common.c         | 66 +++++++++++++++++++++++++++++++++
+> >  include/hw/xen/xen-pvh-common.h | 10 ++++-
+> >  2 files changed, 75 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/hw/xen/xen-pvh-common.c b/hw/xen/xen-pvh-common.c
+> > index 69a2dbdb6d..b1432e4bd9 100644
+> > --- a/hw/xen/xen-pvh-common.c
+> > +++ b/hw/xen/xen-pvh-common.c
+> > @@ -120,6 +120,59 @@ static void xen_enable_tpm(XenPVHCommonState *s)
+> >  }
+> >  #endif
+> >  
+> > +static void xen_set_pci_intx_irq(void *opaque, int irq, int level)
+> > +{
+> > +    if (xen_set_pci_intx_level(xen_domid, 0, 0, 0, irq, level)) {
+> 
+> Looking at the implementation of XEN_DMOP_set_pci_intx_level in
+> xen/arch/x86/hvm/dm.c, it looks like the device parameter of
+> xen_set_pci_intx_level is required?
 
-Hmm, okay. If the full MXLEN bits can be used, then using unsigned long
-is indeed the right thing here.
+Yes, by setting device = 0, we're bypassing the irq swizzling in Xen.
+I'll try to clarify below.
 
->>> @@ -40,6 +41,19 @@ void __init noreturn start_xen(unsigned long
->>> bootcpu_id,
->>>  {
->>>      remove_identity_mapping();
->>>  
->>> +    /*
->>> +     * tp register contains an address of physical cpu
->>> information.
->>> +     * So write physical CPU info of boot cpu to tp register
->>> +     * It will be used later by get_processor_id() ( look at
->>> +     * <asm/processor.h> ):
->>> +     *   #define get_processor_id()    (tp->processor_id)
->>> +     */
->>> +    asm volatile ( "mv tp, %0" : : "r"((unsigned
->>> long)&pcpu_info[0]) );
->>
->> Perhaps be on the safe side and also add a memory barrier?
-> Do you mean compiler barrier? ( asm volatile ( "..." :: ... : "memory"
-> )? )
 
-Yes.
+> 
+> 
+> > +        error_report("xendevicemodel_set_pci_intx_level failed");
+> > +    }
+> > +}
+> > +
+> > +static inline void xenpvh_gpex_init(XenPVHCommonState *s,
+> > +                                    MemoryRegion *sysmem,
+> > +                                    hwaddr ecam_base, hwaddr ecam_size,
+> > +                                    hwaddr mmio_base, hwaddr mmio_size,
+> > +                                    hwaddr mmio_high_base,
+> > +                                    hwaddr mmio_high_size,
+> > +                                    int intx_irq_base)
+> > +{
+> > +    MemoryRegion *ecam_reg;
+> > +    MemoryRegion *mmio_reg;
+> > +    DeviceState *dev;
+> > +    int i;
+> > +
+> > +    object_initialize_child(OBJECT(s), "gpex", &s->pci.gpex,
+> > +                            TYPE_GPEX_HOST);
+> > +    dev = DEVICE(&s->pci.gpex);
+> > +    sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
+> > +
+> > +    ecam_reg = sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 0);
+> > +    memory_region_add_subregion(sysmem, ecam_base, ecam_reg);
+> 
+> I notice we don't use ecam_size anywhere? Is that because the size is
+> standard?
 
->> Perhaps be on the safe side and do this absolutely first in the
->> function,
->> or even in assembly (such that initializers of future variables
->> declared
->> at the top of the function end up safe, too)?
-> I am not sure that I am following your part related to put this code in
-> assembler ( instructions in assembly code still code be re-ordered what
-> can affect a time when tp will be set with correct value )
+Yes. we could remove the size property, having it slightly simplifies the
+prop setting code (keeping these memmap prop-pairs alike) but it's not a big deal.
 
-I'm afraid I don't understand this. Instructions can be re-ordered, sure,
-but later instructions are guaranteed to observe the effects on register
-state that earlier instructions caused.
+> 
+> 
+> > +    mmio_reg = sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 1);
+> > +
+> > +    if (mmio_size) {
+> > +        memory_region_init_alias(&s->pci.mmio_alias, OBJECT(dev), "pcie-mmio",
+> > +                                 mmio_reg, mmio_base, mmio_size);
+> > +        memory_region_add_subregion(sysmem, mmio_base, &s->pci.mmio_alias);
+> > +    }
+> > +
+> > +    if (mmio_high_size) {
+> > +        memory_region_init_alias(&s->pci.mmio_high_alias, OBJECT(dev),
+> > +                "pcie-mmio-high",
+> > +                mmio_reg, mmio_high_base, mmio_high_size);
+> > +        memory_region_add_subregion(sysmem, mmio_high_base,
+> > +                &s->pci.mmio_high_alias);
+> > +    }
+> > +
+> > +    for (i = 0; i < GPEX_NUM_IRQS; i++) {
+> > +        qemu_irq irq = qemu_allocate_irq(xen_set_pci_intx_irq, s, i);
+> > +
+> > +        sysbus_connect_irq(SYS_BUS_DEVICE(dev), i, irq);
+> > +        gpex_set_irq_num(GPEX_HOST(dev), i, intx_irq_base + i);
+> > +        xen_set_pci_link_route(i, intx_irq_base + i);
+> 
+> xen_set_pci_link_route is not currently implemented on ARM?
+> 
+> Looking at hw/i386/pc_piix.c:piix_intx_routing_notifier_xen it seems
+> that the routing is much more complex over there. But looking at other
+> machines that use GPEX such as hw/arm/virt.c it looks like the routing
+> is straightforward the same way as in this patch.
+> 
+> I thought that PCI interrupt pin swizzling was required, but maybe not ?
+> 
+> It is totally fine if we do something different, simpler, than
+> hw/i386/pc_piix.c:piix_intx_routing_notifier_xen. I just want to make
+> sure that things remain consistent between ARM and x86, and also between
+> Xen and QEMU view of virtual PCI interrupt routing.
+>
 
-> and what do
-> you mean by "initializers of future variables declared at the top of
-> the function end up safe"
+Good questions. The following is the way I understand things but I may
+ofcourse be wrong.
 
-With
+Yes, we're doing things differently than hw/i386/pc_piix.c mainly
+because we're using the GPEX PCIe host bridge with it's internal
+standard swizzling down to 4 INTX interrupts. Similar to microvm and
+the ARM virt machine.
 
-void start_xen()
-{
-    int var = func();
+The swizzling for the GPEX is done inside the GPEX model and it's
+described by xl in the ACPI tables for PVH guests. We don't want
+Xen to do any additional swizzling in xen_set_pci_intx_level(), hence
+device=0.
 
-    asm volatile ( "mv tp, %0" :: ...);
-    ...
+I haven't plumbed the GPEX connectinos for ARM yet but I think we could
+simply call xendevicemodel_set_irq_level() and not use the pci_intx
+calls that aren't implement (we wouldn't need them).
 
-you end up with the requirement that func() must not use anything that
-depends on tp being set. In this simple example it may be easy to say
-"don't use an initializer and call the function afterwards". But that is
-going to be a risky game to play. Look at x86'es __start_xen(). An
-insertion into such a big set of declarations may not pay attention to
-tp not being set yet, when _all_ other C code may reasonably assume tp
-is set.
+For x86/pvh, I wonder if we should be using xen_set_pci_intx_level() /
+xen_set_pci_link_route() or some other API? since we're basically
+bypassing things?
+In one of the first implementations we used set_isa_irq_level() but
+that call only reaches into irqs < 16 so it messed things up.
 
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/smp.c
->>> @@ -0,0 +1,4 @@
->>> +#include <xen/smp.h>
->>> +
->>> +/* tp points to one of these per cpu */
->>> +struct pcpu_info pcpu_info[NR_CPUS];
->>
->> And they all need setting up statically? Is there a plan to make this
->> dynamic (which could be recorded in a "fixme" in the comment)?
-> I didn't plan to make allocation of this array dynamic. I don't expect
-> that NR_CPUS will be big.
+Does any one have any better ideas or suggestions?
 
-What is this expectation of yours based on? Other architectures permit
-systems with hundreds or even thousands of CPUs; why would RISC-V be
-different there?
-
-> I can add "fixme" but I am not really
-> understand what will be advantages if pcpu_info[] will be allocated
-> dynamically.
-
-Where possible it's better to avoid static allocations, of which on
-some systems only a very small part may be used. Even if you put yourself
-on the position that many take - memory being cheap - you then still
-waste cache and TLB bandwidth. Furthermore as long as struct pcpu_info
-isn't big enough (and properly aligned) for two successive array entries
-to not share cache lines, you may end up playing cacheline ping-pong
-when a CPU writes to its own array slot.
-
-Jan
+Cheers,
+Edgar
 
