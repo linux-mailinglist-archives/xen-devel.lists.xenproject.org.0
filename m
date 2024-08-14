@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C6AC951692
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 10:29:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.776826.1186999 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 843779516A9
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2024 10:35:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.776847.1187030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1se9N1-0001O1-8V; Wed, 14 Aug 2024 08:28:39 +0000
+	id 1se9T9-0003t3-DN; Wed, 14 Aug 2024 08:34:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 776826.1186999; Wed, 14 Aug 2024 08:28:39 +0000
+Received: by outflank-mailman (output) from mailman id 776847.1187030; Wed, 14 Aug 2024 08:34:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1se9N1-0001Ly-43; Wed, 14 Aug 2024 08:28:39 +0000
-Received: by outflank-mailman (input) for mailman id 776826;
- Wed, 14 Aug 2024 08:28:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NhoJ=PN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1se9N0-0001LZ-2E
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 08:28:38 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3384169a-5a17-11ef-a505-bb4a2ccca743;
- Wed, 14 Aug 2024 10:28:36 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5af326eddb2so1042612a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 01:28:36 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bd1968af77sm3591110a12.40.2024.08.14.01.28.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Aug 2024 01:28:35 -0700 (PDT)
+	id 1se9T9-0003pe-Af; Wed, 14 Aug 2024 08:34:59 +0000
+Received: by outflank-mailman (input) for mailman id 776847;
+ Wed, 14 Aug 2024 08:34:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jxPN=PN=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1se9T7-0003IY-Pv
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2024 08:34:57 +0000
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [2607:f8b0:4864:20::72c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 15637184-5a18-11ef-8776-851b0ebba9a2;
+ Wed, 14 Aug 2024 10:34:56 +0200 (CEST)
+Received: by mail-qk1-x72c.google.com with SMTP id
+ af79cd13be357-7a1df0a9281so397778685a.1
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2024 01:34:56 -0700 (PDT)
+Received: from fziglio-xenia-fedora.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7a4c7e05595sm407786785a.122.2024.08.14.01.34.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Aug 2024 01:34:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,89 +45,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3384169a-5a17-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: 15637184-5a18-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723624116; x=1724228916; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=6Nu4pPZi5zBW3bAq5eXnFW4GeiCLLJkowiSjAPbXk0A=;
-        b=LMuN1ofZSaGI3Qx+e2hw8ywfqqOhuEJb+BMPkG47mFDX1Bl5rXXsNx46FCRZ/CZgbY
-         U+Lx+CnCFXDH5OumfI1uHY7gbWiDDiv0aZPuE7FB2RRMoNDYfyBhFbwLJrEQukv3/4dr
-         QrVp0PLTDE8/t1bM6nLQrZqa0+VOas93AjZR1shg8hsYU5fSgozY9JzHxHK/62mQoGOV
-         xvJpcUn3ZuLMvUmsUcOHTEwYrFtoKOWx7IOSFOgPcmm1D1eG6KWxgpAFMs295QHXOgj6
-         BOFlH/aEiydoSccP3eryLXJwSbP94CgN7vwiyLsVwxEv3bC0taT0gRAK6M705lxjHBvd
-         2yKA==
+        d=cloud.com; s=cloud; t=1723624495; x=1724229295; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=BZa9e6Ro4WdFyS/CD9RCAzzR7cxVkwW0r40u2r8Z0Ts=;
+        b=bCTxZZM0tH4jjaWWvIUs2t2QyxygGWtLeyz1+Ld09kf0Bs54hlvtvt9f9X7g7mffVU
+         HLip8qHQ35T+wz05l/LEh4/j6biOgpXQvRHaDelmUYUHyn2c1OtbUlfYN6evCEKCO0zG
+         PS9HpKNO67MG4sUwRAhisGvzVEHwh7BthWuzs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723624116; x=1724228916;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6Nu4pPZi5zBW3bAq5eXnFW4GeiCLLJkowiSjAPbXk0A=;
-        b=r3Y/rqwHu4Sxoy6lX7LealSH/K9U+1LFORQyMRqMdX+B3njNJqPkLYus3GCaSGKg2H
-         5eAH8FZgsuB2uRKzIzqVR0Vka1YFDQhlm8DV8T82GOjGr3Zm3Xhpo5vuoB1SKOSZ5wrb
-         ANS719XCkD7otbGEhxDJ3VFQTZ/TBTiLB+4gY4TI/m2x5tuVz3BcN9hAKDpOkSMyjoCA
-         wv2a8KpGl5hh9bLX6E3/d/Ug4k1zbt/J8dkbMzWt+hPnt/Iud6tZpmlfFp4a9gQQPwfL
-         AFWIVg8MOuPSYcUE2S+v7ZHr8zOjIAvmPguzMc0rFy2xXZLid5RzipXblqJKC11dGJ3k
-         4AmA==
-X-Gm-Message-State: AOJu0YxO/M8jisZMScfS5PuJ8hIZwlt1d5L6gZpGlm/0ejt8g9CKOZa9
-	TkBeGKjrExGllxw9WuSR/5e7VMCENyNwnuCywUFrscTSJwC2fPw/a8uhfJMgWfkozQqiFarE7cE
-	=
-X-Google-Smtp-Source: AGHT+IFMiNfmATHueVOy0wRe/gQPpD2yaHzdlrEzRRIs6B2fvPRGiRKwTikAKXEvEZEPVCOrRdD6Ow==
-X-Received: by 2002:a05:6402:2742:b0:5a1:5c0c:cbd6 with SMTP id 4fb4d7f45d1cf-5bea5e53c6cmr1216959a12.8.1723624116048;
-        Wed, 14 Aug 2024 01:28:36 -0700 (PDT)
-Message-ID: <2500a119-1734-44c2-9868-640bcc8ead2d@suse.com>
-Date: Wed, 14 Aug 2024 10:28:34 +0200
+        d=1e100.net; s=20230601; t=1723624495; x=1724229295;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BZa9e6Ro4WdFyS/CD9RCAzzR7cxVkwW0r40u2r8Z0Ts=;
+        b=o8Oh+MJTBLqy+rdvrO3IKRXKkGXILqzdMHwR8gC/Eme5+wllF2BXJAwdzdQBnCb1fQ
+         Qtk2FdH3nx4XUGaAsIgVki4q+4fKpi/rY+08d5nsUpvaMRlSyB9C+iL/w+TTBCtfp//2
+         Pr/Nu7RqhfAn9MaVqXww7fLvadlaJn703VtmSaVjn8pju61QGsn+A6eGqGc3Bucl9ncJ
+         ffa95t0umHOjvb4IvKKc9LRMGDa0y+FO2SoQc+OgDWWRXjg2s7jtMg26e7BJ7WAd+ImM
+         v8Sj+86Yx5+zmycaOCeZi1wdC18xCFnyA0FUk7fefCWqLkjgWELJ4RQVkaN9BiFTj8AX
+         pZuA==
+X-Gm-Message-State: AOJu0YzxsR32o3qM9/naUV0x/LY1Y9fz6AiQ9ef7s9ZFrXXjC/naN54m
+	L3LyrLSpBofk8+0AxZc+cFRM4PXB5W2qyJo72gF43RTHh+TJWwIhdsuvkLG8Qxj+oJuKF6pWkFK
+	z
+X-Google-Smtp-Source: AGHT+IHabNrK44XvtF/+KU+rjUBwIe7O6mvUvG0svDszGSSuxM2iKcMD2fTnLWR2xukTKk8gkmQ2pw==
+X-Received: by 2002:a05:620a:19a9:b0:79f:947:8915 with SMTP id af79cd13be357-7a4ee33e7b2mr298596085a.29.1723624494854;
+        Wed, 14 Aug 2024 01:34:54 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v2 0/5] Support EFI multiboot loading using PE binary
+Date: Wed, 14 Aug 2024 09:34:09 +0100
+Message-ID: <20240814083428.3012-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v5 0/3] x86/CPUID: leaf pruning
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-These three related patches were previously part of the AMX series.
-For AVX10 some of this is going to be needed (or at least wanted) too,
-though, hence I'm now refreshing these separately. Neither of the
-three is strictly a functional prereq, but two of the three introduce
-new functions which then are further altered while adding AVX10 (and
-AMX) logic. Presumably none of these would be necessary anymore once
-toolstack side work planned by Andrew gets carried out.
+Testing this feature in preparation for UEFI CA memory mitigation
+requirements I found some issues causing the loading to fail and
+other minor issues.
+Details in series commit messages.
+This is adding an additional way to boot Xen, using GrUB2+EFI
+(xen.efi:__efi64_mb2_start).
 
-All taken together: Until it is clear that one or more of these are
-strictly not needed / wanted (in this or another form), having these
-ahead of the actual work seems preferable over accidentally losing
-adjustments done for AVX10 / AMX (and down the road perhaps others).
+Changes since v1:
+- Changed title, apparently this is a kind of new mode;
+- address lot of comments (see "Changes" in other messages).
 
-1: adjust extended leaves out of range clearing
-2: shrink max_{,sub}leaf fields according to actual leaf contents
-3: move bounding of max_{,sub}leaf fields to library code
+Frediano Ziglio (5):
+  x86: Put trampoline in .init.data section
+  x86: Set xen_phys_start and trampoline_xen_phys_start earlier
+  x86: Force proper gdt_boot_base setting
+  x86: Compensate relocation in case of EFI
+  x86: Rollback relocation in case of EFI multiboot
 
-Jan
+ xen/arch/x86/boot/Makefile          |  2 +-
+ xen/arch/x86/boot/efi-reloc-image.c | 40 ++++++++++++++
+ xen/arch/x86/boot/efi-reloc-image.h | 85 +++++++++++++++++++++++++++++
+ xen/arch/x86/boot/head.S            | 72 ++++++++++++++++++------
+ xen/arch/x86/efi/efi-boot.h         | 64 ++--------------------
+ 5 files changed, 187 insertions(+), 76 deletions(-)
+ create mode 100644 xen/arch/x86/boot/efi-reloc-image.c
+ create mode 100644 xen/arch/x86/boot/efi-reloc-image.h
+
+-- 
+2.45.2
+
 
