@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 209399539B5
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2024 20:12:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.778248.1188335 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40751953B4A
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2024 22:09:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.778266.1188344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seexN-0007sn-TR; Thu, 15 Aug 2024 18:12:17 +0000
+	id 1seglv-00008O-Tk; Thu, 15 Aug 2024 20:08:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 778248.1188335; Thu, 15 Aug 2024 18:12:17 +0000
+Received: by outflank-mailman (output) from mailman id 778266.1188344; Thu, 15 Aug 2024 20:08:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seexN-0007rF-Q7; Thu, 15 Aug 2024 18:12:17 +0000
-Received: by outflank-mailman (input) for mailman id 778248;
- Thu, 15 Aug 2024 18:12:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1seglv-00006h-Qu; Thu, 15 Aug 2024 20:08:35 +0000
+Received: by outflank-mailman (input) for mailman id 778266;
+ Thu, 15 Aug 2024 20:08:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1seexM-0007r5-Aj; Thu, 15 Aug 2024 18:12:16 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1seexM-0001Ip-7E; Thu, 15 Aug 2024 18:12:16 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1seexL-0007us-KP; Thu, 15 Aug 2024 18:12:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1seexL-0004eI-Jr; Thu, 15 Aug 2024 18:12:15 +0000
+ (envelope-from <SRS0=l8AG=PO=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1seglu-00006b-Nu
+ for xen-devel@lists.xenproject.org; Thu, 15 Aug 2024 20:08:34 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 23c166e8-5b42-11ef-8776-851b0ebba9a2;
+ Thu, 15 Aug 2024 22:08:32 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
+ by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 47FK8Kd2040787
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Thu, 15 Aug 2024 16:08:25 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.18.1/8.15.2/Submit) id 47FK8JXf040786;
+ Thu, 15 Aug 2024 13:08:19 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,131 +43,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=25J8XLUHd4yQ23kLR05whGPPEl3CHH00jAZiBC27cWM=; b=KtYIz4aHPvNLT89sfPYYpN9i+i
-	hru7sHYjJfjEObZ1RkDNk37D/74kxdMfenkF03oTpZ8ZBswfn1kY3+zroN0rp6RAhdlTHHFdzWmZv
-	ziUtMF3gAsl08whLMyyO4YMmfGpwTs1nQyLHUlz3Cuzcs2wLGaHkbCYuc+GKvYPq00UA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187247-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 23c166e8-5b42-11ef-8776-851b0ebba9a2
+Date: Thu, 15 Aug 2024 13:08:19 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
+Cc: Andrei Semenov <andrei.semenov@vates.tech>, xen-devel@lists.xenproject.org,
+        Andrew Cooper <andrew.cooper3@citrix.com>,
+        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: Re: AMD EPYC virtual network performances
+Message-ID: <Zr5gMxp0zKC8cCwO@mattapan.m5p.com>
+References: <959bbf84-24da-4da3-a059-dc1aa32b27ef@vates.tech>
+ <352bba40-27fc-416b-985f-20e66c0c4b72@suse.com>
+ <Zrqykdarr7JHaeOZ@mattapan.m5p.com>
+ <ab4ca68e-ec1b-467f-9b89-38f63cc19b7c@suse.com>
+ <ZruckufSjT0GkpJt@mattapan.m5p.com>
+ <d556e168-8542-4b93-81a9-a7054b5b69ba@suse.com>
+ <Zrvf5wgm6xEI63x2@mattapan.m5p.com>
+ <e95ab71d-b985-4ab7-994b-1c562efd5f9f@suse.com>
+ <Zr0S-2QBf3lkBkfS@mattapan.m5p.com>
+ <07396e04-1def-447a-b83b-ffe3a5b01fbe@suse.com>
 MIME-Version: 1.0
-Subject: [libvirt test] 187247: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=f547c76bc53d676949ac44e17c311c33c7a74d3f
-X-Osstest-Versions-That:
-    libvirt=03852c85af3c531d1459573341537d1cc8e4b3c6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Aug 2024 18:12:15 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <07396e04-1def-447a-b83b-ffe3a5b01fbe@suse.com>
+X-Spam-Status: No, score=0.3 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
 
-flight 187247 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187247/
+On Thu, Aug 15, 2024 at 10:33:52AM +0200, Jürgen Groß wrote:
+> On 14.08.24 22:26, Elliott Mitchell wrote:
+> > On Wed, Aug 14, 2024 at 08:15:38AM +0200, Jürgen Groß wrote:
+> > > On 14.08.24 00:36, Elliott Mitchell wrote:
+> > > > 
+> > > > Drat.  I haven't noticed much, which would match with simply enabling a
+> > > > bunch of debugging printk()s (alas I'm not monitoring performance closely
+> > > > enough to be sure).  Guess I wait for Andrei Semenov to state a comfort
+> > > > level with trying "iommu=debug".
+> > > 
+> > > You didn't answer my question.
+> > 
+> > I guess I did not explicitly do so.  I was referring to the Xen
+> > command-line option.
+> 
+> And again you didn't supply the information I asked for (command line
+> options of Xen and dom0).
 
-Failures :-/ but no regressions.
+I had thought that was aimed at the initial reporter, Andrei Semenov.
+I've already supplied all options which could plausibly effect this.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187238
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+Xen: placeholder watchdog=true loglvl=info iommu=debug iommu=no-intremap cpuidle dom0_mem=... no-real-mode edd=off
 
-version targeted for testing:
- libvirt              f547c76bc53d676949ac44e17c311c33c7a74d3f
-baseline version:
- libvirt              03852c85af3c531d1459573341537d1cc8e4b3c6
+Linux; placeholder root=... ro concurrency=none vga=normal xen_pciback.hide=... net.ifname=1 nomodeset blacklist=...
 
-Last test of basis   187238  2024-08-14 04:19:02 Z    1 days
-Testing same since   187247  2024-08-15 04:22:24 Z    0 days    1 attempts
+Somehow the others really don't seem likely to effect either issue as
+they don't effect interrupts (okay some drivers don't get loaded, but
+those drivers would render the problem irreproduceable).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  GÃ¶ran Uddeborg <goeran@uddeborg.se>
-  Peter Krempa <pkrempa@redhat.com>
+> Did you consider that asking for help while not supplying data which has
+> been asked for is going to result in no help at all? You are wasting the
+> time of volunteers, which will reduce the motivation to look into your
+> issue a lot.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
+Sorry about being a bit inconsistent, but there is little I can do in
+the short-term about that.  I would *strongly* prefer to keep information
+protected (PGP).  Large commercial installations have a rather different
+risk/privacy threshold.
+
+It is also notable that I am not the sole reporter of any of these
+issues.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+My speculation was wrong, the "CPU*: No irq handler for vector..."
+messages are not strictly tied to the HVM domain.  I think I'm simply
+reproducing what Andrei Semenov observed, HVM domains are more severely
+effected by this issue.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+I think I need to repeat an earlier observation of mine.  It is NOT just
+vifs being effected by this, event channels associated with virtual
+block-devices are also seeing spurious interrupts though at a lower rate.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+What comes to mind is vifs would generate interrupts at a much greater
+rate than vbds.  I kind of suspect a timing issue involving closely
+spaced interrupt.  I wonder if there is a simple timing issue with the
+vif/vbd protocol.  Problem is how would these turn into spurious
+interrupts observed by Xen?  (I had suspected Qemu for the HVM domain,
+but that was disproven)
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   03852c85af..f547c76bc5  f547c76bc53d676949ac44e17c311c33c7a74d3f -> xen-tested-master
 
