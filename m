@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E000C952AD8
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2024 10:48:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.777898.1187955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77A93952AF3
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2024 10:56:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.777907.1187966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seW9A-00006J-3v; Thu, 15 Aug 2024 08:47:52 +0000
+	id 1seWGr-0001eo-Sm; Thu, 15 Aug 2024 08:55:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 777898.1187955; Thu, 15 Aug 2024 08:47:52 +0000
+Received: by outflank-mailman (output) from mailman id 777907.1187966; Thu, 15 Aug 2024 08:55:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seW9A-0008WF-12; Thu, 15 Aug 2024 08:47:52 +0000
-Received: by outflank-mailman (input) for mailman id 777898;
- Thu, 15 Aug 2024 08:47:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/2Vq=PO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1seW98-0008W9-AJ
- for xen-devel@lists.xenproject.org; Thu, 15 Aug 2024 08:47:50 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0cc323a3-5ae3-11ef-a505-bb4a2ccca743;
- Thu, 15 Aug 2024 10:47:49 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5ba43b433beso986186a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 15 Aug 2024 01:47:49 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a83838cf0c4sm68081366b.51.2024.08.15.01.47.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Aug 2024 01:47:48 -0700 (PDT)
+	id 1seWGr-0001bf-PF; Thu, 15 Aug 2024 08:55:49 +0000
+Received: by outflank-mailman (input) for mailman id 777907;
+ Thu, 15 Aug 2024 08:55:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qQtD=PO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1seWGq-0001bR-K5
+ for xen-devel@lists.xenproject.org; Thu, 15 Aug 2024 08:55:48 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2907367a-5ae4-11ef-8776-851b0ebba9a2;
+ Thu, 15 Aug 2024 10:55:46 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2ef25511ba9so14255111fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Aug 2024 01:55:46 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2f3b7703301sm1396101fa.87.2024.08.15.01.55.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Aug 2024 01:55:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +45,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cc323a3-5ae3-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: 2907367a-5ae4-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723711668; x=1724316468; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F944DroWBmv6b8y45tlawqP+JI0ZJYRiFEdbDFYeIrk=;
-        b=HTyXaOdjetHQ9IfAkyBYhIf4lA90tqW90LR7bVeeVnRsI4g/VaJgB3mBmvYJmVfD1R
-         FZbUwU+3usyVRe+/NCm1mKO99Z4SYKeUHWNhq0IVs+ELNxF8HEHfpl2SRCpFHohXjvQJ
-         B4Hw8OO0kHmodRhf1hbYB1ENmqcpBMpKTQ7IUjG+X3i0GDMloMIcSomyHteHE7QZHUT1
-         z6aEoPtq9htztnPKVOcnK80zGmnqfkWbDB7DlT7qKB4+DHFFWerHKxQ2C+7NTOL740JR
-         i8ry+J7HEYCrHW/2X+buRtieelJK3dhDt7Aj18kw4HGlfu/tEZn9yIiJrT6FcHtHC0dF
-         /jTQ==
+        d=gmail.com; s=20230601; t=1723712145; x=1724316945; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=7mrSkYK4uXXwog8EAyCTl9aZpwWR0PwqYgBxBBHzYDY=;
+        b=ktscVWr85kFoAFPK4SBK24R6rJ2NTGsBw3kAHqQUtyT/Z8I+jO3IV1oLYd2CSWJ0BK
+         Kn9kvQuWaLh7NBhaRJq/MIGQTMTAjC1XBxtYzkd+/PEAFVluL3l3diNg3T2WpMWwintG
+         0SdwrDg1epQkEiEqge9fNiYAyq1qwT5dVAzGdTblwrj973d/btD0mEwnOEDMp9evD3+D
+         tIFhJPzsVVE7HYrqxb9cMWk1UDZyokf5kHDP12OyUExfgM26bI+xjWMA65SMZhDQ+qR/
+         3crAeyhUh2wbUB6dphVkkIkGt9asNZzqq8J0gZJqB4TzHHmr9h2Vnm+wz76rT0/gskFJ
+         G/Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723711668; x=1724316468;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=F944DroWBmv6b8y45tlawqP+JI0ZJYRiFEdbDFYeIrk=;
-        b=MGWkJDicy+fCDY7gx+rYVHCNpfgdNz0jwKHsCnSIxceUGeYd0DcWFn2zdFjVub2O/t
-         bu0/KKv2m2373PAkTsAsy+QE+jqNNIWknzcgKtem8fpgjjGlUC0Kn93+nJzpk3OMq2QZ
-         YoV+PQNT/J7GcBbsb1FSP77oZEbi9p98CfBdxTSu6DolliInBFL+tNNDVP4sDO6Cmawa
-         9NNIUskHSGt8xBewvGFKP9KDre+OCAw4fZ3e8cl/enPzt2uBtnxNR48pIKQJAY5J0i+G
-         ndr33GIh28O4xGJxHctVbFH0nWWEyeE6k4uFoteR49dacq61KMS8juK8OFYKVVhkz3bp
-         GK0A==
-X-Forwarded-Encrypted: i=1; AJvYcCW0reOFQdmpxmnOfJQT4ArJmRNtWpElVhUiMOa7eF9vC4k2XjK/Rty3RJUmRqlTHlw91LBZh9XTspaNhm8ZcisTfIBxBQEsTf29Tv8GgQM=
-X-Gm-Message-State: AOJu0Yzev5pWPH56HF6OjEK+3jtx8zzyKGDbfwjH4jQTdMvzEQ6fjrhd
-	4gFBKVdRQsmb5TogvPN1+DftmATiJ/vsVfHeguf0w6pway9Nf98LyQbH6EWGyA==
-X-Google-Smtp-Source: AGHT+IE/WMiDEw+8bjhICHvJfRp6lhHz3YAmmumSiZ0OkL2JNMV4DMlaUVJL0CQRVyjsufnnXhTT2g==
-X-Received: by 2002:a17:907:c7e4:b0:a72:44d8:3051 with SMTP id a640c23a62f3a-a8366c421b6mr382524666b.16.1723711668449;
-        Thu, 15 Aug 2024 01:47:48 -0700 (PDT)
-Message-ID: <5dd50f94-6d0a-4a78-ae80-a6105ce57d62@suse.com>
-Date: Thu, 15 Aug 2024 10:47:46 +0200
+        d=1e100.net; s=20230601; t=1723712145; x=1724316945;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7mrSkYK4uXXwog8EAyCTl9aZpwWR0PwqYgBxBBHzYDY=;
+        b=Vl9YvBrZOJwcgG8+WwDTEYTKkN3+DlWx570zso89nQsr+Il4+KJLq8j9KZnzci1HAl
+         2uZHeHDFzi5oJKZRWu5dTbvYqmnJ+oxUyLpNyzl0VkW+dILgaFHdKQvjGZklRaJI8Q2D
+         kJ3X2yWeSUNQsX17p8uPNK3qew4xm4cyw8KfKZPmfeFrkRHnS8SqBn7YT3e1lv8hvHR1
+         6BE7MjGUsdEkGk+7JI33gsFTTh3CsrGYrrRTZQ3lolqW11fXqiobQYod5Ek4gNEDJyfZ
+         IQUPBIEho3U0pt+yuovKPbJGl2HJnuh2d1YDyMo9oSt8i41vPDlc8i5EPywWWU4Qpsqe
+         dv1A==
+X-Forwarded-Encrypted: i=1; AJvYcCXurcSuy+MCsJar4vQ8qYufibClZ0NR3tX7a81GcJoPZq5lutb6eUW0Is16J4oluGjAxOXUmN8HZqJpx4pRZfRqnanGNOZrWfEALiZDh3Y=
+X-Gm-Message-State: AOJu0YznF7qPmzWzjy48oo8ugaRBNMRjj2LaYap4mOsT37JecN7xrTlg
+	GG7NJpeMjQbma6UTJ+NGPLAm/TW03NdkiMGYvhBCSQDw6Pdom352
+X-Google-Smtp-Source: AGHT+IEur516owWdc+SxJJlq88vE9ubJzz0Fq7XFmfR3i7do9BVSq+cSmeeohvSi5DXz9VMH16T3kw==
+X-Received: by 2002:a05:651c:b29:b0:2ef:2fa1:954f with SMTP id 38308e7fff4ca-2f3b3bc2361mr6590911fa.18.1723712145113;
+        Thu, 15 Aug 2024 01:55:45 -0700 (PDT)
+Message-ID: <2184097c00f84f707fabadff240f977827a3c927.camel@gmail.com>
+Subject: Re: [PATCH v4 4/7] xen/riscv: introduce functionality to work with
+ CPU info
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Thu, 15 Aug 2024 10:55:43 +0200
+In-Reply-To: <dfb4678f-0b2d-4d1c-be02-10c4720e57b2@suse.com>
+References: <cover.1723214540.git.oleksii.kurochko@gmail.com>
+	 <452e2960d1f064a2e3abcaae1ac354f48aafd24c.1723214540.git.oleksii.kurochko@gmail.com>
+	 <e0285026-40c5-4316-8129-d07801a9c233@suse.com>
+	 <ee3a2e61435e860f1ddb6022fbb712a8d890ae3e.camel@gmail.com>
+	 <dfb4678f-0b2d-4d1c-be02-10c4720e57b2@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] Support EFI multiboot loading using PE binary
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20240814083428.3012-1-frediano.ziglio@cloud.com>
- <2d0f0c05-1ee5-4972-868d-c94e45f71044@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2d0f0c05-1ee5-4972-868d-c94e45f71044@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 14.08.2024 23:31, Andrew Cooper wrote:
-> On 14/08/2024 9:34 am, Frediano Ziglio wrote:
->> Testing this feature in preparation for UEFI CA memory mitigation
->> requirements I found some issues causing the loading to fail and
->> other minor issues.
->> Details in series commit messages.
->> This is adding an additional way to boot Xen, using GrUB2+EFI
->> (xen.efi:__efi64_mb2_start).
->>
->> Changes since v1:
->> - Changed title, apparently this is a kind of new mode;
->> - address lot of comments (see "Changes" in other messages).
->>
->> Frediano Ziglio (5):
->>   x86: Put trampoline in .init.data section
->>   x86: Set xen_phys_start and trampoline_xen_phys_start earlier
->>   x86: Force proper gdt_boot_base setting
->>   x86: Compensate relocation in case of EFI
->>   x86: Rollback relocation in case of EFI multiboot
-> 
-> Patch 1 is one part of supporting NX_COMPAT in the PE header, which is a
-> requirement from Microsoft in order to be signed.
-> 
-> It has nothing to do with the rest of the series, which is about making
-> the EFI+MB2 entry point work.
-> 
-> It would have helped a lot to not have mixed these together in a series
-> claiming to only be about the latter.
-> 
-> 
-> Now, as indicated in our documentation (yes - this is one of the very
-> few I have managed to get committed),
-> https://xenbits.xen.org/docs/latest/hypervisor-guide/x86/how-xen-boots.html#xen-efi
-> 
-> The MB2 tags existing in xen.efi is a known thing but came as a surprise
-> to some.  It exists because xen.efi is a strict superset of xen.gz,
-> including head.S which contains the MB1/MB2 tags.
+On Wed, 2024-08-14 at 17:22 +0200, Jan Beulich wrote:
+> On 14.08.2024 16:45, oleksii.kurochko@gmail.com=C2=A0wrote:
+> > On Tue, 2024-08-13 at 10:54 +0200, Jan Beulich wrote:
+> > > On 09.08.2024 18:19, Oleksii Kurochko wrote:
+> > > > --- a/xen/arch/riscv/include/asm/smp.h
+> > > > +++ b/xen/arch/riscv/include/asm/smp.h
+> > > > @@ -5,6 +5,8 @@
+> > > > =C2=A0#include <xen/cpumask.h>
+> > > > =C2=A0#include <xen/percpu.h>
+> > > > =C2=A0
+> > > > +#define INVALID_HARTID UINT_MAX
+> > > > +
+> > > > =C2=A0DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
+> > > > =C2=A0DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
+> > > > =C2=A0
+> > > > @@ -14,6 +16,14 @@ DECLARE_PER_CPU(cpumask_var_t,
+> > > > cpu_core_mask);
+> > > > =C2=A0 */
+> > > > =C2=A0#define park_offline_cpus false
+> > > > =C2=A0
+> > > > +void smp_set_bootcpu_id(unsigned long boot_cpu_hartid);
+> > > > +
+> > > > +/*
+> > > > + * Mapping between linux logical cpu index and hartid.
+> > > > + */
+> > > > +extern unsigned long cpuid_to_hartid_map[NR_CPUS];
+> > > > +#define cpuid_to_hartid(cpu) cpuid_to_hartid_map[cpu]
+> > >=20
+> > > How wide can hart IDs be? Wider than 32 bits? If not, why
+> > > unsigned
+> > > long?
+> > According to the spec:
+> > ```
+> > The mhartid CSR is an MXLEN-bit read-only register containing the
+> > integer ID of the hardware thread running the code
+> > ```
+> > where MXLEN can bit 32 and 64.
+>=20
+> Hmm, okay. If the full MXLEN bits can be used, then using unsigned
+> long
+> is indeed the right thing here.
+>=20
+> > > > @@ -40,6 +41,19 @@ void __init noreturn start_xen(unsigned long
+> > > > bootcpu_id,
+> > > > =C2=A0{
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 remove_identity_mapping();
+> > > > =C2=A0
+> > > > +=C2=A0=C2=A0=C2=A0 /*
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * tp register contains an address of phys=
+ical cpu
+> > > > information.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * So write physical CPU info of boot cpu =
+to tp register
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * It will be used later by get_processor_=
+id() ( look at
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * <asm/processor.h> ):
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 #define get_processor_id()=
+=C2=A0=C2=A0=C2=A0 (tp->processor_id)
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > > > +=C2=A0=C2=A0=C2=A0 asm volatile ( "mv tp, %0" : : "r"((unsigned
+> > > > long)&pcpu_info[0]) );
+> > >=20
+> > > Perhaps be on the safe side and also add a memory barrier?
+> > Do you mean compiler barrier? ( asm volatile ( "..." :: ... :
+> > "memory"
+> > )? )
+>=20
+> Yes.
+>=20
+> > > Perhaps be on the safe side and do this absolutely first in the
+> > > function,
+> > > or even in assembly (such that initializers of future variables
+> > > declared
+> > > at the top of the function end up safe, too)?
+> > I am not sure that I am following your part related to put this
+> > code in
+> > assembler ( instructions in assembly code still code be re-ordered
+> > what
+> > can affect a time when tp will be set with correct value )
+>=20
+> I'm afraid I don't understand this. Instructions can be re-ordered,
+> sure,
+> but later instructions are guaranteed to observe the effects on
+> register
+> state that earlier instructions caused.
+>=20
+> > and what do
+> > you mean by "initializers of future variables declared at the top
+> > of
+> > the function end up safe"
+>=20
+> With
+>=20
+> void start_xen()
+> {
+> =C2=A0=C2=A0=C2=A0 int var =3D func();
+>=20
+> =C2=A0=C2=A0=C2=A0 asm volatile ( "mv tp, %0" :: ...);
+> =C2=A0=C2=A0=C2=A0 ...
+>=20
+> you end up with the requirement that func() must not use anything
+> that
+> depends on tp being set. In this simple example it may be easy to say
+> "don't use an initializer and call the function afterwards". But that
+> is
+> going to be a risky game to play. Look at x86'es __start_xen(). An
+> insertion into such a big set of declarations may not pay attention
+> to
+> tp not being set yet, when _all_ other C code may reasonably assume
+> tp
+> is set.
+Thanks for the clarification. I missed the possibility that someone
+might accidentally use tp before it is set. In this case, I agree that
+it would be better to create a setup_tp() function and call it before
+start_xen().
 
-Which in turn so far was just to keep build machinery as uniform as possible.
-IOW I'd rather call the tags being there a side effect, not something that
-was intentional. And for MB1 I don't think that's going to change with the
-effort made now.
+>=20
+> > > > --- /dev/null
+> > > > +++ b/xen/arch/riscv/smp.c
+> > > > @@ -0,0 +1,4 @@
+> > > > +#include <xen/smp.h>
+> > > > +
+> > > > +/* tp points to one of these per cpu */
+> > > > +struct pcpu_info pcpu_info[NR_CPUS];
+> > >=20
+> > > And they all need setting up statically? Is there a plan to make
+> > > this
+> > > dynamic (which could be recorded in a "fixme" in the comment)?
+> > I didn't plan to make allocation of this array dynamic. I don't
+> > expect
+> > that NR_CPUS will be big.
+>=20
+> What is this expectation of yours based on? Other architectures
+> permit
+> systems with hundreds or even thousands of CPUs; why would RISC-V be
+> different there?
+Based on available dev boards. ( what isn't really strong argument )
 
-Jan
+I checked other architectures and they are using static allocation too:
+   struct cpuinfo_x86 cpu_data[NR_CPUS];
+  =20
+   u32 x86_cpu_to_apicid[NR_CPUS] __read_mostly =3D
+   	{ [0 ... NR_CPUS-1] =3D BAD_APICID };
+  =20
+   ... /* Arm */
+  =20
+   struct cpuinfo_arm cpu_data[NR_CPUS];
+
+I wanted to check to understand which one API should be used to
+allocate this array dynamically. xmalloc?
+
+And I am curious how I can use xmalloc() at this stage if page
+allocator (?) should be initialized what isn't true now.
+Or just to allocate pcpu_info only for boot cpu and for other then use
+xmalloc()?
+
+>=20
+> > I can add "fixme" but I am not really
+> > understand what will be advantages if pcpu_info[] will be allocated
+> > dynamically.
+>=20
+> Where possible it's better to avoid static allocations, of which on
+> some systems only a very small part may be used. Even if you put
+> yourself
+> on the position that many take - memory being cheap - you then still
+> waste cache and TLB bandwidth. Furthermore as long as struct
+> pcpu_info
+> isn't big enough (and properly aligned) for two successive array
+> entries
+> to not share cache lines, you may end up playing cacheline ping-pong
+> when a CPU writes to its own array slot.
+Why the mentioned issues aren't work for dynamic memory? We still
+allocating memory for sizeof(pcpu_info) * NR_CPUS and when this
+allocated memory access it will go to cache, CPU/MMU still will use TLB
+for address translation for this region and without a proper alignment
+of pcpu_info size it still could be an issue with cache line sharing.
+
+~ Oleksii
+
 
