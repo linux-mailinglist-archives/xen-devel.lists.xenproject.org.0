@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94155952EE3
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2024 15:16:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.778061.1188119 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A087A952EE4
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2024 15:16:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.778062.1188129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seaKs-0001DY-45; Thu, 15 Aug 2024 13:16:14 +0000
+	id 1seaKt-0001gh-Cg; Thu, 15 Aug 2024 13:16:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 778061.1188119; Thu, 15 Aug 2024 13:16:14 +0000
+Received: by outflank-mailman (output) from mailman id 778062.1188129; Thu, 15 Aug 2024 13:16:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seaKr-0001Ar-Vx; Thu, 15 Aug 2024 13:16:13 +0000
-Received: by outflank-mailman (input) for mailman id 778061;
- Thu, 15 Aug 2024 13:16:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1seaKt-0001cW-6m; Thu, 15 Aug 2024 13:16:15 +0000
+Received: by outflank-mailman (input) for mailman id 778062;
+ Thu, 15 Aug 2024 13:16:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aZnf=PO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1seaKq-0000wG-56
+ id 1seaKq-0000wd-W5
  for xen-devel@lists.xenproject.org; Thu, 15 Aug 2024 13:16:12 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 89ae9865-5b08-11ef-a505-bb4a2ccca743;
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8a0060eb-5b08-11ef-8776-851b0ebba9a2;
  Thu, 15 Aug 2024 15:16:10 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a7ab5fc975dso104308166b.1
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a7a81bd549eso88666866b.3
  for <xen-devel@lists.xenproject.org>; Thu, 15 Aug 2024 06:16:10 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8383947151sm100868666b.161.2024.08.15.06.16.07
+ a640c23a62f3a-a8383947151sm100868666b.161.2024.08.15.06.16.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Aug 2024 06:16:07 -0700 (PDT)
+ Thu, 15 Aug 2024 06:16:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89ae9865-5b08-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: 8a0060eb-5b08-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=citrix.com; s=google; t=1723727769; x=1724332569; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JXB1cqrzG0ayFT32zCt0qauALpoTTusQsO7LDnR/lNA=;
-        b=Z/MsgLYWPjzZ1Plho9muooR44K3I4F551VxDnLBo112Aktlk3aZnhKhcSW9C3EUxTX
-         D349vCmTTVXAYkGTbW5/7EpR0CLGmhWncfZcXSHHNjrNV6dZf5HFMSL6dRLuWqxdqoc5
-         j+gQ6Oqdh26j9iyxSN44rhwy+nwnm1snYRk2k=
+        bh=9tKJRp+XTy2g8P71m3miHWyYMM1xvQ876gmk/7YMzdE=;
+        b=kkHMg/wKYI7u+77Z9pyvXCQ7Ua1Wvy2sH7QI8MkFuH6GIxe7Pdeb+XEXNlwZ5HqCVw
+         4o2z28rep87dIJRiwYFuLfEFm7u9LK2quGxlUdsI02VV4xZjmbC7gU/DeNVgOn52SM/G
+         Z4LxKE22qHwsNGQ15K7qT6S1tybfSTbJG+WzY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1723727769; x=1724332569;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=JXB1cqrzG0ayFT32zCt0qauALpoTTusQsO7LDnR/lNA=;
-        b=RhRQG0uujQnwVDKee1uKbUsoEXKctJ5OtlMvLdIwnqd6weMB6wyXn4UffRKLtnFBkA
-         U0ZwRwKJ2vmbfEf+PBuiUrcazLOIAN/oP2vyAOuxgiSptnkF2GK8Z3V/wfJzx6GoF0BB
-         yryRBvi2UDlENG7Yo478sBAsq5noRZnt2kIU9rJP80G7BLnk9UpLmTJf38aamApILtQJ
-         r3VsxNwqQBKCbQt0WCpow521zewB6Ekv9RgZlR7so18Iu9Xc7beegEtfljYiKEy1FRtD
-         1Cx5VORHrkgUMfb87pR8vkdSfzvFJGRxRHivhKhwF/x3iRc6O/gPZxhrsTC7B/y4ofQO
-         Dwfw==
-X-Gm-Message-State: AOJu0YzfO6wdQIWPcjnoMN+XccDTwGuiHF7iDWedxfeka4D3VUzBTWec
-	aypFENemmYR/HRw0jrH8MEV3kkjRb2NP/AJ4jeiw0pWDbWMmqcxRTDP2vtNVVOKRyRiFML6+GFH
-	f
-X-Google-Smtp-Source: AGHT+IFV5dX+MwhHd9oJRxpgf4lcz7LQU+DGTGIlc1EoxXfzjmfYx+hQ6/uhXhOpJYI63eiyg2w88Q==
-X-Received: by 2002:a17:907:f71a:b0:a7a:a46e:dc37 with SMTP id a640c23a62f3a-a8367049c2emr439509166b.57.1723727768739;
-        Thu, 15 Aug 2024 06:16:08 -0700 (PDT)
+        bh=9tKJRp+XTy2g8P71m3miHWyYMM1xvQ876gmk/7YMzdE=;
+        b=mMsE2AWh8ehhvDJrvaDw30EaIIeyflL9Ylo1tFXxFTi7mgOLBTRZtXXecACjg50ur1
+         f6tt9jNYOpfu7M7skoA4RY9n0KvWdSnvkdevqf3KqVYvgSj2la3cgsc7mOk0DK88RBZL
+         WcKFUyffGEQ1W1fTIinYiTTqp0feFvuLGcWoViyLqZbq2L5ClSt0I/e7nJRGLEYEL+rg
+         acQUWpXd02gt9uDC0FA+VwbSk9MUmaXlAZ8fhZqRo8gIV32hMr0OUVge8YR9n3HlWKKT
+         KQgyENuOWqTbbLkVzSf5r0Af0plLSmJdQJvTbALsiiduU2WpECzYoN+CwupzS+XtnoPm
+         fX4w==
+X-Gm-Message-State: AOJu0Yx45pM54tB5Z7cU2VjQbG2ur1/DYWKPqx067gIB6dPL+gbf197J
+	L4LsGGsEf4n9mhV3/TUZ7LgzyIA1/SDHF0fyOoOO+8tui2mL0VCJoiLRoduE5hhCfHrLKMlRu28
+	r
+X-Google-Smtp-Source: AGHT+IFC2pxB3ToqW0cMxLgozW3zl6w8bhllIPKTxNCmtTNehROADP+qNKSEMriajnZOgj0y5Q1qEQ==
+X-Received: by 2002:a17:907:f1de:b0:a7a:b43e:86cf with SMTP id a640c23a62f3a-a8366c359cemr467716966b.27.1723727769460;
+        Thu, 15 Aug 2024 06:16:09 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Jan Beulich <JBeulich@suse.com>
-Subject: [PATCH v2 1/3] x86/pv: Introduce x86_merge_dr6() and fix do_debug()
-Date: Thu, 15 Aug 2024 14:15:58 +0100
-Message-Id: <20240815131600.4037415-2-andrew.cooper3@citrix.com>
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2 2/3] x86/pv: Fix merging of new status bits into %dr6
+Date: Thu, 15 Aug 2024 14:15:59 +0100
+Message-Id: <20240815131600.4037415-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240815131600.4037415-1-andrew.cooper3@citrix.com>
 References: <20240815131600.4037415-1-andrew.cooper3@citrix.com>
@@ -89,126 +88,186 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Pretty much everywhere in Xen the logic to update %dr6 when injecting #DB is
-buggy.  The architectural behaviour is to overwrite B{0..3} (rather than
-accumulate) and accumulate all other bits.
+All #DB exceptions result in an update of %dr6, but this isn't captured in
+Xen's handling, and is buggy everywhere.
 
-Introduce a new x86_merge_dr6() helper, and start fixing the mess by adjusting
-the dr6 merge in do_debug().  Also correct the comment.
+To begin resolving this issue, add a new pending_dbg field to x86_event
+(unioned with cr2 to avoid taking any extra space), and introduce
+pv_inject_debug_exn() helpers to replace the current callers using
+pv_inject_hw_exception().
+
+Push the adjustment of v->arch.dr6 into pv_inject_event(), and use the new
+x86_merge_dr6() rather than the current incorrect logic.
+
+A key property is that pending_dbg is taken with positive polarity to deal
+with RTM/BLD sensibly.  Most callers pass in a constant, but callers passing
+in a hardware %dr6 value need to XOR the value with X86_DR6_DEFAULT to flip to
+positive polarity.
+
+This fixes the behaviour of the breakpoint status bits; specifically that any
+left pending are discarded when a new #DB is raised.  In principle it would
+fix RTM/BLD too, except PV guests can't turn these capabilities on to start
+with.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-
 v2:
  * Rebase (~6y worth)
  * Split PV changes out of joint HVM patch.
-
-In some theoretical future where deubgging is implemented in terms of
-introspection even for PV guests, the TODO will complete itself.
 ---
- xen/arch/x86/debug.c                 | 20 ++++++++++++++++++++
- xen/arch/x86/include/asm/debugreg.h  |  8 ++++++++
- xen/arch/x86/include/asm/x86-defns.h |  7 +++++++
- xen/arch/x86/traps.c                 | 10 +++++++---
- 4 files changed, 42 insertions(+), 3 deletions(-)
+ xen/arch/x86/include/asm/domain.h      | 12 ++++++++++++
+ xen/arch/x86/pv/emul-priv-op.c         |  5 +----
+ xen/arch/x86/pv/emulate.c              |  6 ++----
+ xen/arch/x86/pv/ro-page-fault.c        |  2 +-
+ xen/arch/x86/pv/traps.c                | 16 ++++++++++++----
+ xen/arch/x86/traps.c                   |  2 +-
+ xen/arch/x86/x86_emulate/x86_emulate.h |  5 ++++-
+ 7 files changed, 33 insertions(+), 15 deletions(-)
 
-diff --git a/xen/arch/x86/debug.c b/xen/arch/x86/debug.c
-index 127fe83021cd..429752b8cc83 100644
---- a/xen/arch/x86/debug.c
-+++ b/xen/arch/x86/debug.c
-@@ -2,12 +2,32 @@
- /*
-  * Copyright (C) 2023 XenServer.
-  */
-+#include <xen/bug.h>
- #include <xen/kernel.h>
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index bca3258d69ac..90c959996914 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -731,6 +731,18 @@ static inline void pv_inject_hw_exception(unsigned int vector, int errcode)
+     pv_inject_event(&event);
+ }
  
- #include <xen/lib/x86/cpu-policy.h>
- 
- #include <asm/debugreg.h>
- 
-+unsigned int x86_merge_dr6(const struct cpu_policy *p, unsigned int dr6,
-+                           unsigned int pending_dbg)
++static inline void pv_inject_debug_exn(unsigned int pending_dbg)
 +{
-+    /* Flip dr6 to have positive polarity. */
-+    dr6 ^= X86_DR6_DEFAULT;
++    struct x86_event event = {
++        .vector      = X86_EXC_DB,
++        .type        = X86_EVENTTYPE_HW_EXCEPTION,
++        .error_code  = X86_EVENT_NO_EC,
++        .pending_dbg = pending_dbg,
++    };
 +
-+    /* Sanity check that only known values are passed in. */
-+    ASSERT(!(dr6 & ~X86_DR6_KNOWN_MASK));
-+    ASSERT(!(pending_dbg & ~X86_DR6_KNOWN_MASK));
-+
-+    /* Breakpoints 0-3 overridden.  Others accumulate. */
-+    dr6 = (dr6 & ~X86_DR6_BP_MASK) | pending_dbg;
-+
-+    /* Flip dr6 back to having default polarity. */
-+    dr6 ^= X86_DR6_DEFAULT;
-+
-+    return x86_adj_dr6_rsvd(p, dr6);
++    pv_inject_event(&event);
 +}
 +
- unsigned int x86_adj_dr6_rsvd(const struct cpu_policy *p, unsigned int dr6)
+ static inline void pv_inject_page_fault(int errcode, unsigned long cr2)
  {
-     unsigned int ones = X86_DR6_DEFAULT;
-diff --git a/xen/arch/x86/include/asm/debugreg.h b/xen/arch/x86/include/asm/debugreg.h
-index 96c406ad53c8..969f2697aee1 100644
---- a/xen/arch/x86/include/asm/debugreg.h
-+++ b/xen/arch/x86/include/asm/debugreg.h
-@@ -108,4 +108,12 @@ struct cpu_policy;
- unsigned int x86_adj_dr6_rsvd(const struct cpu_policy *p, unsigned int dr6);
- unsigned int x86_adj_dr7_rsvd(const struct cpu_policy *p, unsigned int dr7);
+     const struct x86_event event = {
+diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
+index aa11ecadaac0..3be02d85f2fe 100644
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -1366,10 +1366,7 @@ int pv_emulate_privileged_op(struct cpu_user_regs *regs)
+             ctxt.bpmatch |= DR_STEP;
  
-+/*
-+ * Merging new status bits into dr6 is far from simple.  Breakpoints override,
-+ * while others accumulate.  New bits to be merged are taken with positive
-+ * polarity.
-+ */
-+unsigned int x86_merge_dr6(const struct cpu_policy *p, unsigned int dr6,
-+                           unsigned int pending_dbg);
-+
- #endif /* _X86_DEBUGREG_H */
-diff --git a/xen/arch/x86/include/asm/x86-defns.h b/xen/arch/x86/include/asm/x86-defns.h
-index 3bcdbaccd3aa..caa92829eaa9 100644
---- a/xen/arch/x86/include/asm/x86-defns.h
-+++ b/xen/arch/x86/include/asm/x86-defns.h
-@@ -132,6 +132,13 @@
- #define X86_DR6_ZEROS           _AC(0x00001000, UL)  /* %dr6 bits forced to 0       */
- #define X86_DR6_DEFAULT         _AC(0xffff0ff0, UL)  /* Default %dr6 value          */
+         if ( ctxt.bpmatch )
+-        {
+-            curr->arch.dr6 |= ctxt.bpmatch | DR_STATUS_RESERVED_ONE;
+-            pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
+-        }
++            pv_inject_debug_exn(ctxt.bpmatch);
  
-+#define X86_DR6_BP_MASK                                 \
-+    (X86_DR6_B0 | X86_DR6_B1 | X86_DR6_B2 | X86_DR6_B3)
+         /* fall through */
+     case X86EMUL_RETRY:
+diff --git a/xen/arch/x86/pv/emulate.c b/xen/arch/x86/pv/emulate.c
+index e7a1c0a2cc4f..aa8af96c30f3 100644
+--- a/xen/arch/x86/pv/emulate.c
++++ b/xen/arch/x86/pv/emulate.c
+@@ -71,11 +71,9 @@ void pv_emul_instruction_done(struct cpu_user_regs *regs, unsigned long rip)
+ {
+     regs->rip = rip;
+     regs->eflags &= ~X86_EFLAGS_RF;
 +
-+#define X86_DR6_KNOWN_MASK                                              \
-+    (X86_DR6_BP_MASK | X86_DR6_BLD | X86_DR6_BD | X86_DR6_BS |          \
-+     X86_DR6_BT | X86_DR6_RTM)
+     if ( regs->eflags & X86_EFLAGS_TF )
+-    {
+-        current->arch.dr6 |= DR_STEP | DR_STATUS_RESERVED_ONE;
+-        pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
+-    }
++        pv_inject_debug_exn(X86_DR6_BS);
+ }
+ 
+ uint64_t pv_get_reg(struct vcpu *v, unsigned int reg)
+diff --git a/xen/arch/x86/pv/ro-page-fault.c b/xen/arch/x86/pv/ro-page-fault.c
+index cad28ef928ad..73c9f7578a87 100644
+--- a/xen/arch/x86/pv/ro-page-fault.c
++++ b/xen/arch/x86/pv/ro-page-fault.c
+@@ -390,7 +390,7 @@ int pv_ro_page_fault(unsigned long addr, struct cpu_user_regs *regs)
+         /* Fallthrough */
+     case X86EMUL_OKAY:
+         if ( ctxt.retire.singlestep )
+-            pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
++            pv_inject_debug_exn(X86_DR6_BS);
+ 
+         /* Fallthrough */
+     case X86EMUL_RETRY:
+diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
+index 83e84e276233..5a7341abf068 100644
+--- a/xen/arch/x86/pv/traps.c
++++ b/xen/arch/x86/pv/traps.c
+@@ -12,6 +12,7 @@
+ #include <xen/lib.h>
+ #include <xen/softirq.h>
+ 
++#include <asm/debugreg.h>
+ #include <asm/pv/trace.h>
+ #include <asm/shared.h>
+ #include <asm/traps.h>
+@@ -50,9 +51,9 @@ void pv_inject_event(const struct x86_event *event)
+     tb->cs    = ti->cs;
+     tb->eip   = ti->address;
+ 
+-    if ( event->type == X86_EVENTTYPE_HW_EXCEPTION &&
+-         vector == X86_EXC_PF )
++    switch ( vector | -(event->type == X86_EVENTTYPE_SW_INTERRUPT) )
+     {
++    case X86_EXC_PF:
+         curr->arch.pv.ctrlreg[2] = event->cr2;
+         arch_set_cr2(curr, event->cr2);
+ 
+@@ -62,9 +63,16 @@ void pv_inject_event(const struct x86_event *event)
+             error_code |= PFEC_user_mode;
+ 
+         trace_pv_page_fault(event->cr2, error_code);
+-    }
+-    else
++        break;
 +
- /*
-  * Debug control flags in DR7.
-  */
++    case X86_EXC_DB:
++        curr->arch.dr6 = x86_merge_dr6(curr->domain->arch.cpu_policy,
++                                       curr->arch.dr6, event->pending_dbg);
++        fallthrough;
++    default:
+         trace_pv_trap(vector, regs->rip, use_error_code, error_code);
++        break;
++    }
+ 
+     if ( use_error_code )
+     {
 diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 552a07e6aa56..521ed4dd816d 100644
+index 521ed4dd816d..06e4e3e9af90 100644
 --- a/xen/arch/x86/traps.c
 +++ b/xen/arch/x86/traps.c
-@@ -2016,9 +2016,13 @@ void asmlinkage do_debug(struct cpu_user_regs *regs)
+@@ -2030,7 +2030,7 @@ void asmlinkage do_debug(struct cpu_user_regs *regs)
          return;
      }
  
--    /* Save debug status register where guest OS can peek at it */
--    v->arch.dr6 |= (dr6 & ~X86_DR6_DEFAULT);
--    v->arch.dr6 &= (dr6 | ~X86_DR6_DEFAULT);
-+    /*
-+     * Update the guest's dr6 so the debugger can peek at it.
-+     * TODO: This should be passed out-of-bad to the debugger, so guest state
-+     * is not corrupted by debugging actions completed behind it's back.
-+     */
-+    v->arch.dr6 = x86_merge_dr6(v->domain->arch.cpu_policy,
-+                                v->arch.dr6, dr6 ^ X86_DR6_DEFAULT);
+-    pv_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
++    pv_inject_debug_exn(0 /* N/A, already merged */);
+ }
  
-     if ( guest_kernel_mode(v, regs) && v->domain->debugger_attached )
-     {
+ void asmlinkage do_entry_CP(struct cpu_user_regs *regs)
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
+index d92be69d84d9..e8a0e572284c 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.h
++++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+@@ -78,7 +78,10 @@ struct x86_event {
+     uint8_t       type;         /* X86_EVENTTYPE_* */
+     uint8_t       insn_len;     /* Instruction length */
+     int32_t       error_code;   /* X86_EVENT_NO_EC if n/a */
+-    unsigned long cr2;          /* Only for X86_EXC_PF h/w exception */
++    union {
++        unsigned long cr2;         /* #PF */
++        unsigned long pending_dbg; /* #DB (new DR6 bits, positive polarity) */
++    };
+ };
+ 
+ /*
 -- 
 2.39.2
 
