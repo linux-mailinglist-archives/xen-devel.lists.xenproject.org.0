@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9010F95377B
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2024 17:42:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.778171.1188209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BBF3953788
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2024 17:46:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.778180.1188218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1secbP-0005UY-0L; Thu, 15 Aug 2024 15:41:27 +0000
+	id 1secfc-000648-Gk; Thu, 15 Aug 2024 15:45:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 778171.1188209; Thu, 15 Aug 2024 15:41:26 +0000
+Received: by outflank-mailman (output) from mailman id 778180.1188218; Thu, 15 Aug 2024 15:45:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1secbO-0005S4-Tj; Thu, 15 Aug 2024 15:41:26 +0000
-Received: by outflank-mailman (input) for mailman id 778171;
- Thu, 15 Aug 2024 15:41:25 +0000
+	id 1secfc-00061w-Dg; Thu, 15 Aug 2024 15:45:48 +0000
+Received: by outflank-mailman (input) for mailman id 778180;
+ Thu, 15 Aug 2024 15:45:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/2Vq=PO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1secbN-0005Ry-8a
- for xen-devel@lists.xenproject.org; Thu, 15 Aug 2024 15:41:25 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1secfa-00061n-G2
+ for xen-devel@lists.xenproject.org; Thu, 15 Aug 2024 15:45:46 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3bc0845-5b1c-11ef-a505-bb4a2ccca743;
- Thu, 15 Aug 2024 17:41:24 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5bec4e00978so518882a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 Aug 2024 08:41:24 -0700 (PDT)
+ id 6f888297-5b1d-11ef-a505-bb4a2ccca743;
+ Thu, 15 Aug 2024 17:45:45 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5a10835487fso1637103a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Aug 2024 08:45:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bebbde3eedsm1014606a12.22.2024.08.15.08.41.23
+ 4fb4d7f45d1cf-5bebbbe5a74sm1029510a12.16.2024.08.15.08.45.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Aug 2024 08:41:23 -0700 (PDT)
+ Thu, 15 Aug 2024 08:45:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3bc0845-5b1c-11ef-a505-bb4a2ccca743
+X-Inumbo-ID: 6f888297-5b1d-11ef-a505-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1723736483; x=1724341283; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1723736745; x=1724341545; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D/ly9PjWzn7OCKemxIOsBpmm4awnIvpmOMr2PNFcB5k=;
-        b=etdixekH6GGeFu2pwcjYU5vWlW8bQnKoX0qMjYVYbBlfRbKJuSrayff+P3ZFFxq/RQ
-         TYU4TvfgWPtpAp4kE2+DkvRzYYWObsfBPuqD/mkqx1YBGkN1clp+/Izb4tlAmIZQt7xX
-         kyAh0YlB31R6WuOneHJ0HvEerVem8QRQA1MXU1H35Xzu2t2zVn6R/7+DxopR/2iDTTUF
-         iOOFR6xvBzQGqoFEMiSUdey8JsAeMsPoAe/z/EdgLv74y30Hil6tPH15uLfSXVD262Jt
-         0ngEBrhebGvNX30if0dwRZvd7OZSYECxc8BTWR/LBrHE5YLI0yYxhd3v/wro0rluBBRn
-         EB4Q==
+        bh=v9UHmhzgadTs0ncnwXKJLRaITtMt8CBWojav1t41wjY=;
+        b=fP1TrlZWyQazOfjAabyhoB4nrDgFslqs/ZAhqWbu/cYYEh90Eddfi6DsD1JKtn54F7
+         akEtIgg0OZXcm8q0UnqcMnHBmvFK4EWAbi3jhRehAqLLc4DES295HGSVNHzQDjAkD2Oi
+         06sVGK7z/1xbj0Rfn1rDA1XsyUBMnDRWWmTyYC0K/U+7CSz6mMlkGCcz1BLCLWSkp1tm
+         zEuFnyFE7G+L43YqB0G5g0Ctarto9LMa1aSJti3AfnK/Fugt7OqMQuNvCR85QDroarqt
+         Cq2Y2EjdbLfMfHxKMe6P4cLgLr1OfnmXofp9oR7L+lRo2uJ++LweRJMsQceS09rm0H/K
+         WPfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723736484; x=1724341284;
+        d=1e100.net; s=20230601; t=1723736745; x=1724341545;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D/ly9PjWzn7OCKemxIOsBpmm4awnIvpmOMr2PNFcB5k=;
-        b=n16z3nuIXc21i3DWPNonIHSiVjvGNYTC0nDG257UaeCfcPDoFQfGi/PkQn0XJ4fJ/l
-         oYEvwntICZ8Bp7m7NdKKAqFBko9koQm20F7hENPvqcvhev/is1ynIyoDm2P/U3bpbc8b
-         EP83BCBjKpLYnoc4aH4bjT2auYBNBx8sa9QW4uoMGTFDIiZ/t3ozTDeHMBCAwM4Z0lVK
-         wHb6tAWtqgMNwSMF9YP93Do88VAtoDjbpNRX820E/u/svqOvgnBvaNWlon163WFVMviA
-         pyae3g1FDTlvzowEf3GeX3OGxbMjqPDAO5NNR6Eea1uC3VsA9MXDQy/icx234II6Qto9
-         NaFw==
-X-Forwarded-Encrypted: i=1; AJvYcCXk68hlJ/IRZ5S6ooT+JPRyXAWdI4JkG06EM7RoOiOzIRpfMVmfU4PX1Z91j70Lum55fiPDE+ag6qH5yOSLvoBAun/E7Dju2OLsRQsvYMQ=
-X-Gm-Message-State: AOJu0YxCBZLUrmqbRMbjC6WTIT+c1HL0MkmrqlHXkJyWDGdsbYsRqk4w
-	N+a9k7drb1k4LB5CWCYwrIz8pcGOzcKz1RacTGrHoFHPfQxYKPKbjSUB3Q2g0Q==
-X-Google-Smtp-Source: AGHT+IH66YCCoywVaXztktMMeARko3T2vGcaFZAScw3WqLPi/9csXn5HtPHs1yfCrpweZ0VQQnmgdg==
-X-Received: by 2002:a05:6402:d0b:b0:5a2:ec88:de7a with SMTP id 4fb4d7f45d1cf-5bea1cb20e9mr5203461a12.33.1723736483522;
-        Thu, 15 Aug 2024 08:41:23 -0700 (PDT)
-Message-ID: <82f78de2-3d93-4e51-a845-5bb96559a4cf@suse.com>
-Date: Thu, 15 Aug 2024 17:41:21 +0200
+        bh=v9UHmhzgadTs0ncnwXKJLRaITtMt8CBWojav1t41wjY=;
+        b=q7Ho+aNtddLfX2p6isyrkGx/yIMBiyNSUN4wmupbdQAne9UMzQgiZdw3LSioq5GdTw
+         EeqEwCQREq4yr6VJLvqW48u9EIDgium2TccUyzUzZVV+F0M71MqD9YTgZS9HfmgsCgsC
+         /ums7rhxl2aR27aKKUDZiOzHvFmJIyZ1pG2pNBi885/Xs7p/yhO+AfrgvTukOl8my7XQ
+         C7grNvKhZ5X/0dHZfPQNR03M4Gw8nOx/WmODYkMf8xVXBlGpDZ19xU8yQ6BVmPjwsJLC
+         hR7D47cjaHyTk6S/G9TR0nU4ElE7VnHcuFXtohRmZzvwjmULAPDJAdJyASLWmNOS+3ne
+         380A==
+X-Forwarded-Encrypted: i=1; AJvYcCUKQnBRbucbttBNAPqxu/380wE5uz7o/A8/WOF7efMmz6wYKNRbEU6m4uOiQOikD6tcBKu6nddVV2gOU3GOJoRyrB9htHeNDeSv/DqDTzc=
+X-Gm-Message-State: AOJu0YxEyPQEHBBqcyDEsUeHVzQ9gCZG4wyyMk7kyPd9kZQkkAdG5A5X
+	y8dnp76OTMLUp2kM/oithexTNmJjrvVsUUaxMVfkuLC3q8Jgl/f7J4yYAccXkg==
+X-Google-Smtp-Source: AGHT+IEqlwHWKhsOY7A+LLM4puFB9HT/QgSy48V0S5rMNEEzfWLXo1PBdsGkokTHvsILyH3vhKMguw==
+X-Received: by 2002:a05:6402:26ce:b0:5a2:6350:75ac with SMTP id 4fb4d7f45d1cf-5bea1c69951mr4596057a12.8.1723736744981;
+        Thu, 15 Aug 2024 08:45:44 -0700 (PDT)
+Message-ID: <7a5c6c8c-701e-436e-9e76-afc6fa59a886@suse.com>
+Date: Thu, 15 Aug 2024 17:45:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] x86/pv: Introduce x86_merge_dr6() and fix
- do_debug()
+Subject: Re: [PATCH v2 3/3] x86/pv: Address Coverity complaint in
+ check_guest_io_breakpoint()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Matthew Barnes <matthew.barnes@cloud.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240815131600.4037415-1-andrew.cooper3@citrix.com>
- <20240815131600.4037415-2-andrew.cooper3@citrix.com>
+ <20240815131600.4037415-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,21 +114,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240815131600.4037415-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20240815131600.4037415-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.08.2024 15:15, Andrew Cooper wrote:
-> Pretty much everywhere in Xen the logic to update %dr6 when injecting #DB is
-> buggy.  The architectural behaviour is to overwrite B{0..3} (rather than
-> accumulate) and accumulate all other bits.
+On 15.08.2024 15:16, Andrew Cooper wrote:
+> Commit 08aacc392d86 ("x86/emul: Fix misaligned IO breakpoint behaviour in PV
+> guests") caused a Coverity INTEGER_OVERFLOW complaint based on the reasoning
+> that width could be 0.
+> 
+> It can't, but digging into the code generation, GCC 8 and later (bisected on
+> gotbolt) choose to emit a CSWITCH lookup table, and because the range (bottom
+> 2 bits clear), it's a 16-entry lookup table.
+> 
+> So Coverity is correct, given that GCC did emit a (dead) logic path where
+> width stayed 0.
+> 
+> Rewrite the logic.  Introduce x86_bp_width() which compiles to a single basic
+> block, which replaces the switch() statement.  Take the opportunity to also
+> make start and width be loop-scope variables.
+> 
+> No practical change, but it should compile better and placate Coverity.
+> 
+> Fixes: 08aacc392d86 ("x86/emul: Fix misaligned IO breakpoint behaviour in PV guests")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Just to double check (after 6 years I clearly don't recall anything that isn't
-written down in the description): The SDM pretty vaguely says "Certain debug
-exceptions may clear bits 0-3." What other information sources are there to
-make this less uncertain? (Picking an old hardcopy from the shelf, that
-confirms that long ago DR6 was indeed documented as all sticky.)
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
 
