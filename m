@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1349955079
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2024 20:04:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.778722.1188734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E1F49550C6
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2024 20:26:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.778736.1188745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sf1Hx-0005Yg-2B; Fri, 16 Aug 2024 18:03:01 +0000
+	id 1sf1dg-0000mv-Q2; Fri, 16 Aug 2024 18:25:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 778722.1188734; Fri, 16 Aug 2024 18:03:01 +0000
+Received: by outflank-mailman (output) from mailman id 778736.1188745; Fri, 16 Aug 2024 18:25:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sf1Hw-0005Wz-VX; Fri, 16 Aug 2024 18:03:00 +0000
-Received: by outflank-mailman (input) for mailman id 778722;
- Fri, 16 Aug 2024 18:02:59 +0000
+	id 1sf1dg-0000lO-N7; Fri, 16 Aug 2024 18:25:28 +0000
+Received: by outflank-mailman (input) for mailman id 778736;
+ Fri, 16 Aug 2024 18:25:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J2/C=PP=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sf1Hv-0005Wg-5G
- for xen-devel@lists.xenproject.org; Fri, 16 Aug 2024 18:02:59 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
+ <SRS0=7RMc=PP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sf1df-0000lI-D8
+ for xen-devel@lists.xenproject.org; Fri, 16 Aug 2024 18:25:27 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c51696ab-5bf9-11ef-a505-bb4a2ccca743;
- Fri, 16 Aug 2024 20:02:58 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2f16d2f2b68so33777261fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 16 Aug 2024 11:02:58 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8383934559sm287708966b.130.2024.08.16.11.02.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 Aug 2024 11:02:57 -0700 (PDT)
+ id e714b754-5bfc-11ef-a505-bb4a2ccca743;
+ Fri, 16 Aug 2024 20:25:25 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 7761ECE1887;
+ Fri, 16 Aug 2024 18:25:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D7CEC32782;
+ Fri, 16 Aug 2024 18:25:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,182 +41,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c51696ab-5bf9-11ef-a505-bb4a2ccca743
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1723831378; x=1724436178; darn=lists.xenproject.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NzuwvrSR4boSz0LtUOoTzVVt3IV5wBEFG8HEkBgpKf4=;
-        b=K/fXUmbyo9qhYCEfOZ6Llu+xdSK1hELv5y7DyCNtgW+1b99OU7oHEsSqPD+M1Mn03R
-         bkm4AtResDq1hIUzH5tSIcAhaPMgl3XKPapjbRGntq7/JlUnE9l22YTAn9iMJNN1wTDu
-         sWXNfl8VS46Gg876ebrGwGPYYOzyxO2AAmGBc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723831378; x=1724436178;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=NzuwvrSR4boSz0LtUOoTzVVt3IV5wBEFG8HEkBgpKf4=;
-        b=nQnKjL0t3AIAsQdMXlJMp9BAZvILfloQl5odMO1JlE9b8qYTv4krEC0BlRuobvZCBq
-         aG5TaY50fs5UFTjkvg/j7frfXPiGVjGAituw6jnpmXLlKKlbk2QbgzZhaqFDDfKqjXoo
-         KCims8rYs/qJaEDm+4WGJPm7fdRUdRLW7yUen6kQgzieTigf3OGARUZDpN3OkxT3E/D8
-         WGKETPh4gogukDhUzThVJiOTi9sWC8dzJhgwNDBF52SrrXitFQJ2wbdLLkCqzkotha5/
-         TeNi9meekcbCVar9GnA3v3UXpMD1yndXjTkolK4Zdr9toiIy8YVduYi43yGvGLsggTLM
-         sl6w==
-X-Forwarded-Encrypted: i=1; AJvYcCUqSbCBjobriolZj1i7drb9eT3jLg9yXhx7skKbYn97+X87qllbj2+sk8DwGqHE5JraCM5YyshZxzizRd6OFZJKSwz3+ZOQ7lRwVprogoI=
-X-Gm-Message-State: AOJu0YyVQOPLfOznc5g/t2IFI7PmAv5xa7wyrEpOxVgEwU5pjXyfRU5H
-	5GbbrHYm39f4/0vWLaf16rmscsL0Y6M80k16azCGfsB0sPa8S/CziFdzt/QjoIo=
-X-Google-Smtp-Source: AGHT+IFcd4bVp+IhRU+w8Fq2N0hvYZzVZ+texPBSgeNjmVXd1mkHU/N+OacwzlFV1PwAzhElNR6IrQ==
-X-Received: by 2002:a2e:868d:0:b0:2ef:2905:f36d with SMTP id 38308e7fff4ca-2f3be583b5cmr30799561fa.16.1723831377600;
-        Fri, 16 Aug 2024 11:02:57 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: e714b754-5bfc-11ef-a505-bb4a2ccca743
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1723832718;
+	bh=X274vmehy+T0cLBkq9DlcymZt0NxKv91nDcKkuR2PyA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=JjdENcGzU45yijBpVOE9fv4Mt9HqoWwFsb2zgiN3QxPQcGLkxVwDLDfwh7Co+/jn8
+	 ku67G7dyoaCIjXRR+QIoi3APK5fvcE4CS5BGpXSF5+2cYaf5Emmfg6qH8+jyJgX4OJ
+	 lXwfiA6vwWr+/if3zA2z4SZj1aCWJ/XFYF65bg4IFxWI0ERBs+/zr5mxLRYCAgUoNk
+	 aTq2Ivqz1+n0SbHWyltAmGqVTrp85MR9fxw1l/D7rpEdZ5i0hkXAloCGi8DPrEddxG
+	 1Hdhf872R2etpPxH8zp+z4mNWKVcPqRZ3w/eSnyUFF3SRTg/NKVyuYp9/ftwB24Ert
+	 n8bBwjdeOJ6+g==
+Date: Fri, 16 Aug 2024 11:25:17 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Kelly Choi <kelly.choi@cloud.com>
+cc: xen-devel <xen-devel@lists.xenproject.org>, committers@xenproject.org
+Subject: Re: Xen Project statistics help
+In-Reply-To: <CAO-mL=zWYsDGkBoDtc8erGfAFnaR1y+FaLKsx3pEJ3MgxKAy0Q@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2408161111160.298534@ubuntu-linux-20-04-desktop>
+References: <CAO-mL=zWYsDGkBoDtc8erGfAFnaR1y+FaLKsx3pEJ3MgxKAy0Q@mail.gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323329-859555006-1723832719=:298534"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-859555006-1723832719=:298534
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 16 Aug 2024 19:02:54 +0100
-Message-Id: <D3HJ80ZGO0MR.2JCGJIV5JPYQP@cloud.com>
-To: "Roger Pau Monne" <roger.pau@citrix.com>,
- <xen-devel@lists.xenproject.org>
-Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 13/22] x86/hvm: use a per-pCPU monitor table in HAP mode
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-X-Mailer: aerc 0.17.0
-References: <20240726152206.28411-1-roger.pau@citrix.com>
- <20240726152206.28411-14-roger.pau@citrix.com>
-In-Reply-To: <20240726152206.28411-14-roger.pau@citrix.com>
+Content-Transfer-Encoding: 8BIT
 
-On Fri Jul 26, 2024 at 4:21 PM BST, Roger Pau Monne wrote:
-> Instead of allocating a monitor table for each vCPU when running in HVM H=
-AP
-> mode, use a per-pCPU monitor table, which gets the per-domain slot update=
-d on
-> guest context switch.
->
-> This limits the amount of memory used for HVM HAP monitor tables to the a=
-mount
-> of active pCPUs, rather than to the number of vCPUs.  It also simplifies =
-vCPU
-> allocation and teardown, since the monitor table handling is removed from
-> there.
->
-> Note the switch to using a per-CPU monitor table is done regardless of wh=
-ether
+Hi Kelly,
 
-s/per-CPU/per-pCPU/
+xen.biterg.io was created by a company called Bitergia. Bitergia was
+later contracted by the Linux Foundation to create a generic dashboard
+for all their Open Source projects. Getting access to the Linux
+Foundation dashboard is the best way to go (if it comes to no cost to
+our project).
 
-> Address Space Isolation is enabled or not.  Partly for the memory usage
-> reduction, and also because it allows to simplify the VM tear down path b=
-y not
-> having to cleanup the per-vCPU monitor tables.
->
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> ---
-> Note the monitor table is not made static because uses outside of the fil=
-e
-> where it's defined will be added by further patches.
-> ---
->  xen/arch/x86/hvm/hvm.c             | 60 ++++++++++++++++++++++++
->  xen/arch/x86/hvm/svm/svm.c         |  5 ++
->  xen/arch/x86/hvm/vmx/vmcs.c        |  1 +
->  xen/arch/x86/hvm/vmx/vmx.c         |  4 ++
->  xen/arch/x86/include/asm/hap.h     |  1 -
->  xen/arch/x86/include/asm/hvm/hvm.h |  8 ++++
->  xen/arch/x86/mm.c                  |  8 ++++
->  xen/arch/x86/mm/hap/hap.c          | 75 ------------------------------
->  xen/arch/x86/mm/paging.c           |  4 +-
->  9 files changed, 87 insertions(+), 79 deletions(-)
->
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> index 7f4b627b1f5f..3f771bc65677 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -104,6 +104,54 @@ static const char __initconst warning_hvm_fep[] =3D
->  static bool __initdata opt_altp2m_enabled;
->  boolean_param("altp2m", opt_altp2m_enabled);
-> =20
-> +DEFINE_PER_CPU(root_pgentry_t *, monitor_pgt);
-> +
-> +static int allocate_cpu_monitor_table(unsigned int cpu)
+I have used scripts like these in the past to get some data out of a
+release. You can copy/paste the output to an Excel datasheet to do
+further calculations there.
 
-To avoid ambiguity, could we call these *_pcpu_*() instead?
+# List of contributors by name (using the commit "Author" tag) for the
+# 4.19 release. One name per commit.
+git log 4.18.0-rc4...4.19.0-rc4 --format='%aN' | sort | uniq -c | sort -rn
 
-> +{
-> +    root_pgentry_t *pgt =3D alloc_xenheap_page();
-> +
-> +    if ( !pgt )
-> +        return -ENOMEM;
-> +
-> +    clear_page(pgt);
-> +
-> +    init_xen_l4_slots(pgt, _mfn(virt_to_mfn(pgt)), INVALID_MFN, NULL,
-> +                      false, true, false);
-> +
-> +    ASSERT(!per_cpu(monitor_pgt, cpu));
-> +    per_cpu(monitor_pgt, cpu) =3D pgt;
-> +
-> +    return 0;
-> +}
-> +
-> +static void free_cpu_monitor_table(unsigned int cpu)
-> +{
-> +    root_pgentry_t *pgt =3D per_cpu(monitor_pgt, cpu);
-> +
-> +    if ( !pgt )
-> +        return;
-> +
-> +    per_cpu(monitor_pgt, cpu) =3D NULL;
-> +    free_xenheap_page(pgt);
-> +}
-> +
-> +void hvm_set_cpu_monitor_table(struct vcpu *v)
-> +{
-> +    root_pgentry_t *pgt =3D this_cpu(monitor_pgt);
-> +
-> +    ASSERT(pgt);
-> +
-> +    setup_perdomain_slot(v, pgt);
+# List of reviewers (using the Reviewed-by and Acked-by tags) for the
+# 4.19 release. One name per review.
+git log 4.18.0-rc4...4.19.0-rc4 --pretty=format:%b | grep -E "Reviewed-by|Acked-by" | sed -E 's/.*(Reviewed-by|Acked-by):\s*(.*)\s*<.*/\2/' | sort | uniq -c | sort -rn
 
-Why not modify them as part of write_ptbase() instead? As it stands, it app=
-ears
-to be modifying the PTEs of what may very well be our current PT, which mak=
-es
-the perdomain slot be in a $DEITY-knows-what state until the next flush
-(presumably the write to cr3 in write_ptbase()?; assuming no PCIDs).
+# Sorted list of commits by company (using email address in the commit
+# "Author" tag) for the 4.19 release.
+git log 4.18.0-rc4...4.19.0-rc4 --pretty=format:%b | grep "Signed-off-by" | awk -F '<|@|>' '{print $3}' | sort | uniq -c | sort -rn
 
-Setting the slot up right before the cr3 change should reduce the potential=
- for
-misuse.
-
-> +
-> +    make_cr3(v, _mfn(virt_to_mfn(pgt)));
-> +}
-> +
-> +void hvm_clear_cpu_monitor_table(struct vcpu *v)
-> +{
-> +    /* Poison %cr3, it will be updated when the vCPU is scheduled. */
-> +    make_cr3(v, INVALID_MFN);
-
-I think this would benefit from more exposition in the comment. If I'm gett=
-ing
-this right, after descheduling this vCPU we can't assume it'll be reschedul=
-ed
-on the same pCPU, and if it's not it'll end up using a different monitor ta=
-ble.
-This poison value is meant to highlight forgetting to set cr3 in the
-"ctxt_switch_to()" path.=20
-
-All of that can be deduced from what you wrote and sufficient headscratchin=
-g
-but seeing how this is invoked from the context switch path it's not incred=
-ibly
-clear wether you meant the perdomain slot would be updated by the next vCPU=
- or
-what I stated in the previous paragraph.
-
-Assuming it is as I mentioned, maybe hvm_forget_cpu_monitor_table() would
-convey what it does better? i.e: the vCPU forgets/unbinds the monitor table
-from its internal state.
+You need to run these commands on xen.git on a Linux machine.
 
 Cheers,
-Alejandro
+
+Stefano
+
+On Fri, 16 Aug 2024, Kelly Choi wrote:
+> Hi all,
+> I'm looking for a way to gather some statistics around our project, that would help monitor the health of the community and show our
+> progress so far. 
+> 
+> AFAIK, there used to be a dashboard on https://xen.biterg.io/ (https://wiki.xenproject.org/wiki/Code_Review_Dashboard) which no longer
+> exists. 
+> 
+> Examples of monthly data required:
+>  *  Number of commits, reviews, authors, etc per month/release
+>  *  Number of contributions per individual and company (we'd need to do some mapping of names for those with multiple email addresses)
+>  *  Data to help identify imbalances between reviewers and contributors
+>  *  Number of emails on xen-devel
+> Linux Foundation does have a dashboard that we're not set up on yet, but I'm looking at possibilities to see if we can.
+> 
+> If there is an automated process or script that someone has or would be able to create, that would be hugely beneficial. Open to other
+> ideas here too. 
+> 
+> Many thanks,
+> Kelly Choi
+> 
+> Community Manager
+> Xen Project 
+> 
+> 
+--8323329-859555006-1723832719=:298534--
 
