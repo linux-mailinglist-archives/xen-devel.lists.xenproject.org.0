@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B3CE9547E4
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2024 13:19:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.778584.1188635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5E5795487F
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2024 14:06:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.778601.1188646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seuzC-0001pQ-Ka; Fri, 16 Aug 2024 11:19:14 +0000
+	id 1sevif-0003Tq-4k; Fri, 16 Aug 2024 12:06:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 778584.1188635; Fri, 16 Aug 2024 11:19:14 +0000
+Received: by outflank-mailman (output) from mailman id 778601.1188646; Fri, 16 Aug 2024 12:06:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1seuzC-0001no-Hd; Fri, 16 Aug 2024 11:19:14 +0000
-Received: by outflank-mailman (input) for mailman id 778584;
- Fri, 16 Aug 2024 11:19:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sevif-0003Qp-1Z; Fri, 16 Aug 2024 12:06:13 +0000
+Received: by outflank-mailman (input) for mailman id 778601;
+ Fri, 16 Aug 2024 12:06:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0eKx=PP=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1seuzB-0001mN-3h
- for xen-devel@lists.xenproject.org; Fri, 16 Aug 2024 11:19:13 +0000
-Received: from pb-smtp2.pobox.com (pb-smtp2.pobox.com [64.147.108.71])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5c64582a-5bc1-11ef-a505-bb4a2ccca743;
- Fri, 16 Aug 2024 13:19:11 +0200 (CEST)
-Received: from pb-smtp2.pobox.com (unknown [127.0.0.1])
- by pb-smtp2.pobox.com (Postfix) with ESMTP id 8C5B82B8AD;
- Fri, 16 Aug 2024 07:19:10 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
-Received: from pb-smtp2.nyi.icgroup.com (unknown [127.0.0.1])
- by pb-smtp2.pobox.com (Postfix) with ESMTP id 830592B8AC;
- Fri, 16 Aug 2024 07:19:10 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
-Received: from localhost (unknown [185.130.54.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by pb-smtp2.pobox.com (Postfix) with ESMTPSA id 912E72B8AB;
- Fri, 16 Aug 2024 07:19:09 -0400 (EDT)
- (envelope-from sakib@darkstar.site)
+ <SRS0=6pmz=PP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sevid-0003Q5-Dk
+ for xen-devel@lists.xenproject.org; Fri, 16 Aug 2024 12:06:11 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec73a8fb-5bc7-11ef-8776-851b0ebba9a2;
+ Fri, 16 Aug 2024 14:06:09 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-530e22878cfso1925489e87.2
+ for <xen-devel@lists.xenproject.org>; Fri, 16 Aug 2024 05:06:09 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5330d424d77sm529521e87.280.2024.08.16.05.06.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Aug 2024 05:06:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,180 +45,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c64582a-5bc1-11ef-a505-bb4a2ccca743
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
-	:subject:date:message-id:in-reply-to:references:mime-version
-	:content-transfer-encoding; s=sasl; bh=PjnMO2z53AIZ819k6PFRrFgWX
-	6KC8ZTHVSlS1GFYRHg=; b=RJz3lELjHQkcdAJIiw2+DyP48jnGSsN1JYu3eQHWc
-	jtU59lDyc4nd30jCzlyT8o6C/gaDivwYg3gGIPjKH7Jl4EXigYR9aB8MVrLNZeru
-	9RC6cNsNRIRQWU38oFmQM09dQ9eyiLCF63HfhlnHNs0AfX+PRu+oOyt32eXLluIA
-	aM=
-From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [XEN PATCH v2 5/5] x86/amd: optional build of amd.c
-Date: Fri, 16 Aug 2024 14:19:07 +0300
-Message-Id: <3c641433fa7cfe1f7fdc918ab32086835a2e13eb.1723806405.git.Sergiy_Kibrik@epam.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1723806405.git.Sergiy_Kibrik@epam.com>
-References: <cover.1723806405.git.Sergiy_Kibrik@epam.com>
-MIME-Version: 1.0
-X-Pobox-Relay-ID:
- 5BA4DA1C-5BC1-11EF-AEDC-9B0F950A682E-90055647!pb-smtp2.pobox.com
+X-Inumbo-ID: ec73a8fb-5bc7-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1723809969; x=1724414769; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=DGS2FlQzoejqcN5y+ZcOUrUjGggoEVLsPK9AEbgKgJw=;
+        b=RJnC7RhjEgXEM4QkBpd4Q/dorjVqRxXMwnC5nIMNTa+yRf/Dzo9lD/3b/wvmtDtgWi
+         WwDB94Ktj5KbpyeP2uRRvLCl3K5bqMM1hK5xBlxJ2qzgs+P+LInkAZSCodSvdoVL+vmi
+         twrcfFAVmPK5C/frGLEkAgivX04VM0wtWUiAqIorCFNuXXv677uWP3hlTETTy/Gqx5Lq
+         Md7a32nRIneiF5NDwXsTbj5XRo7chASF1TVmaYvSlPl/bJJBwzr8LTYUgjb26W7vZDcU
+         QSTN1EsIgOOQig0e0V33qcvb+C3SZYUJC/x17WQCcVIi7cbLNc4gTRne6VGoETQ279F+
+         mdVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723809969; x=1724414769;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DGS2FlQzoejqcN5y+ZcOUrUjGggoEVLsPK9AEbgKgJw=;
+        b=InhcLRdLR0RTLaKolKaKclyLZ+QbgLpS9FNMK+Y1x/ZiJnuUZEWPqBdTL79OkGu8Oc
+         fRthO1SyqK9cWWGX8jdyyK/FEnGil0RX+Ua0mt/cyxRTk7EkcBfe8nVRpF/IDhy4+wn0
+         mk1lDwyAVHZJ2r3HGX/tuGK7ozDr0WpRlU+9BdxgS4WrwnXhDujSzEgB0+p0uj+Adu+3
+         +4iZwjS9esWogsoRJT+WAMobja+7JM3L/+QUvSqPD21Bvu4FXkHIkO96rCiWxoY8fiwH
+         IVd2AncasxGh15RgmQovuVhH4+oNWK6rCvdLDmteJDPhHqtNxkMLGsPszJ1zkwX8v/Q0
+         AO2A==
+X-Forwarded-Encrypted: i=1; AJvYcCU6h52UlaJM/DAtpgm4RvBBXSBulqLN1i2CiUsf2TViuYPxWX+i8TkuGFk2TrvlwxdegdC2FAC/orXqYn98fd1TPyFKL0FLAW0S36y55ww=
+X-Gm-Message-State: AOJu0YyWC8UXrbYfbrpxo6FLACOLkWebad2aWJdGiK7G9ZhxQ+uTkimp
+	pl0XdxSgJgXqFbTPcjqPjtQiUym3Taw2LcUV0cseVX6rAKdZKMDN
+X-Google-Smtp-Source: AGHT+IGIv24Zla4qUba8fy6dY+72K21eimFOfTorFzVl2lMnHAp9WclVx8XGbBQu5ig5GGE1nm/uug==
+X-Received: by 2002:a05:6512:12cc:b0:530:c323:46a8 with SMTP id 2adb3069b0e04-5331c6a4577mr1648779e87.23.1723809968408;
+        Fri, 16 Aug 2024 05:06:08 -0700 (PDT)
+Message-ID: <9e3bfd3afdee65f913fe418e2f6e061c4c39aaf9.camel@gmail.com>
+Subject: Re: [PATCH v4 5/7] xen/riscv: introduce and initialize SBI RFENCE
+ extension
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Fri, 16 Aug 2024 14:06:06 +0200
+In-Reply-To: <77ff59d1-b158-4603-bdbd-67c079ce87c9@suse.com>
+References: <cover.1723214540.git.oleksii.kurochko@gmail.com>
+	 <1a863d06866f86761d23e6da3f4a6ee58c474473.1723214540.git.oleksii.kurochko@gmail.com>
+	 <77ff59d1-b158-4603-bdbd-67c079ce87c9@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+MIME-Version: 1.0
 
-Similar to making Intel CPU support optional -- as we've got CONFIG_AMD o=
-ption
-now, we can put arch/x86/cpu/amd.c under it and make it possible to build
-Xen without AMD CPU support. One possible use case is to dispose of dead =
-code
-in Intel-only systems.
+On Tue, 2024-08-13 at 11:34 +0200, Jan Beulich wrote:
+> > =C2=A0=20
+> > +static unsigned long sbi_spec_version =3D SBI_SPEC_VERSION_DEFAULT;
+> > +static unsigned long sbi_fw_id, sbi_fw_version;
+>=20
+> __ro_after_init for perhaps all three of them?
+>=20
+> Considering SBI_SPEC_VERSION_{MAJOR,MINOR}_MASK, at least the first
+> of them also doesn't need to be unsigned long, but could be unsigned
+> int?
 
-Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-CC: Jan Beulich <jbeulich@suse.com>
----
-changes in v2:
- - drop routines-stubs in amd.h, handle call sites instead
- - cpu_has_amd_erratum() return int instead of bool
----
- xen/arch/x86/cpu/Makefile      |  2 +-
- xen/arch/x86/cpu/common.c      |  4 +++-
- xen/arch/x86/hvm/svm/svm.c     |  6 ++++--
- xen/arch/x86/include/asm/amd.h | 20 ++++++++++++++++++--
- xen/arch/x86/spec_ctrl.c       |  2 ++
- 5 files changed, 28 insertions(+), 6 deletions(-)
+sbi_spec_version can be really unsigned int as according to the spec
+only 32 bits are used:
+```
+   struct sbiret sbi_get_spec_version(void);
+   Returns the current SBI specification version. This function must
+   always succeed. The minor number
+   of the SBI specification is encoded in the low 24 bits, with the
+   major number encoded in the next 7
+   bits. Bit 31 must be 0 and is reserved for future expansion.
+```
 
-diff --git a/xen/arch/x86/cpu/Makefile b/xen/arch/x86/cpu/Makefile
-index eeb9ebe562..2c34597136 100644
---- a/xen/arch/x86/cpu/Makefile
-+++ b/xen/arch/x86/cpu/Makefile
-@@ -2,7 +2,7 @@ obj-y +=3D mcheck/
- obj-y +=3D microcode/
- obj-y +=3D mtrr/
-=20
--obj-y +=3D amd.o
-+obj-$(CONFIG_AMD) +=3D amd.o
- obj-$(CONFIG_CENTAUR) +=3D centaur.o
- obj-y +=3D common.o
- obj-$(CONFIG_HYGON) +=3D hygon.o
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index 580b01d6d5..5930b712bf 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -194,7 +194,7 @@ void ctxt_switch_levelling(const struct vcpu *next)
-=20
- 		if (cpu_has_cpuid_faulting)
- 			set_cpuid_faulting(enable_cpuid_faulting);
--		else
-+		else if ( IS_ENABLED(CONFIG_AMD) )
- 			amd_set_cpuid_user_dis(enable_cpuid_faulting);
-=20
- 		return;
-@@ -340,7 +340,9 @@ void __init early_cpu_init(bool verbose)
- 	case X86_VENDOR_INTEL:    intel_unlock_cpuid_leaves(c);
- 				  actual_cpu =3D intel_cpu_dev;    break;
- #endif
-+#ifdef CONFIG_AMD
- 	case X86_VENDOR_AMD:      actual_cpu =3D amd_cpu_dev;      break;
-+#endif
- #ifdef CONFIG_CENTAUR
- 	case X86_VENDOR_CENTAUR:  actual_cpu =3D centaur_cpu_dev;  break;
- #endif
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 92bb10c504..88902e2d3a 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -919,7 +919,8 @@ static void cf_check svm_ctxt_switch_from(struct vcpu=
- *v)
-      * Possibly clear previous guest selection of SSBD if set.  Note tha=
-t
-      * SPEC_CTRL.SSBD is already handled by svm_vmexit_spec_ctrl.
-      */
--    if ( v->arch.msrs->virt_spec_ctrl.raw & SPEC_CTRL_SSBD )
-+    if ( IS_ENABLED(CONFIG_AMD) &&
-+         v->arch.msrs->virt_spec_ctrl.raw & SPEC_CTRL_SSBD )
-     {
-         ASSERT(v->domain->arch.cpuid->extd.virt_ssbd);
-         amd_set_legacy_ssbd(false);
-@@ -953,7 +954,8 @@ static void cf_check svm_ctxt_switch_to(struct vcpu *=
-v)
-         wrmsr_tsc_aux(v->arch.msrs->tsc_aux);
-=20
-     /* Load SSBD if set by the guest. */
--    if ( v->arch.msrs->virt_spec_ctrl.raw & SPEC_CTRL_SSBD )
-+    if ( IS_ENABLED(CONFIG_AMD) &&
-+         v->arch.msrs->virt_spec_ctrl.raw & SPEC_CTRL_SSBD )
-     {
-         ASSERT(v->domain->arch.cpuid->extd.virt_ssbd);
-         amd_set_legacy_ssbd(true);
-diff --git a/xen/arch/x86/include/asm/amd.h b/xen/arch/x86/include/asm/am=
-d.h
-index fa4e0fc766..da35b82d5a 100644
---- a/xen/arch/x86/include/asm/amd.h
-+++ b/xen/arch/x86/include/asm/amd.h
-@@ -158,20 +158,36 @@
- #define is_zen4_uarch()   boot_cpu_has(X86_FEATURE_AUTO_IBRS)
-=20
- struct cpuinfo_x86;
-+#ifdef CONFIG_AMD
- int cpu_has_amd_erratum(const struct cpuinfo_x86 *cpu, int osvw_id, ...)=
-;
-+#else
-+static inline int cpu_has_amd_erratum(const struct cpuinfo_x86 *cpu,
-+                                      int osvw_id, ...)
-+{
-+    return 0;
-+}
-+#endif
-=20
- extern s8 opt_allow_unsafe;
-=20
- void fam10h_check_enable_mmcfg(void);
- void check_enable_amd_mmconf_dmi(void);
-=20
--extern bool amd_acpi_c1e_quirk;
- void amd_check_disable_c1e(unsigned int port, u8 value);
-=20
- extern bool amd_legacy_ssbd;
--extern bool amd_virt_spec_ctrl;
- bool amd_setup_legacy_ssbd(void);
- void amd_set_legacy_ssbd(bool enable);
- void amd_set_cpuid_user_dis(bool enable);
-=20
-+#ifdef CONFIG_AMD
-+extern bool amd_acpi_c1e_quirk;
-+extern bool amd_virt_spec_ctrl;
-+#else
-+
-+#define amd_acpi_c1e_quirk (false)
-+#define amd_virt_spec_ctrl (false)
-+
-+#endif
-+
- #endif /* __AMD_H__ */
-diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index ba6c3e80d2..1964a417de 100644
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -1893,10 +1893,12 @@ void __init init_speculation_mitigations(void)
-             setup_force_cpu_cap(X86_FEATURE_SC_MSR_HVM);
-     }
-=20
-+#ifdef CONFIG_AMD
-     /* Support VIRT_SPEC_CTRL.SSBD if AMD_SSBD is not available. */
-     if ( opt_msr_sc_hvm && !cpu_has_amd_ssbd &&
-          (cpu_has_virt_ssbd || (amd_legacy_ssbd && amd_setup_legacy_ssbd=
-())) )
-         amd_virt_spec_ctrl =3D true;
-+#endif
-=20
-     /* Figure out default_xen_spec_ctrl. */
-     if ( has_spec_ctrl && ibrs )
---=20
-2.25.1
+For sbi_fw_id, sbi_fw_version it is not mentioned the same thing, so we
+can just assume ( despite of the fact that now this values are very
+small and it is unlikely to be bigger the UINT_MAX ) that it will be
+always fit in uint32_t.
+
+But I think it would be better to leave unsigned long for everyone as
+according to the specification this functions returns sbiret structure
+which consist of 2 longs ( error and value ) and it is good idea to
+follow the specification.
+
+~ Oleksii
+
+
 
 
