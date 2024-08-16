@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4AB2954F55
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2024 18:54:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.778705.1188724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1349955079
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2024 20:04:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.778722.1188734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sf0Cs-0002Zr-Bm; Fri, 16 Aug 2024 16:53:42 +0000
+	id 1sf1Hx-0005Yg-2B; Fri, 16 Aug 2024 18:03:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 778705.1188724; Fri, 16 Aug 2024 16:53:42 +0000
+Received: by outflank-mailman (output) from mailman id 778722.1188734; Fri, 16 Aug 2024 18:03:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sf0Cs-0002XY-9D; Fri, 16 Aug 2024 16:53:42 +0000
-Received: by outflank-mailman (input) for mailman id 778705;
- Fri, 16 Aug 2024 16:53:40 +0000
+	id 1sf1Hw-0005Wz-VX; Fri, 16 Aug 2024 18:03:00 +0000
+Received: by outflank-mailman (input) for mailman id 778722;
+ Fri, 16 Aug 2024 18:02:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7RMc=PP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sf0Cq-0002XQ-H3
- for xen-devel@lists.xenproject.org; Fri, 16 Aug 2024 16:53:40 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ <SRS0=J2/C=PP=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1sf1Hv-0005Wg-5G
+ for xen-devel@lists.xenproject.org; Fri, 16 Aug 2024 18:02:59 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 156a48a5-5bf0-11ef-a505-bb4a2ccca743;
- Fri, 16 Aug 2024 18:53:39 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6258462117;
- Fri, 16 Aug 2024 16:53:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDCFC32782;
- Fri, 16 Aug 2024 16:53:35 +0000 (UTC)
+ id c51696ab-5bf9-11ef-a505-bb4a2ccca743;
+ Fri, 16 Aug 2024 20:02:58 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2f16d2f2b68so33777261fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 16 Aug 2024 11:02:58 -0700 (PDT)
+Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8383934559sm287708966b.130.2024.08.16.11.02.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 Aug 2024 11:02:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,159 +44,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 156a48a5-5bf0-11ef-a505-bb4a2ccca743
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723827217;
-	bh=05FqKFiDp1obCU8IVAX68BZqgenFk4qV0Beo1Yu69iI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=k/LHvJhpaspNwG/e3/BBfVQljbSO8JQivzWeF4Uxz45RMPAEC9E3KvFr+YNcCfmZ5
-	 WryYmXyz3cN3Lp4NW/tJjAK2W45HAYHTN5ayPNkXp56F9Lgs/1CJFoxOlgupGgU8q2
-	 7tL+jGtoY8p/CHy36L5B7d3FgExilUr587zCy8j2sXeAtD+3rvRXve4M+M81TiZCbp
-	 lr7ZNXO6JzvYELT2B4q5HHnKocwAxiER/oo8IT/VwD+Phl5/XdnUAXI0AeuDgMxO/2
-	 1gzKn2T8HN/HMU4MB/rRNbcba14q1TCcxZJ801HM6NLlYy+3N7KRMCOnS/2pMdXJrs
-	 9citVOSJqzZuA==
-Date: Fri, 16 Aug 2024 09:53:34 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, qemu-devel@nongnu.org, 
-    anthony@xenproject.org, paul@xen.org, peter.maydell@linaro.org, 
-    alex.bennee@linaro.org, xenia.ragiadakou@amd.com, jason.andryuk@amd.com, 
-    edgar.iglesias@amd.com, xen-devel@lists.xenproject.org, 
-    qemu-arm@nongnu.org, andrew.cooper3@citrix.com
-Subject: Re: [PATCH v1 04/10] hw/arm: xenpvh: Add support for SMP guests
-In-Reply-To: <CAJy5ezrUbGZCaF=HiYhyLCoXRL3d=t-QbmLeKvu7ByWksV888g@mail.gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2408160949320.298534@ubuntu-linux-20-04-desktop>
-References: <20240812130606.90410-1-edgar.iglesias@gmail.com> <20240812130606.90410-5-edgar.iglesias@gmail.com> <alpine.DEB.2.22.394.2408121650590.298534@ubuntu-linux-20-04-desktop> <ZruRm34zIMtUm7oH@zapote> <alpine.DEB.2.22.394.2408131550080.298534@ubuntu-linux-20-04-desktop>
- <ZryZwOoadeb1UWK8@zapote> <alpine.DEB.2.22.394.2408141719400.298534@ubuntu-linux-20-04-desktop> <CAJy5ezrUbGZCaF=HiYhyLCoXRL3d=t-QbmLeKvu7ByWksV888g@mail.gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1147340740-1723827217=:298534"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1147340740-1723827217=:298534
+X-Inumbo-ID: c51696ab-5bf9-11ef-a505-bb4a2ccca743
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1723831378; x=1724436178; darn=lists.xenproject.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NzuwvrSR4boSz0LtUOoTzVVt3IV5wBEFG8HEkBgpKf4=;
+        b=K/fXUmbyo9qhYCEfOZ6Llu+xdSK1hELv5y7DyCNtgW+1b99OU7oHEsSqPD+M1Mn03R
+         bkm4AtResDq1hIUzH5tSIcAhaPMgl3XKPapjbRGntq7/JlUnE9l22YTAn9iMJNN1wTDu
+         sWXNfl8VS46Gg876ebrGwGPYYOzyxO2AAmGBc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723831378; x=1724436178;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=NzuwvrSR4boSz0LtUOoTzVVt3IV5wBEFG8HEkBgpKf4=;
+        b=nQnKjL0t3AIAsQdMXlJMp9BAZvILfloQl5odMO1JlE9b8qYTv4krEC0BlRuobvZCBq
+         aG5TaY50fs5UFTjkvg/j7frfXPiGVjGAituw6jnpmXLlKKlbk2QbgzZhaqFDDfKqjXoo
+         KCims8rYs/qJaEDm+4WGJPm7fdRUdRLW7yUen6kQgzieTigf3OGARUZDpN3OkxT3E/D8
+         WGKETPh4gogukDhUzThVJiOTi9sWC8dzJhgwNDBF52SrrXitFQJ2wbdLLkCqzkotha5/
+         TeNi9meekcbCVar9GnA3v3UXpMD1yndXjTkolK4Zdr9toiIy8YVduYi43yGvGLsggTLM
+         sl6w==
+X-Forwarded-Encrypted: i=1; AJvYcCUqSbCBjobriolZj1i7drb9eT3jLg9yXhx7skKbYn97+X87qllbj2+sk8DwGqHE5JraCM5YyshZxzizRd6OFZJKSwz3+ZOQ7lRwVprogoI=
+X-Gm-Message-State: AOJu0YyVQOPLfOznc5g/t2IFI7PmAv5xa7wyrEpOxVgEwU5pjXyfRU5H
+	5GbbrHYm39f4/0vWLaf16rmscsL0Y6M80k16azCGfsB0sPa8S/CziFdzt/QjoIo=
+X-Google-Smtp-Source: AGHT+IFcd4bVp+IhRU+w8Fq2N0hvYZzVZ+texPBSgeNjmVXd1mkHU/N+OacwzlFV1PwAzhElNR6IrQ==
+X-Received: by 2002:a2e:868d:0:b0:2ef:2905:f36d with SMTP id 38308e7fff4ca-2f3be583b5cmr30799561fa.16.1723831377600;
+        Fri, 16 Aug 2024 11:02:57 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Date: Fri, 16 Aug 2024 19:02:54 +0100
+Message-Id: <D3HJ80ZGO0MR.2JCGJIV5JPYQP@cloud.com>
+To: "Roger Pau Monne" <roger.pau@citrix.com>,
+ <xen-devel@lists.xenproject.org>
+Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 13/22] x86/hvm: use a per-pCPU monitor table in HAP mode
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+X-Mailer: aerc 0.17.0
+References: <20240726152206.28411-1-roger.pau@citrix.com>
+ <20240726152206.28411-14-roger.pau@citrix.com>
+In-Reply-To: <20240726152206.28411-14-roger.pau@citrix.com>
 
-On Fri, 16 Aug 2024, Edgar E. Iglesias wrote:
-> On Thu, Aug 15, 2024 at 2:30 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
->       On Wed, 14 Aug 2024, Edgar E. Iglesias wrote:
->       > On Tue, Aug 13, 2024 at 03:52:32PM -0700, Stefano Stabellini wrote:
->       > > On Tue, 13 Aug 2024, Edgar E. Iglesias wrote:
->       > > > On Mon, Aug 12, 2024 at 06:47:17PM -0700, Stefano Stabellini wrote:
->       > > > > On Mon, 12 Aug 2024, Edgar E. Iglesias wrote:
->       > > > > > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
->       > > > > >
->       > > > > > Add SMP support for Xen PVH ARM guests. Create max_cpus ioreq
->       > > > > > servers to handle hotplug.
->       > > > > >
->       > > > > > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
->       > > > > > ---
->       > > > > >  hw/arm/xen_arm.c | 5 +++--
->       > > > > >  1 file changed, 3 insertions(+), 2 deletions(-)
->       > > > > >
->       > > > > > diff --git a/hw/arm/xen_arm.c b/hw/arm/xen_arm.c
->       > > > > > index 5f75cc3779..ef8315969c 100644
->       > > > > > --- a/hw/arm/xen_arm.c
->       > > > > > +++ b/hw/arm/xen_arm.c
->       > > > > > @@ -173,7 +173,7 @@ static void xen_arm_init(MachineState *machine)
->       > > > > > 
->       > > > > >      xen_init_ram(machine);
->       > > > > > 
->       > > > > > -    xen_register_ioreq(xam->state, machine->smp.cpus, &xen_memory_listener);
->       > > > > > +    xen_register_ioreq(xam->state, machine->smp.max_cpus, &xen_memory_listener);
->       > > > > > 
->       > > > > >      xen_create_virtio_mmio_devices(xam);
->       > > > > > 
->       > > > > > @@ -218,7 +218,8 @@ static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
->       > > > > >      MachineClass *mc = MACHINE_CLASS(oc);
->       > > > > >      mc->desc = "Xen PVH ARM machine";
->       > > > > >      mc->init = xen_arm_init;
->       > > > > > -    mc->max_cpus = 1;
->       > > > > > +    /* MAX number of vcpus supported by Xen.  */
->       > > > > > +    mc->max_cpus = GUEST_MAX_VCPUS;
->       > > > >
->       > > > > Will this cause allocations of data structures with 128 elements?
->       > > > > Looking at hw/xen/xen-hvm-common.c:xen_do_ioreq_register it seems
->       > > > > possible? Or hw/xen/xen-hvm-common.c:xen_do_ioreq_register is called
->       > > >
->       > > > Yes, in theory there's probably overhead with this but as you correctly
->       > > > noted below, a PVH aware xl will set the max_cpus option to a lower value.
->       > > >
->       > > > With a non-pvh aware xl, I was a little worried about the overhead
->       > > > but I couldn't see any visible slow-down on ARM neither in boot or in network
->       > > > performance (I didn't run very sophisticated benchmarks).
->       > > 
->       > > What do you mean by "non-pvh aware xl"? All useful versions of xl
->       > > support pvh?
->       >
->       >
->       > I mean an xl without our PVH patches merged.
->       > xl in upstream doesn't know much about PVH yet.
->       > Even for ARM, we're still carrying significant patches in our tree.
-> 
->       Oh I see. In that case, I don't think we need to support "non-pvh aware xl".
-> 
-> 
->       > > > > later on with the precise vCPU value which should be provided to QEMU
->       > > > > via the -smp command line option
->       > > > > (tools/libs/light/libxl_dm.c:libxl__build_device_model_args_new)?
->       > > >
->       > > > Yes, a pvh aware xl will for example pass -smp 2,maxcpus=4 based on
->       > > > values from the xl.cfg. If the user doesn't set maxvcpus in xl.cfg, xl
->       > > > will set maxvcpus to the same value as vcpus.
->       > >
->       > > OK good. In that case if this is just an initial value meant to be
->       > > overwritten, I think it is best to keep it as 1.
->       >
->       > Sorry but that won't work. I think the confusion here may be that
->       > it's easy to mix up mc->max_cpus and machine->smp.max_cpus, these are
->       > not the same. They have different purposes.
->       >
->       > I'll try to clarify the 3 values in play.
->       >
->       > machine-smp.cpus:
->       > Number of guest vcpus active at boot.
->       > Passed to QEMU via the -smp command-line option.
->       > We don't use this value in QEMU's ARM PVH machines.
->       >
->       > machine->smp.max_cpus:
->       > Max number of vcpus that the guest can use (equal or larger than machine-smp.cpus).
->       > Will be set by xl via the "-smp X,maxcpus=Y" command-line option to QEMU.
->       > Taken from maxvcpus from xl.cfg, same as XEN_DMOP_nr_vcpus.
->       > This is what we use for xen_register_ioreq().
->       >
->       > mc->max_cpus:
->       > Absolute MAX in QEMU used to cap the -smp command-line options.
->       > If xl tries to set -smp (machine->smp.max_cpus) larger than this, QEMU will bail out.
->       > Used to setup xen_register_ioreq() ONLY if -smp maxcpus was NOT set (i.e by a non PVH aware xl).
->       > Cannot be 1 because that would limit QEMU to MAX 1 vcpu.
->       >
->       > I guess we could set mc->max_cpus to what XEN_DMOP_nr_vcpus returns but I'll
->       > have to check if we can even issue that hypercall this early in QEMU since
->       > mc->max_cpus is setup before we even parse the machine options. We may
->       > not yet know what domid we're attaching to yet.
-> 
->       If mc->max_cpus is the absolute max and it will not be used if -smp is
->       passed to QEMU, then I think it is OK to use GUEST_MAX_VCPUS
-> 
-> Looking at this a little more. If users (xl) don't pass an -smp option we actually default to smp.max_cpus=1.
-> So, another option is to simply remove the upper limit in QEMU (e.g we can set mc->max_cpus to something very large like UINT32_MAX).
-> That would avoid early hypercalls, avoid using GUEST_MAX_VCPUS and always let xl dictate the max_cpus value using the -smp cmdline option. 
+On Fri Jul 26, 2024 at 4:21 PM BST, Roger Pau Monne wrote:
+> Instead of allocating a monitor table for each vCPU when running in HVM H=
+AP
+> mode, use a per-pCPU monitor table, which gets the per-domain slot update=
+d on
+> guest context switch.
+>
+> This limits the amount of memory used for HVM HAP monitor tables to the a=
+mount
+> of active pCPUs, rather than to the number of vCPUs.  It also simplifies =
+vCPU
+> allocation and teardown, since the monitor table handling is removed from
+> there.
+>
+> Note the switch to using a per-CPU monitor table is done regardless of wh=
+ether
 
-As the expectation is that there will be always a smp.max_cpus option
-passed to QEMU, I would avoid an extra early hypercall.
+s/per-CPU/per-pCPU/
 
-For the initial value, I would use something static and large, but not
-unreasonably large as UINT32_MAX to be more resilient in (erroneous)
-cases where smp.max_cpus is not passed.
+> Address Space Isolation is enabled or not.  Partly for the memory usage
+> reduction, and also because it allows to simplify the VM tear down path b=
+y not
+> having to cleanup the per-vCPU monitor tables.
+>
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> ---
+> Note the monitor table is not made static because uses outside of the fil=
+e
+> where it's defined will be added by further patches.
+> ---
+>  xen/arch/x86/hvm/hvm.c             | 60 ++++++++++++++++++++++++
+>  xen/arch/x86/hvm/svm/svm.c         |  5 ++
+>  xen/arch/x86/hvm/vmx/vmcs.c        |  1 +
+>  xen/arch/x86/hvm/vmx/vmx.c         |  4 ++
+>  xen/arch/x86/include/asm/hap.h     |  1 -
+>  xen/arch/x86/include/asm/hvm/hvm.h |  8 ++++
+>  xen/arch/x86/mm.c                  |  8 ++++
+>  xen/arch/x86/mm/hap/hap.c          | 75 ------------------------------
+>  xen/arch/x86/mm/paging.c           |  4 +-
+>  9 files changed, 87 insertions(+), 79 deletions(-)
+>
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 7f4b627b1f5f..3f771bc65677 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -104,6 +104,54 @@ static const char __initconst warning_hvm_fep[] =3D
+>  static bool __initdata opt_altp2m_enabled;
+>  boolean_param("altp2m", opt_altp2m_enabled);
+> =20
+> +DEFINE_PER_CPU(root_pgentry_t *, monitor_pgt);
+> +
+> +static int allocate_cpu_monitor_table(unsigned int cpu)
 
-So I would initialize it to GUEST_MAX_VCPUS, or if we don't want to use
-GUEST_MAX_VCPUS, something equivalent in the 64-256 range.
+To avoid ambiguity, could we call these *_pcpu_*() instead?
 
-Alternative we can have a runtime check and exit with a warning if
-smp.max_cpus is not set.
---8323329-1147340740-1723827217=:298534--
+> +{
+> +    root_pgentry_t *pgt =3D alloc_xenheap_page();
+> +
+> +    if ( !pgt )
+> +        return -ENOMEM;
+> +
+> +    clear_page(pgt);
+> +
+> +    init_xen_l4_slots(pgt, _mfn(virt_to_mfn(pgt)), INVALID_MFN, NULL,
+> +                      false, true, false);
+> +
+> +    ASSERT(!per_cpu(monitor_pgt, cpu));
+> +    per_cpu(monitor_pgt, cpu) =3D pgt;
+> +
+> +    return 0;
+> +}
+> +
+> +static void free_cpu_monitor_table(unsigned int cpu)
+> +{
+> +    root_pgentry_t *pgt =3D per_cpu(monitor_pgt, cpu);
+> +
+> +    if ( !pgt )
+> +        return;
+> +
+> +    per_cpu(monitor_pgt, cpu) =3D NULL;
+> +    free_xenheap_page(pgt);
+> +}
+> +
+> +void hvm_set_cpu_monitor_table(struct vcpu *v)
+> +{
+> +    root_pgentry_t *pgt =3D this_cpu(monitor_pgt);
+> +
+> +    ASSERT(pgt);
+> +
+> +    setup_perdomain_slot(v, pgt);
+
+Why not modify them as part of write_ptbase() instead? As it stands, it app=
+ears
+to be modifying the PTEs of what may very well be our current PT, which mak=
+es
+the perdomain slot be in a $DEITY-knows-what state until the next flush
+(presumably the write to cr3 in write_ptbase()?; assuming no PCIDs).
+
+Setting the slot up right before the cr3 change should reduce the potential=
+ for
+misuse.
+
+> +
+> +    make_cr3(v, _mfn(virt_to_mfn(pgt)));
+> +}
+> +
+> +void hvm_clear_cpu_monitor_table(struct vcpu *v)
+> +{
+> +    /* Poison %cr3, it will be updated when the vCPU is scheduled. */
+> +    make_cr3(v, INVALID_MFN);
+
+I think this would benefit from more exposition in the comment. If I'm gett=
+ing
+this right, after descheduling this vCPU we can't assume it'll be reschedul=
+ed
+on the same pCPU, and if it's not it'll end up using a different monitor ta=
+ble.
+This poison value is meant to highlight forgetting to set cr3 in the
+"ctxt_switch_to()" path.=20
+
+All of that can be deduced from what you wrote and sufficient headscratchin=
+g
+but seeing how this is invoked from the context switch path it's not incred=
+ibly
+clear wether you meant the perdomain slot would be updated by the next vCPU=
+ or
+what I stated in the previous paragraph.
+
+Assuming it is as I mentioned, maybe hvm_forget_cpu_monitor_table() would
+convey what it does better? i.e: the vCPU forgets/unbinds the monitor table
+from its internal state.
+
+Cheers,
+Alejandro
 
