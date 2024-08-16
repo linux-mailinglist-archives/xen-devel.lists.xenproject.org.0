@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2F2595452C
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2024 11:10:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.778432.1188465 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 084C69545AB
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2024 11:28:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.778442.1188475 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sesy7-0005V1-1d; Fri, 16 Aug 2024 09:09:59 +0000
+	id 1setFp-0000jA-JZ; Fri, 16 Aug 2024 09:28:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 778432.1188465; Fri, 16 Aug 2024 09:09:59 +0000
+Received: by outflank-mailman (output) from mailman id 778442.1188475; Fri, 16 Aug 2024 09:28:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sesy6-0005SW-UW; Fri, 16 Aug 2024 09:09:58 +0000
-Received: by outflank-mailman (input) for mailman id 778432;
- Fri, 16 Aug 2024 09:09:57 +0000
+	id 1setFp-0000gk-Fr; Fri, 16 Aug 2024 09:28:17 +0000
+Received: by outflank-mailman (input) for mailman id 778442;
+ Fri, 16 Aug 2024 09:28:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6pmz=PP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sesy5-0005SQ-1O
- for xen-devel@lists.xenproject.org; Fri, 16 Aug 2024 09:09:57 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ <SRS0=JmuG=PP=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1setFo-0000ge-48
+ for xen-devel@lists.xenproject.org; Fri, 16 Aug 2024 09:28:16 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::601])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4e03f29e-5baf-11ef-a505-bb4a2ccca743;
- Fri, 16 Aug 2024 11:09:55 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-52efd530a4eso2866905e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 16 Aug 2024 02:09:55 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5330d3afb37sm489003e87.20.2024.08.16.02.09.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Aug 2024 02:09:54 -0700 (PDT)
+ id dbfd898d-5bb1-11ef-a505-bb4a2ccca743;
+ Fri, 16 Aug 2024 11:28:14 +0200 (CEST)
+Received: from DS7PR03CA0245.namprd03.prod.outlook.com (2603:10b6:5:3b3::10)
+ by DM4PR12MB6565.namprd12.prod.outlook.com (2603:10b6:8:8c::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.19; Fri, 16 Aug
+ 2024 09:28:09 +0000
+Received: from CH3PEPF00000012.namprd21.prod.outlook.com
+ (2603:10b6:5:3b3:cafe::84) by DS7PR03CA0245.outlook.office365.com
+ (2603:10b6:5:3b3::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.19 via Frontend
+ Transport; Fri, 16 Aug 2024 09:28:09 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH3PEPF00000012.mail.protection.outlook.com (10.167.244.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7897.4 via Frontend Transport; Fri, 16 Aug 2024 09:28:08 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 16 Aug
+ 2024 04:28:08 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 16 Aug
+ 2024 04:28:08 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 16 Aug 2024 04:28:06 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,238 +63,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e03f29e-5baf-11ef-a505-bb4a2ccca743
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1723799395; x=1724404195; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=vUEZdaXsro3QmbQ+m7qaUpgvb6+JGU58LOwr5bfWnVc=;
-        b=gzt4OAYmpa8viJX6V/0wxR94G6cVPz6WeStt/zraVf+qjrcrW1W/Lg3n6cexb5X8Z1
-         LS2iWX/SeqKQlB/K3xCGfzYSJG+NXvCE28p3lfeN9Xzbgi6Xe1Q83r8uqPjMpkzEm1dV
-         Aof6yKNOaHLAZHx8MGzqFl+tTOyu7OSF+wVuhkpanDKt90IdOKLJh/DsLArXy+CawWpj
-         5KBi4CG1TQ+RRsFEMeUlxyygHqFBgjncyXvvM9k61Tw0AinpztJe4IN6HUEFFRJZAAzE
-         Fbg1ao+HynH2vrLbG5TPcLbwsYd0oytNaJ+Zn/dp3jumSODWTPsECbrL5L9NFQBrwiD9
-         J9iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723799395; x=1724404195;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vUEZdaXsro3QmbQ+m7qaUpgvb6+JGU58LOwr5bfWnVc=;
-        b=K4l1O1PQGRUJMDUWTKDMKxkx/DgkoIJm2FbcHNpCCaGgTzm4Yqij3lvwLwDhHxaUVw
-         3BN+lEQrkbKDdjxvFn9cbJNrkzR3qZbRJctiDoWyZH+IW5PM31rkYnVkL5FXoZdt73M6
-         LZbP3cBJDSfkBY7L5KrvC7MgK226hHpn/s1fry8NFxkQyYMpgx3oxHWzyhXV3oFLfoWv
-         SsxiCIQJa2IkvDHGxfdIW7OvJjXm56wj+95AICeon+GLmkquepriV99nTqGoKJX00hGC
-         gvFRYmQ+FKo3UC4YGTz8R9b8wT/LR+tOmLsuLSsMeeuH9msBr00ZWZvpAJSp4L7l12cg
-         ZdGg==
-X-Forwarded-Encrypted: i=1; AJvYcCWPiegzwEEkKbXySJzqAKeX5K/1/DQ4JTkYSGbhHzTzigcVg1THa9+x1L1lwlRnAecr/pfsnuupIztv1Jegndrf/3lfd+WjjDPhKwveesw=
-X-Gm-Message-State: AOJu0Yyo3JHSG03OpnJL4NjOZdt5mM/kqfbUW09+LtYaMmDudKfAeE1g
-	flyLQULssddNFDwlaFxTFV8mTnv6SE7chZ6rNz+7AgeimA1hUqGJ
-X-Google-Smtp-Source: AGHT+IGXm96dJ30fnCB3CUOQf4N+vfPiwX1Mzss78YvORz+wp1vxsuf8wWJtORxgUNtUrKXToxSUow==
-X-Received: by 2002:a05:6512:280a:b0:52c:e11e:d493 with SMTP id 2adb3069b0e04-5331c6b1d27mr1352635e87.26.1723799394831;
-        Fri, 16 Aug 2024 02:09:54 -0700 (PDT)
-Message-ID: <337a2fe952b7e81c27fae67c23154eefa2f7ae42.camel@gmail.com>
-Subject: Re: [PATCH v4 6/7] xen/riscv: page table handling
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Fri, 16 Aug 2024 11:09:53 +0200
-In-Reply-To: <63af73be-d95e-47d5-bfbe-7f0304118a17@suse.com>
-References: <cover.1723214540.git.oleksii.kurochko@gmail.com>
-	 <8362795280a48702bef6f01d41d148edcf299935.1723214540.git.oleksii.kurochko@gmail.com>
-	 <85a4e760-07af-42bd-ac27-12a4fa5172cc@suse.com>
-	 <1e83981cff0b6c47aa941e7ffee0ce658aefef22.camel@gmail.com>
-	 <d41f3027-14c8-4716-9444-d8bc109bb2b7@suse.com>
-	 <be47249638cbae5e057279acd9a3464c218fbac8.camel@gmail.com>
-	 <2ded848e-f2a5-4005-b4c6-09014a92122c@suse.com>
-	 <48fc698708a87fed986cbb6526a6422bae488823.camel@gmail.com>
-	 <63af73be-d95e-47d5-bfbe-7f0304118a17@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3 (3.52.3-1.fc40app2) 
+X-Inumbo-ID: dbfd898d-5bb1-11ef-a505-bb4a2ccca743
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xXbITgBc6smELDw8AZD0zkv+RgwiEbq1CdGOkD1C5oYBn5MTqWCSZagP7Yu3VGocYER4q+6Sv6+Z2Zyena7NbC9ZMKhN+C2L9t0ydHX5soak/m9l/970MqvX/k14T1q7SC5JrZLHTv1+PNffKyYdM1TtJAEQbHf3yccenGvLvpvOgpyFD4HmWrcU7SkAzU2QzkTftfQJ5mKqrZSNwLSRP/uFjunZkrGQD+tq1b25e/BBLJ8W5q2/H6yZP4N4KWEUI97WPVfLfRo3qU7MAKjDFI2Wq+fz1rfLiWHnsrsGZE6B7VEtsNV8Eb11iM8myOAt7/mpebsiIT6ce2eqhs0oQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bra6CCrp3DnE2rw0HNPS4yYAQIPTe+xVNSb3Rx+LVXM=;
+ b=pMgePXrR0GRgK67fxaiR9Khb1Jij0QdcHIGo0cSaBeCwrVEs8Y/oroT5IsqnHjKg8iRND5Ee422GKJHhNAc5wRMnvRk527CdaJdijWQFJEqFubXGLsjwY29nguS0Ba8TqfpBwQsJFuaDjl6tHoNbLPWIJVeBNNapB+onrYJV+mVGPI07hGq5cnbMQP45QhdnebOdOkspG6ujZCVlFKk+LZHkCXx/gIjTYsQYZXkBx2buwFQSkxfu+qsMC9JDn64TBnl5WM39nvpPY3dcjI8styVaptIqC4pqsQeRdm452gXJGQ6RiX0eWSUqW1JrDrkB0HKVLjg3GX+rA3adKFCGjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bra6CCrp3DnE2rw0HNPS4yYAQIPTe+xVNSb3Rx+LVXM=;
+ b=Fegc/7ZUqUH5NHg1O4tq1vPnQGo6X0rWqIEqgKhmGOPNaRdEHv7v8ddh+UHSIKqeH9v0vQYzz8dqqpfnIsYPVeC/WqLTfXTZeI19Sugtt+x/zVNp4k46Vgw4Mxr9mYJqL+vnbgQlBizkXQiWObdjobMaMJP8XoqCxmwv1VtQwYY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <03682a1f-f4d1-4d07-ba86-8e9fc6ed044c@amd.com>
+Date: Fri, 16 Aug 2024 11:28:05 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] xen: make VMAP only support in MMU system
+To: Ayan Kumar Halder <ayankuma@amd.com>, Jan Beulich <jbeulich@suse.com>,
+	Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+CC: <xen-devel@lists.xenproject.org>, Penny Zheng <penny.zheng@arm.com>, "Wei
+ Chen" <wei.chen@arm.com>, <sstabellini@kernel.org>,
+	<bertrand.marquis@arm.com>, <Volodymyr_Babchuk@epam.com>, <julien@xen.org>
+References: <20240813171356.46760-1-ayan.kumar.halder@amd.com>
+ <20240813171356.46760-3-ayan.kumar.halder@amd.com>
+ <6d333d94-80ad-485c-b024-a45a388b96a4@suse.com>
+ <ef789757-8c03-4f97-9bfb-8ec2fd2f4ca2@amd.com>
+ <dad27ab7-3cbd-4a8e-8200-adea52b26e55@suse.com>
+ <597b358e-3b45-4fba-922d-31208b55d15a@amd.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <597b358e-3b45-4fba-922d-31208b55d15a@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000012:EE_|DM4PR12MB6565:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d584732-037c-42a6-e88f-08dcbdd5bdd9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?NWkrOUtuS3dTY1ZaM1hUbUp5V2d6NWtuWVV0UjNvUWdyVndwcW5OelRZSzdo?=
+ =?utf-8?B?eldXSUkyQjdCb1dXYjhXb2l3dU82Sk9KM0Y4amJVZ0Nzc2E3c2Vkanp0T3FF?=
+ =?utf-8?B?c3RGT1lDWnQ3QmhRWWZCQzVONnNnQ29pTWlkT0xuaU5Kb1I0WEcrQnpmSW0r?=
+ =?utf-8?B?WEZIdElIVW1DaENoOUFVV1ZFNmJuK2I4OXExSldud3VISS9OU1luVjVIYnhh?=
+ =?utf-8?B?aTFGMGhha1VVMzZMKzA3NmN4V3BFaXlFR0Vic1AwS2YwY1V0NXBWcTV5NlZ0?=
+ =?utf-8?B?TWhqRnd3TVpZUVFKUkJheXE4aXRHNXR5OUVlbW1QZlhzNFpoTWdxSllvTlQ3?=
+ =?utf-8?B?K3lOZDNSaHFEYWNNVFVFYnh2TVVEdXYvcUxvdk80dzl1U1dWTGZwTGdSRkFF?=
+ =?utf-8?B?Q1g0R294UEdpK0twQVFMVUk1cFBVQUhFajZPaVpaNXFqOTNSQ1AwZU1MZFJF?=
+ =?utf-8?B?cWROSzVEcWwwQXZpUk5LdURQeTYyb2cra0dnTTZTS1BHVGhJZzRDSFVYaWFl?=
+ =?utf-8?B?VHNnQ3JxNi9QTWsrbkFOemdqU2NpRGMrMGpjS2RMR2dCQ3dJaUd3NklQeU40?=
+ =?utf-8?B?Mjg5b0dIWjZhS2wwRWJpVEtKQ3FjUkk3bXdOVlUwcGlxa1U0L3oycFppQmZv?=
+ =?utf-8?B?eTBRYnBvaTVTbzJpOVNuOE94NExyR3pSU3dxaDdzRXFxMDkzOVEzUkxSVkF6?=
+ =?utf-8?B?QzFRdVIvTFExeHVUdFZNQ0Y4UTdQOWZnb0JCT1BISnVWejlyclNQbk5aWWt3?=
+ =?utf-8?B?dDlnT3o2eUVCYUNmN0JWZ0FINXVudkdHNWNubUpnSk4rMk5TdFlvcE5BcFpp?=
+ =?utf-8?B?OHdacmNYUnRDa3pqM05PM3RKWk1yeUFzZnlaQ3N1dDVSMFE1M0J2RGE2U2or?=
+ =?utf-8?B?YXZiYnpQRFJ5eXZrOS9sMklSMGs3ZTEyQlAvb0dJUnRlcjI0dXU2MjJxdXR2?=
+ =?utf-8?B?dVBIQmQrRWh4M3RKSVgxc0RmcTBTSG83Wkh5Ny9ZNDBRYUR1TjNRL0pRd3hR?=
+ =?utf-8?B?Nmh6cVZjSHZtK3FkeW1nUWl6SXkvRm5WanRPdUZqL0RNbi9pSjBSdDE3MHUx?=
+ =?utf-8?B?dmU1M0oyaXo3VU5OMmcxT0EyRjN6VVJoUWRiWm8vRzJCbXVBRDhaLzM4QjRY?=
+ =?utf-8?B?L0dyZmNaN2xjc1U1TmRSbCs2VVRkZ2ljQ1NScDlRK05HcDVCRXVCV1RrSnAv?=
+ =?utf-8?B?bVorcmdod1JlUzJPZXFkWWV2YzdPYklyT05ub1ZMc1daY3VDTUpQdHI3ckx2?=
+ =?utf-8?B?ajBKQkI3ZWpoa0k3ZWg3ZzFza3MzYVNnS3hSOWVzWDJQOXd5d2dETFYyWExn?=
+ =?utf-8?B?R0xIdGVvclJvcDA3MldLekpyOFNoOE5CR2xTTU9DM1ZHMVVnckIzNzRvTmJB?=
+ =?utf-8?B?aXNJS2pZK1J6NDdtTDNkaFYwUWhyQzBtUmw3N2dGVzVSWVM0bjFibVRTK0g3?=
+ =?utf-8?B?alZzY0R0L0VPQzdWVkp5K28ycGRjb25kVFVQLzBpNW0vdVMxRFNoTWRZUTUv?=
+ =?utf-8?B?U0R4NVhGSTRHQmozZHkwY3Rxdnl6ZW9jeUlLQ29Sb2JMaFFVMWFnbC8rcTc5?=
+ =?utf-8?B?ZWhSU09pblNlcU84K2FvVld6czNLeDIrQzZ2N2QzMTF4RVhURk0zSHJrNWFT?=
+ =?utf-8?B?Tk5rSnVzaUxVVkozbjg5VzYzeEpRTkdHYW1WUUlFbWQ3WU9uTFEwSFZwVnNJ?=
+ =?utf-8?B?encvNGlwOE01ejh2SFZ2ekRHYmtjR21hQ25vU05Pci9VN2lCTEtNakY3aUJS?=
+ =?utf-8?B?dXlwTE9VbFFJTVlnRys3VktQSU1COTZoVlo2ZTZsd0NvZnlsZlNuSGxMRWdV?=
+ =?utf-8?B?UVZlWm9acnVhZTlISmEzS2lITkRnN0hwVFd1NFJab3oxd3VFaHhXWVBDblMv?=
+ =?utf-8?B?dVpxeXA0M0x2akZJYStnRzJOWGFhOXBCdG5Bd3pGSWE2WkE9PQ==?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2024 09:28:08.9688
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d584732-037c-42a6-e88f-08dcbdd5bdd9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000012.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6565
 
-On Thu, 2024-08-15 at 17:26 +0200, Jan Beulich wrote:
-> On 15.08.2024 15:34, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > On Thu, 2024-08-15 at 14:16 +0200, Jan Beulich wrote:
-> > > On 15.08.2024 13:21, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > > > On Thu, 2024-08-15 at 10:09 +0200, Jan Beulich wrote:
-> > > > > On 14.08.2024 18:50, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > > > > > On Tue, 2024-08-13 at 12:31 +0200, Jan Beulich wrote:
-> > > > > > > On 09.08.2024 18:19, Oleksii Kurochko wrote:
-> > > > > > > > RISC-V detects superpages using `pte.x` and `pte.r`, as
-> > > > > > > > there
-> > > > > > > > is no specific bit in the PTE for this purpose. From
-> > > > > > > > the
-> > > > > > > > RISC-V
-> > > > > > > > spec:
-> > > > > > > > ```
-> > > > > > > > =C2=A0 ...
-> > > > > > > > =C2=A0 4. Otherwise, the PTE is valid. If pte.r =3D 1 or pt=
-e.x
-> > > > > > > > =3D
-> > > > > > > > 1, go
-> > > > > > > > to
-> > > > > > > > step 5.
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 Otherwise, this PTE is a pointer t=
-o the next level
-> > > > > > > > of
-> > > > > > > > the
-> > > > > > > > page
-> > > > > > > > table.
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 ... .
-> > > > > > > > =C2=A0 5. A leaf PTE has been found.
-> > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 ...
-> > > > > > > > =C2=A0 ...
-> > > > > > > > ```
-> > > > > > > >=20
-> > > > > > > > The code doesn=E2=80=99t support super page shattering so 4=
-KB
-> > > > > > > > pages
-> > > > > > > > are
-> > > > > > > > used as
-> > > > > > > > default.
-> > > > > > >=20
-> > > > > > > ... you have this. Yet still callers expecting re-mapping
-> > > > > > > in
-> > > > > > > the
-> > > > > > > (large)
-> > > > > > > range they map can request small-page mappings right
-> > > > > > > away.
-> > > > > > I am not sure that I fully understand what do you mean by
-> > > > > > "expcting
-> > > > > > re-
-> > > > > > mapping".
-> > > > >=20
-> > > > > Right now you have callers pass PTE_BLOCK when they know that
-> > > > > no
-> > > > > small
-> > > > > page re-mappings are going to occur for an area. What I'm
-> > > > > suggesting
-> > > > > is
-> > > > > that you invert this logic: Have callers pass PTE_SMALL when
-> > > > > there is
-> > > > > a possibility that re-mapping requests may be issued later.
-> > > > > Then,
-> > > > > later, by simply grep-ing for PTE_SMALL you'll be able to
-> > > > > easily
-> > > > > find
-> > > > > all candidates that possibly can be relaxed when super-page
-> > > > > shattering
-> > > > > starts being supported. That's going to be easier than
-> > > > > finding
-> > > > > all
-> > > > > instances where PTE_BLOCK is _not_used.
-> > > > So if I understand correctly. Actually nothing will change in
-> > > > algorithm
-> > > > of pt_update() and only PTE_SMALL should be introduced instead
-> > > > of
-> > > > PTE_BLOCK. And if I will know that something will be better to
-> > > > map
-> > > > as
-> > > > PTE_SMALL to not face shattering in case of unmap (for example)
-> > > > I
-> > > > just
-> > > > can map this memory as PTE_SMALL and that is it?
-> > >=20
-> > > That is it.
-> > >=20
-> > > > > > > > +=C2=A0=C2=A0=C2=A0 spin_unlock(&xen_pt_lock);
-> > > > > > >=20
-> > > > > > > Does this really need to come after fence and flush?
-> > > > > > I think yes, as page table should be updated only by 1 CPU
-> > > > > > at
-> > > > > > the
-> > > > > > same
-> > > > > > time. And before give ability to other CPU to update page
-> > > > > > table
-> > > > > > we
-> > > > > > have
-> > > > > > to finish a work on current CPU.
-> > > > >=20
-> > > > > Can you then explain to me, perhaps by way of an example,
-> > > > > what
-> > > > > will
-> > > > > go
-> > > > > wrong if the unlock is ahead of the flush? (I'm less certain
-> > > > > about
-> > > > > the
-> > > > > fence, and that's also less expensive.)
-> > > > pt_update() will be called for interleaved region, for example,
-> > > > by
-> > > > different CPUs:
-> > > >=20
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pt_update():
-> > > > CPU1:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- CPU2:
-> > > > =C2=A0...=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&xen_pt_lo=
-ck);
-> > > > RISCV_FENCE(rw, rw);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ....
-> > > >=20
-> > > > /* After this function will be
-> > > > =C2=A0=C2=A0 executed the following thing
-> > > > =C2=A0=C2=A0 can happen ------------------>=C2=A0 start to update p=
-age table
-> > > > */=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 entries which was
-> > > > partially=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> > > > spin_unlock(&xen_pt_lock);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 created during CPU1 but
-> > > > CPU2=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > ....=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 doesn't know about them
-> > > > yet=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > ....=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 because flush_tlb() (
-> > > > sfence.vma
-> > > > )=20
-> > > > ....=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wasn't done=C2=A0=C2=A0=C2=A0=C2=
-=A0 =C2=A0
-> > > > ....=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0
-> > > > =C2=A0=C2=A0=20
-> > > > flush_tlb_range_va();
-> > >=20
-> > > Not exactly: CPU2 knows about them as far as the memory used /
-> > > modified
-> > > goes, and that's all that matters for further page table
-> > > modifications.
-> > > CPU2 only doesn't know about the new page table entries yet when
-> > > it
-> > > comes
-> > > to using them for a translation (by the hardware page walker).
-> > > Yet
-> > > this
-> > > aspect is irrelevant here, if I'm not mistaken.
-> > And it isn't an issue that CPU2 will add these new page table
-> > entries
-> > again during execution of CPU2's pt_update()?
->=20
-> Add these page table entries again? That's only going to happen due
-> to
-> another bug somewhere, I suppose. And it would be as much (or as
-> little)
-> of an issue if that happened right after dropping the lock.
-Yes, agree, it sounds more like a bug. Thanks.
+Hi Ayan,
 
-~ Oleksii
+On 14/08/2024 14:33, Ayan Kumar Halder wrote:
+> Hi Jan,
+> 
+> On 14/08/2024 12:35, Jan Beulich wrote:
+>> On 14.08.2024 12:55, Ayan Kumar Halder wrote:
+>>> Hi Jan,
+>>>
+>>> On 14/08/2024 07:37, Jan Beulich wrote:
+>>>> On 13.08.2024 19:13, Ayan Kumar Halder wrote:
+>>>>> From: Penny Zheng <penny.zheng@arm.com>
+>>>>>
+>>>>> Introduced CONFIG_VMAP which is selected by the architectures that use
+>>>>> MMU. vm_init() does not do anything if CONFIG_VMAP is not enabled.
+>>>>>
+>>>>> VMAP is widely used in ALTERNATIVE feature to remap a range of memory
+>>>>> with new memory attributes. Since this is highly dependent on virtual
+>>>>> address translation, we choose to fold VMAP in MMU system.
+>>>>>
+>>>>> In this patch, we introduce a new Kconfig CONFIG_HAS_VMAP, and make it
+>>>>> only support in MMU system on ARM architecture. And ALTERNATIVE now
+>>>>> depends on VMAP.
+>>>>>
+>>>>> HARDEN_BRANCH_PREDICTOR is now gated on HAS_VMAP as speculative
+>>>>> attacks are not possible on non MMU based systems (ie Cortex-R52, R82).
+>>>>> See https://developer.arm.com/Arm%20Security%20Center/Speculative%20Processor%20Vulnerability.
+>>>> While I'm not an Arm expert and hence I'm likely missing aspects, I question
+>>>> the one (Spectre-BHB) vulnerability there to be sufficient to draw a
+>>>> conclusion towards the usefulness of branch hardening. I would advise
+>>>> against encoding such a connection in the Kconfig dependencies.
+>>> AFAIU, to address 'Spectre' like vulnerabilities 'branch hardening' was
+>>> added.
+>>>
+>>> See https://lore.kernel.org/all/E1fNadD-0000fz-9r@rmk-PC.armlinux.org.uk/
+>>>
+>>> And from
+>>> https://lists.linaro.org/archives/list/linux-stable-mirror@lists.linaro.org/message/F4MGL4WT2R7T54NLRDGKFRQNSXF3DZGD/
+>>>
+>>> Spectre is valid on MMU based systems.
+>> Since then various other issues / flavors were found. I've been focusing
+>> on the x86 side of things, but I'd be very surprised if some didn't
+>> affect other architectures as well.
+> 
+> We are talking about Arm here as "HARDEN_BRANCH_PREDICTOR" is specific 
+> to Arm.
+> 
+> https://developer.arm.com/Arm%20Security%20Center/Speculative%20Processor%20Vulnerability 
+> covers all the flavours and it does not include Cortex-R82 or R52.
+> 
+> It says the following :-
+> 
+> "Cortex-R cores typically use a closed software stack. In those 
+> environments, applications or processes are strictly controlled, and 
+> therefore not exploitable"
+> 
+>> Plus branch hardening can be a pre-
+>> cautionary measure, too, I think.
+> 
+> The first two Arm non MMU cores that we wish to support in the 
+> forthcoming series is Cortex-R82 and R52.
+> 
+> As seen in https://developer.arm.com/documentation/ka005109/latest/, it 
+> explicitly states the following about R82
+> 
+> The Cortex-R82 implements the faulting feature (FEAT_FPAC) but is not 
+> vulnerable. The Cortex-R82 behaves differently than vulnerable A-class 
+> CPUs when speculatively executing past an instruction that authenticates 
+> PAC, and that behavior does not allow the attack software to create the 
+> "oracle".
+> 
+> We can re-enable branch hardening if we know there is a valid non MMU 
+> Arm core which is vulnerable.
+> 
+> Let me know if you are ok with the rationale.
+I'm ok with your rationale.
+
+I have one question for this patch. Why can't we use CONFIG_HAS_VMAP to conditionally compile vmap.c, like:
+obj-$(CONFIG_HAS_VMAP) += vmap.o
+and get rid of VMAP_VIRT_START guard on an entire file?
+With this config in place, it seems strange to use VMAP_VIRT_START as a guard.
+
+~Michal
+
 
