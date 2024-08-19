@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FBC5956966
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2024 13:36:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.779563.1189273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3053395697B
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2024 13:39:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.779573.1189282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sg0fl-00079x-Ss; Mon, 19 Aug 2024 11:35:41 +0000
+	id 1sg0jL-0008TM-F4; Mon, 19 Aug 2024 11:39:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 779563.1189273; Mon, 19 Aug 2024 11:35:41 +0000
+Received: by outflank-mailman (output) from mailman id 779573.1189282; Mon, 19 Aug 2024 11:39:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sg0fl-00078B-PX; Mon, 19 Aug 2024 11:35:41 +0000
-Received: by outflank-mailman (input) for mailman id 779563;
- Mon, 19 Aug 2024 11:35:40 +0000
+	id 1sg0jL-0008QX-CJ; Mon, 19 Aug 2024 11:39:23 +0000
+Received: by outflank-mailman (input) for mailman id 779573;
+ Mon, 19 Aug 2024 11:39:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UKSt=PS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sg0fk-000785-1b
- for xen-devel@lists.xenproject.org; Mon, 19 Aug 2024 11:35:40 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1sg0jJ-0008QR-8k
+ for xen-devel@lists.xenproject.org; Mon, 19 Aug 2024 11:39:21 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 27431ef7-5e1f-11ef-8776-851b0ebba9a2;
- Mon, 19 Aug 2024 13:35:38 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4281d812d3eso46251285e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 19 Aug 2024 04:35:36 -0700 (PDT)
+ id abfe080d-5e1f-11ef-8776-851b0ebba9a2;
+ Mon, 19 Aug 2024 13:39:19 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-52efdf02d13so5508591e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Aug 2024 04:39:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a838396e0edsm619916766b.222.2024.08.19.04.35.35
+ a640c23a62f3a-a83838d023dsm619746966b.64.2024.08.19.04.39.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Aug 2024 04:35:35 -0700 (PDT)
+ Mon, 19 Aug 2024 04:39:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27431ef7-5e1f-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: abfe080d-5e1f-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724067336; x=1724672136; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724067559; x=1724672359; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2ZSnyPp5I8ZzYOSC8r9y4DICPE+jaj/ujt+3Vx/s5gU=;
-        b=TJmH5BwDnFpCl7nGPsTrseQ3v2DIBFpPXvZ8lvebG2CmOKa29NDRdb69aCMdGwnvb5
-         lFgioP28Z2c2F484sr/E+MoMU1e444KMdDRl65HNkFkGh6W5ArHctLQpZiLd2BJUnUhA
-         /D9R8cPM+Vt18AlgdSoUpx1FKP5yN66WYbDZpqC9vjT6J1gSmv7KW1uNPYgkJz7oSPVL
-         PintEomJZ4UJFYHlfg+kyTEIBhj4XwYQUsXtQMRV9O7uQfPJJm7UQKVbK7uW1Ne7g4AC
-         1HEUQT9v4BghRQrT9c1wBzg/uuf8N6y5+fFisrRfNomaaufA/CTFy8M/lCerJe+jZ/KI
-         +xLQ==
+        bh=74M02xVp+Xc+oxJDi9RbzCA2XfqS0Zn9U0wGl/0+2Mw=;
+        b=YdeoLogfinY8pbMzp5o8X4pqlmEOzmdttnQELUmfJzXioWKcSf5pw62A+Hu8rew3QG
+         plvYeV1L8hhVWvkL2L3oEVxD5gw+ntotYK+ovwJ162r2Ft+6Y+MTE/DQm4POthy09rsc
+         fAtqdx3WESYXfOwZeChngcXq/kZRXaz3y5ek4NBses+AJoLiIws1kCX5UlDAFNM4C7NE
+         +L/bjIpyhgQjgyT3PHO/XhdvCmOl6sOsJ8udVur6DiW/BXIzuYUIgrJU7iqQi7zYAKKj
+         JteL2re0dtKtiViMkT05L9ea1MlZ9KEmhdlIImvu75eXdqQ0KU5Kj2f4iznF9wQKvBjf
+         QKXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724067336; x=1724672136;
+        d=1e100.net; s=20230601; t=1724067559; x=1724672359;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2ZSnyPp5I8ZzYOSC8r9y4DICPE+jaj/ujt+3Vx/s5gU=;
-        b=mshmFF/chtjl1Aj/VLyJ3+pZgI0DIWfSKlO/sITZ/uVxyOWvEZAZma4dLN8vNzeDh6
-         K2L19rUSLfhhaTNm5977HJzeME653h7YU/Cyi8noi/PIYrNh/XdoGHjpW13lpEVCzUE7
-         H9OmJsIhjDwDGy4Qktr5vOPaTzpZO1SM6FwyRalXIbb0LKECQpkZIriEeuvI9NOt88Gn
-         4M6EHXekRygjbsruyG7jGldcGa1+OqtQF1xCvG44+gJSt0g6IZpfydsn0+HetC0tO2YY
-         xsHijM4PIkL/OEC0WogusUD0An84G1iApr9eMlihrB539EdjevZFUva3iKQ6a5ZL5ueD
-         hnGw==
-X-Forwarded-Encrypted: i=1; AJvYcCXXKxXPN0gj0/XBmSxzZGldWvFKXMzhZnibJtGsmuk0NGLPrbTFqNL4MIRyhiSPRRLJB6y5SBXQC8jLRmxoDJeYqkpGiEOMF92kTn+NIIM=
-X-Gm-Message-State: AOJu0YwKU1zzVq8YalZqxVDG2rfNcLofTN6JGpHt4mQ2L/kTDg3vbGEj
-	FqjktelqlydyYbl4OgFJmA2INC4wWPQ5rhhu2bDymL/3iKlGj7EQgONuY0+Ncw==
-X-Google-Smtp-Source: AGHT+IGXfeJuq4efzTUo620nLNM7ozIi/qh46btWrvRqaBwr8OJKrTEuOWfn6emVpsGRCiqMmvqN+w==
-X-Received: by 2002:a5d:548c:0:b0:368:3f6a:1dea with SMTP id ffacd0b85a97d-37194315601mr8417703f8f.6.1724067335901;
-        Mon, 19 Aug 2024 04:35:35 -0700 (PDT)
-Message-ID: <271cf485-c03a-4592-a1fb-d6d201fbe74b@suse.com>
-Date: Mon, 19 Aug 2024 13:35:34 +0200
+        bh=74M02xVp+Xc+oxJDi9RbzCA2XfqS0Zn9U0wGl/0+2Mw=;
+        b=rOfyRwhARfu/JECv3J9sjN2ftVUFKra0XcaW97YePN+Nt3BGSqxAheL+RG+AhNlFTq
+         rz0NEBVou5B9X9hCx93GbzxSsKZx8F9JF0uuXCiEfDFrmXroVjGKRMyZeh60ciF1yiVK
+         DmeVxbGoJ/S/m4bMHCvXK3k+oDabsaY5j+Vy/0av4UE3YRPgTWuEOPN5P4Jg+IEShDhn
+         N0ALo2DC/vkitPiaeetRGBNYPyLo3bOyNPQi4qmHb8dj8P6Alt/D9gd1yPp5QeizATCg
+         MW1b7BHHwo84FqzBs9ztJ5O4dhFirTy70MT4lHGOigcDfNncn4mlDhItYYhiSkn8lmQz
+         AZmg==
+X-Gm-Message-State: AOJu0YypELLC9pdZ+1xcLuOS4rlh8KE+ilTfi8NhoZUx0JMkvbxVo6o3
+	sZ9Ibb3aKw7eYL+RGtKtlEB5PYk7G9DEvI9VLd6iqnP44GDNy74S3QxaZGw3wg==
+X-Google-Smtp-Source: AGHT+IE45SmaVY5uuiJfX9e4OG7Cr/E0xeWeH0UhRI9v97dRPk3jKrhRHCRY4/yl0L5nKA8MiLObkw==
+X-Received: by 2002:a05:6512:684:b0:52f:cd03:a84a with SMTP id 2adb3069b0e04-5331c6dbd0fmr8645101e87.39.1724067558725;
+        Mon, 19 Aug 2024 04:39:18 -0700 (PDT)
+Message-ID: <ff48fff8-a659-4e63-8e1f-2385a936ad61@suse.com>
+Date: Mon, 19 Aug 2024 13:39:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Avoid crash calling PrintErrMesg from efi_multiboot2
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240819110729.205707-1-frediano.ziglio@cloud.com>
+Subject: Re: [PATCH v3 2/4] xen: make VMAP only support in MMU system
+To: Ayan Kumar Halder <ayankuma@amd.com>, Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: xen-devel@lists.xenproject.org, Penny Zheng <penny.zheng@arm.com>,
+ Wei Chen <wei.chen@arm.com>, sstabellini@kernel.org,
+ bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com
+References: <20240813171356.46760-1-ayan.kumar.halder@amd.com>
+ <20240813171356.46760-3-ayan.kumar.halder@amd.com>
+ <6d333d94-80ad-485c-b024-a45a388b96a4@suse.com>
+ <ef789757-8c03-4f97-9bfb-8ec2fd2f4ca2@amd.com>
+ <dad27ab7-3cbd-4a8e-8200-adea52b26e55@suse.com>
+ <597b358e-3b45-4fba-922d-31208b55d15a@amd.com>
+ <9fd1801c-1460-44e5-b066-f6da1167543b@xen.org>
+ <1a328f00-3b0d-4e9c-856c-97c3a80dfdef@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,82 +119,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240819110729.205707-1-frediano.ziglio@cloud.com>
+In-Reply-To: <1a328f00-3b0d-4e9c-856c-97c3a80dfdef@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.08.2024 13:07, Frediano Ziglio wrote:
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -287,19 +287,36 @@ static bool __init match_guid(const EFI_GUID *guid1, const EFI_GUID *guid2)
->  /* generic routine for printing error messages */
->  static void __init PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode)
->  {
-> -    static const CHAR16* const ErrCodeToStr[] __initconstrel = {
-> -        [~EFI_ERROR_MASK & EFI_NOT_FOUND]           = L"Not found",
-> -        [~EFI_ERROR_MASK & EFI_NO_MEDIA]            = L"The device has no media",
-> -        [~EFI_ERROR_MASK & EFI_MEDIA_CHANGED]       = L"Media changed",
-> -        [~EFI_ERROR_MASK & EFI_DEVICE_ERROR]        = L"Device error",
-> -        [~EFI_ERROR_MASK & EFI_VOLUME_CORRUPTED]    = L"Volume corrupted",
-> -        [~EFI_ERROR_MASK & EFI_ACCESS_DENIED]       = L"Access denied",
-> -        [~EFI_ERROR_MASK & EFI_OUT_OF_RESOURCES]    = L"Out of resources",
-> -        [~EFI_ERROR_MASK & EFI_VOLUME_FULL]         = L"Volume is full",
-> -        [~EFI_ERROR_MASK & EFI_SECURITY_VIOLATION]  = L"Security violation",
-> -        [~EFI_ERROR_MASK & EFI_CRC_ERROR]           = L"CRC error",
-> -        [~EFI_ERROR_MASK & EFI_COMPROMISED_DATA]    = L"Compromised data",
-> -        [~EFI_ERROR_MASK & EFI_BUFFER_TOO_SMALL]    = L"Buffer too small",
-> +#define ERROR_MESSAGE_LIST \
-> +    ERROR_MESSAGE(EFI_NOT_FOUND, "Not found") \
-> +    ERROR_MESSAGE(EFI_NO_MEDIA, "The device has no media") \
-> +    ERROR_MESSAGE(EFI_MEDIA_CHANGED, "Media changed") \
-> +    ERROR_MESSAGE(EFI_DEVICE_ERROR, "Device error") \
-> +    ERROR_MESSAGE(EFI_VOLUME_CORRUPTED, "Volume corrupted") \
-> +    ERROR_MESSAGE(EFI_ACCESS_DENIED, "Access denied") \
-> +    ERROR_MESSAGE(EFI_OUT_OF_RESOURCES, "Out of resources") \
-> +    ERROR_MESSAGE(EFI_VOLUME_FULL, "Volume is full") \
-> +    ERROR_MESSAGE(EFI_SECURITY_VIOLATION, "Security violation") \
-> +    ERROR_MESSAGE(EFI_CRC_ERROR, "CRC error") \
-> +    ERROR_MESSAGE(EFI_COMPROMISED_DATA, "Compromised data") \
-> +    ERROR_MESSAGE(EFI_BUFFER_TOO_SMALL, "Buffer too small")
-> +
-> +    static const struct ErrorStrings {
+Guys,
 
-__initconst?
+On 19.08.2024 11:45, Ayan Kumar Halder wrote:
+> On 16/08/2024 17:40, Julien Grall wrote:
+>> On 14/08/2024 13:33, Ayan Kumar Halder wrote:
 
-> +        CHAR16 start;
-> +#undef ERROR_MESSAGE
-> +#define ERROR_MESSAGE(code, str) CHAR16 msg_ ## code[sizeof(str)];
-> +        ERROR_MESSAGE_LIST
-> +    } ErrorStrings __initconst = {
-> +        0
-> +#undef ERROR_MESSAGE
-> +#define ERROR_MESSAGE(code, str) , L ## str
-> +        ERROR_MESSAGE_LIST
-> +    };
-> +    static const uint16_t ErrCodeToStr[] __initconst = {
-> +#undef ERROR_MESSAGE
-> +#define ERROR_MESSAGE(code, str) \
-> +        [~EFI_ERROR_MASK & code] = offsetof(struct ErrorStrings, msg_ ## code),
-> +        ERROR_MESSAGE_LIST
->      };
->      EFI_STATUS ErrIdx = ErrCode & ~EFI_ERROR_MASK;
->  
-> @@ -308,7 +325,7 @@ static void __init PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode)
->      PrintErr(L": ");
->  
->      if( (ErrIdx < ARRAY_SIZE(ErrCodeToStr)) && ErrCodeToStr[ErrIdx] )
-> -        mesg = ErrCodeToStr[ErrIdx];
-> +        mesg = (CHAR16*) ((char*) &ErrorStrings + ErrCodeToStr[ErrIdx]);
-
-Please never cast away const. Also (nit) please put the blanks at the right
-places. Finally instead of casting to char * (something string-like)
-intermediately, perhaps better cast to void *? Taken together
-
-        mesg = (const CHAR16 *)((const void *)&ErrorStrings + ErrCodeToStr[ErrIdx]);
-
-(which looks like it'll then also need line-wrapping).
-
-Further please add an appropriate Fixes: tag.
+mind me asking why I continue to be on the To: list of this communication
+between the two of you?
 
 Jan
 
