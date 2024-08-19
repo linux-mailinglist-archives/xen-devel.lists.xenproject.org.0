@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99BEF956618
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2024 10:54:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.779381.1189120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 397D695661D
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2024 10:57:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.779399.1189129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sfy92-0004f7-AW; Mon, 19 Aug 2024 08:53:44 +0000
+	id 1sfyBr-0005pP-Nc; Mon, 19 Aug 2024 08:56:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 779381.1189120; Mon, 19 Aug 2024 08:53:44 +0000
+Received: by outflank-mailman (output) from mailman id 779399.1189129; Mon, 19 Aug 2024 08:56:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sfy92-0004cO-7C; Mon, 19 Aug 2024 08:53:44 +0000
-Received: by outflank-mailman (input) for mailman id 779381;
- Mon, 19 Aug 2024 08:53:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UKSt=PS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sfy90-0004cI-WE
- for xen-devel@lists.xenproject.org; Mon, 19 Aug 2024 08:53:43 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 87e63b3b-5e08-11ef-8776-851b0ebba9a2;
- Mon, 19 Aug 2024 10:53:40 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a7a9cf7d3f3so512612966b.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Aug 2024 01:53:40 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a83838cf97dsm607421466b.72.2024.08.19.01.53.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Aug 2024 01:53:39 -0700 (PDT)
+	id 1sfyBr-0005mq-KR; Mon, 19 Aug 2024 08:56:39 +0000
+Received: by outflank-mailman (input) for mailman id 779399;
+ Mon, 19 Aug 2024 08:56:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mhAH=PS=cloud.com=fouad.hilly@srs-se1.protection.inumbo.net>)
+ id 1sfyBq-0005fE-BV
+ for xen-devel@lists.xenproject.org; Mon, 19 Aug 2024 08:56:38 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f19d6a77-5e08-11ef-a506-bb4a2ccca743;
+ Mon, 19 Aug 2024 10:56:37 +0200 (CEST)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-52f01b8738dso3271222e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Aug 2024 01:56:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +40,337 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87e63b3b-5e08-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: f19d6a77-5e08-11ef-a506-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724057620; x=1724662420; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PdCgoZv8il/gZtXvoe9qTIOAToZ6EcDXhQUYj6AcUak=;
-        b=Hj0vYLs1+iyKI71BTEzs1abaIy2cB43NdfCRf7EMu/5Uho0SnOCrmEt2fnRrVTH2Pv
-         8ZqqQbO8YqFHvH6D4Jxluy5RJ+vcKWAlUhhRUnYBpj3mT1C27UXp3VWgNs2K9gXfgWWX
-         sBBW2SgI0aM1IaQaSoq9Hcy66uSatZrh20l42AdiKjGA4zX2zdQUVNb7Ifwkq++nQwJr
-         IFFMnyRvdDJ/U32MbpwmiouRHiTVHkzZklwmb3Gbq7HroZraoXINBHyRrKehG/eqA1Je
-         EyxkQ3KtuHOgQ3cs9Z2uuYer6MC1Dam8COIvQ678iwJ5BSP3t6Ite05VbIL1erdderLp
-         fGTQ==
+        d=cloud.com; s=cloud; t=1724057797; x=1724662597; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=w30or32qPiF9VehZnxi9A0McTv8fX6oUg17NoQL8QW8=;
+        b=ILJx5JCxZxjy39YXkwqW2f6la7Tj8j8lb7tWR/k2XRLyYkd4xK3dTAxdHWGmDDBvCA
+         bAsMxtCfxtMmYsdFAVBomk1QMUldSHPRb7XgzHA5Kxop2wXrMlNUL+9sS1epFsIA5/P/
+         kcMx0Vuy8DE+JAmJ6YFMMzh/MHfHKqnEo2nBE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724057620; x=1724662420;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PdCgoZv8il/gZtXvoe9qTIOAToZ6EcDXhQUYj6AcUak=;
-        b=H9NXAH4jbTeeCphxx8S2CaAyu+RIkSkNt4klkXXPEn4nCqDN+bSk6RdaJeG+BuQO2g
-         oiHLNLsdqF4ts2ya6ImfHhF7jlk3+d3NYgzVOvHRMXzSChMyOCdf0NAnfOIi4O4Hz6kr
-         dGI73E6icvscl0HqG2nlf7JRJl/WJCSo7ELZXkxgKSzz1xfppZ0Yj0S7IXGpSoks6Rem
-         R7hMYc8lci+VTsMr9baQDds3sxK/NCRmfLcTWt7KEkvHYvT2jFrW0avSgZsmVgO9/oGx
-         vEh6K8zWz1c589POzd8W/Kc/uZNxowe2E9BM0qMicG8KTMjQGSDq262jiYhpr+6JKBh1
-         k46g==
-X-Forwarded-Encrypted: i=1; AJvYcCUDT52fmwJp6KROOKZ5787oMak7tYvMDK+YK5pr5FMil+idY5yRoVw9u+QlPTolc87I7hXaKVOjwjTeZf955mpADTo76qDUI3cHWir0+1k=
-X-Gm-Message-State: AOJu0YzATPMs8BPX/Y4nPvSo0cXvKyn92gpS7qKaa9YI7uMrP59y4ZR/
-	fQsS78LRF8moZE+wiJCLe+jFcVpdRNpS4ng9NmQR5VfBeZsfl//yVlmfvYfScg==
-X-Google-Smtp-Source: AGHT+IFGBjJkr3iczjpGpPg3vgRyLWCBZEwqxr+YKqeRuKMOa7xHDtxeffAl/3IcpaPHFcuer9zt4w==
-X-Received: by 2002:a17:907:da5:b0:a77:c314:d621 with SMTP id a640c23a62f3a-a83a9fb91c1mr568665366b.13.1724057619805;
-        Mon, 19 Aug 2024 01:53:39 -0700 (PDT)
-Message-ID: <5cd1fac5-bf4f-4a5b-b02f-e971d36581b0@suse.com>
-Date: Mon, 19 Aug 2024 10:53:38 +0200
+        d=1e100.net; s=20230601; t=1724057797; x=1724662597;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=w30or32qPiF9VehZnxi9A0McTv8fX6oUg17NoQL8QW8=;
+        b=Ag2Z6693p2dubc8pDIsPObzcsXv1+o1vJ2jDjfFJ7rneQZKmaw/K7WFEIU7fnbVqwr
+         vZQMD4skoqTYFF2RomixWhu8gaECTzGg7aU/OaMqevJYf4ZMAh3RsSDMyEK1HK/IvwTv
+         uGs09bzI3usPEZgp9aGGVUX8HZUKutSb629rHhKRdnHk8qSOnNRAuQblvpoUwJpqq+Z/
+         fY5o3dmqzypdnSIsOzi28+neZyFWccxS+Midbx+FOpOHC6dVUMK7f+QYbyaGyjvEkno2
+         w8dnaS5FMofJyj4XLd66tsiVkMfTdQRnM2Ckm2KUSdi05pZNVvXF3gI1HVecBHXTCoCk
+         Qn/w==
+X-Gm-Message-State: AOJu0YwV9tfTs6N7KFlyGChxi4xUZl87p068tho1Y4JcfSB+/+sIcY3Y
+	78Nu54IkatXM++uKOR89sYM+MGtHb0atEr6tVRyr94wYRrAeDC5iQL6GDWVGTWnEKsMw27t/V5e
+	bdCFUjrYOu0hfe/lo598CC+Yzx+2UI1/4fRuumQ==
+X-Google-Smtp-Source: AGHT+IHfVgPO9cVZfYmekq2Lr1wxkHaU/VKK8RuubjlPmPrajFBFD/c6ro8vLRq5jPX2AKy7Eyh9NgkQ1L56F5irw7E=
+X-Received: by 2002:a05:6512:1244:b0:52c:9725:b32b with SMTP id
+ 2adb3069b0e04-5331c6a219emr5762581e87.17.1724057796352; Mon, 19 Aug 2024
+ 01:56:36 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 1/5] x86/Kconfig: introduce CENTAUR, HYGON &
- SHANGHAI config options
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1723806405.git.Sergiy_Kibrik@epam.com>
- <2a217c9602e92f92050cb4894bb9a42ee99a84ea.1723806405.git.Sergiy_Kibrik@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2a217c9602e92f92050cb4894bb9a42ee99a84ea.1723806405.git.Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240712130749.1272741-1-fouad.hilly@cloud.com>
+ <20240712130749.1272741-3-fouad.hilly@cloud.com> <ZqEyGD4wgL/z9nn5@l14>
+In-Reply-To: <ZqEyGD4wgL/z9nn5@l14>
+From: Fouad Hilly <fouad.hilly@cloud.com>
+Date: Mon, 19 Aug 2024 09:56:25 +0100
+Message-ID: <CAJKAvHY_mJnx0SsOpALtCNXMXppt=UrKMwiDSHzVjLzawq5rSQ@mail.gmail.com>
+Subject: Re: [PATCH v5 2/4] x86/ucode: refactor xen-ucode to utilize getopt
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000863d330620057c12"
 
-On 16.08.2024 13:10, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/Kconfig.cpu
-> +++ b/xen/arch/x86/Kconfig.cpu
-> @@ -10,6 +10,25 @@ config AMD
->  	  May be turned off in builds targetting other vendors.  Otherwise,
->  	  must be enabled for Xen to work suitably on AMD platforms.
->  
-> +config CENTAUR
-> +	bool "Support Centaur CPUs"
-> +	default y
-> +	help
-> +	  Detection, tunings and quirks for VIA platforms.
-> +
-> +	  May be turned off in builds targeting other vendors. Otherwise, must
-> +          be enabled for Xen to work suitably on VIA platforms.
-> +
-> +config HYGON
-> +	bool "Support Hygon CPUs"
-> +	depends on AMD
-> +	default y
-> +	help
-> +	  Detection, tunings and quirks for Hygon platforms.
-> +
-> +	  May be turned off in builds targeting other vendors. Otherwise, must
-> +          be enabled for Xen to work suitably on Hygon platforms.
-> +
->  config INTEL
->  	bool "Support Intel CPUs"
->  	default y
-> @@ -19,4 +38,14 @@ config INTEL
->  	  May be turned off in builds targetting other vendors.  Otherwise,
->  	  must be enabled for Xen to work suitably on Intel platforms.
->  
-> +config SHANGHAI
-> +	bool "Support Shanghai CPUs"
-> +	depends on INTEL
-> +	default y
-> +	help
-> +	  Detection, tunings and quirks for Zhaoxin platforms.
-> +
-> +	  May be turned off in builds targeting other vendors. Otherwise, must
-> +          be enabled for Xen to work suitably on Zhaoxin platforms.
-> +
->  endmenu
+--000000000000863d330620057c12
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Imo this re-raises the question of whether it is a good idea to leave out
-"CPU" from the names: The more names there are, the more likely it'll become
-that going forward we'll run into a naming collision. Andrew, iirc you
-were the main proponent for omitting "CPU" - may I ask that you re-consider?
+On Wed, Jul 24, 2024 at 5:55=E2=80=AFPM Anthony PERARD <anthony.perard@vate=
+s.tech>
+wrote:
 
-Furthermore I wonder whether "depends on" is appropriate here. This way one
-won't be offered e.g. SHANGHAI if earlier on one de-selected INTEL.
+> On Fri, Jul 12, 2024 at 02:07:47PM +0100, Fouad Hilly wrote:
+> > diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
+> > index 390969db3d1c..8de82e5b8a10 100644
+> > --- a/tools/misc/xen-ucode.c
+> > +++ b/tools/misc/xen-ucode.c
+> > @@ -71,12 +72,29 @@ static void show_curr_cpu(FILE *f)
+> >      }
+> >  }
+> >
+> > +static void usage(FILE *stream, const char *name)
+> > +{
+> > +    fprintf(stream,
+> > +            "%s: Xen microcode updating tool\n"
+> > +            "options:\n"
+> > +            "  -h, --help            display this help\n"
+> > +            "  -s, --show-cpu-info   show CPU information\n"
+> > +            "Usage: %s [microcode file] [options]\n", name, name);
+>
+> FYI, I disagree with Andy about the order of this message. First is
+> "Usage:" which explain where the option (dash-prefixed) can go, and
+> which are the mandatory arguments, sometime having all the single-letter
+> option in this line as well. Then there's an explanation of what the
+> options are. I've check `bash`, `cat`, `xl`, `gcc`.
+>
+> I wonder which CLI program would print the minimum amount of information
+> on how to run the program as the last line of the help message.
+>
 
-Plus it is mere luck that the alphabetic ordering ends up with the dependents
-after their dependencies (things would be somewhat odd the other way around).
+My Bad, I misinterpreted Andy's comment, will fix in v7:
+static void usage(FILE *stream, const char *name)
+{
+    fprintf(stream,
+            "%s: Xen microcode updating tool\n"
+            "Usage: %s [options | microcode-file]\n"
+            "options:\n"
+            "  -h, --help            display this help\n"
+            "  -s, --show-cpu-info   show CPU information\n",
+            name, name);
+    show_curr_cpu(stream);
+}
 
-Finally please check indentation of help text - there is one inconsistency
-repeated for all three entries being added.
+>
+> > @@ -86,22 +104,34 @@ int main(int argc, char *argv[])
+> >          exit(1);
+> >      }
+> >
+> > -    if ( argc < 2 )
+> > +    while ( (opt =3D getopt_long(argc, argv, "hs", options, NULL)) !=
+=3D -1 )
+> >      {
+> > -        fprintf(stderr,
+> > -                "xen-ucode: Xen microcode updating tool\n"
+> > -                "Usage: %s [<microcode file> | show-cpu-info]\n",
+> argv[0]);
+> > -        show_curr_cpu(stderr);
+> > -        exit(2);
+> > +        switch (opt)
+> > +        {
+> > +        case 'h':
+> > +            usage(stdout, argv[0]);
+> > +            exit(EXIT_SUCCESS);
+> > +
+> > +        case 's':
+> > +            show_curr_cpu(stdout);
+> > +            exit(EXIT_SUCCESS);
+> > +
+> > +        default:
+> > +            goto ext_err;
+> > +        }
+> >      }
+> >
+> > -    if ( !strcmp(argv[1], "show-cpu-info") )
+> > +    if ( optind =3D=3D argc )
+> > +        goto ext_err;
+> > +
+> > +    /* For backwards compatibility to the pre-getopt() cmdline handlin=
+g
+> */
+> > +    if ( !strcmp(argv[optind], "show-cpu-info") )
+> >      {
+> >          show_curr_cpu(stdout);
+> >          return 0;
+> >      }
+> >
+> > -    filename =3D argv[1];
+> > +    filename =3D argv[optind];
+> >      fd =3D open(filename, O_RDONLY);
+> >      if ( fd < 0 )
+> >      {
+> > @@ -146,4 +176,10 @@ int main(int argc, char *argv[])
+> >      close(fd);
+> >
+> >      return 0;
+> > +
+> > + ext_err:
+> > +    fprintf(stderr,
+> > +            "%s: unable to process command line arguments\n", argv[0])=
+;
+>
+> A nice to have would be to have a better error message to point out
+> what's wrong with the arguments. For that you could print the error
+> message before "goto ext_err". One would be "unknown option" for the
+> first goto, and "missing microcode file" for the second goto, that is
+> instead of printing this more generic error message.
+>
 
-Jan
+Sure, I will have specific error messages instead of generic one in v7
+
+>
+> Cheers,
+>
+> --
+>
+> Anthony Perard | Vates XCP-ng Developer
+>
+> XCP-ng & Xen Orchestra - Vates solutions
+>
+> web: https://vates.tech
+
+
+Thanks,
+
+Fouad
+
+--000000000000863d330620057c12
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jul 24, 2024 at 5:55=E2=80=AF=
+PM Anthony PERARD &lt;anthony.perard@vates.tech&gt; wrote:<br></div><blockq=
+uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
+x solid rgb(204,204,204);padding-left:1ex">On Fri, Jul 12, 2024 at 02:07:47=
+PM +0100, Fouad Hilly wrote:<br>
+&gt; diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c<br>
+&gt; index 390969db3d1c..8de82e5b8a10 100644<br>
+&gt; --- a/tools/misc/xen-ucode.c<br>
+&gt; +++ b/tools/misc/xen-ucode.c<br>
+&gt; @@ -71,12 +72,29 @@ static void show_curr_cpu(FILE *f)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; +static void usage(FILE *stream, const char *name)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 fprintf(stream,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;%s: Xen microcode upd=
+ating tool\n&quot;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;options:\n&quot;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;=C2=A0 -h, --help=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 display this help\n&quot;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;=C2=A0 -s, --show-cpu=
+-info=C2=A0 =C2=A0show CPU information\n&quot;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;Usage: %s [microcode =
+file] [options]\n&quot;, name, name);<br>
+<br>
+FYI, I disagree with Andy about the order of this message. First is<br>
+&quot;Usage:&quot; which explain where the option (dash-prefixed) can go, a=
+nd<br>
+which are the mandatory arguments, sometime having all the single-letter<br=
+>
+option in this line as well. Then there&#39;s an explanation of what the<br=
+>
+options are. I&#39;ve check `bash`, `cat`, `xl`, `gcc`.<br>
+<br>
+I wonder which CLI program would print the minimum amount of information<br=
+>
+on how to run the program as the last line of the help message.<br></blockq=
+uote><div><br></div><div>My Bad, I misinterpreted Andy&#39;s comment, will =
+fix in v7:</div><div><div style=3D"color:rgb(204,204,204);background-color:=
+rgb(31,31,31);font-family:Consolas,&quot;Courier New&quot;,monospace;font-s=
+ize:14px;line-height:19px;white-space:pre-wrap"><div><span style=3D"color:r=
+gb(86,156,214)">static</span> <span style=3D"color:rgb(86,156,214)">void</s=
+pan> <span style=3D"color:rgb(220,220,170)">usage</span>(FILE <span style=
+=3D"color:rgb(212,212,212)">*</span><span style=3D"color:rgb(156,220,254)">=
+stream</span>, <span style=3D"color:rgb(86,156,214)">const</span> <span sty=
+le=3D"color:rgb(86,156,214)">char</span> <span style=3D"color:rgb(212,212,2=
+12)">*</span><span style=3D"color:rgb(156,220,254)">name</span>)</div><div>=
+{</div><div>=C2=A0 =C2=A0 <span style=3D"color:rgb(220,220,170)">fprintf</s=
+pan>(stream,</div><div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <span styl=
+e=3D"color:rgb(206,145,120)">&quot;</span><span style=3D"color:rgb(156,220,=
+254)">%s</span><span style=3D"color:rgb(206,145,120)">: Xen microcode updat=
+ing tool</span><span style=3D"color:rgb(215,186,125)">\n</span><span style=
+=3D"color:rgb(206,145,120)">&quot;</span></div><div>=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 <span style=3D"color:rgb(206,145,120)">&quot;Usage: </=
+span><span style=3D"color:rgb(156,220,254)">%s</span><span style=3D"color:r=
+gb(206,145,120)"> [options | microcode-file]</span><span style=3D"color:rgb=
+(215,186,125)">\n</span><span style=3D"color:rgb(206,145,120)">&quot;</span=
+></div><div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <span style=3D"color:=
+rgb(206,145,120)">&quot;options:</span><span style=3D"color:rgb(215,186,125=
+)">\n</span><span style=3D"color:rgb(206,145,120)">&quot;</span></div><div>=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <span style=3D"color:rgb(206,145,=
+120)">&quot; =C2=A0-h, --help =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0disp=
+lay this help</span><span style=3D"color:rgb(215,186,125)">\n</span><span s=
+tyle=3D"color:rgb(206,145,120)">&quot;</span></div><div>=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 <span style=3D"color:rgb(206,145,120)">&quot; =C2=
+=A0-s, --show-cpu-info =C2=A0 show CPU information</span><span style=3D"col=
+or:rgb(215,186,125)">\n</span><span style=3D"color:rgb(206,145,120)">&quot;=
+</span>,</div><div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 name, name);</=
+div><div>=C2=A0 =C2=A0 <span style=3D"color:rgb(220,220,170)">show_curr_cpu=
+</span>(stream);</div><div>}</div></div></div><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex">
+<br>
+&gt; @@ -86,22 +104,34 @@ int main(int argc, char *argv[])<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 exit(1);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 if ( argc &lt; 2 )<br>
+&gt; +=C2=A0 =C2=A0 while ( (opt =3D getopt_long(argc, argv, &quot;hs&quot;=
+, options, NULL)) !=3D -1 )<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 fprintf(stderr,<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;xen-uco=
+de: Xen microcode updating tool\n&quot;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;Usage: =
+%s [&lt;microcode file&gt; | show-cpu-info]\n&quot;, argv[0]);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 show_curr_cpu(stderr);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 exit(2);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 switch (opt)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 case &#39;h&#39;:<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 usage(stdout, argv[0]);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 exit(EXIT_SUCCESS);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 case &#39;s&#39;:<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 show_curr_cpu(stdout);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 exit(EXIT_SUCCESS);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 default:<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto ext_err;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 if ( !strcmp(argv[1], &quot;show-cpu-info&quot;) )<br>
+&gt; +=C2=A0 =C2=A0 if ( optind =3D=3D argc )<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto ext_err;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 /* For backwards compatibility to the pre-getopt() cmdl=
+ine handling */<br>
+&gt; +=C2=A0 =C2=A0 if ( !strcmp(argv[optind], &quot;show-cpu-info&quot;) )=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 show_curr_cpu(stdout);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 filename =3D argv[1];<br>
+&gt; +=C2=A0 =C2=A0 filename =3D argv[optind];<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 fd =3D open(filename, O_RDONLY);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 if ( fd &lt; 0 )<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 {<br>
+&gt; @@ -146,4 +176,10 @@ int main(int argc, char *argv[])<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 close(fd);<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 return 0;<br>
+&gt; +<br>
+&gt; + ext_err:<br>
+&gt; +=C2=A0 =C2=A0 fprintf(stderr,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;%s: unable to process=
+ command line arguments\n&quot;, argv[0]);<br>
+<br>
+A nice to have would be to have a better error message to point out<br>
+what&#39;s wrong with the arguments. For that you could print the error<br>
+message before &quot;goto ext_err&quot;. One would be &quot;unknown option&=
+quot; for the<br>
+first goto, and &quot;missing microcode file&quot; for the second goto, tha=
+t is<br>
+instead of printing this more generic error message.<br></blockquote><div><=
+br></div><div>Sure, I will have specific error messages instead of generic =
+one in v7=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px =
+0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+Cheers,<br>
+<br>
+-- <br>
+<br>
+Anthony Perard | Vates XCP-ng Developer<br>
+<br>
+XCP-ng &amp; Xen Orchestra - Vates solutions<br>
+<br>
+web: <a href=3D"https://vates.tech" rel=3D"noreferrer" target=3D"_blank">ht=
+tps://vates.tech</a></blockquote><div><br></div><div>Thanks,</div><div><br>=
+</div><div>Fouad=C2=A0=C2=A0</div></div></div>
+
+--000000000000863d330620057c12--
 
