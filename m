@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0D06956AF7
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2024 14:37:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.779640.1189352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D44C956B12
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2024 14:42:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.779656.1189363 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sg1cr-0005Ce-Tq; Mon, 19 Aug 2024 12:36:45 +0000
+	id 1sg1i4-0007Ev-FU; Mon, 19 Aug 2024 12:42:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 779640.1189352; Mon, 19 Aug 2024 12:36:45 +0000
+Received: by outflank-mailman (output) from mailman id 779656.1189363; Mon, 19 Aug 2024 12:42:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sg1cr-0005B9-R8; Mon, 19 Aug 2024 12:36:45 +0000
-Received: by outflank-mailman (input) for mailman id 779640;
- Mon, 19 Aug 2024 12:36:44 +0000
+	id 1sg1i4-0007Cn-Cr; Mon, 19 Aug 2024 12:42:08 +0000
+Received: by outflank-mailman (input) for mailman id 779656;
+ Mon, 19 Aug 2024 12:42:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UKSt=PS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sg1cq-00050u-82
- for xen-devel@lists.xenproject.org; Mon, 19 Aug 2024 12:36:44 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lvcB=PS=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1sg1i3-0007Ch-7C
+ for xen-devel@lists.xenproject.org; Mon, 19 Aug 2024 12:42:07 +0000
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [2607:f8b0:4864:20::c36])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b05b81eb-5e27-11ef-8776-851b0ebba9a2;
- Mon, 19 Aug 2024 14:36:42 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5becfd14353so2974869a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Aug 2024 05:36:42 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a838396bc50sm628134966b.198.2024.08.19.05.36.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Aug 2024 05:36:40 -0700 (PDT)
+ id 701ef715-5e28-11ef-8776-851b0ebba9a2;
+ Mon, 19 Aug 2024 14:42:05 +0200 (CEST)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ 006d021491bc7-5daa683b298so1556931eaf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Aug 2024 05:42:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +40,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b05b81eb-5e27-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 701ef715-5e28-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724071002; x=1724675802; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/sNJW+D9JttMU+LFQe6BNRSUs+MACejWDdGl22/raSg=;
-        b=Yman7Kqi0mwPh79O914InVdnj1KypIuMHQVjEpwXFEHFyexRVHvnRZw/yQs+MDgDNB
-         XOREO0ZkWULHIOK3BD0TQUqMBwvj7/kVwEqytF3macxFtxGAQ5O8V3UUKNJm3Kq4kSX6
-         HfTxQmKthbw8jOjMQ9I+Sf9sKSFLxgFgs7VtzNsIqNw+mAuh6stgYTyP62OkvfWNyjt1
-         S2FFp5LQTWmJXP9ksdjLzYYfh4odKGQMR6JEkBwtTwVdWNa4OcicCA5A8lrRI/WRzuGl
-         rHvzgyal3BUfgYTniSPnC6oI1vampnu5+B4rio8OakAPRaIoW/WpXV6uBY3xeRIPWqXy
-         5KbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724071002; x=1724675802;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1724071324; x=1724676124; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/sNJW+D9JttMU+LFQe6BNRSUs+MACejWDdGl22/raSg=;
-        b=Ylwm7e1dapKY07ACBinfntNX4hCOhKp+H6HVfbQl0GsRqKVYOn+oqGVlBeIkE2QnP7
-         II7M0nJ84YseWxQO0ntuFraa9YFmsK0e1qRN/ki25qdcxzIc9fA97LdP2WH0FMV0PJwn
-         ylkkfvMHY3akSMBXibeK4LcGtJpet1UyKGrEUfXfbpu12PTAko5jvjtELWl4sRcqYSJF
-         fWI+aWCztZOJ4PqpECK/El6TFZbPqlF4aMiYZKINtpYiT7kB1UICjavqmLXW6sh3YEC8
-         x7XiBfhC6PQN5D+JDw7wVZDvqSvG4Cr05lDWW9YrF5X4rIrro3+J26bJdbIig71jsp+i
-         NIzw==
-X-Forwarded-Encrypted: i=1; AJvYcCXacdchTvnGV5aijJZ0z2l4DMPnhzWO1ntclLfAI6ZqHy2t7oQ61PdWuI55BXpZOVh/3nCqsbw7xFAJOjBpXlGcDaHThrIiSGyhhxVGKU0=
-X-Gm-Message-State: AOJu0YxS3r+NeybrMmm37i0kEAcj+Ocpar57gik0wX/I4brYF6zyjrr2
-	gz5LJTDOhZO3ctmdFoR9a34av6g0Mb7troRRI1pctOe8GgYWuvQ8yBs/UoiVqQ==
-X-Google-Smtp-Source: AGHT+IFe1OGkA1m6FcrKoVEH8lpj0UvluNDFJxpKYNwS4cReiMu/LsdDkUj861Cg1fZjAZNCK31ObA==
-X-Received: by 2002:a17:907:9686:b0:a7d:30d2:28f8 with SMTP id a640c23a62f3a-a8392a3923bmr612783766b.68.1724071001184;
-        Mon, 19 Aug 2024 05:36:41 -0700 (PDT)
-Message-ID: <5675ea5a-0c14-42e2-b817-d9576a1f64b7@suse.com>
-Date: Mon, 19 Aug 2024 14:36:40 +0200
+        bh=p+tVf2xNy46et3wHL5+BrHtoU+KgaWimtz25H6SKN7Y=;
+        b=PVIQO3qDITeYSEgRR5hTMiksmxuiEA2G+9mda1uYRRlAYmxg7Ib8yFTZa2LK3ze8QH
+         fz0ACqq50+bAUK49R43/74ix/go1vMUYYhhqydgNtKJb/XNhFIQhGEs40Equ1XIY4Xp8
+         6zwSBBEztoxmgpJA+zofxfe5uP4vla5FiDOSk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724071324; x=1724676124;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=p+tVf2xNy46et3wHL5+BrHtoU+KgaWimtz25H6SKN7Y=;
+        b=EG/bx1SJPWte1gXTKJodxkxE8RyUdj4UDXRWtvDaOnjAKaG0NqWGE/hRTHpnuat2Ff
+         SqFJ1fzvzZa2/+CxOWQEUNugcmjcb1tJUpIr0X1U8xLtMwBf1FmBC3EZEkR4Ur7+3i8D
+         CLZ5ccgrGN5PmoKAJ+x/QlJuO7KclcZrQWnBozDgUiZDFutOBcfJm7as6/cueGwjoqPe
+         iiRNTdy5ZckzYOnC/AvjKWb6ELFOSTw300EFsW8Odtoil/E41atdFFVJHX9YExR+BFI1
+         skPvMJlkZNKm13VgITRJYzyPwB+J5f1JsRkt88HLqpYHnutpSxWQryxIeAOZdBRuuq1l
+         Mlvg==
+X-Forwarded-Encrypted: i=1; AJvYcCWKrOVYFwmaE47Z3rSP+rNEWS6bKl7h9HEHSG+wpbJdO6Hmky/4bdbDNnp06d3A3i9GVo1+NTC9imlfEN/v5ERm0Sc1cXQsWJztT8g12G0=
+X-Gm-Message-State: AOJu0YxPJsRhxTBbFckfsqQqqhyXBshJg17Z5jYeRAyj3qiV3tZG41XR
+	WioRPSqNcwL3lc+q2FrdLBzJ+eSZqDIIo9tSog6gBDjiULw6UZHKk3+f8vdG9mzxrCcM3nKX38z
+	Z6Bc9TamdQdUplXcQzAj0/i65yKFGur9lRf6HOQ==
+X-Google-Smtp-Source: AGHT+IEJkhikn9bllTx1OHSe2+paqM+zmUfKdra8px2l9L7rEGliKfaFj2k2yTEmgbbkzYXHgzatlitAZrTie4s+iA4=
+X-Received: by 2002:a05:6820:168a:b0:5c6:9320:53a3 with SMTP id
+ 006d021491bc7-5da9800e818mr11887488eaf.4.1724071323721; Mon, 19 Aug 2024
+ 05:42:03 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 5/5] x86/amd: optional build of amd.c
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1723806405.git.Sergiy_Kibrik@epam.com>
- <3c641433fa7cfe1f7fdc918ab32086835a2e13eb.1723806405.git.Sergiy_Kibrik@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3c641433fa7cfe1f7fdc918ab32086835a2e13eb.1723806405.git.Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240819110729.205707-1-frediano.ziglio@cloud.com> <271cf485-c03a-4592-a1fb-d6d201fbe74b@suse.com>
+In-Reply-To: <271cf485-c03a-4592-a1fb-d6d201fbe74b@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 19 Aug 2024 13:41:52 +0100
+Message-ID: <CACHz=ZiyjvFhTseesKYVhjc5nYx1c6O_BCiYqoC3BBmuOgkFFA@mail.gmail.com>
+Subject: Re: [PATCH] Avoid crash calling PrintErrMesg from efi_multiboot2
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 16.08.2024 13:19, Sergiy Kibrik wrote:
-> --- a/xen/arch/x86/hvm/svm/svm.c
-> +++ b/xen/arch/x86/hvm/svm/svm.c
-> @@ -919,7 +919,8 @@ static void cf_check svm_ctxt_switch_from(struct vcpu *v)
->       * Possibly clear previous guest selection of SSBD if set.  Note that
->       * SPEC_CTRL.SSBD is already handled by svm_vmexit_spec_ctrl.
->       */
-> -    if ( v->arch.msrs->virt_spec_ctrl.raw & SPEC_CTRL_SSBD )
-> +    if ( IS_ENABLED(CONFIG_AMD) &&
-> +         v->arch.msrs->virt_spec_ctrl.raw & SPEC_CTRL_SSBD )
->      {
->          ASSERT(v->domain->arch.cpuid->extd.virt_ssbd);
->          amd_set_legacy_ssbd(false);
-> @@ -953,7 +954,8 @@ static void cf_check svm_ctxt_switch_to(struct vcpu *v)
->          wrmsr_tsc_aux(v->arch.msrs->tsc_aux);
->  
->      /* Load SSBD if set by the guest. */
-> -    if ( v->arch.msrs->virt_spec_ctrl.raw & SPEC_CTRL_SSBD )
-> +    if ( IS_ENABLED(CONFIG_AMD) &&
-> +         v->arch.msrs->virt_spec_ctrl.raw & SPEC_CTRL_SSBD )
->      {
->          ASSERT(v->domain->arch.cpuid->extd.virt_ssbd);
->          amd_set_legacy_ssbd(true);
+On Mon, Aug 19, 2024 at 12:35=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+>
+> On 19.08.2024 13:07, Frediano Ziglio wrote:
+> > --- a/xen/common/efi/boot.c
+> > +++ b/xen/common/efi/boot.c
+> > @@ -287,19 +287,36 @@ static bool __init match_guid(const EFI_GUID *gui=
+d1, const EFI_GUID *guid2)
+> >  /* generic routine for printing error messages */
+> >  static void __init PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode=
+)
+> >  {
+> > -    static const CHAR16* const ErrCodeToStr[] __initconstrel =3D {
+> > -        [~EFI_ERROR_MASK & EFI_NOT_FOUND]           =3D L"Not found",
+> > -        [~EFI_ERROR_MASK & EFI_NO_MEDIA]            =3D L"The device h=
+as no media",
+> > -        [~EFI_ERROR_MASK & EFI_MEDIA_CHANGED]       =3D L"Media change=
+d",
+> > -        [~EFI_ERROR_MASK & EFI_DEVICE_ERROR]        =3D L"Device error=
+",
+> > -        [~EFI_ERROR_MASK & EFI_VOLUME_CORRUPTED]    =3D L"Volume corru=
+pted",
+> > -        [~EFI_ERROR_MASK & EFI_ACCESS_DENIED]       =3D L"Access denie=
+d",
+> > -        [~EFI_ERROR_MASK & EFI_OUT_OF_RESOURCES]    =3D L"Out of resou=
+rces",
+> > -        [~EFI_ERROR_MASK & EFI_VOLUME_FULL]         =3D L"Volume is fu=
+ll",
+> > -        [~EFI_ERROR_MASK & EFI_SECURITY_VIOLATION]  =3D L"Security vio=
+lation",
+> > -        [~EFI_ERROR_MASK & EFI_CRC_ERROR]           =3D L"CRC error",
+> > -        [~EFI_ERROR_MASK & EFI_COMPROMISED_DATA]    =3D L"Compromised =
+data",
+> > -        [~EFI_ERROR_MASK & EFI_BUFFER_TOO_SMALL]    =3D L"Buffer too s=
+mall",
+> > +#define ERROR_MESSAGE_LIST \
+> > +    ERROR_MESSAGE(EFI_NOT_FOUND, "Not found") \
+> > +    ERROR_MESSAGE(EFI_NO_MEDIA, "The device has no media") \
+> > +    ERROR_MESSAGE(EFI_MEDIA_CHANGED, "Media changed") \
+> > +    ERROR_MESSAGE(EFI_DEVICE_ERROR, "Device error") \
+> > +    ERROR_MESSAGE(EFI_VOLUME_CORRUPTED, "Volume corrupted") \
+> > +    ERROR_MESSAGE(EFI_ACCESS_DENIED, "Access denied") \
+> > +    ERROR_MESSAGE(EFI_OUT_OF_RESOURCES, "Out of resources") \
+> > +    ERROR_MESSAGE(EFI_VOLUME_FULL, "Volume is full") \
+> > +    ERROR_MESSAGE(EFI_SECURITY_VIOLATION, "Security violation") \
+> > +    ERROR_MESSAGE(EFI_CRC_ERROR, "CRC error") \
+> > +    ERROR_MESSAGE(EFI_COMPROMISED_DATA, "Compromised data") \
+> > +    ERROR_MESSAGE(EFI_BUFFER_TOO_SMALL, "Buffer too small")
+> > +
+> > +    static const struct ErrorStrings {
+>
+> __initconst?
+>
 
-Instead of these changes, shouldn't AMD_SVM become dependent upon AMD in
-Kconfig?
+It's below, attached to the variable, it cannot be attached to a
+structure declaration.
 
-> +#ifdef CONFIG_AMD
-> +extern bool amd_acpi_c1e_quirk;
-> +extern bool amd_virt_spec_ctrl;
-> +#else
-> +
-> +#define amd_acpi_c1e_quirk (false)
-> +#define amd_virt_spec_ctrl (false)
+> > +        CHAR16 start;
+> > +#undef ERROR_MESSAGE
+> > +#define ERROR_MESSAGE(code, str) CHAR16 msg_ ## code[sizeof(str)];
+> > +        ERROR_MESSAGE_LIST
+> > +    } ErrorStrings __initconst =3D {
 
-As a remark, while there's nothing wrong with parenthesizing "false" here,
-it also isn't really necessary. Omitting unnecessary parentheses generally
-aids readability imo.
+Here it is.
 
-Jan
+> > +        0
+> > +#undef ERROR_MESSAGE
+> > +#define ERROR_MESSAGE(code, str) , L ## str
+> > +        ERROR_MESSAGE_LIST
+> > +    };
+> > +    static const uint16_t ErrCodeToStr[] __initconst =3D {
+> > +#undef ERROR_MESSAGE
+> > +#define ERROR_MESSAGE(code, str) \
+> > +        [~EFI_ERROR_MASK & code] =3D offsetof(struct ErrorStrings, msg=
+_ ## code),
+> > +        ERROR_MESSAGE_LIST
+> >      };
+> >      EFI_STATUS ErrIdx =3D ErrCode & ~EFI_ERROR_MASK;
+> >
+> > @@ -308,7 +325,7 @@ static void __init PrintErrMesg(const CHAR16 *mesg,=
+ EFI_STATUS ErrCode)
+> >      PrintErr(L": ");
+> >
+> >      if( (ErrIdx < ARRAY_SIZE(ErrCodeToStr)) && ErrCodeToStr[ErrIdx] )
+> > -        mesg =3D ErrCodeToStr[ErrIdx];
+> > +        mesg =3D (CHAR16*) ((char*) &ErrorStrings + ErrCodeToStr[ErrId=
+x]);
+>
+> Please never cast away const. Also (nit) please put the blanks at the rig=
+ht
+> places. Finally instead of casting to char * (something string-like)
+> intermediately, perhaps better cast to void *? Taken together
+>
+>         mesg =3D (const CHAR16 *)((const void *)&ErrorStrings + ErrCodeTo=
+Str[ErrIdx]);
+>
+
+Done, less portable but it's not portable code.
+
+> (which looks like it'll then also need line-wrapping).
+>
+> Further please add an appropriate Fixes: tag.
+>
+
+Done
+
+> Jan
+
+Frediano
 
