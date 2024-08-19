@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ACB395664D
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2024 11:05:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.779429.1189170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 396B295665D
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2024 11:08:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.779443.1189179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sfyJw-0000e4-CU; Mon, 19 Aug 2024 09:05:00 +0000
+	id 1sfyMw-00025f-MN; Mon, 19 Aug 2024 09:08:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 779429.1189170; Mon, 19 Aug 2024 09:05:00 +0000
+Received: by outflank-mailman (output) from mailman id 779443.1189179; Mon, 19 Aug 2024 09:08:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sfyJw-0000c0-88; Mon, 19 Aug 2024 09:05:00 +0000
-Received: by outflank-mailman (input) for mailman id 779429;
- Mon, 19 Aug 2024 09:04:58 +0000
+	id 1sfyMw-00023J-Ja; Mon, 19 Aug 2024 09:08:06 +0000
+Received: by outflank-mailman (input) for mailman id 779443;
+ Mon, 19 Aug 2024 09:08:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UKSt=PS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sfyJu-0000bu-Nk
- for xen-devel@lists.xenproject.org; Mon, 19 Aug 2024 09:04:58 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ id 1sfyMv-00023D-85
+ for xen-devel@lists.xenproject.org; Mon, 19 Aug 2024 09:08:05 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1abb22d9-5e0a-11ef-8776-851b0ebba9a2;
- Mon, 19 Aug 2024 11:04:56 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-530e22878cfso4297138e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 19 Aug 2024 02:04:56 -0700 (PDT)
+ id 8a01bc0a-5e0a-11ef-8776-851b0ebba9a2;
+ Mon, 19 Aug 2024 11:08:03 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a83869373b6so398298966b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Aug 2024 02:08:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a83838cfe4csm607975666b.89.2024.08.19.02.04.54
+ a640c23a62f3a-a8383969e05sm608666966b.191.2024.08.19.02.08.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Aug 2024 02:04:55 -0700 (PDT)
+ Mon, 19 Aug 2024 02:08:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1abb22d9-5e0a-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 8a01bc0a-5e0a-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724058296; x=1724663096; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724058482; x=1724663282; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SgWNNx0pHGj0z/32joGY12heTbKPpL+13ciTvbZYpH0=;
-        b=fwMkH4fmez6QsnbbkRkCZwxg/MtpMTIIX+mX6OqrFf/oqzPvZVuCSR1ny6YuasFxdp
-         iH2ZfqWC8fUN5yiJK1DRmwuuflMFqOC/lkVN2ShibsWyL0XBPQJNpewB1qxsYM1phOBC
-         gBQj8MBEqC9NSKQOxFS+vTz7C0pwb5RuPIt9BC9PZyn7wkqqTcHYHWK2ACZGLkth2NZC
-         gHdrgO+KFG7cPcM+cS0reILduAq1sVaZpxamcbhGakqPIfAsrCWNqjsSXjuS0doVjxrW
-         7y8RDulVZtNbXzppC9VvIeHZRxmzPWKcyOsXK9u4XNmEScVcnjBAZ8mKIwO3vJM6p/IQ
-         h8Hw==
+        bh=dufbDC2txZUeklQxKtc0XhQk4l09UB+er7K2xQuzkAY=;
+        b=JSHhNrseZEfPFzOdpRjIPKItNGFj5p2ypHXZt2e15lp9VduqxXhD2Qu7PflTd042Dw
+         9HMDfEGD2qePr1uqH6V7wubRnnZDf/y6bnydi1kSkBbBPRkdlM77vR4DmDpczN4328+z
+         x6rojQ59F6PmqgrBkEpQuyLA0DBfZV233RU4/fZP5bc2eZIDx4z2E8GL8AK/ytIjbtDq
+         DyngLHOpdpec228edWw7UvbT70UKkONjMPv74DNzRIshUmjCfTzVBXFErgzawFEAQG9n
+         ksei255AEt9SoJuDv9H1e7W1Mdw8ggND5WbGwggFHy8vKY2W5FwNHndsggHobAGYmOci
+         KjMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724058296; x=1724663096;
+        d=1e100.net; s=20230601; t=1724058482; x=1724663282;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SgWNNx0pHGj0z/32joGY12heTbKPpL+13ciTvbZYpH0=;
-        b=n1UxXh6rNUwkOjhiQoEy3L0xZwPlYlQ28A0b3kWl7ek12qgkCIQlEY+2ilEhWAD3Lo
-         +qFOds/YgSe4OvcoGPpxwKWVOC2/tGzk7r1ooLcErifx3wtSHwh3Axw3Sq2A67Pnsed8
-         QxZluLB9aGzaFv4SEiawh2/BiCb2klOwbi+8dvPA/C1k37Qjp/NC8M88W68DXwpWmCgv
-         wHDtVGUs0yhnumt39gqiB/psdzM7gBWfwbFJj879ltqccK3fZ83nnswaHmSNdR2CEtsC
-         io66selHvZIw8NSbeDyuJwrjordRrkmbillhN7fPntDgKFiF3gWs6imwKu5/Hda8MHHx
-         Gagw==
-X-Forwarded-Encrypted: i=1; AJvYcCVohPqihOrDEoQEanLW3ODDwSNiyYlVL8ZE4qQLh1zrGXqnugf52DdQU5CJn4BRR5puASTCTEQPFD9DPuGQ2509DCIZGXSw9VypuQMbwEc=
-X-Gm-Message-State: AOJu0YzV/7/ldQguL/PvszL1HgxZ2QCRMHMOH/gXkeGfhGe4dsvqCn5I
-	jLAjd8wl72yhZS5f0XjlWlc4XR1rvK+5RIc8U/TfwSQ1sNe6kqiyFQQRyDgV2Q==
-X-Google-Smtp-Source: AGHT+IEhZU3Ys4CGKahs6+r55DjcQxsjE0fp/CpoGcICKD1Z0m14Iqlhd/H6Ov/Rmd8TgG3O9VaScg==
-X-Received: by 2002:a05:6512:3d86:b0:530:e228:77ae with SMTP id 2adb3069b0e04-5331c6dca0dmr6304888e87.40.1724058295420;
-        Mon, 19 Aug 2024 02:04:55 -0700 (PDT)
-Message-ID: <50717151-3098-491f-9dfb-71ebaff4b684@suse.com>
-Date: Mon, 19 Aug 2024 11:04:54 +0200
+        bh=dufbDC2txZUeklQxKtc0XhQk4l09UB+er7K2xQuzkAY=;
+        b=HmktVLYm/ecdU0OyhdvjIz/Nspd63t67NTmNrRtsySn6/uEb+lhrhlP7MW9ORKqVhz
+         eY3JCECO5bQCIS4xmZunjZXEwywsANb6scewOlM0olc2b01OQvslJP/KX6zqk66i/M7Y
+         gXFoCA4hT4GiH+qHv7cppB1fJYgwJ1sObXBvy29PUXOQ7sbeJVtuycopDiKeA0VuWmjC
+         8ZQ99wnE+gt4ha2yxkiKhesfk1R3M/8CxcN+iFIg8/mVbir4eY7IoeCvGlshXMwJGspN
+         V5upFBc88heGEEpxk2D6wh77sUDyaMWgJhWaW+kDfXETOPR5p5c7qHKfKjHxhIknVOUn
+         BqGg==
+X-Forwarded-Encrypted: i=1; AJvYcCXGSx9tRQe4whLq/5yOJu4Avp+99EY+9V/u0TydDVJgdfKQB21nqeJzrJPY0XV0Db6CzVXGgm2F2kYTZkYCXT7XUfj8jqxNWdkpnm53DVw=
+X-Gm-Message-State: AOJu0Yz0wVnHWFGsJLeZsEn32pupx0kZ35Vxhp7Hwz2JzapFQ2GeABc3
+	n95gPH8EKImiPThChx7SnA5nnhRksGPZTCBqhnBYJ+GzykYHrlk1zvQjAqK3Xg==
+X-Google-Smtp-Source: AGHT+IGKOkpK4ItdHsM8t0AOLbPyAiaFZHl/S3n3iAHr2UBNNydiaRIY4KOEVtEs0P/cnHaCz3MRHA==
+X-Received: by 2002:a17:907:e29e:b0:a7d:c696:76ee with SMTP id a640c23a62f3a-a839292f15bmr773210566b.17.1724058482394;
+        Mon, 19 Aug 2024 02:08:02 -0700 (PDT)
+Message-ID: <4a421c07-d8a0-4af9-816f-5d76d39fe31f@suse.com>
+Date: Mon, 19 Aug 2024 11:08:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v13 1/6] xen/pci: Add hypercall to support reset of
- pcidev
+Subject: Re: [XEN PATCH v13 2/6] x86/pvh: Allow (un)map_pirq when dom0 is PVH
 To: Jiqian Chen <Jiqian.Chen@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
@@ -93,7 +92,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
  Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
 References: <20240816110820.75672-1-Jiqian.Chen@amd.com>
- <20240816110820.75672-2-Jiqian.Chen@amd.com>
+ <20240816110820.75672-3-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,83 +118,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240816110820.75672-2-Jiqian.Chen@amd.com>
+In-Reply-To: <20240816110820.75672-3-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 16.08.2024 13:08, Jiqian Chen wrote:
-> @@ -67,6 +68,57 @@ ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          break;
->      }
->  
-> +    case PHYSDEVOP_pci_device_reset:
-> +    {
-> +        struct pci_device_reset dev_reset;
-> +        struct pci_dev *pdev;
-> +        pci_sbdf_t sbdf;
-> +
-> +        ret = -EOPNOTSUPP;
-> +        if ( !is_pci_passthrough_enabled() )
-> +            break;
+> If run Xen with PVH dom0 and hvm domU, hvm will map a pirq for
+> a passthrough device by using gsi, see qemu code
+> xen_pt_realize->xc_physdev_map_pirq and libxl code
+> pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
+> will call into Xen, but in hvm_physdev_op, PHYSDEVOP_map_pirq
+> is not allowed because currd is PVH dom0 and PVH has no
+> X86_EMU_USE_PIRQ flag, it will fail at has_pirq check.
+> 
+> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
+> iPHYSDEVOP_unmap_pirq for the removal device path to unmap pirq.
+> So that the interrupt of a passthrough device can be successfully
+> mapped to pirq for domU with a notion of PIRQ when dom0 is PVH.
+> 
+> To exposing the functionality to wider than (presently) necessary
+> audience(like PVH domU), so it doesn't add any futher restrictions.
 
-It occurs to me (only now, sorry): Does this case really need to be an
-error? I.e. do we really need to bother callers by having them find out
-whether pass-through is supported in the underlying Xen?
+The code change is fine, but I'm struggling with this sentence. I can't
+really derive what you're trying to say.
 
-> +        ret = -EFAULT;
-> +        if ( copy_from_guest(&dev_reset, arg, 1) != 0 )
-> +            break;
-> +
-> +        sbdf = PCI_SBDF(dev_reset.dev.seg,
-> +                        dev_reset.dev.bus,
-> +                        dev_reset.dev.devfn);
-> +
-> +        ret = xsm_resource_setup_pci(XSM_PRIV, sbdf.sbdf);
-> +        if ( ret )
-> +            break;
-> +
-> +        pcidevs_lock();
-> +        pdev = pci_get_pdev(NULL, sbdf);
-> +        if ( !pdev )
-> +        {
-> +            pcidevs_unlock();
-> +            ret = -ENODEV;
-> +            break;
-> +        }
-> +
-> +        write_lock(&pdev->domain->pci_lock);
-> +        pcidevs_unlock();
-> +        switch ( dev_reset.flags & PCI_DEVICE_RESET_MASK )
-> +        {
-> +        case PCI_DEVICE_RESET_COLD:
-> +        case PCI_DEVICE_RESET_WARM:
-> +        case PCI_DEVICE_RESET_HOT:
-> +        case PCI_DEVICE_RESET_FLR:
-> +            ret = vpci_reset_device(pdev);
-> +            break;
-> +
-> +        default:
-> +            ret = -EOPNOTSUPP;
+> And there already are some senarios for domains without
+> X86_EMU_USE_PIRQ to use these functions.
 
-EINVAL
-
-But: What about the other flag bits? You don't check them (anymore; I
-thought there was a check there before).
-
-> --- a/xen/include/public/physdev.h
-> +++ b/xen/include/public/physdev.h
-> @@ -296,6 +296,13 @@ DEFINE_XEN_GUEST_HANDLE(physdev_pci_device_add_t);
->   */
->  #define PHYSDEVOP_prepare_msix          30
->  #define PHYSDEVOP_release_msix          31
-> +/*
-> + * Notify the hypervisor that a PCI device has been reset, so that any
-> + * internally cached state is regenerated.  Should be called after any
-> + * device reset performed by the hardware domain.
-> + */
-> +#define PHYSDEVOP_pci_device_reset 32
-
-Nit: Please pad the 32 to align with the 30 and 31 in context.
+Are there? If so, pointing out an example may help.
 
 Jan
 
