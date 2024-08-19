@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9DDC956AE3
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2024 14:29:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.779614.1189323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9608956AEB
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2024 14:32:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.779622.1189332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sg1V9-0002AD-LB; Mon, 19 Aug 2024 12:28:47 +0000
+	id 1sg1Y1-0003dM-2A; Mon, 19 Aug 2024 12:31:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 779614.1189323; Mon, 19 Aug 2024 12:28:47 +0000
+Received: by outflank-mailman (output) from mailman id 779622.1189332; Mon, 19 Aug 2024 12:31:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sg1V9-00028S-I7; Mon, 19 Aug 2024 12:28:47 +0000
-Received: by outflank-mailman (input) for mailman id 779614;
- Mon, 19 Aug 2024 12:28:45 +0000
+	id 1sg1Y0-0003ah-VP; Mon, 19 Aug 2024 12:31:44 +0000
+Received: by outflank-mailman (input) for mailman id 779622;
+ Mon, 19 Aug 2024 12:31:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UKSt=PS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sg1V7-00028M-Lk
- for xen-devel@lists.xenproject.org; Mon, 19 Aug 2024 12:28:45 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1sg1Xz-0003ab-6B
+ for xen-devel@lists.xenproject.org; Mon, 19 Aug 2024 12:31:43 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 931e72f4-5e26-11ef-a506-bb4a2ccca743;
- Mon, 19 Aug 2024 14:28:44 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a8374e6a6fbso520892766b.3
- for <xen-devel@lists.xenproject.org>; Mon, 19 Aug 2024 05:28:44 -0700 (PDT)
+ id fd42f0c3-5e26-11ef-a506-bb4a2ccca743;
+ Mon, 19 Aug 2024 14:31:42 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5bed05c0a2fso3214021a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Aug 2024 05:31:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8383935984sm627580766b.116.2024.08.19.05.28.43
+ 4fb4d7f45d1cf-5bebbde7cd4sm5560594a12.39.2024.08.19.05.31.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Aug 2024 05:28:43 -0700 (PDT)
+ Mon, 19 Aug 2024 05:31:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 931e72f4-5e26-11ef-a506-bb4a2ccca743
+X-Inumbo-ID: fd42f0c3-5e26-11ef-a506-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724070524; x=1724675324; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724070702; x=1724675502; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2LRTc2ob5i1caEeLOvnQ6KWSCSQ6ADEg4hGUZMcdX4g=;
-        b=X5e4vjCdmQbHjSYuSESR4ccRLzSNiT8LOVtkMk24tG19KS/XNZoGcHlPGBrpRxHqqg
-         x1p34W4cMIYLB/0wv8oQoJ0WLiumSsM5MPpoaxzN+9dS+n0sObvOuusrdB7yY8S8FJOC
-         AHAVTXZx5T1sjwdrTy6Uzr0pNRc9zJVthtBhfLi8ck1nImMivXRviuaOIMYnOZFapkph
-         6IhJNTNwlOQOL/9mAQtbqzI04tcSkX/GMqgTtfnOMPrrcQGPIVvcdUsHE+6WIDsIjGU3
-         qdEyrz3m0QvDyXne1AvKW0QymEUJppOW0N0Qv+abbZgFP/CCwZlseysMO3j7VFcwFQKl
-         z+2g==
+        bh=haOCps7ggVu9u+LeYF6RYqtaDJSDRpLps7AkVHNZHUc=;
+        b=JW67/XhigM7BcpNtVH4IY5G7gLU1nXcqfODkRYbLmtWYjhlsa536Cdqci/hYFCkL2F
+         86U8FbtQEleaYBNq0p2U6qZtsldhU7kdezkM+Lp+BkSxej34Gq7dHl7wf0Z/df7KDEIW
+         Ih5QzNNFP1vyiFzQONlzsh3JrwQv+gjxSASF2qdJQfvGAOPIA0xfmIjyPnh7HbpoDdtq
+         WP6D3N+sP345WqlVd50iTu64dz44PBxvm5fcbpej/YMjx6pyx8gPUPNY1y2dmHWDIhs0
+         dsI24FSLBNsLiJhX8287UhcuA1PjKLEDiKeBg1Q7F8KjdY0RGMUSKK0VwMu8SsKWMYrD
+         ZpLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724070524; x=1724675324;
+        d=1e100.net; s=20230601; t=1724070702; x=1724675502;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2LRTc2ob5i1caEeLOvnQ6KWSCSQ6ADEg4hGUZMcdX4g=;
-        b=ruNjgEpHe+FqIzFjW7U+qBMMbzZ9tvxCUiNbjz8vAjF5xsMNGH1FDTTlvJDUOT8aXK
-         f09UCwK1iHpxp0Q9ZsjxgMaNn2JY3c2pS2i4UPwefwDVhopvSkeeMt7ogE8tIH8FSwPd
-         6JUqR0MOoRqnfyZX9QKdtmWJbfqDRetpJLbJRBiAQxPXMRkDl1CoSHd9ieu+xWHf3+Ko
-         lQp6KG7JfXr5fbTT07Bu6aPqtV+kNvBYl+4hrfYBnoPjpMghROuLeGQ4iBDbgWr1SV9O
-         Joja1exQI9ISdU7SB6mW21l/sq71gD65KfpS5EoeG55iSRC9KvDvPM7L8DoOnwbgS/d4
-         /l9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXVwNXJW8OjflTkJB0IB3Dz+vboTBqZiU7JVAUCKOfV9lsGBGtDbDiWLW1d7G/vbUddnM1/qTcoz+jjvXc4/Fm/D8YuFJBWQAszrNvwjeI=
-X-Gm-Message-State: AOJu0YyQaAt7/3tJyIdLgc6+WCZUiYkW9ZS44Ti6MwkxxdTC9tHlYYFa
-	ErG+5xEUqLSeZiRZXOaRljZJubAJzIcsHtmbFdM/FFhxUh0XRBZsdG7DkhMc9w==
-X-Google-Smtp-Source: AGHT+IEHJyIJ9m6UhvWpeWgOKrEhRy1ZS5QpZbqKea8EhJDcP75k8yY7GE/Z4+TGNiuV2tDxrBKmmw==
-X-Received: by 2002:a17:907:86a4:b0:a7d:34bf:600e with SMTP id a640c23a62f3a-a8392a4a586mr713043366b.60.1724070523858;
-        Mon, 19 Aug 2024 05:28:43 -0700 (PDT)
-Message-ID: <94d08e04-041c-448e-a2c3-28b8c00b82ec@suse.com>
-Date: Mon, 19 Aug 2024 14:28:42 +0200
+        bh=haOCps7ggVu9u+LeYF6RYqtaDJSDRpLps7AkVHNZHUc=;
+        b=WiseuDnzYsJHFu5cq5TsJtJqNxheGbJy1klX5ody8zZRazk5GMF0m7JE9rJz4LIo1u
+         g83aQCVbuvI2TaHtfvdkNH/c5PnD5fFGJjxkUxuvb/9sJRBQbZd7lQyn0rwOyvPNdwxo
+         Edbj0JVbHhatSbxeSt/XT0Bf8mBYqzl3791Zb4TApmTxNj21RMQgfNmtO/7eSCpNgWsC
+         8Jy3H5Q70Sa902MImj9VVHuLTswF+Yry7VVxLmt2g8tf2vPcevucrsdSrhEr/nWknjnO
+         Y7Q2fAmPfSVQy3MjsRKe4QcVAxnyrewyP7Gms2ZlPjFqX4iUmj2V13uHWvrMz484CA+r
+         WRGw==
+X-Forwarded-Encrypted: i=1; AJvYcCUbxUVK7f96xUFEq1VXIBbC46UQyVpf52amoH0T5ZeeRTCkypzUMK4hVvf/i7UkADnWCAffmgXsiGdLHm4WPJBEOVvFszbzwnSiwkZPVDw=
+X-Gm-Message-State: AOJu0YxDBiqw6wVc2fJnzUYHKDUcit4toHFqjJTRAtg2QAYU8sq9FBEK
+	MdJBvHrmDO6CoN5q1v/Kho5ciFsMYL+0wd4UG/CgS5/bkZhqmPIcLlHgH3rJyQ==
+X-Google-Smtp-Source: AGHT+IG3PKCsbNrU/lD0j45YEOuhYTnXvIUwr57MmKLWV7gHa3/tiPLbZgQV7TZcBs+Gytas+N4rrg==
+X-Received: by 2002:a05:6402:1ece:b0:5b9:462d:c538 with SMTP id 4fb4d7f45d1cf-5beca4be005mr8392143a12.3.1724070701716;
+        Mon, 19 Aug 2024 05:31:41 -0700 (PDT)
+Message-ID: <96af19a7-4f0f-457c-bba9-b4678c0bfa1b@suse.com>
+Date: Mon, 19 Aug 2024 14:31:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 3/5] x86/spec-ctrl: configurable
- Intlel/AMD-specific calculations
+Subject: Re: [XEN PATCH v2 4/5] x86/intel: optional build of intel.c
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ xen-devel@lists.xenproject.org
 References: <cover.1723806405.git.Sergiy_Kibrik@epam.com>
- <b789679a7edd41c88eca41d3c703d2292cfcce0e.1723806405.git.Sergiy_Kibrik@epam.com>
+ <ce06eff2060c94ebf659d11f7390c577a3c6a24e.1723806405.git.Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,45 +115,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b789679a7edd41c88eca41d3c703d2292cfcce0e.1723806405.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <ce06eff2060c94ebf659d11f7390c577a3c6a24e.1723806405.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.08.2024 13:14, Sergiy Kibrik wrote:
-> Put platforms-specific code under #ifdef CONFIG_{AMD,INTEL} so that when
-> corresponding CPU support is disabled by configuration less dead code will end
-> up in the build.
-> 
-> This includes re-ordering of calls to ibpb_calculations() & div_calculations(),
-> but since they don't access common variables or feature bits it should be
-> safe to do.
+On 16.08.2024 13:17, Sergiy Kibrik wrote:
+> With specific config option INTEL in place and most of the code that depends
+> on intel.c now can be optionally enabled/disabled it's now possible to put
+> the whole intel.c under INTEL option as well. This will allow for a Xen build
+> without Intel CPU support.
 > 
 > Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> CC: Jan Beulich <jbeulich@suse.com>
 
-For one please consider adding Requested-by: or Suggested-by: tags.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/spec_ctrl.c
-> +++ b/xen/arch/x86/spec_ctrl.c
-> @@ -1012,6 +1012,7 @@ static bool __init should_use_eager_fpu(void)
->      }
->  }
->  
-> +#ifdef CONFIG_AMD
->  /*
->   * https://www.amd.com/content/dam/amd/en/documents/corporate/cr/speculative-return-stack-overflow-whitepaper.pdf
->   */
-> @@ -1110,6 +1111,7 @@ static void __init div_calculations(bool hw_smt_enabled)
->              "enabled.  Please assess your configuration and choose an\n"
->              "explicit 'smt=<bool>' setting.  See XSA-439.\n");
->  }
-> +#endif /* CONFIG_AMD */
 
-And then no, I don't think we want to use #ifdef-ary here. IS_ENABLED()
-inside the functions (where the vendor checks are) is not only making
-sure the compiler will still parse all the code even when either vendor's
-support was turned off, but will also help review (by having in context
-what the actual vendor checks are in each function).
-
-Jan
 
