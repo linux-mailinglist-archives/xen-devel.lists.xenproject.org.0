@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 296D7958127
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 10:40:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.780204.1189827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42D95958147
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 10:45:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.780210.1189837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgKPc-0001kz-Vq; Tue, 20 Aug 2024 08:40:20 +0000
+	id 1sgKU8-0002LB-Fh; Tue, 20 Aug 2024 08:45:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 780204.1189827; Tue, 20 Aug 2024 08:40:20 +0000
+Received: by outflank-mailman (output) from mailman id 780210.1189837; Tue, 20 Aug 2024 08:45:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgKPc-0001iO-Sd; Tue, 20 Aug 2024 08:40:20 +0000
-Received: by outflank-mailman (input) for mailman id 780204;
- Tue, 20 Aug 2024 08:40:19 +0000
+	id 1sgKU8-0002Jd-Ci; Tue, 20 Aug 2024 08:45:00 +0000
+Received: by outflank-mailman (input) for mailman id 780210;
+ Tue, 20 Aug 2024 08:44:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yfvp=PT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sgKPb-0001iD-4H
- for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 08:40:19 +0000
+ id 1sgKU6-0002JX-Dp
+ for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 08:44:58 +0000
 Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
  [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4411490-5ecf-11ef-a507-bb4a2ccca743;
- Tue, 20 Aug 2024 10:40:18 +0200 (CEST)
+ id 7a9c6252-5ed0-11ef-a507-bb4a2ccca743;
+ Tue, 20 Aug 2024 10:44:57 +0200 (CEST)
 Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a86464934e3so84907066b.3
- for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 01:40:18 -0700 (PDT)
+ a640c23a62f3a-a7aac70e30dso561718666b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 01:44:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8383946538sm732780666b.151.2024.08.20.01.40.17
+ a640c23a62f3a-a838396c682sm729383266b.196.2024.08.20.01.44.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Aug 2024 01:40:17 -0700 (PDT)
+ Tue, 20 Aug 2024 01:44:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4411490-5ecf-11ef-a507-bb4a2ccca743
+X-Inumbo-ID: 7a9c6252-5ed0-11ef-a507-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724143218; x=1724748018; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724143497; x=1724748297; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UIDfxVhY7fnottjWLC7fDlRPFUbWqgVBnlZeCyzgUPg=;
-        b=R0cHUYVSYv+hfVplTZXgg6+AyFevwJpwJsNzAmcNHZdS0flH4AhuUhdbqKc0EPpjvU
-         nR+tzEgz1rkDLgBYY2FNAg0GWijCDtPtSGwy8Nf+tvAH7tm/x4lRlYGK6Ul3Qm6Rxrdy
-         Gyat5fZvOOy5DdiVK27B/5+HwlKkF16DDyQnlyULcaiX4xcLXlipW4i7G5JagMlGp/yN
-         CLviLmbYQTNShcGliaB69EzaABeOuwzyFnGgsB15LNgnUkoxTRtooa2FLtDvmgg2oQI6
-         D8+eu+qz1j89eczVg11jbcIVwJFcXjvZx7hbz75/zg7Y/YZx9VJscO/uaA0raEPl6tJu
-         z4iQ==
+        bh=6yD8g2KoL50GiIU4H3yhFvykxcp80Bk8XWTn51eVuQw=;
+        b=UUYRukFWr2LSMVR83A9voH8Ewl9T52oepVx/oJj0cvvSzw4fd+K2fte9QH3qryZbLz
+         OP2cZ/L9QJk/bOlHxeqyJVqXxikXkoJV4d5K9g7PQc7nDmK2rVuCbLscOLEvwWJRMNSO
+         j/YwtVlA0VIvDW8pW3j5B69TjHn7QejxwZsHM8OWu3O91Pf6nq9OUieABsr0Sx9AbIII
+         QP2vaM2ICkiBAMJnXRc1h5HsKXwpOcF5piXTF4kxCKZGKu9sMtC/nsHjrRZYFRca1f4/
+         qa82nDHGcBna64B50Bdp7IjKgd7vVdhuw3vzC/paF8ZMJOhAlgFWqjWoYCW3ErNO6KaE
+         xLaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724143218; x=1724748018;
+        d=1e100.net; s=20230601; t=1724143497; x=1724748297;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UIDfxVhY7fnottjWLC7fDlRPFUbWqgVBnlZeCyzgUPg=;
-        b=hD95IFF3aEPkOLZu7w9djy01kacT15Ruc5uvbZzs4ifmPMDE9yJkyG4/P3fvnsi6YZ
-         /V9s2fHKAHi5niQqPvh/8uMfQA5eNkoah65ceoIoXZrOW0mIPomlplhcudnK8nLhr5Ux
-         0KJuaL0/2+hy7ZqmqyNrSRtQIp0inAdzX+8ik8T+nNhP93CHLLEJt1g//yvnQswnZh4M
-         FQPPzDW2g7z3TJtwGt8Z/OBADNVZTD2wCkYHIwNQuEi8a8bvBKS138VEfteRG20q2f4D
-         WGVe0uKY1oST6DxLrE9r+Fy1/7hPG9dj2j6+sNlMCHtguMkO5AGgJPJDipqHw2JJ3a72
-         fXrA==
-X-Forwarded-Encrypted: i=1; AJvYcCUMF+Kv5wIgV+9qGnOMohxK4XrrnlC7qVbbxsyHXixva6oCjrgjGAEYtpL6O11kGRkQZh2NtkQovR1nd9aT88dS8mzpzr+RhX/fC86eBBE=
-X-Gm-Message-State: AOJu0Yy5yMOucycZ7BEUb2tE68Rvw+YrozpJKiZDh3iq8cDRcKpUsOnf
-	1f3e+QorlV+JE71kNwEFp9Wrt6yMrHlC4FHqhqyCB7B+U+1uXbCH/Py8cWAkEQ==
-X-Google-Smtp-Source: AGHT+IFKKwbAe4UsLI5P0/ECxxMtGDpjSBVELhqGsnY3Ji1MWH4EqctA+4Uw+oYqt73ir9MQOPbetg==
-X-Received: by 2002:a17:907:7e93:b0:a7d:3f4b:fcaa with SMTP id a640c23a62f3a-a8392a38e65mr867605966b.67.1724143217855;
-        Tue, 20 Aug 2024 01:40:17 -0700 (PDT)
-Message-ID: <e01257b4-e2b2-4b3c-84e7-9b4c17d97baf@suse.com>
-Date: Tue, 20 Aug 2024 10:40:16 +0200
+        bh=6yD8g2KoL50GiIU4H3yhFvykxcp80Bk8XWTn51eVuQw=;
+        b=i2viZh9ivHMULhDHx3yY2X5Hk+zYbv8E0reJGhP6ivEbWvU7HFOHNWjdcEkFcEi1Hf
+         gK7K+W9gMqGQ+FmEbJu0E7e8ehzgi9ciYtQX/nHq4kvGBK1HeWw9bvXD4RD1v5CiHijU
+         rH3yWfdl6V6+k9/lT0FmloHFIScOxzw+Fdu1oqAH2UdzzrZWl2zRqPaSurxTBRHysjlr
+         8qDDCeKdjUH42Cgm8898E3EBXcqAU1dA93fzGgFlk0zLYHU3uCsOwiIIoDXUc8eLIS05
+         5z1h5qesCT98hA8hghwzX+Q0IRD6u0ydOnEQkBwG7JtlDLbPDKozQw1v4vVPN1IDaQOF
+         JIQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUE9eTENRqBzar7mPIU89x9x4KdGUqjDRcDy2h9rx4hU++sYeCePld2K1/9Ex14QnhIGBUP2fOa2JBWun/sj4CL8zuVpJKKhOQjFjts0Ow=
+X-Gm-Message-State: AOJu0YzDgsEd+aAXIp4ZWFXMVm6CQrvNoWD9eTF8u7HR7ij3H9SNVW7x
+	MSuBtHVclikfTg+9Zh58Zl2yMrAzNIS4cip12PEeKMsa+NHI6ii30wufmrXrHzxmDnAvieZ+rME
+	=
+X-Google-Smtp-Source: AGHT+IGcH1K3GomaOMKnp10Sgh4hRQiaDwKk8MjXeZ4iL6GBsmVD3towt0FsuZ3Mxkev+5PfjgXUHQ==
+X-Received: by 2002:a17:907:e29e:b0:a7d:c696:76ee with SMTP id a640c23a62f3a-a839292f15bmr1016706666b.17.1724143497021;
+        Tue, 20 Aug 2024 01:44:57 -0700 (PDT)
+Message-ID: <b9556863-1536-4310-8005-f92e8948356c@suse.com>
+Date: Tue, 20 Aug 2024 10:44:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/7] xen: move checks for e820 conflicts further up
+Subject: Re: [PATCH v2 4/7] xen: move max_pfn in xen_memory_setup() out of
+ function scope
 To: Juergen Gross <jgross@suse.com>
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
@@ -91,7 +93,7 @@ Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org,
  x86@kernel.org
 References: <20240820082012.31316-1-jgross@suse.com>
- <20240820082012.31316-4-jgross@suse.com>
+ <20240820082012.31316-5-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,20 +119,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240820082012.31316-4-jgross@suse.com>
+In-Reply-To: <20240820082012.31316-5-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 20.08.2024 10:20, Juergen Gross wrote:
-> Move the checks for e820 memory map conflicts using the
-> xen_chk_is_e820_usable() helper further up in order to prepare
-> resolving some of the possible conflicts by doing some e820 map
-> modifications, which must happen before evaluating the RAM layout.
+> Instead of having max_pfn as a local variable of xen_memory_setup(),
+> make it a static variable in setup.c instead. This avoids having to
+> pass it to subfunctions, which will be needed in more cases in future.
+> 
+> Rename it to ini_nr_pages, as the value denotes the currently usable
+> number of memory pages as passed from the hypervisor at boot time.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 > Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
+I wonder though why ...
 
+> @@ -712,9 +713,9 @@ char * __init xen_memory_setup(void)
+>  	int op;
+>  
+>  	xen_parse_512gb();
+> -	max_pfn = xen_get_pages_limit();
+> -	max_pfn = min(max_pfn, xen_start_info->nr_pages);
+> -	mem_end = PFN_PHYS(max_pfn);
+> +	ini_nr_pages = xen_get_pages_limit();
+> +	ini_nr_pages = min(ini_nr_pages, xen_start_info->nr_pages);
+
+... this can't be just
+
+	ini_nr_pages = min(xen_get_pages_limit(), xen_start_info->nr_pages);
+
+Jan
 
