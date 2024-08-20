@@ -2,38 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB016958072
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 10:04:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.780091.1189677 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6D6395808E
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 10:08:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.780101.1189687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgJpT-00036H-Gu; Tue, 20 Aug 2024 08:02:59 +0000
+	id 1sgJu9-00048y-5X; Tue, 20 Aug 2024 08:07:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 780091.1189677; Tue, 20 Aug 2024 08:02:59 +0000
+Received: by outflank-mailman (output) from mailman id 780101.1189687; Tue, 20 Aug 2024 08:07:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgJpT-00034k-DF; Tue, 20 Aug 2024 08:02:59 +0000
-Received: by outflank-mailman (input) for mailman id 780091;
- Tue, 20 Aug 2024 08:02:58 +0000
+	id 1sgJu9-000464-2W; Tue, 20 Aug 2024 08:07:49 +0000
+Received: by outflank-mailman (input) for mailman id 780101;
+ Tue, 20 Aug 2024 08:07:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yfvp=PT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sgJpS-00034e-Lu
- for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 08:02:58 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ (envelope-from <SRS0=M/mv=PT=ti.com=a-singh21@srs-se1.protection.inumbo.net>)
+ id 1sgJu7-00045y-Mb
+ for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 08:07:47 +0000
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 98d01c13-5eca-11ef-8776-851b0ebba9a2;
- Tue, 20 Aug 2024 10:02:51 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5bed83488b3so3818537a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 01:02:51 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bebc081db4sm6417283a12.88.2024.08.20.01.02.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Aug 2024 01:02:50 -0700 (PDT)
+ id 46841b26-5ecb-11ef-8776-851b0ebba9a2;
+ Tue, 20 Aug 2024 10:07:44 +0200 (CEST)
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+ by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 47K87fVP115774;
+ Tue, 20 Aug 2024 03:07:41 -0500
+Received: from DLEE112.ent.ti.com (dlee112.ent.ti.com [157.170.170.23])
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 47K87fSU056773
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 20 Aug 2024 03:07:41 -0500
+Received: from DLEE107.ent.ti.com (157.170.170.37) by DLEE112.ent.ti.com
+ (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 20
+ Aug 2024 03:07:41 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE107.ent.ti.com
+ (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Tue, 20 Aug 2024 03:07:41 -0500
+Received: from localhost (nightbug.dhcp.ti.com [10.24.72.75])
+ by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 47K87der082013;
+ Tue, 20 Aug 2024 03:07:40 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,133 +54,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98d01c13-5eca-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724140971; x=1724745771; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q1FJt9eAEABnZpwBHrjTH5qZRhZMkcYzlKlXsfayNvI=;
-        b=dKgFWgbAteO3ZUo03QKuiXe0Tq0BfiZZeEhaQ15Mzts7JcNy4W+LhRLSDx7c5nk9Qj
-         KWFsSRpy89x8WFQ6Uncl1vrNncvmgEwHse5jqgR8iyMzK1rG56m5jSdvZmxvYWFg0bqH
-         envmcTe7AXhTq+S1omjyttFloTNlLP4ALh3plJiQ6bWXzqfzUaim44FEZMOzPIqh5nMx
-         5daZlHVu4GDbVwkpo27IEWP17904p35wHrbfDa3t6XJAqU5mj6fZ3ZJXlicG0/xDSvI+
-         cNjl6suwEmhM7J+Lri4+a35CuZ6cnB5uzR/nO035hK90nYQUUsl4IHuWsk2sD1unKw4d
-         gIFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724140971; x=1724745771;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q1FJt9eAEABnZpwBHrjTH5qZRhZMkcYzlKlXsfayNvI=;
-        b=TTLmof03fcyDMMFYjNKdY+VA5ow3ZdbtzI5lkjOxAQFfHtFZWVaZMac+C8ede3mnk6
-         nYaFNVthD6RcZphJakTyVmu+AuOYo5d9VY611OQG3pH2N3Hco5pyDm5aK2ZsfbgNtagk
-         cI9ArBMm4ks0nf9v+SJeICGgyy0Ho+rlFcCHCzRZqQx06shg9NfE5ouF81Gc6mQqEzWf
-         UONtaL7Tfh2UP+VWTxB065PlzvHl3du4GpO+uawbzSZaphG+l9YgwaQyHCWuRQJCKlgc
-         OWDQRUYt2JQoTPMvzaK11JVpS5sL5vjYFINFMRMNDNc6HNkToRCl33HCYJ/0ZhJPnJSS
-         T0oA==
-X-Forwarded-Encrypted: i=1; AJvYcCVqwnpfpyY+4G/WRiBaPLDBS0lGigJXNXFMK3gaqD69aEPA+4+hKOUhLL/Z42ady7hLfdljf/JDGS0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDFEw2oS4g2W8hV9Svdaaedprg0ObIUHjub7wzoiQWhB8WYQ7k
-	UdM2d/BspgNIupHRJ7PNWxku4nBLImEcj/rlAmcjXMkjCSlpaze+g7Vrbd0lWg==
-X-Google-Smtp-Source: AGHT+IFxefm2gVt2u9I63nMfavTQwHp2RZkmlnXqMDx4XNixhmwJ9sCj+14+ww1fBA4JqYnED9tyqQ==
-X-Received: by 2002:a05:6402:13d5:b0:5be:ee30:9951 with SMTP id 4fb4d7f45d1cf-5beee309fbemr5662468a12.7.1724140970522;
-        Tue, 20 Aug 2024 01:02:50 -0700 (PDT)
-Message-ID: <9a0d75a9-bd0b-4caf-83f7-d24cadf80ed8@suse.com>
-Date: Tue, 20 Aug 2024 10:02:49 +0200
+X-Inumbo-ID: 46841b26-5ecb-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1724141261;
+	bh=TeBOwM+tXteEQrANYjoamP9LUorPNZlyzsIFVa/Uvrg=;
+	h=From:To:CC:Subject:Date;
+	b=Edxz/75f3WrPZh1rysl3J3/V/+EggY9lDXzeZrzox9svaGXTIiDElV+o/+zYeBgUt
+	 My+NFdkHOh9ClvB23NLXLfVpZVTf9v5hR1YMMDD2T5v82La5ZQYnpKihCvVizOjTUK
+	 2yr2Z5IaDosVtMTRsPb3+WNLq3SpsYK5+jOleJTQ=
+From: Amneesh Singh <a-singh21@ti.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <anthony.perard@vates.tech>, Amneesh Singh <a-singh21@ti.com>
+Subject: [PATCH v2] tools/helpers/init-dom0less: fix vcpu availability
+Date: Tue, 20 Aug 2024 13:34:17 +0530
+Message-ID: <20240820080416.323725-1-a-singh21@ti.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] x86: Set xen_phys_start and
- trampoline_xen_phys_start earlier
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20240814083428.3012-1-frediano.ziglio@cloud.com>
- <20240814083428.3012-3-frediano.ziglio@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240814083428.3012-3-frediano.ziglio@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 
-On 14.08.2024 10:34, Frediano Ziglio wrote:
-> No reason to wait, if Xen image is loaded by EFI (not multiboot
-> EFI path) these are set in efi_arch_load_addr_check, but
-> not in the multiboot EFI code path.
-> This change makes the 2 EFI code paths more similar and allows
-> the usage of these variables if needed.
+Currently, writing at cpu/<cpu>/availability in xenstore fails for a
+couple of reasons: a trailing slash in the path and the fact that
+cpupool isn't a bitmap but the cpupool id. This patch fixes this by
+just getting libxl_vcpuinfo for each dom0less domain.
 
-It still remains a just-in-case change this way. It's init-only code,
-so the code size increase doesn't really matter, yet having such
-redundant code without a good explanation is at risk of being
-confusing down the road. Therefore - if this change is needed in a
-later patch in this series, please mention the intended use case
-here, or perhaps simply fold both patches.
+Signed-off-by: Amneesh Singh <a-singh21@ti.com>
+---
+ tools/helpers/init-dom0less.c | 46 ++++++++++++++++++++++++-----------
+ 1 file changed, 32 insertions(+), 14 deletions(-)
+---
+v1 -> v2:
+- check for libxl_list_vcpu failure
+- skip writing cpu availability to store if the above failure occurs
 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
->  xen/arch/x86/boot/head.S | 5 +++++
->  1 file changed, 5 insertions(+)
-> ---
-> Changes since v1:
-> - Do not remove other hunk, used for BIOS;
+diff --git a/tools/helpers/init-dom0less.c b/tools/helpers/init-dom0less.c
+index fee9345..722a5af 100644
+--- a/tools/helpers/init-dom0less.c
++++ b/tools/helpers/init-dom0less.c
+@@ -99,8 +99,8 @@ static bool do_xs_write_vm(struct xs_handle *xsh, xs_transaction_t t,
+  * domain started by xl/libxl.
+  */
+ static int create_xenstore(struct xs_handle *xsh,
+-                           libxl_dominfo *info, libxl_uuid uuid,
+-                           evtchn_port_t xenstore_port)
++                           libxl_dominfo *info, libxl_vcpuinfo *vcpuinfo,
++                           libxl_uuid uuid, evtchn_port_t xenstore_port)
+ {
+     domid_t domid;
+     unsigned int i;
+@@ -167,15 +167,20 @@ retry_transaction:
+     /* /domain */
+     if (!do_xs_write_dom(xsh, t, domid, "vm", vm_val_str)) goto err;
+     if (!do_xs_write_dom(xsh, t, domid, "name", dom_name_str)) goto err;
+-    if (!do_xs_write_dom(xsh, t, domid, "cpu", "")) goto err;
+-    for (i = 0; i < info->vcpu_max_id; i++) {
+-        rc = snprintf(cpu_str, STR_MAX_LENGTH, "cpu/%u/availability/", i);
+-        if (rc < 0 || rc >= STR_MAX_LENGTH)
+-            goto err;
+-        rc = -EIO;
+-        if (!do_xs_write_dom(xsh, t, domid, cpu_str,
+-                             (info->cpupool & (1 << i)) ? "online" : "offline"))
+-            goto err;
++
++    if (!vcpuinfo) {
++        fprintf(stderr, "vcpu information unavailable, proceeding without it\n");
++    } else {
++        if (!do_xs_write_dom(xsh, t, domid, "cpu", "")) goto err;
++        for (i = 0; i <= info->vcpu_max_id; i++) {
++            rc = snprintf(cpu_str, STR_MAX_LENGTH, "cpu/%u/availability", i);
++            if (rc < 0 || rc >= STR_MAX_LENGTH)
++                goto err;
++            rc = -EIO;
++            if (!do_xs_write_dom(xsh, t, domid, cpu_str,
++                                vcpuinfo[i].online ? "online" : "offline"))
++                goto err;
++        }
+     }
+ 
+     if (!do_xs_write_dom(xsh, t, domid, "memory", "")) goto err;
+@@ -225,7 +230,8 @@ err:
+ static int init_domain(struct xs_handle *xsh,
+                        struct xc_interface_core *xch,
+                        xenforeignmemory_handle *xfh,
+-                       libxl_dominfo *info)
++                       libxl_dominfo *info,
++                       libxl_vcpuinfo *vcpuinfo)
+ {
+     libxl_uuid uuid;
+     uint64_t xenstore_evtchn, xenstore_pfn;
+@@ -278,7 +284,7 @@ static int init_domain(struct xs_handle *xsh,
+     if (rc < 0)
+         return rc;
+ 
+-    rc = create_xenstore(xsh, info, uuid, xenstore_evtchn);
++    rc = create_xenstore(xsh, info, vcpuinfo, uuid, xenstore_evtchn);
+     if (rc)
+         err(1, "writing to xenstore");
+ 
+@@ -330,14 +336,24 @@ int main(int argc, char **argv)
+ 
+     for (i = 0; i < nb_vm; i++) {
+         domid_t domid = info[i].domid;
++        libxl_vcpuinfo *vcpuinfo;
++        int nb_vcpu = 0, nr_cpus = 0;
++
+ 
+         /* Don't need to check for Dom0 */
+         if (!domid)
+             continue;
+ 
++        vcpuinfo = libxl_list_vcpu(ctx, domid, &nb_vcpu, &nr_cpus);
++
++        if (!vcpuinfo) {
++          fprintf(stderr, "libxl_list_vcpu failed.\n");
++          nb_vcpu = 0;
++        }
++
+         printf("Checking domid: %u\n", domid);
+         if (!domain_exists(xsh, domid)) {
+-            rc = init_domain(xsh, xch, xfh, &info[i]);
++            rc = init_domain(xsh, xch, xfh, &info[i], vcpuinfo);
+             if (rc < 0) {
+                 fprintf(stderr, "init_domain failed.\n");
+                 goto out;
+@@ -345,6 +361,8 @@ int main(int argc, char **argv)
+         } else {
+             printf("Domain %u has already been initialized\n", domid);
+         }
++
++        libxl_vcpuinfo_list_free(vcpuinfo, nb_vcpu);
+     }
+ out:
+     libxl_dominfo_list_free(info, nb_vm);
+-- 
+2.34.1
 
-As indicated on the v1 thread: The writes simply write 0 in the BIOS
-case. It's the PVH case which needs them. With that I see two options:
-Move the existing code to ahead of __pvh_start's jump to
-trampoline_setup (my preference), or at least make sure that in the
-MB2 case we don't write the two variables a 2nd time (else raising
-the question of whether the same value is written, or why the value is
-okay to change.)
-
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -240,6 +240,11 @@ __efi64_mb2_start:
->          jmp     x86_32_switch
->  
->  .Lefi_multiboot2_proto:
-> +        /* Save Xen image load base address for later use. */
-> +        lea     __image_base__(%rip), %esi
-> +        mov     %rsi, xen_phys_start(%rip)
-> +        mov     %esi, trampoline_xen_phys_start(%rip)
-
-As iirc also indicated in reply to v1 already: The existing code you
-clone uses two 32-bit writes. What's the point of using a mix here?
-If the address was really above 4G, we'd have an issue anyway, wouldn't
-we? (Leaving aside that the LEA already truncates the value anyway.)
-
-Finally I'd like to recommend to avoid the use of %esi here. It gives
-the wrong impression of sym_esi() becoming usable, when in fact %esi is
-zeroed ...
-
->          /* Zero EFI SystemTable, EFI ImageHandle addresses and cmdline. */
->          xor     %esi,%esi
-
-... immediately afterwards.
-
-Jan
 
