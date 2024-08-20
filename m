@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1841595875E
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 14:52:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.780372.1189992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 951D8958768
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 14:54:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.780378.1190007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgOKX-0001DF-Rt; Tue, 20 Aug 2024 12:51:21 +0000
+	id 1sgOMn-0001kg-9o; Tue, 20 Aug 2024 12:53:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 780372.1189992; Tue, 20 Aug 2024 12:51:21 +0000
+Received: by outflank-mailman (output) from mailman id 780378.1190007; Tue, 20 Aug 2024 12:53:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgOKX-0001Ah-PF; Tue, 20 Aug 2024 12:51:21 +0000
-Received: by outflank-mailman (input) for mailman id 780372;
- Tue, 20 Aug 2024 12:51:20 +0000
+	id 1sgOMn-0001hq-6l; Tue, 20 Aug 2024 12:53:41 +0000
+Received: by outflank-mailman (input) for mailman id 780378;
+ Tue, 20 Aug 2024 12:53:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yfvp=PT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sgOKW-0001Ab-64
- for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 12:51:20 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1sgOMm-0001hO-OB
+ for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 12:53:40 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e42a393d-5ef2-11ef-8776-851b0ebba9a2;
- Tue, 20 Aug 2024 14:51:17 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a8647056026so97608666b.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 05:51:18 -0700 (PDT)
+ id 37c12bdd-5ef3-11ef-8776-851b0ebba9a2;
+ Tue, 20 Aug 2024 14:53:37 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5a10835487fso8302280a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 05:53:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8383935636sm757116366b.108.2024.08.20.05.51.16
+ a640c23a62f3a-a8383934564sm755321066b.126.2024.08.20.05.53.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Aug 2024 05:51:16 -0700 (PDT)
+ Tue, 20 Aug 2024 05:53:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e42a393d-5ef2-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 37c12bdd-5ef3-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724158277; x=1724763077; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=keNEB41MN/8ddQ5FnQk9UfRStxcvk1+CWRTkPzXpGPw=;
-        b=f9qvXS1kjpkvyducRm+AQ9JUTCxDUTxyrV4xHAQMtoFc1yEZcq0l7kIahTWws0LGt4
-         wc6LO0T9cHfp9SWdMHV9ID9ROHk9Dhp5YldhNHRqixyPKY8aAgEAL2fY/0r8Sjy4FDQc
-         goU3Az4gP61PBcfr/JqMYEEeW9MNNE68NjjgbnO10x84wH45eIUbhgign7NO4HqP+KHs
-         SuWPwB4/a2f3GSC7dXewiepSsTJywOb8mYQhiSce/YTFfT8AfRv0Og0vhcvM/9NTwDdv
-         Wut+eBiRh3P81m27xfgD5jul23MFQ+WrAEzzF/KhoViS7Ph0a5HIR55Tk1QH5eMSpcH3
-         LyKw==
+        d=suse.com; s=google; t=1724158418; x=1724763218; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=9tqL6KJwHijGWE8p+gVbOgEAibadQLjqxyFvRKxEk5k=;
+        b=JrDK6mKzJopPEkYeyX07VvzJbwd+Neb8Q/ms1IsttyfYCU41ykvcNd1kncpzgj5Di0
+         tA8Bb1Cr26U8/7n814J1wfFjQg40AjzZKQRt7iZW8Bxyo+JewZAitwFlvZMRMPUT89HA
+         5qds5yn2YTByW0UZjZYSBQ+QnLxlRBzOggmRHBIoJzN5KzqBufDRECltCq9ISGeBxSmf
+         znvb9su7/0EMzld35tpC3cCLljku5rRVSfyvKzipU+QBk2G0XiUsZiOLOdHbrLPDFPNK
+         TpIGet4NBz1FYjVoeNkKEkkiychL5uV6syjw16/QIU1gDBBG03/8bgFn6g7x6zFppRGj
+         1DmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724158277; x=1724763077;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=keNEB41MN/8ddQ5FnQk9UfRStxcvk1+CWRTkPzXpGPw=;
-        b=qQB6qHGsI2RH/Mh+cCmuAjkXHnL+EeEMAQdLTzBJKFFV/5aTQKnehEGyka4lDu3d1N
-         /gj7GRrOFQVUoJzyY1RymKLMrh7J2AZQcmtj3ISjNMC16DKA4TpK07u8OtOQyvHIqa7x
-         FzuKHEmMaq9x1tmeG254oionSpqPIuq/hAef0jJf+0AClgqRoozlxB8lU5IH3W9KmwXN
-         G8qN/tgcFUZpszsnO09jAiJ3phXbs1Lr8wKkFnCl4m+oQmhgTEhjsPHq6zgPXXqycTLU
-         R+uH1BCyx+wF2B9w7d0zxH0fDMop4UTqMWlP0JiGorqvn/cT0CxlKADoRUxAxeGsdnuK
-         13Mg==
-X-Gm-Message-State: AOJu0Yzg7eOuY8FG6uTufmNTpsspLwWYzTmNvT9g5h3RyO52CCk949Iv
-	8H77izFQeodsQx/llHgIDCa6Y1U56dhqsTvDZnVY1EuvQECH7pOBR72NLylZkA==
-X-Google-Smtp-Source: AGHT+IF18w9ET4OUAyuLQSPcqMx1ue2q4yFv1RTI49cDnqzaCv0xv2XotbOK1MHgTbWHmZOQZnL7ng==
-X-Received: by 2002:a17:907:e66a:b0:a7d:d1a6:d943 with SMTP id a640c23a62f3a-a8392956005mr1030984266b.40.1724158277252;
-        Tue, 20 Aug 2024 05:51:17 -0700 (PDT)
-Message-ID: <5f4d628b-6268-4878-8d87-0174dad818c7@suse.com>
-Date: Tue, 20 Aug 2024 14:51:15 +0200
+        d=1e100.net; s=20230601; t=1724158418; x=1724763218;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9tqL6KJwHijGWE8p+gVbOgEAibadQLjqxyFvRKxEk5k=;
+        b=FUnw4V2QcUuEyoxOFOOnHd1BNh3Yc1lHI+puRVwkXbCCaKMF49VseZ6+sW489sw8zR
+         pa9CVyu6gn51GJ6p3kU/w+MzIY5/ylEPzM7k5gpJvHICzHgU/jYJ8RGdtoD+CR6ZFf/y
+         33Uk66WtdYdZPqXkVTh/sdZfGhOeEo/mUNQPm1Vp2O/Tnx4rCuPovHO1xDp0wgoqCIHQ
+         /jQGkuSU3KLBl8hBWZMZbTLJQHeaoGc2gcw3rM4dghTywhxh10n57LjkPLbl5IurlKUG
+         aaHP2VXG6M8fbN4VbHEJSfxWQcTZH9TtqZcqB18NYSIspQX7ramtmaohoRok0b7v6qsw
+         jU0g==
+X-Forwarded-Encrypted: i=1; AJvYcCVOWpXaKASRtc1jhFUNaJ56QrA5wxmvuKvik9/ey5LwJ27w59IQ8GfXNJJg9U8y69sZfuc0ke9+NvY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwbzfxfYvTSEs+iGzwKjbVytHMHXfF/Y0mRNRMFeqolrJ1tvDge
+	MWioQNz9HvsrUglPiZ2ZWekwak5ObfpvjSMTiUSIkx83gObNNFIVv47QfDQyaw==
+X-Google-Smtp-Source: AGHT+IFi1wPUNJcNjE9Zsx5hzbitTRutX9cfgKBtyw1lubV9H01bHFGgxeV0uZMFu3JN84biB5iGvA==
+X-Received: by 2002:a17:907:e212:b0:a77:c199:9d01 with SMTP id a640c23a62f3a-a839292deecmr1020809466b.22.1724158417647;
+        Tue, 20 Aug 2024 05:53:37 -0700 (PDT)
+Message-ID: <fa441335-bb76-462b-b64c-160cb1fa28ac@suse.com>
+Date: Tue, 20 Aug 2024 14:53:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] xen: make VMAP only support in MMU system
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: xen-devel@lists.xenproject.org, Penny Zheng <penny.zheng@arm.com>,
- Wei Chen <wei.chen@arm.com>, sstabellini@kernel.org,
- bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
- Julien Grall <julien@xen.org>
-References: <20240813171356.46760-1-ayan.kumar.halder@amd.com>
- <20240813171356.46760-3-ayan.kumar.halder@amd.com>
- <6d333d94-80ad-485c-b024-a45a388b96a4@suse.com>
- <ef789757-8c03-4f97-9bfb-8ec2fd2f4ca2@amd.com>
- <dad27ab7-3cbd-4a8e-8200-adea52b26e55@suse.com>
- <597b358e-3b45-4fba-922d-31208b55d15a@amd.com>
- <9fd1801c-1460-44e5-b066-f6da1167543b@xen.org>
- <1a328f00-3b0d-4e9c-856c-97c3a80dfdef@amd.com>
- <febbaf82-5d9a-4bcd-8be9-93ac86b2c1bb@xen.org>
- <55a91ace-a76f-40b9-bdb2-49f816006612@xen.org>
- <e7882491-e916-43c6-ac61-12da83e9c086@amd.com>
+Subject: Re: [PATCH v2 3/3] mini-os: mm: convert set_readonly() to use
+ walk_pt()
+To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Juergen Gross <jgross@suse.com>
+References: <20240813134158.580-1-jgross@suse.com>
+ <20240813134158.580-4-jgross@suse.com>
+ <20240820115743.teyoiov6qx63flna@begin>
 Content-Language: en-US
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -123,32 +114,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e7882491-e916-43c6-ac61-12da83e9c086@amd.com>
+In-Reply-To: <20240820115743.teyoiov6qx63flna@begin>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20.08.2024 13:48, Ayan Kumar Halder wrote:
-> So I will do :-
+On 20.08.2024 13:57, Samuel Thibault wrote:
+> Juergen Gross, le mar. 13 août 2024 15:41:58 +0200, a ecrit:
+>> +    if ( ro->count == L1_PAGETABLE_ENTRIES )
+>> +    {
+>> +         ro->count = 0;
+>> +         if ( HYPERVISOR_mmu_update(mmu_updates, ro->count, NULL,
+>> +                                    DOMID_SELF) < 0 )
 > 
-> 1. HARDEN_BRANCH_PREDICTOR will depend on MMU.
-> 
-> 2. ARCH_VMAP will be selected by PPC and RISCV. The reason is below.
-> 
-> 3. xen/common/vmap.c will be conditionally compiled on ARCH_VMAP and the 
-> "#ifdef VMAP_VIRT_START .. endif" will be from removed within the file. 
-> As VMAP_VIRT_START is defined by RISCV and PPC, thus #2 is needed.
-> 
-> Julien, Jan :- Please let me know if you are ok with #3. This was in 
-> response to Michal's comment. While his suggestion makes sense, I am not 
-> sure if extending the changes to other architectures is the correct 
-> approach. Or do you prefer keeping xen/common/vmap.c unchanged.
+> You need to set ro->count *after* calling mmu_update.
 
-No, the VMAP_VIRT_START thing was, from all I recall, merely to cover
-for the lack of a way to exclude building of the file from Makefile.
-After all this pre-dates the introduction of kconfig in Xen.
-
-And yes, suitably covering PPC and RISC-V is The Right Thing To Do (tm);
-their maintainers can shout if they disagree.
+Happy to move the line while committing, so long as Jürgen agrees.
 
 Jan
+
+> Apart from this, 
+> 
+> Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+> 
+> Samuel
+> 
+
 
