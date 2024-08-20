@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D665A9580F7
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 10:29:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.780183.1189807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CDEF958119
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 10:36:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.780195.1189818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgKEj-0005p2-KJ; Tue, 20 Aug 2024 08:29:05 +0000
+	id 1sgKLJ-0007gu-F5; Tue, 20 Aug 2024 08:35:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 780183.1189807; Tue, 20 Aug 2024 08:29:05 +0000
+Received: by outflank-mailman (output) from mailman id 780195.1189818; Tue, 20 Aug 2024 08:35:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgKEj-0005md-HJ; Tue, 20 Aug 2024 08:29:05 +0000
-Received: by outflank-mailman (input) for mailman id 780183;
- Tue, 20 Aug 2024 08:29:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sgKLJ-0007dj-BX; Tue, 20 Aug 2024 08:35:53 +0000
+Received: by outflank-mailman (input) for mailman id 780195;
+ Tue, 20 Aug 2024 08:35:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yfvp=PT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sgKEh-0005mV-OF
- for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 08:29:03 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 419253b5-5ece-11ef-a507-bb4a2ccca743;
- Tue, 20 Aug 2024 10:29:02 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5bf009cf4c0so1843674a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 01:29:02 -0700 (PDT)
+ id 1sgKLI-0007dd-Ji
+ for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 08:35:52 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 345218a0-5ecf-11ef-8776-851b0ebba9a2;
+ Tue, 20 Aug 2024 10:35:50 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a7a8caef11fso615700266b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 01:35:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a83838c6760sm728733766b.23.2024.08.20.01.29.01
+ a640c23a62f3a-a8383935600sm736331666b.111.2024.08.20.01.35.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Aug 2024 01:29:01 -0700 (PDT)
+ Tue, 20 Aug 2024 01:35:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 419253b5-5ece-11ef-a507-bb4a2ccca743
+X-Inumbo-ID: 345218a0-5ecf-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724142542; x=1724747342; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724142950; x=1724747750; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pWmTRf+lqqwdFlkN10eJYZT7w32zxJLaePIz0o/Lf70=;
-        b=IkFLIGjE8lKPQhJYDpuiJQjdsWPSOadFz++A2+iM1Q0Kks7XvwjnWz2m/iDSPcO3rt
-         sfuF8Oe8WORjRRFObvAUbltc7WjK5Rhtg4GY3D0DNS1KIZ/aU2uCAVIhVd+gvzTfxA0M
-         tX0Y3bjnRruU7uD6Pytke5MFA0H0NHV1ktMT9PDg1/VHbqxBtRKOsE0+Fhan38mwqzeS
-         Dy/PsG8/sVRCqP9bTH5ZDtejY60oaTO7+Y7mFC1XicdBC8GfxgZcJJ4L0UOWgN2K2BWR
-         A6z6vBujcIFfvUTGEDOAPkp1HeDMpAeqlHcAMTuvc0c7QZkgmIJfZoj+nHrhIG8jiO/N
-         fubQ==
+        bh=4JRiL9QfRwrA91a43rlkba0LZJgJJT6qYuSKw8nxb4M=;
+        b=cjwA1moR/KJIoce10jO3IbvD6vejS0lCsQUQE4QiHO9Q7a/xUBYQ6VSl+SrgLBsnvX
+         RNSN93RQUx6YgJWJIKzGNxw9Y3wqe2JjCyBuEQH65n6b44GNymWrS5GbuAecZwyEiihf
+         RfavaJCVPH5ZaZPv1gbbz0YKS9UCxc8Riww3XwyzMWeA2J+CHhICdH0NpRbnE1PP65az
+         Bo+VhFELfaqmxPyMU6ftzwYQf4TN+yy35hihx82vjSaAgf57W/k6mQR0iAQpdeDNg9rv
+         4dTtjirmTk3pQvbf3zcD3h+ZBwNVOvfdB9uc5tvU1rOzpEd/zntfyGxcfIDHxhcCyZGn
+         1F/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724142542; x=1724747342;
+        d=1e100.net; s=20230601; t=1724142950; x=1724747750;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pWmTRf+lqqwdFlkN10eJYZT7w32zxJLaePIz0o/Lf70=;
-        b=J1OAN/a1mnQYucI0GXZOk8EWIDW9QB1A87uJFeMCIfFHaS75OE1ALkuHjwGcGK1JGI
-         APMEycTmApbhDUlkl8LaslTzeJWbrfsAK35OuQEtIXszH/6WS4+7btg8Xp4yyhHc85Oy
-         RWPhh2KlcqP1MBF6ecVsLMsCjbAZHuX6oh8xehSLtYTBY3JK7K0zpG373VDsUNB5VfCN
-         H2LdU6wIY4YT1bizyx1VG8rTUmwuWKg7xbT3l61wH5RJiJ8i2Qyg3yYtwD7vZFEJWz0m
-         wpDNSkLyEvMVnMW0i6FqzlqUq4SQ7NtAH4GLYxtZmFCqxWefHnHrwZmqPyIN2uw/5bC2
-         FaHg==
-X-Forwarded-Encrypted: i=1; AJvYcCW53gdaCApuewMPcI9wvujw23FMZTe0oDcGgWSHwQ4AKJVl4howNL1muRcnqOlcngfuo8plUYLrj54=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw6FVCJPTylm/ZvIsNXWzlkzTiCyYkchFU/MlYSdB12RB/s1NsA
-	mpVp4QjOT5Mvarzjt3wFOB9LWni5rvFZ4thTbEMRw4GES7Dp/UvjAAODhbzA6w==
-X-Google-Smtp-Source: AGHT+IE6Q+yumPSaA4yB4wRaKEuNPBZP7rH5pqH/ZrgNa5ZaBHo+1ykUeQjOd02FSeuoP+so/JiYyg==
-X-Received: by 2002:a17:907:3fa6:b0:a7a:ba59:3164 with SMTP id a640c23a62f3a-a8392a160d8mr944638266b.53.1724142542132;
-        Tue, 20 Aug 2024 01:29:02 -0700 (PDT)
-Message-ID: <41837bb1-0251-4250-8f00-23d60cb1d664@suse.com>
-Date: Tue, 20 Aug 2024 10:29:00 +0200
+        bh=4JRiL9QfRwrA91a43rlkba0LZJgJJT6qYuSKw8nxb4M=;
+        b=bBb035OGPmIX2vPGTG+I7UJEsoBhXebWReJWDeUzxBBoAbIkx8owZ6zZnOTltmnQ+H
+         uz1V4W+Umx8oBNKME9nwALjoQJ9m0aDj+NOSyNhiGloHhl9w7DY5iVhBoyrgbONVXZ7A
+         i+ADKJ8nukQ6BrDQl2iL8LYMT863zFexKQu6Q6ppZ5mnBRDVHXq8s1IH2aa2sPjg5hhp
+         mU8YPPLyO101vuP2Jck1MsnyHvL6MyJt+rze0ZlOHF7+u4yefkeSkSwoggcPKQ2ue94V
+         U/eRHCD2VroSw5hcvvIeBoS5cvT92jZmdaCJtim8IvvOSDPpHc66LcPKXAHW0nUHRhEb
+         3Q5g==
+X-Forwarded-Encrypted: i=1; AJvYcCXhXjlCna+VYShW2pbaoCN041cxpzw5muXHmdycNVl/Qhi2syv2mMnHmEmxFUuKg4WVFbDrviX6gl1QokwFIoS4DT8g2KSh5rjrgHUd1F8=
+X-Gm-Message-State: AOJu0YxeHFLK/pAs7DtdS6bCxvlkI9Y6/1Z7dVhjnj4GFD3a1xnTokz8
+	knKx+C2+jAagFFNZ9dW32GizpSKNasVvEPPQxa0qVcAto0DzbUY9aONQPQcXVQ==
+X-Google-Smtp-Source: AGHT+IFdaawlNtR3epLC2KfjMcGlx4S9voLmzaSlkj8QL7rvwRfouEdIYTrEhiOI34tqIlQtR+1i2A==
+X-Received: by 2002:a17:907:d3c7:b0:a77:e1fb:7dec with SMTP id a640c23a62f3a-a839292dd54mr1022324966b.17.1724142949444;
+        Tue, 20 Aug 2024 01:35:49 -0700 (PDT)
+Message-ID: <22961690-14d0-4695-ba93-a68d2517059e@suse.com>
+Date: Tue, 20 Aug 2024 10:35:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] xen: use correct end address of kernel for
- conflict checking
+Subject: Re: [PATCH v2 2/7] xen: introduce generic helper checking for memory
+ map conflicts
 To: Juergen Gross <jgross@suse.com>
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
@@ -92,7 +92,7 @@ Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org,
  x86@kernel.org
 References: <20240820082012.31316-1-jgross@suse.com>
- <20240820082012.31316-2-jgross@suse.com>
+ <20240820082012.31316-3-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,29 +118,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240820082012.31316-2-jgross@suse.com>
+In-Reply-To: <20240820082012.31316-3-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 20.08.2024 10:20, Juergen Gross wrote:
-> When running as a Xen PV dom0 the kernel is loaded by the hypervisor
-> using a different memory map than that of the host. In order to
-> minimize the required changes in the kernel, the kernel adapts its
-> memory map to that of the host. In order to do that it is checking
-> for conflicts of its load address with the host memory map.
+> When booting as a Xen PV dom0 the memory layout of the dom0 is
+> modified to match that of the host, as this requires less changes in
+> the kernel for supporting Xen.
 > 
-> Unfortunately the tested memory range does not include the .brk
-> area, which might result in crashes or memory corruption when this
-> area does conflict withe the memory map of the host.
+> There are some cases, though, which are problematic, as it is the Xen
+> hypervisor selecting the kernel's load address plus some other data,
+> which might conflict with the host's memory map.
 > 
-> Fix the test by using the _end label instead of __bss_stop.
+> These conflicts are detected at boot time and result in a boot error.
+> In order to support handling at least some of these conflicts in
+> future, introduce a generic helper function which will later gain the
+> ability to adapt the memory layout when possible.
 > 
-> Fixes: 808fdb71936c ("xen: check for kernel memory conflicting with memory layout")
+> Add the missing check for the xen_start_info area.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 > Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
+However, since you mention the start_info area it may be worth adding half
+a sentence to the description also mentioning why the hypervisor allocated
+stack page doesn't need checking. In fact this may want to extend to
+initrd and phys-mach map as well, to cover everything Xen sets up on behalf
+of the kernel.
 
+Jan
 
