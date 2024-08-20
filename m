@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8529D958800
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 15:33:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.780434.1190050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96B1F958808
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 15:36:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.780446.1190061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgOyF-0002em-Tm; Tue, 20 Aug 2024 13:32:23 +0000
+	id 1sgP1U-0003F3-CH; Tue, 20 Aug 2024 13:35:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 780434.1190050; Tue, 20 Aug 2024 13:32:23 +0000
+Received: by outflank-mailman (output) from mailman id 780446.1190061; Tue, 20 Aug 2024 13:35:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgOyF-0002ca-RC; Tue, 20 Aug 2024 13:32:23 +0000
-Received: by outflank-mailman (input) for mailman id 780434;
- Tue, 20 Aug 2024 13:32:22 +0000
+	id 1sgP1U-0003Cx-9b; Tue, 20 Aug 2024 13:35:44 +0000
+Received: by outflank-mailman (input) for mailman id 780446;
+ Tue, 20 Aug 2024 13:35:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yfvp=PT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sgOyE-0002cU-Fc
- for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 13:32:22 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
+ id 1sgP1T-0003C9-QF
+ for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 13:35:43 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a0029009-5ef8-11ef-8776-851b0ebba9a2;
- Tue, 20 Aug 2024 15:32:20 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2f16767830dso58531091fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 06:32:20 -0700 (PDT)
+ id 1840e111-5ef9-11ef-8776-851b0ebba9a2;
+ Tue, 20 Aug 2024 15:35:42 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5becc379f3fso4232981a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 06:35:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bebbe7f92dsm6728908a12.60.2024.08.20.06.32.18
+ 4fb4d7f45d1cf-5bebbdfa6a7sm6842039a12.40.2024.08.20.06.35.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Aug 2024 06:32:18 -0700 (PDT)
+ Tue, 20 Aug 2024 06:35:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0029009-5ef8-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 1840e111-5ef9-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724160740; x=1724765540; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724160941; x=1724765741; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0y76zkYnLJmw+MYeZNFktaU+23N9dfOL3NRluxSrdz4=;
-        b=Uk5G+CN31sjDuZu46yOm39GcHr5Chmot0tkkKpuV35/IHrOyFEiIWJsH2AWcIoQ1JG
-         M2PmDbYacjUMwT81kDtOtPV3vuaG2zMgjI/57Tm2/MG8y2P07wynSv9DloJFMfUf+ejv
-         r8kQ+fi1EdVQ2wqGLpmRteRMAJJRmTtLylrC8PTNLO3KR8zKmXLMfCSSRRmBcpoIr/pw
-         nKperTdeRtM9QSDD+y821hK/vxLW4aAUSPxuc1zcO4kC5v5hBKO/+cFSPKlLsWQwbTpF
-         aHb1Plb4KqsZuJpcG+CiGVpBb9arauN0ts4uiLysIkEWcJZImaKbAACK2FL4xJWMe3YN
-         Qn+g==
+        bh=BlOK/oK0rP2pIWmZiirxeUaxK4WlVuqlEHknliut4TQ=;
+        b=CHLw/9M5bmQ9LliULDSrJksZRE9NwTuywgECPHxy2oK3eVZaw/85st3ySE+W1xNfC7
+         B44vNAAMZZtK1k9LWbg8QhZTs3d5fiFa439e9aEeu5v2w6sp7Bnhx7S3OvNWKaUwBJHA
+         Ak17zp2ColtKHY+cP0Xs0P8AhI796K4xUgA5VHig9pR4LEmgjUzSdebeFPU9gkMkuvh2
+         SmemsKaErzaeVZfdm5Ce4m2lLQOSzVpVe25iaYBX9T/awNJ5UwZWBWyGB7xtvVuXfkcy
+         4Jn+b/Gxgin/T2HekmZB7vtUkomApGA35KZdCiFuNhXcMB4JJHL6DX2Yt3BTXo5e7LaX
+         SuhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724160740; x=1724765540;
+        d=1e100.net; s=20230601; t=1724160941; x=1724765741;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0y76zkYnLJmw+MYeZNFktaU+23N9dfOL3NRluxSrdz4=;
-        b=GT28DQUHsWWbdud6ai9ItGB4nbEM1mhumbTjwKQJPQZB9uq/lddHfYwYo6JVuwRSP3
-         9KnnirU5Ip07lLZx7S7ibKyTYpjDXdXmcknDyWMjUqDaRRgxdBFmq/DjDDgow759YBh8
-         bMCqqUgMGzcQ/00v/AHp9G2wPZ9Tbh+2CDtbqJLCobn5wb2XzpI5x2mKPQvtE+O8/Nzv
-         jWKuCUBmLcFan7KNSNoalUNAeX7Bm5EBVWVzHfUprTzbI8LP5/tugI9icLgkYVaEwBhY
-         zTfmrbHr7SgqWQAApldsGsPx1uYTu9NuIeLC01MTGKTWPCo6x+sCevabpKvH8Md7Yp/P
-         TvHw==
-X-Forwarded-Encrypted: i=1; AJvYcCWwRQ4dRCyoCdFRKK4h4t+TUUjDjJyV9eVkDGdzaMZxjljQTp/DzjlsSHOogDwmNhkF1Fd8ROvsHUM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxoXkGlHl0HiWO3DRW8aVEuUGvXeyx+T308Vd9htN8UGYFWhZ0h
-	z87LSWVRyeLyIrLT2tEuOtAuP2llrmJXWBy+t9E8M+kISDFAqOsNApYDL1pkTA==
-X-Google-Smtp-Source: AGHT+IESaEYjHpCbYVetllFhLLBIgmFdi7HzzA0Cf5Wyz4UNZo7lEKlUr8h4IC6UWKrJp+Gi8XMbHA==
-X-Received: by 2002:a2e:a990:0:b0:2ee:7a3a:9969 with SMTP id 38308e7fff4ca-2f3be57219cmr107152171fa.5.1724160739002;
-        Tue, 20 Aug 2024 06:32:19 -0700 (PDT)
-Message-ID: <d13903d5-d79e-4af2-9449-1a97aeaf03e2@suse.com>
-Date: Tue, 20 Aug 2024 15:32:17 +0200
+        bh=BlOK/oK0rP2pIWmZiirxeUaxK4WlVuqlEHknliut4TQ=;
+        b=jyPYzBtnwPHZSxjLHYXFkP5Vv00+cUsNwNFvJhqmA/T5yLigFLsA+siLgzJLyGyv+l
+         7lusihNE/vSpemgAqinc4wZcGkEFwGLURzIluJaYBwjT/rdY4K7a+m6MwwMY/qqvcYNh
+         eqlDHa0gAwysybVQABr0ibKSt8CxJe5dk8GG8P43dGK6Dst1Gyr26evltBuAyQdmf+Of
+         tOjvZqzpa8sNAWyqVtj1ejE9auvx+bfKFGuOX+sLbcP1ZXnHjEuQLneyn11//YITLHLO
+         4KCAqNEuNP8O0PcbUjMhEFRqM7tD3l49Sm9S6NlzwKb99psXj0sFUdg8p3t/wF+Z550X
+         5q+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCURsuIHkk1OL3zKIDvqA/Xgz9iTCohCPqL/JPRhWxyx1Ed9BTJVbC0yT5vZlMAsuK/M3KLKSJ/adlA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz0/wrfdyNeRRd8iYsmfecic5v7l2eISLKKF+X1b4vI/0/jcC/u
+	8c8zwxO6turSdwzEL++qAyMcTymQ4eNQJUpQFhfraEJEF8SCvDeSVNcJWIZjpw==
+X-Google-Smtp-Source: AGHT+IHhbJZnrV61k8SZB6zHR0iFBervXEYPr9ErOryPzMFT29XEZGssRAVIijmoujeg/HEC627AKQ==
+X-Received: by 2002:a05:6402:e87:b0:5a1:32d1:91a6 with SMTP id 4fb4d7f45d1cf-5beca5d9289mr7306053a12.22.1724160941255;
+        Tue, 20 Aug 2024 06:35:41 -0700 (PDT)
+Message-ID: <adfa3b73-6b11-4fa9-bcd7-e155a741d401@suse.com>
+Date: Tue, 20 Aug 2024 15:35:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] x86: Rollback relocation in case of EFI multiboot
+Subject: Re: [PATCH v2 0/5] Support EFI multiboot loading using PE binary
 To: Frediano Ziglio <frediano.ziglio@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -89,7 +89,6 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
 References: <20240814083428.3012-1-frediano.ziglio@cloud.com>
- <20240814083428.3012-6-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,277 +114,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240814083428.3012-6-frediano.ziglio@cloud.com>
+In-Reply-To: <20240814083428.3012-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 14.08.2024 10:34, Frediano Ziglio wrote:
-> In case EFI not multiboot rolling back relocation is done in
-> efi_arch_post_exit_boot, called by efi_start however this is
-> not done in multiboot code path.
-> Do it also for this path to make it work correctly.
+> Testing this feature in preparation for UEFI CA memory mitigation
+> requirements I found some issues causing the loading to fail and
+> other minor issues.
+> Details in series commit messages.
+> This is adding an additional way to boot Xen, using GrUB2+EFI
+> (xen.efi:__efi64_mb2_start).
 > 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
->  xen/arch/x86/boot/Makefile          |  2 +-
->  xen/arch/x86/boot/efi-reloc-image.c | 40 ++++++++++++++
->  xen/arch/x86/boot/efi-reloc-image.h | 85 +++++++++++++++++++++++++++++
->  xen/arch/x86/boot/head.S            | 44 ++++++++++++---
->  xen/arch/x86/efi/efi-boot.h         | 64 ++--------------------
->  5 files changed, 168 insertions(+), 67 deletions(-)
->  create mode 100644 xen/arch/x86/boot/efi-reloc-image.c
->  create mode 100644 xen/arch/x86/boot/efi-reloc-image.h
+> Changes since v1:
+> - Changed title, apparently this is a kind of new mode;
+> - address lot of comments (see "Changes" in other messages).
+> 
+> Frediano Ziglio (5):
+>   x86: Put trampoline in .init.data section
+>   x86: Set xen_phys_start and trampoline_xen_phys_start earlier
+>   x86: Force proper gdt_boot_base setting
+>   x86: Compensate relocation in case of EFI
+>   x86: Rollback relocation in case of EFI multiboot
 
-Would there be anything wrong with using just efi-reloc.[ch]? I'm sorry, but
-I'm a little averse to long names when shorter ones are as unambiguous.
+What I'm missing throughout the series (maybe with patch 1 excluded, which
+- as Andrew clarified - is really dealing with an independent aspect) is
+discussion / clarification of the individual changes not affecting any of
+the existing boot modes, first and foremost the EFI+MB2 one using xen.gz.
 
-> --- /dev/null
-> +++ b/xen/arch/x86/boot/efi-reloc-image.c
-> @@ -0,0 +1,40 @@
-> +/*
-> + * efi-reloc-image.c
-> + *
-> + * 32-bit flat memory-map routines for relocating back PE executable.
-> + * This is done with paging disabled to avoid permission issues.
-> + *
-> + * Copyright (c) 2024, Citrix Systems, Inc.
-> + */
-
-Just curious: Is "Citrix" still the right name to use in places like this one?
-
-> +/*
-> + * This entry point is entered from xen/arch/x86/boot/head.S with:
-> + *   - 0x04(%esp) = __XEN_VIRT_START - xen_phys_start
-
-This could to with adding "(two slots)" or "(64 bits)".
-
-> + *   - 0x0c(%esp) = xen_phys_start
-> + *   - 0x10(%esp) = __base_relocs_start
-> + *   - 0x14(%esp) = __base_relocs_end
-> + */
-> +asm (
-> +    "    .text                         \n"
-> +    "    .globl _start                 \n"
-> +    "_start:                           \n"
-> +    "    jmp    reloc_pe_back          \n"
-> +    );
-> +
-> +#include "defs.h"
-> +
-> +/* Do not patch page tables. */
-> +#define in_page_tables(v) false
-
-If you want what the comment says, this can't yield "false" for every
-possible input. Didn't you even have page table related logic in v1?
-
-> --- /dev/null
-> +++ b/xen/arch/x86/boot/efi-reloc-image.h
-> @@ -0,0 +1,85 @@
-> +/*
-> + * efi-reloc-image.h
-> + *
-> + * Code for relocating back PE executable.
-> + * This code is common between 64 bit and 32 bit.
-> + *
-> + * Copyright (c) 2024, Citrix Systems, Inc.
-> + */
-> +
-> +#if EFI_RELOC_IMAGE_EARLY != 0 && EFI_RELOC_IMAGE_EARLY != 1
-> +#error EFI_RELOC_IMAGE_EARLY must be defined either 0 or 1
-> +#endif
-
-Depending on compiler type and version, EFI_RELOC_IMAGE_EARLY simply not
-being defined may or may not raise a warning, but would otherwise satisfy
-EFI_RELOC_IMAGE_EARLY == 0. I think you want to also guard against
-un-defined-ness.
-
-> +typedef struct pe_base_relocs {
-> +    uint32_t rva;
-> +    uint32_t size;
-> +    uint16_t entries[];
-> +} pe_base_relocs;
-> +
-> +#define PE_BASE_RELOC_ABS      0
-> +#define PE_BASE_RELOC_HIGHLOW  3
-> +#define PE_BASE_RELOC_DIR64   10
-> +
-> +#if EFI_RELOC_IMAGE_EARLY
-> +bool __stdcall
-> +#else
-> +static bool
-> +#endif
-> +reloc_pe_back(long long delta,
-> +              unsigned long xen_phys_start,
-> +              const pe_base_relocs *__base_relocs_start,
-> +              const pe_base_relocs *__base_relocs_end)
-> +{
-> +    const struct pe_base_relocs *base_relocs;
-> +
-> +    for ( base_relocs = __base_relocs_start; base_relocs < __base_relocs_end; )
-> +    {
-> +        unsigned int i = 0, n;
-> +
-> +        n = (base_relocs->size - sizeof(*base_relocs)) /
-> +            sizeof(*base_relocs->entries);
-> +
-> +        for ( ; i < n; ++i )
-> +        {
-> +            unsigned long addr = xen_phys_start + base_relocs->rva +
-> +                                 (base_relocs->entries[i] & 0xfff);
-> +
-> +            switch ( base_relocs->entries[i] >> 12 )
-> +            {
-> +            case PE_BASE_RELOC_ABS:
-> +                break;
-> +            case PE_BASE_RELOC_HIGHLOW:
-> +                if ( delta )
-> +                {
-> +                    *(uint32_t *)addr += delta;
-> +                    if ( in_page_tables(addr) )
-> +                        *(uint32_t *)addr += xen_phys_start;
-> +                }
-> +                break;
-> +            case PE_BASE_RELOC_DIR64:
-> +                if ( delta )
-> +                {
-> +                    *(uint64_t *)addr += delta;
-> +                    if ( in_page_tables(addr) )
-> +                        *(uint64_t *)addr += xen_phys_start;
-> +                }
-> +                break;
-> +            default:
-> +                return false;
-> +            }
-
-As you're moving this code, please put blank lines between case blocks.
-
-> +        }
-> +        base_relocs = (const void *)(base_relocs->entries + i + (i & 1));
-> +    }
-> +    return true;
-> +}
-
-Nit: Blank line please ahead of a function's main "return".
-
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -332,7 +332,8 @@ __efi64_mb2_start:
->           */
->          and     $~15,%rsp
->  
-> -        /* Save Multiboot2 magic on the stack. */
-> +        /* Save Multiboot2 magic on the stack for a later 32bit call */
-> +        shl     $32, %rax
->          push    %rax
-
-I see you're now extending the comment here. However, ...
-
-> @@ -363,11 +364,25 @@ __efi64_mb2_start:
->          /* Just pop an item from the stack. */
->          pop     %rax
->  
-> -        /* Restore Multiboot2 magic. */
-
-... this comment shouldn't be lost (wants to move down), and ...
-
-> -        pop     %rax
-> +        /*
-> +         * Prepare stack for relocation call.
-> +         * Note that we are in 64bit mode but we are going to call a
-> +         * function in 32bit mode so the stack is not written with
-> +         * push instructions.
-> +         */
-> +        sub     $16, %rsp
-> +        lea     __base_relocs_end(%rip), %ecx
-> +        mov     %ecx, 16(%rsp)
-
-... the re-using of half a 64-bit slot here still isn't present in
-commentary (in fact the comment is slightly wrong as is, because that
-re-used half slot _is_ written by a PUSH, just higher up).
-
-> --- a/xen/arch/x86/efi/efi-boot.h
-> +++ b/xen/arch/x86/efi/efi-boot.h
-> @@ -36,69 +36,15 @@ extern const intpte_t __page_tables_start[], __page_tables_end[];
->  #define in_page_tables(v) ((intpte_t *)(v) >= __page_tables_start && \
->                             (intpte_t *)(v) < __page_tables_end)
->  
-> -#define PE_BASE_RELOC_ABS      0
-> -#define PE_BASE_RELOC_HIGHLOW  3
-> -#define PE_BASE_RELOC_DIR64   10
-> +#define EFI_RELOC_IMAGE_EARLY 0
-> +#include "../boot/efi-reloc-image.h"
->  
-> -extern const struct pe_base_relocs {
-> -    u32 rva;
-> -    u32 size;
-> -    u16 entries[];
-> -} __base_relocs_start[], __base_relocs_end[];
-> +extern pe_base_relocs __base_relocs_start[], __base_relocs_end[];
-
-You've lost the const.
-
->  static void __init efi_arch_relocate_image(unsigned long delta)
->  {
-> -    const struct pe_base_relocs *base_relocs;
-> -
-> -    for ( base_relocs = __base_relocs_start; base_relocs < __base_relocs_end; )
-> -    {
-> -        unsigned int i = 0, n;
-> -
-> -        n = (base_relocs->size - sizeof(*base_relocs)) /
-> -            sizeof(*base_relocs->entries);
-> -
-> -        /*
-> -         * Relevant l{2,3}_bootmap entries get initialized explicitly in
-> -         * efi_arch_memory_setup(), so we must not apply relocations there.
-> -         * l2_directmap's first slot, otoh, should be handled normally, as
-> -         * efi_arch_memory_setup() won't touch it (xen_phys_start should
-> -         * never be zero).
-> -         */
-> -        if ( xen_phys_start + base_relocs->rva == (unsigned long)l3_bootmap ||
-> -             xen_phys_start + base_relocs->rva == (unsigned long)l2_bootmap )
-> -            i = n;
-
-I can't spot the replacement for this code.
-
-> -        for ( ; i < n; ++i )
-> -        {
-> -            unsigned long addr = xen_phys_start + base_relocs->rva +
-> -                                 (base_relocs->entries[i] & 0xfff);
-> -
-> -            switch ( base_relocs->entries[i] >> 12 )
-> -            {
-> -            case PE_BASE_RELOC_ABS:
-> -                break;
-> -            case PE_BASE_RELOC_HIGHLOW:
-> -                if ( delta )
-> -                {
-> -                    *(u32 *)addr += delta;
-> -                    if ( in_page_tables(addr) )
-> -                        *(u32 *)addr += xen_phys_start;
-> -                }
-> -                break;
-> -            case PE_BASE_RELOC_DIR64:
-> -                if ( delta )
-> -                {
-> -                    *(u64 *)addr += delta;
-> -                    if ( in_page_tables(addr) )
-> -                        *(u64 *)addr += xen_phys_start;
-> -                }
-> -                break;
-> -            default:
-> -                blexit(L"Unsupported relocation type");
-> -            }
-> -        }
-> -        base_relocs = (const void *)(base_relocs->entries + i + (i & 1));
-> -    }
-> +    if (!reloc_pe_back(delta, xen_phys_start, __base_relocs_start, __base_relocs_end))
-
-Nit: Style.
-
-> +        blexit(L"Unsupported relocation type");
->  }
->  
->  extern const s32 __trampoline_rel_start[], __trampoline_rel_stop[];
-
+Jan
 
