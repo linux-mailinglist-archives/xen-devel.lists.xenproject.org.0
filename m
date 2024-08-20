@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96B1F958808
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 15:36:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.780446.1190061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C87DE95883A
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2024 15:47:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.780455.1190070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgP1U-0003F3-CH; Tue, 20 Aug 2024 13:35:44 +0000
+	id 1sgPCT-00068y-EZ; Tue, 20 Aug 2024 13:47:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 780446.1190061; Tue, 20 Aug 2024 13:35:44 +0000
+Received: by outflank-mailman (output) from mailman id 780455.1190070; Tue, 20 Aug 2024 13:47:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgP1U-0003Cx-9b; Tue, 20 Aug 2024 13:35:44 +0000
-Received: by outflank-mailman (input) for mailman id 780446;
- Tue, 20 Aug 2024 13:35:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sgPCT-00066I-Bn; Tue, 20 Aug 2024 13:47:05 +0000
+Received: by outflank-mailman (input) for mailman id 780455;
+ Tue, 20 Aug 2024 13:47:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yfvp=PT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sgP1T-0003C9-QF
- for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 13:35:43 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1840e111-5ef9-11ef-8776-851b0ebba9a2;
- Tue, 20 Aug 2024 15:35:42 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5becc379f3fso4232981a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 06:35:42 -0700 (PDT)
+ id 1sgPCS-00066C-5l
+ for xen-devel@lists.xenproject.org; Tue, 20 Aug 2024 13:47:04 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ae258ce3-5efa-11ef-a507-bb4a2ccca743;
+ Tue, 20 Aug 2024 15:47:03 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a7a975fb47eso631188866b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Aug 2024 06:47:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bebbdfa6a7sm6842039a12.40.2024.08.20.06.35.40
+ a640c23a62f3a-a838396c178sm759130266b.202.2024.08.20.06.47.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Aug 2024 06:35:41 -0700 (PDT)
+ Tue, 20 Aug 2024 06:47:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1840e111-5ef9-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: ae258ce3-5efa-11ef-a507-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724160941; x=1724765741; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724161622; x=1724766422; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BlOK/oK0rP2pIWmZiirxeUaxK4WlVuqlEHknliut4TQ=;
-        b=CHLw/9M5bmQ9LliULDSrJksZRE9NwTuywgECPHxy2oK3eVZaw/85st3ySE+W1xNfC7
-         B44vNAAMZZtK1k9LWbg8QhZTs3d5fiFa439e9aEeu5v2w6sp7Bnhx7S3OvNWKaUwBJHA
-         Ak17zp2ColtKHY+cP0Xs0P8AhI796K4xUgA5VHig9pR4LEmgjUzSdebeFPU9gkMkuvh2
-         SmemsKaErzaeVZfdm5Ce4m2lLQOSzVpVe25iaYBX9T/awNJ5UwZWBWyGB7xtvVuXfkcy
-         4Jn+b/Gxgin/T2HekmZB7vtUkomApGA35KZdCiFuNhXcMB4JJHL6DX2Yt3BTXo5e7LaX
-         SuhQ==
+        bh=qx39jQkVDuFQdAxWBhSWQM9E4QZeP7z6jVAwE7itU24=;
+        b=FD2S4hcsjpd0dtvxqVaqiId4ssCOSnlpfLUFmgZX8kOfzi7ZRj7Slih/eEQ+DRssB/
+         lcMq+8PqTpBxfPelm+TKusD71QzTmg4xjJCokJfO+E6URow7TavmCMZggHIyNKLzeBcJ
+         Gc7/hBJI9FrEvx1fkbEp0BcVkwkFZn+bxlpDxmtswol8PlLBSPILoFLM4DX9e+aijjDW
+         ch7renhT4JT6Pl80+vb0LQMUobh+rcWu0n1eFHxxqv4UZOZw5v5ZlqOtWAAOt1NcaYNv
+         TlkE9pT5E1HoB3jBjVmbkZE2pSYQ8rEgAjhdyK3ceTJ7XhDnFoRYPn7Oh7nVe/Ixm3u9
+         Hg9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724160941; x=1724765741;
+        d=1e100.net; s=20230601; t=1724161622; x=1724766422;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BlOK/oK0rP2pIWmZiirxeUaxK4WlVuqlEHknliut4TQ=;
-        b=jyPYzBtnwPHZSxjLHYXFkP5Vv00+cUsNwNFvJhqmA/T5yLigFLsA+siLgzJLyGyv+l
-         7lusihNE/vSpemgAqinc4wZcGkEFwGLURzIluJaYBwjT/rdY4K7a+m6MwwMY/qqvcYNh
-         eqlDHa0gAwysybVQABr0ibKSt8CxJe5dk8GG8P43dGK6Dst1Gyr26evltBuAyQdmf+Of
-         tOjvZqzpa8sNAWyqVtj1ejE9auvx+bfKFGuOX+sLbcP1ZXnHjEuQLneyn11//YITLHLO
-         4KCAqNEuNP8O0PcbUjMhEFRqM7tD3l49Sm9S6NlzwKb99psXj0sFUdg8p3t/wF+Z550X
-         5q+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCURsuIHkk1OL3zKIDvqA/Xgz9iTCohCPqL/JPRhWxyx1Ed9BTJVbC0yT5vZlMAsuK/M3KLKSJ/adlA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz0/wrfdyNeRRd8iYsmfecic5v7l2eISLKKF+X1b4vI/0/jcC/u
-	8c8zwxO6turSdwzEL++qAyMcTymQ4eNQJUpQFhfraEJEF8SCvDeSVNcJWIZjpw==
-X-Google-Smtp-Source: AGHT+IHhbJZnrV61k8SZB6zHR0iFBervXEYPr9ErOryPzMFT29XEZGssRAVIijmoujeg/HEC627AKQ==
-X-Received: by 2002:a05:6402:e87:b0:5a1:32d1:91a6 with SMTP id 4fb4d7f45d1cf-5beca5d9289mr7306053a12.22.1724160941255;
-        Tue, 20 Aug 2024 06:35:41 -0700 (PDT)
-Message-ID: <adfa3b73-6b11-4fa9-bcd7-e155a741d401@suse.com>
-Date: Tue, 20 Aug 2024 15:35:40 +0200
+        bh=qx39jQkVDuFQdAxWBhSWQM9E4QZeP7z6jVAwE7itU24=;
+        b=d/PisSVGclWPOIRyOezmWi0nQqvb/efW1tiZLrIn1Pb2SLUipLi89iCgU0POlImBKb
+         CQ6m/Mtuilx6iKflY7csykUUHcEdha0ZobIUfCeHqmgbHsaBD0d40Nf17GeVK/C14HXn
+         /FlpQw/iaRT/PEGAldnMNQBZmbnK2PVnMdjlED3C09Rd0BEc3mgl+frd4BXsWbGwAYjR
+         +j+8fsgS28oJtfTFgRXYucT4FWtaNnfTcIqDdGtzInkYRNBV55Zy+qEeGy5Is34/j1Lj
+         dpQkzoSmz6ta4m/yIHBtpMWXUaaCVN8nTWIkUJAh2zROkY0priU6Ot1rvI5qNzpi1Z4X
+         wv9A==
+X-Forwarded-Encrypted: i=1; AJvYcCU8M83cOKz9EZkYpnT1gdiZzV2VxpBE2GsTYaM6bpi/kJk42cbO+K1ZTAGqF75Y8dcggo4lrGxWl6oiBOTffrQajKumzFP51CooS3FzsAo=
+X-Gm-Message-State: AOJu0YxK6Gx4mhe0wYCAZsFRwq5fr8Ppxzu8LL/8vPRFutDvza2YcUx4
+	+rf2zpG1DTWy7Tyo60gbD5Y0gZAwwhnGtKH8r454cCvzr2D5eTCezl+WJ900EA==
+X-Google-Smtp-Source: AGHT+IFCaxc8u/TwGth0UEf9YVkfa4TGMmnQnPxC0iRifsk3DZbuvCz4xTY20em0sfXiyYHmOdZQTw==
+X-Received: by 2002:a17:907:948a:b0:a80:f7db:3e7 with SMTP id a640c23a62f3a-a83928a995cmr966275866b.5.1724161622284;
+        Tue, 20 Aug 2024 06:47:02 -0700 (PDT)
+Message-ID: <4a7f44ce-e5ba-4a36-9b0b-7cd7c14cc846@suse.com>
+Date: Tue, 20 Aug 2024 15:47:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] Support EFI multiboot loading using PE binary
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20240814083428.3012-1-frediano.ziglio@cloud.com>
+Subject: Re: [PATCH v4 6/7] xen/riscv: page table handling
+To: oleksii.kurochko@gmail.com
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1723214540.git.oleksii.kurochko@gmail.com>
+ <8362795280a48702bef6f01d41d148edcf299935.1723214540.git.oleksii.kurochko@gmail.com>
+ <85a4e760-07af-42bd-ac27-12a4fa5172cc@suse.com>
+ <1551cd4dd3b5fcf6aea59a972b60fa6b3b06bed6.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,33 +117,113 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240814083428.3012-1-frediano.ziglio@cloud.com>
+In-Reply-To: <1551cd4dd3b5fcf6aea59a972b60fa6b3b06bed6.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.08.2024 10:34, Frediano Ziglio wrote:
-> Testing this feature in preparation for UEFI CA memory mitigation
-> requirements I found some issues causing the loading to fail and
-> other minor issues.
-> Details in series commit messages.
-> This is adding an additional way to boot Xen, using GrUB2+EFI
-> (xen.efi:__efi64_mb2_start).
-> 
-> Changes since v1:
-> - Changed title, apparently this is a kind of new mode;
-> - address lot of comments (see "Changes" in other messages).
-> 
-> Frediano Ziglio (5):
->   x86: Put trampoline in .init.data section
->   x86: Set xen_phys_start and trampoline_xen_phys_start earlier
->   x86: Force proper gdt_boot_base setting
->   x86: Compensate relocation in case of EFI
->   x86: Rollback relocation in case of EFI multiboot
+On 20.08.2024 15:18, oleksii.kurochko@gmail.com wrote:
+> On Tue, 2024-08-13 at 12:31 +0200, Jan Beulich wrote:
+>>> + * Sanity check of the entry
+>>> + * mfn is not valid and we are not populating page table. This
+>>> means
+>>
+>> How does this fit with ...
+>>
+>>> + * we either modify entry or remove an entry.
+>>> + */
+>>> +static bool pt_check_entry(pte_t entry, mfn_t mfn, unsigned int
+>>> flags)
+>>> +{
+>>> +    /* Sanity check when modifying an entry. */
+>>> +    if ( (flags & PTE_VALID) && mfn_eq(mfn, INVALID_MFN) )
+>>
+>> ... the MFN check here? And why is (valid,INVALID_MFN) an indication
+>> of a modification?
+> Because as mentioned here:
+> ```
+> /*
+>  * If `mfn` equals `INVALID_MFN`, it indicates that the following page
+> table
+>  * update operation might be related to either populating the table,
+>  * destroying a mapping, or modifying an existing mapping.
+>  */
+> static int pt_update(unsigned long virt,
+> ```
 
-What I'm missing throughout the series (maybe with patch 1 excluded, which
-- as Andrew clarified - is really dealing with an independent aspect) is
-discussion / clarification of the individual changes not affecting any of
-the existing boot modes, first and foremost the EFI+MB2 one using xen.gz.
+That's in the description of another function. How would one know that
+the rules on (mfn,flags) tuples there would apply here as well, without
+you saying so explicitly? It may not be necessary to repeat the other
+comment, but at least you want to reference it.
+
+> And so if requested flags are PTE_VALID ( present ) and mfn=INVALID it
+> will mean that we are going to modify an entry.
+> 
+> 
+>> But then ...
+>>
+>>> +    {
+>>> +        /* We don't allow modifying an invalid entry. */
+>>> +        if ( !pte_is_valid(entry) )
+>>> +        {
+>>> +            printk("Modifying invalid entry is not allowed.\n");
+>>> +            return false;
+>>> +        }
+>>
+>> ... I also don't understand what this is about. IOW I'm afraid I'm
+>> still confused about the purpose of this function as well as the
+>> transitions you want to permit / reject. 
+> In the case if the caller call modify_xen_mappings() on a region that
+> doesn't exist.
+
+Perhaps. What I think is missing is a clear statement somewhere to describe
+what the various combinations of (mfn,flags) mean, in terms of the operation
+to be carried out. This may then also help with ...
+
+>> I wonder whether the
+>> flags & PTE_VALID and pte_is_valid(entry) aren't in need of swapping.
+> I am not sure that I understand what you mean.
+
+... this: It's hard to see what cannot be understood about my earlier
+comment. In the code commented on you have a flags & PTE_VALID check and a
+pte_is_valid(entry) one. I'm wondering whether the two simply are the wrong
+way round.
+
+>>> +/* Update an entry at the level @target. */
+>>> +static int pt_update_entry(mfn_t root, unsigned long virt,
+>>> +                           mfn_t mfn, unsigned int target,
+>>> +                           unsigned int flags)
+>>> +{
+>>> +    int rc;
+>>> +    unsigned int level = HYP_PT_ROOT_LEVEL;
+>>> +    pte_t *table;
+>>> +    /*
+>>> +     * The intermediate page tables are read-only when the MFN is
+>>> not valid
+>>> +     * and we are not populating page table.
+>>
+>> The way flags are handled in PTEs, how can page tables be read-only?
+> This is not needed for everyone case. In case of entry removing an
+> intermediate page table should be created in case when the user is
+> trying to remove a mapping that doesn't exist.
+
+I don't follow: For one, how is this related to "read-only"-ness? And
+then, why would any kind of removal, whether of a present or non-
+present mapping, ever result in page tables being created?
+
+>>> +     * This means we either modify permissions or remove an entry.
+>>
+>> From all I can determine we also get here when making brand new
+>> entries.
+>> What am I overlooking?
+> Yes, but in this case an intermediate page tables should be read_only,
+> so alloc_only will be true and it will be allowed to create new
+> intermediate page table.
+
+Hmm, so instead of "read-only" do you maybe mean page tables are not
+supposed to be modified? There's a difference here: When they're
+read-only, you can't write to them (or a fault will result). Whereas
+when in principle they can be modified, there still may be a rule
+saying "in this case they shouldn't be altered".
 
 Jan
 
