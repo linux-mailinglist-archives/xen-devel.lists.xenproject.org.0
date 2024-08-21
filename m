@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90CB695A265
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 18:06:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.781297.1190881 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51AD395A269
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 18:06:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.781298.1190896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgnqt-0004pR-Vs; Wed, 21 Aug 2024 16:06:27 +0000
+	id 1sgnqv-0005Kg-9w; Wed, 21 Aug 2024 16:06:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 781297.1190881; Wed, 21 Aug 2024 16:06:27 +0000
+Received: by outflank-mailman (output) from mailman id 781298.1190896; Wed, 21 Aug 2024 16:06:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgnqt-0004gT-No; Wed, 21 Aug 2024 16:06:27 +0000
-Received: by outflank-mailman (input) for mailman id 781297;
- Wed, 21 Aug 2024 16:06:25 +0000
+	id 1sgnqv-0005Gc-2x; Wed, 21 Aug 2024 16:06:29 +0000
+Received: by outflank-mailman (input) for mailman id 781298;
+ Wed, 21 Aug 2024 16:06:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0Njk=PU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sgnqr-0003sE-If
- for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 16:06:25 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ id 1sgnqs-0003sE-Te
+ for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 16:06:27 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 50985ebb-5fd7-11ef-a508-bb4a2ccca743;
- Wed, 21 Aug 2024 18:06:24 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-52f04b3cb33so4770220e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 21 Aug 2024 09:06:24 -0700 (PDT)
+ id 5136678b-5fd7-11ef-a508-bb4a2ccca743;
+ Wed, 21 Aug 2024 18:06:25 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-5334c4cc17fso230257e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Aug 2024 09:06:25 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5334c75a2cbsm18101e87.187.2024.08.21.09.06.22
+ 2adb3069b0e04-5334c75a2cbsm18101e87.187.2024.08.21.09.06.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 21 Aug 2024 09:06:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50985ebb-5fd7-11ef-a508-bb4a2ccca743
+X-Inumbo-ID: 5136678b-5fd7-11ef-a508-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1724256384; x=1724861184; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1724256385; x=1724861185; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0FpDkLbWKJAQ3CiJs4AaAzuGNEeRXZNpELOZW6xj11I=;
-        b=iOctuW/oqjLEbz5oAoRlKz0CK+D7YMHCVkm4WPgJn0BdHqQzI/596wO8wJy8I+M5Nw
-         AOtu5E/xeMFLgeOwCsHifrrHG1SpnnzFsIXipmQkB5tU9Gb29frAkkQpjY4mZHMQuAbm
-         e/aUhdrYlNkfrOdDoqep07JuAevqr3E8n1r9a14iAekd0UY9+uMZBFFsjT//W0LKo5mH
-         Yqp4XXAyuc794i7x2tIA9qefQuyr0YSGlDaeM3crd0gSUCUUkK2fUpIDThjHAyxvlhLl
-         xrcLJEMaLztLUeendLydHGYLfKRo7pDpXg5upsuHynjkbMdpqgwcSVsmIxUSk3PvMpF7
-         59xQ==
+        bh=rDV1tsPkyyZ0s31JtDUobwApmNzZwqQvW5WKBrf+ijM=;
+        b=eeo05hGViEiI7CAgy6qEBQ/58vf4PMNICbjCCeVo7Bi9NOJsm6Qk/4C6E/XHxUeLQQ
+         FN3gTivCdBsFvUiwUXsTsGsaMimPceyv3uwq3r1efkHT2qPRGKfWTFrh7ezwY3mvrFeq
+         5x0lHAxunRLNrMZzOYsSg6Mkj9hELUVERlXzHMF6DWIShDJVm29QdYl4tLC9SVJg01hJ
+         wej8R5+RRr6w5PaqS8tOqyz72SHmJuQshGjmD9pqKsIekGQFrG3K6GLY3xpxfS7gDQUQ
+         /7ExJq/qw3h5e+absQwXoNpQ+W7kwTa9MHdnbEYBFjeVRIwgHfbRkpWJ6cz3K8IURqps
+         4brA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724256384; x=1724861184;
+        d=1e100.net; s=20230601; t=1724256385; x=1724861185;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0FpDkLbWKJAQ3CiJs4AaAzuGNEeRXZNpELOZW6xj11I=;
-        b=IwfuoS338Y2R0jVP5+qp7aaBix6AOSssgr1lTSXJFRyZMiOUV7j2eXWsKCrJD01n20
-         go7NBQBIJhY6WroHNIpceTkd7DxrvY3QbSUCHe9yLoQlQ+AoK55apu9qcBV1Aq/F/uY1
-         B0+UzVjW+joyhQvOOXx/i8r7IWtsFolh5EiNftedojfszK9SGZrL6qjqRvaPFprwHupU
-         hu4PpWdeyWBRQM+YAhVFrBdl2ydea2t1wmb/HfVKGJr8oACgjH5iT0TPTrzYu36J2Uq/
-         JHPKBTSMGTTexVwQC4dV8oLNTnJET4xcp0IQdyt/0+J0H3x/l6YtY56nvGosQoxPxR/W
-         kuog==
-X-Gm-Message-State: AOJu0YxaP5gC0qv3zCjNjDn++oJXTmgnunMhwHU9giioigCsHAzKSaUw
-	HS6V3MCCW6EEuXiL83Me3U2wWG/PXmhhcExomXx+4MHhgn1PpoMgUAysfw==
-X-Google-Smtp-Source: AGHT+IHDSkBdGU14z0nurNEnNn+IlCY9hD/KtUz/3ycdD6y5OmmVKv9FNLxHQ6bKIEmQ2z6OMu8PPA==
-X-Received: by 2002:a05:6512:ba9:b0:533:45c9:67fe with SMTP id 2adb3069b0e04-533485d78dbmr2504042e87.48.1724256383343;
-        Wed, 21 Aug 2024 09:06:23 -0700 (PDT)
+        bh=rDV1tsPkyyZ0s31JtDUobwApmNzZwqQvW5WKBrf+ijM=;
+        b=qVhUkoe9Fi01o+OR12jst9+j5wL1fvFadDgz+zyWC4WDT0xpubDkNfFTolIKSeydOI
+         nD80k3kR2vN74GjCgZ0NSuyx3KborGA1RoYU4tsK3r1pYwYxj6YoZjVu1Yheh+xwi4ji
+         yNgT2wklq5p2ikRq4NzhEfWrJzGbO+k3JUlMHwUtUkS1shEz+8SMtlCA+8P6/JAugKg2
+         tkLp0ZStYQTwab3b+hFJwNcbDGkIc/U2YgnZ71gh20rv0FBZh3+Pw1uEItPLgxpCtc9l
+         SNPNxYzxKHSk3Awjb7UdtNeBhIMXjnCkPo6YdxIGJYBrPlJQUq8EnrmpH2KZmE1GNqqd
+         8pew==
+X-Gm-Message-State: AOJu0YzREQ7H2d9+DLj8sxVVUSvAI4UFHwqVPE9MlUVPhOfUSWkZBgZM
+	BUB1jOnsDyusXsduDF0KQctjc1ymq6ih1AHUTonzQnbbC4oDb1gnWJJdSg==
+X-Google-Smtp-Source: AGHT+IHkJMA6ZZyJm2XOTUKm9KDM2CMTVwxBL7LghDaYLdumE2y3Rrvrz3/hda0YCi9QCwZqzhEtbg==
+X-Received: by 2002:a05:6512:3f12:b0:52c:d819:517e with SMTP id 2adb3069b0e04-533485a6c58mr1902513e87.30.1724256384211;
+        Wed, 21 Aug 2024 09:06:24 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -84,502 +84,725 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 5/7] xen/riscv: introduce and initialize SBI RFENCE extension
-Date: Wed, 21 Aug 2024 18:06:14 +0200
-Message-ID: <69da9fc18b9987285e4037ef08714e8f9faa66a7.1724256027.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 6/7] xen/riscv: page table handling
+Date: Wed, 21 Aug 2024 18:06:15 +0200
+Message-ID: <090e617d88b279ae88f1a7859875a7e1a0c6ae73.1724256027.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <cover.1724256026.git.oleksii.kurochko@gmail.com>
 References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce functions to work with the SBI RFENCE extension for issuing
-various fence operations to remote CPUs.
+Implement map_pages_to_xen() which requires several
+functions to manage page tables and entries:
+- pt_update()
+- pt_mapping_level()
+- pt_update_entry()
+- pt_next_level()
+- pt_check_entry()
 
-Add the sbi_init() function along with auxiliary functions and macro
-definitions for proper initialization and checking the availability of
-SBI extensions. Currently, this is implemented only for RFENCE.
+To support these operations, add functions for creating,
+mapping, and unmapping Xen tables:
+- create_table()
+- map_table()
+- unmap_table()
 
-Introduce sbi_remote_sfence_vma() to send SFENCE_VMA instructions to
-a set of target HARTs. This will support the implementation of
-flush_xen_tlb_range_va().
+Introduce internal macros starting with PTE_* for convenience.
+These macros closely resemble PTE bits, with the exception of
+PTE_SMALL, which indicates that 4KB is needed.
 
-Integrate __sbi_rfence_v02 from Linux kernel 6.6.0-rc4 with minimal
-modifications:
- - Adapt to Xen code style.
- - Use cpuid_to_hartid() instead of cpuid_to_hartid_map[].
- - Update BIT(...) to BIT(..., UL).
- - Rename __sbi_rfence_v02_call to sbi_rfence_v02_real and
-   remove the unused arg5.
- - Handle NULL cpu_mask to execute rfence on all CPUs by calling
-   sbi_rfence_v02_real(..., 0UL, -1UL,...) instead of creating hmask.
+In addition introduce flush_tlb_range_va() for TLB flushing across
+CPUs after updating the PTE for the requested mapping.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V5:
- - update the comment for sbi_has_rfence().
- - update the comment for sbi_remote_sfence_vma().
- - update the prototype of sbi_remote_sfence_vma() and declare cpu_mask
-   argument as pointer to const.
- - use MASK_EXTR() for sbi_{major, minor}_version().
- - redefine SBI_SPEC_VERSION_MAJOR_MASK as 0x7F000000
- - drop SBI_SPEC_VERSION_MAJOR_SHIFT as unneeded.
- - add BUG_ON(ret.value < 0) inside sbi_ext_base_func() to be sure that
-   ret.value is always >= 0 as SBI spec explicitly doesn't say that.
- - s/__sbi_rfence_v02_real/sbi_rfence_v02_real
- - s/__sbi_rfence_v02/sbi_rfence_v02
- - s/__sbi_rfence/sbi_rfence
- - fold cases inside sbi_rfence_v02_real()
- - mark sbi_rfence_v02 with cf_check.
- - code style fixes in sbi_rfence_v02().
- - add the comment with explanation of algorithm used in sbi_rfence_v02().
- - use __ro_after_init for sbi_rfence variable.
- - add ASSERT(sbi_rfebce) inside sbi_remote_sfence_vma to be sure that it
-   is not NULL.
- - drop local variable ret inside sbi_init() and init sbi_spec_version
-   directly by return value of sbi_get_spec_version() as this function
-   should always be must always succeed.
- - add the comment above sbi_get_spec_version().
- - add BUG_ON for sbi_fw_id and sbi_fw_version() to be sure that they
-   have correct values.
- - make sbi_fw_id, sbi_fw_version as local because they are used only once
-   for printk().
- - s/veriosn/version
- - drop  BUG_ON("At the moment flush_xen_tlb_range_va() uses SBI rfence...")
-   as now we have ASSERT() in the flace where sbi_rfence is actually used.
+ - s/xen_{un}map/{un}map
+ - introduce PTE_SMALL instead of PTE_BLOCK.
+ - update the comment above defintion of PTE_4K_PAGES.
+ - code style fixes.
+ - s/RV_STAGE1_MODE > SATP_MODE_SV48/RV_STAGE1_MODE > SATP_MODE_SV39 around
+   DECLARE_OFFSETS macros.
+ - change type of root_maddr from unsgined long to maddr_t.
+ - drop duplicated check ( if (rc) break ) in pt_update() inside while cycle.
+ - s/1U/1UL
+ - put 'spin_unlock(&xen_pt_lock);' ahead of TLB flush in pt_update().
  - update the commit message.
- - s/BUG_ON("Ooops. SBI spec version 0.1 detected. Need to add support")/panic("Ooops. SBI ...");
+ - update the comment above ASSERT() in map_pages_to_xen() and also update
+   the check within ASSERT() to check that flags has PTE_VALID bit set.
+ - update the comment above pt_update() function.
+ - add the comment inside pt_check_entry().
+ - update the TLB flushing region in pt_update().
+ - s/alloc_only/alloc_tbl
 ---
 Changes in V4:
  - update the commit message.
- - code style fixes
- - update return type of sbi_has_rfence() from int to bool and drop
-   conditional operator inside implementation.
- - Update mapping of SBI_ERR_FAILURE in sbi_err_map_xen_errno().
- - Update return type of sbi_spec_is_0_1() and drop conditional operator
-   inside implementation.
- - s/0x%lx/%#lx
- - update the comment above declaration of sbi_remote_sfence_vma() with
-   more detailed explanation what the function does.
- - update prototype of sbi_remote_sfence_vma(). Now it receives cpumask_t
-   and returns int.
- - refactor __sbi_rfence_v02() take from the Linux kernel as it takes into
-   account a case that hart id could be from different hbase. For example,
-   the case when hart IDs are the following 0, 3, 65, 2. Or the case when
-   hart IDs are unsorted: 0 3 1 2.
- - drop sbi_cpumask_to_hartmask() as it is not needed anymore
- - Update the prototype of sbi_remote_sfence_vma() and implemntation accordingly
-   to the fact it returns 'int'.
- - s/flush_xen_tlb_one_local/flush_tlb_one_local
+ - drop xen_ prefix for functions: xen_pt_update(), xen_pt_mapping_level(),
+   xen_pt_update_entry(), xen_pt_next_level(), xen_pt_check_entry().
+ - drop 'select GENERIC_PT' for CONFIG_RISCV. There is no GENERIC_PT anymore.
+ - update implementation of flush_xen_tlb_range_va and s/flush_xen_tlb_range_va/flush_tlb_range_va
+ - s/pte_get_mfn/mfn_from_pte. Others similar definitions I decided not to touch as
+   they were introduced before and this patter of naming such type of macros will be applied
+   for newly introduced macros.
+ - drop _PAGE_* definitions and use analogues of PTE_*.
+ - introduce PTE_{W,X,R}_MASK and drop PAGE_{XN,W,X}_MASK. Also drop _PAGE_{*}_BIT
+ - introduce PAGE_HYPERVISOR_RX.
+ - drop unused now l3_table_offset.
+ - drop struct pt_t as it was used only for one function. If it will be needed in the future
+   pt_t will be re-introduced.
+ - code styles fixes in pte_is_table(). drop level argument from t.
+ - update implementation and prototype of pte_is_mapping().
+ - drop level argument from pt_next_level().
+ - introduce definition of SATP_PPN_MASK.
+ - isolate PPN of CSR_SATP before shift by PAGE_SHIFT.
+ - drop set_permission() functions as it is not used more then once.
+ - update prototype of pt_check_entry(): drop level argument as it is not used.
+ - pt_check_entry():
+   - code style fixes
+   - update the sanity check when modifying an entry
+   - update the sanity check when when removing a mapping.
+ - s/read_only/alloc_only.
+ - code style fixes for pt_next_level().
+ - pt_update_entry() changes:
+   - drop arch_level variable inisde pt_update_entry()
+   - drop convertion near virt to paddr_t in DECLARE_OFFSETS(offsets, virt);
+   - pull out "goto out inside first 'for' cycle.
+   - drop braces for 'if' cases which has only one line.
+   - ident 'out' label with one blank.
+   - update the comment above alloc_only and also definition to take into
+     account  that if pte population was requested or not.
+   - drop target variable and rename arch_target argument of the function to
+     target.
+ - pt_mapping_level() changes:
+   - move the check if PTE_BLOCK should be mapped on the top of the function.
+   - change int i to unsigned int and update 'for' cycle correspondingly.
+ - update prototye of pt_update():
+   - drop the comment  above nr_mfns and drop const to be consistent with other
+     arguments.
+   - always flush TLB at the end of the function as non-present entries can be put
+     in the TLB.
+   - add fence before TLB flush to ensure that PTEs are all updated before flushing.
+ - s/XEN_TABLE_NORMAL_PAGE/XEN_TABLE_NORMAL
+ - add a check in map_pages_to_xen() the mfn is not INVALID_MFN.
+ - add the comment on top of pt_update() how mfn = INVALID_MFN is considered.
+ - s/_PAGE_BLOCK/PTE_BLOCK.
+ - add the comment with additional explanation for PTE_BLOCK.
+ - drop defintion of FIRST_SIZE as it isn't used.
 ---
 Changes in V3:
- - new patch.
+ - new patch. ( Technically it is reworked version of the generic approach
+   which I tried to suggest in the previous version )
 ---
- xen/arch/riscv/include/asm/sbi.h |  63 +++++++
- xen/arch/riscv/sbi.c             | 273 ++++++++++++++++++++++++++++++-
- xen/arch/riscv/setup.c           |   3 +
- 3 files changed, 338 insertions(+), 1 deletion(-)
+ xen/arch/riscv/Makefile                     |   1 +
+ xen/arch/riscv/include/asm/flushtlb.h       |  12 +
+ xen/arch/riscv/include/asm/mm.h             |   2 +
+ xen/arch/riscv/include/asm/page.h           |  57 +++
+ xen/arch/riscv/include/asm/riscv_encoding.h |   1 +
+ xen/arch/riscv/mm.c                         |   9 -
+ xen/arch/riscv/pt.c                         | 420 ++++++++++++++++++++
+ 7 files changed, 493 insertions(+), 9 deletions(-)
+ create mode 100644 xen/arch/riscv/pt.c
 
-diff --git a/xen/arch/riscv/include/asm/sbi.h b/xen/arch/riscv/include/asm/sbi.h
-index 0e6820a4ed..76921d4cd1 100644
---- a/xen/arch/riscv/include/asm/sbi.h
-+++ b/xen/arch/riscv/include/asm/sbi.h
-@@ -12,8 +12,41 @@
- #ifndef __ASM_RISCV_SBI_H__
- #define __ASM_RISCV_SBI_H__
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 334fd24547..d058ea4e95 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -1,6 +1,7 @@
+ obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+ obj-y += entry.o
+ obj-y += mm.o
++obj-y += pt.o
+ obj-$(CONFIG_RISCV_64) += riscv64/
+ obj-y += sbi.o
+ obj-y += setup.o
+diff --git a/xen/arch/riscv/include/asm/flushtlb.h b/xen/arch/riscv/include/asm/flushtlb.h
+index f4a735fd6c..031d781aa2 100644
+--- a/xen/arch/riscv/include/asm/flushtlb.h
++++ b/xen/arch/riscv/include/asm/flushtlb.h
+@@ -5,12 +5,24 @@
+ #include <xen/bug.h>
+ #include <xen/cpumask.h>
  
-+#include <xen/cpumask.h>
-+
- #define SBI_EXT_0_1_CONSOLE_PUTCHAR		0x1
- 
-+#define SBI_EXT_BASE                    0x10
-+#define SBI_EXT_RFENCE                  0x52464E43
-+
-+/* SBI function IDs for BASE extension */
-+#define SBI_EXT_BASE_GET_SPEC_VERSION   0x0
-+#define SBI_EXT_BASE_GET_IMP_ID         0x1
-+#define SBI_EXT_BASE_GET_IMP_VERSION    0x2
-+#define SBI_EXT_BASE_PROBE_EXT          0x3
-+
-+/* SBI function IDs for RFENCE extension */
-+#define SBI_EXT_RFENCE_REMOTE_FENCE_I           0x0
-+#define SBI_EXT_RFENCE_REMOTE_SFENCE_VMA        0x1
-+#define SBI_EXT_RFENCE_REMOTE_SFENCE_VMA_ASID   0x2
-+#define SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA       0x3
-+#define SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA_VMID  0x4
-+#define SBI_EXT_RFENCE_REMOTE_HFENCE_VVMA       0x5
-+#define SBI_EXT_RFENCE_REMOTE_HFENCE_VVMA_ASID  0x6
-+
-+#define SBI_SPEC_VERSION_MAJOR_MASK     0x7F000000
-+#define SBI_SPEC_VERSION_MINOR_MASK     0xffffff
-+
-+/* SBI return error codes */
-+#define SBI_SUCCESS             0
-+#define SBI_ERR_FAILURE         (-1)
-+#define SBI_ERR_NOT_SUPPORTED   (-2)
-+#define SBI_ERR_INVALID_PARAM   (-3)
-+#define SBI_ERR_DENIED          (-4)
-+#define SBI_ERR_INVALID_ADDRESS (-5)
-+
-+#define SBI_SPEC_VERSION_DEFAULT 0x1
-+
- struct sbiret {
-     long error;
-     long value;
-@@ -31,4 +64,34 @@ struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
-  */
- void sbi_console_putchar(int ch);
- 
-+/*
-+ * Check underlying SBI implementation has RFENCE
-+ *
-+ * @return true for supported AND false for not-supported
-+ */
-+bool sbi_has_rfence(void);
-+
-+/*
-+ * Instructs the remote harts to execute one or more SFENCE.VMA
-+ * instructions, covering the range of virtual addresses between
-+ * [start_addr, start_addr + size).
-+ *
-+ * Returns 0 if IPI was sent to all the targeted harts successfully
-+ * or negative value if start_addr or size is not valid.
-+ *
-+ * @hart_mask a cpu mask containing all the target harts.
-+ * @param start virtual address start
-+ * @param size virtual address range size
-+ */
-+int sbi_remote_sfence_vma(const cpumask_t *cpu_mask,
-+                          unsigned long start_addr,
-+                          unsigned long size);
-+
-+/*
-+ * Initialize SBI library
-+ *
-+ * @return 0 on success, otherwise negative errno on failure
-+ */
-+int sbi_init(void);
-+
- #endif /* __ASM_RISCV_SBI_H__ */
-diff --git a/xen/arch/riscv/sbi.c b/xen/arch/riscv/sbi.c
-index 0ae166c861..c4036c8e4b 100644
---- a/xen/arch/riscv/sbi.c
-+++ b/xen/arch/riscv/sbi.c
-@@ -5,13 +5,26 @@
-  * (anup.patel@wdc.com).
-  *
-  * Modified by Bobby Eshleman (bobby.eshleman@gmail.com).
-+ * Modified by Oleksii Kurochko (oleksii.kurochko@gmail.com).
-  *
-  * Copyright (c) 2019 Western Digital Corporation or its affiliates.
-- * Copyright (c) 2021-2023 Vates SAS.
-+ * Copyright (c) 2021-2024 Vates SAS.
-  */
- 
-+#include <xen/compiler.h>
-+#include <xen/const.h>
-+#include <xen/cpumask.h>
-+#include <xen/errno.h>
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+#include <xen/sections.h>
-+#include <xen/smp.h>
-+
-+#include <asm/processor.h>
- #include <asm/sbi.h>
- 
-+static unsigned long __ro_after_init sbi_spec_version = SBI_SPEC_VERSION_DEFAULT;
-+
- struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
-                         unsigned long arg0, unsigned long arg1,
-                         unsigned long arg2, unsigned long arg3,
-@@ -38,7 +51,265 @@ struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
-     return ret;
- }
- 
-+static int sbi_err_map_xen_errno(int err)
-+{
-+    switch ( err )
-+    {
-+    case SBI_SUCCESS:
-+        return 0;
-+    case SBI_ERR_DENIED:
-+        return -EACCES;
-+    case SBI_ERR_INVALID_PARAM:
-+        return -EINVAL;
-+    case SBI_ERR_INVALID_ADDRESS:
-+        return -EFAULT;
-+    case SBI_ERR_NOT_SUPPORTED:
-+        return -EOPNOTSUPP;
-+    case SBI_ERR_FAILURE:
-+        fallthrough;
-+    default:
-+        return -ENOSYS;
-+    };
-+}
-+
- void sbi_console_putchar(int ch)
- {
-     sbi_ecall(SBI_EXT_0_1_CONSOLE_PUTCHAR, 0, ch, 0, 0, 0, 0, 0);
- }
-+
-+static unsigned long sbi_major_version(void)
-+{
-+    return MASK_EXTR(sbi_spec_version, SBI_SPEC_VERSION_MAJOR_MASK);
-+}
-+
-+static unsigned long sbi_minor_version(void)
-+{
-+    return MASK_EXTR(sbi_spec_version, SBI_SPEC_VERSION_MINOR_MASK);
-+}
-+
-+static long sbi_ext_base_func(long fid)
-+{
-+    struct sbiret ret;
-+
-+    ret = sbi_ecall(SBI_EXT_BASE, fid, 0, 0, 0, 0, 0, 0);
-+
-+    /*
-+     * I wasn't able to find a case in the SBI spec where sbiret.value
-+     * could be negative.
-+     *
-+     * Unfortunately, the spec does not specify the possible values of
-+     * sbiret.value, but based on the description of the SBI function,
-+     * ret.value >= 0 when sbiret.error = 0. SPI spec specify only
-+     * possible value for sbiret.error (<= 0 whwere 0 is SBI_SUCCESS ).
-+     *
-+     * Just to be sure that SBI base extension functions one day won't
-+     * start to return a negative value for sbiret.value when
-+     * sbiret.error < 0 BUG_ON() is added.
-+     */
-+    BUG_ON(ret.value < 0);
-+
-+    if ( !ret.error )
-+        return ret.value;
-+    else
-+        return ret.error;
-+}
-+
-+static int sbi_rfence_v02_real(unsigned long fid,
-+                               unsigned long hmask, unsigned long hbase,
-+                               unsigned long start, unsigned long size,
-+                               unsigned long arg4)
-+{
-+    struct sbiret ret = {0};
-+    int result = 0;
-+
-+    switch ( fid )
-+    {
-+    case SBI_EXT_RFENCE_REMOTE_FENCE_I:
-+        ret = sbi_ecall(SBI_EXT_RFENCE, fid, hmask, hbase,
-+                        0, 0, 0, 0);
-+        break;
-+
-+    case SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA:
-+    case SBI_EXT_RFENCE_REMOTE_HFENCE_VVMA:
-+    case SBI_EXT_RFENCE_REMOTE_SFENCE_VMA:
-+        ret = sbi_ecall(SBI_EXT_RFENCE, fid, hmask, hbase,
-+                        start, size, 0, 0);
-+        break;
-+
-+    case SBI_EXT_RFENCE_REMOTE_SFENCE_VMA_ASID:
-+    case SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA_VMID:
-+    case SBI_EXT_RFENCE_REMOTE_HFENCE_VVMA_ASID:
-+        ret = sbi_ecall(SBI_EXT_RFENCE, fid, hmask, hbase,
-+                        start, size, arg4, 0);
-+        break;
-+
-+    default:
-+        printk("%s: unknown function ID [%lu]\n",
-+               __func__, fid);
-+        result = -EINVAL;
-+        break;
-+    };
-+
-+    if ( ret.error )
-+    {
-+        result = sbi_err_map_xen_errno(ret.error);
-+        printk("%s: hbase=%lu hmask=%#lx failed (error %d)\n",
-+               __func__, hbase, hmask, result);
-+    }
-+
-+    return result;
-+}
-+
-+static int cf_check sbi_rfence_v02(unsigned long fid,
-+                                   const cpumask_t *cpu_mask,
-+                                   unsigned long start, unsigned long size,
-+                                   unsigned long arg4, unsigned long arg5)
-+{
-+    unsigned long hartid, cpuid, hmask = 0, hbase = 0, htop = 0;
-+    int result;
-+
-+    /*
-+     * hart_mask_base can be set to -1 to indicate that hart_mask can be
-+     * ignored and all available harts must be considered.
-+     */
-+    if ( !cpu_mask )
-+        return sbi_rfence_v02_real(fid, 0UL, -1UL, start, size, arg4);
-+
-+    for_each_cpu ( cpuid, cpu_mask )
-+    {
-+        /*
-+        * Hart IDs might not necessarily be numbered contiguously in
-+        * a multiprocessor system, but at least one hart must have a
-+        * hart ID of zero.
-+        *
-+        * This means that it is possible for the hart ID mapping to look like:
-+        *  0, 1, 3, 65, 66, 69
-+        * In such cases, more than one call to sbi_rfence_v02_real() will be
-+        * needed, as a single hmask can only cover sizeof(unsigned long) CPUs:
-+        *  1. sbi_rfence_v02_real(hmask=0b1011, hbase=0)
-+        *  2. sbi_rfence_v02_real(hmask=0b1011, hbase=65)
-+        *
-+        * The algorithm below tries to batch as many harts as possible before
-+        * making an SBI call. However, batching may not always be possible.
-+        * For example, consider the hart ID mapping:
-+        *   0, 64, 1, 65, 2, 66
-+        */
-+        hartid = cpuid_to_hartid(cpuid);
-+        if ( hmask )
-+        {
-+            if ( hartid + BITS_PER_LONG <= htop ||
-+                 hbase + BITS_PER_LONG <= hartid )
-+            {
-+                result = sbi_rfence_v02_real(fid, hmask, hbase,
-+                                             start, size, arg4);
-+                if ( result )
-+                    return result;
-+                hmask = 0;
-+            }
-+            else if ( hartid < hbase )
-+            {
-+                /* shift the mask to fit lower hartid */
-+                hmask <<= hbase - hartid;
-+                hbase = hartid;
-+            }
-+        }
-+
-+        if ( !hmask )
-+        {
-+            hbase = hartid;
-+            htop = hartid;
-+        }
-+        else if ( hartid > htop )
-+            htop = hartid;
-+
-+        hmask |= BIT(hartid - hbase, UL);
-+    }
-+
-+    if ( hmask )
-+    {
-+        result = sbi_rfence_v02_real(fid, hmask, hbase,
-+                                     start, size, arg4);
-+        if ( result )
-+            return result;
-+    }
-+
-+    return 0;
-+}
-+
-+static int (* __ro_after_init sbi_rfence)(unsigned long fid,
-+                                          const cpumask_t *cpu_mask,
-+                                          unsigned long start,
-+                                          unsigned long size,
-+                                          unsigned long arg4,
-+                                          unsigned long arg5);
-+
-+int sbi_remote_sfence_vma(const cpumask_t *cpu_mask,
-+                          unsigned long start_addr,
-+                          unsigned long size)
-+{
-+    ASSERT(sbi_rfence);
-+
-+    return sbi_rfence(SBI_EXT_RFENCE_REMOTE_SFENCE_VMA,
-+                      cpu_mask, start_addr, size, 0, 0);
-+}
-+
-+/* This function must always succeed. */
-+#define sbi_get_spec_version()  \
-+    sbi_ext_base_func(SBI_EXT_BASE_GET_SPEC_VERSION)
-+
-+#define sbi_get_firmware_id()   \
-+    sbi_ext_base_func(SBI_EXT_BASE_GET_IMP_ID)
-+
-+#define sbi_get_firmware_version()  \
-+    sbi_ext_base_func(SBI_EXT_BASE_GET_IMP_VERSION)
-+
-+int sbi_probe_extension(long extid)
-+{
-+    struct sbiret ret;
-+
-+    ret = sbi_ecall(SBI_EXT_BASE, SBI_EXT_BASE_PROBE_EXT, extid,
-+                    0, 0, 0, 0, 0);
-+    if ( !ret.error && ret.value )
-+        return ret.value;
-+
-+    return -EOPNOTSUPP;
-+}
-+
-+static bool sbi_spec_is_0_1(void)
-+{
-+    return (sbi_spec_version == SBI_SPEC_VERSION_DEFAULT);
-+}
-+
-+bool sbi_has_rfence(void)
-+{
-+    return (sbi_rfence != NULL);
-+}
-+
-+int __init sbi_init(void)
-+{
-+    sbi_spec_version = sbi_get_spec_version();
-+
-+    printk("SBI specification v%lu.%lu detected\n",
-+            sbi_major_version(), sbi_minor_version());
-+
-+    if ( !sbi_spec_is_0_1() )
-+    {
-+        long sbi_fw_id = sbi_get_firmware_id();
-+        long sbi_fw_version = sbi_get_firmware_version();
-+
-+        BUG_ON((sbi_fw_id < 0) || (sbi_fw_version < 0));
-+
-+        printk("SBI implementation ID=%#lx Version=%#lx\n",
-+            sbi_fw_id, sbi_fw_version);
-+
-+        if ( sbi_probe_extension(SBI_EXT_RFENCE) > 0 )
-+        {
-+            sbi_rfence = sbi_rfence_v02;
-+            printk("SBI v0.2 RFENCE extension detected\n");
-+        }
-+    }
-+    else
-+        panic("Ooops. SBI spec version 0.1 detected. Need to add support");
-+
-+    return 0;
-+}
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index e15f34509c..f147ba672f 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -8,6 +8,7 @@
- #include <public/version.h>
- 
- #include <asm/early_printk.h>
 +#include <asm/sbi.h>
- #include <asm/smp.h>
- #include <asm/traps.h>
- 
-@@ -47,6 +48,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- 
-     trap_init();
- 
-+    sbi_init();
 +
- #ifdef CONFIG_SELF_TESTS
-     test_macros_from_bug_h();
- #endif
+ /* Flush TLB of local processor for address va. */
+ static inline void flush_tlb_one_local(vaddr_t va)
+ {
+     asm volatile ( "sfence.vma %0" :: "r" (va) : "memory" );
+ }
+ 
++/*
++ * Flush a range of VA's hypervisor mappings from the TLB of all
++ * processors in the inner-shareable domain.
++ */
++static inline void flush_tlb_range_va(vaddr_t va, size_t size)
++{
++    BUG_ON(!sbi_has_rfence());
++    sbi_remote_sfence_vma(NULL, va, size);
++}
++
+ /*
+  * Filter the given set of CPUs, removing those that definitely flushed their
+  * TLB since @page_timestamp.
+diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
+index a0bdc2bc3a..ce1557bb27 100644
+--- a/xen/arch/riscv/include/asm/mm.h
++++ b/xen/arch/riscv/include/asm/mm.h
+@@ -42,6 +42,8 @@ static inline void *maddr_to_virt(paddr_t ma)
+ #define virt_to_mfn(va)     __virt_to_mfn(va)
+ #define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
+ 
++#define mfn_from_pte(pte) maddr_to_mfn(pte_to_paddr(pte))
++
+ struct page_info
+ {
+     /* Each frame can be threaded onto a doubly-linked list. */
+diff --git a/xen/arch/riscv/include/asm/page.h b/xen/arch/riscv/include/asm/page.h
+index 55916eaa92..f148d82261 100644
+--- a/xen/arch/riscv/include/asm/page.h
++++ b/xen/arch/riscv/include/asm/page.h
+@@ -21,6 +21,11 @@
+ #define XEN_PT_LEVEL_MAP_MASK(lvl)  (~(XEN_PT_LEVEL_SIZE(lvl) - 1))
+ #define XEN_PT_LEVEL_MASK(lvl)      (VPN_MASK << XEN_PT_LEVEL_SHIFT(lvl))
+ 
++/*
++ * PTE format:
++ * | XLEN-1  10 | 9             8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
++ *       PFN      reserved for SW   D   A   G   U   X   W   R   V
++ */
+ #define PTE_VALID                   BIT(0, UL)
+ #define PTE_READABLE                BIT(1, UL)
+ #define PTE_WRITABLE                BIT(2, UL)
+@@ -34,15 +39,53 @@
+ #define PTE_LEAF_DEFAULT            (PTE_VALID | PTE_READABLE | PTE_WRITABLE)
+ #define PTE_TABLE                   (PTE_VALID)
+ 
++#define PAGE_HYPERVISOR_RO          (PTE_VALID | PTE_READABLE)
+ #define PAGE_HYPERVISOR_RW          (PTE_VALID | PTE_READABLE | PTE_WRITABLE)
++#define PAGE_HYPERVISOR_RX          (PTE_VALID | PTE_READABLE | PTE_EXECUTABLE)
+ 
+ #define PAGE_HYPERVISOR             PAGE_HYPERVISOR_RW
+ 
++/*
++ * The PTE format does not contain the following bits within itself;
++ * they are created artificially to inform the Xen page table
++ * handling algorithm. These bits should not be explicitly written
++ * to the PTE entry.
++ */
++#define PTE_SMALL       BIT(10, UL)
++#define PTE_POPULATE    BIT(11, UL)
++
++#define PTE_R_MASK(x)   ((x) & PTE_READABLE)
++#define PTE_W_MASK(x)   ((x) & PTE_WRITABLE)
++#define PTE_X_MASK(x)   ((x) & PTE_EXECUTABLE)
++
++#define PTE_RWX_MASK(x) ((x) & (PTE_READABLE | PTE_WRITABLE | PTE_EXECUTABLE))
++
+ /* Calculate the offsets into the pagetables for a given VA */
+ #define pt_linear_offset(lvl, va)   ((va) >> XEN_PT_LEVEL_SHIFT(lvl))
+ 
+ #define pt_index(lvl, va) (pt_linear_offset((lvl), (va)) & VPN_MASK)
+ 
++#define PAGETABLE_ORDER_MASK ((_AC(1, U) << PAGETABLE_ORDER) - 1)
++#define TABLE_OFFSET(offs) (_AT(unsigned int, offs) & PAGETABLE_ORDER_MASK)
++
++#if RV_STAGE1_MODE > SATP_MODE_SV39
++#error "need to to update DECLARE_OFFSETS macros"
++#else
++
++#define l0_table_offset(va) TABLE_OFFSET(pt_linear_offset(0, va))
++#define l1_table_offset(va) TABLE_OFFSET(pt_linear_offset(1, va))
++#define l2_table_offset(va) TABLE_OFFSET(pt_linear_offset(2, va))
++
++/* Generate an array @var containing the offset for each level from @addr */
++#define DECLARE_OFFSETS(var, addr)          \
++    const unsigned int var[] = {            \
++        l0_table_offset(addr),              \
++        l1_table_offset(addr),              \
++        l2_table_offset(addr),              \
++    }
++
++#endif
++
+ /* Page Table entry */
+ typedef struct {
+ #ifdef CONFIG_RISCV_64
+@@ -68,6 +111,20 @@ static inline bool pte_is_valid(pte_t p)
+     return p.pte & PTE_VALID;
+ }
+ 
++inline bool pte_is_table(const pte_t p)
++{
++    return ((p.pte & (PTE_VALID |
++                      PTE_READABLE |
++                      PTE_WRITABLE |
++                      PTE_EXECUTABLE)) == PTE_VALID);
++}
++
++static inline bool pte_is_mapping(const pte_t p)
++{
++    return (p.pte & PTE_VALID) &&
++           (p.pte & (PTE_WRITABLE | PTE_EXECUTABLE));
++}
++
+ static inline void invalidate_icache(void)
+ {
+     BUG_ON("unimplemented");
+diff --git a/xen/arch/riscv/include/asm/riscv_encoding.h b/xen/arch/riscv/include/asm/riscv_encoding.h
+index 58abe5eccc..d80cef0093 100644
+--- a/xen/arch/riscv/include/asm/riscv_encoding.h
++++ b/xen/arch/riscv/include/asm/riscv_encoding.h
+@@ -164,6 +164,7 @@
+ #define SSTATUS_SD			SSTATUS64_SD
+ #define SATP_MODE			SATP64_MODE
+ #define SATP_MODE_SHIFT			SATP64_MODE_SHIFT
++#define SATP_PPN_MASK			_UL(0x00000FFFFFFFFFFF)
+ 
+ #define HGATP_PPN			HGATP64_PPN
+ #define HGATP_VMID_SHIFT		HGATP64_VMID_SHIFT
+diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+index b8ff91cf4e..e8430def14 100644
+--- a/xen/arch/riscv/mm.c
++++ b/xen/arch/riscv/mm.c
+@@ -369,12 +369,3 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
+     BUG_ON("unimplemented");
+     return -1;
+ }
+-
+-int map_pages_to_xen(unsigned long virt,
+-                     mfn_t mfn,
+-                     unsigned long nr_mfns,
+-                     unsigned int flags)
+-{
+-    BUG_ON("unimplemented");
+-    return -1;
+-}
+diff --git a/xen/arch/riscv/pt.c b/xen/arch/riscv/pt.c
+new file mode 100644
+index 0000000000..15eb02fe9e
+--- /dev/null
++++ b/xen/arch/riscv/pt.c
+@@ -0,0 +1,420 @@
++#include <xen/bug.h>
++#include <xen/domain_page.h>
++#include <xen/errno.h>
++#include <xen/mm.h>
++#include <xen/mm-frame.h>
++#include <xen/pmap.h>
++#include <xen/spinlock.h>
++
++#include <asm/flushtlb.h>
++#include <asm/page.h>
++
++static inline const mfn_t get_root_page(void)
++{
++    paddr_t root_maddr = (csr_read(CSR_SATP) & SATP_PPN_MASK) << PAGE_SHIFT;
++
++    return maddr_to_mfn(root_maddr);
++}
++
++/* Sanity check of the entry. */
++static bool pt_check_entry(pte_t entry, mfn_t mfn, unsigned int flags)
++{
++    /*
++     * See the comment about the possible combination of (mfn, flags) in
++     * the comment above pt_update().
++     */
++
++    /* Sanity check when modifying an entry. */
++    if ( (flags & PTE_VALID) && mfn_eq(mfn, INVALID_MFN) )
++    {
++        /* We don't allow modifying an invalid entry. */
++        if ( !pte_is_valid(entry) )
++        {
++            printk("Modifying invalid entry is not allowed.\n");
++            return false;
++        }
++
++        /* We don't allow modifying a table entry */
++        if ( pte_is_table(entry) )
++        {
++            printk("Modifying a table entry is not allowed.\n");
++            return false;
++        }
++    }
++    /* Sanity check when inserting a mapping */
++    else if ( flags & PTE_VALID )
++    {
++        /* We should be here with a valid MFN. */
++        ASSERT(!mfn_eq(mfn, INVALID_MFN));
++
++        /*
++         * We don't allow replacing any valid entry.
++         *
++         * Note that the function pt_update() relies on this
++         * assumption and will skip the TLB flush (when Svvptc
++         * extension will be ratified). The function will need
++         * to be updated if the check is relaxed.
++         */
++        if ( pte_is_valid(entry) )
++        {
++            if ( pte_is_mapping(entry) )
++                printk("Changing MFN for a valid entry is not allowed (%#"PRI_mfn" -> %#"PRI_mfn").\n",
++                       mfn_x(mfn_from_pte(entry)), mfn_x(mfn));
++            else
++                printk("Trying to replace a table with a mapping.\n");
++            return false;
++        }
++    }
++    /* Sanity check when removing a mapping. */
++    else if ( (flags & (PTE_VALID | PTE_POPULATE)) == 0 )
++    {
++        /* We should be here with an invalid MFN. */
++        ASSERT(mfn_eq(mfn, INVALID_MFN));
++
++        /* We don't allow removing a table */
++        if ( pte_is_table(entry) )
++        {
++            printk("Removing a table is not allowed.\n");
++            return false;
++        }
++    }
++    /* Sanity check when populating the page-table. No check so far. */
++    else
++    {
++        ASSERT(flags & PTE_POPULATE);
++        /* We should be here with an invalid MFN */
++        ASSERT(mfn_eq(mfn, INVALID_MFN));
++    }
++
++    return true;
++}
++
++static pte_t *map_table(mfn_t mfn)
++{
++    /*
++     * During early boot, map_domain_page() may be unusable. Use the
++     * PMAP to map temporarily a page-table.
++     */
++    if ( system_state == SYS_STATE_early_boot )
++        return pmap_map(mfn);
++
++    return map_domain_page(mfn);
++}
++
++static void unmap_table(const pte_t *table)
++{
++    /*
++     * During early boot, map_table() will not use map_domain_page()
++     * but the PMAP.
++     */
++    if ( system_state == SYS_STATE_early_boot )
++        pmap_unmap(table);
++    else
++        unmap_domain_page(table);
++}
++
++static int create_table(pte_t *entry)
++{
++    mfn_t mfn;
++    void *p;
++    pte_t pte;
++
++    if ( system_state != SYS_STATE_early_boot )
++    {
++        struct page_info *pg = alloc_domheap_page(NULL, 0);
++
++        if ( pg == NULL )
++            return -ENOMEM;
++
++        mfn = page_to_mfn(pg);
++    }
++    else
++        mfn = alloc_boot_pages(1, 1);
++
++    p = map_table(mfn);
++    clear_page(p);
++    unmap_table(p);
++
++    pte = pte_from_mfn(mfn, PTE_TABLE);
++    write_pte(entry, pte);
++
++    return 0;
++}
++
++#define XEN_TABLE_MAP_FAILED 0
++#define XEN_TABLE_SUPER_PAGE 1
++#define XEN_TABLE_NORMAL 2
++
++/*
++ * Take the currently mapped table, find the corresponding entry,
++ * and map the next table, if available.
++ *
++ * The alloc_tbl parameters indicates whether intermediate tables should
++ * be allocated when not present.
++ *
++ * Return values:
++ *  XEN_TABLE_MAP_FAILED: Either alloc_only was set and the entry
++ *  was empty, or allocating a new page failed.
++ *  XEN_TABLE_NORMAL: next level or leaf mapped normally
++ *  XEN_TABLE_SUPER_PAGE: The next entry points to a superpage.
++ */
++static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned int offset)
++{
++    pte_t *entry;
++    int ret;
++    mfn_t mfn;
++
++    entry = *table + offset;
++
++    if ( !pte_is_valid(*entry) )
++    {
++        if ( alloc_tbl )
++            return XEN_TABLE_MAP_FAILED;
++
++        ret = create_table(entry);
++        if ( ret )
++            return XEN_TABLE_MAP_FAILED;
++    }
++
++    if ( pte_is_mapping(*entry) )
++        return XEN_TABLE_SUPER_PAGE;
++
++    mfn = mfn_from_pte(*entry);
++
++    unmap_table(*table);
++    *table = map_table(mfn);
++
++    return XEN_TABLE_NORMAL;
++}
++
++/* Update an entry at the level @target. */
++static int pt_update_entry(mfn_t root, unsigned long virt,
++                           mfn_t mfn, unsigned int target,
++                           unsigned int flags)
++{
++    int rc;
++    unsigned int level = HYP_PT_ROOT_LEVEL;
++    pte_t *table;
++    /*
++     * The intermediate page table shouldn't be allocated when MFN isn't
++     * valid and we are not populating page table.
++     * This means we either modify permissions or remove an entry, or
++     * inserting brand new entry.
++     *
++     * See the comment above pt_update() for an additional explanation about
++     * combinations of (mfn, flags).
++    */
++    bool alloc_tbl = mfn_eq(mfn, INVALID_MFN) && !(flags & PTE_POPULATE);
++    pte_t pte, *entry;
++
++    /* convenience aliases */
++    DECLARE_OFFSETS(offsets, virt);
++
++    table = map_table(root);
++    for ( ; level > target; level-- )
++    {
++        rc = pt_next_level(alloc_tbl, &table, offsets[level]);
++        if ( rc == XEN_TABLE_MAP_FAILED )
++        {
++            rc = 0;
++
++            /*
++             * We are here because pt_next_level has failed to map
++             * the intermediate page table (e.g the table does not exist
++             * and the pt is read-only). It is a valid case when
++             * removing a mapping as it may not exist in the page table.
++             * In this case, just ignore it.
++             */
++            if ( flags & PTE_VALID )
++            {
++                printk("%s: Unable to map level %u\n", __func__, level);
++                rc = -ENOENT;
++            }
++
++            goto out;
++        }
++        else if ( rc != XEN_TABLE_NORMAL )
++            break;
++    }
++
++    if ( level != target )
++    {
++        printk("%s: Shattering superpage is not supported\n", __func__);
++        rc = -EOPNOTSUPP;
++        goto out;
++    }
++
++    entry = table + offsets[level];
++
++    rc = -EINVAL;
++    if ( !pt_check_entry(*entry, mfn, flags) )
++        goto out;
++
++    /* We are removing the page */
++    if ( !(flags & PTE_VALID) )
++        memset(&pte, 0x00, sizeof(pte));
++    else
++    {
++        /* We are inserting a mapping => Create new pte. */
++        if ( !mfn_eq(mfn, INVALID_MFN) )
++            pte = pte_from_mfn(mfn, PTE_VALID);
++        else /* We are updating the permission => Copy the current pte. */
++            pte = *entry;
++
++        /* update permission according to the flags */
++        pte.pte |= PTE_RWX_MASK(flags) | PTE_ACCESSED | PTE_DIRTY;
++    }
++
++    write_pte(entry, pte);
++
++    rc = 0;
++
++ out:
++    unmap_table(table);
++
++    return rc;
++}
++
++/* Return the level where mapping should be done */
++static int pt_mapping_level(unsigned long vfn, mfn_t mfn, unsigned long nr,
++                            unsigned int flags)
++{
++    unsigned int level = 0;
++    unsigned long mask;
++    unsigned int i;
++
++    /* Use blocking mapping unless the caller requests 4K mapping */
++    if ( unlikely(flags & PTE_SMALL) )
++        return level;
++
++    /*
++     * Don't take into account the MFN when removing mapping (i.e
++     * MFN_INVALID) to calculate the correct target order.
++     *
++     * `vfn` and `mfn` must be both superpage aligned.
++     * They are or-ed together and then checked against the size of
++     * each level.
++     *
++     * `left` is not included and checked separately to allow
++     * superpage mapping even if it is not properly aligned (the
++     * user may have asked to map 2MB + 4k).
++     */
++    mask = !mfn_eq(mfn, INVALID_MFN) ? mfn_x(mfn) : 0;
++    mask |= vfn;
++
++    for ( i = HYP_PT_ROOT_LEVEL; i != 0; i-- )
++    {
++        if ( !(mask & (BIT(XEN_PT_LEVEL_ORDER(i), UL) - 1)) &&
++             (nr >= BIT(XEN_PT_LEVEL_ORDER(i), UL)) )
++        {
++            level = i;
++            break;
++        }
++    }
++
++    return level;
++}
++
++static DEFINE_SPINLOCK(xen_pt_lock);
++
++/*
++ * If `mfn` equals `INVALID_MFN`, it indicates that the following page table
++ * update operation might be related to either populating the table (
++ * PTE_POPULATE will be set additionaly), destroying a mapping, or modifying
++ * an existing mapping.
++ *
++ * If `mfn` is valid and flags has PTE_VALID bit set then it means that
++ * inserting will be done.
++ */
++static int pt_update(unsigned long virt,
++                     mfn_t mfn,
++                     unsigned long nr_mfns,
++                     unsigned int flags)
++{
++    int rc = 0;
++    unsigned long vfn = virt >> PAGE_SHIFT;
++    unsigned long left = nr_mfns;
++
++    const mfn_t root = get_root_page();
++
++    /*
++     * It is bad idea to have mapping both writeable and
++     * executable.
++     * When modifying/creating mapping (i.e PTE_VALID is set),
++     * prevent any update if this happen.
++     */
++    if ( (flags & PTE_VALID) && PTE_W_MASK(flags) && PTE_X_MASK(flags) )
++    {
++        printk("Mappings should not be both Writeable and Executable.\n");
++        return -EINVAL;
++    }
++
++    if ( !IS_ALIGNED(virt, PAGE_SIZE) )
++    {
++        printk("The virtual address is not aligned to the page-size.\n");
++        return -EINVAL;
++    }
++
++    spin_lock(&xen_pt_lock);
++
++    while ( left )
++    {
++        unsigned int order, level;
++
++        level = pt_mapping_level(vfn, mfn, left, flags);
++        order = XEN_PT_LEVEL_ORDER(level);
++
++        ASSERT(left >= BIT(order, UL));
++
++        rc = pt_update_entry(root, vfn << PAGE_SHIFT, mfn, level, flags);
++        if ( rc )
++            break;
++
++        vfn += 1UL << order;
++        if ( !mfn_eq(mfn, INVALID_MFN) )
++            mfn = mfn_add(mfn, 1UL << order);
++
++        left -= (1UL << order);
++    }
++
++    /* Ensure that PTEs are all updated before flushing */
++    RISCV_FENCE(rw, rw);
++
++    spin_unlock(&xen_pt_lock);
++
++    /*
++     * Always flush TLB at the end of the function as non-present entries
++     * can be put in the TLB.
++     *
++     * The remote fence operation applies to the entire address space if
++     * either:
++     *  - start and size are both 0, or
++     *  - size is equal to 2^XLEN-1.
++     *
++     * TODO: come up with something which will allow not to flash the entire
++     *       address space.
++     */
++    flush_tlb_range_va(0, 0);
++
++    return rc;
++}
++
++int map_pages_to_xen(unsigned long virt,
++                     mfn_t mfn,
++                     unsigned long nr_mfns,
++                     unsigned int flags)
++{
++    /*
++     * Ensure that flags has PTE_VALID bit as map_pages_to_xen() is supposed
++     * to create a mapping.
++     *
++     * Ensure that we have a valid MFN before proceeding.
++     *
++     * If the MFN is invalid, pt_update() might misinterpret the operation,
++     * treating it as either a population, a mapping destruction,
++     * or a mapping modification.
++     */
++    ASSERT(!mfn_eq(mfn, INVALID_MFN) || (flags & PTE_VALID));
++
++    return pt_update(virt, mfn, nr_mfns, flags);
++}
 -- 
 2.46.0
 
