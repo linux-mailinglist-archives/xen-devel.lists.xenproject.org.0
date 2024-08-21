@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 431F2959BF3
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 14:37:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.781112.1190678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95C33959CB4
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 15:03:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.781129.1190687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgkZi-0001GW-VL; Wed, 21 Aug 2024 12:36:30 +0000
+	id 1sgkyI-0006i4-Tu; Wed, 21 Aug 2024 13:01:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 781112.1190678; Wed, 21 Aug 2024 12:36:30 +0000
+Received: by outflank-mailman (output) from mailman id 781129.1190687; Wed, 21 Aug 2024 13:01:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgkZi-0001EN-QN; Wed, 21 Aug 2024 12:36:30 +0000
-Received: by outflank-mailman (input) for mailman id 781112;
- Wed, 21 Aug 2024 12:36:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zhuR=PU=bounce.vates.tech=bounce-md_30504962.66c5df4a.v1-7431de53ceb449429d65e95305e54f00@srs-se1.protection.inumbo.net>)
- id 1sgkZg-00019r-UP
- for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 12:36:28 +0000
-Received: from mail186-11.suw21.mandrillapp.com
- (mail186-11.suw21.mandrillapp.com [198.2.186.11])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fbbb97f3-5fb9-11ef-a508-bb4a2ccca743;
- Wed, 21 Aug 2024 14:36:27 +0200 (CEST)
-Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail186-11.suw21.mandrillapp.com (Mailchimp) with ESMTP id
- 4Wpm6L2v8yzLfH5Wr
- for <xen-devel@lists.xenproject.org>; Wed, 21 Aug 2024 12:36:26 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 7431de53ceb449429d65e95305e54f00; Wed, 21 Aug 2024 12:36:26 +0000
+	id 1sgkyI-0006gH-QU; Wed, 21 Aug 2024 13:01:54 +0000
+Received: by outflank-mailman (input) for mailman id 781129;
+ Wed, 21 Aug 2024 13:01:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YIGS=PU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sgkyG-0006gB-Vr
+ for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 13:01:52 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 880f306e-5fbd-11ef-8776-851b0ebba9a2;
+ Wed, 21 Aug 2024 15:01:50 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5bed05c0a2fso5934438a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Aug 2024 06:01:50 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5bebc0817a8sm8039087a12.84.2024.08.21.06.01.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Aug 2024 06:01:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,93 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fbbb97f3-5fb9-11ef-a508-bb4a2ccca743
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1724243786; x=1724504286;
-	bh=Z+5IsVCfhNP07iFXr4NEdc8vMTe9QKmq6fNdWwknhoQ=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Gmj5ETu91gsDh2kX/mQM5H+Wfz4cfzQ+rACQCEqgFl/xUImfGDMw5AUILZXGQow79
-	 BWDTklowGX2GebA2JEaY8vPG/0r1I3m3rqFNyb7g20eyIJYFemgCRsdmaNxGkE2bwg
-	 H+mRhZkTsgHSq9M4KWT4E1SIU+47m+e3LNI7eF8CWbxG09nIE1KSzis0pGdBQgkzAU
-	 X1O6td0lp5izy3b7T+TAA2JhsR5VE+8jfMR5nTTJBXkM9wsL5fQ64olZVYDfLxq41G
-	 4Rqj+wGtZbiZkXx8wyReYip5AaZClpSRFdzCBgVXGP86jT/NgnGTVmNemxfLH2GsxH
-	 pV8j5mtUVSQBQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1724243786; x=1724504286; i=anthony.perard@vates.tech;
-	bh=Z+5IsVCfhNP07iFXr4NEdc8vMTe9QKmq6fNdWwknhoQ=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=OJtRR8Jw1gK7lPU+4qVLD2ODWc+JcUFwI/CbB0XERJc81gbASXi8FKCLqwhe9nOGg
-	 ZkTCTCzqOZSBAZWMxYhksw1Xlz8MBcRV/iLlAgyuyO1meuKnC0xGPwJOv1Xz6+6N0v
-	 IpDW/7AFpTPCX1gej3aNUM4T/i0QA29Hf7epOsLeNbxTB527a/fqRRxRo/oxlS2qg2
-	 WNswCRoaaG7ulmZ8Wfuu5YHP/YDPrA/yJnO7DFEWejwMbX/fC9AGhcriBNvF/ONrbk
-	 wnOK2MN3jnv11MHOfb+lo+Y1dskPGg7RlF6xx9xZ7qvnXr03//pphLG5W+qTRrw4iy
-	 v7ES0O1XesDkQ==
-From: Anthony PERARD <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v2]=20tools/helpers/init-dom0less:=20fix=20vcpu=20availability?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1724243785920
-To: Amneesh Singh <a-singh21@ti.com>
-Cc: xen-devel@lists.xenproject.org
-Message-Id: <ZsXfSdnbx2qhbuXp@l14>
-References: <20240820080416.323725-1-a-singh21@ti.com> <ZsTDJhcfFpm23oHO@l14> <y46y7zqfepuvbw3tniqkr5yepcqbvkbyj6mfj3tj4p3ylo7pg3@23plq2f3jboj>
-In-Reply-To: <y46y7zqfepuvbw3tniqkr5yepcqbvkbyj6mfj3tj4p3ylo7pg3@23plq2f3jboj>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.7431de53ceb449429d65e95305e54f00?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240821:md
-Date: Wed, 21 Aug 2024 12:36:26 +0000
+X-Inumbo-ID: 880f306e-5fbd-11ef-8776-851b0ebba9a2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1724245310; x=1724850110; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=0AplvF0ppKoObOqwGnY3FZwe6CCQm8OCyHkH7ScmqPc=;
+        b=Fn0uTESsUYxF8x6byxzOimxGkaAX/QKp4bZimxirZXuxWU4J6aFJ6yybMZb0TcTpYM
+         dtKF5n59R13icDfSJ8XcEmQNTqAWuFq9rMVQzwPg3Vsf5avPZ2Y9eDcv2ZyYuPg6hnT4
+         +/NQ6EQ49aMJ/oiSApn0tQyU8lSZ/z83jWSXPSZKNZk7HXjXW8qT6J5ZXoGNTJVNMo6+
+         TfZ0ooyGOLvbLJibfQXl2SRbzpva6geYH3f/nq95dul9zd+HWSq1mRKQBHuvS71Vp1R9
+         3rKvsx08C09H00YKy3woNqOygO04RF4WsfNePWjEpvbngATu2fht61PY3BOKPEgtWD8i
+         ayrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724245310; x=1724850110;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0AplvF0ppKoObOqwGnY3FZwe6CCQm8OCyHkH7ScmqPc=;
+        b=BA/wfONE2BKBl7QVSulk/vqAGVjxX6TLoBPKtW+Z38Qo8t/b2iQH8g6YbtQ6m42k4c
+         USbg0m2ZxVDkznUqSDXg4mwnYMr4G9fUUtiO7jNtMJT7bBaN4O4FQydKYuJCxyApljRG
+         OjprrcamRrBFMRbCB3Nl41cPkma5yx4PTUaKMLDK+KP0jSYj05ScReIdUq9ZVIbJ4sLY
+         vCOs55L2dG/yqpZQYh8EMmDbtQI7kGLfzg2WP8ZnZBeTDbSLU0jCaMJgzWXLPfSHVnJ0
+         gOABzjI4QiR3oJpq698MTpSONXdKzV/3iFkTHeNxB0BU+ooMoXuLADswNd3pFlfo2Bgz
+         /CCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVvC/1c0z4w+EZ+n/a2Yoqne8E/XXGDL3T599RRlSmfwB7AbR3f10sMJiK/R93YfpNfHM29aN2W6+Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YztFthtM7qfSsO44sv2Q88L2lKYU46eqqExLA0hgGgJ46AZHxH6
+	1GdpH44ordseHc9fTNesDqR0Ep34nCeV8rs4S6mFi+ubBxlJbTa+YGtuGDcqDA==
+X-Google-Smtp-Source: AGHT+IHFyIxjviEv4J+FIf5OJPWzJrlasPdQ/fiXUrA5pikEKRe6JC5+5d+eZE+Pp86KnGYr55SkEw==
+X-Received: by 2002:a05:6402:c4c:b0:5be:9d95:3910 with SMTP id 4fb4d7f45d1cf-5bf1f1d7509mr1703576a12.22.1724245310093;
+        Wed, 21 Aug 2024 06:01:50 -0700 (PDT)
+Message-ID: <7689a4dd-77af-405d-bee8-b0c03e8416ef@suse.com>
+Date: Wed, 21 Aug 2024 15:01:48 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen: make VMAP support in MMU system only
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: Penny Zheng <penny.zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Chen <wei.chen@arm.com>,
+ xen-devel@lists.xenproject.org
+References: <20240821122503.2315844-1-ayan.kumar.halder@amd.com>
+ <20240821122503.2315844-5-ayan.kumar.halder@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240821122503.2315844-5-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 21, 2024 at 11:08:59AM +0530, Amneesh Singh wrote:
-> On 16:24-20240820, Anthony PERARD wrote:
-> > On Tue, Aug 20, 2024 at 01:34:17PM +0530, Amneesh Singh wrote:
-> > > @@ -330,14 +336,24 @@ int main(int argc, char **argv)
-> > >
-> > >      for (i = 0; i < nb_vm; i++) {
-> > >          domid_t domid = info[i].domid;
-> > > +        libxl_vcpuinfo *vcpuinfo;
-> > > +        int nb_vcpu = 0, nr_cpus = 0;
-> > > +
-> > >
-> > >          /* Don't need to check for Dom0 */
-> > >          if (!domid)
-> > >              continue;
-> > >
-> > > +        vcpuinfo = libxl_list_vcpu(ctx, domid, &nb_vcpu, &nr_cpus);
-> > > +
-> > > +        if (!vcpuinfo) {
-> > > +          fprintf(stderr, "libxl_list_vcpu failed.\n");
-> > > +          nb_vcpu = 0;
-> > 
-> > Is there any value to keep going if libxl_list_vcpu() fails?
-> > Or is the reasoning is that cpu/*/availability was broken before, so
-> > it's not important enough to stop init-dom0less?
-> Yes, so missing cpu/*/availability nodes would mean we cannot
-> pin/remove/add vcpus using xenlight I believe. However, we can still
-> hotplug other stuff like net or block devices. In fact, I was doing
-> exactly this when cpu/*/availability was broken.
+On 21.08.2024 14:25, Ayan Kumar Halder wrote:
+> From: Penny Zheng <penny.zheng@arm.com>
+> 
+> Introduce CONFIG_VMAP which is selected by the architectures that use
+> MMU. vm_init() does not do anything if CONFIG_VMAP is not enabled.
+> 
+> VMAP is widely used in ALTERNATIVE feature to remap a range of memory
+> with new memory attributes. Since this is highly dependent on virtual
+> address translation, we choose to fold VMAP in MMU system.
+> 
+> In this patch, we introduce a new Kconfig CONFIG_HAS_VMAP, and make it
+> only support in MMU system on ARM architecture. And ALTERNATIVE now
+> depends on VMAP.
 
-Without the "availability" nodes, it probably mean that guest (probably
-PV ones) will just use all available CPUs, it seems that Linux is doing
-that, and only disable CPUs that are explicitly marked as "offline" via
-that node.
+There is a mix of VMAP and HAS_VMAP throughout here. Once that's sorted
+I think there'll be redundancy in what is being said, which likely will
+want consolidating then, too.
 
-But I guess it's ok.
+> HARDEN_BRANCH_PREDICTOR is now gated on MMU as speculative
+> attacks are not possible on non MMU based systems (ie Cortex-R52, R82).
+> See https://developer.arm.com/Arm%20Security%20Center/Speculative%20Processor%20Vulnerability.
 
-Thanks,
+I think that increasingly this wants to be a separate change. It's
+entirely unrelated to what the patch's purpose is (or else the
+connection isn't clear to me, and also isn't being made in the
+description).
 
--- 
+Apart from this the code changes look okay to me now.
 
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Jan
 
