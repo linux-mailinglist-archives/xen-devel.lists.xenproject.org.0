@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD74B95A314
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 18:43:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.781434.1190969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C5F195A389
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 19:08:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.781444.1190979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgoPq-0002JY-Kp; Wed, 21 Aug 2024 16:42:34 +0000
+	id 1sgooZ-00081F-J2; Wed, 21 Aug 2024 17:08:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 781434.1190969; Wed, 21 Aug 2024 16:42:34 +0000
+Received: by outflank-mailman (output) from mailman id 781444.1190979; Wed, 21 Aug 2024 17:08:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgoPq-0002Gy-HV; Wed, 21 Aug 2024 16:42:34 +0000
-Received: by outflank-mailman (input) for mailman id 781434;
- Wed, 21 Aug 2024 16:42:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zk+i=PU=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sgoPo-0002GZ-QT
- for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 16:42:32 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b96c701-5fdc-11ef-8776-851b0ebba9a2;
- Wed, 21 Aug 2024 18:42:30 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5bf0261f162so3748874a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 21 Aug 2024 09:42:30 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a838396d048sm914624066b.204.2024.08.21.09.42.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Aug 2024 09:42:29 -0700 (PDT)
+	id 1sgooZ-0007yh-FI; Wed, 21 Aug 2024 17:08:07 +0000
+Received: by outflank-mailman (input) for mailman id 781444;
+ Wed, 21 Aug 2024 17:08:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sgooX-0007yX-QK; Wed, 21 Aug 2024 17:08:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sgooX-0007vy-7k; Wed, 21 Aug 2024 17:08:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sgooW-0000Xv-PI; Wed, 21 Aug 2024 17:08:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sgooW-0000iE-Oc; Wed, 21 Aug 2024 17:08:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,113 +42,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b96c701-5fdc-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1724258550; x=1724863350; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/uIToOcS9bFZSObp588RX/bNigbju3ljCQwSBwqDf8M=;
-        b=LB0K29S0ivCQ/+Fp+rMBWf2lQNh5dD9SMTCGQEBhhDmMIqcLNDOarq4AoXAlY3+JZc
-         eGRaQmd8zb9pMIJtYGlNALYjBrYFXvJk+dZnp4eCf0bm/3pmHX9sH4u8XPFo35mHkX6B
-         p4E8gF8bFP0UgITFXqX5PlBr9MVNF9JmbvwQk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724258550; x=1724863350;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/uIToOcS9bFZSObp588RX/bNigbju3ljCQwSBwqDf8M=;
-        b=Sfi/jsGTbCQNv9jtPzlTyJfMriTX7zOACrGIOByB5LQ+vNnYtU7z4p4bQqYYaZpZkK
-         3S6v46Gy1XnoBTHYEfBrF3+f0kAYlQRUu21rTZ+uNW+bfmaDTJlVEonnMY1qCGxj+J8P
-         2kFuXz31/P5608m7fOVLgs5B9WVAJASZMNHgdvIq3JsamkP1uR3zj1rMH1RFwhQBP32Z
-         C7lNOk7BR08NSiIbz3ygcV8OfZrrX+gbbTfwe3F2uP68T1xQhzDwrA8WvSopLDH13Xnm
-         5qauzpGd6bmAQw8dtAT9aRbBNUkBkL/hlvQHv6SCj8QqK3SgjrRa2dwZkSC+NEx9KWUy
-         dD6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWHKGBEEF6/jb/T3BB+yeRskyQuKCfSol6LMeWP0+pdeuVB4HQ6jd9ESQq60QqvQhS4RakiDzz1+Ck=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyPq+KfxNjjthNz4DXzYXA08begbS56gZDcPaXvpcz1O73Cn7ni
-	s/mZcPU8KY36nYIsgipghTwC2auKkyuAAdzkZHOgn79PSvnjQ/LLf/6NL/f/ESk=
-X-Google-Smtp-Source: AGHT+IEj65N+H978XYqlVJ2CD9FvizofeBrq+ZMOPLDW7RL7tiqfmkpEergnfNeL94qBJG1w+I0E4Q==
-X-Received: by 2002:a17:907:d84a:b0:a6f:4a42:1976 with SMTP id a640c23a62f3a-a866f42df5cmr233821766b.37.1724258549984;
-        Wed, 21 Aug 2024 09:42:29 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Aug 2024 17:42:26 +0100
-Message-Id: <D3LQN57ALKYC.1RG6ZQ90U2WEB@cloud.com>
-Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 15/22] x86/idle: allow using a per-pCPU L4
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Roger Pau Monne" <roger.pau@citrix.com>,
- <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.17.0
-References: <20240726152206.28411-1-roger.pau@citrix.com>
- <20240726152206.28411-16-roger.pau@citrix.com>
-In-Reply-To: <20240726152206.28411-16-roger.pau@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=cEl6QlT2mmy2U0i3MJqtt4XsKz94LhZuFQWZsCCXM4o=; b=Jd6qfHl245eUf7cpN0cU1GZ3LM
+	QfwjFj2LRDobYfBUIZIRuD3gDlq/Fqk7cTzqLG4VtrGhY4DwAISvLuszn3mrmjVhMxcWAlWpT1CSl
+	qUvOaaliLE8kKMJE4pLJVfM1XEg3AmgxlkvRxasdmXrO5gTrIbDzbH1X6BMTaDBhidGI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187298-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 187298: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=85e07fb1ceee7943879f8a374cabfa8ab858a3c6
+X-Osstest-Versions-That:
+    libvirt=ab7f877f27caa7249f42e93678dbdb1a2ef2cc4e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 21 Aug 2024 17:08:04 +0000
 
-On Fri Jul 26, 2024 at 4:21 PM BST, Roger Pau Monne wrote:
-> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-> index 9cfcf0dc63f3..b62c4311da6c 100644
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -555,6 +555,7 @@ void arch_vcpu_regs_init(struct vcpu *v)
->  int arch_vcpu_create(struct vcpu *v)
->  {
->      struct domain *d =3D v->domain;
-> +    root_pgentry_t *pgt =3D NULL;
->      int rc;
-> =20
->      v->arch.flags =3D TF_kernel_mode;
-> @@ -589,7 +590,23 @@ int arch_vcpu_create(struct vcpu *v)
->      else
->      {
->          /* Idle domain */
-> -        v->arch.cr3 =3D __pa(idle_pg_table);
-> +        if ( (opt_asi_pv || opt_asi_hvm) && v->vcpu_id )
-> +        {
-> +            pgt =3D alloc_xenheap_page();
-> +
-> +            /*
-> +             * For the idle vCPU 0 (the BSP idle vCPU) use idle_pg_table
-> +             * directly, there's no need to create yet another copy.
-> +             */
+flight 187298 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187298/
 
-Shouldn't this comment be in the else branch instead? Or reworded to refer =
-to
-non-0 vCPUs.
+Failures :-/ but no regressions.
 
-> +            rc =3D -ENOMEM;
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187290
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
 
-While it's true rc is overriden later, I feel uneasy leaving it with -ENOME=
-M
-after the check. Could we have it immediately before "goto fail"?
+version targeted for testing:
+ libvirt              85e07fb1ceee7943879f8a374cabfa8ab858a3c6
+baseline version:
+ libvirt              ab7f877f27caa7249f42e93678dbdb1a2ef2cc4e
 
-> +            if ( !pgt )
-> +                goto fail;
-> +
-> +            copy_page(pgt, idle_pg_table);
-> +            v->arch.cr3 =3D __pa(pgt);
-> +        }
-> +        else
-> +            v->arch.cr3 =3D __pa(idle_pg_table);
->          rc =3D 0;
->          v->arch.msrs =3D ZERO_BLOCK_PTR; /* Catch stray misuses */
->      }
-> @@ -611,6 +628,7 @@ int arch_vcpu_create(struct vcpu *v)
->      vcpu_destroy_fpu(v);
->      xfree(v->arch.msrs);
->      v->arch.msrs =3D NULL;
-> +    free_xenheap_page(pgt);
-> =20
->      return rc;
->  }
+Last test of basis   187290  2024-08-20 04:18:45 Z    1 days
+Testing same since   187298  2024-08-21 04:18:46 Z    0 days    1 attempts
 
-I guess the idle domain has a forever lifetime and its vCPUs are kept aroun=
-d
-forever too, right?; otherwise we'd need extra logic in the the vcpu_destro=
-y()
-to free the page table copies should they exist too.
+------------------------------------------------------------
+People who touched revisions under test:
+  Michal Privoznik <mprivozn@redhat.com>
 
-Cheers,
-Alejandro
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   ab7f877f27..85e07fb1ce  85e07fb1ceee7943879f8a374cabfa8ab858a3c6 -> xen-tested-master
 
