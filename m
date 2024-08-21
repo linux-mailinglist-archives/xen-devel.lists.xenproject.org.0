@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2669959ED4
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 15:38:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.781157.1190718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E05A1959EFA
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 15:43:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.781164.1190728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sglWt-0005oP-Qe; Wed, 21 Aug 2024 13:37:39 +0000
+	id 1sglcU-0007GB-E2; Wed, 21 Aug 2024 13:43:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 781157.1190718; Wed, 21 Aug 2024 13:37:39 +0000
+Received: by outflank-mailman (output) from mailman id 781164.1190728; Wed, 21 Aug 2024 13:43:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sglWt-0005lY-NS; Wed, 21 Aug 2024 13:37:39 +0000
-Received: by outflank-mailman (input) for mailman id 781157;
- Wed, 21 Aug 2024 13:37:38 +0000
+	id 1sglcU-0007EW-9w; Wed, 21 Aug 2024 13:43:26 +0000
+Received: by outflank-mailman (input) for mailman id 781164;
+ Wed, 21 Aug 2024 13:43:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8p22=PU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sglWs-0005lS-4b
- for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 13:37:38 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1sglcT-0007EQ-Ai
+ for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 13:43:25 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8740f834-5fc2-11ef-a508-bb4a2ccca743;
- Wed, 21 Aug 2024 15:37:37 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5bede548f7cso5014040a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 21 Aug 2024 06:37:37 -0700 (PDT)
+ id 56650045-5fc3-11ef-a508-bb4a2ccca743;
+ Wed, 21 Aug 2024 15:43:24 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-530e062217eso8976355e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Aug 2024 06:43:24 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bebc082f4dsm8027521a12.96.2024.08.21.06.37.35
+ a640c23a62f3a-a838394725bsm895284366b.168.2024.08.21.06.43.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Aug 2024 06:37:35 -0700 (PDT)
+ Wed, 21 Aug 2024 06:43:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8740f834-5fc2-11ef-a508-bb4a2ccca743
+X-Inumbo-ID: 56650045-5fc3-11ef-a508-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724247456; x=1724852256; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724247804; x=1724852604; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xESqlmMQF0xXVhUIs+bUmuxM5tVQ1mjDpSdiLeJCXqI=;
-        b=Cvcdz41rh+E/aCafT7WbSj9/vbnJ+NjlXXIa8c2oQ81lwxEipxnD7khEkuYtBuVg86
-         O50OgNm/nDJvo9I3iA+Yfn4A29Yakjfhgv58o9sUOw+/17mmyHV2/4+ItvPIyRUJw5gR
-         ADIaZCGIOOW9sTe2f4lhlqMeKeuRoCGj4QddQ=
+        bh=wLNx/3ZLdlBxFIUJJAA0DN6y2k/tuu2kLT3hqVJewJ8=;
+        b=bEy+4IrBHPPGaQaRhony9iDv5d/CLEc6LPa9vbQN21yGK8k+MNuQVlD/e0Hw7Dv5Uc
+         dBIGvcKV1oBXx6K4iTEQzIfg5yQQtZ1MGRa5LBfwTtZ1lZfRGw94x4nLFjWUbB14ki7O
+         vBwS3O0qeM45ba/zVhAUu+jG7aUJTz6EsgYpk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724247456; x=1724852256;
+        d=1e100.net; s=20230601; t=1724247804; x=1724852604;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xESqlmMQF0xXVhUIs+bUmuxM5tVQ1mjDpSdiLeJCXqI=;
-        b=lsqN2Q5K2NqbykaEWw2Ha+6v3mSRf+kqSlXtu5GwvSBviqDUH8o48SPkz+pJoSorFG
-         G7vYr6slh50+cMYrhqZPLy2wq0e1BwCNNcs9gM8HkP6yME9sISWovhOoE5M6UccQdjfB
-         ffLkYz/NYdaSsD2xI/gNJ8+zvPRgRyPZSjrU61J28aQBqcLvjVjPx/EAbEJOJWn80dDJ
-         iRUjxvRBFOhX5SoSC7LVyQckJvshRjhFUrHYP1j6mILOBBzFXu7noYSOCVGySQXmKHXu
-         bFijmAFKFwv8Md01vtxANcD23xvj2DAAJ8Fzf/PE9S0S86h+2X+c6E+vwXCjbjhurqbE
-         lKVw==
-X-Forwarded-Encrypted: i=1; AJvYcCU8TRtbkUFXxyoVHNjTZ9E7xZieo+ODnHO6xLHMUSM/4vpGRcq4EVUJROMG8S9jR82nuW0PI2Q1wfg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyeRqjDRq9C412omjC/yZDRTV1kq+yrEvPs6ZzQhdWIdwjJy30Q
-	PWHa/8InEUu6oQ96V989lLmkMxlsPSHziBXErKdorSE7CIUi4hLkk8ANdt1WAxhDrtXnyQxwN91
-	b
-X-Google-Smtp-Source: AGHT+IGLsb39DSqGUdswreBXVsaVmk6mdvPNZkqzNW1ne8hgoSpL0JzQkYKtkG8rQHVzl9yajMIrWQ==
-X-Received: by 2002:a05:6402:4310:b0:5be:dd80:2038 with SMTP id 4fb4d7f45d1cf-5bf1f15fb48mr1641865a12.22.1724247455903;
-        Wed, 21 Aug 2024 06:37:35 -0700 (PDT)
-Message-ID: <e96daf14-f1ea-4590-baab-62be50f8d54b@citrix.com>
-Date: Wed, 21 Aug 2024 14:37:28 +0100
+        bh=wLNx/3ZLdlBxFIUJJAA0DN6y2k/tuu2kLT3hqVJewJ8=;
+        b=oJhmL4p60iSXyXEcb+gcqHbHd4Buqiod9TWCiUqzDP8SwN43abDaq+u4usxx48TNgT
+         vd856es4KNLQ1Td0qzCrV79vLWPXcuibhyKSiZw+dxUEg4s4+1lsnch6k19JsnGFGDrs
+         LnBX/tjvbFY4+BOs9i4Z4P22AhtZ1BXycWRxWN/3osocflK5eUK0HtGcqhPUXSra6eFc
+         +sOFrp6bMpH8NDJjWqYPJauk4xpQR3xlZLajR1KZAMlOkLIwayT1+kCkEo0gRljOpOPB
+         p+apIVRQUkGD9qGkg+/FdLdd2EA8a0bCW7nbk1aXZPVsAss0jV0NKo33ko+GUv36I9dr
+         7NHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX0S9JobxWS0LYMIgrUMBoEwzvskF9JABqLE5x6BzxdCmDbFUgqP2GiynXL8dj1ycwO6ZU9Ojl5650=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwgO6XUOEgc+ZjQxckhtd34whIY2Ixw70pSeQvP4QWOAn7W6kIK
+	LqcgIPJHjj6johuR1ezTcGkuMAvj44uFCTK4dKw/LCLmIGV1z+7kebdbx40UOl0=
+X-Google-Smtp-Source: AGHT+IE2i0rJoayLOtYsYaTmcAlkki3ObFNJZJkZt89tA8PEN5oRGgc01GYjdDLyC967L1gb8oSR0Q==
+X-Received: by 2002:a05:6512:a90:b0:52f:cd03:a813 with SMTP id 2adb3069b0e04-533485fc9d2mr1257819e87.54.1724247802857;
+        Wed, 21 Aug 2024 06:43:22 -0700 (PDT)
+Message-ID: <ff590b58-3067-4886-a9e1-1e2e63ff4100@citrix.com>
+Date: Wed, 21 Aug 2024 14:43:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86emul: convert op_bytes/opc checks in SIMD emulation
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <bfc9722a-cb6d-45d0-9351-ddfcd0bbb2e0@suse.com>
+Subject: Re: [PATCH] Restore memory used for IP computation
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20240821133224.198923-1-frediano.ziglio@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,51 +129,43 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <bfc9722a-cb6d-45d0-9351-ddfcd0bbb2e0@suse.com>
+In-Reply-To: <20240821133224.198923-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/08/2024 2:30 pm, Jan Beulich wrote:
-> Delivering #UD for an internal shortcoming of the emulator isn't quite
-> right. Similarly BUG() is bigger a hammer than needed.
+On 21/08/2024 2:32 pm, Frediano Ziglio wrote:
+> We need to write in some location but no reasons to not
+> trying to restore what we potentially overwrote.
 >
-> Switch to using EXPECT() instead.
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+
+Please follow how Linux does this.
+
+e.g.
+https://lore.kernel.org/xen-devel/20240814195053.5564-3-jason.andryuk@amd.com/
+
+Specifically, ...
+
+> ---
+>  xen/arch/x86/boot/head.S | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
 >
-> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+> index d8ac0f0494..3e1e9e05b6 100644
+> --- a/xen/arch/x86/boot/head.S
+> +++ b/xen/arch/x86/boot/head.S
+> @@ -418,13 +418,17 @@ __pvh_start:
+>           * absolute stack address as the native path, for lack of a better
+>           * alternative.
+>           */
 
-To confirm, this is ASSERT_UNREACHABLE() (which fuzzing will now notice
-as an error), and unhandleable in release builds (which ultimately ends
-up in #UD)?
+... the reasoning in this comment here is incorrect for non-BIOS
+systems, and causes memory corruption for Coreboot based boot.
 
-I think it would be helpful to at least note the fuzzing aspect in the
-commit message.
+I've been meaning to fix it for ages, but seeing as you're changing it... :)
 
->
-> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
-> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-> @@ -8114,13 +8114,13 @@ x86_emulate(
->      }
->      else if ( state->simd_size != simd_none )
->      {
-> -        generate_exception_if(!op_bytes, X86_EXC_UD);
->          generate_exception_if((vex.opcx && (d & TwoOp) &&
->                                 (vex.reg != 0xf || (evex_encoded() && !evex.RX))),
->                                X86_EXC_UD);
->  
-> -        if ( !opc )
-> -            BUG();
-> +        EXPECT(op_bytes);
-> +        EXPECT(opc);
-
-This is the only BUG() in x86_emulate.c, and it's right to get rid of it
-IMO.
-
-Therefore, we should have a hunk removing it from
-tools/tests/x86_emulator/x86-emulate.h too, which will prevent
-reintroduction.
-
-Maybe even undef BUG somewhere in x86_emulate/private.h?
+The first field under %ebx in a boot ABI we recognise is a much better
+choice that an arbitrary location in the first page of memory.
 
 ~Andrew
 
