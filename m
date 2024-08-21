@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 574FB95A262
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 18:06:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.781295.1190863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB3C95A268
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 18:06:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.781294.1190855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgnqs-0004Rj-O3; Wed, 21 Aug 2024 16:06:26 +0000
+	id 1sgnqs-0004Ic-9L; Wed, 21 Aug 2024 16:06:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 781295.1190863; Wed, 21 Aug 2024 16:06:26 +0000
+Received: by outflank-mailman (output) from mailman id 781294.1190855; Wed, 21 Aug 2024 16:06:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgnqs-0004I8-Gn; Wed, 21 Aug 2024 16:06:26 +0000
-Received: by outflank-mailman (input) for mailman id 781295;
- Wed, 21 Aug 2024 16:06:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sgnqs-0004CV-5G; Wed, 21 Aug 2024 16:06:26 +0000
+Received: by outflank-mailman (input) for mailman id 781294;
+ Wed, 21 Aug 2024 16:06:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0Njk=PU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sgnqq-0003uu-6Z
- for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 16:06:24 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f331334-5fd7-11ef-8776-851b0ebba9a2;
- Wed, 21 Aug 2024 18:06:22 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-52f04b4abdcso8743452e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 21 Aug 2024 09:06:22 -0700 (PDT)
+ id 1sgnqp-0003sE-Od
+ for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 16:06:23 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4faece5b-5fd7-11ef-a508-bb4a2ccca743;
+ Wed, 21 Aug 2024 18:06:23 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-52f01613acbso1135482e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Aug 2024 09:06:23 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5334c75a2cbsm18101e87.187.2024.08.21.09.06.20
+ 2adb3069b0e04-5334c75a2cbsm18101e87.187.2024.08.21.09.06.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Aug 2024 09:06:20 -0700 (PDT)
+ Wed, 21 Aug 2024 09:06:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f331334-5fd7-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 4faece5b-5fd7-11ef-a508-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20230601; t=1724256382; x=1724861182; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BLz0fdaEn9M6EZ8vs11WJaaTwf00UXtzFeAQe7wZRQI=;
-        b=Nmu7JmS39P/F69yNrqtsZZFHoM39iDs3tEYrOU7gmqEB2EshWA930hWZPytP37KgDz
-         To9v3pdQpYDTeb9QiP48MHjFQZLt6wgPMsTuzThTlJnjPeQE7XPlRZOpkebpwnTNbVvS
-         NmC1nSGFDpbOnlWfBSuFvaHix0m3lx68XFN+JY3r9eK8w2ScRUaCQKrJYt71bfz0oeg3
-         36fIaASIHHfS17tOxiBcjX/j18UwVyyLa5PGVack93LBsx0f4bIMWtygrwpHB1+o7BOv
-         n602xku6b4EtPa7ogT4YwON3TpHy4U7ZsOyL137b6wBzL2QNiNXmX8sdNOSVx3ODt79O
-         4EZA==
+        bh=SUWnXdeASKM3s0vW7zMmdmova3lTcgmrVyUhj9D0sEQ=;
+        b=m3j2xzRBYQz51sLqUih/NTDVf7/NSsJ4rTInJQ+Xarmkb191UgxucZ6zubyv98539m
+         k3Ci529XmK335nFBOKLyXW71ZvUO+Y/PbnCyUnlZ5V28/dnnfWGHeotiiDFySHfmUxJ3
+         ioon6H4CjXdmnA96y1veJzJkSj/rTqS/a1Tw0EjhnQqu6y6OMXoZ3tPk3ZxKws3zBEP7
+         pg5rhlLuDuWxbiCK9//STWouHkc/+OtQM+1GTtddza0nGf99BoPKQJpdThXM6S2dGaS9
+         UsEACwAeW+Vh9ND5A/kBf31WcY11ecezUdDFQtTQdd2CnG+bjAdGWv4hHG/ria1shKxX
+         DMsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1724256382; x=1724861182;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=BLz0fdaEn9M6EZ8vs11WJaaTwf00UXtzFeAQe7wZRQI=;
-        b=nRj+nQ6mvu/tDajQ1DF7w7fKaNFF0forNyUkZgtkvl/xJYLZWopzG6kKPUhvEBHrgR
-         iyHrUw+f9Pn8Ij6iUo61vvzE5EbqRXkIhp/FwSRlLcWiibWWExiVubLQ6gqH8KHeiUxL
-         78qXAqdMv/boIxIdR2S+lPDSqFBLjiaAOFHIJcl/tH6KkDXSNkNFQZal1l8BX4DF66Il
-         o4vcD2qLdoy5nUdnq8P6vuxTYjp99Irct4eE0ZaiwW+sxZPQpkcmmhmenF7U301OHo7V
-         BbglPPkCC/3Ta38Wl3vWdgxfTFHcmmGmGsjKKttWVGiNrtjOqKAVtsQMZK3LVSFo+kLu
-         SpHA==
-X-Gm-Message-State: AOJu0YyfbzueBuY+o8580kbptSBcbp9kkQBFCJ+8Ejm9j6ua9gavhGYs
-	6n5aBeWktsRl27uAdUm3CGrEpCCDHS+Kw2K7G+CLlHqoHX/PUPVkqf9qnw==
-X-Google-Smtp-Source: AGHT+IFJURTseMyfZqkL6FC3Nxd7M5I4sZ5oyZNdRtXlsvM0rlWrb+UJIabg0mR98uJA9W0+HDtV5Q==
-X-Received: by 2002:a05:6512:3da1:b0:52e:98f6:c21f with SMTP id 2adb3069b0e04-533485515c7mr1994577e87.16.1724256380960;
-        Wed, 21 Aug 2024 09:06:20 -0700 (PDT)
+        bh=SUWnXdeASKM3s0vW7zMmdmova3lTcgmrVyUhj9D0sEQ=;
+        b=lFDWd91FTkydXbgFtvEdgBjs/TsDUgoizTpJDqMr45HMK76vODA1tRuhC+j1WwyhAT
+         XyFCyOmtWZhuy4+74LPtT8bEubyKvF18ClvL32CcCAZypQiE1cJNVKfbfPVu4ebrCk2M
+         vc1VhGbw7JPYLjaSKVloZLAccUg3U6EDsNelJMj90M7FXg04lt3bg7IBYZAMTMPdCx6f
+         +dLFMVF1sMDPniV4Dv5YkbfTgKP+zVa6ElBVh2C47rnkabojKYoEJV8zDf7P0wgyNKXF
+         g1rvy0vOnH0neFpG+G4LXBlEIDEuQ2LaNZUNmJ2HrvbDbvdgtJ20EYIeWk/NU3358p6p
+         Sk8g==
+X-Gm-Message-State: AOJu0YxAWxEUpL1sHLG1iG/x/Rgu7NhuoCdz0ohTqArKH16EooM75O4V
+	d9eV/iFK8tzf7v5Gj1cTawt11updnoyqZ5OFG57fzHeQhi/9juP5pIAzYQ==
+X-Google-Smtp-Source: AGHT+IGly+3FqelWmnfZ4T6w26becCVTPBLUHuQXOh7Aci+pcMZxXbsLZRWwPuwV0jnSTRkjQ9mktg==
+X-Received: by 2002:a05:6512:1115:b0:52b:aae0:2d41 with SMTP id 2adb3069b0e04-5334caa4b27mr41128e87.28.1724256381689;
+        Wed, 21 Aug 2024 09:06:21 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -84,291 +84,149 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 2/7] xen/riscv: set up fixmap mappings
-Date: Wed, 21 Aug 2024 18:06:11 +0200
-Message-ID: <57e892d5b2c526dd44b68d4976796a25c0feca20.1724256027.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 3/7] xen/riscv: introduce asm/pmap.h header
+Date: Wed, 21 Aug 2024 18:06:12 +0200
+Message-ID: <f9cc8dd9179c6510583b85b2d00cf9600e098e10.1724256027.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <cover.1724256026.git.oleksii.kurochko@gmail.com>
 References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Set up fixmap mappings and the L0 page table for fixmap support.
+Introduce arch_pmap_{un}map functions and select HAS_PMAP for CONFIG_RISCV.
 
-Define new macros in riscv/config.h for calculating
-the FIXMAP_BASE address, including BOOT_FDT_VIRT_{START, SIZE},
-XEN_VIRT_SIZE, and XEN_VIRT_END.
+Add pte_from_mfn() for use in arch_pmap_map().
 
-Update the check for Xen size in riscv/lds.S to use
-XEN_VIRT_SIZE instead of a hardcoded constant.
+Introduce flush_xen_tlb_one_local() and use it in arch_pmap_{un}map().
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in V5:
- - move definition of FIXMAP_ADDR() to asm/fixmap.h
- - add gap size equal to 2 MB ( 512 * 4K one page table entry in L1 page table )
-   between Xen, FDT and Fixmap.
- - drop the comment for FIX_LAST.
- - move +1 from FIX_LAST definition to FIXADDR_TOP to be aligned with Arm.
-   ( probably everything below FIX_LAST will be moved to a separate header in asm/generic.h )
- - correct the "changes in V4: s/'fence r,r'/'fence rw, rw'
- - use write_atomic() in set_pte().
- - introduce read_pte().
+ - Add Reviewed-by: Jan Beulich <jbeulich@suse.com>.
+ - Fix a typo in "Changes in V4":
+   - "drop flush_xen_tlb_range_va_local() as it isn't used in this patch" ->
+     "drop flush_xen_tlb_range_va() as it isn't used in this patch"
+   - "s/flush_xen_tlb_range_va_local/flush_tlb_range_va_local" ->
+     "s/flush_xen_tlb_one_local/flush_tlb_one_local"
 ---
 Changes in V4:
- - move definitions of XEN_VIRT_SIZE, BOOT_FDT_VIRT_{START,SIZE}, FIXMAP_{BASE,ADDR}
-   below XEN_VIRT_START to have definitions appear in order.
- - define FIX_LAST as (FIX_MISC + 1) to have a guard slot at the end.
- - s/enumerated/numbered in the comment
- - update the cycle which looks for L1 page table in setup_fixmap_mapping_function() and
-   the comment above him.
- - drop fences inside write_pte() and put 'fence rw,rw' in setup_fixmap() before sfence_vma().
- - update the commit message
- - drop printk message inside setup_fixmap().
+ - mark arch_pmap_{un}map() as __init: documentation purpose and
+   a necessary (but not sufficient) condition here, to validly
+   use local TLB flushes only.
+ - add flush_xen_tlb_one_local() to arch_pmap_map() as absense of
+   "negative" TLB entrues will be guaranted only in the case
+   when Svvptc extension is present.
+ - s/mfn_from_pte/pte_from_mfn
+ - drop mfn_to_xen_entry() as pte_from_mfn() does the same thing
+ - add flags argument to pte_from_mfn().
+ - update the commit message.
+ - drop flush_xen_tlb_range_va() as it isn't used in this patch
+ - s/flush_xen_tlb_one_local/flush_tlb_one_local
 ---
 Changes in V3:
- - s/XEN_SIZE/XEN_VIRT_SIZE
- - drop usage of XEN_VIRT_END.
- - sort newly introduced defines in config.h by address
- - code style fixes
- - drop runtime check of that pte is valid as it was checked in L1 page table finding cycle by BUG_ON().
- - update implementation of write_pte() with FENCE rw, rw.
- - add BUILD_BUG_ON() to check that amount of entries aren't bigger then entries in page table.
- - drop set_fixmap, clear_fixmap declarations as they aren't used and defined now
- - update the commit message.
- - s/__ASM_FIXMAP_H/ASM_FIXMAP_H
+ - rename argument of function mfn_to_xen_entry(..., attr -> flags ).
+ - update the code of mfn_to_xen_entry() to use flags argument.
+ - add blank in mfn_from_pte() in return line.
+ - introduce flush_xen_tlb_range_va_local() and use it inside arch_pmap_{un}map().
+ - s/__ASM_PMAP_H__/ASM_PMAP_H
  - add SPDX-License-Identifier: GPL-2.0 
 ---
- xen/arch/riscv/include/asm/config.h | 15 ++++++++--
- xen/arch/riscv/include/asm/fixmap.h | 46 +++++++++++++++++++++++++++++
- xen/arch/riscv/include/asm/mm.h     |  2 ++
- xen/arch/riscv/include/asm/page.h   | 13 ++++++++
- xen/arch/riscv/mm.c                 | 43 +++++++++++++++++++++++++++
- xen/arch/riscv/setup.c              |  2 ++
- xen/arch/riscv/xen.lds.S            |  2 +-
- 7 files changed, 120 insertions(+), 3 deletions(-)
- create mode 100644 xen/arch/riscv/include/asm/fixmap.h
+ xen/arch/riscv/Kconfig                |  1 +
+ xen/arch/riscv/include/asm/flushtlb.h |  6 +++++
+ xen/arch/riscv/include/asm/page.h     |  6 +++++
+ xen/arch/riscv/include/asm/pmap.h     | 36 +++++++++++++++++++++++++++
+ 4 files changed, 49 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/pmap.h
 
-diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
-index 50583aafdc..f55d6c45da 100644
---- a/xen/arch/riscv/include/asm/config.h
-+++ b/xen/arch/riscv/include/asm/config.h
-@@ -41,8 +41,10 @@
-  * Start addr          | End addr         | Slot       | area description
-  * ============================================================================
-  *                   .....                 L2 511          Unused
-- *  0xffffffffc0600000  0xffffffffc0800000 L2 511          Fixmap
-- *  0xffffffffc0200000  0xffffffffc0600000 L2 511          FDT
-+ *  0xffffffffc0A00000  0xffffffffc0C00000 L2 511          Fixmap
-+ *                   ..... ( 2 MB gap )
-+ *  0xffffffffc0400000  0xffffffffc0800000 L2 511          FDT
-+ *                   ..... ( 2 MB gap )
-  *  0xffffffffc0000000  0xffffffffc0200000 L2 511          Xen
-  *                   .....                 L2 510          Unused
-  *  0x3200000000        0x7f40000000       L2 200-509      Direct map
-@@ -74,6 +76,15 @@
- #error "unsupported RV_STAGE1_MODE"
- #endif
+diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
+index 259eea8d3b..0112aa8778 100644
+--- a/xen/arch/riscv/Kconfig
++++ b/xen/arch/riscv/Kconfig
+@@ -3,6 +3,7 @@ config RISCV
+ 	select FUNCTION_ALIGNMENT_16B
+ 	select GENERIC_BUG_FRAME
+ 	select HAS_DEVICE_TREE
++	select HAS_PMAP
  
-+#define GAP_SIZE                MB(2)
-+
-+#define XEN_VIRT_SIZE           MB(2)
-+
-+#define BOOT_FDT_VIRT_START     (XEN_VIRT_START + XEN_VIRT_SIZE + GAP_SIZE)
-+#define BOOT_FDT_VIRT_SIZE      MB(4)
-+
-+#define FIXMAP_BASE             (BOOT_FDT_VIRT_START + BOOT_FDT_VIRT_SIZE + GAP_SIZE)
-+
- #define DIRECTMAP_SLOT_END      509
- #define DIRECTMAP_SLOT_START    200
- #define DIRECTMAP_VIRT_START    SLOTN(DIRECTMAP_SLOT_START)
-diff --git a/xen/arch/riscv/include/asm/fixmap.h b/xen/arch/riscv/include/asm/fixmap.h
-new file mode 100644
-index 0000000000..63732df36c
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/fixmap.h
-@@ -0,0 +1,46 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * fixmap.h: compile-time virtual memory allocation
-+ */
-+#ifndef ASM_FIXMAP_H
-+#define ASM_FIXMAP_H
-+
-+#include <xen/bug.h>
-+#include <xen/page-size.h>
-+#include <xen/pmap.h>
-+
-+#include <asm/page.h>
-+
-+#define FIXMAP_ADDR(n) (FIXMAP_BASE + (n) * PAGE_SIZE)
-+
-+/* Fixmap slots */
-+#define FIX_PMAP_BEGIN (0) /* Start of PMAP */
-+#define FIX_PMAP_END (FIX_PMAP_BEGIN + NUM_FIX_PMAP - 1) /* End of PMAP */
-+#define FIX_MISC (FIX_PMAP_END + 1)  /* Ephemeral mappings of hardware */
-+
-+#define FIX_LAST FIX_MISC
-+
-+#define FIXADDR_START FIXMAP_ADDR(0)
-+#define FIXADDR_TOP FIXMAP_ADDR(FIX_LAST + 1)
-+
-+#ifndef __ASSEMBLY__
-+
-+/*
-+ * Direct access to xen_fixmap[] should only happen when {set,
-+ * clear}_fixmap() is unusable (e.g. where we would end up to
-+ * recursively call the helpers).
-+ */
-+extern pte_t xen_fixmap[];
-+
-+#define fix_to_virt(slot) ((void *)FIXMAP_ADDR(slot))
-+
-+static inline unsigned int virt_to_fix(vaddr_t vaddr)
+ config RISCV_64
+ 	def_bool y
+diff --git a/xen/arch/riscv/include/asm/flushtlb.h b/xen/arch/riscv/include/asm/flushtlb.h
+index 7ce32bea0b..f4a735fd6c 100644
+--- a/xen/arch/riscv/include/asm/flushtlb.h
++++ b/xen/arch/riscv/include/asm/flushtlb.h
+@@ -5,6 +5,12 @@
+ #include <xen/bug.h>
+ #include <xen/cpumask.h>
+ 
++/* Flush TLB of local processor for address va. */
++static inline void flush_tlb_one_local(vaddr_t va)
 +{
-+    BUG_ON(vaddr >= FIXADDR_TOP || vaddr < FIXADDR_START);
-+
-+    return ((vaddr - FIXADDR_START) >> PAGE_SHIFT);
++    asm volatile ( "sfence.vma %0" :: "r" (va) : "memory" );
 +}
 +
-+#endif /* __ASSEMBLY__ */
-+
-+#endif /* ASM_FIXMAP_H */
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index 25af9e1aaa..a0bdc2bc3a 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -255,4 +255,6 @@ static inline unsigned int arch_get_dma_bitsize(void)
-     return 32; /* TODO */
- }
- 
-+void setup_fixmap_mappings(void);
-+
- #endif /* _ASM_RISCV_MM_H */
+ /*
+  * Filter the given set of CPUs, removing those that definitely flushed their
+  * TLB since @page_timestamp.
 diff --git a/xen/arch/riscv/include/asm/page.h b/xen/arch/riscv/include/asm/page.h
-index c831e16417..a7419b93b2 100644
+index a7419b93b2..55916eaa92 100644
 --- a/xen/arch/riscv/include/asm/page.h
 +++ b/xen/arch/riscv/include/asm/page.h
-@@ -9,6 +9,7 @@
- #include <xen/bug.h>
- #include <xen/types.h>
- 
-+#include <asm/atomic.h>
- #include <asm/mm.h>
- #include <asm/page-bits.h>
- 
-@@ -81,6 +82,18 @@ static inline void flush_page_to_ram(unsigned long mfn, bool sync_icache)
-     BUG_ON("unimplemented");
+@@ -94,6 +94,12 @@ static inline pte_t read_pte(pte_t *p)
+     return read_atomic(p);
  }
  
-+/* Write a pagetable entry. */
-+static inline void write_pte(pte_t *p, pte_t pte)
++static inline pte_t pte_from_mfn(mfn_t mfn, unsigned int flags)
 +{
-+    write_atomic(p, pte);
-+}
-+
-+/* Read a pagetable entry. */
-+static inline pte_t read_pte(pte_t *p)
-+{
-+    return read_atomic(p);
++    unsigned long pte = (mfn_x(mfn) << PTE_PPN_SHIFT) | flags;
++    return (pte_t){ .pte = pte };
 +}
 +
  #endif /* __ASSEMBLY__ */
  
  #endif /* _ASM_RISCV_PAGE_H */
-diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-index 7d09e781bf..b8ff91cf4e 100644
---- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -12,6 +12,7 @@
- #include <asm/early_printk.h>
- #include <asm/csr.h>
- #include <asm/current.h>
+diff --git a/xen/arch/riscv/include/asm/pmap.h b/xen/arch/riscv/include/asm/pmap.h
+new file mode 100644
+index 0000000000..60065c996f
+--- /dev/null
++++ b/xen/arch/riscv/include/asm/pmap.h
+@@ -0,0 +1,36 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef ASM_PMAP_H
++#define ASM_PMAP_H
++
++#include <xen/bug.h>
++#include <xen/init.h>
++#include <xen/mm.h>
++#include <xen/page-size.h>
++
 +#include <asm/fixmap.h>
- #include <asm/page.h>
- #include <asm/processor.h>
- 
-@@ -49,6 +50,9 @@ stage1_pgtbl_root[PAGETABLE_ENTRIES];
- pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
- stage1_pgtbl_nonroot[PGTBL_INITIAL_COUNT * PAGETABLE_ENTRIES];
- 
-+pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
-+xen_fixmap[PAGETABLE_ENTRIES];
++#include <asm/flushtlb.h>
++#include <asm/system.h>
 +
- #define HANDLE_PGTBL(curr_lvl_num)                                          \
-     index = pt_index(curr_lvl_num, page_addr);                              \
-     if ( pte_is_valid(pgtbl[index]) )                                       \
-@@ -191,6 +195,45 @@ static bool __init check_pgtbl_mode_support(struct mmu_desc *mmu_desc,
-     return is_mode_supported;
- }
- 
-+void __init setup_fixmap_mappings(void)
++static inline void __init arch_pmap_map(unsigned int slot, mfn_t mfn)
 +{
-+    pte_t *pte, tmp;
-+    unsigned int i;
++    pte_t *entry = &xen_fixmap[slot];
++    pte_t pte;
 +
-+    BUILD_BUG_ON(FIX_LAST >= PAGETABLE_ENTRIES);
++    ASSERT(!pte_is_valid(*entry));
 +
-+    pte = &stage1_pgtbl_root[pt_index(HYP_PT_ROOT_LEVEL, FIXMAP_ADDR(0))];
++    pte = pte_from_mfn(mfn, PAGE_HYPERVISOR_RW);
++    write_pte(entry, pte);
 +
-+    /*
-+     * In RISC-V page table levels are numbered from Lx to L0 where
-+     * x is the highest page table level for currect  MMU mode ( for example,
-+     * for Sv39 has 3 page tables so the x = 2 (L2 -> L1 -> L0) ).
-+     *
-+     * In this cycle we want to find L1 page table because as L0 page table
-+     * xen_fixmap[] will be used.
-+     */
-+    for ( i = HYP_PT_ROOT_LEVEL; i-- > 1; )
-+    {
-+        BUG_ON(!pte_is_valid(*pte));
-+
-+        pte = (pte_t *)LOAD_TO_LINK(pte_to_paddr(*pte));
-+        pte = &pte[pt_index(i, FIXMAP_ADDR(0))];
-+    }
-+
-+    BUG_ON(pte_is_valid(*pte));
-+
-+    tmp = paddr_to_pte(LINK_TO_LOAD((unsigned long)&xen_fixmap), PTE_TABLE);
-+    write_pte(pte, tmp);
-+
-+    RISCV_FENCE(rw, rw);
-+    sfence_vma();
-+
-+    /*
-+     * We only need the zeroeth table allocated, but not the PTEs set, because
-+     * set_fixmap() will set them on the fly.
-+     */
++    flush_tlb_one_local(FIXMAP_ADDR(slot));
 +}
 +
- /*
-  * setup_initial_pagetables:
-  *
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 4defad68f4..13f0e8c77d 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -46,6 +46,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
-     test_macros_from_bug_h();
- #endif
- 
-+    setup_fixmap_mappings();
++static inline void __init arch_pmap_unmap(unsigned int slot)
++{
++    pte_t pte = {};
 +
-     printk("All set up\n");
- 
-     for ( ;; )
-diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
-index 070b19d915..7a683f6065 100644
---- a/xen/arch/riscv/xen.lds.S
-+++ b/xen/arch/riscv/xen.lds.S
-@@ -181,6 +181,6 @@ ASSERT(!SIZEOF(.got.plt),  ".got.plt non-empty")
-  * Changing the size of Xen binary can require an update of
-  * PGTBL_INITIAL_COUNT.
-  */
--ASSERT(_end - _start <= MB(2), "Xen too large for early-boot assumptions")
-+ASSERT(_end - _start <= XEN_VIRT_SIZE, "Xen too large for early-boot assumptions")
- 
- ASSERT(_ident_end - _ident_start <= IDENT_AREA_SIZE, "identity region is too big");
++    write_pte(&xen_fixmap[slot], pte);
++
++    flush_tlb_one_local(FIXMAP_ADDR(slot));
++}
++
++#endif /* ASM_PMAP_H */
 -- 
 2.46.0
 
