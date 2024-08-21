@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF6B195A264
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C7A895A263
 	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2024 18:06:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.781292.1190840 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.781293.1190852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgnqp-0003yH-NB; Wed, 21 Aug 2024 16:06:23 +0000
+	id 1sgnqs-0004Cu-2O; Wed, 21 Aug 2024 16:06:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 781292.1190840; Wed, 21 Aug 2024 16:06:23 +0000
+Received: by outflank-mailman (output) from mailman id 781293.1190852; Wed, 21 Aug 2024 16:06:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sgnqp-0003we-JQ; Wed, 21 Aug 2024 16:06:23 +0000
-Received: by outflank-mailman (input) for mailman id 781292;
- Wed, 21 Aug 2024 16:06:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sgnqr-0004BM-R9; Wed, 21 Aug 2024 16:06:25 +0000
+Received: by outflank-mailman (input) for mailman id 781293;
+ Wed, 21 Aug 2024 16:06:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0Njk=PU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sgnqo-0003sE-1x
- for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 16:06:22 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4e4e80ed-5fd7-11ef-a508-bb4a2ccca743;
+ id 1sgnqp-0003uu-EP
+ for xen-devel@lists.xenproject.org; Wed, 21 Aug 2024 16:06:23 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4ead5d6b-5fd7-11ef-8776-851b0ebba9a2;
  Wed, 21 Aug 2024 18:06:21 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-53345dcd377so2438320e87.2
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-52efd8807aaso8706232e87.3
  for <xen-devel@lists.xenproject.org>; Wed, 21 Aug 2024 09:06:21 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5334c75a2cbsm18101e87.187.2024.08.21.09.06.18
+ 2adb3069b0e04-5334c75a2cbsm18101e87.187.2024.08.21.09.06.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 21 Aug 2024 09:06:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -44,35 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e4e80ed-5fd7-11ef-a508-bb4a2ccca743
+X-Inumbo-ID: 4ead5d6b-5fd7-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1724256380; x=1724861180; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=oUVh97Qey83DY9CbPXoXhl8KPvCK+TDOmaW7a07nuQg=;
-        b=T0FkaP9G92/Yhi4jij1NwZdvnDjmXZnorVi2nZqcP+uJjNApMywP2oUBAiaEg0ilY4
-         wWgkZVR4B/DsxK6NbWDrxN/dX1H1+N5v4bazOOCOMMk2aIbhNrGrTUKSwZBJRLuNr3Gi
-         PV06JQRw0Pn39HTNthhFiljsGjBOwYYj+XxqmKmGLxR8TAzbXLtOKyt5Mak1ilmMtiF2
-         MaF8rwx0e2dTWsKZxsb4h5cF+y1v9pPHrwd1JJeDeBUif76QEXKt4zto3Rv/1qTEa84l
-         nMfNaO8ygKXPN46Fj4F9seYDTZ5pl2gjlBBMT//rOi11njIm7o/ROifEKnlnbvc4RXXo
-         7nHQ==
+        d=gmail.com; s=20230601; t=1724256381; x=1724861181; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MJcUmlEBhml/DSOe7/LwB7DMmIhQg2ECn/XQF26RxOQ=;
+        b=aYMUKUWBVeIsGY0nZgav5EwgjquVY9n5ttkAYmXSNL2TQzkMDjqnGjN9VSJGn/iYhi
+         H+vpBE3oTlFDH+0sHXDMajB4nejSw31t7CbvVPT1dJE5pLCqJOOWnI9bpgtVHMDKKgV4
+         jTA923/ab4drcg73lBeDEcMMAnjol9hWG7ZTraWI2sQ5TVVxVVFWYeCIMDVTOabl1+1m
+         Ez+QtOzOIlxVGUWLvQMq/OXFME3LiSCuKEqRB0gP9ubPIRoKWwsasrsNmZ5Hr8t86Ewz
+         IG2nFPCB6/zRNfcQGJ2/UE1qdcokaGAQUwHoYM+raELf+DnUX7GJS1X7J/B184e49qmq
+         fo8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724256380; x=1724861180;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=oUVh97Qey83DY9CbPXoXhl8KPvCK+TDOmaW7a07nuQg=;
-        b=Ouwxv8DQ6tx9f+LOb184uMeShw+MKDyoEVz+2JgYPaEInZxuYxwmGTZsdSbTITqMJT
-         npLyMhMrXfjjcv6fEM+36/juTpb/AFfgRRG7FbT8GLITDkAnBuZ46t/BdslMyf7G/45X
-         u3B+KYOKV7uyU2uRdT+P0GepVs067ohQdZ8n3M/HqhK5xVbEtfZdqm8jvSyw0dSY+JMh
-         hY2QMoc2vbuQcu5HIZTWmTWZKOlBxmMlX8Vgy84y3GXwFTkNSm+JLpP4tidL3jaXkWQ8
-         +FAKJAM/Xv7AbSKluDgFAEonDXGZzox8zQZS0WSmYTAjXeaGiQbdIlAAHqxBWaybBFai
-         Wr+g==
-X-Gm-Message-State: AOJu0YyYzafXMQRjOIkyOjwOChAzt+lPKcyBich9SECrLd/TLC/RfbvW
-	IFiy7iTPk7I086e3qDNiNIk2/O5F8ZTNsGr2phf0iHqApn+eE3gSZFMJmA==
-X-Google-Smtp-Source: AGHT+IFkcBxZH+LiYKKUWiJHZGQpVOtt27YoKTTHB/eWwF8PoQAJuionkeNK6Ibih0k5uKidJe0FJQ==
-X-Received: by 2002:a05:6512:118f:b0:52e:a699:2c8c with SMTP id 2adb3069b0e04-533485f2f40mr1810308e87.45.1724256379412;
-        Wed, 21 Aug 2024 09:06:19 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1724256381; x=1724861181;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=MJcUmlEBhml/DSOe7/LwB7DMmIhQg2ECn/XQF26RxOQ=;
+        b=J9wY0ER9ZEulATVrfapKMkDwfPAYyFKpfaw5oEK7S8KMgirsd1C62AxAFEnX50T0Ka
+         Pajak1UHA4vOnbEI6mmHqdTXmcYKPgD2MKlDxLOVCoMEjy04zgjDUjwe0corS67lH3uw
+         meQPk3aV1tFWw5FHNkIxQbHbE73SOQWyomxkh9Oio08g3c8Q0LGFlQMKiKbfQCgtqlU+
+         +gRDLzKroxw8OIH12OUPJD+xcHc+NFlabs01oZIlyxVaJQwTpuxrn++2SKy3k+pXv4Jh
+         xKCnk50/2dZTUplulpXIRnkgeX02ppFA1sQ6VtNEDV6SmSWmYVTGJtLww/ZRQvNQDOcw
+         B+bw==
+X-Gm-Message-State: AOJu0Ywg7NJnXNSQ7JSFz1oxHVO+z7IPoYGBPy/wEFEoU2JYLpJu1+Th
+	mnxOWx95J9r6sTnMfBFoY4AJ1RaZ7ocYgWtvERM11VckecS1jaoOlNOwtA==
+X-Google-Smtp-Source: AGHT+IHNXlncZxBGdnzMvY3I4TMULDV+gDDUZIYPEq3r5sz55D2tBSipK/7C6CGpcJ+we/eb7sj4JQ==
+X-Received: by 2002:a05:6512:a91:b0:52f:ca2b:1d33 with SMTP id 2adb3069b0e04-53348551919mr1686167e87.20.1724256380111;
+        Wed, 21 Aug 2024 09:06:20 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -83,86 +84,100 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 0/7]  RISCV device tree mapping
-Date: Wed, 21 Aug 2024 18:06:09 +0200
-Message-ID: <cover.1724256026.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 1/7] xen/riscv: use {read,write}{b,w,l,q}_cpu() to define {read,write}_atomic()
+Date: Wed, 21 Aug 2024 18:06:10 +0200
+Message-ID: <5140f9eb3d1cb0b69e3b1cbbcce6167ff8d59e4c.1724256026.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.46.0
+In-Reply-To: <cover.1724256026.git.oleksii.kurochko@gmail.com>
+References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Current patch series introduces device tree mapping for RISC-V
-and necessary things for that such as:
-- Fixmap mapping
-- pmap
-- Xen page table processing
+In Xen, memory-ordered atomic operations are not necessary,
+based on {read,write}_atomic() implementations for other architectures.
+Therefore, {read,write}{b,w,l,q}_cpu() can be used instead of
+{read,write}{b,w,l,q}(), allowing the caller to decide if additional
+fences should be applied before or after {read,write}_atomic().
 
+Change the declaration of _write_atomic() to accept a 'volatile void *'
+type for the 'x' argument instead of 'unsigned long'.
+This prevents compilation errors such as:
+1."discards 'volatile' qualifier from pointer target type," which occurs
+  due to the initialization of a volatile pointer,
+  e.g., `volatile uint8_t *ptr = p;` in _add_sized().
+2."incompatible type for argument 2 of '_write_atomic'," which can occur
+  when calling write_pte(), where 'x' is of type pte_t rather than
+  unsigned long.
+
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v5:
- - The following patch was merged to staging:
-     [PATCH v3 3/9] xen/riscv: enable CONFIG_HAS_DEVICE_TREE
- - Drop depedency from "RISCV basic exception handling implementation" as
-   it was meged to staging branch.
- - All other changes are patch specific so please look at the patch.
+ - new patch.
 ---
-Changes in v4:
- - Drop depedency from common devicre tree patch series as it was merged to
-   staging.
- - Update the cover letter message.
- - All other changes are patch specific so please look at the patch.
----
-Changes in v3:
- - Introduce SBI RFENCE extension support.
- - Introduce and initialize pcpu_info[] and __cpuid_to_hartid_map[] and functionality
-   to work with this arrays.
- - Make page table handling arch specific instead of trying to make it generic.
- - All other changes are patch specific so please look at the patch.
----
-Changes in v2:
- - Update the cover letter message
- - introduce fixmap mapping
- - introduce pmap
- - introduce CONFIG_GENREIC_PT
- - update use early_fdt_map() after MMU is enabled.
----
+ xen/arch/riscv/include/asm/atomic.h | 25 +++++++++++--------------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
-Oleksii Kurochko (7):
-  xen/riscv: use {read,write}{b,w,l,q}_cpu() to define
-    {read,write}_atomic()
-  xen/riscv: set up fixmap mappings
-  xen/riscv: introduce asm/pmap.h header
-  xen/riscv: introduce functionality to work with CPU info
-  xen/riscv: introduce and initialize SBI RFENCE extension
-  xen/riscv: page table handling
-  xen/riscv: introduce early_fdt_map()
-
- xen/arch/riscv/Kconfig                      |   1 +
- xen/arch/riscv/Makefile                     |   3 +
- xen/arch/riscv/include/asm/atomic.h         |  25 +-
- xen/arch/riscv/include/asm/config.h         |  15 +-
- xen/arch/riscv/include/asm/fixmap.h         |  46 +++
- xen/arch/riscv/include/asm/flushtlb.h       |  18 +
- xen/arch/riscv/include/asm/mm.h             |   6 +
- xen/arch/riscv/include/asm/page.h           |  76 ++++
- xen/arch/riscv/include/asm/pmap.h           |  36 ++
- xen/arch/riscv/include/asm/processor.h      |  29 +-
- xen/arch/riscv/include/asm/riscv_encoding.h |   1 +
- xen/arch/riscv/include/asm/sbi.h            |  63 +++
- xen/arch/riscv/include/asm/smp.h            |  11 +
- xen/arch/riscv/mm.c                         | 101 ++++-
- xen/arch/riscv/pt.c                         | 420 ++++++++++++++++++++
- xen/arch/riscv/riscv64/head.S               |   4 +
- xen/arch/riscv/sbi.c                        | 273 ++++++++++++-
- xen/arch/riscv/setup.c                      |  17 +
- xen/arch/riscv/smp.c                        |  21 +
- xen/arch/riscv/smpboot.c                    |   8 +
- xen/arch/riscv/xen.lds.S                    |   2 +-
- 21 files changed, 1150 insertions(+), 26 deletions(-)
- create mode 100644 xen/arch/riscv/include/asm/fixmap.h
- create mode 100644 xen/arch/riscv/include/asm/pmap.h
- create mode 100644 xen/arch/riscv/pt.c
- create mode 100644 xen/arch/riscv/smp.c
- create mode 100644 xen/arch/riscv/smpboot.c
-
+diff --git a/xen/arch/riscv/include/asm/atomic.h b/xen/arch/riscv/include/asm/atomic.h
+index 31b91a79c8..446c8c7928 100644
+--- a/xen/arch/riscv/include/asm/atomic.h
++++ b/xen/arch/riscv/include/asm/atomic.h
+@@ -31,21 +31,17 @@
+ 
+ void __bad_atomic_size(void);
+ 
+-/*
+- * Legacy from Linux kernel. For some reason they wanted to have ordered
+- * read/write access. Thereby read* is used instead of read*_cpu()
+- */
+ static always_inline void read_atomic_size(const volatile void *p,
+                                            void *res,
+                                            unsigned int size)
+ {
+     switch ( size )
+     {
+-    case 1: *(uint8_t *)res = readb(p); break;
+-    case 2: *(uint16_t *)res = readw(p); break;
+-    case 4: *(uint32_t *)res = readl(p); break;
++    case 1: *(uint8_t *)res = readb_cpu(p); break;
++    case 2: *(uint16_t *)res = readw_cpu(p); break;
++    case 4: *(uint32_t *)res = readl_cpu(p); break;
+ #ifndef CONFIG_RISCV_32
+-    case 8: *(uint32_t *)res = readq(p); break;
++    case 8: *(uint32_t *)res = readq_cpu(p); break;
+ #endif
+     default: __bad_atomic_size(); break;
+     }
+@@ -58,15 +54,16 @@ static always_inline void read_atomic_size(const volatile void *p,
+ })
+ 
+ static always_inline void _write_atomic(volatile void *p,
+-                                       unsigned long x, unsigned int size)
++                                        volatile void *x,
++                                        unsigned int size)
+ {
+     switch ( size )
+     {
+-    case 1: writeb(x, p); break;
+-    case 2: writew(x, p); break;
+-    case 4: writel(x, p); break;
++    case 1: writeb_cpu(*(uint8_t *)x, p); break;
++    case 2: writew_cpu(*(uint16_t *)x, p); break;
++    case 4: writel_cpu(*(uint32_t *)x, p); break;
+ #ifndef CONFIG_RISCV_32
+-    case 8: writeq(x, p); break;
++    case 8: writeq_cpu(*(uint64_t *)x, p); break;
+ #endif
+     default: __bad_atomic_size(); break;
+     }
+@@ -75,7 +72,7 @@ static always_inline void _write_atomic(volatile void *p,
+ #define write_atomic(p, x)                              \
+ ({                                                      \
+     typeof(*(p)) x_ = (x);                              \
+-    _write_atomic(p, x_, sizeof(*(p)));                 \
++    _write_atomic(p, &x_, sizeof(*(p)));                \
+ })
+ 
+ static always_inline void _add_sized(volatile void *p,
 -- 
 2.46.0
 
