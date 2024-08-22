@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B995895BA0E
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2024 17:26:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.781914.1191409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 961BE95BA3C
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2024 17:30:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.781923.1191419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sh9hB-0006Rk-ID; Thu, 22 Aug 2024 15:25:53 +0000
+	id 1sh9lL-0008Sg-1z; Thu, 22 Aug 2024 15:30:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 781914.1191409; Thu, 22 Aug 2024 15:25:53 +0000
+Received: by outflank-mailman (output) from mailman id 781923.1191419; Thu, 22 Aug 2024 15:30:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sh9hB-0006Pu-F0; Thu, 22 Aug 2024 15:25:53 +0000
-Received: by outflank-mailman (input) for mailman id 781914;
- Thu, 22 Aug 2024 15:25:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sh9hA-0006Pk-DC; Thu, 22 Aug 2024 15:25:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sh9hA-0007SY-5V; Thu, 22 Aug 2024 15:25:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sh9h9-0002PQ-Mr; Thu, 22 Aug 2024 15:25:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sh9h9-0000XB-ML; Thu, 22 Aug 2024 15:25:51 +0000
+	id 1sh9lK-0008Qk-Uw; Thu, 22 Aug 2024 15:30:10 +0000
+Received: by outflank-mailman (input) for mailman id 781923;
+ Thu, 22 Aug 2024 15:30:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UkBN=PV=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1sh9lK-0008Qe-1V
+ for xen-devel@lists.xenproject.org; Thu, 22 Aug 2024 15:30:10 +0000
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [2607:f8b0:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 69296f36-609b-11ef-a50a-bb4a2ccca743;
+ Thu, 22 Aug 2024 17:30:08 +0200 (CEST)
+Received: by mail-ot1-x332.google.com with SMTP id
+ 46e09a7af769-7093472356dso634401a34.0
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 08:30:07 -0700 (PDT)
+Received: from fziglio-xenia-fedora.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-454fe0f436dsm7786131cf.49.2024.08.22.08.30.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Aug 2024 08:30:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +45,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=kWou21moGuPxZM/dgtSL+niGu5AMavGIzCTAy7q0nEI=; b=lLqKHLf17ZBQzOESMquLr4PP6z
-	ZGRTigfi9qpZ+PsNX46F6cZEL/OVLZRrMC7a72WOVfXYWejkJ1iuUTM93GJHaDz75fyF8JYjQAZeT
-	ok6FW5b4hEcr6a49+EOjTwQwB9P7JYl9QXDLOLSgWwenYUQE6akY9xn5oRFtHhPg5sAM=;
+X-Inumbo-ID: 69296f36-609b-11ef-a50a-bb4a2ccca743
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1724340606; x=1724945406; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=H8/O+XAPl/QbSGBgMlq8pwRffeZEEcEmslfFS5zb4s8=;
+        b=AX8NugHCZScxNDibQvrPW3myN8hrtL96DRJ4odKO9w3QKPnnFC7ETXeskMar6JRV+W
+         Nv08ZzpuSUq2gWbACnkm4G6HoDMxHFtBVf+A+tDNwh74HG/TZiG7uRRd748llKxr7jhF
+         oXkhE7C2A0BS50wRgWHYzYLpSIoILTRxt4vLY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724340606; x=1724945406;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=H8/O+XAPl/QbSGBgMlq8pwRffeZEEcEmslfFS5zb4s8=;
+        b=syXFNBJfMI8Hye1FKuEmGBi35xWqc6/U/D6Ng+JU7+gVN1MafAlomOmPHbQskIC4Pb
+         DJSUMn3yh+EFlopMO78K70s3pVyhSJM/+815hDaBIOfC5rk8r3T5FkowDJNVdCn0e8a/
+         f401UqytBbOaM7WL0pRA141IHTkr38ws99u6FdXxBKPvjRIYL6ZP+sqLeIPEddZSeI9g
+         b/FUsszyWDxNV/fOWtBOZl0j1srNxYOmKfqbxFeorBvEMXOzRGBiyicfT1GGdctlJcLc
+         dlI4Y1P8NpRehC2ORokw8MlcsKH96fhSjcpdunuYTyjbVSsGQKy11YwC5QPPUqk0IrMY
+         UicA==
+X-Gm-Message-State: AOJu0YyFKHec7GsVstZNe8tSwrBrBQQJyNp4b57UJTkD6v9jX0HvJCv8
+	rat6Kq65uwl94HD35kSDfOCHOd+dUg6tFHHZQRvObkdSE0wuaIxi5nZJt4xdduT89yuAvY/OVeO
+	Q
+X-Google-Smtp-Source: AGHT+IHojBVGHlDnRnHtYNhrvvyH3Ndv53rdneGOEakuYJ4P94fC6ZKkytP2uY0gFCQDmiUZkibDlA==
+X-Received: by 2002:a05:6808:2226:b0:3d9:245c:4225 with SMTP id 5614622812f47-3de19c77a7fmr7450539b6e.6.1724340606557;
+        Thu, 22 Aug 2024 08:30:06 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187310-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+Subject: [PATCH] Avoid additional relocations in trampoline code
+Date: Thu, 22 Aug 2024 16:29:51 +0100
+Message-ID: <20240822152953.489136-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 187310: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=394c9d88858cd99fcb5a189dbabe2af34dbabfd3
-X-Osstest-Versions-That:
-    xen=6d41a9d8a12ff89adabdc286e63e9391a0481699
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 22 Aug 2024 15:25:51 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 187310 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187310/
+The trampoline could have "manual" relocation entries (created
+by assembly macros and some code to use them) and (in case of PE)
+normal executable relocations.
+Remove all normal executable ones. In this way we don't have to
+worry about applying both correctly (they need proper order
+which is hard to spot looking at the code).
 
-Failures :-/ but no regressions.
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+ xen/arch/x86/boot/trampoline.S | 4 ++--
+ xen/arch/x86/boot/wakeup.S     | 6 +++---
+ xen/arch/x86/xen.lds.S         | 7 ++++++-
+ 3 files changed, 11 insertions(+), 6 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+diff --git a/xen/arch/x86/boot/trampoline.S b/xen/arch/x86/boot/trampoline.S
+index b8ab0ffdcb..0724c953e2 100644
+--- a/xen/arch/x86/boot/trampoline.S
++++ b/xen/arch/x86/boot/trampoline.S
+@@ -73,7 +73,7 @@ trampoline_protmode_entry:
+         mov     %ecx,%cr4
+ 
+         /* Load pagetable base register. */
+-        mov     $sym_offs(idle_pg_table),%eax
++        mov     $idle_pg_table_pa, %eax
+         add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
+         mov     %eax,%cr3
+ 
+@@ -113,7 +113,7 @@ trampoline_protmode_entry:
+         .code64
+ start64:
+         /* Jump to high mappings. */
+-        movabs  $__high_start, %rdi
++        movabs  $__high_start_pa + __XEN_VIRT_START, %rdi
+         jmpq    *%rdi
+ 
+ #include "video.h"
+diff --git a/xen/arch/x86/boot/wakeup.S b/xen/arch/x86/boot/wakeup.S
+index 08447e1934..ebe72e1fdd 100644
+--- a/xen/arch/x86/boot/wakeup.S
++++ b/xen/arch/x86/boot/wakeup.S
+@@ -99,7 +99,7 @@ wakeup_32:
+         mov     $bootsym_rel(wakeup_stack, 4, %esp)
+ 
+         # check saved magic again
+-        mov     $sym_offs(saved_magic),%eax
++        mov     $saved_magic_pa, %eax
+         add     bootsym_rel(trampoline_xen_phys_start, 4, %eax)
+         mov     (%eax), %eax
+         cmp     $0x9abcdef0, %eax
+@@ -112,7 +112,7 @@ wakeup_32:
+         mov     %ecx, %cr4
+ 
+         /* Load pagetable base register */
+-        mov     $sym_offs(idle_pg_table),%eax
++        mov     $idle_pg_table_pa ,%eax
+         add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
+         mov     %eax,%cr3
+ 
+@@ -156,7 +156,7 @@ wakeup_32:
+         .code64
+ wakeup_64:
+         /* Jump to high mappings and the higher-level wakeup code. */
+-        movabs  $s3_resume, %rbx
++        movabs  $s3_resume_pa + __XEN_VIRT_START, %rbx
+         jmp     *%rbx
+ 
+ bogus_saved_magic:
+diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+index 9a1dfe1b34..8e604dde48 100644
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -71,7 +71,12 @@ SECTIONS
+   __2M_text_start = .;         /* Start of 2M superpages, mapped RX. */
+ #endif
+ 
+-  start_pa = ABSOLUTE(start - __XEN_VIRT_START);
++#define DEFINE_PA_ADDRESS(sym) sym ## _pa = ABSOLUTE(sym - __XEN_VIRT_START)
++  DEFINE_PA_ADDRESS(start);
++  DEFINE_PA_ADDRESS(saved_magic);
++  DEFINE_PA_ADDRESS(idle_pg_table);
++  DEFINE_PA_ADDRESS(__high_start);
++  DEFINE_PA_ADDRESS(s3_resume);
+ 
+   . = __XEN_VIRT_START + XEN_IMG_OFFSET;
+   _start = .;
+-- 
+2.46.0
 
-version targeted for testing:
- xen                  394c9d88858cd99fcb5a189dbabe2af34dbabfd3
-baseline version:
- xen                  6d41a9d8a12ff89adabdc286e63e9391a0481699
-
-Last test of basis   187304  2024-08-21 23:03:58 Z    0 days
-Testing same since   187310  2024-08-22 11:02:18 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Amneesh Singh <a-singh21@ti.com>
-  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien@xen.org>
-  Michal Orzel <michal.orzel@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6d41a9d8a1..394c9d8885  394c9d88858cd99fcb5a189dbabe2af34dbabfd3 -> smoke
 
