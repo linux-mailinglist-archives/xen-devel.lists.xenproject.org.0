@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8609A95C142
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 01:07:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782006.1191509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A285095C148
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 01:07:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782007.1191523 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shGtD-0005sn-Va; Thu, 22 Aug 2024 23:06:47 +0000
+	id 1shGtG-0006Ka-9V; Thu, 22 Aug 2024 23:06:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782006.1191509; Thu, 22 Aug 2024 23:06:47 +0000
+Received: by outflank-mailman (output) from mailman id 782007.1191523; Thu, 22 Aug 2024 23:06:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shGtD-0005n7-QL; Thu, 22 Aug 2024 23:06:47 +0000
-Received: by outflank-mailman (input) for mailman id 782006;
- Thu, 22 Aug 2024 23:06:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1shGtG-0006IE-46; Thu, 22 Aug 2024 23:06:50 +0000
+Received: by outflank-mailman (input) for mailman id 782007;
+ Thu, 22 Aug 2024 23:06:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gAWf=PV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1shGtC-00052v-K0
- for xen-devel@lists.xenproject.org; Thu, 22 Aug 2024 23:06:46 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3371b277-60db-11ef-8776-851b0ebba9a2;
- Fri, 23 Aug 2024 01:06:45 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a86984e035aso130619766b.2
- for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 16:06:45 -0700 (PDT)
+ id 1shGtE-0005x0-BD
+ for xen-devel@lists.xenproject.org; Thu, 22 Aug 2024 23:06:48 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 34e28d5b-60db-11ef-a50a-bb4a2ccca743;
+ Fri, 23 Aug 2024 01:06:47 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-533463f6b16so1643376e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 16:06:47 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a868f21ff19sm174676866b.39.2024.08.22.16.06.42
+ a640c23a62f3a-a868f21ff19sm174676866b.39.2024.08.22.16.06.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Aug 2024 16:06:42 -0700 (PDT)
+ Thu, 22 Aug 2024 16:06:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3371b277-60db-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 34e28d5b-60db-11ef-a50a-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724368004; x=1724972804; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724368006; x=1724972806; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Z32VSiikSGXLFKmdcP1zMNdlkMYVkQVHFcaYHWzqH0I=;
-        b=bTj2R2eBRNsDxvMlENtJm2nUIzV/d/FdqWcoOYH7NugUyK0aB5LCmZ3zsnoOAM0Gvp
-         RsZkdMi5tHeey/yC9js/aR/IE4npPB4hqLBjSRb4utOEvJtxPrlLEXEm6aambgif6wwc
-         l5hT3usa4qyncQS0iI4Cet2HXdeLgN6cCmaaA=
+        bh=AFP1jZxVxjDc6UuHRCIC5TORBnTsTsKkcvJ4HC7gOwo=;
+        b=sJr3ax5WDcIYW9IT9jsb+X7jCjKugh7iocNh8PcZDIAHwUXrn4s3DDwYDUIwxCFcMM
+         kdOHY5Vl3SDaHmXCksuRgZ4cBmTocbXxD0mPBtDnLlhAGJM/GtA+ZE4aNN/f/MkN/1uw
+         gWnfoCp8lx3kyNpbZED3j4V7IrD5jWPppPCNQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724368004; x=1724972804;
+        d=1e100.net; s=20230601; t=1724368006; x=1724972806;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Z32VSiikSGXLFKmdcP1zMNdlkMYVkQVHFcaYHWzqH0I=;
-        b=EmCzYAsHYR3mEuaNXcKvo8sC6owAEsXlte/84TdJQ9NqAASZj/vZsT7neGtduoGVdi
-         UFrwigWwAI/koPomeLNVx7EnUBJjX7QrDCoYOJQ31sTNZ0SGtE5ZG3IUlEHjVaurMSkP
-         NCpaF16ken/CECD0vwg5Dy4FdB8jn3zaheYnTbErCnGFywVB1OagoyZvDP9OIf+A/hr8
-         jUyBsQmIhrBAnA9wJR2Y+3bLMzzAl2g8VDkyTUOBGcjDx2ex9C9zXyWnPNkjii8R6Jgv
-         AY89O22NbTLymQFfde5UJ0QxbWjrGbVQ1RzsTh6BpGCTWkHBHmkfc6YkD3+4QvCYBjQM
-         KNEQ==
-X-Gm-Message-State: AOJu0YztvEZLOCKCN49xC8yHwFZgXizDgrFO6YmxW4ShYtFsywON/2fa
-	PRWSw2Kb1vZhjTSAVOMNhXOm00ZzyS4+EyiJ8EQDLGn2rbBHos72SqDG8Su3lLxrWaYKqqrIhWo
-	I
-X-Google-Smtp-Source: AGHT+IFRDX/W4UY1H3WUEVSmOJeaLU8RAXCjyi52CvapXkXlmfnP6gHsMAgaeNOhzlOkCzNZeD3hMw==
-X-Received: by 2002:a17:906:9c82:b0:a86:96b3:86be with SMTP id a640c23a62f3a-a86a54b70d3mr14312866b.63.1724368003385;
-        Thu, 22 Aug 2024 16:06:43 -0700 (PDT)
+        bh=AFP1jZxVxjDc6UuHRCIC5TORBnTsTsKkcvJ4HC7gOwo=;
+        b=uhMYUjlLOnQcPYYR5gaFO7OZ1Dp4cFUh+8MLn0Qw3DF18bpmpJq+pWZcRhDonjfk2n
+         RC3z+mJ3fvjJk+HrZZcfKmWqzjjjA8lhg8KmrT6leeXWik7usmA2CXXAAPuBxz5NHSL0
+         ZG99Q8TRLKiz1ZDU8TNrfsUxVDZ2XwAlb7xhj2KHyHvCh/WELfcKr4feeE61d041iLvg
+         W5NKABiMz6/4syRWwKDbi2xkip2LNtKVXEB8qC8OQ18Mz76yyYYeRACOvUnc2soE/lZy
+         vuXVlVR8foFO0SHGo8SuVWsQBIgqZT7N+DS2/WQRBRD+OueulioLamdoxokAcU9Ghkah
+         E3ZQ==
+X-Gm-Message-State: AOJu0Yyd4DKdX3F9koSntbK1serhHYv+lalOos2IrIOMjjQITbSh7sq0
+	Dts+LTn1vdoAlgz3AQqhyw8qJ3vRWnHA2E5Z9uYuabAKqLeRfysDggHSuQf9N7dtfafWARe0wto
+	v
+X-Google-Smtp-Source: AGHT+IH4elKNA9PI3Ye/Rk6RqPEOVDFJKs/8JLNAzXLdemfeMbGWP7YuXjdSF8ZeK/iVyrA7vwZ9Hw==
+X-Received: by 2002:a05:6512:33ce:b0:52e:8b15:7c55 with SMTP id 2adb3069b0e04-534387853e7mr203955e87.27.1724368004524;
+        Thu, 22 Aug 2024 16:06:44 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -86,9 +86,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH 4/9] xen/bitops: Drop the remnants of hweight{8,16}()
-Date: Fri, 23 Aug 2024 00:06:30 +0100
-Message-Id: <20240822230635.954557-5-andrew.cooper3@citrix.com>
+Subject: [PATCH 5/9] xen/bitops: Introduce generic_hweightl() and hweightl()
+Date: Fri, 23 Aug 2024 00:06:31 +0100
+Message-Id: <20240822230635.954557-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240822230635.954557-1-andrew.cooper3@citrix.com>
 References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
@@ -96,7 +96,27 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-They are no more, and won't be returning in this form.
+There are 6 remaining callers in Xen:
+
+  * The two hweight32() calls, _domain_struct_bits() and efi_find_gop_mode(),
+    are __init only.
+  * The two hweight_long() calls are both in bitmap_weight().
+  * The two hweight64() calls are hv_vpset_nr_banks() and x86_emulate().
+
+Only bitmap_weight() and possibly hv_vpset_nr_banks() can be considered
+fast(ish) paths, and they're all of GPR-width form.
+
+Furthermore, the differences between a generic int and generic long form is
+only an ADD and SHIFT, and only in !CONFIG_HAS_FAST_MULTIPLY builds.
+
+Therefore, it is definitely not worth having both generic implemenations.
+
+Implement generic_hweightl() based on the current generic_hweight64(),
+adjusted to be compatible with ARM32, along with standard SELF_TESTS.
+
+Implement hweightl() with usual constant-folding and arch opt-in support.  PPC
+is the only architecture that devates from generic, and it simply uses the
+builtin.
 
 No functional change.
 
@@ -113,77 +133,156 @@ CC: Michal Orzel <michal.orzel@amd.com>
 CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 CC: Shawn Anastasio <sanastasio@raptorengineering.com>
 ---
- xen/arch/arm/include/asm/bitops.h |  2 --
- xen/arch/ppc/include/asm/bitops.h |  2 --
- xen/arch/x86/include/asm/bitops.h |  2 --
- xen/include/xen/bitops.h          | 17 -----------------
- 4 files changed, 23 deletions(-)
+ xen/arch/ppc/include/asm/bitops.h |  2 ++
+ xen/common/bitops.c               | 14 ++++++++++
+ xen/include/xen/bitops.h          | 18 ++++++++++++
+ xen/lib/Makefile                  |  1 +
+ xen/lib/generic-hweightl.c        | 46 +++++++++++++++++++++++++++++++
+ 5 files changed, 81 insertions(+)
+ create mode 100644 xen/lib/generic-hweightl.c
 
-diff --git a/xen/arch/arm/include/asm/bitops.h b/xen/arch/arm/include/asm/bitops.h
-index 3c023103f734..91cd167b6bbb 100644
---- a/xen/arch/arm/include/asm/bitops.h
-+++ b/xen/arch/arm/include/asm/bitops.h
-@@ -86,8 +86,6 @@ bool clear_mask16_timeout(uint16_t mask, volatile void *p,
-  */
- #define hweight64(x) generic_hweight64(x)
- #define hweight32(x) generic_hweight32(x)
--#define hweight16(x) generic_hweight16(x)
--#define hweight8(x) generic_hweight8(x)
- 
- #endif /* _ARM_BITOPS_H */
- /*
 diff --git a/xen/arch/ppc/include/asm/bitops.h b/xen/arch/ppc/include/asm/bitops.h
-index eb3355812ea3..a62c4f99c3bb 100644
+index a62c4f99c3bb..64512e949530 100644
 --- a/xen/arch/ppc/include/asm/bitops.h
 +++ b/xen/arch/ppc/include/asm/bitops.h
-@@ -132,7 +132,5 @@ static inline int test_and_set_bit(unsigned int nr, volatile void *addr)
-  */
- #define hweight64(x) __builtin_popcountll(x)
- #define hweight32(x) __builtin_popcount(x)
--#define hweight16(x) __builtin_popcount((uint16_t)(x))
--#define hweight8(x)  __builtin_popcount((uint8_t)(x))
+@@ -124,6 +124,8 @@ static inline int test_and_set_bit(unsigned int nr, volatile void *addr)
+ #define arch_fls(x)  ((x) ? 32 - __builtin_clz(x) : 0)
+ #define arch_flsl(x) ((x) ? BITS_PER_LONG - __builtin_clzl(x) : 0)
  
- #endif /* _ASM_PPC_BITOPS_H */
-diff --git a/xen/arch/x86/include/asm/bitops.h b/xen/arch/x86/include/asm/bitops.h
-index 8c0403405aa2..4c5b21907a64 100644
---- a/xen/arch/x86/include/asm/bitops.h
-+++ b/xen/arch/x86/include/asm/bitops.h
-@@ -483,7 +483,5 @@ static always_inline unsigned int arch_flsl(unsigned long x)
-  */
- #define hweight64(x) generic_hweight64(x)
- #define hweight32(x) generic_hweight32(x)
--#define hweight16(x) generic_hweight16(x)
--#define hweight8(x) generic_hweight8(x)
- 
- #endif /* _X86_BITOPS_H */
-diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
-index 74c0d04e6647..64d70a7a1cb5 100644
---- a/xen/include/xen/bitops.h
-+++ b/xen/include/xen/bitops.h
-@@ -371,23 +371,6 @@ static inline unsigned int generic_hweight32(unsigned int w)
-     return (w + (w >> 16)) & 0xff;
++#define arch_hweightl(x) __builtin_popcountl(x)
++
+ /**
+  * hweightN - returns the hamming weight of a N-bit word
+  * @x: the word to weigh
+diff --git a/xen/common/bitops.c b/xen/common/bitops.c
+index 4545682aa8e0..d0c268b4994a 100644
+--- a/xen/common/bitops.c
++++ b/xen/common/bitops.c
+@@ -106,10 +106,24 @@ static void __init test_multiple_bits_set(void)
+     CHECK(multiple_bits_set, 0xc000000000000000ULL, true);
  }
  
--static inline unsigned int generic_hweight16(unsigned int w)
--{
--    w -= ((w >> 1) & 0x5555);
--    w =  (w & 0x3333) + ((w >> 2) & 0x3333);
--    w =  (w + (w >> 4)) & 0x0f0f;
--
--    return (w + (w >> 8)) & 0xff;
--}
--
--static inline unsigned int generic_hweight8(unsigned int w)
--{
--    w -= ((w >> 1) & 0x55);
--    w =  (w & 0x33) + ((w >> 2) & 0x33);
--
--    return (w + (w >> 4)) & 0x0f;
--}
--
- static inline unsigned int generic_hweight64(uint64_t w)
++static void __init test_hweight(void)
++{
++    /* unsigned int hweightl(unsigned long) */
++    CHECK(hweightl, 0, 0);
++    CHECK(hweightl, 1, 1);
++    CHECK(hweightl, 3, 2);
++    CHECK(hweightl, 7, 3);
++    CHECK(hweightl, 0xff, 8);
++
++    CHECK(hweightl, 1 | (1UL << (BITS_PER_LONG - 1)), 2);
++    CHECK(hweightl, -1UL, BITS_PER_LONG);
++}
++
+ static void __init __constructor test_bitops(void)
  {
-     if ( BITS_PER_LONG < 64 )
+     test_ffs();
+     test_fls();
+ 
+     test_multiple_bits_set();
++    test_hweight();
+ }
+diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
+index 64d70a7a1cb5..3aac10b7f532 100644
+--- a/xen/include/xen/bitops.h
++++ b/xen/include/xen/bitops.h
+@@ -35,6 +35,12 @@ extern void __bitop_bad_size(void);
+ unsigned int __pure generic_ffsl(unsigned long x);
+ unsigned int __pure generic_flsl(unsigned long x);
+ 
++/*
++ * Hamming Weight, also called Population Count.  Returns the number of set
++ * bits in @x.
++ */
++unsigned int __pure generic_hweightl(unsigned long x);
++
+ /**
+  * generic__test_and_set_bit - Set a bit and return its old value
+  * @nr: Bit to set
+@@ -284,6 +290,18 @@ static always_inline __pure unsigned int fls64(uint64_t x)
+         (_v & (_v - 1)) != 0;                   \
+     })
+ 
++static always_inline __pure unsigned int hweightl(unsigned long x)
++{
++    if ( __builtin_constant_p(x) )
++        return __builtin_popcountl(x);
++
++#ifdef arch_hweightl
++    return arch_hweightl(x);
++#else
++    return generic_hweightl(x);
++#endif
++}
++
+ /* --------------------- Please tidy below here --------------------- */
+ 
+ #ifndef find_next_bit
+diff --git a/xen/lib/Makefile b/xen/lib/Makefile
+index a48541596470..b6558e108bd9 100644
+--- a/xen/lib/Makefile
++++ b/xen/lib/Makefile
+@@ -6,6 +6,7 @@ lib-y += ctype.o
+ lib-y += find-next-bit.o
+ lib-y += generic-ffsl.o
+ lib-y += generic-flsl.o
++lib-y += generic-hweightl.o
+ lib-y += list-sort.o
+ lib-y += memchr.o
+ lib-y += memchr_inv.o
+diff --git a/xen/lib/generic-hweightl.c b/xen/lib/generic-hweightl.c
+new file mode 100644
+index 000000000000..fa4bbec273ab
+--- /dev/null
++++ b/xen/lib/generic-hweightl.c
+@@ -0,0 +1,46 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#include <xen/bitops.h>
++#include <xen/init.h>
++#include <xen/self-tests.h>
++
++/* Mask value @b broadcast to every byte in a long */
++#if BITS_PER_LONG == 32
++# define MASK(b) ((b) * 0x01010101UL)
++#elif BITS_PER_LONG == 64
++# define MASK(b) ((b) * 0x0101010101010101UL)
++#else
++# error Extend me please
++#endif
++
++unsigned int generic_hweightl(unsigned long x)
++{
++    x -= (x >> 1) & MASK(0x55);
++    x =  (x & MASK(0x33)) + ((x >> 2) & MASK(0x33));
++    x =  (x + (x >> 4)) & MASK(0x0f);
++
++    if ( IS_ENABLED(CONFIG_HAS_FAST_MULTIPLY) )
++        return (x * MASK(0x01)) >> (BITS_PER_LONG - 8);
++
++    x += x >> 8;
++    x += x >> 16;
++#if BITS_PER_LONG > 32
++    x += x >> 32;
++#endif
++
++    return x & 0xff;
++}
++
++#ifdef CONFIG_SELF_TESTS
++static void __init __constructor test_generic_hweightl(void)
++{
++    RUNTIME_CHECK(generic_hweightl, 0, 0);
++    RUNTIME_CHECK(generic_hweightl, 1, 1);
++    RUNTIME_CHECK(generic_hweightl, 3, 2);
++    RUNTIME_CHECK(generic_hweightl, 7, 3);
++    RUNTIME_CHECK(generic_hweightl, 0xff, 8);
++
++    RUNTIME_CHECK(generic_hweightl, 1 | (1UL << (BITS_PER_LONG - 1)), 2);
++    RUNTIME_CHECK(generic_hweightl, -1UL, BITS_PER_LONG);
++}
++#endif /* CONFIG_SELF_TESTS */
 -- 
 2.39.2
 
