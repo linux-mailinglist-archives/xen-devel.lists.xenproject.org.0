@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 034B495B1A2
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2024 11:27:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.781669.1191161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65E4B95B29C
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2024 12:09:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.781683.1191171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sh46B-0000ov-Dj; Thu, 22 Aug 2024 09:27:19 +0000
+	id 1sh4k4-00084a-FY; Thu, 22 Aug 2024 10:08:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 781669.1191161; Thu, 22 Aug 2024 09:27:19 +0000
+Received: by outflank-mailman (output) from mailman id 781683.1191171; Thu, 22 Aug 2024 10:08:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sh46B-0000n2-Ab; Thu, 22 Aug 2024 09:27:19 +0000
-Received: by outflank-mailman (input) for mailman id 781669;
- Thu, 22 Aug 2024 09:27:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/1gz=PV=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
- id 1sh469-0000mw-Oh
- for xen-devel@lists.xenproject.org; Thu, 22 Aug 2024 09:27:17 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7bb3ba1-6068-11ef-8776-851b0ebba9a2;
- Thu, 22 Aug 2024 11:27:15 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a867a564911so83972966b.2
- for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 02:27:15 -0700 (PDT)
-Received: from smtpclient.apple ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a868f29eaadsm91011466b.67.2024.08.22.02.27.13
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 22 Aug 2024 02:27:13 -0700 (PDT)
+	id 1sh4k4-000834-At; Thu, 22 Aug 2024 10:08:32 +0000
+Received: by outflank-mailman (input) for mailman id 781683;
+ Thu, 22 Aug 2024 10:08:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1sh4k3-00082y-8p
+ for xen-devel@lists.xenproject.org; Thu, 22 Aug 2024 10:08:31 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sh4k2-0001j3-KJ; Thu, 22 Aug 2024 10:08:30 +0000
+Received: from [15.248.2.26] (helo=[10.24.67.18])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sh4k2-0001m5-B2; Thu, 22 Aug 2024 10:08:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +39,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7bb3ba1-6068-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1724318834; x=1724923634; darn=lists.xenproject.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eTclOxh+v7ilbm3yHnt/W73waZWQ1h3IwdNri8LmKFk=;
-        b=FA+jiJ+f7DBYz8CkcZzhPFckwc1XNz4JLLBFfeq9WFEdmuQEC+EWhlPDwGpDd5uF4G
-         u3s8k1gXcJ630ADs0+/GeL+fF/4cdwJtRlRgGpKdvKU7ZtjEYM/KL7L8ZtkcbFeW9Qnd
-         YYZMD6vyPa3tR7TYiFMXMmGxeBX052mYqiVLE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724318834; x=1724923634;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=eTclOxh+v7ilbm3yHnt/W73waZWQ1h3IwdNri8LmKFk=;
-        b=wh7s0kS4tgWPjcpLVmmog16s/vI4orKuMOvqIwNglfKqHTFJXAF+AL+g4LGhCc2KnF
-         p3mk89ahoD2PD++EEcNoFxzRc5Yvb4hm6/Uhmbhrcgv/dHdlXJcf7mj4DA/tAikR3n9v
-         JLM3FUqW4mEJ3uVq/4VB6+KEADN+s5QTJP286F3L6O0j7XJaTpuT3S7/IwElm9NGkc9B
-         6K6c6bY9ocQAnA7uP24RLOuL5swp2p74jaKA+91DECgU37FdQq8xwZ+zMgU2eDuTB/A6
-         AJ4QpFLWp2Vv581w2VSj5AMOxfWKjcVM06m5c5i58eoB1MzZWYTyjgW02TFEEbz9sAns
-         Sbtw==
-X-Gm-Message-State: AOJu0YzRvNp9T5nqM6gkK3aObiS7t7rTZGQopv0nsIUpkctthSi02oU+
-	lamMWGZYub1FJ/+YqSI8Tj2b5w6kvKSqAvczu9iWwSOrB/ZJzwdJ9tmoIIfMSwY=
-X-Google-Smtp-Source: AGHT+IHwM59NRIInGGC2Qr8V6NNY2Ud2qO8VO7Y0JqgKIC+7E8X1ZCZKkCOyMVhRAbcMPSsyAySqow==
-X-Received: by 2002:a17:907:e285:b0:a86:6807:6c34 with SMTP id a640c23a62f3a-a866f40905emr406932566b.39.1724318833759;
-        Thu, 22 Aug 2024 02:27:13 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH v1 0/4] Stabilize Oxenstored's interface with
-From: Christian Lindig <christian.lindig@cloud.com>
-In-Reply-To: <cover.1724314239.git.andrii.sultanov@cloud.com>
-Date: Thu, 22 Aug 2024 10:27:01 +0100
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E8ABAB51-1DDC-4BF3-AA46-F003CC1806BF@cloud.com>
-References: <cover.1724314239.git.andrii.sultanov@cloud.com>
-To: Andrii Sultanov <andrii.sultanov@cloud.com>
-X-Mailer: Apple Mail (2.3774.600.62)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=CmvTWeI4YL/7oRomE/7yjl3rTHdfFCHruNE2eVDgeXA=; b=C3tRNHOFSQaHVUZP1VcgvOgXgC
+	UaI78Thki7/TXRGRFFfRnrOF+Wttf320hwIzEuvSZE+LKuF3FAjoBmvsVxIJLOYBASo24dfYM6N4y
+	n3TOgejmea+Xggvf9/NFxP+3Io2QBq+lowHtFmUTl9LkvatpTzhhPbKgIO5vURdPlE0g=;
+Message-ID: <4cd8f2d6-d10e-43d4-8ce7-8b37946ece40@xen.org>
+Date: Thu, 22 Aug 2024 11:08:28 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/arm64: Hide FEAT_SME
+Content-Language: en-GB
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240814210054.67520-1-julien@xen.org>
+ <b306e03e-17d4-4d09-aa8c-78e44dacacca@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <b306e03e-17d4-4d09-aa8c-78e44dacacca@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
+On 16/08/2024 08:15, Michal Orzel wrote:
+  > On 14/08/2024 23:00, Julien Grall wrote:
+>>
+>>
+>> Newer hardware may support FEAT_SME. Xen doesn't have any knowledge but
+>> it will still expose the feature to the VM. If the OS is trying to use
+>> SME, then it will crash.
+>>
+>> Solve by hiding FEAT_SME.
+>>
+>> Signed-off-by: Julien Grall <julien@xen.org>
+> Acked-by: Michal Orzel <michal.orzel@amd.com>
+> 
+>>
+>> ---
+>>
+>> The current approach used to create the domain cpuinfo is to hide
+>> (i.e. a denylist) what we know Xen is not supporting. The drawback
+>> with this approach is for newly introduced feature, Xen will expose it
+>> by default.
+>>
+>> If a kernel is trying to use it then it will crash. I can't really
+>> make my mind whether it would be better to expose only what we support
+>> (i.e. use an allowlist).
+>>
+>> AFAICT, there is no security concerns with the current approach because
+>> ID_* registers are not a way to tell the kernel which features are
+>> supported. A guest kernel could still try to access the new registers.
+> I agree with the security aspect but the part of the sentence in the middle is a bit misleading.
 
-> On 22 Aug 2024, at 10:06, Andrii Sultanov <andrii.sultanov@cloud.com> =
-wrote:
->=20
-> Oxenstored depends on unstable Xenctrl, utilizing only a few of its
-> functions. This patch series introduces a dynamically-loaded OCaml
-> plugin that aims to stabilize 'Xenctrl.domain_getinfo' and
-> 'Xenctrl.domain_getinfolist' by hiding the instability behind a =
-versioned
-> interface.
->=20
-> This, in turn, would allow to fork Oxenstored out of the xen tree,
-> speeding up its development and allowing it to transition to an
-> OCaml-standard build system.
->=20
-> This is only one step towards the long-term goal of being able to drop
-> libxenctrl: https://gitlab.com/xen-project/xen/-/issues/190
->=20
-> Commits and notes further in the patches explain the exact mechanism =
-behind
-> this. I've tested this oxenstored with a V2 interface and plugin, with =
-V1
-> plugin continuing to be compiled, loaded, and working correctly.
->=20
-> A dynamic-loading approach was chosen because it allows one to easily =
-review
-> the remaining usages of Xenctrl and does not force oxenstored to be =
-recompiled
-> every time xen changes.
->=20
-> This patch series passed the Gitlab CI
-> =
-(https://gitlab.com/xen-project/people/asultanov/xen/-/pipelines/142164337=
-5),
-> and was further tested on some hosts.
->=20
-> Oxenstored currently uses the single-domain 'domain_getinfo' function,
-> whereas Cxenstored uses the more-efficient 'domain_getinfolist'. Both =
-of
-> these are provided in the plugin to allow a transition from one to the
-> other without modifying the interface in the future.
->=20
-> A prototype of oxenstored using domain_getinfolist was also developed,
-> though it is not a part of the current patch series. It also passed =
-the
-> Gitlab CI and was tested on hosts.
-> =
-(https://gitlab.com/xen-project/people/asultanov/xen/-/pipelines/142168662=
-2)
->=20
-> A Gitlab repository with these patches applied, if it's easier for
-> anyone to review it on there:
-> =
-https://gitlab.com/xen-project/people/asultanov/xen/-/compare/staging...st=
-aging?from_project_id=3D2336572
->=20
-> Andrii Sultanov (4):
->  tools/ocaml/common.make: Remove '-cc $(CC)' flag from OCAMLOPTFLAGS
->  ocaml/libs: Implement a dynamically-loaded plugin for
->    Xenctrl.domain_getinfo
->  tools/oxenstored: Use the plugin for Xenctrl.domain_getinfo
->  Makefile.rules: Fix OCaml libs
->=20
-> Config.mk                                     |   2 +-
-> configure                                     |   7 +
-> m4/paths.m4                                   |   4 +
-> tools/configure                               |   7 +
-> tools/ocaml/Makefile                          |   1 +
-> tools/ocaml/Makefile.rules                    |  21 ++-
-> tools/ocaml/common.make                       |   2 +-
-> tools/ocaml/libs/Makefile                     |   2 +-
-> tools/ocaml/libs/xenstoredglue/META.in        |   4 +
-> tools/ocaml/libs/xenstoredglue/Makefile       |  39 ++++
-> .../domain_getinfo_plugin_v1/META.in          |   5 +
-> .../domain_getinfo_plugin_v1/Makefile         |  38 ++++
-> .../domain_getinfo_stubs_v1.c                 | 169 ++++++++++++++++++
-> .../domain_getinfo_v1.ml                      |  51 ++++++
-> .../domain_getinfo_v1.mli                     |   0
-> .../libs/xenstoredglue/plugin_interface_v1.ml |  25 +++
-> .../xenstoredglue/plugin_interface_v1.mli     |  34 ++++
-> tools/ocaml/xenstored/Makefile                |   5 +-
-> tools/ocaml/xenstored/domains.ml              |  63 +++++--
-> tools/ocaml/xenstored/paths.ml.in             |   1 +
-> 20 files changed, 454 insertions(+), 26 deletions(-)
-> create mode 100644 tools/ocaml/libs/xenstoredglue/META.in
-> create mode 100644 tools/ocaml/libs/xenstoredglue/Makefile
-> create mode 100644 =
-tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/META.in
-> create mode 100644 =
-tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/Makefile
-> create mode 100644 =
-tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/domain_getinfo_stu=
-bs_v1.c
-> create mode 100644 =
-tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/domain_getinfo_v1.=
-ml
-> create mode 100644 =
-tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/domain_getinfo_v1.=
-mli
-> create mode 100644 =
-tools/ocaml/libs/xenstoredglue/plugin_interface_v1.ml
-> create mode 100644 =
-tools/ocaml/libs/xenstoredglue/plugin_interface_v1.mli
->=20
-> --=20
-> 2.39.2
->=20
+Indeed. It was poorly worded. I was meant to say what you wrote below :).
 
-Acked-by: Christian Lindig <christian.lindig@cloud.com>
+> ID_ registers *are* a way of informing the kernel about implemented PE features. It's just that
+> the kernel could still access the features. That said, it should be considered an incorrect behavior
+> and definitely not something we should worry about.
 
-I fully support the direction this is taking: decoupling Oxenstore from =
-the Xen tree to hopefully speed up the development cycle and to attract =
-OCaml developers by moving to a more OCaml-idiomatic build system. The =
-code was previously shared with me.
+Cheers,
 
-=E2=80=94 C=
+-- 
+Julien Grall
+
 
