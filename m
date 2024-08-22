@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9177395B7D9
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2024 16:02:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.781884.1191389 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7C1495B871
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2024 16:32:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.781893.1191399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sh8NE-0000qS-8y; Thu, 22 Aug 2024 14:01:12 +0000
+	id 1sh8qL-0006CP-G5; Thu, 22 Aug 2024 14:31:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 781884.1191389; Thu, 22 Aug 2024 14:01:12 +0000
+Received: by outflank-mailman (output) from mailman id 781893.1191399; Thu, 22 Aug 2024 14:31:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sh8NE-0000ox-6H; Thu, 22 Aug 2024 14:01:12 +0000
-Received: by outflank-mailman (input) for mailman id 781884;
- Thu, 22 Aug 2024 14:01:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sh8qL-0006Au-DM; Thu, 22 Aug 2024 14:31:17 +0000
+Received: by outflank-mailman (input) for mailman id 781893;
+ Thu, 22 Aug 2024 14:31:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UkBN=PV=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1sh8NC-0000or-R9
- for xen-devel@lists.xenproject.org; Thu, 22 Aug 2024 14:01:10 +0000
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [2607:f8b0:4864:20::f32])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f9ae65a5-608e-11ef-8776-851b0ebba9a2;
- Thu, 22 Aug 2024 16:01:06 +0200 (CEST)
-Received: by mail-qv1-xf32.google.com with SMTP id
- 6a1803df08f44-6bf6755323cso4338276d6.1
- for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 07:01:06 -0700 (PDT)
-Received: from fziglio-xenia-fedora.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6c162d4c109sm7872586d6.49.2024.08.22.07.01.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Aug 2024 07:01:03 -0700 (PDT)
+ <SRS0=R3RO=PV=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
+ id 1sh8qJ-0006Ao-Mo
+ for xen-devel@lists.xenproject.org; Thu, 22 Aug 2024 14:31:15 +0000
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [2001:4860:4864:20::34])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2ebf3e93-6093-11ef-a50a-bb4a2ccca743;
+ Thu, 22 Aug 2024 16:31:14 +0200 (CEST)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-2702ed1054fso578130fac.3
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 07:31:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +40,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9ae65a5-608e-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 2ebf3e93-6093-11ef-a50a-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1724335265; x=1724940065; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=X5khW8YaAwwfMgjgw8nuSi309AnsACpyZ2iwYQQbG3M=;
-        b=DnWje7/BYvjbQJSLbIRFp0xqMC57AyRcMlfg9Sl9eiGu6J5B5U8tBIg2xEYqJbDxBM
-         x7mSpA4t1Bbfh+X0aTykbFYXl2IPYpqLAefwFt8Geu2ftYrKt6noM1GK55mG3TR3vzwi
-         z4LP+pMqkaswlvNKdE2hRIspS6aWdSydJgMxY=
+        d=cloud.com; s=cloud; t=1724337073; x=1724941873; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RY74Mxj/2wmPmwUp1NjOvHV4cp/o/DJFi8b1s+2pXY4=;
+        b=WSFpHtwY3ujO4NSVS8pKbDJZwGzFCpd8uG3rZ/KCg9Yk8qTEc1weWySrBWjkMX/dvh
+         d9Nz9nU+Z/AV26OBK538Su5tgoU0DaX8bVw/gEnNzi67P48KP/p9WDG2EBxHFRd0JR28
+         RnRGEtc11weV3Wkevqy3Ejn/BBV7NHjQD5bHc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724335265; x=1724940065;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=X5khW8YaAwwfMgjgw8nuSi309AnsACpyZ2iwYQQbG3M=;
-        b=tsbi78xfF6DbtmUW6Byd/zecIQeWjI8a3MUFTekvBa9wt3ht9801ztUgvg3/aAU/RS
-         Y8noSzBYeGfHtI8/6sH0Km/ZZZ27oreJpMoA+Flsu6A+Rm0ysQR2+tW8ITglyaj/dfHh
-         Hu7Bl1P8NGzwCuR9HKc7bIRYe9uXuY/qpdf7djUlNtJ0ufaB1nPPgcDkAcCu0CcHRVc4
-         EbIlI5SProPYJ2+YJoTWoguezO9M9/0XuSYxp6aiC6oFgr6GkLO0zDskJ31GXWBpRI85
-         hKqlffWU3kBV+a7wxuWXbZztB0WaQzf8otTrbc5E5nj+Leb1HzMHJSb6mo/6u0mkugOs
-         6FLw==
-X-Gm-Message-State: AOJu0YyBLear8Gq8BLHY+pyWlz6mb1i/bkb9oeUjmSJZRihDN/NN4KVr
-	M21ai6UABQZLI3/gPGcqBDDud11L1xkW5LtwxDNb3hAdugFM3HclEPsLRCKH18C/xO+ieMyLEvo
-	g
-X-Google-Smtp-Source: AGHT+IFTwIfHUxyJqPhqRnhQRnWSCdyuMoNRg5aSCiDzJIKW0BzQcLD+qPzatTyU1NObIezm7fa3KQ==
-X-Received: by 2002:a05:6214:4612:b0:6b4:4585:8e43 with SMTP id 6a1803df08f44-6c155d9d07amr74983806d6.31.1724335263878;
-        Thu, 22 Aug 2024 07:01:03 -0700 (PDT)
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2] Restore memory used for IP computation
-Date: Thu, 22 Aug 2024 15:00:43 +0100
-Message-ID: <20240822140044.441126-1-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.46.0
+        d=1e100.net; s=20230601; t=1724337073; x=1724941873;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RY74Mxj/2wmPmwUp1NjOvHV4cp/o/DJFi8b1s+2pXY4=;
+        b=CPr1hZVm/6TbUDQtggRFZ48L3G2+mDGpeAmCnwAqjBrjreiIhn00UjM+TzUakmocEr
+         cvq5cQ0KFMJPNIye0U3l/F8RQTEouATQbtDKGlBlmobJvq0Eu0Ky+lNCrdiDvP+DgvKa
+         Xh5TBuBiyDg21vg+dJcGF7WZhQ7WlVrLSGFQ7VM0wLFA3Sg79BPaAwPhnN6NtOk0C7W2
+         ajWzviVDPJFl/P4S1r2TS/vbp7tzaB+Nztak8j+kqGryecrj29nu1tFFUNLf5nZWDOfy
+         WzH2dqSAH6kos62N+MQ2n3XO+mFMuAKjFUpSAcX0vVcLDjLiHWu3f/Ib2vOLaiGs/9dP
+         OCXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXpIp8LQmEuXmzl6EiWBN/5LQ/bOwIFP3R2LuXFB2txDWROqOY3VmWyrX4q93fFhRl3ml3ohwIOeUc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yypl5uO6Jx3pNFkfpmMaKBtWGOwwbT2IHc0ZOGz+NT6+7XTEwh+
+	I0sOGcSIeE+PQyzqmIA/ARyY0KzlGjJYfT+PFYXuhDBWvQaPfJDJDDq8Xbjie5UMwOkHnOTvJNt
+	3pu4x/8HrovSR449nSlHerGuwwUeR3FeeulXV9Q==
+X-Google-Smtp-Source: AGHT+IEdztJOlEZd3Om0EFjg166QHgA6ZJFhf1ue2oW00p23YZqS0xJvvOXKym3fFgPFE7VDiaUlpgc0Sv13Nmrih7c=
+X-Received: by 2002:a05:6870:82a8:b0:25e:e6d:5247 with SMTP id
+ 586e51a60fabf-273cfc55beamr2449508fac.14.1724337072652; Thu, 22 Aug 2024
+ 07:31:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1724314239.git.andrii.sultanov@cloud.com>
+ <110f63b76a12e8a9fead09f47319a35229222953.1724314239.git.andrii.sultanov@cloud.com>
+ <e184ccf6-47da-443f-9170-dd503d225bf6@citrix.com>
+In-Reply-To: <e184ccf6-47da-443f-9170-dd503d225bf6@citrix.com>
+From: Edwin Torok <edwin.torok@cloud.com>
+Date: Thu, 22 Aug 2024 15:31:01 +0100
+Message-ID: <CAEfZLvm3m_UprvhCbgG2+jLas_Oi_mFsGqUC2gOBr_ZPssbqCw@mail.gmail.com>
+Subject: Re: [PATCH v1 1/4] tools/ocaml/common.make: Remove '-cc $(CC)' flag
+ from OCAMLOPTFLAGS
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Andrii Sultanov <andrii.sultanov@cloud.com>, xen-devel@lists.xenproject.org, 
+	Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, 
+	Anthony PERARD <anthony.perard@vates.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-We need to write in some location but no reasons to not
-trying to restore what we potentially overwrote.
+On Thu, Aug 22, 2024 at 1:25=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
+>
+> On 22/08/2024 10:06 am, Andrii Sultanov wrote:
+> > This flag does not work as assumed and will not pass
+> > options (such as -shared) to the C compiler:
+> > https://github.com/ocaml/ocaml/issues/12284
+> >
+> > Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
+> > ---
+> >  tools/ocaml/common.make | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/tools/ocaml/common.make b/tools/ocaml/common.make
+> > index 0c8a597d5b..cc126b749f 100644
+> > --- a/tools/ocaml/common.make
+> > +++ b/tools/ocaml/common.make
+> > @@ -12,7 +12,7 @@ OCAMLFIND ?=3D ocamlfind
+> >  CFLAGS +=3D -fPIC -I$(shell ocamlc -where)
+> >
+> >  OCAMLOPTFLAG_G :=3D $(shell $(OCAMLOPT) -h 2>&1 | sed -n 's/^  *\(-g\)=
+ .*/\1/p')
+> > -OCAMLOPTFLAGS =3D $(OCAMLOPTFLAG_G) -ccopt "$(LDFLAGS)" -dtypes $(OCAM=
+LINCLUDE) -cc $(CC) -w F -warn-error F
+> > +OCAMLOPTFLAGS =3D $(OCAMLOPTFLAG_G) -ccopt "$(LDFLAGS)" -dtypes $(OCAM=
+LINCLUDE) -w F -warn-error F
+> >  OCAMLCFLAGS +=3D -g $(OCAMLINCLUDE) -w F -warn-error F
+> >
+> >  VERSION :=3D 4.1
+>
+> This patch itself is fine, and I'll commit it in due course, but then I
+> got looking at the surrounding context...
+>
+> `$(OCAMLOPT) -h` tells you on stderr to try `--help instead`, so
+> OCAMLOPTFLAG_G is never going to contain -g.
+>
+> Also, why is -g conditional for OCAMLOPTFLAGS but unconditional for
+> OCAMLCFLAGS?  I think we can safely drop OCAMLOPTFLAG_G
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
----
- xen/arch/x86/boot/head.S | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
----
-Changes since v1:
-- Rewrite magic number field instead of some possible BIOS area.
+I'm not aware of a version of OCaml that didn't support -g, but maybe
+a very old version (that wouldn't pass the minimum version check)
+didn't have it.
+I agree that we can safely drop the conditional and always pass `-g`.
+>
+>
+> Next, there's VERSION and git grep says its only used in META files.
+>
+> xen.git/tools/ocaml$ git grep -w VERSION
+> Makefile.rules:43:      sed 's/@VERSION@/$(VERSION)/g' < $< $o
+> common.make:18:VERSION :=3D 4.1
+> libs/eventchn/META.in:1:version =3D "@VERSION@"
+> libs/mmap/META.in:1:version =3D "@VERSION@"
+> libs/xb/META.in:1:version =3D "@VERSION@"
+> libs/xc/META.in:1:version =3D "@VERSION@"
+> libs/xenstoredglue/META.in:1:version =3D "@VERSION@"
+> libs/xenstoredglue/domain_getinfo_plugin_v1/META.in:1:version =3D "@VERSI=
+ON@"
+> libs/xs/META.in:1:version =3D "@VERSION@"
+>
+> 4.1 is very very stale and should say 4.19 these days (definitely for
+> xc, and whatever else is using an unstable API), yet should definitely
+> not be 4.19 for xenstoredglue.
+>
+> Are there any ABI/API implication from changing the META file?
 
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index d8ac0f0494..9b7e7b4e51 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -415,16 +415,19 @@ __pvh_start:
- 
-         /*
-          * We need one push/pop to determine load address.  Use the same
--         * absolute stack address as the native path, for lack of a better
--         * alternative.
-+         * stack address as the native path.
-          */
--        mov     $0x1000, %esp
-+        mov     %ebx, %esp
-+        pop     %edx
- 
-         /* Calculate the load base address. */
-         call    1f
- 1:      pop     %esi
-         sub     $sym_offs(1b), %esi
- 
-+        /* Restore clobbered magic field */
-+        push    %edx
-+
-         /* Set up stack. */
-         lea     STACK_SIZE - CPUINFO_sizeof + sym_esi(cpu0_stack), %esp
- 
-@@ -463,18 +466,21 @@ __start:
-          * relocatable images, where one push/pop is required to calculate
-          * images load address.
-          *
--         * On a BIOS-based system, the IVT and BDA occupy the first 5/16ths of
--         * the first page of RAM, with the rest free for use.  Use the top of
--         * this page for a temporary stack, being one of the safest locations
--         * to clobber.
-+         * Save and restore the magic field of start_info in ebx, and use
-+         * that as the stack. See also
-+         * https://lore.kernel.org/xen-devel/20240814195053.5564-3-jason.andryuk@amd.com/
-          */
--        mov     $0x1000, %esp
-+        mov     %ebx, %esp
-+        pop     %edx
- 
-         /* Calculate the load base address. */
-         call    1f
- 1:      pop     %esi
-         sub     $sym_offs(1b), %esi
- 
-+        /* Restore clobbered magic field */
-+        push    %edx
-+
-         /* Set up stack. */
-         lea     STACK_SIZE - CPUINFO_sizeof + sym_esi(cpu0_stack), %esp
- 
--- 
-2.46.0
+It is purely informational (e.g. show up in the output of `ocamlfind
+list`), dependency resolution is done using `opam` files (which Xen
+doesn't have), not `META` files.
+You can link some code into an executable that lists the versions of
+all the libraries that it got linked with (using an OCamlfind module),
+and in that case it might be nice to have correct information there,
+but I don't think any of our code does that.
 
+>
+> ~Andrew
 
