@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E932895B12D
+	by mail.lfdr.de (Postfix) with ESMTPS id D57CD95B12B
 	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2024 11:08:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.781621.1191113 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.781623.1191117 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sh3nK-00037y-IJ; Thu, 22 Aug 2024 09:07:50 +0000
+	id 1sh3nK-0003DS-OZ; Thu, 22 Aug 2024 09:07:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 781621.1191113; Thu, 22 Aug 2024 09:07:50 +0000
+Received: by outflank-mailman (output) from mailman id 781623.1191117; Thu, 22 Aug 2024 09:07:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sh3nK-00035D-CX; Thu, 22 Aug 2024 09:07:50 +0000
-Received: by outflank-mailman (input) for mailman id 781621;
- Thu, 22 Aug 2024 09:06:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sh3nK-00037Y-Kt; Thu, 22 Aug 2024 09:07:50 +0000
+Received: by outflank-mailman (input) for mailman id 781623;
+ Thu, 22 Aug 2024 09:06:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=A8+D=PV=cloud.com=andrii.sultanov@srs-se1.protection.inumbo.net>)
- id 1sh3m8-00031f-US
- for xen-devel@lists.xenproject.org; Thu, 22 Aug 2024 09:06:36 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d4a99749-6065-11ef-8776-851b0ebba9a2;
- Thu, 22 Aug 2024 11:06:34 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a86859e2fc0so70576166b.3
- for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 02:06:34 -0700 (PDT)
+ id 1sh3mB-0002Rz-46
+ for xen-devel@lists.xenproject.org; Thu, 22 Aug 2024 09:06:39 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d6ada0fc-6065-11ef-a50a-bb4a2ccca743;
+ Thu, 22 Aug 2024 11:06:38 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-5334adf7249so794967e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 02:06:38 -0700 (PDT)
 Received: from EMEAENGAAD87503.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a868f2e6717sm88948266b.96.2024.08.22.02.06.33
+ a640c23a62f3a-a868f2e6717sm88948266b.96.2024.08.22.02.06.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Aug 2024 02:06:33 -0700 (PDT)
+ Thu, 22 Aug 2024 02:06:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4a99749-6065-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: d6ada0fc-6065-11ef-a50a-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1724317594; x=1724922394; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=nlhcotXPcm3V0aCfa011qTB8OJqHN9ilqhFJWLxdY/g=;
-        b=KJCo6U1tYO+C1kGdV0pkk2tn+qanO2c+rII5qM/crBclMUf7ypj0H228TxAun1PQQL
-         sxIB9uTATSUQcvU5wfS0j7qmW69/fqp8QOaBmlceeT6PSlurI/jJbkR8NGuILGWqj9fw
-         9HpKFVUksbCh3X8T0KhkHhlE+hS4Orjy8aYs8=
+        d=cloud.com; s=cloud; t=1724317597; x=1724922397; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cORQBguaRrQouCupVhe68zYd4OsX8uT6R2EJjrpteaQ=;
+        b=MOdW12v15WQoXrweKS/DwZ/wBOrbCdw9QggTD4gV+5sKUdhNW76TrBF/fz3jOA5vzu
+         kPgAPhsiSEdp2XBP9buyhL+mzSAGu8lefyP6kEh9hTDpxicbBUnR6pO+1NPZVTx7aux8
+         ZH7Lhs7NgXFe/zxHvMR3ks4KGa5XLFQqVh8VY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724317594; x=1724922394;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=nlhcotXPcm3V0aCfa011qTB8OJqHN9ilqhFJWLxdY/g=;
-        b=C+Sj12tOmX1cm5L41VNyS3DHhVTO/bAtwzWEwYaK5lLOzt60ZQ2LqLzNvQ1YdbdCgu
-         OAfSy7XGDQq1uNLxM1hIBvpPTxZFsAKL8/8hww9hpR0VZn7NMqHPLdga5N24gyXI86WU
-         gDGRUwHuUM1rKdV2u/wsqMnohnJUrAqOPevFT9Dhd8rVga/DFEZLQ7aG4BxJcUbHAYTa
-         TAgTs7R8U6eOA+3UpWG7HV43XFfMEIiFxwF2O8f7Zu0fSPjmPzNwdnUXWd1s+nXnwrxx
-         Umwql4hINUniHBCI+ipauP9PZ62Td6VW2kXMDExWw8VT/Je7j0d8i31hqNaMMKPQ1gG4
-         j1aA==
-X-Gm-Message-State: AOJu0YwQ5qYQrr6PyeDOosZo1V2uj/c/8IklKBtI9AANBJ8bJ3Tel9Ow
-	44vcDd0V2sduDPC+kthm3140I+GTVevVKfAfXWr6FSOOHm5qjgcDRAOMm3kaHXAvE2Bk6qvuq/j
-	4Iu8=
-X-Google-Smtp-Source: AGHT+IEiB7layv7P6SORlBAgpx54WlOYrTLxhW+HkUgimcpsGyORfLMAuVC3gSPgQHKAWe/P+qIKkA==
-X-Received: by 2002:a17:907:7e84:b0:a86:7fc2:398b with SMTP id a640c23a62f3a-a867fc2493emr305094366b.15.1724317593805;
-        Thu, 22 Aug 2024 02:06:33 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1724317597; x=1724922397;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=cORQBguaRrQouCupVhe68zYd4OsX8uT6R2EJjrpteaQ=;
+        b=I9iZHlN/FVsiOZ6OQ8b7gwitpnYQnHjy070pVnAGKYxSrhKw3w2kCmtmyZtlOFxHE1
+         KIAQLNy+IrAUxXuUmggtZZPx7depoW1nabBnAuJBa8UlM2YPuYwviIFqm7DsejieanB4
+         oFkxykc2kcGXdjGvBVxXUhqvH8DNYTUKbMQvIJsU/xUOjfV5uWLglcfQodJxP48qwuZ/
+         ao4bFYAIvc+bH22H+zTvJQ3yiPGECnnAPvE98imO0cgwuGRuQkrqC70EGwgV6BukIReJ
+         A5oMywFNvmnNFqElMS/W12u+pscbF5m/uT5QzfjLiFDBxIR+y6dXiRt0bxgWf5Nzuhtm
+         7weQ==
+X-Gm-Message-State: AOJu0YySCfphLfo8mJj5+tmcJ+FO7QODTkpk5Doq9ZaWXBitNdWqeopv
+	BdK9Bbtk63aqtE6phpH5xSg5ofaQmH+aryBojUEWW5Gz/FAx8NPxbt/Y5p5krv+ivukINllNspr
+	ICjM=
+X-Google-Smtp-Source: AGHT+IFZoC7jcASMVLRGYIPkD8jDYYqSOXmqVpo3vYtIjOVyDqELzPmYTBq5UG2H7gbAjBder2DQiw==
+X-Received: by 2002:a05:6512:39c7:b0:52c:d76f:7f61 with SMTP id 2adb3069b0e04-53348602056mr3554992e87.56.1724317597214;
+        Thu, 22 Aug 2024 02:06:37 -0700 (PDT)
 From: Andrii Sultanov <andrii.sultanov@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Andrii Sultanov <andrii.sultanov@cloud.com>,
 	Christian Lindig <christian.lindig@citrix.com>,
 	David Scott <dave@recoil.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 0/4] Stabilize Oxenstored's interface with
-Date: Thu, 22 Aug 2024 10:06:01 +0100
-Message-Id: <cover.1724314239.git.andrii.sultanov@cloud.com>
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH v1 1/4] tools/ocaml/common.make: Remove '-cc $(CC)' flag from OCAMLOPTFLAGS
+Date: Thu, 22 Aug 2024 10:06:02 +0100
+Message-Id: <110f63b76a12e8a9fead09f47319a35229222953.1724314239.git.andrii.sultanov@cloud.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1724314239.git.andrii.sultanov@cloud.com>
+References: <cover.1724314239.git.andrii.sultanov@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Oxenstored depends on unstable Xenctrl, utilizing only a few of its
-functions. This patch series introduces a dynamically-loaded OCaml
-plugin that aims to stabilize 'Xenctrl.domain_getinfo' and
-'Xenctrl.domain_getinfolist' by hiding the instability behind a versioned
-interface.
+This flag does not work as assumed and will not pass
+options (such as -shared) to the C compiler:
+https://github.com/ocaml/ocaml/issues/12284
 
-This, in turn, would allow to fork Oxenstored out of the xen tree,
-speeding up its development and allowing it to transition to an
-OCaml-standard build system.
+Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
+---
+ tools/ocaml/common.make | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This is only one step towards the long-term goal of being able to drop
-libxenctrl: https://gitlab.com/xen-project/xen/-/issues/190
-
-Commits and notes further in the patches explain the exact mechanism behind
-this. I've tested this oxenstored with a V2 interface and plugin, with V1
-plugin continuing to be compiled, loaded, and working correctly.
-
-A dynamic-loading approach was chosen because it allows one to easily review
-the remaining usages of Xenctrl and does not force oxenstored to be recompiled
-every time xen changes.
-
-This patch series passed the Gitlab CI
-(https://gitlab.com/xen-project/people/asultanov/xen/-/pipelines/1421643375),
-and was further tested on some hosts.
-
-Oxenstored currently uses the single-domain 'domain_getinfo' function,
-whereas Cxenstored uses the more-efficient 'domain_getinfolist'. Both of
-these are provided in the plugin to allow a transition from one to the
-other without modifying the interface in the future.
-
-A prototype of oxenstored using domain_getinfolist was also developed,
-though it is not a part of the current patch series. It also passed the
-Gitlab CI and was tested on hosts.
-(https://gitlab.com/xen-project/people/asultanov/xen/-/pipelines/1421686622)
-
-A Gitlab repository with these patches applied, if it's easier for
-anyone to review it on there:
-https://gitlab.com/xen-project/people/asultanov/xen/-/compare/staging...staging?from_project_id=2336572
-
-Andrii Sultanov (4):
-  tools/ocaml/common.make: Remove '-cc $(CC)' flag from OCAMLOPTFLAGS
-  ocaml/libs: Implement a dynamically-loaded plugin for
-    Xenctrl.domain_getinfo
-  tools/oxenstored: Use the plugin for Xenctrl.domain_getinfo
-  Makefile.rules: Fix OCaml libs
-
- Config.mk                                     |   2 +-
- configure                                     |   7 +
- m4/paths.m4                                   |   4 +
- tools/configure                               |   7 +
- tools/ocaml/Makefile                          |   1 +
- tools/ocaml/Makefile.rules                    |  21 ++-
- tools/ocaml/common.make                       |   2 +-
- tools/ocaml/libs/Makefile                     |   2 +-
- tools/ocaml/libs/xenstoredglue/META.in        |   4 +
- tools/ocaml/libs/xenstoredglue/Makefile       |  39 ++++
- .../domain_getinfo_plugin_v1/META.in          |   5 +
- .../domain_getinfo_plugin_v1/Makefile         |  38 ++++
- .../domain_getinfo_stubs_v1.c                 | 169 ++++++++++++++++++
- .../domain_getinfo_v1.ml                      |  51 ++++++
- .../domain_getinfo_v1.mli                     |   0
- .../libs/xenstoredglue/plugin_interface_v1.ml |  25 +++
- .../xenstoredglue/plugin_interface_v1.mli     |  34 ++++
- tools/ocaml/xenstored/Makefile                |   5 +-
- tools/ocaml/xenstored/domains.ml              |  63 +++++--
- tools/ocaml/xenstored/paths.ml.in             |   1 +
- 20 files changed, 454 insertions(+), 26 deletions(-)
- create mode 100644 tools/ocaml/libs/xenstoredglue/META.in
- create mode 100644 tools/ocaml/libs/xenstoredglue/Makefile
- create mode 100644 tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/META.in
- create mode 100644 tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/Makefile
- create mode 100644 tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/domain_getinfo_stubs_v1.c
- create mode 100644 tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/domain_getinfo_v1.ml
- create mode 100644 tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/domain_getinfo_v1.mli
- create mode 100644 tools/ocaml/libs/xenstoredglue/plugin_interface_v1.ml
- create mode 100644 tools/ocaml/libs/xenstoredglue/plugin_interface_v1.mli
-
+diff --git a/tools/ocaml/common.make b/tools/ocaml/common.make
+index 0c8a597d5b..cc126b749f 100644
+--- a/tools/ocaml/common.make
++++ b/tools/ocaml/common.make
+@@ -12,7 +12,7 @@ OCAMLFIND ?= ocamlfind
+ CFLAGS += -fPIC -I$(shell ocamlc -where)
+ 
+ OCAMLOPTFLAG_G := $(shell $(OCAMLOPT) -h 2>&1 | sed -n 's/^  *\(-g\) .*/\1/p')
+-OCAMLOPTFLAGS = $(OCAMLOPTFLAG_G) -ccopt "$(LDFLAGS)" -dtypes $(OCAMLINCLUDE) -cc $(CC) -w F -warn-error F
++OCAMLOPTFLAGS = $(OCAMLOPTFLAG_G) -ccopt "$(LDFLAGS)" -dtypes $(OCAMLINCLUDE) -w F -warn-error F
+ OCAMLCFLAGS += -g $(OCAMLINCLUDE) -w F -warn-error F
+ 
+ VERSION := 4.1
 -- 
 2.39.2
 
