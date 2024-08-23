@@ -2,57 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79B5495D4CF
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 20:01:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782563.1192068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EE8595D4D7
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 20:02:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782574.1192080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shYaB-0002Sm-0d; Fri, 23 Aug 2024 18:00:19 +0000
+	id 1shYcU-00034B-Ga; Fri, 23 Aug 2024 18:02:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782563.1192068; Fri, 23 Aug 2024 18:00:18 +0000
+Received: by outflank-mailman (output) from mailman id 782574.1192080; Fri, 23 Aug 2024 18:02:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shYaA-0002Q8-T6; Fri, 23 Aug 2024 18:00:18 +0000
-Received: by outflank-mailman (input) for mailman id 782563;
- Fri, 23 Aug 2024 18:00:17 +0000
+	id 1shYcU-00030x-D5; Fri, 23 Aug 2024 18:02:42 +0000
+Received: by outflank-mailman (input) for mailman id 782574;
+ Fri, 23 Aug 2024 18:02:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MDtM=PW=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
- id 1shYa9-0002Q2-KK
- for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 18:00:17 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060d.outbound.protection.outlook.com
- [2a01:111:f403:2412::60d])
+ <SRS0=S9BN=PW=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1shYcT-00030p-5l
+ for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 18:02:41 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061e.outbound.protection.outlook.com
+ [2a01:111:f403:2417::61e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b62ddb2-6179-11ef-8776-851b0ebba9a2;
- Fri, 23 Aug 2024 20:00:14 +0200 (CEST)
-Received: from BYAPR07CA0068.namprd07.prod.outlook.com (2603:10b6:a03:60::45)
- by IA1PR12MB8285.namprd12.prod.outlook.com (2603:10b6:208:3f6::19)
+ id e1c406d5-6179-11ef-8776-851b0ebba9a2;
+ Fri, 23 Aug 2024 20:02:39 +0200 (CEST)
+Received: from CH0PR04CA0049.namprd04.prod.outlook.com (2603:10b6:610:77::24)
+ by SN7PR12MB8028.namprd12.prod.outlook.com (2603:10b6:806:341::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.19; Fri, 23 Aug
- 2024 18:00:06 +0000
-Received: from SJ5PEPF000001F3.namprd05.prod.outlook.com
- (2603:10b6:a03:60:cafe::3) by BYAPR07CA0068.outlook.office365.com
- (2603:10b6:a03:60::45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.21 via Frontend
- Transport; Fri, 23 Aug 2024 18:00:06 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001F3.mail.protection.outlook.com (10.167.242.71) with Microsoft
+ 2024 18:02:33 +0000
+Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
+ (2603:10b6:610:77:cafe::48) by CH0PR04CA0049.outlook.office365.com
+ (2603:10b6:610:77::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.19 via Frontend
+ Transport; Fri, 23 Aug 2024 18:02:33 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7897.11 via Frontend Transport; Fri, 23 Aug 2024 18:00:05 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7897.11 via Frontend Transport; Fri, 23 Aug 2024 18:02:33 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 23 Aug
- 2024 13:00:05 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 23 Aug
- 2024 13:00:04 -0500
-Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39 via Frontend Transport; Fri, 23 Aug 2024 13:00:04 -0500
+ 2024 13:02:32 -0500
+Received: from [172.20.142.25] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 23 Aug 2024 13:02:31 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,369 +59,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b62ddb2-6179-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: e1c406d5-6179-11ef-8776-851b0ebba9a2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WH35kBiOVZxCIDTlH5xgk54p+DlmnQdVZLoWvnn0bP3rv7bHD7kOxhqdRgA0+i1MUROZ1kQUd7dEHh4v6HxmiOpixqKk+PREqSPWD0DcFCgWencD3+UbJXRFsSrosTuqvmOjEMTRVOcYcQxuKk6qnqEdN6A1ASugGHxHpDhJ4gk+cSUhNtKINbvbVxy9YMhqGLHCwx6eZL3ZbZAtwpc13ZNiFAJJvUtK6R9g0weYpgGrLzfcCfOW7NJMYA8cYbkahfgJYr3abbJwKnMxWe8YZifS+evV2/nQqFJi173F4qArPNMcmvfZc/8vIhdPZfD2EFUP+wceVwIBJlMEu9K7rQ==
+ b=GK8rCIA2VuON1aBW4iZhomC0nD6WFRYxBGmH294rNbm+SPTJX5keYkBvzXR4Ch/TroA9qpmgihTDhmm2HciEsDZ6Qb8qqkj/dw2EHMlmdEJd/D+jwjJG/Emkm20pDBK3HivRnwWMtJHz5T0khlMItctZs1idslZCau3LMg5f5n7vIhvfLPqsMMqPF0vJsAoxJOVXWUcEBSycdBFohUfQVvK1DdJ6HZ4hNPkCb4Q0GR/buxFtx4DZQJrdFN44WMvQHKsGYpo9Mp3O4o4Wbq9xDoRVyJ9BDD7nQ94dAm32HaTm4r7EiqtY69iZMnMjSBQqiAD+yFXAqQ3WMTW6uoH6xQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LfzpGZMDmtdl4dSoE7N6VP/grakgFOJct3JY2bcYMtg=;
- b=FyFtnH0yvH/kcEqvSQAtzt8XwbFQElfdHqYKRdVI6l+zo2AfxMs/O6E2qwKa1cJlKP46JGiRZEElw7FI93lZ5OVZrMm78B+BxMZ8NlbCe1f6VUQtOlZKkdbQkwg/d+aCCUF82H5CQGkrxqkn63ABUWViljd3vtmyvjYBSPVi48GXXRMg3IEzydBKWhRsimN+VS4L0MMMvUzsse7frjhLNzeEKcF0FpjWbX7nyHfHqkTK3Ml8HzkRvjiCAarWl1xDdcT76hM7mXBJ8YWnHRbt78hEUBqDVqXGmyYN8fBHP6VDYiY+e1TJwC6BHjMJUqe9hNiqLN0wBXJYN+n5Qn4ZCw==
+ bh=101NKS/q49Y8PycYuNb81Md7WzKTjF3oRWtqwfWxQkQ=;
+ b=vruaWaljg21/w5L/0+TNcGXHUQa6+oPjqgd9LsA/CEQYD5P7VwAHvHBkLFhDnFfTdngTXjXD8VCQGV9Yjxvq0k2IfZalitD+QrtHgEDRVgy8OvW4loTmIuEheh9vgTnK8fEFOCDZsGmyWGrzeBJXW1Ud1CC0eJeO2LPmz8RIzug8G2aVhLDiCV2BoXoWL5V3Xh+vej3phQfcvnzz+7eUk+3uSBn6QXzaknvdJjgFeA+8HmM1TY8x9TzVvrDQ9q3QCV9SF3PFTXsKewXD8Qtnv6bbjQ8ZuHeXviFaSA8+m/O89hPIlIHOJXVMzSfcKmSwFd9DFF1bTvgnyj+tbTHomw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LfzpGZMDmtdl4dSoE7N6VP/grakgFOJct3JY2bcYMtg=;
- b=RMRgoZTkgj1lcvnK4fVRM31Udke1i6Us5jvRK3Xg1r8o2o2RoKA1n0aoZCPL7XAgD3T6rjX0KLeudPyWI2zlnAnPusR9kwUIHBFTBPb2ly1QuG6cVEwAQ7tUrqdqq8Ba3DZ3giUwTgYvJkCqs71A2SseZvDdvwK+Ica9mrr77o4=
+ bh=101NKS/q49Y8PycYuNb81Md7WzKTjF3oRWtqwfWxQkQ=;
+ b=1YhFwP+/AnfrJP9ASuw9nhRxCo9aUI0OodcBZCqnLlWk2OlI2SBIf0iAe6cwc6uxtFlBCqqQaSj9sG6s5U9vXukcXV2Izb+6f1wdZOb47L2jgFC3pjvBXxDoZnHxYVKpyEzdoH5VKewuvXp31JI7Y8XO2lmQY1h2UDfFkxizHaE=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Date: Fri, 23 Aug 2024 11:00:04 -0700
-From: Stefano Stabellini <stefano.stabellini@amd.com>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Ayan Kumar Halder <ayankuma@amd.com>
-CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, "Ayan Kumar
- Halder" <ayan.kumar.halder@amd.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>, Artem Mygaiev <artem_mygaiev@epam.com>
-Subject: Re: [PATCH] docs: fusa: Add requirements for generic timer
-In-Reply-To: <d5e97cae-fc6d-4913-88ca-47ecb157752c@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2408231035220.3871186@ubuntu-linux-20-04-desktop>
-References: <20240820103816.1661102-1-ayan.kumar.halder@amd.com> <5F0AF572-3437-4372-96EB-42F46B3A3155@arm.com> <101a7105-5638-4c69-a5b0-29c252284aea@amd.com> <D3358591-F9E2-44A6-A22A-FC2AA8857C68@arm.com> <alpine.DEB.2.22.394.2408221327400.3871186@ubuntu-linux-20-04-desktop>
- <9DA45539-F136-40D8-BF46-E63EA1B8ADA6@arm.com> <d5e97cae-fc6d-4913-88ca-47ecb157752c@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <cad62469-aae0-4725-bfc9-1229ae6c7c9f@amd.com>
+Date: Fri, 23 Aug 2024 14:02:30 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] x86/msi: fix locking for SR-IOV devices
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Teddy Astie
+	<teddy.astie@vates.tech>, <xen-devel@lists.xenproject.org>
+References: <20240812203938.981588-1-stewart.hildebrand@amd.com>
+ <74f88a45-a632-4ca6-9cee-95f52370b397@suse.com>
+ <c05c9312-e729-48fb-942f-fbb378cd097a@amd.com>
+ <8c0d428f-5122-4ec7-ab3b-3f61f6322211@suse.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <8c0d428f-5122-4ec7-ab3b-3f61f6322211@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F3:EE_|IA1PR12MB8285:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee4dc1ab-2b7e-4a20-b7f6-08dcc39d6b74
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|SN7PR12MB8028:EE_
+X-MS-Office365-Filtering-Correlation-Id: cca38f01-9732-4d88-cc8c-08dcc39dc345
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
+	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?H0mYCkGuiEZQCsUD/bJKE3jxX7uNCr+TCV02eK6q7yrE2lsn1kdKmm7tVWmW?=
- =?us-ascii?Q?ISXfYqH3JIx0I55zAZvM7lAM8BcSBL8FBEy3fpihC4v+CGWmMVFVsFuNgTVp?=
- =?us-ascii?Q?T4SDqFvFp6IsuVGcfmoN1dfminN/AOfMYBZkLTUYAEO20l7jDXy3kvc3JvWt?=
- =?us-ascii?Q?J9Csf2tUj1DMa8YsHQ94OMu4becOgOU7WeJ8BZqKoTgLi4maf6TJKn/64h31?=
- =?us-ascii?Q?43TRHItls5QSN8YMLsWYBIHXYlx8MVH63NXAz40fGREFuQLdufoOKZdqIcBW?=
- =?us-ascii?Q?ngUMTiSvcyqcXZXIqdFZzHpq2IWuuYFwngz+WTsJw4QD8msE7boprCuh9+7c?=
- =?us-ascii?Q?sRmSG9Ognkq2/P7+jq9OID2m1NbLsWVm1OgARK4xC21K54qO7Hy+rKZ6GOgN?=
- =?us-ascii?Q?P+nl0O+i+p6ucMAunsUX2CRiWRwvCIGPBfxGwjZBPcoxs3A2FkyPGmw7gQrq?=
- =?us-ascii?Q?i0ywCEpsXTPYwDbL/bNaCQNDkuV4bLD2dz4zWjZjJIHQOy28fTSoKsglod0H?=
- =?us-ascii?Q?+TIwMfhW3aZOwfza/9HHOWfP0qJ/6sq9GAkXwwbJuLVI9dPV8pUYSlo8fQPA?=
- =?us-ascii?Q?lO7dQEaieBYRU8vetkYJe652Yr5zUIEasFMeAZF0ucKTWI85EJR+IS49vhdw?=
- =?us-ascii?Q?fK1WAxjrdYqS7ZqQywP9hrldbqElJz93vYGLmf4Qrgd87y9L8dTlNOb8SNoh?=
- =?us-ascii?Q?Zz12qrw6wz5IVlEploeCz27SrNJZmn6Q09vdVNh0uPC3+j2dblDPA3ixDR+E?=
- =?us-ascii?Q?p8z2VFK8BtwUWUVZt21mFPmpOUYc0GYCl/JNri5Fqluyen2kJ+H37Njv0nUe?=
- =?us-ascii?Q?4C3RO0a6n0a41ikBQX8ynIbsoUk1onm+NeBADkFuFp5CYsOJGqv5PaJyUFES?=
- =?us-ascii?Q?B16+lISu0dGk5/lnJPx7MIecm3XmnMf/kwh07LPOpHvmRMYOMCzdFL3gp4nT?=
- =?us-ascii?Q?SzbaETWDya9uB5L2vssi1Bjiw3LOypFxrWuMHfqKp5gGG4kajHWmaum8ARzL?=
- =?us-ascii?Q?wufBceaNAeqLXPhsbkkYXvbtH/aN1PxS3/U3D052uKda4j2tXGMp+xmhPXKC?=
- =?us-ascii?Q?2Umq9fc4GYTB416urJKVHqalq4DpaNnKkHe2MtMotsWCsCpx6a1rSdrypj+i?=
- =?us-ascii?Q?ONFPJJiKwn+65UPGciiopuRsumcjm94fhkg/Lz086+Mo0I0Yd5vPdaiPL+cm?=
- =?us-ascii?Q?Y793UvzfwBVemuKCag3XZLBm5y3FRxoBIXqAvOEKSifN+hWJ4X5CFHxX1/a3?=
- =?us-ascii?Q?V+OxI25DIG1VwcXkF12xtvKV1oxAi2R7Hol8pKBQpAsDeEWFIWM0Nxij4CGs?=
- =?us-ascii?Q?AtPaM530WEZvjE929R8xrikAcAEUPrxtFyroioKRi+QGjDXacbHdyCnbNqDu?=
- =?us-ascii?Q?EkQjOCIYv6Z0U8NQGXNeHaKGljoxRrqzXklsNE+B919CrxyQHBnncb6ip4La?=
- =?us-ascii?Q?P0o4PLMiEHRDpwTak2HthLgvw/7gpMJW?=
+	=?utf-8?B?bjJ6d2lqYjdvREIvSjhzNjRhYnRVYlUvT3VaMXZFQ2RwajRIc2UxSG44endM?=
+ =?utf-8?B?MDVoWkMxbWdvcm5qUFQ3aHNhMFlQdUxHdTdqMEZRejJGc2NYN0grWjgySlJL?=
+ =?utf-8?B?eFdsMVIwS0VmYkhqY2pSZTNobmpMckFSYWpMTksrWElZZmNLRm9oM3ZYbkps?=
+ =?utf-8?B?OFhuRTNScjZNWHhEN2RTa1hmM1dxKzg5VWhWc0dzYi9CZmcyS3ZXQlRnVHFs?=
+ =?utf-8?B?T1B3N1Z5aWh5Y0d1dllob1pvcTZJN1lOUFFoWTJMUFRXS1g3Ymc4WVEzN0J4?=
+ =?utf-8?B?c1Y3SCtNdk9DOXo3eTJrMGN2REpWOUkvNUUxMUtrSk44RlFPdG1xakdPSXRw?=
+ =?utf-8?B?RXFrNlN4b1d4QUFadHc5QVIyNWIyYU1wOEVJRmFmc2lrUUUwd0ZXc3lVR0Nn?=
+ =?utf-8?B?ZmpTTU9Nb1VMajNPZy9rY3FGZjY0c2RUQ1EwZ01hejRnNkpvTjIzTXYrWWp6?=
+ =?utf-8?B?QytLUG5abGZiYy9qTFNwVlNsK21xRVBBR05sc1JOUXNLRmdRckpBUERVTkRH?=
+ =?utf-8?B?L2JZek9ERFhvRXZZWDN4b001c2tMRitucFdLLzlJOFBQRjZoR001UzB1L2J2?=
+ =?utf-8?B?SWQ0MzYvTEI1Vm5HVXcwMnhIK09wNTArNkdsSDB3U2FocTh5d3Noa1JFcUFm?=
+ =?utf-8?B?VGNGZGVqMjVjbDRuZHkveGYvU1FsSkZKSjU4ZjlBbXJNWTVsNXBVdm0xOW42?=
+ =?utf-8?B?NnNlOWJiM3VLVUoyZmt5a2dxV2tqRjNvRmhUa2sxZ2gwMWkzcnF0QlJDVmUy?=
+ =?utf-8?B?aUNKaXMvNTdzVTM4L2xLOFR4NHJnaW93RnA3TUJlRFdOMjNBZVN1V21DZERu?=
+ =?utf-8?B?NHVOaUF4bVZhLytRUTdsWkFkRE91QW52aEd5Z25qbkxrOTNuNVAyMUlOanh3?=
+ =?utf-8?B?enBWbEVKb1hDTTdlQ05acDVCK3k2ZjZsVjhxMUVnV202N1Z4dzl4VUJodEdX?=
+ =?utf-8?B?ZVFHOGRFL28zNGFhVlArTnN5SDlRZGQ2aVYzQ2dOZU1aTFBSVDZzd1BGV2k3?=
+ =?utf-8?B?bjFCbUJlYjBpNnJvVkR3bmsxWk9Id1NuUlpVOVRCdyt6R0VlYzgvNnpxYnFG?=
+ =?utf-8?B?VkJIZE8yaUVPaEZXbkFHNmQvYkhtaldQMTlwaHJyZ0JxMHhqUzBuTnFtbDFm?=
+ =?utf-8?B?SzJoVVJ1cEYrQVZCUExsZWp4NTZPNDJxc3ZINVZqNlJHYUlFMDI4ZFoyYnRF?=
+ =?utf-8?B?dXJzTFFrM3ZOWnRSRlJLY0dUcG9JNlM2eGNxckluYzJtWmRSZDY2SlRDZGd5?=
+ =?utf-8?B?WGtXMHU2NW9kY1diTmpQeU5INlNtRGpGcEl6WVVvSEw5T2NWcERyODhsV0dF?=
+ =?utf-8?B?U1VRWHgzcjNHOTErMFlCUFVwTFowb25qUnJPTkpuM0hhcEIwTVluOUFzOFdT?=
+ =?utf-8?B?Uk16YVY3aElaM2cvTGdTVEJ1TFRvMkFmYmhUbklHckFHYkJaRVNNNW1yOFhu?=
+ =?utf-8?B?MFlDc2hpU2tEREdvU3gwNmtjVDY4eHdJc1ZCUlVsZmZheDZGL2xXS2RuaFZ1?=
+ =?utf-8?B?QlNpYjM2RTBESjFNREw1aklwTDk0V0FUT1VoOCtXZTVnNmEyc2pEbEphd3Ew?=
+ =?utf-8?B?cGVGazVvUkJZRVo3ZEJWNEs4ZWhVT01YWExYVVRHMHU0QkJldzdYSzBDZWt2?=
+ =?utf-8?B?ZVBCdkZldmpvbzIvQzlCMFNpN3RMRXFlYnBseUlZMHlQLzdjR2Z2RGNGbS8r?=
+ =?utf-8?B?S1U4NTRHdm9tUmpqSGNvVmxyWFNwcXVSQUR1K0RGTTR5eHdGVnpheGV2cW9w?=
+ =?utf-8?B?dXZabTNNYXhRcXdEakdsaFB5NnhGcTduWWJBYUoyK2RwdkJ0MVI5TlpXbVg4?=
+ =?utf-8?B?Q0JUVTlmZkZCWlkvWnFEUUR3dCt2VXBVdXo4ZGRZREFEdGV2RnRxRG1xa2FM?=
+ =?utf-8?B?N1psRXU3MU1jTHp0MGFyVDBINzg0MnZvWTNzd1V5eFcwREhETVA5SFY4SUFj?=
+ =?utf-8?Q?b0PhIZE6m1QAKDwB/46hnseLivX0TAal?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2024 18:00:05.8454
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2024 18:02:33.2399
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee4dc1ab-2b7e-4a20-b7f6-08dcc39d6b74
+X-MS-Exchange-CrossTenant-Network-Message-Id: cca38f01-9732-4d88-cc8c-08dcc39dc345
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F3.namprd05.prod.outlook.com
+	CH1PEPF0000AD7F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8285
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8028
 
-On Fri, 23 Aug 2024, Ayan Kumar Halder wrote:
-> Hi Bertrand/Stefano/Michal,
+On 8/15/24 04:36, Jan Beulich wrote:
+> On 15.08.2024 03:28, Stewart Hildebrand wrote:
+>> On 8/13/24 10:01, Jan Beulich wrote:
+>>> On 12.08.2024 22:39, Stewart Hildebrand wrote:
+>>>> @@ -446,7 +448,27 @@ static void free_pdev(struct pci_seg *pseg, struct pci_dev *pdev)
+>>>>  
+>>>>      list_del(&pdev->alldevs_list);
+>>>>      pdev_msi_deinit(pdev);
+>>>> -    xfree(pdev);
+>>>> +
+>>>> +    if ( pdev->info.is_virtfn )
+>>>> +    {
+>>>> +        struct pci_dev *pf_pdev = pdev->virtfn.pf_pdev;
+>>>> +
+>>>> +        if ( pf_pdev )
+>>>> +        {
+>>>> +            list_del(&pdev->virtfn.next);
+>>>> +            if ( pf_pdev->physfn.dealloc_pending &&
+>>>> +                 list_empty(&pf_pdev->physfn.vf_list) )
+>>>> +                xfree(pf_pdev);
+>>>> +        }
+>>>> +        xfree(pdev);
+>>>> +    }
+>>>> +    else
+>>>> +    {
+>>>> +        if ( list_empty(&pdev->physfn.vf_list) )
+>>>> +            xfree(pdev);
+>>>> +        else
+>>>> +            pdev->physfn.dealloc_pending = true;
+>>>> +    }
+>>>
+>>> Could I talk you into un-indenting the last if/else by a level, by making
+>>> the earlier else and "else if()"?
+>>>
+>>> One aspect I didn't properly consider when making the suggestion: What if,
+>>> without all VFs having gone away, the PF is re-added? In that case we
+>>> would better recycle the existing structure. That's getting a little
+>>> complicated, so maybe a better approach is to refuse the request (in
+>>> pci_remove_device()) when the list isn't empty?
+>>
+>> Hm. Right. The growing complexity of maintaining these PF<->VF links
+>> (introduced on a hunch that they may be useful in the future) is making
+>> me favor the previous approach from v2 of simply copying the vf_len
+>> array. So unless there are any objections I'll go back to that approach
+>> for v4.
 > 
-> On 23/08/2024 08:22, Bertrand Marquis wrote:
-> > Hi Stefano,
-> > 
-> > > On 22 Aug 2024, at 22:29, Stefano Stabellini <sstabellini@kernel.org>
-> > > wrote:
-> > > 
-> > > On Thu, 21 Aug 2024, Bertrand Marquis wrote:
-> > > > > On 22 Aug 2024, at 11:00, Michal Orzel <michal.orzel@amd.com> wrote:
-> > > > > 
-> > > > > Hi Bertrand,
-> > > > > 
-> > > > > I agree with all your comments with a few exceptions, as stated below.
-> > > > > 
-> > > > > On 21/08/2024 17:06, Bertrand Marquis wrote:
-> > > > > > 
-> > > > > > Hi Ayan,
-> > > > > > 
-> > > > > > > On 20 Aug 2024, at 12:38, Ayan Kumar Halder
-> > > > > > > <ayan.kumar.halder@amd.com> wrote:
-> > > > > > > 
-> > > > > > > From: Michal Orzel <michal.orzel@amd.com>
-> > > > > > > 
-> > > > > > > Add the requirements for the use of generic timer by a domain
-> > > > > > > 
-> > > > > > > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> > > > > > > Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> > > > > > > ---
-> > > > > > > .../reqs/design-reqs/arm64/generic-timer.rst  | 139
-> > > > > > > ++++++++++++++++++
-> > > > > > > docs/fusa/reqs/index.rst                      |   3 +
-> > > > > > > docs/fusa/reqs/intro.rst                      |   3 +-
-> > > > > > > docs/fusa/reqs/market-reqs/reqs.rst           |  34 +++++
-> > > > > > > docs/fusa/reqs/product-reqs/arm64/reqs.rst    |  24 +++
-> > > > > > > 5 files changed, 202 insertions(+), 1 deletion(-)
-> > > > > > > create mode 100644
-> > > > > > > docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
-> > > > > > > create mode 100644 docs/fusa/reqs/market-reqs/reqs.rst
-> > > > > > > create mode 100644 docs/fusa/reqs/product-reqs/arm64/reqs.rst
-> > > > > > > 
-> > > > > > > diff --git a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
-> > > > > > > b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
-> > > > > > > new file mode 100644
-> > > > > > > index 0000000000..bdd4fbf696
-> > > > > > > --- /dev/null
-> > > > > > > +++ b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
-> > > > > > > @@ -0,0 +1,139 @@
-> > > > > > > +.. SPDX-License-Identifier: CC-BY-4.0
-> > > > > > > +
-> > > > > > > +Generic Timer
-> > > > > > > +=============
-> > > > > > > +
-> > > > > > > +The following are the requirements related to ARM Generic Timer
-> > > > > > > [1] interface
-> > > > > > > +exposed by Xen to Arm64 domains.
-> > > > > > > +
-> > > > > > > +Probe the Generic Timer device tree node from a domain
-> > > > > > > +------------------------------------------------------
-> > > > > > > +
-> > > > > > > +`XenSwdgn~arm64_generic_timer_probe_dt~1`
-> > > > > > > +
-> > > > > > > +Description:
-> > > > > > > +Xen shall generate a device tree node for the Generic Timer (in
-> > > > > > > accordance to
-> > > > > > > +ARM architected timer device tree binding [2]).
-> > > > > > You might want to say where here. The domain device tree ?
-> > > > > > 
-> > > > > > > +
-> > > > > > > +Rationale:
-> > > > > > > +
-> > > > > > > +Comments:
-> > > > > > > +Domains shall probe the Generic Timer device tree node.
-> > > > > > Please prevent the use of "shall" here. I would use "can".
-> > > > > > Also detect the presence of might be better than probe.
-> > > > > > 
-> > > > > > > +
-> > > > > > > +Covers:
-> > > > > > > + - `XenProd~emulated_timer~1`
-> > > > > > > +
-> > > > > > > +Read system counter frequency
-> > > > > > > +-----------------------------
-> > > > > > > +
-> > > > > > > +`XenSwdgn~arm64_generic_timer_read_freq~1`
-> > > > > > > +
-> > > > > > > +Description:
-> > > > > > > +Xen shall expose the frequency of the system counter to the
-> > > > > > > domains.
-> > > > > > The requirement would need to say in CNTFRQ_EL0 and in the domain
-> > > > > > device tree xxx entry.
-> > > > > > 
-> > > > > > > +
-> > > > > > > +Rationale:
-> > > > > > > +
-> > > > > > > +Comments:
-> > > > > > > +Domains shall read it via CNTFRQ_EL0 register or
-> > > > > > > "clock-frequency" device tree
-> > > > > > > +property.
-> > > > > > I do not think this comment is needed.
-> > > > > > 
-> > > > > > > +
-> > > > > > > +Covers:
-> > > > > > > + - `XenProd~emulated_timer~1`
-> > > > > > > +
-> > > > > > > +Access CNTKCTL_EL1 system register from a domain
-> > > > > > > +------------------------------------------------
-> > > > > > > +
-> > > > > > > +`XenSwdgn~arm64_generic_timer_access_cntkctlel1~1`
-> > > > > > > +
-> > > > > > > +Description:
-> > > > > > > +Xen shall expose counter-timer kernel control register to the
-> > > > > > > domains.
-> > > > > > "counter-timer kernel" is a bit odd here, is it the name from arm
-> > > > > > arm ?
-> > > > > > Generic Timer control registers ? or directly the register name.
-> > > > > This is the name from Arm ARM. See e.g.:
-> > > > > https://developer.arm.com/documentation/ddi0601/2023-12/AArch64-Registers/CNTKCTL-EL1--Counter-timer-Kernel-Control-Register?lang=en
-> > > > Right then i would use the same upper cases: Counter-timer Kernel
-> > > > Control
-> > > > register and still mention CNTKCTL_EL1 as it would be clearer.
-> > > > 
-> > > > > > > +
-> > > > > > > +Rationale:
-> > > > > > > +
-> > > > > > > +Comments:
-> > > > > > > +Domains shall access the counter-timer kernel control register to
-> > > > > > > allow
-> > > > > > > +controlling the access to the timer from userspace (EL0).
-> > > > > > This is documented in the arm arm, this comment is not needed.
-> > > > > > 
-> > > > > > > +
-> > > > > > > +Covers:
-> > > > > > > + - `XenProd~emulated_timer~1`
-> > > > > > > +
-> > > > > > > +Access virtual timer from a domain
-> > > > > > > +----------------------------------
-> > > > > > > +
-> > > > > > > +`XenSwdgn~arm64_generic_timer_access_virtual_timer~1`
-> > > > > > > +
-> > > > > > > +Description:
-> > > > > > > +Xen shall expose the virtual timer registers to the domains.
-> > > > > > > +
-> > > > > > > +Rationale:
-> > > > > > > +
-> > > > > > > +Comments:
-> > > > > > > +Domains shall access and make use of the virtual timer by
-> > > > > > > accessing the
-> > > > > > > +following system registers:
-> > > > > > > +CNTVCT_EL0,
-> > > > > > > +CNTV_CTL_EL0,
-> > > > > > > +CNTV_CVAL_EL0,
-> > > > > > > +CNTV_TVAL_EL0.
-> > > > > > The requirement to be complete should give this list, not the
-> > > > > > comment.
-> > > > > > 
-> > > > > > > +
-> > > > > > > +Covers:
-> > > > > > > + - `XenProd~emulated_timer~1`
-> > > > > > > +
-> > > > > > > +Access physical timer from a domain
-> > > > > > > +-----------------------------------
-> > > > > > > +
-> > > > > > > +`XenSwdgn~arm64_generic_timer_access_physical_timer~1`
-> > > > > > > +
-> > > > > > > +Description:
-> > > > > > > +Xen shall expose physical timer registers to the domains.
-> > > > > > > +
-> > > > > > > +Rationale:
-> > > > > > > +
-> > > > > > > +Comments:
-> > > > > > > +Domains shall access and make use of the physical timer by
-> > > > > > > accessing the
-> > > > > > > +following system registers:
-> > > > > > > +CNTPCT_EL0,
-> > > > > > > +CNTP_CTL_EL0,
-> > > > > > > +CNTP_CVAL_EL0,
-> > > > > > > +CNTP_TVAL_EL0.
-> > > > > > same as upper
-> > > > > > 
-> > > > > > > +
-> > > > > > > +Covers:
-> > > > > > > + - `XenProd~emulated_timer~1`
-> > > > > > > +
-> > > > > > > +Trigger the virtual timer interrupt from a domain
-> > > > > > > +-------------------------------------------------
-> > > > > > > +
-> > > > > > > +`XenSwdgn~arm64_generic_timer_trigger_virtual_interrupt~1`
-> > > > > > > +
-> > > > > > > +Description:
-> > > > > > > +Xen shall enable the domains to program the virtual timer to
-> > > > > > > generate the
-> > > > > > > +interrupt.
-> > > > > > I am not sure this is right here.
-> > > > > > You gave access to the registers upper so Xen responsibility is not
-> > > > > > really to
-> > > > > > enable anything but rather make sure that it generates an interrupt
-> > > > > > according to
-> > > > > > how the registers have been programmed.
-> > > > > I'm in two minds about it. On one hand you're right and the IRQ
-> > > > > trigger is a side-effect
-> > > > > of programming the registers correctly. On the other, these are design
-> > > > > requirements which
-> > > > > according to "fusa/reqs/intro.rst" describe what SW implementation is
-> > > > > doing. Our way of injecting
-> > > > > timer IRQs into guests is a bit different (phys timer is fully
-> > > > > emulated and we use internal timers
-> > > > > and for virt timer we first route IRQ to Xen, mask the IRQ and inject
-> > > > > to guest). If I were to write
-> > > > > tests to cover Generic Timer requirements I'd expect to cover whether
-> > > > > r.g. masking/unmasking IRQ works,
-> > > > > whether IRQ was received, etc.
-> > > > This is true but i think it would be more logic in non design
-> > > > requirements to
-> > > > phrase things to explain the domain point of view rather than how it is
-> > > > implemented.
-> > > > 
-> > > > Here the point is to have a timer fully functional from guest point of
-> > > > view, including
-> > > > getting interrupts when the timer should generate one.
-> > > > 
-> > > > Maybe something like: Xen shall generate timer interrupts to domains
-> > > > when the timer condition asserts.
-> > > Both statements are correct.
-> > > 
-> > > Michal's original statement "Xen shall enable the domains to program the
-> > > virtual timer to generate the interrupt" is correct. The timer interrupt
-> > > will be generated by the hardware to Xen, if the guest programs the
-> > > registers correctly. If Xen does nothing, the interrupt is still
-> > > generated and received by Xen.
-> > > 
-> > > Bertrand's statement is also correct. Xen needs to generate a virtual
-> > > timer interrupt equivalent to the physical timer interrupt, after
-> > > receiving the physical interrupt.
-> > > 
-> > > I think the best statement would be a mix of the two, something like:
-> > > 
-> > > Xen shall enable the domain to program the virtual timer to generate
-> > > the interrupt, which Xen shall inject as virtual interrupt into the
-> > > domain.
-> > This should be split into 2 reqs (2 shall) and the second one might in
-> > fact be a generic one for interrupt injections into guests.
-> 
-> I agree with you that the second statement shall be a requirement for vGIC (as
-> it has nothing to do with the timer).
-> 
-> So, do we agree that the requirements should be
-> 
-> 1. Xen shall generate physical timer interrupts to domains when the physical
-> timer condition is met.
-> 
-> 2. Xen shall generate virtual timer interrupts to domains when the virtual
-> timer condition is met.
-> 
-> The important thing here is that Xen can generate both physical timer and
-> virtual timer IRQs. It is left to the guests to use one or both.
-> 
-> We can drop the comments here if it is causing confusion.
-> 
-> Let me know your thoughts.
+> I continue to consider the earlier approach at least undesirable. The
+> vf_len[] array shouldn't be copied around, risking for it to be / go
+> stale. There should be one central place for every bit of information,
+> unless there are very good reasons to duplicate something.
 
-I'm happy to give my approval to any and all versions discussed in this
-thread:
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-I could suggest further improvements or point out minor issues with any
-of the wordings (including my wording), but I don't think it would be
-useful. Any of these statements is good. I don't believe we need to
-refine the English text any further.
-
-Unlike code, the potential for text revisions in English is limitless.
-It's always possible to find things not quite clear enough, or rephrase
-in a way that is clearer and more comprehensive. Also because "clear" is
-subjective.
-
-I think it is important that we do not put too much effort into this
-because the reward is not proportional.
+OK, I'll continue to refine the PF<->VF link approach for v4.
 
