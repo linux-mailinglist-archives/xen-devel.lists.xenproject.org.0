@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 788CB95CD61
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 15:11:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782343.1191824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AB4895CDDA
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 15:30:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782356.1191834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shU3q-0007ik-TJ; Fri, 23 Aug 2024 13:10:38 +0000
+	id 1shUMl-000388-Hp; Fri, 23 Aug 2024 13:30:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782343.1191824; Fri, 23 Aug 2024 13:10:38 +0000
+Received: by outflank-mailman (output) from mailman id 782356.1191834; Fri, 23 Aug 2024 13:30:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shU3q-0007gL-Ps; Fri, 23 Aug 2024 13:10:38 +0000
-Received: by outflank-mailman (input) for mailman id 782343;
- Fri, 23 Aug 2024 13:10:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=imIp=PW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1shU3p-0007gF-Cc
- for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 13:10:37 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1481e9f8-6151-11ef-8776-851b0ebba9a2;
- Fri, 23 Aug 2024 15:10:35 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a7aa086b077so227325366b.0
- for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 06:10:33 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a868f436322sm259382566b.117.2024.08.23.06.10.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Aug 2024 06:10:31 -0700 (PDT)
+	id 1shUMl-00035G-Ec; Fri, 23 Aug 2024 13:30:11 +0000
+Received: by outflank-mailman (input) for mailman id 782356;
+ Fri, 23 Aug 2024 13:30:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1shUMk-000356-9k; Fri, 23 Aug 2024 13:30:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1shUMk-0007oG-69; Fri, 23 Aug 2024 13:30:10 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1shUMj-0002ZX-NH; Fri, 23 Aug 2024 13:30:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1shUMj-0004TU-Mc; Fri, 23 Aug 2024 13:30:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +42,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1481e9f8-6151-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724418633; x=1725023433; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UW85lMy3eLQqGbmm6QqWXIyMK9LIJXV5KbNrmX3uSc8=;
-        b=I6UYIJbbz0u4RDVGjwQ5xW1LFC1bzvH3mLF56bItwQOge6o/VR0FgsldFsppv3g90u
-         brz4edwoFBS2jkHUKDwWwmBTKUjRfhIDAjyU8RoTq/MOUi6OXpXjOxSba842/1aUlB5c
-         VTv1B7HTrIcRZvF5yK3UfkNY8DTC/SvTEBKGo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724418633; x=1725023433;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UW85lMy3eLQqGbmm6QqWXIyMK9LIJXV5KbNrmX3uSc8=;
-        b=uEGmM/ASE/CS1gJMqw+mPFwFQIIuIZovgYywGg1LuJiNZEDrfF96FWKHlIZNgsGHej
-         eafDhLG4hylnK3W0CR0xv+XHuYqBjNSIqtubFX4jA3I9ndXg3za1wzF07Zs39z6VQCd4
-         H05GwJDkgYE74eC1kaaN2QxYsB+6CYKQjzfivVmrtFWJVnnW5o2/JUUgZj6EpF3vPbTZ
-         w6ee3TTsGU5cv2sgED1U+YEHCKgLJwtbdPyyY6giENnS18fZfSqcqBfbz3ddm+s/mxHu
-         O/qNGbUYK91lxuCpxHiYVyHN0v2cMgzJNnZZvLRCV89cuB3pGLjIvLMeH39epiAuHuSY
-         qWgA==
-X-Gm-Message-State: AOJu0YzPvTzDJWDn9g4fNLJK7fPxKTrZwjVPPdOXGvgGDBYSp/dVA6PE
-	w/Af2PkYEz38GciK5XykmAykY1zNH4uaIdb6Vl18GgyXJ6QxQt9UIVFVoiHVSiNh8ZjR2u1ztsR
-	u
-X-Google-Smtp-Source: AGHT+IF5Jv2uhbCVqySaIYOjBbU2IqNlpZqEyA63pgmRS5QFhGyO9e7Xi1DkxU8XFbqZ3yqs15660Q==
-X-Received: by 2002:a17:907:d59a:b0:a86:91c3:9517 with SMTP id a640c23a62f3a-a86a52eb66bmr168805666b.35.1724418632091;
-        Fri, 23 Aug 2024 06:10:32 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v3] x86/boot: Preserve the value clobbered by the load-base calculation
-Date: Fri, 23 Aug 2024 14:10:29 +0100
-Message-Id: <20240823131029.1025984-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=r4dOWORI1X8Z/NZWjheD+jLvBNMcE2RQvFzAnQDmroo=; b=fosEmr8r7jmTcmciC33vzvtFHk
+	0lhLj1Wpe7xCR0dVn+gU8BMEKvQp1ZK4BleVQ/HUGTymhKJYdTTTBtBMHg8Sqm7WVnuEXbG6FDZkx
+	TC4irjbgsypm0W3HZ06oz5/QpbWsNXaRQAa6Miyd33FjlOCbQewMDUCe8CMbY3O+qSHs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187320-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 187320: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-saverestore:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-localmigrate:fail:allowable
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=5231765a4e6528a3208e49885b9eeff42519a6c1
+X-Osstest-Versions-That:
+    xen=aa80a04df488528d90a0d892f0752571b1759e8b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 23 Aug 2024 13:30:09 +0000
 
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
+flight 187320 xen-unstable-smoke real [real]
+flight 187323 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187320/
+http://logs.test-lab.xenproject.org/osstest/logs/187323/
 
-Right now, Xen clobbers the value at 0xffc when performing it's load-base
-calculation.  We've got plenty of free registers at this point, so the value
-can be preserved easily.
+Regressions :-(
 
-This fixes a real bug booting under Coreboot+SeaBIOS, where 0xffc happens to
-be the cbmem pointer (e.g. Coreboot's dmesg ring, among other things).
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt     17 guest-saverestore        fail REGR. vs. 187314
 
-However, there's also a better choice of memory location to use than 0xffc, as
-all our supported boot protocols have a pointer to an info structure in %ebx.
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 16 guest-localmigrate fail REGR. vs. 187314
 
-Update the documentation to match.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Fixes: 1695e53851e5 ("x86/boot: Fix the boot time relocation calculations")
-Fixes: d96bb172e8c9 ("x86/entry: Early PVH boot code")
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Frediano Ziglio <frediano.ziglio@cloud.com>
+version targeted for testing:
+ xen                  5231765a4e6528a3208e49885b9eeff42519a6c1
+baseline version:
+ xen                  aa80a04df488528d90a0d892f0752571b1759e8b
 
-v3:
- * Use plain MOV for preserve/restore.  It's easier to follow than pop/pop.
- * Update how-xen-boots.rst too.
+Last test of basis   187314  2024-08-22 21:04:01 Z    0 days
+Testing same since   187320  2024-08-23 08:02:13 Z    0 days    1 attempts
 
-Superceeds https://lore.kernel.org/xen-devel/20240822140044.441126-1-frediano.ziglio@cloud.com/T/#u
----
- docs/hypervisor-guide/x86/how-xen-boots.rst | 12 ++++++--
- xen/arch/x86/boot/head.S                    | 33 ++++++++++++++-------
- 2 files changed, 31 insertions(+), 14 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
 
-diff --git a/docs/hypervisor-guide/x86/how-xen-boots.rst b/docs/hypervisor-guide/x86/how-xen-boots.rst
-index ca77d7c8a333..f1878ad7897f 100644
---- a/docs/hypervisor-guide/x86/how-xen-boots.rst
-+++ b/docs/hypervisor-guide/x86/how-xen-boots.rst
-@@ -96,6 +96,12 @@ Xen, once loaded into memory, identifies its position in order to relocate
- system structures.  For 32bit entrypoints, this necessarily requires a call
- instruction, and therefore a stack, but none of the ABIs provide one.
- 
--Overall, given that on a BIOS-based system, the IVT and BDA occupy the first
--5/16ths of the first page of RAM, with the rest free to use, Xen assumes the
--top of the page is safe to use.
-+In each supported 32bit entry protocol, ``%ebx`` is a pointer to an info
-+structure, and it is highly likely that this structure does not overlap with
-+Xen.  Therefore we use this as as a temporary stack, preserving the prior
-+value, in order to calculate Xen's position in memory.
-+
-+If this heuristic happens to be wrong (most likely because we were booted by
-+some other protocol), the calculation stills works as long as ``%ebx`` points
-+at RAM and does not alias the currently-executing instructions.  This is
-+reasonably likely, and the best we can manage given no other information.
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index d8ac0f0494db..994819826b01 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -414,17 +414,23 @@ __pvh_start:
-         cli
- 
-         /*
--         * We need one push/pop to determine load address.  Use the same
--         * absolute stack address as the native path, for lack of a better
--         * alternative.
-+         * We need one call (i.e. push) to determine the load address.  See
-+         * __start for a discussion on how to do this safely using the PVH
-+         * info structure.
-          */
--        mov     $0x1000, %esp
-+
-+        /* Preserve the field we're about to clobber. */
-+        mov     (%ebx), %edx
-+        lea     4(%ebx), %esp
- 
-         /* Calculate the load base address. */
-         call    1f
- 1:      pop     %esi
-         sub     $sym_offs(1b), %esi
- 
-+        /* Restore the clobbered field. */
-+        mov     %edx, (%ebx)
-+
-         /* Set up stack. */
-         lea     STACK_SIZE - CPUINFO_sizeof + sym_esi(cpu0_stack), %esp
- 
-@@ -460,21 +466,26 @@ __start:
-         /*
-          * Multiboot (both 1 and 2) specify the stack pointer as undefined
-          * when entering in BIOS circumstances.  This is unhelpful for
--         * relocatable images, where one push/pop is required to calculate
--         * images load address.
-+         * relocatable images, where one call (i.e. push) is required to
-+         * calculate images load address.
-          *
--         * On a BIOS-based system, the IVT and BDA occupy the first 5/16ths of
--         * the first page of RAM, with the rest free for use.  Use the top of
--         * this page for a temporary stack, being one of the safest locations
--         * to clobber.
-+         * This early in boot, there is one area of memory we know about with
-+         * reasonable confidence that it isn't overlapped by Xen, and that's
-+         * the Multiboot info structure in %ebx.  Use it as a temporary stack.
-          */
--        mov     $0x1000, %esp
-+
-+        /* Preserve the field we're about to clobber. */
-+        mov     (%ebx), %edx
-+        lea     4(%ebx), %esp
- 
-         /* Calculate the load base address. */
-         call    1f
- 1:      pop     %esi
-         sub     $sym_offs(1b), %esi
- 
-+        /* Restore the clobbered field. */
-+        mov     %edx, (%ebx)
-+
-         /* Set up stack. */
-         lea     STACK_SIZE - CPUINFO_sizeof + sym_esi(cpu0_stack), %esp
- 
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     fail    
 
-base-commit: 8ffcf184affbc2ff1860dabe1757388509d5ed67
--- 
-2.39.2
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 5231765a4e6528a3208e49885b9eeff42519a6c1
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Aug 23 09:13:07 2024 +0200
+
+    x86emul: convert op_bytes/opc checks in SIMD emulation
+    
+    Raising #UD for an internal shortcoming of the emulator isn't quite
+    right. Similarly BUG() is bigger a hammer than needed.
+    
+    Switch to using EXPECT() instead. This way even for insns not covered by
+    the test harness fuzzers will have a chance of noticing issues, should
+    any still exist or new ones be introduced.
+    
+    Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 6fa6b7feaafd622db3a2f3436750cf07782f4c12
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Aug 23 09:12:24 2024 +0200
+
+    x86emul: set (fake) operand size for AVX512CD broadcast insns
+    
+    Back at the time I failed to pay attention to op_bytes still being zero
+    when reaching the respective case block: With the ext0f38_table[]
+    entries having simd_packed_int, the defaulting at the bottom of
+    x86emul_decode() won't set the field to non-zero for F3-prefixed insns.
+    
+    Fixes: 37ccca740c26 ("x86emul: support AVX512CD insns")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit d45687cca2450bfebe1dfbddb22f4f03c6fbc9cb
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Aug 23 09:11:15 2024 +0200
+
+    x86emul: always set operand size for AVX-VNNI-INT8 insns
+    
+    Unlike for AVX-VNNI-INT16 I failed to notice that op_bytes may still be
+    zero when reaching the respective case block: With the ext0f38_table[]
+    entries having simd_packed_int, the defaulting at the bottom of
+    x86emul_decode() won't set the field to non-zero for F3- or F2-prefixed
+    insns.
+    
+    Fixes: 842acaa743a5 ("x86emul: support AVX-VNNI-INT8")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+(qemu changes not included)
 
