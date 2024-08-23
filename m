@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF67995D3FB
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 19:05:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782491.1191988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D852195D3FC
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 19:05:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782500.1191998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shXiF-0003jU-3g; Fri, 23 Aug 2024 17:04:35 +0000
+	id 1shXj7-0004FF-D1; Fri, 23 Aug 2024 17:05:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782491.1191988; Fri, 23 Aug 2024 17:04:35 +0000
+Received: by outflank-mailman (output) from mailman id 782500.1191998; Fri, 23 Aug 2024 17:05:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shXiF-0003hZ-10; Fri, 23 Aug 2024 17:04:35 +0000
-Received: by outflank-mailman (input) for mailman id 782491;
- Fri, 23 Aug 2024 17:04:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1shXiD-0003hN-Bn; Fri, 23 Aug 2024 17:04:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1shXiD-000468-65; Fri, 23 Aug 2024 17:04:33 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1shXiC-000308-Ps; Fri, 23 Aug 2024 17:04:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1shXiC-0000yj-PM; Fri, 23 Aug 2024 17:04:32 +0000
+	id 1shXj7-0004Cd-AL; Fri, 23 Aug 2024 17:05:29 +0000
+Received: by outflank-mailman (input) for mailman id 782500;
+ Fri, 23 Aug 2024 17:05:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kBLJ=PW=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
+ id 1shXj5-00048i-FH
+ for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 17:05:27 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e4b939f4-6171-11ef-a50a-bb4a2ccca743;
+ Fri, 23 Aug 2024 19:05:26 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5bed83488b3so2908170a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 10:05:26 -0700 (PDT)
+Received: from localhost.localdomain ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c04a3eb329sm2311240a12.55.2024.08.23.10.05.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Aug 2024 10:05:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=herT8MjRMIceOsAW7OG5N7U9SI3/RZ4UChkzYT1JXjQ=; b=lob6pimvGX5wHf0zskzsQ6brNB
-	apcnJ9Zo1LBOpWWdJposAkOCxQONFlzfo5kRiRaIJE7DEhdJBhUMZMXUlUOBtro20tb/Wf2+6kDm2
-	kIyfYJVqcAE5RjT2P1Gb3Gq4itsiWnb6VfGuroNPdckGTZ9Z0DvIVOfnr7XTeJn4oEw0=;
+X-Inumbo-ID: e4b939f4-6171-11ef-a50a-bb4a2ccca743
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1724432726; x=1725037526; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vvsmhrQ58ty42PuHWnq4wbr6/fL17Z3aKlW9teCKYaU=;
+        b=PWZxF8TsuPEnUt2TolfOqOkrB3ZspUmSGpYn9Qhi9DR+61oke33LvT3DSqhhwqZPWo
+         JlQ7CqwxuZeJDbzjjoXkr4iHIAu4gILO1PGwglE+Bw1xDwuu5eELFwHNwtLzFQgClji1
+         BfoQDWJkX552dlvxPeAvgI7CDhaX9nEHE+BdE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724432726; x=1725037526;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vvsmhrQ58ty42PuHWnq4wbr6/fL17Z3aKlW9teCKYaU=;
+        b=XCSeiCzNm5KZ47mnZulrqbKafHcuMeGXF6mrLDwJWS6OOVapvYHymg3WqBSQR5Bqhn
+         YchtVypoB7pAl05wXUexf9HoSxC/SbTis5sb4mwPbigUS/WIdQwR0VXTgy+atQqyLb9t
+         pyu3MifQ8lYv27EcjIjMgIQnIMoxITQFupPSDNw3VRt82tCVobLFdbPqZYIGLErLlyMM
+         xhCDGSMsE7d6+fIZpXnfte2bt7QDIn4cBor3kIF1i17wf+NlxIT1T1RBdvXs7Cns+zUg
+         6k7FhMlJ2Rvynf3wAfTa+dSaTVrYwj7q7MpXjVrLDMrAr4T/MtVdAjLem04POnZXzHFW
+         +BFg==
+X-Gm-Message-State: AOJu0YxSWU5VJ16AcJERg7gslsTz/DrxrGrwTHrvTmxv9BuvqjCbfUns
+	R1Yzo+J70w8odnu3CbAYmXf41i4nsB6L06BxIRkV7N4BH6lCWxas865NvaJsuW4q+/vPvElw8lX
+	Y
+X-Google-Smtp-Source: AGHT+IGV0yrZDqhOVx4JNFSFoQNS2SQlvfJx689/qtzw+625UvSPEP90JWnJn/JSguaXcYgLIwA+Nw==
+X-Received: by 2002:a05:6402:40ce:b0:5be:db8a:7f60 with SMTP id 4fb4d7f45d1cf-5c0891a2680mr2403755a12.25.1724432726109;
+        Fri, 23 Aug 2024 10:05:26 -0700 (PDT)
+From: Javi Merino <javi.merino@cloud.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187325-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: jbeulich@suse.com,
+	andrew.cooper3@citrix.com,
+	Javi Merino <javi.merino@cloud.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: [XEN PATCH v2 0/3] libxl: Fixes for libxl_xenconsole_readline()
+Date: Fri, 23 Aug 2024 18:05:02 +0100
+Message-ID: <cover.1724430173.git.javi.merino@cloud.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 187325: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=8ffcf184affbc2ff1860dabe1757388509d5ed67
-X-Osstest-Versions-That:
-    xen=aa80a04df488528d90a0d892f0752571b1759e8b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 23 Aug 2024 17:04:32 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 187325 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187325/
+Fix nul-termination of the return value of
+libxl_xen_console_read_line().  While at it, remove unneeded memset()s
+to the buffer and improve the documentation of the function.
 
-Failures :-/ but no regressions.
+Changes since v1[0]:
+  - Add Fixes: line to the first patch
+  - Remove cr->count from the struct and make it a local variable in
+    libxl_xen_console_read_line()
+  - Improve the documentation of libxl_xen_console_read_line()
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+[0] https://lore.kernel.org/xen-devel/ad7c89bbae34155566ae7c9ca2cb501f21c7d585.1724330921.git.javi.merino@cloud.com/
 
-version targeted for testing:
- xen                  8ffcf184affbc2ff1860dabe1757388509d5ed67
-baseline version:
- xen                  aa80a04df488528d90a0d892f0752571b1759e8b
+Javi Merino (3):
+  libxl: Fix nul-termination of the return value of
+    libxl_xen_console_read_line()
+  libxl: Remove unnecessary buffer zeroing and zalloc()
+  libxl: Update the documentation of libxl_xen_console_read_line()
 
-Last test of basis   187314  2024-08-22 21:04:01 Z    0 days
-Failing since        187320  2024-08-23 08:02:13 Z    0 days    2 attempts
-Testing same since   187325  2024-08-23 14:00:23 Z    0 days    1 attempts
+ tools/libs/light/libxl_console.c  | 40 ++++++++++++++++++-------------
+ tools/libs/light/libxl_internal.h |  1 -
+ 2 files changed, 24 insertions(+), 17 deletions(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrii Sultanov <andrii.sultanov@cloud.com>
-  Christian Lindig <christian.lindig@cloud.com>
-  Jan Beulich <jbeulich@suse.com>
+-- 
+2.45.2
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   aa80a04df4..8ffcf184af  8ffcf184affbc2ff1860dabe1757388509d5ed67 -> smoke
 
