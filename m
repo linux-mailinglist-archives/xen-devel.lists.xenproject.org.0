@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FBAC95CA2F
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 12:15:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782230.1191706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DC3D95CAA3
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 12:40:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782239.1191716 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shRJW-0005HT-JW; Fri, 23 Aug 2024 10:14:38 +0000
+	id 1shRhm-0001A9-FF; Fri, 23 Aug 2024 10:39:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782230.1191706; Fri, 23 Aug 2024 10:14:38 +0000
+Received: by outflank-mailman (output) from mailman id 782239.1191716; Fri, 23 Aug 2024 10:39:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shRJW-0005Ft-Gr; Fri, 23 Aug 2024 10:14:38 +0000
-Received: by outflank-mailman (input) for mailman id 782230;
- Fri, 23 Aug 2024 10:14:36 +0000
+	id 1shRhm-00018K-Ce; Fri, 23 Aug 2024 10:39:42 +0000
+Received: by outflank-mailman (input) for mailman id 782239;
+ Fri, 23 Aug 2024 10:39:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l2sR=PW=bounce.vates.tech=bounce-md_30504962.66c86108.v1-bc3f4735558f49418844320d71e9bfdd@srs-se1.protection.inumbo.net>)
- id 1shRJU-0005Fn-1d
- for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 10:14:36 +0000
-Received: from mail137-25.atl71.mandrillapp.com
- (mail137-25.atl71.mandrillapp.com [198.2.137.25])
+ <SRS0=14XH=PW=bounce.vates.tech=bounce-md_30504962.66c866e9.v1-d5591c3b5829461f81b563062813c14b@srs-se1.protection.inumbo.net>)
+ id 1shRhk-00018E-Qj
+ for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 10:39:41 +0000
+Received: from mail187-32.suw11.mandrillapp.com
+ (mail187-32.suw11.mandrillapp.com [198.2.187.32])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e41150e-6138-11ef-a50a-bb4a2ccca743;
- Fri, 23 Aug 2024 12:14:34 +0200 (CEST)
-Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail137-25.atl71.mandrillapp.com (Mailchimp) with ESMTP id
- 4Wqwsh55c4z35hTnh
- for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 10:14:32 +0000 (GMT)
+ id fecb66df-613b-11ef-a50a-bb4a2ccca743;
+ Fri, 23 Aug 2024 12:39:38 +0200 (CEST)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-32.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WqxQd0gLXzQXg29B
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 10:39:37 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- bc3f4735558f49418844320d71e9bfdd; Fri, 23 Aug 2024 10:14:32 +0000
+ d5591c3b5829461f81b563062813c14b; Fri, 23 Aug 2024 10:39:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,120 +43,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e41150e-6138-11ef-a50a-bb4a2ccca743
+X-Inumbo-ID: fecb66df-613b-11ef-a50a-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1724408072; x=1724668572;
-	bh=9CdPXHQwe6XS75VaZtG5OP1VzkMzlV8ORdgt+V3o85Q=;
+	s=mte1; t=1724409577; x=1724670077;
+	bh=KHLj4zwjzY7dFtptBAA1CaW5882kGzNBdatfO/2AdZU=;
 	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=SHEBQN3aCJFMhDd884j/bzNs22BP/5Aq/2UojlCLgImKicTEVhGiKwCGCDii+JP3F
-	 NPIdz9SOWvejrHcKxNPxd/xbNLllI4YQAnEI0AGKvBW/Qpm7bcup7Wr5urHIXVea5v
-	 8f8TJsbUn5WQ15M/0UZ0w50thLFsWJZziUSN4AZf5ticpTg4q3AtC6ge6c/YIzeFpN
-	 I4XAROXABDNk5HzEkKYhISsdmM767s5jU+V5Dq9g+P/DVFmXVGwa2AMp9Zaq4NDClc
-	 KZY6xgbrw6Ki4zF+9XOtNnKO6UDwOL59DS6X01cUJiHbq/MQOwC//hOF/2jk/XcoEQ
-	 q+hxzWoyXYqMA==
+	b=Bd34UoxFuy8qDOwJFkEkN6a4solZFgMCsy0RpZAasc9irlXwZxILv8MQBzQBww1hF
+	 oiIo2XMvm9UpoJI/t/ty4QdSTkugoTEjIe9V5Eou0+qz3LhNFsbpSf7WncJqEWS8AP
+	 38iMDIvrMmiQSdqzEGk4VE/Op7luAMlfik+P0rmkzGvA2sgtRBbwCcv3k0tATdCeEl
+	 7cikeTLpOxgWdYi0SETODWCzIXFm8Q8Rd+yU7mVjjARPje5mOS/aVuGWqfnVQkiA3o
+	 bfyja/mm+6g5jJt1epy0du1LxdbV2mSjznmZRqNAh0fbtGS9hXIMq7MtVc6JFKUn37
+	 cgSk+FjUUM5cA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1724408072; x=1724668572; i=anthony.perard@vates.tech;
-	bh=9CdPXHQwe6XS75VaZtG5OP1VzkMzlV8ORdgt+V3o85Q=;
+	t=1724409577; x=1724670077; i=anthony.perard@vates.tech;
+	bh=KHLj4zwjzY7dFtptBAA1CaW5882kGzNBdatfO/2AdZU=;
 	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=xzYHO7eyZIrsuVi1MLUBH3m0jbvEt+GlgtMjAtoUWpowLy2Lt8enlFltqWL+WYPrN
-	 tpkwChN3JLAUdzFGpm/7HsXowPcXsojLtXw/ObPwgWcTAxL+E/oB9eCDLP0oEIP9OC
-	 guY0FzHZJkjrodQHJYf62W41FOKT/G1QaYdJeCBUegPVItOClmVO1E5vnyHVXsllNQ
-	 ZosUK091ujTnYm6FGaG8tKjj2O7Z4qiLVpfgHC5ZdaRMw1UeLzI6Y5fEFMvV3eNSpA
-	 KKDidr3QJF4ZQYPlrQrIm13fBaxfMlbvYMUe0F6ndfivUa9YKAe/YPjCmpL7+ZwT7l
-	 40C16PElvqe8Q==
+	b=HfMjx8nMk5M0EsSGPQMVoGsH2xeDyJoecgkEFFHXqa0i+FcMeHO+NuBRz1FUfvLqL
+	 6WuGN5bxbc5zQv/4woRti2FbRx8fLlC15dKzaVfurc2/UWwGnfaox0c6e02TkYcsT9
+	 Qj3YYEZG5MiXUl8ZT+gkoWCBzf2yRzeGrhFQZKVaDxtVuRZY9E+5WEiGKae/VP7p2s
+	 5B8QY1oMS5ol1tLj03zyJ63TwQSakvb8l8IPSvH5zJ0xMZKrQoPILfW8wyI6kPHYmR
+	 mqwaUhvwewh+A2muGwyoC0N05ossoMxMxdRUkPPCEKfAJsqJPHplgOtCY0T1L0a67Z
+	 zE/am3m1FGAjQ==
 From: Anthony PERARD <anthony.perard@vates.tech>
 Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=20v1]=20libxl:=20Fix=20nul-termination=20of=20the=20return=20value=20of=20libxl=5Fxen=5Fconsole=5Fread=5Fline()?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1724408070798
-To: Jan Beulich <jbeulich@suse.com>, Javi Merino <javi.merino@cloud.com>
-Cc: Juergen Gross <jgross@suse.com>, =?utf-8?Q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>, xen-devel@lists.xenproject.org
-Message-Id: <ZshhBoWZZVGZLUv+@l14>
-References: <ad7c89bbae34155566ae7c9ca2cb501f21c7d585.1724330921.git.javi.merino@cloud.com> <7b575ad5-c7c6-4054-8036-9d2961630d42@suse.com>
-In-Reply-To: <7b575ad5-c7c6-4054-8036-9d2961630d42@suse.com>
+X-Bm-Transport-Timestamp: 1724409575990
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, =?utf-8?Q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
+Message-Id: <Zshm5xxhW06u8nF6@l14>
+References: <ad7c89bbae34155566ae7c9ca2cb501f21c7d585.1724330921.git.javi.merino@cloud.com> <925ae2fb-6f6f-4825-8469-c410b7bb89fc@citrix.com>
+In-Reply-To: <925ae2fb-6f6f-4825-8469-c410b7bb89fc@citrix.com>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.bc3f4735558f49418844320d71e9bfdd?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d5591c3b5829461f81b563062813c14b?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20240823:md
-Date: Fri, 23 Aug 2024 10:14:32 +0000
+Date: Fri, 23 Aug 2024 10:39:37 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 23, 2024 at 08:31:50AM +0200, Jan Beulich wrote:
-> On 22.08.2024 15:13, Javi Merino wrote:
-> > When built with ASAN, "xl dmesg" crashes in the "printf("%s", line)"
-> > call in main_dmesg().  ASAN reports a heap buffer overflow: an
-> > off-by-one access to cr->buffer.
-> > 
-> > The readconsole sysctl copies up to count characters into the buffer,
-> > but it does not add a null character at the end.  Despite the
-> > documentation of libxl_xen_console_read_line(), line_r is not
-> > nul-terminated if 16384 characters were copied to the buffer.
-> > 
-> > Fix this by making count one less that the size of the allocated
-> > buffer so that the last byte is always null.
-> > 
-> > Reported-by: Edwin T=C3=B6r=C3=B6k <edwin.torok@cloud.com>
-> > Signed-off-by: Javi Merino <javi.merino@cloud.com>
+On Fri, Aug 23, 2024 at 10:34:05AM +0100, Andrew Cooper wrote:
+> On 22/08/2024 2:13 pm, Javi Merino wrote:
+> This looks like it will fix the ASAN issue, but I think a better fix
+> would be:
 > 
-> Perhaps wants a Fixes: tag as well?
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printf("%s", line);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printf("%.*s", cr->count, line);
 
-Seems to be:
-Fixes: 4024bae739cc ("xl: Add subcommand 'xl dmesg'")
+nul-terminated string are safer to manipulate, and cr->count isn't
+available outside of libxl, so that's a no go.
 
-> > --- a/tools/libs/light/libxl_console.c
-> > +++ b/tools/libs/light/libxl_console.c
-> > @@ -779,7 +779,7 @@ libxl_xen_console_reader *
-> >      cr =3D libxl__zalloc(NOGC, sizeof(libxl_xen_console_reader));
-> >      cr->buffer =3D libxl__zalloc(NOGC, size);
-> >      cr->size =3D size;
-> > -    cr->count =3D size;
-> > +    cr->count =3D size - 1;
-> >      cr->clear =3D clear;
-> >      cr->incremental =3D 1;
+> because otherwise there's a world of sharp corners once Xen has wrapped
+> the buffer for the first time.
+
+If wrapped buffer are visible to libxl or `xl dmesg`, that a bug in xen,
+in XEN_SYSCTL_readconsole. It doesn't looks like it's possible to know
+when the console ring buffer wrapped.
+
 > 
-> While this looks to be addressing the issue at hand, I still wonder: Why
-> does the "count" field exist at all? It's certainly odd to be set right
-> here (when the buffer actually is empty). It's used solely in
-> libxl_xen_console_read_line(), so could be a local variable there.
+> Which brings us a lot of other WTFs in this code...
+> 
+> First, libxl_console.c describes it's functionality in terms of lines,
+> and line_reader() in the API.=C2=A0 Yet it's not lines, it's a 16k buffer
+> with generally multi-line content.=C2=A0 It's too late to fix the naming,=
+ but
+> we could at least rewrite the comments not to be blatant lies.
+> 
+> 
+> Just out of context above the hunk is:
+> 
+> =C2=A0=C2=A0=C2=A0 unsigned int size =3D 16384;
+> 
+> which isn't accurate.=C2=A0 The size of Xen's console ring can be changed=
+ at
+> compile time (like XenServer does), and/or by command line variable.
 
-It isn't only odd to have "count" field, it is also used the wrong way.
-Once "cr->count" is set to 0, the next call to
-libxl_xen_console_read_line() will simply return an empty NULL, even if
-in the mean time more data is available to read from the string.
-Also, if the last call to libxl_xen_console_read_line() was shorter than
-the buffer size, none of the following call will use the full size of
-the buffer. This isn't really a problem for `xl dmesg`, but could be if
-we want to implement "--follow" option for example.
+This buffer size isn't link to Xen's console ring size, both value don't
+need to match.
 
-So Javi, could you remove that `cr->count` field and use a local
-variable instead?
+> Because the dmesg ring is never full (it just keeps producing and
+> overwriting tail data), it's impossible to get a clean copy except in a
+> single hypercall; the incremental/offset parameters are an illusion, and
+> do not function correctly if a new printk() has occurred between
+> adjacent hypercalls.
 
-And a comment in the code might be useful about why there's a "-1".
+Well, let's hope there's no more that "ring_size - size" is been written
+to the ring in between two hypercall. There's doesn't seems to be
+anything that can be done to work around this with this hypercall
+(beside using a huge buffer size).
 
-But I think a better way to address the issue would be to actually set
-'\0' at the end of the string after the call to xc_readconsolering(),
-and remove the not very useful memset(0). That way, it will be more
-explicite as to why we need "-1".
+I think xenconsoled can read the console ring buffer, but does so
+continuously, so if `xl dmesg` have some shortcoming, it might be fine.
 
-> Then, further, I wonder why struct libxl__xen_console_reader lives in
-> libxl_internal.h - it's used solely in libxl_console.c.
+> And that is why setting count to size - 1 probably isn't wise.=C2=A0 It m=
+eans
+> that, even in the ideal case where Xen's ringbuffer is 16k, you've still
+> got to make 2 hypercalls to get the content.
 
-History? It actually use to live in libxl.h, 14 yr ago.
+Well, I've run `xl dmesg` on one machine, it seems to have taken 9
+hypercall to get everything, and there's still the first few line of the
+boot available. So if the ringbuffer was indeed 16k, it would not be
+ideal at all... as lots of stuff would have been overwritten.
 
-> Finally - why libxl__zalloc() when libxl_xen_console_read_line() clears
-> the buffer anyway?
-
-Overuse of libxl__zalloc when it was use to replace the open coding that
-was used to allocate "cr". While it doesn't seems necessary, I don't
-think it hurt to keep it there.
-
-Thanks,
+Cheers,
 
 -- 
 
