@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD8DE95D625
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 21:39:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782640.1192167 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2E4095D632
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 21:46:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782657.1192176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sha84-0005k1-Hx; Fri, 23 Aug 2024 19:39:24 +0000
+	id 1shaEv-0007Ys-A2; Fri, 23 Aug 2024 19:46:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782640.1192167; Fri, 23 Aug 2024 19:39:24 +0000
+Received: by outflank-mailman (output) from mailman id 782657.1192176; Fri, 23 Aug 2024 19:46:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sha84-0005i5-FN; Fri, 23 Aug 2024 19:39:24 +0000
-Received: by outflank-mailman (input) for mailman id 782640;
- Fri, 23 Aug 2024 19:39:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1shaEv-0007Wx-7H; Fri, 23 Aug 2024 19:46:29 +0000
+Received: by outflank-mailman (input) for mailman id 782657;
+ Fri, 23 Aug 2024 19:46:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=imIp=PW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sha83-0005hz-N2
- for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 19:39:23 +0000
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
- [2607:f8b0:4864:20::f2c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 65417869-6187-11ef-a50a-bb4a2ccca743;
- Fri, 23 Aug 2024 21:39:22 +0200 (CEST)
-Received: by mail-qv1-xf2c.google.com with SMTP id
- 6a1803df08f44-6bf6755323cso13256306d6.1
- for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 12:39:22 -0700 (PDT)
+ id 1shaEt-0007Ul-MX
+ for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 19:46:27 +0000
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [2607:f8b0:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 613e3b6b-6188-11ef-8776-851b0ebba9a2;
+ Fri, 23 Aug 2024 21:46:25 +0200 (CEST)
+Received: by mail-ot1-x329.google.com with SMTP id
+ 46e09a7af769-709340f1cb1so1448882a34.3
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 12:46:25 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6c162d49572sm21725276d6.33.2024.08.23.12.39.19
+ d75a77b69052e-454fdfc5968sm20387171cf.15.2024.08.23.12.46.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Aug 2024 12:39:20 -0700 (PDT)
+ Fri, 23 Aug 2024 12:46:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65417869-6187-11ef-a50a-bb4a2ccca743
+X-Inumbo-ID: 613e3b6b-6188-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724441961; x=1725046761; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724442384; x=1725047184; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IIFrbXHD2yrd19PjwqR8w1LRcwaKCmmuTwEs+GhJInw=;
-        b=wYEBjlQ8Qz8vFoDbqcEtUcW/035JXqJ/Kvy+wo/sbw7Twvd/DTmj3CtIJy/4y/H29o
-         7IhSVc7C4ZaqzJ/isYvkc/y7s02t9VRR553QeaQCXMeQFa7pOeApxk5aOlWNNPCiu14T
-         SXnWsNgtLRawpdpQx0qBCChG4e5i/hYqjiyjE=
+        bh=63GxUiLX1+R40sAfn9XZYAikQyhhVfqQ+eA6iCCse3c=;
+        b=UgKawMLnYtocwpGKTS2fHtlxsyXsQqfIW1GZidk3S7QUYXFzL2vtI4kjN1OSSeNsaF
+         Gvs+i+TDcIKKmOoTS+vlvq6fYwyub7sSKgSvqBm50mMNBrS2SxQo402lUFbi05j5JmfH
+         TPMawF4/QMpDIVMpmZedH8ayc9XAHt2BG1TCQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724441961; x=1725046761;
+        d=1e100.net; s=20230601; t=1724442384; x=1725047184;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IIFrbXHD2yrd19PjwqR8w1LRcwaKCmmuTwEs+GhJInw=;
-        b=pOscSWn/F5cSXt31rCyroZNHYWM4tfH2gtxACCCrj3gjx+NUOUp63TmMRjr58vO2Mf
-         3uatPQCATiy0hZRykVPrU/Z30kAE8KGEa7ot0/2H7WC/APOZ8S1RyW785jOHUhS+7XyV
-         at8O2rKaB6314Bf7Ma5IZe17mTvSwTpBI5VY/h2Y+xWij8JcAHguF1MPzuBuOeSGDsG3
-         wurTaYAFM4eTTl/QQhd24IlZKkk68/DYK+vZeu+PdpZcc5xh3k80FI0CiWWNJxpbT6Mp
-         nI9Er2iDEz3Lcf0STMX1dlnEBnF2SgWNRSyzIox1ZMBY2uayvKQmBZcML5+h9aFgH0QP
-         RUIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVImK0twDga83MCRBB6/4scRncbicGYHBWHc1nwT/pXNY6ivMvLtOtN0/O7FmKg1eN3AeJW4WyD7bE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwcQiEahxawDNSB+uo+oGdUZ+rcfm53Q4EOFu8gnU5eLlGcMqtZ
-	J8GN9ACGc4kX5o38Iw88738OdjOR0TrJ6R765tmRUMYNT2tHrLNQXoXoxu66vwI=
-X-Google-Smtp-Source: AGHT+IFBE8YYikpO6Wsf1OmX/j+Zi7Lzceo4yX/ZH50RS4aweRi/I/SUnuTfeX5gPmx5aGiSDSBSfA==
-X-Received: by 2002:a05:6214:5713:b0:6bf:8833:e9c3 with SMTP id 6a1803df08f44-6c16deb2529mr38558176d6.50.1724441961146;
-        Fri, 23 Aug 2024 12:39:21 -0700 (PDT)
-Message-ID: <fadfcb8b-5799-46e0-a0d8-944077c3329d@citrix.com>
-Date: Fri, 23 Aug 2024 20:39:17 +0100
+        bh=63GxUiLX1+R40sAfn9XZYAikQyhhVfqQ+eA6iCCse3c=;
+        b=uG0LDaST0cvBqDz20Q5E5+f+HiktjEGNkxpFjWBIiiPPkTVIxn2fmr0zu1k0b4d9+C
+         FpZY+KrNPv+8q+mTmwmnnLQPblYUMg4CmMS2HALMMd2RySd714ccU4kbmyWMJijAmk+o
+         vXR2VuolshngywQFDLWzdjXAZx6E6wKh1PEFcbhgy9/rxijKvtV2LA9Dbuj3dZclGFyN
+         kaPay73rZirfxPbjY6PPRx/dqpwv8wQFosgOAWvt/mNFFfcmxNEKF+XUypp/nmYpT41s
+         S+ODhD5/qEebv5daECII/IaXrCGKyE1QrBJ7hIU80BDsDX0PMnUXa3KOPesoQ2t62+sJ
+         sReg==
+X-Forwarded-Encrypted: i=1; AJvYcCWvvRANNudXpkAZRdD3qj/ros9j/YFk5To7u8h6EwBuZdpO+IyPkZxOZ8PWPLzNI9rl6qjv4cgzTh0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxefg1sI9YptyHv9zqVDh5ZogmGyvHL6WYLatPMMYVZpGG0939y
+	aGYTnpbjmNHB5P9TMrbYKkSc/P1aVJHQ3X2yD94qtL3ppyycAYwUDNqYJzShDRJ3GiGQgOtNwMu
+	k
+X-Google-Smtp-Source: AGHT+IGwlJANI9moQjG2VO1oBf3g0iVtEr4PE2iWFdm6mtxwuu9ekj6l8IiwjL+nXbqASNsHpcrrfw==
+X-Received: by 2002:a05:6830:90a:b0:708:b40a:fecc with SMTP id 46e09a7af769-70e0eb04dbfmr3861446a34.1.1724442384022;
+        Fri, 23 Aug 2024 12:46:24 -0700 (PDT)
+Message-ID: <34b5a144-41b9-4bb9-8f28-e4447b6a77b5@citrix.com>
+Date: Fri, 23 Aug 2024 20:46:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.19? 3/6] xen/macros: Introduce BUILD_ERROR()
+Subject: Re: [PATCH 4/6] xen/bitops: Introduce for_each_set_bit()
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
@@ -88,8 +89,8 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240625190719.788643-1-andrew.cooper3@citrix.com>
- <20240625190719.788643-4-andrew.cooper3@citrix.com>
- <1fe765d7-65c4-4f04-8835-327a0b623010@suse.com>
+ <20240625190719.788643-5-andrew.cooper3@citrix.com>
+ <950da1fb-3df6-4962-b1fe-07e853507e37@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,56 +136,46 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <1fe765d7-65c4-4f04-8835-327a0b623010@suse.com>
+In-Reply-To: <950da1fb-3df6-4962-b1fe-07e853507e37@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26/06/2024 10:23 am, Jan Beulich wrote:
+On 26/06/2024 11:17 am, Jan Beulich wrote:
 > On 25.06.2024 21:07, Andrew Cooper wrote:
->> --- a/xen/include/xen/macros.h
->> +++ b/xen/include/xen/macros.h
->> @@ -59,6 +59,8 @@
->>  #define BUILD_BUG_ON(cond) ((void)BUILD_BUG_ON_ZERO(cond))
->>  #endif
->>  
->> +#define BUILD_ERROR(msg) asm ( ".error \"" msg "\"" )
-> I think this wants a comment, and one even beyond what is said for
-> BUILD_BUG_ON(). This is primarily to make clear to people when to use
-> which, i.e. I consider it important to mention here that it is intended
-> for code which, in the normal case, we expect to be DCE-d. The nature
-> of the condition used is also a relevant factor, as in some cases
-> BUILD_BUG_ON() simply cannot be used because something that really is
-> compile time constant isn't an integer constant expression. With
-> something to this effect:
+>> The prior version (renamed to bitmap_for_each()) was inefficeint when used
+>> over a scalar, but this is the more common usage even before accounting for
+>> the many opencoded forms.
+>>
+>> Introduce a new version which operates on scalars only and does so without
+>> spilling them to memory.  This in turn requires the addition of a type-generic
+>> form of ffs().
+>>
+>> Add testing for the new construct alongside the ffs/fls testing.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Done, thanks.
+Thanks.
 
+> with two remarks:
 >
-> I have another question / suggestion, though.
->
->> --- a/xen/include/xen/self-tests.h
->> +++ b/xen/include/xen/self-tests.h
->> @@ -22,9 +22,9 @@
->>          typeof(fn(val)) real = fn(val);                                 \
->>                                                                          \
->>          if ( !__builtin_constant_p(real) )                              \
->> -            asm ( ".error \"'" STR(fn(val)) "' not compile-time constant\"" ); \
->> +            BUILD_ERROR("'" STR(fn(val)) "' not compile-time constant"); \
->>          else if ( real != res )                                         \
->> -            asm ( ".error \"Compile time check '" STR(fn(val) == res) "' failed\"" ); \
->> +            BUILD_ERROR("Compile time check '" STR(fn(val) == res) "' failed"); \
->>      } while ( 0 )
-> While right here leaving the condition outside of the macro is
-> perhaps more natural, considering a case where there's just an if()
-> I wonder whether we shouldn't also (only?) have BUILD_ERROR_ON(),
-> better paralleling BUILD_BUG_ON():
+>> The naming of ffs_g() is taken from the new compiler builtins which are using
+>> a g suffix to mean type-generic.
+> As you say, a g suffix, not a _g one; gcc14 documents __builtin_ffsg().
+> (Seeing it exists I wonder whether we wouldn't want to use it when
+> available, and only fall back to the macro for older versions.) Any
+> specific reason you use _g?
 
-Right now none of the uses in this series, nor any of the MISRA
-conversions away __bad_*() want an _ON() form.
+Legibility.  It's bad enough with the l() and ll() forms (which get
+worse with the hweight() series, and I can't find a nice option).
 
-Nothing stops us adding an _ON() form in the future if a reasonable
-usecase appears, but right now there's no need.
+The other option I considered was have ffs() be the generic one, and
+have ffsi() for the int variant, but now we're in active contradiction
+with the builtin scheme, rather than merely opting not to use it.
+
+I don't expect this to get much use in practice.  Use of this in regular
+code mixing ints and longs is almost certainly a bug on behalf of the
+programmer.
 
 ~Andrew
 
