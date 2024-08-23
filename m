@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A871595C57E
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 08:33:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782140.1191602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC6F795C59F
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 08:40:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782149.1191613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shNpz-0006jW-7N; Fri, 23 Aug 2024 06:31:55 +0000
+	id 1shNyA-0000Me-1W; Fri, 23 Aug 2024 06:40:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782140.1191602; Fri, 23 Aug 2024 06:31:55 +0000
+Received: by outflank-mailman (output) from mailman id 782149.1191613; Fri, 23 Aug 2024 06:40:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shNpz-0006hL-4W; Fri, 23 Aug 2024 06:31:55 +0000
-Received: by outflank-mailman (input) for mailman id 782140;
- Fri, 23 Aug 2024 06:31:53 +0000
+	id 1shNy9-0000Ka-T6; Fri, 23 Aug 2024 06:40:21 +0000
+Received: by outflank-mailman (input) for mailman id 782149;
+ Fri, 23 Aug 2024 06:40:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+Ly7=PW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1shNpx-0006hF-Mw
- for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 06:31:53 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1shNy8-0000KU-3W
+ for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 06:40:20 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 62467df9-6119-11ef-a50a-bb4a2ccca743;
- Fri, 23 Aug 2024 08:31:52 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a86abbd68ffso10640366b.0
- for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 23:31:52 -0700 (PDT)
+ id 8fe49427-611a-11ef-a50a-bb4a2ccca743;
+ Fri, 23 Aug 2024 08:40:19 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5befd2f35bfso2155996a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 23:40:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a868f43790bsm210819466b.126.2024.08.22.23.31.51
+ 4fb4d7f45d1cf-5c0515a6342sm1704838a12.79.2024.08.22.23.40.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Aug 2024 23:31:51 -0700 (PDT)
+ Thu, 22 Aug 2024 23:40:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62467df9-6119-11ef-a50a-bb4a2ccca743
+X-Inumbo-ID: 8fe49427-611a-11ef-a50a-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724394712; x=1724999512; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724395218; x=1725000018; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YjdBEQO1jlm3fuESIohG+xz31zFEudu6/daTF547e1I=;
-        b=LeJ+JzELv0HKv167iKWvQ22XAi8zIe8cV8M4dw9v6QvyEo5xhlJ1p9OK3fymRa5OZI
-         JM9qLsRwVmYU2lgxIBM2YO1iO/EUTjOs/hC+XOi2LHNIjmrewTZoWEUdetVsq/srvtt0
-         d99H0UzWIIFKPP2MkO0ZsAlBbcKJPc9k2ZHCKFJK6j1c+Pl3Ky3IxNymqp4OzyWhNzxI
-         5ydHl9i66i1bb4dig2AVbovLXl87vY9vv8M4xAWewkIukjU64lI9J6/w5TZnF5rSk/2P
-         OKQGWAW17LfYgueEyuKNQxZhOtXs4Kxv5dha8WXb1/UIXkg3sMfamBmp+DK0hoD/J7EM
-         iBcA==
+        bh=L6rQzet8aaepjX1p6bRXeaq3UnocfIoPmF5UhWJcUQc=;
+        b=BaAaghhHhPt+l6xJUdeSZrnI+Y8caZM+UEkb2YrLTyRgPJMIIx1LCiIluQQg0eQKFH
+         WMFSbkajUN5wfDYhY/2lpwW3MRIhxx3au30AuKQHMum/Evkt7mE8onApH5SAzU2Ructv
+         3djgo9ESH7L1dzQcN6FRGxtUlXgJt45AL/UU4ZfYfZvlEV+3V9PI5CJZ4sCOpURuz+MK
+         u6hkvhqqNcxnfshLO3yKgLVE84Tkp+1K8/6s297pH9952do/5wx+jECJcMxf7A0H3bn/
+         mVRi5ENWhHFK85M9TWDAKT2xDxi0BYZEWSMaL0dkuhi/+CqKr9bnoPfnSGp+3tGyjmz5
+         THoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724394712; x=1724999512;
+        d=1e100.net; s=20230601; t=1724395218; x=1725000018;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YjdBEQO1jlm3fuESIohG+xz31zFEudu6/daTF547e1I=;
-        b=Lel2kanplwA8q28jv+cMDJBjKiUSSoS+znA2wuc8+1fIZpcKx+v1fxMCcVLUdKtZ/R
-         FYKgnwGzjYJ6Stf4fnPWDyfhkCsyT1brAmaAgEGkanlDGI+8Z3heFvr2CkeMxSASuCBg
-         5g7RxvOvBk7/LkELEBGNSCR/DQ3MrRA2PRiPwtCd3gI5Sp0XK4oePLLGBxlLTG+EBKNy
-         cgpUh55iIdnHFg+jmrxsIUgSOmH9aULx3wGPFKTlg5BjceWjN/+BZGggKs/jGgYux7Vh
-         zQb/LbNba6a9qhZOE+qOq9ZCHi4eLwF+HJ4j1GQR4uhUoVVdslC22k5VEyDBHcGNdXhr
-         79Aw==
-X-Forwarded-Encrypted: i=1; AJvYcCV050+lSf8vBOEDagegtMl2P8/vtg/mdJEnByzmDkz+BMo4lnNW1Aa8ZSSDnfWNH8az3FxSz28n+w0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwcjvJ3LPrApqfHNjI3IIdeSvQ/hNLpn61PS6M8OUU6p2wk9iUT
-	O7SLOynZIg54DJSVZt80HI1tSlkYU9bSh2LA/b3XLGGtcpta3kCWSbq+inY936Av/BTg562pHrI
+        bh=L6rQzet8aaepjX1p6bRXeaq3UnocfIoPmF5UhWJcUQc=;
+        b=NCQVxJ7B45NDOMb8+nmnj9jHVj3p7wzBqY+jmS9CWLql04UkUZAfHMYVE9EX8uhXlV
+         vSBWtVZp/kOzl0ti73pLThSi6VsOcVSkbpCUTbhNQoEARXiqtPx1rdYDV1O1CAOHbmcs
+         7tbtUf75/Es77Vhf4w39kbVdCuk4C3Z7SgD23TM+ORqT2zfuNBcsBFgY9Ev5ZpgA0HfB
+         W2vt9TPAOMoYyMiH2CMONEkCJcvWg9y6NQJ/a5wqJjh9douakJ+6dnFJx64i4RI9fK6L
+         4Dri1FVcrvGVaL+JLPpT27HjCaVh6WcQsNVXXpF9AOpO/LjQPiKdWXb+dpNUPS4ODplE
+         XYbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW7ATb0tI6RyZjMPHU5jBaqeh8xrtPYM72K2Dr5WmawUkipCd0iHCYNPx2sj/IVIFnVSQmPhHPZ6JQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyV5BKWsF8D/11CXjTz9sr5v97OdVMAsWAWhZLaMORQf0gJgP6H
+	gXA2RS357GZLy5wcgnN+COSEOZAEwI2pd1GMWGEclWGtBAewq0JvzQAHWvjMsn+JyNE5yj4y6d0
 	=
-X-Google-Smtp-Source: AGHT+IEz0HZE9T6v3TnwLmHWp49xCvAr8+Frwi6ggjDb550xULk8hW+1QjHExOPDFmKHYDBMjKxS8Q==
-X-Received: by 2002:a17:907:96a1:b0:a80:b016:2525 with SMTP id a640c23a62f3a-a86a2f5a37bmr138366566b.8.1724394711643;
-        Thu, 22 Aug 2024 23:31:51 -0700 (PDT)
-Message-ID: <7b575ad5-c7c6-4054-8036-9d2961630d42@suse.com>
-Date: Fri, 23 Aug 2024 08:31:50 +0200
+X-Google-Smtp-Source: AGHT+IEmDwc3AEJ51K18Slqmr+fjOq/XYVgMVeFDNuO8E7/qeuZ3hkscEuEGCfcm6no9D9pBp+dP1A==
+X-Received: by 2002:a05:6402:2105:b0:5b9:462d:c538 with SMTP id 4fb4d7f45d1cf-5c08915a80cmr796039a12.3.1724395217635;
+        Thu, 22 Aug 2024 23:40:17 -0700 (PDT)
+Message-ID: <d65d8b50-5f9a-4495-afd8-7ca4430a2e1d@suse.com>
+Date: Fri, 23 Aug 2024 08:40:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1] libxl: Fix nul-termination of the return value of
- libxl_xen_console_read_line()
-To: Javi Merino <javi.merino@cloud.com>,
- Anthony PERARD <anthony.perard@vates.tech>
-Cc: Juergen Gross <jgross@suse.com>, =?UTF-8?B?RWR3aW4gVMO2csO2aw==?=
- <edwin.torok@cloud.com>, xen-devel@lists.xenproject.org
-References: <ad7c89bbae34155566ae7c9ca2cb501f21c7d585.1724330921.git.javi.merino@cloud.com>
+Subject: Re: [PATCH v2] Restore memory used for IP computation
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20240822140044.441126-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,49 +113,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ad7c89bbae34155566ae7c9ca2cb501f21c7d585.1724330921.git.javi.merino@cloud.com>
+In-Reply-To: <20240822140044.441126-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.08.2024 15:13, Javi Merino wrote:
-> When built with ASAN, "xl dmesg" crashes in the "printf("%s", line)"
-> call in main_dmesg().  ASAN reports a heap buffer overflow: an
-> off-by-one access to cr->buffer.
+On 22.08.2024 16:00, Frediano Ziglio wrote:
+> We need to write in some location but no reasons to not
+> trying to restore what we potentially overwrote.
 > 
-> The readconsole sysctl copies up to count characters into the buffer,
-> but it does not add a null character at the end.  Despite the
-> documentation of libxl_xen_console_read_line(), line_r is not
-> nul-terminated if 16384 characters were copied to the buffer.
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> ---
+>  xen/arch/x86/boot/head.S | 22 ++++++++++++++--------
+>  1 file changed, 14 insertions(+), 8 deletions(-)
+> ---
+> Changes since v1:
+> - Rewrite magic number field instead of some possible BIOS area.
 > 
-> Fix this by making count one less that the size of the allocated
-> buffer so that the last byte is always null.
-> 
-> Reported-by: Edwin Török <edwin.torok@cloud.com>
-> Signed-off-by: Javi Merino <javi.merino@cloud.com>
+> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+> index d8ac0f0494..9b7e7b4e51 100644
+> --- a/xen/arch/x86/boot/head.S
+> +++ b/xen/arch/x86/boot/head.S
+> @@ -415,16 +415,19 @@ __pvh_start:
+>  
+>          /*
+>           * We need one push/pop to determine load address.  Use the same
+> -         * absolute stack address as the native path, for lack of a better
+> -         * alternative.
+> +         * stack address as the native path.
 
-Perhaps wants a Fixes: tag as well?
+This isn't quite right, because ...
 
-> --- a/tools/libs/light/libxl_console.c
-> +++ b/tools/libs/light/libxl_console.c
-> @@ -779,7 +779,7 @@ libxl_xen_console_reader *
->      cr = libxl__zalloc(NOGC, sizeof(libxl_xen_console_reader));
->      cr->buffer = libxl__zalloc(NOGC, size);
->      cr->size = size;
-> -    cr->count = size;
-> +    cr->count = size - 1;
->      cr->clear = clear;
->      cr->incremental = 1;
+> @@ -463,18 +466,21 @@ __start:
+>           * relocatable images, where one push/pop is required to calculate
+>           * images load address.
+>           *
+> -         * On a BIOS-based system, the IVT and BDA occupy the first 5/16ths of
+> -         * the first page of RAM, with the rest free for use.  Use the top of
+> -         * this page for a temporary stack, being one of the safest locations
+> -         * to clobber.
+> +         * Save and restore the magic field of start_info in ebx, and use
+> +         * that as the stack. See also
 
-While this looks to be addressing the issue at hand, I still wonder: Why
-does the "count" field exist at all? It's certainly odd to be set right
-here (when the buffer actually is empty). It's used solely in
-libxl_xen_console_read_line(), so could be a local variable there.
-
-Then, further, I wonder why struct libxl__xen_console_reader lives in
-libxl_internal.h - it's used solely in libxl_console.c.
-
-Finally - why libxl__zalloc() when libxl_xen_console_read_line() clears
-the buffer anyway?
+... there simply is no start_info here. Iirc Andrew suggested to use the MB
+area's first slot (which effectively is what you do here, i.e. it's just the
+comment which is misleading), presumably on the assumption that any exception
+(incl NMI) in the window until a proper stack is set up will be deadly anyway
+(which may want mentioning in the comment or description as well).
 
 Jan
 
