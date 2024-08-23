@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC6F795C59F
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 08:40:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782149.1191613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A8C495C5C9
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 08:48:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782159.1191624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shNyA-0000Me-1W; Fri, 23 Aug 2024 06:40:22 +0000
+	id 1shO5v-0001gI-UC; Fri, 23 Aug 2024 06:48:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782149.1191613; Fri, 23 Aug 2024 06:40:22 +0000
+Received: by outflank-mailman (output) from mailman id 782159.1191624; Fri, 23 Aug 2024 06:48:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shNy9-0000Ka-T6; Fri, 23 Aug 2024 06:40:21 +0000
-Received: by outflank-mailman (input) for mailman id 782149;
- Fri, 23 Aug 2024 06:40:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1shO5v-0001dZ-Q6; Fri, 23 Aug 2024 06:48:23 +0000
+Received: by outflank-mailman (input) for mailman id 782159;
+ Fri, 23 Aug 2024 06:48:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+Ly7=PW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1shNy8-0000KU-3W
- for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 06:40:20 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8fe49427-611a-11ef-a50a-bb4a2ccca743;
- Fri, 23 Aug 2024 08:40:19 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5befd2f35bfso2155996a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 23:40:19 -0700 (PDT)
+ id 1shO5u-0001dT-Ne
+ for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 06:48:22 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id af64af84-611b-11ef-8776-851b0ebba9a2;
+ Fri, 23 Aug 2024 08:48:20 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5bec78c3f85so1979654a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2024 23:48:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c0515a6342sm1704838a12.79.2024.08.22.23.40.17
+ 4fb4d7f45d1cf-5c04a3cbcaesm1693360a12.39.2024.08.22.23.48.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Aug 2024 23:40:17 -0700 (PDT)
+ Thu, 22 Aug 2024 23:48:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8fe49427-611a-11ef-a50a-bb4a2ccca743
+X-Inumbo-ID: af64af84-611b-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724395218; x=1725000018; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724395700; x=1725000500; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=L6rQzet8aaepjX1p6bRXeaq3UnocfIoPmF5UhWJcUQc=;
-        b=BaAaghhHhPt+l6xJUdeSZrnI+Y8caZM+UEkb2YrLTyRgPJMIIx1LCiIluQQg0eQKFH
-         WMFSbkajUN5wfDYhY/2lpwW3MRIhxx3au30AuKQHMum/Evkt7mE8onApH5SAzU2Ructv
-         3djgo9ESH7L1dzQcN6FRGxtUlXgJt45AL/UU4ZfYfZvlEV+3V9PI5CJZ4sCOpURuz+MK
-         u6hkvhqqNcxnfshLO3yKgLVE84Tkp+1K8/6s297pH9952do/5wx+jECJcMxf7A0H3bn/
-         mVRi5ENWhHFK85M9TWDAKT2xDxi0BYZEWSMaL0dkuhi/+CqKr9bnoPfnSGp+3tGyjmz5
-         THoQ==
+        bh=KgAuwxLJBxFo+sIorLSrqSq2BKf0W3ERXL8VEq5bxk4=;
+        b=Cp52VUExUppDAGYI/itoCtOS5fc2G1qBQsSURTcL/JdSSQHue5C3vwpy8YyPqZ1beM
+         ApFUIxUhOJMNrNQyM9mTs87mFoVOzcTYHr6JVa6orQqCosU6E3knjaRrQGRkONErKH5s
+         xoeSfO19vEI0T+BJ/rbEWraBtGVBKKRoJl8SAN4aSCicSmsWHNZIJ30GRVVC/N5bGPIs
+         8G2jaSYHhIyjwvfSbtI56OU8hHz0qTc5Uy8Ef/sRc3oeRVagbysQ6J9os/Clbr4tNihl
+         qDHgR+0vCF5NxATVQJUOytRVgEZ6+V91ZC26V8HTsBxbfO046dG1djZyTN+UA6zQ6YkK
+         /I8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724395218; x=1725000018;
+        d=1e100.net; s=20230601; t=1724395700; x=1725000500;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L6rQzet8aaepjX1p6bRXeaq3UnocfIoPmF5UhWJcUQc=;
-        b=NCQVxJ7B45NDOMb8+nmnj9jHVj3p7wzBqY+jmS9CWLql04UkUZAfHMYVE9EX8uhXlV
-         vSBWtVZp/kOzl0ti73pLThSi6VsOcVSkbpCUTbhNQoEARXiqtPx1rdYDV1O1CAOHbmcs
-         7tbtUf75/Es77Vhf4w39kbVdCuk4C3Z7SgD23TM+ORqT2zfuNBcsBFgY9Ev5ZpgA0HfB
-         W2vt9TPAOMoYyMiH2CMONEkCJcvWg9y6NQJ/a5wqJjh9douakJ+6dnFJx64i4RI9fK6L
-         4Dri1FVcrvGVaL+JLPpT27HjCaVh6WcQsNVXXpF9AOpO/LjQPiKdWXb+dpNUPS4ODplE
-         XYbQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW7ATb0tI6RyZjMPHU5jBaqeh8xrtPYM72K2Dr5WmawUkipCd0iHCYNPx2sj/IVIFnVSQmPhHPZ6JQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyV5BKWsF8D/11CXjTz9sr5v97OdVMAsWAWhZLaMORQf0gJgP6H
-	gXA2RS357GZLy5wcgnN+COSEOZAEwI2pd1GMWGEclWGtBAewq0JvzQAHWvjMsn+JyNE5yj4y6d0
-	=
-X-Google-Smtp-Source: AGHT+IEmDwc3AEJ51K18Slqmr+fjOq/XYVgMVeFDNuO8E7/qeuZ3hkscEuEGCfcm6no9D9pBp+dP1A==
-X-Received: by 2002:a05:6402:2105:b0:5b9:462d:c538 with SMTP id 4fb4d7f45d1cf-5c08915a80cmr796039a12.3.1724395217635;
-        Thu, 22 Aug 2024 23:40:17 -0700 (PDT)
-Message-ID: <d65d8b50-5f9a-4495-afd8-7ca4430a2e1d@suse.com>
-Date: Fri, 23 Aug 2024 08:40:16 +0200
+        bh=KgAuwxLJBxFo+sIorLSrqSq2BKf0W3ERXL8VEq5bxk4=;
+        b=Bf6ucTcyLSp4C3ginSsFTYtBFICUd/AALslxMJoFn9tTN4i6FhvS9nZGcETLEV70es
+         HIlhLLywOjRpZFqh3tQfDlG8jwOPljzf/y3R6uTOYucVU6OZCUYXc/0DdLo4FpGPgSLa
+         U0unHBdN4TfbTJWKZZcnAypjc/l0lcE0+BsW6kyPg4t6qwLPl8ern2V99u5QCfYfehR+
+         3kEHEyoWU7i+foff1ZjLlFPY1s+Ni0sPKfXlsgqwEVm813IE4Wm/UAsZzoClQoVkRmO5
+         Ag1hgW0KpSGaCLWD8/ZqXX0Iy3bk0PyU6coDsD1YzSB22hnRzxiKMXrA/UYbJ20iKMrv
+         IW8w==
+X-Forwarded-Encrypted: i=1; AJvYcCXkBmlE7zGoypXVfw+E0n5sEdIuhcNRTfWfwHBbrioEmrDEMvKSCsRKb0+KktR8FsWpWRx/ccLwaUU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz5TL3bLa09b08ep/wsljwU1PO5Uz9LCApGfw/WB333yo1Pk6Mc
+	PhGOsUfHolvVzlNSnYVbpYKbemh6RVzYTTWE1IiJhINhiGaGzK+oeYQKlDfDnA==
+X-Google-Smtp-Source: AGHT+IFmmxWJfgdQJ/oszvxr0odgYDPBpqIqjDhQnBeRT9OvvCtZFdRBXklV7gcHJ04I8sD+wEPlcQ==
+X-Received: by 2002:a05:6402:2b8a:b0:5be:fcba:c37c with SMTP id 4fb4d7f45d1cf-5c0891b1fd9mr561219a12.35.1724395700111;
+        Thu, 22 Aug 2024 23:48:20 -0700 (PDT)
+Message-ID: <25eca7b9-daef-42c7-8aa4-0d63d0cd0aa4@suse.com>
+Date: Fri, 23 Aug 2024 08:48:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] Restore memory used for IP computation
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v7 2/3] x86/ucode: Introduce --force option to xen-ucode
+To: Fouad Hilly <fouad.hilly@cloud.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <20240822140044.441126-1-frediano.ziglio@cloud.com>
+References: <20240822130426.492931-1-fouad.hilly@cloud.com>
+ <20240822130426.492931-3-fouad.hilly@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,52 +113,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240822140044.441126-1-frediano.ziglio@cloud.com>
+In-Reply-To: <20240822130426.492931-3-fouad.hilly@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.08.2024 16:00, Frediano Ziglio wrote:
-> We need to write in some location but no reasons to not
-> trying to restore what we potentially overwrote.
-> 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
->  xen/arch/x86/boot/head.S | 22 ++++++++++++++--------
->  1 file changed, 14 insertions(+), 8 deletions(-)
-> ---
-> Changes since v1:
-> - Rewrite magic number field instead of some possible BIOS area.
-> 
-> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-> index d8ac0f0494..9b7e7b4e51 100644
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -415,16 +415,19 @@ __pvh_start:
->  
->          /*
->           * We need one push/pop to determine load address.  Use the same
-> -         * absolute stack address as the native path, for lack of a better
-> -         * alternative.
-> +         * stack address as the native path.
+On 22.08.2024 15:04, Fouad Hilly wrote:
+> @@ -79,7 +81,10 @@ static void usage(FILE *stream, const char *name)
+>              "Usage: %s [options | microcode-file]\n"
+>              "options:\n"
+>              "  -h, --help               display this help\n"
+> -            "  -s, --show-cpu-info      show CPU information\n",
+> +            "  -s, --show-cpu-info      show CPU information\n"
+> +            "  -f, --force              skip certain checks when applying\n"
+> +            "                           microcode; do not use unless you know\n"
+> +            "                           exactly what you are doing\n",
+>              name, name);
 
-This isn't quite right, because ...
-
-> @@ -463,18 +466,21 @@ __start:
->           * relocatable images, where one push/pop is required to calculate
->           * images load address.
->           *
-> -         * On a BIOS-based system, the IVT and BDA occupy the first 5/16ths of
-> -         * the first page of RAM, with the rest free for use.  Use the top of
-> -         * this page for a temporary stack, being one of the safest locations
-> -         * to clobber.
-> +         * Save and restore the magic field of start_info in ebx, and use
-> +         * that as the stack. See also
-
-... there simply is no start_info here. Iirc Andrew suggested to use the MB
-area's first slot (which effectively is what you do here, i.e. it's just the
-comment which is misleading), presumably on the assumption that any exception
-(incl NMI) in the window until a proper stack is set up will be deadly anyway
-(which may want mentioning in the comment or description as well).
+As indicated before: --force does no longer fit "[options | microcode-file]".
+The form coming closest is imo going to be "[options] [microcode-file]", with
+the file name simply taking no effect when specified together with one of the
+pre-existing two options.
 
 Jan
 
