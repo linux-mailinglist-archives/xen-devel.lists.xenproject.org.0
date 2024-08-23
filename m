@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6435E95C806
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 10:25:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782203.1191687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5865595C952
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 11:35:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782217.1191697 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shPbr-0003Y4-Pn; Fri, 23 Aug 2024 08:25:27 +0000
+	id 1shQgN-0006ke-Iw; Fri, 23 Aug 2024 09:34:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782203.1191687; Fri, 23 Aug 2024 08:25:27 +0000
+Received: by outflank-mailman (output) from mailman id 782217.1191697; Fri, 23 Aug 2024 09:34:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shPbr-0003WK-N5; Fri, 23 Aug 2024 08:25:27 +0000
-Received: by outflank-mailman (input) for mailman id 782203;
- Fri, 23 Aug 2024 08:25:26 +0000
+	id 1shQgN-0006hc-Fk; Fri, 23 Aug 2024 09:34:11 +0000
+Received: by outflank-mailman (input) for mailman id 782217;
+ Fri, 23 Aug 2024 09:34:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=imIp=PW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1shPbq-0003SX-9A
- for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 08:25:26 +0000
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [2607:f8b0:4864:20::734])
+ id 1shQgM-0006hW-AW
+ for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 09:34:10 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3efb4d17-6129-11ef-a50a-bb4a2ccca743;
- Fri, 23 Aug 2024 10:25:25 +0200 (CEST)
-Received: by mail-qk1-x734.google.com with SMTP id
- af79cd13be357-7a1da7cafccso98683285a.3
- for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 01:25:25 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ id d8d69193-6132-11ef-a50a-bb4a2ccca743;
+ Fri, 23 Aug 2024 11:34:08 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a8684c31c60so225106866b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 02:34:08 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7a67f3bb329sm153564185a.78.2024.08.23.01.25.22
+ a640c23a62f3a-a868f48a5d0sm232751866b.159.2024.08.23.02.34.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Aug 2024 01:25:23 -0700 (PDT)
+ Fri, 23 Aug 2024 02:34:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3efb4d17-6129-11ef-a50a-bb4a2ccca743
+X-Inumbo-ID: d8d69193-6132-11ef-a50a-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724401524; x=1725006324; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=q/p5UbZumGq1JrXX8ufF1SopGMx3J1faHSWKhX5WLoQ=;
-        b=odIZ8TBXcoZplr8hLsmtrXLKNCqPVXzBB49Pznq4TH9w0G3VWVgK1aHD89npIHfzAi
-         5kc83aZkutwZRbHvSaTOXcpUfdzUakk0A5/KRCHICojVKXzkmGRYpP/CrhOUUg0Oclom
-         gNaWgZVuYsAeeg2zkTu9LUeqeqPpmy8KyW/s4=
+        d=citrix.com; s=google; t=1724405648; x=1725010448; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=2uvmszkIkUKTYN+Fk0dr+kTtQ12mzMtCsXW/XctRIbY=;
+        b=vkW9ubTT0yHl31BcGku+8uDxZ/J5wpEzW1oYQptRTXDMi8vfKCHWHIY1tJ5pTYkcbC
+         2A7oUFtvc3Qmkb8o61y44yCtl/a8bGbWEei+JmfAY5pShD+QJNYXS26CGHnefxi9Uz8G
+         I2r7T2U+EgXU9ZzQZIKNpidKUjkkzjuHgnk2k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724401524; x=1725006324;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=q/p5UbZumGq1JrXX8ufF1SopGMx3J1faHSWKhX5WLoQ=;
-        b=pCA7HXWTOW/RNY5nWSgo6FWenc6yL2lsvXwZCG6VoiXv1OUvw6DUzhepvO0sECFy+d
-         2MYi3eu2LnYE912aEwtoUAA0cnl002J+1SLdplZVmlGncMhpeYw5gDSIchf9Z2XZm2db
-         NMrsmhfwKf3yvgE4JHB+awcG4pBcIeJUC+UtK1znY6n0daTGwBMqBy5+A0xTszGxGlf6
-         Rre9+4GO+qQ88w3vzj+F0EgNm8CEEKgABNBxNhqwKHVLCiiXrPD+k+sfth3Qf5GzX80/
-         uq68sGyz1zFOrley63FMQZvw0SdCnJ9fDh/bGos3Kd9MjAjaldGm8OjMVH/ZoasRxlCY
-         91/g==
-X-Forwarded-Encrypted: i=1; AJvYcCWUOFMpP/rZZiFnlV1uGpH40JW9DagWfMPZrJCVlD8uiXIVbgyEWMX22A0xG0R3kuoIlkPOIEP5NF8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy1Uph8LgNE1jb9FObb8ouDTDdbFLPQ1C0pvNJFqdeR0RajS+Q3
-	lZm3EL7wez5V+a4vFlo7EdmIOEMBU0DQ34LmqAC+6O0n4tJqZi4ptVklNH1QLDE=
-X-Google-Smtp-Source: AGHT+IFioTQgmgdZRFJiz3WPx86yO2T9XVwcXz2LivYSqjm6/F3tu/PCEASkDVnskCxy+SDb1BeRhg==
-X-Received: by 2002:a05:620a:3181:b0:7a1:e20c:186e with SMTP id af79cd13be357-7a689700b1emr161906285a.15.1724401524142;
-        Fri, 23 Aug 2024 01:25:24 -0700 (PDT)
-Message-ID: <668800f2-409a-43fb-9bdc-23ce693cedcd@citrix.com>
-Date: Fri, 23 Aug 2024 09:25:21 +0100
+        d=1e100.net; s=20230601; t=1724405648; x=1725010448;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2uvmszkIkUKTYN+Fk0dr+kTtQ12mzMtCsXW/XctRIbY=;
+        b=XAIWlqEuFZgztv5ST3nUqaOYliEsQmnmWvAsitck7gPv5oatqMuMUx0B9LHIndXLS8
+         pWqkZbswCJzFkgfUX2mxuVtS1FBnhTQTkiN2TcQMEfCPo77jRfPNWYz798h1orguzBRz
+         sr8PbdpeU3djPe4sNiu1XYcIx/MAGwgMpM2mfWjUh6bNanzPi1fwamC8WydpdZuLBwyy
+         HtuIccisw7ww3I97PYh1nmloVhA+HFrrtGCU5HVbljy/TJHXR3UG+vm2TZ4L4BGNBxas
+         oBHuUME79Z1iF2dQMPpPtVbT1u3vEHZDEYZ+VA/3+a6OIpfjy+zXkt4iK3q0oz321nG7
+         DOAA==
+X-Forwarded-Encrypted: i=1; AJvYcCVRN8G6mqTUBJgOJAK8W8pVeX//dy5zNCH+8h7NDFB83DtA3ZUrLWvyIdP8uGzDN5p63o2Z8aDsIJM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywdz8o/kjSc2JJhGKfMjDZFs+OSgTGvYXBvAixMHN6VhLHAx/Jn
+	WoBbniZwmSN87gb7YyFjlxk3BXOOANOTiwRV3A2pAcOAn4fKBVdFZb5SsW75d8M=
+X-Google-Smtp-Source: AGHT+IH3s0hBQA+c8tD2t0TG69Ui1NzDgwqlFACuhnU7yFFFalbkzV8EOaN7oIoZSf0pjiddsN85JQ==
+X-Received: by 2002:a17:907:3f9c:b0:a86:a2b6:fc42 with SMTP id a640c23a62f3a-a86a52b643dmr86520466b.24.1724405647659;
+        Fri, 23 Aug 2024 02:34:07 -0700 (PDT)
+Message-ID: <925ae2fb-6f6f-4825-8469-c410b7bb89fc@citrix.com>
+Date: Fri, 23 Aug 2024 10:34:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86emul: drop and avoid use of BUG()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <d14e4ffc-d07b-4a60-8949-ecdcea86cd77@suse.com>
-Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [XEN PATCH v1] libxl: Fix nul-termination of the return value of
+ libxl_xen_console_read_line()
+To: Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, =?UTF-8?B?RWR3aW4gVMO2csO2aw==?=
+ <edwin.torok@cloud.com>
+References: <ad7c89bbae34155566ae7c9ca2cb501f21c7d585.1724330921.git.javi.merino@cloud.com>
+Content-Language: en-GB
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -128,21 +130,77 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <d14e4ffc-d07b-4a60-8949-ecdcea86cd77@suse.com>
+In-Reply-To: <ad7c89bbae34155566ae7c9ca2cb501f21c7d585.1724330921.git.javi.merino@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23/08/2024 8:16 am, Jan Beulich wrote:
-> Generally it is not a good idea to use BUG() in emulator code. Even for
-> internal flaws we're better off returning errors to callers, rather than
-> crashing the system. Replace the sole remaining use and remove the
-> test / fuzzing harness surrogate. Put in place a declaration pleasing
-> the compiler when finding uses in Xen headers, while at the same time
-> breaking the build (at linking time) in case an active reference would
-> newly appear.
+On 22/08/2024 2:13 pm, Javi Merino wrote:
+> When built with ASAN, "xl dmesg" crashes in the "printf("%s", line)"
+> call in main_dmesg().  ASAN reports a heap buffer overflow: an
+> off-by-one access to cr->buffer.
 >
-> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> The readconsole sysctl copies up to count characters into the buffer,
+> but it does not add a null character at the end.  Despite the
+> documentation of libxl_xen_console_read_line(), line_r is not
+> nul-terminated if 16384 characters were copied to the buffer.
+>
+> Fix this by making count one less that the size of the allocated
+> buffer so that the last byte is always null.
+>
+> Reported-by: Edwin Török <edwin.torok@cloud.com>
+> Signed-off-by: Javi Merino <javi.merino@cloud.com>
+> ---
+>  tools/libs/light/libxl_console.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/libs/light/libxl_console.c b/tools/libs/light/libxl_console.c
+> index a563c9d3c7f9..fa28e2139453 100644
+> --- a/tools/libs/light/libxl_console.c
+> +++ b/tools/libs/light/libxl_console.c
+> @@ -779,7 +779,7 @@ libxl_xen_console_reader *
+>      cr = libxl__zalloc(NOGC, sizeof(libxl_xen_console_reader));
+>      cr->buffer = libxl__zalloc(NOGC, size);
+>      cr->size = size;
+> -    cr->count = size;
+> +    cr->count = size - 1;
+>      cr->clear = clear;
+>      cr->incremental = 1;
+>  
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+This looks like it will fix the ASAN issue, but I think a better fix
+would be:
+
+-        printf("%s", line);
++       printf("%.*s", cr->count, line);
+
+because otherwise there's a world of sharp corners once Xen has wrapped
+the buffer for the first time.
+
+
+Which brings us a lot of other WTFs in this code...
+
+First, libxl_console.c describes it's functionality in terms of lines,
+and line_reader() in the API.  Yet it's not lines, it's a 16k buffer
+with generally multi-line content.  It's too late to fix the naming, but
+we could at least rewrite the comments not to be blatant lies.
+
+
+Just out of context above the hunk is:
+
+    unsigned int size = 16384;
+
+which isn't accurate.  The size of Xen's console ring can be changed at
+compile time (like XenServer does), and/or by command line variable.
+
+Because the dmesg ring is never full (it just keeps producing and
+overwriting tail data), it's impossible to get a clean copy except in a
+single hypercall; the incremental/offset parameters are an illusion, and
+do not function correctly if a new printk() has occurred between
+adjacent hypercalls.
+
+And that is why setting count to size - 1 probably isn't wise.  It means
+that, even in the ideal case where Xen's ringbuffer is 16k, you've still
+got to make 2 hypercalls to get the content.
+
+~Andrew
 
