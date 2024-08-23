@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B14695CB00
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 12:52:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782253.1191758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0695A95CB0F
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 12:54:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782279.1191768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shRtp-0004xn-AZ; Fri, 23 Aug 2024 10:52:09 +0000
+	id 1shRvT-0006Nz-JP; Fri, 23 Aug 2024 10:53:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782253.1191758; Fri, 23 Aug 2024 10:52:09 +0000
+Received: by outflank-mailman (output) from mailman id 782279.1191768; Fri, 23 Aug 2024 10:53:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shRtp-0004v0-5X; Fri, 23 Aug 2024 10:52:09 +0000
-Received: by outflank-mailman (input) for mailman id 782253;
- Fri, 23 Aug 2024 10:52:08 +0000
+	id 1shRvT-0006Ku-GC; Fri, 23 Aug 2024 10:53:51 +0000
+Received: by outflank-mailman (input) for mailman id 782279;
+ Fri, 23 Aug 2024 10:53:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=imIp=PW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1shRto-0004C8-2B
- for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 10:52:08 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ <SRS0=Tpo4=PW=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
+ id 1shRvS-0006Kk-Qa
+ for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 10:53:50 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bd18eb0d-613d-11ef-8776-851b0ebba9a2;
- Fri, 23 Aug 2024 12:52:06 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-53349ee42a9so2238683e87.3
- for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 03:52:06 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ id fa22e6d6-613d-11ef-8776-851b0ebba9a2;
+ Fri, 23 Aug 2024 12:53:49 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-533462b9428so3161726e87.3
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 03:53:48 -0700 (PDT)
+Received: from smtpclient.apple ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a868f47d1c3sm239923866b.169.2024.08.23.03.52.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Aug 2024 03:52:03 -0700 (PDT)
+ a640c23a62f3a-a868f2a5903sm241438966b.78.2024.08.23.03.53.47
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 23 Aug 2024 03:53:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,84 +45,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd18eb0d-613d-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: fa22e6d6-613d-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724410325; x=1725015125; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1724410428; x=1725015228; darn=lists.xenproject.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uOO1eSHIi4Cp4U+gzj0SV1mncIJwBvzbwJEtLZVYyyo=;
-        b=LXqrBm9jc3iTF4uWJ2V/OtooWfFilQ9V0Gvd+6roQs+EVErcWvgJH+v3ylTHkNWtc5
-         9FXVfzycbKDgQnlKJra+YTb5vEXRm0Fg90umkb/BXw0ZLw2vPw3klzNIF6gW6hJfJm4r
-         AjNGJw+mns0RZblHQFb5b7a9vsvgOmTK307VQ=
+        bh=EaBCts23yfICKv14pkrP2OwPRJ62+K2VZ1b00yfvBas=;
+        b=YkCrMUVAeDSXCj3Oz16nt1HPx8Y7Jv/Z7yNACxDnLMwAKrTLjbnDBi32XNAC0BbUnA
+         NNrzkM6jO5DRlkyX74tz6FjcaEmTbS5eNccDVq/puFrVfMLn9LrWpFGohNam6kfzjso1
+         V3+ZpsGYusUTN8v45jqhDelmouls4h9ejwH5E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724410325; x=1725015125;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1724410428; x=1725015228;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=uOO1eSHIi4Cp4U+gzj0SV1mncIJwBvzbwJEtLZVYyyo=;
-        b=FZag2Fk1NsanwK3sFFrkkd6aYpdAfeOQ7ZY5Q+POAYPhWyK/zRqMy/eFaj9RFppzyZ
-         2j33hbiXFuMfpnsttbnkRm83drlJIr+7FGOzKlF1yVTo5bjJ1qrYAILJ5yqP3sSpaCEP
-         XUlv+rBI8TqvEt9DjZOHPfnNqR4sSHdv/D641MfAXZVsV02YLoEUV+0oXxKLkgVi+Ox9
-         E8zKYJ+4CeLsH0MWL/rlaIndn+PBGiSA4+4vZwr/I9dVaezbpqqzZ66P8sOAwDymw5HC
-         f2xY2GFQkIIOdmZBI1eENXd9UHgbk6bw4wHiKcrJ8lgHPMeveSE9sxMgWxsqQ2Fr6uf1
-         47JA==
-X-Gm-Message-State: AOJu0Yx/Un3a+cy8icUFztwDyKGlCsu3ADLKtvqVz7qEzUzyCWqkBbN+
-	0JoeyiiC5Ye2emd3HacqKF1x0pAzqEewkb3dFbh45u9x/9UbZ71t2nTHVoJZ/dDvsH+l7xvHRXx
-	3
-X-Google-Smtp-Source: AGHT+IEm3ot/zVxHC2E2B3CkRESeaW8QA/4ox9ba7+IvF9XuWYo+sm2A4tYv/MY/idy8qxh+1UeJcw==
-X-Received: by 2002:a05:6512:6cf:b0:52f:413:7e8c with SMTP id 2adb3069b0e04-5343877870fmr1472471e87.14.1724410325081;
-        Fri, 23 Aug 2024 03:52:05 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	=?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>,
-	Rob Hoes <Rob.Hoes@citrix.com>,
-	Andrii Sultanov <andrii.sultanov@cloud.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH 3/3] tools/ocaml: Fix the version embedded in META files
-Date: Fri, 23 Aug 2024 11:51:57 +0100
-Message-Id: <20240823105157.991275-4-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
+        bh=EaBCts23yfICKv14pkrP2OwPRJ62+K2VZ1b00yfvBas=;
+        b=hEjaYBJF/Dg8SdgxGPs2UjFQNe/yXJt08A6zAn7NDSB/rEQBWkcue0VHTpg0hsjy4I
+         xiJ4SHBpnQM9pAiG/BkfTSa4bQzuhe6/Reol6huzVxklK1wNh7FHrrdDpsI+EA5SF8Os
+         gaR4m4EE1knkW5AR0Zbzj3BVkM8UogSOpajSqCZDpis995S3EjLmoeFTdvkstJr+a1C7
+         AJdkdEHuUdGR+pgFCknVzSUeRqw2b6HAwUR1LCqOZVY8+AuaFEpesmyEhzy+JmF8RMuF
+         D5NqNyKfL8t+2Y9u2QTJlnKMtljuBrIvFDIM4kOhH3xQ4eSd9SIFydoqgff73Vamf5V6
+         tG5g==
+X-Gm-Message-State: AOJu0YyHjF5GRVl+K6XVyn94btitkAWy62qVwwN2F4l1Vq8JyzxsfcdB
+	iwOMYdEgyV/AaRaH7KhGgC9yNUqwSt1fluxn/xM2xYvVCWpcfsWM8n3vpFT7sIo=
+X-Google-Smtp-Source: AGHT+IHgUaYUn0D/I2p9wrYQNJYc4PFDEc3qxrQKjC/0NfqAVAOC5lKIOp5hOzr5w5KoGKWxS8G4GQ==
+X-Received: by 2002:a05:6512:a91:b0:52c:8342:6699 with SMTP id 2adb3069b0e04-5343888aa07mr1502731e87.55.1724410427873;
+        Fri, 23 Aug 2024 03:53:47 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [PATCH 0/3] tools/ocaml: Incremental build fixes
+From: Christian Lindig <christian.lindig@cloud.com>
 In-Reply-To: <20240823105157.991275-1-andrew.cooper3@citrix.com>
+Date: Fri, 23 Aug 2024 11:53:35 +0100
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>,
+ =?utf-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
+ Rob Hoes <Rob.Hoes@citrix.com>,
+ Andrii Sultanov <andrii.sultanov@cloud.com>,
+ Anthony PERARD <anthony.perard@vates.tech>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <55A27B23-1CD1-4123-8F16-793E0966CA49@cloud.com>
 References: <20240823105157.991275-1-andrew.cooper3@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+X-Mailer: Apple Mail (2.3774.600.62)
 
-Xen 4.1 is more than a decade stale now.  Use the same mechanism as elsewhere
-in the tree to get the current version number.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Christian Lindig <christian.lindig@citrix.com>
-CC: David Scott <dave@recoil.org>
-CC: Edwin Török <edwin.torok@cloud.com>
-CC: Rob Hoes <Rob.Hoes@citrix.com>
-CC: Andrii Sultanov <andrii.sultanov@cloud.com>
-CC: Anthony PERARD <anthony.perard@vates.tech>
 
-We could use autoconf for this, but it's rather more invasive and there's
-going to be a reasonable amount of churn in this area anyway.
----
- tools/ocaml/common.make | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> On 23 Aug 2024, at 11:51, Andrew Cooper <andrew.cooper3@citrix.com> =
+wrote:
+>=20
+> Various extra build bugfixes found while reviewing the `Stabilize =
+Oxenstored's
+> interface with` series.
+>=20
+> Andrew Cooper (3):
+>  tools/ocaml: Drop OCAMLOPTFLAG_G invocation
+>  tools/ocaml: Drop o=3D rune
+>  tools/ocaml: Fix the version embedded in META files
+>=20
+> tools/ocaml/Makefile.rules | 5 +++--
+> tools/ocaml/common.make    | 7 ++-----
+> 2 files changed, 5 insertions(+), 7 deletions(-)
+>=20
+>=20
+> base-commit: 5231765a4e6528a3208e49885b9eeff42519a6c1
+> --=20
+> 2.39.2
+>=20
 
-diff --git a/tools/ocaml/common.make b/tools/ocaml/common.make
-index 979cbe08459b..c7eefceeb42b 100644
---- a/tools/ocaml/common.make
-+++ b/tools/ocaml/common.make
-@@ -14,6 +14,6 @@ CFLAGS += -fPIC -I$(shell ocamlc -where)
- OCAMLOPTFLAGS = -g -ccopt "$(LDFLAGS)" -dtypes $(OCAMLINCLUDE) -w F -warn-error F
- OCAMLCFLAGS += -g $(OCAMLINCLUDE) -w F -warn-error F
- 
--VERSION := 4.1
-+VERSION := $(shell $(XEN_ROOT)/version.sh $(XEN_ROOT)/xen/Makefile)
- 
- OCAMLDESTDIR ?= $(DESTDIR)$(shell $(OCAMLFIND) printconf destdir)
--- 
-2.39.2
+Acked-by: Christian Lindig <christian.lindig@cloud.com>
 
 
