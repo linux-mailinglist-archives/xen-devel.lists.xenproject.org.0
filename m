@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7DBF95D61B
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 21:37:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782602.1192146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD8DE95D625
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2024 21:39:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782640.1192167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sha5a-0003Pd-Ru; Fri, 23 Aug 2024 19:36:50 +0000
+	id 1sha84-0005k1-Hx; Fri, 23 Aug 2024 19:39:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782602.1192146; Fri, 23 Aug 2024 19:36:50 +0000
+Received: by outflank-mailman (output) from mailman id 782640.1192167; Fri, 23 Aug 2024 19:39:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sha5a-0003NZ-NM; Fri, 23 Aug 2024 19:36:50 +0000
-Received: by outflank-mailman (input) for mailman id 782602;
- Fri, 23 Aug 2024 19:36:48 +0000
+	id 1sha84-0005i5-FN; Fri, 23 Aug 2024 19:39:24 +0000
+Received: by outflank-mailman (input) for mailman id 782640;
+ Fri, 23 Aug 2024 19:39:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xt9W=PW=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1sha5Y-0002Oa-OF
- for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 19:36:48 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2060e.outbound.protection.outlook.com
- [2a01:111:f403:2417::60e])
+ <SRS0=imIp=PW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sha83-0005hz-N2
+ for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 19:39:23 +0000
+Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
+ [2607:f8b0:4864:20::f2c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 08dcf510-6187-11ef-a50a-bb4a2ccca743;
- Fri, 23 Aug 2024 21:36:47 +0200 (CEST)
-Received: from BN8PR03CA0030.namprd03.prod.outlook.com (2603:10b6:408:94::43)
- by SA1PR12MB6822.namprd12.prod.outlook.com (2603:10b6:806:25d::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.20; Fri, 23 Aug
- 2024 19:36:44 +0000
-Received: from BL02EPF00021F6C.namprd02.prod.outlook.com
- (2603:10b6:408:94:cafe::ce) by BN8PR03CA0030.outlook.office365.com
- (2603:10b6:408:94::43) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.21 via Frontend
- Transport; Fri, 23 Aug 2024 19:36:43 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL02EPF00021F6C.mail.protection.outlook.com (10.167.249.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7897.11 via Frontend Transport; Fri, 23 Aug 2024 19:36:43 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 23 Aug
- 2024 14:36:43 -0500
-Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 23 Aug 2024 14:36:42 -0500
+ id 65417869-6187-11ef-a50a-bb4a2ccca743;
+ Fri, 23 Aug 2024 21:39:22 +0200 (CEST)
+Received: by mail-qv1-xf2c.google.com with SMTP id
+ 6a1803df08f44-6bf6755323cso13256306d6.1
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 12:39:22 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6c162d49572sm21725276d6.33.2024.08.23.12.39.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Aug 2024 12:39:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,267 +45,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08dcf510-6187-11ef-a50a-bb4a2ccca743
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vrLdvVAYNnK0GXqQoPQm4dyZhaTVDxuvnrEqN6inGJdNrYhU4z25N2fHaSwOxCwifPjhi/rlVRt2HPZvA6l5MlwALoGjQhhRwkpTF5leYyv0YjU4iW4HlsrtbqtQZtZgwxaYo+6naUP3KKVW31PU6ArynM8DedR23wRiLoPIbqrBhfknUFxcJomkrRkPNDno654xRrKfeCmZnStmauXwWLOpfxhWyKqMLPBDsnr4xfxzx/i9Sv7OSD+WSWwrummQ2g874nS4owIPGFVRg1e1Em7DJFidqK0/dxJjrNJ0pZgIBQzPEsLq9Cj5c1SwNljktDnQSszUvgjqTxEUXiFhJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=54RpaQe43r3m1s3jgsbEk0pLsaUFOLQtoTRxmGcRr5Q=;
- b=xU8bLOxXWQBIDXUnfFu0V6bIeC69ocSKPjGVRgA12hHb/79sN9Tf/x1UhCWHVEexeJpVhBU2FJfDNCXG4BPE/D+Ay88kcI+463RqKZ8KTgn04s7vDMyj9o07874oiHq2MKTc9nJlA28/c609c8nYskmNi7x7/E/rrR0XSwM7MQdowiFAQ9Oiy96Oyr4XWD0eFIE1/gP8tbyXewy6DEhPAfS5bdap5mNfY3KeEBf9Jdw1McqbVOmF1QPp4+IZOMxxNdGGCT+Q+mV0rp0zP1MR0FmgzxnLnOodIAlGWa1O1LQqGhNfflbX1CXgxKoRB1RTAPUNCbeL95qTON4OzM4lzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=54RpaQe43r3m1s3jgsbEk0pLsaUFOLQtoTRxmGcRr5Q=;
- b=FjkcPNpZ1ZKQqoTmzy3n3sNLAaQ/2kAC31pgibFrQ2PikK3IWsJNhQ5rQIYqWXCuP/zqeW6Jb4nKuFHrfSkT4xTYkTTLrXK+Lf67f+fvNSFW8/+eW2shQVhYnrZvgtVRmf1NeIHJHSCxMeHQGhFbyIh4qeYDf8LpK8AzaFlb4Ic=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: Juergen Gross <jgross@suse.com>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, Thomas Gleixner <tglx@linutronix.de>, "Ingo
- Molnar" <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
-	<hpa@zytor.com>, Stefano Stabellini <sstabellini@kernel.org>, "Oleksandr
- Tyshchenko" <oleksandr_tyshchenko@epam.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, Brian Gerst <brgerst@gmail.com>
-CC: <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>, "Jason
- Andryuk" <jason.andryuk@amd.com>
-Subject: [PATCH v3 5/5] x86/pvh: Add 64bit relocation page tables
-Date: Fri, 23 Aug 2024 15:36:30 -0400
-Message-ID: <20240823193630.2583107-6-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240823193630.2583107-1-jason.andryuk@amd.com>
-References: <20240823193630.2583107-1-jason.andryuk@amd.com>
+X-Inumbo-ID: 65417869-6187-11ef-a50a-bb4a2ccca743
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1724441961; x=1725046761; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=IIFrbXHD2yrd19PjwqR8w1LRcwaKCmmuTwEs+GhJInw=;
+        b=wYEBjlQ8Qz8vFoDbqcEtUcW/035JXqJ/Kvy+wo/sbw7Twvd/DTmj3CtIJy/4y/H29o
+         7IhSVc7C4ZaqzJ/isYvkc/y7s02t9VRR553QeaQCXMeQFa7pOeApxk5aOlWNNPCiu14T
+         SXnWsNgtLRawpdpQx0qBCChG4e5i/hYqjiyjE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724441961; x=1725046761;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IIFrbXHD2yrd19PjwqR8w1LRcwaKCmmuTwEs+GhJInw=;
+        b=pOscSWn/F5cSXt31rCyroZNHYWM4tfH2gtxACCCrj3gjx+NUOUp63TmMRjr58vO2Mf
+         3uatPQCATiy0hZRykVPrU/Z30kAE8KGEa7ot0/2H7WC/APOZ8S1RyW785jOHUhS+7XyV
+         at8O2rKaB6314Bf7Ma5IZe17mTvSwTpBI5VY/h2Y+xWij8JcAHguF1MPzuBuOeSGDsG3
+         wurTaYAFM4eTTl/QQhd24IlZKkk68/DYK+vZeu+PdpZcc5xh3k80FI0CiWWNJxpbT6Mp
+         nI9Er2iDEz3Lcf0STMX1dlnEBnF2SgWNRSyzIox1ZMBY2uayvKQmBZcML5+h9aFgH0QP
+         RUIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVImK0twDga83MCRBB6/4scRncbicGYHBWHc1nwT/pXNY6ivMvLtOtN0/O7FmKg1eN3AeJW4WyD7bE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwcQiEahxawDNSB+uo+oGdUZ+rcfm53Q4EOFu8gnU5eLlGcMqtZ
+	J8GN9ACGc4kX5o38Iw88738OdjOR0TrJ6R765tmRUMYNT2tHrLNQXoXoxu66vwI=
+X-Google-Smtp-Source: AGHT+IFBE8YYikpO6Wsf1OmX/j+Zi7Lzceo4yX/ZH50RS4aweRi/I/SUnuTfeX5gPmx5aGiSDSBSfA==
+X-Received: by 2002:a05:6214:5713:b0:6bf:8833:e9c3 with SMTP id 6a1803df08f44-6c16deb2529mr38558176d6.50.1724441961146;
+        Fri, 23 Aug 2024 12:39:21 -0700 (PDT)
+Message-ID: <fadfcb8b-5799-46e0-a0d8-944077c3329d@citrix.com>
+Date: Fri, 23 Aug 2024 20:39:17 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6C:EE_|SA1PR12MB6822:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f124fd5-18ca-4ed9-1407-08dcc3aaeb49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|7416014|36860700013|921020;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?kfGL76HojrxbYgwwBDmpX+cNmS9nZnQffV2efutiCAaLOqj5QxTU9Q2qUtLe?=
- =?us-ascii?Q?Axzp4zhDdm2rdA76xJSyEpx+5PpSRBQ/jG7MNBzGNQ4m5jFZGEQ8lU26+PPm?=
- =?us-ascii?Q?TAa7l/4dD89wjkkG7bK/z3Gg0HsM6saP3V4HBQY522fBY10aOsiJL+0bQnrH?=
- =?us-ascii?Q?7jCr9iot1JeY0g2Ijo3frjQLfCZT5/37eFgp0s+UnbYmR6Wcat0R3uRSED4e?=
- =?us-ascii?Q?39qmsRzk6ntGdSDwqWF06IfQEU/8EMMS6FVm+dYECz/Kds+SR6hJk1KfF07x?=
- =?us-ascii?Q?xPamdRPUmvj1y+oYKpNHGNsWLoWBqc4U0RBFoXUU5ITLWGtF95mCNgxkhOI1?=
- =?us-ascii?Q?ngxvvbCWDKGspH1EnGU4OuuY6GHBzXOLqOq+k9IjYXjCGystsXnfDyY8UnBu?=
- =?us-ascii?Q?kM/Xj9KuDyyFcKKLteXht6bnYnu9tCE+lBB+/DWl8FwFVCwygUMk12ezD27c?=
- =?us-ascii?Q?5e/tzR1ppddxQ29DQuHiJErfesky7ZsE2ig35DLSXb46vcKKo0nMlT+GgXMf?=
- =?us-ascii?Q?b5gGVnBC9jLGfQRuorZNKvdAkjiVynrE2D6EEoMQLe3BlpLMWZ57QXAHJVAD?=
- =?us-ascii?Q?lHcD/QTsDP7R7I9Zrh1HudEUUahw/A0ms+rXYbGUJgk4vVqYiSKFFmLbSXZt?=
- =?us-ascii?Q?Ow/hAC7+76AwOSnUtRrDkyLYkrqlOHnEjEchPkEh9MGNTaM+uo8nr0Gllb0P?=
- =?us-ascii?Q?DWyTjxyG3Pra3+qOmIaes5FzyTtNddDRb6N67sSvsSUVmPhP885XhdG4t3RT?=
- =?us-ascii?Q?RS8KwAIFziFHyXMn8wpvB5zPacieogWW14Zgl/NNy+zHRBZQtH3nKeXZE6AZ?=
- =?us-ascii?Q?GvLNOeXv+nn6rFgnwT2JDJ2gDy9FsZLuBARyeUuWmGG8pxxAnngrrsCyh9xZ?=
- =?us-ascii?Q?/dH8FAuOxolOeYRMa71wFunkBH/HF3ahNOKnoXt+534ZZx4gVGr0b/ZXT7ME?=
- =?us-ascii?Q?R9hY1eVON+WHCXML32eQL2YHxwbhOYmbJgHjwtjbqJtiTJsHjJfmrThaulR2?=
- =?us-ascii?Q?E9zk1XXY+Ng4KJ3EonWwqf53Gt8h7EpysOIDy7P+fhVRnf2wNNZSmVogw7RT?=
- =?us-ascii?Q?s0T4xh/GhrESOpTBMWldS+3KzfY2tjKzygpYaiJn8QJtQ4bdF/ya+hYj/bTk?=
- =?us-ascii?Q?WhHmbX+UG2cCnx36SST3LdOAim9NwbLomj8Ea04JM4JKRb3eIlhyG9S7sLTp?=
- =?us-ascii?Q?ZZJQayJCLYsUfs2QNwDQwvkgm7eUhvAZx1blXDii66hMXcOHeJCH2vrzeec4?=
- =?us-ascii?Q?+bBk0YsnNOtVwDtBm/33D8tZJDczYy2y+1oMeTO4s+VwE2x2vAZGZuJCUpn6?=
- =?us-ascii?Q?eyvDjhlN7BIIlVWGiOsBeWTnlDiFZxK0ZKf4/cy2IYqZlx0eoYPyCehcHTYQ?=
- =?us-ascii?Q?/xMEYYFcXyELKqpzrc5C0JapW8quVx+LsZnx/9Yrcue+Vzt/DHVVlV5smDZE?=
- =?us-ascii?Q?HGr0/A1hc6VoX8POkkJW1FEipT8TfWHE?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(7416014)(36860700013)(921020);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2024 19:36:43.7965
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f124fd5-18ca-4ed9-1407-08dcc3aaeb49
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F6C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6822
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.19? 3/6] xen/macros: Introduce BUILD_ERROR()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240625190719.788643-1-andrew.cooper3@citrix.com>
+ <20240625190719.788643-4-andrew.cooper3@citrix.com>
+ <1fe765d7-65c4-4f04-8835-327a0b623010@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <1fe765d7-65c4-4f04-8835-327a0b623010@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The PVH entry point is 32bit.  For a 64bit kernel, the entry point must
-switch to 64bit mode, which requires a set of page tables.  In the past,
-PVH used init_top_pgt.
+On 26/06/2024 10:23 am, Jan Beulich wrote:
+> On 25.06.2024 21:07, Andrew Cooper wrote:
+>> --- a/xen/include/xen/macros.h
+>> +++ b/xen/include/xen/macros.h
+>> @@ -59,6 +59,8 @@
+>>  #define BUILD_BUG_ON(cond) ((void)BUILD_BUG_ON_ZERO(cond))
+>>  #endif
+>>  
+>> +#define BUILD_ERROR(msg) asm ( ".error \"" msg "\"" )
+> I think this wants a comment, and one even beyond what is said for
+> BUILD_BUG_ON(). This is primarily to make clear to people when to use
+> which, i.e. I consider it important to mention here that it is intended
+> for code which, in the normal case, we expect to be DCE-d. The nature
+> of the condition used is also a relevant factor, as in some cases
+> BUILD_BUG_ON() simply cannot be used because something that really is
+> compile time constant isn't an integer constant expression. With
+> something to this effect:
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-This works fine when the kernel is loaded at LOAD_PHYSICAL_ADDR, as the
-page tables are prebuilt for this address.  If the kernel is loaded at a
-different address, they need to be adjusted.
+Done, thanks.
 
-__startup_64() adjusts the prebuilt page tables for the physical load
-address, but it is 64bit code.  The 32bit PVH entry code can't call it
-to adjust the page tables, so it can't readily be re-used.
+>
+> I have another question / suggestion, though.
+>
+>> --- a/xen/include/xen/self-tests.h
+>> +++ b/xen/include/xen/self-tests.h
+>> @@ -22,9 +22,9 @@
+>>          typeof(fn(val)) real = fn(val);                                 \
+>>                                                                          \
+>>          if ( !__builtin_constant_p(real) )                              \
+>> -            asm ( ".error \"'" STR(fn(val)) "' not compile-time constant\"" ); \
+>> +            BUILD_ERROR("'" STR(fn(val)) "' not compile-time constant"); \
+>>          else if ( real != res )                                         \
+>> -            asm ( ".error \"Compile time check '" STR(fn(val) == res) "' failed\"" ); \
+>> +            BUILD_ERROR("Compile time check '" STR(fn(val) == res) "' failed"); \
+>>      } while ( 0 )
+> While right here leaving the condition outside of the macro is
+> perhaps more natural, considering a case where there's just an if()
+> I wonder whether we shouldn't also (only?) have BUILD_ERROR_ON(),
+> better paralleling BUILD_BUG_ON():
 
-64bit PVH entry needs page tables set up for identity map, the kernel
-high map and the direct map.  pvh_start_xen() enters identity mapped.
-Inside xen_prepare_pvh(), it jumps through a pv_ops function pointer
-into the highmap.  The direct map is used for __va() on the initramfs
-and other guest physical addresses.
+Right now none of the uses in this series, nor any of the MISRA
+conversions away __bad_*() want an _ON() form.
 
-Add a dedicated set of prebuild page tables for PVH entry.  They are
-adjusted in assembly before loading.
+Nothing stops us adding an _ON() form in the future if a reasonable
+usecase appears, but right now there's no need.
 
-Add XEN_ELFNOTE_PHYS32_RELOC to indicate support for relocation
-along with the kernel's loading constraints.  The maximum load address,
-KERNEL_IMAGE_SIZE - 1, is determined by a single pvh_level2_ident_pgt
-page.  It could be larger with more pages.
-
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
-v3:
-Include asm/pgtable.h to avoid 32bit build failure
-
-v2:
-Use some defines: PTRS_PER_PGD, PTRS_PER_PMD, PAGE_SIZE
-Add some spaces around operators and after commas
-Include asm/pgtable_64.h
-s/LOAD_PHYSICAL_ADDR/_pa(pvh_start_xen)/ in case they differ
----
- arch/x86/platform/pvh/head.S | 104 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 103 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
-index 14b4345d9bae..64fca49cd88f 100644
---- a/arch/x86/platform/pvh/head.S
-+++ b/arch/x86/platform/pvh/head.S
-@@ -16,6 +16,7 @@
- #include <asm/segment.h>
- #include <asm/asm.h>
- #include <asm/boot.h>
-+#include <asm/pgtable.h>
- #include <asm/processor-flags.h>
- #include <asm/msr.h>
- #include <asm/nospec-branch.h>
-@@ -102,8 +103,47 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
- 	btsl $_EFER_LME, %eax
- 	wrmsr
- 
-+	mov %ebp, %ebx
-+	subl $_pa(pvh_start_xen), %ebx /* offset */
-+	jz .Lpagetable_done
-+
-+	/* Fixup page-tables for relocation. */
-+	leal rva(pvh_init_top_pgt)(%ebp), %edi
-+	movl $PTRS_PER_PGD, %ecx
-+2:
-+	testl $_PAGE_PRESENT, 0x00(%edi)
-+	jz 1f
-+	addl %ebx, 0x00(%edi)
-+1:
-+	addl $8, %edi
-+	decl %ecx
-+	jnz 2b
-+
-+	/* L3 ident has a single entry. */
-+	leal rva(pvh_level3_ident_pgt)(%ebp), %edi
-+	addl %ebx, 0x00(%edi)
-+
-+	leal rva(pvh_level3_kernel_pgt)(%ebp), %edi
-+	addl %ebx, (PAGE_SIZE - 16)(%edi)
-+	addl %ebx, (PAGE_SIZE - 8)(%edi)
-+
-+	/* pvh_level2_ident_pgt is fine - large pages */
-+
-+	/* pvh_level2_kernel_pgt needs adjustment - large pages */
-+	leal rva(pvh_level2_kernel_pgt)(%ebp), %edi
-+	movl $PTRS_PER_PMD, %ecx
-+2:
-+	testl $_PAGE_PRESENT, 0x00(%edi)
-+	jz 1f
-+	addl %ebx, 0x00(%edi)
-+1:
-+	addl $8, %edi
-+	decl %ecx
-+	jnz 2b
-+
-+.Lpagetable_done:
- 	/* Enable pre-constructed page tables. */
--	leal rva(init_top_pgt)(%ebp), %eax
-+	leal rva(pvh_init_top_pgt)(%ebp), %eax
- 	mov %eax, %cr3
- 	mov $(X86_CR0_PG | X86_CR0_PE), %eax
- 	mov %eax, %cr0
-@@ -198,5 +238,67 @@ SYM_DATA_START_LOCAL(early_stack)
- 	.fill BOOT_STACK_SIZE, 1, 0
- SYM_DATA_END_LABEL(early_stack, SYM_L_LOCAL, early_stack_end)
- 
-+#ifdef CONFIG_X86_64
-+/*
-+ * Xen PVH needs a set of identity mapped and kernel high mapping
-+ * page tables.  pvh_start_xen starts running on the identity mapped
-+ * page tables, but xen_prepare_pvh calls into the high mapping.
-+ * These page tables need to be relocatable and are only used until
-+ * startup_64 transitions to init_top_pgt.
-+ */
-+SYM_DATA_START_PAGE_ALIGNED(pvh_init_top_pgt)
-+	.quad   pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
-+	.org    pvh_init_top_pgt + L4_PAGE_OFFSET * 8, 0
-+	.quad   pvh_level3_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
-+	.org    pvh_init_top_pgt + L4_START_KERNEL * 8, 0
-+	/* (2^48-(2*1024*1024*1024))/(2^39) = 511 */
-+	.quad   pvh_level3_kernel_pgt - __START_KERNEL_map + _PAGE_TABLE_NOENC
-+SYM_DATA_END(pvh_init_top_pgt)
-+
-+SYM_DATA_START_PAGE_ALIGNED(pvh_level3_ident_pgt)
-+	.quad	pvh_level2_ident_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
-+	.fill	511, 8, 0
-+SYM_DATA_END(pvh_level3_ident_pgt)
-+SYM_DATA_START_PAGE_ALIGNED(pvh_level2_ident_pgt)
-+	/*
-+	 * Since I easily can, map the first 1G.
-+	 * Don't set NX because code runs from these pages.
-+	 *
-+	 * Note: This sets _PAGE_GLOBAL despite whether
-+	 * the CPU supports it or it is enabled.  But,
-+	 * the CPU should ignore the bit.
-+	 */
-+	PMDS(0, __PAGE_KERNEL_IDENT_LARGE_EXEC, PTRS_PER_PMD)
-+SYM_DATA_END(pvh_level2_ident_pgt)
-+SYM_DATA_START_PAGE_ALIGNED(pvh_level3_kernel_pgt)
-+	.fill	L3_START_KERNEL, 8, 0
-+	/* (2^48-(2*1024*1024*1024)-((2^39)*511))/(2^30) = 510 */
-+	.quad	pvh_level2_kernel_pgt - __START_KERNEL_map + _KERNPG_TABLE_NOENC
-+	.quad	0 /* no fixmap */
-+SYM_DATA_END(pvh_level3_kernel_pgt)
-+
-+SYM_DATA_START_PAGE_ALIGNED(pvh_level2_kernel_pgt)
-+	/*
-+	 * Kernel high mapping.
-+	 *
-+	 * The kernel code+data+bss must be located below KERNEL_IMAGE_SIZE in
-+	 * virtual address space, which is 1 GiB if RANDOMIZE_BASE is enabled,
-+	 * 512 MiB otherwise.
-+	 *
-+	 * (NOTE: after that starts the module area, see MODULES_VADDR.)
-+	 *
-+	 * This table is eventually used by the kernel during normal runtime.
-+	 * Care must be taken to clear out undesired bits later, like _PAGE_RW
-+	 * or _PAGE_GLOBAL in some cases.
-+	 */
-+	PMDS(0, __PAGE_KERNEL_LARGE_EXEC, KERNEL_IMAGE_SIZE / PMD_SIZE)
-+SYM_DATA_END(pvh_level2_kernel_pgt)
-+
-+	ELFNOTE(Xen, XEN_ELFNOTE_PHYS32_RELOC,
-+		     .long CONFIG_PHYSICAL_ALIGN;
-+		     .long LOAD_PHYSICAL_ADDR;
-+		     .long KERNEL_IMAGE_SIZE - 1)
-+#endif
-+
- 	ELFNOTE(Xen, XEN_ELFNOTE_PHYS32_ENTRY,
- 	             _ASM_PTR (pvh_start_xen - __START_KERNEL_map))
--- 
-2.34.1
-
+~Andrew
 
