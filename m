@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFFEB95DB0B
-	for <lists+xen-devel@lfdr.de>; Sat, 24 Aug 2024 05:34:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782815.1192312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48E0895DB6A
+	for <lists+xen-devel@lfdr.de>; Sat, 24 Aug 2024 05:59:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782825.1192327 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shhWu-0006jf-Vx; Sat, 24 Aug 2024 03:33:32 +0000
+	id 1shhv8-0002yO-4O; Sat, 24 Aug 2024 03:58:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782815.1192312; Sat, 24 Aug 2024 03:33:32 +0000
+Received: by outflank-mailman (output) from mailman id 782825.1192327; Sat, 24 Aug 2024 03:58:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shhWu-0006gW-S1; Sat, 24 Aug 2024 03:33:32 +0000
-Received: by outflank-mailman (input) for mailman id 782815;
- Sat, 24 Aug 2024 03:33:31 +0000
+	id 1shhv8-0002sJ-0f; Sat, 24 Aug 2024 03:58:34 +0000
+Received: by outflank-mailman (input) for mailman id 782825;
+ Sat, 24 Aug 2024 03:58:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mqP1=PX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1shhWt-0006gQ-5F
- for xen-devel@lists.xenproject.org; Sat, 24 Aug 2024 03:33:31 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
+ <SRS0=NNC+=PX=bombadil.srs.infradead.org=BATV+57a39d84037f3fd726e9+7671+infradead.org+hch@srs-se1.protection.inumbo.net>)
+ id 1shhv5-0002pe-J3
+ for xen-devel@lists.xenproject.org; Sat, 24 Aug 2024 03:58:32 +0000
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [2607:7c80:54:3::133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a061ea65-61c9-11ef-a50a-bb4a2ccca743;
- Sat, 24 Aug 2024 05:33:28 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 78407A40A67;
- Sat, 24 Aug 2024 03:33:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28746C32781;
- Sat, 24 Aug 2024 03:33:26 +0000 (UTC)
+ id 1f4295cd-61cd-11ef-a50a-bb4a2ccca743;
+ Sat, 24 Aug 2024 05:58:30 +0200 (CEST)
+Received: from
+ 2a02-8389-2341-5b80-7457-864c-9b77-b751.cable.dynamic.v6.surfer.at
+ ([2a02:8389:2341:5b80:7457:864c:9b77:b751] helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
+ id 1shhut-00000001ON7-0bmD; Sat, 24 Aug 2024 03:58:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,61 +42,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a061ea65-61c9-11ef-a50a-bb4a2ccca743
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724470406;
-	bh=gcA4LnYzug7+IE1kYEzxpCit7DaURQnTehjp0JaM/EA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=dHC0/126DLnwLZiAU/BfTD9Se7FqJ7Nm0tJHtcviQtnHOPNjN8RJjF1QLoNiz84QB
-	 Xs6rzcYAWNAAra+rPOK0Dw49rt8tfoRXv7r6sKG3bm4Pqnysmf/00jTMQFJUKxZz6A
-	 jrJG8tBDaF9DRmnhtxwoH/himlVhVcMDtvuRs0p21p26vI6NT7OtBHOXQRXzsygwRQ
-	 WaJNHN7x3u+RHJzESmunlqQ5eH4/szPY7EmZpI0KR4Vf/ynV28sJEXez0Z+D3gTQyr
-	 OySKdXZ8K8KqhrH3Zl3GMhM23GGvsSZHX3QERg9CNQfTyr5skJ8tM8m6wSG1j/j0Ma
-	 Riyjrc1BBCt3g==
-Date: Fri, 23 Aug 2024 20:33:24 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Victor Lira <victorm.lira@amd.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v1] automation: fix xilinx test timeout length
-In-Reply-To: <579230973e3ed60679c003ea2a708ddc6f00c1cc.1724467123.git.victorm.lira@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2408232032470.3871186@ubuntu-linux-20-04-desktop>
-References: <579230973e3ed60679c003ea2a708ddc6f00c1cc.1724467123.git.victorm.lira@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 1f4295cd-61cd-11ef-a50a-bb4a2ccca743
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=Q2nYRi9U4a8itDtDq9LNnEMZ/Twd4vEjX9CTeiWFtZk=; b=ibODa9lL5q7uggEbw2OOQZkuOl
+	gdhQY0r9D/9beDb+Bd4qmVTCvwI+QiMjo95/+tPj+4V9U7F5hRFToRdX4k4DvPYHu1OLEHcIx+etT
+	KIlSwzlSzvMKbYOerqEj9me07yLSDIeP/0/bbrlY9qqah4ekXhqi/eYjBvvldU6VljO5zLO6djC2Z
+	2yksa1axP4sCcbZUGAWwKgEmbBGoAFPkoBoCxdpgqo5+6g1QWpb94Ilm4RmYcg8FZcggX2U6K6Sfe
+	cGdem+9zPaemNy7/Cr0ZBWXuCzcsmrGl8tEN+ptWMeKG1q46THZ+VeovOI19ardMWa1DQRk/ZtOsI
+	ioZS20vQ==;
+From: Christoph Hellwig <hch@lst.de>
+To: iommu@lists.linux.dev
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	"Michael S . Tsirkin " <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	xen-devel@lists.xenproject.org
+Subject: clearly mark DMA_OPS support as an architecture feasture
+Date: Sat, 24 Aug 2024 05:57:57 +0200
+Message-ID: <20240824035817.1163502-1-hch@lst.de>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Fri, 23 Aug 2024, victorm.lira@amd.com wrote:
-> From: Victor Lira <victorm.lira@amd.com>
-> 
-> The timout is too short which causes the test to sometimes fail.
+Hi all,
 
-I can fix the timout typo on commit
+we've had a long standing problems where drivers try to hook into the
+DMA_OPS mechanisms to override them for something that is not DMA, or
+to introduce additional dispatching.
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Now that we are not using DMA_OPS support for dma-iommu and can build
+kernels without DMA_OPS support on many common setups this becomes even
+more problematic.
 
-
-> ---
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> ---
->  automation/scripts/xilinx-smoke-dom0-x86_64.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/automation/scripts/xilinx-smoke-dom0-x86_64.sh b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> index 4559e2b9ee..2b4d5f6af8 100755
-> --- a/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> +++ b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> @@ -27,7 +27,7 @@ memory = 512
->  vif = [ "bridge=xenbr0", ]
->  disk = [ ]
->  '
-> -TIMEOUT_SECONDS=200
-> +TIMEOUT_SECONDS=300
-> 
->  # Select test variant.
->  if [ "${TEST}" = "ping" ]; then
-> --
-> 2.37.6
-> 
+This series renames the option to ARCH_DMA_OPS and adds very explicit
+comment to not use it in drivers.  The ipu6 and vdpa_sim/user drivers
+that abuse the mechanism are made to depend on the option instead of
+selecting it with a big comment, but I expect this to be fixed rather
+sooner than later (I know the ipu6 maintainers are on it based on a
+previous discussion).
 
