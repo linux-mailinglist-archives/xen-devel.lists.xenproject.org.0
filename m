@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 160E895D974
-	for <lists+xen-devel@lfdr.de>; Sat, 24 Aug 2024 01:01:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.782738.1192257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DA8695DA42
+	for <lists+xen-devel@lfdr.de>; Sat, 24 Aug 2024 02:52:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.782767.1192267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shdHJ-0002D7-7q; Fri, 23 Aug 2024 23:01:09 +0000
+	id 1shezW-0004jI-R0; Sat, 24 Aug 2024 00:50:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 782738.1192257; Fri, 23 Aug 2024 23:01:09 +0000
+Received: by outflank-mailman (output) from mailman id 782767.1192267; Sat, 24 Aug 2024 00:50:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1shdHJ-0002AR-3j; Fri, 23 Aug 2024 23:01:09 +0000
-Received: by outflank-mailman (input) for mailman id 782738;
- Fri, 23 Aug 2024 23:01:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1shezW-0004hV-MZ; Sat, 24 Aug 2024 00:50:54 +0000
+Received: by outflank-mailman (input) for mailman id 782767;
+ Sat, 24 Aug 2024 00:50:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=imIp=PW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1shdHI-0001rz-5B
- for xen-devel@lists.xenproject.org; Fri, 23 Aug 2024 23:01:08 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 94189d40-61a3-11ef-8776-851b0ebba9a2;
- Sat, 24 Aug 2024 01:01:06 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5bf0261f162so3219718a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 23 Aug 2024 16:01:06 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c04a3ed39fsm2619258a12.57.2024.08.23.16.01.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Aug 2024 16:01:04 -0700 (PDT)
+ <SRS0=mqP1=PX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1shezV-0004hJ-OH
+ for xen-devel@lists.xenproject.org; Sat, 24 Aug 2024 00:50:53 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e8403460-61b2-11ef-a50a-bb4a2ccca743;
+ Sat, 24 Aug 2024 02:50:51 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 83204CE0B18;
+ Sat, 24 Aug 2024 00:50:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 126FEC32786;
+ Sat, 24 Aug 2024 00:50:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +41,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94189d40-61a3-11ef-8776-851b0ebba9a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724454065; x=1725058865; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=zF8pjt0XDyvgbiqMd5EfMePZ7QzQjeJHHv0zF/e7/x8=;
-        b=MqBDW0/B4wR3ADIjwQ2TjC2NDLDy8CHiuSvFfND/ePLS7FaezWDRzr7bcy7wZzs699
-         /fjdbAvUvbmGkQzG4ruNqqduphY36zzJPqRuGtHikotQxUqSd758bmwLnqdm4i7Qfrxn
-         pktqRW/C81ASSooi7dqsHo82pdUrFYH+4vgWk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724454065; x=1725058865;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zF8pjt0XDyvgbiqMd5EfMePZ7QzQjeJHHv0zF/e7/x8=;
-        b=N+iEC50JoQmIpJXyj7zPtlTLyxhgGnzbgYdpqpZXecvsfInFEWfYRLIGA7sN+4mDv1
-         C4MkX2VJ9SctekK6zbBA3/4r7NOW/V+u4S5NdAp/mn+bC20s0aXkHAOuG7CYZU6lm3pC
-         vmEAPgaWljABVlTqUyH94nMoJ9JAP8i5MdQQT+TYNdpQy/3ZA3NJ2RGC83tOZ7PTqGeL
-         kCMukjqlZUbf91+O6+bxwPS0sarVN3gPD910qV/8HxEi3VfcP7TZFJwwA6syH1Q7KH11
-         yFQeUqvTDubjJYxBmBUID1qnDxwp03UTIvOlmClIgvdo6NTtbgD1lmXmntyRP02PSm8r
-         XB8Q==
-X-Gm-Message-State: AOJu0YyygRZmYw8fNvXjNklPSVex6PGXC4QZitTtyfu+qbgEh8WojTfa
-	Qypk1JCQpyQOFU0QVatlzKjsSZh7ws4Gb7T+GnIf1DM/UEMKHZp7ytxj8m0Oi/HsPhAAfekYEjz
-	p
-X-Google-Smtp-Source: AGHT+IH2JdWSF1S4Wcp3axdJeQAz99ay+Ym31Wz/fI9epA6oB/3l14OL97aAyOaoM3sQM2+yPfGtvw==
-X-Received: by 2002:a05:6402:4404:b0:5c0:9814:3f94 with SMTP id 4fb4d7f45d1cf-5c098144075mr133295a12.21.1724454065157;
-        Fri, 23 Aug 2024 16:01:05 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <JBeulich@suse.com>
-Subject: [PATCH] ARM/vgic: Use for_each_set_bit() in vgic_to_sgi()
-Date: Sat, 24 Aug 2024 00:01:00 +0100
-Message-Id: <20240823230100.1581448-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
+X-Inumbo-ID: e8403460-61b2-11ef-a50a-bb4a2ccca743
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1724460643;
+	bh=1GkRtyDN8bM58kn6rGsQqQADyq1IuKyamDCBWcBZxAM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=BX2PlZw4L4e89PnL3Zjks9BMDAETODFe+tEJ+n7ALd/Gw69kwNuv4aSlzk/tSuUQC
+	 7/35Z8FB9l2D0eXt0LXUb0derMXKE9i6MYTazQkIEXOwBmHkP1QtNQujG1Rqo+cmyO
+	 AYIaJ2UJ98AiB/0Uw43+EDWGUCLFMVAZqIckgDwO6TfHYb+/wQnYXyOvkJBX9EuehX
+	 k5gs+AfRZNGlDCaEPSWLE5lQYUQNoGmaPc9L8qX1egKc3wMFXewq+EAtsq18kruRz5
+	 PXEAn4kjrHwEssWMImwqWm+YCH1BfZLjQI6qT8Ez5UpJwWJqI/rjDRtNHDa5Y1Xdbk
+	 wR5/ObZMbBq/w==
+Date: Fri, 23 Aug 2024 17:50:41 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Victor Lira <victorm.lira@amd.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN][PATCH v2] automation: update xilinx test scripts (tty)
+In-Reply-To: <8cf7c010d8412d23d2e1da272f1103477d751037.1724451299.git.victorm.lira@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2408231750320.3871186@ubuntu-linux-20-04-desktop>
+References: <8cf7c010d8412d23d2e1da272f1103477d751037.1724451299.git.victorm.lira@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-The existing expression is just a very complicated way of expressing a loop
-over all bits of target->list.  Simplify the expression.
+On Fri, 23 Aug 2024, victorm.lira@amd.com wrote:
+> From: Victor Lira <victorm.lira@amd.com>
+> 
+> Update serial device names from ttyUSB* to test board specific names.
+> 
+> Update xilinx-smoke-dom0-x86_64 with new Xen command line console options,
+> which are now set as Gitlab CI/CD variables. Abstract the directory where
+> binaries are stored. Increase the timeout to match new setup.
+> 
+> Signed-off-by: Victor Lira <victorm.lira@amd.com>
 
-While here, fix the two gprintk()'s.  Because of a quotes vs line continuation
-issue, there's a long string of spaces in the middle of the format string.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-  $ strings xen-syms-arm32 | grep -e VGIC -e GICD_SGIR
-  <G><1>%pv VGIC: write r=%08x                         target->list=%hx, wrong CPUTargetList
-  <G><1>%pv vGICD:unhandled GICD_SGIR write %08x                  with wrong mode
 
-not to mention trailing whitespace too.
-
-Rewrite them to be more consise and more useful.  Use 0x prefixes for hex,
-rather than ambigous, and identify the problem target vCPU / mode, rather than
-simply saying somethign was wrong.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Jan Beulich <JBeulich@suse.com>
-
-In a fun twist, we can't use target->list directly in the expresion, because
-the typeof() picks up constness from the pointer, and we get:
-
-  In file included from arch/arm/vgic.c:11:
-  arch/arm/vgic.c: In function ‘vgic_to_sgi’:
-  ./include/xen/bitops.h:305:19: error: assignment of read-only variable ‘__v’
-    305 |               __v &= __v - 1 )
-        |                   ^~
-  arch/arm/vgic.c:483:9: note: in expansion of macro ‘for_each_set_bit’
-    483 |         for_each_set_bit ( i, target->list )
-        |         ^~~~~~~~~~~~~~~~
-
-Sadly we need -std=c23 before we can use typeof_unqual() which is what we
-actually want here.
----
- xen/arch/arm/vgic.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-index 7b54ccc7cbfa..081cbb67fb52 100644
---- a/xen/arch/arm/vgic.c
-+++ b/xen/arch/arm/vgic.c
-@@ -470,8 +470,7 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
-     struct domain *d = v->domain;
-     int vcpuid;
-     int i;
--    unsigned int base;
--    unsigned long int bitmap;
-+    unsigned int base, bitmap;
- 
-     ASSERT( virq < 16 );
- 
-@@ -481,15 +480,16 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
-         perfc_incr(vgic_sgi_list);
-         base = target->aff1 << 4;
-         bitmap = target->list;
--        bitmap_for_each ( i, &bitmap, sizeof(target->list) * 8 )
-+
-+        for_each_set_bit ( i, bitmap )
-         {
-             vcpuid = base + i;
-             if ( vcpuid >= d->max_vcpus || d->vcpu[vcpuid] == NULL ||
-                  !is_vcpu_online(d->vcpu[vcpuid]) )
-             {
--                gprintk(XENLOG_WARNING, "VGIC: write r=%"PRIregister" \
--                        target->list=%hx, wrong CPUTargetList \n",
--                        sgir, target->list);
-+                gprintk(XENLOG_WARNING,
-+                        "vGIC: write %#"PRIregister", target->list=%#x, bad target v%d\n",
-+                        sgir, target->list, vcpuid);
-                 continue;
-             }
-             vgic_inject_irq(d, d->vcpu[vcpuid], virq, true);
-@@ -510,8 +510,8 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
-         break;
-     default:
-         gprintk(XENLOG_WARNING,
--                "vGICD:unhandled GICD_SGIR write %"PRIregister" \
--                 with wrong mode\n", sgir);
-+                "vGICD: GICD_SGIR write %#"PRIregister" with unhangled mode %d\n",
-+                sgir, irqmode);
-         return false;
-     }
- 
--- 
-2.39.2
-
+> ---
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+>  automation/gitlab-ci/test.yaml                |  2 ++
+>  .../scripts/xilinx-smoke-dom0-x86_64.sh       | 28 +++++++++----------
+>  .../scripts/xilinx-smoke-dom0less-arm64.sh    |  5 ++--
+>  3 files changed, 19 insertions(+), 16 deletions(-)
+> 
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 4e74946419..3b339f387f 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -101,6 +101,8 @@
+>    variables:
+>      CONTAINER: ubuntu:xenial-xilinx
+>      LOGFILE: xilinx-smoke-x86_64.log
+> +    XEN_CMD_CONSOLE: "console=com2 com2=115200,8n1,0x2F8,4"
+> +    TEST_BOARD: "crater"
+>    artifacts:
+>      paths:
+>        - smoke.serial
+> diff --git a/automation/scripts/xilinx-smoke-dom0-x86_64.sh b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> index e6e6fac6a5..4559e2b9ee 100755
+> --- a/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> +++ b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> @@ -12,7 +12,6 @@ fatal() {
+>  # Test parameter defaults.
+>  TEST="$1"
+>  PASS_MSG="Test passed: ${TEST}"
+> -XEN_CMD_CONSOLE="console=com1 com1=115200,8n1,0x3F8,4"
+>  XEN_CMD_DOM0="dom0=pvh dom0_max_vcpus=4 dom0_mem=4G"
+>  XEN_CMD_XEN="sched=null loglvl=all guest_loglvl=all console_timestamps=boot"
+>  XEN_CMD_EXTRA=""
+> @@ -28,7 +27,7 @@ memory = 512
+>  vif = [ "bridge=xenbr0", ]
+>  disk = [ ]
+>  '
+> -TIMEOUT_SECONDS=120
+> +TIMEOUT_SECONDS=200
+> 
+>  # Select test variant.
+>  if [ "${TEST}" = "ping" ]; then
+> @@ -113,27 +112,28 @@ cd ..
+>  # Load software into TFTP server directory.
+>  TFTP="/scratch/gitlab-runner/tftp"
+>  XEN_CMDLINE="${XEN_CMD_CONSOLE} ${XEN_CMD_XEN} ${XEN_CMD_DOM0} ${XEN_CMD_EXTRA}"
+> -cp -f binaries/xen ${TFTP}/pxelinux.cfg/xen
+> -cp -f binaries/bzImage ${TFTP}/pxelinux.cfg/vmlinuz
+> -cp -f binaries/dom0-rootfs.cpio.gz ${TFTP}/pxelinux.cfg/initrd-dom0
+> +cp -f binaries/xen ${TFTP}/${TEST_BOARD}/xen
+> +cp -f binaries/bzImage ${TFTP}/${TEST_BOARD}/vmlinuz
+> +cp -f binaries/dom0-rootfs.cpio.gz ${TFTP}/${TEST_BOARD}/initrd-dom0
+>  echo "
+>  net_default_server=10.0.6.1
+> -multiboot2 (tftp)/pxelinux.cfg/xen ${XEN_CMDLINE}
+> -module2 (tftp)/pxelinux.cfg/vmlinuz console=hvc0 root=/dev/ram0 earlyprintk=xen
+> -module2 (tftp)/pxelinux.cfg/initrd-dom0
+> +multiboot2 (tftp)/${TEST_BOARD}/xen ${XEN_CMDLINE}
+> +module2 (tftp)/${TEST_BOARD}/vmlinuz console=hvc0 root=/dev/ram0 earlyprintk=xen
+> +module2 (tftp)/${TEST_BOARD}/initrd-dom0
+>  boot
+> -" > ${TFTP}/pxelinux.cfg/grub.cfg
+> +" > ${TFTP}/${TEST_BOARD}/grub.cfg
+> 
+>  # Power cycle board and collect serial port output.
+> -SERIAL_CMD="cat /dev/ttyUSB9 | tee smoke.serial | sed 's/\r//'"
+> -sh /scratch/gitlab-runner/v2000a.sh 2
+> +SERIAL_DEV="/dev/serial/${TEST_BOARD}"
+> +SERIAL_CMD="cat ${SERIAL_DEV} | tee smoke.serial | sed 's/\r//'"
+> +sh /scratch/gitlab-runner/${TEST_BOARD}.sh 2
+>  sleep 5
+> -sh /scratch/gitlab-runner/v2000a.sh 1
+> +sh /scratch/gitlab-runner/${TEST_BOARD}.sh 1
+>  sleep 5
+>  set +e
+> -stty -F /dev/ttyUSB9 115200
+> +stty -F ${SERIAL_DEV} 115200
+>  timeout -k 1 ${TIMEOUT_SECONDS} nohup sh -c "${SERIAL_CMD}"
+> -sh /scratch/gitlab-runner/v2000a.sh 2
+> +sh /scratch/gitlab-runner/${TEST_BOARD}.sh 2
+> 
+>  set -e
+> 
+> diff --git a/automation/scripts/xilinx-smoke-dom0less-arm64.sh b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+> index 666411d6a0..18aa07f0a2 100755
+> --- a/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+> +++ b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
+> @@ -134,9 +134,10 @@ sleep 5
+>  cd $START
+> 
+>  # connect to serial
+> +SERIAL_DEV="/dev/serial/zynq"
+>  set +e
+> -stty -F /dev/ttyUSB0 115200
+> -timeout -k 1 120 nohup sh -c "cat /dev/ttyUSB0 | tee smoke.serial | sed 's/\r//'"
+> +stty -F ${SERIAL_DEV} 115200
+> +timeout -k 1 120 nohup sh -c "cat ${SERIAL_DEV} | tee smoke.serial | sed 's/\r//'"
+> 
+>  # stop the board
+>  cd /scratch/gitlab-runner
+> --
+> 2.37.6
+> 
 
