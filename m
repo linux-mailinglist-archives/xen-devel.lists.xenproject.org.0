@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5586D95F031
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 13:55:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783440.1192783 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0A395F042
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 13:59:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783448.1192792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siYJO-0003nu-Dg; Mon, 26 Aug 2024 11:55:06 +0000
+	id 1siYNP-0005Fa-TI; Mon, 26 Aug 2024 11:59:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783440.1192783; Mon, 26 Aug 2024 11:55:06 +0000
+Received: by outflank-mailman (output) from mailman id 783448.1192792; Mon, 26 Aug 2024 11:59:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siYJO-0003m3-AP; Mon, 26 Aug 2024 11:55:06 +0000
-Received: by outflank-mailman (input) for mailman id 783440;
- Mon, 26 Aug 2024 11:55:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1siYNP-0005Cs-Qd; Mon, 26 Aug 2024 11:59:15 +0000
+Received: by outflank-mailman (input) for mailman id 783448;
+ Mon, 26 Aug 2024 11:59:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SW9P=PZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1siYJN-0003lv-0R
- for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 11:55:05 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 074a2000-63a2-11ef-8776-851b0ebba9a2;
- Mon, 26 Aug 2024 13:55:03 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5bed72ff2f2so5176305a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 26 Aug 2024 04:55:03 -0700 (PDT)
+ id 1siYNO-0005CD-Iz
+ for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 11:59:14 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9c9bdfe1-63a2-11ef-a50b-bb4a2ccca743;
+ Mon, 26 Aug 2024 13:59:13 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a7aa086b077so364619566b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Aug 2024 04:59:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c044ddbce5sm5560673a12.4.2024.08.26.04.55.01
+ a640c23a62f3a-a868f2202fdsm659285166b.13.2024.08.26.04.59.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Aug 2024 04:55:02 -0700 (PDT)
+ Mon, 26 Aug 2024 04:59:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 074a2000-63a2-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 9c9bdfe1-63a2-11ef-a50b-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724673302; x=1725278102; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724673553; x=1725278353; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/Xu4kMaCNNhluCV+49KBp0xSgf/cU7UtPbALKpCZb28=;
-        b=LBEGLVj47OLPKgKtrr5dwivyBfpO1OeDSyyYEGWX59VcAhHDvt9mgPikH6+k/eXbag
-         VnTArm9lsecFpyHb6OCe4IjW3UjXkJIai1xCqlGa3l/cNxvI8HeiEqvq4BvthJUMTgzw
-         930DxVSBqNms6H8JSdlHOw+Kh8MkUO9iQH+fQbw6Gk277NPMkMUVyjqkBAn+5tD8oSrV
-         j8g9SvVXTPAwASOHW3zN9iJndQ9UiJdFSu1hI4v5ofRh/Hrd+hiORFOhVvgJrLoGYu8U
-         d1SS/gE7GE5NPyagpPIC66lnFiU//99u0VkkolIhDcomZXsFPE6tJUaIFdo6/otdqW0L
-         FSrA==
+        bh=DtA9pcQSjP3ccQDJR9MjGjGBKy+LEPAenXNB5h2lMD8=;
+        b=O1pT68MiWY2uc1fT0g77bH9GcroY6WKX4HMYDZP+C6h9y5BAul+ZAY5a+L1tCrGp6K
+         vWNdfUA8Yh+gz259ZAWa5FasShfejBUmey7BtXyPtP5XFsVkfYVNS5ijGcHup0/2YxQF
+         8q05sly/g7e3oYfRH6cYSrge4eXj5XijGQ+WAMoVDCa9Yjr4RJClqZqC/MFK7TpwSPAK
+         Vx+28S6Wp3Ea9s4h11+qEHHs/9tLNf3VY4uJFFJlFE+zFaoJRRMOuF9HMmfl9K2yZ3mm
+         CSHGSsUFdlL2bcba+N8gr1YGh/yBXUzB9hx7s4jbdyCogoDGDI4cJbu5WnKX4FtFB38F
+         ZkaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724673302; x=1725278102;
+        d=1e100.net; s=20230601; t=1724673553; x=1725278353;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/Xu4kMaCNNhluCV+49KBp0xSgf/cU7UtPbALKpCZb28=;
-        b=KzmeWi9lRhTGltSfAUqQsCwvt56m387DvFdvstJ2CbUdwExtMoU0nGhfGbXdvY9Dh8
-         czDgWugK7P4CkEaJdshEiECGFZNr+oGYCMFGpWJR4F6fw03mjvzQAZWi6b9WDp/tO8Lx
-         +P5bPfZ+O96+lw2cW7LmH5S9AkqFSBOC8MOV72rKI/HDX7JdIxx628Zo1jq80uc9mE4n
-         s7Chawsne4DnAO7bW/MRmKzRDm8wNdMc/TutBzn+PiLLxEGZa5hLeDq596l1HXIDexsn
-         edWvXIJ9b9qYG0MSUDsulFK51kNJgZXxyceEpQe/out3ksb3l6/GVWaqYLdOZgVr3twU
-         Dk+w==
-X-Forwarded-Encrypted: i=1; AJvYcCV9cOf7fo0EOPUI7Xj2Rg21cQrMjFfixP56r/uOg0hwvpS2LTOYlaSCsnH/2gaa+b6S5me/C1EluuM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxAuktMNXZNJFSV+haSpxLaOKVlCvR3eRfuzdSIMxKW3bj+2wg0
-	uo3SD0gTYNgtgoPig5PWg7M1+sbfZ01tN5w4Vx/D37QP+nUiJ42c3S6UidSIlQ==
-X-Google-Smtp-Source: AGHT+IHQYYCflXwElkaL2G/fEfFhqA0s0sV1/OUn33PBjh9LFemQHQ4alT0/tZ03HDeE0BGqAtNxnA==
-X-Received: by 2002:a05:6402:50d2:b0:5be:f564:eb0f with SMTP id 4fb4d7f45d1cf-5c08915bc58mr6552258a12.1.1724673302529;
-        Mon, 26 Aug 2024 04:55:02 -0700 (PDT)
-Message-ID: <11da1350-095f-49c8-bdf0-f5c83e9f0d39@suse.com>
-Date: Mon, 26 Aug 2024 13:55:01 +0200
+        bh=DtA9pcQSjP3ccQDJR9MjGjGBKy+LEPAenXNB5h2lMD8=;
+        b=Co4L4CoB5AOEQMecuWGKk8pktqc8+dz7wxeujM2au5RkFAHFnRN6zEfRkkUIfTlm1e
+         ChmYIokVhbrOfCDdOi5zmy7pxLb4A4kBLc+DiiBWb7BYqL5Rl7q65eCb5UOhcCSV+aKs
+         GNcmTMTUJe2UdaZLHLVZay2gM19t8rrCf2qns/EzT1Sy2KbHzsdExGae0VMWz9t7bfCn
+         LiyoXKV62Usobsvl9fp1d/fZpK7YIo7kfT4Z01gCJZiOoYC+I4DSOzFru53MguxhJdQ7
+         T1M/aUhZUIKLkmqrdvBHEfzFMZosNr1nru8qgVA1KukiYOG1jUZw/2GGjvcAeGC/vJ/t
+         Xv/w==
+X-Forwarded-Encrypted: i=1; AJvYcCVfGhb0BawX8GS8T9qhXy4lVcQrYIieWQ6zhqqmSt0msC1K2Y/XET55qAyjMlvujsoWjfGgzcCHgu4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxaarsorgK6yY5f4y/kinu3yNhqI6LV8/RgcIkecUh6oyGiAefJ
+	TXEOtLX2/qe2+k9l9ObdoEIeTk5cbvwLEC0cO1x+Ed3diwEuoD/og26eyZOF3w==
+X-Google-Smtp-Source: AGHT+IFrjjnNnRggUPQif49pPhG+8ExmC7wrTDvVjcajug9B4YKJ1etsm41rUjBN0l/RlYP+Bj9RGw==
+X-Received: by 2002:a17:907:1c84:b0:a86:6d39:cbfd with SMTP id a640c23a62f3a-a86a54ddc4dmr709567166b.57.1724673552945;
+        Mon, 26 Aug 2024 04:59:12 -0700 (PDT)
+Message-ID: <53d86a14-276d-4d2c-836f-4c3a78346dd1@suse.com>
+Date: Mon, 26 Aug 2024 13:59:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/9] xen/bitops: Implement hweight64() in terms of
+Subject: Re: [PATCH 8/9] xen/bitops: Implement hweight32() in terms of
  hweightl()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -93,7 +93,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
- <20240822230635.954557-8-andrew.cooper3@citrix.com>
+ <20240822230635.954557-9-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,39 +119,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240822230635.954557-8-andrew.cooper3@citrix.com>
+In-Reply-To: <20240822230635.954557-9-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 23.08.2024 01:06, Andrew Cooper wrote:
-> ... and drop generic_hweight64().
+> ... and drop generic_hweight32().
 > 
-> This is identical on all architectures except ARM32.  Add one extra SELF_TEST
-> to check that hweight64() works when the input is split in half.
-> 
+> As noted previously, the only two users of hweight32() and they're both
+> singleton callers in __init paths, so it's not interesting to have a sub-GPR
+> optimised generic.
+
+I think it's clear what is meant, but the part of the sentence ahead of
+the comma is a little bumpy. As to not interesting: Perhaps indeed not
+right now, but new uses may appear and generally the overly wide
+operations may be (slightly) more expensive. Of course we can deal with
+the need when it arises, so ...
+
 > No functional change.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with one remark:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/include/xen/bitops.h
-> +++ b/xen/include/xen/bitops.h
-> @@ -302,6 +302,14 @@ static always_inline __pure unsigned int hweightl(unsigned long x)
->  #endif
->  }
->  
-> +static always_inline __pure unsigned int hweight64(uint64_t x)
-> +{
-> +    if ( BITS_PER_LONG == 64 )
-> +        return hweightl(x);
-> +    else
-> +        return hweightl(x >> 32) + hweightl(x);
 
-This assume BITS_PER_LONG == 32, which of course is true right now, but
-doesn't need to be in general. Better add an explicit cast to uint32_t
-(or masking by 0xffffffffU)?
-
-Jan
 
