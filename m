@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A977495EAE3
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 09:52:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783347.1192666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD8F095EBB7
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 10:22:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783358.1192677 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siUW0-0007nP-CS; Mon, 26 Aug 2024 07:51:52 +0000
+	id 1siUyb-0005jE-M3; Mon, 26 Aug 2024 08:21:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783347.1192666; Mon, 26 Aug 2024 07:51:52 +0000
+Received: by outflank-mailman (output) from mailman id 783358.1192677; Mon, 26 Aug 2024 08:21:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siUW0-0007kK-9o; Mon, 26 Aug 2024 07:51:52 +0000
-Received: by outflank-mailman (input) for mailman id 783347;
- Mon, 26 Aug 2024 07:51:51 +0000
+	id 1siUyb-0005gS-Ir; Mon, 26 Aug 2024 08:21:25 +0000
+Received: by outflank-mailman (input) for mailman id 783358;
+ Mon, 26 Aug 2024 08:21:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SW9P=PZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1siUVz-0007kE-6A
- for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 07:51:51 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1siUya-0005gM-Ey
+ for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 08:21:24 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c278cbe-6380-11ef-8776-851b0ebba9a2;
- Mon, 26 Aug 2024 09:51:48 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5bf068aebe5so5180120a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 26 Aug 2024 00:51:48 -0700 (PDT)
+ id 2d47ce4f-6384-11ef-8776-851b0ebba9a2;
+ Mon, 26 Aug 2024 10:21:22 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a86a37208b2so310678966b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Aug 2024 01:21:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c04a3ca46esm5283301a12.27.2024.08.26.00.51.47
+ a640c23a62f3a-a868f29a4e0sm633318666b.58.2024.08.26.01.21.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Aug 2024 00:51:47 -0700 (PDT)
+ Mon, 26 Aug 2024 01:21:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c278cbe-6380-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 2d47ce4f-6384-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724658708; x=1725263508; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724660481; x=1725265281; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nQfTusO5nJzIzPnXsNYpcFkmNaNtLqVSB2phx596pB4=;
-        b=Gxdsk4xMXHM+5bK7SF120ZMr0k9o6UiSAml0Xwnq/ZkMTPXKkUDJ8Xg43TMyozIVu9
-         QaqLO6BAo3CgCid7KoeiQzAk5sRa6YVh/YgncA3EAHb6rnmKkmozkHHX/z81kBHcIJt3
-         mip3WuPgPUyGJQ+Llny6/xXbbSrq25Joxr7vFq+jAk7UVKqBHuaIDm9AxwgX2+UWYZdb
-         oTR6lvrqvfyUKfnYetBZ5mO61WyEbEzH9S/253a0B8uvwIVQ5G9se3kLNbGXtKQROfKS
-         ZJQR/6GaHnMofPW0OvRrU28hStaegbI5iIl1VoT3WM3OzUQM5qT8RVLTv17hRzltnfox
-         2k6Q==
+        bh=JxSRI57/dbar7REbw2c2FcaNkJ+kScc0xmfODQhklvo=;
+        b=ahLmoe3lVtl+005nmwbKIAumXdFFi9FfeaLN9X4gbgW+fwa1ipfP2oDyRYLlBKYVvD
+         vmHtumXOLGieHkGc6gxcvdpGfsjgWnkIY9aCjob2b+t9wZ2KnALSzXb/PVftMhSDBGYc
+         kZTkKUtY7t5OVUXb/wivOY8dx0W0HsigadOvdR0dgEM1OMkuYO3E0bk/R5N0vZvicNd3
+         kKArwVqdVIy6ruVYVJeinb//KRSHD7BXBeiHLFq/T97SlIBTn64rV4EjLcZ1eZ+IO0WD
+         PG6Fwg4StDXfg/TpVH0X/M3048TuSs1cWE4fUxkBKRsV4FD4kNV8dgha06vK1xyeLgEo
+         Oq/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724658708; x=1725263508;
+        d=1e100.net; s=20230601; t=1724660481; x=1725265281;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nQfTusO5nJzIzPnXsNYpcFkmNaNtLqVSB2phx596pB4=;
-        b=UoMF6d5a0LypjHNUMhjgA/fVl/i+14apteUPlb7Pz0fDGiEVE91cDYToXJHrQcOBRp
-         BGfO3OzoOHXec2PnLLEwQEoVTS46XZ9oGCSa+CVV96l6dgPfwNajYxq9AM0OQMd/Toro
-         6FzGQJ7IKBStqBjcMKo/TwD8oGUf+jrwIM6UY5QbnaCdiP7veCNzT0MV1QujeXFG/iJm
-         2g/92ft894morqVFY3jtbZr7zW4x5nrKQbCXeoo9UF8QzVeSa9GDRVTvQKmTRtwppumo
-         EBH9z1txq6oU/U58ASWrYz6c8UCN9I2umL0TtsBeHveOtf8N1rO4Snae6lw+PHfLO/Op
-         m+Vw==
-X-Forwarded-Encrypted: i=1; AJvYcCUMaoiiOwBjcH0Bt3HB2s+OArQI+GYLO9DtQJe8f2MPeQu6gMGUZ1dlUGJUxg9vPePmlDWKksf9C2s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YycxxG+ZpkvL908WYnNKuJgQEd4jrXrPnDX3gyYRMTku+FDJIp2
-	8pykTYmb/v1sFgBee5YANVUIZcTj9ujHia6HzWQKRw4j3KpnXpxRw1GV/9kfyA==
-X-Google-Smtp-Source: AGHT+IHqv0vtX3UhnJ7kvoxjV8O0wKezYqzKW1wKn0TGgiB42nV7weu3oyi6JwbqGTrz5nglaP4IdQ==
-X-Received: by 2002:a05:6402:5cd:b0:5c0:8ea7:3deb with SMTP id 4fb4d7f45d1cf-5c08ea73e93mr5512095a12.22.1724658707752;
-        Mon, 26 Aug 2024 00:51:47 -0700 (PDT)
-Message-ID: <0b49dff4-974a-4631-a403-bb5b0516d616@suse.com>
-Date: Mon, 26 Aug 2024 09:51:49 +0200
+        bh=JxSRI57/dbar7REbw2c2FcaNkJ+kScc0xmfODQhklvo=;
+        b=Rjyn2HNaf3ro/jhESw1KrupEAdYQjaEhaEJSFnrNWmJV0CD4w9qOnXS05pbukJTERX
+         ONORLHzd1QIMMBVwF8f0aAEa2gBIWXbzOJzRopy4FyHiTJz2UAsFqsQyqqPv/R83wwFo
+         rMAvAT+J3W1D9R/RgrDx/2+n5bZDG8okztp2Gmi8AkMuiS/5BGy585EYqImSWss3Bk/v
+         KmBpB/2n5Dz75HtsaodbGfYKvlywVUB56qhgCbMONY9yePORa/anllAy4BH6RgdGkivq
+         2cHJISh+9rG0CE0fNKC6wV02DOdaaQyj0jhptAuKAetzlC4RconW/1/oi9TpTaBbUyMx
+         4hpw==
+X-Forwarded-Encrypted: i=1; AJvYcCUqVSx3J2Mh6/BpD+rHamLn4zSU+jB4rEpAo3MOpDlq1RWZU9naBm60EXy5fMqmFs0DI9HeAXzSKGw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyxzAz8/Xxj/M2TUaBRkf6FeaajLsMPJ+Sl3NEpkYIm4OA4eemc
+	7Z7RwI5Gp2L3HAMDX2SO1EmKDg+WCpT4izi+tpjm2533m1b26HoUcuV60ZTBhg==
+X-Google-Smtp-Source: AGHT+IHVnv/pN3wjA1meTxPQ4YcECe/NmOQ16cCDdbt1spC4VxzQL60QkHhEkwVtvOYYFGT6x15dew==
+X-Received: by 2002:a17:906:f59e:b0:a7a:9144:e23b with SMTP id a640c23a62f3a-a86a52b6124mr528268766b.19.1724660481335;
+        Mon, 26 Aug 2024 01:21:21 -0700 (PDT)
+Message-ID: <55e6dc6c-344a-4483-90c2-e414ef4bc869@suse.com>
+Date: Mon, 26 Aug 2024 10:21:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/boot: Preserve the value clobbered by the
- load-base calculation
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+Subject: Re: [PATCH] Avoid additional relocations in trampoline code
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240823131029.1025984-1-andrew.cooper3@citrix.com>
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ xen-devel@lists.xenproject.org
+References: <20240822152953.489136-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,59 +113,103 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240823131029.1025984-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240822152953.489136-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.08.2024 15:10, Andrew Cooper wrote:
-> From: Frediano Ziglio <frediano.ziglio@cloud.com>
+On 22.08.2024 17:29, Frediano Ziglio wrote:
+> The trampoline could have "manual" relocation entries (created
+> by assembly macros and some code to use them) and (in case of PE)
+> normal executable relocations.
+> Remove all normal executable ones. In this way we don't have to
+> worry about applying both correctly (they need proper order
+> which is hard to spot looking at the code).
 > 
-> Right now, Xen clobbers the value at 0xffc when performing it's load-base
-> calculation.  We've got plenty of free registers at this point, so the value
-> can be preserved easily.
-> 
-> This fixes a real bug booting under Coreboot+SeaBIOS, where 0xffc happens to
-> be the cbmem pointer (e.g. Coreboot's dmesg ring, among other things).
-> 
-> However, there's also a better choice of memory location to use than 0xffc, as
-> all our supported boot protocols have a pointer to an info structure in %ebx.
-> 
-> Update the documentation to match.
-> 
-> Fixes: 1695e53851e5 ("x86/boot: Fix the boot time relocation calculations")
-> Fixes: d96bb172e8c9 ("x86/entry: Early PVH boot code")
 > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with two nits:
+I think this wants splitting into one patch replacing sym_offs() and a
+2nd one introducing the hand-crafted __XEN_VIRT_START additions (which
+may want macro-izing). Plus the justification for the change wants
+extending, to actually explain what the problem is - after all there's
+no issue anywhere right now.
 
-> --- a/docs/hypervisor-guide/x86/how-xen-boots.rst
-> +++ b/docs/hypervisor-guide/x86/how-xen-boots.rst
-> @@ -96,6 +96,12 @@ Xen, once loaded into memory, identifies its position in order to relocate
->  system structures.  For 32bit entrypoints, this necessarily requires a call
->  instruction, and therefore a stack, but none of the ABIs provide one.
+> --- a/xen/arch/x86/boot/trampoline.S
+> +++ b/xen/arch/x86/boot/trampoline.S
+> @@ -73,7 +73,7 @@ trampoline_protmode_entry:
+>          mov     %ecx,%cr4
 >  
-> -Overall, given that on a BIOS-based system, the IVT and BDA occupy the first
-> -5/16ths of the first page of RAM, with the rest free to use, Xen assumes the
-> -top of the page is safe to use.
-> +In each supported 32bit entry protocol, ``%ebx`` is a pointer to an info
-> +structure, and it is highly likely that this structure does not overlap with
-> +Xen.  Therefore we use this as as a temporary stack, preserving the prior
+>          /* Load pagetable base register. */
+> -        mov     $sym_offs(idle_pg_table),%eax
+> +        mov     $idle_pg_table_pa, %eax
+>          add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
+>          mov     %eax,%cr3
+>  
+> @@ -113,7 +113,7 @@ trampoline_protmode_entry:
+>          .code64
+>  start64:
+>          /* Jump to high mappings. */
+> -        movabs  $__high_start, %rdi
+> +        movabs  $__high_start_pa + __XEN_VIRT_START, %rdi
+>          jmpq    *%rdi
+>  
+>  #include "video.h"
+> --- a/xen/arch/x86/boot/wakeup.S
+> +++ b/xen/arch/x86/boot/wakeup.S
+> @@ -99,7 +99,7 @@ wakeup_32:
+>          mov     $bootsym_rel(wakeup_stack, 4, %esp)
+>  
+>          # check saved magic again
+> -        mov     $sym_offs(saved_magic),%eax
+> +        mov     $saved_magic_pa, %eax
+>          add     bootsym_rel(trampoline_xen_phys_start, 4, %eax)
+>          mov     (%eax), %eax
+>          cmp     $0x9abcdef0, %eax
+> @@ -112,7 +112,7 @@ wakeup_32:
+>          mov     %ecx, %cr4
+>  
+>          /* Load pagetable base register */
+> -        mov     $sym_offs(idle_pg_table),%eax
+> +        mov     $idle_pg_table_pa ,%eax
+>          add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
+>          mov     %eax,%cr3
+>  
+> @@ -156,7 +156,7 @@ wakeup_32:
+>          .code64
+>  wakeup_64:
+>          /* Jump to high mappings and the higher-level wakeup code. */
+> -        movabs  $s3_resume, %rbx
+> +        movabs  $s3_resume_pa + __XEN_VIRT_START, %rbx
+>          jmp     *%rbx
+>  
+>  bogus_saved_magic:
 
-Double "as".
+With the sym_offs() uses gone, I think it would be best if the macro was
+#undef-ed ahead of the inclusion of trampoline.S. Since x86_64.S uses the
+macro, that'll require careful re-arrangement of #include order.
 
-> @@ -460,21 +466,26 @@ __start:
->          /*
->           * Multiboot (both 1 and 2) specify the stack pointer as undefined
->           * when entering in BIOS circumstances.  This is unhelpful for
-> -         * relocatable images, where one push/pop is required to calculate
-> -         * images load address.
-> +         * relocatable images, where one call (i.e. push) is required to
-> +         * calculate images load address.
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -71,7 +71,12 @@ SECTIONS
+>    __2M_text_start = .;         /* Start of 2M superpages, mapped RX. */
+>  #endif
+>  
+> -  start_pa = ABSOLUTE(start - __XEN_VIRT_START);
+> +#define DEFINE_PA_ADDRESS(sym) sym ## _pa = ABSOLUTE(sym - __XEN_VIRT_START)
+> +  DEFINE_PA_ADDRESS(start);
+> +  DEFINE_PA_ADDRESS(saved_magic);
+> +  DEFINE_PA_ADDRESS(idle_pg_table);
+> +  DEFINE_PA_ADDRESS(__high_start);
+> +  DEFINE_PA_ADDRESS(s3_resume);
+>  
+>    . = __XEN_VIRT_START + XEN_IMG_OFFSET;
+>    _start = .;
 
-Perhaps "the" after "calculate" and (albeit you're the native speaker) isn't
-it "image's" then?
+For the cases where in assembly code you add __XEN_VIRT_START this is pretty
+odd: You subtract the value here just to add it back there. Did you consider
+a more straightforward approach, like introducing absolute xxx_va symbols?
+
+Also, as a general request: Can you please become used to adding meaningful
+subject prefixes to your patches?
 
 Jan
 
