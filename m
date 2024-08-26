@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A2B995F264
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 15:08:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783467.1192803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AD5295F327
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 15:41:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783477.1192813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siZRR-0000jo-Rn; Mon, 26 Aug 2024 13:07:29 +0000
+	id 1siZxl-0006xu-8l; Mon, 26 Aug 2024 13:40:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783467.1192803; Mon, 26 Aug 2024 13:07:29 +0000
+Received: by outflank-mailman (output) from mailman id 783477.1192813; Mon, 26 Aug 2024 13:40:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siZRR-0000hF-OS; Mon, 26 Aug 2024 13:07:29 +0000
-Received: by outflank-mailman (input) for mailman id 783467;
- Mon, 26 Aug 2024 13:07:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1siZxl-0006wO-66; Mon, 26 Aug 2024 13:40:53 +0000
+Received: by outflank-mailman (input) for mailman id 783477;
+ Mon, 26 Aug 2024 13:40:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SW9P=PZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1siZRQ-0000h7-VS
- for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 13:07:28 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24b17f0a-63ac-11ef-a50b-bb4a2ccca743;
- Mon, 26 Aug 2024 15:07:27 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-53345dcd377so5426177e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 26 Aug 2024 06:07:27 -0700 (PDT)
+ id 1siZxj-0006wI-8M
+ for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 13:40:51 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ccb1cbcc-63b0-11ef-8776-851b0ebba9a2;
+ Mon, 26 Aug 2024 15:40:47 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2f3f163e379so68291501fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Aug 2024 06:40:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a868f4360e7sm660561066b.123.2024.08.26.06.07.26
+ a640c23a62f3a-a868f47c446sm667525866b.156.2024.08.26.06.40.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Aug 2024 06:07:26 -0700 (PDT)
+ Mon, 26 Aug 2024 06:40:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24b17f0a-63ac-11ef-a50b-bb4a2ccca743
+X-Inumbo-ID: ccb1cbcc-63b0-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724677647; x=1725282447; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724679647; x=1725284447; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=R7zH0p5To41HaXQsL9JKFBkLYk67deeIbjqF+2DF2Zw=;
-        b=UblDZIYO53GgnJebU7xL7aQsTWBuk2SIsw39aGHNqvY81ET2g1xXQq9AcMKkJ4i3Es
-         eMnzUXuKEm52qt1mYvwwlspcAmCmwuXLl2hhB5dV2PY1q0HGUe92vy7qVmamYEg15w3z
-         0jUwuLWMEu6QcNx35k/Af+3Y3s4EI9ZuQaybhRNFGY899c6iDPhFF+xA6DZKFjTbFNYR
-         zuwj7tVRtkBrswWT/PoRSf/5VtL0Xw7iYZj1Kfv0NpUlRymBBUqqnfXqy+cnR4qB7Zko
-         lPr4GgrXgfe/mzhC+IWZ7LySJZUBhp0BzQtBOwAPgydMKmtmJDcry9mEOf1DJqSfDYQn
-         f2+g==
+        bh=APHpimh9QRyPzBsIDrJ1nOWEF8yafTjY+JrjFQGykj4=;
+        b=WUDfnvJRxPTzTL+cRaNDFENkfa3ffyYetavbM0SDPGyDB7jxl8esOmnpm+pRqFGGH7
+         CsMRgKWsm88UoLujIRmBtDtZdF2sb7TwqPgYQLu3fjSsJD/xgs9F/yqQqorhnAvwNDKE
+         y7D4ywOHb5VXpWELwTcg2KoKbQYNvIaRnoB0foaUK4X/7494mEGcz0I6xBVTIU+IWb9g
+         kCMiwFA3J0WEa+5zX6EGVrl5hM2s8/fYnGZf5wOA0KUz1bD4c7Vwo94LjRwScFy58qe8
+         XsLfr/9+PvdRG0+H1iaHNQ3xW9ZtnJ6lOpQ1WT+PrO8UCIic/39TQmInFa0jSHDiGu3W
+         B8vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724677647; x=1725282447;
+        d=1e100.net; s=20230601; t=1724679647; x=1725284447;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=R7zH0p5To41HaXQsL9JKFBkLYk67deeIbjqF+2DF2Zw=;
-        b=gPJVMjYmmPBnsJ851lBDIzXu2LJUasQmgU2i5nDBrZmzgKzhF2cNuLGUR4BLfJ8O3M
-         MsyfqYEI1sj2R7fz0H1ViQ9tDXJ/SZ+JnaZPdHlwLFtzhignYPn8UIMM31wQNE77qjTm
-         XZ1agHEb/t3GHKvPvojzTj2skhJ9V1QZGls/wi4gbvXmArDKD33kKjF6pUmUF49XLMYZ
-         Pz12gkA889Qz+9PjtbCwx0rtdRj6pUpJyGACFlgpWiho9ZjDe4K4wlA0Y6vz01CpcWqb
-         ZNq3XqdqUDYNUACDvzq5vZYhjg/lB1Hnyix2GZPXXQsN037/5CP4tkLaERhC4cnCfx+7
-         c4oQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUCAQPUw3D12Jc4mc8dRnxZ8Uf33eSkMxIbntxOQBkHc4I6ky4pfZ+74DA6o1+V3aLCzEKP3BCduVI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyyR4jw0f6eeWSQCoVY1j3e9V4JtHMbXhDHBEvEMqsYtEVP76tP
-	qETO4v/7hkSzOau/WJdOsvfnRa+qwKKYItTC74zBqN93HeEsJidW9Ds4tggfYQ==
-X-Google-Smtp-Source: AGHT+IFlydMbfDXf5rBjQuuX6/0xL2LwR6G8WQX+1iuWn+dDJVowRAGn5wQ8j+h27jKp3wnuHNH1Rg==
-X-Received: by 2002:a05:6512:234b:b0:533:40dc:823e with SMTP id 2adb3069b0e04-534387bb4a6mr7341187e87.48.1724677646597;
-        Mon, 26 Aug 2024 06:07:26 -0700 (PDT)
-Message-ID: <03febf18-516b-4677-a0a5-102036c91a29@suse.com>
-Date: Mon, 26 Aug 2024 15:07:25 +0200
+        bh=APHpimh9QRyPzBsIDrJ1nOWEF8yafTjY+JrjFQGykj4=;
+        b=XDWBF0qg/CYrHIeazdYWNz3IToeZixLgsBv87eKYD5BZ8Uho9YmUWF5tbtt5HPUx4q
+         OxmJkSjQefxYmb3t2D4AFZq9pwzqYD/1Eckp72Hig2XhgVw4p/kEX24cfbe1NuSPOMrm
+         RSFToTBmQv6OzciYTBW6d7k8BANm3BtfNbO9wIQdWZ2DkEVAaU4/J8romyzSrB2adWeX
+         XlhG0wmTEWauVP9MGxLE586K7zmvKFyq+293lJA80Ktym40//MLRd+Z5IKAgxqA5uGBg
+         bdn0qzN1rcvDax4AQ+YymFcCPIRvqiS7eQuPPVuaNb3Pk44HyoQ1SF71yUy/Q0sSA6oV
+         YOKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVrdtXmZXhgzyrwobXmwsLcVjZcNZcfpAMk1N60cjONAdabuAfp9hdDwh6x+xrJ1M2o4Bg8d6dCHJo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx6CwhJvO2+e6Q7cGGei2O1SXfsR1eLBkCtATtTKv/5XTlEBurs
+	4tPpq+TisAVsohTjmkUaWpO726Gno7yuGSUG1l/jV4LM/hlmhvdK4e+wc15t5w==
+X-Google-Smtp-Source: AGHT+IFyMV1vc79GQVa9ampMUUlsDhuqhtQ2iHTDqQBCbYI14T2mxMWKJZVDybbqBhuph9Cyp5qy3A==
+X-Received: by 2002:a2e:b704:0:b0:2ef:2905:f36d with SMTP id 38308e7fff4ca-2f4f5750715mr69378551fa.16.1724679646375;
+        Mon, 26 Aug 2024 06:40:46 -0700 (PDT)
+Message-ID: <0849576f-1a21-4e46-989b-e8b21026eb65@suse.com>
+Date: Mon, 26 Aug 2024 15:40:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 9/9] x86/bitops: Use the POPCNT instruction when available
+Subject: Re: [PATCH v2 2/9] x86emul/test: rename "cp"
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
- <20240822230635.954557-10-andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <bcfea345-57c1-43d9-82b3-240b685486cc@suse.com>
+ <fb9e2081-16d5-4dc4-92f5-fb55f313304b@suse.com>
+ <4d88b5d1-592e-4756-b093-6cbf1ca08948@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,107 +114,154 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240822230635.954557-10-andrew.cooper3@citrix.com>
+In-Reply-To: <4d88b5d1-592e-4756-b093-6cbf1ca08948@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23.08.2024 01:06, Andrew Cooper wrote:
-> A few RFC points.
+On 23.08.2024 17:08, Andrew Cooper wrote:
+> On 14/08/2024 9:51 am, Jan Beulich wrote:
+>> In preparation of introducing a const struct cpu_policy * local in
+>> x86_emulate(), rename that global variable to something more suitable:
+>> "cp" is our commonly used name for function parameters or local
+>> variables of type struct cpu_policy *, and the present name of the
+>> global could hence have interfered already.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> v2: Re-base over dropping of Xeon Phi support.
 > 
->  * I throught we had an x86 general lib-y but I can't find one, hence why it's
->    still in xen/lib/ for now.
-
-We indeed have nothing like that yet. The file name should then imo not be
-arch-* though, but x86-*. Or you could put it in xen/lib/x86/. It could even
-be obj-y rather than lib-y, unless you expect we'll be able to get rid of
-all uses, which seems unlikely at least due to bitmap_weight(). Otoh with
-my ABI-level series the call site in arch_hweightl() could then be made go
-away for v2 and above, at which point it living in lib-y will be preferable.
-
->  * When we up the minimum toolchain to GCC 7 / Clang 5, we can use a
->    __attribute__((no_caller_saved_registers)) and can forgo writing this in asm.
+> Bah - still need to reinstate part of that patch.  The model numbers
+> need to stay.  /me adds it to the todo list.
 > 
->    GCC seems to need extra help, and wants -mgeneral-regs-only too.  It has a
->    habit of complaining about incompatible instructions even when it's not
->    emitting them.
+> For this patch, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>,
+> with one request for this patch a couple of thoughts for separate patches.
 
-What is this part about? What incompatible instructions, in particular?
+Thanks; see below for a clarifying question as to which one is which.
 
-> @@ -475,4 +476,24 @@ static always_inline unsigned int arch_flsl(unsigned long x)
->  }
->  #define arch_flsl arch_flsl
->  
-> +static always_inline unsigned int arch_hweightl(unsigned long x)
-> +{
-> +    unsigned int r;
-> +
-> +    /*
-> +     * arch_generic_hweightl() is written in ASM in order to preserve all
-> +     * registers, as the compiler can't see the call.
-> +     *
-> +     * This limits the POPCNT instruction to using the same ABI as a function
-> +     * call (input in %rdi, output in %eax) but that's fine.
-> +     */
-> +    alternative_io("call arch_generic_hweightl",
-> +                   "popcnt %[val], %q[res]", X86_FEATURE_POPCNT,
-> +                   ASM_OUTPUT2([res] "=a" (r) ASM_CALL_CONSTRAINT),
-> +                   [val] "D" (x));
+>> --- a/tools/tests/x86_emulator/x86-emulate.h
+>> +++ b/tools/tests/x86_emulator/x86-emulate.h
+>> @@ -123,7 +123,7 @@ static inline uint64_t xgetbv(uint32_t x
+>>  }
+>>  
+>>  /* Intentionally checking OSXSAVE here. */
+>> -#define cpu_has_xsave     (cp.basic.raw[1].c & (1u << 27))
+>> +#define cpu_has_xsave     (cpu_policy.basic.raw[1].c & (1u << 27))
+> 
+> Right now we deliberately don't emit names for APIC, OSXSAVE and OSPKE,
+> because the values won't be correct in a guest's policy.  But this is a
+> legitimate corner case.
+> 
+> What about this?
+> 
+> diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
+> index 601eec608983..1b56958f07e7 100755
+> --- a/xen/tools/gen-cpuid.py
+> +++ b/xen/tools/gen-cpuid.py
+> @@ -382,10 +382,11 @@ def crunch_numbers(state):
+>              if name and name[0] in "0123456789":
+>                  name = "_" + name
+>  
+> -            # Don't generate names for features fast-forwarded from other
+> -            # state
+> +            # For dynamic features (fast forwarded from other state), also
+> +            # prefix with an underscore to highlight that extra care
+> needs to
+> +            # be taken.
+>              if name in ("APIC", "OSXSAVE", "OSPKE"):
+> -                name = ""
+> +                name = "_" + name
+>  
+>              names.append(name.lower())
+>  
+> which would make the expression become cpu_policy.basic._osxsave and
+> avoid the opencoded number.
 
-If you made [val] an output ("+D") you could avoid preserving the register
-in the function. And I'd expect the register wouldn't be re-used often
-afterwards, so its clobbering likely won't harm code quality very much.
+I'm not overly happy with that, not the least because of the pre-existing
+case where an underscore is being prepended. If at all, I'd like these to
+stand out even more. And I would have less reservations if we could limit
+this to the header(s) that are generated for the tool stack, keeping the
+hypervisor "immune" to mistakes in this area.
 
-> --- /dev/null
-> +++ b/xen/lib/arch-generic-hweightl.S
-> @@ -0,0 +1,46 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +
-> +        .file __FILE__
-> +
-> +#include <xen/linkage.h>
-> +
-> +/*
-> + * An implementation of generic_hweightl() used on hardware without the POPCNT
-> + * instruction.
-> + *
-> + * This function is called from within an ALTERNATIVE in arch_hweightl().
-> + * i.e. behind the back of the compiler.  Therefore all registers are callee
-> + * preserved.
-> + *
-> + * The ASM is what GCC-12 emits for generic_hweightl() in a release build of
-> + * Xen, with spilling of %rdi/%rdx to preserve the callers registers.
-> + */
-> +FUNC(arch_generic_hweightl)
-> +        push   %rdi
-> +        push   %rdx
-> +
-> +        movabs $0x5555555555555555, %rdx
-> +        mov    %rdi, %rax
-> +        shr    $1, %rax
-> +        and    %rdx, %rax
-> +        sub    %rax, %rdi
-> +        movabs $0x3333333333333333, %rax
-> +        mov    %rdi, %rdx
-> +        shr    $0x2, %rdi
+If it's just the open-coded number, I could probably introduce
+cpufeat_mask() locally here. Not sure in how far the open-coding of the
+field is also of concern to you.
 
-Could I talk you into omitting the 0x here and ...
+>> @@ -133,63 +133,63 @@ static inline bool xcr0_mask(uint64_t ma
+>>  unsigned int rdpkru(void);
+>>  void wrpkru(unsigned int val);
+>>  
+>> -#define cache_line_size() (cp.basic.clflush_size * 8)
+>> -#define cpu_has_fpu        cp.basic.fpu
+>> -#define cpu_has_mmx        cp.basic.mmx
+>> -#define cpu_has_fxsr       cp.basic.fxsr
+>> -#define cpu_has_sse        cp.basic.sse
+>> -#define cpu_has_sse2       cp.basic.sse2
+>> -#define cpu_has_sse3       cp.basic.sse3
+>> -#define cpu_has_pclmulqdq  cp.basic.pclmulqdq
+>> -#define cpu_has_ssse3      cp.basic.ssse3
+>> -#define cpu_has_fma       (cp.basic.fma && xcr0_mask(6))
+>> -#define cpu_has_sse4_1     cp.basic.sse4_1
+>> -#define cpu_has_sse4_2     cp.basic.sse4_2
+>> -#define cpu_has_popcnt     cp.basic.popcnt
+>> -#define cpu_has_aesni      cp.basic.aesni
+>> -#define cpu_has_avx       (cp.basic.avx  && xcr0_mask(6))
+>> -#define cpu_has_f16c      (cp.basic.f16c && xcr0_mask(6))
+>> -
+>> -#define cpu_has_avx2      (cp.feat.avx2 && xcr0_mask(6))
+>> -#define cpu_has_bmi1       cp.feat.bmi1
+>> -#define cpu_has_bmi2       cp.feat.bmi2
+>> -#define cpu_has_avx512f   (cp.feat.avx512f  && xcr0_mask(0xe6))
+>> -#define cpu_has_avx512dq  (cp.feat.avx512dq && xcr0_mask(0xe6))
+>> -#define cpu_has_avx512_ifma (cp.feat.avx512_ifma && xcr0_mask(0xe6))
+>> -#define cpu_has_avx512cd  (cp.feat.avx512cd && xcr0_mask(0xe6))
+>> -#define cpu_has_sha        cp.feat.sha
+>> -#define cpu_has_avx512bw  (cp.feat.avx512bw && xcr0_mask(0xe6))
+>> -#define cpu_has_avx512vl  (cp.feat.avx512vl && xcr0_mask(0xe6))
+>> -#define cpu_has_avx512_vbmi (cp.feat.avx512_vbmi && xcr0_mask(0xe6))
+>> -#define cpu_has_avx512_vbmi2 (cp.feat.avx512_vbmi2 && xcr0_mask(0xe6))
+>> -#define cpu_has_gfni       cp.feat.gfni
+>> -#define cpu_has_vaes      (cp.feat.vaes && xcr0_mask(6))
+>> -#define cpu_has_vpclmulqdq (cp.feat.vpclmulqdq && xcr0_mask(6))
+>> -#define cpu_has_avx512_vnni (cp.feat.avx512_vnni && xcr0_mask(0xe6))
+>> -#define cpu_has_avx512_bitalg (cp.feat.avx512_bitalg && xcr0_mask(0xe6))
+>> -#define cpu_has_avx512_vpopcntdq (cp.feat.avx512_vpopcntdq && xcr0_mask(0xe6))
+>> -#define cpu_has_movdiri    cp.feat.movdiri
+>> -#define cpu_has_movdir64b  cp.feat.movdir64b
+>> -#define cpu_has_avx512_vp2intersect (cp.feat.avx512_vp2intersect && xcr0_mask(0xe6))
+>> -#define cpu_has_serialize  cp.feat.serialize
+>> -#define cpu_has_avx512_fp16 (cp.feat.avx512_fp16 && xcr0_mask(0xe6))
+>> -#define cpu_has_sha512     (cp.feat.sha512 && xcr0_mask(6))
+>> -#define cpu_has_sm3        (cp.feat.sm3 && xcr0_mask(6))
+>> -#define cpu_has_sm4        (cp.feat.sm4 && xcr0_mask(6))
+>> -#define cpu_has_avx_vnni   (cp.feat.avx_vnni && xcr0_mask(6))
+>> -#define cpu_has_avx512_bf16 (cp.feat.avx512_bf16 && xcr0_mask(0xe6))
+>> -#define cpu_has_avx_ifma   (cp.feat.avx_ifma && xcr0_mask(6))
+>> -#define cpu_has_avx_vnni_int8 (cp.feat.avx_vnni_int8 && xcr0_mask(6))
+>> -#define cpu_has_avx_ne_convert (cp.feat.avx_ne_convert && xcr0_mask(6))
+>> -#define cpu_has_avx_vnni_int16 (cp.feat.avx_vnni_int16 && xcr0_mask(6))
+> 
+> Can we take the opportunity to realign these vertically?
 
-> +        and    %rax, %rdx
-> +        and    %rax, %rdi
-> +        add    %rdi, %rdx
-> +        mov    %rdx, %rax
-> +        shr    $0x4, %rax
+I've done this, and I assume that this was the "for this patch" request. I'm
+not overly happy with the result, because of the now definitely necessary
+line wrapping, but it's perhaps still an improvement. (It's likely going to
+bite me when re-basing this ahead of other patches I have it sit behind of
+right now.)
 
-... here, and maybe use ...
+> Also, we have X86_XCR0_* constants in a helpful place now.  Could we do
+> something like:
+> 
+> #define XCR0_AVX xcr0_mask(X86_XCR0_YMM | X86_XCR0_SSE)
+> #define XCR0_AVX512 ...
+> 
+> So that these expressions now read
+> 
+> #define cpu_has_$X (... && XCR0_AVX)
+> 
+> rather than forcing the reader to know %xcr0 by raw hex?
 
-> +        add    %rdx, %rax
-> +        movabs $0xf0f0f0f0f0f0f0f, %rdx
-> +        and    %rdx, %rax
-> +        movabs $0x101010101010101, %rdx
-> +        imul   %rdx, %rax
-> +        shr    $0x38, %rax
-
-... 56 here (or even BITS_PER_LONG-8)?
+I can do that, yet I probably wouldn't want to fold the xcr0_mask()
+invocations into the macro expansions. Would that be okay with you?
 
 Jan
 
