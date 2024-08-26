@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EDA595EA96
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 09:35:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783340.1192657 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A977495EAE3
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 09:52:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783347.1192666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siUFp-0003pB-11; Mon, 26 Aug 2024 07:35:09 +0000
+	id 1siUW0-0007nP-CS; Mon, 26 Aug 2024 07:51:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783340.1192657; Mon, 26 Aug 2024 07:35:08 +0000
+Received: by outflank-mailman (output) from mailman id 783347.1192666; Mon, 26 Aug 2024 07:51:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siUFo-0003n8-Tr; Mon, 26 Aug 2024 07:35:08 +0000
-Received: by outflank-mailman (input) for mailman id 783340;
- Mon, 26 Aug 2024 07:35:07 +0000
+	id 1siUW0-0007kK-9o; Mon, 26 Aug 2024 07:51:52 +0000
+Received: by outflank-mailman (input) for mailman id 783347;
+ Mon, 26 Aug 2024 07:51:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SW9P=PZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1siUFn-0003mx-T0
- for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 07:35:07 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
+ id 1siUVz-0007kE-6A
+ for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 07:51:51 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b68c82a6-637d-11ef-8776-851b0ebba9a2;
- Mon, 26 Aug 2024 09:35:05 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2f3ea86377aso41660461fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 26 Aug 2024 00:35:05 -0700 (PDT)
+ id 0c278cbe-6380-11ef-8776-851b0ebba9a2;
+ Mon, 26 Aug 2024 09:51:48 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5bf068aebe5so5180120a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Aug 2024 00:51:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c04a4c43dcsm5504215a12.69.2024.08.26.00.35.04
+ 4fb4d7f45d1cf-5c04a3ca46esm5283301a12.27.2024.08.26.00.51.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Aug 2024 00:35:04 -0700 (PDT)
+ Mon, 26 Aug 2024 00:51:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b68c82a6-637d-11ef-8776-851b0ebba9a2
+X-Inumbo-ID: 0c278cbe-6380-11ef-8776-851b0ebba9a2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724657705; x=1725262505; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724658708; x=1725263508; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D3wrz/wXUtAoX4MlKaY6tCmyhosp49RzRGS6sqJiMZ0=;
-        b=QrLHl6G0qyXIvK2VvCcWdtWkAExx8GMgRLuvnBRqYW3HX9oHBsXYrVFghhfkIit8Oy
-         kzXJJiYwwOkx5wY557A4CmAnfyPX/dGHPIQf/jJt88Vk/LfMFlMWkRypMypP8Wdvy/R1
-         Q5R22mvLziyroRjPWRgzPg9jATbv3g+9rbCNcf/X0bpCD7xzw6SmXHRVwBfZl2rNoeqd
-         qsG4kusuV7EUZO+f2degtmWMVenn1jYBO2IZ2qG1SGNbeHqyY3C8NjZuimQfMaJ71EU3
-         daoeppMNQowCLviKgONGZaufDJydsarTa5sv4UyFd74lXfXB17E7FF7SFGosERX7fO4N
-         40qQ==
+        bh=nQfTusO5nJzIzPnXsNYpcFkmNaNtLqVSB2phx596pB4=;
+        b=Gxdsk4xMXHM+5bK7SF120ZMr0k9o6UiSAml0Xwnq/ZkMTPXKkUDJ8Xg43TMyozIVu9
+         QaqLO6BAo3CgCid7KoeiQzAk5sRa6YVh/YgncA3EAHb6rnmKkmozkHHX/z81kBHcIJt3
+         mip3WuPgPUyGJQ+Llny6/xXbbSrq25Joxr7vFq+jAk7UVKqBHuaIDm9AxwgX2+UWYZdb
+         oTR6lvrqvfyUKfnYetBZ5mO61WyEbEzH9S/253a0B8uvwIVQ5G9se3kLNbGXtKQROfKS
+         ZJQR/6GaHnMofPW0OvRrU28hStaegbI5iIl1VoT3WM3OzUQM5qT8RVLTv17hRzltnfox
+         2k6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724657705; x=1725262505;
+        d=1e100.net; s=20230601; t=1724658708; x=1725263508;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D3wrz/wXUtAoX4MlKaY6tCmyhosp49RzRGS6sqJiMZ0=;
-        b=IEVhDZfEqAJQdzebhlhP/T29QSuNW/+y5w7a7uyOEGwlurdvMm01tpYkuf9cOKk+Bf
-         Nh+y94+nj6vDXX9XmI4xFc/q8FjKgjbxqW+MqmOqplXJgoCyN/JJT+3E6hBuUg0tFdME
-         X2nKWsgtljbhpIsOqcwNf89CNQFm4T44Sh1ZsYWmV6MMMAd9orgzZsLqXgmilXya0FGB
-         vUxvQjMr3HbFaBZB5n3M+7ClOGh11k8Wt/1Ev8sEkj++rfFtGiqvvgFpEJQcR2fuXZJ1
-         e1qg3C5i9TRR4xTomjE+rVfvwnBVT/KqeOPNdmcgKVlOUt3ip+roKXNm4mg5afmYgm+p
-         Bw+g==
-X-Forwarded-Encrypted: i=1; AJvYcCVgkizqDEvYZnaOmjj+wZKCNMgnmvwKuRq5LI+4bzfe4dFWO2Ih6XT2oIRgDGp0IEo5lcGfjvLh1WQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzpHoDVma9/QaBoYqGgwq1pG91jeauhgYOAI8+Za/TCzT92UppT
-	3tNHc6wOf9KKwchcxGikT6Q63stPWiy3gTMb33Qb4kdMeDpDzcHwCaVdsyb/QA==
-X-Google-Smtp-Source: AGHT+IFA8rA1Qw+HeIHe4PjVONsiMSU76kVNkm8eg2Y56aswRGku5KGndyyHShXLGk+Px+nx5YtCQQ==
-X-Received: by 2002:a05:651c:507:b0:2ef:2dc7:a8f7 with SMTP id 38308e7fff4ca-2f4f48ef4bcmr60599891fa.7.1724657705067;
-        Mon, 26 Aug 2024 00:35:05 -0700 (PDT)
-Message-ID: <6d527021-7d71-452a-b4fc-5a41f6ca8493@suse.com>
-Date: Mon, 26 Aug 2024 09:35:05 +0200
+        bh=nQfTusO5nJzIzPnXsNYpcFkmNaNtLqVSB2phx596pB4=;
+        b=UoMF6d5a0LypjHNUMhjgA/fVl/i+14apteUPlb7Pz0fDGiEVE91cDYToXJHrQcOBRp
+         BGfO3OzoOHXec2PnLLEwQEoVTS46XZ9oGCSa+CVV96l6dgPfwNajYxq9AM0OQMd/Toro
+         6FzGQJ7IKBStqBjcMKo/TwD8oGUf+jrwIM6UY5QbnaCdiP7veCNzT0MV1QujeXFG/iJm
+         2g/92ft894morqVFY3jtbZr7zW4x5nrKQbCXeoo9UF8QzVeSa9GDRVTvQKmTRtwppumo
+         EBH9z1txq6oU/U58ASWrYz6c8UCN9I2umL0TtsBeHveOtf8N1rO4Snae6lw+PHfLO/Op
+         m+Vw==
+X-Forwarded-Encrypted: i=1; AJvYcCUMaoiiOwBjcH0Bt3HB2s+OArQI+GYLO9DtQJe8f2MPeQu6gMGUZ1dlUGJUxg9vPePmlDWKksf9C2s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YycxxG+ZpkvL908WYnNKuJgQEd4jrXrPnDX3gyYRMTku+FDJIp2
+	8pykTYmb/v1sFgBee5YANVUIZcTj9ujHia6HzWQKRw4j3KpnXpxRw1GV/9kfyA==
+X-Google-Smtp-Source: AGHT+IHqv0vtX3UhnJ7kvoxjV8O0wKezYqzKW1wKn0TGgiB42nV7weu3oyi6JwbqGTrz5nglaP4IdQ==
+X-Received: by 2002:a05:6402:5cd:b0:5c0:8ea7:3deb with SMTP id 4fb4d7f45d1cf-5c08ea73e93mr5512095a12.22.1724658707752;
+        Mon, 26 Aug 2024 00:51:47 -0700 (PDT)
+Message-ID: <0b49dff4-974a-4631-a403-bb5b0516d616@suse.com>
+Date: Mon, 26 Aug 2024 09:51:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v13 3/6] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH dom0
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <gwd@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
-References: <20240816110820.75672-1-Jiqian.Chen@amd.com>
- <20240816110820.75672-4-Jiqian.Chen@amd.com>
+Subject: Re: [PATCH v3] x86/boot: Preserve the value clobbered by the
+ load-base calculation
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240823131029.1025984-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,55 +113,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240816110820.75672-4-Jiqian.Chen@amd.com>
+In-Reply-To: <20240823131029.1025984-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.08.2024 13:08, Jiqian Chen wrote:
-> The gsi of a passthrough device must be configured for it to be
-> able to be mapped into a hvm domU.
-> But When dom0 is PVH, the gsis may not get registered(see below
-> clarification), it causes the info of apic, pin and irq not be
-> added into irq_2_pin list, and the handler of irq_desc is not set,
-> then when passthrough a device, setting ioapic affinity and vector
-> will fail.
+On 23.08.2024 15:10, Andrew Cooper wrote:
+> From: Frediano Ziglio <frediano.ziglio@cloud.com>
 > 
-> To fix above problem, on Linux kernel side, a new code will
-> need to call PHYSDEVOP_setup_gsi for passthrough devices to
-> register gsi when dom0 is PVH.
+> Right now, Xen clobbers the value at 0xffc when performing it's load-base
+> calculation.  We've got plenty of free registers at this point, so the value
+> can be preserved easily.
 > 
-> So, add PHYSDEVOP_setup_gsi into hvm_physdev_op for above
-> purpose.
+> This fixes a real bug booting under Coreboot+SeaBIOS, where 0xffc happens to
+> be the cbmem pointer (e.g. Coreboot's dmesg ring, among other things).
 > 
-> Clarify two questions:
-> First, why the gsi of devices belong to PVH dom0 can work?
-> Because when probe a driver to a normal device, it uses the normal
-> probe function of pci device, in its callstack, it requests irq
-> and unmask corresponding ioapic of gsi, then trap into xen and
-> register gsi finally.
-> Callstack is(on linux kernel side) pci_device_probe->
-> request_threaded_irq-> irq_startup-> __unmask_ioapic->
-> io_apic_write, then trap into xen hvmemul_do_io->
-> hvm_io_intercept-> hvm_process_io_intercept->
-> vioapic_write_indirect-> vioapic_hwdom_map_gsi-> mp_register_gsi.
-> So that the gsi can be registered.
+> However, there's also a better choice of memory location to use than 0xffc, as
+> all our supported boot protocols have a pointer to an info structure in %ebx.
 > 
-> Second, why the gsi of passthrough device can't work when dom0
-> is PVH?
-> Because when assign a device to passthrough, it uses the specific
-> probe function of pciback, in its callstack, it doesn't install a
-> fake irq handler due to the ISR is not running. So that
-> mp_register_gsi on Xen side is never called, then the gsi is not
-> registered.
-> Callstack is(on linux kernel side) pcistub_probe->pcistub_seize->
-> pcistub_init_device-> xen_pcibk_reset_device->
-> xen_pcibk_control_isr->isr_on==0.
+> Update the documentation to match.
 > 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Fixes: 1695e53851e5 ("x86/boot: Fix the boot time relocation calculations")
+> Fixes: d96bb172e8c9 ("x86/entry: Early PVH boot code")
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with two nits:
 
+> --- a/docs/hypervisor-guide/x86/how-xen-boots.rst
+> +++ b/docs/hypervisor-guide/x86/how-xen-boots.rst
+> @@ -96,6 +96,12 @@ Xen, once loaded into memory, identifies its position in order to relocate
+>  system structures.  For 32bit entrypoints, this necessarily requires a call
+>  instruction, and therefore a stack, but none of the ABIs provide one.
+>  
+> -Overall, given that on a BIOS-based system, the IVT and BDA occupy the first
+> -5/16ths of the first page of RAM, with the rest free to use, Xen assumes the
+> -top of the page is safe to use.
+> +In each supported 32bit entry protocol, ``%ebx`` is a pointer to an info
+> +structure, and it is highly likely that this structure does not overlap with
+> +Xen.  Therefore we use this as as a temporary stack, preserving the prior
 
+Double "as".
+
+> @@ -460,21 +466,26 @@ __start:
+>          /*
+>           * Multiboot (both 1 and 2) specify the stack pointer as undefined
+>           * when entering in BIOS circumstances.  This is unhelpful for
+> -         * relocatable images, where one push/pop is required to calculate
+> -         * images load address.
+> +         * relocatable images, where one call (i.e. push) is required to
+> +         * calculate images load address.
+
+Perhaps "the" after "calculate" and (albeit you're the native speaker) isn't
+it "image's" then?
+
+Jan
 
