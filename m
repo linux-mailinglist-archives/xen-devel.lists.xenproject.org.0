@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA0A395F042
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 13:59:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783448.1192792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A2B995F264
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 15:08:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783467.1192803 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siYNP-0005Fa-TI; Mon, 26 Aug 2024 11:59:15 +0000
+	id 1siZRR-0000jo-Rn; Mon, 26 Aug 2024 13:07:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783448.1192792; Mon, 26 Aug 2024 11:59:15 +0000
+Received: by outflank-mailman (output) from mailman id 783467.1192803; Mon, 26 Aug 2024 13:07:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siYNP-0005Cs-Qd; Mon, 26 Aug 2024 11:59:15 +0000
-Received: by outflank-mailman (input) for mailman id 783448;
- Mon, 26 Aug 2024 11:59:14 +0000
+	id 1siZRR-0000hF-OS; Mon, 26 Aug 2024 13:07:29 +0000
+Received: by outflank-mailman (input) for mailman id 783467;
+ Mon, 26 Aug 2024 13:07:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SW9P=PZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1siYNO-0005CD-Iz
- for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 11:59:14 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1siZRQ-0000h7-VS
+ for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 13:07:28 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9c9bdfe1-63a2-11ef-a50b-bb4a2ccca743;
- Mon, 26 Aug 2024 13:59:13 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a7aa086b077so364619566b.0
- for <xen-devel@lists.xenproject.org>; Mon, 26 Aug 2024 04:59:13 -0700 (PDT)
+ id 24b17f0a-63ac-11ef-a50b-bb4a2ccca743;
+ Mon, 26 Aug 2024 15:07:27 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-53345dcd377so5426177e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Aug 2024 06:07:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a868f2202fdsm659285166b.13.2024.08.26.04.59.12
+ a640c23a62f3a-a868f4360e7sm660561066b.123.2024.08.26.06.07.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Aug 2024 04:59:12 -0700 (PDT)
+ Mon, 26 Aug 2024 06:07:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c9bdfe1-63a2-11ef-a50b-bb4a2ccca743
+X-Inumbo-ID: 24b17f0a-63ac-11ef-a50b-bb4a2ccca743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724673553; x=1725278353; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724677647; x=1725282447; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DtA9pcQSjP3ccQDJR9MjGjGBKy+LEPAenXNB5h2lMD8=;
-        b=O1pT68MiWY2uc1fT0g77bH9GcroY6WKX4HMYDZP+C6h9y5BAul+ZAY5a+L1tCrGp6K
-         vWNdfUA8Yh+gz259ZAWa5FasShfejBUmey7BtXyPtP5XFsVkfYVNS5ijGcHup0/2YxQF
-         8q05sly/g7e3oYfRH6cYSrge4eXj5XijGQ+WAMoVDCa9Yjr4RJClqZqC/MFK7TpwSPAK
-         Vx+28S6Wp3Ea9s4h11+qEHHs/9tLNf3VY4uJFFJlFE+zFaoJRRMOuF9HMmfl9K2yZ3mm
-         CSHGSsUFdlL2bcba+N8gr1YGh/yBXUzB9hx7s4jbdyCogoDGDI4cJbu5WnKX4FtFB38F
-         ZkaA==
+        bh=R7zH0p5To41HaXQsL9JKFBkLYk67deeIbjqF+2DF2Zw=;
+        b=UblDZIYO53GgnJebU7xL7aQsTWBuk2SIsw39aGHNqvY81ET2g1xXQq9AcMKkJ4i3Es
+         eMnzUXuKEm52qt1mYvwwlspcAmCmwuXLl2hhB5dV2PY1q0HGUe92vy7qVmamYEg15w3z
+         0jUwuLWMEu6QcNx35k/Af+3Y3s4EI9ZuQaybhRNFGY899c6iDPhFF+xA6DZKFjTbFNYR
+         zuwj7tVRtkBrswWT/PoRSf/5VtL0Xw7iYZj1Kfv0NpUlRymBBUqqnfXqy+cnR4qB7Zko
+         lPr4GgrXgfe/mzhC+IWZ7LySJZUBhp0BzQtBOwAPgydMKmtmJDcry9mEOf1DJqSfDYQn
+         f2+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724673553; x=1725278353;
+        d=1e100.net; s=20230601; t=1724677647; x=1725282447;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DtA9pcQSjP3ccQDJR9MjGjGBKy+LEPAenXNB5h2lMD8=;
-        b=Co4L4CoB5AOEQMecuWGKk8pktqc8+dz7wxeujM2au5RkFAHFnRN6zEfRkkUIfTlm1e
-         ChmYIokVhbrOfCDdOi5zmy7pxLb4A4kBLc+DiiBWb7BYqL5Rl7q65eCb5UOhcCSV+aKs
-         GNcmTMTUJe2UdaZLHLVZay2gM19t8rrCf2qns/EzT1Sy2KbHzsdExGae0VMWz9t7bfCn
-         LiyoXKV62Usobsvl9fp1d/fZpK7YIo7kfT4Z01gCJZiOoYC+I4DSOzFru53MguxhJdQ7
-         T1M/aUhZUIKLkmqrdvBHEfzFMZosNr1nru8qgVA1KukiYOG1jUZw/2GGjvcAeGC/vJ/t
-         Xv/w==
-X-Forwarded-Encrypted: i=1; AJvYcCVfGhb0BawX8GS8T9qhXy4lVcQrYIieWQ6zhqqmSt0msC1K2Y/XET55qAyjMlvujsoWjfGgzcCHgu4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxaarsorgK6yY5f4y/kinu3yNhqI6LV8/RgcIkecUh6oyGiAefJ
-	TXEOtLX2/qe2+k9l9ObdoEIeTk5cbvwLEC0cO1x+Ed3diwEuoD/og26eyZOF3w==
-X-Google-Smtp-Source: AGHT+IFrjjnNnRggUPQif49pPhG+8ExmC7wrTDvVjcajug9B4YKJ1etsm41rUjBN0l/RlYP+Bj9RGw==
-X-Received: by 2002:a17:907:1c84:b0:a86:6d39:cbfd with SMTP id a640c23a62f3a-a86a54ddc4dmr709567166b.57.1724673552945;
-        Mon, 26 Aug 2024 04:59:12 -0700 (PDT)
-Message-ID: <53d86a14-276d-4d2c-836f-4c3a78346dd1@suse.com>
-Date: Mon, 26 Aug 2024 13:59:11 +0200
+        bh=R7zH0p5To41HaXQsL9JKFBkLYk67deeIbjqF+2DF2Zw=;
+        b=gPJVMjYmmPBnsJ851lBDIzXu2LJUasQmgU2i5nDBrZmzgKzhF2cNuLGUR4BLfJ8O3M
+         MsyfqYEI1sj2R7fz0H1ViQ9tDXJ/SZ+JnaZPdHlwLFtzhignYPn8UIMM31wQNE77qjTm
+         XZ1agHEb/t3GHKvPvojzTj2skhJ9V1QZGls/wi4gbvXmArDKD33kKjF6pUmUF49XLMYZ
+         Pz12gkA889Qz+9PjtbCwx0rtdRj6pUpJyGACFlgpWiho9ZjDe4K4wlA0Y6vz01CpcWqb
+         ZNq3XqdqUDYNUACDvzq5vZYhjg/lB1Hnyix2GZPXXQsN037/5CP4tkLaERhC4cnCfx+7
+         c4oQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUCAQPUw3D12Jc4mc8dRnxZ8Uf33eSkMxIbntxOQBkHc4I6ky4pfZ+74DA6o1+V3aLCzEKP3BCduVI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyyR4jw0f6eeWSQCoVY1j3e9V4JtHMbXhDHBEvEMqsYtEVP76tP
+	qETO4v/7hkSzOau/WJdOsvfnRa+qwKKYItTC74zBqN93HeEsJidW9Ds4tggfYQ==
+X-Google-Smtp-Source: AGHT+IFlydMbfDXf5rBjQuuX6/0xL2LwR6G8WQX+1iuWn+dDJVowRAGn5wQ8j+h27jKp3wnuHNH1Rg==
+X-Received: by 2002:a05:6512:234b:b0:533:40dc:823e with SMTP id 2adb3069b0e04-534387bb4a6mr7341187e87.48.1724677646597;
+        Mon, 26 Aug 2024 06:07:26 -0700 (PDT)
+Message-ID: <03febf18-516b-4677-a0a5-102036c91a29@suse.com>
+Date: Mon, 26 Aug 2024 15:07:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/9] xen/bitops: Implement hweight32() in terms of
- hweightl()
+Subject: Re: [PATCH 9/9] x86/bitops: Use the POPCNT instruction when available
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
- <20240822230635.954557-9-andrew.cooper3@citrix.com>
+ <20240822230635.954557-10-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,28 +112,107 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240822230635.954557-9-andrew.cooper3@citrix.com>
+In-Reply-To: <20240822230635.954557-10-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 23.08.2024 01:06, Andrew Cooper wrote:
-> ... and drop generic_hweight32().
+> A few RFC points.
 > 
-> As noted previously, the only two users of hweight32() and they're both
-> singleton callers in __init paths, so it's not interesting to have a sub-GPR
-> optimised generic.
+>  * I throught we had an x86 general lib-y but I can't find one, hence why it's
+>    still in xen/lib/ for now.
 
-I think it's clear what is meant, but the part of the sentence ahead of
-the comma is a little bumpy. As to not interesting: Perhaps indeed not
-right now, but new uses may appear and generally the overly wide
-operations may be (slightly) more expensive. Of course we can deal with
-the need when it arises, so ...
+We indeed have nothing like that yet. The file name should then imo not be
+arch-* though, but x86-*. Or you could put it in xen/lib/x86/. It could even
+be obj-y rather than lib-y, unless you expect we'll be able to get rid of
+all uses, which seems unlikely at least due to bitmap_weight(). Otoh with
+my ABI-level series the call site in arch_hweightl() could then be made go
+away for v2 and above, at which point it living in lib-y will be preferable.
 
-> No functional change.
+>  * When we up the minimum toolchain to GCC 7 / Clang 5, we can use a
+>    __attribute__((no_caller_saved_registers)) and can forgo writing this in asm.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>    GCC seems to need extra help, and wants -mgeneral-regs-only too.  It has a
+>    habit of complaining about incompatible instructions even when it's not
+>    emitting them.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+What is this part about? What incompatible instructions, in particular?
 
+> @@ -475,4 +476,24 @@ static always_inline unsigned int arch_flsl(unsigned long x)
+>  }
+>  #define arch_flsl arch_flsl
+>  
+> +static always_inline unsigned int arch_hweightl(unsigned long x)
+> +{
+> +    unsigned int r;
+> +
+> +    /*
+> +     * arch_generic_hweightl() is written in ASM in order to preserve all
+> +     * registers, as the compiler can't see the call.
+> +     *
+> +     * This limits the POPCNT instruction to using the same ABI as a function
+> +     * call (input in %rdi, output in %eax) but that's fine.
+> +     */
+> +    alternative_io("call arch_generic_hweightl",
+> +                   "popcnt %[val], %q[res]", X86_FEATURE_POPCNT,
+> +                   ASM_OUTPUT2([res] "=a" (r) ASM_CALL_CONSTRAINT),
+> +                   [val] "D" (x));
 
+If you made [val] an output ("+D") you could avoid preserving the register
+in the function. And I'd expect the register wouldn't be re-used often
+afterwards, so its clobbering likely won't harm code quality very much.
+
+> --- /dev/null
+> +++ b/xen/lib/arch-generic-hweightl.S
+> @@ -0,0 +1,46 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +        .file __FILE__
+> +
+> +#include <xen/linkage.h>
+> +
+> +/*
+> + * An implementation of generic_hweightl() used on hardware without the POPCNT
+> + * instruction.
+> + *
+> + * This function is called from within an ALTERNATIVE in arch_hweightl().
+> + * i.e. behind the back of the compiler.  Therefore all registers are callee
+> + * preserved.
+> + *
+> + * The ASM is what GCC-12 emits for generic_hweightl() in a release build of
+> + * Xen, with spilling of %rdi/%rdx to preserve the callers registers.
+> + */
+> +FUNC(arch_generic_hweightl)
+> +        push   %rdi
+> +        push   %rdx
+> +
+> +        movabs $0x5555555555555555, %rdx
+> +        mov    %rdi, %rax
+> +        shr    $1, %rax
+> +        and    %rdx, %rax
+> +        sub    %rax, %rdi
+> +        movabs $0x3333333333333333, %rax
+> +        mov    %rdi, %rdx
+> +        shr    $0x2, %rdi
+
+Could I talk you into omitting the 0x here and ...
+
+> +        and    %rax, %rdx
+> +        and    %rax, %rdi
+> +        add    %rdi, %rdx
+> +        mov    %rdx, %rax
+> +        shr    $0x4, %rax
+
+... here, and maybe use ...
+
+> +        add    %rdx, %rax
+> +        movabs $0xf0f0f0f0f0f0f0f, %rdx
+> +        and    %rdx, %rax
+> +        movabs $0x101010101010101, %rdx
+> +        imul   %rdx, %rax
+> +        shr    $0x38, %rax
+
+... 56 here (or even BITS_PER_LONG-8)?
+
+Jan
 
