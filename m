@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6576995F643
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 18:17:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783514.1192832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 634AE95F697
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Aug 2024 18:31:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783527.1192842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sicO9-0007mq-5P; Mon, 26 Aug 2024 16:16:17 +0000
+	id 1siccb-0002Un-CC; Mon, 26 Aug 2024 16:31:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783514.1192832; Mon, 26 Aug 2024 16:16:17 +0000
+Received: by outflank-mailman (output) from mailman id 783527.1192842; Mon, 26 Aug 2024 16:31:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sicO9-0007lI-2O; Mon, 26 Aug 2024 16:16:17 +0000
-Received: by outflank-mailman (input) for mailman id 783514;
- Mon, 26 Aug 2024 16:16:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1siccb-0002Sb-9Y; Mon, 26 Aug 2024 16:31:13 +0000
+Received: by outflank-mailman (input) for mailman id 783527;
+ Mon, 26 Aug 2024 16:31:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=89gm=PZ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1sicO7-0007lC-HM
- for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 16:16:15 +0000
+ id 1sicca-0002SV-5E
+ for xen-devel@lists.xenproject.org; Mon, 26 Aug 2024 16:31:12 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 82b0b463-63c6-11ef-a50b-bb4a2ccca743;
- Mon, 26 Aug 2024 18:16:13 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1724688967152238.96509307609676;
- Mon, 26 Aug 2024 09:16:07 -0700 (PDT)
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 93603501-63c8-11ef-8776-851b0ebba9a2;
+ Mon, 26 Aug 2024 18:31:01 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1724689855668759.160650327401;
+ Mon, 26 Aug 2024 09:30:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,42 +38,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82b0b463-63c6-11ef-a50b-bb4a2ccca743
-ARC-Seal: i=1; a=rsa-sha256; t=1724688969; cv=none; 
+X-Inumbo-ID: 93603501-63c8-11ef-8776-851b0ebba9a2
+ARC-Seal: i=1; a=rsa-sha256; t=1724689856; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=BHUpdCv4xtLvallcq39ehOgYx81BGwSyNnQvYXM9OjDBSBqHaoJk9SUQYD3Ez/I1CHwKRWVcqmImjBLmMfjQTiJtWIYGRvm/DfXSEUWcBe03T7NREHoOdcxJdDCO9IHY3K8WzdNGcgVakU2/onsKUfQjSQ7gL13TV5/qP7R94mc=
+	b=kIfA6KUSe4mLe5IqBV0DfeTUFaKP/74WaG/p2oYlXNpwrZvJmprTvNqD7MLaDnbDnpkRYryWsmhGTVIn7iycvVAeyrzewe6jO69iEKpAOpL39zomvPuyQN4f5daUK1lBFl6npLN3W1KC6v+IRTjT5Hau4Up4/Yn00u6uQuGUgTo=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1724688969; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=aRn/Ig+uSKFwm9mRQX3/lTYc6Z3i4A++N191Oel+154=; 
-	b=XTamXXWgSazumGrX/lvnv/YeEPnnSXgzl39gA9H2VJM/xBEW6AgZ5pvVqboJOX8oJ/jRf5U66Q5zT/HceulvRgMqd+Su5TXVnk2IhF5tQFrbLUW77Fe+Cx6SsPA1rRoDZw58ec0Rz1l7HbDeKwoSZJ/RQ/3rbnaM3ADcsV2WUeY=
+	t=1724689856; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=pieGe73qFrHjAlzspU0xYyVp2ATt0HeIFOZAoeHoMjc=; 
+	b=XCtjMkGeh/YnfRE3hquLtIyGE9P5zrW5MI3y/8NoYSn6CQwXi6woG5J50Q6giizRVT4iuaAvbQEEEcDSGTEH7ZNjj8PNv9+HbdOnatDsky0acuKcn4AIoYuq7ALk5omSzPbtVnihwCsSTeZt1/i0cWULEqM1mQ+HjSDt6Y0JU+A=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1724688969;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1724689856;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=aRn/Ig+uSKFwm9mRQX3/lTYc6Z3i4A++N191Oel+154=;
-	b=dhZb9gWfSdKLeAzVBinbCkaty05DSENge3ncxWdqIO7aQ5m6GLT47qJ0FW7KO/3g
-	fwVRKB01XDTgNU6JokvrBpEfnZLEndokisnt3OivwotM1iyEbn/s8KL2U7D4VOyuvZG
-	jlFBwYW0sLngKJPdQ8/a7cfmZGNnWFWexGTeTmYo=
-Message-ID: <8304166e-cc8f-4811-95e3-3c4414ef7726@apertussolutions.com>
-Date: Mon, 26 Aug 2024 12:16:05 -0400
+	bh=pieGe73qFrHjAlzspU0xYyVp2ATt0HeIFOZAoeHoMjc=;
+	b=E9SYd3jBgRbFg8Vp46220/URlo+VL37farxIcQauTvKDCuda+/Whq6BKupl4VsW8
+	3xH5ofgJZdow67E/Z2g8pbwC31JIWL8aEymYgqhdpDSyK7rbHybAebHskonjuB10nzG
+	pzzODu66a4trBlUOypOTW/vsbPAjBiJejBLgRZ5k=
+Message-ID: <85b2dbaa-99a6-4784-84f9-c79a44112b06@apertussolutions.com>
+Date: Mon, 26 Aug 2024 12:30:54 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen: PE/COFF image header
+Subject: Re: [PATCH] x86/time: prefer CMOS over EFI_GET_TIME
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?B?TWlsYW4gxJBva2nEhw==?=
- <milandjokic1995@gmail.com>
-Cc: oleksii.kurochko@gmail.com, Nikola Jelic <nikola.jelic@rt-rk.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Milan Djokic <milan.djokic@rt-rk.com>,
- xen-devel@lists.xenproject.org
-References: <2b747d672eeadc1150d3b84f0303e1d288311133.1721391876.git.milan.djokic@rt-rk.com>
- <728bb10e944a7ec28a67c2e9e62910632eb2366b.1721758832.git.milandjokic1995@gmail.com>
- <1e898a3c-b881-4ca8-99f0-48f51ed28098@suse.com>
- <CAKp59VEM6UWHM1Yu9NToFu9T4GfJpgKiXdAzA096KMVcMRqEsg@mail.gmail.com>
- <a84aaeed-6310-42fa-97e9-b391273c0132@suse.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20240315114242.33309-1-roger.pau@citrix.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -106,39 +100,23 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <a84aaeed-6310-42fa-97e9-b391273c0132@suse.com>
+In-Reply-To: <20240315114242.33309-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 8/19/24 11:39, Jan Beulich wrote:
-> On 19.08.2024 17:34, Milan Đokić wrote:
->> On Mon, Jul 29, 2024 at 1:42 PM Jan Beulich <jbeulich@suse.com> wrote:
->>> On 23.07.2024 20:22, Milan Djokic wrote:
->>>> From: Nikola Jelic <nikola.jelic@rt-rk.com>
->>>>
->>>> Added PE/COFF generic image header which shall be used for EFI
->>>> application format for x86/risc-v. x86 and risc-v source shall be adjusted
->>>> to use this header in following commits. pe.h header is taken over from
->>>> linux kernel with minor changes in terms of formatting and structure member comments.
->>>> Also, COFF relocation and win cert structures are ommited, since these are not relevant for Xen.
->>>>
->>>> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 36e4fc57fc16
->>>>
->>>> Signed-off-by: Nikola Jelic <nikola.jelic@rt-rk.com>
->>>> Signed-off-by: Milan Djokic <milan.djokic@rt-rk.com>
->>>
->>> This looks okay to me now, but I can't ack it (or more precisely my ack
->>> wouldn't mean anything). There are a few style issues in comments, but
->>> leaving them as they are in Linux may be intentional. Just one question,
->>> more to other maintainers than to you:
->>>
->> Are we supposed to CC someone additionally for approval?
-> 
-> No, you did Cc the right people afaics. You may want to ping the maintainers,
-> though.
-Should this not be submitted as part of a series that makes use of it? 
-Would doing so not also address what declarations are actually needed?
+On 3/15/24 07:42, Roger Pau Monne wrote:
+> EFI_GET_TIME doesn't seem to be very reliable:
+
+Would you mind reframing the opening as follows:
+
+"The EFI_GET_TIME implementation is well known to be broken for many 
+firmware implementations, for Xen the result on such implementations are:"
+
+This provides a stronger, and a more realistic assessment of the 
+situation, as opposed to a phrasing that could be interpreted simply as 
+opinion. It also helps reflect in the git history of why this change is 
+being made.
 
 v/r,
 dps
