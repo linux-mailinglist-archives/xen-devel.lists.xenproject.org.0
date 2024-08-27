@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB0229609F2
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 14:21:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783920.1193238 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8756B960A51
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 14:31:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783927.1193248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sivBP-0006ey-OT; Tue, 27 Aug 2024 12:20:23 +0000
+	id 1sivLg-0000no-LW; Tue, 27 Aug 2024 12:31:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783920.1193238; Tue, 27 Aug 2024 12:20:23 +0000
+Received: by outflank-mailman (output) from mailman id 783927.1193248; Tue, 27 Aug 2024 12:31:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sivBP-0006bu-Lg; Tue, 27 Aug 2024 12:20:23 +0000
-Received: by outflank-mailman (input) for mailman id 783920;
- Tue, 27 Aug 2024 12:20:21 +0000
+	id 1sivLg-0000ls-Ib; Tue, 27 Aug 2024 12:31:00 +0000
+Received: by outflank-mailman (input) for mailman id 783927;
+ Tue, 27 Aug 2024 12:30:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ovuO=P2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sivBN-0006bo-CJ
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 12:20:21 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1sivLf-0000lm-2x
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 12:30:59 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b96c172f-646e-11ef-99a0-01e77a169b0f;
- Tue, 27 Aug 2024 14:20:19 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5bec87ececeso5909753a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 05:20:19 -0700 (PDT)
+ id 3557de43-6470-11ef-99a0-01e77a169b0f;
+ Tue, 27 Aug 2024 14:30:56 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a86910caf9cso881092566b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 05:30:56 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e582d57fsm103089266b.116.2024.08.27.05.20.16
+ a640c23a62f3a-a86e549f5c1sm105214266b.68.2024.08.27.05.30.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 05:20:17 -0700 (PDT)
+ Tue, 27 Aug 2024 05:30:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b96c172f-646e-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: 3557de43-6470-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724761219; x=1725366019; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724761856; x=1725366656; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xckl3ar8HgogLNADv6d+Aj8eU2bgnOq0Jsczz3Eh6QM=;
-        b=Ft6/4tAd0jw2LYmM+8t0SxrLEkxLcVxj9+lmjNfRkh0/+9zEDaXZ8rWDcYCVqnPbn4
-         jSq9ekc6g/Zw0TqO97au/ILQQBeQERJe7aA/KcD/KO6aQVi1f25a3geSiaAZKMcQbEUw
-         I4nDnwwSpd5fbMem1sDnCMZzLs8g/eHRkf9KE=
+        bh=veubWuAtvi5hYg3bt7Ig8UgkkZ7tk4qURJRtiqZyn34=;
+        b=OHBUZJtLLDvndf7HMnyarqO9DgbJ+nbHoiZo6gUKvNVd1/TlcVfs+3sRQ7C7o/Ziur
+         J+FFg1lweidR2zL73DpFgI2qu5WL16LOgxJtEcJ2Fpa+FDTKSv5tuTyhL1AJssSHTE/4
+         DZsVvnSCCg88q5cjLiNrVrQiljVYIg0gL0ZR8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724761219; x=1725366019;
+        d=1e100.net; s=20230601; t=1724761856; x=1725366656;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Xckl3ar8HgogLNADv6d+Aj8eU2bgnOq0Jsczz3Eh6QM=;
-        b=CGeLe4IBBtEQ708ZrRYUA814E7yCBqMZ8Asp1F+no+afqpXx+foSha7erqDqr99LzN
-         gtShAnKx3ZqfptqyuiK2QaSKjIkIdv2E8YK8LmA8a0UZvxok0BqH1JQfJsZ9oXZB0sTl
-         NYq3cbn3Dg0/W47YAWcalblw6fFcvhCxE774LjC0Iytq0UnSkTQESjMVm1kBlPCIIH3J
-         tBiZ+y7diQCwfS7jBvBhczBjptvtWWVF/+30bX8VXGv+415XVss/YfDBiIfxoTzjcEX2
-         5T7zY7+Gkbr4ZgXFnJ6f9X4mSRnOxn9v7Vd2TIZJyoQjlsVMFSXibllaCjjOh/3iDn3h
-         X4Cg==
-X-Forwarded-Encrypted: i=1; AJvYcCUlGLoNmT7ObyZ/Y1Vqz5We5SJSdyZdFbvHbGbgNzD1YFWQH3IoTgcGfbgTPeNfCAeNfxRuLtojTI4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwuglKeFuwhf8ZGMFFBL0/hTlh8vHABuxnD1IcHCGIG3Sd3HyzH
-	YYfVpK2Oa7nPPeg2CuttbGylzee1kSURHdhZprmskw3ZTij9CiIZ24Fw20Yt+sw=
-X-Google-Smtp-Source: AGHT+IGoOHG4eXgQLpczX41NfMyt4H1kyb/AHjSsv7UsesnUEH9u3xdZtK2Uwf4aTHbko3C2gZ7qPA==
-X-Received: by 2002:a17:907:948b:b0:a7a:be79:ca1e with SMTP id a640c23a62f3a-a86e39dcfcdmr193279366b.20.1724761218132;
-        Tue, 27 Aug 2024 05:20:18 -0700 (PDT)
-Message-ID: <a4c0b1d3-ff7a-4ea5-bffb-756125a434af@citrix.com>
-Date: Tue, 27 Aug 2024 13:20:15 +0100
+        bh=veubWuAtvi5hYg3bt7Ig8UgkkZ7tk4qURJRtiqZyn34=;
+        b=h1hhBJUVmByeXaCRii0xURiLCpp1G0pX1RazM+zIeZ4VKIrx264hKf/WCr5ny6VhzN
+         uosAVEEXf5MU/jbP0pBkuxImVK4kQuqMsL180zqV9xBfw9G+lXbz4sM0WBK0VbQUgGnA
+         szs1YNMyAcKTjdJM2rRIiXZeJhQKmgEoJqkesg3NQ80rUsA3fvlaOAKkc2ZTdSAfyBDN
+         HGOc7fHMM2RqaJMrE7fs9dQs//xJz8NZSSDwBTV1ju7Nq7tynm18ZMinv9cUdvnXE6VQ
+         lnw7z4Rt/0N9qZZJ++McW76i5ijskAt0bO5KnBAtGpqndgePB/WiGHJIJ8ywu4zzhFGV
+         C43w==
+X-Forwarded-Encrypted: i=1; AJvYcCUSdVW8tiE/70zRNanhsm3YP+jOEJ9rk9nQA9YAeVumaMbCdTIRJawPuruGBNTirmYPcigwFFqw71Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yye2APAIlj5JmyL90aI86uNY+9Pj4wgwxraHpXXht0f1DyyGffT
+	SWPNxZfOcipcTiZ5nKLPaMmmin10P9DSsioyXIjan9jEZzMTOJm4lvGdV3KNLdE=
+X-Google-Smtp-Source: AGHT+IHyiW8mYK7JXKlacoBWPZf3JhjUXQh06R/EfuUqC/xz64T3zFyMjI4td/PM3C6f6Uo7Oxjd+w==
+X-Received: by 2002:a17:907:2d8e:b0:a7a:c7f3:580d with SMTP id a640c23a62f3a-a86e29feb8bmr270352666b.25.1724761855759;
+        Tue, 27 Aug 2024 05:30:55 -0700 (PDT)
+Message-ID: <d51535cd-5149-4808-8643-68be3216a08b@citrix.com>
+Date: Tue, 27 Aug 2024 13:30:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM/vgic: Use for_each_set_bit() in vgic_to_sgi()
-To: Michal Orzel <michal.orzel@amd.com>,
+Subject: Re: [PATCH 5/9] xen/bitops: Introduce generic_hweightl() and
+ hweightl()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich <JBeulich@suse.com>
-References: <20240823230100.1581448-1-andrew.cooper3@citrix.com>
- <6513e2ea-0471-41ca-b328-ce1bc1deddaf@amd.com>
+References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
+ <20240822230635.954557-6-andrew.cooper3@citrix.com>
+ <14c385ce-c61d-48e3-aa09-7b450af34b6c@suse.com>
+ <f5bac01b-74d6-41c4-b3c5-ad595d6de378@citrix.com>
+ <265ea113-5e9e-4829-9a22-24ed9e1cae69@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,129 +139,126 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <6513e2ea-0471-41ca-b328-ce1bc1deddaf@amd.com>
+In-Reply-To: <265ea113-5e9e-4829-9a22-24ed9e1cae69@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27/08/2024 1:13 pm, Michal Orzel wrote:
->
-> On 24/08/2024 01:01, Andrew Cooper wrote:
+On 27/08/2024 12:41 pm, Jan Beulich wrote:
+> On 27.08.2024 12:39, Andrew Cooper wrote:
+>> On 26/08/2024 12:40 pm, Jan Beulich wrote:
+>>> On 23.08.2024 01:06, Andrew Cooper wrote:
+>>> --- a/xen/include/xen/bitops.h
+>>> +++ b/xen/include/xen/bitops.h
+>>> @@ -35,6 +35,12 @@ extern void __bitop_bad_size(void);
+>>>  unsigned int __pure generic_ffsl(unsigned long x);
+>>>  unsigned int __pure generic_flsl(unsigned long x);
+>>>  
+>>>> +/*
+>>>> + * Hamming Weight, also called Population Count.  Returns the number of set
+>>>> + * bits in @x.
+>>>> + */
+>>>> +unsigned int __pure generic_hweightl(unsigned long x);
+>>> Aren't this and ...
+>>>
+>>>> @@ -284,6 +290,18 @@ static always_inline __pure unsigned int fls64(uint64_t x)
+>>>>          (_v & (_v - 1)) != 0;                   \
+>>>>      })
+>>>>  
+>>>> +static always_inline __pure unsigned int hweightl(unsigned long x)
+>>> ... this even __attribute_const__?
+>> Hmm.  This is following fls(), but on further consideration, they should
+>> be const too.
 >>
->> The existing expression is just a very complicated way of expressing a loop
->> over all bits of target->list.  Simplify the expression.
+>> I'll do a prep patch fixing that, although I'm going to rename it to
+>> __attr_const for brevity.
 >>
->> While here, fix the two gprintk()'s.  Because of a quotes vs line continuation
->> issue, there's a long string of spaces in the middle of the format string.
->>
->>   $ strings xen-syms-arm32 | grep -e VGIC -e GICD_SGIR
->>   <G><1>%pv VGIC: write r=%08x                         target->list=%hx, wrong CPUTargetList
->>   <G><1>%pv vGICD:unhandled GICD_SGIR write %08x                  with wrong mode
->>
->> not to mention trailing whitespace too.
->>
->> Rewrite them to be more consise and more useful.  Use 0x prefixes for hex,
-> s/consise/concise
->
->> rather than ambigous, and identify the problem target vCPU / mode, rather than
-> s/ambigous/ambiguous
->
->> simply saying somethign was wrong.
-> s/somethign/something/
->
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Julien Grall <julien@xen.org>
->> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->> CC: Bertrand Marquis <bertrand.marquis@arm.com>
->> CC: Michal Orzel <michal.orzel@amd.com>
->> CC: Jan Beulich <JBeulich@suse.com>
->>
->> In a fun twist, we can't use target->list directly in the expresion, because
->> the typeof() picks up constness from the pointer, and we get:
->>
->>   In file included from arch/arm/vgic.c:11:
->>   arch/arm/vgic.c: In function ‘vgic_to_sgi’:
->>   ./include/xen/bitops.h:305:19: error: assignment of read-only variable ‘__v’
->>     305 |               __v &= __v - 1 )
->>         |                   ^~
->>   arch/arm/vgic.c:483:9: note: in expansion of macro ‘for_each_set_bit’
->>     483 |         for_each_set_bit ( i, target->list )
->>         |         ^~~~~~~~~~~~~~~~
->>
->> Sadly we need -std=c23 before we can use typeof_unqual() which is what we
->> actually want here.
->> ---
->>  xen/arch/arm/vgic.c | 16 ++++++++--------
->>  1 file changed, 8 insertions(+), 8 deletions(-)
->>
->> diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
->> index 7b54ccc7cbfa..081cbb67fb52 100644
->> --- a/xen/arch/arm/vgic.c
->> +++ b/xen/arch/arm/vgic.c
->> @@ -470,8 +470,7 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
->>      struct domain *d = v->domain;
->>      int vcpuid;
->>      int i;
->> -    unsigned int base;
->> -    unsigned long int bitmap;
->> +    unsigned int base, bitmap;
->>
->>      ASSERT( virq < 16 );
->>
->> @@ -481,15 +480,16 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
->>          perfc_incr(vgic_sgi_list);
->>          base = target->aff1 << 4;
->>          bitmap = target->list;
->> -        bitmap_for_each ( i, &bitmap, sizeof(target->list) * 8 )
->> +
->> +        for_each_set_bit ( i, bitmap )
->>          {
->>              vcpuid = base + i;
->>              if ( vcpuid >= d->max_vcpus || d->vcpu[vcpuid] == NULL ||
->>                   !is_vcpu_online(d->vcpu[vcpuid]) )
->>              {
->> -                gprintk(XENLOG_WARNING, "VGIC: write r=%"PRIregister" \
->> -                        target->list=%hx, wrong CPUTargetList \n",
->> -                        sgir, target->list);
->> +                gprintk(XENLOG_WARNING,
->> +                        "vGIC: write %#"PRIregister", target->list=%#x, bad target v%d\n",
-> Sth like "bad target v2" where the word vcpu does not occur anywhere in the msg can be ambiguous.
-> Can you add the word vcpu e.g. "bad vcpu target v%d" or "bad target vcpu %d"
+>> Much as I'd prefer __const, I expect that is going too far, making it
+>> too close to regular const.
+> I was actually going to suggest using that name, if we want to shorten
+> __attribute_const__. Yes, gcc treats __const (and __const__) as
+> keywords, but do we care (much)? All it requires is that we don't start
+> using __const as a (real) keyword.
 
-Hmm yeah, v%d doesn't work quite so well when it's not prefixed with d%d.
+Well also we'll get into more MISRA fun for overriding keywords.
 
-Would you be happy with d%dv%d?  It's marginally more informative and
-shorter.
+But yes - the fact that GCC treats __const to mean const is precisely
+why we shouldn't give it an unrelated meaning.
 
 >
->> +                        sgir, target->list, vcpuid);
->>                  continue;
->>              }
->>              vgic_inject_irq(d, d->vcpu[vcpuid], virq, true);
->> @@ -510,8 +510,8 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
->>          break;
->>      default:
->>          gprintk(XENLOG_WARNING,
->> -                "vGICD:unhandled GICD_SGIR write %"PRIregister" \
->> -                 with wrong mode\n", sgir);
->> +                "vGICD: GICD_SGIR write %#"PRIregister" with unhangled mode %d\n",
-> s/unhangled/unhandled/
+> Of course __const is a good example of why really we shouldn't use
+> double-underscore prefixed names anywhere. Any of them can be assigned
+> a meaning by the compiler, and here that's clearly the case. Therefore,
+> taking your planned rename, maybe better make it attr_const then? And
+> eventually switch stuff like __packed, __pure, and __weak to attr_* as
+> well? Or even introduce something like
 >
->> +                sgir, irqmode);
->>          return false;
->>      }
->>
->> --
->> 2.39.2
->>
-> Otherwise:
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> #define attr(attr...) __attribute__((attr))
+>
+> and use attr(const) here?
 
-Bah, I really was asleep when writing this.  I spotted 2 of the typos,
-but not all of them.
+Hmm - that's an interesting approach, and for other attributes which we
+can use unconditionally.  It will end up shorter than multiple separate
+__-prefixed names.
 
-I'll fix them all up.  Thanks.
+As a tangent, I've got some work from playing with -fanalyzer which
+sprinkles some attr malloc/alloc_{size,align}()/free around.  It does
+improve code generation (abeit marginally), but the function declaration
+size suffers.
+
+It won't work for attributes which are conditionally nothing (e.g.
+cf_check), or ones that contain multiple aspects (e.g. __constructer
+conataining cf_check).
+
+In practice this means we're always going to end up with a mix, so maybe
+attr_const is better for consistency.
+
+>
+>>>> +{
+>>>> +    if ( __builtin_constant_p(x) )
+>>>> +        return __builtin_popcountl(x);
+>>> How certain are you that compilers (even old ones) will reliably fold
+>>> constant expressions here, and never emit a libgcc call instead? The
+>>> conditions look to be more tight than just __builtin_constant_p(); a
+>>> pretty absurd example:
+>>>
+>>> unsigned ltest(void) {
+>>>     return __builtin_constant_p("") ? __builtin_popcountl((unsigned long)"") : ~0;
+>>> }
+>> How do you express that in terms of a call to hweightl()?
+> hweightl((unsigned long)"");
+>
+> Yet as said - it's absurd. It merely serves to make the point that what
+> __builtin_constant_p() returns true for doesn't necessarily constant-
+> fold in expressions.
+
+Yes, but as shown in the godbolt link, this form changes GCC's mind
+about the __builtin_const-ness of the expression.
+
+>
+>> Again, this is following the layout started with fls() in order to avoid
+>> each arch opencoding different versions of constant folding.
+>>
+>> https://godbolt.org/z/r544c49oY
+>>
+>> When it's forced through the hweightl() interface, even GCC 4.1 decides
+>> that it's non-constant and falls back to generic_hweightl().
+>>
+>>
+>> I did spend a *lot* of time with the fls() series checking that all
+>> compilers we supported did what we wanted in this case, so I don't
+>> expect it to be a problem.
+> Right, and I guess I was pointlessly more concerned about popcount than
+> I was for ffs() / fls(). The criteria upon which gcc decides whether to
+> constant-fold the uses is exactly the same.
+>
+>>   But, if a library call is emitted, it will
+>> be very obvious (link failure), and we can re-evaluate.
+> Indeed, we certainly would notice, albeit the diagnostic may be cryptic
+> to people.
+>
+> Bottom line - keep it as is.
+
+Thanks.
 
 ~Andrew
 
