@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3743C960CBE
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D22C960CBF
 	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 15:58:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784068.1193441 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.784069.1193444 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siwho-00049V-3V; Tue, 27 Aug 2024 13:57:56 +0000
+	id 1siwho-0004EM-As; Tue, 27 Aug 2024 13:57:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784068.1193441; Tue, 27 Aug 2024 13:57:56 +0000
+Received: by outflank-mailman (output) from mailman id 784069.1193444; Tue, 27 Aug 2024 13:57:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siwhn-000480-Ug; Tue, 27 Aug 2024 13:57:55 +0000
-Received: by outflank-mailman (input) for mailman id 784068;
+	id 1siwho-00049Y-64; Tue, 27 Aug 2024 13:57:56 +0000
+Received: by outflank-mailman (input) for mailman id 784069;
  Tue, 27 Aug 2024 13:57:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ovuO=P2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1siwhn-0003sI-7W
+ id 1siwhn-00047p-G2
  for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 13:57:55 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5af6c258-647c-11ef-99a0-01e77a169b0f;
- Tue, 27 Aug 2024 15:57:53 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-5334c018913so5306700e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 06:57:53 -0700 (PDT)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5b7e8350-647c-11ef-a0b0-8be0dac302b0;
+ Tue, 27 Aug 2024 15:57:54 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a86859e2fc0so687341566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 06:57:54 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e588adf2sm113898966b.173.2024.08.27.06.57.51
+ a640c23a62f3a-a86e588adf2sm113898966b.173.2024.08.27.06.57.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Aug 2024 06:57:51 -0700 (PDT)
+ Tue, 27 Aug 2024 06:57:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5af6c258-647c-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: 5b7e8350-647c-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=citrix.com; s=google; t=1724767073; x=1725371873; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VYUYCRiWwMW/1FuT+OVshjNKOGKuxH1Fw4wYQKJXxb0=;
-        b=sqrurdTT8jjhh+R+YEoHKDNn3anL3HqiB5b2alp9mnxCInAJ2I9flMuPtOO9xatRoh
-         PF8lGN1a0MOlzABrjdRpe6JboDLY7jNjW6fHIuh/9/+0b5qx04PdKTvdNlAEAESm6UOs
-         4NaQrxlrzcL6xOYIspJYk339mTKluZopSaW6c=
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lWli70jhXRT+1zJ4cUaW5oqtYkf8vd8SYDQrICxm6yE=;
+        b=GL+XsUdCoKBKeDoVN5cq+4tEMei5ooCUDi9pbzHFIow3n67/+r3Ae6ojAL/u5nozU0
+         heAwoM91N2n+x1a4aq/AxUqd2ld+2lY9lT8w9EH90uWI4yZHGt80KUOFvHivyY0Z0D98
+         kOXzdoM/2Rr7LQBR41mEQcuVJCtOynCSik5FI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1724767073; x=1725371873;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=VYUYCRiWwMW/1FuT+OVshjNKOGKuxH1Fw4wYQKJXxb0=;
-        b=kIVQrRuzHkDaiwhzXt+k65INYxLDlNZz24eAPOshLz7kVTGExRHChtBuw0TlCSrzkQ
-         YtSQfe8SFETEuaJmDudU015RlVEh6o+XvztRwxukLlvhQ2Fe9ta/WXn21CglhFJRTQDj
-         yqYx1x4yIU7+AyX+pnRCUOd1FpBp3SyqtM2RgzKakqW0wUAL/bTExexKD/4rUa02k8Cf
-         2Rs3jSqTYe4bBgh+Q+6OKwehXth4E8lElnSinxgkqFCBywjuFWV3oAK8mPbrBBAXtHsa
-         XpamJmIdzBqFL67RX2+M2dKZbUGI+JgInuMuz1osUA4PlbS/nfYrnzFuoW3uhp2RSEQU
-         sN5Q==
-X-Gm-Message-State: AOJu0YxH46NEuy1cj8KolGRF07fbxKdHCPG8xs4jnKVYIuQhEFZ11gC4
-	hSnwTpn03wQPBNa+vC++qRMIOxydJ9IoH7vDq+YqA+2d3DIK5QwoEmAoUKgPhfmI9Gxv8rUYgoQ
-	W
-X-Google-Smtp-Source: AGHT+IERoOD6iXtrsHj8rsKjRo76854THB5EUFy13WvC4RK0qO0OsG8wpMiH0FsWnKKl2ZlYQq/QSQ==
-X-Received: by 2002:a05:6512:1589:b0:52c:e05e:849b with SMTP id 2adb3069b0e04-53438861080mr8192058e87.39.1724767072370;
-        Tue, 27 Aug 2024 06:57:52 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lWli70jhXRT+1zJ4cUaW5oqtYkf8vd8SYDQrICxm6yE=;
+        b=txEYLNAbcM4RnLk+Kp52JVFhckpTk7I9hKYTHZV7Xi7KxRdMMb+8WwgnrIcdfNzm9r
+         AcrYDX/bsjI6izUi1DJXrTeb1v+jL96Ooes8kgqI4F2Yg4eV73HPHtfy+1bqwlAlKt4w
+         gy/j6QNXEQnFDo1Jttr7HP1kLOtVicKIswijt/gHHqbu9sISj1AIbJ+2sVAPb3aLRLuW
+         g2x0DrMq0Fd97N3Uw3GK3zxNh0zzYpVnps3kPTgGkvQgGPRDS44y5oZo0EuJnwCeCk7L
+         dHPq/LqypqfveHQbxYx0pYdRyXqrVsyaghnEISG8N+fkZu0GZRGUW91nmqijZgkZaY1Q
+         oIWg==
+X-Gm-Message-State: AOJu0Ywj/7r2FE0nqiByu46D2GUu+Io0Hrf0y2Rr9ICKewsN9/4QkEk3
+	Gy/rTx7PAVnoGai9W46FbbvAOBdmTqLcyk0a0yU9BAEklI2ZFTtb62Atd9Sd+jbKfLSDZZJFm4T
+	X
+X-Google-Smtp-Source: AGHT+IFfGcZL/pIGlbHYGOiP8yeTKhRtLOJUjxssu5EVYTfskAuuK/Tmx6RF7IRtiN49AhGs0Q7hKw==
+X-Received: by 2002:a17:907:7d94:b0:a86:b504:42ea with SMTP id a640c23a62f3a-a86e3bdbd2bmr197554766b.45.1724767073100;
+        Tue, 27 Aug 2024 06:57:53 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 0/4] xen/bitops: More for_each_bit() conversions
-Date: Tue, 27 Aug 2024 14:57:42 +0100
-Message-Id: <20240827135746.1908070-1-andrew.cooper3@citrix.com>
+	Julien Grall <julien@xen.org>
+Subject: [PATCH 1/4] xen/evtchn: Use bitmap_for_each() in evtchn_check_pollers()
+Date: Tue, 27 Aug 2024 14:57:43 +0100
+Message-Id: <20240827135746.1908070-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20240827135746.1908070-1-andrew.cooper3@citrix.com>
+References: <20240827135746.1908070-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-All patches are independent.  Patch 4 has been posted before, with only a
-request for some wording changes.
+It is a preprocessor-identical opencoding.
 
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1428997960
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+---
+ xen/common/event_channel.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Andrew Cooper (4):
-  xen/evtchn: Use bitmap_for_each() in evtchn_check_pollers()
-  x86/hvm: Use for_each_set_bit() in hvm_emulate_writeback()
-  x86/hvm: Rework hpet_write() for improved code generation
-  x86/vmx: Rewrite vmx_sync_pir_to_irr() to be more efficient
-
- xen/arch/x86/hvm/emulate.c             | 20 ++++----
- xen/arch/x86/hvm/hpet.c                | 29 +++--------
- xen/arch/x86/hvm/vmx/vmx.c             | 70 +++++++++++++++++++++++---
- xen/arch/x86/include/asm/hvm/emulate.h |  4 +-
- xen/common/event_channel.c             |  4 +-
- 5 files changed, 83 insertions(+), 44 deletions(-)
-
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index 13b97c94d7fa..8db2ca4ba23e 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -1517,9 +1517,7 @@ void evtchn_check_pollers(struct domain *d, unsigned int port)
+         return;
+ 
+     /* Wake any interested (or potentially interested) pollers. */
+-    for ( vcpuid = find_first_bit(d->poll_mask, d->max_vcpus);
+-          vcpuid < d->max_vcpus;
+-          vcpuid = find_next_bit(d->poll_mask, d->max_vcpus, vcpuid+1) )
++    bitmap_for_each ( vcpuid, d->poll_mask, d->max_vcpus )
+     {
+         v = d->vcpu[vcpuid];
+         if ( ((v->poll_evtchn <= 0) || (v->poll_evtchn == port)) &&
 -- 
 2.39.2
 
