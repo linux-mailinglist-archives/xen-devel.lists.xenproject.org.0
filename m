@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5543960FCA
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 17:02:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784163.1193568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B04961007
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 17:05:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784166.1193580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sixhn-00085r-IV; Tue, 27 Aug 2024 15:01:59 +0000
+	id 1sixkh-0000Fm-1N; Tue, 27 Aug 2024 15:04:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784163.1193568; Tue, 27 Aug 2024 15:01:59 +0000
+Received: by outflank-mailman (output) from mailman id 784166.1193580; Tue, 27 Aug 2024 15:04:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sixhn-00083q-Fo; Tue, 27 Aug 2024 15:01:59 +0000
-Received: by outflank-mailman (input) for mailman id 784163;
- Tue, 27 Aug 2024 15:01:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sixkg-0000Ck-TU; Tue, 27 Aug 2024 15:04:58 +0000
+Received: by outflank-mailman (input) for mailman id 784166;
+ Tue, 27 Aug 2024 15:04:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tHc6=P2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sixhl-000826-E9
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 15:01:57 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4cea1fc9-6485-11ef-99a0-01e77a169b0f;
- Tue, 27 Aug 2024 17:01:55 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a86e9db75b9so102510566b.1
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 08:01:55 -0700 (PDT)
+ id 1sixkf-0000Ce-1P
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 15:04:57 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b86e6123-6485-11ef-a0b0-8be0dac302b0;
+ Tue, 27 Aug 2024 17:04:56 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-5343d2af735so4201589e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 08:04:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e5487a88sm120256166b.38.2024.08.27.08.01.54
+ a640c23a62f3a-a86e582d8a3sm120775366b.136.2024.08.27.08.04.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 08:01:54 -0700 (PDT)
+ Tue, 27 Aug 2024 08:04:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4cea1fc9-6485-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: b86e6123-6485-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724770915; x=1725375715; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724771095; x=1725375895; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yaZPpSO8+n4j8whG+wrXXjP8Dq75GL9fzKcBrXBURUw=;
-        b=DKGdlbTkqAMAYDNRjKHdmpD+wqDfamzFk0tu4v0970VrNBUrxndV8vc5S270ajfHHx
-         owgkX3MbC/eUOpEEvHHJkl7LShqVVTQTLvfQckJ9fmKN7ILwayo5TAGdRGFy6Di8CO4M
-         znNlKd82868f3eubkyuGyTj7W9MNMbEY4etXhXBCKyaGYgNcLL40tn1cU0UNGJt2Z/mO
-         rD5qYerdcJtgvcbSLNk9QEi2Quwq7EGtFfhgv85F2Z38t3YbFlBf3L5rc++lqa9jIajq
-         N+RV82DqLzWOvZ2ZfZuhUfQ2R/kARnH6NfuE8aPYKGEOS4zpZUNt6eCRaKXtvYxrYga+
-         wqlQ==
+        bh=n+VagzEb5uChgRmU+PmbRm9keAJ4VXJ0Ct20vb0wnSg=;
+        b=EPW0DCN9kizXwdwX9NosKCMHVv0rtEW/qZOPOs+gglMY+SmQkzkgQmdlr7WKJRaJ6c
+         fPTBw7b1KOZmWwX48asrNMwU4dzJ2HUyojT1fimGZ9t5cxQp8TTBqSuO9z4ZOG6bihxO
+         abjC+2gfJJGaXaFs7GrrxSHQY4t5dumXgZqB8NE2iA7hMTaI80I7TqL759/Ei0TS8S9C
+         sC6ceWk6QolU6hdGBYidy1c+2sUAX6qEBf8Tuk9AnW+AX0Y38rPYq0TP/b/pjo9RY5iG
+         D77F//9aJEMXkDd01bkp08pYPWQxPfnowMSCO1lrGSs5h3R+hagYmAmn5vdQWZom4nVp
+         dFFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724770915; x=1725375715;
+        d=1e100.net; s=20230601; t=1724771095; x=1725375895;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yaZPpSO8+n4j8whG+wrXXjP8Dq75GL9fzKcBrXBURUw=;
-        b=M+lQ4T9yX0/sR5g4KJ6o3We3meAb9T60tvgLXSpbkedulEWH2EIvbqRACNzjGNG0gn
-         St2keQaEad6/Y+95LWC8Vbt9B3IvriG0dHPRkNJjgJxgHhQFsZut4scdJFRBIxLzTQ2e
-         DcE62QWnj3MG86tZuZm/3FdiKiWg2FWPrpQPgdK4V/CSrRVgl/ZIc1zNTX91Pnfs83s+
-         sMQ5hz4GQ2NM2tP4AHOi4/6OjoJp2CwgEtiUxtPllNemC030V1tJUkktC9Dd5U/f2HSI
-         /CjW1ELuyeFWslYSTsgSqMDsHOxeIix4pOcuL+f4/nMt7GUuBPMFsD56nwYd2KmDQyr8
-         zCKQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUXYk4hOaVqxDNNFitIb3bMdb0tKpL9YYE1iR6Is73PQeKgWvK8j4H0s7SMcw72g/0d+cYq817metE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw/LKVzkwSictY+GVfMzQF0lnHEgkIvJzWZgpcqVHklz/fyZLhn
-	kGs92oP1NWfA/okxRPyBrRV0r5W8mCBoZ9HSiQ/hguRwy0o3/SOZyEtyS5BMpg==
-X-Google-Smtp-Source: AGHT+IHwPZE2COM0keTUFK2JeugXSUuvpO3I/4B/Rxmx/HiALiFhUCMpaiwrEjZYUqfBRrgj0wJlBQ==
-X-Received: by 2002:a17:907:7251:b0:a80:f358:5d55 with SMTP id a640c23a62f3a-a86a52c11e5mr838392666b.33.1724770914801;
-        Tue, 27 Aug 2024 08:01:54 -0700 (PDT)
-Message-ID: <7dfb83d4-3022-40c6-98aa-d5a236c2de66@suse.com>
-Date: Tue, 27 Aug 2024 17:01:53 +0200
+        bh=n+VagzEb5uChgRmU+PmbRm9keAJ4VXJ0Ct20vb0wnSg=;
+        b=aXiUt7ZKSIy3GCt76/tPeVyup/4SrU1FHE1CYMlngfRrUz5lMwL5ccKcuP3XVI4QvU
+         s0jJTKvqxy5utpRU6MbWmueLD2atMZ+ZwpzGTDKQiVcp2ypN9M5bOCPX7Sia9rCPFjcz
+         R180EpcWCu6tWya50rnlebgGsj6vPFtrQ7NLhFaSCPTvxKfdbg5Jljd4FfgAb09BOWgW
+         VbBk5yk2RlFmoCTvCPzlRS1FAYUpTKvrvUdHJK6sRPeKtflFWZ++BH4nPqkfOjtfLSf0
+         Bh9RiLHB58/39uxJ+gyc8Ew8SPVutomOoUgzjWIqqAOTR3EP/2JtNOHbYs0VwRBX+cfv
+         TxQA==
+X-Forwarded-Encrypted: i=1; AJvYcCVhtLV1pI1KjBfDkCGCOANmsjqHhvAdfJlfmXKCwY/XMW7CcN8vOASsb3+yRtR+U/PDUWuzgULATEs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YycDoAPavmEZ/hkXBN5/qE7K6qwN1CeVlF3TE6xXJwhrxyGSShe
+	RA5PJsihQ9JBPjlv1Y4IBfgDvBbCn5mRCtLTW6AfBtzUHULf029X0y22W5GIGfvr7RLYsxa4Sqo
+	=
+X-Google-Smtp-Source: AGHT+IE8JxhL5Sr82z6lHL/PYpQwenbgBsP/5WBaSVgUm/FOmt4OOnlVwmUvOO6h5W9Wrb0SrWhdNw==
+X-Received: by 2002:a05:6512:e9a:b0:530:c212:4a5a with SMTP id 2adb3069b0e04-5344e3c9983mr2165789e87.22.1724771095324;
+        Tue, 27 Aug 2024 08:04:55 -0700 (PDT)
+Message-ID: <22585e0f-b1d6-49b0-a04f-fe9161f79ea2@suse.com>
+Date: Tue, 27 Aug 2024 17:04:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/9] xen/bitops: Implement hweight64() in terms of
- hweightl()
+Subject: Re: [PATCH 9/9] x86/bitops: Use the POPCNT instruction when available
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
- <20240822230635.954557-8-andrew.cooper3@citrix.com>
- <11da1350-095f-49c8-bdf0-f5c83e9f0d39@suse.com>
- <70047ef7-ca22-4eeb-9510-09ccdf0871c0@citrix.com>
- <73309650-3912-418b-b2e6-a60676519911@suse.com>
- <c54f7015-abe1-4834-83e3-29a2cc854d85@citrix.com>
- <d63df810-3f95-4c99-90fd-e509c26fc4fe@citrix.com>
+ <20240822230635.954557-10-andrew.cooper3@citrix.com>
+ <03febf18-516b-4677-a0a5-102036c91a29@suse.com>
+ <3300b035-46d7-41d3-9908-1a0093c433e8@citrix.com>
+ <89a5586b-bc9d-47da-a2b6-36e2208a6317@suse.com>
+ <f924efc6-825f-4101-97e7-7bff9a50e5c6@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,40 +117,66 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d63df810-3f95-4c99-90fd-e509c26fc4fe@citrix.com>
+In-Reply-To: <f924efc6-825f-4101-97e7-7bff9a50e5c6@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27.08.2024 16:32, Andrew Cooper wrote:
-> On 27/08/2024 2:25 pm, Andrew Cooper wrote:
->> On 27/08/2024 2:00 pm, Jan Beulich wrote:
->>> On 27.08.2024 13:50, Andrew Cooper wrote:
->>>> On 26/08/2024 12:55 pm, Jan Beulich wrote:
->>>>> On 23.08.2024 01:06, Andrew Cooper wrote:
->>>> Again, this is modelled after f[fl]s64() which have the same
->>>> expectations about the BITS_PER_LONG != 64 case.
->>> Both of them are fine afaict. fls64() has an explicit intermediate
->>> variable of type uint32_t, and ffs64() has a (uint32_t)x as part
->>> of the conditional expression achieving the intended effect.
+On 27.08.2024 16:59, Andrew Cooper wrote:
+> On 27/08/2024 1:47 pm, Jan Beulich wrote:
+>> On 27.08.2024 13:17, Andrew Cooper wrote:
+>>> On 26/08/2024 2:07 pm, Jan Beulich wrote:
+>>>> On 23.08.2024 01:06, Andrew Cooper wrote:
+>>>>> @@ -475,4 +476,24 @@ static always_inline unsigned int arch_flsl(unsigned long x)
+>>>>>  }
+>>>>>  #define arch_flsl arch_flsl
+>>>>>  
+>>>>> +static always_inline unsigned int arch_hweightl(unsigned long x)
+>>>>> +{
+>>>>> +    unsigned int r;
+>>>>> +
+>>>>> +    /*
+>>>>> +     * arch_generic_hweightl() is written in ASM in order to preserve all
+>>>>> +     * registers, as the compiler can't see the call.
+>>>>> +     *
+>>>>> +     * This limits the POPCNT instruction to using the same ABI as a function
+>>>>> +     * call (input in %rdi, output in %eax) but that's fine.
+>>>>> +     */
+>>>>> +    alternative_io("call arch_generic_hweightl",
+>>>>> +                   "popcnt %[val], %q[res]", X86_FEATURE_POPCNT,
+>>>>> +                   ASM_OUTPUT2([res] "=a" (r) ASM_CALL_CONSTRAINT),
+>>>>> +                   [val] "D" (x));
+>>>> If you made [val] an output ("+D") you could avoid preserving the register
+>>>> in the function. And I'd expect the register wouldn't be re-used often
+>>>> afterwards, so its clobbering likely won't harm code quality very much.
+>>> "+D" means it's modified by the asm, which forces preservation of the
+>>> register, if it's still needed afterwards.
 >>>
->>> Anyway, why not use hweight32() instead of hweightl() here? That'll
->>> make things very explicit.
->> hweight32() doesn't exist until the next patch in the series.
->>
->> Although looking at the end result, I can't figure out why I thought it
->> was necessary to transform hweight64 first.
->>
->> I'll swap this patch and the next one, and then use hweight32().
+>>> Plain "D" means not modified by the asm, which means it can be reused if
+>>> necessary.
+>> And we likely would prefer the former: If the register's value isn't
+>> use afterwards (and that's the case as far as the function on its own
+>> goes), the compiler will know it doesn't need to preserve anything.
+>> That way, rather than always preserving (in the called function)
+>> preservation will be limited to just the (likely few) cases where the
+>> value actually is still needed afterwards.
 > 
-> I've found out why.
+> Constraints are there to describe how the asm() behaves to the compiler.
 > 
-> The hweight32() patch is the one that deletes generic_hweight32(), but
-> generic_hweight64() uses it.
+> You appear to be asking me to put in explicitly-incorrect constraints
+> because you think it will game the optimiser.
 > 
-> I can work around this, but it means keeping generic_hweight32() around
-> and deleting it in the hweight64() patch.
+> Except the reasoning is backwards.  The only thing forcing "+D" will do
+> is cause the compiler to preserve the value elsewhere if it's actually
+> needed later, despite the contents of %rdi still being good for the purpose.
+> 
+> In other words, using "+D" for asm which is really only "D" (as this one
+> is) will result in strictly worse code generation in the corner case you
+> seem to be worried about.
 
-Or simply fold both patches?
+Well, then leave it as is. (An extra benefit would have been that
+arch_generic_hweightl() then would ended up with a odd-number-of-slots
+stack frame. Not that this matters much, but having ABI-compliant
+functions where possible seems always preferable, when possible.)
 
 Jan
 
