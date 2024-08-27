@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74D6D960949
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 13:50:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783885.1193189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01F4A960974
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 14:01:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783895.1193199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siui7-0006QK-F4; Tue, 27 Aug 2024 11:50:07 +0000
+	id 1siut9-0000VY-Gc; Tue, 27 Aug 2024 12:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783885.1193189; Tue, 27 Aug 2024 11:50:07 +0000
+Received: by outflank-mailman (output) from mailman id 783895.1193199; Tue, 27 Aug 2024 12:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siui7-0006OL-BG; Tue, 27 Aug 2024 11:50:07 +0000
-Received: by outflank-mailman (input) for mailman id 783885;
- Tue, 27 Aug 2024 11:50:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1siut9-0000TZ-Cj; Tue, 27 Aug 2024 12:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 783895;
+ Tue, 27 Aug 2024 12:01:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ovuO=P2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1siui5-0006J3-TJ
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 11:50:05 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7fbef80f-646a-11ef-a0b0-8be0dac302b0;
- Tue, 27 Aug 2024 13:50:04 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a83856c6f51so343279366b.2
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 04:50:04 -0700 (PDT)
+ id 1siut8-0000TT-1W
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 12:01:30 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 17243d7b-646c-11ef-99a0-01e77a169b0f;
+ Tue, 27 Aug 2024 14:01:28 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-53351642021so6275345e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 05:01:28 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c0bb4722b0sm904689a12.69.2024.08.27.04.50.03
+ a640c23a62f3a-a86e588ade7sm100494566b.180.2024.08.27.05.01.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 04:50:03 -0700 (PDT)
+ Tue, 27 Aug 2024 05:01:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fbef80f-646a-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: 17243d7b-646c-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724759404; x=1725364204; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724760087; x=1725364887; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dOoVQtO220RrtdVPWv6bZPm0e+ZLfX+GhH4C47OL9TA=;
-        b=Af6cVoYJB3rDJLr8D3orYp6Hq7e+Th6+b118FIRD0YL6uZn1wrr1Stwd5R/dUYcKtO
-         3WUQMZOebAVa+k4xhpVB5UuUbxqwCTsuDYGra2qZc7qBmJSDPtgI+OZWVdvH1vQwFnaY
-         CPPaFxwtWX3SkCNK8rXOYf2Oaa0Y5iUuyXnrY=
+        bh=dmJUwda64ZAH64yKwNwkUhBN3CEud0mGq6sIUI2oScU=;
+        b=DYMmTEZGjndDxZ0Mn57ceAJpv75MCs6Kpp4DbtRpVXJxBhL3f7uRDGy84cs9jYQJYT
+         gpdh497TMHe5xkLWOsJkNanlavge1SgD7JGY0nyMXWWhqMkBs0OqLkLsSuhYUREKMe9Q
+         s7q+9g0A2mbR+v2bsIIWbMoaCTRX/IWWj+BBU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724759404; x=1725364204;
+        d=1e100.net; s=20230601; t=1724760087; x=1725364887;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dOoVQtO220RrtdVPWv6bZPm0e+ZLfX+GhH4C47OL9TA=;
-        b=DRckQ1kXn94oxm/wjobe1ngqwlS9ZJdXy3eT82p4s6Gt+Wj7QZZo6d6tOOlOTiLkvO
-         k0yu3PuUdH2ntdxYaKhDWfFpGxtjYCfXl2yfXeTKY6WwDRXJiGe1EOmfLXGOIwLnNFxt
-         aeeb2PFBS6I9m4bMijFLfHusW/oeTHtNAPT3z3AruUNG0h/eE/EIwl1HwOOIFOSLYAJv
-         8nknYaZouKjEbH1yeXPhaWCeO2j5velkZ3CKOO/AnrTRLIJXITQ58WEoLLzEUYDi7mKq
-         hJNQNlpgCOEuIYOYZ/pj3g+VFbQRqqu5rEAqcsjNcKx+eQDAG309QqNPzuKJv5MoHf+L
-         AvLg==
-X-Forwarded-Encrypted: i=1; AJvYcCVZ7edmzTNTh+IXh7E5cA+2YR7nHs2bN+Ln5x77DhKlPrNUvSCDgIfQPHvsCPk/SnarRVv4P+bKNJI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yym1s/yytvST41/JMYmQPM7t1HvFA/HbLYGYRnflHQtTKtJzSVg
-	tcoTVLGNZupHeH+YmDg7STh4kgUZJABs1ap8R+FHoV2+2i1XaqToGR8vIzQNfVY=
-X-Google-Smtp-Source: AGHT+IEbx1iZmOacrJqcIKzb6dJA0OCL9JSNfeAPe2sXZAGLkC9dZPO680TniN8lNl+T275jAaoTgg==
-X-Received: by 2002:a05:6402:50d2:b0:5bf:b29:6eb9 with SMTP id 4fb4d7f45d1cf-5c0891a823dmr12706924a12.23.1724759403856;
-        Tue, 27 Aug 2024 04:50:03 -0700 (PDT)
-Message-ID: <70047ef7-ca22-4eeb-9510-09ccdf0871c0@citrix.com>
-Date: Tue, 27 Aug 2024 12:50:01 +0100
+        bh=dmJUwda64ZAH64yKwNwkUhBN3CEud0mGq6sIUI2oScU=;
+        b=SrNnJc5AgrJHqC4rn6tGgOH8HE7ynbpZIYx8Q9+ZQ1MRVIWddIuVvyR7A932a2BGKi
+         6VzumG2X+8QXK3FLqoDrnG05pXkpEUrLxjowS1pY9UlvuK9HuFoHNgBC0JhdPNQYjC/5
+         mtXdnd9M8jpZ+pZP3O4vugV8yEeE3sw4fV7TLhgtalxIe0emjvvk8IXB51e1PhvoWgdi
+         ESH9kn9AiOPHlR8bE+NvDP80DquwKmxhl5rNOULAgzOawZHHVnMwMbxfRbXtWc3Kj9Aw
+         wJvVPbAGbS6vxML+hmYj6DCmbWcGTjn7ymCAfy6IxUNZPvANd75ZWLPlcGRIHLxHFY/H
+         vrfQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUC5RKTuJr/f39lMXfgzUGVAk/4kQ6g5uT0xLLE3nnsGYZzi+rZzTOo9npbEEQc+qbdreNXBJZieyE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxkSTAMrsUayaK6XZMPyMW9fsB8ptS7CA4a4AYmEEHIjBRMgByb
+	NTWH/+7pwQoLFnQmU+ic0bV+1wl/++bJwsQy4X00pUGi4dudFYEGC6BW+SkpsLU=
+X-Google-Smtp-Source: AGHT+IEIAjChwL26EE6ed4i3/OnhM3YCEpYx2ZhM2gAAX6X8JFydd+vKf+MrHA9NpUyI29EwXgdxiQ==
+X-Received: by 2002:a05:6512:108b:b0:52b:c1cc:51f1 with SMTP id 2adb3069b0e04-5343877b490mr8236635e87.23.1724760086810;
+        Tue, 27 Aug 2024 05:01:26 -0700 (PDT)
+Message-ID: <239165e3-6f96-452f-9c81-05f29012269f@citrix.com>
+Date: Tue, 27 Aug 2024 13:01:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/9] xen/bitops: Implement hweight64() in terms of
- hweightl()
+Subject: Re: [PATCH 2/9] xen/bitops: Introduce a multiple_bits_set() helper
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
@@ -90,8 +89,8 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
- <20240822230635.954557-8-andrew.cooper3@citrix.com>
- <11da1350-095f-49c8-bdf0-f5c83e9f0d39@suse.com>
+ <20240822230635.954557-3-andrew.cooper3@citrix.com>
+ <841e2cde-6fc2-49d9-b947-534bd53bc00e@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,50 +136,65 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <11da1350-095f-49c8-bdf0-f5c83e9f0d39@suse.com>
+In-Reply-To: <841e2cde-6fc2-49d9-b947-534bd53bc00e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26/08/2024 12:55 pm, Jan Beulich wrote:
+On 26/08/2024 11:30 am, Jan Beulich wrote:
 > On 23.08.2024 01:06, Andrew Cooper wrote:
->> ... and drop generic_hweight64().
+>> This will be used to simplify real logic in the following patch.  Add compile
+>> and boot time testing as with other bitops.
 >>
->> This is identical on all architectures except ARM32.  Add one extra SELF_TEST
->> to check that hweight64() works when the input is split in half.
+>> Because the expression is so simple, implement it as a function-like macro
+>> which is generic on the type of it's argument, rather than having multiple
+>> variants.
 >>
->> No functional change.
->>
+>> Testing function-like macros needs a minor adjustments to the infrastructure
+>> in xen/self-tests.h to avoid bracketing the fn parameter.  The utility of this
+>> outweighs the associated risks.
+> We may need to mark these two places as deviated.
+
+Perhaps, although it would want to be a project-wide deviation.
+
+Eclair was green with this patch in place, so it's not blocking.
+
+>
 >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks.
-
-> with one remark:
+> with one remark/request:
 >
->> --- a/xen/include/xen/bitops.h
->> +++ b/xen/include/xen/bitops.h
->> @@ -302,6 +302,14 @@ static always_inline __pure unsigned int hweightl(unsigned long x)
->>  #endif
+>> --- a/xen/common/bitops.c
+>> +++ b/xen/common/bitops.c
+>> @@ -84,8 +84,32 @@ static void __init test_fls(void)
+>>      CHECK(fls64, 0x8000000000000001ULL, 64);
 >>  }
 >>  
->> +static always_inline __pure unsigned int hweight64(uint64_t x)
+>> +static void __init test_multiple_bits_set(void)
 >> +{
->> +    if ( BITS_PER_LONG == 64 )
->> +        return hweightl(x);
->> +    else
->> +        return hweightl(x >> 32) + hweightl(x);
-> This assume BITS_PER_LONG == 32, which of course is true right now, but
-> doesn't need to be in general. Better add an explicit cast to uint32_t
-> (or masking by 0xffffffffU)?
+>> +    /*
+>> +     * multiple_bits_set() is generic on the type of it's parameter, as the
+>> +     * internal expression is so simple.
+>> +     */
+>> +
+>> +    CHECK(multiple_bits_set, 0, false);
+>> +    CHECK(multiple_bits_set, 1, false);
+>> +    CHECK(multiple_bits_set, 2, false);
+>> +    CHECK(multiple_bits_set, 3, true);
+>> +
+>> +    CHECK(multiple_bits_set, 1 | (1UL << (BITS_PER_LONG - 1)), true);
+> This is really the same as ...
+>
+>> +#if BITS_PER_LONG > 32
+>> +    CHECK(multiple_bits_set, 1 | (1UL << 32), true);
+>> +    CHECK(multiple_bits_set, 1 | (1UL << 63), true);
+> ... this, at least as long as BITS_PER_LONG > 32 in practice means
+> BITS_PER_LONG == 64. Perhaps not really worth keeping that line?
 
-This is part of the point of putting in the self-tests.  They're
-intended to catch things like this in new build environments.
+I suppose not.  I'll drop it.
 
-Although, I think we've got enough cases which will #error on
-BITS_PER_LONG not being 32 or 64.
-
-Again, this is modelled after f[fl]s64() which have the same
-expectations about the BITS_PER_LONG != 64 case.
+However, It occurs to me that I do need a test of 0x8000000000000001ULL
+mostly for 32bit builds to check that even when the argument is split,
+the answer is still accurate.
 
 ~Andrew
 
