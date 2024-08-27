@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CE78960986
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 14:04:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783900.1193210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21D7A96098E
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 14:06:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783904.1193219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siuw5-00016D-Tl; Tue, 27 Aug 2024 12:04:33 +0000
+	id 1siuxT-0001b7-7n; Tue, 27 Aug 2024 12:05:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783900.1193210; Tue, 27 Aug 2024 12:04:33 +0000
+Received: by outflank-mailman (output) from mailman id 783904.1193219; Tue, 27 Aug 2024 12:05:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siuw5-00012d-Qa; Tue, 27 Aug 2024 12:04:33 +0000
-Received: by outflank-mailman (input) for mailman id 783900;
- Tue, 27 Aug 2024 12:04:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1siuxT-0001Ys-4C; Tue, 27 Aug 2024 12:05:59 +0000
+Received: by outflank-mailman (input) for mailman id 783904;
+ Tue, 27 Aug 2024 12:05:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ovuO=P2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1siuw4-00012X-6s
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 12:04:32 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 839dd717-646c-11ef-a0b0-8be0dac302b0;
- Tue, 27 Aug 2024 14:04:30 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a7a81bd549eso415698066b.3
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 05:04:30 -0700 (PDT)
+ id 1siuxR-0001Ym-MG
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 12:05:57 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b6c385b9-646c-11ef-99a0-01e77a169b0f;
+ Tue, 27 Aug 2024 14:05:55 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5a10835487fso8077747a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 05:05:55 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e5950ec2sm101192066b.222.2024.08.27.05.04.28
+ 4fb4d7f45d1cf-5c0bb2156dfsm939497a12.53.2024.08.27.05.05.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 05:04:28 -0700 (PDT)
+ Tue, 27 Aug 2024 05:05:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 839dd717-646c-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: b6c385b9-646c-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724760270; x=1725365070; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724760355; x=1725365155; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QqbZS+gDi42MRkLa6LNqr/kXkCFyAiduYvuuPEavHc4=;
-        b=EbLaTcLSmEoX/XmhyvZ/jQsaWiNSq0+fDOTjjYPaJoxviO8Mfv8TMk4RX9EARKBwsj
-         b5r6RQ8e2UuG9aHQqZSS9O4eMjpGdSKfJArl496sh7+s+5HtYZSLjuXHcsP04nq7hbk7
-         Sri+U4qFS52SUJzRjlInB5iLOhbkUAGxkc9vM=
+        bh=RGhfv5XpRj8JLGM819T6v6Zn2+W1+Xp5UHoDnABfE4s=;
+        b=N8d2frEkplWHPaCd40rsdNQjCNXbdmtBMMEJ4BzlFKjRUl+xCMuWt4ccaBePG3iIQD
+         wH6ERJCPRF+ryVkh8J1ENOAejL6bVXvKvEsr0GtJ5Q5am6bCeS4FL1TzaqvvibatBoi0
+         g7PJ7W15W2Jml3+VKuG97ZmMfgNB3XjvFF0cE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724760270; x=1725365070;
+        d=1e100.net; s=20230601; t=1724760355; x=1725365155;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QqbZS+gDi42MRkLa6LNqr/kXkCFyAiduYvuuPEavHc4=;
-        b=SE5yZ5jtC760FUZTmsL3h3PQida7e11TYNVxSU3hnNQp+I61MqebmYRZmnutmoFO6p
-         TYDoJZ0R4gWlsnL/b9vl45luJTVBOQiLxD5ZXQkIx1KYUJRN7EbxkN2nM/DdK6ngA+7E
-         EKXddsQBkBwv4b/3l0JdyRMaUQLA6mmiHrkYPq2DXVhqDMOZBVgyPhaVnLGrqQDTlQuE
-         YS1sFftCxQDl2WAncBEogSSKX/kg1u4nOYDENkiWfiEr8sO5goMlTGZzDWBRYsFJtDQ6
-         9NvDc9FE/+ZulsGcLwxgm3Ha2kxOa/+mA3lsE+DhoklrnaKjm8zYispYXuzsUOzd/lRl
-         PeAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX6OytZqWKwDfRNbDjWjNzwcjaoUwUuzFE5ODQi7SsE57Bgr+Km0PDWh0oY5owJuTCjx8PGPZo2yTg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxneC/VvFPrfcF/3R5DbFEHqFBu3EfRENIhiQk4MH7/nif7gHiU
-	C/TqOFT/0g3bNnYMubX+Q8XAwCE6XQ+FhrMmjxI1Bf1kTKfjRi5DJZNbpYxYxn8=
-X-Google-Smtp-Source: AGHT+IFL1uwiZhdo6utBk8Fxt2TS1lEZRpEIg1jGi9mPI0Agb8/Cwegj5QXl2aQRawqeQ86/h2OV8A==
-X-Received: by 2002:a17:907:9724:b0:a86:a5a0:7613 with SMTP id a640c23a62f3a-a86a5a078femr747428766b.55.1724760269216;
-        Tue, 27 Aug 2024 05:04:29 -0700 (PDT)
-Message-ID: <08f60580-3b3c-4c14-acaa-93ddec544be1@citrix.com>
-Date: Tue, 27 Aug 2024 13:04:26 +0100
+        bh=RGhfv5XpRj8JLGM819T6v6Zn2+W1+Xp5UHoDnABfE4s=;
+        b=HgLdtaz7+AqctJU+Qfc/ieG4lI+sGBUXUprA8N4977+KsFYbDlIDWy98r2JvqWQVY1
+         YEE3MYjPNufzNwwUL3yZD/jFZygwsiCdfkMTn02ybSI1elcce/JuiQFm3KWfeURKCdBu
+         nW3W1WuzuMKCYFAcaaHLonGBmxyz9AFbUCkQ9ROtJTXyWor5PjkQmkIjgKWvMW0QDxA+
+         x70+3Uzz8GVaSoPI36BVg9PTZy6W9Op1G/PkwEewB5XnDLEGY91sPntE6aJ4CyiTdpCY
+         /MOdlN/Np1UxygaI+B+rcb1itHPSTDYnVJdWjGzKFy4pKxW91HVBW27qQvSxfgoXfBK6
+         7D/g==
+X-Forwarded-Encrypted: i=1; AJvYcCVCap9HFbYrlmu7dfWWHepTvqDHQlaXs+bL3XiW8SwidIg/FQoSrBJPqgDzxS6+g+ZNVu0Iof9QphQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwH75EWkoJeLYcubsqKxtOF8/Pc+cwsk4KxYt0EVUKfRIhg1JN9
+	yRsPPTto5IiWwmbToJWyLqpJPlLbuMm9GFciw2l47bqjcJH9bDajeFMILSc1kSM=
+X-Google-Smtp-Source: AGHT+IGPnriVafvG16FruxiLP5pJ9UdZN1ehR7j4yo8Oh9z1Xvrgid/rcYN5zOSfptRC6Wbu8F3FLA==
+X-Received: by 2002:a05:6402:50cf:b0:5be:ef1f:c679 with SMTP id 4fb4d7f45d1cf-5c0891a2702mr9087568a12.23.1724760354761;
+        Tue, 27 Aug 2024 05:05:54 -0700 (PDT)
+Message-ID: <f938a434-d166-4238-bb86-9b5600b2b50c@citrix.com>
+Date: Tue, 27 Aug 2024 13:05:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/9] xen/bitops: Drop the remnants of hweight{8,16}()
+Subject: Re: [PATCH 8/9] xen/bitops: Implement hweight32() in terms of
+ hweightl()
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
@@ -89,10 +90,8 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
- <20240822230635.954557-5-andrew.cooper3@citrix.com>
- <8c6599fa-22c0-455e-9d6a-51b3bf3d24b3@suse.com>
- <f0a5525f-cfb8-4669-a0b7-3da4fdd9eaaf@citrix.com>
- <6b86e515-c68c-4c3b-9e99-bce4119ab1a2@suse.com>
+ <20240822230635.954557-9-andrew.cooper3@citrix.com>
+ <53d86a14-276d-4d2c-836f-4c3a78346dd1@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -138,29 +137,28 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <6b86e515-c68c-4c3b-9e99-bce4119ab1a2@suse.com>
+In-Reply-To: <53d86a14-276d-4d2c-836f-4c3a78346dd1@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27/08/2024 11:11 am, Jan Beulich wrote:
-> On 27.08.2024 11:49, Andrew Cooper wrote:
->> On 26/08/2024 11:39 am, Jan Beulich wrote:
->>> On 23.08.2024 01:06, Andrew Cooper wrote:
->>>> They are no more, and won't be returning in this form.
->>> And what's the plan? Use hweight32((uint8_t)...) in an open-coded manner?
->>> Not overly nice I would say.
->> If we ever regain a genuine need for the 8 or 16 forms, they can go back
->> into bitops.h, in terms of hweightl(), just like hweight32().
+On 26/08/2024 12:59 pm, Jan Beulich wrote:
+> On 23.08.2024 01:06, Andrew Cooper wrote:
+>> ... and drop generic_hweight32().
 >>
->> But it's been 20 years so far and we haven't actually needed
->> hweight8/16, and I'm expecting this to continue for the forseeable future.
-> Well, I'm not fully convinced. People may (try to) add open-coded forms like
-> in my earlier reply instead.
+>> As noted previously, the only two users of hweight32() and they're both
+>> singleton callers in __init paths, so it's not interesting to have a sub-GPR
+>> optimised generic.
+> I think it's clear what is meant, but the part of the sentence ahead of
+> the comma is a little bumpy. As to not interesting: Perhaps indeed not
+> right now, but new uses may appear and generally the overly wide
+> operations may be (slightly) more expensive. Of course we can deal with
+> the need when it arises, so ...
 
-I'd hope we'd spot that during review, and even if not, we can fix it up
-after the fact.
+Oh yes, that is wonky.  I'll rephrase.
 
->  But anyway:
+>> No functional change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Thanks.
