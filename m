@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70AE5960667
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 11:57:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783739.1193009 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 395CB96069F
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 12:03:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783749.1193049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sisx5-0007wm-AD; Tue, 27 Aug 2024 09:57:27 +0000
+	id 1sit33-0001oo-Rg; Tue, 27 Aug 2024 10:03:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783739.1193009; Tue, 27 Aug 2024 09:57:27 +0000
+Received: by outflank-mailman (output) from mailman id 783749.1193049; Tue, 27 Aug 2024 10:03:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sisx5-0007uo-5z; Tue, 27 Aug 2024 09:57:27 +0000
-Received: by outflank-mailman (input) for mailman id 783739;
- Tue, 27 Aug 2024 09:57:25 +0000
+	id 1sit33-0001kL-ML; Tue, 27 Aug 2024 10:03:37 +0000
+Received: by outflank-mailman (input) for mailman id 783749;
+ Tue, 27 Aug 2024 10:03:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jZjl=P2=cloud.com=andrii.sultanov@srs-se1.protection.inumbo.net>)
- id 1sisx3-0007ui-F8
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 09:57:25 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+ <SRS0=RBdT=P2=bounce.vates.tech=bounce-md_30504962.66cda473.v1-1b2f93cb1b2c4edb8d0fe7e4878e8374@srs-se1.protection.inumbo.net>)
+ id 1sit32-00015q-4r
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 10:03:36 +0000
+Received: from mail187-32.suw11.mandrillapp.com
+ (mail187-32.suw11.mandrillapp.com [198.2.187.32])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c28b9080-645a-11ef-a0b0-8be0dac302b0;
- Tue, 27 Aug 2024 11:57:24 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2f4f505118fso43277771fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 02:57:24 -0700 (PDT)
+ id 9e8b35ea-645b-11ef-a0b0-8be0dac302b0;
+ Tue, 27 Aug 2024 12:03:34 +0200 (CEST)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-32.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WtNR74fkXzQXg2py
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 10:03:31 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 1b2f93cb1b2c4edb8d0fe7e4878e8374; Tue, 27 Aug 2024 10:03:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,115 +43,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c28b9080-645a-11ef-a0b0-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1724752644; x=1725357444; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=y74mDAAvmzgFRz+jUBoXAQGFr/r5n1KrbangKEg1qgM=;
-        b=JKjMUFT0ncdLFk7lRRbMJr6NJ1WwOaD4HfaEyF5TW0s5QPVrGoNf6sGIlf90NW8zpq
-         4RwvE+5mjVh9QSwOfoLngWvutcF+EMO8IAuu6NA/Dht2bYgbWRuw7zGQOB6q0LgUVE6s
-         12hW+eoDfKkUIh5X14p22+clpSNmyjO+zsJJA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724752644; x=1725357444;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=y74mDAAvmzgFRz+jUBoXAQGFr/r5n1KrbangKEg1qgM=;
-        b=Rvxxl5LahVNtVum5IQ2ExD5HlowTASmgjBcR69ZJyBkNVZ9NsL8PswR1ykyrqY3l/P
-         fcTaanM/Py5WCudXEWzvWZuKhfE6hEapxzUDlmMdRG41gMte34TV8EuntDn+iJmGRf65
-         YQT6q+bJ0QE9VFoYfAtv/+19VnIfpeEeD4WFwEfg8sPjn+gxPHXwJoI3g2qKRBGFg6rH
-         Xco8e8EqHrv2Z4nTva3mYqzsGxRWmeJtJT5/qO7dkBWpsANRxwqcrkCxTmQRDgBDOKQ5
-         1/uSGtYhfJVX4M2raV10B5BeGwzcveytg+4ERd6O6B21sjrwBFAj1xUvpfj+ZiqCdxRq
-         pQ+w==
-X-Gm-Message-State: AOJu0YzfG9uU8NsDY5fBTi2l20Ygl/+oObDwYxBv1zejyuOwyPikidFQ
-	t89Wg3uvvGwEQABDZkQw8GSQ2f/uvGA+q65CcAoonzdBq77kRpmZQN598axrdR4MbprKEc24h8r
-	kILvQL8PtR+CL61nDH5+80tsOHnnb6Qq+6IYOGQ==
-X-Google-Smtp-Source: AGHT+IGFWxjQkBRz7IxrDZpnVVz2MT1txRsJM3zNHflhGVnqovLvAGteZ6c5BloRTpUm4060ThSbAiXosyNa2PYeilg=
-X-Received: by 2002:a05:651c:54a:b0:2ef:290e:4a39 with SMTP id
- 38308e7fff4ca-2f4f4927e50mr102364371fa.35.1724752643749; Tue, 27 Aug 2024
- 02:57:23 -0700 (PDT)
+X-Inumbo-ID: 9e8b35ea-645b-11ef-a0b0-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1724753011; x=1725013511;
+	bh=vvEWgBFkpI/68BpBe5Mn7aZ1DJf2R7AOv5a1MvGUyAA=;
+	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=w0ve9mAV0x6jz6gRVgHuDXjyIGyXaNCA99uKIn/XC6NVvM5s4mZ28+AeKSVxmnlt+
+	 EMNHe8WlocQfLl7T0TVftzmPkSEpt5Or3N4DdcEuevRIcObvmXYo5fZQwwFE9Ql0W/
+	 vvDYJL1rccDRGgHWXXm0sLHoNhExmNX41SetfyHdjgdj/+pFuCzku5/mgXO69dB3sp
+	 b4NDlyfxKjQB+w5gb90LdC1CTFn7CX7+idOnEk6TwC7vKClO1QnmKLx/Rblwwve7G8
+	 /5AcaiLZf+GLvTZpAjrXS7dDD0McM4uOBtLw4kKZVlL0lM72cZ64Nb/IPt3jlJQXdl
+	 c06/l4FI/fJSw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1724753011; x=1725013511; i=anthony.perard@vates.tech;
+	bh=vvEWgBFkpI/68BpBe5Mn7aZ1DJf2R7AOv5a1MvGUyAA=;
+	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=XIFof5/mrgROYPkoIhrRSMVqLmf9KL71fv925M3LPb4y2T67KEyMz6ENGqdImWLhS
+	 ooFzV+jkT5r98DV1anXVUaD7EoGeRGmdeNQUD9x6jLcFjZJc/Ryjxpb5dnoXY/Eh6w
+	 iz6b4e1+UT4m1YQ59EoqgTJ1VupzvrA6EdLSgThIKkrLLdGJK25FQkZ93IF03kEPVr
+	 Hz6+XATM5fJapS60fCnUZh/UWHbt3WUYwwV/VtHThu7FIWWAhiHoAuWq7cgqz0ZKqp
+	 wfIXIMPYcjiZAHSHYfovfM4wvgmhWkybpWxEJF6q0yGNGf85wz5KAglYTDR0HKHq4j
+	 5axScOsyJTeGQ==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?[XEN=20PATCH=202/3]=20libxl:=20Probe=20QEMU=20for=20-run-with=20chroot=3Ddir=20and=20use=20it?=
+X-Mailer: git-send-email 2.39.2
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1724753011205
+To: xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
+Message-Id: <20240827100328.23216-3-anthony.perard@vates.tech>
+In-Reply-To: <20240827100328.23216-1-anthony.perard@vates.tech>
+References: <20240827100328.23216-1-anthony.perard@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.1b2f93cb1b2c4edb8d0fe7e4878e8374?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240827:md
+Date: Tue, 27 Aug 2024 10:03:31 +0000
 MIME-Version: 1.0
-References: <cover.1724314239.git.andrii.sultanov@cloud.com>
- <6d4b94939c8910ffd7d70301b1d26c828f72ad86.1724314239.git.andrii.sultanov@cloud.com>
- <Zscl2DITQS9T6Sg9@l14>
-In-Reply-To: <Zscl2DITQS9T6Sg9@l14>
-From: Andrii Sultanov <andrii.sultanov@cloud.com>
-Date: Tue, 27 Aug 2024 10:57:12 +0100
-Message-ID: <CAAa3AOMv64=Gunzbi32oNCpswU5Hw+6bfRfO9PqOi3KQ7zcLjA@mail.gmail.com>
-Subject: Re: [PATCH v1 2/4] ocaml/libs: Implement a dynamically-loaded plugin
- for Xenctrl.domain_getinfo
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: xen-devel@lists.xenproject.org, 
-	Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>
-Content-Type: multipart/alternative; boundary="000000000000a813740620a744d3"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
---000000000000a813740620a744d3
-Content-Type: text/plain; charset="UTF-8"
+QEMU 9.0 have removed "-chroot" command line option, which have been
+deprecated since QEMU 8.1 in favor of "-run-with chroot=dir".
 
-> It seems that location for ocaml libs is in $(OCAMLDESTDIR), any reason
-> to deviate from that?
+Look into the result of the QMP command "query-command-line-options"
+to find out if "-run-with chroot=dir" is available. Then use it in
+place of "-chroot".
 
-OCAMLDESTDIR is only defined in tools/ocaml/common.make, and is unavailable
-at the top-level directories level of the autoconf infrastructure (which
-generates the
-paths.ml file), as far as I understand.
+Resolves: xen-project/xen#187
+Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+---
+ tools/libs/light/libxl_dm.c       | 78 +++++++++++++++++++++++++------
+ tools/libs/light/libxl_internal.h |  5 ++
+ 2 files changed, 69 insertions(+), 14 deletions(-)
 
-> Is there any reason to put that new library in "/usr/libexec"?
-> It doesn't seems like a good place for it, and using "/usr/lib" instead
-> seems better.
+diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+index 46babfed0b..298fbb84fe 100644
+--- a/tools/libs/light/libxl_dm.c
++++ b/tools/libs/light/libxl_dm.c
+@@ -1183,11 +1183,12 @@ static int libxl__pre_open_qmp_socket(libxl__gc *gc, libxl_domid domid,
+ }
+ 
+ static int libxl__build_device_model_args_new(libxl__gc *gc,
+-                                        const char *dm, int guest_domid,
+-                                        const libxl_domain_config *guest_config,
+-                                        char ***args, char ***envs,
+-                                        const libxl__domain_build_state *state,
+-                                        int *dm_state_fd)
++    const char *dm, int guest_domid,
++    const libxl_domain_config *guest_config,
++    char ***args, char ***envs,
++    const libxl__domain_build_state *state,
++    const libxl__qemu_available_cmd_line *qemu_cmdline,
++    int *dm_state_fd)
+ {
+     const libxl_domain_create_info *c_info = &guest_config->c_info;
+     const libxl_domain_build_info *b_info = &guest_config->b_info;
+@@ -1778,8 +1779,13 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
+         }
+ 
+         /* Add "-chroot [dir]" to command-line */
+-        flexarray_append(dm_args, "-chroot");
+-        flexarray_append(dm_args, chroot_dir);
++        if (qemu_cmdline->have_runwith_chroot) {
++            flexarray_append_pair(dm_args, "-run-with",
++                                  GCSPRINTF("chroot=%s", chroot_dir));
++        } else {
++            flexarray_append(dm_args, "-chroot");
++            flexarray_append(dm_args, chroot_dir);
++        }
+     }
+ 
+     if (state->saved_state) {
+@@ -2059,11 +2065,12 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
+ }
+ 
+ static int libxl__build_device_model_args(libxl__gc *gc,
+-                                        const char *dm, int guest_domid,
+-                                        const libxl_domain_config *guest_config,
+-                                        char ***args, char ***envs,
+-                                        const libxl__domain_build_state *state,
+-                                        int *dm_state_fd)
++    const char *dm, int guest_domid,
++    const libxl_domain_config *guest_config,
++    char ***args, char ***envs,
++    const libxl__domain_build_state *state,
++    const libxl__qemu_available_cmd_line *qemu_cmdline,
++    int *dm_state_fd)
+ /* dm_state_fd may be NULL iff caller knows we are using stubdom
+  * and therefore will be passing a filename rather than a fd. */
+ {
+@@ -2081,7 +2088,9 @@ static int libxl__build_device_model_args(libxl__gc *gc,
+         return libxl__build_device_model_args_new(gc, dm,
+                                                   guest_domid, guest_config,
+                                                   args, envs,
+-                                                  state, dm_state_fd);
++                                                  state,
++                                                  qemu_cmdline,
++                                                  dm_state_fd);
+     default:
+         LOGED(ERROR, guest_domid, "unknown device model version %d",
+               guest_config->b_info.device_model_version);
+@@ -2403,7 +2412,9 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
+ 
+     ret = libxl__build_device_model_args(gc, "stubdom-dm", guest_domid,
+                                          guest_config, &args, NULL,
+-                                         d_state, NULL);
++                                         d_state,
++                                         &sdss->dm.qemu_cmdline,
++                                         NULL);
+     if (ret) {
+         ret = ERROR_FAIL;
+         goto out;
+@@ -3024,6 +3035,7 @@ static void device_model_probe_detached(libxl__egc *egc,
+ static void device_model_probe_cmdline(libxl__egc *egc,
+     libxl__ev_qmp *qmp, const libxl__json_object *response, int rc)
+ {
++    EGC_GC;
+     libxl__dm_spawn_state *dmss = CONTAINER_OF(qmp, *dmss, qmp);
+ 
+     if (rc)
+@@ -3033,6 +3045,43 @@ static void device_model_probe_cmdline(libxl__egc *egc,
+      * query-command-line-options response:
+      * [ { 'option': 'str', 'parameters': [{ 'name': 'str', ... }] } ]
+      */
++    const libxl__json_object *option;
++    for (int i_option = 0;
++         (option = libxl__json_array_get(response, i_option));
++         i_option++) {
++        const libxl__json_object *o;
++        const char *opt_str;
++
++        o = libxl__json_map_get("option", option, JSON_STRING);
++        if (!o) {
++            rc = ERROR_QEMU_API;
++            goto out;
++        }
++        opt_str = libxl__json_object_get_string(o);
++
++        if (!strcmp("run-with", opt_str)) {
++            const libxl__json_object *params;
++            const libxl__json_object *item;
++
++            params = libxl__json_map_get("parameters", option, JSON_ARRAY);
++            for (int i = 0; (item = libxl__json_array_get(params, i)); i++) {
++                o = libxl__json_map_get("name", item, JSON_STRING);
++                if (!o) {
++                    rc = ERROR_QEMU_API;
++                    goto out;
++                }
++                if (!strcmp("chroot", libxl__json_object_get_string(o))) {
++                    dmss->qemu_cmdline.have_runwith_chroot = true;
++                }
++            }
++
++            /*
++             * No need to parse more options, we are only interested with
++             * -run-with at the moment.
++             */
++            break;
++        }
++    }
+ 
+     qmp->callback = device_model_probe_quit;
+     rc = libxl__ev_qmp_send(egc, qmp, "quit", NULL);
+@@ -3113,6 +3162,7 @@ static void device_model_launch(libxl__egc *egc,
+ 
+     rc = libxl__build_device_model_args(gc, dm, domid, guest_config,
+                                           &args, &envs, state,
++                                          &dmss->qemu_cmdline,
+                                           &dm_state_fd);
+     if (rc)
+         goto out;
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
+index e99adc56cb..df93d904c2 100644
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -4142,6 +4142,10 @@ _hidden void libxl__add_nics(libxl__egc *egc, libxl__ao *ao, uint32_t domid,
+ /* First layer; wraps libxl__spawn_spawn. */
+ 
+ typedef struct libxl__dm_spawn_state libxl__dm_spawn_state;
++typedef struct libxl__qemu_available_cmd_line libxl__qemu_available_cmd_line;
++struct libxl__qemu_available_cmd_line {
++    bool have_runwith_chroot;
++};
+ 
+ typedef void libxl__dm_spawn_cb(libxl__egc *egc, libxl__dm_spawn_state*,
+                                 int rc /* if !0, error was logged */);
+@@ -4154,6 +4158,7 @@ struct libxl__dm_spawn_state {
+     libxl__ev_qmp qmp;
+     libxl__ev_time timeout;
+     libxl__dm_resume_state dmrs;
++    libxl__qemu_available_cmd_line qemu_cmdline;
+     const char *dm;
+     /* filled in by user, must remain valid: */
+     uint32_t guest_domid; /* domain being served */
+-- 
 
-I find that the general idea of libexec - that only a particular program
-(oxenstored)
-relies on this and others should not - fitting for this use case. It will
-additionally
-distinguish between the plugin itself and the packaged plugin interface
-(that will go
-into OCAMLDESTDIR, as suggested elsewhere in the review comments)
 
-> libexec is mostly for binary, according to
->    https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch04s07.html
+Anthony Perard | Vates XCP-ng Developer
 
-Even though the .cmxs is a shared object, it will run some of its own code
-to "link"
-itself to the global ref defined in the plugin interface, even without
-anyone calling
-into the library, sort of behaving like a binary.
+XCP-ng & Xen Orchestra - Vates solutions
 
---000000000000a813740620a744d3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">&gt;=20
-It seems that location for ocaml libs is in $(OCAMLDESTDIR), any reason<br>=
-&gt; to deviate from that?
-
-</div><div dir=3D"ltr"><br></div><div>OCAMLDESTDIR is only defined in tools=
-/ocaml/common.make, and is unavailable</div><div>at the top-level directori=
-es level of the autoconf infrastructure (which generates the</div><div><a h=
-ref=3D"http://paths.ml">paths.ml</a> file), as far as I understand.<br></di=
-v><div><br></div><div>&gt;=20
-Is there any reason to put that new library in &quot;/usr/libexec&quot;?<br=
->
-&gt; It doesn&#39;t seems like a good place for it, and using &quot;/usr/li=
-b&quot; instead<br>
-&gt; seems better.<br>
-
-</div><div dir=3D"ltr"><br></div><div>I find that the general idea of libex=
-ec - that only a particular program (oxenstored)</div><div>relies on this a=
-nd others should not - fitting for this use case. It will additionally</div=
-><div>distinguish between the plugin itself and the packaged plugin interfa=
-ce (that will go</div><div>into OCAMLDESTDIR, as suggested elsewhere in the=
- review comments)<br></div><div><br></div><div>
-&gt; libexec is mostly for binary, according to<br>&gt;=C2=A0 =C2=A0 <a hre=
-f=3D"https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch04s07.html" rel=3D"=
-noreferrer" target=3D"_blank">https://refspecs.linuxfoundation.org/FHS_3.0/=
-fhs/ch04s07.html</a>
-
-</div><div><br></div><div>Even though the .cmxs is a shared object, it will=
- run some of its own code to &quot;link&quot;=C2=A0</div><div>itself to the=
- global ref defined in the plugin interface, even without anyone calling</d=
-iv><div>into the library, sort of behaving like a binary.<br></div></div>
-
---000000000000a813740620a744d3--
+web: https://vates.tech
 
