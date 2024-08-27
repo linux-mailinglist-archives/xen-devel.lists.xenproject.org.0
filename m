@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C93E2960B2F
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 14:58:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783962.1193299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89918960B30
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 14:59:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783969.1193308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sivlU-0008IS-ND; Tue, 27 Aug 2024 12:57:40 +0000
+	id 1sivn9-0000sh-4O; Tue, 27 Aug 2024 12:59:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783962.1193299; Tue, 27 Aug 2024 12:57:40 +0000
+Received: by outflank-mailman (output) from mailman id 783969.1193308; Tue, 27 Aug 2024 12:59:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sivlU-0008GZ-JE; Tue, 27 Aug 2024 12:57:40 +0000
-Received: by outflank-mailman (input) for mailman id 783962;
- Tue, 27 Aug 2024 12:57:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sivn9-0000r8-1V; Tue, 27 Aug 2024 12:59:23 +0000
+Received: by outflank-mailman (input) for mailman id 783969;
+ Tue, 27 Aug 2024 12:59:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qQW3=P2=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1sivlT-0008GS-AI
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 12:57:39 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062b.outbound.protection.outlook.com
- [2a01:111:f403:2416::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id edfbf22a-6473-11ef-99a0-01e77a169b0f;
- Tue, 27 Aug 2024 14:57:36 +0200 (CEST)
-Received: from DS7PR03CA0202.namprd03.prod.outlook.com (2603:10b6:5:3b6::27)
- by SJ2PR12MB9006.namprd12.prod.outlook.com (2603:10b6:a03:540::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.19; Tue, 27 Aug
- 2024 12:57:27 +0000
-Received: from DS2PEPF00003443.namprd04.prod.outlook.com
- (2603:10b6:5:3b6:cafe::28) by DS7PR03CA0202.outlook.office365.com
- (2603:10b6:5:3b6::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.25 via Frontend
- Transport; Tue, 27 Aug 2024 12:57:27 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF00003443.mail.protection.outlook.com (10.167.17.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7897.11 via Frontend Transport; Tue, 27 Aug 2024 12:57:27 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 Aug
- 2024 07:57:26 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 27 Aug 2024 07:57:24 -0500
+ <SRS0=ovuO=P2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sivn7-0000r2-VY
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 12:59:21 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2d3f3c88-6474-11ef-a0b0-8be0dac302b0;
+ Tue, 27 Aug 2024 14:59:21 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a86e9db75b9so82887666b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 05:59:21 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a86e54850b6sm107345366b.23.2024.08.27.05.59.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Aug 2024 05:59:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,201 +45,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: edfbf22a-6473-11ef-99a0-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FmTIgfarZmbGwD/jYQRyg533hdAg0rKn7gejPFU71k01fZ7Es92Pjr2o21HRmYXsjMBKMpbxcg3Ux5DF30HSp9aapU6TeBr9A7Zs2Tfxa0kzgqjo/BZB7/0w3B9OyM7Gxv2bCH9Zpo0acU8YayhtfCMM/FImBMBzyJw6z1hMaFbmzja7WxWBeQVCEo6HUs06U1SbGwyWc6DN0RajzQgYZqiLeI894m55QQAq4hwEZaeWEEk2ZKqwf2+QCwu85z+pdQUSCXK3tWR2A9ZWSl5f6/O+o20sRUG2mhfM2UvBs4ftwCxhivGU14hqQJW+zb9d1WNVzc0KCBpI907r5QAtuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zuxYWRIwAEFWuqr//NuVQZLc/Pq2XWitwRavP23NVtI=;
- b=MJtOrPz0DHbcA/kYcoN57300JhpfJ0yv9j0CH3mMNxYxF0KRjDlokPPqIE/RH/k7ceUnJ1QtwkXoIywHv2MGW4aP+Kw53JuIv5VshA0yC79I98GNpTUjf5lJ5HqWZtO3gaQgp2uyImvfL3nam8y6OVZP7ORDS9R1NkGsDSYtcdC8Ie8lCReRbvSFJ2b+YYmxk2o3eAWSComgCWj9fEa/v6D2YyEGE5kRhTVRwpuYAkzxiL2ahDZTKN08GUuys7q02RZ83KLYFfUF1xDOG2yzMlHDWqcO965Empl73/uWAeDa12Z58BMVz8zw35P1at3+wnl+eqLMU8NaHvfIc3aqvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zuxYWRIwAEFWuqr//NuVQZLc/Pq2XWitwRavP23NVtI=;
- b=jo0V5/4gmTFDRAeJYF2lOYo1ZWq89E65CDgd9Hq8kI1kUOyqgJmZNrK3fIjHYhbDor45lXgYRuWOHeimbs3YrzFCuRP7qhoFJ3WYzAbuQMUBCCFZu6PERGOHSOoteLgsWQ5kf+JVB8lBiCmNB8i0wOnFAp1XNcI6zclEiQlFIBo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <f3ef9244-9d16-47ab-bca3-d5bb4c34fcc2@amd.com>
-Date: Tue, 27 Aug 2024 14:57:24 +0200
+X-Inumbo-ID: 2d3f3c88-6474-11ef-a0b0-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1724763560; x=1725368360; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cvlNN94vkzG+IFoTEbK6gQ9Z93hiR62VCIYzk9adO40=;
+        b=dq2CRjzNErtjpIvJ4BZYojQSEURXydScbCVkmne53CMfbn2nSltxuQtN4nh9SCPHKG
+         TN0HaMK4ynqxyd4TQwuIeA/hDlZcXkIgT0ey3rl9TVgEfwLZjNOx01AR+hNZU/8xs34x
+         EdLi97wVN2TPniILjbHqrjuunmLL2GhIy1Wpw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724763560; x=1725368360;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cvlNN94vkzG+IFoTEbK6gQ9Z93hiR62VCIYzk9adO40=;
+        b=uynP4wI7MCOpIFqHjbP3o34lFjN36zpaeeyQS+C/fFmYf0/O/rb4KP934iUAPMQ8Vs
+         NBVKl9OKT0PODdCTxHCBYGJo0YxzY83fgqxcOsTZoRLBrAkWZ35R8oscEnZI51tnz5Zq
+         N/yXVlmmJAqnf5XLuuzUmS+5VCsQPvVeM2NAGY9vGfddNzvzPj98cuyViTKa8mK3eQg4
+         g2LtiPAEsdlS1I9M6jlHc/3u4uFLIuFWw1DusZhom2LGOzTNT61HIAuURIT1gv9lU3UX
+         6mc6R/8Aiiat2uLe1pCjsNe1O95L6BTd/rsD6aaBEDnaW1WYH604GwtzqTPFjy3U7cTH
+         Xf9A==
+X-Forwarded-Encrypted: i=1; AJvYcCVWkK3moHefb/plERUDDdfOOVMEgIQXK42l9ksV1C1o95QvaKyocvVHaGbibiqmHnPDsGU5XQtXPwM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwAx/RZA+qkZtgDj0Hy1aRo8QLGr++PDfA64GpjW3g0UZUjkttw
+	yyQ1LIkI+tGfFrIxvSFcdsWl5ATNxE7hugrCbt/48D8GPDBkksNvKLBsmHrJH7AZwVDa57LNEl8
+	k
+X-Google-Smtp-Source: AGHT+IGWnf6l4KL7/z27eYW3x79xkdm3+VGwPA04thGtScErWKh+ztnuYcEHD9M/VcDF5eFIHvVXtw==
+X-Received: by 2002:a17:907:7246:b0:a77:c6c4:2bb7 with SMTP id a640c23a62f3a-a86a5165450mr1064711966b.1.1724763560062;
+        Tue, 27 Aug 2024 05:59:20 -0700 (PDT)
+Message-ID: <734d41c3-709c-4286-8353-f5483b0987cb@citrix.com>
+Date: Tue, 27 Aug 2024 13:59:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM/vgic: Use for_each_set_bit() in vgic_to_sgi()
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Jan Beulich <JBeulich@suse.com>
-References: <20240823230100.1581448-1-andrew.cooper3@citrix.com>
- <6513e2ea-0471-41ca-b328-ce1bc1deddaf@amd.com>
- <a4c0b1d3-ff7a-4ea5-bffb-756125a434af@citrix.com>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <a4c0b1d3-ff7a-4ea5-bffb-756125a434af@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH v5] x86/dom0: disable SMAP for PV domain building only
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20240827123949.24400-1-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240827123949.24400-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003443:EE_|SJ2PR12MB9006:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e44186c-b3dd-4b46-fc7b-08dcc697ce00
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?cHV5YzN5YmtPbXdTdEw3TVRicDZwUUF1RStRMElhdTdDRGNKcm5Tb3BTR0k5?=
- =?utf-8?B?aGtza0lZTGVsVkxkWFhBVTdPNGNPNUpYMXgxUjZVMkg2Z25TS1A1NTExU2ts?=
- =?utf-8?B?cEJYMFNVSUd2UFR0emNDY3JnRzI4NForRWExRHlHcEI0T0diMEpyVHd5enl2?=
- =?utf-8?B?MkRlTm9GOWF1WVp6anhxWmE5VWtNZ3BtRjZpUTJqN3dwaEJUZi9mNFBidWMw?=
- =?utf-8?B?K1BHeTBtUG14S1NneitxUG9xQUp1M1hRMm5oRzl3YnN3SUt6TWdhMHg2NENO?=
- =?utf-8?B?MTR2MW1ya1cyTlpEelZBUVFXSVV4THhtQWxBT3JHaUVHZDF3d20zbkR2bkhS?=
- =?utf-8?B?ZUhZRDFDU3Bwa2xvL3RmUEdjS1p5MDJDd3Azbi9lM1JUbGxMNm4zakQwdDNC?=
- =?utf-8?B?UjYrNjcxN1FrTFBIa3I3K1VKQ3JlWGgvbGsyVEFxNmZYYnBmL3NFTnMxaWJV?=
- =?utf-8?B?K0hrVUJobE01UnVlRUtINjVPRWVkK3E0bDNqRkpCRkM3cXVwU2FGWnl5bTlh?=
- =?utf-8?B?MTFiRCtEaEsvU0dRN0hrbFl3MzhQZkRoeGxTWVNvMGRJUVkycGc3WWEwR1FZ?=
- =?utf-8?B?TlZtZmpheEVDdUlQeGptZTI5S2luZGtHOG9aZUJLN2FFa3lOam9jYmpMaWkv?=
- =?utf-8?B?SWlRcDdlRjNHS1NvS0tkR2lHanZFTG5FbFkzTk5scGlKdGh0aURaMXo2U3Jt?=
- =?utf-8?B?MW95MmtvZlBZVzFMelErSmNudCt2bm80UWtJT3pwSWdHR0ViT1VVMXZHVkIr?=
- =?utf-8?B?YkhQQlNJTmgrQ0IzZ3RRaUErczBKaFpkcysyZ3F5VGxHb0YzRXkrNkhIY0tT?=
- =?utf-8?B?QkhJZjVrcUlJeEwvVXJFT2VGblhpNjR1d2YzYnk1anBtcTFMV2IyaHFlWU1p?=
- =?utf-8?B?cXI0YlltZkhSK29CeWZsUmlyQVdjMTd2WnZQdS9iL1Fla3ExZld2d05TcDR6?=
- =?utf-8?B?SzJMZncwQVYvVXo1WDNkMVRsdVBQWGJoc0trNVdSNUtXUEg5VmxwK0k3bEtk?=
- =?utf-8?B?dEp5aUdQUlJvMDVETjh0Q1JhUjVZT3IvYXB2ejlDWmwrMlhoWW9FOGEveTRX?=
- =?utf-8?B?cm9VVlJpU2c0aGRaM0k1N2hYd3FVUW5DSUJkY3ErUHpKQW14akJzTHpwRXpU?=
- =?utf-8?B?LzFtTVh1Tnhlc0hQQVA5bnArZWYvdWJpRURNZ2liR3dLZFBSQy9ZbXBlWnFX?=
- =?utf-8?B?N01JWC9heXl4NGpxcUVvWUY5Y1BTY2U1aENINUNkNGc4VXQvRkdCVi90aXJ1?=
- =?utf-8?B?QzlCalRQSXBHODdsWU1qbVRZSDY5VGRXZnNMMUJaRTVLc3dGSUZHY3VZQmdx?=
- =?utf-8?B?YWhWN04zYmhJdHlVcU1vZlRhekozMC9nakN2a3NNVlRUUHhTa1owR3dMSlJW?=
- =?utf-8?B?Ky9JZDJDRFVCU25DT2NmOTIyVi8vay9qVWgrWFpzMWgzWEI5ZmJMdGdncEw5?=
- =?utf-8?B?TlVneHZURlhxempSRTRDM2h5b0xlbUk4VWZnNGo5M2xoNDVRRkxMN1pPc21M?=
- =?utf-8?B?aVZqV1IrV29wdjNvdjhjOUpuYmJFZXZMcVlQYjZHckxyWktFQnFwU2hXYklT?=
- =?utf-8?B?ejJnRTFIR080WDJvUU9hb1ZrNmhEV0xaUVF0ZFBGMFg2WnVXSVh1VzlMSTBT?=
- =?utf-8?B?UndXRUkzU3owaUNMUkZFN2ZTd2RKRWhwVXkvc2FNYzdTSTdPY0xlUDkybUJs?=
- =?utf-8?B?cGhYbXhLWEoxajg2N2pZVkV2bG4zR3hpbjdvV1BJdVF1bFA1cjJ3c1FMbGdv?=
- =?utf-8?B?ajVVZCs0cFFqTVRzR2lnaTlOeXZHRTZCSWc4eW1LaWZzWkdHUGhHbTZVUHBG?=
- =?utf-8?B?cTB1QnBURlFpeFNwRFg5U1lTTnJRVGJEVVNvbFBHbTNmNDNIaEI4UEpqY2E2?=
- =?utf-8?B?R3RwaGJpakdxcDV2d2tJQlNhWFdRMGpjZWlhTUVsT3ZYNFh0UllDMnZvTzlK?=
- =?utf-8?Q?Lwx1jvxbBs2yVjdSbG1O11/NhWpr8iRt?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2024 12:57:27.6737
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e44186c-b3dd-4b46-fc7b-08dcc697ce00
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003443.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9006
 
+On 27/08/2024 1:39 pm, Roger Pau Monne wrote:
+> Move the logic that disables SMAP so it's only performed when building a PV
+> dom0, PVH dom0 builder doesn't require disabling SMAP.
+>
+> The fixes tag is to account for the wrong usage of cpu_has_smap in
+> create_dom0(), it should instead have used
+> boot_cpu_has(X86_FEATURE_XEN_SMAP).  Fix while moving the logic to apply to PV
+> only.
+>
+> While there also make cr4_pv32_mask __ro_after_init.
+>
+> Fixes: 493ab190e5b1 ('xen/sm{e, a}p: allow disabling sm{e, a}p for Xen itself')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v4:
+>  - New approach, move the current logic so it's only applied when creating a PV
+>    dom0.
+> ---
+>  xen/arch/x86/dom0_build.c        | 17 +++++++++++++++++
+>  xen/arch/x86/include/asm/setup.h |  2 ++
+>  xen/arch/x86/setup.c             | 19 +------------------
+>  3 files changed, 20 insertions(+), 18 deletions(-)
+>
+> diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
+> index 8d56705a0861..31c94b14bb06 100644
+> --- a/xen/arch/x86/dom0_build.c
+> +++ b/xen/arch/x86/dom0_build.c
+> @@ -612,7 +612,24 @@ int __init construct_dom0(struct domain *d, const module_t *image,
+>      if ( is_hvm_domain(d) )
+>          rc = dom0_construct_pvh(d, image, image_headroom, initrd, cmdline);
+>      else if ( is_pv_domain(d) )
+> +    {
+> +        /*
+> +         * Temporarily clear SMAP in CR4 to allow user-accesses in
+> +         * construct_dom0().  This saves a large number of corner cases
+> +         * interactions with copy_from_user().
+> +         */
+> +        if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+> +        {
+> +            cr4_pv32_mask &= ~X86_CR4_SMAP;
+> +            write_cr4(read_cr4() & ~X86_CR4_SMAP);
+> +        }
+>          rc = dom0_construct_pv(d, image, image_headroom, initrd, cmdline);
+> +        if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+> +        {
+> +            write_cr4(read_cr4() | X86_CR4_SMAP);
+> +            cr4_pv32_mask |= X86_CR4_SMAP;
+> +        }
+> +    }
 
+I hate to drag this on further still, but can this logic be move it into
+dom0_construct_pv() itself, rather than here?
 
-On 27/08/2024 14:20, Andrew Cooper wrote:
-> 
-> 
-> On 27/08/2024 1:13 pm, Michal Orzel wrote:
->>
->> On 24/08/2024 01:01, Andrew Cooper wrote:
->>>
->>> The existing expression is just a very complicated way of expressing a loop
->>> over all bits of target->list.  Simplify the expression.
->>>
->>> While here, fix the two gprintk()'s.  Because of a quotes vs line continuation
->>> issue, there's a long string of spaces in the middle of the format string.
->>>
->>>   $ strings xen-syms-arm32 | grep -e VGIC -e GICD_SGIR
->>>   <G><1>%pv VGIC: write r=%08x                         target->list=%hx, wrong CPUTargetList
->>>   <G><1>%pv vGICD:unhandled GICD_SGIR write %08x                  with wrong mode
->>>
->>> not to mention trailing whitespace too.
->>>
->>> Rewrite them to be more consise and more useful.  Use 0x prefixes for hex,
->> s/consise/concise
->>
->>> rather than ambigous, and identify the problem target vCPU / mode, rather than
->> s/ambigous/ambiguous
->>
->>> simply saying somethign was wrong.
->> s/somethign/something/
->>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>> CC: Julien Grall <julien@xen.org>
->>> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->>> CC: Bertrand Marquis <bertrand.marquis@arm.com>
->>> CC: Michal Orzel <michal.orzel@amd.com>
->>> CC: Jan Beulich <JBeulich@suse.com>
->>>
->>> In a fun twist, we can't use target->list directly in the expresion, because
->>> the typeof() picks up constness from the pointer, and we get:
->>>
->>>   In file included from arch/arm/vgic.c:11:
->>>   arch/arm/vgic.c: In function ‘vgic_to_sgi’:
->>>   ./include/xen/bitops.h:305:19: error: assignment of read-only variable ‘__v’
->>>     305 |               __v &= __v - 1 )
->>>         |                   ^~
->>>   arch/arm/vgic.c:483:9: note: in expansion of macro ‘for_each_set_bit’
->>>     483 |         for_each_set_bit ( i, target->list )
->>>         |         ^~~~~~~~~~~~~~~~
->>>
->>> Sadly we need -std=c23 before we can use typeof_unqual() which is what we
->>> actually want here.
->>> ---
->>>  xen/arch/arm/vgic.c | 16 ++++++++--------
->>>  1 file changed, 8 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
->>> index 7b54ccc7cbfa..081cbb67fb52 100644
->>> --- a/xen/arch/arm/vgic.c
->>> +++ b/xen/arch/arm/vgic.c
->>> @@ -470,8 +470,7 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
->>>      struct domain *d = v->domain;
->>>      int vcpuid;
->>>      int i;
->>> -    unsigned int base;
->>> -    unsigned long int bitmap;
->>> +    unsigned int base, bitmap;
->>>
->>>      ASSERT( virq < 16 );
->>>
->>> @@ -481,15 +480,16 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
->>>          perfc_incr(vgic_sgi_list);
->>>          base = target->aff1 << 4;
->>>          bitmap = target->list;
->>> -        bitmap_for_each ( i, &bitmap, sizeof(target->list) * 8 )
->>> +
->>> +        for_each_set_bit ( i, bitmap )
->>>          {
->>>              vcpuid = base + i;
->>>              if ( vcpuid >= d->max_vcpus || d->vcpu[vcpuid] == NULL ||
->>>                   !is_vcpu_online(d->vcpu[vcpuid]) )
->>>              {
->>> -                gprintk(XENLOG_WARNING, "VGIC: write r=%"PRIregister" \
->>> -                        target->list=%hx, wrong CPUTargetList \n",
->>> -                        sgir, target->list);
->>> +                gprintk(XENLOG_WARNING,
->>> +                        "vGIC: write %#"PRIregister", target->list=%#x, bad target v%d\n",
->> Sth like "bad target v2" where the word vcpu does not occur anywhere in the msg can be ambiguous.
->> Can you add the word vcpu e.g. "bad vcpu target v%d" or "bad target vcpu %d"
-> 
-> Hmm yeah, v%d doesn't work quite so well when it's not prefixed with d%d.
-> 
-> Would you be happy with d%dv%d?  It's marginally more informative and
-> shorter.
-I don't think we can target a different domain with SGIs, so it does not make much sense to print domain id if
-it always stays the same as the leading %pv from gprintk.
+That way, it won't need moving again to make cr4_pv32_mask exist only in
+PV32 builds.  (This step is somewhat tricky, so I'm not suggesting doing
+it in this patch.)
 
-~Michal
+~Andrew
 
