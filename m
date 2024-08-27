@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E63C96087B
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 13:24:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783857.1193149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 866D2960907
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 13:40:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783866.1193159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siuJ3-0007Bz-Q9; Tue, 27 Aug 2024 11:24:13 +0000
+	id 1siuYY-0002tW-2v; Tue, 27 Aug 2024 11:40:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783857.1193149; Tue, 27 Aug 2024 11:24:13 +0000
+Received: by outflank-mailman (output) from mailman id 783866.1193159; Tue, 27 Aug 2024 11:40:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siuJ3-0007AF-Lj; Tue, 27 Aug 2024 11:24:13 +0000
-Received: by outflank-mailman (input) for mailman id 783857;
- Tue, 27 Aug 2024 11:24:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tHc6=P2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1siuJ2-00079W-TM
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 11:24:12 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1d5e162-6466-11ef-a0b0-8be0dac302b0;
- Tue, 27 Aug 2024 13:24:11 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a868d7f92feso680553566b.2
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 04:24:11 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e5486a13sm98514266b.35.2024.08.27.04.24.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 04:24:10 -0700 (PDT)
+	id 1siuYX-0002qy-V7; Tue, 27 Aug 2024 11:40:13 +0000
+Received: by outflank-mailman (input) for mailman id 783866;
+ Tue, 27 Aug 2024 11:40:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ovuO=P2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1siuYX-0002qs-Bd
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 11:40:13 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1e26772a-6469-11ef-99a0-01e77a169b0f;
+ Tue, 27 Aug 2024 13:40:11 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5bed83488b3so6259225a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 04:40:11 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a86e5484ff7sm98682366b.45.2024.08.27.04.40.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Aug 2024 04:40:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1d5e162-6466-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: 1e26772a-6469-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724757850; x=1725362650; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bJeGLICq/VGrPxHSRrfG3WmFK4/PlFbrk7T2o45JTWM=;
-        b=KWY6iSLRT3vku7gXrr2auEdmNaZtlYjmDLTP6JaKiOztIqRZC2T/NQqNzw2tcd6Mgf
-         9T4tB5HxxfYdQYz9GSiOvcsh5lsX91UdkWWHf5vJ9M4yFvUYO7eJqcskNlQQ2oHofgcs
-         fB6GOSMQQZPcYyFDiTdYK/TwnuAguMZFdfzgcJ6XmrV/ZLxoUvRAyEjFkXO0n5vcF9X2
-         jD3szeb3KpqNp5DI3ENA0ly2FE8s6tZrJJLQprp7Nwd11cgXQakaIwODjawAlRtlkD0G
-         ZlMP9k3mokesL9o0w9LziUTS8i3FOHYUQUCY55EE2vnRDe1V+rPZUN8P5CE/b0yX1Hkg
-         0XPA==
+        d=citrix.com; s=google; t=1724758810; x=1725363610; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RDmZvKQ6fjiLWHIUIGLrzY14fFzTra7oQYlpHWiCvvQ=;
+        b=u6yxaSSID14d2DyB9WyRCdvVsB++9DNfLtt2VPfUrmopL8CYd7AgXnAtDVMMPWJbLi
+         FKSnGNVhDqFwwIhFwF0p7GYqmwcDwkBYP9+gd7ySPXJRNLUzRuCCzWhfCxtD8AnqRPt8
+         OiwO9Zmikt7QmE32yN3mYsxxqZZ5l4UwWxGhM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724757850; x=1725362650;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bJeGLICq/VGrPxHSRrfG3WmFK4/PlFbrk7T2o45JTWM=;
-        b=CI7jpgILB9exBwaXTqHjqSAwBxmAQ2wpTmdlDA1rIjFzZEIuD4QuhheuZmCOAXk1JS
-         UJ1FVRApOqQZCCsWiTvgqzb12hXwkkIF0VemOyL88PoRBrKyOpc3EeJ3MIEJvuYOZo8B
-         f/GOUE7nXGrhFfe/NK5AkuwjkSJB0cdZmbMApB0CQgUWu5evcQc4hDwhWl1vgepdA2J3
-         YQPAZQl9BMrdoEwDWTn/uYQZCdZtQ/CGv365Lwd4RpABnJri3VnWW4soeyixdfBR4c8l
-         +EaYgYPtW6iLLc6K/mE+UjTbo4EwbGa4dp2ZTRi6/P9XKWyXjkyKASvUk8fzFztoW66D
-         GIaQ==
-X-Gm-Message-State: AOJu0YxYImWtK5Xbuy9BN0073Y/knVwl6iFBlIkl+VFiWCj/aoGqvu1g
-	TbTXfs6uAO7ftv5zefW1ti6LdebGkKhTolCqTGiTlST+oDrKzuhxJjtlOIZyz5AgN38w8wtYEsQ
-	=
-X-Google-Smtp-Source: AGHT+IHlb0dnYZby6JoK7a6ZKHxrx/rB4F+6t20l+LrJ7dSd4mArrZA6bGqUpU3AF1jfm4oNf7UVFQ==
-X-Received: by 2002:a17:906:c10c:b0:a86:ac05:2112 with SMTP id a640c23a62f3a-a86ac0523bbmr958251566b.51.1724757850446;
-        Tue, 27 Aug 2024 04:24:10 -0700 (PDT)
-Message-ID: <9043d8bd-ad98-4de1-ac52-70f8e4daf14a@suse.com>
-Date: Tue, 27 Aug 2024 13:24:09 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+        d=1e100.net; s=20230601; t=1724758810; x=1725363610;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RDmZvKQ6fjiLWHIUIGLrzY14fFzTra7oQYlpHWiCvvQ=;
+        b=SVH91yV1Qkd5lV0+iXuptFjmNhZJ7P77IijVMXQiNL8JKfNTQDBr0tSJxhWNVH+6Zb
+         Suazoj5FxtDM8YRC5gg6Ad4FvwqFuER+uxhgIJrkdWnEB5Bx+HVVnEaEIMOKMnvkX5ni
+         DY85zyM47GzE58lDV4ZblVteUBS+hg+ws/sskTB9uJQqppzf1Hdl0RiR+FEOiNIiewAz
+         g3eloSV54SUfdPC5nXIinShAS8BIV7rQvTY5zuSihndR2EHJznMa4cYWcjmZ5o8CRKEA
+         bkgWBF4bpIRfD5Zx9EqG23anbHHT1i8TK5OwoMBUbWRhkX2oA62vriYnGooeY+nQ5Q2y
+         AIMQ==
+X-Gm-Message-State: AOJu0Yw9fnuhS2RWSnUuTv5DymLOOyYx0QDvAOJcvvRgNmEFC4iSt657
+	Ahcsl48ELpZzJdAW7Gbh5gVxUQQhY4wrU0ZmxQEeOfqjp7Up4RLbfx5fmNkM4LKSCTqyJKJbhbd
+	2
+X-Google-Smtp-Source: AGHT+IHhou3lu8mGOt542ce9wqfSxSoeBy93QDNjsmKOcFUCIKJO3nCYgDIwtrHrSegpg+fVh0Glag==
+X-Received: by 2002:a17:907:da2:b0:a86:a73e:7ec9 with SMTP id a640c23a62f3a-a86a73e81ffmr955395866b.46.1724758809974;
+        Tue, 27 Aug 2024 04:40:09 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86emul: drop further Xeon Phi decode leftovers
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>
+Subject: [PATCH] xen/ARM: Drop __div64_fls()
+Date: Tue, 27 Aug 2024 12:40:07 +0100
+Message-Id: <20240827114007.1886130-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Special casing in x86emul_decode() can be dropped, while overrides done
-in decode_0f38() can move into ext0f38_table[]. That table's S/G
-prefetch entries aren't needed anymore either.
+Following the improvements to Xen's bitops, fls() does constant propagation in
+all cases.  Use it, and drop the local opencoded helper.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+No functional change.
 
---- a/xen/arch/x86/x86_emulate/decode.c
-+++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -427,13 +427,11 @@ static const struct ext0f38_table {
-     [0xbe] = { .simd_size = simd_packed_fp, .d8s = d8s_vl },
-     [0xbf] = { .simd_size = simd_scalar_vexw, .d8s = d8s_dq },
-     [0xc4] = { .simd_size = simd_packed_int, .two_op = 1, .d8s = d8s_vl },
--    [0xc6 ... 0xc7] = { .simd_size = simd_other, .vsib = 1, .d8s = d8s_dq },
-     [0xc8] = { .simd_size = simd_packed_fp, .two_op = 1, .d8s = d8s_vl },
-     [0xc9] = { .simd_size = simd_other },
-     [0xca] = { .simd_size = simd_packed_fp, .two_op = 1, .d8s = d8s_vl },
--    [0xcb] = { .simd_size = simd_scalar_vexw, .d8s = d8s_dq },
--    [0xcc] = { .simd_size = simd_packed_fp, .two_op = 1, .d8s = d8s_vl },
--    [0xcd] = { .simd_size = simd_scalar_vexw, .d8s = d8s_dq },
-+    [0xcb] = { .simd_size = simd_other, .d8s = d8s_vl },
-+    [0xcc ... 0xcd] = { .simd_size = simd_other, .two_op = 1, .d8s = d8s_vl },
-     [0xcf] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
-     [0xd2] = { .simd_size = simd_other },
-     [0xd3] = { .simd_size = simd_other },
-@@ -918,14 +916,6 @@ decode_0f38(struct x86_emulate_state *s,
-     case X86EMUL_OPC_EVEX_66(0, 0x7c): /* vpbroadcast{d,q} */
-         break;
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Michal Orzel <michal.orzel@amd.com>
+
+ARM32 gets a very minor code generation improvement:
+
+  xen.git/xen$ ../scripts/bloat-o-meter xen-syms-arm32-{before,after}
+  add/remove: 0/0 grow/shrink: 0/6 up/down: 0/-48 (-48)
+  Function                                     old     new   delta
+  wallclock_time                               288     280      -8
+  printk_start_of_line                         560     552      -8
+  domain_vtimer_init                           472     464      -8
+  do_settime                                   376     368      -8
+  burn_credits                                 760     752      -8
+  __printk_ratelimit                           424     416      -8
+
+But it's just a couple of operations improvement and no real change in code
+structure.  I expect that the constant propagation being done through
+__builtin_clz(), rather than pure C, is giving the optimiser a bit more
+information to work with.
+
+This file also has an __GNUC__ < 4 case which seems ripe for removing...
+---
+ xen/arch/arm/include/asm/div64.h | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
+
+diff --git a/xen/arch/arm/include/asm/div64.h b/xen/arch/arm/include/asm/div64.h
+index 0459d5cc0122..da1f1fcbd503 100644
+--- a/xen/arch/arm/include/asm/div64.h
++++ b/xen/arch/arm/include/asm/div64.h
+@@ -102,7 +102,7 @@
+ 		/* preserve low part of n for reminder computation */	\
+ 		__r = __n;						\
+ 		/* determine number of bits to represent __b */		\
+-		__p = 1 << __div64_fls(__b);				\
++		__p = 1 << fls(__b);					\
+ 		/* compute __m = ((__p << 64) + __b - 1) / __b */	\
+ 		__m = (~0ULL / __b) * __p;				\
+ 		__m += (((~0ULL % __b + 1) * __p) + __b - 1) / __b;	\
+@@ -150,8 +150,8 @@
+ 				__p /= (__m & -__m);			\
+ 				__m /= (__m & -__m);			\
+ 			} else {					\
+-				__p >>= __div64_fls(__bits);		\
+-				__m >>= __div64_fls(__bits);		\
++				__p >>= fls(__bits);			\
++				__m >>= fls(__bits);			\
+ 			}						\
+ 			/* No correction needed. */			\
+ 			__c = 0;					\
+@@ -217,18 +217,6 @@
+ 	__r;								\
+ })
  
--    case X86EMUL_OPC_VEX_F2(0, 0xcc): /* vsha512msg1 */
--    case X86EMUL_OPC_VEX_F2(0, 0xcd): /* vsha512msg2 */
--        s->desc |= TwoOp;
--        /* fallthrough */
--    case X86EMUL_OPC_VEX_F2(0, 0xcb): /* vsha512rnds2 */
--        s->simd_size = simd_other;
--        break;
+-/* our own fls implementation to make sure constant propagation is fine */
+-#define __div64_fls(bits)						\
+-({									\
+-	unsigned int __left = (bits), __nr = 0;				\
+-	if (__left & 0xffff0000) __nr += 16, __left >>= 16;		\
+-	if (__left & 0x0000ff00) __nr +=  8, __left >>=  8;		\
+-	if (__left & 0x000000f0) __nr +=  4, __left >>=  4;		\
+-	if (__left & 0x0000000c) __nr +=  2, __left >>=  2;		\
+-	if (__left & 0x00000002) __nr +=  1;				\
+-	__nr;								\
+-})
 -
-     case 0xf0: /* movbe / crc32 */
-         s->desc |= s->vex.pfx == vex_f2 ? ByteOp : Mov;
-         if ( s->vex.pfx >= vex_f3 )
-@@ -1421,20 +1411,6 @@ int x86emul_decode(struct x86_emulate_st
-                                                    s);
-                     s->simd_size = simd_other;
-                 }
--
--                switch ( b )
--                {
--                /* vp4dpwssd{,s} need special casing */
--                case 0x52: case 0x53:
--                /* v4f{,n}madd{p,s}s need special casing */
--                case 0x9a: case 0x9b: case 0xaa: case 0xab:
--                    if ( s->evex.pfx == vex_f2 )
--                    {
--                        disp8scale = 4;
--                        s->simd_size = simd_128;
--                    }
--                    break;
--                }
-             }
-             break;
+ #endif /* GCC version */
  
+ #endif /* BITS_PER_LONG */
+
+base-commit: b8cdfac2be38c98dd3ad0e911a3f7f787f5bcf6b
+prerequisite-patch-id: 57ffe02b03d27a12f20d9e08fa21eed01c8c6299
+prerequisite-patch-id: 56393fef18638a92eae127f36ffddb655fc7b9f4
+prerequisite-patch-id: 4f963f44331104dc00663f8ff22bd306ef04f301
+prerequisite-patch-id: 81a434352bbb36e17d3b7a45f489974fc4603ecb
+prerequisite-patch-id: f2f2a00eee52f668b3f557fb6d357ec3bf00ac92
+prerequisite-patch-id: 67b871715259e60fbf7db917233dbdecce6891da
+prerequisite-patch-id: f8562e07c91fa42b1501efa759734a7874b9d909
+prerequisite-patch-id: a5f304a67525412f0669a298a5f66285b56c3a58
+prerequisite-patch-id: 6b5b1dc3f6760888a15c11cc658c52ba6fd3f33d
+prerequisite-patch-id: 29eb6b854e9df37f5e8ed212215baab0ac7fbe87
+prerequisite-patch-id: d87fe52c264dc5a33883a04b615043fbefd94f92
+prerequisite-patch-id: 26a2978b861386fda945f1e60e9153cf0bdd24f3
+prerequisite-patch-id: ab50b5247a29b4fbbd7207a558647dd3c57d5175
+prerequisite-patch-id: 0f2a6cfa7d77c6f05f23c3aada161d02a9fc7660
+prerequisite-patch-id: 7153c7bb3a45877fd84286dd9915046fa0a76056
+prerequisite-patch-id: 74830838bac94ed1e036a8173cf3210a314b35d8
+prerequisite-patch-id: 74a6e5ffb9f477afb61e73ed80a40c9359bc77a2
+prerequisite-patch-id: 795f6e9425cc6a953166b530ae68df466a7a3c2b
+prerequisite-patch-id: e37b1bc5dd69e7e68abf0e6c004431537f70175f
+prerequisite-patch-id: 2e510b0a05df30c68bec8baf8b411a71e5f14d74
+prerequisite-patch-id: e0397c86b545a1d65f2e6b2049c282b926c40c64
+prerequisite-patch-id: 44606527ccbdf980a4c2401394f728f9c2011b8a
+prerequisite-patch-id: 65b83839f7a477b9fa8e8913380e8eac2ac1ca0e
+-- 
+2.39.2
+
 
