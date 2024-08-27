@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B46ED9606A8
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 12:06:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783769.1193059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06C9D960710
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 12:12:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783778.1193070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sit5h-0003YY-BE; Tue, 27 Aug 2024 10:06:21 +0000
+	id 1sitB8-0005vg-VM; Tue, 27 Aug 2024 10:11:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783769.1193059; Tue, 27 Aug 2024 10:06:21 +0000
+Received: by outflank-mailman (output) from mailman id 783778.1193070; Tue, 27 Aug 2024 10:11:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sit5h-0003Va-7x; Tue, 27 Aug 2024 10:06:21 +0000
-Received: by outflank-mailman (input) for mailman id 783769;
- Tue, 27 Aug 2024 10:06:20 +0000
+	id 1sitB8-0005sV-Rc; Tue, 27 Aug 2024 10:11:58 +0000
+Received: by outflank-mailman (input) for mailman id 783778;
+ Tue, 27 Aug 2024 10:11:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tHc6=P2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sit5g-0003VU-DM
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 10:06:20 +0000
+ id 1sitB7-0005sP-6z
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 10:11:57 +0000
 Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
  [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 00953ed2-645c-11ef-99a0-01e77a169b0f;
- Tue, 27 Aug 2024 12:06:18 +0200 (CEST)
+ id c9831800-645c-11ef-99a0-01e77a169b0f;
+ Tue, 27 Aug 2024 12:11:55 +0200 (CEST)
 Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a86e9db75b9so60710766b.1
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 03:06:18 -0700 (PDT)
+ a640c23a62f3a-a8696e9bd24so558309966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 03:11:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e549f5c1sm90215366b.68.2024.08.27.03.06.16
+ a640c23a62f3a-a86e592d9a3sm89745166b.193.2024.08.27.03.11.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 03:06:17 -0700 (PDT)
+ Tue, 27 Aug 2024 03:11:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00953ed2-645c-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: c9831800-645c-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724753178; x=1725357978; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724753515; x=1725358315; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=K7B020LNejmQpcsQmDsGhftsIXMYhjSNG2gBAlVB3jI=;
-        b=eLjAizbJgf9sN1ZFn9z9vavCYN6qkUnrfaDw9xvPtEmt/QThYgO0HDPP1eDVCDD4hz
-         u6DH2Ghp4t32JFz+kaQ/daRfEEWIlWGlMqssvLhKEVmsBa6Eb0KAI3HyKNUfsj7O1+Ds
-         0Z1w7dTMgEQG3H07VDjf+x1BAed4Uw2KbVrQK1O7NrMkY7talLjPiVqg07512gI7zhdO
-         PrTg9qG8gVT6Zvp7i8WEE/1s5PVyrFclzxXN8PD5XdtcYDbpJP4b2//dCZL2/bqJBh+l
-         mWf9jD6CQU0mjgWFnog2S9+yPVA7Sf2PP4GeG8mOZ8yQRrERAer8MMSC5qM/utvNSFfU
-         y0eQ==
+        bh=5IyZ1xSNKaCZh8FN85uGFgt/sG9NKrQQlldMvA0JaiU=;
+        b=UBtI7OelWG80mcl4CSWH2ACMkfm+jett9QBJt1dQfpLzyaw6kf2i4cHe2HLUL1YLmO
+         y9CBmFaAEarJMF6lPYRr5EVS0WFNStkzXmGHLDOJtDBUhaRNkSEHwAnmeIDbAD2dW3Iv
+         upujVawYK7x7xNVRUr4BtW25HUZ2jed7QWMqQ8KJhRadqXkKMOS8Y7EtP/h0cHNRsSKW
+         4WTy0tE6OGh+Vb/m2X2LCms4tnAOCQI/X+PvWI6YRikTGjSFzbB5a9RJlfBA/MNodXGN
+         Sp+UPHq1cZauEIkoIEGJGesQVnr/XB1Zi4+3rGJhQcZZe3FSxQlMxdLxd2piSV+Un+3C
+         FCWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724753178; x=1725357978;
+        d=1e100.net; s=20230601; t=1724753515; x=1725358315;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=K7B020LNejmQpcsQmDsGhftsIXMYhjSNG2gBAlVB3jI=;
-        b=VR4rCDBziD0pb8qJGbRPJvlktRmUzgU2vT4D/ii6GlEDPfsVXn7I9ZVg5UW0hPVWha
-         f6cwdEbRxWQiFUzwJUJlvatW/JsUPoICs5YgmepdepyEu6a4PQCSM9lGJcCeHRVWMy39
-         XP8cYcdeSYJpWKhGXMh09Bw7/tYoa81q2IwqvLVP0CcsT+x+G70/P3cKIi9eEQ2tVtmC
-         quBgj5BN71ZrLdX6xyC3S1GqBPn1HI0ViLMyN+GQVhOIIDJUlhmy1YHjeb540xBw9knz
-         4DTUlyD1r9/U6acjUdqvfcBA5Al9gu8WFbu0Iv4bGcESy/eCKq11FtwQMC9WYDa/tGJR
-         5KDw==
-X-Forwarded-Encrypted: i=1; AJvYcCVEj+5WtKNW30o6QBKVL1m/Axpr7norr+ud9HNFbyxDAR4rnwGHQkf0iwcV57YdxKv9GJFep1c7b/w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyrnBLCB6TQ6FXGQN3tqQAH1uDjv9dAsLNs4aQ/d3hxgrkqxcfR
-	wvqVCWx7MLk66vgc2K8nMe53Y1Hrxx1Euaw9sUv5d3+sv0z4NDVEF/8HK8Pkrg==
-X-Google-Smtp-Source: AGHT+IEYLo/pLXhFi/u0X5rhBgSECncheOkDFPmxk31bJUo95vJ71JUxWeNJeYGP0zTt3esnAwTTHw==
-X-Received: by 2002:a17:907:7b82:b0:a77:c364:c4f2 with SMTP id a640c23a62f3a-a86a54882f6mr822324166b.52.1724753177475;
-        Tue, 27 Aug 2024 03:06:17 -0700 (PDT)
-Message-ID: <0f9fb47c-91d1-4ee9-b6bf-1d491339e904@suse.com>
-Date: Tue, 27 Aug 2024 12:06:16 +0200
+        bh=5IyZ1xSNKaCZh8FN85uGFgt/sG9NKrQQlldMvA0JaiU=;
+        b=Vz/lA5OzBgycBiyIM19FH23FI1vgDjXF4e2piiRDuxyvHMcVxOefXtxqCnKG9TZJ04
+         qNp83rTqJGcbQJ+938aCWJ9PrXtVOvcbEEAz2DLb7zVSv0NfUv7fcKft1lYDWSRVZDsk
+         Py9POLibcml/1Z3JkultcpmuFSRHHuyV1LKEBwqDA9NIwCUB6DalokjRSvROtecJtx6e
+         Mxl0uZZmf26sDFVNO/12cT5R1Yr8rqacaNGBDh4jRooFYdtBgeBT1K0Jjc36rEvIEidX
+         jtbDelbF6LkXOmM7qhQLkCh4M9SDYdsLxQVNijeJBVA3ehZuQ7LGbA9/fIRztkXBp0mz
+         viLg==
+X-Forwarded-Encrypted: i=1; AJvYcCUj0UGlBkBL7BpO3BDZPdMXhR5DwnKBbh/71pcn9DZtbxpatcRZ+m+YaYloy5o1I9XrL/V4XCf03nY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxgRnprSlgV0GDgHr4wD9Ml8j/FZHqeo6KKSd5n/D/N17zHJw0h
+	pYiJPYnP+YoAl07eNXY+IlLxTrxWTS/6x74TzUzn942zgQYprTMWUPcZdOcoKQ==
+X-Google-Smtp-Source: AGHT+IF2uTYJt5DfWm535wpGj93TIlJrHcT55L5iu4jxgHA53+9Ayhs8XuI1xA1P9sOXIfPlehWE+g==
+X-Received: by 2002:a17:907:72c7:b0:a7a:9144:e251 with SMTP id a640c23a62f3a-a86e397e641mr193513666b.11.1724753514579;
+        Tue, 27 Aug 2024 03:11:54 -0700 (PDT)
+Message-ID: <6b86e515-c68c-4c3b-9e99-bce4119ab1a2@suse.com>
+Date: Tue, 27 Aug 2024 12:11:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/7] xen/riscv: use {read,write}{b,w,l,q}_cpu() to
- define {read,write}_atomic()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
- <5140f9eb3d1cb0b69e3b1cbbcce6167ff8d59e4c.1724256026.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH 4/9] xen/bitops: Drop the remnants of hweight{8,16}()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
+ <20240822230635.954557-5-andrew.cooper3@citrix.com>
+ <8c6599fa-22c0-455e-9d6a-51b3bf3d24b3@suse.com>
+ <f0a5525f-cfb8-4669-a0b7-3da4fdd9eaaf@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,94 +120,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5140f9eb3d1cb0b69e3b1cbbcce6167ff8d59e4c.1724256026.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <f0a5525f-cfb8-4669-a0b7-3da4fdd9eaaf@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.08.2024 18:06, Oleksii Kurochko wrote:
-> In Xen, memory-ordered atomic operations are not necessary,
-
-This is an interesting statement. I'd like to suggest that you at least
-limit it to the two constructs in question, rather than stating this
-globally for everything.
-
-> based on {read,write}_atomic() implementations for other architectures.
-> Therefore, {read,write}{b,w,l,q}_cpu() can be used instead of
-> {read,write}{b,w,l,q}(), allowing the caller to decide if additional
-> fences should be applied before or after {read,write}_atomic().
+On 27.08.2024 11:49, Andrew Cooper wrote:
+> On 26/08/2024 11:39 am, Jan Beulich wrote:
+>> On 23.08.2024 01:06, Andrew Cooper wrote:
+>>> They are no more, and won't be returning in this form.
+>> And what's the plan? Use hweight32((uint8_t)...) in an open-coded manner?
+>> Not overly nice I would say.
 > 
-> Change the declaration of _write_atomic() to accept a 'volatile void *'
-> type for the 'x' argument instead of 'unsigned long'.
-> This prevents compilation errors such as:
-> 1."discards 'volatile' qualifier from pointer target type," which occurs
->   due to the initialization of a volatile pointer,
->   e.g., `volatile uint8_t *ptr = p;` in _add_sized().
+> If we ever regain a genuine need for the 8 or 16 forms, they can go back
+> into bitops.h, in terms of hweightl(), just like hweight32().
+> 
+> But it's been 20 years so far and we haven't actually needed
+> hweight8/16, and I'm expecting this to continue for the forseeable future.
 
-I don't follow you here. It's the other argument of write_atomic() that
-has ptr passed there.
-
-> 2."incompatible type for argument 2 of '_write_atomic'," which can occur
->   when calling write_pte(), where 'x' is of type pte_t rather than
->   unsigned long.
-
-How's this related to the change at hand? That isn't different ahead of
-this change, is it?
-
-> --- a/xen/arch/riscv/include/asm/atomic.h
-> +++ b/xen/arch/riscv/include/asm/atomic.h
-> @@ -31,21 +31,17 @@
->  
->  void __bad_atomic_size(void);
->  
-> -/*
-> - * Legacy from Linux kernel. For some reason they wanted to have ordered
-> - * read/write access. Thereby read* is used instead of read*_cpu()
-> - */
->  static always_inline void read_atomic_size(const volatile void *p,
->                                             void *res,
->                                             unsigned int size)
->  {
->      switch ( size )
->      {
-> -    case 1: *(uint8_t *)res = readb(p); break;
-> -    case 2: *(uint16_t *)res = readw(p); break;
-> -    case 4: *(uint32_t *)res = readl(p); break;
-> +    case 1: *(uint8_t *)res = readb_cpu(p); break;
-> +    case 2: *(uint16_t *)res = readw_cpu(p); break;
-> +    case 4: *(uint32_t *)res = readl_cpu(p); break;
->  #ifndef CONFIG_RISCV_32
-> -    case 8: *(uint32_t *)res = readq(p); break;
-> +    case 8: *(uint32_t *)res = readq_cpu(p); break;
->  #endif
->      default: __bad_atomic_size(); break;
->      }
-> @@ -58,15 +54,16 @@ static always_inline void read_atomic_size(const volatile void *p,
->  })
->  
->  static always_inline void _write_atomic(volatile void *p,
-> -                                       unsigned long x, unsigned int size)
-> +                                        volatile void *x,
-
-If this really needs to become a pointer, it ought to also be pointer-
-to-const. Otherwise it is yet more confusing which operand is which.
-
-> +                                        unsigned int size)
->  {
->      switch ( size )
->      {
-> -    case 1: writeb(x, p); break;
-> -    case 2: writew(x, p); break;
-> -    case 4: writel(x, p); break;
-> +    case 1: writeb_cpu(*(uint8_t *)x, p); break;
-> +    case 2: writew_cpu(*(uint16_t *)x, p); break;
-> +    case 4: writel_cpu(*(uint32_t *)x, p); break;
->  #ifndef CONFIG_RISCV_32
-> -    case 8: writeq(x, p); break;
-> +    case 8: writeq_cpu(*(uint64_t *)x, p); break;
-
-Of course you may not cast away const-ness then. You also be casting
-away volatile-ness, but (as per above) I question the need for volatile
-on x.
+Well, I'm not fully convinced. People may (try to) add open-coded forms like
+in my earlier reply instead. But anyway:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
