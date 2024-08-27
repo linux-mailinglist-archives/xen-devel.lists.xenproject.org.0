@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E477F9613F3
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 18:25:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784255.1193659 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DF409614D4
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 19:01:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784268.1193669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siz0I-0003Jv-C1; Tue, 27 Aug 2024 16:25:10 +0000
+	id 1sizXx-0001VJ-T6; Tue, 27 Aug 2024 16:59:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784255.1193659; Tue, 27 Aug 2024 16:25:10 +0000
+Received: by outflank-mailman (output) from mailman id 784268.1193669; Tue, 27 Aug 2024 16:59:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siz0I-0003HM-9H; Tue, 27 Aug 2024 16:25:10 +0000
-Received: by outflank-mailman (input) for mailman id 784255;
- Tue, 27 Aug 2024 16:25:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sizXx-0001Tj-QK; Tue, 27 Aug 2024 16:59:57 +0000
+Received: by outflank-mailman (input) for mailman id 784268;
+ Tue, 27 Aug 2024 16:59:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ovuO=P2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1siz0G-0003HG-GN
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 16:25:08 +0000
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [2607:f8b0:4864:20::732])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb652d90-6490-11ef-99a0-01e77a169b0f;
- Tue, 27 Aug 2024 18:25:06 +0200 (CEST)
-Received: by mail-qk1-x732.google.com with SMTP id
- af79cd13be357-7a1d81dc0beso348838385a.2
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 09:25:06 -0700 (PDT)
+ id 1sizXw-0001Td-MJ
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 16:59:56 +0000
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
+ [2607:f8b0:4864:20::1131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c8a2ebf6-6495-11ef-a0b0-8be0dac302b0;
+ Tue, 27 Aug 2024 18:59:55 +0200 (CEST)
+Received: by mail-yw1-x1131.google.com with SMTP id
+ 00721157ae682-68d30057ae9so51243547b3.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 09:59:55 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7a67f343cd3sm566129185a.49.2024.08.27.09.25.02
+ 6a1803df08f44-6c162db0ba1sm57869896d6.99.2024.08.27.09.59.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 09:25:03 -0700 (PDT)
+ Tue, 27 Aug 2024 09:59:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb652d90-6490-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: c8a2ebf6-6495-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724775905; x=1725380705; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724777994; x=1725382794; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VwWHCm+eBlPvfIrLooLg3X6MncqBg8z1Y9NJkKavlew=;
-        b=m8KcZNrgYm05kHxyHjtd9lLv8vB/3S5q03z8QDn4va3UKuv69IRhLZZjbUplL2KFRb
-         EXFsDSCnyDlRaoQeZOEDyIERNm6ItjIQAamyvMXGho2ek7Pt2yZd+VFWB0JI0j9PcSr9
-         FkPEP5pe4hg/Pz15hyBy+f44aVMr1BfDKopKQ=
+        bh=S6TKN26a3+uGV/BpJ6ms3tGe7DA41dy80mMbv9n0IWc=;
+        b=Mn/YVxHGR9AAESOI78fKqF8VpijQsIwGvXKC9nUip2blEDcBrsEJIqXI2lX7b+ocph
+         htSjfMAwHrKN1BrI9ts0qFORkAMX8XNSn96OKturimFjEh8w9H9aHm5yrJaXiHDMpIxp
+         7xQq0qgwSqFEj+ZhElRL5coa8a3d2kJuLBsiQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724775905; x=1725380705;
+        d=1e100.net; s=20230601; t=1724777994; x=1725382794;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VwWHCm+eBlPvfIrLooLg3X6MncqBg8z1Y9NJkKavlew=;
-        b=jbC9VV6kyHoJ84a1+DRwWFPigsvI/jPFM0UKZAcj3aEZXBXpZISVZgXZoXx5wrNPal
-         SssxWyIW30rfrUjuiYhqag5W2sPJunuXtX1PeA/Or8ZlSpPmZgWcWzABuYnIIJC24D0/
-         XAaRLub5dkYilee7pYQP5LPHSFopPGTMZq6AokKz0QMHjMy7/1d2v2cq6sIoLjbZ41bC
-         bXT00QdBX/gVjXm8c+g8334K4kK7jjj2BBi9oZEaJxkWXm+EWJO/S+IOcU2L4w7z9Hug
-         UxTro4Y1jrQ5BICZzBH0Bt9Qaw3cCJveY5wp6ZWZ5aU0Qbwx+JW9/fY7+wi6Ha9fwdDK
-         CTYw==
-X-Gm-Message-State: AOJu0Yy0RhoAvHmcjHtE9hiZtj8QgJZVPGbJuqU1107fNiv6sjbJEt1B
-	5MXTjMjOJCNPJ56bhifCwgpKKXpVQXj2vSjscCkmR87a9DrATxAW8hakWDkDlCge2u5gqgh4EDA
-	l
-X-Google-Smtp-Source: AGHT+IHkp0qglFpU0T6x0lkXtRYsQO/kWxkxZM5DQloG90VQomMYgzYVceaj04bjOog0HTcygnGrVQ==
-X-Received: by 2002:a05:620a:1994:b0:7a1:e30b:dd06 with SMTP id af79cd13be357-7a689701c85mr1682008685a.25.1724775904569;
-        Tue, 27 Aug 2024 09:25:04 -0700 (PDT)
-Message-ID: <a1d3dca7-6a41-4350-9cce-bb2985842664@citrix.com>
-Date: Tue, 27 Aug 2024 17:25:00 +0100
+        bh=S6TKN26a3+uGV/BpJ6ms3tGe7DA41dy80mMbv9n0IWc=;
+        b=mDPJuGdraqdzffzKWy3BGhSTkNC8SiwL7mDoGyfwUTLFNyuVGA13wrPFvxuRwENNLt
+         9/BaBbM1cNecHodhH1a+G14iXo0of1krNwUVM+PitHnM4A0OwTiUUaZVN8cipvWF2xZG
+         WQjKQDDNPXhBAhkCkwbUmJ2Fd+MReRm9bREFVa0hCl0hsTrTxxuZUfPe6WsA6pPf/9lm
+         ACR89lickvrSI77Dg+T0fAuws3jHRlD52dZlkloWK2oxn1Xvwsm9Kd/ZyjAW66XqWpPT
+         M+PFLbDNohsw3BuVQIldvVQCLIejtqOQggOTymVFzgLvRc78n58yTltnjuHGlTsQslBf
+         TMlw==
+X-Forwarded-Encrypted: i=1; AJvYcCV4f7cC5qEGXluWHWtuTZ+iDLxUKYZLdSd4hG+5BFQ1SS7Gvv9/zTMU+iZpK5JD1dEeT7YpzoLNv7Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyd8rMjpGMGB6i9ulwgZ8f8TP/LFxPa3YeqouKo+hM4YuTJ3pUF
+	nWR4pomoBtOQsAPvfQUL9pX9NhofLonOHy2ufsR5dtwSvPD9acU/99UYBO6ne4c=
+X-Google-Smtp-Source: AGHT+IG3yX6sDeuehEKTcwnYQmafNVXUshoYjfs6SYb5xaA+zpxiOHe0y3yVjOoGUst97lIfsSqACw==
+X-Received: by 2002:a05:6902:1588:b0:e11:7858:9478 with SMTP id 3f1490d57ef6-e17a8acbe0dmr17458331276.22.1724777994441;
+        Tue, 27 Aug 2024 09:59:54 -0700 (PDT)
+Message-ID: <310cfc10-043c-4bb9-89e9-3d9bfc6e80ac@citrix.com>
+Date: Tue, 27 Aug 2024 17:59:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] x86/vmx: Rewrite vmx_sync_pir_to_irr() to be more
- efficient
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20240827135746.1908070-1-andrew.cooper3@citrix.com>
- <20240827135746.1908070-5-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86emul: drop further Xeon Phi decode leftovers
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <9043d8bd-ad98-4de1-ac52-70f8e4daf14a@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,47 +128,16 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240827135746.1908070-5-andrew.cooper3@citrix.com>
+In-Reply-To: <9043d8bd-ad98-4de1-ac52-70f8e4daf14a@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27/08/2024 2:57 pm, Andrew Cooper wrote:
-> There are two issues.  First, pi_test_and_clear_on() pulls the cache-line to
-> the CPU and dirties it even if there's nothing outstanding, but the final
-> for_each_set_bit() is O(256) when O(8) would do, and would avoid multiple
-> atomic updates to the same IRR word.
+On 27/08/2024 12:24 pm, Jan Beulich wrote:
+> Special casing in x86emul_decode() can be dropped, while overrides done
+> in decode_0f38() can move into ext0f38_table[]. That table's S/G
+> prefetch entries aren't needed anymore either.
 >
-> Rewrite it from scratch, explaining what's going on at each step.
->
-> Bloat-o-meter reports 177 -> 145 (net -32), but the better aspect is the
-> removal calls to __find_{first,next}_bit() hidden behind for_each_set_bit().
->
-> No functional change.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> CC: Bertrand Marquis <bertrand.marquis@arm.com>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->
-> The main purpose of this is to get rid of bitmap_for_each().
->
-> v2:
->  * Extend the comments
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-FWIW, Gitlab CI has gained one reliable failure for this series (which
-includes the hweight series too, because of how I've got my branch
-arranged).
-
-It is a timeout (domU not reporting in after boot), and as it is
-specific to the AlderLake runner, it's very likely to be this patch.
-
-I guess I need to triple-check the IRR scatter logic...
-
-~Andrew
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
