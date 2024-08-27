@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866D2960907
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 13:40:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783866.1193159 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98F7F960917
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 13:42:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783873.1193169 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siuYY-0002tW-2v; Tue, 27 Aug 2024 11:40:14 +0000
+	id 1siuaA-0003TF-Gn; Tue, 27 Aug 2024 11:41:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783866.1193159; Tue, 27 Aug 2024 11:40:14 +0000
+Received: by outflank-mailman (output) from mailman id 783873.1193169; Tue, 27 Aug 2024 11:41:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siuYX-0002qy-V7; Tue, 27 Aug 2024 11:40:13 +0000
-Received: by outflank-mailman (input) for mailman id 783866;
- Tue, 27 Aug 2024 11:40:13 +0000
+	id 1siuaA-0003Qv-DG; Tue, 27 Aug 2024 11:41:54 +0000
+Received: by outflank-mailman (input) for mailman id 783873;
+ Tue, 27 Aug 2024 11:41:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ovuO=P2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1siuYX-0002qs-Bd
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 11:40:13 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tHc6=P2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1siua8-0003Qn-TZ
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 11:41:52 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1e26772a-6469-11ef-99a0-01e77a169b0f;
- Tue, 27 Aug 2024 13:40:11 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5bed83488b3so6259225a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 04:40:11 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e5484ff7sm98682366b.45.2024.08.27.04.40.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Aug 2024 04:40:09 -0700 (PDT)
+ id 595d790a-6469-11ef-99a0-01e77a169b0f;
+ Tue, 27 Aug 2024 13:41:51 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a8696e9bd24so568979866b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 04:41:50 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a86e549ce0dsm100047666b.60.2024.08.27.04.41.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Aug 2024 04:41:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,152 +45,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e26772a-6469-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: 595d790a-6469-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724758810; x=1725363610; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RDmZvKQ6fjiLWHIUIGLrzY14fFzTra7oQYlpHWiCvvQ=;
-        b=u6yxaSSID14d2DyB9WyRCdvVsB++9DNfLtt2VPfUrmopL8CYd7AgXnAtDVMMPWJbLi
-         FKSnGNVhDqFwwIhFwF0p7GYqmwcDwkBYP9+gd7ySPXJRNLUzRuCCzWhfCxtD8AnqRPt8
-         OiwO9Zmikt7QmE32yN3mYsxxqZZ5l4UwWxGhM=
+        d=suse.com; s=google; t=1724758910; x=1725363710; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=s/bHfEEyVYzSSYEBlTJgpv6g284H8wooJj00XUhug/k=;
+        b=gPfKJIliYbIqXy7rEwpu5KJho3aGbQq/xwcRJGoCs5kD3g64cRg7DswSf06Rz1C0e1
+         ojQQDEQJoioezaJSiYzjjZBrbAhTFckrctnJsr9tbKEQ8c1L2fAUWqI8xVS5QCv4mP0m
+         EUeUCl8OgKmMGJWB3rHFX4u8XTaFEDliaDenQLY0p0yP/gbgBFAed77yjuBex+IW6juI
+         zZCc9QP139ul6q6cgIasWlD40V58VTPOyIOsC3rZqSYORgzeW/0jF/XG9bPw8lsOpNd/
+         7/v46dQsku7QDLJ2LFZkIURGa1/cazBAR1EuZQ5erPpesBc0mYHbhS2mttcYNM//qK3V
+         BL2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724758810; x=1725363610;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RDmZvKQ6fjiLWHIUIGLrzY14fFzTra7oQYlpHWiCvvQ=;
-        b=SVH91yV1Qkd5lV0+iXuptFjmNhZJ7P77IijVMXQiNL8JKfNTQDBr0tSJxhWNVH+6Zb
-         Suazoj5FxtDM8YRC5gg6Ad4FvwqFuER+uxhgIJrkdWnEB5Bx+HVVnEaEIMOKMnvkX5ni
-         DY85zyM47GzE58lDV4ZblVteUBS+hg+ws/sskTB9uJQqppzf1Hdl0RiR+FEOiNIiewAz
-         g3eloSV54SUfdPC5nXIinShAS8BIV7rQvTY5zuSihndR2EHJznMa4cYWcjmZ5o8CRKEA
-         bkgWBF4bpIRfD5Zx9EqG23anbHHT1i8TK5OwoMBUbWRhkX2oA62vriYnGooeY+nQ5Q2y
-         AIMQ==
-X-Gm-Message-State: AOJu0Yw9fnuhS2RWSnUuTv5DymLOOyYx0QDvAOJcvvRgNmEFC4iSt657
-	Ahcsl48ELpZzJdAW7Gbh5gVxUQQhY4wrU0ZmxQEeOfqjp7Up4RLbfx5fmNkM4LKSCTqyJKJbhbd
-	2
-X-Google-Smtp-Source: AGHT+IHhou3lu8mGOt542ce9wqfSxSoeBy93QDNjsmKOcFUCIKJO3nCYgDIwtrHrSegpg+fVh0Glag==
-X-Received: by 2002:a17:907:da2:b0:a86:a73e:7ec9 with SMTP id a640c23a62f3a-a86a73e81ffmr955395866b.46.1724758809974;
-        Tue, 27 Aug 2024 04:40:09 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH] xen/ARM: Drop __div64_fls()
-Date: Tue, 27 Aug 2024 12:40:07 +0100
-Message-Id: <20240827114007.1886130-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
+        d=1e100.net; s=20230601; t=1724758910; x=1725363710;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=s/bHfEEyVYzSSYEBlTJgpv6g284H8wooJj00XUhug/k=;
+        b=m7a6z4git0RUCFNBo8ZM5Xl0cQ6Ti7ZdETD5MtHVFv9CpzigMbIn9GBd2ScGmR9HUJ
+         wsWabfCPStj2XuoIJsI3Lcp2ZF8KHJlocLrWGmC4m1zUsG8agRdrSZmmGxHnUOs+BlDn
+         fZITvNBYxMDKzW/fYB5E7m77DBbFZ+JoXQhTq2vjmwOHqmlxf6OnkxbnQFhJJdIBS+WB
+         LwTFHLwqRppBdpk5qIKxJaG6i1qbOhOW1ifJ7oAsI+6AzA6tc24HZsb1MniyqvUo1EEg
+         dKVHo+rsInHP4C0F90Tjsi3WsQ5EeHVPOvObg3CU5OjYQoZibKxoWq33lisYp8OOQtpv
+         S14A==
+X-Forwarded-Encrypted: i=1; AJvYcCVLBGLJqc4iKsODzm0qZ5+JZ81A9mFEbLDV5OvjTeHy0ArqAKnM68rFGKp8zFwPAiI+i1ut5ts+rTg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz5TJXRMhS+LNPxnxTdrSoQIHkWvsRyibc+vKAaw4ywMNVUtK4j
+	T44L9/EfUX2gNXGqotckZcksz1KrSbX9RvOseEWTI5PhR5AXOIiiWUoTp0e0FQ==
+X-Google-Smtp-Source: AGHT+IHwpgTcYAQ3XuYdWXktS1RzaimHnG//f+wWwVplaBzx+kknh8NXoetphMG0u6LWKloVWS2jBQ==
+X-Received: by 2002:a17:907:2cc6:b0:a86:7021:1368 with SMTP id a640c23a62f3a-a86e39dc9b2mr199287966b.21.1724758909956;
+        Tue, 27 Aug 2024 04:41:49 -0700 (PDT)
+Message-ID: <265ea113-5e9e-4829-9a22-24ed9e1cae69@suse.com>
+Date: Tue, 27 Aug 2024 13:41:48 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/9] xen/bitops: Introduce generic_hweightl() and
+ hweightl()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
+ <20240822230635.954557-6-andrew.cooper3@citrix.com>
+ <14c385ce-c61d-48e3-aa09-7b450af34b6c@suse.com>
+ <f5bac01b-74d6-41c4-b3c5-ad595d6de378@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <f5bac01b-74d6-41c4-b3c5-ad595d6de378@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Following the improvements to Xen's bitops, fls() does constant propagation in
-all cases.  Use it, and drop the local opencoded helper.
+On 27.08.2024 12:39, Andrew Cooper wrote:
+> On 26/08/2024 12:40 pm, Jan Beulich wrote:
+>> On 23.08.2024 01:06, Andrew Cooper wrote:
+>> --- a/xen/include/xen/bitops.h
+>> +++ b/xen/include/xen/bitops.h
+>> @@ -35,6 +35,12 @@ extern void __bitop_bad_size(void);
+>>  unsigned int __pure generic_ffsl(unsigned long x);
+>>  unsigned int __pure generic_flsl(unsigned long x);
+>>  
+>>> +/*
+>>> + * Hamming Weight, also called Population Count.  Returns the number of set
+>>> + * bits in @x.
+>>> + */
+>>> +unsigned int __pure generic_hweightl(unsigned long x);
+>> Aren't this and ...
+>>
+>>> @@ -284,6 +290,18 @@ static always_inline __pure unsigned int fls64(uint64_t x)
+>>>          (_v & (_v - 1)) != 0;                   \
+>>>      })
+>>>  
+>>> +static always_inline __pure unsigned int hweightl(unsigned long x)
+>> ... this even __attribute_const__?
+> 
+> Hmm.  This is following fls(), but on further consideration, they should
+> be const too.
+> 
+> I'll do a prep patch fixing that, although I'm going to rename it to
+> __attr_const for brevity.
+> 
+> Much as I'd prefer __const, I expect that is going too far, making it
+> too close to regular const.
 
-No functional change.
+I was actually going to suggest using that name, if we want to shorten
+__attribute_const__. Yes, gcc treats __const (and __const__) as
+keywords, but do we care (much)? All it requires is that we don't start
+using __const as a (real) keyword.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Michal Orzel <michal.orzel@amd.com>
+Of course __const is a good example of why really we shouldn't use
+double-underscore prefixed names anywhere. Any of them can be assigned
+a meaning by the compiler, and here that's clearly the case. Therefore,
+taking your planned rename, maybe better make it attr_const then? And
+eventually switch stuff like __packed, __pure, and __weak to attr_* as
+well? Or even introduce something like
 
-ARM32 gets a very minor code generation improvement:
+#define attr(attr...) __attribute__((attr))
 
-  xen.git/xen$ ../scripts/bloat-o-meter xen-syms-arm32-{before,after}
-  add/remove: 0/0 grow/shrink: 0/6 up/down: 0/-48 (-48)
-  Function                                     old     new   delta
-  wallclock_time                               288     280      -8
-  printk_start_of_line                         560     552      -8
-  domain_vtimer_init                           472     464      -8
-  do_settime                                   376     368      -8
-  burn_credits                                 760     752      -8
-  __printk_ratelimit                           424     416      -8
+and use attr(const) here?
 
-But it's just a couple of operations improvement and no real change in code
-structure.  I expect that the constant propagation being done through
-__builtin_clz(), rather than pure C, is giving the optimiser a bit more
-information to work with.
+>>> +{
+>>> +    if ( __builtin_constant_p(x) )
+>>> +        return __builtin_popcountl(x);
+>> How certain are you that compilers (even old ones) will reliably fold
+>> constant expressions here, and never emit a libgcc call instead? The
+>> conditions look to be more tight than just __builtin_constant_p(); a
+>> pretty absurd example:
+>>
+>> unsigned ltest(void) {
+>>     return __builtin_constant_p("") ? __builtin_popcountl((unsigned long)"") : ~0;
+>> }
+> 
+> How do you express that in terms of a call to hweightl()?
 
-This file also has an __GNUC__ < 4 case which seems ripe for removing...
----
- xen/arch/arm/include/asm/div64.h | 18 +++---------------
- 1 file changed, 3 insertions(+), 15 deletions(-)
+hweightl((unsigned long)"");
 
-diff --git a/xen/arch/arm/include/asm/div64.h b/xen/arch/arm/include/asm/div64.h
-index 0459d5cc0122..da1f1fcbd503 100644
---- a/xen/arch/arm/include/asm/div64.h
-+++ b/xen/arch/arm/include/asm/div64.h
-@@ -102,7 +102,7 @@
- 		/* preserve low part of n for reminder computation */	\
- 		__r = __n;						\
- 		/* determine number of bits to represent __b */		\
--		__p = 1 << __div64_fls(__b);				\
-+		__p = 1 << fls(__b);					\
- 		/* compute __m = ((__p << 64) + __b - 1) / __b */	\
- 		__m = (~0ULL / __b) * __p;				\
- 		__m += (((~0ULL % __b + 1) * __p) + __b - 1) / __b;	\
-@@ -150,8 +150,8 @@
- 				__p /= (__m & -__m);			\
- 				__m /= (__m & -__m);			\
- 			} else {					\
--				__p >>= __div64_fls(__bits);		\
--				__m >>= __div64_fls(__bits);		\
-+				__p >>= fls(__bits);			\
-+				__m >>= fls(__bits);			\
- 			}						\
- 			/* No correction needed. */			\
- 			__c = 0;					\
-@@ -217,18 +217,6 @@
- 	__r;								\
- })
- 
--/* our own fls implementation to make sure constant propagation is fine */
--#define __div64_fls(bits)						\
--({									\
--	unsigned int __left = (bits), __nr = 0;				\
--	if (__left & 0xffff0000) __nr += 16, __left >>= 16;		\
--	if (__left & 0x0000ff00) __nr +=  8, __left >>=  8;		\
--	if (__left & 0x000000f0) __nr +=  4, __left >>=  4;		\
--	if (__left & 0x0000000c) __nr +=  2, __left >>=  2;		\
--	if (__left & 0x00000002) __nr +=  1;				\
--	__nr;								\
--})
--
- #endif /* GCC version */
- 
- #endif /* BITS_PER_LONG */
+Yet as said - it's absurd. It merely serves to make the point that what
+__builtin_constant_p() returns true for doesn't necessarily constant-
+fold in expressions.
 
-base-commit: b8cdfac2be38c98dd3ad0e911a3f7f787f5bcf6b
-prerequisite-patch-id: 57ffe02b03d27a12f20d9e08fa21eed01c8c6299
-prerequisite-patch-id: 56393fef18638a92eae127f36ffddb655fc7b9f4
-prerequisite-patch-id: 4f963f44331104dc00663f8ff22bd306ef04f301
-prerequisite-patch-id: 81a434352bbb36e17d3b7a45f489974fc4603ecb
-prerequisite-patch-id: f2f2a00eee52f668b3f557fb6d357ec3bf00ac92
-prerequisite-patch-id: 67b871715259e60fbf7db917233dbdecce6891da
-prerequisite-patch-id: f8562e07c91fa42b1501efa759734a7874b9d909
-prerequisite-patch-id: a5f304a67525412f0669a298a5f66285b56c3a58
-prerequisite-patch-id: 6b5b1dc3f6760888a15c11cc658c52ba6fd3f33d
-prerequisite-patch-id: 29eb6b854e9df37f5e8ed212215baab0ac7fbe87
-prerequisite-patch-id: d87fe52c264dc5a33883a04b615043fbefd94f92
-prerequisite-patch-id: 26a2978b861386fda945f1e60e9153cf0bdd24f3
-prerequisite-patch-id: ab50b5247a29b4fbbd7207a558647dd3c57d5175
-prerequisite-patch-id: 0f2a6cfa7d77c6f05f23c3aada161d02a9fc7660
-prerequisite-patch-id: 7153c7bb3a45877fd84286dd9915046fa0a76056
-prerequisite-patch-id: 74830838bac94ed1e036a8173cf3210a314b35d8
-prerequisite-patch-id: 74a6e5ffb9f477afb61e73ed80a40c9359bc77a2
-prerequisite-patch-id: 795f6e9425cc6a953166b530ae68df466a7a3c2b
-prerequisite-patch-id: e37b1bc5dd69e7e68abf0e6c004431537f70175f
-prerequisite-patch-id: 2e510b0a05df30c68bec8baf8b411a71e5f14d74
-prerequisite-patch-id: e0397c86b545a1d65f2e6b2049c282b926c40c64
-prerequisite-patch-id: 44606527ccbdf980a4c2401394f728f9c2011b8a
-prerequisite-patch-id: 65b83839f7a477b9fa8e8913380e8eac2ac1ca0e
--- 
-2.39.2
+> Again, this is following the layout started with fls() in order to avoid
+> each arch opencoding different versions of constant folding.
+> 
+> https://godbolt.org/z/r544c49oY
+> 
+> When it's forced through the hweightl() interface, even GCC 4.1 decides
+> that it's non-constant and falls back to generic_hweightl().
+> 
+> 
+> I did spend a *lot* of time with the fls() series checking that all
+> compilers we supported did what we wanted in this case, so I don't
+> expect it to be a problem.
 
+Right, and I guess I was pointlessly more concerned about popcount than
+I was for ffs() / fls(). The criteria upon which gcc decides whether to
+constant-fold the uses is exactly the same.
+
+>  But, if a library call is emitted, it will
+> be very obvious (link failure), and we can re-evaluate.
+
+Indeed, we certainly would notice, albeit the diagnostic may be cryptic
+to people.
+
+Bottom line - keep it as is.
+
+Jan
 
