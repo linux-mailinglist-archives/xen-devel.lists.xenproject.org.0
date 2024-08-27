@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D52E960CA2
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 15:54:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784058.1193418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E93B9960CB8
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 15:57:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784063.1193430 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siwe3-0001rW-CH; Tue, 27 Aug 2024 13:54:03 +0000
+	id 1siwh0-0003Js-R8; Tue, 27 Aug 2024 13:57:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784058.1193418; Tue, 27 Aug 2024 13:54:03 +0000
+Received: by outflank-mailman (output) from mailman id 784063.1193430; Tue, 27 Aug 2024 13:57:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siwe3-0001pO-9X; Tue, 27 Aug 2024 13:54:03 +0000
-Received: by outflank-mailman (input) for mailman id 784058;
- Tue, 27 Aug 2024 13:54:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tHc6=P2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1siwe1-0001pF-9i
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 13:54:01 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cf3916da-647b-11ef-99a0-01e77a169b0f;
- Tue, 27 Aug 2024 15:53:59 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a86fa3dea99so1640166b.2
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 06:53:59 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c0bb471e32sm1020667a12.66.2024.08.27.06.53.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 06:53:58 -0700 (PDT)
+	id 1siwh0-0003Gn-Mw; Tue, 27 Aug 2024 13:57:06 +0000
+Received: by outflank-mailman (input) for mailman id 784063;
+ Tue, 27 Aug 2024 13:57:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YF2W=P2=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1siwgy-0003EW-Ez
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 13:57:04 +0000
+Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
+ [2607:f8b0:4864:20::c31])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3c06b452-647c-11ef-a0b0-8be0dac302b0;
+ Tue, 27 Aug 2024 15:57:02 +0200 (CEST)
+Received: by mail-oo1-xc31.google.com with SMTP id
+ 006d021491bc7-5de9809a38aso1350359eaf.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 06:57:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +40,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf3916da-647b-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: 3c06b452-647c-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724766839; x=1725371639; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=c1TVBydAj/sy7dIa9BDL2fBR6Qli5OMjIQG0E77B/ko=;
-        b=daQnrGHBh3uMMo4HNKQVahhNqAI3nPeNdcj0UbuWP85xIXe2h6DKWvl5kbaB2+ycC4
-         HUEL4c5p0c1JJq47YWLH3TrAqWj6BpeEWLqfMB3yFUniNzvvDI4Oc57nARkmDdniVzqT
-         KyMx2coHhoV7p2psD3DKGN2vY0p/PMAJFFF9hh1zQcwRvzFF41g7+v9KklBqJSQjPLJD
-         kEJa2buKGgxiZlOAx3/KcA7rQhlnrap7VVYDwfSn3HTKPVh0mGqbfIHL1edB9E27tQY5
-         PcDBy2N4dC7A9B4EcytNnhc30CJiMvHBHIyPDWK1YumBX0I1tJUWgueeHJBkuCiBL41V
-         B2kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724766839; x=1725371639;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1724767021; x=1725371821; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c1TVBydAj/sy7dIa9BDL2fBR6Qli5OMjIQG0E77B/ko=;
-        b=PZ3uBeN53rgRywjdX8wGHqs4sXh5fKJ+9hOjt7Y/weQNHQm/xSBLZpWG4zlVYNm6Mp
-         2+o6IK2gHD0s+1hMspn9M/IylNMrG05x1sTc4uTZG/PJt8vMtXicqOGyPF0y76OiZtwZ
-         TpZ6I8UhMf/KMewgIlNkUaFUcmYnS8ZM6n+gPQCZBxS7ZL0Lx2ym1SejdKdRTja70UsB
-         ps2XTKUjvdLBWzOAlYn5UHHihDU65ZtIWUF9oCNQXGaHae4Sht/IxOWiTd8TWEbyix9D
-         70uGP0TYYCeu5aPhKoSBxLVDBKYIZ9vDL2a+qVDDXm46+b53IppJXSzIfQrrQ9RvjC7R
-         3hbg==
-X-Gm-Message-State: AOJu0YyeJe6P+28V/ovTGKjwxOYwfa5/jWxEMiPeLpqgM8Klgy+B7jkh
-	Or+u6A18gymh7NTtGLspv3NXG8Ux++MQk9TIR1POk2z0Sa/0wqvJvnlmqxEJgA==
-X-Google-Smtp-Source: AGHT+IHH4CJLbYjel5WALUO98/Oy7Qm+OHNRQ9fEaAG4KQkZGCekfXl31iJ843JprZsDOBnHmjeEIQ==
-X-Received: by 2002:a05:6402:5203:b0:5c0:ad36:284e with SMTP id 4fb4d7f45d1cf-5c0ad362ac8mr5693626a12.12.1724766838610;
-        Tue, 27 Aug 2024 06:53:58 -0700 (PDT)
-Message-ID: <ce7c0b2d-2245-40d4-93d7-0970d2f84033@suse.com>
-Date: Tue, 27 Aug 2024 15:53:57 +0200
+        bh=7ePsRRUJJZrjmR3x3E7P8pxZnFKK+dnjTPbEy/WvWuI=;
+        b=BukuysBgKnxuQpkN9Vo+5qXF4r0CRwsPI7RCacnjTBxRhiMRPcUF15lmAlSHDCSC0H
+         hhJpickofJ2GVIJWdjyEuKFJGf2adHnYqayJwQ0x0shheAOw2kDbo3aG+3M0FEcuS6lv
+         4Ipl1+4f6PWeCaCdZ0vgU7luUX2K7DPAXXzRU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724767021; x=1725371821;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=7ePsRRUJJZrjmR3x3E7P8pxZnFKK+dnjTPbEy/WvWuI=;
+        b=gQJ1q/MtP99xVRU0mOAX8Tinr13ZaFPX3y2V4kpoXwz2R7WAiOIvX1bEKcvwBDQlfW
+         rVyE2tLAOnPLNooRPWmvsTN/Z1nTbDOwk+JhjPsomuDBVkXxJDIMRa1OV1AsqN5izvzG
+         y5RZUiRFCb/vAsYcfNWwDPRjPsQCu0lT4oHcUDkC/H+fMvqxdc2Q2zpIpu5oo9klyvDS
+         7CSbdbSFcS9a1S13cShVsvGKall5Ix81wGHZbF4lZQnfVwiCl8k4vusE7vHu5F8o4MRf
+         3V+WhQmkHFD3RZOofJAzvaNzs2Yh18KkIF6nQolNdqUS90Ps0T/1dOBgK0CIMfPytusq
+         4aDg==
+X-Forwarded-Encrypted: i=1; AJvYcCUoNRrbczoDH31dgAfIQA1AbMaCd/q6GUiYkorNtaFdhYt43c8FaegSQXVzvadycHN0Ypu2//9Iu08=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwdYLfUNu7QztdpHKN6UZyLQup8U8krjdAp5zOprDXGjk+CoBIR
+	fsac4sy27Xw/EDH+jof7nDeBIX8SfkiuVgMdKs+CX+o5jb0hmPqyT+JGlgWaxk+Ka8TFgMegYjf
+	R+MYPMmLsMMvETxlgvT+BwNSReYgViN3yhrDdcA==
+X-Google-Smtp-Source: AGHT+IEd65LqBC7abzN/zts5K1hpuW+hWIywvh/pydS8ElMKLeDbkWayR1d96BJY1QYVmAi+GGjP7qx2CbIQ5BFfvpk=
+X-Received: by 2002:a05:6820:2228:b0:5da:99f5:8fd6 with SMTP id
+ 006d021491bc7-5dcc5b68c45mr15378505eaf.0.1724767018114; Tue, 27 Aug 2024
+ 06:56:58 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] x86/dom0: disable SMAP for PV domain building only
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-References: <20240827123949.24400-1-roger.pau@citrix.com>
- <734d41c3-709c-4286-8353-f5483b0987cb@citrix.com>
- <d939dffc-e8e3-40cf-8494-c03ae6978c90@suse.com>
- <4822571d-efe9-4cab-a016-70ee5f21c256@citrix.com>
- <Zs3Z7quUyCi4OuYb@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zs3Z7quUyCi4OuYb@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20240822152953.489136-1-frediano.ziglio@cloud.com> <55e6dc6c-344a-4483-90c2-e414ef4bc869@suse.com>
+In-Reply-To: <55e6dc6c-344a-4483-90c2-e414ef4bc869@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Tue, 27 Aug 2024 14:56:47 +0100
+Message-ID: <CACHz=ZgbU3-HBgoDC9ws=cCK10B2D4K2JxjLN3_0YGoksVep8w@mail.gmail.com>
+Subject: Re: [PATCH] Avoid additional relocations in trampoline code
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 27.08.2024 15:51, Roger Pau Monné wrote:
-> On Tue, Aug 27, 2024 at 02:07:07PM +0100, Andrew Cooper wrote:
->> On 27/08/2024 2:04 pm, Jan Beulich wrote:
->>> On 27.08.2024 14:59, Andrew Cooper wrote:
->>>> On 27/08/2024 1:39 pm, Roger Pau Monne wrote:
->>>>> --- a/xen/arch/x86/dom0_build.c
->>>>> +++ b/xen/arch/x86/dom0_build.c
->>>>> @@ -612,7 +612,24 @@ int __init construct_dom0(struct domain *d, const module_t *image,
->>>>>      if ( is_hvm_domain(d) )
->>>>>          rc = dom0_construct_pvh(d, image, image_headroom, initrd, cmdline);
->>>>>      else if ( is_pv_domain(d) )
->>>>> +    {
->>>>> +        /*
->>>>> +         * Temporarily clear SMAP in CR4 to allow user-accesses in
->>>>> +         * construct_dom0().  This saves a large number of corner cases
->>>>> +         * interactions with copy_from_user().
->>>>> +         */
->>>>> +        if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
->>>>> +        {
->>>>> +            cr4_pv32_mask &= ~X86_CR4_SMAP;
->>>>> +            write_cr4(read_cr4() & ~X86_CR4_SMAP);
->>>>> +        }
->>>>>          rc = dom0_construct_pv(d, image, image_headroom, initrd, cmdline);
->>>>> +        if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
->>>>> +        {
->>>>> +            write_cr4(read_cr4() | X86_CR4_SMAP);
->>>>> +            cr4_pv32_mask |= X86_CR4_SMAP;
->>>>> +        }
->>>>> +    }
->>>> I hate to drag this on further still, but can this logic be move it into
->>>> dom0_construct_pv() itself, rather than here?
->>> Just to mention it: I'm fine with this in principle, as long as this won't
->>> mean a pile of new goto-s in dom0_construct_pv(). If a new wrapper was
->>> introduced (with the present function becoming static), I'd be okay.
->>
->> I'd be happy with that too.
->>
->> In fact, static helpers are probably best, seeing as we'll eventually
->> need real #ifdefary around the cr4_pv32_mask accesses.
-> 
-> Do you mean a static helper in dom0_build.c for enabling/disabling
-> SMAP?
+On Mon, Aug 26, 2024 at 9:21=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 22.08.2024 17:29, Frediano Ziglio wrote:
+> > The trampoline could have "manual" relocation entries (created
+> > by assembly macros and some code to use them) and (in case of PE)
+> > normal executable relocations.
+> > Remove all normal executable ones. In this way we don't have to
+> > worry about applying both correctly (they need proper order
+> > which is hard to spot looking at the code).
+> >
+> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+>
+> I think this wants splitting into one patch replacing sym_offs() and a
+> 2nd one introducing the hand-crafted __XEN_VIRT_START additions (which
+> may want macro-izing). Plus the justification for the change wants
+> extending, to actually explain what the problem is - after all there's
+> no issue anywhere right now.
+>
 
-While that's how I understood Andrew's response, I'm not sure that'll buy
-us very much. They'll both be used just once, and hence the amount of
-#ifdef-ary is going to be the same as when the logic is kept in line.
+Should I explain the time dependency issue with source code?
+I suppose I can describe where currently is and why it would be better
+to have it removed (honestly I though I did but reading the commit
+message I didn't).
+Maybe for search reasons it would be better to define 2 macros like
+the following?
 
-Jan
+#define phys_addr(sym) sym ## _pa
+#define virt_addr(sym) sym ## _va
+
+This way, for instance, searching for the "__high_start" word (like
+"grep -rw __high_start") would produce a result.
+
+> > --- a/xen/arch/x86/boot/trampoline.S
+> > +++ b/xen/arch/x86/boot/trampoline.S
+> > @@ -73,7 +73,7 @@ trampoline_protmode_entry:
+> >          mov     %ecx,%cr4
+> >
+> >          /* Load pagetable base register. */
+> > -        mov     $sym_offs(idle_pg_table),%eax
+> > +        mov     $idle_pg_table_pa, %eax
+> >          add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
+> >          mov     %eax,%cr3
+> >
+> > @@ -113,7 +113,7 @@ trampoline_protmode_entry:
+> >          .code64
+> >  start64:
+> >          /* Jump to high mappings. */
+> > -        movabs  $__high_start, %rdi
+> > +        movabs  $__high_start_pa + __XEN_VIRT_START, %rdi
+> >          jmpq    *%rdi
+> >
+> >  #include "video.h"
+> > --- a/xen/arch/x86/boot/wakeup.S
+> > +++ b/xen/arch/x86/boot/wakeup.S
+> > @@ -99,7 +99,7 @@ wakeup_32:
+> >          mov     $bootsym_rel(wakeup_stack, 4, %esp)
+> >
+> >          # check saved magic again
+> > -        mov     $sym_offs(saved_magic),%eax
+> > +        mov     $saved_magic_pa, %eax
+> >          add     bootsym_rel(trampoline_xen_phys_start, 4, %eax)
+> >          mov     (%eax), %eax
+> >          cmp     $0x9abcdef0, %eax
+> > @@ -112,7 +112,7 @@ wakeup_32:
+> >          mov     %ecx, %cr4
+> >
+> >          /* Load pagetable base register */
+> > -        mov     $sym_offs(idle_pg_table),%eax
+> > +        mov     $idle_pg_table_pa ,%eax
+> >          add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
+> >          mov     %eax,%cr3
+> >
+> > @@ -156,7 +156,7 @@ wakeup_32:
+> >          .code64
+> >  wakeup_64:
+> >          /* Jump to high mappings and the higher-level wakeup code. */
+> > -        movabs  $s3_resume, %rbx
+> > +        movabs  $s3_resume_pa + __XEN_VIRT_START, %rbx
+> >          jmp     *%rbx
+> >
+> >  bogus_saved_magic:
+>
+> With the sym_offs() uses gone, I think it would be best if the macro was
+> #undef-ed ahead of the inclusion of trampoline.S. Since x86_64.S uses the
+> macro, that'll require careful re-arrangement of #include order.
+>
+
+I think you mean including the trampoline after including x86_64.S in
+head.S. I can do it.
+
+> > --- a/xen/arch/x86/xen.lds.S
+> > +++ b/xen/arch/x86/xen.lds.S
+> > @@ -71,7 +71,12 @@ SECTIONS
+> >    __2M_text_start =3D .;         /* Start of 2M superpages, mapped RX.=
+ */
+> >  #endif
+> >
+> > -  start_pa =3D ABSOLUTE(start - __XEN_VIRT_START);
+> > +#define DEFINE_PA_ADDRESS(sym) sym ## _pa =3D ABSOLUTE(sym - __XEN_VIR=
+T_START)
+> > +  DEFINE_PA_ADDRESS(start);
+> > +  DEFINE_PA_ADDRESS(saved_magic);
+> > +  DEFINE_PA_ADDRESS(idle_pg_table);
+> > +  DEFINE_PA_ADDRESS(__high_start);
+> > +  DEFINE_PA_ADDRESS(s3_resume);
+> >
+> >    . =3D __XEN_VIRT_START + XEN_IMG_OFFSET;
+> >    _start =3D .;
+>
+> For the cases where in assembly code you add __XEN_VIRT_START this is pre=
+tty
+> odd: You subtract the value here just to add it back there. Did you consi=
+der
+> a more straightforward approach, like introducing absolute xxx_va symbols=
+?
+>
+
+I didn't consider. Would something like
+
+#define DEFINE_ABS_ADDRESSES(sym) \
+   sym ## _pa =3D ABSOLUTE(sym - __XEN_VIRT_START); \
+   sym ## _va =3D ABSOLUTE(sym)
+
+make sense? Maybe the _pa and _va suffixes are too similar? Maybe
+_physaddr and _virtaddr? Or use capical letters and macros (as above)
+to avoid possible clashes?
+
+> Also, as a general request: Can you please become used to adding meaningf=
+ul
+> subject prefixes to your patches?
+>
+
+Sure
+
+> Jan
+
+Frediano
 
