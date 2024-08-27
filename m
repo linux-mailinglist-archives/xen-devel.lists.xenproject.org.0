@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94DB960B03
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 14:50:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.783954.1193289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C93E2960B2F
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 14:58:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.783962.1193299 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siveT-00071P-VU; Tue, 27 Aug 2024 12:50:25 +0000
+	id 1sivlU-0008IS-ND; Tue, 27 Aug 2024 12:57:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 783954.1193289; Tue, 27 Aug 2024 12:50:25 +0000
+Received: by outflank-mailman (output) from mailman id 783962.1193299; Tue, 27 Aug 2024 12:57:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siveT-0006ye-Sp; Tue, 27 Aug 2024 12:50:25 +0000
-Received: by outflank-mailman (input) for mailman id 783954;
- Tue, 27 Aug 2024 12:50:24 +0000
+	id 1sivlU-0008GZ-JE; Tue, 27 Aug 2024 12:57:40 +0000
+Received: by outflank-mailman (input) for mailman id 783962;
+ Tue, 27 Aug 2024 12:57:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tHc6=P2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1siveS-0006yY-Nb
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 12:50:24 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qQW3=P2=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1sivlT-0008GS-AI
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 12:57:39 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062b.outbound.protection.outlook.com
+ [2a01:111:f403:2416::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec5f79ea-6472-11ef-99a0-01e77a169b0f;
- Tue, 27 Aug 2024 14:50:22 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so527838966b.2
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 05:50:22 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e548620asm107721966b.8.2024.08.27.05.50.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 05:50:21 -0700 (PDT)
+ id edfbf22a-6473-11ef-99a0-01e77a169b0f;
+ Tue, 27 Aug 2024 14:57:36 +0200 (CEST)
+Received: from DS7PR03CA0202.namprd03.prod.outlook.com (2603:10b6:5:3b6::27)
+ by SJ2PR12MB9006.namprd12.prod.outlook.com (2603:10b6:a03:540::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.19; Tue, 27 Aug
+ 2024 12:57:27 +0000
+Received: from DS2PEPF00003443.namprd04.prod.outlook.com
+ (2603:10b6:5:3b6:cafe::28) by DS7PR03CA0202.outlook.office365.com
+ (2603:10b6:5:3b6::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.25 via Frontend
+ Transport; Tue, 27 Aug 2024 12:57:27 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF00003443.mail.protection.outlook.com (10.167.17.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7897.11 via Frontend Transport; Tue, 27 Aug 2024 12:57:27 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 Aug
+ 2024 07:57:26 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 27 Aug 2024 07:57:24 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +59,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec5f79ea-6472-11ef-99a0-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724763022; x=1725367822; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2I9sb0rWyJjhiIrLbYmJiWJD2a3sWd93WXXkQtRBqDA=;
-        b=B9mX8ZG1bmVHwsg8EFJ/mJT4DZNVBydvfjfMpFw6uWUvR6TPhWDbl7XengzK/As1ji
-         alwqHQTIzQOL8eRtGmdid/+keLCl0HZObhwVzOX8wHecmPdgocuPBFJMwE7+hVfzpG1I
-         vZw9TqA/onP03bvIhJp1NIXjLWefxsp42vo2GkPOM+ZDND6IBqkLyLWKQg/+I1W6Y3Ej
-         ZHpZxr38ba/DZ7YqpZYmqIin/v1JAdaBaX6P+Z5cSMt+DdOwq5MO3etg69WmPqLu4W+/
-         qnrCQ2V60ENnxShiGMLnkVOWJfVMpsXRfDQo90iNteXoKuyEYBJe+UOTfnG9imWRijrE
-         FSAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724763022; x=1725367822;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2I9sb0rWyJjhiIrLbYmJiWJD2a3sWd93WXXkQtRBqDA=;
-        b=aLJUY/8LNxAH+MkQh47AJZbeZQbSRZeyqCdI8yWvYox6ZKwDZyN3GbMC5LR2nAr13V
-         2znYzPsEKRa/V7N61IFQZ5Qam7TznnLlgfij2kHJ+fMBiZqi/FRPDwABjIz/NHa+S2s2
-         sF6Epz8Jqq7pa/udbj5l1Bet7b4I72mv22EEEegPTim1TpGolFZZKleooelP5UXhhVWB
-         cOpGNBJgrbS4U551DS6W+aZmmwqqy0+joVNuQgXfQAUIseXthpQtQ3+dX/TPcR/lnU2q
-         ZtvmDi+ZhLW3EA8thWUz60ao9jP8mvvLz0Ycyid+j/zyzbJdPs9k1j/BCuDI0tjG5LBH
-         7VwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXbv7DOfvd8YA0tvbTxK1qo4srvhD/alQOcqfMUUKv42lL2L5+vkTDeYO32jElKJoAd4vv48nSziAU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwsMK9ohlNH38DeI+kCWGSlcl946hjgYFhhT2XJZLzxsQzsGzJb
-	naKazwXg9gyJ1JsvttVMSk+14+bbsGCtkBd27ZNc+un+5tAkeNV0Hh0gFVJEQQ==
-X-Google-Smtp-Source: AGHT+IFc9+ZBM+KJFWYygc+PxUFmZcQk3XJRFYZhmFEDgOOymzP57rPhWip4FrlRfr2C+lOmNe7Jaw==
-X-Received: by 2002:a17:907:6d07:b0:a86:7514:e646 with SMTP id a640c23a62f3a-a86a54d1473mr944738066b.42.1724763022117;
-        Tue, 27 Aug 2024 05:50:22 -0700 (PDT)
-Message-ID: <5521cd0f-6baf-4929-a2bd-9ebe67c99268@suse.com>
-Date: Tue, 27 Aug 2024 14:50:20 +0200
+X-Inumbo-ID: edfbf22a-6473-11ef-99a0-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FmTIgfarZmbGwD/jYQRyg533hdAg0rKn7gejPFU71k01fZ7Es92Pjr2o21HRmYXsjMBKMpbxcg3Ux5DF30HSp9aapU6TeBr9A7Zs2Tfxa0kzgqjo/BZB7/0w3B9OyM7Gxv2bCH9Zpo0acU8YayhtfCMM/FImBMBzyJw6z1hMaFbmzja7WxWBeQVCEo6HUs06U1SbGwyWc6DN0RajzQgYZqiLeI894m55QQAq4hwEZaeWEEk2ZKqwf2+QCwu85z+pdQUSCXK3tWR2A9ZWSl5f6/O+o20sRUG2mhfM2UvBs4ftwCxhivGU14hqQJW+zb9d1WNVzc0KCBpI907r5QAtuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zuxYWRIwAEFWuqr//NuVQZLc/Pq2XWitwRavP23NVtI=;
+ b=MJtOrPz0DHbcA/kYcoN57300JhpfJ0yv9j0CH3mMNxYxF0KRjDlokPPqIE/RH/k7ceUnJ1QtwkXoIywHv2MGW4aP+Kw53JuIv5VshA0yC79I98GNpTUjf5lJ5HqWZtO3gaQgp2uyImvfL3nam8y6OVZP7ORDS9R1NkGsDSYtcdC8Ie8lCReRbvSFJ2b+YYmxk2o3eAWSComgCWj9fEa/v6D2YyEGE5kRhTVRwpuYAkzxiL2ahDZTKN08GUuys7q02RZ83KLYFfUF1xDOG2yzMlHDWqcO965Empl73/uWAeDa12Z58BMVz8zw35P1at3+wnl+eqLMU8NaHvfIc3aqvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zuxYWRIwAEFWuqr//NuVQZLc/Pq2XWitwRavP23NVtI=;
+ b=jo0V5/4gmTFDRAeJYF2lOYo1ZWq89E65CDgd9Hq8kI1kUOyqgJmZNrK3fIjHYhbDor45lXgYRuWOHeimbs3YrzFCuRP7qhoFJ3WYzAbuQMUBCCFZu6PERGOHSOoteLgsWQ5kf+JVB8lBiCmNB8i0wOnFAp1XNcI6zclEiQlFIBo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <f3ef9244-9d16-47ab-bca3-d5bb4c34fcc2@amd.com>
+Date: Tue, 27 Aug 2024 14:57:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/9] xen/bitops: Introduce a multiple_bits_set() helper
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
- <20240822230635.954557-3-andrew.cooper3@citrix.com>
- <841e2cde-6fc2-49d9-b947-534bd53bc00e@suse.com>
- <239165e3-6f96-452f-9c81-05f29012269f@citrix.com>
+Subject: Re: [PATCH] ARM/vgic: Use for_each_set_bit() in vgic_to_sgi()
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Jan Beulich <JBeulich@suse.com>
+References: <20240823230100.1581448-1-andrew.cooper3@citrix.com>
+ <6513e2ea-0471-41ca-b328-ce1bc1deddaf@amd.com>
+ <a4c0b1d3-ff7a-4ea5-bffb-756125a434af@citrix.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <239165e3-6f96-452f-9c81-05f29012269f@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <a4c0b1d3-ff7a-4ea5-bffb-756125a434af@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003443:EE_|SJ2PR12MB9006:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e44186c-b3dd-4b46-fc7b-08dcc697ce00
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?cHV5YzN5YmtPbXdTdEw3TVRicDZwUUF1RStRMElhdTdDRGNKcm5Tb3BTR0k5?=
+ =?utf-8?B?aGtza0lZTGVsVkxkWFhBVTdPNGNPNUpYMXgxUjZVMkg2Z25TS1A1NTExU2ts?=
+ =?utf-8?B?cEJYMFNVSUd2UFR0emNDY3JnRzI4NForRWExRHlHcEI0T0diMEpyVHd5enl2?=
+ =?utf-8?B?MkRlTm9GOWF1WVp6anhxWmE5VWtNZ3BtRjZpUTJqN3dwaEJUZi9mNFBidWMw?=
+ =?utf-8?B?K1BHeTBtUG14S1NneitxUG9xQUp1M1hRMm5oRzl3YnN3SUt6TWdhMHg2NENO?=
+ =?utf-8?B?MTR2MW1ya1cyTlpEelZBUVFXSVV4THhtQWxBT3JHaUVHZDF3d20zbkR2bkhS?=
+ =?utf-8?B?ZUhZRDFDU3Bwa2xvL3RmUEdjS1p5MDJDd3Azbi9lM1JUbGxMNm4zakQwdDNC?=
+ =?utf-8?B?UjYrNjcxN1FrTFBIa3I3K1VKQ3JlWGgvbGsyVEFxNmZYYnBmL3NFTnMxaWJV?=
+ =?utf-8?B?K0hrVUJobE01UnVlRUtINjVPRWVkK3E0bDNqRkpCRkM3cXVwU2FGWnl5bTlh?=
+ =?utf-8?B?MTFiRCtEaEsvU0dRN0hrbFl3MzhQZkRoeGxTWVNvMGRJUVkycGc3WWEwR1FZ?=
+ =?utf-8?B?TlZtZmpheEVDdUlQeGptZTI5S2luZGtHOG9aZUJLN2FFa3lOam9jYmpMaWkv?=
+ =?utf-8?B?SWlRcDdlRjNHS1NvS0tkR2lHanZFTG5FbFkzTk5scGlKdGh0aURaMXo2U3Jt?=
+ =?utf-8?B?MW95MmtvZlBZVzFMelErSmNudCt2bm80UWtJT3pwSWdHR0ViT1VVMXZHVkIr?=
+ =?utf-8?B?YkhQQlNJTmgrQ0IzZ3RRaUErczBKaFpkcysyZ3F5VGxHb0YzRXkrNkhIY0tT?=
+ =?utf-8?B?QkhJZjVrcUlJeEwvVXJFT2VGblhpNjR1d2YzYnk1anBtcTFMV2IyaHFlWU1p?=
+ =?utf-8?B?cXI0YlltZkhSK29CeWZsUmlyQVdjMTd2WnZQdS9iL1Fla3ExZld2d05TcDR6?=
+ =?utf-8?B?SzJMZncwQVYvVXo1WDNkMVRsdVBQWGJoc0trNVdSNUtXUEg5VmxwK0k3bEtk?=
+ =?utf-8?B?dEp5aUdQUlJvMDVETjh0Q1JhUjVZT3IvYXB2ejlDWmwrMlhoWW9FOGEveTRX?=
+ =?utf-8?B?cm9VVlJpU2c0aGRaM0k1N2hYd3FVUW5DSUJkY3ErUHpKQW14akJzTHpwRXpU?=
+ =?utf-8?B?LzFtTVh1Tnhlc0hQQVA5bnArZWYvdWJpRURNZ2liR3dLZFBSQy9ZbXBlWnFX?=
+ =?utf-8?B?N01JWC9heXl4NGpxcUVvWUY5Y1BTY2U1aENINUNkNGc4VXQvRkdCVi90aXJ1?=
+ =?utf-8?B?QzlCalRQSXBHODdsWU1qbVRZSDY5VGRXZnNMMUJaRTVLc3dGSUZHY3VZQmdx?=
+ =?utf-8?B?YWhWN04zYmhJdHlVcU1vZlRhekozMC9nakN2a3NNVlRUUHhTa1owR3dMSlJW?=
+ =?utf-8?B?Ky9JZDJDRFVCU25DT2NmOTIyVi8vay9qVWgrWFpzMWgzWEI5ZmJMdGdncEw5?=
+ =?utf-8?B?TlVneHZURlhxempSRTRDM2h5b0xlbUk4VWZnNGo5M2xoNDVRRkxMN1pPc21M?=
+ =?utf-8?B?aVZqV1IrV29wdjNvdjhjOUpuYmJFZXZMcVlQYjZHckxyWktFQnFwU2hXYklT?=
+ =?utf-8?B?ejJnRTFIR080WDJvUU9hb1ZrNmhEV0xaUVF0ZFBGMFg2WnVXSVh1VzlMSTBT?=
+ =?utf-8?B?UndXRUkzU3owaUNMUkZFN2ZTd2RKRWhwVXkvc2FNYzdTSTdPY0xlUDkybUJs?=
+ =?utf-8?B?cGhYbXhLWEoxajg2N2pZVkV2bG4zR3hpbjdvV1BJdVF1bFA1cjJ3c1FMbGdv?=
+ =?utf-8?B?ajVVZCs0cFFqTVRzR2lnaTlOeXZHRTZCSWc4eW1LaWZzWkdHUGhHbTZVUHBG?=
+ =?utf-8?B?cTB1QnBURlFpeFNwRFg5U1lTTnJRVGJEVVNvbFBHbTNmNDNIaEI4UEpqY2E2?=
+ =?utf-8?B?R3RwaGJpakdxcDV2d2tJQlNhWFdRMGpjZWlhTUVsT3ZYNFh0UllDMnZvTzlK?=
+ =?utf-8?Q?Lwx1jvxbBs2yVjdSbG1O11/NhWpr8iRt?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2024 12:57:27.6737
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e44186c-b3dd-4b46-fc7b-08dcc697ce00
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00003443.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9006
 
-On 27.08.2024 14:01, Andrew Cooper wrote:
-> On 26/08/2024 11:30 am, Jan Beulich wrote:
->> On 23.08.2024 01:06, Andrew Cooper wrote:
->>> --- a/xen/common/bitops.c
->>> +++ b/xen/common/bitops.c
->>> @@ -84,8 +84,32 @@ static void __init test_fls(void)
->>>      CHECK(fls64, 0x8000000000000001ULL, 64);
->>>  }
->>>  
->>> +static void __init test_multiple_bits_set(void)
->>> +{
->>> +    /*
->>> +     * multiple_bits_set() is generic on the type of it's parameter, as the
->>> +     * internal expression is so simple.
->>> +     */
->>> +
->>> +    CHECK(multiple_bits_set, 0, false);
->>> +    CHECK(multiple_bits_set, 1, false);
->>> +    CHECK(multiple_bits_set, 2, false);
->>> +    CHECK(multiple_bits_set, 3, true);
->>> +
->>> +    CHECK(multiple_bits_set, 1 | (1UL << (BITS_PER_LONG - 1)), true);
->> This is really the same as ...
+
+
+On 27/08/2024 14:20, Andrew Cooper wrote:
+> 
+> 
+> On 27/08/2024 1:13 pm, Michal Orzel wrote:
 >>
->>> +#if BITS_PER_LONG > 32
->>> +    CHECK(multiple_bits_set, 1 | (1UL << 32), true);
->>> +    CHECK(multiple_bits_set, 1 | (1UL << 63), true);
->> ... this, at least as long as BITS_PER_LONG > 32 in practice means
->> BITS_PER_LONG == 64. Perhaps not really worth keeping that line?
+>> On 24/08/2024 01:01, Andrew Cooper wrote:
+>>>
+>>> The existing expression is just a very complicated way of expressing a loop
+>>> over all bits of target->list.  Simplify the expression.
+>>>
+>>> While here, fix the two gprintk()'s.  Because of a quotes vs line continuation
+>>> issue, there's a long string of spaces in the middle of the format string.
+>>>
+>>>   $ strings xen-syms-arm32 | grep -e VGIC -e GICD_SGIR
+>>>   <G><1>%pv VGIC: write r=%08x                         target->list=%hx, wrong CPUTargetList
+>>>   <G><1>%pv vGICD:unhandled GICD_SGIR write %08x                  with wrong mode
+>>>
+>>> not to mention trailing whitespace too.
+>>>
+>>> Rewrite them to be more consise and more useful.  Use 0x prefixes for hex,
+>> s/consise/concise
+>>
+>>> rather than ambigous, and identify the problem target vCPU / mode, rather than
+>> s/ambigous/ambiguous
+>>
+>>> simply saying somethign was wrong.
+>> s/somethign/something/
+>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>> CC: Julien Grall <julien@xen.org>
+>>> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>>> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+>>> CC: Michal Orzel <michal.orzel@amd.com>
+>>> CC: Jan Beulich <JBeulich@suse.com>
+>>>
+>>> In a fun twist, we can't use target->list directly in the expresion, because
+>>> the typeof() picks up constness from the pointer, and we get:
+>>>
+>>>   In file included from arch/arm/vgic.c:11:
+>>>   arch/arm/vgic.c: In function ‘vgic_to_sgi’:
+>>>   ./include/xen/bitops.h:305:19: error: assignment of read-only variable ‘__v’
+>>>     305 |               __v &= __v - 1 )
+>>>         |                   ^~
+>>>   arch/arm/vgic.c:483:9: note: in expansion of macro ‘for_each_set_bit’
+>>>     483 |         for_each_set_bit ( i, target->list )
+>>>         |         ^~~~~~~~~~~~~~~~
+>>>
+>>> Sadly we need -std=c23 before we can use typeof_unqual() which is what we
+>>> actually want here.
+>>> ---
+>>>  xen/arch/arm/vgic.c | 16 ++++++++--------
+>>>  1 file changed, 8 insertions(+), 8 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
+>>> index 7b54ccc7cbfa..081cbb67fb52 100644
+>>> --- a/xen/arch/arm/vgic.c
+>>> +++ b/xen/arch/arm/vgic.c
+>>> @@ -470,8 +470,7 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
+>>>      struct domain *d = v->domain;
+>>>      int vcpuid;
+>>>      int i;
+>>> -    unsigned int base;
+>>> -    unsigned long int bitmap;
+>>> +    unsigned int base, bitmap;
+>>>
+>>>      ASSERT( virq < 16 );
+>>>
+>>> @@ -481,15 +480,16 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
+>>>          perfc_incr(vgic_sgi_list);
+>>>          base = target->aff1 << 4;
+>>>          bitmap = target->list;
+>>> -        bitmap_for_each ( i, &bitmap, sizeof(target->list) * 8 )
+>>> +
+>>> +        for_each_set_bit ( i, bitmap )
+>>>          {
+>>>              vcpuid = base + i;
+>>>              if ( vcpuid >= d->max_vcpus || d->vcpu[vcpuid] == NULL ||
+>>>                   !is_vcpu_online(d->vcpu[vcpuid]) )
+>>>              {
+>>> -                gprintk(XENLOG_WARNING, "VGIC: write r=%"PRIregister" \
+>>> -                        target->list=%hx, wrong CPUTargetList \n",
+>>> -                        sgir, target->list);
+>>> +                gprintk(XENLOG_WARNING,
+>>> +                        "vGIC: write %#"PRIregister", target->list=%#x, bad target v%d\n",
+>> Sth like "bad target v2" where the word vcpu does not occur anywhere in the msg can be ambiguous.
+>> Can you add the word vcpu e.g. "bad vcpu target v%d" or "bad target vcpu %d"
 > 
-> I suppose not.  I'll drop it.
+> Hmm yeah, v%d doesn't work quite so well when it's not prefixed with d%d.
 > 
-> However, It occurs to me that I do need a test of 0x8000000000000001ULL
-> mostly for 32bit builds to check that even when the argument is split,
-> the answer is still accurate.
+> Would you be happy with d%dv%d?  It's marginally more informative and
+> shorter.
+I don't think we can target a different domain with SGIs, so it does not make much sense to print domain id if
+it always stays the same as the leading %pv from gprintk.
 
-IOW you'll insert an #else in the middle. Fine with me; keep the R-b.
-
-Jan
+~Michal
 
