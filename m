@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA331961344
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 17:51:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784223.1193619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28A72961365
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 17:55:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784229.1193628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siySo-0003T7-2H; Tue, 27 Aug 2024 15:50:34 +0000
+	id 1siyXf-00043B-JQ; Tue, 27 Aug 2024 15:55:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784223.1193619; Tue, 27 Aug 2024 15:50:34 +0000
+Received: by outflank-mailman (output) from mailman id 784229.1193628; Tue, 27 Aug 2024 15:55:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siySn-0003Qj-Uu; Tue, 27 Aug 2024 15:50:33 +0000
-Received: by outflank-mailman (input) for mailman id 784223;
- Tue, 27 Aug 2024 15:50:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1siyXf-00040g-Gk; Tue, 27 Aug 2024 15:55:35 +0000
+Received: by outflank-mailman (input) for mailman id 784229;
+ Tue, 27 Aug 2024 15:55:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tHc6=P2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1siySm-0003Qd-6X
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 15:50:32 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 16b50e9e-648c-11ef-a0b0-8be0dac302b0;
- Tue, 27 Aug 2024 17:50:31 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5bed05c0a2fso6947269a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 08:50:31 -0700 (PDT)
+ id 1siyXe-00040a-C9
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 15:55:34 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c921a9f4-648c-11ef-99a0-01e77a169b0f;
+ Tue, 27 Aug 2024 17:55:30 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5bed72ff443so6560145a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 08:55:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c0bb1c4f37sm1142919a12.15.2024.08.27.08.50.29
+ a640c23a62f3a-a86e594e809sm124144866b.219.2024.08.27.08.55.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 08:50:30 -0700 (PDT)
+ Tue, 27 Aug 2024 08:55:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16b50e9e-648c-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: c921a9f4-648c-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724773831; x=1725378631; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724774130; x=1725378930; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TnoIv9rn8ZSaCj7N5sMftzWerTKewjrZ/r8uJIgT2hE=;
-        b=CQ1kaDfRJ0pb/YQ1S/5dVCE+6u2nRnvQjIMu0a+9eSvXYr43kaiAV2oWI3dnjR+hVX
-         I+e0KV+EbKCAVAMVYhTz1E5ZrOgLwAsDXIssCEzsHP7a36oemRwNZA4tQkKPlWPe4UES
-         YQFUxyh1mG/xTLCu/uQXz+AfT8gy5zpAPOhbiLDCHF9srILQ9c5/2Pz5uCU+DRKQu8+V
-         hItaJTVXJvgDFmi1gGsG0GrDAzNBi8vqgArFPF2sOC7DGLQm9L8y2iQ+qke802Mdx+VJ
-         wB9w+ue6oQ18+2z4ZDKCynhldAmc/V4TF87uqVLdgxqnpmf4o4f4wNvOhApW1bUJD11W
-         jsTw==
+        bh=niKBLfDuQyq3nbWbh5tdu7wA7idV67hA9CxZQeeYDik=;
+        b=JlCyv+0R6GpzLHL6NnK34QPBsGAFAeWIP+vktmcqjLJC4VgMJkmm4qlBgVLuwEGFsP
+         KmDOcmEXkqDXVIo4pFaCQ7gvUa0ku1dYXONaRmekkjrBOeb+euPHcdVIXC2VcBj3PaLI
+         4wMMdwuic+0b1kbXhNKjbQ52/cZgVrYmbFswHy+7GVNGB4g6kgAvigF5vKkI+tydAaoW
+         u2eCsuefh8cjynhVv784j2M9Xz3oZR1X6h4hYCJd/EbTzF3uNXjLg01l9RI4ugmzA7Sc
+         9VClJy0sjNszqWoNzWdyoVdQNSZk5P6KaY+Q81NimtHlOywFkTwzvV8sTZjt34A4ScCC
+         tuIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724773831; x=1725378631;
+        d=1e100.net; s=20230601; t=1724774130; x=1725378930;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TnoIv9rn8ZSaCj7N5sMftzWerTKewjrZ/r8uJIgT2hE=;
-        b=TSJU011mTnt8FOMfaGWixy2WZh8Yo02al32LFBH+4q38mxvqm1VfY3pOmmtVN5odFs
-         wk4b7nD5+e+6sN9rDh09qFQcfhucaiL+X77iTaKit/slumvByfscvybaUTnYQdxdATuy
-         h5410N3mZBUjiIajsdPfkOOB/e6IPUaI/dUp+UNPAqjUq1HNI2/lRSMiQwQy4lNA7iIO
-         TFujXj5xeoS0+uIcLCst0aS7hWrs0IXMitPwwFzvWDrgfrz17DNee5iMX74lm86aCt5C
-         fjXKHDqm8lWY10WCSW3+h4/rXRlbvctjI3ZO69jhLjw7n5C5VVX2VhBhSJcqIEzwWRMD
-         rkIA==
-X-Forwarded-Encrypted: i=1; AJvYcCUfz0y104iw2AYy0i2cFm00KuOSEJh3GlcNdLUuNGBLXyl5+M2H86Gix4uLx1UN+ytVGo2WoQ2M2Cw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwdCBDMSU/8+mfNDHCuhH4uM6a59j9KmDmwVobk+9GWIIXV5z26
-	/zFBrRqZICIJxClDdDRSb571pHEFPYYIPVtLBKC1qvrwy1yC/o8fdpWTWzPIkQ==
-X-Google-Smtp-Source: AGHT+IFDx+ZkETay8GNFrGIQPbco4CBBtrTKn7k4uh+vlubrFcNlO4r/ob9ziWIM+gLC4wf5glOLhw==
-X-Received: by 2002:a05:6402:42c7:b0:5be:e9f8:9bbf with SMTP id 4fb4d7f45d1cf-5c089164ac8mr11017040a12.9.1724773830476;
-        Tue, 27 Aug 2024 08:50:30 -0700 (PDT)
-Message-ID: <527b3a0f-3e86-47aa-9092-e67df329b7e9@suse.com>
-Date: Tue, 27 Aug 2024 17:50:29 +0200
+        bh=niKBLfDuQyq3nbWbh5tdu7wA7idV67hA9CxZQeeYDik=;
+        b=o3eKDTB+5qqD9vMvexU0tfXcVvFzRzilDF/tbKkBjo7GrSNVWaRbn18oNYJqgVPI1v
+         p8i3XkxKFL1VD8OsMQxXTK8v02BLxxWPlE8mmox7ZoIj40RhYcYowpjFdirVA01RgcjP
+         mlgFb87x23NhaAw9EyW/XN7g9RMxj8y+QSwByIgRyVh0KjDT0TiNwkjOrAV1eQi4a863
+         gOKer3BjLhgbxmkAcct+m6JC8TD3RO5fXl+poK6dUtyEx1cLXCVwSnYp4DJQ4zO40Vq1
+         zSQ3hs87MDwRggOpWD03g9LbrWUqOeuZT8dAzyVHvh2DvcFKBC6Yi456L9sU3h6LHz7H
+         2dmw==
+X-Forwarded-Encrypted: i=1; AJvYcCXh1Mp3Vbi4cW5bSJlPTcoa7mdFKH3VRXH0h/A3bJ5L0JOtx/s3KR1qq4yjGJWYNY+3+R+pJLZbxAg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx4zY1+HVnZ31E4zpt/MxFOLgZl8/kh6p4PuxIUf5P3l19HcRDn
+	2rQOk79b+gX4HxQxhi8oSEKZGQJ8fDcoIwRkNQEv8nKAJ0IPMy/k2WjFLyeYbA==
+X-Google-Smtp-Source: AGHT+IGelQYwIc1IlBvbq9eaN+6UkAiym28qD6xcS53GW6Z6H/qyJpzZ1poLFvY/QhAKJZayVsD1vQ==
+X-Received: by 2002:a17:906:f590:b0:a86:8ec7:11b2 with SMTP id a640c23a62f3a-a86a54f124cmr955737266b.59.1724774129847;
+        Tue, 27 Aug 2024 08:55:29 -0700 (PDT)
+Message-ID: <773b4710-46c4-4bc3-bf53-623bf666cfe8@suse.com>
+Date: Tue, 27 Aug 2024 17:55:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Avoid additional relocations in trampoline code
+Subject: Re: [PATCH 1/5] x86: Put trampoline in .init.data section
 To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- xen-devel@lists.xenproject.org
-References: <20240822152953.489136-1-frediano.ziglio@cloud.com>
- <55e6dc6c-344a-4483-90c2-e414ef4bc869@suse.com>
- <CACHz=ZgbU3-HBgoDC9ws=cCK10B2D4K2JxjLN3_0YGoksVep8w@mail.gmail.com>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240807134819.8987-1-alejandro.vallejo@cloud.com>
+ <20240807134819.8987-2-alejandro.vallejo@cloud.com>
+ <ad72cc97-b9dd-4e7e-93f6-333805e40785@suse.com>
+ <CACHz=Zh7wK58mbB762fnevHEKW9qhp-NRJ6buNe1b-qLxP0qPg@mail.gmail.com>
+ <b9b40658-ff13-4240-98a2-4811411e31b6@suse.com>
+ <CACHz=Zj8h-TeDa2Ey8EKKEOpXJqx9MnL+AGpdTBY1B8PZ0==mA@mail.gmail.com>
+ <a3d901f9-0a74-4cef-b616-77d338dda314@suse.com>
+ <CACHz=ZgCd81NV7yXZ-Lud-QP8sj05mH9N0c-1z=eBv3pz2ENAw@mail.gmail.com>
+ <f5519911-6a3a-468a-98ec-3345339847cd@suse.com>
+ <CACHz=ZhuFgTjbGJp-prENbPAM03SoGJ-=+8M1az_TZ3vsG2TEA@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,94 +122,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZgbU3-HBgoDC9ws=cCK10B2D4K2JxjLN3_0YGoksVep8w@mail.gmail.com>
+In-Reply-To: <CACHz=ZhuFgTjbGJp-prENbPAM03SoGJ-=+8M1az_TZ3vsG2TEA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27.08.2024 15:56, Frediano Ziglio wrote:
-> On Mon, Aug 26, 2024 at 9:21 AM Jan Beulich <jbeulich@suse.com> wrote:
+On 27.08.2024 16:56, Frediano Ziglio wrote:
+> On Mon, Aug 19, 2024 at 4:50 PM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> On 22.08.2024 17:29, Frediano Ziglio wrote:
->>> The trampoline could have "manual" relocation entries (created
->>> by assembly macros and some code to use them) and (in case of PE)
->>> normal executable relocations.
->>> Remove all normal executable ones. In this way we don't have to
->>> worry about applying both correctly (they need proper order
->>> which is hard to spot looking at the code).
+>> On 19.08.2024 17:30, Frediano Ziglio wrote:
+>>> On Mon, Aug 19, 2024 at 3:30 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 19.08.2024 16:16, Frediano Ziglio wrote:
+>>>>> Could I ouput the trampoline in a code section ("ax" instead of "aw")
+>>>>> and then later move it into .init.data section assuring .init.data is
+>>>>> writeable but not executable?
+>>>>
+>>>> Could you go into a little more detail on what you mean here? At the
+>>>> first glance my reaction is "yes, sure, why not", but much depends on
+>>>> what exactly is meant.
 >>>
->>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+>>> For instance you could put the trampoline into a
+>>>     .section .init.trampoline, "awx", @progbits
+>>> section (having the "x" will be disassembled by objdump -d head.o).
+>>> Then in xen/arch/x86/xen.lds.S in the .init.data section having something like
+>>> ...
+>>>   DECL_SECTION(.init.data) {
+>>>        *(.init.bss.stack_aligned)
+>>>       (.init.trampoline)
+>>>    ...
+>>> this will put the trampoline in .init.data section of the final
+>>> object. At this point the .init.data containing code will have execute
+>>> permission that you would have to fix using objcopy command.
+>>> The final trampoline will be in a data section not executable so to
+>>> use objdump you will need the -D option, but not disassembling head.o.
+>>> In theory we could keep the temporary object file before the objcopy
+>>> adjustment to avoid the -D but I don't think it would save a lot of
+>>> burdain.
 >>
->> I think this wants splitting into one patch replacing sym_offs() and a
->> 2nd one introducing the hand-crafted __XEN_VIRT_START additions (which
->> may want macro-izing). Plus the justification for the change wants
->> extending, to actually explain what the problem is - after all there's
->> no issue anywhere right now.
-> 
-> Should I explain the time dependency issue with source code?
-
-Time dependency? I guess I don't understand ...
-
-> I suppose I can describe where currently is and why it would be better
-> to have it removed (honestly I though I did but reading the commit
-> message I didn't).
-> Maybe for search reasons it would be better to define 2 macros like
-> the following?
-> 
-> #define phys_addr(sym) sym ## _pa
-> #define virt_addr(sym) sym ## _va
-> 
-> This way, for instance, searching for the "__high_start" word (like
-> "grep -rw __high_start") would produce a result.
-
-I assume it's best to keep everything there together, so see below.
-
->> With the sym_offs() uses gone, I think it would be best if the macro was
->> #undef-ed ahead of the inclusion of trampoline.S. Since x86_64.S uses the
->> macro, that'll require careful re-arrangement of #include order.
+>> Part of my "want to be able to disassemble" also applies to the final
+>> binaries. Since iirc one can disassemble individual sections, an option
+>> may be to have .trampoline be its own section even in the final (PE)
+>> binary?
 >>
+>> In any event, especially as long as there is no really good option, I
+>> think I'd like to have input from Andrew and/or Roger as well.
 > 
-> I think you mean including the trampoline after including x86_64.S in
-> head.S.
+> what about having an extra copy in .init.data. That is, compile the
+> trampoline in .init.text having it readable/executable in the final
+> PE, at the beginning copying into .init.data and handle the changes
+> there then when we can allocate the final memory allocate it and copy
+> the temporary writable copy into final lower memory area.
 
-Yes.
+I dislike such duplication, and I'd fear it may cause more confusion
+than to actually help. Plus you'd need to sort the symbol name clashes.
 
->>> --- a/xen/arch/x86/xen.lds.S
->>> +++ b/xen/arch/x86/xen.lds.S
->>> @@ -71,7 +71,12 @@ SECTIONS
->>>    __2M_text_start = .;         /* Start of 2M superpages, mapped RX. */
->>>  #endif
->>>
->>> -  start_pa = ABSOLUTE(start - __XEN_VIRT_START);
->>> +#define DEFINE_PA_ADDRESS(sym) sym ## _pa = ABSOLUTE(sym - __XEN_VIRT_START)
->>> +  DEFINE_PA_ADDRESS(start);
->>> +  DEFINE_PA_ADDRESS(saved_magic);
->>> +  DEFINE_PA_ADDRESS(idle_pg_table);
->>> +  DEFINE_PA_ADDRESS(__high_start);
->>> +  DEFINE_PA_ADDRESS(s3_resume);
->>>
->>>    . = __XEN_VIRT_START + XEN_IMG_OFFSET;
->>>    _start = .;
->>
->> For the cases where in assembly code you add __XEN_VIRT_START this is pretty
->> odd: You subtract the value here just to add it back there. Did you consider
->> a more straightforward approach, like introducing absolute xxx_va symbols?
-> 
-> I didn't consider. Would something like
-> 
-> #define DEFINE_ABS_ADDRESSES(sym) \
->    sym ## _pa = ABSOLUTE(sym - __XEN_VIRT_START); \
->    sym ## _va = ABSOLUTE(sym)
-> 
-> make sense? Maybe the _pa and _va suffixes are too similar? Maybe
-> _physaddr and _virtaddr? Or use capical letters and macros (as above)
-> to avoid possible clashes?
+> On a related but not too much topic, I noted there's no .init.bss.
+> Maybe we could allocate .init.bss (and .init.bss.stack_aligned or
+> whatever .init.bss.*) at the end of normal .bss and "cut" it while we
+> remove .init.text and .init.data.
 
-I'd like to ask that we don't introduce symbols we don't actually use. Hence
-a single macro defining both is probably not going to be overly helpful. As
-to capital letters: I'm struggling with the "(as above)" - I don't see any
-use of capital letters in symbol names being generated. But yes, I was going
-to suggest to consider _VA and _PA tags, precisely to reduce the risk of
-clashes.
+How would anything (in C) use .init.bss? __attribute__((section(...)))
+doesn't make @nobits sections (last I checked), and .init.bss that's
+@progbits is not really different from .init.data.
 
 Jan
 
