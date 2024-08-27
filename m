@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 660F1960BED
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 15:25:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784014.1193368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18F02960C72
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Aug 2024 15:43:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784033.1193378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siwCS-0001Bk-9U; Tue, 27 Aug 2024 13:25:32 +0000
+	id 1siwTe-00060v-Qh; Tue, 27 Aug 2024 13:43:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784014.1193368; Tue, 27 Aug 2024 13:25:32 +0000
+Received: by outflank-mailman (output) from mailman id 784033.1193378; Tue, 27 Aug 2024 13:43:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1siwCS-00019W-6Q; Tue, 27 Aug 2024 13:25:32 +0000
-Received: by outflank-mailman (input) for mailman id 784014;
- Tue, 27 Aug 2024 13:25:30 +0000
+	id 1siwTe-0005yN-NZ; Tue, 27 Aug 2024 13:43:18 +0000
+Received: by outflank-mailman (input) for mailman id 784033;
+ Tue, 27 Aug 2024 13:43:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ovuO=P2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1siwCQ-00019Q-M3
- for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 13:25:30 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ <SRS0=srL3=P2=gmail.com=milandjokic1995@srs-se1.protection.inumbo.net>)
+ id 1siwTc-0005yA-Gr
+ for xen-devel@lists.xenproject.org; Tue, 27 Aug 2024 13:43:16 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d39ff5ef-6477-11ef-99a0-01e77a169b0f;
- Tue, 27 Aug 2024 15:25:28 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a83597ce5beso854444366b.1
- for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 06:25:28 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
+ id 4ee487af-647a-11ef-99a0-01e77a169b0f;
+ Tue, 27 Aug 2024 15:43:14 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-428f5c0833bso34973565e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Aug 2024 06:43:14 -0700 (PDT)
+Received: from Xen-host.domain.local ([89.216.37.146])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e549cf94sm109969366b.80.2024.08.27.06.25.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Aug 2024 06:25:26 -0700 (PDT)
+ 5b1f17b1804b1-42abed922b4sm224508655e9.11.2024.08.27.06.43.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Aug 2024 06:43:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +45,517 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d39ff5ef-6477-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: 4ee487af-647a-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724765128; x=1725369928; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eMp28LvFTtxeR9SpDuL8luPgVO/0eKtg5UQmM1UbdnI=;
-        b=Orx+KP5mTywqnBD3NRcE5i4J4GLFADQavi7B6v5RENRjKxYwY0EeAZF0GA9T3hPCKq
-         0X4PSjWVmWBnSzcdT5m73nbiAlQEZAOlNwgXPcfkiuIZDN0Cyte6+XznjLUc89ttgWHT
-         oJP407Pjs9l+mwGsTYuUWiIft9b2PuQ2EAcE0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724765128; x=1725369928;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1724766194; x=1725370994; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eMp28LvFTtxeR9SpDuL8luPgVO/0eKtg5UQmM1UbdnI=;
-        b=Bv4UmsPY2Noj//Y86FqtUluK81S68I0zoMatQfQ4KEU0KniHgTI8170cLJmFhloTQb
-         Ib/jD/fsWrYgGALrww2zmVgVzTUZQZVgH5zA20pMp/8lBFN3u6mYeNZMITTJKmG+2rd7
-         TY1DDpYBbVCHI9dGwKqI1wOXJz1GobOoJZMcNgevvALptnnFYh0zHJJPpKfC9xIa4gJt
-         uS+naiTEIWNPQ8R2/2phSX92eYpcQUscn8IzhlOKurFSzqph+NElr1WUhF5CJlbLzp8j
-         sOKlpZ39GSv4Lcmsz9kQs/GiQ7kdb4N/XtJmDJJ3UbgiJhhfciLOuHeYFptu/IVN+Kpl
-         R0OA==
-X-Forwarded-Encrypted: i=1; AJvYcCUQ934yD7kSTxb/KDo0gRiU6HXs7+gf+NNJtQxXZ4dxv0HXND8sW6uEbRanKoqPsNj/kHTR6Pqzq8g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwChpOfiA3hWm8ok6KcCtf5Ng2PJXKzBtd8eIoz6WsBV6CIXZun
-	KCZGHGeBMzecPJWYwle7ACE0GNZeUsRG7o+Meeio16flqveV3xGYstxlS5b9BwY=
-X-Google-Smtp-Source: AGHT+IErAg85D29MFl4VhFuhl5pDD3AT25FLnwyxZcAb/5OcKC52ac/2BQjmxnjB/Zwgny4JAKKvVQ==
-X-Received: by 2002:a17:907:724a:b0:a86:9e85:2619 with SMTP id a640c23a62f3a-a86e2aa70ddmr332847066b.25.1724765127759;
-        Tue, 27 Aug 2024 06:25:27 -0700 (PDT)
-Message-ID: <c54f7015-abe1-4834-83e3-29a2cc854d85@citrix.com>
-Date: Tue, 27 Aug 2024 14:25:25 +0100
+        bh=3Tgax+vjGdtrfqrPbjfbqDqR1Q/xtHhM/7GrhsWe0+Q=;
+        b=nnVVghhCEzkz95t+vfCRGml8u1QwQmWJ8rlO+mgOeJWvNU6abJPohObmRWL538etvJ
+         3qrPGgH2Sv/tfzS3MMRMojzJJe1VGxBnX5eK+QILtXQ/UTrpy9/m7YcA7Ibgkyl0JN7j
+         WC04k7SEqtKVKQofSBGxOxUA3gm8C2MLc7D+8wpcCid6QpazGx986Q+CJSkIH/dUieXw
+         3Wcv3Rzp2+4/S9X6ifKAwA0oGCq9A37+1e9cCvvFAL3VwCPVudyMih5ijXlqMARC8hIZ
+         V65SkAIyYNuWfZFEPQLDC7KJ3/gkq8usYCb5h6c5zhsWunHuMHOxiqmhIOXCIuNZVDRt
+         3xMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724766194; x=1725370994;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3Tgax+vjGdtrfqrPbjfbqDqR1Q/xtHhM/7GrhsWe0+Q=;
+        b=rMhDGsTLH1mBQrTsssse92jvBgvHp+LTkNGIRVXc91rPsVivbsfBEhk8uCh9FAigEX
+         WX2eoFru3uu+O1z/1NC5vy5n2yiXqmQHdkvvtXtVvOZpYMuXAOH8cL775pFWKKmgvPHn
+         x/x5DxtOyL0v6JHtjXYaY+/qlXJCZLndO+ElcQ2HXmeysiVszEeXO0YQ/+W34v3Z6qF9
+         ZAGm4OaeyZxrIToLPbB++9ZUpOLsbQksRKMu9OAhssrPB9rdax/HHK3wnK9KYyJ93wq9
+         uWM30bod6wJQiPeL7Mp/h4pdSXuD5NYCPVVYtRiQ9EUoko87JBlDECtESxKNXbYRQC7d
+         bMUw==
+X-Gm-Message-State: AOJu0YwezKgwdUJPGedR46n0XtmULERAHz42SozUUmv2xxv+kOwK2FKt
+	ivb+Bfqj+fBS+s5PxTcYyYWDtHTHDjAPedV/vkFYx8XsZewslAxOk7R7TuNu
+X-Google-Smtp-Source: AGHT+IEFiwKleDqqXWpVs+bQ/rh6tyVbHOUPBcweltDZaX5aM0/89sUTKHE3APO7xO/9Z1c0RU+kFA==
+X-Received: by 2002:adf:fc0d:0:b0:365:aec0:e191 with SMTP id ffacd0b85a97d-3748c88a349mr1892085f8f.21.1724766193283;
+        Tue, 27 Aug 2024 06:43:13 -0700 (PDT)
+From: Milan Djokic <milandjokic1995@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: oleksii.kurochko@gmail.com,
+	Nikola Jelic <nikola.jelic@rt-rk.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Milan Djokic <milan.djokic@rt-rk.com>
+Subject: [PATCH v2] x86/efi: Use generic PE/COFF structures
+Date: Tue, 27 Aug 2024 15:42:10 +0200
+Message-Id: <367c5d95fb89e7dd3b4260f136d194a4cd0b854a.1724765763.git.milandjokic1995@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <6cf2799ced7dcee515ad8a6b6657522cdc7cec61.1724699546.git.milan.djokic@verisure.com>
+References: <6cf2799ced7dcee515ad8a6b6657522cdc7cec61.1724699546.git.milan.djokic@verisure.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/9] xen/bitops: Implement hweight64() in terms of
- hweightl()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240822230635.954557-1-andrew.cooper3@citrix.com>
- <20240822230635.954557-8-andrew.cooper3@citrix.com>
- <11da1350-095f-49c8-bdf0-f5c83e9f0d39@suse.com>
- <70047ef7-ca22-4eeb-9510-09ccdf0871c0@citrix.com>
- <73309650-3912-418b-b2e6-a60676519911@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <73309650-3912-418b-b2e6-a60676519911@suse.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27/08/2024 2:00 pm, Jan Beulich wrote:
-> On 27.08.2024 13:50, Andrew Cooper wrote:
->> On 26/08/2024 12:55 pm, Jan Beulich wrote:
->>> On 23.08.2024 01:06, Andrew Cooper wrote:
->>>> --- a/xen/include/xen/bitops.h
->>>> +++ b/xen/include/xen/bitops.h
->>>> @@ -302,6 +302,14 @@ static always_inline __pure unsigned int hweightl(unsigned long x)
->>>>  #endif
->>>>  }
->>>>  
->>>> +static always_inline __pure unsigned int hweight64(uint64_t x)
->>>> +{
->>>> +    if ( BITS_PER_LONG == 64 )
->>>> +        return hweightl(x);
->>>> +    else
->>>> +        return hweightl(x >> 32) + hweightl(x);
->>> This assume BITS_PER_LONG == 32, which of course is true right now, but
->>> doesn't need to be in general. Better add an explicit cast to uint32_t
->>> (or masking by 0xffffffffU)?
->> This is part of the point of putting in the self-tests.  They're
->> intended to catch things like this in new build environments.
-> I don't think I saw any testcase where the result would be wrong if
-> this split didn't truncate x to the low 32 bits on the rhs of the +.
+From: Nikola Jelic <nikola.jelic@rt-rk.com>
 
-That's arguably an error in the choice of test cases.
+Adapted x86 efi parser and mkreloc utility to use generic PE header
+(efi/pe.h), instead of locally defined structures for each component.
 
-Although, they're just my best guesses at some
+Signed-off-by: Nikola Jelic <nikola.jelic@rt-rk.com>
+Signed-off-by: Milan Djokic <milan.djokic@rt-rk.com>
+---
+Changes in V2:
+  - Using pe header constants instead of hardcoded values (magic,
+    machine)
+---
+ xen/arch/x86/efi/mkreloc.c | 134 +++++++++++--------------------------
+ xen/common/efi/pe.c        |  96 ++++++--------------------
+ 2 files changed, 61 insertions(+), 169 deletions(-)
 
->
->> Although, I think we've got enough cases which will #error on
->> BITS_PER_LONG not being 32 or 64.
-> My take on this is: Such checks (#error or whatever else precaution)
-> should like in every single place where violating the assumptions
-> made would matter. Or else - how do you locate all the places that
-> need changing?
+diff --git a/xen/arch/x86/efi/mkreloc.c b/xen/arch/x86/efi/mkreloc.c
+index 083740ab8a..89c525d81e 100644
+--- a/xen/arch/x86/efi/mkreloc.c
++++ b/xen/arch/x86/efi/mkreloc.c
+@@ -9,45 +9,7 @@
+ #include <sys/mman.h>
+ #include <unistd.h>
+ 
+-struct mz_hdr {
+-    uint16_t signature;
+-#define MZ_SIGNATURE 0x5a4d
+-    uint16_t last_page_size;
+-    uint16_t page_count;
+-    uint16_t relocation_count;
+-    uint16_t header_paras;
+-    uint16_t min_paras;
+-    uint16_t max_paras;
+-    uint16_t entry_ss;
+-    uint16_t entry_sp;
+-    uint16_t checksum;
+-    uint16_t entry_ip;
+-    uint16_t entry_cs;
+-    uint16_t relocations;
+-    uint16_t overlay;
+-    uint8_t reserved[32];
+-    uint32_t extended_header_base;
+-};
+-
+-struct pe_hdr {
+-    uint32_t signature;
+-#define PE_SIGNATURE 0x00004550
+-    uint16_t cpu;
+-    uint16_t section_count;
+-    int32_t timestamp;
+-    uint32_t symbols_file_offset;
+-    uint32_t symbol_count;
+-    uint16_t opt_hdr_size;
+-    uint16_t flags;
+-    struct {
+-        uint16_t magic;
+-#define PE_MAGIC_EXE32     0x010b
+-#define PE_MAGIC_EXE32PLUS 0x020b
+-        uint8_t linker_major, linker_minor;
+-        uint32_t code_size, data_size, bss_size;
+-        uint32_t entry_rva, code_rva, data_rva;
+-    } opt_hdr;
+-};
++#include "../../../include/efi/pe.h"
+ 
+ #define PE_PAGE_SIZE 0x1000
+ 
+@@ -55,22 +17,6 @@ struct pe_hdr {
+ #define PE_BASE_RELOC_HIGHLOW  3
+ #define PE_BASE_RELOC_DIR64   10
+ 
+-struct coff_section {
+-    char name[8];
+-    uint32_t size;
+-    uint32_t rva;
+-    uint32_t file_size;
+-    uint32_t file_offset;
+-    uint32_t relocation_file_offset;
+-    uint32_t line_number_file_offset;
+-    uint16_t relocation_count;
+-    uint16_t line_number_count;
+-    uint32_t flags;
+-#define COFF_SECTION_BSS         0x00000080U
+-#define COFF_SECTION_DISCARDABLE 0x02000000U
+-#define COFF_SECTION_WRITEABLE   0x80000000U
+-};
+-
+ static void usage(const char *cmd, int rc)
+ {
+     fprintf(rc ? stderr : stdout,
+@@ -80,7 +26,7 @@ static void usage(const char *cmd, int rc)
+ }
+ 
+ static unsigned int load(const char *name, int *handle,
+-                         struct coff_section **sections,
++                         struct section_header **sections,
+                          uint_fast64_t *image_base,
+                          uint32_t *image_size,
+                          unsigned int *width)
+@@ -88,6 +34,7 @@ static unsigned int load(const char *name, int *handle,
+     int in = open(name, O_RDONLY);
+     struct mz_hdr mz_hdr;
+     struct pe_hdr pe_hdr;
++    struct pe32_opt_hdr pe32_opt_hdr;
+     uint32_t base;
+ 
+     if ( in < 0 ||
+@@ -96,16 +43,17 @@ static unsigned int load(const char *name, int *handle,
+         perror(name);
+         exit(2);
+     }
+-    if ( mz_hdr.signature != MZ_SIGNATURE ||
+-         mz_hdr.relocations < sizeof(mz_hdr) ||
+-         !mz_hdr.extended_header_base )
++    if ( mz_hdr.magic != MZ_MAGIC ||
++         mz_hdr.reloc_table_offset < sizeof(mz_hdr) ||
++         !mz_hdr.peaddr )
+     {
+         fprintf(stderr, "%s: Wrong DOS file format\n", name);
+         exit(2);
+     }
+ 
+-    if ( lseek(in, mz_hdr.extended_header_base, SEEK_SET) < 0 ||
++    if ( lseek(in, mz_hdr.peaddr, SEEK_SET) < 0 ||
+          read(in, &pe_hdr, sizeof(pe_hdr)) != sizeof(pe_hdr) ||
++         read(in, &pe32_opt_hdr, sizeof(pe32_opt_hdr)) != sizeof(pe32_opt_hdr) ||
+          read(in, &base, sizeof(base)) != sizeof(base) ||
+          /*
+           * Luckily the image size field lives at the
+@@ -117,35 +65,33 @@ static unsigned int load(const char *name, int *handle,
+         perror(name);
+         exit(3);
+     }
+-    switch ( (pe_hdr.signature == PE_SIGNATURE &&
+-              pe_hdr.opt_hdr_size > sizeof(pe_hdr.opt_hdr)) *
+-             pe_hdr.opt_hdr.magic )
++    switch ( (pe_hdr.magic == PE_MAGIC &&
++              pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr)) *
++              pe32_opt_hdr.magic )
+     {
+-    case PE_MAGIC_EXE32:
++    case PE_OPT_MAGIC_PE32:
+         *width = 32;
+         *image_base = base;
+         break;
+-    case PE_MAGIC_EXE32PLUS:
++    case PE_OPT_MAGIC_PE32PLUS:
+         *width = 64;
+-        *image_base = ((uint64_t)base << 32) | pe_hdr.opt_hdr.data_rva;
++        *image_base = ((uint64_t)base << 32) | pe32_opt_hdr.data_base;
+         break;
+     default:
+         fprintf(stderr, "%s: Wrong PE file format\n", name);
+         exit(3);
+     }
+ 
+-    *sections = malloc(pe_hdr.section_count * sizeof(**sections));
++    *sections = malloc(pe_hdr.sections * sizeof(**sections));
+     if ( !*sections )
+     {
+         perror(NULL);
+         exit(4);
+     }
+-    if ( lseek(in,
+-               mz_hdr.extended_header_base + offsetof(struct pe_hdr, opt_hdr) +
+-                  pe_hdr.opt_hdr_size,
++    if ( lseek(in, mz_hdr.peaddr + sizeof(pe_hdr) + pe_hdr.opt_hdr_size,
+                SEEK_SET) < 0 ||
+-         read(in, *sections, pe_hdr.section_count * sizeof(**sections)) !=
+-             pe_hdr.section_count * sizeof(**sections) )
++         read(in, *sections, pe_hdr.sections * sizeof(**sections)) !=
++             pe_hdr.sections * sizeof(**sections) )
+     {
+         perror(name);
+         exit(4);
+@@ -153,12 +99,12 @@ static unsigned int load(const char *name, int *handle,
+ 
+     *handle = in;
+ 
+-    return pe_hdr.section_count;
++    return pe_hdr.sections;
+ }
+ 
+ static long page_size;
+ 
+-static const void *map_section(const struct coff_section *sec, int in,
++static const void *map_section(const struct section_header *sec, int in,
+                                const char *name)
+ {
+     const char *ptr;
+@@ -166,10 +112,10 @@ static const void *map_section(const struct coff_section *sec, int in,
+ 
+     if ( !page_size )
+         page_size = sysconf(_SC_PAGESIZE);
+-    offs = sec->file_offset & (page_size - 1);
++    offs = sec->data_addr & (page_size - 1);
+ 
+-    ptr = mmap(0, offs + sec->file_size, PROT_READ, MAP_PRIVATE, in,
+-               sec->file_offset - offs);
++    ptr = mmap(0, offs + sec->raw_data_size, PROT_READ, MAP_PRIVATE, in,
++               sec->data_addr - offs);
+     if ( ptr == MAP_FAILED )
+     {
+         perror(name);
+@@ -179,15 +125,15 @@ static const void *map_section(const struct coff_section *sec, int in,
+     return ptr + offs;
+ }
+ 
+-static void unmap_section(const void *ptr, const struct coff_section *sec)
++static void unmap_section(const void *ptr, const struct section_header *sec)
+ {
+-    unsigned long offs = sec->file_offset & (page_size - 1);
++    unsigned long offs = sec->data_addr & (page_size - 1);
+ 
+-    munmap((char *)ptr - offs, offs + sec->file_size);
++    munmap((char *)ptr - offs, offs + sec->raw_data_size);
+ }
+ 
+ static void diff_sections(const unsigned char *ptr1, const unsigned char *ptr2,
+-                          const struct coff_section *sec,
++                          const struct section_header *sec,
+                           int_fast64_t diff, unsigned int width,
+                           uint_fast64_t base, uint_fast64_t end)
+ {
+@@ -208,7 +154,7 @@ static void diff_sections(const unsigned char *ptr1, const unsigned char *ptr2,
+     while ( !(diff & (((int_fast64_t)1 << ((disp + 1) * CHAR_BIT)) - 1)) )
+         ++disp;
+ 
+-    for ( i = 0; i < sec->file_size; ++i )
++    for ( i = 0; i < sec->raw_data_size; ++i )
+     {
+         uint_fast32_t rva;
+         union {
+@@ -222,7 +168,7 @@ static void diff_sections(const unsigned char *ptr1, const unsigned char *ptr2,
+         if ( ptr1[i] == ptr2[i] )
+             continue;
+ 
+-        if ( i < disp || i + width - disp > sec->file_size )
++        if ( i < disp || i + width - disp > sec->raw_data_size )
+         {
+             fprintf(stderr,
+                     "Bogus difference at %.8s:%08" PRIxFAST32 "\n",
+@@ -250,11 +196,11 @@ static void diff_sections(const unsigned char *ptr1, const unsigned char *ptr2,
+             reloc_size += reloc_size & 2;
+             if ( reloc_size )
+                 printf("\t.equ rva_%08" PRIxFAST32 "_relocs,"
+-                             " %#08" PRIxFAST32 "\n",
++                       " %#08" PRIxFAST32 "\n",
+                        cur_rva, reloc_size);
+             printf("\t.balign 4\n"
+                    "\t.long %#08" PRIxFAST32 ","
+-                          " rva_%08" PRIxFAST32 "_relocs\n",
++                   " rva_%08" PRIxFAST32 "_relocs\n",
+                    rva, rva);
+             cur_rva = rva;
+             reloc_size = 8;
+@@ -267,7 +213,7 @@ static void diff_sections(const unsigned char *ptr1, const unsigned char *ptr2,
+             exit(3);
+         }
+ 
+-        if ( !(sec->flags & COFF_SECTION_WRITEABLE) )
++        if ( !(sec->flags & IMAGE_SCN_MEM_WRITE) )
+             fprintf(stderr,
+                     "Warning: relocation to r/o section %.8s:%08" PRIxFAST32 "\n",
+                     sec->name, i - disp);
+@@ -285,7 +231,7 @@ int main(int argc, char *argv[])
+     unsigned int i, nsec, width1, width2;
+     uint_fast64_t base1, base2;
+     uint32_t size1, size2;
+-    struct coff_section *sec1, *sec2;
++    struct section_header *sec1, *sec2;
+ 
+     if ( argc == 1 ||
+          !strcmp(argv[1], "-?") ||
+@@ -328,16 +274,16 @@ int main(int argc, char *argv[])
+ 
+         if ( memcmp(sec1[i].name, sec2[i].name, sizeof(sec1[i].name)) ||
+              sec1[i].rva != sec2[i].rva ||
+-             sec1[i].size != sec2[i].size ||
+-             sec1[i].file_size != sec2[i].file_size ||
++             sec1[i].virtual_size != sec2[i].virtual_size ||
++             sec1[i].raw_data_size != sec2[i].raw_data_size ||
+              sec1[i].flags != sec2[i].flags )
+         {
+             fprintf(stderr, "Mismatched section %u parameters\n", i);
+             return 5;
+         }
+ 
+-        if ( !sec1[i].size ||
+-             (sec1[i].flags & (COFF_SECTION_DISCARDABLE|COFF_SECTION_BSS)) )
++        if ( !sec1[i].virtual_size ||
++             (sec1[i].flags & (IMAGE_SCN_MEM_DISCARDABLE | IMAGE_SCN_CNT_UNINITIALIZED_DATA)) )
+             continue;
+ 
+         /*
+@@ -354,10 +300,10 @@ int main(int argc, char *argv[])
+             return 3;
+         }
+ 
+-        if ( sec1[i].file_size > sec1[i].size )
++        if ( sec1[i].raw_data_size > sec1[i].virtual_size )
+         {
+-            sec1[i].file_size = sec1[i].size;
+-            sec2[i].file_size = sec2[i].size;
++            sec1[i].raw_data_size = sec1[i].virtual_size;
++            sec2[i].raw_data_size = sec2[i].virtual_size;
+         }
+         ptr1 = map_section(sec1 + i, in1, argv[1]);
+         ptr2 = map_section(sec2 + i, in2, argv[2]);
+diff --git a/xen/common/efi/pe.c b/xen/common/efi/pe.c
+index ef8a2543e0..560f35188d 100644
+--- a/xen/common/efi/pe.c
++++ b/xen/common/efi/pe.c
+@@ -20,78 +20,28 @@
+  * Lesser General Public License for more details.
+  */
+ 
+-
+ #include "efi.h"
++#include "efi/pe.h"
+ 
+-struct DosFileHeader {
+-    UINT8   Magic[2];
+-    UINT16  LastSize;
+-    UINT16  nBlocks;
+-    UINT16  nReloc;
+-    UINT16  HdrSize;
+-    UINT16  MinAlloc;
+-    UINT16  MaxAlloc;
+-    UINT16  ss;
+-    UINT16  sp;
+-    UINT16  Checksum;
+-    UINT16  ip;
+-    UINT16  cs;
+-    UINT16  RelocPos;
+-    UINT16  nOverlay;
+-    UINT16  reserved[4];
+-    UINT16  OEMId;
+-    UINT16  OEMInfo;
+-    UINT16  reserved2[10];
+-    UINT32  ExeHeader;
+-};
+-
+-#if defined(__arm__) || defined (__aarch64__)
+-#define PE_HEADER_MACHINE 0xaa64
++#if defined(__arm__) || defined(__aarch64__)
++#define PE_HEADER_MACHINE IMAGE_FILE_MACHINE_ARM64
+ #elif defined(__x86_64__)
+-#define PE_HEADER_MACHINE 0x8664
++#define PE_HEADER_MACHINE IMAGE_FILE_MACHINE_AMD64
+ #else
+ #error "Unknown architecture"
+ #endif
+ 
+-struct PeFileHeader {
+-    UINT16  Machine;
+-    UINT16  NumberOfSections;
+-    UINT32  TimeDateStamp;
+-    UINT32  PointerToSymbolTable;
+-    UINT32  NumberOfSymbols;
+-    UINT16  SizeOfOptionalHeader;
+-    UINT16  Characteristics;
+-};
+-
+-struct PeHeader {
+-    UINT8   Magic[4];
+-    struct PeFileHeader FileHeader;
+-};
+-
+-struct PeSectionHeader {
+-    CHAR8   Name[8];
+-    UINT32  VirtualSize;
+-    UINT32  VirtualAddress;
+-    UINT32  SizeOfRawData;
+-    UINT32  PointerToRawData;
+-    UINT32  PointerToRelocations;
+-    UINT32  PointerToLinenumbers;
+-    UINT16  NumberOfRelocations;
+-    UINT16  NumberOfLinenumbers;
+-    UINT32  Characteristics;
+-};
+-
+-static bool __init pe_name_compare(const struct PeSectionHeader *sect,
++static bool __init pe_name_compare(const struct section_header *sect,
+                                    const CHAR16 *name)
+ {
+     size_t i;
+ 
+-    if ( sect->Name[0] != '.' )
++    if ( sect->name[0] != '.' )
+         return false;
+ 
+-    for ( i = 1; i < sizeof(sect->Name); i++ )
++    for ( i = 1; i < sizeof(sect->name); i++ )
+     {
+-        const char c = sect->Name[i];
++        const char c = sect->name[i];
+ 
+         if ( c != name[i - 1] )
+             return false;
+@@ -105,33 +55,29 @@ static bool __init pe_name_compare(const struct PeSectionHeader *sect,
+ const void *__init pe_find_section(const void *image, const UINTN image_size,
+                                    const CHAR16 *section_name, UINTN *size_out)
+ {
+-    const struct DosFileHeader *dos = image;
+-    const struct PeHeader *pe;
+-    const struct PeSectionHeader *sect;
++    const struct mz_hdr *mz = image;
++    const struct pe_hdr *pe;
++    const struct section_header *sect;
+     UINTN offset, i;
+ 
+-    if ( image_size < sizeof(*dos) ||
+-         dos->Magic[0] != 'M' ||
+-         dos->Magic[1] != 'Z' )
++    if ( image_size < sizeof(*mz) ||
++         mz->magic != MZ_MAGIC )
+         return NULL;
+ 
+-    offset = dos->ExeHeader;
++    offset = mz->peaddr;
+     pe = image + offset;
+ 
+     offset += sizeof(*pe);
+     if ( image_size < offset ||
+-         pe->Magic[0] != 'P' ||
+-         pe->Magic[1] != 'E' ||
+-         pe->Magic[2] != '\0' ||
+-         pe->Magic[3] != '\0' )
++         pe->magic != PE_MAGIC )
+         return NULL;
+ 
+-    if ( pe->FileHeader.Machine != PE_HEADER_MACHINE )
++    if ( pe->machine != PE_HEADER_MACHINE )
+         return NULL;
+ 
+-    offset += pe->FileHeader.SizeOfOptionalHeader;
++    offset += pe->opt_hdr_size;
+ 
+-    for ( i = 0; i < pe->FileHeader.NumberOfSections; i++ )
++    for ( i = 0; i < pe->sections; i++ )
+     {
+         sect = image + offset;
+         if ( image_size < offset + sizeof(*sect) )
+@@ -143,13 +89,13 @@ const void *__init pe_find_section(const void *image, const UINTN image_size,
+             continue;
+         }
+ 
+-        if ( image_size < sect->VirtualSize + sect->VirtualAddress )
++        if ( image_size < sect->virtual_size + sect->rva )
+             blexit(L"PE invalid section size + address");
+ 
+         if ( size_out )
+-            *size_out = sect->VirtualSize;
++            *size_out = sect->virtual_size;
+ 
+-        return image + sect->VirtualAddress;
++        return image + sect->rva;
+     }
+ 
+     return NULL;
+-- 
+2.25.1
 
-Whomever gets to add RISCV-128 support will have to inspect every use of
-BITS_PER_LONG, irrespective of #error/BUILD_BUG_ON()/etc.
-
-So, the answer is `grep`.
-
-I'm not advocating that we stop helping out with #error, but it's
-unrealistic to expect that only addressing the build errors will result
-in a working Xen for BITS_PER_LONG==128.
-
->
->> Again, this is modelled after f[fl]s64() which have the same
->> expectations about the BITS_PER_LONG != 64 case.
-> Both of them are fine afaict. fls64() has an explicit intermediate
-> variable of type uint32_t, and ffs64() has a (uint32_t)x as part
-> of the conditional expression achieving the intended effect.
->
-> Anyway, why not use hweight32() instead of hweightl() here? That'll
-> make things very explicit.
-
-hweight32() doesn't exist until the next patch in the series.
-
-Although looking at the end result, I can't figure out why I thought it
-was necessary to transform hweight64 first.
-
-I'll swap this patch and the next one, and then use hweight32().
-
-~Andrew
 
