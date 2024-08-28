@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 718529629FE
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:17:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784870.1194273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 990C0962A00
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:17:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784871.1194278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjJTc-00024A-Hv; Wed, 28 Aug 2024 14:16:48 +0000
+	id 1sjJTc-000296-PF; Wed, 28 Aug 2024 14:16:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784870.1194273; Wed, 28 Aug 2024 14:16:48 +0000
+Received: by outflank-mailman (output) from mailman id 784871.1194278; Wed, 28 Aug 2024 14:16:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjJTc-00021L-CK; Wed, 28 Aug 2024 14:16:48 +0000
-Received: by outflank-mailman (input) for mailman id 784870;
+	id 1sjJTc-000243-KP; Wed, 28 Aug 2024 14:16:48 +0000
+Received: by outflank-mailman (input) for mailman id 784871;
  Wed, 28 Aug 2024 14:16:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8VpF=P3=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1sjJTb-0001tx-F5
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 14:16:47 +0000
-Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
- [2607:f8b0:4864:20::c33])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 27bc15b8-6548-11ef-99a0-01e77a169b0f;
- Wed, 28 Aug 2024 16:16:45 +0200 (CEST)
-Received: by mail-oo1-xc33.google.com with SMTP id
- 006d021491bc7-5de92d2e9b3so2305701eaf.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 07:16:45 -0700 (PDT)
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sjJTb-00021C-TI; Wed, 28 Aug 2024 14:16:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sjJTb-0001aa-L9; Wed, 28 Aug 2024 14:16:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sjJTb-00011r-8S; Wed, 28 Aug 2024 14:16:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sjJTb-0000aa-7z; Wed, 28 Aug 2024 14:16:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,182 +42,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27bc15b8-6548-11ef-99a0-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1724854604; x=1725459404; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=l6mbQVo3apXE3R6cHuuqLd86Pc8uhYEsQ0417KxFfQ8=;
-        b=fEBuiO/3ZHGCNciyl02e+jkixjMj+xBgi9RFa5/KSQu7oJ4ZsOPaSzsj43BEjC6VmC
-         V9eGxWzaj5keMCtJj3C74kx/xFqpO6aGym8Yb8+4EpDbfysp+GP4sdjwJ6FeJvnWHF8O
-         NsxV2dVJUOFT5LutNW76Oez2DF32RrVIz/OjY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724854604; x=1725459404;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=l6mbQVo3apXE3R6cHuuqLd86Pc8uhYEsQ0417KxFfQ8=;
-        b=XwBQXl/sDwghF0g2YI9lof/LOk7oQBjYpxFzA1oc5d4/Xoz/d80JIHUm3T2Pcg1pa9
-         HeVLRH4q/FkSeajq/xjhJrObQU6rbVfjfRLVRtoMIrwVtUFEp0LkBQotu4B9EvD24rYq
-         ivV/p4Qr9I2BqWa6hJXwhf6ls0RzgWpMBeUaovRBvP3D4lOqLwIYDz5+hxGCN/WgasYx
-         zFBbI9tct703PuecdGU9B+CAzeZlLDclTcsIIAkpPuHamaDIRa0yeREL21zeXbGePEQQ
-         EeXb62h0rIjjLIkX2SQylDgE8k9K6UNITl+psUIb2y+xWqMhMSxElVtNz8d/hDmME7dL
-         lyIw==
-X-Gm-Message-State: AOJu0Yxr1J/rHD8ZJ+nCXDCtOsJuFgwhCQyC9Ir+7L/bVPbcre/u/rYS
-	DWbXLM5oR5MeHAkt+OTrbwxhYEll9NKLZn0EPMQ5xvzSs+3AOSf3rGa4hOvK+ATNOW2BtWXHwx5
-	A8+VyQ4aOLL73MgOFbNKSUAvGZL3463CqcX0QHg==
-X-Google-Smtp-Source: AGHT+IFTAYJdBSbDfzqob4kRNU367vEbNkvLt7IUvnPTeOdLvUIMnH47f77F2d6yu9LNWLpfRJO6YlPlGCuDYvV86uA=
-X-Received: by 2002:a05:6871:ca11:b0:270:4d48:6be2 with SMTP id
- 586e51a60fabf-2777d1f3f58mr2051460fac.26.1724854604336; Wed, 28 Aug 2024
- 07:16:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240828133033.2378322-1-andrew.cooper3@citrix.com> <CAEfZLvmJAw5wiKu5BZokgpbHdAv6Msro_ANgJ06NmATWuHiMNA@mail.gmail.com>
-In-Reply-To: <CAEfZLvmJAw5wiKu5BZokgpbHdAv6Msro_ANgJ06NmATWuHiMNA@mail.gmail.com>
-From: Edwin Torok <edwin.torok@cloud.com>
-Date: Wed, 28 Aug 2024 15:16:33 +0100
-Message-ID: <CAEfZLvm48sc50deiuvhoWfh0no=EHfCO4JpXKLvNPASAJZ8Whg@mail.gmail.com>
-Subject: Re: [PATCH] tools/ocaml: Factor out compatiblity handling
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, 
-	Rob Hoes <Rob.Hoes@citrix.com>, Andrii Sultanov <andrii.sultanov@cloud.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=1LtWxDtOTTuMTDh2kVR3j2YOSVufncMzOupTrBGtPx4=; b=uxcdgI12KZdGRH3uhZBIXOIXFU
+	OaNBZFfjGa0Rh7Vpa6evYipwPkSwVDUqDUYtTWc6PxLAq3ZH7f5Li6Z4pnD/5EUiTd3A07IZtnQ7W
+	gCg7VVgQE8dW2I1ExjNus6LEqczO5wZVsyi7MALr+8JsTMTUwilvg0q7BbWYjREIWcBo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187374-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 187374: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=48bdeaf2fa49513d4be53588100807f269c36997
+X-Osstest-Versions-That:
+    libvirt=1b815465d9d523aacc4b7ab63c247cc2e6cefa64
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 28 Aug 2024 14:16:47 +0000
 
-On Wed, Aug 28, 2024 at 3:15=E2=80=AFPM Edwin Torok <edwin.torok@cloud.com>=
- wrote:
->
-> On Wed, Aug 28, 2024 at 2:30=E2=80=AFPM Andrew Cooper <andrew.cooper3@cit=
-rix.com> wrote:
-> >
-> > ... rather than having each library implement its own subset.
-> >
-> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > ---
-> > CC: Christian Lindig <christian.lindig@citrix.com>
-> > CC: David Scott <dave@recoil.org>
-> > CC: Edwin T=C3=B6r=C3=B6k <edwin.torok@cloud.com>
-> > CC: Rob Hoes <Rob.Hoes@citrix.com>
-> > CC: Andrii Sultanov <andrii.sultanov@cloud.com>
-> >
-> > Broken out of a larger series, to help Andrii with his dynlib work.
-> > ---
-> >  tools/ocaml/libs/xc/Makefile        |  2 +-
-> >  tools/ocaml/libs/xc/xenctrl_stubs.c | 13 +++----------
-> >  tools/ocaml/libs/xen-caml-compat.h  | 23 +++++++++++++++++++++++
-> >  3 files changed, 27 insertions(+), 11 deletions(-)
-> >  create mode 100644 tools/ocaml/libs/xen-caml-compat.h
-> >
-> > diff --git a/tools/ocaml/libs/xc/Makefile b/tools/ocaml/libs/xc/Makefil=
-e
-> > index 1d9fecb06ef2..cdf4d01dac52 100644
-> > --- a/tools/ocaml/libs/xc/Makefile
-> > +++ b/tools/ocaml/libs/xc/Makefile
-> > @@ -2,7 +2,7 @@ OCAML_TOPLEVEL=3D$(CURDIR)/../..
-> >  XEN_ROOT=3D$(OCAML_TOPLEVEL)/../..
-> >  include $(OCAML_TOPLEVEL)/common.make
-> >
-> > -CFLAGS +=3D -I../mmap $(CFLAGS_libxenctrl) $(CFLAGS_libxenguest)
-> > +CFLAGS +=3D -I../ -I../mmap $(CFLAGS_libxenctrl) $(CFLAGS_libxenguest)
-> >  CFLAGS +=3D $(APPEND_CFLAGS)
-> >  OCAMLINCLUDE +=3D -I ../mmap -I ../eventchn
-> >
-> > diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/=
-xenctrl_stubs.c
-> > index a52908012960..c78191f95abc 100644
-> > --- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-> > +++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-> > @@ -25,6 +25,8 @@
-> >  #include <caml/fail.h>
-> >  #include <caml/callback.h>
-> >
-> > +#include "xen-caml-compat.h"
-> > +
-> >  #include <sys/mman.h>
-> >  #include <stdint.h>
-> >  #include <string.h>
-> > @@ -37,14 +39,6 @@
-> >
-> >  #include "mmap_stubs.h"
-> >
-> > -#ifndef Val_none
-> > -#define Val_none (Val_int(0))
-> > -#endif
-> > -
-> > -#ifndef Tag_some
-> > -#define Tag_some 0
-> > -#endif
-> > -
-> >  static inline xc_interface *xch_of_val(value v)
-> >  {
-> >         xc_interface *xch =3D *(xc_interface **)Data_custom_val(v);
-> > @@ -744,8 +738,7 @@ CAMLprim value stub_xc_evtchn_status(value xch_val,=
- value domid, value port)
-> >         Store_field(result_status, 0, Val_int(status.vcpu));
-> >         Store_field(result_status, 1, stat);
-> >
-> > -       result =3D caml_alloc_small(1, Tag_some);
-> > -       Store_field(result, 0, result_status);
-> > +       result =3D caml_alloc_some(result_status);
-> >
-> >         CAMLreturn(result);
-> >  }
-> > diff --git a/tools/ocaml/libs/xen-caml-compat.h b/tools/ocaml/libs/xen-=
-caml-compat.h
-> > new file mode 100644
-> > index 000000000000..b4a0ca4ce90c
-> > --- /dev/null
-> > +++ b/tools/ocaml/libs/xen-caml-compat.h
-> > @@ -0,0 +1,23 @@
-> > +/* SPDX-License-Identifier: LGPL-2.1-only WITH OCaml-LGPL-linking-exce=
-ption */
-> > +#ifndef XEN_CAML_COMPAT_H
-> > +#define XEN_CAML_COMPAT_H
-> > +
-> > +#ifndef Val_none /* Option handling.  Compat for Ocaml < 4.12 */
-> > +
-> > +#define Val_none Val_int(0)
-> > +#define Tag_some 0
-> > +#define Some_val(v) Field(v, 0)
-> > +
-> > +static inline value caml_alloc_some(value v)
-> > +{
-> > +    CAMLparam1(v);
-> > +
-> > +    value some =3D caml_alloc_small(1, Tag_some);
-> > +    Store_field(some, 0, v);
->
-> The compiler uses Field() rather than Store_field() here.
-> I think using Store_field here can potentially read uninitialized
-> data, because 'caml_alloc_small' gives you uninitialized memory
-> that you must immediately fill with valid values.
-> Looking at the implementation Store_field calls caml_modify which will
-> read the old value to figure out whether it was in minor or major
-> heap,
-> and doing that on uninitialized data is unpredictable.
->
-> We should follow what the manual says and use Field() when
-> caml_alloc_small() is used, and use Store_field() when caml_alloc() is
-> used,
-> and not attempt to mix them:
-> See https://ocaml.org/manual/5.2/intfc.html#ss:c-low-level-gc-harmony
+flight 187374 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187374/
 
-Which probably means we've got a bunch of other pre-existing bugs like
-these that we need to fix,
-as otherwise we do quite a lot of operations on uninitialized data...
+Failures :-/ but no regressions.
 
->
-> > +
-> > +    CAMLreturn(some);
-> > +}
-> > +
-> > +#endif /* !Val_none */
-> > +
-> > +#endif /* XEN_CAML_COMPAT_H */
-> >
-> > base-commit: 75c64db3722f0245137a1e8cfd3435f4790d0fd7
-> > --
-> > 2.39.2
-> >
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187357
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ libvirt              48bdeaf2fa49513d4be53588100807f269c36997
+baseline version:
+ libvirt              1b815465d9d523aacc4b7ab63c247cc2e6cefa64
+
+Last test of basis   187357  2024-08-27 04:22:23 Z    1 days
+Testing same since   187374  2024-08-28 04:18:53 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andi Chandler <andi@gowling.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  jianqing yan <yanjianqing@kylinos.cn>
+  Jiri Denemark <jdenemar@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Sergey Dyasli <sergey.dyasli@nutanix.com>
+  Weblate <noreply@weblate.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   1b815465d9..48bdeaf2fa  48bdeaf2fa49513d4be53588100807f269c36997 -> xen-tested-master
 
