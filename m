@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7121962AC0
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:50:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784942.1194361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DA00962AC2
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:51:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784947.1194371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjJzi-0004RS-19; Wed, 28 Aug 2024 14:49:58 +0000
+	id 1sjK0Z-0005mm-98; Wed, 28 Aug 2024 14:50:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784942.1194361; Wed, 28 Aug 2024 14:49:58 +0000
+Received: by outflank-mailman (output) from mailman id 784947.1194371; Wed, 28 Aug 2024 14:50:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjJzh-0004OH-UM; Wed, 28 Aug 2024 14:49:57 +0000
-Received: by outflank-mailman (input) for mailman id 784942;
- Wed, 28 Aug 2024 14:49:56 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1sjK0Z-0005lH-6H; Wed, 28 Aug 2024 14:50:51 +0000
+Received: by outflank-mailman (input) for mailman id 784947;
+ Wed, 28 Aug 2024 14:50:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sjJzg-0004OB-OE
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 14:49:56 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sjJzg-00028y-62; Wed, 28 Aug 2024 14:49:56 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sjJzf-0006KY-WD; Wed, 28 Aug 2024 14:49:56 +0000
+ (envelope-from <SRS0=NRYu=P3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sjK0X-0005kw-GD
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 14:50:49 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e9866e7b-654c-11ef-a0b0-8be0dac302b0;
+ Wed, 28 Aug 2024 16:50:48 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a8695cc91c8so718699466b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 07:50:48 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a86e5486994sm258523666b.14.2024.08.28.07.50.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Aug 2024 07:50:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,147 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=X4t8IBRnrSGGQzGQ+NAqpV25AhiNyFtll5IAOWduaCk=; b=H7uHXC/ID76ZiIAXLPj5xGAHeW
-	B2viPHQmD4wDg9gdyaOQsc8xn6RyQN24w4qj/3yBHqh7iiiiHASRrR9dHCUS/F2/LZpFoFvpuyHk6
-	RoVJRPw1JnEDh8bqtfKMSTtPLpNNA6eiPWozM0ZnJSpYXX8ZHUgxpdp2QRhPZX7OtySo=;
-Message-ID: <efc024ad-1e1c-45d0-9511-cc0c082dfef7@xen.org>
-Date: Wed, 28 Aug 2024 15:49:54 +0100
+X-Inumbo-ID: e9866e7b-654c-11ef-a0b0-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1724856648; x=1725461448; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Fb/0ZOBQiQlb+u4QQLMjeXGqqA54bgXEtZj2quhmFs8=;
+        b=OCHUS0bd0i3LcqifpwRn5iupMzHpqCBK7qipBsPcAaku8HoiiMyCB/L/75J/y6kkke
+         NfDylTfbEXhYEsvRUYvuoDPMKvf0/7+GlLrks7HVrHtK2h9jpS2wgeIEEQ/nsJVoCEKG
+         v/XYsiNYcE2BMzZTtAJdlcyac6ZSGcxJygiqMbYRdCensC2MDyk2VkpNyn8x81kFJ8uw
+         tlFkxb+kh8VK2TMN8zsjRmkoI8hgFgiG9cAFkPh4uOpj/rq6QLHjq8kv9dzeoMT4fuBf
+         TZaxnEC1GlU7J9dkiq4FkS1DAug4/tWCiSybudOcHL8SN3R/BUFXiEscyF8rFpERESuq
+         ua1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724856648; x=1725461448;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Fb/0ZOBQiQlb+u4QQLMjeXGqqA54bgXEtZj2quhmFs8=;
+        b=N4soQZ3EdiXgQ8aKzujMH8LKjslMPOgYncPyjvhI3XKQHrIc9pvRl2WzLeSs5JX/fU
+         HVA9ozCromD03uTGoglYN4+asYgRXT3sOLcTCeasySPc9Q+hAnKaM2/Zn3f0k8RgEGFF
+         hdl0vrKYcLOkbyJTxyEoWB0E3JGEbUwaKRcQ17DsOgIQsneHwye/Ku6SlpFyBlH7SvnV
+         pRsUSZ6C84+atpvkAwnK7siWYiFKnVKZCz13UipDiRLFSNHwwQkSXZR+qEf7Vukgkdnh
+         14ByHZCk/YkvFGUkhhkE60ZGbH2kewNgBw3KuJ1FZhFNVhx6weL8y4ppWE1P4RjQqs1W
+         F/CQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVirpviLVVBa8oH4jbIAfA+acex+agIs1HYZTqFHFZcmmuNYNsNjFDrT1L8lGtImerGoBmwoljMnzc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzkmv4EdtToLepJuwXvBMWNxU9O8hrC6moDcmU2xo+VZ72I7kb5
+	iyLk6Gb2JUuE6ES7JStlYme063m7ZRqK1TXQrDQjr/4RSdWJTavfue+NC4iuRQ==
+X-Google-Smtp-Source: AGHT+IFWOATNkyxFxGi7ZkGmiVcyEBpDdAmPAewfmRHl2l9K7qxthZycsALyAqvRnCW3gdhJBOsB7g==
+X-Received: by 2002:a17:907:31c4:b0:a86:7021:1368 with SMTP id a640c23a62f3a-a870a9ba5dbmr194676466b.21.1724856647582;
+        Wed, 28 Aug 2024 07:50:47 -0700 (PDT)
+Message-ID: <1eae8fa0-2d4c-4cf6-8120-fd7fefa523ed@suse.com>
+Date: Wed, 28 Aug 2024 16:50:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/4] xen/arm: mpu: Define Xen start address for MPU
- systems
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+Subject: Re: [XEN PATCH] xen/bitmap: remove comment-based deviations
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  xen-devel@lists.xenproject.org
-Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Jiamei . Xie" <jiamei.xie@arm.com>
-References: <20240823163127.3443404-1-ayan.kumar.halder@amd.com>
- <20240823163127.3443404-3-ayan.kumar.halder@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240823163127.3443404-3-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <4aa692a50a5d08d24560f02fdc36911965fc860b.1724850701.git.federico.serafini@bugseng.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <4aa692a50a5d08d24560f02fdc36911965fc860b.1724850701.git.federico.serafini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On 28.08.2024 15:12, Federico Serafini wrote:
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -565,6 +565,10 @@ of this macro do not lead to developer confusion, and can thus be deviated."
+>  -config=MC3R1.R20.7,reports+={safe, "any_area(any_loc(any_exp(macro(^count_args_$))))"}
+>  -doc_end
+>  
+> +-doc_begin="The expansion of an argument surrounded by tokens '{', '}' and ';' is safe."
+> +-config=MC3R1.R20.7,expansion_context+={safe, "left_right(^[\\{;]$,^[;\\}]$)"}
+> +-doc_end
 
-On 23/08/2024 17:31, Ayan Kumar Halder wrote:
-> From: Wei Chen <wei.chen@arm.com>
-> 
-> On Armv8-A, Xen has a fixed virtual start address (link address
-> too) for all Armv8-A platforms. In an MMU based system, Xen can
-> map its loaded address to this virtual start address. So, on
-> Armv8-A platforms, the Xen start address does not need to be
-> configurable. But on Armv8-R platforms, there is no MMU to map
-> loaded address to a fixed virtual address and different platforms
-> will have very different address space layout. So Xen cannot use
-> a fixed physical address on MPU based system and need to have it
-> configurable.
-> 
-> So in this patch, we reuse the existing arm/platforms to store
-> Armv8-R platforms' parameters. And `XEN_START_ADDRESS` is one
-> kind of MPU based platform's parameters. So we define default
-> `XEN_START_ADDRESS` in the MPU specific header file.
+Not the least because this is quite a bit wider than ...
 
-This seems a left-over from as previous work?
+> --- a/xen/include/xen/bitmap.h
+> +++ b/xen/include/xen/bitmap.h
+> @@ -103,13 +103,10 @@ extern int bitmap_allocate_region(unsigned long *bitmap, int pos, int order);
+>  #define bitmap_switch(nbits, zero, small, large)			  \
+>  	unsigned int n__ = (nbits);					  \
+>  	if (__builtin_constant_p(nbits) && !n__) {			  \
+> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+>  		zero;							  \
+>  	} else if (__builtin_constant_p(nbits) && n__ <= BITS_PER_LONG) { \
+> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+>  		small;							  \
+>  	} else {							  \
+> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+>  		large;							  \
+>  	}
 
-> 
-> We also introduce one Kconfig option for users to override the
-> default Xen start address of selected platform, if they think
-> the default address doesn't suit their scenarios. For this
-> Kconfig option, we use an unaligned address "0xffffffff" as the
-> default value to indicate that users haven't used a customized
-> Xen start address.
-> 
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
-> Signed-off-by: Jiamei.Xie <jiamei.xie@arm.com>
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
->   xen/arch/arm/Kconfig                  | 11 +++++++++++
->   xen/arch/arm/include/asm/mpu/layout.h | 25 +++++++++++++++++++++++++
->   2 files changed, 36 insertions(+)
->   create mode 100644 xen/arch/arm/include/asm/mpu/layout.h
-> 
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index 686948cefd..d722ca690c 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -23,6 +23,17 @@ config ARCH_DEFCONFIG
->   	default "arch/arm/configs/arm32_defconfig" if ARM_32
->   	default "arch/arm/configs/arm64_defconfig" if ARM_64
->   
-> +config XEN_START_ADDRESS
-> +	hex "Xen start address: keep default to use platform defined address"
-> +	default 0xFFFFFFFF
-> +	depends on MPU
-> +	help
-> +	  This option is allowed to set customized address at which Xen will be
-> +	  linked on MPU systems.
+... what's needed here, I wonder if we're not opening up avenues to
+problems by generally permitting that pattern. Plus in the description
+I'm missing a statement to the effect of why this is (always) safe.
 
-I don't quite understand what you mean by "allowed".
-
- >  This address must be aligned to a page size.> +	  Use 0xFFFFFFFF as 
-the default value to indicate that user hasn't
-> +	  customized this address, and Xen use use the default value that has
-> +	  been defined in platform files.
-
-At least in this patch, there is no default set. Instead you will throw 
-an error.
-
-> +
->   menu "Architecture Features"
->   
->   choice
-> diff --git a/xen/arch/arm/include/asm/mpu/layout.h b/xen/arch/arm/include/asm/mpu/layout.h
-> new file mode 100644
-> index 0000000000..82a74b8b5b
-> --- /dev/null
-> +++ b/xen/arch/arm/include/asm/mpu/layout.h
-> @@ -0,0 +1,25 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-
-Coding style: /* SPDX-... */
-
-> +/*
-> + * config_mpu.h: A Linux-style configuration list for Arm MPU systems,
- > + *               only can be included by config.h
-> + */
-
-I don't understand how this description match the content below. Also, 
-shouldn't you include it from xen/config.h?
-
-> +
-> +#ifndef __ARM_CONFIG_MPU_H__
-> +#define __ARM_CONFIG_MPU_H__
-
-This doesn't match the name of the file.
-
-> +
-> +
-> +#define XEN_START_ADDRESS CONFIG_XEN_START_ADDRESS
-> +
-> +/*
-> + * All MPU platforms need to provide a XEN_START_ADDRESS for linker. This
-> + * address indicates where Xen image will be loaded and run from. This
-> + * address must be aligned to a PAGE_SIZE.
-> + */
-> +#if (XEN_START_ADDRESS % PAGE_SIZE) != 0
-> +#error "XEN_START_ADDRESS must be aligned to PAGE_SIZE"
-> +#endif
-> +
-> +#define XEN_VIRT_START         _AT(paddr_t, XEN_START_ADDRESS)
-> +
-> +#endif /* __ARM_CONFIG_MPU_H__ */
-> +
-
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
