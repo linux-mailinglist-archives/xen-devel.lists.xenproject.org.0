@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DA00962AC2
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:51:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784947.1194371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6077962AE3
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:57:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784954.1194381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjK0Z-0005mm-98; Wed, 28 Aug 2024 14:50:51 +0000
+	id 1sjK6R-0006nn-TQ; Wed, 28 Aug 2024 14:56:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784947.1194371; Wed, 28 Aug 2024 14:50:51 +0000
+Received: by outflank-mailman (output) from mailman id 784954.1194381; Wed, 28 Aug 2024 14:56:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjK0Z-0005lH-6H; Wed, 28 Aug 2024 14:50:51 +0000
-Received: by outflank-mailman (input) for mailman id 784947;
- Wed, 28 Aug 2024 14:50:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sjK6R-0006kf-Qc; Wed, 28 Aug 2024 14:56:55 +0000
+Received: by outflank-mailman (input) for mailman id 784954;
+ Wed, 28 Aug 2024 14:56:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NRYu=P3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjK0X-0005kw-GD
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 14:50:49 +0000
+ id 1sjK6Q-0006ij-Sh
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 14:56:54 +0000
 Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
  [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e9866e7b-654c-11ef-a0b0-8be0dac302b0;
- Wed, 28 Aug 2024 16:50:48 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c2b7dab4-654d-11ef-99a0-01e77a169b0f;
+ Wed, 28 Aug 2024 16:56:52 +0200 (CEST)
 Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a8695cc91c8so718699466b.3
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 07:50:48 -0700 (PDT)
+ a640c23a62f3a-a8692bbec79so876539766b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 07:56:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e5486994sm258523666b.14.2024.08.28.07.50.47
+ a640c23a62f3a-a86e5486994sm259124566b.14.2024.08.28.07.56.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Aug 2024 07:50:47 -0700 (PDT)
+ Wed, 28 Aug 2024 07:56:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9866e7b-654c-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: c2b7dab4-654d-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724856648; x=1725461448; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724857012; x=1725461812; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Fb/0ZOBQiQlb+u4QQLMjeXGqqA54bgXEtZj2quhmFs8=;
-        b=OCHUS0bd0i3LcqifpwRn5iupMzHpqCBK7qipBsPcAaku8HoiiMyCB/L/75J/y6kkke
-         NfDylTfbEXhYEsvRUYvuoDPMKvf0/7+GlLrks7HVrHtK2h9jpS2wgeIEEQ/nsJVoCEKG
-         v/XYsiNYcE2BMzZTtAJdlcyac6ZSGcxJygiqMbYRdCensC2MDyk2VkpNyn8x81kFJ8uw
-         tlFkxb+kh8VK2TMN8zsjRmkoI8hgFgiG9cAFkPh4uOpj/rq6QLHjq8kv9dzeoMT4fuBf
-         TZaxnEC1GlU7J9dkiq4FkS1DAug4/tWCiSybudOcHL8SN3R/BUFXiEscyF8rFpERESuq
-         ua1g==
+        bh=2VfOD9+PJiSIqqab2EUGIMphNnLbOpx4tJShfEp78+g=;
+        b=JvODChIdBfSkUnG7J1PCdrcz+GBh5oo39jXbqW55uLrHGYEN2uClzu7qzpZQXdIHSc
+         RhzlZWQ/yAtu9k8WGDsP/vOAWO+1WotsmTn9CiLMKe1Cd29SRT00Vc4HjPB+raBiaTiO
+         g8pw39OXZVNJzAmfP4V7J3YlEwLiPMLt/IuciUuDZuXsNeVqibKe7YnuUAUcTqJihHo8
+         vWYNiF3ACMszfCkjLm4Bgh5R5p+qaAVba3Ux8h8Y0Jck7f7nAB/3SLnZ4ZB4P3d7dVJJ
+         3H+jd1izKwSYMezsZ8QzajlFMBqB1xBsImdTAWFZWRz90qYs2L4OLpUk1Sl26Hgtp9aZ
+         dAfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724856648; x=1725461448;
+        d=1e100.net; s=20230601; t=1724857012; x=1725461812;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Fb/0ZOBQiQlb+u4QQLMjeXGqqA54bgXEtZj2quhmFs8=;
-        b=N4soQZ3EdiXgQ8aKzujMH8LKjslMPOgYncPyjvhI3XKQHrIc9pvRl2WzLeSs5JX/fU
-         HVA9ozCromD03uTGoglYN4+asYgRXT3sOLcTCeasySPc9Q+hAnKaM2/Zn3f0k8RgEGFF
-         hdl0vrKYcLOkbyJTxyEoWB0E3JGEbUwaKRcQ17DsOgIQsneHwye/Ku6SlpFyBlH7SvnV
-         pRsUSZ6C84+atpvkAwnK7siWYiFKnVKZCz13UipDiRLFSNHwwQkSXZR+qEf7Vukgkdnh
-         14ByHZCk/YkvFGUkhhkE60ZGbH2kewNgBw3KuJ1FZhFNVhx6weL8y4ppWE1P4RjQqs1W
-         F/CQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVirpviLVVBa8oH4jbIAfA+acex+agIs1HYZTqFHFZcmmuNYNsNjFDrT1L8lGtImerGoBmwoljMnzc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzkmv4EdtToLepJuwXvBMWNxU9O8hrC6moDcmU2xo+VZ72I7kb5
-	iyLk6Gb2JUuE6ES7JStlYme063m7ZRqK1TXQrDQjr/4RSdWJTavfue+NC4iuRQ==
-X-Google-Smtp-Source: AGHT+IFWOATNkyxFxGi7ZkGmiVcyEBpDdAmPAewfmRHl2l9K7qxthZycsALyAqvRnCW3gdhJBOsB7g==
-X-Received: by 2002:a17:907:31c4:b0:a86:7021:1368 with SMTP id a640c23a62f3a-a870a9ba5dbmr194676466b.21.1724856647582;
-        Wed, 28 Aug 2024 07:50:47 -0700 (PDT)
-Message-ID: <1eae8fa0-2d4c-4cf6-8120-fd7fefa523ed@suse.com>
-Date: Wed, 28 Aug 2024 16:50:46 +0200
+        bh=2VfOD9+PJiSIqqab2EUGIMphNnLbOpx4tJShfEp78+g=;
+        b=Z8BGHqUwGb8eDk6C+8HOr1Gsgjks62JKCijH9iGWbvTdcbq2etqwhEg8w7DVBKWaw+
+         ZPTYnXS7xiVaHxY+FcWgPBjYfmQt6hqyoyvx/jMmcscw6u+5fo6UscGIXRi3BatqPV7M
+         m2qIscbe5j4W6/U04+xmbHIOm/Th03acLzcpXgpZevtFil/EQFcH7budOPKk8Tr0DVnO
+         OxjMcjLhPwW6odwFPZouEn4kwT+/cJ2wW13RGhOOuCgrCKdDR+qrY/rtN7mRF/BPAzp+
+         kyDJ3b4Z3OT5ldn6oZhL6fzTDPZrbzCwneaP7w5CfnuP/DEdME3HsL0a3KEVK9owgb5P
+         yEgA==
+X-Forwarded-Encrypted: i=1; AJvYcCWw7KIVbXlMDUV8tYP7KBi15NmmqjYo8Jb4cnRVJbIkEc2fvNcvwefoscp8VPbtwGG7z5ehc0G9ixQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw+hp/6V/9YCICDiKEdLo/UGTzZDekaCpdwTDg16JF6kJPspjT9
+	idSJYeqdyb+uYI1Ox42Akt+lRBfMu0buTlVZC+yBjSLL319uuFKRvlY10HsU7w==
+X-Google-Smtp-Source: AGHT+IEUzlY0naLYVNqF1UtFsTeRlOWw8aHQ7Knu/xUaErB9ndK8JjLwPpcgLLW3cAwPPy5ky0GTXg==
+X-Received: by 2002:a17:907:e228:b0:a86:a28a:99ef with SMTP id a640c23a62f3a-a870a98ecd0mr209220966b.18.1724857011921;
+        Wed, 28 Aug 2024 07:56:51 -0700 (PDT)
+Message-ID: <09742cbe-4c06-49d4-8b26-7ce9076063a1@suse.com>
+Date: Wed, 28 Aug 2024 16:56:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] xen/bitmap: remove comment-based deviations
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <4aa692a50a5d08d24560f02fdc36911965fc860b.1724850701.git.federico.serafini@bugseng.com>
+Subject: Re: [PATCH 2/4] x86/hvm: Use for_each_set_bit() in
+ hvm_emulate_writeback()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240827135746.1908070-1-andrew.cooper3@citrix.com>
+ <20240827135746.1908070-3-andrew.cooper3@citrix.com>
+ <a92063db-fc28-4162-83bd-33617bbfcfbe@suse.com>
+ <8f34109f-1718-47e5-99c5-a6010d7ebe51@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,42 +115,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4aa692a50a5d08d24560f02fdc36911965fc860b.1724850701.git.federico.serafini@bugseng.com>
+In-Reply-To: <8f34109f-1718-47e5-99c5-a6010d7ebe51@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28.08.2024 15:12, Federico Serafini wrote:
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -565,6 +565,10 @@ of this macro do not lead to developer confusion, and can thus be deviated."
->  -config=MC3R1.R20.7,reports+={safe, "any_area(any_loc(any_exp(macro(^count_args_$))))"}
->  -doc_end
->  
-> +-doc_begin="The expansion of an argument surrounded by tokens '{', '}' and ';' is safe."
-> +-config=MC3R1.R20.7,expansion_context+={safe, "left_right(^[\\{;]$,^[;\\}]$)"}
-> +-doc_end
+On 28.08.2024 16:44, Andrew Cooper wrote:
+> On 27/08/2024 5:07 pm, Jan Beulich wrote:
+>> On 27.08.2024 15:57, Andrew Cooper wrote:
+>>> +    for_each_set_bit ( seg, dirty )
+>>> +        hvm_set_segment_register(curr, seg, &hvmemul_ctxt->seg_reg[seg]);
+>>> +
+>>> +    hvmemul_ctxt->seg_reg_dirty = 0;
+>> Why is this suddenly appearing here? You don't mention it in the description,
+>> so it's not clear whether you found a (however minor) issue, or whether
+>> that's purely cosmetic (yet then it's still an extra store we could do
+>> without).
+> 
+> Oh, yes.  Nothing anywhere in Xen ever clears these segment dirty bits.
 
-Not the least because this is quite a bit wider than ...
+hvm_emulate_init_once()?
 
-> --- a/xen/include/xen/bitmap.h
-> +++ b/xen/include/xen/bitmap.h
-> @@ -103,13 +103,10 @@ extern int bitmap_allocate_region(unsigned long *bitmap, int pos, int order);
->  #define bitmap_switch(nbits, zero, small, large)			  \
->  	unsigned int n__ = (nbits);					  \
->  	if (__builtin_constant_p(nbits) && !n__) {			  \
-> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
->  		zero;							  \
->  	} else if (__builtin_constant_p(nbits) && n__ <= BITS_PER_LONG) { \
-> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
->  		small;							  \
->  	} else {							  \
-> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
->  		large;							  \
->  	}
+> I suspect the worst that will go wrong is that we'll waste time
+> re-{VMWRITE,memcpy}-ing the segment registers into the VMCS/VMCB, but
+> the logic in Xen is definitely not right.
 
-... what's needed here, I wonder if we're not opening up avenues to
-problems by generally permitting that pattern. Plus in the description
-I'm missing a statement to the effect of why this is (always) safe.
+I'm on the edge of asking to do such clearing before emulation, not after
+processing the dirty bits. That would then be hvm_emulate_init_per_insn(),
+well centralized.
 
 Jan
 
