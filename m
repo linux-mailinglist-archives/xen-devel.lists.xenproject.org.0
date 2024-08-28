@@ -2,52 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A5AA962051
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 09:07:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784522.1193892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16C2A9621CE
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 09:52:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784533.1193904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjClE-00053V-Ii; Wed, 28 Aug 2024 07:06:32 +0000
+	id 1sjDSu-0004e0-LW; Wed, 28 Aug 2024 07:51:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784522.1193892; Wed, 28 Aug 2024 07:06:32 +0000
+Received: by outflank-mailman (output) from mailman id 784533.1193904; Wed, 28 Aug 2024 07:51:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjClE-00050N-G4; Wed, 28 Aug 2024 07:06:32 +0000
-Received: by outflank-mailman (input) for mailman id 784522;
- Wed, 28 Aug 2024 07:06:30 +0000
+	id 1sjDSu-0004ap-IU; Wed, 28 Aug 2024 07:51:40 +0000
+Received: by outflank-mailman (input) for mailman id 784533;
+ Wed, 28 Aug 2024 07:51:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RIMj=P3=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1sjClC-00050H-D5
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 07:06:30 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20622.outbound.protection.outlook.com
- [2a01:111:f400:7ea9::622])
+ <SRS0=rm2h=P3=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1sjDSt-0004aj-8w
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 07:51:39 +0000
+Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
+ [2607:f8b0:4864:20::c32])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b2e920d-650c-11ef-a0b0-8be0dac302b0;
- Wed, 28 Aug 2024 09:06:28 +0200 (CEST)
-Received: from BL1PR13CA0235.namprd13.prod.outlook.com (2603:10b6:208:2bf::30)
- by BY5PR12MB4162.namprd12.prod.outlook.com (2603:10b6:a03:201::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.27; Wed, 28 Aug
- 2024 07:06:23 +0000
-Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
- (2603:10b6:208:2bf:cafe::a3) by BL1PR13CA0235.outlook.office365.com
- (2603:10b6:208:2bf::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.19 via Frontend
- Transport; Wed, 28 Aug 2024 07:06:22 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7918.13 via Frontend Transport; Wed, 28 Aug 2024 07:06:22 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 28 Aug
- 2024 02:06:21 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 28 Aug 2024 02:06:20 -0500
+ id 5a475609-6512-11ef-a0b0-8be0dac302b0;
+ Wed, 28 Aug 2024 09:51:37 +0200 (CEST)
+Received: by mail-oo1-xc32.google.com with SMTP id
+ 006d021491bc7-5d5c7f24372so4756941eaf.0
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 00:51:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,151 +40,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b2e920d-650c-11ef-a0b0-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QZfV3ZRIigscPBHDin/nx6qzTyIbYMuKWjZVcA83/TNICfolaajhY88zcQjkEtCzAHG71N0b18/egkdoqwOh+BZ8kEWPkXX9W6NyD9LOLs2bQckSHvdLEdsZ5x0v9CF9mgyy5s0fLDPS7IDlxY8OFIXtJEBUc5EMJCssuIeQ5g1AkTZcpO7y59UYDN0rNPUr8MGnavNcgaGpSCLbyfjsYO2PCLHpOWK4VbBfTZd+83qBWlMb839pvWfVz4se/lpoqH/lzAn/K3SaLq3IQNgK5LsqmRPHpnM3SuR6NGKL2WYq8wU3TRIE6coXVayzAeRvihN6AADiBRrDlkZ7w9+r4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+8Lfp2CZBbUQ8ONYYPoWKGUcOuXsHmRawUQ0jh6cAG0=;
- b=QPMOOIj3MLFJbgxzt9nMpdRxGrfPFyJu12gZI0rZXCQdLKpj/4TvauigfQDHroRC6IJAs0nZqC5FYTafNTCXJMXLgytI3fS7mhMJERWsJ8nFtU5DxSgqn1bVRjnNqIt9thoPSlYRsFWwnRUgbLKufOi7TO0THlFZy/wNsQB8J/3IpvFXl9b72Pf+YKUHcHzNtgJouRxPP/4vHMbowHU0qa/+E1Qn3A7VBdQI3Tb1j3I5RVwxT2ET4p5VWU74/pUhfSjy36bcb0A4Afi2htevQ38klMxZ4zbjVvj0h8rsAcezVrOsfa3dryvrulwGaB5fzXhoVgd19im0FKtVgwibuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+8Lfp2CZBbUQ8ONYYPoWKGUcOuXsHmRawUQ0jh6cAG0=;
- b=2XvqQcMB+bSX3ATjuDkAX5p4D79jLPcJfJRV7oeTiSo0i3A6vkBJBfg41RXz3tXHC2ToxVf8E2Skq+m8jbUMBDWY+07jm8XuWwvBtsKW5jrVAfw+eJbsML/8ZUGQDpUdeNajqEuOV1bi3ltrjX8nmhimOlukBZI7sRfVDL90j+c=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <748f9e0d-e630-42f2-9273-95e2e85c524f@amd.com>
-Date: Wed, 28 Aug 2024 09:06:19 +0200
+X-Inumbo-ID: 5a475609-6512-11ef-a0b0-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1724831496; x=1725436296; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bP0plvhO8YHIsonleWKg3q16oNG+zil+AkCgzONfyBQ=;
+        b=SbTajC1TCr40RuRF0Wy8PLwiSB7ZUN8WyFVN+9M0qN29JJy+UHX8WGFt6mWjpqU4un
+         u8cpdGoJxGSK3rxYs8bqAGoAyd/EDVvCQKe8lfhfYpTQCfkV4eaxJnQmpFrPns2O0bjE
+         I3pbiabiQ+HOQXAOILUsa1f3km/tTbjVnm5kY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724831496; x=1725436296;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=bP0plvhO8YHIsonleWKg3q16oNG+zil+AkCgzONfyBQ=;
+        b=Xvj293mevAB0gwBG93BV5uXZzjrwXkmPvAUH1QqtFGOJi9xlWLH6fb1TMO/aCmvdBG
+         D9lkuG9Nc2NxNLwSNwqj9ynX2nhxD943Xz3dnE/Y7jZLo7refxhnYD4dVxnzZuYtsYLh
+         /Yn+VuQUwreSvgA6E7OJBXKSEdonHxAYO9MPewRfe3EgSgnhOd/6ItobiKC11/ov+8un
+         +DpOxmo8z/fHqvlpDVBBlRInn2M0GVXaESQuApyitY9Od1cCa/fBfmM1bglXAiNFwVSv
+         RgTwsT1aVGlzxptsgXBOnOmCwr60z9Aebwx4fgx8yOG+deJ5JrL4xMnFZUdwSXD2ZzVj
+         ZvdA==
+X-Forwarded-Encrypted: i=1; AJvYcCX+jfbftQojmhcGxxQWsbTsRr4EhVjjNwEkrsMFWrxVZqIkG7H5ykUt+MBe2QArw0ehbAwQbhnXBc4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwUEI81c3e/sohpf3+rcUvMkjf7lFHmf4SgY2ozWwO2IqciNW9a
+	RD8ZqAhtsj9nH1Z11m3MTwdcBEZ61zLEnU77nVmSeuwJr/JYXZfDGWfaTZduJkreRzYrFFXo/JL
+	M5GWcctYvbH7uH7Zqh+O4X51t/20P77wE12Oq8Q==
+X-Google-Smtp-Source: AGHT+IESSV+TPXt8tKq9x8lQN6dWAmfZ92AelsD0FYE36oZjHpVkgT1RLgqbmnMLYkiwOJ9fm+2VH1huJjrctf6RdtI=
+X-Received: by 2002:a05:6820:80f:b0:5dc:a733:d984 with SMTP id
+ 006d021491bc7-5df866c0974mr1211152eaf.1.1724831496412; Wed, 28 Aug 2024
+ 00:51:36 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM/vgic: Fix variable shadowing in vgic_to_sgi()
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand
- Marquis <bertrand.marquis@arm.com>
-References: <20240827234522.2237355-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240827234522.2237355-1-andrew.cooper3@citrix.com>
+References: <20240822152953.489136-1-frediano.ziglio@cloud.com>
+ <55e6dc6c-344a-4483-90c2-e414ef4bc869@suse.com> <CACHz=ZgbU3-HBgoDC9ws=cCK10B2D4K2JxjLN3_0YGoksVep8w@mail.gmail.com>
+ <527b3a0f-3e86-47aa-9092-e67df329b7e9@suse.com>
+In-Reply-To: <527b3a0f-3e86-47aa-9092-e67df329b7e9@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Wed, 28 Aug 2024 08:51:25 +0100
+Message-ID: <CACHz=ZgdCMbkgJfirf=O-kt0mRqUkjXVgfETjZqQbhH-URZ1cw@mail.gmail.com>
+Subject: Re: [PATCH] Avoid additional relocations in trampoline code
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>, xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|BY5PR12MB4162:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4816063e-36ca-40a2-ed6c-08dcc72fec7a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aDl5M3M5TGMxbHFYeFB1Q1A2V2JEWnJFaXBPaXIxZUE5cWRtbDNBMkxlOWow?=
- =?utf-8?B?REhFQUpTeExWZ25IdDhGelo5STQ3Sno4elRrbHRqS1JoSVB5d01HekViZnJm?=
- =?utf-8?B?ckZWWXhWdGlNMlF5V2p3VUl2YTNyM21JVy9xQzc2T2hmS0krN21rd25kc282?=
- =?utf-8?B?K2RiZWFDT1RiNVVQU3BxZUZuV1ZLS2ErZXZGQVpQejlLQ1ljODU0RS9mN0RT?=
- =?utf-8?B?d2ExRWtGZ3JZQXcyRTVVVFQ0WjlzSkNzUFRFL2VSeW1CWTVHbXpQNWJ4cGVj?=
- =?utf-8?B?c1JGL3ZRSVk1TDVqRE5TVC9sdk1sRnhWZmVEYmVRMTM2TlNLY3pxVmVnZWlP?=
- =?utf-8?B?TWkvTWF4QkV2S2VJL3NFRmU5b1ptaklNc3JMRVpvcm1YK1A0WmJrcHdtN1dU?=
- =?utf-8?B?eWFjZU81SFdJRHpBTkZLQVVrTlErUGdVdzFhb2dxdFhJZHB6NTF2NFZJNDhl?=
- =?utf-8?B?WDRjaFJndVhNVy9XMCs4Qm5Uamd2aTJ0SDFWcXg1YmNBek0rMlVPWmpXK3NL?=
- =?utf-8?B?NG13em9VZElhSFV6anJsSlNtOWpYUE4yakExQ3c5TEtXTkI4QUNpRVZxT0t5?=
- =?utf-8?B?VXhWVC8wU3BlWkExYkh1QUQyMXAxUE9uclYxSlJHTmQ0TWEzdnB0dGpzTmpo?=
- =?utf-8?B?ZUYzRGFQVmNOS0hRWkVxaFRhbU9ua2s3SlJtU0MyWDVPa3NEMTZMd09EdEtS?=
- =?utf-8?B?SkRRRGVKaUp3ZjRIZVE3RlFQOHRrajZMU3F4aUgzeEJkakVCNklka0tXazE4?=
- =?utf-8?B?MEtEbk5DRi9oTWozRDMyTTNVVVpyOFVrRmNKWVZUQmhiOUtmc2I2YTZ2akpJ?=
- =?utf-8?B?TjduaUxlRnViSzVlbkptTTB0Z1duU3VFUmFNRVdxdjhsZlA2dDJHOHg5a3dG?=
- =?utf-8?B?cS9OcmVha25hWkZNOUg5SmtvWW1yenFQaE5tTkdQUzZQNm1KVkxWYlcwTmxj?=
- =?utf-8?B?Mi9XNUtqSzhaSVJ5QXFFZnlSZEJWWnVmTE5Uc09UdDM2S09EaHNYVDV6VTUz?=
- =?utf-8?B?ZHZUcWw4RVlBNkF2b2pnZkM2L0hmYXp1ZlhWWGx3VnBJTkliNkR3TVJUZUxv?=
- =?utf-8?B?RHgwRGxCakhLVWNYbEUzWDgzOFZObURRSkZ6dnJNRUNra1k0eUhzc3lLT2lN?=
- =?utf-8?B?TjVxY1lNTWhyQy9MamhNajZHUkJSRVBSVFk4ODVIVlJPZUU5Uyt6a2JCMGFP?=
- =?utf-8?B?Uzg3c0kwZ0xFRmhJMUFJWUpJcWpZNTlYY09rd1c0NUFJQ0NGWkIxZnJtWXZV?=
- =?utf-8?B?R3JidVZGdHhSWkgveWRjaEJ0MCszSmk4aGJWT0cvNWhNcW13YzRQMWU4NjVH?=
- =?utf-8?B?TDRTNHdlOTFET0crYytLelk0RWFOaGZUZmEya2l3TW00Z05OREQ3TS9RYTV3?=
- =?utf-8?B?TDZZWTk4a0ZHUWd4dHhhc2JueE5hMWt5YzJWT1A1VFhlSjlMZEp2eEx2dWNM?=
- =?utf-8?B?aDhPdkgvQ3piVE9mRlVKV0U4amhlcS9zMnV1bjNYa2ZiV2lMb3lVV2lNVC9r?=
- =?utf-8?B?KzlEUktFNk5hckZqUDJJOU9HVll6RWxPS2pnRld6ZmlSSTZqTTM1ems0NHRW?=
- =?utf-8?B?SDIrTDl6OXI4RkcvM0hleEQzU2JtblV1d0VwVHlqcGM3OVk0VG9IeWJTV1Yr?=
- =?utf-8?B?RTRBeDQ5Um9WWVQ2aVlUZkFwWERJL2lwbUVJWUVrUFU5eW5FKzV3Ym90Umli?=
- =?utf-8?B?WjgrVjl3YjZZYkVxaEZiZi9nWFYzZFIwOW9Qa1dUUnZ6N1drMmNqbkttK2U2?=
- =?utf-8?B?UTdmemNnSUpGNTFuKzJCd1RMVC96bTh0OE9WS2pyMENDNEpOa2I3RG1qS1Nr?=
- =?utf-8?B?YnhqYmpyb2JBN0J1alpCR3ZqcVNVK2RaTVNXRjdWbHNhd2ZyZ3o0WlJPYWxO?=
- =?utf-8?B?cUMyQzRKbXY0Rko0SnJtSFR2WTlHNXQweVU4S3ZtVFRFemVVajlXQjFtcGp3?=
- =?utf-8?Q?HT8epxQmN31+rflOaRLlG/n94wX6bQ3m?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2024 07:06:22.4012
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4816063e-36ca-40a2-ed6c-08dcc72fec7a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4162
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Aug 27, 2024 at 4:50=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 27.08.2024 15:56, Frediano Ziglio wrote:
+> > On Mon, Aug 26, 2024 at 9:21=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
+ wrote:
+> >>
+> >> On 22.08.2024 17:29, Frediano Ziglio wrote:
+> >>> The trampoline could have "manual" relocation entries (created
+> >>> by assembly macros and some code to use them) and (in case of PE)
+> >>> normal executable relocations.
+> >>> Remove all normal executable ones. In this way we don't have to
+> >>> worry about applying both correctly (they need proper order
+> >>> which is hard to spot looking at the code).
+> >>>
+> >>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> >>
+> >> I think this wants splitting into one patch replacing sym_offs() and a
+> >> 2nd one introducing the hand-crafted __XEN_VIRT_START additions (which
+> >> may want macro-izing). Plus the justification for the change wants
+> >> extending, to actually explain what the problem is - after all there's
+> >> no issue anywhere right now.
+> >
+> > Should I explain the time dependency issue with source code?
+>
+> Time dependency? I guess I don't understand ...
+>
 
+You have a time dependency between 2 code path when one has to be
+executed before/after another.
+Some patterns are expected (you don't call a method on a destroyed
+object) but nasty hidden ones makes code more complicated and less
+robust, making code changes harder and program fragile.
+In that specific case the copy of the trampoline, for EFI path, is
+done after relocation rollback. In that specific code path, you are
+executing code which is not meant to be executed at that location (now
+should be executed at higher locations) hoping that compiler/binary
+code can cope with it. The code should relocate back and switch to
+higher locations as quick as possible.
 
-On 28/08/2024 01:45, Andrew Cooper wrote:
-> 
-> 
-> for_each_set_bit() allocates its own variable intentionally as loop-scope
-> only.  Unfortunately, this causes the inner 'i' to shadow the outer 'i'.
-NIT: I'd mention it violates MISRA R5.3
+> > I suppose I can describe where currently is and why it would be better
+> > to have it removed (honestly I though I did but reading the commit
+> > message I didn't).
+> > Maybe for search reasons it would be better to define 2 macros like
+> > the following?
+> >
+> > #define phys_addr(sym) sym ## _pa
+> > #define virt_addr(sym) sym ## _va
+> >
+> > This way, for instance, searching for the "__high_start" word (like
+> > "grep -rw __high_start") would produce a result.
+>
+> I assume it's best to keep everything there together, so see below.
+>
+> >> With the sym_offs() uses gone, I think it would be best if the macro w=
+as
+> >> #undef-ed ahead of the inclusion of trampoline.S. Since x86_64.S uses =
+the
+> >> macro, that'll require careful re-arrangement of #include order.
+> >>
+> >
+> > I think you mean including the trampoline after including x86_64.S in
+> > head.S.
+>
+> Yes.
+>
 
-> 
-> Drop the outermost 'i' and 'vcpuid' variables, moving them into a more narrow
-> scope and correcting them to be unsigned which they should have been all
-> along.
-> 
-> Fixes: 9429f1a6c475 ("ARM/vgic: Use for_each_set_bit() in vgic_to_sgi()")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> CC: Bertrand Marquis <bertrand.marquis@arm.com>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> ---
->  xen/arch/arm/vgic.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-> index 8ffe099bcb5f..6ecd9146511c 100644
-> --- a/xen/arch/arm/vgic.c
-> +++ b/xen/arch/arm/vgic.c
-> @@ -468,8 +468,6 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
->                   int virq, const struct sgi_target *target)
->  {
->      struct domain *d = v->domain;
-> -    int vcpuid;
-> -    int i;
->      unsigned int base, bitmap;
-> 
->      ASSERT( virq < 16 );
-> @@ -483,7 +481,8 @@ bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
-> 
->          for_each_set_bit ( i, bitmap )
->          {
-> -            vcpuid = base + i;
-> +            unsigned int vcpuid = base + i;
-With this change you should replace the printk specifier from %d to %u for vcpuid.
+That worked like a charm!
 
-Apart from that:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> >>> --- a/xen/arch/x86/xen.lds.S
+> >>> +++ b/xen/arch/x86/xen.lds.S
+> >>> @@ -71,7 +71,12 @@ SECTIONS
+> >>>    __2M_text_start =3D .;         /* Start of 2M superpages, mapped R=
+X. */
+> >>>  #endif
+> >>>
+> >>> -  start_pa =3D ABSOLUTE(start - __XEN_VIRT_START);
+> >>> +#define DEFINE_PA_ADDRESS(sym) sym ## _pa =3D ABSOLUTE(sym - __XEN_V=
+IRT_START)
+> >>> +  DEFINE_PA_ADDRESS(start);
+> >>> +  DEFINE_PA_ADDRESS(saved_magic);
+> >>> +  DEFINE_PA_ADDRESS(idle_pg_table);
+> >>> +  DEFINE_PA_ADDRESS(__high_start);
+> >>> +  DEFINE_PA_ADDRESS(s3_resume);
+> >>>
+> >>>    . =3D __XEN_VIRT_START + XEN_IMG_OFFSET;
+> >>>    _start =3D .;
+> >>
+> >> For the cases where in assembly code you add __XEN_VIRT_START this is =
+pretty
+> >> odd: You subtract the value here just to add it back there. Did you co=
+nsider
+> >> a more straightforward approach, like introducing absolute xxx_va symb=
+ols?
+> >
+> > I didn't consider. Would something like
+> >
+> > #define DEFINE_ABS_ADDRESSES(sym) \
+> >    sym ## _pa =3D ABSOLUTE(sym - __XEN_VIRT_START); \
+> >    sym ## _va =3D ABSOLUTE(sym)
+> >
+> > make sense? Maybe the _pa and _va suffixes are too similar? Maybe
+> > _physaddr and _virtaddr? Or use capical letters and macros (as above)
+> > to avoid possible clashes?
+>
+> I'd like to ask that we don't introduce symbols we don't actually use. He=
+nce
+> a single macro defining both is probably not going to be overly helpful. =
+As
+> to capital letters: I'm struggling with the "(as above)" - I don't see an=
+y
+> use of capital letters in symbol names being generated. But yes, I was go=
+ing
+> to suggest to consider _VA and _PA tags, precisely to reduce the risk of
+> clashes.
+>
 
-~Michal
+Unfortunately this worked but is producing these warnings which are
+pretty annoying:
+
+ld: ./.xen.efi.0xffff82d040000000.0: stripping non-representable
+symbol 'saved_magic_va' (value 0xffff82d040816018)
+
+I tried to remove them somehow, but I didn't find any way (no hidden
+symbols, not been able to force the linker to strip it and not
+complain).
+I think I'll get back to the single "pa" symbol, this time with _PA
+suffix, maybe hidden, and adding macros (phys_addr/virt_addr) to make
+clear the purpose.
+
+> Jan
+
+I'll try to split the patch as suggested, although it will be hard to
+come with a sensible message for the second commit.
+
+Regards,
+  Frediano
 
