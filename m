@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0636A96264C
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 13:47:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784749.1194130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6530962655
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 13:50:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784755.1194140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjH88-0000L5-MO; Wed, 28 Aug 2024 11:46:28 +0000
+	id 1sjHBm-0002UG-5k; Wed, 28 Aug 2024 11:50:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784749.1194130; Wed, 28 Aug 2024 11:46:28 +0000
+Received: by outflank-mailman (output) from mailman id 784755.1194140; Wed, 28 Aug 2024 11:50:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjH88-0000Iw-Jg; Wed, 28 Aug 2024 11:46:28 +0000
-Received: by outflank-mailman (input) for mailman id 784749;
- Wed, 28 Aug 2024 11:46:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sjHBm-0002Ra-39; Wed, 28 Aug 2024 11:50:14 +0000
+Received: by outflank-mailman (input) for mailman id 784755;
+ Wed, 28 Aug 2024 11:50:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NRYu=P3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjH86-0000Ip-IK
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 11:46:26 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2794f5c0-6533-11ef-a0b0-8be0dac302b0;
- Wed, 28 Aug 2024 13:46:25 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a8696e9bd24so714642766b.0
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 04:46:25 -0700 (PDT)
+ id 1sjHBk-0002RU-P0
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 11:50:12 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ad41b9be-6533-11ef-99a0-01e77a169b0f;
+ Wed, 28 Aug 2024 13:50:09 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2f4f2868710so65947271fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 04:50:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e54875b8sm235152766b.1.2024.08.28.04.46.24
+ 4fb4d7f45d1cf-5c0bb1c2f53sm2161402a12.19.2024.08.28.04.50.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Aug 2024 04:46:24 -0700 (PDT)
+ Wed, 28 Aug 2024 04:50:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2794f5c0-6533-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: ad41b9be-6533-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724845585; x=1725450385; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724845809; x=1725450609; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mpdrHGXQc+FtDMvN3QJ8IPXtZ70AgcSCoXmjz/j9ZhA=;
-        b=NMW+jdUVPoV37jo6PR9UhTClP9eDFzv35TDcHKUUCyXeFx1PNo3OHwDFa1q++uffcX
-         BqjS0I92/kx8/qOpntImS9rq3+IgkNuhj8NfHUXNP92TBqIW2ZLWW3csUdabrwBEeTR2
-         jGrKGxKBiU2st7SWkoRPl9f4KlpHCE72hjmTNA+nPxC5WQGOMSuuJCO/FDZ+lIvBmZb1
-         6Luw4SMHKLKszopeYE9g4kxLv3Xej1/btPBR6Kz9h4XsYOKOhO56NOaMZRJdJrHb5vV9
-         gFrh4Mtf4IlhrEq7gEhR3fQFwZke6cJreDuC6YghS6MS5SOVQ4fRYSF6rywZsPejC6Ke
-         Tdgg==
+        bh=/4fXpOsfKB9LG9OCJy5yXlfw7MKLEuNLfonqWdlwlIg=;
+        b=Eu/nZp5mCYbu2OrGCWOiZrrR7CWvZiM8CTDIvhDb6grzFqcty/ytOCE1ud/2zfrYwe
+         E99lCKnA44SK2rZF16a7EQMDn7RiE1RlqLBihJulisbBsMMPxqTvz7pcu9wxGLVzOS6n
+         fvGLsdax/U/ULVhKVtEJtJpPM80uSxXJDwoL2aDQUaYVULMRHVVw2OFzNaS3U6ZSPv1J
+         IbhuJPwInoACkP43JXm4jnv2O3vIIwb2yG8YV4LC0U5PJLSI+ge2Rn4Fe5w8hHMxpu3P
+         OpCA8w3DLQY4GPMxG8dwduoZTIbL7HBzDo88rxEHBKgyW98sEieupvj41i33oLaBeuMb
+         A0Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724845585; x=1725450385;
+        d=1e100.net; s=20230601; t=1724845809; x=1725450609;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mpdrHGXQc+FtDMvN3QJ8IPXtZ70AgcSCoXmjz/j9ZhA=;
-        b=W2XJOU1PgOKL7/zYuy6cAbML5/lVzU1c16PxcabzF8sRZMiTYYZ4gQ1xRnPyDL34BH
-         Ofqz6D11+D85N1cDHrQaQlmsvup0xGWv77V7SPGiFXXzcs1Awt2bU2SqTY5Nb86Y0Ft1
-         JPI1qi4j0BrqWNCHuehg+W2/CGIUSxSEqWypOE6NSmHUTS6iN14AL16+xLeRVgklaJRC
-         tmZ899gfPwVuKnpySbnl7vNV4sfARafagekTqmcBhHkM8p29dFmYBIOOGjyPxJpPAeCe
-         Kotv7+DGdYI8MEnh1g2t8D8PELAzV09gQVsA22v5WxPxnjST5ZolH91nxkeBsgwjZt6O
-         uYZw==
-X-Forwarded-Encrypted: i=1; AJvYcCUkuvuOOVEy2eMpNygXT8XqZWLnb1Yylshubs43wYpW+vcG3AjbYZOrd2Uq+xaGTiJq5rujjVQ7feI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzmeC/Yepy3HHhZN83x59z3PQeQw6LzWxtCMtlElqiZAqOPOS6Q
-	LY7fvYgF0ONlC9Wb0j7/rO1jaUSK+aa1BcK99Vi1nenqnRmLcwEa02To/CuEog==
-X-Google-Smtp-Source: AGHT+IGAMuPmHNROaq8Y/pjAje3JllW0LSLvjRBc1pLXqcnCqzpo4nJRmPVQnOqdlskk48h8Yx7oKw==
-X-Received: by 2002:a17:907:1c27:b0:a77:b01b:f949 with SMTP id a640c23a62f3a-a870aa54808mr148528366b.35.1724845584691;
-        Wed, 28 Aug 2024 04:46:24 -0700 (PDT)
-Message-ID: <dac66b57-fba3-409c-83cb-6b33171f3949@suse.com>
-Date: Wed, 28 Aug 2024 13:46:23 +0200
+        bh=/4fXpOsfKB9LG9OCJy5yXlfw7MKLEuNLfonqWdlwlIg=;
+        b=g/Icq6QZHLwUuMkUfunzoT1Ov0xMUlU+lqYSEqg1CY6kNJnaKbd6khPxdDJRQqSi2Q
+         gn1x0j7C55otcQRHM1UHadVzQ2pjawtIyCu8rpuEvjCPeI4kKBlxFBgbF7gwhQs+Pahx
+         fXzHvaSp+umTA+XcZW3XxAySmEp/KHNg+G/rpo0sjSHOI7HhG5uC0NW1tcqXLy1PDrtI
+         ev2yG4umtULNFw0/pLF2QFwQlnIz0fdLNkJgrLiArF1ohiYThSeBx6zqsmyaxDmmir4g
+         m8gU/uBhPh7ldNR44Bs7+1EVAQ72F/0C6s6rOohLpyM0je/IZBqIaKFRjhwFJu1uFeXv
+         fguQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXZ921VN45WsGn9804F1uEcn4KnHwI59cH9JkiiWx6t4SkKWPJ5A0KJCoXKESmuehDdsmtPweZ32KY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxvPh57Z2y4hxvM7cXIRiM/jUGBe1JResvJZ3zPbEFhYc5N6Vq7
+	rg4euhrLXKZbbw0da5MVayGOOORQbwEtEQFxfI0smG9lhJD2USvtErNhHb9CGA==
+X-Google-Smtp-Source: AGHT+IEkBWAHoLhOTd+Bp8LPszz/63ay02Pb8F//4nz0ZrWzdI0GvDeBVuEEu/Cr5GW4ZgP61WVCMw==
+X-Received: by 2002:a2e:8812:0:b0:2f1:929b:aef6 with SMTP id 38308e7fff4ca-2f4f493f3a5mr99757811fa.36.1724845808959;
+        Wed, 28 Aug 2024 04:50:08 -0700 (PDT)
+Message-ID: <50658093-8463-4ee3-b308-31be2dd1fd42@suse.com>
+Date: Wed, 28 Aug 2024 13:50:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/HVM: correct partial HPET_STATUS write emulation
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <da785047-0bee-4d16-a6ae-d1727bd8317a@suse.com>
- <c508fcdf-d918-40cf-94d5-c56a191e53bc@citrix.com>
+Subject: Re: [PATCH v6] x86/dom0: disable SMAP for PV domain building only
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240828113044.35541-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,49 +110,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c508fcdf-d918-40cf-94d5-c56a191e53bc@citrix.com>
+In-Reply-To: <20240828113044.35541-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28.08.2024 13:06, Andrew Cooper wrote:
-> On 28/08/2024 10:00 am, Jan Beulich wrote:
->> For partial writes the non-written parts of registers are folded into
->> the full 64-bit value from what they're presently set to. That's wrong
->> to do though when the behavior is write-1-to-clear: Writes not
->> including to low 3 bits would unconditionally clear all ISR bits which
->> are presently set. Re-calculate the value to use.
->>
->> Fixes: be07023be115 ("x86/vhpet: add support for level triggered interrupts")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Alternatively we could also suppress the folding in of read bits, but
->> that looked to me to end up in a more intrusive change.
->>
->> --- a/xen/arch/x86/hvm/hpet.c
->> +++ b/xen/arch/x86/hvm/hpet.c
->> @@ -404,7 +404,8 @@ static int cf_check hpet_write(
->>          break;
->>  
->>      case HPET_STATUS:
->> -        /* write 1 to clear. */
->> +        /* Write 1 to clear. Therefore don't use new_val directly here. */
->> +        new_val = val << ((addr & 7) * 8);
->>          while ( new_val )
->>          {
->>              bool active;
+On 28.08.2024 13:30, Roger Pau Monne wrote:
+> Move the logic that disables SMAP so it's only performed when building a PV
+> dom0, PVH dom0 builder doesn't require disabling SMAP.
 > 
-> It's sad that we allow any sub-word accesses.  The spec makes it pretty
-> clear that only aligned 32-bit and 64-bit accesses are acceptable, and
-> it would simplify the merging logic substantially.
-
-While that's true, the bug here would still have been there if we limited
-emulation to 32- and 64-bit accesses.
-
-> Nevertheless, this is the simplest bugfix for now.
+> The fixes tag is to account for the wrong usage of cpu_has_smap in
+> create_dom0(), it should instead have used
+> boot_cpu_has(X86_FEATURE_XEN_SMAP).  Fix while moving the logic to apply to PV
+> only.
 > 
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> While there also make cr4_pv32_mask __ro_after_init.
+> 
+> Fixes: 493ab190e5b1 ('xen/sm{e, a}p: allow disabling sm{e, a}p for Xen itself')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Thanks.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+preferably with ...
+
+> @@ -1051,6 +1051,34 @@ out:
+>      return rc;
+>  }
+>  
+> +int __init dom0_construct_pv(struct domain *d,
+> +                             const module_t *image,
+> +                             unsigned long image_headroom,
+> +                             module_t *initrd,
+> +                             const char *cmdline)
+> +{
+> +    int rc;
+> +
+> +    /*
+> +     * Temporarily clear SMAP in CR4 to allow user-accesses in
+> +     * construct_dom0().  This saves a large number of corner cases
+
+... the final 's' dropped here and ...
+
+> +     * interactions with copy_from_user().
+> +     */
+> +    if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+> +    {
+> +        cr4_pv32_mask &= ~X86_CR4_SMAP;
+> +        write_cr4(read_cr4() & ~X86_CR4_SMAP);
+> +    }
+> +    rc = dom0_construct(d, image, image_headroom, initrd, cmdline);
+> +    if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+
+... blank lines added around the function call. Happy to adjust while
+committing, so long as you agree.
 
 Jan
 
