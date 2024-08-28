@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48CCA962213
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 10:13:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784543.1193913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D47E39622DF
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 11:01:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784553.1193923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjDnp-0000b1-D3; Wed, 28 Aug 2024 08:13:17 +0000
+	id 1sjEXa-0000wC-Q1; Wed, 28 Aug 2024 09:00:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784543.1193913; Wed, 28 Aug 2024 08:13:17 +0000
+Received: by outflank-mailman (output) from mailman id 784553.1193923; Wed, 28 Aug 2024 09:00:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjDnp-0000YW-9x; Wed, 28 Aug 2024 08:13:17 +0000
-Received: by outflank-mailman (input) for mailman id 784543;
- Wed, 28 Aug 2024 08:13:16 +0000
+	id 1sjEXa-0000tg-N1; Wed, 28 Aug 2024 09:00:34 +0000
+Received: by outflank-mailman (input) for mailman id 784553;
+ Wed, 28 Aug 2024 09:00:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NRYu=P3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjDno-0000YA-Og
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 08:13:16 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1sjEXZ-0000ta-Np
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 09:00:33 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f931227-6515-11ef-99a0-01e77a169b0f;
- Wed, 28 Aug 2024 10:13:14 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a7a9cf7d3f3so808875266b.1
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 01:13:14 -0700 (PDT)
+ id fab0c2d2-651b-11ef-99a0-01e77a169b0f;
+ Wed, 28 Aug 2024 11:00:31 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a868d7f92feso822691166b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 02:00:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e594a545sm206301166b.205.2024.08.28.01.13.13
+ a640c23a62f3a-a86e594a545sm212828166b.205.2024.08.28.02.00.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Aug 2024 01:13:13 -0700 (PDT)
+ Wed, 28 Aug 2024 02:00:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f931227-6515-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: fab0c2d2-651b-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724832794; x=1725437594; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fy3lVpWLV/wnb8UcTsEYO/zgSlhGphcsNDPNuSgPzq8=;
-        b=bKXrtDx724+9SiS19I6r1QnEfufJnYjXJjgki47Ee54tIoHnN8nc7f4R7dGwlbRddS
-         fnTbYlMpxrCxPIzww2Em1s0V7EH2QwFAE3lSGzLIsEFUDOo2vL5x4hsHiPtAFUCisyYl
-         tizWHo/NVSh9GNqU0daUlkaYsTogP9VmKy7FKjKIMfJ6jxrPylRJjETRFwA+E+Dvzns9
-         YoJIBUe15YleAldvyv1Uzza0S4zCS6VYYekH3sXRXvR8o0dolb7cQwnJZItq0cq+wh8C
-         Iwd7hqLsByLRBejq0wglrEZETcZ3U/Ni9NmVrLf5q+ndjd03HU2KNNI25JGuethIQgAN
-         faEw==
+        d=suse.com; s=google; t=1724835631; x=1725440431; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=IDlXVI4tN1z7T+KNMK8D/vgvXHZ0aqeWrPhpeNr3oGI=;
+        b=ah7AC7Zl23ipu5eq4c5/0ncSewAz+AsIDt7RpttT3A00tHTu/fHT0JtshmAyazk1wi
+         TEACT8x4qyL+UZcFaTKz+fsLg5Bvsjt/M5/I9dxPcUpuhhX3RvrKqCHl1LTSd0I3kDDM
+         kdffRlIwqzb+w8RFQn+Z4BkE3P53bHrpDx0/RLDUrHfiusm75uD0wK8aOZzn1ogObsto
+         mWDk9YF4vxKtEq3K10cFICk/HpOlaEOyqM7aCR0HgsYKyRFIQ3ORtaiaSr8u4G91GP9u
+         gCeOCCTl/YsAVQFMwNEAR5ryzpJ+9TzfJOemV24CId6BYDInZwAh9t6Zmt+b5cxD4f1g
+         w6Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724832794; x=1725437594;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fy3lVpWLV/wnb8UcTsEYO/zgSlhGphcsNDPNuSgPzq8=;
-        b=cqMjSGTV7mqIBqAg7EjEoTjVhq9N4Hsq2RtQbHaDnREUTRiwNEoAADOnRM9ojIVFmS
-         0IA/kCq7L40cbvS1ACGQASB0d8a2v7XsGEtvxSlHbihq/IXiq4nkQeiJWmMY17DjYNRP
-         3dJhVVrOUMxdp83GMciGPZBSbo+aDwip/w4uYtxXn4hwrxY0mJ4ghDMNULajsPy0U44Z
-         QWR4DQX+JgPUNWe8zvWBJlUd7K8a6xItnugXqzSJZb2XBvmunc/d1/iZKqZFwTHFhKrx
-         IU1DSmBKotklsyUECw3FOQEfHaxMHh5c36EX+PYr5RjJ6T1RGqAt7QavfHKEoruFLTbj
-         d3WA==
-X-Forwarded-Encrypted: i=1; AJvYcCWCg3MnchUUe2c4iOJEtaP5Lc97Z9JAYJh2SyFE+QClf1W8Y9ZIDa5X/RcRxLlzl3fyHtSEDryuIV8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyKClV/Ig0lG/w2aMhSM5dP5vXS6ltk0OgcsVDPB/2jfyLJi4jd
-	2hRNxA1CMd0Fq+AsBzg3MsnTBU9JVnVaXWx1tyw2iW1q5gLLG43E7NV8A1ySfw==
-X-Google-Smtp-Source: AGHT+IEor1Q++j0VuS6BTuFaGvhKH619jyrUfcOczFEQIToEKn67fjOk9/X8zjszsbj+o83yRnvPuQ==
-X-Received: by 2002:a17:907:1c1f:b0:a86:941f:49ac with SMTP id a640c23a62f3a-a86a54dfaedmr1178823966b.67.1724832793850;
-        Wed, 28 Aug 2024 01:13:13 -0700 (PDT)
-Message-ID: <2316ca39-50d4-4311-aeff-30be588245d9@suse.com>
-Date: Wed, 28 Aug 2024 10:13:12 +0200
+        d=1e100.net; s=20230601; t=1724835631; x=1725440431;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=IDlXVI4tN1z7T+KNMK8D/vgvXHZ0aqeWrPhpeNr3oGI=;
+        b=h/2Vu/CjeGouE5OLRyyHnbGwNNc0QcUHXxHYwvHus+Ippv7eRfHxsfWuzpJqSei4Eo
+         jkOndh5f68n8umhU2e+EV/drU7W5n27Bm+WCRGaYRYrl+G86N6YyeR+WLZQMs8KlFnuJ
+         wCnXS/TW6qZV0baiKsTNSsJ38WZHckH6B6rb4807KvDivWugmY4lzob9YAjCmxk5yTh4
+         oLlDWyycU29E45x0jzmL+eWowE7XBJb+31zxtRsnXxkZ8ssAZ6VmqmWs2Aa6bo3oPPSf
+         LVZzBmBFS+G2lxGpOxml4Of0ke4Fz3eDMfbnZwJ6XNoxETfWKV9hsRrpKtQkdFRbezRV
+         70IQ==
+X-Gm-Message-State: AOJu0Yy9Pb/YplcrwRFAs+651+xvtwJ1RBCDgYJs78HWOL1NwgrRM60U
+	wPs1pgG0X7p2eRWxvx/s1VJJx3kG95oNl2an+0eyHoT6jyZOSPAwND9NFyphzg7j8emrGfaLB4g
+	=
+X-Google-Smtp-Source: AGHT+IGHpx7Xudff8ARLDevvbz3QNV7fJG1J76Ibn5Mnv56P9WECyyj73XMjM7T7Gsm5H0pq4MV8+w==
+X-Received: by 2002:a17:907:9724:b0:a86:95ff:f3a0 with SMTP id a640c23a62f3a-a86a5188d5fmr1133283866b.3.1724835631012;
+        Wed, 28 Aug 2024 02:00:31 -0700 (PDT)
+Message-ID: <da785047-0bee-4d16-a6ae-d1727bd8317a@suse.com>
+Date: Wed, 28 Aug 2024 11:00:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] x86/hvm: Rework hpet_write() for improved code
- generation
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240827135746.1908070-1-andrew.cooper3@citrix.com>
- <20240827135746.1908070-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/HVM: correct partial HPET_STATUS write emulation
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,83 +109,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240827135746.1908070-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27.08.2024 15:57, Andrew Cooper wrote:
-> In the HPET_STATUS handling, the use of __clear_bit(i, &new_val) is the only
-> thing causing it to be spilled to the stack.  Furthemore we only care about
-> the bottom 3 bits, so rewrite it to be a plain for loop.
-> 
-> For the {start,stop}_timer variables, these are spilled to the stack despite
-> the __{set,clear}_bit() calls.
+For partial writes the non-written parts of registers are folded into
+the full 64-bit value from what they're presently set to. That's wrong
+to do though when the behavior is write-1-to-clear: Writes not
+including to low 3 bits would unconditionally clear all ISR bits which
+are presently set. Re-calculate the value to use.
 
-That's an observation from what the compiler happens to do? I don't see any
-other reason why they would need spilling; I expect it's merely a matter of
-registers better be used for other variables. If we ever meant to build Xen
-with APX fully in use, that might change. IOW may I at least ask for
-s/are/happen to be/? I'm also a little irritated by "despite", but you're
-the native speaker. It would have seemed to me that e.g. "irrespective of"
-would better express what (I think) is meant.
+Fixes: be07023be115 ("x86/vhpet: add support for level triggered interrupts")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Alternatively we could also suppress the folding in of read bits, but
+that looked to me to end up in a more intrusive change.
 
->  Again we only care about the bottom 3 bits, so
-> shrink the variables from long to int.  Use for_each_set_bit() rather than
-> opencoding it at the end which amongst other things means the loop predicate
-> is no longer forced to the stack by the loop body.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> All in all, it's modest according to bloat-o-meter:
-> 
->   add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-29 (-29)
->   Function                                     old     new   delta
->   hpet_write                                  2225    2196     -29
-> 
-> but we have shrunk the stack frame by 8 bytes; 0x28 as opposed to 0x30 before.
-
-However, on the negative side all the first of the loops you touch now always
-takes 3 iterations, when previously we may have got away with as little as
-none. Is there a reason not to use
-
-    for_each_set_bit ( i, new_val & ((1U << HPET_TIMER_NUM) - 1) )
-
-there (with the masking of the low bit possibly pulled out)?
-
-> @@ -533,19 +528,11 @@ static int cf_check hpet_write(
->      }
->  
->      /* stop/start timers whos state was changed by this write. */
-> -    while (stop_timers)
-> -    {
-> -        i = ffsl(stop_timers) - 1;
-> -        __clear_bit(i, &stop_timers);
-> +    for_each_set_bit ( i, stop_timers )
->          hpet_stop_timer(h, i, guest_time);
-> -    }
->  
-> -    while (start_timers)
-> -    {
-> -        i = ffsl(start_timers) - 1;
-> -        __clear_bit(i, &start_timers);
-> +    for_each_set_bit ( i, start_timers )
->          hpet_set_timer(h, i, guest_time);
-> -    }
-
-To avoid variable shadowing, I think you don't want to use i in these two
-loops. Alternatively the function scope i would need constraining to the
-individual loops.
-
-Unrelated to the change you make, but related to the code you touch: Isn't
-there a bug there with the length != 8 handling ahead of the switch()? The
-bits being write-1-to-clear, using the value read for parts the original
-insn didn't write means we might clear ISR bits we weren't asked to clear.
-I guess I'll make a patch, which may want to go ahead of yours for ease of
-backporting. (Of course guests should have no need to write to other than
-the bottom part of the register, but still.)
-
-Jan
+--- a/xen/arch/x86/hvm/hpet.c
++++ b/xen/arch/x86/hvm/hpet.c
+@@ -404,7 +404,8 @@ static int cf_check hpet_write(
+         break;
+ 
+     case HPET_STATUS:
+-        /* write 1 to clear. */
++        /* Write 1 to clear. Therefore don't use new_val directly here. */
++        new_val = val << ((addr & 7) * 8);
+         while ( new_val )
+         {
+             bool active;
 
