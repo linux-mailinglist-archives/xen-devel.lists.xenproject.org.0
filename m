@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4207596250D
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 12:37:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784640.1194041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BDB0962525
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 12:44:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784670.1194050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjG2W-0007X4-Sq; Wed, 28 Aug 2024 10:36:36 +0000
+	id 1sjGA3-0001Cf-Iz; Wed, 28 Aug 2024 10:44:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784640.1194041; Wed, 28 Aug 2024 10:36:36 +0000
+Received: by outflank-mailman (output) from mailman id 784670.1194050; Wed, 28 Aug 2024 10:44:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjG2W-0007Uw-Pc; Wed, 28 Aug 2024 10:36:36 +0000
-Received: by outflank-mailman (input) for mailman id 784640;
- Wed, 28 Aug 2024 10:36:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sjGA3-0001BC-GD; Wed, 28 Aug 2024 10:44:23 +0000
+Received: by outflank-mailman (input) for mailman id 784670;
+ Wed, 28 Aug 2024 10:44:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NRYu=P3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjG2W-0007Qm-2t
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 10:36:36 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 65bda02e-6529-11ef-a0b0-8be0dac302b0;
- Wed, 28 Aug 2024 12:36:34 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5c210e23651so1008231a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 03:36:34 -0700 (PDT)
+ id 1sjGA2-0001B6-3V
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 10:44:22 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b14acbc-652a-11ef-99a0-01e77a169b0f;
+ Wed, 28 Aug 2024 12:44:20 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a86e5e9ff05so230633266b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 03:44:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c0bb1c2d2esm2073770a12.16.2024.08.28.03.36.33
+ a640c23a62f3a-a86e549b1d9sm227466466b.48.2024.08.28.03.44.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Aug 2024 03:36:33 -0700 (PDT)
+ Wed, 28 Aug 2024 03:44:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65bda02e-6529-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: 7b14acbc-652a-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724841394; x=1725446194; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724841859; x=1725446659; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2kqiz6hB63jDsjhvU7O+cVSBsv9rLDySCre9tX4VYoc=;
-        b=L8fd5bOb9nsRoZ2k4El7P9Wy6s0aMCErGM4sTuOUSBcei3CgvVX7G5Y6s6ZzBaR5xD
-         RR5wetb/403lQUgISNcmZkYoXbG+/eq82j2vphoy8jnJf6+PsmCwEHqJXqMPTSh8Ib8K
-         ErZwwTTuNOMf5JE88d6MSZPJ5x1sFqJ9YmsNJWiEP1t2fcRvlrF1puYnn6hDMR4XdJbR
-         OCFxknhVLMSNIC9SQBP4WPRwcU9Qh1s34+llmfQ5Y499dXR3lyFmWdPMCiaYJQRstK4K
-         MHRAbMoDloYE/TKfs1WP9W4IMztCiSa4GyUi3AYU6xLx/q1he4Rm1H0LHqM0Jrnbxfxj
-         yymw==
+        bh=iYXGgoUsTnz1IAsequLBskqm1HZ9svYx1885zpAfyto=;
+        b=Y8D8wL2XxVWWdpg6wsZ3b6gDnO/SreEU5Sn0+XS/LCv4heqMamzMtRceQqZIzSvkIu
+         dL66cLuj8ML7DKW9oik0FrXRGBGkh1Dc+9OT7bylV1FLASrwnm6VadTmVZFlbXcJIQXA
+         t74MX1pzNCDcHbX7Qj+tIcz+2WhTEAfo4fS2w4Zcwp0dH2XzOE12gxtCBd4HzQArT+hu
+         gaP3OC9NFvXJ6tmELMaUqK/7sP/W6x6s3mPwELnoT2/u6WlwJwj7FFK3GtO2MUiBU6/V
+         YPAmdzIqUKxiftG3rPpZEX60RD0BVjxjmW14+gZk5X0qRJ0ja0OBPI72ZxykJ9r0AEFT
+         M3Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724841394; x=1725446194;
+        d=1e100.net; s=20230601; t=1724841859; x=1725446659;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2kqiz6hB63jDsjhvU7O+cVSBsv9rLDySCre9tX4VYoc=;
-        b=uqg4sO6ibGnfc4r3IsbiyJi/dZpNQWlGDolLryBDTcyTfwE+iEJ/6hpWAYAENyKB00
-         Jz3RTn3NmGfeAHYS8oxRUjs0X29uDo9u+hCWewrz/cssqoRujRDfNou0O4Q3Z3dTjlCv
-         AOBa0mmqbUza8TCCB9RLGshQVsEcjpBVr2TEmjGFkGXm1X9qmvGp4OvhFUzOBDWKeAFH
-         ZQWxQAqhEGSFemooF9AK1lQMpEbVV0GxR1FgFgISzG/QmuDgmlsu90XPjpDHHTJ3Q7Mg
-         o7xv30lDfcjeft4sX9fIQ4BnedwLi7hGCIS8bQHXlCf2Hhu18yrZy9bReer5+uv0Hvps
-         p6jQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWeD+aZmDGPi0tXtyxal810n3P6ym73UYxCu72YPycqtv2qGs3EE4Qj8GTmQdH4iBgu/4HttP/RsTI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyD+W+z9m9artptSd7Trh1CMQ+LvonAgHrhY6JX9cqR8xjthb88
-	oHfHJFQ7PVEzi0jlCmvMzc8UHIzDM4mHAV3TOqiQFS7dXC36ZMsItPZY/9ZbUl+y2t0PAVMfOMo
-	=
-X-Google-Smtp-Source: AGHT+IEbZLBJ39Ltx3KW1Eojwj1Ryf3ceRjTrvHVP1vtnAwndaFWVfOGcT6/eXJYJGc2Ex+79UUxMg==
-X-Received: by 2002:a05:6402:51c6:b0:5be:e1bc:2304 with SMTP id 4fb4d7f45d1cf-5c2138e0fdemr1388426a12.7.1724841394066;
-        Wed, 28 Aug 2024 03:36:34 -0700 (PDT)
-Message-ID: <0742fd21-d606-440a-a7fa-dd3bfccfa1c4@suse.com>
-Date: Wed, 28 Aug 2024 12:36:32 +0200
+        bh=iYXGgoUsTnz1IAsequLBskqm1HZ9svYx1885zpAfyto=;
+        b=YwYfVrZnjRmzuSPfGRDSoa+LZgiYyGwq8LJcjeyiLG0erEcC65aG8EqRc7gAKbYnAv
+         NBOgE6mfz6pHutY4zgwIqHuu4baBI++Ila4WRzqnu/nk1/junjYRjI4HIgyKQUKnCNFA
+         1BplUNldYufmZ1b9cVg4ZV8y62hkDKaa556gkiUsJ5IaJWLjiIyiILR4eQJK2s6528+p
+         yuCQKTnTfgauESMb+Zq/n9U2q2BYGeQh+dvlZW8JSqGZt3zI+a7vc0382oRwzOB1IbQd
+         QFtW9sc2TLKXCvUcVdCLpIzsGJ87dj11QMNHMC3tXuu/Qqdzgbh5iJpoIgKC+GJLZQDN
+         8RcA==
+X-Forwarded-Encrypted: i=1; AJvYcCV1X8rFtuQhdkf+2NqGAsPewI4cp6C78ljWGH/aic+q6b4ZpMzJlNLjXV/fSjFX3B5IzWJHdFvuGPI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz7n4ujfENK9k52+pv1IxdLExbWvUlb0SeZcNdV2WPqhattkbhR
+	T+3+aEuUkGRKi0+HVNSinSJ8ROpNrCpTexFrK7+Ed837x9qWEolOc6VFVRUU1Q==
+X-Google-Smtp-Source: AGHT+IEPUDQyDdPexLqb48iBgp0fQbv5sq4+9dn1Wip0B/bhG65Wy2d3uTqvwO57jSSh+rWDizLd8g==
+X-Received: by 2002:a17:907:7e93:b0:a80:f81c:fd75 with SMTP id a640c23a62f3a-a870a5d443amr132760866b.0.1724841859405;
+        Wed, 28 Aug 2024 03:44:19 -0700 (PDT)
+Message-ID: <3705f296-3b79-4bad-9bbc-0b86aaa41314@suse.com>
+Date: Wed, 28 Aug 2024 12:44:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] x86/msi: fix locking for SR-IOV devices
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v5 2/7] xen/riscv: set up fixmap mappings
+To: oleksii.kurochko@gmail.com
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-References: <20240827035929.118003-1-stewart.hildebrand@amd.com>
+ xen-devel@lists.xenproject.org
+References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
+ <57e892d5b2c526dd44b68d4976796a25c0feca20.1724256027.git.oleksii.kurochko@gmail.com>
+ <4b9cfa7e-546a-4dbb-a3de-4267849be13a@suse.com>
+ <9210aa20ebe892b9866309a7531398d446d0eef5.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,213 +117,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240827035929.118003-1-stewart.hildebrand@amd.com>
+In-Reply-To: <9210aa20ebe892b9866309a7531398d446d0eef5.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.08.2024 05:59, Stewart Hildebrand wrote:
-> In commit 4f78438b45e2 ("vpci: use per-domain PCI lock to protect vpci
-> structure") a lock moved from allocate_and_map_msi_pirq() to the caller
-> and changed from pcidevs_lock() to read_lock(&d->pci_lock). However, one
-> call path wasn't updated to reflect the change, leading to a failed
-> assertion observed under the following conditions:
-> 
-> * PV dom0
-> * Debug build (debug=y) of Xen
-> * There is an SR-IOV device in the system with one or more VFs enabled
-> * Dom0 has loaded the driver for the VF and enabled MSI-X
-> 
-> (XEN) Assertion 'd || pcidevs_locked()' failed at drivers/passthrough/pci.c:535
-> (XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Not tainted ]----
-> ...
-> (XEN) Xen call trace:
-> (XEN)    [<ffff82d040284da8>] R pci_get_pdev+0x4c/0xab
-> (XEN)    [<ffff82d040344f5c>] F arch/x86/msi.c#read_pci_mem_bar+0x58/0x272
-> (XEN)    [<ffff82d04034530e>] F arch/x86/msi.c#msix_capability_init+0x198/0x755
-> (XEN)    [<ffff82d040345dad>] F arch/x86/msi.c#__pci_enable_msix+0x82/0xe8
-> (XEN)    [<ffff82d0403463e5>] F pci_enable_msi+0x3f/0x78
-> (XEN)    [<ffff82d04034be2b>] F map_domain_pirq+0x2a4/0x6dc
-> (XEN)    [<ffff82d04034d4d5>] F allocate_and_map_msi_pirq+0x103/0x262
-> (XEN)    [<ffff82d04035da5d>] F physdev_map_pirq+0x210/0x259
-> (XEN)    [<ffff82d04035e798>] F do_physdev_op+0x9c3/0x1454
-> (XEN)    [<ffff82d040329475>] F pv_hypercall+0x5ac/0x6af
-> (XEN)    [<ffff82d0402012d3>] F lstar_enter+0x143/0x150
-> 
-> In read_pci_mem_bar(), the VF obtains the struct pci_dev pointer for its
-> associated PF to access the vf_rlen array. This array is initialized in
-> pci_add_device() and is only populated in the associated PF's struct
-> pci_dev.
-> 
-> Add links between the VF's struct pci_dev and associated PF struct
-> pci_dev, ensuring the PF's struct doesn't get deallocated until all its
-> VFs have been removed. Access the vf_rlen array via the new link to the
-> PF, and remove the troublesome call to pci_get_pdev().
-> 
-> Add a call to pci_get_pdev() inside the pcidevs_lock()-locked section of
-> pci_add_device() to set up the link from VF to PF. In case the new
-> pci_get_pdev() invocation fails to find the associated PF (returning
-> NULL), return an error.
-> 
-> In pci_remove_device(), handle an issue with a corner case when a PF is
-> removed with VFs enabled, then re-added with VFs disabled. During PF
-> removal, a buggy PF driver may fail to disable SR-IOV, leaving stale
-> dangling VFs. At least Linux warns in this case:
-> 
-> [  106.500334]  0000:01:00.0: driver left SR-IOV enabled after remove
-> 
-> If the PF is subsequently re-added with VFs disabled, the previously
-> associated VFs in Xen would not be backed by a device. Any attempt to
-> access the config space of the stale VF would be invalid. Avoid issues
-> in this case by removing the VFs right away when removing the PF. This
-> also happens to simplify the maintenance of the PF<->VF links since the
-> associated PF will always exist during the lifetime of a VF. Note,
-> however, if a PF is removed before the VFs, Xen will return an error
-> for the VF removals since they were already removed.
+On 28.08.2024 11:53, oleksii.kurochko@gmail.com wrote:
+> On Tue, 2024-08-27 at 12:29 +0200, Jan Beulich wrote:
+>>>
+>>> +
+>>> +/*
+>>> + * Direct access to xen_fixmap[] should only happen when {set,
+>>> + * clear}_fixmap() is unusable (e.g. where we would end up to
+>>> + * recursively call the helpers).
+>>> + */
+>>> +extern pte_t xen_fixmap[];
+>>
+>> I'm afraid I keep being irritated by the comment: What recursive use
+>> of
+>> helpers is being talked about here? I can't see anything recursive in
+>> this
+>> patch. If this starts happening with a subsequent patch, then you
+>> have
+>> two options: Move the declaration + comment there, or clarify in the
+>> description (in enough detail) what this is about.
+> This comment is added because of:
+> ```
+> void *__init pmap_map(mfn_t mfn)
+>   ...
+>        /*
+>         * We cannot use set_fixmap() here. We use PMAP when the domain map
+>         * page infrastructure is not yet initialized, so
+>    map_pages_to_xen() called
+>         * by set_fixmap() needs to map pages on demand, which then calls
+>    pmap()
+>         * again, resulting in a loop. Modify the PTEs directly instead.
+>    The same
+>         * is true for pmap_unmap().
+>         */
+>        arch_pmap_map(slot, mfn);
+>    ...
+> ```
+> And it happens because set_fixmap() could be defined using generic PT
+> helpers
 
-Not very nice, but probably tolerable.
+As you say - could be. If I'm not mistaken no set_fixmap() implementation
+exists even by the end of the series. Fundamentally I'd expect set_fixmap()
+to (possibly) use xen_fixmap[] directly. That in turn ...
 
-> ---
-> When I tested removing a PF with VFs enabled, then re-adding with VFs
-> disabled, I observed the following Xen crash when dom0 attempted to
-> access the config space of a stale VF:
-> 
-> (XEN) Assertion 'pos' failed at arch/x86/msi.c:1275
-> (XEN) ----[ Xen-4.20-unstable  x86_64  debug=y  Tainted:   C    ]----
-> ...
-> (XEN) Xen call trace:
-> (XEN)    [<ffff82d040346834>] R pci_msi_conf_write_intercept+0xa2/0x1de
-> (XEN)    [<ffff82d04035d6b4>] F pci_conf_write_intercept+0x68/0x78
-> (XEN)    [<ffff82d0403264e5>] F arch/x86/pv/emul-priv-op.c#pci_cfg_ok+0xa0/0x114
-> (XEN)    [<ffff82d04032660e>] F arch/x86/pv/emul-priv-op.c#guest_io_write+0xb5/0x1c8
-> (XEN)    [<ffff82d0403267bb>] F arch/x86/pv/emul-priv-op.c#write_io+0x9a/0xe0
-> (XEN)    [<ffff82d04037c77a>] F x86_emulate+0x100e5/0x25f1e
-> (XEN)    [<ffff82d0403941a8>] F x86_emulate_wrapper+0x29/0x64
-> (XEN)    [<ffff82d04032802b>] F pv_emulate_privileged_op+0x12e/0x217
-> (XEN)    [<ffff82d040369f12>] F do_general_protection+0xc2/0x1b8
-> (XEN)    [<ffff82d040201aa7>] F x86_64/entry.S#handle_exception_saved+0x2b/0x8c
-> 
-> This crash is avoided by removing the VFs right away with the PF.
+> so what will lead to recursive behaviour when when there is no
+> direct map:
 
-If I'm not mistaken the same would happen independent of your change if
-Dom0 disabled VFs without reporting their removal (first). That's
-technically no different from removing with VFs enabled, then adding
-with VFs disabled. We may want to be able to cope with that.
-
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -341,6 +341,8 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
->  
->      list_add(&pdev->alldevs_list, &pseg->alldevs_list);
->  
-> +    INIT_LIST_HEAD(&pdev->physfn.vf_list);
-
-There is a certain risk with doing such uniformly when the field is part
-of a union. Yes, little initialization has happened up to here, but I'm
-still concerned. (One of the reasons I don't like the struct list_head
-instances to be split, despite your legitimate point regarding naming.)
-At the very least this wants moving yet earlier in the function, before
-the new struct is passed anywhere else.
-
-> @@ -700,10 +706,31 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->           * extended function.
->           */
->          if ( pdev->info.is_virtfn )
-> +        {
-> +            struct pci_dev *pf_pdev;
-> +
->              pdev->info.is_extfn = pf_is_extfn;
-> +            pf_pdev = pci_get_pdev(NULL,
-> +                                   PCI_SBDF(seg, info->physfn.bus,
-> +                                            info->physfn.devfn));
-> +            if ( pf_pdev )
-> +            {
-> +                pdev->virtfn.pf_pdev = pf_pdev;
-> +                list_add(&pdev->virtfn.entry, &pf_pdev->physfn.vf_list);
-> +            }
-> +            else
-> +            {
-> +                printk(XENLOG_WARNING "Failed to add SR-IOV device PF %pp for VF %pp\n",
-> +                       &PCI_SBDF(seg, info->physfn.bus, info->physfn.devfn),
-> +                       &pdev->sbdf);
-> +                free_pdev(pseg, pdev);
-> +                ret = -ENODEV;
-
-Why -ENODEV? Ideally the error code from the earlier pci_add_device() could
-be retained (even if some fallback would be needed in case that one succeeded
-or the path wasn't even taken). Yet on the whole I wonder if we wouldn't be
-better off delaying that recursive call some, such that the lock wouldn't
-be dropped anymore between the call and getting here. This would then also
-eliminate the need for the new pci_get_pdev() invocation.
-
-> @@ -818,6 +847,24 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
->      list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->          if ( pdev->bus == bus && pdev->devfn == devfn )
->          {
-> +            ret = 0;
-> +
-> +            if ( !pdev->info.is_virtfn )
-> +            {
-> +                struct pci_dev *vf_pdev, *tmp;
-> +
-> +                /*
-> +                 * If a PF with VFs enabled is removed, then re-added without
-> +                 * VFs enabled, the previously associated VFs would no longer be
-> +                 * backed by a device. Remove the associated VFs right away.
-> +                 */
-
-While in the description the "enabled" and "disabled" are kind of
-tolerable, at least in the code comment I think we want to be more
-precise. The question isn't whether VFs are enabled, but whether we
-know of the VFs.
-
-It's further unclear here what "a device" is.
-
-> +                list_for_each_entry_safe(vf_pdev, tmp, &pdev->physfn.vf_list,
-> +                                         virtfn.entry)
-> +                    ret = pci_remove_device(vf_pdev->sbdf.seg,
-> +                                            vf_pdev->sbdf.bus,
-> +                                            vf_pdev->sbdf.devfn) ?: ret;
-
-And if this fails, the VF will still remain orphaned. I think in the
-model I had suggested no such risk would exist.
-
-Misra also isn't going to like the recursion here.
-
-> @@ -826,7 +873,7 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
->                  write_unlock(&pdev->domain->pci_lock);
->              }
->              pci_cleanup_msi(pdev);
-> -            ret = iommu_remove_device(pdev);
-> +            ret = iommu_remove_device(pdev) ?: ret;
->              printk(XENLOG_DEBUG "PCI remove device %pp\n", &pdev->sbdf);
->              free_pdev(pseg, pdev);
->              break;
-
-Is it even legitimate to continue cleaning up if there was an earlier
-failure?
-
-In any event - please consider e.g. the case where the XSM check allows
-the PF removal, but denies the removal of some of the VFs.
-
-> --- a/xen/include/xen/pci.h
-> +++ b/xen/include/xen/pci.h
-> @@ -150,7 +150,18 @@ struct pci_dev {
->          unsigned int count;
->  #define PT_FAULT_THRESHOLD 10
->      } fault;
-> -    u64 vf_rlen[6];
-> +    union {
-> +        struct pf_info {
-> +            /* Only populated for PFs (info.is_virtfn == false) */
-> +            struct list_head vf_list;             /* List head */
-> +            uint64_t vf_rlen[PCI_SRIOV_NUM_BARS];
-> +        } physfn;
-> +        struct {
-> +            /* Only populated for VFs (info.is_virtfn == true) */
-> +            struct list_head entry;               /* Entry in vf_list */
-> +            struct pci_dev *pf_pdev;              /* Link from VF to PF */
-
-const?
+... would mean no recursion afaict. Hence why clarification is needed as
+to what's going on here _and_ what's planned.
 
 Jan
+
+>    static pte_t *map_table(mfn_t mfn)
+>    {
+>        /*
+>         * During early boot, map_domain_page() may be unusable. Use the
+>         * PMAP to map temporarily a page-table.
+>         */
+>        if ( system_state == SYS_STATE_early_boot )
+>            return pmap_map(mfn);
+>        ...
+>    }
+
 
