@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42F1C962A41
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:29:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784908.1194321 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A842962A91
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:43:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784921.1194331 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjJfV-0006eR-Kg; Wed, 28 Aug 2024 14:29:05 +0000
+	id 1sjJsl-0001iD-Ox; Wed, 28 Aug 2024 14:42:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784908.1194321; Wed, 28 Aug 2024 14:29:05 +0000
+Received: by outflank-mailman (output) from mailman id 784921.1194331; Wed, 28 Aug 2024 14:42:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjJfV-0006bn-Hj; Wed, 28 Aug 2024 14:29:05 +0000
-Received: by outflank-mailman (input) for mailman id 784908;
- Wed, 28 Aug 2024 14:29:04 +0000
+	id 1sjJsl-0001gi-M2; Wed, 28 Aug 2024 14:42:47 +0000
+Received: by outflank-mailman (input) for mailman id 784921;
+ Wed, 28 Aug 2024 14:42:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aBH1=P3=bounce.vates.tech=bounce-md_30504962.66cf342c.v1-a0a6dfb6c83541049680e3dfd81c52eb@srs-se1.protection.inumbo.net>)
- id 1sjJfT-0005vz-MC
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 14:29:04 +0000
+ <SRS0=HR2x=P3=bounce.vates.tech=bounce-md_30504962.66cf3762.v1-a95f825d5daf4dfca293eb7ba3c198a2@srs-se1.protection.inumbo.net>)
+ id 1sjJsj-0001gc-Ii
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 14:42:46 +0000
 Received: from mail187-32.suw11.mandrillapp.com
  (mail187-32.suw11.mandrillapp.com [198.2.187.32])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id de59e257-6549-11ef-99a0-01e77a169b0f;
- Wed, 28 Aug 2024 16:29:01 +0200 (CEST)
+ id c820c60e-654b-11ef-99a0-01e77a169b0f;
+ Wed, 28 Aug 2024 16:42:43 +0200 (CEST)
 Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
  by mail187-32.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4Wv6H01R8JzQXg8kD
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 14:29:00 +0000 (GMT)
+ 4Wv6Zp1FhHzQXgCTT
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 14:42:42 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- a0a6dfb6c83541049680e3dfd81c52eb; Wed, 28 Aug 2024 14:29:00 +0000
+ a95f825d5daf4dfca293eb7ba3c198a2; Wed, 28 Aug 2024 14:42:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,81 +43,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de59e257-6549-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: c820c60e-654b-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1724855340; x=1725115840;
-	bh=HhiV0BNU0RIa9UKRXwsR/IwnP8IZKOE7MjdjteLDQUc=;
+	s=mte1; t=1724856162; x=1725116662;
+	bh=iIxB/m3mCS7MC/ry2Lyz0dBSlsPzD3LE+gEALXQt8f4=;
 	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=bpZeitchsHNxbP6mPNEZnLDqKrIgoKisUsnRce27ClkpZKnihaOwBt6K3EHfILrWn
-	 rBCQsO5/oyBTFXhFi0Iq8Mezgpq63Ej3CG6rfRjr8R0qa/99wU1dVCjn/+4u7/zrma
-	 m51mHmUjtLyXv0dRaSTAo7bJCQA23o/2ez871wcz2jdoAKXFq/ecDxq8PTrQITqYwp
-	 oMTFbPsGcy60f9GK0jLP0ERYftj8gQS4eahFSUgpXRVE9YJywOxrRVMtGcVM0AzOmA
-	 GVF5wy7CgGwHGOCSueqfQeADpuXbl0lqaxwHmyNcPJ17Mc9AOGY3Ok45MUBnAxnikB
-	 RVNJCep43JNvw==
+	b=ooAwTccbQEQay0SqqEXDdTdAP62kqUcuoGIrp8/QBQcwC4VZCaWGuqQipxgLwK5Dx
+	 4GHT8dPq5pcnBHa0jzAC9CKWrO1s1F+djAPBBFavHg/HQ8Ecg8vhD5h5qzbWRplVvo
+	 RwtvUKI5ULhuMqbUDQk9zjdHKItot1t1eaSrBZzwmeijeXEFIwD/x75cKrz9G8SYJZ
+	 gU83VKiHl86aQpxvrFLrNhb8liYXvFpQ+0P26PEJLE9m+sD6sCGia5sF10bO6DdRGN
+	 ZwFxejgjwJI9AwzMNpGMY6uCsOHt5R284awVGYKZgus2RqRLSDFfPlzu3FMGr7h+pn
+	 JMQy24XDcHl5w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1724855340; x=1725115840; i=anthony.perard@vates.tech;
-	bh=HhiV0BNU0RIa9UKRXwsR/IwnP8IZKOE7MjdjteLDQUc=;
+	t=1724856162; x=1725116662; i=anthony.perard@vates.tech;
+	bh=iIxB/m3mCS7MC/ry2Lyz0dBSlsPzD3LE+gEALXQt8f4=;
 	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=GazoneEVbafukXfRUcEjsjN7vBTL+HZlEl6Ok7NeVgIFQetaU/DMXS5TXz6pYe+iI
-	 2S/4xHufSCCMkEtUzhOL1uOW/jWbxZUNE/Hs9NJGL9bQy5J4byhUY4yRQ0N9S1IfIz
-	 6h5gJYPKc6dYCLC39irJyFQ2onVb91xn/JdoY4L73YQ5r2UUtZyCf/Jk+K8MqCJgCO
-	 M8xgGtAxzl7Qd60rDaHcm1y8MieXNg04H3K/jHojAdeZf3HU8ZoRpgEgRb9qXLmJ3R
-	 nxepQdp0S/lKn3N9h8sJVe9S6ap3pGPALUyff/EaOFCr2jf1+UnqsUIszBlTYmx8Ae
-	 a3iCGaNP8Emug==
+	b=BlHutNXWYqcpV3HWae+V/9xzYZuUUeWHR/h/6rgtZTip6J/CzGwAdGjBS8acSXung
+	 DAc2A9NFbu3h54o7o8228W4jMZUPC3A7hLpUsc+LnGoVk07L34AQqgv6Yq8V1e4gYy
+	 Yd7mM5qsR+LFU01num+6VuGBzPmnuL/ufUPzi1pySGuz3IGmoi12wap+grSb3Iv8gN
+	 cd0q33JbPBob+4FEBRyZO4RZsSgIWnIYN9GEApOaDrACCws53GvLC98O5Am9A39iZ/
+	 anTf0wLlAj4yTz+Go9raYVg1jw0FddvvRV75kRbwAsa9BpC4hVfIc52lcWnG8lXUVH
+	 X/MaphBZHm6pw==
 From: Anthony PERARD <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=201/3]=20libxl:=20Implement=20QEMU=20command=20line=20probe?=
+Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=202/3]=20libxl:=20Probe=20QEMU=20for=20-run-with=20chroot=3Ddir=20and=20use=20it?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1724855339193
+X-Bm-Transport-Timestamp: 1724856161354
 To: Jason Andryuk <jason.andryuk@amd.com>
 Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
-Message-Id: <Zs80Ktc/PfSFrmwu@l14>
-References: <20240827100328.23216-1-anthony.perard@vates.tech> <20240827100328.23216-2-anthony.perard@vates.tech> <ebef6a88-abae-4e9a-8f9f-56eddb5a569c@amd.com>
-In-Reply-To: <ebef6a88-abae-4e9a-8f9f-56eddb5a569c@amd.com>
+Message-Id: <Zs83YDlqNXhbyQag@l14>
+References: <20240827100328.23216-1-anthony.perard@vates.tech> <20240827100328.23216-3-anthony.perard@vates.tech> <8ab87d44-8a93-4468-b960-0c76c1e6a147@amd.com>
+In-Reply-To: <8ab87d44-8a93-4468-b960-0c76c1e6a147@amd.com>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.a0a6dfb6c83541049680e3dfd81c52eb?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.a95f825d5daf4dfca293eb7ba3c198a2?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20240828:md
-Date: Wed, 28 Aug 2024 14:29:00 +0000
+Date: Wed, 28 Aug 2024 14:42:42 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 27, 2024 at 06:17:05PM -0400, Jason Andryuk wrote:
+On Tue, Aug 27, 2024 at 06:20:42PM -0400, Jason Andryuk wrote:
 > On 2024-08-27 06:03, Anthony PERARD wrote:
-> > From: Anthony PERARD <anthony.perard@citrix.com>
+> > QEMU 9.0 have removed "-chroot" command line option, which have been
+> > deprecated since QEMU 8.1 in favor of "-run-with chroot=dir".
 > > 
-> > Starting with QEMU 9.0, the option "-chroot", that we use for the
-> > "dmrestrict" feature, is removed. We need to find out which to use
-> > between "-chroot" and "-run-with chroot=dir".
+> > Look into the result of the QMP command "query-command-line-options"
+> > to find out if "-run-with chroot=dir" is available. Then use it in
+> > place of "-chroot".
 > > 
-> > This patch implement the machinery to spawn QEMU, and to run the QMP
-> > command "query-command-line-options" but doesn't yet look at the
-> > actual result. Whether or not to use "-run-with chroot=dir" will be
-> > implemented in a follow up patch.
-> > 
-> > The command line used to spawn the qemu we want to probe is mostly
-> > similar to the one we already use for the device model, "-machine
-> > none" comes from libvirt.
-> > 
-> > This patch implement the probing on qemu-xen, even if we probably not
-> > going to use the result. We could check the feature wanted for the
-> > domain been created, but this could get complicated fairly quickly.
-> 
-> "domain being created"?
-
-Yes.
-
-> > We already need to check the options "b_info->dm_restrict" for
-> > "-chroot" and "state->dm_runas" for "-runas" (which is deprecated).
-> > 
+> > Resolves: xen-project/xen#187
 > > Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
 > 
 > Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> 
+> though one suggestion below.
+> 
+> > ---
+> >   tools/libs/light/libxl_dm.c       | 78 +++++++++++++++++++++++++------
+> >   tools/libs/light/libxl_internal.h |  5 ++
+> >   2 files changed, 69 insertions(+), 14 deletions(-)
+> > 
+> > diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+> > index 46babfed0b..298fbb84fe 100644
+> > --- a/tools/libs/light/libxl_dm.c
+> > +++ b/tools/libs/light/libxl_dm.c
+> > @@ -1183,11 +1183,12 @@ static int libxl__pre_open_qmp_socket(libxl__gc *gc, libxl_domid domid,
+> >   }
+> >   static int libxl__build_device_model_args_new(libxl__gc *gc,
+> > -                                        const char *dm, int guest_domid,
+> > -                                        const libxl_domain_config *guest_config,
+> > -                                        char ***args, char ***envs,
+> > -                                        const libxl__domain_build_state *state,
+> > -                                        int *dm_state_fd)
+> > +    const char *dm, int guest_domid,
+> > +    const libxl_domain_config *guest_config,
+> > +    char ***args, char ***envs,
+> > +    const libxl__domain_build_state *state,
+> > +    const libxl__qemu_available_cmd_line *qemu_cmdline,
+> 
+> cmd_line/cmdline makes me think of command line strings.
+> qemu_opts/qemu_cli_opts is a little more generic, to me at least.  But not a
+> big deal if you want to keep it as is.
+
+Yes, "opts" sounds better than "cmdline" in this context.
+
+I'll rename "libxl__qemu_available_cmd_line" to
+"libxl__qemu_available_opts".
+
+And "qemu_cmdline" to "qemu_opts", both in the struct
+libxl__dm_spawn_state and as argument of functions.
 
 Thanks,
 
