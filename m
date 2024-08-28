@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F2E962EFE
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 19:51:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785048.1194461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40EEE962F5F
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 20:09:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785060.1194471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjMo4-00015h-Fh; Wed, 28 Aug 2024 17:50:08 +0000
+	id 1sjN6F-0004Im-1t; Wed, 28 Aug 2024 18:08:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785048.1194461; Wed, 28 Aug 2024 17:50:08 +0000
+Received: by outflank-mailman (output) from mailman id 785060.1194471; Wed, 28 Aug 2024 18:08:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjMo4-00013b-CV; Wed, 28 Aug 2024 17:50:08 +0000
-Received: by outflank-mailman (input) for mailman id 785048;
- Wed, 28 Aug 2024 17:50:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sjN6E-0004GK-V8; Wed, 28 Aug 2024 18:08:54 +0000
+Received: by outflank-mailman (input) for mailman id 785060;
+ Wed, 28 Aug 2024 18:08:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mQTD=P3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sjMo3-000121-K1
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 17:50:07 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5fbb02e-6565-11ef-a0b0-8be0dac302b0;
- Wed, 28 Aug 2024 19:50:06 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2f4f5dbd93bso55128991fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 10:50:06 -0700 (PDT)
+ id 1sjN6D-0004GE-OT
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 18:08:53 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 947d67bf-6568-11ef-99a0-01e77a169b0f;
+ Wed, 28 Aug 2024 20:08:51 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-52f01b8738dso5500132e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 11:08:51 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c0bb1e2685sm2496372a12.29.2024.08.28.10.50.04
+ a640c23a62f3a-a86e588adf2sm274100766b.173.2024.08.28.11.08.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Aug 2024 10:50:04 -0700 (PDT)
+ Wed, 28 Aug 2024 11:08:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5fbb02e-6565-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: 947d67bf-6568-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724867406; x=1725472206; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724868531; x=1725473331; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=M2Aiq12ZCG5INqRw99VCRkNGF9BmrbJGR2rtuVFqgKU=;
-        b=STFryB1KQ/wgtnPjHlrPFU2vGU9+UMOOVZ75ULCggo+SsZUsXwNpARJw0RC+72Nlkl
-         oRfag2XB8YxwZ/8E1ZRgpQOZ2f3ssZ0QMQPHdouKiOayQRP3j141UgshypyaCqk/2BxX
-         54YYdkrmXmr2tO8Jd0bbmqcS4U79/tkZ9IfRw=
+        bh=wm/tY85tB+9252myaGjqw12IAnBOLLyIHLhn6OjktJU=;
+        b=H4W+lPP/cg88QRa5OK9ZPf96EH05hlIw6wQbIMdjrgzw9UOCg6faRg40EADYsfqq7j
+         eKinVUiwIkWC4UFLMDeAy2QabqipxXasXHpau3NQ9wKO8y9XPNDmjZtMZxg6NwfWMdl3
+         SuCq9cEIkA80CuxqiN52IKbyy2G+dOKBVcptw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724867406; x=1725472206;
+        d=1e100.net; s=20230601; t=1724868531; x=1725473331;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=M2Aiq12ZCG5INqRw99VCRkNGF9BmrbJGR2rtuVFqgKU=;
-        b=gJB5xhBY5zhVV/Z1ngnK36bfT51MzbAAL+o07WNuzLQXskBe35WwtZscFuuY5wmAXP
-         B1tT+WfbLJAEg2IlrBOqXjX+b4Kh0QncmRrWv5IrKFskgcXOe9zP7HzemTyN7vBi0Fam
-         HXXTfFGPFZ30m4lNdL/kTZDdl32jyeMmztxJn+hJ0AfFKS0z7M9eVrh5T/8sVrsd2QYl
-         dyS+ygnXBMx1YDh/MLTOjL56nNp5h2CzLQBZUbw3neZsPn+XhWnLkqyPZ1coojlaa6oW
-         A0f+p98y/gp/75rPTIzOjDFpkEvEEzfkfgmg3DcA7JXZZ6bbak9q1uue0TLC5kBo46ZQ
-         jy4Q==
-X-Forwarded-Encrypted: i=1; AJvYcCW78SQi+VW3w6gYpC7KSA79uVQD/Fupj2VlIFYN6QTmNtKmLwScfNe6qSrrYzFTZdVqxwpuwRVj25Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwUiG/mlDgCBwL6gf+pIUYvFGXQDu6fLZYxu2Dwh96fqHdbBV83
-	zW5fSCRy+FONh49CnaM4WC+I475HvLcCr0W0prDy5v2buMbjUxppvO7poKs6vCM=
-X-Google-Smtp-Source: AGHT+IH3geemmY6Q6xrSqr3j5nDJmMJFxGxVmrxBinbexLaUmwQAxGAINz61Cd8FEqD391jl1hYs1A==
-X-Received: by 2002:a2e:4a1a:0:b0:2f3:b234:980b with SMTP id 38308e7fff4ca-2f6103c87cemr3379941fa.28.1724867405452;
-        Wed, 28 Aug 2024 10:50:05 -0700 (PDT)
-Message-ID: <7b7b1434-e615-4189-ab52-3cce2932fb4b@citrix.com>
-Date: Wed, 28 Aug 2024 18:50:03 +0100
+        bh=wm/tY85tB+9252myaGjqw12IAnBOLLyIHLhn6OjktJU=;
+        b=dU3rBWiW+2R9S0kx1KH8C0wAtu2H63loKGwlqSaUG4VuKVRiZQ0JwOM1ahCAmeZMLu
+         D+XfM4/vmnnp+QOVqCqA8HySorA3KXFSkGjyoAImvKU1xJpMaurRoyVMQJkkBHs8u0iz
+         IXWbFQRaaeNSk1SDUNcfK4Roz6nXRVzqMgmp1aZi3iG20z0FbdCv2/gOVi6MUpciA+dH
+         XGfkoOMQnbUHY5xRFpAOquwdKnURUqCVbclB9tryGkoWPBBEK71p/6ihzBe6v6C1B8N4
+         NRjfCZQw0jGCV4BvCPgPuaQ0C7LULfCmA3tUp5TkMXavEleiHysK+Za825gyhNzPUD2i
+         3INg==
+X-Forwarded-Encrypted: i=1; AJvYcCUrtIPvjXnGKIfKZtP8K8yx7N4qG1uD4LB1+3wXUaqXVa6mMlzHCrVGKphRRpc4JWNUqCe4POQth3c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxfTho6MFo3D4RGbvd2gDI32LG0OMwYtM7xFyFwuRs/Bmxutfni
+	bD+xR6HJ5qwza2qfOi2B2VRv8P281sZjbmflBkva+tN/YoMX03lXm+rfRJ/Ika0=
+X-Google-Smtp-Source: AGHT+IEqpynOAYTmMxcEi81PaTkDZ3ZRIlrZOC+m4kLXO5YTPsqqStCxBcX0P+TidXsP1nnieNboOA==
+X-Received: by 2002:a05:6512:baa:b0:52e:9f17:841a with SMTP id 2adb3069b0e04-5353e543272mr84512e87.6.1724868530268;
+        Wed, 28 Aug 2024 11:08:50 -0700 (PDT)
+Message-ID: <cb2609f0-ed06-40ab-9983-9dad59c589d9@citrix.com>
+Date: Wed, 28 Aug 2024 19:08:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] x86/hvm: Rework hpet_write() for improved code
- generation
+Subject: Re: [PATCH v2 4/4] x86/vmx: Rewrite vmx_sync_pir_to_irr() to be more
+ efficient
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240827135746.1908070-1-andrew.cooper3@citrix.com>
- <20240827135746.1908070-4-andrew.cooper3@citrix.com>
- <2316ca39-50d4-4311-aeff-30be588245d9@suse.com>
+ <20240827135746.1908070-5-andrew.cooper3@citrix.com>
+ <d022a5b1-c0ca-4399-b972-b01d834a95ec@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,155 +136,110 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <2316ca39-50d4-4311-aeff-30be588245d9@suse.com>
+In-Reply-To: <d022a5b1-c0ca-4399-b972-b01d834a95ec@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28/08/2024 9:13 am, Jan Beulich wrote:
+On 28/08/2024 10:19 am, Jan Beulich wrote:
 > On 27.08.2024 15:57, Andrew Cooper wrote:
->> In the HPET_STATUS handling, the use of __clear_bit(i, &new_val) is the only
->> thing causing it to be spilled to the stack.  Furthemore we only care about
->> the bottom 3 bits, so rewrite it to be a plain for loop.
+>> There are two issues.  First, pi_test_and_clear_on() pulls the cache-line to
+>> the CPU and dirties it even if there's nothing outstanding, but the final
+>> for_each_set_bit() is O(256) when O(8) would do,
+> Nit: That's bitmap_for_each() now, I think. And again ...
+>
+>> and would avoid multiple
+>> atomic updates to the same IRR word.
 >>
->> For the {start,stop}_timer variables, these are spilled to the stack despite
->> the __{set,clear}_bit() calls.
-> That's an observation from what the compiler happens to do? I don't see any
-> other reason why they would need spilling; I expect it's merely a matter of
-> registers better be used for other variables.
+>> Rewrite it from scratch, explaining what's going on at each step.
+>>
+>> Bloat-o-meter reports 177 -> 145 (net -32), but the better aspect is the
+>> removal calls to __find_{first,next}_bit() hidden behind for_each_set_bit().
+> ... here, and no underscore prefixes on the two find functions.
 
-It is a consequence of how our helpers are written.  I do expect it to
-improve when I get around to reworking them.
-
-For example, the Linux helpers have enough constant folding capabilities
-to allow the compiler to turn:
-
-{
-    int foo = 0;
-    ...
-    __set_bit(1, &foo);
-
-into:
-
-{
-    int foo = 1;
-
-
-as well as being able to emit LOCK AND/OR/XOR in place of LOCK BT{C,S,R}
-for a constant bit position.
-
-One thing I want to do, which I haven't figured out how to do yet, is to
-allow the arch form to emit BT?Q forms.
-
-Right now, code generation for PGC_* and PGT_* suffers quite a lot.  We
-mix between reg/imm logic, then spill to the stack because top bits
-aren't within range for the "I" constraint on 32-bit instructions, issue
-a BT?L reg/mem (which has much higher latency than any other form), then
-pick it back off the stack to do more reg/imm logic.
-
-I was wondering if, because of the always_inline, I could do something
-like __builtin_constant_p(bit) && __builtin_object_size(addr, 0) >= 8
-and emitting long-granular logic, which will be able to pick the imm/reg
-form rather than turning into reg/mem.
-
-But, I've not had time to experiment here, and I doubt I'll get around
-to it soon.
-
-Another optimisation we're lacking vs Linux is that our test_bit() has a
-volatile pointer where Linux's is non-volatile.  This makes a massive
-difference for the ability to optimise looking at multiple bits.
-
-
->  If we ever meant to build Xen
-> with APX fully in use, that might change. IOW may I at least ask for
-> s/are/happen to be/? I'm also a little irritated by "despite", but you're
-> the native speaker. It would have seemed to me that e.g. "irrespective of"
-> would better express what (I think) is meant.
-
-"despite" isn't really the right term, but I also wouldn't have said it
-was something to be irritated over.
-
-What I was trying to say was "they're spilled to the stack even with the
-__set_bit() calls removed".  Which makes sense; they're values held for
-almost the full duration of the function, that are not used in ~every
-step of logic.
-
-Interestingly, given that they're spilled to the stack, the __set_bit()
-form is more efficient than the plain C "|= (1u << i);", but I'd still
-like an implementation which could make that determination itself.
+Yes, and fixed.
 
 >
->>  Again we only care about the bottom 3 bits, so
->> shrink the variables from long to int.  Use for_each_set_bit() rather than
->> opencoding it at the end which amongst other things means the loop predicate
->> is no longer forced to the stack by the loop body.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->>
->> All in all, it's modest according to bloat-o-meter:
->>
->>   add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-29 (-29)
->>   Function                                     old     new   delta
->>   hpet_write                                  2225    2196     -29
->>
->> but we have shrunk the stack frame by 8 bytes; 0x28 as opposed to 0x30 before.
-> However, on the negative side all the first of the loops you touch now always
-> takes 3 iterations, when previously we may have got away with as little as
-> none. Is there a reason not to use
->
->     for_each_set_bit ( i, new_val & ((1U << HPET_TIMER_NUM) - 1) )
->
-> there (with the masking of the low bit possibly pulled out)?
-
-There are multiple angles here.
-
-First, I got an unexpected surprise on ARM with an expression, and while
-this one won't pick up pointer const-ness, I can never remember what
-MISRA's view on this is.
-
-Second, this is the odd-loop-out compared to rest of the function, which
-are all of the form "for ( i = 0; i < HPET_TIMER_NUM ;".
-
-But perhaps most importantly, OSes don't touch this register.  Xen not
-at all, and Linux only in _hpet_print_config().  Neither bother
-preserving/clearing it on suspend/resume, even when running the HPET in
-legacy replacement mode.
-
-I haven't checked windows behaviour, but I don't expect it to differ
-here.  This register simply isn't interesting for the preferred type of
-interrupts (edge), and also isn't useful for an ISR handling a line
-interrupt.
-
-So my choice was based on which produced the smallest code, because it's
-an dead-in-practice codepath.
-
->
->> @@ -533,19 +528,11 @@ static int cf_check hpet_write(
->>      }
+>> --- a/xen/arch/x86/hvm/vmx/vmx.c
+>> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+>> @@ -2317,18 +2317,72 @@ static void cf_check vmx_deliver_posted_intr(struct vcpu *v, u8 vector)
 >>  
->>      /* stop/start timers whos state was changed by this write. */
->> -    while (stop_timers)
->> -    {
->> -        i = ffsl(stop_timers) - 1;
->> -        __clear_bit(i, &stop_timers);
->> +    for_each_set_bit ( i, stop_timers )
->>          hpet_stop_timer(h, i, guest_time);
->> -    }
->>  
->> -    while (start_timers)
->> -    {
->> -        i = ffsl(start_timers) - 1;
->> -        __clear_bit(i, &start_timers);
->> +    for_each_set_bit ( i, start_timers )
->>          hpet_set_timer(h, i, guest_time);
->> -    }
-> To avoid variable shadowing, I think you don't want to use i in these two
-> loops. Alternatively the function scope i would need constraining to the
-> individual loops.
+>>  static void cf_check vmx_sync_pir_to_irr(struct vcpu *v)
+>>  {
+>> -    struct vlapic *vlapic = vcpu_vlapic(v);
+>> -    unsigned int group, i;
+>> -    DECLARE_BITMAP(pending_intr, X86_NR_VECTORS);
+>> +    struct pi_desc *desc = &v->arch.hvm.vmx.pi_desc;
+>> +    union {
+>> +        uint64_t _64[X86_NR_VECTORS / (sizeof(uint64_t) * 8)];
+> Using unsigned long here would imo be better, as that's what matches
+> struct pi_desc's DECLARE_BITMAP().
 
-Yeah, I was bitten by that on one of the ARM patches.  I'll adjust.
+Why?  It was also the primary contribution to particularly-bad code
+generation in this function.
+
+>
+>> +        uint32_t _32[X86_NR_VECTORS / (sizeof(uint32_t) * 8)];
+>> +    } vec;
+>> +    uint32_t *irr;
+>> +    bool on;
+>>  
+>> -    if ( !pi_test_and_clear_on(&v->arch.hvm.vmx.pi_desc) )
+>> +    /*
+>> +     * The PIR is a contended cacheline which bounces between the CPU(s) and
+>> +     * IOMMU(s).  An IOMMU updates the entire PIR atomically, but we can't
+>> +     * express the same on the CPU side, so care has to be taken.
+>> +     *
+>> +     * First, do a plain read of ON.  If the PIR hasn't been modified, this
+>> +     * will keep the cacheline Shared and not pull it Excusive on the current
+>> +     * CPU.
+>> +     */
+>> +    if ( !pi_test_on(desc) )
+>>          return;
+>>  
+>> -    for ( group = 0; group < ARRAY_SIZE(pending_intr); group++ )
+>> -        pending_intr[group] = pi_get_pir(&v->arch.hvm.vmx.pi_desc, group);
+>> +    /*
+>> +     * Second, if the plain read said that ON was set, we must clear it with
+>> +     * an atomic action.  This will bring the cachline to Exclusive on the
+> Nit (from my spell checker): cacheline.
+>
+>> +     * current CPU.
+>> +     *
+>> +     * This should always succeed because noone else should be playing with
+>> +     * the PIR behind our back, but assert so just in case.
+>> +     */
+>> +    on = pi_test_and_clear_on(desc);
+>> +    ASSERT(on);
+>> +
+>> +    /*
+>> +     * The cacheline is now Exclusive on the current CPU, and because ON was
+> "is" is pretty ambitious. We can only hope it (still) is.
+
+I can't think of a clearer way of saying this.  "will have become
+Exclusive" perhaps, but this is getting into some subtle tense gymnastics.
+
+>> +     * get it back again.
+>> +     */
+>> +    for ( unsigned int i = 0; i < ARRAY_SIZE(vec._64); ++i )
+>> +        vec._64[i] = xchg(&desc->pir[i], 0);
+>> +
+>> +    /*
+>> +     * Finally, merge the pending vectors into IRR.  The IRR register is
+>> +     * scattered in memory, so we have to do this 32 bits at a time.
+>> +     */
+>> +    irr = (uint32_t *)&vcpu_vlapic(v)->regs->data[APIC_IRR];
+>> +    for ( unsigned int i = 0; i < ARRAY_SIZE(vec._32); ++i )
+>> +    {
+>> +        if ( !vec._32[i] )
+>> +            continue;
+>>  
+>> -    bitmap_for_each ( i, pending_intr, X86_NR_VECTORS )
+>> -        vlapic_set_vector(i, &vlapic->regs->data[APIC_IRR]);
+>> +        asm ( "lock or %[val], %[irr]"
+>> +              : [irr] "+m" (irr[i * 0x10])
+> This wants to be irr * 4 only, to account for sizeof(*irr) == 4.
+
+Ah, that will be where the AlderLake interrupts are disappearing to.
 
 ~Andrew
 
