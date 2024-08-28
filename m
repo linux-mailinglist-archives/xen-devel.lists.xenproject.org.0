@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8D5A962A3A
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:28:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784899.1194311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42F1C962A41
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:29:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784908.1194321 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjJeb-00064w-A0; Wed, 28 Aug 2024 14:28:09 +0000
+	id 1sjJfV-0006eR-Kg; Wed, 28 Aug 2024 14:29:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784899.1194311; Wed, 28 Aug 2024 14:28:09 +0000
+Received: by outflank-mailman (output) from mailman id 784908.1194321; Wed, 28 Aug 2024 14:29:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjJeb-00062T-7P; Wed, 28 Aug 2024 14:28:09 +0000
-Received: by outflank-mailman (input) for mailman id 784899;
- Wed, 28 Aug 2024 14:28:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjJeZ-00062C-9D; Wed, 28 Aug 2024 14:28:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjJeZ-0001la-3k; Wed, 28 Aug 2024 14:28:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjJeY-0001Qx-LL; Wed, 28 Aug 2024 14:28:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sjJeY-0006Yj-Ki; Wed, 28 Aug 2024 14:28:06 +0000
+	id 1sjJfV-0006bn-Hj; Wed, 28 Aug 2024 14:29:05 +0000
+Received: by outflank-mailman (input) for mailman id 784908;
+ Wed, 28 Aug 2024 14:29:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aBH1=P3=bounce.vates.tech=bounce-md_30504962.66cf342c.v1-a0a6dfb6c83541049680e3dfd81c52eb@srs-se1.protection.inumbo.net>)
+ id 1sjJfT-0005vz-MC
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 14:29:04 +0000
+Received: from mail187-32.suw11.mandrillapp.com
+ (mail187-32.suw11.mandrillapp.com [198.2.187.32])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id de59e257-6549-11ef-99a0-01e77a169b0f;
+ Wed, 28 Aug 2024 16:29:01 +0200 (CEST)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-32.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Wv6H01R8JzQXg8kD
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 14:29:00 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ a0a6dfb6c83541049680e3dfd81c52eb; Wed, 28 Aug 2024 14:29:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +43,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=+yiTx1I+hdMlRCl2nC92YTQ1wCKl9eXezEJ+hnaNxFU=; b=6YzTz+N4pHni4cgVV+86eYndCY
-	ILF8pD4FETI5oThCVjI/JOpu7Kz07yV9rMLgeHKQ8TnpdEy+WUYxJtwmttWcQBoHbw7HR/La+ua7z
-	zYaH/n6hiRBA3KxQpRHkGqScS1z0K1/U4LxQIlaMOgRZ9FShMEMNk/JppEmPHbBfhzWg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187382-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: de59e257-6549-11ef-99a0-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1724855340; x=1725115840;
+	bh=HhiV0BNU0RIa9UKRXwsR/IwnP8IZKOE7MjdjteLDQUc=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=bpZeitchsHNxbP6mPNEZnLDqKrIgoKisUsnRce27ClkpZKnihaOwBt6K3EHfILrWn
+	 rBCQsO5/oyBTFXhFi0Iq8Mezgpq63Ej3CG6rfRjr8R0qa/99wU1dVCjn/+4u7/zrma
+	 m51mHmUjtLyXv0dRaSTAo7bJCQA23o/2ez871wcz2jdoAKXFq/ecDxq8PTrQITqYwp
+	 oMTFbPsGcy60f9GK0jLP0ERYftj8gQS4eahFSUgpXRVE9YJywOxrRVMtGcVM0AzOmA
+	 GVF5wy7CgGwHGOCSueqfQeADpuXbl0lqaxwHmyNcPJ17Mc9AOGY3Ok45MUBnAxnikB
+	 RVNJCep43JNvw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1724855340; x=1725115840; i=anthony.perard@vates.tech;
+	bh=HhiV0BNU0RIa9UKRXwsR/IwnP8IZKOE7MjdjteLDQUc=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=GazoneEVbafukXfRUcEjsjN7vBTL+HZlEl6Ok7NeVgIFQetaU/DMXS5TXz6pYe+iI
+	 2S/4xHufSCCMkEtUzhOL1uOW/jWbxZUNE/Hs9NJGL9bQy5J4byhUY4yRQ0N9S1IfIz
+	 6h5gJYPKc6dYCLC39irJyFQ2onVb91xn/JdoY4L73YQ5r2UUtZyCf/Jk+K8MqCJgCO
+	 M8xgGtAxzl7Qd60rDaHcm1y8MieXNg04H3K/jHojAdeZf3HU8ZoRpgEgRb9qXLmJ3R
+	 nxepQdp0S/lKn3N9h8sJVe9S6ap3pGPALUyff/EaOFCr2jf1+UnqsUIszBlTYmx8Ae
+	 a3iCGaNP8Emug==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=201/3]=20libxl:=20Implement=20QEMU=20command=20line=20probe?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1724855339193
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
+Message-Id: <Zs80Ktc/PfSFrmwu@l14>
+References: <20240827100328.23216-1-anthony.perard@vates.tech> <20240827100328.23216-2-anthony.perard@vates.tech> <ebef6a88-abae-4e9a-8f9f-56eddb5a569c@amd.com>
+In-Reply-To: <ebef6a88-abae-4e9a-8f9f-56eddb5a569c@amd.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.a0a6dfb6c83541049680e3dfd81c52eb?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240828:md
+Date: Wed, 28 Aug 2024 14:29:00 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 187382: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=a0ac7cf67afd382b4bd13a402bb6100a435b5b7b
-X-Osstest-Versions-That:
-    ovmf=90d0ec17e7074905de347ccf2accdd6b8e8ee968
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 28 Aug 2024 14:28:06 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-flight 187382 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187382/
+On Tue, Aug 27, 2024 at 06:17:05PM -0400, Jason Andryuk wrote:
+> On 2024-08-27 06:03, Anthony PERARD wrote:
+> > From: Anthony PERARD <anthony.perard@citrix.com>
+> > 
+> > Starting with QEMU 9.0, the option "-chroot", that we use for the
+> > "dmrestrict" feature, is removed. We need to find out which to use
+> > between "-chroot" and "-run-with chroot=dir".
+> > 
+> > This patch implement the machinery to spawn QEMU, and to run the QMP
+> > command "query-command-line-options" but doesn't yet look at the
+> > actual result. Whether or not to use "-run-with chroot=dir" will be
+> > implemented in a follow up patch.
+> > 
+> > The command line used to spawn the qemu we want to probe is mostly
+> > similar to the one we already use for the device model, "-machine
+> > none" comes from libvirt.
+> > 
+> > This patch implement the probing on qemu-xen, even if we probably not
+> > going to use the result. We could check the feature wanted for the
+> > domain been created, but this could get complicated fairly quickly.
+> 
+> "domain being created"?
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 a0ac7cf67afd382b4bd13a402bb6100a435b5b7b
-baseline version:
- ovmf                 90d0ec17e7074905de347ccf2accdd6b8e8ee968
+Yes.
 
-Last test of basis   187380  2024-08-28 10:11:30 Z    0 days
-Testing same since   187382  2024-08-28 12:45:12 Z    0 days    1 attempts
+> > We already need to check the options "b_info->dm_restrict" for
+> > "-chroot" and "state->dm_runas" for "-runas" (which is deprecated).
+> > 
+> > Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+> 
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Linus Liu <linus.liu@intel.com>
+Thanks,
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+-- 
 
+Anthony Perard | Vates XCP-ng Developer
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+XCP-ng & Xen Orchestra - Vates solutions
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   90d0ec17e7..a0ac7cf67a  a0ac7cf67afd382b4bd13a402bb6100a435b5b7b -> xen-tested-master
+web: https://vates.tech
 
