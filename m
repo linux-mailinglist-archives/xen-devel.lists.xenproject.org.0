@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3764D962552
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 12:56:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784687.1194070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15FDE962571
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 13:04:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784705.1194080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjGLk-0004av-VN; Wed, 28 Aug 2024 10:56:28 +0000
+	id 1sjGSm-0006Rx-L8; Wed, 28 Aug 2024 11:03:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784687.1194070; Wed, 28 Aug 2024 10:56:28 +0000
+Received: by outflank-mailman (output) from mailman id 784705.1194080; Wed, 28 Aug 2024 11:03:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjGLk-0004Yx-Sb; Wed, 28 Aug 2024 10:56:28 +0000
-Received: by outflank-mailman (input) for mailman id 784687;
- Wed, 28 Aug 2024 10:56:27 +0000
+	id 1sjGSm-0006QV-Ib; Wed, 28 Aug 2024 11:03:44 +0000
+Received: by outflank-mailman (input) for mailman id 784705;
+ Wed, 28 Aug 2024 11:03:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3BgB=P3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sjGLi-0004Td-UM
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 10:56:26 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ <SRS0=933A=P3=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1sjGSk-0006QP-Ju
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 11:03:42 +0000
+Received: from pb-smtp21.pobox.com (pb-smtp21.pobox.com [173.228.157.53])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b30c350-652c-11ef-99a0-01e77a169b0f;
- Wed, 28 Aug 2024 12:56:25 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-5334adf7249so7785207e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 03:56:25 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5334ea36a17sm2106591e87.95.2024.08.28.03.56.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Aug 2024 03:56:23 -0700 (PDT)
+ id 2c9534be-652d-11ef-99a0-01e77a169b0f;
+ Wed, 28 Aug 2024 13:03:40 +0200 (CEST)
+Received: from pb-smtp21.pobox.com (unknown [127.0.0.1])
+ by pb-smtp21.pobox.com (Postfix) with ESMTP id C9F3A2EAB7;
+ Wed, 28 Aug 2024 07:03:35 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from pb-smtp21.sea.icgroup.com (unknown [127.0.0.1])
+ by pb-smtp21.pobox.com (Postfix) with ESMTP id B25B02EAB6;
+ Wed, 28 Aug 2024 07:03:35 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from localhost (unknown [46.211.119.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by pb-smtp21.pobox.com (Postfix) with ESMTPSA id 8C6BF2EAB5;
+ Wed, 28 Aug 2024 07:03:31 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,192 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b30c350-652c-11ef-99a0-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1724842584; x=1725447384; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=9b4N4oGt0bxH+CCXjlFKEAXH981ACmRGX5u+yhg76/Y=;
-        b=fTFpHRthDYlbTwBof8yRqKooh4zwz5VmmsghHyWvxIj5MksnUcJlHtDMovvMtF5RPe
-         PPV8hs2wNW8L2KaX4tA8tdv0eV85c57haf2swAE9OGNxl+kTMEq/NOIuwe2Pv3GcCcAQ
-         KAL2o1ZIhdpUTXdmUNhTVovLSl4O6hBjF33+xC6ajK7UwnWMcCtb8ogC6Pnqh1nG/433
-         3X6HoSWMP7O7TUxZI7MgSrjqPwS64+v4CP12B0oINLphNdMYLXMe9Pu97F4lH+u88A2k
-         x3tWyRb3YfLOeSpsEuWU6vubMZhH0GBHO3HPLPln+Ah/Pit9zdvRtWqxkdMkLiGzq53O
-         03Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724842584; x=1725447384;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=9b4N4oGt0bxH+CCXjlFKEAXH981ACmRGX5u+yhg76/Y=;
-        b=lhyQJAqI6I8YOReS4aaxG5XZTUHQ8UutRXv0lI7swqtJmOflipINBOe4OCyluNefTQ
-         IaUeWmJ1gvMAw2iYG/xi8EmbJEaJTE/Duchfx/P0Kvkiws1vLFw5351XdMnTcqAwDfuF
-         rigC0csC9/eQMXq0MOn4f5AP95ubG26WqVdlDmU41cDiuiiLgF4zNTxS9bTOaphC05fG
-         /LqtM0Hf+2uy8IjtKZi8S+MBuFwGqw+dVclb+dKFgjE7737W15/rzPKFEqRoMx7CNMw0
-         Vchm9m0aiX4Rs9vZCgpLG9FC48IP4HUsIRDn+58Zq4OPoEEuIPXeIpAwrAhdPMZefW6z
-         bgyw==
-X-Forwarded-Encrypted: i=1; AJvYcCVPHLwbsREdrvcHkRcx3c0rcH08icViN45AgbAZgqbNIYAp599YOq2HLF2wkkgk8B+V0DyHe8r6Yt8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx9PRR87fyiPQeRMMbhgDUyG+ixlUXBq1xCurb9M/+DAHlzQZ1f
-	IGQMZu9v2lSIhHtDWqkkmc5Q6VYKrVUqTF6p1GlOmLTnCo2MehnD
-X-Google-Smtp-Source: AGHT+IEwe32BCxbbMbVYptW0bJtu0II+e4d3ITPihawHRicYxNi0hZVtoItAEuBacwxXa6gZ7I8hJA==
-X-Received: by 2002:a05:6512:33cd:b0:533:48c9:754d with SMTP id 2adb3069b0e04-5346c622a69mr1035142e87.34.1724842583718;
-        Wed, 28 Aug 2024 03:56:23 -0700 (PDT)
-Message-ID: <d5c6b74609d18a18ef789e795d6ce72469bff277.camel@gmail.com>
-Subject: Re: [PATCH v5 4/7] xen/riscv: introduce functionality to work with
- CPU info
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Wed, 28 Aug 2024 12:56:22 +0200
-In-Reply-To: <8f01fffa-ff7e-4a08-b707-7bf5175b461e@suse.com>
-References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
-	 <03a703996ae7300a9eda54283711b19c42a7d116.1724256027.git.oleksii.kurochko@gmail.com>
-	 <8f01fffa-ff7e-4a08-b707-7bf5175b461e@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
+X-Inumbo-ID: 2c9534be-652d-11ef-99a0-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
+	:subject:date:message-id:mime-version:content-transfer-encoding;
+	 s=sasl; bh=oeuHNhYVPMSGHHFU+SsBAnXlLn7c83Viv0J+IyHHYIo=; b=Ep95
+	tuXmsWrLVHQTZMlC2dVhqu4vg41ekwIV05H+4ON0ywkO8OLuueUz95zlr8iPUQJb
+	bgE5wh3mssZb/XMBc86sBcruwpBdv6rqTOSlIk3pLFx155Aro3MY+81It7uWqU3Y
+	VdBYmJVKj0RGpbOcSBVqfhSt6E4KZxjwLCxiRPM=
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+Subject: [XEN PATCH v7 0/2] x86: make CPU virtualisation support configurable
+Date: Wed, 28 Aug 2024 14:03:27 +0300
+Message-Id: <cover.1724842645.git.Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+X-Pobox-Relay-ID:
+ 297F73F6-652D-11EF-84A2-E92ED1CD468F-90055647!pb-smtp21.pobox.com
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2024-08-27 at 15:44 +0200, Jan Beulich wrote:
-> On 21.08.2024 18:06, Oleksii Kurochko wrote:
+These are final 2 patches of the series for making VMX/SVM support in Xen
+configurable:
 
->=20
-> > --- a/xen/arch/riscv/include/asm/smp.h
-> > +++ b/xen/arch/riscv/include/asm/smp.h
-> > @@ -5,6 +5,10 @@
-> > =C2=A0#include <xen/cpumask.h>
-> > =C2=A0#include <xen/percpu.h>
-> > =C2=A0
-> > +#include <asm/processor.h>
-> > +
-> > +#define INVALID_HARTID ULONG_MAX
->=20
-> So what if the firmware report this value for one of the harts?
-It could be an issue, but in my opinion, there is a small chance that
-the firmware will use such a high number. I can add a BUG_ON() in
-start_xen() to check that bootcpu_id is not equal to INVALID_HARTID to
-ensure that the firmware does not report this value. Otherwise, we
-would need to add a 'bool valid;' to struct pcpu_info and use it
-instead of INVALID_HARTID.
+https://lore.kernel.org/xen-devel/cover.1723110344.git.Sergiy_Kibrik@epam=
+.com/
 
-> > --- a/xen/arch/riscv/setup.c
-> > +++ b/xen/arch/riscv/setup.c
-> > @@ -8,6 +8,7 @@
-> > =C2=A0#include <public/version.h>
-> > =C2=A0
-> > =C2=A0#include <asm/early_printk.h>
-> > +#include <asm/smp.h>
-> > =C2=A0#include <asm/traps.h>
-> > =C2=A0
-> > =C2=A0void arch_get_xen_caps(xen_capabilities_info_t *info)
-> > @@ -40,6 +41,10 @@ void __init noreturn start_xen(unsigned long
-> > bootcpu_id,
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0 remove_identity_mapping();
-> > =C2=A0
-> > +=C2=A0=C2=A0=C2=A0 set_processor_id(0);
->=20
-> This isn't really needed, is it? The pcpu_info[] initializer already
-> installs the necessary 0. Another thing would be if the initializer
-> set the field to, say, NR_CPUS.
->=20
-> > --- /dev/null
-> > +++ b/xen/arch/riscv/smp.c
-> > @@ -0,0 +1,21 @@
-> > +#include <xen/smp.h>
-> > +
-> > +/*
-> > + * FIXME: make pcpu_info[] dynamically allocated when necessary
-> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 functionality will be rea=
-dy
-> > + */
-> > +/* tp points to one of these per cpu */
-> > +struct pcpu_info pcpu_info[NR_CPUS] =3D { { 0, INVALID_HARTID } };
->=20
-> As to the initializer - what about CPUs other than CPU0? Would they
-> better all have hart_id set to invalid?
-I thought about that, but I decided that if we have INVALID_HARTID as
-hart_id and the hart_id is checked in the appropriate places, then it
-doesn't really matter what the processor_id member of struct pcpu_info
-is. For clarity, it might be better to set it to an invalid value, but
-it doesn't clear which value we should choose as invalid. I assume that
-NR_CPUS is a good candidate for that?
+Minor changes comparing to v6, changelogs are provided per-patch.
 
->=20
-> Also, as a pretty strong suggestion to avoid excessive churn going
-> forward: Please consider using dedicated initializers here. IOW
-> perhaps
->=20
-> struct pcpu_info pcpu_info[NR_CPUS] =3D { [0 ... NR_CPUS - 1] =3D {
-> =C2=A0=C2=A0=C2=A0 .hart_id =3D INVALID_HARTID,
-> }};
->=20
-> Yet as said earlier - in addition you likely want to make sure no
-> two CPUs have (part of) their struct instance in the same cache line.
-> That won't matter right now, as you have no fields you alter at
-> runtime, but I expect such fields will appear.
-Is my understanding correct that adding __cacheline_aligned will be
-sufficient:
-   struct pcpu_info {
-   ...
-   } __cacheline_aligned;
+  -Sergiy=20
 
+Xenia Ragiadakou (2):
+  ioreq: do not build arch_vcpu_ioreq_completion() for non-VMX
+    configurations
+  x86/hvm: make AMD-V and Intel VT-x support configurable
 
->=20
-> > +void setup_tp(unsigned int cpuid)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * tp register contains an address of physical=
- cpu
-> > information.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * So write physical CPU info of cpuid to tp r=
-egister.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * It will be used later by get_processor_id()=
- ( look at
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * <asm/processor.h> ):
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 #define get_processor_id()=C2=
-=A0=C2=A0=C2=A0 (tp->processor_id)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0 asm volatile ( "mv tp, %0"
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 :: "r" ((unsigned long)&pcpu_info[c=
-puid]) :
-> > "memory" );
-> > +}
->=20
-> So you've opted to still do this in C. Which means there's still a
-> residual risk of the compiler assuming it can already to tp. What's
-> the problem with doing this properly in assembly?
-There is no problem and to be on the safe side I will re-write it to
-assembly.
+ xen/Kconfig              |  7 +++++++
+ xen/arch/arm/ioreq.c     |  6 ------
+ xen/arch/x86/Kconfig     | 19 +++++++++++++++++--
+ xen/arch/x86/hvm/ioreq.c |  2 ++
+ xen/include/xen/ioreq.h  | 10 ++++++++++
+ 5 files changed, 36 insertions(+), 8 deletions(-)
 
->=20
-> As to the memory clobber - in an isolated, non-inline function its
-> significance is reduced mostly to the case of LTO (which I'm not
-> sure you even target). Nevertheless probably worth keeping, even if
-> mainly for documentation purposes. Provided of course this C function
-> is to remain.
->=20
-> > --- /dev/null
-> > +++ b/xen/arch/riscv/smpboot.c
-> > @@ -0,0 +1,8 @@
-> > +#include <xen/init.h>
-> > +#include <xen/sections.h>
-> > +#include <xen/smp.h>
-> > +
-> > +void __init smp_set_bootcpu_id(unsigned long boot_cpu_hartid)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 cpuid_to_hartid(0) =3D boot_cpu_hartid;
-> > +}
->=20
-> Does this really need its own function?
-No, there is no such need. I will drop it.
+--=20
+2.25.1
 
-Thanks.
-
-~ Oleksii
 
