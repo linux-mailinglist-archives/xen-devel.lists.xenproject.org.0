@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07D27962D8A
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 18:21:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785003.1194421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57A81962DCD
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 18:38:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785014.1194432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjLPc-0000aX-Hb; Wed, 28 Aug 2024 16:20:48 +0000
+	id 1sjLgU-0003SX-W8; Wed, 28 Aug 2024 16:38:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785003.1194421; Wed, 28 Aug 2024 16:20:48 +0000
+Received: by outflank-mailman (output) from mailman id 785014.1194432; Wed, 28 Aug 2024 16:38:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjLPc-0000YT-EI; Wed, 28 Aug 2024 16:20:48 +0000
-Received: by outflank-mailman (input) for mailman id 785003;
- Wed, 28 Aug 2024 16:20:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjLPb-0000YA-Iw; Wed, 28 Aug 2024 16:20:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjLPb-0004Fp-AS; Wed, 28 Aug 2024 16:20:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjLPb-0004j1-1e; Wed, 28 Aug 2024 16:20:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sjLPb-0005YF-1H; Wed, 28 Aug 2024 16:20:47 +0000
+	id 1sjLgU-0003PL-ST; Wed, 28 Aug 2024 16:38:14 +0000
+Received: by outflank-mailman (input) for mailman id 785014;
+ Wed, 28 Aug 2024 16:38:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=up7O=P3=bounce.vates.tech=bounce-md_30504962.66cf5270.v1-b859026ae7614831888f2940ed2e1c80@srs-se1.protection.inumbo.net>)
+ id 1sjLgT-0003PF-44
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 16:38:13 +0000
+Received: from mail137-25.atl71.mandrillapp.com
+ (mail137-25.atl71.mandrillapp.com [198.2.137.25])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e90eeb62-655b-11ef-99a0-01e77a169b0f;
+ Wed, 28 Aug 2024 18:38:10 +0200 (CEST)
+Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail137-25.atl71.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Wv9810SqMz35hTny
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 16:38:09 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ b859026ae7614831888f2940ed2e1c80; Wed, 28 Aug 2024 16:38:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +43,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=fUt8Nn5UmpHibfP4AUBE7G9hRjxXp1Fa67V34s+cMxQ=; b=J5BwAIJL3Q1NjIlUr2H3/uzuUL
-	HkH04XHH3R1ianK/3GL2VzEFLlYz0ZkObTkbo3wxlgElOcaeb83Weg0D533dGKZMunhdRfr6L78LO
-	PAIbi/60eoBYuo3qYLnRUx4QoufERA/9gyI5BOfzhA6ak63Diu0SciAD6wjvHkObMiI8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187383-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e90eeb62-655b-11ef-99a0-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1724863089; x=1725123589;
+	bh=UOStic/LZX6XVX/sSEGr44o+pPQAQeLXe2Il6UL0+vM=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=UAu51CzXB0hCoVPRGkliY6rRNVWQK6KeP72alXFA6eS8rBxsP/zlFDBJAQQ3eTtg2
+	 gTlM/b+AUjTcilFH2yeNRWI0cGxeGYZYCWwRYK36natSbEHWbsDEWEdj/YHAsS9JMC
+	 4cj/0DzygeY6faILgBWvHaVixlRYnaZnxzLZRPD2WHR4ejpxbfOtmEm/APbOIi44iD
+	 Fi7ah+4nGiABHOG9YmFM9tUAj147+u7eiex7TSl9GuKErJZi1lqtKuXoWJ8/8ZG61A
+	 /Ly3GKsIhzFdXYApkokiCu0360HZegiMHRNGGxVv624hR3Ee1QNVb4AoXTeo9zFDjv
+	 DyWTK50+nVGOg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1724863089; x=1725123589; i=anthony.perard@vates.tech;
+	bh=UOStic/LZX6XVX/sSEGr44o+pPQAQeLXe2Il6UL0+vM=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=pbhfuglFbv8T7mTCzTtHhEHykIICvSqqsKNZlhASW+DQ0wFArm0ysrKQixKsEnr2x
+	 g357jbv1r7SaZs7vSkbMdRRMeLXCE5TsaSeLb6yUrHc2YajWD9iQhHsdr8xFjWoupv
+	 5GBjnVjNE1LP8lAZUhBd7Gl9LVmr0UfpCE85Y9T4FGNdW5AzD5cLkVCyztEIP/Qulp
+	 ioSmtqvJ/ly5sWuYoKWK4HoCytQh9bSh+nd8eFVARm/+DYO02W12YMRynpkwPo5l3a
+	 gUacZYkcdk/B4LkeyngUQhWiBlSZG/2GatQysef7kTB3deYi5KUYXxO1oUNltqa8B6
+	 5xYopAMObB1JQ==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v3=201/3]=20hw/xen/xen=5Fpt:=20Save=20back=20data=20only=20for=20declared=20registers?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1724863087792
+To: =?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>, "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Message-Id: <Zs9SbXAJ++8mj/uR@l14>
+References: <cover.f5d45e3c2fb87552abfaf80982b0b724fca2134c.1714955598.git-series.marmarek@invisiblethingslab.com> <aa391652c33c8a4a64db8f27ad50ccb65600b293.1714955598.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <aa391652c33c8a4a64db8f27ad50ccb65600b293.1714955598.git-series.marmarek@invisiblethingslab.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b859026ae7614831888f2940ed2e1c80?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240828:md
+Date: Wed, 28 Aug 2024 16:38:08 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 187383: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=1fd2f9ec8f16cc8efb949888db94eb42006f77c6
-X-Osstest-Versions-That:
-    ovmf=a0ac7cf67afd382b4bd13a402bb6100a435b5b7b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 28 Aug 2024 16:20:47 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-flight 187383 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187383/
+On Mon, May 06, 2024 at 02:33:20AM +0200, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> Call pci_default_write_config() only after resolving any handlers from
+> XenPTRegInfo structures, and only with a value updated with those
+> handlers. This is important for two reasons:
+> 1. XenPTRegInfo has ro_mask which needs to be enforced - Xen-specific
+>    hooks do that on their own (especially xen_pt_*_reg_write()).
+> 2. Not setting value early allows hooks to see the old value too.
+> 
+> If it would be only about the first point, setting PCIDevice.wmask would
+> probably be sufficient, but given the second point, change those
+> writes.
+> 
+> Relevant handlers already save data back to the emulated registers
+> space, call the pci_default_write_config() only for its side effects.
+> 
+> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
+> ---
+> v3:
+>  - use emulated register value for pci_default_write_config() call, not
+>    the one for writting back to the hardware
+>  - greatly simplify the patch by calling pci_default_write_config() on
+>    the whole value
+> v2:
+>  - rewrite commit message, previous one was very misleading
+>  - fix loop saving register values
+>  - fix int overflow when calculating write mask
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 1fd2f9ec8f16cc8efb949888db94eb42006f77c6
-baseline version:
- ovmf                 a0ac7cf67afd382b4bd13a402bb6100a435b5b7b
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Last test of basis   187382  2024-08-28 12:45:12 Z    0 days
-Testing same since   187383  2024-08-28 14:45:07 Z    0 days    1 attempts
+Thanks,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Hongbin1 Zhang <hongbin1.zhang@intel.com>
+-- 
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Anthony Perard | Vates XCP-ng Developer
 
+XCP-ng & Xen Orchestra - Vates solutions
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+web: https://vates.tech
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   a0ac7cf67a..1fd2f9ec8f  1fd2f9ec8f16cc8efb949888db94eb42006f77c6 -> xen-tested-master
 
