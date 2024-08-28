@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49943963083
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 20:57:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785080.1194491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF655963084
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 20:57:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785085.1194501 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjNqi-0005Nv-H6; Wed, 28 Aug 2024 18:56:56 +0000
+	id 1sjNrU-0005rM-Pf; Wed, 28 Aug 2024 18:57:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785080.1194491; Wed, 28 Aug 2024 18:56:56 +0000
+Received: by outflank-mailman (output) from mailman id 785085.1194501; Wed, 28 Aug 2024 18:57:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjNqi-0005MH-Dt; Wed, 28 Aug 2024 18:56:56 +0000
-Received: by outflank-mailman (input) for mailman id 785080;
- Wed, 28 Aug 2024 18:56:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sjNrU-0005pd-MH; Wed, 28 Aug 2024 18:57:44 +0000
+Received: by outflank-mailman (input) for mailman id 785085;
+ Wed, 28 Aug 2024 18:57:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mQTD=P3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sjNqh-0005MB-0W
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 18:56:55 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 49ed2166-656f-11ef-99a0-01e77a169b0f;
- Wed, 28 Aug 2024 20:56:52 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2f3f07ac2dcso78045141fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 11:56:52 -0700 (PDT)
+ id 1sjNrT-0005pX-5c
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 18:57:43 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 67520b0a-656f-11ef-a0b0-8be0dac302b0;
+ Wed, 28 Aug 2024 20:57:42 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a868b739cd9so851592466b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 11:57:42 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c0bb1e2685sm2553439a12.29.2024.08.28.11.56.51
+ a640c23a62f3a-a86e54a014csm281039666b.90.2024.08.28.11.57.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Aug 2024 11:56:51 -0700 (PDT)
+ Wed, 28 Aug 2024 11:57:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49ed2166-656f-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: 67520b0a-656f-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724871412; x=1725476212; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724871462; x=1725476262; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GG+26ZRDHt2JvbBOiUkTB9caTmrHTiy54JyBlCCkuNg=;
-        b=jWMITR2BUFBxlzDuCRE3dJ+8TVJWv+eqG+i6mc4bvuCmQ0e+W89SW6CxoPrHHvvUSC
-         uc3Bfj6uJq5Rdc5ueGc/sR4mbxGv5X5SB5d/HVDQ3BDzJwiq3DWqp81tn9S34G5hIPIF
-         oSBsk7oyjBilb1lQg58+dFqdrFy0BTkEHwI4Y=
+        bh=zFpkr8WVyhDSjP2s0SKwSBW1ET3nG7QD4yQ8AOxgWEE=;
+        b=YIjWxfgBXdgTP3qG3W4TZbs/YZ2awMSIH6Cmz90FYS0uoMNuOTnL+7WJWCICS3CQZs
+         C2KdpIOxJAoOmRzcV44W9HgS31Znizkr+KHhFmR9f63L/IrOms/pumH35vRfx4PHELXF
+         Sfuc4ouKC4tsdClOnQDPOaWW06W64dtVsIDIc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724871412; x=1725476212;
+        d=1e100.net; s=20230601; t=1724871462; x=1725476262;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GG+26ZRDHt2JvbBOiUkTB9caTmrHTiy54JyBlCCkuNg=;
-        b=aZpEZSk3oQe9d9kAeCSVobGgXyEQTiZr8cjLI5OKPSyUif0bCyLTebBcT6IlCHYpgm
-         G95miwAVJd6NcU8ZcbuKpQAqqDXqq8J0vz6DXUU7RJ1ub0E/XLqwDp30Ao/jDfKU/aTH
-         YndY2WSySVwTXdy1P0PUyZp2Ib9opy3v7A9u0mAjilbtDwjJ80P2aTmAIrfLAkWjHLXf
-         DHQRIWyiN//w4K9Y0NBhoK+AQzpffIM5doHjL5FEEBIGhbfjIIAz9nkL3/KT2XD9zEEz
-         bwjViPgrfXNLOs4q+WcSPko6rFHLQJzejHD5F6fQkPu3bcI6tBZcbhSTyGDdumKzU3+1
-         WkIg==
-X-Forwarded-Encrypted: i=1; AJvYcCVg9J9lY5vNxicKlkwBqZ1cvkpnIs920vWfdVcklst8iPl+SUVY04YYR3bR3mCgGN1bDHNxn2jll/A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwLN/vMrPDw59BUwCL5rPJjwNI0yX+Q54qI6q9XrHsozcnpx6Nc
-	I5HHdqtvB4Q/zsZo0u0V3CvoKAkBj8lvKebVOz6bMplSkX2Iheg0CTu51Ff5t3I=
-X-Google-Smtp-Source: AGHT+IH7OPV/oB83+67MnEd133rMpTYtVi4NhaS/AcC+eTlahIUTQNCyuI7Gk7Ggr/Y//VNU39SyPA==
-X-Received: by 2002:a2e:460a:0:b0:2f2:9f39:3e58 with SMTP id 38308e7fff4ca-2f61054b2c5mr4079511fa.48.1724871411869;
-        Wed, 28 Aug 2024 11:56:51 -0700 (PDT)
-Message-ID: <17a98dae-51d4-4da0-a35a-1ddf94a06168@citrix.com>
-Date: Wed, 28 Aug 2024 19:56:49 +0100
+        bh=zFpkr8WVyhDSjP2s0SKwSBW1ET3nG7QD4yQ8AOxgWEE=;
+        b=S43N6sVaSsBMGf6Kkr6Usp3q4KAGHhDocg/ZrE1zmGro6EtERCfoU8zGSBnj8hfwfj
+         WMlJWf1QnFJfGbZBDsZmFpFX7Uf/usoFfgPJ13aDrWBq3mVdyP4dgyjfSalyyebU3UW2
+         PFbkcqMd3xiIzbzWl+ohhA5lNj39S+gz/DraZlgKoeIPOEElt92BCMoDdiLGfdZEwRsS
+         tojgdNCf8wUVQMQXpT+vzkbsew3TVkN2e/u7EnvZWLedBhEg8CZguMAWG4PEU/CMJtkG
+         8FJCxBpLSbMRmt+V9kOyFWu6JiMwDF/aHS541n9A9CtSz85+iGxe60vRaqCXGt9OyTWC
+         6/jA==
+X-Forwarded-Encrypted: i=1; AJvYcCUb7RteshPJbQZ/weryhO9Gyyh8G0N+3aG9og5qil5RGmMEXjmNd/NWo1dZm6VjRgI+DMzcJkegSZM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwVS2my9L+igdmdxfEx3yBb10t77xZuidCm2VjEDFNWef2fvFSI
+	PRiKaSAt40VS1hc1kJHLv7BvblI4YzrDjrmNjGnbjadAuCBkdA9GfQvnbxwPD94=
+X-Google-Smtp-Source: AGHT+IGYmu06g7UtLaBxEUdcDuFahYEh7yVY1Uta0ZSTqky24c/vclhSD3K4Zk9cBbvpLspVkzXbmA==
+X-Received: by 2002:a17:907:7e8c:b0:a7a:ab1a:2d71 with SMTP id a640c23a62f3a-a897fad365amr25662566b.59.1724871461531;
+        Wed, 28 Aug 2024 11:57:41 -0700 (PDT)
+Message-ID: <a5b4ca69-96ea-46d6-ab0d-2be4fd1d9d99@citrix.com>
+Date: Wed, 28 Aug 2024 19:57:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] x86/hvm: Use for_each_set_bit() in
- hvm_emulate_writeback()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240827135746.1908070-1-andrew.cooper3@citrix.com>
- <20240827135746.1908070-3-andrew.cooper3@citrix.com>
- <a92063db-fc28-4162-83bd-33617bbfcfbe@suse.com>
- <8f34109f-1718-47e5-99c5-a6010d7ebe51@citrix.com>
- <09742cbe-4c06-49d4-8b26-7ce9076063a1@suse.com>
+Subject: Re: [PATCH v6] x86/dom0: disable SMAP for PV domain building only
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+References: <20240828113044.35541-1-roger.pau@citrix.com>
+ <50658093-8463-4ee3-b308-31be2dd1fd42@suse.com>
+ <bd206c4d-8e1d-488c-b428-3f6402a9ae4f@citrix.com>
+ <Zs8gAuc5qoVsVkQe@macbook.local>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,43 +130,55 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <09742cbe-4c06-49d4-8b26-7ce9076063a1@suse.com>
+In-Reply-To: <Zs8gAuc5qoVsVkQe@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28/08/2024 3:56 pm, Jan Beulich wrote:
-> On 28.08.2024 16:44, Andrew Cooper wrote:
->> On 27/08/2024 5:07 pm, Jan Beulich wrote:
->>> On 27.08.2024 15:57, Andrew Cooper wrote:
->>>> +    for_each_set_bit ( seg, dirty )
->>>> +        hvm_set_segment_register(curr, seg, &hvmemul_ctxt->seg_reg[seg]);
+On 28/08/2024 2:02 pm, Roger Pau Monné wrote:
+> On Wed, Aug 28, 2024 at 12:51:23PM +0100, Andrew Cooper wrote:
+>> On 28/08/2024 12:50 pm, Jan Beulich wrote:
+>>> On 28.08.2024 13:30, Roger Pau Monne wrote:
+>>>> Move the logic that disables SMAP so it's only performed when building a PV
+>>>> dom0, PVH dom0 builder doesn't require disabling SMAP.
+>>>>
+>>>> The fixes tag is to account for the wrong usage of cpu_has_smap in
+>>>> create_dom0(), it should instead have used
+>>>> boot_cpu_has(X86_FEATURE_XEN_SMAP).  Fix while moving the logic to apply to PV
+>>>> only.
+>>>>
+>>>> While there also make cr4_pv32_mask __ro_after_init.
+>>>>
+>>>> Fixes: 493ab190e5b1 ('xen/sm{e, a}p: allow disabling sm{e, a}p for Xen itself')
+>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>> preferably with ...
+>>>
+>>>> @@ -1051,6 +1051,34 @@ out:
+>>>>      return rc;
+>>>>  }
+>>>>  
+>>>> +int __init dom0_construct_pv(struct domain *d,
+>>>> +                             const module_t *image,
+>>>> +                             unsigned long image_headroom,
+>>>> +                             module_t *initrd,
+>>>> +                             const char *cmdline)
+>>>> +{
+>>>> +    int rc;
 >>>> +
->>>> +    hvmemul_ctxt->seg_reg_dirty = 0;
->>> Why is this suddenly appearing here? You don't mention it in the description,
->>> so it's not clear whether you found a (however minor) issue, or whether
->>> that's purely cosmetic (yet then it's still an extra store we could do
->>> without).
->> Oh, yes.  Nothing anywhere in Xen ever clears these segment dirty bits.
-> hvm_emulate_init_once()?
+>>>> +    /*
+>>>> +     * Temporarily clear SMAP in CR4 to allow user-accesses in
+>>>> +     * construct_dom0().  This saves a large number of corner cases
+>>> ... the final 's' dropped here and ...
+>>>
+>>>> +     * interactions with copy_from_user().
 
-I meant after emulation.  The value is initialised to 0 at the start of day.
 
->
->> I suspect the worst that will go wrong is that we'll waste time
->> re-{VMWRITE,memcpy}-ing the segment registers into the VMCS/VMCB, but
->> the logic in Xen is definitely not right.
-> I'm on the edge of asking to do such clearing before emulation, not after
-> processing the dirty bits. That would then be hvm_emulate_init_per_insn(),
-> well centralized.
+Actually, even with this adjustment the comment is still wonky.
 
-Specifically, hvmemul_ctxt should not believe itself to be dirty after a
-call to hvm_emulate_writeback(), because that's the logic to make the
-context no-longer-dirty.
+The point is that we're clearing SMAP so we *don't* need to rewrite
+construct_dom0() in terms of copy_{to,from}_user().
 
-That said, the more I look at this, the less convinced I am by it.  For
-a function named writeback(), it's doing a very narrow thing that is not
-the usual meaning of the term when it comes to pipelines or insn
-emulation...
+I've adjusted it.
 
 ~Andrew
 
