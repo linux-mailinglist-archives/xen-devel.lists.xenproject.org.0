@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6077962AE3
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:57:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784954.1194381 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54646962AFC
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 17:01:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784962.1194391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjK6R-0006nn-TQ; Wed, 28 Aug 2024 14:56:55 +0000
+	id 1sjKAn-0000Zr-EM; Wed, 28 Aug 2024 15:01:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784954.1194381; Wed, 28 Aug 2024 14:56:55 +0000
+Received: by outflank-mailman (output) from mailman id 784962.1194391; Wed, 28 Aug 2024 15:01:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjK6R-0006kf-Qc; Wed, 28 Aug 2024 14:56:55 +0000
-Received: by outflank-mailman (input) for mailman id 784954;
- Wed, 28 Aug 2024 14:56:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sjKAn-0000Xa-AQ; Wed, 28 Aug 2024 15:01:25 +0000
+Received: by outflank-mailman (input) for mailman id 784962;
+ Wed, 28 Aug 2024 15:01:24 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NRYu=P3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjK6Q-0006ij-Sh
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 14:56:54 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2b7dab4-654d-11ef-99a0-01e77a169b0f;
- Wed, 28 Aug 2024 16:56:52 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a8692bbec79so876539766b.3
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 07:56:52 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a86e5486994sm259124566b.14.2024.08.28.07.56.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Aug 2024 07:56:51 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1sjKAm-0000XU-1V
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 15:01:24 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sjKAl-0002Nv-FK; Wed, 28 Aug 2024 15:01:23 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sjKAl-0007CO-8u; Wed, 28 Aug 2024 15:01:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +39,319 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2b7dab4-654d-11ef-99a0-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724857012; x=1725461812; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2VfOD9+PJiSIqqab2EUGIMphNnLbOpx4tJShfEp78+g=;
-        b=JvODChIdBfSkUnG7J1PCdrcz+GBh5oo39jXbqW55uLrHGYEN2uClzu7qzpZQXdIHSc
-         RhzlZWQ/yAtu9k8WGDsP/vOAWO+1WotsmTn9CiLMKe1Cd29SRT00Vc4HjPB+raBiaTiO
-         g8pw39OXZVNJzAmfP4V7J3YlEwLiPMLt/IuciUuDZuXsNeVqibKe7YnuUAUcTqJihHo8
-         vWYNiF3ACMszfCkjLm4Bgh5R5p+qaAVba3Ux8h8Y0Jck7f7nAB/3SLnZ4ZB4P3d7dVJJ
-         3H+jd1izKwSYMezsZ8QzajlFMBqB1xBsImdTAWFZWRz90qYs2L4OLpUk1Sl26Hgtp9aZ
-         dAfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724857012; x=1725461812;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2VfOD9+PJiSIqqab2EUGIMphNnLbOpx4tJShfEp78+g=;
-        b=Z8BGHqUwGb8eDk6C+8HOr1Gsgjks62JKCijH9iGWbvTdcbq2etqwhEg8w7DVBKWaw+
-         ZPTYnXS7xiVaHxY+FcWgPBjYfmQt6hqyoyvx/jMmcscw6u+5fo6UscGIXRi3BatqPV7M
-         m2qIscbe5j4W6/U04+xmbHIOm/Th03acLzcpXgpZevtFil/EQFcH7budOPKk8Tr0DVnO
-         OxjMcjLhPwW6odwFPZouEn4kwT+/cJ2wW13RGhOOuCgrCKdDR+qrY/rtN7mRF/BPAzp+
-         kyDJ3b4Z3OT5ldn6oZhL6fzTDPZrbzCwneaP7w5CfnuP/DEdME3HsL0a3KEVK9owgb5P
-         yEgA==
-X-Forwarded-Encrypted: i=1; AJvYcCWw7KIVbXlMDUV8tYP7KBi15NmmqjYo8Jb4cnRVJbIkEc2fvNcvwefoscp8VPbtwGG7z5ehc0G9ixQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw+hp/6V/9YCICDiKEdLo/UGTzZDekaCpdwTDg16JF6kJPspjT9
-	idSJYeqdyb+uYI1Ox42Akt+lRBfMu0buTlVZC+yBjSLL319uuFKRvlY10HsU7w==
-X-Google-Smtp-Source: AGHT+IEUzlY0naLYVNqF1UtFsTeRlOWw8aHQ7Knu/xUaErB9ndK8JjLwPpcgLLW3cAwPPy5ky0GTXg==
-X-Received: by 2002:a17:907:e228:b0:a86:a28a:99ef with SMTP id a640c23a62f3a-a870a98ecd0mr209220966b.18.1724857011921;
-        Wed, 28 Aug 2024 07:56:51 -0700 (PDT)
-Message-ID: <09742cbe-4c06-49d4-8b26-7ce9076063a1@suse.com>
-Date: Wed, 28 Aug 2024 16:56:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=CKhoBEdU1oBU1ObBf+zxVNpjO6KmigcCl/gcErSgd2M=; b=PqxLnBNobXUV2DyPO0oIrrvn3C
+	BZ9LBqH1ZOvVxqbZtfaosxhsSvISsveHFU49w64qvDxHrP82FZq9lThPsEZugOgwzN4jjuRLN0VSV
+	U30hJcj8gcM5Fiq/b1F2rhjcT59QF0Dgxo8o8IGiH7xwUb+XDcz1ajoWBerHhsG+QIkU=;
+Message-ID: <f14c6fb3-0ab6-49e6-b0f1-622802a599f0@xen.org>
+Date: Wed, 28 Aug 2024 16:01:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] x86/hvm: Use for_each_set_bit() in
- hvm_emulate_writeback()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240827135746.1908070-1-andrew.cooper3@citrix.com>
- <20240827135746.1908070-3-andrew.cooper3@citrix.com>
- <a92063db-fc28-4162-83bd-33617bbfcfbe@suse.com>
- <8f34109f-1718-47e5-99c5-a6010d7ebe51@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8f34109f-1718-47e5-99c5-a6010d7ebe51@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v1 3/4] xen/arm: mpu: Create boot-time MPU protection
+ regions
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240823163127.3443404-1-ayan.kumar.halder@amd.com>
+ <20240823163127.3443404-4-ayan.kumar.halder@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240823163127.3443404-4-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 28.08.2024 16:44, Andrew Cooper wrote:
-> On 27/08/2024 5:07 pm, Jan Beulich wrote:
->> On 27.08.2024 15:57, Andrew Cooper wrote:
->>> +    for_each_set_bit ( seg, dirty )
->>> +        hvm_set_segment_register(curr, seg, &hvmemul_ctxt->seg_reg[seg]);
->>> +
->>> +    hvmemul_ctxt->seg_reg_dirty = 0;
->> Why is this suddenly appearing here? You don't mention it in the description,
->> so it's not clear whether you found a (however minor) issue, or whether
->> that's purely cosmetic (yet then it's still an extra store we could do
->> without).
+Hi,
+
+On 23/08/2024 17:31, Ayan Kumar Halder wrote:
+> Define enable_boot_cpu_mm() for the AArch64-V8R system.
 > 
-> Oh, yes.  Nothing anywhere in Xen ever clears these segment dirty bits.
+> Like boot-time page table in MMU system, we need a boot-time MPU
+> protection region configuration in MPU system so Xen can fetch code and
+> data from normal memory.
+> 
+> START_ADDRESS + 2MB memory is mapped to contain the text and data
+> required for early boot of Xen.
+> 
+> One can refer to ARM DDI 0600B.a ID062922 G1.3  "General System Control
+> Registers", to get the definitions of PRBAR_EL2, PRLAR_EL2 and
+> PRSELR_EL2 registers. Also, refer to G1.2 "Accessing MPU memory region
+> registers", the following
+> 
+> ```
+> The MPU provides two register interfaces to program the MPU regions:
+>   - Access to any of the MPU regions via PRSELR_ELx, PRBAR<n>_ELx, and
+> PRLAR<n>_ELx.
+> ```
+> We use the above mechanism to configure the MPU memory regions.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+>   xen/arch/arm/Makefile                    |  1 +
+>   xen/arch/arm/arm64/mpu/Makefile          |  1 +
+>   xen/arch/arm/arm64/mpu/head.S            | 70 ++++++++++++++++++++++++
+>   xen/arch/arm/include/asm/arm64/sysregs.h | 50 +++++++++++++++++
+>   xen/arch/arm/include/asm/mpu/arm64/mm.h  | 13 +++++
+>   xen/arch/arm/include/asm/mpu/mm.h        | 18 ++++++
+>   6 files changed, 153 insertions(+)
+>   create mode 100644 xen/arch/arm/arm64/mpu/Makefile
+>   create mode 100644 xen/arch/arm/arm64/mpu/head.S
+>   create mode 100644 xen/arch/arm/include/asm/mpu/arm64/mm.h
+>   create mode 100644 xen/arch/arm/include/asm/mpu/mm.h
+> 
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 7792bff597..aebccec63a 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -1,6 +1,7 @@
+>   obj-$(CONFIG_ARM_32) += arm32/
+>   obj-$(CONFIG_ARM_64) += arm64/
+>   obj-$(CONFIG_MMU) += mmu/
+> +obj-$(CONFIG_MPU) += mpu/
+>   obj-$(CONFIG_ACPI) += acpi/
+>   obj-$(CONFIG_HAS_PCI) += pci/
+>   ifneq ($(CONFIG_NO_PLAT),y)
+> diff --git a/xen/arch/arm/arm64/mpu/Makefile b/xen/arch/arm/arm64/mpu/Makefile
+> new file mode 100644
+> index 0000000000..3340058c08
+> --- /dev/null
+> +++ b/xen/arch/arm/arm64/mpu/Makefile
+> @@ -0,0 +1 @@
+> +obj-y += head.o
+> diff --git a/xen/arch/arm/arm64/mpu/head.S b/xen/arch/arm/arm64/mpu/head.S
+> new file mode 100644
+> index 0000000000..2b023c346a
+> --- /dev/null
+> +++ b/xen/arch/arm/arm64/mpu/head.S
+> @@ -0,0 +1,70 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
 
-hvm_emulate_init_once()?
+Coding style: /* ... */
 
-> I suspect the worst that will go wrong is that we'll waste time
-> re-{VMWRITE,memcpy}-ing the segment registers into the VMCS/VMCB, but
-> the logic in Xen is definitely not right.
+> +/*
+> + * Start-of-day code for an Armv8-R MPU system.
+> + */
+> +
+> +#include <asm/mm.h>
+> +#include <asm/page.h>
 
-I'm on the edge of asking to do such clearing before emulation, not after
-processing the dirty bits. That would then be hvm_emulate_init_per_insn(),
-well centralized.
+I can't see any use of the definition of page.h. Is it necessary?
 
-Jan
+> +#include <asm/early_printk.h>
+
+You include early_printk.h but don't use it.
+
+> +
+> +/*
+> + * From the requirements of head.S we know that Xen image should
+> + * be linked at XEN_START_ADDRESS, and all of text + data + bss
+> + * must fit in 2MB.
+
+Xen can be bigger than 2MB. But rather than hardcoding the limit, you 
+want to use _end.
+
+> On MPU systems, XEN_START_ADDRESS is also the
+> + * address that Xen image should be loaded at. So for initial MPU
+> + * regions setup, we use 2MB for Xen data memory to setup boot
+> + * region, or the create boot regions code below will need adjustment.
+> + */
+> +#define XEN_START_MEM_SIZE      0x200000
+
+See above.
+
+> +
+> +/*
+> + * In boot stage, we will use 1 MPU region:
+> + * Region#0: Normal memory for Xen text + data + bss (2MB)
+> + */
+> +#define BOOT_NORMAL_REGION_IDX  0x0
+> +
+> +/* MPU normal memory attributes. */
+> +#define PRBAR_NORMAL_MEM        0x30    /* SH=11 AP=00 XN=00 */
+> +#define PRLAR_NORMAL_MEM        0x0f    /* NS=0 ATTR=111 EN=1 */
+> +
+> +.macro write_pr, sel, prbar, prlar
+> +    msr   PRSELR_EL2, \sel
+> +    dsb   sy
+
+I am not sure I understand why this is a dsb rather than isb. Can you 
+clarify?
+
+If a "dsb" is necessary, "sy" seems to be quite strict.
+
+> +    msr   PRBAR_EL2, \prbar
+> +    msr   PRLAR_EL2, \prlar
+> +    dsb   sy
+> +    isb
+> +.endm
+> +
+> +.section .text.header, "ax", %progbits
+> +
+> +/*
+> + * Static start-of-day EL2 MPU memory layout.
+> + *
+> + * It has a very simple structure, including:
+> + *  - 2MB normal memory mappings of xen at XEN_START_ADDRESS, which
+> + * is the address where Xen was loaded by the bootloader.
+> + */
+
+Please document a bit more the code and how the registers are used. For 
+an example see the mmu/head.S code.
+
+> +ENTRY(enable_boot_cpu_mm)
+> +    /* Map Xen start memory to a normal memory region. */
+> +    mov x0, #BOOT_NORMAL_REGION_IDX
+> +    ldr x1, =XEN_START_ADDRESS
+> +    and x1, x1, #MPU_REGION_MASK
+> +    mov x3, #PRBAR_NORMAL_MEM
+> +    orr x1, x1, x3
+> +
+> +    ldr x2, =XEN_START_ADDRESS
+> +    mov x3, #(XEN_START_MEM_SIZE - 1)
+> +    add x2, x2, x3
+> +    and x2, x2, #MPU_REGION_MASK
+> +    mov x3, #PRLAR_NORMAL_MEM
+> +    orr x2, x2, x3
+> +
+> +    /*
+> +     * Write to MPU protection region:
+> +     * x0 for pr_sel, x1 for prbar x2 for prlar
+> +     */
+> +    write_pr x0, x1, x2
+> +
+> +    ret
+> +ENDPROC(enable_boot_cpu_mm)
+
+Missing emacs magic.
+
+> diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
+> index b593e4028b..0d122e1fa6 100644
+> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
+> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+> @@ -462,6 +462,56 @@
+>   #define ZCR_ELx_LEN_SIZE             9
+>   #define ZCR_ELx_LEN_MASK             0x1ff
+>   
+> +/* System registers for AArch64 with PMSA */
+> +#ifdef CONFIG_MPU
+
+Can we define the registers in mpu/sysregs.h? This can then be included 
+only where it is needed.
+
+> +
+> +/* EL2 MPU Protection Region Base Address Register encode */
+> +#define PRBAR_EL2   S3_4_C6_C8_0
+> +#define PRBAR1_EL2  S3_4_C6_C8_4
+> +#define PRBAR2_EL2  S3_4_C6_C9_0
+> +#define PRBAR3_EL2  S3_4_C6_C9_4
+> +#define PRBAR4_EL2  S3_4_C6_C10_0
+> +#define PRBAR5_EL2  S3_4_C6_C10_4
+> +#define PRBAR6_EL2  S3_4_C6_C11_0
+> +#define PRBAR7_EL2  S3_4_C6_C11_4
+> +#define PRBAR8_EL2  S3_4_C6_C12_0
+> +#define PRBAR9_EL2  S3_4_C6_C12_4
+> +#define PRBAR10_EL2 S3_4_C6_C13_0
+> +#define PRBAR11_EL2 S3_4_C6_C13_4
+> +#define PRBAR12_EL2 S3_4_C6_C14_0
+> +#define PRBAR13_EL2 S3_4_C6_C14_4
+> +#define PRBAR14_EL2 S3_4_C6_C15_0
+> +#define PRBAR15_EL2 S3_4_C6_C15_4
+> +
+> +/* EL2 MPU Protection Region Limit Address Register encode */
+> +#define PRLAR_EL2   S3_4_C6_C8_1
+> +#define PRLAR1_EL2  S3_4_C6_C8_5
+> +#define PRLAR2_EL2  S3_4_C6_C9_1
+> +#define PRLAR3_EL2  S3_4_C6_C9_5
+> +#define PRLAR4_EL2  S3_4_C6_C10_1
+> +#define PRLAR5_EL2  S3_4_C6_C10_5
+> +#define PRLAR6_EL2  S3_4_C6_C11_1
+> +#define PRLAR7_EL2  S3_4_C6_C11_5
+> +#define PRLAR8_EL2  S3_4_C6_C12_1
+> +#define PRLAR9_EL2  S3_4_C6_C12_5
+> +#define PRLAR10_EL2 S3_4_C6_C13_1
+> +#define PRLAR11_EL2 S3_4_C6_C13_5
+> +#define PRLAR12_EL2 S3_4_C6_C14_1
+> +#define PRLAR13_EL2 S3_4_C6_C14_5
+> +#define PRLAR14_EL2 S3_4_C6_C15_1
+> +#define PRLAR15_EL2 S3_4_C6_C15_5
+> +
+> +/* MPU Protection Region Enable Register encode */
+> +#define PRENR_EL2 S3_4_C6_C1_1
+> +
+> +/* MPU Protection Region Selection Register encode */
+> +#define PRSELR_EL2 S3_4_C6_C2_1
+> +
+> +/* MPU Type registers encode */
+> +#define MPUIR_EL2 S3_4_C0_C0_4
+> +
+> +#endif
+> +
+>   /* Access to system registers */
+>   
+>   #define WRITE_SYSREG64(v, name) do {                    \
+> diff --git a/xen/arch/arm/include/asm/mpu/arm64/mm.h b/xen/arch/arm/include/asm/mpu/arm64/mm.h
+> new file mode 100644
+> index 0000000000..d209eef6db
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/mpu/arm64/mm.h
+> @@ -0,0 +1,13 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+
+Coding style: /* ... */
+
+> +/*
+> + * mpu.h: Arm Memory Protection Unit definitions.
+
+The file is name mm.h.
+
+> + */
+> +
+> +#ifndef __ARM64_MPU_H__
+> +#define __ARM64_MPU_H__
+> +
+> +#define MPU_REGION_SHIFT  6
+> +#define MPU_REGION_ALIGN  (_AC(1, UL) << MPU_REGION_SHIFT)
+> +#define MPU_REGION_MASK   (~(MPU_REGION_ALIGN - 1))
+> +
+> +#endif /* __ARM64_MPU_H__ */
+
+Missing emacs magic.
+
+> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
+> new file mode 100644
+> index 0000000000..f5ebca8261
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/mpu/mm.h
+
+Do we need this file?
+
+> @@ -0,0 +1,18 @@
+> +#ifndef __ARCH_ARM_MPU__
+> +#define __ARCH_ARM_MPU__
+> +
+> +#if defined(CONFIG_ARM_64)
+> +# include <asm/mpu/arm64/mm.h>
+> +#else
+> +# error "unknown ARM variant"
+> +#endif
+> +
+> +#endif /*  __ARCH_ARM_MPU__ */
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+
+Cheers,
+
+-- 
+Julien Grall
+
 
