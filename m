@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D576B9628DF
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 15:40:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784844.1194250 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 701BC9629FD
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 16:16:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784863.1194261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjIuO-000337-Cl; Wed, 28 Aug 2024 13:40:24 +0000
+	id 1sjJSG-0000id-14; Wed, 28 Aug 2024 14:15:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784844.1194250; Wed, 28 Aug 2024 13:40:24 +0000
+Received: by outflank-mailman (output) from mailman id 784863.1194261; Wed, 28 Aug 2024 14:15:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjIuO-00030t-A9; Wed, 28 Aug 2024 13:40:24 +0000
-Received: by outflank-mailman (input) for mailman id 784844;
- Wed, 28 Aug 2024 13:40:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sjJSF-0000gB-U5; Wed, 28 Aug 2024 14:15:23 +0000
+Received: by outflank-mailman (input) for mailman id 784863;
+ Wed, 28 Aug 2024 14:15:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mQTD=P3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sjIuN-00030i-53
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 13:40:23 +0000
-Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
- [2607:f8b0:4864:20::f33])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11ae08e9-6543-11ef-99a0-01e77a169b0f;
- Wed, 28 Aug 2024 15:40:21 +0200 (CEST)
-Received: by mail-qv1-xf33.google.com with SMTP id
- 6a1803df08f44-6bf705959f1so6016516d6.1
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 06:40:21 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6c162db0acdsm65691636d6.85.2024.08.28.06.40.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Aug 2024 06:40:19 -0700 (PDT)
+ <SRS0=8VpF=P3=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
+ id 1sjJSD-0000g5-RB
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 14:15:21 +0000
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [2001:4860:4864:20::2a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f503d3e5-6547-11ef-a0b0-8be0dac302b0;
+ Wed, 28 Aug 2024 16:15:20 +0200 (CEST)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-268eec6c7c1so4535705fac.3
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 07:15:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +40,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11ae08e9-6543-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: f503d3e5-6547-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724852420; x=1725457220; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QU5S5X0NULHTM1QIsTLILDFcVu9I2b5MsJCxlya5c9o=;
-        b=etRZwNydqxoRB6G/2wijNi81H/TL4uWxFJ2qapA8Bkuo/gPi+2Qd/uwka4dBAMZ/Jq
-         czRCHXRLdZr07RH+UvQ/WZdkmRsS/fEb3LUOC/jE2V8g4T6WY9XT/uEgXpgub90U0v9U
-         kVADOt0LalJgjTc/IsZLx+4h+rfOa4vMDfZhM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724852420; x=1725457220;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1724854519; x=1725459319; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QU5S5X0NULHTM1QIsTLILDFcVu9I2b5MsJCxlya5c9o=;
-        b=gYh6jXpusVyDhzKA2vngFsja0pIPL1HeKO+aHdK3DO+EDrkodGr610p6IA870OY2BP
-         ASfugbPqYDLzQG3No82Sn5/BwbNtlGmWNJuxWhmxZgY1z5sMbA1gjxBEqeXIL8ZCJyTa
-         WeCdTjGgpGxLPPnkIPC7Xt9ogxKOIKvZik15qobrH6bs8UthPQblguwfsoRPHDix89qV
-         qdbqaje5af+uh39NW75eczNYU7PfJ10gnDXpmW6x2UZraI4k1Vo36m7hiGYES+aQ9MNn
-         w6NcljOOAYT9ho6S4zd4hFKRkHjvTfFD4LWltGzLDmL7JDihTtaMVwW0pcOma2eWEIeo
-         8ZFg==
-X-Forwarded-Encrypted: i=1; AJvYcCX26dgM5LG95c5zDuiUZIO+BuK9H+ZIA6AyDPPK9kOZtyu0nKlsR8lVgIryt8SniBm5zOXNd3fFqL4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzimbyLPWofNdBa3DTWV1hBxW7P7EMTANC/aActpn01OIJOP6tw
-	rwWD6aALkxhXenGWriqcP0AQEmPLC2PqoBYcMKa5LI94nOjUetkqnOfP7+wUMi4w3IPwIzszq0h
-	O
-X-Google-Smtp-Source: AGHT+IFdAZdXdMzcbAd1CF1VlmVe/taoIoR0YrI4Bm0cIqNTMUaofUks2gfxUJTUZyr++FG0l8X1Yg==
-X-Received: by 2002:a05:6214:5b84:b0:6bb:bf27:8a15 with SMTP id 6a1803df08f44-6c335d10dabmr42515096d6.3.1724852419890;
-        Wed, 28 Aug 2024 06:40:19 -0700 (PDT)
-Message-ID: <cfa79e7e-9e2e-4273-848c-dc4edd761e7c@citrix.com>
-Date: Wed, 28 Aug 2024 14:40:16 +0100
+        bh=sJZNtG3bBFxdf+oxP206xMOBzxraOp+5kHD+xYJrLc4=;
+        b=WWVscQc5L6uoagundfjv9YHUphxRusSaSwVBch6JHvfmvbffwWS6o/mfzSMSBEN6YM
+         m2J5ZNjnAxn07hnpjx9LZ4I6m3EbZQ/6wC87MArRIKKnEEa0u7clbWr0Aj0O5fQxiVkV
+         4btBRnjzhw8HErHcKgh2e01Un3kh+YV3NlX2s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724854519; x=1725459319;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=sJZNtG3bBFxdf+oxP206xMOBzxraOp+5kHD+xYJrLc4=;
+        b=i+/nSXWhqShvbCjnpfLjHQ1jvJJy3xs5lvS7LiXGmpxoKXFdoNszIhhDw6Zk9JoOV1
+         2+8mKo5O6tC5thhO7owmG2SbFsBSXwNJld+3y3X8PBRCiIWELCkdTwKh76gwmj/7usDl
+         sYTI458Nhw05MX3SeQdfqiNnmCB2+3Pql7Pcztk2GeuI27N+T8bLpW/omr+1d1jwwnGM
+         Pload8qx8XmNw324WxxvZygZzDNfdwDKjpLJmW2iAdP6CPJFah8rj/OM+1AXyb9YAVe+
+         K0p7/Z/t6QzE66+eXl2c/jiZ11qNFZdN5Q9unif7yzzrYyX3EuYZU5dDrHhScKhGPsCX
+         f24g==
+X-Gm-Message-State: AOJu0Ywf2s8aGJxqHuS9UIoF0EFmRVZGMdJZZpCR40/p2rLnFefiOKYc
+	7tvNh3Brad2TK9xeJ5dNKqAJq2u6qwkZ3qgjTpWn1irgSAQlaojcpCcJVRumnygJ4sxIBy213tc
+	Su50qCRSllSM0/YNOKBt3F78kOggVwvKbHgeKfQ==
+X-Google-Smtp-Source: AGHT+IEZHo9aVUAyCmyAsLyIUacC91+qeimCIe146baUuugw2F5R5hmhIENi++R5BhS0YuAX4oPDilK24t7y7+dq6vE=
+X-Received: by 2002:a05:6870:8a25:b0:261:1dfb:3f35 with SMTP id
+ 586e51a60fabf-273e672a2a0mr19620923fac.48.1724854519241; Wed, 28 Aug 2024
+ 07:15:19 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] oss-fuzz: Fix coverage runtime error
-To: Tamas K Lengyel <tamas@tklengyel.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Jan Beulich <jbeulich@suse.com>
-References: <20240828133823.1114-1-tamas@tklengyel.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240828133823.1114-1-tamas@tklengyel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240828133033.2378322-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240828133033.2378322-1-andrew.cooper3@citrix.com>
+From: Edwin Torok <edwin.torok@cloud.com>
+Date: Wed, 28 Aug 2024 15:15:08 +0100
+Message-ID: <CAEfZLvmJAw5wiKu5BZokgpbHdAv6Msro_ANgJ06NmATWuHiMNA@mail.gmail.com>
+Subject: Re: [PATCH] tools/ocaml: Factor out compatiblity handling
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, 
+	Rob Hoes <Rob.Hoes@citrix.com>, Andrii Sultanov <andrii.sultanov@cloud.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 28/08/2024 2:38 pm, Tamas K Lengyel wrote:
-> The oss-fuzz infrastructure collects runtime coverage information for debugging
-> and fuzzing evaluation. Currently it appears broken due to missing C files.
-> This is because the fuzzer's Makefile only symlinks the C files from various
-> locations in the Xen source tree into the build folder. These symlinks however
-> are gone as oss-fuzz uses separate docker containers for the build and for the
-> run.
+On Wed, Aug 28, 2024 at 2:30=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
 >
-> Update the oss-fuzz build script to copy the required C files into the
-> build folder to fix this oss-fuzz specific issue.
+> ... rather than having each library implement its own subset.
 >
-> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Christian Lindig <christian.lindig@citrix.com>
+> CC: David Scott <dave@recoil.org>
+> CC: Edwin T=C3=B6r=C3=B6k <edwin.torok@cloud.com>
+> CC: Rob Hoes <Rob.Hoes@citrix.com>
+> CC: Andrii Sultanov <andrii.sultanov@cloud.com>
+>
+> Broken out of a larger series, to help Andrii with his dynlib work.
+> ---
+>  tools/ocaml/libs/xc/Makefile        |  2 +-
+>  tools/ocaml/libs/xc/xenctrl_stubs.c | 13 +++----------
+>  tools/ocaml/libs/xen-caml-compat.h  | 23 +++++++++++++++++++++++
+>  3 files changed, 27 insertions(+), 11 deletions(-)
+>  create mode 100644 tools/ocaml/libs/xen-caml-compat.h
+>
+> diff --git a/tools/ocaml/libs/xc/Makefile b/tools/ocaml/libs/xc/Makefile
+> index 1d9fecb06ef2..cdf4d01dac52 100644
+> --- a/tools/ocaml/libs/xc/Makefile
+> +++ b/tools/ocaml/libs/xc/Makefile
+> @@ -2,7 +2,7 @@ OCAML_TOPLEVEL=3D$(CURDIR)/../..
+>  XEN_ROOT=3D$(OCAML_TOPLEVEL)/../..
+>  include $(OCAML_TOPLEVEL)/common.make
+>
+> -CFLAGS +=3D -I../mmap $(CFLAGS_libxenctrl) $(CFLAGS_libxenguest)
+> +CFLAGS +=3D -I../ -I../mmap $(CFLAGS_libxenctrl) $(CFLAGS_libxenguest)
+>  CFLAGS +=3D $(APPEND_CFLAGS)
+>  OCAMLINCLUDE +=3D -I ../mmap -I ../eventchn
+>
+> diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xe=
+nctrl_stubs.c
+> index a52908012960..c78191f95abc 100644
+> --- a/tools/ocaml/libs/xc/xenctrl_stubs.c
+> +++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
+> @@ -25,6 +25,8 @@
+>  #include <caml/fail.h>
+>  #include <caml/callback.h>
+>
+> +#include "xen-caml-compat.h"
+> +
+>  #include <sys/mman.h>
+>  #include <stdint.h>
+>  #include <string.h>
+> @@ -37,14 +39,6 @@
+>
+>  #include "mmap_stubs.h"
+>
+> -#ifndef Val_none
+> -#define Val_none (Val_int(0))
+> -#endif
+> -
+> -#ifndef Tag_some
+> -#define Tag_some 0
+> -#endif
+> -
+>  static inline xc_interface *xch_of_val(value v)
+>  {
+>         xc_interface *xch =3D *(xc_interface **)Data_custom_val(v);
+> @@ -744,8 +738,7 @@ CAMLprim value stub_xc_evtchn_status(value xch_val, v=
+alue domid, value port)
+>         Store_field(result_status, 0, Val_int(status.vcpu));
+>         Store_field(result_status, 1, stat);
+>
+> -       result =3D caml_alloc_small(1, Tag_some);
+> -       Store_field(result, 0, result_status);
+> +       result =3D caml_alloc_some(result_status);
+>
+>         CAMLreturn(result);
+>  }
+> diff --git a/tools/ocaml/libs/xen-caml-compat.h b/tools/ocaml/libs/xen-ca=
+ml-compat.h
+> new file mode 100644
+> index 000000000000..b4a0ca4ce90c
+> --- /dev/null
+> +++ b/tools/ocaml/libs/xen-caml-compat.h
+> @@ -0,0 +1,23 @@
+> +/* SPDX-License-Identifier: LGPL-2.1-only WITH OCaml-LGPL-linking-except=
+ion */
+> +#ifndef XEN_CAML_COMPAT_H
+> +#define XEN_CAML_COMPAT_H
+> +
+> +#ifndef Val_none /* Option handling.  Compat for Ocaml < 4.12 */
+> +
+> +#define Val_none Val_int(0)
+> +#define Tag_some 0
+> +#define Some_val(v) Field(v, 0)
+> +
+> +static inline value caml_alloc_some(value v)
+> +{
+> +    CAMLparam1(v);
+> +
+> +    value some =3D caml_alloc_small(1, Tag_some);
+> +    Store_field(some, 0, v);
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+The compiler uses Field() rather than Store_field() here.
+I think using Store_field here can potentially read uninitialized
+data, because 'caml_alloc_small' gives you uninitialized memory
+that you must immediately fill with valid values.
+Looking at the implementation Store_field calls caml_modify which will
+read the old value to figure out whether it was in minor or major
+heap,
+and doing that on uninitialized data is unpredictable.
 
-Thanks for looking into this.
+We should follow what the manual says and use Field() when
+caml_alloc_small() is used, and use Store_field() when caml_alloc() is
+used,
+and not attempt to mix them:
+See https://ocaml.org/manual/5.2/intfc.html#ss:c-low-level-gc-harmony
+
+> +
+> +    CAMLreturn(some);
+> +}
+> +
+> +#endif /* !Val_none */
+> +
+> +#endif /* XEN_CAML_COMPAT_H */
+>
+> base-commit: 75c64db3722f0245137a1e8cfd3435f4790d0fd7
+> --
+> 2.39.2
+>
 
