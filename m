@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3850962403
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 11:53:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.784614.1194013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43C90962409
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 11:54:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.784618.1194023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjFMh-0006FP-C0; Wed, 28 Aug 2024 09:53:23 +0000
+	id 1sjFNV-0006ll-Mf; Wed, 28 Aug 2024 09:54:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 784614.1194013; Wed, 28 Aug 2024 09:53:23 +0000
+Received: by outflank-mailman (output) from mailman id 784618.1194023; Wed, 28 Aug 2024 09:54:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjFMh-0006Cm-9C; Wed, 28 Aug 2024 09:53:23 +0000
-Received: by outflank-mailman (input) for mailman id 784614;
- Wed, 28 Aug 2024 09:53:22 +0000
+	id 1sjFNV-0006hh-Ic; Wed, 28 Aug 2024 09:54:13 +0000
+Received: by outflank-mailman (input) for mailman id 784618;
+ Wed, 28 Aug 2024 09:54:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3BgB=P3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sjFMf-0006Cg-Vf
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 09:53:21 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ <SRS0=mQTD=P3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sjFNT-0006Cg-Ob
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 09:54:11 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5bb8435a-6523-11ef-a0b0-8be0dac302b0;
- Wed, 28 Aug 2024 11:53:20 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-53351642021so7723605e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 02:53:20 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
+ id 79abd2a3-6523-11ef-a0b0-8be0dac302b0;
+ Wed, 28 Aug 2024 11:54:11 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5bede548f7cso7475532a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 02:54:11 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5334ea8940asm2161714e87.286.2024.08.28.02.53.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Aug 2024 02:53:19 -0700 (PDT)
+ 4fb4d7f45d1cf-5c0bb471dfdsm2020321a12.60.2024.08.28.02.54.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Aug 2024 02:54:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bb8435a-6523-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: 79abd2a3-6523-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1724838800; x=1725443600; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=g8zadqbn2M/ZYFdNdSGK9gbT7OCJiGxh1VIvqrFwzgs=;
-        b=QXvKYTKVCMA//T0BhHv/KnBnVCZjSgA14fhg/F0tZE9ihYauNNZdPNTwP3dztg/DIg
-         3rWOWNIHfh5tj0234eMfyRruQ/JMfyapnZNTr7jAcMw4UKKsz8A0Xf0S20Kl4KRxnlab
-         DOttzgQ1DGcVL3IWKQIBZzI2l4o79Utv6WH2vyPOnQ/xsl8pARI7g6pBo4My19/dZmJI
-         IyMcUiXEyJDkNUFYbsjyBQnqWMJwqGSPi2n/7kWeGtT2g8t69bezXIB+GVVl8TwY6Blq
-         ScKbSR1rLm93nRy3GJkrHuujxIq4mUcBx1eq1WO6u8ch18NnPxDTcL1K7WmUcLJTuZgP
-         5/gw==
+        d=citrix.com; s=google; t=1724838851; x=1725443651; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=A/ZefStMd0MSIlj+zM8LvXm5uBaBJjURoHOaiqWbMyM=;
+        b=D0sdPs60f6FiA+xq93QORtHBqu+GypvqF3m6ZUIUKBo8JplvNoj1jkUuKT84erLC5Q
+         bCkbmIG+wNliJ9Ojup3IWTrPkSM5vC9IvarUuBW+JJngkSPPrcTlKmQlpSt6D2Wudv94
+         oycZY/k6UeZ7lTI+q2g8nXf5KJzOWk3yxc5h4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724838800; x=1725443600;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=g8zadqbn2M/ZYFdNdSGK9gbT7OCJiGxh1VIvqrFwzgs=;
-        b=MRqppZoo8CjhzXRtisFzRxD0ajKAppbKaubNA6izLH7v26KFL7WdhxVh655kXYVIyq
-         oR2b2Kd+dJB2O8ii9Eu+Rv0p3CP5paHZn60uwxpNSwnPk7/kYYbqNT3YgwvbPsZ7R6vU
-         rttz8M4ptUmfjMbUVUAtg3bAlQMrXGun50Ix8B+uq/I2haghLmB7kn6sB31UOoBldYd3
-         aZ65EWNOtFKdX+pxskyLAO9kMb/j7bEWZjnH7/9iyrLqi1mjI5zjD2WfqdB3v86mQxtx
-         Je7+chL9p2byKIVlf/G23Hx5oD2E3FoICDr+ErwO0W+MNVYx/wr1bEbeuTZkzCLt+v49
-         VcHA==
-X-Forwarded-Encrypted: i=1; AJvYcCUhYa/VMVTiDhYNaWmffepZNrqfaBZrAkpDPj5/pA8uDHS80dmOG5W8eE+Ua6inx/W1ylE+jwoMTwU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YySGcGkJLekL9D4x3/YpU/gLNaIkG5JWgKkba3W/y6Td4OzMoo7
-	qcqftAdMODQHGF9h38XonvULvNY/A6/Qrct8W/Fp04ZSjfngid1VgFrSUw==
-X-Google-Smtp-Source: AGHT+IE4In3Sn17/jfokXh+fQUCfusIvL9xIdo2hJ56GtDukezaa9mEpipVGZknh/A6kso91UL7bBg==
-X-Received: by 2002:a05:6512:1589:b0:532:ef22:eb4e with SMTP id 2adb3069b0e04-534387c4a10mr10078182e87.54.1724838799782;
-        Wed, 28 Aug 2024 02:53:19 -0700 (PDT)
-Message-ID: <9210aa20ebe892b9866309a7531398d446d0eef5.camel@gmail.com>
-Subject: Re: [PATCH v5 2/7] xen/riscv: set up fixmap mappings
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Wed, 28 Aug 2024 11:53:18 +0200
-In-Reply-To: <4b9cfa7e-546a-4dbb-a3de-4267849be13a@suse.com>
-References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
-	 <57e892d5b2c526dd44b68d4976796a25c0feca20.1724256027.git.oleksii.kurochko@gmail.com>
-	 <4b9cfa7e-546a-4dbb-a3de-4267849be13a@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1724838851; x=1725443651;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A/ZefStMd0MSIlj+zM8LvXm5uBaBJjURoHOaiqWbMyM=;
+        b=PHTkoaMamyLHpfDVDWWguXaeDLH9+/WRxD92OGGDCzx9uLi6hITlp24x2cnWqMnw0y
+         vSRWqcjKL2kqKuFIw1hK/eSWZaIiFHP8iLyeH+W+Ao41uDqXQhCeX6Yq2tRHnMWlg/ul
+         MEw9VXcZmW/OXBIOJZCdSCp9DYdf4WpO7DTTe0+kcDCAOtI76ciOIT/ymWXFmg2iBDM9
+         6196upE/5+qWSrJq6GY0J7BKzkvZ0dK78CaotLZ7HATRokYLIln5S4zAjsQLzESF/WYV
+         AHZoFjDBQ+gZRqsVjHKUz1K8EEPfaypLoXxHLltjYC1RVFiggvZ0AjpbgZ5NGvz3sM5S
+         Vbcw==
+X-Gm-Message-State: AOJu0Ywz62jAmEvgWTu5n5AU/OLJIzy6e8HFcg5YGdWB5AmOW4i7sgVi
+	cI0qLmo5WDaZQr8AAztBkLwYG104nXufznV4+N3mNrThRaBKc2vuEIU3wnG0Wq0=
+X-Google-Smtp-Source: AGHT+IFANIwBJEVOur10Q3EJpoal7hxcl64tbj3dU1WE7ke0Tk4gnwmvQ/sx2Eq1EDt6nE+wgxqcQA==
+X-Received: by 2002:a05:6402:2350:b0:5be:ee30:9948 with SMTP id 4fb4d7f45d1cf-5c08915ba45mr11543060a12.8.1724838850295;
+        Wed, 28 Aug 2024 02:54:10 -0700 (PDT)
+Message-ID: <94456289-dad1-4fa8-98ad-1012a8ddc779@citrix.com>
+Date: Wed, 28 Aug 2024 10:54:08 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] x86/dom0: disable SMAP for PV domain building only
+To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+References: <20240827123949.24400-1-roger.pau@citrix.com>
+ <77276161-2fcc-4527-87ba-0ef5988ff82a@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <77276161-2fcc-4527-87ba-0ef5988ff82a@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2024-08-27 at 12:29 +0200, Jan Beulich wrote:
-> >=20
-> > +
-> > +/*
-> > + * Direct access to xen_fixmap[] should only happen when {set,
-> > + * clear}_fixmap() is unusable (e.g. where we would end up to
-> > + * recursively call the helpers).
-> > + */
-> > +extern pte_t xen_fixmap[];
->=20
-> I'm afraid I keep being irritated by the comment: What recursive use
-> of
-> helpers is being talked about here? I can't see anything recursive in
-> this
-> patch. If this starts happening with a subsequent patch, then you
-> have
-> two options: Move the declaration + comment there, or clarify in the
-> description (in enough detail) what this is about.
-This comment is added because of:
-```
-void *__init pmap_map(mfn_t mfn)
-  ...
-       /*
-        * We cannot use set_fixmap() here. We use PMAP when the domain map
-        * page infrastructure is not yet initialized, so
-   map_pages_to_xen() called
-        * by set_fixmap() needs to map pages on demand, which then calls
-   pmap()
-        * again, resulting in a loop. Modify the PTEs directly instead.
-   The same
-        * is true for pmap_unmap().
-        */
-       arch_pmap_map(slot, mfn);
-   ...
-```
-And it happens because set_fixmap() could be defined using generic PT
-helpers so what will lead to recursive behaviour when when there is no
-direct map:
-   static pte_t *map_table(mfn_t mfn)
-   {
-       /*
-        * During early boot, map_domain_page() may be unusable. Use the
-        * PMAP to map temporarily a page-table.
-        */
-       if ( system_state =3D=3D SYS_STATE_early_boot )
-           return pmap_map(mfn);
-       ...
-   }
+On 28/08/2024 10:49 am, Jan Beulich wrote:
+> On 27.08.2024 14:39, Roger Pau Monne wrote:
+>> --- a/xen/arch/x86/dom0_build.c
+>> +++ b/xen/arch/x86/dom0_build.c
+>> @@ -612,7 +612,24 @@ int __init construct_dom0(struct domain *d, const module_t *image,
+>>      if ( is_hvm_domain(d) )
+>>          rc = dom0_construct_pvh(d, image, image_headroom, initrd, cmdline);
+>>      else if ( is_pv_domain(d) )
+>> +    {
+>> +        /*
+>> +         * Temporarily clear SMAP in CR4 to allow user-accesses in
+>> +         * construct_dom0().  This saves a large number of corner cases
+>> +         * interactions with copy_from_user().
+>> +         */
+>> +        if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+>> +        {
+>> +            cr4_pv32_mask &= ~X86_CR4_SMAP;
+>> +            write_cr4(read_cr4() & ~X86_CR4_SMAP);
+>> +        }
+>>          rc = dom0_construct_pv(d, image, image_headroom, initrd, cmdline);
+>> +        if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+>> +        {
+>> +            write_cr4(read_cr4() | X86_CR4_SMAP);
+>> +            cr4_pv32_mask |= X86_CR4_SMAP;
+>> +        }
+>> +    }
+> Andrew, looking at this code I really wonder what benefit you request to
+> move this further is going to have. Afaict no matter where we put it, it'll
+> be an #ifdef around each of the two accesses to cr4_pv32_mask when we make
+> that variable CONFIG_PV32-only.
 
->=20
-> > @@ -81,6 +82,18 @@ static inline void flush_page_to_ram(unsigned
-> > long mfn, bool sync_icache)
-> > =C2=A0=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
-> > =C2=A0}
-> > =C2=A0
-> > +/* Write a pagetable entry. */
-> > +static inline void write_pte(pte_t *p, pte_t pte)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 write_atomic(p, pte);
-> > +}
-> > +
-> > +/* Read a pagetable entry. */
-> > +static inline pte_t read_pte(pte_t *p)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 return read_atomic(p);
->=20
-> This only works because of the strange type trickery you're playing
-> in
-> read_atomic(). Look at x86 code - there's a strict expectation that
-> the
-> type can be converted to/from unsigned long. And page table accessors
-> are written with that taken into consideration. Same goes for
-> write_pte()
-> of course, with the respective comment on the earlier patch in mind.
-I will check x86 code. Probably my answer on the patch with
-read/write_atomic() suggest that too. Based on the answers to that
-patch I think we can go with x86 approach.
+This TU is common to PV and HVM, meaning that this logic inspecting
+XEN_SMAP and playing with cr4 is included even in !PV builds.
 
-Thanks.
+Having it all in x86/pv/dom0_build.c means it will be dropped in a !PV
+build.
 
-~ Oleksii
-
->=20
-> Otoh I see that Arm does something very similar. If you have a strong
-> need / desire to follow that, then please at least split the two
-> entirely separate aspects that patch 1 presently changes both in one
-> go.
->=20
-> Jan
-
+~Andrew
 
