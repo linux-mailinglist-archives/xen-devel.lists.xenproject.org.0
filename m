@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E90DC9633D1
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2024 23:28:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785152.1194558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7017496345E
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 00:04:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785163.1194570 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjQC4-0008Th-71; Wed, 28 Aug 2024 21:27:08 +0000
+	id 1sjQll-0006Fs-1e; Wed, 28 Aug 2024 22:04:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785152.1194558; Wed, 28 Aug 2024 21:27:08 +0000
+Received: by outflank-mailman (output) from mailman id 785163.1194570; Wed, 28 Aug 2024 22:04:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjQC4-0008Qq-3g; Wed, 28 Aug 2024 21:27:08 +0000
-Received: by outflank-mailman (input) for mailman id 785152;
- Wed, 28 Aug 2024 21:27:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjQC1-0008Qg-Rx; Wed, 28 Aug 2024 21:27:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjQC1-000338-BD; Wed, 28 Aug 2024 21:27:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjQC0-000485-Ri; Wed, 28 Aug 2024 21:27:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sjQC0-0003Qc-R3; Wed, 28 Aug 2024 21:27:04 +0000
+	id 1sjQlk-0006EK-Rd; Wed, 28 Aug 2024 22:04:00 +0000
+Received: by outflank-mailman (input) for mailman id 785163;
+ Wed, 28 Aug 2024 22:03:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mQTD=P3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sjQlj-0006E0-AZ
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2024 22:03:59 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6be75a87-6589-11ef-a0b0-8be0dac302b0;
+ Thu, 29 Aug 2024 00:03:57 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a8683dc3b17so470202666b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 28 Aug 2024 15:03:57 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c0bb1c2d2esm2695898a12.16.2024.08.28.15.03.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Aug 2024 15:03:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=hrNJiNQSxlMnTrA9O0wFNIBL/2ogkx3l4L2PYWWCf0M=; b=mQ3Aioz/p3tnwt8+Y87nn4RPS/
-	41Nw+iLyale5Jl2fnK5wqVeGcrg3MqcfaRBx98jgwgUUmhM53LAs21z31n8GSwvl5aiQFWobi8Hsx
-	OXIpz+Enxgzbydtl33tAz6XtfXWOqE/pPIf9eMljrWhqWr/Pm0Hf7Q0zgHpyWCo/Zz+Y=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187387-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 6be75a87-6589-11ef-a0b0-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1724882636; x=1725487436; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YY7MdvuXI6KKD8+0pPI2HR0N6tLhBf9qtdXr9xTRqOc=;
+        b=JVg+js8fhpXq0R7yHZOGyCwdSnLv9LB32l/WDbC7v8aVXiq0IULmFHNOigMaQs5Tod
+         mDwQJj4zLkSzSDyZr4/JwkWleJmhXwSb8IGpuFQ2aAAzCeEsolDY+bFTqWuJinTyEj4I
+         9v455mIuarMUdSyp8xBJQM7+hA3rKaLmI4o/w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724882636; x=1725487436;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YY7MdvuXI6KKD8+0pPI2HR0N6tLhBf9qtdXr9xTRqOc=;
+        b=PSLmzp43+k0Zqb6domwnBNSO0ikPtOltWH6IZm5X0kweB+fAoKoXJYKC2j1iosKire
+         GowEPdyu2rLymzZJb43RZurgTzwhVgw40Jb5UxcDsh5IXZvvZYnv+c6Oj8xjc/am0KWA
+         KhN0t8qULdft5L9opgtURQVoV+0ANbROvOzBSGp9WRHyfI9EuJbRwOEW2ByRYR27Mh2v
+         cOYcZ23D1mDSELOtCqVTj4hGLqoOfqCOGKz3AAp+PoYd2yrQ1mp40+dOS7hNp8GTVgkN
+         FujcbcsHn/9whJowCFLeYnmOW2MyoTFvOW5Sj4k0Zw/FcBNKPB/ED0FMe3jPecbIJ0/E
+         VR3g==
+X-Gm-Message-State: AOJu0YxI4vfYxH9CRLcDQ6ClcTkCmoYjocyusHwqRed6up2zsieszeR8
+	PGmIT6dL1RAXcO67yarzZs6BOgZz54H2YmDaNk8p7tXzjzTpIb6SSBi/WBpIefNsnJsNChWs1qf
+	j
+X-Google-Smtp-Source: AGHT+IEuHLfT8SF7T9SoGHK35Ew10y9xfRr96n0xd9gQtPh6jurJbr0jjpik5vI6lideD3kIfObDjw==
+X-Received: by 2002:a05:6402:90c:b0:5a1:2ce9:f416 with SMTP id 4fb4d7f45d1cf-5c21eda0c2bmr824009a12.37.1724882635259;
+        Wed, 28 Aug 2024 15:03:55 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH v2 00/11] xen/bitops: hweight() cleanup/improvements
+Date: Wed, 28 Aug 2024 23:03:40 +0100
+Message-Id: <20240828220351.2686408-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Subject: [ovmf test] 187387: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=319835abb8517fde84bff31740fb1e61b33a3ae8
-X-Osstest-Versions-That:
-    ovmf=84e7b74c8c643c59ee32d4da769f48a3c8c277a4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 28 Aug 2024 21:27:04 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 187387 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187387/
+The next phase of bitops cleanup.  This series:
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 319835abb8517fde84bff31740fb1e61b33a3ae8
-baseline version:
- ovmf                 84e7b74c8c643c59ee32d4da769f48a3c8c277a4
+ 1) Untangles the mess around hweight()
+ 2) Removes some unwise uses of hweight()
+ 3) Makes it work transparently for RISC-V
+ 4) Use the POPCNT instruction on x86 when available
 
-Last test of basis   187384  2024-08-28 16:41:33 Z    0 days
-Testing same since   187387  2024-08-28 19:11:27 Z    0 days    1 attempts
+See individual patches for v2 changes.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ray Ni <ray.ni@intel.com>
+https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1431232348
+https://cirrus-ci.com/build/6014616877137920
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Andrew Cooper (11):
+  xen/compiler: Rename __attribute_const__ to attr_const
+  xen/bitops: Switch from __pure to attr_const
+  xen/bitops: Reinstate the please tidy message
+  xen/bitops: Introduce a multiple_bits_set() helper
+  xen/bitops: Convert 'hweight(x) > 1' to new multiple_bits_set()
+  xen/bitops: Drop the remnants of hweight{8,16}()
+  xen/bitops: Introduce generic_hweightl() and hweightl()
+  xen/bitops: Drop hweight_long() and use hweightl()
+  xen/bitops: Implement hweight32() in terms of hweightl()
+  xen/bitops: Implement hweight64() in terms of hweight{l,32}()
+  x86/bitops: Use the POPCNT instruction when available
 
+ xen/arch/arm/include/asm/arm64/cpufeature.h |  12 +-
+ xen/arch/arm/include/asm/bitops.h           |  11 --
+ xen/arch/ppc/include/asm/bitops.h           |  11 +-
+ xen/arch/x86/cpu/vpmu.c                     |   2 +-
+ xen/arch/x86/hvm/vlapic.c                   |  10 +-
+ xen/arch/x86/include/asm/bitops.h           |  32 ++++--
+ xen/arch/x86/include/asm/byteorder.h        |   4 +-
+ xen/arch/x86/include/asm/endbr.h            |   4 +-
+ xen/common/bitmap.c                         |   4 +-
+ xen/common/bitops.c                         |  40 +++++++
+ xen/common/numa.c                           |   2 +-
+ xen/include/xen/bitops.h                    | 118 +++++++++-----------
+ xen/include/xen/byteorder/swab.h            |   6 +-
+ xen/include/xen/compiler.h                  |   2 +-
+ xen/include/xen/self-tests.h                |  10 +-
+ xen/lib/Makefile                            |   2 +
+ xen/lib/generic-hweightl.c                  |  49 ++++++++
+ xen/lib/x86-generic-hweightl.c              |  69 ++++++++++++
+ 18 files changed, 266 insertions(+), 122 deletions(-)
+ create mode 100644 xen/lib/generic-hweightl.c
+ create mode 100644 xen/lib/x86-generic-hweightl.c
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+-- 
+2.39.2
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   84e7b74c8c..319835abb8  319835abb8517fde84bff31740fb1e61b33a3ae8 -> xen-tested-master
 
