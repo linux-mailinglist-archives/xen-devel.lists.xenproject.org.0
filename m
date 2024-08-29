@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 818E79644AD
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 14:36:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785812.1195315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63FA19644BE
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 14:39:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785822.1195324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjeO3-0005LN-U2; Thu, 29 Aug 2024 12:36:27 +0000
+	id 1sjeQi-0006lY-BI; Thu, 29 Aug 2024 12:39:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785812.1195315; Thu, 29 Aug 2024 12:36:27 +0000
+Received: by outflank-mailman (output) from mailman id 785822.1195324; Thu, 29 Aug 2024 12:39:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjeO3-0005HG-RE; Thu, 29 Aug 2024 12:36:27 +0000
-Received: by outflank-mailman (input) for mailman id 785812;
- Thu, 29 Aug 2024 12:36:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sjeQi-0006ir-8J; Thu, 29 Aug 2024 12:39:12 +0000
+Received: by outflank-mailman (input) for mailman id 785822;
+ Thu, 29 Aug 2024 12:39:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zolI=P4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sjeO2-0005HA-MM
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 12:36:26 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4e20789a-6603-11ef-a0b0-8be0dac302b0;
- Thu, 29 Aug 2024 14:36:25 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5bed72ff443so671232a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 05:36:25 -0700 (PDT)
+ id 1sjeQg-0006il-6K
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 12:39:10 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id af34a100-6603-11ef-99a0-01e77a169b0f;
+ Thu, 29 Aug 2024 14:39:08 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a83562f9be9so58120766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 05:39:08 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989221df2sm73595966b.203.2024.08.29.05.36.23
+ a640c23a62f3a-a8988feb31fsm75915966b.17.2024.08.29.05.39.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 05:36:24 -0700 (PDT)
+ Thu, 29 Aug 2024 05:39:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e20789a-6603-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: af34a100-6603-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724934985; x=1725539785; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724935148; x=1725539948; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/FjugODqD6da7Mk89MMdO22rG59CJpH4Ye7qMr1QT70=;
-        b=lys7SDp5lP0Au1jOXCtAz8jIj85UMkTTvyOoCT1sUPqTwrFmTNwZgZU75AhuQZsXCP
-         NERoLylsLefCkjmmUlUAVWir7LOVFKqpo++8uCkJ3W9uxia5/gmuJqelDQ5pTGOi/qkf
-         HL/ZcpKQ9GamLwyB5lhBhBzTBw7uvngMKiNHg=
+        bh=nPfiqSPR1uayb7Dclvg8XwOKMTWX9m7qnQT7ztGN+QI=;
+        b=U+ppLHE/78CewLaqIAVnMmXZqD4aCpeJC5SG2nvBjbgeS8Xlby6sfzZwD4MIVIR7pH
+         0L2wsEDKI++qFJiIYuLHNK6uCZvPTNHVH0s2wx4SUnE3oyqAcrSWUL7jNpbZC7lYupmo
+         7dXJlYwjA+VjMiWJR7kF0oX+D85nYAZu1rDp8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724934985; x=1725539785;
+        d=1e100.net; s=20230601; t=1724935148; x=1725539948;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/FjugODqD6da7Mk89MMdO22rG59CJpH4Ye7qMr1QT70=;
-        b=XKeXMO1BvGCY7lXJOyPw6Wx1BhADUj/bcZmTr/2KNdZZBryl+93PVwPERB9Q4+b79/
-         pLyZfqDNt/4Rep0Mm2fHOlOKyimy4FuPl7tjzd/kKyWH5FaY7rMFLK6+dnNZoDavKo3c
-         9sPd762nllwKJjsjTDmokzdIItSHRzC0fuo4ErTUBuXD3PAHjqCdxtky6zD8JRtd8ztC
-         72iktWXw8CmbTrAE5lF1xt7tmWftqwo//rBXi2DRkMT+0S1nuNehpuMpu2ghnqV8TBy1
-         iOqfXt6d9XH9We8oWp06Jt7VzHWc6CQkfLUDv12Y5O/N4P6nbvAUumxzPAO4fAG5Q+HU
-         S9Nw==
-X-Forwarded-Encrypted: i=1; AJvYcCUmToNbJmIl1Hbra7sYTK1E6y5RUCz3aVC0PYLKkmBc/WnshHHMIbPRH9RJEGeS70LRapNmS5tsGyg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw2n8o3cgaFar8am4NncRSZtOBTs4c4MQN1qAhUEqlO0r/fiOG7
-	+IfXNqzJ0hyXQtWqtk66FR+ZvnKNW6Q9rXAbQLiX0h1QzqILL7mJKcxx+wlqLyE=
-X-Google-Smtp-Source: AGHT+IHkVSa7CgTeB6ju99yEblz4BMEvAxbiJPdZeW6REeu8csg9j1vma1rNwrtj7VSI0KgTUjormg==
-X-Received: by 2002:a05:6402:13cc:b0:5c0:a9ae:d333 with SMTP id 4fb4d7f45d1cf-5c21eda0d69mr2173653a12.37.1724934984535;
-        Thu, 29 Aug 2024 05:36:24 -0700 (PDT)
-Message-ID: <9b9d9c98-26cf-449d-ac9e-bccff439b0cf@citrix.com>
-Date: Thu, 29 Aug 2024 13:36:22 +0100
+        bh=nPfiqSPR1uayb7Dclvg8XwOKMTWX9m7qnQT7ztGN+QI=;
+        b=BiRm3IKmYuo7xr1FYPP9xJ7iyNVLuseUlqjUaYxhlJGQ7e5fJzVw7h4ULQUF2gAw+D
+         3INKO32V5B8FpXFGkp2QTG+PIwxeRLrKn+UtmrphsKNQcQqE5Xj2MhB0O/GxH1Jkyq8G
+         VyBd00/0uu//v5hqi/c8WIkrp9AF1o58i45c5sBJW17a/cO6iCwJbafaGDdbTEgItvnp
+         6wWThA2Gpm5IhxipKkoYcBBnqD6ZL4z19GXkR4zacVDBBVhJZOSHAS6jvQzu7/4QZlMt
+         yfujREWoOAuFLWqwIj3ch+Hexd7gR9RUASeaSfiQYLeVd1z3Mhg7/bGVGcqAoEvwtxBJ
+         tNLg==
+X-Forwarded-Encrypted: i=1; AJvYcCWoHkDuCLbKQdbAgHcASH/VDjpwkbbga2u/3KC+BX/10pi0HdGgjjgy/Gn6nL2gb7A1XNNfRnDXbJ8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YytY7FxhprZui23CNiy/tiYY3HVmfQrhVsvVLS5mHS39IFeamL4
+	6C/RM9df5pB+texRKc1mWCx3LssUmHKXE7uUm6s8hNErOBuG2I/kaa9pI0wQDUc=
+X-Google-Smtp-Source: AGHT+IE9PagEgqgmlXKVnFPR2loidaMmOUYB4xqQN95CniiVbOYJsw2N+6pZANslt3wxvn3Y3si7ug==
+X-Received: by 2002:a17:907:3f8a:b0:a86:743a:a716 with SMTP id a640c23a62f3a-a897fa744b6mr181230466b.53.1724935147196;
+        Thu, 29 Aug 2024 05:39:07 -0700 (PDT)
+Message-ID: <f7d01882-3218-41c5-9dff-965c0fe83107@citrix.com>
+Date: Thu, 29 Aug 2024 13:39:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] types: replace remaining uses of s8
+Subject: Re: [PATCH 3/5] types: replace remaining uses of s16
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
  <sstabellini@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+ <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
 References: <b1ded557-63b8-4999-98ca-de80488ebad1@suse.com>
- <e6341c57-cf0d-46c5-8582-a84af515a650@suse.com>
+ <a3c8c66a-3b90-49e3-bf49-b73fa05a1f64@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,26 +132,16 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e6341c57-cf0d-46c5-8582-a84af515a650@suse.com>
+In-Reply-To: <a3c8c66a-3b90-49e3-bf49-b73fa05a1f64@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29/08/2024 12:59 pm, Jan Beulich wrote:
+On 29/08/2024 1:00 pm, Jan Beulich wrote:
 > ... and move the type itself to linux-compat.h.
 >
-> While doing so,
-> - convert __read_mostly to __ro_after_init for respective variables
->   having their type changed (for acpi_numa add the attribute anew),
-> - in cpuid_hypervisor_leaves() drop a cast altogether,
-> - switch an adjacent struct arch_irq_desc field to bool.
+> While doing so switch an adjacent x86 struct page_info field to bool.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-The __read_mostly -> __ro_after_init changes are safe as far as I can tell.
-
-use_msi is in desperate need of renaming to opt_msi.
-
-~Andrew
 
