@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CCC5963F26
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 10:54:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785552.1195034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E56C963F6B
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 11:03:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785559.1195044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjatu-0000Or-6G; Thu, 29 Aug 2024 08:53:06 +0000
+	id 1sjb4A-0002bq-4P; Thu, 29 Aug 2024 09:03:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785552.1195034; Thu, 29 Aug 2024 08:53:06 +0000
+Received: by outflank-mailman (output) from mailman id 785559.1195044; Thu, 29 Aug 2024 09:03:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjatu-0000Ly-3Y; Thu, 29 Aug 2024 08:53:06 +0000
-Received: by outflank-mailman (input) for mailman id 785552;
- Thu, 29 Aug 2024 08:53:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sjb4A-0002aK-1d; Thu, 29 Aug 2024 09:03:42 +0000
+Received: by outflank-mailman (input) for mailman id 785559;
+ Thu, 29 Aug 2024 09:03:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LPGY=P4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sjatr-0000Ls-Ot
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 08:53:03 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18f5a3d0-65e4-11ef-99a0-01e77a169b0f;
- Thu, 29 Aug 2024 10:53:01 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2ef27bfd15bso3958171fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 01:53:01 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f61519548fsm1214691fa.138.2024.08.29.01.52.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Aug 2024 01:52:59 -0700 (PDT)
+ <SRS0=dlBE=P4=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1sjb49-0002aE-3W
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 09:03:41 +0000
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [2607:f8b0:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 94bb3110-65e5-11ef-a0b0-8be0dac302b0;
+ Thu, 29 Aug 2024 11:03:39 +0200 (CEST)
+Received: by mail-ot1-x334.google.com with SMTP id
+ 46e09a7af769-70f5cd2fa39so305025a34.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 02:03:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,189 +40,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18f5a3d0-65e4-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: 94bb3110-65e5-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1724921581; x=1725526381; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=3pAeqYcXGKMwmvhFqpwMfbF2m53XROhpyAYtZoIZ/Ts=;
-        b=JQatCZKk9QFejoa7RDtq0RcJQxn8I0N1QPcXUB8sCvyc/QNfydDvfnEeLvQLLRCbNz
-         mgr5f1jfp0P/uArBxHj/BC4CdyBGHfIW1HP6huG8r/o9S+6ofEc5IFsMrEhtKQ4vu7F9
-         dhDu6cs0pFlsL8Eu4kdzNLYinXEmacJEGkYHw7BWABPOqr+Uu4R722OXxcbe7Y9q24//
-         7otfRgLmeB1BayMN0MkhLcj0YmnDIdZ8fyQyxWDMDdHudOobRoud0m+tGs0RaVjUtIz1
-         dKT5uXACBuOVTj/WLxR9VOKzbKbX52vg1RNauGlc3Z5WSUbbrwepixB/1Rjm9xDR/XAF
-         pudA==
+        d=cloud.com; s=cloud; t=1724922218; x=1725527018; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=g1UfUkHSnxo95nom+0+6Wz5KcQR7geXrg9ZJx9j7Z5k=;
+        b=AL/zwxLQsNvnk8YE2yUEDPndoItN+RQx5C5YpP7PIVknpD6YMydQWV/nwFVsQV7rf6
+         DqgSh8zCdKahyVZH98+0A5fjzD4t+aPe2jWa0UcMu9nCEFNgMBWyXMg24BGa0s88RHwP
+         s1D/+yZObW5PzTxi/9djFA1DEXRfG67Gs9lGU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724921581; x=1725526381;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3pAeqYcXGKMwmvhFqpwMfbF2m53XROhpyAYtZoIZ/Ts=;
-        b=srgz9lkKWQ+YHLSK2yH97fuyWnTI5QyE8fSzrJEIctqGe2wlY1T23qHx0ex+roE5VG
-         FL/n2gwtBTkA1lusL75LoFZtYQdbdkoB3P4s4upKUgCPM8Z/fWHTNMQ1tEHeRHpMo/2N
-         3nkjI7RaeU0xKVkaDjoBCjqSZe/bdNKigB4Yl4zC4GEypQ2PP49aMCML5DWSIqdRNjUV
-         LpEP2MVcAIJ4gUsIxulANXmRHtrGBq+cBPrku46JlYNTth2iGPxV06XHWcXC4EcknAaH
-         V5I/ls3UeBK40CzrTo7EU88txVo711bX6E1B5kjxqHyYXTm68X37f4etNnlnolUVKTos
-         lqpA==
-X-Forwarded-Encrypted: i=1; AJvYcCV9t3b7A4aPjz8b3dwvr1y+UGixbHyprxNjiS1Zx6h4gO6UowtkV7N6hVjbEwRECYHuorpkqZcCGSU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydZ4IJdPrY67eWlaH2JDVoiiClXHf60VCA5y5GFMs/Ehpzyenj
-	2GOAagnWiCRbhcB/rKReTj2ySCq/efQ7Rg51BRMpm49zgbn9iyGZ
-X-Google-Smtp-Source: AGHT+IFomjk60ayFYhj5yurQ5SKHmHhdEuzl2MovCnhlR4rEjMUlT2c2/1gwTvJv8TUXNecNCmSRpQ==
-X-Received: by 2002:a05:651c:210d:b0:2f3:f690:17f3 with SMTP id 38308e7fff4ca-2f610889e5bmr16730641fa.31.1724921580344;
-        Thu, 29 Aug 2024 01:53:00 -0700 (PDT)
-Message-ID: <8cdeec70558a45597700d3ecf86aa4612348a50a.camel@gmail.com>
-Subject: Re: [PATCH v5 1/7] xen/riscv: use {read,write}{b,w,l,q}_cpu() to
- define {read,write}_atomic()
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Thu, 29 Aug 2024 10:52:59 +0200
-In-Reply-To: <45f1305f-2c2c-4b1c-8377-f98dbc5dbe53@suse.com>
-References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
-	 <5140f9eb3d1cb0b69e3b1cbbcce6167ff8d59e4c.1724256026.git.oleksii.kurochko@gmail.com>
-	 <0f9fb47c-91d1-4ee9-b6bf-1d491339e904@suse.com>
-	 <3f52a19ea90fa8e70d7bf0055fe39a2be721c129.camel@gmail.com>
-	 <45f1305f-2c2c-4b1c-8377-f98dbc5dbe53@suse.com>
+        d=1e100.net; s=20230601; t=1724922218; x=1725527018;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=g1UfUkHSnxo95nom+0+6Wz5KcQR7geXrg9ZJx9j7Z5k=;
+        b=G49nH6478egFkRnrhnNBf1cGOeT1KIBgGkvGgk8iYlBXliGVPdnBe2kNXFLZqr8BFK
+         GdAzJ+C/V8G6zqmjIzb0+66rInXmqcfKsmJ0JwCXhkR2bpQf9S6ZvbuFjnQH4AMrTp74
+         MaI/J9rNEoOtcW0vNS1c+5WKIIzVO1bvq+grCuFDQ4nG559qqy3XL/njRqefJI7DWtb/
+         qZVXKFEEkx1/g1QF6kgNGYxI+yVtJHy4BTB/qLGOSGetgozdYiPlehVcX9/42Kh21mi3
+         nl9brHSEySdsZSO5pYd/j56RVK4UBw4XQtdG37JG303zSwqpue0Q3nft+NWI4vQ7DroD
+         pOog==
+X-Gm-Message-State: AOJu0YyUdjpBdfBG/tM7WefjWEIYmF9B0IAghf87Kfd/+lE6C+/NFETf
+	iEZ2wYhF/I+7kmYb/OxDD9mc7ORtD0ochagxqHnMN0zMccR4B43QX9GbCA1Dx9aKjN126MJy4+r
+	FODLoKEVvlrgUj1Qycwr0iMOUUcpRP6T5LaPfmlr5Q0m7wZ2O
+X-Google-Smtp-Source: AGHT+IFCsymf4AGydbDTCL8zxZEHbpt7xd57FyYY98NGyLgP59zy1DObh3LU8LJKYLx7n6XIHGJcIr+UG8LYm89FUq4=
+X-Received: by 2002:a05:6870:350b:b0:260:fd64:60f2 with SMTP id
+ 586e51a60fabf-27790074658mr2167707fac.8.1724922218056; Thu, 29 Aug 2024
+ 02:03:38 -0700 (PDT)
+MIME-Version: 1.0
+References: <20240819142953.415817-1-frediano.ziglio@cloud.com>
+In-Reply-To: <20240819142953.415817-1-frediano.ziglio@cloud.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Thu, 29 Aug 2024 10:03:27 +0100
+Message-ID: <CACHz=ZiR3xnhdUu37xL7hsKCNSRsUsNNsxALVvWUbkt3FzkGQA@mail.gmail.com>
+Subject: Re: [PATCH v4] Avoid crash calling PrintErrMesg from efi_multiboot2
+To: xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
-MIME-Version: 1.0
 
-On Wed, 2024-08-28 at 11:42 +0200, Jan Beulich wrote:
-> On 28.08.2024 11:21, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > On Tue, 2024-08-27 at 12:06 +0200, Jan Beulich wrote:
-> > > On 21.08.2024 18:06, Oleksii Kurochko wrote:
-> > > > In Xen, memory-ordered atomic operations are not necessary,
-> > >=20
-> > > This is an interesting statement.
-> > I looked at the definition of build_atomic_{write,read}() for other
-> > architectures and didn't find any additional memory-ordered
-> > primitives
-> > such as fences.
-> >=20
-> > > I'd like to suggest that you at least
-> > > limit it to the two constructs in question, rather than stating
-> > > this
-> > > globally for everything.
-> > I am not sure that I understand what is "the two constructs". Could
-> > you
-> > please clarify?
->=20
-> {read,write}_atomic() (the statement in your description is, after
-> all,
-> not obviously limited to just those two, yet I understand you mean to
-> say what you say only for them)
-Yeah, I re-read commit message after your reply and now I can see that
-is not really clear.
+On Mon, Aug 19, 2024 at 3:30=E2=80=AFPM Frediano Ziglio
+<frediano.ziglio@cloud.com> wrote:
+>
+> Although code is compiled with -fpic option data is not position
+> independent. This causes data pointer to become invalid if
+> code is not relocated properly which is what happens for
+> efi_multiboot2 which is called by multiboot entry code.
+>
+> Code tested adding
+>    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+> in efi_multiboot2 before calling efi_arch_edd (this function
+> can potentially call PrintErrMesg).
+>
+> Before the patch (XenServer installation on Qemu, xen replaced
+> with vanilla xen.gz):
+>   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+>   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic =
+ID - 00000000 !!!!
+>   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
+>   RIP  - 000000007DC29E46, CS  - 0000000000000038, RFLAGS - 0000000000210=
+246
+>   RAX  - 0000000000000000, RCX - 0000000000000050, RDX - 0000000000000000
+>   RBX  - 000000007DAB4558, RSP - 000000007EFA1200, RBP - 0000000000000000
+>   RSI  - FFFF82D040467A88, RDI - 0000000000000000
+>   R8   - 000000007EFA1238, R9  - 000000007EFA1230, R10 - 0000000000000000
+>   R11  - 000000007CF42665, R12 - FFFF82D040467A88, R13 - 000000007EFA1228
+>   R14  - 000000007EFA1225, R15 - 000000007DAB45A8
+>   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
+>   GS   - 0000000000000030, SS  - 0000000000000030
+>   CR0  - 0000000080010033, CR2 - FFFF82D040467A88, CR3 - 000000007EC01000
+>   CR4  - 0000000000000668, CR8 - 0000000000000000
+>   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
+>   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
+>   GDTR - 000000007E9E2000 0000000000000047, LDTR - 0000000000000000
+>   IDTR - 000000007E4E5018 0000000000000FFF,   TR - 0000000000000000
+>   FXSAVE_STATE - 000000007EFA0E60
+>   !!!! Find image based on IP(0x7DC29E46) (No PDB)  (ImageBase=3D00000000=
+7DC28000, EntryPoint=3D000000007DC2B917) !!!!
+>
+> After the patch:
+>   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+>   Test message: Buffer too small
+>   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF=
+6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+>   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4A=
+F6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+>
+> Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platfo=
+rms")
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> ---
+>  xen/common/efi/boot.c | 46 ++++++++++++++++++++++++++++++-------------
+>  1 file changed, 32 insertions(+), 14 deletions(-)
+> ---
+> Changes since v1:
+> - added "Fixes:" tag;
+> - fixed cast style change.
+>
+> Changes since v2:
+> - wrap long line.
+>
+> Changes since v3:
+> - fixed "Fixes:" tag.
+>
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index efbec00af9..fdbe75005c 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -287,19 +287,36 @@ static bool __init match_guid(const EFI_GUID *guid1=
+, const EFI_GUID *guid2)
+>  /* generic routine for printing error messages */
+>  static void __init PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode)
+>  {
+> -    static const CHAR16* const ErrCodeToStr[] __initconstrel =3D {
+> -        [~EFI_ERROR_MASK & EFI_NOT_FOUND]           =3D L"Not found",
+> -        [~EFI_ERROR_MASK & EFI_NO_MEDIA]            =3D L"The device has=
+ no media",
+> -        [~EFI_ERROR_MASK & EFI_MEDIA_CHANGED]       =3D L"Media changed"=
+,
+> -        [~EFI_ERROR_MASK & EFI_DEVICE_ERROR]        =3D L"Device error",
+> -        [~EFI_ERROR_MASK & EFI_VOLUME_CORRUPTED]    =3D L"Volume corrupt=
+ed",
+> -        [~EFI_ERROR_MASK & EFI_ACCESS_DENIED]       =3D L"Access denied"=
+,
+> -        [~EFI_ERROR_MASK & EFI_OUT_OF_RESOURCES]    =3D L"Out of resourc=
+es",
+> -        [~EFI_ERROR_MASK & EFI_VOLUME_FULL]         =3D L"Volume is full=
+",
+> -        [~EFI_ERROR_MASK & EFI_SECURITY_VIOLATION]  =3D L"Security viola=
+tion",
+> -        [~EFI_ERROR_MASK & EFI_CRC_ERROR]           =3D L"CRC error",
+> -        [~EFI_ERROR_MASK & EFI_COMPROMISED_DATA]    =3D L"Compromised da=
+ta",
+> -        [~EFI_ERROR_MASK & EFI_BUFFER_TOO_SMALL]    =3D L"Buffer too sma=
+ll",
+> +#define ERROR_MESSAGE_LIST \
+> +    ERROR_MESSAGE(EFI_NOT_FOUND, "Not found") \
+> +    ERROR_MESSAGE(EFI_NO_MEDIA, "The device has no media") \
+> +    ERROR_MESSAGE(EFI_MEDIA_CHANGED, "Media changed") \
+> +    ERROR_MESSAGE(EFI_DEVICE_ERROR, "Device error") \
+> +    ERROR_MESSAGE(EFI_VOLUME_CORRUPTED, "Volume corrupted") \
+> +    ERROR_MESSAGE(EFI_ACCESS_DENIED, "Access denied") \
+> +    ERROR_MESSAGE(EFI_OUT_OF_RESOURCES, "Out of resources") \
+> +    ERROR_MESSAGE(EFI_VOLUME_FULL, "Volume is full") \
+> +    ERROR_MESSAGE(EFI_SECURITY_VIOLATION, "Security violation") \
+> +    ERROR_MESSAGE(EFI_CRC_ERROR, "CRC error") \
+> +    ERROR_MESSAGE(EFI_COMPROMISED_DATA, "Compromised data") \
+> +    ERROR_MESSAGE(EFI_BUFFER_TOO_SMALL, "Buffer too small")
+> +
+> +    static const struct ErrorStrings {
+> +        CHAR16 start;
+> +#undef ERROR_MESSAGE
+> +#define ERROR_MESSAGE(code, str) CHAR16 msg_ ## code[sizeof(str)];
+> +        ERROR_MESSAGE_LIST
+> +    } ErrorStrings __initconst =3D {
+> +        0
+> +#undef ERROR_MESSAGE
+> +#define ERROR_MESSAGE(code, str) , L ## str
+> +        ERROR_MESSAGE_LIST
+> +    };
+> +    static const uint16_t ErrCodeToStr[] __initconst =3D {
+> +#undef ERROR_MESSAGE
+> +#define ERROR_MESSAGE(code, str) \
+> +        [~EFI_ERROR_MASK & code] =3D offsetof(struct ErrorStrings, msg_ =
+## code),
+> +        ERROR_MESSAGE_LIST
+>      };
+>      EFI_STATUS ErrIdx =3D ErrCode & ~EFI_ERROR_MASK;
+>
+> @@ -308,7 +325,8 @@ static void __init PrintErrMesg(const CHAR16 *mesg, E=
+FI_STATUS ErrCode)
+>      PrintErr(L": ");
+>
+>      if( (ErrIdx < ARRAY_SIZE(ErrCodeToStr)) && ErrCodeToStr[ErrIdx] )
+> -        mesg =3D ErrCodeToStr[ErrIdx];
+> +        mesg =3D (const CHAR16 *)((const void *)&ErrorStrings +
+> +                                ErrCodeToStr[ErrIdx]);
+>      else
+>      {
+>          PrintErr(L"ErrCode: ");
 
->=20
-> > > > based on {read,write}_atomic() implementations for other
-> > > > architectures.
-> > > > Therefore, {read,write}{b,w,l,q}_cpu() can be used instead of
-> > > > {read,write}{b,w,l,q}(), allowing the caller to decide if
-> > > > additional
-> > > > fences should be applied before or after {read,write}_atomic().
-> > > >=20
-> > > > Change the declaration of _write_atomic() to accept a 'volatile
-> > > > void *'
-> > > > type for the 'x' argument instead of 'unsigned long'.
-> > > > This prevents compilation errors such as:
-> > > > 1."discards 'volatile' qualifier from pointer target type,"
-> > > > which
-> > > > occurs
-> > > > =C2=A0 due to the initialization of a volatile pointer,
-> > > > =C2=A0 e.g., `volatile uint8_t *ptr =3D p;` in _add_sized().
-> > >=20
-> > > I don't follow you here.
-> > This issue started occurring after the change mentioned in point 2
-> > below.
-> >=20
-> > I initially provided an incorrect explanation for the compilation
-> > error
-> > mentioned above. Let me correct that now and update the commit
-> > message
-> > in the next patch version. The reason for this error is that after
-> > the
-> > _write_atomic() prototype was updated from _write_atomic(...,
-> > unsigned
-> > long, ...) to _write_atomic(..., void *x, ...), the write_atomic()
-> > macro contains x_, which is of type 'volatile uintX_t' because ptr
-> > has
-> > the type 'volatile uintX_t *'.
->=20
-> While there's no "ptr" in write_atomic(), I think I see what you
-> mean. Yet
-> at the same time Arm - having a similar construct - gets away without
-> volatile. Perhaps this wants modelling after read_atomic() then,
-> using a
-> union?
-The use of a union could be considered as a solution. For now, I think
-I will just update write_pte() to avoid this issue and and minimize
-changes in this patch.
+Any update on this?
 
->=20
-> > > > 2."incompatible type for argument 2 of '_write_atomic'," which
-> > > > can
-> > > > occur
-> > > > =C2=A0 when calling write_pte(), where 'x' is of type pte_t rather
-> > > > than
-> > > > =C2=A0 unsigned long.
-> > >=20
-> > > How's this related to the change at hand? That isn't different
-> > > ahead
-> > > of
-> > > this change, is it?
-> > This is not directly related to the current change, which is why I
-> > decided to add a sentence about write_pte().
-> >=20
-> > Since write_pte(pte_t *p, pte_t pte) uses write_atomic(), and the
-> > argument types are pte_t * and pte respectively, we encounter a
-> > compilation issue in write_atomic() because:
-> >=20
-> > _write_atomic() expects the second argument to be of type unsigned
-> > long, leading to a compilation error like "incompatible type for
-> > argument 2 of '_write_atomic'."
-> > I considered defining write_pte() as write_atomic(p, pte.pte), but
-> > this
-> > would fail at 'typeof(*(p)) x_ =3D (x);' and result in a compilation
-> > error 'invalid initializer' or something like that.
-> >=20
-> > It might be better to update write_pte() to:
-> > =C2=A0=C2=A0 /* Write a pagetable entry. */
-> > =C2=A0=C2=A0 static inline void write_pte(pte_t *p, pte_t pte)
-> > =C2=A0=C2=A0 {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_atomic((unsigned long *)p, p=
-te.pte);
-> > =C2=A0=C2=A0 }
-> > Then, we wouldn't need to modify the definition of write_atomic()
-> > or
-> > change the type of the second argument of _write_atomic().
-> > Would it be better?
->=20
-> As said numerous times before: Whenever you can get away without a
-> cast,
-> you should avoid the cast. Here:
->=20
-> static inline void write_pte(pte_t *p, pte_t pte)
-> {
-> =C2=A0=C2=A0=C2=A0 write_atomic(&p->pte, pte.pte);
-> }
->=20
-> That's one of the possible options, yes. Yet, like Arm has it, you
-> may
-> actually want the capability to read/write non-scalar types. If so,
-> adjustments to write_atomic() are necessary, yet as indicated before:
-> Please keep such entirely independent changes separate.
-I quickly checked that there is only one instance where write_atomic()
-is used for a scalar type in the Arm code. I think it would be better
-to update RISC-V's write_pte() and not modify write_atomic(), at least
-for now.
-
-Thanks.
-
-~ Oleksii
+Frediano
 
