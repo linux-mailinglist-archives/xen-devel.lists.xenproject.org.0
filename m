@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 834FD9643B6
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 14:02:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785738.1195235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1E409643D5
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 14:04:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785748.1195246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjdqU-0002H9-JY; Thu, 29 Aug 2024 12:01:46 +0000
+	id 1sjdso-00037t-2y; Thu, 29 Aug 2024 12:04:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785738.1195235; Thu, 29 Aug 2024 12:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 785748.1195246; Thu, 29 Aug 2024 12:04:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjdqU-0002Eb-FR; Thu, 29 Aug 2024 12:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 785738;
- Thu, 29 Aug 2024 12:01:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sjdsn-00034p-Vz; Thu, 29 Aug 2024 12:04:09 +0000
+Received: by outflank-mailman (input) for mailman id 785748;
+ Thu, 29 Aug 2024 12:04:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zolI=P4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sjdqS-00013g-Eu
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 12:01:44 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 748ffaf9-65fe-11ef-99a0-01e77a169b0f;
- Thu, 29 Aug 2024 14:01:42 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a8696e9bd24so65243766b.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 05:01:42 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
+ <SRS0=LPGY=P4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sjdsm-00034d-Di
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 12:04:08 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cac25687-65fe-11ef-a0b0-8be0dac302b0;
+ Thu, 29 Aug 2024 14:04:07 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-5334adf7249so779623e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 05:04:07 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226c74184sm659067a12.32.2024.08.29.05.01.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 05:01:40 -0700 (PDT)
+ 2adb3069b0e04-53540859301sm137470e87.295.2024.08.29.05.04.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Aug 2024 05:04:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +45,463 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 748ffaf9-65fe-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: cac25687-65fe-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724932902; x=1725537702; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KMM9en/xnClhhJwmKz0DSStG28feVHlgR2ZlrSdk90M=;
-        b=VuAj3wmD0PRrHUPRddPpX31knlKZqwf80/jsU5qAvCqUj4f5ZhHlGa+6P6A32Kpdw4
-         KU5HYpNeCOq6EJ8vdyJTo317e+R8zMIew5gj9ViTi8b8/v/EKkoUaZ7c0wvWuNcozOgx
-         NUnjFcxj6SB08c5CjZF+NjQMMCDDnj5NV0i0s=
+        d=gmail.com; s=20230601; t=1724933046; x=1725537846; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=9dzAV2EJGw6yfaq5GwniSakhzOsM6M2GQswLIFbJNZk=;
+        b=nbIjAw1TT/d+esrNLiCg28II7M6ELzL8vzcvCxVov17SH6hAMPw9EEqwcH8WT7ARV3
+         aZr3hcxIynB6ZAlCypByu9GBr+xysXpFnPX2lOo7Hb9kauTc0xxkt8F3kS8KU9x8CtV6
+         DmNaK/ZqcxeWiMfKHiONAl/6UusLf2p22LgFg7AqOt7TFMkFleYGVeW3jFBh33bVqdTC
+         eXrsPUJjczKBd/UPeYQiRWJbulPh+hVq/xoNeF2RrmxyuwYAy1YqNWmGqc2paLLQfueK
+         VTxRn6g22gnec6jS8p5gCVKCNTjGNTI1At1p1JSAuzajrdmYBebTuBmwSuAFILmsCp+O
+         AZ7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724932902; x=1725537702;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KMM9en/xnClhhJwmKz0DSStG28feVHlgR2ZlrSdk90M=;
-        b=WvkWM6azixo8xUvjyQoi/Gc7fqqOIF+2/Pqp66zqliqrpVvVB4hBRVEfpiIsjqKpVb
-         w/psoYvNuiUNHrdsr5qLYwMw9RZvxtdFf3T7praHZAUV0E/XmaasAV3r7mFFXCSdwSXC
-         VPxdyjpyLSjRdvsJVwpWzffuPpZ0cQlgHlwcEzbIYhtfTawrpSfWlc0TAJ0DFz4/15pn
-         WVDyJIXcrcrXInukE1XDC4fyCJnyWYY3PCPNoJXe1jFULP+F0E+M5q5yJzLWb1LLZucm
-         M99uwzFRJV6h2YP7lHHqV3sKXtazCo7weusN6UKj0s8vD3Oe3qXY8rayiKB6PFWU+A8y
-         XEog==
-X-Forwarded-Encrypted: i=1; AJvYcCWIoqoGilqhUl8NWjYeM+fjgwt4r3w0mLbmg9svqekTP04yhG+nGkrGjkY3yibOFmF8gdz6pPFsHU0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyxvi9KnGOmQAidcCAbaM4AfKMGJM19VcesJzOmggpufWJo5oz8
-	FAd2ZnKw8eGKH47wC8Z6lwhZt2Vtc4J4EDcGufJmsriyO+EFriwNLVv/InLSvwE=
-X-Google-Smtp-Source: AGHT+IGun6zjhXT3andKixvxbAs+V1OCoflXCX4ba5GIZZ9PbFpWa0pK0t6OkcolejIZIrzEKd5u6A==
-X-Received: by 2002:a17:907:e86:b0:a72:4320:19f3 with SMTP id a640c23a62f3a-a897f930b04mr187418866b.39.1724932900992;
-        Thu, 29 Aug 2024 05:01:40 -0700 (PDT)
-Message-ID: <b1fe245e-7ccf-4fa6-b71d-fec415ecfec7@citrix.com>
-Date: Thu, 29 Aug 2024 13:01:38 +0100
+        d=1e100.net; s=20230601; t=1724933046; x=1725537846;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9dzAV2EJGw6yfaq5GwniSakhzOsM6M2GQswLIFbJNZk=;
+        b=Ph3/S8UbUuKHOXe692Uy/0BxlDWUQxXcNrFeSEz+zxgdaqtV2HvUYZXLCNIYTc7P6U
+         8316OkR5BwXt3ISwXqmAh5qbhvz6WSrA3gT1HrL4qk8KXfTimeQE5E0V2qwm/CF+csdn
+         /DbtNICoZS4JkunmvbNMgfICofmbgYtJFJCrgHMlgkYOts/gJHCIUjZ7JsxDjwB1Lhsy
+         yiTjmuUy5iPLN1dMEanYb0pjfXnsrNoHpaz22Jl20mTDs+f/jQGjhLH2ZYdHG8rkX+c0
+         3UkqwLhg4crs9uym1mWzRpGL+S/u3yC3B1a/d/Gy97fI+TaXq6qS8K0ICRnbw2JimBA2
+         gcjg==
+X-Forwarded-Encrypted: i=1; AJvYcCWsWO7b0nFQonhh+i5AQkKIl/9GsnMLvUks/zc3r4B5TnPEDHN4Xqrwt/1sOhrJ/ypqv+X7iTCuOyY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3oGP6Zg5p/EvWucxc5MyoRNzn8SmTjvm3PcXvvHjx+ZE9YYLN
+	IsHoB8aE9MnBpWGFzrhyClzt8jTEQJI7Xahi7B3sNAuR8DblaCPn
+X-Google-Smtp-Source: AGHT+IGMomFrlJlke6KxgOwNI1EQFsPuU1rHPdCNGUC9hGeNkv5Ph1YS+0/kQy0OBg2hQlgATo8RYw==
+X-Received: by 2002:a05:6512:1105:b0:52e:8141:1b27 with SMTP id 2adb3069b0e04-5353e5aae52mr1844077e87.43.1724933045668;
+        Thu, 29 Aug 2024 05:04:05 -0700 (PDT)
+Message-ID: <4418002b93a3ae101e15e390dc537c726948bcb4.camel@gmail.com>
+Subject: Re: [PATCH v5 6/7] xen/riscv: page table handling
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Thu, 29 Aug 2024 14:04:04 +0200
+In-Reply-To: <b83e7d23-2171-447f-a4e5-48563e4068a5@suse.com>
+References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
+	 <090e617d88b279ae88f1a7859875a7e1a0c6ae73.1724256027.git.oleksii.kurochko@gmail.com>
+	 <c0005454-3b34-427d-8ea0-620aba632487@suse.com>
+	 <ed84c53454cb63082aa96befe89a89d8f234ef71.camel@gmail.com>
+	 <b83e7d23-2171-447f-a4e5-48563e4068a5@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: drop map-low-16Mb leftovers
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <71348420-c60a-4d5c-9548-8e5f24f82c76@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <71348420-c60a-4d5c-9548-8e5f24f82c76@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 29/08/2024 12:47 pm, Jan Beulich wrote:
-> Prior work has fully eliminated that hardcoded boundary.
+On Thu, 2024-08-29 at 09:01 +0200, Jan Beulich wrote:
+> On 28.08.2024 18:11, oleksii.kurochko@gmail.com=C2=A0wrote:
+> > On Tue, 2024-08-27 at 17:00 +0200, Jan Beulich wrote:
+> > > On 21.08.2024 18:06, Oleksii Kurochko wrote:
+> > > > Implement map_pages_to_xen() which requires several
+> > > > functions to manage page tables and entries:
+> > > > - pt_update()
+> > > > - pt_mapping_level()
+> > > > - pt_update_entry()
+> > > > - pt_next_level()
+> > > > - pt_check_entry()
+> > > >=20
+> > > > To support these operations, add functions for creating,
+> > > > mapping, and unmapping Xen tables:
+> > > > - create_table()
+> > > > - map_table()
+> > > > - unmap_table()
+> > > >=20
+> > > > Introduce internal macros starting with PTE_* for convenience.
+> > > > These macros closely resemble PTE bits, with the exception of
+> > > > PTE_SMALL, which indicates that 4KB is needed.
+> > >=20
+> > > What macros are you talking about here? Is this partially stale,
+> > > as
+> > > only PTE_SMALL and PTE_POPULATE (and a couple of masks) are being
+> > > added?
+> > I am speaking about macros connected to masks:
+> > =C2=A0=C2=A0=C2=A0=C2=A0 #define PTE_R_MASK(x)=C2=A0=C2=A0 ((x) & PTE_R=
+EADABLE)
+> > =C2=A0=C2=A0=C2=A0=C2=A0 #define PTE_W_MASK(x)=C2=A0=C2=A0 ((x) & PTE_W=
+RITABLE)
+> > =C2=A0=C2=A0=C2=A0=C2=A0 #define PTE_X_MASK(x)=C2=A0=C2=A0 ((x) & PTE_E=
+XECUTABLE)
+> > =C2=A0=C2=A0=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0 #define PTE_RWX_MASK(x) ((x) & (PTE_READABLE |=
+ PTE_WRITABLE |
+> > =C2=A0=C2=A0 PTE_EXECUTABLE))
+>=20
+> Some of which is did question further down in my reply. But what's
+> worse - by saying "closely resemble PTE bits, with the exception of
+> PTE_SMALL" you pretty clearly _do not_ refer to the macros above, but
+> to PTE_VALID etc.
+Agree, it should be corrected.
 
-I'd cite e.g. commit cbabbc9f5659 ("x86/boot: Size the boot/directmap
-mappings dynamically") here.
+>=20
+> > > > @@ -68,6 +111,20 @@ static inline bool pte_is_valid(pte_t p)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 return p.pte & PTE_VALID;
+> > > > =C2=A0}
+> > > > =C2=A0
+> > > > +inline bool pte_is_table(const pte_t p)
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 return ((p.pte & (PTE_VALID |
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PTE_READABLE |
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PTE_WRITABLE |
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PTE_EXECUTABLE=
+)) =3D=3D PTE_VALID);
+> > > > +}
+> > >=20
+> > > In how far is the READABLE check valid here? You (imo correctly)
+> > > ...
+>=20
+> Oh, I wrongly picked on READABLE when it should have been the
+> WRITABLE
+> bit.
+>=20
+> > > > +static inline bool pte_is_mapping(const pte_t p)
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 return (p.pte & PTE_VALID) &&
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (p.pt=
+e & (PTE_WRITABLE | PTE_EXECUTABLE));
+> > > > +}
+> > >=20
+> > > ... don't consider this bit here.
+> > pte_is_mapping() seems to me is correct as according to the RISC-V
+> > privileged spec:
+> > =C2=A0=C2=A0 4. Otherwise, the PTE is valid. If pte.r =3D 1 or pte.x =
+=3D 1, go to
+> > step=20
+> > =C2=A0=C2=A0 5. Otherwise, this PTE is a pointer to the next level of t=
+he
+> > page=C2=A0=C2=A0=20
+> > =C2=A0=C2=A0 table.
+> > =C2=A0=C2=A0 5. A leaf PTE has been found. ...
+>=20
+> Right. And then why do you check all three of r, x, and w, when the
+> doc
+> mentions only r and x? There may be reasons, but such reasons then
+> need
+> clearly stating in a code comment, for people to understand why the
+> code
+> is not following the spec.
+So I remembered why R, W, and X are checked. There is contradictory
+information about these bits
+(https://github.com/riscv/riscv-isa-manual/blob/main/src/supervisor.adoc?pl=
+ain=3D1#L1317C64-L1321C10
+):
+```
+The permission bits, R, W, and X, indicate whether the page is
+readable, writable, and executable, respectively. When all three are
+zero, the PTE is a pointer to the next level of the page table;
+otherwise, it is a leaf PTE.
+```
 
->  Drop both the
-> linker script assertion (the upper bound is now the stubs area) and the
-> artificial extending of xen.efi's image size.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+However, it is also written here
+(https://github.com/riscv/riscv-isa-manual/blob/main/src/supervisor.adoc?pl=
+ain=3D1#L1539
+) that only pte.r and pte.x should be checked.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I can assume that the interpretation that R=3DW=3DX=3D0 indicates a pointer
+to the next level of the page table could come from this statement
+(https://github.com/riscv/riscv-isa-manual/blob/main/src/supervisor.adoc?pl=
+ain=3D1#L1538
+):
+```
+If _pte_._v_ =3D 0, or if _pte_._r_ =3D 0 and _pte_._w_ =3D 1, or if any bi=
+ts
+or encodings that are reserved for future standard use are set within
+_pte_, stop and raise a page-fault exception corresponding to the
+original access type.
+```
+From this, I can assume that when pte.r =3D 0, pte.w should also always
+be zero; otherwise, a page-fault exception will be raised. ( but it is
+no obviously connected to if the PTE is a pointer to the next page
+table or not... ).
 
-Sorry I didn't drop the assertion at the time.
+
+
+
+>=20
+> > and regarding pte_is_table() READABLE check is valid as we have to
+> > check only that pte.r =3D pte.x =3D 0. WRITABLE check should be
+> > dropped. Or
+> > just use define pte_is_table() as:
+> > =C2=A0=C2=A0 inline bool pte_is_table(const pte_t p)
+> > =C2=A0=C2=A0 {
+> > =C2=A0=C2=A0=C2=A0	return !pte_is_mapping(p);
+> > =C2=A0=C2=A0 }
+>=20
+> You had it like this earlier on, didn't you? That's wrong, because
+> for a
+> PTE to describe another page table level PTE_VALID needs to be set.
+Agree, it's wrong, missed that.
+
+> > > > +#define XEN_TABLE_MAP_FAILED 0
+> > > > +#define XEN_TABLE_SUPER_PAGE 1
+> > > > +#define XEN_TABLE_NORMAL 2
+> > > > +
+> > > > +/*
+> > > > + * Take the currently mapped table, find the corresponding
+> > > > entry,
+> > > > + * and map the next table, if available.
+> > > > + *
+> > > > + * The alloc_tbl parameters indicates whether intermediate
+> > > > tables
+> > > > should
+> > > > + * be allocated when not present.
+> > > > + *
+> > > > + * Return values:
+> > > > + *=C2=A0 XEN_TABLE_MAP_FAILED: Either alloc_only was set and the
+> > > > entry
+> > > > + *=C2=A0 was empty, or allocating a new page failed.
+> > > > + *=C2=A0 XEN_TABLE_NORMAL: next level or leaf mapped normally
+> > > > + *=C2=A0 XEN_TABLE_SUPER_PAGE: The next entry points to a
+> > > > superpage.
+> > > > + */
+> > > > +static int pt_next_level(bool alloc_tbl, pte_t **table,
+> > > > unsigned
+> > > > int offset)
+> > >=20
+> > > Having the boolean first is unusual, but well - it's your choice.
+> > >=20
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 pte_t *entry;
+> > > > +=C2=A0=C2=A0=C2=A0 int ret;
+> > > > +=C2=A0=C2=A0=C2=A0 mfn_t mfn;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 entry =3D *table + offset;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 if ( !pte_is_valid(*entry) )
+> > > > +=C2=A0=C2=A0=C2=A0 {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( alloc_tbl )
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ return XEN_TABLE_MAP_FAILED;
+> > >=20
+> > > Is this condition meant to be inverted?
+> > if alloc_tbl =3D true we shouldn't allocatetable as:
+> > =C2=A0=C2=A0=C2=A0=C2=A0 * The intermediate page table shouldn't be all=
+ocated when MFN
+> > isn't
+> > =C2=A0=C2=A0=C2=A0=C2=A0 * valid and we are not populating page table.
+> > ...
+> > =C2=A0=C2=A0=C2=A0 */
+>=20
+> Well, no. The variable name really shouldn't be the opposite of what
+> is
+> meant. "alloc_tbl" can only possibly mean "allocate a table if none
+> is
+> there". I can't think of a sensible interpretation in the inverted
+> sense.
+> I'm curious how you mean to interpret that variable name.
+My interpretation was that alloc_tbl =3D true means that algorithm is
+trying to allocate the table what is forbidden at the moment but I
+agree that your interpretation sounds more understandable based on the
+variable name.
+
+>=20
+> > =C2=A0=C2=A0=C2=A0 bool alloc_tbl =3D mfn_eq(mfn, INVALID_MFN) && !(fla=
+gs &
+> > PTE_POPULATE);
+> >=20
+> > So if mfn =3D INVALID_MFN and flags.PTE_POPULATE=3D0 it means that this
+> > table shouldn't be allocated and thereby pt_next_level() should
+> > return
+> > XEN_TABLE_MAP_FAILED.
+> >=20
+> > Or to invert if ( alloc_tbl )it will be needed to invert defintion
+> > of
+> > alloc_tbl:
+> > =C2=A0bool alloc_tbl =3D !mfn_eq(mfn, INVALID_MFN) || (flags &
+> > PTE_POPULATE);
+>=20
+> Yes, as I did comment further down.
+>=20
+> > > > +=C2=A0=C2=A0=C2=A0 if ( level !=3D target )
+> > > > +=C2=A0=C2=A0=C2=A0 {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printk("%s: Shattering =
+superpage is not supported\n",
+> > > > __func__);
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rc =3D -EOPNOTSUPP;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
+> > > > +=C2=A0=C2=A0=C2=A0 }
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 entry =3D table + offsets[level];
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 rc =3D -EINVAL;
+> > > > +=C2=A0=C2=A0=C2=A0 if ( !pt_check_entry(*entry, mfn, flags) )
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 /* We are removing the page */
+> > > > +=C2=A0=C2=A0=C2=A0 if ( !(flags & PTE_VALID) )
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memset(&pte, 0x00, size=
+of(pte));
+> > > > +=C2=A0=C2=A0=C2=A0 else
+> > > > +=C2=A0=C2=A0=C2=A0 {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* We are inserting a m=
+apping =3D> Create new pte. */
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( !mfn_eq(mfn, INVAL=
+ID_MFN) )
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pte =3D pte_from_mfn(mfn, PTE_VALID);
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else /* We are updating=
+ the permission =3D> Copy the
+> > > > current
+> > > > pte. */
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ pte =3D *entry;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* update permission ac=
+cording to the flags */
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pte.pte |=3D PTE_RWX_MA=
+SK(flags) | PTE_ACCESSED |
+> > > > PTE_DIRTY;
+> > >=20
+> > > When updating an entry, don't you also need to clear (some of)
+> > > the
+> > > flags?
+> > I am not sure why some flags should be cleared. Here we are taking
+> > only
+> > necessary for pte flags such as R, W, X or other bits in flags are
+> > ignored.
+>=20
+> Consider what happens to a PTE with R and X set when a request comes
+> in
+> to change to R/W. You'll end up with R, X, and W all set if you don't
+> first clear the bits that are meant to be changeable in a "modify"
+> operation.
+That's definitely going to be a problem. I'll update the code then.
+
+>=20
+> > > > +/* Return the level where mapping should be done */
+> > > > +static int pt_mapping_level(unsigned long vfn, mfn_t mfn,
+> > > > unsigned
+> > > > long nr,
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 unsigned int flags)
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 unsigned int level =3D 0;
+> > > > +=C2=A0=C2=A0=C2=A0 unsigned long mask;
+> > > > +=C2=A0=C2=A0=C2=A0 unsigned int i;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 /* Use blocking mapping unless the caller reque=
+sts 4K
+> > > > mapping
+> > > > */
+> > > > +=C2=A0=C2=A0=C2=A0 if ( unlikely(flags & PTE_SMALL) )
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return level;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 /*
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * Don't take into account the MFN when re=
+moving mapping
+> > > > (i.e
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * MFN_INVALID) to calculate the correct t=
+arget order.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * `vfn` and `mfn` must be both superpage =
+aligned.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * They are or-ed together and then checke=
+d against the
+> > > > size
+> > > > of
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * each level.
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * `left` is not included and checked sepa=
+rately to allow
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * superpage mapping even if it is not pro=
+perly aligned
+> > > > (the
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * user may have asked to map 2MB + 4k).
+> > >=20
+> > > What is this about? There's nothing named "left" here.
+> > It refer to "remaining" pages or "leftover" space after trying to
+> > align
+> > a mapping to a superpage boundary.
+>=20
+> What what is the quoted "left" here? Such a variable appears to exist
+> in
+> the caller, but using the name here is lacking context.
+Then I will update the comment and tell from where 'left' is coming.
+
+>=20
+>=20
+> > > > + * If `mfn` is valid and flags has PTE_VALID bit set then it
+> > > > means
+> > > > that
+> > > > + * inserting will be done.
+> > > > + */
+> > >=20
+> > > What about mfn !=3D INVALID_MFN and PTE_VALID clear?
+> > PTE_VALID=3D0 will be always considered as destroying and no matter
+> > what
+> > is mfn value as in this case the removing is done in the way where
+> > mfn
+> > isn't used:
+>=20
+> Right, yet elsewhere you're restrictive as to MFN values valid to
+> use.
+> Not requiring INVALID_MFN here looks inconsistent to me.
+but actually if we will leave ASSERT in pt_check_entry() we will be
+sure that we are here with mfn =3D INVALID_MFN:
+       /* Sanity check when removing a mapping. */
+       else if ( (flags & (PTE_VALID | PTE_POPULATE)) =3D=3D 0 )
+       {
+           /* We should be here with an invalid MFN. */
+           ASSERT(mfn_eq(mfn, INVALID_MFN));
+>=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memset(&pte, 0x00, sizeof(pt=
+e));
+>=20
+> Just to mention it: I don't think memset() is a very good way of
+> clearing
+> a PTE, even if right here it's not a live one.
+Just direct assigning would be better?=20
+
+>=20
+> > > =C2=A0Also note that "`mfn` is
+> > > valid" isn't the same as "mfn !=3D INVALID_MFN". You want to be
+> > > precise
+> > > here,
+> > > to avoid confusion later on. (I say that knowing that we're still
+> > > fighting
+> > > especially shadow paging code on x86 not having those properly
+> > > separated.)
+> > If it is needed to be precise and mfn is valid isn't the same as
+> > "mfn
+> > !=3D INVALID_MFN" only for the case of shadow paging?
+>=20
+> No, I used shadow paging only as an example of where we have similar
+> issues. I'd like to avoid that a new port starts out with introducing
+> more instances of that. You want to properly separate INVALID_MFN
+> from
+> "invalid MFN", where the latter means any MFN where either nothing
+> exists at all, or (see mfn_valid()) where no struct page_info exists.
+Well, now I think I understand the difference between "INVALID_MFN" and
+"invalid MFN."
+
+Referring back to your original reply, I need to update the comment
+above pt_update():
+```
+   ...
+     * If `mfn` is valid ( exist ) and flags has PTE_VALID bit set then it
+   means that inserting will be done.
+```
+Would this be correct and more precise?
+
+Based on the code for mfn_valid(), the separation is currently done
+using the max_page value, which can't be initialized at the moment as
+it requires reading the device tree file to obtain the RAM end.
+
+We could use a placeholder for the RAM end (for example, a very high
+value like -1UL) and then add __mfn_valid() within pt_update().
+However, I'm not sure if this approach aligns with what you consider by
+proper separation between INVALID_MFN and "invalid MFN."
+
+~ Oleksii
 
