@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22C52964390
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 13:53:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785701.1195175 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABD4E9643A6
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 13:58:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785708.1195184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjdi2-0005t4-Ey; Thu, 29 Aug 2024 11:53:02 +0000
+	id 1sjdn3-0007GA-0K; Thu, 29 Aug 2024 11:58:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785701.1195175; Thu, 29 Aug 2024 11:53:02 +0000
+Received: by outflank-mailman (output) from mailman id 785708.1195184; Thu, 29 Aug 2024 11:58:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjdi2-0005qr-BX; Thu, 29 Aug 2024 11:53:02 +0000
-Received: by outflank-mailman (input) for mailman id 785701;
- Thu, 29 Aug 2024 11:53:00 +0000
+	id 1sjdn2-0007Dl-Tu; Thu, 29 Aug 2024 11:58:12 +0000
+Received: by outflank-mailman (input) for mailman id 785708;
+ Thu, 29 Aug 2024 11:58:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dlBE=P4=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1sjdi0-0005ql-Kc
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 11:53:00 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ImPG=P4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sjdn1-0007Df-6J
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 11:58:11 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3c26f364-65fd-11ef-99a0-01e77a169b0f;
- Thu, 29 Aug 2024 13:52:58 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5c210e23651so556647a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 04:52:58 -0700 (PDT)
-Received: from fziglio-xenia-fedora.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226ccfe78sm616104a12.69.2024.08.29.04.52.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Aug 2024 04:52:57 -0700 (PDT)
+ id f4ef90e1-65fd-11ef-99a0-01e77a169b0f;
+ Thu, 29 Aug 2024 13:58:08 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a86883231b4so56009366b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 04:58:08 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c226c7c1f7sm630681a12.42.2024.08.29.04.58.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Aug 2024 04:58:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,268 +45,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c26f364-65fd-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: f4ef90e1-65fd-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1724932378; x=1725537178; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=t4OqEWyZVMJYP4Q1dCFXbk9bU+PaTs6KjTWg21ZmJh4=;
-        b=iaKNbYMAkB84Q9XDyiK0WGKIocZ4XZx2jJbHgo+j14JE6mA+NPkQpEk9Z982IyrHuW
-         Gs7Gp35isDXMlX7uFowMTvhfr1SxxhMQADRL9IW4BypnjLZM3nuSBFZmLM11CfqqssCn
-         n9RXB8dFq+Fly1RjXQJnVZ5L+A+Q4DydBVTnM=
+        d=suse.com; s=google; t=1724932688; x=1725537488; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:cc:content-language:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=U73BlY8BZ1Tl7XPL6jzB21vtHemVJgsSYu0GdyUNSiw=;
+        b=KCkgE2WBXkISxWStzQ6fh9n7sUjjH59uWc8Swbuu2JJ32z2NUjcE8kz+uad/6Z9JWI
+         60f7azKCzSEXNhNcxar4nu8lEzGjnkxLB3mvFqukYjhzKSFkbAG/SP78bXOCrF9SVS6Q
+         0LAvJVrjdacfbDlcjdZY+pJfIaDocb+vkc8K6khGUZdch1+hTJbgcWv9wB8qo4wiADFk
+         m8uNW9g+Pvu9WTM2E9RWTXBNx2x/KaIp4/6TWMrcZuvPhDYLgvVLDCDwvTwoCzWf6RZa
+         gnvmbcWSUb8eVx5d7SkpaDEWbrKff8OsarADTiJtWH7uBkeJ9QurdPXQeFSSofq4Kj+y
+         fLbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724932378; x=1725537178;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=t4OqEWyZVMJYP4Q1dCFXbk9bU+PaTs6KjTWg21ZmJh4=;
-        b=ums1RbCfa/CCOU1QcYjmBgEMnovSmPcLgzSNN5LclUra9PeQ+AMZuBZxrsgDhX015V
-         3GHi5Eb6XNLwEFxNOaqOPDY+eKUCBT/k+PMOeqpv5UwI9j6SCFCZ2RNFB8pHaYrbdXhq
-         ExBwXnNbwQiISZfWkxrp2Xp8ZUM9e89ZLBg1eRdf6SPKC3xty+uh2cflpxBYoPdbKkZQ
-         xQlHckmXaBNz7OtPqeJ0Wo47GX3fZNd8mPuO/dx3BrCHwgRvAhyJzr7LenuNz+DdmzoL
-         PU6k36SY4QJTfu4ERpW1mgHQZbsLuyv+ueZdUaFniC3MY5el6Laclc2CP5tEnuxoH0nv
-         C9og==
-X-Gm-Message-State: AOJu0Yz2BbCtg5vFqf52afw80l95rAnJn0NZL5nhuS7lmCxnCSVQ6xC6
-	2B0c2FZIojGmO6CZQXLoqH0lTeXcLU8rY2ZpTFMBDx8thRfjY+ihSj3BgokQ2m0AGJrafa5aDo1
-	c
-X-Google-Smtp-Source: AGHT+IHpIyPbAlSbhyV3XURLXvebXe2XRgkMpd6IIEIdby5cc/qYAgdnr5Vc8CjlYbg+0x50U7G0eg==
-X-Received: by 2002:a05:6402:3481:b0:5be:e01c:6b5e with SMTP id 4fb4d7f45d1cf-5c21eda3441mr2093762a12.35.1724932377470;
-        Thu, 29 Aug 2024 04:52:57 -0700 (PDT)
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/boot: Use C99 types for integers
-Date: Thu, 29 Aug 2024 12:52:44 +0100
-Message-ID: <20240829115247.168608-1-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.46.0
+        d=1e100.net; s=20230601; t=1724932688; x=1725537488;
+        h=content-transfer-encoding:autocrypt:cc:content-language:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=U73BlY8BZ1Tl7XPL6jzB21vtHemVJgsSYu0GdyUNSiw=;
+        b=hkPnF+MXmf2Q/E/EYi+/0C2fONpKut5hUsc03WHy5zgGu0ZHKsX4jn6KwAdDivWtbT
+         Wu863tpKqDI0Rn7yCzCLyjzIeGFUk/46UlfG7AzI7M0X1Yw7CSnKcXXSVS3lV7ZC3HBD
+         Dcl91c77Ta8mWbBO5fUerT0kux81tVRKYmXYGnd1wtOsajs8nmMy/unBEtg3x5rb/SNn
+         U/HZGYx5NuYru+ZEjzAQ5Y253z2qQpIqmOe0j+bjZ7VQyf/DhMZiC4GDaMZ/6P4cMHIC
+         E6SDe2GBLu61yGhgU5QJRsFClhPIUNlmGUSpDkNUQ5q6owArtp7eM0rcYqjBKr61BztZ
+         3P5A==
+X-Gm-Message-State: AOJu0Yw0FHspaQzX11TpQMM3GJjfjcscmHv/nylLRl6Ts/ViEfBU4cjG
+	I7tWvK1q6cW66vUBp+hm8yOblGSr8X/W+wZ9F/4bixup33IaXr5slLLdilfmSXglj54CNI2hRyc
+	=
+X-Google-Smtp-Source: AGHT+IHZMyYeEhxFLZ3xo9k/SsaTxSVKBJ6SemnMYWkpfh0Q2nv0IYEDbJjz77JjrPQxOKhj3v6pYA==
+X-Received: by 2002:a17:907:6d1a:b0:a86:821e:8a28 with SMTP id a640c23a62f3a-a897fa6d0admr197926066b.54.1724932687781;
+        Thu, 29 Aug 2024 04:58:07 -0700 (PDT)
+Message-ID: <b1ded557-63b8-4999-98ca-de80488ebad1@suse.com>
+Date: Thu, 29 Aug 2024 13:58:06 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/5] types: (mostly) purge Linux-inherited s{8,16,32,64}
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Language: en-US
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Just style update, no functional change.
+Replace uses except where linux-compat.h, where they're moved to, is
+sensible to #include.
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
----
- xen/arch/x86/boot/cmdline.c | 30 ++++++++++++++---------------
- xen/arch/x86/boot/defs.h    |  2 +-
- xen/arch/x86/boot/reloc.c   | 38 ++++++++++++++++++-------------------
- 3 files changed, 35 insertions(+), 35 deletions(-)
+1: x86: drop s<N>/u<N> overrides from mkelf32
+2: types: replace remaining uses of s8
+3: types: replace remaining uses of s16
+4: types: replace remaining uses of s32
+5: types: replace remaining uses of s64
 
-diff --git a/xen/arch/x86/boot/cmdline.c b/xen/arch/x86/boot/cmdline.c
-index f9eee756aa..b8ad7f3a14 100644
---- a/xen/arch/x86/boot/cmdline.c
-+++ b/xen/arch/x86/boot/cmdline.c
-@@ -36,15 +36,15 @@ asm (
- 
- /* Keep in sync with trampoline.S:early_boot_opts label! */
- typedef struct __packed {
--    u8 skip_realmode;
--    u8 opt_edd;
--    u8 opt_edid;
--    u8 padding;
-+    uint8_t skip_realmode;
-+    uint8_t opt_edd;
-+    uint8_t opt_edid;
-+    uint8_t padding;
- #ifdef CONFIG_VIDEO
--    u16 boot_vid_mode;
--    u16 vesa_width;
--    u16 vesa_height;
--    u16 vesa_depth;
-+    uint16_t boot_vid_mode;
-+    uint16_t vesa_width;
-+    uint16_t vesa_height;
-+    uint16_t vesa_depth;
- #endif
- } early_boot_opts_t;
- 
-@@ -214,7 +214,7 @@ static bool skip_realmode(const char *cmdline)
-     return find_opt(cmdline, "no-real-mode", false) || find_opt(cmdline, "tboot=", true);
- }
- 
--static u8 edd_parse(const char *cmdline)
-+static uint8_t edd_parse(const char *cmdline)
- {
-     const char *c;
- 
-@@ -229,7 +229,7 @@ static u8 edd_parse(const char *cmdline)
-     return !strmaxcmp(c, "skipmbr", delim_chars);
- }
- 
--static u8 edid_parse(const char *cmdline)
-+static uint8_t edid_parse(const char *cmdline)
- {
-     const char *c;
- 
-@@ -245,7 +245,7 @@ static u8 edid_parse(const char *cmdline)
- }
- 
- #ifdef CONFIG_VIDEO
--static u16 rows2vmode(unsigned int rows)
-+static uint16_t rows2vmode(unsigned int rows)
- {
-     switch ( rows )
-     {
-@@ -300,7 +300,7 @@ static void vga_parse(const char *cmdline, early_boot_opts_t *ebo)
-         {
-             vesa_width = strtoui(c + strlen("gfx-"), "x", &c);
- 
--            if ( vesa_width > U16_MAX )
-+            if ( vesa_width > UINT16_MAX )
-                 return;
- 
-             /*
-@@ -311,12 +311,12 @@ static void vga_parse(const char *cmdline, early_boot_opts_t *ebo)
-             ++c;
-             vesa_height = strtoui(c, "x", &c);
- 
--            if ( vesa_height > U16_MAX )
-+            if ( vesa_height > UINT16_MAX )
-                 return;
- 
-             vesa_depth = strtoui(++c, delim_chars_comma, NULL);
- 
--            if ( vesa_depth > U16_MAX )
-+            if ( vesa_depth > UINT16_MAX )
-                 return;
- 
-             ebo->vesa_width = vesa_width;
-@@ -328,7 +328,7 @@ static void vga_parse(const char *cmdline, early_boot_opts_t *ebo)
-         {
-             tmp = strtoui(c + strlen("mode-"), delim_chars_comma, NULL);
- 
--            if ( tmp > U16_MAX )
-+            if ( tmp > UINT16_MAX )
-                 return;
- 
-             ebo->boot_vid_mode = tmp;
-diff --git a/xen/arch/x86/boot/defs.h b/xen/arch/x86/boot/defs.h
-index 239b9f8716..ee1a4da6af 100644
---- a/xen/arch/x86/boot/defs.h
-+++ b/xen/arch/x86/boot/defs.h
-@@ -57,7 +57,7 @@ typedef u16 uint16_t;
- typedef u32 uint32_t;
- typedef u64 uint64_t;
- 
--#define U16_MAX		((u16)(~0U))
-+#define UINT16_MAX	((uint16_t)(~0U))
- #define UINT_MAX	(~0U)
- 
- #endif /* __BOOT_DEFS_H__ */
-diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
-index 4033557481..589e026ff9 100644
---- a/xen/arch/x86/boot/reloc.c
-+++ b/xen/arch/x86/boot/reloc.c
-@@ -68,24 +68,24 @@ struct vesa_mode_info {
- #endif /* CONFIG_VIDEO */
- 
- #define get_mb2_data(tag, type, member)   (((const multiboot2_tag_##type##_t *)(tag))->member)
--#define get_mb2_string(tag, type, member) ((u32)get_mb2_data(tag, type, member))
-+#define get_mb2_string(tag, type, member) ((uint32_t)get_mb2_data(tag, type, member))
- 
--static u32 alloc;
-+static uint32_t alloc;
- 
--static u32 alloc_mem(u32 bytes)
-+static uint32_t alloc_mem(uint32_t bytes)
- {
-     return alloc -= ALIGN_UP(bytes, 16);
- }
- 
--static void zero_mem(u32 s, u32 bytes)
-+static void zero_mem(uint32_t s, uint32_t bytes)
- {
-     while ( bytes-- )
-         *(char *)s++ = 0;
- }
- 
--static u32 copy_mem(u32 src, u32 bytes)
-+static uint32_t copy_mem(uint32_t src, uint32_t bytes)
- {
--    u32 dst, dst_ret;
-+    uint32_t dst, dst_ret;
- 
-     dst = alloc_mem(bytes);
-     dst_ret = dst;
-@@ -96,9 +96,9 @@ static u32 copy_mem(u32 src, u32 bytes)
-     return dst_ret;
- }
- 
--static u32 copy_string(u32 src)
-+static uint32_t copy_string(uint32_t src)
- {
--    u32 p;
-+    uint32_t p;
- 
-     if ( !src )
-         return 0;
-@@ -109,7 +109,7 @@ static u32 copy_string(u32 src)
-     return copy_mem(src, p - src + 1);
- }
- 
--static struct hvm_start_info *pvh_info_reloc(u32 in)
-+static struct hvm_start_info *pvh_info_reloc(uint32_t in)
- {
-     struct hvm_start_info *out;
- 
-@@ -139,7 +139,7 @@ static struct hvm_start_info *pvh_info_reloc(u32 in)
-     return out;
- }
- 
--static multiboot_info_t *mbi_reloc(u32 mbi_in)
-+static multiboot_info_t *mbi_reloc(uint32_t mbi_in)
- {
-     int i;
-     multiboot_info_t *mbi_out;
-@@ -192,7 +192,7 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_in, uint32_t video_out)
- #ifdef CONFIG_VIDEO
-     struct boot_video_info *video = NULL;
- #endif
--    u32 ptr;
-+    uint32_t ptr;
-     unsigned int i, mod_idx = 0;
- 
-     ptr = alloc_mem(sizeof(*mbi_out));
-@@ -203,8 +203,8 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_in, uint32_t video_out)
-     ptr = ALIGN_UP(mbi_in + sizeof(*mbi_fix), MULTIBOOT2_TAG_ALIGN);
- 
-     /* Get the number of modules. */
--    for ( tag = _p(ptr); (u32)tag - mbi_in < mbi_fix->total_size;
--          tag = _p(ALIGN_UP((u32)tag + tag->size, MULTIBOOT2_TAG_ALIGN)) )
-+    for ( tag = _p(ptr); (uint32_t)tag - mbi_in < mbi_fix->total_size;
-+          tag = _p(ALIGN_UP((uint32_t)tag + tag->size, MULTIBOOT2_TAG_ALIGN)) )
-     {
-         if ( tag->type == MULTIBOOT2_TAG_TYPE_MODULE )
-             ++mbi_out->mods_count;
-@@ -228,8 +228,8 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_in, uint32_t video_out)
-     ptr = ALIGN_UP(mbi_in + sizeof(*mbi_fix), MULTIBOOT2_TAG_ALIGN);
- 
-     /* Put all needed data into mbi_out. */
--    for ( tag = _p(ptr); (u32)tag - mbi_in < mbi_fix->total_size;
--          tag = _p(ALIGN_UP((u32)tag + tag->size, MULTIBOOT2_TAG_ALIGN)) )
-+    for ( tag = _p(ptr); (uint32_t)tag - mbi_in < mbi_fix->total_size;
-+          tag = _p(ALIGN_UP((uint32_t)tag + tag->size, MULTIBOOT2_TAG_ALIGN)) )
-     {
-         switch ( tag->type )
-         {
-@@ -272,10 +272,10 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_in, uint32_t video_out)
-                 mmap_dst[i].size = sizeof(*mmap_dst);
-                 mmap_dst[i].size -= sizeof(mmap_dst[i].size);
-                 /* Now copy a given region data. */
--                mmap_dst[i].base_addr_low = (u32)mmap_src->addr;
--                mmap_dst[i].base_addr_high = (u32)(mmap_src->addr >> 32);
--                mmap_dst[i].length_low = (u32)mmap_src->len;
--                mmap_dst[i].length_high = (u32)(mmap_src->len >> 32);
-+                mmap_dst[i].base_addr_low = (uint32_t)mmap_src->addr;
-+                mmap_dst[i].base_addr_high = (uint32_t)(mmap_src->addr >> 32);
-+                mmap_dst[i].length_low = (uint32_t)mmap_src->len;
-+                mmap_dst[i].length_high = (uint32_t)(mmap_src->len >> 32);
-                 mmap_dst[i].type = mmap_src->type;
-                 mmap_src = _p(mmap_src) + get_mb2_data(tag, mmap, entry_size);
-             }
--- 
-2.46.0
-
+Jan
 
