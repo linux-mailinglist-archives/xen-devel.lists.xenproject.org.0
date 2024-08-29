@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68E81963DC6
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 09:55:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785531.1195000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CCC5963F26
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 10:54:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785552.1195034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjZzJ-0005dx-PU; Thu, 29 Aug 2024 07:54:37 +0000
+	id 1sjatu-0000Or-6G; Thu, 29 Aug 2024 08:53:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785531.1195000; Thu, 29 Aug 2024 07:54:37 +0000
+Received: by outflank-mailman (output) from mailman id 785552.1195034; Thu, 29 Aug 2024 08:53:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjZzJ-0005cS-Mi; Thu, 29 Aug 2024 07:54:37 +0000
-Received: by outflank-mailman (input) for mailman id 785531;
- Thu, 29 Aug 2024 07:54:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ImPG=P4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjZzI-0005cM-E4
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 07:54:36 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eee2bb53-65db-11ef-a0b0-8be0dac302b0;
- Thu, 29 Aug 2024 09:54:35 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a869332c2c2so248092566b.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 00:54:35 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989021983sm43236566b.84.2024.08.29.00.54.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 00:54:34 -0700 (PDT)
+	id 1sjatu-0000Ly-3Y; Thu, 29 Aug 2024 08:53:06 +0000
+Received: by outflank-mailman (input) for mailman id 785552;
+ Thu, 29 Aug 2024 08:53:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LPGY=P4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sjatr-0000Ls-Ot
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 08:53:03 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 18f5a3d0-65e4-11ef-99a0-01e77a169b0f;
+ Thu, 29 Aug 2024 10:53:01 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2ef27bfd15bso3958171fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 01:53:01 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2f61519548fsm1214691fa.138.2024.08.29.01.52.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Aug 2024 01:52:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +45,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eee2bb53-65db-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: 18f5a3d0-65e4-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724918075; x=1725522875; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gKGplyn+VBD9o0AN7kFlSJBHVrIldR04oPCMcvO8e4k=;
-        b=Gwc8lb2p4eT60dEi9Kni2UnzPFtS2tG+Upt3a/FsZiT655bPiS0YeQVm035i6yd2T+
-         MRk3ZTNYwkcYaX7baUjapfCYYd37+XTeGvg2povn7gbXk9h+kvwUzxqmFsnFzvTI4Ire
-         4ooltXTFz/76P++J5yJerMXDPYej/0uYLK0rtz4fGgkbxuwBzeJlCRvuyTYHamzzVUj1
-         afXQUSaNK3oAO9Xm5t2NCuTmAv/XfHhZ6ALMqseO4GgOspwMsRWijQNVp4KjfRumUfaQ
-         B8NDpI5n+4W97MXVCiJwM7mpdiIXamCWspgO1botlRl04dG8FrEOYPTv7MgLebUibNGC
-         0N7w==
+        d=gmail.com; s=20230601; t=1724921581; x=1725526381; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=3pAeqYcXGKMwmvhFqpwMfbF2m53XROhpyAYtZoIZ/Ts=;
+        b=JQatCZKk9QFejoa7RDtq0RcJQxn8I0N1QPcXUB8sCvyc/QNfydDvfnEeLvQLLRCbNz
+         mgr5f1jfp0P/uArBxHj/BC4CdyBGHfIW1HP6huG8r/o9S+6ofEc5IFsMrEhtKQ4vu7F9
+         dhDu6cs0pFlsL8Eu4kdzNLYinXEmacJEGkYHw7BWABPOqr+Uu4R722OXxcbe7Y9q24//
+         7otfRgLmeB1BayMN0MkhLcj0YmnDIdZ8fyQyxWDMDdHudOobRoud0m+tGs0RaVjUtIz1
+         dKT5uXACBuOVTj/WLxR9VOKzbKbX52vg1RNauGlc3Z5WSUbbrwepixB/1Rjm9xDR/XAF
+         pudA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724918075; x=1725522875;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gKGplyn+VBD9o0AN7kFlSJBHVrIldR04oPCMcvO8e4k=;
-        b=jpot25FBVjyVGDsT/bN6rmXdwuehrvzLo6rbTCvbcj7jTJlLGFoIfQmIkUeFsFKVkY
-         qcHdiHYjYhw/GCGZTjITYi2sro7IplWbs1Uymp4HoAvAhToq0/WZPDR0mm+ZYmBBOJJ3
-         /2Y/T31mAEoBpDfz5sP+RVRoWGjiIC6ryrX4tRkxAjy8EcjtoXyo1VVLDH9qbB4oz3fP
-         B9JsV2imLH3zBNDGTjuKtnjaoHyWC0owMccBUO6SoBYiQFNK6S7XACekB9dMBpIBP99l
-         1KAnditqWI8qaUA83HpFup3l0ss10M4SVbkJ6rf5+LFkG44f1dEKmkHBMXXaDcbcSdIx
-         qrSg==
-X-Forwarded-Encrypted: i=1; AJvYcCU+D49GyZo43p5KU0T7YA5ePAPKcp6JQSb2UMIsdpEHcdu/rledAbx/YPoZMylOC+clLD4AXF/s9t0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywrb5xOX2E3WLL9OXtp9EYfc0WVc/Dv91ogNSZuQeSYJxEkGkOl
-	UTYgNReEnL/0YK4d/htg2rraKv5QdJ3dY3szhAIJqFa/ZaAkIFfgmMG8AY3Jqg==
-X-Google-Smtp-Source: AGHT+IE3q4esLwnEuhjY+OE16gMSPBa84KGNtQoQGuWiUwUOu5xorkG8E2DZPyEeDx/jXHZxSgj9NA==
-X-Received: by 2002:a17:907:9726:b0:a7a:ac5f:bbef with SMTP id a640c23a62f3a-a8982833612mr177672766b.31.1724918074662;
-        Thu, 29 Aug 2024 00:54:34 -0700 (PDT)
-Message-ID: <ec35f90e-d999-49a5-b3c3-79aa32689687@suse.com>
-Date: Thu, 29 Aug 2024 09:54:32 +0200
+        d=1e100.net; s=20230601; t=1724921581; x=1725526381;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=3pAeqYcXGKMwmvhFqpwMfbF2m53XROhpyAYtZoIZ/Ts=;
+        b=srgz9lkKWQ+YHLSK2yH97fuyWnTI5QyE8fSzrJEIctqGe2wlY1T23qHx0ex+roE5VG
+         FL/n2gwtBTkA1lusL75LoFZtYQdbdkoB3P4s4upKUgCPM8Z/fWHTNMQ1tEHeRHpMo/2N
+         3nkjI7RaeU0xKVkaDjoBCjqSZe/bdNKigB4Yl4zC4GEypQ2PP49aMCML5DWSIqdRNjUV
+         LpEP2MVcAIJ4gUsIxulANXmRHtrGBq+cBPrku46JlYNTth2iGPxV06XHWcXC4EcknAaH
+         V5I/ls3UeBK40CzrTo7EU88txVo711bX6E1B5kjxqHyYXTm68X37f4etNnlnolUVKTos
+         lqpA==
+X-Forwarded-Encrypted: i=1; AJvYcCV9t3b7A4aPjz8b3dwvr1y+UGixbHyprxNjiS1Zx6h4gO6UowtkV7N6hVjbEwRECYHuorpkqZcCGSU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YydZ4IJdPrY67eWlaH2JDVoiiClXHf60VCA5y5GFMs/Ehpzyenj
+	2GOAagnWiCRbhcB/rKReTj2ySCq/efQ7Rg51BRMpm49zgbn9iyGZ
+X-Google-Smtp-Source: AGHT+IFomjk60ayFYhj5yurQ5SKHmHhdEuzl2MovCnhlR4rEjMUlT2c2/1gwTvJv8TUXNecNCmSRpQ==
+X-Received: by 2002:a05:651c:210d:b0:2f3:f690:17f3 with SMTP id 38308e7fff4ca-2f610889e5bmr16730641fa.31.1724921580344;
+        Thu, 29 Aug 2024 01:53:00 -0700 (PDT)
+Message-ID: <8cdeec70558a45597700d3ecf86aa4612348a50a.camel@gmail.com>
+Subject: Re: [PATCH v5 1/7] xen/riscv: use {read,write}{b,w,l,q}_cpu() to
+ define {read,write}_atomic()
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Thu, 29 Aug 2024 10:52:59 +0200
+In-Reply-To: <45f1305f-2c2c-4b1c-8377-f98dbc5dbe53@suse.com>
+References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
+	 <5140f9eb3d1cb0b69e3b1cbbcce6167ff8d59e4c.1724256026.git.oleksii.kurochko@gmail.com>
+	 <0f9fb47c-91d1-4ee9-b6bf-1d491339e904@suse.com>
+	 <3f52a19ea90fa8e70d7bf0055fe39a2be721c129.camel@gmail.com>
+	 <45f1305f-2c2c-4b1c-8377-f98dbc5dbe53@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: make VMAP support in MMU system only
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: Penny Zheng <penny.zheng@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Chen <wei.chen@arm.com>,
- Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <20240821122503.2315844-1-ayan.kumar.halder@amd.com>
- <20240821122503.2315844-5-ayan.kumar.halder@amd.com>
- <cd2e6b08-ce76-4707-831a-c21b05ca85cf@xen.org>
- <6d065949-dfae-41f8-b030-c7d09516846b@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6d065949-dfae-41f8-b030-c7d09516846b@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 22.08.2024 12:52, Ayan Kumar Halder wrote:
->   I will update the commit message as below. Let me know if this makes 
-> sense.
+On Wed, 2024-08-28 at 11:42 +0200, Jan Beulich wrote:
+> On 28.08.2024 11:21, oleksii.kurochko@gmail.com=C2=A0wrote:
+> > On Tue, 2024-08-27 at 12:06 +0200, Jan Beulich wrote:
+> > > On 21.08.2024 18:06, Oleksii Kurochko wrote:
+> > > > In Xen, memory-ordered atomic operations are not necessary,
+> > >=20
+> > > This is an interesting statement.
+> > I looked at the definition of build_atomic_{write,read}() for other
+> > architectures and didn't find any additional memory-ordered
+> > primitives
+> > such as fences.
+> >=20
+> > > I'd like to suggest that you at least
+> > > limit it to the two constructs in question, rather than stating
+> > > this
+> > > globally for everything.
+> > I am not sure that I understand what is "the two constructs". Could
+> > you
+> > please clarify?
+>=20
+> {read,write}_atomic() (the statement in your description is, after
+> all,
+> not obviously limited to just those two, yet I understand you mean to
+> say what you say only for them)
+Yeah, I re-read commit message after your reply and now I can see that
+is not really clear.
 
-Certainly better. One more question though:
+>=20
+> > > > based on {read,write}_atomic() implementations for other
+> > > > architectures.
+> > > > Therefore, {read,write}{b,w,l,q}_cpu() can be used instead of
+> > > > {read,write}{b,w,l,q}(), allowing the caller to decide if
+> > > > additional
+> > > > fences should be applied before or after {read,write}_atomic().
+> > > >=20
+> > > > Change the declaration of _write_atomic() to accept a 'volatile
+> > > > void *'
+> > > > type for the 'x' argument instead of 'unsigned long'.
+> > > > This prevents compilation errors such as:
+> > > > 1."discards 'volatile' qualifier from pointer target type,"
+> > > > which
+> > > > occurs
+> > > > =C2=A0 due to the initialization of a volatile pointer,
+> > > > =C2=A0 e.g., `volatile uint8_t *ptr =3D p;` in _add_sized().
+> > >=20
+> > > I don't follow you here.
+> > This issue started occurring after the change mentioned in point 2
+> > below.
+> >=20
+> > I initially provided an incorrect explanation for the compilation
+> > error
+> > mentioned above. Let me correct that now and update the commit
+> > message
+> > in the next patch version. The reason for this error is that after
+> > the
+> > _write_atomic() prototype was updated from _write_atomic(...,
+> > unsigned
+> > long, ...) to _write_atomic(..., void *x, ...), the write_atomic()
+> > macro contains x_, which is of type 'volatile uintX_t' because ptr
+> > has
+> > the type 'volatile uintX_t *'.
+>=20
+> While there's no "ptr" in write_atomic(), I think I see what you
+> mean. Yet
+> at the same time Arm - having a similar construct - gets away without
+> volatile. Perhaps this wants modelling after read_atomic() then,
+> using a
+> union?
+The use of a union could be considered as a solution. For now, I think
+I will just update write_pte() to avoid this issue and and minimize
+changes in this patch.
 
-> ```
-> xen: make VMAP support in MMU system only
-> 
-> Introduce CONFIG_HAS_VMAP which is selected by the architectures that
-> use MMU. vm_init() does not do anything if CONFIG_HAS_VMAP is not
-> enabled.
-> 
-> HAS_VMAP is widely used in ALTERNATIVE feature to remap a range of
-> memory with new memory attributes. Since this is highly dependent on
-> virtual address translation, we choose to fold HAS_VMAP in MMU. And
-> ALTERNATIVE depends on HAS_VMAP.
+>=20
+> > > > 2."incompatible type for argument 2 of '_write_atomic'," which
+> > > > can
+> > > > occur
+> > > > =C2=A0 when calling write_pte(), where 'x' is of type pte_t rather
+> > > > than
+> > > > =C2=A0 unsigned long.
+> > >=20
+> > > How's this related to the change at hand? That isn't different
+> > > ahead
+> > > of
+> > > this change, is it?
+> > This is not directly related to the current change, which is why I
+> > decided to add a sentence about write_pte().
+> >=20
+> > Since write_pte(pte_t *p, pte_t pte) uses write_atomic(), and the
+> > argument types are pte_t * and pte respectively, we encounter a
+> > compilation issue in write_atomic() because:
+> >=20
+> > _write_atomic() expects the second argument to be of type unsigned
+> > long, leading to a compilation error like "incompatible type for
+> > argument 2 of '_write_atomic'."
+> > I considered defining write_pte() as write_atomic(p, pte.pte), but
+> > this
+> > would fail at 'typeof(*(p)) x_ =3D (x);' and result in a compilation
+> > error 'invalid initializer' or something like that.
+> >=20
+> > It might be better to update write_pte() to:
+> > =C2=A0=C2=A0 /* Write a pagetable entry. */
+> > =C2=A0=C2=A0 static inline void write_pte(pte_t *p, pte_t pte)
+> > =C2=A0=C2=A0 {
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_atomic((unsigned long *)p, p=
+te.pte);
+> > =C2=A0=C2=A0 }
+> > Then, we wouldn't need to modify the definition of write_atomic()
+> > or
+> > change the type of the second argument of _write_atomic().
+> > Would it be better?
+>=20
+> As said numerous times before: Whenever you can get away without a
+> cast,
+> you should avoid the cast. Here:
+>=20
+> static inline void write_pte(pte_t *p, pte_t pte)
+> {
+> =C2=A0=C2=A0=C2=A0 write_atomic(&p->pte, pte.pte);
+> }
+>=20
+> That's one of the possible options, yes. Yet, like Arm has it, you
+> may
+> actually want the capability to read/write non-scalar types. If so,
+> adjustments to write_atomic() are necessary, yet as indicated before:
+> Please keep such entirely independent changes separate.
+I quickly checked that there is only one instance where write_atomic()
+is used for a scalar type in the Arm code. I think it would be better
+to update RISC-V's write_pte() and not modify write_atomic(), at least
+for now.
 
-What is "fold HAS_VMAP in MMU"? I see no folding anywhere. My only guess
-is that this means to describe the "select HAS_VMAP" being added to MMU.
-But then why the word "fold"?
+Thanks.
 
-Jan
-
-> At the moment, the users of HARDEN_BRANCH_PREDICTOR requires to use the
-> vmap() to update the exceptions vectors. While it might be possible to
-> rework the code, it is believed that speculative attackes would be
-> difficult to exploit on non-MMU because the software is tightly
-> controlled. So for now make HARDEN_BRANCH_PREDICTOR to depend on the
-> MMU.
-> 
-> Also took the opportunity to remove "#ifdef VMAP_VIRT_START .. endif"
-> from vmap.c. Instead vmap.c is compiled when HAS_VMAP is enabled. Thus,
-> HAS_VMAP is now enabled from x86, ppc and riscv architectures as all of
-> them use MMU and has VMAP_VIRT_START defined.
-> 
-> ```
-> 
-> - Ayan
-> 
->>
->> Acked-by: Julien Grall <jgrall@amazon.com>
->>
->> Cheers,
->>
-
+~ Oleksii
 
