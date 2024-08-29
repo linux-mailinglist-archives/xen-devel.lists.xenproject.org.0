@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ACD9964CD6
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 19:31:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786042.1195602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A1F7964DD9
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 20:39:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786059.1195611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjize-0000YS-E2; Thu, 29 Aug 2024 17:31:34 +0000
+	id 1sjk2V-0003Nj-5Q; Thu, 29 Aug 2024 18:38:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786042.1195602; Thu, 29 Aug 2024 17:31:34 +0000
+Received: by outflank-mailman (output) from mailman id 786059.1195611; Thu, 29 Aug 2024 18:38:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjize-0000VV-B6; Thu, 29 Aug 2024 17:31:34 +0000
-Received: by outflank-mailman (input) for mailman id 786042;
- Thu, 29 Aug 2024 17:31:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sjk2V-0003MB-0Z; Thu, 29 Aug 2024 18:38:35 +0000
+Received: by outflank-mailman (input) for mailman id 786059;
+ Thu, 29 Aug 2024 18:38:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zolI=P4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sjizc-0000VL-Pj
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 17:31:32 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87cb4bcc-662c-11ef-a0b0-8be0dac302b0;
- Thu, 29 Aug 2024 19:31:31 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-371b015572cso730485f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 10:31:31 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
+ id 1sjk2T-0003M5-Gr
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 18:38:33 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e28984a5-6635-11ef-99a0-01e77a169b0f;
+ Thu, 29 Aug 2024 20:38:29 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a8696e9bd24so129176866b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 11:38:29 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89892221cdsm100868866b.207.2024.08.29.10.31.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 10:31:30 -0700 (PDT)
+ a640c23a62f3a-a898900f26asm108992166b.58.2024.08.29.11.38.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Aug 2024 11:38:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,175 +45,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87cb4bcc-662c-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: e28984a5-6635-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724952691; x=1725557491; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JVc5H4Sqrf5HsD0UnVXy0zp71X7ivIbue4Mk1LYDI3s=;
-        b=XlfXfYsQkVoV7TdWb3AxKj1QAGkM7NPda+A85fvwvCsEy84iQjFL6LPP3V48VaDO1P
-         1dMTdQhzL0GX3IchhIuNsL3andHa0RrnFdZrcvb4w7JEwSuoe6R80QkY31lQ7FdPp/1m
-         dh6F1ADZpy2tmpWHtJeQEuWa00WZAZXr42Fm0=
+        d=citrix.com; s=google; t=1724956708; x=1725561508; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eObA4/0vF47B3M4DileFOdwT05bO0d69HHcAChJn1Yg=;
+        b=tumvY/c8zuSIdZN9VwB7G/6QBmCc4nKan47pUi1kodkepVCE+suQ2ncLD4N4HrGIAQ
+         XQItM3z9Z3CN2BnekDG/62UzUo39ASUVBCf99aN9ei4dIapaMxYMHmfTXe4AnI1ooujs
+         6aTUF/WGmNQPFpuX1CIPqfxX2TH3wDK9usfbY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724952691; x=1725557491;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1724956708; x=1725561508;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=JVc5H4Sqrf5HsD0UnVXy0zp71X7ivIbue4Mk1LYDI3s=;
-        b=o4Lj4BHr9MXrdW+OwmBeE+MDjVtHpUg/6x7hHjSWxFs49Yl+b84rvPiu6MmZvM7Pqh
-         uBJ0r0f8sckMaBdtTyOahMBOXqZFTg1rPIuGRKrvyWnuxphNKHE0NTi6M6vZ/8jVKqW2
-         5bE4vlqU8kCa+lec8n6Yy5wlu8TVpEjO39nVmCn5rrMS01y51l6GIKuohBPOq07znD/s
-         mT7Yitl70ej1W/o3nNyQjFuKbqam8L6y9oIvAR1QpIx+JpyD+h3uA28OE48YWQukd8DO
-         4x2B53QyK10Z+6qCdJ7AbjNE1+yj6tg4Zgw94uiL6DMep/D6D7hmT+2/ETZyGTu0dZOF
-         G6fA==
-X-Forwarded-Encrypted: i=1; AJvYcCWJKpGVpvLn30V36SIg0uwPXVFCktgIe3TbDyosNMOqaX1sNm7lS4OKfpKKgo9rgNBas40iypGKex0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwgFXgd7eyCLc1fijipJIeHxACuVEZiKLsIxzICsA2mqdh0+ezE
-	7nDhgZF2S5nv9J/bSVY8pTJC7yTc/tQkg+vEoGIeEz/tqzbba9CVwSKUCNgz8kawfEucs9ejLiU
-	9
-X-Google-Smtp-Source: AGHT+IHMXbC51obgubKT6vUVA/B52MOWuZftGEeZ8V74U58TzxEwcbA31dB1sHgenRW+fz/bmiXjtg==
-X-Received: by 2002:adf:e005:0:b0:368:4c38:a668 with SMTP id ffacd0b85a97d-3749b526b73mr3361000f8f.9.1724952690527;
-        Thu, 29 Aug 2024 10:31:30 -0700 (PDT)
-Message-ID: <f6bfba53-3a17-4da2-ac45-50b7b2175eb2@citrix.com>
-Date: Thu, 29 Aug 2024 18:31:28 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: IOREQ completions for MMIO writes
-To: Jason Andryuk <jason.andryuk@amd.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <f4551fc8-d0c0-492c-8ad3-b045843af381@amd.com>
-Content-Language: en-GB
+        bh=eObA4/0vF47B3M4DileFOdwT05bO0d69HHcAChJn1Yg=;
+        b=itct7rrERkxzTSsFCKPPqcR7W5nlUhvhyLXMbwCVQyTL8AxwQh7BAiqr3+Lu2y+RPx
+         UBtAUjoFv6xbJ/OTrYLzka9cm/ZC70U2lMgBrO/FaJVht1ZlivSKuHUZyvKbg2p6P/J/
+         Kbk7S5lO4S5fbBcd++TjkMB2tTHsJVUFGm9MfL9PUnTIN6Kne4f+apJDj6FS2T7n4EyK
+         ZdXOaai10j9pY7Nv1VDw8I4M/5xBL/ePe1IW16iA6OepWMi4bYjvyoLi3OL80xXVt0Yx
+         bXryFpK6vwP87iZmpbvHApFCf1rzUY++ztXD6RhQ+7yUVlVu4dlER8RhlzRhsKAYGEqK
+         9ifQ==
+X-Gm-Message-State: AOJu0Yze2hI9v8PLBLZorNqCu1CRX8TMLPtPwgjKxoBlauPhzQSts8m2
+	SOnoeEPK5oBoFp5MN4iLoGMRWQP9DUC/V15Zfx2/+ZeysXcrhVd1srFT3cb8wJ2m1eaDVFE8XJ6
+	h
+X-Google-Smtp-Source: AGHT+IH75GJDefyrKK4Ut9+fvaWChrcrXGLdYFb1vZmf3GXZIVILEPPV3pLkMvjJNfb6LDp8WjNrww==
+X-Received: by 2002:a17:907:ea6:b0:a86:ad8b:3511 with SMTP id a640c23a62f3a-a897fa7235fmr286354066b.49.1724956707649;
+        Thu, 29 Aug 2024 11:38:27 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <f4551fc8-d0c0-492c-8ad3-b045843af381@amd.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/pv: Make cr4_pv32_mask be PV32-only
+Date: Thu, 29 Aug 2024 19:38:17 +0100
+Message-Id: <20240829183817.2807665-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29/08/2024 5:08 pm, Jason Andryuk wrote:
-> Hi Everyone,
->
-> I've been looking at ioreq latency and pausing of vCPUs.  Specifically
-> for MMIO (IOREQ_TYPE_COPY) writes, they still need completions:
->
-> static inline bool ioreq_needs_completion(const ioreq_t *ioreq)
-> {
->     return ioreq->state == STATE_IOREQ_READY &&
->            !ioreq->data_is_ptr &&
->            (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir != IOREQ_WRITE);
-> }
->
-> state == STATE_IOREQ_READY
-> data_is_ptr == 0
-> type == IOREQ_TYPE_COPY
-> dir == IOREQ_WRITE
->
-> To a completion is needed.  The vCPU remains paused with
-> _VPF_blocked_in_xen set in paused_flags until the ioreq server
-> notifies of the completion.
->
-> At least for the case I'm looking, a single write to a mmio register,
-> it doesn't seem like the vCPU needs to be blocked.  The write has been
-> sent and subsequent emulation should not depend on it.
->
-> I feel like I am missing something, but I can't think of a specific
-> example where a write needs to be blocking.  Maybe it simplifies the
-> implementation, so a subsequent instruction will always have a ioreq
-> slot available?
->
-> Any insights are appreciated.
+The user of cr4_pv32_mask (the cr4_pv32_restore() function) only exists in a
+CONFIG_PV32 build, but right now the variable is unconditionally set up.
 
+To start with, move the setup into set_in_cr4() and remove it from it's
+somewhat ad-hoc position in __start_xen().  This means the variable will be
+set up in two steps for a CONFIG_PV32=y build, but it's cleaner and more
+robust logic overall.
 
-This is a thorny issue.
+With that, there's no good reason for the variable to stay in setup.c.  Move
+it to x86/pv/traps.c (for want of any better place to live), and move the
+declaration to beside set_in_cr4() and mmu_cr4_features which is a better
+position than setup.h.
 
-In x86, MMIO writes are typically posted, but that doesn't mean that the
-underlying layers can stop tracking the write completely.
+Guard the reference with CONFIG_PV32, and fix up a recent typo in an adjacent
+comment while at it.
 
-In your scenario, consider what happens when the same vCPU hits a second
-MMIO write a few instructions later.  You've now got two IOREQs worth of
-pending state, only one slot in the "ring", and a wait of an unknown
-period of time for qemu to process the first.
+No functional change.
 
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/include/asm/processor.h |  4 ++++
+ xen/arch/x86/include/asm/setup.h     |  2 --
+ xen/arch/x86/pv/dom0_build.c         | 10 +++++++---
+ xen/arch/x86/pv/traps.c              |  4 ++++
+ xen/arch/x86/setup.c                 |  4 ----
+ 5 files changed, 15 insertions(+), 9 deletions(-)
 
-More generally, by not blocking you're violating memory ordering.
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index 66463f6a6d67..e71dbb8d3fbf 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -312,11 +312,15 @@ static inline void stts(void)
+  * after us can get the correct flags.
+  */
+ extern unsigned long mmu_cr4_features;
++extern unsigned long cr4_pv32_mask;
+ 
+ static always_inline void set_in_cr4 (unsigned long mask)
+ {
+     mmu_cr4_features |= mask;
+     write_cr4(read_cr4() | mask);
++
++    if ( IS_ENABLED(CONFIG_PV32) && (mask & XEN_CR4_PV32_BITS) )
++        cr4_pv32_mask |= (mask & XEN_CR4_PV32_BITS);
+ }
+ 
+ static always_inline void __monitor(const void *eax, unsigned long ecx,
+diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+index 8f7dfefb4dcf..d75589178b91 100644
+--- a/xen/arch/x86/include/asm/setup.h
++++ b/xen/arch/x86/include/asm/setup.h
+@@ -64,8 +64,6 @@ extern bool opt_dom0_verbose;
+ extern bool opt_dom0_cpuid_faulting;
+ extern bool opt_dom0_msr_relaxed;
+ 
+-extern unsigned long cr4_pv32_mask;
+-
+ #define max_init_domid (0)
+ 
+ #endif
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index 57b1834b5eaa..262edb6bf2f0 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -1061,12 +1061,14 @@ int __init dom0_construct_pv(struct domain *d,
+ 
+     /*
+      * Clear SMAP in CR4 to allow user-accesses in construct_dom0().  This
+-     * prevents us needing to write rewrite construct_dom0() in terms of
++     * prevents us needing to write construct_dom0() in terms of
+      * copy_{to,from}_user().
+      */
+     if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+     {
+-        cr4_pv32_mask &= ~X86_CR4_SMAP;
++        if ( IS_ENABLED(CONFIG_PV32) )
++            cr4_pv32_mask &= ~X86_CR4_SMAP;
++
+         write_cr4(read_cr4() & ~X86_CR4_SMAP);
+     }
+ 
+@@ -1075,7 +1077,9 @@ int __init dom0_construct_pv(struct domain *d,
+     if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+     {
+         write_cr4(read_cr4() | X86_CR4_SMAP);
+-        cr4_pv32_mask |= X86_CR4_SMAP;
++
++        if ( IS_ENABLED(CONFIG_PV32) )
++            cr4_pv32_mask |= X86_CR4_SMAP;
+     }
+ 
+     return rc;
+diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
+index 5a7341abf068..3389a25acd83 100644
+--- a/xen/arch/x86/pv/traps.c
++++ b/xen/arch/x86/pv/traps.c
+@@ -18,6 +18,10 @@
+ #include <asm/traps.h>
+ #include <irq_vectors.h>
+ 
++#ifdef CONFIG_PV32
++unsigned long __ro_after_init cr4_pv32_mask;
++#endif
++
+ void pv_inject_event(const struct x86_event *event)
+ {
+     struct vcpu *curr = current;
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index f1076c72032d..c2e0082a3020 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -79,8 +79,6 @@ bool __read_mostly use_invpcid;
+ int8_t __initdata opt_probe_port_aliases = -1;
+ boolean_param("probe-port-aliases", opt_probe_port_aliases);
+ 
+-unsigned long __ro_after_init cr4_pv32_mask;
+-
+ /* **** Linux config option: propagated to domain0. */
+ /* "acpi=off":    Sisables both ACPI table parsing and interpreter. */
+ /* "acpi=force":  Override the disable blacklist.                   */
+@@ -1898,8 +1896,6 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+     if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+         set_in_cr4(X86_CR4_SMAP);
+ 
+-    cr4_pv32_mask = mmu_cr4_features & XEN_CR4_PV32_BITS;
+-
+     if ( boot_cpu_has(X86_FEATURE_FSGSBASE) )
+         set_in_cr4(X86_CR4_FSGSBASE);
+ 
 
-Consider vCPU0 doing an MMIO write, and vCPU1 doing an MMIO read, and
-qemu happening to process vCPU1 first.
+base-commit: 99f942f3d410059dc223ee0a908827e928ef3592
+-- 
+2.39.2
 
-You now have a case where the VM can observe vCPU0 "completing" before
-vCPU1 starts, yet vCPU1 observing the old value.
-
-Other scenarios which exist would be e.g. a subsequent IO hitting STDVGA
-buffering and being put into the bufioreq ring.  Or the vCPU being able
-to continue when the "please unplug my emulated disk/network" request is
-still pending.
-
-
-In terms of what to do about latency, this is one area where Xen does
-suffer vs KVM.
-
-With KVM, this type of emulation is handled synchronously by an entity
-on the same logical processor.  With Xen, one LP says "I'm now blocked,
-schedule something else" without any idea when the IO will even be
-processed.
-
-
-One crazy idea I had was to look into not de-scheduling the HVM vCPU,
-and instead going idle by MONITOR-ing the IOREQ slot.
-
-This way, Qemu can "resume" the HVM vCPU by simply writing the
-completion status (and observing some kind of new "I don't need an
-evtchn" signal).  For a sufficiently quick turnaround, you're also not
-thrashing the cache by scheduling another vCPU in the meantime.
-
-It's definitely more complicated.  For one, you'd need to double the
-size of an IOREQ slot (currently 32 bytes) to avoid sharing a cacheline
-with an adjacent vCPU.
-
-I also have no idea if it would be an improvement in practice, but on
-paper it does look like it warrants some further experimentation.
-
-~Andrew
 
