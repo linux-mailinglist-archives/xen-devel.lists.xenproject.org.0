@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1F7964DD9
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 20:39:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786059.1195611 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26FEE964EC4
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 21:26:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786072.1195620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjk2V-0003Nj-5Q; Thu, 29 Aug 2024 18:38:35 +0000
+	id 1sjkm3-0002yZ-Is; Thu, 29 Aug 2024 19:25:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786059.1195611; Thu, 29 Aug 2024 18:38:35 +0000
+Received: by outflank-mailman (output) from mailman id 786072.1195620; Thu, 29 Aug 2024 19:25:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjk2V-0003MB-0Z; Thu, 29 Aug 2024 18:38:35 +0000
-Received: by outflank-mailman (input) for mailman id 786059;
- Thu, 29 Aug 2024 18:38:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sjkm3-0002w5-Fv; Thu, 29 Aug 2024 19:25:39 +0000
+Received: by outflank-mailman (input) for mailman id 786072;
+ Thu, 29 Aug 2024 19:25:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zolI=P4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sjk2T-0003M5-Gr
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 18:38:33 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e28984a5-6635-11ef-99a0-01e77a169b0f;
- Thu, 29 Aug 2024 20:38:29 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a8696e9bd24so129176866b.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 11:38:29 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ id 1sjkm2-0002vz-Ct
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 19:25:38 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 779a9de4-663c-11ef-a0b0-8be0dac302b0;
+ Thu, 29 Aug 2024 21:25:36 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c210e23573so1081328a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 12:25:36 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a898900f26asm108992166b.58.2024.08.29.11.38.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Aug 2024 11:38:22 -0700 (PDT)
+ a640c23a62f3a-a8989233403sm111581466b.212.2024.08.29.12.25.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Aug 2024 12:25:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,181 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e28984a5-6635-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: 779a9de4-663c-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724956708; x=1725561508; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=eObA4/0vF47B3M4DileFOdwT05bO0d69HHcAChJn1Yg=;
-        b=tumvY/c8zuSIdZN9VwB7G/6QBmCc4nKan47pUi1kodkepVCE+suQ2ncLD4N4HrGIAQ
-         XQItM3z9Z3CN2BnekDG/62UzUo39ASUVBCf99aN9ei4dIapaMxYMHmfTXe4AnI1ooujs
-         6aTUF/WGmNQPFpuX1CIPqfxX2TH3wDK9usfbY=
+        d=citrix.com; s=google; t=1724959536; x=1725564336; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=hzQd8HyDl+nxrJBwHhRqXGCUtHG/JG1E/D0KkCoNeiw=;
+        b=WlXrdxGgH9h8V/by5+UZK5PqwbOsmJ8NvHw+4PH/FQbxkHPGYGmyXt8wUcxtkGtjPI
+         kmtx17IUs64+v+QYFtk0CbuUIolnIp2iZA1CQ1cx0ro7bWb4QhcmMBoSY1Ec3Ogug/Kq
+         bs+iACELjLNcZj6WeVxwc0ffnP0SlS2ECtJ98=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724956708; x=1725561508;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=eObA4/0vF47B3M4DileFOdwT05bO0d69HHcAChJn1Yg=;
-        b=itct7rrERkxzTSsFCKPPqcR7W5nlUhvhyLXMbwCVQyTL8AxwQh7BAiqr3+Lu2y+RPx
-         UBtAUjoFv6xbJ/OTrYLzka9cm/ZC70U2lMgBrO/FaJVht1ZlivSKuHUZyvKbg2p6P/J/
-         Kbk7S5lO4S5fbBcd++TjkMB2tTHsJVUFGm9MfL9PUnTIN6Kne4f+apJDj6FS2T7n4EyK
-         ZdXOaai10j9pY7Nv1VDw8I4M/5xBL/ePe1IW16iA6OepWMi4bYjvyoLi3OL80xXVt0Yx
-         bXryFpK6vwP87iZmpbvHApFCf1rzUY++ztXD6RhQ+7yUVlVu4dlER8RhlzRhsKAYGEqK
-         9ifQ==
-X-Gm-Message-State: AOJu0Yze2hI9v8PLBLZorNqCu1CRX8TMLPtPwgjKxoBlauPhzQSts8m2
-	SOnoeEPK5oBoFp5MN4iLoGMRWQP9DUC/V15Zfx2/+ZeysXcrhVd1srFT3cb8wJ2m1eaDVFE8XJ6
-	h
-X-Google-Smtp-Source: AGHT+IH75GJDefyrKK4Ut9+fvaWChrcrXGLdYFb1vZmf3GXZIVILEPPV3pLkMvjJNfb6LDp8WjNrww==
-X-Received: by 2002:a17:907:ea6:b0:a86:ad8b:3511 with SMTP id a640c23a62f3a-a897fa7235fmr286354066b.49.1724956707649;
-        Thu, 29 Aug 2024 11:38:27 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/pv: Make cr4_pv32_mask be PV32-only
-Date: Thu, 29 Aug 2024 19:38:17 +0100
-Message-Id: <20240829183817.2807665-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
+        d=1e100.net; s=20230601; t=1724959536; x=1725564336;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hzQd8HyDl+nxrJBwHhRqXGCUtHG/JG1E/D0KkCoNeiw=;
+        b=P+CJDcHcWCO7lKk0//F4Gq7oTzYvNCteyEfev8i3odaDkOom9oUBOqDt15gZH70yZs
+         bUz4vg2emTW6nHy9Ts8F4qhg3V8Ca/hf+llCiwdaAE2VgeuO8Ed2CEIcVoyhpwfi7KFB
+         yV1nXoCAZkOyF7cTlWRkt9A676lpSgiSdM/GlKlhvf+aa0jWH0gQP0pFk4uykZTrl48+
+         iltOVxec1pBlsd13DOMRxw7FTZKWQsg/ZCFRZJaZujZsYfQeKn5XXr8WgHEQKGVYpJAF
+         r6T+/SYtcP3g677Iidou8WCDsHAPk0B1bewRgNJOuKJA6HCkfe+uMWgHnAPNEjTFOYvF
+         tDGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWoPD4op1oqneFYl4G+zY37T4i6DA5Hq0a5YhAXPBGVpQqXsAeGHp5yAc9l5X3UUtq9GJ8oVm7hq8k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxqlUvypPlFvvg28kUegsjhrT28YQt+CZOTZwXJeJXziYHMPqpP
+	jd4UFkq6bg36tDVnLmaTHuYGVEQfsNFT/qyq5tuMuXDIR417nnf+LNlTlPwRU0M=
+X-Google-Smtp-Source: AGHT+IFxifD3lPTj0zQouOMfgtvmkFCklC8cnFq0tuDXDnVcBvRf5fXG4J/fy53Vgmfb95eKy8eAbw==
+X-Received: by 2002:a17:907:980c:b0:a86:9776:ef40 with SMTP id a640c23a62f3a-a897f920162mr374189266b.36.1724959535325;
+        Thu, 29 Aug 2024 12:25:35 -0700 (PDT)
+Message-ID: <1f3772da-94cc-465e-bcc2-2d857ebe8552@citrix.com>
+Date: Thu, 29 Aug 2024 20:25:32 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2 3/5] x86/spec-ctrl: configurable
+ Intlel/AMD-specific calculations
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>
+References: <cover.1723806405.git.Sergiy_Kibrik@epam.com>
+ <b789679a7edd41c88eca41d3c703d2292cfcce0e.1723806405.git.Sergiy_Kibrik@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <b789679a7edd41c88eca41d3c703d2292cfcce0e.1723806405.git.Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The user of cr4_pv32_mask (the cr4_pv32_restore() function) only exists in a
-CONFIG_PV32 build, but right now the variable is unconditionally set up.
+On 16/08/2024 12:14 pm, Sergiy Kibrik wrote:
+> Put platforms-specific code under #ifdef CONFIG_{AMD,INTEL} so that when
+> corresponding CPU support is disabled by configuration less dead code will end
+> up in the build.
+>
+> This includes re-ordering of calls to ibpb_calculations() & div_calculations(),
+> but since they don't access common variables or feature bits it should be
+> safe to do.
+>
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> CC: Jan Beulich <jbeulich@suse.com>
 
-To start with, move the setup into set_in_cr4() and remove it from it's
-somewhat ad-hoc position in __start_xen().  This means the variable will be
-set up in two steps for a CONFIG_PV32=y build, but it's cleaner and more
-robust logic overall.
+Sorry, but no.
 
-With that, there's no good reason for the variable to stay in setup.c.  Move
-it to x86/pv/traps.c (for want of any better place to live), and move the
-declaration to beside set_in_cr4() and mmu_cr4_features which is a better
-position than setup.h.
+This logic is security critical, highly fragile, gets chopped/changed
+multiple times a year (as researchers keep on finding new things), and
+all major work is done to it under embargo.
 
-Guard the reference with CONFIG_PV32, and fix up a recent typo in an adjacent
-comment while at it.
+Just look at the history of the file.
 
-No functional change.
+The ifdefary around the tsx_init() call is bad enough and I intend to
+revert it and do that differently.  I would have objected if I'd got to
+the patch in time.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/include/asm/processor.h |  4 ++++
- xen/arch/x86/include/asm/setup.h     |  2 --
- xen/arch/x86/pv/dom0_build.c         | 10 +++++++---
- xen/arch/x86/pv/traps.c              |  4 ++++
- xen/arch/x86/setup.c                 |  4 ----
- 5 files changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
-index 66463f6a6d67..e71dbb8d3fbf 100644
---- a/xen/arch/x86/include/asm/processor.h
-+++ b/xen/arch/x86/include/asm/processor.h
-@@ -312,11 +312,15 @@ static inline void stts(void)
-  * after us can get the correct flags.
-  */
- extern unsigned long mmu_cr4_features;
-+extern unsigned long cr4_pv32_mask;
- 
- static always_inline void set_in_cr4 (unsigned long mask)
- {
-     mmu_cr4_features |= mask;
-     write_cr4(read_cr4() | mask);
-+
-+    if ( IS_ENABLED(CONFIG_PV32) && (mask & XEN_CR4_PV32_BITS) )
-+        cr4_pv32_mask |= (mask & XEN_CR4_PV32_BITS);
- }
- 
- static always_inline void __monitor(const void *eax, unsigned long ecx,
-diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
-index 8f7dfefb4dcf..d75589178b91 100644
---- a/xen/arch/x86/include/asm/setup.h
-+++ b/xen/arch/x86/include/asm/setup.h
-@@ -64,8 +64,6 @@ extern bool opt_dom0_verbose;
- extern bool opt_dom0_cpuid_faulting;
- extern bool opt_dom0_msr_relaxed;
- 
--extern unsigned long cr4_pv32_mask;
--
- #define max_init_domid (0)
- 
- #endif
-diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-index 57b1834b5eaa..262edb6bf2f0 100644
---- a/xen/arch/x86/pv/dom0_build.c
-+++ b/xen/arch/x86/pv/dom0_build.c
-@@ -1061,12 +1061,14 @@ int __init dom0_construct_pv(struct domain *d,
- 
-     /*
-      * Clear SMAP in CR4 to allow user-accesses in construct_dom0().  This
--     * prevents us needing to write rewrite construct_dom0() in terms of
-+     * prevents us needing to write construct_dom0() in terms of
-      * copy_{to,from}_user().
-      */
-     if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
-     {
--        cr4_pv32_mask &= ~X86_CR4_SMAP;
-+        if ( IS_ENABLED(CONFIG_PV32) )
-+            cr4_pv32_mask &= ~X86_CR4_SMAP;
-+
-         write_cr4(read_cr4() & ~X86_CR4_SMAP);
-     }
- 
-@@ -1075,7 +1077,9 @@ int __init dom0_construct_pv(struct domain *d,
-     if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
-     {
-         write_cr4(read_cr4() | X86_CR4_SMAP);
--        cr4_pv32_mask |= X86_CR4_SMAP;
-+
-+        if ( IS_ENABLED(CONFIG_PV32) )
-+            cr4_pv32_mask |= X86_CR4_SMAP;
-     }
- 
-     return rc;
-diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
-index 5a7341abf068..3389a25acd83 100644
---- a/xen/arch/x86/pv/traps.c
-+++ b/xen/arch/x86/pv/traps.c
-@@ -18,6 +18,10 @@
- #include <asm/traps.h>
- #include <irq_vectors.h>
- 
-+#ifdef CONFIG_PV32
-+unsigned long __ro_after_init cr4_pv32_mask;
-+#endif
-+
- void pv_inject_event(const struct x86_event *event)
- {
-     struct vcpu *curr = current;
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index f1076c72032d..c2e0082a3020 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -79,8 +79,6 @@ bool __read_mostly use_invpcid;
- int8_t __initdata opt_probe_port_aliases = -1;
- boolean_param("probe-port-aliases", opt_probe_port_aliases);
- 
--unsigned long __ro_after_init cr4_pv32_mask;
--
- /* **** Linux config option: propagated to domain0. */
- /* "acpi=off":    Sisables both ACPI table parsing and interpreter. */
- /* "acpi=force":  Override the disable blacklist.                   */
-@@ -1898,8 +1896,6 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-     if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
-         set_in_cr4(X86_CR4_SMAP);
- 
--    cr4_pv32_mask = mmu_cr4_features & XEN_CR4_PV32_BITS;
--
-     if ( boot_cpu_has(X86_FEATURE_FSGSBASE) )
-         set_in_cr4(X86_CR4_FSGSBASE);
- 
+The only relevant cost in this file is whether I (and the other security
+team members) can edit it correctly or not in staging and all prior
+in-support branches.  You really don't want to know how many times
+there's been a bug in backports...
 
-base-commit: 99f942f3d410059dc223ee0a908827e928ef3592
--- 
-2.39.2
+Saving 451 lines from certification is not cheaper than the
+problems/risks you're introducing with this change.
 
+~Andrew
 
