@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCAA19636DF
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 02:25:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785314.1194749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B08C09636E4
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 02:28:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785322.1194758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjSyo-0008Jq-CF; Thu, 29 Aug 2024 00:25:38 +0000
+	id 1sjT19-0001DS-Nr; Thu, 29 Aug 2024 00:28:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785314.1194749; Thu, 29 Aug 2024 00:25:38 +0000
+Received: by outflank-mailman (output) from mailman id 785322.1194758; Thu, 29 Aug 2024 00:28:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjSyo-0008HM-8u; Thu, 29 Aug 2024 00:25:38 +0000
-Received: by outflank-mailman (input) for mailman id 785314;
- Thu, 29 Aug 2024 00:25:37 +0000
+	id 1sjT19-0001AP-Kt; Thu, 29 Aug 2024 00:28:03 +0000
+Received: by outflank-mailman (input) for mailman id 785322;
+ Thu, 29 Aug 2024 00:28:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=i2Q5=P4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sjSym-0008HG-W3
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 00:25:37 +0000
+ id 1sjT18-0001AJ-1m
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 00:28:02 +0000
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 343b0d4e-659d-11ef-a0b0-8be0dac302b0;
- Thu, 29 Aug 2024 02:25:35 +0200 (CEST)
+ id 8b421941-659d-11ef-a0b0-8be0dac302b0;
+ Thu, 29 Aug 2024 02:28:01 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id C1FC5CE19B0;
- Thu, 29 Aug 2024 00:25:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EA94C4CEC0;
- Thu, 29 Aug 2024 00:25:30 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 52C54CE19DA;
+ Thu, 29 Aug 2024 00:27:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3141FC4CEC0;
+ Thu, 29 Aug 2024 00:27:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,466 +41,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 343b0d4e-659d-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: 8b421941-659d-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724891130;
-	bh=VqDbObe7d5BLNOYikx3b+uU7d3i7Z2o62HQnyU6jKsI=;
+	s=k20201202; t=1724891275;
+	bh=gHA57WDKmjsKvC1wyD430+u7TEzTO37/CLJseSrvF6g=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=YYkPhUIcnL7KJ+hI0N/hSFBhlhBKPRFpz0vtYDG0zduTlIj/cURBdFaa16h8esBkE
-	 bzMAPJHtiR36YaegGy8ysosewfvYm/WJ/79tu0rNo8fdXXevZQtkCcJ4Z4KeXw44Dt
-	 EjvG4tyt6O51hrrATYKpQEgY6gSlq3fXDJQ6zL50lg5DG4AVUS7DF2RTrORtTrRW7H
-	 efUlRsnW5L7MIKhiasv1TcNdaiknFezXe2VO3KugWedakxUqAzD+jU2JUMl64QXjsq
-	 h73sqmb62So8yNI38v3sxpAxHyAkYBLO+YeIrZbTU3YQQ0BFrh/YLHfqvVMdh+nEWd
-	 wv8ABBzJ5nh3w==
-Date: Wed, 28 Aug 2024 17:25:28 -0700 (PDT)
+	b=iFaKD0glGznufGjWG1YX6aQITJcAC52qAv0mQ2FFNo6HX054cCsOhLaEfaDETrVje
+	 jJKIyNH6ADI5s+ihmuCx2xL+sFvgehs6IhGGfCI3/iMxkNEcSlffUd++GRtPRe2jz7
+	 BdaFfmvMGkxavUfYdM0CvxNtrD1eVH51CX094Fa9lj2tGtEElpXH6YxkhoK7bTelvz
+	 Nc+60SWSrMHU2GHo5rw/oYVCTdfLZtk58V+cAdG8ToH99lMscWNUsfhq/Snl/IvM9x
+	 HWK4bs5UQvxdgGQdI7KJ60WtP9wZ5C9ooxc3FZfX5QXKfX7wXZNmjklPxyqqISvVy1
+	 ACCAHYRpoVtWw==
+Date: Wed, 28 Aug 2024 17:27:52 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Victor Lira <victorm.lira@amd.com>
-cc: xen-devel@lists.xenproject.org, 
+To: Federico Serafini <federico.serafini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
     Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v1] automation: update xilinx tests to use expect
-In-Reply-To: <fbda01cf915786ac7d51f9dc98489eed088a0433.1724719426.git.victorm.lira@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2408281718580.53815@ubuntu-linux-20-04-desktop>
-References: <fbda01cf915786ac7d51f9dc98489eed088a0433.1724719426.git.victorm.lira@amd.com>
+Subject: Re: [XEN PATCH] automation/eclair: monitor rules 13.2 and 18.2
+In-Reply-To: <a285b271a7b89e81932115cbd23e8d9f8ca6d865.1724748117.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2408281727470.53815@ubuntu-linux-20-04-desktop>
+References: <a285b271a7b89e81932115cbd23e8d9f8ca6d865.1724748117.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 26 Aug 2024, victorm.lira@amd.com wrote:
-> From: Victor Lira <victorm.lira@amd.com>
+On Tue, 27 Aug 2024, Federico Serafini wrote:
+> Add MISRA C:2012 Rules 13.2 and 18.2 to the monitored set.
 > 
-> Fixes the CI failure introduced by 95764a0817.
-> 
-> Update xilinx-smoke tests to use the "expect" utility for early exit from
-> tests. Generalize the script "qemu-key.exp" to be used by both QEMU and
-> hardware tests. Add a missing "-continue_timer" flag for the expect script
-> to properly time out.
-> 
-> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
 > ---
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> ---
->  .../build/ubuntu/xenial-xilinx.dockerfile     |  1 +
->  automation/gitlab-ci/test.yaml                |  2 ++
->  .../scripts/{qemu-key.exp => console.exp}     | 27 +++++++++++--------
->  automation/scripts/qemu-alpine-x86_64.sh      |  8 +++---
->  automation/scripts/qemu-smoke-dom0-arm32.sh   |  8 +++---
->  automation/scripts/qemu-smoke-dom0-arm64.sh   |  8 +++---
->  .../scripts/qemu-smoke-dom0less-arm32.sh      |  8 +++---
->  .../scripts/qemu-smoke-dom0less-arm64.sh      |  8 +++---
->  automation/scripts/qemu-smoke-ppc64le.sh      |  8 +++---
->  automation/scripts/qemu-smoke-riscv64.sh      |  8 +++---
->  automation/scripts/qemu-smoke-x86-64.sh       |  8 +++---
->  automation/scripts/qemu-xtf-dom0less-arm64.sh |  8 +++---
->  .../scripts/xilinx-smoke-dom0-x86_64.sh       | 21 +++++++--------
->  .../scripts/xilinx-smoke-dom0less-arm64.sh    | 20 +++++++-------
->  14 files changed, 76 insertions(+), 67 deletions(-)
->  rename automation/scripts/{qemu-key.exp => console.exp} (50%)
+>  automation/eclair_analysis/ECLAIR/monitored.ecl | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/automation/build/ubuntu/xenial-xilinx.dockerfile b/automation/build/ubuntu/xenial-xilinx.dockerfile
-> index f03d62e8bd..6107d8b771 100644
-> --- a/automation/build/ubuntu/xenial-xilinx.dockerfile
-> +++ b/automation/build/ubuntu/xenial-xilinx.dockerfile
-> @@ -20,6 +20,7 @@ RUN apt-get update && \
->          git \
->          gzip \
->          file \
-> +        expect \
->          && \
->          apt-get autoremove -y && \
->          apt-get clean && \
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 3b339f387f..62dbed93d2 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -179,6 +179,8 @@ xilinx-smoke-dom0less-arm64-gcc-debug-gem-passthrough:
+> diff --git a/automation/eclair_analysis/ECLAIR/monitored.ecl b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> index 7b085a329a..4d9ef1bd83 100644
+> --- a/automation/eclair_analysis/ECLAIR/monitored.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> @@ -52,6 +52,7 @@
+>  -enable=MC3R1.R11.9
+>  -enable=MC3R1.R12.5
+>  -enable=MC3R1.R13.1
+> +-enable=MC3R1.R13.2
+>  -enable=MC3R1.R13.6
+>  -enable=MC3R1.R14.1
+>  -enable=MC3R1.R14.4
+> @@ -65,6 +66,7 @@
+>  -enable=MC3R1.R17.4
+>  -enable=MC3R1.R17.5
+>  -enable=MC3R1.R17.6
+> +-enable=MC3R1.R18.2
+>  -enable=MC3R1.R18.6
+>  -enable=MC3R1.R18.8
+>  -enable=MC3R1.R19.1
+> -- 
+> 2.34.1
 > 
->  xilinx-smoke-dom0-x86_64-gcc-debug:
->    extends: .xilinx-x86_64
-> +  variables:
-> +    TEST_TIMEOUT: 500
-
-I think we need to add something similar for .xilinx-arm64
-
-
-
->    script:
->      - ./automation/scripts/xilinx-smoke-dom0-x86_64.sh ping 2>&1 | tee ${LOGFILE}
->    needs:
-> diff --git a/automation/scripts/qemu-key.exp b/automation/scripts/console.exp
-> similarity index 50%
-> rename from automation/scripts/qemu-key.exp
-> rename to automation/scripts/console.exp
-> index 787f1f08cb..2cf31e7ac0 100755
-> --- a/automation/scripts/qemu-key.exp
-> +++ b/automation/scripts/console.exp
-> @@ -1,23 +1,29 @@
->  #!/usr/bin/expect -f
-> 
-> -if {[info exists env(QEMU_TIMEOUT)]} {
-> -    set timeout $env(QEMU_TIMEOUT)
-> +if {[info exists env(TEST_TIMEOUT)]} {
-> +    set timeout $env(TEST_TIMEOUT)
->  } else {
->      set timeout 1500
->  }
-> 
-> -log_file -a $env(QEMU_LOG)
-> +log_file -a $env(TEST_LOGFILE)
-> 
->  match_max 10000
-> 
-> -eval spawn $env(QEMU_CMD)
-> +eval spawn $env(TEST_CMD_START)
-> 
->  expect_after {
->      -re "(.*)\r" {
-> -        exp_continue
-> +        exp_continue -continue_timer
-> +    }
-> +    timeout {
-> +        send_error "ERROR-Timeout!\n"
-> +        exit 1
-> +    }
-> +    eof {
-> +        send_error "ERROR-EOF!\n"
-> +        exit 1
->      }
-> -    timeout {send_error "ERROR-Timeout!\n"; exit 1}
-> -    eof {send_error "ERROR-EOF!\n"; exit 1}
->  }
-> 
->  if {[info exists env(UBOOT_CMD)]} {
-> @@ -28,22 +34,21 @@ if {[info exists env(UBOOT_CMD)]} {
-> 
->  if {[info exists env(LOG_MSG)]} {
->      expect {
-> -        "$env(PASSED)" {
-> +        "$env(TEST_PASS_MSG)" {
->              expect "$env(LOG_MSG)"
->              exit 0
->          }
->          "$env(LOG_MSG)" {
-> -            expect "$env(PASSED)"
-> +            expect "$env(TEST_PASS_MSG)"
->              exit 0
->          }
->      }
->  }
-> 
->  expect {
-> -    "$env(PASSED)" {
-> +    "$env(TEST_PASS_MSG)" {
->          exit 0
->      }
->  }
-> 
->  expect eof
-> -
-> diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
-> index 42a89e86b0..b701b917a5 100755
-> --- a/automation/scripts/qemu-alpine-x86_64.sh
-> +++ b/automation/scripts/qemu-alpine-x86_64.sh
-> @@ -77,7 +77,7 @@ EOF
->  # Run the test
->  rm -f smoke.serial
->  set +e
-> -export QEMU_CMD="qemu-system-x86_64 \
-> +export TEST_CMD_START="qemu-system-x86_64 \
->      -cpu qemu64,+svm \
->      -m 2G -smp 2 \
->      -monitor none -serial stdio \
-> @@ -85,8 +85,8 @@ export QEMU_CMD="qemu-system-x86_64 \
->      -device virtio-net-pci,netdev=n0 \
->      -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0"
-> 
-> -export QEMU_LOG="smoke.serial"
-> +export TEST_LOGFILE="smoke.serial"
->  export LOG_MSG="Domain-0"
-> -export PASSED="BusyBox"
-> +export TEST_PASS_MSG="BusyBox"
-> 
-> -./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-> +./automation/scripts/console.exp | sed 's/\r\+$//'
-> diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
-> index fd64b19358..ea68f9973e 100755
-> --- a/automation/scripts/qemu-smoke-dom0-arm32.sh
-> +++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
-> @@ -78,7 +78,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
-> 
->  rm -f ${serial_log}
->  set +e
-> -export QEMU_CMD="./qemu-system-arm \
-> +export TEST_CMD_START="./qemu-system-arm \
->     -machine virt \
->     -machine virtualization=true \
->     -smp 4 \
-> @@ -92,8 +92,8 @@ export QEMU_CMD="./qemu-system-arm \
->     -bios /usr/lib/u-boot/qemu_arm/u-boot.bin"
-> 
->  export UBOOT_CMD="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
-> -export QEMU_LOG="${serial_log}"
-> +export TEST_LOGFILE="${serial_log}"
->  export LOG_MSG="Domain-0"
-> -export PASSED="/ #"
-> +export TEST_PASS_MSG="/ #"
-> 
-> -../automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-> +../automation/scripts/console.exp | sed 's/\r\+$//'
-> diff --git a/automation/scripts/qemu-smoke-dom0-arm64.sh b/automation/scripts/qemu-smoke-dom0-arm64.sh
-> index e0cea742b0..2ddb20b219 100755
-> --- a/automation/scripts/qemu-smoke-dom0-arm64.sh
-> +++ b/automation/scripts/qemu-smoke-dom0-arm64.sh
-> @@ -94,7 +94,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/conf
->  # Run the test
->  rm -f smoke.serial
->  set +e
-> -export QEMU_CMD="./binaries/qemu-system-aarch64 \
-> +export TEST_CMD_START="./binaries/qemu-system-aarch64 \
->      -machine virtualization=true \
->      -cpu cortex-a57 -machine type=virt \
->      -m 2048 -monitor none -serial stdio \
-> @@ -105,8 +105,8 @@ export QEMU_CMD="./binaries/qemu-system-aarch64 \
->      -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin"
-> 
->  export UBOOT_CMD="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
-> -export QEMU_LOG="smoke.serial"
-> +export TEST_LOGFILE="smoke.serial"
->  export LOG_MSG="Domain-0"
-> -export PASSED="BusyBox"
-> +export TEST_PASS_MSG="BusyBox"
-> 
-> -./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-> +./automation/scripts/console.exp | sed 's/\r\+$//'
-> diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation/scripts/qemu-smoke-dom0less-arm32.sh
-> index e824cb7c2a..fedc37d644 100755
-> --- a/automation/scripts/qemu-smoke-dom0less-arm32.sh
-> +++ b/automation/scripts/qemu-smoke-dom0less-arm32.sh
-> @@ -131,7 +131,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
->  # Run the test
->  rm -f ${serial_log}
->  set +e
-> -export QEMU_CMD="./qemu-system-arm \
-> +export TEST_CMD_START="./qemu-system-arm \
->      -machine virt \
->      -machine virtualization=true \
->      -smp 4 \
-> @@ -145,8 +145,8 @@ export QEMU_CMD="./qemu-system-arm \
->      -bios /usr/lib/u-boot/qemu_arm/u-boot.bin"
-> 
->  export UBOOT_CMD="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
-> -export QEMU_LOG="${serial_log}"
-> +export TEST_LOGFILE="${serial_log}"
->  export LOG_MSG="${dom0_prompt}"
-> -export PASSED="${passed}"
-> +export TEST_PASS_MSG="${passed}"
-> 
-> -../automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-> +../automation/scripts/console.exp | sed 's/\r\+$//'
-> diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> index f42ba5d196..0885bd0179 100755
-> --- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> +++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> @@ -205,7 +205,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/conf
->  # Run the test
->  rm -f smoke.serial
->  set +e
-> -export QEMU_CMD="./binaries/qemu-system-aarch64 \
-> +export TEST_CMD_START="./binaries/qemu-system-aarch64 \
->      -machine virtualization=true \
->      -cpu cortex-a57 -machine type=virt,gic-version=$gic_version \
->      -m 2048 -monitor none -serial stdio \
-> @@ -216,8 +216,8 @@ export QEMU_CMD="./binaries/qemu-system-aarch64 \
->      -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin"
-> 
->  export UBOOT_CMD="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
-> -export QEMU_LOG="smoke.serial"
-> +export TEST_LOGFILE="smoke.serial"
->  export LOG_MSG="Welcome to Alpine Linux"
-> -export PASSED="${passed}"
-> +export TEST_PASS_MSG="${passed}"
-> 
-> -./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-> +./automation/scripts/console.exp | sed 's/\r\+$//'
-> diff --git a/automation/scripts/qemu-smoke-ppc64le.sh b/automation/scripts/qemu-smoke-ppc64le.sh
-> index 594f92c19c..85f2181ddd 100755
-> --- a/automation/scripts/qemu-smoke-ppc64le.sh
-> +++ b/automation/scripts/qemu-smoke-ppc64le.sh
-> @@ -11,7 +11,7 @@ machine=$1
->  rm -f ${serial_log}
->  set +e
-> 
-> -export QEMU_CMD="qemu-system-ppc64 \
-> +export TEST_CMD_START="qemu-system-ppc64 \
->      -bios skiboot.lid \
->      -M $machine \
->      -m 2g \
-> @@ -22,7 +22,7 @@ export QEMU_CMD="qemu-system-ppc64 \
->      -serial stdio \
->      -kernel binaries/xen"
-> 
-> -export QEMU_LOG="${serial_log}"
-> -export PASSED="Hello, ppc64le!"
-> +export TEST_LOGFILE="${serial_log}"
-> +export TEST_PASS_MSG="Hello, ppc64le!"
-> 
-> -./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-> +./automation/scripts/console.exp | sed 's/\r\+$//'
-> diff --git a/automation/scripts/qemu-smoke-riscv64.sh b/automation/scripts/qemu-smoke-riscv64.sh
-> index c2595f657f..c2b5914e3f 100755
-> --- a/automation/scripts/qemu-smoke-riscv64.sh
-> +++ b/automation/scripts/qemu-smoke-riscv64.sh
-> @@ -6,14 +6,14 @@ set -ex
->  rm -f smoke.serial
->  set +e
-> 
-> -export QEMU_CMD="qemu-system-riscv64 \
-> +export TEST_CMD_START="qemu-system-riscv64 \
->      -M virt \
->      -smp 1 \
->      -nographic \
->      -m 2g \
->      -kernel binaries/xen"
-> 
-> -export QEMU_LOG="smoke.serial"
-> -export PASSED="All set up"
-> +export TEST_LOGFILE="smoke.serial"
-> +export TEST_PASS_MSG="All set up"
-> 
-> -./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-> +./automation/scripts/console.exp | sed 's/\r\+$//'
-> diff --git a/automation/scripts/qemu-smoke-x86-64.sh b/automation/scripts/qemu-smoke-x86-64.sh
-> index 3440b1761d..f792df3b7d 100755
-> --- a/automation/scripts/qemu-smoke-x86-64.sh
-> +++ b/automation/scripts/qemu-smoke-x86-64.sh
-> @@ -16,12 +16,12 @@ esac
-> 
->  rm -f smoke.serial
->  set +e
-> -export QEMU_CMD="qemu-system-x86_64 -nographic -kernel binaries/xen \
-> +export TEST_CMD_START="qemu-system-x86_64 -nographic -kernel binaries/xen \
->          -initrd xtf/tests/example/$k \
->          -append \"loglvl=all console=com1 noreboot console_timestamps=boot $extra\" \
->          -m 512 -monitor none -serial stdio"
-> 
-> -export QEMU_LOG="smoke.serial"
-> -export PASSED="Test result: SUCCESS"
-> +export TEST_LOGFILE="smoke.serial"
-> +export TEST_PASS_MSG="Test result: SUCCESS"
-> 
-> -./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-> +./automation/scripts/console.exp | sed 's/\r\+$//'
-> diff --git a/automation/scripts/qemu-xtf-dom0less-arm64.sh b/automation/scripts/qemu-xtf-dom0less-arm64.sh
-> index 4042fe5060..0eceb4a74c 100755
-> --- a/automation/scripts/qemu-xtf-dom0less-arm64.sh
-> +++ b/automation/scripts/qemu-xtf-dom0less-arm64.sh
-> @@ -51,7 +51,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/conf
->  # Run the test
->  rm -f smoke.serial
->  set +e
-> -export QEMU_CMD="./binaries/qemu-system-aarch64 \
-> +export TEST_CMD_START="./binaries/qemu-system-aarch64 \
->      -machine virtualization=true \
->      -cpu cortex-a57 -machine type=virt \
->      -m 2048 -monitor none -serial stdio \
-> @@ -62,7 +62,7 @@ export QEMU_CMD="./binaries/qemu-system-aarch64 \
->      -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin"
-> 
->  export UBOOT_CMD="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
-> -export QEMU_LOG="smoke.serial"
-> -export PASSED="${passed}"
-> +export TEST_LOGFILE="smoke.serial"
-> +export TEST_PASS_MSG="${passed}"
-> 
-> -./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-> +./automation/scripts/console.exp | sed 's/\r\+$//'
-> diff --git a/automation/scripts/xilinx-smoke-dom0-x86_64.sh b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> index 4559e2b9ee..144d9e73a1 100755
-> --- a/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> +++ b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> @@ -27,7 +27,6 @@ memory = 512
->  vif = [ "bridge=xenbr0", ]
->  disk = [ ]
->  '
-> -TIMEOUT_SECONDS=200
-> 
->  # Select test variant.
->  if [ "${TEST}" = "ping" ]; then
-> @@ -125,20 +124,20 @@ boot
-> 
->  # Power cycle board and collect serial port output.
->  SERIAL_DEV="/dev/serial/${TEST_BOARD}"
-> -SERIAL_CMD="cat ${SERIAL_DEV} | tee smoke.serial | sed 's/\r//'"
->  sh /scratch/gitlab-runner/${TEST_BOARD}.sh 2
->  sleep 5
->  sh /scratch/gitlab-runner/${TEST_BOARD}.sh 1
->  sleep 5
->  set +e
->  stty -F ${SERIAL_DEV} 115200
-> -timeout -k 1 ${TIMEOUT_SECONDS} nohup sh -c "${SERIAL_CMD}"
-> -sh /scratch/gitlab-runner/${TEST_BOARD}.sh 2
-> -
-> -set -e
-> 
-> -if grep -q "${PASS_MSG}" smoke.serial; then
-> -    exit 0
-> -fi
-> -
-> -fatal "Test failed"
-> +# Capture the test result and power off board before exiting.
-> +export TEST_PASS_MSG="${PASS_MSG}"
-> +export TEST_CMD_START="cat ${SERIAL_DEV}"
-> +export TEST_LOGFILE="smoke.serial"
-> +mkfifo console
-> +sed 's/\r\+$//' < console &
-> +./automation/scripts/console.exp > console
-> +TEST_RESULT=$?
-> +sh /scratch/gitlab-runner/${TEST_BOARD}.sh 2
-> +exit ${TEST_RESULT}
-
-Isn't this sufficient? Why do we need the fifo?
-
-export TEST_PASS_MSG="${PASS_MSG}"
-export TEST_CMD_START="cat ${SERIAL_DEV}"
-export TEST_LOGFILE="smoke.serial"
-./automation/scripts/console.exp | sed 's/\r//'
-TEST_RESULT=$?
-sh /scratch/gitlab-runner/${TEST_BOARD}.sh 2
-exit ${TEST_RESULT}
-
-
-> diff --git a/automation/scripts/xilinx-smoke-dom0less-arm64.sh b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-> index 18aa07f0a2..3a852e0798 100755
-> --- a/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-> +++ b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-> @@ -137,13 +137,15 @@ cd $START
->  SERIAL_DEV="/dev/serial/zynq"
->  set +e
->  stty -F ${SERIAL_DEV} 115200
-> -timeout -k 1 120 nohup sh -c "cat ${SERIAL_DEV} | tee smoke.serial | sed 's/\r//'"
-
-The timeout should be set in test.yaml otherwise we'll default to 1500
-
-
-> -# stop the board
-> -cd /scratch/gitlab-runner
-> -bash zcu102.sh 2
-> -cd $START
-> -
-> -set -e
-> -(grep -q "^Welcome to Alpine Linux" smoke.serial && grep -q "${passed}" smoke.serial) || exit 1
-> -exit 0
-> +# Capture the test result and power off board before exiting.
-> +export TEST_PASS_MSG="${passed}"
-> +export LOG_MSG="Welcome to Alpine Linux"
-> +export TEST_CMD_START="cat ${SERIAL_DEV}"
-> +export TEST_LOGFILE="smoke.serial"
-> +mkfifo console
-> +sed 's/\r\+$//' < console &
-> +./automation/scripts/console.exp > console
-> +TEST_RESULT=$?
-> +sh /scratch/gitlab-runner/zcu102.sh 2
-> +exit ${TEST_RESULT}
-
-Same comment about the fifo, I think it could be removed?
 
