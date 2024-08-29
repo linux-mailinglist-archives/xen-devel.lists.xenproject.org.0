@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D2BE964271
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 12:59:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785647.1195126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D966B964277
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 13:00:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785652.1195135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjcqt-0001tz-IU; Thu, 29 Aug 2024 10:58:07 +0000
+	id 1sjcsW-0002Ov-Rl; Thu, 29 Aug 2024 10:59:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785647.1195126; Thu, 29 Aug 2024 10:58:07 +0000
+Received: by outflank-mailman (output) from mailman id 785652.1195135; Thu, 29 Aug 2024 10:59:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjcqt-0001qo-Em; Thu, 29 Aug 2024 10:58:07 +0000
-Received: by outflank-mailman (input) for mailman id 785647;
- Thu, 29 Aug 2024 10:58:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sjcsW-0002NQ-Ok; Thu, 29 Aug 2024 10:59:48 +0000
+Received: by outflank-mailman (input) for mailman id 785652;
+ Thu, 29 Aug 2024 10:59:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4Ugx=P4=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1sjcqs-0001qe-Ed
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 10:58:06 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ffb36a2-65f5-11ef-99a0-01e77a169b0f;
- Thu, 29 Aug 2024 12:58:03 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5c0a9ae3665so465802a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 03:58:03 -0700 (PDT)
+ <SRS0=h9f7=P4=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sjcsU-0002NI-UH
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 10:59:46 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cd3ce7a2-65f5-11ef-a0b0-8be0dac302b0;
+ Thu, 29 Aug 2024 12:59:45 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a86933829dcso57158066b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 03:59:45 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a898900f612sm64569666b.71.2024.08.29.03.59.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Aug 2024 03:59:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,154 +44,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ffb36a2-65f5-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: cd3ce7a2-65f5-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1724929082; x=1725533882; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=/6CBlYePOkvF5FsLWKMWCnZEaLFgbgH1XcB164VcwJg=;
-        b=KEvT1u26W8p+R/rSY6bfKrl+uF6b2rso2JUEndHe6/7aeYtbKLkoJkD3691epSySMP
-         8hUB2k2esBEg0xaUJxWU6Ffgh1O7/efbAeTIKM9PSMe91LneiCmrKgtML2brcdRsKWjg
-         yki1HHq4EN+HUUZqUHGS07SBVIPHMFG8W/EtI=
+        d=citrix.com; s=google; t=1724929185; x=1725533985; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-disposition:mime-version
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WgXKstaAqWTNUSiEc4ABlxl59g3dFOxxAOyfDM5fp/Y=;
+        b=S3xbgTJKZf2fPuQQS2yq2tLZdLZacKKNHjHNenXBfDeESnMA1T5ITbMgY1tJoVl1Yv
+         EvO3zcr6tuiNRpNiPgV8jG5b3txe5DfngPGTtxT/ea0Jit5yFbwu7zxLBoZjryavU67B
+         FoMRPOMvENjNdzZHvwJEB/Gl/ZDJj3mtgknWI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724929082; x=1725533882;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/6CBlYePOkvF5FsLWKMWCnZEaLFgbgH1XcB164VcwJg=;
-        b=nRCTa3OSE649qmpy4FtNOAbZVldzO7Rx0llehjs7j9n9sXeCnYWpN/r+xTPF2Mr9lg
-         Yfo0hPupExGDVwnGuL5aKcsz9maLTqMtfRZEEabAgnGfqdQ3bzBhBCldJUHv8PHX6giO
-         5s4r+ZuBYu13LTXihIjxfmx7QRUJn4+AzL66OoFM/+RXwD1MKgfTUiLi5pWjD3NQAFUj
-         YNHzq0eyMotmRzDswAP/YAbJ4mSyG2Ob6FqwLh+RzLsPZsCmyulGEh1zgd+qLqX5b24L
-         vchFCRXitJMbP7jS6S3zDAtbRBYZo7fCRRWC6dGkyag3NA9JJcLg1XN6FrHWPKjOLO75
-         Qh0A==
-X-Forwarded-Encrypted: i=1; AJvYcCXWoT3/8uOi4eqzmplwAjEl+z6KGPzMDZOErkeMWWCI4Sub0i+Jj4NNHDPZ7gtTALa++9bxLM8vSWQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzllZIb7gfPjkLm75EDCcX+LMKnxq1ZRF03dUOoDwmPom70rkjK
-	dl8ajJgt7TPmHosB/SqXxG2VDTGCFMqXCYckgbuu8dNkNSZdbBKvLxAYHdP3KCAvM3iIB6MzymR
-	HuUyhipgVrreOY7hzX1gyrXgg/ko6RlEmuprLQ2JNcbkGTNjJ
-X-Google-Smtp-Source: AGHT+IFqRxu0NDBTvUxw+egd/griYRSV2N2DKuQcEwrKlm1gwdKbdqspnc2BtSr1Cj+nbc6dVvjQcZUhW5M91nn3xOM=
-X-Received: by 2002:a05:6402:13d5:b0:5bf:f1:908 with SMTP id
- 4fb4d7f45d1cf-5c21ed86a9bmr2149089a12.24.1724929082009; Thu, 29 Aug 2024
- 03:58:02 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1724929185; x=1725533985;
+        h=content-transfer-encoding:content-disposition:mime-version
+         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=WgXKstaAqWTNUSiEc4ABlxl59g3dFOxxAOyfDM5fp/Y=;
+        b=fW7N1yInRp61rJc5s1EszXuslETvCQzP4U4B3q1CEj89oa47+f9WFbpuclnDNk2Ybq
+         cSj1gBn2qU3e+bIrS79JMyUVgGUiS1SefwgekRm7VVUVppExSTZVv+Dg+/qwCDQGPIX2
+         kv86yXFz1RQ+vWOhYDv1aqIQGBim+ftIGc8/harBph0Yz9sH/nvFlOcd3qvjX/FRE6F1
+         HfG34MGO4j4PqfePnrVp9Cpbl0ciHsY5KcIOP8mjRvx6w5wvGSR6ghPsoM26dlydB5Cc
+         doasICUaJGhsfkqO/fbwnOXL57P9HEkrrQ4emWkpECNL2gDP+IJnC7JkUEVtXAp9cX1b
+         1NyA==
+X-Gm-Message-State: AOJu0YyTWIBUf4Svn8TFLytOSZmyhJZZXlmBM4PnfiXCIVhPbIUiMypp
+	49aomWvvlh2VAkbX7ae3hz05Qm7/Jc2kczcbQvbuCP1bWVZgYszzlTLn9C225rbkO/iLTpBtAcA
+	k
+X-Google-Smtp-Source: AGHT+IH78T8MzzWY84T8oRuoa9W3JaKb3WBKdUy2RTpJRejBho/SVdUFL0qoBWz+vkt7nlhJs/aYpw==
+X-Received: by 2002:a17:907:3daa:b0:a7a:9144:e256 with SMTP id a640c23a62f3a-a897f778b9amr202392166b.6.1724929184385;
+        Thu, 29 Aug 2024 03:59:44 -0700 (PDT)
+Date: Thu, 29 Aug 2024 12:59:43 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Paul Durrant <paul@xen.org>, Owen Smith <owen.smith@cloud.com>,
+	Mark Syms <mark.syms@citrix.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: Block protocol incompatibilities with 4K logical sector size disks
+Message-ID: <ZtBUnzH4sIrFAo0f@macbook.local>
 MIME-Version: 1.0
-References: <CAO-mL=zWYsDGkBoDtc8erGfAFnaR1y+FaLKsx3pEJ3MgxKAy0Q@mail.gmail.com>
- <alpine.DEB.2.22.394.2408161111160.298534@ubuntu-linux-20-04-desktop> <c5e23ad4-5415-4ea9-9b9d-806cd93fd742@suse.com>
-In-Reply-To: <c5e23ad4-5415-4ea9-9b9d-806cd93fd742@suse.com>
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Thu, 29 Aug 2024 11:57:26 +0100
-Message-ID: <CAO-mL=wE_mK1JkV4=M7hkcM-y1p-JAZawbvLiVp18CwzeW4i1Q@mail.gmail.com>
-Subject: Re: Xen Project statistics help
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, xen-devel <xen-devel@lists.xenproject.org>, 
-	committers@xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000003250b20620d0595a"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
---0000000000003250b20620d0595a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hello,
 
-Thanks both.
-I'll look to see what's possible, although if anyone could help automate
-this monthly that would be greatly helpful!
+To give some context, this started as a bug report against FreeBSD failing to
+work with PV blkif attached disks with 4K logical sectors when the backend is
+Linux kernel blkback:
 
-Many thanks,
-Kelly Choi
+https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=280884
 
-Community Manager
-Xen Project
+Further investigation has lead me to discover that the protocol described in
+the public blkif.h header is not implemented uniformly, and there are major
+inconsistencies between implementations regarding the meaning of the `sectors`
+and `sector-size` xenstore nodes, and the sector_number and {first,last}_sect
+struct request fields.  Below is a summary of the findings on the
+implementation I've analyzed.
 
+Linux blk{front,back} always assumes the `sectors` xenstore node to be in 512b
+units, regardless of the value of the `sector-size` node.  Equally the ring
+request sector_number and the segments {first,last}_sect fields are always
+assumed to be in units of 512b regardless of the value of `sector-size`.  The
+`feature-large-sector-size` node is neither exposed by blkfront, neither
+checked by blkback before exposing a `sector-size` node different than 512b.
 
-On Mon, Aug 19, 2024 at 9:38=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
+FreeBSD blk{front,back} calculates (and for blkback exposes) the disk size as
+`sectors` * `sector-size` based on the values in the xenstore nodes (as
+described in blkif.h).  The ring sector_number is filled with the sector number
+based on the `sector-size` value, however the {first,last}_sect fields are
+always calculated as 512b units.   The `feature-large-sector-size` node is
+neither exposed by blkfront, neither checked by blkback before exposing a
+`sector-size` node different than 512b.
 
-> On 16.08.2024 20:25, Stefano Stabellini wrote:
-> > xen.biterg.io was created by a company called Bitergia. Bitergia was
-> > later contracted by the Linux Foundation to create a generic dashboard
-> > for all their Open Source projects. Getting access to the Linux
-> > Foundation dashboard is the best way to go (if it comes to no cost to
-> > our project).
-> >
-> > I have used scripts like these in the past to get some data out of a
-> > release. You can copy/paste the output to an Excel datasheet to do
-> > further calculations there.
-> >
-> > # List of contributors by name (using the commit "Author" tag) for the
-> > # 4.19 release. One name per commit.
-> > git log 4.18.0-rc4...4.19.0-rc4 --format=3D'%aN' | sort | uniq -c | sor=
-t
-> -rn
-> >
-> > # List of reviewers (using the Reviewed-by and Acked-by tags) for the
-> > # 4.19 release. One name per review.
-> > git log 4.18.0-rc4...4.19.0-rc4 --pretty=3Dformat:%b | grep -E
-> "Reviewed-by|Acked-by" | sed -E
-> 's/.*(Reviewed-by|Acked-by):\s*(.*)\s*<.*/\2/' | sort | uniq -c | sort -r=
-n
->
-> Just to mention it: Going by tags here doesn't come anywhere close to the
-> actual work put into reviewing, even when leaving aside the obvious
-> difference between small, large but mechanical, and large+intrusive
-> changes. Imo unlike commit stats, review stats would better be collected
-> from the mailing list.
->
-> Jan
->
+QEMU qdisk blkback implementation exposes the `sectors` disk size in units of
+`sector-size` (as FreeBSD blkback).  The ring structure fields sector_number
+and {first,last}_sect are assumed to be in units of `sector-size`.  This
+implementation will not expose a `sector-size` node with a value different than
+512 unless the frontend xenstore path has the `feature-large-sector-size` node
+present.
 
---0000000000003250b20620d0595a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Windows blkfront calculates the disk size as `sectors` * `sector-size` from the
+xenstore nodes exposed by blkback.   The ring structure fields sector_number
+and {first,last}_sect are assumed to be in units of `sector-size`.  This
+frontend implementation exposes `feature-large-sector-size`.
 
-<div dir=3D"ltr">Thanks both.=C2=A0<div>I&#39;ll look to see what&#39;s pos=
-sible, although if anyone could help automate this monthly that would be gr=
-eatly helpful!=C2=A0</div><div><br clear=3D"all"><div><div dir=3D"ltr" clas=
-s=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><=
-div>Many thanks,</div><div>Kelly Choi</div><div><br></div><div><div style=
-=3D"color:rgb(136,136,136)">Community Manager</div><div style=3D"color:rgb(=
-136,136,136)">Xen Project=C2=A0<br></div></div></div></div></div><br></div>=
-</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=
-On Mon, Aug 19, 2024 at 9:38=E2=80=AFAM Jan Beulich &lt;<a href=3D"mailto:j=
-beulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br></div><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
-rgb(204,204,204);padding-left:1ex">On 16.08.2024 20:25, Stefano Stabellini =
-wrote:<br>
-&gt; <a href=3D"http://xen.biterg.io" rel=3D"noreferrer" target=3D"_blank">=
-xen.biterg.io</a> was created by a company called Bitergia. Bitergia was<br=
->
-&gt; later contracted by the Linux Foundation to create a generic dashboard=
-<br>
-&gt; for all their Open Source projects. Getting access to the Linux<br>
-&gt; Foundation dashboard is the best way to go (if it comes to no cost to<=
-br>
-&gt; our project).<br>
-&gt; <br>
-&gt; I have used scripts like these in the past to get some data out of a<b=
-r>
-&gt; release. You can copy/paste the output to an Excel datasheet to do<br>
-&gt; further calculations there.<br>
-&gt; <br>
-&gt; # List of contributors by name (using the commit &quot;Author&quot; ta=
-g) for the<br>
-&gt; # 4.19 release. One name per commit.<br>
-&gt; git log 4.18.0-rc4...4.19.0-rc4 --format=3D&#39;%aN&#39; | sort | uniq=
- -c | sort -rn<br>
-&gt; <br>
-&gt; # List of reviewers (using the Reviewed-by and Acked-by tags) for the<=
-br>
-&gt; # 4.19 release. One name per review.<br>
-&gt; git log 4.18.0-rc4...4.19.0-rc4 --pretty=3Dformat:%b | grep -E &quot;R=
-eviewed-by|Acked-by&quot; | sed -E &#39;s/.*(Reviewed-by|Acked-by):\s*(.*)\=
-s*&lt;.*/\2/&#39; | sort | uniq -c | sort -rn<br>
-<br>
-Just to mention it: Going by tags here doesn&#39;t come anywhere close to t=
-he<br>
-actual work put into reviewing, even when leaving aside the obvious<br>
-difference between small, large but mechanical, and large+intrusive<br>
-changes. Imo unlike commit stats, review stats would better be collected<br=
->
-from the mailing list.<br>
-<br>
-Jan<br>
-</blockquote></div>
+When using a disk with a logical sector size different than 512b, Linux is only
+compatible with itself, same for FreeBSD.  QEMU blkback implementation is also
+only compatible with the Windows blkfront implementation.  The
+`feature-large-sector-size` seems to only be implemented for the QEMU/Windows
+combination, both Linux and FreeBSD don't implement any support for it neither
+in the backend or the frontend.
 
---0000000000003250b20620d0595a--
+The following table attempts to summarize in which units the following fields
+are defined for the analyzed implementations (please correct me if I got some
+of this wrong):
+
+                        │ sectors xenbus node │ requests sector_number │ requests {first,last}_sect
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+FreeBSD blk{front,back} │     sector-size     │      sector-size       │           512
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+Linux blk{front,back}   │         512         │          512           │           512
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+QEMU blkback            │     sector-size     │      sector-size       │       sector-size
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+Windows blkfront        │     sector-size     │      sector-size       │       sector-size
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+MiniOS                  │     sector-size     │          512           │           512
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+tapdisk blkback         │         512         │      sector-size       │           512
+
+It's all a mess, I'm surprised we didn't get more reports about brokenness when
+using disks with 4K logical sectors.
+
+Overall I think the in-kernel backends are more difficult to update (as it
+might require a kernel rebuild), compared to QEMU or blktap.  Hence my slight
+preference would be to adjust the public interface to match the behavior of
+Linux blkback, and then adjust the implementation in the rest of the backends
+and frontends.
+
+There was an attempt in 2019 to introduce a new frontend feature flag to signal
+whether the frontend supported `sector-size` xenstore nodes different than 512 [0].
+However that was only ever implemented for QEMU blkback and Windows blkfront,
+all the other backends will expose `sector-size` different than 512 without
+checking if `feature-large-sector-size` is exposed by the frontend.  I'm afraid
+it's now too late to retrofit that feature into existing backends, seeing as
+they already expose `sector-size` nodes greater than 512 without checking if
+`feature-large-sector-size` is reported by the frontend.
+
+My proposal would be to adjust the public interface with:
+
+ * Disk size is calculated as: `sectors` * 512 (`sectors` being the contents of
+   such xenstore backend node).
+
+ * All the sector related fields in blkif ring requests use a 512b base sector
+   size, regardless of the value in the `sector-size` xenstore node.
+
+ * The `sector-size` contains the disk logical sector size.  The frontend must
+   ensure that all request segments addresses are aligned and it's length is
+   a multiple of such size.  Otherwise the backend will refuse to process the
+   request.
+
+Regards, Roger.
+
+[0] https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=67e1c050e36b2c9900cca83618e56189effbad98
 
