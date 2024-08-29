@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68B3B9648A8
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 16:37:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785940.1195484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B879648CE
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 16:42:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785949.1195495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjgGk-00067v-4C; Thu, 29 Aug 2024 14:37:02 +0000
+	id 1sjgLz-0007fN-PG; Thu, 29 Aug 2024 14:42:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785940.1195484; Thu, 29 Aug 2024 14:37:02 +0000
+Received: by outflank-mailman (output) from mailman id 785949.1195495; Thu, 29 Aug 2024 14:42:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjgGk-00066B-0o; Thu, 29 Aug 2024 14:37:02 +0000
-Received: by outflank-mailman (input) for mailman id 785940;
- Thu, 29 Aug 2024 14:37:01 +0000
+	id 1sjgLz-0007d4-Mc; Thu, 29 Aug 2024 14:42:27 +0000
+Received: by outflank-mailman (input) for mailman id 785949;
+ Thu, 29 Aug 2024 14:42:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ImPG=P4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjgGi-000665-Uw
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 14:37:00 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LPGY=P4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sjgLx-0007cy-OB
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 14:42:25 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 255e78e0-6614-11ef-99a0-01e77a169b0f;
- Thu, 29 Aug 2024 16:36:58 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5becd359800so827312a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 07:36:58 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226c7304fsm767642a12.29.2024.08.29.07.36.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 07:36:57 -0700 (PDT)
+ id e726c094-6614-11ef-99a0-01e77a169b0f;
+ Thu, 29 Aug 2024 16:42:23 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2f50966c448so7929561fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 07:42:23 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2f614f384eesm1860351fa.62.2024.08.29.07.42.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Aug 2024 07:42:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,156 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 255e78e0-6614-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: e726c094-6614-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724942218; x=1725547018; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vx31+ZcZhCXIra5jHzn5w+458vRmv7WDBiTjEo5e6sM=;
-        b=VF/Nu6dU0eC23PKq1fljE130q1tLk0yAcbyv+sTxLekdC4OPKj/759Mc2Y3oEh78vL
-         mRLe7No7naWsxuW0OxKSFguXY/hnvR7jX8XpxECciemuTTZCfWkbDdz3sCtViAkiYksa
-         tpenH3IDz3JdAyNVr+i7hmrwV4UHtD/hA2W8td20KuQW5cTW7Xi7TehNLxN9S/EXn8DU
-         03OmvXHKLV4lXMR00qKhwA8mKOpm71WKMCqTutR3mVFLcwkaelSpPb8F01tSBML4J1+Q
-         ZOqECGJCcpJ2HVP3D/ox0noGj/JOnZG2N+ug9zxA1MyfF7G3IaPNvLUpZ229/rNda2r1
-         wLVw==
+        d=gmail.com; s=20230601; t=1724942543; x=1725547343; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=yegLIobAX3JcGEVXi/TSJXJCqTJI6vrDcDN4DRWWpac=;
+        b=ME8iB/03C75jhIxjBqmezRCKjYeaRSlIcnQRyp8ZGXZ5Z0EwhG2vsfbfSsWlCDrwfQ
+         KCDaTfCjIkibmchJs4YVQ8cY3YKyrm6hSFui/TlH7RjZ9h4Tro2MuO27a+tQOWd+dojb
+         FZTfeOX2oQCqXXWQ7Tij3CFxOHcH1pY+AivQl3srGpOBTWL0fhj3WLOwNoRjzAc412Lz
+         z2aIRTQDwBrelRubyu0ZNSBbfTRFRP9f6O97RGWXy+NxugX/AUt7tNW5isR2yePwKeYN
+         ULVsbHGQjjh7exzpkuVYRr7Zv1FJJ9jQqxDm+3ZaY0vUf2NyWeZcjZZHjKYGm60688Go
+         vwXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724942218; x=1725547018;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vx31+ZcZhCXIra5jHzn5w+458vRmv7WDBiTjEo5e6sM=;
-        b=oK3PY0CI64baOnUpPzuoLehUpE+YqWTMvFMOuAO1zOQnlnMxvKUGRa7VYt23GK/G5Q
-         mluZ4VXAa8kIrAUtH7k2LbeXXTdTpSqjpRBWBhoPuRdNLXynsEodN8Tg5ovfmqnULKNc
-         TyV5+wmOPs3fdPtx8vs3npdSKSjW4CshrYX5RhTLNuvxAea62RoKbhe+3GZixNJr1oof
-         hL+SQRML7m8juqfVuDzMqhY5mxL5Hvvfe/iL36rxRvEqS7lUlkE9NQTMzBtjOMVAn9Pi
-         LNqeYUwxLAHrqcoDmVypWRdstLkrttyRiIscF5RyEJfegVUM4PKgJ+OFBoIaDoKgB7rG
-         kY8g==
-X-Forwarded-Encrypted: i=1; AJvYcCUMFtlYTPDcxmSpk3tHSm3hcpcTlYuEw76TohlVnIR6cp0CIG/At2yxhytp6kobBxA0tn+0pVRS8KU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YziuxYfGx7XMf7OrcXmjavfmf5H0EPDP+0dnlwY5MvjNMbexQ95
-	5uTSZbEmQu7zJNPAvQ2uODpWobpyy3aDywUUfJilFqDxV2KodbsXXD6hJgpkXw==
-X-Google-Smtp-Source: AGHT+IFFi3B8ot9bFyw+6VkEBpYUQlN0J2uZ8nVRvjIoQVenmJ3o+cpwMGoMVKHZUV3399eO27NgDA==
-X-Received: by 2002:a05:6402:84b:b0:5c0:c6a7:bd24 with SMTP id 4fb4d7f45d1cf-5c21ed976d1mr3012681a12.30.1724942217883;
-        Thu, 29 Aug 2024 07:36:57 -0700 (PDT)
-Message-ID: <48377e77-2458-439c-b594-21bde610ffbb@suse.com>
-Date: Thu, 29 Aug 2024 16:36:56 +0200
+        d=1e100.net; s=20230601; t=1724942543; x=1725547343;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yegLIobAX3JcGEVXi/TSJXJCqTJI6vrDcDN4DRWWpac=;
+        b=M0wl+wLXPXxleVEuM5PVvowLXa8AnW3m7py4GMsTrYLLp56k5KuoLuIfCkA/rMN9wX
+         A3YOMnRFT50tlmKUmIXHJ5Q69p3SFZFlgOhrayS3/QS9TV7epISsnp6iAi0k9eIJoTsj
+         RBu/gYDY3xToSeldt2wWgldlZs3g5/7dbkkxkIwnxpqTXQt9JUZ/t0vPIXrjYhqy6w7x
+         ukYRqoDj2D4VVa7JWUKnGCxhu/MBBOtsQdUXKvOKNJwInztcYgoD1JWgxbZHFv4nUedr
+         aTcnnUeItAnLPDAVQN/IP/d6OlErCNeWkA1aK/eb/uWxbNSW82i99GvtlFko+1JTdhuO
+         /qww==
+X-Forwarded-Encrypted: i=1; AJvYcCVwA9wa6CYVS/254mUnnwCvA91E10css9fNGN21OWkpcmIRnStomHhP9UV99xstH+SG5cJUkmQsz3Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzUfonvUkVH9fSOOWSc2E2C8M1IhTKBTfSNN9f9q8wwIMVj3t13
+	dpgbqQDXbGvLtaQvA/M74FJ9NG8+xYvHxbivaUpJVn+iT2xpSfw/
+X-Google-Smtp-Source: AGHT+IENl01FmC8OHBQVgf3q0WKnjPnkqOViJhqUB93HWNl+/4fCZM20ykW0MDCALyMK2Mxj+ElZGQ==
+X-Received: by 2002:a05:651c:548:b0:2f4:3de7:ac4c with SMTP id 38308e7fff4ca-2f6103908d3mr27692921fa.8.1724942542256;
+        Thu, 29 Aug 2024 07:42:22 -0700 (PDT)
+Message-ID: <9cc1fdf64f52ae5242e28ced7fec309c4f2e2d55.camel@gmail.com>
+Subject: Re: [PATCH v5 6/7] xen/riscv: page table handling
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Thu, 29 Aug 2024 16:42:21 +0200
+In-Reply-To: <05a08778-7c3f-416e-a7ef-12a1472d3fce@suse.com>
+References: <cover.1724256026.git.oleksii.kurochko@gmail.com>
+	 <090e617d88b279ae88f1a7859875a7e1a0c6ae73.1724256027.git.oleksii.kurochko@gmail.com>
+	 <c0005454-3b34-427d-8ea0-620aba632487@suse.com>
+	 <ed84c53454cb63082aa96befe89a89d8f234ef71.camel@gmail.com>
+	 <b83e7d23-2171-447f-a4e5-48563e4068a5@suse.com>
+	 <4418002b93a3ae101e15e390dc537c726948bcb4.camel@gmail.com>
+	 <05a08778-7c3f-416e-a7ef-12a1472d3fce@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/11] x86/bitops: Use the POPCNT instruction when
- available
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240828220351.2686408-1-andrew.cooper3@citrix.com>
- <20240828220351.2686408-12-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240828220351.2686408-12-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 29.08.2024 00:03, Andrew Cooper wrote:
-> It has existed in x86 CPUs since 2008, so we're only 16 years late adding
-> support.  With all the other scafolding in place, implement arch_hweightl()
-> for x86.
-> 
-> The only complication is that the call to arch_generic_hweightl() is behind
-> the compilers back.  Address this by writing it in ASM and ensure that it
-> preserves all registers.
-> 
-> Copy the code generation from generic_hweightl().  It's not a complicated
-> algorithm, and is easy to regenerate if needs be, but cover it with the same
-> unit tests as test_generic_hweightl() just for piece of mind.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> v2:
->  * Fix MISRA 8.2 (parameter name) and 8.5 (single declaration) regressions.
->  * Rename {arch->x86}-generic-hweightl.{S->c}
->  * Adjust ASM formating
-> 
-> The __constructor trick to cause any reference to $foo() to pull in
-> test_$foo() only works when both are in the same TU.  i.e. what I did in
-> v1 (putting test_arch_generic_hweightl() in the regular generic-hweightl.c)
-> didn't work.
+On Thu, 2024-08-29 at 14:14 +0200, Jan Beulich wrote:
+> > > > > =C2=A0Also note that "`mfn` is
+> > > > > valid" isn't the same as "mfn !=3D INVALID_MFN". You want to be
+> > > > > precise
+> > > > > here,
+> > > > > to avoid confusion later on. (I say that knowing that we're
+> > > > > still
+> > > > > fighting
+> > > > > especially shadow paging code on x86 not having those
+> > > > > properly
+> > > > > separated.)
+> > > > If it is needed to be precise and mfn is valid isn't the same
+> > > > as
+> > > > "mfn
+> > > > !=3D INVALID_MFN" only for the case of shadow paging?
+> > >=20
+> > > No, I used shadow paging only as an example of where we have
+> > > similar
+> > > issues. I'd like to avoid that a new port starts out with
+> > > introducing
+> > > more instances of that. You want to properly separate INVALID_MFN
+> > > from
+> > > "invalid MFN", where the latter means any MFN where either
+> > > nothing
+> > > exists at all, or (see mfn_valid()) where no struct page_info
+> > > exists.
+> > Well, now I think I understand the difference between "INVALID_MFN"
+> > and
+> > "invalid MFN."
+> >=20
+> > Referring back to your original reply, I need to update the comment
+> > above pt_update():
+> > ```
+> > =C2=A0=C2=A0=C2=A0 ...
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * If `mfn` is valid ( exist ) and flags =
+has PTE_VALID bit set
+> > then it
+> > =C2=A0=C2=A0=C2=A0 means that inserting will be done.
+> > ```
+> > Would this be correct and more precise?
+>=20
+> That depends on whether it correctly describes what the code does. If
+> the code continues to check against INVALID_MFN, such a description
+> wouldn't be correct. Also, just to re-iterate, ...
+>=20
+> > Based on the code for mfn_valid(), the separation is currently done
+> > using the max_page value, which can't be initialized at the moment
+> > as
+> > it requires reading the device tree file to obtain the RAM end.
+>=20
+> ... mfn_valid() may return false for MMIO pages, for which it may
+> still
+> be legitimate to create mappings. IMO ...
+>=20
+> > We could use a placeholder for the RAM end (for example, a very
+> > high
+> > value like -1UL) and then add __mfn_valid() within pt_update().
+> > However, I'm not sure if this approach aligns with what you
+> > consider by
+> > proper separation between INVALID_MFN and "invalid MFN."
+>=20
+> ... throughout the code here you mean INVALID_MFN and never "invalid
+> MFN".
+IIC INVALID_MFN should mean that mfn exist ( correspond to some usable
+memory range of memory map ) but hasn't been mapped yet. Then for me
+what I have in the comment seems correct to me:
+```
+   if `mfn` isn't equal to INVALID_MFN ( so it is valid/exist in terms
+   that there is real memory range in memory map to which this mfn
+   correspond ) and flags PTE_VALID bit set ...
+```
 
-I'm afraid I don't understand this. What exactly didn't work, breaking in which
-way? Presumably as much as you, I don't really like the global asm() in a C
-file, when ideally the same could be written with less clutter in an assembly
-one.
 
-> This in turn means that arch_generic_hweightl() needs writing in a global asm
-> block, and also that we can't use FUNC()/END().  While we could adjust it to
-> work for GCC/binutils, we can't have CPP macros in Clang-IAS strings.
+> Populating page tables is lower a layer than where you want to be
+> concerned with that distinction; the callers of these low level
+> functions
+> will need to make the distinction where necessary.
+Then the question now is just in a proper wording of the pt_update()
+arguments values?
 
-What does Clang different from gcc there? I was hoping that at least their pre-
-processors would work in (sufficiently) similar ways.
+~ Oleksii
 
-> --- /dev/null
-> +++ b/xen/lib/x86-generic-hweightl.c
-> @@ -0,0 +1,69 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/bitops.h>
-> +#include <xen/init.h>
-> +#include <xen/self-tests.h>
-> +
-> +/*
-> + * An implementation of generic_hweightl() used on hardware without the POPCNT
-> + * instruction.
-> + *
-> + * This function is called from within an ALTERNATIVE in arch_hweightl().
-> + * i.e. behind the back of the compiler.  Therefore all registers are callee
-> + * preserved.
-> + *
-> + * The ASM is what GCC-12 emits for generic_hweightl() in a release build of
-> + * Xen, with spilling of %rdi/%rdx to preserve the callers registers.
-> + *
-> + * Note: When we can use __attribute__((no_caller_saved_registers))
-> + *       unconditionally (GCC 7, Clang 5), we can implement this in plain C.
-> + */
-> +asm (
-> +    ".type arch_generic_hweightl, STT_FUNC\n\t"
-> +    ".globl arch_generic_hweightl\n\t"
-> +    ".hidden arch_generic_hweightl\n\t"
-> +    ".balign " STR(CONFIG_FUNCTION_ALIGNMENT) ", 0x90\n\t"
-
-Maybe better avoid open-coding CODE_FILL, in case we want to change that
-down the road?
-
-Also could I talk you into dropping the \t there? Canonical assembly code
-wants ...
-
-> +    "arch_generic_hweightl:\n\t"
-
-.. labels unindented.
-
-Jan
 
