@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F0B4964780
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 16:04:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785907.1195435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4FA96479D
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 16:08:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785911.1195445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjfkd-0005S3-Ly; Thu, 29 Aug 2024 14:03:51 +0000
+	id 1sjfor-0006vI-7P; Thu, 29 Aug 2024 14:08:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785907.1195435; Thu, 29 Aug 2024 14:03:51 +0000
+Received: by outflank-mailman (output) from mailman id 785911.1195445; Thu, 29 Aug 2024 14:08:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjfkd-0005Px-J3; Thu, 29 Aug 2024 14:03:51 +0000
-Received: by outflank-mailman (input) for mailman id 785907;
- Thu, 29 Aug 2024 14:03:50 +0000
+	id 1sjfor-0006tA-3U; Thu, 29 Aug 2024 14:08:13 +0000
+Received: by outflank-mailman (input) for mailman id 785911;
+ Thu, 29 Aug 2024 14:08:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ImPG=P4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjfkc-0005Pr-1m
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 14:03:50 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1sjfop-0006t4-BI
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 14:08:11 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 824bfaf1-660f-11ef-99a0-01e77a169b0f;
- Thu, 29 Aug 2024 16:03:46 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5bec4fc82b0so3124542a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 07:03:47 -0700 (PDT)
+ id 1eaef7b1-6610-11ef-99a0-01e77a169b0f;
+ Thu, 29 Aug 2024 16:08:09 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5bec4fc82b0so3130101a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 07:08:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226ccff4bsm748439a12.70.2024.08.29.07.03.45
+ a640c23a62f3a-a8989021973sm83115466b.82.2024.08.29.07.07.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 07:03:45 -0700 (PDT)
+ Thu, 29 Aug 2024 07:07:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 824bfaf1-660f-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: 1eaef7b1-6610-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724940226; x=1725545026; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724940489; x=1725545289; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rW+ItIsfoHzQDBbyvLOPy9LlX7H+e9rA+BLsO5BJ9fI=;
-        b=c1rahDGbO45itSDYNB0UgRzFdfgoM1lQLJQIX7I6uNBvqtc22GXmGgu+ss1ouMZ26T
-         o6Mnsnfj/vkCulspwftHv63rAHbH2X0pw/eVzGLC5+9CXUNByqB9IAVH/2qr93jviNJi
-         OPB9aQkOOfkuv3jCdR8/uqmlJtiDMrx4/Asah0oC4XGKWmPc46po5aV6m8hknZasqgY/
-         dMNtS8lv/B4HGX2lG6CwwxdwDpj+I7TUxeayZEbM/5UIH804uSjLH3CO83WxfHQ1AIY8
-         riYidd8GsikAy2JVah3FPVcbV4dO78z+5l09bKY7OnxAn1R3jrRnKKxfRJ/Z81Z93jJh
-         oQWQ==
+        bh=OucCFpg53QMwr2D4n6uKH73osXrEEX/NwpoqVurCiSE=;
+        b=UdRTS+htDfml2JFOwXSpvLpHJ4fOwEzALKfSU+YOP8vt6pQOrHotR4XR/AEJQyacc+
+         OUOenqxGR9qX39mbIc7i2xJ9lnMqpRD+V2OEWxiXQYEykHSC2HWRjMH4JyzvRdpzUUF+
+         UmrzeTis3z0zPYN0bMkc8DTzbx4e1xtt1Ya9Bz4hY5JX8ph44pvciwA1yXe+Bb6huKkv
+         WSfyybOMkYF1n80RysitU+56zcp1K8IFd9yHyCtcWgXy/9+awlwwtF8NyZo2sPOr5Yc5
+         r+I3fkzUUSIT/RjKwitxeuVXQkxD4LFVrEF2p23pg/ztQWNXXYbtjb7Arx+rhlH/D8Yg
+         s14g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724940226; x=1725545026;
+        d=1e100.net; s=20230601; t=1724940489; x=1725545289;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rW+ItIsfoHzQDBbyvLOPy9LlX7H+e9rA+BLsO5BJ9fI=;
-        b=F0cfXKMhYFHhA13geQJT7h262/s986G/C37FmJ2BHXkhvNlpOu2+ytpGFD8nzSo4ac
-         CqcvE8VqCrN83PGtK1YX9DNI9Piemz2B05J5RCbZqwQal84ZYkC+zkVfWm3G8qRPSsrR
-         x8lf/4G1vUqpE46aN8mRkPVaM4pLqoWw7rF+VVs2B1XroMWFmWf8J4IiEIlGjU1HWNbA
-         V7vhAmzCQf+YZn1FCCe7G/5qvEYxZ6X/6K7QEIYuUvnXYCGpZ5ZUsB6N6kvhuKfFP1pL
-         F3t8aJa4YmO1wbFEOunxmVCx5+teJ+AgRaZbRhWzixWHvlWk5jNbQicH6LKzChNkEND1
-         I+Lg==
-X-Forwarded-Encrypted: i=1; AJvYcCUnP+SPl+8KLbML+y2j/3XN3LvWpkY1TKGX2qxHycbBXTlfYW5pxUyYMJ58EJOx2u4xatfAxWXSHu0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxO/HPfSQEy7Eqozg+qKPoc2lQ5MCWC87556s1vYXmdyZFTF3MW
-	DWmu1LFoJOKF1HX/z2khmeT4v53a2MUkddlsqXpxKP1WOuTObZyU4J6unsLUfg==
-X-Google-Smtp-Source: AGHT+IGEhQK9uq+7i8QUWkK2DQ3yKr0YMtQKW3oLSslyGa/hr2SPpNQJhga3GbqnAY79lQuDQB+YXQ==
-X-Received: by 2002:a05:6402:3506:b0:5c0:a8b8:dd6b with SMTP id 4fb4d7f45d1cf-5c22018ad3dmr4167837a12.14.1724940225952;
-        Thu, 29 Aug 2024 07:03:45 -0700 (PDT)
-Message-ID: <4381179f-bcca-4bd4-8dcf-8de79b79c405@suse.com>
-Date: Thu, 29 Aug 2024 16:03:44 +0200
+        bh=OucCFpg53QMwr2D4n6uKH73osXrEEX/NwpoqVurCiSE=;
+        b=FkRjW5ntsBZHx9F7nRZXLvmGMHGJTauBF4rK1hKJLVstcL3kO/C5qQgSdaPUeyW8fY
+         ujInNRo47UPvwKq21Syl1X04O539+BYp0la3BCSVEvMsZhaZSjHDvjCvLCfqe2W4TsUM
+         NRXQkcr0iarEXkBrReMSgyV2+FRQVDZX83Y9tLqlvK8AfYZokxt79VrsO4TRnHD1zxud
+         J13t3ZqGQloRSQ1RJVtBrTJS3e5AZV/16PWhx0Tx4LFTeOesGnYrvhjiQL+r6gZU7EQu
+         YVyXWgcZrBwjw1oxqjD0xBx7sZ8G/OOcCR5ji12zsdMkXEYg/ss0UQmdKyu4AWbRXVul
+         glsg==
+X-Forwarded-Encrypted: i=1; AJvYcCU/tfMsprMz9+Z+z9Yu8+5MFymH2l+B0B4DxR7Nj43VP8hFExhFJmCYJgjA7k8UH9rlmz2jHYXfaeY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxAF5dN1PAk8O5R4sJZD6Qx2joaYuKokcmBLct9bh/w64VdVTHH
+	flVDdhSxTs8kRMRCPVP6ZpRsiTkoTiklLk/PbPo6Px1AeK4bR70ILdrBOakhHqCyra9MnTfXpXM
+	=
+X-Google-Smtp-Source: AGHT+IE5ndOWrAVJvXNQDhnidKrJlOlYtaroRNDFuietyVHVW9mBLgSBoipdfR54mfA/Pnye/2Qwiw==
+X-Received: by 2002:a05:6402:42cb:b0:5be:ecd9:c73e with SMTP id 4fb4d7f45d1cf-5c2200f17b6mr4104535a12.2.1724940477903;
+        Thu, 29 Aug 2024 07:07:57 -0700 (PDT)
+Message-ID: <116eba82-9075-4d38-86b7-6ee0001b4a87@suse.com>
+Date: Thu, 29 Aug 2024 16:07:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/11] xen/compiler: Rename __attribute_const__ to
- attr_const
+Subject: Re: [PATCH v2 02/11] xen/bitops: Switch from __pure to attr_const
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
@@ -93,7 +93,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240828220351.2686408-1-andrew.cooper3@citrix.com>
- <20240828220351.2686408-2-andrew.cooper3@citrix.com>
+ <20240828220351.2686408-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,30 +119,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240828220351.2686408-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20240828220351.2686408-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 29.08.2024 00:03, Andrew Cooper wrote:
-> There's no need for the name to be so verbose.
+> All of the ffs()/fls() infrastructure is in fact (attr) const, because it
+> doesn't even read global state.  This allows the compiler even more
+> flexibility to optimise.
 > 
 > No functional change.
 > 
-> Suggest-by: Jan Beulich <JBeulich@suse.com>
-
-The form you use here was your suggestion, wasn't it? I'm fine with the
-change as is, so ...
-
+> Reported-by: Jan Beulich <JBeulich@suse.com>
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+> 
+> v2:
+>  * New
+> ---
+>  xen/include/xen/bitops.h | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
 
+The various arch_* forms didn't have __pure and hence also don't gain
+attr_const presumably because we deem these attributes ineffectual for
+always-inline functions? On that basis
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Yet I still would have liked the more generic
-
-#define attr(attr...) __attribute__((attr))
-
-better.
-
 Jan
-
 
