@@ -2,57 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F9EB963942
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 06:14:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785401.1194841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AAD696394B
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 06:18:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785408.1194851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjWY1-0000VM-Q7; Thu, 29 Aug 2024 04:14:13 +0000
+	id 1sjWc2-0001fv-8v; Thu, 29 Aug 2024 04:18:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785401.1194841; Thu, 29 Aug 2024 04:14:13 +0000
+Received: by outflank-mailman (output) from mailman id 785408.1194851; Thu, 29 Aug 2024 04:18:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjWY1-0000Sy-Md; Thu, 29 Aug 2024 04:14:13 +0000
-Received: by outflank-mailman (input) for mailman id 785401;
- Thu, 29 Aug 2024 04:14:12 +0000
+	id 1sjWc2-0001dq-5c; Thu, 29 Aug 2024 04:18:22 +0000
+Received: by outflank-mailman (input) for mailman id 785408;
+ Thu, 29 Aug 2024 04:18:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=N580=P4=amd.com=VictorM.Lira@srs-se1.protection.inumbo.net>)
- id 1sjWY0-0000SB-EZ
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 04:14:12 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20620.outbound.protection.outlook.com
- [2a01:111:f403:2415::620])
+ id 1sjWc0-0001dk-Fm
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 04:18:20 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20613.outbound.protection.outlook.com
+ [2a01:111:f403:200a::613])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 236fd54b-65bd-11ef-a0b0-8be0dac302b0;
- Thu, 29 Aug 2024 06:14:10 +0200 (CEST)
-Received: from BYAPR11CA0089.namprd11.prod.outlook.com (2603:10b6:a03:f4::30)
- by PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.25; Thu, 29 Aug
- 2024 04:14:04 +0000
-Received: from SJ5PEPF000001F3.namprd05.prod.outlook.com
- (2603:10b6:a03:f4:cafe::f1) by BYAPR11CA0089.outlook.office365.com
- (2603:10b6:a03:f4::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.28 via Frontend
- Transport; Thu, 29 Aug 2024 04:14:04 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ5PEPF000001F3.mail.protection.outlook.com (10.167.242.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7918.13 via Frontend Transport; Thu, 29 Aug 2024 04:14:03 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 28 Aug
- 2024 23:13:44 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 28 Aug
- 2024 23:13:26 -0500
-Received: from xsjwoods50.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39 via Frontend
- Transport; Wed, 28 Aug 2024 23:13:25 -0500
+ id b7cc3d75-65bd-11ef-a0b0-8be0dac302b0;
+ Thu, 29 Aug 2024 06:18:19 +0200 (CEST)
+Received: from SJ2PR12MB8876.namprd12.prod.outlook.com (2603:10b6:a03:539::18)
+ by DM3PR12MB9415.namprd12.prod.outlook.com (2603:10b6:8:1ac::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.28; Thu, 29 Aug
+ 2024 04:18:15 +0000
+Received: from SJ2PR12MB8876.namprd12.prod.outlook.com
+ ([fe80::69d9:a014:7a29:de4a]) by SJ2PR12MB8876.namprd12.prod.outlook.com
+ ([fe80::69d9:a014:7a29:de4a%5]) with mapi id 15.20.7897.027; Thu, 29 Aug 2024
+ 04:18:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,578 +47,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 236fd54b-65bd-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: b7cc3d75-65bd-11ef-a0b0-8be0dac302b0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z37Za/hRhn/OhK8mFRWlE3da3+uSevcl2wVNMacwg2dyrUtjOPwLPAx1p85FodKHH0xkAyPuEoL1TLlwCupztGCojBY410ORRWyUZhAnAxJqzs0KaiCUxLcZYd+aMFjvralXX7jMtFQq1Raa1XPKrM8gRQj1xqN/uJW4SZgS+2mdGrIgoUNDiAdbLAW8PhfaCkfG+qX+BI/x92pVP6uK4l3r95FJ/8Y1Qdh0Kyj6ge/Xq/ZF7Zbui+qsc7V+5GU/dzJqAzTOmd05Z9GkI1nZK19KGox9+sfFc9mx5yDNYOnPZ83bTFO4VL8XxMDhi/ifSQ1grfTeXSGvXla+v2gBgw==
+ b=QpX87+616XPT/uw3/Wa2fcjqSIicKhi6AAs/a/vNLhmFJbwpoDZYoBL/iYxXwM9mx4GnHGWSJz5OXM3wRQjMUf+0YxU75MCeaDYvVKrDqA/PLAk1eZlrvLKrUKJ3tCktQ3MeVE5V3X/QAEOj8ci+nMT/og0AQfcjchp25P5Yu6OB89L4RrLCDWVd8BUkYNkQ2n/FnHjX2DH9tRaeqWoAlnW1RZOvEnW9eau5PorNVNuUseioYGLwlKVxfj+UOSg67vN/ZZ0r67+AKYqXLwdeSdOMTTxhkp96Y031NjbR+aG8Y9KQq8enkq6pvn39DyRPFwSGr0LLjVf6ZhJKW7TbDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/ROK+JzG6w0la5ILJ3khYDvH0QlaEN7IBcIWNfYChCs=;
- b=XjrU/K8mhIF5nwn9a093gKcgAQ7DkuIew3VlvjiTs2acfKPAXgCAu++lGAp+/ZAQJM9AKW72MUxlfOts1tlRHSb5mw7S1BHLK9twF4QXEa5l6TrulHBe+iVGhELaiV8xtlD1dyiA9l+7c9PBnnytSdEQjjwiu7QGYuzNyGKwvw+XHJJDb3h3jPwyGnKIE77ufHEi++eqWY9yYWVXQosPfuxYmIv6fL40HkxNbIZ5ysOAauELi6PMvmgj6B9gTnDLwWECG/l/UFywwNtk6JmDgHraXBQGrhkqrOJSe6zPJyok4iwAT1c5aj36Bk5iiPeTPVdSNYRazwmtMu2ARxU2OA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=CuIZrbkzZ1dOSGUoyKupye1CIvOEvqvYkiVLKnr3yLA=;
+ b=VwgNa56HuZepH8OHlA3oX3xJb7o6NlUVBHmTSeCPvFrqOIi0EGvIpX7al/zhzeOK8neDRkmxI16InOa1vIeVg3AvLqJ+j3TnAVcZN0Mlo2Y0ddkK1FCclbY7r7PZMsEKN3mjt28zCXBvlI/8+El0Nh/fpHFHQJuom87Ocjr5zgUYCwQVwAahkHS3X1+jfWA1cN72AKBA6hDw8gi2/EM3XpQ/B9CqqnJaNzLgpQd0Y/YIseVVR4nTiI+Eeq714ll3siLPtHBSYWogyseZ8c4RTMsNmuLcMYk9laMWCoVi1QtbxBPdlALEjBPQtYFqczKSUp6lQ02Qutiq9tS2KXu5NA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/ROK+JzG6w0la5ILJ3khYDvH0QlaEN7IBcIWNfYChCs=;
- b=H2FJTh6b3l3aMQYCS0EBx89ItSwSvSzpTRvbCtjaA4KnWQFdbAoxnNg16QSy8Rdl2QUow3JBcwKb7Laz5vRqCCREOx8jpE81IoNfmesFl1vUxeuSP4FEDKDKDvjjUjIb9iIDREdZej0WQEhchLN/a0nd+Cm9/Xhlzhcc06S19E4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: <victorm.lira@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Victor Lira <victorm.lira@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1] automation: fix false success in qemu tests
-Date: Wed, 28 Aug 2024 21:09:14 -0700
-Message-ID: <e4de45759723b28713ef205335c4d79b9e7074b7.1724904269.git.victorm.lira@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ bh=CuIZrbkzZ1dOSGUoyKupye1CIvOEvqvYkiVLKnr3yLA=;
+ b=zxzct24mHZX0bIaPAak6ARIunREKwVCtfdsYqaBd7zdaG57ujFTaF5hOv8rOasv9Qi9Q6yaFr9icsBsBYLxuktCRrS+ISUeuTZYEHTkRCMW6Ua4VCjHbugMJfqeD0bk6p2bjdFGXOGuXu9jjyJYdsUk71EdvLVIoOiEmA7aVZys=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <553b3468-39cd-4f10-8036-15726c5054e7@amd.com>
+Date: Wed, 28 Aug 2024 21:18:12 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] automation: fix false success in qemu tests
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <e4de45759723b28713ef205335c4d79b9e7074b7.1724904269.git.victorm.lira@amd.com>
+Content-Language: en-US
+From: "Lira, Victor M" <VictorM.Lira@amd.com>
+In-Reply-To: <e4de45759723b28713ef205335c4d79b9e7074b7.1724904269.git.victorm.lira@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: SA0PR11CA0166.namprd11.prod.outlook.com
+ (2603:10b6:806:1bb::21) To SJ2PR12MB8876.namprd12.prod.outlook.com
+ (2603:10b6:a03:539::18)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F3:EE_|PH7PR12MB5685:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70d1585d-cd37-4246-2899-08dcc7e1046a
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8876:EE_|DM3PR12MB9415:EE_
+X-MS-Office365-Filtering-Correlation-Id: f577d0cd-ce61-4dae-7e5d-08dcc7e19a4d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?U4cctDlujQrTipXbeoMokPNTmxk0JJRktgc2Jd5rKDVZ+AHWp/Zws7yqfz9s?=
- =?us-ascii?Q?TqQszxvk0LzRhVRRYqqGFy7zKoe0eadb2eZKYJWtrEu5nnyLRUdaATyvshvC?=
- =?us-ascii?Q?KOQxWVcG0oHHJqcs/9L6SGG6SCZLtD622Hx2dVoQACZg3EqyLN/drtf8OWMX?=
- =?us-ascii?Q?MQi9mSgthwqcSYKpmmnYZ5RYJtXH/rSMzYe6KhxgKNVb6wEmBVzuh/u0ric2?=
- =?us-ascii?Q?jsjmnapV3XVcH5oAQtxErIGRaLkfiJd7vU/ehRP9essVDEEUJF5eaw9RJTgZ?=
- =?us-ascii?Q?Sv40PqlxSFcT8euIjB18A0/Bg1AMhd0yHrYFPvtYhZYCDQlVHNUSJ0LsfbP7?=
- =?us-ascii?Q?HPImX5Hf4suSQ6AuDuv/fk6CXxH79+zQmC3FVRIVaCpQ9p5N/1CKrLrXIXkq?=
- =?us-ascii?Q?pVCVW//vT9ZaKp/pJglAwO37HOFoWKNQMCc6tbLLVuQcXmQO7+vWIVC2VXvJ?=
- =?us-ascii?Q?A94QEeNxv1aJTzIkMVV2Lo+DNY7zOi9PKCsOBCxqbFg4Jg1CNIbykcJ9VToj?=
- =?us-ascii?Q?AIp3Qd2CNJ+TXyb4W8U6eI+NoF5i5LXO4ky7A6t9jBYnDnjJUb+jeJbCxTWQ?=
- =?us-ascii?Q?dWtoyOx3pweIBG7u9M0cagumqT2RxxKPfiAeLi1giTJUrxQJnokHaU3CgHog?=
- =?us-ascii?Q?drHiyD03Htb85cCXFMruObXKMRk0qcHeRY6fMc2IMqyVfC730qDpbH2G9Bb/?=
- =?us-ascii?Q?cceVldG2KjpqrsYvOwgp0WxJbi/pRbGZTLc7UAuAzPhRHAZe+XWN4XsVoMyn?=
- =?us-ascii?Q?yzVw22kCQ1ZZp0LIAOlyc51GPJopFyuvoLY8Yjr4ZeBPNDUNYa0sYbSAk+I8?=
- =?us-ascii?Q?FYGmz4XTrSWJVeAsuwS1iABUDPhJSeYjyyAEnDQNHl6y/meNslyfVsQfr0HC?=
- =?us-ascii?Q?QDsiKKOn99YK3Dr6dh1MlHuXjCitti95XFSmZpJknWnzOfFhuUOBOqQB0/SO?=
- =?us-ascii?Q?h0exZBx8XLdeeAaD3kQbb+Va2kWy3Ou8UlRTnwbP8l7V51I3JFi9B6fPQkvM?=
- =?us-ascii?Q?7nX5wY4GZl1NNj1Qe8dNP5cUJ/wqCPOXI0q1QwmZonwAEC7lGe7uuLdfwlfa?=
- =?us-ascii?Q?jdnN3LF2/YGHn/DCHSoLxfG8+8CT1AjCCH2xF/WiIZECnOI+6LF0dkNsfHI9?=
- =?us-ascii?Q?KUhlTDAHFkSmtC521G5RwdNi2O6WyTAx8Y8V9pNJf7pMIvYVcljVzeWB65nM?=
- =?us-ascii?Q?a+Wcqf0Kd0hRaflhBvSjttNQWgD0qUODTnvzu0upz6O3z1ZvyExlwa2vOEpG?=
- =?us-ascii?Q?K9s9fzdzMaS2NNROGyaLcNPSzAU1JkhnuQvtwF1baxJ+qwyFrvmwNMtrmhlO?=
- =?us-ascii?Q?fQofHeWtSeoe/sb8w/ySjmDE8Rou/fCTUwWrpjr0tnvNuLIaYexXnLjofQdj?=
- =?us-ascii?Q?JBbapGRKaetoIF55AK7Jdc7EpktQ4FC5N5M19bpQD5M0dMPc6jLRbep2h9VK?=
- =?us-ascii?Q?McgfhUuEqu970wbb1LkI0oxEFDQa+E4S?=
+	=?utf-8?B?MGlSVmxUSGRGV0Znb3plMzlOU2tXdCtKM1MyM3JPMCtnOW93dGc1cTNLeVl2?=
+ =?utf-8?B?bS9RV3VIb2hZQjdxWDRzZC9nSDRkVml4Y2xXcVZYT1E2TGFHV3N0M215V1BD?=
+ =?utf-8?B?MmVURDFNYzlmRVR5REJQNWZDRnl2Q1o0dU5TQ2RjOHdPMjBpMXB4QVJoZWZn?=
+ =?utf-8?B?RVBMMVIyQUVMVCtaWnRtNnd3RHlVMHhxTGFxSFcyN3UxSStyRkVjY3JJNGFW?=
+ =?utf-8?B?clBxTkxESThQcTZIdVhGU3JPWHhyYS9Lc2U5dS9VZStMYU9GMVJTVU05aDBT?=
+ =?utf-8?B?MG8rNFF5VTU4aTlxNDRicmdGQ3JQNkFKYlpYWS9zR3VZL0pUaGZOb0ZTNFNr?=
+ =?utf-8?B?ZEU0cXpibzhVM2I0VGJzc0txS0F5NDc1KzVJai9od2xZWUN4eEN2aTJQanY2?=
+ =?utf-8?B?YTRQdjVmRDRpMFVaV0FnM1hjd0x5TC9UZGVLRTFQY3drTExoMThySGh1ZmhE?=
+ =?utf-8?B?K3pUckJ0eUtvakx2eXIwT0tlbWF1eEVmM3dsNEJURFd4bURwZ3V5SnpoMW9M?=
+ =?utf-8?B?SThLbG9yY3dpdDNNcnZoRThiaTBOZ0JBMldxbVpPTGlRVzNIR2ZFdEhpYzhO?=
+ =?utf-8?B?QXI3R1VUVnRFQ0wvYUJxUUYwellGRENncVN5YmdDbXdIcEJjUlJ3VUN3d0Nv?=
+ =?utf-8?B?OHR5YUtVbzNSS0NMQWhEQ240Yk4zemhXYUhHdXhibHQ0VVJic1oraEdIWDA0?=
+ =?utf-8?B?c1Q1L2J4SVZTUjBGWXdaWmwwQWMrVHFtR0lHanFyakRoRi9EeE9sOUJLMUo1?=
+ =?utf-8?B?UWgxazUwS0VHVGNySGxoWHdDNlNxSVNITGFpSmQzL05mVWJkTVdaNEkzenpv?=
+ =?utf-8?B?T1BhN1ZpdzNwRjdWUUFBWldJem5ORGttMnJyNG9DZ3NjcVRkQWxoZlZnQlZJ?=
+ =?utf-8?B?WUJ2bDY5SnU1bXBRb1I4MmxLN0xrMFdQdDByVUJLQ1kvd2NaamZCNGg1bGlz?=
+ =?utf-8?B?cWU0SVBvSk42MkZIZ0c1RDJLNEZHMVJMUW9IRjRuMTRqeTFFVWJHUFVqbzBi?=
+ =?utf-8?B?YURpc3U1M0NHTnFHM1NZNTB2dVgzVVhISnBIMkZsQjIxVFFtUnR3UTVoOG1P?=
+ =?utf-8?B?dFdVcVRnYjQ1dnI1ZnBKTndMZGZMLzhHZHRlQTdpaWVHc2tkWlhnOURuZmRT?=
+ =?utf-8?B?U3k5THlPaWk4ajNVY1g2dHNOaDBQdU1CZm1Qc0pFWEFncDRTMmxLK2w4bWVz?=
+ =?utf-8?B?eUt3dkJaYll2dmpjTmpNNC9mVVdES25FSm9xZjlqdW5aTXNwWlhjQ3VZRzYv?=
+ =?utf-8?B?bzEwZUtSelhLS2NqZ2dWclkvc2Q0eWd0QTNlZTRseEszNm5Kd2JxeGptNDda?=
+ =?utf-8?B?MWdPU3RMcFUreHBBSVV4emdWVVMwSGxsS21COUh6RlZQazIvTTM5dzZQZU4w?=
+ =?utf-8?B?YWJIdnVSUjFLZHJTM29vbzVSbGwybmRmWkJ1WGx0Q0h4Z3V0Zjk5TVdwd2Vx?=
+ =?utf-8?B?RE5RbVRvUHhwVGNUZi9kaVFpenNDU0VTYk01OW15OUk0SzE0SHZVYnQ4Qmg4?=
+ =?utf-8?B?QXcxUERWaUNnRHdYUDdkangrSDhQbjNHaEZjdytkRkNqWlBIekgwT0lKbnpS?=
+ =?utf-8?B?RUlSK25QTVk4MEJ6b3Rtc25ZYTdDNVdRbXZ1cndrSG45NHNINkFlWGZQQ1ZE?=
+ =?utf-8?B?ZmZRQkw5MmpGRDFwSDZTYXgzRDlIKzFpb3dncVJrenVIZGIwSlNJSy9SMW1E?=
+ =?utf-8?B?WXhVbnM4VkVrbVRJeU1PV0R0ZjRBcVAvd1NOZGVKamc5NDR4TlViblpMYkdG?=
+ =?utf-8?Q?tu8Bbek/iqu+mQcCpU=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8876.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?anIrdm1qRzJwcUFXY2dSRy9zbVRIRHFPd3hDdkp6Nk5mYnJEdDNBakh2Rkhq?=
+ =?utf-8?B?d1hmYXFUbkpnR05jMVZWWnE2NnpRcXNTRXdHTndXRkR6YVgya0FFT28zNnJo?=
+ =?utf-8?B?bVNBT1cvbXQ1QzhJQXhBNWNEd0FyWklPVzFoR3pGN1c4YzNMUGc2b1c3U2Rn?=
+ =?utf-8?B?Y1ZmVEZ4NEpHdU9EVno5dC8wNm1WeGhwZ2pOdW8vcWhqcnNoVzJmYUVvclNL?=
+ =?utf-8?B?UzA4RGxRRE5jOXpoZG5MbVoyaUN1aGZOc3UxZXRoejJ1ajMxNSswSnNPQmxI?=
+ =?utf-8?B?MDh2cmVvNlp6bUVMVmVZQ2NXOEFlaE5oVWVsZk1wNk9hdFN0YW1vSnZXbW5C?=
+ =?utf-8?B?YzEzdFhjTUl2VHhKemdERmY1UVZuVmpXWVRPbmxKdmJWNWpFZjBLTjRKQ1Q5?=
+ =?utf-8?B?NVdmbm1ZTE51ZEt5WjR4bi9MbEtndjNISHBRRjRLc1RhWDcrYzdJb2hTc0hN?=
+ =?utf-8?B?bm5sYk9DVGJDREhoYk42R0Q4QTdGSktadEZGL04zL0VSL0pGWTFSeHcxVnB3?=
+ =?utf-8?B?N0RGeXNmdEJaM0N0UTJBMWpINGZ1all2VnVYM3FRT0pFUnRiZ1ZEbXZ3TmFN?=
+ =?utf-8?B?WHplb3FNanJQaitPejR0NlZzc0ZqTWI0OHRDbHhOT3kwNlF2eHlUNVdGUWZH?=
+ =?utf-8?B?aXkwN3E5SGVmc1o3NHpEQzRJMkJoc2VhMmY0cFVuNEc3eHBZeTZ4emJDdUcx?=
+ =?utf-8?B?d05zMG83Z2lweVhiZ3NwYzIwRVBEc1BKNmxQLzl2V1Y2WjRwZDQ1WkZqY2lT?=
+ =?utf-8?B?K1drNC9ua1VCR3VyQkhsM2FIakd3SHltUXlsUXkrR2JWbkliZHVQajd4S0NL?=
+ =?utf-8?B?YlRYcnNqemdsQnJZejdCRkhPcXVFK2hFN1IrVTRYRVdZTk0xdDgvOEViNjhm?=
+ =?utf-8?B?Sy9FaHVYeE9TMzFRemZrcHNVOWZ0QTBKdy9SUURuL0NreElXY2l1NmlhY3Ri?=
+ =?utf-8?B?alNRU0hNbC9jeWhXQ0tnaC9Zb1hORnJyODJYdVp0SHMrT3dqanNTK3RnRnMv?=
+ =?utf-8?B?TGExU3VqQ1ZXekZ5L2xOOFdsMXlVM3VXMk1pdXlZUEFacmJ2ZnRGYm4zN2VK?=
+ =?utf-8?B?N0IwREUrY0p0TE1meHE0eVRBVXdBd3lLeTZxaWFXMTVTeHA1S1hKWjd5dVZG?=
+ =?utf-8?B?YUsrZHY5OEFGTUgzcms0ZXBaZjZNRTg3ZUp6ZlBYZVdUSFlZM2VTWTBuUVVs?=
+ =?utf-8?B?WSs0NUR4Q0tsT0JCUCtnTUdKOWVKbS9hM2k4WlNhOGY4Q2g2S0VNdk9SUWY0?=
+ =?utf-8?B?ZDZWZUk5YjVobXF2cyt3QVJSaE5IOWUxZDB1TkcwcUZKMlAzU1kyZitwL2p0?=
+ =?utf-8?B?c2l6SzZMR1UybU5PQ0Fab3FVZEFic3BDc2lSM0VldlJlQ1R5dzhXekZ3RHpO?=
+ =?utf-8?B?VjFBYkZ5K21HbU9SZHUrUE9tRmZ2bEFMSXBKbEFEOHhCbitDUHE1VWQ1YVV0?=
+ =?utf-8?B?ZDlZSmkrdVI5V0FDc3g0MEtmdHlXVHYvLzlGUnVVVFc0ZmNpdUw1VWRKY0g2?=
+ =?utf-8?B?MWFpaHJhQ3prWFRIbno2M1VYblB4WS9iTVZyZUd3anVqWDB2cGVaR1JDRVY2?=
+ =?utf-8?B?clVLdDN4bEdTanlLdzVpb2I3T1lSVnRXRk00WU5WWTVBSGU5S3AxUGl2N25x?=
+ =?utf-8?B?cFR2N3Q2cHY0TEJ3NjNWdjRRTi9vVVNMb2dzSmF2Y3VzSjdkVGlaU1lCcG9H?=
+ =?utf-8?B?MVEyaElqeVRucUIxOG0yb2E1aUVxNWNQbU9ab3oxOTdob0JIQ0p2SURidGpQ?=
+ =?utf-8?B?YXVjSEFBVTdRdUhNZHV5a2xrRldBOVNhZGFPVlEyNWI1SzlhM0FOdW1OTmd3?=
+ =?utf-8?B?ZDc5VFNyUlVKSTJBV09ZQ3Axa0Q4RTVOMVFVMjdlMHY2MlF3TU55UjFQNDY3?=
+ =?utf-8?B?WjFrdlhuQnhmdjlBUlc3dHJQdEQ2eUZlM212YkxVRFRaeHd0aktmZ1lGNE1y?=
+ =?utf-8?B?OVFueWJLVHFNaVdMNzg3T3lRZzUvN0NmV2JsV1RETTM4bUVOdGdWVFhnTFZz?=
+ =?utf-8?B?Z1VMNkRkR3hHMzFSMm9qNWRBS3U3WWZKQnlPdDl4bTlxdWhmeC90ZFNYNmdy?=
+ =?utf-8?B?VC8xaFJVWG1YTXlkaVNLK3lzeHJiUjkyK08wbXhZUTdiaittY1BxWGhCMVNZ?=
+ =?utf-8?Q?YesWrt77W2tLj41xm0ibEz4zZ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2024 04:14:03.2277
+X-MS-Exchange-CrossTenant-Network-Message-Id: f577d0cd-ce61-4dae-7e5d-08dcc7e19a4d
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8876.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2024 04:18:15.1390
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70d1585d-cd37-4246-2899-08dcc7e1046a
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5685
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kctZOdNR4ujjJrBbo65Ucdeu2uVU/T/xjcjiYFLjZmRMWJ63TueeL/CH9cqxM8D9EwoYIbsDLdpBycc1Ta4UOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9415
 
-From: Victor Lira <victorm.lira@amd.com>
+While developing a patch to update xilinx tests to use the "expect"
+utility I found that with the current use of "expect" in the *qemu-* 
+*scripts,
+it is possible for the test to produce a *false success *if the expect
+script returns nonzero due to the following lines
 
-Fix flaw in qemu-*.sh tests that producess a false success. The following
-lines produces success despite the "expect" script producing nonzero exit
-status.
-
-    set +e
+     set +e
 ...
-    ./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-    (end of file)
+     ./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
+     (end of file)
 
-The "set +e" is sometimes needed for cleanup such as powering off hardware
-after running a test.
+The first disables exiting on errors which is needed for cleanup in some
+cases such as turning off power in a hardware test. However, here the
+script exits 0 on reaching the end of file.
 
-Fixes the CI failure introduced by 95764a0817.
+This is a serious flaw in our testing system as the result of the test is
+essentially ignored.
 
-Update xilinx-smoke tests to use the "expect" utility for early exit from
-tests. Generalize the variable names in the script "qemu-key.exp" to be
-used by both QEMU and hardware tests. Add a missing "-continue_timer" flag
-for the expect script to properly time out. Add "expect" to xilinx
-dockerfile.
+I have been able produce such a false success here by setting a random 
+passed
+message and short timeout (line 142).
+https://gitlab.com/xen-project/people/sstabellini/xen/-/jobs/7693194287#L142
 
-Signed-off-by: Victor Lira <victorm.lira@amd.com>
----
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org
----
- .../build/ubuntu/xenial-xilinx.dockerfile     |  1 +
- automation/gitlab-ci/test.yaml                |  2 ++
- .../scripts/{qemu-key.exp => console.exp}     | 27 +++++++++++--------
- automation/scripts/qemu-alpine-x86_64.sh      | 13 ++++++---
- automation/scripts/qemu-smoke-dom0-arm32.sh   | 15 +++++++----
- automation/scripts/qemu-smoke-dom0-arm64.sh   | 15 +++++++----
- .../scripts/qemu-smoke-dom0less-arm32.sh      | 15 +++++++----
- .../scripts/qemu-smoke-dom0less-arm64.sh      | 15 +++++++----
- automation/scripts/qemu-smoke-ppc64le.sh      | 13 ++++++---
- automation/scripts/qemu-smoke-riscv64.sh      | 13 ++++++---
- automation/scripts/qemu-smoke-x86-64.sh       | 13 ++++++---
- automation/scripts/qemu-xtf-dom0less-arm64.sh | 13 ++++++---
- .../scripts/xilinx-smoke-dom0-x86_64.sh       | 22 +++++++--------
- .../scripts/xilinx-smoke-dom0less-arm64.sh    | 21 ++++++++-------
- 14 files changed, 127 insertions(+), 71 deletions(-)
- rename automation/scripts/{qemu-key.exp => console.exp} (50%)
-
-diff --git a/automation/build/ubuntu/xenial-xilinx.dockerfile b/automation/build/ubuntu/xenial-xilinx.dockerfile
-index f03d62e8bd..6107d8b771 100644
---- a/automation/build/ubuntu/xenial-xilinx.dockerfile
-+++ b/automation/build/ubuntu/xenial-xilinx.dockerfile
-@@ -20,6 +20,7 @@ RUN apt-get update && \
-         git \
-         gzip \
-         file \
-+        expect \
-         && \
-         apt-get autoremove -y && \
-         apt-get clean && \
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 3b339f387f..e3ebe37459 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -84,6 +84,7 @@
-   variables:
-     CONTAINER: ubuntu:xenial-xilinx
-     LOGFILE: qemu-smoke-xilinx.log
-+    TEST_TIMEOUT: 120
-   artifacts:
-     paths:
-       - smoke.serial
-@@ -103,6 +104,7 @@
-     LOGFILE: xilinx-smoke-x86_64.log
-     XEN_CMD_CONSOLE: "console=com2 com2=115200,8n1,0x2F8,4"
-     TEST_BOARD: "crater"
-+    TEST_TIMEOUT: 500
-   artifacts:
-     paths:
-       - smoke.serial
-diff --git a/automation/scripts/qemu-key.exp b/automation/scripts/console.exp
-similarity index 50%
-rename from automation/scripts/qemu-key.exp
-rename to automation/scripts/console.exp
-index 787f1f08cb..2cf31e7ac0 100755
---- a/automation/scripts/qemu-key.exp
-+++ b/automation/scripts/console.exp
-@@ -1,23 +1,29 @@
- #!/usr/bin/expect -f
-
--if {[info exists env(QEMU_TIMEOUT)]} {
--    set timeout $env(QEMU_TIMEOUT)
-+if {[info exists env(TEST_TIMEOUT)]} {
-+    set timeout $env(TEST_TIMEOUT)
- } else {
-     set timeout 1500
- }
-
--log_file -a $env(QEMU_LOG)
-+log_file -a $env(TEST_LOGFILE)
-
- match_max 10000
-
--eval spawn $env(QEMU_CMD)
-+eval spawn $env(TEST_CMD_START)
-
- expect_after {
-     -re "(.*)\r" {
--        exp_continue
-+        exp_continue -continue_timer
-+    }
-+    timeout {
-+        send_error "ERROR-Timeout!\n"
-+        exit 1
-+    }
-+    eof {
-+        send_error "ERROR-EOF!\n"
-+        exit 1
-     }
--    timeout {send_error "ERROR-Timeout!\n"; exit 1}
--    eof {send_error "ERROR-EOF!\n"; exit 1}
- }
-
- if {[info exists env(UBOOT_CMD)]} {
-@@ -28,22 +34,21 @@ if {[info exists env(UBOOT_CMD)]} {
-
- if {[info exists env(LOG_MSG)]} {
-     expect {
--        "$env(PASSED)" {
-+        "$env(TEST_PASS_MSG)" {
-             expect "$env(LOG_MSG)"
-             exit 0
-         }
-         "$env(LOG_MSG)" {
--            expect "$env(PASSED)"
-+            expect "$env(TEST_PASS_MSG)"
-             exit 0
-         }
-     }
- }
-
- expect {
--    "$env(PASSED)" {
-+    "$env(TEST_PASS_MSG)" {
-         exit 0
-     }
- }
-
- expect eof
--
-diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
-index 42a89e86b0..e9a1577af7 100755
---- a/automation/scripts/qemu-alpine-x86_64.sh
-+++ b/automation/scripts/qemu-alpine-x86_64.sh
-@@ -77,7 +77,7 @@ EOF
- # Run the test
- rm -f smoke.serial
- set +e
--export QEMU_CMD="qemu-system-x86_64 \
-+export TEST_CMD_START="qemu-system-x86_64 \
-     -cpu qemu64,+svm \
-     -m 2G -smp 2 \
-     -monitor none -serial stdio \
-@@ -85,8 +85,13 @@ export QEMU_CMD="qemu-system-x86_64 \
-     -device virtio-net-pci,netdev=n0 \
-     -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0"
-
--export QEMU_LOG="smoke.serial"
-+export TEST_LOGFILE="smoke.serial"
- export LOG_MSG="Domain-0"
--export PASSED="BusyBox"
-+export TEST_PASS_MSG="BusyBox"
-
--./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-+# Capture test result using expect utility.
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+./automation/scripts/console.exp > console
-+exit $?
-diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
-index fd64b19358..dc2ed1f968 100755
---- a/automation/scripts/qemu-smoke-dom0-arm32.sh
-+++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
-@@ -78,7 +78,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
-
- rm -f ${serial_log}
- set +e
--export QEMU_CMD="./qemu-system-arm \
-+export TEST_CMD_START="./qemu-system-arm \
-    -machine virt \
-    -machine virtualization=true \
-    -smp 4 \
-@@ -92,8 +92,13 @@ export QEMU_CMD="./qemu-system-arm \
-    -bios /usr/lib/u-boot/qemu_arm/u-boot.bin"
-
- export UBOOT_CMD="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
--export QEMU_LOG="${serial_log}"
-+export TEST_LOGFILE="${serial_log}"
- export LOG_MSG="Domain-0"
--export PASSED="/ #"
--
--../automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-+export TEST_PASS_MSG="/ #"
-+
-+# Capture test result using expect utility.
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+../automation/scripts/console.exp > console
-+exit $?
-diff --git a/automation/scripts/qemu-smoke-dom0-arm64.sh b/automation/scripts/qemu-smoke-dom0-arm64.sh
-index e0cea742b0..8ecddae555 100755
---- a/automation/scripts/qemu-smoke-dom0-arm64.sh
-+++ b/automation/scripts/qemu-smoke-dom0-arm64.sh
-@@ -94,7 +94,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/conf
- # Run the test
- rm -f smoke.serial
- set +e
--export QEMU_CMD="./binaries/qemu-system-aarch64 \
-+export TEST_CMD_START="./binaries/qemu-system-aarch64 \
-     -machine virtualization=true \
-     -cpu cortex-a57 -machine type=virt \
-     -m 2048 -monitor none -serial stdio \
-@@ -105,8 +105,13 @@ export QEMU_CMD="./binaries/qemu-system-aarch64 \
-     -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin"
-
- export UBOOT_CMD="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
--export QEMU_LOG="smoke.serial"
-+export TEST_LOGFILE="smoke.serial"
- export LOG_MSG="Domain-0"
--export PASSED="BusyBox"
--
--./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-+export TEST_PASS_MSG="BusyBox"
-+
-+# Capture test result using expect utility.
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+./automation/scripts/console.exp > console
-+exit $?
-diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation/scripts/qemu-smoke-dom0less-arm32.sh
-index e824cb7c2a..2625efc163 100755
---- a/automation/scripts/qemu-smoke-dom0less-arm32.sh
-+++ b/automation/scripts/qemu-smoke-dom0less-arm32.sh
-@@ -131,7 +131,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
- # Run the test
- rm -f ${serial_log}
- set +e
--export QEMU_CMD="./qemu-system-arm \
-+export TEST_CMD_START="./qemu-system-arm \
-     -machine virt \
-     -machine virtualization=true \
-     -smp 4 \
-@@ -145,8 +145,13 @@ export QEMU_CMD="./qemu-system-arm \
-     -bios /usr/lib/u-boot/qemu_arm/u-boot.bin"
-
- export UBOOT_CMD="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
--export QEMU_LOG="${serial_log}"
-+export TEST_LOGFILE="${serial_log}"
- export LOG_MSG="${dom0_prompt}"
--export PASSED="${passed}"
--
--../automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-+export TEST_PASS_MSG="${passed}"
-+
-+# Capture test result using expect utility.
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+../automation/scripts/console.exp > console
-+exit $?
-diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-index f42ba5d196..a9ab92d8bf 100755
---- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
-+++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-@@ -205,7 +205,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/conf
- # Run the test
- rm -f smoke.serial
- set +e
--export QEMU_CMD="./binaries/qemu-system-aarch64 \
-+export TEST_CMD_START="./binaries/qemu-system-aarch64 \
-     -machine virtualization=true \
-     -cpu cortex-a57 -machine type=virt,gic-version=$gic_version \
-     -m 2048 -monitor none -serial stdio \
-@@ -216,8 +216,13 @@ export QEMU_CMD="./binaries/qemu-system-aarch64 \
-     -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin"
-
- export UBOOT_CMD="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
--export QEMU_LOG="smoke.serial"
-+export TEST_LOGFILE="smoke.serial"
- export LOG_MSG="Welcome to Alpine Linux"
--export PASSED="${passed}"
--
--./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-+export TEST_PASS_MSG="${passed}"
-+
-+# Capture test result using expect utility.
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+./automation/scripts/console.exp > console
-+exit $?
-diff --git a/automation/scripts/qemu-smoke-ppc64le.sh b/automation/scripts/qemu-smoke-ppc64le.sh
-index 594f92c19c..74ffca00c6 100755
---- a/automation/scripts/qemu-smoke-ppc64le.sh
-+++ b/automation/scripts/qemu-smoke-ppc64le.sh
-@@ -11,7 +11,7 @@ machine=$1
- rm -f ${serial_log}
- set +e
-
--export QEMU_CMD="qemu-system-ppc64 \
-+export TEST_CMD_START="qemu-system-ppc64 \
-     -bios skiboot.lid \
-     -M $machine \
-     -m 2g \
-@@ -22,7 +22,12 @@ export QEMU_CMD="qemu-system-ppc64 \
-     -serial stdio \
-     -kernel binaries/xen"
-
--export QEMU_LOG="${serial_log}"
--export PASSED="Hello, ppc64le!"
-+export TEST_LOGFILE="${serial_log}"
-+export TEST_PASS_MSG="Hello, ppc64le!"
-
--./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-+# Capture test result using expect utility.
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+./automation/scripts/console.exp > console
-+exit $?
-diff --git a/automation/scripts/qemu-smoke-riscv64.sh b/automation/scripts/qemu-smoke-riscv64.sh
-index c2595f657f..d1631b9633 100755
---- a/automation/scripts/qemu-smoke-riscv64.sh
-+++ b/automation/scripts/qemu-smoke-riscv64.sh
-@@ -6,14 +6,19 @@ set -ex
- rm -f smoke.serial
- set +e
-
--export QEMU_CMD="qemu-system-riscv64 \
-+export TEST_CMD_START="qemu-system-riscv64 \
-     -M virt \
-     -smp 1 \
-     -nographic \
-     -m 2g \
-     -kernel binaries/xen"
-
--export QEMU_LOG="smoke.serial"
--export PASSED="All set up"
-+export TEST_LOGFILE="smoke.serial"
-+export TEST_PASS_MSG="All set up"
-
--./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-+# Capture test result using expect utility.
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+./automation/scripts/console.exp > console
-+exit $?
-diff --git a/automation/scripts/qemu-smoke-x86-64.sh b/automation/scripts/qemu-smoke-x86-64.sh
-index 3440b1761d..1703b96e9e 100755
---- a/automation/scripts/qemu-smoke-x86-64.sh
-+++ b/automation/scripts/qemu-smoke-x86-64.sh
-@@ -16,12 +16,17 @@ esac
-
- rm -f smoke.serial
- set +e
--export QEMU_CMD="qemu-system-x86_64 -nographic -kernel binaries/xen \
-+export TEST_CMD_START="qemu-system-x86_64 -nographic -kernel binaries/xen \
-         -initrd xtf/tests/example/$k \
-         -append \"loglvl=all console=com1 noreboot console_timestamps=boot $extra\" \
-         -m 512 -monitor none -serial stdio"
-
--export QEMU_LOG="smoke.serial"
--export PASSED="Test result: SUCCESS"
-+export TEST_LOGFILE="smoke.serial"
-+export TEST_PASS_MSG="Test result: SUCCESS"
-
--./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-+# Capture test result using expect utility.
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+./automation/scripts/console.exp > console
-+exit $?
-diff --git a/automation/scripts/qemu-xtf-dom0less-arm64.sh b/automation/scripts/qemu-xtf-dom0less-arm64.sh
-index 4042fe5060..77a46e3e79 100755
---- a/automation/scripts/qemu-xtf-dom0less-arm64.sh
-+++ b/automation/scripts/qemu-xtf-dom0less-arm64.sh
-@@ -51,7 +51,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/conf
- # Run the test
- rm -f smoke.serial
- set +e
--export QEMU_CMD="./binaries/qemu-system-aarch64 \
-+export TEST_CMD_START="./binaries/qemu-system-aarch64 \
-     -machine virtualization=true \
-     -cpu cortex-a57 -machine type=virt \
-     -m 2048 -monitor none -serial stdio \
-@@ -62,7 +62,12 @@ export QEMU_CMD="./binaries/qemu-system-aarch64 \
-     -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin"
-
- export UBOOT_CMD="virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"
--export QEMU_LOG="smoke.serial"
--export PASSED="${passed}"
-+export TEST_LOGFILE="smoke.serial"
-+export TEST_PASS_MSG="${passed}"
-
--./automation/scripts/qemu-key.exp | sed 's/\r\+$//'
-+# Capture test result using expect utility.
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+./automation/scripts/console.exp > console
-+exit $?
-diff --git a/automation/scripts/xilinx-smoke-dom0-x86_64.sh b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-index 4559e2b9ee..14999956a8 100755
---- a/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-+++ b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-@@ -27,7 +27,6 @@ memory = 512
- vif = [ "bridge=xenbr0", ]
- disk = [ ]
- '
--TIMEOUT_SECONDS=200
-
- # Select test variant.
- if [ "${TEST}" = "ping" ]; then
-@@ -125,20 +124,21 @@ boot
-
- # Power cycle board and collect serial port output.
- SERIAL_DEV="/dev/serial/${TEST_BOARD}"
--SERIAL_CMD="cat ${SERIAL_DEV} | tee smoke.serial | sed 's/\r//'"
- sh /scratch/gitlab-runner/${TEST_BOARD}.sh 2
- sleep 5
- sh /scratch/gitlab-runner/${TEST_BOARD}.sh 1
- sleep 5
- set +e
- stty -F ${SERIAL_DEV} 115200
--timeout -k 1 ${TIMEOUT_SECONDS} nohup sh -c "${SERIAL_CMD}"
--sh /scratch/gitlab-runner/${TEST_BOARD}.sh 2
--
--set -e
--
--if grep -q "${PASS_MSG}" smoke.serial; then
--    exit 0
--fi
-
--fatal "Test failed"
-+# Capture the test result and power off board before exiting.
-+export TEST_PASS_MSG="${PASS_MSG}"
-+export TEST_CMD_START="cat ${SERIAL_DEV}"
-+export TEST_LOGFILE="smoke.serial"
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+./automation/scripts/console.exp > console
-+TEST_RESULT=$?
-+sh "/scratch/gitlab-runner/${TEST_BOARD}.sh" 2
-+exit ${TEST_RESULT}
-diff --git a/automation/scripts/xilinx-smoke-dom0less-arm64.sh b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-index 18aa07f0a2..a6ad37a887 100755
---- a/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-+++ b/automation/scripts/xilinx-smoke-dom0less-arm64.sh
-@@ -137,13 +137,16 @@ cd $START
- SERIAL_DEV="/dev/serial/zynq"
- set +e
- stty -F ${SERIAL_DEV} 115200
--timeout -k 1 120 nohup sh -c "cat ${SERIAL_DEV} | tee smoke.serial | sed 's/\r//'"
-
--# stop the board
--cd /scratch/gitlab-runner
--bash zcu102.sh 2
--cd $START
--
--set -e
--(grep -q "^Welcome to Alpine Linux" smoke.serial && grep -q "${passed}" smoke.serial) || exit 1
--exit 0
-+# Capture the test result and power off board before exiting.
-+export TEST_PASS_MSG="${passed}"
-+export LOG_MSG="Welcome to Alpine Linux"
-+export TEST_CMD_START="cat ${SERIAL_DEV}"
-+export TEST_LOGFILE="smoke.serial"
-+rm -f console
-+mkfifo console
-+sed 's/\r\+$//' < console &
-+./automation/scripts/console.exp > console
-+TEST_RESULT=$?
-+sh /scratch/gitlab-runner/zcu102.sh 2
-+exit ${TEST_RESULT}
---
-2.25.1
+I have sent a patch that fixes this using the same method from my xilinx
+patch but suggestions are welcome. For qemu tests it may be enough to
+instead just remove "set +e".
 
 
