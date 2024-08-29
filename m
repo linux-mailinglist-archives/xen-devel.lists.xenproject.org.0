@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9F59643AA
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 14:00:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785719.1195204 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59E559643AD
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 14:00:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785725.1195214 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjdoe-0008Ld-KA; Thu, 29 Aug 2024 11:59:52 +0000
+	id 1sjdpB-0001Lq-0s; Thu, 29 Aug 2024 12:00:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785719.1195204; Thu, 29 Aug 2024 11:59:52 +0000
+Received: by outflank-mailman (output) from mailman id 785725.1195214; Thu, 29 Aug 2024 12:00:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjdoe-0008JW-HY; Thu, 29 Aug 2024 11:59:52 +0000
-Received: by outflank-mailman (input) for mailman id 785719;
- Thu, 29 Aug 2024 11:59:51 +0000
+	id 1sjdpA-0001Jo-UA; Thu, 29 Aug 2024 12:00:24 +0000
+Received: by outflank-mailman (input) for mailman id 785725;
+ Thu, 29 Aug 2024 12:00:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ImPG=P4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjdod-0008JK-6S
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 11:59:51 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ id 1sjdp9-0008JK-Qg
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 12:00:23 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 31774404-65fe-11ef-a0b0-8be0dac302b0;
- Thu, 29 Aug 2024 13:59:49 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-5353d0b7463so997554e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 04:59:49 -0700 (PDT)
+ id 455805a8-65fe-11ef-a0b0-8be0dac302b0;
+ Thu, 29 Aug 2024 14:00:23 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5bed0a2ae0fso533878a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 05:00:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989221c63sm70089266b.201.2024.08.29.04.59.48
+ a640c23a62f3a-a8989196975sm70956866b.135.2024.08.29.05.00.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 04:59:48 -0700 (PDT)
+ Thu, 29 Aug 2024 05:00:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31774404-65fe-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: 455805a8-65fe-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724932789; x=1725537589; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724932823; x=1725537623; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZT3iXwalvN1B13aqyfNpuDLOaefZIro3XvoMHaM/jD4=;
-        b=SQAdxl/RCkLIGMIQ4QebDp6wAOv6gOI91nqQMf7t22NQV0TA4Wy8akjQGLGAsc9w8A
-         Tef1Bh6MJvP0ZnLNepEy8CRBLmXHf/b4yVt7NR8SOruENfCtn9PUDyM+2DP4VIN4EJcL
-         8Kc7c5PVq+/8UAeIgOCxedVsmfXC8caO/ySxvNyZMu3YcL988Fa29ml0yaCIZZ5yNDKs
-         cNT+rIsm7kP8OedisjSbVLmoBl0AqqZ+yFcash77L1mw9kXGnRk6CgyKKxKS+8irsgKw
-         G+MV6o2kLv605X/Er1DgrLYtl7OTUprStWZGxWcDe5SxlV3EbaRYbXn85WE90Z5AVR5n
-         o0DA==
+        bh=DYYTaskfgTvZ4g7no0G93dtPg+JMiV4HrqW3HUo5R4s=;
+        b=d1DkFcV9b9YyqNhCdkOBN52MNpS8JLObuGqmoTJrOBsOxM0z1GMaaaCEVfD0+jiZhk
+         a+Ax2W1HP8iTfYTpxeoiQ+8oo2DEawCsAYzwE0izonJ8QbdFGi39DWdy96tjH6MMiXZY
+         B1mfvoQsDt9Q9IHsQ1y0bGJG9eC9U0tBaYNvOaVH/xMvMcZfcOqJtyF7045glHdw6cxY
+         anPrKnFp5eAnzlDC9O3MhjYnIoO18zNLZfTNIPm7D2Pys8J4E8Nxl2DZMyFV3s2ixGig
+         LCVraR/b4clhZIaaksionF8L2op4AybCKPFFWD2cqKQ7IlCXjOrXL1hyH7lJMDymrWnS
+         1LZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724932789; x=1725537589;
+        d=1e100.net; s=20230601; t=1724932823; x=1725537623;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ZT3iXwalvN1B13aqyfNpuDLOaefZIro3XvoMHaM/jD4=;
-        b=vcLWJ/vPL38oE4S4Akt6zzaH+PlBGmnUW7R0YCg7JOnfJQ6wrQWA6vH7i1jqblevK6
-         /3eobKd61t26J62U9/D6jvBZBd8KkFxBUG9+gd4vvU5Yr8347LGusjR17ZKUGDvmS3Xd
-         G07PAHsqeBB0cRWN+CPQM8ewqxk3i/b+ix3UIzcfxYViWTuI4BW8usmpKBB8sD/vdCIU
-         30zRREq1096gF+vczYjnFqTfTV7EUvwJ5ahiImqZTOHVqC50vs5wNMR9P9m5QLt0+2xh
-         8WjOfegbWx+Av3a7ES2u3l5Vok7I6vL9K8+Is9nDA7YmfK1iYZTN76kn73xN6sp+9FjH
-         0U6g==
-X-Gm-Message-State: AOJu0YyMCGrHdejtwcImui3fctQZ6jmiwnN4/mos900YP8oQEayaUyTM
-	/7nV5Bxjk/Aw0vMtJqqxFV/pDdUMcQNUzTOTGMgrtflGxuiNoXiQh28DZ2nVqjWcwYdUtKHbfjM
+        bh=DYYTaskfgTvZ4g7no0G93dtPg+JMiV4HrqW3HUo5R4s=;
+        b=DpAoTO09JEaXrhCMNP9hLeu17yzKDTpoIaajuNndO1zi2TvL9dm89D1mzVvCoXSzDT
+         yIykyRlgjTun7zIVYLGPE9EZaY+1NtSeVyn+sCYEt59XofsdZyUBw6sUqDuQQeJihnL2
+         ofhdkJxf3nElh5tukbp6xvv5cyZc2Q71GtLgWMOu+m2AtoFpIm2tFNjILsbkwvb9okUs
+         mjAcQrrOxzwPnDChEKx9MuQnlSeb2kS0JDizvnACX6ctq5UUR4olPjRzpbl20RvqNRwJ
+         7PfpwWVEDJQwc/IHF5Bz8zdCBX54Rnr8GQCnxOE6/XXV2p6bm3mz4NKkIZnJWNhXbENT
+         KwQg==
+X-Gm-Message-State: AOJu0YxqtWEVzndiuX5ZXrm8ohlMWJMJ/Hu6wUdtnK+JjtlyppyqBVzx
+	cchCx9L4wrZ1fvCSz+0D5Hkhlthf8YQNOS7VAiCytRRQG1AZ9MSfPD+L7eK2FqeH29UmIxKN4mU
 	=
-X-Google-Smtp-Source: AGHT+IHgX0dvvVFrjpUd7E1sffm4j1ybtRegBWCZC5TURTgk/AiHefRTANRfHIfHoUGNcJGcy2Wsnw==
-X-Received: by 2002:ac2:4c49:0:b0:533:4785:82ab with SMTP id 2adb3069b0e04-5353e543424mr2311093e87.1.1724932789103;
-        Thu, 29 Aug 2024 04:59:49 -0700 (PDT)
-Message-ID: <e6341c57-cf0d-46c5-8582-a84af515a650@suse.com>
-Date: Thu, 29 Aug 2024 13:59:47 +0200
+X-Google-Smtp-Source: AGHT+IE8ZUfXZU3uzZZtba31YP3xh8mJLc4nhklYgKzdkfAwkLo8V7Y/UxggnnumlinqBwN2YvoPvg==
+X-Received: by 2002:a05:6402:90d:b0:5c0:a8c0:3726 with SMTP id 4fb4d7f45d1cf-5c21ed54acamr1783229a12.19.1724932822369;
+        Thu, 29 Aug 2024 05:00:22 -0700 (PDT)
+Message-ID: <a3c8c66a-3b90-49e3-bf49-b73fa05a1f64@suse.com>
+Date: Thu, 29 Aug 2024 14:00:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/5] types: replace remaining uses of s8
+Subject: [PATCH 3/5] types: replace remaining uses of s16
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
 References: <b1ded557-63b8-4999-98ca-de80488ebad1@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,221 +120,125 @@ Content-Transfer-Encoding: 7bit
 
 ... and move the type itself to linux-compat.h.
 
-While doing so,
-- convert __read_mostly to __ro_after_init for respective variables
-  having their type changed (for acpi_numa add the attribute anew),
-- in cpuid_hypervisor_leaves() drop a cast altogether,
-- switch an adjacent struct arch_irq_desc field to bool.
+While doing so switch an adjacent x86 struct page_info field to bool.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -71,7 +71,7 @@ static struct {
- /*
-  * Knob to control our willingness to enable the local APIC.
-  */
--static s8 __initdata enable_local_apic; /* -1=force-disable, +1=force-enable */
-+static int8_t __initdata enable_local_apic; /* -1=force-disable, +1=force-enable */
+--- a/xen/arch/arm/arm32/livepatch.c
++++ b/xen/arch/arm/arm32/livepatch.c
+@@ -135,7 +135,7 @@ static s32 get_addend(unsigned char type
+         addend =  (*(u32 *)dest & 0x00000FFF);
+         addend |= (*(u32 *)dest & 0x000F0000) >> 4;
+         /* Addend is to sign-extend ([19:16],[11:0]). */
+-        addend = (s16)addend;
++        addend = (int16_t)addend;
+         break;
  
- /*
-  * Debug level
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -46,7 +46,7 @@ static unsigned int __initdata opt_cpuid
- integer_param("cpuid_mask_thermal_ecx", opt_cpuid_mask_thermal_ecx);
- 
- /* 1 = allow, 0 = don't allow guest creation, -1 = don't allow boot */
--s8 __read_mostly opt_allow_unsafe;
-+int8_t __ro_after_init opt_allow_unsafe;
- boolean_param("allow_unsafe", opt_allow_unsafe);
- 
- /* Signal whether the ACPI C1E quirk is required. */
---- a/xen/arch/x86/e820.c
-+++ b/xen/arch/x86/e820.c
-@@ -27,7 +27,7 @@ static unsigned long long __initdata opt
- size_param("availmem", opt_availmem);
- 
- /* opt_nomtrr_check: Don't clip ram to highest cacheable MTRR. */
--static s8 __initdata e820_mtrr_clip = -1;
-+static int8_t __initdata e820_mtrr_clip = -1;
- boolean_param("e820-mtrr-clip", e820_mtrr_clip);
- 
- /* opt_e820_verbose: Be verbose about clipping, the original e820, &c */
---- a/xen/arch/x86/hvm/quirks.c
-+++ b/xen/arch/x86/hvm/quirks.c
-@@ -11,7 +11,7 @@
- #include <xen/param.h>
- #include <asm/hvm/support.h>
- 
--s8 __read_mostly hvm_port80_allowed = -1;
-+int8_t __ro_after_init hvm_port80_allowed = -1;
- boolean_param("hvm_port80", hvm_port80_allowed);
- 
- static int __init cf_check dmi_hvm_deny_port80(const struct dmi_system_id *id)
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -59,7 +59,7 @@ static unsigned int __ro_after_init vm_n
- integer_param("vm-notify-window", vm_notify_window);
- 
- static bool __read_mostly opt_ept_pml = true;
--static s8 __read_mostly opt_ept_ad = -1;
-+static int8_t __ro_after_init opt_ept_ad = -1;
- int8_t __read_mostly opt_ept_exec_sp = -1;
- 
- static int __init cf_check parse_ept_param(const char *s)
---- a/xen/arch/x86/include/asm/acpi.h
-+++ b/xen/arch/x86/include/asm/acpi.h
-@@ -100,7 +100,7 @@ extern unsigned long acpi_wakeup_address
- 
- #define ARCH_HAS_POWER_INIT	1
- 
--extern s8 acpi_numa;
-+extern int8_t acpi_numa;
- 
- extern struct acpi_sleep_info acpi_sinfo;
- #define acpi_video_flags bootsym(video_flags)
---- a/xen/arch/x86/include/asm/amd.h
-+++ b/xen/arch/x86/include/asm/amd.h
-@@ -160,7 +160,7 @@
- struct cpuinfo_x86;
- int cpu_has_amd_erratum(const struct cpuinfo_x86 *cpu, int osvw_id, ...);
- 
--extern s8 opt_allow_unsafe;
-+extern int8_t opt_allow_unsafe;
- 
- void fam10h_check_enable_mmcfg(void);
- void check_enable_amd_mmconf_dmi(void);
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -241,7 +241,7 @@ struct hvm_function_table {
- 
- extern struct hvm_function_table hvm_funcs;
- extern bool hvm_enabled;
--extern s8 hvm_port80_allowed;
-+extern int8_t hvm_port80_allowed;
- 
- extern const struct hvm_function_table *start_svm(void);
- extern const struct hvm_function_table *start_vmx(void);
+     case R_ARM_CALL:
+--- a/xen/arch/arm/arm64/livepatch.c
++++ b/xen/arch/arm/arm64/livepatch.c
+@@ -124,7 +124,7 @@ static int reloc_data(enum aarch64_reloc
+     switch ( len )
+     {
+     case 16:
+-        *(s16 *)place = sval;
++        *(int16_t *)place = sval;
+         if ( sval < INT16_MIN || sval > UINT16_MAX )
+ 	        return -EOVERFLOW;
+         break;
 --- a/xen/arch/x86/include/asm/irq.h
 +++ b/xen/arch/x86/include/asm/irq.h
-@@ -80,8 +80,8 @@ struct arch_irq_desc {
-         cpumask_var_t pending_mask;
-         vmask_t *used_vectors;
-         unsigned move_cleanup_count;
--        u8 move_in_progress : 1;
--        s8 used;
-+        bool move_in_progress : 1;
-+        int8_t used;
+@@ -67,8 +67,8 @@ struct irq_desc;
+  * the old destinations.
+  */
+ struct arch_irq_desc {
+-        s16 vector;                  /* vector itself is only 8 bits, */
+-        s16 old_vector;              /* but we use -1 for unassigned  */
++        int16_t vector;                  /* vector itself is only 8 bits, */
++        int16_t old_vector;              /* but we use -1 for unassigned  */
          /*
-          * Weak reference to domain having permission over this IRQ (which can
-          * be different from the domain actually having the IRQ assigned)
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -170,7 +170,7 @@ static uint32_t __ro_after_init base_dis
-       is_pv_domain(d)) ?                                        \
-      L1_DISALLOW_MASK : (L1_DISALLOW_MASK & ~PAGE_CACHE_ATTRS))
+          * Except for high priority interrupts @cpu_mask may have bits set for
+          * offline CPUs.  Consumers need to be careful to mask this down to
+--- a/xen/arch/x86/include/asm/mm.h
++++ b/xen/arch/x86/include/asm/mm.h
+@@ -286,8 +286,8 @@ struct page_info
+         struct {
+             u16 nr_validated_ptes:PAGETABLE_ORDER + 1;
+             u16 :16 - PAGETABLE_ORDER - 1 - 1;
+-            u16 partial_flags:1;
+-            s16 linear_pt_count;
++            bool partial_flags:1;
++            int16_t linear_pt_count;
+         };
  
--static s8 __read_mostly opt_mmio_relax;
-+static int8_t __ro_after_init opt_mmio_relax;
+         /*
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -1390,7 +1390,7 @@ unmap_common(
+     struct grant_table *lgt, *rgt;
+     grant_ref_t ref;
+     struct active_grant_entry *act;
+-    s16              rc = 0;
++    int16_t          rc;
+     struct grant_mapping *map;
+     unsigned int flags;
+     bool put_handle = false;
+@@ -2580,7 +2580,7 @@ acquire_grant_for_copy(
+     uint16_t trans_page_off;
+     uint16_t trans_length;
+     bool is_sub_page;
+-    s16 rc = GNTST_okay;
++    int16_t rc = GNTST_okay;
+     unsigned int pin_incr = readonly ? GNTPIN_hstr_inc : GNTPIN_hstw_inc;
  
- static int __init cf_check parse_mmio_relax(const char *s)
+     *page = NULL;
+@@ -3416,14 +3416,14 @@ gnttab_get_version(XEN_GUEST_HANDLE_PARA
+     return 0;
+ }
+ 
+-static s16
++static int16_t
+ swap_grant_ref(grant_ref_t ref_a, grant_ref_t ref_b)
  {
---- a/xen/arch/x86/msi.c
-+++ b/xen/arch/x86/msi.c
-@@ -35,7 +35,7 @@
- #include <xsm/xsm.h>
- #include <xen/vpci.h>
+     struct domain *d = rcu_lock_current_domain();
+     struct grant_table *gt = d->grant_table;
+     struct active_grant_entry *act_a = NULL;
+     struct active_grant_entry *act_b = NULL;
+-    s16 rc = GNTST_okay;
++    int16_t rc = GNTST_okay;
  
--static s8 __read_mostly use_msi = -1;
-+static int8_t __ro_after_init use_msi = -1;
- boolean_param("msi", use_msi);
+     grant_write_lock(gt);
  
- static void __pci_disable_msix(struct msi_desc *entry);
---- a/xen/arch/x86/numa.c
-+++ b/xen/arch/x86/numa.c
-@@ -25,7 +25,7 @@ nodeid_t apicid_to_node[MAX_LOCAL_APIC]
-     [0 ... MAX_LOCAL_APIC-1] = NUMA_NO_NODE
- };
- 
--s8 acpi_numa = 0;
-+int8_t __ro_after_init acpi_numa = 0;
- 
- int __init arch_numa_setup(const char *opt)
- {
---- a/xen/arch/x86/oprofile/op_model_athlon.c
-+++ b/xen/arch/x86/oprofile/op_model_athlon.c
-@@ -157,7 +157,7 @@ static inline u64 op_amd_randomize_ibs_o
-          * IbsOpMaxCnt must fit in the range from 0x0081 to
-          * 0xff80.
-          */
--        val += (s8)(random >> 4);
-+        val += (int8_t)(random >> 4);
-     else
-         val |= (u64)(random & IBS_RANDOM_MASK) << 32;
- 
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -166,7 +166,7 @@ unsigned long __read_mostly mmu_cr4_feat
- 
- /* smep: Enable/disable Supervisor Mode Execution Protection */
- #define SMEP_HVM_ONLY (-2)
--static s8 __initdata opt_smep = -1;
-+static int8_t __initdata opt_smep = -1;
- 
- /*
-  * Initial domain place holder. Needs to be global so it can be created in
-@@ -203,7 +203,7 @@ custom_param("smep", parse_smep_param);
- 
- /* smap: Enable/disable Supervisor Mode Access Prevention */
- #define SMAP_HVM_ONLY (-2)
--static s8 __initdata opt_smap = -1;
-+static int8_t __initdata opt_smap = -1;
- 
- static int __init cf_check parse_smap_param(const char *s)
- {
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1116,7 +1116,7 @@ void cpuid_hypervisor_leaves(const struc
-             res->a = offset;
-             res->b = offset >> 32;
-             res->c = d->arch.vtsc_to_ns.mul_frac;
--            res->d = (s8)d->arch.vtsc_to_ns.shift;
-+            res->d = d->arch.vtsc_to_ns.shift;
-             break;
-         }
- 
---- a/xen/include/acpi/cpufreq/cpufreq.h
-+++ b/xen/include/acpi/cpufreq/cpufreq.h
-@@ -79,7 +79,7 @@ struct cpufreq_policy {
- 
-     bool                resume; /* flag for cpufreq 1st run
-                                  * S3 wakeup, hotplug cpu, etc */
--    s8                  turbo;  /* tristate flag: 0 for unsupported
-+    int8_t              turbo;  /* tristate flag: 0 for unsupported
-                                  * -1 for disable, 1 for enabled
-                                  * See CPUFREQ_TURBO_* below for defines */
- };
+--- a/xen/drivers/passthrough/arm/smmu.c
++++ b/xen/drivers/passthrough/arm/smmu.c
+@@ -43,6 +43,7 @@
+ #include <xen/err.h>
+ #include <xen/irq.h>
+ #include <xen/lib.h>
++#include <xen/linux-compat.h>
+ #include <xen/list.h>
+ #include <xen/mm.h>
+ #include <xen/vmap.h>
 --- a/xen/include/xen/linux-compat.h
 +++ b/xen/include/xen/linux-compat.h
-@@ -11,7 +11,7 @@
+@@ -13,7 +13,7 @@
  
- #include <xen/types.h>
- 
--typedef int8_t  __s8;
-+typedef int8_t  s8, __s8;
+ typedef int8_t  s8, __s8;
  typedef uint8_t __u8;
- typedef int16_t __s16;
+-typedef int16_t __s16;
++typedef int16_t s16, __s16;
  typedef int32_t __s32;
+ typedef int64_t __s64;
+ 
 --- a/xen/include/xen/types.h
 +++ b/xen/include/xen/types.h
-@@ -5,7 +5,6 @@
- #include <xen/stdint.h>
+@@ -6,7 +6,6 @@
  
  /* Linux inherited types which are being phased out */
--typedef int8_t s8;
  typedef uint8_t u8;
- typedef int16_t s16;
+-typedef int16_t s16;
  typedef uint16_t u16, __u16;
+ typedef int32_t s32;
+ typedef uint32_t u32, __u32;
 
 
