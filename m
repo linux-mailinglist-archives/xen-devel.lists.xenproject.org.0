@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EED4A96454C
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 14:52:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785850.1195364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D0029645AB
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 15:02:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785859.1195374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjed1-0003Ze-65; Thu, 29 Aug 2024 12:51:55 +0000
+	id 1sjem9-0006Dz-0v; Thu, 29 Aug 2024 13:01:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785850.1195364; Thu, 29 Aug 2024 12:51:55 +0000
+Received: by outflank-mailman (output) from mailman id 785859.1195374; Thu, 29 Aug 2024 13:01:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjed1-0003Y9-3O; Thu, 29 Aug 2024 12:51:55 +0000
-Received: by outflank-mailman (input) for mailman id 785850;
- Thu, 29 Aug 2024 12:51:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sjem8-0006Bl-TW; Thu, 29 Aug 2024 13:01:20 +0000
+Received: by outflank-mailman (input) for mailman id 785859;
+ Thu, 29 Aug 2024 13:01:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zolI=P4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sjecz-0003Y3-Fl
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 12:51:53 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 76ba96d1-6605-11ef-a0b0-8be0dac302b0;
- Thu, 29 Aug 2024 14:51:52 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a8677ae5a35so65900866b.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 05:51:52 -0700 (PDT)
+ id 1sjem6-0006Be-No
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 13:01:18 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c1453067-6606-11ef-99a0-01e77a169b0f;
+ Thu, 29 Aug 2024 15:01:07 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a7aa086b077so53684966b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 06:01:07 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226ccfe8fsm675413a12.62.2024.08.29.05.51.50
+ a640c23a62f3a-a8988feb072sm76925166b.28.2024.08.29.06.01.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 05:51:50 -0700 (PDT)
+ Thu, 29 Aug 2024 06:01:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76ba96d1-6605-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: c1453067-6606-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724935912; x=1725540712; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1724936467; x=1725541267; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rMo5bRBH0nbWBgalqxyESbnLNu0WPfOm0dwY46yOmtg=;
-        b=cOqFwZ+KiVjVHItxGGfnDrCd2OwbYUwU0Bvs2Dh92H2ntdbkvkE6NzvnG+tXJXjaR2
-         J8RWljszTrepXGJsExWCG8XTCzmnmCmftwj0x4wPi/SeTkWBkIq2yESpHdgdJnFex7Ia
-         SIOHJGJlcXqoYFqnwGt1u4BM++tjzCj3OQlvA=
+        bh=stLVbPvXbVnwp8iTE2RucsKVwjH1zhKeuvAiDK/3dj4=;
+        b=Scwo0i5t3XARQFpuyuW+rnDhnme34lB5cnX7IsTOGSdSRn6hr6+nnBUP1jPSlU38dW
+         Sof7eAadQqbowhNV6diPITyUmo3n1vo4w62VtbTLJ1JU02WcuenT0/FgArHFtzfF9dwq
+         JWv0gz7ucayxBE4JS/90H9cvUlAO66X8vLftQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724935912; x=1725540712;
+        d=1e100.net; s=20230601; t=1724936467; x=1725541267;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rMo5bRBH0nbWBgalqxyESbnLNu0WPfOm0dwY46yOmtg=;
-        b=JVO87mYZjU7U/m8DIxwLrjjzHkaXl4MH5NcPKDKGae1JkGXPoMRroXbenw+5005Gj5
-         8w1C205+ED4zDFuU/8vgDwcBIhJFs5G4LqGZY32BKjYqaLmes0euR+0fjIkuV/9vRj8s
-         uOhZnkYhzH+QIsifiKNfJhY+k2/dcazA3SKQyBKtDQmh77+Zs9CFJsRv7t89wWBW7Feo
-         zdb1c7DItW8pS+INqhLmZ3QeJ923pMZNIVfHqF9ghHalsSKJI3i+0EtWi38znZxFCqmP
-         IszDsTC1d9eInNGZjnK830xrVrFeQ+eUToDQVDQK8SCSKXlonWAp36cD9IRV45NSGDTg
-         E0TQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUNlk3RBhNnjbyPb1dJ0XvaPdi11l+n9SehYMxgOSmKYYopYy3Yzr7Wy8RaPuqb88EJojw40X0oZiw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YztmPB/VBTacZUE5D43j3DlYBR4jPIkILnuMxZqdMhYIQ2eexvE
-	cVY7GJDNE8HiMBBnankqu3dRk+cgobtTZ5BnHFmwGeJ8P73kmLiLLvEAf9HXxuI=
-X-Google-Smtp-Source: AGHT+IEADzLFDdxJ7ZbXj0f8Rai7E/6yYg00EFkWxZej1niUB0xi7nr6H012BmnkJc+QxMfT92R5CQ==
-X-Received: by 2002:a05:6402:34c4:b0:5be:fbce:9391 with SMTP id 4fb4d7f45d1cf-5c21ed41d7amr2186629a12.11.1724935911403;
-        Thu, 29 Aug 2024 05:51:51 -0700 (PDT)
-Message-ID: <737c8726-f290-4abf-b46a-344dd63862fa@citrix.com>
-Date: Thu, 29 Aug 2024 13:51:49 +0100
+        bh=stLVbPvXbVnwp8iTE2RucsKVwjH1zhKeuvAiDK/3dj4=;
+        b=Of8vbRjS9ZF5Z/bvl+EvKFIWrc74JowcPAnzT3bbTeBqs7IL3C5EKP8A8ysW9Y0UWs
+         QU+j0RPI9gXeuJRXjrm/1jTgK1qqv6A4+WoYBUklVoHn4gXdqVZ4NIzZVHlYmjcTW1Eh
+         52OC5fXnw9yO4LDNapea0PMp6j8HBGz+4SVI2aj+yNsn3lqMzFBFMScTCaWNGvF7xBLP
+         vPNeu83JUSCTRwCwHWcEaHDpeqINE9vqxxr0U6BefYDglPP33BqvnsLoRg21FXa6G/EE
+         74Ej4yNfPfpnTouUs5ms/ZSMGsso6Pm+nPuE2+zejvNC+jlef7AXeAtXGYHbVE2VExPR
+         D6tQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXXAzvtRWgjiRsD0euZj6sHTshusRPT3jAt8y9ekxBpUBxyEe3LrT2J7wKV7rh0XUL41tRZYIevZtA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwqtQkbsMLKYrO+YL4JTdxzNe/J2phES9SSi2OYReLFBwdagB1R
+	fDRPOd7R3KsQuEZrOZ7vDQQiCb623gQzChJ6UQuDUNjgDn6CT8tltlKsU+rpfm4=
+X-Google-Smtp-Source: AGHT+IFr8NkGSolvS7hqqXM4NarDjOcnTMyHcyXFyzdutqatxwSKTI9GGEZRx9FkTfz4gI7ZAcvZAQ==
+X-Received: by 2002:a17:907:9482:b0:a86:700f:93c1 with SMTP id a640c23a62f3a-a897face4cfmr235517266b.60.1724936464963;
+        Thu, 29 Aug 2024 06:01:04 -0700 (PDT)
+Message-ID: <26a0e465-bc48-489a-ac7a-5455b131fab4@citrix.com>
+Date: Thu, 29 Aug 2024 14:01:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] types: replace remaining uses of s64
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Michal Orzel <michal.orzel@amd.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <b1ded557-63b8-4999-98ca-de80488ebad1@suse.com>
- <50ffc0e1-ff3d-421f-a703-295541357e17@suse.com>
+Subject: Re: [PATCH v6] x86/dom0: disable SMAP for PV domain building only
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+References: <20240828113044.35541-1-roger.pau@citrix.com>
+ <50658093-8463-4ee3-b308-31be2dd1fd42@suse.com>
+ <bd206c4d-8e1d-488c-b428-3f6402a9ae4f@citrix.com>
+ <Zs8gAuc5qoVsVkQe@macbook.local>
+ <a5b4ca69-96ea-46d6-ab0d-2be4fd1d9d99@citrix.com>
+ <ZtAjv6hdbPTZ1dGI@macbook.local>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,44 +132,75 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <50ffc0e1-ff3d-421f-a703-295541357e17@suse.com>
+In-Reply-To: <ZtAjv6hdbPTZ1dGI@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29/08/2024 1:01 pm, Jan Beulich wrote:
-> --- a/xen/arch/x86/time.c
-> +++ b/xen/arch/x86/time.c
-> @@ -66,10 +66,10 @@ struct cpu_time {
->  struct platform_timesource {
->      const char *id;
->      const char *name;
-> -    u64 frequency;
-> +    uint64_t frequency;
->      /* Post-init this hook may only be invoked via the read_counter() wrapper! */
-> -    u64 (*read_counter)(void);
-> -    s64 (*init)(struct platform_timesource *);
-> +    uint64_t (*read_counter)(void);
-> +    int64_t (*init)(struct platform_timesource *);
->      void (*resume)(struct platform_timesource *);
+On 29/08/2024 8:31 am, Roger Pau Monné wrote:
+> On Wed, Aug 28, 2024 at 07:57:39PM +0100, Andrew Cooper wrote:
+>> On 28/08/2024 2:02 pm, Roger Pau Monné wrote:
+>>> On Wed, Aug 28, 2024 at 12:51:23PM +0100, Andrew Cooper wrote:
+>>>> On 28/08/2024 12:50 pm, Jan Beulich wrote:
+>>>>> On 28.08.2024 13:30, Roger Pau Monne wrote:
+>>>>>> Move the logic that disables SMAP so it's only performed when building a PV
+>>>>>> dom0, PVH dom0 builder doesn't require disabling SMAP.
+>>>>>>
+>>>>>> The fixes tag is to account for the wrong usage of cpu_has_smap in
+>>>>>> create_dom0(), it should instead have used
+>>>>>> boot_cpu_has(X86_FEATURE_XEN_SMAP).  Fix while moving the logic to apply to PV
+>>>>>> only.
+>>>>>>
+>>>>>> While there also make cr4_pv32_mask __ro_after_init.
+>>>>>>
+>>>>>> Fixes: 493ab190e5b1 ('xen/sm{e, a}p: allow disabling sm{e, a}p for Xen itself')
+>>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>>> preferably with ...
+>>>>>
+>>>>>> @@ -1051,6 +1051,34 @@ out:
+>>>>>>      return rc;
+>>>>>>  }
+>>>>>>  
+>>>>>> +int __init dom0_construct_pv(struct domain *d,
+>>>>>> +                             const module_t *image,
+>>>>>> +                             unsigned long image_headroom,
+>>>>>> +                             module_t *initrd,
+>>>>>> +                             const char *cmdline)
+>>>>>> +{
+>>>>>> +    int rc;
+>>>>>> +
+>>>>>> +    /*
+>>>>>> +     * Temporarily clear SMAP in CR4 to allow user-accesses in
+>>>>>> +     * construct_dom0().  This saves a large number of corner cases
+>>>>> ... the final 's' dropped here and ...
+>>>>>
+>>>>>> +     * interactions with copy_from_user().
+>>
+>> Actually, even with this adjustment the comment is still wonky.
+>>
+>> The point is that we're clearing SMAP so we *don't* need to rewrite
+>> construct_dom0() in terms of copy_{to,from}_user().
+>>
+>> I've adjusted it.
+> It did seem weird to me, I've assumed the wording was meaning to imply
+> that SMAP was disabled so that construct_dom0() didn't need to use
+> copy_from_user().
+>
+> The comment you added seems fine to me, however there's a typo I
+> think:
+>
+>     /*
+>      * Clear SMAP in CR4 to allow user-accesses in construct_dom0().  This
+>      * prevents us needing to write rewrite construct_dom0() in terms of
+>                               ^ extra?
+>      * copy_{to,from}_user().
+>      */
+>
+> We can fix at some later point when modifying this.
 
-I'm surprised that we haven't seen MISRA complaints about this.  That,
-or I've not been paying enough attention.
+Urgh, sorry.
 
-> --- a/xen/common/ubsan/ubsan.c
-> +++ b/xen/common/ubsan/ubsan.c
-> @@ -21,7 +21,6 @@ static DEFINE_PER_CPU(struct xen_ubsan[1
->  #define current this_cpu(in_ubsan)
->  #define dump_stack dump_execution_state
->  #define u64 long long unsigned int
-> -#define s64 long long int
-
-This block of defines was my magic to use ubsan.c otherwise unmodified
-from Linux.
-
-It ought to use linux-compat.h now it exists, rather than swapping away
-from {u,s}64.
-
-Everything else looks good.
+Luckily, I've got just the patch to do this in...
 
 ~Andrew
 
