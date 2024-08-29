@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D0029645AB
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C8139645AC
 	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 15:02:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785859.1195374 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.785862.1195384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjem9-0006Dz-0v; Thu, 29 Aug 2024 13:01:21 +0000
+	id 1sjemi-0006iN-Al; Thu, 29 Aug 2024 13:01:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785859.1195374; Thu, 29 Aug 2024 13:01:20 +0000
+Received: by outflank-mailman (output) from mailman id 785862.1195384; Thu, 29 Aug 2024 13:01:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjem8-0006Bl-TW; Thu, 29 Aug 2024 13:01:20 +0000
-Received: by outflank-mailman (input) for mailman id 785859;
- Thu, 29 Aug 2024 13:01:18 +0000
+	id 1sjemi-0006gI-7v; Thu, 29 Aug 2024 13:01:56 +0000
+Received: by outflank-mailman (input) for mailman id 785862;
+ Thu, 29 Aug 2024 13:01:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zolI=P4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sjem6-0006Be-No
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 13:01:18 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ImPG=P4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sjemh-0006Be-Fo
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 13:01:55 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1453067-6606-11ef-99a0-01e77a169b0f;
- Thu, 29 Aug 2024 15:01:07 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a7aa086b077so53684966b.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 06:01:07 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8988feb072sm76925166b.28.2024.08.29.06.01.04
+ id dd0e5a86-6606-11ef-99a0-01e77a169b0f;
+ Thu, 29 Aug 2024 15:01:53 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a86883231b4so65018866b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 06:01:53 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8989221c2fsm76599666b.197.2024.08.29.06.01.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 06:01:04 -0700 (PDT)
+ Thu, 29 Aug 2024 06:01:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,162 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1453067-6606-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: dd0e5a86-6606-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724936467; x=1725541267; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724936513; x=1725541313; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=stLVbPvXbVnwp8iTE2RucsKVwjH1zhKeuvAiDK/3dj4=;
-        b=Scwo0i5t3XARQFpuyuW+rnDhnme34lB5cnX7IsTOGSdSRn6hr6+nnBUP1jPSlU38dW
-         Sof7eAadQqbowhNV6diPITyUmo3n1vo4w62VtbTLJ1JU02WcuenT0/FgArHFtzfF9dwq
-         JWv0gz7ucayxBE4JS/90H9cvUlAO66X8vLftQ=
+        bh=73G/kKffEOfYWnxdHaXi0o5x8TmRZ28dwfnIYa9Gv14=;
+        b=NBP9omltPq4QzQrwqkSPIEYImMlQg+rQGYITnzC8EPf8XnxtQV++YMzV/USaZnMNe/
+         5RrVUJ1a8AB5g9Lhe+HpqiHBb3XqB7h/r1qrc50U4TKKV5ME7mAQvTpXyHDQPEAS2LW9
+         jVEix+oawaciO5emF5mMBO2qLQriagezLY3/eYjiktHEnUV0aPaPizsoh8vHTPsixoe1
+         guNXn6Hi/93elIH6SaAallpvc5aAwYlIJi016F8aINz5q9WBMTQEcKGDKsAzXECW+Dd3
+         RrCzme1OIoIbPVFAOMfGfKh2ofrRfFrckdkMsVtm30pRzDlrEdSY6EBj2rHZsp2FRNdG
+         zetg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724936467; x=1725541267;
+        d=1e100.net; s=20230601; t=1724936513; x=1725541313;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=stLVbPvXbVnwp8iTE2RucsKVwjH1zhKeuvAiDK/3dj4=;
-        b=Of8vbRjS9ZF5Z/bvl+EvKFIWrc74JowcPAnzT3bbTeBqs7IL3C5EKP8A8ysW9Y0UWs
-         QU+j0RPI9gXeuJRXjrm/1jTgK1qqv6A4+WoYBUklVoHn4gXdqVZ4NIzZVHlYmjcTW1Eh
-         52OC5fXnw9yO4LDNapea0PMp6j8HBGz+4SVI2aj+yNsn3lqMzFBFMScTCaWNGvF7xBLP
-         vPNeu83JUSCTRwCwHWcEaHDpeqINE9vqxxr0U6BefYDglPP33BqvnsLoRg21FXa6G/EE
-         74Ej4yNfPfpnTouUs5ms/ZSMGsso6Pm+nPuE2+zejvNC+jlef7AXeAtXGYHbVE2VExPR
-         D6tQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXXAzvtRWgjiRsD0euZj6sHTshusRPT3jAt8y9ekxBpUBxyEe3LrT2J7wKV7rh0XUL41tRZYIevZtA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwqtQkbsMLKYrO+YL4JTdxzNe/J2phES9SSi2OYReLFBwdagB1R
-	fDRPOd7R3KsQuEZrOZ7vDQQiCb623gQzChJ6UQuDUNjgDn6CT8tltlKsU+rpfm4=
-X-Google-Smtp-Source: AGHT+IFr8NkGSolvS7hqqXM4NarDjOcnTMyHcyXFyzdutqatxwSKTI9GGEZRx9FkTfz4gI7ZAcvZAQ==
-X-Received: by 2002:a17:907:9482:b0:a86:700f:93c1 with SMTP id a640c23a62f3a-a897face4cfmr235517266b.60.1724936464963;
-        Thu, 29 Aug 2024 06:01:04 -0700 (PDT)
-Message-ID: <26a0e465-bc48-489a-ac7a-5455b131fab4@citrix.com>
-Date: Thu, 29 Aug 2024 14:01:02 +0100
+        bh=73G/kKffEOfYWnxdHaXi0o5x8TmRZ28dwfnIYa9Gv14=;
+        b=hiMEKO59C7ebBvYFgHSFrB989wcUpCJAgeB63fDCeQcZUadGk01Wca8J1mfiVuc2KQ
+         djGkVLxi/+vKIPSj9iu1BGdVdFvb+xihUE8L/lMdfqtdAVw5Vy06WMrcYhKtHhdfNuSt
+         Kh2MraXOXtYUIQt9oxPHtLcVL9g3crp8RlB35vBidurjp1ozaqCt05zODFbbf4FP5vUV
+         p803mcAthVIbES5YTOqvWu18SB0A/OITfzb78Rg4dGFw11VsFgUHstxbLP8eHCvU6Mhd
+         AKPUdSiAG372Fsz/KtT3WjtvhlKZ3/oIFF1NPjsybVMZdGO3nk7OEuRUPwTgrDV48f7U
+         eNAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUIYDD77mfV5LpPDNVwy0fESj1t3oV47F0RTNA2Kb2ede4pUd6JVCylIveMW6bkLpw8kwfftCQYzvY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxwEUs4nVmkHRnwYny2mGqq0Nz/c8bRFi4ipjTEFlacVwh2yxg4
+	rco92LyYzAYh/QmU9vYlijZvsWL1xUfGNqKvVntqjrU4kkhCp5xdusWmnrJIMaDWlVHn9SuPFIM
+	=
+X-Google-Smtp-Source: AGHT+IGi1owXCCTKYuOMLksJY+fXvyOdBg6fexDNFCj0II/IpeasckOPWDowW/NPSixbAGYVNcBXww==
+X-Received: by 2002:a17:906:6a0d:b0:a86:8f32:3a68 with SMTP id a640c23a62f3a-a897f8fc7dfmr246078066b.37.1724936512220;
+        Thu, 29 Aug 2024 06:01:52 -0700 (PDT)
+Message-ID: <6e742ccd-71bf-4933-a7e3-c6ab91f4d196@suse.com>
+Date: Thu, 29 Aug 2024 15:01:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] x86/dom0: disable SMAP for PV domain building only
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-References: <20240828113044.35541-1-roger.pau@citrix.com>
- <50658093-8463-4ee3-b308-31be2dd1fd42@suse.com>
- <bd206c4d-8e1d-488c-b428-3f6402a9ae4f@citrix.com>
- <Zs8gAuc5qoVsVkQe@macbook.local>
- <a5b4ca69-96ea-46d6-ab0d-2be4fd1d9d99@citrix.com>
- <ZtAjv6hdbPTZ1dGI@macbook.local>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ZtAjv6hdbPTZ1dGI@macbook.local>
+Subject: Re: [PATCH 4/5] types: replace remaining uses of s32
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Marek Marczykowski <marmarek@invisiblethingslab.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <b1ded557-63b8-4999-98ca-de80488ebad1@suse.com>
+ <0e6b7685-e061-4ace-88fd-86728d765e5a@suse.com>
+ <3fa09b21-fb7e-4b3c-91cb-d47c25608771@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3fa09b21-fb7e-4b3c-91cb-d47c25608771@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29/08/2024 8:31 am, Roger Pau Monné wrote:
-> On Wed, Aug 28, 2024 at 07:57:39PM +0100, Andrew Cooper wrote:
->> On 28/08/2024 2:02 pm, Roger Pau Monné wrote:
->>> On Wed, Aug 28, 2024 at 12:51:23PM +0100, Andrew Cooper wrote:
->>>> On 28/08/2024 12:50 pm, Jan Beulich wrote:
->>>>> On 28.08.2024 13:30, Roger Pau Monne wrote:
->>>>>> Move the logic that disables SMAP so it's only performed when building a PV
->>>>>> dom0, PVH dom0 builder doesn't require disabling SMAP.
->>>>>>
->>>>>> The fixes tag is to account for the wrong usage of cpu_has_smap in
->>>>>> create_dom0(), it should instead have used
->>>>>> boot_cpu_has(X86_FEATURE_XEN_SMAP).  Fix while moving the logic to apply to PV
->>>>>> only.
->>>>>>
->>>>>> While there also make cr4_pv32_mask __ro_after_init.
->>>>>>
->>>>>> Fixes: 493ab190e5b1 ('xen/sm{e, a}p: allow disabling sm{e, a}p for Xen itself')
->>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>>> preferably with ...
->>>>>
->>>>>> @@ -1051,6 +1051,34 @@ out:
->>>>>>      return rc;
->>>>>>  }
->>>>>>  
->>>>>> +int __init dom0_construct_pv(struct domain *d,
->>>>>> +                             const module_t *image,
->>>>>> +                             unsigned long image_headroom,
->>>>>> +                             module_t *initrd,
->>>>>> +                             const char *cmdline)
->>>>>> +{
->>>>>> +    int rc;
->>>>>> +
->>>>>> +    /*
->>>>>> +     * Temporarily clear SMAP in CR4 to allow user-accesses in
->>>>>> +     * construct_dom0().  This saves a large number of corner cases
->>>>> ... the final 's' dropped here and ...
->>>>>
->>>>>> +     * interactions with copy_from_user().
+On 29.08.2024 14:44, Andrew Cooper wrote:
+> On 29/08/2024 1:01 pm, Jan Beulich wrote:
+>> ... and move the type itself to linux-compat.h.
 >>
->> Actually, even with this adjustment the comment is still wonky.
+>> While doing so switch a few adjacent types as well, for (a little bit
+>> of) consistency.
 >>
->> The point is that we're clearing SMAP so we *don't* need to rewrite
->> construct_dom0() in terms of copy_{to,from}_user().
->>
->> I've adjusted it.
-> It did seem weird to me, I've assumed the wording was meaning to imply
-> that SMAP was disabled so that construct_dom0() didn't need to use
-> copy_from_user().
->
-> The comment you added seems fine to me, however there's a typo I
-> think:
->
->     /*
->      * Clear SMAP in CR4 to allow user-accesses in construct_dom0().  This
->      * prevents us needing to write rewrite construct_dom0() in terms of
->                               ^ extra?
->      * copy_{to,from}_user().
->      */
->
-> We can fix at some later point when modifying this.
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>,
 
-Urgh, sorry.
+Thanks.
 
-Luckily, I've got just the patch to do this in...
+> with a minor formatting request.
+> 
+>> --- a/xen/arch/arm/arm32/livepatch.c
+>> +++ b/xen/arch/arm/arm32/livepatch.c
+>> @@ -41,11 +41,11 @@ void arch_livepatch_apply(const struct l
+>>           * ARM DDI 0406C.c, see A2.3 (pg 45) and A8.8.18 pg (pg 334,335)
+>>           *
+>>           */
+>> -        delta = (s32)func->new_addr - (s32)(func->old_addr + 8);
+>> +        delta = (int32_t)func->new_addr - (int32_t)(func->old_addr + 8);
+>>  
+>>          /* The arch_livepatch_symbol_ok should have caught it. */
+>> -        ASSERT(delta >= -(s32)ARCH_LIVEPATCH_RANGE ||
+>> -               delta < (s32)ARCH_LIVEPATCH_RANGE);
+>> +        ASSERT(delta >= -(int32_t)ARCH_LIVEPATCH_RANGE ||
+>> +               delta < (int32_t)ARCH_LIVEPATCH_RANGE);
+> 
+> Could you vertically like this, like it is ...
+> 
+>> @@ -203,8 +204,8 @@ static int perform_rel(unsigned char typ
+>>           * arch_livepatch_verify_distance can't account of addend so we have
+>>           * to do the check here as well.
+>>           */
+>> -        if ( (s32)val < -(s32)ARCH_LIVEPATCH_RANGE ||
+>> -             (s32)val >= (s32)ARCH_LIVEPATCH_RANGE )
+>> +        if ( (int32_t)val < -(int32_t)ARCH_LIVEPATCH_RANGE ||
+>> +             (int32_t)val >= (int32_t)ARCH_LIVEPATCH_RANGE )
+>>              return -EOVERFLOW;
+> 
+> ... here?
 
-~Andrew
+If the Arm folks don't mind - sure, I can. I think though that the latter
+only happens to look aligned, without there having been such an intention.
+Kind of supported ...
+
+> I'd argue that even this one wants one extra space in the middle, so the
+> '-' is further to the right of the >=.
+
+... by this observation of yours.
+
+Jan
 
