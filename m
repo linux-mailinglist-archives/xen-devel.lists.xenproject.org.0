@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E62D9649E1
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 17:21:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785973.1195525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E0B8964A5B
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 17:43:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785987.1195550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjgwf-00083p-1P; Thu, 29 Aug 2024 15:20:21 +0000
+	id 1sjhIS-0003l1-0p; Thu, 29 Aug 2024 15:42:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785973.1195525; Thu, 29 Aug 2024 15:20:21 +0000
+Received: by outflank-mailman (output) from mailman id 785987.1195550; Thu, 29 Aug 2024 15:42:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjgwe-00080z-U0; Thu, 29 Aug 2024 15:20:20 +0000
-Received: by outflank-mailman (input) for mailman id 785973;
- Thu, 29 Aug 2024 15:20:20 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjgwe-00080p-58; Thu, 29 Aug 2024 15:20:20 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjgwd-0005xg-Sc; Thu, 29 Aug 2024 15:20:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjgwd-0006zZ-Et; Thu, 29 Aug 2024 15:20:19 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sjgwd-0007Ho-EL; Thu, 29 Aug 2024 15:20:19 +0000
+	id 1sjhIR-0003iu-UJ; Thu, 29 Aug 2024 15:42:51 +0000
+Received: by outflank-mailman (input) for mailman id 785987;
+ Thu, 29 Aug 2024 15:42:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h9f7=P4=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sjhIQ-0003il-DT
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 15:42:50 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5755d43d-661d-11ef-99a0-01e77a169b0f;
+ Thu, 29 Aug 2024 17:42:47 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5bed05c0a2fso945868a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 08:42:47 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a89891dacb2sm91900966b.183.2024.08.29.08.42.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Aug 2024 08:42:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,258 +44,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=sHtMk8B5diZPv4PjS5wIZgOoW0YKbZAqEajn37TVUFE=; b=6uX+kRq6EduXk5XKfeUP40V6cl
-	Zmx/aNe/k8lYHlOgCKl9I7aeF2R9S5GVVMFEvoQZELyYXl2VHywNiA2/cSOkw1YcFnXiygdGZRbQm
-	Eytirre8AVION9t49V0RQImm5RtXrxHmodnSoroNcw4JAtNw08a5UdJ7fRE6U1lWzbDg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187390-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5755d43d-661d-11ef-99a0-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1724946167; x=1725550967; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Vp0CN+UaeHV6/vmMmS1h1axhAIZtHxlFP3D4D1tJGIE=;
+        b=cZFylR+Lbulf/dpS07YkkCtvaxTm37ONSJvyuW2ucreXDPKvybkkh9jGB1NF2VkvYm
+         xrofw1H/du7OfVEHb4B+g2mW8LUNJswx2kZkdwDz9CLCetvekDYBkbkHo03plvjg4ocj
+         zy4l83Oz45ylr2w67HBPk1W1rOOvqLvkD/zR8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724946167; x=1725550967;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Vp0CN+UaeHV6/vmMmS1h1axhAIZtHxlFP3D4D1tJGIE=;
+        b=awVNYhzDFAKnLRBf7W6CdxiEzCBi0cybxm4mYdQBRhKwwLDho+8d6GxhAAijtFj0ah
+         RHfy8VwF5ZLvkWie2o8GEtyK0KV1KC9Svj3M/89W2Rx5FA2kw2ocroHI9eyM4bpcPapQ
+         mqEqouRr6XVlwQ/eN3OkhJRgSWifQob/l4PAHXQXLYf/Fw9HEX/8Yl/e5QhMFOa+rcn9
+         kR6ezTJLR8TstIY3kwejukXG5OLTdDZahih5JreBz03oTeMAEv0ePowg6FPaHevqhnLF
+         lNLd6rKa1xQ9I3tiSltq7x+TKRgWZViSUzs9EfVB/kQu+ADDFFp36u6loDOraD0rjcsZ
+         0CyQ==
+X-Gm-Message-State: AOJu0YyBfj4xFyFzFaRErzSgzy+PAOhKBKDXlr8AB9SK+gguUUELjgxT
+	rGecazzPtpqT2wO2U0vkUFBl6zO9+vbDZ/fZhO1ZmxJin87NzPLkaAA0CgPnaog=
+X-Google-Smtp-Source: AGHT+IHfDzLInsL/iga3oMevKCws/DrvNkMQoP9KqrnPBZixMErkhL9kHWDhH4kOWjSw4o0To0wsHg==
+X-Received: by 2002:a05:6402:90b:b0:5be:fbe7:11ac with SMTP id 4fb4d7f45d1cf-5c21ed54d3cmr3485727a12.20.1724946166714;
+        Thu, 29 Aug 2024 08:42:46 -0700 (PDT)
+Date: Thu, 29 Aug 2024 17:42:45 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+	Owen Smith <owen.smith@cloud.com>, Mark Syms <mark.syms@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: Block protocol incompatibilities with 4K logical sector size
+ disks
+Message-ID: <ZtCW9Qq9k8UQ-jJC@macbook.local>
+References: <ZtBUnzH4sIrFAo0f@macbook.local>
+ <ZtB0fMRCGajdcfap@l14>
 MIME-Version: 1.0
-Subject: [xen-unstable test] 187390: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-unstable:test-armhf-armhf-xl-credit2:host-ping-check-xen:fail:heisenbug
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=fb1658221a31ec1db33253a80001191391e73b17
-X-Osstest-Versions-That:
-    xen=9429f1a6c4758ae91f3ae721a036f4bbf76fb2b8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 29 Aug 2024 15:20:19 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZtB0fMRCGajdcfap@l14>
 
-flight 187390 xen-unstable real [real]
-flight 187404 xen-unstable real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187390/
-http://logs.test-lab.xenproject.org/osstest/logs/187404/
+On Thu, Aug 29, 2024 at 01:15:42PM +0000, Anthony PERARD wrote:
+> On Thu, Aug 29, 2024 at 12:59:43PM +0200, Roger Pau Monné wrote:
+> > Hello,
+> >
+> > To give some context, this started as a bug report against FreeBSD failing to
+> > work with PV blkif attached disks with 4K logical sectors when the backend is
+> > Linux kernel blkback:
+> >
+> > https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=280884
+> >
+> > Further investigation has lead me to discover that the protocol described in
+> > the public blkif.h header is not implemented uniformly, and there are major
+> > inconsistencies between implementations regarding the meaning of the `sectors`
+> > and `sector-size` xenstore nodes, and the sector_number and {first,last}_sect
+> > struct request fields.  Below is a summary of the findings on the
+> > implementation I've analyzed.
+> >
+> > Linux blk{front,back} always assumes the `sectors` xenstore node to be in 512b
+> > units, regardless of the value of the `sector-size` node.  Equally the ring
+> > request sector_number and the segments {first,last}_sect fields are always
+> > assumed to be in units of 512b regardless of the value of `sector-size`.  The
+> > `feature-large-sector-size` node is neither exposed by blkfront, neither
+> > checked by blkback before exposing a `sector-size` node different than 512b.
+> >
+> > FreeBSD blk{front,back} calculates (and for blkback exposes) the disk size as
+> > `sectors` * `sector-size` based on the values in the xenstore nodes (as
+> > described in blkif.h).  The ring sector_number is filled with the sector number
+> > based on the `sector-size` value, however the {first,last}_sect fields are
+> > always calculated as 512b units.   The `feature-large-sector-size` node is
+> > neither exposed by blkfront, neither checked by blkback before exposing a
+> > `sector-size` node different than 512b.
+> >
+> > QEMU qdisk blkback implementation exposes the `sectors` disk size in units of
+> > `sector-size` (as FreeBSD blkback).  The ring structure fields sector_number
+> > and {first,last}_sect are assumed to be in units of `sector-size`.  This
+> > implementation will not expose a `sector-size` node with a value different than
+> > 512 unless the frontend xenstore path has the `feature-large-sector-size` node
+> > present.
+> >
+> > Windows blkfront calculates the disk size as `sectors` * `sector-size` from the
+> > xenstore nodes exposed by blkback.   The ring structure fields sector_number
+> > and {first,last}_sect are assumed to be in units of `sector-size`.  This
+> > frontend implementation exposes `feature-large-sector-size`.
+> >
+> > When using a disk with a logical sector size different than 512b, Linux is only
+> > compatible with itself, same for FreeBSD.  QEMU blkback implementation is also
+> > only compatible with the Windows blkfront implementation.  The
+> > `feature-large-sector-size` seems to only be implemented for the QEMU/Windows
+> > combination, both Linux and FreeBSD don't implement any support for it neither
+> > in the backend or the frontend.
+> >
+> > The following table attempts to summarize in which units the following fields
+> > are defined for the analyzed implementations (please correct me if I got some
+> > of this wrong):
+> >
+> >                         │ sectors xenbus node │ requests sector_number │ requests {first,last}_sect
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > FreeBSD blk{front,back} │     sector-size     │      sector-size       │           512
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > Linux blk{front,back}   │         512         │          512           │           512
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > QEMU blkback            │     sector-size     │      sector-size       │       sector-size
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > Windows blkfront        │     sector-size     │      sector-size       │       sector-size
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > MiniOS                  │     sector-size     │          512           │           512
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > tapdisk blkback         │         512         │      sector-size       │           512
+> 
+> There's OVMF as well, which copied MiniOS's implementation, and looks
+> like it's still the same as MiniOS for the table above:
+> 
+> OVMF (base on MiniOS)   │     sector-size     │          512           │           512
+> 
+> >
+> > It's all a mess, I'm surprised we didn't get more reports about brokenness when
+> > using disks with 4K logical sectors.
+> >
+> > Overall I think the in-kernel backends are more difficult to update (as it
+> > might require a kernel rebuild), compared to QEMU or blktap.  Hence my slight
+> > preference would be to adjust the public interface to match the behavior of
+> > Linux blkback, and then adjust the implementation in the rest of the backends
+> > and frontends.
+> 
+> I would add that making "sector-size" been different from 512 illegal
+> makes going forward easier, has every implementation will work with a
+> "sector-size" of 512, and it probably going to be the most common sector
+> size for a while longer.
 
-Failures :-/ but no regressions.
+My main concern is the amount of backends out there that already
+expose a "sector-size" different than 512.  I fear any changes here
+will take time to propagate to in-kernel backends, and hence my
+approach was to avoid modifying Linux blkback, because (as seen in the
+FreeBSD bug report) there are already instances of 4K logical sector
+disks being used by users.  Modifying the frontends is likely easier,
+as that's under the owner of the VM control.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl-credit2  10 host-ping-check-xen fail pass in 187404-retest
+> > There was an attempt in 2019 to introduce a new frontend feature flag to signal
+> > whether the frontend supported `sector-size` xenstore nodes different than 512 [0].
+> > However that was only ever implemented for QEMU blkback and Windows blkfront,
+> > all the other backends will expose `sector-size` different than 512 without
+> > checking if `feature-large-sector-size` is exposed by the frontend.  I'm afraid
+> > it's now too late to retrofit that feature into existing backends, seeing as
+> > they already expose `sector-size` nodes greater than 512 without checking if
+> > `feature-large-sector-size` is reported by the frontend.
+> 
+> Much before that, "physical-sector-size" was introduced (2013):
+>     https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=a67e2dac9f8339681b30b0f89274a64e691ea139
+> 
+> Linux seems to implement it, but QEMU or OVMF don't have it.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-credit2 15 migrate-support-check fail in 187404 never pass
- test-armhf-armhf-xl-credit2 16 saverestore-support-check fail in 187404 never pass
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 187377
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187377
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187377
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187377
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 187377
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187377
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+Yeah, I was aware of this, normal disks already have a physical sector
+size (optimal sector size) and a logical sector size (minimal size
+supported by the drive).  Some implement a smaller logical than
+physical sector size by doing read-modify-write.
 
-version targeted for testing:
- xen                  fb1658221a31ec1db33253a80001191391e73b17
-baseline version:
- xen                  9429f1a6c4758ae91f3ae721a036f4bbf76fb2b8
+> > My proposal would be to adjust the public interface with:
+> >
+> >  * Disk size is calculated as: `sectors` * 512 (`sectors` being the contents of
+> >    such xenstore backend node).
+> >
+> >  * All the sector related fields in blkif ring requests use a 512b base sector
+> >    size, regardless of the value in the `sector-size` xenstore node.
+> >
+> >  * The `sector-size` contains the disk logical sector size.  The frontend must
+> >    ensure that all request segments addresses are aligned and it's length is
+> >    a multiple of such size.  Otherwise the backend will refuse to process the
+> >    request.
+> 
+> You still want to try to have a "sector-size" different from 512? To me
+> this just add confusion to the confusion. There would be no way fro
+> backend or frontend to know if setting something other than 512 is going
+> to work.
 
-Last test of basis   187377  2024-08-28 06:43:37 Z    1 days
-Testing same since   187390  2024-08-28 23:42:20 Z    0 days    1 attempts
+But that's already the case, most (all?) backends except QEMU will set
+"sector-size" to the underlying block storage logical sector size
+without any way to tell if the frontend supports sector-sizes != 512.
+So the issue is not inherently with the setting of the "sector-size"
+node to a value different than 512, but rather how different
+implementations have diverged regarding which is the base unit of
+other fields.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
+> Also, it is probably easier to update backend than frontend, so
+> it is just likely that something is going to lag behind and broke.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+Hm, I'm not convinced, sometimes the owner of a VM has no control over
+the version of the backends if it's not the admin of the host.  OTOH
+the owner of a VM could always update the kernel in order to
+workaround such blkfront/blkback incompatibility issues.  Hence my
+preference was for solutions that didn't involve changing Linux
+blkback, as I believe that's the most commonly used backend.
 
+> Why not make use of the node "physical-sector-size" that have existed
+> for 10 years, even if unused or unadvertised, and if an IO request isn't
+> aligned on it, it is just going to be slow (as backend would have to
+> read,update,write instead of just write sectors).
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+I don't really fancy implementing read-modify-write on the backends,
+as it's going to add more complexity to blkback implementations,
+specially the in-kernel ones I would assume.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+All frontends I've looked into support "sector-size" != 512, but
+there's a lack of uniformity on whether other units used in the
+protocol are based on the blkback exposed "sector-size", or hardcoded
+to 512.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+So your suggestion would be to hardcode "sector-size" to 512 and use
+the "physical-sector-size" node value to set the block device logical
+sector size the frontends?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+If we go that route I would suggest that backends are free to refuse
+requests that aren't a multiple of "physical-sector-size".
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   9429f1a6c4..fb1658221a  fb1658221a31ec1db33253a80001191391e73b17 -> master
+Thanks, Roger.
 
