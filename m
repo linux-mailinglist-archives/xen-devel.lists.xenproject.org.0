@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59E559643AD
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 14:00:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785725.1195214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E97449643B3
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 14:01:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785736.1195226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjdpB-0001Lq-0s; Thu, 29 Aug 2024 12:00:25 +0000
+	id 1sjdqI-0001z6-Aw; Thu, 29 Aug 2024 12:01:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785725.1195214; Thu, 29 Aug 2024 12:00:24 +0000
+Received: by outflank-mailman (output) from mailman id 785736.1195226; Thu, 29 Aug 2024 12:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjdpA-0001Jo-UA; Thu, 29 Aug 2024 12:00:24 +0000
-Received: by outflank-mailman (input) for mailman id 785725;
- Thu, 29 Aug 2024 12:00:23 +0000
+	id 1sjdqI-0001vv-7t; Thu, 29 Aug 2024 12:01:34 +0000
+Received: by outflank-mailman (input) for mailman id 785736;
+ Thu, 29 Aug 2024 12:01:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ImPG=P4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjdp9-0008JK-Qg
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 12:00:23 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1sjdqG-0001r9-Gi
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 12:01:32 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 455805a8-65fe-11ef-a0b0-8be0dac302b0;
- Thu, 29 Aug 2024 14:00:23 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5bed0a2ae0fso533878a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 05:00:23 -0700 (PDT)
+ id 6e257fa5-65fe-11ef-a0b0-8be0dac302b0;
+ Thu, 29 Aug 2024 14:01:31 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-371c5187198so369644f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 05:01:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989196975sm70956866b.135.2024.08.29.05.00.21
+ a640c23a62f3a-a8989195e6bsm70881066b.99.2024.08.29.05.01.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 05:00:21 -0700 (PDT)
+ Thu, 29 Aug 2024 05:01:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 455805a8-65fe-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: 6e257fa5-65fe-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724932823; x=1725537623; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724932891; x=1725537691; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DYYTaskfgTvZ4g7no0G93dtPg+JMiV4HrqW3HUo5R4s=;
-        b=d1DkFcV9b9YyqNhCdkOBN52MNpS8JLObuGqmoTJrOBsOxM0z1GMaaaCEVfD0+jiZhk
-         a+Ax2W1HP8iTfYTpxeoiQ+8oo2DEawCsAYzwE0izonJ8QbdFGi39DWdy96tjH6MMiXZY
-         B1mfvoQsDt9Q9IHsQ1y0bGJG9eC9U0tBaYNvOaVH/xMvMcZfcOqJtyF7045glHdw6cxY
-         anPrKnFp5eAnzlDC9O3MhjYnIoO18zNLZfTNIPm7D2Pys8J4E8Nxl2DZMyFV3s2ixGig
-         LCVraR/b4clhZIaaksionF8L2op4AybCKPFFWD2cqKQ7IlCXjOrXL1hyH7lJMDymrWnS
-         1LZg==
+        bh=+4LOghClr9pcCZnA2NN/G4bl/sIzTUpbHkgkt6Fava0=;
+        b=TGsctMu5re9Oqv+b0mHjU2t8aQs4RGergG8iZqrDRKD/HRd9oJkAWZW9A9OcY+em3n
+         oT2WpBSpUPgTiiQm55BZjD53HghpwT3RFfvyXAn3fGnW2UCBUqzt05DYeuXA16BIssZ9
+         jdznbF7VOR5EFExdURYJ0UARRWGrAml99BTTlI69UMe5eXpKNwV6AAkYd+2mZ4hEn5E/
+         EtSfZzyrjYH7ui3G9NO3rM5xCWwQT/d6qBJmspArQW4EBx3fQANzdPQYUcCdeErpTSEp
+         rcQfxtjmM9STrNENbrxc7pVQeKy0BhnEmj6TqTMaFPHqmTLi3/i0ZBPOjmiQfEMGMDXB
+         Uw3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724932823; x=1725537623;
+        d=1e100.net; s=20230601; t=1724932891; x=1725537691;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=DYYTaskfgTvZ4g7no0G93dtPg+JMiV4HrqW3HUo5R4s=;
-        b=DpAoTO09JEaXrhCMNP9hLeu17yzKDTpoIaajuNndO1zi2TvL9dm89D1mzVvCoXSzDT
-         yIykyRlgjTun7zIVYLGPE9EZaY+1NtSeVyn+sCYEt59XofsdZyUBw6sUqDuQQeJihnL2
-         ofhdkJxf3nElh5tukbp6xvv5cyZc2Q71GtLgWMOu+m2AtoFpIm2tFNjILsbkwvb9okUs
-         mjAcQrrOxzwPnDChEKx9MuQnlSeb2kS0JDizvnACX6ctq5UUR4olPjRzpbl20RvqNRwJ
-         7PfpwWVEDJQwc/IHF5Bz8zdCBX54Rnr8GQCnxOE6/XXV2p6bm3mz4NKkIZnJWNhXbENT
-         KwQg==
-X-Gm-Message-State: AOJu0YxqtWEVzndiuX5ZXrm8ohlMWJMJ/Hu6wUdtnK+JjtlyppyqBVzx
-	cchCx9L4wrZ1fvCSz+0D5Hkhlthf8YQNOS7VAiCytRRQG1AZ9MSfPD+L7eK2FqeH29UmIxKN4mU
+        bh=+4LOghClr9pcCZnA2NN/G4bl/sIzTUpbHkgkt6Fava0=;
+        b=hWL8ira12u44jwe03HTvVXX/chl2EmMAGeTN36dWGE9TtSpJAWnNtV3CXKnlF0/uNz
+         SEb9PeCDpNVQCGBmkLWFZuG0BPV+0egMshYjnzj2Z/SV1J8+xdS3MM6A877fYMJnJpHf
+         gXhrMBGN2Oe8efeV4YVLQaxWbee2YeLl+C7NTN8i9eFt1+8z9IvtnPxRj0IxqhpXxcq1
+         aHmwQFjHU22MH6/5hdwfJcr4kmn4fk/eWxjCbpZx75fysAn2SOq14r61KnQab8R1lucr
+         xFFDeG7vRa8garRWZmNvfagKXfeA2jSD/WddeuqMxJjVePX6WIqSr+0w2GpDWcTPbOCy
+         HKGw==
+X-Gm-Message-State: AOJu0YzkTYzmNuewN+kzWqXtrTFM8Tydf9BjktudI7TRBXMPaF5dBY/+
+	wRxmumjqj3i/tdGXhgZgycu3jBX5Vp9ZN9RwI7jddJHIJEbgkNU/KxLCweB1Dz5K+XscbCDMd3A
 	=
-X-Google-Smtp-Source: AGHT+IE8ZUfXZU3uzZZtba31YP3xh8mJLc4nhklYgKzdkfAwkLo8V7Y/UxggnnumlinqBwN2YvoPvg==
-X-Received: by 2002:a05:6402:90d:b0:5c0:a8c0:3726 with SMTP id 4fb4d7f45d1cf-5c21ed54acamr1783229a12.19.1724932822369;
-        Thu, 29 Aug 2024 05:00:22 -0700 (PDT)
-Message-ID: <a3c8c66a-3b90-49e3-bf49-b73fa05a1f64@suse.com>
-Date: Thu, 29 Aug 2024 14:00:20 +0200
+X-Google-Smtp-Source: AGHT+IEvLlF8ZJ8CbFSkkYTZDmk95WzWrtVzRn2FHuOXgjbGqIvzpfuo2fXRt2C4mgYMqW1moRw16w==
+X-Received: by 2002:a05:6402:2552:b0:5c0:aa04:2342 with SMTP id 4fb4d7f45d1cf-5c21ed56617mr2252531a12.22.1724932878643;
+        Thu, 29 Aug 2024 05:01:18 -0700 (PDT)
+Message-ID: <0e6b7685-e061-4ace-88fd-86728d765e5a@suse.com>
+Date: Thu, 29 Aug 2024 14:01:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 3/5] types: replace remaining uses of s16
+Subject: [PATCH 4/5] types: replace remaining uses of s32
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
+ Michal Orzel <michal.orzel@amd.com>,
+ Marek Marczykowski <marmarek@invisiblethingslab.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>
 References: <b1ded557-63b8-4999-98ca-de80488ebad1@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,125 +122,270 @@ Content-Transfer-Encoding: 7bit
 
 ... and move the type itself to linux-compat.h.
 
-While doing so switch an adjacent x86 struct page_info field to bool.
+While doing so switch a few adjacent types as well, for (a little bit
+of) consistency.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
+--- a/xen/arch/arm/alternative.c
++++ b/xen/arch/arm/alternative.c
+@@ -63,7 +63,7 @@ static u32 get_alt_insn(const struct alt
+ 
+     if ( insn_is_branch_imm(insn) )
+     {
+-        s32 offset = insn_get_branch_offset(insn);
++        int32_t offset = insn_get_branch_offset(insn);
+         unsigned long target;
+ 
+         target = (unsigned long)altinsnptr + offset;
 --- a/xen/arch/arm/arm32/livepatch.c
 +++ b/xen/arch/arm/arm32/livepatch.c
-@@ -135,7 +135,7 @@ static s32 get_addend(unsigned char type
-         addend =  (*(u32 *)dest & 0x00000FFF);
-         addend |= (*(u32 *)dest & 0x000F0000) >> 4;
-         /* Addend is to sign-extend ([19:16],[11:0]). */
--        addend = (s16)addend;
-+        addend = (int16_t)addend;
-         break;
+@@ -32,7 +32,7 @@ void arch_livepatch_apply(const struct l
  
-     case R_ARM_CALL:
---- a/xen/arch/arm/arm64/livepatch.c
-+++ b/xen/arch/arm/arm64/livepatch.c
-@@ -124,7 +124,7 @@ static int reloc_data(enum aarch64_reloc
-     switch ( len )
+     if ( func->new_addr )
      {
-     case 16:
--        *(s16 *)place = sval;
-+        *(int16_t *)place = sval;
-         if ( sval < INT16_MIN || sval > UINT16_MAX )
- 	        return -EOVERFLOW;
-         break;
---- a/xen/arch/x86/include/asm/irq.h
-+++ b/xen/arch/x86/include/asm/irq.h
-@@ -67,8 +67,8 @@ struct irq_desc;
-  * the old destinations.
-  */
- struct arch_irq_desc {
--        s16 vector;                  /* vector itself is only 8 bits, */
--        s16 old_vector;              /* but we use -1 for unassigned  */
-+        int16_t vector;                  /* vector itself is only 8 bits, */
-+        int16_t old_vector;              /* but we use -1 for unassigned  */
-         /*
-          * Except for high priority interrupts @cpu_mask may have bits set for
-          * offline CPUs.  Consumers need to be careful to mask this down to
---- a/xen/arch/x86/include/asm/mm.h
-+++ b/xen/arch/x86/include/asm/mm.h
-@@ -286,8 +286,8 @@ struct page_info
-         struct {
-             u16 nr_validated_ptes:PAGETABLE_ORDER + 1;
-             u16 :16 - PAGETABLE_ORDER - 1 - 1;
--            u16 partial_flags:1;
--            s16 linear_pt_count;
-+            bool partial_flags:1;
-+            int16_t linear_pt_count;
-         };
+-        s32 delta;
++        int32_t delta;
  
          /*
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -1390,7 +1390,7 @@ unmap_common(
-     struct grant_table *lgt, *rgt;
-     grant_ref_t ref;
-     struct active_grant_entry *act;
--    s16              rc = 0;
-+    int16_t          rc;
-     struct grant_mapping *map;
-     unsigned int flags;
-     bool put_handle = false;
-@@ -2580,7 +2580,7 @@ acquire_grant_for_copy(
-     uint16_t trans_page_off;
-     uint16_t trans_length;
-     bool is_sub_page;
--    s16 rc = GNTST_okay;
-+    int16_t rc = GNTST_okay;
-     unsigned int pin_incr = readonly ? GNTPIN_hstr_inc : GNTPIN_hstw_inc;
+          * PC is current address (old_addr) + 8 bytes. The semantics for a
+@@ -41,11 +41,11 @@ void arch_livepatch_apply(const struct l
+          * ARM DDI 0406C.c, see A2.3 (pg 45) and A8.8.18 pg (pg 334,335)
+          *
+          */
+-        delta = (s32)func->new_addr - (s32)(func->old_addr + 8);
++        delta = (int32_t)func->new_addr - (int32_t)(func->old_addr + 8);
  
-     *page = NULL;
-@@ -3416,14 +3416,14 @@ gnttab_get_version(XEN_GUEST_HANDLE_PARA
-     return 0;
+         /* The arch_livepatch_symbol_ok should have caught it. */
+-        ASSERT(delta >= -(s32)ARCH_LIVEPATCH_RANGE ||
+-               delta < (s32)ARCH_LIVEPATCH_RANGE);
++        ASSERT(delta >= -(int32_t)ARCH_LIVEPATCH_RANGE ||
++               delta < (int32_t)ARCH_LIVEPATCH_RANGE);
+ 
+         /* CPU shifts by two (left) when decoding, so we shift right by two. */
+         delta = delta >> 2;
+@@ -113,9 +113,9 @@ bool arch_livepatch_symbol_deny(const st
+     return false;
  }
  
--static s16
-+static int16_t
- swap_grant_ref(grant_ref_t ref_a, grant_ref_t ref_b)
+-static s32 get_addend(unsigned char type, void *dest)
++static int32_t get_addend(unsigned char type, void *dest)
  {
-     struct domain *d = rcu_lock_current_domain();
-     struct grant_table *gt = d->grant_table;
-     struct active_grant_entry *act_a = NULL;
-     struct active_grant_entry *act_b = NULL;
--    s16 rc = GNTST_okay;
-+    int16_t rc = GNTST_okay;
+-    s32 addend = 0;
++    int32_t addend = 0;
  
-     grant_write_lock(gt);
+     switch ( type ) {
+     case R_ARM_NONE:
+@@ -149,7 +149,8 @@ static s32 get_addend(unsigned char type
+     return addend;
+ }
  
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -43,6 +43,7 @@
- #include <xen/err.h>
- #include <xen/irq.h>
- #include <xen/lib.h>
-+#include <xen/linux-compat.h>
- #include <xen/list.h>
- #include <xen/mm.h>
- #include <xen/vmap.h>
+-static int perform_rel(unsigned char type, void *dest, uint32_t val, s32 addend)
++static int perform_rel(unsigned char type, void *dest, uint32_t val,
++                       int32_t addend)
+ {
+ 
+     switch ( type ) {
+@@ -203,8 +204,8 @@ static int perform_rel(unsigned char typ
+          * arch_livepatch_verify_distance can't account of addend so we have
+          * to do the check here as well.
+          */
+-        if ( (s32)val < -(s32)ARCH_LIVEPATCH_RANGE ||
+-             (s32)val >= (s32)ARCH_LIVEPATCH_RANGE )
++        if ( (int32_t)val < -(int32_t)ARCH_LIVEPATCH_RANGE ||
++             (int32_t)val >= (int32_t)ARCH_LIVEPATCH_RANGE )
+             return -EOVERFLOW;
+ 
+         /* CPU always shifts insn by two, so complement it. */
+@@ -234,7 +235,7 @@ int arch_livepatch_perform(struct livepa
+         uint32_t val;
+         void *dest;
+         unsigned char type;
+-        s32 addend;
++        int32_t addend;
+ 
+         if ( use_rela )
+         {
+--- a/xen/arch/arm/arm64/insn.c
++++ b/xen/arch/arm/arm64/insn.c
+@@ -223,9 +223,9 @@ u32 __kprobes aarch64_insn_gen_nop(void)
+  * signed value (so it can be used when computing a new branch
+  * target).
+  */
+-s32 aarch64_get_branch_offset(u32 insn)
++int32_t aarch64_get_branch_offset(uint32_t insn)
+ {
+-	s32 imm;
++	int32_t imm;
+ 
+ 	if (aarch64_insn_is_b(insn) || aarch64_insn_is_bl(insn)) {
+ 		imm = aarch64_insn_decode_immediate(AARCH64_INSN_IMM_26, insn);
+@@ -251,7 +251,7 @@ s32 aarch64_get_branch_offset(u32 insn)
+  * Encode the displacement of a branch in the imm field and return the
+  * updated instruction.
+  */
+-u32 aarch64_set_branch_offset(u32 insn, s32 offset)
++uint32_t aarch64_set_branch_offset(uint32_t insn, int32_t offset)
+ {
+ 	if (aarch64_insn_is_b(insn) || aarch64_insn_is_bl(insn))
+ 		return aarch64_insn_encode_immediate(AARCH64_INSN_IMM_26, insn,
+--- a/xen/arch/arm/arm64/livepatch.c
++++ b/xen/arch/arm/arm64/livepatch.c
+@@ -130,7 +130,7 @@ static int reloc_data(enum aarch64_reloc
+         break;
+ 
+     case 32:
+-        *(s32 *)place = sval;
++        *(int32_t *)place = sval;
+         if ( sval < INT32_MIN || sval > UINT32_MAX )
+ 	        return -EOVERFLOW;
+         break;
+--- a/xen/arch/arm/include/asm/alternative.h
++++ b/xen/arch/arm/include/asm/alternative.h
+@@ -12,11 +12,11 @@
+ #include <xen/stringify.h>
+ 
+ struct alt_instr {
+-	s32 orig_offset;	/* offset to original instruction */
+-	s32 repl_offset;	/* offset to replacement instruction */
+-	u16 cpufeature;		/* cpufeature bit set for replacement */
+-	u8  orig_len;		/* size of original instruction(s) */
+-	u8  repl_len;		/* size of new instruction(s), <= orig_len */
++	int32_t  orig_offset;	/* offset to original instruction */
++	int32_t  repl_offset;	/* offset to replacement instruction */
++	uint16_t cpufeature;	/* cpufeature bit set for replacement */
++	uint8_t  orig_len;	/* size of original instruction(s) */
++	uint8_t  repl_len;	/* size of new instruction(s), <= orig_len */
+ };
+ 
+ /* Xen: helpers used by common code. */
+--- a/xen/arch/arm/include/asm/arm64/insn.h
++++ b/xen/arch/arm/include/asm/arm64/insn.h
+@@ -75,8 +75,8 @@ u64 aarch64_insn_decode_immediate(enum a
+ u32 aarch64_insn_encode_immediate(enum aarch64_insn_imm_type type,
+ 				  u32 insn, u64 imm);
+ 
+-s32 aarch64_get_branch_offset(u32 insn);
+-u32 aarch64_set_branch_offset(u32 insn, s32 offset);
++int32_t aarch64_get_branch_offset(uint32_t insn);
++uint32_t aarch64_set_branch_offset(uint32_t insn, int32_t offset);
+ 
+ u32 aarch64_insn_gen_branch_imm(unsigned long pc, unsigned long addr,
+ 				enum aarch64_insn_branch_type type);
+@@ -89,12 +89,12 @@ static inline bool insn_is_branch_imm(u3
+     return aarch64_insn_is_branch_imm(insn);
+ }
+ 
+-static inline s32 insn_get_branch_offset(u32 insn)
++static inline int32_t insn_get_branch_offset(uint32_t insn)
+ {
+     return aarch64_get_branch_offset(insn);
+ }
+ 
+-static inline u32 insn_set_branch_offset(u32 insn, s32 offset)
++static inline uint32_t insn_set_branch_offset(uint32_t insn, int32_t offset)
+ {
+     return aarch64_set_branch_offset(insn, offset);
+ }
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -101,12 +101,12 @@ static void __init efi_arch_relocate_ima
+     }
+ }
+ 
+-extern const s32 __trampoline_rel_start[], __trampoline_rel_stop[];
+-extern const s32 __trampoline_seg_start[], __trampoline_seg_stop[];
++extern const int32_t __trampoline_rel_start[], __trampoline_rel_stop[];
++extern const int32_t __trampoline_seg_start[], __trampoline_seg_stop[];
+ 
+ static void __init relocate_trampoline(unsigned long phys)
+ {
+-    const s32 *trampoline_ptr;
++    const int32_t *trampoline_ptr;
+ 
+     trampoline_phys = phys;
+ 
+--- a/xen/arch/x86/include/asm/uaccess.h
++++ b/xen/arch/x86/include/asm/uaccess.h
+@@ -406,7 +406,7 @@ copy_from_unsafe(void *to, const void __
+ 
+ struct exception_table_entry
+ {
+-	s32 addr, cont;
++	int32_t addr, cont;
+ };
+ extern struct exception_table_entry __start___ex_table[];
+ extern struct exception_table_entry __stop___ex_table[];
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -1859,8 +1859,8 @@ static void cf_check local_time_calibrat
+      * This allows us to binary shift a 32-bit tsc_elapsed such that:
+      * stime_elapsed < tsc_elapsed <= 2*stime_elapsed
+      */
+-    while ( ((u32)stime_elapsed64 != stime_elapsed64) ||
+-            ((s32)stime_elapsed64 < 0) )
++    while ( ((uint32_t)stime_elapsed64 != stime_elapsed64) ||
++            ((int32_t)stime_elapsed64 < 0) )
+     {
+         stime_elapsed64 >>= 1;
+         tsc_elapsed64   >>= 1;
+--- a/xen/common/trace.c
++++ b/xen/common/trace.c
+@@ -459,8 +459,8 @@ static inline bool bogus(u32 prod, u32 c
+ 
+ static inline u32 calc_unconsumed_bytes(const struct t_buf *buf)
+ {
+-    u32 prod = buf->prod, cons = buf->cons;
+-    s32 x;
++    uint32_t prod = buf->prod, cons = buf->cons;
++    int32_t x;
+ 
+     barrier(); /* must read buf->prod and buf->cons only once */
+     if ( bogus(prod, cons) )
+@@ -478,8 +478,8 @@ static inline u32 calc_unconsumed_bytes(
+ 
+ static inline u32 calc_bytes_to_wrap(const struct t_buf *buf)
+ {
+-    u32 prod = buf->prod, cons = buf->cons;
+-    s32 x;
++    uint32_t prod = buf->prod, cons = buf->cons;
++    int32_t x;
+ 
+     barrier(); /* must read buf->prod and buf->cons only once */
+     if ( bogus(prod, cons) )
+--- a/xen/include/acpi/actypes.h
++++ b/xen/include/acpi/actypes.h
+@@ -186,8 +186,8 @@ typedef int INT32;
+ 
+ /*! [End] no source code translation !*/
+ 
+-typedef u32 acpi_native_uint;
+-typedef s32 acpi_native_int;
++typedef uint32_t acpi_native_uint;
++typedef int32_t acpi_native_int;
+ 
+ typedef u32 acpi_io_address;
+ typedef u32 acpi_physical_address;
 --- a/xen/include/xen/linux-compat.h
 +++ b/xen/include/xen/linux-compat.h
-@@ -13,7 +13,7 @@
- 
+@@ -14,7 +14,7 @@
  typedef int8_t  s8, __s8;
  typedef uint8_t __u8;
--typedef int16_t __s16;
-+typedef int16_t s16, __s16;
- typedef int32_t __s32;
+ typedef int16_t s16, __s16;
+-typedef int32_t __s32;
++typedef int32_t s32, __s32;
  typedef int64_t __s64;
  
+ typedef paddr_t phys_addr_t;
 --- a/xen/include/xen/types.h
 +++ b/xen/include/xen/types.h
-@@ -6,7 +6,6 @@
- 
+@@ -7,7 +7,6 @@
  /* Linux inherited types which are being phased out */
  typedef uint8_t u8;
--typedef int16_t s16;
  typedef uint16_t u16, __u16;
- typedef int32_t s32;
+-typedef int32_t s32;
  typedef uint32_t u32, __u32;
+ typedef int64_t s64;
+ typedef uint64_t u64, __u64;
 
 
