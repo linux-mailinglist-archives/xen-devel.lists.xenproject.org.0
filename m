@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0389A96410D
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 12:15:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785635.1195115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D2BE964271
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 12:59:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785647.1195126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjcAr-0001O8-8r; Thu, 29 Aug 2024 10:14:41 +0000
+	id 1sjcqt-0001tz-IU; Thu, 29 Aug 2024 10:58:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785635.1195115; Thu, 29 Aug 2024 10:14:41 +0000
+Received: by outflank-mailman (output) from mailman id 785647.1195126; Thu, 29 Aug 2024 10:58:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjcAr-0001M5-5p; Thu, 29 Aug 2024 10:14:41 +0000
-Received: by outflank-mailman (input) for mailman id 785635;
- Thu, 29 Aug 2024 10:14:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sjcqt-0001qo-Em; Thu, 29 Aug 2024 10:58:07 +0000
+Received: by outflank-mailman (input) for mailman id 785647;
+ Thu, 29 Aug 2024 10:58:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zolI=P4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sjcAq-0001Lz-DY
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 10:14:40 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f9e97a6-65ef-11ef-a0b0-8be0dac302b0;
- Thu, 29 Aug 2024 12:14:38 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2f3e071eb64so5654441fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 03:14:38 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89892223dbsm58517266b.202.2024.08.29.03.14.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 03:14:36 -0700 (PDT)
+ <SRS0=4Ugx=P4=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1sjcqs-0001qe-Ed
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 10:58:06 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8ffb36a2-65f5-11ef-99a0-01e77a169b0f;
+ Thu, 29 Aug 2024 12:58:03 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5c0a9ae3665so465802a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 03:58:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,166 +40,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f9e97a6-65ef-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: 8ffb36a2-65f5-11ef-99a0-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1724926478; x=1725531278; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nSvw49VZtnVp2/3l5caroRkHs18mkUqTFKbF+KUpyGI=;
-        b=YJMu7CrIwf0SMWK1i6JOdoCCELl6YM2jJIEd7w3y2Gs5nS+SKkrGCXeDH0oNzlqi2o
-         FeVV/h9sCKlezw3Fhj+c5qMb8bec9w1ffFdvhFqEUYpI2yUr8LMiD7RaTsNxxGQLMYTA
-         kilt8QD+9mFoWnChJiG7xEQ52Npsxk0lp1d40=
+        d=cloud.com; s=cloud; t=1724929082; x=1725533882; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=/6CBlYePOkvF5FsLWKMWCnZEaLFgbgH1XcB164VcwJg=;
+        b=KEvT1u26W8p+R/rSY6bfKrl+uF6b2rso2JUEndHe6/7aeYtbKLkoJkD3691epSySMP
+         8hUB2k2esBEg0xaUJxWU6Ffgh1O7/efbAeTIKM9PSMe91LneiCmrKgtML2brcdRsKWjg
+         yki1HHq4EN+HUUZqUHGS07SBVIPHMFG8W/EtI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724926478; x=1725531278;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nSvw49VZtnVp2/3l5caroRkHs18mkUqTFKbF+KUpyGI=;
-        b=wII+V9aBLzNJt74WG2ZrwqabBoPuP1DPS3lOJocBi/fuylXqSTFVNRe8DihMqK4BR3
-         cMsluN1JHRvnQ0MUuV/nhK+uzwQYqUcezeDuCqkVcjPO1b8ok9ZYsS8N9EwD0UNSUZGw
-         M2ZfKe3E9wyV/JCFaV1OlfcsbTYqSh7h8h3TGO6CuVUZa6HVQga8D2IuMIhy6gvi4Rg6
-         3HSqtaA65Xx4plXeleLEyXD3xwZJFt+5RzlJiajUEtrZvrnQmEu2zJV0GrjNFJS58+ES
-         /1hk0mUjclSHj+Q/zy6XWlwCYPE9vK6Qc7eYN7oq6nIvqE8Ns3yVcKRFU5D/4BqOo85z
-         GUkw==
-X-Forwarded-Encrypted: i=1; AJvYcCUdN9sWesHh+qPH8MoqOLZrgwv/4mfN8/AmZ467lIvjR/YgCxZ+T8OtQ686Q8YBg+esAF5Y13cTDn8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxjRPBwpCUUrMWfUZ8Nv7UIftYonFOIB1AbQW9W9GaOgMCfORIb
-	ZDJTLNqMzdWXzfjoIo9vP33HXv7/CbjajncKytPH+bCyfMX+4MHLo/GUzRCszzI=
-X-Google-Smtp-Source: AGHT+IGmdPQS3s5uaSwuPSFaUVcfTRzZg+SyfUjfY7lYELFnu6/rvH34kOBhnArSYUNKpoKlDlt17Q==
-X-Received: by 2002:a05:651c:1541:b0:2f5:d04:4a7f with SMTP id 38308e7fff4ca-2f6106d8e2amr23721381fa.20.1724926477203;
-        Thu, 29 Aug 2024 03:14:37 -0700 (PDT)
-Message-ID: <40ee3e13-7725-4266-9fcb-6b6d14f31e54@citrix.com>
-Date: Thu, 29 Aug 2024 11:14:35 +0100
+        d=1e100.net; s=20230601; t=1724929082; x=1725533882;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/6CBlYePOkvF5FsLWKMWCnZEaLFgbgH1XcB164VcwJg=;
+        b=nRCTa3OSE649qmpy4FtNOAbZVldzO7Rx0llehjs7j9n9sXeCnYWpN/r+xTPF2Mr9lg
+         Yfo0hPupExGDVwnGuL5aKcsz9maLTqMtfRZEEabAgnGfqdQ3bzBhBCldJUHv8PHX6giO
+         5s4r+ZuBYu13LTXihIjxfmx7QRUJn4+AzL66OoFM/+RXwD1MKgfTUiLi5pWjD3NQAFUj
+         YNHzq0eyMotmRzDswAP/YAbJ4mSyG2Ob6FqwLh+RzLsPZsCmyulGEh1zgd+qLqX5b24L
+         vchFCRXitJMbP7jS6S3zDAtbRBYZo7fCRRWC6dGkyag3NA9JJcLg1XN6FrHWPKjOLO75
+         Qh0A==
+X-Forwarded-Encrypted: i=1; AJvYcCXWoT3/8uOi4eqzmplwAjEl+z6KGPzMDZOErkeMWWCI4Sub0i+Jj4NNHDPZ7gtTALa++9bxLM8vSWQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzllZIb7gfPjkLm75EDCcX+LMKnxq1ZRF03dUOoDwmPom70rkjK
+	dl8ajJgt7TPmHosB/SqXxG2VDTGCFMqXCYckgbuu8dNkNSZdbBKvLxAYHdP3KCAvM3iIB6MzymR
+	HuUyhipgVrreOY7hzX1gyrXgg/ko6RlEmuprLQ2JNcbkGTNjJ
+X-Google-Smtp-Source: AGHT+IFqRxu0NDBTvUxw+egd/griYRSV2N2DKuQcEwrKlm1gwdKbdqspnc2BtSr1Cj+nbc6dVvjQcZUhW5M91nn3xOM=
+X-Received: by 2002:a05:6402:13d5:b0:5bf:f1:908 with SMTP id
+ 4fb4d7f45d1cf-5c21ed86a9bmr2149089a12.24.1724929082009; Thu, 29 Aug 2024
+ 03:58:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3] x86/intel: optional build of PSR support
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>
-References: <20240829090559.149249-1-Sergiy_Kibrik@epam.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240829090559.149249-1-Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAO-mL=zWYsDGkBoDtc8erGfAFnaR1y+FaLKsx3pEJ3MgxKAy0Q@mail.gmail.com>
+ <alpine.DEB.2.22.394.2408161111160.298534@ubuntu-linux-20-04-desktop> <c5e23ad4-5415-4ea9-9b9d-806cd93fd742@suse.com>
+In-Reply-To: <c5e23ad4-5415-4ea9-9b9d-806cd93fd742@suse.com>
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Thu, 29 Aug 2024 11:57:26 +0100
+Message-ID: <CAO-mL=wE_mK1JkV4=M7hkcM-y1p-JAZawbvLiVp18CwzeW4i1Q@mail.gmail.com>
+Subject: Re: Xen Project statistics help
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, xen-devel <xen-devel@lists.xenproject.org>, 
+	committers@xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000003250b20620d0595a"
 
-On 29/08/2024 10:05 am, Sergiy Kibrik wrote:
-> Platform Shared Resource feature is available for certain Intel's CPUs only,
-> hence can be put under CONFIG_INTEL build option.
+--0000000000003250b20620d0595a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-AMD implement PSR too, and even some extensions over what Intel implement.
+Thanks both.
+I'll look to see what's possible, although if anyone could help automate
+this monthly that would be greatly helpful!
 
-Furthermore it is likely that the eventual automotive system will want
-to make use of it to reduce interference between criticial and
-non-critical VMs.
+Many thanks,
+Kelly Choi
 
-What is currently true is "Xen's implementation of PSR only supports
-Intel CPUs right now".
+Community Manager
+Xen Project
 
-But - I think it is wrong to tie this to CONFIG_INTEL.
 
-Perhaps CONFIG_PSR which is selected by CONFIG_INTEL for now, which can
-eventually become user selectable option?
+On Mon, Aug 19, 2024 at 9:38=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
 
+> On 16.08.2024 20:25, Stefano Stabellini wrote:
+> > xen.biterg.io was created by a company called Bitergia. Bitergia was
+> > later contracted by the Linux Foundation to create a generic dashboard
+> > for all their Open Source projects. Getting access to the Linux
+> > Foundation dashboard is the best way to go (if it comes to no cost to
+> > our project).
+> >
+> > I have used scripts like these in the past to get some data out of a
+> > release. You can copy/paste the output to an Excel datasheet to do
+> > further calculations there.
+> >
+> > # List of contributors by name (using the commit "Author" tag) for the
+> > # 4.19 release. One name per commit.
+> > git log 4.18.0-rc4...4.19.0-rc4 --format=3D'%aN' | sort | uniq -c | sor=
+t
+> -rn
+> >
+> > # List of reviewers (using the Reviewed-by and Acked-by tags) for the
+> > # 4.19 release. One name per review.
+> > git log 4.18.0-rc4...4.19.0-rc4 --pretty=3Dformat:%b | grep -E
+> "Reviewed-by|Acked-by" | sed -E
+> 's/.*(Reviewed-by|Acked-by):\s*(.*)\s*<.*/\2/' | sort | uniq -c | sort -r=
+n
 >
-> When !INTEL then PSR-related sysctls XEN_SYSCTL_psr_cmt_op &
-> XEN_SYSCTL_psr_alloc are off as well.
+> Just to mention it: Going by tags here doesn't come anywhere close to the
+> actual work put into reviewing, even when leaving aside the obvious
+> difference between small, large but mechanical, and large+intrusive
+> changes. Imo unlike commit stats, review stats would better be collected
+> from the mailing list.
 >
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> ---
-> v2 patch here:
-> https://lore.kernel.org/xen-devel/20240801084453.1163506-1-Sergiy_Kibrik@epam.com/
+> Jan
 >
-> changes in v3:
->  - drop stubs for psr_domain_{init,free} & psr_ctxt_switch_to() and guard these
->    routines at call sites
 
-Why?  That's error prone and contrary to how other subsystems work.
+--0000000000003250b20620d0595a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> diff --git a/xen/arch/x86/include/asm/psr.h b/xen/arch/x86/include/asm/psr.h
-> index 51df78794c..d42c7f1580 100644
-> --- a/xen/arch/x86/include/asm/psr.h
-> +++ b/xen/arch/x86/include/asm/psr.h
-> @@ -67,10 +67,17 @@ enum psr_type {
->  
->  extern struct psr_cmt *psr_cmt;
->  
-> +#ifdef CONFIG_INTEL
->  static inline bool psr_cmt_enabled(void)
->  {
->      return !!psr_cmt;
->  }
-> +#else
-> +static inline bool psr_cmt_enabled(void)
-> +{
-> +    return false;
-> +}
+<div dir=3D"ltr">Thanks both.=C2=A0<div>I&#39;ll look to see what&#39;s pos=
+sible, although if anyone could help automate this monthly that would be gr=
+eatly helpful!=C2=A0</div><div><br clear=3D"all"><div><div dir=3D"ltr" clas=
+s=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><=
+div>Many thanks,</div><div>Kelly Choi</div><div><br></div><div><div style=
+=3D"color:rgb(136,136,136)">Community Manager</div><div style=3D"color:rgb(=
+136,136,136)">Xen Project=C2=A0<br></div></div></div></div></div><br></div>=
+</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=
+On Mon, Aug 19, 2024 at 9:38=E2=80=AFAM Jan Beulich &lt;<a href=3D"mailto:j=
+beulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br></div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
+rgb(204,204,204);padding-left:1ex">On 16.08.2024 20:25, Stefano Stabellini =
+wrote:<br>
+&gt; <a href=3D"http://xen.biterg.io" rel=3D"noreferrer" target=3D"_blank">=
+xen.biterg.io</a> was created by a company called Bitergia. Bitergia was<br=
+>
+&gt; later contracted by the Linux Foundation to create a generic dashboard=
+<br>
+&gt; for all their Open Source projects. Getting access to the Linux<br>
+&gt; Foundation dashboard is the best way to go (if it comes to no cost to<=
+br>
+&gt; our project).<br>
+&gt; <br>
+&gt; I have used scripts like these in the past to get some data out of a<b=
+r>
+&gt; release. You can copy/paste the output to an Excel datasheet to do<br>
+&gt; further calculations there.<br>
+&gt; <br>
+&gt; # List of contributors by name (using the commit &quot;Author&quot; ta=
+g) for the<br>
+&gt; # 4.19 release. One name per commit.<br>
+&gt; git log 4.18.0-rc4...4.19.0-rc4 --format=3D&#39;%aN&#39; | sort | uniq=
+ -c | sort -rn<br>
+&gt; <br>
+&gt; # List of reviewers (using the Reviewed-by and Acked-by tags) for the<=
+br>
+&gt; # 4.19 release. One name per review.<br>
+&gt; git log 4.18.0-rc4...4.19.0-rc4 --pretty=3Dformat:%b | grep -E &quot;R=
+eviewed-by|Acked-by&quot; | sed -E &#39;s/.*(Reviewed-by|Acked-by):\s*(.*)\=
+s*&lt;.*/\2/&#39; | sort | uniq -c | sort -rn<br>
+<br>
+Just to mention it: Going by tags here doesn&#39;t come anywhere close to t=
+he<br>
+actual work put into reviewing, even when leaving aside the obvious<br>
+difference between small, large but mechanical, and large+intrusive<br>
+changes. Imo unlike commit stats, review stats would better be collected<br=
+>
+from the mailing list.<br>
+<br>
+Jan<br>
+</blockquote></div>
 
-This would be better as simply:
-
-static inline bool psr_cmt_enabled(void)
-{
-    return IS_ENABLED(CONFIG_blah) ? !!psr_cmt : false;
-}
-
-or if the worst comes to the worst,
-
-static inline bool psr_cmt_enabled(void)
-{
-#ifdef CONFIG_blah
-    return !!psr_cmt;
-#else
-    return false;
-#endif
-}
-
-Both cases leave you with only a single function declaration, which
-helps grep/tags/cscope-ability.
-
-~Andrew
+--0000000000003250b20620d0595a--
 
