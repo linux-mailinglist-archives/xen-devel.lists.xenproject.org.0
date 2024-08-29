@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8B52963D36
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 09:37:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.785523.1194991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68E81963DC6
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2024 09:55:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.785531.1195000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjZiE-0001qn-CE; Thu, 29 Aug 2024 07:36:58 +0000
+	id 1sjZzJ-0005dx-PU; Thu, 29 Aug 2024 07:54:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 785523.1194991; Thu, 29 Aug 2024 07:36:58 +0000
+Received: by outflank-mailman (output) from mailman id 785531.1195000; Thu, 29 Aug 2024 07:54:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjZiE-0001no-9F; Thu, 29 Aug 2024 07:36:58 +0000
-Received: by outflank-mailman (input) for mailman id 785523;
- Thu, 29 Aug 2024 07:36:56 +0000
+	id 1sjZzJ-0005cS-Mi; Thu, 29 Aug 2024 07:54:37 +0000
+Received: by outflank-mailman (input) for mailman id 785531;
+ Thu, 29 Aug 2024 07:54:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ImPG=P4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjZiC-0001ne-PS
- for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 07:36:56 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1sjZzI-0005cM-E4
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2024 07:54:36 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77714401-65d9-11ef-a0b0-8be0dac302b0;
- Thu, 29 Aug 2024 09:36:55 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5c0a9f2b967so302322a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 00:36:55 -0700 (PDT)
+ id eee2bb53-65db-11ef-a0b0-8be0dac302b0;
+ Thu, 29 Aug 2024 09:54:35 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a869332c2c2so248092566b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Aug 2024 00:54:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8988feae40sm42193166b.15.2024.08.29.00.36.54
+ a640c23a62f3a-a8989021983sm43236566b.84.2024.08.29.00.54.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Aug 2024 00:36:54 -0700 (PDT)
+ Thu, 29 Aug 2024 00:54:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77714401-65d9-11ef-a0b0-8be0dac302b0
+X-Inumbo-ID: eee2bb53-65db-11ef-a0b0-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724917015; x=1725521815; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1724918075; x=1725522875; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EPvKsDxamALFVizMxYoZYAq4FXmbltUGzR8tF5oi8H8=;
-        b=UBZ4XH8Z0w+jItm6QdL+woaj6tYOiRl7SWgabHIWtKlQ/6zpkMg7VzkI9yNkkh6WxB
-         Ntzkgrml93Q5nmxeN4iBcEro6m6KPBtGJiRTU0j4M1xBZoLZSnn0FIVmFqKnUKkQJR+g
-         l79LB8DKZdC7+7l5mgkLNRH8GnzD3Ldtes3QOejn9CUFQzQub4VJQniz0HHPD4pyclt3
-         13pZLdvJx9LKkO9HvWmOiZ4W0IIPj4ry9yNABXpOSwA+9ig+0R97RViV2CtEMxKH8ZUL
-         SHFiku6S4GJLn4ya3K+1oZ4/7jwAxKCq6LvyPoCrgQy8XTTXvISqqDm7ESHWdcvLX8XZ
-         hrXg==
+        bh=gKGplyn+VBD9o0AN7kFlSJBHVrIldR04oPCMcvO8e4k=;
+        b=Gwc8lb2p4eT60dEi9Kni2UnzPFtS2tG+Upt3a/FsZiT655bPiS0YeQVm035i6yd2T+
+         MRk3ZTNYwkcYaX7baUjapfCYYd37+XTeGvg2povn7gbXk9h+kvwUzxqmFsnFzvTI4Ire
+         4ooltXTFz/76P++J5yJerMXDPYej/0uYLK0rtz4fGgkbxuwBzeJlCRvuyTYHamzzVUj1
+         afXQUSaNK3oAO9Xm5t2NCuTmAv/XfHhZ6ALMqseO4GgOspwMsRWijQNVp4KjfRumUfaQ
+         B8NDpI5n+4W97MXVCiJwM7mpdiIXamCWspgO1botlRl04dG8FrEOYPTv7MgLebUibNGC
+         0N7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724917015; x=1725521815;
+        d=1e100.net; s=20230601; t=1724918075; x=1725522875;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EPvKsDxamALFVizMxYoZYAq4FXmbltUGzR8tF5oi8H8=;
-        b=YLGRv5khb6x9sN1SFJ74i2kx0xcECZwPMcPi1nUtPAjmJN7D0ru2o3zfN38hnF1C6B
-         xrcCmnKG41C5JrmXyOCT6qMeEKfo14kU+Bt6fUT/Xi/Q+kN6vkt+07K4+c8qITMxNHza
-         vtb7U/OTqjt3kjXhu2eI/Q2Ic+gvQmCUFdquMEwALkvjsfsZMU74jb8ey+nuru/Eon7x
-         eE6gtY1wJAoCWRads9yA4oaVwcCIewJjvGls0oMxL0wEGn1XjZezs8hRDYmqBewbUSQv
-         1M7uLA4rbLbajsBtT77XTwGbys8qu7GLQ0359ysfsGA8Dnc9HOkboAdEc14J/DhDqHcb
-         mW6A==
-X-Forwarded-Encrypted: i=1; AJvYcCUu7/ToKrXdCWVtVC0zezjNTucL8MJMSzttjHbItKX79ZggJaDtodiaCW0plffRwO3Y58dFXzutu10=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwDwtL3BnXHQVL/FHtZOY3CmhgNRYbjRD15Vrlvli6b/wXdRYI6
-	vB8pPfaFI7Vv25Iq3gIXWEdzpJv5o+NagxA1PI3HHv73q1sXcBLz+Bj0YKybdw==
-X-Google-Smtp-Source: AGHT+IHCvI8ouXpFygZrpJUxrPMlfecWbR+ACdOo5etKh4QftjOiCrFYnUkGABiQbK7QlnvBYBvDYA==
-X-Received: by 2002:a17:907:3e82:b0:a86:ba2e:1bab with SMTP id a640c23a62f3a-a897fa75285mr144301966b.45.1724917015207;
-        Thu, 29 Aug 2024 00:36:55 -0700 (PDT)
-Message-ID: <5837eb89-98c6-41af-9f13-7b9c05ced49e@suse.com>
-Date: Thu, 29 Aug 2024 09:36:53 +0200
+        bh=gKGplyn+VBD9o0AN7kFlSJBHVrIldR04oPCMcvO8e4k=;
+        b=jpot25FBVjyVGDsT/bN6rmXdwuehrvzLo6rbTCvbcj7jTJlLGFoIfQmIkUeFsFKVkY
+         qcHdiHYjYhw/GCGZTjITYi2sro7IplWbs1Uymp4HoAvAhToq0/WZPDR0mm+ZYmBBOJJ3
+         /2Y/T31mAEoBpDfz5sP+RVRoWGjiIC6ryrX4tRkxAjy8EcjtoXyo1VVLDH9qbB4oz3fP
+         B9JsV2imLH3zBNDGTjuKtnjaoHyWC0owMccBUO6SoBYiQFNK6S7XACekB9dMBpIBP99l
+         1KAnditqWI8qaUA83HpFup3l0ss10M4SVbkJ6rf5+LFkG44f1dEKmkHBMXXaDcbcSdIx
+         qrSg==
+X-Forwarded-Encrypted: i=1; AJvYcCU+D49GyZo43p5KU0T7YA5ePAPKcp6JQSb2UMIsdpEHcdu/rledAbx/YPoZMylOC+clLD4AXF/s9t0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywrb5xOX2E3WLL9OXtp9EYfc0WVc/Dv91ogNSZuQeSYJxEkGkOl
+	UTYgNReEnL/0YK4d/htg2rraKv5QdJ3dY3szhAIJqFa/ZaAkIFfgmMG8AY3Jqg==
+X-Google-Smtp-Source: AGHT+IE3q4esLwnEuhjY+OE16gMSPBa84KGNtQoQGuWiUwUOu5xorkG8E2DZPyEeDx/jXHZxSgj9NA==
+X-Received: by 2002:a17:907:9726:b0:a7a:ac5f:bbef with SMTP id a640c23a62f3a-a8982833612mr177672766b.31.1724918074662;
+        Thu, 29 Aug 2024 00:54:34 -0700 (PDT)
+Message-ID: <ec35f90e-d999-49a5-b3c3-79aa32689687@suse.com>
+Date: Thu, 29 Aug 2024 09:54:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Arm64: adjust __irq_to_desc() to fix build with gcc14
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+Subject: Re: [PATCH] xen: make VMAP support in MMU system only
+To: Ayan Kumar Halder <ayankuma@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: Penny Zheng <penny.zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <9cc9e16d-a4b0-4902-9f12-a7cb337b1763@suse.com>
- <4d895ba4-bcf2-472d-be7e-d9747382301d@amd.com>
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Chen <wei.chen@arm.com>,
+ Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+References: <20240821122503.2315844-1-ayan.kumar.halder@amd.com>
+ <20240821122503.2315844-5-ayan.kumar.halder@amd.com>
+ <cd2e6b08-ce76-4707-831a-c21b05ca85cf@xen.org>
+ <6d065949-dfae-41f8-b030-c7d09516846b@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,35 +125,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4d895ba4-bcf2-472d-be7e-d9747382301d@amd.com>
+In-Reply-To: <6d065949-dfae-41f8-b030-c7d09516846b@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.08.2024 09:28, Michal Orzel wrote:
-> On 29/08/2024 07:55, Jan Beulich wrote:
->> With the original code I observe
->>
->> In function ‘__irq_to_desc’,
->>     inlined from ‘route_irq_to_guest’ at arch/arm/irq.c:465:12:
->> arch/arm/irq.c:54:16: error: array subscript -2 is below array bounds of ‘irq_desc_t[32]’ {aka ‘struct irq_desc[32]’} [-Werror=array-bounds=]
->>    54 |         return &this_cpu(local_irq_desc)[irq];
->>       |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>
->> which looks pretty bogus: How in the world does the compiler arrive at
->> -2 when compiling route_irq_to_guest()? Yet independent of that the
->> function's parameter wants to be of unsigned type anyway, as shown by
->> a vast majority of callers (others use plain int when they really mean
->> non-negative quantities). With that adjustment the code compiles fine
->> again.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Acked-by: Michal Orzel <michal.orzel@amd.com>
+On 22.08.2024 12:52, Ayan Kumar Halder wrote:
+>   I will update the commit message as below. Let me know if this makes 
+> sense.
 
-Thanks.
+Certainly better. One more question though:
 
-> Are there any places where we still require irq member of irq_desc to be signed?
+> ```
+> xen: make VMAP support in MMU system only
+> 
+> Introduce CONFIG_HAS_VMAP which is selected by the architectures that
+> use MMU. vm_init() does not do anything if CONFIG_HAS_VMAP is not
+> enabled.
+> 
+> HAS_VMAP is widely used in ALTERNATIVE feature to remap a range of
+> memory with new memory attributes. Since this is highly dependent on
+> virtual address translation, we choose to fold HAS_VMAP in MMU. And
+> ALTERNATIVE depends on HAS_VMAP.
 
-I can't spot any. On x86 we store negated values, but only in ->arch.irq.
+What is "fold HAS_VMAP in MMU"? I see no folding anywhere. My only guess
+is that this means to describe the "select HAS_VMAP" being added to MMU.
+But then why the word "fold"?
 
 Jan
+
+> At the moment, the users of HARDEN_BRANCH_PREDICTOR requires to use the
+> vmap() to update the exceptions vectors. While it might be possible to
+> rework the code, it is believed that speculative attackes would be
+> difficult to exploit on non-MMU because the software is tightly
+> controlled. So for now make HARDEN_BRANCH_PREDICTOR to depend on the
+> MMU.
+> 
+> Also took the opportunity to remove "#ifdef VMAP_VIRT_START .. endif"
+> from vmap.c. Instead vmap.c is compiled when HAS_VMAP is enabled. Thus,
+> HAS_VMAP is now enabled from x86, ppc and riscv architectures as all of
+> them use MMU and has VMAP_VIRT_START defined.
+> 
+> ```
+> 
+> - Ayan
+> 
+>>
+>> Acked-by: Julien Grall <jgrall@amazon.com>
+>>
+>> Cheers,
+>>
+
 
