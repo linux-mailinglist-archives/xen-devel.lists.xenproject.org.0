@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34609966976
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 21:22:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786594.1196187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EEEE9669D6
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 21:33:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786602.1196197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk7Cf-0001fc-6x; Fri, 30 Aug 2024 19:22:37 +0000
+	id 1sk7N1-0003tR-63; Fri, 30 Aug 2024 19:33:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786594.1196187; Fri, 30 Aug 2024 19:22:37 +0000
+Received: by outflank-mailman (output) from mailman id 786602.1196197; Fri, 30 Aug 2024 19:33:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk7Cf-0001dq-3q; Fri, 30 Aug 2024 19:22:37 +0000
-Received: by outflank-mailman (input) for mailman id 786594;
- Fri, 30 Aug 2024 19:22:35 +0000
+	id 1sk7N1-0003r3-2R; Fri, 30 Aug 2024 19:33:19 +0000
+Received: by outflank-mailman (input) for mailman id 786602;
+ Fri, 30 Aug 2024 19:33:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YGfl=P5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sk7Cd-0001dk-L0
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 19:22:35 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ id 1sk7Mz-0003qx-1j
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 19:33:17 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34765e5a-6705-11ef-99a1-01e77a169b0f;
- Fri, 30 Aug 2024 21:22:32 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-5353cd2fa28so2858572e87.3
- for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 12:22:32 -0700 (PDT)
+ id b36ad83c-6706-11ef-99a1-01e77a169b0f;
+ Fri, 30 Aug 2024 21:33:15 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a8677ae5a35so236352366b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 12:33:15 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989221c24sm242157966b.196.2024.08.30.12.22.30
+ a640c23a62f3a-a89891da22bsm244749466b.182.2024.08.30.12.33.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Aug 2024 12:22:30 -0700 (PDT)
+ Fri, 30 Aug 2024 12:33:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34765e5a-6705-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: b36ad83c-6706-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725045752; x=1725650552; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725046394; x=1725651194; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FlesElXwYrUPfMC3M2GbQMy2srF6FMwCLcBLJGILsas=;
-        b=dN++h7mU3s7YvKN/Gt+0ezQinc+TEQNeZfCQG4i7tDWihB9aD28DGVBI+kZ+fIvt13
-         KmQeqpCgvgN6tQd4KL1siFlACpgCwSY9tfdqm5btBqRT2yWJuvYPqYtlXDIkR4Af6cQA
-         b3MrFxPf2u8z8z2Uz7K1W5il7hayqkyFcg3u8=
+        bh=kUTKmBU9MMaOEmcCXoXNsZMfgR4Ehc4WJxU3g0vHFuQ=;
+        b=DvG8MURsHs9OgUnqwjDvwWMR6YLXedwy5Os2L9SmUTCMuGSxLb6rWdMtVtF2CH7yVG
+         bag6bP3D5vx+EGpvJsxTwiZKnmVMmzyNXt1FzFbosUVlj8OLTji1kP5wOuV3mIFUb4Y0
+         q7XZsLOZXnDC1yfR7LQjhb13iGvahDESuiciI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725045752; x=1725650552;
+        d=1e100.net; s=20230601; t=1725046394; x=1725651194;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FlesElXwYrUPfMC3M2GbQMy2srF6FMwCLcBLJGILsas=;
-        b=XHOGJn9OTwOiHILizgPOHJnBsGu9+SPgErokCFPX6wUEUbzOtE+uuM8nF3wLblTmU/
-         qZJMzfzE3meOXmPawSrD5rpSFO20KJFnTtZPCjwgRvtkMNQ+I3CK83MHwpis8gvAsAel
-         UgKAqzVJZI5gOmprsgp8SCsFCHNF/+k25xiWsb7ON/rwiyLDFgNlzM9lC4ZZV4Z3lICU
-         W2myOnHVHOSnAoOubJwsUTod1UEeaAUURc5D3vP2BYdkikisdrY8/BJf9bGuT13sLB3Y
-         v5aJudPK4+aiXkF7NppSZeliSqp/lVSid46VYyHFpzN/SlLo9M+F/429Xo2r27qw+ckK
-         DGKg==
-X-Gm-Message-State: AOJu0YyX5UhSOKr80CiEpBt2j0RS//fblBW6alumC5Bo4OMraKh+umLJ
-	Ij3iJ4Z0ue2ht0JAtQb+wyiu8yEebtm/6mhKMRdXMqJa2Nn0t3Kp6lVMFwSIU4o=
-X-Google-Smtp-Source: AGHT+IH0BbU/bbx/kiMwCmcJI8NOctylJgK3dB//FLO2lXENM6HLYJd8HVIRR/i5u75/95oT9hU41Q==
-X-Received: by 2002:a05:6512:2814:b0:530:dab8:7dde with SMTP id 2adb3069b0e04-53546b451b4mr1993298e87.34.1725045751409;
-        Fri, 30 Aug 2024 12:22:31 -0700 (PDT)
-Message-ID: <dc7d8179-b2c9-4ec8-99e5-5a901b751832@citrix.com>
-Date: Fri, 30 Aug 2024 20:22:29 +0100
+        bh=kUTKmBU9MMaOEmcCXoXNsZMfgR4Ehc4WJxU3g0vHFuQ=;
+        b=qNUS/mBP53qrAiSrhPiPtxuweWYCHOCCTWeHfOGx+c8anrhj/9RGsyWvcCVmz2vB+z
+         3fdYirJvdRTeJC+SepZRxY5aTimMuXIKkbNX9h6FmBmoJ9THmSifsMlePxsnVSoQUAS9
+         ClrEWZ0tvohmVq3VG8vjlKYYgUDii9j92ir42KmZKYLlyCucj1yXYUbr+VhNdwSR3m9a
+         xrMJ/nWtgCxE7uST0bM9Ze3gnPNEbb0fV9koAeeYwmME2hdSM135qx5KI4JV8i5on/6+
+         z2VShXNTH1hlz9ISgqGhqYp+rfFN1EwN/+AH3Yc97UOfazuGzqPcbhDbGuDPp8jTu894
+         pxrw==
+X-Forwarded-Encrypted: i=1; AJvYcCUrPvLpzyO8ZyB8+hZHAHI7uv3fZgXlZVaPIHq/kd0FxuNkhU6oafftWV6Conpb4lxh5GZ8EqvokLI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwMC67hZ0X3QzfjAJm0Obg6CXB9d/nOgsNp6t1enTgAhVOpJ27F
+	3cuW98zyvmh0p+7iS47QqM4sjIF5HedTGzQ9iv79K46cKsm9m+Fxj3W+02We5r0=
+X-Google-Smtp-Source: AGHT+IEE2bxYGxUQ738mUgAXWfF2fqvmmj26ELQL7sMa1A54T+bSfomBHbiiw6Zzht9xFugXbqDYxA==
+X-Received: by 2002:a17:907:3f2a:b0:a86:bb90:93fa with SMTP id a640c23a62f3a-a897fa75198mr536567966b.44.1725046394002;
+        Fri, 30 Aug 2024 12:33:14 -0700 (PDT)
+Message-ID: <bc04ec24-a273-408c-9342-ec37c4951f1a@citrix.com>
+Date: Fri, 30 Aug 2024 20:33:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 1/3] libxl: Fix nul-termination of the return value
- of libxl_xen_console_read_line()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Javi Merino <javi.merino@cloud.com>
-Cc: xen-devel@lists.xenproject.org, jbeulich@suse.com,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
- =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>
-References: <cover.1724430173.git.javi.merino@cloud.com>
- <b1c7eb226ce62f50d6a50baa3977830a31fa5c9b.1724430173.git.javi.merino@cloud.com>
- <ZtCZjJVG-7daxcxb@macbook.local>
+Subject: Re: [PATCH v2 02/11] xen/bitops: Switch from __pure to attr_const
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240828220351.2686408-1-andrew.cooper3@citrix.com>
+ <20240828220351.2686408-3-andrew.cooper3@citrix.com>
+ <116eba82-9075-4d38-86b7-6ee0001b4a87@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,36 +136,56 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ZtCZjJVG-7daxcxb@macbook.local>
+In-Reply-To: <116eba82-9075-4d38-86b7-6ee0001b4a87@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29/08/2024 4:53 pm, Roger Pau Monné wrote:
-> On Fri, Aug 23, 2024 at 06:05:03PM +0100, Javi Merino wrote:
->> When built with ASAN, "xl dmesg" crashes in the "printf("%s", line)"
->> call in main_dmesg().  ASAN reports a heap buffer overflow: an
->> off-by-one access to cr->buffer.
+On 29/08/2024 3:07 pm, Jan Beulich wrote:
+> On 29.08.2024 00:03, Andrew Cooper wrote:
+>> All of the ffs()/fls() infrastructure is in fact (attr) const, because it
+>> doesn't even read global state.  This allows the compiler even more
+>> flexibility to optimise.
 >>
->> The readconsole sysctl copies up to count characters into the buffer,
->> but it does not add a null character at the end.  Despite the
->> documentation of libxl_xen_console_read_line(), line_r is not
->> nul-terminated if 16384 characters were copied to the buffer.
+>> No functional change.
 >>
->> Fix this by asking xc_readconsolering() to fill the buffer up to size
->> - 1.  As the number of characters in the buffer is only needed in
->> libxl_xen_console_read_line(), make it a local variable there instead
->> of part of the libxl__xen_console_reader struct.
-> Instead of playing games with the buffer size in order to add an extra
-> NUL character, we could possibly use libxl_write_exactly(ctx,
-> STDOUT_FILENO,...) in main_dmesg(), using cr->count as the buffer
-> length?
+>> Reported-by: Jan Beulich <JBeulich@suse.com>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Julien Grall <julien@xen.org>
+>> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+>> CC: Michal Orzel <michal.orzel@amd.com>
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+>>
+>> v2:
+>>  * New
+>> ---
+>>  xen/include/xen/bitops.h | 16 ++++++++--------
+>>  1 file changed, 8 insertions(+), 8 deletions(-)
+> The various arch_* forms didn't have __pure and hence also don't gain
+> attr_const presumably because we deem these attributes ineffectual for
+> always-inline functions? On that basis
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Sadly no.
+It's not quite that.
 
-struct libxl__xen_console_reader (which has the count field) is a libxl
-private (opaque) type which `xl` can't access.
+The non static-inline ones definitely do need the attribute.  That's the
+only thing the optimiser has to operate with.
 
-Otherwise this would be a oneline fix already...
+The static inlines shouldn't need it for GCC's benefit.  GCC will
+apparently (according to buzilla) silently drop the attribute if it
+believes it to have been erroneous.
+
+However, Eclair does care about the attributes even on static-inlines as
+part of it's side-effects analysis for various rules.
+
+Therefore I've been putting the attributes on the APIs we expect code to
+be using, but not on the arch_* infrastructure.  Whether this is the
+right balance remains to be seen.
 
 ~Andrew
 
