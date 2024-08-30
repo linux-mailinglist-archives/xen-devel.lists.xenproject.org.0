@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1100E965C5E
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 11:11:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786284.1195855 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 130A2965C7A
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 11:13:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786292.1195864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjxeg-00072M-15; Fri, 30 Aug 2024 09:10:54 +0000
+	id 1sjxgu-0007fD-EG; Fri, 30 Aug 2024 09:13:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786284.1195855; Fri, 30 Aug 2024 09:10:54 +0000
+Received: by outflank-mailman (output) from mailman id 786292.1195864; Fri, 30 Aug 2024 09:13:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjxef-00070N-TC; Fri, 30 Aug 2024 09:10:53 +0000
-Received: by outflank-mailman (input) for mailman id 786284;
- Fri, 30 Aug 2024 09:10:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sjxgu-0007cw-Bd; Fri, 30 Aug 2024 09:13:12 +0000
+Received: by outflank-mailman (input) for mailman id 786292;
+ Fri, 30 Aug 2024 09:13:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q2fe=P5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sjxee-000709-Dz
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 09:10:52 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bff18149-66af-11ef-99a0-01e77a169b0f;
- Fri, 30 Aug 2024 11:10:49 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5c22b1f470dso1223680a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 02:10:49 -0700 (PDT)
+ id 1sjxgs-0007cJ-QH
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 09:13:10 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 13b0363f-66b0-11ef-a0b1-8be0dac302b0;
+ Fri, 30 Aug 2024 11:13:10 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2f4f8742138so17365711fa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 02:13:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226ce48f0sm1692255a12.79.2024.08.30.02.10.48
+ 4fb4d7f45d1cf-5c226c74184sm1783644a12.32.2024.08.30.02.13.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Aug 2024 02:10:48 -0700 (PDT)
+ Fri, 30 Aug 2024 02:13:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bff18149-66af-11ef-99a0-01e77a169b0f
+X-Inumbo-ID: 13b0363f-66b0-11ef-a0b1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725009049; x=1725613849; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725009190; x=1725613990; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XT4Yg5crDkbfU+vWXD1Sxz60wgfsa6qjHCvF7zSJeBM=;
-        b=FOo1Kyzq7UW6jn8XGE4LIVO+x02srQvlZpXKt6jlx10+xiuQe9KkZYVtDbrFjkV32H
-         Pm4CazqCwZRl7Vgjsh0WZ0oWvHlSiwpxi2lrfsAXmJCcmB4iauMRusZOQ8GqwNSVWm8q
-         HbeDMMf++uU+floEqgdf4xh0k1lAXch9SEOWrZJfRc+rodt+j+M5oe2kCWqF1Ck3HhFQ
-         Uibfpbuhvjg0TxfMVmQ6bFI7t32zSQmqVRVNlVcPGFrwTEdsxMzYhb+NRFd7zfulhpem
-         XA4LYRNfIbEI8ltUX8u4LcmxgIZugEndMujTmjr6N2u7Z1deW9cwmjLJ9LTmT2La+pEE
-         QbJQ==
+        bh=4VfOdxQlpk+nPeowB6qgdL8IIZ32TUp2YJ0/WXOo4m0=;
+        b=Ek2edgMr3ltEfCjwHcuWKgJr7P9TqVAwvkpQsj9svwPCmufNxzp2iP4PN5HZ7BcRfr
+         CIqqoy2XSboRy3ILyDvbbp01FB9dOZ5rc6I0mwbVlYSYMhZ5alXFR/heqbdMbgawAv83
+         EO9i/xhjmErbKm3i5gDZx8T5whoPmZDIQFtjTvBN08oSJkSOiYWt3k95/haTX/qKZ+gR
+         50F0VGDFJxyRnvIIaU/TxQ6URkhRh4RbejcA6FnFAOEVBgiUpv26FZKlPX1xLd6RA+g0
+         0X4i7j+ZgadulLUk++5+8POvGjUC2bb1EnGysle1FuiME0Dp2UDQNr+fx5sit6drj43e
+         ayLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725009049; x=1725613849;
+        d=1e100.net; s=20230601; t=1725009190; x=1725613990;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XT4Yg5crDkbfU+vWXD1Sxz60wgfsa6qjHCvF7zSJeBM=;
-        b=AyMPhagXDQvXx3IQdSB6aa6cTEtnDkL6dvmkMNpFN3iSs6Be6Gg16q0Chv8jENCh7+
-         /xWy/FnUOJRz/KoNSTgoMl5Qtx8VFujIDV+0yBU/oBCWtnfXoIF9V2bXoo/uwvlC4K7b
-         NfZ9nwMQxSZo+4sFQWKbd9u1Uzm7oFofOk7hV7JgSf8vbuYH9hvsRdwi7h1DdAA3kZN+
-         F3NLr5M5ZRj8ED3nWX8tnP/1NWD7wb/gRS/8LDXRP+ejR5v9WEHbdZgw7dg2o1i7qLgq
-         r+UzzCziiNKOc/TeVCyV6zaY/ibwFdtfMU2uhJr7Sc1uaietsRePS4ffB4YuYSrhbxD9
-         2xww==
-X-Forwarded-Encrypted: i=1; AJvYcCU7RyDWvq8rYF8RA3g+4wTsQqICwIDPKmBQ5pWY97E/u4oP5Ofsz36Oq7KDSKCFs+SX1uWg7cjbgqk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYW0A/kFbfJMet5S9Vkk+Bn3j0/vDFMUUsYVfIci/IB9yFj2bo
-	FRurMl3TTci0ijRlQBkTRQN7Vij1bISGAFhcgx9AwArTcazvTZKuk40GFcVYJokSWW6VbRwtKnY
-	=
-X-Google-Smtp-Source: AGHT+IHJp+KUOuuaozWcoh+fyOQ+7mb/vnqP2h6dzbn6Cjs2FM9QmDeiMj60CLxF2CYMf5F3/4ocvA==
-X-Received: by 2002:a05:6402:4496:b0:5c0:8ea7:3deb with SMTP id 4fb4d7f45d1cf-5c21ed61ba7mr4777167a12.22.1725009048923;
-        Fri, 30 Aug 2024 02:10:48 -0700 (PDT)
-Message-ID: <b9f46431-b91c-4c30-8d88-b6decdf12b06@suse.com>
-Date: Fri, 30 Aug 2024 11:10:47 +0200
+        bh=4VfOdxQlpk+nPeowB6qgdL8IIZ32TUp2YJ0/WXOo4m0=;
+        b=SqkGOzWVwNktKncnaCWONwPNaBBL9gPfTC+l9lEEgg3uvQE0XyEeXWn9XWIjLZ+4Kt
+         KIMJyXfi2QAY7bx01PG1y3iWPHSlq/1x3Wn+mpZJW+hz474sWNACu94Ke2gKCAndvuCY
+         OUo9MXpHU5YQBGj8BDBmlQbKd8cdh8kTfoX/d4YuQj7XhSoBlJ7ljRmSn4kR9cKCTCLh
+         Dw+GFJBKxz65TbEfpedd6OLvZQKGWSmVQCzxRwGRW3gZiehbF8Du3wWkafzV+MDYHETq
+         Li+ewvNg6fVd6esGS/N2O5zXBnlH45/Cx202D6MaBMbAAOQutpw5amah0MaEz8afhJhd
+         E7bQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVlgypCjEhBxsq1Yez8ZmRMB2s76D+RRWb1w8TZjc49mSuTh3mcsFlcLdPkdxuwPahipixukKaJTD0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy7QpWRXwaylyT5vHX3QNPMqdEOl8I6o9oKUMnv2FvruuCazkBQ
+	lKbfCeid6hY6syH0NgpHrBkOmLnn6xhjLu1NkdgCKc8lrStgPC51biXBJC0CGg==
+X-Google-Smtp-Source: AGHT+IEQJu/wD/PSmszB1acXotfZMfRC9JQ9I7aOn/MAdegZSwVdV1c1P8FoLdvIUG73dnCBJ3Pe9A==
+X-Received: by 2002:a2e:a589:0:b0:2f5:abe:b6bd with SMTP id 38308e7fff4ca-2f6108a7ad5mr39152521fa.42.1725009189596;
+        Fri, 30 Aug 2024 02:13:09 -0700 (PDT)
+Message-ID: <c94074c4-863a-4c26-b4da-e02c19703059@suse.com>
+Date: Fri, 30 Aug 2024 11:13:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] xen/bitmap: remove comment-based deviations
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <4aa692a50a5d08d24560f02fdc36911965fc860b.1724850701.git.federico.serafini@bugseng.com>
- <1eae8fa0-2d4c-4cf6-8120-fd7fefa523ed@suse.com>
- <45a72e19-dceb-46a1-9771-066e64f69f38@bugseng.com>
+Subject: Re: [PATCH v5] xen: make VMAP support in MMU system only
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: Penny Zheng <penny.zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Chen <wei.chen@arm.com>,
+ Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+References: <20240830090821.23105-1-ayan.kumar.halder@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,62 +121,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <45a72e19-dceb-46a1-9771-066e64f69f38@bugseng.com>
+In-Reply-To: <20240830090821.23105-1-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.08.2024 10:13, Federico Serafini wrote:
-> On 28/08/24 16:50, Jan Beulich wrote:
->> On 28.08.2024 15:12, Federico Serafini wrote:
->>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> @@ -565,6 +565,10 @@ of this macro do not lead to developer confusion, and can thus be deviated."
->>>   -config=MC3R1.R20.7,reports+={safe, "any_area(any_loc(any_exp(macro(^count_args_$))))"}
->>>   -doc_end
->>>   
->>> +-doc_begin="The expansion of an argument surrounded by tokens '{', '}' and ';' is safe."
->>> +-config=MC3R1.R20.7,expansion_context+={safe, "left_right(^[\\{;]$,^[;\\}]$)"}
->>> +-doc_end
->>
->> Not the least because this is quite a bit wider than ...
->>
->>> --- a/xen/include/xen/bitmap.h
->>> +++ b/xen/include/xen/bitmap.h
->>> @@ -103,13 +103,10 @@ extern int bitmap_allocate_region(unsigned long *bitmap, int pos, int order);
->>>   #define bitmap_switch(nbits, zero, small, large)			  \
->>>   	unsigned int n__ = (nbits);					  \
->>>   	if (__builtin_constant_p(nbits) && !n__) {			  \
->>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
->>>   		zero;							  \
->>>   	} else if (__builtin_constant_p(nbits) && n__ <= BITS_PER_LONG) { \
->>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
->>>   		small;							  \
->>>   	} else {							  \
->>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
->>>   		large;							  \
->>>   	}
->>
->> ... what's needed here, I wonder if we're not opening up avenues to
->> problems by generally permitting that pattern. Plus in the description
->> I'm missing a statement to the effect of why this is (always) safe.
+On 30.08.2024 11:08, Ayan Kumar Halder wrote:
+> From: Penny Zheng <penny.zheng@arm.com>
 > 
-> The rational of the rule is that if a macro argument expands to an
-> expression, there may be problems related to operator precedence, e.g.:
+> Introduce CONFIG_HAS_VMAP which is selected by the architectures that
+> use MMU. vm_init() does not do anything if CONFIG_HAS_VMAP is not
+> enabled.
 > 
-> #define A(x, y) x * y
+> HAS_VMAP is widely used in ALTERNATIVE feature to remap a range of
+> memory with new memory attributes. Since this is highly dependent on
+> virtual address translation, we choose to make HAS_VMAP selected by
+> MMU. And ALTERNATIVE depends on HAS_VMAP.
 > 
-> A(1+1, 2+2) will expand to: 1+1 * 2+2
+> At the moment, the users of HARDEN_BRANCH_PREDICTOR requires to use the
+> vmap() to update the exceptions vectors. While it might be possible to
+> rework the code, it is believed that speculative attackes would be
+> difficult to exploit on non-MMU because the software is tightly
+> controlled. So for now make HARDEN_BRANCH_PREDICTOR to depend on the
+> MMU.
 > 
-> Yes, the deviation is more general and wider than what is needed for
-> the specific case but it is safe: if the expanded argument is between
-> one of the aforementioned tokens, then there are no operators involved
-> and no precedence issues.
+> Also took the opportunity to remove "#ifdef VMAP_VIRT_START .. endif"
+> from vmap.c. Instead vmap.c is compiled when HAS_VMAP is enabled. Thus,
+> HAS_VMAP is now enabled from x86, ppc and riscv architectures as all of
+> them use MMU and has VMAP_VIRT_START defined.
 > 
-> I can add some details in a v2.
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> Acked-by: Julien Grall <jgrall@amazon.com>
 
-Please do,taking into consideration also language extensions that we use,
-e.g. the statements-as-expressions one (where figure braces exist inside
-an expression).
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
