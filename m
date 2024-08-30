@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05387966B8A
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 23:50:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786705.1196387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 370CF966B8B
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 23:50:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786709.1196397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk9Vx-0003Ox-Gv; Fri, 30 Aug 2024 21:50:41 +0000
+	id 1sk9W4-0003v0-Oa; Fri, 30 Aug 2024 21:50:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786705.1196387; Fri, 30 Aug 2024 21:50:41 +0000
+Received: by outflank-mailman (output) from mailman id 786709.1196397; Fri, 30 Aug 2024 21:50:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk9Vx-0003MY-Cy; Fri, 30 Aug 2024 21:50:41 +0000
-Received: by outflank-mailman (input) for mailman id 786705;
- Fri, 30 Aug 2024 21:50:40 +0000
+	id 1sk9W4-0003rr-KP; Fri, 30 Aug 2024 21:50:48 +0000
+Received: by outflank-mailman (input) for mailman id 786709;
+ Fri, 30 Aug 2024 21:50:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KiG6=P5=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1sk9Vw-0002pb-GT
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 21:50:40 +0000
+ id 1sk9W3-0002pb-7I
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 21:50:47 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e4722501-6719-11ef-a0b1-8be0dac302b0;
- Fri, 30 Aug 2024 23:50:39 +0200 (CEST)
+ id e88aa22b-6719-11ef-a0b1-8be0dac302b0;
+ Fri, 30 Aug 2024 23:50:46 +0200 (CEST)
 Delivered-To: dpsmith@apertussolutions.com
-Received: by mx.zohomail.com with SMTPS id 1725054484953288.2781406902028;
- Fri, 30 Aug 2024 14:48:04 -0700 (PDT)
+Received: by mx.zohomail.com with SMTPS id 1725054486005884.6684138233145;
+ Fri, 30 Aug 2024 14:48:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,25 +39,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4722501-6719-11ef-a0b1-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1725054486; cv=none; 
+X-Inumbo-ID: e88aa22b-6719-11ef-a0b1-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1725054488; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=fMBteAsI13MSUK4JhY2EasizYgJhcij4MN1c+5n7gd7nE0l0SsZ39qCofDWdb6+oc1ziSm+bhYHl7Tqhpp1jAWILiIsY4EJl5Iqzl+vFt1coeIA01Glqcj88pXe4SAZ6HMDk6EOg71np5el8QBgH6VBeFZYcdCWHCWNBiRRNPZU=
+	b=SNkhcUTb5ljjl2N4k5YOyU3+oI1ILjCxlFunEQS+985K2oo1Yu+xBrLdrDkBJDxLmc2f8rW0DkVOn31d/xaGFBsjtN+u5FJLip4P+ik3GQIxhVbI41HHWntYWnMTBDrw35GjtavGKlfZ8nbhxngiDGjH4VbgJS1m3Yma82oQxLs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1725054486; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=CWEMixDJY7x4MLnQ/ZkZHLIFrIhvLWgtbDqN9QKbuu4=; 
-	b=QolIQEHusFGH/1c7zyLjewOEij4pwbIQ/uWsxESAEJNd6uDb3Lc9h36BVXidVBERvSGb8c2HLTynoBN+5KUbTUCjSPdhbZZjeKO/YTJhXY3Xuc+rqXejjtuLRYpCH9f4j2RhNRJ+IJ5W4d6a+/8JK0HC/9yzY6j199exdjt/Ups=
+	t=1725054488; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4r8bmG5H6VttNyjMx0aG3Heh83MSlb/U7U7R6jqNGbY=; 
+	b=VMKWkebmIugSeqsy1YB478K5MVEVqELvz/mT7v+uKnvardBgLfOvaUxAZE4aN0UuqN0tXWortoPkUyoixYwwC94fYrC6CVesl0q5oj68SR9VrU0XdsprkOBSPcGsoXvaF36d0ClD849xYdLug6saTybJXLie4/lQYcSSEllzVco=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1725054486;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1725054488;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=CWEMixDJY7x4MLnQ/ZkZHLIFrIhvLWgtbDqN9QKbuu4=;
-	b=gsUanQnsMQJRxhBKO4nK+31N6TJynts15cxFfqcmbWbFQv7dk50npWV3qnrlwqzs
-	NVnQ+aBuuQU01qZX3glUcgQrcVwcvxaFnOqXRv602/idE0jzHlt0ER55B0y6X15ruBw
-	jBhn8VggWGLyLrrlGqgRSlJ/3dLAq8PQHscyZxBI=
+	bh=4r8bmG5H6VttNyjMx0aG3Heh83MSlb/U7U7R6jqNGbY=;
+	b=j63f/8kEFjZLnJwXnEwaZ/+r476pw2tLC0WHdxn5Qz5P9y7hHGmfP3qA+hpNyKde
+	nuSZy3mzccLVOIEdnGTaKXemyOWhoJc2r20EWT3fLiceMuUvnhoE9/aZTzcNCQUiCd3
+	FjUZTGwcsQWeUS2/ou7R3tUVBdmJJxdh+pvDBqlM=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
@@ -66,9 +66,9 @@ Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4 23/44] x86/boot: remove module_map usage from xsm policy loading
-Date: Fri, 30 Aug 2024 17:47:08 -0400
-Message-Id: <20240830214730.1621-24-dpsmith@apertussolutions.com>
+Subject: [PATCH v4 24/44] x86/boot: remove module_map usage by ramdisk loading
+Date: Fri, 30 Aug 2024 17:47:09 -0400
+Message-Id: <20240830214730.1621-25-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20240830214730.1621-1-dpsmith@apertussolutions.com>
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
@@ -76,108 +76,45 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
+The ramdisk loading is the last user of module_map, remove
+its usage and any remaining remnants of module_map.
+
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
- xen/arch/x86/setup.c  | 2 +-
- xen/include/xsm/xsm.h | 9 +++------
- xen/xsm/xsm_core.c    | 6 ++----
- xen/xsm/xsm_policy.c  | 5 +----
- 4 files changed, 7 insertions(+), 15 deletions(-)
+ xen/arch/x86/setup.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
 diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 541a956923d3..90c2ddb3728a 100644
+index 90c2ddb3728a..5f42d1049110 100644
 --- a/xen/arch/x86/setup.c
 +++ b/xen/arch/x86/setup.c
-@@ -1878,7 +1878,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-     mmio_ro_ranges = rangeset_new(NULL, "r/o mmio ranges",
-                                   RANGESETF_prettyprint_hex);
+@@ -1053,7 +1053,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+     unsigned int initrdidx, num_parked = 0;
+     multiboot_info_t *mbi;
+     module_t *mod;
+-    unsigned long nr_pages, raw_max_page, module_map[1];
++    unsigned long nr_pages, raw_max_page;
+     int i, j, e820_warn = 0, bytes = 0;
+     unsigned long eb_start, eb_end;
+     bool acpi_boot_table_init_done = false, relocated = false;
+@@ -1203,15 +1203,14 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+         panic("dom0 kernel not specified. Check bootloader configuration\n");
  
--    xsm_multiboot_init(module_map, boot_info);
-+    xsm_multiboot_init(boot_info);
- 
-     /*
-      * IOMMU-related ACPI table parsing may require some of the system domains
-diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
-index 9e511ef8878c..3f05d09880d8 100644
---- a/xen/include/xsm/xsm.h
-+++ b/xen/include/xsm/xsm.h
-@@ -781,11 +781,9 @@ static inline int xsm_argo_send(const struct domain *d, const struct domain *t)
- #endif /* XSM_NO_WRAPPERS */
- 
- #ifdef CONFIG_MULTIBOOT
--int xsm_multiboot_init(
--    unsigned long *module_map, const struct boot_info *bi);
-+int xsm_multiboot_init(const struct boot_info *bi);
- int xsm_multiboot_policy_init(
--    unsigned long *module_map, const struct boot_info *bi,
--    void **policy_buffer, size_t *policy_size);
-+    const struct boot_info *bi, void **policy_buffer, size_t *policy_size);
- #endif
- 
- #ifdef CONFIG_HAS_DEVICE_TREE
-@@ -831,8 +829,7 @@ static const inline struct xsm_ops *silo_init(void)
- #include <xsm/dummy.h>
- 
- #ifdef CONFIG_MULTIBOOT
--static inline int xsm_multiboot_init (
--    unsigned long *module_map, const struct boot_info *bi)
-+static inline int xsm_multiboot_init(const struct boot_info *bi)
- {
-     return 0;
- }
-diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
-index 9f87ec4f6754..f816c94fb5aa 100644
---- a/xen/xsm/xsm_core.c
-+++ b/xen/xsm/xsm_core.c
-@@ -140,8 +140,7 @@ static int __init xsm_core_init(const void *policy_buffer, size_t policy_size)
- }
- 
- #ifdef CONFIG_MULTIBOOT
--int __init xsm_multiboot_init(
--    unsigned long *module_map, const struct boot_info *bi)
-+int __init xsm_multiboot_init(const struct boot_info *bi)
- {
-     int ret = 0;
-     void *policy_buffer = NULL;
-@@ -151,8 +150,7 @@ int __init xsm_multiboot_init(
- 
-     if ( XSM_MAGIC )
+     /* Check that we don't have a silly number of modules. */
+-    if ( boot_info->nr_mods > sizeof(module_map) * 8 )
++    if ( boot_info->nr_mods > MAX_NR_BOOTMODS + 1 )
      {
--        ret = xsm_multiboot_policy_init(module_map, bi, &policy_buffer,
--                                        &policy_size);
-+        ret = xsm_multiboot_policy_init(bi, &policy_buffer, &policy_size);
-         if ( ret )
-         {
-             bootstrap_map(NULL);
-diff --git a/xen/xsm/xsm_policy.c b/xen/xsm/xsm_policy.c
-index e4c94afd108d..ac09dd808b27 100644
---- a/xen/xsm/xsm_policy.c
-+++ b/xen/xsm/xsm_policy.c
-@@ -32,8 +32,7 @@
+-        boot_info->nr_mods = sizeof(module_map) * 8;
++        boot_info->nr_mods = MAX_NR_BOOTMODS + 1;
+         printk("Excessive multiboot modules - using the first %u only\n",
+                boot_info->nr_mods);
+     }
  
- #ifdef CONFIG_MULTIBOOT
- int __init xsm_multiboot_policy_init(
--    unsigned long *module_map, const struct boot_info *bi,
--    void **policy_buffer, size_t *policy_size)
-+    const struct boot_info *bi, void **policy_buffer, size_t *policy_size)
- {
-     int i;
-     int rc = 0;
-@@ -42,7 +41,6 @@ int __init xsm_multiboot_policy_init(
- 
-     /*
-      * Try all modules and see whichever could be the binary policy.
--     * Adjust module_map for the module that is the binary policy.
-      */
-     for ( i = bi->nr_mods-1; i >= 1; i-- )
-     {
-@@ -60,7 +58,6 @@ int __init xsm_multiboot_policy_init(
-             printk("Policy len %#lx, start at %p.\n",
-                    _policy_len,_policy_start);
- 
--            __clear_bit(i, module_map);
-             bi->mods[i].type = BOOTMOD_XSM_POLICY;
-             break;
+-    bitmap_fill(module_map, boot_info->nr_mods);
+-    __clear_bit(0, module_map); /* Dom0 kernel is always first */
++    /* Dom0 kernel is always first */
+     boot_info->mods[0].type = BOOTMOD_KERNEL;
+     boot_info->mods[0].flags |= BOOTMOD_FLAG_X86_CONSUMED;
  
 -- 
 2.30.2
