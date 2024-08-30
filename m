@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7ECF966797
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 19:07:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786538.1196111 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D3C29667C9
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 19:16:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786545.1196121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk54e-00006H-Eh; Fri, 30 Aug 2024 17:06:12 +0000
+	id 1sk5EI-0002AI-9U; Fri, 30 Aug 2024 17:16:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786538.1196111; Fri, 30 Aug 2024 17:06:12 +0000
+Received: by outflank-mailman (output) from mailman id 786545.1196121; Fri, 30 Aug 2024 17:16:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk54e-0008RU-BU; Fri, 30 Aug 2024 17:06:12 +0000
-Received: by outflank-mailman (input) for mailman id 786538;
- Fri, 30 Aug 2024 17:06:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sk5EI-000286-6f; Fri, 30 Aug 2024 17:16:10 +0000
+Received: by outflank-mailman (input) for mailman id 786545;
+ Fri, 30 Aug 2024 17:16:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YGfl=P5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sk54c-0008Pz-Ap
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 17:06:10 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 25ffe94b-66f2-11ef-99a1-01e77a169b0f;
- Fri, 30 Aug 2024 19:06:07 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-5334879ba28so2873513e87.3
- for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 10:06:07 -0700 (PDT)
+ id 1sk5EG-000280-Ow
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 17:16:08 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a6f8d74-66f3-11ef-a0b1-8be0dac302b0;
+ Fri, 30 Aug 2024 19:16:06 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a86a0b5513aso240937466b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 10:16:06 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989230a9dsm232725966b.224.2024.08.30.10.06.05
+ a640c23a62f3a-a89891d72c3sm237697366b.147.2024.08.30.10.16.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Aug 2024 10:06:06 -0700 (PDT)
+ Fri, 30 Aug 2024 10:16:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25ffe94b-66f2-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 8a6f8d74-66f3-11ef-a0b1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725037567; x=1725642367; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725038165; x=1725642965; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+/BOiHGSYumqVQLot/pndyPGdTJkwe1yspWUo6nf1OY=;
-        b=XHWHqFJT9EyDhEnnVv/DImD+KdZaRmyL1f6GKwM17qY89UdgKS3y4DwkQQO36C5lEE
-         MzwqG/+qzb2r0zEICs4qBkl5JKr8QO4uIQ1FDNwK9YxVvoqegFDDJQ9K0mLKe4s8ZSxK
-         T5ejqvArop5QWEgQtAVex6lAELwSB9IiE/8dA=
+        bh=FX1+GsNHmsic0w/XiGgpLMmpBMNUBTOQA9yhKwSb0x4=;
+        b=kL+k2u6HqZfPTcKghkjtuzBJZ42B1SunjPcy9XE7AI9lie8iFpvbGjdy7W1CD7+MUJ
+         7zRkEGf51j8DH/XZCfmctRNHe23lKjenjp/YCfXB7hRPF+ciDLRuJUaey3kK4Msp2pmw
+         d/e8bwh5gP1xvwWeC3JQ/+jKw3BCBI6yQmieE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725037567; x=1725642367;
+        d=1e100.net; s=20230601; t=1725038165; x=1725642965;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+/BOiHGSYumqVQLot/pndyPGdTJkwe1yspWUo6nf1OY=;
-        b=jv+LWiVdWcIlHZUbWEzuz+r2dNxp+sxLujVf3VtEgSoXtqAWuLWubgxweYxo2NxL9n
-         Mm5zlUjhYcwZZ0dgQL4wUxfQgjPuwZkomfbQXv9baCbk81C6FMybDKMYcxdjpifR5e7s
-         Z4vWFgQq3XGYEwwXegP/qmrB/mwTg/vGwuLIRVBBRQopNvMm+TiwQb+0YvPi/eB03vFd
-         s6fRbUjnLw5cyWjCJIA/0w6vbPTKZzM5c2cjEz1IgI2X+jfcu6NqpvwxiglcTVogvIuN
-         lWpYBdu2A8o8UK1aNvjK00V9N4lDCsXHhttlw4U/w9pYBP7IHfaijrI4CbinHq9RgCOd
-         0y6Q==
-X-Gm-Message-State: AOJu0YwRxi8Mx0nACoJWflLSl+jNw2I0ScyzJwbWjeKd3J4NxC/J5ZVu
-	9HU1+GbMdsXo+Ps9Kc+qIMUpWYXWDQxrSXdSThBUmqsw6Niko4NxgL5TreaQyYg=
-X-Google-Smtp-Source: AGHT+IHB5eX4GFz0tjwjZfMa13jBVvoLExGQOFHf30KYF/d2nNCjUxLEQbIHI0HatiPDBR1YS4f+3w==
-X-Received: by 2002:a05:6512:6d2:b0:52f:cffd:39f9 with SMTP id 2adb3069b0e04-53546b2c596mr1964005e87.24.1725037566568;
-        Fri, 30 Aug 2024 10:06:06 -0700 (PDT)
-Message-ID: <49ab67ae-1e1a-457a-a759-8517711ab5f8@citrix.com>
-Date: Fri, 30 Aug 2024 18:06:04 +0100
+        bh=FX1+GsNHmsic0w/XiGgpLMmpBMNUBTOQA9yhKwSb0x4=;
+        b=FgOMRlYykNlWSQOz55W7XmmrmUFnVxM0Knhxk9Fpyj0xR+rrVR8arE/ksJmU1126tw
+         PGkUTbQo2HfJNkJR6OFZPWgQXE5WXkyZFc4X29wrmt/6MMgB70lydJuMDqVwLJB4syIh
+         weKRPWSnLBg9rt0BM+KEE81V8d8fr+05T6NQvlHf4Glm9Vq/Cz3duagjnd6bXbPSe8dy
+         tRDbDt7oxHxae0oxXwHN2rXODLbyKK8cu1j7D1pQYj5chuy9sJctkqVqGVZBgr2xsqv9
+         8WJutIrdjkZ1korD97dvHRkvi06Y2TPdlKLRBx/uIRS29h+0hswzixNmLdxgseg1LN9y
+         O9BQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU8ZxGYK9LH/OIYQK+If4rTCWTGwFvS+sbdnQBksgjn6phRHJwyYyMyaynUhWgBRPhjJ0EmMNoF9Z0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyXhDYuGVTykvPmwDN9iHedbFuvcGWUfrTPE21YPP9gxaiVQAQt
+	uKFEvLM2cIfokA+8nnja9KWHYosfAc8i8AawnCzYQhyeHMNHXV9wAOxxSf6Clwg=
+X-Google-Smtp-Source: AGHT+IFCoRqYDYWQ32ZC/XhlwAzkYSV04/SAHqwL5sNELFnaT5xariOeZXkW4AfbZIEM50hJVnq8FA==
+X-Received: by 2002:a17:907:6d23:b0:a7a:aa35:408c with SMTP id a640c23a62f3a-a897f77fa9amr571429966b.8.1725038164657;
+        Fri, 30 Aug 2024 10:16:04 -0700 (PDT)
+Message-ID: <6292af41-00e6-4c06-8781-92830f6022ba@citrix.com>
+Date: Fri, 30 Aug 2024 18:16:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/pv: Make cr4_pv32_mask be PV32-only
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240829183817.2807665-1-andrew.cooper3@citrix.com>
- <77e852b6-1336-4289-87f2-9cefe2e6fd04@suse.com>
- <ZtGOnQVY4SiEK63o@macbook.local>
+Subject: Re: [XEN PATCH v2 0/2] libxl: Implement QEMU command line probe
+To: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>
+References: <20240830094937.40476-1-anthony.perard@vates.tech>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,56 +127,47 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ZtGOnQVY4SiEK63o@macbook.local>
+In-Reply-To: <20240830094937.40476-1-anthony.perard@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 30/08/2024 10:19 am, Roger Pau Monné wrote:
-> On Fri, Aug 30, 2024 at 09:55:12AM +0200, Jan Beulich wrote:
->> On 29.08.2024 20:38, Andrew Cooper wrote:
->>> The user of cr4_pv32_mask (the cr4_pv32_restore() function) only exists in a
->>> CONFIG_PV32 build, but right now the variable is unconditionally set up.
->>>
->>> To start with, move the setup into set_in_cr4() and remove it from it's
->>> somewhat ad-hoc position in __start_xen().  This means the variable will be
->>> set up in two steps for a CONFIG_PV32=y build, but it's cleaner and more
->>> robust logic overall.
->>>
->>> With that, there's no good reason for the variable to stay in setup.c.  Move
->>> it to x86/pv/traps.c (for want of any better place to live), and move the
->>> declaration to beside set_in_cr4() and mmu_cr4_features which is a better
->>> position than setup.h.
->>>
->>> Guard the reference with CONFIG_PV32, and fix up a recent typo in an adjacent
->>> comment while at it.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->> with a suggestion:
->>
->>> --- a/xen/arch/x86/pv/traps.c
->>> +++ b/xen/arch/x86/pv/traps.c
->>> @@ -18,6 +18,10 @@
->>>  #include <asm/traps.h>
->>>  #include <irq_vectors.h>
->>>  
->>> +#ifdef CONFIG_PV32
->>> +unsigned long __ro_after_init cr4_pv32_mask;
->>> +#endif
->> To save on the number of such #ifdef-s, how about moving this into an existing
->> one. pv/mm.c has one, albeit near the bottom of the file (which I'd be fine
->> with, but I could imagine you or others not liking such placement), and
->> pv/domain.c has one near the top which seems pretty well suited.
-> I'm fine either way:
+On 30/08/2024 10:49 am, Anthony PERARD wrote:
+> Patch series available in this git branch:
+> https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.libxl-qemu-cmdline-probe-v2
 >
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> v2:
+> - removed commited patch
+> - rename "qemu_cmdline" to "qemu_opts" in struct field and func parameters.
+> - rename "struct libxl__qemu_available_cmd_line" to
+>   "struct libxl__qemu_available_opts".
 >
-> Thanks, Roger.
+> Starting with QEMU 9.0, the option "-chroot", that we use for the
+> "dmrestrict" feature, is removed. We need to find out which to use
+> between "-chroot" and "-run-with chroot=dir".
+>
+> Also, "-runas" is deprecated in QEMU 9.1 and will be remove in a future
+> release, it's replaced with "-run-with user=user".
+>
+> To find out which command line option we can use, we'll spawn QEMU, and run the
+> QMP command "query-command-line-options".
+>
+> Some example of running these patches:
+>     with qemu-xen (8.0):
+>         http://logs.test-lab.xenproject.org/osstest/logs/187352/
+>     with QEMU (upstream, 9.1-rc3):
+>         http://logs.test-lab.xenproject.org/osstest/logs/187353/
+>
+> Anthony PERARD (2):
+>   libxl: Probe QEMU for -run-with chroot=dir and use it
+>   libxl: Probe QEMU for -run-with user=user and use it
+>
+>  tools/libs/light/libxl_dm.c       | 90 +++++++++++++++++++++++++------
+>  tools/libs/light/libxl_internal.h |  6 +++
+>  2 files changed, 80 insertions(+), 16 deletions(-)
 
-Thanks.  I'll put it alongside opt_pv32 in pv/domain.c which is indeed
-pretty well suited.
+I've committed these as they're fully reviewed, but I think this
+warrants a CHANGELOG.md update as we're fixing libxl to work with newer
+QEMU.
 
 ~Andrew
 
