@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D05966606
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 17:48:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786502.1196067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D07696661E
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 17:53:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786509.1196078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk3qs-0001PG-AS; Fri, 30 Aug 2024 15:47:54 +0000
+	id 1sk3vq-0002tK-Sg; Fri, 30 Aug 2024 15:53:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786502.1196067; Fri, 30 Aug 2024 15:47:54 +0000
+Received: by outflank-mailman (output) from mailman id 786509.1196078; Fri, 30 Aug 2024 15:53:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk3qs-0001NQ-7q; Fri, 30 Aug 2024 15:47:54 +0000
-Received: by outflank-mailman (input) for mailman id 786502;
- Fri, 30 Aug 2024 15:47:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YGfl=P5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sk3qr-0001NJ-KC
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 15:47:53 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36fd5c21-66e7-11ef-a0b1-8be0dac302b0;
- Fri, 30 Aug 2024 17:47:51 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a86933829dcso242775466b.3
- for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 08:47:51 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89891d6e9asm233135266b.148.2024.08.30.08.47.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Aug 2024 08:47:50 -0700 (PDT)
+	id 1sk3vq-0002qJ-PQ; Fri, 30 Aug 2024 15:53:02 +0000
+Received: by outflank-mailman (input) for mailman id 786509;
+ Fri, 30 Aug 2024 15:53:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sk3vp-0002q9-Ar; Fri, 30 Aug 2024 15:53:01 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sk3vp-0008SZ-51; Fri, 30 Aug 2024 15:53:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sk3vo-0005FI-Lo; Fri, 30 Aug 2024 15:53:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sk3vo-0003jm-LJ; Fri, 30 Aug 2024 15:53:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36fd5c21-66e7-11ef-a0b1-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725032871; x=1725637671; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BKQY0Mh8zdoCyqju3qDYbHH0iJXkFR4ZWv6hjHGIxtU=;
-        b=pjDyrmTpdCELLtpVAlJxO5E9Ij6samyh9jAPBNdFk0xszEm2vQpQS0qXu6nLx64maa
-         jTQ1+e/dKAWxmCRrH17ZR7ykmaFYAFdPEv7s6jfREejN08FW00V6Y3kjEgNO9lGhn2n1
-         xkdIHOpWJxiQqFmhmJDOI8Tvs4EKOm+Ltvfoo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725032871; x=1725637671;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BKQY0Mh8zdoCyqju3qDYbHH0iJXkFR4ZWv6hjHGIxtU=;
-        b=ZzFX21ppX/4fKPQPvkaf4rlt0alSahiYc5yllQSKmrGFUN+0uMBrwdIU6dnmdkvwoT
-         /Hyuz6x2/x3/fiC4YijQJAaePtt9V0pF1ONBRBAb2jGU0eBkoHG0FFzugctZ8WBt5VJW
-         8VgjNNHdVSVqKfEKYgpAmbpTMrkYQFGjupn7V80aVsxkhzfRk1SbBHcs83ePZAQhDaTv
-         wjoOtY0fy1894faPXKVuzaP5xv7vVlS0PQXvDKZs214nZ1MV3JBvRiZrT7AfuM52GXku
-         2egoQPBdNG631qSCgXz0bHLDbomoVomq2XgPp77RMwyXzu0xzjfx7XT87AN5E5cZhsbe
-         Vz6A==
-X-Forwarded-Encrypted: i=1; AJvYcCX4pIw+f39uqJIIFs7RkB9mB621xfuIcOTBrWRwP2FRURk9CuwLuBXYhu/tG9GPAxkkjjC8IPz5VeU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz/QuolAAkicp6gtrDWB44UK9OgmB3GY1+9RR0oFxbvWM2WwWQN
-	+EzBL+UNb6LE+Y9WymG2tTt8Q5NRw1Qx8cm5ds/JFELSvAoFOmAwObKm3+mjw7w=
-X-Google-Smtp-Source: AGHT+IFzEbC4/UVmP/47JJKGpmAwge8eu0dxKBIARarCY4L5Me1ST7GpzUYLVJmwvH7T7hT+B8kkvg==
-X-Received: by 2002:a17:907:7f17:b0:a86:83f9:bc1f with SMTP id a640c23a62f3a-a897fab787bmr579945166b.61.1725032870751;
-        Fri, 30 Aug 2024 08:47:50 -0700 (PDT)
-Message-ID: <e994f35f-6f11-44d3-9ea7-0d020fa720dc@citrix.com>
-Date: Fri, 30 Aug 2024 16:47:48 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86/time: split CMOS time fetching into wrapper
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
-References: <20240830095220.49473-1-roger.pau@citrix.com>
- <20240830095220.49473-2-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240830095220.49473-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=fuazQG4H7EGlVaJqnO0vPacTYNFc9GK2lrggSPoJihQ=; b=bvqleZXrZTROFXc5bQyXNJDfcN
+	Ie5yHsXRk7atBI1tAZShjiX4ALldSqweZ7wRAUwjxoytSOi3xdFTZL1YTvY+k9YVodQjCYeEgwwA3
+	q5GOkJPGkAgX4z4u5ovRkkQOLcxy9bRx5gH0DGueowPE7lm8OC6s4YkgLoZ3GP1BxmHc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187421-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 187421: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=a1b0703e8ea59b2b353e644b92f01b8cad182d04
+X-Osstest-Versions-That:
+    ovmf=f31aa47deea9239d61b41fda8d445ecf607fcef9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 30 Aug 2024 15:53:00 +0000
 
-On 30/08/2024 10:52 am, Roger Pau Monne wrote:
-> Split the logic that deals with probing and fetching the CMOS time into a
-> separate helper.  While moving the code also take the opportunity to reduce the
-> scope of some local variables.
->
-> No functional change intended.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+flight 187421 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187421/
 
-This does look like a straight rearrangement, so
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 a1b0703e8ea59b2b353e644b92f01b8cad182d04
+baseline version:
+ ovmf                 f31aa47deea9239d61b41fda8d445ecf607fcef9
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, although...
+Last test of basis   187420  2024-08-30 12:14:59 Z    0 days
+Testing same since   187421  2024-08-30 14:13:16 Z    0 days    1 attempts
 
-> +static unsigned long get_cmos_time(void)
-> +{
-> +    struct rtc_time rtc;
-> +    static bool __read_mostly cmos_rtc_probe;
-> +    boolean_param("cmos-rtc-probe", cmos_rtc_probe);
-> +
-> +    if ( efi_enabled(EFI_RS) )
-> +    {
-> +        unsigned long res = efi_get_time();
-> +
-> +        if ( res )
-> +            return res;
-> +    }
-> +
-> +    if ( likely(!(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC)) )
-> +        cmos_rtc_probe = false;
-> +    else if ( system_state < SYS_STATE_smp_boot && !cmos_rtc_probe )
-> +        panic("System with no CMOS RTC advertised must be booted from EFI"
-> +              " (or with command line option \"cmos-rtc-probe\")\n");
-> +
-> +    if ( unlikely(!read_cmos_time(&rtc, cmos_rtc_probe)) )
->          panic("No CMOS RTC found - system must be booted from EFI\n");
+------------------------------------------------------------
+People who touched revisions under test:
+  Rebecca Cran <rebecca@bsdio.com>
+  Wei6 Xu <wei6.xu@intel.com>
 
-... this really does show some (preexisting) tangled logic.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
 
-All of this should live in an init function, and not be re-evaluated
-each time we call get_wallclock_time(), not that we call it very often.
 
-cmos_rtc_probe should be __initdata or at least __ro_after_init, but it
-gets written on every pass through the function on most systems.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Lets focus on not crashing.  Cleanup can come later.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-~Andrew
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   f31aa47dee..a1b0703e8e  a1b0703e8ea59b2b353e644b92f01b8cad182d04 -> xen-tested-master
 
