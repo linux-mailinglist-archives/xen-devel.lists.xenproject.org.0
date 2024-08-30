@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8942396696D
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 21:18:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786589.1196176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34609966976
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 21:22:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786594.1196187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk77y-0000CM-Lf; Fri, 30 Aug 2024 19:17:46 +0000
+	id 1sk7Cf-0001fc-6x; Fri, 30 Aug 2024 19:22:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786589.1196176; Fri, 30 Aug 2024 19:17:46 +0000
+Received: by outflank-mailman (output) from mailman id 786594.1196187; Fri, 30 Aug 2024 19:22:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk77y-0000AW-J2; Fri, 30 Aug 2024 19:17:46 +0000
-Received: by outflank-mailman (input) for mailman id 786589;
- Fri, 30 Aug 2024 19:17:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sk7Cf-0001dq-3q; Fri, 30 Aug 2024 19:22:37 +0000
+Received: by outflank-mailman (input) for mailman id 786594;
+ Fri, 30 Aug 2024 19:22:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YGfl=P5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sk77x-0000AO-Ca
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 19:17:45 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8883e518-6704-11ef-a0b1-8be0dac302b0;
- Fri, 30 Aug 2024 21:17:44 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a86883231b4so248016266b.3
- for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 12:17:44 -0700 (PDT)
+ id 1sk7Cd-0001dk-L0
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 19:22:35 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 34765e5a-6705-11ef-99a1-01e77a169b0f;
+ Fri, 30 Aug 2024 21:22:32 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-5353cd2fa28so2858572e87.3
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 12:22:32 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89891d86cesm248608466b.171.2024.08.30.12.17.42
+ a640c23a62f3a-a8989221c24sm242157966b.196.2024.08.30.12.22.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Aug 2024 12:17:42 -0700 (PDT)
+ Fri, 30 Aug 2024 12:22:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8883e518-6704-11ef-a0b1-8be0dac302b0
+X-Inumbo-ID: 34765e5a-6705-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725045463; x=1725650263; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725045752; x=1725650552; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eO8ZjtEt7FVT4/B3qnuF54I6LroN/wGF9mWRE2zybd0=;
-        b=biSE8wco4Jh/wASWsPPY/57IJXVSCVNW2iaHS3y17xtfhSfNYcKag41M8sV0X7lXWW
-         +RLnUB2B7MD+4XF3n0Ri+L55LT9vU/2bwl/Zs501a0a8RwkS7C5MsFlckDyRZjqs2hyr
-         7R8YdBXxpk2Su5G5deTfCqJS7kDuOTJAji1fk=
+        bh=FlesElXwYrUPfMC3M2GbQMy2srF6FMwCLcBLJGILsas=;
+        b=dN++h7mU3s7YvKN/Gt+0ezQinc+TEQNeZfCQG4i7tDWihB9aD28DGVBI+kZ+fIvt13
+         KmQeqpCgvgN6tQd4KL1siFlACpgCwSY9tfdqm5btBqRT2yWJuvYPqYtlXDIkR4Af6cQA
+         b3MrFxPf2u8z8z2Uz7K1W5il7hayqkyFcg3u8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725045463; x=1725650263;
+        d=1e100.net; s=20230601; t=1725045752; x=1725650552;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eO8ZjtEt7FVT4/B3qnuF54I6LroN/wGF9mWRE2zybd0=;
-        b=rlnApMfALhvL0PaEUc/UvEKMng0Cp+Q+arpNEqR+6yO0Pxq2I4GCUaWRcavdkHBOZl
-         bXtw2JdyPARZos3LDL1cPklwKeqG8IIlR+HT7xP9ZHqNgQsrUa5cT4CnDsBfUBAfwtLS
-         nDfuKfUzXzq54e0WfVMlmYX8psAgFd0lxJrmRpLjZM4LFWU556Qx3H7b6j/vM0kyGvuD
-         x6VfJyGALvE/W92+qOt1zBN/O6AdpZLnuuBbLvRhjVidEBgrtsKk/WkbCtEAwvGw33pr
-         hv7dyfaftUsxOvJibWYrwbSEK3i2kC1ht9pUkacLLYsWubILqqMz9mWFQHSLNDeFfCWj
-         RD2w==
-X-Forwarded-Encrypted: i=1; AJvYcCVOF6XOnJIVDZUn4WXmuFz+nv1w25lYopbZrznPt0ReFcEXTU4myh9kElkG6yJ0nGfJvUplF2whMok=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyoyhA/SdwOPw5nPSQ8Ollz8LL1Tl7CNmuRnXQDOItzmHcE7Vnt
-	KkrKqp5Xug58AMZCY84io/DvhTjRzuGhvlQ/yzuhpmE5v0/u9UQF8dOYC2Std/M=
-X-Google-Smtp-Source: AGHT+IFk9hgH0RW+arGfWxloBxZws9ePC3bBZvtzDLMNlBWOygCd51NPEgan3/NreQPGSAwzaMfTeA==
-X-Received: by 2002:a17:907:1c27:b0:a86:8197:8df9 with SMTP id a640c23a62f3a-a897fad5066mr622007666b.66.1725045463013;
-        Fri, 30 Aug 2024 12:17:43 -0700 (PDT)
-Message-ID: <9ac39818-2259-4aa2-8bc6-17809fe62368@citrix.com>
-Date: Fri, 30 Aug 2024 20:17:40 +0100
+        bh=FlesElXwYrUPfMC3M2GbQMy2srF6FMwCLcBLJGILsas=;
+        b=XHOGJn9OTwOiHILizgPOHJnBsGu9+SPgErokCFPX6wUEUbzOtE+uuM8nF3wLblTmU/
+         qZJMzfzE3meOXmPawSrD5rpSFO20KJFnTtZPCjwgRvtkMNQ+I3CK83MHwpis8gvAsAel
+         UgKAqzVJZI5gOmprsgp8SCsFCHNF/+k25xiWsb7ON/rwiyLDFgNlzM9lC4ZZV4Z3lICU
+         W2myOnHVHOSnAoOubJwsUTod1UEeaAUURc5D3vP2BYdkikisdrY8/BJf9bGuT13sLB3Y
+         v5aJudPK4+aiXkF7NppSZeliSqp/lVSid46VYyHFpzN/SlLo9M+F/429Xo2r27qw+ckK
+         DGKg==
+X-Gm-Message-State: AOJu0YyX5UhSOKr80CiEpBt2j0RS//fblBW6alumC5Bo4OMraKh+umLJ
+	Ij3iJ4Z0ue2ht0JAtQb+wyiu8yEebtm/6mhKMRdXMqJa2Nn0t3Kp6lVMFwSIU4o=
+X-Google-Smtp-Source: AGHT+IH0BbU/bbx/kiMwCmcJI8NOctylJgK3dB//FLO2lXENM6HLYJd8HVIRR/i5u75/95oT9hU41Q==
+X-Received: by 2002:a05:6512:2814:b0:530:dab8:7dde with SMTP id 2adb3069b0e04-53546b451b4mr1993298e87.34.1725045751409;
+        Fri, 30 Aug 2024 12:22:31 -0700 (PDT)
+Message-ID: <dc7d8179-b2c9-4ec8-99e5-5a901b751832@citrix.com>
+Date: Fri, 30 Aug 2024 20:22:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v5 7/8] x86/mm: add defensive return
+Subject: Re: [XEN PATCH v2 1/3] libxl: Fix nul-termination of the return value
+ of libxl_xen_console_read_line()
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Federico Serafini <federico.serafini@bugseng.com>,
- xen-devel@lists.xenproject.org, consulting@bugseng.com
-References: <cover.1722239813.git.federico.serafini@bugseng.com>
- <24501d2e7f5d82d8e5a483a80b35e04ce765a7cf.1722239813.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2407291512280.4857@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2408281735020.53815@ubuntu-linux-20-04-desktop>
- <da5d2ccc-6a21-4bcc-8ceb-75b930dcdabe@suse.com>
- <ZtGOWAnqGu-XNCgy@macbook.local>
+ Javi Merino <javi.merino@cloud.com>
+Cc: xen-devel@lists.xenproject.org, jbeulich@suse.com,
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>
+References: <cover.1724430173.git.javi.merino@cloud.com>
+ <b1c7eb226ce62f50d6a50baa3977830a31fa5c9b.1724430173.git.javi.merino@cloud.com>
+ <ZtCZjJVG-7daxcxb@macbook.local>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,47 +132,36 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ZtGOWAnqGu-XNCgy@macbook.local>
+In-Reply-To: <ZtCZjJVG-7daxcxb@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30/08/2024 10:18 am, Roger Pau Monné wrote:
-> On Thu, Aug 29, 2024 at 09:04:37AM +0200, Jan Beulich wrote:
->> On 29.08.2024 02:35, Stefano Stabellini wrote:
->>> On Mon, 29 Jul 2024, Stefano Stabellini wrote:
->>>> On Mon, 29 Jul 2024, Federico Serafini wrote:
->>>>> Add defensive return statement at the end of an unreachable
->>>>> default case. Other than improve safety, this meets the requirements
->>>>> to deviate a violation of MISRA C Rule 16.3: "An unconditional `break'
->>>>> statement shall terminate every switch-clause".
->>>>>
->>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->>>>
->>>>> ---
->>>>> No changes from v3 and v4, further feedback on this thread would be appreciated:
->>>>> https://lists.xenproject.org/archives/html/xen-devel/2024-07/msg00474.html
->>> Looking at the older threads, I looks like Jan suggested EACCES, I also
->>> think it is marginally better. My R-b stands also for EACCES. Jan, I
->>> think you should go ahead and fix on commit
->> No, I very definitely want a 2nd x86 maintainer opinion here. Or a better
->> suggestion for the error code to use by anyone. After all, as you confirm,
->> EACCES is only marginally better.
-> Hm, the only alternative I could suggest is using ERANGE, to signal
-> the value of opt_mmio_relax is out of the expected range, however that
-> could be confusing for the callers?
->
-> One benefit of using ERANGE is that there's currently no return path
-> in get_page_from_l1e() with that error code, so it would be very easy
-> to spot when an unexpected value of opt_mmio_relax is found.  However
-> there are no guarantees that further error paths might use that error
-> code.
+On 29/08/2024 4:53 pm, Roger Pau Monné wrote:
+> On Fri, Aug 23, 2024 at 06:05:03PM +0100, Javi Merino wrote:
+>> When built with ASAN, "xl dmesg" crashes in the "printf("%s", line)"
+>> call in main_dmesg().  ASAN reports a heap buffer overflow: an
+>> off-by-one access to cr->buffer.
+>>
+>> The readconsole sysctl copies up to count characters into the buffer,
+>> but it does not add a null character at the end.  Despite the
+>> documentation of libxl_xen_console_read_line(), line_r is not
+>> nul-terminated if 16384 characters were copied to the buffer.
+>>
+>> Fix this by asking xc_readconsolering() to fill the buffer up to size
+>> - 1.  As the number of characters in the buffer is only needed in
+>> libxl_xen_console_read_line(), make it a local variable there instead
+>> of part of the libxl__xen_console_reader struct.
+> Instead of playing games with the buffer size in order to add an extra
+> NUL character, we could possibly use libxl_write_exactly(ctx,
+> STDOUT_FILENO,...) in main_dmesg(), using cr->count as the buffer
+> length?
 
-EPERM and EACCES are both very wrong here.  They imply something that is
-simply not appropriate in this context.
+Sadly no.
 
-We use EILSEQ elsewhere for believed-impossible conditions where we need
-an errno of some kind.  I suggest we use it here too.
+struct libxl__xen_console_reader (which has the count field) is a libxl
+private (opaque) type which `xl` can't access.
+
+Otherwise this would be a oneline fix already...
 
 ~Andrew
 
