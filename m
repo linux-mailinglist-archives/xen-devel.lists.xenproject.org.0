@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EA47966B92
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 23:53:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786723.1196417 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA7A7966B93
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 23:53:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786725.1196427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk9Xw-0005cO-9d; Fri, 30 Aug 2024 21:52:44 +0000
+	id 1sk9Y5-0005vN-GQ; Fri, 30 Aug 2024 21:52:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786723.1196417; Fri, 30 Aug 2024 21:52:44 +0000
+Received: by outflank-mailman (output) from mailman id 786725.1196427; Fri, 30 Aug 2024 21:52:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk9Xw-0005aU-5u; Fri, 30 Aug 2024 21:52:44 +0000
-Received: by outflank-mailman (input) for mailman id 786723;
- Fri, 30 Aug 2024 21:52:42 +0000
+	id 1sk9Y5-0005sk-Cr; Fri, 30 Aug 2024 21:52:53 +0000
+Received: by outflank-mailman (input) for mailman id 786725;
+ Fri, 30 Aug 2024 21:52:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KiG6=P5=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1sk9Xu-0005aM-So
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 21:52:42 +0000
+ id 1sk9Y4-0005aM-45
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 21:52:52 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2d0ecb87-671a-11ef-a0b1-8be0dac302b0;
- Fri, 30 Aug 2024 23:52:41 +0200 (CEST)
+ id 329b11bb-671a-11ef-a0b1-8be0dac302b0;
+ Fri, 30 Aug 2024 23:52:50 +0200 (CEST)
 Delivered-To: dpsmith@apertussolutions.com
-Received: by mx.zohomail.com with SMTPS id 1725054502153808.9241274770283;
- Fri, 30 Aug 2024 14:48:22 -0700 (PDT)
+Received: by mx.zohomail.com with SMTPS id 17250545032331016.3890116274274;
+ Fri, 30 Aug 2024 14:48:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,25 +39,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d0ecb87-671a-11ef-a0b1-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1725054504; cv=none; 
+X-Inumbo-ID: 329b11bb-671a-11ef-a0b1-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1725054505; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=HQc/8Mpes7nky1IqTnmc7WcSNsdXEdetXZNaGZMrV3ObGjL9HzhgtIDvnmOp0jZqs55UI4JZf4dO/NSgiLBX2P0CIWRYauWHowYmeNO6rXIBBPrwoCUivc5qBxeEYb6j9uW3nL+q9ct3+pqm8LZVA5fyB0EFIFA10NGe09Rw0as=
+	b=GA7Yp4LFWXcUTCQ+tcxx7puOdH0pa01EM+OSB1scExt/54hyvetQ5OqApsaTg5bhieRGq8CZ0TEH2EqR42b/fkKU4deFvS7a8D7/kKY0YDcnGpp5QWB1fqAwaVrGvyJPwbEbdNOYu0gx1caNmkUjh31mqbfTmMJDnmcTeuYqy5E=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1725054504; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=feqDlwU7EGLLtvhfulZ1x0mRALgPHN///oYnW4IFKWA=; 
-	b=a2pxoqUMt5aHGMs71XhzBzZq7qxLsNQYRpN8qfLkTQ4fy6OqBeJ1kItKz/3oP2fx5pz/HL8Xtmq3EspRq0t38yLYlqrDbCO1d8ICw/V0/P/uzKFbpZNXSxKzEswcoAThQJw4885YODAYop6k8RhAXQvG5hiz7dEsTkfBiu4PWEs=
+	t=1725054505; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Sd7QQyOHQcpE3M4m4u6Ct3Fw13iRggCCs6j9qnmZOMk=; 
+	b=f3kuXxbWhnh9K89+FrbWk50c5gQwEw+vXn0kUXi/q5VA2cOUs548oAm7or7+iH6nl+hxLwKQWmVFVWU87+uhxnvKh399OkS/oA7B7aAx0AQsfYZTGGDdXDchqyGILSWZonIb42lnDXEZvGjhpsdRkbmqiwzyw6B1sXkeIEQ4Cc8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1725054504;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1725054505;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=feqDlwU7EGLLtvhfulZ1x0mRALgPHN///oYnW4IFKWA=;
-	b=P7jsgqlg6tmxb9gsrZXaupZa0AdgOxCLm/Cmg3KqyoABo6g2PbcZyShtGec57SSr
-	ZtO5rJLvQi1ZXd4nesUHE/lhkUzJ6vELNpBoEqd1vLRugqzBZ9wRyyMTsCx4gKdz3Tw
-	UfHQ2WTWo5VHV9UySk4SRuZMmnVZcoCl1Bxim+Jo=
+	bh=Sd7QQyOHQcpE3M4m4u6Ct3Fw13iRggCCs6j9qnmZOMk=;
+	b=bbvsH87qot8P5OwLFLsH9YynUee1DpqXrTjvDagCWBZuBKHREwoSy3evHF+Fehwm
+	WcdP0l7LFQzr4f1EX1TA4q/YRh8tW0TQkg4voUpF/6vIBTmNrk8NMKENe8A9HXPVPCY
+	p7KZgRCe+XHpDWOXzG/OfJhzNA4hWDhLl/vgqFZ8=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
@@ -66,9 +66,9 @@ Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4 39/44] x86/boot: introduce domid field to struct boot_domain
-Date: Fri, 30 Aug 2024 17:47:24 -0400
-Message-Id: <20240830214730.1621-40-dpsmith@apertussolutions.com>
+Subject: [PATCH v4 40/44] x86/boot: add cmdline to struct boot_domain
+Date: Fri, 30 Aug 2024 17:47:25 -0400
+Message-Id: <20240830214730.1621-41-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20240830214730.1621-1-dpsmith@apertussolutions.com>
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
@@ -76,72 +76,90 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-Add a domid field to struct boot_domain to hold the assigned domain id for the
-domain. During initialization, ensure all instances of struct boot_domain have
-the invalid domid to ensure that the domid must be set either by convention or
-configuration.
+Add a container for the "cooked" command line for a domain.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
- xen/arch/x86/include/asm/bootdomain.h |  2 ++
- xen/arch/x86/setup.c                  | 12 +++++++-----
- 2 files changed, 9 insertions(+), 5 deletions(-)
+ xen/arch/x86/include/asm/bootdomain.h |  4 ++++
+ xen/arch/x86/setup.c                  | 18 ++++++++----------
+ 2 files changed, 12 insertions(+), 10 deletions(-)
 
 diff --git a/xen/arch/x86/include/asm/bootdomain.h b/xen/arch/x86/include/asm/bootdomain.h
-index 4285223ac5ab..d6264d554dba 100644
+index d6264d554dba..00f7d9267965 100644
 --- a/xen/arch/x86/include/asm/bootdomain.h
 +++ b/xen/arch/x86/include/asm/bootdomain.h
-@@ -11,6 +11,8 @@
+@@ -8,9 +8,13 @@
+ #ifndef __XEN_X86_BOOTDOMAIN_H__
+ #define __XEN_X86_BOOTDOMAIN_H__
+ 
++#include <public/xen.h>
++
  struct boot_module;
  
  struct boot_domain {
-+    domid_t domid;
++    char cmdline[MAX_GUEST_CMDLINE];
 +
+     domid_t domid;
+ 
      struct boot_module *kernel;
-     struct boot_module *ramdisk;
- };
 diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 77abed637ff2..43b588d4d105 100644
+index 43b588d4d105..2c1aa1475c4e 100644
 --- a/xen/arch/x86/setup.c
 +++ b/xen/arch/x86/setup.c
-@@ -322,6 +322,9 @@ static void __init multiboot_to_bootinfo(multiboot_info_t *mbi, module_t *mods)
-     boot_mods[info.nr_mods].type = BOOTMOD_XEN;
-     boot_mods[info.nr_mods].flags |= BOOTMOD_FLAG_X86_CONSUMED;
+@@ -951,8 +951,6 @@ static unsigned int __init copy_bios_e820(struct e820entry *map, unsigned int li
  
-+    for ( i=0; i < MAX_NR_BOOTDOMS; i++ )
-+        boot_doms[i].domid = DOMID_INVALID;
-+
-     info.domains = boot_doms;
- 
-     boot_info = &info;
-@@ -963,7 +966,6 @@ static struct domain *__init create_dom0(const struct boot_info *bi)
-     };
-     struct boot_domain *bd = &bi->domains[0];
-     struct domain *d;
--    domid_t domid;
- 
-     if ( opt_dom0_pvh )
-     {
-@@ -979,15 +981,15 @@ static struct domain *__init create_dom0(const struct boot_info *bi)
-         dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
- 
-     /* Create initial domain.  Not d0 for pvshim. */
--    domid = get_initial_domain_id();
--    d = domain_create(domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
-+    bd->domid = get_initial_domain_id();
-+    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
-     if ( IS_ERR(d) )
--        panic("Error creating d%u: %ld\n", domid, PTR_ERR(d));
-+        panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
- 
-     init_dom0_cpuid_policy(d);
- 
-     if ( alloc_dom0_vcpu0(d) == NULL )
--        panic("Error creating d%uv0\n", domid);
-+        panic("Error creating d%uv0\n", bd->domid);
- 
-     /* Grab the DOM0 command line. */
+ static struct domain *__init create_dom0(const struct boot_info *bi)
+ {
+-    static char __initdata cmdline[MAX_GUEST_CMDLINE];
+-
+     struct xen_domctl_createdomain dom0_cfg = {
+         .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
+         .max_evtchn_port = -1,
+@@ -995,17 +993,17 @@ static struct domain *__init create_dom0(const struct boot_info *bi)
      if ( bd->kernel->cmdline || bi->kextra )
+     {
+         if ( bd->kernel->cmdline )
+-            safe_strcpy(cmdline, cmdline_cook(
++            safe_strcpy(bd->cmdline, cmdline_cook(
+                         __va((unsigned long)bd->kernel->cmdline),
+                         bi->boot_loader_name));
+ 
+         if ( bi->kextra )
+             /* kextra always includes exactly one leading space. */
+-            safe_strcat(cmdline, bi->kextra);
++            safe_strcat(bd->cmdline, bi->kextra);
+ 
+         /* Append any extra parameters. */
+-        if ( skip_ioapic_setup && !strstr(cmdline, "noapic") )
+-            safe_strcat(cmdline, " noapic");
++        if ( skip_ioapic_setup && !strstr(bd->cmdline, "noapic") )
++            safe_strcat(bd->cmdline, " noapic");
+ 
+         if ( (strlen(acpi_param) == 0) && acpi_disabled )
+         {
+@@ -1013,10 +1011,10 @@ static struct domain *__init create_dom0(const struct boot_info *bi)
+             safe_strcpy(acpi_param, "off");
+         }
+ 
+-        if ( (strlen(acpi_param) != 0) && !strstr(cmdline, "acpi=") )
++        if ( (strlen(acpi_param) != 0) && !strstr(bd->cmdline, "acpi=") )
+         {
+-            safe_strcat(cmdline, " acpi=");
+-            safe_strcat(cmdline, acpi_param);
++            safe_strcat(bd->cmdline, " acpi=");
++            safe_strcat(bd->cmdline, acpi_param);
+         }
+     }
+ 
+@@ -1031,7 +1029,7 @@ static struct domain *__init create_dom0(const struct boot_info *bi)
+         write_cr4(read_cr4() & ~X86_CR4_SMAP);
+     }
+ 
+-    if ( construct_dom0(d, bd->kernel, bd->ramdisk, cmdline) != 0 )
++    if ( construct_dom0(d, bd->kernel, bd->ramdisk, bd->cmdline) != 0 )
+         panic("Could not construct domain 0\n");
+ 
+     if ( cpu_has_smap )
 -- 
 2.30.2
 
