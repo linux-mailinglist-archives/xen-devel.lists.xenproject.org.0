@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D19A69666F5
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 18:31:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786528.1196098 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7ECF966797
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 19:07:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786538.1196111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk4Wl-0002oA-TI; Fri, 30 Aug 2024 16:31:11 +0000
+	id 1sk54e-00006H-Eh; Fri, 30 Aug 2024 17:06:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786528.1196098; Fri, 30 Aug 2024 16:31:11 +0000
+Received: by outflank-mailman (output) from mailman id 786538.1196111; Fri, 30 Aug 2024 17:06:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk4Wl-0002m0-QR; Fri, 30 Aug 2024 16:31:11 +0000
-Received: by outflank-mailman (input) for mailman id 786528;
- Fri, 30 Aug 2024 16:31:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sk54e-0008RU-BU; Fri, 30 Aug 2024 17:06:12 +0000
+Received: by outflank-mailman (input) for mailman id 786538;
+ Fri, 30 Aug 2024 17:06:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YGfl=P5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sk4Wk-0002ls-FG
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 16:31:10 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 420acf57-66ed-11ef-a0b1-8be0dac302b0;
- Fri, 30 Aug 2024 18:31:07 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a8679f534c3so211486366b.0
- for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 09:31:07 -0700 (PDT)
+ id 1sk54c-0008Pz-Ap
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 17:06:10 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 25ffe94b-66f2-11ef-99a1-01e77a169b0f;
+ Fri, 30 Aug 2024 19:06:07 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-5334879ba28so2873513e87.3
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 10:06:07 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8988feb1b8sm230985666b.38.2024.08.30.09.31.05
+ a640c23a62f3a-a8989230a9dsm232725966b.224.2024.08.30.10.06.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Aug 2024 09:31:05 -0700 (PDT)
+ Fri, 30 Aug 2024 10:06:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 420acf57-66ed-11ef-a0b1-8be0dac302b0
+X-Inumbo-ID: 25ffe94b-66f2-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725035467; x=1725640267; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725037567; x=1725642367; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tVwyDbMKzTjeM5/tUK//WOodT3aZ3ZT6PJ86JPXdyU0=;
-        b=F6RB4rrpDRXuK8OO2eMiv8Vtiy6XB7+DnZLwFDCG5h48+R+uOiNQBoMI+0HriGihbn
-         f45cvDCi4+h7INHiCbAA8redswS+QqRoecbrlQLGHj11Zo9CLVxnOUZVqpyYofTebwjL
-         qpRFCVF4zdnXrMiTvFE5okiDDEz9okaR3ZjG4=
+        bh=+/BOiHGSYumqVQLot/pndyPGdTJkwe1yspWUo6nf1OY=;
+        b=XHWHqFJT9EyDhEnnVv/DImD+KdZaRmyL1f6GKwM17qY89UdgKS3y4DwkQQO36C5lEE
+         MzwqG/+qzb2r0zEICs4qBkl5JKr8QO4uIQ1FDNwK9YxVvoqegFDDJQ9K0mLKe4s8ZSxK
+         T5ejqvArop5QWEgQtAVex6lAELwSB9IiE/8dA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725035467; x=1725640267;
+        d=1e100.net; s=20230601; t=1725037567; x=1725642367;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tVwyDbMKzTjeM5/tUK//WOodT3aZ3ZT6PJ86JPXdyU0=;
-        b=AhGkhgT+CBZ9L+gD90wmYsk7rTCD6WOEXZaG5sHq6/nSovlzQxqUr1FdTPn04DnBf0
-         HOSCN25WOb7ywX4z9tlnnbhxMBIrFzouIxIVQrg54d4lQWQ2IXANKaSQomIrV3poFnpl
-         QC1B5BLf/jjWZBbZYBOmn54U6VhtaVOmN2PRS/1m1brU/AinifkP5/NNVVapKrFHzioS
-         yKkdOdfnGHX6qLNo9cUQVtAq/M7gSYEjyOLs7lWEqIOUmV8F/JosZub2emhPgWLEeAz4
-         aUskGE8HWYRGygxENshrvgYM0ZftTfBE2r44TCfaimkhR6BJ2EfEi662Nc+3blmR51cW
-         eCqA==
-X-Forwarded-Encrypted: i=1; AJvYcCU4Gxe+OG64de4yCj00E980Ne6snAhBkLsCPspZX0a6a0arinMOBEhIWG/v+F25SiTXtN5ZXYM+QVk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyIW4LLLqS+orc0Zc2EmbPGXfJB25Hpc/6PrulJ9D92NrG9Dzmw
-	5Tm8pjV7K0zo2Bs2oFqT1bpg1NivStXcsJt5ZzAtmuLNJm5eZTBTa2jpu9WzTXk=
-X-Google-Smtp-Source: AGHT+IENfdzpxG6hDkgLJyZExNc4MOXW0kQH/ewg6rYOmhNiRE25V2Ew/waXQ6SKCNKbtnLq3HRB0w==
-X-Received: by 2002:a17:907:980f:b0:a7a:929f:c0cf with SMTP id a640c23a62f3a-a897f83ad77mr583139866b.21.1725035466278;
-        Fri, 30 Aug 2024 09:31:06 -0700 (PDT)
-Message-ID: <ca2aa9b3-44cf-4a44-9111-1d7e8c9b4dff@citrix.com>
-Date: Fri, 30 Aug 2024 17:31:04 +0100
+        bh=+/BOiHGSYumqVQLot/pndyPGdTJkwe1yspWUo6nf1OY=;
+        b=jv+LWiVdWcIlHZUbWEzuz+r2dNxp+sxLujVf3VtEgSoXtqAWuLWubgxweYxo2NxL9n
+         Mm5zlUjhYcwZZ0dgQL4wUxfQgjPuwZkomfbQXv9baCbk81C6FMybDKMYcxdjpifR5e7s
+         Z4vWFgQq3XGYEwwXegP/qmrB/mwTg/vGwuLIRVBBRQopNvMm+TiwQb+0YvPi/eB03vFd
+         s6fRbUjnLw5cyWjCJIA/0w6vbPTKZzM5c2cjEz1IgI2X+jfcu6NqpvwxiglcTVogvIuN
+         lWpYBdu2A8o8UK1aNvjK00V9N4lDCsXHhttlw4U/w9pYBP7IHfaijrI4CbinHq9RgCOd
+         0y6Q==
+X-Gm-Message-State: AOJu0YwRxi8Mx0nACoJWflLSl+jNw2I0ScyzJwbWjeKd3J4NxC/J5ZVu
+	9HU1+GbMdsXo+Ps9Kc+qIMUpWYXWDQxrSXdSThBUmqsw6Niko4NxgL5TreaQyYg=
+X-Google-Smtp-Source: AGHT+IHB5eX4GFz0tjwjZfMa13jBVvoLExGQOFHf30KYF/d2nNCjUxLEQbIHI0HatiPDBR1YS4f+3w==
+X-Received: by 2002:a05:6512:6d2:b0:52f:cffd:39f9 with SMTP id 2adb3069b0e04-53546b2c596mr1964005e87.24.1725037566568;
+        Fri, 30 Aug 2024 10:06:06 -0700 (PDT)
+Message-ID: <49ab67ae-1e1a-457a-a759-8517711ab5f8@citrix.com>
+Date: Fri, 30 Aug 2024 18:06:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] x86/time: prefer CMOS over EFI_GET_TIME
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
-References: <20240830095220.49473-1-roger.pau@citrix.com>
- <20240830095220.49473-3-roger.pau@citrix.com>
+Subject: Re: [PATCH] x86/pv: Make cr4_pv32_mask be PV32-only
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240829183817.2807665-1-andrew.cooper3@citrix.com>
+ <77e852b6-1336-4289-87f2-9cefe2e6fd04@suse.com>
+ <ZtGOnQVY4SiEK63o@macbook.local>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,140 +129,56 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240830095220.49473-3-roger.pau@citrix.com>
+In-Reply-To: <ZtGOnQVY4SiEK63o@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30/08/2024 10:52 am, Roger Pau Monne wrote:
-> The EFI_GET_TIME implementation is well known to be broken for many firmware
-> implementations, for Xen the result on such implementations are:
+On 30/08/2024 10:19 am, Roger Pau Monné wrote:
+> On Fri, Aug 30, 2024 at 09:55:12AM +0200, Jan Beulich wrote:
+>> On 29.08.2024 20:38, Andrew Cooper wrote:
+>>> The user of cr4_pv32_mask (the cr4_pv32_restore() function) only exists in a
+>>> CONFIG_PV32 build, but right now the variable is unconditionally set up.
+>>>
+>>> To start with, move the setup into set_in_cr4() and remove it from it's
+>>> somewhat ad-hoc position in __start_xen().  This means the variable will be
+>>> set up in two steps for a CONFIG_PV32=y build, but it's cleaner and more
+>>> robust logic overall.
+>>>
+>>> With that, there's no good reason for the variable to stay in setup.c.  Move
+>>> it to x86/pv/traps.c (for want of any better place to live), and move the
+>>> declaration to beside set_in_cr4() and mmu_cr4_features which is a better
+>>> position than setup.h.
+>>>
+>>> Guard the reference with CONFIG_PV32, and fix up a recent typo in an adjacent
+>>> comment while at it.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> with a suggestion:
+>>
+>>> --- a/xen/arch/x86/pv/traps.c
+>>> +++ b/xen/arch/x86/pv/traps.c
+>>> @@ -18,6 +18,10 @@
+>>>  #include <asm/traps.h>
+>>>  #include <irq_vectors.h>
+>>>  
+>>> +#ifdef CONFIG_PV32
+>>> +unsigned long __ro_after_init cr4_pv32_mask;
+>>> +#endif
+>> To save on the number of such #ifdef-s, how about moving this into an existing
+>> one. pv/mm.c has one, albeit near the bottom of the file (which I'd be fine
+>> with, but I could imagine you or others not liking such placement), and
+>> pv/domain.c has one near the top which seems pretty well suited.
+> I'm fine either way:
 >
-> ----[ Xen-4.19-unstable  x86_64  debug=y  Tainted:   C    ]----
-> CPU:    0
-> RIP:    e008:[<0000000062ccfa70>] 0000000062ccfa70
-> [...]
-> Xen call trace:
->    [<0000000062ccfa70>] R 0000000062ccfa70
->    [<00000000732e9a3f>] S 00000000732e9a3f
->    [<ffff82d04034f34f>] F arch/x86/time.c#get_cmos_time+0x1b3/0x26e
->    [<ffff82d04045926f>] F init_xen_time+0x28/0xa4
->    [<ffff82d040454bc4>] F __start_xen+0x1ee7/0x2578
->    [<ffff82d040203334>] F __high_start+0x94/0xa0
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 >
-> Pagetable walk from 0000000062ccfa70:
->  L4[0x000] = 000000207ef1c063 ffffffffffffffff
->  L3[0x001] = 000000005d6c0063 ffffffffffffffff
->  L2[0x116] = 8000000062c001e3 ffffffffffffffff (PSE)
->
-> ****************************************
-> Panic on CPU 0:
-> FATAL PAGE FAULT
-> [error_code=0011]
-> Faulting linear address: 0000000062ccfa70
-> ****************************************
->
-> Swap the preference to default to CMOS first, and EFI later, in an attempt to
-> use EFI_GET_TIME as a last resort option only.  Note that Linux for example
-> doesn't allow calling the get_time method, and instead provides a dummy handler
-> that unconditionally returns EFI_UNSUPPORTED on x86-64.
->
-> Such change in the preferences requires some re-arranging of the function
-> logic, so that panic messages with workaround suggestions are suitably printed.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/time.c | 26 +++++++++++++++++++-------
->  1 file changed, 19 insertions(+), 7 deletions(-)
->
-> diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
-> index 272ca2468ea6..0eee954809a9 100644
-> --- a/xen/arch/x86/time.c
-> +++ b/xen/arch/x86/time.c
-> @@ -1305,24 +1305,36 @@ static unsigned long get_cmos_time(void)
->      static bool __read_mostly cmos_rtc_probe;
->      boolean_param("cmos-rtc-probe", cmos_rtc_probe);
->  
-> +    if ( likely(!(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC)) )
-> +        cmos_rtc_probe = false;
-> +
-> +    if ( (!(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC) ||
-> +          cmos_rtc_probe) && read_cmos_time(&rtc, cmos_rtc_probe) )
-> +        return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
-> +
->      if ( efi_enabled(EFI_RS) )
->      {
->          unsigned long res = efi_get_time();
->  
->          if ( res )
->              return res;
-> +
-> +        panic("Broken EFI_GET_TIME %s\n",
-> +              !cmos_rtc_probe ? "try booting with \"cmos-rtc-probe\" option"
-> +                              : "and no CMOS RTC found");
->      }
->  
-> -    if ( likely(!(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC)) )
-> -        cmos_rtc_probe = false;
-> -    else if ( system_state < SYS_STATE_smp_boot && !cmos_rtc_probe )
-> +    /*
-> +     * No viable clock source found.  Attempt to provide some guidance to the
-> +     * user about possible workarounds to boot Xen on the system.
-> +     */
-> +    ASSERT(system_state < SYS_STATE_smp_boot);
-> +
-> +    if ( !cmos_rtc_probe )
->          panic("System with no CMOS RTC advertised must be booted from EFI"
->                " (or with command line option \"cmos-rtc-probe\")\n");
->  
-> -    if ( unlikely(!read_cmos_time(&rtc, cmos_rtc_probe)) )
-> -        panic("No CMOS RTC found - system must be booted from EFI\n");
-> -
-> -    return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
-> +    panic("No CMOS RTC found - system must be booted from EFI\n");
->  }
->  
->  static unsigned int __ro_after_init cmos_alias_mask;
+> Thanks, Roger.
 
-Hmm, I know I said "fix the crash first, cleanup later" on the prior
-patch, but I'm tempted to retract that.  This is very hard to follow.
-
-Going back to first principles, at runtime we need USE_{XEN,RTC,EFI} to
-select between the various methods available.
-
-At boot, we need to figure out what to do.  I think we want an
-init_wallclock_time() split out of get_cmos_time() (which is badly named
-anyway, given EFI), and called from init_xen_time() only.  In
-particular, the init stuff should not be re-evaluated in
-time_{suspend,resume}().
-
-Various details we have to work with:
-
- * ACPI_FADT_NO_CMOS_RTC, although we know this is falsely set on some
-platforms, hence the whole probing logic.
-
- * Booted on an EFI system, although we know EFI_GET_TIME is broken on
-millions of systems, and we only find this out with a #PF in the middle
-of EFI-RS.  Furthermore, more-major-OSes-than-us strictly veto the use
-of this service, and it's not only Linux; it's Windows too.
-
-Personally, I think "cmos-rtc-probe" is inappropriate/insufficient.  It
-ought to be wc-time=guess|xen|rtc|efi.  We should be able to influence
-the behaviour more than a boolean "probe or not".  The Xen case might be
-better as "hypervisor", although I can't see any evidence of Viridian
-having a virtualised wallclock interface.
-
-I think the init logic wants to be:
- * If ACPI says we have an RTC, use it.
- * If ACPI says we have no RTC, probe to see if it's really there.
- * If we genuinely seem to not have an RTC, probe EFI.  This would be
-quite invasive in the #PF handler, but not impossible.
-
-
-That said, I'm still holding out hope that we can simply delete Xen's
-need for wallclock time.  Xen only uses wallclock time for the
-non-default console_timestamps=date, but even then it's uncorrelate with
-dom0 changing the platform time, leading to actively-misleading log
-files.  There's a reason why "time since boot" is the norm.
+Thanks.  I'll put it alongside opt_pv32 in pv/domain.c which is indeed
+pretty well suited.
 
 ~Andrew
 
