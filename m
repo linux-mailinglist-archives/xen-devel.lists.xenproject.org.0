@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D930696596A
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 10:06:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786249.1195815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB9F69659BF
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 10:13:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786261.1195824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjweC-0001wA-M8; Fri, 30 Aug 2024 08:06:20 +0000
+	id 1sjwkn-0003mH-Aw; Fri, 30 Aug 2024 08:13:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786249.1195815; Fri, 30 Aug 2024 08:06:20 +0000
+Received: by outflank-mailman (output) from mailman id 786261.1195824; Fri, 30 Aug 2024 08:13:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sjweC-0001uc-Ie; Fri, 30 Aug 2024 08:06:20 +0000
-Received: by outflank-mailman (input) for mailman id 786249;
- Fri, 30 Aug 2024 08:06:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjweA-0001uS-No; Fri, 30 Aug 2024 08:06:18 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjweA-0008UY-EP; Fri, 30 Aug 2024 08:06:18 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sjwe9-0001NW-TI; Fri, 30 Aug 2024 08:06:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sjwe9-0006fj-Sp; Fri, 30 Aug 2024 08:06:17 +0000
+	id 1sjwkn-0003jl-8G; Fri, 30 Aug 2024 08:13:09 +0000
+Received: by outflank-mailman (input) for mailman id 786261;
+ Fri, 30 Aug 2024 08:13:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=B9l7=P5=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1sjwkl-0003jf-CZ
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 08:13:07 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aee40d92-66a7-11ef-99a0-01e77a169b0f;
+ Fri, 30 Aug 2024 10:13:05 +0200 (CEST)
+Received: from [192.168.1.113] (93-36-216-241.ip62.fastwebnet.it
+ [93.36.216.241])
+ by support.bugseng.com (Postfix) with ESMTPSA id 3563D4EE0793;
+ Fri, 30 Aug 2024 10:13:04 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +40,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=K+2z0ZHkNU7rHcaArqlhrGsB/rgKzw44sIrDPmI7qlI=; b=zHfOmeIM/50cBvz9RSoiWo2Wfp
-	3YgtpqRsA65HaGbL5OkwZhieaLSAdzsxooFTGNe+u1W70lFx07riyHJ0SSPyEBOpFsRC6VuSMpktV
-	CIVv+kb+KY6/K0IGcaNkxM/eKmIPhSA01k8qkjHsEoV7eqWz5FIPLnmgLzXeOew4s3ns=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187416-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: aee40d92-66a7-11ef-99a0-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1725005584; bh=ig0enLZKbwdcEtBIw4fDv7W8R6Dwv3rph1z68bp6GMU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JtHaX+rlkAhR3oHCh3TEZ+xdDDjkbDxOObWSFs6p5TA1LHyo+3alNfQlvGDwtBgI/
+	 7nElvGh1tRlCylT5TvBMrsZSZeC2m4+un2UTEtNc3VDPG7bcHz8n6zx40XejdtKbF+
+	 d7zKrcV/tUylN4nJurpkRf2w8UOqHVRmaFRk88wHpKxjNYsM1/deHpbL/QSg8k0sa2
+	 lNKOjBgMPQoeTEf0tjY7W5ZfSyrK5il1wMNA27Os+d5opYhzmSpORJv2FsL9GwlgOy
+	 0vtt1lVKo4PeWgfDharOtwI3bbgNHp1Ea1yy38gQj4yG7Eb35Im/Uc2HWiGeiwKYLv
+	 HsKdteSkptoCg==
+Message-ID: <45a72e19-dceb-46a1-9771-066e64f69f38@bugseng.com>
+Date: Fri, 30 Aug 2024 10:13:03 +0200
 MIME-Version: 1.0
-Subject: [ovmf test] 187416: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=391666da2c1dc5671bbb3393079d86f46e3435af
-X-Osstest-Versions-That:
-    ovmf=6a7be5a8418ab6397375e32e399e9523db9d4293
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 30 Aug 2024 08:06:17 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] xen/bitmap: remove comment-based deviations
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <4aa692a50a5d08d24560f02fdc36911965fc860b.1724850701.git.federico.serafini@bugseng.com>
+ <1eae8fa0-2d4c-4cf6-8120-fd7fefa523ed@suse.com>
+Content-Language: en-US, it
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <1eae8fa0-2d4c-4cf6-8120-fd7fefa523ed@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 187416 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187416/
+On 28/08/24 16:50, Jan Beulich wrote:
+> On 28.08.2024 15:12, Federico Serafini wrote:
+>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> @@ -565,6 +565,10 @@ of this macro do not lead to developer confusion, and can thus be deviated."
+>>   -config=MC3R1.R20.7,reports+={safe, "any_area(any_loc(any_exp(macro(^count_args_$))))"}
+>>   -doc_end
+>>   
+>> +-doc_begin="The expansion of an argument surrounded by tokens '{', '}' and ';' is safe."
+>> +-config=MC3R1.R20.7,expansion_context+={safe, "left_right(^[\\{;]$,^[;\\}]$)"}
+>> +-doc_end
+> 
+> Not the least because this is quite a bit wider than ...
+> 
+>> --- a/xen/include/xen/bitmap.h
+>> +++ b/xen/include/xen/bitmap.h
+>> @@ -103,13 +103,10 @@ extern int bitmap_allocate_region(unsigned long *bitmap, int pos, int order);
+>>   #define bitmap_switch(nbits, zero, small, large)			  \
+>>   	unsigned int n__ = (nbits);					  \
+>>   	if (__builtin_constant_p(nbits) && !n__) {			  \
+>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+>>   		zero;							  \
+>>   	} else if (__builtin_constant_p(nbits) && n__ <= BITS_PER_LONG) { \
+>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+>>   		small;							  \
+>>   	} else {							  \
+>> -		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
+>>   		large;							  \
+>>   	}
+> 
+> ... what's needed here, I wonder if we're not opening up avenues to
+> problems by generally permitting that pattern. Plus in the description
+> I'm missing a statement to the effect of why this is (always) safe.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 391666da2c1dc5671bbb3393079d86f46e3435af
-baseline version:
- ovmf                 6a7be5a8418ab6397375e32e399e9523db9d4293
+The rational of the rule is that if a macro argument expands to an
+expression, there may be problems related to operator precedence, e.g.:
 
-Last test of basis   187413  2024-08-30 01:56:32 Z    0 days
-Testing same since   187416  2024-08-30 05:41:39 Z    0 days    1 attempts
+#define A(x, y) x * y
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
+A(1+1, 2+2) will expand to: 1+1 * 2+2
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Yes, the deviation is more general and wider than what is needed for
+the specific case but it is safe: if the expanded argument is between
+one of the aforementioned tokens, then there are no operators involved
+and no precedence issues.
 
+I can add some details in a v2.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+-- 
+Federico Serafini, M.Sc.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   6a7be5a841..391666da2c  391666da2c1dc5671bbb3393079d86f46e3435af -> xen-tested-master
+Software Engineer, BUGSENG (http://bugseng.com)
 
