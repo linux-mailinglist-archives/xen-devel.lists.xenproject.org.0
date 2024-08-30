@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A37F9665BB
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 17:36:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.786496.1196058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96D05966606
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2024 17:48:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.786502.1196067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk3eZ-00074Y-9V; Fri, 30 Aug 2024 15:35:11 +0000
+	id 1sk3qs-0001PG-AS; Fri, 30 Aug 2024 15:47:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 786496.1196058; Fri, 30 Aug 2024 15:35:11 +0000
+Received: by outflank-mailman (output) from mailman id 786502.1196067; Fri, 30 Aug 2024 15:47:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sk3eZ-00072J-5l; Fri, 30 Aug 2024 15:35:11 +0000
-Received: by outflank-mailman (input) for mailman id 786496;
- Fri, 30 Aug 2024 15:35:09 +0000
+	id 1sk3qs-0001NQ-7q; Fri, 30 Aug 2024 15:47:54 +0000
+Received: by outflank-mailman (input) for mailman id 786502;
+ Fri, 30 Aug 2024 15:47:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X2Xk=P5=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
- id 1sk3eX-00072D-AH
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 15:35:09 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ <SRS0=YGfl=P5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sk3qr-0001NJ-KC
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2024 15:47:53 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6fdf721d-66e5-11ef-a0b1-8be0dac302b0;
- Fri, 30 Aug 2024 17:35:08 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5c210e23651so2145995a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 08:35:08 -0700 (PDT)
-Received: from smtpclient.apple ([185.25.67.249])
+ id 36fd5c21-66e7-11ef-a0b1-8be0dac302b0;
+ Fri, 30 Aug 2024 17:47:51 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a86933829dcso242775466b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2024 08:47:51 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226ce54dbsm2130516a12.90.2024.08.30.08.35.06
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 30 Aug 2024 08:35:06 -0700 (PDT)
+ a640c23a62f3a-a89891d6e9asm233135266b.148.2024.08.30.08.47.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 30 Aug 2024 08:47:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,168 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fdf721d-66e5-11ef-a0b1-8be0dac302b0
+X-Inumbo-ID: 36fd5c21-66e7-11ef-a0b1-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1725032108; x=1725636908; darn=lists.xenproject.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8UXBlXWH+S8PPSMlgkp60n/fC/Ac2whA4zgV7WSDV3w=;
-        b=lBrDkhJJRfZYgq0WTC3io6yTx8j+GEjEBmnEj5iFd1pW5uYjVRbtjn8kWZ0MxbGhXJ
-         Zciqct4XyhhMd0mpul74MmZdAYDDxh/MQwCzOYriOL0KQhVFsdJWI/FYYPW6/X1vWEgQ
-         QYETJHn2AOUZLYiKbvIPqtn4oqy8Hsf1wBL9o=
+        d=citrix.com; s=google; t=1725032871; x=1725637671; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BKQY0Mh8zdoCyqju3qDYbHH0iJXkFR4ZWv6hjHGIxtU=;
+        b=pjDyrmTpdCELLtpVAlJxO5E9Ij6samyh9jAPBNdFk0xszEm2vQpQS0qXu6nLx64maa
+         jTQ1+e/dKAWxmCRrH17ZR7ykmaFYAFdPEv7s6jfREejN08FW00V6Y3kjEgNO9lGhn2n1
+         xkdIHOpWJxiQqFmhmJDOI8Tvs4EKOm+Ltvfoo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725032108; x=1725636908;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=8UXBlXWH+S8PPSMlgkp60n/fC/Ac2whA4zgV7WSDV3w=;
-        b=WYMGe+48Oen0zAshOrQumaUSINjtSGFvVdCSOLRRWZE3EqYmltsup2B9j5uXNUDDz8
-         6j8Dg6GN5fCjGcR7+EDw9PhzuB9qN7NulYnduvGKVjprdlqWd4XkvPAqqNHSiwoTdwDK
-         pHRSI/8cVpCGMstD5terOX7XVOBLm5drB8wgRBqSeuuK1B3aOblfJnknuhDZcaX5rYHm
-         lsd+eEJYgI7KGVymmhL2RiVNt3aeVmiuWF4EMsgxnXbhhQOjpFP/76f8eV6Ycy9C8cin
-         CW93ug0xXv3nWCYzEFsjWD5FzSX8baV5zV3/4Upy2ifiSHy54jLzNaC+fgtXWdxqaj3N
-         Y//w==
-X-Gm-Message-State: AOJu0Yxt7wojBcCQRYnG3YOK+0wuYyeri0o1bcTG9VjgkHT/ayNMXqCo
-	vaxUlOYH+FE+3rUTkwuzGIJ4KZsnCJdlTmdPzBqhsJJxkVMph09VKDOAiuLK8yw=
-X-Google-Smtp-Source: AGHT+IGINzFEEgcqW5B1LFTx9AwAOcBiA1nutISsEOqs/y8cqOYYcFkvZqZpV0HAwSklYI5+9MdOZA==
-X-Received: by 2002:a05:6402:40c8:b0:5c2:1298:35ee with SMTP id 4fb4d7f45d1cf-5c21ed33fe2mr5853149a12.2.1725032107074;
-        Fri, 30 Aug 2024 08:35:07 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH] tools/ocaml: Factor out compatiblity handling
-From: Christian Lindig <christian.lindig@cloud.com>
-In-Reply-To: <20240828133033.2378322-1-andrew.cooper3@citrix.com>
-Date: Fri, 30 Aug 2024 16:34:54 +0100
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>,
- =?utf-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
- Rob Hoes <Rob.Hoes@citrix.com>,
- Andrii Sultanov <andrii.sultanov@cloud.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <8A3B017E-662B-46C3-9105-353F2D060006@cloud.com>
-References: <20240828133033.2378322-1-andrew.cooper3@citrix.com>
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-X-Mailer: Apple Mail (2.3774.600.62)
+        d=1e100.net; s=20230601; t=1725032871; x=1725637671;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BKQY0Mh8zdoCyqju3qDYbHH0iJXkFR4ZWv6hjHGIxtU=;
+        b=ZzFX21ppX/4fKPQPvkaf4rlt0alSahiYc5yllQSKmrGFUN+0uMBrwdIU6dnmdkvwoT
+         /Hyuz6x2/x3/fiC4YijQJAaePtt9V0pF1ONBRBAb2jGU0eBkoHG0FFzugctZ8WBt5VJW
+         8VgjNNHdVSVqKfEKYgpAmbpTMrkYQFGjupn7V80aVsxkhzfRk1SbBHcs83ePZAQhDaTv
+         wjoOtY0fy1894faPXKVuzaP5xv7vVlS0PQXvDKZs214nZ1MV3JBvRiZrT7AfuM52GXku
+         2egoQPBdNG631qSCgXz0bHLDbomoVomq2XgPp77RMwyXzu0xzjfx7XT87AN5E5cZhsbe
+         Vz6A==
+X-Forwarded-Encrypted: i=1; AJvYcCX4pIw+f39uqJIIFs7RkB9mB621xfuIcOTBrWRwP2FRURk9CuwLuBXYhu/tG9GPAxkkjjC8IPz5VeU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz/QuolAAkicp6gtrDWB44UK9OgmB3GY1+9RR0oFxbvWM2WwWQN
+	+EzBL+UNb6LE+Y9WymG2tTt8Q5NRw1Qx8cm5ds/JFELSvAoFOmAwObKm3+mjw7w=
+X-Google-Smtp-Source: AGHT+IFzEbC4/UVmP/47JJKGpmAwge8eu0dxKBIARarCY4L5Me1ST7GpzUYLVJmwvH7T7hT+B8kkvg==
+X-Received: by 2002:a17:907:7f17:b0:a86:83f9:bc1f with SMTP id a640c23a62f3a-a897fab787bmr579945166b.61.1725032870751;
+        Fri, 30 Aug 2024 08:47:50 -0700 (PDT)
+Message-ID: <e994f35f-6f11-44d3-9ea7-0d020fa720dc@citrix.com>
+Date: Fri, 30 Aug 2024 16:47:48 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] x86/time: split CMOS time fetching into wrapper
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
+References: <20240830095220.49473-1-roger.pau@citrix.com>
+ <20240830095220.49473-2-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240830095220.49473-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 30/08/2024 10:52 am, Roger Pau Monne wrote:
+> Split the logic that deals with probing and fetching the CMOS time into a
+> separate helper.  While moving the code also take the opportunity to reduce the
+> scope of some local variables.
+>
+> No functional change intended.
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
+This does look like a straight rearrangement, so
 
-> On 28 Aug 2024, at 14:30, Andrew Cooper <Andrew.Cooper3@citrix.com> =
-wrote:
->=20
-> ... rather than having each library implement its own subset.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Christian Lindig <christian.lindig@citrix.com>
-> CC: David Scott <dave@recoil.org>
-> CC: Edwin T=C3=B6r=C3=B6k <edwin.torok@cloud.com>
-> CC: Rob Hoes <Rob.Hoes@citrix.com>
-> CC: Andrii Sultanov <andrii.sultanov@cloud.com>
->=20
-> Broken out of a larger series, to help Andrii with his dynlib work.
-> ---
-> tools/ocaml/libs/xc/Makefile        |  2 +-
-> tools/ocaml/libs/xc/xenctrl_stubs.c | 13 +++----------
-> tools/ocaml/libs/xen-caml-compat.h  | 23 +++++++++++++++++++++++
-> 3 files changed, 27 insertions(+), 11 deletions(-)
-> create mode 100644 tools/ocaml/libs/xen-caml-compat.h
->=20
-> diff --git a/tools/ocaml/libs/xc/Makefile =
-b/tools/ocaml/libs/xc/Makefile
-> index 1d9fecb06ef2..cdf4d01dac52 100644
-> --- a/tools/ocaml/libs/xc/Makefile
-> +++ b/tools/ocaml/libs/xc/Makefile
-> @@ -2,7 +2,7 @@ OCAML_TOPLEVEL=3D$(CURDIR)/../..
-> XEN_ROOT=3D$(OCAML_TOPLEVEL)/../..
-> include $(OCAML_TOPLEVEL)/common.make
->=20
-> -CFLAGS +=3D -I../mmap $(CFLAGS_libxenctrl) $(CFLAGS_libxenguest)
-> +CFLAGS +=3D -I../ -I../mmap $(CFLAGS_libxenctrl) =
-$(CFLAGS_libxenguest)
-> CFLAGS +=3D $(APPEND_CFLAGS)
-> OCAMLINCLUDE +=3D -I ../mmap -I ../eventchn
->=20
-> diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c =
-b/tools/ocaml/libs/xc/xenctrl_stubs.c
-> index a52908012960..c78191f95abc 100644
-> --- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-> +++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-> @@ -25,6 +25,8 @@
-> #include <caml/fail.h>
-> #include <caml/callback.h>
->=20
-> +#include "xen-caml-compat.h"
-> +
-> #include <sys/mman.h>
-> #include <stdint.h>
-> #include <string.h>
-> @@ -37,14 +39,6 @@
->=20
-> #include "mmap_stubs.h"
->=20
-> -#ifndef Val_none
-> -#define Val_none (Val_int(0))
-> -#endif
-> -
-> -#ifndef Tag_some
-> -#define Tag_some 0
-> -#endif
-> -
-> static inline xc_interface *xch_of_val(value v)
-> {
-> xc_interface *xch =3D *(xc_interface **)Data_custom_val(v);
-> @@ -744,8 +738,7 @@ CAMLprim value stub_xc_evtchn_status(value =
-xch_val, value domid, value port)
-> Store_field(result_status, 0, Val_int(status.vcpu));
-> Store_field(result_status, 1, stat);
->=20
-> - result =3D caml_alloc_small(1, Tag_some);
-> - Store_field(result, 0, result_status);
-> + result =3D caml_alloc_some(result_status);
->=20
-> CAMLreturn(result);
-> }
-> diff --git a/tools/ocaml/libs/xen-caml-compat.h =
-b/tools/ocaml/libs/xen-caml-compat.h
-> new file mode 100644
-> index 000000000000..b4a0ca4ce90c
-> --- /dev/null
-> +++ b/tools/ocaml/libs/xen-caml-compat.h
-> @@ -0,0 +1,23 @@
-> +/* SPDX-License-Identifier: LGPL-2.1-only WITH =
-OCaml-LGPL-linking-exception */
-> +#ifndef XEN_CAML_COMPAT_H
-> +#define XEN_CAML_COMPAT_H
-> +
-> +#ifndef Val_none /* Option handling.  Compat for Ocaml < 4.12 */
-> +
-> +#define Val_none Val_int(0)
-> +#define Tag_some 0
-> +#define Some_val(v) Field(v, 0)
-> +
-> +static inline value caml_alloc_some(value v)
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, although...
+
+> +static unsigned long get_cmos_time(void)
 > +{
-> +    CAMLparam1(v);
+> +    struct rtc_time rtc;
+> +    static bool __read_mostly cmos_rtc_probe;
+> +    boolean_param("cmos-rtc-probe", cmos_rtc_probe);
 > +
-> +    value some =3D caml_alloc_small(1, Tag_some);
-> +    Store_field(some, 0, v);
+> +    if ( efi_enabled(EFI_RS) )
+> +    {
+> +        unsigned long res = efi_get_time();
 > +
-> +    CAMLreturn(some);
-> +}
+> +        if ( res )
+> +            return res;
+> +    }
 > +
-> +#endif /* !Val_none */
+> +    if ( likely(!(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC)) )
+> +        cmos_rtc_probe = false;
+> +    else if ( system_state < SYS_STATE_smp_boot && !cmos_rtc_probe )
+> +        panic("System with no CMOS RTC advertised must be booted from EFI"
+> +              " (or with command line option \"cmos-rtc-probe\")\n");
 > +
-> +#endif /* XEN_CAML_COMPAT_H */
->=20
-> base-commit: 75c64db3722f0245137a1e8cfd3435f4790d0fd7
-> --=20
-> 2.39.2
->=20
+> +    if ( unlikely(!read_cmos_time(&rtc, cmos_rtc_probe)) )
+>          panic("No CMOS RTC found - system must be booted from EFI\n");
 
-Acked-by: Christian Lindig <christian.lindig@cloud.com>
+... this really does show some (preexisting) tangled logic.
 
+All of this should live in an init function, and not be re-evaluated
+each time we call get_wallclock_time(), not that we call it very often.
 
+cmos_rtc_probe should be __initdata or at least __ro_after_init, but it
+gets written on every pass through the function on most systems.
+
+Lets focus on not crashing.  Cleanup can come later.
+
+~Andrew
 
