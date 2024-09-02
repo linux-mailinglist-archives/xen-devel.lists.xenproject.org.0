@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 566D2968B33
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 17:42:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.788185.1197646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1714A968B49
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 17:48:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.788192.1197660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl9CQ-0000vp-E0; Mon, 02 Sep 2024 15:42:38 +0000
+	id 1sl9Hh-00032F-3n; Mon, 02 Sep 2024 15:48:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 788185.1197646; Mon, 02 Sep 2024 15:42:38 +0000
+Received: by outflank-mailman (output) from mailman id 788192.1197660; Mon, 02 Sep 2024 15:48:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl9CQ-0000tn-B9; Mon, 02 Sep 2024 15:42:38 +0000
-Received: by outflank-mailman (input) for mailman id 788185;
- Mon, 02 Sep 2024 15:42:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sl9Hh-0002zA-0p; Mon, 02 Sep 2024 15:48:05 +0000
+Received: by outflank-mailman (input) for mailman id 788192;
+ Mon, 02 Sep 2024 15:48:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qspk=QA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sl9CO-0000tf-DF
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 15:42:36 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f9805c20-6941-11ef-a0b2-8be0dac302b0;
- Mon, 02 Sep 2024 17:42:35 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-5333b2fbedaso7567259e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 08:42:35 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989196968sm571591066b.139.2024.09.02.08.42.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 08:42:33 -0700 (PDT)
+ <SRS0=3FK6=QA=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1sl9Hf-0002z4-Uc
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 15:48:03 +0000
+Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
+ [2607:f8b0:4864:20::c31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bba4a3fa-6942-11ef-99a1-01e77a169b0f;
+ Mon, 02 Sep 2024 17:48:01 +0200 (CEST)
+Received: by mail-oo1-xc31.google.com with SMTP id
+ 006d021491bc7-5dd43ab0458so2572862eaf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 08:48:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +40,306 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9805c20-6941-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: bba4a3fa-6942-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725291755; x=1725896555; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ter6HA/ExTEG5lw4h64MR8IKlFYxPSt44L/cT+2k/VU=;
-        b=rabvrd+XvRgzu9PQoXqL/y6WH+BmeDJuJm469kuAYktwa9JG6VBMsj6SsFx8maV1JW
-         P550SsRzIZeFixNYm+/RYhsjAa1zUCkzhxVmhxsH777eWWleZMi9iitDn8ceRiw/S4TT
-         1vET+q2//CzWF/2wvWM6/REztOZha0mDWnCKU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725291755; x=1725896555;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1725292080; x=1725896880; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ter6HA/ExTEG5lw4h64MR8IKlFYxPSt44L/cT+2k/VU=;
-        b=kPVkuAEDumJM7ZLcdup9xHF+1eSxs2Leazwswc+ON0nhlTGcEt1JZ2U0Q2u6a+YZCz
-         awfgbVOkUg1IteUMni3RGQkmRS8U+L8MpGJ8J/MTslJwB0jmfeJTBWnNeqtRclNz/pYL
-         q+av+NjekePi42EtoI1qf+E2BMjjRUIAGZHcwuzR2WDcLE+s5CHIDQ2kdQdWmhb+2qDg
-         g3n54nSoS7IvUyijqDoQeCKJt9PJ2J3wT7p+VITBoez6TmPzYa9DgLDRCI1SDfAlkP1i
-         XU5cNKn7ktUeD3Ugy/Ifyim+CihnS1SKzKjlqsDCqrdxmKSLlzV/Mzq/bfUKeR29GRth
-         1r4A==
-X-Forwarded-Encrypted: i=1; AJvYcCW6W4utiiwvJWhcoBCv7Z4Y7+gTI+0KLN8A/o0H+cGRb9Lr9DtSZrzrchG3DgRGxo5f09MLkcgpgew=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwowYvsMNwsUmOekOWPSLJK1QqhJPiWjwHo7e8cAIk9XiPsUzNx
-	w7R4y22fK5HPRtb9P8CdYbP7g409F6EeQ8uYOLEgVwBLQy7GG9gQ04PkeGG5PYs=
-X-Google-Smtp-Source: AGHT+IHLSH6YaFSDwn1fTtWILTqdbfQnrlkwtfbmB0Pb6FXIksHvsTfjR/stHKiX1lee5RUcrhlDSA==
-X-Received: by 2002:a05:6512:224f:b0:52e:bf53:1c13 with SMTP id 2adb3069b0e04-53546afaae5mr7210719e87.7.1725291753918;
-        Mon, 02 Sep 2024 08:42:33 -0700 (PDT)
-Message-ID: <538d6f83-2126-49a2-bad4-df10d517a702@citrix.com>
-Date: Mon, 2 Sep 2024 16:42:32 +0100
+        bh=huS+Rkh0gW605+IMQXvm88EHA0VUlS9iLwOmTOqFoVw=;
+        b=hIpxa7gfB0sYBDOIYcSZvwBaLY755hR93r6jJo7fitbPp5SLIHvjwgnWVPJQtpXTSJ
+         mUn8xDqst8q8o7E6n3SacQ+jidpV7OJwO+l7F0A7L07YZC0ZFt0XjaJ9Zuf/lJAeU9uI
+         WopvL2hOGAamZ0UjgobDIc4lprsX8zUj0N0B8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1725292080; x=1725896880;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=huS+Rkh0gW605+IMQXvm88EHA0VUlS9iLwOmTOqFoVw=;
+        b=Mh4NNkjslTR2+yZxnLfUAbRmgqpG2x9ourzGetmu6xme2c3sN3HSBbAFMw9AjT7ysJ
+         4WfCoSoCg3raBIN4hkl9wEc1MY/QQu9wsPuKgKz0rO/KqE5WJ6dTDcNkSjdjBuYVEv1D
+         6XvlLACeeL+Jvdbv+5afbRBAxV5EOxvdD2l7HPGRnnr8DyLSNczou1kqYDSo6HmHE9Mj
+         VASMYH3W3c/WjBOjBAnacUB7NiX6z4MMoBFI2r/kWFVvEvnZqpoT4KSL6XjuxhgSPA5J
+         P8Hv0CUjwmdAAiucx4Cx+He0lWUHMXWyhnAmmINoXUPilFxCf3uqE/xc010L9MGRA3aP
+         vPnA==
+X-Gm-Message-State: AOJu0YzxIBxQrCVVkEbHWnf+1SIfMeU92hvIcFDwUK5d6okrk+/FyI1T
+	5lwPEio6vwCr2sezPv9oP+ErdFfaKs0STzQgrmt7qbxe3JxNRJlKQMfHlNI32/b/+Cnsutn6a0E
+	G5Cf7AxfQ25VhRDCijibwcutuX2RbSi8CEqadKw==
+X-Google-Smtp-Source: AGHT+IH8+s2t761Beka/FBbfp9GZwNaB9kqTLAntgekV+3Wd9Rg7psPhdri58aQS3m2/4Xng3aMuOi+nTPfhVUzEhpY=
+X-Received: by 2002:a05:6870:a714:b0:270:1295:af54 with SMTP id
+ 586e51a60fabf-277d0455946mr7763993fac.28.1725292080340; Mon, 02 Sep 2024
+ 08:48:00 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] x86/boot: Use fastcall for 32bit code
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240902133232.3302839-1-andrew.cooper3@citrix.com>
- <20240902133232.3302839-5-andrew.cooper3@citrix.com>
- <da874b44-08a5-4e49-a9e2-5495711926b7@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <da874b44-08a5-4e49-a9e2-5495711926b7@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20240902133232.3302839-1-andrew.cooper3@citrix.com> <20240902133232.3302839-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20240902133232.3302839-3-andrew.cooper3@citrix.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 2 Sep 2024 16:47:49 +0100
+Message-ID: <CACHz=ZhSZHJqQRL0R3dr=7A3WuV55=p8qrkpfSPm-DjbVovHew@mail.gmail.com>
+Subject: Re: [PATCH 2/4] x86/boot: Use <xen/macros.h>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <JBeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 02/09/2024 4:39 pm, Jan Beulich wrote:
-> On 02.09.2024 15:32, Andrew Cooper wrote:
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
->>
->> RFC.  This doesn't boot, but I haven't quite figured out where yet.
-> Because you got the register use wrong maybe? I think it's %eax, %edx,
-> and then %ecx.
+On Mon, Sep 2, 2024 at 2:32=E2=80=AFPM Andrew Cooper <andrew.cooper3@citrix=
+.com> wrote:
+>
+> ... rather than opencoding locally.
+>
+> This involve collecting various macros scattered around Xen (min()/max()
+> macros from kernel.h, and _p() from lib.h) and moving them into macros.h
+>
+> In reloc.c, replace ALIGN_UP() with ROUNDUP().
+>
+> No functional change.
+>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
+> ---
+>  xen/arch/x86/boot/cmdline.c |  4 ++++
+>  xen/arch/x86/boot/defs.h    | 19 ----------------
+>  xen/arch/x86/boot/reloc.c   | 11 +++++-----
+>  xen/include/xen/kernel.h    | 36 +-----------------------------
+>  xen/include/xen/lib.h       |  2 --
+>  xen/include/xen/macros.h    | 44 +++++++++++++++++++++++++++++++++++++
+>  6 files changed, 55 insertions(+), 61 deletions(-)
+>
+> diff --git a/xen/arch/x86/boot/cmdline.c b/xen/arch/x86/boot/cmdline.c
+> index 28a47da7ab02..b7375d106678 100644
+> --- a/xen/arch/x86/boot/cmdline.c
+> +++ b/xen/arch/x86/boot/cmdline.c
+> @@ -31,6 +31,7 @@ asm (
+>      );
+>
+>  #include <xen/kconfig.h>
+> +#include <xen/macros.h>
+>  #include <xen/types.h>
+>
+>  #include "defs.h"
+> @@ -50,6 +51,9 @@ typedef struct __packed {
+>  #endif
+>  } early_boot_opts_t;
+>
+> +/* Avoid pulling in all of ctypes.h for this. */
+> +#define tolower(c)     ((c) | 0x20)
+> +
+>  /*
+>   * Space and TAB are obvious delimiters. However, I am
+>   * adding "\n" and "\r" here too. Just in case when
+> diff --git a/xen/arch/x86/boot/defs.h b/xen/arch/x86/boot/defs.h
+> index cf9a80d116f3..4d519ac4f5ea 100644
+> --- a/xen/arch/x86/boot/defs.h
+> +++ b/xen/arch/x86/boot/defs.h
+> @@ -24,23 +24,4 @@
+>  #define __packed       __attribute__((__packed__))
+>  #define __stdcall      __attribute__((__stdcall__))
+>
+> -#define ALIGN_UP(arg, align) \
+> -                (((arg) + (align) - 1) & ~((typeof(arg))(align) - 1))
+> -
+> -#define min(x,y) ({ \
+> -        const typeof(x) _x =3D (x);       \
+> -        const typeof(y) _y =3D (y);       \
+> -        (void) (&_x =3D=3D &_y);            \
+> -        _x < _y ? _x : _y; })
+> -
+> -#define max(x,y) ({ \
+> -        const typeof(x) _x =3D (x);       \
+> -        const typeof(y) _y =3D (y);       \
+> -        (void) (&_x =3D=3D &_y);            \
+> -        _x > _y ? _x : _y; })
+> -
+> -#define _p(val)                ((void *)(unsigned long)(val))
+> -
+> -#define tolower(c)     ((c) | 0x20)
+> -
+>  #endif /* __BOOT_DEFS_H__ */
+> diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
+> index ac8b58b69581..eb9902d73fd9 100644
+> --- a/xen/arch/x86/boot/reloc.c
+> +++ b/xen/arch/x86/boot/reloc.c
+> @@ -26,6 +26,7 @@ asm (
+>      "    jmp  reloc                    \n"
+>      );
+>
+> +#include <xen/macros.h>
+>  #include <xen/types.h>
+>
+>  #include "defs.h"
+> @@ -76,7 +77,7 @@ static uint32_t alloc;
+>
+>  static uint32_t alloc_mem(uint32_t bytes)
+>  {
+> -    return alloc -=3D ALIGN_UP(bytes, 16);
+> +    return alloc -=3D ROUNDUP(bytes, 16);
+>  }
+>
+>  static void zero_mem(uint32_t s, uint32_t bytes)
+> @@ -202,11 +203,11 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_in=
+, uint32_t video_out)
+>      zero_mem(ptr, sizeof(*mbi_out));
+>
+>      /* Skip Multiboot2 information fixed part. */
+> -    ptr =3D ALIGN_UP(mbi_in + sizeof(*mbi_fix), MULTIBOOT2_TAG_ALIGN);
+> +    ptr =3D ROUNDUP(mbi_in + sizeof(*mbi_fix), MULTIBOOT2_TAG_ALIGN);
+>
+>      /* Get the number of modules. */
+>      for ( tag =3D _p(ptr); (uint32_t)tag - mbi_in < mbi_fix->total_size;
+> -          tag =3D _p(ALIGN_UP((uint32_t)tag + tag->size, MULTIBOOT2_TAG_=
+ALIGN)) )
+> +          tag =3D _p(ROUNDUP((uint32_t)tag + tag->size, MULTIBOOT2_TAG_A=
+LIGN)) )
+>      {
+>          if ( tag->type =3D=3D MULTIBOOT2_TAG_TYPE_MODULE )
+>              ++mbi_out->mods_count;
+> @@ -227,11 +228,11 @@ static multiboot_info_t *mbi2_reloc(uint32_t mbi_in=
+, uint32_t video_out)
+>      }
+>
+>      /* Skip Multiboot2 information fixed part. */
+> -    ptr =3D ALIGN_UP(mbi_in + sizeof(*mbi_fix), MULTIBOOT2_TAG_ALIGN);
+> +    ptr =3D ROUNDUP(mbi_in + sizeof(*mbi_fix), MULTIBOOT2_TAG_ALIGN);
+>
+>      /* Put all needed data into mbi_out. */
+>      for ( tag =3D _p(ptr); (uint32_t)tag - mbi_in < mbi_fix->total_size;
+> -          tag =3D _p(ALIGN_UP((uint32_t)tag + tag->size, MULTIBOOT2_TAG_=
+ALIGN)) )
+> +          tag =3D _p(ROUNDUP((uint32_t)tag + tag->size, MULTIBOOT2_TAG_A=
+LIGN)) )
+>      {
+>          switch ( tag->type )
+>          {
+> diff --git a/xen/include/xen/kernel.h b/xen/include/xen/kernel.h
+> index bc2440b5f96e..c5b6cc977772 100644
+> --- a/xen/include/xen/kernel.h
+> +++ b/xen/include/xen/kernel.h
+> @@ -5,43 +5,9 @@
+>   * 'kernel.h' contains some often-used function prototypes etc
+>   */
+>
+> +#include <xen/macros.h>
+>  #include <xen/types.h>
+>
+> -/*
+> - * min()/max() macros that also do
+> - * strict type-checking.. See the
+> - * "unnecessary" pointer comparison.
+> - */
+> -#define min(x,y) ({ \
+> -        const typeof(x) _x =3D (x);       \
+> -        const typeof(y) _y =3D (y);       \
+> -        (void) (&_x =3D=3D &_y);            \
+> -        _x < _y ? _x : _y; })
+> -
+> -#define max(x,y) ({ \
+> -        const typeof(x) _x =3D (x);       \
+> -        const typeof(y) _y =3D (y);       \
+> -        (void) (&_x =3D=3D &_y);            \
+> -        _x > _y ? _x : _y; })
+> -
+> -/*
+> - * ..and if you can't take the strict
+> - * types, you can specify one yourself.
+> - *
+> - * Or not use min/max at all, of course.
+> - */
+> -#define min_t(type,x,y) \
+> -        ({ type __x =3D (x); type __y =3D (y); __x < __y ? __x: __y; })
+> -#define max_t(type,x,y) \
+> -        ({ type __x =3D (x); type __y =3D (y); __x > __y ? __x: __y; })
+> -
+> -/*
+> - * pre-processor, array size, and bit field width suitable variants;
+> - * please don't use in "normal" expressions.
+> - */
+> -#define MIN(x,y) ((x) < (y) ? (x) : (y))
+> -#define MAX(x,y) ((x) > (y) ? (x) : (y))
+> -
+>  /**
+>   * container_of - cast a member of a structure out to the containing str=
+ucture
+>   *
+> diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
+> index 394319c81863..e884a02ee8ce 100644
+> --- a/xen/include/xen/lib.h
+> +++ b/xen/include/xen/lib.h
+> @@ -57,8 +57,6 @@ static inline void
+>  debugtrace_printk(const char *fmt, ...) {}
+>  #endif
+>
+> -/* Allows us to use '%p' as general-purpose machine-word format char. */
+> -#define _p(_x) ((void *)(unsigned long)(_x))
+>  extern void printk(const char *fmt, ...)
+>      __attribute__ ((format (printf, 1, 2), cold));
+>
+> diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
+> index 44d723fd121a..19caaa8026ea 100644
+> --- a/xen/include/xen/macros.h
+> +++ b/xen/include/xen/macros.h
+> @@ -101,6 +101,50 @@
+>   */
+>  #define sizeof_field(type, member) sizeof(((type *)NULL)->member)
+>
+> +/* Cast an arbitrary integer to a pointer. */
+> +#define _p(x) ((void *)(unsigned long)(x))
 
-Bah, yes it is.  Also,
+Really minor, and not a regression, I personally prefer uintptr_t
+instead of "unsigned long", beside portability (which is not an issue
+in Xen) is more clear we are dealing with a number representing a
+pointer.
 
-@@ -848,9 +851,9 @@ trampoline_setup:
-         testl   $MBI_CMDLINE,MB_flags(%ebx)
-         jz      1f
- 
--        lea     sym_esi(early_boot_opts),%eax
--        push    %eax
--        pushl   MB_cmdline(%ebx)
-+        lea     sym_esi(early_boot_opts), %ecx
-+        lea     MB_cmdline(%ebx), %eax
-+        /*      cmdline_parse_early(cmdline, opts) using fastcall(a, c). */
-         call    cmdline_parse_early
- 
- 1:
+> +
+> +/*
+> + * min()/max() macros that also do strict type-checking..
+> + */
+> +#define min(x, y)                               \
+> +    ({                                          \
+> +        const typeof(x) _x =3D (x);               \
+> +        const typeof(y) _y =3D (y);               \
+> +        (void)(&_x =3D=3D &_y); /* typecheck */     \
+> +        _x < _y ? _x : _y;                      \
+> +    })
+> +#define max(x, y)                               \
+> +    ({                                          \
+> +        const typeof(x) _x =3D (x);               \
+> +        const typeof(y) _y =3D (y);               \
+> +        (void)(&_x =3D=3D &_y); /* typecheck */     \
+> +        _x > _y ? _x : _y;                      \
+> +    })
+> +
+> +/*
+> + * ..and if you can't take the strict types, you can specify one yoursel=
+f.
+> + */
+> +#define min_t(type, x, y)                       \
+> +    ({                                          \
+> +        type __x =3D (x);                         \
+> +        type __y =3D (y);                         \
+> +        __x < __y ? __x: __y;                   \
+> +    })
+> +#define max_t(type, x, y)                       \
+> +    ({                                          \
+> +        type __x =3D (x);                         \
+> +        type __y =3D (y);                         \
+> +        __x > __y ? __x: __y;                   \
+> +    })
+> +
+> +/*
+> + * pre-processor, array size, and bit field width suitable variants;
+> + * please don't use in "normal" expressions.
+> + */
+> +#define MIN(x, y) ((x) < (y) ? (x) : (y))
+> +#define MAX(x, y) ((x) > (y) ? (x) : (y))
+> +
+>  #endif /* __ASSEMBLY__ */
+>
+>  #endif /* __MACROS_H__ */
 
-is a wrong transformation I think.  The second leal should be mov.
+Beside the silly comment, I'm fine with the series.
 
-I'll have another play when I've got some time, but for now I'll commit
-the prior 3 patch to get rid of defs.h.
-
-~Andrew
+Frediano
 
