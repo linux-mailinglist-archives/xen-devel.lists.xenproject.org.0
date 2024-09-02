@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ABB5968AAC
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 17:10:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.788107.1197546 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 241A8968ABF
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 17:16:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.788116.1197557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl8gk-0003bF-Vh; Mon, 02 Sep 2024 15:09:54 +0000
+	id 1sl8mn-0005Ys-MR; Mon, 02 Sep 2024 15:16:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 788107.1197546; Mon, 02 Sep 2024 15:09:54 +0000
+Received: by outflank-mailman (output) from mailman id 788116.1197557; Mon, 02 Sep 2024 15:16:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl8gk-0003Yt-SZ; Mon, 02 Sep 2024 15:09:54 +0000
-Received: by outflank-mailman (input) for mailman id 788107;
- Mon, 02 Sep 2024 15:09:53 +0000
+	id 1sl8mn-0005WM-HX; Mon, 02 Sep 2024 15:16:09 +0000
+Received: by outflank-mailman (input) for mailman id 788116;
+ Mon, 02 Sep 2024 15:16:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uQw9=QA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sl8gj-0003Yk-1p
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 15:09:53 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1sl8mm-0005WG-Lu
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 15:16:08 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 66f9cf71-693d-11ef-a0b2-8be0dac302b0;
- Mon, 02 Sep 2024 17:09:52 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5c241feb80dso4134568a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 08:09:52 -0700 (PDT)
+ id 46ce771d-693e-11ef-a0b2-8be0dac302b0;
+ Mon, 02 Sep 2024 17:16:07 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5c26b5f1ea6so86029a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 08:16:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989223199sm569640266b.219.2024.09.02.08.09.50
+ 4fb4d7f45d1cf-5c226c74184sm5624888a12.32.2024.09.02.08.16.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 08:09:50 -0700 (PDT)
+ Mon, 02 Sep 2024 08:16:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66f9cf71-693d-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: 46ce771d-693e-11ef-a0b2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725289791; x=1725894591; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725290166; x=1725894966; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=q5xLstq/+G8pxHhhkeGiGmqF/jcJCRyNkR8iFLjst+4=;
-        b=fTiyduG98YbmCwGD6mS+ULBaKHs4/J49WRCxTMOpJpkPLHyXBsNZfR6ZBEUVRx5lWx
-         VPj/sGNlZawBCtofVq8g7/DYKJZmkxvG6jbsM0kKul0JJ+mg/QQnbHclHLkr/kz598Le
-         nHhWOpFR7H+02Hq3CNYWef7QLKK+hV6elcf9bUvVdRm+TiC07a1RUGqquQylvNkycu5K
-         kQdBZ99gfqg55FLmbRho73t73zq9nw31fHP1pZm37xZV+tgt+KxSt+KLXnyZ7EUkq32K
-         MKHQ6aNBJzfTN0xJErW482r1iGE4ux+qZOxWpEwPB7uUlCKW30MEhXG71zNb0EINvmcd
-         eYwA==
+        bh=Eerfp/j1eoJCJbCbMgfz1VpYzQRKVnXqcTEXx34bAVY=;
+        b=Yac4XT3R1FDOJ1GHPtY+vEv2QP3s30ipBAV2PwH5GKNUiouSkBSqFE0TciCgUhd+07
+         Htajqm6uAy+3m3mDydywqhzyhOqaL7JP5M003422IxVUsh/5jdVU+Rf9mTWgi/XWKY05
+         wo/jR31h6RjncqNBVjdOiRp0EN6xq3Y88pu8F2kOSoBqYDp4sqeAXRryNr41kzBskdzS
+         Pmd4t8MfSi7vWUN6CD+WvsVIgqtpL2dhd6DFho1KBhCoC+VTlF6OpeyT2k0qkEh/z/yI
+         QL5rw1keIMu3x5YDbpvcKM86DDiLNTf6PFagRQB8rWpMcRTnB5ZtxuIU64eWCDo3uPt2
+         5akQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725289791; x=1725894591;
+        d=1e100.net; s=20230601; t=1725290166; x=1725894966;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=q5xLstq/+G8pxHhhkeGiGmqF/jcJCRyNkR8iFLjst+4=;
-        b=pdN3i++htENQ2j2LOtRta8h6wow24KUchvVPlHOo/2TxjyZF7as3/z6hwCEB/boCiv
-         ZVuAkawjfSH9GRgtbQML9+A3xjqJZAAAzGlIEhr9pxMLm7z07xDW99oP7xmdn7qOWF2G
-         5IiTxlvndBCEaoacI5X7IRwcTTVUdJ8iC9R+KrsuLu/xOkOPw9uyjM6yK4t7qM/OOkrV
-         +Gu+NNLoJku8wfBjapi3KjZzrtkmp05hpmJFzyA3Vkudp+mvU/OrTnI5LKoVx7VsFcO5
-         WRE7H4DWtF7siA8HETQJFCEKqkH8k6zp6UmdpDocC3LQmIxFYyIrIDmPzcxdglMixOtW
-         r3fg==
-X-Forwarded-Encrypted: i=1; AJvYcCW0zGUJmtoIVz4Iq0pseEjdzjIYfCAGRuh2c4if+JaYalrHvXNLZbhMR7vfmzov6uZMiXnn0GQsHoY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxpCbjXcZRSJCpX5HtXPxYP7mjLh24B3W0bvvJrgPEl2qd+LZkA
-	e2N5Jf8fMpquvYWSKznbso0sTGu4Cn84AjACaAH7FuezJf7rBRv05buL4k09ag==
-X-Google-Smtp-Source: AGHT+IG1twYE4F/rIlwzWZqAwy/rTTQZ41PER8IEw6bENI7dCzyXxUhAjGBfjK2nqWVdRVzkbsEliQ==
-X-Received: by 2002:a17:907:97c2:b0:a77:c051:36a9 with SMTP id a640c23a62f3a-a89a2584240mr1072002766b.9.1725289790733;
-        Mon, 02 Sep 2024 08:09:50 -0700 (PDT)
-Message-ID: <b555d845-9746-484a-b945-4a69fa5beac2@suse.com>
-Date: Mon, 2 Sep 2024 17:09:49 +0200
+        bh=Eerfp/j1eoJCJbCbMgfz1VpYzQRKVnXqcTEXx34bAVY=;
+        b=ggiV4sqMXtF/uPPbp1pNpUseGBg67tWJBFthVg4GH/v8cZmcJNCEaLqRC+PxmcfSGT
+         Xv+N2SlXRrNiJApwcBYngM2BGKbHWNKnREMFDvAy6xFbDS9FFkpvnCakaxoNrSbVs2Gk
+         lNKIbF2pTRjeeX3r58kyylBhepI+AoSauKXjNNmf2wQyPhNQsBj3seBQ7st0hxF7Dy1H
+         vUsZURIL5eceKiMKR55xV6TILAHXQk0RvEj8DRif9bLzCxsVaU1Y6aW+7OrGtpgP0bAa
+         5NNPO1XQ7JsUHCO7Muynduxu0sIebf3SPkvH6t/+8PH9qtYeOqemenLMm/00DlEHkvpy
+         4VPg==
+X-Forwarded-Encrypted: i=1; AJvYcCUwYVGOJS9hnB1LUAhDGbaIjV1Rrta1csi2dDKZmYTCeJHw50n1vfdgE9CDVDr9F4SaSzx27KFfTLU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVOek/a66O9rx9w8oQnA8ZvI4ovpi7wNWKlD/5pEOiksopnY7W
+	m02jxQRLjpXTxdz+IYpl/kGU71yTWR+M009kxadkdQJigfhUMpagyVWjkfRY1Q==
+X-Google-Smtp-Source: AGHT+IERRpehovy6Eob3HgGczmQkXfHbEab0dShx+hpCJNTGvnkpd7NcqynDpQIrYwqwFYU88zMvWA==
+X-Received: by 2002:a05:6402:5208:b0:5c0:8ecb:d852 with SMTP id 4fb4d7f45d1cf-5c25c3a7192mr2865651a12.6.1725290166198;
+        Mon, 02 Sep 2024 08:16:06 -0700 (PDT)
+Message-ID: <2a43b16e-8894-45a7-86d0-e78f52f18f34@suse.com>
+Date: Mon, 2 Sep 2024 17:16:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/PV: simplify (and thus correct) guest accessor
- functions
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <3c1a7eee-7909-4b18-9497-1d0a6ee4f17d@suse.com>
- <8b737e1c-f229-4355-bc4c-1f147acc3920@citrix.com>
+Subject: Re: [PATCH] x86/cpu: revert opt_allow_unsafe from __ro_after_init to
+ __read_mostly
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240902150016.63072-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,132 +111,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8b737e1c-f229-4355-bc4c-1f147acc3920@citrix.com>
+In-Reply-To: <20240902150016.63072-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02.09.2024 16:13, Andrew Cooper wrote:
-> On 02/09/2024 1:28 pm, Jan Beulich wrote:
->> Taking a fault on a non-byte-granular insn means that the "number of
->> bytes not handled" return value would need extra care in calculating, if
->> we want callers to be able to derive e.g. exception context (to be
->> injected to the guest) - CR2 for #PF in particular - from the value. To
->> simplify things rather than complicating them, reduce inline assembly to
->> just byte-granular string insns. On recent CPUs that's also supposed to
->> be more efficient anyway.
->>
->> For singular element accessors, however, alignment checks are added,
->> hence slightly complicating the code. Misaligned (user) buffer accesses
->> will now be forwarded to copy_{from,to}_guest_ll().
->>
->> Naturally copy_{from,to}_unsafe_ll() accessors end up being adjusted the
->> same way, as they're produced by mere re-processing of the same code.
->> Otoh copy_{from,to}_unsafe() aren't similarly adjusted, but have their
->> comments made match reality; down the road we may want to change their
->> return types, e.g. to bool.
->>
->> Fixes: 76974398a63c ("Added user-memory accessing functionality for x86_64")
->> Fixes: 7b8c36701d26 ("Introduce clear_user and clear_guest")
->> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 02.09.2024 17:00, Roger Pau Monne wrote:
+> Making opt_allow_unsafe read only after init requires changes to the logic in
+> init_amd(), otherwise the following #PF happens on CPU hotplug:
 > 
-> This is definitely simpler, however the code gen less so.
+> ----[ Xen-4.20.0-1-d  x86_64  debug=y  Tainted:     H  ]----
+> CPU:    1
+> RIP:    e008:[<ffff82d040291081>] arch/x86/cpu/amd.c#init_amd+0x37f/0x993
+> [...]
+> Xen call trace:
+>    [<ffff82d040291081>] R arch/x86/cpu/amd.c#init_amd+0x37f/0x993
+>    [<ffff82d040291fbe>] F identify_cpu+0x2d4/0x4db
+>    [<ffff82d04032eeaa>] F start_secondary+0x22e/0x3cf
+>    [<ffff82d040203327>] F __high_start+0x87/0xa0
 > 
-> add/remove: 0/0 grow/shrink: 42/9 up/down: 2759/-178 (2581)
+> Pagetable walk from ffff82d0404011ea:
+>  L4[0x105] = 000000006fc2e063 ffffffffffffffff
+>  L3[0x141] = 000000006fc2b063 ffffffffffffffff
+>  L2[0x002] = 000000807c7ca063 ffffffffffffffff
+>  L1[0x001] = 800000006f801121 ffffffffffffffff
+> 
+> ****************************************
+> Panic on CPU 1:
+> FATAL PAGE FAULT
+> [error_code=0003]
+> Faulting linear address: ffff82d0404011ea
+> ****************************************
 
-Not nice, but entirely expected.
+Hmm, I specifically looked at that code, but I can see how I screwed up.
 
->> --- a/xen/arch/x86/include/asm/uaccess.h
->> +++ b/xen/arch/x86/include/asm/uaccess.h
->> @@ -251,7 +251,8 @@ do {
->>  static always_inline unsigned long
->>  __copy_to_guest_pv(void __user *to, const void *from, unsigned long n)
->>  {
->> -    if (__builtin_constant_p(n)) {
->> +    if ( __builtin_constant_p(n) && !((unsigned long)to & (n - 1)) )
->> +    {
-> 
-> The problem is that we now emit this if condition unconditionally,
-> because the alignment check isn't constant-foldable.  This in turn
-> forces setup for both the trivial case and the function call case,
-> compounding the bloat.
-> 
-> e.g. the same example:
-> 
-> unsigned int foo(void *ptr)
-> {
->     uint16_t val;
->     return __copy_from_guest_pv(&val, ptr, sizeof(val));
-> }
-> 
-> now generates:
-> 
-> <foo>:
->     48 89 f8                 mov    %rdi,%rax
->     48 83 ec 08              sub    $0x8,%rsp
->     48 89 fe                 mov    %rdi,%rsi
->     83 e0 01                 and    $0x1,%eax
->     75 31                    jne    <foo+0x40>
->     0f 1f 00                 nopl   (%rax) // STAC
->     48 89 fa                 mov    %rdi,%rdx
->     49 b8 ff ff ff ff ff     movabs $0xffff87ffffffffff,%r8
->     87 ff ff
->     48 c7 c7 ff ff ff ff     mov    $0xffffffffffffffff,%rdi
->     49 39 d0                 cmp    %rdx,%r8
->     48 d1 df                 rcr    %rdi
->     48 21 fa                 and    %rdi,%rdx
->     66 8b 0a                 mov    (%rdx),%cx
->     66 89 4c 24 06           mov    %cx,0x6(%rsp)
->     0f 1f 00                 nopl   (%rax) // CLAC
->     48 83 c4 08              add    $0x8,%rsp
->     c3                       ret
->     90                       nop
->     48 8d 7c 24 06           lea    0x6(%rsp),%rdi
->     ba 02 00 00 00           mov    $0x2,%edx
->     e8 11 bc 03 00           call   <copy_from_guest_ll>
->     48 83 c4 08              add    $0x8,%rsp
->     c3                       ret
-> 
-> 
-> If we're not sure of the alignment in the first place, then it's better
-> to hand off to copy_*_guest_ll than to emit logic like this.
-> 
-> However, I can't think of any way of doing this without forgoing the
-> optimisation entirely.  We can't base anything on the type of the
-> guest-side pointer because while a guest expected to align it, there's
-> no hard requirement.  In turn, this means there's about nothing we can
-> do with compiler heuristics in Xen.
+> For the time being revert opt_allow_unsafe to be __read_mostly.
 
-Well, I'm pretty sure we can retain the optimization, just that to do
-so the patch will need to be more intrusive. I'd need to fiddle with
-{get,put}_unsafe_asm() to make sure we produce a correct error
-indicator (rather than the build-time constants passed into the macro).
-Yet that'll still be more code per call site, even if most (all?) new
-code would then live in .fixup.
+There's exactly one write that an AP can hit. Is it really worth moving
+back, rather than just doing
 
-If we went this route, we'd want to settle up front whether for the
-to-guest operations we actually need the correct return values. The
-problematic uses, after all, are all from-user if I'm not mistaken.
-And determining how much of a buffer we can write to (ideally without
-actually altering any data) is going to be a little more tricky than a
-simple REP LODSB that we could use for read probing. Of course we
-could take the position that since we were asked to write to the
-buffer, we could as well REP STOSB e.g. zeroes into it.
+	if (opt_allow_unsafe <= 0 && !cpu_has_amd_erratum(c, AMD_ERRATUM_121))
+		opt_allow_unsafe = 1;
+	else if ...
 
-Obviously there's then the corner case of the buffer becoming
-accessible between the 1st and 2nd access attempt ...
-
-Another option might be to actually make the CR2 value visible to the
-fixup code, for use in calculating the correct error indicator. (If
-the fault isn't #PF, returning the full size is imo good enough in
-any event, even if there's the corner case of crossing the canonical-
-noncanonical boundary.)
-
-> Perhaps the right thing to do is have copy_*_guest_ll have a fastpath
-> for aligned single accesses, and forgo the inline code generation entirely.
-
-I expect that'll still be an increase in code size, plus presumably
-some loss of performance (for the added calls and the new conditional).
+?
 
 Jan
 
