@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67F819680DD
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 09:44:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.787559.1196950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E9A99680E9
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 09:50:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.787566.1196960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl1im-0000dM-An; Mon, 02 Sep 2024 07:43:32 +0000
+	id 1sl1pc-0002tN-1S; Mon, 02 Sep 2024 07:50:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 787559.1196950; Mon, 02 Sep 2024 07:43:32 +0000
+Received: by outflank-mailman (output) from mailman id 787566.1196960; Mon, 02 Sep 2024 07:50:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl1im-0000br-7n; Mon, 02 Sep 2024 07:43:32 +0000
-Received: by outflank-mailman (input) for mailman id 787559;
- Mon, 02 Sep 2024 07:43:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sl1pb-0002qW-UA; Mon, 02 Sep 2024 07:50:35 +0000
+Received: by outflank-mailman (input) for mailman id 787566;
+ Mon, 02 Sep 2024 07:50:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=E/cM=QA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sl1ik-0000bk-3c
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 07:43:30 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b70625a-68ff-11ef-a0b2-8be0dac302b0;
- Mon, 02 Sep 2024 09:43:29 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-42bfb50e4e6so15949265e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 00:43:29 -0700 (PDT)
+ id 1sl1pa-0002qA-DW
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 07:50:34 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 06a4ae93-6900-11ef-99a1-01e77a169b0f;
+ Mon, 02 Sep 2024 09:50:30 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-42bbffe38e6so17054405e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 00:50:30 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42bb6e274c1sm128170425e9.36.2024.09.02.00.43.27
+ 5b1f17b1804b1-42ba642593asm163631215e9.39.2024.09.02.00.50.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2024 00:43:27 -0700 (PDT)
+ Mon, 02 Sep 2024 00:50:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,98 +44,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b70625a-68ff-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: 06a4ae93-6900-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725263008; x=1725867808; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725263430; x=1725868230; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=suIbnb44cUpGBEqvf50PtENMikIrqtAa2Of2Lf0WX04=;
-        b=fnOTnz5X1bSUuk3MU81imQhi/6G1jXucewedNdYfuK2+ml0E9UuUGWCqihTpFLUyrF
-         5v2iOgp77XtXobRexg6FLYeIYQpT2CmQUsmrffg4xhelCFGMczZ+r0fh+PbtImwDfxr0
-         bqHJGVHBpsWHkEuUAGV32UsIEBHA7HlZcHRGg=
+        bh=8YM1ttr1XOuR/fsNtxkDNDHbL4aT7dZWykeft3A0mSo=;
+        b=UwjzSF4ShUhnNU4UyT/GaxffS+Q4oS2SY5hnN6BNF5elQNjGwOTv6Ty9GgHuR5NBRE
+         IZWptEC2eqc3dU701L/93o5IDfZ+Ejpk9eJEDpFBiI38TXnE8MqPbIeRYtREqkPYAg2Z
+         wL99ZT7KaCe6xab3ye6JtnxabhxZfxx/tr0m8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725263008; x=1725867808;
+        d=1e100.net; s=20230601; t=1725263430; x=1725868230;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=suIbnb44cUpGBEqvf50PtENMikIrqtAa2Of2Lf0WX04=;
-        b=e/CcerBUh7hLD0zY/2V2F+iCe/QqT9/7yzu7EmX08tYJnVOLKr2gLMWtisWoigtfL0
-         /nK1tOyYSKYVhNvvFU1BjIZibJFD0FrQGibgw0pVFrvq3Jg2h0yhF7zySHu5pWvKaCz0
-         zlWtdMR9QOTNCjRvbhIfrKm0txM0Q21RWOVq7S3nsvh2DU+tfuOGJjP6VtVE5ZliBmeS
-         wI/sHwuyo9l5pdE5BcdTNqz6ICLUI9xhXLa9K1grervVMO4LED59skL79RQRrx7Aa/iS
-         re8Kn9I3cRUuhKOjXDLoojxsHCEVE+lqmlJqT9gmEg6qC14bia1bGZMOH/Uy2EUO3DgI
-         mtJA==
-X-Forwarded-Encrypted: i=1; AJvYcCWOvUyThjVDvDUPJURyakl4JjdhSNFUh75EjMDofdArTmg7BHBReaMeKwaaN/KQgZZNfN0x873zAE0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyi3j3RHmGDUq8vJbh+zs7vTQjIGpCpBML4LCW8k4n7RfQQD65K
-	geWtJaucizwJ6B5SH9rVOg8MMTGlPfSAJJgrgw5Ivy3jJFlllYyUpux18Qt6Rm8=
-X-Google-Smtp-Source: AGHT+IEKgmlI78IevKKwQUIMUFKcM8ddjbB9oQjrc9RNZRtyUA7ejkR4JZd42V2Jnl1al4smsEsWNA==
-X-Received: by 2002:a05:600c:3c8e:b0:429:d0cb:950f with SMTP id 5b1f17b1804b1-42bb02c2031mr98529485e9.2.1725263007947;
-        Mon, 02 Sep 2024 00:43:27 -0700 (PDT)
-Date: Mon, 2 Sep 2024 09:43:26 +0200
+        bh=8YM1ttr1XOuR/fsNtxkDNDHbL4aT7dZWykeft3A0mSo=;
+        b=GMJMs7yDnMDxofS4RQ91knJHgwdQL8Up62XVbCZG02ZRPIDvYOUCdyG44IA7xYuDmn
+         EnBQkduhYoqDkJddGYddEE54LAGuNpwe5tQ7AGFaGJc9IbtiaIrzN0plXKOBU4rkPZ2K
+         g9NWw14cZhQJqC2O9/mHMYGQAejwT5CPSQ0/iHXxvFmK3/uP/y2AhVSpCYA2ElTmr5rN
+         nE5X6ww9o891WY+kvPZFk2UMFxVqXh/3dc34r7UgJoFCtUfHfNahKljUJnVG5zNBGUYF
+         6G1cnqPQoxrs8ALBiYqtCprffm8KCDFPrsHdRfZcoLWqeXIn09gmiSBhym+cufcLqwak
+         KJKg==
+X-Forwarded-Encrypted: i=1; AJvYcCVXAUI7D4Wba/0V0pW073alqpGZGo/lsWX2PHF+/nVDfdFBXZJxcqW+AFXAPzyd424/DNWeyX8BsAE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyPzo+B4+nLRw4TcKG+vjho61u5dM+hjT3IvR4OLQ/+WfNS36Im
+	YG7jml535SaaqD7kp7JSGExhGlkXb90hYcCdEB6yr+ZsqKVUFq8nUhgZxy/7z9g=
+X-Google-Smtp-Source: AGHT+IHdzINRD/PIwQpYA473W2qHOPxS99o9wQUex1NSH8G5XvhPYfQVvj0PYGzy9avq2UjS6UpeSQ==
+X-Received: by 2002:a05:600c:a09:b0:428:1608:831e with SMTP id 5b1f17b1804b1-42bb0309910mr103708135e9.22.1725263429539;
+        Mon, 02 Sep 2024 00:50:29 -0700 (PDT)
+Date: Mon, 2 Sep 2024 09:50:28 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	xen-devel@lists.xenproject.org, consulting@bugseng.com
-Subject: Re: [XEN PATCH v5 7/8] x86/mm: add defensive return
-Message-ID: <ZtVsnqdU_URZu76d@macbook.local>
-References: <cover.1722239813.git.federico.serafini@bugseng.com>
- <24501d2e7f5d82d8e5a483a80b35e04ce765a7cf.1722239813.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2407291512280.4857@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2408281735020.53815@ubuntu-linux-20-04-desktop>
- <da5d2ccc-6a21-4bcc-8ceb-75b930dcdabe@suse.com>
- <ZtGOWAnqGu-XNCgy@macbook.local>
- <9ac39818-2259-4aa2-8bc6-17809fe62368@citrix.com>
+Cc: Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org,
+	jbeulich@suse.com, Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>,
+	Edwin =?utf-8?B?VMO2csO2aw==?= <edwin.torok@cloud.com>
+Subject: Re: [XEN PATCH v2 1/3] libxl: Fix nul-termination of the return
+ value of libxl_xen_console_read_line()
+Message-ID: <ZtVuRHJbx_syQgdN@macbook.local>
+References: <cover.1724430173.git.javi.merino@cloud.com>
+ <b1c7eb226ce62f50d6a50baa3977830a31fa5c9b.1724430173.git.javi.merino@cloud.com>
+ <ZtCZjJVG-7daxcxb@macbook.local>
+ <dc7d8179-b2c9-4ec8-99e5-5a901b751832@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <9ac39818-2259-4aa2-8bc6-17809fe62368@citrix.com>
+In-Reply-To: <dc7d8179-b2c9-4ec8-99e5-5a901b751832@citrix.com>
 
-On Fri, Aug 30, 2024 at 08:17:40PM +0100, Andrew Cooper wrote:
-> On 30/08/2024 10:18 am, Roger Pau Monné wrote:
-> > On Thu, Aug 29, 2024 at 09:04:37AM +0200, Jan Beulich wrote:
-> >> On 29.08.2024 02:35, Stefano Stabellini wrote:
-> >>> On Mon, 29 Jul 2024, Stefano Stabellini wrote:
-> >>>> On Mon, 29 Jul 2024, Federico Serafini wrote:
-> >>>>> Add defensive return statement at the end of an unreachable
-> >>>>> default case. Other than improve safety, this meets the requirements
-> >>>>> to deviate a violation of MISRA C Rule 16.3: "An unconditional `break'
-> >>>>> statement shall terminate every switch-clause".
-> >>>>>
-> >>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> >>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> >>>>
-> >>>>> ---
-> >>>>> No changes from v3 and v4, further feedback on this thread would be appreciated:
-> >>>>> https://lists.xenproject.org/archives/html/xen-devel/2024-07/msg00474.html
-> >>> Looking at the older threads, I looks like Jan suggested EACCES, I also
-> >>> think it is marginally better. My R-b stands also for EACCES. Jan, I
-> >>> think you should go ahead and fix on commit
-> >> No, I very definitely want a 2nd x86 maintainer opinion here. Or a better
-> >> suggestion for the error code to use by anyone. After all, as you confirm,
-> >> EACCES is only marginally better.
-> > Hm, the only alternative I could suggest is using ERANGE, to signal
-> > the value of opt_mmio_relax is out of the expected range, however that
-> > could be confusing for the callers?
-> >
-> > One benefit of using ERANGE is that there's currently no return path
-> > in get_page_from_l1e() with that error code, so it would be very easy
-> > to spot when an unexpected value of opt_mmio_relax is found.  However
-> > there are no guarantees that further error paths might use that error
-> > code.
+On Fri, Aug 30, 2024 at 08:22:29PM +0100, Andrew Cooper wrote:
+> On 29/08/2024 4:53 pm, Roger Pau Monné wrote:
+> > On Fri, Aug 23, 2024 at 06:05:03PM +0100, Javi Merino wrote:
+> >> When built with ASAN, "xl dmesg" crashes in the "printf("%s", line)"
+> >> call in main_dmesg().  ASAN reports a heap buffer overflow: an
+> >> off-by-one access to cr->buffer.
+> >>
+> >> The readconsole sysctl copies up to count characters into the buffer,
+> >> but it does not add a null character at the end.  Despite the
+> >> documentation of libxl_xen_console_read_line(), line_r is not
+> >> nul-terminated if 16384 characters were copied to the buffer.
+> >>
+> >> Fix this by asking xc_readconsolering() to fill the buffer up to size
+> >> - 1.  As the number of characters in the buffer is only needed in
+> >> libxl_xen_console_read_line(), make it a local variable there instead
+> >> of part of the libxl__xen_console_reader struct.
+> > Instead of playing games with the buffer size in order to add an extra
+> > NUL character, we could possibly use libxl_write_exactly(ctx,
+> > STDOUT_FILENO,...) in main_dmesg(), using cr->count as the buffer
+> > length?
 > 
-> EPERM and EACCES are both very wrong here.  They imply something that is
-> simply not appropriate in this context.
+> Sadly no.
 > 
-> We use EILSEQ elsewhere for believed-impossible conditions where we need
-> an errno of some kind.  I suggest we use it here too.
+> struct libxl__xen_console_reader (which has the count field) is a libxl
+> private (opaque) type which `xl` can't access.
 
-Fine with me.  With that:
+I was fooled by the libxl_xen_console_reader typedef.
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> Otherwise this would be a oneline fix already...
 
-Thanks.
+Hm, maybe the easiest way is to introduce a new function that returns
+the buffer and the number of characters?
+(libxl_xen_console_dump_buffer() or similar?)
+
+Thanks, Roger.
 
