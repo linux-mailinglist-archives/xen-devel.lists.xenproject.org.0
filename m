@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B43889687D4
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 14:47:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.787878.1197350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05693968875
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 15:07:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.787919.1197376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl6SZ-0005fq-8P; Mon, 02 Sep 2024 12:47:07 +0000
+	id 1sl6lX-00029Z-5J; Mon, 02 Sep 2024 13:06:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 787878.1197350; Mon, 02 Sep 2024 12:47:07 +0000
+Received: by outflank-mailman (output) from mailman id 787919.1197376; Mon, 02 Sep 2024 13:06:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl6SZ-0005ci-55; Mon, 02 Sep 2024 12:47:07 +0000
-Received: by outflank-mailman (input) for mailman id 787878;
- Mon, 02 Sep 2024 12:47:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vdGF=QA=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1sl6SX-0005ca-93
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 12:47:05 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 74a87de1-6929-11ef-a0b2-8be0dac302b0;
- Mon, 02 Sep 2024 14:47:04 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-534366c1aa2so4320580e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 05:47:04 -0700 (PDT)
+	id 1sl6lX-00027O-1L; Mon, 02 Sep 2024 13:06:43 +0000
+Received: by outflank-mailman (input) for mailman id 787919;
+ Mon, 02 Sep 2024 13:06:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sl6lV-00027B-3a; Mon, 02 Sep 2024 13:06:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sl6lU-0002ai-Tr; Mon, 02 Sep 2024 13:06:40 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sl6lU-0004z6-E2; Mon, 02 Sep 2024 13:06:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sl6lU-0008SC-De; Mon, 02 Sep 2024 13:06:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,130 +42,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74a87de1-6929-11ef-a0b2-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1725281224; x=1725886024; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=epJRt1uo4Lexsje12YBsFjRgkSZDtcBNrdYTIalCFkg=;
-        b=gIEqlwnD2haUKg3jBjd+cNJ3lt9eiKvN84NWzICks+6YIPN3erpyBk/0kvme/HA3Qg
-         0O+DNmf1MgI42j8vbAf4B0PdZ9EVnRHzIRorU6siT+nq8DvIr3DAQC+ENqBZABk7TYJv
-         ry7JJedcf/knG1OvpMLp219rL4l1MQARdiDxE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725281224; x=1725886024;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=epJRt1uo4Lexsje12YBsFjRgkSZDtcBNrdYTIalCFkg=;
-        b=oZbuqzvkl1c2/US4jafPbpZQgs++C8OHrmtFeKWGDNfU00eRD2QmKS5CazV/nMBmwq
-         T/zeE5R1/2TnIFdmjJe2ZZVMVDISKf6KZsQxVCo2ogIwqbse8ijO2H8rfdAxsdyxox6c
-         v5QFkqIyO7rJrh7/7qvhWvWIdq5Gkqkqjxl6r5OkOSJdtMTGQd6CF06NrDuQO0GY/3ln
-         icPojZnweP6GosWw6ydBSAfM97zx0bq63HFwuDaGiHnsIQSNYKrGTO/XLfqPw6a+tqEa
-         Up1stlGX95zXq2U4ZoQwBMhgG3VUeSs990Cl+vr7mQc5S0cOcd/9xNNZOBhztlrjOmxG
-         ZapA==
-X-Gm-Message-State: AOJu0Yz5m08h9y3sH9YX/OkuMXTAngTJIOjIbk6SgOTths1nIXNIkCVQ
-	SYHkSd5BpflP6MsJXOXU5d+lgcmMJb9jivgA46YrlKVQOg8F7LqhkqoE/M4UP+2p94FuXTV8wmt
-	Iqxmhwt6nYyQt30iL91H8eUx/KTG7bwoESsvWInElM4Gps8UOonKGXg==
-X-Google-Smtp-Source: AGHT+IHB4TuNrHy5UF0c3FqUX+kApgANloGmbRcajnhzJgvUqzVmT+PurasAD3cbAaxFGeHdevWKG9M+/IvaykCGkmg=
-X-Received: by 2002:a05:6512:2241:b0:52c:e159:a998 with SMTP id
- 2adb3069b0e04-53546b2bd62mr8259813e87.29.1725281222922; Mon, 02 Sep 2024
- 05:47:02 -0700 (PDT)
-MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Mon, 2 Sep 2024 13:46:26 +0100
-Message-ID: <CAO-mL=xDBeN_BeVtX0-nkL2H7BsUA5g_CnuVY9wdW5sVOu0VNQ@mail.gmail.com>
-Subject: [ANNOUNCE] Call for agenda items - Community Call 5th September 2024
-To: xen-devel <xen-devel@lists.xenproject.org>, xen-users@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000006e40c20621225636"
-
---0000000000006e40c20621225636
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=YB331pxQXltAFKa1PVlbUNNJD06ZTcXpTUWYa0rAFR4=; b=58Y/iUtdpUWBQgohOvydYvtbfi
+	4G5GlTtCM8u4Lzi/2pLkd1/bbhb5vw8XtXrxjrDEv+qMy6VpSnbTZC4euwpuEU5KHxv140LLaUwBE
+	8/a6ewFzslXJLjg2IOuirTG0nQbTMlIErZnfW6N4g50YFn8Vftlv+RzIY3gk1AtxI96M=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187456-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 187456: trouble: blocked/broken
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:<job status>:broken:regression
+    xen-unstable-smoke:build-arm64-xsm:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-arm64-xsm:host-install(4):broken:regression
+    xen-unstable-smoke:build-amd64:host-install(4):broken:regression
+    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    xen=442625ef10fb919b0b55658ecac87cf323fa5af8
+X-Osstest-Versions-That:
+    xen=1436593d5f8f7f700478e307d5198535ba69f88d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 02 Sep 2024 13:06:40 +0000
 
-Hi all,
+flight 187456 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187456/
 
-Please add your proposed agenda items below.
+Failures and problems with tests :-(
 
-https://cryptpad.fr/pad/#/2/pad/edit/VxQ65XLa-w4D3D9z9ipZInnC/
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                     <job status>                 broken
+ build-arm64-xsm                 <job status>                 broken
+ build-armhf                     <job status>                 broken
+ build-arm64-xsm               4 host-install(4)        broken REGR. vs. 187424
+ build-amd64                   4 host-install(4)        broken REGR. vs. 187424
+ build-armhf                   4 host-install(4)        broken REGR. vs. 187424
 
-If any action items are missing or have been resolved, please add/remove
-them from the sheet.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
 
-*CALL LINK: https://meet.jit.si/XenProjectCommunityCall
-<https://www.google.com/url?q=https://meet.jit.si/XenProjectCommunityCall&sa=D&source=calendar&ust=1699196661201312&usg=AOvVaw1FcogEsMjFSd1Pmi7V0cBc>*
+version targeted for testing:
+ xen                  442625ef10fb919b0b55658ecac87cf323fa5af8
+baseline version:
+ xen                  1436593d5f8f7f700478e307d5198535ba69f88d
 
-*DATE: Thursday 5th September 2024*
+Last test of basis   187424  2024-08-30 18:02:03 Z    2 days
+Testing same since   187456  2024-09-02 10:00:23 Z    0 days    1 attempts
 
-*TIME: 1500 UTC (4 pm UK time)*
-*Note the following administrative conventions for the call:*
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Federico Serafini <federico.serafini@bugseng.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              broken  
+ build-amd64                                                  broken  
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
-** To allow time to switch between meetings, we plan on starting theagenda
-at 15:05 UTC sharp.  Aim to join by 15:03 UTC if possible to allocatetime
-to sort out technical difficulties.*
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+broken-job build-amd64 broken
+broken-job build-arm64-xsm broken
+broken-job build-armhf broken
+broken-step build-arm64-xsm host-install(4)
+broken-step build-amd64 host-install(4)
+broken-step build-armhf host-install(4)
 
+Not pushing.
 
+------------------------------------------------------------
+commit 442625ef10fb919b0b55658ecac87cf323fa5af8
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Sep 2 11:58:21 2024 +0200
 
+    x86: drop map-low-16Mb leftovers
+    
+    Prior work (e.g. cbabbc9f5659 ["x86/boot: Size the boot/directmap
+    mappings dynamically"]) has fully eliminated that hardcoded boundary.
+    Drop both the linker script assertion (the upper bound is now the stubs
+    area) and the artificial extending of xen.efi's image size.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-** If you want to be CC'ed please add or remove yourself from
-thesign-up-sheet
-at https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/
-<https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/>== Dial-in
-Information ==## Meeting time16:00 - 17:00 British timeFurther
-International meeting times:*
-https://www.timeanddate.com/worldclock/meetingdetails.html?year=2024&month=9&day=5&hour=15&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179
+commit bfcb0abb191f75775081b74755c71c52ac06f994
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Sep 2 11:57:22 2024 +0200
 
-## Dial in details
-https://meet.jit.si/static/dialInInfo.html?room=XenProjectCommunityCall
+    types: replace remaining uses of s8
+    
+    ... and move the type itself to linux-compat.h.
+    
+    While doing so,
+    - convert __read_mostly to __ro_after_init for respective variables
+      having their type changed (for acpi_numa add the attribute anew),
+    - in cpuid_hypervisor_leaves() drop a cast altogether,
+    - switch an adjacent struct arch_irq_desc field to bool.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Many thanks,
-Kelly Choi
+commit 913952cca4e34a5f01228e3ab9f44d326662170b
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Sep 2 11:56:24 2024 +0200
 
-Community Manager
-Xen Project
+    x86: drop s<N>/u<N> overrides from mkelf32
+    
+    Use uint<N>_t instead (s<N> were unused altogether). While adjusting
+    swap<N>() drop excessive casts and rename the arguments to avoid leading
+    underscores.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
---0000000000006e40c20621225636
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+commit a8a74261681b5010a6f29e18b30739528c8f310c
+Author: Federico Serafini <federico.serafini@bugseng.com>
+Date:   Mon Sep 2 11:55:16 2024 +0200
 
-<div dir=3D"ltr"><div>Hi all,<br><p>Please add your proposed agenda items b=
-elow.=C2=A0</p><p><a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/VxQ65XLa-=
-w4D3D9z9ipZInnC/">https://cryptpad.fr/pad/#/2/pad/edit/VxQ65XLa-w4D3D9z9ipZ=
-InnC/</a>=C2=A0<br></p><p>If any action items are missing or have been reso=
-lved, please add/remove them from the sheet.=C2=A0</p><p><b><span class=3D"=
-gmail-il">CALL</span>=C2=A0LINK:=C2=A0<a href=3D"https://www.google.com/url=
-?q=3Dhttps://meet.jit.si/XenProjectCommunityCall&amp;sa=3DD&amp;source=3Dca=
-lendar&amp;ust=3D1699196661201312&amp;usg=3DAOvVaw1FcogEsMjFSd1Pmi7V0cBc" t=
-arget=3D"_blank">https://meet.jit.si/XenProjectCommunityCall</a></b></p><p>=
-<b>DATE: Thursday 5th September 2024</b></p><p><b>TIME: 1500 UTC (4 pm UK t=
-ime)</b></p><i>Note the following administrative conventions for the=C2=A0<=
-span class=3D"gmail-il">call</span>:</i></div><div><div><i>* To allow time =
-to switch between meetings, we plan on starting the<br>agenda at 15:05 UTC =
-sharp.=C2=A0 Aim to join by 15:03 UTC if possible to allocate<br>time to so=
-rt out technical difficulties.</i></div><div><i><br>* If you want to be CC&=
-#39;ed please add or remove yourself from the<br>sign-up-sheet at=C2=A0<a h=
-ref=3D"https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/" rel=
-=3D"noreferrer" target=3D"_blank">https://cryptpad.fr/pad/#/2/pad/edit/D9vG=
-zihPxxAOe6RFPz0sRCf+/</a><br><br>=3D=3D=C2=A0<span class=3D"gmail-il">Dial<=
-/span>-in Information =3D=3D<br>## Meeting time<br>16:00 - 17:00 British ti=
-me<br>Further International meeting times:<br></i><a href=3D"https://www.ti=
-meanddate.com/worldclock/meetingdetails.html?year=3D2024&amp;month=3D9&amp;=
-day=3D5&amp;hour=3D15&amp;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=3D37&amp=
-;p3=3D224&amp;p4=3D179" target=3D"_blank">https://www.timeanddate.com/world=
-clock/meetingdetails.html?year=3D2024&amp;month=3D9&amp;day=3D5&amp;hour=3D=
-15&amp;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=3D37&amp;p3=3D224&amp;p4=3D=
-179</a><br><br>##=C2=A0<span class=3D"gmail-il">Dial</span>=C2=A0in details=
-<br><a href=3D"https://meet.jit.si/static/dialInInfo.html?room=3DXenProject=
-CommunityCall" rel=3D"noreferrer" target=3D"_blank">https://meet.jit.si/sta=
-tic/dialInInfo.html?room=3DXenProjectCommunityCall</a></div></div><div><div=
- dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div><br></div></di=
-v></div></div><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmai=
-l=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,</div><div>Kelly Ch=
-oi</div><div><br></div><div><div style=3D"color:rgb(136,136,136)">Community=
- Manager</div><div style=3D"color:rgb(136,136,136)">Xen Project=C2=A0<br></=
-div></div></div></div></div></div>
-
---0000000000006e40c20621225636--
+    x86/mm: add defensive return
+    
+    Add defensive return statement at the end of an unreachable
+    default case. Other than improve safety, this meets the requirements
+    to deviate a violation of MISRA C Rule 16.3: "An unconditional `break'
+    statement shall terminate every switch-clause".
+    
+    Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+(qemu changes not included)
 
