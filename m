@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA7CC968455
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 12:14:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.787769.1197226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42F60968468
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 12:17:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.787774.1197236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl44e-0003A7-Nj; Mon, 02 Sep 2024 10:14:16 +0000
+	id 1sl47G-0004Ve-3j; Mon, 02 Sep 2024 10:16:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 787769.1197226; Mon, 02 Sep 2024 10:14:16 +0000
+Received: by outflank-mailman (output) from mailman id 787774.1197236; Mon, 02 Sep 2024 10:16:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl44e-00038W-Kz; Mon, 02 Sep 2024 10:14:16 +0000
-Received: by outflank-mailman (input) for mailman id 787769;
- Mon, 02 Sep 2024 10:14:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sl47G-0004T2-0M; Mon, 02 Sep 2024 10:16:58 +0000
+Received: by outflank-mailman (input) for mailman id 787774;
+ Mon, 02 Sep 2024 10:16:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1vUE=QA=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1sl44d-00038Q-T9
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 10:14:15 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b1ec6b1-6914-11ef-a0b2-8be0dac302b0;
- Mon, 02 Sep 2024 12:14:14 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a8692bbec79so454981666b.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 03:14:14 -0700 (PDT)
-Received: from localhost ([185.25.67.249]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89891d698bsm549836066b.145.2024.09.02.03.14.13
+ <SRS0=qspk=QA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sl47E-0004Sw-AC
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 10:16:56 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7a41a004-6914-11ef-99a1-01e77a169b0f;
+ Mon, 02 Sep 2024 12:16:54 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-5334879ba28so5655502e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 03:16:54 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a89891966dasm538435266b.122.2024.09.02.03.16.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 03:14:13 -0700 (PDT)
+ Mon, 02 Sep 2024 03:16:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,93 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b1ec6b1-6914-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: 7a41a004-6914-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1725272054; x=1725876854; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZqRSffh3c/24I6G0p1corltxi66HUYON1BNnY4GZF30=;
-        b=kDjTV+bZzvQgTqZjgd93HfYnvg1yEfqPb9aNcI8g3NY8wbnxh/FjF2kbDRVcWQN0cQ
-         K4rBxxas25z/EULW3iN+vtVChakKlBAtiiklQFoQBNRlaj9llIq7sckRZdMKmwRpuA9O
-         3yfuXO/iGnxvWBmhGqjW6dRKgYvdOrc77PEEY=
+        d=citrix.com; s=google; t=1725272214; x=1725877014; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lOKKXuD34ef7ftgSEV6LC3IL4NJW4RQq/K220rT7kU8=;
+        b=K88Z7fyDxa9pJ6uPaawD+ZPgtsQjq6OFRWDJH3MMEedjXbhFtIWWt8ggsiqiWvxaRg
+         QrqmF3UQMYJugMHxOc5CaO90j1Z+xHmNPBHgk0BYEUJPfRcyb7uNcZvHuLGWGR0n9Opi
+         kbYCryEBYP9ko75l3/quhLmuFV1Pgq18Dbvkk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725272054; x=1725876854;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ZqRSffh3c/24I6G0p1corltxi66HUYON1BNnY4GZF30=;
-        b=vF8+DS2aSvMYWZGs8g3QhHcRcdOx3F3tv61QRq3LXmZtl71SCUr6FHBGKU4vwH6hd1
-         tbO6CHvlJY85mxO4MCMg/VA2yMYU9iaPp5Vanh29qUBSLOKEGY9SMd2fDNqQhs8oAUH1
-         yoK+b2LfvYAPyh6fkd28R5V7cU4mqOqm6NlVEoc1OmtE9Z1YgssLZTNE42xx00b3fp5C
-         qWlkOGHOPSayZimaiSZvXi2Ng0ykJC4+dMOLXfbNpfYfNDkE+MNkOS5MICxF+MeqH1oE
-         NbtoGnDxoQX8VRueir3Ddn7wJTkuhK1hl70RG0xwbXun+1lj11iYOXq5JrUzGTbDOR90
-         o46w==
-X-Forwarded-Encrypted: i=1; AJvYcCWOdR48fhX3RQ5ij0J3fE4wkYjgIT8XH5nJ2AtSS3qFeYpOr+fiia6AALlQnXdGSCOT9tH/HPxmf1E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywrt1ZzdgTDoYt0y2+giV6W34brItq0TQuJSzSPrq+hwBXWovmr
-	17ho57e2YJ7UC7G/H7l2lf/YR6429vhohKlbz5emgGLmWX/1gcy2CWFpunzDhYU5y33Du7nZvIU
-	oyhc=
-X-Google-Smtp-Source: AGHT+IE5lDobKXMg7REVz91SrYPtE77AXdf2h4RtTGnkzw7rj/VhgBVDZyG0XF2mryDrX7vq8y3I7g==
-X-Received: by 2002:a17:907:1c28:b0:a86:a77e:83b1 with SMTP id a640c23a62f3a-a89a379b622mr648378066b.47.1725272054046;
-        Mon, 02 Sep 2024 03:14:14 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20230601; t=1725272214; x=1725877014;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lOKKXuD34ef7ftgSEV6LC3IL4NJW4RQq/K220rT7kU8=;
+        b=NZACKhpPZgogBpbK/J9e51K6ezuBmcnJ6ddAs4Eb5Abi4rJUs052g/MXQykx7/FviT
+         RTBhzgLywVMow4lJMF/bf7oAhua43E8FIVh5Rn98QxGKL96C2HXXu1gcFUMv/jNPH2zs
+         1sl6xJzrIEYAJSYlpPPfkpF9H29EFS3X2O6Zsi5uqDvj0hNuZxuJOW+gFVT9kHi9Ufzy
+         jANzL+CyjXxycYcKZ5qIqmkOGZ8/9UYk8GCIrV05A08v2tqZO3F+TXjPo0HWJGE8W22b
+         hGmuFQu3FXe9Iq7F8J8Ndwe/zipmUSGrnOlLopn7qHj1+1sHFJw14SHQqOFPgBIKwEaV
+         z/1g==
+X-Gm-Message-State: AOJu0YzshMyFolPPSfAMwTvOkSU4yebwOhk5Z/TazqvyHZS9rgIy8CmE
+	p/FVba3g7KqjaCdjVY7e4p+5R/HwHTZTWXVw77cSx4Ge2WgxmeT65URh8JRJ5H4=
+X-Google-Smtp-Source: AGHT+IHCLp0FslecNOAvDQFJPGwVhbBGtXfw/Werl3830Ew3vhKHUgP/GCWLbAtWiCOghNS6jM4O4A==
+X-Received: by 2002:a05:6512:3d28:b0:52c:e670:7a12 with SMTP id 2adb3069b0e04-53546bc2c75mr5912871e87.60.1725272213244;
+        Mon, 02 Sep 2024 03:16:53 -0700 (PDT)
+Message-ID: <b8652274-e65e-452e-8b2e-d0b0a93d0be1@citrix.com>
+Date: Mon, 2 Sep 2024 11:16:51 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Use C99 types for integers
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20240829115247.168608-1-frediano.ziglio@cloud.com>
+ <594b5ad4-0b86-4397-a261-0e98515e3abe@citrix.com>
+ <CACHz=Zj3Mw+7EbbB3vdndu5bzhXEN3p1JV4Dzm12Xt2EE1AV+Q@mail.gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <CACHz=Zj3Mw+7EbbB3vdndu5bzhXEN3p1JV4Dzm12Xt2EE1AV+Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Sep 2024 11:14:11 +0100
-Message-Id: <D3VPWEPD5J31.W6GFDD7ESFYW@cloud.com>
-Cc: <jbeulich@suse.com>, <andrew.cooper3@citrix.com>, "Anthony PERARD"
- <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>
-Subject: Re: [XEN PATCH v2 3/3] libxl: Update the documentation of
- libxl_xen_console_read_line()
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Javi Merino" <javi.merino@cloud.com>, <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.18.2
-References: <cover.1724430173.git.javi.merino@cloud.com>
- <d868579d9ea98d8072630f5b85f7f7250ece393d.1724430173.git.javi.merino@cloud.com>
-In-Reply-To: <d868579d9ea98d8072630f5b85f7f7250ece393d.1724430173.git.javi.merino@cloud.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri Aug 23, 2024 at 6:05 PM BST, Javi Merino wrote:
-> Despite its name, libxl_xen_console_read_line() does not read a line,
-> it fills the buffer with as many characters as fit.  Update the
-> documentation to reflect the real behaviour of the function.  Rename
-> line_r to avoid confusion since it is a pointer to an array of
-> characters.
->
-> Signed-off-by: Javi Merino <javi.merino@cloud.com>
-> ---
->  tools/libs/light/libxl_console.c | 22 ++++++++++++----------
->  1 file changed, 12 insertions(+), 10 deletions(-)
->
-> diff --git a/tools/libs/light/libxl_console.c b/tools/libs/light/libxl_co=
-nsole.c
-> index f42f6a51ee6f..652897e4ef6d 100644
-> --- a/tools/libs/light/libxl_console.c
-> +++ b/tools/libs/light/libxl_console.c
-> @@ -789,17 +789,19 @@ libxl_xen_console_reader *
->      return cr;
->  }
-> =20
-> -/* return values:                                          *line_r
-> - *   1          success, whole line obtained from buffer    non-0
-> - *   0          no more lines available right now           0
-> - *   negative   error code ERROR_*                          0
-> - * On success *line_r is updated to point to a nul-terminated
-> +/* Copy part of the console ring into a buffer
-> + *
-> + * Return values:
-> + *   1: Success, the buffer obtained from the console ring an
+On 29/08/2024 2:42 pm, Frediano Ziglio wrote:
+> On Thu, Aug 29, 2024 at 1:07 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>> On 29/08/2024 12:52 pm, Frediano Ziglio wrote:
+>>> diff --git a/xen/arch/x86/boot/defs.h b/xen/arch/x86/boot/defs.h
+>>> index 239b9f8716..ee1a4da6af 100644
+>>> --- a/xen/arch/x86/boot/defs.h
+>>> +++ b/xen/arch/x86/boot/defs.h
+>>> @@ -57,7 +57,7 @@ typedef u16 uint16_t;
+>>>  typedef u32 uint32_t;
+>>>  typedef u64 uint64_t;
+>>>
+>>> -#define U16_MAX              ((u16)(~0U))
+>>> +#define UINT16_MAX   ((uint16_t)(~0U))
+>>>  #define UINT_MAX     (~0U)
+>>>
+>>>  #endif /* __BOOT_DEFS_H__ */
+>> I'm happy with the change in principle, but could we see about dropping
+>> defs.h entirely?  For example, we've already got both of these UINT
+>> constants in types.h
+>>
+>> Since this was written, we've got rather better about cleaning up
+>> xen/types.h, and extracting macros into xen/macros.h
+>>
+>> I think there's a good chance that the regular headers can now be used
+>> directly, or with minor tweaking.
+>>
+> I tried, it gave a huge bunch of errors.
+> I think it can be done in a later follow-up.
 
-Seems like this line in the comment is incomplete?
+Ok fine.
 
-> + *   0: No more lines available right now
-> + *   -ERROR_* on error
-> + *
-> + * On success, *line_r is updated to point to a nul-terminated
->   * string which is valid until the next call on the same console
-> - * reader.  The libxl caller may overwrite parts of the string
-> - * if it wishes. */
-> + * reader. */
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Cheers,
-Alejandro
+However, doesn't this mean we can drop the block of typedefs in the
+context above?  Happy to fold that in on commit.
+
+~Andrew
 
