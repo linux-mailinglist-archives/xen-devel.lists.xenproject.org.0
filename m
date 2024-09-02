@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B7C5968232
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 10:41:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.787638.1197060 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF26596824E
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 10:46:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.787645.1197070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl2c9-0001Xt-Qf; Mon, 02 Sep 2024 08:40:45 +0000
+	id 1sl2h2-00027z-C3; Mon, 02 Sep 2024 08:45:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 787638.1197060; Mon, 02 Sep 2024 08:40:45 +0000
+Received: by outflank-mailman (output) from mailman id 787645.1197070; Mon, 02 Sep 2024 08:45:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl2c9-0001VX-NL; Mon, 02 Sep 2024 08:40:45 +0000
-Received: by outflank-mailman (input) for mailman id 787638;
- Mon, 02 Sep 2024 08:40:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uQw9=QA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sl2c8-0001VR-7k
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 08:40:44 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 09a6debc-6907-11ef-99a1-01e77a169b0f;
- Mon, 02 Sep 2024 10:40:42 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a83597ce5beso638345566b.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 01:40:42 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989221c24sm524053666b.196.2024.09.02.01.40.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 01:40:41 -0700 (PDT)
+	id 1sl2h2-00026R-80; Mon, 02 Sep 2024 08:45:48 +0000
+Received: by outflank-mailman (input) for mailman id 787645;
+ Mon, 02 Sep 2024 08:45:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=E/cM=QA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sl2h1-00026I-1n
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 08:45:47 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bea6a67a-6907-11ef-a0b2-8be0dac302b0;
+ Mon, 02 Sep 2024 10:45:45 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5c210e23573so4016114a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 01:45:45 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c250b06725sm1920038a12.82.2024.09.02.01.45.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Sep 2024 01:45:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,170 +44,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09a6debc-6907-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: bea6a67a-6907-11ef-a0b2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725266441; x=1725871241; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YJwAWqQOipJUMsq9zHV70b5qiGqiDUj5DdejIzDaoFE=;
-        b=Bq+oQZFotxn74C7s5J5R1Q5XT836mKMJaBKSd13/KKhoctyj3YLDAoPIn/KdGWbgRp
-         jDEnoZB/ppYxihKdE0hbUbstSuogiyARTikXuXwnLk+SWmaonshwiCuZSKiBQ+TfiFm6
-         5TYsuPGkxYZXeDOtRWA9X9yuY60ZquE1AGcckPBwDQK43FZgOUVGrav3FK5IdxnwxcxW
-         DbEWp6AjUvs70HL5Y0qgS7ZpLmLLOqYCs17xJm/yA9qVrN4Ry3av58FDv8htx92TdHxp
-         fHIB8dTMeGf1Q8I6W0lN6Eqy8GegBlrUmGpUsdGNG86mxRAlDtmkzw/GjT0pCQj9Dp95
-         /YiA==
+        d=citrix.com; s=google; t=1725266745; x=1725871545; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=9HrfPe7Pf6yhyELogj2LYVh4WzkNyvHvW63pdIpAQXo=;
+        b=qUWOynqgVJP4GrxN0kF2EbyE9SYzaIuIj+I5iq7ESbhveqHKOdTTvAUyYf8/76qYQM
+         HgedFl8bV0OyaxRg32RtqjXJfK4Hnwgfw6FGfqLb/0XoEwo+155CvDKXGZszDcEuV7XX
+         y/ggdQdXJhiaedzJsZnbEw5IidZCPFjuU3lAI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725266441; x=1725871241;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YJwAWqQOipJUMsq9zHV70b5qiGqiDUj5DdejIzDaoFE=;
-        b=nT4LsHFSU7sf7P6mLdc5OguASAiytJMS7QnDiB3Txn5igQ++VR1cZXkL0YHqhyXc0P
-         qh+Q1L5eE6HbnUyZJjYxl2Vl41T7WkjoPoDuSYHc7o5ifVzBcF6Wl/a3mHyOH3rFgFya
-         wwd/zevUFHfrhZP4X+k0o6xPwNqL/uu+sxnTf3gylXAq02oRrWvlTgAC39KTUMqk8UjB
-         tgjOZCIOISS3hH7uYS8HsHELi9jRQWhqH7wRPODLjqP1hqJSxpZVW/pdTsWNTb/PHoXx
-         /hCBTGVGdmbUllpAlUhfjKlR9L6Zjofqu3fCpOMpqJbYIoMPInc6e6lxB4F+D/wgbcLs
-         Odjw==
-X-Gm-Message-State: AOJu0YyN10ILU1Mf17J34vZ7xuPQX+MfO+s/tblvzhkapkupL5PrWq12
-	Avau08SsJLg3h7aQC8s6Vr1zWhhjc2mPf2xIw+OSQLsIJC8/ViNxM/udhyAtXQ==
-X-Google-Smtp-Source: AGHT+IFpbuU5/xvPYVC1Cm0dXuC/M+RTDftHbYlX9alEbCS9mQNXN+ryPyNT7uzQbAkFuo6WSHyeKA==
-X-Received: by 2002:a17:907:d589:b0:a7a:c7f3:580d with SMTP id a640c23a62f3a-a89a2924ab3mr930142066b.25.1725266441396;
-        Mon, 02 Sep 2024 01:40:41 -0700 (PDT)
-Message-ID: <c1df267e-2d91-4510-85ed-80ade16a1a50@suse.com>
-Date: Mon, 2 Sep 2024 10:40:42 +0200
+        d=1e100.net; s=20230601; t=1725266745; x=1725871545;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=9HrfPe7Pf6yhyELogj2LYVh4WzkNyvHvW63pdIpAQXo=;
+        b=r7fIrAgZmH6rv5UppbXbHyqULov1TqN6YR8JAW5BJkvhJPXbZkAd+/gqm4tQJ2vhzP
+         9r69YPtVBE+AYyeN7ksSe7qLxDf2femKkbbRJTCH/+6ekYpwpTqgp+uItcFBCrOlv56R
+         CbZxpKxSBQWXM+SHTdqd1GILdNB0S4Xkq2DhHt5BME2vhVAsmkWpDf44vkn2+j6kbAGo
+         XESRfJwFWml2p925hX6BnjQ6hHTfunrhc4KuJWC6CuHzYpm0yDMIzvoTWQ9sF/e8KmQa
+         Xkx7ongkbUfGACmUzl2M8CUvULVjngsnQ/84u17k+F1EHzrdImGj3p6eEQBl8Orvhd/4
+         vkcQ==
+X-Gm-Message-State: AOJu0YxHv3tQJUHVg9uxQWpybwko4WknTA7Mg4m+Vw+CGaoc59BfkTkB
+	IGswvl3VkjZlbL1sF7Vnfkf4yS05QpgRMZppbCAdwbsX9BS/ch1Kgox/Hzz8zuM=
+X-Google-Smtp-Source: AGHT+IHATXs0M40cWc61ohT99dvCA5g7g2M2omFpXxN1cDZEOVvSdA2WWwmwFvEr+7lPLoxOMoLU6Q==
+X-Received: by 2002:a05:6402:3484:b0:5c0:ba90:463f with SMTP id 4fb4d7f45d1cf-5c25f22d5c1mr969649a12.7.1725266744575;
+        Mon, 02 Sep 2024 01:45:44 -0700 (PDT)
+Date: Mon, 2 Sep 2024 10:45:43 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v2 2/2] x86/time: prefer CMOS over EFI_GET_TIME
+Message-ID: <ZtV7Nzp7AxXh0NQF@macbook.local>
+References: <20240830095220.49473-1-roger.pau@citrix.com>
+ <20240830095220.49473-3-roger.pau@citrix.com>
+ <ca2aa9b3-44cf-4a44-9111-1d7e8c9b4dff@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [xen_netfront] - Xen PVH VM: kernel upgrade 6.9.10 > 6.10.7
- results in crash
-To: Arthur Borsboom <arthurborsboom@gmail.com>
-Cc: xen-devel@lists.xenproject.org
-References: <CALUcmUn2s-d-OS5MO-jsqPk+ReumV09V5PndN8VqqndSm=wTdQ@mail.gmail.com>
- <cb0177d9-f50c-4332-96b5-bcaec86d195a@suse.com>
- <CALUcmU=2LH9GnCGDgkcDKgXm+S8gbGDv3F7q+hgxCUK9azWXTQ@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CALUcmU=2LH9GnCGDgkcDKgXm+S8gbGDv3F7q+hgxCUK9azWXTQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ca2aa9b3-44cf-4a44-9111-1d7e8c9b4dff@citrix.com>
 
-On 02.09.2024 10:32, Arthur Borsboom wrote:
-> On Mon, 2 Sept 2024 at 10:27, Jan Beulich <jbeulich@suse.com> wrote:
+On Fri, Aug 30, 2024 at 05:31:04PM +0100, Andrew Cooper wrote:
+> On 30/08/2024 10:52 am, Roger Pau Monne wrote:
+> > The EFI_GET_TIME implementation is well known to be broken for many firmware
+> > implementations, for Xen the result on such implementations are:
+> >
+> > ----[ Xen-4.19-unstable  x86_64  debug=y  Tainted:   C    ]----
+> > CPU:    0
+> > RIP:    e008:[<0000000062ccfa70>] 0000000062ccfa70
+> > [...]
+> > Xen call trace:
+> >    [<0000000062ccfa70>] R 0000000062ccfa70
+> >    [<00000000732e9a3f>] S 00000000732e9a3f
+> >    [<ffff82d04034f34f>] F arch/x86/time.c#get_cmos_time+0x1b3/0x26e
+> >    [<ffff82d04045926f>] F init_xen_time+0x28/0xa4
+> >    [<ffff82d040454bc4>] F __start_xen+0x1ee7/0x2578
+> >    [<ffff82d040203334>] F __high_start+0x94/0xa0
+> >
+> > Pagetable walk from 0000000062ccfa70:
+> >  L4[0x000] = 000000207ef1c063 ffffffffffffffff
+> >  L3[0x001] = 000000005d6c0063 ffffffffffffffff
+> >  L2[0x116] = 8000000062c001e3 ffffffffffffffff (PSE)
+> >
+> > ****************************************
+> > Panic on CPU 0:
+> > FATAL PAGE FAULT
+> > [error_code=0011]
+> > Faulting linear address: 0000000062ccfa70
+> > ****************************************
+> >
+> > Swap the preference to default to CMOS first, and EFI later, in an attempt to
+> > use EFI_GET_TIME as a last resort option only.  Note that Linux for example
+> > doesn't allow calling the get_time method, and instead provides a dummy handler
+> > that unconditionally returns EFI_UNSUPPORTED on x86-64.
+> >
+> > Such change in the preferences requires some re-arranging of the function
+> > logic, so that panic messages with workaround suggestions are suitably printed.
+> >
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  xen/arch/x86/time.c | 26 +++++++++++++++++++-------
+> >  1 file changed, 19 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
+> > index 272ca2468ea6..0eee954809a9 100644
+> > --- a/xen/arch/x86/time.c
+> > +++ b/xen/arch/x86/time.c
+> > @@ -1305,24 +1305,36 @@ static unsigned long get_cmos_time(void)
+> >      static bool __read_mostly cmos_rtc_probe;
+> >      boolean_param("cmos-rtc-probe", cmos_rtc_probe);
+> >  
+> > +    if ( likely(!(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC)) )
+> > +        cmos_rtc_probe = false;
+> > +
+> > +    if ( (!(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC) ||
+> > +          cmos_rtc_probe) && read_cmos_time(&rtc, cmos_rtc_probe) )
+> > +        return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
+> > +
+> >      if ( efi_enabled(EFI_RS) )
+> >      {
+> >          unsigned long res = efi_get_time();
+> >  
+> >          if ( res )
+> >              return res;
+> > +
+> > +        panic("Broken EFI_GET_TIME %s\n",
+> > +              !cmos_rtc_probe ? "try booting with \"cmos-rtc-probe\" option"
+> > +                              : "and no CMOS RTC found");
+> >      }
+> >  
+> > -    if ( likely(!(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC)) )
+> > -        cmos_rtc_probe = false;
+> > -    else if ( system_state < SYS_STATE_smp_boot && !cmos_rtc_probe )
+> > +    /*
+> > +     * No viable clock source found.  Attempt to provide some guidance to the
+> > +     * user about possible workarounds to boot Xen on the system.
+> > +     */
+> > +    ASSERT(system_state < SYS_STATE_smp_boot);
+> > +
+> > +    if ( !cmos_rtc_probe )
+> >          panic("System with no CMOS RTC advertised must be booted from EFI"
+> >                " (or with command line option \"cmos-rtc-probe\")\n");
+> >  
+> > -    if ( unlikely(!read_cmos_time(&rtc, cmos_rtc_probe)) )
+> > -        panic("No CMOS RTC found - system must be booted from EFI\n");
+> > -
+> > -    return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
+> > +    panic("No CMOS RTC found - system must be booted from EFI\n");
+> >  }
+> >  
+> >  static unsigned int __ro_after_init cmos_alias_mask;
 > 
->> On 01.09.2024 10:54, Arthur Borsboom wrote:
->>> After upgrading kernel 6.9.10 to 6.10.7 all Xen PVH VM's became
->> unavailable.
->>> Downgrading the kernel back to 6.9.10 makes the VM's work again.
->>
->> I don't think I can help with the crash, but: How did you conclude it's
->> xen-netfront? The data you provide ...
->>
->>> Snippet stack trace + kernel logs (good and bad) attached.
->>>
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: xen_netfront: Initialising
->> Xen
->>> virtual ethernet driver
->>> Sep 01 08:59:21 web3.aramgroup.com systemd-udevd[248]: vfb-0: Worker
->> [250]
->>> terminated by signal 9 (KILL).
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: BUG: kernel NULL pointer
->>> dereference, address: 0000000000000060
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: #PF: supervisor read access
->> in
->>> kernel mode
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: #PF: error_code(0x0000) -
->>> not-present page
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: PGD 0 P4D 0
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: Oops: Oops: 0000 [#1] PREEMPT
->>> SMP PTI
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: CPU: 0 PID: 250 Comm:
->>> (udev-worker) Not tainted 6.10.7-arch1-1 #1
->>> 2b2df360fbb0436393dc89f6589e9eeea2964ecb
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: RIP:
->>> 0010:video_is_primary_device+0x9/0x40
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: Code: 48 89 d8 5b c3 cc cc
->> cc cc
->>> 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90
->> f3
->>> 0f 1e fa 0f 1f 44 00 00 <48> 81 7f 60 80 e3 54 90 74 07 31 c0 c3 cc cc cc
->>> cc 53 48 89 fb 48
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: RSP: 0000:ffffbb06808d7a60
->>> EFLAGS: 00010246
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: RAX: 0000000000000000 RBX:
->>> ffff90ca41367800 RCX: 0000000000000000
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: RDX: 0000000000000000 RSI:
->>> 0000000000000246 RDI: 0000000000000000
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: RBP: 0000000000000000 R08:
->>> 0000000000000060 R09: 0000000000000000
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: R10: ffffbb06808d7a78 R11:
->>> 0000000000000006 R12: ffffbb06808d7a90
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: R13: ffff90ca41367a88 R14:
->>> ffff90ca41367a60 R15: ffff90cb41330788
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: FS:  000072bfd74c0880(0000)
->>> GS:ffff90ce33a00000(0000) knlGS:0000000000000000
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: CS:  0010 DS: 0000 ES: 0000
->> CR0:
->>> 0000000080050033
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: CR2: 0000000000000060 CR3:
->>> 0000000001326002 CR4: 00000000003706f0
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: DR0: 0000000000000000 DR1:
->>> 0000000000000000 DR2: 0000000000000000
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: DR3: 0000000000000000 DR6:
->>> 00000000fffe0ff0 DR7: 0000000000000400
->>> Sep 01 08:59:21 web3.aramgroup.com kernel: Call Trace:
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:  <TASK>
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:  ? __die_body.cold+0x19/0x27
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:  ?
->> page_fault_oops+0x15a/0x2d0
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:  ?
->> __kernfs_new_node+0x17d/0x200
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:  ? exc_page_fault+0x81/0x190
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:  ?
->> asm_exc_page_fault+0x26/0x30
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:  ?
->>> video_is_primary_device+0x9/0x40
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:  do_fb_registered+0x100/0x110
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:
->> fbcon_fb_registered+0x4d/0x70
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:
->> register_framebuffer+0x198/0x2a0
->>> Sep 01 08:59:21 web3.aramgroup.com kernel:  xenfb_probe+0x30d/0x430
->>> [xen_fbfront 61323dae510a72b3d2c332a2b0273cf6365e9002]
->>
->> ... clearly points at xen-fbfront. And surely the people to help with that
->> is not the same set as those to help with a networking issue.
-> 
-> My interpretation of the stack trace is wrong.
-> 
-> How can I get this to the right people?
-> Shall I send another mail with [xen-fbfront] in the subject?
+> Hmm, I know I said "fix the crash first, cleanup later" on the prior
+> patch, but I'm tempted to retract that.  This is very hard to follow.
 
-This may help. You may also be lucky to catch the attention without re-sending.
-I can't really suggest which one's better; it's likely all up to you.
+Yeah, I was attempting to refrain myself from fully re-writing the logic.
 
-Jan
+> Going back to first principles, at runtime we need USE_{XEN,RTC,EFI} to
+> select between the various methods available.
+> 
+> At boot, we need to figure out what to do.  I think we want an
+> init_wallclock_time() split out of get_cmos_time() (which is badly named
+> anyway, given EFI), and called from init_xen_time() only.  In
+> particular, the init stuff should not be re-evaluated in
+> time_{suspend,resume}().
+
+I also disliked the current arrangement, and adding a probe function
+crossed my mind, I simply wanted to avoid this fix growing to a 10
+patch series, but I think it's inevitable.
+
+> Various details we have to work with:
+> 
+>  * ACPI_FADT_NO_CMOS_RTC, although we know this is falsely set on some
+> platforms, hence the whole probing logic.
+> 
+>  * Booted on an EFI system, although we know EFI_GET_TIME is broken on
+> millions of systems, and we only find this out with a #PF in the middle
+> of EFI-RS.  Furthermore, more-major-OSes-than-us strictly veto the use
+> of this service, and it's not only Linux; it's Windows too.
+> 
+> Personally, I think "cmos-rtc-probe" is inappropriate/insufficient.  It
+> ought to be wc-time=guess|xen|rtc|efi.  We should be able to influence
+> the behaviour more than a boolean "probe or not".  The Xen case might be
+> better as "hypervisor", although I can't see any evidence of Viridian
+> having a virtualised wallclock interface.
+> 
+> I think the init logic wants to be:
+>  * If ACPI says we have an RTC, use it.
+>  * If ACPI says we have no RTC, probe to see if it's really there.
+>  * If we genuinely seem to not have an RTC, probe EFI.  This would be
+> quite invasive in the #PF handler, but not impossible.
+
+My plan would be to use EFI as a last resort if available, and hence
+not probe it.  It would however be nice to give the user a better
+error message than a #PF in the hypervisor with some random stack
+trace.
+
+Is #PF the only fault that we can expect from EFI_GET_TIME?  That's
+what I've seen on some of the systems, but I wouldn't for example
+discard #GP or #UD as also possible outcomes?
+
+> 
+> 
+> That said, I'm still holding out hope that we can simply delete Xen's
+> need for wallclock time.  Xen only uses wallclock time for the
+> non-default console_timestamps=date, but even then it's uncorrelate with
+> dom0 changing the platform time, leading to actively-misleading log
+> files.  There's a reason why "time since boot" is the norm.
+
+But there's a wallclock provided in the share_info page, do you
+suggest that dom0 should pass the wallclock value to Xen, so Xen can
+initialize the shared_info wallclock time?
+
+That would leave the fields uninitialized for dom0 which would be an
+ABI change.
+
+Thanks, Roger.
 
