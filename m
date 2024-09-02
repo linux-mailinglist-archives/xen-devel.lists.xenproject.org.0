@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7CD968C22
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 18:39:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.788264.1197742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E30C7968C20
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 18:39:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.788265.1197753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slA4o-0002MU-BR; Mon, 02 Sep 2024 16:38:50 +0000
+	id 1slA4p-0002cS-JF; Mon, 02 Sep 2024 16:38:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 788264.1197742; Mon, 02 Sep 2024 16:38:50 +0000
+Received: by outflank-mailman (output) from mailman id 788265.1197753; Mon, 02 Sep 2024 16:38:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slA4o-0002KX-7z; Mon, 02 Sep 2024 16:38:50 +0000
-Received: by outflank-mailman (input) for mailman id 788264;
- Mon, 02 Sep 2024 16:38:49 +0000
+	id 1slA4p-0002ZP-Fe; Mon, 02 Sep 2024 16:38:51 +0000
+Received: by outflank-mailman (input) for mailman id 788265;
+ Mon, 02 Sep 2024 16:38:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LSuM=QA=cloud.com=javi.merino@srs-se1.protection.inumbo.net>)
- id 1slA4n-0002KR-EP
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 16:38:49 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1slA4o-0002KR-3F
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 16:38:50 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3c3b156-6949-11ef-a0b2-8be0dac302b0;
- Mon, 02 Sep 2024 18:38:47 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5c25554ec1eso1441883a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 09:38:47 -0700 (PDT)
+ id d40e8d87-6949-11ef-a0b2-8be0dac302b0;
+ Mon, 02 Sep 2024 18:38:48 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5c25554ec1eso1441889a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 09:38:48 -0700 (PDT)
 Received: from localhost.localdomain ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226c74184sm5714163a12.32.2024.09.02.09.38.46
+ 4fb4d7f45d1cf-5c226c74184sm5714163a12.32.2024.09.02.09.38.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2024 09:38:46 -0700 (PDT)
+ Mon, 02 Sep 2024 09:38:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,78 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3c3b156-6949-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: d40e8d87-6949-11ef-a0b2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1725295127; x=1725899927; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=bvaQLZ3SSfvR80IrbDb1ZIiEruL7absvB74n+D25Sas=;
-        b=Oq0SOfzFSy1EalUmmZW8T6si9P/XUT7cVl5ijAAids3orePF9Jkq4iWCmMErTCgYJF
-         P/pQCQIra2iPYo58puJfgzE0dNH5R1uCwZfJ+8iklNH89KqrtbQ3d/McsgSsY/scaxVs
-         3OZUnchI+2h6aHg30RYZ650puj1AMMFm14uPw=
+        d=cloud.com; s=cloud; t=1725295128; x=1725899928; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/6eT7Yk/7LIs6hDfcYQ7HO3X7+DA9vMIsVz9MMYObK8=;
+        b=BnMi8YCwoctfg1FX4UparMgPtORzPut6xhd1mSVbOhAGL378JAAImRl82zZcgaiH4Z
+         7H4Ncmkdvdj7E2T/zQJBkSVF5ztLQURemCuDs+APMCdaWCrBEXoSwrM1Q+9QS83LePe8
+         xQQOwQFOtXTJoDZi7ZYRsUOHPnteVkNbUFIqc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725295127; x=1725899927;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bvaQLZ3SSfvR80IrbDb1ZIiEruL7absvB74n+D25Sas=;
-        b=ZRbzBBzTNuUL6e28QmzW79WM680kmTMmg/m1rqnd1mHaY+VwZWWPGOv0bqosjpk9fC
-         UPIv9AsvDkR+lJ2oT9bA3ydLHF9sBA4BxZZAC65G9e1lodfjbJaPiv2mtvxM9Zs9OA6U
-         G5kSv1wGV0Wr366HbwiZJAolHvIP6HpCMN4o3uQimjhrVPkWXxrhmNq2mujeF/S1wzAa
-         fh0buaQU1pvqLLcbFTpoCbj/Ix7ZQODHFpQ6nr8pgjz9mG2KUNHSBKU3lePGWn+XLCR/
-         SaewUPkHlg6HG31B+qJpJ5zq3rUjQb0gOo4U8Vxm8FYJz3Onvqbqzf1m1KI7lOGrm+P0
-         JO8Q==
-X-Gm-Message-State: AOJu0YyhD8puZihSaVcp6F5u0tgfnd3CzQmbCYIPWgDHIFrr6WayGJuu
-	iyH7duOl8kFrqy+GREhcOgXb2+K0Pf00p1VrIMX8k/c3tr2Fyi7oWXT/zSUijxt+N/2jVrfLsiu
-	2YZo=
-X-Google-Smtp-Source: AGHT+IG3zIgJ4J7G79EejWMgjSgGXXcyUjrOIz9MNDpJuVdbVZPZl5/zNTbNLnngtIEzqbXAKUMbYA==
-X-Received: by 2002:a05:6402:1941:b0:5bf:fb:33b8 with SMTP id 4fb4d7f45d1cf-5c21ed9fd7dmr11178024a12.34.1725295127021;
+        d=1e100.net; s=20230601; t=1725295128; x=1725899928;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/6eT7Yk/7LIs6hDfcYQ7HO3X7+DA9vMIsVz9MMYObK8=;
+        b=i2i3enuLonWR2VlssHW3COzAx7unLjESBm1PdaZZzMwjb9xB4pOVRw6QsVrXA3Zn5M
+         YXS3SXYMM4UiYFZA3Rjbd8hywyStYWAOAfNp0h4T/S3jeLzwo882yiGA3qnTlgR4qr+M
+         GoGiY/edXn+OyNDsEzoyC8LOB4R1cEZGykY3uYj9SFqlrqUM2WaJLnjba4K06p/u+Xe5
+         c5TBMm4Eq3z8ELLyxpoE+Zljf4gR7JLLLTUdCEHdg4lj173fUwLR+pxiM1ERAc2CsNrx
+         2YoiFLHhHg1aFi7yxd+GcQXFDHfRoXyk4CvjmYJ4O6EBYOkgi1m0Ppa1YvV1Gll1N8jt
+         l79g==
+X-Gm-Message-State: AOJu0Yyfnd9ELOSvk1WLgyBypNCxCDF6tgPeFe7/oGMe7E1SijYh4bQa
+	YwpSNXumbanBT3jeU+TDtH/CPTOOBysvsg9h1WrgUmYsx/YKeyI448JQNH6EvSzTKjD5Gq/ONGP
+	q9kg=
+X-Google-Smtp-Source: AGHT+IFicB+fQM5XiuO8ifLtLIo0YpKL2FO35R3K8EcmdRWCq5G9bU1kGIOqb3I9vrQp+m40W6rnKw==
+X-Received: by 2002:a05:6402:51d2:b0:5be:eb90:183c with SMTP id 4fb4d7f45d1cf-5c21ed314abmr11860340a12.6.1725295127549;
         Mon, 02 Sep 2024 09:38:47 -0700 (PDT)
 From: Javi Merino <javi.merino@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Javi Merino <javi.merino@cloud.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Juergen Gross <jgross@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [XEN PATCH v3 0/3] libxl: Fixes for libxl_xenconsole_readline()
-Date: Mon,  2 Sep 2024 17:38:36 +0100
-Message-ID: <cover.1725294334.git.javi.merino@cloud.com>
+	=?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
+Subject: [XEN PATCH v3 1/3] libxl: Fix nul-termination of the return value of libxl_xen_console_read_line()
+Date: Mon,  2 Sep 2024 17:38:37 +0100
+Message-ID: <37e935be214083f1b16b5da4d3be09e7cbafc971.1725294334.git.javi.merino@cloud.com>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <cover.1725294334.git.javi.merino@cloud.com>
+References: <cover.1725294334.git.javi.merino@cloud.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Fix nul-termination of the return value of
-libxl_xen_console_read_line().  While at it, remove unneeded memset()s
-to the buffer and improve the documentation of the function.
+When built with ASAN, "xl dmesg" crashes in the "printf("%s", line)"
+call in main_dmesg().  ASAN reports a heap buffer overflow: an
+off-by-one access to cr->buffer.
 
-Changes since v2[0]:
-  - Fixed comment format as suggested by Anthony
-  - Clarified that 16384 is the default size of xen's console buffer.
-  - Fixed `libxl_xen_console_read_line()` documentation as suggested by Alejandro and Andrew.
-  - line_r -> buff in `tools/include/libxl.h` as well.
+The readconsole sysctl copies up to count characters into the buffer,
+but it does not add a null character at the end.  Despite the
+documentation of libxl_xen_console_read_line(), line_r is not
+nul-terminated if 16384 characters were copied to the buffer.
 
-Changes since v1[1]:
-  - Add Fixes: line to the first patch
-  - Remove cr->count from the struct and make it a local variable in
-    libxl_xen_console_read_line()
-  - Improve the documentation of libxl_xen_console_read_line()
+Fix this by asking xc_readconsolering() to fill the buffer up to size
+- 1.  As the number of characters in the buffer is only needed in
+libxl_xen_console_read_line(), make it a local variable there instead
+of part of the libxl__xen_console_reader struct.
 
-[0] https://lore.kernel.org/xen-devel/cover.1724430173.git.javi.merino@cloud.com/
-[1] https://lore.kernel.org/xen-devel/ad7c89bbae34155566ae7c9ca2cb501f21c7d585.1724330921.git.javi.merino@cloud.com/
-
-Javi Merino (3):
-  libxl: Fix nul-termination of the return value of
-    libxl_xen_console_read_line()
-  libxl: Remove unnecessary buffer zeroing and zalloc()
-  libxl: Update the documentation of libxl_xen_console_read_line()
-
- tools/include/libxl.h             |  2 +-
- tools/libs/light/libxl_console.c  | 52 +++++++++++++++++++++----------
+Fixes: 4024bae739cc ("xl: Add subcommand 'xl dmesg'")
+Reported-by: Edwin Török <edwin.torok@cloud.com>
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+Signed-off-by: Javi Merino <javi.merino@cloud.com>
+---
+ tools/libs/light/libxl_console.c  | 19 +++++++++++++++----
  tools/libs/light/libxl_internal.h |  1 -
- 3 files changed, 36 insertions(+), 19 deletions(-)
+ 2 files changed, 15 insertions(+), 5 deletions(-)
 
+diff --git a/tools/libs/light/libxl_console.c b/tools/libs/light/libxl_console.c
+index a563c9d3c7f9..9f736b891335 100644
+--- a/tools/libs/light/libxl_console.c
++++ b/tools/libs/light/libxl_console.c
+@@ -774,12 +774,17 @@ libxl_xen_console_reader *
+ {
+     GC_INIT(ctx);
+     libxl_xen_console_reader *cr;
+-    unsigned int size = 16384;
++    /*
++     * We want xen to fill the buffer in as few hypercalls as
++     * possible, but xen will not nul-terminate it.  The default size
++     * of Xen's console buffer is 16384.  Leave one byte at the end
++     * for the null character.
++     */
++    unsigned int size = 16384 + 1;
+ 
+     cr = libxl__zalloc(NOGC, sizeof(libxl_xen_console_reader));
+     cr->buffer = libxl__zalloc(NOGC, size);
+     cr->size = size;
+-    cr->count = size;
+     cr->clear = clear;
+     cr->incremental = 1;
+ 
+@@ -800,10 +805,16 @@ int libxl_xen_console_read_line(libxl_ctx *ctx,
+                                 char **line_r)
+ {
+     int ret;
++    /*
++     * Number of chars to copy into the buffer.  xc_readconsolering()
++     * does not add a null character at the end, so leave a space for
++     * us to add it.
++     */
++    unsigned int nr_chars = cr->size - 1;
+     GC_INIT(ctx);
+ 
+     memset(cr->buffer, 0, cr->size);
+-    ret = xc_readconsolering(ctx->xch, cr->buffer, &cr->count,
++    ret = xc_readconsolering(ctx->xch, cr->buffer, &nr_chars,
+                              cr->clear, cr->incremental, &cr->index);
+     if (ret < 0) {
+         LOGE(ERROR, "reading console ring buffer");
+@@ -811,7 +822,7 @@ int libxl_xen_console_read_line(libxl_ctx *ctx,
+         return ERROR_FAIL;
+     }
+     if (!ret) {
+-        if (cr->count) {
++        if (nr_chars) {
+             *line_r = cr->buffer;
+             ret = 1;
+         } else {
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
+index 089a2f949c53..cfac8e18b6d3 100644
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -2077,7 +2077,6 @@ _hidden char *libxl__uuid2string(libxl__gc *gc, const libxl_uuid uuid);
+ struct libxl__xen_console_reader {
+     char *buffer;
+     unsigned int size;
+-    unsigned int count;
+     unsigned int clear;
+     unsigned int incremental;
+     unsigned int index;
 -- 
 2.45.2
 
