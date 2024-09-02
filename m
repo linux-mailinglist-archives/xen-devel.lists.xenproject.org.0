@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30808968B1A
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 17:33:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.788165.1197625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 781C7968B2B
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 17:40:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.788178.1197636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl93L-0005Y1-Ck; Mon, 02 Sep 2024 15:33:15 +0000
+	id 1sl99s-0007sQ-2U; Mon, 02 Sep 2024 15:40:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 788165.1197625; Mon, 02 Sep 2024 15:33:15 +0000
+Received: by outflank-mailman (output) from mailman id 788178.1197636; Mon, 02 Sep 2024 15:40:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl93L-0005W2-A7; Mon, 02 Sep 2024 15:33:15 +0000
-Received: by outflank-mailman (input) for mailman id 788165;
- Mon, 02 Sep 2024 15:33:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sl99r-0007pw-VD; Mon, 02 Sep 2024 15:39:59 +0000
+Received: by outflank-mailman (input) for mailman id 788178;
+ Mon, 02 Sep 2024 15:39:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uQw9=QA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sl93J-0005Vw-Fd
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 15:33:13 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aa22f74d-6940-11ef-a0b2-8be0dac302b0;
- Mon, 02 Sep 2024 17:33:12 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a86e9db75b9so471865366b.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 08:33:12 -0700 (PDT)
+ id 1sl99p-0007pp-VV
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 15:39:57 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9a79bd3d-6941-11ef-99a1-01e77a169b0f;
+ Mon, 02 Sep 2024 17:39:55 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a86883231b4so526863166b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 08:39:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989221e15sm571181866b.193.2024.09.02.08.33.11
+ a640c23a62f3a-a898919fcb4sm573580966b.132.2024.09.02.08.39.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 08:33:11 -0700 (PDT)
+ Mon, 02 Sep 2024 08:39:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa22f74d-6940-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: 9a79bd3d-6941-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725291192; x=1725895992; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725291595; x=1725896395; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cfhgt8YsaLeeVyaLLq/SNIJtbbvs45laOO2UuQFv5V0=;
-        b=UiVAXLLx35feA1WkE6lXN1Q13q9owZYCfabF6GOhJVThcRvL/hxyyvXCRE9P8h5HGT
-         HMGwVyv0jHnjyL2Z2lN3ooH7Gh89mZ6bgqn60M0UxROJmWfnm6pDhLsW8TLkwzGREd3g
-         oYqFJCWFxjdwLkrPubP77U6erEzS8YV3QqbTv9qzgd4N6WX0YxjDRcgbBoUowWfqXIT4
-         /tuU5/4RI5ertRiN2cLVnR7UbJdiQ8tm5d3zt2T3oEBk/+xvCIyekqoXimlx8sEoGlMU
-         kg1YbJeMJBEtvYfKFkSvqstkZz58AUFWLKXc17GWziHTCOAFwNLhDCtOFq7wwB33K8iN
-         EKOg==
+        bh=j/svr+aNfOFkanvIqA1KnFVp44ul/w9rcVYUtMF/Zng=;
+        b=NXuhQF11mh144AaI0gaZr/6+Wo4du50mMpD39AdjZxZmcGbKyPFe13Xwvaj7KvFAiV
+         t+7ITcw4XCnc9khf4G3JxXEZIqQ/i71R2hpVjfbIJmGMR2mcja1l5QLLI3tsjZ7P9pCL
+         4KgcRgeX4/gHkvbTPQHd4qLhyjMxOXJEjAaVh8sbEvCfn3h35CIlLrCgxWSfBwoquxDt
+         lxcTRij8gNLl11Kz+o3+g15Qy4KqFR2wMNS7voxCiTch15H1hydopDPSaXcl72+X9PoP
+         yH1+zW3vsEYxdIvmiILlkKFSx/LX6eZLUpbZn+SpOK44lU4S/DrOOPM7Its6t3JTYnti
+         ty6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725291192; x=1725895992;
+        d=1e100.net; s=20230601; t=1725291595; x=1725896395;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cfhgt8YsaLeeVyaLLq/SNIJtbbvs45laOO2UuQFv5V0=;
-        b=I//6AkWmgAu1LM4SIBErPNkYDtUYxKcTLdgEQyw5eaU6+BXtnra4xRmvsB/DxpTENA
-         pLcY8lXXQkEVZiCkB1s9QifbWkUlg9O1pJmRIVqQpPxTl71ySgi7hozrA3ErzT/5Rr6b
-         0EBpMDK6uQgNFDchOGG6XcDLixLwuVOMajt53ALQWz8qHMCJtbgrCqUYmDtHnwO0rVbU
-         q3iVnbEZZOsnuMv/KHrAFziWLi7+okT6don2U8QOyse26Hhv85j0XXRULdwEc+0H//tj
-         YHP54MssVzSeDegAdB5tls9M05yHSVIbMXHJ655khLOEGpMMicp7rjJcCmu71kg+Ul08
-         rK6A==
-X-Forwarded-Encrypted: i=1; AJvYcCXVuaNYJuc895B0aL7h13TYP+atFI+X9GZPyIVvNeyEDu2VWspHqOcvjKV0eDCv4WsCl4JBuFBtDqo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxujsgW5mZ+qzOUal8P9KLbC8zai4CsG2y/O4nT9r3I1Tq0EjHb
-	mvgQhAfjiChoVrScLH1YRzX2FKzw8LIrDTbR+4CXDUiEMn3Z/8CNqvW1N0U5RoJ9sMNldFFoUiA
-	=
-X-Google-Smtp-Source: AGHT+IGx9f0fTqjC9VGkeaIhDMAYkF72kSmI908v+5wEJsB/+b3YG/++G647zcKAKbibiHuFBMHX+w==
-X-Received: by 2002:a17:907:72c9:b0:a7a:ab8a:38f with SMTP id a640c23a62f3a-a8a1d3356bcmr38734266b.41.1725291191896;
-        Mon, 02 Sep 2024 08:33:11 -0700 (PDT)
-Message-ID: <0954f9d0-2440-4615-bef4-d3d95bd0e2b5@suse.com>
-Date: Mon, 2 Sep 2024 17:33:11 +0200
+        bh=j/svr+aNfOFkanvIqA1KnFVp44ul/w9rcVYUtMF/Zng=;
+        b=nRu0v9kQ1wXl9MGy3l/GWdxJjze1IeRFZwZTpRZwpw2wOilC7mqcPm5mGKcsYQDYfz
+         46eMWMWFVDF2yzO69YpZOO3XDOJmqEHOLdeXMzaG7l1PEEgtcOe2L7cRqEUUBNys91qx
+         bSo06BIAUbg0LF3uLAwfNb3DcggZUdiB3quGAejs5Aut+MZCVsvWd3qgiGNPDc7yu9rK
+         sx8MuVz5kl7dEgw2FyL5QWRig8fkpTIGYvSiP1p90CgDsj6G0mbyIdTh7EVIIbSitEa0
+         nTyxdYKTHtWlXm3N8vRyGTewxzU7JTz029dA43ZF4IRt9VCr/r/QyD/WHdg93J6XhwYI
+         UG+w==
+X-Forwarded-Encrypted: i=1; AJvYcCWWF0ns0E58UQOv6TnKCkyU2iNohbC9WsSUz2LVtg/XgKl6dKkUI/Jh3sXvZNb4w7nX6imkx7D/xWg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwtvaR6r0vUp7TGl7LPAP+Kf50dgck8Yii0+kYa1EfZyRfk9jz8
+	T8M0Sbok3H8Ht53n0la6KeO+SflhWD5e7oYj4u9ZbJ/PDezbafpOewV9FsN2hQ==
+X-Google-Smtp-Source: AGHT+IGvtKv0UbMZx21FQAgjGw88J6EyztEfBvIz4tMZLfiN/NncQ7HSeUc18uA4IHF1qD+LZb6OYw==
+X-Received: by 2002:a17:906:6a21:b0:a7a:9e11:e87c with SMTP id a640c23a62f3a-a89d8724415mr481975366b.9.1725291595199;
+        Mon, 02 Sep 2024 08:39:55 -0700 (PDT)
+Message-ID: <da874b44-08a5-4e49-a9e2-5495711926b7@suse.com>
+Date: Mon, 2 Sep 2024 17:39:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpu: revert opt_allow_unsafe from __ro_after_init to
- __read_mostly
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240902150016.63072-1-roger.pau@citrix.com>
- <2a43b16e-8894-45a7-86d0-e78f52f18f34@suse.com>
- <ZtXaM2ceAvKGrNqy@macbook.local>
+Subject: Re: [PATCH 4/4] x86/boot: Use fastcall for 32bit code
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240902133232.3302839-1-andrew.cooper3@citrix.com>
+ <20240902133232.3302839-5-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,61 +113,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZtXaM2ceAvKGrNqy@macbook.local>
+In-Reply-To: <20240902133232.3302839-5-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 02.09.2024 17:30, Roger Pau Monné wrote:
-> On Mon, Sep 02, 2024 at 05:16:05PM +0200, Jan Beulich wrote:
->> On 02.09.2024 17:00, Roger Pau Monne wrote:
->>> Making opt_allow_unsafe read only after init requires changes to the logic in
->>> init_amd(), otherwise the following #PF happens on CPU hotplug:
->>>
->>> ----[ Xen-4.20.0-1-d  x86_64  debug=y  Tainted:     H  ]----
->>> CPU:    1
->>> RIP:    e008:[<ffff82d040291081>] arch/x86/cpu/amd.c#init_amd+0x37f/0x993
->>> [...]
->>> Xen call trace:
->>>    [<ffff82d040291081>] R arch/x86/cpu/amd.c#init_amd+0x37f/0x993
->>>    [<ffff82d040291fbe>] F identify_cpu+0x2d4/0x4db
->>>    [<ffff82d04032eeaa>] F start_secondary+0x22e/0x3cf
->>>    [<ffff82d040203327>] F __high_start+0x87/0xa0
->>>
->>> Pagetable walk from ffff82d0404011ea:
->>>  L4[0x105] = 000000006fc2e063 ffffffffffffffff
->>>  L3[0x141] = 000000006fc2b063 ffffffffffffffff
->>>  L2[0x002] = 000000807c7ca063 ffffffffffffffff
->>>  L1[0x001] = 800000006f801121 ffffffffffffffff
->>>
->>> ****************************************
->>> Panic on CPU 1:
->>> FATAL PAGE FAULT
->>> [error_code=0003]
->>> Faulting linear address: ffff82d0404011ea
->>> ****************************************
->>
->> Hmm, I specifically looked at that code, but I can see how I screwed up.
->>
->>> For the time being revert opt_allow_unsafe to be __read_mostly.
->>
->> There's exactly one write that an AP can hit. Is it really worth moving
->> back, rather than just doing
->>
->> 	if (opt_allow_unsafe <= 0 && !cpu_has_amd_erratum(c, AMD_ERRATUM_121))
->> 		opt_allow_unsafe = 1;
->> 	else if ...
->>
->> ?
+On 02.09.2024 15:32, Andrew Cooper wrote:
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
 > 
-> I would rather move this logic so it's only the BSP that can set
-> opt_allow_unsafe, and the APs check they match the configuration set
-> by the BSP.  I think the resulting logic would be cleaner, but I
-> didn't want to do such a change as part of this fix.
+> RFC.  This doesn't boot, but I haven't quite figured out where yet.
 
-Well, okay then:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-And I guess I'll put it in right away.
+Because you got the register use wrong maybe? I think it's %eax, %edx,
+and then %ecx.
 
 Jan
+
 
