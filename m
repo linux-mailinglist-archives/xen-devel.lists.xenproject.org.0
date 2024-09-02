@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D088C968274
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 10:54:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.787658.1197090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B34EB96827A
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 10:55:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.787662.1197100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl2og-0005IN-Ba; Mon, 02 Sep 2024 08:53:42 +0000
+	id 1sl2qa-0005r4-NA; Mon, 02 Sep 2024 08:55:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 787658.1197090; Mon, 02 Sep 2024 08:53:42 +0000
+Received: by outflank-mailman (output) from mailman id 787662.1197100; Mon, 02 Sep 2024 08:55:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl2og-0005Fx-8j; Mon, 02 Sep 2024 08:53:42 +0000
-Received: by outflank-mailman (input) for mailman id 787658;
- Mon, 02 Sep 2024 08:53:41 +0000
+	id 1sl2qa-0005od-Il; Mon, 02 Sep 2024 08:55:40 +0000
+Received: by outflank-mailman (input) for mailman id 787662;
+ Mon, 02 Sep 2024 08:55:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uQw9=QA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sl2of-0005Fr-2w
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 08:53:41 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=E/cM=QA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sl2qY-0005oW-Uq
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 08:55:39 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d8b16c39-6908-11ef-99a1-01e77a169b0f;
- Mon, 02 Sep 2024 10:53:38 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5c26311c6f0so351260a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 01:53:39 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89891d6d36sm536731766b.149.2024.09.02.01.53.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 01:53:38 -0700 (PDT)
+ id 1ed2fca1-6909-11ef-99a1-01e77a169b0f;
+ Mon, 02 Sep 2024 10:55:36 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5c23f0a9699so1903358a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 01:55:36 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c226c6a36fsm4941489a12.16.2024.09.02.01.55.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Sep 2024 01:55:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +44,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8b16c39-6908-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 1ed2fca1-6909-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725267218; x=1725872018; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mvV18IYPneHaWXpn1BozbGbXVHPuRygCuqzEJTCtW6M=;
-        b=KYV5RsI9YyYcesptOcvKLU6rmhfLpyZzh0JTl2Lz5ufgUZIhlBeomoakvlbVZZIOiX
-         AdtuLbme6ELBGMvHL/4EKxfrl5YPyBD1NhTXVsG3EGV2iETkVzUgd/Cz1z5oJiFdfAAT
-         B0CVcfOKdm7qH0sTkmOfPbGB+Vhym+f56XHFOxpW5g8xiIgPRTFiDi1rcmWvFV5pp5e6
-         GQT9KFWqItPURNaBDfV2KLTJ3RYOKUGSrHnDRwLsCjwrdKZ29lc7cN8lKDKBYVx9bspm
-         P5OCuaOJyoctDzLNmBFh+LzBnm7J1r1TN/OMQVv4pBpW3PDIi8LmXVHUjPPHOrU4hQpb
-         e86Q==
+        d=citrix.com; s=google; t=1725267336; x=1725872136; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=pKBhrDrtG2r12NoxMwu7DMvaCFosVbbND3GhrYxCNX8=;
+        b=aYFwaTm7LgjxcH2SHrw2M+pH2TzJh3cYjtBFndRI7XEcncboA3/eRvMhmitymzpz8C
+         KgVh1o8EkDrPruErzin5M2Eswe6hxLeXy5PN0btfsLM1CIFQla0DEeJo2KEs/CfoULbU
+         N2dIk7czH8KyJWh2r87cpM4EVtACjtgKgG4zQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725267218; x=1725872018;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mvV18IYPneHaWXpn1BozbGbXVHPuRygCuqzEJTCtW6M=;
-        b=OBeiyKqo9xceNoZYNZs0pMIq71Xh92S7dtQ3L5lvRzWz/3xNJZGRVpa3vVgyYbukQK
-         1NURxLxpqNZueNbTIe6VUc/Edkk1M0foi3eCNG2QIG1eZE0+LC0z+eeICRducuXFIY21
-         BoJLCTAgcgLnmHuxiNbJFfrgHVxgO6p7b8N0bbB93IHaDJ3EFoOcM3b57iEeE7xkemI7
-         D5l11d0jnl225T4Ptqgayc7CKBwFRkEueJzGYx1T7ARBEgnLzW0zjVhd2Aur9MGrrZRw
-         j8FGQjE85suf1IB+/jv8FW5DPEw/3k/NJ/aslgWgaNPHG8bzw71Jsr1reE/TxE0fOWkf
-         eluw==
-X-Forwarded-Encrypted: i=1; AJvYcCXDyX7i21eItnw68a4oBYOUW8VeTibKaSdXoXr4seLow6vFDs8X7IBBDhgNVTFI8OOcPFc7LIbg8uo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yww3/n9QTO1skRN/uFFRkbAVe75fsYmAHMOHjFnxaKa1cNXgqAF
-	yGmAj267fDmTzkAqRiQbSqtIQrT3WUq14Qry2c6Ig0xSIbFMWL+WLGIzB8OuWQ==
-X-Google-Smtp-Source: AGHT+IFWht3rz7BJSY3zOztM/9/RyRDHfX+ofG+DnSMccLlfWGI+jx9pkftYWYBZ3AuQSbNQP0Aorw==
-X-Received: by 2002:a17:906:da82:b0:a7d:e956:ad51 with SMTP id a640c23a62f3a-a89fadc10a3mr237548866b.21.1725267218437;
-        Mon, 02 Sep 2024 01:53:38 -0700 (PDT)
-Message-ID: <708376e5-8257-43c8-b7c5-ed17dc311787@suse.com>
-Date: Mon, 2 Sep 2024 10:53:39 +0200
+        d=1e100.net; s=20230601; t=1725267336; x=1725872136;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=pKBhrDrtG2r12NoxMwu7DMvaCFosVbbND3GhrYxCNX8=;
+        b=q+bSVzhSl3BQXHP8QufhmV7P8EQOtpF1koVlIhkrqHmwq6sBWnLj0jsFsPYoiFwL0a
+         IemjKtKyXVeU7jwGA39WvIHWl8eu0jl4CRYI/a5KrcgWucvmpyyZ+9IahFVppOaIdIWd
+         I9QqBWKJTauo2hET+BeRAUnehqA1VGhSpOUUK7d0yiQgmrAO/c4u4OBdeniYPAZ+zav5
+         70FSS4erGKQQPnd5SCUJRfqJs1G3QF2FsFIYsO6RO7jAxuiEqHtL+eFtLKDmR6wDSPjc
+         eucKB7hYmheh6qi+fsGrrUaY4wlUBYSJkpVbob9FIxIF3UsYPaygJADUJ1JKG/m0HAd8
+         wjYw==
+X-Gm-Message-State: AOJu0YzFNbmSTHahzoaddx44swohDsBtdj2/ImmcRkuT14VllwgRIeeq
+	zGRY7wdoMYYXSOrImEJoiLfTb+nQ0AZd3xorjwEVCoRNkpdC+kt+Yvx3HVhOfuE=
+X-Google-Smtp-Source: AGHT+IHUc89HYaYgKz2sAL8ApQcmwf9BvEIqAJkC+acdKkza4t/mFXRTCLtaLa38MK2GIfWOvufMlw==
+X-Received: by 2002:a05:6402:1e8c:b0:5c2:4dcc:b937 with SMTP id 4fb4d7f45d1cf-5c24dccbb4amr3116009a12.24.1725267335610;
+        Mon, 02 Sep 2024 01:55:35 -0700 (PDT)
+Date: Mon, 2 Sep 2024 10:55:34 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+	Owen Smith <owen.smith@cloud.com>, Mark Syms <mark.syms@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: Block protocol incompatibilities with 4K logical sector size
+ disks
+Message-ID: <ZtV9hteu_sVyvnih@macbook.local>
+References: <ZtBUnzH4sIrFAo0f@macbook.local>
+ <ZtB0fMRCGajdcfap@l14>
+ <ZtCW9Qq9k8UQ-jJC@macbook.local>
+ <ZtHus/ytlA1UnHEI@l14>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/cpufeatures: Add new cpuid features in SPR to
- featureset
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Matthew Barnes <matthew.barnes@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <248b4ea259aa78a17b7b05043ed211a00863bf94.1724247366.git.matthew.barnes@cloud.com>
- <88f54c3f-a81b-4323-a7cf-3a6be41a9207@suse.com>
- <D3VO124CG8DF.FE5DXND84RJT@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D3VO124CG8DF.FE5DXND84RJT@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZtHus/ytlA1UnHEI@l14>
 
-On 02.09.2024 10:46, Alejandro Vallejo wrote:
-> On Wed Aug 21, 2024 at 5:07 PM BST, Jan Beulich wrote:
->> On 21.08.2024 17:34, Matthew Barnes wrote:
->>> Upon running `xen-cpuid -v` on a host machine with Sapphire Rapids
->>> within Dom0, there exist unrecognised features.
->>>
->>> This patch adds these features as macros to the CPU featureset,
->>> disabled by default.
->>>
->>> Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
->>
->> I don't strictly mind the patch in this shape, but ...
->>
->>> @@ -276,10 +283,13 @@ XEN_CPUFEATURE(TSX_FORCE_ABORT, 9*32+13) /* MSR_TSX_FORCE_ABORT.RTM_ABORT */
->>>  XEN_CPUFEATURE(SERIALIZE,     9*32+14) /*A  SERIALIZE insn */
->>>  XEN_CPUFEATURE(HYBRID,        9*32+15) /*   Heterogeneous platform */
->>>  XEN_CPUFEATURE(TSXLDTRK,      9*32+16) /*a  TSX load tracking suspend/resume insns */
->>> +XEN_CPUFEATURE(PCONFIG,       9*32+18) /*   PCONFIG insn */
->>>  XEN_CPUFEATURE(ARCH_LBR,      9*32+19) /*   Architectural Last Branch Record */
->>>  XEN_CPUFEATURE(CET_IBT,       9*32+20) /*   CET - Indirect Branch Tracking */
->>> +XEN_CPUFEATURE(AMX_BF16,      9*32+22) /*   Tile computational operations on bfloat16 numbers */
->>>  XEN_CPUFEATURE(AVX512_FP16,   9*32+23) /*A  AVX512 FP16 instructions */
->>>  XEN_CPUFEATURE(AMX_TILE,      9*32+24) /*   AMX Tile architecture */
->>> +XEN_CPUFEATURE(AMX_INT8,      9*32+25) /*   Tile computational operations on 8-bit integers */
->>>  XEN_CPUFEATURE(IBRSB,         9*32+26) /*A  IBRS and IBPB support (used by Intel) */
->>>  XEN_CPUFEATURE(STIBP,         9*32+27) /*A  STIBP */
->>>  XEN_CPUFEATURE(L1D_FLUSH,     9*32+28) /*S  MSR_FLUSH_CMD and L1D flush. */
->>
->> ... having had a respective (more complete) patch pending for years I really
->> wonder if it shouldn't be that one to be taken. While it would need adjustment
->> to go ahead of other stuff (as posted in v3), I don't think it has any true
->> dependency on earlier patches in the AMX series. IOW I could re-post v4
->> standalone, and then we'd have a more complete view on AMX as well as proper
->> dependencies in place.
->>
->> Thoughts?
->>
->> Jan
+On Fri, Aug 30, 2024 at 04:09:25PM +0000, Anthony PERARD wrote:
+> On Thu, Aug 29, 2024 at 05:42:45PM +0200, Roger Pau Monné wrote:
+> > On Thu, Aug 29, 2024 at 01:15:42PM +0000, Anthony PERARD wrote:
+> > > On Thu, Aug 29, 2024 at 12:59:43PM +0200, Roger Pau Monné wrote:
+> > > > The following table attempts to summarize in which units the following fields
+> > > > are defined for the analyzed implementations (please correct me if I got some
+> > > > of this wrong):
+> > > >
+> > > >                         │ sectors xenbus node │ requests sector_number │ requests {first,last}_sect
+> > > > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > > > FreeBSD blk{front,back} │     sector-size     │      sector-size       │           512
+> > > > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > > > Linux blk{front,back}   │         512         │          512           │           512
+> > > > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > > > QEMU blkback            │     sector-size     │      sector-size       │       sector-size
+> > > > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > > > Windows blkfront        │     sector-size     │      sector-size       │       sector-size
+> > > > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > > > MiniOS                  │     sector-size     │          512           │           512
+> > > > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > > > tapdisk blkback         │         512         │      sector-size       │           512
 > 
-> Oh! I had no idea you already posted patches to enable AMX. Is this the one?
+> Tapdisk situation seems more like:
 > 
-> https://lore.kernel.org/xen-devel/322de6db-e01f-0b57-5777-5d94a13c441a@suse.com/
+>      tapdisk blkback         │      ??????????     │      ???????????       │         ?????
+> 
+> I've looks at the implementation at xapi-project/blktat[1] and the way
+> sector_number or {first,last}_sect seems to be used varied on which
+> backend is used (block-vhd, block-nbd, block-aio).
+> 
+> [1] https://github.com/xapi-project/blktap
+> 
+> block-vhd seems mostly sectors of 512 but recalculated with "s->spb"
+> (sector per block?) but still, sector seems to be only 512.
+> 
+> block-nbd seems to set "sector-size" to always 512, but uses
+> "sector-size" for sector_number and {first,last}_sect.
+> 
+> The weirdest one is block-aio, where on read it multiply sector_number
+> and {first,last}_sect by 512, but on write, those are multiplied by
+> "sector-size". With "sector-size" set by ioctl(BLKSSZGET)
+> 
+> At least, is seems "sectors" is a multiple of 512 on all those, like in
+> the table, but I've only look at those 3 "drivers".
 
-Yes. And specifically patch 9 there for the purposes here, suitably re-based
-of course and extended to cover AMX-FP16 and AMX-COMPLEX.
+You looked more than myself, I've just looked at the block-aio write
+path I think, and I was happy enough to see it was yet different from
+the other implementations.
 
-Jan
+I think it's clear enough that every implementation has slight
+differences, and I don't plan to fix all of them.
+
+> 
+> > > There's OVMF as well, which copied MiniOS's implementation, and looks
+> > > like it's still the same as MiniOS for the table above:
+> > >
+> > > OVMF (base on MiniOS)   │     sector-size     │          512           │           512
+> > >
+> > > >
+> > > > It's all a mess, I'm surprised we didn't get more reports about brokenness when
+> > > > using disks with 4K logical sectors.
+> > > >
+> > > > Overall I think the in-kernel backends are more difficult to update (as it
+> > > > might require a kernel rebuild), compared to QEMU or blktap.  Hence my slight
+> > > > preference would be to adjust the public interface to match the behavior of
+> > > > Linux blkback, and then adjust the implementation in the rest of the backends
+> > > > and frontends.
+> > >
+> > > I would add that making "sector-size" been different from 512 illegal
+> > > makes going forward easier, has every implementation will work with a
+> > > "sector-size" of 512, and it probably going to be the most common sector
+> > > size for a while longer.
+> >
+> > My main concern is the amount of backends out there that already
+> > expose a "sector-size" different than 512.  I fear any changes here
+> > will take time to propagate to in-kernel backends, and hence my
+> > approach was to avoid modifying Linux blkback, because (as seen in the
+> > FreeBSD bug report) there are already instances of 4K logical sector
+> > disks being used by users.  Modifying the frontends is likely easier,
+> > as that's under the owner of the VM control.
+> >
+> > > > There was an attempt in 2019 to introduce a new frontend feature flag to signal
+> > > > whether the frontend supported `sector-size` xenstore nodes different than 512 [0].
+> > > > However that was only ever implemented for QEMU blkback and Windows blkfront,
+> > > > all the other backends will expose `sector-size` different than 512 without
+> > > > checking if `feature-large-sector-size` is exposed by the frontend.  I'm afraid
+> > > > it's now too late to retrofit that feature into existing backends, seeing as
+> > > > they already expose `sector-size` nodes greater than 512 without checking if
+> > > > `feature-large-sector-size` is reported by the frontend.
+> > >
+> > > Much before that, "physical-sector-size" was introduced (2013):
+> > >     https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=a67e2dac9f8339681b30b0f89274a64e691ea139
+> > >
+> > > Linux seems to implement it, but QEMU or OVMF don't have it.
+> >
+> > Yeah, I was aware of this, normal disks already have a physical sector
+> > size (optimal sector size) and a logical sector size (minimal size
+> > supported by the drive).  Some implement a smaller logical than
+> > physical sector size by doing read-modify-write.
+> >
+> > > > My proposal would be to adjust the public interface with:
+> > > >
+> > > >  * Disk size is calculated as: `sectors` * 512 (`sectors` being the contents of
+> > > >    such xenstore backend node).
+> > > >
+> > > >  * All the sector related fields in blkif ring requests use a 512b base sector
+> > > >    size, regardless of the value in the `sector-size` xenstore node.
+> > > >
+> > > >  * The `sector-size` contains the disk logical sector size.  The frontend must
+> > > >    ensure that all request segments addresses are aligned and it's length is
+> > > >    a multiple of such size.  Otherwise the backend will refuse to process the
+> > > >    request.
+> > >
+> > > You still want to try to have a "sector-size" different from 512? To me
+> > > this just add confusion to the confusion. There would be no way fro
+> > > backend or frontend to know if setting something other than 512 is going
+> > > to work.
+> >
+> > But that's already the case, most (all?) backends except QEMU will set
+> > "sector-size" to the underlying block storage logical sector size
+> 
+> QEMU, only if feature-large-sector-size is set, indeed, otherwise it
+> just return an error if it have to set "sector-size" to a value
+> different from 512.
+> 
+> Otherwise, yes for Linux, FreeBSD, and maybe yes for blktap. For blktap
+> it seems to depend of the storage, more or less:
+>     - block-vhd: always "sector-size" = 512
+>     - block-nbd: always "sector-size" = 512
+>     - block-aio: physical storage sector size
+> 
+> > without any way to tell if the frontend supports sector-sizes != 512.
+> > So the issue is not inherently with the setting of the "sector-size"
+> > node to a value different than 512, but rather how different
+> > implementations have diverged regarding which is the base unit of
+> > other fields.
+> >
+> > > Also, it is probably easier to update backend than frontend, so
+> > > it is just likely that something is going to lag behind and broke.
+> >
+> > Hm, I'm not convinced, sometimes the owner of a VM has no control over
+> > the version of the backends if it's not the admin of the host.  OTOH
+> > the owner of a VM could always update the kernel in order to
+> > workaround such blkfront/blkback incompatibility issues.  Hence my
+> > preference was for solutions that didn't involve changing Linux
+> > blkback, as I believe that's the most commonly used backend.
+> 
+> Going the Linux way might be the least bad option indeed. sectors in
+> requests has been described as a 512-bytes for a long while. It's only
+> "sectors" that have been described as "sector-size"-bytes size.
+> 
+> > > Why not make use of the node "physical-sector-size" that have existed
+> > > for 10 years, even if unused or unadvertised, and if an IO request isn't
+> > > aligned on it, it is just going to be slow (as backend would have to
+> > > read,update,write instead of just write sectors).
+> >
+> > I don't really fancy implementing read-modify-write on the backends,
+> > as it's going to add more complexity to blkback implementations,
+> > specially the in-kernel ones I would assume.
+> >
+> > All frontends I've looked into support "sector-size" != 512, but
+> > there's a lack of uniformity on whether other units used in the
+> > protocol are based on the blkback exposed "sector-size", or hardcoded
+> > to 512.
+> >
+> > So your suggestion would be to hardcode "sector-size" to 512 and use
+> > the "physical-sector-size" node value to set the block device logical
+> > sector size the frontends?
+> >
+> > If we go that route I would suggest that backends are free to refuse
+> > requests that aren't a multiple of "physical-sector-size".
+> 
+> After looking in more detail in the different implementations, and linux
+> one, I don't think changing "physical-sector-size" meaning is going to
+> be helpful.
+> 
+> What to do about "feature-large-sector-size"? Should backend refuse to
+> connect to the front end if that flag is set and "sector-size" want to
+> be different than 512? This would just be Windows frontend I guess.
+> (Just as an helper for updated backend)
+
+I think it's likely too late to mandate exposing
+"feature-large-sector-size" in the frontends, as for example Linux
+blkfront will handle "sector-size" != 512, yet it doesn't expose
+"feature-large-sector-size".  If we retroactively push this change to
+the backends we might break setups that were working fine
+previously.
+
+> 
+> So yes, after more research, having sector in the protocol been a
+> 512-byte size seems the least bad option. "sector_number" and
+> "{first,last}_sect" have been described as is for a long while. Only
+> "sectors" for the size has been described as a "sector-size" quantity.
+
+Thanks for your input.  I would also like to hear from the blktap and
+Windows PV drivers maintainers, as the change that I'm proposing here
+will require changes to their implementations.
+
+Thanks, Roger.
 
