@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42F60968468
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 12:17:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.787774.1197236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9B3D968507
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 12:42:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.787785.1197246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl47G-0004Ve-3j; Mon, 02 Sep 2024 10:16:58 +0000
+	id 1sl4Vg-0001tU-0o; Mon, 02 Sep 2024 10:42:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 787774.1197236; Mon, 02 Sep 2024 10:16:58 +0000
+Received: by outflank-mailman (output) from mailman id 787785.1197246; Mon, 02 Sep 2024 10:42:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sl47G-0004T2-0M; Mon, 02 Sep 2024 10:16:58 +0000
-Received: by outflank-mailman (input) for mailman id 787774;
- Mon, 02 Sep 2024 10:16:56 +0000
+	id 1sl4Vf-0001rx-UL; Mon, 02 Sep 2024 10:42:11 +0000
+Received: by outflank-mailman (input) for mailman id 787785;
+ Mon, 02 Sep 2024 10:42:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qspk=QA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sl47E-0004Sw-AC
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 10:16:56 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ id 1sl4Ve-0001rr-Ep
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 10:42:10 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a41a004-6914-11ef-99a1-01e77a169b0f;
- Mon, 02 Sep 2024 12:16:54 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-5334879ba28so5655502e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 03:16:54 -0700 (PDT)
+ id 00827b8a-6918-11ef-99a1-01e77a169b0f;
+ Mon, 02 Sep 2024 12:42:08 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5c245c62362so1600842a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 03:42:08 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89891966dasm538435266b.122.2024.09.02.03.16.52
+ 4fb4d7f45d1cf-5c226c7358dsm5374140a12.38.2024.09.02.03.42.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2024 03:16:52 -0700 (PDT)
+ Mon, 02 Sep 2024 03:42:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a41a004-6914-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 00827b8a-6918-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725272214; x=1725877014; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lOKKXuD34ef7ftgSEV6LC3IL4NJW4RQq/K220rT7kU8=;
-        b=K88Z7fyDxa9pJ6uPaawD+ZPgtsQjq6OFRWDJH3MMEedjXbhFtIWWt8ggsiqiWvxaRg
-         QrqmF3UQMYJugMHxOc5CaO90j1Z+xHmNPBHgk0BYEUJPfRcyb7uNcZvHuLGWGR0n9Opi
-         kbYCryEBYP9ko75l3/quhLmuFV1Pgq18Dbvkk=
+        d=citrix.com; s=google; t=1725273728; x=1725878528; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=GQUS8dySU+jj9uW6A0PDfl97YL5BI5Sv2mxyU+OK9xM=;
+        b=ROEHiaU2AU4PP7KDFqldalfHObWqav5od59hdAS+ALKRNEfOopeJkXfQann0MI+WU9
+         adXfJW9jO+w4Rox17/rqkNFPWzAUpghARTgVBZV7tdadob0+sISATEa7fXeybzZEajI2
+         jkxKaUmLWT5e0JVMcTYW4gbYTzMmnuxLxPEr8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725272214; x=1725877014;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lOKKXuD34ef7ftgSEV6LC3IL4NJW4RQq/K220rT7kU8=;
-        b=NZACKhpPZgogBpbK/J9e51K6ezuBmcnJ6ddAs4Eb5Abi4rJUs052g/MXQykx7/FviT
-         RTBhzgLywVMow4lJMF/bf7oAhua43E8FIVh5Rn98QxGKL96C2HXXu1gcFUMv/jNPH2zs
-         1sl6xJzrIEYAJSYlpPPfkpF9H29EFS3X2O6Zsi5uqDvj0hNuZxuJOW+gFVT9kHi9Ufzy
-         jANzL+CyjXxycYcKZ5qIqmkOGZ8/9UYk8GCIrV05A08v2tqZO3F+TXjPo0HWJGE8W22b
-         hGmuFQu3FXe9Iq7F8J8Ndwe/zipmUSGrnOlLopn7qHj1+1sHFJw14SHQqOFPgBIKwEaV
-         z/1g==
-X-Gm-Message-State: AOJu0YzshMyFolPPSfAMwTvOkSU4yebwOhk5Z/TazqvyHZS9rgIy8CmE
-	p/FVba3g7KqjaCdjVY7e4p+5R/HwHTZTWXVw77cSx4Ge2WgxmeT65URh8JRJ5H4=
-X-Google-Smtp-Source: AGHT+IHCLp0FslecNOAvDQFJPGwVhbBGtXfw/Werl3830Ew3vhKHUgP/GCWLbAtWiCOghNS6jM4O4A==
-X-Received: by 2002:a05:6512:3d28:b0:52c:e670:7a12 with SMTP id 2adb3069b0e04-53546bc2c75mr5912871e87.60.1725272213244;
-        Mon, 02 Sep 2024 03:16:53 -0700 (PDT)
-Message-ID: <b8652274-e65e-452e-8b2e-d0b0a93d0be1@citrix.com>
-Date: Mon, 2 Sep 2024 11:16:51 +0100
+        d=1e100.net; s=20230601; t=1725273728; x=1725878528;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GQUS8dySU+jj9uW6A0PDfl97YL5BI5Sv2mxyU+OK9xM=;
+        b=rke9uSpBc+6xxfcNAs5Y/MFN2QcKVFK/JnSzMY2zxIiBvoKaA+tVeD7m2b6uWxmdyA
+         8M7M26FrOZaFJRdjmjfADBfN5+xLmFgt0K9rtBs7uotrp+UCKjelanl2e7lsHABzDB0R
+         hicJBuXVMnxEm/skplkVFznFpPTI0kEAfksZ4CapWOIjZ8n44o+brQRBaoHwYQq0cnhO
+         cgFBD73/63QwrlyXIv7JtHwWoObAEzQPKHqq5oqzGCzWPSNWr/1RxOCXgjCZov24raL3
+         ySwTGz7k+TlLPAtoepsw22w8ibJYsmupD1QBK8jAVQ/qhqervgv0ZQ0/8568psqkPDJv
+         oJ9A==
+X-Gm-Message-State: AOJu0YyCQ+DrXKEgXoUBUqlhuOiVs9KXAh8VhGHMOf1p7oFakGSgY037
+	eWz73wR+Kln7zCpMTAdEgob4FuCS0wmW9lTuMbetd0Hrf2wSFJO3KUVJEXT8Yio=
+X-Google-Smtp-Source: AGHT+IHNEhpw/R0ln3nWUMHLmzxWsTSekv6jT+K6054HFWD55qI+IwB/oSNulYNakMbhQ2tBI78FnQ==
+X-Received: by 2002:a05:6402:90c:b0:5c2:43a0:47e3 with SMTP id 4fb4d7f45d1cf-5c243a04904mr3685610a12.36.1725273727058;
+        Mon, 02 Sep 2024 03:42:07 -0700 (PDT)
+Message-ID: <eaa1c7d1-c1ae-4e42-b9ee-3c0e9fc50d88@citrix.com>
+Date: Mon, 2 Sep 2024 11:42:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/boot: Use C99 types for integers
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Frediano Ziglio <frediano.ziglio@cloud.com>
 Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <20240829115247.168608-1-frediano.ziglio@cloud.com>
  <594b5ad4-0b86-4397-a261-0e98515e3abe@citrix.com>
  <CACHz=Zj3Mw+7EbbB3vdndu5bzhXEN3p1JV4Dzm12Xt2EE1AV+Q@mail.gmail.com>
+ <b8652274-e65e-452e-8b2e-d0b0a93d0be1@citrix.com>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -129,45 +130,49 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <CACHz=Zj3Mw+7EbbB3vdndu5bzhXEN3p1JV4Dzm12Xt2EE1AV+Q@mail.gmail.com>
+In-Reply-To: <b8652274-e65e-452e-8b2e-d0b0a93d0be1@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29/08/2024 2:42 pm, Frediano Ziglio wrote:
-> On Thu, Aug 29, 2024 at 1:07 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->> On 29/08/2024 12:52 pm, Frediano Ziglio wrote:
->>> diff --git a/xen/arch/x86/boot/defs.h b/xen/arch/x86/boot/defs.h
->>> index 239b9f8716..ee1a4da6af 100644
->>> --- a/xen/arch/x86/boot/defs.h
->>> +++ b/xen/arch/x86/boot/defs.h
->>> @@ -57,7 +57,7 @@ typedef u16 uint16_t;
->>>  typedef u32 uint32_t;
->>>  typedef u64 uint64_t;
+On 02/09/2024 11:16 am, Andrew Cooper wrote:
+> On 29/08/2024 2:42 pm, Frediano Ziglio wrote:
+>> On Thu, Aug 29, 2024 at 1:07 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>> On 29/08/2024 12:52 pm, Frediano Ziglio wrote:
+>>>> diff --git a/xen/arch/x86/boot/defs.h b/xen/arch/x86/boot/defs.h
+>>>> index 239b9f8716..ee1a4da6af 100644
+>>>> --- a/xen/arch/x86/boot/defs.h
+>>>> +++ b/xen/arch/x86/boot/defs.h
+>>>> @@ -57,7 +57,7 @@ typedef u16 uint16_t;
+>>>>  typedef u32 uint32_t;
+>>>>  typedef u64 uint64_t;
+>>>>
+>>>> -#define U16_MAX              ((u16)(~0U))
+>>>> +#define UINT16_MAX   ((uint16_t)(~0U))
+>>>>  #define UINT_MAX     (~0U)
+>>>>
+>>>>  #endif /* __BOOT_DEFS_H__ */
+>>> I'm happy with the change in principle, but could we see about dropping
+>>> defs.h entirely?  For example, we've already got both of these UINT
+>>> constants in types.h
 >>>
->>> -#define U16_MAX              ((u16)(~0U))
->>> +#define UINT16_MAX   ((uint16_t)(~0U))
->>>  #define UINT_MAX     (~0U)
+>>> Since this was written, we've got rather better about cleaning up
+>>> xen/types.h, and extracting macros into xen/macros.h
 >>>
->>>  #endif /* __BOOT_DEFS_H__ */
->> I'm happy with the change in principle, but could we see about dropping
->> defs.h entirely?  For example, we've already got both of these UINT
->> constants in types.h
->>
->> Since this was written, we've got rather better about cleaning up
->> xen/types.h, and extracting macros into xen/macros.h
->>
->> I think there's a good chance that the regular headers can now be used
->> directly, or with minor tweaking.
->>
-> I tried, it gave a huge bunch of errors.
-> I think it can be done in a later follow-up.
+>>> I think there's a good chance that the regular headers can now be used
+>>> directly, or with minor tweaking.
+>>>
+>> I tried, it gave a huge bunch of errors.
+>> I think it can be done in a later follow-up.
+> Ok fine.
+>
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>
+> However, doesn't this mean we can drop the block of typedefs in the
+> context above?  Happy to fold that in on commit.
 
-Ok fine.
+Nope, that breaks differently.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-However, doesn't this mean we can drop the block of typedefs in the
-context above?  Happy to fold that in on commit.
+I'll put the patch in as-is and cleanup can come later.
 
 ~Andrew
 
