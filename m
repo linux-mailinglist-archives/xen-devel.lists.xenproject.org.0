@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1A49968C96
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 19:01:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.788310.1197853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CD95968C99
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2024 19:01:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.788311.1197862 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slAQo-0003vf-BF; Mon, 02 Sep 2024 17:01:34 +0000
+	id 1slAQp-0004DU-Qs; Mon, 02 Sep 2024 17:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 788310.1197853; Mon, 02 Sep 2024 17:01:34 +0000
+Received: by outflank-mailman (output) from mailman id 788311.1197862; Mon, 02 Sep 2024 17:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slAQo-0003sU-5O; Mon, 02 Sep 2024 17:01:34 +0000
-Received: by outflank-mailman (input) for mailman id 788310;
- Mon, 02 Sep 2024 17:01:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1slAQp-0004Ab-Lt; Mon, 02 Sep 2024 17:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 788311;
+ Mon, 02 Sep 2024 17:01:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=uz6k=QA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1slAQm-0002dz-C1
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 17:01:32 +0000
+ id 1slAQo-0002e4-7q
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2024 17:01:34 +0000
 Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
  [2a00:1450:4864:20::12b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00b43dbc-694d-11ef-a0b2-8be0dac302b0;
- Mon, 02 Sep 2024 19:01:31 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 012c6501-694d-11ef-99a1-01e77a169b0f;
+ Mon, 02 Sep 2024 19:01:32 +0200 (CEST)
 Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-53343bf5eddso5880579e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 10:01:31 -0700 (PDT)
+ 2adb3069b0e04-5353cd2fa28so5794278e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Sep 2024 10:01:32 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-535408410f5sm1677618e87.211.2024.09.02.10.01.29
+ 2adb3069b0e04-535408410f5sm1677618e87.211.2024.09.02.10.01.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2024 10:01:29 -0700 (PDT)
+ Mon, 02 Sep 2024 10:01:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00b43dbc-694d-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: 012c6501-694d-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1725296491; x=1725901291; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1725296492; x=1725901292; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VWYGoscry8ZAFDeszXGSeFFTzogVKWjHtiRKvfR4Z/s=;
-        b=VeavuxKpEJgdFIc9yvLBu+t/rVJOEreGuAlg9eqCxsCa0E1uQDa7ggInz22iPwCtop
-         Zkp9ELNdJUxioi93aN2jIZHLer3cVeNuUb0FKMvkwVnYMOq7257Jljdfbb5Uic/DgWbz
-         k8tRGb3pAp0fWvKtZIsB4FK0/RootUVoq7I6OG5/pTG+SefuU0glSWB7zLnEwZvH2Z36
-         6PJZa20bceL5V3jIt4dpVvWrr0AW4XE/5CRQ+McWTayK+vOdB6/rZ9JtCGghmcNWkDc4
-         ABZwxYMCaHq5kd58uLqFhAFPFLMECYLShQmbuVjfkqSzVrZGrnrzvWtTBn7+hH9vqRAu
-         IMmA==
+        bh=wocjzcEW8JnEEzfAHeDQT7LKqe0fSVuG6u/ZFFnI324=;
+        b=ON7bv/K8oQ6yrT7gsMdoCkdPB7pAFUrEifaLlsxuLb6/OJcQkBkrlY9BNkAkKzA8LY
+         NihjTUKI5rqcYg05Z45SYuob0urv1P9otnIyTAo25VHz52z7V4UjnG6lvrDWeJVhbE+e
+         hf1l+ypypU6ugJDG+2615xHgXZ+Yo+4HxNcm0czkIm66hv6MmV9St3k0bPmgw/yvV1Tn
+         5DzXy4eyqiiV7MY2VHc+jcy4aVr1C/nv11TYiueWK9oMESYrexXS3bd2wNscZhEuuH9n
+         GGLRnb+fDBC8FojyJU3WvCohqDQOdo9Tf6fK3whzHBOJWJGDST47wR8Z6peDSRNF33e4
+         rrwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725296491; x=1725901291;
+        d=1e100.net; s=20230601; t=1725296492; x=1725901292;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=VWYGoscry8ZAFDeszXGSeFFTzogVKWjHtiRKvfR4Z/s=;
-        b=FrE6CN+dAgCOj49+g6TDQlUI/bwEbxWUhz6/7kSDpNcCw5kTEjZeV+eOQY/IKI44lt
-         LC2HSoEfPudRb82B8V/N8v+n9czcBWaC/yB1MJx8atQ72uv1peLd7hLSC6LKJvjtpdCo
-         /71dcCcJ5eNZSQbBRNHeAeuatkZsWURaQTeEC4Y6CcGTzDojbT15FnZSakkxft6jHqpn
-         SZrn9qYpDxNDioHyopmXZUPsPhWAij8kIXjZ45IwgoVD1Xj2YhRZAS6fwPo+8rxO0JTD
-         9F5LWTnqDsEqkwOIvD3I5jSoMnAr23aymXmIB6x/32/HKWG3ahyj/st1SkUDoHO8V64v
-         7zLQ==
-X-Gm-Message-State: AOJu0Yw4qrZjefzjFA48ELYJpLZoykpIbDWmhN7JpMWUpE6ux/aVWo28
-	vD8nyhS3Th8NF1lU++CaF7YcOpSn1h2Hk3g/eKSXAmxPnNArN3oRuVlMBw==
-X-Google-Smtp-Source: AGHT+IEWwp1tZSil7wRd0s1ELDfeFnFqQxUJGiObMdLDUbfZ13rj4Sab3oMeGouQjXKgwZnieglv1w==
-X-Received: by 2002:a05:6512:b98:b0:52f:2adf:d445 with SMTP id 2adb3069b0e04-53546baacdbmr8089287e87.41.1725296490057;
+        bh=wocjzcEW8JnEEzfAHeDQT7LKqe0fSVuG6u/ZFFnI324=;
+        b=aETtZ6gUUMhKSgp60Y6OX55ws8E7oN0TRpAxUr2GV0lzSJO0kFcc90H9CvByEokEd4
+         1PEGEc+/phmDaCmOqbkHZIKMGkx05C7JOpbdre5HvXjtZ5ir4KyHiBjguPgHFPZAi4KA
+         ReTA4gqiROrIgeO7gOB0iP3KtZ8K9yDvm1w9YnHbiAbofnADQvDWcDhf/IUmnkU0TrFw
+         X4XpWv4P+oG7mcbfIGktDf49U3YeqnFj3huZh456AV20XhkK4AnDtI3l/GsKZIj+hcrm
+         SrR4WKxbV6cnqEgaXGedlaAwZYLc0KCHuM6pKrai0HH4bG2EJ2xOxZgOxjK1qZtAIiEP
+         D/Ug==
+X-Gm-Message-State: AOJu0YxCxXa2c9/Q/Emar4Z5XQHm5nD0RpDNpC/KVrP3KsmrVf0PBfhV
+	5/pJQ80STj3sIW1LCCGnvyFLKTQrTF21slHnBmnzX2QvDOqyd9L8ZnclNQ==
+X-Google-Smtp-Source: AGHT+IFeSb6Sd1OA6pxPnqTh1wCXDec2B2pZDBQgOJp3ENUKk7pYiReHr1TfpiJyLjM2uKbpmdUMWQ==
+X-Received: by 2002:a05:6512:3d07:b0:530:e28a:3c17 with SMTP id 2adb3069b0e04-53546b34715mr8040355e87.25.1725296490977;
         Mon, 02 Sep 2024 10:01:30 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -84,152 +84,254 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v6 5/9] xen/riscv: introduce asm/pmap.h header
-Date: Mon,  2 Sep 2024 19:01:18 +0200
-Message-ID: <a949d5fab457b49ca837727c62857932b5caeea8.1725295716.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v6 6/9] xen/riscv: introduce functionality to work with CPU info
+Date: Mon,  2 Sep 2024 19:01:19 +0200
+Message-ID: <77a00222008f8b41d2454e74d1c9247252d7ccd9.1725295716.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <cover.1725295716.git.oleksii.kurochko@gmail.com>
 References: <cover.1725295716.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce arch_pmap_{un}map functions and select HAS_PMAP for CONFIG_RISCV.
+Introduce struct pcpu_info to store pCPU-related information.
+Initially, it includes only processor_id and hart id, but it
+will be extended to include guest CPU information and
+temporary variables for saving/restoring vCPU registers.
 
-Add pte_from_mfn() for use in arch_pmap_map().
+Add set_processor_id() and get_processor_id() functions to set
+and retrieve the processor_id stored in pcpu_info.
 
-Introduce flush_xen_tlb_one_local() and use it in arch_pmap_{un}map().
+Define smp_processor_id() to provide accurate information,
+replacing the previous "dummy" value of 0.
+
+Initialize tp registers to point to pcpu_info[0].
+Set processor_id to 0 for logical CPU 0 and store the physical
+CPU ID in pcpu_info[0].
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in V6:
- - No changes ( only rebase )
+ - update the commit message ( drop outdated information ).
+ - s/FIXME commit/FIXME comment in "changes in V5".
+ - code style fixes.
+ - refactoring of smp_processor_id() and fix BUG_ON() condition inside it.
+ - change "mv a0,x0" to "li a0, 0".
+ - add __cacheline_aligned to the struct pcpu_info.
+ - drop smp_set_bootcpu_id() and smpboot.c as it has only smp_set_bootcpu_id()
+   defined at the moment.
+ - re-write setup_tp() to assembler.
 ---
 Changes in V5:
- - Add Reviewed-by: Jan Beulich <jbeulich@suse.com>.
- - Fix a typo in "Changes in V4":
-   - "drop flush_xen_tlb_range_va_local() as it isn't used in this patch" ->
-     "drop flush_xen_tlb_range_va() as it isn't used in this patch"
-   - "s/flush_xen_tlb_range_va_local/flush_tlb_range_va_local" ->
-     "s/flush_xen_tlb_one_local/flush_tlb_one_local"
+ - add hart_id to pcpu_info;
+ - add comments to pcpu_info members.
+ - define INVALID_HARTID as ULONG_MAX as mhart_id register has MXLEN which is
+   equal to 32 for RV-32 and 64 for RV-64.
+ - add hart_id to pcpu_info structure.
+ - drop cpuid_to_hartid_map[] and use pcpu_info[] for the same purpose.
+ - introduce new function setup_tp(cpuid).
+ - add the FIXME comment on top of pcpu_info[].
+ - setup TP register before start_xen() being called.
+ - update the commit message.
+ - change "commit message" to "comment" in "Changes in V4" in "update the comment
+   above the code of TP..."
 ---
 Changes in V4:
- - mark arch_pmap_{un}map() as __init: documentation purpose and
-   a necessary (but not sufficient) condition here, to validly
-   use local TLB flushes only.
- - add flush_xen_tlb_one_local() to arch_pmap_map() as absense of
-   "negative" TLB entrues will be guaranted only in the case
-   when Svvptc extension is present.
- - s/mfn_from_pte/pte_from_mfn
- - drop mfn_to_xen_entry() as pte_from_mfn() does the same thing
- - add flags argument to pte_from_mfn().
+ - wrap id with () inside set_processor_id().
+ - code style fixes
+ - update BUG_ON(id > NR_CPUS) in smp_processor_id() and drop the comment
+   above BUG_ON().
+ - s/__cpuid_to_hartid_map/cpuid_to_hartid_map
+ - s/cpuid_to_hartid_map/cpuid_to_harti ( here cpuid_to_hartid_map is the name
+   of the macros ).
+ - update the comment above the code of TP register initialization in
+   start_xen().
+ - s/smp_setup_processor_id/smp_setup_bootcpu_id
  - update the commit message.
- - drop flush_xen_tlb_range_va() as it isn't used in this patch
- - s/flush_xen_tlb_one_local/flush_tlb_one_local
+ - cleanup headers which are included in <asm/processor.h>
 ---
 Changes in V3:
- - rename argument of function mfn_to_xen_entry(..., attr -> flags ).
- - update the code of mfn_to_xen_entry() to use flags argument.
- - add blank in mfn_from_pte() in return line.
- - introduce flush_xen_tlb_range_va_local() and use it inside arch_pmap_{un}map().
- - s/__ASM_PMAP_H__/ASM_PMAP_H
- - add SPDX-License-Identifier: GPL-2.0 
+ - new patch.
 ---
- xen/arch/riscv/Kconfig                |  1 +
- xen/arch/riscv/include/asm/flushtlb.h |  6 +++++
- xen/arch/riscv/include/asm/page.h     |  6 +++++
- xen/arch/riscv/include/asm/pmap.h     | 36 +++++++++++++++++++++++++++
- 4 files changed, 49 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/pmap.h
+ xen/arch/riscv/Makefile                |  1 +
+ xen/arch/riscv/include/asm/processor.h | 27 ++++++++++++++++++++++++--
+ xen/arch/riscv/include/asm/smp.h       |  9 +++++++++
+ xen/arch/riscv/riscv64/asm-offsets.c   |  2 ++
+ xen/arch/riscv/riscv64/head.S          | 15 ++++++++++++++
+ xen/arch/riscv/setup.c                 |  5 +++++
+ xen/arch/riscv/smp.c                   | 15 ++++++++++++++
+ 7 files changed, 72 insertions(+), 2 deletions(-)
+ create mode 100644 xen/arch/riscv/smp.c
 
-diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
-index 259eea8d3b..0112aa8778 100644
---- a/xen/arch/riscv/Kconfig
-+++ b/xen/arch/riscv/Kconfig
-@@ -3,6 +3,7 @@ config RISCV
- 	select FUNCTION_ALIGNMENT_16B
- 	select GENERIC_BUG_FRAME
- 	select HAS_DEVICE_TREE
-+	select HAS_PMAP
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 81b77b13d6..2f2d6647a2 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -4,6 +4,7 @@ obj-y += mm.o
+ obj-$(CONFIG_RISCV_64) += riscv64/
+ obj-y += sbi.o
+ obj-y += setup.o
++obj-y += smp.o
+ obj-y += stubs.o
+ obj-y += traps.o
+ obj-y += vm_event.o
+diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
+index 3ae164c265..4799243863 100644
+--- a/xen/arch/riscv/include/asm/processor.h
++++ b/xen/arch/riscv/include/asm/processor.h
+@@ -12,8 +12,31 @@
  
- config RISCV_64
- 	def_bool y
-diff --git a/xen/arch/riscv/include/asm/flushtlb.h b/xen/arch/riscv/include/asm/flushtlb.h
-index 7ce32bea0b..f4a735fd6c 100644
---- a/xen/arch/riscv/include/asm/flushtlb.h
-+++ b/xen/arch/riscv/include/asm/flushtlb.h
-@@ -5,6 +5,12 @@
- #include <xen/bug.h>
- #include <xen/cpumask.h>
+ #ifndef __ASSEMBLY__
  
-+/* Flush TLB of local processor for address va. */
-+static inline void flush_tlb_one_local(vaddr_t va)
-+{
-+    asm volatile ( "sfence.vma %0" :: "r" (va) : "memory" );
-+}
-+
- /*
-  * Filter the given set of CPUs, removing those that definitely flushed their
-  * TLB since @page_timestamp.
-diff --git a/xen/arch/riscv/include/asm/page.h b/xen/arch/riscv/include/asm/page.h
-index a7419b93b2..55916eaa92 100644
---- a/xen/arch/riscv/include/asm/page.h
-+++ b/xen/arch/riscv/include/asm/page.h
-@@ -94,6 +94,12 @@ static inline pte_t read_pte(pte_t *p)
-     return read_atomic(p);
- }
- 
-+static inline pte_t pte_from_mfn(mfn_t mfn, unsigned int flags)
-+{
-+    unsigned long pte = (mfn_x(mfn) << PTE_PPN_SHIFT) | flags;
-+    return (pte_t){ .pte = pte };
-+}
-+
- #endif /* __ASSEMBLY__ */
- 
- #endif /* _ASM_RISCV_PAGE_H */
-diff --git a/xen/arch/riscv/include/asm/pmap.h b/xen/arch/riscv/include/asm/pmap.h
-new file mode 100644
-index 0000000000..60065c996f
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/pmap.h
-@@ -0,0 +1,36 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef ASM_PMAP_H
-+#define ASM_PMAP_H
-+
+-/* TODO: need to be implemeted */
+-#define smp_processor_id() 0
 +#include <xen/bug.h>
-+#include <xen/init.h>
-+#include <xen/mm.h>
-+#include <xen/page-size.h>
 +
-+#include <asm/fixmap.h>
-+#include <asm/flushtlb.h>
-+#include <asm/system.h>
++register struct pcpu_info *tp asm ( "tp" );
 +
-+static inline void __init arch_pmap_map(unsigned int slot, mfn_t mfn)
++struct pcpu_info {
++    unsigned int processor_id; /* Xen CPU id */
++    unsigned long hart_id; /* physical CPU id */
++} __cacheline_aligned;
++
++/* tp points to one of these */
++extern struct pcpu_info pcpu_info[NR_CPUS];
++
++#define get_processor_id()      (tp->processor_id)
++#define set_processor_id(id)    do { \
++    tp->processor_id = (id);         \
++} while (0)
++
++static inline unsigned int smp_processor_id(void)
 +{
-+    pte_t *entry = &xen_fixmap[slot];
-+    pte_t pte;
++    unsigned int id = get_processor_id();
 +
-+    ASSERT(!pte_is_valid(*entry));
++    BUG_ON(id > (NR_CPUS - 1));
 +
-+    pte = pte_from_mfn(mfn, PAGE_HYPERVISOR_RW);
-+    write_pte(entry, pte);
-+
-+    flush_tlb_one_local(FIXMAP_ADDR(slot));
++    return id;
 +}
+ 
+ /* On stack VCPU state */
+ struct cpu_user_regs
+diff --git a/xen/arch/riscv/include/asm/smp.h b/xen/arch/riscv/include/asm/smp.h
+index b1ea91b1eb..11eee67d62 100644
+--- a/xen/arch/riscv/include/asm/smp.h
++++ b/xen/arch/riscv/include/asm/smp.h
+@@ -5,6 +5,8 @@
+ #include <xen/cpumask.h>
+ #include <xen/percpu.h>
+ 
++#include <asm/processor.h>
 +
-+static inline void __init arch_pmap_unmap(unsigned int slot)
-+{
-+    pte_t pte = {};
+ DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
+ DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
+ 
+@@ -14,6 +16,13 @@ DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
+  */
+ #define park_offline_cpus false
+ 
++/*
++ * Mapping between linux logical cpu index and hartid.
++ */
++#define cpuid_to_hartid(cpu) (pcpu_info[cpu].hart_id)
 +
-+    write_pte(&xen_fixmap[slot], pte);
++void setup_tp(unsigned int cpuid);
 +
-+    flush_tlb_one_local(FIXMAP_ADDR(slot));
-+}
+ #endif
+ 
+ /*
+diff --git a/xen/arch/riscv/riscv64/asm-offsets.c b/xen/arch/riscv/riscv64/asm-offsets.c
+index 9f663b9510..11400c4697 100644
+--- a/xen/arch/riscv/riscv64/asm-offsets.c
++++ b/xen/arch/riscv/riscv64/asm-offsets.c
+@@ -50,4 +50,6 @@ void asm_offsets(void)
+     OFFSET(CPU_USER_REGS_SSTATUS, struct cpu_user_regs, sstatus);
+     OFFSET(CPU_USER_REGS_PREGS, struct cpu_user_regs, pregs);
+     BLANK();
++    DEFINE(PCPU_INFO_SIZE, sizeof(struct pcpu_info));
++    BLANK();
+ }
+diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
+index 3261e9fce8..c7d8bf18c5 100644
+--- a/xen/arch/riscv/riscv64/head.S
++++ b/xen/arch/riscv/riscv64/head.S
+@@ -1,4 +1,5 @@
+ #include <asm/asm.h>
++#include <asm/asm-offsets.h>
+ #include <asm/riscv_encoding.h>
+ 
+         .section .text.header, "ax", %progbits
+@@ -55,6 +56,10 @@ FUNC(start)
+          */
+         jal     reset_stack
+ 
++        /* Xen's boot cpu id is equal to 0 so setup TP register for it */
++        li      a0, 0
++        jal     setup_tp
 +
-+#endif /* ASM_PMAP_H */
+         /* restore hart_id ( bootcpu_id ) and dtb address */
+         mv      a0, s0
+         mv      a1, s1
+@@ -72,6 +77,16 @@ FUNC(reset_stack)
+         ret
+ END(reset_stack)
+ 
++/* void setup_tp(unsigned int xen_cpuid); */
++FUNC(setup_tp)
++        la      tp, pcpu_info
++        li      t0, PCPU_INFO_SIZE
++        mul     t1, a0, t0
++        add     tp, tp, t1
++
++        ret
++END(setup_tp)
++
+         .section .text.ident, "ax", %progbits
+ 
+ FUNC(turn_on_mmu)
+diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+index 13f0e8c77d..540a3a608e 100644
+--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -8,6 +8,7 @@
+ #include <public/version.h>
+ 
+ #include <asm/early_printk.h>
++#include <asm/smp.h>
+ #include <asm/traps.h>
+ 
+ void arch_get_xen_caps(xen_capabilities_info_t *info)
+@@ -40,6 +41,10 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+ {
+     remove_identity_mapping();
+ 
++    set_processor_id(0);
++
++    cpuid_to_hartid(0) = bootcpu_id;
++
+     trap_init();
+ 
+ #ifdef CONFIG_SELF_TESTS
+diff --git a/xen/arch/riscv/smp.c b/xen/arch/riscv/smp.c
+new file mode 100644
+index 0000000000..4ca6a4e892
+--- /dev/null
++++ b/xen/arch/riscv/smp.c
+@@ -0,0 +1,15 @@
++#include <xen/smp.h>
++
++/*
++ * FIXME: make pcpu_info[] dynamically allocated when necessary
++ *        functionality will be ready
++ */
++/*
++ * tp points to one of these per cpu.
++ *
++ * hart_id would be valid (no matter which value) if its
++ * processor_id field is valid (less than NR_CPUS).
++ */
++struct pcpu_info pcpu_info[NR_CPUS] = { [0 ... NR_CPUS - 1] = {
++    .processor_id = NR_CPUS,
++}};
 -- 
 2.46.0
 
