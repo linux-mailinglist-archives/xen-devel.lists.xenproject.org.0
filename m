@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F3FA96A2EC
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 17:37:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789382.1198990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43EA896A2EE
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 17:38:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789388.1198999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slVay-0008SI-4j; Tue, 03 Sep 2024 15:37:28 +0000
+	id 1slVbl-00011r-Dk; Tue, 03 Sep 2024 15:38:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789382.1198990; Tue, 03 Sep 2024 15:37:28 +0000
+Received: by outflank-mailman (output) from mailman id 789388.1198999; Tue, 03 Sep 2024 15:38:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slVay-0008Pt-1M; Tue, 03 Sep 2024 15:37:28 +0000
-Received: by outflank-mailman (input) for mailman id 789382;
- Tue, 03 Sep 2024 15:37:26 +0000
+	id 1slVbl-0000zh-AC; Tue, 03 Sep 2024 15:38:17 +0000
+Received: by outflank-mailman (input) for mailman id 789388;
+ Tue, 03 Sep 2024 15:38:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8q7v=QB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slVaw-0008Kv-BN
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 15:37:26 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ id 1slVbk-0000zS-01
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 15:38:16 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 699bba44-6a0a-11ef-99a1-01e77a169b0f;
- Tue, 03 Sep 2024 17:37:22 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2f64e82aeacso3496851fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 08:37:22 -0700 (PDT)
+ id 884e65f6-6a0a-11ef-99a1-01e77a169b0f;
+ Tue, 03 Sep 2024 17:38:14 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2f406034874so66453981fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 08:38:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226ce4fb9sm6941985a12.87.2024.09.03.08.37.21
+ 4fb4d7f45d1cf-5c226c6a437sm6535309a12.20.2024.09.03.08.38.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 08:37:21 -0700 (PDT)
+ Tue, 03 Sep 2024 08:38:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 699bba44-6a0a-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 884e65f6-6a0a-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725377842; x=1725982642; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725377894; x=1725982694; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EdD5btnH0BleCoeuCZiIwp2jXBwZJz5fdeew5vTMJ4o=;
-        b=YcRmDVd/k03glQYilYnkeEc0YtcIV04DnzjXQETRcAk/CdscQ7U2RIuJlAIeMLeuIm
-         tV5cVW6NNF0wu3qfLhsAicVGz1sHZD+qBA1DXUZxxVKueJRj8P3m8wA1A2pjF+Qyxwks
-         FmDbRMbp8TdJoqT5Mz3fxZwFOm8PqqgrD/Lsu5bu2A4tp4kW0RgwHy9w+5tq8fS7n4mt
-         bveRrBBjWvAIdMH4p+I+070Bf7FTprUISMLMFG7Hgas5v1M29TSuGh/JciqOh4bUEaO+
-         vdXasKCmUtiULYADCuGN22nTK33ugROTi/qcsxlKh5LYFyR+XcB+LXYDowGFOasxNSuW
-         cNYQ==
+        bh=fNYEoSOxFtP8azigFDOt0sMIzx6btmEVYNlhqZz2xU4=;
+        b=ZWgk01w1ykdOiATiNuXZEmOsUVjzFqmEo73hCxa19L15SCXJ92t9SvOIi/SIZLecLn
+         TLKpRi9shGyrzOnreP/8cO6RAZLsFttcV5WCFWi3UCXhJg/SFYVhkPtUd6etEQOkZf40
+         tqsn2byUEhcUH48p9Zy+KpB6DELck3sni1kIJbe9fkmAAVneJr1z2wG5pmmPzDaeTC+h
+         6BkIPUOZMsaKKLQEO9xMg050Zmlb9CKFghBLQgh298118Ym0IfwPwQVLixAig5vK2D1r
+         z74CXovEOP+eBVk1NXooezE9pUdPkjL63FqaY/RUxsJtDgSuW1EvZV9Dqv88zyo6lQ+W
+         r/2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725377842; x=1725982642;
+        d=1e100.net; s=20230601; t=1725377894; x=1725982694;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EdD5btnH0BleCoeuCZiIwp2jXBwZJz5fdeew5vTMJ4o=;
-        b=oBSGIP7cL0CjSzaKtYYhuobuhxS9K2qniYWnZ2Q1THNZnuREjGZUQD/pROJeKRLStj
-         JdlqMNamZnkaL+BUAuJ1xhfTtY0WsCoBFZOJQs5UqaQQzW1C0GOtMqhQr7ujfMqem7GB
-         eS9wYgWYlhDTu783ymcFxTl9qKSKeNzHl/jB3If/0OlmP4xbmvsSKIpnGvBENG1rX03C
-         bpRFbxuvt3+KudNfNxtoSEMn9LuRRFvI8ifrOTtlPirM7eGstUITJLrS5LYICDsH/3xy
-         WAJi+Qf9BKSywAv/aGNiI8ueGFncS9oM/sNxgAxSEghLl9s9AqDkkdHlbmgqKNDaiahr
-         01nA==
-X-Forwarded-Encrypted: i=1; AJvYcCXOu0PJ3OGG3jfFOWzrYWoDnsVkDTBUTflO6NwgrOT3FCyztOO7otGKXrb4EDNwoSrXBiQHKWziyWo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwolOOwHjsL/+NFcBuucCu1DzepCLeyeCppFGHxKO4RZdc1FO6W
-	gJdfbnAzC6nEGgwofOx3xdt2xtXMyAUUq9orkECFhytzWctI1/ZcgLHbVs74d7FIE/3WCTiN5q4
-	=
-X-Google-Smtp-Source: AGHT+IHKQLdFnBiIE28wrifwsfKu5sTVMW7Lxfjxd8WVn52ge4VFwLuj9VGALixxgzo/rtg6w4fxAg==
-X-Received: by 2002:a2e:5159:0:b0:2f4:fbcb:8efe with SMTP id 38308e7fff4ca-2f64449a125mr21346881fa.42.1725377841804;
-        Tue, 03 Sep 2024 08:37:21 -0700 (PDT)
-Message-ID: <3b8bda8e-1f40-498b-b511-5c185c1e46ea@suse.com>
-Date: Tue, 3 Sep 2024 17:37:20 +0200
+        bh=fNYEoSOxFtP8azigFDOt0sMIzx6btmEVYNlhqZz2xU4=;
+        b=RKlpAdTTummosTMx1fffaI30ZkJUemyf060jeKc6dDOXXu+tW23KDbZcqRJQEwjxDi
+         i9EPmHcHhxmr6zyaqzsS6WszvXmkoOG8RSyt+7aXrOW0UaggYdJWle6JMzvXFPfYLTgL
+         UOxbKQnDJveK2+MelnFV1sCmVt4falG+5g1Jwrty6s459PoWOhdk5nlabVuGiK42hzqW
+         yHb9C/DWh23v7Dkgfbolea0CKtSpyAhavPBA5qaM7v4xA1yGszvVbi5n1+QmnmYZ5q6f
+         0WsqiiHhrYEqH1akHDfW2juvMsVMrpBZhxmGMxdfNGxVDXbJV9nSVb9qoFg3vzqivNyN
+         JQNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW/fP1btgVV1dyc7+uo/ZDkDJ9E8FdOFfQMMHOqdEkYKtq7w/1WEp13Q3vK8WxS2mVSVgwdP96NiEs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx9Jiu3/MOsazoVTM01GYMpxueq0vZCdAQjxCqoR3vFQ3g/qKUE
+	7XdOLbvBWHfqzX26sFPQXRifzAfzgvaqIW1H+/I1KV/PX9EA/9ycI+aQBFUssA==
+X-Google-Smtp-Source: AGHT+IEEkofcP4xjqwFPrxDSli1gonUNp8h4Z0t8RoWXAq7b7lP171QHwRASW/Khj8rUxMTWyv9d6g==
+X-Received: by 2002:a2e:bc22:0:b0:2ef:1784:a20 with SMTP id 38308e7fff4ca-2f64d53e658mr8966431fa.38.1725377893567;
+        Tue, 03 Sep 2024 08:38:13 -0700 (PDT)
+Message-ID: <18a637ed-2ecd-4452-8a8f-70212f6c2e96@suse.com>
+Date: Tue, 3 Sep 2024 17:38:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/7] x86/time: introduce command line option to select
- wallclock
+Subject: Re: [PATCH v3 0/7] x86/time: improvements to wallclock logic
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org,
  =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, Andrew Cooper
  <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20240903130303.71334-1-roger.pau@citrix.com>
- <20240903130303.71334-7-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,38 +115,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240903130303.71334-7-roger.pau@citrix.com>
+In-Reply-To: <20240903130303.71334-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03.09.2024 15:03, Roger Pau Monne wrote:
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -2821,6 +2821,24 @@ vwfi to `native` reduces irq latency significantly. It can also lead to
->  suboptimal scheduling decisions, but only when the system is
->  oversubscribed (i.e., in total there are more vCPUs than pCPUs).
->  
-> +### wallclock (x86)
-> +> `= auto | xen | cmos | efi`
-> +
-> +> Default: `auto`
-> +
-> +Allow forcing the usage of a specific wallclock source.
-> +
-> + * `auto` let the hypervisor select the clocksource based on internal
-> +   heuristics.
-> +
-> + * `xen` force usage of the Xen shared_info wallclock when booted as a Xen
-> +   guest.
+On 03.09.2024 15:02, Roger Pau Monne wrote:
+> Hello,
+> 
+> This series started as an attempt to change the default wallclock
+> preference from EFI_GET_TIME to CMOS RTC, but has grown quite a lot.
+> First 3 patches should be non-functional changes, mostly chopping the
+> current logic into smaller functions so that in patch 4 the probing vs
+> runtime wallclock logic can be split.
+> 
+> Patch 5 changes the preference to use CMOS RTC even when booted from EFI
+> firmware.
+> 
+> Finally patches 6 introduces a new command line option to bypass the
+> probing an allow specifying which wallclock source to use on the command
+> line.  Patch 7 enables CMOS RTC probing by default.
+> 
+> Thanks, Roger.
+> 
+> Roger Pau Monne (7):
+>   x86/time: introduce helper to fetch Xen wallclock when running as a
+>     guest
+>   x86/time: move CMOS edge detection into read helper
+>   x86/time: split CMOS read and probe logic into function
+>   x86/time: introduce probing logic for the wallclock
+>   x86/time: prefer CMOS over EFI_GET_TIME
+>   x86/time: introduce command line option to select wallclock
+>   x86/time: probe the CMOS RTC by default
+> 
+>  docs/misc/xen-command-line.pandoc |  28 +++-
+>  xen/arch/x86/time.c               | 238 +++++++++++++++++++++++-------
+>  2 files changed, 208 insertions(+), 58 deletions(-)
 
-Mention the CONFIG_* dependency, like we do elsewhere?
-
-> + * `cmos` force usage of the CMOS RTC wallclock.
-> +
-> + * `efi` force usage of the EFI_GFET_TIME run-time method when booted from EFI
-> +   firmware.
-
-Nit: Stray F.
+Having reached patch 6, it seems pretty clear that somewhere in the series
+a CHANGELOG.md entry wants adding.
 
 Jan
 
