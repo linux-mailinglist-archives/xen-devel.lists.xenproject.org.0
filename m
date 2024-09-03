@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F5BA96A0CB
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 16:37:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789321.1198910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 883E696A120
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 16:49:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789331.1198920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slUeA-00078l-3d; Tue, 03 Sep 2024 14:36:42 +0000
+	id 1slUpq-0002Bv-2i; Tue, 03 Sep 2024 14:48:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789321.1198910; Tue, 03 Sep 2024 14:36:42 +0000
+Received: by outflank-mailman (output) from mailman id 789331.1198920; Tue, 03 Sep 2024 14:48:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slUeA-000775-04; Tue, 03 Sep 2024 14:36:42 +0000
-Received: by outflank-mailman (input) for mailman id 789321;
- Tue, 03 Sep 2024 14:36:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1slUpq-0002AP-02; Tue, 03 Sep 2024 14:48:46 +0000
+Received: by outflank-mailman (input) for mailman id 789331;
+ Tue, 03 Sep 2024 14:48:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8q7v=QB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slUe9-00076z-4M
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 14:36:41 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ee45de5d-6a01-11ef-a0b2-8be0dac302b0;
- Tue, 03 Sep 2024 16:36:39 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-534366c194fso4964696e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 07:36:39 -0700 (PDT)
+ id 1slUpp-0002AJ-0b
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 14:48:45 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d4d0769-6a03-11ef-99a1-01e77a169b0f;
+ Tue, 03 Sep 2024 16:48:43 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5c25554ec1eso2452918a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 07:48:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226c6a3easm6595236a12.6.2024.09.03.07.36.38
+ a640c23a62f3a-a8989196980sm689440566b.126.2024.09.03.07.48.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 07:36:38 -0700 (PDT)
+ Tue, 03 Sep 2024 07:48:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee45de5d-6a01-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: 9d4d0769-6a03-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725374199; x=1725978999; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725374922; x=1725979722; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=n4lZ7ZV8yxqSafKwxSbvlJ6OwCJ5SUtLumb8R+Dwe3g=;
-        b=fyaTsjkdmlvICe1ac3aK4Jh+RSucBQ/BOTdkBAJy3JtY/aftFg+Hh+1TA3FwwlUpap
-         R6iSmLaBzY+uGM3zRsyHz2BihTgbOJw/GJYSWF9i2Cxhw4/JVf0nbshdfpwmNrQHjUXm
-         0DR3KO7zKbIdYqnFsqV0aT49Vm6378CluTI1O7nae9UzEfVSq1YNRfTXt9jnv3AmvQ6F
-         CuEzzHmzvfFe8tBotfNeu4kRYu6QN9Un25rgZQXf4lIFxuZWKO87dSOYgcoPsRxH8cSW
-         HI+mw1PkhiHYS8BakpGTkYQxPIg9DVQD5/v9sgjsqaIjlE6SuIMVKY63J3Xp/BuT5TaE
-         n5mw==
+        bh=0530P8oSHUKSUfhs1CqNj7TYnxltIeXXVo1D8tPtG1A=;
+        b=BlLdrneS7ukHQQ8DCC4TI+6GqH1wbvwz2wpqrN4ARg0jASaSkgMpuI/xb8uLfBXSjJ
+         G9w2GYFRNxH6MEknkTTCdutGQ+WD3mGOY+ZytQ/2xWQ+8N3lyMtSL/OW1XMF0pkMAzvp
+         BVBe6Igq2qTpA37p5m0xprGSwLePYzdRgA4Tx5f88+FRWJqT/Z6itdB/OC2UwXzminu4
+         0bsDTmfEJnUDZylPiT/pxgaVcgVcwc1Ddke1pYRueNNk1zflCY9Vr2wGL+AQiSht665u
+         GXPBPnHfJKAqu420aJ3Mac88LQo1Nf1CGA5WWN4oJ/bRPbODuGaTQ+inips/pOFCfrM/
+         SAAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725374199; x=1725978999;
+        d=1e100.net; s=20230601; t=1725374922; x=1725979722;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=n4lZ7ZV8yxqSafKwxSbvlJ6OwCJ5SUtLumb8R+Dwe3g=;
-        b=cVNeSU9KI6ZpTLt7tnfBspDcaLC6CmwxmJrgJsNzsBhW6VfQhcpBSrvXs1tqH1dn56
-         3yKI41tZY1JBkYAxx7J1TOefNR+j0w0J8sLQKvIj6oOPLCfQ6an9AbIkOvf2m7WEW7gI
-         uNVD9K9K4sd8oXFlmtVsytJhXWSm3C0qAaFmifHlQahewpNzQY8hORW2+mlQUslesxHz
-         6Oph3MtnOEaEWVs2VIwkQR/WtpOYmmgsJp7hhNpTkfUQZxa7h3O/L6/OOdw3LOLWw/i3
-         WsNoi5OHHZRaq9nXtjRss8aTlr4qrNUumw3tvnZ7S+WXywHfQjuP0PhxDZATP4hM7J/i
-         G2ZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX8BS/JvDfK3g6F/E1SkF1n5Le/TehWxV/lJDrOSh8WNDEeQxZJCo8JZrMqwoCzTRuyU/cy/JCqEh0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwuNwaunyJEvwImuZqm5Qm/XjUrwI5Lr54GiHBf4fhvgSBCLE24
-	75geKUFTGC1Zt1csAKZetIIxG2gX6KLuOBjGK8FqxES62nyNz6eed5zalYBXdw==
-X-Google-Smtp-Source: AGHT+IGge4D0KgLfKLVHuRXqfw9qsM8eem1fnegfCf0Ii8iCQCUqL33TRkb4my/VcyKnUPByK8wJJg==
-X-Received: by 2002:a05:6512:3d8f:b0:52e:76d5:9504 with SMTP id 2adb3069b0e04-53546b16af0mr10507627e87.3.1725374199192;
-        Tue, 03 Sep 2024 07:36:39 -0700 (PDT)
-Message-ID: <99b15fe5-34e0-44e4-a351-d510ae67b5a4@suse.com>
-Date: Tue, 3 Sep 2024 16:36:37 +0200
+        bh=0530P8oSHUKSUfhs1CqNj7TYnxltIeXXVo1D8tPtG1A=;
+        b=gN6k6Tp6incXpa+1vVih/cOhay5DU3DBBrurAdYOX+f4CNMH6BkBNj/1V5hp13gkg5
+         AwkDUaau5VfQ+Ay5e1LuaRyETPokR5WkUXdEu/qcFIjFBCIbSWxuJwOMeN+PC947freH
+         UDRN+/HyTuWguYTiHt58z0o9bnszn6UdLDgI1GrB3wq1z90b2s0j95y1e6gBOAg8+P5T
+         tPX9KsEbzxbyEvjU1JJUS5BZXlGKlLiDGdyZU5GYgMdMv/NR55EuQtXIKFtwK5wCUpyU
+         ir3HNkgul9uIgaZjVT8wMjr1Ku4AupJYmBNue1kpnoNkz3/o6LdE0+4q7fSHzsECp3NN
+         /2mQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVeBVN9XjB50zURH5oObzZPwc/N7Z9FqzPc2cTK2CExnCVM5bLUHDwcfo3SJ7l0bydbkjMWfJHqlGo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx34ssErk1yguzVygxcMq9mGTGjP8GMZzVdYp7z8HK5E/37QyeA
+	EE8ykP5q1SsxzIoqGwZQnbXMSchNwR686r+PgTHKMOQIR38VJbdbqL5a4EjHEA==
+X-Google-Smtp-Source: AGHT+IHNUN1SjSVR7mdGBm9CdR54ecJXlqEjKiVmZE7XOo1ZqTHOAzWkRKHEimKDsiF1bZV7WDRdJQ==
+X-Received: by 2002:a17:906:4fcc:b0:a86:b787:99ba with SMTP id a640c23a62f3a-a897fa74e6emr1105471966b.42.1725374922175;
+        Tue, 03 Sep 2024 07:48:42 -0700 (PDT)
+Message-ID: <3788d706-7000-4382-b162-f25fa595144a@suse.com>
+Date: Tue, 3 Sep 2024 16:48:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] blkif: reconcile protocol specification with in-use
- implementations
+Subject: Re: [PATCH v3 1/7] x86/time: introduce helper to fetch Xen wallclock
+ when running as a guest
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Paul Durrant <paul@xen.org>, Owen Smith <owen.smith@cloud.com>,
- Mark Syms <mark.syms@citrix.com>, Anthony Perard
- <anthony.perard@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <20240903141923.72241-1-roger.pau@citrix.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240903130303.71334-1-roger.pau@citrix.com>
+ <20240903130303.71334-2-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,125 +115,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240903141923.72241-1-roger.pau@citrix.com>
+In-Reply-To: <20240903130303.71334-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03.09.2024 16:19, Roger Pau Monne wrote:
-> Current blkif implementations (both backends and frontends) have all slight
-> differences about how they handle the 'sector-size' xenstore node, and how
-> other fields are derived from this value or hardcoded to be expressed in units
-> of 512 bytes.
-> 
-> To give some context, this is an excerpt of how different implementations use
-> the value in 'sector-size' as the base unit for to other fields rather than
-> just to set the logical sector size of the block device:
-> 
->                         │ sectors xenbus node │ requests sector_number │ requests {first,last}_sect
-> ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
-> FreeBSD blk{front,back} │     sector-size     │      sector-size       │           512
-> ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
-> Linux blk{front,back}   │         512         │          512           │           512
-> ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
-> QEMU blkback            │     sector-size     │      sector-size       │       sector-size
-> ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
-> Windows blkfront        │     sector-size     │      sector-size       │       sector-size
-> ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
-> MiniOS                  │     sector-size     │          512           │           512
-> 
-> An attempt was made by 67e1c050e36b in order to change the base units of the
-> request fields and the xenstore 'sectors' node.  That however only lead to more
-> confusion, as the specification now clearly diverged from the reference
-> implementation in Linux.  Such change was only implemented for QEMU Qdisk
-> and Windows PV blkfront.
-> 
-> Partially revert to the state before 67e1c050e36b:
-> 
->  * Declare 'feature-large-sector-size' deprecated.  Frontends should not expose
->    the node, backends should not make decisions based on its presence.
-> 
->  * Clarify that 'sectors' xenstore node and the requests fields are always in
->    512-byte units, like it was previous to 67e1c050e36b.
-> 
-> All base units for the fields used in the protocol are 512-byte based, the
-> xenbus 'sector-size' field is only used to signal the logic block size.  When
-> 'sector-size' is greater than 512, blkfront implementations must make sure that
-> the offsets and sizes (even when expressed in 512-byte units) are aligned to
-> the logical block size specified in 'sector-size', otherwise the backend will
-> fail to process the requests.
-> 
-> This will require changes to some of the frontends and backends in order to
-> properly support 'sector-size' nodes greater than 512.
-> 
-> Fixes: 67e1c050e36b ('public/io/blkif.h: try to fix the semantics of sector based quantities')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 03.09.2024 15:02, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -785,6 +785,31 @@ static struct platform_timesource __initdata_cf_clobber plt_xen_timer =
+>      .resume = resume_xen_timer,
+>      .counter_bits = 63,
+>  };
+> +
+> +static unsigned long read_xen_wallclock(void)
+> +{
+> +    struct shared_info *sh_info = XEN_shared_info;
+> +    uint32_t wc_version;
+> +    uint64_t wc_sec;
+> +
+> +    ASSERT(xen_guest);
+> +
+> +    do {
+> +        wc_version = sh_info->wc_version & ~1;
+> +        smp_rmb();
+> +
+> +        wc_sec  = sh_info->wc_sec;
+> +        smp_rmb();
+> +    } while ( wc_version != sh_info->wc_version );
+> +
+> +    return wc_sec + read_xen_timer() / 1000000000;
+> +}
+> +#else
+> +static unsigned long read_xen_wallclock(void)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +    return 0;
+> +}
+>  #endif
 
-Following the earlier discussion, I was kind of hoping that there would be
-at least an outline of some plan here as to (efficiently) dealing with 4k-
-sector disks. In the absence of that I'm afraid it is a little harder to
-judge whether the proposal here is the best we can do at this point.
+I understand you try to re-use an existing #ifdef here, but I wonder if I
+could talk you into not doing so and instead placing the #ifdef inside the
+(then single) function body. Less redundancy, less room for mistakes /
+oversights.
 
 Jan
-
-> --- a/xen/include/public/io/blkif.h
-> +++ b/xen/include/public/io/blkif.h
-> @@ -240,10 +240,6 @@
->   *      The logical block size, in bytes, of the underlying storage. This
->   *      must be a power of two with a minimum value of 512.
->   *
-> - *      NOTE: Because of implementation bugs in some frontends this must be
-> - *            set to 512, unless the frontend advertizes a non-zero value
-> - *            in its "feature-large-sector-size" xenbus node. (See below).
-> - *
->   * physical-sector-size
->   *      Values:         <uint32_t>
->   *      Default Value:  <"sector-size">
-> @@ -254,8 +250,8 @@
->   * sectors
->   *      Values:         <uint64_t>
->   *
-> - *      The size of the backend device, expressed in units of "sector-size".
-> - *      The product of "sector-size" and "sectors" must also be an integer
-> + *      The size of the backend device, expressed in units of 512b.
-> + *      The product of "sector-size" * 512 must also be an integer
->   *      multiple of "physical-sector-size", if that node is present.
->   *
->   *****************************************************************************
-> @@ -338,6 +334,7 @@
->   * feature-large-sector-size
->   *      Values:         0/1 (boolean)
->   *      Default Value:  0
-> + *      Notes:          DEPRECATED, 12
->   *
->   *      A value of "1" indicates that the frontend will correctly supply and
->   *      interpret all sector-based quantities in terms of the "sector-size"
-> @@ -411,6 +408,11 @@
->   *(10) The discard-secure property may be present and will be set to 1 if the
->   *     backing device supports secure discard.
->   *(11) Only used by Linux and NetBSD.
-> + *(12) Possibly only ever implemented by the QEMU Qdisk backend and the Windows
-> + *     PV block frontend.  Other backends and frontends supported 'sector-size'
-> + *     values greater than 512 before such feature was added.  Frontends should
-> + *     not expose this node, neither should backends make any decisions based
-> + *     on it being exposed by the frontend.
->   */
->  
->  /*
-> @@ -621,9 +623,12 @@
->  /*
->   * NB. 'first_sect' and 'last_sect' in blkif_request_segment, as well as
->   * 'sector_number' in blkif_request, blkif_request_discard and
-> - * blkif_request_indirect are sector-based quantities. See the description
-> - * of the "feature-large-sector-size" frontend xenbus node above for
-> - * more information.
-> + * blkif_request_indirect are all in units of 512 bytes, regardless of whether the
-> + * 'sector-size' xenstore node contains a value greater than 512.
-> + *
-> + * However the value in those fields must be properly aligned to the logical
-> + * sector size reported by the 'sector-size' xenstore node, see 'Backend Device
-> + * Properties' section.
->   */
->  struct blkif_request_segment {
->      grant_ref_t gref;        /* reference to I/O buffer frame        */
-
 
