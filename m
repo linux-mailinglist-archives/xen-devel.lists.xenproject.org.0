@@ -2,47 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF1B7969719
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 10:32:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.788821.1198291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74EAA969722
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 10:32:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.788829.1198306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slOwo-0006YO-VM; Tue, 03 Sep 2024 08:31:34 +0000
+	id 1slOxv-0007VR-8Y; Tue, 03 Sep 2024 08:32:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 788821.1198291; Tue, 03 Sep 2024 08:31:34 +0000
+Received: by outflank-mailman (output) from mailman id 788829.1198306; Tue, 03 Sep 2024 08:32:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slOwo-0006Vc-S7; Tue, 03 Sep 2024 08:31:34 +0000
-Received: by outflank-mailman (input) for mailman id 788821;
- Tue, 03 Sep 2024 08:31:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=oAku=QB=ti.com=vaishnav.a@srs-se1.protection.inumbo.net>)
- id 1slOwn-0006Sh-N9
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 08:31:33 +0000
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ead6f782-69ce-11ef-99a1-01e77a169b0f;
- Tue, 03 Sep 2024 10:31:30 +0200 (CEST)
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 4838VFVq012845;
- Tue, 3 Sep 2024 03:31:15 -0500
-Received: from DFLE107.ent.ti.com (dfle107.ent.ti.com [10.64.6.28])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 4838VFgC017237
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 3 Sep 2024 03:31:15 -0500
-Received: from DFLE102.ent.ti.com (10.64.6.23) by DFLE107.ent.ti.com
- (10.64.6.28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 3
- Sep 2024 03:31:15 -0500
-Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DFLE102.ent.ti.com
- (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Tue, 3 Sep 2024 03:31:15 -0500
-Received: from uda0490681.. ([10.24.69.142])
- by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 4838V7kV085647;
- Tue, 3 Sep 2024 03:31:12 -0500
+	id 1slOxv-0007Su-5K; Tue, 03 Sep 2024 08:32:43 +0000
+Received: by outflank-mailman (input) for mailman id 788829;
+ Tue, 03 Sep 2024 08:32:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5tXF=QB=bounce.vates.tech=bounce-md_30504962.66d6c9a7.v1-096c52b5589343dda023f5bc3b4cbfa2@srs-se1.protection.inumbo.net>)
+ id 1slOxt-0007Gc-4U
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 08:32:41 +0000
+Received: from mail135-11.atl141.mandrillapp.com
+ (mail135-11.atl141.mandrillapp.com [198.2.135.11])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 14ad7d22-69cf-11ef-a0b2-8be0dac302b0;
+ Tue, 03 Sep 2024 10:32:40 +0200 (CEST)
+Received: from pmta14.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail135-11.atl141.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Wyf530sZpzLfH1Zl
+ for <xen-devel@lists.xenproject.org>; Tue,  3 Sep 2024 08:32:39 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 096c52b5589343dda023f5bc3b4cbfa2; Tue, 03 Sep 2024 08:32:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,99 +43,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ead6f782-69ce-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1725352275;
-	bh=r/ew5NOkndZuuSGNjvFeQtkZxHPlPPdvrvcAeP2sPk0=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=iyxhHipF1DQ0ReaLJvbtU/7qwSw1BGXTTuacfNUnJrpm8Si0ASDZJfq/51w450eSx
-	 wbeyOfcEo531rhHlj4Q33fr0avviu8QKc3jIg3pcgtgZH0XgAKuxhuUdQs5o7eReEc
-	 u01Mo1iOYwinUPkEQ5WV/Rfaixeh5k3slOc42YH0=
-From: Vaishnav Achath <vaishnav.a@ti.com>
-To: <tglx@linutronix.de>, <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>,
-        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
-        <u-kumar1@ti.com>, <vaishnav.a@ti.com>
-Subject: [RFC DONOTMERGE PATCH 1/1] arm64: dts: ti: k3-am62p-main: Add interrupts property for DMSS INTA
-Date: Tue, 3 Sep 2024 14:01:07 +0530
-Message-ID: <20240903083107.3562816-2-vaishnav.a@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240903083107.3562816-1-vaishnav.a@ti.com>
-References: <20240903083107.3562816-1-vaishnav.a@ti.com>
+X-Inumbo-ID: 14ad7d22-69cf-11ef-a0b2-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1725352359; x=1725612859;
+	bh=wCHqlXP1stAcHaoCgYEV5pAQXD3geJJLEaZMxxeyDjw=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=oDskWkbRq/r9ALwTwdxdHLbmDeCym4uQec4ctw9mMfyW4HTtT7Vv03XIH1y29I9nk
+	 dkt4kQJysy/lu8Dyjl+L23pCZoC4ig8q/gDtOs1iypsKQJsMhHtx5t8R7mpJhFQ/WQ
+	 JrcTL5WOKAbOiGnC+YDP03XoNOSyCsQ13c/+uxy4WdoL/h0H0h2+dYk/Pith4w7UNk
+	 OUJlNQwUv7rmhwGQnr+T18fZ1pV2wnKzj5c7TxERP3FjMdXbY4Y9QT2cVGYQTxRLYM
+	 Csbrm9H5RkxYWHaepis/sxPZJe0xs1Vc75JxTlTbaQwMFSOHVRzuugrpykT+fHltUf
+	 FAdKFtUxBkILw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1725352359; x=1725612859; i=anthony.perard@vates.tech;
+	bh=wCHqlXP1stAcHaoCgYEV5pAQXD3geJJLEaZMxxeyDjw=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=m+bo3O73UBL+Yf5J8fxETjkr2tMomeiy0eMEG5PUvTe9BKON2M8qtEmzlaxZB/tjw
+	 opQodOmoh22zeWL/wqpFgnDxatXKGdOLg4ntTpHOBgBopYotgWCajVFJ+vJKu4WvS8
+	 qO+p84tOxI+9ElcaUoimjtUWh0huHcFR7oxeQsS7ok/3daTKPasOFLBjj1Cy58Y7yj
+	 GZXSNFPp/HsyqHuRobN2BbnC+0eo3OKSDf8QXNPH4oNkPgutI1F7bipp7MWNn639O/
+	 m2NfjJZpicNFjK6kZdpohnOEIzm7gxsRsO4qhHren0QvdHOrDmQRiUkYwD9y9I1+LU
+	 QOxND44I3dcFw==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[XEN=20PATCH=20v3=203/3]=20libxl:=20Update=20the=20documentation=20of=20libxl=5Fxen=5Fconsole=5Fread=5Fline()?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1725352357728
+To: Javi Merino <javi.merino@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
+Message-Id: <ZtbJpXs92Lkh8Q0t@l14>
+References: <cover.1725294334.git.javi.merino@cloud.com> <d41d73d56713685fb9ca7ab636898b54254ebdbc.1725294334.git.javi.merino@cloud.com>
+In-Reply-To: <d41d73d56713685fb9ca7ab636898b54254ebdbc.1725294334.git.javi.merino@cloud.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.096c52b5589343dda023f5bc3b4cbfa2?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240903:md
+Date: Tue, 03 Sep 2024 08:32:39 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-The interrupt aggregator in DMSS for TI K3 devices currently uses a
-custom vendor property "ti,interrupt-ranges" to specify the interrupt
-source to parent mapping. As per interrupt controller bindings [1],
-it is mandatory for Nodes that describe devices which generate
-interrupts to contain an "interrupts" property, an "interrupts-extended"
-property, or both. Add interrupts property to the Interrupt aggregator
-node so that the mapping is specified in a standard manner.
+On Mon, Sep 02, 2024 at 05:38:39PM +0100, Javi Merino wrote:
+> Despite its name, libxl_xen_console_read_line() does not read a line,
+> it fills the buffer with as many characters as fit.  Update the
+> documentation to reflect the real behaviour of the function.  Rename
+> line_r to avoid confusion since it is a pointer to an array of
+> characters.
+> 
+> Signed-off-by: Javi Merino <javi.merino@cloud.com>
 
-1 - https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/interrupt-controller/interrupts.txt
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Signed-off-by: Vaishnav Achath <vaishnav.a@ti.com>
----
+Thanks,
 
-DONOTMERGE - while adding the interrupts property helps to conform to the
-bindings, it is difficult to maintain the long list and this is not the only
-platform affected, if this is the direction to fix it, I will fix for all K3
-platforms together, more details on RFC in cover letter.
-
- arch/arm64/boot/dts/ti/k3-am62p-main.dtsi | 35 +++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/ti/k3-am62p-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-main.dtsi
-index 420c77c8e9e5..0c7912d177fe 100644
---- a/arch/arm64/boot/dts/ti/k3-am62p-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62p-main.dtsi
-@@ -40,6 +40,41 @@ &oc_sram {
- 
- &inta_main_dmss {
- 	ti,interrupt-ranges = <5 69 35>;
-+	interrupts = <GIC_SPI 37 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 41 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 42 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 44 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 45 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 54 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 68 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 70 IRQ_TYPE_LEVEL_HIGH>,
-+		     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>;
- };
- 
- &main_pmx0 {
 -- 
-2.34.1
 
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
