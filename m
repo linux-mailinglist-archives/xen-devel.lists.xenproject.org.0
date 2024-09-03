@@ -2,42 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BBA5969955
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 11:40:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.788906.1198415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64E539699B2
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 12:04:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.788917.1198425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slQ0u-0002hq-5P; Tue, 03 Sep 2024 09:39:52 +0000
+	id 1slQOT-0000Es-TV; Tue, 03 Sep 2024 10:04:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 788906.1198415; Tue, 03 Sep 2024 09:39:52 +0000
+Received: by outflank-mailman (output) from mailman id 788917.1198425; Tue, 03 Sep 2024 10:04:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slQ0u-0002gJ-1h; Tue, 03 Sep 2024 09:39:52 +0000
-Received: by outflank-mailman (input) for mailman id 788906;
- Tue, 03 Sep 2024 09:39:50 +0000
+	id 1slQOT-0000Da-QG; Tue, 03 Sep 2024 10:04:13 +0000
+Received: by outflank-mailman (input) for mailman id 788917;
+ Tue, 03 Sep 2024 10:04:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=u+Iv=QB=redhat.com=mst@srs-se1.protection.inumbo.net>)
- id 1slQ0s-0002d1-NP
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 09:39:50 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dg68=QB=bounce.vates.tech=bounce-md_30504962.66d6df17.v1-cc65731259ce4dcdb66d9d1ad6ebef1b@srs-se1.protection.inumbo.net>)
+ id 1slQOR-0000Cj-VI
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 10:04:12 +0000
+Received: from mail177-17.suw61.mandrillapp.com
+ (mail177-17.suw61.mandrillapp.com [198.2.177.17])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75768e6b-69d8-11ef-99a1-01e77a169b0f;
- Tue, 03 Sep 2024 11:39:48 +0200 (CEST)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-570-cKnan7THOsWkPt_fmuljOg-1; Tue, 03 Sep 2024 05:39:46 -0400
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-428040f49f9so47754165e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 02:39:46 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc7:441:95c6:9977:c577:f3d1:99e1])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42bb6df0f41sm164222235e9.19.2024.09.03.02.39.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Sep 2024 02:39:43 -0700 (PDT)
+ id dc1c7e1a-69db-11ef-99a1-01e77a169b0f;
+ Tue, 03 Sep 2024 12:04:09 +0200 (CEST)
+Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail177-17.suw61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4Wyh6b5WqGzRKLh70
+ for <xen-devel@lists.xenproject.org>; Tue,  3 Sep 2024 10:04:07 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ cc65731259ce4dcdb66d9d1ad6ebef1b; Tue, 03 Sep 2024 10:04:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,67 +43,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75768e6b-69d8-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1725356387;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cIxA/7+yR2jXA4ieeKPuD5EUL5lArHR8csGiCMl6eW4=;
-	b=Hh5kBEjOrdKZk3kRJinPc6wdUa5u6DXLTuWECSxYMTKrHHUGqSFrQ2EZzMzn9n3jPjSkDp
-	GC6ifzE63Y1thpL3mpxcPpx/fxnMhjD+tQ5mrxZr3Pk0X0fXkFZ29JbgHWf97tb3WJzpaF
-	VBc2DqBSZXXc3dJ3AutwG9VxR12KmZ0=
-X-MC-Unique: cKnan7THOsWkPt_fmuljOg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725356385; x=1725961185;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cIxA/7+yR2jXA4ieeKPuD5EUL5lArHR8csGiCMl6eW4=;
-        b=lfGdR18+o07XVi1viD8z/DMpdnio2xz0OmdRU3fUO9HNvxV8yo78CS2XTBN9sJAQIb
-         wtjdl/52oTwWL1mF/mune6lSBRXdI8NmbUffhGD9paguxrxQPk+XGpvTNFj1S1R1b5Va
-         nXFrNTBSDUWxiEA0045jdfI9oJbxY06WIh/7z3vpIM0KSYtxDrZrdW8CRnXeJy8b6sNF
-         ksKaCGd+9dm0260aSrNTToAYXLAyUBI39W3lOz+k84iSCkg4H/wq0gtbAzqNo6mq1Fsm
-         IH3N4qNvLgyEZ54pPumJWUz8Tzmr+QJizVvysOzj+drl2NCcTt/olzz765UzyYZKaZ1c
-         ehWA==
-X-Forwarded-Encrypted: i=1; AJvYcCXr2WMVi276uJ0xNSbD94UAZpWkVvibF7bwZ2PNjzCEtgCAzD1xizALJOCFWlVFoibwcaBBa63qGLI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzmueWOgFz4G17FmlQOYssLmbFXi/pZpJKFGXjzxv+9vgNVNJBc
-	3XyqdZv/JORtkAsrtrZKwfC4WUm1J+DxZNyatFOapyXnkwgtEblC3TpcpAfxx1DGkvYCMZr86EX
-	n8QYrPgXmVQxcci8nNkqjneGwnkfOnCH2fYb3PdsRnULFpaZEkYMuGhEsQAE0MZFy
-X-Received: by 2002:a05:600c:1f90:b0:429:dc88:7e65 with SMTP id 5b1f17b1804b1-42bb02ecb7emr124596405e9.12.1725356385061;
-        Tue, 03 Sep 2024 02:39:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEx9ZT+cp/JOzMdJ0eMMwlRMn2QkU5Mi38V0c6sZIqJTMhc/MD50iSbcQF046e0ymvaKlJlng==
-X-Received: by 2002:a05:600c:1f90:b0:429:dc88:7e65 with SMTP id 5b1f17b1804b1-42bb02ecb7emr124595995e9.12.1725356384137;
-        Tue, 03 Sep 2024 02:39:44 -0700 (PDT)
-Date: Tue, 3 Sep 2024 05:39:39 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: iommu@lists.linux.dev, Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@intel.com>, Jason Wang <jasowang@redhat.com>,
-	linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
-	linux-media@vger.kernel.org, virtualization@lists.linux.dev,
-	xen-devel@lists.xenproject.org
-Subject: Re: clearly mark DMA_OPS support as an architecture feature v2
-Message-ID: <20240903053917-mutt-send-email-mst@kernel.org>
-References: <20240828061104.1925127-1-hch@lst.de>
- <20240903072744.GA2082@lst.de>
+X-Inumbo-ID: dc1c7e1a-69db-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1725357847; x=1725618347;
+	bh=9DlAs+eivbH8mpYonrPMWN9M2M+wRA8qsbZyTT4HPSQ=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=PPlBR3ytVn1R+EUilzry4+XYugd+C0n8BE6T0Y/jQJ1NOET40c1KGEkV3D+mkGsBz
+	 /tKFvsOyRFD4h3veef8jEoup7tGdsteumlFIPsVEdgrNpiObJP9efJFh5eTtu6krZu
+	 2FKFJ2h/Md6QoNWjCztj5b9JiTmqI1tyBg0JfArm0PDs7EAWVA8ps/HmeczzPT8QEs
+	 MSpvTvbLa4kXV698rLxZlBW9R69EXbQ4vDJtR6mjd2fn2idkO9NVCjTik+NcGO6cG9
+	 7ycv8B+3UG7Y3ma9rExxSyeH27HebJ5UcAN/PLkLhcVSWG/GxLD/1AM7qKBDTNqHig
+	 fbusB5tIqYR5g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1725357847; x=1725618347; i=anthony.perard@vates.tech;
+	bh=9DlAs+eivbH8mpYonrPMWN9M2M+wRA8qsbZyTT4HPSQ=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=vrEj+7unRhA3B67UGB8UwMZUGPrVf+vi5/S6YIHGdtXubaqoCic/ddYfGEmm5klpC
+	 kUcWbHsodkIVhqMI9OxlIeajkPQ0McG9GWN6QyzHKXmKe5lfE+5hQ5d71DOkBqCj53
+	 L4n4Hf51yQ69WRdg2d6Lswe1suTNhCLseCuifju590lQ4jpSEsCQiAr87jOtlxcwK/
+	 f4KLvwBSI06g7MSpZB8OF3l4Nmzgcg3VShOxP4bcY27mYse+Y1K/Uz2nVR0d9E1lVa
+	 ctL3LflV/5qdxCTeEM++mg/493oWe4qBa91R7XiyyetOzSAnnMt3pWjaWmGj2bPrBc
+	 0AYQJ0KvrbECA==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[XEN=20PATCH]=20CHANGELOG:=20Update=20after=20fixing=20dm=5Frestrict?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1725357846856
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>, Community Manager <community.manager@xenproject.org>, xen-devel@lists.xenproject.org
+Message-Id: <ZtbfFlXZVfiMA8Zg@l14>
+References: <20240903085311.49818-1-anthony.perard@vates.tech> <d4ed5e07-c938-4d38-a49c-5c451c0c3a89@suse.com>
+In-Reply-To: <d4ed5e07-c938-4d38-a49c-5c451c0c3a89@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.cc65731259ce4dcdb66d9d1ad6ebef1b?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240903:md
+Date: Tue, 03 Sep 2024 10:04:07 +0000
 MIME-Version: 1.0
-In-Reply-To: <20240903072744.GA2082@lst.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 03, 2024 at 09:27:44AM +0200, Christoph Hellwig wrote:
-> I've pulled this into the dma-mapping for-next tree, although I'd
-> love to see one of the vdpa maintainers look over patch 1.  I'm
-> pretty sure it's correct, but a confirmation would be good.
+On Tue, Sep 03, 2024 at 11:20:37AM +0200, Jan Beulich wrote:
+> On 03.09.2024 10:54, Anthony PERARD wrote:
+> > --- a/CHANGELOG.md
+> > +++ b/CHANGELOG.md
+> > @@ -16,6 +16,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+> >   - On x86:
+> >     - Support for running on Xeon Phi processors.
+> >  
+> > +### Fixed
+> > + - Fixed xl/libxl dm\_restrict feature with QEMU 9.0.
+> > +
+> > +
+> >  ## [4.19.0](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.19.0) - 2024-07-29
+> >  
+> >  ### Changed
+> 
+> We had no "### Fixed" so far, and I think we also shouldn't gain any. Imo
+> this wants expressing in term of "### Changed", also wording the text
+> accordingly (needing to adapt to qemu changes isn't a bug fix, strictly
+> speaking, but more an enhancement in my view).
 
-Missed patch 1, I was wondering why I'm CC'd. Looks good, thanks.
+From our CHANGELOG.md:
+> The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+following the link, there is:
+
+> Types of changes
+> 
+> - `Added` for new features.
+> - `Changed` for changes in existing functionality.
+> - `Deprecated` for soon-to-be removed features.
+> - `Removed` for now removed features.
+> - `Fixed` for any bug fixes.
+> - `Security` in case of vulnerabilities.
+
+So, are we not following keepachangelog.com format? Is there another
+document/email/discussion describing which category are allowed?
+
+Been compatible with newer version of dependencies doesn't feels like an
+existing functionality have changed. It feels more like a fix to the bug
+"can't start guest with newer QEMU".
+
+Thanks,
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
