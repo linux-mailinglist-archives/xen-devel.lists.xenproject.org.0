@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAC3396AC9C
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 01:05:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789642.1199231 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74BF496ACB2
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 01:19:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789648.1199243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slcZv-0006rJ-Ah; Tue, 03 Sep 2024 23:04:51 +0000
+	id 1slcnW-00019l-FX; Tue, 03 Sep 2024 23:18:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789642.1199231; Tue, 03 Sep 2024 23:04:51 +0000
+Received: by outflank-mailman (output) from mailman id 789648.1199243; Tue, 03 Sep 2024 23:18:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slcZv-0006p4-87; Tue, 03 Sep 2024 23:04:51 +0000
-Received: by outflank-mailman (input) for mailman id 789642;
- Tue, 03 Sep 2024 23:04:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1slcnW-00016a-CF; Tue, 03 Sep 2024 23:18:54 +0000
+Received: by outflank-mailman (input) for mailman id 789648;
+ Tue, 03 Sep 2024 23:18:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7TnF=QB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1slcZt-0006ow-Mr
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 23:04:49 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eacebab8-6a48-11ef-a0b2-8be0dac302b0;
- Wed, 04 Sep 2024 01:04:48 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-5334879ba28so8154300e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 16:04:48 -0700 (PDT)
+ id 1slcnU-00016U-S2
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 23:18:52 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e111de2f-6a4a-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 01:18:50 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a8696e9bd24so702602266b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 16:18:50 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8988feb0fcsm733304166b.45.2024.09.03.16.04.45
+ a640c23a62f3a-a8988feb0e5sm748608966b.12.2024.09.03.16.18.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 16:04:45 -0700 (PDT)
+ Tue, 03 Sep 2024 16:18:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eacebab8-6a48-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: e111de2f-6a4a-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725404687; x=1726009487; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725405530; x=1726010330; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hqDkJDH5mdDBCaIv/mDMJeLTgIaBr1scXTEiggFjEUE=;
-        b=ogk1B4zhMpfh+PdYGHKCi80ifHKE4QgH7jEEUkuw2uO87xfGhfW5+el2RLb58FVmwd
-         6UvCDObX4jZ1RMdC5zpZai8TUH1m4hc18udJ2YdkjaA99K3CXqpkzmNUTz0if4IcrXDX
-         91BKdZDn9DBagwH4gwspMMDZOeoECSuJzSLV4=
+        bh=Fh30vOHE46AppWpSAnrJXV/URG528mvkcYlXLiKgSJw=;
+        b=Zcq2wxA9+NIk3Ae+VvpjssfEX5qNuGbHSWW5G7VaLY190U2yWywNSn/TKVbw6xBLoZ
+         cSRob9JeNATsz7B+Ue6OwwRsigXQlx/Tfi16mYU3/8BDBJTedpUSHStyoX4UOLp+069v
+         CG9lWf93s+Xzb1lIhfEoQY+XdwJQ2dpH+n1us=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725404687; x=1726009487;
+        d=1e100.net; s=20230601; t=1725405530; x=1726010330;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hqDkJDH5mdDBCaIv/mDMJeLTgIaBr1scXTEiggFjEUE=;
-        b=gbN9OQB35yYfxcGQC6as+if44LJQ3L5PZtS86XCGHioy2Nu2Oa3UY5/+h39dg5Lw6Q
-         NERwVhuVch1WW8ZU0olKSna90mEQFGBHEgRDNDQYRE+jKUhViInHVmFGssSCEoBHyLuO
-         SMghpIKdUKAFWzd5t7cp8vrE0RyOr9ovcdQgml0xnuyb3YLIeiz9828b1gwl2uBPHLDu
-         bx6G6Sm12SR2/zhkA0+WqOcJCCVdNV8BUe7FPogwfSsk5uMenZ/U84qx0HW7MKAncxZM
-         YG6/47A0/lSKwRmOIcsgCJ3MmIEfZatviJYZ2S2goAFkwPZabb/9fA5SvKimdJrLy7pj
-         yk9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXuHq4YmgjGRa6Qna0VuSBZ1BN6dhABAnCLt218/7L76ceGCojMEgdQCBWf55pByb5YposgKckJmY0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzBgCa9lFWrOv26wh506mjBoaAzGzMWp1jiYtDIeIzQX3qQe0s7
-	Qahzd6LGV2MO4fj9sDcZJ6xJyKZTJRdjf3etB15IGuaUWotfnw6rr0XgrxeYJAM=
-X-Google-Smtp-Source: AGHT+IHdhwOHz7sqLXahyxt7BdJQkukOujai/PjReGRM2O89vztM8BXxZvKjphtcrT75ag5bLetJ2A==
-X-Received: by 2002:a05:6512:2247:b0:533:d3e:16e6 with SMTP id 2adb3069b0e04-53546b2d65fmr12240587e87.25.1725404686834;
-        Tue, 03 Sep 2024 16:04:46 -0700 (PDT)
-Message-ID: <287f0214-2278-4032-bcc3-db14936f1985@citrix.com>
-Date: Wed, 4 Sep 2024 00:04:45 +0100
+        bh=Fh30vOHE46AppWpSAnrJXV/URG528mvkcYlXLiKgSJw=;
+        b=qpcfxnZ2mQCnNMo2eiGpmuByOtHjj3EungQ+NPQ4j9VpsvzZIXRfa6hUo9DGgI5BUG
+         DECWRXa8I9hhXpwuh8VUGay/1qs/cGBNNqV1nCc72xND2A/T0UEmRImhpKmGCXLi+Z5p
+         COGTj3Rt/X3CPl2hlb/Jb06RL+VMfbx10VEsnA7QftebU2K/6LSy9I6JgKZ0d2td72+P
+         faPJtkCuUkUrm5zSyWLF4wHOXhUnhlFGGJ5uP71P4EMGytpnrM3cdv0CbRdsj+HcuKqc
+         0/+rvIt+Xe5+xx6HG48q6W5TMGYg7G1m4afAyIRZ/4r0dDlyUZf9u4TBEToj06YOGbYP
+         Xj1g==
+X-Forwarded-Encrypted: i=1; AJvYcCVvZV+xCHK1qkYWGcfWO7yK1NOQ8z2OsbzYCBUH45ojFcDJyUBxLCv8/0S5bfZIJUrJE1ulQM6Vkp4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz1IBMiSqt3sOtwhaJPIeLAEOGqn0FjP1p7apa3Kvo9JNXUP2f6
+	feyJW/wF9IdnHObs4dGJV+AJhbToSQiF4aALQQXyCIdnOWfJDbMhIzY/bn/QrAE=
+X-Google-Smtp-Source: AGHT+IFFoK/KXSG/I67KRSP4zI6oVQ50CHXV32em+RVKa72mLRjtAm1wrCROiiE6I8NA4pHJPg/6YQ==
+X-Received: by 2002:a17:907:970f:b0:a86:894e:cd09 with SMTP id a640c23a62f3a-a897f78bdb5mr1507565666b.9.1725405529694;
+        Tue, 03 Sep 2024 16:18:49 -0700 (PDT)
+Message-ID: <1a185804-2ffe-4d70-8219-b55992836ac6@citrix.com>
+Date: Wed, 4 Sep 2024 00:18:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/44] x86/boot: move cmdline to boot info
+Subject: Re: [PATCH v4 04/44] x86/boot: move mmap info to boot info
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-4-dpsmith@apertussolutions.com>
+ <20240830214730.1621-5-dpsmith@apertussolutions.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,54 +131,65 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240830214730.1621-4-dpsmith@apertussolutions.com>
+In-Reply-To: <20240830214730.1621-5-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
-> Transition Xen's command line to being held in struct boot_info.
+> Transition the memory map info to be held in struct boot_info.
 >
 > No functional change intended.
 >
 > Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index 432b7d1701e4..a945fa10555f 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1049,11 +1058,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+> ---
+>  xen/arch/x86/include/asm/bootinfo.h |  5 +++++
+>  xen/arch/x86/setup.c                | 12 +++++++++---
+>  2 files changed, 14 insertions(+), 3 deletions(-)
+>
+> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+> index d2ca077d2356..e785ed1c5982 100644
+> --- a/xen/arch/x86/include/asm/bootinfo.h
+> +++ b/xen/arch/x86/include/asm/bootinfo.h
+> @@ -8,11 +8,16 @@
+>  #ifndef __XEN_X86_BOOTINFO_H__
+>  #define __XEN_X86_BOOTINFO_H__
 >  
->      multiboot_to_bootinfo(mbi);
+> +#include <xen/types.h>
+> +
+>  struct boot_info {
+>      unsigned int nr_mods;
 >  
-> -    /* Parse the command-line options. */
-> -    if ( mbi->flags & MBI_CMDLINE )
-> -        cmdline = cmdline_cook(__va(mbi->cmdline), boot_info->boot_loader_name);
-> -
-> -    if ( (kextra = strstr(cmdline, " -- ")) != NULL )
-> +    if ( (kextra = strstr(boot_info->cmdline, " -- ")) != NULL )
+>      const char *boot_loader_name;
+>      const char *cmdline;
+> +
+> +    paddr_t mmap_addr;
+> +    uint32_t mmap_length;
+
+memmap please.
+
+> @@ -1200,13 +1206,13 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
 >      {
->          /*
->           * Options after ' -- ' separator belong to dom0.
-> @@ -1064,7 +1069,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->          kextra += 3;
->          while ( kextra[1] == ' ' ) kextra++;
+>          memmap_type = "Xen-e820";
 >      }
-> -    cmdline_parse(cmdline);
-> +    cmdline_parse(boot_info->cmdline);
+> -    else if ( mbi->flags & MBI_MEMMAP )
+> +    else if ( boot_info->mmap_addr )
+>      {
+>          memmap_type = "Multiboot-e820";
+> -        while ( bytes < mbi->mmap_length &&
+> +        while ( bytes < boot_info->mmap_length &&
+>                  e820_raw.nr_map < ARRAY_SIZE(e820_raw.map) )
+>          {
+> -            memory_map_t *map = __va(mbi->mmap_addr + bytes);
+> +            memory_map_t *map = __va(boot_info->mmap_addr + bytes);
+>  
+>              /*
+>               * This is a gross workaround for a BIOS bug. Some bootloaders do
 
-It would be nice to get this kextra handling out of __start_xen(), but
-I'm not entirely sure how.
+This is some very gnarly logic.  pvh_init() plays with e820_raw behind
+the scenes and doesn't set MBI_MEMMAP.
 
-It shouldn't live in multiboot_fill_boot_info() if that's going to be
-split for pvh, yet it really ought to live with the other editing of
-bi->cmdline.
-
-Something that is very subtle is that the *kextra = '\0' between these
-two hunks ends up truncating bi->cmdline.
-
-Perhaps best to leave it alone until inspiration strikes.
+Perhaps for later cleanup too, this logic wants folding into the new
+multiboot_fill_boot_info() and leave __start_xen().
 
 ~Andrew
 
