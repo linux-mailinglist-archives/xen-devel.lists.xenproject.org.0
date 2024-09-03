@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00A839695DE
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 09:42:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.788717.1198180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 623BE969632
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 09:54:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.788726.1198190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slOBT-00008b-B4; Tue, 03 Sep 2024 07:42:39 +0000
+	id 1slOML-0002q5-9b; Tue, 03 Sep 2024 07:53:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 788717.1198180; Tue, 03 Sep 2024 07:42:39 +0000
+Received: by outflank-mailman (output) from mailman id 788726.1198190; Tue, 03 Sep 2024 07:53:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slOBT-00005o-7f; Tue, 03 Sep 2024 07:42:39 +0000
-Received: by outflank-mailman (input) for mailman id 788717;
- Tue, 03 Sep 2024 07:42:38 +0000
+	id 1slOML-0002oV-6H; Tue, 03 Sep 2024 07:53:53 +0000
+Received: by outflank-mailman (input) for mailman id 788726;
+ Tue, 03 Sep 2024 07:53:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8q7v=QB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slOBS-00005c-3U
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 07:42:38 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1slOMJ-0002oP-Ea
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 07:53:51 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 141f409f-69c8-11ef-99a1-01e77a169b0f;
- Tue, 03 Sep 2024 09:42:32 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a86984e035aso595822266b.2
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 00:42:35 -0700 (PDT)
+ id a794dbf1-69c9-11ef-99a1-01e77a169b0f;
+ Tue, 03 Sep 2024 09:53:49 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a86910caf9cso1035568466b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 00:53:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989221c55sm649923866b.194.2024.09.03.00.42.34
+ a640c23a62f3a-a89892223dbsm644112666b.202.2024.09.03.00.53.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 00:42:34 -0700 (PDT)
+ Tue, 03 Sep 2024 00:53:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 141f409f-69c8-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: a794dbf1-69c9-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725349355; x=1725954155; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725350029; x=1725954829; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qIH3O/ZMdv28jjdWSUaQ90KAl8Wc/O07xbHeFXgYjOw=;
-        b=bra2Huu3xvn2WcXHrrfIIwLoPFhJooEHFyU0u+f/cb+toKC6DXaPca+rDXfeW3tXLL
-         TPt9aGwA+6lj7hAHH2KjY90sK0inAUlQJz0ImRIuPeU7lN6NjYW1luF1JccI+d+LEEuW
-         Dn/MXIyeELZZ6xCD7sv/xECL3aF7o6L4DbDI1MNSLvoKOvA4qBcW4Sjqq314a1T6WF6b
-         u0AAUn0lQItO+2PFh/QB7gfRY5vmDktlvXfsox//PZWbsFvkt+3AirsQ1HKBz1MVH5JE
-         9nILhpu4BzSxJ0UKWyIwfj1O6+lrUhYFmpVUK16XpFghGfHB49HoZlAHuqnOaA+xVqTy
-         rYuw==
+        bh=87/yEiyqdST7u7bqP6CeV349Mjoz6tSSVOlY8vgn7kw=;
+        b=XzqHsTfgS+EC8o9oVs0JIcQHLW4MNrNG1GrxHHigM9/xgZLPD3LOhLA8AFNQR0hlRy
+         PXRTDlfVoXZKJwl6B7h4XsBT78vOZpR90SabaMGnx1Uqs1RVxnW433c/RrniBN04h15J
+         rpgSedJA/d0eVUJrD44IqRG+Jg9nvDmlLILOC5U9uekL/logNfJzC9ZoUidzQYE8Oe6c
+         sfykXWnEXqp5S6PiKWMfXfSdHfOguwvi+A+TESxvkit1p8Eek2LHfLEW710Kmhm2NKJT
+         lzIvbMkDjF1Ghaf/mhytIprWdVJpSn6x6ly0SfxuUqn2FWGTMWRLv+gqJr2q1YS4BOyH
+         XBsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725349355; x=1725954155;
+        d=1e100.net; s=20230601; t=1725350029; x=1725954829;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qIH3O/ZMdv28jjdWSUaQ90KAl8Wc/O07xbHeFXgYjOw=;
-        b=AW1BeXgLAF5KCr7++X8ZND5ehUZYIwJ7YJ2MwqEkQMfZ7yTQqX2xuJ+ZcK9swO73rk
-         F0+GSVn2gF0pUfFgF06oHz7VBRyApR4rJ87BUF+E90Treg8t2TdqyuPSQmqkYL8nUlLm
-         KYsMRUwze6vXGV+s1z/103XTuJ8hUTXp3GgK/PQDv29jXfMP8R/x3xZ4adMEDcYKDx0v
-         IvUfrK8x0FlwRkpZEr4kEo5jGCVuwQ+dciDoHy9GdrSEmiww8jmL1+Fw+9dmRyMlBHyu
-         WAsDx2kkSVLF/9oURgDS3MDsOSTEs52aDRs4psSp52CvDWm+kVP3R8HNcSQHOhJ9/ayt
-         1Y7w==
-X-Forwarded-Encrypted: i=1; AJvYcCXPsTRJGNe1ovVWyhUO0uXo45XbIbmtCUyZCzhgLTheIf/SmXw0cEH0PcRnkZsrqfUsr2+rs6M0g9g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxE9hs2aWE2AQRxaIRp06R+QvcurKNIrXfXqLqW3MhQdc/O/Jq8
-	KxhtJy6SV9IsdQzq9iGs9qei8qutMizMJSLOS/VhloAA3FzW85LRtLcXBUWjoQ==
-X-Google-Smtp-Source: AGHT+IF2wO3lOKu6ZqAdlFN+JUeLIvqKjUaqg3AK2oOfKK9TT3DAMHbPi6d/5uGlMzXWI6FzcOStow==
-X-Received: by 2002:a17:906:db07:b0:a86:ae95:eba3 with SMTP id a640c23a62f3a-a89a3823702mr963416666b.62.1725349355147;
-        Tue, 03 Sep 2024 00:42:35 -0700 (PDT)
-Message-ID: <e8db9a54-fcbf-4f4c-803e-7b11838e22a4@suse.com>
-Date: Tue, 3 Sep 2024 09:42:33 +0200
+        bh=87/yEiyqdST7u7bqP6CeV349Mjoz6tSSVOlY8vgn7kw=;
+        b=bvlcj4+BY4i1Ww+IUZcrRavoWWIfL7WUBhrpHsGhn9R4rtR+S+6NuWiwclYLqefk6i
+         +OAordxlE3+jCE6p2JJmHsYH7ih0H+3JoPkyuRVrjbxJjKATPMxMm6EkfBaHUYmg/gUI
+         6COaKCQd1AOBcA0i9NaK+eNH2Xmnt3cMHk0eGxhuQJB2+DjjgEXIU8bR8ZX7CVasZZeN
+         X3ybsg4Wb8ncBdPUrKlqLxfznYTv0pf5mXfwURH8DM5FQzisAfYjc93IHmBzuws2TDhQ
+         T7fyxUAZN6+SADP6J5x66XexH4MViNJoFnM93qtOwf2w1gBmMCFcZ8aNvS3CkdMroVLq
+         8/eg==
+X-Forwarded-Encrypted: i=1; AJvYcCX/uHLTDFee37fHHGIB9O81Q2JiU2OQgw+6Njw1T/XI9Tmw/7VUhddcZ55huvNjrsvuXuLLKk0fbsQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwWFdC8ueaY9VuNVo5RTXHMiJky97NbfVNtCuR3ntGvmZWsR/BZ
+	Cw8Idbc0Gxx0oP5ufnjPC9QSvzboYZTjywVTft4tMVLLF3TzpPGR+DM2lao2cA==
+X-Google-Smtp-Source: AGHT+IHF3UJx7ZoIypZNMbNQ194HNhd0KX8FhsIdlGAy0HTasttsk394+/iaYkPstkUtjsbrrgKnmA==
+X-Received: by 2002:a17:907:1ca7:b0:a7d:895b:fd with SMTP id a640c23a62f3a-a898231fd75mr1628846966b.6.1725350028678;
+        Tue, 03 Sep 2024 00:53:48 -0700 (PDT)
+Message-ID: <d7cfa284-f764-46a0-ac2e-e5f928a043ad@suse.com>
+Date: Tue, 3 Sep 2024 09:53:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v14 2/5] x86/pvh: Allow (un)map_pirq when dom0 is PVH
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <gwd@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Huang Rui <ray.huang@amd.com>, xen-devel@lists.xenproject.org
-References: <20240903070424.982218-1-Jiqian.Chen@amd.com>
- <20240903070424.982218-3-Jiqian.Chen@amd.com>
+Subject: Re: [PATCH v2 1/2] x86/time: split CMOS time fetching into wrapper
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240830095220.49473-1-roger.pau@citrix.com>
+ <20240830095220.49473-2-roger.pau@citrix.com>
+ <f193e088-18fb-4e68-a935-720cc65f3947@suse.com>
+ <Zta8QLwmHcBWyJd6@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,51 +116,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240903070424.982218-3-Jiqian.Chen@amd.com>
+In-Reply-To: <Zta8QLwmHcBWyJd6@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 03.09.2024 09:04, Jiqian Chen wrote:
-> When dom0 is PVH type and passthrough a device to HVM domU, Qemu code
-> xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
-> xc_physdev_map_pirq map a pirq for passthrough devices.
-> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
-> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
-> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
-> codes.
+On 03.09.2024 09:35, Roger Pau Monné wrote:
+> On Tue, Sep 03, 2024 at 08:24:18AM +0200, Jan Beulich wrote:
+>> On 30.08.2024 11:52, Roger Pau Monne wrote:
+>>> @@ -1285,33 +1270,56 @@ static unsigned long get_cmos_time(void)
+>>>          } while ( (CMOS_READ(RTC_FREQ_SELECT) & RTC_UIP) &&
+>>>                    t2 < MILLISECS(3) );
+>>>  
+>>> -        __get_cmos_time(&rtc);
+>>> +        __get_cmos_time(rtc);
+>>>  
+>>>          spin_unlock_irqrestore(&rtc_lock, flags);
+>>>  
+>>> -        if ( likely(!cmos_rtc_probe) ||
+>>> -             t1 > SECONDS(1) || t2 >= MILLISECS(3) ||
+>>> -             rtc.sec >= 60 || rtc.min >= 60 || rtc.hour >= 24 ||
+>>> -             !rtc.day || rtc.day > 31 ||
+>>> -             !rtc.mon || rtc.mon > 12 )
+>>> -            break;
+>>> +        if ( likely(!cmos_rtc_probe) )
+>>> +            return true;
+>>> +
+>>> +        if ( t1 > SECONDS(1) || t2 >= MILLISECS(3) ||
+>>> +             rtc->sec >= 60 || rtc->min >= 60 || rtc->hour >= 24 ||
+>>> +             !rtc->day || rtc->day > 31 ||
+>>> +             !rtc->mon || rtc->mon > 12 )
+>>> +            return false;
+>>>  
+>>>          if ( seconds < 60 )
+>>>          {
+>>> -            if ( rtc.sec != seconds )
+>>> -            {
+>>> -                cmos_rtc_probe = false;
+>>
+>> This clearing of the variable is lost, which looks wrong to me.
 > 
-> But it is fine to map interrupts through pirq to a HVM domain whose
-> XENFEAT_hvm_pirqs is not enabled. Because pirq field is used as a way to
-> reference interrupts and it is just the way for the device model to
-> identify which interrupt should be mapped to which domain, however
-> has_pirq() is just to check if HVM domains route interrupts from
-> devices(emulated or passthrough) through event channel, so, the has_pirq()
-> check should not be applied to the PHYSDEVOP_map_pirq issued by dom0.
-> 
-> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
-> PHYSDEVOP_unmap_pirq for the removal device path to unmap pirq. Then the
-> interrupt of a passthrough device can be successfully mapped to pirq for domU.
+> Note the code in get_cmos_time() is modified, so the variable is no
+> longer used past the call to read_cmos_time().  Instead the signaling
+> of whether the CMOS is functional or not is done using the return
+> value of the newly introduced read_cmos_time() function.
 
-As before: When you talk about just Dom0, ...
-
-> --- a/xen/arch/x86/hvm/hypercall.c
-> +++ b/xen/arch/x86/hvm/hypercall.c
-> @@ -73,6 +73,8 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->      {
->      case PHYSDEVOP_map_pirq:
->      case PHYSDEVOP_unmap_pirq:
-> +        break;
-> +
->      case PHYSDEVOP_eoi:
->      case PHYSDEVOP_irq_status_query:
->      case PHYSDEVOP_get_free_pirq:
-
-... that ought to match the code. IOW you've again lost why it is okay(ish)
-(or even necessary) to also permit the op for non-Dom0 (e.g. a PVH stubdom).
-Similarly imo Dom0 using this on itself wants discussing.
-
-As to my earlier comments regarding your commit message adjustments: I
-forgot that the change had to be reverted. I'm sorry for that.
+I wasn't concerned of the further processing on the 1st invocation, but
+of the behavior of the 2nd invocation. But yes, there the flag will end
+up being cleared because of the FADT flag also having been cleared. Not
+easily visible, though. Could minimally do with a remark in the
+description.
 
 Jan
 
