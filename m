@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F05D96AC26
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 00:24:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789591.1199187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFEDC96AC44
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 00:36:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789596.1199196 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slbwp-0005PC-OC; Tue, 03 Sep 2024 22:24:27 +0000
+	id 1slc7o-0007dy-O6; Tue, 03 Sep 2024 22:35:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789591.1199187; Tue, 03 Sep 2024 22:24:27 +0000
+Received: by outflank-mailman (output) from mailman id 789596.1199196; Tue, 03 Sep 2024 22:35:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slbwp-0005M1-L2; Tue, 03 Sep 2024 22:24:27 +0000
-Received: by outflank-mailman (input) for mailman id 789591;
- Tue, 03 Sep 2024 22:24:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1slc7o-0007bC-LJ; Tue, 03 Sep 2024 22:35:48 +0000
+Received: by outflank-mailman (input) for mailman id 789596;
+ Tue, 03 Sep 2024 22:35:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7TnF=QB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1slbwn-0005Lt-D7
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 22:24:25 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 44697392-6a43-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 00:24:21 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-533488ffaebso6959999e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 15:24:21 -0700 (PDT)
+ id 1slc7n-0007b3-FA
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 22:35:47 +0000
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [2607:f8b0:4864:20::c2e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dba6c17f-6a44-11ef-a0b2-8be0dac302b0;
+ Wed, 04 Sep 2024 00:35:45 +0200 (CEST)
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ 006d021491bc7-5e16cb56d4aso1602135eaf.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 15:35:45 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989196876sm729090866b.110.2024.09.03.15.24.19
+ 586e51a60fabf-277d7656874sm2173636fac.27.2024.09.03.15.35.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 15:24:19 -0700 (PDT)
+ Tue, 03 Sep 2024 15:35:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44697392-6a43-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: dba6c17f-6a44-11ef-a0b2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725402261; x=1726007061; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725402944; x=1726007744; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9YZvNRay+GbUFlab9iHxWfwhUmtkApol/F8YOS4Xvlg=;
-        b=En5ojWPtXn32OIbjgClua9ZRG0CiRRTQJRnMKVCrgAbvbje9v6t4Y82hY1SHDspwqz
-         uNIeZaDe1KRTiat+fSBUovOQSj2o4REqePPN0FgNQwmIUIycCFVkiuBUowlhiraAjro3
-         B5klAXVbvODQpAxCKADdw+JGgrbTMoCBdevLw=
+        bh=6xloggAIt9R09S5ezInrmnNf5ugBZHATY4SErDWq42c=;
+        b=d20v2J6Opt5cVEnBqwuEtEx+Xc01LCYRPF8jdcblNICvrhDU129NcIWSkRu8fnGFq0
+         i3/Yl6iwIIp2k0Sx74xurJz1IppQ58WWLke/pGBKOCG9jtD0DZq7aMBS5g3ziyxQyVvy
+         6oyaeRkFU092/dInRrbkNDj7RM4VcLgEp7wCU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725402261; x=1726007061;
+        d=1e100.net; s=20230601; t=1725402944; x=1726007744;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9YZvNRay+GbUFlab9iHxWfwhUmtkApol/F8YOS4Xvlg=;
-        b=WiARWYyNnRxbU6JdvGRJaTMVQUU/Splk8eZYsO2fRKQ2/SUZQiLJoAbr5bFSJl+r50
-         aXCVdbOk0Pzz6/dUDqP/AtOjPG+PwlglO3kGWX30owQOwJ3W9/9+gZXQIbpybKeJFUa7
-         c4t+Uw0fhm6y6ZMdNy/S/QZWD4iLp+ggfGwMhO8Ef1CO+khZSYj8uh0AWukknEtxwgPt
-         KTsszpmBbuPyejn2BVJUeTb0R04oC82qFh9kAmNQS9RdIQmxblbwtJ9vaA0JdO6jGYb4
-         UAVsjwO75yAuN+fdXPy5fVMEeGOSKLxg7U9cRz+JSLmlxTKKFDLqGQ8tkZiqcsohGtV5
-         KOAg==
-X-Forwarded-Encrypted: i=1; AJvYcCXVfKhhDUBpCVIanuaSDfcCCZ1j/+w1qPbjQVorvUvBa1hz+k5iaeqSnTjlEzfEVx9I9LPEEeEscCk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzRR9o2y8y3M90pQxygf1bp42l2UFhTa1kce2HezrkO6eUv9RLe
-	ERQ3Qj4tzAAtLmI0/RuTFteOSS4wCRQMmFdj3DnXY5CshbDXgTCyOhz7OKuZQ3M=
-X-Google-Smtp-Source: AGHT+IFccdOPiG2NUEJreQudv16PV3lG6T0S6pkD7I/gz6+JPIw67woZbEPLYcSGyX/tv7MCETsycQ==
-X-Received: by 2002:a05:6512:118d:b0:52b:c0b1:ab9e with SMTP id 2adb3069b0e04-53546af3053mr8547655e87.5.1725402260078;
-        Tue, 03 Sep 2024 15:24:20 -0700 (PDT)
-Message-ID: <794ffa84-3c94-4cd7-98de-24a2210b72bc@citrix.com>
-Date: Tue, 3 Sep 2024 23:24:19 +0100
+        bh=6xloggAIt9R09S5ezInrmnNf5ugBZHATY4SErDWq42c=;
+        b=oYnisHNwbGZhpJz0nZ5ljDxiQft8gkO4JroI1QMQ/a47IdKev3QcJbah0GY7sNRVkl
+         oltykkUo8xeSPulNiYmHQQhpm8QAceO/WlVhMnp1/GxOQrZVH98cLrdCNGIDqQsZpBVi
+         OMZzK1nBrpT0NYfiTyk2gN/HkOUs6N+9eSp+O6Cq12B6VICfBXEoFiemCtpgLYyeFzvO
+         iK1MW/TVXP+nIwNR26XdE33Pj/l3l2MD3VpCaW0ESE6FGDH2EhFrmKSmFhG/+L2YhRf7
+         rq5Ao6rf0SLOEYXdMXDTl3nd/iPW03Krz7euakDQYfZy4PV6K9kr2SvogDPZfYZy19w1
+         qabQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVWhvfd0aL906ZA4iIU7lKLGnUgc/8cyXlAAfSs29M3+586xl2tSBYLU2s5p5WawerM7cj3k26esKY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzAi1vvbhCWYBhL6ilpWXath2dpuH2oX7BztrL/Lh43MxOqDHHO
+	ayFo7P/n9GKFRazkAjRGAygfhLPNmHH19/vHe4icoWrc77OfBRQQm3I1tRTXSag=
+X-Google-Smtp-Source: AGHT+IFTXOiOWFMeJAUfwqXDMJy8bN8NsZPA0uK15yWFyklGeh1kQf+MR89GIFqyw9AA2uzK/X7Qhw==
+X-Received: by 2002:a05:6870:6494:b0:27b:4f51:d73a with SMTP id 586e51a60fabf-27b4f52f5cdmr30134fac.21.1725402944020;
+        Tue, 03 Sep 2024 15:35:44 -0700 (PDT)
+Message-ID: <9a87ab05-b95a-4613-adb1-95b5f4a55c4b@citrix.com>
+Date: Tue, 3 Sep 2024 23:35:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 01/44] x86/boot: move x86 boot module counting into a
@@ -137,90 +137,66 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
-> From: Christopher Clark <christopher.w.clark@gmail.com>
->
-> An initial step towards a non-multiboot internal representation of boot
-> modules for common code, starting with x86 setup and converting the fields
-> that are accessed for the startup calculations.
->
-> Introduce a new header, <xen/asm/bootinfo.h>, and populate it with a new
-
-Just <asm/bootinfo.h>, which matches the code.
-
-> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-> new file mode 100644
-> index 000000000000..e850f80d26a7
-> --- /dev/null
-> +++ b/xen/arch/x86/include/asm/bootinfo.h
-> @@ -0,0 +1,25 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Copyright (c) 2024 Christopher Clark <christopher.w.clark@gmail.com>
-> + * Copyright (c) 2024 Apertus Solutions, LLC
-> + * Author: Daniel P. Smith <dpsmith@apertussolutions.com>
-> + */
-> +
-> +#ifndef __XEN_X86_BOOTINFO_H__
-> +#define __XEN_X86_BOOTINFO_H__
-> +
-
-There ought to be a short description of what boot_info is, even if it's
-only "Xen's local representation of information provided by the
-bootloader/environment."
-
-> +struct boot_info {
-> +    unsigned int nr_mods;
-
-For the sake of 3 letters, please can this be nr_modules.  I've run sed
-over the top of the v5 branch and it doesn't change line wrapping
-anywhere, but it is a legibility improvement IMO.
-
-> +};
-> +
-> +#endif
-
-#endif /* __XEN_X86_BOOTINFO_H__ */
-
-It very quickly get to not being in the same few lines as the #ifndef.
-
 > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
 > index eee20bb1753c..dd94ee2e736b 100644
 > --- a/xen/arch/x86/setup.c
 > +++ b/xen/arch/x86/setup.c
-> @@ -276,7 +277,16 @@ static int __init cf_check parse_acpi_param(const char *s)
->  custom_param("acpi", parse_acpi_param);
->  
->  static const module_t *__initdata initial_images;
-> -static unsigned int __initdata nr_initial_images;
-> +static struct boot_info __initdata *boot_info;
-> +
-> +static void __init multiboot_to_bootinfo(multiboot_info_t *mbi)
-> +{
-> +    static struct boot_info __initdata info;
-> +
-> +    info.nr_mods = mbi->mods_count;
-> +
-> +    boot_info = &info;
-> +}
-
-Having a global pointer set only to this private structure is weird.
-Even this:
-
-    static struct boot_info __initdata boot_info[1];
-
-lets you keep -> notation, but removes one level of indirection.
-
 > @@ -1034,9 +1044,10 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
 >          mod = __va(mbi->mods_addr);
 >      }
 >  
 > +    multiboot_to_bootinfo(mbi);
-> +
->      loader = (mbi->flags & MBI_LOADERNAME) ? __va(mbi->boot_loader_name)
->                                             : "unknown";
-> -
 
-Stray line removal.  (should be in patch 2 to minimise churn.)
+Actually, peeking ahead to the end of the series, we've got this:
+
+void __start_xen(unsigned long mbi_p)
+{
+    ...
+    multiboot_info_t *mbi;
+    module_t *mod;
+    ...
+
+    if ( pvh_boot )
+    {
+        ASSERT(mbi_p == 0);
+        pvh_init(&mbi, &mod);
+    }
+    else
+    {
+        mbi = __va(mbi_p);
+        mod = __va(mbi->mods_addr);
+    }
+
+    multiboot_to_bootinfo(mbi, mod);
+
+
+which are the sum total of the mbi and mod pointers.  Worse, pvh_init()
+is transforming the PVH into into MB1 info, just to be transformed
+immediately to BI.
+
+I expect this is work for the end of the series (I can't think of a nice
+way to disentangle it earlier), but could we end up with something more
+like:
+
+    if ( pvh_boot )
+    {
+        ASSERT(mbi_p == 0);
+        pvh_fill_boot_info();
+    }
+    else
+    {
+        multiboot_info_t *mbi = __va(mbi_p);
+
+        multiboot_fill_boot_info(mbi, __va(mbi->mods_addr));
+    }
+
+?
+
+Or perhaps even just pass mbi_p in, and have multiboot_fill_boot_info()
+do the __va()'s itself.
+
+If so, we probably want to make a naming and possibly prototype
+difference in this patch.
 
 ~Andrew
 
