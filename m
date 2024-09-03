@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5780C96A36D
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 17:57:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789407.1199030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BEF596A41C
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 18:20:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789425.1199039 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slVuC-0006QN-BY; Tue, 03 Sep 2024 15:57:20 +0000
+	id 1slWFc-0003tV-6t; Tue, 03 Sep 2024 16:19:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789407.1199030; Tue, 03 Sep 2024 15:57:20 +0000
+Received: by outflank-mailman (output) from mailman id 789425.1199039; Tue, 03 Sep 2024 16:19:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slVuC-0006O1-8C; Tue, 03 Sep 2024 15:57:20 +0000
-Received: by outflank-mailman (input) for mailman id 789407;
- Tue, 03 Sep 2024 15:57:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1slWFc-0003qv-3z; Tue, 03 Sep 2024 16:19:28 +0000
+Received: by outflank-mailman (input) for mailman id 789425;
+ Tue, 03 Sep 2024 16:19:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8q7v=QB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slVuA-0006Nv-S7
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 15:57:18 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32117a06-6a0d-11ef-a0b2-8be0dac302b0;
- Tue, 03 Sep 2024 17:57:18 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a868b8bb0feso667698566b.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 08:57:18 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8988feb32asm697784666b.23.2024.09.03.08.57.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 08:57:17 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1slWFb-0003ql-0P; Tue, 03 Sep 2024 16:19:27 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1slWFa-0000kj-KV; Tue, 03 Sep 2024 16:19:26 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1slWFa-0004jz-69; Tue, 03 Sep 2024 16:19:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1slWFa-0000AC-5f; Tue, 03 Sep 2024 16:19:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32117a06-6a0d-11ef-a0b2-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725379037; x=1725983837; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LOUCON6nEGPlDwEBd12VjV3QBcEx9jbDgXkh8G9pyrA=;
-        b=M5Jk/YjUdUhOIwRsi66Dhwe5+g8hRFOSbWf7QCiZWOH0m9uj3p+m24AibOLM+yCdq5
-         2MQTvZTbLpQPpQQ2bdS7nBCdF/tbyClQyeIqGqdWsy+XwAmu+WsB6TxRaDmyV/yFcG3P
-         U3CCAuzBPnHPtTCaJ700Yv5U9Yxu5b6yValXZ9FLhojz7vKK3SBvE8wJYpicZJainLmh
-         h0rIR7XRa6YOC8ICKmw4EGJIdbSaU/fJt7AVifpNXyRIqfatoxkwu/4iDZooJyuEEajC
-         OpZYAYouGbBTtxwTS3z9ot8BnvHTI44cbORLQkDiDxN3jSX6rq4mT4Xb5FHZuQODDxIg
-         vFYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725379037; x=1725983837;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LOUCON6nEGPlDwEBd12VjV3QBcEx9jbDgXkh8G9pyrA=;
-        b=KoxYyXfmnKiOaMIEuz0V+bZnZcF7aSYbTR0aD6ZO77sNxG941Vkyp7wEphG2PpzyZo
-         /b7AG1cM5xeTV77cqV0++FmcLLrqILPB9nfW5g3TmYaiBt/2Bd1RVgaE/dypHwOx+qk0
-         HYsJpn3kz2fTCKWsFhSwpUM8YPpPwDfc4zVsLUIftY4Ghz9G3VLUf3Rv40TsSvmMgy16
-         u5q3qfOrFrToWSSFgb73jWm1G+J6TozNCuCKN4Sblk3xxZUI2ZBdHDseEbruEYN3XKNS
-         SiWbQTfwJ4+WqcDlHfPribeVGyCWbQQK2FJgtWhTRCLmsDS3x54U1U2XBXVAVyNoYSGP
-         4JNQ==
-X-Gm-Message-State: AOJu0YxnP2psHSYjhCv/CCWrxTZFCqOyDAsIzJp0AUYbAE26nVAC/6Y6
-	9+RnUvBG01Il6KG7yn1uu+6jvsjIFc5YsnfF1DyC8RZiAvsRBe2ECtKu++8yew==
-X-Google-Smtp-Source: AGHT+IHFzaMx/oyVyorOGFYHT9RdWzK63wFkIIfg/izBBShtaNl063O6TKf1IvnwxDIuJdndOGsEUQ==
-X-Received: by 2002:a17:907:7248:b0:a86:7c6f:7cfa with SMTP id a640c23a62f3a-a89a36a2db4mr940285566b.37.1725379037299;
-        Tue, 03 Sep 2024 08:57:17 -0700 (PDT)
-Message-ID: <232f8936-db2b-49be-a6f6-31bd8bb34c7f@suse.com>
-Date: Tue, 3 Sep 2024 17:57:15 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=uo1FzEcPeJHNLqY/q9UxnYcIctx7S6mDXdwlNdm1DSM=; b=2FkhIjIFbHo/fqUsuVXbRkLqhN
+	XjNHE8CBs8uWzxoafvmRgtoMBST1OLkD0toBEgPfO22DNHeUlrpK3tH3XesCgAGtweANj3bTRSh2V
+	86+33HdYr0l+c5Hb0U3v2FagHYqVVvWb5336xbsp7r9Is3weNanBux/gI1kh+/JnRDsQ=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187475-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH v14 4/5] tools: Add new function to get gsi from
- dev
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>
-References: <20240903070424.982218-1-Jiqian.Chen@amd.com>
- <20240903070424.982218-5-Jiqian.Chen@amd.com> <ZtcwmSqeryBVjmlh@l14>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZtcwmSqeryBVjmlh@l14>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 187475: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=e48acc0fa98e307b1192037062f4623da3eeeb7f
+X-Osstest-Versions-That:
+    ovmf=72cf76868ce7b7cda1ba5f9eb28693557ff10256
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 03 Sep 2024 16:19:26 +0000
 
-On 03.09.2024 17:51, Anthony PERARD wrote:
-> On Tue, Sep 03, 2024 at 03:04:23PM +0800, Jiqian Chen wrote:
->> --- a/tools/libs/ctrl/xc_linux.c
->> +++ b/tools/libs/ctrl/xc_linux.c
->> @@ -66,6 +66,26 @@ void *xc_memalign(xc_interface *xch, size_t alignment, size_t size)
->>      return ptr;
->>  }
->>  
->> +int xc_pcidev_get_gsi(xc_interface *xch, uint32_t sbdf)
->> +{
->> +    int ret;
->> +    privcmd_pcidev_get_gsi_t dev_gsi = {
->> +        .sbdf = sbdf,
->> +        .gsi = 0,
->> +    };
->> +
->> +    ret = ioctl(xencall_fd(xch->xcall),
->> +                IOCTL_PRIVCMD_PCIDEV_GET_GSI, &dev_gsi);
->> +
->> +    if (ret < 0) {
->> +        PERROR("Failed to get gsi from dev");
->> +    } else {
->> +        ret = dev_gsi.gsi;
-> 
-> I've just notice that this is mixing signed and unsigned int.
-> We are storing a "__u32" into an "int" here. This isn't great as we are
-> throwing way lots of potentially good value. (Even if I have no idea if
-> they are possible.)
+flight 187475 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187475/
 
-GSIs are numbered 0...N-1, with N being the number of lines all IO-APICs
-in the system together have. Surely that's not going to go into the
-millions, let alone billions. At least not any time soon, and there's
-move away from using line interrupts anyway.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 e48acc0fa98e307b1192037062f4623da3eeeb7f
+baseline version:
+ ovmf                 72cf76868ce7b7cda1ba5f9eb28693557ff10256
 
-Jan
+Last test of basis   187468  2024-09-03 07:11:31 Z    0 days
+Testing same since   187475  2024-09-03 14:45:00 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jason Zhao <jason.zhao@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   72cf76868c..e48acc0fa9  e48acc0fa98e307b1192037062f4623da3eeeb7f -> xen-tested-master
 
