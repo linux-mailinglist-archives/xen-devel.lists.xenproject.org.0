@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A6496A006
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 16:13:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789244.1198799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 546C096A017
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 16:14:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789249.1198810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slUHF-0004kl-PG; Tue, 03 Sep 2024 14:13:01 +0000
+	id 1slUIL-0005FG-3A; Tue, 03 Sep 2024 14:14:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789244.1198799; Tue, 03 Sep 2024 14:13:01 +0000
+Received: by outflank-mailman (output) from mailman id 789249.1198810; Tue, 03 Sep 2024 14:14:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slUHF-0004hl-Ma; Tue, 03 Sep 2024 14:13:01 +0000
-Received: by outflank-mailman (input) for mailman id 789244;
- Tue, 03 Sep 2024 14:12:59 +0000
+	id 1slUIK-0005Co-W4; Tue, 03 Sep 2024 14:14:08 +0000
+Received: by outflank-mailman (input) for mailman id 789249;
+ Tue, 03 Sep 2024 14:14:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HL1Y=QB=bounce.vates.tech=bounce-md_30504962.66d71969.v1-59641078e9924d87922749027eb55538@srs-se1.protection.inumbo.net>)
- id 1slUHD-0004hf-AJ
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 14:12:59 +0000
-Received: from mail177-17.suw61.mandrillapp.com
- (mail177-17.suw61.mandrillapp.com [198.2.177.17])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8q7v=QB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1slUIJ-0005Ce-2b
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 14:14:07 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9e7e1d71-69fe-11ef-a0b2-8be0dac302b0;
- Tue, 03 Sep 2024 16:12:58 +0200 (CEST)
-Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail177-17.suw61.mandrillapp.com (Mailchimp) with ESMTP id
- 4Wyndj0wclzRKLlgx
- for <xen-devel@lists.xenproject.org>; Tue,  3 Sep 2024 14:12:57 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 59641078e9924d87922749027eb55538; Tue, 03 Sep 2024 14:12:57 +0000
+ id c6ed3605-69fe-11ef-a0b2-8be0dac302b0;
+ Tue, 03 Sep 2024 16:14:05 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c210e23573so5514333a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 07:14:05 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c226c7bda6sm6548148a12.41.2024.09.03.07.14.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Sep 2024 07:14:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,87 +45,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e7e1d71-69fe-11ef-a0b2-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1725372777; x=1725633277;
-	bh=UtQtgoJxxMCwVjzYlefX4GN0XhAj4tiyYX36m1sEVaY=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=G7QoHrN8IuDz6zOgMneOKA50y9g9wo0WR5oPnf4RSY05hk4v4gzQlbjolvTkkHJHi
-	 NtwTE+knNVw3PgPeQpG8RDg7/79LYzVtIjiYVZlwpTiOtFhIwdDE8iWuxOxEpW9YPb
-	 AEUrVzVKaqwuVhlUSnPBVKN5tQQDtYqicTewdOZJnQKnkAsxmdbu4lAPxjzta7KFjZ
-	 W6bgTcfvx42btIxelsBk3dkP1BfFrfFiMcXwRWXrZdlrDxHfCEhNsNDXa12EqeQQJx
-	 1//ggGFh75ND3HHdtwcNWfFGg8R6V5qNI9PWvE/HPaOtmFbNjckzfQCHHNFBAZbKRH
-	 m3cQ18dOtMmHA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1725372777; x=1725633277; i=anthony.perard@vates.tech;
-	bh=UtQtgoJxxMCwVjzYlefX4GN0XhAj4tiyYX36m1sEVaY=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=i72+KhIrKwgHiH/3qpMPQAnVBNNpDq5GthkWqmSGhfKidkxprddYGtBh6DMhdBNfR
-	 2NcNKtDisqqbcADM0LumOih67A88wvh5kJPR3+RBqXSSIihblzCLWvZlLkkhBgpIvw
-	 SjijQsXiVvdqewnqcPf39j3AlK9MFPTIugPCJAOaNnXTkuw8AyWKIcDKVXS1aNbJfl
-	 g/xczDvH8yvRV889yjfLEG+AmWk9vWvLbam2uayJv5c6ddDe6EtDmOHiDK27/lwpWZ
-	 9lFyAErFlpNeblG9xji+QAD/PkJbr+4bAKqX0V4wwJoG+rRA3nCYXboP2dkAy2NnCo
-	 4Ac07KxCCopJw==
-From: Anthony PERARD <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20XEN=20PATCH=20v14=204/5]=20tools:=20Add=20new=20function=20to=20get=20gsi=20from=20dev?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1725372775049
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>, Stewart Hildebrand <Stewart.Hildebrand@amd.com>, Huang Rui <ray.huang@amd.com>
-Message-Id: <ZtcZZh6ebgFonQDR@l14>
-References: <20240903070424.982218-1-Jiqian.Chen@amd.com> <20240903070424.982218-5-Jiqian.Chen@amd.com>
-In-Reply-To: <20240903070424.982218-5-Jiqian.Chen@amd.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.59641078e9924d87922749027eb55538?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240903:md
-Date: Tue, 03 Sep 2024 14:12:57 +0000
+X-Inumbo-ID: c6ed3605-69fe-11ef-a0b2-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1725372845; x=1725977645; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=tXYbLEPaADmZT/qXdSkji8Tld20/sYR2M4YS2XP4aZc=;
+        b=ES6RGu/FyZtgodOLNNtgS05AIlhwkBpk+VZKD3QPGVjF7QHNIFceejTyNjyxD0eGFi
+         1DIfLlkNsnZllhkJgrI/760a2t3IqBT+oSncR8V5GDjDzv1ODUWGpz+zzVtDSPsto4Rx
+         rniQ4KcWqbBJOQ9xOTPTEXBu6iQb0WXYiM/cQNRIBYUIldsOfjBwgGb0m31JCBDTkAae
+         E1zMrdB6bz3XNqQt5l2Ijtb4zPJklpobnFtyTp3lGBYCuJDMsnkT458As+cB38C7efgP
+         VaehYAlXbYcmWZP2an27GOYkV2D6D65yphAGFywipzjFaDCqQPsErfQ6NcZEqNG4Ul+1
+         HkWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1725372845; x=1725977645;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tXYbLEPaADmZT/qXdSkji8Tld20/sYR2M4YS2XP4aZc=;
+        b=g5MYOOZ02RLa+4FQdIpwnCJm81k0ogGWN49oLFrhT7XZP83RGK8gpqxu7lVvRKzM68
+         wpvdsfRS88NM/lvPJqqehK8U5Ac6WTVtL8gX3zSGcXTdYDW1C9ShQ36vYkgR6kpn2Rc7
+         flwH3p4eyYGIGQgwIJSjbGPPSpJZ1ZiFR8eX+h7eCKerrsGYiWnC6QLRlYW1CgDH+L3n
+         dvI2IC63wy0i/iWLHhDpGBmE7dwvzM42rZEYpeA8NfqnZvpcF+pOtzNRESF9jTPsaVap
+         HfBET5RwOmHr/1pirNNXXaRrc01hmbBJBpBc6mube7vzpOj4aKKH83e0q5IcQY466NSj
+         hkCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVx4GgS8n/D1NhoRUVfUenfDNvq1LI9/px7QeTGWbRcn6AoQpjkkZzSDoWndxZLdumt+AB/U2E8C58=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxTFf3QfRC9b5jjCidUe7NqXymMETbBCHWIto89OSnOdNlLQGDV
+	sRKYre0zRad8RmAzjR30mwW+hKSMrqW5taSGroYgWepBnsuOmNFk4LXvmJbHdg==
+X-Google-Smtp-Source: AGHT+IH50wLeUwRjAJpuhUC96CmpkKkg/R1TIFuc8qErCAGe9pMlseGn0BBE3OJYgIrQ5Unr6eLVjw==
+X-Received: by 2002:a05:6402:354a:b0:5c2:6314:11c4 with SMTP id 4fb4d7f45d1cf-5c263141257mr4338761a12.2.1725372844764;
+        Tue, 03 Sep 2024 07:14:04 -0700 (PDT)
+Message-ID: <b2b7b716-974c-4172-ba68-261453a96932@suse.com>
+Date: Tue, 3 Sep 2024 16:14:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v14 2/5] x86/pvh: Allow (un)map_pirq when dom0 is PVH
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <gwd@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+ "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20240903070424.982218-1-Jiqian.Chen@amd.com>
+ <20240903070424.982218-3-Jiqian.Chen@amd.com>
+ <e8db9a54-fcbf-4f4c-803e-7b11838e22a4@suse.com>
+ <BL1PR12MB5849C65CAC35890158F6A32FE7932@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <905fe9ef-d311-4956-b862-49f2f588afcd@suse.com>
+ <BL1PR12MB58492EE11D404B2E09DA0210E7932@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <BL1PR12MB58492EE11D404B2E09DA0210E7932@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 03, 2024 at 03:04:23PM +0800, Jiqian Chen wrote:
-> When passthrough a device to domU, QEMU and xl tools use its gsi
-> number to do pirq mapping, see QEMU code
-> xen_pt_realize->xc_physdev_map_pirq, and xl code
-> pci_add_dm_done->xc_physdev_map_pirq, but the gsi number is got
-> from file /sys/bus/pci/devices/<sbdf>/irq, that is wrong, because
-> irq is not equal with gsi, they are in different spaces, so pirq
-> mapping fails.
+On 03.09.2024 12:53, Chen, Jiqian wrote:
+> On 2024/9/3 17:25, Jan Beulich wrote:
+>> On 03.09.2024 09:58, Chen, Jiqian wrote:
+>>> On 2024/9/3 15:42, Jan Beulich wrote:
+>>>> On 03.09.2024 09:04, Jiqian Chen wrote:
+>>>>> When dom0 is PVH type and passthrough a device to HVM domU, Qemu code
+>>>>> xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
+>>>>> xc_physdev_map_pirq map a pirq for passthrough devices.
+>>>>> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
+>>>>> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
+>>>>> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
+>>>>> codes.
+>>>>>
+>>>>> But it is fine to map interrupts through pirq to a HVM domain whose
+>>>>> XENFEAT_hvm_pirqs is not enabled. Because pirq field is used as a way to
+>>>>> reference interrupts and it is just the way for the device model to
+>>>>> identify which interrupt should be mapped to which domain, however
+>>>>> has_pirq() is just to check if HVM domains route interrupts from
+>>>>> devices(emulated or passthrough) through event channel, so, the has_pirq()
+>>>>> check should not be applied to the PHYSDEVOP_map_pirq issued by dom0.
+>>>>>
+>>>>> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
+>>>>> PHYSDEVOP_unmap_pirq for the removal device path to unmap pirq. Then the
+>>>>> interrupt of a passthrough device can be successfully mapped to pirq for domU.
+>>>>
+>>>> As before: When you talk about just Dom0, ...
+>>>>
+>>>>> --- a/xen/arch/x86/hvm/hypercall.c
+>>>>> +++ b/xen/arch/x86/hvm/hypercall.c
+>>>>> @@ -73,6 +73,8 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>>>>      {
+>>>>>      case PHYSDEVOP_map_pirq:
+>>>>>      case PHYSDEVOP_unmap_pirq:
+>>>>> +        break;
+>>>>> +
+>>>>>      case PHYSDEVOP_eoi:
+>>>>>      case PHYSDEVOP_irq_status_query:
+>>>>>      case PHYSDEVOP_get_free_pirq:
+>>>>
+>>>> ... that ought to match the code. IOW you've again lost why it is okay(ish)
+>>>> (or even necessary) to also permit the op for non-Dom0 (e.g. a PVH stubdom).
+>>>> Similarly imo Dom0 using this on itself wants discussing.
+>>> Do you mean I need to talk about why permit this op for all HVM
+>>
+>> You don't need to invent reasons, but it needs making clear that wider than
+>> necessary (for your purpose) exposure is at least not going to be a problem.
+>>
+>>> and  where can prevent PVH domain calling this for self-mapping, not only dom0?
+>>
+>> Aiui use on itself is limited to Dom0, so only that would need clarifying
+>> (along the lines of the above, i.e. that/why it is not a problem). For
+>> has_pirq() domains use on oneself was already permitted before.
 > 
-> And in current codes, there is no method to get gsi for userspace.
-> For above purpose, add new function to get gsi, and the
-> corresponding ioctl is implemented on linux kernel side.
+> Changed commit message to below. Please check and that will be great helpful if you would show me how to modify it.
+> {
+> x86/pvh: Allow (un)map_pirq when dom0 is PVH
 > 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> Signed-off-by: Chen Jiqian <Jiqian.Chen@amd.com>
-> ---
-> RFC: it needs to wait for the corresponding third patch on linux kernel side to be merged.
-> https://lore.kernel.org/xen-devel/20240607075109.126277-4-Jiqian.Chen@amd.com/
-> ---
-> v13->v14 changes:
-> No.
+> Problem: when dom0 is PVH type and passthrough a device to HVM domU, Qemu
+> code xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
+> xc_physdev_map_pirq map a pirq for passthrough devices.
+> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
+> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
+> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
+> codes.
 > 
-> v12->v13 changes:
-> Rename the function xc_physdev_gsi_from_pcidev to xc_pcidev_get_gsi to avoid confusion with physdev namesapce.
-> Move the implementation of xc_pcidev_get_gsi into xc_linux.c.
-> Directly use xencall_fd(xch->xcall) in the function xc_pcidev_get_gsi instead of opening "privcmd".
+> To solve above problem, need to remove the chack has_pirq() for that
+> situation(PHYSDEVOP_map_pirq is issued by dom0 for domUs). But without
+> adding other restrictions, PHYSDEVOP_map_pirq will be allowed wider than
+> what the problem need.
+> So, clarify below:
+> 
+> For HVM domUs whose XENFEAT_hvm_pirqs is not enabled,it is fine to map
+> interrupts through pirq for them. Because pirq field is used as a way to
+> reference interrupts and it is just the way for the device model to
+> identify which interrupt should be mapped to which domain, however
+> has_pirq() is just to check if HVM domains route interrupts from
+> devices(emulated or passthrough) through event channel, so, remove
+> has_pirq() check has no impact on HVM domUs.
+> 
+> For PVH domUs that performs such an operation will fail at the check
+> xsm_map_dedomain_pirq() in physdev_map-nirq().
+> 
+> For PVH dom0, it uses vpci and doesn't use event channel, as above talks,
+> it also has no impact.
+> }
 
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+This is better than what you had before, and I don't really fancy re-
+writing the description effectively from scratch. So let's just go from
+there. As to the "excess" permission for the sub-ops: The main thing I'm
+after is that it be clarified that we're not going to introduce any
+security issues here. That requires auditing the code, and merely saying
+"also has no impact" is a little too little for my taste. For Dom0 an
+argument may be that it is overly powerful already anyway, even if for
+PVH we're a little more strict than for PV (I think).
 
-Thanks,
-
--- 
-
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Jan
 
