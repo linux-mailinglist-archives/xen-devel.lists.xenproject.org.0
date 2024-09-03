@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAB0396ACE4
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 01:30:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789653.1199251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CA1E96ACF2
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 01:41:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789658.1199261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slcy0-0004AI-Cg; Tue, 03 Sep 2024 23:29:44 +0000
+	id 1sld8v-0007Rn-BQ; Tue, 03 Sep 2024 23:41:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789653.1199251; Tue, 03 Sep 2024 23:29:44 +0000
+Received: by outflank-mailman (output) from mailman id 789658.1199261; Tue, 03 Sep 2024 23:41:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slcy0-00048P-9v; Tue, 03 Sep 2024 23:29:44 +0000
-Received: by outflank-mailman (input) for mailman id 789653;
- Tue, 03 Sep 2024 23:29:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sld8v-0007Pe-8r; Tue, 03 Sep 2024 23:41:01 +0000
+Received: by outflank-mailman (input) for mailman id 789658;
+ Tue, 03 Sep 2024 23:41:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7TnF=QB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1slcxy-00048J-6L
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 23:29:42 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 640c5682-6a4c-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 01:29:40 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a83597ce5beso25492766b.1
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 16:29:40 -0700 (PDT)
+ id 1sld8u-0007PE-50
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 23:41:00 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f81a0d04-6a4d-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 01:40:58 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a8679f534c3so639736566b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 16:40:58 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89891dacb2sm738601166b.183.2024.09.03.16.29.38
+ a640c23a62f3a-a8988feb0fcsm735926766b.45.2024.09.03.16.40.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 16:29:38 -0700 (PDT)
+ Tue, 03 Sep 2024 16:40:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 640c5682-6a4c-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: f81a0d04-6a4d-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725406179; x=1726010979; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725406857; x=1726011657; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RrPzwPuE9Si3DyppcazGQDOLksEjUEIjgO3AvAHf0xw=;
-        b=G5K8mVs+iqAJEqVcXYoIkOANDQIG0uwVUKhVWavnFffTg6uR8Uq+CSjRUXpNVaq889
-         8GWzjOSdZQnMFa0Ddc9Dmrz1e9suGvtPfA2OnkJrYh2jKV/tj4ZrK1FuYtRGdQRjZGM3
-         zi6ZCVvNCdS9t37wiu7H2r8YBKQxOa/olfV6U=
+        bh=Vt1AH1a0mLsF0SLsDN+NBLsXAJZMivfsk5Ecpo801z0=;
+        b=QSktFuQae5jJjQyvN7iPS6Fzj8Gnnsm7znVEGjP9jGOEEQIHqYlXbtb5YJdvD0s1NF
+         T6mA/ObfTpF450huVBME7iWjhBwvVAnMs02Srf8S1FJXpFkGkd7W616chK9h0vtaACjX
+         0hbVuvEf4DNb3SN23ZIBSpylRLshQ43LnLE+w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725406179; x=1726010979;
+        d=1e100.net; s=20230601; t=1725406857; x=1726011657;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RrPzwPuE9Si3DyppcazGQDOLksEjUEIjgO3AvAHf0xw=;
-        b=Mg1RmjfqPDCTZMKF9wrWWqWvmOIxkDSp6PJKyZPdER+0FxryPYhy+4PqFly0Q1PzYJ
-         d8FIOB6EtZeR2AUVvXVzc2AztYhjVXRKLc5Lgo6VjRreybqTuFaboo+pdBDB9Rg6YC3c
-         cKv+ZRpjYzW7GIBkejb36cQGTLT15eFoeHpucA9Iac30r8D8dAjnuNnPOgpPzf8LdV6Q
-         VZvZUyzJLiEf6gXLMEJwsrbklrl21k/E9koNM6y8D6UlLN3rDW/JK3NgHgzofzdSsEqz
-         FhKfnqDh/qdY7YFmInygYseMdYMae6SsOPiJpxSQNCreoIR91RApVnziONxyW/tvJwrt
-         hoew==
-X-Forwarded-Encrypted: i=1; AJvYcCWOxlIZWuGGrcg0nwfVpXycoAeKIp0VsR79hoWYyJtfp5+77Q0Zt8G4t3Sf8XMX0l2paQ9cJRWzlXg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzooCWEf0xpbA5PgN0DP7wb0+EjhNtTLAK3TQNIn04wNZ/G2wwr
-	TZa6G1xTTpWckCG/ZUXfVUYLGFVaFUUgw2zhrLU9eLR2YtZRjXjZUQXcX3wWWNs=
-X-Google-Smtp-Source: AGHT+IH1WSmJ/yYOgfdAPYOLgJCB0EMbuG0PneZWaSU6rdBnQsDRM/XpNgTLTeKmrKhpX6SXIpzy7g==
-X-Received: by 2002:a17:907:2da4:b0:a86:9fac:6939 with SMTP id a640c23a62f3a-a8a43199cc9mr16374266b.30.1725406179083;
-        Tue, 03 Sep 2024 16:29:39 -0700 (PDT)
-Message-ID: <bc8987f6-e2cf-4ab7-b493-6fd00b89108a@citrix.com>
-Date: Wed, 4 Sep 2024 00:29:38 +0100
+        bh=Vt1AH1a0mLsF0SLsDN+NBLsXAJZMivfsk5Ecpo801z0=;
+        b=FB8WGu8eYuEhHsFigm/RlZ+WD/L5+edlglruPNnaOuFVE5OGEh7sWFXb2OCZtusmd8
+         Xr0xTVNR+NYSR0abAtwcoph+HAlhAFeC1rp5Ku+DHos3J8NYVFNr36ShRq71VGmX3mze
+         15WPg9vNkHv8Q2gpoiHmYMyvhqGHmNL3QIVSAck76RRyph8hIfPZ8vSRWOPFOWZG7FDH
+         NJQ83KP14nSUa54BGG834YbH2tY+JLa81IFCljpkOR7+xI6NaIERSIbFY/0Nc/OQIrJE
+         5RF+H5LRIDvWTDkmzDX2olyitnhagvwSVwYTqTAG0t4AGKxSXM4nsnkyaTG4560XWqli
+         4giQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXGjklQErGlLKRxiOwIvFV6RI5i6CpwXLWL2iAKxIA+Yx3j8EZ42eL/bFtUeYfZ9tklPqIa/jM9VUA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzjmVRZeZ6HF8I067F6TKrUOKxKKtM0XnSdTSMw7Um1MaYxn7/j
+	OodaNX90fe5F+Ygtx2Ckr9smbjUyFJJdiuwd4Vg7WfWYnZ19XMOI8vQdBg6cZvk=
+X-Google-Smtp-Source: AGHT+IGTIdXmaztz5bnZu4H66qmtOGXoFGx/orzIWhHHpk5knfglMNW3el23pURIaBa1V/v/duLdsQ==
+X-Received: by 2002:a17:907:934d:b0:a88:a48d:2bdc with SMTP id a640c23a62f3a-a89d6b05675mr927647266b.0.1725406856633;
+        Tue, 03 Sep 2024 16:40:56 -0700 (PDT)
+Message-ID: <9c9a5720-6d5e-4367-a54b-85c6b54089cb@citrix.com>
+Date: Wed, 4 Sep 2024 00:40:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/44] x86/boot: introduce struct boot_module
+Subject: Re: [PATCH v4 07/44] x86/boot: move headroom to boot modules
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-6-dpsmith@apertussolutions.com>
+ <20240830214730.1621-8-dpsmith@apertussolutions.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,89 +131,36 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240830214730.1621-6-dpsmith@apertussolutions.com>
+In-Reply-To: <20240830214730.1621-8-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
 > diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-> index e785ed1c5982..844262495962 100644
+> index 844262495962..3e0e36df096b 100644
 > --- a/xen/arch/x86/include/asm/bootinfo.h
 > +++ b/xen/arch/x86/include/asm/bootinfo.h
-> @@ -8,10 +8,16 @@
->  #ifndef __XEN_X86_BOOTINFO_H__
->  #define __XEN_X86_BOOTINFO_H__
+> @@ -13,6 +13,7 @@
 >  
-> +#include <xen/multiboot.h>
->  #include <xen/types.h>
->  
-> +struct boot_module {
-> +    module_t *early_mod;
+>  struct boot_module {
+>      module_t *early_mod;
+> +    unsigned long headroom;
 
-This could do with a /* Transitionary only */ comment.  In this patch
-it's not too bad, but it does get worse as new fields are added, before
-being removed.
+This needs a comment explaining what it's for.  Perhaps crib from ...
 
-I'd also drop the "early_" part.  I know it's the initial_images array
-we're converting, but "early_" doesn't convey any extra meaning, and it
-makes a number of lines get quite hairy.
-
-> +};
-> +
->  struct boot_info {
->      unsigned int nr_mods;
-> +    struct boot_module *mods;
-
-struct boot_module modules[MAX_NR_BOOTMODS + 1];
-
-Probably at the end of the structure.  In turn it ...
-
->  
->      const char *boot_loader_name;
->      const char *cmdline;
 > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index c6b45ced00ae..28fdbf4d4c2b 100644
+> index 8912956ee7f1..fd6cc7fac907 100644
 > --- a/xen/arch/x86/setup.c
 > +++ b/xen/arch/x86/setup.c
-> @@ -278,12 +278,17 @@ custom_param("acpi", parse_acpi_param);
->  
->  static const char *cmdline_cook(const char *p, const char *loader_name);
->  
-> +/* Max number of boot modules a bootloader can provide in addition to Xen */
-> +#define MAX_NR_BOOTMODS 63
-> +
->  static const module_t *__initdata initial_images;
->  static struct boot_info __initdata *boot_info;
->  
-> -static void __init multiboot_to_bootinfo(multiboot_info_t *mbi)
-> +static void __init multiboot_to_bootinfo(multiboot_info_t *mbi, module_t *mods)
->  {
->      static struct boot_info __initdata info;
-> +    static struct boot_module __initdata boot_mods[MAX_NR_BOOTMODS + 1];
+> @@ -1475,8 +1477,10 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>               * decompressor overheads of mod[0] (the dom0 kernel).  When we
+>               * move mod[0], we incorporate this as extra space at the start.
+>               */
 
-... drops this static.
+... here, while also editing to to prevent it going stale.
 
-> +    unsigned int i;
->  
->      info.nr_mods = mbi->mods_count;
->  
-> @@ -303,6 +308,14 @@ static void __init multiboot_to_bootinfo(multiboot_info_t *mbi)
->          info.mmap_length = mbi->mmap_length;
->      }
->  
-> +    info.mods = boot_mods;
-> +
-> +    for ( i=0; i < info.nr_mods; i++ )
+It is this patch which stops modules_headroom being strictly the dom0
+kernel.
 
-i = 0
-
-> +        boot_mods[i].early_mod = &mods[i];
-> +
-> +    /* map the last mb module for xen entry */
-> +    boot_mods[info.nr_mods].early_mod = &mods[info.nr_mods];
-
-The comment is good, but note how this is just one extra iteration of
-the loop, (so use <= for the bound).
-
-~Andew
+~Andrew
 
