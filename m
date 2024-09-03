@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDAF3969EE7
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 15:20:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789209.1198769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69EBF969F4A
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 15:43:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789227.1198780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slTRK-0008ES-FL; Tue, 03 Sep 2024 13:19:22 +0000
+	id 1slTo0-0005n7-9R; Tue, 03 Sep 2024 13:42:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789209.1198769; Tue, 03 Sep 2024 13:19:22 +0000
+Received: by outflank-mailman (output) from mailman id 789227.1198780; Tue, 03 Sep 2024 13:42:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slTRK-0008CP-Cp; Tue, 03 Sep 2024 13:19:22 +0000
-Received: by outflank-mailman (input) for mailman id 789209;
- Tue, 03 Sep 2024 13:19:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1slTo0-0005jw-6Q; Tue, 03 Sep 2024 13:42:48 +0000
+Received: by outflank-mailman (input) for mailman id 789227;
+ Tue, 03 Sep 2024 13:42:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7TnF=QB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1slTRJ-0008CJ-LP
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 13:19:21 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 20691f01-69f7-11ef-99a1-01e77a169b0f;
- Tue, 03 Sep 2024 15:19:19 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-5343eeb4973so8221340e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 06:19:19 -0700 (PDT)
+ id 1slTny-0005jq-QE
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 13:42:46 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 668a32a1-69fa-11ef-a0b2-8be0dac302b0;
+ Tue, 03 Sep 2024 15:42:45 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a8682bb5e79so656064166b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 06:42:45 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a898908f62bsm681458066b.91.2024.09.03.06.19.17
+ a640c23a62f3a-a898900f25fsm681607866b.75.2024.09.03.06.42.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 06:19:17 -0700 (PDT)
+ Tue, 03 Sep 2024 06:42:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20691f01-69f7-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 668a32a1-69fa-11ef-a0b2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725369559; x=1725974359; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725370965; x=1725975765; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kvxNoAwBnzg3BCCF1qk32V0u5MQ2ntj8a1JkMMGlL9U=;
-        b=YPwehxB7GUIODTu5PL23LxD8ysmNja4Lzr+L6b960XEnm/tv5etEHm4lS5pM0AKMiV
-         6tuPxZimol4dXwUUVEsNcyA4Desd0jlgWgv/aBNOjXO3rhk5KgJEHbzt+qlmt9u9Tmj1
-         /MwS3mYWr+HJuB54ZZ1CJ3ZjGKjfxXKUIy1Ns=
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3+T8bYfo0Nwyx+mz0vUxJhoFsomkPBZVPIfDECFd97U=;
+        b=QdVbGcYgEoTF5fEmP6KPoEc0pRbXaH2dUQOkooKX5vGbPFqrD9TFBOaB4rgtfHoFwW
+         TFXJykUUrGE5StlZD48Nhm6wCnurrBNK333xKVwqQkAiHjmzCTVtFUScWxs6qbDY/8BN
+         jH+GvzAxjYaL6oqNokjoq4a8gvOKZlCtRBRDE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725369559; x=1725974359;
+        d=1e100.net; s=20230601; t=1725370965; x=1725975765;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kvxNoAwBnzg3BCCF1qk32V0u5MQ2ntj8a1JkMMGlL9U=;
-        b=QorlfCHfUj+dE7reQIomJ13NQmoU6N8LcELRVuV9nWbf/v8W/mN25KRdcCj/Bw5wXD
-         OzlXMhs6tpdPBJ0+7dWHEMNwQTwC/0z4stD30hzCqiIjrJpbuE+O0jfHAsrbj/WzGa/5
-         Ap6CD87t2N029sSta3+mUbzt07wOe5DW/W/oK2mrCks2VVSFR7pxLbJrdFBhsFv4wDdn
-         UQEI30g9hK0L5erLPHOU0Wt+V0AhHyH4Fauagi2s2NDmY4HYAAba1oadCf75DXA+jSHI
-         oUr+mIXxWnK/BWu/ZMZv6B63QML3ZKog0cpyZJ/IYysyvsRpCToWuO4ZpFh4tbhnFBOd
-         A1tg==
-X-Forwarded-Encrypted: i=1; AJvYcCVg71r9OWsb6TY6wPh2OJNQx+yinnOvVeC/x2vFRMk8LNnJP8v3hPLPOzhBJ7C6gjOH5dj+/bWQYTY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy1p8BDVYsmOI2XLuBN0JmuvRxhrstPPDMRM3CizfqQLpH6Lfbh
-	Cp4ejTYPmIg6Em8DxwqlrbETulc5cdVafz7pAHsN1wFpszR8VPO+Op4ieZ4iWI0=
-X-Google-Smtp-Source: AGHT+IGeNYlg3QMfrKGUZZ2zvzXs9kfJFTINRWV4+dQZW4NE1cBV7htijXDO2aa3A0qWaSTjr+6xUQ==
-X-Received: by 2002:a05:6512:3b14:b0:52e:9cc7:4462 with SMTP id 2adb3069b0e04-53546b1dea6mr12897414e87.11.1725369558189;
-        Tue, 03 Sep 2024 06:19:18 -0700 (PDT)
-Message-ID: <47679a69-660b-49d9-a8c5-4d7ddb2bfbe5@citrix.com>
-Date: Tue, 3 Sep 2024 14:19:16 +0100
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3+T8bYfo0Nwyx+mz0vUxJhoFsomkPBZVPIfDECFd97U=;
+        b=Kk7a/xVbMVR+AWDV8Gamv1Af+Bs8QyCovv9wpqMpXI1w/2aa7DCt46vpzJkm/NajDl
+         nw/NpU8HHQFp80UdiyhSe7lQ6yJwi6TnwD07UOmcBN3IfpP837MX90UQL6ddlLYEDVVN
+         D6NZqfishbzxunxUytf4/7UnGdp6IS6MKoc12R08B4PGTZOzW1O6r6rrTB+zvZyNL6H7
+         Fgkx0DU1B5wFGof4aVT6G1DlVpI2BQLwJLm/5Fl17kVhC4waATGVaM+GQUMRMwqnCz2J
+         EHFUmGAKMELRA3xUcO7gLjNl5EjwFJCQk1fWzln4jGeIM16WzuNvHqhdp48BoQB0tCCg
+         HYJw==
+X-Forwarded-Encrypted: i=1; AJvYcCWeK+QSKi7fQGi68L02v9ymYdNdSfXyRUimmcT0SdlfFmCcAiQis2NCm8oAIKA1c8IvQ0/d6Wn5PEY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwKkQrkOgSYntCAC3Y1+d84pmZOsdOO6G4eVx2gDM+JFOZ+VLvg
+	IW9yvaE6cpsYf5bstxonxSbvQ0MgbWUKDddu6GPkfT1XnIgNO39lwWPdUXFAKO8=
+X-Google-Smtp-Source: AGHT+IGTSqjq7dkPpjbL9E4BAVlC/Rz/+3UAioCQB544cbz7aK+62s1h4/cSuRk+auMnmM3+UP4aKA==
+X-Received: by 2002:a17:907:a4e:b0:a77:eb34:3b4e with SMTP id a640c23a62f3a-a89fad7b7cemr530361466b.7.1725370964946;
+        Tue, 03 Sep 2024 06:42:44 -0700 (PDT)
+Message-ID: <64e9b214-280c-44f9-afdc-62f5a1ed3d4c@citrix.com>
+Date: Tue, 3 Sep 2024 14:42:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] ARM/vgic: Use for_each_set_bit() in vgic-mmio*
-To: Michal Orzel <michal.orzel@amd.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20240902100355.3032079-1-andrew.cooper3@citrix.com>
- <20240902100355.3032079-5-andrew.cooper3@citrix.com>
- <c33b1051-2a51-4843-8fb5-6710d0e4ba91@amd.com>
+Subject: Re: Call for next release manager
+To: oleksii.kurochko@gmail.com, Kelly Choi <kelly.choi@cloud.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+References: <CAO-mL=y+AGD7Yw2WNK7GWKBEYvcHXTHFbRSSJLFREHMG_KGwZg@mail.gmail.com>
+ <95f1d300de710c568f55669b160d72f6746d4456.camel@gmail.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -132,205 +128,32 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <c33b1051-2a51-4843-8fb5-6710d0e4ba91@amd.com>
+In-Reply-To: <95f1d300de710c568f55669b160d72f6746d4456.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/09/2024 11:30 am, Michal Orzel wrote:
+On 03/09/2024 9:16 am, oleksii.kurochko@gmail.com wrote:
+> Hello everyone,
 >
-> On 02/09/2024 12:03, Andrew Cooper wrote:
+> On Thu, 2024-08-29 at 12:05 +0100, Kelly Choi wrote:
+>> Hi all,
 >>
->> These are all loops over a scalar value, and don't need to call general bitop
->> helpers behind the scenes.
+>> I'd like to thank Oleksii for his hard work as the release manager
+>> for 4.19.
 >>
->> No functional change.
+>> As we prepare for our next release, we welcome any interest from the
+>> community in becoming the next release manager.
 >>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Julien Grall <julien@xen.org>
->> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->> CC: Bertrand Marquis <bertrand.marquis@arm.com>
->> CC: Michal Orzel <michal.orzel@amd.com>
->>
->> Slighly RFC.  It's unclear whether len is the size of the register, or the
->> size of the access.  For sub-GPR accesses, won't the upper bits be clear
->> anyway?  If so, this can be simplified further.
-> See dispatch_mmio_write(). "len" refers to access size (i.e. 1/4/8 bytes). Each register is defined
-> with a region access i.e. VGIC_ACCESS_32bit that is compared with the actual access. In the current code
-> there is no register with 8B access. If there is a mismatch, there will be a data abort injected.
-> Also, the top 32-bits are not cleared anywhere, so I don't think we can drop masking. @Julien?
+>> Feel free to reply directly with your interest, or you can raise this
+>> in the community call. 
+>
+> I would be happy to continue as the release manager if no one minds.
 
-Ok, so it is necessary right now to have the clamping logic in every
-callback.
 
-However, given that the size is validated before dispatching, clamping
-once in dispatch_mmio_write() would save a lot of repeated code in the
-callbacks.
+It is common for people to have multiple goes; it should be easier the
+second time around because it's not all new.
 
-i.e., I think this:
-
-diff --git a/xen/arch/arm/vgic/vgic-mmio.c b/xen/arch/arm/vgic/vgic-mmio.c
-index bd4caf7fc326..e8b9805a0b2c 100644
---- a/xen/arch/arm/vgic/vgic-mmio.c
-+++ b/xen/arch/arm/vgic/vgic-mmio.c
-@@ -590,6 +590,9 @@ static int dispatch_mmio_write(struct vcpu *vcpu,
-mmio_info_t *info,
-     if ( !region )
-         return 0;
- 
-+    if ( len < sizeof(data) )
-+        data &= ~((1UL << (len * 8)) - 1);
-+
-     switch (iodev->iodev_type)
-     {
-     case IODEV_DIST:
-
-would work to replace every if() introduced below.
+As the prior RM, you get first refusal on doing it again.
 
 ~Andrew
-
-
->
->> $ ../scripts/bloat-o-meter xen-syms-arm64-{before,after}
->> add/remove: 0/0 grow/shrink: 2/5 up/down: 20/-140 (-120)
->> Function                                     old     new   delta
->> vgic_mmio_write_spending                     320     332     +12
->> vgic_mmio_write_cpending                     368     376      +8
->> vgic_mmio_write_sactive                      192     176     -16
->> vgic_mmio_write_cactive                      192     176     -16
->> vgic_mmio_write_cenable                      316     288     -28
->> vgic_mmio_write_senable                      320     284     -36
->> vgic_mmio_write_sgir                         344     300     -44
->>
->> $ ../scripts/bloat-o-meter xen-syms-arm32-{before,after}
->> add/remove: 0/0 grow/shrink: 0/4 up/down: 0/-32 (-32)
->> Function                                     old     new   delta
->> vgic_mmio_write_sactive                      204     200      -4
->> vgic_mmio_write_cpending                     464     460      -4
->> vgic_mmio_write_cactive                      204     200      -4
->> vgic_mmio_write_sgir                         336     316     -20
->> ---
->>  xen/arch/arm/vgic/vgic-mmio-v2.c |  3 +--
->>  xen/arch/arm/vgic/vgic-mmio.c    | 36 +++++++++++++++++++++-----------
->>  2 files changed, 25 insertions(+), 14 deletions(-)
->>
->> diff --git a/xen/arch/arm/vgic/vgic-mmio-v2.c b/xen/arch/arm/vgic/vgic-mmio-v2.c
->> index 670b335db2c3..42fac0403f07 100644
->> --- a/xen/arch/arm/vgic/vgic-mmio-v2.c
->> +++ b/xen/arch/arm/vgic/vgic-mmio-v2.c
->> @@ -90,7 +90,6 @@ static void vgic_mmio_write_sgir(struct vcpu *source_vcpu,
->>      unsigned int intid = val & GICD_SGI_INTID_MASK;
->>      unsigned long targets = (val & GICD_SGI_TARGET_MASK) >>
->>                              GICD_SGI_TARGET_SHIFT;
->> -    unsigned int vcpu_id;
->>
->>      switch ( val & GICD_SGI_TARGET_LIST_MASK )
->>      {
->> @@ -108,7 +107,7 @@ static void vgic_mmio_write_sgir(struct vcpu *source_vcpu,
->>          return;
->>      }
->>
->> -    bitmap_for_each ( vcpu_id, &targets, 8 )
->> +    for_each_set_bit ( vcpu_id, (uint8_t)targets )
->>      {
->>          struct vcpu *vcpu = d->vcpu[vcpu_id];
->>          struct vgic_irq *irq = vgic_get_irq(d, vcpu, intid);
->> diff --git a/xen/arch/arm/vgic/vgic-mmio.c b/xen/arch/arm/vgic/vgic-mmio.c
->> index bd4caf7fc326..f7c336a238ab 100644
->> --- a/xen/arch/arm/vgic/vgic-mmio.c
->> +++ b/xen/arch/arm/vgic/vgic-mmio.c
->> @@ -69,9 +69,11 @@ void vgic_mmio_write_senable(struct vcpu *vcpu,
->>                               unsigned long val)
->>  {
->>      uint32_t intid = VGIC_ADDR_TO_INTID(addr, 1);
->> -    unsigned int i;
->>
->> -    bitmap_for_each ( i, &val, len * 8 )
->> +    if ( len < sizeof(val) )
->> +        val &= (1UL << (len * 8)) - 1;
->> +
->> +    for_each_set_bit ( i, val )
->>      {
->>          struct vgic_irq *irq = vgic_get_irq(vcpu->domain, vcpu, intid + i);
->>          unsigned long flags;
->> @@ -114,9 +116,11 @@ void vgic_mmio_write_cenable(struct vcpu *vcpu,
->>                               unsigned long val)
->>  {
->>      uint32_t intid = VGIC_ADDR_TO_INTID(addr, 1);
->> -    unsigned int i;
->>
->> -    bitmap_for_each ( i, &val, len * 8 )
->> +    if ( len < sizeof(val) )
->> +        val &= (1UL << (len * 8)) - 1;
->> +
->> +    for_each_set_bit ( i, val )
->>      {
->>          struct vgic_irq *irq;
->>          unsigned long flags;
->> @@ -182,11 +186,13 @@ void vgic_mmio_write_spending(struct vcpu *vcpu,
->>                                unsigned long val)
->>  {
->>      uint32_t intid = VGIC_ADDR_TO_INTID(addr, 1);
->> -    unsigned int i;
->>      unsigned long flags;
->>      irq_desc_t *desc;
->>
->> -    bitmap_for_each ( i, &val, len * 8 )
->> +    if ( len < sizeof(val) )
->> +        val &= (1UL << (len * 8)) - 1;
->> +
->> +    for_each_set_bit ( i, val )
->>      {
->>          struct vgic_irq *irq = vgic_get_irq(vcpu->domain, vcpu, intid + i);
->>
->> @@ -230,11 +236,13 @@ void vgic_mmio_write_cpending(struct vcpu *vcpu,
->>                                unsigned long val)
->>  {
->>      uint32_t intid = VGIC_ADDR_TO_INTID(addr, 1);
->> -    unsigned int i;
->>      unsigned long flags;
->>      irq_desc_t *desc;
->>
->> -    bitmap_for_each ( i, &val, len * 8 )
->> +    if ( len < sizeof(val) )
->> +        val &= (1UL << (len * 8)) - 1;
->> +
->> +    for_each_set_bit ( i, val )
->>      {
->>          struct vgic_irq *irq = vgic_get_irq(vcpu->domain, vcpu, intid + i);
->>
->> @@ -326,9 +334,11 @@ void vgic_mmio_write_cactive(struct vcpu *vcpu,
->>                               unsigned long val)
->>  {
->>      uint32_t intid = VGIC_ADDR_TO_INTID(addr, 1);
->> -    unsigned int i;
->>
->> -    bitmap_for_each ( i, &val, len * 8 )
->> +    if ( len < sizeof(val) )
->> +        val &= (1UL << (len * 8)) - 1;
->> +
->> +    for_each_set_bit ( i, val )
->>      {
->>          struct vgic_irq *irq = vgic_get_irq(vcpu->domain, vcpu, intid + i);
->>
->> @@ -356,9 +366,11 @@ void vgic_mmio_write_sactive(struct vcpu *vcpu,
->>                               unsigned long val)
->>  {
->>      uint32_t intid = VGIC_ADDR_TO_INTID(addr, 1);
->> -    unsigned int i;
->>
->> -    bitmap_for_each ( i, &val, len * 8 )
->> +    if ( len < sizeof(val) )
->> +        val &= (1UL << (len * 8)) - 1;
->> +
->> +    for_each_set_bit ( i, val )
->>      {
->>          struct vgic_irq *irq = vgic_get_irq(vcpu->domain, vcpu, intid + i);
->>
->> --
->> 2.39.2
->>
-> ~Michal
-
 
