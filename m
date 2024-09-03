@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CA1E96ACF2
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 01:41:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789658.1199261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E08996AD0E
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 01:48:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789666.1199272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sld8v-0007Rn-BQ; Tue, 03 Sep 2024 23:41:01 +0000
+	id 1sldFy-0000bf-5O; Tue, 03 Sep 2024 23:48:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789658.1199261; Tue, 03 Sep 2024 23:41:01 +0000
+Received: by outflank-mailman (output) from mailman id 789666.1199272; Tue, 03 Sep 2024 23:48:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sld8v-0007Pe-8r; Tue, 03 Sep 2024 23:41:01 +0000
-Received: by outflank-mailman (input) for mailman id 789658;
- Tue, 03 Sep 2024 23:41:00 +0000
+	id 1sldFy-0000ZA-28; Tue, 03 Sep 2024 23:48:18 +0000
+Received: by outflank-mailman (input) for mailman id 789666;
+ Tue, 03 Sep 2024 23:48:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7TnF=QB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sld8u-0007PE-50
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 23:41:00 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1sldFw-0000Yr-R0
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 23:48:16 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f81a0d04-6a4d-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 01:40:58 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a8679f534c3so639736566b.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 16:40:58 -0700 (PDT)
+ id fd5d3db1-6a4e-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 01:48:16 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a8a16c53d3cso263841066b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 16:48:16 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8988feb0fcsm735926766b.45.2024.09.03.16.40.55
+ a640c23a62f3a-a89891da22bsm737304966b.182.2024.09.03.16.48.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 16:40:56 -0700 (PDT)
+ Tue, 03 Sep 2024 16:48:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f81a0d04-6a4d-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: fd5d3db1-6a4e-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725406857; x=1726011657; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725407296; x=1726012096; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Vt1AH1a0mLsF0SLsDN+NBLsXAJZMivfsk5Ecpo801z0=;
-        b=QSktFuQae5jJjQyvN7iPS6Fzj8Gnnsm7znVEGjP9jGOEEQIHqYlXbtb5YJdvD0s1NF
-         T6mA/ObfTpF450huVBME7iWjhBwvVAnMs02Srf8S1FJXpFkGkd7W616chK9h0vtaACjX
-         0hbVuvEf4DNb3SN23ZIBSpylRLshQ43LnLE+w=
+        bh=wlFHb1qdSC3uxS86FvXB6M8I2M1wOj2vGG4X2b7P2rA=;
+        b=mLQlNDrwGXBMe2am26ub6Bw8NUq0sbXnw2O1WAnqs4slOVJtX/TJfNaEJMd4YAF+Cl
+         pTt0yRsdIwsG7US+t/u1Y+/sQKlDIt7XJ1ZFZm3d9ah7p+Z6fDKvDujBax0UlemkAKhL
+         ng4qj97kO5YIbOmn61gZAMQh0gxrPxLkYGlCw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725406857; x=1726011657;
+        d=1e100.net; s=20230601; t=1725407296; x=1726012096;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Vt1AH1a0mLsF0SLsDN+NBLsXAJZMivfsk5Ecpo801z0=;
-        b=FB8WGu8eYuEhHsFigm/RlZ+WD/L5+edlglruPNnaOuFVE5OGEh7sWFXb2OCZtusmd8
-         Xr0xTVNR+NYSR0abAtwcoph+HAlhAFeC1rp5Ku+DHos3J8NYVFNr36ShRq71VGmX3mze
-         15WPg9vNkHv8Q2gpoiHmYMyvhqGHmNL3QIVSAck76RRyph8hIfPZ8vSRWOPFOWZG7FDH
-         NJQ83KP14nSUa54BGG834YbH2tY+JLa81IFCljpkOR7+xI6NaIERSIbFY/0Nc/OQIrJE
-         5RF+H5LRIDvWTDkmzDX2olyitnhagvwSVwYTqTAG0t4AGKxSXM4nsnkyaTG4560XWqli
-         4giQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXGjklQErGlLKRxiOwIvFV6RI5i6CpwXLWL2iAKxIA+Yx3j8EZ42eL/bFtUeYfZ9tklPqIa/jM9VUA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzjmVRZeZ6HF8I067F6TKrUOKxKKtM0XnSdTSMw7Um1MaYxn7/j
-	OodaNX90fe5F+Ygtx2Ckr9smbjUyFJJdiuwd4Vg7WfWYnZ19XMOI8vQdBg6cZvk=
-X-Google-Smtp-Source: AGHT+IGTIdXmaztz5bnZu4H66qmtOGXoFGx/orzIWhHHpk5knfglMNW3el23pURIaBa1V/v/duLdsQ==
-X-Received: by 2002:a17:907:934d:b0:a88:a48d:2bdc with SMTP id a640c23a62f3a-a89d6b05675mr927647266b.0.1725406856633;
-        Tue, 03 Sep 2024 16:40:56 -0700 (PDT)
-Message-ID: <9c9a5720-6d5e-4367-a54b-85c6b54089cb@citrix.com>
-Date: Wed, 4 Sep 2024 00:40:55 +0100
+        bh=wlFHb1qdSC3uxS86FvXB6M8I2M1wOj2vGG4X2b7P2rA=;
+        b=ZJCtBQhYImucY+O5C1I23ydMxGYfj1AqIWPmQBSHfGm8JxWNsuGHmTf3kZopd45WV8
+         ePCdv+G3gwBTGeQnCkZZdzZhI6MIk32avpY5IldyGIlqg8BTXxJTGCbHMsL+G/ZleADr
+         IeDG3AoKRePoREFTceRmQHDIO+FEId1Q2n5Eg7+X4aDYiAkBTrE0/tAEg549fRDq+Kmp
+         C6oMn3JGe53ohghsBoXcWuMaVNxdl48rd9wOnEiKtk90kp7iY8lpcYF2MrO90AemGolR
+         M1kqslE7j2deMLYDFTsNcUGgDe/S2HqyUClJiS7kg4QeN1BfuJ/sWrRXcwP+7QP7raLh
+         vsLw==
+X-Forwarded-Encrypted: i=1; AJvYcCUgzbFOXiNozOIBCKay+r4msoiVFRVRv1T6DSiDKuLqpJv44EaYHryVpbjW17nB//AvWrr06vDTfH0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwEQDSOmcI/tduMZbZclfscnAxDXP5K7ryksE2XB/JygS8Cb6ik
+	Q3EBJE0Z+4ae0lGfBtPpYQGse8KClVyoxv9vaIhzB9JlYo9A3otxQiP4hlIG8jc=
+X-Google-Smtp-Source: AGHT+IHLZbVyKhLb9/7x65WidNeNiFjna0CvhNVE2v+W7/TqC2ThvyvaOtl/xuixO9nZyhPRS4dbKw==
+X-Received: by 2002:a17:907:2d07:b0:a7d:a29e:5c41 with SMTP id a640c23a62f3a-a897f8e7272mr1395546866b.40.1725407295315;
+        Tue, 03 Sep 2024 16:48:15 -0700 (PDT)
+Message-ID: <c5a44f74-9aa8-468b-9125-3c9f903e4dea@citrix.com>
+Date: Wed, 4 Sep 2024 00:48:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/44] x86/boot: move headroom to boot modules
+Subject: Re: [PATCH v4 13/44] x86/boot: update struct boot_module on module
+ relocation
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-8-dpsmith@apertussolutions.com>
+ <20240830214730.1621-14-dpsmith@apertussolutions.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,36 +132,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240830214730.1621-8-dpsmith@apertussolutions.com>
+In-Reply-To: <20240830214730.1621-14-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
-> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-> index 844262495962..3e0e36df096b 100644
-> --- a/xen/arch/x86/include/asm/bootinfo.h
-> +++ b/xen/arch/x86/include/asm/bootinfo.h
-> @@ -13,6 +13,7 @@
->  
->  struct boot_module {
->      module_t *early_mod;
-> +    unsigned long headroom;
-
-This needs a comment explaining what it's for.  Perhaps crib from ...
-
 > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index 8912956ee7f1..fd6cc7fac907 100644
+> index 021c5699f86c..27517d24b2ea 100644
 > --- a/xen/arch/x86/setup.c
 > +++ b/xen/arch/x86/setup.c
-> @@ -1475,8 +1477,10 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->               * decompressor overheads of mod[0] (the dom0 kernel).  When we
->               * move mod[0], we incorporate this as extra space at the start.
->               */
+> @@ -1408,8 +1408,10 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>           * respective reserve_e820_ram() invocation below. No need to
+>           * query efi_boot_mem_unused() here, though.
+>           */
+> -        boot_info->mods[idx].early_mod->mod_start = virt_to_mfn(_stext);
+> -        boot_info->mods[idx].early_mod->mod_end = __2M_rwdata_end - _stext;
+> +        boot_info->mods[idx].start = boot_info->mods[idx].early_mod->mod_start
+> +                                   = virt_to_mfn(_stext);
+> +        boot_info->mods[idx].size = boot_info->mods[idx].early_mod->mod_end
+> +                                  = __2M_rwdata_end - _stext;
 
-... here, while also editing to to prevent it going stale.
+MISRA objects to using a = b = c; syntax, and we're being asked to take
+it out elsewhere.
 
-It is this patch which stops modules_headroom being strictly the dom0
-kernel.
+It would be best to make local start/size variables, and the resulting
+code will have less churn through the rest of the series.
 
 ~Andrew
 
