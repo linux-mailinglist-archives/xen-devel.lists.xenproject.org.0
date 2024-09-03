@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D187996A052
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 16:23:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789272.1198849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC12D96A06F
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 16:26:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789280.1198860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slURE-0000zs-NA; Tue, 03 Sep 2024 14:23:20 +0000
+	id 1slUUS-0001q2-8r; Tue, 03 Sep 2024 14:26:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789272.1198849; Tue, 03 Sep 2024 14:23:20 +0000
+Received: by outflank-mailman (output) from mailman id 789280.1198860; Tue, 03 Sep 2024 14:26:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slURE-0000xv-KP; Tue, 03 Sep 2024 14:23:20 +0000
-Received: by outflank-mailman (input) for mailman id 789272;
- Tue, 03 Sep 2024 14:23:19 +0000
+	id 1slUUS-0001o5-57; Tue, 03 Sep 2024 14:26:40 +0000
+Received: by outflank-mailman (input) for mailman id 789280;
+ Tue, 03 Sep 2024 14:26:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7TnF=QB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1slURC-0000xi-VW
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 14:23:18 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8q7v=QB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1slUUQ-0001mA-TU
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 14:26:38 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 104638c5-6a00-11ef-a0b2-8be0dac302b0;
- Tue, 03 Sep 2024 16:23:17 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a8692bbec79so608878966b.3
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 07:23:18 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989022481sm685723066b.86.2024.09.03.07.23.15
+ id 87a41ea7-6a00-11ef-a0b2-8be0dac302b0;
+ Tue, 03 Sep 2024 16:26:38 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a866cea40c4so618003866b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 07:26:38 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a89940980a1sm633071766b.47.2024.09.03.07.26.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 07:23:15 -0700 (PDT)
+ Tue, 03 Sep 2024 07:26:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,197 +45,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 104638c5-6a00-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: 87a41ea7-6a00-11ef-a0b2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725373397; x=1725978197; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725373598; x=1725978398; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DM9mBm/Eiir1NGduHPuNllBixDanvkK9a/uYhO9Q0cE=;
-        b=E0r7sFjelfzCZuh/QrBPzFeelbbnA2cdNkuTOHZSTFkVk+gKw7bacMMIgnUpKvYd0C
-         THahsAKI2ArgCMSqzPQFDuyul3dEDuxqmLEc+Scrv6prlLQKztW1XEn+LtJ0DdctlrfO
-         GMooJmqjEasGyJ+PnWAsPsNWtlc7n9ZwZXSGE=
+        bh=X8ug0RKECctaqD3XYMcpwwlQO9BTgKEmQFbY/dzRVXs=;
+        b=dYj+/L+WvziwfBFfhLOqYUiHWuc90CYaq9Qd7Lrkyx2+1oQLl7lBY+Mijtoty2fDma
+         DEqYycX53d+171p4GT3HBEdztwdJawmr9tkAKwI4Ren7V8v0BcSxBSzNO2SkgMjtluTE
+         3+UPo3Y2hdl8HOpkvqHq98v43I8dPgnsduH4Bajthe22qP0KK0u+GTIyqllv2tV1g0XO
+         m3sUZOmM66GbfABxQQK7VX32/e6uuAjv65IxWN5IfUaLiIawdUqXf0Wnyy1i2WIIFPFI
+         4k4rQZFhhVf2JxQeaLxSdhRXBGG7clSg4X4AU2srVcbswkMyXfGPNLBoMnFtpoFt+ILJ
+         I7HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725373397; x=1725978197;
+        d=1e100.net; s=20230601; t=1725373598; x=1725978398;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DM9mBm/Eiir1NGduHPuNllBixDanvkK9a/uYhO9Q0cE=;
-        b=IGgXbzt+T32MScMY9IBKwtCH3dmWOkXBUQqL25PlGJxlYKFrDCUw4WB5rl7+LH0X/y
-         N7VWJdo0DdAKFK8ItPyeKb11aWcvDn6diY7p6pMv9HlwlUaO/p+z8xoWs2M0JEubukRh
-         ci6TKwSmkJkOVnS6ygZwJIgFOFyo75vkbeGyt04ZPKsG8I1SmL0VnPgX5FNbgkbDE0CH
-         QAgHiQzkvIx5OrYXsLxRpM1n1MqV+bEB+K/ObBsfqLymN/OsVDJrHbS3X/vYe2+5fYe8
-         CgCnCLkc+ZQwqp5/e1GW9fRRWZyvHKLMi1oZXn0DqrHo95SA5Eq6O9CIB1XDpOquSSCe
-         1c2g==
-X-Gm-Message-State: AOJu0YzFvj3MjypPlMfj9ItbG7dAgGMbVEiqruY+kaqDb2pJSeTbfm2v
-	c5ixY2lRo1yOceRep11KVE3TEQQTw5mf6CoXKSP8bVZ6tA1WRoCeIFpf9CxN08WKVUzEF4PV3VF
-	8
-X-Google-Smtp-Source: AGHT+IEhEpZwrUij44IIlKbnR4eITqYvPoJr9VR73FF6UiYFpmfci5VgLm9SK0fBScLMRXLt3/d8xw==
-X-Received: by 2002:a17:907:f154:b0:a80:f80a:d0b0 with SMTP id a640c23a62f3a-a89a34e4cbamr1018096166b.10.1725373396217;
-        Tue, 03 Sep 2024 07:23:16 -0700 (PDT)
-Message-ID: <f22e08ce-e51f-418d-b833-59778eb21865@citrix.com>
-Date: Tue, 3 Sep 2024 15:23:14 +0100
+        bh=X8ug0RKECctaqD3XYMcpwwlQO9BTgKEmQFbY/dzRVXs=;
+        b=CXkZK1E/dgzIqUGkTPmqdKhAsD96yBqy70E34kj82+GEyNmrqcuxeuIV0SYLCXd77c
+         qcOjoMkw3+VxFKtk666Vr1KW8Be3BIsm6uVWXIQ5igv3OcK1eaasJM91cmqJCUCpa1u8
+         HZSwdBUKuD2TNNNSO2BkNfF0s19wrom7Z1isV+q4Ji4fJXFm8YvOjSLVFg3JJ/HA91h7
+         7SqKbjRZK2DKsN5XtOtId6leVk6h8gHaIVHTAcLcQvKMZS7oBjczogAwPPcvsg1188XE
+         MpX7ZDf0wcVjpUO5qhz0IW3WnPH0yiLpZzbUhF65zNKxSBNVVXKjG1FMVhyOfkguI/B+
+         1kmw==
+X-Forwarded-Encrypted: i=1; AJvYcCWqGLsZY1+VJntNnHA2YeNhVILOepCHSGGuCQi6JMQbzuB+J9ynivAMLhGop572x8luF5DA9zhGmlI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxROdntA1/VvHLUVCdDdbd+9IcERe4LKyU6/ioFI+T8rE5GKMLY
+	KOEIadkrtm6UqEjaYUCZ2MB4YQrVgYbfZCLPWE3R/F7K1xOnX+cGY0UnmCdCzg==
+X-Google-Smtp-Source: AGHT+IEwX4W/8h6LrEVeszXXoDhgnwUKgtS9ggHpfzmOgN3Mjh9VvMaxXTt6RU5OQNnRyHmAHeVSNQ==
+X-Received: by 2002:a17:907:9495:b0:a86:97e5:8d4e with SMTP id a640c23a62f3a-a8a1d2c8600mr289281166b.23.1725373597658;
+        Tue, 03 Sep 2024 07:26:37 -0700 (PDT)
+Message-ID: <1ace3e56-9cd8-4828-aaa2-92ba7766945a@suse.com>
+Date: Tue, 3 Sep 2024 16:26:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] RISCV/shutdown: Implement machine_{halt,restart}()
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <3d32a952c7cc77fd759e211c3b60427485a75582.1725295716.git.oleksii.kurochko@gmail.com>
  <20240903141937.3552353-1-andrew.cooper3@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <20240903141937.3552353-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/09/2024 3:19 pm, Andrew Cooper wrote:
+On 03.09.2024 16:19, Andrew Cooper wrote:
 > SBI has an API for shutdown so wire it up.  However, the spec does allow the
 > call not to be implemented, so we have to cope with the call return returning.
-
-Sorry, this is supposed to read "... cope with sbi_shutdown() returning."
-
-~Andrew
-
->
+> 
 > There is a reboot-capable SBI extention, but in the short term route route
 > machine_restart() into machine_halt().
->
+> 
 > Then, use use machine_halt() rather than an infinite loop at the end of
 > start_xen().  This avoids the Qemu smoke test needing to wait for the full
 > timeout in order to succeed.
->
+> 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->
-> As per commit e44f33ccddc2 ("ppc/shutdown: Implement
-> machine_{halt,restart}()")
->
-> Simply replacing BUG() with a printk() is just swapping one problem for
-> another.
-> ---
->  xen/arch/riscv/Makefile          |  1 +
->  xen/arch/riscv/include/asm/sbi.h |  3 +++
->  xen/arch/riscv/sbi.c             |  5 +++++
->  xen/arch/riscv/setup.c           |  6 ++----
->  xen/arch/riscv/shutdown.c        | 25 +++++++++++++++++++++++++
->  xen/arch/riscv/stubs.c           | 12 ------------
->  6 files changed, 36 insertions(+), 16 deletions(-)
->  create mode 100644 xen/arch/riscv/shutdown.c
->
-> diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-> index 81b77b13d652..d192be7b552a 100644
-> --- a/xen/arch/riscv/Makefile
-> +++ b/xen/arch/riscv/Makefile
-> @@ -4,6 +4,7 @@ obj-y += mm.o
->  obj-$(CONFIG_RISCV_64) += riscv64/
->  obj-y += sbi.o
->  obj-y += setup.o
-> +obj-y += shutdown.o
->  obj-y += stubs.o
->  obj-y += traps.o
->  obj-y += vm_event.o
-> diff --git a/xen/arch/riscv/include/asm/sbi.h b/xen/arch/riscv/include/asm/sbi.h
-> index 0e6820a4eda3..4d72a2295e72 100644
-> --- a/xen/arch/riscv/include/asm/sbi.h
-> +++ b/xen/arch/riscv/include/asm/sbi.h
-> @@ -13,6 +13,7 @@
->  #define __ASM_RISCV_SBI_H__
->  
->  #define SBI_EXT_0_1_CONSOLE_PUTCHAR		0x1
-> +#define SBI_EXT_0_1_SHUTDOWN			0x8
->  
->  struct sbiret {
->      long error;
-> @@ -31,4 +32,6 @@ struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
->   */
->  void sbi_console_putchar(int ch);
->  
-> +void sbi_shutdown(void);
-> +
->  #endif /* __ASM_RISCV_SBI_H__ */
-> diff --git a/xen/arch/riscv/sbi.c b/xen/arch/riscv/sbi.c
-> index 0ae166c8610e..c7984344bc6b 100644
-> --- a/xen/arch/riscv/sbi.c
-> +++ b/xen/arch/riscv/sbi.c
-> @@ -42,3 +42,8 @@ void sbi_console_putchar(int ch)
->  {
->      sbi_ecall(SBI_EXT_0_1_CONSOLE_PUTCHAR, 0, ch, 0, 0, 0, 0, 0);
->  }
-> +
-> +void sbi_shutdown(void)
-> +{
-> +    sbi_ecall(SBI_EXT_0_1_SHUTDOWN, 0, 0, 0, 0, 0, 0, 0);
-> +}
-> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-> index a6a29a150869..bf9078f36aff 100644
-> --- a/xen/arch/riscv/setup.c
-> +++ b/xen/arch/riscv/setup.c
-> @@ -4,6 +4,7 @@
->  #include <xen/compile.h>
->  #include <xen/init.h>
->  #include <xen/mm.h>
-> +#include <xen/shutdown.h>
->  
->  #include <public/version.h>
->  
-> @@ -28,8 +29,5 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
->  
->      printk("All set up\n");
->  
-> -    for ( ;; )
-> -        asm volatile ("wfi");
-> -
-> -    unreachable();
-> +    machine_halt();
->  }
-> diff --git a/xen/arch/riscv/shutdown.c b/xen/arch/riscv/shutdown.c
-> new file mode 100644
-> index 000000000000..270bb26b68a6
+
+Acked-by: Jan Beulich <jbeulich@suse.com>
+ideally with ...
+
 > --- /dev/null
 > +++ b/xen/arch/riscv/shutdown.c
 > @@ -0,0 +1,25 @@
@@ -250,44 +146,8 @@ Sorry, this is supposed to read "... cope with sbi_shutdown() returning."
 > +
 > +    for ( ;; )
 > +        asm volatile ("wfi");
-> +
-> +    unreachable();
-> +}
-> +
-> +void machine_restart(unsigned int delay_millisecs)
-> +{
-> +    /*
-> +     * TODO: mdelay(delay_millisecs)
-> +     * TODO: Probe for #SRST support, where sbi_system_reset() has a
-> +     *       shutdown/reboot parameter.
-> +     */
-> +
-> +    machine_halt();
-> +}
-> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-> index 3285d1889940..2aa245f272b5 100644
-> --- a/xen/arch/riscv/stubs.c
-> +++ b/xen/arch/riscv/stubs.c
-> @@ -49,18 +49,6 @@ void domain_set_time_offset(struct domain *d, int64_t time_offset_seconds)
->      BUG_ON("unimplemented");
->  }
->  
-> -/* shutdown.c */
-> -
-> -void machine_restart(unsigned int delay_millisecs)
-> -{
-> -    BUG_ON("unimplemented");
-> -}
-> -
-> -void machine_halt(void)
-> -{
-> -    BUG_ON("unimplemented");
-> -}
-> -
->  /* domctl.c */
->  
->  long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
->
-> base-commit: 1e6bb29b03680a9d0e12f14c4d406a0d67317ea7
 
+... the missing blanks added here, as you move that loop around.
+
+Jan
 
