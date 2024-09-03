@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 546C096A017
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 16:14:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789249.1198810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C52F96A036
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2024 16:20:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789258.1198830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slUIL-0005FG-3A; Tue, 03 Sep 2024 14:14:09 +0000
+	id 1slUOJ-0008Hd-2t; Tue, 03 Sep 2024 14:20:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789249.1198810; Tue, 03 Sep 2024 14:14:09 +0000
+Received: by outflank-mailman (output) from mailman id 789258.1198830; Tue, 03 Sep 2024 14:20:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slUIK-0005Co-W4; Tue, 03 Sep 2024 14:14:08 +0000
-Received: by outflank-mailman (input) for mailman id 789249;
- Tue, 03 Sep 2024 14:14:07 +0000
+	id 1slUOI-0008Fc-VC; Tue, 03 Sep 2024 14:20:18 +0000
+Received: by outflank-mailman (input) for mailman id 789258;
+ Tue, 03 Sep 2024 14:20:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8q7v=QB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slUIJ-0005Ce-2b
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 14:14:07 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nxvv=QB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1slUOH-0008EC-5B
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 14:20:17 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c6ed3605-69fe-11ef-a0b2-8be0dac302b0;
- Tue, 03 Sep 2024 16:14:05 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5c210e23573so5514333a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 07:14:05 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226c7bda6sm6548148a12.41.2024.09.03.07.14.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 07:14:04 -0700 (PDT)
+ id a3d74044-69ff-11ef-a0b2-8be0dac302b0;
+ Tue, 03 Sep 2024 16:20:16 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-42c2e50ec13so28879975e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 07:20:16 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-374c1de81b2sm8887057f8f.30.2024.09.03.07.20.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Sep 2024 07:20:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,182 +44,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6ed3605-69fe-11ef-a0b2-8be0dac302b0
+X-Inumbo-ID: a3d74044-69ff-11ef-a0b2-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725372845; x=1725977645; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tXYbLEPaADmZT/qXdSkji8Tld20/sYR2M4YS2XP4aZc=;
-        b=ES6RGu/FyZtgodOLNNtgS05AIlhwkBpk+VZKD3QPGVjF7QHNIFceejTyNjyxD0eGFi
-         1DIfLlkNsnZllhkJgrI/760a2t3IqBT+oSncR8V5GDjDzv1ODUWGpz+zzVtDSPsto4Rx
-         rniQ4KcWqbBJOQ9xOTPTEXBu6iQb0WXYiM/cQNRIBYUIldsOfjBwgGb0m31JCBDTkAae
-         E1zMrdB6bz3XNqQt5l2Ijtb4zPJklpobnFtyTp3lGBYCuJDMsnkT458As+cB38C7efgP
-         VaehYAlXbYcmWZP2an27GOYkV2D6D65yphAGFywipzjFaDCqQPsErfQ6NcZEqNG4Ul+1
-         HkWw==
+        d=citrix.com; s=google; t=1725373215; x=1725978015; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=e5brs0OzGf3Ijj5JPYt9yTzzm8IWdRpdWSi0qhrs0RE=;
+        b=bB9IzkZLeg1FVo2NL0L2tKjMhIniFGp2imcz/udwJNwooF3DRrJWtI9pDx7mjaDrwK
+         aTLlww4lR40okQh54U4oLmDC+rXIUngcaHQWWadmDdiFleq1DHq9vR4q108Y6DRHzCDg
+         24D9YtdA6QWR0iKv+6PHuhXSGpM+JpKdNQnuU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725372845; x=1725977645;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tXYbLEPaADmZT/qXdSkji8Tld20/sYR2M4YS2XP4aZc=;
-        b=g5MYOOZ02RLa+4FQdIpwnCJm81k0ogGWN49oLFrhT7XZP83RGK8gpqxu7lVvRKzM68
-         wpvdsfRS88NM/lvPJqqehK8U5Ac6WTVtL8gX3zSGcXTdYDW1C9ShQ36vYkgR6kpn2Rc7
-         flwH3p4eyYGIGQgwIJSjbGPPSpJZ1ZiFR8eX+h7eCKerrsGYiWnC6QLRlYW1CgDH+L3n
-         dvI2IC63wy0i/iWLHhDpGBmE7dwvzM42rZEYpeA8NfqnZvpcF+pOtzNRESF9jTPsaVap
-         HfBET5RwOmHr/1pirNNXXaRrc01hmbBJBpBc6mube7vzpOj4aKKH83e0q5IcQY466NSj
-         hkCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVx4GgS8n/D1NhoRUVfUenfDNvq1LI9/px7QeTGWbRcn6AoQpjkkZzSDoWndxZLdumt+AB/U2E8C58=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxTFf3QfRC9b5jjCidUe7NqXymMETbBCHWIto89OSnOdNlLQGDV
-	sRKYre0zRad8RmAzjR30mwW+hKSMrqW5taSGroYgWepBnsuOmNFk4LXvmJbHdg==
-X-Google-Smtp-Source: AGHT+IH50wLeUwRjAJpuhUC96CmpkKkg/R1TIFuc8qErCAGe9pMlseGn0BBE3OJYgIrQ5Unr6eLVjw==
-X-Received: by 2002:a05:6402:354a:b0:5c2:6314:11c4 with SMTP id 4fb4d7f45d1cf-5c263141257mr4338761a12.2.1725372844764;
-        Tue, 03 Sep 2024 07:14:04 -0700 (PDT)
-Message-ID: <b2b7b716-974c-4172-ba68-261453a96932@suse.com>
-Date: Tue, 3 Sep 2024 16:14:03 +0200
+        d=1e100.net; s=20230601; t=1725373215; x=1725978015;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=e5brs0OzGf3Ijj5JPYt9yTzzm8IWdRpdWSi0qhrs0RE=;
+        b=pWEGQIoN/mYd5gs88ArA9q7eTq8BlJBeurBVw0Jgnkb+qrdEqfRjAoIZTMOBGNwc9S
+         uGrtDsxQuLWNpXFAQccLK8KeFIhjwr9B5A8iM1wbyzY4gJHxqilOITHO4h+z8UMmrAvU
+         IZZGFMmYMhezvNyH7rRchEDV2lDX5RgMpgNKqXoFkjVGroDsCFtystNsDLqNCDfCsmJY
+         Nd1m0CINcElbMH1Ovnw+dHd1cvYsBrgg5JA8MT6n9PjxtLRFvHSNi0g0Gns27Q51o/Qg
+         DiQ7lzqqZ4zEpd+tPJG4Ds4NDbUX7jQZl2/Jut/1fu1AGbLdtKh85BtfRoQhhlIfJTHD
+         mvfg==
+X-Gm-Message-State: AOJu0Yz1dqduhkv/AwIfPDc8qt0A8f0S7GWHCTUNTwr7HdcQSsK9YdLe
+	rfE8zvbqRX7LUSR9v7ERgeWcEL/26doGlyJzTT8mGQKvuoStAvknmgFhn5ANuokyxI3afN/e0M7
+	2
+X-Google-Smtp-Source: AGHT+IHGB9mESOscdmFse9iU85uDourzu+tL9mBSPctj4T6LPr0OyrY3Zf24+3SOtCwHoO603lJ1vA==
+X-Received: by 2002:a5d:4d90:0:b0:374:ca92:5e44 with SMTP id ffacd0b85a97d-374ca92604dmr4548061f8f.32.1725373214705;
+        Tue, 03 Sep 2024 07:20:14 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Paul Durrant <paul@xen.org>,
+	Owen Smith <owen.smith@cloud.com>,
+	Mark Syms <mark.syms@citrix.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH] blkif: reconcile protocol specification with in-use implementations
+Date: Tue,  3 Sep 2024 16:19:23 +0200
+Message-ID: <20240903141923.72241-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v14 2/5] x86/pvh: Allow (un)map_pirq when dom0 is PVH
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <gwd@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20240903070424.982218-1-Jiqian.Chen@amd.com>
- <20240903070424.982218-3-Jiqian.Chen@amd.com>
- <e8db9a54-fcbf-4f4c-803e-7b11838e22a4@suse.com>
- <BL1PR12MB5849C65CAC35890158F6A32FE7932@BL1PR12MB5849.namprd12.prod.outlook.com>
- <905fe9ef-d311-4956-b862-49f2f588afcd@suse.com>
- <BL1PR12MB58492EE11D404B2E09DA0210E7932@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB58492EE11D404B2E09DA0210E7932@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 03.09.2024 12:53, Chen, Jiqian wrote:
-> On 2024/9/3 17:25, Jan Beulich wrote:
->> On 03.09.2024 09:58, Chen, Jiqian wrote:
->>> On 2024/9/3 15:42, Jan Beulich wrote:
->>>> On 03.09.2024 09:04, Jiqian Chen wrote:
->>>>> When dom0 is PVH type and passthrough a device to HVM domU, Qemu code
->>>>> xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
->>>>> xc_physdev_map_pirq map a pirq for passthrough devices.
->>>>> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
->>>>> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
->>>>> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
->>>>> codes.
->>>>>
->>>>> But it is fine to map interrupts through pirq to a HVM domain whose
->>>>> XENFEAT_hvm_pirqs is not enabled. Because pirq field is used as a way to
->>>>> reference interrupts and it is just the way for the device model to
->>>>> identify which interrupt should be mapped to which domain, however
->>>>> has_pirq() is just to check if HVM domains route interrupts from
->>>>> devices(emulated or passthrough) through event channel, so, the has_pirq()
->>>>> check should not be applied to the PHYSDEVOP_map_pirq issued by dom0.
->>>>>
->>>>> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
->>>>> PHYSDEVOP_unmap_pirq for the removal device path to unmap pirq. Then the
->>>>> interrupt of a passthrough device can be successfully mapped to pirq for domU.
->>>>
->>>> As before: When you talk about just Dom0, ...
->>>>
->>>>> --- a/xen/arch/x86/hvm/hypercall.c
->>>>> +++ b/xen/arch/x86/hvm/hypercall.c
->>>>> @@ -73,6 +73,8 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->>>>>      {
->>>>>      case PHYSDEVOP_map_pirq:
->>>>>      case PHYSDEVOP_unmap_pirq:
->>>>> +        break;
->>>>> +
->>>>>      case PHYSDEVOP_eoi:
->>>>>      case PHYSDEVOP_irq_status_query:
->>>>>      case PHYSDEVOP_get_free_pirq:
->>>>
->>>> ... that ought to match the code. IOW you've again lost why it is okay(ish)
->>>> (or even necessary) to also permit the op for non-Dom0 (e.g. a PVH stubdom).
->>>> Similarly imo Dom0 using this on itself wants discussing.
->>> Do you mean I need to talk about why permit this op for all HVM
->>
->> You don't need to invent reasons, but it needs making clear that wider than
->> necessary (for your purpose) exposure is at least not going to be a problem.
->>
->>> and  where can prevent PVH domain calling this for self-mapping, not only dom0?
->>
->> Aiui use on itself is limited to Dom0, so only that would need clarifying
->> (along the lines of the above, i.e. that/why it is not a problem). For
->> has_pirq() domains use on oneself was already permitted before.
-> 
-> Changed commit message to below. Please check and that will be great helpful if you would show me how to modify it.
-> {
-> x86/pvh: Allow (un)map_pirq when dom0 is PVH
-> 
-> Problem: when dom0 is PVH type and passthrough a device to HVM domU, Qemu
-> code xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
-> xc_physdev_map_pirq map a pirq for passthrough devices.
-> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
-> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
-> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
-> codes.
-> 
-> To solve above problem, need to remove the chack has_pirq() for that
-> situation(PHYSDEVOP_map_pirq is issued by dom0 for domUs). But without
-> adding other restrictions, PHYSDEVOP_map_pirq will be allowed wider than
-> what the problem need.
-> So, clarify below:
-> 
-> For HVM domUs whose XENFEAT_hvm_pirqs is not enabled,it is fine to map
-> interrupts through pirq for them. Because pirq field is used as a way to
-> reference interrupts and it is just the way for the device model to
-> identify which interrupt should be mapped to which domain, however
-> has_pirq() is just to check if HVM domains route interrupts from
-> devices(emulated or passthrough) through event channel, so, remove
-> has_pirq() check has no impact on HVM domUs.
-> 
-> For PVH domUs that performs such an operation will fail at the check
-> xsm_map_dedomain_pirq() in physdev_map-nirq().
-> 
-> For PVH dom0, it uses vpci and doesn't use event channel, as above talks,
-> it also has no impact.
-> }
+Current blkif implementations (both backends and frontends) have all slight
+differences about how they handle the 'sector-size' xenstore node, and how
+other fields are derived from this value or hardcoded to be expressed in units
+of 512 bytes.
 
-This is better than what you had before, and I don't really fancy re-
-writing the description effectively from scratch. So let's just go from
-there. As to the "excess" permission for the sub-ops: The main thing I'm
-after is that it be clarified that we're not going to introduce any
-security issues here. That requires auditing the code, and merely saying
-"also has no impact" is a little too little for my taste. For Dom0 an
-argument may be that it is overly powerful already anyway, even if for
-PVH we're a little more strict than for PV (I think).
+To give some context, this is an excerpt of how different implementations use
+the value in 'sector-size' as the base unit for to other fields rather than
+just to set the logical sector size of the block device:
 
-Jan
+                        │ sectors xenbus node │ requests sector_number │ requests {first,last}_sect
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+FreeBSD blk{front,back} │     sector-size     │      sector-size       │           512
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+Linux blk{front,back}   │         512         │          512           │           512
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+QEMU blkback            │     sector-size     │      sector-size       │       sector-size
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+Windows blkfront        │     sector-size     │      sector-size       │       sector-size
+────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+MiniOS                  │     sector-size     │          512           │           512
+
+An attempt was made by 67e1c050e36b in order to change the base units of the
+request fields and the xenstore 'sectors' node.  That however only lead to more
+confusion, as the specification now clearly diverged from the reference
+implementation in Linux.  Such change was only implemented for QEMU Qdisk
+and Windows PV blkfront.
+
+Partially revert to the state before 67e1c050e36b:
+
+ * Declare 'feature-large-sector-size' deprecated.  Frontends should not expose
+   the node, backends should not make decisions based on its presence.
+
+ * Clarify that 'sectors' xenstore node and the requests fields are always in
+   512-byte units, like it was previous to 67e1c050e36b.
+
+All base units for the fields used in the protocol are 512-byte based, the
+xenbus 'sector-size' field is only used to signal the logic block size.  When
+'sector-size' is greater than 512, blkfront implementations must make sure that
+the offsets and sizes (even when expressed in 512-byte units) are aligned to
+the logical block size specified in 'sector-size', otherwise the backend will
+fail to process the requests.
+
+This will require changes to some of the frontends and backends in order to
+properly support 'sector-size' nodes greater than 512.
+
+Fixes: 67e1c050e36b ('public/io/blkif.h: try to fix the semantics of sector based quantities')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/include/public/io/blkif.h | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
+
+diff --git a/xen/include/public/io/blkif.h b/xen/include/public/io/blkif.h
+index 22f1eef0c0ca..07708f4d08eb 100644
+--- a/xen/include/public/io/blkif.h
++++ b/xen/include/public/io/blkif.h
+@@ -240,10 +240,6 @@
+  *      The logical block size, in bytes, of the underlying storage. This
+  *      must be a power of two with a minimum value of 512.
+  *
+- *      NOTE: Because of implementation bugs in some frontends this must be
+- *            set to 512, unless the frontend advertizes a non-zero value
+- *            in its "feature-large-sector-size" xenbus node. (See below).
+- *
+  * physical-sector-size
+  *      Values:         <uint32_t>
+  *      Default Value:  <"sector-size">
+@@ -254,8 +250,8 @@
+  * sectors
+  *      Values:         <uint64_t>
+  *
+- *      The size of the backend device, expressed in units of "sector-size".
+- *      The product of "sector-size" and "sectors" must also be an integer
++ *      The size of the backend device, expressed in units of 512b.
++ *      The product of "sector-size" * 512 must also be an integer
+  *      multiple of "physical-sector-size", if that node is present.
+  *
+  *****************************************************************************
+@@ -338,6 +334,7 @@
+  * feature-large-sector-size
+  *      Values:         0/1 (boolean)
+  *      Default Value:  0
++ *      Notes:          DEPRECATED, 12
+  *
+  *      A value of "1" indicates that the frontend will correctly supply and
+  *      interpret all sector-based quantities in terms of the "sector-size"
+@@ -411,6 +408,11 @@
+  *(10) The discard-secure property may be present and will be set to 1 if the
+  *     backing device supports secure discard.
+  *(11) Only used by Linux and NetBSD.
++ *(12) Possibly only ever implemented by the QEMU Qdisk backend and the Windows
++ *     PV block frontend.  Other backends and frontends supported 'sector-size'
++ *     values greater than 512 before such feature was added.  Frontends should
++ *     not expose this node, neither should backends make any decisions based
++ *     on it being exposed by the frontend.
+  */
+ 
+ /*
+@@ -621,9 +623,12 @@
+ /*
+  * NB. 'first_sect' and 'last_sect' in blkif_request_segment, as well as
+  * 'sector_number' in blkif_request, blkif_request_discard and
+- * blkif_request_indirect are sector-based quantities. See the description
+- * of the "feature-large-sector-size" frontend xenbus node above for
+- * more information.
++ * blkif_request_indirect are all in units of 512 bytes, regardless of whether the
++ * 'sector-size' xenstore node contains a value greater than 512.
++ *
++ * However the value in those fields must be properly aligned to the logical
++ * sector size reported by the 'sector-size' xenstore node, see 'Backend Device
++ * Properties' section.
+  */
+ struct blkif_request_segment {
+     grant_ref_t gref;        /* reference to I/O buffer frame        */
+-- 
+2.46.0
+
 
