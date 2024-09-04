@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 996E896B211
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 08:45:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789812.1199471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 136A196B218
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 08:47:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789832.1199498 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sljlj-0002hZ-T6; Wed, 04 Sep 2024 06:45:31 +0000
+	id 1sljnV-00048L-Q1; Wed, 04 Sep 2024 06:47:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789812.1199471; Wed, 04 Sep 2024 06:45:31 +0000
+Received: by outflank-mailman (output) from mailman id 789832.1199498; Wed, 04 Sep 2024 06:47:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sljlj-0002en-QO; Wed, 04 Sep 2024 06:45:31 +0000
-Received: by outflank-mailman (input) for mailman id 789812;
- Wed, 04 Sep 2024 06:45:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sljnV-00045K-M1; Wed, 04 Sep 2024 06:47:21 +0000
+Received: by outflank-mailman (input) for mailman id 789832;
+ Wed, 04 Sep 2024 06:47:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sljli-0002ee-AG
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 06:45:30 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 457336c7-6a89-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 08:45:28 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5c09fd20eddso5827234a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 23:45:28 -0700 (PDT)
+ id 1sljnU-0003pA-D4
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 06:47:20 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 87e16523-6a89-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 08:47:19 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a86984e035aso758526866b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 23:47:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c2419dd5a4sm5243096a12.97.2024.09.03.23.45.26
+ a640c23a62f3a-a89972cf240sm683197766b.118.2024.09.03.23.47.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 23:45:27 -0700 (PDT)
+ Tue, 03 Sep 2024 23:47:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 457336c7-6a89-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 87e16523-6a89-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725432327; x=1726037127; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725432439; x=1726037239; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=m8MRt3rVHuk2G1p4DsHV66w5iWiSE48yCBotlxy1Nzo=;
-        b=TooPtXFzES2J8SVQ7Ih82dljDaAOJ0g4gfs3xDOzfSTX8j/LK8a6hXDMg6D8WW/vx5
-         LBu2fbergJt98DwF9IGcl9h/lSvyBU8bpc02w6TNuQUMihAsuGMkGpWg019ut5K7pC46
-         qV2/V+2u5LXkevHZVvd6MJb4GzwmCLL3B57yK2wLM7K2zXzX1nBjY8doNfmvB1G2TyBa
-         /gMVEbNg4+Ghd1oyVUlIr/VyWPJGSyTa/gN2GdaTELrqLB82YTGFUSFEqBPjUkhFlX4Z
-         FvOfzy3kRwtneAR+K6so/2YV9XHWg1j5uY2Id2/jRRmsZeTPS9BgriZKyCAY73aCRN+8
-         eFKw==
+        bh=ftEq+k41f1/QJP+44quWJrpK4qTaLu/gSQVXcQ4pasI=;
+        b=KFuP8Z+PvTA0l9megioE93acX34+Strb7IqsVpmTSPcQ+HCpx35lZZVrLwmgRFUOp4
+         zY0u4Vw1YXiEVtjsu6BjKlG10onFkWxvltYmlTw5KBiElNqtK0kYZgR+/9VBbm/lbjvn
+         cLpGQO/gZCvE62AhMeTepdIFoCxyje87EMyzLxmzSK4q/7gmuc2Kd0ISx2C3BmEoGCU+
+         iPhCkiSYWGHK7ILv5DFmSNi1CvwkIxjosOcPS/9PPUUM7tsUaRwg3pu1JyGb5ZZMYAZd
+         YTDGGdeJJFKszIesJALj5QHp/ieXm0k44yZ0A0BtER/wqLzdkSVMUe67rDELTFX4nWQJ
+         zTAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725432327; x=1726037127;
+        d=1e100.net; s=20230601; t=1725432439; x=1726037239;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=m8MRt3rVHuk2G1p4DsHV66w5iWiSE48yCBotlxy1Nzo=;
-        b=qhcPWgDveXfzkGHggTgC6lL00cU36NXmOxutF36Lemyy/443imDlFvsnh4JT2JGkNl
-         5zk2RnlnwpVBYuArD17T3mfGlpP8o/IDR77DJ9runccaAEvfDE0GERUYWo1Lk55zfvUz
-         Yy6/OKX4HPZhGe1T2BqjMBEO0DZ4gD/qD4KDbliAhQkhyVh5GX6lalG6nBPwnVsPfR8D
-         UurVfXH2qHxDVxUp5+6zmI6smxs2tIp9X00vyFzlayoEqNTWmhr2xxU5RPF8yoQ4Vzp0
-         kZBzBzqU9vgtKPywX5wVh8p4MbXeCvUbdNY8ZkeiQOwT+ZAieoHt4uGWJ8hDZSm/7bGG
-         sO3w==
-X-Forwarded-Encrypted: i=1; AJvYcCXT/UHCg1cbBcpGQPHyDWNhBx7jjgzFnj4Be3+rUnfbp/EuWHmIIPk7CswmQOHpHJHJUhDkaTC8c8U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzNGVnrzofXHAervrVA+4wWwMksHvXe6yIt73EGKsCHLSOLfEO2
-	nV2QrkjWRgdEsn+fL6crCvBDnfrJ4MnpvAV908Paabie7l3CrTSIi8/yLA/qfg==
-X-Google-Smtp-Source: AGHT+IHCLuM3halKb1+wIkqGDAhQeaVSArqLQUdoeuyQctKHlA3Gsy+c5qnBJGcTeNN3umtDWT2r9g==
-X-Received: by 2002:a05:6402:528e:b0:5c2:6ff0:52b3 with SMTP id 4fb4d7f45d1cf-5c26ff053a7mr3027916a12.18.1725432327362;
-        Tue, 03 Sep 2024 23:45:27 -0700 (PDT)
-Message-ID: <564c11d1-4e06-4af0-bbdb-c4cbcf3df26a@suse.com>
-Date: Wed, 4 Sep 2024 08:45:26 +0200
+        bh=ftEq+k41f1/QJP+44quWJrpK4qTaLu/gSQVXcQ4pasI=;
+        b=BAZ1nkA9lkhKyrFBvH5sKWMvRJBHpgggSNM7dR+o09rkMLPjuScK9CCTxYQEK3WNa7
+         sFJhGhm2n2cL23ZqDn1xgKv7l3z0q0G9pmn7fZQ/QDj9uD6J2UAoML82c1Ve1IBkouQq
+         Sinvr1uamn2fNLW7EY35zZ1ASjlRMio8rk4knCv+8+MMGbw6ZId4fUua32Tk8wkc0saY
+         O5okc8TxKnkJRfrpoq6V8m624oLRVhVKWH5QT4sj2yaTI/CEloqIDZxTuROhifa+wDwT
+         5xSY0Sb1prf8shQK8Ka8+W+/0Oq+GySuej49Tr79cU52+MuJ3LjhdYGafHSd8qrQ5O+Y
+         lj2w==
+X-Forwarded-Encrypted: i=1; AJvYcCVJjlVwRIkDhOmCJN+zH4DLfh5DpKil7e1cFlACoIZKfnLx2aY7TlnpUz46xsaK2fmjABLSXWmtm7w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzMQHFtnw5N7mU0byQjK5l4zj7/zcFPfWPtbPBt9AlyK59nOafh
+	S8oT7JLtduE8+3o5nsQWSswcKpgBaKVKiZ16c2gYbDiX7+zGAPyW8yrrgiwyrw==
+X-Google-Smtp-Source: AGHT+IFFdk2W8JaV/jesgqBEttg2qS9DiYvgB0m6nAnUj27Rl2vHWZwZQy9sel9YG+gAYgeGaWESAQ==
+X-Received: by 2002:a17:906:c113:b0:a86:8f8f:4761 with SMTP id a640c23a62f3a-a89a35e1dd5mr926350366b.25.1725432439205;
+        Tue, 03 Sep 2024 23:47:19 -0700 (PDT)
+Message-ID: <789911fc-eb37-427e-9d3e-b82f93a61099@suse.com>
+Date: Wed, 4 Sep 2024 08:47:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/44] x86/boot: move headroom to boot modules
+Subject: Re: [PATCH v4 08/44] x86/boot: convert setup.c mod refs to early_mod
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-8-dpsmith@apertussolutions.com>
+ <20240830214730.1621-9-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,46 +114,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240830214730.1621-8-dpsmith@apertussolutions.com>
+In-Reply-To: <20240830214730.1621-9-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 30.08.2024 23:46, Daniel P. Smith wrote:
-> The purpose of struct boot_module is to encapsulate the state of boot modules.
-> Doing locates boot module state with its respective boot module, reduces
+> To allow a slow conversion of x86 over to struct boot_module, start with
+> replacing all references to struct mod to the early_mod element of struct
+> boot_module. These serves twofold, first to allow the incremental transition
+> from struct mod fields to struct boot_module fields.  The second is to allow
+> the conversion of function definitions from taking struct mod parameters to
+> accepting struct boot_module as needed when a transitioned field will be
+> accessed.
 
-I'm struggling with the start of this sentence.
-
-> @@ -1390,7 +1390,9 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->          mod[boot_info->nr_mods].mod_end = __2M_rwdata_end - _stext;
->      }
->  
-> -    modules_headroom = bzimage_headroom(bootstrap_map(mod), mod->mod_end);
-> +    boot_info->mods[0].headroom = bzimage_headroom(
-> +                        bootstrap_map(boot_info->mods[0].early_mod),
-> +                        boot_info->mods[0].early_mod->mod_end);
-
-Nit: This is badly indented. Either
-
-    boot_info->mods[0].headroom = bzimage_headroom(
-        bootstrap_map(boot_info->mods[0].early_mod),
-        boot_info->mods[0].early_mod->mod_end);
-
-or
-
-    boot_info->mods[0].headroom =
-        bzimage_headroom(
-            bootstrap_map(boot_info->mods[0].early_mod),
-            boot_info->mods[0].early_mod->mod_end);
-
-or
-
-    boot_info->mods[0].headroom =
-        bzimage_headroom(bootstrap_map(boot_info->mods[0].early_mod),
-                         boot_info->mods[0].early_mod->mod_end);
-
-Even shortening "boot_info" will not avoid some line wrapping here, as it
-looks.
+Yet earlier it was mentioned that early_mod is a transitory name. Will all of
+this then need touching a 2nd time?
 
 Jan
 
