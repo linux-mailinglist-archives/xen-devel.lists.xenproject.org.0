@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E624996CA8A
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 00:37:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790808.1200572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A55D96CA95
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 00:48:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790814.1200581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slybO-0005P1-JM; Wed, 04 Sep 2024 22:35:50 +0000
+	id 1slymv-0008Re-Jp; Wed, 04 Sep 2024 22:47:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790808.1200572; Wed, 04 Sep 2024 22:35:50 +0000
+Received: by outflank-mailman (output) from mailman id 790814.1200581; Wed, 04 Sep 2024 22:47:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slybO-0005ML-GN; Wed, 04 Sep 2024 22:35:50 +0000
-Received: by outflank-mailman (input) for mailman id 790808;
- Wed, 04 Sep 2024 22:35:49 +0000
+	id 1slymv-0008P6-H1; Wed, 04 Sep 2024 22:47:45 +0000
+Received: by outflank-mailman (input) for mailman id 790814;
+ Wed, 04 Sep 2024 22:47:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EFI/=QC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1slybN-0005MF-LC
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 22:35:49 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1slymu-0008P0-KV
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 22:47:44 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0797f2ae-6b0e-11ef-99a1-01e77a169b0f;
- Thu, 05 Sep 2024 00:35:47 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-374c4c6cb29so37641f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 15:35:47 -0700 (PDT)
+ id b11c2825-6b0f-11ef-99a1-01e77a169b0f;
+ Thu, 05 Sep 2024 00:47:41 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-5334b0e1a8eso61806e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 15:47:41 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a623a9aa6sm47014666b.149.2024.09.04.15.35.45
+ a640c23a62f3a-a8a623a6fa6sm47731666b.170.2024.09.04.15.47.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 15:35:45 -0700 (PDT)
+ Wed, 04 Sep 2024 15:47:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0797f2ae-6b0e-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: b11c2825-6b0f-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725489347; x=1726094147; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725490061; x=1726094861; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GB/HNtH4EuFvvcN/gECue2pWoXzh0Xs5e2/OBajVI9g=;
-        b=mJKlRWvv0VzocHZT9JeFiTqksIHoy3qCWlFWOacZZ5rgkjEFfvswwKhX3kTqb2Zgbi
-         wL9smPSdKY6c5B9d6eplrGPjGCISSocEsdNhybvKQFmGP3f+ykItLukIAzH6JWcYkOuv
-         R6N6qPC+CKLelL0NNaVi9AW37YFgoyEUHR4Po=
+        bh=c6FwlHWqVAE9grNApQ5BpGI04apAN0H94BaBVCt4aq0=;
+        b=lQaM7oDqkOX+cfiK8mdOkJZQedbE3ImsyL/XGOXyLLf3PPzmISgJdcjXgbqJze40EK
+         fm7sSBm5GeTzNdfDuzsCWgEpWsrHeYs9MIALwz8XVmxsbcbf6/YkoopXXca58ZQIOcik
+         QLekb4Gmjn+VE6vyC22jyg6m832H9Ako6FUlc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725489347; x=1726094147;
+        d=1e100.net; s=20230601; t=1725490061; x=1726094861;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GB/HNtH4EuFvvcN/gECue2pWoXzh0Xs5e2/OBajVI9g=;
-        b=UGpKKgiX4ryw9hIRsnJ/wh6Wnyf9Jbwxaj/1DTskCLGw5eFXC20p7kCI3FIN05AFPP
-         wbN8cGraBdH41vTrwVogxC885rTfKHXeyzbgBLrP5cM5+/iOPixv+wPPTyC1T9pPfiI2
-         WgaaiVWob4z9QaQGVAFj1hOa9YWaWqlohw4gVdztrrbwuTdKZAOEd9lsZ15HQa8neuGh
-         Hqm5Wv6/RGRnPs53ZSZomfdm25QNG/oZhZwRSJ7E0dkcOBVl0Xbu73WwTH42O0/Uasiv
-         pHmfpzJSq3vHbc9M98EoJtPMV5e2FndMPz6smPi2dj2x545Lz5/zi7bOVjWrU90A7f1y
-         B49A==
-X-Forwarded-Encrypted: i=1; AJvYcCU0SKYoiCLAQVpmowC+Ek4995rb7YvJKbq74h1kdEYL9wtB6NU+C/4kyLxw/m2axeBEtSGnYDy+zfg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywgnb+8lN6CpoHWa83IBMml460IgNyE5ZtJLRmNN1R9o1tnprMn
-	l6EAwIYWoFAwlR1WEVft13DOof4NXE8Y8TcxSzN34fZESBg442cBXRxsluzOPR8=
-X-Google-Smtp-Source: AGHT+IHwiePSR3+pnQGc9FqTDul/g7l2al670Gz9SVm/Aif/mCeo9lq/M/b1bDxMgfhBP7FTBUijGQ==
-X-Received: by 2002:a5d:668a:0:b0:374:c11c:c5ca with SMTP id ffacd0b85a97d-374c11cc70cmr11230084f8f.46.1725489346341;
-        Wed, 04 Sep 2024 15:35:46 -0700 (PDT)
-Message-ID: <44dff12e-2fb8-45e9-b416-1c82cc90df20@citrix.com>
-Date: Wed, 4 Sep 2024 23:35:45 +0100
+        bh=c6FwlHWqVAE9grNApQ5BpGI04apAN0H94BaBVCt4aq0=;
+        b=H9oGXzRcSNn5ir9mnnRNbifFWW79tKZ1rGlj060eGMdkN/UccglkzokFkja9wMv+GM
+         3jIWB0sRit4XjY873abIclzEp1vyccSq49tv/ccGg+NGL1fh5vmpZem5ZxFwke0dcndo
+         g1R4r+bQGCO6L1m12vGaK5EqlVAimI+sHGst6UY6l4WYZZpfugoJvzg15cZbejSsAKgJ
+         gPf5aLsikKToM8fjAwKvr7uCptBt2sCYwrhayK9wlidYqEPEyyvfqDuNMgfSmgTxIdsE
+         X8ulXL8Ycp+1a0nq2N3Vu/TznJIX5M2JstAU9Db9coa8Gr2JlJ60vNzId7d85EAv1eeR
+         SnzA==
+X-Forwarded-Encrypted: i=1; AJvYcCUZ5X8dm6M6WB4/pjeARXBfRYtCgAX+Fd+UC6sxT+IRLZoA6XanYObIL0TCTK1ejX/R8UKc2V3Lg7w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxOYwfwNg58BwI275bKqJTXRlfzx+79k4qmHVbg6Ost74zBV0M/
+	l9yfEs/JVdbPjoyLjo9jsdLylfLMuX2+gqS8W9Dc0az665nT9VWIQOQ0+pNFRDA=
+X-Google-Smtp-Source: AGHT+IHSp1J9sFGlpiC970LivzcCqDQ95corwd5NQckn/BwVX0zGfYozR2xHGIX8TEr/7pEPs/iSJw==
+X-Received: by 2002:a05:6512:398c:b0:530:9d86:6322 with SMTP id 2adb3069b0e04-53546b8d897mr13626997e87.41.1725490059689;
+        Wed, 04 Sep 2024 15:47:39 -0700 (PDT)
+Message-ID: <5984c668-ccde-497d-a94d-39372376dd5e@citrix.com>
+Date: Wed, 4 Sep 2024 23:47:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 11/11] x86/bitops: Use the POPCNT instruction when
@@ -86,8 +86,6 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
 References: <20240828220351.2686408-1-andrew.cooper3@citrix.com>
  <20240828220351.2686408-12-andrew.cooper3@citrix.com>
  <48377e77-2458-439c-b594-21bde610ffbb@suse.com>
- <f661dca1-0583-4a83-89db-662473749df8@citrix.com>
- <1cab3807-706b-44fc-a074-d44dfd9fd446@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,89 +131,29 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <1cab3807-706b-44fc-a074-d44dfd9fd446@suse.com>
+In-Reply-To: <48377e77-2458-439c-b594-21bde610ffbb@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 02/09/2024 9:06 am, Jan Beulich wrote:
-> On 30.08.2024 22:03, Andrew Cooper wrote:
->> On 29/08/2024 3:36 pm, Jan Beulich wrote:
->>> On 29.08.2024 00:03, Andrew Cooper wrote:
->>>> It has existed in x86 CPUs since 2008, so we're only 16 years late adding
->>>> support.  With all the other scafolding in place, implement arch_hweightl()
->>>> for x86.
->>>>
->>>> The only complication is that the call to arch_generic_hweightl() is behind
->>>> the compilers back.  Address this by writing it in ASM and ensure that it
->>>> preserves all registers.
->>>>
->>>> Copy the code generation from generic_hweightl().  It's not a complicated
->>>> algorithm, and is easy to regenerate if needs be, but cover it with the same
->>>> unit tests as test_generic_hweightl() just for piece of mind.
->>>>
->>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> ---
->>>> CC: Jan Beulich <JBeulich@suse.com>
->>>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>>
->>>> v2:
->>>>  * Fix MISRA 8.2 (parameter name) and 8.5 (single declaration) regressions.
->>>>  * Rename {arch->x86}-generic-hweightl.{S->c}
->>>>  * Adjust ASM formating
->>>>
->>>> The __constructor trick to cause any reference to $foo() to pull in
->>>> test_$foo() only works when both are in the same TU.  i.e. what I did in
->>>> v1 (putting test_arch_generic_hweightl() in the regular generic-hweightl.c)
->>>> didn't work.
->>> I'm afraid I don't understand this. What exactly didn't work, breaking in which
->>> way? Presumably as much as you, I don't really like the global asm() in a C
->>> file, when ideally the same could be written with less clutter in an assembly
->>> one.
->> We have lib-y because we wish to not include arch_generic_hweightl() if
->> it isn't referenced.
->>
->> But, test_arch_generic_hweightl() unconditionally references
->> arch_generic_hweightl() (in CONFIG_SELF_TESTS builds).
-> Which I assumed was intentional: Always have the tests, to make sure the code
-> doesn't go stale (or even break).
+On 29/08/2024 3:36 pm, Jan Beulich wrote:
+> On 29.08.2024 00:03, Andrew Cooper wrote:
+>> +asm (
+>> +    ".type arch_generic_hweightl, STT_FUNC\n\t"
+>> +    ".globl arch_generic_hweightl\n\t"
+>> +    ".hidden arch_generic_hweightl\n\t"
+>> +    ".balign " STR(CONFIG_FUNCTION_ALIGNMENT) ", 0x90\n\t"
+> Maybe better avoid open-coding CODE_FILL, in case we want to change that
+> down the road?
 
-Come to think of it, we already have two subtlety different things.
+Sadly not.  They're both inside #ifdef __ASSEMBLY__, causing this to
+turn into a "CODE_FILL" literal.
 
-common/bitops.c is SELF_TESTS only, and does both compile time
-(constant-folding) and runtime (non-folded) tests on the top-level APIs.
+For now I'll leave some grep fodder, until we can think of a nicer way
+of doing this.
 
-This checks that the compiler agrees with the test parameters that I (or
-hopefully in the future, others) have chosen, and that every arch_$foo()
-override agrees with the compiler version.
+> Also could I talk you into dropping the \t there?
 
-It has already found bugs.  Both __builtin foo() vs fool() mismatches
-and I dread to think how long a bugs like that could have gone
-unnoticed.  I caught ppc's arch_hweightl() before posting v1, but noone
-noticed ARM's arch_flsl() snafu when it was on the list (I found it when
-retrofitting SELF_TESTS around the series).
-
-
-Separately, anything that causes any {arch_,}generic_$foo()'s to be
-included also pulls in the SELF_TEST for that specific function. 
-They're runtime only tests (no constant folding in an intentionally
-out-of-line function).
-
-But, it was intentional to try and make CONFIG_SELF_TESTS not blindly
-pull in the unused generic_$foo()'s.  They'll get tested if they are
-referenced in a build, but the tests are only liable to break are during
-bitops development or a new/weird arch/environments.
-
-Furthermore, I expect (/hope) that we'll get to the point where we're
-being conservative with selftests.  It's part of why I'm trying to keep
-the current ones pretty lean.
-
-
-> Looking at the v2 code again I notice that while now you're running the tests
-> only when the to-be-tested function is referenced from elsewhere, the testing
-> has become independent of CONFIG_SELF_TESTS. I don't think that was intended?
-
-Correct - that was an oversight.  The CONFIG_SELF_TESTS guard wants to
-go back in.
+Done.
 
 ~Andrew
 
