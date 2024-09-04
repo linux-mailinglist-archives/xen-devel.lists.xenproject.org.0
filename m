@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2822796B89C
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 12:32:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790080.1199788 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E71E896B8A3
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 12:33:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790090.1199798 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slnIn-0000RH-Bx; Wed, 04 Sep 2024 10:31:53 +0000
+	id 1slnKR-0001JF-Q9; Wed, 04 Sep 2024 10:33:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790080.1199788; Wed, 04 Sep 2024 10:31:53 +0000
+Received: by outflank-mailman (output) from mailman id 790090.1199798; Wed, 04 Sep 2024 10:33:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slnIn-0000PZ-8z; Wed, 04 Sep 2024 10:31:53 +0000
-Received: by outflank-mailman (input) for mailman id 790080;
- Wed, 04 Sep 2024 10:31:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1slnKR-0001G9-Mr; Wed, 04 Sep 2024 10:33:35 +0000
+Received: by outflank-mailman (input) for mailman id 790090;
+ Wed, 04 Sep 2024 10:33:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EFI/=QC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1slnIl-0008TN-WF
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 10:31:52 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e5aa13d8-6aa8-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 12:31:51 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5c0aa376e15so3588433a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 03:31:51 -0700 (PDT)
+ id 1slnKQ-0001Fw-3N
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 10:33:34 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 21d50757-6aa9-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 12:33:32 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5c3c34e3c39so551273a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 03:33:32 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c2502f86ebsm4471735a12.77.2024.09.04.03.31.49
+ 4fb4d7f45d1cf-5c24372d393sm5355001a12.23.2024.09.04.03.33.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 03:31:49 -0700 (PDT)
+ Wed, 04 Sep 2024 03:33:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5aa13d8-6aa8-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: 21d50757-6aa9-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725445911; x=1726050711; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725446012; x=1726050812; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tW0GRSJ/AMS0Ap+d0y5OzUxR8qxGxbeCpUowf9qf6Ds=;
-        b=YoKgbgRcJqQtR2d/WNUjoejrYYetqN7gCgjNv2COZaCuW18qwq1CS02UdzmZb2GfDW
-         6mVX+njIJuPyftKamNQav7ibAY8LXN6dP/t1b3zRrwIbX66/BihaW3utSU94QUbsb9me
-         dn3AxnrD9EYjbR4mbzbCYrdasasB6T6wb2NDk=
+        bh=kV2b0jt7cIiDdlsooWobDVTPYb6tjUgt5tJFTuZ6NZ0=;
+        b=vBzNnPPhqIvbPv8gAHFJjkW5AooY61cPkxF+DQNhzUGOu/c4LHJamxc/Qvz8FsJLEu
+         0kfQxsFGDyowac8EZYubvb1skUq+AatTzPsxIWytUOjh2/tKODBWZK2cceZkEeGy8Xk9
+         zqjYmuGEsXMOY9he+RCA6e4QagIqRiOwRq9R0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725445911; x=1726050711;
+        d=1e100.net; s=20230601; t=1725446012; x=1726050812;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tW0GRSJ/AMS0Ap+d0y5OzUxR8qxGxbeCpUowf9qf6Ds=;
-        b=i/itVzPG0cy6o1azcihDUfbcgalpDQm97qQ9ArBz329mcoehSulxZLZ/LsVR5iDuoj
-         SQimVLob/016pn5fW0H9naqUq6aqyh6XEu7Z4lQwpdOeNgcUvKuN5HBzhE9olP8uE0lX
-         8rjxRQbQUKU0sqyl98rpIoMlOmllhygU+8hdhc+E9L0cpeQPbeHrdnpU8VnO4zvS8GQY
-         FonToBNdm4wQpCmVVPEq0FJ3COtsvJEdUQY4ZUHZ6GmeBnVXcZ+ObhfhXXE+3D23wrYz
-         8ktDcmIYqnpWcCWhnrPZPrub33npm7o9wpM8mMS6T5bgq2QIRgyNGs5K4ZwYcHOoMD6A
-         2n5A==
-X-Forwarded-Encrypted: i=1; AJvYcCWBzfVJ7rjOueN5z8lsyGVwoVn08AHOVgb2aiqEUGQFl4xCGXp3KlsQXvZjhbMsSh7rVVEx18SVHZs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyQEaeyALf8t1OqzSLbxhjv+vWbm3MZFccoAioPmyXETCmBVGFX
-	zRI29rw5E/YsZs6A4WqQsy64SgBzJHxhUebegAV0+EretIOmfgeuYjCh6xYV0a8=
-X-Google-Smtp-Source: AGHT+IH/8sQ+t6HrTzjYPyhhD/Gb/bHhQ8mgk9jss67p1czgQ2jB5GUA4lNuWR8TmAe0CrZGm6l8Yg==
-X-Received: by 2002:a05:6402:510d:b0:5c2:6e61:fa87 with SMTP id 4fb4d7f45d1cf-5c26e61fbe7mr3865380a12.23.1725445910160;
-        Wed, 04 Sep 2024 03:31:50 -0700 (PDT)
-Message-ID: <4cd314fa-9a4f-4656-98f0-bc696a082913@citrix.com>
-Date: Wed, 4 Sep 2024 11:31:43 +0100
+        bh=kV2b0jt7cIiDdlsooWobDVTPYb6tjUgt5tJFTuZ6NZ0=;
+        b=DBQRPjDGGijGXFsDJCX8ugo23Zy4wTtRoBoDbOHx9dHQ2V4EAGpNlmFUCa0yfEyrgj
+         2E9qcMjvfgaE2j4N74HreBC96lB1/TiWw4+ZSTUERnhTYUQR0vBy5KAN0aK3fiPDmRZ4
+         RxtfWyE7i6/ZYjxOT0DV45tK4jfAwc5k0tbCKqQZ5PmxCi1GpC/IldpASUPg8YbHfEv6
+         tWtf0wCru6j8iaYy30moWHPPjHvAPm5FF/tcupDEEr4Um20ZgsDGGEwNG7Qz7zlIEW4h
+         O4jDXph5ytSSw2Tz+X4RHZTOIb0o4hfOGW5dHsOWMKiLtZB1kFqNRR/Btr/MjqPeAOIi
+         ga3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWFCpE8XGhFyghMx2jUoIHS7bf/aws8yPEapAZpaWXHz1JgKN7SBFOfxvl9gW78Mjaetnnbun7pQlM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2jHomHs3/oNGCylAEWdJZgvmoWkgzIgXnfB32dhjON9ZNMp+T
+	q+/P2U2gMZyHf0GBjZH7MUX5EJW4S28j0OyEll6kTZfV1WDNqkE0Zziw1vW/wEI=
+X-Google-Smtp-Source: AGHT+IGlg+6G0FbrjuJBk80PgnljozZudJby87z4WW0jEXKpKHKA4Z/sQ81j8jCwk1RIbi8ic6YqFw==
+X-Received: by 2002:a05:6402:26d2:b0:5c2:106b:7194 with SMTP id 4fb4d7f45d1cf-5c243723c8dmr9086332a12.3.1725446011517;
+        Wed, 04 Sep 2024 03:33:31 -0700 (PDT)
+Message-ID: <2a11cf93-75d1-41c7-811a-6c45ac0a9f0e@citrix.com>
+Date: Wed, 4 Sep 2024 11:33:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/9] xen/riscv: use {read,write}{b,w,l,q}_cpu() to
- define {read,write}_atomic()
-To: oleksii.kurochko@gmail.com, xen-devel@lists.xenproject.org
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1725295716.git.oleksii.kurochko@gmail.com>
- <4b62d7e3faa24f6070430607262a3aed1bbf1861.1725295716.git.oleksii.kurochko@gmail.com>
- <577dea81-06a7-4ca3-9a22-e76c966b5dcf@citrix.com>
- <c6e42423d925e26942f2cfd0dafba09e0ed5b78a.camel@gmail.com>
+Subject: Re: [PATCH v3] mktarball: only archive Xen
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony Perard <anthony@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <14f8887b-1f66-428e-8417-f552b8851c71@suse.com>
+ <291083ba-7480-4cfa-90c4-997f83c7a3a9@citrix.com>
+ <a45dc467-a1ba-4053-b8c4-24b500c051ed@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,53 +131,41 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <c6e42423d925e26942f2cfd0dafba09e0ed5b78a.camel@gmail.com>
+In-Reply-To: <a45dc467-a1ba-4053-b8c4-24b500c051ed@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 04/09/2024 11:27 am, oleksii.kurochko@gmail.com wrote:
-> On Tue, 2024-09-03 at 15:21 +0100, Andrew Cooper wrote:
->> On 02/09/2024 6:01 pm, Oleksii Kurochko wrote:
->>> diff --git a/xen/arch/riscv/include/asm/atomic.h
->>> b/xen/arch/riscv/include/asm/atomic.h
->>> index 31b91a79c8..3c6bd86406 100644
->>> --- a/xen/arch/riscv/include/asm/atomic.h
->>> +++ b/xen/arch/riscv/include/asm/atomic.h
->>> @@ -31,21 +31,17 @@
->>>  
->>>  void __bad_atomic_size(void);
->>>  
->>> -/*
->>> - * Legacy from Linux kernel. For some reason they wanted to have
->>> ordered
->>> - * read/write access. Thereby read* is used instead of read*_cpu()
->>> - */
->>>  static always_inline void read_atomic_size(const volatile void *p,
->>>                                             void *res,
->>>                                             unsigned int size)
->>>  {
->>>      switch ( size )
->>>      {
->>> -    case 1: *(uint8_t *)res = readb(p); break;
->>> -    case 2: *(uint16_t *)res = readw(p); break;
->>> -    case 4: *(uint32_t *)res = readl(p); break;
->>> +    case 1: *(uint8_t *)res = readb_cpu(p); break;
->>> +    case 2: *(uint16_t *)res = readw_cpu(p); break;
->>> +    case 4: *(uint32_t *)res = readl_cpu(p); break;
->>>  #ifndef CONFIG_RISCV_32
->>> -    case 8: *(uint32_t *)res = readq(p); break;
->>> +    case 8: *(uint32_t *)res = readq_cpu(p); break;
->> This cast looks suspiciously like it's wrong already in staging...
-> Thanks for noticing that, it should be really uint64_t. I'll update
-> that in the next patch version.
+On 04/09/2024 11:26 am, Jan Beulich wrote:
+> On 04.09.2024 11:59, Andrew Cooper wrote:
+>> On 19/08/2024 4:10 pm, Jan Beulich wrote:
+>>> As was basically decided already a while ago, remove - in the simplest
+>>> possible way - the archiving of both qemu-s and mini-os from tarball
+>>> generation.
+>>>
+>>> With this the subtree-force-update-all prereq isn't needed anymore in
+>>> the top level Makefile. That goal, including the respective ones
+>>> underneath tools/, then also are unreferenced and hence are being
+>>> dropped, too.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> This is the simplistic approach; I'm sure this could now be done quite a
+>>> bit more efficiently. I also expect there's no longer a need to run
+>>> ./configure ahead of the invocation of this script, but since I have no
+>>> idea why it was needed earlier on, I'm not removing that here from the
+>>> doc. IOW all cleanup that's probably better done separately, by someone
+>>> actually using all of that machinery.
+>>> ---
+>>> v3: Drop subtree-force-update-all rules from underneath tools/.
+>>> v2: Drop subtree-force-update-all prereqs from ./Makefile.
+>> Removing the archiving is one thing, and we have agreed that's a good
+>> thing to do.
+>>
+>> However, the makefile rules might be used manually.  While we have the
+>> other trees cloned in Xen, I'd be wary about dropping the rules.
+> They're not mentioned in what the help: goal displays, which makes me
+> worry not overly much here. And Anthony had basically agreed to their
+> dropping, in part by asking me to drop more than I did initially.
 
-This bug is in 4.19.
-
-I know RISC-V is experimental, but this is the kind of thing that Jan
-might consider for backporting.
-
-Whether it gets backported or not, it wants to be in a standalone
-bugfix, not as a part of "rewrite the accessors used".
-
-~Andrew
+Fine.  Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
