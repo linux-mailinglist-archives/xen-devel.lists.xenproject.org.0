@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4116696B80E
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 12:16:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790020.1199708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A16896B843
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 12:23:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790028.1199718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sln2h-0000WP-Ej; Wed, 04 Sep 2024 10:15:15 +0000
+	id 1sln9r-000393-5L; Wed, 04 Sep 2024 10:22:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790020.1199708; Wed, 04 Sep 2024 10:15:15 +0000
+Received: by outflank-mailman (output) from mailman id 790028.1199718; Wed, 04 Sep 2024 10:22:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sln2h-0000Uu-Bc; Wed, 04 Sep 2024 10:15:15 +0000
-Received: by outflank-mailman (input) for mailman id 790020;
- Wed, 04 Sep 2024 10:15:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sln2g-0000Uo-8x
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 10:15:14 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92452190-6aa6-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 12:15:12 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-5333b2fbedaso11181507e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 03:15:12 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a898922259esm788550766b.209.2024.09.04.03.15.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 03:15:11 -0700 (PDT)
+	id 1sln9r-00037y-1p; Wed, 04 Sep 2024 10:22:39 +0000
+Received: by outflank-mailman (input) for mailman id 790028;
+ Wed, 04 Sep 2024 10:22:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JixD=QC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1sln9o-00037r-TW
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 10:22:36 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9ab5cc34-6aa7-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 12:22:36 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2f3f0bdbcd9so7811841fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 03:22:36 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2f614f007b5sm25463871fa.43.2024.09.04.03.22.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Sep 2024 03:22:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +45,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92452190-6aa6-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 9ab5cc34-6aa7-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725444912; x=1726049712; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=GeNIzN2b2u/5QAD5o+qedFl6/Bre1iyXww+BMt4MVLk=;
-        b=BOQKnJeCV+vXlJ+G0/5GsbhSrSSzrfyBBqubPMUTR9k1FY41pLjCmav/c4mLsF4Hu2
-         svL6l4RDjQcvM8WCBtNKfDS82gel/heUlbHaE1sLKSndY+8Y1W8LynvwZLkf8Xo7dic+
-         M1c1nY/CY41I1IhHwDg38Ul2s9WTdUD06CLJrx1/eYEKZlApWTCK/S0VczXcNVZKadY1
-         L8s91HVC/wu/CJxzCzun4fTUd0rfiagWnQd9LdQOl7LJhrIjqaBL407tbGvOWERhbqMd
-         P3lw/i8LrN69Khx7ivXcAQp+bmphlOLMSlCJtGbqIQeOznR7Mi3dYDCPo3LAwrkQRd2D
-         wxKQ==
+        d=gmail.com; s=20230601; t=1725445355; x=1726050155; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ot6ekhaqzJ13RE6X5Mq04W0grM9ygIRT6z3DWVbfh3s=;
+        b=IUyG77vyT8i4y49MYPdAnb+JglP9kS+q3sLLdHiyhp36C3RwV0Ce4ERHDrMZjeyhQm
+         9MsrdZc+DTy6p/a8DRDevY8XPMss6XrwfJrfgSQWInuR0UtAOfAOgzdE46F2r1XbFQhn
+         wuajPvKtt2Qe2SUoQdNocsrbw31F/w51bYU17Ty/Ruu6bRHmRVblMCc2zXNC3v+z4bg+
+         n5LCUei1qAsmmWvfS8opdN+tpl08CPa7F63JU/3NUnivQpGsjJ7g+8yNTb2MCFLSKBf8
+         Lko9VZWTktKWZhNt12d8nXQMNdFI1GY9wN9MypdOqp6r4JCeDvuPKhK92WjP0tIu8N+Z
+         VRJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725444912; x=1726049712;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GeNIzN2b2u/5QAD5o+qedFl6/Bre1iyXww+BMt4MVLk=;
-        b=ZXJnAJKjpVTeALREgoUq3+CUaU+uqmol5Rpf68vcbyMR5Wm+ZmoVZ9xEY9JdIHAnMS
-         AUBX+LbtMDt6nlQjz70jalz80f37wXADoIKgAvqFz1qSUdp1TMlPQAxVOjyGIe9HAU5q
-         +PFv3MvL3WsDUqEI65bBmCx7HCuPi6y+8VR8Lzi4jMD+0LPP1qJ9ynP3bE74cLun8ZyI
-         kq4SI683m9x6B9K5gn0eKtnDWtLfwYsKUe2HsiZq4W2NTFYWVx1Ltd6ysjjEmw/h4/mP
-         FB/tS9obkCl5zM9BbsqfpFwqmOrWam5OYRB7U4NSpP5FKZnPzZqvuZoxfEQyAzwnJG8q
-         z7eg==
-X-Gm-Message-State: AOJu0YxNQ57+PRYuJqy8H53pazJt7BpOJSWqe4ExwMt8Qh2bQbGX1iyA
-	Hp10F1DAFwePuu/+5iquDlE4L9fgRH3gYJpkltBLLkSHN8RlMQCGk3fpniDT+d9tUUEOpOs7FVA
-	=
-X-Google-Smtp-Source: AGHT+IGHYDtReK+cg/Jpy2sMNL/Yu2TNJI8ebV+xYmPb18b6ZVagPybUCDByWcomQFCvf8pt5udrZQ==
-X-Received: by 2002:a05:6512:3352:b0:535:6992:f2c3 with SMTP id 2adb3069b0e04-5356992f3dcmr602076e87.41.1725444911650;
-        Wed, 04 Sep 2024 03:15:11 -0700 (PDT)
-Message-ID: <6c7e29c6-eefa-48a2-9f02-e74b35d0438c@suse.com>
-Date: Wed, 4 Sep 2024 12:15:10 +0200
+        d=1e100.net; s=20230601; t=1725445355; x=1726050155;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Ot6ekhaqzJ13RE6X5Mq04W0grM9ygIRT6z3DWVbfh3s=;
+        b=opSmhl4Jnp0qnIcZRKEPua/xizXTaJOF7pwxzHYMjQbn/d6zL1BEXxh9anwCwKIx+7
+         kQPcyMFq7DUTTQDs2IPiDqdb/vkl5nmNZOe93r3knI/lz74QKnYixwNSDfJIzw+HLMLo
+         WGga3jNJ7fignZXTKUqCaPcRZFnrUF8d/UhAK8cxPAmFWU+zSlZI+5yu354GouL8wmRe
+         qTd8vMmql1s7m01rV+XtFQAssat2qvyft85wbillhov8LkmvZMlrgIANOddLtiRvPzyq
+         l27vWrRBYZzpeU1+YaufOFkuYapBx356cghjjsrgG4lvj39llwkR2olvsUu/cth2a+WP
+         dnrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWWhZr5NiPHLGyiKMk6cXWi5vbS10P+jIWCa8sKhUm3hh9SvjwHiwjRVwqcOUMN3WF8TKGHOI8IjpE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz2XztPwihBP3vaZfDgAsmlC5kqjrEJ99qk1SdCAIte4b7fny6q
+	8RJqHP+/f3RqsVXMM3pAXHdS6sJ9/Rowv60QthP3jbDDCvrdlhNtF9+kTQ==
+X-Google-Smtp-Source: AGHT+IFe6cXqOLc8EFMvq7TiawJif8E1EnTZD9H/ubz+5efnGCGEsHxgszQJcLSTkcXo7CQ5arqiVA==
+X-Received: by 2002:a05:651c:50c:b0:2f0:1e0a:4696 with SMTP id 38308e7fff4ca-2f651d542fbmr17575101fa.7.1725445354561;
+        Wed, 04 Sep 2024 03:22:34 -0700 (PDT)
+Message-ID: <17b61f0f6995e153d3dbc923c943824ac9342b7e.camel@gmail.com>
+Subject: Re: [PATCH] RISCV/shutdown: Implement machine_{halt,restart}()
+From: oleksii.kurochko@gmail.com
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	 <xen-devel@lists.xenproject.org>
+Date: Wed, 04 Sep 2024 12:22:33 +0200
+In-Reply-To: <20240903141937.3552353-1-andrew.cooper3@citrix.com>
+References: 
+	<3d32a952c7cc77fd759e211c3b60427485a75582.1725295716.git.oleksii.kurochko@gmail.com>
+	 <20240903141937.3552353-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: fix UP build with gcc14
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-The complaint is:
+On Tue, 2024-09-03 at 15:19 +0100, Andrew Cooper wrote:
+> SBI has an API for shutdown so wire it up.=C2=A0 However, the spec does
+> allow the
+> call not to be implemented, so we have to cope with the call return
+> returning.
+>=20
+> There is a reboot-capable SBI extention, but in the short term route
+> route
+> machine_restart() into machine_halt().
+>=20
+> Then, use use machine_halt() rather than an infinite loop at the end
+> of
+> start_xen().=C2=A0 This avoids the Qemu smoke test needing to wait for th=
+e
+> full
+> timeout in order to succeed.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+LGTM:
+ Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-In file included from ././include/xen/config.h:17,
-                 from <command-line>:
-arch/x86/smpboot.c: In function ‘link_thread_siblings.constprop’:
-./include/asm-generic/percpu.h:16:51: error: array subscript [0, 0] is outside array bounds of ‘long unsigned int[1]’ [-Werror=array-bounds=]
-   16 |     (*RELOC_HIDE(&per_cpu__##var, __per_cpu_offset[cpu]))
-./include/xen/compiler.h:140:29: note: in definition of macro ‘RELOC_HIDE’
-  140 |     (typeof(ptr)) (__ptr + (off)); })
-      |                             ^~~
-arch/x86/smpboot.c:238:27: note: in expansion of macro ‘per_cpu’
-  238 |     cpumask_set_cpu(cpu2, per_cpu(cpu_sibling_mask, cpu1));
-      |                           ^~~~~~~
-In file included from ./arch/x86/include/generated/asm/percpu.h:1,
-                 from ./include/xen/percpu.h:30,
-                 from ./arch/x86/include/asm/cpuid.h:9,
-                 from ./arch/x86/include/asm/cpufeature.h:11,
-                 from ./arch/x86/include/asm/system.h:6,
-                 from ./include/xen/list.h:11,
-                 from ./include/xen/mm.h:68,
-                 from arch/x86/smpboot.c:12:
-./include/asm-generic/percpu.h:12:22: note: while referencing ‘__per_cpu_offset’
-   12 | extern unsigned long __per_cpu_offset[NR_CPUS];
-      |                      ^~~~~~~~~~~~~~~~
+Thanks for the patch.
 
-Which I consider bogus in the first place ("array subscript [0, 0]" vs a
-1-element array). Yet taking the experience from 99f942f3d410 ("Arm64:
-adjust __irq_to_desc() to fix build with gcc14") I guessed that
-switching function parameters to unsigned int (which they should have
-been anyway) might help. And voilà ...
+~ Oleksii
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>=20
+> As per commit e44f33ccddc2 ("ppc/shutdown: Implement
+> machine_{halt,restart}()")
+>=20
+> Simply replacing BUG() with a printk() is just swapping one problem
+> for
+> another.
+> ---
+> =C2=A0xen/arch/riscv/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 |=C2=A0 1 +
+> =C2=A0xen/arch/riscv/include/asm/sbi.h |=C2=A0 3 +++
+> =C2=A0xen/arch/riscv/sbi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 +++++
+> =C2=A0xen/arch/riscv/setup.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 6 ++----
+> =C2=A0xen/arch/riscv/shutdown.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ | 25 +++++++++++++++++++++++++
+> =C2=A0xen/arch/riscv/stubs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 12 ------------
+> =C2=A06 files changed, 36 insertions(+), 16 deletions(-)
+> =C2=A0create mode 100644 xen/arch/riscv/shutdown.c
+>=20
+> diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+> index 81b77b13d652..d192be7b552a 100644
+> --- a/xen/arch/riscv/Makefile
+> +++ b/xen/arch/riscv/Makefile
+> @@ -4,6 +4,7 @@ obj-y +=3D mm.o
+> =C2=A0obj-$(CONFIG_RISCV_64) +=3D riscv64/
+> =C2=A0obj-y +=3D sbi.o
+> =C2=A0obj-y +=3D setup.o
+> +obj-y +=3D shutdown.o
+> =C2=A0obj-y +=3D stubs.o
+> =C2=A0obj-y +=3D traps.o
+> =C2=A0obj-y +=3D vm_event.o
+> diff --git a/xen/arch/riscv/include/asm/sbi.h
+> b/xen/arch/riscv/include/asm/sbi.h
+> index 0e6820a4eda3..4d72a2295e72 100644
+> --- a/xen/arch/riscv/include/asm/sbi.h
+> +++ b/xen/arch/riscv/include/asm/sbi.h
+> @@ -13,6 +13,7 @@
+> =C2=A0#define __ASM_RISCV_SBI_H__
+> =C2=A0
+> =C2=A0#define SBI_EXT_0_1_CONSOLE_PUTCHAR		0x1
+> +#define SBI_EXT_0_1_SHUTDOWN			0x8
+> =C2=A0
+> =C2=A0struct sbiret {
+> =C2=A0=C2=A0=C2=A0=C2=A0 long error;
+> @@ -31,4 +32,6 @@ struct sbiret sbi_ecall(unsigned long ext, unsigned
+> long fid,
+> =C2=A0 */
+> =C2=A0void sbi_console_putchar(int ch);
+> =C2=A0
+> +void sbi_shutdown(void);
+> +
+> =C2=A0#endif /* __ASM_RISCV_SBI_H__ */
+> diff --git a/xen/arch/riscv/sbi.c b/xen/arch/riscv/sbi.c
+> index 0ae166c8610e..c7984344bc6b 100644
+> --- a/xen/arch/riscv/sbi.c
+> +++ b/xen/arch/riscv/sbi.c
+> @@ -42,3 +42,8 @@ void sbi_console_putchar(int ch)
+> =C2=A0{
+> =C2=A0=C2=A0=C2=A0=C2=A0 sbi_ecall(SBI_EXT_0_1_CONSOLE_PUTCHAR, 0, ch, 0,=
+ 0, 0, 0, 0);
+> =C2=A0}
+> +
+> +void sbi_shutdown(void)
+> +{
+> +=C2=A0=C2=A0=C2=A0 sbi_ecall(SBI_EXT_0_1_SHUTDOWN, 0, 0, 0, 0, 0, 0, 0);
+> +}
+> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+> index a6a29a150869..bf9078f36aff 100644
+> --- a/xen/arch/riscv/setup.c
+> +++ b/xen/arch/riscv/setup.c
+> @@ -4,6 +4,7 @@
+> =C2=A0#include <xen/compile.h>
+> =C2=A0#include <xen/init.h>
+> =C2=A0#include <xen/mm.h>
+> +#include <xen/shutdown.h>
+> =C2=A0
+> =C2=A0#include <public/version.h>
+> =C2=A0
+> @@ -28,8 +29,5 @@ void __init noreturn start_xen(unsigned long
+> bootcpu_id,
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0 printk("All set up\n");
+> =C2=A0
+> -=C2=A0=C2=A0=C2=A0 for ( ;; )
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile ("wfi");
+> -
+> -=C2=A0=C2=A0=C2=A0 unreachable();
+> +=C2=A0=C2=A0=C2=A0 machine_halt();
+> =C2=A0}
+> diff --git a/xen/arch/riscv/shutdown.c b/xen/arch/riscv/shutdown.c
+> new file mode 100644
+> index 000000000000..270bb26b68a6
+> --- /dev/null
+> +++ b/xen/arch/riscv/shutdown.c
+> @@ -0,0 +1,25 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +#include <xen/shutdown.h>
+> +
+> +#include <asm/sbi.h>
+> +
+> +void machine_halt(void)
+> +{
+> +=C2=A0=C2=A0=C2=A0 sbi_shutdown();
+> +
+> +=C2=A0=C2=A0=C2=A0 for ( ;; )
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile ("wfi");
+> +
+> +=C2=A0=C2=A0=C2=A0 unreachable();
+> +}
+> +
+> +void machine_restart(unsigned int delay_millisecs)
+> +{
+> +=C2=A0=C2=A0=C2=A0 /*
+> +=C2=A0=C2=A0=C2=A0=C2=A0 * TODO: mdelay(delay_millisecs)
+> +=C2=A0=C2=A0=C2=A0=C2=A0 * TODO: Probe for #SRST support, where sbi_syst=
+em_reset() has a
+> +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 shutdown/=
+reboot parameter.
+> +=C2=A0=C2=A0=C2=A0=C2=A0 */
+> +
+> +=C2=A0=C2=A0=C2=A0 machine_halt();
+> +}
+> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+> index 3285d1889940..2aa245f272b5 100644
+> --- a/xen/arch/riscv/stubs.c
+> +++ b/xen/arch/riscv/stubs.c
+> @@ -49,18 +49,6 @@ void domain_set_time_offset(struct domain *d,
+> int64_t time_offset_seconds)
+> =C2=A0=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
+> =C2=A0}
+> =C2=A0
+> -/* shutdown.c */
+> -
+> -void machine_restart(unsigned int delay_millisecs)
+> -{
+> -=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
+> -}
+> -
+> -void machine_halt(void)
+> -{
+> -=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
+> -}
+> -
+> =C2=A0/* domctl.c */
+> =C2=A0
+> =C2=A0long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
+>=20
+> base-commit: 1e6bb29b03680a9d0e12f14c4d406a0d67317ea7
 
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -226,7 +226,7 @@ static int booting_cpu;
- /* CPUs for which sibling maps can be computed. */
- static cpumask_t cpu_sibling_setup_map;
- 
--static void link_thread_siblings(int cpu1, int cpu2)
-+static void link_thread_siblings(unsigned int cpu1, unsigned int cpu2)
- {
-     cpumask_set_cpu(cpu1, per_cpu(cpu_sibling_mask, cpu2));
-     cpumask_set_cpu(cpu2, per_cpu(cpu_sibling_mask, cpu1));
 
