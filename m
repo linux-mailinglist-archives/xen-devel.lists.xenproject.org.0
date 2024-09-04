@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1B7B96BE48
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 15:22:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790344.1200061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 890CC96BE6B
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 15:26:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790348.1200072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slpxP-0002Bm-TH; Wed, 04 Sep 2024 13:21:59 +0000
+	id 1slq1B-0002lH-BT; Wed, 04 Sep 2024 13:25:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790344.1200061; Wed, 04 Sep 2024 13:21:59 +0000
+Received: by outflank-mailman (output) from mailman id 790348.1200072; Wed, 04 Sep 2024 13:25:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slpxP-00029I-Qi; Wed, 04 Sep 2024 13:21:59 +0000
-Received: by outflank-mailman (input) for mailman id 790344;
- Wed, 04 Sep 2024 13:21:58 +0000
+	id 1slq1B-0002jY-8j; Wed, 04 Sep 2024 13:25:53 +0000
+Received: by outflank-mailman (input) for mailman id 790348;
+ Wed, 04 Sep 2024 13:25:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slpxO-00029A-MW
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 13:21:58 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eMXQ=QC=bounce.vates.tech=bounce-md_30504962.66d85fdb.v1-b7939c8bbcc54f36a75ef404621a38e0@srs-se1.protection.inumbo.net>)
+ id 1slq19-0002jS-Gz
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 13:25:52 +0000
+Received: from mail135-11.atl141.mandrillapp.com
+ (mail135-11.atl141.mandrillapp.com [198.2.135.11])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a86136f9-6ac0-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 15:21:56 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2f3edb2d908so21444461fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 06:21:56 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3c2e83ce5sm598375a12.26.2024.09.04.06.21.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 06:21:55 -0700 (PDT)
+ id 32a569a9-6ac1-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 15:25:49 +0200 (CEST)
+Received: from pmta14.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail135-11.atl141.mandrillapp.com (Mailchimp) with ESMTP id
+ 4WzNXq1RYvzLfH0QC
+ for <xen-devel@lists.xenproject.org>; Wed,  4 Sep 2024 13:25:47 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ b7939c8bbcc54f36a75ef404621a38e0; Wed, 04 Sep 2024 13:25:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,175 +43,295 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a86136f9-6ac0-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725456116; x=1726060916; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZbO7VdziOhx11clz+XjksduJF7dGP4/Nra5iFV9Er4Y=;
-        b=Ek4U3SQS2X0IX+Xd2WZKrIHE2rlizUumMmaLGhlmUNSLOYuoYwFwKe0W3T3iKzsKoD
-         1xsI0wZG7RfLHmNHN6wHi9r0z2N4PpzD4o4QAljRVDRUWSnKvQCZE31eYZcfWbUb9MWq
-         FyuvUjjKKu5g73gaNDt1XRvpzP4ejwNtWsuDQkHksEXb8xzL4pCFC667NyMjOVhqBlms
-         RiMaonw0g2QtgE4ZZf+LrhuM5yjPQ+c4IOZM6dx9eAc6NRhMcXhm+QVkQjIgJqh8MrFw
-         /obeUFef4SQg07HJqXri2cCJOA6vRS1Pdyu9rB+aAH1jphDpdwBx1mgDix15NNDgn1va
-         97EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725456116; x=1726060916;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZbO7VdziOhx11clz+XjksduJF7dGP4/Nra5iFV9Er4Y=;
-        b=lExmCtbEk0XUhKCTbkINEU5i6X0GBE3YgvKjmf6amQw56uRTLRpK/PqF01ITLmhzZo
-         43/HHDDKMu/uXYdzFaVxV1D45g+o4e2wcyr4F8O1fJh5Qc6IENY0mPIY2KNKaH7kiZ0J
-         F24Knpkm5SOzL43RGOH5Y7eTT0n/Mis0JvMq+uYiq/ycJeU+zMDgL+3hRZ6e/5onaGE2
-         0Nv/t/+T9wBTVd0n2pbGg+5n3UHCDsbg35aE5sed9By6wn7UteyujlXF4N0qnUHGxroE
-         lOf0N9DcZKyQ2RycOeLHVaqLXS2HLK0vpjjSGe0kKb87zDmNTtp98MeeCxk0oe/2fz9/
-         iMxA==
-X-Forwarded-Encrypted: i=1; AJvYcCUR/m68n+9O6pncSx2V0IeFAJXVF8C/70oM+Go0eKuDX9Eid6ECvbtbcPvHal1hMCPy/hk/TxV6WTM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxIZ9rkYpnwcBGw5/ZjZ2MTwJCuYcvfxiXSCuCJNuaAeOLRFze1
-	K3UaVgl2bD7CtDiXoR4h7qK1+56TKhe+7aGJ91bmiW0YmGOyigLvSiIt0Q3Rl9DiLPdbt4d6phg
-	=
-X-Google-Smtp-Source: AGHT+IED5c4SuMxzS3ku+CGVVB//cnyq4mPX8vPJf7iQ2LTpuA+FmE7xvloZn0A93C96boeYpLqxxQ==
-X-Received: by 2002:a2e:be12:0:b0:2f4:5d9:e8e3 with SMTP id 38308e7fff4ca-2f6443faed2mr61760741fa.7.1725456115512;
-        Wed, 04 Sep 2024 06:21:55 -0700 (PDT)
-Message-ID: <7fdae909-5614-4e1c-bcad-fb12ca490f41@suse.com>
-Date: Wed, 4 Sep 2024 15:21:54 +0200
+X-Inumbo-ID: 32a569a9-6ac1-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1725456347; x=1725716847;
+	bh=MBH/17mHyyyYy2M3ar65sBIMbHIE4Ar1hUX7H8g+zNs=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=mUki4CgbXJ2x+Da/2G63HA60Cz95K5z7QUQG72HaDVK7F7qmZdsvFDw2UEfb6lAH1
+	 LpxC0NeDd7ZK/5btUld0pAuiYKAncyn+iOQozvwM2ds2q8VHOfA8Kgjd4cxUuhrrF1
+	 DQvb/zCYyuAW2Py19EkNV/PjSQ+ur9mWjFfK3K7Iybgo9l1EDj+w8tpbPEibXdXJR8
+	 TmraSAQre7OsvPQSCEaw3b3MWXaEPMyBl9HLYhm8QPgZ6sN6fkZOMPQE6nZnuJ76aI
+	 zqK0mjSmdb77rxa534MHekTwCgXIbraB9BKROudiB0o3QOgZHs4p1zYarSwwg3ltBG
+	 uA/IFm7VhRSNg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1725456347; x=1725716847; i=anthony.perard@vates.tech;
+	bh=MBH/17mHyyyYy2M3ar65sBIMbHIE4Ar1hUX7H8g+zNs=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=ai95WyKLCpZYIeyTDCj65wXTKnIKVYKZoZN/kqAYJhueS65iyy7YLnf55w7dx+BY1
+	 teIS1HVHcfiPgnZFMWAHvKFJhxMjFu927jFqOd94PsxBlnx6KGvygMjAmPcnpUzTJi
+	 MG6VQPQPO7UKXvTrC4eas7cijZeyzHEFp6GwbB9Y2+ny47gphtx7en7l0sy7+3kkEP
+	 GiI4tfngrRdQEMLoLn2W7AWHtEcUtT9UV/kduhFbrcBPnVYvX4s2iJ7EW3iKaP8CEq
+	 eFD9fLCsF/RhUZ2fxaLqgGe6HqN5ilr2DmkH90xUq/nsFNBcPhayK4HV9I8lqCvlk+
+	 wz1uDOh2iLE6Q==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20blkif:=20reconcile=20protocol=20specification=20with=20in-use=20implementations?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1725456345719
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>, Owen Smith <owen.smith@cloud.com>, Mark Syms <mark.syms@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>
+Message-Id: <Zthf2avsHv7XP4cs@l14>
+References: <20240903141923.72241-1-roger.pau@citrix.com>
+In-Reply-To: <20240903141923.72241-1-roger.pau@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b7939c8bbcc54f36a75ef404621a38e0?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240904:md
+Date: Wed, 04 Sep 2024 13:25:47 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] x86/time: probe the CMOS RTC by default
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240903130303.71334-1-roger.pau@citrix.com>
- <20240903130303.71334-8-roger.pau@citrix.com>
- <66465a2a-f7a0-412d-b1af-98a28fd38472@suse.com>
- <ZthWTO6rOgAob-z_@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZthWTO6rOgAob-z_@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 04.09.2024 14:45, Roger Pau Monné wrote:
-> On Tue, Sep 03, 2024 at 05:48:09PM +0200, Jan Beulich wrote:
->> On 03.09.2024 15:03, Roger Pau Monne wrote:
->>> Probing for the CMOS RTC registers consist in reading IO ports, and we expect
->>> those reads to have no side effects even when the CMOS RTC is not present.
->>
->> But what do we gain from this besides possible being slower to boot?
+On Tue, Sep 03, 2024 at 04:19:23PM +0200, Roger Pau Monne wrote:
+> Current blkif implementations (both backends and frontends) have all slig=
+ht
+> differences about how they handle the 'sector-size' xenstore node, and ho=
+w
+> other fields are derived from this value or hardcoded to be expressed in =
+units
+> of 512 bytes.
 > 
-> The intent is that Xen can successfully boot on more systems without
-> having to pass specific command line options.
-
-At the risk of breaking on others, in perhaps subtle ways?
-
->>> --- a/docs/misc/xen-command-line.pandoc
->>> +++ b/docs/misc/xen-command-line.pandoc
->>> @@ -326,11 +326,14 @@ Interrupts.  Specifying zero disables CMCI handling.
->>>  ### cmos-rtc-probe (x86)
->>>  > `= <boolean>`
->>>  
->>> -> Default: `false`
->>> +> Default: `true`
->>>  
->>>  Flag to indicate whether to probe for a CMOS Real Time Clock irrespective of
->>>  ACPI indicating none to be there.
->>>  
->>> +**WARNING: The `cmos-rtc-probe` option is deprecated and superseded by
->>> +_wallclock=no-cmos-probe_ using both options in combination is undefined.**
->>
->> Hmm, but then ...
->>
->>> @@ -2822,7 +2825,7 @@ suboptimal scheduling decisions, but only when the system is
->>>  oversubscribed (i.e., in total there are more vCPUs than pCPUs).
->>>  
->>>  ### wallclock (x86)
->>> -> `= auto | xen | cmos | efi`
->>> +> `= auto | xen | cmos | no-cmos-probe | efi`
->>
->> ... this wants to be a boolean sub-option "cmos-probe", such that the flag
->> can still be set both ways (in particular for a later command line option
->> to override an earlier one).
+> To give some context, this is an excerpt of how different implementations=
+ use
+> the value in 'sector-size' as the base unit for to other fields rather th=
+an
+> just to set the logical sector size of the block device:
 > 
-> What's the point in overriding?  Either the users selects a specific
-> wallclock to use, or it's left for Xen to decide which wallclock to
-> pick, either with (auto) or without (no-cmos-probe) possibly probing
-> the CMOS RTC.
-
-Overriding can be quite relevant, in particular with xen.efi. There you put
-command line options in a config file. You may not want to edit that config
-file every time you try something (you may not even have an editor, first
-and foremost when there's no EFI shell offered by firmware), and xen.efi
-intentionally also parses options from its command line (after the first --
-separator). Those "manually" supplied options want to be able to override
-whatever is in the config file.
-
-> Multiple different wallclock options being passed on the command line
-> will result in just the last one taking effect.
-
-That's the goal, yes.
-
->>> @@ -1560,6 +1560,8 @@ static int __init cf_check parse_wallclock(const char *arg)
->>>      if ( !arg )
->>>          return -EINVAL;
->>>  
->>> +    cmos_rtc_probe = true;
->>> +
->>>      if ( !strcmp("auto", arg) )
->>>          wallclock_source = WALLCLOCK_UNSET;
->>>      else if ( !strcmp("xen", arg) )
->>> @@ -1571,6 +1573,8 @@ static int __init cf_check parse_wallclock(const char *arg)
->>>      }
->>>      else if ( !strcmp("cmos", arg) )
->>>          wallclock_source = WALLCLOCK_CMOS;
->>> +    else if ( !strcmp("no-cmos-probe", arg) )
->>> +        cmos_rtc_probe = false;
->>>      else if ( !strcmp("efi", arg) )
->>>      {
->>>          if ( !efi_enabled(EFI_RS) )
->>
->> And to request a particular wallclock _and_ control the probing one then
->> needs two wallclock= on the command line? And - because of the forcing to
->> true of cmos_rtc_probe - even in a particular order. Not very nice from a
->> usability pov.
+>                         =E2=94=82 sectors xenbus node =E2=94=82 requests =
+sector_number =E2=94=82 requests {first,last}_sect
+> =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+> FreeBSD blk{front,back} =E2=94=82     sector-size     =E2=94=82      sect=
+or-size       =E2=94=82           512
+> =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+> Linux blk{front,back}   =E2=94=82         512         =E2=94=82          =
+512           =E2=94=82           512
+> =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+> QEMU blkback            =E2=94=82     sector-size     =E2=94=82      sect=
+or-size       =E2=94=82       sector-size
+> =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+> Windows blkfront        =E2=94=82     sector-size     =E2=94=82      sect=
+or-size       =E2=94=82       sector-size
+> =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=BC=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
+> MiniOS                  =E2=94=82     sector-size     =E2=94=82          =
+512           =E2=94=82           512
 > 
-> If you request a specific wallclock then there's no probing, so
-> nothing to control.  I agree the interface is not great, but I
-> couldn't come up with anything better.
+> An attempt was made by 67e1c050e36b in order to change the base units of =
+the
+> request fields and the xenstore 'sectors' node.  That however only lead t=
+o more
+> confusion, as the specification now clearly diverged from the reference
+> implementation in Linux.  Such change was only implemented for QEMU Qdisk
+> and Windows PV blkfront.
 > 
-> I'm kind of fine with not introducing an extra option to wallclock= to
-> control the CMOS RTC probing, but would you agree to switching
-> cmos-rtc-probe to true by default?
+> Partially revert to the state before 67e1c050e36b:
+> 
+>  * Declare 'feature-large-sector-size' deprecated.  Frontends should not =
+expose
+>    the node, backends should not make decisions based on its presence.
+> 
+>  * Clarify that 'sectors' xenstore node and the requests fields are alway=
+s in
+>    512-byte units, like it was previous to 67e1c050e36b.
+> 
+> All base units for the fields used in the protocol are 512-byte based, th=
+e
+> xenbus 'sector-size' field is only used to signal the logic block size.  =
+When
+> 'sector-size' is greater than 512, blkfront implementations must make sur=
+e that
+> the offsets and sizes (even when expressed in 512-byte units) are aligned=
+ to
+> the logical block size specified in 'sector-size', otherwise the backend =
+will
+> fail to process the requests.
+> 
+> This will require changes to some of the frontends and backends in order =
+to
+> properly support 'sector-size' nodes greater than 512.
+> 
+> Fixes: 67e1c050e36b ('public/io/blkif.h: try to fix the semantics of sect=
+or based quantities')
 
-I remain to be convinced of this being a good idea.
+Probably want to add:
+Fixes: 2fa701e5346d ("blkif.h: Provide more complete documentation of the b=
+lkif interface")
 
-Jan
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> ---
+>  xen/include/public/io/blkif.h | 23 ++++++++++++++---------
+>  1 file changed, 14 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/include/public/io/blkif.h b/xen/include/public/io/blkif.=
+h
+> index 22f1eef0c0ca..07708f4d08eb 100644
+> --- a/xen/include/public/io/blkif.h
+> +++ b/xen/include/public/io/blkif.h
+> @@ -240,10 +240,6 @@
+>   *      The logical block size, in bytes, of the underlying storage. Thi=
+s
+>   *      must be a power of two with a minimum value of 512.
+
+Should we add that "sector-size" is to be used only for request length?
+
+
+> - *      NOTE: Because of implementation bugs in some frontends this must=
+ be
+> - *            set to 512, unless the frontend advertizes a non-zero valu=
+e
+> - *            in its "feature-large-sector-size" xenbus node. (See below=
+).
+> - *
+>   * physical-sector-size
+>   *      Values:         <uint32_t>
+>   *      Default Value:  <"sector-size">
+> @@ -254,8 +250,8 @@
+>   * sectors
+>   *      Values:         <uint64_t>
+>   *
+> - *      The size of the backend device, expressed in units of "sector-si=
+ze".
+> - *      The product of "sector-size" and "sectors" must also be an integ=
+er
+> + *      The size of the backend device, expressed in units of 512b.
+> + *      The product of "sector-size" * 512 must also be an integer
+>   *      multiple of "physical-sector-size", if that node is present.
+>   *
+>   ***********************************************************************=
+******
+> @@ -338,6 +334,7 @@
+>   * feature-large-sector-size
+>   *      Values:         0/1 (boolean)
+>   *      Default Value:  0
+> + *      Notes:          DEPRECATED, 12
+>   *
+>   *      A value of "1" indicates that the frontend will correctly supply=
+ and
+
+Could you remove "correctly" from this sentence? It's misleading.
+
+>   *      interpret all sector-based quantities in terms of the "sector-si=
+ze"
+> @@ -411,6 +408,11 @@
+>   *(10) The discard-secure property may be present and will be set to 1 i=
+f the
+>   *     backing device supports secure discard.
+>   *(11) Only used by Linux and NetBSD.
+> + *(12) Possibly only ever implemented by the QEMU Qdisk backend and the =
+Windows
+> + *     PV block frontend.  Other backends and frontends supported 'secto=
+r-size'
+> + *     values greater than 512 before such feature was added.  Frontends=
+ should
+> + *     not expose this node, neither should backends make any decisions =
+based
+> + *     on it being exposed by the frontend.
+>   */
+>  
+>  /*
+> @@ -621,9 +623,12 @@
+>  /*
+>   * NB. 'first_sect' and 'last_sect' in blkif_request_segment, as well as
+>   * 'sector_number' in blkif_request, blkif_request_discard and
+> - * blkif_request_indirect are sector-based quantities. See the descripti=
+on
+> - * of the "feature-large-sector-size" frontend xenbus node above for
+> - * more information.
+> + * blkif_request_indirect are all in units of 512 bytes, regardless of w=
+hether the
+> + * 'sector-size' xenstore node contains a value greater than 512.
+> + *
+> + * However the value in those fields must be properly aligned to the log=
+ical
+> + * sector size reported by the 'sector-size' xenstore node, see 'Backend=
+ Device
+> + * Properties' section.
+>   */
+>  struct blkif_request_segment {
+
+Textually (that is without reading it) this comment seems to only apply
+to `struct blkif_request_segment`. There is an other comment that
+separate it from `struct blkif_request` (and it is far away from
+blkif_request_discard and blkif_request_indirect). For `struct
+blkif_request.sector_number`, the only comment is "start sector idx on
+disk" but it's really hard to tell how to interpret it, it could be
+interpreted as a "sector-size" quantity because that the size of a
+sector on the disk, the underlying storage.
+
+So, I think we need to change the comment of
+`blkif_request.sector_number`.
+
+
+Another thing, there's a "type" `blkif_sector_t` defined at the beginning
+of the file, would it be worth it to add a description to it?
+
+Thanks,
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
