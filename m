@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA36896B1FB
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 08:40:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789806.1199462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 996E896B211
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 08:45:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789812.1199471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sljgX-00025d-BJ; Wed, 04 Sep 2024 06:40:09 +0000
+	id 1sljlj-0002hZ-T6; Wed, 04 Sep 2024 06:45:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789806.1199462; Wed, 04 Sep 2024 06:40:09 +0000
+Received: by outflank-mailman (output) from mailman id 789812.1199471; Wed, 04 Sep 2024 06:45:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sljgX-00023j-8S; Wed, 04 Sep 2024 06:40:09 +0000
-Received: by outflank-mailman (input) for mailman id 789806;
- Wed, 04 Sep 2024 06:40:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sljlj-0002en-QO; Wed, 04 Sep 2024 06:45:31 +0000
+Received: by outflank-mailman (input) for mailman id 789812;
+ Wed, 04 Sep 2024 06:45:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sljgW-00023d-J5
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 06:40:08 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8638451d-6a88-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 08:40:07 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a866d3ae692so356543466b.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 23:40:07 -0700 (PDT)
+ id 1sljli-0002ee-AG
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 06:45:30 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 457336c7-6a89-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 08:45:28 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5c09fd20eddso5827234a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 23:45:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c226ccff4bsm7301044a12.70.2024.09.03.23.40.06
+ 4fb4d7f45d1cf-5c2419dd5a4sm5243096a12.97.2024.09.03.23.45.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 23:40:06 -0700 (PDT)
+ Tue, 03 Sep 2024 23:45:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8638451d-6a88-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: 457336c7-6a89-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725432007; x=1726036807; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725432327; x=1726037127; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ukVfa9S5LIjLJs8ouvufMJpr6kMT2Vnlw3cC0CRgFys=;
-        b=W9a3GDPGFenxMHPovJ/M8Ahc1XPoFlH80/Y8AZPA0aOlH3SScgjHYXJsW+9U+5X+pl
-         Ph6sipCAR/JJWlh/6W0vafoah+MCFPct5Z7qtSOWPtxWsUUCt9WUwEacqKM0aibu6zmk
-         opaCIsRJsPSF2LkGTqRWY6Db+hU/w20zWY4ulOXdvIvAa6QjqUaniBh+Cx8XqfMr6Kab
-         HPXIs8s7ELSi0wqA3dJFx1+XgyxV0ODAG4mx5sY+VLWHAiWXJpFBIEvZJRZZAiPcgS3E
-         XeU4GMm7sygejE1q1N15kxYopYe2UJtSdwIrYY5eScxGsekYRe02hS1uzfnEvp00mOat
-         jCNQ==
+        bh=m8MRt3rVHuk2G1p4DsHV66w5iWiSE48yCBotlxy1Nzo=;
+        b=TooPtXFzES2J8SVQ7Ih82dljDaAOJ0g4gfs3xDOzfSTX8j/LK8a6hXDMg6D8WW/vx5
+         LBu2fbergJt98DwF9IGcl9h/lSvyBU8bpc02w6TNuQUMihAsuGMkGpWg019ut5K7pC46
+         qV2/V+2u5LXkevHZVvd6MJb4GzwmCLL3B57yK2wLM7K2zXzX1nBjY8doNfmvB1G2TyBa
+         /gMVEbNg4+Ghd1oyVUlIr/VyWPJGSyTa/gN2GdaTELrqLB82YTGFUSFEqBPjUkhFlX4Z
+         FvOfzy3kRwtneAR+K6so/2YV9XHWg1j5uY2Id2/jRRmsZeTPS9BgriZKyCAY73aCRN+8
+         eFKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725432007; x=1726036807;
+        d=1e100.net; s=20230601; t=1725432327; x=1726037127;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ukVfa9S5LIjLJs8ouvufMJpr6kMT2Vnlw3cC0CRgFys=;
-        b=I1mRxAQNetSjhQw6CIOzBRiNsoIQctdbLNfxGOh1MDZzRzd9hSc33G1lmuBnqpvwtb
-         0r08qtwaBF/MZ4o/VAxpyJHUEP5yJrZIqj0Rjo+LiX08/UI64XolkHYZOttpDNcN96x3
-         SjDwy8DnkqHCbzkQujkkItutTTmg6GImPOtKHNfCVvc8Oz7XLOaipVnT6zLPpHuLgPd9
-         yYCD2f3rzaiqnq4J7oKNw/ZjFUGC3Lhcnzj8cOs6NWPcRzsfXkQiOorz+3iPp3k3u3Yx
-         gvTDL3mdMUfBljXucANzTh59GZo8TkqeRFK/ajjk2RL0LqRAPBUSnQ1m3DR+lRpPfCol
-         LuWQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV9DD2ZRDwj1MS1l9beARZMZKsBv7ZlND/QUAYHP6SOzyawXBTVElkXl2IX9OI6JbAIqisvi+T6tGE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxET3VuERku/XRRi+mrVm3cfiwDFg6iKQZ3Vkca/Rp+BbKmWuTs
-	4BZ/eJWLNK60SmTPhOtRgSZN40UUu/NGjIw8oYCgdBe+CKh1gl9I5w+OV6c1xQ==
-X-Google-Smtp-Source: AGHT+IFkIyYUVsJZqqsEJGeITbuLEJWvy3UlYNJQ1s2bO7P3NbOby8cczUnObaqJrAOwfXWhuxeF/Q==
-X-Received: by 2002:a05:6402:5512:b0:5be:d687:9e6c with SMTP id 4fb4d7f45d1cf-5c21eda0f51mr17816631a12.36.1725432006913;
-        Tue, 03 Sep 2024 23:40:06 -0700 (PDT)
-Message-ID: <f6c938b4-3c28-4dc8-bc3a-3becb3a0c2cd@suse.com>
-Date: Wed, 4 Sep 2024 08:40:04 +0200
+        bh=m8MRt3rVHuk2G1p4DsHV66w5iWiSE48yCBotlxy1Nzo=;
+        b=qhcPWgDveXfzkGHggTgC6lL00cU36NXmOxutF36Lemyy/443imDlFvsnh4JT2JGkNl
+         5zk2RnlnwpVBYuArD17T3mfGlpP8o/IDR77DJ9runccaAEvfDE0GERUYWo1Lk55zfvUz
+         Yy6/OKX4HPZhGe1T2BqjMBEO0DZ4gD/qD4KDbliAhQkhyVh5GX6lalG6nBPwnVsPfR8D
+         UurVfXH2qHxDVxUp5+6zmI6smxs2tIp9X00vyFzlayoEqNTWmhr2xxU5RPF8yoQ4Vzp0
+         kZBzBzqU9vgtKPywX5wVh8p4MbXeCvUbdNY8ZkeiQOwT+ZAieoHt4uGWJ8hDZSm/7bGG
+         sO3w==
+X-Forwarded-Encrypted: i=1; AJvYcCXT/UHCg1cbBcpGQPHyDWNhBx7jjgzFnj4Be3+rUnfbp/EuWHmIIPk7CswmQOHpHJHJUhDkaTC8c8U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzNGVnrzofXHAervrVA+4wWwMksHvXe6yIt73EGKsCHLSOLfEO2
+	nV2QrkjWRgdEsn+fL6crCvBDnfrJ4MnpvAV908Paabie7l3CrTSIi8/yLA/qfg==
+X-Google-Smtp-Source: AGHT+IHCLuM3halKb1+wIkqGDAhQeaVSArqLQUdoeuyQctKHlA3Gsy+c5qnBJGcTeNN3umtDWT2r9g==
+X-Received: by 2002:a05:6402:528e:b0:5c2:6ff0:52b3 with SMTP id 4fb4d7f45d1cf-5c26ff053a7mr3027916a12.18.1725432327362;
+        Tue, 03 Sep 2024 23:45:27 -0700 (PDT)
+Message-ID: <564c11d1-4e06-4af0-bbdb-c4cbcf3df26a@suse.com>
+Date: Wed, 4 Sep 2024 08:45:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/44] x86/boot: convert consider_modules to struct
- boot_module
+Subject: Re: [PATCH v4 07/44] x86/boot: move headroom to boot modules
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-7-dpsmith@apertussolutions.com>
+ <20240830214730.1621-8-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,63 +114,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240830214730.1621-7-dpsmith@apertussolutions.com>
+In-Reply-To: <20240830214730.1621-8-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 30.08.2024 23:46, Daniel P. Smith wrote:
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -632,7 +632,7 @@ static void __init noinline move_xen(void)
->  #undef BOOTSTRAP_MAP_LIMIT
+> The purpose of struct boot_module is to encapsulate the state of boot modules.
+> Doing locates boot module state with its respective boot module, reduces
+
+I'm struggling with the start of this sentence.
+
+> @@ -1390,7 +1390,9 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>          mod[boot_info->nr_mods].mod_end = __2M_rwdata_end - _stext;
+>      }
 >  
->  static uint64_t __init consider_modules(
-> -    uint64_t s, uint64_t e, uint32_t size, const module_t *mod,
-> +    uint64_t s, uint64_t e, uint32_t size, const struct boot_module *mods,
+> -    modules_headroom = bzimage_headroom(bootstrap_map(mod), mod->mod_end);
+> +    boot_info->mods[0].headroom = bzimage_headroom(
+> +                        bootstrap_map(boot_info->mods[0].early_mod),
+> +                        boot_info->mods[0].early_mod->mod_end);
 
-As an array is meant, may I ask to switch to mods[] at this occasion?
+Nit: This is badly indented. Either
 
-> @@ -642,20 +642,20 @@ static uint64_t __init consider_modules(
->  
->      for ( i = 0; i < nr_mods ; ++i )
->      {
-> -        uint64_t start = (uint64_t)mod[i].mod_start << PAGE_SHIFT;
-> -        uint64_t end = start + PAGE_ALIGN(mod[i].mod_end);
-> +        uint64_t start = (uint64_t)mods[i].early_mod->mod_start << PAGE_SHIFT;
+    boot_info->mods[0].headroom = bzimage_headroom(
+        bootstrap_map(boot_info->mods[0].early_mod),
+        boot_info->mods[0].early_mod->mod_end);
 
-Similarly, may I ask to stop open-coding {,__}pfn_to_paddr() while
-transforming this?
+or
 
-> @@ -1447,7 +1447,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->          {
->              /* Don't overlap with modules. */
->              end = consider_modules(s, e, reloc_size + mask,
-> -                                   mod, boot_info->nr_mods, -1);
-> +                                   boot_info->mods, boot_info->nr_mods, -1);
->              end &= ~mask;
->          }
->          else
-> @@ -1482,7 +1482,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->                  continue;
->  
->              /* Don't overlap with other modules (or Xen itself). */
-> -            end = consider_modules(s, e, size, mod,
-> +            end = consider_modules(s, e, size, boot_info->mods,
->                                     boot_info->nr_mods + relocated, j);
->  
->              if ( highmem_start && end > highmem_start )
-> @@ -1509,7 +1509,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->          while ( !kexec_crash_area.start )
->          {
->              /* Don't overlap with modules (or Xen itself). */
-> -            e = consider_modules(s, e, PAGE_ALIGN(kexec_crash_area.size), mod,
-> +            e = consider_modules(s, e, PAGE_ALIGN(kexec_crash_area.size), boot_info->mods,
->                                   boot_info->nr_mods + relocated, -1);
+    boot_info->mods[0].headroom =
+        bzimage_headroom(
+            bootstrap_map(boot_info->mods[0].early_mod),
+            boot_info->mods[0].early_mod->mod_end);
 
-All of these show a meaningful increase of line lengths, up to the point of
-ending up with too long a line here. I really wonder if the variable name
-"boot_info" isn't too long for something that's going to be used quite
-frequently. Just "bi" maybe?
+or
+
+    boot_info->mods[0].headroom =
+        bzimage_headroom(bootstrap_map(boot_info->mods[0].early_mod),
+                         boot_info->mods[0].early_mod->mod_end);
+
+Even shortening "boot_info" will not avoid some line wrapping here, as it
+looks.
 
 Jan
 
