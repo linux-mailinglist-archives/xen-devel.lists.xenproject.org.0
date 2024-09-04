@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5747496BC51
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 14:30:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790213.1199941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98BEF96BC58
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 14:30:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790220.1199951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slp97-00089M-Cx; Wed, 04 Sep 2024 12:30:01 +0000
+	id 1slp9l-0001K0-Og; Wed, 04 Sep 2024 12:30:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790213.1199941; Wed, 04 Sep 2024 12:30:01 +0000
+Received: by outflank-mailman (output) from mailman id 790220.1199951; Wed, 04 Sep 2024 12:30:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slp97-000873-9i; Wed, 04 Sep 2024 12:30:01 +0000
-Received: by outflank-mailman (input) for mailman id 790213;
- Wed, 04 Sep 2024 12:29:59 +0000
+	id 1slp9l-0001HB-M0; Wed, 04 Sep 2024 12:30:41 +0000
+Received: by outflank-mailman (input) for mailman id 790220;
+ Wed, 04 Sep 2024 12:30:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slp95-00086h-Qk
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 12:29:59 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+MPF=QC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1slp9j-00086h-W5
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 12:30:40 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6641d5f7-6ab9-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 14:29:59 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5c241feb80dso1359207a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 05:29:59 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989221c24sm797846466b.196.2024.09.04.05.29.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 05:29:58 -0700 (PDT)
+ id 7e4c2ffd-6ab9-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 14:30:39 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a7a9cf7d3f3so86113766b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 05:30:39 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a89890090a1sm801930966b.49.2024.09.04.05.30.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Sep 2024 05:30:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +44,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6641d5f7-6ab9-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: 7e4c2ffd-6ab9-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725452998; x=1726057798; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ttbJN3WJ9nsR4tpRYJrAfRfyH0Rlt3wlme3cRFYht04=;
-        b=NK95J4AoUA3aAsfpy5LB8FIWATu6XLmFLR44ZNSF/xe5hrM8y+CuISW+HX7srxXsWh
-         42ENdMqr6jTnA0GVbJr93cOS4/FALMsH2oTbkd6Ya3s+LIbPKCbg0h3+318J25cqE9YQ
-         4hno+V8hOqOmIi5vJZ7tEib33oJIvbaamFZateCFMcwbWjZJUogHWzoGpkjEVbdyH3XU
-         0HSF+W4Pxy3bSXHdtWwNu5gSVadmDv+XEPLmY3fzPhNcWWFiA5tKV7iexPB5pWIRJ4KB
-         rXuO1AVn2eoZcDuAYr1k4vk+/znrDvZW+bHQyA4+T4O6FEYUhYd2TEaXI2YHLETzFZWj
-         eK+w==
+        d=citrix.com; s=google; t=1725453039; x=1726057839; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=9Ta2ZfMKm0Gt6yNA4Vm71RUEKrDG1NVGMtu5zOLBYlo=;
+        b=rVsdxbx8WReLkFYXpktJ/XM8f/jGShOn4gxBFd8mwQ7De+973aV1BmOitUMYiVGeb8
+         04x8hnz+MPjeASIbiedeYHRQF2MqwdFMvSQe/TmEfFt0iXGzJ3I1EaJ3af1OgEqlIKyD
+         eB9AObw4k8XNCw0G9039R4dctBT6FQLwe2eao=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725452998; x=1726057798;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ttbJN3WJ9nsR4tpRYJrAfRfyH0Rlt3wlme3cRFYht04=;
-        b=GAnmMELeaXbxfAa/2deSvwe/zAwD4Ii5ub7gvOItfqrSXoLpbzQVR+mb5G+H6gXvww
-         UIOh5VkWgxqUQWFB0YpA/C1S99qyKTPLKZjhC5cijOijQ2RC1WIy9UhO2aTp1sTrWWO+
-         5kv+z8TmOMdJz4JCH+VKrt4pkLFrU8PxgE3tJewKO05S62JQwQOadzYZYeTtELuuDTPs
-         IhfBpf2Ol2fBlUS/xTJ0JUC2SuRNuxUYF1ILiJHXx2Wc7a5/9uOWH8Naq7A+yLlByjoB
-         GWw+CRJplG/a9wlhdHtaOQD3gI16ujRy7MqDaVq8L/iArpz8Ob5pLy5HAmqWAweqbjTS
-         Nm4A==
-X-Gm-Message-State: AOJu0Yze5qLBoj4WhVZ+MnP+NcXqyttfc8gcAnh5e4VYJQp/sdJwiXJE
-	PqYHhuyjKMfXz/fH3mMd2ZPHiuouqa/Z4nMtWzgYxiqyGUTkZBn/pzwHDgH9WF2xtYMVkfA/4XE
-	=
-X-Google-Smtp-Source: AGHT+IFJ1RjwFIhgyUyOdpUdygySa14eSmtXXpRRCuObVR07sw0W4KlGapFWWnfhih1mnKRLsxSV9Q==
-X-Received: by 2002:a17:906:ef09:b0:a77:ab9e:9202 with SMTP id a640c23a62f3a-a8a42f8af0amr190545666b.4.1725452998458;
-        Wed, 04 Sep 2024 05:29:58 -0700 (PDT)
-Message-ID: <45913a43-114e-4885-809a-0d682264fb41@suse.com>
-Date: Wed, 4 Sep 2024 14:29:57 +0200
+        d=1e100.net; s=20230601; t=1725453039; x=1726057839;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=9Ta2ZfMKm0Gt6yNA4Vm71RUEKrDG1NVGMtu5zOLBYlo=;
+        b=YZVPGA9VyhzMOSxn31tSV6LKgCORXtwiIm5GO0H6mZ5uaEHRkf2FTs/mzMZOj0OBK+
+         9OMo2pD7OzyHEE2lUFaroYaQ5GBgIeLCjnjxALKEg473QwdFWZrLPR4DXrczkygdFdRV
+         h/Pp2cOaqrgtIVr+aal2OEPyywddVa+3dZ1Ua7YrgXUFYNffU9JbAu4Bxtz/0QI8SHeU
+         KCxMX8tzfXasmSiSnLzdL81BXjNlBIy3Lmq88ZWaCgVtwG5Rh43Xp0AaUj+rOqTDFWuJ
+         RCLnuELu8yLMvnnHzZcXeGfjFKKgL2yCEtPpDO85AcpuMkBmtdh07HSqRFQ2lwsz8gAT
+         jldQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWV2HJdqIZX8q3Z7OddQ1qAHGTOrIdxR0bFrbdr8M9O3GiBYwfIT8yjFeP+Y3tJE6GpxmGo/sXTVH0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy6MKOpmQ/AeVBMtgIxDPn4zd55cgpSAZCYb4jx52pRpUMseNy+
+	SPBG/b/Upk0GFlh9Cp7pbLGnDlXThpMJrbnkQ9COkr0hLwCvbMntNR0jl/BKRWM=
+X-Google-Smtp-Source: AGHT+IGjD/IMJu0k2+DFRUzJnfGd4dqij6FdC6AU1iaWLD+ud6fzTn4YlWa/GzlpIg8w5N8WKUZ3CQ==
+X-Received: by 2002:a17:907:72c8:b0:a7a:ab1a:2d64 with SMTP id a640c23a62f3a-a8a3f539e9cmr177704966b.58.1725453038265;
+        Wed, 04 Sep 2024 05:30:38 -0700 (PDT)
+Date: Wed, 4 Sep 2024 14:30:36 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 4/7] x86/time: introduce probing logic for the
+ wallclock
+Message-ID: <ZthS7PwABiQiCCWI@macbook.local>
+References: <20240903130303.71334-1-roger.pau@citrix.com>
+ <20240903130303.71334-5-roger.pau@citrix.com>
+ <bc1bd23f-edf5-447a-9799-bca0a6cd696e@suse.com>
+ <Ztg9VeXxdM2iBLOR@macbook.local>
+ <dde7fd70-3273-4569-b412-d276d4974882@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 6/7] x86/cpu-policy: re-arrange no-VMX logic
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <0b9a0ae8-a39c-49d8-b4e7-f2a463128058@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0b9a0ae8-a39c-49d8-b4e7-f2a463128058@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <dde7fd70-3273-4569-b412-d276d4974882@suse.com>
 
-Move the PKS check into an "else" for the corresponding "if()", such
-that further adjustments (like for USER_MSR) can easily be put there as
-well.
+On Wed, Sep 04, 2024 at 01:49:36PM +0200, Jan Beulich wrote:
+> On 04.09.2024 12:58, Roger Pau Monné wrote:
+> > I had it that way originally, but then it seemed the extra
+> > indentation made it less readable.  Will see how can I adjust it, my
+> > preference would be for:
+> > 
+> >     panic("No usable wallclock found, probed:%s%s%s\n%s",
+> >           !cmos_rtc_probe && !efi_enabled(EFI_RS) ? " None" : "",
+> >           cmos_rtc_probe ? " CMOS" : "",
+> >           efi_enabled(EFI_RS) ? " EFI" : "",
+> >           !cmos_rtc_probe ? "Try with command line option \"cmos-rtc-probe\"\n"
+> >                           : !efi_enabled(EFI_RS) ? "System must be booted from EFI\n"
+> >                                                  : "");
+> > 
+> > But that exceeds the 80 columns limit.
+> 
+> Right, formally the above would be my preference, too. Here two shorter-
+> lines alternatives:
+> 
+>     panic("No usable wallclock found, probed:%s%s%s\n%s",
+>           !cmos_rtc_probe && !efi_enabled(EFI_RS) ? " None" : "",
+>           cmos_rtc_probe ? " CMOS" : "",
+>           efi_enabled(EFI_RS) ? " EFI" : "",
+>           !cmos_rtc_probe
+>           ? "Try with command line option \"cmos-rtc-probe\"\n"
+>           : !efi_enabled(EFI_RS) ? "System must be booted from EFI\n"
+>                                  : "");
+> 
+>     panic("No usable wallclock found, probed:%s%s%s\n%s",
+>           !cmos_rtc_probe && !efi_enabled(EFI_RS) ? " None" : "",
+>           cmos_rtc_probe ? " CMOS" : "",
+>           efi_enabled(EFI_RS) ? " EFI" : "",
+>           !cmos_rtc_probe
+>               ? "Try with command line option \"cmos-rtc-probe\"\n"
+>               : !efi_enabled(EFI_RS)
+>                   ? "System must be booted from EFI\n"
+>                   : "");
+> 
+> Either of these or anything more or less similar will do imo, just as
+> long as the ? vs : alignment is there.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v5: Re-base.
-v4: New.
+I think I prefer the second variant, as indentation is clearer there.
 
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -741,19 +741,20 @@ static void __init calculate_hvm_max_pol
-         if ( !cpu_has_vmx_xsaves )
-             __clear_bit(X86_FEATURE_XSAVES, fs);
-     }
-+    else
-+    {
-+        /*
-+         * Xen doesn't use PKS, so the guest support for it has opted to not use
-+         * the VMCS load/save controls for efficiency reasons.  This depends on
-+         * the exact vmentry/exit behaviour, so don't expose PKS in other
-+         * situations until someone has cross-checked the behaviour for safety.
-+         */
-+        __clear_bit(X86_FEATURE_PKS, fs);
-+    }
- 
-     if ( !cpu_has_vmx_msrlist )
-         __clear_bit(X86_FEATURE_MSRLIST, fs);
- 
--    /*
--     * Xen doesn't use PKS, so the guest support for it has opted to not use
--     * the VMCS load/save controls for efficiency reasons.  This depends on
--     * the exact vmentry/exit behaviour, so don't expose PKS in other
--     * situations until someone has cross-checked the behaviour for safety.
--     */
--    if ( !cpu_has_vmx )
--        __clear_bit(X86_FEATURE_PKS, fs);
--
-     /* 
-      * Make adjustments to possible (nested) virtualization features exposed
-      * to the guest
+> 
+> One thing I notice only now: The trailing %s will be a little odd if
+> the "" variant is used in the last argument. That'll produce "(XEN) "
+> with nothing following in the log. Which usually is a sign of some
+> strange breakage.
 
+I've tested this and it doesn't produce an extra newline if the string
+parameter is "".  IOW:
+
+printk("FOO\n%s", "");
+
+Results in:
+
+(XEN) [    2.230603] TSC deadline timer enabled
+(XEN) [    2.235654] FOO
+(XEN) [    2.238682] Wallclock source: EFI
+
+Thanks, Roger.
 
