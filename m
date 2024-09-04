@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 951F696B3E0
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 10:05:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789889.1199558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6303596B45B
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 10:22:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789900.1199567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sll0n-0007tq-7N; Wed, 04 Sep 2024 08:05:09 +0000
+	id 1sllGz-00040K-EO; Wed, 04 Sep 2024 08:21:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789889.1199558; Wed, 04 Sep 2024 08:05:09 +0000
+Received: by outflank-mailman (output) from mailman id 789900.1199567; Wed, 04 Sep 2024 08:21:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sll0n-0007ri-4I; Wed, 04 Sep 2024 08:05:09 +0000
-Received: by outflank-mailman (input) for mailman id 789889;
- Wed, 04 Sep 2024 08:05:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sllGz-0003xv-Bj; Wed, 04 Sep 2024 08:21:53 +0000
+Received: by outflank-mailman (input) for mailman id 789900;
+ Wed, 04 Sep 2024 08:21:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EFI/=QC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sll0m-0007qr-3P
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 08:05:08 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 658b7d5a-6a94-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 10:05:06 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5bf009cf4c0so6437539a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 01:05:06 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c24b5ad63dsm4847389a12.80.2024.09.04.01.05.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 01:05:04 -0700 (PDT)
+ <SRS0=+MPF=QC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sllGy-0003xp-0F
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 08:21:52 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bc208483-6a96-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 10:21:50 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a868b8bb0feso754633666b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 01:21:50 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8989022481sm774335866b.86.2024.09.04.01.21.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Sep 2024 01:21:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +44,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 658b7d5a-6a94-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: bc208483-6a96-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725437106; x=1726041906; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/GmeXFgFzU5lpN3gHbDoxxjqe1M5C6S/NQ9mkBmuYfI=;
-        b=CwVtwEc6JFNNEMS0zLIlkpyuCiKs2oPqpoFD0D+Bcwe9+E+isj9BK1Quojd/wpWaBJ
-         m6lwarvH/ec2EfA8+I/eaxEDvTZiQuQ+FDU8AKRZARhNxqYJB3XeISDbdiSR+q+xgIF9
-         OUX7tmkyk0GSTyRuSJ7bYlmtf4rF6IQZSujds=
+        d=citrix.com; s=google; t=1725438110; x=1726042910; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=CWMGsOdiAnlrwhR9aAo2YUHbM7wmzPcGcjQ8EclcVf0=;
+        b=Ow2gtUciW7vGVHLHtMJmvNoo1zGkDG4mH/fmGGBjEP0CLE0zEMS0Qn+XwVsL5DDjtw
+         YHVtHUWOaXw9IDwMHpPWgT4k162kpr4XFonvQ+tkREUbheKZSImZTlhLkg4vFbjYDfmr
+         momU0zmY7h4OlqHAgJC3N0cKUp1lodlQhR0qc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725437106; x=1726041906;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/GmeXFgFzU5lpN3gHbDoxxjqe1M5C6S/NQ9mkBmuYfI=;
-        b=mh9illdRbIlNO2ZpEnPajRK112JXKs1+CeIJ8eSaYWHbFdqMIEerv+1cBDhZFzmzCf
-         5R2FsjC0joeJU0T0HRS845XWNLF1E232QUG1/jrXN/6CtI0UxcnbmN0GL/wv25F34snj
-         05k8uAACLmLV1Rvjtefm7hXrc9C5OV/uXNuNmMa/mkDVRGdF7/TI2HWRC1RTU0wCgqUu
-         poqbfl4LTxVXi4PCtRjQffhvVORe6kg3sJPB/JLAHLWarlDXZ46XIZv6odCA+FwXV3wk
-         j+KUzlVpspkjo7mkmWDFvfBodWlO88fOHQ9KrgammXtaGtUWI7w8MtUFKj86IpIwstBN
-         rgGg==
-X-Forwarded-Encrypted: i=1; AJvYcCXwo8Ac/shWakQFzuYosfAbDBCi66cxSTpHsNsqM2LH/VQjNNeb8CZXu2AjEvFNTC1VpkRtSrcGTNU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLNVQBsuZtew0xicQGtgwzTFOgqlS232k/64uzaneWVgbyEZxp
-	ZhEjCfa25XUbXecqjfJwa3RBHMuP+XCLD3Ci/GUYC6HOz2KZXd27r9Wmih9YbG6YQEvS9CPDFuO
-	P
-X-Google-Smtp-Source: AGHT+IFvgqo5f/U+FwTeBgJybxwoEKdZOzkXOIQFXVxBAZMq9FRU0DsVrGFj1eJDtpr098f1rPUGGg==
-X-Received: by 2002:a05:6402:254b:b0:5c0:aad3:c8fc with SMTP id 4fb4d7f45d1cf-5c2758311camr2066227a12.30.1725437105209;
-        Wed, 04 Sep 2024 01:05:05 -0700 (PDT)
-Message-ID: <bb31e4ab-ba0f-445c-8564-0758297f9985@citrix.com>
-Date: Wed, 4 Sep 2024 09:05:04 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/boot: Fix include paths for 32bit objects
+        d=1e100.net; s=20230601; t=1725438110; x=1726042910;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=CWMGsOdiAnlrwhR9aAo2YUHbM7wmzPcGcjQ8EclcVf0=;
+        b=cdnPAF+HVD+Bx9W9QwFC0vQ1sDub2hwjCV1Rwnby/9djYaHPdovEIkJkrGtyIxr0g6
+         pAZKcFrzqgck7xY8bUWj5szhErmMzRP0zYxrFKAqqgon/oXjC0WhTKLdITLZw6grfp8W
+         IFGp/sYlSzhF6CHXMNRc1n5+yWULsVHdjF+hAFfXrvXQvtfeAh3mAtV6fgY40p9R3nDO
+         wLdSAHz30nkUw5Nq7PV5kDVempN16twxVW2za72x1Ro3slFjw3cdzsOFzkR1Tp7R0ms9
+         lltiWzh93YE7/kyOURWR/QBE0tw/rVzYDfivnLJ0pz3X5PZtiuf3J06/XC4YR90eSuJQ
+         hOHA==
+X-Forwarded-Encrypted: i=1; AJvYcCV7UfSJ6YzFWJn7/i7/A/f2RD6gKOKz9EAmQrczShcY8xe/Ec05D0zaNTvpVTtE6kqKiY+JpoWFyPk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxx5Q0H3D/81OSrX7TA083rpDpMB01mqk6koJOIoBU9ZS+t8HZF
+	zrqAsbY7BPIdy4RMypMxAMM/Aa6KGzFNlEby/nR4cEM32AH1TrUxLg88PrAPFVM=
+X-Google-Smtp-Source: AGHT+IGsUb427F+M49i5cBJp0kJwAdThrSOAGr4LNMWaZxamY/id4366Kk2vNmM7AdMIJz64PHlDIQ==
+X-Received: by 2002:a17:907:720f:b0:a7a:9144:e24c with SMTP id a640c23a62f3a-a89a3500b22mr1167969466b.9.1725438109752;
+        Wed, 04 Sep 2024 01:21:49 -0700 (PDT)
+Date: Wed, 4 Sep 2024 10:21:48 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240903104940.3514994-1-andrew.cooper3@citrix.com>
- <20240903115334.3526368-1-andrew.cooper3@citrix.com>
- <26b84bfa-e186-4b07-8718-72a10be8b03c@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <26b84bfa-e186-4b07-8718-72a10be8b03c@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Cc: Paul Durrant <paul@xen.org>, Owen Smith <owen.smith@cloud.com>,
+	Mark Syms <mark.syms@citrix.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] blkif: reconcile protocol specification with in-use
+ implementations
+Message-ID: <ZtgYnAeXSamlGKgC@macbook.local>
+References: <20240903141923.72241-1-roger.pau@citrix.com>
+ <99b15fe5-34e0-44e4-a351-d510ae67b5a4@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <99b15fe5-34e0-44e4-a351-d510ae67b5a4@suse.com>
 
-On 04/09/2024 7:54 am, Jan Beulich wrote:
-> On 03.09.2024 13:53, Andrew Cooper wrote:
->> Most of Xen is build using -nostdinc and a fully specified include path.
->> However, the makefile line:
->>
->>   $(head-bin-objs): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
->>
->> discards XEN_CFLAGS and replaces them with CFLAGS_x86_32.
->>
->> Reinstate -nostdinc, and copy all -I (and -Wa,-I) arguments from XEN_CFLAGS.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Despite the title saying "Fix" I take the absence of a Fixes: tag as meaning
-> that this won't need backporting, and is rather only needed for what went on
-> top.
+On Tue, Sep 03, 2024 at 04:36:37PM +0200, Jan Beulich wrote:
+> On 03.09.2024 16:19, Roger Pau Monne wrote:
+> > Current blkif implementations (both backends and frontends) have all slight
+> > differences about how they handle the 'sector-size' xenstore node, and how
+> > other fields are derived from this value or hardcoded to be expressed in units
+> > of 512 bytes.
+> > 
+> > To give some context, this is an excerpt of how different implementations use
+> > the value in 'sector-size' as the base unit for to other fields rather than
+> > just to set the logical sector size of the block device:
+> > 
+> >                         │ sectors xenbus node │ requests sector_number │ requests {first,last}_sect
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > FreeBSD blk{front,back} │     sector-size     │      sector-size       │           512
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > Linux blk{front,back}   │         512         │          512           │           512
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > QEMU blkback            │     sector-size     │      sector-size       │       sector-size
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > Windows blkfront        │     sector-size     │      sector-size       │       sector-size
+> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
+> > MiniOS                  │     sector-size     │          512           │           512
+> > 
+> > An attempt was made by 67e1c050e36b in order to change the base units of the
+> > request fields and the xenstore 'sectors' node.  That however only lead to more
+> > confusion, as the specification now clearly diverged from the reference
+> > implementation in Linux.  Such change was only implemented for QEMU Qdisk
+> > and Windows PV blkfront.
+> > 
+> > Partially revert to the state before 67e1c050e36b:
+> > 
+> >  * Declare 'feature-large-sector-size' deprecated.  Frontends should not expose
+> >    the node, backends should not make decisions based on its presence.
+> > 
+> >  * Clarify that 'sectors' xenstore node and the requests fields are always in
+> >    512-byte units, like it was previous to 67e1c050e36b.
+> > 
+> > All base units for the fields used in the protocol are 512-byte based, the
+> > xenbus 'sector-size' field is only used to signal the logic block size.  When
+> > 'sector-size' is greater than 512, blkfront implementations must make sure that
+> > the offsets and sizes (even when expressed in 512-byte units) are aligned to
+> > the logical block size specified in 'sector-size', otherwise the backend will
+> > fail to process the requests.
+> > 
+> > This will require changes to some of the frontends and backends in order to
+> > properly support 'sector-size' nodes greater than 512.
+> > 
+> > Fixes: 67e1c050e36b ('public/io/blkif.h: try to fix the semantics of sector based quantities')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Following the earlier discussion, I was kind of hoping that there would be
+> at least an outline of some plan here as to (efficiently) dealing with 4k-
+> sector disks.
 
-Oh sorry.  v1 had a Fixes tag, and then Anthony objected.
+What do you mean with efficiently?
 
-"x86/boot: Use <xen/types.h>" is where it breaks properly without this
-patch, so I don't think there's a specific need to backport.
+4K disks will set 'sector-size' to 4096, so the segments setup by the
+frontends in the requests will all be 4K aligned (both address and
+size).  Every segment will fill a full blkif_request_segment (making
+the last_sect field kind of pointless).
 
-~Andrew
+> In the absence of that I'm afraid it is a little harder to
+> judge whether the proposal here is the best we can do at this point.
+
+While I don't mind looking at what we can do to better handle 4K
+sector disks, we need IMO to revert to the specification before
+67e1c050e36b, as that change switched the hardcoded sector based units
+from 512 to 'sector-size', thus breaking the existing ABI.
+
+Thanks, Roger.
 
