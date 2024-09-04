@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5365796BE6A
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 15:26:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790349.1200082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 323F596BE79
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 15:27:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790361.1200091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slq1J-00032g-Ji; Wed, 04 Sep 2024 13:26:01 +0000
+	id 1slq2l-0004uC-15; Wed, 04 Sep 2024 13:27:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790349.1200082; Wed, 04 Sep 2024 13:26:01 +0000
+Received: by outflank-mailman (output) from mailman id 790361.1200091; Wed, 04 Sep 2024 13:27:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slq1J-00030H-FD; Wed, 04 Sep 2024 13:26:01 +0000
-Received: by outflank-mailman (input) for mailman id 790349;
- Wed, 04 Sep 2024 13:25:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1slq2k-0004sN-UM; Wed, 04 Sep 2024 13:27:30 +0000
+Received: by outflank-mailman (input) for mailman id 790361;
+ Wed, 04 Sep 2024 13:27:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slq1H-0002jS-9y
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 13:25:59 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 382b5876-6ac1-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 15:25:57 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a86abbd68ffso144665666b.0
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 06:25:57 -0700 (PDT)
+ id 1slq2j-0003Xa-Lj
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 13:27:29 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6e8c41ca-6ac1-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 15:27:28 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a868831216cso780489466b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 06:27:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a898900ebabsm811400866b.56.2024.09.04.06.25.56
+ a640c23a62f3a-a89891968a3sm819605866b.142.2024.09.04.06.27.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 06:25:56 -0700 (PDT)
+ Wed, 04 Sep 2024 06:27:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 382b5876-6ac1-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 6e8c41ca-6ac1-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725456357; x=1726061157; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=488EZAdEv0/ieZlG0BzZW1Pd9yrUSIggkkbgFzx9ciE=;
-        b=DORrYeS7LLvAqM653vNRm8l6qcvEoC1avlb0G0b5lxaIiayjP0E4NxrEoNy+qex7Wl
-         CW+kSWUumhSpDzPC2CmiMFNfId5408T7t1XHWSOIfmS9IB6qfb7p0JgoBX9P2iyiZamT
-         hg0RJeowyvXItrJEP6lXz9PIHSTEGdnIl86eoke96ux0CiLLXSuOv0kGWmJkW6XMbVhK
-         v7gJ/U0xaB9/la5rAlblr5IhA08wpHIJFiD0XQbbqe7Zc8tNzsQWMopwsKZyXNmhpQnG
-         ONycTAPhd3NNelkkBYUiqW6//gUel+NqUqlCbMMpcM2rWXl14p99MvGcTdFilEdQaT4h
-         UNsA==
+        d=suse.com; s=google; t=1725456448; x=1726061248; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=yp78HPLZHcPEMDsLsM1R4Jfv8UU1lMcs6c7lpFRwulA=;
+        b=HwLhc7LgviDxCzUKsbVjuw1dr5cZ3Y3DvN9LvXx7h6z1t3EeYMbvrFyLAZptDeIz4I
+         iLFGRobu5eV28tk/iu4GxO2C0cdRNMUnUFlZbeHOoJBMVYiXgI8GsEu+FOoWBNwLDfmZ
+         0xs1BLvBi/d9l78M5kGCvYFQJ8j0lLScfx62dAocbg+8vmtMxvnKzzV7ZqXAZuBI9CnM
+         w6NlNujAICJ12NeZkGxRcibIqtJGR/hs9ycsvtYlEh2F+eXKXJAjgL574mpx1TxgvgU8
+         wHelZtPKrWSCbA3lndsc34zsnM+mYi7/mLi6rIfa4QFMJFVzUVhg8g1FWkuUHNdIhvTQ
+         /KoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725456357; x=1726061157;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=488EZAdEv0/ieZlG0BzZW1Pd9yrUSIggkkbgFzx9ciE=;
-        b=UdQJbA/rFjEioKPE0CKzidd2u0gFOXsYvK3LsnkUMXznUSHT0+eGYZuxkui6cykoqw
-         jFDstLJaZMegiw9tPKV4mNkYQX8VYbx6i/ImB9R74qTmnm6RKOIhuiD8hWhXrAU6WyKD
-         s0RaImQORl/1iQQxHZHu3hA73CyCcPLzMIgLX5c29XuhCWBA80SXlVGcD7OUUF1FV8VT
-         GaSHVEOB1YWl5i3YMMRMLy/xbFv/DHPteCRBgNwejciiYVMYyeL2DzR6BSNdsLcbz85X
-         sVwaNpBHx3Y8jAfqtKDSay4MaAUngJuqyRR8JQkt87lhnnpMNttcPeQkN3EaEW7aMEKt
-         6pew==
-X-Gm-Message-State: AOJu0YzjU8lF6ocnxD04N0pGePsyX6nUxw6F7HqZJ5ofcxGMNZ+oSlXx
-	78YdSPVpWGFp6U/B5eiyBzt5Tz/WzTDOIrPLv41SRobMf1lq/rTyvxHsHpOaEiqE3AVGb/GTDec
+        d=1e100.net; s=20230601; t=1725456448; x=1726061248;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yp78HPLZHcPEMDsLsM1R4Jfv8UU1lMcs6c7lpFRwulA=;
+        b=OXHSc8Hk+q/IBiiBhEcP/50mIP/4TtUWM3/0HuL69p0OfflaHDXfhE6jPEUUzUpwn0
+         kuAlD/nAuVxvCBnN5w7JKDnao9qtzVXRW/YXtZToKqCXoVnlhzxWDbNvX9LVMCeCajpH
+         L1FZ0jklLCaUlqIpNY46MPuhUrM0y92bOR2i1G9TO3Jg+N8tk5KVDc/3nr49RqwdjCgj
+         fxfKtS+IOwrikwA6G2gccUj4L2loNtmfYltfVyIPFXQ8qrMzlJHmmoEfzOqkTJgQoIpJ
+         fW0SvBCxvb06H3xzWNAeml+8vASBi4THM0gA0Y5RMLUOgKg873HwVvsPXRRLmkEpHEKn
+         +zyQ==
+X-Gm-Message-State: AOJu0Yx1K3Ekt6HiEWpYPnDQlFyAvNITjbW/R4ifzfCk3l6FHf1E7l5N
+	+OcDaW4GfqpKkhlmew3hVixp+pEi2jUJjSyNJCjcTCkjhs058j5FW7TQtffr/N2IiE5vxJnvk8I
 	=
-X-Google-Smtp-Source: AGHT+IF+8kLumRuzlOfaRsLP85iJTVN0rTuHZcuWzGg5sujAxxWk7k/Fa1dLg/8aHDOXYoTf7jWVcA==
-X-Received: by 2002:a17:907:1c26:b0:a77:ca3b:996c with SMTP id a640c23a62f3a-a8a430b4a6amr210365866b.16.1725456357021;
-        Wed, 04 Sep 2024 06:25:57 -0700 (PDT)
-Message-ID: <31906cba-8646-4cf9-ab31-1d23654df8d1@suse.com>
-Date: Wed, 4 Sep 2024 15:25:55 +0200
+X-Google-Smtp-Source: AGHT+IGJDFc47MWj8OXx8n+le8xzZBSP7AtarY8vuRHUCUsZvG02uHr5q+kfFwMBISDnNkSW6UQZvw==
+X-Received: by 2002:a17:907:cc88:b0:a8a:5a72:a29f with SMTP id a640c23a62f3a-a8a5a72a500mr58705766b.17.1725456448231;
+        Wed, 04 Sep 2024 06:27:28 -0700 (PDT)
+Message-ID: <f1147a7a-e232-48e8-b9ea-664c7f5192a4@suse.com>
+Date: Wed, 4 Sep 2024 15:27:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: [PATCH 1/5] x86/HVM: reduce recursion in linear_{read,write}()
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/5] x86/HVM: emulation (MMIO) improvements
+References: <31906cba-8646-4cf9-ab31-1d23654df8d1@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -109,18 +111,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <31906cba-8646-4cf9-ab31-1d23654df8d1@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The main fix is patch 3, with the earlier patches setting the stage
-and the latter ones simplifying other things at least a little in
-exchange.
+Let's make explicit what the compiler may or may not do on our behalf:
+The 2nd of the recursive invocations each can fall through rather than
+re-invoking the function. This will save us from adding yet another
+parameter (or more) to the function, just for the recursive invocations.
 
-1: reduce recursion in linear_{read,write}()
-2: allocate emulation cache entries dynamically
-3: correct read/write split at page boundaries
-4: slightly improve CMPXCHG16B emulation
-5: drop redundant access splitting
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -1146,7 +1146,7 @@ static int linear_read(unsigned long add
+     pagefault_info_t pfinfo;
+     struct hvm_vcpu_io *hvio = &current->arch.hvm.hvm_io;
+     unsigned int offset = addr & ~PAGE_MASK;
+-    int rc = HVMTRANS_bad_gfn_to_mfn;
++    int rc;
+ 
+     if ( offset + bytes > PAGE_SIZE )
+     {
+@@ -1154,12 +1154,16 @@ static int linear_read(unsigned long add
+ 
+         /* Split the access at the page boundary. */
+         rc = linear_read(addr, part1, p_data, pfec, hvmemul_ctxt);
+-        if ( rc == X86EMUL_OKAY )
+-            rc = linear_read(addr + part1, bytes - part1, p_data + part1,
+-                             pfec, hvmemul_ctxt);
+-        return rc;
++        if ( rc != X86EMUL_OKAY )
++            return rc;
++
++        addr += part1;
++        bytes -= part1;
++        p_data += part1;
+     }
+ 
++    rc = HVMTRANS_bad_gfn_to_mfn;
++
+     /*
+      * If there is an MMIO cache entry for the access then we must be re-issuing
+      * an access that was previously handled as MMIO. Thus it is imperative that
+@@ -1201,7 +1205,7 @@ static int linear_write(unsigned long ad
+     pagefault_info_t pfinfo;
+     struct hvm_vcpu_io *hvio = &current->arch.hvm.hvm_io;
+     unsigned int offset = addr & ~PAGE_MASK;
+-    int rc = HVMTRANS_bad_gfn_to_mfn;
++    int rc;
+ 
+     if ( offset + bytes > PAGE_SIZE )
+     {
+@@ -1209,12 +1213,16 @@ static int linear_write(unsigned long ad
+ 
+         /* Split the access at the page boundary. */
+         rc = linear_write(addr, part1, p_data, pfec, hvmemul_ctxt);
+-        if ( rc == X86EMUL_OKAY )
+-            rc = linear_write(addr + part1, bytes - part1, p_data + part1,
+-                              pfec, hvmemul_ctxt);
+-        return rc;
++        if ( rc != X86EMUL_OKAY )
++            return rc;
++
++        addr += part1;
++        bytes -= part1;
++        p_data += part1;
+     }
+ 
++    rc = HVMTRANS_bad_gfn_to_mfn;
++
+     /*
+      * If there is an MMIO cache entry for the access then we must be re-issuing
+      * an access that was previously handled as MMIO. Thus it is imperative that
+
 
