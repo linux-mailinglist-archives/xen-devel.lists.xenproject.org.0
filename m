@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31AC096B3D4
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 10:03:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789881.1199538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBDF896B3DE
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 10:04:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789885.1199547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slkyq-0006qW-LO; Wed, 04 Sep 2024 08:03:08 +0000
+	id 1sll0D-0007PM-VJ; Wed, 04 Sep 2024 08:04:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789881.1199538; Wed, 04 Sep 2024 08:03:08 +0000
+Received: by outflank-mailman (output) from mailman id 789885.1199547; Wed, 04 Sep 2024 08:04:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slkyq-0006p1-Ic; Wed, 04 Sep 2024 08:03:08 +0000
-Received: by outflank-mailman (input) for mailman id 789881;
- Wed, 04 Sep 2024 08:03:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sll0D-0007NP-SH; Wed, 04 Sep 2024 08:04:33 +0000
+Received: by outflank-mailman (input) for mailman id 789885;
+ Wed, 04 Sep 2024 08:04:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slkyo-0006of-Dv
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 08:03:06 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1cd4f903-6a94-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 10:03:04 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-533488ffaf7so8567452e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 01:03:04 -0700 (PDT)
+ id 1sll0C-0007NH-RA
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 08:04:32 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 50d32a0a-6a94-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 10:04:31 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5c3ca32974fso18437a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 01:04:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89891db42fsm767943466b.184.2024.09.04.01.03.03
+ 4fb4d7f45d1cf-5c226c6a36fsm7294054a12.16.2024.09.04.01.04.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 01:03:03 -0700 (PDT)
+ Wed, 04 Sep 2024 01:04:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1cd4f903-6a94-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 50d32a0a-6a94-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725436984; x=1726041784; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725437071; x=1726041871; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4QuLAkOQvFGPRbyFTe0uWisoxMW1Q1XbefCobjkWkUc=;
-        b=N3YEb2J0uQY1EcjnPetTP9PvT6UICMk38lcbp4j7csisL8LofiWAaRvfRrUnR+Ahcz
-         Dk2a50p10wj6voohrHhfi+XMka5QaMT18GzZdRanSFgfSlkqwNohtAypRVR7Kp4r0MMF
-         pkhra2ZNYIXWeNiXcc7bsyHzRRbuIT8myQWcg0LL2yKWNnZU15Hg2SQ3diQM+1rafoLW
-         tdbafrI36jkxSQ1WugsA242YOrf6gfkyxPcRZz9gm6LXMsYm3NGfQdNwRz0Sin8Hb5BG
-         /krYgqmBdcacq+SX3vg+9YhjDeaZJBDcXFi2eNRuTsyNm1kMZN8mBdMbrWXG0U9hrm61
-         9QZg==
+        bh=ea+d9XvOqJz7BZp3H6z2amnakkYxChhiHcchi6N2NlM=;
+        b=HExcq0VXjaBkZMToPfyhfdx/9qU51NmvUs+olE+BElgZCPN+FpJCONN0/GyyPg0I0i
+         /BdB3BZEKlC/s83i/WQa1wMgnRsf19KINyTelGlV1KbUT8I2KwXz0Pq17RTlCKofiBY5
+         27IZOZpXzWndkeLv1xcAt5f1qLg1sTIOBDsdX778jRnNsCeSKMbRCdxRi91bfyN2xJyT
+         AEj0AUDmo/+XmIuv+COLCyl1OujVdYkejAYk6xfM4N9JJjtQUl25Nn2G+yCvbEA+Zu1i
+         WFpNCK2rjgU6TobM1lQWNPi5qCLrA1t22iXrUpER5YT7pHLSgapC1sMkwiMMKQ7SS46q
+         BmNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725436984; x=1726041784;
+        d=1e100.net; s=20230601; t=1725437071; x=1726041871;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=4QuLAkOQvFGPRbyFTe0uWisoxMW1Q1XbefCobjkWkUc=;
-        b=I/FAwV/IpfCs75ci7pb4bma1MI6LgVuEvXbKOHsybcv6qmv+2MSgSsTDHLn/qDQidU
-         s6eQP7ONt7ca96po9IeRdOnOR//5RTm+WqICIKpEBxRFKv1FJXpC2OTUgomqmpcoMRR3
-         coyoXPk4kW8A1ATmSD5RnNtOhMmwekxZ9idkzh1nml5cg4LhTUXV53rSHnowD2NIP6uK
-         6L4pKPQQcAj33Q0+CicCLAB3i6WVhiyreftJARuQgAipuHZ3ncE2QrFgzzohOSjJQDmg
-         wzrdM4Fr6ZjgOFhbsnhFxWs118YZwygJRba/B1DW3h7M1Imf6rW1szO6MMe90JwYNs/S
-         RtYw==
-X-Forwarded-Encrypted: i=1; AJvYcCXJaALaM71imHJIXhjtW5NmMWGyB/Yr/M/ww0zXFLrL6ToOCf8jbL3K9pLfeAFsf6veKLN5DzUDEz8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyhYXZNmxolblXZi3L0lYewzwLwU/tULFg1Gh3F3w3yujdBD9Xh
-	z7q3YVbJAyqhhwsM+6Dn+3OIJ9W/J4Z73c9UHPzN0C/b1a+6UEYkfoJ06LQlTw==
-X-Google-Smtp-Source: AGHT+IHKcFQuq5fPyV9e64yOoB8fpb+cPVk9uXa9O8Nr1nzPa61BBLz1M4rY9ubRcvrHJ1EhgdEKtg==
-X-Received: by 2002:a05:6512:118a:b0:52c:e133:7b2e with SMTP id 2adb3069b0e04-53546b4b08cmr13151976e87.35.1725436983701;
-        Wed, 04 Sep 2024 01:03:03 -0700 (PDT)
-Message-ID: <cee8e1ed-c462-48e8-9559-d8064c8aa0f2@suse.com>
-Date: Wed, 4 Sep 2024 10:03:02 +0200
+        bh=ea+d9XvOqJz7BZp3H6z2amnakkYxChhiHcchi6N2NlM=;
+        b=nyceVpg0HYjXlhgIladD96nLC5SlZVJr3BVZaNi5Lx/haR1bqu7TSn8HXzY272B4m5
+         lFisV9mCOKXLTlQXhgEDP9lqXWm9RteCJjFePROTGprwNGj8W0aiTwuh08thGNDu0oSk
+         6mx4EwcL/EL5RDDiZekuTZQp9pe642okmIdxM1QeqWoF3qjII0WLTt6eFPi5La/qTQbX
+         iTXOZjk8sxrLjRu5NEor72QpvYpOtcqbbNif8l1tgRrU8xxy0Sh5wdIL9xai+rqiWN4Q
+         CgyiXQNNc5QLefKXCfsmwlWkaILCLUzEQeQSW6nweJ8alvzEE6EFkMCvCGQGG1aBJAXK
+         AAQA==
+X-Gm-Message-State: AOJu0Yx2VT0SUW70NDS5tv+CxkwIpmQR0zi0AjeVqYxP2x1RvdHq27zS
+	8ZWRkgsR903xezPsP+ljXMoHiE+ltu/umtgGkikQgGz2CIW6BpvWzTpek2y6Lw==
+X-Google-Smtp-Source: AGHT+IF+RhAS6HXEjwJKD54orGNUG6FVcaJrbMtgH5LjukygczTjfook3p+ciVGGqily98YJ3Ct1og==
+X-Received: by 2002:a05:6402:520b:b0:5c2:5251:bae5 with SMTP id 4fb4d7f45d1cf-5c25251bb42mr7859152a12.9.1725437070855;
+        Wed, 04 Sep 2024 01:04:30 -0700 (PDT)
+Message-ID: <0d08d8b3-cf25-4ced-88cd-91dc810b4204@suse.com>
+Date: Wed, 4 Sep 2024 10:04:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Ping: [PATCH v3] SUPPORT.md: split XSM from Flask
+Subject: Ping: [PATCH v3] mktarball: only archive Xen
 From: Jan Beulich <jbeulich@suse.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Daniel Smith <dpsmith@apertussolutions.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c648bfe1-6ab0-4429-ab8a-b452ad2359ff@suse.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony@xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <14f8887b-1f66-428e-8417-f552b8851c71@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,63 +111,133 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c648bfe1-6ab0-4429-ab8a-b452ad2359ff@suse.com>
+In-Reply-To: <14f8887b-1f66-428e-8417-f552b8851c71@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.08.2024 09:44, Jan Beulich wrote:
-> XSM is a generic framework, which in particular is also used by SILO.
-> With this it can't really be experimental: Arm mandates SILO for having
-> a security supported configuration.
+On 19.08.2024 17:10, Jan Beulich wrote:
+> As was basically decided already a while ago, remove - in the simplest
+> possible way - the archiving of both qemu-s and mini-os from tarball
+> generation.
+> 
+> With this the subtree-force-update-all prereq isn't needed anymore in
+> the top level Makefile. That goal, including the respective ones
+> underneath tools/, then also are unreferenced and hence are being
+> dropped, too.
 > 
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> v3: Add explanations. Another terminology adjustment.
-> v2: Terminology adjustments. Stronger description.
+> This is the simplistic approach; I'm sure this could now be done quite a
+> bit more efficiently. I also expect there's no longer a need to run
+> ./configure ahead of the invocation of this script, but since I have no
+> idea why it was needed earlier on, I'm not removing that here from the
+> doc. IOW all cleanup that's probably better done separately, by someone
+> actually using all of that machinery.
+> ---
+> v3: Drop subtree-force-update-all rules from underneath tools/.
+> v2: Drop subtree-force-update-all prereqs from ./Makefile.
 
-Are yet further adjustments needed?
+Are any further adjustments needed?
 
 Jan
 
-> --- a/SUPPORT.md
-> +++ b/SUPPORT.md
-> @@ -769,13 +769,21 @@ Compile time disabled for ARM by default
+> --- a/Makefile
+> +++ b/Makefile
+> @@ -200,10 +200,6 @@ rpmball: dist
+>  subtree-force-update: mini-os-dir-force-update
+>  	$(MAKE) -C tools subtree-force-update
 >  
->      Status, x86: Supported, not security supported
+> -.PHONY: subtree-force-update-all
+> -subtree-force-update-all: mini-os-dir-force-update
+> -	$(MAKE) -C tools subtree-force-update-all
+> -
+>  # Make a source tarball, including qemu sub-trees.
+>  #
+>  # src-tarball will use "git describe" for the version number.  This
+> @@ -214,11 +210,11 @@ subtree-force-update-all: mini-os-dir-fo
+>  # src-tarball-release will use "make xenversion" as the version
+>  # number.  This is suitable for release tarballs.
+>  .PHONY: src-tarball-release
+> -src-tarball-release: subtree-force-update-all
+> +src-tarball-release:
+>  	bash ./tools/misc/mktarball $(XEN_ROOT) $$($(MAKE) -C xen xenversion --no-print-directory)
 >  
-> -### XSM & FLASK
-> +### XSM (Xen Security Module) Framework
-> +
-> +XSM is a security policy framework.  The dummy implementation is covered by this
-> +statement, and implements a policy whereby dom0 is all powerful.  See below for
-> +alternative modules (FLASK, SILO).
-> +
-> +    Status: Supported
-> +
-> +### FLASK XSM Module
+>  .PHONY: src-tarball
+> -src-tarball: subtree-force-update-all
+> +src-tarball:
+>  	bash ./tools/misc/mktarball $(XEN_ROOT) $$(git describe)
 >  
->      Status: Experimental
+>  .PHONY: clean
+> --- a/tools/Makefile
+> +++ b/tools/Makefile
+> @@ -282,8 +282,3 @@ endif
+>  ifeq ($(CONFIG_X86),y)
+>  	$(MAKE) -C firmware subtree-force-update
+>  endif
+> -
+> -subtree-force-update-all:
+> -	$(MAKE) qemu-xen-dir-force-update
+> -	$(MAKE) qemu-xen-traditional-dir-force-update
+> -	$(MAKE) -C firmware subtree-force-update-all
+> --- a/tools/Rules.mk
+> +++ b/tools/Rules.mk
+> @@ -206,7 +206,7 @@ subdir-all-% subdir-clean-% subdir-insta
+>  subdir-distclean-%: .phony
+>  	$(MAKE) -C $* distclean
 >  
->  Compile time disabled by default.
+> -no-configure-targets := distclean subdir-distclean% clean subdir-clean% subtree-force-update-all %-dir-force-update
+> +no-configure-targets := distclean subdir-distclean% clean subdir-clean% %-dir-force-update
+>  ifeq (,$(filter $(no-configure-targets),$(MAKECMDGOALS)))
+>  $(XEN_ROOT)/config/Tools.mk:
+>  	$(error You have to run ./configure before building or installing the tools)
+> --- a/tools/firmware/Makefile
+> +++ b/tools/firmware/Makefile
+> @@ -127,9 +127,5 @@ ifeq ($(CONFIG_OVMF),y)
+>  	$(MAKE) ovmf-dir-force-update
+>  endif
 >  
-> -Also note that using XSM
-> +Also note that using FLASK
->  to delegate various domain control hypercalls
->  to particular other domains, rather than only permitting use by dom0,
->  is also specifically excluded from security support for many hypercalls.
-> @@ -788,6 +796,13 @@ Please see XSA-77 for more details.
->  The default policy includes FLASK labels and roles for a "typical" Xen-based system
->  with dom0, driver domains, stub domains, domUs, and so on.
+> -subtree-force-update-all:
+> -	$(MAKE) seabios-dir-force-update
+> -	$(MAKE) ovmf-dir-force-update
+> -
+>  subdir-all-seabios-dir: seabios-dir
+>  	$(MAKE) -C $< CC=$(SEABIOSCC) LD=$(SEABIOSLD) PYTHON=$(PYTHON) EXTRAVERSION=$(SEABIOS_EXTRAVERSION) all;
+> --- a/tools/misc/mktarball
+> +++ b/tools/misc/mktarball
+> @@ -1,6 +1,6 @@
+>  #!/bin/bash
+>  #
+> -# mktarball: Make a release tarball (including xen, qemu, and qemu-traditional)
+> +# mktarball: Make a release tarball (including just xen)
+>  #
+>  # Takes 2 arguments, the path to the dist directory and the version
+>  set -ex
+> @@ -29,26 +29,6 @@ mkdir -p $tdir
 >  
-> +### SILO XSM Module
-> +
-> +SILO implements a policy whereby DomU-s can only communicate with Dom0, yet not
-> +with each other.
-> +
-> +    Status: Supported
-> +
->  ## Virtual Hardware, Hypervisor
+>  git_archive_into $xen_root $tdir/xen-$desc
 >  
->  ### x86/Nested PV
+> -# We can't use git_archive_into with qemu upstream because it uses
+> -# git-submodules.  git-submodules are an inherently broken git feature
+> -# which should never be used in any circumstance.  Unfortunately, qemu
+> -# upstream uses them.  Relevantly for us, git archive does not work
+> -# properly when there are submodules.
+> -(
+> -    cd $xen_root/tools/qemu-xen-dir-remote
+> -    # if it's not clean, the qemu script will call `git stash' !
+> -    git --no-pager diff --stat HEAD
+> -    scripts/archive-source.sh $tdir/xen-$desc/tools/qemu-xen.tar
+> -    cd $tdir/xen-$desc/tools
+> -    mkdir qemu-xen
+> -    tar <qemu-xen.tar Cxf qemu-xen -
+> -    rm qemu-xen.tar
+> -)
+> -
+> -git_archive_into $xen_root/tools/qemu-xen-traditional-dir-remote $tdir/xen-$desc/tools/qemu-xen-traditional
+> -
+> -git_archive_into $xen_root/extras/mini-os-remote $tdir/xen-$desc/extras/mini-os
+> -
+>  GZIP=-9v tar cz -f $xen_root/dist/xen-$desc.tar.gz -C $tdir xen-$desc
+>  
+>  echo "Source tarball in $xen_root/dist/xen-$desc.tar.gz"
 
 
