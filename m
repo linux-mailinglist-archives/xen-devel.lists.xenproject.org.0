@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF8FF96BCA3
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 14:42:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790252.1199992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3332696BCB0
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 14:44:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790256.1200001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slpKg-0005f0-Fo; Wed, 04 Sep 2024 12:41:58 +0000
+	id 1slpMg-0006CS-Qf; Wed, 04 Sep 2024 12:44:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790252.1199992; Wed, 04 Sep 2024 12:41:58 +0000
+Received: by outflank-mailman (output) from mailman id 790256.1200001; Wed, 04 Sep 2024 12:44:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slpKg-0005cw-Cr; Wed, 04 Sep 2024 12:41:58 +0000
-Received: by outflank-mailman (input) for mailman id 790252;
- Wed, 04 Sep 2024 12:41:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slpKf-0005co-Gn
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 12:41:57 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 11e598c2-6abb-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 14:41:56 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2f6514f23b6so15258811fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 05:41:56 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a898900f079sm804572066b.66.2024.09.04.05.41.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 05:41:55 -0700 (PDT)
+	id 1slpMg-00069u-O2; Wed, 04 Sep 2024 12:44:02 +0000
+Received: by outflank-mailman (input) for mailman id 790256;
+ Wed, 04 Sep 2024 12:44:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LMDu=QC=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1slpMf-00069o-HY
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 12:44:01 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20611.outbound.protection.outlook.com
+ [2a01:111:f403:2408::611])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5b38e0bd-6abb-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 14:43:59 +0200 (CEST)
+Received: from CH2PR20CA0010.namprd20.prod.outlook.com (2603:10b6:610:58::20)
+ by DM6PR12MB4419.namprd12.prod.outlook.com (2603:10b6:5:2aa::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.27; Wed, 4 Sep
+ 2024 12:43:55 +0000
+Received: from CY4PEPF0000FCBF.namprd03.prod.outlook.com
+ (2603:10b6:610:58:cafe::2) by CH2PR20CA0010.outlook.office365.com
+ (2603:10b6:610:58::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.27 via Frontend
+ Transport; Wed, 4 Sep 2024 12:43:55 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000FCBF.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Wed, 4 Sep 2024 12:43:54 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Sep
+ 2024 07:43:53 -0500
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Wed, 4 Sep 2024 07:43:52 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,147 +59,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11e598c2-6abb-11ef-a0b3-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725453716; x=1726058516; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qe5NVqkKyQs8UyeQAjs5lANUk8V5se6/JH8YHAJzKZE=;
-        b=ZkFDH45IqkvdZTJO7/mHu2xyaToj2MaSNeAdEAjyCI6yfrxZFMkHA/M+iiWsOuPBSQ
-         pzqL4UbrPOo+6Em9z6lzOWi9sfONAZ64dT+lXDFOMvQJ9guxAhigOt6V4Hh4lLEqbFF2
-         ncfVyk3Ux1Ga3prhjDw7xKOGsDgTKUeCE6evG4g2KuYFGbSrP+b/tCwZoVXWe/o+rHse
-         dAyI/GBxO9h13Q1r3dsncPAeVRFFXFDIFUx5XUA8jWT53Ujh1URocQpi5IodX+NW++3b
-         TwPixvBjBaWoxu/UTjp4rA5ZwqKRAPC0RPrAk2BF0eOTHFdMqfEuI+P1PUup7XMds1s/
-         3JCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725453716; x=1726058516;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Qe5NVqkKyQs8UyeQAjs5lANUk8V5se6/JH8YHAJzKZE=;
-        b=EsM3q32FuL6VmQBSZrZVOmi3/zprgfKK8mZU3STcHqydEhgr2hJvWnpT1KJ8kRRFvw
-         N/0ahIgaQigc19wNR1Q/62fbRAHYVby2JHpdWILdBUbo0R0EH4fpeL7CUC/wVb+2uVVq
-         Yjlf2hRb2lAjgRBqNSVIqi4Aw4xo4Wd35BFp5wON28mBa6sb0MQ3ijYbEsGTHU0Yx8o2
-         gGxTAXmvVuH6waQBbD1byeG/xDfjXS0nJlJeZp0On3wPLCTqBQeumXwUBzTmLd2Cyxh4
-         VMEtCbrNnJluEqSW6ZkCgpILxYrsmM2+us5sovhLPvP0Jr4XbcbhRuLR110/MkbwDHWm
-         +y7w==
-X-Forwarded-Encrypted: i=1; AJvYcCUG9qgBPoO++Dw9XUZ6uHH9kaCZqW7GPdZ6evVg6a3NSbV3awNT3ceLQzQVj0/grymLw1MsAiOuU5A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwfCjhNQru+0LYQbris9uz4DG59mbvDE4V3q5wrwwZn63qQUOw2
-	BuTbpDQ6sFa5z5QuYP8QMD77yjjRZVmCLg18a9yvkNoTxXqk7Csb+KshHyVMkg==
-X-Google-Smtp-Source: AGHT+IG89PpdDHQ2wfQIod+FSmh8bDGyB3o7wNvMZaUKIIhi/GooTvr9hVk5OuLDHpDXPoQalDlBwg==
-X-Received: by 2002:a2e:be03:0:b0:2f4:f253:ec7 with SMTP id 38308e7fff4ca-2f6104270b5mr197869041fa.0.1725453715735;
-        Wed, 04 Sep 2024 05:41:55 -0700 (PDT)
-Message-ID: <2b11bf7b-d7ee-4792-b2c1-2a3163ca3eb1@suse.com>
-Date: Wed, 4 Sep 2024 14:41:54 +0200
+X-Inumbo-ID: 5b38e0bd-6abb-11ef-99a1-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Wo8b01x2zTcBEkMyP0hHU3QnoKcJjtu1GfxQ13dTca+4hHM0iZbeua5J0SsKDLnZUhevLmtDYSHtZI4o/MXlP63l0ZDeF1rgZb9PvO8XiOziprzko/aD8rgi+W+RxL4aaa8fJz3pmKK6OCRbHSZFndjkguNTca4A6Gtxb8xAsGziLexemlfVdClCVBj7TRSCcRSqGC5OtX4m3ocxtYyJXMMVKk7vhZLz/fkIsW0jYrAHrT7PJpqS1TZ/pWCevvx/NhF+5bxUsGVOiUGN+vDC8gEwfiAqiW1+OYvSMceoCwOeeg7nG3wreqxzEPWOAej0Vz2+WgaR25e6yjO1Q0erCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t4aDycOgF3J4oZvhTiXzfFnja/EfK1sdRKYoPfoj2U4=;
+ b=YrSbk0axl30XNbPpiBqlR088PKa3lU+uKWTsyfc/xguunrVCzOpsHS6S22My4hpj4jx+yZVc0mQ5FZt4yxQuoFCXOyIAIc3tBDOyepC5SkRF6Hor8nUUhjA3Kkl0tMbGX5Y4DBnBKlF45wQ5NUkg2CthCwjVTpB5IAO7QFQaXjJRXnIzU33z3dCi0HKRxbQQTtQIMmJVCqwOeg02kEruyN0PAyHhyU6MjG/wqPrNXYEBHu6Smqx5f3p6sPbTtj6gwD908uGIELF1Xg5C969BNohvERUT/HhWjjoAGhAoEc9bKZ1PNLhqL4sC90YDJj+iWxtBEahbftRXb42W128JGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t4aDycOgF3J4oZvhTiXzfFnja/EfK1sdRKYoPfoj2U4=;
+ b=YSlrCg70DnV3xpgAC1TaQLU/ISJpXsqB+12pdF1VxJ8qzjBp0djNYxrVTi9t5fNKxxwEPaw02DAxCT2txpRLwCBXAu50ViBQY5JP+2rmmk2raXsTtW09orHC9ba1r7reSX9dGh9OTGy4JxZCLmLTyjexBcZdVd7BtVT8igjBuXI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, "Rahul
+ Singh" <rahul.singh@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] arm/smmu: Complete SMR masking support
+Date: Wed, 4 Sep 2024 14:43:49 +0200
+Message-ID: <20240904124349.2058947-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/7] x86/time: introduce probing logic for the
- wallclock
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240903130303.71334-1-roger.pau@citrix.com>
- <20240903130303.71334-5-roger.pau@citrix.com>
- <bc1bd23f-edf5-447a-9799-bca0a6cd696e@suse.com>
- <Ztg9VeXxdM2iBLOR@macbook.local>
- <dde7fd70-3273-4569-b412-d276d4974882@suse.com>
- <ZthS7PwABiQiCCWI@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZthS7PwABiQiCCWI@macbook.local>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|DM6PR12MB4419:EE_
+X-MS-Office365-Filtering-Correlation-Id: f60c44d1-7b84-44da-9aa7-08dcccdf3cd3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?gAnXf0ZL+xwHfby996n574RECTbEMFTqgy2wQzNLr91YEty+XKGZNUGN/1PF?=
+ =?us-ascii?Q?kR2f0lQcDX6It6KbjZcQAfPzrkgbWOLaD/SoLXJAnejWJANgqkesCp7KXzeA?=
+ =?us-ascii?Q?I8ryARsUw3IaHrJx9X+xnbdHYqb9/KBG1KI2AOgXa973SvdRx45Ent1Pc3Xd?=
+ =?us-ascii?Q?PVt7YxOkdU95EJHKrFc3ZxrmDDDDZpSlFhv76mcPyGvN+VZrdLTOqmPwHoDm?=
+ =?us-ascii?Q?kShb0xvzLaBqUstgj+wz+1y1ZT610ZH4Jxv4EGvNg2PEb1FDZpSaxGGcHkTe?=
+ =?us-ascii?Q?+M2zlF+RYSvoGu8siKp65Gm7C9Z2c4JJq4DSmc9476HEhOwjD45U5kcdtdle?=
+ =?us-ascii?Q?DULl1XUlpTWV33HhtkSnSHGI6qObDS9n+kPvPWKCe7NLNblfq72d/gAhw3qQ?=
+ =?us-ascii?Q?/yEG3QVncK0hq3DlPPfcAKIDAyDlcutJT4O7Hsm1jWvQSCWwA9qh88J4yd+t?=
+ =?us-ascii?Q?m4CGfPxZCiFjrrmFrq0Z1qUuvQI046tadvmXjmXqF/QybQcrcLmFxu93jeTi?=
+ =?us-ascii?Q?bT9X6WpXr13DitIs12wChgkdOwbGT8HvAJxN+ozT1f17Kl1xRxHOp8wxcVHt?=
+ =?us-ascii?Q?43pn01EYettSYU148/II4TjuoLlZVxAOgSl9FyMWEWIyv2835wQB/ImDBeiR?=
+ =?us-ascii?Q?S25nWlkrqpefS78rqjKvnHyem8QU9fc/eDiGi6qs99CC96kZ6ceGZmsgvwvv?=
+ =?us-ascii?Q?8Mh0mT9E+DV1xpiEvXu488BLW4WOh/lw+Rv5kreuI7f1VR41wRiWxjy6uJjd?=
+ =?us-ascii?Q?pAHO0R3g5KYvthBFc9MrXlhV2MoBHDsUcivNTX+ab21J5cFoaieq8ZYdl+ll?=
+ =?us-ascii?Q?WtWe/bYjOccQRxg/7VXFnWNauJhodFWUe7WJbykgqJglqc8qaV2/dCvs9DSi?=
+ =?us-ascii?Q?oFDweBkVXJtaK3kGwTP5zA65a9QunygrXW9h+RWXT0mtfnx31B7zBpEYPN55?=
+ =?us-ascii?Q?to3QDCG+vtZXU7M0wgY8uBWcXZBgPnzIlcCg+M7x/hGCKi7mxVpj3Km+C0hr?=
+ =?us-ascii?Q?1Aib8UGfXrEIoaAxXULHR4UUP3qrxU6dtnKxRrwfkDAlIQZfWpLlEDNlFVXo?=
+ =?us-ascii?Q?Vo88TubEYN8P80mAHvCf5t87M+ZxXheCs74lmIBwnYVSgYiHgl1TEObVTZHd?=
+ =?us-ascii?Q?15QgQIQOu1ySD/EjxlJ2ltuXKq5g+Wv4a/qXrja9/N7rhUBhps1HY3yM0pLw?=
+ =?us-ascii?Q?5mLFZrP1EYpyDd7T0y8oWpyljCDErUGa/lLmUhSM2JPrOHKULpZalNbiMuaF?=
+ =?us-ascii?Q?njuNflCsI4/WhdfmMy7KEYNPp+npZyuNj4Jzodw5+AZhok+pdijH8XKvlSwM?=
+ =?us-ascii?Q?/bLM1QTvWoc/nfPu98reaLDN9ohQmN0NP8wLm2wt2W2EW3SYL1HWkhbhOAfE?=
+ =?us-ascii?Q?AeWMtguku4lUVkH/B4XadufZ/LshEjR5zAJ4oNHbyD9Xw3k+VJiXgrlTYGqi?=
+ =?us-ascii?Q?zklYvIqEJrluYV31VISwGtJCyvuAEWbR?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2024 12:43:54.8635
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f60c44d1-7b84-44da-9aa7-08dcccdf3cd3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000FCBF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4419
 
-On 04.09.2024 14:30, Roger Pau Monné wrote:
-> On Wed, Sep 04, 2024 at 01:49:36PM +0200, Jan Beulich wrote:
->> On 04.09.2024 12:58, Roger Pau Monné wrote:
->>> I had it that way originally, but then it seemed the extra
->>> indentation made it less readable.  Will see how can I adjust it, my
->>> preference would be for:
->>>
->>>     panic("No usable wallclock found, probed:%s%s%s\n%s",
->>>           !cmos_rtc_probe && !efi_enabled(EFI_RS) ? " None" : "",
->>>           cmos_rtc_probe ? " CMOS" : "",
->>>           efi_enabled(EFI_RS) ? " EFI" : "",
->>>           !cmos_rtc_probe ? "Try with command line option \"cmos-rtc-probe\"\n"
->>>                           : !efi_enabled(EFI_RS) ? "System must be booted from EFI\n"
->>>                                                  : "");
->>>
->>> But that exceeds the 80 columns limit.
->>
->> Right, formally the above would be my preference, too. Here two shorter-
->> lines alternatives:
->>
->>     panic("No usable wallclock found, probed:%s%s%s\n%s",
->>           !cmos_rtc_probe && !efi_enabled(EFI_RS) ? " None" : "",
->>           cmos_rtc_probe ? " CMOS" : "",
->>           efi_enabled(EFI_RS) ? " EFI" : "",
->>           !cmos_rtc_probe
->>           ? "Try with command line option \"cmos-rtc-probe\"\n"
->>           : !efi_enabled(EFI_RS) ? "System must be booted from EFI\n"
->>                                  : "");
->>
->>     panic("No usable wallclock found, probed:%s%s%s\n%s",
->>           !cmos_rtc_probe && !efi_enabled(EFI_RS) ? " None" : "",
->>           cmos_rtc_probe ? " CMOS" : "",
->>           efi_enabled(EFI_RS) ? " EFI" : "",
->>           !cmos_rtc_probe
->>               ? "Try with command line option \"cmos-rtc-probe\"\n"
->>               : !efi_enabled(EFI_RS)
->>                   ? "System must be booted from EFI\n"
->>                   : "");
->>
->> Either of these or anything more or less similar will do imo, just as
->> long as the ? vs : alignment is there.
-> 
-> I think I prefer the second variant, as indentation is clearer there.
-> 
->>
->> One thing I notice only now: The trailing %s will be a little odd if
->> the "" variant is used in the last argument. That'll produce "(XEN) "
->> with nothing following in the log. Which usually is a sign of some
->> strange breakage.
-> 
-> I've tested this and it doesn't produce an extra newline if the string
-> parameter is "".  IOW:
-> 
-> printk("FOO\n%s", "");
-> 
-> Results in:
-> 
-> (XEN) [    2.230603] TSC deadline timer enabled
-> (XEN) [    2.235654] FOO
-> (XEN) [    2.238682] Wallclock source: EFI
+SMR masking support allows deriving a mask either using a 2-cell iommu
+specifier (per master) or stream-match-mask SMMU dt property (global
+config). Even though the mask is stored in the fwid when adding a
+device (in arm_smmu_dt_xlate_generic()), we still set it to 0 when
+allocating SMEs (in arm_smmu_master_alloc_smes()). So at the end, we
+always ignore the mask when programming SMRn registers. This leads to
+SMMU failures. Fix it by completing the support.
 
-Oh, my mistake. Format string processing of course comes before the
-determination of line breaks within what is to be output.
+A bit of history:
+Linux support for SMR allocation was mainly done with:
+588888a7399d ("iommu/arm-smmu: Intelligent SMR allocation")
+021bb8420d44 ("iommu/arm-smmu: Wire up generic configuration support")
 
-Jan
+Taking the mask into account in arm_smmu_master_alloc_smes() was added
+as part of the second commit, although quite hidden in the thicket of
+other changes. We backported only the first patch with: 0435784cc75d
+("xen/arm: smmuv1: Intelligent SMR allocation") but the changes to take
+the mask into account were missed.
+
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+ xen/drivers/passthrough/arm/smmu.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+index f2cee82f553a..4c8a446754cc 100644
+--- a/xen/drivers/passthrough/arm/smmu.c
++++ b/xen/drivers/passthrough/arm/smmu.c
+@@ -1619,19 +1619,21 @@ static int arm_smmu_master_alloc_smes(struct device *dev)
+ 	spin_lock(&smmu->stream_map_lock);
+ 	/* Figure out a viable stream map entry allocation */
+ 	for_each_cfg_sme(cfg, i, idx, fwspec->num_ids) {
++		uint16_t mask = (fwspec->ids[i] >> SMR_MASK_SHIFT) & SMR_MASK_MASK;
++
+ 		if (idx != INVALID_SMENDX) {
+ 			ret = -EEXIST;
+ 			goto out_err;
+ 		}
+ 
+-		ret = arm_smmu_find_sme(smmu, fwspec->ids[i], 0);
++		ret = arm_smmu_find_sme(smmu, fwspec->ids[i], mask);
+ 		if (ret < 0)
+ 			goto out_err;
+ 
+ 		idx = ret;
+ 		if (smrs && smmu->s2crs[idx].count == 0) {
+ 			smrs[idx].id = fwspec->ids[i];
+-			smrs[idx].mask = 0; /* We don't currently share SMRs */
++			smrs[idx].mask = mask;
+ 			smrs[idx].valid = true;
+ 		}
+ 		smmu->s2crs[idx].count++;
+-- 
+2.25.1
+
 
