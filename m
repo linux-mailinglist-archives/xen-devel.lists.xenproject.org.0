@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43FE296B637
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 11:13:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789936.1199597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EF4796B661
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 11:21:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789941.1199607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slm3Q-0007GY-H3; Wed, 04 Sep 2024 09:11:56 +0000
+	id 1slmCK-0001IG-An; Wed, 04 Sep 2024 09:21:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789936.1199597; Wed, 04 Sep 2024 09:11:56 +0000
+Received: by outflank-mailman (output) from mailman id 789941.1199607; Wed, 04 Sep 2024 09:21:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slm3Q-0007Ep-EW; Wed, 04 Sep 2024 09:11:56 +0000
-Received: by outflank-mailman (input) for mailman id 789936;
- Wed, 04 Sep 2024 09:11:55 +0000
+	id 1slmCK-0001Gk-84; Wed, 04 Sep 2024 09:21:08 +0000
+Received: by outflank-mailman (input) for mailman id 789941;
+ Wed, 04 Sep 2024 09:21:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+MPF=QC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1slm3P-0007Eg-HT
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 09:11:55 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1slmCJ-0001GO-C8
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 09:21:07 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba2b376d-6a9d-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 11:11:53 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a86a37208b2so750165766b.0
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 02:11:53 -0700 (PDT)
+ id 038a1d27-6a9f-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 11:21:06 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a866cea40c4so733896966b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 02:21:06 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a898922295csm779359366b.198.2024.09.04.02.11.52
+ a640c23a62f3a-a898922276asm783889566b.204.2024.09.04.02.21.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Sep 2024 02:11:52 -0700 (PDT)
+ Wed, 04 Sep 2024 02:21:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,102 +44,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba2b376d-6a9d-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: 038a1d27-6a9f-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725441113; x=1726045913; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725441666; x=1726046466; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=MO+oyj5zYAzpSBIjTdcU1e1dG+oVLnNy00UIPTl9CRk=;
-        b=DFXA7GPXLu+ibmLn0k7hEU9GNWbr4FiTFSGZTZUyGVyaeDcBwmV0uEybZA5zcbzP5d
-         CtwtPs2g6Gua9P42qfV0JZSYnzkQ7eXetUqQlJl0dp6c0n7+DAWBKYXzr1n/3EYz+vRa
-         Ly+L9n9Bnb14+riGAgI78oLlnRX7hQa7sTKzE=
+        bh=yvbBPy55F6+C55LFn36cXGk6iGW7NET8ApS9e3VIaKA=;
+        b=kYUx408NAVdo43Kl+7ouSwzSjaSkLVue3Ivqm5Ovkp9SzwT+4AQTX1HI4LB5QgkOjU
+         dJXlJDSddR+FJ79DB2B8YpDLEEfcX+HwC6qzDOhTuni4Qzya4nsR5sjn2WW2LjYPkNmA
+         42+pKDFbJWv5+w66w6KOz4pBzzV7cg/d6fheE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725441113; x=1726045913;
+        d=1e100.net; s=20230601; t=1725441666; x=1726046466;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MO+oyj5zYAzpSBIjTdcU1e1dG+oVLnNy00UIPTl9CRk=;
-        b=NvjScMUrfJ+62BnwhfruPIj6XpCvhKSkMFd2JYvyi/5g4QtpEixS4Z79fpfor0NSfB
-         j18SE3310f8Bc51Lzj4SIxcId6R2M4Ll57kRsexLTkcYHwIbkHBb5Gl249P6gOgj3x3M
-         S9wTHuOPdcVTDmwdxeV8iMJ7aJZAeFx4xSRYnEfXXRe9NtW9Qr3e+tBp0QiXmHO+04tm
-         LynPZ1yP+OxKEkKRUTdop416QASiZChp1/1mkIiGWG6RNlm5bVsY79V8Eok0jirFSLyf
-         hIAWAO1Xg018uxgMug6/gXJF13n3J9qzHMBXYCzvo8lOHBQbV0MXIgvXpOg3gFwr8xOt
-         X72A==
-X-Forwarded-Encrypted: i=1; AJvYcCW6SSmehBzSydI/4zIAO+BUP6JHPEf3TghBQwQFzPUCz0VikuiBpil+kz8vAbRruvNRbhWvS32kJhU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx8hQEAxPGE+fM7CEy3fneH1v9mkQuPB13rJShZjmGcPOHv4Y3y
-	YkCKHZpjxbM8fpBnNohA0C1uyWiO9h2qcah38x7aTdSJQWfGxoQiSpqmDysbQzY=
-X-Google-Smtp-Source: AGHT+IGXJ0L53M5ftyFlZI8v2GlEahvMRa3XEuYtDblE/Hm3llSj4pT1cmvElr9uQItFEsedMlaLkQ==
-X-Received: by 2002:a17:907:72d3:b0:a88:a48d:2b9a with SMTP id a640c23a62f3a-a897fa74459mr1491550766b.52.1725441112769;
-        Wed, 04 Sep 2024 02:11:52 -0700 (PDT)
-Date: Wed, 4 Sep 2024 11:11:51 +0200
+        bh=yvbBPy55F6+C55LFn36cXGk6iGW7NET8ApS9e3VIaKA=;
+        b=gb12U+gB/fl3oK/b7denMVX7QEs5mgtWbA7twhXX+Rg9g7HnvrgSqHiSG4nw+Wm5/V
+         3+DshOQreq9lz09dyNE09DUEqz+ReEkM5ErcngYGRlgytPJubz2B63uY8esofW6PCl+J
+         cWYxPy3RsLjhHXmvN+hTd9gtSipZFwEy+M+n614fFeAOTM+LTAlqzEXKkBtCqUWUiEMC
+         rzvFWH5HOKlEJFJd/KMRcHkgAFU/HPKKEfX2PxjJdgp+lFd2aKCi3TSAQBcIo16A6RHZ
+         pmWhKizBdOsIxWBTY0cQmCb+0+exEdrad1uxDzTcgLZ2SvBI+151PaGEXferMg8xpWqJ
+         iCew==
+X-Gm-Message-State: AOJu0YxTfUnLWBCNSMAdwYmZD4wSdHacfWuP+Q5iVCSwu1iU7mQnyZAq
+	yRwJ1f5WZFt2OcNb6cbfGOcUIZasT3c/CxjQc78Q8dCu47G4iUqJhzfzMlNCZXE=
+X-Google-Smtp-Source: AGHT+IGXWnQ1WbmQQseyyHtrttXyk3f/cqun2X+YQeHz3j8Pz8KdI7tvHZEyVz5nS7PCXB8qkUqI5A==
+X-Received: by 2002:a17:907:7206:b0:a86:a5a0:7613 with SMTP id a640c23a62f3a-a8a1d4c2db0mr587225066b.55.1725441665610;
+        Wed, 04 Sep 2024 02:21:05 -0700 (PDT)
+Date: Wed, 4 Sep 2024 11:21:04 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: paul@xen.org
-Cc: Jan Beulich <jbeulich@suse.com>, Owen Smith <owen.smith@cloud.com>,
-	Mark Syms <mark.syms@citrix.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] blkif: reconcile protocol specification with in-use
- implementations
-Message-ID: <ZtgkVzByhyXjaIqY@macbook.local>
-References: <20240903141923.72241-1-roger.pau@citrix.com>
- <99b15fe5-34e0-44e4-a351-d510ae67b5a4@suse.com>
- <ZtgYnAeXSamlGKgC@macbook.local>
- <c3f6df7e-780e-4c00-9d09-95d690166878@xen.org>
+	Daniel Smith <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v3] SUPPORT.md: split XSM from Flask
+Message-ID: <ZtgmgL1g_IW2JWUv@macbook.local>
+References: <c648bfe1-6ab0-4429-ab8a-b452ad2359ff@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c3f6df7e-780e-4c00-9d09-95d690166878@xen.org>
+In-Reply-To: <c648bfe1-6ab0-4429-ab8a-b452ad2359ff@suse.com>
 
-On Wed, Sep 04, 2024 at 09:39:17AM +0100, Paul Durrant wrote:
-> On 04/09/2024 09:21, Roger Pau Monné wrote:
-> > > In the absence of that I'm afraid it is a little harder to
-> > > judge whether the proposal here is the best we can do at this point.
-> > 
-> > While I don't mind looking at what we can do to better handle 4K
-> > sector disks, we need IMO to revert to the specification before
-> > 67e1c050e36b, as that change switched the hardcoded sector based units
-> > from 512 to 'sector-size', thus breaking the existing ABI.
-> > 
+On Wed, Aug 14, 2024 at 09:44:11AM +0200, Jan Beulich wrote:
+> XSM is a generic framework, which in particular is also used by SILO.
+> With this it can't really be experimental: Arm mandates SILO for having
+> a security supported configuration.
 > 
-> But that's the crux of the problem. What *is* is the ABI? We apparently
-> don't have one that all OS subscribe to.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-At least prior to 67e1c050e36b the specification in blkif.h and (what
-I consider) the reference implementation in Linux blk{front,back}
-matched.  Previous to 67e1c050e36b blkif.h stated:
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-/*
- * NB. first_sect and last_sect in blkif_request_segment, as well as
- * sector_number in blkif_request, are always expressed in 512-byte units.
- * However they must be properly aligned to the real sector size of the
- * physical disk, which is reported in the "physical-sector-size" node in
- * the backend xenbus info. Also the xenbus "sectors" node is expressed in
- * 512-byte units.
- */
+> ---
+> v3: Add explanations. Another terminology adjustment.
+> v2: Terminology adjustments. Stronger description.
+> 
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -769,13 +769,21 @@ Compile time disabled for ARM by default
+>  
+>      Status, x86: Supported, not security supported
+>  
+> -### XSM & FLASK
+> +### XSM (Xen Security Module) Framework
+> +
+> +XSM is a security policy framework.  The dummy implementation is covered by this
+> +statement, and implements a policy whereby dom0 is all powerful.  See below for
+> +alternative modules (FLASK, SILO).
+> +
+> +    Status: Supported
+> +
+> +### FLASK XSM Module
+>  
+>      Status: Experimental
+>  
+>  Compile time disabled by default.
+>  
+> -Also note that using XSM
+> +Also note that using FLASK
+>  to delegate various domain control hypercalls
+>  to particular other domains, rather than only permitting use by dom0,
+>  is also specifically excluded from security support for many hypercalls.
+> @@ -788,6 +796,13 @@ Please see XSA-77 for more details.
+>  The default policy includes FLASK labels and roles for a "typical" Xen-based system
+>  with dom0, driver domains, stub domains, domUs, and so on.
+>  
+> +### SILO XSM Module
+> +
+> +SILO implements a policy whereby DomU-s can only communicate with Dom0, yet not
+> +with each other.
 
-I think it was quite clear, and does in fact match the implementation
-in Linux.
+Might be good to clarify SILO is just like the dummy XSM
+implementation without allowing inter-domain communication, ie:
 
-> From your findings it appears that the only thing that will work globally is
-> to define 'sector-size' is strictly 512 and deprecate any large sector size
-> support of any kind.
+"SILO extends the dummy XSM policy by enforcing that DomU-s can only
+communicate with Dom0, yet not with each other."
 
-As said to Anthony, how do we deal with disks with 4K logical sectors?
-I'm not really up for implementing read-modify-write in blkback on
-Linux, as it would be complex, slow, and likely prone to errors.
-
-We could introduce a new feature (`logical-sector-size` or some such?)
-to expose a sector size != 4K, but we might as well just fix existing
-implementations to match with the specification, as that's overall
-less changes.
-
-In kernel Linux blk{front,back} have always worked fine with 4K sector
-disks, and did match the specification prior to 67e1c050e36b.  Let's
-clarify the specification as required and fix the remaining front and
-backends to adhere to it.
+Or similar.
 
 Thanks, Roger.
 
