@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A14996B6F2
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 11:38:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789981.1199658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB13996B740
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 11:46:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789984.1199668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slmSy-0007D5-SD; Wed, 04 Sep 2024 09:38:20 +0000
+	id 1slmaZ-0000IG-Js; Wed, 04 Sep 2024 09:46:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789981.1199658; Wed, 04 Sep 2024 09:38:20 +0000
+Received: by outflank-mailman (output) from mailman id 789984.1199668; Wed, 04 Sep 2024 09:46:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slmSy-0007Ab-PB; Wed, 04 Sep 2024 09:38:20 +0000
-Received: by outflank-mailman (input) for mailman id 789981;
- Wed, 04 Sep 2024 09:38:19 +0000
+	id 1slmaZ-0000G3-Gd; Wed, 04 Sep 2024 09:46:11 +0000
+Received: by outflank-mailman (input) for mailman id 789984;
+ Wed, 04 Sep 2024 09:46:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slmSx-0007AT-6V
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 09:38:19 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+MPF=QC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1slmaX-0000Fx-LU
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 09:46:09 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69d2c745-6aa1-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 11:38:17 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2f4f2868783so64745431fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 02:38:17 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c24f762f8dsm4493487a12.61.2024.09.04.02.38.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 02:38:15 -0700 (PDT)
+ id 7f6b528d-6aa2-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 11:46:02 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-374c84dcc64so2280297f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 02:46:02 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a89891a3dbdsm785108066b.131.2024.09.04.02.46.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Sep 2024 02:46:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +44,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69d2c745-6aa1-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 7f6b528d-6aa2-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725442696; x=1726047496; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WASg7/iNZtWgPRlV7Rouas6BFRvfUBVTveRvSbB+JUE=;
-        b=eiUOCIP2c5psVouqX1b1CwOXUz9XIOnuw0tpdPTQbM13MaENnxT9opviZt/YLeN5+b
-         RwhajlMVjhBLHp/c5mBidVuFsTQwCTUuxuoxX58+1Z5PcOXLNXDCsy1Fa2j9Vth9rvPN
-         MzoWAvP1tggE+1trD70VsRpJMTaRiIaSSWn4qDL3UrJxWahGtG9bOpZTSmwMrardx9fJ
-         0hO4bKEcAS49Ctl4YjUX3zQqorKGKWZPLjvtQupLol1gndW9etfCsPA7u8Lz26679h7y
-         U9RrSpWj2VzXDQkW/tlktlR7tf6afNi9lAOktVYv1J453aGqp6uaYsxYiu11qyzDLDUl
-         BylA==
+        d=citrix.com; s=google; t=1725443162; x=1726047962; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=KyTEStuT38cFKjEq9cfUmiJsjims6G2/+SOilZnu+4M=;
+        b=Rh5AEqrcRcXlV457ZLWMJT6LYJRkbpCjurZDWahZGaHv7x3ezgsFsdL7ib/zO0PKYx
+         7yAHaZjRdDVpWfh5L6muppowJ4aRINDHH7ipMDdUeMkJXrMs9QWih1Vkvu89pAX1zmLL
+         NAncyrE1XlQNIWTPgiHixeAfkzK75ulZ0IcRA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725442696; x=1726047496;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1725443162; x=1726047962;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WASg7/iNZtWgPRlV7Rouas6BFRvfUBVTveRvSbB+JUE=;
-        b=h8I6L6CwmtfS/iwGx10veGrBcQqKnTM2g4OI4PuYMBM/9Hp0rzzgIWT3C7vTCNCcF2
-         flpdTP9PXKUIQx/vQCI7ieBqAE1qlRMW0HBoi/8LXxiH9NGamVCKtNDPht+O7xzwI59C
-         z7F5tUhZN3LSs3c3ugEofVLLLcKmqAZ/fA7fPUbNSuPbT1Uro5x/aaM0yWuAjZVPK0Qd
-         GnrKv/sNXP+bSQMNxWGMWkPr/g2nr69KAB/I8ayDw1Od5fCyK/QspCdKHygrVhUN17QE
-         MYicFYXTp3g2KTCRM4csxkIAy/d6f+3RI+u6imPF4XCk0hSDzhkFn8QJ9j58WV5+Q6Dn
-         LHrQ==
-X-Gm-Message-State: AOJu0YzQk90/Wrnfoqq+lC5zd7hjW/xxvxmeZhAuKsSQXsGKjCXpLOqU
-	wBESmHeZ7icNGT0chxg38necPV8vg++XACOOF7qXYdjkbzJrMSrDDGfV2O0neg==
-X-Google-Smtp-Source: AGHT+IFTeYJn0c0zE3AY3WrRglgACvBeYQ+jNQxQScPPg0F/66tZIRzm5S4csMib3u+L5JXGS/6baw==
-X-Received: by 2002:a2e:719:0:b0:2f6:1da6:1c64 with SMTP id 38308e7fff4ca-2f61e0ce899mr91786671fa.45.1725442696235;
-        Wed, 04 Sep 2024 02:38:16 -0700 (PDT)
-Message-ID: <1e3ee882-eb60-4828-9766-69b289740950@suse.com>
-Date: Wed, 4 Sep 2024 11:38:14 +0200
+        bh=KyTEStuT38cFKjEq9cfUmiJsjims6G2/+SOilZnu+4M=;
+        b=xRn0hRnfnDixR08srhbYZUfDecfkonhl1Odr6usqnrLv9/San7nmKIriVJ2SQ1U2iQ
+         tS1zGs+g/9qT4UM4LtnApQQWwdAvLrnmC5Q48EE2Y3hM450rp7ptgb2aN2U8T9LJ485V
+         mUQzU1Df2W32CBqxxioObx+uZVuWa86+y/FUNpBEDgre4MLx2/EwkKfxTKhV7MCwpbKu
+         d3kTcQ8g591OGfWratrDgSbPuJTUn8QBRRROrf+AA9wYXf1YzUmHT3oKcou8v1m0o4Lo
+         uQj6bb3qFbrMbgw2zKVBJVoCq1T8oOc7mq3W7SHG1pSoGkWdo+mSeE1B00NChNbiw/cV
+         /uDA==
+X-Forwarded-Encrypted: i=1; AJvYcCX2KcuggsL9eqqQuP65X32ndsWlIag+vzMdVwidfa7wV9jfg1VCuUwBe4lK1QvZU8XA0D7iZJSEwNc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwBmQBQlMk4tFQmCsmfY9+fNscmRUiLiGGq4MT0m+Q69iO6F3//
+	Ws5KmzWuHuQwqVq8WIsh4Q5Zg156p2pDpad3ozGm7jGsNCBNf2wbIDJxqjsCUYuF3/pbD8pDeyy
+	N
+X-Google-Smtp-Source: AGHT+IFR431Z8hIOyhXIXrUk6fyRNFQKs7S2DF9qjb5emyVKTldQTbPk18rAMBSyIjZLfBeIcHW1/Q==
+X-Received: by 2002:a05:6000:4014:b0:374:d07a:c136 with SMTP id ffacd0b85a97d-374d07ac2f2mr8226266f8f.36.1725443161917;
+        Wed, 04 Sep 2024 02:46:01 -0700 (PDT)
+Date: Wed, 4 Sep 2024 11:46:00 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 2/7] x86/time: move CMOS edge detection into read
+ helper
+Message-ID: <ZtgsWN0O8guwNSVd@macbook.local>
+References: <20240903130303.71334-1-roger.pau@citrix.com>
+ <20240903130303.71334-3-roger.pau@citrix.com>
+ <5695338e-3543-4611-a6a4-0b42e0727e1d@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] SUPPORT.md: split XSM from Flask
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Daniel Smith <dpsmith@apertussolutions.com>
-References: <c648bfe1-6ab0-4429-ab8a-b452ad2359ff@suse.com>
- <ZtgmgL1g_IW2JWUv@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZtgmgL1g_IW2JWUv@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <5695338e-3543-4611-a6a4-0b42e0727e1d@suse.com>
 
-On 04.09.2024 11:21, Roger Pau Monné wrote:
-> On Wed, Aug 14, 2024 at 09:44:11AM +0200, Jan Beulich wrote:
->> XSM is a generic framework, which in particular is also used by SILO.
->> With this it can't really be experimental: Arm mandates SILO for having
->> a security supported configuration.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Tue, Sep 03, 2024 at 05:02:21PM +0200, Jan Beulich wrote:
+> On 03.09.2024 15:02, Roger Pau Monne wrote:
+> > Move the logic that ensures the CMOS RTC data is read just after it's been
+> > updated into the __get_cmos_time() function that does the register reads.  This
+> > requires returning a boolean from __get_cmos_time() to signal whether the read
+> > has been successfully performed after an update.
 > 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> Considering the limited use of both function, that's probably fine a change
+> to make, despite me otherwise thinking that this is the slightly wrong move.
+> I'd generally expect __get_cmos_time() to be usable without that checking,
+> so long as the results are interpreted appropriately.
 
-Thanks.
+I've expanded the commit message a bit to reflect what you mention
+here.
 
->> @@ -788,6 +796,13 @@ Please see XSA-77 for more details.
->>  The default policy includes FLASK labels and roles for a "typical" Xen-based system
->>  with dom0, driver domains, stub domains, domUs, and so on.
->>  
->> +### SILO XSM Module
->> +
->> +SILO implements a policy whereby DomU-s can only communicate with Dom0, yet not
->> +with each other.
+> > --- a/xen/arch/x86/time.c
+> > +++ b/xen/arch/x86/time.c
+> > @@ -1247,8 +1247,26 @@ struct rtc_time {
+> >      unsigned int year, mon, day, hour, min, sec;
+> >  };
+> >  
+> > -static void __get_cmos_time(struct rtc_time *rtc)
+> > +static bool __get_cmos_time(struct rtc_time *rtc)
+> >  {
+> > +    s_time_t start, t1, t2;
+> > +    unsigned long flags;
+> > +
+> > +    spin_lock_irqsave(&rtc_lock, flags);
+> > +
+> > +    /* read RTC exactly on falling edge of update flag */
+> > +    start = NOW();
+> > +    do { /* may take up to 1 second... */
+> > +        t1 = NOW() - start;
+> > +    } while ( !(CMOS_READ(RTC_FREQ_SELECT) & RTC_UIP) &&
+> > +              t1 <= SECONDS(1) );
+> > +
+> > +    start = NOW();
+> > +    do { /* must try at least 2.228 ms */
+> > +        t2 = NOW() - start;
+> > +    } while ( (CMOS_READ(RTC_FREQ_SELECT) & RTC_UIP) &&
+> > +              t2 < MILLISECS(3) );
+> > +
+> >      rtc->sec  = CMOS_READ(RTC_SECONDS);
+> >      rtc->min  = CMOS_READ(RTC_MINUTES);
+> >      rtc->hour = CMOS_READ(RTC_HOURS);
+> > @@ -1268,11 +1286,15 @@ static void __get_cmos_time(struct rtc_time *rtc)
+> >  
+> >      if ( (rtc->year += 1900) < 1970 )
+> >          rtc->year += 100;
+> > +
+> > +    spin_unlock_irqrestore(&rtc_lock, flags);
 > 
-> Might be good to clarify SILO is just like the dummy XSM
-> implementation without allowing inter-domain communication, ie:
-> 
-> "SILO extends the dummy XSM policy by enforcing that DomU-s can only
-> communicate with Dom0, yet not with each other."
-> 
-> Or similar.
+> Imo this unlock wants placing at least ahead of the if() in context. The
+> lock needs to protect only the port accesses, not any of the calculations.
 
-Fine with me - adjusted.
+I could even cache the value of CMOS_READ(RTC_CONTROL) ahead of the
+check, so that the drop could be dropped earlier, but I'm not going to
+do it here.
 
-Jan
+Thanks, Roger.
 
