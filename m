@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 136A196B218
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 08:47:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789832.1199498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43FBA96B221
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 08:50:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789841.1199508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sljnV-00048L-Q1; Wed, 04 Sep 2024 06:47:21 +0000
+	id 1sljq7-0005Cy-62; Wed, 04 Sep 2024 06:50:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789832.1199498; Wed, 04 Sep 2024 06:47:21 +0000
+Received: by outflank-mailman (output) from mailman id 789841.1199508; Wed, 04 Sep 2024 06:50:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sljnV-00045K-M1; Wed, 04 Sep 2024 06:47:21 +0000
-Received: by outflank-mailman (input) for mailman id 789832;
- Wed, 04 Sep 2024 06:47:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sljq7-00059a-2S; Wed, 04 Sep 2024 06:50:03 +0000
+Received: by outflank-mailman (input) for mailman id 789841;
+ Wed, 04 Sep 2024 06:50:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sljnU-0003pA-D4
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 06:47:20 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 87e16523-6a89-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 08:47:19 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a86984e035aso758526866b.2
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 23:47:19 -0700 (PDT)
+ id 1sljq6-0004wp-5j
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 06:50:02 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e7bc6565-6a89-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 08:50:00 +0200 (CEST)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-533488ffaddso7573598e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 23:50:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89972cf240sm683197766b.118.2024.09.03.23.47.18
+ a640c23a62f3a-a8988fea65csm769493566b.5.2024.09.03.23.49.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 23:47:18 -0700 (PDT)
+ Tue, 03 Sep 2024 23:49:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87e16523-6a89-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: e7bc6565-6a89-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725432439; x=1726037239; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725432600; x=1726037400; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ftEq+k41f1/QJP+44quWJrpK4qTaLu/gSQVXcQ4pasI=;
-        b=KFuP8Z+PvTA0l9megioE93acX34+Strb7IqsVpmTSPcQ+HCpx35lZZVrLwmgRFUOp4
-         zY0u4Vw1YXiEVtjsu6BjKlG10onFkWxvltYmlTw5KBiElNqtK0kYZgR+/9VBbm/lbjvn
-         cLpGQO/gZCvE62AhMeTepdIFoCxyje87EMyzLxmzSK4q/7gmuc2Kd0ISx2C3BmEoGCU+
-         iPhCkiSYWGHK7ILv5DFmSNi1CvwkIxjosOcPS/9PPUUM7tsUaRwg3pu1JyGb5ZZMYAZd
-         YTDGGdeJJFKszIesJALj5QHp/ieXm0k44yZ0A0BtER/wqLzdkSVMUe67rDELTFX4nWQJ
-         zTAA==
+        bh=+BQ25Mm7U3TcWEg790EOeO1rIHd2tnF2vbyDqiwzkYg=;
+        b=IG+e8va/iixcA7o6zqbu72sjkoQm5RSkM80QazHqcWmsEt3dec0O1UAcZRWdoKov/P
+         M0Iziyb8Ny1BKVW8wDhu5Qqnt+2+i3sRrUilSTUkJRvX5tNIe7DxMdFl1m1f2FZifWtV
+         GHWnRqOX25eazscW7fv9rdOiw49UVQ9cBQeKo889OmYwrnYFryUIC3r6MK5YcVFTNcuV
+         Eyc8njRIRH7TDyNdVPJ4QBZMuQUpnmZXnMvsH/oM+l0jaRkGknJ/UbZ3Eem/5C05+S7d
+         MIsroWl7UKi+Tml0aGXNK4WBdMOOzDB4dtlSKvU786x3Jy01Z605+QL44fTJ+OBqewTg
+         o4+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725432439; x=1726037239;
+        d=1e100.net; s=20230601; t=1725432600; x=1726037400;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ftEq+k41f1/QJP+44quWJrpK4qTaLu/gSQVXcQ4pasI=;
-        b=BAZ1nkA9lkhKyrFBvH5sKWMvRJBHpgggSNM7dR+o09rkMLPjuScK9CCTxYQEK3WNa7
-         sFJhGhm2n2cL23ZqDn1xgKv7l3z0q0G9pmn7fZQ/QDj9uD6J2UAoML82c1Ve1IBkouQq
-         Sinvr1uamn2fNLW7EY35zZ1ASjlRMio8rk4knCv+8+MMGbw6ZId4fUua32Tk8wkc0saY
-         O5okc8TxKnkJRfrpoq6V8m624oLRVhVKWH5QT4sj2yaTI/CEloqIDZxTuROhifa+wDwT
-         5xSY0Sb1prf8shQK8Ka8+W+/0Oq+GySuej49Tr79cU52+MuJ3LjhdYGafHSd8qrQ5O+Y
-         lj2w==
-X-Forwarded-Encrypted: i=1; AJvYcCVJjlVwRIkDhOmCJN+zH4DLfh5DpKil7e1cFlACoIZKfnLx2aY7TlnpUz46xsaK2fmjABLSXWmtm7w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzMQHFtnw5N7mU0byQjK5l4zj7/zcFPfWPtbPBt9AlyK59nOafh
-	S8oT7JLtduE8+3o5nsQWSswcKpgBaKVKiZ16c2gYbDiX7+zGAPyW8yrrgiwyrw==
-X-Google-Smtp-Source: AGHT+IFFdk2W8JaV/jesgqBEttg2qS9DiYvgB0m6nAnUj27Rl2vHWZwZQy9sel9YG+gAYgeGaWESAQ==
-X-Received: by 2002:a17:906:c113:b0:a86:8f8f:4761 with SMTP id a640c23a62f3a-a89a35e1dd5mr926350366b.25.1725432439205;
-        Tue, 03 Sep 2024 23:47:19 -0700 (PDT)
-Message-ID: <789911fc-eb37-427e-9d3e-b82f93a61099@suse.com>
-Date: Wed, 4 Sep 2024 08:47:18 +0200
+        bh=+BQ25Mm7U3TcWEg790EOeO1rIHd2tnF2vbyDqiwzkYg=;
+        b=mgksmE+KFYxak3jAb7+BQZp7HgnlzOS5fswAI/OGE4RU7m+MW36axibuFr7CMobQUp
+         esmUSy1qm326JoblxZ/Drank+rid4hV9Zv4l6mT2WoVOHg5qFWAY76POC1WmcQYkeF5D
+         1LVNtwkCt+luR6L1loOlJ84MqqPbqbEF76oglAC8AuN/0EVfG/59i6XfMmTwMmtrLj2V
+         m7b43+gFkIqlDvNrEgPIa/+3+rZI3pMfMQ0KXoAJiJiTmvhN1UsFH2dI9qCoiYD4T0er
+         jyOHM0uXVHC4hR2KbZK77Q7FGJU+BCK7hSRcUoPMn0i0Vj5DrB65ltVVwjSOFPUfp00d
+         D0eA==
+X-Forwarded-Encrypted: i=1; AJvYcCWCTlMZQAMtYoNpRBNZd9OsBWfU6LnA1zQYunzQcaNpHbYGKqJq8eoRaElM+Rg3k+7nn8oBoAM0LB8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw3yJbldF5aMyd/r4UTqhZHjAgCX1g9choypcHB1oa8kYj/nvtW
+	O50GpE8arQ4I1eT/eMVuUHz9G1bmqJqldseWZk2yWoKjStKjb6joyAWjMgZugg==
+X-Google-Smtp-Source: AGHT+IGTf/L3otR9e/ynmuPU/XdhSVGWFYior16AUWNfsKmVm9OOCNum4cCyL5foX0W4yE/oN4hlQw==
+X-Received: by 2002:a05:6512:a8b:b0:52c:a7c8:ec43 with SMTP id 2adb3069b0e04-53546a5dac7mr10630504e87.0.1725432599624;
+        Tue, 03 Sep 2024 23:49:59 -0700 (PDT)
+Message-ID: <10217d0f-441c-4991-b935-d27a6dd4b49b@suse.com>
+Date: Wed, 4 Sep 2024 08:49:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/44] x86/boot: convert setup.c mod refs to early_mod
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v4 09/44] x86/boot: split bootstrap_map_addr() out of
+ bootstrap_map()
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-9-dpsmith@apertussolutions.com>
+ <20240830214730.1621-10-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,21 +115,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240830214730.1621-9-dpsmith@apertussolutions.com>
+In-Reply-To: <20240830214730.1621-10-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 30.08.2024 23:46, Daniel P. Smith wrote:
-> To allow a slow conversion of x86 over to struct boot_module, start with
-> replacing all references to struct mod to the early_mod element of struct
-> boot_module. These serves twofold, first to allow the incremental transition
-> from struct mod fields to struct boot_module fields.  The second is to allow
-> the conversion of function definitions from taking struct mod parameters to
-> accepting struct boot_module as needed when a transitioned field will be
-> accessed.
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
+> 
+> Using an interface based on addresses directly, not modules.
+> 
+> No functional change.
 
-Yet earlier it was mentioned that early_mod is a transitory name. Will all of
-this then need touching a 2nd time?
+Okay, a mechanical transformation. But what's the goal?
+
+> --- a/xen/arch/x86/include/asm/setup.h
+> +++ b/xen/arch/x86/include/asm/setup.h
+> @@ -34,6 +34,7 @@ void setup_io_bitmap(struct domain *d);
+>  
+>  unsigned long initial_images_nrpages(nodeid_t node);
+>  void discard_initial_images(void);
+> +void *bootstrap_map_addr(uint64_t start, uint64_t end);
+
+Better paddr_t?
 
 Jan
 
