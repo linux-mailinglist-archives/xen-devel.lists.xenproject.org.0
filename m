@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43FBA96B221
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 08:50:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789841.1199508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77CC796B22C
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 08:55:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789855.1199517 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sljq7-0005Cy-62; Wed, 04 Sep 2024 06:50:03 +0000
+	id 1sljua-0007Sw-MO; Wed, 04 Sep 2024 06:54:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789841.1199508; Wed, 04 Sep 2024 06:50:03 +0000
+Received: by outflank-mailman (output) from mailman id 789855.1199517; Wed, 04 Sep 2024 06:54:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sljq7-00059a-2S; Wed, 04 Sep 2024 06:50:03 +0000
-Received: by outflank-mailman (input) for mailman id 789841;
- Wed, 04 Sep 2024 06:50:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sljua-0007Qh-Jh; Wed, 04 Sep 2024 06:54:40 +0000
+Received: by outflank-mailman (input) for mailman id 789855;
+ Wed, 04 Sep 2024 06:54:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sljq6-0004wp-5j
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 06:50:02 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e7bc6565-6a89-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 08:50:00 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-533488ffaddso7573598e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 23:50:00 -0700 (PDT)
+ id 1sljuZ-0007Qb-1m
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 06:54:39 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8d283384-6a8a-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 08:54:37 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5c24c92f699so4006699a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 23:54:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8988fea65csm769493566b.5.2024.09.03.23.49.59
+ 4fb4d7f45d1cf-5c226ccfe78sm7131244a12.69.2024.09.03.23.54.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 23:49:59 -0700 (PDT)
+ Tue, 03 Sep 2024 23:54:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7bc6565-6a89-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 8d283384-6a8a-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725432600; x=1726037400; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725432877; x=1726037677; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+BQ25Mm7U3TcWEg790EOeO1rIHd2tnF2vbyDqiwzkYg=;
-        b=IG+e8va/iixcA7o6zqbu72sjkoQm5RSkM80QazHqcWmsEt3dec0O1UAcZRWdoKov/P
-         M0Iziyb8Ny1BKVW8wDhu5Qqnt+2+i3sRrUilSTUkJRvX5tNIe7DxMdFl1m1f2FZifWtV
-         GHWnRqOX25eazscW7fv9rdOiw49UVQ9cBQeKo889OmYwrnYFryUIC3r6MK5YcVFTNcuV
-         Eyc8njRIRH7TDyNdVPJ4QBZMuQUpnmZXnMvsH/oM+l0jaRkGknJ/UbZ3Eem/5C05+S7d
-         MIsroWl7UKi+Tml0aGXNK4WBdMOOzDB4dtlSKvU786x3Jy01Z605+QL44fTJ+OBqewTg
-         o4+g==
+        bh=eMGhQtUGPSKCT6piGkvO6PnMQHTr+qSw5kdU47Ng5Js=;
+        b=TYKnp1h2THrMmhTNq2ZbCZ8ewXNCv/LSclxQgQNqnI1q3bWowmFXsJMEDv0CW/SJ2l
+         vs3TKLCChnUbJ8f9/rhcfD9aKhWf9kGERK3G1+QPz9pirX5wY803bWdcE435oXDgM5FO
+         KzAJthyVejLjtXYrYYFg44NDWDXUIwUDIaE4l32IyexPZTA3DaTWU9zUPZHOFEUfWlYA
+         WrYuNsFAAaffUtnkf/CP1jBWSIwtpbFt++sHbym0V2BCOGoyVapMwmCbFTkknniSQc1i
+         ley1UCelx3+t0Gmv6WI9mtxGfhyUvDEUA0kpAXeXFBrjNL6G+f932qX95Rh5/7SvlRtD
+         83mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725432600; x=1726037400;
+        d=1e100.net; s=20230601; t=1725432877; x=1726037677;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+BQ25Mm7U3TcWEg790EOeO1rIHd2tnF2vbyDqiwzkYg=;
-        b=mgksmE+KFYxak3jAb7+BQZp7HgnlzOS5fswAI/OGE4RU7m+MW36axibuFr7CMobQUp
-         esmUSy1qm326JoblxZ/Drank+rid4hV9Zv4l6mT2WoVOHg5qFWAY76POC1WmcQYkeF5D
-         1LVNtwkCt+luR6L1loOlJ84MqqPbqbEF76oglAC8AuN/0EVfG/59i6XfMmTwMmtrLj2V
-         m7b43+gFkIqlDvNrEgPIa/+3+rZI3pMfMQ0KXoAJiJiTmvhN1UsFH2dI9qCoiYD4T0er
-         jyOHM0uXVHC4hR2KbZK77Q7FGJU+BCK7hSRcUoPMn0i0Vj5DrB65ltVVwjSOFPUfp00d
-         D0eA==
-X-Forwarded-Encrypted: i=1; AJvYcCWCTlMZQAMtYoNpRBNZd9OsBWfU6LnA1zQYunzQcaNpHbYGKqJq8eoRaElM+Rg3k+7nn8oBoAM0LB8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3yJbldF5aMyd/r4UTqhZHjAgCX1g9choypcHB1oa8kYj/nvtW
-	O50GpE8arQ4I1eT/eMVuUHz9G1bmqJqldseWZk2yWoKjStKjb6joyAWjMgZugg==
-X-Google-Smtp-Source: AGHT+IGTf/L3otR9e/ynmuPU/XdhSVGWFYior16AUWNfsKmVm9OOCNum4cCyL5foX0W4yE/oN4hlQw==
-X-Received: by 2002:a05:6512:a8b:b0:52c:a7c8:ec43 with SMTP id 2adb3069b0e04-53546a5dac7mr10630504e87.0.1725432599624;
-        Tue, 03 Sep 2024 23:49:59 -0700 (PDT)
-Message-ID: <10217d0f-441c-4991-b935-d27a6dd4b49b@suse.com>
-Date: Wed, 4 Sep 2024 08:49:58 +0200
+        bh=eMGhQtUGPSKCT6piGkvO6PnMQHTr+qSw5kdU47Ng5Js=;
+        b=l7Z+omWzksQxEqLgAz5gcyaKRkC55roMV92dNKFWqNs/VakeYhTuAVxqkRYc39g1mp
+         0WRU49yM4vkpeTS4YCtyMBRbjrbBU6kzcYttU3k49lnsWP6kC30erx9qLCMnWa71RNck
+         f8bk9jNXW5OjtNFdW9+STBLe83aEN/b794DH46t+L6G0MQ7tNX1exzzbpyiPcjloS0ws
+         SR9JnPHqY2nvCq/QwhlTLeAGjH3BFJeftTKSFvsWNpQaMcTb9/yWEJmQy9G8TJBW9s97
+         8qmWhHesA7kSByGnoFvfSFmGJehyDRw34+w1WMEMQ/K2SJsHmbyvmwgZrj+6s5pzCkVY
+         7Rrw==
+X-Forwarded-Encrypted: i=1; AJvYcCVrLB4rcpsz1KWi+kYrIw0RfkH3M15erkpYvQFTnm76UQet3E5nU5pc8uhHP2GNwWzsAlCOQw/0NXQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzd/QQmUOw/1pxMt1eRnYoliz4PoG/vXYSjEljgF4mcOyqcUIJb
+	2q0FzhUbUoXdq7aSEr2SWMiRNzvm6sAl3wzNJaGFJYfvYhW0hsnOah2QUFFKSw==
+X-Google-Smtp-Source: AGHT+IFdsNRrFCrj5mqEClpNG/Igx0/ZgOmcClcjzroMsRUWh9bmJTQ+Js9TqY6c47o8/hcyxJEjOA==
+X-Received: by 2002:a05:6402:35ce:b0:5c2:7570:3a2a with SMTP id 4fb4d7f45d1cf-5c2757dc9a0mr2754677a12.17.1725432877480;
+        Tue, 03 Sep 2024 23:54:37 -0700 (PDT)
+Message-ID: <26b84bfa-e186-4b07-8718-72a10be8b03c@suse.com>
+Date: Wed, 4 Sep 2024 08:54:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/44] x86/boot: split bootstrap_map_addr() out of
- bootstrap_map()
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-10-dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v2] x86/boot: Fix include paths for 32bit objects
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240903104940.3514994-1-andrew.cooper3@citrix.com>
+ <20240903115334.3526368-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,28 +113,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240830214730.1621-10-dpsmith@apertussolutions.com>
+In-Reply-To: <20240903115334.3526368-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.08.2024 23:46, Daniel P. Smith wrote:
-> From: Andrew Cooper <andrew.cooper3@citrix.com>
+On 03.09.2024 13:53, Andrew Cooper wrote:
+> Most of Xen is build using -nostdinc and a fully specified include path.
+> However, the makefile line:
 > 
-> Using an interface based on addresses directly, not modules.
+>   $(head-bin-objs): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
 > 
-> No functional change.
+> discards XEN_CFLAGS and replaces them with CFLAGS_x86_32.
+> 
+> Reinstate -nostdinc, and copy all -I (and -Wa,-I) arguments from XEN_CFLAGS.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Okay, a mechanical transformation. But what's the goal?
-
-> --- a/xen/arch/x86/include/asm/setup.h
-> +++ b/xen/arch/x86/include/asm/setup.h
-> @@ -34,6 +34,7 @@ void setup_io_bitmap(struct domain *d);
->  
->  unsigned long initial_images_nrpages(nodeid_t node);
->  void discard_initial_images(void);
-> +void *bootstrap_map_addr(uint64_t start, uint64_t end);
-
-Better paddr_t?
+Despite the title saying "Fix" I take the absence of a Fixes: tag as meaning
+that this won't need backporting, and is rather only needed for what went on
+top.
 
 Jan
 
