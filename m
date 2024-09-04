@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 790A996AD0F
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 01:50:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789670.1199281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 306C796ADA8
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 03:14:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789682.1199295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sldHs-00023Z-GY; Tue, 03 Sep 2024 23:50:16 +0000
+	id 1sleae-0000EB-Sv; Wed, 04 Sep 2024 01:13:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789670.1199281; Tue, 03 Sep 2024 23:50:16 +0000
+Received: by outflank-mailman (output) from mailman id 789682.1199295; Wed, 04 Sep 2024 01:13:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sldHs-00021D-DU; Tue, 03 Sep 2024 23:50:16 +0000
-Received: by outflank-mailman (input) for mailman id 789670;
- Tue, 03 Sep 2024 23:50:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7TnF=QB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sldHq-000214-Rr
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2024 23:50:14 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 435171d0-6a4f-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 01:50:14 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5c09fd20eddso5592439a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 16:50:14 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8989233403sm735506266b.212.2024.09.03.16.50.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 16:50:12 -0700 (PDT)
+	id 1sleae-0000BT-PP; Wed, 04 Sep 2024 01:13:44 +0000
+Received: by outflank-mailman (input) for mailman id 789682;
+ Wed, 04 Sep 2024 01:13:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sleae-0000BJ-6w; Wed, 04 Sep 2024 01:13:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sleae-0001AL-0R; Wed, 04 Sep 2024 01:13:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1slead-0003hI-KA; Wed, 04 Sep 2024 01:13:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1slead-0002VI-Jn; Wed, 04 Sep 2024 01:13:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 435171d0-6a4f-11ef-a0b3-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725407413; x=1726012213; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Wpknez2IjUBbnVHGuCRpbYxGQaM3N3VVFtvmeibHcHM=;
-        b=GKZ9LTrEysSRYlB6E2HDoIUcjAbGp5hGVFI6JHIunp65b7hE7NlOnGGiKi0G4Hf8ZN
-         UTM/s0v5M0RCJp0eaVV4iHykxoFeLhpmFhNzhibnqiGsUqfrUSaZSPl/R5e3iHFIu4Xg
-         mcg9OlmW+dHp2zMaPsj7v3FAyYhHYAuP5OA0M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725407413; x=1726012213;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Wpknez2IjUBbnVHGuCRpbYxGQaM3N3VVFtvmeibHcHM=;
-        b=gq1Yqx3rFYNxEfNfHaNBNrQnsa8OlEbil1qlfcHxtVodMr8nW5dU+S6tkzGyPqDxnb
-         a8ps7YHOJC46lXQ96xle5hk/jzfXDKsYx+ES3JnOfIM/E9dkVyxI0u7rpkwtuuYLwmtx
-         f3xZNSxP7VLz19QaAoUQxw8BdZxjldGfxf4VOl246kfRUxvXeyCNw3yxouFPt7n4Tsfz
-         xg56vP9DcpVIdyKySPeToQX0yYO8GlnoUHkadIdcDRRLyp7HnaS6CAyybyxyFGzMBwAP
-         vLorbvyoZE36jc2SSzBRPxvgajUs84XZ1HIWWlp0DApS0IJVI7Ac5WvjyTDEkibBPdpc
-         MGpA==
-X-Forwarded-Encrypted: i=1; AJvYcCU7rtPERytO235nWqiNHKlT6w+2Kx6IddpdGH6xWBs/cxd7XlDEoX6ZTUxYCwkj8KsQNY3NeC+K0iw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywq24dPuKrwBe+UVT4GpIR/5tMxF96SWH08l4GyHhTF3n3lTxF9
-	Jcp6QJNrfs0W1ibN0Oxzx6CQxBPwOkJ+jnLgXgSwL5tEU3ePsUFb2A1pCDMmRNNi55LJgUismr9
-	x
-X-Google-Smtp-Source: AGHT+IFABUsV6fyD6NA6K6otQF1Np7oJ6KxXCOv8kHJty0R/MxycYsIVs/eCWzI9gbrKazGo6stIMQ==
-X-Received: by 2002:a17:907:7e94:b0:a7a:a3f7:389e with SMTP id a640c23a62f3a-a897f78daccmr1566152866b.6.1725407412748;
-        Tue, 03 Sep 2024 16:50:12 -0700 (PDT)
-Message-ID: <54d6eaaa-da36-4040-b01e-f45a555d0a3c@citrix.com>
-Date: Wed, 4 Sep 2024 00:50:11 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=JnUsVtqwa3w3Mqzmn2o+koxQ2NkxS0a3iKg8m7sGZoQ=; b=tXUZj1jsvtQqY+NGDJvb1XDNUC
+	xgoxjc1aG56GKCCceM9feFtXZARKVPi6t2OfWcem4h6WnQ1eNmXy48+2W4jL+SDxqXBZY0WQSSZN/
+	utBQh2XuwLOx9z5Nm/PfwVW7yDeFucUxmnd8KAFY8XPsUnAx8dnmtHfZY+E4HN6Kb1q0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187482-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/44] x86/boot: convert setup.c mod refs to early_mod
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-9-dpsmith@apertussolutions.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240830214730.1621-9-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 187482: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=8504d2be17c98265049ec334711aad4c0baed1d7
+X-Osstest-Versions-That:
+    ovmf=1a89d9887ff41e804610c5687e646fe30af2d7b2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 04 Sep 2024 01:13:43 +0000
 
-On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
-> @@ -1379,6 +1379,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->  
->      if ( xen_phys_start )
->      {
-> +        int idx = boot_info->nr_mods;
+flight 187482 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187482/
 
-unsigned int, but I'd be tempted to name it xen, so the hunk below is a
-bit more intuitive to read.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 8504d2be17c98265049ec334711aad4c0baed1d7
+baseline version:
+ ovmf                 1a89d9887ff41e804610c5687e646fe30af2d7b2
 
-~Andrew
+Last test of basis   187479  2024-09-03 19:41:29 Z    0 days
+Testing same since   187482  2024-09-03 21:41:30 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Sureshkumar Ponnusamy <sponnusamy@microsoft.com>
+  Sureshkumar Ponnusamy <sureshkumar.ponnusamy@microsoft.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   1a89d9887f..8504d2be17  8504d2be17c98265049ec334711aad4c0baed1d7 -> xen-tested-master
 
