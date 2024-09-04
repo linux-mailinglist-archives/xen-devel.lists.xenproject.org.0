@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D388C96B893
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 12:31:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790075.1199767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25BE096B89A
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 12:31:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790078.1199777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slnIE-000851-Tt; Wed, 04 Sep 2024 10:31:18 +0000
+	id 1slnIc-0008W2-5L; Wed, 04 Sep 2024 10:31:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790075.1199767; Wed, 04 Sep 2024 10:31:18 +0000
+Received: by outflank-mailman (output) from mailman id 790078.1199777; Wed, 04 Sep 2024 10:31:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slnIE-00083J-R6; Wed, 04 Sep 2024 10:31:18 +0000
-Received: by outflank-mailman (input) for mailman id 790075;
- Wed, 04 Sep 2024 10:31:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slnIC-00083D-U7
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 10:31:16 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d00a64ca-6aa8-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 12:31:15 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a8a16c53d3cso316144166b.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 03:31:15 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89891968e9sm785840766b.120.2024.09.04.03.31.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 03:31:14 -0700 (PDT)
+	id 1slnIc-0008Tu-2l; Wed, 04 Sep 2024 10:31:42 +0000
+Received: by outflank-mailman (input) for mailman id 790078;
+ Wed, 04 Sep 2024 10:31:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+MPF=QC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1slnIb-0008TN-F6
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 10:31:41 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id df74cd48-6aa8-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 12:31:40 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a86910caf9cso108384366b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 03:31:40 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a89890229b5sm797547766b.51.2024.09.04.03.31.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Sep 2024 03:31:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,83 +44,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d00a64ca-6aa8-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: df74cd48-6aa8-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725445874; x=1726050674; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+ey4vvsXkb4BGizOHIk8N0Q0Pl1AkMOTKH1Tb5LXSw0=;
-        b=N/Mgc1dJw8DZMrHdY16dGF7EcEteFG9G9P1TI1l862d3ncwi8dnjqEkmrzANFyIRdr
-         yeeE4W6RrfbfohB9FtAtKf/wi4arNey5fV9cUID6mfH/Fe3/LvkG5OyJX6aLo7UawUlI
-         Udl0w1NZo6Ost+bv9MK8WPblHYFQCcEBGiq5U8APxNOVaeSfokDvZ+/sUtI6Okn6onS8
-         DfrNEn3jBreXyaHe1ILohmpMCWo2+JH18/nqTlHJnGpNJnRNjmrnWT7qfJRoPbm1P+Sx
-         BAgyNjj98wLWh5d7RQbJcWExjDJcDd9oI65oDyFk95XXh0zvGpJOF9VhaisGpewz7thh
-         rRbw==
+        d=citrix.com; s=google; t=1725445900; x=1726050700; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=2x3cAREL8sL5kXal76qRnHb4VobjRBA/BBFICcvL2jk=;
+        b=AubS7CUsckV1jumdOicur51pzuEmrEv46SNnJQ+ae8/uFO7thBTjK3D1uJnTt9bUA4
+         R2VCc9/ocZNXpmGmK6pGZYU+eA0T3j0IVBCRUoLciIoBTDNr07RyDCeXWTLmfBEmtssW
+         YAcB5+zZ3BG1bsLFsJLaMweyfVmb0dlTo8dKY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725445874; x=1726050674;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+ey4vvsXkb4BGizOHIk8N0Q0Pl1AkMOTKH1Tb5LXSw0=;
-        b=u4bwHsUMa5Yt2P4lKgBu6XSZdSO+V6DI4p1MwV8KtlAENFuta2iv0g5tLqVmmm93S5
-         OM2lpKDw7n5sRSLOJqU8rLF5CPvr5IsQiQLeHIu9VcWEWS7KO/JHRSOT7LJEP5c1QIxI
-         JCVzp8F8yZKlVRdVKILW2aHVACm0eW2rsymQVWBXpBuYI2yTWxRIb2Noxc4E99ZKS033
-         xwXy5GbUa++6ifBlivsE+PtGlEwl5UIR/W3tJTukm4Bp07wQUqyr2d9lc2u+uqSEPLW2
-         6H8fqnwp0zGl+4lPp6Ho7+4fxVztqnyQ8bPWDoI5eEbOAELgcoXUR/72ZGpC7NK+TkXu
-         IUIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXQD69wEDBN1EMQ1pOfeygDg44hes/tSyFluscWssz7LFfCDQuGSJtuYaK4gfRAfS/iU0CgD/FqaqE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzXyXJsAwhu7QFbaYcuHu4j/+eZJW9/i/JN3gTKJWxBx0f+zeOW
-	zRkQaG3cG6lqIamgWDAoxAQntkyQEQ/eyjFDHlEBNfKBBWDGRVuk0Yuf+eyEMA==
-X-Google-Smtp-Source: AGHT+IEY4H06amUU/I+tIwgC/n275EZcEE51ZLg7F8mR2Hy6tfAVLQsEGCbW9ANC89eG0vWkKFZXAw==
-X-Received: by 2002:a17:907:7295:b0:a86:9d3d:edef with SMTP id a640c23a62f3a-a897f77fa48mr1625800166b.12.1725445874289;
-        Wed, 04 Sep 2024 03:31:14 -0700 (PDT)
-Message-ID: <6ee1f2b0-80a9-4dee-b048-870ea450b431@suse.com>
-Date: Wed, 4 Sep 2024 12:31:12 +0200
+        d=1e100.net; s=20230601; t=1725445900; x=1726050700;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=2x3cAREL8sL5kXal76qRnHb4VobjRBA/BBFICcvL2jk=;
+        b=hF7Y0X5k+qTcxedqJzAV5KWZc0qkFpGtnfdtCcMm3Kywk9eiUNH9QbZVqd/PXj4+oF
+         7R91On/rj07NlYevDk8t6blRVpF0/qEcvn+KoTqedMlU7e01RCuO6LJlwHMAnH8de2Ax
+         jEXxpbevFu5ucy2tPexn1L33iXv9J1sWoPRt+BLIeMQea6pGrBPmCAMzFAmkwGOg4BFM
+         3E/Y6htg/VE9lCrqUEOFy/XLIzCW5CkxLtw11IemLnbNc2J5bxCEEZ12VmIN4MZXP3HN
+         9dW440DkQkc8FIlTSbDG3Ob8t3U8WEhK2SO98LMLnggYyUr/2pNmfG8tyvjDk1VGm6iK
+         pCVg==
+X-Forwarded-Encrypted: i=1; AJvYcCWNmIkgWw/sOSAJ4wohEClvTavNw7h0iumBUJLmnvedCXSbDYziYBM4LlqI5KfVtoVd/i7Az8C4efg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwK+zy7XDJ4IiupmMSfUD7/i/V17Ez1XY2UGdnjaRIY/OyFtSEs
+	slylTlBEh2qn20xS4dGURL3WzxTq183kaaOBJhc2cleWNdoIVUK9OTpfJ4c0wuM=
+X-Google-Smtp-Source: AGHT+IEuo5hFHW76J2byOAoTGv2cJTvnApGd/SMlpKSU4ivOHLmg6stWFBd0nbUTH/cPtxCz6tMZVg==
+X-Received: by 2002:a17:907:970b:b0:a72:7a71:7f4f with SMTP id a640c23a62f3a-a8a42fb1226mr188377766b.7.1725445899846;
+        Wed, 04 Sep 2024 03:31:39 -0700 (PDT)
+Date: Wed, 4 Sep 2024 12:31:38 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: paul@xen.org, Jan Beulich <jbeulich@suse.com>,
+	Owen Smith <owen.smith@cloud.com>, Mark Syms <mark.syms@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] blkif: reconcile protocol specification with in-use
+ implementations
+Message-ID: <Ztg3Cu1EYDqChqUy@macbook.local>
+References: <20240903141923.72241-1-roger.pau@citrix.com>
+ <99b15fe5-34e0-44e4-a351-d510ae67b5a4@suse.com>
+ <ZtgYnAeXSamlGKgC@macbook.local>
+ <c3f6df7e-780e-4c00-9d09-95d690166878@xen.org>
+ <ZtgkVzByhyXjaIqY@macbook.local>
+ <Ztgp6j571lKZFam5@l14>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] x86/tboot: add Intel dependency
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240903074134.305012-1-Sergiy_Kibrik@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240903074134.305012-1-Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Ztgp6j571lKZFam5@l14>
 
-On 03.09.2024 09:41, Sergiy Kibrik wrote:
-> Make the Intel-specific Trusted Boot implementation dependant on general Intel CPU support.
+On Wed, Sep 04, 2024 at 09:35:40AM +0000, Anthony PERARD wrote:
+> On Wed, Sep 04, 2024 at 11:11:51AM +0200, Roger Pau Monné wrote:
+> > On Wed, Sep 04, 2024 at 09:39:17AM +0100, Paul Durrant wrote:
+> > > On 04/09/2024 09:21, Roger Pau Monné wrote:
+> > > > > In the absence of that I'm afraid it is a little harder to
+> > > > > judge whether the proposal here is the best we can do at this point.
+> > > >
+> > > > While I don't mind looking at what we can do to better handle 4K
+> > > > sector disks, we need IMO to revert to the specification before
+> > > > 67e1c050e36b, as that change switched the hardcoded sector based units
+> > > > from 512 to 'sector-size', thus breaking the existing ABI.
+> > > >
+> > >
+> > > But that's the crux of the problem. What *is* is the ABI? We apparently
+> > > don't have one that all OS subscribe to.
+> >
+> > At least prior to 67e1c050e36b the specification in blkif.h and (what
+> > I consider) the reference implementation in Linux blk{front,back}
+> > matched.  Previous to 67e1c050e36b blkif.h stated:
+> >
+> > /*
+> >  * NB. first_sect and last_sect in blkif_request_segment, as well as
+> >  * sector_number in blkif_request, are always expressed in 512-byte units.
+> >  * However they must be properly aligned to the real sector size of the
+> >  * physical disk, which is reported in the "physical-sector-size" node in
+> >  * the backend xenbus info. Also the xenbus "sectors" node is expressed in
+> >  * 512-byte units.
+> >  */
+> >
+> > I think it was quite clear, and does in fact match the implementation
+> > in Linux.
 > 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> That's wrong, Linux doesn't match the specification before 67e1c050e36b,
+> in particular for "sectors":
+> 
+>     sectors
+>          Values:         <uint64_t>
+> 
+>          The size of the backend device, expressed in units of its logical
+>          sector size ("sector-size").
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+This was a bug introduced in 2fa701e5346d.  The 'random' comment that
+you mention notes that 'sectors' is unconditionally expressed in
+512-byte units was added way before, in d05ae13188231.  The improved
+documentation added by 2fa701e5346d missed to correctly reflect the
+units of the 'sectors' node.
 
+> 
+> The only implementation that matches this specification is MiniOS (and
+> OMVF).
+> 
+> Oh, I didn't notice that that random comment you quoted that comes from
+> the middle of the header have a different definition for "sectors" ...
+> 
+> Well, the specification doesn't match with the specification ... and the
+> only possible way to implement the specification is to only ever set
+> "sector-size" to 512...
+> 
+> No wonder that they are so many different interpretation of the
+> protocol.
 
+My opinion is that there was a bug introduced in the specification in
+2fa701e5346d, and that bug was extended by 67e1c050e36b to even more
+fields.
+
+Implementations should be fixed to adhere to the specification as it
+was pre 2fa701e5346d, because that works correctly with 'sector-size'
+!= 512, and is the one implemented in Linux blkfront and blkback.
+
+There's no need to make this more complicated than it is.  We
+introduced bugs in blkif.h, and those need to be fixed.  It's sad that
+those bugs propagated into implementations, or that bugs from
+implementations propagated into blkif.h.
+
+I don't see an option where we get to keep our current diverging
+implementations and still support 4K logical sector disks without
+specification and code changes.  We could introduce a new way to
+signal 4K logical sector sizes, but as that will require modifications
+to every frontends and backend we might as well just fix the existing
+mess and modify the implementations as required.
+
+Thanks, Roger.
 
