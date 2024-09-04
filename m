@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0CC896B8BC
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 12:42:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790107.1199818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63F6D96B8E3
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 12:47:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790115.1199828 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slnSO-0004tB-OR; Wed, 04 Sep 2024 10:41:48 +0000
+	id 1slnXg-00067m-BR; Wed, 04 Sep 2024 10:47:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790107.1199818; Wed, 04 Sep 2024 10:41:48 +0000
+Received: by outflank-mailman (output) from mailman id 790115.1199828; Wed, 04 Sep 2024 10:47:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slnSO-0004pk-LV; Wed, 04 Sep 2024 10:41:48 +0000
-Received: by outflank-mailman (input) for mailman id 790107;
- Wed, 04 Sep 2024 10:41:47 +0000
+	id 1slnXg-000650-86; Wed, 04 Sep 2024 10:47:16 +0000
+Received: by outflank-mailman (input) for mailman id 790115;
+ Wed, 04 Sep 2024 10:47:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EFI/=QC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1slnSN-0004pe-2e
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 10:41:47 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1slnXe-00064u-EP
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 10:47:14 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47779858-6aaa-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 12:41:44 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a7aa086b077so62279066b.0
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 03:41:44 -0700 (PDT)
+ id 0a922836-6aab-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 12:47:12 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2f4f2868783so65447101fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 03:47:12 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8988feae40sm802951166b.15.2024.09.04.03.41.43
+ 4fb4d7f45d1cf-5c226c6ab6asm7456734a12.10.2024.09.04.03.47.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 03:41:43 -0700 (PDT)
+ Wed, 04 Sep 2024 03:47:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47779858-6aaa-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 0a922836-6aab-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725446504; x=1726051304; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725446831; x=1726051631; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LaEU+VeM1gim+XAlmoVBxzvU8jFFB2KG+n7V9i/nqIk=;
-        b=K0W/zvA90FeVaLOFPdXL7shPG+182KwiBWTeEw9u+FNWv0ynqM0RKVAtQkuH62IL8o
-         5TMkW7ThUUEcbkvvds/GyeQ1XHteZiyLu2Xt+5xSuUYy6ZqetcY4s//9F3glIG+/Wy2R
-         QnBxehZzFgdaA6/7b04KwqXOe64ocC9Ojnclg=
+        bh=vfe9Aq2MLOJjNVMHRZHuBgRNsx93dTB13X2+zuMuMEo=;
+        b=eGWQ+akFPYhMstAg6cvs4ddoCFyohH5Meh3p1g4GyAgSA4kBl3rEAxX4yK5fX/CiMu
+         dD1i+Tr6wBIzE9xJmEDUGaYceC+FQuh6nQfET4fnf7OVzoo6w4BWiNC/fC0MylnioFs8
+         lbU9DNgVRRFOsRIF/X91w9nelmv6x9XFp1WdY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725446504; x=1726051304;
+        d=1e100.net; s=20230601; t=1725446831; x=1726051631;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LaEU+VeM1gim+XAlmoVBxzvU8jFFB2KG+n7V9i/nqIk=;
-        b=BVyLR5OWPnmCUzJeb57U89Ws3RC/1NiZXk8DHgGykBTvAkL4O/6EMiHLq52PHtJefV
-         eFfpKD2szVi0ALUdCvA59BLFlwFGWTHjxq2sUIZYxUxi0DTKsBJGBANR0Hj9hw19qYMJ
-         gZlul5QsoIk3KN7QNyKx9Sc9p9L1hSbMIvNqFR4iOr3fdcdV5RHWaUb12u/nFaTkYHlg
-         dt0EU19U6z7gOAbnDcXljjXr4SuGLS98B5rCoPzCaxELgTHY5teaHa60VAB14jDRq0iz
-         msPrCK2Xh8g6KXEpd7U1HJ8CIttUtU8RuKODFl95npUD6NbNs+L4fn/mnQDFfuV/yBG0
-         4f1A==
-X-Forwarded-Encrypted: i=1; AJvYcCUhgG9exBatejKXx+Z7RxvNWOKPMZmf/EXMX1XhnCPsMhODQUcTu03MWiSSkZ0FnHUugy9SxndP0Ko=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwtMuvvOZ/IZBqK8rJfGMXX+bo7u6WjL6DdrNCUXi8LVr/wDa46
-	/IY+lWJnkCrWmyfxTEcIwPQsutEzXLw+IB4ZdTczOp6P8wMhIyMiIeY24CBev7o=
-X-Google-Smtp-Source: AGHT+IHxeOAZt/SAujNaEXp1wO3tBVFqPK8B9mYHMxzVvt8piud7Q9A4lCumOyxZX5ydUBhEphf0Yw==
-X-Received: by 2002:a17:907:940f:b0:a7a:b385:37c5 with SMTP id a640c23a62f3a-a8a3f185c6emr160122066b.17.1725446503978;
-        Wed, 04 Sep 2024 03:41:43 -0700 (PDT)
-Message-ID: <9208e790-e772-4f42-8fdc-38fe1976dc34@citrix.com>
-Date: Wed, 4 Sep 2024 11:41:42 +0100
+        bh=vfe9Aq2MLOJjNVMHRZHuBgRNsx93dTB13X2+zuMuMEo=;
+        b=poy0NArHIefuzBwQtRLL781IL7PGx7bTKTqzkrsOc1m/UKEnAYOSbDvwKnYaE2R3Vl
+         xFgGv8aFVTWmuA5K17rMDWoegu0+PUemHimwoqaQaHQLN0TIH2WyA2GSGNycQK5VGRHo
+         TgNItoJsCsC9dv3OiLKW2g+OX9R8S7BktUyEQEy0cc49m0Tn6wAlBOYYotDOskrwU+ht
+         Y0TAKhhEQT23+GE42mVZpCOJjjkIYxZYgbI8v21Qk/mNFtV0hKe7CfXl5yZ0Pj49lPNC
+         1hWkMkA0V8kYs0Oo80ChKDrVH2YOs8z7Y2fpB9zW5CQGak6ko4wH+r5g7LN/dCGuhzVC
+         pddA==
+X-Forwarded-Encrypted: i=1; AJvYcCU/f1JNIF08ktMlw4VFdwvYU9cW43RV+X7z0DeOSUI1weCOqZ+EFHcrT3hAe4NiGY05pAiLWBFdMrU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyhAU8vo1FGroCWalu8eZnE+o+i5zuQeqETFFHQIbR6X3Lz5IyU
+	W0Ynmij0gu2omruhLbx1keaRn/u7GAV+IwjZK0U4p7N3B7449WMFz/yHMg1SCxo=
+X-Google-Smtp-Source: AGHT+IEzm+pKG7pAudxVdYsm3wkwjeNzZ+wmH3MMiQHAnqkyzFvrLwoZ6mhaI96W52rkgYWz/z+BwQ==
+X-Received: by 2002:a2e:5159:0:b0:2f6:60b4:5f16 with SMTP id 38308e7fff4ca-2f660b4612cmr2705441fa.42.1725446830933;
+        Wed, 04 Sep 2024 03:47:10 -0700 (PDT)
+Message-ID: <6297d50d-8c9f-4618-9c8c-ea43631abf0e@citrix.com>
+Date: Wed, 4 Sep 2024 11:47:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/44] x86/boot: convert consider_modules to struct
- boot_module
+Subject: Re: [PATCH v4 09/44] x86/boot: split bootstrap_map_addr() out of
+ bootstrap_map()
 To: Jan Beulich <jbeulich@suse.com>,
  "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-7-dpsmith@apertussolutions.com>
- <f6c938b4-3c28-4dc8-bc3a-3becb3a0c2cd@suse.com>
+ <20240830214730.1621-10-dpsmith@apertussolutions.com>
+ <10217d0f-441c-4991-b935-d27a6dd4b49b@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,49 +133,28 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <f6c938b4-3c28-4dc8-bc3a-3becb3a0c2cd@suse.com>
+In-Reply-To: <10217d0f-441c-4991-b935-d27a6dd4b49b@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04/09/2024 7:40 am, Jan Beulich wrote:
+On 04/09/2024 7:49 am, Jan Beulich wrote:
 > On 30.08.2024 23:46, Daniel P. Smith wrote:
->> @@ -1447,7 +1447,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>          {
->>              /* Don't overlap with modules. */
->>              end = consider_modules(s, e, reloc_size + mask,
->> -                                   mod, boot_info->nr_mods, -1);
->> +                                   boot_info->mods, boot_info->nr_mods, -1);
->>              end &= ~mask;
->>          }
->>          else
->> @@ -1482,7 +1482,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>                  continue;
->>  
->>              /* Don't overlap with other modules (or Xen itself). */
->> -            end = consider_modules(s, e, size, mod,
->> +            end = consider_modules(s, e, size, boot_info->mods,
->>                                     boot_info->nr_mods + relocated, j);
->>  
->>              if ( highmem_start && end > highmem_start )
->> @@ -1509,7 +1509,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>          while ( !kexec_crash_area.start )
->>          {
->>              /* Don't overlap with modules (or Xen itself). */
->> -            e = consider_modules(s, e, PAGE_ALIGN(kexec_crash_area.size), mod,
->> +            e = consider_modules(s, e, PAGE_ALIGN(kexec_crash_area.size), boot_info->mods,
->>                                   boot_info->nr_mods + relocated, -1);
-> All of these show a meaningful increase of line lengths, up to the point of
-> ending up with too long a line here. I really wonder if the variable name
-> "boot_info" isn't too long for something that's going to be used quite
-> frequently. Just "bi" maybe?
+>> From: Andrew Cooper <andrew.cooper3@citrix.com>
+>>
+>> Using an interface based on addresses directly, not modules.
+>>
+>> No functional change.
+> Okay, a mechanical transformation. But what's the goal?
 
-Actually I noticed that too.
+Its used by patch 12 which adds boostrap_map_bm(), but does want to be
+reordered later in the series to immediately before it's used.
 
-It's boot_info-> in setup.c, and bi-> everywhere else (with bm later too).
 
-We should just use "bi" uniformly even in setup.c  (Or some other name,
-but I'm happy with bi here - it's very easily qualified by it's field
-names.)
+This is a patch of mine from a prior cleanup attempt.
+
+I'm still itching to get rid of the chunking and backwards memcpy in
+move_module(), but I'll pick the work back up again when it won't
+collide with this series.
 
 ~Andrew
 
