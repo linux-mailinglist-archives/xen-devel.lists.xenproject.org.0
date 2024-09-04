@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B920F96C172
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 16:57:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790440.1200225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B325D96C249
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 17:27:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790485.1200245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slrRU-00029c-8j; Wed, 04 Sep 2024 14:57:08 +0000
+	id 1slru0-0001Op-V5; Wed, 04 Sep 2024 15:26:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790440.1200225; Wed, 04 Sep 2024 14:57:08 +0000
+Received: by outflank-mailman (output) from mailman id 790485.1200245; Wed, 04 Sep 2024 15:26:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slrRU-00026Q-54; Wed, 04 Sep 2024 14:57:08 +0000
-Received: by outflank-mailman (input) for mailman id 790440;
- Wed, 04 Sep 2024 14:57:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1slru0-0001MZ-SW; Wed, 04 Sep 2024 15:26:36 +0000
+Received: by outflank-mailman (input) for mailman id 790485;
+ Wed, 04 Sep 2024 15:26:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S0IR=QC=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1slrRS-0001Be-Gf
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 14:57:06 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f34c1b29-6acd-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 16:57:05 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5c2561e8041so4116224a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 07:57:05 -0700 (PDT)
-Received: from fziglio-xenia-fedora.eng.citrite.net ([185.25.67.249])
+ <SRS0=EFI/=QC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1slrtz-0001MT-9F
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 15:26:35 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 10df5a7c-6ad2-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 17:26:33 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5c255e3c327so986419a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 08:26:33 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3cc56c501sm18862a12.52.2024.09.04.07.57.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Sep 2024 07:57:04 -0700 (PDT)
+ a640c23a62f3a-a8a620840b6sm5498766b.92.2024.09.04.08.26.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Sep 2024 08:26:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,191 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f34c1b29-6acd-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: 10df5a7c-6ad2-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1725461825; x=1726066625; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZcvMYN+jr5XUIeIsxJiT1pxAH2bfq4XVsUerM53EAdk=;
-        b=L4e7st1QpUWX4pmJIfdMBnSCXb3EylFZ13rP0epa5667CvkWjsRmoCTrFSK5rW7TWM
-         vCbweW1k7GRZrH2CefiVtiECp6KKFMUrwahc+w3AgCxI40TFQmgsWrnjk4NVnJQg/xv+
-         GBPuRr4CbaU0KhEgAVsy2KZKYFXXARnDBXO+8=
+        d=citrix.com; s=google; t=1725463592; x=1726068392; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=B1MBhGCEpTRP/bGPWiPnSpkRN2w6GTYAkiLavB9Yjbw=;
+        b=Qx4/1Znytv2W14f0Xio+NuYzfZz+6RTBhldhxhrH4q1Colc0ZQKGtQmeQwcxax1+td
+         Rskyts/+ncDj7Qu8yLivGYAU1vRtlA67T5VdvMSitKBvCLa5A/xmrkgrxY4OlEFNpxCM
+         O8Bt3mb6z133TvFsBj15LYdcy9OTEV8roxJQI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725461825; x=1726066625;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ZcvMYN+jr5XUIeIsxJiT1pxAH2bfq4XVsUerM53EAdk=;
-        b=dS052MyKXb27l18F0ldSXn38H+MinUORQuhlJC7CRyDRoMK6AaZYVkQCTyCa1j1BhG
-         Z7qpKE6RJm8YwenI8bKnhcXoocBDtuiEzcKk46BLG26u9PryjYuQXxRudoRWHbMssKnP
-         9Go9EFG6KUuCyK8IakFp4LnDrHF7zw/DmtkWi3l0jUrhEzgK9QpAbmRjD5TQ7XDcFX0E
-         MHo3hChcWnIR2/EU8XLPDIDEjcxr8xkUHigDBq8sFxcZiPyuAdic6CDnV61X4JoJap93
-         VMXs9MJuu2sJQFUYG5HS9ufGSdK3GNQlekq6kTXQrT7hIgameaoxs+Z5Gb+61ljmsDGA
-         /t6g==
-X-Gm-Message-State: AOJu0YxzFSPTpEk/q3/NZNmikqI7SB58L6+mnNvJl+vTVwtva6rnxBnm
-	7ezo8UdGpBC1zT/Twv97X+z4y76s4Xf6W/ArGb2HhOkmGrbuIquA9/kdYqt9D3WYAAQLMW/eUJq
-	r
-X-Google-Smtp-Source: AGHT+IHTEBuxpy+UIZ/UjSONvgdj+wUsgOu58Nz4vjPcQQTv/Tufa8zRgvnXdsmUUxOdHP0H0GcFyw==
-X-Received: by 2002:a05:6402:3506:b0:5c2:6e5f:3bf9 with SMTP id 4fb4d7f45d1cf-5c26e5f3d09mr3653500a12.28.1725461824588;
-        Wed, 04 Sep 2024 07:57:04 -0700 (PDT)
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [RFC 5/5] setup mapping for trampoline in setup_pagesXX
-Date: Wed,  4 Sep 2024 15:56:48 +0100
-Message-ID: <20240904145648.33707-6-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240904145648.33707-1-frediano.ziglio@cloud.com>
-References: <20240904145648.33707-1-frediano.ziglio@cloud.com>
+        d=1e100.net; s=20230601; t=1725463592; x=1726068392;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=B1MBhGCEpTRP/bGPWiPnSpkRN2w6GTYAkiLavB9Yjbw=;
+        b=osmQY+mz31i2ttskOrMwNNlxH5D2ajDrHrZjKc89G+LZuQ8P3TJozKLl2EIYuGFLJ3
+         YYO/cjLk61SfsAsfgbFRJ6nk5W143rg+fIDqN30C3QRUX+q1pK1WliDDqTVQPBTTACKs
+         /sgwRliAgeQN67ZWVt6Nfg3YurDl/Ja3BhTSI5m0ckWsRisROmWjVqDtOvyfbaPwYDkM
+         zZ642bATWDD33peT0lREYN/nwOAnL6cgENAJYn1KFvU7lZLslfofw5VcMlQaLvrDDTEn
+         CP8SGS18LEFYJHBeCEKdJZNb7EPHBjvNlpfQ0XsbzWDO/J2QzjjquTuagWZo/M3UMVip
+         Gisg==
+X-Forwarded-Encrypted: i=1; AJvYcCW6Q7ShlgVfu8ylcK6nMC9dohOlxuK+czF6K6oyNu4J/YhMMEMASsqwtgnHjDg2MF/CQiAIaaWo6/8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YypSfyZpL0V379Eyv9QpPjcBvfop68aDqae0BYiAJywIWiRsOxZ
+	pInPIeeSH1+m/BS2K25wPp/hdW7O9x0QHMG1NWhVIiOpU0YtmpQBJnpX9BDDsbQ=
+X-Google-Smtp-Source: AGHT+IFgDAXTw9gn1YjwNuAa6OrMmg6a+GqzU47US1OBLbHCb9YEMOmyPK7zLjriuPlUVd3oTofpcA==
+X-Received: by 2002:a17:906:6a28:b0:a77:b516:3023 with SMTP id a640c23a62f3a-a8a3f0efb0dmr231019466b.4.1725463592176;
+        Wed, 04 Sep 2024 08:26:32 -0700 (PDT)
+Message-ID: <cc5f2f64-e6b5-421d-ab29-4473d2137194@citrix.com>
+Date: Wed, 4 Sep 2024 16:26:30 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/7] x86emul: support CMPccXADD
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <0b9a0ae8-a39c-49d8-b4e7-f2a463128058@suse.com>
+ <313dc5c3-0a40-4313-b5b5-6d6fa52859d1@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <313dc5c3-0a40-4313-b5b5-6d6fa52859d1@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Reduce assembly code, make boot page mappings more similar between
-multiple paths (direct EFI and not).
+On 04/09/2024 1:28 pm, Jan Beulich wrote:
+> Unconditionally wire this through the ->rmw() hook. Since x86_emul_rmw()
+> now wants to construct and invoke a stub, make stub_exn available to it
+> via a new field in the emulator state structure.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
----
- xen/arch/x86/boot/build32.lds.S |  2 ++
- xen/arch/x86/boot/head.S        | 10 ----------
- xen/arch/x86/boot/setup-pages.c | 25 ++++++++++++++++++-------
- xen/arch/x86/boot/x86_64.S      |  2 +-
- xen/arch/x86/include/asm/page.h |  3 ++-
- 5 files changed, 23 insertions(+), 19 deletions(-)
-
-diff --git a/xen/arch/x86/boot/build32.lds.S b/xen/arch/x86/boot/build32.lds.S
-index 3796f9603b..aca747eb1d 100644
---- a/xen/arch/x86/boot/build32.lds.S
-+++ b/xen/arch/x86/boot/build32.lds.S
-@@ -49,11 +49,13 @@ SECTIONS
-         DECLARE_IMPORT(__trampoline_seg_stop);
-         DECLARE_IMPORT(l2_xenmap);
-         DECLARE_IMPORT(l2_directmap);
-+        DECLARE_IMPORT(l1_bootmap);
-         DECLARE_IMPORT(l2_bootmap);
-         DECLARE_IMPORT(l3_bootmap);
-         DECLARE_IMPORT(_start);
-         DECLARE_IMPORT(_end);
-         DECLARE_IMPORT(xen_phys_start);
-+        DECLARE_IMPORT(trampoline_phys);
-         //DECLARE_IMPORT();
-         . = . + GAP;
-         *(.text)
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index 5ae0c2009e..84d3c469de 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -765,16 +765,6 @@ trampoline_setup:
- 
-         call    setup_pages32
- 
--        /* Map l1_bootmap[] into l2_bootmap[0]. */
--        lea     __PAGE_HYPERVISOR + sym_esi(l1_bootmap), %eax
--        mov     %eax, sym_esi(l2_bootmap)
--
--        /* Map the permanent trampoline page into l1_bootmap[]. */
--        mov     sym_esi(trampoline_phys), %ecx
--        lea     __PAGE_HYPERVISOR_RX(%ecx), %edx /* %edx = PTE to write  */
--        shr     $PAGE_SHIFT, %ecx                /* %ecx = Slot to write */
--        mov     %edx, sym_offs(l1_bootmap)(%esi, %ecx, 8)
--
-         /* Apply relocations to bootstrap trampoline. */
-         mov     sym_esi(trampoline_phys), %eax
-         call    reloc_trampoline32
-diff --git a/xen/arch/x86/boot/setup-pages.c b/xen/arch/x86/boot/setup-pages.c
-index 0961282a01..f74734c036 100644
---- a/xen/arch/x86/boot/setup-pages.c
-+++ b/xen/arch/x86/boot/setup-pages.c
-@@ -9,8 +9,10 @@
- 
- #pragma GCC visibility push(hidden)
- extern char _start[], _end[];
--extern uint64_t l2_xenmap[512], l3_bootmap[512], l2_directmap[512], l2_bootmap[512];
-+extern uint64_t l2_xenmap[512], l2_directmap[512],
-+	l3_bootmap[512], l2_bootmap[512], l1_bootmap[512];
- extern unsigned long xen_phys_start;
-+extern unsigned long trampoline_phys;
- #pragma GCC visibility pop
- 
- #define _PAGE_PRESENT 0x001
-@@ -19,12 +21,11 @@ extern unsigned long xen_phys_start;
- #define _PAGE_DIRTY 0x040
- #define _PAGE_PSE 0x080
- #define _PAGE_GLOBAL 0x100
-+#define _PAGE_NX (1LLU << 63)
- 
- #define PAGE_HYPERVISOR       PAGE_HYPERVISOR_RW
- #define PAGE_HYPERVISOR_RW    (__PAGE_HYPERVISOR_RW | _PAGE_GLOBAL)
- #define __PAGE_HYPERVISOR_RW  (__PAGE_HYPERVISOR_RO | _PAGE_DIRTY | _PAGE_RW)
--// TODO
--#define _PAGE_NX 0
- #define __PAGE_HYPERVISOR_RO  (_PAGE_PRESENT | _PAGE_ACCESSED | _PAGE_NX)
- #define PAGE_HYPERVISOR_RWX   (__PAGE_HYPERVISOR | _PAGE_GLOBAL)
- #define __PAGE_HYPERVISOR     (__PAGE_HYPERVISOR_RX | _PAGE_DIRTY | _PAGE_RW)
-@@ -33,14 +34,16 @@ extern unsigned long xen_phys_start;
- #define L2_PAGETABLE_SHIFT 21
- #define L2_PAGETABLE_ENTRIES 512
- #define PAGE_SIZE 4096
-+#define PAGE_SHIFT 12
- #define l2_table_offset(a) (((a) >> L2_PAGETABLE_SHIFT) & (L2_PAGETABLE_ENTRIES - 1))
--#define l2e_from_paddr(a,f) ((a) | put_pte_flags(f))
--#define l3e_from_paddr(a,f) ((a) | put_pte_flags(f))
-+#define l1e_from_paddr(a, flags) ((a) | put_pte_flags(flags))
-+#define l2e_from_paddr(a, flags) ((a) | put_pte_flags(flags))
-+#define l3e_from_paddr(a, flags) ((a) | put_pte_flags(flags))
- #define l2e_add_flags(x, flags)    (x |= put_pte_flags(flags))
- typedef uint64_t l2_pgentry_t;
--static inline int64_t put_pte_flags(unsigned int x)
-+static inline uint64_t put_pte_flags(uint64_t x)
- {
--    return (((int64_t)x & ~0xfff) << 40) | (x & 0xfff);
-+    return x;
- }
- 
- void __attribute__((__stdcall__)) setup_pages32(void)
-@@ -102,4 +105,12 @@ void setup_pages64(void)
-         l2_directmap[i] = pte;
-     }
- #undef l2_4G_offset
-+
-+    /* Map l1_bootmap[] into l2_bootmap[0]. */
-+    l2_bootmap[0] = l2e_from_paddr((unsigned long)l1_bootmap,
-+                                   __PAGE_HYPERVISOR);
-+
-+    /* Map the permanent trampoline page into l1_bootmap[]. */
-+    l1_bootmap[(unsigned long)trampoline_phys >> PAGE_SHIFT] =
-+        l1e_from_paddr((unsigned long)trampoline_phys, __PAGE_HYPERVISOR_RX);
- }
-diff --git a/xen/arch/x86/boot/x86_64.S b/xen/arch/x86/boot/x86_64.S
-index 04bb62ae86..230ae6e2fb 100644
---- a/xen/arch/x86/boot/x86_64.S
-+++ b/xen/arch/x86/boot/x86_64.S
-@@ -195,7 +195,7 @@ GLOBAL(__page_tables_end)
-         .section .init.data, "aw", @progbits
-         .align PAGE_SIZE, 0
- 
--l1_bootmap:
-+GLOBAL(l1_bootmap)
-         .fill L1_PAGETABLE_ENTRIES, 8, 0
-         .size l1_bootmap, . - l1_bootmap
- 
-diff --git a/xen/arch/x86/include/asm/page.h b/xen/arch/x86/include/asm/page.h
-index e01af28916..7e8c506dbc 100644
---- a/xen/arch/x86/include/asm/page.h
-+++ b/xen/arch/x86/include/asm/page.h
-@@ -286,7 +286,8 @@ extern l2_pgentry_t l2_xenmap[L2_PAGETABLE_ENTRIES],
-     l2_bootmap[4*L2_PAGETABLE_ENTRIES];
- extern l3_pgentry_t l3_bootmap[L3_PAGETABLE_ENTRIES];
- extern l2_pgentry_t l2_directmap[4*L2_PAGETABLE_ENTRIES];
--extern l1_pgentry_t l1_fixmap[L1_PAGETABLE_ENTRIES];
-+extern l1_pgentry_t l1_fixmap[L1_PAGETABLE_ENTRIES],
-+    l1_bootmap[L1_PAGETABLE_ENTRIES];
- void paging_init(void);
- void efi_update_l4_pgtable(unsigned int l4idx, l4_pgentry_t l4e);
- #endif /* !defined(__ASSEMBLY__) */
--- 
-2.46.0
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 
