@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BF9D96C3C1
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 18:16:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790559.1200451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D78E96C47B
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 18:55:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790621.1200465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slsfs-000493-IC; Wed, 04 Sep 2024 16:16:04 +0000
+	id 1sltHE-0008FT-4E; Wed, 04 Sep 2024 16:54:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790559.1200451; Wed, 04 Sep 2024 16:16:04 +0000
+Received: by outflank-mailman (output) from mailman id 790621.1200465; Wed, 04 Sep 2024 16:54:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slsfs-00041M-As; Wed, 04 Sep 2024 16:16:04 +0000
-Received: by outflank-mailman (input) for mailman id 790559;
- Wed, 04 Sep 2024 16:16:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sltHE-0008DR-1f; Wed, 04 Sep 2024 16:54:40 +0000
+Received: by outflank-mailman (input) for mailman id 790621;
+ Wed, 04 Sep 2024 16:54:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ufny=QC=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1slsfq-0000I6-5u
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 16:16:02 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fa4c4541-6ad8-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 18:16:01 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2f50966c448so78902591fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 09:16:01 -0700 (PDT)
-Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
+ <SRS0=EFI/=QC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sltHC-0008DL-6m
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 16:54:38 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5dc0e388-6ade-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 18:54:36 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a869f6ce2b9so745526466b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 09:54:36 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-2f66362f6ecsm321501fa.67.2024.09.04.09.15.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Sep 2024 09:15:59 -0700 (PDT)
+ a640c23a62f3a-a8a6236d26esm13867966b.140.2024.09.04.09.54.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Sep 2024 09:54:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +45,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa4c4541-6ad8-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: 5dc0e388-6ade-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1725466561; x=1726071361; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KdxPAmDEdUAtpsJzqv9PT9FKB3N+OoRAOYXGitcO7RQ=;
-        b=mZqr1AUuprYV4st4YKuixFqCftbL1dRsHIQQrkRQijs37s4W3BZtl1/PGhsHlmnsJt
-         Awb0QjNY/BT+KItiWrPYIEVVHXHLo/6oRkgV19IorctcEqkFk37ZnJN+TxmcLg7FdYc6
-         t9fMTMe1YevdZp+TrWa4aLT1SfJHVlrI5Jm2l9S3fDmUcB08hzS2MpzlF3MIdjqr61jm
-         V/jMbLJOiEp1SvqEKxP3jkSy02wWZjcJuKlpLhwRHEkF3ODkKZ0fEys1oZRbUvzRsP8l
-         ZuIbIKLhSgVLUyFBgxGA6ryhoZ54OAYF6PSQqfS9ZGk60WIjgmu0HP1rBior9cBKds+B
-         UPyQ==
+        d=citrix.com; s=google; t=1725468875; x=1726073675; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Qyd7w+L/xrw+NC5fGqs/6jsapBhr3Ds73qSX/+2joyw=;
+        b=ifDC7O6CUBX9tzXcr0xeYnJ9TaTEEv3SywW7vw3fI3PTPdhlwixppGEuyjBuk8o7t2
+         6I+M8IXL3rxFfHaRaOr2Y6CYSrzsAo/eHKaTlvTzD4dcPCe2b2gMp130CrUIt1Ol3s3O
+         AFg0PetuaO9cvy1q3ds7C2Wk2RL2cJkFEPKXo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725466561; x=1726071361;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=KdxPAmDEdUAtpsJzqv9PT9FKB3N+OoRAOYXGitcO7RQ=;
-        b=IVEiYS8WximjzFeG+O87Hgap66H5YZVoIzngI+QiJpNzl5GeQ40qCS2thv+t3PW8FD
-         93/etNC9nB5cz3TWcseWNtmeYMUWMycenr2qKWOy8kYBmsnqeyGiv7iLOGLvuXV04GgW
-         +3TP6S7Jym5LM+oJ6APwaKTV0jJf1Zs26SlmvLCBvAUWoAth6L1TmyHG0nq8ZU50sikp
-         8iEJuqZ7+AOiwPet0CvvwVq8Zx3KFJEEomfYBN6jBQYTjnGToHYkEF2Sg8MtLsrHnGQ2
-         CK/ex8FNcXMmvTY2sfiaKqB3tMNRbbFrTm3knoEKOr6Tb69lx/URA7kOZ87ET4E4+EEX
-         9PGA==
-X-Forwarded-Encrypted: i=1; AJvYcCWVxNb1MhjU2dwz9/Wzd6fAVyEoUVkaFgJP4mOfZcXOP2sHWPOy93DloKFOy/MJJ6bEzxsmX3oQ0kM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzZ0hAYw9AGlbT8R6pnfDpEJP9DDqGf4SZH0HXjG7iYS1CeAEsI
-	iDug2fYBHNxsvrLDpNAy2x6UUEWqoHvpjGsMo7D+DZTuNYeRl0mQ
-X-Google-Smtp-Source: AGHT+IFAdjefLP0GVVZKIUrpFKMNdvV3ASjqYkfelwsocfjh9WpkL3JieubicWsRTNAejwGyS1Ovnw==
-X-Received: by 2002:a2e:460a:0:b0:2f6:4bed:9b44 with SMTP id 38308e7fff4ca-2f64bed9bf0mr27782561fa.47.1725466561028;
-        Wed, 04 Sep 2024 09:16:01 -0700 (PDT)
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-To: qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org,
-	anthony@xenproject.org,
-	paul@xen.org,
-	peter.maydell@linaro.org,
-	alex.bennee@linaro.org,
-	xenia.ragiadakou@amd.com,
-	jason.andryuk@amd.com,
-	edgar.iglesias@amd.com,
-	xen-devel@lists.xenproject.org,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: [PULL v1 12/12] docs/system/i386: xenpvh: Add a basic description
-Date: Wed,  4 Sep 2024 18:15:36 +0200
-Message-ID: <20240904161537.664189-13-edgar.iglesias@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240904161537.664189-1-edgar.iglesias@gmail.com>
-References: <20240904161537.664189-1-edgar.iglesias@gmail.com>
+        d=1e100.net; s=20230601; t=1725468875; x=1726073675;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Qyd7w+L/xrw+NC5fGqs/6jsapBhr3Ds73qSX/+2joyw=;
+        b=iXOWF2OTKsQaLu2zHFCX9x46UsBZKgpVtZGLJpWXf2Wunl0QMvGYgQAaU+2cniawfR
+         MxDuASl0DztkzsNpHRWjXOkljdbD8HLm0LzvVHOLDZPZDCD1xKfdV80Z31io28NhAkdz
+         J9C/0GyJ+zOKvFu6ri946lkU7T8+FxPLKyYlxpgRSvRY9pT1wutPLbzj6b8gU+677fBG
+         7k99AAbHr76t0gd/LVZB2UYZEJ4QvDn4MS3akHMdfsmITJ8/UI+nEAXBF8PzoTRILd1G
+         Sl9DbPD6iXV/v4IgXm+sCgCg1IDNonpJdcilEUl1iUuljp+kxoMrsO6a4yeTTxwcxHhR
+         UBZw==
+X-Forwarded-Encrypted: i=1; AJvYcCW1mnNtGsGBsm4sXfmxBmltWZeUBpREGg2o6OZtZxwMHEr0iEqOOTgKsySd8Vheicer/UK2txoKP+s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxSy3gZ5cgfvxRF9wLXQGEUwXaxoSv0vzNpCodmMUpx4qoEZqT6
+	gjcB6fuUAI6XU+UYD7BI7GyREcoskbh4lMnK3erp/0fjj8CpX4ugfVscx54KneI=
+X-Google-Smtp-Source: AGHT+IGe89jylxx92teOrgVagqr9N42z5k6+clxmPzmjPlK+T0pDiINA5KDGHAjwyH3J1zLWiZWrEA==
+X-Received: by 2002:a17:907:3e20:b0:a7a:aa35:409e with SMTP id a640c23a62f3a-a8a32e744ebmr438118466b.25.1725468874917;
+        Wed, 04 Sep 2024 09:54:34 -0700 (PDT)
+Message-ID: <ccbdf270-6208-456c-8bf7-6205f5ac921c@citrix.com>
+Date: Wed, 4 Sep 2024 17:54:32 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/7] x86: introduce x86_seg_sys
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <0b9a0ae8-a39c-49d8-b4e7-f2a463128058@suse.com>
+ <2848ec72-6e26-4331-a218-0e3e8f16572f@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <2848ec72-6e26-4331-a218-0e3e8f16572f@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+On 04/09/2024 1:29 pm, Jan Beulich wrote:
+> To represent the USER-MSR bitmap access, a new segment type needs
+> introducing, behaving like x86_seg_none in terms of address treatment,
+> but behaving like a system segment for page walk purposes (implicit
+> supervisor-mode access).
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> This feels a little fragile: Of course I did look through uses of the
+> enumerators, and I didn't find further places which would need
+> adjustment, but I'm not really sure I didn't miss any place.
 
-Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
- MAINTAINERS                 |  1 +
- docs/system/i386/xenpvh.rst | 49 +++++++++++++++++++++++++++++++++++++
- docs/system/target-i386.rst |  1 +
- 3 files changed, 51 insertions(+)
- create mode 100644 docs/system/i386/xenpvh.rst
+It does feel a bit fragile, but it may help to consider the other
+related cases.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c2fb0c2f42..c14ac014e2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -560,6 +560,7 @@ F: include/sysemu/xen.h
- F: include/sysemu/xen-mapcache.h
- F: stubs/xen-hw-stub.c
- F: docs/system/arm/xenpvh.rst
-+F: docs/system/i386/xenpvh.rst
- 
- Guest CPU Cores (NVMM)
- ----------------------
-diff --git a/docs/system/i386/xenpvh.rst b/docs/system/i386/xenpvh.rst
-new file mode 100644
-index 0000000000..354250f073
---- /dev/null
-+++ b/docs/system/i386/xenpvh.rst
-@@ -0,0 +1,49 @@
-+Xen PVH machine (``xenpvh``)
-+=========================================
-+
-+Xen supports a spectrum of types of guests that vary in how they depend
-+on HW virtualization features, emulation models and paravirtualization.
-+PVH is a mode that uses HW virtualization features (like HVM) but tries
-+to avoid emulation models and instead use passthrough or
-+paravirtualized devices.
-+
-+QEMU can be used to provide PV virtio devices on an emulated PCIe controller.
-+That is the purpose of this minimal machine.
-+
-+Supported devices
-+-----------------
-+
-+The x86 Xen PVH QEMU machine provide the following devices:
-+
-+- RAM
-+- GPEX host bridge
-+- virtio-pci devices
-+
-+The idea is to only connect virtio-pci devices but in theory any compatible
-+PCI device model will work depending on Xen and guest support.
-+
-+Running
-+-------
-+
-+The Xen tools will typically construct a command-line and launch QEMU
-+for you when needed. But here's an example of what it can look like in
-+case you need to construct one manually:
-+
-+.. code-block:: console
-+
-+    qemu-system-i386 -xen-domid 3 -no-shutdown        \
-+      -chardev socket,id=libxl-cmd,path=/var/run/xen/qmp-libxl-3,server=on,wait=off \
-+      -mon chardev=libxl-cmd,mode=control             \
-+      -chardev socket,id=libxenstat-cmd,path=/var/run/xen/qmp-libxenstat-3,server=on,wait=off \
-+      -mon chardev=libxenstat-cmd,mode=control        \
-+      -nodefaults                                     \
-+      -no-user-config                                 \
-+      -xen-attach -name g0                            \
-+      -vnc none                                       \
-+      -display none                                   \
-+      -device virtio-net-pci,id=nic0,netdev=net0,mac=00:16:3e:5c:81:78 \
-+      -netdev type=tap,id=net0,ifname=vif3.0-emu,br=xenbr0,script=no,downscript=no \
-+      -smp 4,maxcpus=4                                \
-+      -nographic                                      \
-+      -machine xenpvh,ram-low-base=0,ram-low-size=2147483648,ram-high-base=4294967296,ram-high-size=2147483648,pci-ecam-base=824633720832,pci-ecam-size=268435456,pci-mmio-base=4026531840,pci-mmio-size=33554432,pci-mmio-high-base=824902156288,pci-mmio-high-size=68719476736 \
-+      -m 4096
-diff --git a/docs/system/target-i386.rst b/docs/system/target-i386.rst
-index 1b8a1f248a..23e84e3ba7 100644
---- a/docs/system/target-i386.rst
-+++ b/docs/system/target-i386.rst
-@@ -26,6 +26,7 @@ Architectural features
-    i386/cpu
-    i386/hyperv
-    i386/xen
-+   i386/xenpvh
-    i386/kvm-pv
-    i386/sgx
-    i386/amd-memory-encryption
--- 
-2.43.0
+Here, we need a linear access with implicit-supervisor paging
+properties.  From what I can tell, it needs to be exactly like other
+implicit supervisor accesses.
 
+For CET, we get two new cases.
+
+The legacy bitmap has a pointer out of MSR_[U,S]_CET, but otherwise
+obeys CPL rules, so wants to be x86_seg_none.
+
+However, WRUSS is both a CPL0 instruction, and generates implicit-user
+accesses.  It's the first instruction of it's like, that I'm aware of. 
+If we're going down this x86_seg_sys route, we'd need x86_seg_user too.
+
+
+Really, this is a consequence of the memory APIs we've got.  It's the
+intermediate layers which generate PFEC_* for the pagewalk, and we're
+(ab)using segment at the top level to encode "skip segmentation but I
+still want certain properties".
+
+But, there's actually a 3rd case we get from CET, and it breaks everything.
+
+Shstk accesses are a new type, architecturally expressed as a new input
+(and output) to the pagewalk, but are also regular user-segment relative.
+
+We either do the same trick of expressing fetch() in terms of
+read(PFEC_insn) and implement new shstk_{read,write}() accessors which
+wrap {read,write}(PFEC_shstk), or we need to plumb the PFEC parameters
+higher in the call tree.
+
+It's worth noting that alignment restrictions make things even more
+complicated.  Generally, shstk accesses should be 8 or 4 byte aligned
+(based on osize), and the pseudocode for WR{U}SS calls this out; after
+all they're converting from arbitrary memory operands.
+
+However, there's a fun corner case where a 64bit code segment can use
+INCSSPD to misalign SSP, then CALL to generate a misaligned store.  This
+combines with an erratum in Zen3 and possibly Zen4 where there's a
+missing #GP check on LRET and you can forge a return address formed of
+two misaligned addresses.
+
+So misaligned stores are definitely possible (I checked this on both
+vendors at the time), so it wouldn't be appropriate to have in a general
+shstk_*() helper.  In turn, this means that the implementation of
+WR{U}SS would need a way to linearise it's operand manually to insert
+the additional check before then making a regular memory access.
+
+And I can't see a way of doing this without exposing PFEC inputs at the
+top level.
+
+Thoughts?
+
+~Andrew
 
