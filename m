@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F9AB96BE89
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 15:29:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790371.1200112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D26BF96BE8A
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 15:30:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790373.1200122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slq4v-0005xt-Jl; Wed, 04 Sep 2024 13:29:45 +0000
+	id 1slq5D-0006p7-VR; Wed, 04 Sep 2024 13:30:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790371.1200112; Wed, 04 Sep 2024 13:29:45 +0000
+Received: by outflank-mailman (output) from mailman id 790373.1200122; Wed, 04 Sep 2024 13:30:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slq4v-0005wN-GR; Wed, 04 Sep 2024 13:29:45 +0000
-Received: by outflank-mailman (input) for mailman id 790371;
- Wed, 04 Sep 2024 13:29:43 +0000
+	id 1slq5D-0006lT-Rx; Wed, 04 Sep 2024 13:30:03 +0000
+Received: by outflank-mailman (input) for mailman id 790373;
+ Wed, 04 Sep 2024 13:30:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1slq4t-0005w7-Nf
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 13:29:43 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1slq5C-0005w7-5M
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 13:30:02 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id be2b42d1-6ac1-11ef-a0b3-8be0dac302b0;
- Wed, 04 Sep 2024 15:29:42 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a86984e035aso814069166b.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 06:29:42 -0700 (PDT)
+ id c95e3ae7-6ac1-11ef-a0b3-8be0dac302b0;
+ Wed, 04 Sep 2024 15:30:01 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a86acbaddb4so791563766b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 06:30:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a3f048b1fsm92936866b.79.2024.09.04.06.29.41
+ a640c23a62f3a-a8989196d4asm822570666b.141.2024.09.04.06.30.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Sep 2024 06:29:41 -0700 (PDT)
+ Wed, 04 Sep 2024 06:30:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be2b42d1-6ac1-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: c95e3ae7-6ac1-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725456582; x=1726061382; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725456601; x=1726061401; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5sy4Y2cQJ7dlapUfnU+5xbF/96+httzMJp8tshXNPzQ=;
-        b=IYoQIXC6DZEmCG3SETJ7vJjlgZ3+tBDtcDE7HzFjpqgjFE9UwJndaB4aNF9q0bFAeA
-         jShXHZxjUY7tcq+iB09wLHQiW9r8gukHUAFcq9zmpBEgm9CwGrsk/yfEIk3Fpu6gCR8i
-         JMZbMkkd8B4chDKAoawGw9ccVKltWImAM6nPFaIX79i8t4kXnjA5cxKTW5AwqE9AIfqM
-         sRdJaigHedWP8xhFYQEtvLFouRAFTfi+odY7lYBVIFCaR5NK/EvgR0LyYqD1C3BbQh5Y
-         e1QbBXS0slCvZrpN89QMh8H0PPk2QebF+mQhj3gMBuqaa+F5pwdpdPo7AIJFbUmvJjpp
-         JvkQ==
+        bh=2QgSbescz9+dIFTje+LMqUKMCR9FaWXm6Y8nQPTQ+CA=;
+        b=L+k4KMO/WndtgVypC3Z3+jMe3PrloheHeGzXDjiABgFbOaS1PdJz4SfziG2ld66DOy
+         aJkM3l4xEVwr3t/OSf1rL6Rrt6BIpaOUT6F46/Bu0MED5GtecMI1ApxmyAnldapfcEfY
+         U5W51FvPUFbZmbPT8WVWrqhYFCOKC69pp5oHuh/I0aqMtIjMrAybQ4X657BwtH7coJmm
+         mtv7hc42tux4S+iVCZu82uybcBL5cLGSWmGmpMNZLAKUQd+fyH1YaEIJuw6BwVC6qVyq
+         EYn+L4XPkBgaKUBiNQXfiWrkoLJ7RBB7fqXxanjB1/0uA+aAT3tbvljvvb4YU4gWnbTc
+         wMCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725456582; x=1726061382;
+        d=1e100.net; s=20230601; t=1725456601; x=1726061401;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=5sy4Y2cQJ7dlapUfnU+5xbF/96+httzMJp8tshXNPzQ=;
-        b=l0wtzdYNvNKUd+iXJw4+RmNMByNOOznzaGRxVPJYwvOQnhkkp71FJhh1EvhFtxZ4hs
-         ppQBR4ZM7xnR7drBHD2AoxRccjmLMO5Vr2BcHWiHkSFBceaHVOBns+RTmE3Uqalsk25s
-         4TBozaUMK8pGAiB1fqdYEUf68vd4jjFhZy8iJqmaFibrsqfNEzFqBXYsw3cknpeCtVO6
-         8TMqHNQKSBUitigNKNX1mtuVnlDRvN+KRfxy5DQ7UimTW/0A7ikew7SbniLgF9aam97L
-         a3VX+2R7RKLRHlyXTWmEaFdHe0K9rMXZzSWreYvjky/zbSj+6rs8MkidiZE09wMxxRTV
-         ekpg==
-X-Gm-Message-State: AOJu0Yx07Ve44jLw+k5TEatOQ97N4uyJ9srULCyfjx8RrIawvVhx6rQE
-	ayvCwnNQRGVC2vIKdzY+4tZ/ItfvEqiaEvCQN+GqhF7T2aM79tRJ60ZUmFUc4+9Go9GDiN1aP58
+        bh=2QgSbescz9+dIFTje+LMqUKMCR9FaWXm6Y8nQPTQ+CA=;
+        b=pn1VJSbmE9GK6KK6HPVki6gyf2Xr7mv6P2+rKVRf8OfaNg+BJ1F4EvHzl1U4bAto7T
+         K2wVcWOvfsLIwgmhXCnWomLUhYj0N4Uj03lK3do8o6oXxuaxzx0iglSqGY5ZUgGdbFLo
+         UL4lLCpR4m/9I6RJdhKHplnuTtlfHWrfxRqRbqQnADqMDctcgFujciUiGSqKOMnSarGS
+         usYCLfmxf4o+NkIyZn8+p/O3P1MTAxxeajSJEPlogeqCcUzYw/RK0cGyYIGGr4mm5HBo
+         kT0jt22SNUdrpeKchBnbQ6fEqQBd5oP0CdmMvvFIymDUC8wDEmr0e6lVwTwL1kmQSoph
+         sxaQ==
+X-Gm-Message-State: AOJu0Yx/p2txlHQ3XYtnkwVa5e5pcMpt88YIIAm3Mb2jMiFr396Bpf0y
+	IPsOmm8Zn1BaDDb16sZ/xICO7/7BSuX311htas/6ikgybxtmLnFgRNCKwBQCbPZIQok5L9Zq7OE
 	=
-X-Google-Smtp-Source: AGHT+IG2roNWLTYbkq23uOPef2XlIRbEi9UoBtIxuNkOBY2mkRMJzrIjIFaUqv0aLAV2ZD7CNFdXOw==
-X-Received: by 2002:a17:907:c13:b0:a86:8cfe:ec0e with SMTP id a640c23a62f3a-a89a369f9aamr1176686666b.36.1725456581613;
-        Wed, 04 Sep 2024 06:29:41 -0700 (PDT)
-Message-ID: <b64639ae-e0e8-46d2-81ee-b1ffaa2a3787@suse.com>
-Date: Wed, 4 Sep 2024 15:29:40 +0200
+X-Google-Smtp-Source: AGHT+IHm2ePunR/QralYBJXAWsi35BkmukRbSCn1s8Rdr33IuvKyuY5+dF5ltle+rrY2uovZA5RWoA==
+X-Received: by 2002:a17:907:d90:b0:a86:b64e:bc4d with SMTP id a640c23a62f3a-a897fa74489mr1641733466b.44.1725456600718;
+        Wed, 04 Sep 2024 06:30:00 -0700 (PDT)
+Message-ID: <dccd655c-2a9c-4e11-9889-53e80ff10fc2@suse.com>
+Date: Wed, 4 Sep 2024 15:29:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 3/5] x86/HVM: correct read/write split at page boundaries
+Subject: [PATCH 4/5] x86/HVM: slightly improve CMPXCHG16B emulation
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Manuel Andreas <manuel.andreas@tum.de>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <31906cba-8646-4cf9-ab31-1d23654df8d1@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,264 +115,37 @@ In-Reply-To: <31906cba-8646-4cf9-ab31-1d23654df8d1@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The MMIO cache is intended to have one entry used per independent memory
-access that an insn does. This, in particular, is supposed to be
-ignoring any page boundary crossing. Therefore when looking up a cache
-entry, the access'es starting (linear) address is relevant, not the one
-possibly advanced past a page boundary.
+Using hvmemul_linear_mmio_write() directly (as fallback when mapping the
+memory operand isn't possible) won't work properly when the access
+crosses a RAM/MMIO boundary. Use linear_write() instead, which splits at
+such boundaries as necessary.
 
-In order for the same offset-into-buffer variable to be usable in
-hvmemul_phys_mmio_access() for both the caller's buffer and the cache
-entry's it is further necessary to have the un-adjusted caller buffer
-passed into there.
-
-Fixes: 2d527ba310dc ("x86/hvm: split all linear reads and writes at page boundary")
-Reported-by: Manuel Andreas <manuel.andreas@tum.de>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-This way problematic overlaps are only reduced (to ones starting at the
-same address), not eliminated: Assumptions in hvmemul_phys_mmio_access()
-go further - if a subsequent access is larger than an earlier one, but
-the splitting results in a chunk to cross the end "boundary" of the
-earlier access, an assertion will still trigger. Explicit memory
-accesses (ones encoded in an insn by explicit or implicit memory
-operands) match the assumption afaict (i.e. all those accesses are of
-uniform size, and hence they either fully overlap or are mapped to
-distinct cache entries).
-
-Insns accessing descriptor tables, otoh, don't fulfill these
-expectations: The selector read (if coming from memory) will always be
-smaller than the descriptor being read, and if both (insanely) start at
-the same linear address (in turn mapping MMIO), said assertion will kick
-in. (The same would be true for an insn trying to access itself as data,
-as long as certain size "restrictions" between insn and memory operand
-are met. Except that linear_read() disallows insn fetches from MMIO.) To
-deal with such, I expect we will need to further qualify (tag) cache
-entries, such that reads/writes won't use insn fetch entries, and
-implicit-supervisor-mode accesses won't use entries of ordinary
-accesses. (Page table accesses don't need considering here for now, as
-our page walking code demands page tables to be mappable, implying
-they're in guest RAM; such accesses also don't take the path here.)
-Thoughts anyone, before I get to making another patch?
-
-Considering the insn fetch aspect mentioned above I'm having trouble
-following why the cache has 3 entries. With insn fetches permitted,
-descriptor table accesses where the accessed bit needs setting may also
-fail because of that limited capacity of the cache, due to the way the
-accesses are done. The read and write (cmpxchg) are independent accesses
-from the cache's perspective, and hence we'd need another entry there.
-If, otoh, the 3 entries are there to account for precisely this (which
-seems unlikely with commit e101123463d2 ["x86/hvm: track large memory
-mapped accesses by buffer offset"] not saying anything at all), then we
-should be fine in this regard. If we were to permit insn fetches, which
-way to overcome this (possibly by allowing the write to re-use the
-earlier read's entry in this special situation) would remain to be
-determined.
 
 --- a/xen/arch/x86/hvm/emulate.c
 +++ b/xen/arch/x86/hvm/emulate.c
-@@ -31,8 +31,9 @@
-  * device-model transactions.
-  */
- struct hvm_mmio_cache {
--    unsigned long gla;
--    unsigned int size;
-+    unsigned long gla;     /* Start of original access (e.g. insn operand) */
-+    unsigned int skip;     /* Offset to start of MMIO */
-+    unsigned int size;     /* Populated space, including @skip */
-     unsigned int space:31;
-     unsigned int dir:1;
-     uint8_t buffer[] __aligned(sizeof(long));
-@@ -953,6 +954,13 @@ static int hvmemul_phys_mmio_access(
-         return X86EMUL_UNHANDLEABLE;
-     }
- 
-+    /* Accesses must not be to the unused leading space. */
-+    if ( offset < cache->skip )
-+    {
-+        ASSERT_UNREACHABLE();
-+        return X86EMUL_UNHANDLEABLE;
-+    }
-+
-     /*
-      * hvmemul_do_io() cannot handle non-power-of-2 accesses or
-      * accesses larger than sizeof(long), so choose the highest power
-@@ -1010,13 +1018,15 @@ static int hvmemul_phys_mmio_access(
- 
- /*
-  * Multi-cycle MMIO handling is based upon the assumption that emulation
-- * of the same instruction will not access the same MMIO region more
-- * than once. Hence we can deal with re-emulation (for secondary or
-- * subsequent cycles) by looking up the result or previous I/O in a
-- * cache indexed by linear MMIO address.
-+ * of the same instruction will not access the exact same MMIO region
-+ * more than once in exactly the same way (if it does, the accesses will
-+ * be "folded"). Hence we can deal with re-emulation (for secondary or
-+ * subsequent cycles) by looking up the result of previous I/O in a cache
-+ * indexed by linear address and access type.
-  */
- static struct hvm_mmio_cache *hvmemul_find_mmio_cache(
--    struct hvm_vcpu_io *hvio, unsigned long gla, uint8_t dir, bool create)
-+    struct hvm_vcpu_io *hvio, unsigned long gla, uint8_t dir,
-+    unsigned int skip)
+@@ -1645,10 +1645,8 @@ static int cf_check hvmemul_cmpxchg(
  {
-     unsigned int i;
-     struct hvm_mmio_cache *cache;
-@@ -1030,7 +1040,11 @@ static struct hvm_mmio_cache *hvmemul_fi
-             return cache;
-     }
- 
--    if ( !create )
-+    /*
-+     * Bail if a new entry shouldn't be allocated, utilizing that ->space has
-+     * the same value for all entries.
-+     */
-+    if ( skip >= hvio->mmio_cache[0]->space )
-         return NULL;
- 
-     i = hvio->mmio_cache_count;
-@@ -1043,7 +1057,8 @@ static struct hvm_mmio_cache *hvmemul_fi
-     memset(cache->buffer, 0, cache->space);
- 
-     cache->gla = gla;
--    cache->size = 0;
-+    cache->skip = skip;
-+    cache->size = skip;
-     cache->dir = dir;
- 
-     return cache;
-@@ -1064,12 +1079,14 @@ static void latch_linear_to_phys(struct
- 
- static int hvmemul_linear_mmio_access(
-     unsigned long gla, unsigned int size, uint8_t dir, void *buffer,
--    uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt, bool known_gpfn)
-+    uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt,
-+    unsigned long start, bool known_gpfn)
- {
-     struct hvm_vcpu_io *hvio = &current->arch.hvm.hvm_io;
-     unsigned long offset = gla & ~PAGE_MASK;
--    struct hvm_mmio_cache *cache = hvmemul_find_mmio_cache(hvio, gla, dir, true);
--    unsigned int chunk, buffer_offset = 0;
-+    unsigned int chunk, buffer_offset = gla - start;
-+    struct hvm_mmio_cache *cache = hvmemul_find_mmio_cache(hvio, start, dir,
-+                                                           buffer_offset);
-     paddr_t gpa;
-     unsigned long one_rep = 1;
+     struct hvm_emulate_ctxt *hvmemul_ctxt =
+         container_of(ctxt, struct hvm_emulate_ctxt, ctxt);
+-    struct vcpu *curr = current;
+     unsigned long addr;
+     uint32_t pfec = PFEC_page_present | PFEC_write_access;
+-    struct hvm_vcpu_io *hvio = &curr->arch.hvm.hvm_io;
      int rc;
-@@ -1117,19 +1134,19 @@ static int hvmemul_linear_mmio_access(
- static inline int hvmemul_linear_mmio_read(
-     unsigned long gla, unsigned int size, void *buffer,
-     uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt,
--    bool translate)
-+    unsigned long start, bool translate)
- {
-     return hvmemul_linear_mmio_access(gla, size, IOREQ_READ, buffer,
--                                      pfec, hvmemul_ctxt, translate);
-+                                      pfec, hvmemul_ctxt, start, translate);
- }
+     void *mapping = NULL;
  
- static inline int hvmemul_linear_mmio_write(
-     unsigned long gla, unsigned int size, void *buffer,
-     uint32_t pfec, struct hvm_emulate_ctxt *hvmemul_ctxt,
--    bool translate)
-+    unsigned long start, bool translate)
- {
-     return hvmemul_linear_mmio_access(gla, size, IOREQ_WRITE, buffer,
--                                      pfec, hvmemul_ctxt, translate);
-+                                      pfec, hvmemul_ctxt, start, translate);
- }
- 
- static bool known_gla(unsigned long addr, unsigned int bytes, uint32_t pfec)
-@@ -1158,7 +1175,10 @@ static int linear_read(unsigned long add
- {
-     pagefault_info_t pfinfo;
-     struct hvm_vcpu_io *hvio = &current->arch.hvm.hvm_io;
-+    void *buffer = p_data;
-+    unsigned long start = addr;
-     unsigned int offset = addr & ~PAGE_MASK;
-+    const struct hvm_mmio_cache *cache;
-     int rc;
- 
-     if ( offset + bytes > PAGE_SIZE )
-@@ -1182,8 +1202,17 @@ static int linear_read(unsigned long add
-      * an access that was previously handled as MMIO. Thus it is imperative that
-      * we handle this access in the same way to guarantee completion and hence
-      * clean up any interim state.
-+     *
-+     * Care must be taken, however, to correctly deal with crossing RAM/MMIO or
-+     * MMIO/RAM boundaries. While we want to use a single cache entry (tagged
-+     * by the starting linear address), we need to continue issuing (i.e. also
-+     * upon replay) the RAM access for anything that's ahead of or past MMIO,
-+     * i.e. in RAM.
-      */
--    if ( !hvmemul_find_mmio_cache(hvio, addr, IOREQ_READ, false) )
-+    cache = hvmemul_find_mmio_cache(hvio, start, IOREQ_READ, ~0);
-+    if ( !cache ||
-+         addr + bytes <= start + cache->skip ||
-+         addr >= start + cache->size )
-         rc = hvm_copy_from_guest_linear(p_data, addr, bytes, pfec, &pfinfo);
- 
-     switch ( rc )
-@@ -1199,8 +1228,8 @@ static int linear_read(unsigned long add
-         if ( pfec & PFEC_insn_fetch )
-             return X86EMUL_UNHANDLEABLE;
- 
--        return hvmemul_linear_mmio_read(addr, bytes, p_data, pfec,
--                                        hvmemul_ctxt,
-+        return hvmemul_linear_mmio_read(addr, bytes, buffer, pfec,
-+                                        hvmemul_ctxt, start,
-                                         known_gla(addr, bytes, pfec));
- 
-     case HVMTRANS_gfn_paged_out:
-@@ -1217,7 +1246,10 @@ static int linear_write(unsigned long ad
- {
-     pagefault_info_t pfinfo;
-     struct hvm_vcpu_io *hvio = &current->arch.hvm.hvm_io;
-+    void *buffer = p_data;
-+    unsigned long start = addr;
-     unsigned int offset = addr & ~PAGE_MASK;
-+    const struct hvm_mmio_cache *cache;
-     int rc;
- 
-     if ( offset + bytes > PAGE_SIZE )
-@@ -1236,13 +1268,11 @@ static int linear_write(unsigned long ad
- 
-     rc = HVMTRANS_bad_gfn_to_mfn;
- 
--    /*
--     * If there is an MMIO cache entry for the access then we must be re-issuing
--     * an access that was previously handled as MMIO. Thus it is imperative that
--     * we handle this access in the same way to guarantee completion and hence
--     * clean up any interim state.
--     */
--    if ( !hvmemul_find_mmio_cache(hvio, addr, IOREQ_WRITE, false) )
-+    /* See commentary in linear_read(). */
-+    cache = hvmemul_find_mmio_cache(hvio, start, IOREQ_WRITE, ~0);
-+    if ( !cache ||
-+         addr + bytes <= start + cache->skip ||
-+         addr >= start + cache->size )
-         rc = hvm_copy_to_guest_linear(addr, p_data, bytes, pfec, &pfinfo);
- 
-     switch ( rc )
-@@ -1255,8 +1285,8 @@ static int linear_write(unsigned long ad
-         return X86EMUL_EXCEPTION;
- 
-     case HVMTRANS_bad_gfn_to_mfn:
--        return hvmemul_linear_mmio_write(addr, bytes, p_data, pfec,
--                                         hvmemul_ctxt,
-+        return hvmemul_linear_mmio_write(addr, bytes, buffer, pfec,
-+                                         hvmemul_ctxt, start,
-                                          known_gla(addr, bytes, pfec));
- 
-     case HVMTRANS_gfn_paged_out:
-@@ -1643,7 +1673,7 @@ static int cf_check hvmemul_cmpxchg(
+@@ -1672,10 +1670,7 @@ static int cf_check hvmemul_cmpxchg(
+     if ( !mapping )
      {
          /* Fix this in case the guest is really relying on r-m-w atomicity. */
-         return hvmemul_linear_mmio_write(addr, bytes, p_new, pfec,
--                                         hvmemul_ctxt,
-+                                         hvmemul_ctxt, addr,
-                                          hvio->mmio_access.write_access &&
-                                          hvio->mmio_gla == (addr & PAGE_MASK));
+-        return hvmemul_linear_mmio_write(addr, bytes, p_new, pfec,
+-                                         hvmemul_ctxt, addr,
+-                                         hvio->mmio_access.write_access &&
+-                                         hvio->mmio_gla == (addr & PAGE_MASK));
++        return linear_write(addr, bytes, p_new, pfec, hvmemul_ctxt);
      }
+ 
+     switch ( bytes )
 
 
