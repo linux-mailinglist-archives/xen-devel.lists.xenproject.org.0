@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E3D496B8F1
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 12:48:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790125.1199837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 808DB96B983
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 12:59:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790144.1199852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slnYs-0007GI-Ox; Wed, 04 Sep 2024 10:48:30 +0000
+	id 1slnid-0001PS-N2; Wed, 04 Sep 2024 10:58:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790125.1199837; Wed, 04 Sep 2024 10:48:30 +0000
+Received: by outflank-mailman (output) from mailman id 790144.1199852; Wed, 04 Sep 2024 10:58:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1slnYs-0007Df-Lo; Wed, 04 Sep 2024 10:48:30 +0000
-Received: by outflank-mailman (input) for mailman id 790125;
- Wed, 04 Sep 2024 10:48:29 +0000
+	id 1slnid-0001Nq-JP; Wed, 04 Sep 2024 10:58:35 +0000
+Received: by outflank-mailman (input) for mailman id 790144;
+ Wed, 04 Sep 2024 10:58:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+MPF=QC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1slnYr-0007DZ-Qa
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 10:48:29 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ id 1slnib-0001Nk-V7
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 10:58:33 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 378b16d7-6aab-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 12:48:27 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2f50ca18a13so77355631fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 03:48:27 -0700 (PDT)
+ id 9f95b816-6aac-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 12:58:31 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2f502086419so17114871fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Sep 2024 03:58:31 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a89891a3e9dsm791091066b.108.2024.09.04.03.48.25
+ 4fb4d7f45d1cf-5c26e8ddc3fsm1693605a12.25.2024.09.04.03.58.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Sep 2024 03:48:25 -0700 (PDT)
+ Wed, 04 Sep 2024 03:58:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,87 +44,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 378b16d7-6aab-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 9f95b816-6aac-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725446907; x=1726051707; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725447511; x=1726052311; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=vDspBjf+r4xJ+vURVBeS2PCHg3tLf7coVgu49jNdPMA=;
-        b=LGUkJ0ojno8PdjZgogIWwAQpCYEXVScgoKsHqJT3xtHdmg1fqgKb6Z5Lr4hCTd7tMA
-         qMiicAM72VyR+p12uJXLdBLbW9jSS/pzDGeDD2+TMFvvl0tTj3fSKcHREkXrMZKDCch3
-         2iOhSUVUM/ByURI06e45WTStLlsoggltWQwwA=
+        bh=2jmnF7b/sIPTXsuy0saRkiH/Cxfa+bhim7GtRG6OUTM=;
+        b=u4jIQdZScpJoxcR155Movt3NWfcx/kcYpiyGdqZItQT8bkGvCx1a/pkiDnfL6dKKRy
+         63d8bjB8YJkvsDohfcpZ6Z3c3+UDpnShpFaHUoE8ODRtZVxnH9HOGFVkBDsYFFSFGBjp
+         hvGDuGqCdUDFQgDyYm4+6GuumMaaA4ovGK0Ng=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725446907; x=1726051707;
+        d=1e100.net; s=20230601; t=1725447511; x=1726052311;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vDspBjf+r4xJ+vURVBeS2PCHg3tLf7coVgu49jNdPMA=;
-        b=gz9aP44/YxcJm+oIdCpdYsD0ZRSV2A16UtEUONgxiMl3ZdbbI9Rt7b+a0BKfwWT5AG
-         NgcJvtR2js41gjORHln3cOsTbMB4u57beoq0uD8W6z7NYAPH8IZCxgKppKUQmOLe0YEC
-         aYQHI9vwnyYTyYZPoOmVBbyPLjwGXcJtr0gx5PerWpOxn1cSsIsL5Uf90usYklNoluSZ
-         /TsLusEZSYB65q8VnbyQ5ZxlWwyEODUXmwHUVR668RWq6Od/jKhkw/w9grEej6ns7rco
-         Z5XW/zRh8eKbgrKAoWRRYEz+XCGSik1xNL7KPYqtgDv8TK0NW6h2GkV1Rl2ZORm75vQd
-         /BGg==
-X-Forwarded-Encrypted: i=1; AJvYcCXmRjgAd40aLk8BLMpe3QkEldXKpMaQlCeHKYXqH7eeu63K/kXFdjVURV2AyLKOdBjkuwFGbvjUsvA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwS3CHCzyjVQNVeYvslOz6LpC2GTp0QUjfj494kZ9jEWVdLjScI
-	Dw7QrIXvaOi1GDYiYOoCRfq83ppfGiq7SRb40dSLOm5ya7llvRxVVX4DZLxUFAQ=
-X-Google-Smtp-Source: AGHT+IEqS5mi0IeCpj7LZeP4f/VnoTQ0EPMsSuZ7vxcoNuB8qVbefJFJS01yYQpXTeq75+HR7WuWdw==
-X-Received: by 2002:a05:6512:10c6:b0:52e:767a:ada7 with SMTP id 2adb3069b0e04-53546b9b1d1mr11293290e87.50.1725446906119;
-        Wed, 04 Sep 2024 03:48:26 -0700 (PDT)
-Date: Wed, 4 Sep 2024 12:48:25 +0200
+        bh=2jmnF7b/sIPTXsuy0saRkiH/Cxfa+bhim7GtRG6OUTM=;
+        b=e2dy+Qdmni8k4H+0ewobDax0n8xk1GsQDa88Cl2K6CLO8uN35WV9TM3vwunDKrTmon
+         8P40cqNf4tyEvM3ZZLLofMLjSE2vQyNJ1Gd7xmpga79p9yMJ7v4/FoznNEOTepbCrDSV
+         fhtSZpicpZ5nmBapt3StCLO54NIk9kiIZHDsXgqkzr9uj4kvBBh0toqFGT4FilnWqIhi
+         AmugdqWRvy7odwCtybUZfn3mLH3pgPVGRAhaSVubsozpEnxskgpKYpndtb1D/oGsjSMS
+         ZEGujFhSNjOQXxvlay2UgQdVQDOJgTCsLiDtU2C7D9Kod4KLE2Fjn2TqTX6QffPISgzW
+         FV1w==
+X-Forwarded-Encrypted: i=1; AJvYcCW7otFGCiaVibTxTwF5rWHRvLhzIq/Pw7d5U5k5NGsdPkeAp0WmQJXleof41VbeiUWXvgWE4+irgAY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywh3h8sbl7aM/ND79K89QT/bk5FeLKhnGB9lgEXWxIL8qt9mWOn
+	PZSGMxb4hF7m+h3BhfqBTY0k6WIC/ufvszCJJ0Cg6F/MZUXPWCaBostmfZER7to=
+X-Google-Smtp-Source: AGHT+IGmaqHlHYUqEqa4GGdYdwMg0rL7KgT0c/gYk7c1OIxN75qxBxvxjC/MDZ4k7A/TatzLVbMyRA==
+X-Received: by 2002:a05:651c:548:b0:2f5:a29:5a42 with SMTP id 38308e7fff4ca-2f64440db85mr52675731fa.14.1725447510276;
+        Wed, 04 Sep 2024 03:58:30 -0700 (PDT)
+Date: Wed, 4 Sep 2024 12:58:29 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 3/7] x86/time: split CMOS read and probe logic into
- function
-Message-ID: <Ztg6-WDTvX0a3Qk3@macbook.local>
+Subject: Re: [PATCH v3 4/7] x86/time: introduce probing logic for the
+ wallclock
+Message-ID: <Ztg9VeXxdM2iBLOR@macbook.local>
 References: <20240903130303.71334-1-roger.pau@citrix.com>
- <20240903130303.71334-4-roger.pau@citrix.com>
- <077fcf8f-3179-4615-b2d1-69fa9c4d7e56@suse.com>
+ <20240903130303.71334-5-roger.pau@citrix.com>
+ <bc1bd23f-edf5-447a-9799-bca0a6cd696e@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <077fcf8f-3179-4615-b2d1-69fa9c4d7e56@suse.com>
+In-Reply-To: <bc1bd23f-edf5-447a-9799-bca0a6cd696e@suse.com>
 
-On Tue, Sep 03, 2024 at 05:16:44PM +0200, Jan Beulich wrote:
-> On 03.09.2024 15:02, Roger Pau Monne wrote:
-> > The current logic to probe for the CMOS RTC is open-coded in get_cmos_time(),
-> > move it to a separate function that both serves the purpose of testing for the
-> > CMOS RTC existence and returning its value.
+On Tue, Sep 03, 2024 at 05:32:27PM +0200, Jan Beulich wrote:
+> On 03.09.2024 15:03, Roger Pau Monne wrote:
+> > Adding such probing allows to clearly separate init vs runtime code, and to
+> > place the probing logic into the init section for the CMOS case.  Note both
+> > the Xen shared_info page wallclock, and the EFI wallclock don't really have any
+> > probing-specific logic.  The shared_info wallclock will always be there if
+> > booted as a Xen guest, while the EFI_GET_TIME method probing relies on checking
+> > if it returns a value different than 0.
 > > 
-> > The goal is to be able to split the probing and the reading logic into separate
-> > helpers, and putting the current logic in a separate function helps simplifying
-> > further changes.
-> > 
-> > A transient *rtc_p variable is introduced as a parameter to the function, that
-> > will be removed by further changes.
-> > 
-> > No functional change intended.
+> > The panic message printed when Xen is unable to find a viable wallclock source
+> > has been adjusted slightly, I believe the printed guidance still provides the
+> > same amount of information to the user.
 > > 
 > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> This looks like a straight transformation, except - as noted before - for ...
+> Looks a little involved, but I'm largely fine with it; just a couple of
+> more or less cosmetic remarks:
 > 
-> > --- a/xen/arch/x86/time.c
-> > +++ b/xen/arch/x86/time.c
-> > @@ -1292,45 +1292,32 @@ static bool __get_cmos_time(struct rtc_time *rtc)
-> >      return t1 <= SECONDS(1) && t2 < MILLISECS(3);
+> > @@ -1329,28 +1338,13 @@ static bool cmos_probe(struct rtc_time *rtc_p, bool cmos_rtc_probe)
+> >      return false;
 > >  }
 > >  
 > > -static unsigned long get_cmos_time(void)
-> > +static bool cmos_probe(struct rtc_time *rtc_p, bool cmos_rtc_probe)
+> > +
+> > +static unsigned long cmos_read(void)
 > >  {
 > > -    unsigned long res;
-> > -    struct rtc_time rtc;
-> >      unsigned int seconds = 60;
+> >      struct rtc_time rtc;
 > > -    static bool __read_mostly cmos_rtc_probe;
 > > -    boolean_param("cmos-rtc-probe", cmos_rtc_probe);
-> > -
+> > +    bool success = __get_cmos_time(&rtc);
+> >  
 > > -    if ( efi_enabled(EFI_RS) )
 > > -    {
 > > -        res = efi_get_time();
@@ -137,103 +135,106 @@ On Tue, Sep 03, 2024 at 05:16:44PM +0200, Jan Beulich wrote:
 > > -    else if ( system_state < SYS_STATE_smp_boot && !cmos_rtc_probe )
 > > -        panic("System with no CMOS RTC advertised must be booted from EFI"
 > > -              " (or with command line option \"cmos-rtc-probe\")\n");
-> >  
-> >      for ( ; ; )
-> >      {
-> > -        bool success = __get_cmos_time(&rtc);
-> > +        bool success = __get_cmos_time(rtc_p);
-> > +        struct rtc_time rtc = *rtc_p;
-> >  
-> > -        if ( likely(!cmos_rtc_probe) || !success ||
-> > +        if ( likely(!cmos_rtc_probe) )
-> > +            return true;
-> > +
-> > +        if ( !success ||
-> >               rtc.sec >= 60 || rtc.min >= 60 || rtc.hour >= 24 ||
-> >               !rtc.day || rtc.day > 31 ||
-> >               !rtc.mon || rtc.mon > 12 )
-> > -            break;
-> > +            return false;
-> >  
-> >          if ( seconds < 60 )
-> >          {
-> >              if ( rtc.sec != seconds )
-> >              {
-> > -                cmos_rtc_probe = false;
+> > -
+> > -    if ( !cmos_probe(&rtc, cmos_rtc_probe) )
+> > -        panic("No CMOS RTC found - system must be booted from EFI\n");
+> > +    ASSERT(success);
 > 
-> ... the removal of this line. As asked for before, can the somewhat sub-optimal
-> new behavior (with the static, which now lives in another function, being
-> cleared only the next time round) please be at least mentioned in the
-> description?
+> I'm not convinced of this assertion: It's either too much (compared to
+> what we had so far) or not enough, considering the behavior ...
+> 
+> >      return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
+> >  }
+> 
+> ... with a release build.
 
-Sure, sorry I've failed to do this here.  Such weird behavior is
-transient, and will go away wit the next patch IIRC, once the probing
-is properly split from the run-time reading of the CMOS RTC.
+My reasoning was that on a debug build we want to spot any such
+issues (as it's likely a symptom the RTC is misbehaving?) but on a release
+build we should rather return an incorrect wallclock time rather than
+panicking.  I can remove the ASSERT and local variable altogether if
+you prefer.
 
-> >                  acpi_gbl_FADT.boot_flags &= ~ACPI_FADT_NO_CMOS_RTC;
-> > +                return true;
-> >              }
-> > -            break;
-> > +            return false;
-> >          }
-> >  
-> >          process_pending_softirqs();
-> > @@ -1338,7 +1325,31 @@ static unsigned long get_cmos_time(void)
-> >          seconds = rtc.sec;
+> 
+> > @@ -1533,12 +1527,82 @@ void rtc_guest_write(unsigned int port, unsigned int data)
 > >      }
+> >  }
 > >  
-> > -    if ( unlikely(cmos_rtc_probe) )
-> > +    ASSERT_UNREACHABLE();
-> > +    return false;
-> > +}
+> > -static unsigned long get_wallclock_time(void)
+> > +static enum {
+> > +    WALLCLOCK_UNSET,
+> > +    WALLCLOCK_XEN,
+> > +    WALLCLOCK_CMOS,
+> > +    WALLCLOCK_EFI,
+> > +} wallclock_source __ro_after_init;
 > > +
-> > +static unsigned long get_cmos_time(void)
-> > +{
-> > +    unsigned long res;
-> > +    struct rtc_time rtc;
-> > +    static bool __read_mostly cmos_rtc_probe;
-> > +    boolean_param("cmos-rtc-probe", cmos_rtc_probe);
-> > +
-> > +    if ( efi_enabled(EFI_RS) )
+> > +static const char *wallclock_type_to_string(void)
+> 
+> __init ?
+> 
+> >  {
+> > +    switch ( wallclock_source )
 > > +    {
-> > +        res = efi_get_time();
-> > +        if ( res )
-> > +            return res;
+> > +    case WALLCLOCK_XEN:
+> > +        return "XEN";
+> > +
+> > +    case WALLCLOCK_CMOS:
+> > +        return "CMOS RTC";
+> > +
+> > +    case WALLCLOCK_EFI:
+> > +        return "EFI";
+> > +
+> > +    case WALLCLOCK_UNSET:
+> > +        return "UNSET";
 > > +    }
 > > +
-> > +    if ( likely(!(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC)) )
-> > +        cmos_rtc_probe = false;
-> > +    else if ( system_state < SYS_STATE_smp_boot && !cmos_rtc_probe )
-> > +        panic("System with no CMOS RTC advertised must be booted from EFI"
-> > +              " (or with command line option \"cmos-rtc-probe\")\n");
+> > +    ASSERT_UNREACHABLE();
+> > +    return "";
+> > +}
 > > +
-> > +    if ( !cmos_probe(&rtc, cmos_rtc_probe) )
-> >          panic("No CMOS RTC found - system must be booted from EFI\n");
-> >  
-> >      return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
+> > +static void __init probe_wallclock(void)
+> > +{
+> > +    ASSERT(wallclock_source == WALLCLOCK_UNSET);
+> > +
+> >      if ( xen_guest )
+> > +    {
+> > +        wallclock_source = WALLCLOCK_XEN;
+> > +        return;
+> > +    }
+> > +    if ( efi_enabled(EFI_RS) && efi_get_time() )
+> > +    {
+> > +        wallclock_source = WALLCLOCK_EFI;
+> > +        return;
+> > +    }
+> > +    if ( cmos_probe() )
+> > +    {
+> > +        wallclock_source = WALLCLOCK_CMOS;
+> > +        return;
+> > +    }
+> > +
+> > +    panic("No usable wallclock found, probed:%s%s%s\n%s",
+> > +          !cmos_rtc_probe && !efi_enabled(EFI_RS) ? " None" : "",
+> > +          cmos_rtc_probe ? " CMOS" : "",
+> > +          efi_enabled(EFI_RS) ? " EFI" : "",
+> > +          !cmos_rtc_probe ? "Try with command line option \"cmos-rtc-probe\"\n"
+> > +           : !efi_enabled(EFI_RS) ? "System must be booted from EFI\n" : "");
 > 
-> Having seen the series up to here (and already by the previous patch) I think
-> I see now where we disagree about the conditional-ness of the probing: I
-> suppose you deem only the 2nd and possible subsequent iterations of the loop
-> in (now) cmos_probe() as "probing", whereas I consider all of what that
-> function now contains as exactly that.
-> 
-> The difference is becoming more pronounced with the subsequent change of
-> preferring CMOS over EFI time: With EFI (with or without ACPI) there never
-> was a guarantee that a CMOS clock would exist. Prior to the introduction of
-> the ACPI_FADT_NO_CMOS_RTC flag the was a de-facto guarantee that PC-like
-> systems would have one. And vendors abusing the flag made us probe, despite
-> the port accesses being problematic until we know there actually is a CMOS
-> (RTC) there. Hence why I was suggesting that there be a way to bypass the
-> CMOS accesses altogether at least when booted from EFI (as is the case
-> right now, just without the need for any user override).
+> This last argument is sufficiently complex that I think it is pretty
+> important for the question marks and colons to respectively align with
+> one another, even if this may mean one or two more lines of code.
 
-With further patches you could use wallclock=efi in order to bypass
-any probing of the CMOS.
+I had it that way originally, but then it seemed the extra
+indentation made it less readable.  Will see how can I adjust it, my
+preference would be for:
 
-Also note that the current logic here still keeps the reading of the
-CMOS limited to when ACPI_FADT_NO_CMOS_RTC is not set or when
-cmos-rtc-probe is present on the command line.
+    panic("No usable wallclock found, probed:%s%s%s\n%s",
+          !cmos_rtc_probe && !efi_enabled(EFI_RS) ? " None" : "",
+          cmos_rtc_probe ? " CMOS" : "",
+          efi_enabled(EFI_RS) ? " EFI" : "",
+          !cmos_rtc_probe ? "Try with command line option \"cmos-rtc-probe\"\n"
+                          : !efi_enabled(EFI_RS) ? "System must be booted from EFI\n"
+                                                 : "");
+
+But that exceeds the 80 columns limit.
 
 Thanks, Roger.
 
