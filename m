@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B97F96B17B
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 08:24:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.789786.1199421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73C3896B18C
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2024 08:27:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.789791.1199432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sljQc-0004Qv-9r; Wed, 04 Sep 2024 06:23:42 +0000
+	id 1sljTr-0005hX-Sp; Wed, 04 Sep 2024 06:27:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 789786.1199421; Wed, 04 Sep 2024 06:23:42 +0000
+Received: by outflank-mailman (output) from mailman id 789791.1199432; Wed, 04 Sep 2024 06:27:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sljQc-0004Oh-74; Wed, 04 Sep 2024 06:23:42 +0000
-Received: by outflank-mailman (input) for mailman id 789786;
- Wed, 04 Sep 2024 06:23:41 +0000
+	id 1sljTr-0005eW-Q1; Wed, 04 Sep 2024 06:27:03 +0000
+Received: by outflank-mailman (input) for mailman id 789791;
+ Wed, 04 Sep 2024 06:27:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sljQb-0004Ob-3g
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 06:23:41 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1sljTq-0005c4-GC
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2024 06:27:02 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3912e411-6a86-11ef-99a1-01e77a169b0f;
- Wed, 04 Sep 2024 08:23:38 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a869f6ce2b9so665782666b.2
- for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 23:23:38 -0700 (PDT)
+ id b0608a9a-6a86-11ef-99a1-01e77a169b0f;
+ Wed, 04 Sep 2024 08:26:59 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-5343617fdddso10626338e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Sep 2024 23:26:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8988fefc12sm764832066b.9.2024.09.03.23.23.37
+ a640c23a62f3a-a8988feb1b8sm770439366b.38.2024.09.03.23.26.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2024 23:23:37 -0700 (PDT)
+ Tue, 03 Sep 2024 23:26:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3912e411-6a86-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: b0608a9a-6a86-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725431018; x=1726035818; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725431218; x=1726036018; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bRshIhVV4j61gpYDTI5rrQ6S57ChOvtlGDRP/A4X3Hw=;
-        b=AiUMxS+g2wUSjJ8/yWTieDvkdt2bjw+M6Luh/VD4OO2Kj4IunIwj4bJ2uueCyfHrHh
-         /aF+d4FdDTqefp4Mj0AnZODGGcCTc9KbPM45xLQgxlvW7G/OXgFyYZFA4BM8gZK37wwX
-         LoQlgdIoiRbceub16pHB8XU5SqHF7LD3udrSQD+86B0YsAezqgaGWwNzAccsia4H1ddy
-         sB6Jh9zjxTvVhxNWbmg6asiJbbAjcg4AkjY7bGyfaY9Ros5Arvgv1Q6IOVj+CEEn8RCt
-         XSHYvKiQo8ybRwiEMhb4qIcSnYP3o9u4YMh81aASPRSNB62wcB/BdKyDkWeCMv6bI0HT
-         9s6g==
+        bh=OKEMCHUAlF0oBWN2DgEo72n1hdvcfXT1zYxJL/ovM/0=;
+        b=IWOE4uDz9knFibm6Llxew6sVxOCour8ZJhOMcGsb7T+rkzKEvyMJhu7xvlhtQN+4i3
+         IN7CmR8VcZGDBT9IRqkqK/arRHd5pX5px8ZC/6DfOS7o9AgQFrCxEKFhAUKl14JONpEm
+         3SVvfbufPn12+POjoriNz2tI8HBPSMWxlbIF7r8By4BhO2IeR97b8hFRm2xshniPBhO+
+         RLAIgHlkg8UBglFNWQcbZrVlgypaY78JN6SHaZO+iYcrw+xLzMFz7nKT3JMfl7cVD6nY
+         EWBEI0/BqHdeZQGJN5SS88bLI3ET/j1h3lWkBaBbSMTY/F6FXzkyNy5JPcXZwvWNIWY1
+         JFQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725431018; x=1726035818;
+        d=1e100.net; s=20230601; t=1725431218; x=1726036018;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bRshIhVV4j61gpYDTI5rrQ6S57ChOvtlGDRP/A4X3Hw=;
-        b=BYrviUERpaaZL2/49U8N+evkcV1oO98EypQ014XeJItbfxfQH7fG9FfsbRTYhm24p1
-         IInP5k0GS078/hMutoWkFznEchSyrhVduWoksLlq5FNx1yt/Vg8eg8qIVBUl8FKzzK3k
-         l9GEVhm2rWfUUqKnacTf3+ymZ4kwLDAfiGLrFxqFJwPsKV4+nGvR/53GO/2VtjGX1/RO
-         yNtnS3eAUbGDGXf2LgnkivGc/mhBRAPYgTj8lTOxesHv+Wi1XOsfuIBSeaVEQiLpI//e
-         u66xOGTe39bnnHwYYyXnzngYJJyDiZnpNXVW5bQQ16XoVYSMPEVKL6l2ri/SaolPKfD1
-         D/Kg==
-X-Forwarded-Encrypted: i=1; AJvYcCW+FTevmiSfpWQXq3t0LcydAvS/1qS3TRVTJe3iAXPH8CPOXnkcvhu+qsf1LlfCjieVQ1jkOLNMjPA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxOym1Kl+e1hYWSCCi84u0AXzSRqFxdxcJS6tNvGuWDpzwYSEhc
-	NOeQvuUk6zqQavsiCJ84OPKH9bp0zF8SD6DpRtuSp+txrXC3fGG3l9qf8bNlGA==
-X-Google-Smtp-Source: AGHT+IELLaJB/x7zeStJ/DEGc2dgmrWDX508ZTNdk8otSrMO7X4A6LDLChi/LI8+Gn5bKjOatL6T2g==
-X-Received: by 2002:a17:907:969e:b0:a7a:ba59:3164 with SMTP id a640c23a62f3a-a8a32f9f203mr241873966b.53.1725431018141;
-        Tue, 03 Sep 2024 23:23:38 -0700 (PDT)
-Message-ID: <c49aa6c5-a416-42d8-880f-efbfea287570@suse.com>
-Date: Wed, 4 Sep 2024 08:23:36 +0200
+        bh=OKEMCHUAlF0oBWN2DgEo72n1hdvcfXT1zYxJL/ovM/0=;
+        b=dz/jQxaV2WFw9JHXvs7WJjsXy69vRboFdaZJ5M57wjsjsAEVKUaaRtZj06AgZSd1l/
+         5/sg+yzxK4x7V0Gqv0p+o5EZ6/JtkqlwwxY6zo8sUeDkkVMhhTp8neGtNA82UZp7/T9i
+         yF4Pq012i3kahk9M1lo3r/dw2MZmKcq0IIP0tH5cGodsfrVGfLtBH5YQ8BZo4hLFWpGq
+         3H7rLS/+KzbeTSQkUzNpJ5nizSs3SYYwVSa03NVIL9HpjO91ddNbbYckO/tkhIkzb1mD
+         t3dj0Q+26D8zgu/nx+bAINJNi+TCWV2UxszJ0tZIR0G3v2Scv6cIJJTFVMUl++R2e9if
+         NtJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXbPTpl1nzYJ7pR8uWp1CoReGmC6pv6tR41cJhXrJ6JjHMr1GoYmL//i9e4Mft/ibTHoVqCT9o3yQw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyDzHx2nMtFu/JWFJPGFqUYGA6MEBLI87c6J4u8Rg46HCOzvbDX
+	WNfn70528bSZOIVJz8ES12LJQKsVjFwNBo+W6KUdg5ZmK9qn3J5nTt/YySRumw==
+X-Google-Smtp-Source: AGHT+IH6VykZBaaxItnToeZ27m7dN3MTxU+eR7eoB+/PGXOWpZ5c18iLxRgoYAhWhhQ/OG2KHbpKJw==
+X-Received: by 2002:a05:651c:1503:b0:2f6:4a89:9afa with SMTP id 38308e7fff4ca-2f64a899d00mr36647971fa.22.1725431218103;
+        Tue, 03 Sep 2024 23:26:58 -0700 (PDT)
+Message-ID: <610f17d8-1399-48df-ace1-b31a848dd265@suse.com>
+Date: Wed, 4 Sep 2024 08:26:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/44] x86/boot: move x86 boot module counting into a
- new boot_info struct
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Christopher Clark <christopher.w.clark@gmail.com>, jason.andryuk@amd.com,
+Subject: Re: [PATCH v4 04/44] x86/boot: move mmap info to boot info
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-2-dpsmith@apertussolutions.com>
- <D3VUFEINDZZJ.3OHX2CEG4T0JU@cloud.com>
+ <20240830214730.1621-5-dpsmith@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,27 +114,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D3VUFEINDZZJ.3OHX2CEG4T0JU@cloud.com>
+In-Reply-To: <20240830214730.1621-5-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.09.2024 15:47, Alejandro Vallejo wrote:
-> On Fri Aug 30, 2024 at 10:46 PM BST, Daniel P. Smith wrote:
->> @@ -309,7 +319,7 @@ void __init discard_initial_images(void)
->>                             start + PAGE_ALIGN(initial_images[i].mod_end));
->>      }
->>  
->> -    nr_initial_images = 0;
->> +    boot_info->nr_mods = 0;
-> 
-> Out of curiosity, why is this required?
+On 30.08.2024 23:46, Daniel P. Smith wrote:
+> --- a/xen/arch/x86/include/asm/bootinfo.h
+> +++ b/xen/arch/x86/include/asm/bootinfo.h
+> @@ -8,11 +8,16 @@
+>  #ifndef __XEN_X86_BOOTINFO_H__
+>  #define __XEN_X86_BOOTINFO_H__
+>  
+> +#include <xen/types.h>
+> +
+>  struct boot_info {
+>      unsigned int nr_mods;
+>  
+>      const char *boot_loader_name;
+>      const char *cmdline;
+> +
+> +    paddr_t mmap_addr;
+> +    uint32_t mmap_length;
 
-Together with ...
-
->>      initial_images = NULL;
-
-... this - to prevent undue access attempts later on. IOW just to be on
-the safe side, aiui.
+Why would this need to be a fixed-width type, unless we went in the direction
+of what Alejandro mentioned in reply to patch 1? IOW at least we want to be
+consistent with which kind of types are used here.
 
 Jan
 
