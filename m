@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0AA496E59A
+	by mail.lfdr.de (Postfix) with ESMTPS id BECC896E599
 	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 00:08:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791411.1201257 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.791413.1201276 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smKeK-0000mT-91; Thu, 05 Sep 2024 22:08:20 +0000
+	id 1smKeL-0001CT-Qb; Thu, 05 Sep 2024 22:08:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791411.1201257; Thu, 05 Sep 2024 22:08:20 +0000
+Received: by outflank-mailman (output) from mailman id 791413.1201276; Thu, 05 Sep 2024 22:08:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smKeK-0000gQ-5I; Thu, 05 Sep 2024 22:08:20 +0000
-Received: by outflank-mailman (input) for mailman id 791411;
- Thu, 05 Sep 2024 22:08:19 +0000
+	id 1smKeL-00017R-J5; Thu, 05 Sep 2024 22:08:21 +0000
+Received: by outflank-mailman (input) for mailman id 791413;
+ Thu, 05 Sep 2024 22:08:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RJQt=QD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1smKeJ-0000d4-Ba
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 22:08:19 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ id 1smKeK-0000d4-Bb
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 22:08:20 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ab4e46e-6bd3-11ef-99a1-01e77a169b0f;
- Fri, 06 Sep 2024 00:08:17 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2f3eabcd293so14937871fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 15:08:17 -0700 (PDT)
+ id 5b4cc098-6bd3-11ef-99a1-01e77a169b0f;
+ Fri, 06 Sep 2024 00:08:18 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-5356aa9a0afso2295014e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 15:08:18 -0700 (PDT)
 Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a6236d020sm187525166b.127.2024.09.05.15.08.15
+ a640c23a62f3a-a8a6236d020sm187525166b.127.2024.09.05.15.08.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Sep 2024 15:08:15 -0700 (PDT)
+ Thu, 05 Sep 2024 15:08:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ab4e46e-6bd3-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 5b4cc098-6bd3-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725574096; x=1726178896; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725574098; x=1726178898; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Y6ymGvYQ1tOTkYL6CVhzUbxQEQbDorO1VPkvnskpwj8=;
-        b=S7kLyRuGtKeOb0Ldu5Ssw7HSPsilll0Urs9bxWw+ywFc+vw2yLcYOmGpmjxlADY8ig
-         537NYYk+HyS15apO7/dtXVRKlrlj12aUftqoJ6lCOsrZMrHvtzw5LR2y7sPsVayuGY2h
-         2SKBf4Wtu2KCZvwO8nNpMuWJFZy87sdilvKS0=
+        bh=nATHuqwrSOYw1vLuBUTAd5OQXfMll/9QK99fmcLPJNA=;
+        b=lsX2dNvrsrKnrM/Tmip1JgDLzD9WxBi/XqnbDx7pwr7cEZ9HsLbnxhDSPaJdBnzsLf
+         h0C0abTPUQZpndsDvNhelL/Sx0rncE/4tWZlbh2thzjw47VJJSBnPMAxOyHKOqM/38dY
+         2+DZ5GMErCHQodm81NJYUweUt7elzoqWyO6bk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725574096; x=1726178896;
+        d=1e100.net; s=20230601; t=1725574098; x=1726178898;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Y6ymGvYQ1tOTkYL6CVhzUbxQEQbDorO1VPkvnskpwj8=;
-        b=Hcu679KlEJn3jfreZBH/T3FxV8ZlNcV7UfZ+W7REgUldFTFKhH3S+/O0gb5RKIXsaL
-         fAC/ik3kAYCmI2jVqy5O0tLWOA13EUY9QwSR72f77DQC/B8RYYL20u/OYRaNZm/BqM3X
-         C7Szf77nYqa7i0DkDRPdvamUzT0GX0m9hp/HjKZi8lL7o3kgNbKnp6jpXFOeJFCOQr+R
-         +MyVhFHi0DLD2/+qEsJ+vgz5i4dqI9yJFdT/HGLcKah9jVPT6n3wJ43GbDc0kpTbKa2K
-         2wESaTjXoRnBIc/MUIjWcMTWhuoK0sJet51lYksDX3Db68RM++aV7DeR9Xi3bPYecDlk
-         JMeg==
-X-Gm-Message-State: AOJu0YyWb2KncPeFSkVWA5vyALK+oid4N0l2qrrpEQJIqMWvDYPNR7uh
-	fdsJU59CGQbwFNvx0yrxV1ba3/5kJ9OL3ko3TmCRCVGUHuga0ZBlGxeSunCvm+0+TUwmGWF4P/4
-	3
-X-Google-Smtp-Source: AGHT+IFcw8pctbt8BaM90sGdB9UwIKjhHJN3ZJ7yUUhXSrdYDg21H+OK+5afl3TNwF7Eo8QS9EOWPA==
-X-Received: by 2002:a05:6512:3b2a:b0:533:d3e:16f5 with SMTP id 2adb3069b0e04-536587fc619mr166203e87.38.1725574095937;
-        Thu, 05 Sep 2024 15:08:15 -0700 (PDT)
+        bh=nATHuqwrSOYw1vLuBUTAd5OQXfMll/9QK99fmcLPJNA=;
+        b=G7h2affOJjqOm1Vu9gR5RU5pcYq7Yb4u++ZbfwpDLgdGJNT5TlsehFovcKPbElZKao
+         A7jvfFvZKEMd7rNJaHZVz+cenByt11WB83DXwpQEix3KUJrfYeHxXWRN/0A8B8yhbwBL
+         Y3qddl9Dox2XJKHVr2lsBXXynVm9iCClCMgLNO9AZFEXz3Mq4CBGB/1ojPcijDkarMGj
+         YRA6vwcnG1SucP+48NEW7gIIdDf2+dK3v5LZGfFiRqHPR5J39OLswVpj8kdk0uie5Nvg
+         HYXFDp/ar6MUmsVUhSnFaDjVgd3BPdIIVzLWJZCTA4hfRD/6c/uYbCyufFpwqlA/p2SW
+         ab+w==
+X-Gm-Message-State: AOJu0Yx7NKbWms5LzqIf1IKk/MehtpRGDeJpiyhnxwKVo60kuSyOlpSi
+	4KcreynVs6oyF/AXn6B1+ymurirmR35P+RbXqcLbYAHob9yrrtr3s/YCzwrvbbv5v7Mh1k2UXuy
+	p
+X-Google-Smtp-Source: AGHT+IFnfWNe/Vn5XlLsBfNZy4sLg4dUFfxNInf0Ty0gLt3Dwei01aCguBoPhfCvv5xzwGwSwfM6Xw==
+X-Received: by 2002:a05:6512:b1e:b0:529:b718:8d00 with SMTP id 2adb3069b0e04-536587a68c7mr361172e87.8.1725574097013;
+        Thu, 05 Sep 2024 15:08:17 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -83,9 +83,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH 1/5] x86/build: Rework includes in genapic/probe.c
-Date: Thu,  5 Sep 2024 23:08:02 +0100
-Message-Id: <20240905220806.141300-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/5] xen/build: Drop unused includes of xen/cache.h
+Date: Thu,  5 Sep 2024 23:08:03 +0100
+Message-Id: <20240905220806.141300-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240905220806.141300-1-andrew.cooper3@citrix.com>
 References: <20240905220806.141300-1-andrew.cooper3@citrix.com>
@@ -93,13 +93,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-probe.c includes a large number of headers which are unused, and not from
-churn so far as I can see in history.  Strip back to a reasonable set.
-
-One complication is that genapic.h has to include xen/cpumask.h because
-there's no way to forward declare a cpumask_t.
-
-Also strip trailing whitespace while adjusting the file.
+None of these are used, not even transitively.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -111,83 +105,82 @@ CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 CC: Bertrand Marquis <bertrand.marquis@arm.com>
 CC: Michal Orzel <michal.orzel@amd.com>
 ---
- xen/arch/x86/genapic/probe.c       | 34 ++++++++++++++----------------
- xen/arch/x86/include/asm/genapic.h |  2 ++
- 2 files changed, 18 insertions(+), 18 deletions(-)
+ xen/arch/x86/bzimage.c               | 1 -
+ xen/arch/x86/dmi_scan.c              | 1 -
+ xen/arch/x86/include/asm/processor.h | 1 -
+ xen/common/decompress.h              | 1 -
+ xen/include/acpi/platform/aclinux.h  | 1 -
+ xen/include/xen/rcupdate.h           | 1 -
+ 6 files changed, 6 deletions(-)
 
-diff --git a/xen/arch/x86/genapic/probe.c b/xen/arch/x86/genapic/probe.c
-index 10ceeae4d247..946c3d3ce364 100644
---- a/xen/arch/x86/genapic/probe.c
-+++ b/xen/arch/x86/genapic/probe.c
-@@ -1,25 +1,23 @@
--/* Copyright 2003 Andi Kleen, SuSE Labs. 
-- * Subject to the GNU Public License, v.2 
-- * 
-+/* Copyright 2003 Andi Kleen, SuSE Labs.
-+ * Subject to the GNU Public License, v.2
-+ *
-  * Generic x86 APIC driver probe layer.
-- */  
--#include <xen/cpumask.h>
--#include <xen/string.h>
--#include <xen/kernel.h>
--#include <xen/ctype.h>
-+ */
-+#include <xen/bug.h>
-+#include <xen/errno.h>
+diff --git a/xen/arch/x86/bzimage.c b/xen/arch/x86/bzimage.c
+index ac4fd428be0e..66f648f311e4 100644
+--- a/xen/arch/x86/bzimage.c
++++ b/xen/arch/x86/bzimage.c
+@@ -1,4 +1,3 @@
+-#include <xen/cache.h>
+ #include <xen/errno.h>
+ #include <xen/lib.h>
+ #include <xen/mm.h>
+diff --git a/xen/arch/x86/dmi_scan.c b/xen/arch/x86/dmi_scan.c
+index 81f80c053a7a..811bf355fba6 100644
+--- a/xen/arch/x86/dmi_scan.c
++++ b/xen/arch/x86/dmi_scan.c
+@@ -3,7 +3,6 @@
+ #include <xen/kernel.h>
+ #include <xen/string.h>
  #include <xen/init.h>
- #include <xen/param.h>
--#include <asm/cache.h>
--#include <asm/fixmap.h>
--#include <asm/mpspec.h>
--#include <asm/apicdef.h>
--#include <asm/mach-generic/mach_apic.h>
--#include <asm/setup.h>
-+#include <xen/sections.h>
-+#include <xen/string.h>
-+#include <xen/types.h>
-+
-+#include <asm/apic.h>
-+#include <asm/genapic.h>
+-#include <xen/cache.h>
+ #include <xen/acpi.h>
+ #include <asm/io.h>
+ #include <asm/system.h>
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index e71dbb8d3fbf..26e2fb13699a 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -5,7 +5,6 @@
+ #define __ASM_X86_PROCESSOR_H
  
- struct genapic __ro_after_init genapic;
+ #ifndef __ASSEMBLY__
+-#include <xen/cache.h>
+ #include <xen/types.h>
+ #include <xen/smp.h>
+ #include <xen/percpu.h>
+diff --git a/xen/common/decompress.h b/xen/common/decompress.h
+index e8195b353a15..4683eb6c7ea1 100644
+--- a/xen/common/decompress.h
++++ b/xen/common/decompress.h
+@@ -1,6 +1,5 @@
+ #ifdef __XEN__
  
- static const struct genapic *const __initconstrel apic_probe[] = {
--	&apic_bigsmp, 
-+	&apic_bigsmp,
- 	&apic_default,	/* must be last */
- 	NULL,
- };
-@@ -57,8 +55,8 @@ static int __init cf_check genapic_apic_force(const char *str)
- }
- custom_param("apic", genapic_apic_force);
+-#include <xen/cache.h>
+ #include <xen/decompress.h>
+ #include <xen/init.h>
+ #include <xen/string.h>
+diff --git a/xen/include/acpi/platform/aclinux.h b/xen/include/acpi/platform/aclinux.h
+index f5e0a6108e0b..a66c2e6d1d8f 100644
+--- a/xen/include/acpi/platform/aclinux.h
++++ b/xen/include/acpi/platform/aclinux.h
+@@ -47,7 +47,6 @@
+ #define ACPI_USE_SYSTEM_CLIBRARY
+ #define ACPI_USE_DO_WHILE_0
  
--void __init generic_apic_probe(void) 
--{ 
-+void __init generic_apic_probe(void)
-+{
- 	int i;
+-#include <xen/cache.h>
+ #include <xen/string.h>
+ #include <xen/kernel.h>
+ #include <xen/ctype.h>
+diff --git a/xen/include/xen/rcupdate.h b/xen/include/xen/rcupdate.h
+index 6f2587058edb..95f4ad81c4a8 100644
+--- a/xen/include/xen/rcupdate.h
++++ b/xen/include/xen/rcupdate.h
+@@ -31,7 +31,6 @@
+ #ifndef __XEN_RCUPDATE_H
+ #define __XEN_RCUPDATE_H
  
- 	record_boot_APIC_mode();
-@@ -75,4 +73,4 @@ void __init generic_apic_probe(void)
- 	BUG_ON(!genapic.name);
- 
- 	printk(KERN_INFO "Using APIC driver %s\n", genapic.name);
--} 
-+}
-diff --git a/xen/arch/x86/include/asm/genapic.h b/xen/arch/x86/include/asm/genapic.h
-index 970df8ffe0a4..a694371c6d16 100644
---- a/xen/arch/x86/include/asm/genapic.h
-+++ b/xen/arch/x86/include/asm/genapic.h
-@@ -1,6 +1,8 @@
- #ifndef _ASM_GENAPIC_H
- #define _ASM_GENAPIC_H 1
- 
-+#include <xen/cpumask.h>
-+
- /*
-  * Generic APIC driver interface.
-  *
+-#include <xen/cache.h>
+ #include <xen/compiler.h>
+ #include <xen/spinlock.h>
+ #include <xen/cpumask.h>
 -- 
 2.39.2
 
