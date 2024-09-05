@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 362CC96D946
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 14:50:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791086.1200858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC7F896D9D3
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 15:07:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791092.1200869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smBvB-0006Rk-HY; Thu, 05 Sep 2024 12:49:09 +0000
+	id 1smCCX-000290-RC; Thu, 05 Sep 2024 13:07:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791086.1200858; Thu, 05 Sep 2024 12:49:09 +0000
+Received: by outflank-mailman (output) from mailman id 791092.1200869; Thu, 05 Sep 2024 13:07:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smBvB-0006Op-Eg; Thu, 05 Sep 2024 12:49:09 +0000
-Received: by outflank-mailman (input) for mailman id 791086;
- Thu, 05 Sep 2024 12:49:08 +0000
+	id 1smCCX-00025r-O6; Thu, 05 Sep 2024 13:07:05 +0000
+Received: by outflank-mailman (input) for mailman id 791092;
+ Thu, 05 Sep 2024 13:07:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5Shi=QD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1smBvA-0006Oj-0i
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 12:49:08 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RJQt=QD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1smCCW-00025l-V1
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 13:07:04 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c008d4b-6b85-11ef-a0b3-8be0dac302b0;
- Thu, 05 Sep 2024 14:49:07 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a80eab3945eso88301566b.1
- for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 05:49:05 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a6205251dsm132485266b.89.2024.09.05.05.49.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Sep 2024 05:49:04 -0700 (PDT)
+ id bec6fc25-6b87-11ef-a0b3-8be0dac302b0;
+ Thu, 05 Sep 2024 15:07:03 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a83562f9be9so82158866b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 06:07:03 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8a61fbb093sm136972766b.11.2024.09.05.06.07.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Sep 2024 06:07:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +45,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c008d4b-6b85-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: bec6fc25-6b87-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725540545; x=1726145345; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4T7XQ/5NeokPlMsqVp0B1kxQfvOJue9VmvYTzUSyxK4=;
-        b=GP3RtFg20WLC3A87eXrpPoxwgOR1MHHVO5Dx8H873GdIUGn5jW2G0rUIwzMd4DnsbB
-         cLLacNUOLztKh5kbIIcFlrMMJYp/a3ghjPhibUt/Qy04G0v4b1y7X2muQdVzGIsvFcp0
-         6nnMe/Y4Rm3jiyXlJn3QChESqY680wv9PfxIkw7S3GcA1HNV1q9EHRxm8kjyd8uHRgZn
-         VI1tKctXyqfL7sz1EYdDwnkswu+fCP/fuGTRZTSc6yRpx0K60wMuhTD0UcfHpoK4mtKk
-         T+x14UBM1JKjQreg9nWZ6nLN8jmQktck0SHNyWxswsKjBzXMRR9vUYRDw9nIiSX4QxIX
-         PdLQ==
+        d=citrix.com; s=google; t=1725541622; x=1726146422; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=AYHuu3XHvUy7/D/FiHxJJ28U6xLGuMlMmkVe5mEwpxY=;
+        b=j4kBloJZA4vh4qvXUguvvAS4FahomYlflxoudjAUz1P0+uaAXSDnB/ejlkigfvMdHq
+         gAgcqEP0wBn3qCLQlKJAw8tJKbpWLOLhuNY/XJI09/0jkQiNmCkrPLJqXS9Mm+Xzi3Es
+         1wZNENi8hxCizXL+etBlFZUSJ5P8o20/XDric=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725540545; x=1726145345;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4T7XQ/5NeokPlMsqVp0B1kxQfvOJue9VmvYTzUSyxK4=;
-        b=CmAESw4jqTVn9loEe4UrrS++aLRNfGz7wUnpjoJtQyh774OdgSbhPrkDc90yLyqQSB
-         qO5Sby9jwQm2ZL+HGWSa1xAUnwC7wByoNg5wpdwg4P22M3U/vYhlBUWs3wUGawUFingX
-         3zCwSWG75kmHs+VNb4XPSOY4awa8FUn3B5sVuFwi1Wxjv/gERM1kdWxFB7LGLV67cWfa
-         r8bkx1IYZjIq7YlSeFKXKbyfBLc5A1SNPTJOcHk3ehjJhD0rmWu8wFOpDRypidPPQmH4
-         ZxiTaDS+cZThjcbUpNPEbBBBq+xsCrSgswz05hXPxsP29eCF9KlWmtWVk26wohkcVaFq
-         wFsg==
-X-Forwarded-Encrypted: i=1; AJvYcCV4Ox0rm8nKjE/rIno4daDSVHxhZg46njTU26/dlnfEf5KX2wmgkP1P25imNpGnMsQWGLo4h5iKBOA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwaTKogbYogRAOz2z3QX3o9iNopbU0nma64EGjrXoMYauVZBo9h
-	SUIkRxLazvPGHNAq8tXc4pvZXgrB2NvsygTQNj5THTCLUGUVmlJ9B/FhE0AzGQ==
-X-Google-Smtp-Source: AGHT+IHX3cQANtEo3BZ3Fo88PbvMu+z3dJBc9ZXRBmwWAOeDOyd2pK/3Wlz1JWxVDwHqiRBO0SLYAQ==
-X-Received: by 2002:a17:907:9723:b0:a86:88f7:679c with SMTP id a640c23a62f3a-a89a37a7ff3mr1330693066b.41.1725540544830;
-        Thu, 05 Sep 2024 05:49:04 -0700 (PDT)
-Message-ID: <238640ef-5dd2-4f62-b7c4-4ad892882bb8@suse.com>
-Date: Thu, 5 Sep 2024 14:49:03 +0200
+        d=1e100.net; s=20230601; t=1725541622; x=1726146422;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AYHuu3XHvUy7/D/FiHxJJ28U6xLGuMlMmkVe5mEwpxY=;
+        b=d0wb12lxWS6/2BHwZ2vP2t9PPNLacI8mPFL/tHbibNWy48Ajj62mTzyCZfvNVBeRQb
+         DRaKKEMX45Q0M+EUCtahZ5cfloJ9mqvP8SNxrHWSyMpOvObyDHDZ/6Y20GH+spefJdqy
+         3qRqaW8Yj2SIwbEVsWAVMSTxvo8Cx03HtHgz8jQ+vvPmGwQFHXJOymy+FcOoN0BLay7L
+         oKEkwrHigSXI74ANxEbKvM6aVwgsVyzvMWVhNB3xSQDcE7DLXHOtgzTawokig9MPa+6x
+         0YXs6vEr0OzFX3TF3OFWyQkIF5+Vxz9JzOgr40C1US57bCOY3Kbpo0PqbRoAAkQWCNeD
+         cSmg==
+X-Gm-Message-State: AOJu0YziKK9d95mCl+mbJCcsRMPDX/O429HHAHJXSM+nCXhC86P5psE5
+	5V2uBxUUNQE1IVgPupOQzG3Wx7EotDTxuPwgpy1Byq3rOg9eeIlqItgtn2cuOPM1wPcxAvD02Sy
+	9
+X-Google-Smtp-Source: AGHT+IHV29H6HBnrjCp0EQqVQSUo/SgywRHMRByIfjHwwyk1zpFwN5YPuEOeGntzrrLrWm6tAuLmpQ==
+X-Received: by 2002:a17:907:7e98:b0:a7a:97ca:3059 with SMTP id a640c23a62f3a-a89b9568fb7mr1261913966b.34.1725541622025;
+        Thu, 05 Sep 2024 06:07:02 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: [PATCH 0/3] x86/trampoline: Header cleanup
+Date: Thu,  5 Sep 2024 14:06:54 +0100
+Message-Id: <20240905130657.4075906-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] x86/xstate: enable AMX components
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Matthew Barnes <matthew.barnes@cloud.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <8824b408-b27f-44ed-add1-87282e4d40af@suse.com>
- <386d3d78-5cd0-42bb-9ba5-19e7b455d1ea@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <386d3d78-5cd0-42bb-9ba5-19e7b455d1ea@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05.09.2024 14:21, Andrew Cooper wrote:
-> On 05/09/2024 12:36 pm, Jan Beulich wrote:
->> These being controlled by XCR0, enabling support is relatively
->> straightforward. Note however that there won't be any use of them until
->> their dependent ISA extension CPUID flags are exposed, not the least due
->> to recalculate_xstate() handling the dependencies in kind of a reverse
->> manner.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+This started while inspecting a preprossed file for bitops, but it turns out
+is relevant for Frediano's 32bit boot code changes too.
 
-Thanks.
+Its header file juggling, and documentation with observations relevant to both
+the ASI and Host UEFI Secureboot work, hence the extended CC list.
 
-> It might be worth noting that xstate_check_sizes() already probes AMX_TILE?
+Andrew Cooper (3):
+  x86/acpi: Drop acpi_video_flags and use bootsym(video_flags) directly
+  x86/trampoline: Move the trampoline declarations out of <asm/config.h>
+  x86/trampoline: Collect other scattered trampoline symbols
 
-I've added a sentence.
+ xen/arch/x86/acpi/power.c             |   4 +-
+ xen/arch/x86/cpu/intel.c              |   2 +
+ xen/arch/x86/dmi_scan.c               |  12 ---
+ xen/arch/x86/efi/efi-boot.h           |   4 +-
+ xen/arch/x86/guest/xen/pvh-boot.c     |   1 +
+ xen/arch/x86/include/asm/acpi.h       |   1 -
+ xen/arch/x86/include/asm/config.h     |  19 ----
+ xen/arch/x86/include/asm/processor.h  |   2 -
+ xen/arch/x86/include/asm/setup.h      |   2 -
+ xen/arch/x86/include/asm/trampoline.h | 120 ++++++++++++++++++++++++++
+ xen/arch/x86/mm.c                     |   1 +
+ xen/arch/x86/platform_hypercall.c     |   2 +
+ xen/arch/x86/setup.c                  |   1 +
+ xen/arch/x86/smpboot.c                |   1 +
+ xen/arch/x86/tboot.c                  |   2 +
+ xen/arch/x86/x86_64/mm.c              |   2 +
+ 16 files changed, 136 insertions(+), 40 deletions(-)
+ create mode 100644 xen/arch/x86/include/asm/trampoline.h
 
-> For future xstates, I'd expect matching updates to recalculate_xstate()
-> and xstate_check_sizes().
 
-Indeed that's how the somewhat similar APX patch has it that's yet to
-be posted.
+base-commit: a2de7dc4d845738e734b10fce6550c89c6b1092c
+-- 
+2.39.2
 
->> ---
->> Intended to replace part of (and go beyond) "x86/cpufeatures: Add new
->> cpuid features in SPR to featureset".
-> 
-> Matt is OoO for a while.  Given this interaction was the only concern,
-> I'll probably rebase the feature patch and commit it.
-
-Fine with me.
-
-Jan
 
