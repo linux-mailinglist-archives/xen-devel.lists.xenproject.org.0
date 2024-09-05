@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AFF596D4C1
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 11:56:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790986.1200741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 121B596D57A
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 12:06:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790990.1200752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sm9DG-0001YC-PK; Thu, 05 Sep 2024 09:55:38 +0000
+	id 1sm9NN-00041F-NJ; Thu, 05 Sep 2024 10:06:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790986.1200741; Thu, 05 Sep 2024 09:55:38 +0000
+Received: by outflank-mailman (output) from mailman id 790990.1200752; Thu, 05 Sep 2024 10:06:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sm9DG-0001WC-Mj; Thu, 05 Sep 2024 09:55:38 +0000
-Received: by outflank-mailman (input) for mailman id 790986;
- Thu, 05 Sep 2024 09:55:37 +0000
+	id 1sm9NN-0003y3-K8; Thu, 05 Sep 2024 10:06:05 +0000
+Received: by outflank-mailman (input) for mailman id 790990;
+ Thu, 05 Sep 2024 10:06:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Shi=QD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sm9DF-0001W5-1E
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 09:55:37 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ id 1sm9NL-0003xw-SS
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 10:06:03 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff2fdfca-6b6c-11ef-a0b3-8be0dac302b0;
- Thu, 05 Sep 2024 11:55:35 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2f502086419so7715411fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 02:55:35 -0700 (PDT)
+ id 74635391-6b6e-11ef-a0b3-8be0dac302b0;
+ Thu, 05 Sep 2024 12:06:01 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a83562f9be9so63354066b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 03:06:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3cc699e68sm1010926a12.62.2024.09.05.02.55.33
+ a640c23a62f3a-a8a62038d8bsm113906766b.64.2024.09.05.03.06.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Sep 2024 02:55:33 -0700 (PDT)
+ Thu, 05 Sep 2024 03:06:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff2fdfca-6b6c-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: 74635391-6b6e-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725530135; x=1726134935; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725530761; x=1726135561; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EmjLVAtNJbN6aDw8jfGE9gAya5PI860JO+nqmwI/OFs=;
-        b=b5JxCDqhtJRPshHLX4+QRx5wupeJ7o0rczwEzsV12R2QBjWzPMXWsO1upET9ulRRfW
-         EJ3E//MsNKtDwm8n/Sj/UIuSoWCxMcmXT3eHO1VbAf50K/49NFh6n6q1s+wgkoyTarJU
-         k+BtKjvxopbosnIiMYHoNtCDfLyT2d9FxgsG4xE+T9gC86ZQ07t++W8OcxdIG6QEHsWT
-         3SGqGwJHUnMVk4jlGqNNax6LRfwbyF5sy8Hi0JUG9NuMhM0C3qAcrgNNUB/66x2f9neg
-         JfJaMW5NpwyK6BdyM68CSHD/utgWDLRXFt83zfIjac5H0Sfr2G3fnh3XINfuzZppE3w/
-         5WJw==
+        bh=KQi8FufrFwKjK3qZwC1toUd8MxtMT7YRCp62OH8+hZw=;
+        b=Wcy0Y9VS+tZMXVHkU2Z2GRflU6EAs4DJ2ltahVGkJPivxXwFG5hxKIoqRAMV52tvr5
+         LZWuaCh9Yx8KVkQ+X+yXq+awYWHvtO7n83zOPVYvWcUuJLXvPYe8mQvYoY2Rg7VJaBU5
+         xSBj+vLq4dre1QRNtodHDojskYSDSSm4+zW5uL1whpLl3aH1j3oCku16WfsXTOnEwD4m
+         I35k815ziu5+eOz4Zr8H5JaI686FMlpDx0yASRbdrCJS6y6tcSzEcRsuD3woLaJSFgHZ
+         8Z9YSJoZeIUlhGkc+mjMcH64V/7XF6NQ/uKJIjsq11trpDiG2l+eeeh7BV9EKkiyRBYK
+         bvYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725530135; x=1726134935;
+        d=1e100.net; s=20230601; t=1725530761; x=1726135561;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EmjLVAtNJbN6aDw8jfGE9gAya5PI860JO+nqmwI/OFs=;
-        b=d4jIQQOtC/Amaz8BCRYNoETHIu48PCLIWEsUX3Dl3OdrgSoFy8ibhktVF1wecr6+qA
-         spbjoMwnMlGCdMMniCFKMxKt9mN9+u1Eqfe273/AM0PpmXkibL93wUePRd/dKfn0yaSD
-         e4WA/+87Oykk35iJy5jYsA1N6E2BuPWmJOwTypAZHtbAD55re/58IlZvh866tgGXh0GD
-         a8EBofuwRn4Mz1SnfbDYj55/V8y+trHOSvnHe+Eq2cixCSea8976J+5omTq2u253N1Zq
-         yZnUn4LI2bRP9dPbSwc9GueixOxv9sAhSxFNp56CaSEaGVhY6ZWi25FS55KtGF2SPGW9
-         CHQQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWwS7M++N4DmRT6ZdlLzy9pPg+HkbJCBqk2Vjuc9Q4LYG5MDsU5r7hRvvA2saZKuFeHcLZfP5K2GCo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx7KBivGATm9DlLcEdPul+pQIVjkFwv7WEHhq9f7EzTG2hxLvsr
-	Tq59RW8DgtzR5O2hQcJIBUrkFiG+enbxAMh6wqbKlxcQ4BKOGlZA0JOfddOINk4fiQ9Bnufo8uQ
-	=
-X-Google-Smtp-Source: AGHT+IFZ70utS0PV1ujFf8Uto8e5Ewur9Ys5dxzzfLQPmVvCzgFT2l4VeeUU+13HfqdBxLjpogCvVg==
-X-Received: by 2002:a2e:752:0:b0:2ee:4c66:6828 with SMTP id 38308e7fff4ca-2f64441f272mr58903041fa.24.1725530134648;
-        Thu, 05 Sep 2024 02:55:34 -0700 (PDT)
-Message-ID: <2cc9a2a1-61df-420a-9b50-d6e96a6fd162@suse.com>
-Date: Thu, 5 Sep 2024 11:55:32 +0200
+        bh=KQi8FufrFwKjK3qZwC1toUd8MxtMT7YRCp62OH8+hZw=;
+        b=MbZMBNuxzuHewBXOZCD7i4dJT1Bzvw8IqlIu55gEl1dXETeHHh0nVpNVXj2sEjkG0P
+         Au9ZNPstP9b/0QAQyNXX3i4WDWOcSjWrh2SKNBNR2MHYNwNkWFvVrisxHlyz/b90zD/K
+         sIoYkLL0GZcqZyw0nU507ILNxL8RSiB/Lligfosc9rvVPk4vjZ7rI/oqLwVl9s3Nae9o
+         oUyfl7WfiNbwLp+rhTlBEqNcHJUaSyQQa56gvjouUYDhUt6wp2g2km/vX8S1q+YsMn3o
+         kgh6/Gp6C7mdSWBAPTUaRBS1HJXm3ZlnZqWuRpQSnOzgFeIyRJgReQJXeBgB9sCM/xk2
+         +oRw==
+X-Forwarded-Encrypted: i=1; AJvYcCUu28xn++Egj9XKjau3YwM5Hhm6uyKHHNXRtHiA0MWweeGdHSywyQ5+UWYkNiSl4IPNfzoLy4Tsgt8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YydEJNRddL1iM2lpda9+aBB6wkB8B3ccUe8nU+WfvvGZNhIMkJh
+	WWUFgQWHH89kEwzEDMSpQrkytAQDiurHfYN2r/4C1OcjQYtiHgh0GU5CzZ3oCA==
+X-Google-Smtp-Source: AGHT+IFMHbychKWnsiI2mGz/piR4DM33aWt5nI4OKn60BLL7QSpUKvSCBsYfWizoTf1KK4ePmqGcvg==
+X-Received: by 2002:a17:906:6a1e:b0:a86:83f8:f5a2 with SMTP id a640c23a62f3a-a89b94cef24mr1523553766b.19.1725530760897;
+        Thu, 05 Sep 2024 03:06:00 -0700 (PDT)
+Message-ID: <2712db86-b9c5-4bce-b4d1-422c46e70959@suse.com>
+Date: Thu, 5 Sep 2024 12:05:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] x86/bitops: Use the POPCNT instruction when
- available
+Subject: Re: [PATCH v3 1/5] xen/bitops: Reinstate the please tidy message
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240904225530.3888315-1-andrew.cooper3@citrix.com>
- <20240904225530.3888315-6-andrew.cooper3@citrix.com>
+ <20240904225530.3888315-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,26 +118,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240904225530.3888315-6-andrew.cooper3@citrix.com>
+In-Reply-To: <20240904225530.3888315-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 05.09.2024 00:55, Andrew Cooper wrote:
-> It has existed in x86 CPUs since 2008, so we're only 16 years late adding
-> support.  With all the other scafolding in place, implement arch_hweightl()
-> for x86.
-> 
-> The only complication is that the call to arch_generic_hweightl() is behind
-> the compilers back.  Address this by writing it in ASM and ensure that it
-> preserves all registers.
-> 
-> Copy the code generation from generic_hweightl().  It's not a complicated
-> algorithm, and is easy to regenerate if needs be, but cover it with the same
-> unit tests as test_generic_hweightl() just for piece of mind.
+> Recent additions have undone prior tidying at the top of the file.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Looks like despite not getting any ack (nor comments) for this in earlier
+rounds, you still want to keep it and you don't want to re-base subsequent
+changes ahead. Which is a pity; I hoped I'd get around opening up another
+controversy here. I'm afraid I disagree with the underlying thinking in
+this particular case, or perhaps better with what I assume the underlying
+thinking is. First: What is it that was undone? I can't spot it.
 
+> --- a/xen/include/xen/bitops.h
+> +++ b/xen/include/xen/bitops.h
+> @@ -210,6 +210,8 @@ static always_inline bool test_bit(int nr, const volatile void *addr)
+>      test_bit(nr, addr);                                 \
+>  })
+>  
+> +/* --------------------- Please tidy above here --------------------- */
+> +
+>  static always_inline attr_const unsigned int ffs(unsigned int x)
+>  {
+>      if ( __builtin_constant_p(x) )
 
+Second: How is the code above that marker any better or worse than the code
+below the marker? (There are differences, yet that alone doesn't make the
+earlier code untidy.)
+
+Taken together: If you really think we need such markers, I'm afraid they
+need to come with at least an outline of what wants tidying in which way.
+Unless that's (sufficiently) obvious, like imo it is with the somewhat
+similar (in intentions) marker in msr-index.h.
+
+Without it being clear what wants doing, I think such markers would better
+be omitted.
+
+Jan
 
