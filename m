@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 374CF96E5E5
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 00:52:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791445.1201311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F69F96E5FF
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 00:56:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791449.1201320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smLKP-0004tE-Jx; Thu, 05 Sep 2024 22:51:49 +0000
+	id 1smLOC-0005Ss-5O; Thu, 05 Sep 2024 22:55:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791445.1201311; Thu, 05 Sep 2024 22:51:49 +0000
+Received: by outflank-mailman (output) from mailman id 791449.1201320; Thu, 05 Sep 2024 22:55:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smLKP-0004q4-HB; Thu, 05 Sep 2024 22:51:49 +0000
-Received: by outflank-mailman (input) for mailman id 791445;
- Thu, 05 Sep 2024 22:51:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1smLOC-0005Pi-1G; Thu, 05 Sep 2024 22:55:44 +0000
+Received: by outflank-mailman (input) for mailman id 791449;
+ Thu, 05 Sep 2024 22:55:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KMVQ=QD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1smLKO-0004pw-3i
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 22:51:48 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6d2dc1ca-6bd9-11ef-a0b4-8be0dac302b0;
- Fri, 06 Sep 2024 00:51:46 +0200 (CEST)
+ id 1smLOA-0005Pc-Mp
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 22:55:42 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f87a6b8d-6bd9-11ef-99a1-01e77a169b0f;
+ Fri, 06 Sep 2024 00:55:40 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id B3959A436AC;
- Thu,  5 Sep 2024 22:51:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35D7EC4CEC3;
- Thu,  5 Sep 2024 22:51:42 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 0D0AD5C5710;
+ Thu,  5 Sep 2024 22:55:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0D23C4CEC3;
+ Thu,  5 Sep 2024 22:55:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,180 +41,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d2dc1ca-6bd9-11ef-a0b4-8be0dac302b0
+X-Inumbo-ID: f87a6b8d-6bd9-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725576704;
-	bh=qqOhDAb9+rm7BM5Qt7gj4mH6mmA3ePBI0CRCAaBwU+U=;
+	s=k20201202; t=1725576938;
+	bh=3X1sDSdjAIEnCQMJUrbaUlXnB2RjM9C7ixdzq1SHHG0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DLYsIQVAfRNDW6PuLOF1NdQ8bvzBMqAfJ5ags6KRptItX6h5DSWUGpq/kmsFYJNIl
-	 FZQr/cA9nSJAWMzqTrPRFV2CdyQ1ppBUtAvirFiTOzThFq3sB9DjUejEl5LqlOrFSv
-	 zI62hEHVpyvO1VI8pl3HRhF9nKhdpasYr8REUyLLweb/eSOYlURmVQe9Ca2noytKgQ
-	 bseKX5nsxSMxW2hCcNR3ewNgo8859OI6vGv0TUIygM0A3pIGujvVq4KDdlhVbR7o9G
-	 Oo2yivOr1tOCIOnQISQxq1Xk1ohBiJOkQPXUTPfRnRqTVr1D8hmZ306W4Jwe8xrrgw
-	 0xUYldWtFW6pw==
-Date: Thu, 5 Sep 2024 15:51:40 -0700 (PDT)
+	b=dH7iyBp2piLYyIimbLog2xerAcdoRgi1Pxpe2mXyA7BVFfS7JGo9j2S2EwZjFpzg6
+	 qVrbAmdvb4yIFPWChqg6MBQhiwJGofRmqejosaMzIGgWc9nq3Afi/JJD75aTe9mnxl
+	 ygOSGQ0+WEnkcmes+Orh+vdnm2+P1tSUhxTZxTQXBcOVtaYfEFw01VRW/HUQatFbmF
+	 cpLWyigqjc1bsprrGD972cbkZlxEKJCYu7+G2+lKeNSVAZc7DSBubUj5i5Hkg6tmHy
+	 jjO4LCHJz2zhFTv7renJrEWkuL8vFLPzOUeEp0fJZyuL2rdTwNWv4aMF+hSet61LTk
+	 PdaZjTX5KpqdA==
+Date: Thu, 5 Sep 2024 15:55:35 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
-    George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>, 
-    Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>, 
-    "Daniel P . Smith" <dpsmith@apertussolutions.com>, 
-    "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, 
-    "Huang, Ray" <Ray.Huang@amd.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [XEN PATCH v14 2/5] x86/pvh: Allow (un)map_pirq when dom0 is
- PVH
-In-Reply-To: <f6a1f021-04cc-4dd3-bcea-97a7343399e1@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2409051521340.53815@ubuntu-linux-20-04-desktop>
-References: <20240903070424.982218-1-Jiqian.Chen@amd.com> <20240903070424.982218-3-Jiqian.Chen@amd.com> <e8db9a54-fcbf-4f4c-803e-7b11838e22a4@suse.com> <BL1PR12MB5849C65CAC35890158F6A32FE7932@BL1PR12MB5849.namprd12.prod.outlook.com>
- <905fe9ef-d311-4956-b862-49f2f588afcd@suse.com> <BL1PR12MB58492EE11D404B2E09DA0210E7932@BL1PR12MB5849.namprd12.prod.outlook.com> <b2b7b716-974c-4172-ba68-261453a96932@suse.com> <alpine.DEB.2.22.394.2409031839550.53815@ubuntu-linux-20-04-desktop>
- <ea41eb5d-f8a1-4120-b5c1-70bdf02d8038@suse.com> <BL1PR12MB5849E69A83D4BABAF544C22EE79D2@BL1PR12MB5849.namprd12.prod.outlook.com> <f6a1f021-04cc-4dd3-bcea-97a7343399e1@suse.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>
+Subject: Re: [XEN PATCH] automation/eclair_analysis: address violations of
+ Rule 18.2
+In-Reply-To: <e36f121a91d229ca5edfc8102c4513c2e0530230.1725554126.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2409051554570.53815@ubuntu-linux-20-04-desktop>
+References: <e36f121a91d229ca5edfc8102c4513c2e0530230.1725554126.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 5 Sep 2024, Jan Beulich wrote:
-> On 05.09.2024 08:45, Chen, Jiqian wrote:
-> > HI,
-> > 
-> > On 2024/9/4 14:04, Jan Beulich wrote:
-> >> On 04.09.2024 03:43, Stefano Stabellini wrote:
-> >>> On Tue, 3 Sep 2024, Jan Beulich wrote:
-> >>>> On 03.09.2024 12:53, Chen, Jiqian wrote:
-> >>>>> On 2024/9/3 17:25, Jan Beulich wrote:
-> >>>>>> On 03.09.2024 09:58, Chen, Jiqian wrote:
-> >>>>>>> On 2024/9/3 15:42, Jan Beulich wrote:
-> >>>>>>>> On 03.09.2024 09:04, Jiqian Chen wrote:
-> >>>>>>>>> When dom0 is PVH type and passthrough a device to HVM domU, Qemu code
-> >>>>>>>>> xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
-> >>>>>>>>> xc_physdev_map_pirq map a pirq for passthrough devices.
-> >>>>>>>>> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
-> >>>>>>>>> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
-> >>>>>>>>> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
-> >>>>>>>>> codes.
-> >>>>>>>>>
-> >>>>>>>>> But it is fine to map interrupts through pirq to a HVM domain whose
-> >>>>>>>>> XENFEAT_hvm_pirqs is not enabled. Because pirq field is used as a way to
-> >>>>>>>>> reference interrupts and it is just the way for the device model to
-> >>>>>>>>> identify which interrupt should be mapped to which domain, however
-> >>>>>>>>> has_pirq() is just to check if HVM domains route interrupts from
-> >>>>>>>>> devices(emulated or passthrough) through event channel, so, the has_pirq()
-> >>>>>>>>> check should not be applied to the PHYSDEVOP_map_pirq issued by dom0.
-> >>>>>>>>>
-> >>>>>>>>> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
-> >>>>>>>>> PHYSDEVOP_unmap_pirq for the removal device path to unmap pirq. Then the
-> >>>>>>>>> interrupt of a passthrough device can be successfully mapped to pirq for domU.
-> >>>>>>>>
-> >>>>>>>> As before: When you talk about just Dom0, ...
-> >>>>>>>>
-> >>>>>>>>> --- a/xen/arch/x86/hvm/hypercall.c
-> >>>>>>>>> +++ b/xen/arch/x86/hvm/hypercall.c
-> >>>>>>>>> @@ -73,6 +73,8 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-> >>>>>>>>>      {
-> >>>>>>>>>      case PHYSDEVOP_map_pirq:
-> >>>>>>>>>      case PHYSDEVOP_unmap_pirq:
-> >>>>>>>>> +        break;
-> >>>>>>>>> +
-> >>>>>>>>>      case PHYSDEVOP_eoi:
-> >>>>>>>>>      case PHYSDEVOP_irq_status_query:
-> >>>>>>>>>      case PHYSDEVOP_get_free_pirq:
-> >>>>>>>>
-> >>>>>>>> ... that ought to match the code. IOW you've again lost why it is okay(ish)
-> >>>>>>>> (or even necessary) to also permit the op for non-Dom0 (e.g. a PVH stubdom).
-> >>>>>>>> Similarly imo Dom0 using this on itself wants discussing.
-> >>>>>>> Do you mean I need to talk about why permit this op for all HVM
-> >>>>>>
-> >>>>>> You don't need to invent reasons, but it needs making clear that wider than
-> >>>>>> necessary (for your purpose) exposure is at least not going to be a problem.
-> >>>>>>
-> >>>>>>> and  where can prevent PVH domain calling this for self-mapping, not only dom0?
-> >>>>>>
-> >>>>>> Aiui use on itself is limited to Dom0, so only that would need clarifying
-> >>>>>> (along the lines of the above, i.e. that/why it is not a problem). For
-> >>>>>> has_pirq() domains use on oneself was already permitted before.
-> >>>>>
-> >>>>> Changed commit message to below. Please check and that will be great helpful if you would show me how to modify it.
-> >>>>> {
-> >>>>> x86/pvh: Allow (un)map_pirq when dom0 is PVH
-> >>>>>
-> >>>>> Problem: when dom0 is PVH type and passthrough a device to HVM domU, Qemu
-> >>>>> code xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
-> >>>>> xc_physdev_map_pirq map a pirq for passthrough devices.
-> >>>>> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
-> >>>>> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
-> >>>>> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
-> >>>>> codes.
-> >>>>>
-> >>>>> To solve above problem, need to remove the chack has_pirq() for that
-> >>>>> situation(PHYSDEVOP_map_pirq is issued by dom0 for domUs). But without
-> >>>>> adding other restrictions, PHYSDEVOP_map_pirq will be allowed wider than
-> >>>>> what the problem need.
-> >>>>> So, clarify below:
-> >>>>>
-> >>>>> For HVM domUs whose XENFEAT_hvm_pirqs is not enabled,it is fine to map
-> >>>>> interrupts through pirq for them. Because pirq field is used as a way to
-> >>>>> reference interrupts and it is just the way for the device model to
-> >>>>> identify which interrupt should be mapped to which domain, however
-> >>>>> has_pirq() is just to check if HVM domains route interrupts from
-> >>>>> devices(emulated or passthrough) through event channel, so, remove
-> >>>>> has_pirq() check has no impact on HVM domUs.
-> >>>>>
-> >>>>> For PVH domUs that performs such an operation will fail at the check
-> >>>>> xsm_map_dedomain_pirq() in physdev_map-nirq().
-> >>>>>
-> >>>>> For PVH dom0, it uses vpci and doesn't use event channel, as above talks,
-> >>>>> it also has no impact.
-> >>>>> }
-> >>>>
-> >>>> This is better than what you had before, and I don't really fancy re-
-> >>>> writing the description effectively from scratch. So let's just go from
-> >>>> there. As to the "excess" permission for the sub-ops: The main thing I'm
-> >>>> after is that it be clarified that we're not going to introduce any
-> >>>> security issues here. That requires auditing the code, and merely saying
-> >>>> "also has no impact" is a little too little for my taste. For Dom0 an
-> >>>> argument may be that it is overly powerful already anyway, even if for
-> >>>> PVH we're a little more strict than for PV (I think).
-> >>>
-> >>> Hi Jan, for clarity and to make this actionable, are you suggesting to
-> >>> clarify the commit message by adding wording around "Dom0 is overly
-> >>> powerful already anyway so it is OK so this is OK" ?
-> >>
-> >> Yes, perhaps with "deemed" added. 
-> > OK, for PVH dom0, I will change to " Dom0 is deemed overly powerful already anyway, so it is OK "
+On Thu, 5 Sep 2024, Nicola Vetrini wrote:
+> MISRA C Rule 18.2 states: "Subtraction between pointers shall
+> only be applied to pointers that address elements of the same array".
 > 
-> I don't mind the deemed as you add it, but the important place to add it
-> here is before "OK". I'm sorry, it didn't occur to me that after all the
-> prior discussion this earlier reply of mine could still be mis-interpreted.
+> Subtractions between pointer where at least one symbol is a
+> symbol defined by the linker are safe and thus deviated, because
+> the compiler cannot exploit the undefined behaviour that would
+> arise from violating the rules in this case.
 > 
-> >> And text for DomU-s similarly extended, as the pointing at the XSM check is presently incomplete (stubdom-s can
-> >> pass that check, after all, as can de-priv qemu running in Dom0).
-> > So sorry, I know so little about this, I can't explain these situations, could you tell me how to describe or help me write a paragraph?
+> To create an ECLAIR configuration that contains the list of
+> linker-defined symbols, the script "linker-symbols.sh" is used
+> after a build of xen (without static analysis) is performed.
+> The generated file "linker_symbols.ecl" is then used as part of the
+> static analysis configuration.
 > 
-> I'm afraid that in order to make (propose) such a change you need to be
-> able to explain why it is okay to expose functionality beyond where it's
-> presently exposed. It's not just writing a new paragraph that's needed
-> here. You first need to _check_ that what you do is okay. And once you've
-> done that checking, you then summarize that in writing.
- 
+> Additional changes to the ECLAIR integration are:
+> - perform a build of xen without static analysis during prepare.sh
+> - run the scripts to generated ECL configuration during the prepare.sh,
+>   rather than analysis.sh
+> - export ECLAIR_PROJECT_ROOT earlier, to allow such generation
+> 
+> Additionally, the macro page_to_mfn performs a subtraction that is safe,
+> so its uses are deviated.
+> 
+> No functional changes.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-PHYSDEVOP_map_pirq ends up calling physdev_map_pirq which is protected
-by:
+Very nice!
 
-    ret = xsm_map_domain_pirq(XSM_DM_PRIV, d);
-    if ( ret )
-        return ret;
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Dom0 having permission to do PHYSDEVOP_map_pirq even without has_pirq is
-fine. Device models are also OK because the code we are trying to enable
-is in fact part of the device model. If someone were to run an HVM
-stubdom they might need this patch as well.
 
-If PHYSDEVOP_map_pirq is allowed, also PHYSDEVOP_unmap_pirq should be
-allowed.
-
-Is this explanation OK?
+> ---
+> Macro page_to_pdx is also the cause of some caution reports:
+> perhaps that should be deviated as well, since its definition is very
+> similar to page_to_mfn.
+> 
+> Relevant CI runs:
+> 
+> - arm64: https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/ARM64/7754928624/PROJECT.ecd;/by_service/MC3R1.R18.2.html
+> 
+> - x86_64: https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/X86_64/7754928613/PROJECT.ecd;/by_service/MC3R1.R18.2.html
+> - x86_64 (without page_to_pdx reports): https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/X86_64/7754928613/PROJECT.ecd;/by_service/MC3R1.R18.2.html#{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":false,"selector":{"enabled":true,"negated":false,"kind":0,"domain":"message","inputs":[{"enabled":true,"text":"^.*expanded from macro `page_to_pdx'"}]}}}
+> ---
+>  automation/eclair_analysis/ECLAIR/analyze.sh  |  6 ----
+>  .../eclair_analysis/ECLAIR/deviations.ecl     | 11 +++++++
+>  .../eclair_analysis/ECLAIR/generate_ecl.sh    |  3 ++
+>  .../ECLAIR/generate_linker_symbols.sh         | 31 +++++++++++++++++++
+>  automation/eclair_analysis/prepare.sh         |  6 +++-
+>  automation/scripts/eclair                     |  3 ++
+>  docs/misra/deviations.rst                     | 10 ++++++
+>  7 files changed, 63 insertions(+), 7 deletions(-)
+>  create mode 100755 automation/eclair_analysis/ECLAIR/generate_linker_symbols.sh
+> 
+> diff --git a/automation/eclair_analysis/ECLAIR/analyze.sh b/automation/eclair_analysis/ECLAIR/analyze.sh
+> index e96456c3c18d..1dc63c1bc2d0 100755
+> --- a/automation/eclair_analysis/ECLAIR/analyze.sh
+> +++ b/automation/eclair_analysis/ECLAIR/analyze.sh
+> @@ -73,17 +73,11 @@ export ECLAIR_WORKSPACE="${ECLAIR_DATA_DIR}/eclair_workspace"
+> 
+>  # Identifies the particular build of the project.
+>  export ECLAIR_PROJECT_NAME="XEN_${VARIANT}-${SET}"
+> -# All paths mentioned in ECLAIR reports that are below this directory
+> -# will be presented as relative to ECLAIR_PROJECT_ROOT.
+> -export ECLAIR_PROJECT_ROOT="${PWD}"
+> 
+>  # Erase and recreate the output directory and the data directory.
+>  rm -rf "${ECLAIR_OUTPUT_DIR:?}/*"
+>  mkdir -p "${ECLAIR_DATA_DIR}"
+> 
+> -# Generate additional configuration files
+> -"${SCRIPT_DIR}/generate_ecl.sh"
+> -
+>  # Perform the build (from scratch) in an ECLAIR environment.
+>  "${ECLAIR_BIN_DIR}eclair_env" \
+>      "-config_file='${SCRIPT_DIR}/analysis.ecl'" \
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> index 9051f4160282..a56805a993cd 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -533,6 +533,17 @@ safe."
+>  # Series 18.
+>  #
+> 
+> +-doc_begin="Subtractions between pointers involving at least one of the linker symbols specified by the regex below
+> +are guaranteed not to be exploited by a compiler that relies on the absence of
+> +C99 Undefined Behaviour 45: Pointers that do not point into, or just beyond, the same array object are subtracted (6.5.6)."
+> +-eval_file=linker_symbols.ecl
+> +-config=MC3R1.R18.2,reports+={safe, "any_area(stmt(operator(sub)&&child(lhs||rhs, skip(__non_syntactic_paren_stmts, ref(linker_symbols)))))"}
+> +-doc_end
+> +
+> +-doc_begin="The following macro performs a subtraction between pointers to obtain the mfn, but does not lead to undefined behaviour."
+> +-config=MC3R1.R18.2,reports+={safe, "any_area(any_loc(any_exp(macro(^page_to_mfn$))))"}
+> +-doc_end
+> +
+>  -doc_begin="Flexible array members are deliberately used and XEN developers are aware of the dangers related to them:
+>  unexpected result when the structure is given as argument to a sizeof() operator and the truncation in assignment between structures."
+>  -config=MC3R1.R18.7,reports+={deliberate, "any()"}
+> diff --git a/automation/eclair_analysis/ECLAIR/generate_ecl.sh b/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+> index 66766b23abb7..f421a4a16a6c 100755
+> --- a/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+> +++ b/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+> @@ -17,3 +17,6 @@ accepted_rst="${ECLAIR_PROJECT_ROOT}/docs/misra/rules.rst"
+> 
+>  # Generate accepted guidelines
+>  "${script_dir}/accepted_guidelines.sh" "${accepted_rst}"
+> +
+> +# Generate the list of linker-defined symbols (must be run after a Xen build)
+> +"${script_dir}/generate_linker_symbols.sh"
+> diff --git a/automation/eclair_analysis/ECLAIR/generate_linker_symbols.sh b/automation/eclair_analysis/ECLAIR/generate_linker_symbols.sh
+> new file mode 100755
+> index 000000000000..19943ba98d46
+> --- /dev/null
+> +++ b/automation/eclair_analysis/ECLAIR/generate_linker_symbols.sh
+> @@ -0,0 +1,31 @@
+> +#!/bin/bash
+> +
+> +set -e
+> +
+> +script_name="$(basename "$0")"
+> +script_dir="$(
+> +  cd "$(dirname "$0")"
+> +  echo "${PWD}"
+> +)"
+> +
+> +fatal() {
+> +  echo "${script_name}: $*" >&2
+> +  exit 1
+> +}
+> +
+> +arch=""
+> +if [ "${XEN_TARGET_ARCH}" == "x86_64" ]; then
+> +  arch=x86
+> +elif [ "${XEN_TARGET_ARCH}" == "arm64" ]; then
+> +  arch=arm
+> +else
+> +  fatal "Unknown configuration: $1"
+> +fi
+> +
+> +outfile=${script_dir}/linker_symbols.ecl
+> +
+> +(
+> +  echo -n "-decl_selector+={linker_symbols, \"^(" >"${outfile}"
+> +  "${script_dir}/../linker-symbols.sh" "${arch}" | sort -u | tr '\n' '|' | sed '$ s/|//' >>"${outfile}"
+> +  echo -n ")$\"}" >>"${outfile}"
+> +)
+> diff --git a/automation/eclair_analysis/prepare.sh b/automation/eclair_analysis/prepare.sh
+> index 47b2a2f32a84..3a646414a392 100755
+> --- a/automation/eclair_analysis/prepare.sh
+> +++ b/automation/eclair_analysis/prepare.sh
+> @@ -39,10 +39,14 @@ fi
+>      cp "${CONFIG_FILE}" xen/.config
+>      make clean
+>      find . -type f -name "*.safparse" -print -delete
+> +    "${script_dir}/build.sh" "$1"
+> +    # Generate additional configuration files
+> +    "${script_dir}/ECLAIR/generate_ecl.sh"
+> +    make clean
+>      cd xen
+>      make -f "${script_dir}/Makefile.prepare" prepare
+>      # Translate the /* SAF-n-safe */ comments into ECLAIR CBTs
+>      scripts/xen-analysis.py --run-eclair --no-build --no-clean
+>      # Translate function-properties.json into ECLAIR properties
+> -    python3 ${script_dir}/propertyparser.py
+> +    python3 "${script_dir}/propertyparser.py"
+>  )
+> diff --git a/automation/scripts/eclair b/automation/scripts/eclair
+> index 3ec760bab8b3..0a2353c20a92 100755
+> --- a/automation/scripts/eclair
+> +++ b/automation/scripts/eclair
+> @@ -3,6 +3,9 @@
+>  ECLAIR_ANALYSIS_DIR=automation/eclair_analysis
+>  ECLAIR_DIR="${ECLAIR_ANALYSIS_DIR}/ECLAIR"
+>  ECLAIR_OUTPUT_DIR=$(realpath "${ECLAIR_OUTPUT_DIR}")
+> +# All paths mentioned in ECLAIR reports that are below this directory
+> +# will be presented as relative to ECLAIR_PROJECT_ROOT.
+> +export ECLAIR_PROJECT_ROOT="${PWD}"
+> 
+>  "${ECLAIR_ANALYSIS_DIR}/prepare.sh" "${VARIANT}"
+> 
+> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> index b66c271c4e7c..39cd1de1e5b2 100644
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -501,6 +501,16 @@ Deviations related to MISRA C:2012 Rules:
+>           - __builtin_memset()
+>           - cpumask_check()
+> 
+> +   * - R18.2
+> +     - Subtractions between pointers where at least one of the operand is a
+> +       pointer to a symbol defined by the linker are safe.
+> +     - Tagged as `safe` for ECLAIR.
+> +
+> +   * - R18.2
+> +     - Subtraction between pointers encapsulated by macro page_to_mfn
+> +       are safe.
+> +     - Tagged as `safe` for ECLAIR.
+> +
+>     * - R20.4
+>       - The override of the keyword \"inline\" in xen/compiler.h is present so
+>         that section contents checks pass when the compiler chooses not to
+> --
+> 2.43.0
+> 
 
