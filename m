@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CA096DEE2
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 17:49:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791236.1201090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D29FB96DF01
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 17:59:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791249.1201104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smEjZ-0001WM-32; Thu, 05 Sep 2024 15:49:21 +0000
+	id 1smEsl-0004Ql-Tr; Thu, 05 Sep 2024 15:58:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791236.1201090; Thu, 05 Sep 2024 15:49:21 +0000
+Received: by outflank-mailman (output) from mailman id 791249.1201104; Thu, 05 Sep 2024 15:58:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smEjY-0001St-Uv; Thu, 05 Sep 2024 15:49:20 +0000
-Received: by outflank-mailman (input) for mailman id 791236;
- Thu, 05 Sep 2024 15:49:20 +0000
+	id 1smEsl-0004O3-RE; Thu, 05 Sep 2024 15:58:51 +0000
+Received: by outflank-mailman (input) for mailman id 791249;
+ Thu, 05 Sep 2024 15:58:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Shi=QD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1smEjY-0000IZ-Eh
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 15:49:20 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1smEsk-0004Mu-9i
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 15:58:50 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69eda574-6b9e-11ef-a0b3-8be0dac302b0;
- Thu, 05 Sep 2024 17:49:19 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a86984e035aso142566866b.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 08:49:19 -0700 (PDT)
+ id bd9ff826-6b9f-11ef-a0b3-8be0dac302b0;
+ Thu, 05 Sep 2024 17:58:49 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2f029e9c9cfso13583551fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 08:58:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a623e33f6sm149844366b.212.2024.09.05.08.49.18
+ a640c23a62f3a-a8a62371427sm151973866b.108.2024.09.05.08.58.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Sep 2024 08:49:19 -0700 (PDT)
+ Thu, 05 Sep 2024 08:58:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69eda574-6b9e-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: bd9ff826-6b9f-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725551359; x=1726156159; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725551929; x=1726156729; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qOMHI/KdbMhf+AMOW9dOHEZIKrRNTDQG7r0AY0lW2oc=;
-        b=gaH7strazLGVSsSFPtnpo4622IJa2Kb4QIA4Ptze8JD0Db4n21Ynu6fgS0fgYDf+i5
-         8tvVAUmRdZCaIKc3JeKKkDqFEhoJtJLpvEU6BFsO9/uEJH+OIiPPAS00UailFb347Air
-         1RJfB0wt+Qet8RNKXSefWnwSlTyXsuIfidRc9rtnNdjp/iVTojlBs5rAyPEuVqXcYJQa
-         UhuGbm2DQIoe1vXP2FjrzlAtFp9+/tRoj8L/oGPhpsFcKs/CTMzIWqOO0cVZ5qwiPfRG
-         PIyb+bR5Qk8Js9kqrWmea/W0rzsytCdC6OBGSwvNB+86wUTvA+zt/IyBdz8RLJFgv7k2
-         GdBg==
+        bh=qiWSwcc2xVmrizesU8P7JfRQoKZHIhl20EcdWAm+3sw=;
+        b=XUeAH1mQBfy6f2U9AQ0DvkUVYP/86LV4sulT5AjUAv9nFiDxjDjnjx0nIjEAkrovJc
+         G62a5QBSSfbMxwZcjMOdYD+o0PoFRGdbDvstLfXB2qa/0LOnineNaGzwJ59ct/Qx6XJk
+         f5Ty3jfxB6ic1gQJGOtdV/futAMLZb+6/l+XOLNmAhKQY0zJkKDHVClRDadbf+hweWrm
+         w9AarW2qIB+sbljaWAEjOuUHRTvpdrQWIDITEer220R/A2KXmX8HkQSMD/UttUz+oa8t
+         nKTD2h9pJZ/8oZCThEreID8AJu1Z4d3IkLG5xpfq4jZ60EM6ZMsVV743F8VhhYMuffav
+         4GaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725551359; x=1726156159;
+        d=1e100.net; s=20230601; t=1725551929; x=1726156729;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qOMHI/KdbMhf+AMOW9dOHEZIKrRNTDQG7r0AY0lW2oc=;
-        b=ROzfiI5rYu0SvUZ13qaYh2qiH46c7whxqLHuOHmJcdlGO3Qif1m5nJOiyO5t+mJOd4
-         JALsMTOc4/M7qWjVtyke7huUOTbP1+rXMJv5L6t/hIOgeR2sLspDIz1q60hfZTubsB7h
-         +QqrgTq/4rzNtXxkDwSjXYR4MZXZbxyguXgTAkIjuGictcl87Z4B869WbvAPiZOUHvwC
-         by9aqk3kVe0RGbyqM/YidO+3wJxtmn8jEZd1BsPyhu79DJWbL6+IXs3/OZc+zDa7hdFd
-         0ya1i7VFldQJ7qJr3wd7ZNUKEgtnZX5ABpGUpsTQgP3xqd7ggLLySTFoRXkYYSW7H45L
-         VE6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUkVhwDL/TzLXo+Ai8Zp0eqySwwRs8ziPvI4KkrpgfX5w98haWar9X+Or354qa+oCmKRI9IP3D2+Dg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzrxMB/7lehxQZx5lQZCe7GXOn+1NIPGHXaBFgvfTFFSKILxBFr
-	0UDDshBpAlqmCPppFM9O0MopXN4tFDw7Smki1iNZ2/6Csg/38vDONsOApgoXuQ==
-X-Google-Smtp-Source: AGHT+IEUV9esTp4H4Jul/5BIrE25J6yz35ffki86mS3bzyBCufTbtKmR8M6MVUTRxfwZz59/WNUZwA==
-X-Received: by 2002:a17:907:3f24:b0:a77:cbe5:413f with SMTP id a640c23a62f3a-a89a3511015mr1569648366b.4.1725551359236;
-        Thu, 05 Sep 2024 08:49:19 -0700 (PDT)
-Message-ID: <f19d6272-b63a-4d8a-a2be-607835de0318@suse.com>
-Date: Thu, 5 Sep 2024 17:49:17 +0200
+        bh=qiWSwcc2xVmrizesU8P7JfRQoKZHIhl20EcdWAm+3sw=;
+        b=c2m2BiDVnUFo9OWkayrT73T8WzA0HSgFm+6w6WJCF9YeQsEA3mXttJryyoUsHhGc7L
+         AiZQRpVmYPBdCMgn6XG98n1fyOicncdWXLj+pA6O+5PbTyLEtoGJtCEIhuWCrBMmYfle
+         o7iENvge6ABdiIYgDzz/c7esLESATNTeUbHMoXzySuKNAaMLYv9nKPa1Ci1uz4XU2mZ8
+         NcNJZLRK7QNTJ+pRT1WqUE07sn2Qi1xpTgVUbM03TgXFG3iRjREP/njBR1gUhChTtYZG
+         io5/K3bHuSvOOAYMjsJgjeLYV8Vxhr4hYZrbwjNOyyyN+SiNe5tYdOpRPoMmU9LQeqL1
+         P4FQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWL37kL2wrvMbw2qRtNOteLrbQ/AoHWANj6+apSiF/Ewh5Df0jYloRn6tuUbZ+G1lCSy4K5XCa1TuU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZZnWD6GTb93NjTNWwFZ2WA0X09f89fkwA0eVElTFxulrnP83X
+	xdTHgbPaFEX/ruEuQ5Le5g2WZij63p5A9vVutfG7ihuIIgBf9HG0muwlZy9sww==
+X-Google-Smtp-Source: AGHT+IHcEeh/YEHADZ6MWRNsFYYUDsLzFHUQ4gjtHo79k2qhQUiZWWfHylwB4G5KjU3Ykd6uj26kJw==
+X-Received: by 2002:a2e:4a11:0:b0:2f3:f1ee:2256 with SMTP id 38308e7fff4ca-2f6108ae2demr178523511fa.44.1725551929016;
+        Thu, 05 Sep 2024 08:58:49 -0700 (PDT)
+Message-ID: <af5ce242-1ec9-4ccc-a531-2252b2d8c90d@suse.com>
+Date: Thu, 5 Sep 2024 17:58:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/6] x86/time: split CMOS read and probe logic into
- function
+Subject: Re: [PATCH v4 4/6] x86/time: introduce probing logic for the
+ wallclock
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, Andrew Cooper
  <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20240904153151.83995-1-roger.pau@citrix.com>
- <20240904153151.83995-4-roger.pau@citrix.com>
+ <20240904153151.83995-5-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,30 +115,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240904153151.83995-4-roger.pau@citrix.com>
+In-Reply-To: <20240904153151.83995-5-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 04.09.2024 17:31, Roger Pau Monne wrote:
-> The current logic to probe for the CMOS RTC is open-coded in get_cmos_time(),
-> move it to a separate function that both serves the purpose of testing for the
-> CMOS RTC existence and returning its value.
-> 
-> The goal is to be able to split the probing and the reading logic into separate
-> helpers, and putting the current logic in a separate function helps simplifying
-> further changes.
-> 
-> A transient *rtc_p variable is introduced as a parameter to the function, that
-> will be removed by further changes.  Also note that due to the code movement,
-> now cmos_rtc_probe will only get cleared on a second call to get_cmos_time(),
-> as the newly introduced cmos_probe() function doesn't modify the variable
-> anymore.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -1291,14 +1291,23 @@ static bool __get_cmos_time(struct rtc_time *rtc)
+>      return t1 <= SECONDS(1) && t2 < MILLISECS(3);
+>  }
+>  
+> -static bool cmos_probe(struct rtc_time *rtc_p, bool cmos_rtc_probe)
+> +static bool __initdata cmos_rtc_probe;
+> +boolean_param("cmos-rtc-probe", cmos_rtc_probe);
+> +
+> +static bool __init cmos_probe(void)
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I'm sorry for not paying attention to this earlier, but "cmos" alone
+is misleading here and perhaps even more so for cmos_read(). These
+aren't about the CMOS (storage) but the CMOS RTC. May I suggest
+cmos_rtc_{probe,read}() instead?
 
+>  {
+>      unsigned int seconds = 60;
+>  
+> +    if ( !(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC) )
+> +        return true;
+> +
+> +    if ( !cmos_rtc_probe )
+> +        return false;
 
+With this I think ...
+
+>      for ( ; ; )
+>      {
+> -        bool success = __get_cmos_time(rtc_p);
+> -        struct rtc_time rtc = *rtc_p;
+> +        struct rtc_time rtc;
+> +        bool success = __get_cmos_time(&rtc);
+>  
+>          if ( likely(!cmos_rtc_probe) )
+>              return true;
+
+... this ends up being dead code.
+
+Jan
 
