@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C27A96D3CF
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 11:46:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.790976.1200731 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AFF596D4C1
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 11:56:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.790986.1200741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sm92z-0007cS-Ti; Thu, 05 Sep 2024 09:45:01 +0000
+	id 1sm9DG-0001YC-PK; Thu, 05 Sep 2024 09:55:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 790976.1200731; Thu, 05 Sep 2024 09:45:01 +0000
+Received: by outflank-mailman (output) from mailman id 790986.1200741; Thu, 05 Sep 2024 09:55:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sm92z-0007as-MY; Thu, 05 Sep 2024 09:45:01 +0000
-Received: by outflank-mailman (input) for mailman id 790976;
- Thu, 05 Sep 2024 09:45:00 +0000
+	id 1sm9DG-0001WC-Mj; Thu, 05 Sep 2024 09:55:38 +0000
+Received: by outflank-mailman (input) for mailman id 790986;
+ Thu, 05 Sep 2024 09:55:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Shi=QD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sm92y-0007am-Bc
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 09:45:00 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ id 1sm9DF-0001W5-1E
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 09:55:37 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83ae0acc-6b6b-11ef-a0b3-8be0dac302b0;
- Thu, 05 Sep 2024 11:44:58 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-5334a8a1b07so572526e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 02:44:58 -0700 (PDT)
+ id ff2fdfca-6b6c-11ef-a0b3-8be0dac302b0;
+ Thu, 05 Sep 2024 11:55:35 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2f502086419so7715411fa.3
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 02:55:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a623a69a6sm111739966b.157.2024.09.05.02.44.57
+ 4fb4d7f45d1cf-5c3cc699e68sm1010926a12.62.2024.09.05.02.55.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Sep 2024 02:44:57 -0700 (PDT)
+ Thu, 05 Sep 2024 02:55:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83ae0acc-6b6b-11ef-a0b3-8be0dac302b0
+X-Inumbo-ID: ff2fdfca-6b6c-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725529498; x=1726134298; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725530135; x=1726134935; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jPcqu5ULgjah2Hr91aWWUEwF3kisu0e5EOkrg1+vjAI=;
-        b=BdSrbP6YpCkNI+qLojbDPEQZpCksvrekAwzuIOW8Ag+pDGpdAv0srY+b2M0HJF23OB
-         qm2uNxuUXszy/R7ncUB2V8akabTKxMaS0K1XcmnWatjm9EVNKlPyzMuaKwN//634J/1u
-         TFIPfiZRpiXXkNu6GNMw0A3SKlhfa61Ykx7v/ellGLKtqNwwGBgJpShHmFzWSJMw9xwu
-         XzGPm1+Pga69WMf3vM3wIzsOPhlwcAj6p/CbKjUitkvnzaL34z4RalD3n4TCvbT4xZxt
-         AF3ChKNDLZ7kh2wEGlGoWb7tgX6cLgTVMcA0nQeKlpM19XLNsa+GyhRSW7QokXyAqXWr
-         0W/Q==
+        bh=EmjLVAtNJbN6aDw8jfGE9gAya5PI860JO+nqmwI/OFs=;
+        b=b5JxCDqhtJRPshHLX4+QRx5wupeJ7o0rczwEzsV12R2QBjWzPMXWsO1upET9ulRRfW
+         EJ3E//MsNKtDwm8n/Sj/UIuSoWCxMcmXT3eHO1VbAf50K/49NFh6n6q1s+wgkoyTarJU
+         k+BtKjvxopbosnIiMYHoNtCDfLyT2d9FxgsG4xE+T9gC86ZQ07t++W8OcxdIG6QEHsWT
+         3SGqGwJHUnMVk4jlGqNNax6LRfwbyF5sy8Hi0JUG9NuMhM0C3qAcrgNNUB/66x2f9neg
+         JfJaMW5NpwyK6BdyM68CSHD/utgWDLRXFt83zfIjac5H0Sfr2G3fnh3XINfuzZppE3w/
+         5WJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725529498; x=1726134298;
+        d=1e100.net; s=20230601; t=1725530135; x=1726134935;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jPcqu5ULgjah2Hr91aWWUEwF3kisu0e5EOkrg1+vjAI=;
-        b=ILrw5Z2lgBmTWw9xYzpp1c6HBaCMvxJU3iWNW5+BgByyDkmsR1Fko4qpYKO2T0o6Zd
-         FJ7mZEE1bxnSh1hajp4q/bE1mNFgtg2EASDpIxDVDjEmI/vieTO4Q2Ynwr/SjZyn1i0g
-         hTTZmYmRYR1gbyZTCYcuKq4OKXyclaO8JAfydb5sIyX/PpSRRWYDeFHC1zIy0gVQ7zfp
-         t/mOSFHYBBxoODVEF6dshs0aMQyoGoaJLY7dT/Ftr44v6ossWRv66dZSiB99Mlebi7eH
-         ypi003ejaL387sf2FMogSacpppJWDDZzDHzUj4ozeZgIQDguW/CGpZDvP1r6IuuNcd7L
-         Njuw==
-X-Forwarded-Encrypted: i=1; AJvYcCWNRYP1yNOdZksUvbgGi/Oc0924rpjazvdp220cjVlAaVhfYzCUa5O4qObLN/PrOSx4sLGBloAfc1E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPI4ZokRXSQ+5bFtHSlml+sPvE3q8qMfguRWg5EIlAkmRX2plf
-	P2QYcOTj/N8pKDO8JQGRjIliiKCN9bmrkj7H93/B2M3H38EIMi6cltiFzmYhrA==
-X-Google-Smtp-Source: AGHT+IFbv2/QHYlAQiI3SD77/oR1q5O5A+5WxfDstRuUoiY/b7CHfikK35U4n9uPO3HHcSEdf73C1w==
-X-Received: by 2002:ac2:4c4f:0:b0:530:aa3e:f3c with SMTP id 2adb3069b0e04-53546b05f96mr15275237e87.14.1725529497842;
-        Thu, 05 Sep 2024 02:44:57 -0700 (PDT)
-Message-ID: <f6a1f021-04cc-4dd3-bcea-97a7343399e1@suse.com>
-Date: Thu, 5 Sep 2024 11:44:56 +0200
+        bh=EmjLVAtNJbN6aDw8jfGE9gAya5PI860JO+nqmwI/OFs=;
+        b=d4jIQQOtC/Amaz8BCRYNoETHIu48PCLIWEsUX3Dl3OdrgSoFy8ibhktVF1wecr6+qA
+         spbjoMwnMlGCdMMniCFKMxKt9mN9+u1Eqfe273/AM0PpmXkibL93wUePRd/dKfn0yaSD
+         e4WA/+87Oykk35iJy5jYsA1N6E2BuPWmJOwTypAZHtbAD55re/58IlZvh866tgGXh0GD
+         a8EBofuwRn4Mz1SnfbDYj55/V8y+trHOSvnHe+Eq2cixCSea8976J+5omTq2u253N1Zq
+         yZnUn4LI2bRP9dPbSwc9GueixOxv9sAhSxFNp56CaSEaGVhY6ZWi25FS55KtGF2SPGW9
+         CHQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWwS7M++N4DmRT6ZdlLzy9pPg+HkbJCBqk2Vjuc9Q4LYG5MDsU5r7hRvvA2saZKuFeHcLZfP5K2GCo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx7KBivGATm9DlLcEdPul+pQIVjkFwv7WEHhq9f7EzTG2hxLvsr
+	Tq59RW8DgtzR5O2hQcJIBUrkFiG+enbxAMh6wqbKlxcQ4BKOGlZA0JOfddOINk4fiQ9Bnufo8uQ
+	=
+X-Google-Smtp-Source: AGHT+IFZ70utS0PV1ujFf8Uto8e5Ewur9Ys5dxzzfLQPmVvCzgFT2l4VeeUU+13HfqdBxLjpogCvVg==
+X-Received: by 2002:a2e:752:0:b0:2ee:4c66:6828 with SMTP id 38308e7fff4ca-2f64441f272mr58903041fa.24.1725530134648;
+        Thu, 05 Sep 2024 02:55:34 -0700 (PDT)
+Message-ID: <2cc9a2a1-61df-420a-9b50-d6e96a6fd162@suse.com>
+Date: Thu, 5 Sep 2024 11:55:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v14 2/5] x86/pvh: Allow (un)map_pirq when dom0 is PVH
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20240903070424.982218-1-Jiqian.Chen@amd.com>
- <20240903070424.982218-3-Jiqian.Chen@amd.com>
- <e8db9a54-fcbf-4f4c-803e-7b11838e22a4@suse.com>
- <BL1PR12MB5849C65CAC35890158F6A32FE7932@BL1PR12MB5849.namprd12.prod.outlook.com>
- <905fe9ef-d311-4956-b862-49f2f588afcd@suse.com>
- <BL1PR12MB58492EE11D404B2E09DA0210E7932@BL1PR12MB5849.namprd12.prod.outlook.com>
- <b2b7b716-974c-4172-ba68-261453a96932@suse.com>
- <alpine.DEB.2.22.394.2409031839550.53815@ubuntu-linux-20-04-desktop>
- <ea41eb5d-f8a1-4120-b5c1-70bdf02d8038@suse.com>
- <BL1PR12MB5849E69A83D4BABAF544C22EE79D2@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v3 5/5] x86/bitops: Use the POPCNT instruction when
+ available
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240904225530.3888315-1-andrew.cooper3@citrix.com>
+ <20240904225530.3888315-6-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,131 +114,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849E69A83D4BABAF544C22EE79D2@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <20240904225530.3888315-6-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.09.2024 08:45, Chen, Jiqian wrote:
-> HI,
+On 05.09.2024 00:55, Andrew Cooper wrote:
+> It has existed in x86 CPUs since 2008, so we're only 16 years late adding
+> support.  With all the other scafolding in place, implement arch_hweightl()
+> for x86.
 > 
-> On 2024/9/4 14:04, Jan Beulich wrote:
->> On 04.09.2024 03:43, Stefano Stabellini wrote:
->>> On Tue, 3 Sep 2024, Jan Beulich wrote:
->>>> On 03.09.2024 12:53, Chen, Jiqian wrote:
->>>>> On 2024/9/3 17:25, Jan Beulich wrote:
->>>>>> On 03.09.2024 09:58, Chen, Jiqian wrote:
->>>>>>> On 2024/9/3 15:42, Jan Beulich wrote:
->>>>>>>> On 03.09.2024 09:04, Jiqian Chen wrote:
->>>>>>>>> When dom0 is PVH type and passthrough a device to HVM domU, Qemu code
->>>>>>>>> xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
->>>>>>>>> xc_physdev_map_pirq map a pirq for passthrough devices.
->>>>>>>>> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
->>>>>>>>> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
->>>>>>>>> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
->>>>>>>>> codes.
->>>>>>>>>
->>>>>>>>> But it is fine to map interrupts through pirq to a HVM domain whose
->>>>>>>>> XENFEAT_hvm_pirqs is not enabled. Because pirq field is used as a way to
->>>>>>>>> reference interrupts and it is just the way for the device model to
->>>>>>>>> identify which interrupt should be mapped to which domain, however
->>>>>>>>> has_pirq() is just to check if HVM domains route interrupts from
->>>>>>>>> devices(emulated or passthrough) through event channel, so, the has_pirq()
->>>>>>>>> check should not be applied to the PHYSDEVOP_map_pirq issued by dom0.
->>>>>>>>>
->>>>>>>>> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
->>>>>>>>> PHYSDEVOP_unmap_pirq for the removal device path to unmap pirq. Then the
->>>>>>>>> interrupt of a passthrough device can be successfully mapped to pirq for domU.
->>>>>>>>
->>>>>>>> As before: When you talk about just Dom0, ...
->>>>>>>>
->>>>>>>>> --- a/xen/arch/x86/hvm/hypercall.c
->>>>>>>>> +++ b/xen/arch/x86/hvm/hypercall.c
->>>>>>>>> @@ -73,6 +73,8 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->>>>>>>>>      {
->>>>>>>>>      case PHYSDEVOP_map_pirq:
->>>>>>>>>      case PHYSDEVOP_unmap_pirq:
->>>>>>>>> +        break;
->>>>>>>>> +
->>>>>>>>>      case PHYSDEVOP_eoi:
->>>>>>>>>      case PHYSDEVOP_irq_status_query:
->>>>>>>>>      case PHYSDEVOP_get_free_pirq:
->>>>>>>>
->>>>>>>> ... that ought to match the code. IOW you've again lost why it is okay(ish)
->>>>>>>> (or even necessary) to also permit the op for non-Dom0 (e.g. a PVH stubdom).
->>>>>>>> Similarly imo Dom0 using this on itself wants discussing.
->>>>>>> Do you mean I need to talk about why permit this op for all HVM
->>>>>>
->>>>>> You don't need to invent reasons, but it needs making clear that wider than
->>>>>> necessary (for your purpose) exposure is at least not going to be a problem.
->>>>>>
->>>>>>> and  where can prevent PVH domain calling this for self-mapping, not only dom0?
->>>>>>
->>>>>> Aiui use on itself is limited to Dom0, so only that would need clarifying
->>>>>> (along the lines of the above, i.e. that/why it is not a problem). For
->>>>>> has_pirq() domains use on oneself was already permitted before.
->>>>>
->>>>> Changed commit message to below. Please check and that will be great helpful if you would show me how to modify it.
->>>>> {
->>>>> x86/pvh: Allow (un)map_pirq when dom0 is PVH
->>>>>
->>>>> Problem: when dom0 is PVH type and passthrough a device to HVM domU, Qemu
->>>>> code xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
->>>>> xc_physdev_map_pirq map a pirq for passthrough devices.
->>>>> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
->>>>> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
->>>>> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
->>>>> codes.
->>>>>
->>>>> To solve above problem, need to remove the chack has_pirq() for that
->>>>> situation(PHYSDEVOP_map_pirq is issued by dom0 for domUs). But without
->>>>> adding other restrictions, PHYSDEVOP_map_pirq will be allowed wider than
->>>>> what the problem need.
->>>>> So, clarify below:
->>>>>
->>>>> For HVM domUs whose XENFEAT_hvm_pirqs is not enabled,it is fine to map
->>>>> interrupts through pirq for them. Because pirq field is used as a way to
->>>>> reference interrupts and it is just the way for the device model to
->>>>> identify which interrupt should be mapped to which domain, however
->>>>> has_pirq() is just to check if HVM domains route interrupts from
->>>>> devices(emulated or passthrough) through event channel, so, remove
->>>>> has_pirq() check has no impact on HVM domUs.
->>>>>
->>>>> For PVH domUs that performs such an operation will fail at the check
->>>>> xsm_map_dedomain_pirq() in physdev_map-nirq().
->>>>>
->>>>> For PVH dom0, it uses vpci and doesn't use event channel, as above talks,
->>>>> it also has no impact.
->>>>> }
->>>>
->>>> This is better than what you had before, and I don't really fancy re-
->>>> writing the description effectively from scratch. So let's just go from
->>>> there. As to the "excess" permission for the sub-ops: The main thing I'm
->>>> after is that it be clarified that we're not going to introduce any
->>>> security issues here. That requires auditing the code, and merely saying
->>>> "also has no impact" is a little too little for my taste. For Dom0 an
->>>> argument may be that it is overly powerful already anyway, even if for
->>>> PVH we're a little more strict than for PV (I think).
->>>
->>> Hi Jan, for clarity and to make this actionable, are you suggesting to
->>> clarify the commit message by adding wording around "Dom0 is overly
->>> powerful already anyway so it is OK so this is OK" ?
->>
->> Yes, perhaps with "deemed" added. 
-> OK, for PVH dom0, I will change to " Dom0 is deemed overly powerful already anyway, so it is OK "
+> The only complication is that the call to arch_generic_hweightl() is behind
+> the compilers back.  Address this by writing it in ASM and ensure that it
+> preserves all registers.
+> 
+> Copy the code generation from generic_hweightl().  It's not a complicated
+> algorithm, and is easy to regenerate if needs be, but cover it with the same
+> unit tests as test_generic_hweightl() just for piece of mind.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I don't mind the deemed as you add it, but the important place to add it
-here is before "OK". I'm sorry, it didn't occur to me that after all the
-prior discussion this earlier reply of mine could still be mis-interpreted.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
->> And text for DomU-s similarly extended, as the pointing at the XSM check is presently incomplete (stubdom-s can
->> pass that check, after all, as can de-priv qemu running in Dom0).
-> So sorry, I know so little about this, I can't explain these situations, could you tell me how to describe or help me write a paragraph?
 
-I'm afraid that in order to make (propose) such a change you need to be
-able to explain why it is okay to expose functionality beyond where it's
-presently exposed. It's not just writing a new paragraph that's needed
-here. You first need to _check_ that what you do is okay. And once you've
-done that checking, you then summarize that in writing.
-
-Jan
 
