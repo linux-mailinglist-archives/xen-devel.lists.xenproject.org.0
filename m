@@ -2,35 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D64D696DF09
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 18:01:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791252.1201114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE12696DF0B
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 18:01:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791255.1201124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smEug-0006x2-8E; Thu, 05 Sep 2024 16:00:50 +0000
+	id 1smEuy-0007Lp-J5; Thu, 05 Sep 2024 16:01:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791252.1201114; Thu, 05 Sep 2024 16:00:50 +0000
+Received: by outflank-mailman (output) from mailman id 791255.1201124; Thu, 05 Sep 2024 16:01:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smEug-0006vU-5X; Thu, 05 Sep 2024 16:00:50 +0000
-Received: by outflank-mailman (input) for mailman id 791252;
- Thu, 05 Sep 2024 16:00:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1smEue-0006vI-Vl; Thu, 05 Sep 2024 16:00:48 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1smEue-0004bD-O5; Thu, 05 Sep 2024 16:00:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1smEue-00057Y-7p; Thu, 05 Sep 2024 16:00:48 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1smEue-0003lV-7N; Thu, 05 Sep 2024 16:00:48 +0000
+	id 1smEuy-0007IZ-Ey; Thu, 05 Sep 2024 16:01:08 +0000
+Received: by outflank-mailman (input) for mailman id 791255;
+ Thu, 05 Sep 2024 16:01:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QOpB=QD=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1smEux-0007IF-9b
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 16:01:07 +0000
+Received: from pb-smtp1.pobox.com (pb-smtp1.pobox.com [64.147.108.70])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0cb79e48-6ba0-11ef-99a1-01e77a169b0f;
+ Thu, 05 Sep 2024 18:01:03 +0200 (CEST)
+Received: from pb-smtp1.pobox.com (unknown [127.0.0.1])
+ by pb-smtp1.pobox.com (Postfix) with ESMTP id C324D25512;
+ Thu,  5 Sep 2024 12:01:01 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from pb-smtp1.nyi.icgroup.com (unknown [127.0.0.1])
+ by pb-smtp1.pobox.com (Postfix) with ESMTP id B364225511;
+ Thu,  5 Sep 2024 12:01:01 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from localhost (unknown [176.8.169.166])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by pb-smtp1.pobox.com (Postfix) with ESMTPSA id 5E2872550E;
+ Thu,  5 Sep 2024 12:01:00 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,131 +50,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=DLKH/EiPsIncfJj19Wjh92+g/SL8mxi+AEzkjf8jGAQ=; b=x9oOrJQg7e/f29186YbXSTrr5f
-	cuyYQHQ/2ZcNDoA+b/OqOiSiPZBiyinw2MiukXJEqvrZ9imhTk/lMGAmIQj8ecDWX555YkC8/Nq7T
-	lRPJpRAM4lTeZukFHmxw5q+Ilr6cH0OpfAoKxiyWrpGHEiXnGeTpi9jAWba2F3EaiLJ8=;
+X-Inumbo-ID: 0cb79e48-6ba0-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
+	:subject:date:message-id:mime-version:content-transfer-encoding;
+	 s=sasl; bh=zPOXA8NaqMQ6JOGieGrJ4xhhf42V86TduaJ5Pc2JdxA=; b=MIqX
+	I0G2RMiNIfvI2eO1HMb2kPF/s0NceP6V+wJn/abRVAYFlTK5gzyKAz2CpZm4RW9U
+	UNX8hFOD2d/GfXVl+RNhiqZtKBbOyxV3cYNgOh0jXsvx0aVwzfSjtxCheeB65Ts9
+	CpxGgj6ec/KfErvlJZo3L18DdkJr5YCEu5Sm5u4=
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187501-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v1] x86/mwait-idle: add dependency on general Intel CPU support
+Date: Thu,  5 Sep 2024 19:00:58 +0300
+Message-Id: <20240905160058.493057-1-Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [libvirt test] 187501: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=6f10d15ca18c927e6533577421d437826314548e
-X-Osstest-Versions-That:
-    libvirt=a16bd558197c263b1651084644e1fc08929cd600
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 05 Sep 2024 16:00:48 +0000
+X-Pobox-Relay-ID:
+ 0B869A7C-6BA0-11EF-8C15-2BAEEB2EC81B-90055647!pb-smtp1.pobox.com
+Content-Transfer-Encoding: quoted-printable
 
-flight 187501 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187501/
+Currently mwait_idle driver in Xen only implements support for Intel CPUs=
+.
+Thus in order to reduce dead code in non-Intel build configurations it ca=
+n
+be made explicitly dependant on CONFIG_INTEL option.
 
-Failures :-/ but no regressions.
+Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+---
+ xen/arch/x86/cpu/Makefile          | 2 +-
+ xen/arch/x86/include/asm/cpuidle.h | 7 +++++++
+ xen/arch/x86/include/asm/mwait.h   | 7 +++++++
+ 3 files changed, 15 insertions(+), 1 deletion(-)
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187489
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+diff --git a/xen/arch/x86/cpu/Makefile b/xen/arch/x86/cpu/Makefile
+index eafce5f204..7cfe28b7ec 100644
+--- a/xen/arch/x86/cpu/Makefile
++++ b/xen/arch/x86/cpu/Makefile
+@@ -8,7 +8,7 @@ obj-y +=3D common.o
+ obj-y +=3D hygon.o
+ obj-y +=3D intel.o
+ obj-y +=3D intel_cacheinfo.o
+-obj-y +=3D mwait-idle.o
++obj-$(CONFIG_INTEL) +=3D mwait-idle.o
+ obj-y +=3D shanghai.o
+ obj-y +=3D vpmu.o
+ obj-$(CONFIG_AMD) +=3D vpmu_amd.o
+diff --git a/xen/arch/x86/include/asm/cpuidle.h b/xen/arch/x86/include/as=
+m/cpuidle.h
+index 707b3e948d..fde2fa7b08 100644
+--- a/xen/arch/x86/include/asm/cpuidle.h
++++ b/xen/arch/x86/include/asm/cpuidle.h
+@@ -15,7 +15,14 @@ extern void (*lapic_timer_on)(void);
+=20
+ extern uint64_t (*cpuidle_get_tick)(void);
+=20
++#ifdef CONFIG_INTEL
+ int mwait_idle_init(struct notifier_block *nfb);
++#else
++static inline int mwait_idle_init(struct notifier_block *nfb)
++{
++    return -ENOSYS;
++}
++#endif
+ int cpuidle_init_cpu(unsigned int cpu);
+ void cf_check default_dead_idle(void);
+ void cf_check acpi_dead_idle(void);
+diff --git a/xen/arch/x86/include/asm/mwait.h b/xen/arch/x86/include/asm/=
+mwait.h
+index 9298f987c4..000a692f6d 100644
+--- a/xen/arch/x86/include/asm/mwait.h
++++ b/xen/arch/x86/include/asm/mwait.h
+@@ -14,6 +14,13 @@
+ #define MWAIT_ECX_INTERRUPT_BREAK	0x1
+=20
+ void mwait_idle_with_hints(unsigned int eax, unsigned int ecx);
++#ifdef CONFIG_INTEL
+ bool mwait_pc10_supported(void);
++#else
++static inline bool mwait_pc10_supported(void)
++{
++    return false;
++}
++#endif
+=20
+ #endif /* __ASM_X86_MWAIT_H__ */
+--=20
+2.25.1
 
-version targeted for testing:
- libvirt              6f10d15ca18c927e6533577421d437826314548e
-baseline version:
- libvirt              a16bd558197c263b1651084644e1fc08929cd600
-
-Last test of basis   187489  2024-09-04 04:18:46 Z    1 days
-Testing same since   187501  2024-09-05 04:18:44 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Cole Robinson <crobinso@redhat.com>
-  Martin Kletzander <mkletzan@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   a16bd55819..6f10d15ca1  6f10d15ca18c927e6533577421d437826314548e -> xen-tested-master
 
