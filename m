@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 896C296DFF1
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 18:38:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791296.1201174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B2D996DFF2
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 18:38:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791300.1201183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smFUS-0000SU-AT; Thu, 05 Sep 2024 16:37:48 +0000
+	id 1smFVC-0000x9-HZ; Thu, 05 Sep 2024 16:38:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791296.1201174; Thu, 05 Sep 2024 16:37:48 +0000
+Received: by outflank-mailman (output) from mailman id 791300.1201183; Thu, 05 Sep 2024 16:38:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smFUS-0000R8-6f; Thu, 05 Sep 2024 16:37:48 +0000
-Received: by outflank-mailman (input) for mailman id 791296;
- Thu, 05 Sep 2024 16:37:46 +0000
+	id 1smFVC-0000vI-El; Thu, 05 Sep 2024 16:38:34 +0000
+Received: by outflank-mailman (input) for mailman id 791300;
+ Thu, 05 Sep 2024 16:38:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RJQt=QD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1smFUQ-0000R0-8N
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 16:37:46 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ <SRS0=wbas=QD=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1smFVA-0000v8-NV
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 16:38:32 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ad30bb2-6ba5-11ef-99a1-01e77a169b0f;
- Thu, 05 Sep 2024 18:37:40 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5c3d8d3ebbdso693733a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 09:37:40 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3cc6a51bbsm1474649a12.88.2024.09.05.09.37.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Sep 2024 09:37:39 -0700 (PDT)
+ id 484024ac-6ba5-11ef-99a1-01e77a169b0f;
+ Thu, 05 Sep 2024 18:38:29 +0200 (CEST)
+Received: from nico.bugseng.com (unknown [46.228.253.214])
+ by support.bugseng.com (Postfix) with ESMTPSA id 970DA4EE07CF;
+ Thu,  5 Sep 2024 18:38:27 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +39,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ad30bb2-6ba5-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725554260; x=1726159060; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+DmjpUwU1BJ5idiyMTIui/ZfQk/GM7hGlyOvtsRknLY=;
-        b=B6+SibWfO6d9o4dgOv4U1Uf86+oNwh3Dt3I/xRx3d6YNS2KGLuIyr2G6sojcMtjmi5
-         JZ1GdsPs9vgn3xgcPa9pxMcQ1QG++8DpS4NPLJz1EvoaApzsQ8MMePglMXefhRGVzUyY
-         3qt3Y7d0qWoStR3Jtr4ZWsWPEno1mBvmWOMqo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725554260; x=1726159060;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+DmjpUwU1BJ5idiyMTIui/ZfQk/GM7hGlyOvtsRknLY=;
-        b=nLu8go1tJ2D4sEymK6Ytx0obf20fXfJGq2wKPePAsi9f1xE3dK6CjMjnh60OoE5Wob
-         rvpz0/KsnOxKH88m/Ex1zuTqLni+QugcMzWPpoWudfFfC00mxVQ5j/1LZqmKOq9rI3Ro
-         6MkZy0ey/aX6RRJr/ZorRtVKnemk9gN6yTkJael1yIWiLMEQWnpPlMgM2RO54LFelWfL
-         xqTIXRkw1OH62vl+H0TWSyOWnrasLVIrudMV2HbvwYQBWpFanjE27XhuugFHwJQ3i4Tt
-         gTz+KAQ+kfbf1UmD8VrEAv/HTvDmCn5xG1YsrO+WFx7lSdU4BHooOfJHw0VKBAQMDQQZ
-         8wTA==
-X-Forwarded-Encrypted: i=1; AJvYcCUy0F5jd9Is3fJd/26M3vazNueJnahbjwHfJ46OKbAkL2/9nKFYSfCwZbYfDDpPHnsgIKGBi52lVmY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxh4NptkubiUGmz3VZFSZtRLH5pX/rGTxY0poPa1L+MPHBiisXG
-	asNVAN4Cb+oIBTE6JkHN/E/w5ttRw1FVsY3F3z0DVGYxPG/ZG2OTvC+MoYeQ5VU=
-X-Google-Smtp-Source: AGHT+IGFFg7Urkf6iCgCdNOWRBgPnlGl/B4bMKW619iv/gTvWi87lAcYGKnr/Y5nNTiYkthcsR/9eA==
-X-Received: by 2002:a05:6402:3549:b0:5c2:5f31:8888 with SMTP id 4fb4d7f45d1cf-5c3c1f9cbd4mr6544675a12.15.1725554259662;
-        Thu, 05 Sep 2024 09:37:39 -0700 (PDT)
-Message-ID: <125586e4-ec9e-46b6-9c01-c1142b0f00e2@citrix.com>
-Date: Thu, 5 Sep 2024 17:37:37 +0100
+X-Inumbo-ID: 484024ac-6ba5-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1725554309; bh=/5WhGxobj+xMwraQpAWuieE0VxYdLkCjiymEqlknPGI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=FJRyeXu0XlYsxbyhhJHt6bdJ89IIT5QdcvZb9voavO3yUO1p5t/F0xnVMjcvRomC9
+	 tS5KlrgoxBDiSYz0ugEAJrDXQOz7HQ4RbeUyn6fVmcaNAQyBnZIhBuyc3fve9hMeNu
+	 cPPnKHuOV/aATdhSPtJtvbELyRa/yzYOgDikGq8dtbq0qCuyvKc7gqUQ6kGN0JQPKH
+	 RAiSedGlAz/4/8folTBAhuV8uOjiOkyetFA/pUQq8dgvLEowcaAhd7XJ5t+LBAwY1C
+	 48tE60mjTROraxhBNbIqOazenbeGyUegLCrrv2V9FEqtw1qKaiDCab8AP8ovNae5hT
+	 ARf9qhJXx+v/Q==
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>
+Subject: [XEN PATCH] automation/eclair_analysis: address violations of Rule 18.2
+Date: Thu,  5 Sep 2024 18:37:57 +0200
+Message-ID: <e36f121a91d229ca5edfc8102c4513c2e0530230.1725554126.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/trampoline: Collect other scattered trampoline
- symbols
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240905130657.4075906-1-andrew.cooper3@citrix.com>
- <20240905130657.4075906-4-andrew.cooper3@citrix.com>
- <092700d9-101b-4bac-a500-7f03bd471d89@suse.com>
- <341fa9f8-eabe-44fd-a291-4032d5fa5994@citrix.com>
- <CACHz=Zh9jdcUfR9dFqUcx1V+DVED14gnasy53TjGy5bk4a4jdQ@mail.gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <CACHz=Zh9jdcUfR9dFqUcx1V+DVED14gnasy53TjGy5bk4a4jdQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05/09/2024 5:34 pm, Frediano Ziglio wrote:
-> On Thu, Sep 5, 2024 at 5:10 PM Andrew Cooper
-> <andrew.cooper3@citrix.com> wrote:
->
->     On 05/09/2024 4:42 pm, Jan Beulich wrote:
->     > On 05.09.2024 15:06, Andrew Cooper wrote:
->     >> --- a/xen/arch/x86/efi/efi-boot.h
->     >> +++ b/xen/arch/x86/efi/efi-boot.h
->     >> @@ -102,9 +102,6 @@ static void __init
->     efi_arch_relocate_image(unsigned long delta)
->     >>      }
->     >>  }
->     >> 
->     >> -extern const s32 __trampoline_rel_start[],
->     __trampoline_rel_stop[];
->     >> -extern const s32 __trampoline_seg_start[],
->     __trampoline_seg_stop[];
->     > I'd prefer if these stayed here, leaving the 4 symbols as
->     minimally exposed as
->     > possible. Recall that efi-boot.h isn't really a header in that
->     sense, but
->     > rather a .c file. Elsewhere we keep decls in .c files when
->     they're used in just
->     > one CU.
->
->     See Frediano's RFC series, which needs to change this in order to move
->     the 32bit relocation logic from asm to C.
->
-> Not strictly necessary, I can declare in the C file as they were
-> declared in efi-boot.h (which is more a .c file as an header as Jan said).
-> I think the idea of declaring into a source file is that if another
-> file wants to use it has to declare it again, so a bit more friction.
-> But any access to trampoline variables should be considered as
-> something to limit in any case, so having in a separate header helps
-> (this does not mean that removing from the header is still increasing
-> the friction).
->
-> Personally, I'm not strong about the 2 options here. Slightly prefer
-> having all variable declared in a single header.
+MISRA C Rule 18.2 states: "Subtraction between pointers shall
+only be applied to pointers that address elements of the same array".
 
-Declaring the same symbol in multiple places is a hard MISRA failure now.
+Subtractions between pointer where at least one symbol is a
+symbol defined by the linker are safe and thus deviated, because
+the compiler cannot exploit the undefined behaviour that would
+arise from violating the rules in this case.
 
-Hence why I was trying to clean this up to simplify your patches.
+To create an ECLAIR configuration that contains the list of
+linker-defined symbols, the script "linker-symbols.sh" is used
+after a build of xen (without static analysis) is performed.
+The generated file "linker_symbols.ecl" is then used as part of the
+static analysis configuration.
 
-~Andrew
+Additional changes to the ECLAIR integration are:
+- perform a build of xen without static analysis during prepare.sh
+- run the scripts to generated ECL configuration during the prepare.sh,
+  rather than analysis.sh
+- export ECLAIR_PROJECT_ROOT earlier, to allow such generation
+
+Additionally, the macro page_to_mfn performs a subtraction that is safe,
+so its uses are deviated.
+
+No functional changes.
+
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Macro page_to_pdx is also the cause of some caution reports:
+perhaps that should be deviated as well, since its definition is very
+similar to page_to_mfn.
+
+Relevant CI runs:
+
+- arm64: https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/ARM64/7754928624/PROJECT.ecd;/by_service/MC3R1.R18.2.html
+
+- x86_64: https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/X86_64/7754928613/PROJECT.ecd;/by_service/MC3R1.R18.2.html
+- x86_64 (without page_to_pdx reports): https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/X86_64/7754928613/PROJECT.ecd;/by_service/MC3R1.R18.2.html#{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":false,"selector":{"enabled":true,"negated":false,"kind":0,"domain":"message","inputs":[{"enabled":true,"text":"^.*expanded from macro `page_to_pdx'"}]}}}
+---
+ automation/eclair_analysis/ECLAIR/analyze.sh  |  6 ----
+ .../eclair_analysis/ECLAIR/deviations.ecl     | 11 +++++++
+ .../eclair_analysis/ECLAIR/generate_ecl.sh    |  3 ++
+ .../ECLAIR/generate_linker_symbols.sh         | 31 +++++++++++++++++++
+ automation/eclair_analysis/prepare.sh         |  6 +++-
+ automation/scripts/eclair                     |  3 ++
+ docs/misra/deviations.rst                     | 10 ++++++
+ 7 files changed, 63 insertions(+), 7 deletions(-)
+ create mode 100755 automation/eclair_analysis/ECLAIR/generate_linker_symbols.sh
+
+diff --git a/automation/eclair_analysis/ECLAIR/analyze.sh b/automation/eclair_analysis/ECLAIR/analyze.sh
+index e96456c3c18d..1dc63c1bc2d0 100755
+--- a/automation/eclair_analysis/ECLAIR/analyze.sh
++++ b/automation/eclair_analysis/ECLAIR/analyze.sh
+@@ -73,17 +73,11 @@ export ECLAIR_WORKSPACE="${ECLAIR_DATA_DIR}/eclair_workspace"
+
+ # Identifies the particular build of the project.
+ export ECLAIR_PROJECT_NAME="XEN_${VARIANT}-${SET}"
+-# All paths mentioned in ECLAIR reports that are below this directory
+-# will be presented as relative to ECLAIR_PROJECT_ROOT.
+-export ECLAIR_PROJECT_ROOT="${PWD}"
+
+ # Erase and recreate the output directory and the data directory.
+ rm -rf "${ECLAIR_OUTPUT_DIR:?}/*"
+ mkdir -p "${ECLAIR_DATA_DIR}"
+
+-# Generate additional configuration files
+-"${SCRIPT_DIR}/generate_ecl.sh"
+-
+ # Perform the build (from scratch) in an ECLAIR environment.
+ "${ECLAIR_BIN_DIR}eclair_env" \
+     "-config_file='${SCRIPT_DIR}/analysis.ecl'" \
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index 9051f4160282..a56805a993cd 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -533,6 +533,17 @@ safe."
+ # Series 18.
+ #
+
++-doc_begin="Subtractions between pointers involving at least one of the linker symbols specified by the regex below
++are guaranteed not to be exploited by a compiler that relies on the absence of
++C99 Undefined Behaviour 45: Pointers that do not point into, or just beyond, the same array object are subtracted (6.5.6)."
++-eval_file=linker_symbols.ecl
++-config=MC3R1.R18.2,reports+={safe, "any_area(stmt(operator(sub)&&child(lhs||rhs, skip(__non_syntactic_paren_stmts, ref(linker_symbols)))))"}
++-doc_end
++
++-doc_begin="The following macro performs a subtraction between pointers to obtain the mfn, but does not lead to undefined behaviour."
++-config=MC3R1.R18.2,reports+={safe, "any_area(any_loc(any_exp(macro(^page_to_mfn$))))"}
++-doc_end
++
+ -doc_begin="Flexible array members are deliberately used and XEN developers are aware of the dangers related to them:
+ unexpected result when the structure is given as argument to a sizeof() operator and the truncation in assignment between structures."
+ -config=MC3R1.R18.7,reports+={deliberate, "any()"}
+diff --git a/automation/eclair_analysis/ECLAIR/generate_ecl.sh b/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+index 66766b23abb7..f421a4a16a6c 100755
+--- a/automation/eclair_analysis/ECLAIR/generate_ecl.sh
++++ b/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+@@ -17,3 +17,6 @@ accepted_rst="${ECLAIR_PROJECT_ROOT}/docs/misra/rules.rst"
+
+ # Generate accepted guidelines
+ "${script_dir}/accepted_guidelines.sh" "${accepted_rst}"
++
++# Generate the list of linker-defined symbols (must be run after a Xen build)
++"${script_dir}/generate_linker_symbols.sh"
+diff --git a/automation/eclair_analysis/ECLAIR/generate_linker_symbols.sh b/automation/eclair_analysis/ECLAIR/generate_linker_symbols.sh
+new file mode 100755
+index 000000000000..19943ba98d46
+--- /dev/null
++++ b/automation/eclair_analysis/ECLAIR/generate_linker_symbols.sh
+@@ -0,0 +1,31 @@
++#!/bin/bash
++
++set -e
++
++script_name="$(basename "$0")"
++script_dir="$(
++  cd "$(dirname "$0")"
++  echo "${PWD}"
++)"
++
++fatal() {
++  echo "${script_name}: $*" >&2
++  exit 1
++}
++
++arch=""
++if [ "${XEN_TARGET_ARCH}" == "x86_64" ]; then
++  arch=x86
++elif [ "${XEN_TARGET_ARCH}" == "arm64" ]; then
++  arch=arm
++else
++  fatal "Unknown configuration: $1"
++fi
++
++outfile=${script_dir}/linker_symbols.ecl
++
++(
++  echo -n "-decl_selector+={linker_symbols, \"^(" >"${outfile}"
++  "${script_dir}/../linker-symbols.sh" "${arch}" | sort -u | tr '\n' '|' | sed '$ s/|//' >>"${outfile}"
++  echo -n ")$\"}" >>"${outfile}"
++)
+diff --git a/automation/eclair_analysis/prepare.sh b/automation/eclair_analysis/prepare.sh
+index 47b2a2f32a84..3a646414a392 100755
+--- a/automation/eclair_analysis/prepare.sh
++++ b/automation/eclair_analysis/prepare.sh
+@@ -39,10 +39,14 @@ fi
+     cp "${CONFIG_FILE}" xen/.config
+     make clean
+     find . -type f -name "*.safparse" -print -delete
++    "${script_dir}/build.sh" "$1"
++    # Generate additional configuration files
++    "${script_dir}/ECLAIR/generate_ecl.sh"
++    make clean
+     cd xen
+     make -f "${script_dir}/Makefile.prepare" prepare
+     # Translate the /* SAF-n-safe */ comments into ECLAIR CBTs
+     scripts/xen-analysis.py --run-eclair --no-build --no-clean
+     # Translate function-properties.json into ECLAIR properties
+-    python3 ${script_dir}/propertyparser.py
++    python3 "${script_dir}/propertyparser.py"
+ )
+diff --git a/automation/scripts/eclair b/automation/scripts/eclair
+index 3ec760bab8b3..0a2353c20a92 100755
+--- a/automation/scripts/eclair
++++ b/automation/scripts/eclair
+@@ -3,6 +3,9 @@
+ ECLAIR_ANALYSIS_DIR=automation/eclair_analysis
+ ECLAIR_DIR="${ECLAIR_ANALYSIS_DIR}/ECLAIR"
+ ECLAIR_OUTPUT_DIR=$(realpath "${ECLAIR_OUTPUT_DIR}")
++# All paths mentioned in ECLAIR reports that are below this directory
++# will be presented as relative to ECLAIR_PROJECT_ROOT.
++export ECLAIR_PROJECT_ROOT="${PWD}"
+
+ "${ECLAIR_ANALYSIS_DIR}/prepare.sh" "${VARIANT}"
+
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index b66c271c4e7c..39cd1de1e5b2 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -501,6 +501,16 @@ Deviations related to MISRA C:2012 Rules:
+          - __builtin_memset()
+          - cpumask_check()
+
++   * - R18.2
++     - Subtractions between pointers where at least one of the operand is a
++       pointer to a symbol defined by the linker are safe.
++     - Tagged as `safe` for ECLAIR.
++
++   * - R18.2
++     - Subtraction between pointers encapsulated by macro page_to_mfn
++       are safe.
++     - Tagged as `safe` for ECLAIR.
++
+    * - R20.4
+      - The override of the keyword \"inline\" in xen/compiler.h is present so
+        that section contents checks pass when the compiler chooses not to
+--
+2.43.0
 
