@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F11F96D74E
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 13:36:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791044.1200818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C86996D776
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2024 13:47:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791054.1200827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smAmd-0007HP-Gx; Thu, 05 Sep 2024 11:36:15 +0000
+	id 1smAxW-0001xe-IV; Thu, 05 Sep 2024 11:47:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791044.1200818; Thu, 05 Sep 2024 11:36:15 +0000
+Received: by outflank-mailman (output) from mailman id 791054.1200827; Thu, 05 Sep 2024 11:47:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smAmd-0007F4-DX; Thu, 05 Sep 2024 11:36:15 +0000
-Received: by outflank-mailman (input) for mailman id 791044;
- Thu, 05 Sep 2024 11:36:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1smAxW-0001v1-FZ; Thu, 05 Sep 2024 11:47:30 +0000
+Received: by outflank-mailman (input) for mailman id 791054;
+ Thu, 05 Sep 2024 11:47:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Shi=QD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1smAmc-0007Eu-Ad
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 11:36:14 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0d41d9ba-6b7b-11ef-99a1-01e77a169b0f;
- Thu, 05 Sep 2024 13:36:12 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5c26815e174so738518a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 04:36:12 -0700 (PDT)
+ id 1smAxU-0001ut-Rm
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2024 11:47:28 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a00089ba-6b7c-11ef-a0b3-8be0dac302b0;
+ Thu, 05 Sep 2024 13:47:27 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a86984e035aso107313066b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 04:47:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a62038bfesm123802466b.53.2024.09.05.04.36.10
+ a640c23a62f3a-a8a6236d04csm125190466b.122.2024.09.05.04.47.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Sep 2024 04:36:11 -0700 (PDT)
+ Thu, 05 Sep 2024 04:47:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d41d9ba-6b7b-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: a00089ba-6b7c-11ef-a0b3-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725536171; x=1726140971; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=UqqT6NlIsb5+wgnjVLOlIfpp2ZuuC/SEjsfn4gdI82I=;
-        b=Rgbi9Y4KtP9ng3Smv50QomEWFpW+6U99QWDyzhuJt2ogAT4Y9MkOBbuUqwYQ2L2zD8
-         WEbkgEj62G/NrDIWSfVvBiF5F26tHX3lpusHmJX7j9odZib4120OU3Ii682nQUcgbrwo
-         CUrTVaKw4SFE4wjBzVINyRM926EkcgJF32li4gVbBARllxZAnRktsXzRW3EuNnLVm4Pk
-         gIhN9urbymFkKVSJ4mAPSMtM1T6PWlZywSzsR6SfoOOWR082uI/FCHFJEwJefghK5eKd
-         mQt2Q+HFQy0JWifqnSaVzZkGNhS7az4AkNHYclBli1XPiA7bWx3UUx6JO2en+R2PaLS8
-         ZffA==
+        d=suse.com; s=google; t=1725536847; x=1726141647; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=SoauAPYcmSY2oUuE6sEM3/Ab11WdW5MOsZ8mFCiLBTE=;
+        b=VIfhXvxSeqU0ngmSjUY+jVepkQ3zc/f+vtp74zcobuPIIBjkO7c0Ha0tbRqoO3gXub
+         gNjU3IyS/o4yhgybrbQECTE7F2FQiVYV+meMS3YziDIDbbr2bRDW97gW6gedkpqRA8Js
+         zm912OUhYySPE4VnhT4bWnNQctu0HojWOgD41arCvF1Xt1AZD6MqejwyP13vAu0+g8UR
+         0CJjbfEUBcq6o61xPfcYhQEZ4IkEN/eaq9uXeFL93ycuPcea2GrMkcBNrimP22cOUvdk
+         6RtyYVbz97I8A1BeRvF7TgMLu2bIONn35H63M6BvYiPCfRfDyKMUbkjb4HzESYLODy72
+         xYYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725536171; x=1726140971;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=UqqT6NlIsb5+wgnjVLOlIfpp2ZuuC/SEjsfn4gdI82I=;
-        b=m2SeS8q45n+75UoFEymVL01DGA6E2TRfb7DGvN8IamAgYtUMaoq5Q9d1XGU6+ehfIf
-         6lnAjx1/U8mZeABpVMUmY1yYifdzCWLtjL6v+jDnA03p4PeVqDer/w2KDD439qOnkYBy
-         9v93veHlrq4SQGhODPSb6DG4FPdi7DDNlBLDSwxwyJClWorTyvE0YE6ZqRG6859bl9pk
-         jHDMGK3FD8EF+jyJ78v9K3ckSPkvMCwnl6ZdIFNvZvOkVd8V3MCsLnMhMrJyZ5r6TIkk
-         YgTwRdpd+X+kHA/HaVAo1CsSD4DXZnQ1u4dHZpYUU76M2G6vkTThYcGwj4b+I1gukyrR
-         Kv4Q==
-X-Gm-Message-State: AOJu0Yy8pSbIK5S/fWZNTXnAQzXQjW+lWS/IQm6MBkazlseNXEE56nlY
-	qZQtiwx32Ll8519RpRN5cJB9DArsb57ShvREtWdKl+fVgHAqXn3kPdOBkQHlKGeTAdZ2cBimy7s
+        d=1e100.net; s=20230601; t=1725536847; x=1726141647;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SoauAPYcmSY2oUuE6sEM3/Ab11WdW5MOsZ8mFCiLBTE=;
+        b=bSm55MPMo2S09uiCXUGFO49tRwnEDs9oa/FxKvaTFMcShORZRev6dXky+12Pn4dCps
+         38j7tn+sXulOEx9OVf7+s3A7H0WW0GO4jiWVJD/0QrIm5LWkAYfajQfTVrTZ9IKw8Ps8
+         t70zGwWoTWEvxV/G/ovu3MMvzLNz3ALjiTZx261+4zqP7HZrtSQEmSEdnKGHhirjTY0E
+         Fe2CW6rRHaZesnRR72XbTgnvaJ1/mpmaLWWHxZKbZmmeS4VPv9qQ76xx5DoW2deYg9nN
+         m15JKF+j6JYlhqGOl7I+5Rwsk6FsfrCeHzf8bkrWP5b7KYtxKrchUWLMjgWG6TToRtyn
+         NxNQ==
+X-Gm-Message-State: AOJu0Yw/KojnLHedzE4IdHWJHGOF8bCbieB6zkLZ8ECLLZpaGYgEJEW1
+	HQ6BwhVJPobds64GyRFvYe1iDV83YxvVFirZm0vv1pCDJH/yvjaDnSI1AOGxAK1Rtg6NPhruIug
 	=
-X-Google-Smtp-Source: AGHT+IFof0kq9Bw5VJtTaRK+P6tv72wJLNHjkxNPz6nxMlClq4uH+tBeJWiPejkaq03UfVP3G8L2Gg==
-X-Received: by 2002:a17:907:98b:b0:a88:b90b:bd5e with SMTP id a640c23a62f3a-a89d8723fedmr1322870666b.3.1725536171251;
-        Thu, 05 Sep 2024 04:36:11 -0700 (PDT)
-Message-ID: <8824b408-b27f-44ed-add1-87282e4d40af@suse.com>
-Date: Thu, 5 Sep 2024 13:36:09 +0200
+X-Google-Smtp-Source: AGHT+IEReSlc+eOf2asnNM8ddx49Q/QvTTcsktOA0ecfpcAhqFJKW7LTTh3uwo1+c4WLKpwD2thkdg==
+X-Received: by 2002:a17:907:72d6:b0:a80:788e:176c with SMTP id a640c23a62f3a-a89a35ceef6mr1751670866b.23.1725536847050;
+        Thu, 05 Sep 2024 04:47:27 -0700 (PDT)
+Message-ID: <40f6c75a-7a1e-4303-8d11-59221e3507bc@suse.com>
+Date: Thu, 5 Sep 2024 13:47:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] x86/HVM: stdvga caching mode
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <4ffb8702-d1b4-4e7d-986c-b03ace9e75ea@suse.com>
+ <39f10864-3fc5-4637-bf2c-4db3f2eb28a7@citrix.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Matthew Barnes <matthew.barnes@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v4] x86/xstate: enable AMX components
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -110,108 +113,71 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <39f10864-3fc5-4637-bf2c-4db3f2eb28a7@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-These being controlled by XCR0, enabling support is relatively
-straightforward. Note however that there won't be any use of them until
-their dependent ISA extension CPUID flags are exposed, not the least due
-to recalculate_xstate() handling the dependencies in kind of a reverse
-manner.
+On 05.09.2024 12:41, Andrew Cooper wrote:
+> On 05/09/2024 11:33 am, Jan Beulich wrote:
+>> Hello,
+>>
+>> I happened to spot a ~14y old revert of the crucial hunk of the ~16y old
+>> 551ceee97513 ("x86, hvm: stdvga cache always on") in our patch set,
+>> supposedly to deal with text mode corruption when Linux is booted without
+>> any "vga=" option, and when - after the GUI is up - the console is
+>> switched back to one of the text mode ones.
+>>
+>> My immediate reaction was that we shouldn't be carrying such privately.
+>> Yet after some playing with it I'm now at the point where I'm wondering
+>> why we have that caching mode in the first place. It looks to hardly ever
+>> come into use:
+>> 1) As of 68e1183411be ("libxc: introduce a xc_dom_arch for hvm-3.0-x86_32
+>>    guests") caching mode is disabled from start-of-day, due the disabling
+>>    being unconditional in hvm/save.c:arch_hvm_load(). That can of course
+>>    be worked around, but then 2).
+>> 2) In the course of setting up VGA, REP STOS (maybe REP MOVS) are
+>>    apparently used by both SeaBIOS and ROMBIOS, as can be derived from
+>>    stdvga_mem_accept() always hitting the "if ( p->dir == IOREQ_WRITE &&
+>>    p->count > 1 )" path while BIOS initializes.
+>>
+>> Further:
+>> 3) 551ceee97513 ("x86, hvm: stdvga cache always on") bumped the maximum
+>>    range of "mapped" VRAM from 64k to 128k, yet without growing vram_page[].
+>>    Afaict in mode 0 (full 128k accessible at A0000-BFFFF) vram_get{b,l}()
+>>    now misbehave.
+>> 4) d1b531631515 ("x86/hvm: unconditionally buffer writes to VRAM") likely
+>>    went too far (or not far enough) in bypassing write handling, yet then
+>>    still allowing reads to be serviced from possibly stale cache, when
+>>    ->stdvga goes first off and later back on, without ->cache changing
+>>    state.
+>> 5) 22a1fbb575df ("x86/hvm: make sure stdvga cache cannot be re-enabled")
+>>    likely went too far. Surely there are cases (VRAM clearing at the very
+>>    least) after which VRAM state is known again, and hence caching could
+>>    in principle be re-enabled.
+>>
+>> Before I go and try to fix all of the above, I'd like to collect views
+>> towards simply ripping out that caching mode, vastly simplifying the
+>> source file in question.
+> 
+> STDVGA caching is primarily (exclusively?) an optimisation for Windows XP.
+> 
+> WinXP was written pre-virt, and wastes an awful lot of time rendering
+> its boot animation with IN/OUT.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Intended to replace part of (and go beyond) "x86/cpufeatures: Add new
-cpuid features in SPR to featureset".
----
-v4: Add AMX-FP16 and AMX-COMPLEX. Add dependency on LM. Re-base. Split
-    off of AMX series.
-v3: Add new states to XSTATE_NONLAZY.
-v2: New.
+IN/OUT aren't accelerated at all; we merely intercept them to be able to
+"snoop" values of OUTs. But I question that WinXP (or Win2K as Paul
+suggested) did its actual rendering using IN/OUT, and this then having
+been improved by the caching I'm talking about here (see below). IN/OUT
+processing, as said, doesn't touch the MMIO cache at all.
 
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -216,6 +216,9 @@ static void recalculate_xstate(struct cp
-     if ( p->feat.pku )
-         xstates |= X86_XCR0_PKRU;
- 
-+    if ( p->feat.amx_tile )
-+        xstates |= X86_XCR0_TILE_CFG | X86_XCR0_TILE_DATA;
-+
-     /* Subleaf 0 */
-     p->xstate.max_size =
-         xstate_uncompressed_size(xstates & ~XSTATE_XSAVES_ONLY);
---- a/xen/arch/x86/include/asm/xstate.h
-+++ b/xen/arch/x86/include/asm/xstate.h
-@@ -35,7 +35,8 @@ extern uint32_t mxcsr_mask;
-                         XSTATE_NONLAZY)
- 
- #define XSTATE_ALL     (~(1ULL << 63))
--#define XSTATE_NONLAZY (X86_XCR0_BNDREGS | X86_XCR0_BNDCSR | X86_XCR0_PKRU)
-+#define XSTATE_NONLAZY (X86_XCR0_BNDREGS | X86_XCR0_BNDCSR | X86_XCR0_PKRU | \
-+                        X86_XCR0_TILE_CFG | X86_XCR0_TILE_DATA)
- #define XSTATE_LAZY    (XSTATE_ALL & ~XSTATE_NONLAZY)
- #define XSTATE_XSAVES_ONLY         0
- #define XSTATE_COMPACTION_ENABLED  (1ULL << 63)
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -278,8 +278,10 @@ XEN_CPUFEATURE(HYBRID,        9*32+15) /
- XEN_CPUFEATURE(TSXLDTRK,      9*32+16) /*a  TSX load tracking suspend/resume insns */
- XEN_CPUFEATURE(ARCH_LBR,      9*32+19) /*   Architectural Last Branch Record */
- XEN_CPUFEATURE(CET_IBT,       9*32+20) /*   CET - Indirect Branch Tracking */
-+XEN_CPUFEATURE(AMX_BF16,      9*32+22) /*   AMX BFloat16 instruction */
- XEN_CPUFEATURE(AVX512_FP16,   9*32+23) /*A  AVX512 FP16 instructions */
- XEN_CPUFEATURE(AMX_TILE,      9*32+24) /*   AMX Tile architecture */
-+XEN_CPUFEATURE(AMX_INT8,      9*32+25) /*   AMX 8-bit integer instructions */
- XEN_CPUFEATURE(IBRSB,         9*32+26) /*A  IBRS and IBPB support (used by Intel) */
- XEN_CPUFEATURE(STIBP,         9*32+27) /*A  STIBP */
- XEN_CPUFEATURE(L1D_FLUSH,     9*32+28) /*S  MSR_FLUSH_CMD and L1D flush. */
-@@ -297,6 +299,7 @@ XEN_CPUFEATURE(FZRM,         10*32+10) /
- XEN_CPUFEATURE(FSRS,         10*32+11) /*A  Fast Short REP STOSB */
- XEN_CPUFEATURE(FSRCS,        10*32+12) /*A  Fast Short REP CMPSB/SCASB */
- XEN_CPUFEATURE(WRMSRNS,      10*32+19) /*S  WRMSR Non-Serialising */
-+XEN_CPUFEATURE(AMX_FP16,     10*32+21) /*   AMX FP16 instruction */
- XEN_CPUFEATURE(AVX_IFMA,     10*32+23) /*A  AVX-IFMA Instructions */
- 
- /* AMD-defined CPU features, CPUID level 0x80000021.eax, word 11 */
-@@ -331,6 +334,7 @@ XEN_CPUFEATURE(MCDT_NO,            13*32
- /* Intel-defined CPU features, CPUID level 0x00000007:1.edx, word 15 */
- XEN_CPUFEATURE(AVX_VNNI_INT8,      15*32+ 4) /*A  AVX-VNNI-INT8 Instructions */
- XEN_CPUFEATURE(AVX_NE_CONVERT,     15*32+ 5) /*A  AVX-NE-CONVERT Instructions */
-+XEN_CPUFEATURE(AMX_COMPLEX,        15*32+ 8) /*   AMX Complex Instructions */
- XEN_CPUFEATURE(AVX_VNNI_INT16,     15*32+10) /*A  AVX-VNNI-INT16 Instructions */
- XEN_CPUFEATURE(PREFETCHI,          15*32+14) /*A  PREFETCHIT{0,1} Instructions */
- XEN_CPUFEATURE(CET_SSS,            15*32+18) /*   CET Supervisor Shadow Stacks safe to use */
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -252,7 +252,7 @@ def crunch_numbers(state):
-         # instruction groups which are specified to require XSAVE for state
-         # management.
-         XSAVE: [XSAVEOPT, XSAVEC, XGETBV1, XSAVES,
--                AVX, MPX, PKU, LWP],
-+                AVX, MPX, PKU, AMX_TILE, LWP],
- 
-         # AVX is taken to mean hardware support for 256bit registers (which in
-         # practice depends on the VEX prefix to encode), and the instructions
-@@ -274,7 +274,7 @@ def crunch_numbers(state):
-         # superpages, PCID and PKU are only available in 4 level paging.
-         # NO_LMSL indicates the absense of Long Mode Segment Limits, which
-         # have been dropped in hardware.
--        LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL],
-+        LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL, AMX_TILE],
- 
-         # AMD K6-2+ and K6-III processors shipped with 3DNow+, beyond the
-         # standard 3DNow in the earlier K6 processors.
-@@ -338,6 +338,11 @@ def crunch_numbers(state):
- 
-         # The behaviour described by RRSBA depend on eIBRS being active.
-         EIBRS: [RRSBA],
-+
-+        # AMX-TILE means hardware support for tile registers and general non-
-+        # computational instructions.  All further AMX features are built on top
-+        # of AMX-TILE.
-+        AMX_TILE: [AMX_BF16, AMX_INT8, AMX_FP16, AMX_COMPLEX],
-     }
- 
-     deep_features = tuple(sorted(deps.keys()))
+> The "caching" (really, putting them in the bufioreq ring, rather than
+> blocking for qemu on every access) made a good 10-20s improvement in VM
+> boot performance if memory serves, not to mention dom0 load when booting
+> multiple VMs in parallel.
+
+Well, I'm talking about dropping caching, not the use of the bufioreq
+ring. That is - we'd keep intercepting MMIO, merely directing writes the
+bufioreq route, without any other internal processing / state recording.
+
+Jan
 
