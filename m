@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A681C96F1BA
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 12:40:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791720.1201699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 007E796F1D9
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 12:46:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791725.1201710 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smWNu-0006oe-NO; Fri, 06 Sep 2024 10:40:10 +0000
+	id 1smWTm-0007Tl-AU; Fri, 06 Sep 2024 10:46:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791720.1201699; Fri, 06 Sep 2024 10:40:10 +0000
+Received: by outflank-mailman (output) from mailman id 791725.1201710; Fri, 06 Sep 2024 10:46:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smWNu-0006mS-KK; Fri, 06 Sep 2024 10:40:10 +0000
-Received: by outflank-mailman (input) for mailman id 791720;
- Fri, 06 Sep 2024 10:40:09 +0000
+	id 1smWTm-0007SG-7a; Fri, 06 Sep 2024 10:46:14 +0000
+Received: by outflank-mailman (input) for mailman id 791725;
+ Fri, 06 Sep 2024 10:46:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M+R7=QE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1smWNt-0004c0-BB
- for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 10:40:09 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ayfn=QE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1smWTl-0007S9-3c
+ for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 10:46:13 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 626f8603-6c3c-11ef-99a1-01e77a169b0f;
- Fri, 06 Sep 2024 12:40:07 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2f504652853so21163421fa.0
- for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 03:40:07 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3cc544a3esm2289321a12.29.2024.09.06.03.40.06
+ id 3b0e98c0-6c3d-11ef-99a1-01e77a169b0f;
+ Fri, 06 Sep 2024 12:46:11 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-374ba74e9b6so1395888f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 03:46:11 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8a620525efsm259801366b.58.2024.09.06.03.46.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Sep 2024 03:40:06 -0700 (PDT)
+ Fri, 06 Sep 2024 03:46:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,98 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 626f8603-6c3c-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 3b0e98c0-6c3d-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725619207; x=1726224007; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725619571; x=1726224371; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D5cypX0YjESAYoRVUiGlq2PpN7aUdYuDlTLH0NFkwEc=;
-        b=fbdASnj4Kt8fEAiqWqaCd3lcIYAwiV5rip59ZSRyffITNey+hi6fdLaW7Qng2eUwL8
-         OJfEZK9GZV6oWLw010oK/BNotpNg0Q9f4gs03Y9z+3dha/GDZglPAUuEbfEu+vH/UOzo
-         X4hcjE8OwXQ/7rCEG02K7ZGkzIUEkTATHjgY8=
+        bh=7Ze66nJHiM1J9z3iNwQYsV02wjEz76KIkRFqN/BE9L0=;
+        b=HeDwAASqSHjyUCLR6RR3FMw7S3T/e22RYGz7VXmks3ko9oy2nWUQ2i2ytPXcUgEbVc
+         kDc9J6sXRZlJSPZCFeSRibKGCgKMvbro6qt/J47D4fyfxhg8w/tDhzz3Mqng2iZ0ruuy
+         GMXDRRLFI4ByEcfDnHsBcjmrdcp+kNd1lFuaf5UUNy6JElVzsZ4j/yTfoNevN7kgmPuj
+         595NveXNYiuUKWQhCP4qh4jXjMG1Fvozp6D62U7qTIhH3b+Cr3J0pxIBkWZjSI/Wg+rt
+         dQg6PmNR55k54LayV0bxypPalQwvnAur18aodNE9dG9MTWIzPwihDAjHG3I5Yvx5EJzl
+         HJyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725619207; x=1726224007;
+        d=1e100.net; s=20230601; t=1725619571; x=1726224371;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D5cypX0YjESAYoRVUiGlq2PpN7aUdYuDlTLH0NFkwEc=;
-        b=ojpg2Yu3IC0ts54B6vtx/Ys2N6H4n+McFgd6EY+N0hWhyDoUxgCVBOruH0gyg4wAyd
-         ApGeQNjjhGXcmvDAltCMzl8M/PoMSfM2LG+xocn+xyv3JAgkNlaM1y8ab2+rrM6gHBLY
-         hiFXFsxer4Eu1NkppkQ8kowFzMwtQdaTycLSHYUzjSeakeerFtpSCPS75xoSuS7EsqiQ
-         CLhuKNRaxs6IfGMcnka1GvrbTIL9EXHHN3vDvSKjVFLo7HRaE9E+vVlVJJYDd1Nm5ddN
-         Ar1CuNTRQ1oWWSrL9c6aQ2EzIf/1bwVvGEkpa7PYH1FVkSuEhhX1WeU25qPthEHPbXAq
-         bDsA==
-X-Forwarded-Encrypted: i=1; AJvYcCUmKGDvcrwiYsUF7oeqqNEniJcaSqp+eWFLFyj8rJZRMYaHE1jZsdfDylg2DRcVc4ETp3s3nOMZjjI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwctGXkjMUPOCoHbwkCnBXcgSh1FHO9XAuPK+SYR6KhXk64Nth0
-	n0ZHN7cKaDjvyYTbIPvGOgyOMlNJyjkF4BfxPwHGAivdzz3/rVhBc/Pyr3JiMn4=
-X-Google-Smtp-Source: AGHT+IG6Mg298RVC4aGg6/7GkfWaqEfOmqoFvfooWMezv2YkY6EaqHKJRk8wzpX3j4NzNd7J3F/bNQ==
-X-Received: by 2002:a2e:b890:0:b0:2f6:60b4:5f16 with SMTP id 38308e7fff4ca-2f751f82e2emr16408051fa.42.1725619207018;
-        Fri, 06 Sep 2024 03:40:07 -0700 (PDT)
-Message-ID: <73f228c7-fa86-4120-b8a6-4ae5ff19c563@citrix.com>
-Date: Fri, 6 Sep 2024 11:40:05 +0100
+        bh=7Ze66nJHiM1J9z3iNwQYsV02wjEz76KIkRFqN/BE9L0=;
+        b=jucb1pVftFTjrBpYA1w+1Z73W38oJb/VsW6WfND7pxR36zMH4gHm9WoxQPnk6Ok4s4
+         2Qc7ys7b/kOa/P+hyWvAzafZ7Fd0DKrOgI9D4paeNiTiMfHbyIwxF57p7g0rCAt4sh25
+         nGWg7zgx5HZHL1lHM36tdH1hIBc79+MVhrrva60HPztqUxnFnYQEbQFok5t77lGz5e2d
+         vdga1LV+ekgKze1aTyzy0bHo4MbWGMklgIy7uJ6Cc+zgw10ZqkwPWn3Rqa9fNgzMyZZu
+         0+HiOutqEkq68vnrqhlu4j8wLiLI1TW5G3QVAhql4IxYsLx64PGw5ISlLkB7SgWffJmO
+         a3jA==
+X-Forwarded-Encrypted: i=1; AJvYcCVHjEF3cbY0NuG/9YyvsPdthPVQtdCb8KzwCP2Zj09MAnQ2GPxxmDlTXrUkt7j0sy6Ez5dyjXOhKOY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyeBlWPZuAxChtA4Mut6NeE3WI08Ys9U8GazudyPbCQ4FDPZGpl
+	HsUxCR9Yq9pM0Jog8ykX7ehPMUTuCzbDGqO9NbkITsJkO8vLl5FrjPAL78skTw==
+X-Google-Smtp-Source: AGHT+IGWlT7Kb1YE7HfF/WTWURqiWpIr6ZNiZk8vjo7oi+VZKbFw+6mnpcZ1EAx617Hi9xOPnBpviQ==
+X-Received: by 2002:a5d:56d1:0:b0:374:bcdc:6257 with SMTP id ffacd0b85a97d-374bcdc639amr16870071f8f.54.1725619570468;
+        Fri, 06 Sep 2024 03:46:10 -0700 (PDT)
+Message-ID: <cd1049b1-e52a-4062-b106-e85bc8b56d76@suse.com>
+Date: Fri, 6 Sep 2024 12:46:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86emul/test: use MSR constants
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <73ab4821-c3e7-4d0a-84d0-f37f578be350@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <73ab4821-c3e7-4d0a-84d0-f37f578be350@suse.com>
+Subject: Re: [xen-unstable test] 187507: regressions - FAIL
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org
+References: <osstest-187507-mainreport@xen.org>
+ <ba5fb24b-52fd-4a7f-a3dd-3c83c2a97e8a@suse.com>
+ <5ba7f4ea-4772-4bbf-9e9e-88d45c81b73a@citrix.com>
+ <779f69aa-f1d3-4582-b08d-83f92d4614c2@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <779f69aa-f1d3-4582-b08d-83f92d4614c2@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/09/2024 11:39 am, Jan Beulich wrote:
-> msr-index.h has been in use for a while, so use the identifiers it
-> provides in place of raw numbers plus comments.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 06.09.2024 12:07, Andrew Cooper wrote:
+> On 06/09/2024 11:01 am, Andrew Cooper wrote:
+>> On 06/09/2024 7:08 am, Jan Beulich wrote:
+>>> On 06.09.2024 06:41, osstest service owner wrote:
+>>>> flight 187507 xen-unstable real [real]
+>>>> http://logs.test-lab.xenproject.org/osstest/logs/187507/
+>>>>
+>>>> Regressions :-(
+>>>>
+>>>> Tests which did not succeed and are blocking,
+>>>> including tests which could not be run:
+>>>>  build-i386-xsm                6 xen-build                fail REGR. vs. 187498
+>>>>  build-i386                    6 xen-build                fail REGR. vs. 187498
+>>> This is a result of "x86emul: introduce a struct cpu_policy * local in
+>>> x86_emulate()", and me not noticing the issue because in my tree (for
+>>> AMX in particular) I have several more uses of the variable. I'd really
+>>> like to avoid undoing the change, but adding __maybe_unused also seems
+>>> bogus to me, as does adding a seemingly stray (void)cp somewhere. Good
+>>> alternative ideas, anyone?
+>> __maybe_unused as at least accurate, and its less fragile than a (void)cp;
+> 
+> Interestingly, Gitlab's x86_32 build test missed this.
+> 
+> https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/7762103169 passed.
+> 
+> I wonder if there's anything we should have done to get better coverage.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+From the build log:
+
+make -C x86_emulator install
+make[6]: Entering directory '/builds/xen-project/people/andyhhp/xen/tools/tests/x86_emulator'
+make[6]: Nothing to be done for 'install'.
+make[6]: Leaving directory '/builds/xen-project/people/andyhhp/xen/tools/tests/x86_emulator'
+
+Iirc one of your colleagues (Alejandro?) had a patch to actually install the
+test harness binary. I didn't like this very much, but the above may be a
+good reason to have it despite my slight dislike. And I think I had indicated
+already that if everyone else thinks this wants installing, so be it.
+
+Jan
 
