@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C111396F811
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 17:18:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791911.1201934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1D0696F8EC
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 18:00:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791930.1201945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smaid-0000cO-Cw; Fri, 06 Sep 2024 15:17:51 +0000
+	id 1smbMk-0008Uc-FE; Fri, 06 Sep 2024 15:59:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791911.1201934; Fri, 06 Sep 2024 15:17:51 +0000
+Received: by outflank-mailman (output) from mailman id 791930.1201945; Fri, 06 Sep 2024 15:59:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smaid-0000at-AG; Fri, 06 Sep 2024 15:17:51 +0000
-Received: by outflank-mailman (input) for mailman id 791911;
- Fri, 06 Sep 2024 15:17:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1smbMk-0008SF-Bh; Fri, 06 Sep 2024 15:59:18 +0000
+Received: by outflank-mailman (input) for mailman id 791930;
+ Fri, 06 Sep 2024 15:59:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M+R7=QE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1smaic-0000an-4t
- for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 15:17:50 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2d3275a1-6c63-11ef-a0b4-8be0dac302b0;
- Fri, 06 Sep 2024 17:17:49 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a7a81bd549eso231489466b.3
- for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 08:17:49 -0700 (PDT)
+ id 1smbMi-0008S8-CX
+ for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 15:59:16 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f679f6fa-6c68-11ef-99a1-01e77a169b0f;
+ Fri, 06 Sep 2024 17:59:14 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2f4f2868710so23397671fa.1
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 08:59:14 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d0fa268easm22473766b.208.2024.09.06.08.17.46
+ 4fb4d7f45d1cf-5c3cc56d1ccsm2581936a12.55.2024.09.06.08.59.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Sep 2024 08:17:46 -0700 (PDT)
+ Fri, 06 Sep 2024 08:59:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d3275a1-6c63-11ef-a0b4-8be0dac302b0
+X-Inumbo-ID: f679f6fa-6c68-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725635867; x=1726240667; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725638353; x=1726243153; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zxRcVssYU+qORPwfOvADQKMVPxoicf0+kMclzOqW9zE=;
-        b=mf8Z0hwGMmzj8NzPacftfYKO4T9/jJ+KQn6rs0FLHu5AHunCeibbILx4IGn2zZPvqF
-         7O439301D4Ho96bpq52i2HSU7LQHs7BAgBwt/6d2HGD80rUphiw9ddIrRcpBLsFVjeyz
-         Rfu4cwW7JZFG9LOYoKlnhpBGfGT7ouSJn7uYw=
+        bh=H32N38nS/MTxq7LZz6EnJ+gR9lk4GalWCKtQ77lcecg=;
+        b=LIsGE8OvA7xLAz+dBOO7a1KVbe8W1zIrwDHY5hYXWv3rvWNsr7Y35kouG5zs6+OuXi
+         111trVlgcRqe4BBlVbW1WhaWTXDKgNv4AkNtKVCJU7wy+nJJezu6ciHfKTKcrtU4Kpo3
+         NV2Ldq3BUBWVlwL2NLS43t5/KzAPJ1aTiF7j0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725635867; x=1726240667;
+        d=1e100.net; s=20230601; t=1725638353; x=1726243153;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zxRcVssYU+qORPwfOvADQKMVPxoicf0+kMclzOqW9zE=;
-        b=rYS6oxHSK6jl+xubjYK+SLlCjdI/ijVX2YrhlRs49xtN4SB2P/9aQXctFM+QwgEBfT
-         czBzon1O96wR/GBdZfqU0PA9KMv2bHsGJkXplDyLuNdoSKv0IqBMX0+S0wcY7mkdhlsW
-         DYiq0QheLtB/iY9Dm380P/7c0G9EZfpdqOgRvCxoGUOJHWAOdkjz9l70FhnM3I/KIxNX
-         DC6nJy7ZxcqB+Of1LsYaSIB8ndac47Fb22DKhf5h9X+fN2zhyNMsE0rt7JmDAoLNJFqx
-         55Z+GwNJkW2mAtUksWPGk8kGZCBvv6Et2bxNZTrJ5OfUaGuka6LXSJFmSb1DoiFUed89
-         dy4g==
-X-Gm-Message-State: AOJu0YxtJz8SymHwUQ+QBeJAFoMk5xpnQjP+iNRz5IHQkjBM4D0LN4dF
-	mH+LcUBQUM9/extTrkNhstxWjnmSW8l6XNBKMSoNmvut74QeBawK8t6K8x2Qcu1DP1kLddZJrY0
-	l
-X-Google-Smtp-Source: AGHT+IHw8o4ezLINz4S6/6qASgBCV7t/LJbejAX+FibLjMIEyk36QdPeyEWvS+Yzatgi9WfqoK4ILg==
-X-Received: by 2002:a17:907:2d9e:b0:a6f:1443:1e24 with SMTP id a640c23a62f3a-a8a88667c0cmr262712966b.34.1725635866997;
-        Fri, 06 Sep 2024 08:17:46 -0700 (PDT)
-Message-ID: <9eb18072-2cc3-429b-9c24-ea8c72691b67@citrix.com>
-Date: Fri, 6 Sep 2024 16:17:44 +0100
+        bh=H32N38nS/MTxq7LZz6EnJ+gR9lk4GalWCKtQ77lcecg=;
+        b=FoHjhC2LCUb2lzGHZIZuYrp3nfksSr9/3vzIGdpZX5DrXtGWkIFVvjkuF22e0kM4fj
+         wwMO/jOsxyykbVZcEMvTQ0QvJyVeWxBZNRrSszdG37hQbNBLJo0WNn65PE1QJpS547Hp
+         ibDZbl/CoR0965WPicq4wj9RrffUmJPwrqTlZRIq9TuOzjlbXFR39T6H7A9xnvbFfoQB
+         y493aViBkg/DGQrAqS/B4/RRGEtjwtei6c82BVemRPdCliZTwr1n2Mz7FtEORSSWHhRc
+         eXdg7OxTyD1noFFvJSaNH/W/xMVyF6Zfot//Ez5q6aDQWSz78/GWPRHgUj+V9PaV5El7
+         iO+A==
+X-Forwarded-Encrypted: i=1; AJvYcCWAqHYt5aLrJbBCL3dRS90FopLi35/kuaySqkwSBuvn2YwTONfdSrujdA/m5AcHhOxspg1f3+Ypp8Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwKmLtPq/6Xek6vo5WHkxtaW+i1ULvtd4OA/aoPHG0KIz79CShn
+	Dn19LwcZtDMy73X1qmcIeKDRs37Ek2sElCmWPlCYI0NDCjEo9SReW74mKWjT1qiKRNcbNjsH0n+
+	z
+X-Google-Smtp-Source: AGHT+IHShSauWSefAQO0pgEblCBwTcv9XMi9yTCH/5sTyf17WzkwvazM1/jBWoBuy7Re0k+rW6KCRA==
+X-Received: by 2002:a2e:6119:0:b0:2f7:4e8c:9c11 with SMTP id 38308e7fff4ca-2f751ea793emr22277481fa.1.1725638352753;
+        Fri, 06 Sep 2024 08:59:12 -0700 (PDT)
+Message-ID: <772a9d43-6338-40be-9499-1055ac94cfe6@citrix.com>
+Date: Fri, 6 Sep 2024 16:59:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/ocaml: Rationalise .gitignore
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>, =?UTF-8?B?RWR3aW4gVMO2csO2aw==?=
- <edwin.torok@cloud.com>, Rob Hoes <Rob.Hoes@citrix.com>,
- Andrii Sultanov <andrii.sultanov@cloud.com>
-References: <20240906145524.186148-1-andrew.cooper3@citrix.com>
+Subject: Re: [RFC 0/5] Reuse 32 bit C code more safely
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20240904145648.33707-1-frediano.ziglio@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,27 +133,70 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240906145524.186148-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240904145648.33707-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06/09/2024 3:55 pm, Andrew Cooper wrote:
-> diff --git a/tools/ocaml/.gitignore b/tools/ocaml/.gitignore
-> new file mode 100644
-> index 000000000000..3687c2af4f26
-> --- /dev/null
-> +++ b/tools/ocaml/.gitignore
-> @@ -0,0 +1,5 @@
-> +/**/META
-> +/**/.ocamldep.make
-> +/**/*.annot
-> +/**/*.cm[ixao]
-> +/**/*.cmx[as]
+On 04/09/2024 3:56 pm, Frediano Ziglio wrote:
+> This RFC series attempt to:
+> - use more C code, that is replace some assembly code with C;
+> - avoid some code duplication between C and assembly;
+> - prevent some issues having relocations in C code.
+>
+> The idea is extending the current C to binary code conversion
+> done for 32 bit C code called from head.S making sure relocations
+> are safe and allowing external symbols usage from C code.
+>
+> Note that, as an addition, scripts generating code check for no
+> data to allow code and data separation.
+>
+> More details of the implementation are in commit message 2/5,
+> which is the largest patch.
+> Patch 1/5 is to prepare code and avoid data.
+> Patch 3/5 is an example of code reuse between 32 and 64 bit.
+> Patch 4/5 is also another example of code reuse but is more hacky and
+> dirty due to not being possible include use some headers.
+>
+> Code boot successfully using:
+> - BIOS boot;
+> - EFI boot with Grub2 and ELF file;
+> - direct EFI boot without Grub.
+>
+> Suggestions/opinions are welcome.
+>
+> Code is currently based on "staging" branch, currently commit
+> 6471badeeec92db1cb8155066551f7509cd82efd.
 
-Ah, having double checked the docs, these would be more idiomatic
-without the leading /
+I fully support taking logic out of asm and writing it in C, as well as
+taking steps to dedup the EFI and non-EFI paths.  A couple of
+observations before diving into the details.
 
-I've fixed up locally.
+The visibility pragmas mean that you've lost the `-include xen/config.h`
+from the $(CC) invocation.  We use this to get some Xen-wide settings
+everywhere, which includes handling visibility.
+
+The symlinks for dual builds are going to cause problems for tarball
+archives.  Instead you can encode this with make rules.  e.g.
+
+    obj-y += foo32.o foo64.o
+
+    %32.o: %.c
+        $(CC) -m32 ...
+
+    %64.o: %.c
+        $(CC) -m64 ...
+
+will build two different .o's from the same .c.  This is how XTF builds
+different tests from the same source.
+
+
+I'm on the fence with the ifdefary and bit suffixes.  I don't think we
+need the error case because x86_128 isn't coming along any time soon.
+
+For completeness, there's a trick used by the shadow code (see
+SHADOW_INTERNAL_NAME()) which adds a suffix without local ifdefary. 
+It's nicer to read, but breaks grep/cscope/etc.  I'm torn as to which is
+the lesser evil.
 
 ~Andrew
 
