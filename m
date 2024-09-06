@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4034D96FE85
-	for <lists+xen-devel@lfdr.de>; Sat,  7 Sep 2024 01:35:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.792074.1202118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29D8396FE83
+	for <lists+xen-devel@lfdr.de>; Sat,  7 Sep 2024 01:35:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.792075.1202127 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smiTa-00049x-4g; Fri, 06 Sep 2024 23:34:50 +0000
+	id 1smiTj-0004Tb-BF; Fri, 06 Sep 2024 23:34:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 792074.1202118; Fri, 06 Sep 2024 23:34:50 +0000
+Received: by outflank-mailman (output) from mailman id 792075.1202127; Fri, 06 Sep 2024 23:34:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smiTa-00047r-1l; Fri, 06 Sep 2024 23:34:50 +0000
-Received: by outflank-mailman (input) for mailman id 792074;
- Fri, 06 Sep 2024 23:34:48 +0000
+	id 1smiTj-0004S0-87; Fri, 06 Sep 2024 23:34:59 +0000
+Received: by outflank-mailman (input) for mailman id 792075;
+ Fri, 06 Sep 2024 23:34:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Y4lz=QE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1smiTY-0003ro-Ps
- for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 23:34:48 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1smiTh-0003ro-Px
+ for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 23:34:57 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9988f503-6ca8-11ef-99a1-01e77a169b0f;
- Sat, 07 Sep 2024 01:34:46 +0200 (CEST)
+ id 9ef487e1-6ca8-11ef-99a1-01e77a169b0f;
+ Sat, 07 Sep 2024 01:34:55 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2F4F05C57ED;
- Fri,  6 Sep 2024 23:34:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AEB4C4CEC4;
- Fri,  6 Sep 2024 23:34:43 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 37313A41426;
+ Fri,  6 Sep 2024 23:34:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831CFC4CEC4;
+ Fri,  6 Sep 2024 23:34:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,247 +41,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9988f503-6ca8-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 9ef487e1-6ca8-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725665685;
-	bh=0GL3+CoOuOKR5yj/Punk2gjyeTB85okMiTKV7Yc+swc=;
+	s=k20201202; t=1725665694;
+	bh=0Ih4Iip7xtLRlf3kChkEtWsQcFRqkk8Kd9X2NiQdffQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=XW/lgVvW8w6nni7aVfVUZR1Am4M9sk7XGM4xpScuvaxQBgYQe9Kw7qXKXknFnloJC
-	 s0dfQsG5RO9LFmtBshYKaWG2hWA7z2yWiJ1nGy/Wfjb0gSFgLlSQRL4bjv6Evd3fPE
-	 PKAXuJWns8gNqOVjG33pYUnCWchG1T4pZ5zx3snmVIm4Z0D4Y4JSoLCZ+/qn0e6FF3
-	 +VXzELwWdu5ENUF/uOFDaEXCGjYxOj13yIXT8zhYm2wQDyvmWPbaDw2WSqhV9BjrUu
-	 r1q/84MkkIkwD3Ksy3fNYFDyCbUXVUIaVjTsfkJK3lcKxMulTaMxEOsbL1LBlhSxRj
-	 XsJwVLirytjhQ==
-Date: Fri, 6 Sep 2024 16:34:42 -0700 (PDT)
+	b=SS/mDBjCWGtrBKawZ6ZsSoTw30skndFiFIyLAIsPV+17n3u8Xq0vyrbbY8LoYMvMR
+	 zvOQNpFjHvfgXhsDTWkJweL9lT5ks/2Q0HZb4bLMUtHU1xR8PkjmdPNrRoGAHBKju0
+	 gv2ojX1mzLuwq6Z3nC1tn2/f36j+axIGpfOOqQ+V2Okf8HyWS91gePA57MvDciv9g1
+	 qMlwhqhUxuEbGHyjAUdh1zLMjDLN7GdHfOhEMAJlk0fW4FK1OQ9KO6xcL52sFE6GyW
+	 07rMLOtFffUkh3UMEqC62kJD1/+Y3r07vBZP4SyVdX5WcnhiuQ+yp0M0//pLqfiKyG
+	 A3L58hGkwAUHw==
+Date: Fri, 6 Sep 2024 16:34:47 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Grygorii Strashko <grygorii_strashko@epam.com>, 
-    Peng Fan <peng.fan@oss.nxp.com>, "julien@xen.org" <julien@xen.org>, 
-    Artem Mygaiev <Artem_Mygaiev@epam.com>
-Subject: Re: Follow up discussion for: [RFC v2] Introduce SCI-mediator
- feature
-In-Reply-To: <460ec8fb-bae0-4681-b774-20cb564fa9c4@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2409061543500.53815@ubuntu-linux-20-04-desktop>
-References: <460ec8fb-bae0-4681-b774-20cb564fa9c4@epam.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "Chen, Jiqian" <Jiqian.Chen@amd.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
+    George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>, 
+    Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>, 
+    "Daniel P . Smith" <dpsmith@apertussolutions.com>, 
+    "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, 
+    "Huang, Ray" <Ray.Huang@amd.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [XEN PATCH v14 2/5] x86/pvh: Allow (un)map_pirq when dom0 is
+ PVH
+In-Reply-To: <fb08f1bc-291d-4c97-b20e-7e4ba9f556c9@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2409061500390.53815@ubuntu-linux-20-04-desktop>
+References: <20240903070424.982218-1-Jiqian.Chen@amd.com> <20240903070424.982218-3-Jiqian.Chen@amd.com> <e8db9a54-fcbf-4f4c-803e-7b11838e22a4@suse.com> <BL1PR12MB5849C65CAC35890158F6A32FE7932@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <905fe9ef-d311-4956-b862-49f2f588afcd@suse.com> <BL1PR12MB58492EE11D404B2E09DA0210E7932@BL1PR12MB5849.namprd12.prod.outlook.com> <b2b7b716-974c-4172-ba68-261453a96932@suse.com> <alpine.DEB.2.22.394.2409031839550.53815@ubuntu-linux-20-04-desktop>
+ <ea41eb5d-f8a1-4120-b5c1-70bdf02d8038@suse.com> <BL1PR12MB5849E69A83D4BABAF544C22EE79D2@BL1PR12MB5849.namprd12.prod.outlook.com> <f6a1f021-04cc-4dd3-bcea-97a7343399e1@suse.com> <alpine.DEB.2.22.394.2409051521340.53815@ubuntu-linux-20-04-desktop>
+ <fb08f1bc-291d-4c97-b20e-7e4ba9f556c9@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 2 Sep 2024, Oleksii Moisieiev wrote:
-> Greetings,
+On Fri, 6 Sep 2024, Jan Beulich wrote:
+> On 06.09.2024 00:51, Stefano Stabellini wrote:
+> > On Thu, 5 Sep 2024, Jan Beulich wrote:
+> >> On 05.09.2024 08:45, Chen, Jiqian wrote:
+> >>> HI,
+> >>>
+> >>> On 2024/9/4 14:04, Jan Beulich wrote:
+> >>>> On 04.09.2024 03:43, Stefano Stabellini wrote:
+> >>>>> On Tue, 3 Sep 2024, Jan Beulich wrote:
+> >>>>>> On 03.09.2024 12:53, Chen, Jiqian wrote:
+> >>>>>>> On 2024/9/3 17:25, Jan Beulich wrote:
+> >>>>>>>> On 03.09.2024 09:58, Chen, Jiqian wrote:
+> >>>>>>>>> On 2024/9/3 15:42, Jan Beulich wrote:
+> >>>>>>>>>> On 03.09.2024 09:04, Jiqian Chen wrote:
+> >>>>>>>>>>> When dom0 is PVH type and passthrough a device to HVM domU, Qemu code
+> >>>>>>>>>>> xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
+> >>>>>>>>>>> xc_physdev_map_pirq map a pirq for passthrough devices.
+> >>>>>>>>>>> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
+> >>>>>>>>>>> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
+> >>>>>>>>>>> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
+> >>>>>>>>>>> codes.
+> >>>>>>>>>>>
+> >>>>>>>>>>> But it is fine to map interrupts through pirq to a HVM domain whose
+> >>>>>>>>>>> XENFEAT_hvm_pirqs is not enabled. Because pirq field is used as a way to
+> >>>>>>>>>>> reference interrupts and it is just the way for the device model to
+> >>>>>>>>>>> identify which interrupt should be mapped to which domain, however
+> >>>>>>>>>>> has_pirq() is just to check if HVM domains route interrupts from
+> >>>>>>>>>>> devices(emulated or passthrough) through event channel, so, the has_pirq()
+> >>>>>>>>>>> check should not be applied to the PHYSDEVOP_map_pirq issued by dom0.
+> >>>>>>>>>>>
+> >>>>>>>>>>> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
+> >>>>>>>>>>> PHYSDEVOP_unmap_pirq for the removal device path to unmap pirq. Then the
+> >>>>>>>>>>> interrupt of a passthrough device can be successfully mapped to pirq for domU.
+> >>>>>>>>>>
+> >>>>>>>>>> As before: When you talk about just Dom0, ...
+> >>>>>>>>>>
+> >>>>>>>>>>> --- a/xen/arch/x86/hvm/hypercall.c
+> >>>>>>>>>>> +++ b/xen/arch/x86/hvm/hypercall.c
+> >>>>>>>>>>> @@ -73,6 +73,8 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> >>>>>>>>>>>      {
+> >>>>>>>>>>>      case PHYSDEVOP_map_pirq:
+> >>>>>>>>>>>      case PHYSDEVOP_unmap_pirq:
+> >>>>>>>>>>> +        break;
+> >>>>>>>>>>> +
+> >>>>>>>>>>>      case PHYSDEVOP_eoi:
+> >>>>>>>>>>>      case PHYSDEVOP_irq_status_query:
+> >>>>>>>>>>>      case PHYSDEVOP_get_free_pirq:
+> >>>>>>>>>>
+> >>>>>>>>>> ... that ought to match the code. IOW you've again lost why it is okay(ish)
+> >>>>>>>>>> (or even necessary) to also permit the op for non-Dom0 (e.g. a PVH stubdom).
+> >>>>>>>>>> Similarly imo Dom0 using this on itself wants discussing.
+> >>>>>>>>> Do you mean I need to talk about why permit this op for all HVM
+> >>>>>>>>
+> >>>>>>>> You don't need to invent reasons, but it needs making clear that wider than
+> >>>>>>>> necessary (for your purpose) exposure is at least not going to be a problem.
+> >>>>>>>>
+> >>>>>>>>> and  where can prevent PVH domain calling this for self-mapping, not only dom0?
+> >>>>>>>>
+> >>>>>>>> Aiui use on itself is limited to Dom0, so only that would need clarifying
+> >>>>>>>> (along the lines of the above, i.e. that/why it is not a problem). For
+> >>>>>>>> has_pirq() domains use on oneself was already permitted before.
+> >>>>>>>
+> >>>>>>> Changed commit message to below. Please check and that will be great helpful if you would show me how to modify it.
+> >>>>>>> {
+> >>>>>>> x86/pvh: Allow (un)map_pirq when dom0 is PVH
+> >>>>>>>
+> >>>>>>> Problem: when dom0 is PVH type and passthrough a device to HVM domU, Qemu
+> >>>>>>> code xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
+> >>>>>>> xc_physdev_map_pirq map a pirq for passthrough devices.
+> >>>>>>> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
+> >>>>>>> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
+> >>>>>>> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
+> >>>>>>> codes.
+> >>>>>>>
+> >>>>>>> To solve above problem, need to remove the chack has_pirq() for that
+> >>>>>>> situation(PHYSDEVOP_map_pirq is issued by dom0 for domUs). But without
+> >>>>>>> adding other restrictions, PHYSDEVOP_map_pirq will be allowed wider than
+> >>>>>>> what the problem need.
+> >>>>>>> So, clarify below:
+> >>>>>>>
+> >>>>>>> For HVM domUs whose XENFEAT_hvm_pirqs is not enabled,it is fine to map
+> >>>>>>> interrupts through pirq for them. Because pirq field is used as a way to
+> >>>>>>> reference interrupts and it is just the way for the device model to
+> >>>>>>> identify which interrupt should be mapped to which domain, however
+> >>>>>>> has_pirq() is just to check if HVM domains route interrupts from
+> >>>>>>> devices(emulated or passthrough) through event channel, so, remove
+> >>>>>>> has_pirq() check has no impact on HVM domUs.
+> >>>>>>>
+> >>>>>>> For PVH domUs that performs such an operation will fail at the check
+> >>>>>>> xsm_map_dedomain_pirq() in physdev_map-nirq().
+> >>>>>>>
+> >>>>>>> For PVH dom0, it uses vpci and doesn't use event channel, as above talks,
+> >>>>>>> it also has no impact.
+> >>>>>>> }
+> >>>>>>
+> >>>>>> This is better than what you had before, and I don't really fancy re-
+> >>>>>> writing the description effectively from scratch. So let's just go from
+> >>>>>> there. As to the "excess" permission for the sub-ops: The main thing I'm
+> >>>>>> after is that it be clarified that we're not going to introduce any
+> >>>>>> security issues here. That requires auditing the code, and merely saying
+> >>>>>> "also has no impact" is a little too little for my taste. For Dom0 an
+> >>>>>> argument may be that it is overly powerful already anyway, even if for
+> >>>>>> PVH we're a little more strict than for PV (I think).
+> >>>>>
+> >>>>> Hi Jan, for clarity and to make this actionable, are you suggesting to
+> >>>>> clarify the commit message by adding wording around "Dom0 is overly
+> >>>>> powerful already anyway so it is OK so this is OK" ?
+> >>>>
+> >>>> Yes, perhaps with "deemed" added. 
+> >>> OK, for PVH dom0, I will change to " Dom0 is deemed overly powerful already anyway, so it is OK "
+> >>
+> >> I don't mind the deemed as you add it, but the important place to add it
+> >> here is before "OK". I'm sorry, it didn't occur to me that after all the
+> >> prior discussion this earlier reply of mine could still be mis-interpreted.
+> >>
+> >>>> And text for DomU-s similarly extended, as the pointing at the XSM check is presently incomplete (stubdom-s can
+> >>>> pass that check, after all, as can de-priv qemu running in Dom0).
+> >>> So sorry, I know so little about this, I can't explain these situations, could you tell me how to describe or help me write a paragraph?
+> >>
+> >> I'm afraid that in order to make (propose) such a change you need to be
+> >> able to explain why it is okay to expose functionality beyond where it's
+> >> presently exposed. It's not just writing a new paragraph that's needed
+> >> here. You first need to _check_ that what you do is okay. And once you've
+> >> done that checking, you then summarize that in writing.
+> >  
+> > 
+> > PHYSDEVOP_map_pirq ends up calling physdev_map_pirq which is protected
+> > by:
+> > 
+> >     ret = xsm_map_domain_pirq(XSM_DM_PRIV, d);
+> >     if ( ret )
+> >         return ret;
+> > 
+> > Dom0 having permission to do PHYSDEVOP_map_pirq even without has_pirq is
+> > fine. Device models are also OK because the code we are trying to enable
+> > is in fact part of the device model. If someone were to run an HVM
+> > stubdom they might need this patch as well.
+> > 
+> > If PHYSDEVOP_map_pirq is allowed, also PHYSDEVOP_unmap_pirq should be
+> > allowed.
+> > 
+> > Is this explanation OK?
 > 
-> After some time we are back to the development of the SCI-Mediator 
-> feature presented as RFC few years earlier.
-> Link to the RFC v2: 
-> https://lore.kernel.org/all/cover.1644341635.git.oleksii_moisieiev@epam.com/
-> 
-> Last time feature discussion was stalled at the following point:
-> - Device-tree bindings should be changed to provide proper device-id for 
-> SCMI devices which is upstreamed in the Linux Kernel by now:
-> https://patchew.org/linux/20240105130404.301172-1-gatien.chevallier@foss.st.com/20240105130404.301172-2-gatien.chevallier@foss.st.com/
-> 
-> That's why we went back to the development of the SCMI-Mediator feature. 
-> Our current setup is Dom0less with Zephyr as Control domain and Linux as 
-> DomU.
+> This still solely focuses on why the functionality is wanted. There
+> continues to be nothing about the wider exposure actually being safe.
 
-Hi Oleksii, great to hear that the binding was finally merged and the
-work can continue!
+I don't think I understand what you would like to be checked or
+clarified...
 
+The only wider exposure is to device models, and device models can do a
+lot worse than mapping pirqs already. There is no wider exposure to
+DomUs. Also PV device models can already do this.
 
-> Hereby I want to start a discussion about the correct approach of adding 
-> scmi nodes to the partial device tree for domain.
-> 
-> Current device-tree configuration we have for Xen and DomU domain are 
-> the following:
-> 
-> 1) Xen device-tree overlay:
-> &{/} {
->          #address-cells = <0x02>;
->          #size-cells = <0x01>;
-> 
->          sram@3ff00000 {
->                  compatible = "mmio-sram";
->                  reg = <0x00 0x3ff00000 0x10000>;
->                  #address-cells = <0x01>;
->                  #size-cells = <0x01>;
->                  ranges = <0x00 0x00 0x3ff00000 0x10000>;
->                  phandle = <0x03>;
-> 
->                  scmi_shm_0: scmi_shm@0 {
->                          compatible = "arm,scmi-shmem";
->                          reg = <0x00 0x1000>;
->                  };
->                  scmi_shm_1: scmi_shm@1 {
->                          compatible = "arm,scmi-shmem";
->                          reg = <0x1000 0x1000>;
->                  };
->                  scmi_shm_2: scmi_shm@2 {
->                          compatible = "arm,scmi-shmem";
->                          reg = <0x2000 0x1000>;
->                  };
->                  scmi_shm_3: scmi_shm@3 {
->                          compatible = "arm,scmi-shmem";
->                          reg = <0x3000 0x1000>;
->                  };
->                  scmi_shm_4: scmi_shm@4 {
->                          compatible = "arm,scmi-shmem";
->                          reg = <0x4000 0x1000>;
->                  };
->                  scmi_shm_5: scmi_shm@5 {
->                          compatible = "arm,scmi-shmem";
->                          reg = <0x5000 0x1000>;
->                  };
->                  scmi_shm_6: scmi_shm@6 {
->                          compatible = "arm,scmi-shmem";
->                          reg = <0x6000 0x1000>;
->                  };
->                  scmi_shm_7: scmi_shm@7 {
->                          compatible = "arm,scmi-shmem";
->                          reg = <0x7000 0x1000>;
->                  };
->          };
-> };
-> &{/} {
->                  domU {
->                          compatible = "xen,domain";
->   			 ...
->                          xen,arm_sci = "scmi-smc";
->                  };
-> 
-> };
-> &{/firmware/} {
->          scmi: scmi {
->                  compatible = "arm,scmi-smc";
->                  arm,smc-id = <0x82000002>;
->                  #address-cells = <0x01>;
->                  #size-cells = <0x00>;
->                  #access-controller-cells = <1>;
->                  shmem = <&scmi_shm_0>;
-> 
->                  epam,secondary-agents = <
->                  1 0x82000003 &scmi_shm_1
->                  2 0x82000004 &scmi_shm_2
->                  3 0x82000005 &scmi_shm_3
->                  4 0x82000006 &scmi_shm_4
->                  5 0x82000007 &scmi_shm_5
->                  6 0x82000008 &scmi_shm_6
->                  7 0x82000009 &scmi_shm_7
->                  >;
-> 
->                  scmi_reset: protocol@16 {
->                          reg = <0x16>;
->                          #reset-cells = <0x01>;
->                  };
-> 
->                  scmi_clock: protocol@14 {
->                          reg = <0x14>;
->                          #clock-cells = <0x01>;
->                          phandle = <0x04>;
->                  };
->          };
-> };
-> 
-> &pcie1 {
->          resets = <&scmi_reset 0>, <&scmi_reset 1>, <&pcie_rescal>;
->          access-controllers = <&scmi 1>;
-> };
-> 
-> As can be seen from overlay Xen reading the following information:
-> 1) Shared memory configuration as a list of shared memory pages. They 
-> will not go to the Control domain device-tree.
-> 2) SCMI configuration for Agent-id 0, which is Xen itself. This agent is 
-> responsible to set the device permissions for acces-controller device
-> 3) epam,secondary-agents (name probably should be changed) is the list 
-> of objects and corresponding shmems and smc-id for agents. Please note 
-> that all agents will use smc-id 0x82000002
-> and Xen-Mediator will make a calculation and provide agent-specific 
-> smc-id for ARM-TF
-
-If this is a Xen specific (or hypervisor specific) configuration, then
-it could be under /chosen for Xen together with the other dom0less
-configurations and the Xen command line. For instance if 0x82000003-9
-are arbitrary numbers chosen by Xen, then this is could be under
-/chosen.
-
-If this is a generic property of the SCMI connection, then we need to
-make it standard and part of
-Documentation/devicetree/bindings/firmware/arm,scmi.yaml. Or maybe it
-could just be derived automatically at boot by Xen probing and querying
-on the Agent0 connection?
-
-
-> 4) List of scmi protocols and access-controller id, where scmi is 
-> accss-controller device
-> 5) domU configuration has xen,arm_sci = "scmi-smc" to enable scmi support
-> 
-> - DomU Domain device-tree
-> 
-> /{
-> 	 scmi { 
-> 
->                   scmi_reset: protocol@16 {
->                        reg = <0x16>;
->                        #reset-cells = <0x01>;
->                   };
->          };
-> 	passthrough {
-> 	
->                  pciex: pcie@1000120000 {
->                          compatible = "brcm,bcm2712-pcie";
->                          ...
->                          resets = <&scmi_reset 1>, &<scmi_reset 2>;
->                          ...
-> 
->                  };
-> 	}
-> };
-> 
-> Where scmi node (similar to GIC could be either empty node, which will 
-> be recreated by XEN). Hardcoded device-tree phandle as was done for GIC 
-> is not supported because for scmi-pinctrl protocol there are no static 
-> subnode configuration.
-> During domain creation Xen mediator code will create scmi node with 
-> existing phandle and create a complete domain device-tree. Xen will use 
-> original xen device-tree as a base to create scmi nodes. It can use it 
-> either directly in dom0less mode or tools can read Xen device from hypfs 
-> to create device tree entries for DomUs.
-
-
-Now we have a way to automatically generate partial DTBs from the host
-DTB in ImageBuilder using Lopper:
-https://gitlab.com/xen-project/imagebuilder/-/blob/master/README.md?ref_type=heads
-
-The user only needs to specify the path of the device to assign and the
-rest is done automatically by the tools, e.g.:
-
-DOMU_PASSTHROUGH_PATHS[0] = "/amba/sdhci@f1050000"
-
-
-I think we should try to make it easy to generate the DomU partial
-device tree using automatic tools like ImageBuilder and Lopper but
-also make it possible for users to hand-write the partial DTB if they
-want to.
-
-Is the SCMI device tree node just as simple as this?
-
-      scmi { 
-
-               scmi_reset: protocol@16 {
-                    reg = <0x16>;
-                    #reset-cells = <0x01>;
-               };
-      };
-
-If so, it could probably be generated by Xen. But then we have a problem
-with the phandle. Without a fixed phandle, it becomes difficult
-(impossible?) to write the partial device tree for passthrough devices.
-
-Maybe we could have a fixed phandle for the "scmi_reset" node
-(SCMI_RESET_PHANDLE) and another fixed phandle for the "scmi_power" node
-(SCMI_POWER_PHANDLE)?
-
+But the above must be clear to you as well, so I am not sure what you
+are looking for.
 
