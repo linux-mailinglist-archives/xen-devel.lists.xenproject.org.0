@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E499296FA42
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 20:02:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791982.1202028 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2379F96FA4E
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 20:06:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791985.1202038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smdHQ-0000ij-G3; Fri, 06 Sep 2024 18:01:56 +0000
+	id 1smdLg-0001KG-13; Fri, 06 Sep 2024 18:06:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791982.1202028; Fri, 06 Sep 2024 18:01:56 +0000
+Received: by outflank-mailman (output) from mailman id 791985.1202038; Fri, 06 Sep 2024 18:06:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smdHQ-0000gB-Ct; Fri, 06 Sep 2024 18:01:56 +0000
-Received: by outflank-mailman (input) for mailman id 791982;
- Fri, 06 Sep 2024 18:01:55 +0000
+	id 1smdLf-0001HV-Uj; Fri, 06 Sep 2024 18:06:19 +0000
+Received: by outflank-mailman (input) for mailman id 791985;
+ Fri, 06 Sep 2024 18:06:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M+R7=QE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1smdHP-0000g5-10
- for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 18:01:55 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1smdLd-0001HP-Pf
+ for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 18:06:17 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 196b2569-6c7a-11ef-a0b4-8be0dac302b0;
- Fri, 06 Sep 2024 20:01:54 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a868b739cd9so304136766b.2
- for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 11:01:54 -0700 (PDT)
+ id b5f39ff2-6c7a-11ef-a0b4-8be0dac302b0;
+ Fri, 06 Sep 2024 20:06:17 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c263118780so2588362a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 11:06:17 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a8684e8b8sm141280366b.33.2024.09.06.11.01.52
+ 4fb4d7f45d1cf-5c3cc5656c9sm2670257a12.41.2024.09.06.11.06.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Sep 2024 11:01:52 -0700 (PDT)
+ Fri, 06 Sep 2024 11:06:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 196b2569-6c7a-11ef-a0b4-8be0dac302b0
+X-Inumbo-ID: b5f39ff2-6c7a-11ef-a0b4-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725645713; x=1726250513; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725645976; x=1726250776; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RPGWD/LEgBoztXgTJ+xeA2/N1p3dAWbCug3mIWC7om4=;
-        b=eNb16BkILwGkceymXGMpMLpXv34EKflpIlZCTmcq2uf7Cc5BtPYUysWEMIpbOASsts
-         K7Msu8qIeh1XYGR83kZk6KK15cGBGKOp8AOvD+kg7Ok532rf3gnsDoEZ4bH9k1Jgi8my
-         XY7Mian14yEfUpq24p2AuvCYh5k41s3Bs+Yqo=
+        bh=BEQZZPADvWZXUNO17xbmU0XydB9j+Q8vZbZp3oMjAdM=;
+        b=F1h/dSWMo6nTvRZdX/PGy6TGigQB3t4ieAGP/rhUFAVTIS3+Voj9ucwQ3TCI/u5uNp
+         imxe27e9nmMbZHXwRKHklkQomr3gemtJJupFDHVWCCXJKsl5OnibkaKecea+RGFrkcoC
+         6vPE/th/WV97mLYushtehpZ0fWm7eqe017oLI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725645713; x=1726250513;
+        d=1e100.net; s=20230601; t=1725645976; x=1726250776;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RPGWD/LEgBoztXgTJ+xeA2/N1p3dAWbCug3mIWC7om4=;
-        b=A1tRN23MHhi9Ro4R+X3czjKgNEBnNkaNea9nrMNi090PPJmxMgb+EkwrQV2BkaBNH5
-         fBWU1D/ps1/zqqvbYC8Jrw8L5rgmXj1SSlxXyzho6RKLUYiM1GcoaTMxIJYmqIDFaVBL
-         DvxnfBIPd3J3uG5z9mr2eeYo1sJIA0x7BIiWgX8AKYGoD4UT2/o/LBdliUz2xZX3BNE1
-         +5+NkNW/cZStAspbIWXVu8vuPZi07Iq/iT7QNgu2TKW50ywmZHfRUERuaSp/HasnOJkI
-         2K5fNtQA45lrGIsvdKNwWTUSB1a3LMDE3xOOgml/srLnA17UmKiW8xl1MznutJiR17Yr
-         lHVA==
-X-Forwarded-Encrypted: i=1; AJvYcCUd9NWQe/iDyMJQtm53OK5BkWvQNsaP1NVCO1ZpLFHN90OmFf7h62P3hAcav0DaAqdNeJ5qqpjao74=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwhHu14B4KH3T62cB9VbyT4tdlVFnBKUQkFvUA7t3oPoWN2QgLX
-	Ult9uAGvJKLzUmIlMHn5KP5koYwFNVFJCybiZiisMkUFTGRkyxaUGBKmOKkOtZnuU9ac4IWJDVh
-	z
-X-Google-Smtp-Source: AGHT+IFN1Gy7yDQw617TfHA35xZMTXOzAk6FbqbScNf0y84MFrnyrISjxsUB8HjpHsa86V/6leMAQQ==
-X-Received: by 2002:a17:907:7da7:b0:a8a:43bd:a9e8 with SMTP id a640c23a62f3a-a8d1cd6a35amr3672366b.65.1725645713405;
-        Fri, 06 Sep 2024 11:01:53 -0700 (PDT)
-Message-ID: <a6c0375d-12f9-4566-9506-b9b6e1f5fc42@citrix.com>
-Date: Fri, 6 Sep 2024 19:01:51 +0100
+        bh=BEQZZPADvWZXUNO17xbmU0XydB9j+Q8vZbZp3oMjAdM=;
+        b=TmGcCRTNC+AGietkGaSW2Mvs5wbwLFO4GuvMPDD6rVeufG+G0x/EsTGTq67CDBh0QF
+         soGqYf1RRPqu4M2n1Q7cJ+XShn2jOX08YLPWZMdAAlpxNUdTNYTmOMAZWWagvzQw/Gur
+         627zUJJ7cuZadqEUQxzHBuHWGzsOcRVMCvg+o74Bjrg1CVctaSj8uD91GCTMoMVIy4Ox
+         QVHPoFGSXkkShVa76YBVhzJK21wX4EtBcuirutCIPWFqwaeyD+1bDXIL0YnKaw6108ey
+         HHOWugQpl+JrNX2Z/WuvA8beRz5RjJc1RcT8/GCxrfBblHUgggUPECp3/n6nm0l6Olwg
+         XJcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWHO+8LmteQrG2pNZwxo/gRYvmU/iSiUCOK+cn0YTBJ9ouxHetReC1abzFf21Qb3XNzml0jWELTOq4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxdLd//iTSPffC9viXm2iAQdbMHv1yPOcNRKKVyCOTiyARd5Vrq
+	VUR2llQfZXks0aTW/RB2SXz/BZLMRWgmc2cRN6SGHQwobmOq1BRM9TEAmNvWTVw=
+X-Google-Smtp-Source: AGHT+IF7qRF6t+qj5uj+w/QnD+iaS3U0Wj4mTqwnV7Eog3O/Iej7Nu4eqmj5sblWle7JBKKlxI4lHg==
+X-Received: by 2002:a05:6402:84b:b0:5c0:ba23:a544 with SMTP id 4fb4d7f45d1cf-5c3dc78a1edmr2353726a12.12.1725645975657;
+        Fri, 06 Sep 2024 11:06:15 -0700 (PDT)
+Message-ID: <71f0d966-7785-4b58-9207-00cd5b5e84cf@citrix.com>
+Date: Fri, 6 Sep 2024 19:06:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] x86/HVM: slightly improve CMPXCHG16B emulation
+Subject: Re: [PATCH 5/5] x86/HVM: drop redundant access splitting
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <31906cba-8646-4cf9-ab31-1d23654df8d1@suse.com>
- <dccd655c-2a9c-4e11-9889-53e80ff10fc2@suse.com>
+ <bcaab3fd-2dca-4504-ad4b-830bc8dcf923@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,17 +129,28 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <dccd655c-2a9c-4e11-9889-53e80ff10fc2@suse.com>
+In-Reply-To: <bcaab3fd-2dca-4504-ad4b-830bc8dcf923@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/09/2024 2:29 pm, Jan Beulich wrote:
-> Using hvmemul_linear_mmio_write() directly (as fallback when mapping the
-> memory operand isn't possible) won't work properly when the access
-> crosses a RAM/MMIO boundary. Use linear_write() instead, which splits at
-> such boundaries as necessary.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 04/09/2024 2:30 pm, Jan Beulich wrote:
+> @@ -1094,13 +1094,13 @@ static int hvmemul_linear_mmio_access(
+>      if ( cache == NULL )
+>          return X86EMUL_UNHANDLEABLE;
+>  
+> -    chunk = min_t(unsigned int, size, PAGE_SIZE - offset);
+> +    ASSERT(size <= PAGE_SIZE - offset);
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Do we really want a plain assert, or should we go with
+
+    if ( size > PAGE_SIZE - offset )
+    {
+        /* Callers should have arranged not to cross a page boundary */
+        ASSERT_UNREACHABLE();
+        return X86EMUL_UNHANDLEABLE;
+    }
+
+This is hardly a fastpath, and it's rather safer.
+
+~Andrew
 
