@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 865D496F955
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 18:31:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791948.1201965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3472496F9FD
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 19:38:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791961.1201995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smbqw-0007tJ-3b; Fri, 06 Sep 2024 16:30:30 +0000
+	id 1smcu4-0002vf-2v; Fri, 06 Sep 2024 17:37:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791948.1201965; Fri, 06 Sep 2024 16:30:30 +0000
+Received: by outflank-mailman (output) from mailman id 791961.1201995; Fri, 06 Sep 2024 17:37:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smbqw-0007qp-08; Fri, 06 Sep 2024 16:30:30 +0000
-Received: by outflank-mailman (input) for mailman id 791948;
- Fri, 06 Sep 2024 16:30:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1smcu3-0002tV-Uo; Fri, 06 Sep 2024 17:37:47 +0000
+Received: by outflank-mailman (input) for mailman id 791961;
+ Fri, 06 Sep 2024 17:37:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M+R7=QE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1smbqu-0007qj-H2
- for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 16:30:28 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51465b36-6c6d-11ef-99a1-01e77a169b0f;
- Fri, 06 Sep 2024 18:30:24 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a86b46c4831so306465066b.1
- for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 09:30:24 -0700 (PDT)
+ id 1smcu2-0002tJ-7E
+ for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 17:37:46 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b924e8b5-6c76-11ef-a0b4-8be0dac302b0;
+ Fri, 06 Sep 2024 19:37:44 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-5365a9574b6so1210292e87.1
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 10:37:44 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a623c1ee0sm294669466b.160.2024.09.06.09.30.22
+ a640c23a62f3a-a8a82a9c438sm155196166b.204.2024.09.06.10.37.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Sep 2024 09:30:22 -0700 (PDT)
+ Fri, 06 Sep 2024 10:37:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51465b36-6c6d-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: b924e8b5-6c76-11ef-a0b4-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725640224; x=1726245024; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725644264; x=1726249064; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UlNoI68jyJWTk0W0zsdPBsR5gcG2wKRuyAe0eJrG9tc=;
-        b=KrDSw7oZ3zB7UFYoZmXR8IvIPypJzEpZOXu/YjvWPOkhLZED78o08YCmSEwVsg+cCi
-         069nVFRDd9Z3s5z+DAL8tjUrp30W/RE/wZbv3H8HxsCkrMB17Sh6G7Sn5KoYbRcsSCg9
-         m95BMe//a0jpGdQ+o8BoVDFYXwyADDUwvmZRI=
+        bh=Nm7aFGIcNLqfjRASz/gW3SaSr7UM975sJi7WPs2C8LQ=;
+        b=Z5nfmMXw/z3xORDPHfJO1NNB5YjGOi5CGGTFpIfbQXxUDTtSbkeORmhDBrD7/Vn8Uu
+         RfXKM02KpFxWRfS4lEMIQZ87UAX3Zk2pYi0QHE8QgNBb3iMcWfvV8lks1XrTGWE+BScu
+         Tg7K+R1KTh/nJLvjY4a27pI1SXIMcIU7LmC9c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725640224; x=1726245024;
+        d=1e100.net; s=20230601; t=1725644264; x=1726249064;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UlNoI68jyJWTk0W0zsdPBsR5gcG2wKRuyAe0eJrG9tc=;
-        b=maRSCaV77GufY4e5OHoga3NKg+42JKw5gwT+NXweqFmLHytkoOYnFDUy0tWFRRVtas
-         nyWlWq5K8o3FoBlqsW9Yb8ybtfCXi1zVrIN8w3Knk1XPBggXph06AgO8VZ99zAtv5Lhe
-         3kvfNZyUQrYS7BdB1VCaJWpr3Qy0uldHzhmyX1j1QgKr7qNTKEpl1xvywNPDVnyD9Kq1
-         Oq6/sNUH52KypvHqgv4uwaXJKn68EO7018bHnTD1xAqvKLwbYsXuY3KVbGogNCjwuJr9
-         J30jQy08Rpb6mrocjfzEilUYbIiKCBbyqcVgfXFqDyEOtg2x5N92rPpnQGp72PIp9I61
-         402A==
-X-Forwarded-Encrypted: i=1; AJvYcCVFYAIMf4fmKuJi+uKa4DCNKYfl47XWtqZL22G/KQ97FZmWv0heamU6sDH5x6tWmGhe0h5Dw+hdGnQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzcG1AAwNue3J01+2aLYl1uafXacRez0Z64zZq9kWepPNvRVP61
-	KCN7fVqPLVNisbS3M/pPsPrBqQvJRC/RaL4PCsibDkIaSHZ19xbyrYoIVs5u7dY=
-X-Google-Smtp-Source: AGHT+IHo+iAC00iNN1GgaUzIx00IjFgi8leiDFhJ/Jt/XQr3AI96HN44XMYKHDc4mPlRoYuj37O8iQ==
-X-Received: by 2002:a17:906:4784:b0:a7d:a080:baa with SMTP id a640c23a62f3a-a8a88667a8bmr237558866b.34.1725640223365;
-        Fri, 06 Sep 2024 09:30:23 -0700 (PDT)
-Message-ID: <2a2cf552-4103-4bf4-9b8e-8c16d16aac10@citrix.com>
-Date: Fri, 6 Sep 2024 17:30:21 +0100
+        bh=Nm7aFGIcNLqfjRASz/gW3SaSr7UM975sJi7WPs2C8LQ=;
+        b=X1fDMzfjcxM65BsatxXAAPBGdyfPj0EWBCynfzxIyzC0s9uBlR5v9gyNHOZ+BGeL+l
+         aUjlMY4yPI7Bdo4uflcEwRhk1rPA/oNT5J1rGOQTJtni8YJ2U5Fw5XQJrli3ErATUbp3
+         2yJuhFiAqTa7M3YJ30ktRGC6aXCPCTS9Q9IiySlgjZ2BDlOCSFVuOM+YVWTITAbKEzeU
+         7+GvKA2z2CSDzbHyfhO1KefU+nXeOF/80GP13ZVd0Hx3xG1IQGiU9StRYdnCw5L+n2NG
+         SWGreViqMrTY9ujHsM7WxWt8GOJMwWQBJxMe//BHP3IcskpPJeeHTFj9hEJa1RLlG+7Z
+         sbUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWFzHZADSLJNYLl7VhTm4aa3/9YSBwMTXNt79iydRu5HIkB3y1/IJ/tkewHYiqR4IkUzf2Hp7y4wBE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxz9CdDSxt7h3tZDKXcQqnFAxBQjWtKYCw2n5z99yE/vrxTfECq
+	oEk0t/un04Xqtx0QeL9avsa7VSDck9TpL2OhihUfMuiT7770S0bPSPHmb+4YAPo=
+X-Google-Smtp-Source: AGHT+IEp8BGtuPQXx1UBjmhghjQSigNQIZkTk6UfHFwPlpfV4RsjP9ewPeT/D3tOf2PzFG9tontIig==
+X-Received: by 2002:a05:6512:1599:b0:536:54ff:51c8 with SMTP id 2adb3069b0e04-536587adf86mr2765605e87.17.1725644262959;
+        Fri, 06 Sep 2024 10:37:42 -0700 (PDT)
+Message-ID: <b7e2aae5-d6b9-4db3-9a6b-c4fcc1edd971@citrix.com>
+Date: Fri, 6 Sep 2024 18:37:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 1/5] Avoid usage of global in reloc.c
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20240904145648.33707-1-frediano.ziglio@cloud.com>
- <20240904145648.33707-2-frediano.ziglio@cloud.com>
+Subject: Re: Setting up the Xen Communications Team
+To: "Charles-H. Schulz" <charles.schulz@vates.tech>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Xen Project Advisory Board <advisory-board@lists.xenproject.org>
+Cc: Kelly Choi <kelly.choi@cloud.com>
+References: <e56ff82c1a1d7398a5b38784fc84a7adf51ec918.camel@vates.tech>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,44 +129,24 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240904145648.33707-2-frediano.ziglio@cloud.com>
+In-Reply-To: <e56ff82c1a1d7398a5b38784fc84a7adf51ec918.camel@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 04/09/2024 3:56 pm, Frediano Ziglio wrote:
-> All code and dat from this file will go into a text section
-> which we want to not be writeable.
-
-Getting data out of the instruction cache is a good thing, but
-writeability isn't relevant here.  This logic only executes in 32bit
-unpaged mode.
-
+On 19/08/2024 10:46 am, Charles-H. Schulz wrote:
+> Hello everyone,
 >
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
->  xen/arch/x86/boot/reloc.c | 62 ++++++++++++++++++++-------------------
->  1 file changed, 32 insertions(+), 30 deletions(-)
+> Just like any major FOSS project, Xen needs to take care of its
+> messaging and communication. We are usually focused on software
+> development, however we'd like to take the opportunity to call on
+> whoever is interested here to join the small team in charge of
+> Communications. 
 >
-> diff --git a/xen/arch/x86/boot/reloc.c b/xen/arch/x86/boot/reloc.c
-> index 201e38d544..de8487483a 100644
-> --- a/xen/arch/x86/boot/reloc.c
-> +++ b/xen/arch/x86/boot/reloc.c
-> @@ -72,11 +72,13 @@ struct vesa_mode_info {
->  #define get_mb2_data(tag, type, member)   (((const multiboot2_tag_##type##_t *)(tag))->member)
->  #define get_mb2_string(tag, type, member) ((uint32_t)get_mb2_data(tag, type, member))
->  
-> -static uint32_t alloc;
-> +typedef struct memctx {
-> +    uint32_t alloc;
-> +} memctx;
+> We do not expect this to involve a large additional workload. If you
+> are interested in joining, please send a message to Kelly or reply to
+> this email.
 
-Can we take the opportunity to rename alloc to ptr, and have a comment
-explaining how this works
-
-/* Simple bump allocator.  It starts from the base of the trampoline and
-allocates downwards. */
-
-Happy to fix up on commit.
++1.
 
 ~Andrew
 
