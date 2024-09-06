@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB67196F315
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 13:28:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791755.1201756 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5680D96F3F2
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 14:03:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791773.1201772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smX7u-00018n-Me; Fri, 06 Sep 2024 11:27:42 +0000
+	id 1smXg3-0000Ak-LY; Fri, 06 Sep 2024 12:02:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791755.1201756; Fri, 06 Sep 2024 11:27:42 +0000
+Received: by outflank-mailman (output) from mailman id 791773.1201772; Fri, 06 Sep 2024 12:02:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smX7u-00016k-Iv; Fri, 06 Sep 2024 11:27:42 +0000
-Received: by outflank-mailman (input) for mailman id 791755;
- Fri, 06 Sep 2024 11:27:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1smX7s-00016Y-Ol; Fri, 06 Sep 2024 11:27:40 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1smX7s-000116-AF; Fri, 06 Sep 2024 11:27:40 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1smX7r-0006ls-Q7; Fri, 06 Sep 2024 11:27:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1smX7r-0002F0-Ph; Fri, 06 Sep 2024 11:27:39 +0000
+	id 1smXg3-00007R-Ik; Fri, 06 Sep 2024 12:02:59 +0000
+Received: by outflank-mailman (input) for mailman id 791773;
+ Fri, 06 Sep 2024 12:02:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nsOW=QE=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
+ id 1smXg2-00007K-GE
+ for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 12:02:58 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f499bfce-6c47-11ef-a0b4-8be0dac302b0;
+ Fri, 06 Sep 2024 14:02:57 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a8a1acb51a7so226853466b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 05:02:57 -0700 (PDT)
+Received: from smtpclient.apple ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8a922f5b1asm59717566b.184.2024.09.06.05.02.55
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 06 Sep 2024 05:02:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,346 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=GaE7kzxsw87o9i6MAZahkKjKBolf+FVnYM3NhmqpN7U=; b=ANtF0dp+PZKlFxSSjByuvRvltZ
-	Q8r1gHM+LM9evs+TyHWsp+7wD9/nrByHV1lApIFmqxEuLdATa399XUqQCi2pWz7/aQ41i1FX7E0fq
-	Uai/1cMbcH3mg3aMk2WVSEOc4RIjzBjLzyTST86MZ0svge5LqrfKvfRL/rMOuDMGOwBY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187510-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [linux-linus test] 187510: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:build-armhf:xen-build:fail:regression
-    linux-linus:build-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=ad618736883b8970f66af799e34007475fe33a68
-X-Osstest-Versions-That:
-    linux=c763c43396883456ef57e5e78b64d3c259c4babc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 06 Sep 2024 11:27:39 +0000
+X-Inumbo-ID: f499bfce-6c47-11ef-a0b4-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1725624177; x=1726228977; darn=lists.xenproject.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=o8scESmPOGRl/oSoBAaGv7ohl9fTuOTTUMs/uLBcgCU=;
+        b=Cktludyl6oZangGqq3IRTtL5IiQdr+apEbKpwbsiiEiZzbnZ9xwAWmn6a0D2IhaBSG
+         EzUcj02r3xyftg+AK+wfzQNVouPBc0RMC4zOMijJgcYprgVREn9lg3VCnaaUhJmHXsFs
+         bQHdgs+5ZoSfHvGxXlRiOB80vNva2zgv22dbg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1725624177; x=1726228977;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=o8scESmPOGRl/oSoBAaGv7ohl9fTuOTTUMs/uLBcgCU=;
+        b=GE1/6EUhF412j3GgDXD2QTRQQlXF0BJYcqMoMx6EZ11p2PvFFYztKwB6vht870twnD
+         +k9MF2kd9/AvVSkGSxH3PiEDq39drUcWx663IVlvfN3KAnEmYqrS1KZjrmVlz3QMxuMC
+         +73e+nhd80zhO0gUqIOBQVnwfiQ9Fr90HKlZT/wAB8aU2xzxtxcdsjAP4Vlf8Bwfl5v+
+         SGJtpSY6W+hNJM0ZaJsIA9tvPborIAvT09XW3XAf7FlO7hdT2+3PTw+w3ZP4CVIKLWKk
+         BpfAFXjOc8k8ok/vIPQi8EYPYaou7EulsASD0PNQ97hdFxpmCqwaXifWvt2FWB9zl6MR
+         xZhA==
+X-Gm-Message-State: AOJu0YwJgrGWNQd6BrMVmkCoo6Qpowv/FzO8WTcYlO80ioSbtxOKurle
+	bJH6ynvjkqZoUIYqngrK0pWGl5LyaASUxZWpQTUSEexCuakqtm5RlY+YA6y8xbg=
+X-Google-Smtp-Source: AGHT+IFb24XvNBC6n7WkBH11cUFVbOjRFmrg/wze+CyaEOt5jsVw0vNLgsw0IoBUG8Tn2OvW/4nWeg==
+X-Received: by 2002:a17:907:3e9e:b0:a8a:7501:de39 with SMTP id a640c23a62f3a-a8a885be40emr201603566b.9.1725624175891;
+        Fri, 06 Sep 2024 05:02:55 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [PATCH v2 0/3] tools/ocaml: Stabilize domain_getinfo for
+ Oxenstored
+From: Christian Lindig <christian.lindig@cloud.com>
+In-Reply-To: <cover.1725363427.git.andrii.sultanov@cloud.com>
+Date: Fri, 6 Sep 2024 13:02:43 +0100
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1CD2249F-81C7-4E01-B102-6A169473C11F@cloud.com>
+References: <cover.1725363427.git.andrii.sultanov@cloud.com>
+To: Andrii Sultanov <andrii.sultanov@cloud.com>
+X-Mailer: Apple Mail (2.3774.600.62)
 
-flight 187510 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187510/
+There was some confusion about my ack for this series - my apologies. I =
+intended to ack=E2=80=99 it entirely.
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                   6 xen-build                fail REGR. vs. 187504
-
-Tests which did not succeed, but are not blocking:
- build-armhf-libvirt           1 build-check(1)               blocked  n/a
- test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-qcow2     1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-raw       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 187504
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187504
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187504
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 187504
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187504
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- linux                ad618736883b8970f66af799e34007475fe33a68
-baseline version:
- linux                c763c43396883456ef57e5e78b64d3c259c4babc
-
-Last test of basis   187504  2024-09-05 10:21:11 Z    1 days
-Testing same since   187510  2024-09-05 23:42:38 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Aleksandr Mishin <amishin@t-argos.ru>
-  David Gow <davidgow@google.com>
-  Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Luke D. Jones <luke@ljones.dev>
-  Rae Moar <rmoar@google.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  fail    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          blocked 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  blocked 
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  blocked 
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  blocked 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     blocked 
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                blocked 
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    blocked 
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      blocked 
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 blocked 
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+Acked-by: Christian Lindig <christian.lindig@cloud.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> On 3 Sep 2024, at 12:44, Andrii Sultanov <andrii.sultanov@cloud.com> =
+wrote:
+>=20
+> This is a V2 of the "Stabilize Oxenstored's interface with" patch
+> series, see V1's cover letter for the motivation of these changes.
+>=20
+> Two patches from V1 ("tools/ocaml: Fix OCaml libs rules" and
+> "Remove '-cc $(CC)' from OCAMLOPTFLAGS") were commited upstream, so
+> they've been dropped from here.
+>=20
+> V2 addresses the following review comments and suggestions:
+>=20
+> * Split the plugin implementation commit into two - build
+>  infrastructure-related and implementation itself.
+> * Package xenstored_glue interface, since it's needed for an
+>  out-of-tree oxenstored to build. Additionally package =
+xenstored_glue_dev
+>  with .ml and .mli files.
+> * Clean up unnecessary #define, #include, and fix function parameter
+>  types as suggested.
+> * Improve error handling in xsglue_failwith_xc, additionally version
+>  xsg.error to avoid potential future conflicts.
+> * Drop the GC lock around xc_domain_getinfo_single, and move Int_val
+>  outside of the blocking_section.
+> * Use existing logging facilities in oxenstored
+> * Plugin now uses logging function provided by the plugin interface
+>  (ignoring input by default)
+> * domain_getinfolist gets all 32k domains at once instead of listing =
+them
+>  in chunks, storing information into an array. OCaml interface was =
+simplified
+>  appropriately. (Cxenstored does not do this at the moment - as far as =
+I
+>  understand, it also uses the single-domain version of the function).
+>=20
+> I've decided against introducing an enum for the shutdown code, as it =
+adds
+> additional complexity (and potential reasons for creating a new plugin =
+version)
+> without any benefit - oxenstored does not care about its value at the =
+moment.
+>=20
+> Patch series on Gitlab for ease of review:
+> =
+https://gitlab.com/xen-project/people/asultanov/xen/-/compare/staging...pl=
+ugin-v3
+>=20
+> V2 passed the Gitlab CI: =
+https://gitlab.com/xen-project/people/asultanov/xen/-/pipelines/1437391764=
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> It was also tested on some hosts.
+>=20
+> Andrii Sultanov (3):
+>  tools/ocaml: Build infrastructure for OCaml dynamic libraries
+>  ocaml/libs: Implement a dynamically-loaded plugin for
+>    Xenctrl.domain_getinfo
+>  tools/oxenstored: Use the plugin for Xenctrl.domain_getinfo
+>=20
+> Config.mk                                     |   2 +-
+> configure                                     |   7 +
+> m4/paths.m4                                   |   4 +
+> tools/configure                               |   7 +
+> tools/ocaml/Makefile                          |   1 +
+> tools/ocaml/Makefile.rules                    |  17 +-
+> tools/ocaml/libs/Makefile                     |   2 +-
+> tools/ocaml/libs/xenstoredglue/META.in        |   4 +
+> tools/ocaml/libs/xenstoredglue/Makefile       |  46 +++++
+> .../domain_getinfo_plugin_v1/META.in          |   5 +
+> .../domain_getinfo_plugin_v1/Makefile         |  38 ++++
+> .../domain_getinfo_stubs_v1.c                 | 172 ++++++++++++++++++
+> .../domain_getinfo_v1.ml                      |  36 ++++
+> .../domain_getinfo_v1.mli                     |   0
+> .../libs/xenstoredglue/plugin_interface_v1.ml |  28 +++
+> .../xenstoredglue/plugin_interface_v1.mli     |  36 ++++
+> tools/ocaml/xenstored/Makefile                |   5 +-
+> tools/ocaml/xenstored/domains.ml              |  63 +++++--
+> tools/ocaml/xenstored/paths.ml.in             |   1 +
+> 19 files changed, 451 insertions(+), 23 deletions(-)
+> create mode 100644 tools/ocaml/libs/xenstoredglue/META.in
+> create mode 100644 tools/ocaml/libs/xenstoredglue/Makefile
+> create mode 100644 =
+tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/META.in
+> create mode 100644 =
+tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/Makefile
+> create mode 100644 =
+tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/domain_getinfo_stu=
+bs_v1.c
+> create mode 100644 =
+tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/domain_getinfo_v1.=
+ml
+> create mode 100644 =
+tools/ocaml/libs/xenstoredglue/domain_getinfo_plugin_v1/domain_getinfo_v1.=
+mli
+> create mode 100644 =
+tools/ocaml/libs/xenstoredglue/plugin_interface_v1.ml
+> create mode 100644 =
+tools/ocaml/libs/xenstoredglue/plugin_interface_v1.mli
+>=20
+> --=20
+> 2.39.2
+>=20
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit ad618736883b8970f66af799e34007475fe33a68
-Merge: 120434e5b305 d34af755a533
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Thu Sep 5 09:57:50 2024 -0700
-
-    Merge tag 'platform-drivers-x86-v6.11-6' of git://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86
-    
-    Pull x86 platform driver fixes from Ilpo Järvinen:
-    
-     - amd/pmf: ASUS GA403 quirk matching tweak
-    
-     - dell-smbios: Fix to the init function rollback path
-    
-    * tag 'platform-drivers-x86-v6.11-6' of git://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86:
-      platform/x86/amd: pmf: Make ASUS GA403 quirk generic
-      platform/x86: dell-smbios: Fix error path in dell_smbios_init()
-
-commit 120434e5b305defa1fb1e7a38421ed08f93243d5
-Merge: c763c4339688 f2c6dbd22017
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Thu Sep 5 09:43:38 2024 -0700
-
-    Merge tag 'linux_kselftest-kunit-fixes-6.11-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest
-    
-    Pull kunit fix fromShuah Khan:
-     "One single fix to a use-after-free bug resulting from
-      kunit_driver_create() failing to copy the driver name leaving it on
-      the stack or freeing it"
-    
-    * tag 'linux_kselftest-kunit-fixes-6.11-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest:
-      kunit: Device wrappers should also manage driver name
-
-commit d34af755a533271f39cc7d86e49c0e74fde63a37
-Author: Luke D. Jones <luke@ljones.dev>
-Date:   Sat Aug 31 12:39:05 2024 +1200
-
-    platform/x86/amd: pmf: Make ASUS GA403 quirk generic
-    
-    The original quirk should match to GA403U so that the full
-    range of GA403U models can benefit.
-    
-    Signed-off-by: Luke D. Jones <luke@ljones.dev>
-    Link: https://lore.kernel.org/r/20240831003905.1060977-1-luke@ljones.dev
-    Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-    Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-
-commit ffc17e1479e8e9459b7afa80e5d9d40d0dd78abb
-Author: Aleksandr Mishin <amishin@t-argos.ru>
-Date:   Fri Aug 30 09:54:28 2024 +0300
-
-    platform/x86: dell-smbios: Fix error path in dell_smbios_init()
-    
-    In case of error in build_tokens_sysfs(), all the memory that has been
-    allocated is freed at end of this function. But then free_group() is
-    called which performs memory deallocation again.
-    
-    Also, instead of free_group() call, there should be exit_dell_smbios_smm()
-    and exit_dell_smbios_wmi() calls, since there is initialization, but there
-    is no release of resources in case of an error.
-    
-    Fix these issues by replacing free_group() call with
-    exit_dell_smbios_wmi() and exit_dell_smbios_smm().
-    
-    Found by Linux Verification Center (linuxtesting.org) with SVACE.
-    
-    Fixes: 33b9ca1e53b4 ("platform/x86: dell-smbios: Add a sysfs interface for SMBIOS tokens")
-    Signed-off-by: Aleksandr Mishin <amishin@t-argos.ru>
-    Link: https://lore.kernel.org/r/20240830065428.9544-1-amishin@t-argos.ru
-    Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-    Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-
-commit f2c6dbd220170c2396fb019ead67fbada1e23ebd
-Author: David Gow <davidgow@google.com>
-Date:   Fri Aug 16 12:51:22 2024 +0800
-
-    kunit: Device wrappers should also manage driver name
-    
-    kunit_driver_create() accepts a name for the driver, but does not copy
-    it, so if that name is either on the stack, or otherwise freed, we end
-    up with a use-after-free when the driver is cleaned up.
-    
-    Instead, strdup() the name, and manage it as another KUnit allocation.
-    As there was no existing kunit_kstrdup(), we add one. Further, add a
-    kunit_ variant of strdup_const() and kfree_const(), so we don't need to
-    allocate and manage the string in the majority of cases where it's a
-    constant.
-    
-    However, these are inline functions, and is_kernel_rodata() only works
-    for built-in code. This causes problems in two cases:
-    - If kunit is built as a module, __{start,end}_rodata is not defined.
-    - If a kunit test using these functions is built as a module, it will
-      suffer the same fate.
-    
-    This fixes a KASAN splat with overflow.overflow_allocation_test, when
-    built as a module.
-    
-    Restrict the is_kernel_rodata() case to when KUnit is built as a module,
-    which fixes the first case, at the cost of losing the optimisation.
-    
-    Also, make kunit_{kstrdup,kfree}_const non-inline, so that other modules
-    using them will not accidentally depend on is_kernel_rodata(). If KUnit
-    is built-in, they'll benefit from the optimisation, if KUnit is not,
-    they won't, but the string will be properly duplicated.
-    
-    Fixes: d03c720e03bd ("kunit: Add APIs for managing devices")
-    Reported-by: Nico Pache <npache@redhat.com>
-    Closes: https://groups.google.com/g/kunit-dev/c/81V9b9QYON0
-    Reviewed-by: Kees Cook <kees@kernel.org>
-    Reviewed-by: Maxime Ripard <mripard@kernel.org>
-    Reviewed-by: Rae Moar <rmoar@google.com>
-    Signed-off-by: David Gow <davidgow@google.com>
-    Tested-by: Rae Moar <rmoar@google.com>
-    Signed-off-by: Shuah Khan <skhan@linuxfoundation.org>
 
