@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6905896FB7C
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 20:50:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.792003.1202058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3150096FC10
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 21:20:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.792013.1202067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sme22-0002qe-O3; Fri, 06 Sep 2024 18:50:06 +0000
+	id 1smeVD-0000Q3-Pc; Fri, 06 Sep 2024 19:20:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 792003.1202058; Fri, 06 Sep 2024 18:50:06 +0000
+Received: by outflank-mailman (output) from mailman id 792013.1202067; Fri, 06 Sep 2024 19:20:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sme22-0002nV-LK; Fri, 06 Sep 2024 18:50:06 +0000
-Received: by outflank-mailman (input) for mailman id 792003;
- Fri, 06 Sep 2024 18:50:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1smeVD-0000No-Mh; Fri, 06 Sep 2024 19:20:15 +0000
+Received: by outflank-mailman (input) for mailman id 792013;
+ Fri, 06 Sep 2024 19:20:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M+R7=QE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sme21-0002d3-CS
- for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 18:50:05 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3da1ce7-6c80-11ef-a0b4-8be0dac302b0;
- Fri, 06 Sep 2024 20:50:04 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5c3c30e663fso2792100a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 11:50:03 -0700 (PDT)
+ id 1smeVC-0000Nh-V4
+ for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 19:20:14 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 09f40a9e-6c85-11ef-99a1-01e77a169b0f;
+ Fri, 06 Sep 2024 21:20:12 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5c2561e8041so2667296a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Sep 2024 12:20:12 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a61fbaeddsm310204466b.3.2024.09.06.11.50.02
+ a640c23a62f3a-a8a6236d527sm310198666b.135.2024.09.06.12.20.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Sep 2024 11:50:02 -0700 (PDT)
+ Fri, 06 Sep 2024 12:20:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3da1ce7-6c80-11ef-a0b4-8be0dac302b0
+X-Inumbo-ID: 09f40a9e-6c85-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725648603; x=1726253403; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+NYp6Zb2TsVJ40LYC450Irz+8pJudapRzU7rAaeV/4o=;
-        b=FMDFEoAnIOZ0bsnYS7FGhJwBWHNDSfy2/8bXESgpv5loQYAzgP+wYc5maa3tDt9DzK
-         NZjVajWn6z8jonkrBiL2amwoUW9vq4ni0BXr9pSUCNcznLsVU5nX3fwk7JDkhLJUvDP0
-         apMc5Mqb3psb2sa/Pjc9cI66qcv03etxFh9us=
+        d=citrix.com; s=google; t=1725650412; x=1726255212; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ujcBfhl2qeHig0fN5Ls/vjy9AU7OiAZ/U3DXlqnsx3k=;
+        b=EgRil9sfEhk4E07sAgpPOxskz47ONCbkx4Ysu9MxF1ybUsECnstYMVMGy8nk8Vh3qM
+         K8X+8NYdK2zbjJnymbY7fHa+cIR5RC8BaEUsd/XUM4wB2ckea82mLyUDSlPzSzG86qfi
+         n5eWTgYHJCNmGCo189boNh7MtBrqkv4PjY5pE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725648603; x=1726253403;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+NYp6Zb2TsVJ40LYC450Irz+8pJudapRzU7rAaeV/4o=;
-        b=eGm2Qiyt5jEECPXd6qROhduyOpyyclV7wrzN6KowDuY4SqE9CAvQCHa0XN7SLrESF2
-         Vz26mtoUFm2c06rH+PPSn88G0klFMtjXJFB7TFrZWTqu2OwUwxbIMBE0xNkgEma1tqi/
-         jEmnBVyS378McX7hVhJAH7HzHzabf6yBwIKDbQVgLAAWBzCI3D3p35wywrj+TG3Lm34E
-         t/ErY7+juqhYac6VNUuVmaZBa0O3/5NGGeAtKNisIz1SzayF0kVCiV0ElebtFrEw5sZr
-         pyN07Rld8yZ+aYwEbRwPAlvWgMl9c1Ae6dJf4bTw+grBTNFJHcX0RZ+xmIe9ePwtFC45
-         UsdQ==
-X-Gm-Message-State: AOJu0YzrBN97rDuInZEge/M4WDmVeTgJFlQJrZDiYNEi5MDwFNNZg059
-	5oAbi8MPQwJAw6vcDrhWvfiSm3721kL4GFYprMPT2H0eY7XsyYpt2NUwN0xctIo=
-X-Google-Smtp-Source: AGHT+IEHyXnl1psES/VeM+eIbc9zvXtOhafRFgL6KS5hvkSIjljwmb7r5PDh5RuElJSv/xg0DgNZkw==
-X-Received: by 2002:a17:907:781:b0:a86:a56d:c4eb with SMTP id a640c23a62f3a-a8a888d057bmr321226966b.61.1725648603000;
-        Fri, 06 Sep 2024 11:50:03 -0700 (PDT)
-Message-ID: <925994e3-b865-4355-8751-4976d4ccbf79@citrix.com>
-Date: Fri, 6 Sep 2024 19:50:00 +0100
+        d=1e100.net; s=20230601; t=1725650412; x=1726255212;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ujcBfhl2qeHig0fN5Ls/vjy9AU7OiAZ/U3DXlqnsx3k=;
+        b=WM/KztR9PZ9PKHXTYvrUhb3b7wiTBpsXFDxkbIdOzJfT0PHskxBC+Yni5HibIlxGJc
+         dGCjLkLe11jqk6HHBCwbruFzD0ZU+WHYNkF71vV5AA+aBtdAYoDOUjYyCXMsqN5wEsOS
+         wDTncQoLdF3NFz/JV6o/XClWyE0w5HY58h4hRiLzlLN6wvDeZGc0cqDYffZC4UrK6ARE
+         fIBnwdKFTkMW1ul6DT4D+Y7lomdyEnHVZAgqWjMfpXpfdjMIqjqXKow8zpCS4DXDTvA+
+         YX1QZnbx0LP4a2lxau/xKjJ+1qmpqkTmKmMYa14SH73xYdxwsUgKzHbEhZHN4BlhA4Tg
+         yHpA==
+X-Forwarded-Encrypted: i=1; AJvYcCVYOwfbjqGXZP//DdCCTRqyOhVpUCgPaDRKCwruz7ZmOo5BG7cmsN2n8PXleIueC500/awjXRg3qE4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw3zATWAgbOeLWWg4+h5UOgmzx/ma7KiDZagMZmpMloqv69GIcP
+	dm2KRHS0INkUKbDPmZmBlJJkUpyosDJhiRY7B03T/k/0Vx/nxbCJ6qLfTJKxRP5Suoa6QHIRmYD
+	y
+X-Google-Smtp-Source: AGHT+IE6V+IPR+q4iv2lEGIvMhOPJb0/l8O5pPYnirORg2pnIkRgyyg5cKEgPPRT1bVOfGAURgi0Ww==
+X-Received: by 2002:a17:906:eec7:b0:a88:b90b:bd5e with SMTP id a640c23a62f3a-a8a885be339mr258697866b.3.1725650411535;
+        Fri, 06 Sep 2024 12:20:11 -0700 (PDT)
+Message-ID: <53ecfaa0-3be1-4da0-ad8d-8245512e4172@citrix.com>
+Date: Fri, 6 Sep 2024 20:20:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/5] xen/bitops: Implement hweight32() in terms of
- hweightl()
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- "consulting@bugseng.com" <consulting@bugseng.com>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <20240904225530.3888315-1-andrew.cooper3@citrix.com>
- <20240904225530.3888315-4-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2409051605330.53815@ubuntu-linux-20-04-desktop>
- <34f1a11d-f0b7-45d8-92e6-fcb40e3c87d2@citrix.com>
+Subject: Re: [PATCH 2/5] x86/HVM: allocate emulation cache entries dynamically
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <31906cba-8646-4cf9-ab31-1d23654df8d1@suse.com>
+ <e35606db-9050-485a-84fb-168f101b5d1c@suse.com>
 Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -141,58 +130,105 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <34f1a11d-f0b7-45d8-92e6-fcb40e3c87d2@citrix.com>
+In-Reply-To: <e35606db-9050-485a-84fb-168f101b5d1c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06/09/2024 1:27 am, Andrew Cooper wrote:
-> On 06/09/2024 12:08 am, Stefano Stabellini wrote:
->> On Wed, 4 Sep 2024, Andrew Cooper wrote:
->>> ... and drop generic_hweight32().
->>>
->>> As noted previously, the only two users of hweight32() are in __init paths.
->>>
->>> The int-optimised form of generic_hweight() is only two instructions shorter
->>> than the long-optimised form, and even then only on architectures which lack
->>> fast multiplication, so there's no point providing an int-optimised form.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Acked-by: Jan Beulich <jbeulich@suse.com>
->> The patch is OK:
->>
->> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-> Thanks.
->
->> I was looking at docs/misra/C-language-toolchain.rst to make sure
->> everything is listed there. We have attr_const as "__const__" noted
->> among "Non-standard tokens".
->>
->> Looks like we need to add __always_inline__ ?
-> Luckily, no.
->
-> First, the __const__ referred to there is GCC's alternative spelling of
-> the regular C 'const' keyword, and not the function attribute by the
-> same name.
->
-> But, non-standard tokens are about things which survive full
-> preprocessing and are still not standard C.  In this case, it's the
-> __attribute__ that matters, not what's in it, and this is why we don't
-> have a hundreds of rows in that table for __attribute__((foo, bar, baz)).
->
-> That said, I think f96e2f64576cdbb147391c7cb399d393385719a9 probably
-> should have removed the entire row including __const__ seeing as AFAICT
-> the last user in Xen was dropped in 1aa3c54a31a5 in 2008
+On 04/09/2024 2:29 pm, Jan Beulich wrote:
+> Both caches may need higher capacity, and the upper bound will need to
+> be determined dynamically based on CPUID policy (for AMX at least).
 
-Hmm.  Eclair disagrees.
+Is this to cope with TILE{LOAD,STORE}, or something else?
 
-https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/7765315981
+It's not exactly clear, even when looking at prior AMX series.
 
-Now I'm completely confused as to why __const__ matters and everything
-else inside an __attribute__(()) apparently doesn't.
+> While touching the check in hvmemul_phys_mmio_access() anyway, also
+> tighten it: To avoid overrunning the internal buffer we need to take the
+> offset into the buffer into account.
 
-CC-ing some folk.  Any ideas?
+Does this really want to be mixed with a prep patch ?
+
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> This is a patch taken from the AMX series, which was part of the v3
+> submission. All I did is strip out the actual AMX bits (from
+> hvmemul_cache_init()), plus of course change the description. As a
+> result some local variables there may look unnecessary, but this way
+> it's going to be less churn when the AMX bits are added. The next patch
+> pretty strongly depends on the changed approach (contextually, not so
+> much functionally), and I'd really like to avoid rebasing that one ahead
+> of this one, and then this one on top of that.
+
+Fine by me.
+
+> --- a/xen/arch/x86/hvm/emulate.c
+> +++ b/xen/arch/x86/hvm/emulate.c
+> @@ -26,6 +26,18 @@
+>  #include <asm/iocap.h>
+>  #include <asm/vm_event.h>
+>  
+> +/*
+> + * We may read or write up to m512 or up to a tile row as a number of
+> + * device-model transactions.
+> + */
+> +struct hvm_mmio_cache {
+> +    unsigned long gla;
+> +    unsigned int size;
+> +    unsigned int space:31;
+> +    unsigned int dir:1;
+> +    uint8_t buffer[] __aligned(sizeof(long));
+
+I know this is a minor tangent, but you are turning a regular struct
+into a flexible one.
+
+Could we introduce __counted_by() and start using it here?
+
+At the toolchain level, it lets the compiler understand the real size of
+the object, so e.g. the sanitisers can spot out-of-bounds accesses
+through the flexible member.
+
+But, even in the short term, having
+
+    /* TODO */
+    # define __counted_by(member)
+
+in compiler.h still leaves us with better code, because
+
+    struct hvm_mmio_cache {
+        unsigned long gla;
+        unsigned int size;
+        unsigned int space:31;
+        unsigned int dir:1;
+        uint8_t buffer[] __aligned(sizeof(long)) __counted_by(size);
+    };
+
+is explicitly clear in a case where the "space" field creates some
+ambiguity.
+
+> @@ -2978,16 +2991,21 @@ void hvm_dump_emulation_state(const char
+>  int hvmemul_cache_init(struct vcpu *v)
+>  {
+>      /*
+> -     * No insn can access more than 16 independent linear addresses (AVX512F
+> -     * scatters/gathers being the worst). Each such linear range can span a
+> -     * page boundary, i.e. may require two page walks. Account for each insn
+> -     * byte individually, for simplicity.
+> +     * AVX512F scatter/gather insns can access up to 16 independent linear
+> +     * addresses, up to 8 bytes size. Each such linear range can span a page
+> +     * boundary, i.e. may require two page walks.
+> +     */
+> +    unsigned int nents = 16 * 2 * (CONFIG_PAGING_LEVELS + 1);
+> +    unsigned int i, max_bytes = 64;
+> +    struct hvmemul_cache *cache;
+> +
+> +    /*
+> +     * Account for each insn byte individually, both for simplicity and to
+> +     * leave some slack space.
+>       */
+
+Hang on.  Do we seriously use a separate cache entry for each
+instruction byte ?
 
 ~Andrew
 
