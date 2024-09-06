@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F33296E9A7
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 08:02:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791551.1201435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1F1096E9AA
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 08:04:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791554.1201445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smS2k-0003oR-VJ; Fri, 06 Sep 2024 06:02:02 +0000
+	id 1smS4Y-0004LY-9U; Fri, 06 Sep 2024 06:03:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791551.1201435; Fri, 06 Sep 2024 06:02:02 +0000
+Received: by outflank-mailman (output) from mailman id 791554.1201445; Fri, 06 Sep 2024 06:03:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smS2k-0003m0-SR; Fri, 06 Sep 2024 06:02:02 +0000
-Received: by outflank-mailman (input) for mailman id 791551;
- Fri, 06 Sep 2024 06:02:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1smS4Y-0004J2-6H; Fri, 06 Sep 2024 06:03:54 +0000
+Received: by outflank-mailman (input) for mailman id 791554;
+ Fri, 06 Sep 2024 06:03:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ayfn=QE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1smS2j-0003lu-TX
- for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 06:02:01 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 885e780d-6c15-11ef-a0b4-8be0dac302b0;
- Fri, 06 Sep 2024 08:02:01 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a868d7f92feso230677666b.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 23:02:01 -0700 (PDT)
+ id 1smS4X-0004Iv-3N
+ for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 06:03:53 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c8f216be-6c15-11ef-99a1-01e77a169b0f;
+ Fri, 06 Sep 2024 08:03:50 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a86883231b4so239119966b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2024 23:03:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8a9019a3e6sm27536366b.45.2024.09.05.23.01.59
+ a640c23a62f3a-a8a61fbad9dsm225705466b.31.2024.09.05.23.03.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Sep 2024 23:02:00 -0700 (PDT)
+ Thu, 05 Sep 2024 23:03:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 885e780d-6c15-11ef-a0b4-8be0dac302b0
+X-Inumbo-ID: c8f216be-6c15-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725602520; x=1726207320; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725602629; x=1726207429; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Wxr6MoTt5oRqnxJB3TwT8+RGow391HdxTu4/DV4LszY=;
-        b=BNMoAlLkRE4Fs/bm74coiaGRzpHC2Zx34GPS/uU5LfSo7sStBog28M2NtttLgpzrOE
-         O6yrW9K1KQYnMWbikdVtRiTfnYN9cwDZnMjK8dQIj6cho7ifk5D14lHKINGPAyTES9rQ
-         6qUAuebZla85cjGxu0GfVL6z2VpZSz8b2bmBVFNceWc0ouy4BcaRk/MirUDvw3LNZ10f
-         X+YDPnHZsV+34KAyOwuIbgRHxBJaiwZfWar/FArqfIvzWWNqn1FMiqukd0Azjh8zei0/
-         rtCko1pTPa670KBYj0b9rxp5UXMjqkZPRgWAaW3NrXX1MnxyrJJJKxWqYPEV2alodpbk
-         B7zA==
+        bh=zVwKlxCTwU2T3+wH/+7c3ZnI9DV9xuObjjguB16tIss=;
+        b=JgWxfIwU0ydui36R5iTX+RmWvMZoR5JWgd3V0N6n85WOcoFt3C/hSX9RJOWQ6ESwWJ
+         xk2d4jiixw/YAHY+Jf4nqTRChJ5D/sLWHjMdNx8ywLygFYbNgyahARSION5f6egR6HZ9
+         7pjS7zovCH5KL8pbSmccKOemNZq0jGzD76FwN5bP/e+GdTAbJVki0qMbAfjo8BQIuuPm
+         yId4ko7coNBRDVb21Az7ebhgGDW+bxiOcyGrhmc88NUQ2cu3m98jvpz9AbQCr9JZFjEH
+         qB8AfbJ/4bsKVFNwkbCcitB6hSdP/qsRrFZlfe2fsseYkwR9I82tgY/WWplFu7rFIjfm
+         SOiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725602520; x=1726207320;
+        d=1e100.net; s=20230601; t=1725602629; x=1726207429;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Wxr6MoTt5oRqnxJB3TwT8+RGow391HdxTu4/DV4LszY=;
-        b=ETOHs2JSOmj+YvTLKMgDlLp4NzQQaduXE6WUtDylXgKUYMbik/gJmMNK5yjFMHtnzr
-         F0q7V2Nj9LIoKtz5EYS4pLhSTVFj5miN5wy9yTbMEtQ0XUb0Vwb0CWbIJsgQ3WQJOp4R
-         B63o36mSuRjKTfAW24Du2ik6jSfUeo2bRLgKH42qfYDdXzSW1o6PTaXIW2VyliEerTmz
-         YQOHRd5PQTm3r9tUImYm8BsNxL9kQAjcZQlbZ8jpMDbjyPrbEA55VLHjUke0f8KsvW3N
-         g85V0mM64qOrWu9vFYHrdhsUqa7HrzDLYVUCgwyraJp2HMJi2VTn5G51IDK1fo/nZESP
-         bjhA==
-X-Forwarded-Encrypted: i=1; AJvYcCWrot6C8LQnWogPSyb8v3BtzB+82uOZMywgZqCCkHD85QTAISkv/FkwpytZZjNzvYMx4ig3ImhNhCU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxpwncHKuudqtrbGmS3U8ws4YrRhhKtvDx8RfgMmhfzTjODwkm3
-	ktAFDboCxgHoiE3p7IF+YbuK49LAiH8rqWgElqe8Qr+ym1ScFENPms9OsSI3Hg==
-X-Google-Smtp-Source: AGHT+IHdqTskvmafY81Uy55nIqgv8X/YRM1PoE7kRrs5F+3cetTl8CcNbMUkaZoicj2JkzWK4kPFrA==
-X-Received: by 2002:a17:907:9702:b0:a7a:9144:e23b with SMTP id a640c23a62f3a-a897f8364demr2040137566b.19.1725602520396;
-        Thu, 05 Sep 2024 23:02:00 -0700 (PDT)
-Message-ID: <a965943c-45f6-49d2-8638-6fea0a20c270@suse.com>
-Date: Fri, 6 Sep 2024 08:01:58 +0200
+        bh=zVwKlxCTwU2T3+wH/+7c3ZnI9DV9xuObjjguB16tIss=;
+        b=hp1AeDCjMpohTmitWzPnyWrW6dD3PRT257dolwNk5hG+3Jg8T1qEkCX4nfTa810fH8
+         1nwH3vjce2XnL2cUDN2EZFc1eZNhNL2hmAQmC2Jnhwmux2zZ9M/zF3YUzD6wfAlYTw6H
+         iYdKzVEeSR5Lf2nfDKTkfbBD4wbj25Vp3KfpME0pGZ6nUIRgCcqslalvGwp/81QIcejq
+         Z9odoBVPQxqNX9BX2QvrhSQnsev3/HwRlDjWZV1IfbnEU9fhqL7ZlG4p+pxba5zAa63B
+         qaIGfklKO205b2O8YSGUfNsQQ+hiDci82IZLXZub+6wsl8nEGfAsJ1mSGmq4Wkov5CNE
+         qQQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVl7I2QrEWzQUdp0VpsXGOnHFG/9XAxrORcXor5yyUZTaw0Dn+cdhrLGH5pDXzc6x6DMIldPNQarT8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwvFoXqXJnFAn7toin0XOIFYdyZHhbm8f+y7+tiZURBp353qNYG
+	000+ZvJfpp6NtbFv/Mnmry8JG6SWBWi8CP5wTAeC7DG2ZCqqmS4V9TNi0vYFOw==
+X-Google-Smtp-Source: AGHT+IHKp4IHs30ecNt9wnyuxQO309PuThKJ/RkGbC9ZYUqu19ZDxS2io3iqMz3A2E9XD37mvzxgiQ==
+X-Received: by 2002:a17:907:36c9:b0:a86:8059:58a8 with SMTP id a640c23a62f3a-a8a8866835fmr108185666b.38.1725602628742;
+        Thu, 05 Sep 2024 23:03:48 -0700 (PDT)
+Message-ID: <be454840-76ae-409a-89c5-255cff3be00a@suse.com>
+Date: Fri, 6 Sep 2024 08:03:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [ping] Re: [PATCH 2/3] xen/ppc: Adjust ppc64_defconfig
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240621201928.319293-1-andrew.cooper3@citrix.com>
- <20240621201928.319293-3-andrew.cooper3@citrix.com>
- <418f7868-325b-4f6b-8d79-0882eaea4fd9@citrix.com>
+Subject: Re: [XEN PATCH] automation/eclair_analysis: address violations of
+ Rule 18.2
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <e36f121a91d229ca5edfc8102c4513c2e0530230.1725554126.git.nicola.vetrini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,22 +116,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <418f7868-325b-4f6b-8d79-0882eaea4fd9@citrix.com>
+In-Reply-To: <e36f121a91d229ca5edfc8102c4513c2e0530230.1725554126.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.09.2024 23:54, Andrew Cooper wrote:
-> On 21/06/2024 9:19 pm, Andrew Cooper wrote:
->> All of CONFIG_SCHED_*, and CONFIG_HYPFS build fine.
->>
->> Add a stub for share_xen_page_with_guest(), which is all that is necessary to
->> make CONFIG_TRACEBUFFER build.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 05.09.2024 18:37, Nicola Vetrini wrote:
+> MISRA C Rule 18.2 states: "Subtraction between pointers shall
+> only be applied to pointers that address elements of the same array".
+> 
+> Subtractions between pointer where at least one symbol is a
+> symbol defined by the linker are safe and thus deviated, because
+> the compiler cannot exploit the undefined behaviour that would
+> arise from violating the rules in this case.
+> 
+> To create an ECLAIR configuration that contains the list of
+> linker-defined symbols, the script "linker-symbols.sh" is used
+> after a build of xen (without static analysis) is performed.
+> The generated file "linker_symbols.ecl" is then used as part of the
+> static analysis configuration.
+> 
+> Additional changes to the ECLAIR integration are:
+> - perform a build of xen without static analysis during prepare.sh
+> - run the scripts to generated ECL configuration during the prepare.sh,
+>   rather than analysis.sh
+> - export ECLAIR_PROJECT_ROOT earlier, to allow such generation
+> 
+> Additionally, the macro page_to_mfn performs a subtraction that is safe,
+> so its uses are deviated.
+> 
+> No functional changes.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+> Macro page_to_pdx is also the cause of some caution reports:
+> perhaps that should be deviated as well, since its definition is very
+> similar to page_to_mfn.
+> 
+> Relevant CI runs:
+> 
+> - arm64: https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/ARM64/7754928624/PROJECT.ecd;/by_service/MC3R1.R18.2.html
+> 
+> - x86_64: https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/X86_64/7754928613/PROJECT.ecd;/by_service/MC3R1.R18.2.html
+> - x86_64 (without page_to_pdx reports): https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/X86_64/7754928613/PROJECT.ecd;/by_service/MC3R1.R18.2.html#{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":false,"selector":{"enabled":true,"negated":false,"kind":0,"domain":"message","inputs":[{"enabled":true,"text":"^.*expanded from macro `page_to_pdx'"}]}}}
+> ---
+>  automation/eclair_analysis/ECLAIR/analyze.sh  |  6 ----
+>  .../eclair_analysis/ECLAIR/deviations.ecl     | 11 +++++++
+>  .../eclair_analysis/ECLAIR/generate_ecl.sh    |  3 ++
+>  .../ECLAIR/generate_linker_symbols.sh         | 31 +++++++++++++++++++
+>  automation/eclair_analysis/prepare.sh         |  6 +++-
+>  automation/scripts/eclair                     |  3 ++
+>  docs/misra/deviations.rst                     | 10 ++++++
+>  7 files changed, 63 insertions(+), 7 deletions(-)
+>  create mode 100755 automation/eclair_analysis/ECLAIR/generate_linker_symbols.sh
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Nit: Dashes instead of underscores in names of new files, please.
 
-
+Jan
 
