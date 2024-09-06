@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EDA496EBC1
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 09:16:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791588.1201489 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6901796EC00
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 09:31:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.791594.1201499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smTBH-0002Gk-1l; Fri, 06 Sep 2024 07:14:55 +0000
+	id 1smTRC-0006Pb-B8; Fri, 06 Sep 2024 07:31:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791588.1201489; Fri, 06 Sep 2024 07:14:55 +0000
+Received: by outflank-mailman (output) from mailman id 791594.1201499; Fri, 06 Sep 2024 07:31:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smTBG-0002Eb-UT; Fri, 06 Sep 2024 07:14:54 +0000
-Received: by outflank-mailman (input) for mailman id 791588;
- Fri, 06 Sep 2024 07:14:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jbPG=QE=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1smTBE-0002EV-N3
- for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 07:14:53 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5432650-6c1f-11ef-a0b4-8be0dac302b0;
- Fri, 06 Sep 2024 09:14:51 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 856244EE07D9;
- Fri,  6 Sep 2024 09:14:50 +0200 (CEST)
+	id 1smTRC-0006NC-7W; Fri, 06 Sep 2024 07:31:22 +0000
+Received: by outflank-mailman (input) for mailman id 791594;
+ Fri, 06 Sep 2024 07:31:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1smTRA-0006N2-Kl; Fri, 06 Sep 2024 07:31:20 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1smTRA-0004t0-DJ; Fri, 06 Sep 2024 07:31:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1smTRA-000859-54; Fri, 06 Sep 2024 07:31:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1smTRA-0002WU-4a; Fri, 06 Sep 2024 07:31:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,103 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5432650-6c1f-11ef-a0b4-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1725606890; bh=h+f/h2xQ+0phzksRu0vjM4bGnCzqTfY2+cRR1Bwqhz0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=bLz8mfvA1O+wJx6P2Vl/3SU84JNPpAiBdqBxrrwmCGJV6snNak9QHBDeHf6wjZ4mH
-	 /CVSrkGCy/dtr84rg27f4+asHK21AVJQS2v7JQmjzSWP0Wgxx3WFfdasF0pY+s82Py
-	 RjPUJ8A3gbGD13WvlAisLlwd6XRtlBl4XsG2g8ZAadHLRLG/RCwblYdQUw4Yhw5xa7
-	 G9aov1j3FQb5QQkFO/db1I2+wP2KDzzqTnomAQ6/bmSW+p6Ikmb5McA57dYC27zbWm
-	 TI6b/9OybIqtuH+AtFeOUZg6ayayErev6Oo564jH+dAHm1HenN+Z0A+Fw1TmnrqmHj
-	 pp6OunW/Xw3xg==
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ZOytYJk+s3vd2CsFg+MNw5A88aBlpDGsF6eF9QuqzHc=; b=dRUNMQDDBAyNBMvlYcsqLUE5eO
+	4QGeVhKA5X2wpg1N41Ao/2roF5hs3+daB5KDFrrWuHjqj22XFP1XMwPgX8fWCw6up8j4bEOGqw+CT
+	KVM+mkB8QZF7Vwon3OyAzFR60+dvnCdZO+OJjRgpi5Skt1NFsBsXlI13Y3kTsv5lJceA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187517-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Date: Fri, 06 Sep 2024 09:14:50 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, Simone Ballarin
- <simone.ballarin@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH] automation/eclair_analysis: address violations of
- Rule 18.2
-In-Reply-To: <be454840-76ae-409a-89c5-255cff3be00a@suse.com>
-References: <e36f121a91d229ca5edfc8102c4513c2e0530230.1725554126.git.nicola.vetrini@bugseng.com>
- <be454840-76ae-409a-89c5-255cff3be00a@suse.com>
-Message-ID: <9ae8cb3f11a6dbc7276a65531a1ae78f@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 187517: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=9dabe005f0cd422068fbb6cb915cf8180c55918d
+X-Osstest-Versions-That:
+    ovmf=bfb33c0e09b0cf05460168c00ec43817b835f897
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 06 Sep 2024 07:31:20 +0000
 
-On 2024-09-06 08:03, Jan Beulich wrote:
-> On 05.09.2024 18:37, Nicola Vetrini wrote:
->> MISRA C Rule 18.2 states: "Subtraction between pointers shall
->> only be applied to pointers that address elements of the same array".
->> 
->> Subtractions between pointer where at least one symbol is a
->> symbol defined by the linker are safe and thus deviated, because
->> the compiler cannot exploit the undefined behaviour that would
->> arise from violating the rules in this case.
->> 
->> To create an ECLAIR configuration that contains the list of
->> linker-defined symbols, the script "linker-symbols.sh" is used
->> after a build of xen (without static analysis) is performed.
->> The generated file "linker_symbols.ecl" is then used as part of the
->> static analysis configuration.
->> 
->> Additional changes to the ECLAIR integration are:
->> - perform a build of xen without static analysis during prepare.sh
->> - run the scripts to generated ECL configuration during the 
->> prepare.sh,
->>   rather than analysis.sh
->> - export ECLAIR_PROJECT_ROOT earlier, to allow such generation
->> 
->> Additionally, the macro page_to_mfn performs a subtraction that is 
->> safe,
->> so its uses are deviated.
->> 
->> No functional changes.
->> 
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> ---
->> Macro page_to_pdx is also the cause of some caution reports:
->> perhaps that should be deviated as well, since its definition is very
->> similar to page_to_mfn.
->> 
->> Relevant CI runs:
->> 
->> - arm64: 
->> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/ARM64/7754928624/PROJECT.ecd;/by_service/MC3R1.R18.2.html
->> 
->> - x86_64: 
->> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/X86_64/7754928613/PROJECT.ecd;/by_service/MC3R1.R18.2.html
->> - x86_64 (without page_to_pdx reports): 
->> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/X86_64/7754928613/PROJECT.ecd;/by_service/MC3R1.R18.2.html#{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":false,"selector":{"enabled":true,"negated":false,"kind":0,"domain":"message","inputs":[{"enabled":true,"text":"^.*expanded 
->> from macro `page_to_pdx'"}]}}}
->> ---
->>  automation/eclair_analysis/ECLAIR/analyze.sh  |  6 ----
->>  .../eclair_analysis/ECLAIR/deviations.ecl     | 11 +++++++
->>  .../eclair_analysis/ECLAIR/generate_ecl.sh    |  3 ++
->>  .../ECLAIR/generate_linker_symbols.sh         | 31 
->> +++++++++++++++++++
->>  automation/eclair_analysis/prepare.sh         |  6 +++-
->>  automation/scripts/eclair                     |  3 ++
->>  docs/misra/deviations.rst                     | 10 ++++++
->>  7 files changed, 63 insertions(+), 7 deletions(-)
->>  create mode 100755 
->> automation/eclair_analysis/ECLAIR/generate_linker_symbols.sh
-> 
-> Nit: Dashes instead of underscores in names of new files, please.
-> 
-> Jan
+flight 187517 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187517/
 
-Thanks. Perhaps is will be a good idea to make a follow-up patch to use 
-dashes consistently.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 9dabe005f0cd422068fbb6cb915cf8180c55918d
+baseline version:
+ ovmf                 bfb33c0e09b0cf05460168c00ec43817b835f897
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Last test of basis   187512  2024-09-06 01:56:34 Z    0 days
+Testing same since   187517  2024-09-06 05:41:51 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Nhi Pham <nhi@os.amperecomputing.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   bfb33c0e09..9dabe005f0  9dabe005f0cd422068fbb6cb915cf8180c55918d -> xen-tested-master
 
