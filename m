@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FCCD96F17E
+	by mail.lfdr.de (Postfix) with ESMTPS id 5186696F17F
 	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2024 12:30:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.791685.1201638 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.791686.1201647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smWED-0001fj-Jn; Fri, 06 Sep 2024 10:30:09 +0000
+	id 1smWEP-0001yB-UD; Fri, 06 Sep 2024 10:30:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 791685.1201638; Fri, 06 Sep 2024 10:30:09 +0000
+Received: by outflank-mailman (output) from mailman id 791686.1201647; Fri, 06 Sep 2024 10:30:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smWED-0001cY-GL; Fri, 06 Sep 2024 10:30:09 +0000
-Received: by outflank-mailman (input) for mailman id 791685;
- Fri, 06 Sep 2024 10:30:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w2ZT=QE=leemhuis.info=regressions@srs-se1.protection.inumbo.net>)
- id 1smWEB-0001cS-G5
- for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 10:30:07 +0000
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [2a01:488:42:1000:50ed:8234::])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fb0d0213-6c3a-11ef-99a1-01e77a169b0f;
- Fri, 06 Sep 2024 12:30:05 +0200 (CEST)
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1smWE7-0006ib-OL; Fri, 06 Sep 2024 12:30:03 +0200
+	id 1smWEP-0001vn-Qu; Fri, 06 Sep 2024 10:30:21 +0000
+Received: by outflank-mailman (input) for mailman id 791686;
+ Fri, 06 Sep 2024 10:30:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1smWEO-0001uL-Ik; Fri, 06 Sep 2024 10:30:20 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1smWEO-0008UD-DL; Fri, 06 Sep 2024 10:30:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1smWEO-0005FH-3g; Fri, 06 Sep 2024 10:30:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1smWEO-0006c9-3D; Fri, 06 Sep 2024 10:30:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,62 +42,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb0d0213-6c3a-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=leemhuis.info; s=he214686; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:
-	Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
-	In-Reply-To:References; bh=4zxx/jMsknAIv2RVTchdYDbtVepf8NTr2Pp5F/21wVY=;
-	t=1725618605; x=1726050605; b=y4Kma1ym5+aPC4aR3eHeEGs9vNps/X3iSLOpWLc1s+wfPYL
-	Wg9E7/UiwUHgo0EvMkIuRPI5+EJB5+k897T/UvLM14VvaU/WXQyaHAvAPYQaZQaPfC3mmfmCWq2Ih
-	i3FEfo1vIgLeuRl7/1phqlua/eelrGAqR6lk8r3i8WcJ+s7rzI4HEJA/WSj5SIb1LlZigJKfeGqYq
-	tjK3sfDHUGtEd8Fs4kUVjowoHvapDLQEW3hFhvnH6TCYL0ugi5ENYx62vD7Z2t9LL1BipESa8qO3O
-	RjUvi9uO0Rp1qBWlJg3lwjL/2sLsRJOSHf4YEASOpcILKweE9uW8JJ+bAQtUbajg==;
-Message-ID: <8e3afa4a-aca2-4803-886d-e162eb5e0478@leemhuis.info>
-Date: Fri, 6 Sep 2024 12:30:03 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] kernel NULL pointer dereference in xen-balloon with
- mem hotplug
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- regressions@lists.linux.dev
-References: <ZrSecpuTN9zgtqYu@mail-itl>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
-Content-Language: en-US, de-DE
-In-Reply-To: <ZrSecpuTN9zgtqYu@mail-itl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de;regressions@leemhuis.info;1725618605;631b3cf0;
-X-HE-SMSGID: 1smWE7-0006ib-OL
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=eHZzMGIJrCzoLpRKC0HPco3Y0xO6F1V2bMwnce4TFhw=; b=wyg+YF4IPMqPbHPZbHa5LTCxKa
+	UUt4E37k40hPY3zbX+DckhL6miPck12bpUCN9lnJ8+GFPiYEYusfmataHLlP+Iu+YDdloSr1qhmiz
+	iGMbKCFsyrZw8B69W/QODhjykS0ZAwM+/GhwJGyU2UKuE6ddnXWL6f7iPPWY2ZezsFOE=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-unstable bisection] complete build-i386-xsm
+Message-Id: <E1smWEO-0006c9-3D@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 06 Sep 2024 10:30:20 +0000
 
-On 08.08.24 12:31, Marek Marczykowski-Górecki wrote:
-> 
-> When testing Linux 6.11-rc2, I've got the crash like below. It's a PVH
-> guest started with 400MB memory, and then extended via mem hotplug (I
-> don't know to what exact size it was at this time, but up to 4GB), it
-> was quite early in the domU boot process, I suspect it could be the
-> first mem hotplug even happening there.
-> Unfortunately I don't have reliable reproducer, it crashed only once
-> over several test runs. I don't remember seeing such crash before, so it
-> looks like a regression in 6.11. I'm not sure if that matters, but it's
-> on ADL, very similar to the qubes-hw2 gitlab runner.
+branch xen-unstable
+xenbranch xen-unstable
+job build-i386-xsm
+testid xen-build
 
-Marek, did this happen again or do things appear to be resolved? Asking
-because I'm tracking this as a regression.
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
+*** Found and reproduced problem changeset ***
 
-#regzbot poke
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  b20e3fbc3ec91b4534e51f6f724c3826dac0bdf3
+  Bug not present: 3c93a0da6bc201ebeb8a08d6bd339c9982985fcc
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/187530/
+
+
+  commit b20e3fbc3ec91b4534e51f6f724c3826dac0bdf3
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Wed Sep 4 16:06:42 2024 +0200
+  
+      x86emul: introduce a struct cpu_policy * local in x86_emulate()
+      
+      While of little effect right here, future patches (AVX10, AMX,
+      KeyLocker) will benefit more significantly.
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/build-i386-xsm.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/build-i386-xsm.xen-build --summary-out=tmp/187530.bisection-summary --basis-template=187498 --blessings=real,real-bisect,real-retry xen-unstable build-i386-xsm xen-build
+Searching for failure / basis pass:
+ 187507 fail [host=nobling0] / 187498 [host=nobling1] 187488 [host=albana0] 187476 [host=nobling1] 187470 [host=nobling1] 187461 [host=nobling1] 187457 ok.
+Failure / basis pass flights: 187507 / 187457
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 a2de7dc4d845738e734b10fce6550c89c6b1092c
+Basis pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 1436593d5f8f7f700478e307d5198535ba69f88d
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#0df9387c8983e1b1e72d8c574356f572342c03e6-0df9387c8983e1b1e72d8c574356f572342c03e6 git://xenbits.xen.org/xen.git#1436593d5f8f7f700478e307d5198535ba69f88d-a2de7dc4d845738e734b10fce6550c89c6b1092c
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 187431 [host=italia0]
+ 187457 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 1436593d5f8f7f700478e307d5198535ba69f88d
+ 187461 [host=nobling1]
+ 187470 [host=nobling1]
+ 187476 [host=nobling1]
+ 187488 [host=albana0]
+ 187498 [host=nobling1]
+ 187528 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 b20e3fbc3ec91b4534e51f6f724c3826dac0bdf3
+ 187507 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 a2de7dc4d845738e734b10fce6550c89c6b1092c
+ 187514 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 1436593d5f8f7f700478e307d5198535ba69f88d
+ 187516 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 a2de7dc4d845738e734b10fce6550c89c6b1092c
+ 187518 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 bad717f845782b4aa9699544428d4d5f3073cd24
+ 187519 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 51ad2c57a2d21b583a5944a0dc21c709af022f3c
+ 187522 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 d7c18b8720824d7efc39ffa7296751e1812865a9
+ 187523 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 b20e3fbc3ec91b4534e51f6f724c3826dac0bdf3
+ 187524 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 3c93a0da6bc201ebeb8a08d6bd339c9982985fcc
+ 187525 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 b20e3fbc3ec91b4534e51f6f724c3826dac0bdf3
+ 187526 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 3c93a0da6bc201ebeb8a08d6bd339c9982985fcc
+ 187529 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 3c93a0da6bc201ebeb8a08d6bd339c9982985fcc
+ 187530 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 b20e3fbc3ec91b4534e51f6f724c3826dac0bdf3
+Searching for interesting versions
+ Result found: flight 187457 (pass), for basis pass
+ For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 3c93a0da6bc201ebeb8a08d6bd339c9982985fcc, results HASH(0x55cf4fa30ac8) HASH(0x55cf4fa44c88) HASH(0x55cf4fa98840) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 d7c18b8720824d7efc39ffa7296751e1812865a9, results HASH(0x55cf4fa34658) For basis failure, parent search stopping at 3d273dd05e51e5a1\
+ ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 51ad2c57a2d21b583a5944a0dc21c709af022f3c, results HASH(0x55cf4fa344d8) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 bad717f845782b4aa9699544428d4d5f3073cd24, results HASH(0x55cf4fa2ba10) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 1436593d5f8f7f700478e307d5198535ba69f8\
+ 8d, results HASH(0x55cf4fa2a908) HASH(0x55cf4fa39590) Result found: flight 187507 (fail), for basis failure (at ancestor ~3750)
+ Repro found: flight 187514 (pass), for basis pass
+ Repro found: flight 187516 (fail), for basis failure
+ 0 revisions at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0df9387c8983e1b1e72d8c574356f572342c03e6 3c93a0da6bc201ebeb8a08d6bd339c9982985fcc
+No revisions left to test, checking graph state.
+ Result found: flight 187524 (pass), for last pass
+ Result found: flight 187525 (fail), for first failure
+ Repro found: flight 187526 (pass), for last pass
+ Repro found: flight 187528 (fail), for first failure
+ Repro found: flight 187529 (pass), for last pass
+ Repro found: flight 187530 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  b20e3fbc3ec91b4534e51f6f724c3826dac0bdf3
+  Bug not present: 3c93a0da6bc201ebeb8a08d6bd339c9982985fcc
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/187530/
+
+
+  commit b20e3fbc3ec91b4534e51f6f724c3826dac0bdf3
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Wed Sep 4 16:06:42 2024 +0200
+  
+      x86emul: introduce a struct cpu_policy * local in x86_emulate()
+      
+      While of little effect right here, future patches (AVX10, AMX,
+      KeyLocker) will benefit more significantly.
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable/build-i386-xsm.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+187530: tolerable ALL FAIL
+
+flight 187530 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187530/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build               fail baseline untested
+
+
+jobs:
+ build-i386-xsm                                               fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
