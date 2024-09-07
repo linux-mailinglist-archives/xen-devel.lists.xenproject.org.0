@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF815970222
-	for <lists+xen-devel@lfdr.de>; Sat,  7 Sep 2024 14:08:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.792214.1202188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B80AC97024F
+	for <lists+xen-devel@lfdr.de>; Sat,  7 Sep 2024 15:04:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.792238.1202202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smuDa-0005r3-NU; Sat, 07 Sep 2024 12:07:06 +0000
+	id 1smv6F-0007Ub-Px; Sat, 07 Sep 2024 13:03:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 792214.1202188; Sat, 07 Sep 2024 12:07:06 +0000
+Received: by outflank-mailman (output) from mailman id 792238.1202202; Sat, 07 Sep 2024 13:03:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smuDa-0005pX-Ks; Sat, 07 Sep 2024 12:07:06 +0000
-Received: by outflank-mailman (input) for mailman id 792214;
- Sat, 07 Sep 2024 12:07:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1smuDZ-0005pN-Er; Sat, 07 Sep 2024 12:07:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1smuDZ-0003D1-69; Sat, 07 Sep 2024 12:07:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1smuDY-0000pS-P4; Sat, 07 Sep 2024 12:07:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1smuDY-0003p5-Ob; Sat, 07 Sep 2024 12:07:04 +0000
+	id 1smv6F-0007RQ-N9; Sat, 07 Sep 2024 13:03:35 +0000
+Received: by outflank-mailman (input) for mailman id 792238;
+ Sat, 07 Sep 2024 13:03:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uvfV=QF=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1smv6D-0007RK-Ln
+ for xen-devel@lists.xenproject.org; Sat, 07 Sep 2024 13:03:34 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 94b94a37-6d19-11ef-99a1-01e77a169b0f;
+ Sat, 07 Sep 2024 15:03:31 +0200 (CEST)
+Received: from nico.bugseng.com (unknown [46.228.253.214])
+ by support.bugseng.com (Postfix) with ESMTPSA id 77E6F4EE0737;
+ Sat,  7 Sep 2024 15:03:29 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,500 +39,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=4vJh6gx6wt3ekN+qaWZXyEiuv0Se0TvYAwH2u+VRGW8=; b=O75euDH61UDZ/Lz2G8UxeEGvWG
-	wehxGVD7I+lbuQHS/Wt39BJIlON9QCyKKUox6cjzXTHJ4T0dVrbHaAcvouf6EG9H1HO+OjrEAAdha
-	dqGGfP++BJaeog4IidQ07/KsxIiDbHdVLHl8SW0/IpKT1Rn/0U4LP199U4aYDovFl6ko=;
+X-Inumbo-ID: 94b94a37-6d19-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1725714210; bh=NhsThfRgmk/mdFWva3/BamKpZ9x5zI0m+wWrpFhsAOI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=FstNuh7KIqnn6ylLR01oRha2X+COfUyh1L7/N5J53I9VdsZM+v6ooqVoTu5COLv3t
+	 J1Sv+Zqawj9GCx8vy8dPSnsjw+qbZBiTWLhelpsmKOhfAe2B9SNvF4iNLiWG/KkieX
+	 41V7r8nv9Wfe1d1ArxaDmfEpH+VjOCDKvB2IC+UfrHeacr640ltdEZ0/9ne7aXd1SS
+	 scGJFJptPQ1SVoFhyKGy76e7/NWGVh/6emkeH+flBBs6q10FoRyWCqhAOzVK2yqK5A
+	 fKxDLPXlAL2nwZftJN7zy+z4z0kTBK85HQ5PU6Vwg0UCgr3f9Y9NcdOeghBlJ7FoSg
+	 Q9Tm6WlNxg+Uw==
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187545-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: [XEN PATCH v2] automation/eclair_analysis: deviate linker symbols for Rule 18.2
+Date: Sat,  7 Sep 2024 15:03:25 +0200
+Message-ID: <e3a9c3268685562ae557248d6e76376579d99715.1725714006.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: [xen-unstable test] 187545: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable:build-armhf:xen-build:fail:regression
-    xen-unstable:test-amd64-amd64-qemuu-freebsd12-amd64:guest-localmigrate:fail:allowable
-    xen-unstable:build-armhf-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:build-check(1):blocked:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:build-check(1):blocked:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=65e4bc585c28b50ec76f679e1001a81fea9d690b
-X-Osstest-Versions-That:
-    xen=6471badeeec92db1cb8155066551f7509cd82efd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 07 Sep 2024 12:07:04 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 187545 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187545/
+MISRA C Rule 18.2 states: "Subtraction between pointers shall
+only be applied to pointers that address elements of the same array".
 
-Regressions :-(
+Subtractions between pointer where at least one symbol is a
+symbol defined by the linker are safe and thus deviated, because
+the compiler cannot exploit the undefined behaviour that would
+arise from violating the rules in this case.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                   6 xen-build                fail REGR. vs. 187498
+To create an ECLAIR configuration that contains the list of
+linker-defined symbols, the script "linker-symbols.sh" is used
+after a build of xen (without static analysis) is performed.
+The generated file "linker_symbols.ecl" is then used as part of the
+static analysis configuration.
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-qemuu-freebsd12-amd64 17 guest-localmigrate fail REGR. vs. 187498
+Additional changes to the ECLAIR integration are:
+- perform a build of xen without static analysis during prepare.sh
+- run the scripts to generated ECL configuration during the prepare.sh,
+  rather than analysis.sh
+- export ECLAIR_PROJECT_ROOT earlier, to allow such generation
 
-Tests which did not succeed, but are not blocking:
- build-armhf-libvirt           1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
- test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-qcow2     1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-raw       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 187498
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187498
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187498
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 187498
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187498
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+Additionally, the macro page_to_mfn performs a subtraction that is safe,
+so its uses are deviated.
 
-version targeted for testing:
- xen                  65e4bc585c28b50ec76f679e1001a81fea9d690b
-baseline version:
- xen                  6471badeeec92db1cb8155066551f7509cd82efd
+No functional changes.
 
-Last test of basis   187498  2024-09-04 19:40:48 Z    2 days
-Failing since        187507  2024-09-05 15:14:45 Z    1 days    3 attempts
-Testing same since   187545  2024-09-06 22:40:59 Z    0 days    1 attempts
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+Changes in v2:
+- renamed new file generate_linker_symbols.sh to use dashes instead of
+  underscores as separators
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrii Sultanov <andrii.sultanov@cloud.com>
-  Christian Lindig <christian.lindig@cloud.com>
-  Jan Beulich <jbeulich@suse.com>
-  Matthew Barnes <matthew.barnes@cloud.com>
-  Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Macro page_to_pdx is also the cause of some caution reports:
+perhaps that should be deviated as well, since its definition is very
+similar to page_to_mfn.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  fail    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          blocked 
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  blocked 
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  blocked 
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  blocked 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     blocked 
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                blocked 
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    blocked 
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      blocked 
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 blocked 
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+Relevant CI runs:
 
+- arm64: https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/ARM64/7769096695/PROJECT.ecd;/by_service/MC3R1.R18.2.html
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+- x86_64: https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/X86_64/7769096694/PROJECT.ecd;/by_service/MC3R1.R18.2.html
+- x86_64 (without page_to_pdx reports): https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MC3R1.R18.2/X86_64/7769096694/PROJECT.ecd;/by_service/MC3R1.R18.2.html#{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":false,"selector":{"enabled":true,"negated":false,"kind":0,"domain":"message","inputs":[{"enabled":true,"text":"^.*expanded from macro `page_to_pdx'"}]}}}
+---
+ automation/eclair_analysis/ECLAIR/analyze.sh  |  6 ----
+ .../eclair_analysis/ECLAIR/deviations.ecl     | 11 +++++++
+ .../ECLAIR/generate-linker-symbols.sh         | 31 +++++++++++++++++++
+ .../eclair_analysis/ECLAIR/generate_ecl.sh    |  3 ++
+ automation/eclair_analysis/prepare.sh         |  6 +++-
+ automation/scripts/eclair                     |  3 ++
+ docs/misra/deviations.rst                     | 10 ++++++
+ 7 files changed, 63 insertions(+), 7 deletions(-)
+ create mode 100755 automation/eclair_analysis/ECLAIR/generate-linker-symbols.sh
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 65e4bc585c28b50ec76f679e1001a81fea9d690b
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 4 13:27:03 2024 +0100
-
-    x86/trampoline: Move the trampoline declarations out of <asm/config.h>
-    
-    asm/config.h is included in every translation unit (via xen/config.h), while
-    only a handful of functions actually interact with the trampoline.
-    
-    Move the infrastructure into its own header, and take the opportunity to
-    document everything.
-    
-    Change trampoline_realmode_entry() and wakeup_start() to be nocall functions,
-    rather than char arrays.  Also switch to fixed width integers which are less
-    likely to diverge from the asm declaration.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit b34d5e3de9df64d26457bb4808c3b809965ee16c
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Sep 4 14:48:53 2024 +0100
-
-    x86/acpi: Drop acpi_video_flags and use bootsym(video_flags) directly
-    
-    This removes a level of indirection, as well as removing a somewhat misleading
-    name; the variable is really "S3 video quirks".
-    
-    More importantly however it makes it very clear that, right now, parsing the
-    cmdline and quirks depends on having already placed the trampoline; a
-    dependency which is going to be gnarly to untangle.
-    
-    That said, fixing the quirk is easy.  The Toshiba Satellite 4030CDT has an
-    Intel Celeron 300Mhz CPU (Pentium 2 era) from 1998 when MMX was the headline
-    feature, sporting 64M of RAM.  Being a 32-bit processor, it hasn't been able
-    to run Xen for about a decade now, so drop the quirk entirely.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-
-commit 81d48d857efa451ca3ed46e3d0633f54084b6f5b
-Author: Andrii Sultanov <andrii.sultanov@cloud.com>
-Date:   Tue Sep 3 12:44:42 2024 +0100
-
-    tools/ocaml: Build infrastructure for OCaml dynamic libraries
-    
-    Dynamic libraries in OCaml require an additional compilation step on top
-    of the already specified steps for static libraries. Add an appropriate
-    template to Makefile.rules.
-    
-    Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Christian Lindig <christian.lindig@cloud.com>
-
-commit 8c3ab4ffa953b5ea4724e825ffa7356532814093
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri Jun 21 20:05:15 2024 +0100
-
-    xen/ppc: Adjust ppc64_defconfig
-    
-    All of CONFIG_SCHED_*, and CONFIG_HYPFS build fine.
-    
-    Add a stub for share_xen_page_with_guest(), which is all that is necessary to
-    make CONFIG_TRACEBUFFER build.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 5afb11ac409185d862f405b2509b89abc2311bf5
-Author: Matthew Barnes <matthew.barnes@cloud.com>
-Date:   Wed Aug 21 16:34:37 2024 +0100
-
-    x86/cpufeatures: Add new cpuid features in SPR to featureset
-    
-    Upon running `xen-cpuid -v` on a host machine with Sapphire Rapids
-    within Dom0, there exist unrecognised features.
-    
-    This patch adds these features as macros to the CPU featureset,
-    disabled by default.
-    
-    Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 01ffbe8bcffdc5c6c98f0715bac95f3348b1c0cc
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Sep 6 12:48:42 2024 +0200
-
-    x86emul/test: use MSR constants
-    
-    msr-index.h has been in use for a while, so use the identifiers it
-    provides in place of raw numbers plus comments.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit d092002824a1fa675c936170d099c5646ecf8082
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Sep 6 12:47:58 2024 +0200
-
-    x86emul: mark new "cp" local var maybe-unused
-    
-    Just for the sake of the 32-bit build of the test harness. This wants
-    reverting once unconditional uses of the variable appear (AMX, AVX10).
-    
-    Fixes: b20e3fbc3ec9 ("x86emul: introduce a struct cpu_policy * local in x86_emulate()")
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 3c09288298af881ea1bb568740deb2d2a06bcd41
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Sep 6 08:41:18 2024 +0200
-
-    x86emul/test: fix build with gas 2.43
-    
-    Drop explicit {evex} pseudo-prefixes. New gas (validly) complains when
-    they're used on things other than instructions. Our use was potentially
-    ahead of macro invocations - see simd.h's "override" macro.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit e3b5440012721560ff48859ba8c4ea7f72f9ef20
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Sep 6 08:40:21 2024 +0200
-
-    x86/xstate: enable AMX components
-    
-    These being controlled by XCR0, enabling support is relatively
-    straightforward. Note however that there won't be any use of them until
-    their dependent ISA extension CPUID flags are exposed, not the least due
-    to recalculate_xstate() handling the dependencies in kind of a reverse
-    manner.
-    
-    Note that xstate_check_sizes() already covers the two new states.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit a2de7dc4d845738e734b10fce6550c89c6b1092c
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Sep 4 16:09:28 2024 +0200
-
-    x86: fix UP build with gcc14
-    
-    The complaint is:
-    
-    In file included from ././include/xen/config.h:17,
-                     from <command-line>:
-    arch/x86/smpboot.c: In function ‘link_thread_siblings.constprop’:
-    ./include/asm-generic/percpu.h:16:51: error: array subscript [0, 0] is outside array bounds of ‘long unsigned int[1]’ [-Werror=array-bounds=]
-       16 |     (*RELOC_HIDE(&per_cpu__##var, __per_cpu_offset[cpu]))
-    ./include/xen/compiler.h:140:29: note: in definition of macro ‘RELOC_HIDE’
-      140 |     (typeof(ptr)) (__ptr + (off)); })
-          |                             ^~~
-    arch/x86/smpboot.c:238:27: note: in expansion of macro ‘per_cpu’
-      238 |     cpumask_set_cpu(cpu2, per_cpu(cpu_sibling_mask, cpu1));
-          |                           ^~~~~~~
-    In file included from ./arch/x86/include/generated/asm/percpu.h:1,
-                     from ./include/xen/percpu.h:30,
-                     from ./arch/x86/include/asm/cpuid.h:9,
-                     from ./arch/x86/include/asm/cpufeature.h:11,
-                     from ./arch/x86/include/asm/system.h:6,
-                     from ./include/xen/list.h:11,
-                     from ./include/xen/mm.h:68,
-                     from arch/x86/smpboot.c:12:
-    ./include/asm-generic/percpu.h:12:22: note: while referencing ‘__per_cpu_offset’
-       12 | extern unsigned long __per_cpu_offset[NR_CPUS];
-          |                      ^~~~~~~~~~~~~~~~
-    
-    Which I consider bogus in the first place ("array subscript [0, 0]" vs a
-    1-element array). Yet taking the experience from 99f942f3d410 ("Arm64:
-    adjust __irq_to_desc() to fix build with gcc14") I guessed that
-    switching function parameters to unsigned int (which they should have
-    been anyway) might help. And voilà ...
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 3117e58ce03a0aecd945abe99778407a176fe2f1
-Author: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Date:   Wed Sep 4 16:08:37 2024 +0200
-
-    x86/tboot: add Intel dependency
-    
-    Make the Intel-specific Trusted Boot implementation dependant on general Intel CPU support.
-    
-    Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit c5be91eb81403195643e8de287c86fbd728ad6cb
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Sep 4 16:07:41 2024 +0200
-
-    mktarball: only archive Xen
-    
-    As was basically decided already a while ago, remove - in the simplest
-    possible way - the archiving of both qemu-s and mini-os from tarball
-    generation.
-    
-    With this the subtree-force-update-all prereq isn't needed anymore in
-    the top level Makefile. That goal, including the respective ones
-    underneath tools/, then also are unreferenced and hence are being
-    dropped, too.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit b20e3fbc3ec91b4534e51f6f724c3826dac0bdf3
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Sep 4 16:06:42 2024 +0200
-
-    x86emul: introduce a struct cpu_policy * local in x86_emulate()
-    
-    While of little effect right here, future patches (AVX10, AMX,
-    KeyLocker) will benefit more significantly.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 3c93a0da6bc201ebeb8a08d6bd339c9982985fcc
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Sep 4 16:06:21 2024 +0200
-
-    x86emul/test: rename "cp"
-    
-    In preparation of introducing a const struct cpu_policy * local in
-    x86_emulate(), rename that global variable to something more suitable:
-    "cp" is our commonly used name for function parameters or local
-    variables of type struct cpu_policy *, and the present name of the
-    global could hence have interfered already.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit d7c18b8720824d7efc39ffa7296751e1812865a9
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Sep 4 16:05:03 2024 +0200
-
-    SUPPORT.md: split XSM from Flask
-    
-    XSM is a generic framework, which in particular is also used by SILO.
-    With this it can't really be experimental: Arm mandates SILO for having
-    a security supported configuration.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-(qemu changes not included)
+diff --git a/automation/eclair_analysis/ECLAIR/analyze.sh b/automation/eclair_analysis/ECLAIR/analyze.sh
+index e96456c3c18d..1dc63c1bc2d0 100755
+--- a/automation/eclair_analysis/ECLAIR/analyze.sh
++++ b/automation/eclair_analysis/ECLAIR/analyze.sh
+@@ -73,17 +73,11 @@ export ECLAIR_WORKSPACE="${ECLAIR_DATA_DIR}/eclair_workspace"
+ 
+ # Identifies the particular build of the project.
+ export ECLAIR_PROJECT_NAME="XEN_${VARIANT}-${SET}"
+-# All paths mentioned in ECLAIR reports that are below this directory
+-# will be presented as relative to ECLAIR_PROJECT_ROOT.
+-export ECLAIR_PROJECT_ROOT="${PWD}"
+ 
+ # Erase and recreate the output directory and the data directory.
+ rm -rf "${ECLAIR_OUTPUT_DIR:?}/*"
+ mkdir -p "${ECLAIR_DATA_DIR}"
+ 
+-# Generate additional configuration files 
+-"${SCRIPT_DIR}/generate_ecl.sh"
+-
+ # Perform the build (from scratch) in an ECLAIR environment.
+ "${ECLAIR_BIN_DIR}eclair_env" \
+     "-config_file='${SCRIPT_DIR}/analysis.ecl'" \
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index 9051f4160282..a56805a993cd 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -533,6 +533,17 @@ safe."
+ # Series 18.
+ #
+ 
++-doc_begin="Subtractions between pointers involving at least one of the linker symbols specified by the regex below
++are guaranteed not to be exploited by a compiler that relies on the absence of
++C99 Undefined Behaviour 45: Pointers that do not point into, or just beyond, the same array object are subtracted (6.5.6)."
++-eval_file=linker_symbols.ecl
++-config=MC3R1.R18.2,reports+={safe, "any_area(stmt(operator(sub)&&child(lhs||rhs, skip(__non_syntactic_paren_stmts, ref(linker_symbols)))))"}
++-doc_end
++
++-doc_begin="The following macro performs a subtraction between pointers to obtain the mfn, but does not lead to undefined behaviour."
++-config=MC3R1.R18.2,reports+={safe, "any_area(any_loc(any_exp(macro(^page_to_mfn$))))"}
++-doc_end
++
+ -doc_begin="Flexible array members are deliberately used and XEN developers are aware of the dangers related to them:
+ unexpected result when the structure is given as argument to a sizeof() operator and the truncation in assignment between structures."
+ -config=MC3R1.R18.7,reports+={deliberate, "any()"}
+diff --git a/automation/eclair_analysis/ECLAIR/generate-linker-symbols.sh b/automation/eclair_analysis/ECLAIR/generate-linker-symbols.sh
+new file mode 100755
+index 000000000000..19943ba98d46
+--- /dev/null
++++ b/automation/eclair_analysis/ECLAIR/generate-linker-symbols.sh
+@@ -0,0 +1,31 @@
++#!/bin/bash
++
++set -e
++
++script_name="$(basename "$0")"
++script_dir="$(
++  cd "$(dirname "$0")"
++  echo "${PWD}"
++)"
++
++fatal() {
++  echo "${script_name}: $*" >&2
++  exit 1
++}
++
++arch=""
++if [ "${XEN_TARGET_ARCH}" == "x86_64" ]; then
++  arch=x86
++elif [ "${XEN_TARGET_ARCH}" == "arm64" ]; then
++  arch=arm
++else
++  fatal "Unknown configuration: $1"
++fi
++
++outfile=${script_dir}/linker_symbols.ecl
++
++(
++  echo -n "-decl_selector+={linker_symbols, \"^(" >"${outfile}"
++  "${script_dir}/../linker-symbols.sh" "${arch}" | sort -u | tr '\n' '|' | sed '$ s/|//' >>"${outfile}"
++  echo -n ")$\"}" >>"${outfile}"
++)
+diff --git a/automation/eclair_analysis/ECLAIR/generate_ecl.sh b/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+index 66766b23abb7..b955783904a8 100755
+--- a/automation/eclair_analysis/ECLAIR/generate_ecl.sh
++++ b/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+@@ -17,3 +17,6 @@ accepted_rst="${ECLAIR_PROJECT_ROOT}/docs/misra/rules.rst"
+ 
+ # Generate accepted guidelines
+ "${script_dir}/accepted_guidelines.sh" "${accepted_rst}"
++
++# Generate the list of linker-defined symbols (must be run after a Xen build)
++"${script_dir}/generate-linker-symbols.sh"
+diff --git a/automation/eclair_analysis/prepare.sh b/automation/eclair_analysis/prepare.sh
+index 47b2a2f32a84..3a646414a392 100755
+--- a/automation/eclair_analysis/prepare.sh
++++ b/automation/eclair_analysis/prepare.sh
+@@ -39,10 +39,14 @@ fi
+     cp "${CONFIG_FILE}" xen/.config
+     make clean
+     find . -type f -name "*.safparse" -print -delete
++    "${script_dir}/build.sh" "$1"
++    # Generate additional configuration files
++    "${script_dir}/ECLAIR/generate_ecl.sh"
++    make clean
+     cd xen
+     make -f "${script_dir}/Makefile.prepare" prepare
+     # Translate the /* SAF-n-safe */ comments into ECLAIR CBTs
+     scripts/xen-analysis.py --run-eclair --no-build --no-clean
+     # Translate function-properties.json into ECLAIR properties
+-    python3 ${script_dir}/propertyparser.py
++    python3 "${script_dir}/propertyparser.py"
+ )
+diff --git a/automation/scripts/eclair b/automation/scripts/eclair
+index 3ec760bab8b3..0a2353c20a92 100755
+--- a/automation/scripts/eclair
++++ b/automation/scripts/eclair
+@@ -3,6 +3,9 @@
+ ECLAIR_ANALYSIS_DIR=automation/eclair_analysis
+ ECLAIR_DIR="${ECLAIR_ANALYSIS_DIR}/ECLAIR"
+ ECLAIR_OUTPUT_DIR=$(realpath "${ECLAIR_OUTPUT_DIR}")
++# All paths mentioned in ECLAIR reports that are below this directory
++# will be presented as relative to ECLAIR_PROJECT_ROOT.
++export ECLAIR_PROJECT_ROOT="${PWD}"
+ 
+ "${ECLAIR_ANALYSIS_DIR}/prepare.sh" "${VARIANT}"
+ 
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index b66c271c4e7c..39cd1de1e5b2 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -501,6 +501,16 @@ Deviations related to MISRA C:2012 Rules:
+          - __builtin_memset()
+          - cpumask_check()
+ 
++   * - R18.2
++     - Subtractions between pointers where at least one of the operand is a
++       pointer to a symbol defined by the linker are safe.
++     - Tagged as `safe` for ECLAIR.
++
++   * - R18.2
++     - Subtraction between pointers encapsulated by macro page_to_mfn
++       are safe.
++     - Tagged as `safe` for ECLAIR.
++
+    * - R20.4
+      - The override of the keyword \"inline\" in xen/compiler.h is present so
+        that section contents checks pass when the compiler chooses not to
+-- 
+2.43.0
 
