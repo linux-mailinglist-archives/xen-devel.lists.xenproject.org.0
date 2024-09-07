@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29D8396FE83
-	for <lists+xen-devel@lfdr.de>; Sat,  7 Sep 2024 01:35:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.792075.1202127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1F5996FFCC
+	for <lists+xen-devel@lfdr.de>; Sat,  7 Sep 2024 05:22:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.792105.1202137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smiTj-0004Tb-BF; Fri, 06 Sep 2024 23:34:59 +0000
+	id 1smm10-00042g-8m; Sat, 07 Sep 2024 03:21:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 792075.1202127; Fri, 06 Sep 2024 23:34:59 +0000
+Received: by outflank-mailman (output) from mailman id 792105.1202137; Sat, 07 Sep 2024 03:21:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1smiTj-0004S0-87; Fri, 06 Sep 2024 23:34:59 +0000
-Received: by outflank-mailman (input) for mailman id 792075;
- Fri, 06 Sep 2024 23:34:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y4lz=QE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1smiTh-0003ro-Px
- for xen-devel@lists.xenproject.org; Fri, 06 Sep 2024 23:34:57 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ef487e1-6ca8-11ef-99a1-01e77a169b0f;
- Sat, 07 Sep 2024 01:34:55 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 37313A41426;
- Fri,  6 Sep 2024 23:34:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831CFC4CEC4;
- Fri,  6 Sep 2024 23:34:49 +0000 (UTC)
+	id 1smm10-0003zr-4j; Sat, 07 Sep 2024 03:21:34 +0000
+Received: by outflank-mailman (input) for mailman id 792105;
+ Sat, 07 Sep 2024 03:21:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1smm0y-0003zc-Ts; Sat, 07 Sep 2024 03:21:32 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1smm0y-0000zO-Ho; Sat, 07 Sep 2024 03:21:32 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1smm0x-00075v-V2; Sat, 07 Sep 2024 03:21:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1smm0x-0005Nk-Sb; Sat, 07 Sep 2024 03:21:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,196 +42,330 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ef487e1-6ca8-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725665694;
-	bh=0Ih4Iip7xtLRlf3kChkEtWsQcFRqkk8Kd9X2NiQdffQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=SS/mDBjCWGtrBKawZ6ZsSoTw30skndFiFIyLAIsPV+17n3u8Xq0vyrbbY8LoYMvMR
-	 zvOQNpFjHvfgXhsDTWkJweL9lT5ks/2Q0HZb4bLMUtHU1xR8PkjmdPNrRoGAHBKju0
-	 gv2ojX1mzLuwq6Z3nC1tn2/f36j+axIGpfOOqQ+V2Okf8HyWS91gePA57MvDciv9g1
-	 qMlwhqhUxuEbGHyjAUdh1zLMjDLN7GdHfOhEMAJlk0fW4FK1OQ9KO6xcL52sFE6GyW
-	 07rMLOtFffUkh3UMEqC62kJD1/+Y3r07vBZP4SyVdX5WcnhiuQ+yp0M0//pLqfiKyG
-	 A3L58hGkwAUHw==
-Date: Fri, 6 Sep 2024 16:34:47 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "Chen, Jiqian" <Jiqian.Chen@amd.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
-    George Dunlap <gwd@xenproject.org>, Julien Grall <julien@xen.org>, 
-    Anthony PERARD <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>, 
-    "Daniel P . Smith" <dpsmith@apertussolutions.com>, 
-    "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, 
-    "Huang, Ray" <Ray.Huang@amd.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [XEN PATCH v14 2/5] x86/pvh: Allow (un)map_pirq when dom0 is
- PVH
-In-Reply-To: <fb08f1bc-291d-4c97-b20e-7e4ba9f556c9@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2409061500390.53815@ubuntu-linux-20-04-desktop>
-References: <20240903070424.982218-1-Jiqian.Chen@amd.com> <20240903070424.982218-3-Jiqian.Chen@amd.com> <e8db9a54-fcbf-4f4c-803e-7b11838e22a4@suse.com> <BL1PR12MB5849C65CAC35890158F6A32FE7932@BL1PR12MB5849.namprd12.prod.outlook.com>
- <905fe9ef-d311-4956-b862-49f2f588afcd@suse.com> <BL1PR12MB58492EE11D404B2E09DA0210E7932@BL1PR12MB5849.namprd12.prod.outlook.com> <b2b7b716-974c-4172-ba68-261453a96932@suse.com> <alpine.DEB.2.22.394.2409031839550.53815@ubuntu-linux-20-04-desktop>
- <ea41eb5d-f8a1-4120-b5c1-70bdf02d8038@suse.com> <BL1PR12MB5849E69A83D4BABAF544C22EE79D2@BL1PR12MB5849.namprd12.prod.outlook.com> <f6a1f021-04cc-4dd3-bcea-97a7343399e1@suse.com> <alpine.DEB.2.22.394.2409051521340.53815@ubuntu-linux-20-04-desktop>
- <fb08f1bc-291d-4c97-b20e-7e4ba9f556c9@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=0A0OaKnXj1ZgpFlRLp1aRYGnTlbGz8zXvp7TGWurF+k=; b=SFNqYOgO8p1D4VTLVdrnePzfGF
+	hcVlm0Rn2SDHp7HZzndFmJt5TpG7U89iYt/lrRi0u358GBwb4gB7IrMUVA1cPIiYLxTqqsnP62Seb
+	zgre7CHTN7+KrRU38G6W+8I+BBXwL5SLZuFqfkSOL764TjZ/e4na+KGsjApBCl4TvrTA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187536-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [linux-linus test] 187536: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:build-i386-pvops:kernel-build:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=b831f83e40a24f07c8dcba5be408d93beedc820f
+X-Osstest-Versions-That:
+    linux=c763c43396883456ef57e5e78b64d3c259c4babc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 07 Sep 2024 03:21:31 +0000
 
-On Fri, 6 Sep 2024, Jan Beulich wrote:
-> On 06.09.2024 00:51, Stefano Stabellini wrote:
-> > On Thu, 5 Sep 2024, Jan Beulich wrote:
-> >> On 05.09.2024 08:45, Chen, Jiqian wrote:
-> >>> HI,
-> >>>
-> >>> On 2024/9/4 14:04, Jan Beulich wrote:
-> >>>> On 04.09.2024 03:43, Stefano Stabellini wrote:
-> >>>>> On Tue, 3 Sep 2024, Jan Beulich wrote:
-> >>>>>> On 03.09.2024 12:53, Chen, Jiqian wrote:
-> >>>>>>> On 2024/9/3 17:25, Jan Beulich wrote:
-> >>>>>>>> On 03.09.2024 09:58, Chen, Jiqian wrote:
-> >>>>>>>>> On 2024/9/3 15:42, Jan Beulich wrote:
-> >>>>>>>>>> On 03.09.2024 09:04, Jiqian Chen wrote:
-> >>>>>>>>>>> When dom0 is PVH type and passthrough a device to HVM domU, Qemu code
-> >>>>>>>>>>> xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
-> >>>>>>>>>>> xc_physdev_map_pirq map a pirq for passthrough devices.
-> >>>>>>>>>>> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
-> >>>>>>>>>>> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
-> >>>>>>>>>>> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
-> >>>>>>>>>>> codes.
-> >>>>>>>>>>>
-> >>>>>>>>>>> But it is fine to map interrupts through pirq to a HVM domain whose
-> >>>>>>>>>>> XENFEAT_hvm_pirqs is not enabled. Because pirq field is used as a way to
-> >>>>>>>>>>> reference interrupts and it is just the way for the device model to
-> >>>>>>>>>>> identify which interrupt should be mapped to which domain, however
-> >>>>>>>>>>> has_pirq() is just to check if HVM domains route interrupts from
-> >>>>>>>>>>> devices(emulated or passthrough) through event channel, so, the has_pirq()
-> >>>>>>>>>>> check should not be applied to the PHYSDEVOP_map_pirq issued by dom0.
-> >>>>>>>>>>>
-> >>>>>>>>>>> So, allow PHYSDEVOP_map_pirq when dom0 is PVH and also allow
-> >>>>>>>>>>> PHYSDEVOP_unmap_pirq for the removal device path to unmap pirq. Then the
-> >>>>>>>>>>> interrupt of a passthrough device can be successfully mapped to pirq for domU.
-> >>>>>>>>>>
-> >>>>>>>>>> As before: When you talk about just Dom0, ...
-> >>>>>>>>>>
-> >>>>>>>>>>> --- a/xen/arch/x86/hvm/hypercall.c
-> >>>>>>>>>>> +++ b/xen/arch/x86/hvm/hypercall.c
-> >>>>>>>>>>> @@ -73,6 +73,8 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-> >>>>>>>>>>>      {
-> >>>>>>>>>>>      case PHYSDEVOP_map_pirq:
-> >>>>>>>>>>>      case PHYSDEVOP_unmap_pirq:
-> >>>>>>>>>>> +        break;
-> >>>>>>>>>>> +
-> >>>>>>>>>>>      case PHYSDEVOP_eoi:
-> >>>>>>>>>>>      case PHYSDEVOP_irq_status_query:
-> >>>>>>>>>>>      case PHYSDEVOP_get_free_pirq:
-> >>>>>>>>>>
-> >>>>>>>>>> ... that ought to match the code. IOW you've again lost why it is okay(ish)
-> >>>>>>>>>> (or even necessary) to also permit the op for non-Dom0 (e.g. a PVH stubdom).
-> >>>>>>>>>> Similarly imo Dom0 using this on itself wants discussing.
-> >>>>>>>>> Do you mean I need to talk about why permit this op for all HVM
-> >>>>>>>>
-> >>>>>>>> You don't need to invent reasons, but it needs making clear that wider than
-> >>>>>>>> necessary (for your purpose) exposure is at least not going to be a problem.
-> >>>>>>>>
-> >>>>>>>>> and  where can prevent PVH domain calling this for self-mapping, not only dom0?
-> >>>>>>>>
-> >>>>>>>> Aiui use on itself is limited to Dom0, so only that would need clarifying
-> >>>>>>>> (along the lines of the above, i.e. that/why it is not a problem). For
-> >>>>>>>> has_pirq() domains use on oneself was already permitted before.
-> >>>>>>>
-> >>>>>>> Changed commit message to below. Please check and that will be great helpful if you would show me how to modify it.
-> >>>>>>> {
-> >>>>>>> x86/pvh: Allow (un)map_pirq when dom0 is PVH
-> >>>>>>>
-> >>>>>>> Problem: when dom0 is PVH type and passthrough a device to HVM domU, Qemu
-> >>>>>>> code xen_pt_realize->xc_physdev_map_pirq and libxl code pci_add_dm_done->
-> >>>>>>> xc_physdev_map_pirq map a pirq for passthrough devices.
-> >>>>>>> In xc_physdev_map_pirq call stack, function hvm_physdev_op has a check
-> >>>>>>> has_pirq(currd), but currd is PVH dom0, PVH has no X86_EMU_USE_PIRQ flag,
-> >>>>>>> so it fails, PHYSDEVOP_map_pirq is not allowed for PVH dom0 in current
-> >>>>>>> codes.
-> >>>>>>>
-> >>>>>>> To solve above problem, need to remove the chack has_pirq() for that
-> >>>>>>> situation(PHYSDEVOP_map_pirq is issued by dom0 for domUs). But without
-> >>>>>>> adding other restrictions, PHYSDEVOP_map_pirq will be allowed wider than
-> >>>>>>> what the problem need.
-> >>>>>>> So, clarify below:
-> >>>>>>>
-> >>>>>>> For HVM domUs whose XENFEAT_hvm_pirqs is not enabled,it is fine to map
-> >>>>>>> interrupts through pirq for them. Because pirq field is used as a way to
-> >>>>>>> reference interrupts and it is just the way for the device model to
-> >>>>>>> identify which interrupt should be mapped to which domain, however
-> >>>>>>> has_pirq() is just to check if HVM domains route interrupts from
-> >>>>>>> devices(emulated or passthrough) through event channel, so, remove
-> >>>>>>> has_pirq() check has no impact on HVM domUs.
-> >>>>>>>
-> >>>>>>> For PVH domUs that performs such an operation will fail at the check
-> >>>>>>> xsm_map_dedomain_pirq() in physdev_map-nirq().
-> >>>>>>>
-> >>>>>>> For PVH dom0, it uses vpci and doesn't use event channel, as above talks,
-> >>>>>>> it also has no impact.
-> >>>>>>> }
-> >>>>>>
-> >>>>>> This is better than what you had before, and I don't really fancy re-
-> >>>>>> writing the description effectively from scratch. So let's just go from
-> >>>>>> there. As to the "excess" permission for the sub-ops: The main thing I'm
-> >>>>>> after is that it be clarified that we're not going to introduce any
-> >>>>>> security issues here. That requires auditing the code, and merely saying
-> >>>>>> "also has no impact" is a little too little for my taste. For Dom0 an
-> >>>>>> argument may be that it is overly powerful already anyway, even if for
-> >>>>>> PVH we're a little more strict than for PV (I think).
-> >>>>>
-> >>>>> Hi Jan, for clarity and to make this actionable, are you suggesting to
-> >>>>> clarify the commit message by adding wording around "Dom0 is overly
-> >>>>> powerful already anyway so it is OK so this is OK" ?
-> >>>>
-> >>>> Yes, perhaps with "deemed" added. 
-> >>> OK, for PVH dom0, I will change to " Dom0 is deemed overly powerful already anyway, so it is OK "
-> >>
-> >> I don't mind the deemed as you add it, but the important place to add it
-> >> here is before "OK". I'm sorry, it didn't occur to me that after all the
-> >> prior discussion this earlier reply of mine could still be mis-interpreted.
-> >>
-> >>>> And text for DomU-s similarly extended, as the pointing at the XSM check is presently incomplete (stubdom-s can
-> >>>> pass that check, after all, as can de-priv qemu running in Dom0).
-> >>> So sorry, I know so little about this, I can't explain these situations, could you tell me how to describe or help me write a paragraph?
-> >>
-> >> I'm afraid that in order to make (propose) such a change you need to be
-> >> able to explain why it is okay to expose functionality beyond where it's
-> >> presently exposed. It's not just writing a new paragraph that's needed
-> >> here. You first need to _check_ that what you do is okay. And once you've
-> >> done that checking, you then summarize that in writing.
-> >  
-> > 
-> > PHYSDEVOP_map_pirq ends up calling physdev_map_pirq which is protected
-> > by:
-> > 
-> >     ret = xsm_map_domain_pirq(XSM_DM_PRIV, d);
-> >     if ( ret )
-> >         return ret;
-> > 
-> > Dom0 having permission to do PHYSDEVOP_map_pirq even without has_pirq is
-> > fine. Device models are also OK because the code we are trying to enable
-> > is in fact part of the device model. If someone were to run an HVM
-> > stubdom they might need this patch as well.
-> > 
-> > If PHYSDEVOP_map_pirq is allowed, also PHYSDEVOP_unmap_pirq should be
-> > allowed.
-> > 
-> > Is this explanation OK?
-> 
-> This still solely focuses on why the functionality is wanted. There
-> continues to be nothing about the wider exposure actually being safe.
+flight 187536 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187536/
 
-I don't think I understand what you would like to be checked or
-clarified...
+Regressions :-(
 
-The only wider exposure is to device models, and device models can do a
-lot worse than mapping pirqs already. There is no wider exposure to
-DomUs. Also PV device models can already do this.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 187504
+ build-i386-pvops              6 kernel-build             fail REGR. vs. 187504
 
-But the above must be clear to you as well, so I am not sure what you
-are looking for.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187504
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 187504
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187504
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187504
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 187504
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187504
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ linux                b831f83e40a24f07c8dcba5be408d93beedc820f
+baseline version:
+ linux                c763c43396883456ef57e5e78b64d3c259c4babc
+
+Last test of basis   187504  2024-09-05 10:21:11 Z    1 days
+Failing since        187510  2024-09-05 23:42:38 Z    1 days    2 attempts
+Testing same since   187536  2024-09-06 11:30:55 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Aleksandr Mishin <amishin@t-argos.ru>
+  Alexei Starovoitov <ast@kernel.org>
+  Alice Ryhl <aliceryhl@google.com>
+  Andreas Hindborg <a.hindborg@kernel.org>
+  Andreas Hindborg <a.hindborg@samsung.com>
+  Andrii Nakryiko <andrii@kernel.org>
+  Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>
+  Baochen Qiang <quic_bqiang@quicinc.com>
+  Boqun Feng <boqun.feng@gmail.com>
+  Breno Leitao <leitao@debian.org>
+  Brian Norris <briannorris@chromium.org>
+  Chandan Kumar Rout <chandanx.rout@intel.com>
+  Charles Han <hanchunchao@inspur.com>
+  Cheng-Jui Wang <cheng-jui.wang@mediatek.com>
+  Chi Zhiling <chizhiling@kylinos.cn>
+  Cong Wang <cong.wang@bytedance.com>
+  Daiwei Li <daiweili@google.com>
+  Dan Carpenter <dan.carpenter@linaro.org>
+  David Gow <davidgow@google.com>
+  David S. Miller <davem@davemloft.net>
+  Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+  Dirk Behme <dirk.behme@de.bosch.com>
+  Douglas Anderson <dianders@chromium.org>
+  Eduard Zingerman <eddyz87@gmail.com>
+  Eric Dumazet <edumazet@google.com>
+  Fabio Estevam <festevam@gmail.com>
+  Frank Li <Frank.Li@nxp.com>
+  Geert Uytterhoeven <geert+renesas@glider.be>
+  George Kuruvinakunnel <george.kuruvinakunnel@intel.com>
+  Guillaume Nault <gnault@redhat.com>
+  Hayes Wang <hayeswang@realtek.com>
+  Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+  Jakub Kicinski <kuba@kernel.org>
+  Jamie Bainbridge <jamie.bainbridge@gmail.com>
+  Jeff Johnson <quic_jjohnson@quicinc.com>
+  Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+  Jeongjun Park <aha310510@gmail.com>
+  Jinjie Ruan <ruanjinjie@huawei.com>
+  Jon Mulder <jon.e.mulder@gmail.com>
+  Jonas Gorski <jonas.gorski@bisdn.de>
+  Jubilee Young <workingjubilee@gmail.com>
+  Julien Panis <jpanis@baylibre.com>
+  Kalle Valo <kvalo@kernel.org>
+  Kalle Valo <quic_kvalo@quicinc.com>
+  Kuniyuki Iwashima <kuniyu@amazon.com>
+  Larysa Zaremba <larysa.zaremba@intel.com>
+  Liao Chen <liaochen4@huawei.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+  Luke D. Jones <luke@ljones.dev>
+  Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+  Marc Kleine-Budde <mkl@pengutronix.de>
+  Mark Brown <broonie@kernel.org>
+  Markus Schneider-Pargmann <msp@baylibre.com>
+  Martin Jocic <martin.jocic@kvaser.com>
+  Martin KaFai Lau <martin.lau@kernel.org>
+  Masami Hiramatsu (Google) <mhiramat@kernel.org>
+  Matt Johnston <matt@codeconstruct.com.au>
+  Michael Vetter <jubalh@iodoru.org>
+  Miguel Ojeda <ojeda@kernel.org>
+  Mikko Tiihonen <mikko.tiihonen@iki.fi>
+  Nikolay Aleksandrov <razor@blackwall.org>
+  Oliver Neukum <oneukum@suse.com>
+  Paolo Abeni <pabeni@redhat.com>
+  Pawel Dembicki <paweldembicki@gmail.com>
+  Pucha Himasekhar Reddy <himasekharx.reddy.pucha@intel.com> (A Contingent worker at Intel)
+  Rae Moar <rmoar@google.com>
+  Roger Quadros <rogerq@kernel.org>
+  Sean Anderson <sean.anderson@linux.dev>
+  Shuah Khan <skhan@linuxfoundation.org>
+  Simon Arlott <simon@octiron.net>
+  Simon Horman <horms@kernel.org>
+  Simon Horman <horms@kernel.org> # build-tested
+  Souradeep Chakrabarti <schakrabarti@linux.microsoft.com>
+  Stanislav Fomichev <sdf@fomichev.me>
+  Stefan Wahren <wahrenst@gmx.net>
+  Stephen Hemminger <stephen@networkplumber.org>
+  Steven Rostedt (Google) <rostedt@goodmis.org>
+  Steven Rostedt <rostedt@goodmis.org>
+  Toke Høiland-Jørgensen <toke@redhat.com>
+  Tony Nguyen <anthony.l.nguyen@intel.com>
+  Tze-nan Wu <Tze-nan.Wu@mediatek.com>
+  Vadim Fedorenko <vadfed@meta.com>
+  Vadim Fedorenko <vadim.fedorenko@linux.dev>
+  Vincent Woltmann <vincent@woltmann.art>
+  Vinicius Costa Gomes <vinicius.gomes@intel.com>
+  Wedson Almeida Filho <wedsonaf@gmail.com>
+  Yanghui Li <yanghui.li@mediatek.com>
+  Zheng Yejian <zhengyejian@huaweicloud.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             fail    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 3470 lines long.)
 
