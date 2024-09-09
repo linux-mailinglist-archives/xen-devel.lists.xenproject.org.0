@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45294971DCE
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 17:16:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794674.1203697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BEE9971E32
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 17:39:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794708.1203778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sng7u-0001qm-83; Mon, 09 Sep 2024 15:16:26 +0000
+	id 1sngTI-0006dB-Ni; Mon, 09 Sep 2024 15:38:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794674.1203697; Mon, 09 Sep 2024 15:16:26 +0000
+Received: by outflank-mailman (output) from mailman id 794708.1203778; Mon, 09 Sep 2024 15:38:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sng7u-0001pH-4V; Mon, 09 Sep 2024 15:16:26 +0000
-Received: by outflank-mailman (input) for mailman id 794674;
- Mon, 09 Sep 2024 15:16:24 +0000
+	id 1sngTI-0006ad-Jd; Mon, 09 Sep 2024 15:38:32 +0000
+Received: by outflank-mailman (input) for mailman id 794708;
+ Mon, 09 Sep 2024 15:38:31 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sng7s-0001pB-TD
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 15:16:24 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sngTH-0006aS-06; Mon, 09 Sep 2024 15:38:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sng7s-0000uj-B2; Mon, 09 Sep 2024 15:16:24 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sng7s-0007pu-4G; Mon, 09 Sep 2024 15:16:24 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sngTG-0001My-T1; Mon, 09 Sep 2024 15:38:30 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sngTG-0005bp-LS; Mon, 09 Sep 2024 15:38:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sngTG-0002PN-Kr; Mon, 09 Sep 2024 15:38:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,160 +42,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=lTwEnvG432c+ZJ8Y4udv3svvz15yPXKUGJ07HVOvwQ4=; b=VA3fOT2pb9zV6yY6Q06jypjiXr
-	Q1Ds8cwpVpgcN2FlUcnW2sdKgTxwjQ9TSjsiP/HnPe/MVeyU6M375ZSVubYmbuHAG4d9B8cXC6CcT
-	L4L8azujLdm9zJgFE9y3JKrZw2Vrnj/RZpVdzxn0vpe4V6DLJVYyB5sD6Z+5EtHmoPj8=;
-Message-ID: <c308f03b-247d-4fd9-a9b4-f630d8a22bee@xen.org>
-Date: Mon, 9 Sep 2024 16:16:22 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: fusa: Add Assumption of Use (AOU)
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayankuma@amd.com>, Michal Orzel
- <michal.orzel@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Artem Mygaiev <artem_mygaiev@epam.com>
-References: <20240906101318.1419954-1-ayan.kumar.halder@amd.com>
- <57632c2f-82e6-49bb-b989-e75c95070b03@xen.org>
- <46b9567e-d27c-467b-b21d-65d63b6cd1e2@amd.com>
- <5de31172-8319-4cd3-9486-a6992a5cdc22@xen.org>
- <880e0578-c27b-45d3-8ed6-91ad648fa735@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <880e0578-c27b-45d3-8ed6-91ad648fa735@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=MPqwWdGL/V/KGneYq8NkX65hh4m9EaTz52P5nXbAUbU=; b=ubQktRZsAeHm4WOwBcPR2inz5/
+	NkoVFHnb98GoE1lkdtzrANIvsiLt8N9FYJWQeJDNMO81DNnKUtD+huobKRcmzf59UfEMOvqpwk4oh
+	IXXU9urPVIFSoaOQpnb7luN8mEPA0Aksdteblhk7gKaPoq8RLLSUl8ijo7RVpZ3njrLU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187607-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 187607: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=4e56d0a9f9c5612c724299136c8ef55bc436419b
+X-Osstest-Versions-That:
+    xen=65e4bc585c28b50ec76f679e1001a81fea9d690b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 09 Sep 2024 15:38:30 +0000
 
-On 09/09/2024 10:50, Ayan Kumar Halder wrote:
-> On 09/09/2024 10:11, Julien Grall wrote:
->>
->>
->> On 09/09/2024 09:56, Michal Orzel wrote:
->>> Hi Julien,
->>>
->>> On 08/09/2024 23:05, Julien Grall wrote:
->>>>
->>>>
->>>> Hi Ayan,
->>>>
->>>> On 06/09/2024 11:13, Ayan Kumar Halder wrote:
->>>>> From: Michal Orzel <michal.orzel@amd.com>
->>>>>
->>>>> AOU are the assumptions Xen relies on other components (eg 
->>>>> platform, domains)
->>>>
->>>> Searching online, I think the abbrevition is AoU rather than AOU. This
->>>> would also match how we abbreviate in Xen (IOW if we use a lower case
->>>> letter from the expanded name, then the letter in the acronym is also
->>>> lower case).
->>>>
->>>>> to fulfill its requirements. In our case, platform means a 
->>>>> combination of
->>>>> hardware, firmware and bootloader.
->>>>>
->>>>> We have defined AOU in the intro.rst and added AOU for the generic 
->>>>> timer.
->>>>>
->>>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->>>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>>>> ---
->>>>>    .../reqs/design-reqs/arm64/generic-timer.rst  | 19 +++++++++++++ 
->>>>> ++++++
->>>>>    docs/fusa/reqs/intro.rst                      | 10 ++++++++++
->>>>>    2 files changed, 29 insertions(+)
->>>>>
->>>>> diff --git a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst b/ 
->>>>> docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
->>>>> index f2a0cd7fb8..9df87cf4e0 100644
->>>>> --- a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
->>>>> +++ b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
->>>>> @@ -116,6 +116,25 @@ Rationale:
->>>>>
->>>>>    Comments:
->>>>>
->>>>> +Covers:
->>>>> + - `XenProd~emulated_timer~1`
->>>>> +
->>>>> +Assumption of Use on the Platform
->>>>> +=================================
->>>>> +
->>>>> +Expose system timer frequency via register
->>>>> +------------------------------------------
->>>>> +
->>>>> +`XenSwdgn~arm64_generic_timer_pf_program_cntfrq_el0~1`
->>>>> +
->>>>> +Description:
->>>>> +Underlying platform shall ensure that CNTFRQ_EL0 register contains 
->>>>> the system
->>>>> +timer frequency.
->>>>
->>>> The wording in [1] (not yet merged) implies that CNTFRQ_EL0 may be
->>> It is merged:
->>> https://xenbits.xen.org/gitweb/? 
->>> p=xen.git;a=commit;h=51ad2c57a2d21b583a5944a0dc21c709af022f3c
->>>
->>>> invalid. This seems to contradict the Assumption of Use. Can you 
->>>> explain
->>>> the difference?
->>> The requirement you refer to is written from a domain perspective and 
->>> is about Xen exposing the frequency
->>> to domains via CNTFRQ and/or dt property. In case of a presence of dt 
->>> property in the host dtb, Xen could for instance decide
->>> to emulate CNTFRQ instead of relying on the domain to parse the dt at 
->>> runtime.
->>
->> AFAICT, you can't trap CNTFRQ access. So what you suggest would not work.
->>
->>>
->>> The AoU on the platform (hw/firmware/bootloader) is written from Xen 
->>> perspective and is about the platform
->>> exposing the correct frequency via register. This is Xen expected 
->>> behavior on the platform. In other words, the platform should
->>> expose the correct frequency via register.
->>
->> Xen is able to deal with broken CNTFRQ_EL0. 
-> Yes, this is correct if the user provides "clock-frequency" dt property.
->> So I don't understand why we we would want to make an assumption that 
->> it shall not be broken. What do you gain?
-> 
-> Refer https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/ 
-> linux.git/tree/Documentation/devicetree/bindings/timer/arm,arch_timer.yaml
-> 
-> ```
-> 
-> Use of this property is strongly discouraged; fix your firmware unless 
-> absolutely impossible.
-> 
-> ```
-> 
-> We wish to put the onus on the platform/firmware provider to program the 
-> register correctly. Otherwise, we will have to document it somewhere 
-> (may be safety manual) that User needs to provide the "clock-frequency" 
-> dt property.
+flight 187607 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187607/
 
-I think you will have to. The integrator may not have the possibility to 
-modify the firmware.
+Failures :-/ but no regressions.
 
-> We wish to put as little responsibility on the user as 
-> possible(especially when the dt documentation discourages it as well).
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-I think there are some contradiction with the requirements. I understand 
-they are for the guest interface only but, if I am not mistaken, the 
-only way the "clock-frequency" can be visible to the guest is because it 
-is part of the host DT.
+version targeted for testing:
+ xen                  4e56d0a9f9c5612c724299136c8ef55bc436419b
+baseline version:
+ xen                  65e4bc585c28b50ec76f679e1001a81fea9d690b
 
-Furthermore, as soon as the property is specified, then Xen will ignore 
-the value from CNTFRQ_EL0. So if we want to push the firmware vendor  to 
-expose a valid CNTFREQ_EL0, then I don't understand why we would want to 
-mention the property in the requirements.
+Last test of basis   187544  2024-09-06 18:02:14 Z    2 days
+Testing same since   187607  2024-09-09 12:05:15 Z    0 days    1 attempts
 
-Cheers,
+------------------------------------------------------------
+People who touched revisions under test:
+  Frediano Ziglio <frediano.ziglio@cloud.com>
+  Huang Rui <ray.huang@amd.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jiqian Chen <Jiqian.Chen@amd.com>
+  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
--- 
-Julien Grall
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   65e4bc585c..4e56d0a9f9  4e56d0a9f9c5612c724299136c8ef55bc436419b -> smoke
 
