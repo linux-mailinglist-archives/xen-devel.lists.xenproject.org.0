@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C8179718E2
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 14:03:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794383.1203307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1FD79718E8
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 14:04:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794399.1203316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snd6o-0001Ps-Ln; Mon, 09 Sep 2024 12:03:06 +0000
+	id 1snd7u-0002jj-U0; Mon, 09 Sep 2024 12:04:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794383.1203307; Mon, 09 Sep 2024 12:03:06 +0000
+Received: by outflank-mailman (output) from mailman id 794399.1203316; Mon, 09 Sep 2024 12:04:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snd6o-0001MS-IM; Mon, 09 Sep 2024 12:03:06 +0000
-Received: by outflank-mailman (input) for mailman id 794383;
- Mon, 09 Sep 2024 12:03:05 +0000
+	id 1snd7u-0002hb-RT; Mon, 09 Sep 2024 12:04:14 +0000
+Received: by outflank-mailman (input) for mailman id 794399;
+ Mon, 09 Sep 2024 12:04:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H/dp=QH=cloud.com=andrii.sultanov@srs-se1.protection.inumbo.net>)
- id 1snd6n-0000ce-0W
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 12:03:05 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ <SRS0=dA/l=QH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1snd7t-0002hP-KU
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 12:04:13 +0000
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [2607:f8b0:4864:20::c2f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77e928c2-6ea3-11ef-a0b5-8be0dac302b0;
- Mon, 09 Sep 2024 14:03:04 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5c25f01879fso5271130a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 05:03:04 -0700 (PDT)
-Received: from EMEAENGAAD87503.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25d65742sm331603066b.216.2024.09.09.05.03.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Sep 2024 05:03:03 -0700 (PDT)
+ id a0433d23-6ea3-11ef-a0b5-8be0dac302b0;
+ Mon, 09 Sep 2024 14:04:12 +0200 (CEST)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ 006d021491bc7-5e1b72fc5f3so1251777eaf.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 05:04:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77e928c2-6ea3-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: a0433d23-6ea3-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1725883383; x=1726488183; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Dx3O4MBTaAWxPdBDzrYnpKhE+MJx2y5yX5SXZjkXD0g=;
-        b=hIkWvxPxIMiep35c3Uu1kHAnpsBwb5Oxoar1Ewv1FR7uhOm62hEpDm9FqCTPHrZrfW
-         AGMYf2mdN+7s9olDFZ1kWntKd0Ou+o0O/6lzlJX+NzLvuGuIcF2xT7FKTK2neffnOkG5
-         P+DMKItn6/1KzGeCQvam8KILNQTlTfsPTd7Hc=
+        d=cloud.com; s=cloud; t=1725883451; x=1726488251; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=VYcuSuyuhC3DJlmVd353NRJwcrxM6mqAWTcYk0iyJYE=;
+        b=KNXas4flIfN/Qk9QaDzOJR685X/Bxov5uayrvOAugNiFvhFyzw26rq22F0/V2/fpON
+         4Q3jlZ6uYyI+Mzuei7VC+EJkGaDEemPwO3JCNxNV7N23CDf8PJpvprG6VOh6IXV0geDW
+         /g/ezo05qHw9djPnfjUhPcmtv6/PRwL4zfpvA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725883383; x=1726488183;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Dx3O4MBTaAWxPdBDzrYnpKhE+MJx2y5yX5SXZjkXD0g=;
-        b=RvysO2HI4LBKnSriiIugqeFpw6KxPIkDCzKj27fY49EjU5Kp8QEfx7KPFY/pMVOciM
-         HGvW7DfXmGIQrlcO7gZzJDSSg9qTycigPXosO0/ansLPYdCv+7XgMxmSS4lDVTiVJPao
-         u+vMJPLPYMtkMVftJxbbI/j9dgrRly/E1SEAQhB84UCru/7jdTbR8TtctLbeTBw6Xb9D
-         SjenTt4AT6i/7/3MbxepANdi4tEZl40snGoxi9OhzyFSryriGSVMVGc788eSETNkcMrK
-         Sd5ipNKIXjPw7Vlp/R5k6GnA/QAlILcXNkL2fHdGzCQ3RD8Riu6uULWakOJxoh4ZZ4fA
-         N0lA==
-X-Gm-Message-State: AOJu0Yy3BYObGgbWqRQ2CR+qjkhgkHOP6WvRa927Wz//PUvx5uDnUW8S
-	ywBO45TYlPAaZ4NpyL/N8BkL9+QNAkUcjMgIJ1fuXJSlEc9eMl7tBE5MV1DT5A+Y2L4cZLTHkSe
-	e
-X-Google-Smtp-Source: AGHT+IEN/G6OLfZtDKoYK25jJ/F4A+BFKt1jKuOHvs7Rc1f6vxHSp0AV604sumzAKQkn63Dwa0/mWg==
-X-Received: by 2002:a17:907:e90:b0:a7a:9447:3e8c with SMTP id a640c23a62f3a-a8a885bddf2mr663727566b.3.1725883383362;
-        Mon, 09 Sep 2024 05:03:03 -0700 (PDT)
-From: Andrii Sultanov <andrii.sultanov@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrii Sultanov <andrii.sultanov@cloud.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Christian Lindig <christian.lindig@cloud.com>
-Subject: [PATCH v3 3/3] tools/oxenstored: Switch to using the plugin for Xenctrl.domain_getinfo
-Date: Mon,  9 Sep 2024 13:02:42 +0100
-Message-Id: <23bc7f3e81dd89f8d5d6fd5f27d5dca0125b69a2.1725881488.git.andrii.sultanov@cloud.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1725881488.git.andrii.sultanov@cloud.com>
-References: <cover.1725881488.git.andrii.sultanov@cloud.com>
+        d=1e100.net; s=20230601; t=1725883451; x=1726488251;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VYcuSuyuhC3DJlmVd353NRJwcrxM6mqAWTcYk0iyJYE=;
+        b=KauIwcJQcGWacPsSbBja8rdMQ04m84T0SLFaNF2oaw1f62ZhDly+Lv8QwGnta7I/HL
+         jyQSqLFQS5UKs4/h5FzFta8yunWn4d6PKRzadXUmdiZe+0nPNTfMHwEFYdv7raVslmET
+         yjUdeIpBUThwvsZ++DXp8aoPhsIbvxxRH6/EIpWVEKOkwYzXzdY2/rxFl5ZG6nG/Q1AZ
+         FqnmHs+XPPWjSzV7o7pZVIZWgdn/ISLGZH1TZG74xRGrh8f8dHgL+VWjXSFweVaITnGB
+         /8vH1B0SfYf0Qj75ZJ/AnYkirdVhIjF53QtKCkLn6JP0i95YuYGyVUG2OQtxTyB8SREj
+         uuoA==
+X-Gm-Message-State: AOJu0YxB+MtNSiVddZTc+xNnlX31ciOZ1dfVFMDXt1LI0bfj3kFGm6MX
+	EITtTki6AT5NbwmSnMLfl8w4bRdhD7mMzWd9U+rN7w/Zcjl5ijNSfnIgaiAgJOLVeHy9EjZV0IQ
+	YXTgVF7hexwMmkHAfpu09ThJ14jCg50Q3T83P2A==
+X-Google-Smtp-Source: AGHT+IHjTRh044xebUMDNCOACfT5WJO6ARZ1qThVx2q1zkhMSj6m0MJCGNc/qOpjzFML78SGYL88xgxnLEHBqjp0u/g=
+X-Received: by 2002:a05:6820:1b89:b0:5e1:dd48:dffc with SMTP id
+ 006d021491bc7-5e1dd48eed0mr537904eaf.8.1725883450945; Mon, 09 Sep 2024
+ 05:04:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240909110329.84512-1-frediano.ziglio@cloud.com>
+ <20240909110329.84512-2-frediano.ziglio@cloud.com> <c05e0a14-269a-4608-9858-d6a64ae96fb9@suse.com>
+In-Reply-To: <c05e0a14-269a-4608-9858-d6a64ae96fb9@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 9 Sep 2024 13:04:00 +0100
+Message-ID: <CACHz=ZiQmduDU0TiSCXZwyPOESYFMFa+cW==LhAqDgP32Jp8Dg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] x86/boot: Add missing __XEN__ definition
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000000485c80621ae8ebe"
 
-Also run 'make format' on the file to reformat an adjacent block of code
-correctly.
+--0000000000000485c80621ae8ebe
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Andrii Sultanov <andrii.sultanov@cloud.com>
-Acked-by: Christian Lindig <christian.lindig@cloud.com>
----
-* This commit is a result of the split of one oxenstored commit into two.
+On Mon, Sep 9, 2024 at 12:21=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
 
- tools/ocaml/xenstored/domains.ml | 51 ++++++++++++++++----------------
- 1 file changed, 25 insertions(+), 26 deletions(-)
+> On 09.09.2024 13:03, Frediano Ziglio wrote:
+> > --- a/xen/arch/x86/boot/Makefile
+> > +++ b/xen/arch/x86/boot/Makefile
+> > @@ -15,7 +15,7 @@ CFLAGS_x86_32 :=3D $(subst -m64,-m32
+> -march=3Di686,$(XEN_TREEWIDE_CFLAGS))
+> >  $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
+> >  CFLAGS_x86_32 +=3D -Werror -fno-builtin -g0 -msoft-float -mregparm=3D3
+> >  CFLAGS_x86_32 +=3D -nostdinc -include $(filter
+> %/include/xen/config.h,$(XEN_CFLAGS))
+> > -CFLAGS_x86_32 +=3D $(filter -I% -O%,$(XEN_CFLAGS))
+> > +CFLAGS_x86_32 +=3D $(filter -I% -O%,$(XEN_CFLAGS)) -D__XEN__
+>
+> Any reason not to similarly make this -D% as a filter expression?
+>
+> Jan
+>
 
-diff --git a/tools/ocaml/xenstored/domains.ml b/tools/ocaml/xenstored/domains.ml
-index c233065711..fabca00e6b 100644
---- a/tools/ocaml/xenstored/domains.ml
-+++ b/tools/ocaml/xenstored/domains.ml
-@@ -49,8 +49,8 @@ module Plugin =
- let handle = Plugin.interface_open ()
- 
- type domains = {
--  eventchn: Event.t;
--  table: (Xenctrl.domid, Domain.t) Hashtbl.t;
-+  eventchn : Event.t;
-+  table : (Plugin.domid, Domain.t) Hashtbl.t;
- 
-   (* N.B. the Queue module is not thread-safe but oxenstored is single-threaded. *)
-   (* Domains queue up to regain conflict-credit; we have a queue for
-@@ -121,30 +121,29 @@ let cleanup doms =
-   let notify = ref false in
-   let dead_dom = ref [] in
- 
--  Hashtbl.iter (fun id _ -> if id <> 0 then
--                   try
--                     let info = Xenctrl.domain_getinfo xc id in
--                     if info.Xenctrl.shutdown || info.Xenctrl.dying then (
--                       debug "Domain %u died (dying=%b, shutdown %b -- code %d)"
--                         id info.Xenctrl.dying info.Xenctrl.shutdown info.Xenctrl.shutdown_code;
--                       if info.Xenctrl.dying then
--                         dead_dom := id :: !dead_dom
--                       else
--                         notify := true;
--                     )
--                   with Xenctrl.Error _ ->
--                     debug "Domain %u died -- no domain info" id;
--                     dead_dom := id :: !dead_dom;
--               ) doms.table;
--  List.iter (fun id ->
--      let dom = Hashtbl.find doms.table id in
--      Domain.close dom;
--      Hashtbl.remove doms.table id;
--      if dom.Domain.conflict_credit <= !Define.conflict_burst_limit
--      then (
--        remove_from_queue dom doms.doms_with_conflict_penalty;
--        if (dom.Domain.conflict_credit <= 0.) then remove_from_queue dom doms.doms_conflict_paused
--      )
-+  Hashtbl.iter
-+    (fun id _ ->
-+       if id <> 0 then (
-+         try
-+           let info = Plugin.domain_getinfo handle id in
-+           if info.Plugin.shutdown || info.Plugin.dying then (
-+             debug "Domain %u died (dying=%b, shutdown %b -- code %d)" id
-+               info.Plugin.dying info.Plugin.shutdown info.Plugin.shutdown_code;
-+             if info.Plugin.dying then dead_dom := id :: !dead_dom else notify := true)
-+         with Plugin.Error _ ->
-+           debug "Domain %u died -- no domain info" id;
-+           dead_dom := id :: !dead_dom))
-+    doms.table;
-+  List.iter
-+    (fun id ->
-+       let dom = Hashtbl.find doms.table id in
-+       Domain.close dom;
-+       Hashtbl.remove doms.table id;
-+       if dom.Domain.conflict_credit <= !Define.conflict_burst_limit
-+       then (
-+         remove_from_queue dom doms.doms_with_conflict_penalty;
-+         if (dom.Domain.conflict_credit <= 0.) then remove_from_queue dom doms.doms_conflict_paused
-+       )
-     ) !dead_dom;
-   !notify, !dead_dom
- 
--- 
-2.39.2
+I saw that a lot of defines are about processor support which do not make
+sense for 32 bit.
 
+Do you want me to add a comment in the commit?
+
+Frediano
+
+--0000000000000485c80621ae8ebe
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Mon, Sep 9, 2024 at 12:21=E2=80=AFPM Jan Beulich &lt;<a href=3D"m=
+ailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br></div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex">On 09.09.2024 13:03, Frediano Zig=
+lio wrote:<br>
+&gt; --- a/xen/arch/x86/boot/Makefile<br>
+&gt; +++ b/xen/arch/x86/boot/Makefile<br>
+&gt; @@ -15,7 +15,7 @@ CFLAGS_x86_32 :=3D $(subst -m64,-m32 -march=3Di686,$=
+(XEN_TREEWIDE_CFLAGS))<br>
+&gt;=C2=A0 $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))=
+<br>
+&gt;=C2=A0 CFLAGS_x86_32 +=3D -Werror -fno-builtin -g0 -msoft-float -mregpa=
+rm=3D3<br>
+&gt;=C2=A0 CFLAGS_x86_32 +=3D -nostdinc -include $(filter %/include/xen/con=
+fig.h,$(XEN_CFLAGS))<br>
+&gt; -CFLAGS_x86_32 +=3D $(filter -I% -O%,$(XEN_CFLAGS))<br>
+&gt; +CFLAGS_x86_32 +=3D $(filter -I% -O%,$(XEN_CFLAGS)) -D__XEN__<br>
+<br>
+Any reason not to similarly make this -D% as a filter expression?<br>
+<br>
+Jan<br></blockquote><div><br></div><div>I saw that a lot of defines are abo=
+ut processor support which do not make sense for 32 bit.</div><div><br></di=
+v><div>Do you want me to add a comment in the commit?<br></div><div><br></d=
+iv><div>Frediano</div><div>=C2=A0<br></div></div></div>
+
+--0000000000000485c80621ae8ebe--
 
