@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999F9971BE9
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 15:59:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794556.1203548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF9EE971BFF
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 16:01:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794560.1203558 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snev1-0007JN-Fu; Mon, 09 Sep 2024 13:59:03 +0000
+	id 1snex0-0000QE-RK; Mon, 09 Sep 2024 14:01:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794556.1203548; Mon, 09 Sep 2024 13:59:03 +0000
+Received: by outflank-mailman (output) from mailman id 794560.1203558; Mon, 09 Sep 2024 14:01:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snev1-0007Hr-DB; Mon, 09 Sep 2024 13:59:03 +0000
-Received: by outflank-mailman (input) for mailman id 794556;
- Mon, 09 Sep 2024 13:59:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1snex0-0000OA-Nh; Mon, 09 Sep 2024 14:01:06 +0000
+Received: by outflank-mailman (input) for mailman id 794560;
+ Mon, 09 Sep 2024 14:01:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qOm0=QH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sneuz-0007Hh-Pb
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 13:59:01 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aa31d969-6eb3-11ef-a0b5-8be0dac302b0;
- Mon, 09 Sep 2024 15:59:00 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a8d24f98215so260676166b.1
- for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 06:59:00 -0700 (PDT)
+ id 1snewz-0000O4-Ca
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 14:01:05 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f24bcd61-6eb3-11ef-99a1-01e77a169b0f;
+ Mon, 09 Sep 2024 16:01:01 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a8d6d0fe021so34564566b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 07:01:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25ced201sm343176066b.168.2024.09.09.06.58.59
+ a640c23a62f3a-a8d25d5dc74sm343896566b.208.2024.09.09.07.01.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Sep 2024 06:58:59 -0700 (PDT)
+ Mon, 09 Sep 2024 07:01:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa31d969-6eb3-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: f24bcd61-6eb3-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725890340; x=1726495140; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725890461; x=1726495261; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xbNdFPtW0z0co0DcxTL3RVcZHOB7EExKodBKwzrFybM=;
-        b=TRqF0of20lBVuGrU4azienEMbR3k5WXdY4VJhxcHE25gMnbP2YHpMS8pjb7RiXwLY3
-         OTBnvG98r7vW2Nuaz5rvFWU5POFX/dENp+oFjGy9le4KkPQ/tek8sRqaracMVnH7idFM
-         oHmfQffebORGUxBsABRBpqqpf0Hs26828OPDI27a9LZBxMlWHgAfV0UciDX8jhT0xkK5
-         Opb7uKuVN9r59RLjAj1JC2ecQEfMSKmMoh+UaV6zph0JNmy0WvB6hafFcFM3Z+wuRvMh
-         7TaxSL2h1T0TfsyZG2N0JPbWHc2ZvQfy0kBZIfsReygp6e+gWaRY03g+T2IMhPcRtFk6
-         OYXg==
+        bh=tt6cM5O4LZsZ9fgDEOsQ54FpQwDFhCSbvjRbFg7GsuU=;
+        b=Sm9XAoHcffhTYk8U7Syz32I1kkZKFd7EdmE7tSOL1LbJ1+FH2G3bKtfBbJah7RU076
+         3Rc00LQd2v2SYUBru743AnbXf5WLFuqoeOPEW8VR76IFIyjZ4S3EDWIpbxwafdUvuncc
+         tgbAJ+EcobUwIwAvPtD52bwccZZ9+AcBKCKnV1SWWzaqLsGStYjhoIr8NuOJagBEwl9B
+         sNvhnRVTMJTuEtv6/ejq2otcwA8noZxRY1I0G4GaCi04Xs4YitffLALvYi9LhdWFFVZU
+         0KIH9nvoVLhS3U+OLxc9CC2uL0+ryLJRdgsvVKCS2VbRqYhiBgagZHH5FJuQlW6JOrIC
+         ePow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725890340; x=1726495140;
+        d=1e100.net; s=20230601; t=1725890461; x=1726495261;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xbNdFPtW0z0co0DcxTL3RVcZHOB7EExKodBKwzrFybM=;
-        b=SvMGqt5zXaTtMDrHc/vMXC6I3mgscxgcPZW2zgYkoIc/qBH70aheN8sZEYmlI5DxIT
-         +OvKnvUUL3gsRrFGzQrnyaPRMl9N/B3IsMHrP24hdr1T1SG2znRau2HkoYxuS8WiYY4E
-         f6rq1tIqTKy2IvUwzWAXsdsIsEmwXLsK4ykFVvixKTwCaHsUMLVMIdbF710YMxwcX1YP
-         JvaiDQtuoZArIJAHtJD88K6COKrXcqMQBx4eVAnd6Ddgx2Vkh0AjKVn7RdjfwPtKswQ1
-         2vnxxC5ssUD/FwpTjuAHAScKNNPdd9zMiYtqKNyBHUPHmgosUKJvw+gSdnGwAfWSnCM6
-         Z08Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVrbgAZB8U8RJZL2w7Rw7T7g+j6hUNWuT7VYyjm3B+sfr1CLsktGtaVSwAM/ncnGqVAadflNzwd64k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwbGNyX7a0fszGhpPakDVSVqFfwqp5GFeam8OmMMYL//RDoxAKO
-	xCf9NmM/TFT1nbnO4r47CPuNk8ie1KWira/yndYYWPVsb/T0RlY6qtLISGTx7g==
-X-Google-Smtp-Source: AGHT+IGoAw9m6KRcr0L450jNAVhi2dz4r7dHSNLMq1fX4wZsFyc3Pt6YEgI/SR86evNcJRWjajx/EA==
-X-Received: by 2002:a17:907:2d25:b0:a8d:3e29:a82d with SMTP id a640c23a62f3a-a8d3e29aecemr484165766b.37.1725890339969;
-        Mon, 09 Sep 2024 06:58:59 -0700 (PDT)
-Message-ID: <53ae5deb-753f-4061-aa23-1044ce0f2650@suse.com>
-Date: Mon, 9 Sep 2024 15:58:59 +0200
+        bh=tt6cM5O4LZsZ9fgDEOsQ54FpQwDFhCSbvjRbFg7GsuU=;
+        b=Xv4b6RS9/Rl4y5rU/O5iEQ+uj2AS3LkGdJwJv66EfT98xrk6v6fgRL/xzLXaUlcBWu
+         Dwbr6oSNNBkWR3AyAtEi6Qp5U8z8ahAUxAnzKRiZCBoAEiF47ii5ESs9yGuliJvkkQVl
+         OL+ICpEQFEKa51sKU/nJf391B5jsy6M/sbgmmUwmLP3Mp9KmrnvH/Uen8B5FOoXiDkdC
+         ZZ9WRyHLM8hBrh8KM37+j3Bd5RFOZ0g140n2igW4zzgYyIsCNM6NwvKR2DrSngHHPpqt
+         fBUuoQqFQl+vXXfbUClSGoB1K0D/YUS8CD2AViAeXrK4iyahePeshddcymzmbTYqP4H/
+         OXBw==
+X-Forwarded-Encrypted: i=1; AJvYcCVpVFebAYL9VWBqn9FWKTOXv37Q3O0gA19RoDH4MDGI4hq/O4hefwpA0ZQYGspiS4TIyxKdQVGbJLg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxhJmUh46AyzxVFPFHv7dEfg2JoWpnx926PiIXIRngDOnlvcs/y
+	QUL7vy/YidzXsNbrVmt0HO/LmLoQLpWT0XMBRf2BtJeSOxRum/lttDZmyd/SrQ==
+X-Google-Smtp-Source: AGHT+IHidFbbHvJxsgs0y1D8C8qv44euaLmZ7iSqUgHJzSd7O/XTDgmF5nMwzmZ0+/93g+MSsjIc+A==
+X-Received: by 2002:a17:907:3205:b0:a86:963f:ea8d with SMTP id a640c23a62f3a-a8a88870ec2mr969072466b.64.1725890460945;
+        Mon, 09 Sep 2024 07:01:00 -0700 (PDT)
+Message-ID: <d0e24fd5-ac11-4b51-b1f2-9a667cdf9761@suse.com>
+Date: Mon, 9 Sep 2024 16:01:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Define and use UINT64_C and INT64_C
+Subject: Re: [PATCH v2] mm: Unify PRI_gfn and PRI_mfn macros
 To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20240909100806.47280-1-frediano.ziglio@cloud.com>
- <abe1c3a2-2838-4756-a06f-f347e4fcd78e@suse.com>
- <CACHz=ZjsoJRM0Y1cVFK186NzJu=_sNxFhHyMyfaR_3p4h4e-nQ@mail.gmail.com>
+ Tim Deegan <tim@xen.org>, xen-devel@lists.xenproject.org
+References: <20240909131419.127276-1-frediano.ziglio@cloud.com>
+ <ef183e7c-7775-42fb-b826-20d97bb0a3ba@suse.com>
+ <CACHz=Zji4MwpO+c7q-vPjU+Qm1nmLgbk3hoGk7dJiKkw6=gsqw@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,125 +118,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZjsoJRM0Y1cVFK186NzJu=_sNxFhHyMyfaR_3p4h4e-nQ@mail.gmail.com>
+In-Reply-To: <CACHz=Zji4MwpO+c7q-vPjU+Qm1nmLgbk3hoGk7dJiKkw6=gsqw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09.09.2024 15:41, Frediano Ziglio wrote:
-> On Mon, Sep 9, 2024 at 11:38 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 09.09.2024 12:08, Frediano Ziglio wrote:
->>> --- a/xen/arch/x86/setup.c
->>> +++ b/xen/arch/x86/setup.c
->>> @@ -1384,9 +1384,9 @@ void asmlinkage __init noreturn
->> __start_xen(unsigned long mbi_p)
->>>          }
+On 09.09.2024 15:29, Frediano Ziglio wrote:
+> On Mon, Sep 9, 2024 at 2:21 PM Jan Beulich <jbeulich@suse.com> wrote:
+> 
+>> On 09.09.2024 15:14, Frediano Ziglio wrote:
+>>> @@ -4334,7 +4334,7 @@ static void gnttab_usage_print(struct domain *rd)
+>>>          first = 0;
 >>>
->>>          if ( e > min(HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START,
->>> -                     1UL << (PAGE_SHIFT + 32)) )
->>> +                     UINT64_C(1) << (PAGE_SHIFT + 32)) )
->>>              e = min(HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START,
->>> -                    1UL << (PAGE_SHIFT + 32));
->>> +                    UINT64_C(1) << (PAGE_SHIFT + 32));
+>>>          /*      [0xXXX]  ddddd 0xXXXXX 0xXXXXXXXX      ddddd 0xXXXXXX
+>> 0xXX */
+>>> -        printk("[0x%03x]  %5d 0x%"PRI_mfn" 0x%08x      %5d
+>> 0x%06"PRIx64" 0x%02x\n",
+>>> +        printk("[0x%03x]  %5d %"PRI_mfn" 0x%08x      %5d 0x%06"PRIx64"
+>> 0x%02x\n",
+>>>                 ref, act->domid, mfn_x(act->mfn), act->pin,
+>>>                 sha->domid, frame, status);
 >>
->> I disagree - we're dealing with virtual addresses here, which better
->> wouldn't use fixed-width quantities.
->>
-> I suppose you are suggesting type-based macros instead of fixed-type
-> macros, so something like PADDR_C  and VADDR_C.
-> That makes sense.
+>> Sadly this is where things break: The columnar view will no longer be
+>> retained
+>> even on systems with memory only below 4Gb. I have to admit I'm not sure
+>> in how
+>> far we can deem this acceptable.
+> 
+> I suppose this line is more the exception to the rule.
+> One option would be to define the macros to just take care of the type and
+> base (like standards like PRIx64) and specify all in the strings (so having
+> "%#"PRI_mfn or "0x%05"PRI_mfn).
 
-No, I'm suggesting to somply leave this code alone. On x86 we have no vaddr_t,
-and hence I see no reason to have VADDR_C().
+Certainly an option, yes. Let's see what other maintainers think.
 
->> While not always virtual addresses, I similarly disagree for most or all
->> I've left in context further up: If the underlying type to deal with is
->> unsigned long, constants should match.
->>
-> Sure, in this case the underlying type if used as 32 bit cannot be unsigned
-> long but they should be unsigned long long (or any 64 bit type).
+> Or define 2 macros, one for default format (I would go for PRI_mfn) and
+> another for raw format (like PRIx_mfn).
 
-My primary request here is: Code that won't be built as 32-bit doesn't need
-changing if it's not explicitly using {,u}int64_t-type variables /
-expressions.
-
->> --- a/xen/crypto/vmac.c
->>> +++ b/xen/crypto/vmac.c
->>> @@ -11,7 +11,9 @@
->>>  #include <xen/types.h>
->>>  #include <xen/lib.h>
->>>  #include <crypto/vmac.h>
->>> +#ifndef UINT64_C
->>>  #define UINT64_C(x)  x##ULL
->>> +#endif
->>>  /* end for Xen */
->>
->> Here the #define should probably just be dropped?
->>
->>
-> If we go for newer type-base macros, we won't need to change here.
-
-I'm afraid I don't understand this reply.
-
->>> --- a/xen/include/xen/const.h
->>> +++ b/xen/include/xen/const.h
->>> @@ -15,10 +15,19 @@
->>>  #ifdef __ASSEMBLY__
->>>  #define _AC(X,Y)     X
->>>  #define _AT(T,X)     X
->>> +#define UINT64_C(X)     X
->>> +#define INT64_C(X)      X
->>>  #else
->>>  #define __AC(X,Y)    (X##Y)
->>>  #define _AC(X,Y)     __AC(X,Y)
->>>  #define _AT(T,X)     ((T)(X))
->>> +#if __SIZEOF_LONG__ >= 8
->>
->> This is available with gcc 4.3 and newer, yet for now our docs still
->> specify 4.1.2 as the baseline.
->>
-> Do we have some sort of configure generated macro for this?
-
-I don#t think we do. And I also don't think we need one - we have
-BITS_PER_LONG, which ought to be sufficient here.
-
->> I'm also unconvinced of the >= - we're talking of fixed-width types here,
->> so imo it needs to be == and then also ...
->>
->>> +#define UINT64_C(X)     X ## UL
->>> +#define INT64_C(X)      X ## L
->>> +#else
->>
->> #elif __SIZEOF_LONG_LONG__ == 8
->>
->> here.
->>
->>> +#define UINT64_C(X)     X ## ULL
->>> +#define INT64_C(X)      X ## LL
->>> +#endif
->>>  #endif
->>
->> Finally if we introduce these, imo we should introduce the other
->> UINT<n>_C()
->> as well, and in a header named after the one mandated by the C library
->> spec.
-
-I'm sorry, I was actually wrong here (alluding to inttypes.h), so ...
-
->>> --- a/xen/include/xen/stdint.h
->>> +++ b/xen/include/xen/stdint.h
->>> @@ -30,4 +30,6 @@ typedef __UINT64_TYPE__    uint64_t;
->>>
->>>  #endif
->>>
->>> +#include <xen/const.h>
->>
->> Why's this needed?
->>
-> Not strictly needed, but in the standard headers they are usually defined
-> including stdint.h.
-
-... yes, but imo the definitions then would better live here in the first
-place.
+Only if we really need to have such further specialization, I'd say.
 
 Jan
 
