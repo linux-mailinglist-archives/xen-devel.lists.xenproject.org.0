@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1ADC972406
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 22:56:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794873.1203889 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5C4F97240B
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 22:59:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794880.1203900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snlPj-0003jH-T1; Mon, 09 Sep 2024 20:55:11 +0000
+	id 1snlU6-0004NY-ER; Mon, 09 Sep 2024 20:59:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794873.1203889; Mon, 09 Sep 2024 20:55:11 +0000
+Received: by outflank-mailman (output) from mailman id 794880.1203900; Mon, 09 Sep 2024 20:59:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snlPj-0003gn-QQ; Mon, 09 Sep 2024 20:55:11 +0000
-Received: by outflank-mailman (input) for mailman id 794873;
- Mon, 09 Sep 2024 20:55:10 +0000
+	id 1snlU6-0004Kw-Am; Mon, 09 Sep 2024 20:59:42 +0000
+Received: by outflank-mailman (input) for mailman id 794880;
+ Mon, 09 Sep 2024 20:59:41 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1snlPi-0003gd-Q2; Mon, 09 Sep 2024 20:55:10 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1snlU5-0004Kq-AD
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 20:59:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1snlPi-0007FE-Jq; Mon, 09 Sep 2024 20:55:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1snlPi-0003hX-6G; Mon, 09 Sep 2024 20:55:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1snlPi-00028K-5q; Mon, 09 Sep 2024 20:55:10 +0000
+ (envelope-from <julien@xen.org>)
+ id 1snlU3-0007Jk-2C; Mon, 09 Sep 2024 20:59:39 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1snlU2-00020t-RJ; Mon, 09 Sep 2024 20:59:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,292 +39,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ad6Huq4RYRu1okwkGtGAvwl4bAxElaN0nYUfhbtRKk4=; b=JI+vJU0n8V/1p4MlL77pepJlBz
-	WOFMck8j/I8gRwiSzqYOvTWK2CQ4kzQPi0CvM9JOTWOUVYzM18suHlIYM0yX2hOJkim5wxWOHFbfw
-	gpa92Ah0yLqWVPaIq6eDFPZFra8rY+y3gPjnvcggZ/KJ6Xy4ot1VQGcigHeIrU9ttmbo=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187595-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=DNww8K9rZcAtrwfDjUqwpwQASEUPAgEfVtX3viHSPu4=; b=oEkmxii1G/lyfDe3wYFFCt4gWY
+	t8YmATrxluqkBp275GvEmZJ3VYgN3on9eXJqH4KCTYB+4WNgAwvlvA9izeGpiqETxKNqB9nUIMUnf
+	IQPZbwRTr6DZb55jCQJ6DFHXyfl7Zu6nJY+ZjVDRTe0WMVMk2mq5j3kqG8fsPq0k35MQ=;
+Message-ID: <d3ebe193-4228-4fda-b7f8-0849c41ed999@xen.org>
+Date: Mon, 9 Sep 2024 21:59:37 +0100
 MIME-Version: 1.0
-Subject: [linux-linus test] 187595: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-qemuu-freebsd12-amd64:guest-saverestore:fail:heisenbug
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=da3ea35007d0af457a0afc87e84fddaebc4e0b63
-X-Osstest-Versions-That:
-    linux=d1f2d51b711a3b7f1ae1b46701c769c1d580fa7f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 09 Sep 2024 20:55:10 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: fusa: Add Assumption of Use (AOU)
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Ayan Kumar Halder <ayankuma@amd.com>, Michal Orzel
+ <michal.orzel@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ xen-devel@lists.xenproject.org, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Artem Mygaiev <artem_mygaiev@epam.com>
+References: <20240906101318.1419954-1-ayan.kumar.halder@amd.com>
+ <57632c2f-82e6-49bb-b989-e75c95070b03@xen.org>
+ <46b9567e-d27c-467b-b21d-65d63b6cd1e2@amd.com>
+ <5de31172-8319-4cd3-9486-a6992a5cdc22@xen.org>
+ <880e0578-c27b-45d3-8ed6-91ad648fa735@amd.com>
+ <c308f03b-247d-4fd9-a9b4-f630d8a22bee@xen.org>
+ <alpine.DEB.2.22.394.2409091252570.3672@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2409091252570.3672@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 187595 linux-linus real [real]
-flight 187620 linux-linus real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187595/
-http://logs.test-lab.xenproject.org/osstest/logs/187620/
+Hi Stefano,
 
-Failures :-/ but no regressions.
+On 09/09/2024 20:53, Stefano Stabellini wrote:
+> On Mon, 9 Sep 2024, Julien Grall wrote:
+>> On 09/09/2024 10:50, Ayan Kumar Halder wrote:
+>>> On 09/09/2024 10:11, Julien Grall wrote:
+>>>>
+>>>>
+>>>> On 09/09/2024 09:56, Michal Orzel wrote:
+>>>>> Hi Julien,
+>>>>>
+>>>>> On 08/09/2024 23:05, Julien Grall wrote:
+>>>>>>
+>>>>>>
+>>>>>> Hi Ayan,
+>>>>>>
+>>>>>> On 06/09/2024 11:13, Ayan Kumar Halder wrote:
+>>>>>>> From: Michal Orzel <michal.orzel@amd.com>
+>>>>>>>
+>>>>>>> AOU are the assumptions Xen relies on other components (eg platform,
+>>>>>>> domains)
+>>>>>>
+>>>>>> Searching online, I think the abbrevition is AoU rather than AOU. This
+>>>>>> would also match how we abbreviate in Xen (IOW if we use a lower case
+>>>>>> letter from the expanded name, then the letter in the acronym is also
+>>>>>> lower case).
+>>>>>>
+>>>>>>> to fulfill its requirements. In our case, platform means a
+>>>>>>> combination of
+>>>>>>> hardware, firmware and bootloader.
+>>>>>>>
+>>>>>>> We have defined AOU in the intro.rst and added AOU for the generic
+>>>>>>> timer.
+>>>>>>>
+>>>>>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>>>>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>>>>>>> ---
+>>>>>>>     .../reqs/design-reqs/arm64/generic-timer.rst  | 19 +++++++++++++
+>>>>>>> ++++++
+>>>>>>>     docs/fusa/reqs/intro.rst                      | 10 ++++++++++
+>>>>>>>     2 files changed, 29 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst b/
+>>>>>>> docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
+>>>>>>> index f2a0cd7fb8..9df87cf4e0 100644
+>>>>>>> --- a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
+>>>>>>> +++ b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
+>>>>>>> @@ -116,6 +116,25 @@ Rationale:
+>>>>>>>
+>>>>>>>     Comments:
+>>>>>>>
+>>>>>>> +Covers:
+>>>>>>> + - `XenProd~emulated_timer~1`
+>>>>>>> +
+>>>>>>> +Assumption of Use on the Platform
+>>>>>>> +=================================
+>>>>>>> +
+>>>>>>> +Expose system timer frequency via register
+>>>>>>> +------------------------------------------
+>>>>>>> +
+>>>>>>> +`XenSwdgn~arm64_generic_timer_pf_program_cntfrq_el0~1`
+>>>>>>> +
+>>>>>>> +Description:
+>>>>>>> +Underlying platform shall ensure that CNTFRQ_EL0 register contains
+>>>>>>> the system
+>>>>>>> +timer frequency.
+>>>>>>
+>>>>>> The wording in [1] (not yet merged) implies that CNTFRQ_EL0 may be
+>>>>> It is merged:
+>>>>> https://xenbits.xen.org/gitweb/?
+>>>>> p=xen.git;a=commit;h=51ad2c57a2d21b583a5944a0dc21c709af022f3c
+>>>>>
+>>>>>> invalid. This seems to contradict the Assumption of Use. Can you
+>>>>>> explain
+>>>>>> the difference?
+>>>>> The requirement you refer to is written from a domain perspective and is
+>>>>> about Xen exposing the frequency
+>>>>> to domains via CNTFRQ and/or dt property. In case of a presence of dt
+>>>>> property in the host dtb, Xen could for instance decide
+>>>>> to emulate CNTFRQ instead of relying on the domain to parse the dt at
+>>>>> runtime.
+>>>>
+>>>> AFAICT, you can't trap CNTFRQ access. So what you suggest would not work.
+>>>>
+>>>>>
+>>>>> The AoU on the platform (hw/firmware/bootloader) is written from Xen
+>>>>> perspective and is about the platform
+>>>>> exposing the correct frequency via register. This is Xen expected
+>>>>> behavior on the platform. In other words, the platform should
+>>>>> expose the correct frequency via register.
+>>>>
+>>>> Xen is able to deal with broken CNTFRQ_EL0.
+>>> Yes, this is correct if the user provides "clock-frequency" dt property.
+>>>> So I don't understand why we we would want to make an assumption that it
+>>>> shall not be broken. What do you gain?
+>>>
+>>> Refer https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/
+>>> linux.git/tree/Documentation/devicetree/bindings/timer/arm,arch_timer.yaml
+>>>
+>>> ```
+>>>
+>>> Use of this property is strongly discouraged; fix your firmware unless
+>>> absolutely impossible.
+>>>
+>>> ```
+>>>
+>>> We wish to put the onus on the platform/firmware provider to program the
+>>> register correctly. Otherwise, we will have to document it somewhere (may be
+>>> safety manual) that User needs to provide the "clock-frequency" dt property.
+>>
+>> I think you will have to. The integrator may not have the possibility to
+>> modify the firmware.
+> 
+> Without getting into the specifics of CNTFRQ_EL0 and clock-frequency,
+> given that this is one of the first AoUs, let me clarify the spirit of
+> the AoUs.
+> 
+> When we say that Xen is "safe" we mean that it went through thousands of
+> tests so we are sure that in this specific configuration it is as
+> bug-free as we can reasonably make it.
+> 
+> "in this specific configuration" is important. Changing the
+> configuration might expand the scope or invalidate some of the tests.
+> Think of moving from a board with GICv2 to GICv3 as an example (we are
+> actually targeting GICv3 for safety, so this is not a great example,
+> but just to explain the point.)
+> 
+> So the AoUs are the set of assumptions Xen has toward the rest of the
+> system to make sure Xen operates "safely", with the word "safely"
+> defined as above.
+> 
+> Of course, Xen could totally work on systems with different AoUs (see
+> the GICv2 vs GICv3 example) but it would be outside the safety
+> parameters. In a way, it is similar to "security supported": there are
+> a bunch of Xen features that should work fine but are outside of
+> "security support" for one reason or the other.
+> 
+> If a user wants to use Xen on a system that breaks one of the AoUs, they
+> can, but we wouldn't promise it is "safe". For instance, imagine a user
+> running Xen on a GICv3 system if the safe version of Xen only validated
+> the GICv2 driver. Similarly to "security support", sometimes it is a bit
+> of a judgement call and it could be argued either way.
+> 
+> In the specific case of CNTFRQ_EL0, if we think Xen can be "safe" on a
+> system with a broken CNTFRQ_EL0 (thanks to the clock-frequency DT
+> property or other mechanisms), then we can remove this from the AoU. We
+> would probably have to have a different AoU about the presence of
+> clock-frequency. Otherwise, if we think we cannot really promise that
+> Xen is "safe" if CNTFRQ_EL0 is broken, then it is better to leave as is.
+> 
+> Keep in mind that users interested in safety, they are very likely to be
+> interested in the safety-certification of the entire system, which
+> includes the hardware as well. It is very likely that users will choose
+> a safety-certified board, which I am guessing would have a working
+> CNTFRQ_EL0. This is just a guess, I don't know the relationship between
+> CNTFRQ_EL0 and achieving hardware safety certifications.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-qemuu-freebsd12-amd64 16 guest-saverestore fail pass in 187620-retest
+Thanks for your input. I am open with the idea to require CNTFRQ_EL0 to 
+be valid. But I think we need some consistency across the safety docs.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187570
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 187570
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187570
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187570
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 187570
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187570
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+In this case, I think it would be inconsistent to mention 
+"clock-frequency" in the requirement.
 
-version targeted for testing:
- linux                da3ea35007d0af457a0afc87e84fddaebc4e0b63
-baseline version:
- linux                d1f2d51b711a3b7f1ae1b46701c769c1d580fa7f
+Cheers,
 
-Last test of basis   187570  2024-09-08 08:48:14 Z    1 days
-Testing same since   187595  2024-09-09 04:44:46 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Aleksandr Mishin <amishin@t-argos.ru>
-  Andreas Westman Dorcsak <hedmoo@yahoo.com> # LG P880
-  Carlos Llamas <cmllamas@google.com>
-  Conor Dooley <conor.dooley@microchip.com>
-  Daniel Lezcano <daniel.lezcano@linaro.org>
-  David Fernandez Gonzalez <david.fernandez.gonzalez@oracle.com>
-  David Lechner <dlechner@baylibre.com>
-  Dumitru Ceclan <dumitru.ceclan@analog.com>
-  Dumitru Ceclan <mitrutzceclan@gmail.com>
-  Faisal Hassan <quic_faisalh@quicinc.com>
-  Francesco Dolcini <francesco.dolcini@toradex.com>
-  Frank Li <Frank.Li@nxp.com>
-  Geert Uytterhoeven <geert+renesas@glider.be>
-  Gerhard Engleder <eg@keba.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guillaume Stols <gstols@baylibre.com>
-  Heikki Krogerus <heikki.krogerus@linux.intel.com>
-  Ingo Molnar <mingo@kernel.org>
-  Jacky Bai <ping.bai@nxp.com>
-  Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-  John Thomson <git@johnthomson.fastmail.com.au>
-  Jonathan Cameron <Jonathan.Cameron@huawei.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Matteo Martelli <matteomartelli3@gmail.com>
-  Michal Simek <michal.simek@amd.com>
-  Naman Jain <namjain@linux.microsoft.com>
-  Nuno Sa <nuno.sa@analog.com>
-  Oleg Nesterov <oleg@redhat.com>
-  Pawel Laszczak <pawell@cadence.com>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Peter Zijlstra <peterz@infradead.org>
-  Prashanth K <quic_prashk@quicinc.com>
-  Rafał Miłecki <rafal@milecki.pl>
-  Rob Herring (Arm) <robh@kernel.org>
-  Saurabh Sengar <ssengar@linux.microsoft.com>
-  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-  Sukrut Bellary <sukrut.bellary@linux.com>
-  Sven Schnelle <svens@linux.ibm.com>
-  Svyatoslav Ryhel <clamor95@gmail.com> # LG P895
-  Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-  Thomas Gleixner <tglx@linutronix.de>
-  Uros Bizjak <ubizjak@gmail.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   d1f2d51b711a..da3ea35007d0  da3ea35007d0af457a0afc87e84fddaebc4e0b63 -> tested/linux-linus
+-- 
+Julien Grall
 
