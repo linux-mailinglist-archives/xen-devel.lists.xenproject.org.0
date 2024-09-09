@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B39F9718D0
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 13:58:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794371.1203253 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D44E39718D3
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 13:59:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794374.1203264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snd2K-0006wf-Te; Mon, 09 Sep 2024 11:58:28 +0000
+	id 1snd3K-0007Tg-6b; Mon, 09 Sep 2024 11:59:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794371.1203253; Mon, 09 Sep 2024 11:58:28 +0000
+Received: by outflank-mailman (output) from mailman id 794374.1203264; Mon, 09 Sep 2024 11:59:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snd2K-0006uV-R3; Mon, 09 Sep 2024 11:58:28 +0000
-Received: by outflank-mailman (input) for mailman id 794371;
- Mon, 09 Sep 2024 11:58:26 +0000
+	id 1snd3K-0007RW-3b; Mon, 09 Sep 2024 11:59:30 +0000
+Received: by outflank-mailman (input) for mailman id 794374;
+ Mon, 09 Sep 2024 11:59:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qOm0=QH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1snd2I-0006uN-R2
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 11:58:26 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1snd3I-0007RO-Tb
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 11:59:28 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d164d8a7-6ea2-11ef-99a1-01e77a169b0f;
- Mon, 09 Sep 2024 13:58:25 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a8d4979b843so187592866b.3
- for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 04:58:25 -0700 (PDT)
+ id f6606660-6ea2-11ef-99a1-01e77a169b0f;
+ Mon, 09 Sep 2024 13:59:27 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-53568ffc525so5829476e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 04:59:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25c7280asm329150366b.129.2024.09.09.04.58.23
+ 4fb4d7f45d1cf-5c3ebd8cc33sm2937234a12.87.2024.09.09.04.59.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Sep 2024 04:58:24 -0700 (PDT)
+ Mon, 09 Sep 2024 04:59:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d164d8a7-6ea2-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: f6606660-6ea2-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725883104; x=1726487904; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725883166; x=1726487966; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=H4BGQzk4oBM51u7SyNovk/gaQ0+7/Bt/Ud2EbK0oSV8=;
-        b=bzumajl9Rf8wgdRAcSehwtOL9Kdm5VxSeQavsFHW3ImH4CpKxbvOIKiH1R99Tb1PiD
-         zcwopRSDLCrQQSQavSlUyjPAXNiqMUwN2lPRT7idWgBfOGk/xhB7kUawegaqDbMeS9vR
-         gZ2+4Bl6wU719eRZoO7FP7wn2zcy3FfPE+qMn6Cgf2C5d+iHl3zK7jKqZXLnjSLsUR1s
-         QxQnc4x9HLPrCohmFGp054pwcJk/BoQYagCP2oDkOAaTpzBxyV8QVj30+ZHuiitvwfx2
-         t4UoHHPy1KS5d2FxwYjy/aykAS4jzmYgEzEQmGMQWNhDSJfLAKd1XwlO+CvCA82pQ2v1
-         KYEA==
+        bh=CRhcLn45M2TXyzi7uE6yyT89yCSVGqwR2aZGifur1lI=;
+        b=HyDVCcw7lIPJeisPgIFLdAIrLLeixoQjjAY0zoAbNQN4gHDxeqie6SoUQboU0Yxg+L
+         o23t+gocTdd/aynMoqjAEoD3Z9Ok+SNeEnGrTjcLgzZL+UH+NDttBZGAetksaXwyWUbP
+         OBhqcUnpUiJEOFmCbVhg+Hk9MaWkXigWizvtWYEmYiqh+iCMEnybFhJo1ASe/UZzRKp0
+         qPqIecrN/YamCNMONjMgdX9B9BKCXj7xC6ZvjBvajsgnPSVZUy4ccW0zI2TBgGEsgva/
+         Qr1yrI/NtotQof1jUaygclpRfMpjhaAMJ5bBY/FmtiI86GUoGV6QYRWjj9RyNSQyWNcU
+         L1mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725883104; x=1726487904;
+        d=1e100.net; s=20230601; t=1725883166; x=1726487966;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=H4BGQzk4oBM51u7SyNovk/gaQ0+7/Bt/Ud2EbK0oSV8=;
-        b=apAYtQdc1Y+5NuRW5uOFYcySgYglueC8JZT61s+lHY2T4Dxq2FNwESB7AaqeSIdFFL
-         LXFqQgHUUzDL9M9R0GOQ4WT19Z376FrRz22ePwonLnizKXqXPY6zc58gYsd5RvDZoY+w
-         3jLYtqKAwiec+poAr9MaGRfKbq+kPiT0eUegRb8UcZy68WPlR1XOi8P227Mh49422sNP
-         bJV+2A1GJMJFmK6MIRB2J5ONJ2ERY12wxPF/GS5xUAyapJoKwFbYaSZs+Kt2n6pd0amQ
-         LD+qAeZFf914uJkUr3on1VKKJGn0OcnoJYOd6ZJhUCnqcuARH4peIijinLKIVOPpi2MG
-         GHNg==
-X-Forwarded-Encrypted: i=1; AJvYcCX92Qq3keNliho+GjTpEbRx075B8cKWiH3INwT2+HIVBiWjfW7RKCHePR/11DXHmGuHybtzmjL82So=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx5mY5Z3dJ+mKjr9G7ClqE1EB6jM72D9O/EEz7Zl2MOY5cLlMAi
-	6UH+5DY73MArpnKFGrXGbadRPGWrJ9g1dxx+YvTPReqjNj2Ri1jixPRPmwsz1w==
-X-Google-Smtp-Source: AGHT+IGmP/rZOpM6EkExsTPnGRVkw5Ku8gjBBI7RFMQ3kgJohIJMKRKW4tXYPslUeh61E2kO1kxeKw==
-X-Received: by 2002:a17:907:801:b0:a77:b4e3:4fca with SMTP id a640c23a62f3a-a8a885bfbe1mr1164990466b.9.1725883104311;
-        Mon, 09 Sep 2024 04:58:24 -0700 (PDT)
-Message-ID: <dcf7e808-5514-4c54-9552-d1a2cdd934ac@suse.com>
-Date: Mon, 9 Sep 2024 13:58:24 +0200
+        bh=CRhcLn45M2TXyzi7uE6yyT89yCSVGqwR2aZGifur1lI=;
+        b=QvXHaI4pRNCVwu2Uhdgc5oFFlTpZZyzKA9TyrqriBWrWpzRO37MySnIN8LQqdHohan
+         sHrZq/seg5Nn0YMMpAkM5Av2iBAJ0X5lTvL7xAXukcbkK8ORcIOBeQPCnYnHE/m5cHAS
+         UwKgKWy/QNXjqy25G/P5Xc0h3DH1DfRW2+m7BOGa2k1vXfveGglRKisaxXdJxVvxrjdP
+         EJx47a3Adi4OiHzs4hbFMgTTFHWYEsIyXBzuQkB4WXO+qHkfqcHpbhHGKBb229W6vCFb
+         GZxcvOp5N/5aF8HWVAU4QoNYM8/TINVSFnJcsC11+bGgrBb/mRiQfdRiPnO+nkPkABcq
+         H15A==
+X-Forwarded-Encrypted: i=1; AJvYcCWG4+FFj0UmCNr4PX495JU2SjAcBK4caMPM38UsqSl+iorP2yYC66GNMnO+dJtQWOrvGUNO8trBUMM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxDkSakLdETD9pUdd2F9ms1283qCqi+8gzdTB5YghNhoyf6DJp1
+	PBq3FkTJ30LmMvMEDILv2gM4ru0DHbonKcJBRP06MZNweiM905+RcGkLYNTHEw==
+X-Google-Smtp-Source: AGHT+IGlJ0eir4JBPRQPR0lHhCQ0jT59SRHCTwdZFE1fNAFV5SV2biiIRev3bwFJRUek/jF/ruQQ9g==
+X-Received: by 2002:a05:6512:108b:b0:536:53e3:fe9d with SMTP id 2adb3069b0e04-536587aaf5bmr7234267e87.18.1725883166268;
+        Mon, 09 Sep 2024 04:59:26 -0700 (PDT)
+Message-ID: <1f0f79ac-8bb9-4450-8c32-88de3ed9635d@suse.com>
+Date: Mon, 9 Sep 2024 13:59:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] x86/build: Swap cache.h includes for xen/sections.h
+Subject: Re: [PATCH 4/5] x86/cache: Drop legacy __read_mostly/__ro_after_init
+ definitions
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
@@ -90,7 +91,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240905220806.141300-1-andrew.cooper3@citrix.com>
- <20240905220806.141300-4-andrew.cooper3@citrix.com>
+ <20240905220806.141300-5-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,12 +117,15 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240905220806.141300-4-andrew.cooper3@citrix.com>
+In-Reply-To: <20240905220806.141300-5-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 06.09.2024 00:08, Andrew Cooper wrote:
-> These include {xen/asm}/cache.h but only want xen/sections.h.
+> Lots of files were picking these up transitively, including lib.h
+> 
+> However, lib.h needs __read_mostly for printk_once() and this has the side
+> effect of kicking the transitive can down the road.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
