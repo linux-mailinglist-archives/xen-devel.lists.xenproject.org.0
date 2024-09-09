@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBCFC971C42
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 16:17:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794569.1203568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FCBF971C6D
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 16:24:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794579.1203578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snfCE-0002nU-66; Mon, 09 Sep 2024 14:16:50 +0000
+	id 1snfJU-0004ei-Ue; Mon, 09 Sep 2024 14:24:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794569.1203568; Mon, 09 Sep 2024 14:16:50 +0000
+Received: by outflank-mailman (output) from mailman id 794579.1203578; Mon, 09 Sep 2024 14:24:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snfCE-0002lN-1h; Mon, 09 Sep 2024 14:16:50 +0000
-Received: by outflank-mailman (input) for mailman id 794569;
- Mon, 09 Sep 2024 14:16:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1snfJU-0004cP-Rd; Mon, 09 Sep 2024 14:24:20 +0000
+Received: by outflank-mailman (input) for mailman id 794579;
+ Mon, 09 Sep 2024 14:24:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qOm0=QH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1snfCC-0002lH-S7
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 14:16:48 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 262d1d4c-6eb6-11ef-a0b5-8be0dac302b0;
- Mon, 09 Sep 2024 16:16:47 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5c26311c6f0so5239904a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 07:16:47 -0700 (PDT)
+ id 1snfJT-0004cJ-7t
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 14:24:19 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 320665de-6eb7-11ef-99a1-01e77a169b0f;
+ Mon, 09 Sep 2024 16:24:17 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a8d13b83511so294778366b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 07:24:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3ebd8b126sm3080325a12.85.2024.09.09.07.16.46
+ a640c23a62f3a-a8d25835d87sm349725466b.6.2024.09.09.07.24.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Sep 2024 07:16:46 -0700 (PDT)
+ Mon, 09 Sep 2024 07:24:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 262d1d4c-6eb6-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 320665de-6eb7-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725891407; x=1726496207; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725891856; x=1726496656; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bPoUZQcplVTvhkZOBbdCix8D/isy/o/QTOHfAH19z9o=;
-        b=YGpFKU6fqv4e4VgpXiaxn1yuEjZcAyAyHGMFguU0jmZ8TSfb/Tfm3pBSA3cCy2elgp
-         quFL2SEzSYDd9xrfwLV5B7L6z9KtLEGQeX9OgO6NjdHiZFpkTA9jSB5W8cArFu7w1zOt
-         Xi6EyfcaVhMQeELmvlGzCCMgI8UVaF/gTyYQ1/DaWjb0C6fVakOvJ568UrNNq7hfe3mo
-         Orz9KW6bz5JvT4cz98OSgM6oTwEIATcrVaix/WAMmjwXchRt7XOaF0o3VBFpprrNkDAF
-         uFzYOuqOF82sIOLxkC4lqibFhJwmxJfyn4p3s/3b0wafflqcl3frQPmMyaMO+1ZBvR9c
-         Vcjg==
+        bh=wUDdhcMdolYuQscO5HiMfLgD9HUEOvzKcpV4fn/yu9U=;
+        b=Uk6lR5+3H0FXN+hbFSUgLXXRvAsND7T/kap+m5dUjF3o0VPHGQzAT3/BJwjNAiLg+a
+         a2JialyHj95VI7gCH8/SMgkM8gyAicXOCr3MTDMVBkhFmDtKWKKrx1hY3aKS+KsqGFcf
+         hp7Fe1XSbXz7GgEY6GIP825fm87kMsMI/UZyLsl0v/cotk9HVyyVh5/XIR+jL6BuQ5lN
+         cmhBtxAL1BySsuWXMdbstuf8Y8mgr2Y3WZwjkeU4o8o7ZcVbxXjKuFXv/vzeIb87Z31Z
+         1RiVP4uDmkloxBWpVZz+ouy3vQk7ThxPX40YoRfwZkTTxofHgGHicHYgbvSdbEwwICDV
+         urFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725891407; x=1726496207;
+        d=1e100.net; s=20230601; t=1725891856; x=1726496656;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bPoUZQcplVTvhkZOBbdCix8D/isy/o/QTOHfAH19z9o=;
-        b=LH3Vcwik6vtLH8AZsSVUG6k9mqJXkGPRqjcBZvvmTfKCJwOCoqOke1C4c9mdKq6WJ6
-         U9t5N28qICDXxtcQGutim+tAHH9OIRf5GrobWqXoIN60nQ9dYHqc9+ppul19t/UDxdHV
-         HbXOWwdbSvW/4sj1SHhxiQRjG1cVAInsHMKS36uBQLvxEdFiiDgkaMnp3PPL//kb24J6
-         ixtM77rjEB769q34IM4arrYcjncL84JwotfQNn+3eD2HheC2r/aIkiFoGd3WS3ZJ7Z1F
-         gUV2rNcYhe8kszR9u1J2zesm9w32ictqco5qPgWVqbbs8NA55Woh1hSrY7xjQ/ZCDnzu
-         9FgQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXUCl8qEiEtSJrxnpgvKhqMgurIRpLPEOT3P2yI3+TUrzADmIm8lDfNjlNA+0pIuhXmv8cckX+6Vdw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwKHO7bbb4eiWJvCkY01rhSSqtM9F6jAFQQHckti1snNMfaTJHw
-	c9aCI/VYwn20KRZsvwQTHosJHmggNl/hTN58eiml+2atRbkIIh3+0h+hTsk1GA==
-X-Google-Smtp-Source: AGHT+IGnWYyqQNp5MDPULAf54Lbx5LK5YKOvIGi9VIW1QBSWgIKPiwN8hqt8Tden9+l0VWmfdlGT0w==
-X-Received: by 2002:a05:6402:35d4:b0:5be:fa43:8017 with SMTP id 4fb4d7f45d1cf-5c3dc798e0cmr7049732a12.16.1725891406920;
-        Mon, 09 Sep 2024 07:16:46 -0700 (PDT)
-Message-ID: <7357f6e8-2630-4027-b339-eedab9ae48c5@suse.com>
-Date: Mon, 9 Sep 2024 16:16:46 +0200
+        bh=wUDdhcMdolYuQscO5HiMfLgD9HUEOvzKcpV4fn/yu9U=;
+        b=cP34Jp0Rqq9W2WP3p93sagXis58Nv2Iz+CdWT908iSKGf13X1+SF09lh16DWlA1VTr
+         LUFdnkBNk1SRhVDN17Jpy0+m3VZA9W74MhF35dxnA1cWMobgaFZwRQIFMU+zwa3UZHSi
+         0mFPaeYpWkvsRdUXrKY84NK///lB6C7ZZ7HbUIeoR8hv4EUWs/MrcbmOMQRAcTztJWqz
+         UPB1CX5H86NMUd+y1vGLgw6BbtJxA/egt0fJo+zF53ME64yMn/ww9b7U8ZqhznxzHVeR
+         KELXVibiKHIyorquTsIR4+c9xZGILZxJRyZxN3xL18JCpZuiE5E88if3hdk6QGdxRwEP
+         dLzg==
+X-Forwarded-Encrypted: i=1; AJvYcCW9CcQgZ36dfD51aktRT3Vw9yEXdshCjHgcGQ4I2hPYITtTSMBQkPAytRBuuwApCsnMUkxAxZqcGiI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyj6hmBdSnAbV6UzyLZafet0cSuIEA4lEV423//abeam7F0f7CA
+	qFEW6RvP3u1T+5ZjRoTLu3F7W8+v49AE6rD7SiqNwDy3Byy9vypqOtulKTaMsg==
+X-Google-Smtp-Source: AGHT+IF1EJODyZJzPOiA41M/9GU1DBH3MuyvQpGlscEAYukqh6X5zSBiTv4dnTZGmrlac+/Fy7FNwQ==
+X-Received: by 2002:a17:907:29d3:b0:a8a:8ff6:838a with SMTP id a640c23a62f3a-a8a8ff686femr560646366b.64.1725891856412;
+        Mon, 09 Sep 2024 07:24:16 -0700 (PDT)
+Message-ID: <2808764b-e1e4-4557-96d7-dc771be8a837@suse.com>
+Date: Mon, 9 Sep 2024 16:24:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v6] CODING_STYLE: Add a section on header guards
- naming conventions
-To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <a68267c7465a9b0d2ed8f844a5e0145de50b0f3a.1725550985.git.alessandro.zucchelli@bugseng.com>
+Subject: Re: [XEN PATCH v4] x86/intel: optional build of PSR support
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240903072614.291048-1-Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,68 +112,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a68267c7465a9b0d2ed8f844a5e0145de50b0f3a.1725550985.git.alessandro.zucchelli@bugseng.com>
+In-Reply-To: <20240903072614.291048-1-Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.09.2024 17:48, Alessandro Zucchelli wrote:
-> This section explains which format should be followed by header
-> inclusion guards via a drop-down list of rules.
-> 
-> No functional change.
-> 
-> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-> 
-> ---
-> Changes in v6:
-> - edit inclusion guards naming conventions, including more details
-
-Yet I'm afraid that from my pov we're still not there. Specifically ...
-
-> --- a/CODING_STYLE
-> +++ b/CODING_STYLE
-> @@ -159,6 +159,34 @@ Emacs local variables
->  A comment block containing local variables for emacs is permitted at
->  the end of files.  It should be:
+On 03.09.2024 09:26, Sergiy Kibrik wrote:
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -284,6 +284,9 @@ endchoice
+>  config GUEST
+>  	bool
 >  
-> +Header inclusion guards
-> +-----------------------
+> +config PSR
+> +	bool
 > +
-> +Unless otherwise specified, all header files should include proper
-> +guards to prevent multiple inclusions. The following naming conventions
-> +apply:
+>  config XEN_GUEST
+>  	bool "Xen Guest"
+>  	select GUEST
 
-... reading this, I can't derive ...
+Inserting in the middle of guest related setting is a little odd.
 
-> +- Private headers: <dir>__<filename>_H
-> +    - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
-> +    - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
-> +    - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+> --- a/xen/arch/x86/Kconfig.cpu
+> +++ b/xen/arch/x86/Kconfig.cpu
+> @@ -13,6 +13,7 @@ config AMD
+>  config INTEL
+>  	bool "Support Intel CPUs"
+>  	default y
+> +	select PSR
 
-... the absence of an equivalent of the arch/ part of the path. As per
-my recollection we agreed on that shortening, but it needs spelling out
-in the textual description. Such that it is possible to derived what to
-uses as a name for, say, a header under common/, crypto/, or drivers/
-(or anywhere else of course). Specifically with the further examples ...
+I realize Andrew suggested it like this, so the question goes to him as
+much as to you: If already we can isolate this code, is there a reason
+not to make this a user visible option (with a "depends on" rather than a
+"select") right away?
 
-> +- asm-generic headers: ASM_GENERIC__<filename>_H
-> +    - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
-> +
-> +- arch-specific headers: ASM__<architecture>__<subdir>__<filename>_H
-> +    - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
+> --- a/xen/arch/x86/include/asm/psr.h
+> +++ b/xen/arch/x86/include/asm/psr.h
+> @@ -69,12 +69,11 @@ extern struct psr_cmt *psr_cmt;
+>  
+>  static inline bool psr_cmt_enabled(void)
+>  {
+> -    return !!psr_cmt;
+> +    return IS_ENABLED(CONFIG_PSR) ? !!psr_cmt : false;
 
-... here and ...
+Perhaps just
 
-> +- Xen headers: XEN__<filename>_H
-> +    - include/xen/something.h -> XEN__SOMETHING_H
+    return IS_ENABLED(CONFIG_PSR) && psr_cmt;
 
-... here, where more than just one path component is omitted, deriving
-what's meant can end up ambiguous. Yet ambiguity is what we absolutely
-want to avoid, to preempt later discussions on any such naming.
-
-Plus I think that only once properly spelled out as rules it'll become
-sufficiently clear whether there is any remaining risk of naming
-collisions.
+?
 
 Jan
 
