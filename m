@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7E43971306
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 11:12:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794053.1202722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEA18971310
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 11:14:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794057.1202732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snaR7-0001jV-KC; Mon, 09 Sep 2024 09:11:53 +0000
+	id 1snaTh-0002Hu-VP; Mon, 09 Sep 2024 09:14:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794053.1202722; Mon, 09 Sep 2024 09:11:53 +0000
+Received: by outflank-mailman (output) from mailman id 794057.1202732; Mon, 09 Sep 2024 09:14:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snaR7-0001h4-Gl; Mon, 09 Sep 2024 09:11:53 +0000
-Received: by outflank-mailman (input) for mailman id 794053;
- Mon, 09 Sep 2024 09:11:52 +0000
+	id 1snaTh-0002Fv-SS; Mon, 09 Sep 2024 09:14:33 +0000
+Received: by outflank-mailman (input) for mailman id 794057;
+ Mon, 09 Sep 2024 09:14:33 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1snaR6-0001gx-61
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 09:11:52 +0000
+ (envelope-from <julien@xen.org>) id 1snaTg-0002Fp-VP
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 09:14:32 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1snaR5-0001op-MR; Mon, 09 Sep 2024 09:11:51 +0000
+ id 1snaTg-0001tN-Fz; Mon, 09 Sep 2024 09:14:32 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1snaR5-0006yX-D6; Mon, 09 Sep 2024 09:11:51 +0000
+ id 1snaTg-0007Ek-B6; Mon, 09 Sep 2024 09:14:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,123 +42,83 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Y7qKGDGLYuqoBvMzcUxrMCFEXhrR/f6zskNUO+fvTqo=; b=M27KKCRfmnzbMkDtaZdJf35Am5
-	3xwYKmJzPFK+GtxuoV4fXT8pnNFjQk9Q/5vYwZvcfm11jkiiaGa7YDCwJYmgX5XCtZnhfulIOjDRK
-	v4d3vAbVyXqEjZ5d/97eH5PKVIKoIzzLBzHHONOj21oj2Llfou97/OrUNdmDKk2Gq9H4=;
-Message-ID: <5de31172-8319-4cd3-9486-a6992a5cdc22@xen.org>
-Date: Mon, 9 Sep 2024 10:11:49 +0100
+	bh=GGqRYUAI1SVV3Pt0r0jTRz7ZkhCKoZbjrX2hXQBsTp4=; b=EgQssj7F6o21SDxbjNnok7qyJw
+	qqmZ+7jpObhWnsgKTlFwB3KMQbif869yWlse8n3BoSHI/+6wVC82nIk899n/JVmV0DlY6xgMs65rG
+	7/rSAIFBCkZ4y7ws1BFgvLW5DlaIhjUqTShz/XSTytP6+UkScqU7BEHMNDIY8grSp1Eo=;
+Message-ID: <7bbf2899-4c80-42c6-867c-2867ff89bfbe@xen.org>
+Date: Mon, 9 Sep 2024 10:14:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: fusa: Add Assumption of Use (AOU)
+Subject: Re: [PATCH v1 3/4] xen/arm: mpu: Create boot-time MPU protection
+ regions
 Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Artem Mygaiev <artem_mygaiev@epam.com>
-References: <20240906101318.1419954-1-ayan.kumar.halder@amd.com>
- <57632c2f-82e6-49bb-b989-e75c95070b03@xen.org>
- <46b9567e-d27c-467b-b21d-65d63b6cd1e2@amd.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Ayan Kumar Halder <ayankuma@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240823163127.3443404-1-ayan.kumar.halder@amd.com>
+ <20240823163127.3443404-4-ayan.kumar.halder@amd.com>
+ <f14c6fb3-0ab6-49e6-b0f1-622802a599f0@xen.org>
+ <3819109b-de48-480b-b548-a5d9f45a541f@amd.com>
+ <e1d1ed69-94e9-4625-ba49-9ebdb2b9581c@xen.org>
+ <B9014D46-43F4-4928-96B6-CA6167964578@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <46b9567e-d27c-467b-b21d-65d63b6cd1e2@amd.com>
+In-Reply-To: <B9014D46-43F4-4928-96B6-CA6167964578@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
-On 09/09/2024 09:56, Michal Orzel wrote:
-> Hi Julien,
+On 09/09/2024 09:48, Luca Fancellu wrote:
+> Hi Julien, Ayan,
 > 
-> On 08/09/2024 23:05, Julien Grall wrote:
+>>>>
+>>>>> +    msr   PRBAR_EL2, \prbar
+>>>>> +    msr   PRLAR_EL2, \prlar
+>>>>> +    dsb   sy
+>>> This should be visible to outer shareable domain atleast. The reason being one can use the SH[1:0] bits in PRBAR_EL2 to set the region to outer shareable.
+>>> Thus, the writes to these registers should be visible to outer shareable domain as well.
 >>
+>> I am a bit confused. SH[1:0] is about how the region will be accessed not up to where should registers are visible. I was expecting that the MPU registers only need to be visible to the MPU itself.
 >>
->> Hi Ayan,
+>> For instance, when using the MMU, the translation unit is in the non-shareable domain. So a 'nsh' is sufficient regardless of the shareability of the page/block.
 >>
->> On 06/09/2024 11:13, Ayan Kumar Halder wrote:
->>> From: Michal Orzel <michal.orzel@amd.com>
->>>
->>> AOU are the assumptions Xen relies on other components (eg platform, domains)
->>
->> Searching online, I think the abbrevition is AoU rather than AOU. This
->> would also match how we abbreviate in Xen (IOW if we use a lower case
->> letter from the expanded name, then the letter in the acronym is also
->> lower case).
->>
->>> to fulfill its requirements. In our case, platform means a combination of
->>> hardware, firmware and bootloader.
->>>
->>> We have defined AOU in the intro.rst and added AOU for the generic timer.
->>>
->>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>>    .../reqs/design-reqs/arm64/generic-timer.rst  | 19 +++++++++++++++++++
->>>    docs/fusa/reqs/intro.rst                      | 10 ++++++++++
->>>    2 files changed, 29 insertions(+)
->>>
->>> diff --git a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
->>> index f2a0cd7fb8..9df87cf4e0 100644
->>> --- a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
->>> +++ b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
->>> @@ -116,6 +116,25 @@ Rationale:
->>>
->>>    Comments:
->>>
->>> +Covers:
->>> + - `XenProd~emulated_timer~1`
->>> +
->>> +Assumption of Use on the Platform
->>> +=================================
->>> +
->>> +Expose system timer frequency via register
->>> +------------------------------------------
->>> +
->>> +`XenSwdgn~arm64_generic_timer_pf_program_cntfrq_el0~1`
->>> +
->>> +Description:
->>> +Underlying platform shall ensure that CNTFRQ_EL0 register contains the system
->>> +timer frequency.
->>
->> The wording in [1] (not yet merged) implies that CNTFRQ_EL0 may be
-> It is merged:
-> https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=51ad2c57a2d21b583a5944a0dc21c709af022f3c
+>> This is explicitely written in the Arm Arm (see D5-4929 in ARM DDI 0487H.a) but I can't find a similar section for the MPU yet. Although, I would be a bit surprised if the MPU is not in the non-shareable domain... Maybe this could be clarified with Arm?
 > 
->> invalid. This seems to contradict the Assumption of Use. Can you explain
->> the difference?
-> The requirement you refer to is written from a domain perspective and is about Xen exposing the frequency
-> to domains via CNTFRQ and/or dt property. In case of a presence of dt property in the host dtb, Xen could for instance decide
-> to emulate CNTFRQ instead of relying on the domain to parse the dt at runtime.
+> I got the feedback that DSB SY is ok here
 
-AFAICT, you can't trap CNTFRQ access. So what you suggest would not work.
+Thanks for asking. Does this mean that a "dsb nsh" would not be sufficient?
 
 > 
-> The AoU on the platform (hw/firmware/bootloader) is written from Xen perspective and is about the platform
-> exposing the correct frequency via register. This is Xen expected behavior on the platform. In other words, the platform should
-> expose the correct frequency via register.
-
-Xen is able to deal with broken CNTFRQ_EL0. So I don't understand why we 
-we would want to make an assumption that it shall not be broken. What do 
-you gain?
-
-
-> 
-> 
-> 
 >>
->>> +
->>> +Rationale:
+>> Anyway, for now, I am open to use 'dsb sy' with a TODO to revisit it.
 >>
->> This seems to be a bit odd to have an empty section. Can you explain why?
-> That's the format we decided to go with. It's been documented in docs/fusa/reqs/intro.rst.
-> While AFAICT it is not strictly required for OFT, in the future we can decide to write our own parser to
-> present the requirements in a nicer form that OFT exporter. Then, it will be easier for use if each
-> requirement defines the same fields (I agree it's a matter of opinion but that's what we decided to use).
+>>>>> +    isb
+>>
+>> Re-quoting the spec from you previous answer:
+>>
+>> ```
+>> Writes to MPU registers are only guaranteed to be visible
+>> following a Context synchronization event and DSB operation.
+>> ```
+>>
+>> So this suggests that it should be first an 'isb' and then a 'dsb'. Any reason you wrote it the other way around?
+> 
+> I chased this internally and it was suggested the current order, dsb followed by the isb: DSB ensures the completion of prior
+> instructions before the next executes, and then ISB ensures subsequent instruction fetch observes the updated MPU state.
 
-So this is explaining why you decided to add a section "Rationale", but 
-this doesn't explain why you left it empty. Surely, if you write an 
-assumption, you want to explain why.
+I am confused. "DSB" doesn't ensure any completion of instructions. It 
+just ensures memory access completion. Can you clarify?
 
-Cheers,
+> 
+> Probably I will raise something to make awareness around the misleading order of that phrase.
+> 
+> Cheers,
+> Luca
 
 -- 
 Julien Grall
