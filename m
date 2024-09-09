@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBB0D971522
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 12:18:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794182.1202934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4C16971525
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 12:18:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794188.1202944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snbSw-00058w-Un; Mon, 09 Sep 2024 10:17:50 +0000
+	id 1snbTN-0005gT-9Z; Mon, 09 Sep 2024 10:18:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794182.1202934; Mon, 09 Sep 2024 10:17:50 +0000
+Received: by outflank-mailman (output) from mailman id 794188.1202944; Mon, 09 Sep 2024 10:18:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snbSw-00056c-Rn; Mon, 09 Sep 2024 10:17:50 +0000
-Received: by outflank-mailman (input) for mailman id 794182;
- Mon, 09 Sep 2024 10:17:49 +0000
+	id 1snbTN-0005dK-6Q; Mon, 09 Sep 2024 10:18:17 +0000
+Received: by outflank-mailman (input) for mailman id 794188;
+ Mon, 09 Sep 2024 10:18:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dA/l=QH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1snbSv-00055i-Jk
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 10:17:49 +0000
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [2001:4860:4864:20::32])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qOm0=QH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1snbTM-00055i-4f
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 10:18:16 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c274e9a5-6e94-11ef-99a1-01e77a169b0f;
- Mon, 09 Sep 2024 12:17:47 +0200 (CEST)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-277c861d9f6so2473474fac.2
- for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 03:17:47 -0700 (PDT)
+ id d2f6455c-6e94-11ef-99a1-01e77a169b0f;
+ Mon, 09 Sep 2024 12:18:14 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5bf01bdaff0so4370208a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 03:18:14 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c3ebd46886sm2795710a12.34.2024.09.09.03.18.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Sep 2024 03:18:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,279 +45,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c274e9a5-6e94-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: d2f6455c-6e94-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1725877066; x=1726481866; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=8NxRbKKkRRsepfuapfQ7h7hnNBtrSBXwtZrVD7nFtKY=;
-        b=VcZCLHqqDbrMnbTHKGEu/B2gyl6x6ZGUT2oU67ldLkFsbbmAMtyZ77/ldguh6h06WS
-         jsI8t6GQSIYeiVeANAsWSQmItejcWcTjMXtkxm0MEJIp85wzCLOmtuigIKddCD1nnubK
-         gW+stgvJZ6a5icatR9T2QlB8dDV5zAx8NhPms=
+        d=suse.com; s=google; t=1725877094; x=1726481894; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TUNfqWCMxd9XSJ7nGnMFigY3YviJJzItqc96Lw4s8wU=;
+        b=RaUQ3M5ye92TZpHVAn+CdOssaA8bceEvfktnpg3jNCP/gLSC7VUF/RBCqYJTgzcYOU
+         8LbykScMa8lSpaX1fWDpymnVEjMMmQLGSelClb9/fsGs+v1TzE+n+iybvL60FIqhUB9J
+         Cf1KfT48X0ev/WvJ3kEEQyS2SHGFa6lupmhSgz0TzLniZEV6zHnuQhdndzPgNZtphA6W
+         cQxuoss+f3wKP/8XUI8woH++mt++/o4vGCZZ+hn+DemoOrhDfQqKw+Lx7fAqBZaDAtO6
+         VmE51Rn8QJYyN3WXzRtLWOHxUIvYM0ebbhP7JjXknbmNhhYCDD8w2IpYBxwsXE8vV7Mp
+         LClg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725877066; x=1726481866;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8NxRbKKkRRsepfuapfQ7h7hnNBtrSBXwtZrVD7nFtKY=;
-        b=tXuKh8aSsD0gimalhWvbKioE2eh2H9xNm1zpPnQyEN7uq++enpkkQGrPjHukAoI/o5
-         /NAYOdQAKI5o2IoMADyGJagi9e+hqZqHQo2KGW9xPy1IYpyqpGJ4JIQyg3NetHpCNd20
-         v/rZxPaN7VC+8WVDOcikC8IDAp6omrRbWtNoGzDGpUJ07R/qiCCsjbCnV8niqbXvA1RR
-         DF2C0uTZf3ouLbFpLM/3+7qOYzxMEOd3jsKlxvIxjHcWEg/Qt230NSS4/4j8ayfhxehw
-         fO+4m73db1wHbXPIh9gwsLN6josSHHCEUVsxzEsBR72ODSKkxRufYV8TFNtYJ5jB40vS
-         wDQQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUxqJDkkChiDbMLMXNjg5F9NNS9kYBckbycyKJgb+9RrUGy6BWLwpB8onBreqBwXkXqlizunSzXd0I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz8XRUqW7uAA31MClMjBwVPTnvnW3qjO7En9qotxhROUmcY5mhZ
-	7oSaKfhgYrnbNWK7knNitURRV2ax04GQFDNsV20XSIPABEkjvtzzNsaZVG3H76uxVlJWoNj2jPB
-	UmEmC0QqH0U/ae5CNvcCE3SLw1+M/00vMoSIF+Q==
-X-Google-Smtp-Source: AGHT+IHBqQHMffVRSu6/Fwb/EVhxAZGPHbHd4SBzvAgJb3oKUA7JcinfrmFiEZGr0VkJAsPJ/sNsVWgFVEEGPeftTNU=
-X-Received: by 2002:a05:6870:6122:b0:261:86d:89e2 with SMTP id
- 586e51a60fabf-27b82fab13amr12104657fac.36.1725877066132; Mon, 09 Sep 2024
- 03:17:46 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1725877094; x=1726481894;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TUNfqWCMxd9XSJ7nGnMFigY3YviJJzItqc96Lw4s8wU=;
+        b=YMLNfSZQ7m8AL3U3f9dcMd8HcP1baqgCdU/N6k1dWKSEAKH2MkAP6Eu2w+hDnQCX4Y
+         85Xdfy/REcrZSP1Z5g5vOj7X7jVPICFsP5fH/1kviJwe1m3zUjOju3oj1DpLAVgsz3/F
+         BBvgcQP3tb3BvZwPl2Q1EjCcwFYCjxgIApw8Za4G+f2F2aUlWRhBgI1Sz7JS3Oh3FeGG
+         oo7/6MelsQIVH8aMZmKuVPh+DcWcV3v2LAIQsWzmTIPpuBGmT7VkHDt4scT8AoFEzRLI
+         IaU4TbZBqWn/aE36yycUs7C3W6gGiSW0PgWAiQz4r6lsvGYnhIakLpR3IPdKzudf13Nx
+         aVZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUXt+Wtnb//Le7dz9lu2H5zk4q/NqSiyxYooqtcPIo7ByNfhCQVBA8E648jBo8hNbmGCry9sKk1scI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxgPh5uH6SdOK13xAX+GdTodxW5blAXq42s8xAKtcAldbNQOTg7
+	N6wPmKU1w3xTorZhTeqW2w4HL2uSvMAfHVuIhWop+QHWQwtL5lBeJ03eS1kgP8BLFbjEUnVsZFw
+	=
+X-Google-Smtp-Source: AGHT+IFQq8TzsRwInhFdB2RXQuZf2In+Iy4MvVA2EQ6Zh/UyKq9o+9Ab8CnxWXqr/m1gjbZO9jUEUQ==
+X-Received: by 2002:a05:6402:354a:b0:5c2:50a2:98a2 with SMTP id 4fb4d7f45d1cf-5c3eabfedf1mr4871376a12.6.1725877093966;
+        Mon, 09 Sep 2024 03:18:13 -0700 (PDT)
+Message-ID: <a5b2fe91-1c1a-4e1f-ab63-7bba6e5966d3@suse.com>
+Date: Mon, 9 Sep 2024 12:18:14 +0200
 MIME-Version: 1.0
-References: <20240904145648.33707-1-frediano.ziglio@cloud.com>
- <20240904145648.33707-3-frediano.ziglio@cloud.com> <91963d5c-3e59-4b00-98ca-ab4535947210@suse.com>
-In-Reply-To: <91963d5c-3e59-4b00-98ca-ab4535947210@suse.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Mon, 9 Sep 2024 11:17:35 +0100
-Message-ID: <CACHz=Zi_-c=xO9eGm_5PQjio4qxnBSQy3ppU=DGjQdSSAAfmzA@mail.gmail.com>
-Subject: Re: [RFC 2/5] x86/boot: create a C bundle for 32 bit boot code and
- use it
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000007415e10621ad1179"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Avoid usage of global in reloc.c
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20240909100428.47102-1-frediano.ziglio@cloud.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240909100428.47102-1-frediano.ziglio@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---0000000000007415e10621ad1179
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 09.09.2024 12:04, Frediano Ziglio wrote:
+> --- a/xen/arch/x86/boot/reloc.c
+> +++ b/xen/arch/x86/boot/reloc.c
+> @@ -72,11 +72,16 @@ struct vesa_mode_info {
+>  #define get_mb2_data(tag, type, member)   (((const multiboot2_tag_##type##_t *)(tag))->member)
+>  #define get_mb2_string(tag, type, member) ((uint32_t)get_mb2_data(tag, type, member))
+>  
+> -static uint32_t alloc;
+> +typedef struct memctx {
+> +    /* Simple bump allocator.  It starts from the base of the trampoline and
+> +     * allocates downwards.
+> +     */
 
-On Mon, Sep 9, 2024 at 11:10=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
+Nit: Comment style.
 
-> On 04.09.2024 16:56, Frediano Ziglio wrote:
-> > --- a/.gitignore
-> > +++ b/.gitignore
-> > @@ -251,8 +251,7 @@ xen/System.map
-> >  xen/arch/x86/boot/mkelf32
-> >  xen/arch/x86/boot/cmdline.S
-> >  xen/arch/x86/boot/reloc.S
-> > -xen/arch/x86/boot/*.bin
-> > -xen/arch/x86/boot/*.lnk
-> > +xen/arch/x86/boot/build32.*.lds
->
-> Please retain (largely) alphabetic sorting.
->
->
-Changed locally.
+As to some formal things: This is v2 aiui, yet not marked as such. There's
+further "x86/boot: Optimise 32 bit C source code" in reply to this, when
+both aren't marked as a series. There's a similar odd relationship between
+two further patches you sent a few minutes later.
 
-
-> > --- a/xen/arch/x86/boot/build32.lds
-> > +++ b/xen/arch/x86/boot/build32.lds.S
-> > @@ -15,22 +15,54 @@
-> >   * with this program.  If not, see <http://www.gnu.org/licenses/>.
-> >   */
-> >
-> > -ENTRY(_start)
-> > +#undef ENTRY
-> > +
-> > +#ifdef FINAL
-> > +# define GAP 0
-> > +# define MULT 0
-> > +# define TEXT_START
-> > +#else
-> > +# define GAP 0x010200
-> > +# define MULT 1
-> > +# define TEXT_START 0x408020
-> > +#endif
-> > +# define DECLARE_IMPORT(name) name =3D . + (__LINE__ * MULT)
-> > +
-> > +ENTRY(dummy_start)
-> >
-> >  SECTIONS
-> >  {
-> > -  /* Merge code and data into one section. */
-> > -  .text : {
-> > +  /* Merge code and read-only data into one section. */
-> > +  .text TEXT_START : {
-> > +        /* Silence linker warning, we are not going to use it */
-> > +        dummy_start =3D .;
-> > +
-> > +        /* Declare below any symbol name needed.
-> > +         * Each symbol should be on its own line.
-> > +         * It looks like a tedious work but we make sure the things we
-> use.
-> > +         * Potentially they should be all variables. */
-> > +        DECLARE_IMPORT(__base_relocs_start);
-> > +        DECLARE_IMPORT(__base_relocs_end);
-> > +        . =3D . + GAP;
-> >          *(.text)
-> >          *(.text.*)
-> > -        *(.data)
-> > -        *(.data.*)
-> >          *(.rodata)
-> >          *(.rodata.*)
-> > +  }
-> > +
-> > +  /* Writeable data sections. Check empty.
-> > +   * We collapse all into code section and we don't want it to be
-> writeable. */
-> > +  .data : {
-> > +        *(.data)
-> > +        *(.data.*)
-> >          *(.bss)
-> >          *(.bss.*)
-> >    }
-> > -
-> > +  /DISCARD/ : {
-> > +       *(.comment)
-> > +       *(.comment.*)
-> > +       *(.note.*)
-> > +  }
-> >    /* Dynamic linkage sections.  Collected simply so we can check
-> they're empty. */
-> >    .got : {
-> >          *(.got)
-> > @@ -49,6 +81,7 @@ SECTIONS
-> >    }
-> >    .rel : {
-> >          *(.rel.*)
-> > +        *(.data.rel.*)
->
-> This looks like you're mixing up .data.rel (a data section, where some
-> items
-> may require relocation) and .rel.data (the relocation section for .data).
-> If
-> you want all .data.* empty, this section should be empty, too. (I also
-> don't
-> think this would ever take effect, due to the earlier *(.data.*).)
->
->
-Removed this last hunk, yes, it's useless.
-
-
-> Jan
->
-
-Thanks,
-   Frediano
-
---0000000000007415e10621ad1179
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Mon, Sep 9, 2024 at 11:10=E2=80=AFAM Jan Beulich &lt;<a href=3D"m=
-ailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br></div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex">On 04.09.2024 16:56, Frediano Zig=
-lio wrote:<br>
-&gt; --- a/.gitignore<br>
-&gt; +++ b/.gitignore<br>
-&gt; @@ -251,8 +251,7 @@ xen/System.map<br>
-&gt;=C2=A0 xen/arch/x86/boot/mkelf32<br>
-&gt;=C2=A0 xen/arch/x86/boot/cmdline.S<br>
-&gt;=C2=A0 xen/arch/x86/boot/reloc.S<br>
-&gt; -xen/arch/x86/boot/*.bin<br>
-&gt; -xen/arch/x86/boot/*.lnk<br>
-&gt; +xen/arch/x86/boot/build32.*.lds<br>
-<br>
-Please retain (largely) alphabetic sorting.<br>
-<br></blockquote><div><br></div><div>Changed locally.</div><div>=C2=A0<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex">
-&gt; --- a/xen/arch/x86/boot/build32.lds<br>
-&gt; +++ b/xen/arch/x86/boot/build32.lds.S<br>
-&gt; @@ -15,22 +15,54 @@<br>
-&gt;=C2=A0 =C2=A0* with this program.=C2=A0 If not, see &lt;<a href=3D"http=
-://www.gnu.org/licenses/" rel=3D"noreferrer" target=3D"_blank">http://www.g=
-nu.org/licenses/</a>&gt;.<br>
-&gt;=C2=A0 =C2=A0*/<br>
-&gt;=C2=A0 <br>
-&gt; -ENTRY(_start)<br>
-&gt; +#undef ENTRY<br>
-&gt; +<br>
-&gt; +#ifdef FINAL<br>
-&gt; +# define GAP 0<br>
-&gt; +# define MULT 0<br>
-&gt; +# define TEXT_START<br>
-&gt; +#else<br>
-&gt; +# define GAP 0x010200<br>
-&gt; +# define MULT 1<br>
-&gt; +# define TEXT_START 0x408020<br>
-&gt; +#endif<br>
-&gt; +# define DECLARE_IMPORT(name) name =3D . + (__LINE__ * MULT)<br>
-&gt; +<br>
-&gt; +ENTRY(dummy_start)<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 SECTIONS<br>
-&gt;=C2=A0 {<br>
-&gt; -=C2=A0 /* Merge code and data into one section. */<br>
-&gt; -=C2=A0 .text : {<br>
-&gt; +=C2=A0 /* Merge code and read-only data into one section. */<br>
-&gt; +=C2=A0 .text TEXT_START : {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Silence linker warning, we are not goi=
-ng to use it */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 dummy_start =3D .;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Declare below any symbol name needed.<=
-br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Each symbol should be on its own =
-line.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* It looks like a tedious work but =
-we make sure the things we use.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Potentially they should be all va=
-riables. */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 DECLARE_IMPORT(__base_relocs_start);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 DECLARE_IMPORT(__base_relocs_end);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 . =3D . + GAP;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.text)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.text.*)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.data)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.data.*)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.rodata)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.rodata.*)<br>
-&gt; +=C2=A0 }<br>
-&gt; +<br>
-&gt; +=C2=A0 /* Writeable data sections. Check empty.<br>
-&gt; +=C2=A0 =C2=A0* We collapse all into code section and we don&#39;t wan=
-t it to be writeable. */<br>
-&gt; +=C2=A0 .data : {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.data)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.data.*)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.bss)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.bss.*)<br>
-&gt;=C2=A0 =C2=A0 }<br>
-&gt; -<br>
-&gt; +=C2=A0 /DISCARD/ : {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0*(.comment)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0*(.comment.*)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0*(.note.*)<br>
-&gt; +=C2=A0 }<br>
-&gt;=C2=A0 =C2=A0 /* Dynamic linkage sections.=C2=A0 Collected simply so we=
- can check they&#39;re empty. */<br>
-&gt;=C2=A0 =C2=A0 .got : {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.got)<br>
-&gt; @@ -49,6 +81,7 @@ SECTIONS<br>
-&gt;=C2=A0 =C2=A0 }<br>
-&gt;=C2=A0 =C2=A0 .rel : {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.rel.*)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 *(.data.rel.*)<br>
-<br>
-This looks like you&#39;re mixing up .data.rel (a data section, where some =
-items<br>
-may require relocation) and .rel.data (the relocation section for .data). I=
-f<br>
-you want all .data.* empty, this section should be empty, too. (I also don&=
-#39;t<br>
-think this would ever take effect, due to the earlier *(.data.*).)<br>
-<br></blockquote><div><br></div><div>Removed this last hunk, yes, it&#39;s =
-useless.<br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">
-Jan<br></blockquote><div><br></div><div>Thanks,</div><div>=C2=A0=C2=A0 Fred=
-iano</div><div>=C2=A0<br></div></div></div>
-
---0000000000007415e10621ad1179--
+Jan
 
