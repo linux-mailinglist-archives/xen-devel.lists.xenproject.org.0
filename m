@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80887971598
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 12:45:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794252.1203056 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67F5497159F
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 12:48:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794264.1203067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snbtL-0000pc-PT; Mon, 09 Sep 2024 10:45:07 +0000
+	id 1snbw3-0002ZA-BT; Mon, 09 Sep 2024 10:47:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794252.1203056; Mon, 09 Sep 2024 10:45:07 +0000
+Received: by outflank-mailman (output) from mailman id 794264.1203067; Mon, 09 Sep 2024 10:47:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snbtL-0000mw-Mh; Mon, 09 Sep 2024 10:45:07 +0000
-Received: by outflank-mailman (input) for mailman id 794252;
- Mon, 09 Sep 2024 10:45:05 +0000
+	id 1snbw3-0002XS-7Y; Mon, 09 Sep 2024 10:47:55 +0000
+Received: by outflank-mailman (input) for mailman id 794264;
+ Mon, 09 Sep 2024 10:47:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qOm0=QH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1snbtJ-0000mh-JM
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 10:45:05 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/tbp=QH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1snbw2-0002XL-1O
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 10:47:54 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 920f3a64-6e98-11ef-99a1-01e77a169b0f;
- Mon, 09 Sep 2024 12:45:03 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5c3c34e3c39so5994948a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 03:45:03 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25c62511sm324783066b.130.2024.09.09.03.45.02
+ id f67ceda8-6e98-11ef-99a1-01e77a169b0f;
+ Mon, 09 Sep 2024 12:47:52 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5c26815e174so4274024a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 03:47:52 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8d25cefa24sm328239366b.178.2024.09.09.03.47.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Sep 2024 03:45:02 -0700 (PDT)
+ Mon, 09 Sep 2024 03:47:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +45,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 920f3a64-6e98-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: f67ceda8-6e98-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725878703; x=1726483503; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725878872; x=1726483672; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uyq2W56Vt102k3Ljlh2t+Nq1UngbNjKegKvpC9psktI=;
-        b=RCP+Sw+jthdc5JUDGeDcQfI85hAX9svT64gNnP+Y5mRvyuC/fl8NWSeOlpIo9ZS8zh
-         oVz0r+cVzLzVZE2ai73G6sc2sG/FaYsExmD6JBLYRT1iF0Qb+crzYRz4Bps5ADBAC0lt
-         sotsY0b9y0GzG089M0zHidGoKpRXHkOn+4qYQSsnesxMYzTYvnE2qobRPZhTECQql4p4
-         YQj2RHehAPN0p+6OLI9eL8fARY0v8XdTVjhLXqGFkXgKeSb0DBaIO33iowoIykqIyHn4
-         oQIRx8j5GsKlsbpHiRiHdwxJnKaQy9DH3IX+SfN0DOpZ5nFi3bnWivpruvoDUvZtDK/i
-         xxFg==
+        bh=MY/2KhSce4JbTgEwnBgKytI5+ugeo060ISywPyqif5g=;
+        b=IiLLedyaD/CGmyJdWnt7D73zhcGbG687KJEnNVjrRWJk4lZ4r/Ap8vmThD7cWVA6MQ
+         1458BoSec3IYvDVtMR7k4gGAANBDTt9pLPjNZaHIzo1SKEbAfwrsfTB1t9CYE99I2TwS
+         7XFH9BgA4m6T2t4pUjyJm4ZDw1yUF+JszzVQo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725878703; x=1726483503;
+        d=1e100.net; s=20230601; t=1725878872; x=1726483672;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uyq2W56Vt102k3Ljlh2t+Nq1UngbNjKegKvpC9psktI=;
-        b=qdr2GCKnBPuHka5JNfkq5lw6/edtVXp7Bwzaw27cKgHHnRgI59gvfjG1izH4uYyf5a
-         r440+RAkoDIlffDo/E0jxvRe9lbx8ZW7f5llb4pVal5T6eJmu+98g0YhSUnPnEXmQ/5f
-         pAMw9dVPG2C8o9ZW1XiZ2G/riEyhua12izA9JeWztQZ7aZjRq210suh5dd1GISLPmjV/
-         rLpFgpB0tmvTvk5goZo6NRCaSf2zno+Iw5FBL0bxjybFmFAMPQg0UfhbOTJMWq8b0ESf
-         HnEBrT3Xfy++GQviG867lFOU1wqBemi0sk+dJdNwaYSelbIdn7Pg+iUCmvrxarz6OGv5
-         MckA==
-X-Forwarded-Encrypted: i=1; AJvYcCUebv5YrDewT0ge5xEbE24uPqc3ZZS2e+4hcKfBhAXLaBwjXYtyenMfkRvlTHxfrIQNGOJVXPOHXJo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx7dQskiy1HxlTodbBY0PkggfJ2QWzNml13FmDM4GBdxs//DrVf
-	kjKM8EfOEUGg2NtuMRJhFR3d98PCLGwwAGHEy1p50BdmwdSxVgs8lcLLOylhug==
-X-Google-Smtp-Source: AGHT+IHolqK9uP7nY3n8f1TLCOhU/Te01L6qhviR7LSoKA0HONjrOkRoJkkiTLqWf66m7AS7i2YvtA==
-X-Received: by 2002:a17:907:2daa:b0:a8d:48cb:b5a8 with SMTP id a640c23a62f3a-a8d48cbb661mr316356666b.43.1725878702940;
-        Mon, 09 Sep 2024 03:45:02 -0700 (PDT)
-Message-ID: <8730bb00-35a5-473b-9af0-92ce2a436330@suse.com>
-Date: Mon, 9 Sep 2024 12:45:03 +0200
+        bh=MY/2KhSce4JbTgEwnBgKytI5+ugeo060ISywPyqif5g=;
+        b=B7al2nejkPI5VsPHgku+pyeDepl4oVLgXcqCREWllCzWSsY/KcdsGyXGOffC5dYnH7
+         oErpuVHaM1lK5d2ASmATg+1GyhN8tv70zFHhXpfi321SieDUtJNWFx6NG7m20eIpptmB
+         1jP6ii/lruO/NZxmwiwuPQHc197HpqYwnwzGl1+aQDbAsRLbo7zs0BvO7CXNAOL4xapr
+         FBeeo9attYPymbC/t9VRbfbMCUDKcYXmL3nnNZa6yBecrOKbHlQ1YXAhHK6Ls2x4wvz0
+         urWfbLGjXSd65zsFL8etOEqqSTOpNVeQ8Xw6hrBR+gSFhOKEgTlz5nPh+0cvqEIjAwVS
+         xyTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWKA4GYInAg9sjMDxZpWqKDjl3tsgY6EeyZtofaQQDHEhHlvgY8i1u0aNGVC3IHxu6L/5Kmhl+dX78=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxoqH4FpeZZ02S8bb5/ar7bZdfzPqAG/Qp9vw8H+6Z20Ad9wqRS
+	MmtyEQWa4jR/UYmW2cr3APeqca2RYBEzWFrqpikOFI7jQ9qBkCzp3B7254K9DHg=
+X-Google-Smtp-Source: AGHT+IER3s6PGBNjQAUG9bVpVhGs2j9Us94H8SJJ9+7qO/FdcBnSM+pETSlqRQMIgMIUnr5LpqwN4g==
+X-Received: by 2002:a17:907:1c23:b0:a8d:2e3a:5303 with SMTP id a640c23a62f3a-a8d2e3a54c6mr423009866b.39.1725878871353;
+        Mon, 09 Sep 2024 03:47:51 -0700 (PDT)
+Message-ID: <6cbc9587-5e9c-4f59-b61f-940bcd7f408a@citrix.com>
+Date: Mon, 9 Sep 2024 11:47:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: Reuse PRI_gfn macro instead of manual specify the
- format
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-References: <20240909100806.47280-1-frediano.ziglio@cloud.com>
- <20240909100806.47280-2-frediano.ziglio@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240909100806.47280-2-frediano.ziglio@cloud.com>
+Subject: Re: [PATCH v2] x86/boot: Optimise 32 bit C source code
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20240909104402.67141-1-frediano.ziglio@cloud.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240909104402.67141-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.09.2024 12:08, Frediano Ziglio wrote:
-> Macros are defined to avoid type mismatch in format strings
-> but also to unify format amongst code.
-
-I'm certainly fine with this part.
-
-> In the meantime expands to 9 hexadecimal digits.
-
-What makes 9 special? What will the extra padding zeroes buy us?
-
+On 09/09/2024 11:44 am, Frediano Ziglio wrote:
+> The various filters are removing all optimisations.
+> No need to have all optimisations turned off.
+>
 > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 > ---
->  xen/common/grant_table.c   | 6 +++---
->  xen/include/xen/mm-frame.h | 4 ++--
->  2 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-> index ab36f45ded..775cd7e065 100644
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -1848,7 +1848,7 @@ gnttab_unpopulate_status_frames(struct domain *d, struct grant_table *gt)
->              if ( rc )
->              {
->                  gprintk(XENLOG_ERR,
-> -                        "Could not remove status frame %u (GFN %#lx) from P2M\n",
-> +                        "Could not remove status frame %u (GFN %"PRI_gfn") from P2M\n",
+>  xen/arch/x86/boot/Makefile | 1 +
+>  1 file changed, 1 insertion(+)
+> ---
+> Changes since v1
+> - reuse optimization level from XEN_CFLAGS.
+>
+> diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
+> index 8f5bbff0cc..8352ce023b 100644
+> --- a/xen/arch/x86/boot/Makefile
+> +++ b/xen/arch/x86/boot/Makefile
+> @@ -16,6 +16,7 @@ $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
+>  CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float -mregparm=3
+>  CFLAGS_x86_32 += -nostdinc -include $(filter %/include/xen/config.h,$(XEN_CFLAGS))
+>  CFLAGS_x86_32 += $(filter -I%,$(XEN_CFLAGS))
+> +CFLAGS_x86_32 += $(filter -O%,$(XEN_CFLAGS))
 
-The lost # means the number won't identify itself as hex anymore. Rather
-than ...
+I'm pretty sure this can be part of the prior expression,
 
-> @@ -3981,7 +3981,7 @@ void grant_table_warn_active_grants(struct domain *d)
->          if ( nr_active <= WARN_GRANT_MAX )
->              printk(XENLOG_G_DEBUG "d%d has active grant %x ("
->  #ifndef NDEBUG
-> -                   "GFN %lx, "
-> +                   "GFN %"PRI_gfn", "
->  #endif
->                     "MFN: %#"PRI_mfn")\n",
+CFLAGS_x86_32 += $(filter -I% -O%,$(XEN_CFLAGS))
 
-(note this for below)
+Happy to fix on commit.
 
-> --- a/xen/include/xen/mm-frame.h
-> +++ b/xen/include/xen/mm-frame.h
-> @@ -5,7 +5,7 @@
->  #include <xen/typesafe.h>
->  
->  TYPE_SAFE(unsigned long, mfn);
-> -#define PRI_mfn          "05lx"
-> +#define PRI_mfn          "09lx"
->  #define INVALID_MFN_RAW  (~0UL)
->  #define INVALID_MFN      _mfn(INVALID_MFN_RAW)
->  /*
-> @@ -41,7 +41,7 @@ static inline bool mfn_eq(mfn_t x, mfn_t y)
->  }
->  
->  TYPE_SAFE(unsigned long, gfn);
-> -#define PRI_gfn          "05lx"
-> +#define PRI_gfn          "09lx"
-
-... moving to 09 (twice) here, how about we move to #? Requiring, of course,
-to drop already-questionable hashes like the one pointed out in the middle.
-
-Jan
+~Andrew
 
