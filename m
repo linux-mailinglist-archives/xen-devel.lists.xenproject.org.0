@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15E3A971B81
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 15:47:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794530.1203495 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5589971B7F
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 15:47:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794531.1203505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snej9-0002dr-Gt; Mon, 09 Sep 2024 13:46:47 +0000
+	id 1snejA-0002qi-OD; Mon, 09 Sep 2024 13:46:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794530.1203495; Mon, 09 Sep 2024 13:46:47 +0000
+Received: by outflank-mailman (output) from mailman id 794531.1203505; Mon, 09 Sep 2024 13:46:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snej9-0002an-E6; Mon, 09 Sep 2024 13:46:47 +0000
-Received: by outflank-mailman (input) for mailman id 794530;
- Mon, 09 Sep 2024 13:46:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1snejA-0002ov-KD; Mon, 09 Sep 2024 13:46:48 +0000
+Received: by outflank-mailman (input) for mailman id 794531;
+ Mon, 09 Sep 2024 13:46:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dA/l=QH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1snej7-0002VR-Vq
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 13:46:46 +0000
-Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
- [2607:f8b0:4864:20::c30])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f387ca2c-6eb1-11ef-a0b5-8be0dac302b0;
+ <SRS0=/tbp=QH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1snej9-0002Vg-K5
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 13:46:47 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f42eae1f-6eb1-11ef-99a1-01e77a169b0f;
  Mon, 09 Sep 2024 15:46:45 +0200 (CEST)
-Received: by mail-oo1-xc30.google.com with SMTP id
- 006d021491bc7-5dfaccba946so2919266eaf.1
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5c245c62362so5806022a12.0
  for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 06:46:45 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8d25cea3basm346336566b.163.2024.09.09.06.46.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Sep 2024 06:46:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,208 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f387ca2c-6eb1-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: f42eae1f-6eb1-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1725889604; x=1726494404; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=PoLB7ABoStx6dnf18UOsV90naw90QD/Yt3tM02thUws=;
-        b=LyAocoFVsIlTEggU9W5ZiD4yAsgUu7RISVL0z/WHhS/aykV/6btEFZiAWhnyTEk7ln
-         9ZSufpaOq4XFvAmTRHjOwfmIG4RFt9UV8gEdqga7LOcFyrhSMHmYmt4en2JH4S313p7c
-         45u0p0tJEtGELsFD6OuzUlw3F6yOIMl15qiUo=
+        d=citrix.com; s=google; t=1725889605; x=1726494405; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=yhWf/STyJcL4sNybhNG6A3PU6xbu0OmRExdfLKkVQKw=;
+        b=Q2Zr+hzJfIb7f7FGd0m+kNRg2QmHO2Nn2OMdGemu3ytBSMvAjWNyPndmgyF0N4MNtY
+         kNs3GEjdCFXkHbVgWR3ErqiVw7bIYMb2KqGwTgT5FrbSUU8xirgxaQ5JogrRxsqcxnNP
+         oVqbPuCMssGtwMUuWUDC1Y1i0dO8Wpl1+g5RM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725889604; x=1726494404;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PoLB7ABoStx6dnf18UOsV90naw90QD/Yt3tM02thUws=;
-        b=t1AFGmNTF75MujQOgW/tDw7G+H/z9xMAULI6XBL2xbkP/GFZUO5mKzGoF/YtV/x1wI
-         w/mfakEBMH1DodbOl/56vQdY6IVv9F5f8AL6/6EMeHAR8UCIbw+MwwwfrTRu1u20jiLW
-         GfKlnTt5fXbho+1FACkJoYR3Gj17TRfJYm2VF/ObYo8RtUP9952vmJh6YAaXnPOKN6z2
-         mJPaJ6B2f94HwLC1v7k6Tuj941dGj4PQ9bhhbVH0JBoOfTiXEg92IvXH0NI//zICOcK0
-         b+Q/tUzRjh+UvR0fx60/WCRLqiydR5MmskRstqwf6xygGbWH1NmR7b1kC19XHfc8l4yg
-         IAnw==
-X-Gm-Message-State: AOJu0YxCB2vF0aMPeC5gp1p8j+SYFVO5XKTbyedCCOSnwtLnL6HMfZI/
-	Fak5s3ya1z+/fUl0bKpGW8ESf9hZYyRWZJtkxHPEtu3lB7zmGD4lTYQ3drbhuMoaaj/0/E33+Jf
-	A/R0wNN57hEpCTVvtRUzr1E6pwWCMw2gv85nlhQ==
-X-Google-Smtp-Source: AGHT+IG8VuQleorSeMGk2+ULw9pEeiPSmMiE/G1qA/7dOuyzF6pIInDPHa+OKM3dwsauSnLk15nSLpQ8OLt2fqIP5Z0=
-X-Received: by 2002:a05:6820:1b86:b0:5ce:d2e3:b18 with SMTP id
- 006d021491bc7-5e1a9d96318mr9753154eaf.8.1725889604041; Mon, 09 Sep 2024
- 06:46:44 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1725889605; x=1726494405;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yhWf/STyJcL4sNybhNG6A3PU6xbu0OmRExdfLKkVQKw=;
+        b=RhXvtT+4pn2J89fQICrFjRkltLT98HaaydjF/cae38BHw/QScvH8PNnJJDSeXCsO6J
+         VzSqo+2KzlSFg0vHnOnOeD+Ek2C/teIiom9iG3Z6GV2SGyr43xRuIGlUxPP+OKoN1BK7
+         DBJ+sBKgdLn1RUJe5BwVswbr6hE2wY2JWjI2JSuknSCjfrIh3hkPzTGTkkTjkS4P8yMG
+         kZpG+H3NqbY/i/valFWwbPwxuSDB7p/ED/LJ0iZz5da34y/ir4ZHDvDivKllSRKXtesL
+         o9e7n5fywjwIWuh8LPR9V8W8/oYFhc6dZiV2p1JNjT6KmyI2nyGZ+xeNMJNrmFke6cMH
+         krRg==
+X-Forwarded-Encrypted: i=1; AJvYcCW3jqc5wo27PBA3Vfj2XU7ZqOFFp0tuoZtXmTRR2DOx5hoVqn4jJ8xtYUT+HZKWXLV7XsJkFkAwknM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxCUYKQPzrDek7mNCiAO/gW9u7hhHTtm2PMEqRTnG0Rpcses/VV
+	dySqGOCbIL5zXMEvw2uvaAI5E0J29I7oBg/Lq6MaM7Uqx7ddRn1MlFV8K6bowwY=
+X-Google-Smtp-Source: AGHT+IGVvtj87b3y8pClq/UkLLOJzRhKt9HdHmhPNGZUVzn6KnUqH0kgHMJvAhETHyz+/b6bMiCXXg==
+X-Received: by 2002:a17:907:3e9e:b0:a80:f81c:fd75 with SMTP id a640c23a62f3a-a8a882732c1mr1143816466b.0.1725889604409;
+        Mon, 09 Sep 2024 06:46:44 -0700 (PDT)
+Message-ID: <22c05c08-1ce2-40d6-8864-72ab9395b8cc@citrix.com>
+Date: Mon, 9 Sep 2024 14:46:42 +0100
 MIME-Version: 1.0
-References: <201625791b87a4ab20e6fb38642ed64f88ce8b2d.1725888742.git.alessandro.zucchelli@bugseng.com>
-In-Reply-To: <201625791b87a4ab20e6fb38642ed64f88ce8b2d.1725888742.git.alessandro.zucchelli@bugseng.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Mon, 9 Sep 2024 14:46:33 +0100
-Message-ID: <CACHz=Zj8wu9Rm5H-OqYTSys3-zij64uEB9M5iAsfL8=-eFXDVQ@mail.gmail.com>
-Subject: Re: [XEN PATCH v2] x86/mm address violations of MISRA C:2012 Rule 5.3
-To: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: multipart/alternative; boundary="000000000000c55a670621affc4d"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] tools/ocaml: Stabilize domain_getinfo for
+ Oxenstored
+To: Andrii Sultanov <andrii.sultanov@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>, Anthony PERARD <anthony.perard@vates.tech>
+References: <cover.1725881488.git.andrii.sultanov@cloud.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <cover.1725881488.git.andrii.sultanov@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---000000000000c55a670621affc4d
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 09/09/2024 1:02 pm, Andrii Sultanov wrote:
+> Changes from V2:
+>
+> * Drop the upstreamed "Build infrastructure" commit
+> * Split the last commit into two: Loading the plugin in oxenstored and
+> switching to it
+> * Remove configure and paths.m4 defines as suggested.
+> * Reformat files appropriately
+> * Rename all instances of 'xenstoredglue', 'xenstored_glue', 'xsglue' to
+> 'xsd_glue' for consistency
+> * Remove _v1 suffix from all static functions
+> * Remove leftover #defines left unused by the previous changes
+> * Fix inconsistent tabs/spaces usage, added blank lines where appropriate.
+> * Define the 'xsd_glue_failwith' macro as suggested
+> * Remove first_domain argument in 'domain_getinfolist' function
+> * Remove unnecessary memory allocation alignment code in
+> 'domain_getinfolist'
+> * Improve error handling in 'domain_getinfolist' as suggested.
+> * Add SPDX license headers to new files.
+>
+> Patch series on Gitlab for ease of review: https://gitlab.com/xen-project/people/asultanov/xen/-/compare/staging...plugin-v3
+>
+> These changes passed the Gitlab CI:
+> - Loading the plugin: https://gitlab.com/xen-project/people/asultanov/xen/-/pipelines/1445544074
+> - Switching to it as well: https://gitlab.com/xen-project/people/asultanov/xen/-/pipelines/1445699231
+>
+> The patch series has also been tested manually.
+>
+> Andrii Sultanov (3):
+>   ocaml/libs: Implement a dynamically-loaded plugin for
+>     Xenctrl.domain_getinfo
+>   tools/oxenstored: Load the plugin for Xenctrl.domain_getinfo
+>   tools/oxenstored: Switch to using the plugin for
+>     Xenctrl.domain_getinfo
 
-On Mon, Sep 9, 2024 at 2:36=E2=80=AFPM Alessandro Zucchelli <
-alessandro.zucchelli@bugseng.com> wrote:
-
-> This addresses violations of MISRA C:2012 Rule 5.3 which states as
-> following: An identifier declared in an inner scope shall not hide an
-> identifier declared in an outer scope.
->
-> In /x86/mm.c the object struct e820entry *e820 hides an identifier
-> with the same name declared in x86/include/asm/e820.h.
->
-> No functional change.
->
-> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-> ---
-> Changes in v2:
-> - rebased against current staging tree
->
->  xen/arch/x86/mm.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> index c735aaf0e8..d537a799bc 100644
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -4708,7 +4708,7 @@ long arch_memory_op(unsigned long cmd,
-> XEN_GUEST_HANDLE_PARAM(void) arg)
->      {
->          struct xen_foreign_memory_map fmap;
->          struct domain *d;
-> -        struct e820entry *e820;
-> +        struct e820entry *e;
->
-
-Couldn't we use a more meaningful name, like e820entries?
-
-
->
->          if ( copy_from_guest(&fmap, arg, 1) )
->              return -EFAULT;
-> @@ -4727,23 +4727,23 @@ long arch_memory_op(unsigned long cmd,
-> XEN_GUEST_HANDLE_PARAM(void) arg)
->              return rc;
->          }
->
-> -        e820 =3D xmalloc_array(e820entry_t, fmap.map.nr_entries);
-> -        if ( e820 =3D=3D NULL )
-> +        e =3D xmalloc_array(e820entry_t, fmap.map.nr_entries);
-> +        if ( e =3D=3D NULL )
->          {
->              rcu_unlock_domain(d);
->              return -ENOMEM;
->          }
->
-> -        if ( copy_from_guest(e820, fmap.map.buffer, fmap.map.nr_entries)=
- )
-> +        if ( copy_from_guest(e, fmap.map.buffer, fmap.map.nr_entries) )
->          {
-> -            xfree(e820);
-> +            xfree(e);
->              rcu_unlock_domain(d);
->              return -EFAULT;
->          }
->
->          spin_lock(&d->arch.e820_lock);
->          xfree(d->arch.e820);
-> -        d->arch.e820 =3D e820;
-> +        d->arch.e820 =3D e;
->          d->arch.nr_e820 =3D fmap.map.nr_entries;
->          spin_unlock(&d->arch.e820_lock);
->
->
-Frediano
-
---000000000000c55a670621affc4d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Mon, Sep 9, 2024 at 2:36=E2=80=AFPM Alessandro Zucchelli &lt;<a h=
-ref=3D"mailto:alessandro.zucchelli@bugseng.com">alessandro.zucchelli@bugsen=
-g.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
-1ex">This addresses violations of MISRA C:2012 Rule 5.3 which states as<br>
-following: An identifier declared in an inner scope shall not hide an<br>
-identifier declared in an outer scope.<br>
-<br>
-In /x86/mm.c the object struct e820entry *e820 hides an identifier<br>
-with the same name declared in x86/include/asm/e820.h.<br>
-<br>
-No functional change.<br>
-<br>
-Signed-off-by: Alessandro Zucchelli &lt;<a href=3D"mailto:alessandro.zucche=
-lli@bugseng.com" target=3D"_blank">alessandro.zucchelli@bugseng.com</a>&gt;=
-<br>
----<br>
-Changes in v2:<br>
-- rebased against current staging tree<br>
-<br>
-=C2=A0xen/arch/x86/mm.c | 12 ++++++------<br>
-=C2=A01 file changed, 6 insertions(+), 6 deletions(-)<br>
-<br>
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c<br>
-index c735aaf0e8..d537a799bc 100644<br>
---- a/xen/arch/x86/mm.c<br>
-+++ b/xen/arch/x86/mm.c<br>
-@@ -4708,7 +4708,7 @@ long arch_memory_op(unsigned long cmd, XEN_GUEST_HAND=
-LE_PARAM(void) arg)<br>
-=C2=A0 =C2=A0 =C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct xen_foreign_memory_map fmap;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct domain *d;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct e820entry *e820;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct e820entry *e;<br></blockquote><div><br>=
-</div><div>Couldn&#39;t we use a more meaningful name, like e820entries?<br=
-></div><div>=C2=A0<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( copy_from_guest(&amp;fmap, arg, 1) )=
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EFAULT;<br>
-@@ -4727,23 +4727,23 @@ long arch_memory_op(unsigned long cmd, XEN_GUEST_HA=
-NDLE_PARAM(void) arg)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return rc;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 e820 =3D xmalloc_array(e820entry_t, fmap.map.n=
-r_entries);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( e820 =3D=3D NULL )<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 e =3D xmalloc_array(e820entry_t, fmap.map.nr_e=
-ntries);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( e =3D=3D NULL )<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rcu_unlock_domain(d);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( copy_from_guest(e820, fmap.map.buffer, fm=
-ap.map.nr_entries) )<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( copy_from_guest(e, fmap.map.buffer, fmap.=
-map.nr_entries) )<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 xfree(e820);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 xfree(e);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rcu_unlock_domain(d);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EFAULT;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0spin_lock(&amp;d-&gt;arch.e820_lock);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0xfree(d-&gt;arch.e820);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 d-&gt;arch.e820 =3D e820;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 d-&gt;arch.e820 =3D e;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0d-&gt;arch.nr_e820 =3D fmap.map.nr_entrie=
-s;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0spin_unlock(&amp;d-&gt;arch.e820_lock);<b=
-r>
-<br></blockquote><div><br></div><div>Frediano</div><div>=C2=A0<br></div></d=
-iv></div>
-
---000000000000c55a670621affc4d--
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com> and queued.
 
