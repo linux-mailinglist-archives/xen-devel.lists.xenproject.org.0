@@ -2,34 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B4DF972306
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 21:53:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794843.1203854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B85697231B
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 22:03:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794852.1203863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snkRj-0003hK-RD; Mon, 09 Sep 2024 19:53:11 +0000
+	id 1snkb6-0005UV-MD; Mon, 09 Sep 2024 20:02:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794843.1203854; Mon, 09 Sep 2024 19:53:11 +0000
+Received: by outflank-mailman (output) from mailman id 794852.1203863; Mon, 09 Sep 2024 20:02:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snkRj-0003fo-OT; Mon, 09 Sep 2024 19:53:11 +0000
-Received: by outflank-mailman (input) for mailman id 794843;
- Mon, 09 Sep 2024 19:53:10 +0000
+	id 1snkb6-0005S1-JZ; Mon, 09 Sep 2024 20:02:52 +0000
+Received: by outflank-mailman (input) for mailman id 794852;
+ Mon, 09 Sep 2024 20:02:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FAp4=QH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1snkRi-0003fi-Ff
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 19:53:10 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FUn8=QH=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1snkb4-0005Rv-QH
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 20:02:50 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 20aa0d42-6ee5-11ef-a0b5-8be0dac302b0;
- Mon, 09 Sep 2024 21:53:05 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6FCA45C01EA;
- Mon,  9 Sep 2024 19:53:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892CEC4CEC5;
- Mon,  9 Sep 2024 19:53:02 +0000 (UTC)
+ id 7aa5bc83-6ee6-11ef-a0b5-8be0dac302b0;
+ Mon, 09 Sep 2024 22:02:46 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
+ by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 489K2B7q017432
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Mon, 9 Sep 2024 16:02:17 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.18.1/8.15.2/Submit) id 489K28xU017431;
+ Mon, 9 Sep 2024 13:02:08 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,197 +43,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20aa0d42-6ee5-11ef-a0b5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725911583;
-	bh=B/JNuZBG6ICypZoMo0Pbp7JOLSDUas1SqpVyJtP4rPs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NwZ2B9OpNls1srEsoW4t3RXh9T/q+EEfR1CBNqJCcBm7Ak5m9dvq5rgDH82/UvYUZ
-	 ic/Sef9s3DWyT6LC7LQ5ChwNQhek25OqwVdOCDrMHj0UUB+VeZ0CscJGzFGZdw77K1
-	 zqWaVnR9KETuscnuGwfPXZMowlIQyqreEe9aSuK90tbwPlidv0vaCP6GpoS1rQnfi6
-	 Ea4GJCURRJEJuKIEI/e2pamQD2D2OOm9tbuHrSJBXTMFGYyI5AAWIFxKdy1zI+BXDY
-	 cJYgi24tSyUvE86xCeZW2Ll/0d29F3NxTTn6pBZIURWcoGOe2A8/2GWgBsAlgf88kn
-	 xcEU2iEwSTIlw==
-Date: Mon, 9 Sep 2024 12:53:01 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Ayan Kumar Halder <ayankuma@amd.com>, Michal Orzel <michal.orzel@amd.com>, 
-    Ayan Kumar Halder <ayan.kumar.halder@amd.com>, 
-    xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Artem Mygaiev <artem_mygaiev@epam.com>
-Subject: Re: [PATCH] docs: fusa: Add Assumption of Use (AOU)
-In-Reply-To: <c308f03b-247d-4fd9-a9b4-f630d8a22bee@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2409091252570.3672@ubuntu-linux-20-04-desktop>
-References: <20240906101318.1419954-1-ayan.kumar.halder@amd.com> <57632c2f-82e6-49bb-b989-e75c95070b03@xen.org> <46b9567e-d27c-467b-b21d-65d63b6cd1e2@amd.com> <5de31172-8319-4cd3-9486-a6992a5cdc22@xen.org> <880e0578-c27b-45d3-8ed6-91ad648fa735@amd.com>
- <c308f03b-247d-4fd9-a9b4-f630d8a22bee@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 7aa5bc83-6ee6-11ef-a0b5-8be0dac302b0
+Date: Mon, 9 Sep 2024 13:02:08 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Ariadne Conill <ariadne@ariadne.space>,
+        xen-devel@lists.xenproject.org, alsa-devel@alsa-project.org,
+        stable@vger.kernel.org, Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH] Revert "ALSA: memalloc: Workaround for Xen PV"
+Message-ID: <Zt9UQJcYT58LtuRV@mattapan.m5p.com>
+References: <20240906184209.25423-1-ariadne@ariadne.space>
+ <877cbnewib.wl-tiwai@suse.de>
+ <9eda21ac-2ce7-47d5-be49-65b941e76340@citrix.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-282089713-1725910723=:3672"
-Content-ID: <alpine.DEB.2.22.394.2409091239000.3672@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9eda21ac-2ce7-47d5-be49-65b941e76340@citrix.com>
+X-Spam-Status: No, score=0.3 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-282089713-1725910723=:3672
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2409091239001.3672@ubuntu-linux-20-04-desktop>
-
-On Mon, 9 Sep 2024, Julien Grall wrote:
-> On 09/09/2024 10:50, Ayan Kumar Halder wrote:
-> > On 09/09/2024 10:11, Julien Grall wrote:
-> > > 
-> > > 
-> > > On 09/09/2024 09:56, Michal Orzel wrote:
-> > > > Hi Julien,
-> > > > 
-> > > > On 08/09/2024 23:05, Julien Grall wrote:
-> > > > > 
-> > > > > 
-> > > > > Hi Ayan,
-> > > > > 
-> > > > > On 06/09/2024 11:13, Ayan Kumar Halder wrote:
-> > > > > > From: Michal Orzel <michal.orzel@amd.com>
-> > > > > > 
-> > > > > > AOU are the assumptions Xen relies on other components (eg platform,
-> > > > > > domains)
-> > > > > 
-> > > > > Searching online, I think the abbrevition is AoU rather than AOU. This
-> > > > > would also match how we abbreviate in Xen (IOW if we use a lower case
-> > > > > letter from the expanded name, then the letter in the acronym is also
-> > > > > lower case).
-> > > > > 
-> > > > > > to fulfill its requirements. In our case, platform means a
-> > > > > > combination of
-> > > > > > hardware, firmware and bootloader.
-> > > > > > 
-> > > > > > We have defined AOU in the intro.rst and added AOU for the generic
-> > > > > > timer.
-> > > > > > 
-> > > > > > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> > > > > > Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> > > > > > ---
-> > > > > >    .../reqs/design-reqs/arm64/generic-timer.rst  | 19 +++++++++++++
-> > > > > > ++++++
-> > > > > >    docs/fusa/reqs/intro.rst                      | 10 ++++++++++
-> > > > > >    2 files changed, 29 insertions(+)
-> > > > > > 
-> > > > > > diff --git a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst b/
-> > > > > > docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
-> > > > > > index f2a0cd7fb8..9df87cf4e0 100644
-> > > > > > --- a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
-> > > > > > +++ b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
-> > > > > > @@ -116,6 +116,25 @@ Rationale:
-> > > > > > 
-> > > > > >    Comments:
-> > > > > > 
-> > > > > > +Covers:
-> > > > > > + - `XenProd~emulated_timer~1`
-> > > > > > +
-> > > > > > +Assumption of Use on the Platform
-> > > > > > +=================================
-> > > > > > +
-> > > > > > +Expose system timer frequency via register
-> > > > > > +------------------------------------------
-> > > > > > +
-> > > > > > +`XenSwdgn~arm64_generic_timer_pf_program_cntfrq_el0~1`
-> > > > > > +
-> > > > > > +Description:
-> > > > > > +Underlying platform shall ensure that CNTFRQ_EL0 register contains
-> > > > > > the system
-> > > > > > +timer frequency.
-> > > > > 
-> > > > > The wording in [1] (not yet merged) implies that CNTFRQ_EL0 may be
-> > > > It is merged:
-> > > > https://xenbits.xen.org/gitweb/?
-> > > > p=xen.git;a=commit;h=51ad2c57a2d21b583a5944a0dc21c709af022f3c
-> > > > 
-> > > > > invalid. This seems to contradict the Assumption of Use. Can you
-> > > > > explain
-> > > > > the difference?
-> > > > The requirement you refer to is written from a domain perspective and is
-> > > > about Xen exposing the frequency
-> > > > to domains via CNTFRQ and/or dt property. In case of a presence of dt
-> > > > property in the host dtb, Xen could for instance decide
-> > > > to emulate CNTFRQ instead of relying on the domain to parse the dt at
-> > > > runtime.
-> > > 
-> > > AFAICT, you can't trap CNTFRQ access. So what you suggest would not work.
-> > > 
-> > > > 
-> > > > The AoU on the platform (hw/firmware/bootloader) is written from Xen
-> > > > perspective and is about the platform
-> > > > exposing the correct frequency via register. This is Xen expected
-> > > > behavior on the platform. In other words, the platform should
-> > > > expose the correct frequency via register.
-> > > 
-> > > Xen is able to deal with broken CNTFRQ_EL0. 
-> > Yes, this is correct if the user provides "clock-frequency" dt property.
-> > > So I don't understand why we we would want to make an assumption that it
-> > > shall not be broken. What do you gain?
-> > 
-> > Refer https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/
-> > linux.git/tree/Documentation/devicetree/bindings/timer/arm,arch_timer.yaml
-> > 
-> > ```
-> > 
-> > Use of this property is strongly discouraged; fix your firmware unless
-> > absolutely impossible.
-> > 
-> > ```
-> > 
-> > We wish to put the onus on the platform/firmware provider to program the
-> > register correctly. Otherwise, we will have to document it somewhere (may be
-> > safety manual) that User needs to provide the "clock-frequency" dt property.
+On Sat, Sep 07, 2024 at 11:38:50AM +0100, Andrew Cooper wrote:
+> On 07/09/2024 8:46 am, Takashi Iwai wrote:
+> > On Fri, 06 Sep 2024 20:42:09 +0200,
+> > Ariadne Conill wrote:
+> >> This patch attempted to work around a DMA issue involving Xen, but
+> >> causes subtle kernel memory corruption.
+> >>
+> >> When I brought up this patch in the XenDevel matrix channel, I was
+> >> told that it had been requested by the Qubes OS developers because
+> >> they were trying to fix an issue where the sound stack would fail
+> >> after a few hours of uptime.  They wound up disabling SG buffering
+> >> entirely instead as a workaround.
+> >>
+> >> Accordingly, I propose that we should revert this workaround patch,
+> >> since it causes kernel memory corruption and that the ALSA and Xen
+> >> communities should collaborate on fixing the underlying problem in
+> >> such a way that SG buffering works correctly under Xen.
+> >>
+> >> This reverts commit 53466ebdec614f915c691809b0861acecb941e30.
+> >>
+> >> Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
+> >> Cc: stable@vger.kernel.org
+> >> Cc: xen-devel@lists.xenproject.org
+> >> Cc: alsa-devel@alsa-project.org
+> >> Cc: Takashi Iwai <tiwai@suse.de>
+> > The relevant code has been largely rewritten for 6.12, so please check
+> > the behavior with sound.git tree for-next branch.  I guess the same
+> > issue should happen as the Xen workaround was kept and applied there,
+> > too, but it has to be checked at first.
+> >
+> > If the issue is persistent with there, the fix for 6.12 code would be
+> > rather much simpler like the blow.
+> >
+> >
+> > thanks,
+> >
+> > Takashi
+> >
+> > --- a/sound/core/memalloc.c
+> > +++ b/sound/core/memalloc.c
+> > @@ -793,9 +793,6 @@ static void *snd_dma_sg_alloc(struct snd_dma_buffer *dmab, size_t size)
+> >  	int type = dmab->dev.type;
+> >  	void *p;
+> >  
+> > -	if (cpu_feature_enabled(X86_FEATURE_XENPV))
+> > -		return snd_dma_sg_fallback_alloc(dmab, size);
+> > -
+> >  	/* try the standard DMA API allocation at first */
+> >  	if (type == SNDRV_DMA_TYPE_DEV_WC_SG)
+> >  		dmab->dev.type = SNDRV_DMA_TYPE_DEV_WC;
+> >
+> >
 > 
-> I think you will have to. The integrator may not have the possibility to
-> modify the firmware.
+> Individual subsystems ought not to know or care about XENPV; it's a
+> layering violation.
+> 
+> If the main APIs don't behave properly, then it probably means we've got
+> a bug at a lower level (e.g. Xen SWIOTLB is a constant source of fun)
+> which is probably affecting other subsystems too.
 
-Without getting into the specifics of CNTFRQ_EL0 and clock-frequency,
-given that this is one of the first AoUs, let me clarify the spirit of
-the AoUs.
+This is a big problem.  Debian bug #988477 (https://bugs.debian.org/988477)
+showed up in May 2021.  While some characteristics are quite different,
+the time when it was first reported is similar to the above and it is
+also likely a DMA bug with Xen.
 
-When we say that Xen is "safe" we mean that it went through thousands of
-tests so we are sure that in this specific configuration it is as
-bug-free as we can reasonably make it.
 
-"in this specific configuration" is important. Changing the
-configuration might expand the scope or invalidate some of the tests.
-Think of moving from a board with GICv2 to GICv3 as an example (we are
-actually targeting GICv3 for safety, so this is not a great example,
-but just to explain the point.)
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
-So the AoUs are the set of assumptions Xen has toward the rest of the
-system to make sure Xen operates "safely", with the word "safely"
-defined as above.
 
-Of course, Xen could totally work on systems with different AoUs (see
-the GICv2 vs GICv3 example) but it would be outside the safety
-parameters. In a way, it is similar to "security supported": there are
-a bunch of Xen features that should work fine but are outside of
-"security support" for one reason or the other.
-
-If a user wants to use Xen on a system that breaks one of the AoUs, they
-can, but we wouldn't promise it is "safe". For instance, imagine a user
-running Xen on a GICv3 system if the safe version of Xen only validated
-the GICv2 driver. Similarly to "security support", sometimes it is a bit
-of a judgement call and it could be argued either way.
-
-In the specific case of CNTFRQ_EL0, if we think Xen can be "safe" on a
-system with a broken CNTFRQ_EL0 (thanks to the clock-frequency DT
-property or other mechanisms), then we can remove this from the AoU. We
-would probably have to have a different AoU about the presence of
-clock-frequency. Otherwise, if we think we cannot really promise that
-Xen is "safe" if CNTFRQ_EL0 is broken, then it is better to leave as is.
-
-Keep in mind that users interested in safety, they are very likely to be
-interested in the safety-certification of the entire system, which
-includes the hardware as well. It is very likely that users will choose
-a safety-certified board, which I am guessing would have a working
-CNTFRQ_EL0. This is just a guess, I don't know the relationship between
-CNTFRQ_EL0 and achieving hardware safety certifications.
---8323329-282089713-1725910723=:3672--
 
