@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9F759718C3
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 13:54:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794357.1203221 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 337359718CD
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 13:57:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794362.1203233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sncyI-0004hi-SR; Mon, 09 Sep 2024 11:54:18 +0000
+	id 1snd0m-0005SO-9R; Mon, 09 Sep 2024 11:56:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794357.1203221; Mon, 09 Sep 2024 11:54:18 +0000
+Received: by outflank-mailman (output) from mailman id 794362.1203233; Mon, 09 Sep 2024 11:56:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sncyI-0004es-P6; Mon, 09 Sep 2024 11:54:18 +0000
-Received: by outflank-mailman (input) for mailman id 794357;
- Mon, 09 Sep 2024 11:54:16 +0000
+	id 1snd0m-0005Q6-6f; Mon, 09 Sep 2024 11:56:52 +0000
+Received: by outflank-mailman (input) for mailman id 794362;
+ Mon, 09 Sep 2024 11:56:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qOm0=QH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sncyG-0004em-UD
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 11:54:16 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1snd0l-0005Q0-8b
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 11:56:51 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c8e9e2c-6ea2-11ef-a0b5-8be0dac302b0;
- Mon, 09 Sep 2024 13:54:15 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5c25554ec1eso5580177a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 04:54:15 -0700 (PDT)
+ id 99035f94-6ea2-11ef-a0b5-8be0dac302b0;
+ Mon, 09 Sep 2024 13:56:50 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5c26a52cf82so1927490a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 04:56:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3ebd5201dsm2952332a12.46.2024.09.09.04.54.14
+ 4fb4d7f45d1cf-5c3ebd76ef0sm2929299a12.63.2024.09.09.04.56.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Sep 2024 04:54:14 -0700 (PDT)
+ Mon, 09 Sep 2024 04:56:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c8e9e2c-6ea2-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 99035f94-6ea2-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725882855; x=1726487655; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725883010; x=1726487810; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cZ/W5am4t3RZQg5k85gUVecIex2pBMJUoQwN3C/lhH8=;
-        b=RoZWj/NtUaBccXSlS+j4FCJ/Y9XYJxLDPat+bqpsHnlwD9pl28ivnzSKmVPik20qcv
-         d7WaMqSef3sReXaSnQAuGhVtaPIb01UNc+EIHHf+YTRgIh5oPu8BqzJviyye/gM+MQYe
-         Fzl0Ggm0Mk5ebY7Tu5hcY4xWtoYqSUdOlRPPB2Jgaia7IgBAQPLXeaycTUJCFxGjuHaN
-         A39gduv/JwvnLWDHH5bhi4vJUcZbZpmHK5iQf3y7QU85FofKwwLbdCDL2tGnHTiWXfGQ
-         5MJH1wDDjw/77opNimgGKwGvYtuF3V812BG5gFAyxfEjzvcF6pUfcucElfkx+3Ofiy5d
-         t6sQ==
+        bh=yZI90BI5Ps2cCTZhnMhLfFqA1ML3W6SvG+RkE4vZLNY=;
+        b=FOeMsBGAGiypFUODtwJxVUSTmyFL3728hIQqYwqQ3D3VdBYWfoonfIHWR3Sw+IPxFd
+         qLsgTuxcWfNcvzdLfsUHg8627NIO2MzhZ9PIxQOvLO/ImYLEJQBTSf5aJ4CSLA68wUdl
+         QidQy8p64zV/A4pKHOVz/KO1xcpU0Eh3tQZllKPTsOxRz/JSF67suPyXqPqdToKc55zY
+         EwE1TL+KY9FO/fxPMOHkjyCCrNilK9GfGW3OCshURL66w+BKlRS8CPd0/fwZbuyB1HB6
+         SfeDkZG7MJOmXTlIafgH5Zg9uucheypL3A10+TTDWwObqikUf9/4wcSCEnrXoglBcsAu
+         8u2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725882855; x=1726487655;
+        d=1e100.net; s=20230601; t=1725883010; x=1726487810;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cZ/W5am4t3RZQg5k85gUVecIex2pBMJUoQwN3C/lhH8=;
-        b=InV0ENKzvciBV62ssraFsfkVfiIWgq2GaBfxiDZX9KHXL6+2AaDbp2yP2Uv+/6/MSB
-         gzAYMJCZpzmci/HJYgFcTEsRTFHa2I5Ya3D6Gtx7LCCITZmsEHbsouMndRYA049bj/af
-         qp1R1PJ7ndIkTdhSzZUSJIXRtRoKzrEz+f5W4ckiNfHbr4JdGvT7kbbTykbD1AIUe+2R
-         qw5yR52GWi202qwW7DebSs9fbot5KB4sT42CLi/KwhQbjZP/J7NMahl5B9R5RHouh0Lq
-         AOX+lCxBR20lHV2YCH0jwpvAlc4PEgXADr8Eed8ndzncO1gHE6lJZU6lZ28X4grUniY5
-         g6lw==
-X-Forwarded-Encrypted: i=1; AJvYcCXLKT4vFlsIEq/NGoBUQrfC8sP7HSGcEQRwzpB+AKKwwYfEGVozYdG5y5khulVcJyiMrFW4u3qhQK4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyMYn7ftQ57+JjRu3qoqA2dkORhYAv6J8ZGc67TNUm+wMmVfFsk
-	DPQpDEDWLo6SAIyCvfTh2fEE2LCFX5/yJO08QvjobsKc/QBW1dlliKNmyUIsQw==
-X-Google-Smtp-Source: AGHT+IGjlBeWkgrhJJgHuR0eKuCZKhniGuFk5ngiIyhwy2m5OR0C4NHVZjPWvjMOVxPxxSSaO3VQYQ==
-X-Received: by 2002:a05:6402:434c:b0:5c2:768d:23e with SMTP id 4fb4d7f45d1cf-5c3e964cac7mr7673743a12.27.1725882854611;
-        Mon, 09 Sep 2024 04:54:14 -0700 (PDT)
-Message-ID: <0e289283-78d5-439e-81ca-ffeff19a20f0@suse.com>
-Date: Mon, 9 Sep 2024 13:54:14 +0200
+        bh=yZI90BI5Ps2cCTZhnMhLfFqA1ML3W6SvG+RkE4vZLNY=;
+        b=MqgstP3rc5S7RLO30IcZXKcQNS/KL35mEuZQhoWk6XhvkQ0iDUrVNjt4mmDH/0TuYs
+         a78j2rw58/+VTNu9hrvI/PBRiomzGEdWkc9/gHwBxp+iyVS+NvdtnrmILXp3HfClRudi
+         7tTDu1UIXZxPoSm6JhCOJj6R5xXxbIriTIxBJsoJxYUSIpjteWkvd4/cF2A2pDczrSNK
+         0s543kTxJFJxwLurG4XFw3Uc67R94X4iRvRT0TV7bhFxeU84ZOt0ej8vtdU/WUvI7RAM
+         pG6HJC41x5lWMia/IpOu7NQzn8AKloU1PcZ/qOSKXSrVI8uLT7gLRu2jeWAj4mJIDVJ1
+         Y6dw==
+X-Forwarded-Encrypted: i=1; AJvYcCV2/nETPd7wxngAJn39xP0R9Wix/9J4f1ZbkZLJCYu3V1ZgkWvC7mjBnW638dNUl+vqA89lO+82J7w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YymOEVMGCZhtqcRAIIKsFRzzwVrQQQOa2d7/c8iz41drasq1WEN
+	hAZyxj68JOrcTPG1/KVmLEwfspHqJNl9jKNe9GORnCNxnknQeH/I3x1wIpcx+Q==
+X-Google-Smtp-Source: AGHT+IH/2Ir06Bw7/E/w04+JbAjDFdqES1MiwNCBKNj2qnvcJlGswOSsNaeivCHJ5DwaDAbX30Hucw==
+X-Received: by 2002:a05:6402:34c3:b0:5c2:58fe:9304 with SMTP id 4fb4d7f45d1cf-5c3dc77b0a4mr9831253a12.1.1725883009749;
+        Mon, 09 Sep 2024 04:56:49 -0700 (PDT)
+Message-ID: <fcfa91e9-2a4f-4a00-8165-498ce3beba81@suse.com>
+Date: Mon, 9 Sep 2024 13:56:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] x86/HVM: drop redundant access splitting
+Subject: Re: [PATCH 1/5] x86/build: Rework includes in genapic/probe.c
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <31906cba-8646-4cf9-ab31-1d23654df8d1@suse.com>
- <bcaab3fd-2dca-4504-ad4b-830bc8dcf923@suse.com>
- <71f0d966-7785-4b58-9207-00cd5b5e84cf@citrix.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240905220806.141300-1-andrew.cooper3@citrix.com>
+ <20240905220806.141300-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,38 +116,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <71f0d966-7785-4b58-9207-00cd5b5e84cf@citrix.com>
+In-Reply-To: <20240905220806.141300-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.09.2024 20:06, Andrew Cooper wrote:
-> On 04/09/2024 2:30 pm, Jan Beulich wrote:
->> @@ -1094,13 +1094,13 @@ static int hvmemul_linear_mmio_access(
->>      if ( cache == NULL )
->>          return X86EMUL_UNHANDLEABLE;
->>  
->> -    chunk = min_t(unsigned int, size, PAGE_SIZE - offset);
->> +    ASSERT(size <= PAGE_SIZE - offset);
+On 06.09.2024 00:08, Andrew Cooper wrote:
+> probe.c includes a large number of headers which are unused, and not from
+> churn so far as I can see in history.  Strip back to a reasonable set.
 > 
-> Do we really want a plain assert, or should we go with
+> One complication is that genapic.h has to include xen/cpumask.h because
+> there's no way to forward declare a cpumask_t.
 > 
->     if ( size > PAGE_SIZE - offset )
->     {
->         /* Callers should have arranged not to cross a page boundary */
->         ASSERT_UNREACHABLE();
->         return X86EMUL_UNHANDLEABLE;
->     }
+> Also strip trailing whitespace while adjusting the file.
 > 
-> This is hardly a fastpath, and it's rather safer.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I can switch, sure, yet to be honest it was already feeling a little
-like going too far to have the assertion, considering the obviousness
-of all callers guaranteeing this. The only reason I decided to add
-one is the remaining concern of there, at some point, possibly being
-single memory operands exceeding PAGE_SIZE. Yet nothing comes
-anywhere near that right now; whole AMX tiles are 1k "only", and tile
-rows / columns are even further restricted. Of course, if and when we
-add XSAVE/XRSTORE emulation ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
