@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82281971CFD
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 16:46:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794613.1203621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2886B971D3F
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 16:55:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794626.1203634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snfe6-0001Ms-6w; Mon, 09 Sep 2024 14:45:38 +0000
+	id 1snfnR-0003aZ-7e; Mon, 09 Sep 2024 14:55:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794613.1203621; Mon, 09 Sep 2024 14:45:38 +0000
+Received: by outflank-mailman (output) from mailman id 794626.1203634; Mon, 09 Sep 2024 14:55:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snfe6-0001Kn-4B; Mon, 09 Sep 2024 14:45:38 +0000
-Received: by outflank-mailman (input) for mailman id 794613;
- Mon, 09 Sep 2024 14:45:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1snfe4-0001Kh-A8
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 14:45:36 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1snfe3-0008PQ-T2; Mon, 09 Sep 2024 14:45:35 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1snfe3-0004Ra-K1; Mon, 09 Sep 2024 14:45:35 +0000
+	id 1snfnR-0003YX-44; Mon, 09 Sep 2024 14:55:17 +0000
+Received: by outflank-mailman (input) for mailman id 794626;
+ Mon, 09 Sep 2024 14:55:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WnCw=QH=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1snfnP-0003YR-Or
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 14:55:15 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 84bc4e78-6ebb-11ef-99a1-01e77a169b0f;
+ Mon, 09 Sep 2024 16:55:13 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5c25f01879fso5547140a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 07:55:13 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8d25c7277bsm346887666b.102.2024.09.09.07.55.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Sep 2024 07:55:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,89 +44,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=8LOinqn36eTHa9S3MIOV12l/VLbvT/uSN99+Jh7dhUY=; b=1kZqnhstdNEuo5VHnFGnRL2tA1
-	eayClQBtJEaZ+w/JYoyY6mXlDUvH5LKznA3SIRL6c+IACGz6Z38tV2cDthRRm4A+eNiCAns4vmmyV
-	2D2nIMMWqKb57cpGZtmQTbTm1NVWMJE7jbaOHqd0iKlHh5x1jnzO0uxfmW0v+tjoIfMc=;
-Message-ID: <0533aee4-1b08-4714-b497-a4df70703895@xen.org>
-Date: Mon, 9 Sep 2024 15:45:33 +0100
+X-Inumbo-ID: 84bc4e78-6ebb-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1725893712; x=1726498512; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=UyE+ad1TEBh/iaYWJVdbhIA6jBbgzDB9YAuVJZS1BUw=;
+        b=LUIzmsQVp+pzjggcNT5d71yBXqLpYxAGZOdvgTwkiCcpY0kzZpNGgS5m+YuwkyRYLz
+         OMTb2aOg4mJH7b6XL1CDA9UaLA0T71F26TMwp5dr0TFrrwPHUsMioLd68wLWaFrSZC3O
+         gRZR2FiPnb+8Qys0nUxPo8K6eynHUSBP4gPMM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1725893712; x=1726498512;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UyE+ad1TEBh/iaYWJVdbhIA6jBbgzDB9YAuVJZS1BUw=;
+        b=Q6vi4SWD6qajvmAyD40XO71YaN7Fi10ndfAF3Mrwcm+CXR4nK4TuMatpk5iJGtdpQE
+         ncG7kIBZbHtzGM+DG98OmKO2a6Ogvtr8GSyYgTTAy+qLI29WYqx7fy1QulEA0Rqq7m0X
+         /gSnGWxC3mMEkQtvZpCXKTWhIwjNtyiEzi3rhOqROUVwTG4/N1swe10KcAviCPOfMyi2
+         uFECMRcqeapRNeK4NYMXxMHSudPe0ann3pAHxF3iBTQcRleAcgZKhd3EIgMnww/AQ9YZ
+         3Z+8tD4PWoixoNXSHkNrc37W8XDO2cJem6unUwIIN69ilYzBhHfBfEhH5w9YnrPzzteW
+         CAPA==
+X-Gm-Message-State: AOJu0YxXIQTvyIk2YIioZFLv2S9Va1ARw3M8SI7lMx2SPQmkLGkAGFRA
+	LoAJG4+/peM+0W11YaH5GPZmOmGnx4YWFG+flk/N0L2kat5NFF/wLW2pQ4pDw98TKptyLXcxn1Z
+	X
+X-Google-Smtp-Source: AGHT+IFrrpIO+Y5g5aw3o1nm9tkT0KoaqlazGyL08w8+S2nkrAMEZ+WazVqZghIHkOaOxcZLhm/jqw==
+X-Received: by 2002:a17:906:730f:b0:a8d:40f9:afda with SMTP id a640c23a62f3a-a8d40f9b201mr448267466b.31.1725893711803;
+        Mon, 09 Sep 2024 07:55:11 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v5 0/4] x86/time: improvements to wallclock logic
+Date: Mon,  9 Sep 2024 16:54:51 +0200
+Message-ID: <20240909145455.7517-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/4] xen/arm: mpu: Define Xen start address for MPU
- systems
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Jiamei . Xie" <jiamei.xie@arm.com>
-References: <20240823163127.3443404-1-ayan.kumar.halder@amd.com>
- <20240823163127.3443404-3-ayan.kumar.halder@amd.com>
- <efc024ad-1e1c-45d0-9511-cc0c082dfef7@xen.org>
- <c0de7e6c-43d0-46ec-8cf7-ba1855caac82@amd.com>
- <c375468f-fc1d-42d2-91bb-7878f0300c55@xen.org>
- <7021af49-a409-46c1-993b-4ddd7975564d@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <7021af49-a409-46c1-993b-4ddd7975564d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Ayan,
+Hello,
 
-On 09/09/2024 11:29, Ayan Kumar Halder wrote:
-> 
-> On 08/09/2024 22:13, Julien Grall wrote:
->> Hi,
-> Hi Julien,
->>
->> On 02/09/2024 15:48, Ayan Kumar Halder wrote:
-> 
->>> I will rephrase this as ...
->>>
->>> "Used to set customized address at which which Xen will be linked
->>>
->>> on MPU systems. This address must be aligned to a page size.
->>> 0xFFFFFFFF is used as the default value to indicate that user hasn't
->>> customized this address."
->>
->> Reading this comment, I would like to ask some clarification. In the 
->> context of the MPU how do you define a page size? The definition is 
->> pretty clear when using the MMU because the granularity if defined by 
->> the HW. But for the MPU, it is a bit blur. Is it still 4KB? If so, is 
->> it actually realistic (we don't have that many MPU regions)?
-> 
->  From ARM DDI 0600A.d ID120821, C1.1.1 Protection regions
-> 
-> "Protection regions have a minimum size of 64 bytes."
-> 
-> Thus, I would infer that the minimum page size (in context of MPU) is 64 
-> bytes.
- > > Also, if you see the register fields of PRBAR and PRLAR, the lower 6
-> bits are 0 extended to provide the address.
-> 
-> So, may be I should say
-> 
-> ".... address must be aligned to the minimum region size (ie 64 bytes). 
-> 0xFFFFFFFF is used ...."
-> 
-> 
-> Let me know if this sounds ok.
+This series started as an attempt to change the default wallclock
+preference from EFI_GET_TIME to CMOS RTC, but has grown quite a lot.
 
-So what you provided is a minimum size/alignment of a region from the HW 
-point of view. How about Xen? Will it be able to cope if Xen is booted 
-at a 64-byte alignment?
+Thanks, Roger.
 
-Asking because it is unclear how the allocator will work with the MPU. 
-Are we going to continue to allocate 4KB chunk at the time? Will it be 
-smaller/larger?
+Roger Pau Monne (4):
+  x86/time: pull cmos_rtc_probe outside of function and rename
+  x86/time: introduce probing logic for the wallclock
+  x86/time: introduce command line option to select wallclock
+  x86/time: prefer CMOS over EFI_GET_TIME
 
-Cheers,
+ docs/misc/xen-command-line.pandoc |  19 ++++
+ xen/arch/x86/time.c               | 152 ++++++++++++++++++++++++------
+ 2 files changed, 144 insertions(+), 27 deletions(-)
 
 -- 
-Julien Grall
+2.46.0
 
 
