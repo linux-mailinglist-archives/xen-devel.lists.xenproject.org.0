@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5589971B7F
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 15:47:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794531.1203505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6798971B86
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2024 15:47:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794537.1203515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snejA-0002qi-OD; Mon, 09 Sep 2024 13:46:48 +0000
+	id 1sneju-0003oU-0D; Mon, 09 Sep 2024 13:47:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794531.1203505; Mon, 09 Sep 2024 13:46:48 +0000
+Received: by outflank-mailman (output) from mailman id 794537.1203515; Mon, 09 Sep 2024 13:47:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snejA-0002ov-KD; Mon, 09 Sep 2024 13:46:48 +0000
-Received: by outflank-mailman (input) for mailman id 794531;
- Mon, 09 Sep 2024 13:46:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1snejt-0003lc-Sy; Mon, 09 Sep 2024 13:47:33 +0000
+Received: by outflank-mailman (input) for mailman id 794537;
+ Mon, 09 Sep 2024 13:47:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/tbp=QH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1snej9-0002Vg-K5
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 13:46:47 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f42eae1f-6eb1-11ef-99a1-01e77a169b0f;
- Mon, 09 Sep 2024 15:46:45 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5c245c62362so5806022a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 06:46:45 -0700 (PDT)
+ id 1snejs-0002VR-8Q
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2024 13:47:32 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0f6594b0-6eb2-11ef-a0b5-8be0dac302b0;
+ Mon, 09 Sep 2024 15:47:31 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-374ba74e9b6so3376386f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 06:47:31 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25cea3basm346336566b.163.2024.09.09.06.46.43
+ a640c23a62f3a-a8d25a2844fsm345517266b.88.2024.09.09.06.47.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Sep 2024 06:46:43 -0700 (PDT)
+ Mon, 09 Sep 2024 06:47:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f42eae1f-6eb1-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 0f6594b0-6eb2-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725889605; x=1726494405; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725889651; x=1726494451; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yhWf/STyJcL4sNybhNG6A3PU6xbu0OmRExdfLKkVQKw=;
-        b=Q2Zr+hzJfIb7f7FGd0m+kNRg2QmHO2Nn2OMdGemu3ytBSMvAjWNyPndmgyF0N4MNtY
-         kNs3GEjdCFXkHbVgWR3ErqiVw7bIYMb2KqGwTgT5FrbSUU8xirgxaQ5JogrRxsqcxnNP
-         oVqbPuCMssGtwMUuWUDC1Y1i0dO8Wpl1+g5RM=
+        bh=qdgvxqlVv+33tjpeSmaY8XDN6M2u1gtjQsso67WkB5g=;
+        b=iwjKzIINi8wH1B4iRARM8eEn97wz6Hp+d4Xj02tzk3LiKLXxSFpAFEpP3EG1A7XanM
+         5r5cIOn2CfxMdlL7LRWOfzEtTUQ3XOqtTImIeoqRPN7ieFTTgHr8Lg0bPjizOPGjX6Ij
+         d0jAe+8osdKrbyrr1wzXqcEofaWoe2JssxSw4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725889605; x=1726494405;
+        d=1e100.net; s=20230601; t=1725889651; x=1726494451;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yhWf/STyJcL4sNybhNG6A3PU6xbu0OmRExdfLKkVQKw=;
-        b=RhXvtT+4pn2J89fQICrFjRkltLT98HaaydjF/cae38BHw/QScvH8PNnJJDSeXCsO6J
-         VzSqo+2KzlSFg0vHnOnOeD+Ek2C/teIiom9iG3Z6GV2SGyr43xRuIGlUxPP+OKoN1BK7
-         DBJ+sBKgdLn1RUJe5BwVswbr6hE2wY2JWjI2JSuknSCjfrIh3hkPzTGTkkTjkS4P8yMG
-         kZpG+H3NqbY/i/valFWwbPwxuSDB7p/ED/LJ0iZz5da34y/ir4ZHDvDivKllSRKXtesL
-         o9e7n5fywjwIWuh8LPR9V8W8/oYFhc6dZiV2p1JNjT6KmyI2nyGZ+xeNMJNrmFke6cMH
-         krRg==
-X-Forwarded-Encrypted: i=1; AJvYcCW3jqc5wo27PBA3Vfj2XU7ZqOFFp0tuoZtXmTRR2DOx5hoVqn4jJ8xtYUT+HZKWXLV7XsJkFkAwknM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxCUYKQPzrDek7mNCiAO/gW9u7hhHTtm2PMEqRTnG0Rpcses/VV
-	dySqGOCbIL5zXMEvw2uvaAI5E0J29I7oBg/Lq6MaM7Uqx7ddRn1MlFV8K6bowwY=
-X-Google-Smtp-Source: AGHT+IGVvtj87b3y8pClq/UkLLOJzRhKt9HdHmhPNGZUVzn6KnUqH0kgHMJvAhETHyz+/b6bMiCXXg==
-X-Received: by 2002:a17:907:3e9e:b0:a80:f81c:fd75 with SMTP id a640c23a62f3a-a8a882732c1mr1143816466b.0.1725889604409;
-        Mon, 09 Sep 2024 06:46:44 -0700 (PDT)
-Message-ID: <22c05c08-1ce2-40d6-8864-72ab9395b8cc@citrix.com>
-Date: Mon, 9 Sep 2024 14:46:42 +0100
+        bh=qdgvxqlVv+33tjpeSmaY8XDN6M2u1gtjQsso67WkB5g=;
+        b=pWlEwCw3JN0QTrd+QVFoZO6qUGCoF2c4gwn5GFR7EM3rvE1TE88pIbnwfabZ3WTwRt
+         KqH+8QcXTrcsGDxCO5oc9PL2RnJe1NS93YdoHB3KgQ2iRf5Tct0NwGswDIJrRbFUb+sL
+         AvEAbmJnSYFbzKCsyIq3okgiDv1thblevTSqz7Pla1Vw9pAR5NPJVF9VtJhywWiRUFCr
+         MDD3H10+/Ho/WR/txU9vh/9cLdgEBkq/hAwrnLWYJR/O9nT3JCTwQrYFoa5EIsMPKC8M
+         VWxH4bWmGQLQZX4xhirlVEyryoeF933R1zOx9Ojz2twT0e+9LULCVzyuyrpHkP9HCbd4
+         Xvzg==
+X-Forwarded-Encrypted: i=1; AJvYcCW2w2YmI8BXo8D+NN9jmGm40OM7X8I3mWf1ad+cjEhcvIVy9qbLzmch9sWrLAKoIndyHvIEOf0/LVI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YydXqfVwMbL7Bd1IrIpUGgtkLzY8k7Op4olxZjGyTeBD2N2BEGv
+	opAAQL+e6YmyUpm8HhvNH2XzL9fcUEBKbE1BSWVObpLxONHr00e68kARD4UYsXs=
+X-Google-Smtp-Source: AGHT+IH+yStnsiNfs5tc19658sTV4dqXMSW5WWaSpSAWHPT4bNNnaNb35p+QwVz/9dxPmPhT0BuEHg==
+X-Received: by 2002:adf:ee8b:0:b0:378:8b84:4de9 with SMTP id ffacd0b85a97d-3789229dae6mr7067937f8f.12.1725889650787;
+        Mon, 09 Sep 2024 06:47:30 -0700 (PDT)
+Message-ID: <16b5421b-1af9-4f1e-9004-b4d21fe54356@citrix.com>
+Date: Mon, 9 Sep 2024 14:47:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] tools/ocaml: Stabilize domain_getinfo for
- Oxenstored
-To: Andrii Sultanov <andrii.sultanov@cloud.com>,
+Subject: Re: [PATCH v4 2/2] x86/boot: Add missing __XEN__ definition
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
  xen-devel@lists.xenproject.org
-Cc: Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>, Anthony PERARD <anthony.perard@vates.tech>
-References: <cover.1725881488.git.andrii.sultanov@cloud.com>
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20240909132216.128114-1-frediano.ziglio@cloud.com>
+ <20240909132216.128114-2-frediano.ziglio@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,44 +130,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <cover.1725881488.git.andrii.sultanov@cloud.com>
+In-Reply-To: <20240909132216.128114-2-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09/09/2024 1:02 pm, Andrii Sultanov wrote:
-> Changes from V2:
+On 09/09/2024 2:22 pm, Frediano Ziglio wrote:
+> We are compiling Xen source code so we should define __XEN__ macro.
+> We don't want to import all definitions from XEN_CFLAGS (as done for
+> other options) because most of them are processor dependent and
+> do not apply to 32 bit.
 >
-> * Drop the upstreamed "Build infrastructure" commit
-> * Split the last commit into two: Loading the plugin in oxenstored and
-> switching to it
-> * Remove configure and paths.m4 defines as suggested.
-> * Reformat files appropriately
-> * Rename all instances of 'xenstoredglue', 'xenstored_glue', 'xsglue' to
-> 'xsd_glue' for consistency
-> * Remove _v1 suffix from all static functions
-> * Remove leftover #defines left unused by the previous changes
-> * Fix inconsistent tabs/spaces usage, added blank lines where appropriate.
-> * Define the 'xsd_glue_failwith' macro as suggested
-> * Remove first_domain argument in 'domain_getinfolist' function
-> * Remove unnecessary memory allocation alignment code in
-> 'domain_getinfolist'
-> * Improve error handling in 'domain_getinfolist' as suggested.
-> * Add SPDX license headers to new files.
->
-> Patch series on Gitlab for ease of review: https://gitlab.com/xen-project/people/asultanov/xen/-/compare/staging...plugin-v3
->
-> These changes passed the Gitlab CI:
-> - Loading the plugin: https://gitlab.com/xen-project/people/asultanov/xen/-/pipelines/1445544074
-> - Switching to it as well: https://gitlab.com/xen-project/people/asultanov/xen/-/pipelines/1445699231
->
-> The patch series has also been tested manually.
->
-> Andrii Sultanov (3):
->   ocaml/libs: Implement a dynamically-loaded plugin for
->     Xenctrl.domain_getinfo
->   tools/oxenstored: Load the plugin for Xenctrl.domain_getinfo
->   tools/oxenstored: Switch to using the plugin for
->     Xenctrl.domain_getinfo
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com> and queued.
+Both Acked-by: Andrew Cooper <andrew.cooper3@citrix.com> and queued.
 
