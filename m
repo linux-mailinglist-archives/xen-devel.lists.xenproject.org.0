@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 743E0972ABE
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 09:29:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795038.1204136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6F94972B3B
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 09:54:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795049.1204147 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snvJf-0007si-EX; Tue, 10 Sep 2024 07:29:35 +0000
+	id 1snvhF-0003lp-Ct; Tue, 10 Sep 2024 07:53:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795038.1204136; Tue, 10 Sep 2024 07:29:35 +0000
+Received: by outflank-mailman (output) from mailman id 795049.1204147; Tue, 10 Sep 2024 07:53:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snvJf-0007pb-AF; Tue, 10 Sep 2024 07:29:35 +0000
-Received: by outflank-mailman (input) for mailman id 795038;
- Tue, 10 Sep 2024 07:29:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jI+9=QI=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1snvJd-0007pB-Rb
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 07:29:33 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b8e484c-6f46-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 09:29:31 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3BFAB219FB;
- Tue, 10 Sep 2024 07:29:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E133313A3A;
- Tue, 10 Sep 2024 07:29:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id t5SwNVr132boJgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 10 Sep 2024 07:29:30 +0000
+	id 1snvhF-0003k8-AI; Tue, 10 Sep 2024 07:53:57 +0000
+Received: by outflank-mailman (input) for mailman id 795049;
+ Tue, 10 Sep 2024 07:53:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1snvhE-0003jy-Od; Tue, 10 Sep 2024 07:53:56 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1snvhE-00029O-Kn; Tue, 10 Sep 2024 07:53:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1snvhE-0002F5-5M; Tue, 10 Sep 2024 07:53:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1snvhE-0001cM-4q; Tue, 10 Sep 2024 07:53:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,163 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b8e484c-6f46-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1725953371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=MiDi2FHA9vw0R48kbGJoZgqTSRc3ZSboY8rVX/ccVPU=;
-	b=ZHJtm0SgubpIDNQVqhNDd4qeu16fDkdq1hs9xlRV+iLvxqrUdWbsxiauuD/ipALIv3AbeJ
-	JAlyn4gECJXQd1NUvCaQwuQ/GmocrLlCb3Kh1E86/L+GNQFKOIkZM1/YMd4Yy+mG4bmDwP
-	klGCXjqhQmC9n+1Tq0FkKCoNzp8sV4g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1725953371;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=MiDi2FHA9vw0R48kbGJoZgqTSRc3ZSboY8rVX/ccVPU=;
-	b=iYY32GUHw+AubQO8jsoZje/xUgexavsARV3esphtazmJSVfQZMdQPucZcUwTx7jX/Xxxqj
-	+TOJ/XsVC4ngw7CA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1725953371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=MiDi2FHA9vw0R48kbGJoZgqTSRc3ZSboY8rVX/ccVPU=;
-	b=ZHJtm0SgubpIDNQVqhNDd4qeu16fDkdq1hs9xlRV+iLvxqrUdWbsxiauuD/ipALIv3AbeJ
-	JAlyn4gECJXQd1NUvCaQwuQ/GmocrLlCb3Kh1E86/L+GNQFKOIkZM1/YMd4Yy+mG4bmDwP
-	klGCXjqhQmC9n+1Tq0FkKCoNzp8sV4g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1725953371;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=MiDi2FHA9vw0R48kbGJoZgqTSRc3ZSboY8rVX/ccVPU=;
-	b=iYY32GUHw+AubQO8jsoZje/xUgexavsARV3esphtazmJSVfQZMdQPucZcUwTx7jX/Xxxqj
-	+TOJ/XsVC4ngw7CA==
-Message-ID: <ad9e19af-fabd-4ce0-a9ac-741149f9aab3@suse.de>
-Date: Tue, 10 Sep 2024 09:29:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fbdev/xen-fbfront: Assign fb_info->device
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jandryuk@gmail.com>
-Cc: Helge Deller <deller@gmx.de>, Arnd Bergmann <arnd@arndb.de>,
- Sam Ravnborg <sam@ravnborg.org>, xen-devel@lists.xenproject.org,
- Jason Andryuk <jason.andryuk@amd.com>,
- Arthur Borsboom <arthurborsboom@gmail.com>, stable@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20240910020919.5757-1-jandryuk@gmail.com>
- <Zt_zvt3VXwim_DwS@macbook.local>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <Zt_zvt3VXwim_DwS@macbook.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=vDaINu+mJxSNIYx6ETGggwXDenFS2LeX89J+nQtZlFc=; b=P6UdtcvCDXvS4ieNUSA2CRLwlt
+	SLZ3oSSFiY+jcAFaz+w/ZEvBVHUSfhCvw7CcrMxFypHOogAQ05utDO/Rp0I3w2BonPIAYtvev9S9B
+	rqzJ9diuZ6DnYwZJbYeFBvetFwEe0VfWS3vBa6TF/7HDd81cPcyekEa+itFA/Z+q5V28=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187634-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.30
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_TO(0.00)[citrix.com,gmail.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmx.de,arndb.de,ravnborg.org,lists.xenproject.org,amd.com,gmail.com,vger.kernel.org,lists.freedesktop.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
-X-Spam-Flag: NO
-X-Spam-Level: 
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 187634: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=c23571fe3150c2994afabcaa10c218b3d87fa832
+X-Osstest-Versions-That:
+    xen=ebb7c6b2faf27fbbb546282e6096e5680f82fef1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 10 Sep 2024 07:53:56 +0000
 
-Hi
+flight 187634 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187634/
 
-Am 10.09.24 um 09:22 schrieb Roger Pau Monné:
-> On Mon, Sep 09, 2024 at 10:09:16PM -0400, Jason Andryuk wrote:
->> From: Jason Andryuk <jason.andryuk@amd.com>
->>
->> Probing xen-fbfront faults in video_is_primary_device().  The passed-in
->> struct device is NULL since xen-fbfront doesn't assign it and the
->> memory is kzalloc()-ed.  Assign fb_info->device to avoid this.
->>
->> This was exposed by the conversion of fb_is_primary_device() to
->> video_is_primary_device() which dropped a NULL check for struct device.
->>
->> Fixes: f178e96de7f0 ("arch: Remove struct fb_info from video helpers")
->> Reported-by: Arthur Borsboom <arthurborsboom@gmail.com>
->> Closes: https://lore.kernel.org/xen-devel/CALUcmUncX=LkXWeiSiTKsDY-cOe8QksWhFvcCneOKfrKd0ZajA@mail.gmail.com/
->> Tested-by: Arthur Borsboom <arthurborsboom@gmail.com>
->> CC: stable@vger.kernel.org
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
->
->> ---
->> The other option would be to re-instate the NULL check in
->> video_is_primary_device()
-> I do think this is needed, or at least an explanation.  The commit
-> message in f178e96de7f0 doesn't mention anything about
-> video_is_primary_device() not allowing being passed a NULL device
-> (like it was possible with fb_is_primary_device()).
->
-> Otherwise callers of video_is_primary_device() would need to be
-> adjusted to check for device != NULL.
+Failures :-/ but no regressions.
 
-The helper expects a non-NULL pointer. We might want to document this.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Best regards
-Thomas
+version targeted for testing:
+ xen                  c23571fe3150c2994afabcaa10c218b3d87fa832
+baseline version:
+ xen                  ebb7c6b2faf27fbbb546282e6096e5680f82fef1
 
->
-> Thanks, Roger.
->
+Last test of basis   187613  2024-09-09 16:00:35 Z    0 days
+Testing same since   187634  2024-09-10 05:00:23 Z    0 days    1 attempts
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+------------------------------------------------------------
+People who touched revisions under test:
+  Victor Lira <victorm.lira@amd.com>
 
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   ebb7c6b2fa..c23571fe31  c23571fe3150c2994afabcaa10c218b3d87fa832 -> smoke
 
