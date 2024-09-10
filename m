@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11F269741C8
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 20:12:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795968.1205483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D2009741CA
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 20:13:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795973.1205493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so5LZ-0006Aa-3P; Tue, 10 Sep 2024 18:12:13 +0000
+	id 1so5Ml-0006m2-Cb; Tue, 10 Sep 2024 18:13:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795968.1205483; Tue, 10 Sep 2024 18:12:13 +0000
+Received: by outflank-mailman (output) from mailman id 795973.1205493; Tue, 10 Sep 2024 18:13:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so5LY-000695-WF; Tue, 10 Sep 2024 18:12:13 +0000
-Received: by outflank-mailman (input) for mailman id 795968;
- Tue, 10 Sep 2024 18:12:11 +0000
+	id 1so5Ml-0006jN-9F; Tue, 10 Sep 2024 18:13:27 +0000
+Received: by outflank-mailman (input) for mailman id 795973;
+ Tue, 10 Sep 2024 18:13:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZWlv=QI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1so5LX-00068v-I2
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 18:12:11 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
+ id 1so5Mk-0006j9-91
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 18:13:26 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32a53c57-6fa0-11ef-a0b5-8be0dac302b0;
- Tue, 10 Sep 2024 20:12:10 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2f762de00e5so37427771fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 11:12:10 -0700 (PDT)
+ id 5f2465cf-6fa0-11ef-a0b5-8be0dac302b0;
+ Tue, 10 Sep 2024 20:13:25 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a8d64b27c45so312943166b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 11:13:25 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3ebd76f3esm4522748a12.59.2024.09.10.11.12.06
+ a640c23a62f3a-a8d25c82eaesm512641466b.118.2024.09.10.11.13.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 11:12:06 -0700 (PDT)
+ Tue, 10 Sep 2024 11:13:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32a53c57-6fa0-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 5f2465cf-6fa0-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725991930; x=1726596730; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725992005; x=1726596805; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QE3gUmUNTUZqCRAVT28y+cuCMwnee3RT5jpIKNKYIho=;
-        b=HyxAYhzmuwOa3rxhrUDqTr19Z+SsVDOh1/iz+Q0Ip5VhqMaGfIiqITZDDNoMtLcEqv
-         5PXYyQ7MgzdAJj8jr6RLI8d+kcGuY2reNRaa6bGXA94dT8nJKUkKYmrxSO7x/l3jlYTh
-         LqtOTAgJtNQZnceI75sfjem3CuJVuKGTqDQnY=
+        bh=JTMNZ9vFipxR6U+rkJHf7TQ3a/qTDWTXIZaPZ0criBU=;
+        b=TBrN7J0xUmHxhQJVyxJ64M9ZCMCh1ZYoI5oBBJBTpKpcouq9VSathPIaJbgKOQAN9P
+         69xz9aZx49Rww+mOORbfpJc0Blc9QaESLGc0eDccuSE//wrlOQ5KDIaPvVqIIpeuovgq
+         2RkjUIevwmJSFnZU2Siyl0rDxXD7AczkrhczM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725991930; x=1726596730;
+        d=1e100.net; s=20230601; t=1725992005; x=1726596805;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QE3gUmUNTUZqCRAVT28y+cuCMwnee3RT5jpIKNKYIho=;
-        b=RXblS6i0QAK+Rkdex360LuhTeEaW1jRzQRFPnLbTgrNVvOWo87r/a3XenZhyhaZon/
-         IffaIWjpkNyjl/LHj4RTLMhD+FKCdaT1AfLnz7WLe1ThxDgHuc+ANd4Ejeu1+Kqz6f0F
-         f80qpfgPSyrwKlWe+m7xbekcNMlkrvnrIKLVPDnKUqu6SotP/A8sQNhLWaZ/VPX32n2Q
-         pO6A5g+8j7w/NLsxB6pl3iKhFjYQ2atun6OASUWpJ4lOF7xEjXSRJC/YtrerkRiddowS
-         GLjghRekiVwL2IEsmQUXWBlBuFlOZJBmXIpU0ynu4QBs4KelfhCdT60kFHBzVRfqiwpw
-         WkQA==
-X-Forwarded-Encrypted: i=1; AJvYcCVv3SGTmrFx+Gc3VgSChtej0ks7m26Ds5WEIdVFF4uP9klFe1iKOy8kIOSTYXb72Lx4W99IutJz2DU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxOiw8g7Im4WBf9GQtUVw18uE/ad5vsDAOX64Qmhf/TbVKWWqae
-	SICKZP5RTVJSKP9HB9rjwzmmHdG+FlaJTCTWG9NSdmlOPRA11rJlJgPb1FUuSWk=
-X-Google-Smtp-Source: AGHT+IGnsnlw//jsjvyL8nJHEOQAAFB/TaIzqMEhz1KLZlx/YYr2baXhxfeMonGRzxL/6gaoTtACyA==
-X-Received: by 2002:a2e:a983:0:b0:2f7:4f84:50a2 with SMTP id 38308e7fff4ca-2f751f69ef7mr108989141fa.31.1725991929505;
-        Tue, 10 Sep 2024 11:12:09 -0700 (PDT)
-Message-ID: <c2c307b6-f235-4478-9dc3-ac996e8e1bb0@citrix.com>
-Date: Tue, 10 Sep 2024 19:12:05 +0100
+        bh=JTMNZ9vFipxR6U+rkJHf7TQ3a/qTDWTXIZaPZ0criBU=;
+        b=jfft+sE/zl27Z1EDZoHaYQ85xe03tlnUKI0MY45Homy/fJ4++vP/Rw2olxqFjFjxUF
+         YLBDok3TQZcOzRFWRVvVM4lW0BZgjdQw2LddzGUJhF66JsTWsjCZykWWyp+YkrBMLNuy
+         S/GScyFnzKnEZUmM2noFqEljOYsqwq8fXfhroux2a2nez2Pd4UADWcp3tnump2LFVDm4
+         tmPqvSIwygU0Vyo4GivUGFoaL5h+1Fx3dIBoOAxExaPXokXW+vrMkY2aygf3qF6bjclx
+         XFQ0tuW64cQBqRGMfVzK13cGXhznuXkN2UQfw7kKjHYvKczyGLVhuj0cI24j6l1Dauuk
+         BwTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXHHxT025qD0CzofUoUqto1/emIiBpvo71Yp35Q+5hk2FA3+fnPmzUBXYOGBTUqsLojSfyemBzLgxQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzACpF8wULbW1xZQOYJG4qsn04SYUIQxnmWf6RzsxRTXih1YgH2
+	OUeXEXGg5XkNvp7d1v8d03A117FKZFU5weZCjeGZM/WTiiVx00YIFDMhNs2BuGd58LRySK1SZsQ
+	Q
+X-Google-Smtp-Source: AGHT+IHwXq4knfAgT9BYWOaypA05WVSa+llz8igBQk03ff/MmfgptI++xT9zYmR1QhAXVc5W1YUfZQ==
+X-Received: by 2002:a17:907:1c09:b0:a8d:5288:f48d with SMTP id a640c23a62f3a-a8ffab8904emr180306466b.32.1725992004398;
+        Tue, 10 Sep 2024 11:13:24 -0700 (PDT)
+Message-ID: <b13bf9fc-a65c-44bc-a3d6-4e12a5d01d78@citrix.com>
+Date: Tue, 10 Sep 2024 19:13:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] x86/HVM: drop stdvga's "sr[]" struct member
+Subject: Re: [PATCH 6/7] x86/HVM: drop stdvga's "{g,s}r_index" struct members
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
- <bf1b1615-3ce4-4640-b825-7097b62b3ac0@suse.com>
+ <64883365-9ed1-45d4-a586-90b488480a82@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,14 +130,14 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <bf1b1615-3ce4-4640-b825-7097b62b3ac0@suse.com>
+In-Reply-To: <64883365-9ed1-45d4-a586-90b488480a82@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 10/09/2024 3:41 pm, Jan Beulich wrote:
-> No consumers are left, hence the producer and the array itself can also
-> go away. The static sr_mask[] is then orphaned and hence needs dropping,
-> too.
+> No consumers are left, hence the producer and the fields themselves can
+> also go away. stdvga_outb() is then useless, rendering stdvga_out()
+> useless as well. Hence the entire I/O port intercept can go away.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
