@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 281BB973A1F
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:40:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795698.1205152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69B1A973A20
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:40:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795701.1205162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so22I-0003MP-4g; Tue, 10 Sep 2024 14:40:06 +0000
+	id 1so22b-0003wH-B3; Tue, 10 Sep 2024 14:40:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795698.1205152; Tue, 10 Sep 2024 14:40:06 +0000
+Received: by outflank-mailman (output) from mailman id 795701.1205162; Tue, 10 Sep 2024 14:40:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so22I-0003Kg-1R; Tue, 10 Sep 2024 14:40:06 +0000
-Received: by outflank-mailman (input) for mailman id 795698;
- Tue, 10 Sep 2024 14:40:05 +0000
+	id 1so22b-0003t8-81; Tue, 10 Sep 2024 14:40:25 +0000
+Received: by outflank-mailman (input) for mailman id 795701;
+ Tue, 10 Sep 2024 14:40:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1so22H-0001bT-Cp
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:40:05 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1so22a-0001bT-3H
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:40:24 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 90c331a7-6f82-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 16:40:03 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5c26311c6f0so7009139a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:40:03 -0700 (PDT)
+ id 9bb3181e-6f82-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 16:40:22 +0200 (CEST)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-53661a131b4so3778507e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:40:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3ebd8c4c6sm4339178a12.86.2024.09.10.07.40.02
+ a640c23a62f3a-a8d25d40b2esm491089366b.194.2024.09.10.07.40.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 07:40:02 -0700 (PDT)
+ Tue, 10 Sep 2024 07:40:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90c331a7-6f82-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 9bb3181e-6f82-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725979203; x=1726584003; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725979222; x=1726584022; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JtF6rX15d8QXjen/iS3ft5RyDQCEqObl6NadGkjDRxw=;
-        b=fcBuJULcHGZ/hcW5X1C04UxOFq7NeoG11mNZZTMsu8j0IVGNMccRil/B8sJI8MrcwI
-         b5/g95TmkdZ5ttGZJch4iUkaa26XdOcIMPsBrIDo6Chmc1Z8NX8elY4PVX27diLdKY7u
-         LqE55N2STItwuQHdgagbUC4rbhpoqliHLvHEz3fWvSTjpw1LK0zRMK1qs9EonvjdBRVq
-         tv61TvWANEw0N6pr0sdUN7hI3nR8h/RcAksfc6HzeZp9hEESuyxnL/r5ZY1z67hxHdrX
-         egWF6wr7JTxNz3d0Iys97HZTf9HwUvNjOIMIc95AZ5jqJmP48IRpIWxRZjIQxYLMjpby
-         YCYA==
+        bh=k0ozxlmym8hxnxnury+fqQXwyDDPs3t3c1Ygv0tRIH4=;
+        b=On92KTqqUT96tOT/0XQci4AeeaU7OzczRR3de5ubr3zmag75Q2v7VMTPeRqNI6LVCp
+         vcqGCnzPLLXZj4EJlZ71WpC15tiUqGF+/x1DUDcayP8MVgIC0uSyOQYZpY+LvNfQrJ56
+         EPUlP3vLsTHuBNiC1kvTVWJZOSV7SFIVs/aURgkyUEG1vo+rQbBQO/yI2iF5YYB+/pNQ
+         dC7CoinzCbdWNH54+4bZC9cCaqhE1x0D9sJACBXy1UNwTjhOAMEgRn0OD6arzwzMOOJU
+         KdVSVHrNIZ6JszU1vOs3kkzSbt9Bdup38JlXp2UHdUzVezc2S4YjQhckzvck8urdEgYJ
+         lIVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725979203; x=1726584003;
+        d=1e100.net; s=20230601; t=1725979222; x=1726584022;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=JtF6rX15d8QXjen/iS3ft5RyDQCEqObl6NadGkjDRxw=;
-        b=d6QSBmkg+y/LZKaBEjtF+xXczPCP6k5es+d2qjLW7Q7DMMiVCvEtswnAHzZ5UOQDtr
-         eZgzGEe7z5GSVmrfxdcOxuXJGdeKnkacmXtrpaIqoU+4ntVYKeYsdjIO8wvNJjGzJ6wH
-         ZRY0FjBAu+RM9H3jkMRyoF2mcmFl75SCGFY2vOqClaxMM5LU4gEZM77E6dPGZyIko9m6
-         CYkHEYAHPDh1ozXQvTNOUhy6QYMpnOAeLpIL7T44sZot0bn8XhNG5t50XFicCQ1lulIV
-         ybLTaj3Q9F/BxKMJRdwgSjLNYqnRpgcJwsz408E7WiBK3s3Zcu/QGhMzvtRIGsEXes15
-         pBVg==
-X-Gm-Message-State: AOJu0YzJMJLI1gojCh1rAI3DDgQRFkUH/yYLgBqt3nkiciFHSBrcq9EV
-	I8zpGoJudLSquZwLpmtDtuJggdX/pV9XSIQbK/HZdQFB3xOFiPmvUNnT+V+Rc0XzBlOntahRlJU
+        bh=k0ozxlmym8hxnxnury+fqQXwyDDPs3t3c1Ygv0tRIH4=;
+        b=SYmbhdatjkOcSh8s3CpQOHOROtN2V9DnR9WEyVNX/uvhu9GP3UQ2uUYEWA2+ze+BLU
+         xFoQQJLuvfEfK6yxIK5zQs8uhRvTh5BTD9QN0b3CRxUv5x+zUxOI0UEWjHQ8PYmcHoyK
+         lIH8wm88nfgJzBpq7lHXWP5Xdnz7GiVvZnopbYyjDlgKV6cn6zIGs5FB3g7sC0EstDcv
+         UvqMkYCXmtJJe8f6+S1R4C7xEK9mTXhHpffgfoKSTvNUskEKN7KJUbZ0Bw2WNJCjBWuV
+         xMhrmlZ6xGSMCMqwQxo+SenfJXJXp4ggRTTgMSVcZnEKkebgwkFv8jaIVaeoBwiiQR/x
+         ZfAQ==
+X-Gm-Message-State: AOJu0Yw0bKOJxKMBkFK+mQ9e0rzjKGrXhEOnJMefm9APBxZQFNsWe5pp
+	8g8faK0vmQpNpSMLBhZOKyT2B2eViruyqy/n7hV9IqB8wlhmK9YqWAifV7kah4IuyfU+AmL7U3w
 	=
-X-Google-Smtp-Source: AGHT+IHnI3SrYGR6O7LNUw/aJlCsNCoWnLkRrnmBDU9XXILtpTC5z90FwZZT5TaGg4cLwAGdosuKKQ==
-X-Received: by 2002:a05:6402:3894:b0:5c2:6c2d:3fb3 with SMTP id 4fb4d7f45d1cf-5c3dc7cc3fcmr8017407a12.36.1725979203038;
-        Tue, 10 Sep 2024 07:40:03 -0700 (PDT)
-Message-ID: <836afb28-581c-4ab8-a0a9-badf29a51b5e@suse.com>
-Date: Tue, 10 Sep 2024 16:40:02 +0200
+X-Google-Smtp-Source: AGHT+IE1L3n/lLhmllQ4i1TSuqOBGHxMd31IBO3D3fEdCdw2MnlFK+yZeys1e8BdTPcH7zMuUCBN5Q==
+X-Received: by 2002:a05:6512:1103:b0:52e:9ac6:a20f with SMTP id 2adb3069b0e04-536587fc91amr10104524e87.37.1725979221530;
+        Tue, 10 Sep 2024 07:40:21 -0700 (PDT)
+Message-ID: <d5739021-be35-4414-8ebe-efc472df4231@suse.com>
+Date: Tue, 10 Sep 2024 16:40:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/7] x86/HVM: drop stdvga's "stdvga" struct member
+Subject: [PATCH 3/7] x86/HVM: remove unused MMIO handling code
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -115,97 +115,377 @@ In-Reply-To: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Two of its consumers are dead (in compile-time constant conditionals)
-and the only remaining ones are merely controlling (debugging) log
-messages. Hence the field is now pointless to set, which in particular
-allows to get rid of the questionable conditional from which the field's
-value was established (afaict 551ceee97513 ["x86, hvm: stdvga cache
-always on"] had dropped too much of the earlier extra check that was
-there, and quite likely further checks were missing).
+All read accesses are rejected by the ->accept handler, while writes
+bypass the bulk of the function body. Drop the dead code, leaving an
+assertion in the read handler.
+
+A number of other static items (and a macro) are then unreferenced and
+hence also need (want) dropping. The same applies to the "latch" field
+of the state structure.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/hvm/stdvga.c
 +++ b/xen/arch/x86/hvm/stdvga.c
-@@ -103,7 +103,7 @@ static void vram_put(struct hvm_hw_stdvg
+@@ -37,26 +37,6 @@
+ #define VGA_MEM_BASE 0xa0000
+ #define VGA_MEM_SIZE 0x20000
+ 
+-#define PAT(x) (x)
+-static const uint32_t mask16[16] = {
+-    PAT(0x00000000U),
+-    PAT(0x000000ffU),
+-    PAT(0x0000ff00U),
+-    PAT(0x0000ffffU),
+-    PAT(0x00ff0000U),
+-    PAT(0x00ff00ffU),
+-    PAT(0x00ffff00U),
+-    PAT(0x00ffffffU),
+-    PAT(0xff000000U),
+-    PAT(0xff0000ffU),
+-    PAT(0xff00ff00U),
+-    PAT(0xff00ffffU),
+-    PAT(0xffff0000U),
+-    PAT(0xffff00ffU),
+-    PAT(0xffffff00U),
+-    PAT(0xffffffffU),
+-};
+-
+ /* force some bits to zero */
+ static const uint8_t sr_mask[8] = {
+     (uint8_t)~0xfc,
+@@ -81,25 +61,6 @@ static const uint8_t gr_mask[9] = {
+     (uint8_t)~0x00, /* 0x08 */
+ };
+ 
+-static uint8_t *vram_getb(struct hvm_hw_stdvga *s, unsigned int a)
+-{
+-    struct page_info *pg = s->vram_page[(a >> 12) & 0x3f];
+-    uint8_t *p = __map_domain_page(pg);
+-    return &p[a & 0xfff];
+-}
+-
+-static uint32_t *vram_getl(struct hvm_hw_stdvga *s, unsigned int a)
+-{
+-    struct page_info *pg = s->vram_page[(a >> 10) & 0x3f];
+-    uint32_t *p = __map_domain_page(pg);
+-    return &p[a & 0x3ff];
+-}
+-
+-static void vram_put(struct hvm_hw_stdvga *s, void *p)
+-{
+-    unmap_domain_page(p);
+-}
+-
  static int stdvga_outb(uint64_t addr, uint8_t val)
  {
      struct hvm_hw_stdvga *s = &current->domain->arch.hvm.stdvga;
--    int rc = 1, prev_stdvga = s->stdvga;
-+    int rc = 1;
- 
-     switch ( addr )
-     {
-@@ -132,19 +132,6 @@ static int stdvga_outb(uint64_t addr, ui
-         break;
-     }
- 
--    /* When in standard vga mode, emulate here all writes to the vram buffer
--     * so we can immediately satisfy reads without waiting for qemu. */
--    s->stdvga = (s->sr[7] == 0x00);
--
--    if ( !prev_stdvga && s->stdvga )
--    {
--        gdprintk(XENLOG_INFO, "entering stdvga mode\n");
--    }
--    else if ( prev_stdvga && !s->stdvga )
--    {
--        gdprintk(XENLOG_INFO, "leaving stdvga mode\n");
--    }
--
-     return rc;
+@@ -168,244 +129,13 @@ static int cf_check stdvga_intercept_pio
+     return X86EMUL_UNHANDLEABLE; /* propagate to external ioemu */
  }
  
-@@ -425,7 +412,6 @@ static int cf_check stdvga_mem_write(
-     const struct hvm_io_handler *handler, uint64_t addr, uint32_t size,
-     uint64_t data)
- {
+-static unsigned int stdvga_mem_offset(
+-    struct hvm_hw_stdvga *s, unsigned int mmio_addr)
+-{
+-    unsigned int memory_map_mode = (s->gr[6] >> 2) & 3;
+-    unsigned int offset = mmio_addr & 0x1ffff;
+-
+-    switch ( memory_map_mode )
+-    {
+-    case 0:
+-        break;
+-    case 1:
+-        if ( offset >= 0x10000 )
+-            goto fail;
+-        offset += 0; /* assume bank_offset == 0; */
+-        break;
+-    case 2:
+-        offset -= 0x10000;
+-        if ( offset >= 0x8000 )
+-            goto fail;
+-        break;
+-    default:
+-    case 3:
+-        offset -= 0x18000;
+-        if ( offset >= 0x8000 )
+-            goto fail;
+-        break;
+-    }
+-
+-    return offset;
+-
+- fail:
+-    return ~0u;
+-}
+-
+-#define GET_PLANE(data, p) (((data) >> ((p) * 8)) & 0xff)
+-
+-static uint8_t stdvga_mem_readb(uint64_t addr)
+-{
 -    struct hvm_hw_stdvga *s = &current->domain->arch.hvm.stdvga;
-     ioreq_t p = {
-         .type = IOREQ_TYPE_COPY,
-         .addr = addr,
-@@ -436,8 +422,7 @@ static int cf_check stdvga_mem_write(
+-    int plane;
+-    uint32_t ret, *vram_l;
+-    uint8_t *vram_b;
+-
+-    addr = stdvga_mem_offset(s, addr);
+-    if ( addr == ~0u )
+-        return 0xff;
+-
+-    if ( s->sr[4] & 0x08 )
+-    {
+-        /* chain 4 mode : simplest access */
+-        vram_b = vram_getb(s, addr);
+-        ret = *vram_b;
+-        vram_put(s, vram_b);
+-    }
+-    else if ( s->gr[5] & 0x10 )
+-    {
+-        /* odd/even mode (aka text mode mapping) */
+-        plane = (s->gr[4] & 2) | (addr & 1);
+-        vram_b = vram_getb(s, ((addr & ~1) << 1) | plane);
+-        ret = *vram_b;
+-        vram_put(s, vram_b);
+-    }
+-    else
+-    {
+-        /* standard VGA latched access */
+-        vram_l = vram_getl(s, addr);
+-        s->latch = *vram_l;
+-        vram_put(s, vram_l);
+-
+-        if ( !(s->gr[5] & 0x08) )
+-        {
+-            /* read mode 0 */
+-            plane = s->gr[4];
+-            ret = GET_PLANE(s->latch, plane);
+-        }
+-        else
+-        {
+-            /* read mode 1 */
+-            ret = (s->latch ^ mask16[s->gr[2]]) & mask16[s->gr[7]];
+-            ret |= ret >> 16;
+-            ret |= ret >> 8;
+-            ret = (~ret) & 0xff;
+-        }
+-    }
+-
+-    return ret;
+-}
+-
+ static int cf_check stdvga_mem_read(
+     const struct hvm_io_handler *handler, uint64_t addr, uint32_t size,
+     uint64_t *p_data)
+ {
+-    uint64_t data = ~0UL;
+-
+-    switch ( size )
+-    {
+-    case 1:
+-        data = stdvga_mem_readb(addr);
+-        break;
+-
+-    case 2:
+-        data = stdvga_mem_readb(addr);
+-        data |= stdvga_mem_readb(addr + 1) << 8;
+-        break;
+-
+-    case 4:
+-        data = stdvga_mem_readb(addr);
+-        data |= stdvga_mem_readb(addr + 1) << 8;
+-        data |= stdvga_mem_readb(addr + 2) << 16;
+-        data |= (uint32_t)stdvga_mem_readb(addr + 3) << 24;
+-        break;
+-
+-    case 8:
+-        data =  (uint64_t)(stdvga_mem_readb(addr));
+-        data |= (uint64_t)(stdvga_mem_readb(addr + 1)) << 8;
+-        data |= (uint64_t)(stdvga_mem_readb(addr + 2)) << 16;
+-        data |= (uint64_t)(stdvga_mem_readb(addr + 3)) << 24;
+-        data |= (uint64_t)(stdvga_mem_readb(addr + 4)) << 32;
+-        data |= (uint64_t)(stdvga_mem_readb(addr + 5)) << 40;
+-        data |= (uint64_t)(stdvga_mem_readb(addr + 6)) << 48;
+-        data |= (uint64_t)(stdvga_mem_readb(addr + 7)) << 56;
+-        break;
+-
+-    default:
+-        gdprintk(XENLOG_WARNING, "invalid io size: %u\n", size);
+-        break;
+-    }
+-
+-    *p_data = data;
+-    return X86EMUL_OKAY;
+-}
+-
+-static void stdvga_mem_writeb(uint64_t addr, uint32_t val)
+-{
+-    struct hvm_hw_stdvga *s = &current->domain->arch.hvm.stdvga;
+-    int plane, write_mode, b, func_select, mask;
+-    uint32_t write_mask, bit_mask, set_mask, *vram_l;
+-    uint8_t *vram_b;
+-
+-    addr = stdvga_mem_offset(s, addr);
+-    if ( addr == ~0u )
+-        return;
+-
+-    if ( s->sr[4] & 0x08 )
+-    {
+-        /* chain 4 mode : simplest access */
+-        plane = addr & 3;
+-        mask = (1 << plane);
+-        if ( s->sr[2] & mask )
+-        {
+-            vram_b = vram_getb(s, addr);
+-            *vram_b = val;
+-            vram_put(s, vram_b);
+-        }
+-    }
+-    else if ( s->gr[5] & 0x10 )
+-    {
+-        /* odd/even mode (aka text mode mapping) */
+-        plane = (s->gr[4] & 2) | (addr & 1);
+-        mask = (1 << plane);
+-        if ( s->sr[2] & mask )
+-        {
+-            addr = ((addr & ~1) << 1) | plane;
+-            vram_b = vram_getb(s, addr);
+-            *vram_b = val;
+-            vram_put(s, vram_b);
+-        }
+-    }
+-    else
+-    {
+-        write_mode = s->gr[5] & 3;
+-        switch ( write_mode )
+-        {
+-        default:
+-        case 0:
+-            /* rotate */
+-            b = s->gr[3] & 7;
+-            val = ((val >> b) | (val << (8 - b))) & 0xff;
+-            val |= val << 8;
+-            val |= val << 16;
+-
+-            /* apply set/reset mask */
+-            set_mask = mask16[s->gr[1]];
+-            val = (val & ~set_mask) | (mask16[s->gr[0]] & set_mask);
+-            bit_mask = s->gr[8];
+-            break;
+-        case 1:
+-            val = s->latch;
+-            goto do_write;
+-        case 2:
+-            val = mask16[val & 0x0f];
+-            bit_mask = s->gr[8];
+-            break;
+-        case 3:
+-            /* rotate */
+-            b = s->gr[3] & 7;
+-            val = (val >> b) | (val << (8 - b));
+-
+-            bit_mask = s->gr[8] & val;
+-            val = mask16[s->gr[0]];
+-            break;
+-        }
+-
+-        /* apply logical operation */
+-        func_select = s->gr[3] >> 3;
+-        switch ( func_select )
+-        {
+-        case 0:
+-        default:
+-            /* nothing to do */
+-            break;
+-        case 1:
+-            /* and */
+-            val &= s->latch;
+-            break;
+-        case 2:
+-            /* or */
+-            val |= s->latch;
+-            break;
+-        case 3:
+-            /* xor */
+-            val ^= s->latch;
+-            break;
+-        }
+-
+-        /* apply bit mask */
+-        bit_mask |= bit_mask << 8;
+-        bit_mask |= bit_mask << 16;
+-        val = (val & bit_mask) | (s->latch & ~bit_mask);
+-
+-    do_write:
+-        /* mask data according to sr[2] */
+-        mask = s->sr[2];
+-        write_mask = mask16[mask];
+-        vram_l = vram_getl(s, addr);
+-        *vram_l = (*vram_l & ~write_mask) | (val & write_mask);
+-        vram_put(s, vram_l);
+-    }
++    ASSERT_UNREACHABLE();
++    *p_data = ~0;
++    return X86EMUL_UNHANDLEABLE;
+ }
+ 
+ static int cf_check stdvga_mem_write(
+@@ -420,47 +150,8 @@ static int cf_check stdvga_mem_write(
+         .dir = IOREQ_WRITE,
+         .data = data,
      };
-     struct ioreq_server *srv;
+-    struct ioreq_server *srv;
+-
+-    goto done;
+-
+-    /* Intercept mmio write */
+-    switch ( size )
+-    {
+-    case 1:
+-        stdvga_mem_writeb(addr, (data >>  0) & 0xff);
+-        break;
+-
+-    case 2:
+-        stdvga_mem_writeb(addr+0, (data >>  0) & 0xff);
+-        stdvga_mem_writeb(addr+1, (data >>  8) & 0xff);
+-        break;
+-
+-    case 4:
+-        stdvga_mem_writeb(addr+0, (data >>  0) & 0xff);
+-        stdvga_mem_writeb(addr+1, (data >>  8) & 0xff);
+-        stdvga_mem_writeb(addr+2, (data >> 16) & 0xff);
+-        stdvga_mem_writeb(addr+3, (data >> 24) & 0xff);
+-        break;
+-
+-    case 8:
+-        stdvga_mem_writeb(addr+0, (data >>  0) & 0xff);
+-        stdvga_mem_writeb(addr+1, (data >>  8) & 0xff);
+-        stdvga_mem_writeb(addr+2, (data >> 16) & 0xff);
+-        stdvga_mem_writeb(addr+3, (data >> 24) & 0xff);
+-        stdvga_mem_writeb(addr+4, (data >> 32) & 0xff);
+-        stdvga_mem_writeb(addr+5, (data >> 40) & 0xff);
+-        stdvga_mem_writeb(addr+6, (data >> 48) & 0xff);
+-        stdvga_mem_writeb(addr+7, (data >> 56) & 0xff);
+-        break;
+-
+-    default:
+-        gdprintk(XENLOG_WARNING, "invalid io size: %u\n", size);
+-        break;
+-    }
++    struct ioreq_server *srv = ioreq_server_select(current->domain, &p);
  
--    if ( true || !s->stdvga )
--        goto done;
-+    goto done;
+- done:
+-    srv = ioreq_server_select(current->domain, &p);
+     if ( !srv )
+         return X86EMUL_UNHANDLEABLE;
  
-     /* Intercept mmio write */
-     switch ( size )
-@@ -498,19 +483,17 @@ static bool cf_check stdvga_mem_accept(
- 
-     spin_lock(&s->lock);
- 
--    if ( p->dir == IOREQ_WRITE && p->count > 1 )
-+    if ( p->dir != IOREQ_WRITE || p->count > 1 )
-     {
-         /*
-          * We cannot return X86EMUL_UNHANDLEABLE on anything other then the
-          * first cycle of an I/O. So, since we cannot guarantee to always be
-          * able to send buffered writes, we have to reject any multi-cycle
--         * I/O.
-+         * I/O. And of course we have to reject all reads, for not being
-+         * able to service them.
-          */
-         goto reject;
-     }
--    else if ( p->dir == IOREQ_READ &&
--              (true || !s->stdvga) )
--        goto reject;
- 
-     /* s->lock intentionally held */
-     return 1;
 --- a/xen/arch/x86/include/asm/hvm/io.h
 +++ b/xen/arch/x86/include/asm/hvm/io.h
 @@ -115,7 +115,6 @@ struct hvm_hw_stdvga {
      uint8_t sr[8];
      uint8_t gr_index;
      uint8_t gr[9];
--    bool stdvga;
-     uint32_t latch;
+-    uint32_t latch;
      struct page_info *vram_page[64];  /* shadow of 0xa0000-0xaffff */
      spinlock_t lock;
+ };
 
 
