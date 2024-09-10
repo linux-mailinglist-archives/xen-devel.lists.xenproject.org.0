@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5236797372D
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 14:26:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795488.1204863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82F2D97377A
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 14:35:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795494.1204874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snzx5-0007UL-Sd; Tue, 10 Sep 2024 12:26:35 +0000
+	id 1so05I-0001B7-KU; Tue, 10 Sep 2024 12:35:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795488.1204863; Tue, 10 Sep 2024 12:26:35 +0000
+Received: by outflank-mailman (output) from mailman id 795494.1204874; Tue, 10 Sep 2024 12:35:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snzx5-0007Rh-Q3; Tue, 10 Sep 2024 12:26:35 +0000
-Received: by outflank-mailman (input) for mailman id 795488;
- Tue, 10 Sep 2024 12:26:34 +0000
+	id 1so05I-00019f-H7; Tue, 10 Sep 2024 12:35:04 +0000
+Received: by outflank-mailman (input) for mailman id 795494;
+ Tue, 10 Sep 2024 12:35:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1snzx4-0007Rb-RX
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 12:26:34 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ id 1so05H-00019Z-Vu
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 12:35:03 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e9e91ed9-6f6f-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 14:26:32 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-5365c512b00so813544e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 05:26:32 -0700 (PDT)
+ id 17ca9d47-6f71-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 14:34:59 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c241feb80dso12447976a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 05:34:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3ebd4693fsm4236803a12.37.2024.09.10.05.26.31
+ a640c23a62f3a-a8d25c61263sm478368866b.128.2024.09.10.05.34.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 05:26:31 -0700 (PDT)
+ Tue, 10 Sep 2024 05:34:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9e91ed9-6f6f-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 17ca9d47-6f71-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725971192; x=1726575992; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725971699; x=1726576499; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HLastlZm256bbCZQCjTY97zdqMvYpiAMsKAziBcVGN8=;
-        b=HdjOGWBme3yhQu9Mbg5vIu35qDkoztEOdXY3rF13352KyhHZ0tyE+KegPgtJnEr8GA
-         DjZAVYqroFDC6cqajt6zxj65PLRBhPWYwUddO/JnIBr8UhLaJlDkJIGARpAwdXoFWcWX
-         br0hB2CaOyACa38kM3W4PTH3EbQIFBl/oZ5W6ySe68j3OzmKIV8t/1dNDD46xliyGQpB
-         eR8ZkNO758fuILUSlzVk9S/Y/tvvZCMqrYifcoNiMlL4vLMoOJvDHNonckJGV8t2selh
-         4XwytDji/19goYoySREyYSvv1jPGKKUndHWfGdcDw8vy73szWunDWjPJ6pU4J9gTKobz
-         em2w==
+        bh=LSsewx7UU6gQEwik2bNEi5/xY6888BEnxTjH/v5O+cc=;
+        b=ZNrTsroEekBI2DhRsumf6XnrYl1ov02w6dEL+lxx+7Hop6jJXtZv2sDpSYK94+FpNQ
+         sHCAB68hpgJn1GgM7+kss/KtdrBdoxlkGuENLFJu/QUmjI15dzLk6fcjruNKGsqUypf+
+         BruusiJcAREX4XCmC7cDqM48Pzd4IH+V3bjy1zQzWO538liUHbNtCcx/8wlbFr/nkwvf
+         V1B/9+EuUigVIJ/K1nafKXkoovmvc6F56qL3y+O2FvReKWofV/31l9N6hZB613z2du5G
+         A8EjTYTyUbB3GeQyBCIh73G+MpCwyblbHzsc14og/D6F8qHRO48iqipOkYjKmVpRhKxS
+         tOYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725971192; x=1726575992;
+        d=1e100.net; s=20230601; t=1725971699; x=1726576499;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HLastlZm256bbCZQCjTY97zdqMvYpiAMsKAziBcVGN8=;
-        b=Bhl8f5VQvnlokiGvNNtvo6rJkSALewUG1v+060L8QrXUEgxF3Xu75HZq5MVyaH3PPX
-         N9G4uYc+U6qPhrt/ZhgfTejPtrW+tf/LQAjnMjeleIufzGvd8WG9CIrghc7flQRtAOY6
-         bNWjJueh2Gf7B4braxCK0FuNmu0HUeSTa5xGkr2TrZAGQCUdiWurprg6A/lcRy9VRu9v
-         VmfiSDEl6Cqc1IM0vY15B853rqwqkggPepb2txFUIzZzoyszP6Otv9wimGk6Fk0Nrle+
-         XbUy3fkcxY1IcUHiCKW36BcftOrA6nNCwUwpl+zsM6G/OVAJ4G5IP/b65ht7znRQmIO/
-         8Fcw==
-X-Forwarded-Encrypted: i=1; AJvYcCW3HqVU7nz5+V3cjOTwfRQdsjLAk4In9F+oUbLygSnBTwI+VpWbQaALSvZgzvaOj7KZ1+ZAz09ySi4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzpBc8oqdpc0M98MDJ/u3Lg0Bp6EwvRkjV6yNf2zIt3zlgcOGah
-	fZcY5ks78U8WEPDyoykbvKXxy0BK1v8wGJJG5rOVj3Cm1IXIGZuXLkRZIlvc4g==
-X-Google-Smtp-Source: AGHT+IFhgTOQxyg9vMrWdF2h+zK+lg3d57CQp2VozcEuS2bWCk9BKBBNyPFX9q8dkzE1YxK8YIsyJg==
-X-Received: by 2002:a05:6512:3502:b0:52c:df3d:4e9d with SMTP id 2adb3069b0e04-536587ef33bmr8995012e87.37.1725971192129;
-        Tue, 10 Sep 2024 05:26:32 -0700 (PDT)
-Message-ID: <0c4f3e87-b138-407b-a271-7f86fef255f6@suse.com>
-Date: Tue, 10 Sep 2024 14:26:31 +0200
+        bh=LSsewx7UU6gQEwik2bNEi5/xY6888BEnxTjH/v5O+cc=;
+        b=uCU9LaKSidBb76140lz4XGEXhXqIb3/AMh0wnk15QvrvAE7rRg23btarTG4ucyPSFh
+         DJBnuIdFEfBEYZ6uTChQ14sqGgDvpDpdHMTMY3JAsa94lqfrt7dbtMvtTnTf1elow/ll
+         Kl18nlDEIKjAkgFXV49QJNfSStG5rgvM9LkTi8cTR6wWZXv4LCx1P+phDpPtUA6G2NYD
+         HDh1x/YslIxYD0N9Hh8BwRcPW3IN45wAQ9u3AVlWom471nf4Lhkpr1wlPwvIBKbs2GjV
+         NM5D/4BnAepH1C/dWBFCawvcLPi5fZYQ16b2yoGQs9oR966gOioxXGBcLwZ+s1Gx8rZe
+         NLUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUXZEbPEAO9PgF6/BZ3pA54vBnwSJb7JhsFSsNjsG8q850Bu3IZaQQj5M5pRUMNdZham2KxEqzADAY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxRl2pAvWOHfIg1bS8exYsiBWheNqxYTzEtIlZieGd941FMvA6D
+	v6AhHLiNyAvUINLXISTujrLBDd2BAf2+tdmsNGE3AGErJ9hPdLbHDxCio0a/zw==
+X-Google-Smtp-Source: AGHT+IHELrHmlAkPKV+ybsGZZAWa6S6u/zQgSyh6j6a/3oTZxhoBs4+pUZuEmgEWmeYEHs9VSlDY4A==
+X-Received: by 2002:a17:907:972a:b0:a72:7a71:7f4f with SMTP id a640c23a62f3a-a8ffb1b644emr55038566b.7.1725971698680;
+        Tue, 10 Sep 2024 05:34:58 -0700 (PDT)
+Message-ID: <6bed58f8-016f-4390-be4c-128eebff6545@suse.com>
+Date: Tue, 10 Sep 2024 14:34:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/7] xen: add capability to remap non-RAM pages to
- different PFNs
+Subject: Re: [PATCH v3 6/7] xen: allow mapping ACPI data using a different
+ physical address
 To: Juergen Gross <jgross@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, x86@kernel.org
+ "H. Peter Anvin" <hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Len Brown <lenb@kernel.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ x86@kernel.org, linux-acpi@vger.kernel.org
 References: <20240910103932.7634-1-jgross@suse.com>
- <20240910103932.7634-6-jgross@suse.com>
+ <20240910103932.7634-7-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,70 +117,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240910103932.7634-6-jgross@suse.com>
+In-Reply-To: <20240910103932.7634-7-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 10.09.2024 12:39, Juergen Gross wrote:
-> When running as a Xen PV dom0 it can happen that the kernel is being
-> loaded to a guest physical address conflicting with the host memory
-> map.
+> When running as a Xen PV dom0 the system needs to map ACPI data of the
+> host using host physical addresses, while those addresses can conflict
+> with the guest physical addresses of the loaded linux kernel. The same
+> problem might apply in case a PV guest is configured to use the host
+> memory map.
 > 
-> In order to be able to resolve this conflict, add the capability to
-> remap non-RAM areas to different guest PFNs. A function to use this
-> remapping information for other purposes than doing the remap will be
-> added when needed.
+> This conflict can be solved by mapping the ACPI data to a different
+> guest physical address, but mapping the data via acpi_os_ioremap()
+> must still be possible using the host physical address, as this
+> address might be generated by AML when referencing some of the ACPI
+> data.
 > 
-> As the number of conflicts should be rather low (currently only
-> machines with max. 1 conflict are known), save the remap data in a
-> small statically allocated array.
+> When configured to support running as a Xen PV domain, have an
+> implementation of acpi_os_ioremap() being aware of the possibility to
+> need above mentioned translation of a host physical address to the
+> guest physical address.
+> 
+> This modification requires to fix some #include of asm/acpi.h in x86
+> code to use linux/acpi.h instead.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with two cosmetic remarks:
+with a request to comment a tiny bit more:
 
-> @@ -792,6 +793,70 @@ int clear_foreign_p2m_mapping(struct gnttab_unmap_grant_ref *unmap_ops,
->  	return ret;
+> @@ -836,6 +837,33 @@ void __init xen_do_remap_nonram(void)
+>  	pr_info("Remapped %u non-RAM page(s)\n", remapped);
 >  }
 >  
-> +/* Remapped non-RAM areas */
-> +#define NR_NONRAM_REMAP 4
-> +static struct nonram_remap {
-> +	phys_addr_t maddr;
-> +	phys_addr_t paddr;
-> +	size_t size;
-> +} xen_nonram_remap[NR_NONRAM_REMAP] __ro_after_init;
-> +static unsigned int nr_nonram_remap __ro_after_init;
-
-I take it this is the canonical placement of section attributes in the
-kernel? (In Xen I'd ask for the attributes to be moved ahead of the
-identifiers being declared.)
-
+> +#ifdef CONFIG_ACPI
 > +/*
-> + * Do the real remapping of non-RAM regions as specified in the
-> + * xen_nonram_remap[] array.
-> + * In case of an error just crash the system.
+> + * Xen variant of acpi_os_ioremap() taking potentially remapped non-RAM
+> + * regions into acount.
+
+(Nit: account)
+
+> + * Any attempt to map an area crossing a remap boundary will produce a
+> + * WARN() splat.
 > + */
-> +void __init xen_do_remap_nonram(void)
+> +static void __iomem *xen_acpi_os_ioremap(acpi_physical_address phys,
+> +					 acpi_size size)
 > +{
 > +	unsigned int i;
-> +	unsigned int remapped = 0;
 > +	const struct nonram_remap *remap = xen_nonram_remap;
-> +	unsigned long pfn, mfn, end_pfn;
 > +
 > +	for (i = 0; i < nr_nonram_remap; i++) {
-> +		end_pfn = PFN_UP(remap->paddr + remap->size);
-> +		pfn = PFN_DOWN(remap->paddr);
-> +		mfn = PFN_DOWN(remap->maddr);
-> +		while (pfn < end_pfn) {
-> +			if (!set_phys_to_machine(pfn, mfn)) {
-> +				pr_err("Failed to set p2m mapping for pfn=%lx mfn=%lx\n",
-> +				       pfn, mfn);
-> +				BUG();
+> +		if (phys + size > remap->maddr &&
+> +		    phys < remap->maddr + remap->size) {
+> +			WARN_ON(phys < remap->maddr ||
+> +				phys + size > remap->maddr + remap->size);
+> +			phys = remap->paddr + phys - remap->maddr;
 
-Wouldn't panic() get you both in one operation? Or do you expect the call
-trace / register state to be of immediate relevance for analysis?
+This might be slightly easier / more logical to read as
+
+			phys += remap->paddr - remap->maddr;
+
+Also because of "phys" not consistently expressing a physical address
+(when you need convert it, the incoming value is a machine address) a
+comment may help here. In fact at the first glance (and despite having
+seen the code before) I thought the translation was done the wrong way
+round, simply because of the name of the variable.
 
 Jan
 
