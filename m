@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE32A973D12
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 18:20:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795887.1205373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E743A973D94
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 18:45:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795903.1205382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so3b6-00024A-3r; Tue, 10 Sep 2024 16:20:08 +0000
+	id 1so3z8-0005wr-1c; Tue, 10 Sep 2024 16:44:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795887.1205373; Tue, 10 Sep 2024 16:20:08 +0000
+Received: by outflank-mailman (output) from mailman id 795903.1205382; Tue, 10 Sep 2024 16:44:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so3b5-00022g-VX; Tue, 10 Sep 2024 16:20:07 +0000
-Received: by outflank-mailman (input) for mailman id 795887;
- Tue, 10 Sep 2024 16:20:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1so3z7-0005tx-Uj; Tue, 10 Sep 2024 16:44:57 +0000
+Received: by outflank-mailman (input) for mailman id 795903;
+ Tue, 10 Sep 2024 16:44:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EW7V=QI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1so3b4-0001xM-Ie
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 16:20:06 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a24facd-6f90-11ef-a0b5-8be0dac302b0;
- Tue, 10 Sep 2024 18:20:05 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a8d0d0aea3cso552895966b.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 09:20:05 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25d65cf6sm496168266b.222.2024.09.10.09.20.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Sep 2024 09:20:04 -0700 (PDT)
+ <SRS0=ZWlv=QI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1so3z5-0005tr-RC
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 16:44:55 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fff6747c-6f93-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 18:44:51 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-536584f6c84so5865174e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 09:44:52 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8d2583fc73sm500129266b.34.2024.09.10.09.44.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Sep 2024 09:44:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,110 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a24facd-6f90-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: fff6747c-6f93-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725985205; x=1726590005; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4fNfWdV9BH+Mk/ABcJ857BgoQGD2cWlX2NUHqBJNLEU=;
-        b=SadKIl6pjoR9orRxayaPEPAlv5o7o7A9JPS3mNTHLWORylzau29cSYBpiD18Rq8mP5
-         9WMukZz0lI5r7p1a9hKEgH7HHOxaLKhzC3DgB7MXhzg4gqZBB+Buxx9DtZ/oa5OGiXkG
-         DAr1Fd/CCwBGKb5WhX3QiB7yw2OTW4lSl1DA0=
+        d=citrix.com; s=google; t=1725986691; x=1726591491; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=jYRDxQJLHi4+/IeJ+MRreO0QU3Rc1+LUoFX/2H9Z+VI=;
+        b=cAvcH+Z4rlyIlnvPa/qYbBLkJRONxl3n+us6eugTvE4gwqaQSy92YxGtR1CgstoBk4
+         UvZD8af7XjHBY2giCKJiOEDeNex8QbOLCBx8QgirBfmWT6dLfHwp5Y7mrlv+H5pRf2RN
+         BH5bZRDg5pQPsQD9xbxQWnWxCatBb4EgaGop8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725985205; x=1726590005;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4fNfWdV9BH+Mk/ABcJ857BgoQGD2cWlX2NUHqBJNLEU=;
-        b=epJVTSLe3eVAAxBMbECpKKNIP/sr19NPFbBJIgx1Z3Mn/k8m9yrh5F7Y9G5mLsWiGI
-         GdcIv81zSJg9tfenmi3iV8Ha8j2B8kKg8iznqZgCDlSqvhodcXYqqboRymsk0Cgeq+iP
-         syMwG9/ejTLOnLXGRWYygmLAzpF3kM9wN2UeV/If1cdNIIzNWB1cL0wjYI2JvGTTAjgg
-         84JW/RVZitMZ+1ykgN+AL6KI2U4vHpogGxd7/eCpHNVQYTzrpaBy0adzxhA+GizQX0Ya
-         W27JDMEQ8QSnzhTyGJJtF+n4WHXEzBCh6Up6YVy0d5UWyW3m9YwD7Fgaa4sXKpKcOKez
-         szXA==
-X-Forwarded-Encrypted: i=1; AJvYcCWTIkBodYOPeAYLvPnEAkdLWYHj3qrNsCgpy8KRTa1ILANHzJ9Xo+6arWtjia0EZab9Gb8V6pHH0/U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzVrjj4tdHQR7VmD3DkeHg77Se39FEUgROLNLE3KMYAP7Vv8Bjd
-	UBEr4SwER1ndPNiCRNm4jVWmtlzWsYQ5E1WGlNbKb6IDqulYcqL/7DgnBOfLHR0=
-X-Google-Smtp-Source: AGHT+IGRdJwT/gtPCvPs2jlIHld5oKQ4tniblGopgCertlYelv2eseg+WukE3Je6nUDs5ZLuDIcELg==
-X-Received: by 2002:a17:907:1c27:b0:a8d:4f8e:f669 with SMTP id a640c23a62f3a-a8ffaa983b3mr123060366b.2.1725985204467;
-        Tue, 10 Sep 2024 09:20:04 -0700 (PDT)
-Date: Tue, 10 Sep 2024 18:20:03 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v5 3/4] x86/time: introduce command line option to select
- wallclock
-Message-ID: <ZuBxsybr71Sgtx1Y@macbook.local>
-References: <20240909145455.7517-1-roger.pau@citrix.com>
- <20240909145455.7517-4-roger.pau@citrix.com>
- <985c0d70-55de-43ba-a1b3-811487bb05be@suse.com>
- <ZuBFNu_GFygZwvil@macbook.local>
- <a52b019c-3f1c-4528-91f4-7bc1258c87d9@suse.com>
- <ZuBWsn2wgf9g1Nyv@macbook.local>
- <7d55bda8-222a-46c8-a810-79ba5c0928d3@suse.com>
+        d=1e100.net; s=20230601; t=1725986691; x=1726591491;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jYRDxQJLHi4+/IeJ+MRreO0QU3Rc1+LUoFX/2H9Z+VI=;
+        b=wdxPidkkedf7HiDGZfff/IeoHGSBOFg9vSybZx6ZM4GX0I+26da/+sQ2IBkDMP68XQ
+         4raZUtSx3y4+6AFVDJAqOADjnbJ1rCplKsig2iau8VfezKz+vxFpUjBG/w8lBmN4fh6n
+         HCB3pwFn0kDZFAPj+sil+35A0ljbXix7aLjmkp6tn881bnZkt0PiLTDd7eL4rcZYLDne
+         4lRDS7zKgtKgXZlGJsW70P1ACVde0mWqGZjLn3Zj2UgwLqQs6lDhlMBt3ki/Jz3Z+qKq
+         VZGNrXLtq5/0BPRba/mFVrPGaU/4BTXe9Fclox0Cjm441fvAjZ2x7m3ATiTILHQu0Cx7
+         Wkzg==
+X-Forwarded-Encrypted: i=1; AJvYcCXxhXL7EDZQCKsKykZPt6hdRVnFXC0rJoAclla900gwHwnQdvPXMH04UuYuhfk7ryENj1bI0vZ06ns=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwEh6MxvdWeiZpNZnjtGeipELt1JE4DItReBFrUKMz2PLbV/+DO
+	oPG9wH8ItpqKshzyo2drIAgetzyZkhuo3qObAu9yy+jQqjx4uwFMxGpFbk5IsjI=
+X-Google-Smtp-Source: AGHT+IEzJGWktWQQdHbm9W2jatT4tKItkDUMCWw98WfcMH2UhVpcuR4vBp5/+zVxKbs0oRFkhbfYiw==
+X-Received: by 2002:a05:6512:ea6:b0:52f:ccb0:9ea7 with SMTP id 2adb3069b0e04-53658815c2bmr8542613e87.60.1725986690500;
+        Tue, 10 Sep 2024 09:44:50 -0700 (PDT)
+Message-ID: <91d36015-227e-4708-b1a0-6f2d01e750c8@citrix.com>
+Date: Tue, 10 Sep 2024 17:44:48 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] x86/HVM: drop stdvga's "cache" struct member
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
+ <cfbeff6c-569f-4f3b-8ea1-fc3ca36dbc65@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <cfbeff6c-569f-4f3b-8ea1-fc3ca36dbc65@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7d55bda8-222a-46c8-a810-79ba5c0928d3@suse.com>
 
-On Tue, Sep 10, 2024 at 04:29:43PM +0200, Jan Beulich wrote:
-> On 10.09.2024 16:24, Roger Pau Monné wrote:
-> > On Tue, Sep 10, 2024 at 03:49:52PM +0200, Jan Beulich wrote:
-> >> On 10.09.2024 15:10, Roger Pau Monné wrote:
-> >>>  Would you be fine with
-> >>> adding the following in init_xen_time():
-> >>>
-> >>>     /*
-> >>>      * EFI run time services can be disabled form the command line, hence the
-> >>>      * check for them cannot be done as part of the wallclock option parsing.
-> >>>      */
-> >>>     if ( wallclock_source == WALLCLOCK_EFI && !efi_enabled(EFI_RS) )
-> >>>         wallclock_source = WALLCLOCK_UNSET;
-> >>>
-> >>>     if ( wallclock_source == WALLCLOCK_UNSET )
-> >>>         probe_wallclock();
-> >>
-> >> ... this is probably the best we can do (nit: s/form/from/ in the comment;
-> >> maybe also "..., hence the check done as part of option parsing may not
-> >> suffice" or some such).
-> > 
-> > I didn't put in my previous reply, but I've removed the efi_enabled()
-> > check from the option parsing and instead added this comment:
-> > 
-> >         /*
-> >          * Checking if run-time services are available must be done after
-> >          * command line parsing.
-> >          */
-> > 
-> > I don't think there's much point in doing the check in
-> > parse_wallclock() if it's not reliable, so your reference in the
-> > comment to "the check done as part of option parsing" is no longer
-> > valid.
-> 
-> Hmm. Rejecting the option if we can is reasonable imo. "efi=rs" can imo only
-> sensibly be used to override an earlier "efi=no-rs". Hence what we see while
-> parsing the wallclock option gives us at least reasonable grounds to reject
-> the option if EFI_RS is already clear. We then merely fail to reject the
-> option if the flag is cleared later.
+On 10/09/2024 3:39 pm, Jan Beulich wrote:
+> As of 68e1183411be ("libxc: introduce a xc_dom_arch for hvm-3.0-x86_32
+> guests") caching mode is disabled for HVM domains from start-of-day, due
+> the disabling being unconditional in hvm/save.c:arch_hvm_load(). With
+> that the field is useless, and can be dropped. Drop the helper functions
+> manipulating / checking as well right away, but leave the use sites of
+> stdvga_cache_is_enabled() with the hard-coded result the function would
+> have produced, to aid validation of subsequent dropping of further code.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-I won't strongly argue about it, but I think having a non-reliable
-check in parse_wallclock() is confusing.  I would have to add a
-comment there anyway to note that depending on the position of the efi
-and wallclock parameters the check for EFI_RS might not be effective -
-at which point I think it's best to unify the check so it's uniformly
-performed in init_xen_time().
+This only applies to VMs constructed with libxenguest, which isn't all
+VMs.  But, it's probably close enough to ~100% of VMs to count.
 
-> Yet in the end I'd be happy to leave this particular aspect to you and the
-> EFI maintainers.
+Personally I think it would be clearer to say "Since 68e1183411be, HVM
+guests are built using XEN_DOMCTL_sethvmcontext, which intentionally
+disables stdvga caching in arch_hvm_load()".
 
-Thanks again for the feedback.
+As a minor tangent, this is yet another casualty of nothing being wired
+into the migration stream.  Rightly or wrongly, that mindset has caused
+an immense amount of problems in Xen.
 
-Roger.
+
+How does this interact with X86_EMU_VGA?
+
+stdvga_init() is called unconditionally for HVM domains, exiting early
+for !EMU_VGA (skipping the pointless re-zero of the structure). 
+Nevertheless, the cache is UNINITIALISED for all configurations at this
+point.
+
+And we won't hit the stdvga_try_cache_enable() calls in any of
+stdvga_{outb,mem_{write,accept}}() prior to XEN_DOMCTL_sethvmcontext,
+which will unconditionally set DISABLED.
+
+So yes, I think this is for-all-intents-and-purposes dead logic.
+
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
