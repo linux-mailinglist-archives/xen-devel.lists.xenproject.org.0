@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3785E973721
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 14:22:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795484.1204854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5236797372D
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 14:26:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795488.1204863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snzt8-0006qR-DE; Tue, 10 Sep 2024 12:22:30 +0000
+	id 1snzx5-0007UL-Sd; Tue, 10 Sep 2024 12:26:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795484.1204854; Tue, 10 Sep 2024 12:22:30 +0000
+Received: by outflank-mailman (output) from mailman id 795488.1204863; Tue, 10 Sep 2024 12:26:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snzt8-0006oY-AA; Tue, 10 Sep 2024 12:22:30 +0000
-Received: by outflank-mailman (input) for mailman id 795484;
- Tue, 10 Sep 2024 12:22:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GvjV=QI=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1snzt6-0006oN-55
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 12:22:28 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 56a59b55-6f6f-11ef-a0b5-8be0dac302b0;
- Tue, 10 Sep 2024 14:22:26 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A81A35C0351;
- Tue, 10 Sep 2024 12:22:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B11C4CEC3;
- Tue, 10 Sep 2024 12:22:24 +0000 (UTC)
+	id 1snzx5-0007Rh-Q3; Tue, 10 Sep 2024 12:26:35 +0000
+Received: by outflank-mailman (input) for mailman id 795488;
+ Tue, 10 Sep 2024 12:26:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1snzx4-0007Rb-RX
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 12:26:34 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e9e91ed9-6f6f-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 14:26:32 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-5365c512b00so813544e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 05:26:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c3ebd4693fsm4236803a12.37.2024.09.10.05.26.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Sep 2024 05:26:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,90 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56a59b55-6f6f-11ef-a0b5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1725970944;
-	bh=XVncRhu89smgyxRthRwxom9MMRDicc/wypTi2pGKFH4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ho7QoLTV3yETAd/Nsv9paRApm1AWvZXf+ghWeUIbG8D6YK3pgY5mxlwr8DdFw83rG
-	 2Y+/CjtQlRSE36XaF+r8QUxeRbefedF32kTyAMXiWGoCEdaQh5uiGs3G+WhH+I+4+E
-	 8sfMpkwYQDAbbXvG5ykX4x3TKrxAF1QW0DxQNypg=
-Date: Tue, 10 Sep 2024 14:22:21 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Arthur Borsboom <arthurborsboom@gmail.com>
-Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jason Andryuk <jandryuk@gmail.com>, Helge Deller <deller@gmx.de>,
-	Arnd Bergmann <arnd@arndb.de>, Sam Ravnborg <sam@ravnborg.org>,
-	xen-devel@lists.xenproject.org,
-	Jason Andryuk <jason.andryuk@amd.com>, stable@vger.kernel.org,
-	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fbdev/xen-fbfront: Assign fb_info->device
-Message-ID: <2024091004-destitute-excusably-1eb5@gregkh>
-References: <20240910020919.5757-1-jandryuk@gmail.com>
- <Zt_zvt3VXwim_DwS@macbook.local>
- <ad9e19af-fabd-4ce0-a9ac-741149f9aab3@suse.de>
- <Zt__jTESjI7P7Vkj@macbook.local>
- <2024091033-copilot-autistic-926a@gregkh>
- <CALUcmUn30tPxjToysLBVBmibMaQUWW=GqFoqduP-W5QwQ-VriQ@mail.gmail.com>
+X-Inumbo-ID: e9e91ed9-6f6f-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1725971192; x=1726575992; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=HLastlZm256bbCZQCjTY97zdqMvYpiAMsKAziBcVGN8=;
+        b=HdjOGWBme3yhQu9Mbg5vIu35qDkoztEOdXY3rF13352KyhHZ0tyE+KegPgtJnEr8GA
+         DjZAVYqroFDC6cqajt6zxj65PLRBhPWYwUddO/JnIBr8UhLaJlDkJIGARpAwdXoFWcWX
+         br0hB2CaOyACa38kM3W4PTH3EbQIFBl/oZ5W6ySe68j3OzmKIV8t/1dNDD46xliyGQpB
+         eR8ZkNO758fuILUSlzVk9S/Y/tvvZCMqrYifcoNiMlL4vLMoOJvDHNonckJGV8t2selh
+         4XwytDji/19goYoySREyYSvv1jPGKKUndHWfGdcDw8vy73szWunDWjPJ6pU4J9gTKobz
+         em2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1725971192; x=1726575992;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HLastlZm256bbCZQCjTY97zdqMvYpiAMsKAziBcVGN8=;
+        b=Bhl8f5VQvnlokiGvNNtvo6rJkSALewUG1v+060L8QrXUEgxF3Xu75HZq5MVyaH3PPX
+         N9G4uYc+U6qPhrt/ZhgfTejPtrW+tf/LQAjnMjeleIufzGvd8WG9CIrghc7flQRtAOY6
+         bNWjJueh2Gf7B4braxCK0FuNmu0HUeSTa5xGkr2TrZAGQCUdiWurprg6A/lcRy9VRu9v
+         VmfiSDEl6Cqc1IM0vY15B853rqwqkggPepb2txFUIzZzoyszP6Otv9wimGk6Fk0Nrle+
+         XbUy3fkcxY1IcUHiCKW36BcftOrA6nNCwUwpl+zsM6G/OVAJ4G5IP/b65ht7znRQmIO/
+         8Fcw==
+X-Forwarded-Encrypted: i=1; AJvYcCW3HqVU7nz5+V3cjOTwfRQdsjLAk4In9F+oUbLygSnBTwI+VpWbQaALSvZgzvaOj7KZ1+ZAz09ySi4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzpBc8oqdpc0M98MDJ/u3Lg0Bp6EwvRkjV6yNf2zIt3zlgcOGah
+	fZcY5ks78U8WEPDyoykbvKXxy0BK1v8wGJJG5rOVj3Cm1IXIGZuXLkRZIlvc4g==
+X-Google-Smtp-Source: AGHT+IFhgTOQxyg9vMrWdF2h+zK+lg3d57CQp2VozcEuS2bWCk9BKBBNyPFX9q8dkzE1YxK8YIsyJg==
+X-Received: by 2002:a05:6512:3502:b0:52c:df3d:4e9d with SMTP id 2adb3069b0e04-536587ef33bmr8995012e87.37.1725971192129;
+        Tue, 10 Sep 2024 05:26:32 -0700 (PDT)
+Message-ID: <0c4f3e87-b138-407b-a271-7f86fef255f6@suse.com>
+Date: Tue, 10 Sep 2024 14:26:31 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CALUcmUn30tPxjToysLBVBmibMaQUWW=GqFoqduP-W5QwQ-VriQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/7] xen: add capability to remap non-RAM pages to
+ different PFNs
+To: Juergen Gross <jgross@suse.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <20240910103932.7634-1-jgross@suse.com>
+ <20240910103932.7634-6-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240910103932.7634-6-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 10, 2024 at 02:18:35PM +0200, Arthur Borsboom wrote:
-> On Tue, 10 Sept 2024 at 10:33, Greg KH <gregkh@linuxfoundation.org> wrote:
-> >
-> > On Tue, Sep 10, 2024 at 10:13:01AM +0200, Roger Pau Monné wrote:
-> > > On Tue, Sep 10, 2024 at 09:29:30AM +0200, Thomas Zimmermann wrote:
-> > > > Hi
-> > > >
-> > > > Am 10.09.24 um 09:22 schrieb Roger Pau Monné:
-> > > > > On Mon, Sep 09, 2024 at 10:09:16PM -0400, Jason Andryuk wrote:
-> > > > > > From: Jason Andryuk <jason.andryuk@amd.com>
-> > > > > >
-> > > > > > Probing xen-fbfront faults in video_is_primary_device().  The passed-in
-> > > > > > struct device is NULL since xen-fbfront doesn't assign it and the
-> > > > > > memory is kzalloc()-ed.  Assign fb_info->device to avoid this.
-> > > > > >
-> > > > > > This was exposed by the conversion of fb_is_primary_device() to
-> > > > > > video_is_primary_device() which dropped a NULL check for struct device.
-> > > > > >
-> > > > > > Fixes: f178e96de7f0 ("arch: Remove struct fb_info from video helpers")
-> > > > > > Reported-by: Arthur Borsboom <arthurborsboom@gmail.com>
-> > > > > > Closes: https://lore.kernel.org/xen-devel/CALUcmUncX=LkXWeiSiTKsDY-cOe8QksWhFvcCneOKfrKd0ZajA@mail.gmail.com/
-> > > > > > Tested-by: Arthur Borsboom <arthurborsboom@gmail.com>
-> > > > > > CC: stable@vger.kernel.org
-> > > > > > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> > > > > Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> > > > >
-> > > > > > ---
-> > > > > > The other option would be to re-instate the NULL check in
-> > > > > > video_is_primary_device()
-> > > > > I do think this is needed, or at least an explanation.  The commit
-> > > > > message in f178e96de7f0 doesn't mention anything about
-> > > > > video_is_primary_device() not allowing being passed a NULL device
-> > > > > (like it was possible with fb_is_primary_device()).
-> > > > >
-> > > > > Otherwise callers of video_is_primary_device() would need to be
-> > > > > adjusted to check for device != NULL.
-> > > >
-> > > > The helper expects a non-NULL pointer. We might want to document this.
-> > >
-> > > A BUG_ON(!dev); might be enough documentation that the function
-> > > expected a non-NULL dev IMO.
-> >
-> > No need for that, don't check for things that will never happen.
+On 10.09.2024 12:39, Juergen Gross wrote:
+> When running as a Xen PV dom0 it can happen that the kernel is being
+> loaded to a guest physical address conflicting with the host memory
+> map.
 > 
-> And yet, here we are, me reporting a kernel/VM crash due to a thing
-> that will never happen, see 'Closes' above.
+> In order to be able to resolve this conflict, add the capability to
+> remap non-RAM areas to different guest PFNs. A function to use this
+> remapping information for other purposes than doing the remap will be
+> added when needed.
 > 
-> I don't want to suggest BUG_ON is the right approach; I have no idea.
-> I just want to mention that (!dev) did happen. :-)
+> As the number of conflicts should be rather low (currently only
+> machines with max. 1 conflict are known), save the remap data in a
+> small statically allocated array.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-A BUG_ON() will cause the same crash, so I don't see your point, sorry.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with two cosmetic remarks:
 
-greg k-h
+> @@ -792,6 +793,70 @@ int clear_foreign_p2m_mapping(struct gnttab_unmap_grant_ref *unmap_ops,
+>  	return ret;
+>  }
+>  
+> +/* Remapped non-RAM areas */
+> +#define NR_NONRAM_REMAP 4
+> +static struct nonram_remap {
+> +	phys_addr_t maddr;
+> +	phys_addr_t paddr;
+> +	size_t size;
+> +} xen_nonram_remap[NR_NONRAM_REMAP] __ro_after_init;
+> +static unsigned int nr_nonram_remap __ro_after_init;
+
+I take it this is the canonical placement of section attributes in the
+kernel? (In Xen I'd ask for the attributes to be moved ahead of the
+identifiers being declared.)
+
+> +/*
+> + * Do the real remapping of non-RAM regions as specified in the
+> + * xen_nonram_remap[] array.
+> + * In case of an error just crash the system.
+> + */
+> +void __init xen_do_remap_nonram(void)
+> +{
+> +	unsigned int i;
+> +	unsigned int remapped = 0;
+> +	const struct nonram_remap *remap = xen_nonram_remap;
+> +	unsigned long pfn, mfn, end_pfn;
+> +
+> +	for (i = 0; i < nr_nonram_remap; i++) {
+> +		end_pfn = PFN_UP(remap->paddr + remap->size);
+> +		pfn = PFN_DOWN(remap->paddr);
+> +		mfn = PFN_DOWN(remap->maddr);
+> +		while (pfn < end_pfn) {
+> +			if (!set_phys_to_machine(pfn, mfn)) {
+> +				pr_err("Failed to set p2m mapping for pfn=%lx mfn=%lx\n",
+> +				       pfn, mfn);
+> +				BUG();
+
+Wouldn't panic() get you both in one operation? Or do you expect the call
+trace / register state to be of immediate relevance for analysis?
+
+Jan
 
