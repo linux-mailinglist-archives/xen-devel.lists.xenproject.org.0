@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57FE09739DC
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:30:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795652.1205064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 498B79739F9
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:35:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795659.1205073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so1sK-0004AJ-TC; Tue, 10 Sep 2024 14:29:48 +0000
+	id 1so1wz-0005cB-EK; Tue, 10 Sep 2024 14:34:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795652.1205064; Tue, 10 Sep 2024 14:29:48 +0000
+Received: by outflank-mailman (output) from mailman id 795659.1205073; Tue, 10 Sep 2024 14:34:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so1sK-00047B-Q7; Tue, 10 Sep 2024 14:29:48 +0000
-Received: by outflank-mailman (input) for mailman id 795652;
- Tue, 10 Sep 2024 14:29:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1so1sI-000473-GF
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:29:46 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f893da7-6f81-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 16:29:44 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a8d2b4a5bf1so114463866b.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:29:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25ce9732sm488927566b.151.2024.09.10.07.29.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 07:29:43 -0700 (PDT)
+	id 1so1wz-0005Zi-AG; Tue, 10 Sep 2024 14:34:37 +0000
+Received: by outflank-mailman (input) for mailman id 795659;
+ Tue, 10 Sep 2024 14:34:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FMfA=QI=oss.nxp.com=andrei.cherechesu@srs-se1.protection.inumbo.net>)
+ id 1so1wy-0005Zc-K5
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:34:36 +0000
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazlp170100000.outbound.protection.outlook.com
+ [2a01:111:f403:c201::])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cd166c2f-6f81-11ef-a0b5-8be0dac302b0;
+ Tue, 10 Sep 2024 16:34:35 +0200 (CEST)
+Received: from PA4PR04MB9565.eurprd04.prod.outlook.com (2603:10a6:102:26b::13)
+ by AS8PR04MB7557.eurprd04.prod.outlook.com (2603:10a6:20b:294::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24; Tue, 10 Sep
+ 2024 14:34:32 +0000
+Received: from PA4PR04MB9565.eurprd04.prod.outlook.com
+ ([fe80::d8ae:2e16:5a97:1709]) by PA4PR04MB9565.eurprd04.prod.outlook.com
+ ([fe80::d8ae:2e16:5a97:1709%4]) with mapi id 15.20.7939.017; Tue, 10 Sep 2024
+ 14:34:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +47,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f893da7-6f81-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725978584; x=1726583384; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lMupAigUAFMTX8s9ijgnH5O07hYh+HPlIchUXaApAOU=;
-        b=LXxhsEkWzVGQ1Bv93SRH6f2a7gKBJlCwVJXTtqv4v4b4Rm0zgTpY9OC60zsdB1tF61
-         t/XYmcRxr7tR3ixOBC9wD1iy5dVl2/kUrGriNUapjluraeDZrDKz5YAK4iN75s2EDkR7
-         rJWkgbF6hEXl2CmGSBEutiF7m0Ae0B9ofVu+OwyY7+85n0YSN7c4V6tYqVqjwjpMyDML
-         qiIFK0un+dN0xUqF4w4v7bpyXiOuhCICQ8Z4yeN5mM411c2dNih45hevTpqfqxrAEc9K
-         seLg9Z6NU5AC62NXN63SPx6PASGhw5mJ4dyvGbIiSP/B43n08lx46h82kQCKoBg9dhg6
-         Ol8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725978584; x=1726583384;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lMupAigUAFMTX8s9ijgnH5O07hYh+HPlIchUXaApAOU=;
-        b=MGgorWCh1tRC/cCgKl+WytDp1IANYWgW/ZUEzep5gqIfL3PmNoZIlOcs4+FyzfIFL5
-         TJnH0fRK7jZzV83wK0Qw8bjep/7VQg4wbISqhVG5cDPXTe17JIQK6ma+orFB0F4fMEFH
-         bgUMwLnLgAxwfAyrOZBmxWvbgeaXe4LvyyTgLVMAqcRxjuq9whR9psxQrmvUbD2V8B/o
-         /D6FHIEmDg7TanvGl3cE53rxM4z+O3leG78b8BGCXT2pB8hyZNj9ZFZkKFlg+K7vvRzX
-         xtNFVIZ1nKrXZocSFMtVLr7HYC/7R43m/XBfRBKetZEVwtr7JAoSiygvKRO8C5FbUiU4
-         V10g==
-X-Forwarded-Encrypted: i=1; AJvYcCWeUiMtnXhWfvG04X7muD1I/GI/HPLtGSk8/y+/IKE9Zoq9YGqu3XU02sj3C2tK9teC8zvVkDI97yU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw9CsCYTe2aBsNePx4jGdlhyYDlfE2/4zxzBOKwfGghWtclpMfS
-	MO+SEalDQBI4oOUe9J+H/maLyNV7OmWaNhS7Nc07uEilktX9vWl9YQbBqayrhgQObqS+a0UK90w
-	=
-X-Google-Smtp-Source: AGHT+IELwH9KBj84r5e+67IuPSozWSYDQzk7+fAva82QAPNq+iYQes2pa3USQW2dzNWYxHiTO/J5wQ==
-X-Received: by 2002:a17:907:968e:b0:a7a:a960:99ee with SMTP id a640c23a62f3a-a8ffab9759bmr93882166b.32.1725978583681;
-        Tue, 10 Sep 2024 07:29:43 -0700 (PDT)
-Message-ID: <7d55bda8-222a-46c8-a810-79ba5c0928d3@suse.com>
-Date: Tue, 10 Sep 2024 16:29:43 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/4] x86/time: introduce command line option to select
- wallclock
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20240909145455.7517-1-roger.pau@citrix.com>
- <20240909145455.7517-4-roger.pau@citrix.com>
- <985c0d70-55de-43ba-a1b3-811487bb05be@suse.com>
- <ZuBFNu_GFygZwvil@macbook.local>
- <a52b019c-3f1c-4528-91f4-7bc1258c87d9@suse.com>
- <ZuBWsn2wgf9g1Nyv@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZuBWsn2wgf9g1Nyv@macbook.local>
-Content-Type: text/plain; charset=UTF-8
+X-Inumbo-ID: cd166c2f-6f81-11ef-a0b5-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x6gWmAfZ5ZkiB3S/WTdBQv9n6jf7y12HG0/DfjRgWXrLbTuOP0bU9KAcJfUaTAhgqImlPR3pzkUp3br1ZSleuIKVXqs1u8hGuydePoziTB2RGi4XdvySxobC0vdZff0OKbzJeAEpsft2kjjTiCtN+8tYN7xSmedH7us7DKSbTxHlPf+sh8xpeXAqK/qXxAOunUk8i7D7jNg9HtpfjdOTJd00gtecX+MUQ7+t7QqVSjjHEAUqEguRXM5tU1Lj7D3Axh7M7j4j38fi5bd2d/aBfNqyjkis6XA97g+CSW5bWcGF+lvrSdQrmwIQeLn1VXCQ5LX7qGx2mnHMNsbOKo0R6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gKxifwFavsRjdRLWnNccc3YUbxUKZXbR9Xq+y4urWPk=;
+ b=O9C6SelCNghianH55vl1n+pM2kQ+gbU8yfQhiiVYFa93aYBU6RLCLgR0sWsjigCwxHjPqBmknWYQM2++AxZgLDFQ/seLseBRD7z5LNsAbvoKMPQcLQ10LaYhMRDkv21bjFXehncBxRK4MrlY+ieIYPjtOOfmWSLQtBPeN5/hfo1GUFr/ohe+LkNhaNc9j4o9yJut1/GQ48FevTQH/oncGPUTwlO38NSaa0sBceNzvdN9VsEEybpd9sYjowpL04zF27lVXFg8eLlYgc4v+A+vZLPCjLz+qMcNwOH5EBPYmPInwxLMaJlfevGA8RnqYhrwc3NKKWEq2uelp853POzJKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gKxifwFavsRjdRLWnNccc3YUbxUKZXbR9Xq+y4urWPk=;
+ b=EO+Itu6ggRagOPWe/K/YOXOwqbtN6o34pLaeovCeuJrujDftIs4Scz4yw/JDdMbIuCUwziDELsc7LVP1pwuaX1CP0ZyiblmypuMjz9jmrg4z3b7OozGOeBJ0uPaS7XK9prPNWl7PL1139dRIF2It4w4h53ksz+re7Y/JUwnuo0CtNSDshrzk6lbmPsaSwwIxb/69nTglEUgnbSkY1ycVYSPNFG31eBvhpd+Zli17XIsGaS/VtLvUxoz8Unwc17pI9ShEv0Vree0nqg+3U6JlM9sknic+EwAiZRQsw7Cjmia9AJuYWF4uVvNDYftzFEsVIfOCNA87BG7Bk2Sazpid+g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+From: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
+To: xen-devel@lists.xenproject.org
+Cc: S32@nxp.com,
+	andrei.cherechesu@oss.nxp.com,
+	Andrei Cherechesu <andrei.cherechesu@nxp.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v1 0/5] xen/arm: Add support for S32CC platforms and LINFlexD UART
+Date: Tue, 10 Sep 2024 17:34:06 +0300
+Message-ID: <20240910143411.178704-1-andrei.cherechesu@oss.nxp.com>
+X-Mailer: git-send-email 2.45.2
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AM0P190CA0019.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:208:190::29) To PA4PR04MB9565.eurprd04.prod.outlook.com
+ (2603:10a6:102:26b::13)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9565:EE_|AS8PR04MB7557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19cd04ef-c02b-4ef5-6273-08dcd1a5af02
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|52116014|376014|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?MOcwxIsUhdqrBL88xNsoCE4zH5DBNoZXZv384DFUFUOebKayOCYadRKLVXw5?=
+ =?us-ascii?Q?QwPRIKeI3ZEFOU6g69pq7Z9ewwkhcijhnh1DmBzuVsRzSagusyZQXU/DjiHC?=
+ =?us-ascii?Q?dGe+cmG/axPavM/j1vZry+Ib77nR0GKHIfWGriYqcFqS1BQqhZDw5/5X0LlJ?=
+ =?us-ascii?Q?FYibC332eplcQBsyX3vrrc/12Z+W5RF8tzirGxbanwv/rC9Z5RQmCq/13wQP?=
+ =?us-ascii?Q?2eFC6YgyT7SU4ncK5LKXMOmNtW25dmuNAvpbhjPtoSufe87cmULYnxXDz7si?=
+ =?us-ascii?Q?y5eF12xWFwi5dXjrCjogn163iZ++5Wp51Iicg8m3A3b+Y22VgDG0dKSaL3pf?=
+ =?us-ascii?Q?9jlin+remunXgXgVssSgVPrB8Vk/d0k7ZwthmWxvAlZxh+e/ZQiH9Xq3u7if?=
+ =?us-ascii?Q?ULVpn4Bl9k7mLDlRtpLffffva3hmXwAybeJV5sBdar8QjP1TFVuIrwWGsqRr?=
+ =?us-ascii?Q?RbosvjqIbpwbAuMAw+wg1ooXUZp979+jRE27do3m0MKDBYUF13bGCxqrEcqh?=
+ =?us-ascii?Q?LbVrOH3PdecCtpy3P7nPFEs53MsJlY5fu1wxgAM2syrewirMmH0lkAKkRD1U?=
+ =?us-ascii?Q?Y9Ld0JxAdHhzGtQHnXDICeK/BdNXLVfIuIPqpMWbdvUZDjuCckgphJSYeRPt?=
+ =?us-ascii?Q?c7/Q9CKiosNh3KtrPDxryXxKxbg3wYnggx72sx4lICv/c9zw9aXJlZKyKjJy?=
+ =?us-ascii?Q?4Vbf5GAtovJkOuSzKSbgc53FVEaRHGmAv+piPVCUGe4C3qnE+WQ2qcr7lmLz?=
+ =?us-ascii?Q?bD2Szuw25OIvEL0Ur/KD5ens05hNWWFIL32FrNwh+5J65d5oZ0K+4zYjnuZz?=
+ =?us-ascii?Q?CNoXAoZnxY6UsXJd80iuaT+xig6OoEvyCji4OokXdn7AMFIj5opDrVOvhMt6?=
+ =?us-ascii?Q?h67g5ZD8ynEencbC26FnvJuou5aXQCucKDTn9qQR91DI6VcWQBZk8xUvX0WS?=
+ =?us-ascii?Q?LxUV73ny+l2n0yxl4vZfB5+hiCFVgYwo60N/0MmTfF5Bw5qrdKx/ipzzbz3u?=
+ =?us-ascii?Q?nexLtdbS5g46imXkOj/9xxhlvAy5ukBL1LnuPcVEclg7jdVyPg+4DLSKjwtj?=
+ =?us-ascii?Q?1kaoGB7RRdGjH0sj2XEXSili2Bp1vkeeZ7XjEehCUtiuxNDsD81fYVXkCeNI?=
+ =?us-ascii?Q?IprxS2sIDLCcg555RglWevlE5qOzD8kcVZNO28wxEUrywUw2FzhLvUa1gu56?=
+ =?us-ascii?Q?xa6pVEghNT2+xc8iU8g48WoLVm7XHwhJGxeOs1iiFap8eGhivmet4Jx4qtE9?=
+ =?us-ascii?Q?F7X/d9zsrQ34fYLFC7uV0xekN9+o6vY0UdIv/bxe9qXodeJunOm/vXszTPc5?=
+ =?us-ascii?Q?dDOSxuGVCp0dODcyGkfV4CQsYy2MGAoVWOY/rAcp1MGgE1VMiU8IfwQu8wYT?=
+ =?us-ascii?Q?pPuvgEQ=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9565.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?aQ1cHSZInpNH2swaix66lEMQ2nY0Je/ytxLCsqjreE/JmKpdYlWb2Vfw/B4Z?=
+ =?us-ascii?Q?iOPq1w3PgQtCCmEajL+5fv47NPO9BdluxJDOzy0h/wqeLi3dhq4PjGMaXZQk?=
+ =?us-ascii?Q?ooe1ut0rqPOH5XjaB/d2ZyyGLPu/4JPM5JaAGDEz4PsgJ6OT1f/dNDuDykVO?=
+ =?us-ascii?Q?ZRpn2KRqOrBcsD2NRLE0XVBPSU96jMgWCxa7U4DvffkBOHGf61LCNO7oQBQZ?=
+ =?us-ascii?Q?8Y7tiptmQIun/ix5cJfd/RFWUHej9UHgjS26NrQe4Gn6lSWH96e4iHrBslpS?=
+ =?us-ascii?Q?qNnnrbpywbNaT7eG4OTEDIkXzze5ZlZ0BL3O2vI4a6KVJkpbbZysfv4oKsKC?=
+ =?us-ascii?Q?qHWyTm0F6XplS6hOlgdwV7OF++Z+SygvZ7STcgxz2pg571BO0h8m2QJrQtb1?=
+ =?us-ascii?Q?r+miLaNfpCPo/LJKWArlEIAN37Ap0sGYpZm3jwZng8IEg54ItJ4UhwGrr3D2?=
+ =?us-ascii?Q?QMxneBJ6y17de0j9IccLTMeF5YTeBsxhHwPZUDB3q9XxESbpVzeJ7LtFqNkq?=
+ =?us-ascii?Q?G5DPzKeMrZjDOPQ/Kf62itJPkt8U1CSnIhXykfcplEuXDPvilkkaNvsYd8PR?=
+ =?us-ascii?Q?lpzoDcivmfGe1L1UCrDI/IBQbAtArGCJNw9YSfgJOoGKMD8LK7HxM8O/EpHn?=
+ =?us-ascii?Q?QvtsL77YxrW+6zvrJba+YCcXqsvd0KCNp9OK04KJ+EIInIXvjx8Segk1LHIY?=
+ =?us-ascii?Q?FqsSCP+stga+DpP5s33ozU+TtmQ3sflji40YGSw4Zc7NVp8/lysvfykxsWcf?=
+ =?us-ascii?Q?SMyxJ2Bi299MZaID3FmFOLI1lzPKa5xfkAmd2fgKQP8y2iO7Jnrc5p4Aoh3v?=
+ =?us-ascii?Q?xM5gxlQT+UgGr3YRy5kGcxK6kmjMq3Rl0p+Enevc97NCRbKy6tNsovilL7SJ?=
+ =?us-ascii?Q?Hr6M/XMrWcs+ZI0QvHzICWUgOLM4AjeAIYRZGn1bY/UP5VARfvjoAAPlT7LX?=
+ =?us-ascii?Q?ldTvJP3qT2qGkVSsbPtsCuyOM8JwFLSZlfnsihNTKw4ALjFNwiASuZn16E6l?=
+ =?us-ascii?Q?mZU//TkL8hkSe4rLSu7g6daWelHBVBUFR5RJ8HiFMjwCsr06aAAAzWm2CJVf?=
+ =?us-ascii?Q?SbdjaPLqgXauRadCRVuh44iX5mAXrcGKAifnPkZpkS7jTcZOtxO8y5TgmLhU?=
+ =?us-ascii?Q?oG0WkNFTe24fbeB8L5mI7v2DjGSAfEjqodMGIMfUfa80okq/jPVNxMXIFRCA?=
+ =?us-ascii?Q?R0iRmoeoFzWajs5VVrWekQGcnJp5WJ4qGwgDxBxL/eRpRR637VDihtRYo6Xr?=
+ =?us-ascii?Q?nOBELrq345gBLnIak5B1kN4bgxxi4Y+zoEBm+badvKTjdcDKuI4uWSGMZuwe?=
+ =?us-ascii?Q?9gO+6WunarlT+3AptT+AGxOnj26rK0Jt8ngnClzbGdKivR5PQB+vRyszlGTU?=
+ =?us-ascii?Q?U+WyR9f7B6IOrxsPCF+uCKL9XLj0ON8hFIrKrf+GLSCE0g4YM53decwztm7b?=
+ =?us-ascii?Q?+blwhy6c36VL27pIwpQ3mBD6LyE5sS35Fn+eIKcekcYCxEqghZb+V/5DqjlI?=
+ =?us-ascii?Q?he++wd2TkBxmdXrbVY+N95X9ToGvZJNpeviF6X5Ndti8Bk+v4KKPDpGAZKwh?=
+ =?us-ascii?Q?llLDEJ2TRxLhDn0Vsq1A+8rY2o+65PAK7puLoLTay3a3YSh60EjXDgkwwsl/?=
+ =?us-ascii?Q?vw=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19cd04ef-c02b-4ef5-6273-08dcd1a5af02
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9565.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2024 14:34:31.8909
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HUIWktfH7rJXSlE78CkNtOdeCi/IL0nZXEoXfsjlY78RTvrXOGYIttxlboyO3Ik/R2LuSucYZ9EtpX9agsJpA5HsXxoAVqOIN8puaZVG0xY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7557
 
-On 10.09.2024 16:24, Roger Pau Monné wrote:
-> On Tue, Sep 10, 2024 at 03:49:52PM +0200, Jan Beulich wrote:
->> On 10.09.2024 15:10, Roger Pau Monné wrote:
->>>  Would you be fine with
->>> adding the following in init_xen_time():
->>>
->>>     /*
->>>      * EFI run time services can be disabled form the command line, hence the
->>>      * check for them cannot be done as part of the wallclock option parsing.
->>>      */
->>>     if ( wallclock_source == WALLCLOCK_EFI && !efi_enabled(EFI_RS) )
->>>         wallclock_source = WALLCLOCK_UNSET;
->>>
->>>     if ( wallclock_source == WALLCLOCK_UNSET )
->>>         probe_wallclock();
->>
->> ... this is probably the best we can do (nit: s/form/from/ in the comment;
->> maybe also "..., hence the check done as part of option parsing may not
->> suffice" or some such).
-> 
-> I didn't put in my previous reply, but I've removed the efi_enabled()
-> check from the option parsing and instead added this comment:
-> 
->         /*
->          * Checking if run-time services are available must be done after
->          * command line parsing.
->          */
-> 
-> I don't think there's much point in doing the check in
-> parse_wallclock() if it's not reliable, so your reference in the
-> comment to "the check done as part of option parsing" is no longer
-> valid.
+From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 
-Hmm. Rejecting the option if we can is reasonable imo. "efi=rs" can imo only
-sensibly be used to override an earlier "efi=no-rs". Hence what we see while
-parsing the wallclock option gives us at least reasonable grounds to reject
-the option if EFI_RS is already clear. We then merely fail to reject the
-option if the flag is cleared later.
+This patch series adds support for NXP Automotive S32CC platform
+family, which includes S32G [0] and S32R [1].
 
-Yet in the end I'd be happy to leave this particular aspect to you and the
-EFI maintainers.
+First patch adds the driver for the NXP LINFlexD UART, available
+on S32V, S32G and S32R automotive processors. The compatibles in
+the driver match the ones in upstream Linux [2]. The second patch
+adds early printk support via LINFlexD UART.
 
-Jan
+The third patch introduces the S32CC platforms and adds the
+platform-specific code, which enables forwarding SCMI over SMC
+calls to software running at EL3. The fourth patch adds support
+for an early printk menuconfig option for S32CC platforms using
+the LINFlexD UART.
+
+The fifth patch enables the workaround for ARM Cortex-A53 erratum
+1530924, already implemented in Xen for other cores via
+ARM64_WORKAROUND_AT_SPECULATE.
+
+[0] https://www.nxp.com/products/processors-and-microcontrollers/s32-automotive-platform/s32g-vehicle-network-processors:S32G-PROCESSORS
+[1] https://www.nxp.com/products/processors-and-microcontrollers/s32-automotive-platform/s32r-radar-processing:S32R-FAMILY
+[2] https://elixir.bootlin.com/linux/v6.11-rc7/source/Documentation/devicetree/bindings/serial/fsl,s32-linflexuart.yaml#L27
+
+Andrei Cherechesu (5):
+  xen/arm: Add NXP LINFlexD UART Driver
+  xen/arm: Add NXP LINFlexD UART early printk support
+  xen/arm: platforms: Add NXP S32CC platform code
+  xen/arm: Enable early printk for S32CC via LINFlexD UART
+  xen/arm: Enable workaround for Cortex-A53 erratum #1530924
+
+ docs/misc/arm/silicon-errata.txt        |   1 +
+ xen/arch/arm/Kconfig.debug              |  18 ++
+ xen/arch/arm/arm64/debug-linflex.inc    |  58 ++++
+ xen/arch/arm/cpuerrata.c                |   6 +
+ xen/arch/arm/include/asm/linflex-uart.h |  62 ++++
+ xen/arch/arm/platforms/Kconfig          |  10 +
+ xen/arch/arm/platforms/Makefile         |   1 +
+ xen/arch/arm/platforms/s32cc.c          |  84 ++++++
+ xen/drivers/char/Kconfig                |   8 +
+ xen/drivers/char/Makefile               |   1 +
+ xen/drivers/char/linflex-uart.c         | 365 ++++++++++++++++++++++++
+ 11 files changed, 614 insertions(+)
+ create mode 100644 xen/arch/arm/arm64/debug-linflex.inc
+ create mode 100644 xen/arch/arm/include/asm/linflex-uart.h
+ create mode 100644 xen/arch/arm/platforms/s32cc.c
+ create mode 100644 xen/drivers/char/linflex-uart.c
+
+-- 
+2.45.2
+
 
