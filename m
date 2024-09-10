@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C7A1973A11
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:38:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795689.1205132 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C75B973A1A
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:39:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795694.1205143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so20m-0001Ay-Jf; Tue, 10 Sep 2024 14:38:32 +0000
+	id 1so21o-0001vY-SG; Tue, 10 Sep 2024 14:39:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795689.1205132; Tue, 10 Sep 2024 14:38:32 +0000
+Received: by outflank-mailman (output) from mailman id 795694.1205143; Tue, 10 Sep 2024 14:39:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so20m-00019V-GT; Tue, 10 Sep 2024 14:38:32 +0000
-Received: by outflank-mailman (input) for mailman id 795689;
- Tue, 10 Sep 2024 14:38:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1so21o-0001tR-P9; Tue, 10 Sep 2024 14:39:36 +0000
+Received: by outflank-mailman (input) for mailman id 795694;
+ Tue, 10 Sep 2024 14:39:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1so20k-00019P-PO
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:38:30 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 58ddbfd0-6f82-11ef-a0b5-8be0dac302b0;
- Tue, 10 Sep 2024 16:38:30 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a8d3cde1103so441196166b.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:38:29 -0700 (PDT)
+ id 1so21n-0001bT-DI
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:39:35 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7ebd2ceb-6f82-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 16:39:33 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2f762de00e5so34228641fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:39:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25d40064sm491697866b.190.2024.09.10.07.38.28
+ 4fb4d7f45d1cf-5c3ebd76fc4sm4375114a12.78.2024.09.10.07.39.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 07:38:29 -0700 (PDT)
+ Tue, 10 Sep 2024 07:39:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58ddbfd0-6f82-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 7ebd2ceb-6f82-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725979109; x=1726583909; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fYYBJOcFMrMJp2+1FbLH+3FpFYlnxuR7TQRWZgQR3G4=;
-        b=RPqZuY/qI87SNjoMx11IEWAEAaFFnnqja/3YwGoPjo/3G+bGgrGbAKzws2Pw68Sksc
-         vMLhUTVBZ6eCTL8IstgMVXOoaP0HgRUn9rC9PDjbnjWBEvmZ3Ipp3aPLTa6i9v+K1rB8
-         hsghaRMGmsaWlikSPoPojfx0uWJTcmeIbz6ttE27DrJFIYQn/SjiDAcOrU6EJGvIORhn
-         ZQGocIXQyDM7nD7yMEqF52kVE9uzZFJtfSIuoxW/KGybH7hqAut3y31xcco+JJe53is9
-         IVfZEogceNfFcih2yunhbtYucV9hTC0KUBziFy1SI9U1l43sSLIR/jqYqyqGZi4P/7FP
-         bJZA==
+        d=suse.com; s=google; t=1725979173; x=1726583973; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WaFqEYBzQE2LZt1yiChdk7M33TQSnb66DPUTwVLJkXU=;
+        b=EA4YfYQTs3jhHxD1jaxlM87VUbWYRi8iM9rknms/11PGjaf2NwgGbapUs2Qtp5q8v1
+         7lP3advB+iH1khvT8LW/MVV0opGHDLlgDz23rdX3OZPKwdsv5TAr2Eud8FSjjJ2nSgUU
+         AVivvrfg4y3UwSOH92h+G9PdOq3naejA4eZYwnlG9twdFbynVebdpNp5Ewa7gpDEmdaV
+         m+ns0XoDKzKHxVudxwBkgQzz8Uj83dljnmiuUoBaaEYAfxxI89qjAYcMEFdymHaAEpyV
+         R44JU6tojJlf5WWOGbyWB/GLIEkXYOn6nRVgi4j3nm7vvJPC84C7W8YcYrvdxEMAfX0i
+         7bDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725979109; x=1726583909;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fYYBJOcFMrMJp2+1FbLH+3FpFYlnxuR7TQRWZgQR3G4=;
-        b=EELHaLVdk9Ho+a8S3BK0hZXDB2zJF6iGLE81+U6e5nIC56XO2Y6xJrl6MmYwVv6lM7
-         WvaZGMb14GsfwUd3uCM1iiJK+sXy9jMIyAmHDgCIjN+2kxunyyTuymudJeoXa3CmwUzZ
-         uGo/69+tUr2wjDhZbQt0DS6+zUIMJ0xAXj0SOo7ZbvgpSgjYxec7KEemBjAZQYxi8Q3T
-         a27esgaG4Bd1WV6M86NsJNKyPwgTWsPjlWt8qCfhYXLVntbN13mMamjPBp92p/vmuyeu
-         UmbJFQL/wrmuOYig9kxXcWGDW3UnxtDoD4EuB0sxVzUEi2OVbaucAMB0NsRas+rRk63x
-         v37Q==
-X-Gm-Message-State: AOJu0YzXdMlcb1ns7nXpHs5YZDWEuJt/dQ36f6go+akoWu4urdyY1HAN
-	mbr69TyZS5mT48qbdRaQ7UBBTrApTbWUNRcA7ZlDvk+fQ0lsAvckenTTKd8JF82uMizReSHwTVg
+        d=1e100.net; s=20230601; t=1725979173; x=1726583973;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=WaFqEYBzQE2LZt1yiChdk7M33TQSnb66DPUTwVLJkXU=;
+        b=Xf8J7QRBtt1L4D1dJSPu6nW/GXUipOsLNgRUz8FGmc5cpbI9fDRJ2w8Dl4HKnaQrYW
+         TQTrkQVnMAG+ZnOYkncUO+GccI6zxYu2iuWsf0K/vJYgi7tUJU6V+e+tbTtbn0YcAjpu
+         NO2h5JKTPJUrLc/0waXmeLP7G2FYTjLszY5zi/q34Z5ITrYnKeNS3cNrwD/FYdd7Zck8
+         MKoIsSiF0HL1QkaWPIaY8+k5OjD6a6zOgAFKMOlm2aHIB06bLVS5JrS/AW0lopXdgsl+
+         hil7Ux091jed1H1+iSdmNK7+BaCmXVlCMWKJxIjHjF9THLw/a9yTH8Wg0EEZ/m5eaZw+
+         IVZQ==
+X-Gm-Message-State: AOJu0Yx90agrYH4Zl7wFtms7PboNXGrNLOAJrgzJK6S3j8URS81JcwAQ
+	zg8mC6RJb1DcT0PLiyE5PiUHSS9OkdFSFHir2EOoncHpUvD9R++NB9JVwwPbrLc/sRPB0AgDtdE
 	=
-X-Google-Smtp-Source: AGHT+IFr1dwXFc79imdEocLZtzi3hrBa3FPW51OzYmvp31kSHi9x+FI6EvztIoPb6a36dfIIm4jV7A==
-X-Received: by 2002:a17:907:6d0c:b0:a86:a6ee:7dad with SMTP id a640c23a62f3a-a8ffadf2d21mr114776166b.52.1725979109223;
-        Tue, 10 Sep 2024 07:38:29 -0700 (PDT)
-Message-ID: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
-Date: Tue, 10 Sep 2024 16:38:29 +0200
+X-Google-Smtp-Source: AGHT+IFSCzl4iBLY+y+n9/z19AaESU/S34kdkDp2DtKEavTSy+WC3SyBDXLlXFJ6wIKYZ2GzrOMFiA==
+X-Received: by 2002:a2e:b8c7:0:b0:2ef:22ad:77b5 with SMTP id 38308e7fff4ca-2f751f69abcmr114228481fa.29.1725979172793;
+        Tue, 10 Sep 2024 07:39:32 -0700 (PDT)
+Message-ID: <cfbeff6c-569f-4f3b-8ea1-fc3ca36dbc65@suse.com>
+Date: Tue, 10 Sep 2024 16:39:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: [PATCH 1/7] x86/HVM: drop stdvga's "cache" struct member
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/7] x86/HVM: drop stdvga caching mode
+References: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -109,23 +111,131 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-It's been unused for nearly 9 years. By the end of the series stdvga.c's
-sole purpose will be to make sure VRAM writes use the bufio ioreq path.
+As of 68e1183411be ("libxc: introduce a xc_dom_arch for hvm-3.0-x86_32
+guests") caching mode is disabled for HVM domains from start-of-day, due
+the disabling being unconditional in hvm/save.c:arch_hvm_load(). With
+that the field is useless, and can be dropped. Drop the helper functions
+manipulating / checking as well right away, but leave the use sites of
+stdvga_cache_is_enabled() with the hard-coded result the function would
+have produced, to aid validation of subsequent dropping of further code.
 
-1: drop stdvga's "cache" struct member
-2: drop stdvga's "stdvga" struct member
-3: remove unused MMIO handling code
-4: drop stdvga's "gr[]" struct member
-5: drop stdvga's "sr[]" struct member
-6: drop stdvga's "{g,s}r_index" struct members
-7: drop stdvga's "vram_page[]" struct member
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Of course all of these could be folded into a single patch, but I think
-going piecemeal makes more clear that the individual parts are indeed
-unused.
+--- a/xen/arch/x86/hvm/save.c
++++ b/xen/arch/x86/hvm/save.c
+@@ -69,9 +69,6 @@ static void arch_hvm_load(struct domain
+ 
+     /* Time when restore started  */
+     d->arch.hvm.sync_tsc = rdtsc();
+-
+-    /* VGA state is not saved/restored, so we nobble the cache. */
+-    d->arch.hvm.stdvga.cache = STDVGA_CACHE_DISABLED;
+ }
+ 
+ /* List of handlers for various HVM save and restore types */
+--- a/xen/arch/x86/hvm/stdvga.c
++++ b/xen/arch/x86/hvm/stdvga.c
+@@ -100,37 +100,6 @@ static void vram_put(struct hvm_hw_stdvg
+     unmap_domain_page(p);
+ }
+ 
+-static void stdvga_try_cache_enable(struct hvm_hw_stdvga *s)
+-{
+-    /*
+-     * Caching mode can only be enabled if the the cache has
+-     * never been used before. As soon as it is disabled, it will
+-     * become out-of-sync with the VGA device model and since no
+-     * mechanism exists to acquire current VRAM state from the
+-     * device model, re-enabling it would lead to stale data being
+-     * seen by the guest.
+-     */
+-    if ( s->cache != STDVGA_CACHE_UNINITIALIZED )
+-        return;
+-
+-    gdprintk(XENLOG_INFO, "entering caching mode\n");
+-    s->cache = STDVGA_CACHE_ENABLED;
+-}
+-
+-static void stdvga_cache_disable(struct hvm_hw_stdvga *s)
+-{
+-    if ( s->cache != STDVGA_CACHE_ENABLED )
+-        return;
+-
+-    gdprintk(XENLOG_INFO, "leaving caching mode\n");
+-    s->cache = STDVGA_CACHE_DISABLED;
+-}
+-
+-static bool stdvga_cache_is_enabled(const struct hvm_hw_stdvga *s)
+-{
+-    return s->cache == STDVGA_CACHE_ENABLED;
+-}
+-
+ static int stdvga_outb(uint64_t addr, uint8_t val)
+ {
+     struct hvm_hw_stdvga *s = &current->domain->arch.hvm.stdvga;
+@@ -170,7 +139,6 @@ static int stdvga_outb(uint64_t addr, ui
+     if ( !prev_stdvga && s->stdvga )
+     {
+         gdprintk(XENLOG_INFO, "entering stdvga mode\n");
+-        stdvga_try_cache_enable(s);
+     }
+     else if ( prev_stdvga && !s->stdvga )
+     {
+@@ -468,7 +436,7 @@ static int cf_check stdvga_mem_write(
+     };
+     struct ioreq_server *srv;
+ 
+-    if ( !stdvga_cache_is_enabled(s) || !s->stdvga )
++    if ( true || !s->stdvga )
+         goto done;
+ 
+     /* Intercept mmio write */
+@@ -536,18 +504,12 @@ static bool cf_check stdvga_mem_accept(
+          * We cannot return X86EMUL_UNHANDLEABLE on anything other then the
+          * first cycle of an I/O. So, since we cannot guarantee to always be
+          * able to send buffered writes, we have to reject any multi-cycle
+-         * I/O and, since we are rejecting an I/O, we must invalidate the
+-         * cache.
+-         * Single-cycle write transactions are accepted even if the cache is
+-         * not active since we can assert, when in stdvga mode, that writes
+-         * to VRAM have no side effect and thus we can try to buffer them.
++         * I/O.
+          */
+-        stdvga_cache_disable(s);
+-
+         goto reject;
+     }
+     else if ( p->dir == IOREQ_READ &&
+-              (!stdvga_cache_is_enabled(s) || !s->stdvga) )
++              (true || !s->stdvga) )
+         goto reject;
+ 
+     /* s->lock intentionally held */
+--- a/xen/arch/x86/include/asm/hvm/io.h
++++ b/xen/arch/x86/include/asm/hvm/io.h
+@@ -110,19 +110,12 @@ struct vpci_arch_msix_entry {
+     int pirq;
+ };
+ 
+-enum stdvga_cache_state {
+-    STDVGA_CACHE_UNINITIALIZED,
+-    STDVGA_CACHE_ENABLED,
+-    STDVGA_CACHE_DISABLED
+-};
+-
+ struct hvm_hw_stdvga {
+     uint8_t sr_index;
+     uint8_t sr[8];
+     uint8_t gr_index;
+     uint8_t gr[9];
+     bool stdvga;
+-    enum stdvga_cache_state cache;
+     uint32_t latch;
+     struct page_info *vram_page[64];  /* shadow of 0xa0000-0xaffff */
+     spinlock_t lock;
 
-Jan
 
