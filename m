@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A296A9735AF
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 12:56:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795409.1204767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C292C973608
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 13:16:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795423.1204784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snyXS-00088M-K6; Tue, 10 Sep 2024 10:56:02 +0000
+	id 1snyr6-0005gx-8v; Tue, 10 Sep 2024 11:16:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795409.1204767; Tue, 10 Sep 2024 10:56:02 +0000
+Received: by outflank-mailman (output) from mailman id 795423.1204784; Tue, 10 Sep 2024 11:16:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snyXS-000864-HR; Tue, 10 Sep 2024 10:56:02 +0000
-Received: by outflank-mailman (input) for mailman id 795409;
- Tue, 10 Sep 2024 10:56:01 +0000
+	id 1snyr6-0005fR-5v; Tue, 10 Sep 2024 11:16:20 +0000
+Received: by outflank-mailman (input) for mailman id 795423;
+ Tue, 10 Sep 2024 11:16:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZWlv=QI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1snyXR-00085y-Cl
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 10:56:01 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fHVP=QI=suse.de=tiwai@srs-se1.protection.inumbo.net>)
+ id 1snyr5-0005fL-9i
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 11:16:19 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43fb7db9-6f63-11ef-a0b5-8be0dac302b0;
- Tue, 10 Sep 2024 12:56:00 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a8d13b83511so416392866b.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 03:56:00 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d259526c3sm465047466b.69.2024.09.10.03.55.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 03:55:58 -0700 (PDT)
+ id 18fef520-6f66-11ef-a0b5-8be0dac302b0;
+ Tue, 10 Sep 2024 13:16:17 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CF9C921A08;
+ Tue, 10 Sep 2024 11:16:15 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B1E4D13A3A;
+ Tue, 10 Sep 2024 11:16:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 292FKn8q4GYVcAAAD6G6ig
+ (envelope-from <tiwai@suse.de>); Tue, 10 Sep 2024 11:16:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,124 +53,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43fb7db9-6f63-11ef-a0b5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725965760; x=1726570560; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PQjVRUNRpaEBTSawB8J8VJGTNZc/CuU7ETdSarFYrJ0=;
-        b=E5Hjp0dUR6uovH+yGb8I+BAqdwQFujJvX7j4wpxfuPADnJACR93k15ZnoFUfxZyeBd
-         YyHgUEOGJ88lwG1JmjaPPHg1tkhq10Od9Zlghs/1ALJRkBfgrpqLqGAcgqGmmyunKqo9
-         Y61rKFsr5kgpPLflcpFUMItrAZwe1blpZXJkU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725965760; x=1726570560;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PQjVRUNRpaEBTSawB8J8VJGTNZc/CuU7ETdSarFYrJ0=;
-        b=mZarCH6WQsaPlV13LAtfP93A+yQRlc5P58RI6Fy5MikiUcKhyv60H4nVFZh6EJPV8D
-         cRpn3iAn7mBi7YEXHOhmpBBvUK/xE624Aoks6S8nrRxc9HrJyZD+lI/OGlxUV1Ue6VQ5
-         MF6GVVRUFRANJOfrLXYn1pkqxw0qlRUW7MXO1kCgyB1tVV1WX6CbBfmRYY+XABNDbzAV
-         2fElG0rY0WVl9e5D0zcDA+ONdcz0yRWv9NOPrUHQ13z9hcLyqvuKIV+PPwV+lvcHoJx5
-         Na1Vi3uLVrwbNsUQax7pjqvaOUQOvVKP3/KHyPlKSPa8TXekNpTZH3CgFz9zqvGNx/y8
-         t5Mg==
-X-Forwarded-Encrypted: i=1; AJvYcCXlUBE1E8i9a32x0WpUX5QwqvmPpQgqMqtgZQ9ehjNfNfsA8lw9CgoroHnaQYwwycbp7zgeBzNfQs0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxXhhqm2/hlXjgcwjRW20H/fejRFErNkJbSTZJw+uw1ik+98r7K
-	edXfxdYfXQ3LF0ie0NmlbYY+2MmyMl8PKH9BWjktWlTe+J2fZwhHUH4A4mjTjps=
-X-Google-Smtp-Source: AGHT+IEkwDsmvYNCYgnZZWgPaETYU6hiZYF/iSd+LSUiUvAt9Wyv7kTgqxvhkApfljL/VOFAkhrlpg==
-X-Received: by 2002:a17:907:86aa:b0:a8d:6648:813f with SMTP id a640c23a62f3a-a8ffaaacec1mr35245566b.3.1725965759226;
-        Tue, 10 Sep 2024 03:55:59 -0700 (PDT)
-Message-ID: <29a9a901-d789-41c1-a9c9-dfa46d2b9925@citrix.com>
-Date: Tue, 10 Sep 2024 11:55:56 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] x86/cpufreq: address MISRA Rule 7.3 violation
-To: Jan Beulich <jbeulich@suse.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <c5aa988e00f94cf793b7ecae49a4eb94db785dee.1725958056.git.nicola.vetrini@bugseng.com>
- <7163626c-e2de-4c5a-b1e7-d3a80914985d@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <7163626c-e2de-4c5a-b1e7-d3a80914985d@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 18fef520-6f66-11ef-a0b5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1725966976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aSWXduxUIFCZw/mkRONMzdnLrFbA8fCzPQXxmT6OpsU=;
+	b=TdqiNgZ86ajx2uMv0jf8pmfq/to+dJxDzOmj+DL16/W1FwcAPyPUn55EelS1YNw+WcA1VO
+	5QJ9mUbW1Jab5/SDgJZbMP9Tg9HuPmeB0pN5t5uO5/UYZZ551OKMUbSfQ3IS/euDB8b/xD
+	9RdyBvNwygk7h3jpKKKR/u/q0uUinxM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1725966976;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aSWXduxUIFCZw/mkRONMzdnLrFbA8fCzPQXxmT6OpsU=;
+	b=+U/3fD1tt5keolWAGCrbos4u+0brW+rPrcMLVfzsJ+b9R/4FDyNQYAaAlbqZVQmJgkgAtW
+	nykhKUuf5QmGzPDw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=IfqFcZCL;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=gAnalbD1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1725966975; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aSWXduxUIFCZw/mkRONMzdnLrFbA8fCzPQXxmT6OpsU=;
+	b=IfqFcZCLNpTBDSXEI3ZGpkC6oziaeXai4r3R4UUZwuhw6PTI4m1qzRhakGhdUSIvKjwKUz
+	dItR3o5WSM/MKZ4BvAD0neKvALqP27CEafIkoCG9Tj/Q+LnMAvY6DnPhLMwpEexSTZkHMH
+	k2YZuhdErGL91J80ViH967OIguBkjrM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1725966975;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aSWXduxUIFCZw/mkRONMzdnLrFbA8fCzPQXxmT6OpsU=;
+	b=gAnalbD1MuJX8DTO2OIeYEZjw+xb37EeiBcx7KXWPF8YHCVeCjhvXfE+JfzoQ/HP109LJD
+	/RjeiIq8JnPVRCCg==
+Date: Tue, 10 Sep 2024 13:17:03 +0200
+Message-ID: <8734m77o7k.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Ariadne Conill <ariadne@ariadne.space>,
+	xen-devel@lists.xenproject.org,
+	alsa-devel@alsa-project.org,
+	stable@vger.kernel.org,
+	Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH] Revert "ALSA: memalloc: Workaround for Xen PV"
+In-Reply-To: <Zt9UQJcYT58LtuRV@mattapan.m5p.com>
+References: <20240906184209.25423-1-ariadne@ariadne.space>
+	<877cbnewib.wl-tiwai@suse.de>
+	<9eda21ac-2ce7-47d5-be49-65b941e76340@citrix.com>
+	<Zt9UQJcYT58LtuRV@mattapan.m5p.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: CF9C921A08
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TAGGED_RCPT(0.00)[xen];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,suse.de:mid];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -4.01
+X-Spam-Flag: NO
 
-On 10/09/2024 10:12 am, Jan Beulich wrote:
-> On 10.09.2024 10:48, Nicola Vetrini wrote:
->> Rule 7.3 states:
->> "The lowercase character l shall not be used in a literal suffix",
->> but the INTEL_MSR_RANGE macro uses the "ull" suffix.
->> The "u" is transformed in uppercase for consistency.
->>
->> No functional change.
->>
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
->
-> I'm heavily tempted though to ...
->
->> --- a/xen/arch/x86/acpi/cpufreq/acpi.c
->> +++ b/xen/arch/x86/acpi/cpufreq/acpi.c
->> @@ -25,7 +25,7 @@ enum {
->>      SYSTEM_IO_CAPABLE,
->>  };
->>  
->> -#define INTEL_MSR_RANGE         (0xffffull)
->> +#define INTEL_MSR_RANGE         (0xffffULL)
-> ... drop the pointless parentheses while committing.
+On Mon, 09 Sep 2024 22:02:08 +0200,
+Elliott Mitchell wrote:
+> 
+> On Sat, Sep 07, 2024 at 11:38:50AM +0100, Andrew Cooper wrote:
+> > On 07/09/2024 8:46 am, Takashi Iwai wrote:
+> > > On Fri, 06 Sep 2024 20:42:09 +0200,
+> > > Ariadne Conill wrote:
+> > >> This patch attempted to work around a DMA issue involving Xen, but
+> > >> causes subtle kernel memory corruption.
+> > >>
+> > >> When I brought up this patch in the XenDevel matrix channel, I was
+> > >> told that it had been requested by the Qubes OS developers because
+> > >> they were trying to fix an issue where the sound stack would fail
+> > >> after a few hours of uptime.  They wound up disabling SG buffering
+> > >> entirely instead as a workaround.
+> > >>
+> > >> Accordingly, I propose that we should revert this workaround patch,
+> > >> since it causes kernel memory corruption and that the ALSA and Xen
+> > >> communities should collaborate on fixing the underlying problem in
+> > >> such a way that SG buffering works correctly under Xen.
+> > >>
+> > >> This reverts commit 53466ebdec614f915c691809b0861acecb941e30.
+> > >>
+> > >> Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
+> > >> Cc: stable@vger.kernel.org
+> > >> Cc: xen-devel@lists.xenproject.org
+> > >> Cc: alsa-devel@alsa-project.org
+> > >> Cc: Takashi Iwai <tiwai@suse.de>
+> > > The relevant code has been largely rewritten for 6.12, so please check
+> > > the behavior with sound.git tree for-next branch.  I guess the same
+> > > issue should happen as the Xen workaround was kept and applied there,
+> > > too, but it has to be checked at first.
+> > >
+> > > If the issue is persistent with there, the fix for 6.12 code would be
+> > > rather much simpler like the blow.
+> > >
+> > >
+> > > thanks,
+> > >
+> > > Takashi
+> > >
+> > > --- a/sound/core/memalloc.c
+> > > +++ b/sound/core/memalloc.c
+> > > @@ -793,9 +793,6 @@ static void *snd_dma_sg_alloc(struct snd_dma_buffer *dmab, size_t size)
+> > >  	int type = dmab->dev.type;
+> > >  	void *p;
+> > >  
+> > > -	if (cpu_feature_enabled(X86_FEATURE_XENPV))
+> > > -		return snd_dma_sg_fallback_alloc(dmab, size);
+> > > -
+> > >  	/* try the standard DMA API allocation at first */
+> > >  	if (type == SNDRV_DMA_TYPE_DEV_WC_SG)
+> > >  		dmab->dev.type = SNDRV_DMA_TYPE_DEV_WC;
+> > >
+> > >
+> > 
+> > Individual subsystems ought not to know or care about XENPV; it's a
+> > layering violation.
+> > 
+> > If the main APIs don't behave properly, then it probably means we've got
+> > a bug at a lower level (e.g. Xen SWIOTLB is a constant source of fun)
+> > which is probably affecting other subsystems too.
+> 
+> This is a big problem.  Debian bug #988477 (https://bugs.debian.org/988477)
+> showed up in May 2021.  While some characteristics are quite different,
+> the time when it was first reported is similar to the above and it is
+> also likely a DMA bug with Xen.
 
-I'd be tempted to delete the constant entirely.
+Yes, some incompatible behavior has been seen on Xen wrt DMA buffer
+handling, as it seems.  But note that, in the case of above, it was
+triggered by the change in the sound driver side, hence we needed a
+quick workaround there.  The result was to move back to the old method
+for Xen in the end.
 
-It's utterly wrong and unsafe everywhere it's used...
+As already mentioned in another mail, the whole code was changed for
+6.12, and the revert isn't applicable in anyway.
 
-~Andrew
+So I'm going to submit another patch to drop this Xen PV-specific
+workaround for 6.12.  The new code should work without the workaround
+(famous last words).  If the problem happens there, I'd rather leave
+it to Xen people ;)
+
+
+thanks,
+
+Takashi
 
