@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9191197297C
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 08:27:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795008.1204081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9BA697298B
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 08:30:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795014.1204092 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snuKM-0006s8-Tw; Tue, 10 Sep 2024 06:26:14 +0000
+	id 1snuOU-0008Mw-HH; Tue, 10 Sep 2024 06:30:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795008.1204081; Tue, 10 Sep 2024 06:26:14 +0000
+Received: by outflank-mailman (output) from mailman id 795014.1204092; Tue, 10 Sep 2024 06:30:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snuKM-0006q7-R0; Tue, 10 Sep 2024 06:26:14 +0000
-Received: by outflank-mailman (input) for mailman id 795008;
- Tue, 10 Sep 2024 06:26:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1snuOU-0008LQ-EX; Tue, 10 Sep 2024 06:30:30 +0000
+Received: by outflank-mailman (input) for mailman id 795014;
+ Tue, 10 Sep 2024 06:30:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1snuKK-0006q1-JN
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 06:26:12 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 901b246b-6f3d-11ef-a0b5-8be0dac302b0;
- Tue, 10 Sep 2024 08:26:07 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a8d4093722bso385935566b.0
- for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 23:26:07 -0700 (PDT)
+ id 1snuOT-0008LK-P5
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 06:30:29 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2a7e4be1-6f3e-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 08:30:26 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a8d60e23b33so216519166b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Sep 2024 23:30:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25cf4a45sm431046866b.180.2024.09.09.23.26.06
+ a640c23a62f3a-a8d25d5ddc0sm430471066b.188.2024.09.09.23.30.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Sep 2024 23:26:06 -0700 (PDT)
+ Mon, 09 Sep 2024 23:30:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 901b246b-6f3d-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 2a7e4be1-6f3e-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725949567; x=1726554367; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725949826; x=1726554626; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=I1JtKTtW7Xik9xcjv4VPHrbmFdPbVL/w7iRzHUBjHIA=;
-        b=Tdfv52sSwQiUY/TGfuALBQ43HXHf6jaPvfpTPwJSHm1xK79r+Fv8Nd+eE7a5SKEk2b
-         5e45S3zCGo6tpsexblfdYb0q88k3KnnR9VDvb8vdq8xTSwrmm0KXmVjTbKE5Q6iCKuYR
-         UMIr7o9SoKXjLVUSyesiaYH5ThG/kP4WIiUvKbtycUjlw4Ynk/nRtvLPVzR0Ih8WQzwh
-         akwQfUfOYnMHh8Nb7eCmkbAgNI62OpTc+wnwdVXm/EJj0EuGdzI+BrziAAoTEuZOkS58
-         SPHgW1kApfj/sfAyRgJbFNVnGKTN+CmBr7tVNlJDJUvdHfAEZo0ug+Zf8/5zJ4drPu66
-         wWng==
+        bh=6rWqWeEK80w1REuEhidespE9R7WR/V/A5fa5QHgJEMY=;
+        b=A6P3PkGpqfVM2HxDRdoZGlHTNQppxoR2JRuAJ5HnGwEW5UEMcEUift2Jt3U5+cNuf+
+         Mg7waPZBJnot4ExOuHh6sdkANlfwFm1xVJNkLcXcAEvdk2NbKaOJuVKiYS03TtjH40yQ
+         gXzHVxOkd1uP7Q6b69Wq/iacpgSJC+SCsAdKb3oJbWWc4cAKTdYNzzqk5A0d+x/9fcQ6
+         W2/oDE2DmplYCVxXM+Vy5Uumpn7xbxiN8Ffxc8UWenM534SLaH7j3QE+TfXdHV98HnF+
+         zkfxXmIQ2D5xb6mWww7aH9kaLiitalcLaYoFOJH6MAScvuD3lCL2zN/5M1/XDisOlk/a
+         A+jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725949567; x=1726554367;
+        d=1e100.net; s=20230601; t=1725949826; x=1726554626;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=I1JtKTtW7Xik9xcjv4VPHrbmFdPbVL/w7iRzHUBjHIA=;
-        b=C4tFolJ/8g9c1Pn/eqhUENMUMK7fwci6U9Dd9Eehcc9IRbfzovf4LTeZ8+R/R94U8U
-         ATwDoSK9OMQGUVqrBux9hUqKO6O4/3iXIv9lfabTlzLr6e9qXcRslnHCWoRTaMxHMyjy
-         W76ESxy+SNWeEZn3I4BqO8Pu/jL5NPYGp9tBC3Si8HwRFOLkUX+95onKr681M3Xbb52+
-         T3Cyo5U8HPgcgzlFx4ZiMdKXh3hGe+Q4UBTIX1AdKpLrCs6btrPnywoRlkXoaHrVjHou
-         2fSU52hdYeSp4Jrqkb1Zg3HVVp10mdyH33h16kWI30/+4h7Q6mlU4hmYVjjF2glh7y/C
-         03Ww==
-X-Forwarded-Encrypted: i=1; AJvYcCUh2kZfsgxp3lCaTfAuEr8cE3kec7CeDz7lAGDAq1L4vkvLlXVwi4g4+F0KlbYHxp0WTC9OTXg0V1Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx5YQuISJ0JzPME250I1ooMuQEHDecIzUx3bhr+y6/ItYWQNyEu
-	OanEFwhHvQSeMeuvZxdGxcVOjVIgbRexhhWMr79TGAUIRr9jA8ODPVRKOx4zvQ==
-X-Google-Smtp-Source: AGHT+IFDqVgb5zeZiZe0X9GCWeXMdzsgD4lQjXEJx/2xpbe6P7DFaeNYCSl5J44vDFQa2hFE1q+A1Q==
-X-Received: by 2002:a17:907:3f87:b0:a89:c8db:3810 with SMTP id a640c23a62f3a-a8d1c4d5b40mr1320735266b.30.1725949566690;
-        Mon, 09 Sep 2024 23:26:06 -0700 (PDT)
-Message-ID: <c10ce0ba-dd51-4d3e-8ab9-62ee1b39cd31@suse.com>
-Date: Tue, 10 Sep 2024 08:26:06 +0200
+        bh=6rWqWeEK80w1REuEhidespE9R7WR/V/A5fa5QHgJEMY=;
+        b=VmV6IP8f8UurNIUTaYaJ0tCITz4wXgPcWfHqOyMSehghk5GCBdrm8UXdIoKmsMrLd8
+         vpvmfeIMxGUJFT923pHYV1gvff2Zn/U7L5CBQwaNhpVyfXI0ZpvssdfVL/VrzgL42w9Z
+         6KTM1MtVe/QTCIwVbFX0jxKqmP+lw64EDQbwm9Q7c+AJQ1Zq2ZCvQtBDlMYXk6O5Ro3x
+         RjcgXAeJD4upSlDdkf58cTLpC936sRr51r8yCKFmHZU0AzrS4JyhIAN6oWxOykcX1RvS
+         BH+KkP5JJIl8SdsZCew1FLVDhKL5KzpPF0Arp+lmo4x46QBAAdxnRB8hUne8Zcordfoq
+         ghIA==
+X-Forwarded-Encrypted: i=1; AJvYcCXAN38CW8RMSTXXAqhv3NPiGmnmWNZSrJVjI7OjYwpRM+SbN3QHPBvNzAuimzXVrpLJU/YQSx/zx18=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy01UOvJqe3Mgla1wpWWKLUhOX/s89BZDCzacLbz8GIKvTCCSEO
+	PqTcZYJh2o1UNjwtOPv0CZFJqsW0rpcFoQyFGJvCE9vCUdUJv37qRnu3o1sMqQ==
+X-Google-Smtp-Source: AGHT+IFs0sQOOjJI39ol5+41PXnBdEfnGBu0t8IGor7MyBuR3fgGPnLt1CQbdE0kTH/ZghuPhM7peg==
+X-Received: by 2002:a17:907:7ea5:b0:a8b:6ee7:ba12 with SMTP id a640c23a62f3a-a8b70ee94b0mr1283022866b.27.1725949825785;
+        Mon, 09 Sep 2024 23:30:25 -0700 (PDT)
+Message-ID: <44738f93-e99b-4f1c-9ed3-59dd2eac7aff@suse.com>
+Date: Tue, 10 Sep 2024 08:30:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] automation/eclair_analysis: deviate linker symbols
- for Rule 18.2
-To: Stefano Stabellini <stefano.stabellini@amd.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, sstabellini@kernel.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, xen-devel@lists.xenproject.org
-References: <e3a9c3268685562ae557248d6e76376579d99715.1725714006.git.nicola.vetrini@bugseng.com>
- <b0599929-d6f7-48f8-b93c-4b4882225da9@suse.com>
- <alpine.DEB.2.22.394.2409092141570.3672@ubuntu-linux-20-04-desktop>
+Subject: Re: [XEN PATCH v6] CODING_STYLE: Add a section on header guards
+ naming conventions
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
+ consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+References: <a68267c7465a9b0d2ed8f844a5e0145de50b0f3a.1725550985.git.alessandro.zucchelli@bugseng.com>
+ <7357f6e8-2630-4027-b339-eedab9ae48c5@suse.com>
+ <alpine.DEB.2.22.394.2409092149210.3672@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,33 +115,93 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2409092141570.3672@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2409092149210.3672@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.09.2024 06:46, Stefano Stabellini wrote:
+On 10.09.2024 06:57, Stefano Stabellini wrote:
 > On Mon, 9 Sep 2024, Jan Beulich wrote:
->> On 07.09.2024 15:03, Nicola Vetrini wrote:
->>> +   * - R18.2
->>> +     - Subtraction between pointers encapsulated by macro page_to_mfn
->>> +       are safe.
->>> +     - Tagged as `safe` for ECLAIR.
+>> On 05.09.2024 17:48, Alessandro Zucchelli wrote:
+>>> This section explains which format should be followed by header
+>>> inclusion guards via a drop-down list of rules.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+>>>
+>>> ---
+>>> Changes in v6:
+>>> - edit inclusion guards naming conventions, including more details
 >>
->> This one is a result of using frame_table[], aiui. Alternative approaches
->> were discussed before. Did that not lead anywhere, requiring a purely
->> textual / configurational deviation?
+>> Yet I'm afraid that from my pov we're still not there. Specifically ...
+>>
+>>> --- a/CODING_STYLE
+>>> +++ b/CODING_STYLE
+>>> @@ -159,6 +159,34 @@ Emacs local variables
+>>>  A comment block containing local variables for emacs is permitted at
+>>>  the end of files.  It should be:
+>>>  
+>>> +Header inclusion guards
+>>> +-----------------------
+>>> +
+>>> +Unless otherwise specified, all header files should include proper
+>>> +guards to prevent multiple inclusions. The following naming conventions
+>>> +apply:
+>>
+>> ... reading this, I can't derive ...
+>>
+>>> +- Private headers: <dir>__<filename>_H
+>>> +    - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
+>>> +    - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
+>>> +    - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+>>
+>> ... the absence of an equivalent of the arch/ part of the path. As per
+>> my recollection we agreed on that shortening, but it needs spelling out
+>> in the textual description. Such that it is possible to derived what to
+>> uses as a name for, say, a header under common/, crypto/, or drivers/
+>> (or anywhere else of course). Specifically with the further examples ...
 > 
-> During the last MISRA discussion we agree that this was an acceptable
-> approach. What else did you have in mind?
+> Are you asking for something like this?
+> 
+> Omit the word "arch" from the filepath.
+> 
+> If you prefer an alternative wording please suggest the text. 
+> 
+> 
+>>> +- asm-generic headers: ASM_GENERIC__<filename>_H
+>>> +    - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
+>>> +
+>>> +- arch-specific headers: ASM__<architecture>__<subdir>__<filename>_H
+>>> +    - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
+>>
+>> ... here and ...
+> 
+> Suggested text:
+> 
+> Omit the words "arch" and "include/asm" from the filepath, ASM is also
+> prefixed.
+> 
+> 
+>>> +- Xen headers: XEN__<filename>_H
+>>> +    - include/xen/something.h -> XEN__SOMETHING_H
+>>
+>> ... here, where more than just one path component is omitted, deriving
+>> what's meant can end up ambiguous. Yet ambiguity is what we absolutely
+>> want to avoid, to preempt later discussions on any such naming.
+> 
+> Suggested text:
+> 
+> Omit the words "include/xen" from the filepath, XEN is always prefixed.
+> 
+> Please suggest a specific alternative if you prefer
 
-One was to have the linker scripts provide the symbol. I think there were
-one or two more, yet I - perhaps wrongly - haven't been taking notes ...
-
-> In any case, keep in mind that
-> exploring options is a task in itself and we could use our efforts on
-> reducing the numbers of violations instead which I think is more useful.
-
-Sure. Otoh quickest is not always best.
+Looks like I still didn't get across my point: The verbal description
+that's ahead of all of the examples should be complete enough to describe
+the whole set of rules, in sufficiently abstract terms. Then the examples
+will be easy to prove as fitting those rules, and it will be easy to
+derive the naming for further identifiers. IOW - no, I'm not asking for
+the examples to be further commented, but for the naming rules to be
+_fully_ spelled out.
 
 Jan
 
