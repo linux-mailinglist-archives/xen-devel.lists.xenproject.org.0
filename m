@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB1F972AAE
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 09:27:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795034.1204124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 743E0972ABE
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 09:29:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795038.1204136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snvGy-0007J9-WC; Tue, 10 Sep 2024 07:26:48 +0000
+	id 1snvJf-0007si-EX; Tue, 10 Sep 2024 07:29:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795034.1204124; Tue, 10 Sep 2024 07:26:48 +0000
+Received: by outflank-mailman (output) from mailman id 795038.1204136; Tue, 10 Sep 2024 07:29:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snvGy-0007GJ-TB; Tue, 10 Sep 2024 07:26:48 +0000
-Received: by outflank-mailman (input) for mailman id 795034;
- Tue, 10 Sep 2024 07:26:47 +0000
+	id 1snvJf-0007pb-AF; Tue, 10 Sep 2024 07:29:35 +0000
+Received: by outflank-mailman (input) for mailman id 795038;
+ Tue, 10 Sep 2024 07:29:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jI+9=QI=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1snvGw-0007GD-P0
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 07:26:46 +0000
+ id 1snvJd-0007pB-Rb
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 07:29:33 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 07d1cf4a-6f46-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 09:26:44 +0200 (CEST)
+ id 6b8e484c-6f46-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 09:29:31 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BEF00219FB;
- Tue, 10 Sep 2024 07:26:43 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3BFAB219FB;
+ Tue, 10 Sep 2024 07:29:31 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7729713A3A;
- Tue, 10 Sep 2024 07:26:43 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E133313A3A;
+ Tue, 10 Sep 2024 07:29:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id EapyG7P032YTJgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 10 Sep 2024 07:26:43 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id t5SwNVr132boJgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 10 Sep 2024 07:29:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,57 +51,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07d1cf4a-6f46-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 6b8e484c-6f46-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1725953203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1725953371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=m7fVBlL4PNu24Is+8HspZt8gB7mcRXk5r+0veAHr0/w=;
-	b=zUWLy9OvAO7XrxoS6/UoJhkJSrj0WB+6fVF6nDh1pZmKtFVCfEXqJNKgFj18SsmLMBmMy5
-	VHyBv1nUd3A0tiOCUZ6C6MsMedok/C/qhTHobr9SPz/p2kTCp2IsTPeCrdejqpqnpHxL1H
-	QrxtOlzVSKrZ2v+uZr2jEgR+e14sHOs=
+	bh=MiDi2FHA9vw0R48kbGJoZgqTSRc3ZSboY8rVX/ccVPU=;
+	b=ZHJtm0SgubpIDNQVqhNDd4qeu16fDkdq1hs9xlRV+iLvxqrUdWbsxiauuD/ipALIv3AbeJ
+	JAlyn4gECJXQd1NUvCaQwuQ/GmocrLlCb3Kh1E86/L+GNQFKOIkZM1/YMd4Yy+mG4bmDwP
+	klGCXjqhQmC9n+1Tq0FkKCoNzp8sV4g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1725953203;
+	s=susede2_ed25519; t=1725953371;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=m7fVBlL4PNu24Is+8HspZt8gB7mcRXk5r+0veAHr0/w=;
-	b=td/M7CLG23zworLW4Ao5DjziNtE2XM3TIOp3+791DBeDDuhtff3nXK8o1URUxeLVkjcKBr
-	yepoUyf+F6YU43BA==
+	bh=MiDi2FHA9vw0R48kbGJoZgqTSRc3ZSboY8rVX/ccVPU=;
+	b=iYY32GUHw+AubQO8jsoZje/xUgexavsARV3esphtazmJSVfQZMdQPucZcUwTx7jX/Xxxqj
+	+TOJ/XsVC4ngw7CA==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1725953203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1725953371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=m7fVBlL4PNu24Is+8HspZt8gB7mcRXk5r+0veAHr0/w=;
-	b=zUWLy9OvAO7XrxoS6/UoJhkJSrj0WB+6fVF6nDh1pZmKtFVCfEXqJNKgFj18SsmLMBmMy5
-	VHyBv1nUd3A0tiOCUZ6C6MsMedok/C/qhTHobr9SPz/p2kTCp2IsTPeCrdejqpqnpHxL1H
-	QrxtOlzVSKrZ2v+uZr2jEgR+e14sHOs=
+	bh=MiDi2FHA9vw0R48kbGJoZgqTSRc3ZSboY8rVX/ccVPU=;
+	b=ZHJtm0SgubpIDNQVqhNDd4qeu16fDkdq1hs9xlRV+iLvxqrUdWbsxiauuD/ipALIv3AbeJ
+	JAlyn4gECJXQd1NUvCaQwuQ/GmocrLlCb3Kh1E86/L+GNQFKOIkZM1/YMd4Yy+mG4bmDwP
+	klGCXjqhQmC9n+1Tq0FkKCoNzp8sV4g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1725953203;
+	s=susede2_ed25519; t=1725953371;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=m7fVBlL4PNu24Is+8HspZt8gB7mcRXk5r+0veAHr0/w=;
-	b=td/M7CLG23zworLW4Ao5DjziNtE2XM3TIOp3+791DBeDDuhtff3nXK8o1URUxeLVkjcKBr
-	yepoUyf+F6YU43BA==
-Message-ID: <0cbcaa64-2cbe-4c8e-86a0-e12da60a42ab@suse.de>
-Date: Tue, 10 Sep 2024 09:26:42 +0200
+	bh=MiDi2FHA9vw0R48kbGJoZgqTSRc3ZSboY8rVX/ccVPU=;
+	b=iYY32GUHw+AubQO8jsoZje/xUgexavsARV3esphtazmJSVfQZMdQPucZcUwTx7jX/Xxxqj
+	+TOJ/XsVC4ngw7CA==
+Message-ID: <ad9e19af-fabd-4ce0-a9ac-741149f9aab3@suse.de>
+Date: Tue, 10 Sep 2024 09:29:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] fbdev/xen-fbfront: Assign fb_info->device
-To: Jason Andryuk <jandryuk@gmail.com>, Helge Deller <deller@gmx.de>,
- Arnd Bergmann <arnd@arndb.de>, Sam Ravnborg <sam@ravnborg.org>
-Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>,
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jandryuk@gmail.com>
+Cc: Helge Deller <deller@gmx.de>, Arnd Bergmann <arnd@arndb.de>,
+ Sam Ravnborg <sam@ravnborg.org>, xen-devel@lists.xenproject.org,
+ Jason Andryuk <jason.andryuk@amd.com>,
  Arthur Borsboom <arthurborsboom@gmail.com>, stable@vger.kernel.org,
  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 References: <20240910020919.5757-1-jandryuk@gmail.com>
+ <Zt_zvt3VXwim_DwS@macbook.local>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -128,77 +131,75 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20240910020919.5757-1-jandryuk@gmail.com>
+In-Reply-To: <Zt_zvt3VXwim_DwS@macbook.local>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Spam-Score: -4.30
 X-Spamd-Result: default: False [-4.30 / 50.00];
 	BAYES_HAM(-3.00)[99.99%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,gmx.de,arndb.de,ravnborg.org];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[lists.xenproject.org,amd.com,gmail.com,vger.kernel.org,lists.freedesktop.org];
 	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+	MIME_TRACE(0.00)[0:+];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_TO(0.00)[citrix.com,gmail.com];
 	MID_RHS_MATCH_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email]
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmx.de,arndb.de,ravnborg.org,lists.xenproject.org,amd.com,gmail.com,vger.kernel.org,lists.freedesktop.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
 X-Spam-Flag: NO
 X-Spam-Level: 
 
+Hi
 
-
-Am 10.09.24 um 04:09 schrieb Jason Andryuk:
-> From: Jason Andryuk <jason.andryuk@amd.com>
+Am 10.09.24 um 09:22 schrieb Roger Pau Monné:
+> On Mon, Sep 09, 2024 at 10:09:16PM -0400, Jason Andryuk wrote:
+>> From: Jason Andryuk <jason.andryuk@amd.com>
+>>
+>> Probing xen-fbfront faults in video_is_primary_device().  The passed-in
+>> struct device is NULL since xen-fbfront doesn't assign it and the
+>> memory is kzalloc()-ed.  Assign fb_info->device to avoid this.
+>>
+>> This was exposed by the conversion of fb_is_primary_device() to
+>> video_is_primary_device() which dropped a NULL check for struct device.
+>>
+>> Fixes: f178e96de7f0 ("arch: Remove struct fb_info from video helpers")
+>> Reported-by: Arthur Borsboom <arthurborsboom@gmail.com>
+>> Closes: https://lore.kernel.org/xen-devel/CALUcmUncX=LkXWeiSiTKsDY-cOe8QksWhFvcCneOKfrKd0ZajA@mail.gmail.com/
+>> Tested-by: Arthur Borsboom <arthurborsboom@gmail.com>
+>> CC: stable@vger.kernel.org
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 >
-> Probing xen-fbfront faults in video_is_primary_device().  The passed-in
-> struct device is NULL since xen-fbfront doesn't assign it and the
-> memory is kzalloc()-ed.  Assign fb_info->device to avoid this.
+>> ---
+>> The other option would be to re-instate the NULL check in
+>> video_is_primary_device()
+> I do think this is needed, or at least an explanation.  The commit
+> message in f178e96de7f0 doesn't mention anything about
+> video_is_primary_device() not allowing being passed a NULL device
+> (like it was possible with fb_is_primary_device()).
 >
-> This was exposed by the conversion of fb_is_primary_device() to
-> video_is_primary_device() which dropped a NULL check for struct device.
+> Otherwise callers of video_is_primary_device() would need to be
+> adjusted to check for device != NULL.
+
+The helper expects a non-NULL pointer. We might want to document this.
+
+Best regards
+Thomas
+
 >
-> Fixes: f178e96de7f0 ("arch: Remove struct fb_info from video helpers")
-> Reported-by: Arthur Borsboom <arthurborsboom@gmail.com>
-> Closes: https://lore.kernel.org/xen-devel/CALUcmUncX=LkXWeiSiTKsDY-cOe8QksWhFvcCneOKfrKd0ZajA@mail.gmail.com/
-> Tested-by: Arthur Borsboom <arthurborsboom@gmail.com>
-> CC: stable@vger.kernel.org
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Thanks a lot.
-
-> ---
-> The other option would be to re-instate the NULL check in
-> video_is_primary_device()
-> ---
->   drivers/video/fbdev/xen-fbfront.c | 1 +
->   1 file changed, 1 insertion(+)
+> Thanks, Roger.
 >
-> diff --git a/drivers/video/fbdev/xen-fbfront.c b/drivers/video/fbdev/xen-fbfront.c
-> index 66d4628a96ae..c90f48ebb15e 100644
-> --- a/drivers/video/fbdev/xen-fbfront.c
-> +++ b/drivers/video/fbdev/xen-fbfront.c
-> @@ -407,6 +407,7 @@ static int xenfb_probe(struct xenbus_device *dev,
->   	/* complete the abuse: */
->   	fb_info->pseudo_palette = fb_info->par;
->   	fb_info->par = info;
-> +	fb_info->device = &dev->dev;
->   
->   	fb_info->screen_buffer = info->fb;
->   
 
 -- 
 --
