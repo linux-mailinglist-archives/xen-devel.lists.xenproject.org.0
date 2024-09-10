@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 321D4972FA7
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 11:54:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795205.1204416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 757C7973077
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 12:01:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795216.1204427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snxZC-0002rJ-NB; Tue, 10 Sep 2024 09:53:46 +0000
+	id 1snxgh-000542-GX; Tue, 10 Sep 2024 10:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795205.1204416; Tue, 10 Sep 2024 09:53:46 +0000
+Received: by outflank-mailman (output) from mailman id 795216.1204427; Tue, 10 Sep 2024 10:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snxZC-0002pf-KT; Tue, 10 Sep 2024 09:53:46 +0000
-Received: by outflank-mailman (input) for mailman id 795205;
- Tue, 10 Sep 2024 09:53:45 +0000
+	id 1snxgh-00051V-DE; Tue, 10 Sep 2024 10:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 795216;
+ Tue, 10 Sep 2024 10:01:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W0jq=QI=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1snxZB-0002Mi-1H
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 09:53:45 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1snxgf-00051P-DK
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 10:01:29 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 905269ea-6f5a-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 11:53:43 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 6988A4EE07A4;
- Tue, 10 Sep 2024 11:53:42 +0200 (CEST)
+ id a4f77b52-6f5b-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 12:01:27 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-53662965a05so664637e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 03:01:27 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8d25d65cf6sm455248466b.222.2024.09.10.03.01.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Sep 2024 03:01:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 905269ea-6f5a-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1725962022; bh=OJGbyTQhDkKNodMhegLbtC5t+lC7VrqUYMRbO21s0lU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=HksMcgtWqgK5tmbJ85LPD90HIs4hInO7+jvwzOvKgGOs1HNtuRHGmvTaEnmMzO2B6
-	 3mpnIfFhIeizlow/R0eoYpZYTBLRxcoaTHML6933EHS1r6+jdQZpD9xIAW6dwVAsee
-	 +FvkkWwqPeaUeH3HRIZkzS49wVn6DKgD7ZdYfS/LzNqmOxKzNPEdqecNFGAy9CPYIL
-	 7UEyzX7eCxWhbRJI7hnFQifzkQc7QfUUDq5rk2WdxGYwg4GqyEh5xLX0Vspa0V1sN0
-	 r1jcMRx7OE77JevGeNBOv0uyyOr5rR6Apnx3Gl/33PQXw8F6+Sns9MGhAn3Vf38+T/
-	 D51DG/CgYlogg==
+X-Inumbo-ID: a4f77b52-6f5b-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1725962487; x=1726567287; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=v9ZDdgUxmxFogqKbV0ZfBlBw9mutj3HsfhDx8HZJRh0=;
+        b=HFb5EgmKiy3OnxEF97pCvnEsBG7iGrvYK/GT0bePVlhtxhBzLETWZcGMNiNcbBeZbv
+         Oiv27AiTfiEXqqdCBxpdgCjZiJoBXax/tFWTjjkgjwyd1sFni//yZB939761XWvdfreY
+         D+c1pcIwepaWUi1qIVwMSj5NBqxaH2kdvz9TfWM8i1Wu5IEJOqn2YZ/YN+yClXY9wwn0
+         1N0eW9glk2p0FUj94oDExzgikEbRU1eolYZEmVRq5c2rJF81RIysdM5lIJuash+gdkvB
+         zKvNj/IK4a6/1jDA7nXCqMZpdbfDMrLsvNeo2MXy1dSo6c9JKFD4pyrvpwpJW9YpTT3x
+         wQ9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1725962487; x=1726567287;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=v9ZDdgUxmxFogqKbV0ZfBlBw9mutj3HsfhDx8HZJRh0=;
+        b=UfXNuTNArcE9n8DuqAH1Aoz3beTSMs2aXpHpdwCxrVojBn2sMkwmu7S8yB1nAcY2PO
+         liWVJASL4xDCiFTvFOm5iMkHeRyO7pB+Eda8vgHAIvcBMwcacQdGxLpeVxv/+d6Xnc8F
+         BXE9oJt/ljvR5NM8KyxCfgjQsPd9W2/pL1I5fDJTxC0j2j7mC587xOR0B82sq+L0mbvK
+         UO6dp8dDmumOsMWs1jw346bsKNuMdWEel/6vLBcJ1/FXYDuvGpYAW66GQiZrbqvou9EU
+         zZAas+ccWIrU0Ht/AjhRVZwoPJCurh6b5/vAo3RepXuA78zcqujVIw4uEJNMJs9eQSQf
+         uh5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW0+Yu62ydDi7r6AZnrBdTekQ2P8N+VaCQSMnJAeWKR/ry8Sv4FHG85ve/qSXnwxgqGlVhwFcb67wg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzydbD3IkE5H2UkuEPq82nojRKNV02V3KsP9osO0O6+6ROw3sJQ
+	es9jdE4NA1R/RN+uDR2fy35lnIeLqN211MQDcTZUs5y34WkUWW2JEUOsac3RUg==
+X-Google-Smtp-Source: AGHT+IFCKGb3CfScAL0wqEzeWiXUuISWHcLUd9/YFrCqzzb9FmcmEPwZkFyXGA9kLCsHZTm5Wts9sA==
+X-Received: by 2002:ac2:4c48:0:b0:52c:dfa7:9f43 with SMTP id 2adb3069b0e04-536587b4380mr10412137e87.34.1725962486513;
+        Tue, 10 Sep 2024 03:01:26 -0700 (PDT)
+Message-ID: <4d98b0fb-e797-4a4f-9edc-4894f85b357d@suse.com>
+Date: Tue, 10 Sep 2024 12:01:26 +0200
 MIME-Version: 1.0
-Date: Tue, 10 Sep 2024 11:53:42 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/9] xen/riscv: set up fixmap mappings
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v2] x86: p2m-pod: address violation of MISRA C Rule
- 2.1
-In-Reply-To: <4e54f8e0-43ce-4dd6-b1b4-cf72b59d96be@suse.com>
-References: <43b3a42f9d323cc3f9747c56e8f59f9dffa69321.1719556140.git.nicola.vetrini@bugseng.com>
- <38b57a6f-187c-440a-b3b4-9e7e124e1802@suse.com>
- <25b6a974b7c9aaec32b11930168148a5@bugseng.com>
- <4e54f8e0-43ce-4dd6-b1b4-cf72b59d96be@suse.com>
-Message-ID: <1a139b44effdeefab6b3e0ee7ae0c43d@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+References: <cover.1725295716.git.oleksii.kurochko@gmail.com>
+ <a05babb0982a3a0709ed08c3eeb9a729421e1bd1.1725295716.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a05babb0982a3a0709ed08c3eeb9a729421e1bd1.1725295716.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2024-09-10 11:08, Jan Beulich wrote:
-> On 10.09.2024 10:56, Nicola Vetrini wrote:
->> On 2024-07-01 10:36, Jan Beulich wrote:
->>> On 28.06.2024 08:30, Nicola Vetrini wrote:
->>> This being about unreachable code, why are the domain_crash() not the
->>> crucial points of "unreachability"? And even if they weren't there, 
->>> why
->>> wouldn't it be the goto or ...
->>> 
->>>> --- a/xen/arch/x86/mm/p2m-pod.c
->>>> +++ b/xen/arch/x86/mm/p2m-pod.c
->>>> @@ -1040,6 +1040,7 @@ out_unmap:
->>>>       * Something went wrong, probably crashing the domain.  Unmap
->>>>       * everything and return.
->>>>       */
->>>> +    /* SAF-8-safe Rule 2.1: defensive programming */
->>>>      for ( i = 0; i < count; i++ )
->>>>          if ( map[i] )
->>>>              unmap_domain_page(map[i]);
->>> 
->>> ... the label (just out of context) where the comment needs to go?
->> 
->> Because of the way this rule's configuration work, deviations are 
->> placed
->> on the construct that ends up being the target of the unreachability,
+On 02.09.2024 19:01, Oleksii Kurochko wrote:
+> Set up fixmap mappings and the L0 page table for fixmap support.
 > 
-> What's "target" here? What if this loop was removed from the function?
-> Then both the label and the domain_crash() invocations would still be
-> unreachable in debug builds. Are you telling me that this then wouldn't
-> be diagnosed by Eclair? Or that it would then consider the closing
-> figure brace of the function "the target of the unreachability"?
+> Modify the Page Table Entries (PTEs) directly in arch_pmap_map()
+> instead of using set_fixmap() ( which relies on map_pages_to_xen() ).
 
-Exactly, the end brace is a target to which the "function end" construct 
-is associated.
-It would be kind of strange, though: why not just doing "domain_crash(); 
-return;" in that case?
+What do you derive this from? There's no set_fixmap() here, and hence
+it's unknown how it is going to be implemented. The most you can claim
+is that it is expected that it will use map_pages_to_xen(), which in
+turn ...
 
-> 
->> rather than (one of) the causes of such unreachability. Putting the
->> comment on the label works for ECLAIR by offsetting its target
->> statement, but not for other tools afaik.
-> 
-> I don't recall whether I ever saw a Coverity report to this effect,
-> and hence I wouldn't be able to tell how that would want silencing if
-> so desired.
-> 
-> Jan
+> This change is necessary because PMAP is used when the domain map
+> page infrastructure is not yet initialized so map_pages_to_xen()
+> called by set_fixmap() needs to map pages on demand, which then
+> calls pmap() again, resulting in a loop.
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+... is only expected to use arch_pmap_map().
+
+> @@ -81,6 +82,18 @@ static inline void flush_page_to_ram(unsigned long mfn, bool sync_icache)
+>      BUG_ON("unimplemented");
+>  }
+>  
+> +/* Write a pagetable entry. */
+> +static inline void write_pte(pte_t *p, pte_t pte)
+> +{
+> +    write_atomic(p, pte);
+> +}
+> +
+> +/* Read a pagetable entry. */
+> +static inline pte_t read_pte(pte_t *p)
+
+const pte_t *?
+
+Jan
 
