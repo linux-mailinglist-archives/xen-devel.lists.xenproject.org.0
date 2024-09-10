@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3043D972888
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 06:47:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.794989.1204047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C5AE9728AF
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 06:58:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.794996.1204058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snsmj-0002lf-Mv; Tue, 10 Sep 2024 04:47:25 +0000
+	id 1snsx6-0004X7-KQ; Tue, 10 Sep 2024 04:58:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 794989.1204047; Tue, 10 Sep 2024 04:47:25 +0000
+Received: by outflank-mailman (output) from mailman id 794996.1204058; Tue, 10 Sep 2024 04:58:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snsmj-0002ix-JQ; Tue, 10 Sep 2024 04:47:25 +0000
-Received: by outflank-mailman (input) for mailman id 794989;
- Tue, 10 Sep 2024 04:47:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1snsx6-0004Uy-HL; Tue, 10 Sep 2024 04:58:08 +0000
+Received: by outflank-mailman (input) for mailman id 794996;
+ Tue, 10 Sep 2024 04:58:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DP99=QI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1snsmi-0002Dr-DI
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 04:47:24 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c34d0a49-6f2f-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 06:47:21 +0200 (CEST)
+ id 1snsx5-0004Us-9R
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 04:58:07 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 41b3ed9a-6f31-11ef-a0b5-8be0dac302b0;
+ Tue, 10 Sep 2024 06:58:02 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 97F995C0178;
- Tue, 10 Sep 2024 04:47:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7F8C4CEC3;
- Tue, 10 Sep 2024 04:47:18 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id C7C73A440C5;
+ Tue, 10 Sep 2024 04:57:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDDB7C4CEC3;
+ Tue, 10 Sep 2024 04:57:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,84 +41,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c34d0a49-6f2f-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 41b3ed9a-6f31-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725943639;
-	bh=84Py3Ubl6ucJia/sBOmQq39Px1f7reDOEFrLCP+cRqE=;
+	s=k20201202; t=1725944280;
+	bh=SkHIUwZ//PZST9JBMDnznPLbEJk3hkyT6v2LWlGtTsk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nVjjOaMSZtm2JFFB44vz4OGIHDaCuQ4G2qe+AfVYEcc7x4sI0Jv0Nbtw4P44A4jUb
-	 wa9nL5lFg9YoPBjYhkONMiQjcuBMq7d2tqvjg361+rk3zan7O2qFeFWvJnCMFtppVH
-	 614YnZ6ge6QPvupFxFAE9C46ToV7v9RJZrs+FJHtt9+7+WaWaaCBSSsyj3aGQdIsy/
-	 dvyXBRnpKwnrilPBH/psHXxHu358tihTQ+IAnYkJ/Z0NZ3qkG5PCuQso8EfNv0YO7J
-	 WetS7NjaTvLicQRMgrwfCn9E5EPjTzweEygwJY8Pe36nbuYc01dNHPY3tkMsbXm125
-	 /DKCna+7TDoUQ==
-Date: Mon, 9 Sep 2024 21:47:17 -0700 (PDT)
+	b=Oj633EqO1VRhzsmCDirDycnBopNnMmBk7nbx5vxF/qYBADUrGtjfpCLYX8QR3z18S
+	 904GVvbiokxSsOo3WROkiFJEwPB5lcELA0ZfYyO1L8TbY7ciq2XJ3LIaU3+XNx+Bq8
+	 Rsz34iaBzETBkb40yU+p6RcQb+tvTT3nL1HhZ/aCv7MtgsK92duMU00rxulzKHiNwx
+	 BCKAexdZ/QArx6r5Q2q/ECDmo3g7dAuB1xmAJ3tMTmVDn33GHBiQKDAcxIYWmskkKz
+	 WCFc4Su2uOdVR7Wl53LPTk30Z2o4728+CHsIGnzawB0Ys+FGpu/GflskcvBlk284S+
+	 UbeNYtwjRT2iQ==
+Date: Mon, 9 Sep 2024 21:57:58 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Victor Lira <victorm.lira@amd.com>
-cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v2] automation: fix xilinx test console settings
-In-Reply-To: <31253c0d35b2d238b31b197379decef013a1e63a.1725925821.git.victorm.lira@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2409092147050.3672@ubuntu-linux-20-04-desktop>
-References: <31253c0d35b2d238b31b197379decef013a1e63a.1725925821.git.victorm.lira@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, 
+    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v6] CODING_STYLE: Add a section on header guards
+ naming conventions
+In-Reply-To: <7357f6e8-2630-4027-b339-eedab9ae48c5@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2409092149210.3672@ubuntu-linux-20-04-desktop>
+References: <a68267c7465a9b0d2ed8f844a5e0145de50b0f3a.1725550985.git.alessandro.zucchelli@bugseng.com> <7357f6e8-2630-4027-b339-eedab9ae48c5@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 9 Sep 2024, victorm.lira@amd.com wrote:
-> From: Victor Lira <victorm.lira@amd.com>
+On Mon, 9 Sep 2024, Jan Beulich wrote:
+> On 05.09.2024 17:48, Alessandro Zucchelli wrote:
+> > This section explains which format should be followed by header
+> > inclusion guards via a drop-down list of rules.
+> > 
+> > No functional change.
+> > 
+> > Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+> > 
+> > ---
+> > Changes in v6:
+> > - edit inclusion guards naming conventions, including more details
 > 
-> The test showed unreliable behavior due to unsupported console settings.
-> Update the baud rate used to connect to the UART.
+> Yet I'm afraid that from my pov we're still not there. Specifically ...
 > 
-> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+> > --- a/CODING_STYLE
+> > +++ b/CODING_STYLE
+> > @@ -159,6 +159,34 @@ Emacs local variables
+> >  A comment block containing local variables for emacs is permitted at
+> >  the end of files.  It should be:
+> >  
+> > +Header inclusion guards
+> > +-----------------------
+> > +
+> > +Unless otherwise specified, all header files should include proper
+> > +guards to prevent multiple inclusions. The following naming conventions
+> > +apply:
+> 
+> ... reading this, I can't derive ...
+> 
+> > +- Private headers: <dir>__<filename>_H
+> > +    - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
+> > +    - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
+> > +    - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+> 
+> ... the absence of an equivalent of the arch/ part of the path. As per
+> my recollection we agreed on that shortening, but it needs spelling out
+> in the textual description. Such that it is possible to derived what to
+> uses as a name for, say, a header under common/, crypto/, or drivers/
+> (or anywhere else of course). Specifically with the further examples ...
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Are you asking for something like this?
+
+Omit the word "arch" from the filepath.
+
+If you prefer an alternative wording please suggest the text. 
 
 
-> ---
-> Changes v2:
-> - restore I/O port address
-> ---
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> Cc: Jan Beulich <jbeulich@suse.com>
-> Cc: Julien Grall <julien@xen.org>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: xen-devel@lists.xenproject.org
-> ---
->  automation/gitlab-ci/test.yaml                 | 2 +-
->  automation/scripts/xilinx-smoke-dom0-x86_64.sh | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+> > +- asm-generic headers: ASM_GENERIC__<filename>_H
+> > +    - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
+> > +
+> > +- arch-specific headers: ASM__<architecture>__<subdir>__<filename>_H
+> > +    - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
 > 
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 8857bc56049b..09706894cf3f 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -103,7 +103,7 @@
->    variables:
->      CONTAINER: ubuntu:xenial-xilinx
->      LOGFILE: xilinx-smoke-x86_64.log
-> -    XEN_CMD_CONSOLE: "console=com2 com2=115200,8n1,0x2F8,4"
-> +    XEN_CMD_CONSOLE: "console=com2 com2=57600,8n1,0x2F8,4"
->      TEST_BOARD: "crater"
->      TEST_TIMEOUT: 1000
->    artifacts:
-> diff --git a/automation/scripts/xilinx-smoke-dom0-x86_64.sh b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> index ef6e1361a95c..7027f083bafe 100755
-> --- a/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> +++ b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> @@ -129,7 +129,7 @@ sleep 5
->  sh /scratch/gitlab-runner/${TEST_BOARD}.sh 1
->  sleep 5
->  set +e
-> -stty -F ${SERIAL_DEV} 115200
-> +stty -F ${SERIAL_DEV} 57600
+> ... here and ...
+
+Suggested text:
+
+Omit the words "arch" and "include/asm" from the filepath, ASM is also
+prefixed.
+
+
+> > +- Xen headers: XEN__<filename>_H
+> > +    - include/xen/something.h -> XEN__SOMETHING_H
 > 
->  # Capture test result and power off board before exiting.
->  export PASSED="${PASS_MSG}"
-> --
-> 2.25.1
-> 
+> ... here, where more than just one path component is omitted, deriving
+> what's meant can end up ambiguous. Yet ambiguity is what we absolutely
+> want to avoid, to preempt later discussions on any such naming.
+
+Suggested text:
+
+Omit the words "include/xen" from the filepath, XEN is always prefixed.
+
+Please suggest a specific alternative if you prefer
 
