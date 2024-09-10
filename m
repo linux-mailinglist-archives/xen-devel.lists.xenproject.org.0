@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 310EC972CEC
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 11:08:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795149.1204315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 190B8972CED
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 11:08:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795150.1204323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snwr0-0006hX-Do; Tue, 10 Sep 2024 09:08:06 +0000
+	id 1snwr9-0006zO-KC; Tue, 10 Sep 2024 09:08:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795149.1204315; Tue, 10 Sep 2024 09:08:06 +0000
+Received: by outflank-mailman (output) from mailman id 795150.1204323; Tue, 10 Sep 2024 09:08:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snwr0-0006eN-B3; Tue, 10 Sep 2024 09:08:06 +0000
-Received: by outflank-mailman (input) for mailman id 795149;
- Tue, 10 Sep 2024 09:08:04 +0000
+	id 1snwr9-0006xp-HZ; Tue, 10 Sep 2024 09:08:15 +0000
+Received: by outflank-mailman (input) for mailman id 795150;
+ Tue, 10 Sep 2024 09:08:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EW7V=QI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1snwqy-0006eH-Ml
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 09:08:04 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1snwr8-0006eH-PG
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 09:08:14 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2eadbbbd-6f54-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 11:08:02 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a8d24f98215so403036866b.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 02:08:02 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25835a76sm453344466b.39.2024.09.10.02.07.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Sep 2024 02:08:00 -0700 (PDT)
+ id 350a5099-6f54-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 11:08:13 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a8a7cdfdd80so406948566b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 02:08:13 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8d25d547b9sm452764966b.202.2024.09.10.02.08.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Sep 2024 02:08:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,211 +45,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2eadbbbd-6f54-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 350a5099-6f54-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725959282; x=1726564082; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=tAFWsKf5/PNsIYwmLRbjn0UGek+/zjF+z1UfKtZFWXE=;
-        b=n7qeZleqzDGb3XRtFrb2cqXbdDXSweSPbdZ/Rn3kYzox4Yrh5oUPetaFlCG09ijtgm
-         mKDCqSbOqNy9rvz2Gl7kJUnjWRyrJuorP3XjvAJsWJiIlw/R5rAgNpCI+VRzKLI78B8i
-         ZH/pHGUgCBTLRXzvo6G8rxT8R/1qr9hi/gslI=
+        d=suse.com; s=google; t=1725959292; x=1726564092; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=XHO2ML397hPmeXJXVF4+KwXjpJ3j7Dl0Rq98GlAqZFU=;
+        b=HLVCoJSYAldmdsj5QnrMoSCPxoUS6vRAr95C3iLK6w1amPMuQqUZ4SB4xWfafg5ZaV
+         1FTaGgs2nw6I9YA9WzDYy/XEDY9GlWyTgxDH0qVRtxXhtjJ+WgTZ5ionc68P9EZV67Nu
+         CCBwikiz2fHpxCzQ9LMICKErcOLnRZU+lwuDg4sh8uVqwgWf/qdpD7kuH0oq8cmC8vEK
+         N2nfE5ZjAodtgrb4opriGXIh60U5iCPqbVPp8Sri1wv8feDxCfFby33eg+2qAW932CZ7
+         ePcFtWdqNFj9XLJ37U+uXtNvhhN5pTskH0+0DUOTO6CZk7Ldj/bFgb6+Kzq82HXWSoLN
+         a0gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725959282; x=1726564082;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tAFWsKf5/PNsIYwmLRbjn0UGek+/zjF+z1UfKtZFWXE=;
-        b=L2IlQVnoQAUfxT3+/7x9orFtdqcOnsakOoIAoSamTcy/HdMDRe8sNvD5xLIrjCqB7W
-         fOs/EpF3qcHcIslcbbqdCkf/nmqGr9LcRnBihz5gme00x/RywXNLdJ+4H/g/Lo4FTHJ8
-         1NG2vxhxvBvT8RVyVtUkOz8KHqtCy1QnuJ8iv9lGW/7eaCpdOsl/W3MOh+oxwce3VfdO
-         ZM774XplyOFVmx5V5YNn3KX09V4SLIZk4Eb4Eq1UOjKA1+49AAPFTW6WsiD2DRViCK8l
-         9PC/iixMpDkglWubtKAQ82udQr83y5uTWSZtD0I2xAObOIcHQ1cr5FXogjWiZ/TcHn5w
-         RjvA==
-X-Gm-Message-State: AOJu0Yycdn+LjT7b+DxiBc2agmjkTVNflDESWMvY+J6A3TqIwuQx/5an
-	m3pVCf42JD7mRB/b6klJBDcjfJgZ2kA9B2MOrUTLaMSCng0tkKxwmwnTX6Evj7M=
-X-Google-Smtp-Source: AGHT+IH1exS/7EmSW3T7pZpbIWRIXc2WeIye0/AJQvx7LaPVky9BrHIUYMRcmhlYbnhlahmW9x8AQw==
-X-Received: by 2002:a17:907:2d2c:b0:a8d:2b7a:ff44 with SMTP id a640c23a62f3a-a8ffab6da74mr6860466b.32.1725959280987;
-        Tue, 10 Sep 2024 02:08:00 -0700 (PDT)
-Date: Tue, 10 Sep 2024 11:07:58 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
-	Owen Smith <owen.smith@cloud.com>, Mark Syms <mark.syms@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] blkif: reconcile protocol specification with in-use
- implementations
-Message-ID: <ZuAMbm1xC0bV5vnC@macbook.local>
-References: <20240903141923.72241-1-roger.pau@citrix.com>
- <Zthf2avsHv7XP4cs@l14>
+        d=1e100.net; s=20230601; t=1725959292; x=1726564092;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XHO2ML397hPmeXJXVF4+KwXjpJ3j7Dl0Rq98GlAqZFU=;
+        b=PAVQpgTyUkBTTbgSyLhCDVWxw2iZ5saKHf0eu4zWpmQ1a5aFX8zBguR77U0g90UdD7
+         5189G1b6pnbaOawTFykOxs0Z7zCRwZ7p/K6a8ToH/KFBXaJcWIOOMj6H5VJt3E0axsUb
+         G4vP+ctG9Cwcc8DcBG/v64JAGzkqqJ8oHff7yV+I/JJZmZenUgpnvPh6K8N8zjEpYWwj
+         eH2Ikv+a/j73k7epBx2i/nKA9QAuFZ/d487VIibqvO7IViv1m3gQJCx/p9BkHMtH0sbd
+         bgVQIVEKWZ+ncZUjC4royjgalGp/yJH65gp2iw4QCw8p4zJUxRTfa3bc14x7Vcu3vNQ1
+         Owug==
+X-Forwarded-Encrypted: i=1; AJvYcCU2cL3qHRFwQD6w0D+k53ywnPeEDq7tg27Lu2SU8X4XwzmrVQfBG3HfwSay9i1YX+coPdSkWTo7lbc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx7qZlAiqcON4g7/Ys7Xi5QISBpzjtMxhK5Tkf4zAdcbG8BSrsm
+	TRjGB33Ss+SoebJQTwZG7B3dTDEEm6lne8YTMP/c+zTyJxds7uTSvj81p9NQJA==
+X-Google-Smtp-Source: AGHT+IG+otIapnqlmes6pzhhXvG9lOLmdYfQTtt3rJDS1GVWB3PlEv3CNHVQC1KxxwnRILbWoYMc3Q==
+X-Received: by 2002:a17:907:3f16:b0:a8a:572c:709f with SMTP id a640c23a62f3a-a8ffaaad0d2mr8528766b.5.1725959292392;
+        Tue, 10 Sep 2024 02:08:12 -0700 (PDT)
+Message-ID: <4e54f8e0-43ce-4dd6-b1b4-cf72b59d96be@suse.com>
+Date: Tue, 10 Sep 2024 11:08:12 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Zthf2avsHv7XP4cs@l14>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2] x86: p2m-pod: address violation of MISRA C Rule
+ 2.1
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <43b3a42f9d323cc3f9747c56e8f59f9dffa69321.1719556140.git.nicola.vetrini@bugseng.com>
+ <38b57a6f-187c-440a-b3b4-9e7e124e1802@suse.com>
+ <25b6a974b7c9aaec32b11930168148a5@bugseng.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <25b6a974b7c9aaec32b11930168148a5@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 04, 2024 at 01:25:46PM +0000, Anthony PERARD wrote:
-> On Tue, Sep 03, 2024 at 04:19:23PM +0200, Roger Pau Monne wrote:
-> > Current blkif implementations (both backends and frontends) have all slight
-> > differences about how they handle the 'sector-size' xenstore node, and how
-> > other fields are derived from this value or hardcoded to be expressed in units
-> > of 512 bytes.
-> >
-> > To give some context, this is an excerpt of how different implementations use
-> > the value in 'sector-size' as the base unit for to other fields rather than
-> > just to set the logical sector size of the block device:
-> >
-> >                         │ sectors xenbus node │ requests sector_number │ requests {first,last}_sect
-> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
-> > FreeBSD blk{front,back} │     sector-size     │      sector-size       │           512
-> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
-> > Linux blk{front,back}   │         512         │          512           │           512
-> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
-> > QEMU blkback            │     sector-size     │      sector-size       │       sector-size
-> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
-> > Windows blkfront        │     sector-size     │      sector-size       │       sector-size
-> > ────────────────────────┼─────────────────────┼────────────────────────┼───────────────────────────
-> > MiniOS                  │     sector-size     │          512           │           512
-> >
-> > An attempt was made by 67e1c050e36b in order to change the base units of the
-> > request fields and the xenstore 'sectors' node.  That however only lead to more
-> > confusion, as the specification now clearly diverged from the reference
-> > implementation in Linux.  Such change was only implemented for QEMU Qdisk
-> > and Windows PV blkfront.
-> >
-> > Partially revert to the state before 67e1c050e36b:
-> >
-> >  * Declare 'feature-large-sector-size' deprecated.  Frontends should not expose
-> >    the node, backends should not make decisions based on its presence.
-> >
-> >  * Clarify that 'sectors' xenstore node and the requests fields are always in
-> >    512-byte units, like it was previous to 67e1c050e36b.
-> >
-> > All base units for the fields used in the protocol are 512-byte based, the
-> > xenbus 'sector-size' field is only used to signal the logic block size.  When
-> > 'sector-size' is greater than 512, blkfront implementations must make sure that
-> > the offsets and sizes (even when expressed in 512-byte units) are aligned to
-> > the logical block size specified in 'sector-size', otherwise the backend will
-> > fail to process the requests.
-> >
-> > This will require changes to some of the frontends and backends in order to
-> > properly support 'sector-size' nodes greater than 512.
-> >
-> > Fixes: 67e1c050e36b ('public/io/blkif.h: try to fix the semantics of sector based quantities')
+On 10.09.2024 10:56, Nicola Vetrini wrote:
+> On 2024-07-01 10:36, Jan Beulich wrote:
+>> On 28.06.2024 08:30, Nicola Vetrini wrote:
+>> This being about unreachable code, why are the domain_crash() not the
+>> crucial points of "unreachability"? And even if they weren't there, why
+>> wouldn't it be the goto or ...
+>>
+>>> --- a/xen/arch/x86/mm/p2m-pod.c
+>>> +++ b/xen/arch/x86/mm/p2m-pod.c
+>>> @@ -1040,6 +1040,7 @@ out_unmap:
+>>>       * Something went wrong, probably crashing the domain.  Unmap
+>>>       * everything and return.
+>>>       */
+>>> +    /* SAF-8-safe Rule 2.1: defensive programming */
+>>>      for ( i = 0; i < count; i++ )
+>>>          if ( map[i] )
+>>>              unmap_domain_page(map[i]);
+>>
+>> ... the label (just out of context) where the comment needs to go?
 > 
-> Probably want to add:
-> Fixes: 2fa701e5346d ("blkif.h: Provide more complete documentation of the blkif interface")
-> 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> >  xen/include/public/io/blkif.h | 23 ++++++++++++++---------
-> >  1 file changed, 14 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/xen/include/public/io/blkif.h b/xen/include/public/io/blkif.h
-> > index 22f1eef0c0ca..07708f4d08eb 100644
-> > --- a/xen/include/public/io/blkif.h
-> > +++ b/xen/include/public/io/blkif.h
-> > @@ -240,10 +240,6 @@
-> >   *      The logical block size, in bytes, of the underlying storage. This
-> >   *      must be a power of two with a minimum value of 512.
-> 
-> Should we add that "sector-size" is to be used only for request length?
+> Because of the way this rule's configuration work, deviations are placed 
+> on the construct that ends up being the target of the unreachability, 
 
-Yes, that would be fine.
+What's "target" here? What if this loop was removed from the function?
+Then both the label and the domain_crash() invocations would still be
+unreachable in debug builds. Are you telling me that this then wouldn't
+be diagnosed by Eclair? Or that it would then consider the closing
+figure brace of the function "the target of the unreachability"?
 
-What about:
+> rather than (one of) the causes of such unreachability. Putting the 
+> comment on the label works for ECLAIR by offsetting its target 
+> statement, but not for other tools afaik.
 
-The logical block size, in bytes, of the underlying storage. This must
-be a power of two with a minimum value of 512.  The sector size should
-only be used for request segment length and alignment.
+I don't recall whether I ever saw a Coverity report to this effect,
+and hence I wouldn't be able to tell how that would want silencing if
+so desired.
 
-> 
-> > - *      NOTE: Because of implementation bugs in some frontends this must be
-> > - *            set to 512, unless the frontend advertizes a non-zero value
-> > - *            in its "feature-large-sector-size" xenbus node. (See below).
-> > - *
-> >   * physical-sector-size
-> >   *      Values:         <uint32_t>
-> >   *      Default Value:  <"sector-size">
-> > @@ -254,8 +250,8 @@
-> >   * sectors
-> >   *      Values:         <uint64_t>
-> >   *
-> > - *      The size of the backend device, expressed in units of "sector-size".
-> > - *      The product of "sector-size" and "sectors" must also be an integer
-> > + *      The size of the backend device, expressed in units of 512b.
-> > + *      The product of "sector-size" * 512 must also be an integer
-> >   *      multiple of "physical-sector-size", if that node is present.
-> >   *
-> >   *****************************************************************************
-> > @@ -338,6 +334,7 @@
-> >   * feature-large-sector-size
-> >   *      Values:         0/1 (boolean)
-> >   *      Default Value:  0
-> > + *      Notes:          DEPRECATED, 12
-> >   *
-> >   *      A value of "1" indicates that the frontend will correctly supply and
-> 
-> Could you remove "correctly" from this sentence? It's misleading.
-
-The whole feature is deprecated, so I would rather leave it as-is for
-historical reference.  The added note attempts to reflect that it
-should not be exposed by frontends, neither should backends make any
-decisions based on its presence.
-
-> >   *      interpret all sector-based quantities in terms of the "sector-size"
-> > @@ -411,6 +408,11 @@
-> >   *(10) The discard-secure property may be present and will be set to 1 if the
-> >   *     backing device supports secure discard.
-> >   *(11) Only used by Linux and NetBSD.
-> > + *(12) Possibly only ever implemented by the QEMU Qdisk backend and the Windows
-> > + *     PV block frontend.  Other backends and frontends supported 'sector-size'
-> > + *     values greater than 512 before such feature was added.  Frontends should
-> > + *     not expose this node, neither should backends make any decisions based
-> > + *     on it being exposed by the frontend.
-> >   */
-> >
-> >  /*
-> > @@ -621,9 +623,12 @@
-> >  /*
-> >   * NB. 'first_sect' and 'last_sect' in blkif_request_segment, as well as
-> >   * 'sector_number' in blkif_request, blkif_request_discard and
-> > - * blkif_request_indirect are sector-based quantities. See the description
-> > - * of the "feature-large-sector-size" frontend xenbus node above for
-> > - * more information.
-> > + * blkif_request_indirect are all in units of 512 bytes, regardless of whether the
-> > + * 'sector-size' xenstore node contains a value greater than 512.
-> > + *
-> > + * However the value in those fields must be properly aligned to the logical
-> > + * sector size reported by the 'sector-size' xenstore node, see 'Backend Device
-> > + * Properties' section.
-> >   */
-> >  struct blkif_request_segment {
-> 
-> Textually (that is without reading it) this comment seems to only apply
-> to `struct blkif_request_segment`. There is an other comment that
-> separate it from `struct blkif_request` (and it is far away from
-> blkif_request_discard and blkif_request_indirect). For `struct
-> blkif_request.sector_number`, the only comment is "start sector idx on
-> disk" but it's really hard to tell how to interpret it, it could be
-> interpreted as a "sector-size" quantity because that the size of a
-> sector on the disk, the underlying storage.
-> 
-> So, I think we need to change the comment of
-> `blkif_request.sector_number`.
-
-OK, will trim a bit the comment in blkif_request_segment then sprinkle
-comments about the sectors base units in the different structures
-defined below.
-
-> 
-> Another thing, there's a "type" `blkif_sector_t` defined at the beginning
-> of the file, would it be worth it to add a description to it?
-
-IMO it's better to add the description as close as possible to the
-field declaration, rather than the declaration of the field type.
-
-Thanks, Roger.
+Jan
 
