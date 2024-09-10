@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB808973A8A
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:50:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795737.1205222 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54275973A36
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:44:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795726.1205192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so2CB-0000XQ-F0; Tue, 10 Sep 2024 14:50:19 +0000
+	id 1so25s-0005ml-8z; Tue, 10 Sep 2024 14:43:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795737.1205222; Tue, 10 Sep 2024 14:50:19 +0000
+Received: by outflank-mailman (output) from mailman id 795726.1205192; Tue, 10 Sep 2024 14:43:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so2CB-0000VY-BS; Tue, 10 Sep 2024 14:50:19 +0000
-Received: by outflank-mailman (input) for mailman id 795737;
- Tue, 10 Sep 2024 14:50:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1so25s-0005ke-6E; Tue, 10 Sep 2024 14:43:48 +0000
+Received: by outflank-mailman (input) for mailman id 795726;
+ Tue, 10 Sep 2024 14:43:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1so23u-0003oG-Lv
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:41:46 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdd31445-6f82-11ef-a0b5-8be0dac302b0;
- Tue, 10 Sep 2024 16:41:46 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so380231166b.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:41:46 -0700 (PDT)
+ id 1so25q-0005kY-If
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:43:46 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 14727c78-6f83-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 16:43:44 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a86e9db75b9so122160366b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:43:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25835abbsm490822066b.9.2024.09.10.07.41.44
+ a640c23a62f3a-a8d2583555csm494997066b.15.2024.09.10.07.43.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 07:41:45 -0700 (PDT)
+ Tue, 10 Sep 2024 07:43:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdd31445-6f82-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 14727c78-6f83-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725979305; x=1726584105; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=T0HPYysww8NjDfVR7D5Ro3dCBVCxnKMFK0Vtc+tPX5w=;
-        b=eaQJdsoexvkMGtDwj5bfYncZmc59lP5n3+fJR/FQTaueX/AzVAscr0e2JZuCftAjqU
-         oUUlL6Hhkki1fMPnJWaoClUNVMxAaCGW1G6SXnuCoQFSe/7ECfJ6FkFoMgMSPYp33LOq
-         T9uOgwZMiOAWSwhkc1ylcCDWK85uSTj1bHj9Plb9y+RxNZmWE5wn2BF+YO7tRf7W1vZc
-         woChaGKwMF3x/5OuaLHEovoHPgNgVrh9dVjBP10dLFjqFQF0IT1WV95Jb8nKtxsGjVZC
-         SBO/EFxdWXqA9AUk6o54TVA4bRoHKDGILnwZmm0wIU9CHTXfxaYwZPzRcbLcA9Uht2pe
-         cc+A==
+        d=suse.com; s=google; t=1725979424; x=1726584224; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=+vyt4sM+WhrPDkxvMNF2iWGvWqUQZvwbGu3XicQ/3cY=;
+        b=TBIWv8Mejg/Nvnbmy7MVJJHLF35tmD04tv/ZeH9dXR8XpwTOUcnn6ViOD9QqpbZNjC
+         HdkKyBuIJEAyBaTtYHvsSKXC3nKAQIAZaoYl0lYa9Cd+PsHCQjc8X/HS8AKA/EdZHqxC
+         Pwy8UAjRlPNUYb/jPTDEQQ9SOsP+2fNevR84XKG/dYLG5TL+DccnnhWKNMIoqNPFL0OD
+         VjkjRKcM6Ta5SVvTeAA5A47YE5bkBbsnv4NBeQGdr/UDBHYpz/9ljUSUbvKaJm28w+YZ
+         A7ffdMiI5JEaan3QuZTUwBmjww/a7WlRYnNRfShCSOhBCNB9bcMgueYiMmmuXZ+mQvNO
+         6fJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725979305; x=1726584105;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=T0HPYysww8NjDfVR7D5Ro3dCBVCxnKMFK0Vtc+tPX5w=;
-        b=wT8SJ7o/T6qM0gBEtQLe2hCExHKCMl9zZ0bRjlDmGAIvjx8FiL3IByXWFxsdWqIn/m
-         CwHCQT1M1deO7iFvxXCyWRtB+Pk+rbUffxpDgxKf0j89zegYIO6u7OhivtBStpWy4HLe
-         WC8ERQncEcYvJDb0gu2LK3wNyXYeSp5OIab0vXyFIxbKwQJkZPBMEOVBCK7UjYBYRZ9E
-         HaS5VHZTNBGFKhtEAax6RyLUgAXQLWwBoP0Vvfo+yYdcfqyC9pRTRKTigTxbmGxCPBGl
-         5unwhn9PpS33V0lXj5GH2jXm/9TIKRu8DOH7RrO0r4w+NP/HjBpjqTcHz95YJuyJK147
-         ovpQ==
-X-Gm-Message-State: AOJu0Yz9XqDWXbGb17Ind6i419ZfL1q9K8yCbOEMhbFWcozU6mvzXl2g
-	BYJ/I63S94C1kC0QK6Bj+DJcvkn9qPBTzu/wQL2/w2f8IL+9QufaPs36upULDm81LgRTjzpHtH0
-	=
-X-Google-Smtp-Source: AGHT+IGsXMt2gYa0m8r8uAsXTtdVcBwOA09R8xfJDdn+51Kv36iJJXt4HR3SyAZS6KYwvPBxPoUMWg==
-X-Received: by 2002:a17:907:6d0c:b0:a8a:8c04:ce95 with SMTP id a640c23a62f3a-a8ffadee50dmr109540466b.43.1725979305389;
-        Tue, 10 Sep 2024 07:41:45 -0700 (PDT)
-Message-ID: <abbd917c-d13d-4572-ae9e-1c413c7d4cf2@suse.com>
-Date: Tue, 10 Sep 2024 16:41:45 +0200
+        d=1e100.net; s=20230601; t=1725979424; x=1726584224;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+vyt4sM+WhrPDkxvMNF2iWGvWqUQZvwbGu3XicQ/3cY=;
+        b=dvl1DRIAES1QPQNUEN4F1OMzbcSnx05TCG1wP2S/yTJsdpVmtbmvyPg3RUpFY33lEJ
+         WOO2WvsM4mnzqkUBSUaBtFvaZBTK+pjbavzpu6q+5NkcDF38GqXXpSxkk9YfZlhuoXDt
+         TWs9sHlwoE3SBiJkVRvFtX5we/3kz1FzLUqooI9MtnGYr3hMkHpHvo24zhhWWwhRyNvT
+         wu7ea/k9F2WKhQ/Lzk9ll7YDYt2DD9HDK8tn4wBY3M2bcICA0M3cqTElciuK7WPXAtWb
+         6ZUXbDlGKbNaMVzapgxM5UAc6xFC1Y3gAfyfljKC5d2Tz6LxQhuAk1HKDFPcDe7/v7SH
+         mowA==
+X-Forwarded-Encrypted: i=1; AJvYcCVgc6Gc3lofBVCdmqafPbGKWW53oinweLpTtBnhL3n5bI1X6FKYNUFtie2zYvi0THu4OmfuQ1XFaV0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxm06RtQcPdI/PQy8bNnSh/YdmkuXJE0OSXaVDBOsUBRz4VG4dz
+	j6082hsGb/hNlXpgAaImqLqzmXOy9H3sL+xqqN7ccFGo3hROZJ7ajidBOeW7lA==
+X-Google-Smtp-Source: AGHT+IF9XvlRk2Xprpq8/GDi0Ig2EZyVImMgr8DxZan86NqX05VXENTUoo8A5+FccG+E7zr03fFaaQ==
+X-Received: by 2002:a17:906:4fd6:b0:a7a:be06:d8eb with SMTP id a640c23a62f3a-a8ffae27144mr118270066b.53.1725979424092;
+        Tue, 10 Sep 2024 07:43:44 -0700 (PDT)
+Message-ID: <1b112786-f79c-439c-9722-91f5cc77353f@suse.com>
+Date: Tue, 10 Sep 2024 16:43:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 7/7] x86/HVM: drop stdvga's "vram_page[]" struct member
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
+Subject: Re: [XEN PATCH 01/12] x86/psr: address violation of MISRA C Rule 16.3
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1725958416.git.federico.serafini@bugseng.com>
+ <ae29b196cb3967b39796047997751324b8ce8a13.1725958416.git.federico.serafini@bugseng.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -111,114 +113,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
+In-Reply-To: <ae29b196cb3967b39796047997751324b8ce8a13.1725958416.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-No uses are left, hence its setup, teardown, and the field itself can
-also go away. stdvga_deinit() is then empty and can be dropped as well.
+On 10.09.2024 12:08, Federico Serafini wrote:
+> Address a violation of MISRA C:2012 Rule 16.3:
+> "An unconditional `break' statement shall terminate every
+> switch-clause".
+> 
+> No functional change.
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I have no idea whether in the tool stack some memory calculations would
-want adjusting, to account for the 256k less that a HVM domain now
-needs.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -700,7 +700,6 @@ int hvm_domain_initialise(struct domain
-     return 0;
- 
-  fail2:
--    stdvga_deinit(d);
-     vioapic_deinit(d);
-  fail1:
-     if ( is_hardware_domain(d) )
-@@ -763,7 +762,6 @@ void hvm_domain_destroy(struct domain *d
-     if ( hvm_funcs.domain_destroy )
-         alternative_vcall(hvm_funcs.domain_destroy, d);
- 
--    stdvga_deinit(d);
-     vioapic_deinit(d);
- 
-     XFREE(d->arch.hvm.pl_time);
---- a/xen/arch/x86/hvm/stdvga.c
-+++ b/xen/arch/x86/hvm/stdvga.c
-@@ -119,8 +119,7 @@ static const struct hvm_io_ops stdvga_me
- void stdvga_init(struct domain *d)
- {
-     struct hvm_hw_stdvga *s = &d->arch.hvm.stdvga;
--    struct page_info *pg;
--    unsigned int i;
-+    struct hvm_io_handler *handler;
- 
-     if ( !has_vvga(d) )
-         return;
-@@ -128,47 +127,15 @@ void stdvga_init(struct domain *d)
-     memset(s, 0, sizeof(*s));
-     spin_lock_init(&s->lock);
-     
--    for ( i = 0; i != ARRAY_SIZE(s->vram_page); i++ )
-+    /* VGA memory */
-+    handler = hvm_next_io_handler(d);
-+    if ( handler )
-     {
--        pg = alloc_domheap_page(d, MEMF_no_owner);
--        if ( pg == NULL )
--            break;
--        s->vram_page[i] = pg;
--        clear_domain_page(page_to_mfn(pg));
--    }
--
--    if ( i == ARRAY_SIZE(s->vram_page) )
--    {
--        struct hvm_io_handler *handler;
--
--        /* VGA memory */
--        handler = hvm_next_io_handler(d);
--
--        if ( handler == NULL )
--            return;
--
-         handler->type = IOREQ_TYPE_COPY;
-         handler->ops = &stdvga_mem_ops;
-     }
- }
- 
--void stdvga_deinit(struct domain *d)
--{
--    struct hvm_hw_stdvga *s = &d->arch.hvm.stdvga;
--    int i;
--
--    if ( !has_vvga(d) )
--        return;
--
--    for ( i = 0; i != ARRAY_SIZE(s->vram_page); i++ )
--    {
--        if ( s->vram_page[i] == NULL )
--            continue;
--        free_domheap_page(s->vram_page[i]);
--        s->vram_page[i] = NULL;
--    }
--}
--
- /*
-  * Local variables:
-  * mode: C
---- a/xen/arch/x86/include/asm/hvm/io.h
-+++ b/xen/arch/x86/include/asm/hvm/io.h
-@@ -111,12 +111,10 @@ struct vpci_arch_msix_entry {
- };
- 
- struct hvm_hw_stdvga {
--    struct page_info *vram_page[64];  /* shadow of 0xa0000-0xaffff */
-     spinlock_t lock;
- };
- 
- void stdvga_init(struct domain *d);
--void stdvga_deinit(struct domain *d);
- 
- extern void hvm_dpci_msi_eoi(struct domain *d, int vector);
- 
 
 
