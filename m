@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC041973A23
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:40:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795704.1205172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDDBA973A24
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:41:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795710.1205183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so22t-0004Qe-LT; Tue, 10 Sep 2024 14:40:43 +0000
+	id 1so23D-0004yQ-TI; Tue, 10 Sep 2024 14:41:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795704.1205172; Tue, 10 Sep 2024 14:40:43 +0000
+Received: by outflank-mailman (output) from mailman id 795710.1205183; Tue, 10 Sep 2024 14:41:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so22t-0004ON-IL; Tue, 10 Sep 2024 14:40:43 +0000
-Received: by outflank-mailman (input) for mailman id 795704;
- Tue, 10 Sep 2024 14:40:42 +0000
+	id 1so23D-0004wN-QA; Tue, 10 Sep 2024 14:41:03 +0000
+Received: by outflank-mailman (input) for mailman id 795710;
+ Tue, 10 Sep 2024 14:41:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1so22s-0003oG-Bp
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:40:42 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1so23C-0003oG-0S
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:41:02 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7854523-6f82-11ef-a0b5-8be0dac302b0;
- Tue, 10 Sep 2024 16:40:42 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a8d0d0aea3cso537780866b.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:40:41 -0700 (PDT)
+ id b33637fe-6f82-11ef-a0b5-8be0dac302b0;
+ Tue, 10 Sep 2024 16:41:01 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5c3d20eed0bso1017485a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:41:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25830f09sm486005566b.31.2024.09.10.07.40.40
+ 4fb4d7f45d1cf-5c3ebd41bd4sm4323065a12.11.2024.09.10.07.41.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 07:40:41 -0700 (PDT)
+ Tue, 10 Sep 2024 07:41:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7854523-6f82-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: b33637fe-6f82-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725979241; x=1726584041; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725979261; x=1726584061; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EtyWpgBFgoc9BlhXkBCsVjBPxqDYbXt4OGznf+FjOTo=;
-        b=Q2oaTxTW3P91OqLqU7AWBdg5+/L6Yz9Nw1fFVBAqvMmoXSwUEeSHwisnFcitGcDJD1
-         g0J+f9kfC+rY2L71w28JVHVBMXb7SlROpHK6TF4CswJIac0s4rqRk1Y7wg5DtgS4ohEf
-         e0dsBPjV92AzgIglDhm1OcS1Eng0XthNcwVc0Rcy76LGdOq3CNkKtbzXwQ4nk4ZYEqdJ
-         flVJxH4pax0diITs2D5GmoVFMCYOBMHcyuHy/3UhvA6r4NHmAGmxnbbhbRWTUixYLKOc
-         O6MiTpgfUj6BCXbsTxM3OoMuvxMJ9zKppXj3Aprri9/aQJCwqKGQzgekudFPB1oeOaBO
-         J5MQ==
+        bh=JlkqykofbAb7CGlOxkQ+0hyYPlFf+ytgSxl8MBR56jg=;
+        b=E5TB94dyLzJbSxEO2rJweQor0vfMBjiiYQiJswIT76zjrL123xwUQOvOIHLmnajnzm
+         2NsiznBntsIjozsniFdaesNiAd/0gEcefrbAmWcI9TAiQtnGMdde2phMvvaox+ZPtJaf
+         YbmWMXAobcNtsYBcliN1EC5cKUhqCGGn2+fssCy2vlPulgQb+8iJ3lbAYfXG3enYDz/m
+         23gM7QlIOJi9cRRtOdwfMI1nzbQbivNeEEAFBaY4Y+nDxpZkoU5UvyOxMBbG5m+e5UH+
+         FihMctPmoXDkHIC5eFmwbvIcQ8XRLUUwzjgV/6PR2AG5wWr0OKv2r2RqMQiGlTUXzg6T
+         k+0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725979241; x=1726584041;
+        d=1e100.net; s=20230601; t=1725979261; x=1726584061;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=EtyWpgBFgoc9BlhXkBCsVjBPxqDYbXt4OGznf+FjOTo=;
-        b=WMDxIN44v4z5ZHlh82ztmjb7HEp7GvQY1PVMJ6zb7D5+RU1eijqZq4vtjlY/x29ape
-         7/jSQz/f10+t0dbPgwEB0Ewz0T0GjwldarFGa5oaEXAjAp343l0FXRg7yb76rhmM6ZWI
-         Wa+MU9Eoi5OTwa8/b6w3T9sLJ12jx58/Me22PEbV+H9eN7Vxw5DahbIPgdcLgogsMgfe
-         7WFOSWKRz2xRRWyBuo1nopjagzCO3mkycb8YsebViJqYTsUM0xhXsniiDm2U5eH4gpkM
-         7rchyEjwcHBKPhGW1Dg78XWCgu3lYOFowRP9e/KNxXtu+UOVo/VNytu2Tgi/SW7TOC68
-         5cjw==
-X-Gm-Message-State: AOJu0YwrJX78Zt+h/Mh6W2fPAcJCcwTmP/e2KzOB51n5lIOey9PEyM0Q
-	Z0psLZYHeChEnXagvjnY0qCXLA5MB8SAFFE8uYxQe5mqjc+eBS4qMei1YWmzILy+z7RKs1iA2a0
+        bh=JlkqykofbAb7CGlOxkQ+0hyYPlFf+ytgSxl8MBR56jg=;
+        b=PKTER21Ei26mT9G3f/23qNKEjCaR3QIyoi97zIUHG7N+oGaLXD/pnr8Z9BF/26UK1L
+         WNMHVrgbBkc1jEGij0MZDkjgHzUjWG5+ZcN2lcWVkRGLuVKsNHyOfp5wbTQBeGfkrvfo
+         frouth+Nq+FlnkA2SMUgb/C3u83uHgBuhpQLQkDwaTzqO+SfPSyTZtgwmRKP16+LAzRa
+         FS+DCftGgayRMKHyqiohZhMWp7uwCl1umuwrRH+MoUwGjcHrZLruz0C8w87TgdFKzWTZ
+         xQkaUXNO38hhgQqll0lMfmGM3Ko+nEenGgwEyr3L6Cyq4Kh+arfyeA8/cLaaQ3pMmDsa
+         wCVg==
+X-Gm-Message-State: AOJu0YxBMLYjGGrV7OgpNfjdjaTiVaR+EKik0tjs8aNHqrVZT5KC+bCG
+	DBklnlbvr+iIhqIunsOxtJOxiPo39BQPqh4nEfCXwPs0UN8trrDw54nnH0b1mM3aM+rr3FgxfaI
 	=
-X-Google-Smtp-Source: AGHT+IE20oeMh8XF8jYQEAdn3un4pb8WuJLiK6TAO262rrRvKizHOWshbcpKYpt55EpkKBJZE+2Jgg==
-X-Received: by 2002:a17:907:9717:b0:a8d:2c00:949a with SMTP id a640c23a62f3a-a8ffaa983a6mr113293766b.9.1725979241248;
-        Tue, 10 Sep 2024 07:40:41 -0700 (PDT)
-Message-ID: <0d1fa212-8f99-461f-92ef-0647ecfcc899@suse.com>
-Date: Tue, 10 Sep 2024 16:40:41 +0200
+X-Google-Smtp-Source: AGHT+IHaV8/7AnGV27K8IamtuurkTRAiSMga1aJeTyhE1r+GAyT1gEzRBD48QRS21zNNHcIwOjSLng==
+X-Received: by 2002:a05:6402:5294:b0:5c2:6311:844f with SMTP id 4fb4d7f45d1cf-5c3dc79c527mr8322847a12.17.1725979260640;
+        Tue, 10 Sep 2024 07:41:00 -0700 (PDT)
+Message-ID: <bf1b1615-3ce4-4640-b825-7097b62b3ac0@suse.com>
+Date: Tue, 10 Sep 2024 16:41:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/7] x86/HVM: drop stdvga's "gr[]" struct member
+Subject: [PATCH 5/7] x86/HVM: drop stdvga's "sr[]" struct member
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -116,54 +116,54 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 No consumers are left, hence the producer and the array itself can also
-go away. The static gr_mask[] is then orphaned and hence needs dropping,
+go away. The static sr_mask[] is then orphaned and hence needs dropping,
 too.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/hvm/stdvga.c
 +++ b/xen/arch/x86/hvm/stdvga.c
-@@ -49,18 +49,6 @@ static const uint8_t sr_mask[8] = {
-     (uint8_t)~0x00,
- };
+@@ -37,18 +37,6 @@
+ #define VGA_MEM_BASE 0xa0000
+ #define VGA_MEM_SIZE 0x20000
  
--static const uint8_t gr_mask[9] = {
--    (uint8_t)~0xf0, /* 0x00 */
--    (uint8_t)~0xf0, /* 0x01 */
--    (uint8_t)~0xf0, /* 0x02 */
--    (uint8_t)~0xe0, /* 0x03 */
--    (uint8_t)~0xfc, /* 0x04 */
--    (uint8_t)~0x84, /* 0x05 */
--    (uint8_t)~0xf0, /* 0x06 */
--    (uint8_t)~0xf0, /* 0x07 */
--    (uint8_t)~0x00, /* 0x08 */
+-/* force some bits to zero */
+-static const uint8_t sr_mask[8] = {
+-    (uint8_t)~0xfc,
+-    (uint8_t)~0xc2,
+-    (uint8_t)~0xf0,
+-    (uint8_t)~0xc0,
+-    (uint8_t)~0xf1,
+-    (uint8_t)~0xff,
+-    (uint8_t)~0xff,
+-    (uint8_t)~0x00,
 -};
 -
  static int stdvga_outb(uint64_t addr, uint8_t val)
  {
      struct hvm_hw_stdvga *s = &current->domain->arch.hvm.stdvga;
-@@ -82,12 +70,6 @@ static int stdvga_outb(uint64_t addr, ui
-         s->gr_index = val;
+@@ -60,12 +48,6 @@ static int stdvga_outb(uint64_t addr, ui
+         s->sr_index = val;
          break;
  
--    case 0x3cf:                 /* graphics data register */
--        rc = (s->gr_index < sizeof(s->gr));
+-    case 0x3c5:                 /* sequencer data register */
+-        rc = (s->sr_index < sizeof(s->sr));
 -        if ( rc )
--            s->gr[s->gr_index] = val & gr_mask[s->gr_index];
+-            s->sr[s->sr_index] = val & sr_mask[s->sr_index] ;
 -        break;
 -
-     default:
-         rc = 0;
+     case 0x3ce:                 /* graphics address register */
+         s->gr_index = val;
          break;
 --- a/xen/arch/x86/include/asm/hvm/io.h
 +++ b/xen/arch/x86/include/asm/hvm/io.h
-@@ -114,7 +114,6 @@ struct hvm_hw_stdvga {
+@@ -112,7 +112,6 @@ struct vpci_arch_msix_entry {
+ 
+ struct hvm_hw_stdvga {
      uint8_t sr_index;
-     uint8_t sr[8];
+-    uint8_t sr[8];
      uint8_t gr_index;
--    uint8_t gr[9];
      struct page_info *vram_page[64];  /* shadow of 0xa0000-0xaffff */
      spinlock_t lock;
- };
 
 
