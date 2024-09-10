@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94A8F9741B4
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 20:09:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795961.1205462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89C829741C7
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 20:11:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795964.1205473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so5Hl-0004CD-90; Tue, 10 Sep 2024 18:08:17 +0000
+	id 1so5L0-0005en-PJ; Tue, 10 Sep 2024 18:11:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795961.1205462; Tue, 10 Sep 2024 18:08:17 +0000
+Received: by outflank-mailman (output) from mailman id 795964.1205473; Tue, 10 Sep 2024 18:11:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so5Hl-0004Ah-6F; Tue, 10 Sep 2024 18:08:17 +0000
-Received: by outflank-mailman (input) for mailman id 795961;
- Tue, 10 Sep 2024 18:08:16 +0000
+	id 1so5L0-0005ce-Ks; Tue, 10 Sep 2024 18:11:38 +0000
+Received: by outflank-mailman (input) for mailman id 795964;
+ Tue, 10 Sep 2024 18:11:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZWlv=QI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1so5Hk-0004AY-8p
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 18:08:16 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1so5Kz-0005cY-BB
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 18:11:37 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a5ada142-6f9f-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 20:08:14 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a8d2b24b7a8so14228266b.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 11:08:14 -0700 (PDT)
+ id 1d7c07bb-6fa0-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 20:11:35 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a8b155b5e9eso141367666b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 11:11:35 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25835d97sm511599566b.4.2024.09.10.11.08.12
+ a640c23a62f3a-a8d25a079bcsm509505866b.83.2024.09.10.11.11.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 11:08:13 -0700 (PDT)
+ Tue, 10 Sep 2024 11:11:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5ada142-6f9f-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 1d7c07bb-6fa0-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725991694; x=1726596494; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725991895; x=1726596695; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A0JSME2fLXzyG40uQrdZuMKR558ax67Mxh3T7MPNTyo=;
-        b=WS3OH0h18M8UccnKviax/tlZTxt9y9/NbJZPo6v8JqcTygZMshzRD0IlcWn0JLM6IO
-         sTL97dsv0CzbWMOiwOXJSwOcTXgeZp+aw0378f7BqXjpFXdGoAT/NQ17p+yo/0G8pPXi
-         woA1MRvZaMXV+JkUJVkahGcMxtPTikPs5PoNI=
+        bh=WgbJxha1DcCC7BiLvbGr83Zjc8sMA7IovaXbouVX06A=;
+        b=qJbCX0HgnADVchJkmMDrjmmbnHgBBrug3BK7MatrkCphgyL7oF5OD3RTZ3fotZf/cs
+         pmEW98+Ujjrpx1QbxvjYmpfRnzZz7gGHQ9gqMAfdDSgrPBtepkqva2EjvHXI9xW2OWxr
+         BMVGJ+wdgJbjpGPz7OXXEsfqWCm9qwjYNhdsA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725991694; x=1726596494;
+        d=1e100.net; s=20230601; t=1725991895; x=1726596695;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A0JSME2fLXzyG40uQrdZuMKR558ax67Mxh3T7MPNTyo=;
-        b=IZjaobSquhumuOyRffBEaV9A8d6wNERlmCgJo++8Yzi+lPRqKdANDVLWWPsTazHR8P
-         Pw0CW921KXXWu5BDkNDiSJ9fU791SHhidXxjLVmIuIIUkdEptgTqEr14/sfYwe/X1bWr
-         xhXorfmdbcinB2mHzaTxZn4y/tukoYUc8hloovQOs9wXzHm7iAZR+KUbFLpQWLIIoU+O
-         Biw57satRm3fTiKOSrlGcCNUCMIfBHxujk7gxV/rs6HLnJ9lRwjPSiAjjkdmdjxOhmHZ
-         Q6J40FEBVlG54hvPndiWFJiLFcktFlRDN0L32LVQEgVW5mY7fRhR30etGHgH7iUxclzE
-         /+Tw==
-X-Forwarded-Encrypted: i=1; AJvYcCWS4PT8lymZgJPiAbKbmlk8jS/Il9GKbw3a/3S/Igisfk4UdCrVftftRd+OP7asa5IL3SkUvEu7nlY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy2aBKQHDyUrSFLWBg7kkj0FKxRxPagnHOQshkBzQLwo7zH1ALM
-	Izc/Q/mb5rneovdViQ3hn9mYfM0t9YtecRdDkhXv/l0J1YV2qv3bOvR+b5WGXdk=
-X-Google-Smtp-Source: AGHT+IF4SNraSHwIdvkJ+x7fQnSj4yrhe/83oeiQOXpAVyivqQv9ooOm6I7J6Dh0TSib1CyHTGP5cQ==
-X-Received: by 2002:a17:907:e291:b0:a8d:505a:5458 with SMTP id a640c23a62f3a-a8ffb20f42amr217547666b.10.1725991693567;
-        Tue, 10 Sep 2024 11:08:13 -0700 (PDT)
-Message-ID: <09c85d55-630b-44c6-ba71-e0f0f68bd727@citrix.com>
-Date: Tue, 10 Sep 2024 19:08:11 +0100
+        bh=WgbJxha1DcCC7BiLvbGr83Zjc8sMA7IovaXbouVX06A=;
+        b=BOXz2upwTzadWo0gtL1bQVI2aHWujyGvdGPAqiGC45oHgEmpeYFLnFDm7Vxh0ldhqN
+         WamytcKkPb8439GQhBEQQj6PNVZ7T8USjmeKlOywTg3v/JNQSQpY6Zv0jpbmycmVFwSu
+         CFCDMqA8Dl8yTcenhnne6HtrewLwco9s4MLqfPBYxJhHNpF1dNcryOtQrMC90bU0TJ+g
+         lSGTH3t7xR0VJBitdYUF4RXOPOp5btJ4Ndks8yIm7+xEk7o3R0ksr0awcdPVms9wwGuc
+         c+pWzVbN82l5EsUd/FP7LqaXFNhnGfcaFXKPCBxkrE3F09Cq3j+omWH4SIdJbppKWSDw
+         HOAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV0H27lSmRSLij6HXZRnGBF17GZh/sKXQyWfLGJ66ZuJRGshjlULi/N9ljiuIAjbXAdfLhTUmuMBGk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxmB1Gg3vnas6jLKhJsqT7ivoc06wm9pVIs0zp5UYOTIbcZqlCC
+	R6f4Os4w5dkyMkyDLFf8+TEi8gRUzDOIM/RPXu38dEZUARetkoB2l2EamPnaEiM=
+X-Google-Smtp-Source: AGHT+IE1gNS5H2lijVawRZvh5dYO2vSOQrysmvCv5CtuMsvX0k+Tyidl9M7dtbZ3tn/GKBUKOVQS0g==
+X-Received: by 2002:a17:907:3e13:b0:a7a:9fe9:99e7 with SMTP id a640c23a62f3a-a9004a46e96mr39846166b.41.1725991894681;
+        Tue, 10 Sep 2024 11:11:34 -0700 (PDT)
+Message-ID: <bcaba930-65c8-415b-b47d-a7fd82c1a206@citrix.com>
+Date: Tue, 10 Sep 2024 19:11:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] x86/HVM: remove unused MMIO handling code
+Subject: Re: [PATCH 4/7] x86/HVM: drop stdvga's "gr[]" struct member
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
- <d5739021-be35-4414-8ebe-efc472df4231@suse.com>
+ <0d1fa212-8f99-461f-92ef-0647ecfcc899@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,26 +129,16 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <d5739021-be35-4414-8ebe-efc472df4231@suse.com>
+In-Reply-To: <0d1fa212-8f99-461f-92ef-0647ecfcc899@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 10/09/2024 3:40 pm, Jan Beulich wrote:
-> All read accesses are rejected by the ->accept handler, while writes
-> bypass the bulk of the function body. Drop the dead code, leaving an
-> assertion in the read handler.
->
-> A number of other static items (and a macro) are then unreferenced and
-> hence also need (want) dropping. The same applies to the "latch" field
-> of the state structure.
+> No consumers are left, hence the producer and the array itself can also
+> go away. The static gr_mask[] is then orphaned and hence needs dropping,
+> too.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-In the read handler, I don't think we need to fill in ~0.  A while back,
-we had the base layer fill this in, to fix stack rubble leaks.  Either way,
-
 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-I'm sad that we called map & unmap for every byte in multi-byte
-accesses.  Good riddance.
 
