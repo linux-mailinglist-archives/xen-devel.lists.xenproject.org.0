@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C2F79743A4
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 21:44:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796037.1205553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 521A49744E8
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 23:35:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796062.1205563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so6lj-0005Eg-Hd; Tue, 10 Sep 2024 19:43:19 +0000
+	id 1so8V9-0000Qd-28; Tue, 10 Sep 2024 21:34:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796037.1205553; Tue, 10 Sep 2024 19:43:19 +0000
+Received: by outflank-mailman (output) from mailman id 796062.1205563; Tue, 10 Sep 2024 21:34:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so6lj-0005BT-Ef; Tue, 10 Sep 2024 19:43:19 +0000
-Received: by outflank-mailman (input) for mailman id 796037;
- Tue, 10 Sep 2024 19:43:17 +0000
+	id 1so8V8-0000OF-V8; Tue, 10 Sep 2024 21:34:18 +0000
+Received: by outflank-mailman (input) for mailman id 796062;
+ Tue, 10 Sep 2024 21:34:17 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1so6lh-0005BJ-PS; Tue, 10 Sep 2024 19:43:17 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1so8V7-0000O9-FL
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 21:34:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1so6lh-00081C-Lu; Tue, 10 Sep 2024 19:43:17 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1so6lh-00018E-3r; Tue, 10 Sep 2024 19:43:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1so6lh-0007RH-3Q; Tue, 10 Sep 2024 19:43:17 +0000
+ (envelope-from <julien@xen.org>)
+ id 1so8V6-0001Qq-Tb; Tue, 10 Sep 2024 21:34:16 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1so8V6-0003MR-Il; Tue, 10 Sep 2024 21:34:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,265 +39,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=DdU1z5HsjK0xbd8wBm6Mxu0jzAY7k7SkhfIMaONcofM=; b=RRfKyzV8A3TAyP8m9XVAlxPRcv
-	+hfRiA5Be7pIoT/3bVyTdhE66ct1L2aGlAXkGDg8RfLsFOL9O+/VgaWiAKagoIp1JGAssIv1yfP5N
-	COOwoD2L6sCBfpfyg49up3TLeyOPRy+zENOImFZq+LeVg4qmf1nHPXaMpw35OvDyWKEs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187629-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=qyhZxF3oStrhdmeoQgwOkJE+zJ3IvsBuTjj7DhdVfME=; b=D670pdfYapPkzhcLXkb15Mg+3i
+	WYTjKggmv/sglsL/3ZkAtuWyJ/ixhamfZk9I2kLu0dS2+uYVg5EQDzD5wZ9Y/aDu7i+CXMVqCZWtb
+	zHS2zgDXg00OFnKh+nh0uO3v30HvO7PHVL7ThZuBLF7G2Ipgb+QihAQZ+I10pEryOTyU=;
+Message-ID: <65b9d244-8659-4cd5-828e-a2290b746519@xen.org>
+Date: Tue, 10 Sep 2024 22:34:14 +0100
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 187629: regressions - FAIL
-X-Osstest-Failures:
-    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:depriv-audit-qemu/create:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:depriv-audit-qemu/create/privcmd:blocked:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:depriv-audit-qemu/create/gntdev:blocked:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:depriv-audit-qemu/create/evtchn:blocked:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:depriv-audit-qemu/create/other:blocked:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:depriv-audit-qemu/create/xenstore:blocked:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:leak-check/check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=7bbadc60b58b742494555f06cd342311ddab9351
-X-Osstest-Versions-That:
-    qemuu=7b87a25f49a301d3377f3e71e0b4a62540c6f6e4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 10 Sep 2024 19:43:17 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/4] xen/arm: mpu: Define Xen start address for MPU
+ systems
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayankuma@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Jiamei . Xie" <jiamei.xie@arm.com>
+References: <20240823163127.3443404-1-ayan.kumar.halder@amd.com>
+ <20240823163127.3443404-3-ayan.kumar.halder@amd.com>
+ <efc024ad-1e1c-45d0-9511-cc0c082dfef7@xen.org>
+ <c0de7e6c-43d0-46ec-8cf7-ba1855caac82@amd.com>
+ <c375468f-fc1d-42d2-91bb-7878f0300c55@xen.org>
+ <7021af49-a409-46c1-993b-4ddd7975564d@amd.com>
+ <0533aee4-1b08-4714-b497-a4df70703895@xen.org>
+ <5583411c-aad5-45d0-97be-f0d630afbca1@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <5583411c-aad5-45d0-97be-f0d630afbca1@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 187629 qemu-mainline real [real]
-flight 187645 qemu-mainline real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187629/
-http://logs.test-lab.xenproject.org/osstest/logs/187645/
+Hi Ayan,
 
-Regressions :-(
+On 10/09/2024 14:42, Ayan Kumar Halder wrote:
+> 
+> On 09/09/2024 15:45, Julien Grall wrote:
+>> Hi Ayan,
+> Hi Julien,
+>>
+>> On 09/09/2024 11:29, Ayan Kumar Halder wrote:
+>>>
+>>> On 08/09/2024 22:13, Julien Grall wrote:
+>>>> Hi,
+>>> Hi Julien,
+>>>>
+>>>> On 02/09/2024 15:48, Ayan Kumar Halder wrote:
+>>>
+>>>>> I will rephrase this as ...
+>>>>>
+>>>>> "Used to set customized address at which which Xen will be linked
+>>>>>
+>>>>> on MPU systems. This address must be aligned to a page size.
+>>>>> 0xFFFFFFFF is used as the default value to indicate that user hasn't
+>>>>> customized this address."
+>>>>
+>>>> Reading this comment, I would like to ask some clarification. In the 
+>>>> context of the MPU how do you define a page size? The definition is 
+>>>> pretty clear when using the MMU because the granularity if defined 
+>>>> by the HW. But for the MPU, it is a bit blur. Is it still 4KB? If 
+>>>> so, is it actually realistic (we don't have that many MPU regions)?
+>>>
+>>>  From ARM DDI 0600A.d ID120821, C1.1.1 Protection regions
+>>>
+>>> "Protection regions have a minimum size of 64 bytes."
+>>>
+>>> Thus, I would infer that the minimum page size (in context of MPU) is 
+>>> 64 bytes.
+>> > > Also, if you see the register fields of PRBAR and PRLAR, the lower 6
+> yes.
+>>> bits are 0 extended to provide the address.
+>>>
+>>> So, may be I should say
+>>>
+>>> ".... address must be aligned to the minimum region size (ie 64 
+>>> bytes). 0xFFFFFFFF is used ...."
+>>>
+>>>
+>>> Let me know if this sounds ok.
+>>
+>> So what you provided is a minimum size/alignment of a region from the 
+>> HW point of view. How about Xen? Will it be able to cope if Xen is 
+>> booted at a 64-byte alignment?
+>>
+>> Asking because it is unclear how the allocator will work with the MPU. 
+>> Are we going to continue to allocate 4KB chunk at the time? Will it be 
+>> smaller/larger?
+> 
+> MPU will work with static memory allocation only. It can allocate a 
+> fixed number of regions using PRBAR and PRLAR. We can make the addresses 
+> to be page aligned (ie 4KB) so that it is in parity with MMU. And we 
+> will keep the page size as 4 KB.  It makes sense to use the same page 
+> size to do the allocation irrespective of MPU or MMU. Also, it helps to 
+> keep a large part of the code as common.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 17 depriv-audit-qemu/create fail REGR. vs. 187511
+TL;DR: I think we can use different chunk size (I find "page" confusing 
+in the context of the MPU) and still sharing a large part of Xen. For 
+now, I would be ok to use the same size. In the future, it would be 
+beneficial to change it.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 18 depriv-audit-qemu/create/privcmd blocked n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 19 depriv-audit-qemu/create/gntdev blocked n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 20 depriv-audit-qemu/create/evtchn blocked n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 21 depriv-audit-qemu/create/other blocked n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 22 depriv-audit-qemu/create/xenstore blocked n/a
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187511
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187511
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187511
- test-amd64-amd64-libvirt-vhd 22 leak-check/check             fail  like 187511
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187511
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+Now the longer answer. Looking at the specification, the architecture 
+allows up to 128 regions. So the chance we will want to share a 4KB RAM 
+region at the time is close to zero.
 
-version targeted for testing:
- qemuu                7bbadc60b58b742494555f06cd342311ddab9351
-baseline version:
- qemuu                7b87a25f49a301d3377f3e71e0b4a62540c6f6e4
+Yet we would still have one struct page_info per 4KB chunk to carry the 
+metadata. This is not only going to be a waste of memory but also 
+requires extra work. So to me it would make more sense to track larger 
+chunk (maybe 2MB).
 
-Last test of basis   187511  2024-09-06 01:42:24 Z    4 days
-Failing since        187543  2024-09-06 16:02:24 Z    4 days    6 attempts
-Testing same since   187629  2024-09-10 01:42:06 Z    0 days    1 attempts
+Now regarding the change necessary in Xen. I think we can divide it in 
+two parts:
+   * Allocation within region
+   * Frame in the public interface
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Arman Nabiev <nabiev.arman13@gmail.com>
-  Changbin Du <changbin.du@huawei.com>
-  Cleber Rosa <crosa@redhat.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dorjoy Chowdhury <dorjoychy111@gmail.com>
-  Edgar E. Iglesias <edgar.iglesias@amd.com>
-  Fabiano Rosas <farosas@suse.de>
-  Gao Shiyuan <gaoshiyuan@baidu.com>
-  Jeuk Kim <jeuk20.kim@samsung.com>
-  Kyoungrul Kim <k831.kim@samsung.com>
-  KyoungrulKim <k831.kim@samsung.com>
-  Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
-  Peter Maydell <peter.maydell@linaro.org>
-  Philippe Mathieu-Daudé <philmd@linaro.org>
-  Richard Henderson <richard.henderson@linaro.org>
-  Sebastian Huber <sebastian.huber@embedded-brains.de>
-  Steve Sistare <steven.sistare@oracle.com>
-  Thomas Huth <huth@tuxfamily.org>
-  Thomas Huth <thuth@redhat.com>
-  Tiago Pasqualini <tiago.pasqualini@canonical.com>
-  Yoochan Jeong <yc01.jeong@samsung.com>
+For the first part, Xen on Arm is now mainly page agnostic. So you could 
+bump the PAGE_SIZE (barring the public interface see below) without any 
+trouble. You may have to deal with extra memory wasted when using 
+alloc_*heap_page*(). But that could be easily solved by using xmalloc() 
+and/or introduce new wrappers.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+For the frame definition in the public interface. So far, a frame covers 
+4KB (same as Xen page granularity) and this is bake into OSes (Xen 
+doesn't have a way to return the page granularity used). So for the MMU, 
+you sadly can't easily increase the page granularity used by Xen...
 
+However for the MPU I think this is a different story. The bulk of the 
+interface using frame number (such as increase/decrease memory) are not 
+applicable for the MPU or would be unusable/severely limited (e.g grant 
+table) given the number of MPU regions available.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Anyway, I am probably thinking quite far ahead :). For now, I am fine if 
+you want to use 4KB chunk. So in the Kconfig you could write "Xen start 
+address should be 4KB aligned" (let's not mention page).
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Cheers,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+-- 
+Julien Grall
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 2681 lines long.)
 
