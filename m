@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89C829741C7
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 20:11:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795964.1205473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11F269741C8
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 20:12:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795968.1205483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so5L0-0005en-PJ; Tue, 10 Sep 2024 18:11:38 +0000
+	id 1so5LZ-0006Aa-3P; Tue, 10 Sep 2024 18:12:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795964.1205473; Tue, 10 Sep 2024 18:11:38 +0000
+Received: by outflank-mailman (output) from mailman id 795968.1205483; Tue, 10 Sep 2024 18:12:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so5L0-0005ce-Ks; Tue, 10 Sep 2024 18:11:38 +0000
-Received: by outflank-mailman (input) for mailman id 795964;
- Tue, 10 Sep 2024 18:11:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1so5LY-000695-WF; Tue, 10 Sep 2024 18:12:13 +0000
+Received: by outflank-mailman (input) for mailman id 795968;
+ Tue, 10 Sep 2024 18:12:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZWlv=QI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1so5Kz-0005cY-BB
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 18:11:37 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d7c07bb-6fa0-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 20:11:35 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a8b155b5e9eso141367666b.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 11:11:35 -0700 (PDT)
+ id 1so5LX-00068v-I2
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 18:12:11 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 32a53c57-6fa0-11ef-a0b5-8be0dac302b0;
+ Tue, 10 Sep 2024 20:12:10 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2f762de00e5so37427771fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 11:12:10 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25a079bcsm509505866b.83.2024.09.10.11.11.34
+ 4fb4d7f45d1cf-5c3ebd76f3esm4522748a12.59.2024.09.10.11.12.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 11:11:34 -0700 (PDT)
+ Tue, 10 Sep 2024 11:12:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d7c07bb-6fa0-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 32a53c57-6fa0-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1725991895; x=1726596695; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1725991930; x=1726596730; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WgbJxha1DcCC7BiLvbGr83Zjc8sMA7IovaXbouVX06A=;
-        b=qJbCX0HgnADVchJkmMDrjmmbnHgBBrug3BK7MatrkCphgyL7oF5OD3RTZ3fotZf/cs
-         pmEW98+Ujjrpx1QbxvjYmpfRnzZz7gGHQ9gqMAfdDSgrPBtepkqva2EjvHXI9xW2OWxr
-         BMVGJ+wdgJbjpGPz7OXXEsfqWCm9qwjYNhdsA=
+        bh=QE3gUmUNTUZqCRAVT28y+cuCMwnee3RT5jpIKNKYIho=;
+        b=HyxAYhzmuwOa3rxhrUDqTr19Z+SsVDOh1/iz+Q0Ip5VhqMaGfIiqITZDDNoMtLcEqv
+         5PXYyQ7MgzdAJj8jr6RLI8d+kcGuY2reNRaa6bGXA94dT8nJKUkKYmrxSO7x/l3jlYTh
+         LqtOTAgJtNQZnceI75sfjem3CuJVuKGTqDQnY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725991895; x=1726596695;
+        d=1e100.net; s=20230601; t=1725991930; x=1726596730;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WgbJxha1DcCC7BiLvbGr83Zjc8sMA7IovaXbouVX06A=;
-        b=BOXz2upwTzadWo0gtL1bQVI2aHWujyGvdGPAqiGC45oHgEmpeYFLnFDm7Vxh0ldhqN
-         WamytcKkPb8439GQhBEQQj6PNVZ7T8USjmeKlOywTg3v/JNQSQpY6Zv0jpbmycmVFwSu
-         CFCDMqA8Dl8yTcenhnne6HtrewLwco9s4MLqfPBYxJhHNpF1dNcryOtQrMC90bU0TJ+g
-         lSGTH3t7xR0VJBitdYUF4RXOPOp5btJ4Ndks8yIm7+xEk7o3R0ksr0awcdPVms9wwGuc
-         c+pWzVbN82l5EsUd/FP7LqaXFNhnGfcaFXKPCBxkrE3F09Cq3j+omWH4SIdJbppKWSDw
-         HOAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV0H27lSmRSLij6HXZRnGBF17GZh/sKXQyWfLGJ66ZuJRGshjlULi/N9ljiuIAjbXAdfLhTUmuMBGk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxmB1Gg3vnas6jLKhJsqT7ivoc06wm9pVIs0zp5UYOTIbcZqlCC
-	R6f4Os4w5dkyMkyDLFf8+TEi8gRUzDOIM/RPXu38dEZUARetkoB2l2EamPnaEiM=
-X-Google-Smtp-Source: AGHT+IE1gNS5H2lijVawRZvh5dYO2vSOQrysmvCv5CtuMsvX0k+Tyidl9M7dtbZ3tn/GKBUKOVQS0g==
-X-Received: by 2002:a17:907:3e13:b0:a7a:9fe9:99e7 with SMTP id a640c23a62f3a-a9004a46e96mr39846166b.41.1725991894681;
-        Tue, 10 Sep 2024 11:11:34 -0700 (PDT)
-Message-ID: <bcaba930-65c8-415b-b47d-a7fd82c1a206@citrix.com>
-Date: Tue, 10 Sep 2024 19:11:32 +0100
+        bh=QE3gUmUNTUZqCRAVT28y+cuCMwnee3RT5jpIKNKYIho=;
+        b=RXblS6i0QAK+Rkdex360LuhTeEaW1jRzQRFPnLbTgrNVvOWo87r/a3XenZhyhaZon/
+         IffaIWjpkNyjl/LHj4RTLMhD+FKCdaT1AfLnz7WLe1ThxDgHuc+ANd4Ejeu1+Kqz6f0F
+         f80qpfgPSyrwKlWe+m7xbekcNMlkrvnrIKLVPDnKUqu6SotP/A8sQNhLWaZ/VPX32n2Q
+         pO6A5g+8j7w/NLsxB6pl3iKhFjYQ2atun6OASUWpJ4lOF7xEjXSRJC/YtrerkRiddowS
+         GLjghRekiVwL2IEsmQUXWBlBuFlOZJBmXIpU0ynu4QBs4KelfhCdT60kFHBzVRfqiwpw
+         WkQA==
+X-Forwarded-Encrypted: i=1; AJvYcCVv3SGTmrFx+Gc3VgSChtej0ks7m26Ds5WEIdVFF4uP9klFe1iKOy8kIOSTYXb72Lx4W99IutJz2DU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxOiw8g7Im4WBf9GQtUVw18uE/ad5vsDAOX64Qmhf/TbVKWWqae
+	SICKZP5RTVJSKP9HB9rjwzmmHdG+FlaJTCTWG9NSdmlOPRA11rJlJgPb1FUuSWk=
+X-Google-Smtp-Source: AGHT+IGnsnlw//jsjvyL8nJHEOQAAFB/TaIzqMEhz1KLZlx/YYr2baXhxfeMonGRzxL/6gaoTtACyA==
+X-Received: by 2002:a2e:a983:0:b0:2f7:4f84:50a2 with SMTP id 38308e7fff4ca-2f751f69ef7mr108989141fa.31.1725991929505;
+        Tue, 10 Sep 2024 11:12:09 -0700 (PDT)
+Message-ID: <c2c307b6-f235-4478-9dc3-ac996e8e1bb0@citrix.com>
+Date: Tue, 10 Sep 2024 19:12:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] x86/HVM: drop stdvga's "gr[]" struct member
+Subject: Re: [PATCH 5/7] x86/HVM: drop stdvga's "sr[]" struct member
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
- <0d1fa212-8f99-461f-92ef-0647ecfcc899@suse.com>
+ <bf1b1615-3ce4-4640-b825-7097b62b3ac0@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,13 +129,13 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <0d1fa212-8f99-461f-92ef-0647ecfcc899@suse.com>
+In-Reply-To: <bf1b1615-3ce4-4640-b825-7097b62b3ac0@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/09/2024 3:40 pm, Jan Beulich wrote:
+On 10/09/2024 3:41 pm, Jan Beulich wrote:
 > No consumers are left, hence the producer and the array itself can also
-> go away. The static gr_mask[] is then orphaned and hence needs dropping,
+> go away. The static sr_mask[] is then orphaned and hence needs dropping,
 > too.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
