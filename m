@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 200F0974151
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 19:56:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795954.1205453 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94A8F9741B4
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 20:09:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795961.1205462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so567-0001ns-A7; Tue, 10 Sep 2024 17:56:15 +0000
+	id 1so5Hl-0004CD-90; Tue, 10 Sep 2024 18:08:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795954.1205453; Tue, 10 Sep 2024 17:56:15 +0000
+Received: by outflank-mailman (output) from mailman id 795961.1205462; Tue, 10 Sep 2024 18:08:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so567-0001mN-67; Tue, 10 Sep 2024 17:56:15 +0000
-Received: by outflank-mailman (input) for mailman id 795954;
- Tue, 10 Sep 2024 17:56:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1so5Hl-0004Ah-6F; Tue, 10 Sep 2024 18:08:17 +0000
+Received: by outflank-mailman (input) for mailman id 795961;
+ Tue, 10 Sep 2024 18:08:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hUAX=QI=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1so565-0001kk-Pd
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 17:56:13 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f76f5cb1-6f9d-11ef-a0b5-8be0dac302b0;
- Tue, 10 Sep 2024 19:56:12 +0200 (CEST)
-Received: from [192.168.1.20] (host-79-37-206-90.retail.telecomitalia.it
- [79.37.206.90])
- by support.bugseng.com (Postfix) with ESMTPSA id 708874EE07CB;
- Tue, 10 Sep 2024 19:56:11 +0200 (CEST)
+ <SRS0=ZWlv=QI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1so5Hk-0004AY-8p
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 18:08:16 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a5ada142-6f9f-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 20:08:14 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a8d2b24b7a8so14228266b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 11:08:14 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8d25835d97sm511599566b.4.2024.09.10.11.08.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Sep 2024 11:08:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,71 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f76f5cb1-6f9d-11ef-a0b5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1725990971; bh=PYa0mC+lVOrLiVWAnxc16WP3emnuMFO+766v2q0+rhU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=x/8xewRx/xYVVl6O5d8qxrMIZNavko578PLuuU0FAK4ru6/MM+h//a3X5t3RdS7Xd
-	 YkdivUWcin3ToIW/9JZkLcsyQ8VePBOOZEeXXdNZl4BIbHdazNhfJy660xNgYxpWBg
-	 RiWRYi77jAN36s0JNGaYjX/X05gEV4+o0Pjgjxe3iPWAvTHvMxOPubB6TaTv/ewe6n
-	 qZRM6jxLhJCXEOIMTi1g75siCQ0i+9uwv/gdsmrm7wgRToiZn054ypSPoJxzsoy/nR
-	 2H4fxLZc+NzwzhubnpNAerUTBvG95QUUdcjgL2xQYfmAW/gnmDpt94CwsB0g1XOgv0
-	 dzFi5taWB3ZpQ==
-Message-ID: <31c95075-2db3-4084-b89f-4ae3730d2c67@bugseng.com>
-Date: Tue, 10 Sep 2024 19:56:10 +0200
+X-Inumbo-ID: a5ada142-6f9f-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1725991694; x=1726596494; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=A0JSME2fLXzyG40uQrdZuMKR558ax67Mxh3T7MPNTyo=;
+        b=WS3OH0h18M8UccnKviax/tlZTxt9y9/NbJZPo6v8JqcTygZMshzRD0IlcWn0JLM6IO
+         sTL97dsv0CzbWMOiwOXJSwOcTXgeZp+aw0378f7BqXjpFXdGoAT/NQ17p+yo/0G8pPXi
+         woA1MRvZaMXV+JkUJVkahGcMxtPTikPs5PoNI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1725991694; x=1726596494;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A0JSME2fLXzyG40uQrdZuMKR558ax67Mxh3T7MPNTyo=;
+        b=IZjaobSquhumuOyRffBEaV9A8d6wNERlmCgJo++8Yzi+lPRqKdANDVLWWPsTazHR8P
+         Pw0CW921KXXWu5BDkNDiSJ9fU791SHhidXxjLVmIuIIUkdEptgTqEr14/sfYwe/X1bWr
+         xhXorfmdbcinB2mHzaTxZn4y/tukoYUc8hloovQOs9wXzHm7iAZR+KUbFLpQWLIIoU+O
+         Biw57satRm3fTiKOSrlGcCNUCMIfBHxujk7gxV/rs6HLnJ9lRwjPSiAjjkdmdjxOhmHZ
+         Q6J40FEBVlG54hvPndiWFJiLFcktFlRDN0L32LVQEgVW5mY7fRhR30etGHgH7iUxclzE
+         /+Tw==
+X-Forwarded-Encrypted: i=1; AJvYcCWS4PT8lymZgJPiAbKbmlk8jS/Il9GKbw3a/3S/Igisfk4UdCrVftftRd+OP7asa5IL3SkUvEu7nlY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2aBKQHDyUrSFLWBg7kkj0FKxRxPagnHOQshkBzQLwo7zH1ALM
+	Izc/Q/mb5rneovdViQ3hn9mYfM0t9YtecRdDkhXv/l0J1YV2qv3bOvR+b5WGXdk=
+X-Google-Smtp-Source: AGHT+IF4SNraSHwIdvkJ+x7fQnSj4yrhe/83oeiQOXpAVyivqQv9ooOm6I7J6Dh0TSib1CyHTGP5cQ==
+X-Received: by 2002:a17:907:e291:b0:a8d:505a:5458 with SMTP id a640c23a62f3a-a8ffb20f42amr217547666b.10.1725991693567;
+        Tue, 10 Sep 2024 11:08:13 -0700 (PDT)
+Message-ID: <09c85d55-630b-44c6-ba71-e0f0f68bd727@citrix.com>
+Date: Tue, 10 Sep 2024 19:08:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 06/12] x86/mm: address violations of MISRA C Rule 16.3
-To: Jan Beulich <jbeulich@suse.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1725958416.git.federico.serafini@bugseng.com>
- <0773f4b5678ee340af201b454e37178e750cbd8d.1725958416.git.federico.serafini@bugseng.com>
- <96062540-8265-4d50-a7d1-767fa608e8ea@suse.com>
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG
-In-Reply-To: <96062540-8265-4d50-a7d1-767fa608e8ea@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 3/7] x86/HVM: remove unused MMIO handling code
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
+ <d5739021-be35-4414-8ebe-efc472df4231@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <d5739021-be35-4414-8ebe-efc472df4231@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10/09/24 16:55, Jan Beulich wrote:
-> On 10.09.2024 12:08, Federico Serafini wrote:
->> Address violations of MISRA C:2012 Rule 16.3:
->> "An unconditional `break' statement shall terminate every
->> switch-clause".
->>
->> No functional change.
->>
->> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->> ---
->>   xen/arch/x86/mm/guest_walk.c     | 1 +
->>   xen/arch/x86/mm/hap/hap.c        | 2 +-
->>   xen/arch/x86/mm/hap/nested_hap.c | 1 +
->>   xen/arch/x86/mm/paging.c         | 2 +-
->>   4 files changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/xen/arch/x86/mm/guest_walk.c b/xen/arch/x86/mm/guest_walk.c
->> index fe7393334f..bc032d697c 100644
->> --- a/xen/arch/x86/mm/guest_walk.c
->> +++ b/xen/arch/x86/mm/guest_walk.c
->> @@ -497,6 +497,7 @@ guest_walk_tables(const struct vcpu *v, struct p2m_domain *p2m,
->>               paging_mark_dirty(d, gw->l4mfn);
->>               hvmemul_write_cache(v, l4gpa, &gw->l4e, sizeof(gw->l4e));
->>           }
->> +        break;
->>   #endif
->>       }
-> 
-> This wants inserting after the #endif, I think. If you agree, I'm happy to
-> adjust while committing. With the adjustment:
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+On 10/09/2024 3:40 pm, Jan Beulich wrote:
+> All read accesses are rejected by the ->accept handler, while writes
+> bypass the bulk of the function body. Drop the dead code, leaving an
+> assertion in the read handler.
+>
+> A number of other static items (and a macro) are then unreferenced and
+> hence also need (want) dropping. The same applies to the "latch" field
+> of the state structure.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-You are right, thanks.
+In the read handler, I don't think we need to fill in ~0.  A while back,
+we had the base layer fill this in, to fix stack rubble leaks.  Either way,
 
--- 
-Federico Serafini, M.Sc.
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Software Engineer, BUGSENG (http://bugseng.com)
+I'm sad that we called map & unmap for every byte in multi-byte
+accesses.  Good riddance.
 
