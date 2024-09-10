@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A72C6973A8F
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:51:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795755.1205233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA838973A9A
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 16:52:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795758.1205243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so2DP-0001el-OM; Tue, 10 Sep 2024 14:51:35 +0000
+	id 1so2EI-0002Jz-0i; Tue, 10 Sep 2024 14:52:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795755.1205233; Tue, 10 Sep 2024 14:51:35 +0000
+Received: by outflank-mailman (output) from mailman id 795758.1205243; Tue, 10 Sep 2024 14:52:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1so2DP-0001bk-L6; Tue, 10 Sep 2024 14:51:35 +0000
-Received: by outflank-mailman (input) for mailman id 795755;
- Tue, 10 Sep 2024 14:51:34 +0000
+	id 1so2EH-0002IQ-TT; Tue, 10 Sep 2024 14:52:29 +0000
+Received: by outflank-mailman (input) for mailman id 795758;
+ Tue, 10 Sep 2024 14:52:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zCZR=QI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1so2DO-0001ap-BJ
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:51:34 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1so2EG-0002I6-I9
+ for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 14:52:28 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b379e35-6f84-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 16:51:32 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a8a7596b7dfso32409166b.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:51:32 -0700 (PDT)
+ id 4b8a6f38-6f84-11ef-99a1-01e77a169b0f;
+ Tue, 10 Sep 2024 16:52:26 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-42cbface8d6so11724115e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Sep 2024 07:52:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25ce9732sm491089866b.151.2024.09.10.07.51.31
+ a640c23a62f3a-a8d25cf6a88sm487533766b.182.2024.09.10.07.52.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Sep 2024 07:51:31 -0700 (PDT)
+ Tue, 10 Sep 2024 07:52:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b379e35-6f84-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 4b8a6f38-6f84-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1725979892; x=1726584692; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1725979946; x=1726584746; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dCv9qgRRxYY8iUy4rkOcB1g4C0LPbCnLVbDxg90LgZY=;
-        b=MtZBvqDFvlXBGG/PlwsqsHj4yrzaWUvkfhVdM8GjiEiD3N+6EY7biApI78JktE02Uu
-         f5usYV+jduGq3P2YP9uJO/fuo8P4HDXNuHVgWjd7wF9LE87l9BekpBRb8V+Hq/E4Bc3Z
-         CRNLkmk609RVfXr/6fRmFh11JNyiQe+pRB6tZC/lzaJ9b7Ad1pO9QHm+iqmoSJjD6AyD
-         lCWV1xteFlcCDAGAgbt201NWTvFo8If/eAZYc+liq1RHfNYhdSl2b4IDvDk7MipTTe3R
-         J+iWfBdIRRIT6UJvSt2xYVog93QSHJqFK0162/OoylUYpDV61bmZkT4XL93Vw1p87uGl
-         oGZw==
+        bh=CnSkeptj05D9Sz4fhtAJdyYofegUAFpyI1beArrS6tM=;
+        b=EvB0D/EA/KJUBrj0e7VItx219anRZnpNCvQxh2vX3MeuNo6skHZRXWG4l+KIYbeEUn
+         stx0yP7EtFPreDs4XUMovDlCGlLUFkLLaRYyjzEBeXgH+5l37nh8DMnh6RnFxt1oZg8k
+         wCAfEUrueNxw2lxuj4jd6FbdotZimgPqfghoElozXdZNpeZ1CfrPbtJbqYM96E1WADnq
+         ywx18DBWDeVI3A3SU9DLgKCuIu/4yPM0GYeAmbAUt37pU4gFMcWDS2dElWSx8VVouEN3
+         30riujyqAQ8F6sHZyRm1D5xO3zpCMGkiGCsTG3Rk3oh8a3VSbT00WwPTt2VecbIPtRAM
+         /6gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725979892; x=1726584692;
+        d=1e100.net; s=20230601; t=1725979946; x=1726584746;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dCv9qgRRxYY8iUy4rkOcB1g4C0LPbCnLVbDxg90LgZY=;
-        b=AmXE5qNbTPUyJ6xIcWIYmrnlYfxzhgoyYKKsdr2Bk5wsQuXCcp3tt2/nzwk1sRXXbU
-         IfDU0xFq7QfslFoqk03HFVzsAGOX4RMCMNaOGWdcdOUEearYLTDzPuKV8vhG6CGBdcTq
-         40j/XCL1z++LfPFEIzaDQpF11UUfMkZe6asTVZb0M4r0HLTAPYD2Uxs3RhdGTKi6pSGA
-         04c4i0vcRm+pS/rJtF/CowaEqYvS23mo9oyk0YwdVnDA0XGaDv8ywPDYK7dpX5SVCDsZ
-         lKKyJIlu+tbCh2O0Td6mIIxzep4jGkVIqymUG5v8nlbtIAx9MwSCHPLddxD3H3iqBhv7
-         vzsQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU57xfDldoMtJKutBOFbGv14Qf31LFalI9dlOsDEfVIVnxcuppMX2zKr1GF5IiJtxQ/omSJ0+MeaiA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz+Y0Zym/b4SL42f+h+bPMj4Pm2kxZM+RiZOTDR1zW/HEUl3A5N
-	zxXjufC6+7Wp+U/JVfjzJycF02NcxSMUynrL64eUbyfJGitRd/u9IplPKTpvAA==
-X-Google-Smtp-Source: AGHT+IGE5FCziV7J8sbmyzey0v8alVqrgGlAgrYb1NDZZzZgoprpYJqTRmnonyu8DqZcfJDTfVv4rw==
-X-Received: by 2002:a17:907:6ea0:b0:a8d:4cec:fcec with SMTP id a640c23a62f3a-a8ffae0016cmr152805566b.26.1725979891800;
-        Tue, 10 Sep 2024 07:51:31 -0700 (PDT)
-Message-ID: <405a0eb1-293e-4315-ab9a-88e4aa44bf4c@suse.com>
-Date: Tue, 10 Sep 2024 16:51:31 +0200
+        bh=CnSkeptj05D9Sz4fhtAJdyYofegUAFpyI1beArrS6tM=;
+        b=v5sNtm35NTvNdsZMezf+jnBFvxizmuo7zyPwBeO/7okdyNNx1YKF+GqzrvoHNL3uLN
+         G9MT82860tspuX2Xf7HnenofnX8KSRqSwXEcD+VA+KEpw0yP/onnyeIbu/ztzGMwqt5G
+         xrJbhJkTNfsJ8PHGZ9G3FliZmp7CPL6ES6zoyvS5Ngafz11nIMKE19WdhwHA07EXfLk3
+         o/n7DSTx5PLm8fKDtCsLXMqS0ls0ttTXbb0KIxXdwUqJOF4WOaPO65iaVQNZFX12cNbu
+         d8orO+P7PRQ8Wb2OIJSAVUOPKooBQru/wH4tNewQDaZdeLUuiGp9mfFfwGZPuST0dXiQ
+         pvaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWoin2cnTgjeg2V88gnhzIQZwn2oBxhwcWVxsdEgYlUh/eqTJv7yMtX9gw0eDwj6KIPW3ZXs7PlnmQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwGIydR5NcCmYLMR85zM3Uhd22X01gqm8QSD3n4VfiCi9bk+xeF
+	ysqlXjstLXiDurk1xFGhdE+Ujds3nF7LHBivSL60BxH4bGftzB+qqj7+bsI24A==
+X-Google-Smtp-Source: AGHT+IESu97wEAc6xOYJjCC7SWIbYX5UV9MSOt7xENmNRJknQvGU5sLCcgLW7e9V09a16XHsfP4C1w==
+X-Received: by 2002:adf:f247:0:b0:374:c8b7:63ec with SMTP id ffacd0b85a97d-378922a6c62mr9985863f8f.21.1725979946057;
+        Tue, 10 Sep 2024 07:52:26 -0700 (PDT)
+Message-ID: <6b5d700c-d38e-44d3-af6d-510f9c646ad7@suse.com>
+Date: Tue, 10 Sep 2024 16:52:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 11/12] xen/vpci: add defensive code
-To: Federico Serafini <federico.serafini@bugseng.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: consulting@bugseng.com, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 04/12] x86/hypercall: address violations of MISRA C
+ Rule 16.3
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <cover.1725958416.git.federico.serafini@bugseng.com>
- <d65fde9a39546d0b7c8433d2f8884ddb7b039fb9.1725958417.git.federico.serafini@bugseng.com>
+ <ae38faae9ea48c86f001040e854d5e6acbd41d26.1725958416.git.federico.serafini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,34 +114,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d65fde9a39546d0b7c8433d2f8884ddb7b039fb9.1725958417.git.federico.serafini@bugseng.com>
+In-Reply-To: <ae38faae9ea48c86f001040e854d5e6acbd41d26.1725958416.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.09.2024 12:09, Federico Serafini wrote:
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -364,6 +364,8 @@ static int adjacent_read(const struct domain *d, const struct vpci_msix *msix,
->  
->      default:
->          ASSERT_UNREACHABLE();
-> +        spin_unlock(&vpci->lock);
-> +        return X86EMUL_UNHANDLEABLE;
->      }
->      spin_unlock(&vpci->lock);
->  
-> @@ -512,6 +514,8 @@ static int adjacent_write(const struct domain *d, const struct vpci_msix *msix,
->  
->      default:
->          ASSERT_UNREACHABLE();
-> +        spin_unlock(&vpci->lock);
-> +        return X86EMUL_UNHANDLEABLE;
->      }
->      spin_unlock(&vpci->lock);
+On 10.09.2024 12:08, Federico Serafini wrote:
+> Address violations of MISRA C:2012 Rule 16.3:
+> "An unconditional `break' statement shall terminate every
+> switch-clause".
+> 
+> No functional change.
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Both functions only ever return X86EMUL_OKAY right now. I expect your
-change wants to be simple "break" insertions, yet I wonder why these
-functions aren't returning void then.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
