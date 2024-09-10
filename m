@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BFF5973580
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 12:50:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.795384.1204745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67F5C973589
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Sep 2024 12:52:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.795401.1204758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snyRu-00064i-Qe; Tue, 10 Sep 2024 10:50:18 +0000
+	id 1snyTQ-0007TJ-3o; Tue, 10 Sep 2024 10:51:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 795384.1204745; Tue, 10 Sep 2024 10:50:18 +0000
+Received: by outflank-mailman (output) from mailman id 795401.1204758; Tue, 10 Sep 2024 10:51:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1snyRu-0005xo-N1; Tue, 10 Sep 2024 10:50:18 +0000
-Received: by outflank-mailman (input) for mailman id 795384;
- Tue, 10 Sep 2024 10:50:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hUAX=QI=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1snyRt-0005fZ-4q
- for xen-devel@lists.xenproject.org; Tue, 10 Sep 2024 10:50:17 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 762f38ed-6f62-11ef-99a1-01e77a169b0f;
- Tue, 10 Sep 2024 12:50:15 +0200 (CEST)
-Received: from truciolo.homenet.telecomitalia.it
- (host-79-37-206-90.retail.telecomitalia.it [79.37.206.90])
- by support.bugseng.com (Postfix) with ESMTPSA id CFBBF4EE07C1;
- Tue, 10 Sep 2024 12:50:14 +0200 (CEST)
+	id 1snyTQ-0007RH-0R; Tue, 10 Sep 2024 10:51:52 +0000
+Received: by outflank-mailman (input) for mailman id 795401;
+ Tue, 10 Sep 2024 10:51:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1snyTO-0007R3-7p; Tue, 10 Sep 2024 10:51:50 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1snyTO-00065l-5w; Tue, 10 Sep 2024 10:51:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1snyTN-0006Yt-Rm; Tue, 10 Sep 2024 10:51:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1snyTN-0002sz-R3; Tue, 10 Sep 2024 10:51:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,63 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 762f38ed-6f62-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1725965415; bh=0ZGnWAy4OCBAC2wBwOqDOV4lU1P+EdH3+Hv5w4eAI60=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qYSlSMBRn3Xrj7KrwDqipee9gy4NoJ8F1OswG+80DKPQnxvd9NwCzf+dpnkon5dqo
-	 6XiviMgbpiYk4uaOHo+IleWkiI33Y9cbdZqpnpT7yJLKCaZ5dpaiTWpRUu1t9Ps0cL
-	 aE4shdjqNYENJN5qsju4f648BY5zPuT7kgq7DC8OMZZYHiJ10eOC58SCW39EVJRL16
-	 +cr+V+ORsEzNJ0uuvqiRsKA6qP+qA26ltMU3j03bluMy/ATmdKZAtMm9JHVc0EFFEa
-	 gf0g22Vz38FqJzKoepMUDLi/Wej2Xg8ekPJdoCBaAxV1iU2IGhSJuooWwyAKBYZFa2
-	 wlfuxDC6e+x/Q==
-From: Federico Serafini <federico.serafini@bugseng.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=9YnQN2/3gs8kX74MrlF1wCBpcAqkxjjzmmnEsbZa1iM=; b=vCGVjcMIZPnCiyUlx8UQdlb565
+	jRHK95ncZfSo3ZAXI+ZyYRMi7AOHq/NiLHqu5RE09IuzQc4hIejAlgUSdQuqQkAoH58g5X9suHjTs
+	c4eGVDlASTUT5Ac8tFiahF7mUcu+vz08a3sQ5b4AVKFnCOxsCOrNg9Pt7JnMXRvOygnQ=;
 To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH v2 2/2] xen/bitmap: remove redundant deviations
-Date: Tue, 10 Sep 2024 12:50:07 +0200
-Message-Id: <fd221f9c591844e1f684de45981a4f65ca49c72c.1725963889.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1725963889.git.federico.serafini@bugseng.com>
-References: <cover.1725963889.git.federico.serafini@bugseng.com>
-MIME-Version: 1.0
+Message-ID: <osstest-187638-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 187638: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b1ce2e1b67ff3b2478739976e952ac719010f019
+X-Osstest-Versions-That:
+    ovmf=61f9695f20a575085d0579a0d3efc41b322ce1ac
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 10 Sep 2024 10:51:49 +0000
 
-Remove comment-based deviations since a project wide deviation that
-cover such cases is present.
+flight 187638 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187638/
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
-Changes from v1:
-- split modifications in two patches.
----
- xen/include/xen/bitmap.h | 3 ---
- 1 file changed, 3 deletions(-)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b1ce2e1b67ff3b2478739976e952ac719010f019
+baseline version:
+ ovmf                 61f9695f20a575085d0579a0d3efc41b322ce1ac
 
-diff --git a/xen/include/xen/bitmap.h b/xen/include/xen/bitmap.h
-index 5d668053b0..4b642cd420 100644
---- a/xen/include/xen/bitmap.h
-+++ b/xen/include/xen/bitmap.h
-@@ -103,13 +103,10 @@ extern int bitmap_allocate_region(unsigned long *bitmap, int pos, int order);
- #define bitmap_switch(nbits, zero, small, large)			  \
- 	unsigned int n__ = (nbits);					  \
- 	if (__builtin_constant_p(nbits) && !n__) {			  \
--		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
- 		zero;							  \
- 	} else if (__builtin_constant_p(nbits) && n__ <= BITS_PER_LONG) { \
--		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
- 		small;							  \
- 	} else {							  \
--		/* SAF-7-safe Rule 20.7 non-parenthesized macro argument */ \
- 		large;							  \
- 	}
- 
--- 
-2.34.1
+Last test of basis   187628  2024-09-10 01:13:27 Z    0 days
+Testing same since   187638  2024-09-10 09:12:31 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Vishal Oliyil Kunnil <quic_vishalo@quicinc.com>
+  Vishal Oliyil Kunnil <vishalo@qti.qualcomm.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   61f9695f20..b1ce2e1b67  b1ce2e1b67ff3b2478739976e952ac719010f019 -> xen-tested-master
 
