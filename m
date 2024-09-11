@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C773974900
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 06:01:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796150.1205625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 272649749AF
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 07:21:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796164.1205636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soEWY-0002aF-Ar; Wed, 11 Sep 2024 04:00:10 +0000
+	id 1soFlo-0002QC-1u; Wed, 11 Sep 2024 05:20:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796150.1205625; Wed, 11 Sep 2024 04:00:10 +0000
+Received: by outflank-mailman (output) from mailman id 796164.1205636; Wed, 11 Sep 2024 05:20:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soEWY-0002YI-7i; Wed, 11 Sep 2024 04:00:10 +0000
-Received: by outflank-mailman (input) for mailman id 796150;
- Wed, 11 Sep 2024 04:00:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1soEWW-0002Y8-B0; Wed, 11 Sep 2024 04:00:08 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1soEWW-00089O-8u; Wed, 11 Sep 2024 04:00:08 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1soEWV-0001KR-NS; Wed, 11 Sep 2024 04:00:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1soEWV-0006y5-Mn; Wed, 11 Sep 2024 04:00:07 +0000
+	id 1soFln-0002O4-Ui; Wed, 11 Sep 2024 05:19:59 +0000
+Received: by outflank-mailman (input) for mailman id 796164;
+ Wed, 11 Sep 2024 05:19:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5+cX=QJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1soFlm-0002Nw-TS
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 05:19:59 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7b1da200-6ffd-11ef-a0b5-8be0dac302b0;
+ Wed, 11 Sep 2024 07:19:56 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 499F05C03EF;
+ Wed, 11 Sep 2024 05:19:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D650C4CEC5;
+ Wed, 11 Sep 2024 05:19:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +41,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=sfcUrQ2JoaKFNC/OVXQ/4ug1V9CSnh8sABBVIA1f+1M=; b=bxcQf5QzcSkmdeVat8Zozx08vf
-	D4NftCCp/HFxgt25RWRSE3l0zMAOWC5eOV8vi4v/grAcipLe7q7X2wMA2El3TQ7e1S5APKVFGq826
-	c6RQHJaH8+gF2lJhZt1H69Op8XgikybvGqafIpJiTsbk8T0xeqEkDLwpvQycOt17gsuM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187650-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 7b1da200-6ffd-11ef-a0b5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1726031994;
+	bh=MUyqI2D661yzJJL6cSSB9xM7P4wVIqUwkLjC69fE/bA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=uhS/VJRTL6vZAvZM2hqKOnUEuHfmlToBw+wruwfMzgUqFgn5oeN083YwD5cHWJIoj
+	 La9Q+OkKBIyMZixtBD4KZlxD3nKO6j+maBVoe2+0OGnQ+GdaSheuW3zpap9g7jTcfI
+	 kcB7HV0uBhpQegpLtScaSsIJXbIovcMTvzEOeouZrC05uYhmyWNSkLXBYk092hTD+w
+	 KWsUYkhC672eaxRZsKDXQ4B+tXK3JLQpYmf/oLGRgCEn3qqN+Zng92ydujyp2hCLxr
+	 3dxh8/sMqzVeGSCCoz6b9spHiT/Bu43hUkjSB330KbXRaCaiUkBwP3PXT6sKNfIANa
+	 VCpVV4MF3K0gw==
+Date: Tue, 10 Sep 2024 22:19:51 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>, 
+    xen-devel@lists.xenproject.org, S32@nxp.com, 
+    Andrei Cherechesu <andrei.cherechesu@nxp.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v1 3/5] xen/arm: platforms: Add NXP S32CC platform code
+In-Reply-To: <f08942b8-3a01-4176-8fad-525ad3261083@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2409102210310.611587@ubuntu-linux-20-04-desktop>
+References: <20240910143411.178704-1-andrei.cherechesu@oss.nxp.com> <20240910143411.178704-4-andrei.cherechesu@oss.nxp.com> <f08942b8-3a01-4176-8fad-525ad3261083@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 187650: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=1328938560be440f25c122bcf6635af210291a4e
-X-Osstest-Versions-That:
-    ovmf=b1ce2e1b67ff3b2478739976e952ac719010f019
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 11 Sep 2024 04:00:07 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 187650 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187650/
-
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 1328938560be440f25c122bcf6635af210291a4e
-baseline version:
- ovmf                 b1ce2e1b67ff3b2478739976e952ac719010f019
-
-Last test of basis   187638  2024-09-10 09:12:31 Z    0 days
-Testing same since   187650  2024-09-11 01:42:55 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Mike Beaton <mjsbeaton@gmail.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+On Tue, 10 Sep 2024, Julien Grall wrote:
+> Hi,
+> 
+> On 10/09/2024 15:34, Andrei Cherechesu (OSS) wrote:
+> > From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+> > 
+> > Added support for NXP S32CC platforms (S32G2, S32G3, S32R45),
+> > which need SCMI over SMC calls forwarded to the firmware
+> > running at EL3 (TF-A). Linux relies on the SCMI Platform
+> > for system services such as clocking, reset, etc.
+> 
+> Is it SMCI as in the Arm spec? If so, this should not be platform specific.
+> 
+> Furthermore, I was under the impression that we can't blindly forward
+> everything from a domain to the firmware. While it might be okayish for dom0,
+> you also seem to give access to all the domains on the system is it intended?
+> 
+> Anyway, there is a series on the ML to add a mediator for SCMI in Xen (see
+> [1]). I think it would be preferable to focus on getting it merged as it would
+> benefit everyone and increase the security posture (we could restrict access).
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Hi Andrei, Julien,
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+SCMI is very flexible and can be configured in a number of ways. In
+general, Julien has a point that typically forwarding to firmware all
+SCMI requests from Xen domains is not the desired behavior.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+An an example, imagine the case where device1 is assigned to domain1 and
+device2 is assigned to domain2. Now imagine that they both share a
+clock. Domain1 and domain2 could fight over the clock frequency settings
+using SCMI to change it, without being aware of each other activities.
+It is likely that the system would malfunction.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+If this kind of situations can happen on NXP S32CC platforms, then this
+patch might not be a good idea. As Julien suggested, you might want to
+have a look at Oleksii's approach. We could probably allow Dom0 to make
+all SCMI calls. If you think that is OK, you need to add a
+(is_hardware_domain(d)) check.
 
+On the other hand, if your SCMI server implementation has a way to
+prevent possible harmful activities from happening, or maybe all clocks
+are fixed-clocks so there are actually no SCMI operations to control the
+clocks, then it could be possible that this patch might be fine. I admit
+it is unlikely because there is a number of ways SCMI could be used by
+one domain to hurt another domain.
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   b1ce2e1b67..1328938560  1328938560be440f25c122bcf6635af210291a4e -> xen-tested-master
+Can you please give us a brief overview on how SCMI is expected to work
+on NXP S32CC?
 
