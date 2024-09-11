@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4953697530C
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:59:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796628.1206368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A136B975342
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 15:08:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796637.1206378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMw3-0003QX-E1; Wed, 11 Sep 2024 12:59:03 +0000
+	id 1soN4U-0005c8-B2; Wed, 11 Sep 2024 13:07:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796628.1206368; Wed, 11 Sep 2024 12:59:03 +0000
+Received: by outflank-mailman (output) from mailman id 796637.1206378; Wed, 11 Sep 2024 13:07:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMw3-0003O1-Au; Wed, 11 Sep 2024 12:59:03 +0000
-Received: by outflank-mailman (input) for mailman id 796628;
- Wed, 11 Sep 2024 12:59:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1soN4U-0005aX-7F; Wed, 11 Sep 2024 13:07:46 +0000
+Received: by outflank-mailman (input) for mailman id 796637;
+ Wed, 11 Sep 2024 13:07:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9RHL=QJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1soMw1-0002sA-Io
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:59:01 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d7a37bd-703d-11ef-a0b5-8be0dac302b0;
- Wed, 11 Sep 2024 14:59:01 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a8d56155f51so233955766b.2
- for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:59:01 -0700 (PDT)
+ id 1soN4S-0005ZH-WB
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 13:07:45 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d2fa5b13-703e-11ef-99a1-01e77a169b0f;
+ Wed, 11 Sep 2024 15:07:40 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a8d29b7edc2so609592566b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 06:07:40 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25c7286esm604134366b.138.2024.09.11.05.58.59
+ a640c23a62f3a-a8d7360f398sm250803266b.5.2024.09.11.06.07.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Sep 2024 05:58:59 -0700 (PDT)
+ Wed, 11 Sep 2024 06:07:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d7a37bd-703d-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: d2fa5b13-703e-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1726059540; x=1726664340; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1726060060; x=1726664860; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5ZEYcF37GG0GGzyFuGja6DH3Vh51T16P6UkxwTGOOks=;
-        b=D/8ypFvH1FljqnO5FFa+dAIyr1+WiFCt2lXL5u9s9QeuXWuPZoZUEn70bsgEVMf3rD
-         q0uQMJewmDxvfzElTSRLE4dhRQzGD752W5genvDAAlIlDLilDGAmCegzhqHtZ68EGB1y
-         I/sLxGy7MlnsxXn+R8LBwuc2YRMtfuwVB8Q2s=
+        bh=rB/RzgqRotSsCyKNGWHl1ko6jRy9gSvw+WW1tSZgypA=;
+        b=UmDbi34wYfW+EzRWQDcYZiOy1/26V9aENQe4/LniYDaglKf6hBpnfcKeSF4oi8legy
+         zUp0mlPBHJHCver4dI0bT1kIpLKFsOvlj5z/LUIE+yMfmA4XQMM5C6ryKTmHqZE2jXtF
+         r4E1Nm5A2JjJqDTe4gEF5QqauBxXonWFPWxLo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726059540; x=1726664340;
+        d=1e100.net; s=20230601; t=1726060060; x=1726664860;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5ZEYcF37GG0GGzyFuGja6DH3Vh51T16P6UkxwTGOOks=;
-        b=wffcTK7SPmcK16i3sNeRZcMrZHUkN7JFu39mGoLQWlD1jrY7MgYTqC8sgf69AAuVWA
-         NgALaKGHcxVXwaF6MPEibN1+owkf1OaNbBb1zNI5Gc9ldT6wyUT/FJ67g1iDHLpkdAmm
-         E7PgGy7AJ9pqx3JmsFnbDcOx/3e8DEo0m9HyAenUwiFfA6JLPhY7k/AJIMVxEXEejequ
-         XxQZyK+eUzwSLdD3FAtVatXvjb/DsQw9W5kd1bwlG6hi576tNXaPZjKoTucfgy07rBPu
-         03y68/neO8bXd0vmy/0LCr90GC+8kHn6vEiIuV+qDHZDsKQPAX95ICne3GbgSPIhhYxG
-         kesA==
-X-Forwarded-Encrypted: i=1; AJvYcCVRQcT0D810OHdmrHh6bI0/yNMc6AcyEHDrGzOPHTHq3ORsyWTiAQHb6fFLZB2cP2bveYB3ps6IszA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwOACLwHefi483HGDFNsUGg6DN447qsvwW2uZXhMaTSFFiQ9fJJ
-	owwQtjAu0wx38vRjCpU79mittxDYDi52+eV+0NiLDsysNU13VqaFEYK4tjcZd7Y=
-X-Google-Smtp-Source: AGHT+IE4skNVp1kZyRcUxp1E5QOZ8qNqtfwhfiO/xWimTBagqsbvl3ofd6wq9JHw7qtJtf6hWOAgxg==
-X-Received: by 2002:a17:907:ea8:b0:a8a:71d5:1094 with SMTP id a640c23a62f3a-a9004a46fbdmr287178566b.46.1726059540253;
-        Wed, 11 Sep 2024 05:59:00 -0700 (PDT)
-Message-ID: <02b3589a-6dd1-4fd1-b579-1748bc2c37a8@citrix.com>
-Date: Wed, 11 Sep 2024 13:58:58 +0100
+        bh=rB/RzgqRotSsCyKNGWHl1ko6jRy9gSvw+WW1tSZgypA=;
+        b=jrLgWrW68mvShLzPfq3lFF1DJ6x2ushQcrKjEQ2S+KcoRFjR8k+2t4oYPdJ8NdlSaj
+         sCDBa6eho+IFZewnVsTPCVfZNxf2JHlr6nt4isV0UBqlRLjoGfKVzPWK0/OEUC5aJ0Az
+         5G+iy7gtLr7LkVLLhoqcwjSz3Qp1W2TSFDxe+VMvllJWIg9KxLkLF3Pf7SMmrhVHyJK0
+         si9it5o32YLicPKtWhSvi7OZZL3nfgWhPKkwshwL7OaCnFy/O5DKOpZfTD3hZ2vOlOo5
+         2JLUmQ2KiFbYUlNo8yJ6+1Wxzzy8E+OV7SJ4Sc5zCkowU2CyM3A+U5qLPKkNGfpDc16F
+         C79w==
+X-Forwarded-Encrypted: i=1; AJvYcCVmNimCEMUNQOzUl7y2Q3/xeuC1KJVby2DZJXY1sFwZdXy3814NdI5hrIU8nSwLYe6ri6VAVBcPMQ4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxXOKd3AbhIaCVkSRZCUgEkxCZIWaEfs7Yu0Wj6XH5/YJ6Qj69k
+	lZvACqv/IC2lohoAGAYXyZ+ncV1aCz26TiNCDh6PQt0N7plFJ7OkediG8+kTdaM=
+X-Google-Smtp-Source: AGHT+IFjAMD+jn/JJqNv+BysqaBnvRVcS48Qx466FMzymRxE1XrrqYQSAmSz7fgdb59dQ9h/fGVTag==
+X-Received: by 2002:a17:907:96aa:b0:a8d:6921:e179 with SMTP id a640c23a62f3a-a8ffab84899mr396927466b.39.1726060059465;
+        Wed, 11 Sep 2024 06:07:39 -0700 (PDT)
+Message-ID: <db97215e-4e78-413c-b86d-aec8c87f8a86@citrix.com>
+Date: Wed, 11 Sep 2024 14:07:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/9] x86/HVM: properly reject "indirect" VRAM writes
-To: Jan Beulich <jbeulich@suse.com>,
+Subject: Re: [PATCH v2 8/9] x86/HVM: drop stdvga's "lock" struct member
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <dc3faf7d-0690-46e6-8fbc-67a177a1e171@suse.com>
- <c1ddb1fb-70c3-4ca4-a2cc-acdba9c9a035@suse.com>
+ <716868cb-6a94-4470-a1a5-a4b5994e8195@suse.com>
+ <dcc120ce-6634-465b-81ee-d652bd0935a7@citrix.com>
+ <d7394132-e3ed-4804-8da0-6333a1dcf466@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,19 +131,41 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <c1ddb1fb-70c3-4ca4-a2cc-acdba9c9a035@suse.com>
+In-Reply-To: <d7394132-e3ed-4804-8da0-6333a1dcf466@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/09/2024 1:27 pm, Jan Beulich wrote:
-> While ->count will only be different from 1 for "indirect" (data in
-> guest memory) accesses, it being 1 does not exclude the request being an
-> "indirect" one. Check both to be on the safe side, and bring the ->count
-> part also in line with what ioreq_send_buffered() actually refuses to
-> handle.
->
-> Fixes: 3bbaaec09b1b ("x86/hvm: unify stdvga mmio intercept with standard mmio intercept")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 11/09/2024 1:58 pm, Jan Beulich wrote:
+> On 11.09.2024 14:42, Andrew Cooper wrote:
+>> On 11/09/2024 1:29 pm, Jan Beulich wrote:
+>> However for performance, we also want to do the dir/ptr/count exclusions
+>> before the address range exclusions, meaning that ...
+>>
+>>>  
+>>> -    spin_lock(&s->lock);
+>>> -
+>>>      if ( p->dir != IOREQ_WRITE || p->data_is_ptr || p->count != 1 )
+>>>      {
+>>>          /*
+>>>           * Only accept single direct writes, as that's the only thing we can
+>>>           * accelerate using buffered ioreq handling.
+>>>           */
+>> ... it wants merging with this into a single expression.
+> I'm not convinced, and hence would at least want to keep this separate.
+> Which exact order checks want doing in would require more detailed
+> analysis imo. Or do you have blindingly obvious reasons to believe that
+> the re-ordering you suggest is always going to be an improvement?
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I'm not overly fussed if this is delayed to a later patch.  My review
+stands as long as the comment is gone.
+
+But, right now, accept() is called linearly over all handlers (there's
+not range based registration) so *every* IO comes through this logic path.
+
+The likely path is the excluded path.  ioreq_mmio_{first,last}_byte()
+are non-trivial logic because they account for DF, so being able to
+exclude based on direction/size before the DF calculations is a definite
+improvement.
+
+~Andrew
 
