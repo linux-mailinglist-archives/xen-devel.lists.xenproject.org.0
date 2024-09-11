@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 629DA975292
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:37:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796557.1206212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17878975293
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:37:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796556.1206207 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMb6-0001rG-AL; Wed, 11 Sep 2024 12:37:24 +0000
+	id 1soMb6-0001o5-6N; Wed, 11 Sep 2024 12:37:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796557.1206212; Wed, 11 Sep 2024 12:37:24 +0000
+Received: by outflank-mailman (output) from mailman id 796556.1206207; Wed, 11 Sep 2024 12:37:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMb6-0001nx-6I; Wed, 11 Sep 2024 12:37:24 +0000
-Received: by outflank-mailman (input) for mailman id 796557;
- Wed, 11 Sep 2024 12:37:23 +0000
+	id 1soMb6-0001mM-04; Wed, 11 Sep 2024 12:37:24 +0000
+Received: by outflank-mailman (input) for mailman id 796556;
+ Wed, 11 Sep 2024 12:37:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z7kF=QJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1soMTs-0005SW-Az
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:29:56 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1soMUN-0005SW-4i
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:30:27 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d3788be-7039-11ef-a0b5-8be0dac302b0;
- Wed, 11 Sep 2024 14:29:55 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5c40aea5c40so451924a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:29:55 -0700 (PDT)
+ id 9f98a40c-7039-11ef-a0b5-8be0dac302b0;
+ Wed, 11 Sep 2024 14:30:26 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5c3d2f9f896so7362481a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:30:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3ebd76f8bsm5257243a12.76.2024.09.11.05.29.54
+ 4fb4d7f45d1cf-5c3ebd76ef0sm5363597a12.63.2024.09.11.05.30.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Sep 2024 05:29:54 -0700 (PDT)
+ Wed, 11 Sep 2024 05:30:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d3788be-7039-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 9f98a40c-7039-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726057795; x=1726662595; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1726057826; x=1726662626; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F+7xG8Xlt7QQ6wJoGrrTXnXBxG7ZbwFf1eyCKqS9od0=;
-        b=RmIkAsnV+UGfJFR6Uj09vEmB1hlE1Qrk5g4p9TalrazxJQhxlMHYHzeo0fuu7+G5C5
-         oIDfsv1Abdy8NjUVqU6ILqv9gmtYEDCNPA+hQ8TIeWQBBNiA96Ct2/f0iFBSO2WLifCS
-         az18EBB+nOvQs79x7zam6KRS8IE5iiE9/eWBr9xM9lZZgkousKaBoHto6ZZBrKZRCoR+
-         culcZAaB57omnQKP/3DCoXH/ZXZ/k90nabGA2aKkddblQ1wrmTA62/3qRHeWA8s0ve8Z
-         QwYNYosKXB0hjYLomDhNIqdi3T9QhPi1BDeMc708o/DbsvtEgDkZ+Lsf3E82Voj1HPnm
-         avOg==
+        bh=E/VQYJObNEPJuFiaAletJaE9AeVmIbCDaMEcMMCWqBY=;
+        b=IMQP/f+5X6bEi8aP5gUHuOfkirROK9CW/kxaKInqoOGb355MlSe4zA8eXdzR46PKOg
+         Y+rJqNK6kw+6gs48//XO1dSiOtmeuCTLGgG6798QnDrsLoBOiHNrRH5vBqlD0O2BNBLi
+         rxXtC6oR4mdCTGGpYsG7jTHn/V3OrqIkZC6wPU8OCxf3nRSX7ujy1FkJMxsxtylZH+aT
+         rPEXYulVEoWG7u0Pwd3yr7+qgqRyJKLDKNNYvsMLm8zAH++NW+P+t2L6ItuQDXuj3Ob5
+         kV4ljG9nczQw1Us20QN6gq3WiECN5CvEDvXdQD+1dcASUaBo/q9DiaZYco+rIt+gnlmh
+         tpZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726057795; x=1726662595;
+        d=1e100.net; s=20230601; t=1726057826; x=1726662626;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=F+7xG8Xlt7QQ6wJoGrrTXnXBxG7ZbwFf1eyCKqS9od0=;
-        b=IRn0xeeDWBi0nxJ1mniR3MeEjCXpLlEPtKGB1HFp9elHMEvvwTf/OimCnVZXA8kJ9k
-         DWhv+BJby1mGch1Fs6crCzlyW7trSoTpBkCi0QsscBW/KGUHbXmO2LZePN+HXkpiXKQ/
-         n5J3UHsppSzXvsxs9Iwxizm21c0TIYhTzI21JdkAmqFRJc+0qvNkYnsm+OEN8Af1adfz
-         yTIZJ4+rOuQqtU4ewBKY7qMSLjG89PJSGKydPZS2I3a3/Ms8MnnN0JhzWZc8aVN88KH9
-         5Pi5KPa3GajSK9stvo0181FaKnzPmknTfNSXt3ITFI8sGKt4GQz1BEkhC6KZ9SX0Q1UB
-         7kVg==
-X-Gm-Message-State: AOJu0YzsYuegXB21dYRVf9owEIVZDoi4oz1djS1eJy47jvo3I/RSUPTS
-	/bABeZfkn/Eb+qNby/9IFD09RJKM4hFFN/FGMLMnouigRjZ7qNktkZdgSpkR4/8j82yI/41bT28
+        bh=E/VQYJObNEPJuFiaAletJaE9AeVmIbCDaMEcMMCWqBY=;
+        b=A8rFNOJ4U5JYuxViZ+HjB3vdK2torImCaQAwHz8slt75mponceMOi2zKWk2c+6INl8
+         Tw1amKsUZ2DX3JtXbpR3tZU8jQMjSM9biwV4J6BGkCbC9UbURVv48UM4qk3eP+CUud+C
+         NgjmRtfAbwzA3dKtWO2TQAhZS0qgOeFCreM/BZw7grFl3h8WR7icRW1RYF09UVhIR1dB
+         rUiIwtOMyPKWZnRppislic+uFV8umW0ZA2YHlcgEUa7ViWojmSeZqTD67iruqn2PVYrs
+         r+cZFynsX3mOyYfColoKnbTDvtKW0eL+9JinHDfF4m+lNikcBjpBFEhK7UX2115yDpHO
+         +Zew==
+X-Gm-Message-State: AOJu0Yx6QxtK8/i5TD8j+S8VeX9m+0jmVx8A/zKF1L81rXxrgidO9Oyd
+	Ndm/zo4hTamNp3eNxmTepHb+RwO4NVSacEW2H+q7ReluOopEQn2LhKkp3byE+dhmMjTK7EmstNM
 	=
-X-Google-Smtp-Source: AGHT+IHBc9iPZBTrQE5hJh+YPMuQzCvCvSRO86wsMzJe8fmttkJ/WvW8eyN/vxAWmewbNAhyx0JcqQ==
-X-Received: by 2002:a05:6402:27d4:b0:5c4:aea:5833 with SMTP id 4fb4d7f45d1cf-5c40aea5cbamr3381668a12.18.1726057795026;
-        Wed, 11 Sep 2024 05:29:55 -0700 (PDT)
-Message-ID: <716868cb-6a94-4470-a1a5-a4b5994e8195@suse.com>
-Date: Wed, 11 Sep 2024 14:29:54 +0200
+X-Google-Smtp-Source: AGHT+IGlT/+XpcVikT9tpnst1rfGQd3lCpyul4pBf+CxxFz5rfPGloVQ/YNZyBF6afxQLQGB8QC8MQ==
+X-Received: by 2002:a05:6402:254a:b0:5c3:d1ce:261c with SMTP id 4fb4d7f45d1cf-5c3e9630f87mr9255606a12.13.1726057825990;
+        Wed, 11 Sep 2024 05:30:25 -0700 (PDT)
+Message-ID: <a20f9455-a26e-49d1-96aa-36efec6a563e@suse.com>
+Date: Wed, 11 Sep 2024 14:30:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 8/9] x86/HVM: drop stdvga's "lock" struct member
+Subject: [PATCH v2 9/9] x86/HVM: drop .complete hook for intercept handling
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -115,101 +115,85 @@ In-Reply-To: <dc3faf7d-0690-46e6-8fbc-67a177a1e171@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-No state is left to protect. It being the last field, drop the struct
-itself as well. Similarly for then ending up empty, drop the .complete
-handler.
+No user of the hook exists anymore.
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+While touching hvm_mmio_internal() also make direction of the request
+explicit - it only so happens that IOREQ_WRITE is zero. Yet it being a
+write is imperative for stdvga.c to "accept" the request.
+
+Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
 v2: New.
 
---- a/xen/arch/x86/hvm/stdvga.c
-+++ b/xen/arch/x86/hvm/stdvga.c
-@@ -69,8 +69,6 @@ static int cf_check stdvga_mem_write(
- static bool cf_check stdvga_mem_accept(
-     const struct hvm_io_handler *handler, const ioreq_t *p)
+--- a/xen/arch/x86/hvm/intercept.c
++++ b/xen/arch/x86/hvm/intercept.c
+@@ -240,21 +240,13 @@ static const struct hvm_io_handler *hvm_
+ int hvm_io_intercept(ioreq_t *p)
  {
--    struct hvm_hw_stdvga *s = &current->domain->arch.hvm.stdvga;
--
-     /*
-      * The range check must be done without taking the lock, to avoid
-      * deadlock when hvm_mmio_internal() is called from
-@@ -80,50 +78,31 @@ static bool cf_check stdvga_mem_accept(
-          (ioreq_mmio_last_byte(p) >= (VGA_MEM_BASE + VGA_MEM_SIZE)) )
-         return 0;
+     const struct hvm_io_handler *handler;
+-    const struct hvm_io_ops *ops;
+-    int rc;
  
--    spin_lock(&s->lock);
--
-     if ( p->dir != IOREQ_WRITE || p->data_is_ptr || p->count != 1 )
-     {
-         /*
-          * Only accept single direct writes, as that's the only thing we can
-          * accelerate using buffered ioreq handling.
-          */
--        goto reject;
-+        return false;
-     }
+     handler = hvm_find_io_handler(p);
  
--    /* s->lock intentionally held */
--    return 1;
+     if ( handler == NULL )
+         return X86EMUL_UNHANDLEABLE;
+ 
+-    rc = hvm_process_io_intercept(handler, p);
 -
-- reject:
--    spin_unlock(&s->lock);
--    return 0;
--}
+-    ops = handler->ops;
+-    if ( ops->complete != NULL )
+-        ops->complete(handler);
 -
--static void cf_check stdvga_mem_complete(const struct hvm_io_handler *handler)
--{
--    struct hvm_hw_stdvga *s = &current->domain->arch.hvm.stdvga;
--
--    spin_unlock(&s->lock);
-+    return true;
+-    return rc;
++    return hvm_process_io_intercept(handler, p);
  }
  
- static const struct hvm_io_ops stdvga_mem_ops = {
-     .accept = stdvga_mem_accept,
-     .read = stdvga_mem_read,
-     .write = stdvga_mem_write,
--    .complete = stdvga_mem_complete
- };
+ struct hvm_io_handler *hvm_next_io_handler(struct domain *d)
+@@ -326,25 +318,15 @@ bool relocate_portio_handler(struct doma
  
- void stdvga_init(struct domain *d)
+ bool hvm_mmio_internal(paddr_t gpa)
  {
--    struct hvm_hw_stdvga *s = &d->arch.hvm.stdvga;
-     struct hvm_io_handler *handler;
+-    const struct hvm_io_handler *handler;
+-    const struct hvm_io_ops *ops;
+     ioreq_t p = {
+         .type = IOREQ_TYPE_COPY,
+         .addr = gpa,
+         .count = 1,
+         .size = 1,
++        .dir = IOREQ_WRITE, /* for stdvga */
+     };
  
-     if ( !has_vvga(d) )
-         return;
+-    handler = hvm_find_io_handler(&p);
+-
+-    if ( handler == NULL )
+-        return 0;
+-
+-    ops = handler->ops;
+-    if ( ops->complete != NULL )
+-        ops->complete(handler);
+-
+-    return 1;
++    return hvm_find_io_handler(&p);
+ }
  
--    memset(s, 0, sizeof(*s));
--    spin_lock_init(&s->lock);
--    
-     /* VGA memory */
-     handler = hvm_next_io_handler(d);
-     if ( handler )
---- a/xen/arch/x86/include/asm/hvm/domain.h
-+++ b/xen/arch/x86/include/asm/hvm/domain.h
-@@ -72,7 +72,6 @@ struct hvm_domain {
-     struct hvm_hw_vpic     vpic[2]; /* 0=master; 1=slave */
-     struct hvm_vioapic    **vioapic;
-     unsigned int           nr_vioapics;
--    struct hvm_hw_stdvga   stdvga;
- 
-     /*
-      * hvm_hw_pmtimer is a publicly-visible name. We will defer renaming
+ /*
 --- a/xen/arch/x86/include/asm/hvm/io.h
 +++ b/xen/arch/x86/include/asm/hvm/io.h
-@@ -110,10 +110,6 @@ struct vpci_arch_msix_entry {
-     int pirq;
+@@ -56,13 +56,11 @@ typedef int (*hvm_io_write_t)(const stru
+                               uint64_t data);
+ typedef bool (*hvm_io_accept_t)(const struct hvm_io_handler *handler,
+                                 const ioreq_t *p);
+-typedef void (*hvm_io_complete_t)(const struct hvm_io_handler *handler);
+ 
+ struct hvm_io_ops {
+     hvm_io_accept_t   accept;
+     hvm_io_read_t     read;
+     hvm_io_write_t    write;
+-    hvm_io_complete_t complete;
  };
  
--struct hvm_hw_stdvga {
--    spinlock_t lock;
--};
--
- void stdvga_init(struct domain *d);
- 
- extern void hvm_dpci_msi_eoi(struct domain *d, int vector);
+ int hvm_process_io_intercept(const struct hvm_io_handler *handler,
 
 
