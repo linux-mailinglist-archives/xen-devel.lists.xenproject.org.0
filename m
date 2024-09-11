@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17878975293
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:37:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796556.1206207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E212D975278
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:35:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796542.1206195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMb6-0001o5-6N; Wed, 11 Sep 2024 12:37:24 +0000
+	id 1soMYs-0000zv-OM; Wed, 11 Sep 2024 12:35:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796556.1206207; Wed, 11 Sep 2024 12:37:24 +0000
+Received: by outflank-mailman (output) from mailman id 796542.1206195; Wed, 11 Sep 2024 12:35:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMb6-0001mM-04; Wed, 11 Sep 2024 12:37:24 +0000
-Received: by outflank-mailman (input) for mailman id 796556;
- Wed, 11 Sep 2024 12:37:22 +0000
+	id 1soMYs-0000yQ-LU; Wed, 11 Sep 2024 12:35:06 +0000
+Received: by outflank-mailman (input) for mailman id 796542;
+ Wed, 11 Sep 2024 12:35:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z7kF=QJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1soMUN-0005SW-4i
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:30:27 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1soMYr-0000yK-NS
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:35:05 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9f98a40c-7039-11ef-a0b5-8be0dac302b0;
- Wed, 11 Sep 2024 14:30:26 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5c3d2f9f896so7362481a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:30:26 -0700 (PDT)
+ id 4576056e-703a-11ef-a0b5-8be0dac302b0;
+ Wed, 11 Sep 2024 14:35:04 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a8a789c4fc5so146137566b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:35:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3ebd76ef0sm5363597a12.63.2024.09.11.05.30.25
+ a640c23a62f3a-a9012cf16absm55584466b.147.2024.09.11.05.35.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Sep 2024 05:30:25 -0700 (PDT)
+ Wed, 11 Sep 2024 05:35:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f98a40c-7039-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 4576056e-703a-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726057826; x=1726662626; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E/VQYJObNEPJuFiaAletJaE9AeVmIbCDaMEcMMCWqBY=;
-        b=IMQP/f+5X6bEi8aP5gUHuOfkirROK9CW/kxaKInqoOGb355MlSe4zA8eXdzR46PKOg
-         Y+rJqNK6kw+6gs48//XO1dSiOtmeuCTLGgG6798QnDrsLoBOiHNrRH5vBqlD0O2BNBLi
-         rxXtC6oR4mdCTGGpYsG7jTHn/V3OrqIkZC6wPU8OCxf3nRSX7ujy1FkJMxsxtylZH+aT
-         rPEXYulVEoWG7u0Pwd3yr7+qgqRyJKLDKNNYvsMLm8zAH++NW+P+t2L6ItuQDXuj3Ob5
-         kV4ljG9nczQw1Us20QN6gq3WiECN5CvEDvXdQD+1dcASUaBo/q9DiaZYco+rIt+gnlmh
-         tpZQ==
+        d=suse.com; s=google; t=1726058104; x=1726662904; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=M89bF/9r0/e5NiN9PSqpu99XZd1VWC+TeeYrtg0DgHc=;
+        b=PFtvkGe0yp9BUbOZfo+fWHt+UDhedInVmFexDCYE5NpblHppYtCOPk/li9DKCcA+bY
+         yNvtDbr1cSkws0axwTedvMEmq4xGDRwlR4Qd40ixDuUyswNA+190P5oavjhMuy/avm3+
+         Kw/ftJcrRxv8STnX2eQGSERfmHK7g53FgJETZ149DbXLMdmfj2qp18PpX2R2q4zmWCCV
+         X21cfpkrzRv5bSn7QXRSWfsYi7bH7+0oHYJtjuNNG2kJ2MS62/gnb+MGrAew1zb3KASb
+         2ZBqTzjCWFbM4+9yIMV8K4zGEvyTQtwvTFw8LZkgCCdPq7L/WnBCTn916Sl9tSW3xgDX
+         ZBWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726057826; x=1726662626;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=E/VQYJObNEPJuFiaAletJaE9AeVmIbCDaMEcMMCWqBY=;
-        b=A8rFNOJ4U5JYuxViZ+HjB3vdK2torImCaQAwHz8slt75mponceMOi2zKWk2c+6INl8
-         Tw1amKsUZ2DX3JtXbpR3tZU8jQMjSM9biwV4J6BGkCbC9UbURVv48UM4qk3eP+CUud+C
-         NgjmRtfAbwzA3dKtWO2TQAhZS0qgOeFCreM/BZw7grFl3h8WR7icRW1RYF09UVhIR1dB
-         rUiIwtOMyPKWZnRppislic+uFV8umW0ZA2YHlcgEUa7ViWojmSeZqTD67iruqn2PVYrs
-         r+cZFynsX3mOyYfColoKnbTDvtKW0eL+9JinHDfF4m+lNikcBjpBFEhK7UX2115yDpHO
-         +Zew==
-X-Gm-Message-State: AOJu0Yx6QxtK8/i5TD8j+S8VeX9m+0jmVx8A/zKF1L81rXxrgidO9Oyd
-	Ndm/zo4hTamNp3eNxmTepHb+RwO4NVSacEW2H+q7ReluOopEQn2LhKkp3byE+dhmMjTK7EmstNM
+        d=1e100.net; s=20230601; t=1726058104; x=1726662904;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=M89bF/9r0/e5NiN9PSqpu99XZd1VWC+TeeYrtg0DgHc=;
+        b=pxNoyB9MQTiUAfkQnXMbdfCeCmJRWD3IxMTewmthwuwXGnm9e7SQ5WO/G13ZswemFX
+         +782CAZTO4C3nDXyulyxyTuWjZQVGJePS5DsNgFa+hlcHGjDczkl9wvE2yit4KiYVmh0
+         cKfIGmuex/+8wnx8NIpbevMxOCGy3nu+HBuWAqrcO7woIVyUTSEEOrBdvuWHwZRWT8bH
+         0UcAfLaEUgc3ssutRrSX8uebcihj0bTW1Zkko0rRSCaWWEp5cG/fgPNrURcgA9F9KqEy
+         pJuupjZpgPQ6v0M8IjNY7cZkaejsnBoG6eKiwXSMWIN2zzeufZ9PBhJUrZUitMtyy0vP
+         0Vfg==
+X-Forwarded-Encrypted: i=1; AJvYcCUjskY5+W5xSGpcS5Rxbw3j9E6VNQ513KL1K2h/joAuzKv1TNrPLfEWksLKEs05V6OaJ6l8dhYXq1U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzRsts3nRODJovfA3VL3zJxfktFN7W9QvsKUtzGcgrUlT5XhVjF
+	gGXmMBZJH6jBuHAn1N8mtnqSzKV2sXaFrWe+Tnq4ahGxNH2BB8HvlfBSuOLtWLHwq4B6ek1UyyY
 	=
-X-Google-Smtp-Source: AGHT+IGlT/+XpcVikT9tpnst1rfGQd3lCpyul4pBf+CxxFz5rfPGloVQ/YNZyBF6afxQLQGB8QC8MQ==
-X-Received: by 2002:a05:6402:254a:b0:5c3:d1ce:261c with SMTP id 4fb4d7f45d1cf-5c3e9630f87mr9255606a12.13.1726057825990;
-        Wed, 11 Sep 2024 05:30:25 -0700 (PDT)
-Message-ID: <a20f9455-a26e-49d1-96aa-36efec6a563e@suse.com>
-Date: Wed, 11 Sep 2024 14:30:25 +0200
+X-Google-Smtp-Source: AGHT+IEIznIsCzTm1V0iTon8gyZvVspa12of6JaD+tvocF1gnTAu7WaPTAjEq/f4lR4CtFt6oVj8dw==
+X-Received: by 2002:a17:906:6a19:b0:a8d:ee9:3888 with SMTP id a640c23a62f3a-a8ffae3b788mr404146966b.32.1726058104162;
+        Wed, 11 Sep 2024 05:35:04 -0700 (PDT)
+Message-ID: <764e2c7b-f663-4b0b-95f9-c341d82dd36c@suse.com>
+Date: Wed, 11 Sep 2024 14:35:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 9/9] x86/HVM: drop .complete hook for intercept handling
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <dc3faf7d-0690-46e6-8fbc-67a177a1e171@suse.com>
+Subject: Re: [XEN PATCH 08/12] x86/emul: add defensive code
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1725958416.git.federico.serafini@bugseng.com>
+ <f5d7929f8919eda3914bcf566d7538e64487cc2d.1725958416.git.federico.serafini@bugseng.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -111,89 +114,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dc3faf7d-0690-46e6-8fbc-67a177a1e171@suse.com>
+In-Reply-To: <f5d7929f8919eda3914bcf566d7538e64487cc2d.1725958416.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-No user of the hook exists anymore.
+On 10.09.2024 12:09, Federico Serafini wrote:
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+> @@ -6831,6 +6831,8 @@ x86_emulate(
+>              break;
+>          default:
+>              ASSERT_UNREACHABLE();
+> +            rc = X86EMUL_UNHANDLEABLE;
+> +            goto done;
+>          }
+>          break;
+>  #ifdef HAVE_AS_SSE4_2
+> @@ -6859,6 +6861,8 @@ x86_emulate(
+>  # endif
+>          default:
+>              ASSERT_UNREACHABLE();
+> +            rc = X86EMUL_UNHANDLEABLE;
+> +            goto done;
+>          }
+>          break;
+>  #endif
 
-While touching hvm_mmio_internal() also make direction of the request
-explicit - it only so happens that IOREQ_WRITE is zero. Yet it being a
-write is imperative for stdvga.c to "accept" the request.
+"goto unhandleable" please in both cases, if already further goto-s are needed.
 
-Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: New.
-
---- a/xen/arch/x86/hvm/intercept.c
-+++ b/xen/arch/x86/hvm/intercept.c
-@@ -240,21 +240,13 @@ static const struct hvm_io_handler *hvm_
- int hvm_io_intercept(ioreq_t *p)
- {
-     const struct hvm_io_handler *handler;
--    const struct hvm_io_ops *ops;
--    int rc;
- 
-     handler = hvm_find_io_handler(p);
- 
-     if ( handler == NULL )
-         return X86EMUL_UNHANDLEABLE;
- 
--    rc = hvm_process_io_intercept(handler, p);
--
--    ops = handler->ops;
--    if ( ops->complete != NULL )
--        ops->complete(handler);
--
--    return rc;
-+    return hvm_process_io_intercept(handler, p);
- }
- 
- struct hvm_io_handler *hvm_next_io_handler(struct domain *d)
-@@ -326,25 +318,15 @@ bool relocate_portio_handler(struct doma
- 
- bool hvm_mmio_internal(paddr_t gpa)
- {
--    const struct hvm_io_handler *handler;
--    const struct hvm_io_ops *ops;
-     ioreq_t p = {
-         .type = IOREQ_TYPE_COPY,
-         .addr = gpa,
-         .count = 1,
-         .size = 1,
-+        .dir = IOREQ_WRITE, /* for stdvga */
-     };
- 
--    handler = hvm_find_io_handler(&p);
--
--    if ( handler == NULL )
--        return 0;
--
--    ops = handler->ops;
--    if ( ops->complete != NULL )
--        ops->complete(handler);
--
--    return 1;
-+    return hvm_find_io_handler(&p);
- }
- 
- /*
---- a/xen/arch/x86/include/asm/hvm/io.h
-+++ b/xen/arch/x86/include/asm/hvm/io.h
-@@ -56,13 +56,11 @@ typedef int (*hvm_io_write_t)(const stru
-                               uint64_t data);
- typedef bool (*hvm_io_accept_t)(const struct hvm_io_handler *handler,
-                                 const ioreq_t *p);
--typedef void (*hvm_io_complete_t)(const struct hvm_io_handler *handler);
- 
- struct hvm_io_ops {
-     hvm_io_accept_t   accept;
-     hvm_io_read_t     read;
-     hvm_io_write_t    write;
--    hvm_io_complete_t complete;
- };
- 
- int hvm_process_io_intercept(const struct hvm_io_handler *handler,
-
+Jan
 
