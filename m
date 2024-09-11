@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E212D975278
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:35:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796542.1206195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ECF49752B7
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:42:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796567.1206225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMYs-0000zv-OM; Wed, 11 Sep 2024 12:35:06 +0000
+	id 1soMfl-0004WX-Qs; Wed, 11 Sep 2024 12:42:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796542.1206195; Wed, 11 Sep 2024 12:35:06 +0000
+Received: by outflank-mailman (output) from mailman id 796567.1206225; Wed, 11 Sep 2024 12:42:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMYs-0000yQ-LU; Wed, 11 Sep 2024 12:35:06 +0000
-Received: by outflank-mailman (input) for mailman id 796542;
- Wed, 11 Sep 2024 12:35:05 +0000
+	id 1soMfl-0004Ua-Nm; Wed, 11 Sep 2024 12:42:13 +0000
+Received: by outflank-mailman (input) for mailman id 796567;
+ Wed, 11 Sep 2024 12:42:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=z7kF=QJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1soMYr-0000yK-NS
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:35:05 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9RHL=QJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1soMfj-0004UU-Qt
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:42:11 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4576056e-703a-11ef-a0b5-8be0dac302b0;
- Wed, 11 Sep 2024 14:35:04 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a8a789c4fc5so146137566b.0
- for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:35:04 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9012cf16absm55584466b.147.2024.09.11.05.35.03
+ id 4354a986-703b-11ef-a0b5-8be0dac302b0;
+ Wed, 11 Sep 2024 14:42:10 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a8d100e9ce0so681113566b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:42:10 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a8d25c72815sm613409566b.140.2024.09.11.05.42.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Sep 2024 05:35:03 -0700 (PDT)
+ Wed, 11 Sep 2024 05:42:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,102 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4576056e-703a-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 4354a986-703b-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726058104; x=1726662904; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1726058530; x=1726663330; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=M89bF/9r0/e5NiN9PSqpu99XZd1VWC+TeeYrtg0DgHc=;
-        b=PFtvkGe0yp9BUbOZfo+fWHt+UDhedInVmFexDCYE5NpblHppYtCOPk/li9DKCcA+bY
-         yNvtDbr1cSkws0axwTedvMEmq4xGDRwlR4Qd40ixDuUyswNA+190P5oavjhMuy/avm3+
-         Kw/ftJcrRxv8STnX2eQGSERfmHK7g53FgJETZ149DbXLMdmfj2qp18PpX2R2q4zmWCCV
-         X21cfpkrzRv5bSn7QXRSWfsYi7bH7+0oHYJtjuNNG2kJ2MS62/gnb+MGrAew1zb3KASb
-         2ZBqTzjCWFbM4+9yIMV8K4zGEvyTQtwvTFw8LZkgCCdPq7L/WnBCTn916Sl9tSW3xgDX
-         ZBWg==
+        bh=JQvhtFqjGlIETnbZedBXSJcjqPplQ6e430vezLngADM=;
+        b=Vzhq90UpgDwNt1fn1zyruydoQn9NBQlR6Y/olTk9UyjBS5ztA3/Vo8Y385rUoLUoAv
+         nAtI57Ojc8mltro+/eLU7I8hhGv0EVyF0nlWAZkkjZiOKVg/xAg/FHR9sxexriITUopN
+         E3mdK4MXsSOHn+sceinE5EGBn19hUGZfasQfQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726058104; x=1726662904;
+        d=1e100.net; s=20230601; t=1726058530; x=1726663330;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=M89bF/9r0/e5NiN9PSqpu99XZd1VWC+TeeYrtg0DgHc=;
-        b=pxNoyB9MQTiUAfkQnXMbdfCeCmJRWD3IxMTewmthwuwXGnm9e7SQ5WO/G13ZswemFX
-         +782CAZTO4C3nDXyulyxyTuWjZQVGJePS5DsNgFa+hlcHGjDczkl9wvE2yit4KiYVmh0
-         cKfIGmuex/+8wnx8NIpbevMxOCGy3nu+HBuWAqrcO7woIVyUTSEEOrBdvuWHwZRWT8bH
-         0UcAfLaEUgc3ssutRrSX8uebcihj0bTW1Zkko0rRSCaWWEp5cG/fgPNrURcgA9F9KqEy
-         pJuupjZpgPQ6v0M8IjNY7cZkaejsnBoG6eKiwXSMWIN2zzeufZ9PBhJUrZUitMtyy0vP
-         0Vfg==
-X-Forwarded-Encrypted: i=1; AJvYcCUjskY5+W5xSGpcS5Rxbw3j9E6VNQ513KL1K2h/joAuzKv1TNrPLfEWksLKEs05V6OaJ6l8dhYXq1U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzRsts3nRODJovfA3VL3zJxfktFN7W9QvsKUtzGcgrUlT5XhVjF
-	gGXmMBZJH6jBuHAn1N8mtnqSzKV2sXaFrWe+Tnq4ahGxNH2BB8HvlfBSuOLtWLHwq4B6ek1UyyY
-	=
-X-Google-Smtp-Source: AGHT+IEIznIsCzTm1V0iTon8gyZvVspa12of6JaD+tvocF1gnTAu7WaPTAjEq/f4lR4CtFt6oVj8dw==
-X-Received: by 2002:a17:906:6a19:b0:a8d:ee9:3888 with SMTP id a640c23a62f3a-a8ffae3b788mr404146966b.32.1726058104162;
-        Wed, 11 Sep 2024 05:35:04 -0700 (PDT)
-Message-ID: <764e2c7b-f663-4b0b-95f9-c341d82dd36c@suse.com>
-Date: Wed, 11 Sep 2024 14:35:03 +0200
+        bh=JQvhtFqjGlIETnbZedBXSJcjqPplQ6e430vezLngADM=;
+        b=MncND9gEkXCzzfi7zSSBagCEAPEWs9ExkaqpgZ8rGVcnl9Gm31r1U7sIM7d7PxPN7b
+         JRn49D5pTkmk2vJqubbkas1OQBgZiqk9Ay1+vhR0z8sjHRLV1ELcySwa2Oaufu+HOBGf
+         C2fct1RNHAnEYzbCP0pmQ8KyPpJEV++ns32ckJ8sVLxkdfK9QmC5VeGb2soKsmpWVf+M
+         r4A6nbng44zRi3gGNYD6IneHnIfwG0ZHFq5hWsOBGLDoymg8XCXwcsDn17ie6HFQaENf
+         iVaeIZuuELve7Vjlskxm6dDvvuL989cd5uTua5HDCgf9rv81op86mf5sxaFMJPZIpRjE
+         +M0A==
+X-Forwarded-Encrypted: i=1; AJvYcCWetBIWRdLyjhrv5ckDpA8dRBz86+ZbVzXCW7nm2JdlEzDE10YB34Ugec+C+k+D0sAELDOENu7jB20=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz3e80YYVeG1AwDKjOXPqsRqE3/XS7Rr+YCFUhnltUiNyy0VhZp
+	qYlsA4G89/YBkKLR6BzrsoVoH3zDdWsstXUY63sMVpiB0Z8BIYhaESpyPd2zz7Q=
+X-Google-Smtp-Source: AGHT+IGB5wpvCdkK2rqJZ6gF5CRwbkikEWtGBBapE2Ppy9Ei4wFr86S/2JU7ot0MgSix4o0M6/sKLg==
+X-Received: by 2002:a17:907:980d:b0:a7a:8586:d36b with SMTP id a640c23a62f3a-a8ffaaa268bmr411182966b.3.1726058529456;
+        Wed, 11 Sep 2024 05:42:09 -0700 (PDT)
+Message-ID: <dcc120ce-6634-465b-81ee-d652bd0935a7@citrix.com>
+Date: Wed, 11 Sep 2024 13:42:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 08/12] x86/emul: add defensive code
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1725958416.git.federico.serafini@bugseng.com>
- <f5d7929f8919eda3914bcf566d7538e64487cc2d.1725958416.git.federico.serafini@bugseng.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f5d7929f8919eda3914bcf566d7538e64487cc2d.1725958416.git.federico.serafini@bugseng.com>
+Subject: Re: [PATCH v2 8/9] x86/HVM: drop stdvga's "lock" struct member
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <dc3faf7d-0690-46e6-8fbc-67a177a1e171@suse.com>
+ <716868cb-6a94-4470-a1a5-a4b5994e8195@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <716868cb-6a94-4470-a1a5-a4b5994e8195@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10.09.2024 12:09, Federico Serafini wrote:
-> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
-> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-> @@ -6831,6 +6831,8 @@ x86_emulate(
->              break;
->          default:
->              ASSERT_UNREACHABLE();
-> +            rc = X86EMUL_UNHANDLEABLE;
-> +            goto done;
->          }
->          break;
->  #ifdef HAVE_AS_SSE4_2
-> @@ -6859,6 +6861,8 @@ x86_emulate(
->  # endif
->          default:
->              ASSERT_UNREACHABLE();
-> +            rc = X86EMUL_UNHANDLEABLE;
-> +            goto done;
->          }
->          break;
->  #endif
+On 11/09/2024 1:29 pm, Jan Beulich wrote:
+> No state is left to protect. It being the last field, drop the struct
+> itself as well. Similarly for then ending up empty, drop the .complete
+> handler.
+>
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-"goto unhandleable" please in both cases, if already further goto-s are needed.
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com> with one change.
 
-Jan
+> ---
+> v2: New.
+>
+> --- a/xen/arch/x86/hvm/stdvga.c
+> +++ b/xen/arch/x86/hvm/stdvga.c
+> @@ -69,8 +69,6 @@ static int cf_check stdvga_mem_write(
+>  static bool cf_check stdvga_mem_accept(
+>      const struct hvm_io_handler *handler, const ioreq_t *p)
+>  {
+> -    struct hvm_hw_stdvga *s = &current->domain->arch.hvm.stdvga;
+> -
+>      /*
+>       * The range check must be done without taking the lock, to avoid
+>       * deadlock when hvm_mmio_internal() is called from
+> @@ -80,50 +78,31 @@ static bool cf_check stdvga_mem_accept(
+>           (ioreq_mmio_last_byte(p) >= (VGA_MEM_BASE + VGA_MEM_SIZE)) )
+>          return 0;
+
+This wants adjusting too.  At a minimum the comment about deadlock needs
+dropping, and a straight delete is fine.
+
+However for performance, we also want to do the dir/ptr/count exclusions
+before the address range exclusions, meaning that ...
+
+>  
+> -    spin_lock(&s->lock);
+> -
+>      if ( p->dir != IOREQ_WRITE || p->data_is_ptr || p->count != 1 )
+>      {
+>          /*
+>           * Only accept single direct writes, as that's the only thing we can
+>           * accelerate using buffered ioreq handling.
+>           */
+
+... it wants merging with this into a single expression.
+
+~Andrew
 
