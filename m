@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CACD9751D7
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:19:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796496.1206105 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D504497520E
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:27:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796506.1206116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMJd-0002LM-Ey; Wed, 11 Sep 2024 12:19:21 +0000
+	id 1soMQm-0003vo-7C; Wed, 11 Sep 2024 12:26:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796496.1206105; Wed, 11 Sep 2024 12:19:21 +0000
+Received: by outflank-mailman (output) from mailman id 796506.1206116; Wed, 11 Sep 2024 12:26:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMJd-0002Jr-CN; Wed, 11 Sep 2024 12:19:21 +0000
-Received: by outflank-mailman (input) for mailman id 796496;
- Wed, 11 Sep 2024 12:19:19 +0000
+	id 1soMQm-0003tJ-35; Wed, 11 Sep 2024 12:26:44 +0000
+Received: by outflank-mailman (input) for mailman id 796506;
+ Wed, 11 Sep 2024 12:26:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z7kF=QJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1soMJb-0002Jl-Mt
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:19:19 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ id 1soMQl-0003oB-5S
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:26:43 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10f5b2c6-7038-11ef-99a1-01e77a169b0f;
- Wed, 11 Sep 2024 14:19:17 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2f029e9c9cfso14144631fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:19:17 -0700 (PDT)
+ id 195aed42-7039-11ef-99a1-01e77a169b0f;
+ Wed, 11 Sep 2024 14:26:41 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a8d2b24b7a8so166599866b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:26:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25c72ea5sm609294666b.99.2024.09.11.05.19.16
+ a640c23a62f3a-a8d259f56f6sm597240766b.81.2024.09.11.05.26.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Sep 2024 05:19:16 -0700 (PDT)
+ Wed, 11 Sep 2024 05:26:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10f5b2c6-7038-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 195aed42-7039-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726057157; x=1726661957; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FwGshSrysBsS7dpDaUGD9wbyH3KrW/5vqOmelm0cSE0=;
-        b=Ry7DCkz9RNZj2TfI4hWORFlHoSXR0dBvSQpViklOu6hMGRmuXS4R0znAV6lnFjVAYp
-         sMrkK9nYQhiqI7WriN150UwXUKnCJ/aDUF5L+31HweSEDS8kxWgRqlz3ROljIb4s/o5w
-         6+LfLcaQJ1D0KTjsFvhjETt8XKM7siNrsalMh3RHa91BUz9T3kxNI85Cc67UANsOHR/M
-         9Teeahy91pDB+tsUkoheqF/dsdZBhmGAox/YZrHRtOuHWxN0s8x9p1BcWPUDFL7TOrNX
-         JMrvDbd9q3JCFnBpMCilvtLMfzNotqkijtr3fRRqOuSWX3exPUQxdG8kBtuaTGVpASB9
-         jwEg==
+        d=suse.com; s=google; t=1726057601; x=1726662401; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=v+p9Lxdh/itkdnFscH/au8OHh7KO/SENlm0RiOLzSKM=;
+        b=BFQyZrEcHs4B9TZTEoZZ0Jhd6nB8b03X13WFdj1nEzTzcO4LU0tKCMRQXPHu1n1XMl
+         wlB4uAf1e9DdLv6foi2DFJ90unumOdPD9ZYsFWYOVht/4I1MmHVemOuu5xdXgtJqgfXw
+         mt5ktG4Ks8iXz7HcbfVD/fWy/dHMHq6Dknk/wApJsuK2Bu6OfjMwblD8JIJg98JpElzz
+         7fb9Ltbe0CrazRZiPY1aumMPCxyVznvlvwdZ6t9BWJ2blAkMzLAsCnpxsOgizs5e5zGB
+         PQIts/6IpKDYxFdQkajgOCEarCshahzGaKzcCgwDzPZnFBzRJOdlFJl0+md0XsPKEv15
+         Nmnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726057157; x=1726661957;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FwGshSrysBsS7dpDaUGD9wbyH3KrW/5vqOmelm0cSE0=;
-        b=toBKpQsrlbzoZMLOTABlivl0dN8qD+V9bCjDrI0NRkJq8HqFskGjbs83oTfL8Q2thd
-         grXZR/9+415qsaGuVDTBciKmmr6SR4PcWUdE9CK7ePdTPvy9dRCdYO1Tg7bIKYwoXCxa
-         0NrGnmIYQDvL2FcZCe5abidUG/zxIndPlETfOJv8na1hWF6Oe5GLkQAAx34LDAzNM7xt
-         ptk5TdrwKvKYg3tenAgweBLovQUvzkEi9sIFHkFoHI4Fdc/wdhlt765di3+orrOxqaL/
-         0426L3NGlMmMoj4RbEkMvBYEVSghYxsv82PQc7jEqRi7P5fGZv8bnQDEYXqui1PFt99t
-         XNlg==
-X-Gm-Message-State: AOJu0YyBzQulUpDVArLxXAh+rE4MaNYcDGETrdv4vA+3Xt9Q+O7rMu+v
-	aOEokITNNdoquZJBrxaBfLQ0cyLFndkUlATtT9Lks/FHTl+sYmRbtLTKITnk7m67L9BDxo+yW+Q
+        d=1e100.net; s=20230601; t=1726057601; x=1726662401;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=v+p9Lxdh/itkdnFscH/au8OHh7KO/SENlm0RiOLzSKM=;
+        b=xRgpnOqku34WILVPLulzCFUcfvNd1O4ctfhWmQxY2XH7r2JeydcZnMBVE3WahKv0Om
+         0GCOlcpnw17XEkMgWWIaRYMuc+jJnl4V6n0xNe4gHD4c+vH2SckSeWSyHQ+eKz5zgnyJ
+         dW8TVjJl0XvtjHKpz+F3g5xvkJFrzPQrKRGvkDEHUHGk23wn2IpdRSR80TkOWWSu1FB7
+         zrhe9xvfyvQj2IoWEjOF/gOxWaWojnR6+FtZ+2cCQDByvunxtQUhlGBEBLzieThqA1zJ
+         jZ02TiwKTGnedlFfJrkrGpNsdmHBMuaAxNpOWv19c80uWE3CsqDLEU5h2gh7bGD93K2H
+         mYAQ==
+X-Gm-Message-State: AOJu0YyvZsdDbvmxi6CwX0T/gnXGqpDDkECZpObdWDzV71xNKQHPnseF
+	5EkVqJAg0xfec0P/9ME/ivW5ope5QsTCUJXFNOYcCA4MAQoUtb3tHGsYxoqv0V4zPcj+aMaNEk4
 	=
-X-Google-Smtp-Source: AGHT+IH7KfW8plrXQSTORLa/h5Vp9SzN2v4fzjDvPZoXLdBT8bZcaJHeopYBBwQWDQRM/jSInSfnGg==
-X-Received: by 2002:a2e:bc15:0:b0:2f6:6198:1cf9 with SMTP id 38308e7fff4ca-2f75aa0a315mr146761271fa.31.1726057157076;
-        Wed, 11 Sep 2024 05:19:17 -0700 (PDT)
-Message-ID: <f0cd7c48-6816-4050-a505-693c4a470506@suse.com>
-Date: Wed, 11 Sep 2024 14:19:16 +0200
+X-Google-Smtp-Source: AGHT+IGR2X5KaLG3BUpmmYkng1++4MrZbswmD2+Iz0og8HxD02yi1Fq78LJicv8soTY8L44tiF7jFg==
+X-Received: by 2002:a17:907:972a:b0:a72:7a71:7f4f with SMTP id a640c23a62f3a-a8ffb1b644emr386425566b.7.1726057600767;
+        Wed, 11 Sep 2024 05:26:40 -0700 (PDT)
+Message-ID: <dc3faf7d-0690-46e6-8fbc-67a177a1e171@suse.com>
+Date: Wed, 11 Sep 2024 14:26:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] ioreq: don't wrongly claim "success" in ioreq_send_buffered()
+Subject: [PATCH v2 0/9] x86/HVM: drop stdvga caching mode
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,59 +112,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Returning a literal number is a bad idea anyway when all other returns
-use IOREQ_STATUS_* values. While that's maybe intended on Arm (mapping
-to IO_ABORT), mapping to X86EMUL_OKAY is surely wrong on x86.
+It's been unused for nearly 9 years. By the end of the series stdvga.c's
+sole purpose will be to make sure VRAM writes use the bufio ioreq path.
 
-Fixes: f6bf39f84f82 ("x86/hvm: add support for broadcast of buffered ioreqs...")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Judging from history, it may want to be IOREQ_STATUS_UNHANDLED instead,
-eliminating the need for IOREQ_STATUS_BAD. That'll be a behavioral
-change on Arm then too, though.
+1: properly reject "indirect" VRAM writes
+2: drop stdvga's "stdvga" struct member
+3: remove unused MMIO handling code
+4: drop stdvga's "gr[]" struct member
+5: drop stdvga's "sr[]" struct member
+6: drop stdvga's "{g,s}r_index" struct members
+7: drop stdvga's "vram_page[]" struct member
+8: drop stdvga's "lock" struct member
+9: drop .complete hook for intercept handling
 
-Shouldn't IOREQ_READ requests also be rejected here, for the result of
-a read not possibly coming from anywhere, yet a (bogus) caller then
-assuming some data was actually returned?
-
---- a/xen/arch/arm/include/asm/ioreq.h
-+++ b/xen/arch/arm/include/asm/ioreq.h
-@@ -56,6 +56,7 @@ static inline void msix_write_completion
- #define IOREQ_STATUS_HANDLED     IO_HANDLED
- #define IOREQ_STATUS_UNHANDLED   IO_UNHANDLED
- #define IOREQ_STATUS_RETRY       IO_RETRY
-+#define IOREQ_STATUS_BAD         IO_ABORT
- 
- #endif /* __ASM_ARM_IOREQ_H__ */
- 
---- a/xen/arch/x86/include/asm/hvm/ioreq.h
-+++ b/xen/arch/x86/include/asm/hvm/ioreq.h
-@@ -12,6 +12,7 @@
- #define IOREQ_STATUS_HANDLED     X86EMUL_OKAY
- #define IOREQ_STATUS_UNHANDLED   X86EMUL_UNHANDLEABLE
- #define IOREQ_STATUS_RETRY       X86EMUL_RETRY
-+#define IOREQ_STATUS_BAD         X86EMUL_UNRECOGNIZED
- 
- #endif /* __ASM_X86_HVM_IOREQ_H__ */
- 
---- a/xen/common/ioreq.c
-+++ b/xen/common/ioreq.c
-@@ -1175,7 +1175,7 @@ static int ioreq_send_buffered(struct io
-         return IOREQ_STATUS_UNHANDLED;
- 
-     /*
--     * Return 0 for the cases we can't deal with:
-+     * Return BAD for the cases we can't deal with:
-      *  - 'addr' is only a 20-bit field, so we cannot address beyond 1MB
-      *  - we cannot buffer accesses to guest memory buffers, as the guest
-      *    may expect the memory buffer to be synchronously accessed
-@@ -1183,7 +1183,7 @@ static int ioreq_send_buffered(struct io
-      *    support data_is_ptr we do not waste space for the count field either
-      */
-     if ( (p->addr > 0xfffffUL) || p->data_is_ptr || (p->count != 1) )
--        return 0;
-+        return IOREQ_STATUS_BAD;
- 
-     switch ( p->size )
-     {
+Jan
 
