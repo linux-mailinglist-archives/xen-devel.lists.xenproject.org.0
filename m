@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F37997521C
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:28:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796519.1206155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E38E1975228
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 14:29:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796525.1206166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMSc-00065P-CW; Wed, 11 Sep 2024 12:28:38 +0000
+	id 1soMSt-0006cv-KY; Wed, 11 Sep 2024 12:28:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796519.1206155; Wed, 11 Sep 2024 12:28:38 +0000
+Received: by outflank-mailman (output) from mailman id 796525.1206166; Wed, 11 Sep 2024 12:28:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soMSc-00063s-9i; Wed, 11 Sep 2024 12:28:38 +0000
-Received: by outflank-mailman (input) for mailman id 796519;
- Wed, 11 Sep 2024 12:28:36 +0000
+	id 1soMSt-0006ah-Gk; Wed, 11 Sep 2024 12:28:55 +0000
+Received: by outflank-mailman (input) for mailman id 796525;
+ Wed, 11 Sep 2024 12:28:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z7kF=QJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1soMSa-0005SW-G7
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:28:36 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1soMSs-0005SW-Be
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 12:28:54 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d8e968c-7039-11ef-a0b5-8be0dac302b0;
- Wed, 11 Sep 2024 14:28:35 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a8d6ac24a3bso166521466b.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:28:35 -0700 (PDT)
+ id 685bc1aa-7039-11ef-a0b5-8be0dac302b0;
+ Wed, 11 Sep 2024 14:28:53 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2f029e9c9cfso14268551fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 05:28:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25ceaf86sm605558566b.155.2024.09.11.05.28.34
+ a640c23a62f3a-a8d25d40e8csm608264866b.196.2024.09.11.05.28.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Sep 2024 05:28:34 -0700 (PDT)
+ Wed, 11 Sep 2024 05:28:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d8e968c-7039-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 685bc1aa-7039-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726057715; x=1726662515; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1726057733; x=1726662533; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qG8cDP93BwNlVsK1ljt1DG0gUd8sN+5TqGY0WyzLe8M=;
-        b=S6FSIU/HtAlGrydQ8AJsQuLWaGj3B8o4uAtyPMyIwwXUxPBYGjXx+KK/gjZAht+rGP
-         GB3KJ271rLiecfsBFsQX3A8bZJigluE6/zxMCzcDASXXJArHSm0afKjPpYLs0A/fZCrf
-         ER4etH2X05/VFlm+GLrkF1Mr/1yvyKnqpsFi5ab5BqrMgiddmVuPSHT4K8Z769r50s1q
-         +RKkp4mFJMqWvIXc3GJ/eXuHdDLNdZ7d6pTrxPIwsVmnQIjGAHdlCkbjeGF3eGLme/t3
-         vY+R0W+TvpZqsLtvLK6+mSiLnFXzZtDOUX4gzZtbAWOqMTsuohgDLSLKaDBroC7ZjqEY
-         NNUA==
+        bh=ZjgbdHdpvSXFn+03pMww2FrWmKqGQT7mS4EuJnkyK3Q=;
+        b=VROixrpnRs3LV9Dw349VKYsqzfRpxYFral1XIZvYAph7LV8GrKpWHNkxyEeclvMDGe
+         b0jLOkM0aHeUlicUCBgrpoXwosgVbMHakhF6zkvVVGOFIJ/ZirAEL2ViAoBQNLKrvgue
+         TKhNJTQkbVqDBvfYgGq0rPlzzKcQT0GjrmCBB176LmHC17ftpRD4lAdjKmMbelGDZJ1U
+         uGdQmX0+KVqWGACTZ48zzOGOtuoP1790GgbCB+ngV9AAo7LatkWTbN0wEpXUOupbNA48
+         LvrN/iS5uP2Ikt3zQcuR3L6oJSwCSBlhdgLLZJFd0cZcZSYTf0y4ErXsippA3MhOY9VQ
+         xJaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726057715; x=1726662515;
+        d=1e100.net; s=20230601; t=1726057733; x=1726662533;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=qG8cDP93BwNlVsK1ljt1DG0gUd8sN+5TqGY0WyzLe8M=;
-        b=wGqaod13MT5BrLGJ8udzZ1dHE9DptT23I4nKKyCX+YhjvDdTFaILnLhDiNCMehSQVh
-         VRpCUBx9H7OASIsEKBdq71qluz/HKjMfuxo5snMIgWZaVithqBlK24JZp5C5Jabw7CFI
-         696RmqYlV2Zk8TdCCSFZSSLiK0xs6LgrGJzdomCm502CEA0Lg/sUSOj0YVPE1+GPZwPA
-         VrmlCRMQZH44axQmEeA9x46Md5OLmsLzKMhgojcDLYoJm0PnJmzTMLLoOX4U1Xz6QbVg
-         RRC13YnDmSx0koHy/t7zCznpRCl73HAAbWCqHF3c6redhNY/vzC9uKTmVL59okVZnCYk
-         UjOg==
-X-Gm-Message-State: AOJu0YxMMNVVMKexFydfEHlRzdkI72nZNi86VNHe+YATXVHhT2kG49cJ
-	7pztwLPAfu0v3sWtGJ630Wtizk5/j5T+ue4LOhrvKySBFIS/eDhgz3zRTZPhoNShD736CImORMk
+        bh=ZjgbdHdpvSXFn+03pMww2FrWmKqGQT7mS4EuJnkyK3Q=;
+        b=UAy3sFai/nDU+srn3M3cTh4k7HXTtQlbvFvMqHSfbBXUeYDFjH7OQJOg5+giZZRD3z
+         PwTPVBD8Dvh6MjEqg3zjqnsZ46W99bSnprZsGTHzSdmtjggZZPVhbPsXy1+0yB+qdQSl
+         gt/faloQfwl73r6rkdaUH5biYmLThqkpwkBK48q0NA1xTt5kmSK8O0XgqUV1qIpqPiX3
+         maOGofiNQM5xOOr+IHVbDKijImjP4/tfH4jbpYDBu3mLPAk3qA1g5aXlPrAIg1kpInit
+         BcRTUYNUTxCwQlmujqDT7ANI2PF2dPpSG8wLrRfsknbMDtaAwRSUU2t4GEPYW7JNvQGw
+         yHlA==
+X-Gm-Message-State: AOJu0YygHhZ2CXZMM48sydSoWHXxXBlvTveGOUgc8zu37E05mWf04WY7
+	CAUOabzJe5bgmEjkbRWUlSF57psbfvOoNHHmdOjLIR3LbWjV4N2vxijKhP+3cwlkS2rHNlN8UFw
 	=
-X-Google-Smtp-Source: AGHT+IG0UPGfrviw2qfvMsFj1wTYZ7skIe7CFv6BujrD78SnAH9Zo1kLb0mRTfjEfQPJRRIfV0JxCw==
-X-Received: by 2002:a17:907:944b:b0:a8a:87d5:2f49 with SMTP id a640c23a62f3a-a8ffae3a20cmr404957266b.28.1726057715139;
-        Wed, 11 Sep 2024 05:28:35 -0700 (PDT)
-Message-ID: <398a5651-70fa-4c23-b8c7-4eb88aacea81@suse.com>
-Date: Wed, 11 Sep 2024 14:28:35 +0200
+X-Google-Smtp-Source: AGHT+IFmdgNr1l+Sgd2/FxCFNpHv/MTEGTB6qsTFi4+GFHrj8jX6GOftmryLhlOkHz2X7TMA6e4REA==
+X-Received: by 2002:a2e:9c95:0:b0:2f6:62a1:25ff with SMTP id 38308e7fff4ca-2f75a99f825mr105566741fa.28.1726057733287;
+        Wed, 11 Sep 2024 05:28:53 -0700 (PDT)
+Message-ID: <fe61a74c-9c09-43aa-879d-2e5486cc84e0@suse.com>
+Date: Wed, 11 Sep 2024 14:28:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 4/9] x86/HVM: drop stdvga's "gr[]" struct member
+Subject: [PATCH v2 5/9] x86/HVM: drop stdvga's "sr[]" struct member
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -116,7 +116,7 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 No consumers are left, hence the producer and the array itself can also
-go away. The static gr_mask[] is then orphaned and hence needs dropping,
+go away. The static sr_mask[] is then orphaned and hence needs dropping,
 too.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
@@ -124,47 +124,47 @@ Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 --- a/xen/arch/x86/hvm/stdvga.c
 +++ b/xen/arch/x86/hvm/stdvga.c
-@@ -49,18 +49,6 @@ static const uint8_t sr_mask[8] = {
-     (uint8_t)~0x00,
- };
+@@ -37,18 +37,6 @@
+ #define VGA_MEM_BASE 0xa0000
+ #define VGA_MEM_SIZE 0x20000
  
--static const uint8_t gr_mask[9] = {
--    (uint8_t)~0xf0, /* 0x00 */
--    (uint8_t)~0xf0, /* 0x01 */
--    (uint8_t)~0xf0, /* 0x02 */
--    (uint8_t)~0xe0, /* 0x03 */
--    (uint8_t)~0xfc, /* 0x04 */
--    (uint8_t)~0x84, /* 0x05 */
--    (uint8_t)~0xf0, /* 0x06 */
--    (uint8_t)~0xf0, /* 0x07 */
--    (uint8_t)~0x00, /* 0x08 */
+-/* force some bits to zero */
+-static const uint8_t sr_mask[8] = {
+-    (uint8_t)~0xfc,
+-    (uint8_t)~0xc2,
+-    (uint8_t)~0xf0,
+-    (uint8_t)~0xc0,
+-    (uint8_t)~0xf1,
+-    (uint8_t)~0xff,
+-    (uint8_t)~0xff,
+-    (uint8_t)~0x00,
 -};
 -
  static int stdvga_outb(uint64_t addr, uint8_t val)
  {
      struct hvm_hw_stdvga *s = &current->domain->arch.hvm.stdvga;
-@@ -82,12 +70,6 @@ static int stdvga_outb(uint64_t addr, ui
-         s->gr_index = val;
+@@ -60,12 +48,6 @@ static int stdvga_outb(uint64_t addr, ui
+         s->sr_index = val;
          break;
  
--    case 0x3cf:                 /* graphics data register */
--        rc = (s->gr_index < sizeof(s->gr));
+-    case 0x3c5:                 /* sequencer data register */
+-        rc = (s->sr_index < sizeof(s->sr));
 -        if ( rc )
--            s->gr[s->gr_index] = val & gr_mask[s->gr_index];
+-            s->sr[s->sr_index] = val & sr_mask[s->sr_index] ;
 -        break;
 -
-     default:
-         rc = 0;
+     case 0x3ce:                 /* graphics address register */
+         s->gr_index = val;
          break;
 --- a/xen/arch/x86/include/asm/hvm/io.h
 +++ b/xen/arch/x86/include/asm/hvm/io.h
-@@ -114,7 +114,6 @@ struct hvm_hw_stdvga {
+@@ -112,7 +112,6 @@ struct vpci_arch_msix_entry {
+ 
+ struct hvm_hw_stdvga {
      uint8_t sr_index;
-     uint8_t sr[8];
+-    uint8_t sr[8];
      uint8_t gr_index;
--    uint8_t gr[9];
      struct page_info *vram_page[64];  /* shadow of 0xa0000-0xaffff */
      spinlock_t lock;
- };
 
 
