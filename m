@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C08FB975B22
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 21:52:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796839.1206538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7463D975B25
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 21:53:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796846.1206548 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soTMw-00043V-5H; Wed, 11 Sep 2024 19:51:14 +0000
+	id 1soTOp-0004eW-I9; Wed, 11 Sep 2024 19:53:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796839.1206538; Wed, 11 Sep 2024 19:51:14 +0000
+Received: by outflank-mailman (output) from mailman id 796846.1206548; Wed, 11 Sep 2024 19:53:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soTMw-000412-1x; Wed, 11 Sep 2024 19:51:14 +0000
-Received: by outflank-mailman (input) for mailman id 796839;
- Wed, 11 Sep 2024 19:51:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1soTOp-0004bv-FJ; Wed, 11 Sep 2024 19:53:11 +0000
+Received: by outflank-mailman (input) for mailman id 796846;
+ Wed, 11 Sep 2024 19:53:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iLDu=QJ=oss.nxp.com=andrei.cherechesu@srs-se1.protection.inumbo.net>)
- id 1soTMu-00040w-DZ
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 19:51:12 +0000
+ id 1soTOo-0004bn-1P
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 19:53:10 +0000
 Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2061e.outbound.protection.outlook.com
- [2a01:111:f403:2606::61e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2fc89ea0-7077-11ef-99a1-01e77a169b0f;
- Wed, 11 Sep 2024 21:51:08 +0200 (CEST)
+ (mail-am0eur02on2062c.outbound.protection.outlook.com
+ [2a01:111:f403:2606::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 77c76768-7077-11ef-a0b5-8be0dac302b0;
+ Wed, 11 Sep 2024 21:53:09 +0200 (CEST)
 Received: from PA4PR04MB9565.eurprd04.prod.outlook.com (2603:10a6:102:26b::13)
  by GVXPR04MB10023.eurprd04.prod.outlook.com (2603:10a6:150:118::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24; Wed, 11 Sep
- 2024 19:51:03 +0000
+ 2024 19:53:06 +0000
 Received: from PA4PR04MB9565.eurprd04.prod.outlook.com
  ([fe80::d8ae:2e16:5a97:1709]) by PA4PR04MB9565.eurprd04.prod.outlook.com
  ([fe80::d8ae:2e16:5a97:1709%4]) with mapi id 15.20.7962.017; Wed, 11 Sep 2024
- 19:51:03 +0000
+ 19:53:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,720 +47,278 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fc89ea0-7077-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 77c76768-7077-11ef-a0b5-8be0dac302b0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A6McvRtvYEhP+mqVR6jcGucGRc17w6SRtMCo4OT6KLt3hv2UdCQ2I4kl0g+/F0y0liOhPGPBRrosj72WFNoOu9bXKWir1yb+V8FQTI1VCxr01paL7h+ME2cxgQg9IMPg4EKwxsEzPpn8Qjih2cUiHNe+kJeRR6qw0ytwFmuDgtoeiNlO05cZCDuZGibaDD0a9pborJxIsw8xaxIyX5aSwPHMYW1nJ2Yd8maq/AX8k4jYSGPl2boKDOfJgaqARxn0HYOUmVLZSha+4Pkj4RLTTO4TmdVcauITBIdj/PpSbW/Zm3t/REatW/yR0Hl2/wc3tjbBOlN0pasAvpitmnhbow==
+ b=Ltuj4oCAeXahqmLIBFnzJYb+G3epZvHPixHBUIWdkDCRmvMSU6w8NRUPGEnfJlTy8O2z1fYd/o7uOm8z0p+3yvPVNG/4VWujEuunQbA3CSKBQrXPC3+k3IqBzEMhPSa78brHuTe0hBUghMsFopU5BoWoTs4wpuWjlBcBMb0WcE1OQLy5ff1/IHFvMP9I2xV7whR0FWDGQxaeC0ib6IA6zEuXYjYmS+CBaHe87tUqYtQiqO1aVHK/428tkJL/8irIEn52exfAjLPR/IKvofi3c7kc7lw5aWHQSP2doyslSqdkIgn+MX/jvcQ1i12ubTLkZR+m1ij01CfnAFWdpsfiBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aQ5vWbPQvnLLfOo56KGrizWFvGJNidQ0J9CQK58QrfA=;
- b=v1TPBBYZS6oSCPlBgDvJxOZZLBDfdj95F0N0wastGRF28rJQF2L3+3taXG4XiTR5mg1TDieXwP49FEtrkRBuKJ5KEEJA/heoNzsr8TlNpdMkNRDFfpvrD6fQxyLpULYCYU5GddLynThIJUb3UbmMjrlJO2PQMI3Y4/0kotl2eP/+9B8WC+X6TPxdmrN6MTM8PEipw6j4G313Ma5vllSS3BRKah0evGmguYU83o179OxnC/pWdkEmhqAIGRfyj0+MM4TzytPOnHfIMQfYfr7nKljIJ8Wgo/yr/2zExzkZcWphnjXTUgFhFx03Stk/YD6C/DMQaFUbOxifv9o2tu0zpA==
+ bh=Kau3hk5JFPV4Z2/LtWGqRDGwKP8knZ+dWFS3/U21WRw=;
+ b=bf6QHkZqJoHHZhEBbiOYa17BcJSsuRqcqSUpRjt8/oy9+XQgKxMPn5ZlrqaMVzoemoOEcNswt2hxuwtCjap9tjqlMXB533kj3i9emIdbZv6KCBAdzHbNWETM//9B0wKpK+ArJ9FGafpohH4YXZMaxMvqnfzN6DsxtHxqWKzSaoNfD523mLBFlTJikaAKeEk4dTj35GtMSlJvJrMr7+Mj5fh7pxV6cI1k2y12Os72Y3DRYKm0buqBiUX29Y9fRHSe/wbX6XhHXqagkiUsQs0J1fLshE5xp5By3FccgWKmhGMhmW1nE9l/s6HvlQzgtYYnXaE+pyCJDfr8T6PmWYiV1A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aQ5vWbPQvnLLfOo56KGrizWFvGJNidQ0J9CQK58QrfA=;
- b=NJywmm5wf89n8ssAhyu1SvxXcUjqPeSjJKel67HmTH/ntzTDpD5n6vWQrDO4kqtJAs74i4eEkuDBb18o7xAHTupQVGIlHRe1IquRuMfJIiyk6tJ8SyHW2CO87/kv67X7oHKjYeeX1P37UXQ9hu59+0u/kkiOxpwlZZvEP53fdnM5Zb+vTTcENe2rvaFzlwrk+Qo84yRyrJm0Km9GdKOsoTvo1704wRB8lzpHl+r4WogPJ3/yELH/+8rxrV+2FrqCur5xQGkXY04w81yKopYwZe8NrB/DVSX7aWzQ8tGE1n3Ess7fTalWq1/sMiqfnLnjIvhFVaAMxNw6oNh65Atf0Q==
+ bh=Kau3hk5JFPV4Z2/LtWGqRDGwKP8knZ+dWFS3/U21WRw=;
+ b=agGtgKeIXNlctBcUW58ZuhKILdLEzWOzcC8Ox2l672+OO4czmUISWoJbdhxfTKgqbdzf+TLR8bkU85gPlgyee9LOH/dSWTRfr1pLsl8N4HzYUZp3tyPDNOVO5jDea02dqLpc1eNKh7yYC34wg2LUO1gaCdL8LYJoivZ0Bg29FMw09M/akGKjqzRh/x8slXaAcIx/JZA6TJ19mK8zpi/QMcW/RZAcWk3qmkXJHDwjum5pDqWCUe1kzaO94fUlsPhLZXO9hgO+d8ZR7G4wo5UHiACxyl03RKtpSOUBVCExfxLeXzZI1WQL6pEOSl1UozRN3QdDoUoj4VC9dHyoGYJQHg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Message-ID: <ca8e0029-fc4e-4d8f-9a76-4f4f9da6f82c@oss.nxp.com>
-Date: Wed, 11 Sep 2024 22:50:11 +0300
+Message-ID: <a41b68a8-9623-4acc-b470-d5bb367fce22@oss.nxp.com>
+Date: Wed, 11 Sep 2024 22:53:03 +0300
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/5] xen/arm: Add NXP LINFlexD UART Driver
+Subject: Re: [PATCH v1 2/5] xen/arm: Add NXP LINFlexD UART early printk
+ support
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: S32@nxp.com, Andrei Cherechesu <andrei.cherechesu@nxp.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20240910143411.178704-1-andrei.cherechesu@oss.nxp.com>
- <20240910143411.178704-2-andrei.cherechesu@oss.nxp.com>
- <bec9c46e-4b26-4b2a-a3e4-e27b8addd954@xen.org>
+ <20240910143411.178704-3-andrei.cherechesu@oss.nxp.com>
+ <e1644410-4875-4243-8ba4-3d26c116b96b@xen.org>
 Content-Language: en-US
 From: Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>
-In-Reply-To: <bec9c46e-4b26-4b2a-a3e4-e27b8addd954@xen.org>
+In-Reply-To: <e1644410-4875-4243-8ba4-3d26c116b96b@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM9P193CA0016.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:20b:21e::21) To PA4PR04MB9565.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS4P190CA0022.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d0::14) To PA4PR04MB9565.eurprd04.prod.outlook.com
  (2603:10a6:102:26b::13)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PA4PR04MB9565:EE_|GVXPR04MB10023:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf326922-e0ed-4d5c-2b3c-08dcd29b1172
+X-MS-Office365-Filtering-Correlation-Id: d5b70e7a-d1cf-4658-5c5d-08dcd29b5a96
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bXhMN2VqZkNmMnE5S2xlWkxZUEFSTGtrVU5xQlAvekU1ZkJESGZJUmwyajJ3?=
- =?utf-8?B?MmoyU0NQTTZVV2lKVUZER1QyY2s5SXNCT2ZDNXRyV2cyd3RXR0piYTByRWdG?=
- =?utf-8?B?MWFJRFgyVlJWb296QzM3Ykdta2QvQXdlZ2FwakFYc1pSWTRsSS9kbTVnOGtt?=
- =?utf-8?B?ZjNDYktlZno1WU1RQWtlTVk0VityWDJYUGNhckM0MERBRFFRZ0JZQ0VrQXlo?=
- =?utf-8?B?clRoWWFaUHdBL01xWFlWNlhHdFVjYWVxSkVWWmlPN2Jad1psOStkM1NzZTl4?=
- =?utf-8?B?TGZkZjl1ZStuM3BqeTlpUG9FbndJWlpVUG1yWmtjcFZwYjNKNGZhS1dxeEZa?=
- =?utf-8?B?K3dyd1Jra1dCaUhmaFh5ajlNaWFEbHljSkNZbXprZCtySUc1Z1NMYUtQWXUx?=
- =?utf-8?B?Q2x5dWZtYlh4M2VQdzB5b0I0YnFNdHJJcnVYSXJLbkFyZWo2MS94UC9UM09J?=
- =?utf-8?B?R1hEbVdmemcxYytDMmV5akhFNjY0YnEvNEdpVDFLZjNTUzd1MTV2SHpIb2pv?=
- =?utf-8?B?V2cyQ1B0dTFvaFU1T1c5RXdYUmQ4U01EWklMSk9HZkVyU3VNVmFFWnhKWEFI?=
- =?utf-8?B?Mzc0ZmVjS2RGTlRBalJuQTFSRFVGTThxOUtuTURSTjdHRUFWOHIwK3ovVEpH?=
- =?utf-8?B?SkRsMDNuRzgrVzZxUmpseW9BQys2V2pub2VRWXpLSU42ZUhPR0ZrQTFqTDgy?=
- =?utf-8?B?UUVPeDRvR0lGOXdqMVRRdmlHcUo2dUFleGxuNDJtR04xSU93OG0zazI5T0FZ?=
- =?utf-8?B?TDVPV1FjTXB5TFBYSGtxbWxhbk55SkpYK1o2cjNLTlY0VFU5Ry9RQ0R4WnFY?=
- =?utf-8?B?SDVBMVAxK3V1UDJGc3lGM2YrcVJLbjFCNXMvRTExQVNoTTl6QXFIWG5qVDg0?=
- =?utf-8?B?Zm43OVVYOTdtTGIrc25tQXFod04xWDl3QzlVRWdXQjBsd2c4VWtvem82YTY4?=
- =?utf-8?B?RzVxNmM4YlhRZTkyVHZNQzVOUzRYeEFOYTJMQWRLSUMwRCtPR1Y0bC91VEQz?=
- =?utf-8?B?Mk9mOE1TSjViRExybSsxWitPd29vRDIwK3EyQUZVMnZ3ZkhIRXVDV29YT0JR?=
- =?utf-8?B?ZlNtb0hFWW5zcE9LZFdEQy9ySjNROEU0VWRKQm8wT2tLMmxPdE92bElzdU5S?=
- =?utf-8?B?N1pLOG5VVXFiV1hlakN3SXpKTk5SY3UxdTdnZ1UxSHRPRkQ2cmIzQ0I4N3lu?=
- =?utf-8?B?ZUduM2ZDdm5zTU12N2dxY1dwZ1hweEZkUEd4L0hZcCtJZUozdWZZRUViUGI2?=
- =?utf-8?B?ZlpjL0ZaL2JucFhDTGdoWTQ0alJubTJoM1RJeTZMQXV0cHUvUDhhQmQ1SzhS?=
- =?utf-8?B?S1pKZXRTUHhXWkVIWGx6VVVZUmFCSjdNOXpXdllZazFyV0FRK3lCUjg0c2xp?=
- =?utf-8?B?TVBlUGU1RUMwWHBuRUM5K3VvL2hRWGJJM0NIVGhmdEgzNHp6bHdVT241b01y?=
- =?utf-8?B?WWV6MUhDcE00ZlVMcG5DODVScWV3ME4zWUEwbDM3R2EveldQTlhVNFlMMjNp?=
- =?utf-8?B?aXNGQTNuVk1MOU5FY25jREtYNk1Vcm5uU2dtMi81MHdlMnFpOE9xNUxSQW03?=
- =?utf-8?B?Ry9xTmwrNVRMY1NHY05tamU3S09kaDByRHZKSDc5Y21aS3pjb0VJNlQ3VWNw?=
- =?utf-8?B?czFFUldERkdnYm42ckZaNDU3SlpIbFFOczFnQ0VPdVJPTExYb1NQMnA2ZDho?=
- =?utf-8?B?Szk1eG8rTmpFaEtGem9UNkZCTzJ2RndhdG9qbnhKTVpsbys5SG9tei8remZO?=
- =?utf-8?B?WEwzWXlocFRiWGRnRWoya2R0dFU0T0FQMTM2NVVUZ3VvR1BKTVlUNUplWEVi?=
- =?utf-8?Q?K32ixyZsZOrBjx18MYK/vO76BDnvZTP7fosm0=3D?=
+	=?utf-8?B?enFHWlhiMGJtYVhGcTV1ZjJJdG00ak5aL3plNDRPRmdzeEdXR3hhN0VqZHdO?=
+ =?utf-8?B?UVZoazROd0wrSVR5R0lPMkRIVDhqWXhuWEdxbjEzdUxRbXduMlA3TjhheWN1?=
+ =?utf-8?B?ai8wMFRCRTBDUlROc3BaUjdyZWVqT0xHMjlYaGVGUUdQZCtiYlhLb00wb3NM?=
+ =?utf-8?B?Z1FGeHVNU1ZHaHdZTHE1Wkg4VnA1c085Y1A0dDFQSStkMXJkaGlzWkZmVmRL?=
+ =?utf-8?B?dksvVnJGZ2lhSGVWYzZueXNCZGF1MU96UlNyaFdhWCsxNkpFSEJsakxrUHBK?=
+ =?utf-8?B?NzFoUFJRWVNvTndQakFXMXVMbWo2L1k0MkhrRTdYM2xsN1U3SThBd3BLRDhT?=
+ =?utf-8?B?M2kzMUdicHhwKzFyWExFZlVrVVJYREtkSHpRWlhmSnoxRllnNmxESW5WK1JJ?=
+ =?utf-8?B?N2Z6Qy8yT0J6WnhIN2pSYzdOcXhsUFhBM1ZiRXNXS1gxbmtDNVRpZ1VLV0dT?=
+ =?utf-8?B?U3p4VW52eHBOM1o5REVTcEJoaUFsbU1wVTc2d1VyZDN5TmhWLy82ZEtBYkJy?=
+ =?utf-8?B?MkRKRnEyYWFQZlZKRHluWXhzQW9rY09mZXRSZ2JFV3IvSjVnNzNxcWhraGxa?=
+ =?utf-8?B?R2UrR2pVVmJVS3FEUlBHeXZFc01kV1lBc3Y3SmpRVVErVkx1L2JBeXU1bzRS?=
+ =?utf-8?B?MXQzRXNIeEFpTUJMSFZYNHg4eEI2ekVLcDg5UGhRZTFKNzU1ZW9JbEFRL3FO?=
+ =?utf-8?B?YWFkZjVnYzlGT0h5RzVPaFRoSEoxQ3V4WC9GTGU2ZmxSZHMvemMxNmc0dVc2?=
+ =?utf-8?B?TG9PMDIwUDVJNWdxZkZGZS9HVmxEZktKQ28zNzV3M1NvQUZqbWdEQkhSTW93?=
+ =?utf-8?B?ZERSMnN0SmQ5MWxzL2dzYWRtMHJXeGhwOHNKeXR4eXRidWtLU1N0aXdiZ0F5?=
+ =?utf-8?B?b1pKN29MLzlNK0dXOEI4S3kvL0gzb2xJa2sxOGIxb0h5VmxTZDVrMWtTUnN2?=
+ =?utf-8?B?NzhuNWFYeEVPU1dodW5TT1U0aUplRTcxMmdDR3ZQMURpOFRkcWFTYkt0UllJ?=
+ =?utf-8?B?eXBqb2M1SnlXYzI5ZUpsOXgwdk16bng4RXFLcTdCZVRtRnRKckNpaDNBK0FB?=
+ =?utf-8?B?T2ROamNWY3h3dDNIQ3diempaS2hZekN0UUJBVnByekZnVUcxbm5PaWdCMHJL?=
+ =?utf-8?B?SUIyOWd0ZE50MytqVDM3UVhJZEtDK0JUZnBEdHladTFNNmMzN1p0K21WejJP?=
+ =?utf-8?B?TC81VGNzNkpjSnJSUG9xTWo2SE54ZkFKc2tvSmZRbmhOQTVRTVhrWmFnZ1hp?=
+ =?utf-8?B?cXg4RUpGcXZiK0JzRHcxN21MS0lDUUZMSVlSSzhzU1BMbDErTGxpR1JXMXNo?=
+ =?utf-8?B?NW01d3hIeGtoQmpFNWIyUThDYmN5OVl6RkJpUHEzMnVRVnRSc3FQNm9mNTMr?=
+ =?utf-8?B?TlFIK0cwU2M2SjRIR0hvQlhwK3VEMFhKRGtXZnZiSm9PY2FVL3JEMnVjdmFj?=
+ =?utf-8?B?SkJweFUwQ3U2NUp6VS8xOG8wekE5WDlkN0ZwNnZ4OU5NQkdkSUFWc2d4V2Fw?=
+ =?utf-8?B?d2t4NGVwUU83aGJvb2h0bENBTE45UGFRNFgyeWtSOGh6Q1lRMlZ0RStza0l2?=
+ =?utf-8?B?WVhReXNDTC9tSXhKYVZWdUhjaTBBN3ZDaGx5aDdZdGdReTZFZDFjMm9FUTN3?=
+ =?utf-8?B?OFNFY1ZwcDZlMjZPdFFHeVpZYWc4SmpvU1QxajNDR1BSWnZGQUhVa0RkOHl3?=
+ =?utf-8?B?QkkzTjl4WEFabGg2VisvSytkNnhlRy9BaTcxMm1hNWk4aWF4YTBocURiVGl6?=
+ =?utf-8?B?dnRxK1VwK2c1ZmFSSVJuWVB5VTVzWklIWHE4QlhpSVBmd1pxcUs5aWZaWFNP?=
+ =?utf-8?B?R0NFRHhjUHZwRlpwV0JPUT09?=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9565.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VUFSbnFJN05pWWc2SWlzVzN6UksyaVcxZVZmbEFyeDdFRGo5ZzR0REVJb2Fj?=
- =?utf-8?B?bS9YRWo0ZTJuUVBzUCtyL2Vuc1pFbDRJUDU3K0dUTk9JQUFzcHgvZUVibEwr?=
- =?utf-8?B?aEo0cTM4dXpXVU5lbldwQTFJd2hLOFRJOWVJWUgyQ3BiZDlqNmczQndib2pV?=
- =?utf-8?B?d2k2dll0L09JMkFkZGdBRXYxNWY2SSs4UkFsNWhSbzZ4RTlERGZpMG5nMU82?=
- =?utf-8?B?TWRtYXpaZmc1MnF2Mk1Nc3JXczdvbGtudWRvQVEyVDVZbVhDb3RqQ0JydWNo?=
- =?utf-8?B?S0JSSDMvOXNYeGRaRU9abHY3cXY2Z2FDcDZGSGRTVHJxcmphcU14TW5nNEkz?=
- =?utf-8?B?YWMxblpTbXY0UnpYU3gvVjRiZ2FSRVpXdnhXNEMzclhVS2xzQU93TUw5bVNl?=
- =?utf-8?B?eG5pQytidFltZXZ6L3ZIQXVjZ0tRYVhKMG1KQ0FRSzN1blFSMm15ZHpwaVFL?=
- =?utf-8?B?S09tN1M5MzZJVkhnUGl3UC9FcVcxcGdja2JMa05KQVVBZzR1NHAyYmFNbnI4?=
- =?utf-8?B?TnYyTXFYYzFtdHVkMHNVMDF5Wlh6N3h3QURKbjZtSFJMcml5dkxuMDVUMUdE?=
- =?utf-8?B?Um1KcGtSMTEzOEFNcmljVmhxNFAxNWs0VklyWmozNmh3cVJuM2JVRi81VU5i?=
- =?utf-8?B?SEhvV3FldGZvY2xwdXRzR3ZTUkZDc3ZEZjdzY0o3dlRoQWlaSU9obzNXQlFY?=
- =?utf-8?B?NUtSNDZhR1ZSY2RXc2xUVGpPZzRVVnJqUUtKQ3JZbHV4c09MUURleTdHQ3NJ?=
- =?utf-8?B?dG9qRXR3UFZjZEdRYVZ1OTNaeGliZkhLL1dpMTVjSEdGTGhzNWlqTWxOWXBE?=
- =?utf-8?B?OWFjcXZncHFDU3psSHBSV0krL0ZPOEFTV2hTRmJDN2trZHFiMEFVM1N0eTIr?=
- =?utf-8?B?T3hNMVAxVUp2UFJybXJERE9HeGRVRHBDSkdLVlhJbkpDMmNrcTFpVERmVi9t?=
- =?utf-8?B?MzRURzhFY1NXOWI3VXBOeHhJRXB2dUxvR3NMR25CQjdQMEhEMVkzN25PeDcr?=
- =?utf-8?B?ak4rSTI0ZE44NFRtdWRnLzJEY0EveDcrOWJrYlE4eXd3WHNLaWxjeTRaZlRY?=
- =?utf-8?B?NVdxa2xaRmFlOTIxbElyTEN4Z2diZGJtbmthMkJBdVFLTkNoenV6VExPQmZX?=
- =?utf-8?B?N1RkMVdqc0U1UERON1FQVXplVXFxSVVXQ2FtcXA3b3JJaFlXM1VrRzl5U2JD?=
- =?utf-8?B?TnRiZUVtVlY5VndYakV2SnQ4NDRqYzNFeXBMWmJIeXVGQXZvUFVUTG1BeUxE?=
- =?utf-8?B?dksyb3NGbkphcmdXdmtXUnBvSnlScDZZc0xYU2Ztdkd3SzhUaTBYeGoveTZQ?=
- =?utf-8?B?UGFZcHZ4eDBJL3d2ajBROUQ5WDhlOUM3WmxLK0NlK0RNN2VJeDdYOUc4UFJT?=
- =?utf-8?B?a1QzQUFvS29lZUw2RFdtUG9URmZFVklsd0NlWVBhTEV1b2U4MVh6TkptWnpm?=
- =?utf-8?B?aVhrOEJOZmsva01Fc1hIVFJGb1o4cUVNNnJ5WGY1N21jUHF5R2I1L3F3TXU4?=
- =?utf-8?B?azEzWjVESDZ6OXl5MWxBZzdJQVNSSEZ3VmRyRkJ4aGV4TUlxeHRRckNvTkhW?=
- =?utf-8?B?SmNubkRYU285RCt6a3c4UmdlTzVxT1ZSWVVJUHpyYkpJeUxYOFBRSkI5Rk1B?=
- =?utf-8?B?alJ5Zm1hZCs0TERrZlduZnl2a1lUVUNNUzd6NFk5ZEdPWHFxNVE0U3F1d1Z4?=
- =?utf-8?B?a0ZOTndGeFdzcDZaTEZSOVFDWHdJcEdrZ2hmM1FId21VUnRrQXVVNFBhRWhp?=
- =?utf-8?B?MDB4T2FqOXRNSmZPTzBIV1oyN3MyaWlha1oxc3k0Mkt1a0p1aU1CVUM2OG1J?=
- =?utf-8?B?ejdvYWZBY0dVKzd2enpGcFBBVW5lTDhiNFhzdlRSRC9xUUdHUnQ1Q3k4Ynp2?=
- =?utf-8?B?UnhLWUF6NkJyeUR1d2kvWG1jdVB1a0Nkb2NpTXJpQzFGRGtuWm5mVXBIZFN3?=
- =?utf-8?B?c2l2eXhUWE1va1RMSmJLK2NpbVkrL2lnU3hVeVJYeWFMYU5waFBKV3NpTUU1?=
- =?utf-8?B?bk9iNDBYMGRJdE4vL3ZjSy84RFJVMG9pbFRVbE1FRmk0SU9sWmZmUVNlRlhL?=
- =?utf-8?B?UXQwSXJpTWdIUWxKSlNTQnJad3dpUFkrOGdCTXN1VDNwZ21PblJBdHE4ek9W?=
- =?utf-8?B?Qk9zTHh2YXRxdVRIYWgxeCtoMmpRa1VJVXlBKzBZVlZNY1BIbzZrMjkrZ21Q?=
- =?utf-8?B?SlE9PQ==?=
+	=?utf-8?B?WTRyc2NFZDMrSmMzdERqNTEwWVMwQ1NJRFNrcVZyVEpaYUNmbFc1NzlhcmhM?=
+ =?utf-8?B?TU03WW13Y2p2YXg4L3U1TEp6Ynp0ZlRCS0RmQ1ZVNCtFV2JLM0toRGZhL2cv?=
+ =?utf-8?B?dUphNHJQdHJIb0MxVjRxTFpyUGN2aVpEaS96a3lQYVJrSTUzbVErMXBqa1N4?=
+ =?utf-8?B?R3VFMElpZnp0OWFzdXhQc2lVcnpRTlpSajRFYjRtdis1dUJDS0RKcG9VdTd4?=
+ =?utf-8?B?UkxEL21sM2ZWaFQwSXFwQWVFOW1od0kvclEvN0RJTUxUMnNSODgrRGduaHZw?=
+ =?utf-8?B?dlh2MGlrVldOZlpCRGtobTdOZ2p5clNObGl4NFlhM1dpNzRnTlNTTE5jbDN4?=
+ =?utf-8?B?SktZV3VWQTVPbFdTMno3M3QvbFRPTW5qeXFiZWUza0dxL3NKNS9uRm9NNU04?=
+ =?utf-8?B?cGRSa0ZHUElmUmgvOGxwRUw0bHVCVFFtS0RGWkdscE85R1BURkI2RnNKT2R6?=
+ =?utf-8?B?R2hFRFM3YVBab1BMSGlrS2RUMW9CY0lxN1I4OHZrbnRvT3hKSXZEZUkzTlNY?=
+ =?utf-8?B?Yjd6M2dnZFY4T0NQcHRNMXJybVlhRnI2UUEzS3hyZld5Tm9LNFFMY2VkdjNr?=
+ =?utf-8?B?N1JTTHZ4aUpoNGxBd1FlZE5INlpKbEx2M24wN1VCUFI4NVR5TmFCYTJCZzJm?=
+ =?utf-8?B?UGl2UU1NZ1padGIweGorWkZqWUtWSzZDbFVZcU42TnllNytzV2tzMHFPQUdP?=
+ =?utf-8?B?MUZVZ240UmFzOWlKNXU4Q3l0eFgvbHU1OURDNlFYL2tMZ3AwY1Q5QXhaYlh2?=
+ =?utf-8?B?UVBOTUpjZjQ0ZmRVcnJGSHVXOXdhT2VrVEtjaFFGU2tjZ1A3cUwraVV6dXVo?=
+ =?utf-8?B?RVN5VXVuRVFYL3BrL1pYbU4vQlBKbHlBZWgzWGJvYXB4ZEFpZHBOTmlpUzN0?=
+ =?utf-8?B?dForQUR2cktmbm5qQ2RjdVltUmpaYUxCOW92ajlZQUNCNVoxMHdYb2x0VlFV?=
+ =?utf-8?B?WEtwSXFyUEpDVUV0MTIva2hDWjlWTFdPRXhWNEl3L1doZnE1a0FUSEpWUWN0?=
+ =?utf-8?B?U21HdjFNaUlJOTkxYmtvY3RKc3BwN1JMcVZHZzY0WkR6VkxYSHRwVThrbVh6?=
+ =?utf-8?B?cHFVTTNXYjh6aEVsV0hSOGtOdkFkbjAxUDg5UjJ5RTljbkhmaU43VDRxU2tM?=
+ =?utf-8?B?VkVlM1FFMko2am1oZk5ZckEvQThZQm9MM0hNOElpalFSbWZZR3dzTDZEZ0o3?=
+ =?utf-8?B?YnlsTDQzS3RvZzZWajV2dmJlVUxOTVFMcXJESGhuVDV6S0dCUThrNnVIU081?=
+ =?utf-8?B?UzdreEdRK1B0aXk1L1BHZWZ5aWNmRU5Da29HeElEZTd2S2dBQkxablpVZWJq?=
+ =?utf-8?B?MEYzNm96TW14L2Z5b3c0STZXR0VvUEpkbS9CS09XZjA5RFEvcEtsQk1xNXhh?=
+ =?utf-8?B?b1Y4ci9DK0dYdUFVN1VCYTNBcDduRjI1ZlIwWG5FazhraDdpV0VXQm5ncGcx?=
+ =?utf-8?B?K3UyV2lsOFpuQlRlQmhxZlYxRWtRSVFPeE1QdUp0QzBIR0ZOVmFhUWFBN2Z2?=
+ =?utf-8?B?SnM0aDBpeTd3WUdscGM2UUZxa3lWaWo3empTUUZjNlJCVklqZ0M5OTlTM1dP?=
+ =?utf-8?B?bWtRN3pWdEtrZnZseUU1dVVaRnVDQ2k0RlgrM0ZQdFBlNGFuMGZiZ0hxcFRO?=
+ =?utf-8?B?T29mQTZsQkRBK0xuV3ViNGdkR0ZjcnBiMWptWTRFejVXMVN0YTZKRDEyT3h0?=
+ =?utf-8?B?a2JsYmdvdldTYTBrRkoxTjlOeFFPeDVaUTg4eU1WS0RuMzZvV2NKdXlXaFFY?=
+ =?utf-8?B?Zys1L1BKanZza2REMm5RSCtRd2NjVDkzM0dqSW5XamM5dk9VTUNJOVB1Yksz?=
+ =?utf-8?B?Q0R1VkNtRjBmdi9SYkZZQnhRMktGNXh6c1J5ZDV2V1dFaHBTRVp1WmFlNjV6?=
+ =?utf-8?B?VklqSGkrOExvWXhkWG0vaW1leDFrSG1WVk5GRWtzMVVXVGFsSW4vM1lsY2Q0?=
+ =?utf-8?B?clVWbHRsSGNWaXRVZlFnR1B2K1J4ZlBaT0R6S3pHLzh4THNENEpTRWNURlBD?=
+ =?utf-8?B?MHZTbUs0bHl4dmM2RGtDNGFTcjhzQ3BTbHhSUGhjV05DM0VxQ0szM3NUa1JD?=
+ =?utf-8?B?clM5S2Z4Q2pDTkV6RnNPYWIzWk9Uc1dYZVdDTUoyNzJNOXVYY1Mxd3I2WTZE?=
+ =?utf-8?B?QVdmOHVuSVUyemR5Q2cxOWRtTldRYnFOQm9aWDE3S1NST09LYVEwNllmK1R2?=
+ =?utf-8?B?V1E9PQ==?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf326922-e0ed-4d5c-2b3c-08dcd29b1172
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5b70e7a-d1cf-4658-5c5d-08dcd29b5a96
 X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9565.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2024 19:51:03.8586
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2024 19:53:06.2848
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LiJSjeDILzcxa7a86igLw0ITBGs5dHpMXWOUO1V9GukGZLv986raasszQ3FQQHQv+wX2MwRy3oA62UR1dm+2AtQfM2M/IzjGBWqU1eZWA2s=
+X-MS-Exchange-CrossTenant-UserPrincipalName: PngfQlltP16wNzvMzEOQDPw4b1+JCg6CEBFABy2x7ei7+9IGj40IQCVxSf5zb6geHS9XqN9QnSQ0EZub8Hj/XDAsnHAYmjthGhV1MgNZbZc=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10023
 
-Hi, Julien, and thank you for the review!
 
-On 11/09/2024 00:55, Julien Grall wrote:
+On 11/09/2024 00:58, Julien Grall wrote:
 > Hi,
 >
 > On 10/09/2024 15:34, Andrei Cherechesu (OSS) wrote:
 >> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 >>
->> The LINFlexD UART is an UART controller available on NXP S32
->> processors family targeting automotive (for example: S32G2, S32G3,
->> S32R).
->>
->> S32G3 Reference Manual:
->> https://www.nxp.com/webapp/Download?colCode=RMS32G3.
->
-> It looks like you need to create an account. Is there any public version of the specification?
->
-Unfortunately, the Reference Manual requires registration on NXP website, as per company policy.
-The only public resource I can provide is the Data Sheet: https://www.nxp.com/docs/en/data-sheet/S32G3.pdf.
+>> This adds support for early printk debug via the NXP LINFlexD
+>> UART controller.
 >>
 >> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 >> Signed-off-by: Peter van der Perk <peter.vander.perk@nxp.com>
 >> ---
->>   xen/arch/arm/include/asm/linflex-uart.h |  62 ++++
->>   xen/drivers/char/Kconfig                |   8 +
->>   xen/drivers/char/Makefile               |   1 +
->>   xen/drivers/char/linflex-uart.c         | 365 ++++++++++++++++++++++++
->>   4 files changed, 436 insertions(+)
->>   create mode 100644 xen/arch/arm/include/asm/linflex-uart.h
->>   create mode 100644 xen/drivers/char/linflex-uart.c
+>>   xen/arch/arm/Kconfig.debug           | 14 +++++++
+>>   xen/arch/arm/arm64/debug-linflex.inc | 58 ++++++++++++++++++++++++++++
+>>   2 files changed, 72 insertions(+)
+>>   create mode 100644 xen/arch/arm/arm64/debug-linflex.inc
 >>
->> diff --git a/xen/arch/arm/include/asm/linflex-uart.h b/xen/arch/arm/include/asm/linflex-uart.h
+>> diff --git a/xen/arch/arm/Kconfig.debug b/xen/arch/arm/Kconfig.debug
+>> index eec860e88e..a309f67f90 100644
+>> --- a/xen/arch/arm/Kconfig.debug
+>> +++ b/xen/arch/arm/Kconfig.debug
+>> @@ -68,6 +68,16 @@ choice
+>>               provide the parameters for the i.MX LPUART rather than
+>>               selecting one of the platform specific options below if
+>>               you know the parameters for the port.
+>> +    config EARLY_UART_CHOICE_LINFLEX
+>> +        select EARLY_UART_LINFLEX
+>> +        depends on ARM_64
+>> +        bool "Early printk via NXP LINFlexD UART"
+>> +        help
+>> +            Say Y here if you wish the early printk to direct their
+>> +            output to an NXP LINFlexD UART. You can use this option to
+>> +            provide the parameters for the NXP LINFlexD UART rather than
+>> +            selecting one of the platform specific options below if
+>> +            you know the parameters for the port.
+>>       config EARLY_UART_CHOICE_MESON
+>>           select EARLY_UART_MESON
+>>           depends on ARM_64
+>> @@ -199,6 +209,9 @@ config EARLY_UART_EXYNOS4210
+>>   config EARLY_UART_IMX_LPUART
+>>       select EARLY_PRINTK
+>>       bool
+>> +config EARLY_UART_LINFLEX
+>> +    select EARLY_PRINTK
+>> +    bool
+>>   config EARLY_UART_MESON
+>>       select EARLY_PRINTK
+>>       bool
+>> @@ -304,6 +317,7 @@ config EARLY_PRINTK_INC
+>>       default "debug-cadence.inc" if EARLY_UART_CADENCE
+>>       default "debug-exynos4210.inc" if EARLY_UART_EXYNOS4210
+>>       default "debug-imx-lpuart.inc" if EARLY_UART_IMX_LPUART
+>> +    default "debug-linflex.inc" if EARLY_UART_LINFLEX
+>>       default "debug-meson.inc" if EARLY_UART_MESON
+>>       default "debug-mvebu.inc" if EARLY_UART_MVEBU
+>>       default "debug-pl011.inc" if EARLY_UART_PL011
+>> diff --git a/xen/arch/arm/arm64/debug-linflex.inc b/xen/arch/arm/arm64/debug-linflex.inc
 >> new file mode 100644
->> index 0000000000..62dc54d155
+>> index 0000000000..6ed704e104
 >> --- /dev/null
->> +++ b/xen/arch/arm/include/asm/linflex-uart.h
->> @@ -0,0 +1,62 @@
+>> +++ b/xen/arch/arm/arm64/debug-linflex.inc
+>> @@ -0,0 +1,58 @@
 >> +/* SPDX-License-Identifier: GPL-2.0 */
 >
-> The identifier GPL-2.0 was deprecated (see LICENSES/GPL-2.0). The new tag should be GPL-2.0-only. The resulting license is the same.
+> GPL-2.0 is deprecated and replaced by GPL-2.0-only.
 Will fix in v2.
 >
 >> +/*
->> + * xen/arch/arm/include/asm/linflex-uart.h
+>> + * xen/arch/arm/arm64/debug-linflex.inc
 >> + *
->> + * Common constant definition between early printk and the UART driver
->> + * for NXP LINFlexD UART.
->> + *
->> + * Andrei Cherechesu <andrei.cherechesu@nxp.com>
->> + * Copyright 2018, 2021, 2024 NXP
->> + */
->> +
->> +#ifndef __ASM_ARM_LINFLEX_UART_H
->> +#define __ASM_ARM_LINFLEX_UART_H
->> +
->> +/* 32-bit register offsets */
->> +#define LINCR1          (0x0)
->> +#define LINIER          (0x4)
->> +#define LINSR           (0x8)
->> +#define UARTCR          (0x10)
->> +#define UARTSR          (0x14)
->> +#define LINFBRR         (0x24)
->> +#define LINIBRR         (0x28)
->> +#define BDRL            (0x38)
->> +#define BDRM            (0x3C)
->> +#define UARTPTO         (0x50)
->> +
->> +#define LINCR1_INIT     BIT(0, U)
->> +#define LINCR1_MME      BIT(4, U)
->> +#define LINCR1_BF       BIT(7, U)
->> +
->> +#define LINSR_LINS      GENMASK(15, 12)
->> +#define LINSR_LINS_INIT BIT(12, U)
->> +
->> +#define LINIER_DRIE     BIT(2, U)
->> +#define LINIER_DTIE     BIT(1, U)
->> +
->> +#define UARTCR_UART     BIT(0, U)
->> +#define UARTCR_WL0      BIT(1, U)
->> +#define UARTCR_PC0      BIT(3, U)
->> +#define UARTCR_TXEN     BIT(4, U)
->> +#define UARTCR_RXEN     BIT(5, U)
->> +#define UARTCR_PC1      BIT(6, U)
->> +#define UARTCR_TFBM     BIT(8, U)
->> +#define UARTCR_RFBM     BIT(9, U)
->> +#define UARTCR_RDFLRFC  GENMASK(12, 10)
->> +#define UARTCR_TDFLTFC  GENMASK(15, 13)
->> +#define UARTCR_ROSE     BIT(23, U)
->> +#define UARTCR_OSR      GENMASK(27, 24)
->> +
->> +#define UARTSR_DTFTFF   BIT(1, U)
->> +#define UARTSR_DRFRFE   BIT(2, U)
->> +
->> +#endif /* __ASM_ARM_LINFLEX_UART_H */
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
->> index 3f836ab301..e175d07c02 100644
->> --- a/xen/drivers/char/Kconfig
->> +++ b/xen/drivers/char/Kconfig
->> @@ -13,6 +13,14 @@ config HAS_CADENCE_UART
->>         This selects the Xilinx Zynq Cadence UART. If you have a Xilinx Zynq
->>         based board, say Y.
->>   +config HAS_LINFLEX
->> +    bool "NXP LINFlexD UART driver"
->> +    default y
->> +    depends on ARM_64
->> +    help
->> +      This selects the NXP LINFlexD UART. If you have an NXP S32G or S32R
->> +      based board, say Y.
->> +
->>   config HAS_IMX_LPUART
->>       bool "i.MX LPUART driver"
->>       default y
->> diff --git a/xen/drivers/char/Makefile b/xen/drivers/char/Makefile
->> index e7e374775d..d3b987da1d 100644
->> --- a/xen/drivers/char/Makefile
->> +++ b/xen/drivers/char/Makefile
->> @@ -10,6 +10,7 @@ obj-$(CONFIG_HAS_SCIF) += scif-uart.o
->>   obj-$(CONFIG_HAS_EHCI) += ehci-dbgp.o
->>   obj-$(CONFIG_XHCI) += xhci-dbc.o
->>   obj-$(CONFIG_HAS_IMX_LPUART) += imx-lpuart.o
->> +obj-$(CONFIG_HAS_LINFLEX) += linflex-uart.o
->>   obj-$(CONFIG_ARM) += arm-uart.o
->>   obj-y += serial.o
->>   obj-$(CONFIG_XEN_GUEST) += xen_pv_console.o
->> diff --git a/xen/drivers/char/linflex-uart.c b/xen/drivers/char/linflex-uart.c
->> new file mode 100644
->> index 0000000000..4ca8f732ae
->> --- /dev/null
->> +++ b/xen/drivers/char/linflex-uart.c
->> @@ -0,0 +1,365 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->
-> Ditto.
-Will fix in v2.
->
->
->> +/*
->> + * xen/drivers/char/linflex-uart.c
->> + *
->> + * Driver for NXP LINFlexD UART.
+>> + * NXP LINFlexD UART specific debug code
 >> + *
 >> + * Andrei Cherechesu <andrei.cherechesu@nxp.com>
->> + * Copyright 2018, 2021-2022, 2024 NXP
+>> + * Copyright 2018, 2021, 2023-2024 NXP
 >> + */
 >> +
->> +#include <xen/config.h>
->> +#include <xen/console.h>
->> +#include <xen/errno.h>
->> +#include <xen/serial.h>
->
-> In Xen, we tend to order the include alphabetically within the same directory. So this wants to be after xen/mm.h.
-Right, will address in v2.
->
->
->> +#include <xen/init.h>
->> +#include <xen/irq.h>
->> +#include <xen/mm.h>
->> +#include <asm/device.h>
->> +#include <asm/io.h>
+>> +#include <asm/asm_defns.h>
 >> +#include <asm/linflex-uart.h>
 >> +
->> +#define LINFLEX_CLK_FREQ        (125000000)
->> +#define LINFLEX_BAUDRATE        (115200)
->> +#define LINFLEX_LDIV_MULTIPLIER (16)
->> +
->> +static struct linflex_uart {
->> +    uint32_t baud, clock_hz;
->> +    uint32_t irq;
->> +    char __iomem *regs;
->> +    struct irqaction irqaction;
->> +    struct vuart_info vuart;
->> +} linflex_com;
->> +
->> +static uint32_t linflex_uart_readl(struct linflex_uart *uart, uint32_t off)
->> +{
->> +    return readl(uart->regs + off);
->> +}
->> +
->> +static void linflex_uart_writel(struct linflex_uart *uart, uint32_t off,
->> +                                uint32_t val)
->> +{
->> +    writel(val, uart->regs + off);
->> +}
->> +
->> +static void linflex_uart_writeb(struct linflex_uart *uart, uint32_t off,
->> +                                uint8_t val)
->> +{
->> +    writeb(val, uart->regs + off);
->> +}
->> +
->> +static uint32_t linflex_uart_get_osr(uint32_t uartcr)
->> +{
->> +    return (uartcr & UARTCR_OSR) >> 24;
->
-> Please provide a define for 24. This would also make easier to correlate with UARTCR_OSR.
-Will address in v2.
->
->
->> +}
->> +
->> +static uint32_t linflex_uart_tx_fifo_mode(struct linflex_uart *uart)
->
-> AFAICT, UARTCR_TFBM is one-bit. So should this return a bool?
-Yes, it is one bit and I agree a bool would fit better. Will address in v2.
->
->
->> +{
->> +    return linflex_uart_readl(uart, UARTCR) & UARTCR_TFBM;
->> +}
->> +
->> +static uint32_t linflex_uart_rx_fifo_mode(struct linflex_uart *uart)
->
-> Same here.
-Will address in v2.
->
->> +{
->> +    return linflex_uart_readl(uart, UARTCR) & UARTCR_RFBM;
->> +}
->> +
->> +static uint32_t linflex_uart_ldiv_multiplier(struct linflex_uart *uart)
->> +{
->> +    uint32_t uartcr, mul = LINFLEX_LDIV_MULTIPLIER;
->> +
->> +    uartcr = linflex_uart_readl(uart, UARTCR);
->> +    if ( uartcr & UARTCR_ROSE )
->> +        mul = linflex_uart_get_osr(uartcr);
->> +
->> +    return mul;
->> +}
->> +
->> +static void linflex_uart_flush(struct serial_port *port)
->> +{
->> +    struct linflex_uart *uart = port->uart;
->
-> Above, youa re using tab hard but above you use soft tab. Is the code intended to follow Xen coding style? If so, you want to use soft tab.
-Will fix in v2.
->
->
->> +
->> +    if ( linflex_uart_tx_fifo_mode(uart) )
->> +        while ( linflex_uart_readl(uart, UARTCR) & UARTCR_TDFLTFC );
->> +            cpu_relax();
->
-> The indentation is really confusing here. It leads to think that cpu_relax() should be part of while() but you are using ';'. I guess you really intended to have cpu_relax() within the while loop?
-Indeed, the intention was to have cpu_relax() called within the while loop, but functionally, this variant works almost the same. Thank you for spotting the mistake!
->
->
->> +
->> +    if ( linflex_uart_rx_fifo_mode(uart) )
->> +        while ( linflex_uart_readl(uart, UARTCR) & UARTCR_RDFLRFC );
->> +            cpu_relax();
->
-> Same here.
->
->> +}
->> +
->> +static void __init linflex_uart_init_preirq(struct serial_port *port)
->> +{
->> +    struct linflex_uart *uart = port->uart;
->> +    uint32_t ibr, fbr, divisr, dividr, ctrl;
->> +
->> +    /* Disable RX/TX before init mode */
->> +    ctrl = linflex_uart_readl(uart, UARTCR);
->> +    ctrl &= ~(UARTCR_RXEN | UARTCR_TXEN);
->> +    linflex_uart_writel(uart, UARTCR, ctrl);
->> +
->> +    /*
->> +    * Smoothen the transition from early_printk by waiting
->> +    * for all pending characters to transmit
->> +    */
->
-> The indentation for comment in Xen is:
->
-> /*
->  * Foor
->  * Bar
->  */
->
-Will fix in v2.
->> +    linflex_uart_flush(port);
->> +
->> +    /* Init mode */
->> +    ctrl = LINCR1_INIT;
->> +    linflex_uart_writel(uart, LINCR1, ctrl);
->> +
->> +    /* Waiting for init mode entry */
->> +    while ( (linflex_uart_readl(uart, LINSR) & LINSR_LINS) != LINSR_LINS_INIT )
->> +        cpu_relax();
->> +
->> +    /* Set Master Mode */
->> +    ctrl |= LINCR1_MME;
->> +    linflex_uart_writel(uart, LINCR1, ctrl);
->> +
->> +    /* Provide data bits, parity, stop bit, etc */
->> +    divisr = uart->clock_hz;
->> +    dividr = (uint32_t)(uart->baud * linflex_uart_ldiv_multiplier(uart));
->> +
->> +    ibr = (uint32_t)(divisr / dividr);
->> +    fbr = (uint32_t)((divisr % dividr) * 16 / dividr) & 0xF;
->
-> On the 3 lines above, why do you need to cast to 32-bit? Is this because the result is 64-bit? If so, why do you need to ignore the top bits?
->
-Indeed, the casts are not needed. The maximum baud rate supported by LINFlexD is 2000000 bps, and the maximum value returned by linflex_uart_ldiv_multiplier() is 16.
-Thus, "dividr" should never overflow (32000000 max value) and neither should the "fbr" computation. In v2, I will remove the casts and upper bound the baud rate to the maximum
-supported value, if that's ok for you.
-It would be also nice having a generic CONFIG_BAUDRATE (or similar) set by each platform, similar to U-Boot, to make this configurable.
->>
->> +    linflex_uart_writel(uart, LINIBRR, ibr);
->> +    linflex_uart_writel(uart, LINFBRR, fbr);
->> +
->> +    /* Set preset timeout register value */
->> +    linflex_uart_writel(uart, UARTPTO, 0xF);
->> +
->> +    /* Setting UARTCR[UART] bit is required for writing other bits in UARTCR */
->> +    linflex_uart_writel(uart, UARTCR, UARTCR_UART);
->> +
->> +    /* 8 bit data, no parity, UART mode, Buffer mode */
->> +    linflex_uart_writel(uart, UARTCR, UARTCR_PC1 | UARTCR_PC0 | UARTCR_WL0 |
->> +                        UARTCR_UART);
->> +
->> +    /* end init mode */
->> +    ctrl = linflex_uart_readl(uart, LINCR1);
->> +    ctrl &= ~LINCR1_INIT;
->> +    linflex_uart_writel(uart, LINCR1, ctrl);
->> +
->> +    /* Enable RX/TX after exiting init mode */
->> +    ctrl = linflex_uart_readl(uart, UARTCR);
->> +    ctrl |= UARTCR_RXEN | UARTCR_TXEN;
->> +    linflex_uart_writel(uart, UARTCR, ctrl);
->> +}
->> +
->> +static void linflex_uart_interrupt(int irq, void *data)
->> +{
->> +    struct serial_port *port = data;
->> +    struct linflex_uart *uart = port->uart;
->> +    uint32_t sts;
->> +
->> +    sts = linflex_uart_readl(uart, UARTSR);
->> +
->> +    if ( sts & UARTSR_DRFRFE )
->> +        serial_rx_interrupt(port);
->> +
->> +    if ( sts & UARTSR_DTFTFF )
->> +        serial_tx_interrupt(port);
->> +}
->> +
->> +static void __init linflex_uart_init_postirq(struct serial_port *port)
->> +{
->> +    struct linflex_uart *uart = port->uart;
->> +    uint32_t temp;
->> +
->> +    uart->irqaction.handler = linflex_uart_interrupt;
->> +    uart->irqaction.name = "linflex_uart";
->> +    uart->irqaction.dev_id = port;
->> +
->> +    if ( setup_irq(uart->irq, 0, &uart->irqaction) != 0 )
->> +    {
->> +        dprintk(XENLOG_ERR, "Failed to allocate linflex_uart IRQ %d\n",
->> +                uart->irq);
->
-> NIT: This should only be called once during boot. So I would consider to use printk() so it can be printed in production.
-Will fix in v2.
->
->> +        return;
->> +    }
->> +
->> +    /* Enable interrupts */
->> +    temp = linflex_uart_readl(uart, LINIER);
->> +    temp |= (LINIER_DRIE | LINIER_DTIE);
->> +    linflex_uart_writel(uart, LINIER, temp);
->> +    dprintk(XENLOG_DEBUG, "IRQ %d enabled\n", uart->irq);
->
-> Same here.
-Will fix in v2.
->
->> +}
->> +
->> +static int linflex_uart_tx_ready(struct serial_port *port)
->> +{
->> +    struct linflex_uart *uart = port->uart;
->> +
->> +    if ( linflex_uart_tx_fifo_mode(uart) )
->> +        return (linflex_uart_readl(uart, UARTSR) & UARTSR_DTFTFF) == 0 ? 1 : 0;
->> +
->> +    /*
->> +    * Buffer Mode => TX is waited to be ready after sending a char,
->> +    * so we can assume it is always ready before.
->> +    */
->
-> Coding style. See above how it should be done for multi-line comments.
-Will fix in v2.
->
->> +    return 1;
->> +}
->> +
->> +static void linflex_uart_putc(struct serial_port *port, char c)
->> +{
->> +    struct linflex_uart *uart = port->uart;
->> +    uint32_t uartsr;
->> +
->> +    if ( c == '\n' )
->> +        linflex_uart_putc(port, '\r');
->> +
->> +    linflex_uart_writeb(uart, BDRL, c);
->> +
->> +    /* Buffer Mode */
->> +    if ( !linflex_uart_tx_fifo_mode(uart) )
->> +    {
->> +        while ( (linflex_uart_readl(uart, UARTSR) & UARTSR_DTFTFF) == 0 )
->> +                cpu_relax();
->> +
->> +        uartsr = linflex_uart_readl(uart, UARTSR) | (UARTSR_DTFTFF);
->> +        linflex_uart_writel(uart, UARTSR, uartsr);
->> +    }
->> +}
->> +
->> +static int linflex_uart_getc(struct serial_port *port, char *pc)
->> +{
->> +    struct linflex_uart *uart = port->uart;
->> +    uint32_t ch, uartsr, rx_fifo_mode;
->> +
->> +    rx_fifo_mode = linflex_uart_rx_fifo_mode(uart);
->> +
->> +    if ( rx_fifo_mode )
->> +        while ( linflex_uart_readl(uart, UARTSR) & UARTSR_DRFRFE )
->> +            cpu_relax();
->> +    else
->> +        while ( !(linflex_uart_readl(uart, UARTSR) & UARTSR_DRFRFE) )
->> +            cpu_relax();
->> +
->> +    ch = linflex_uart_readl(uart, BDRM);
->> +    *pc = ch & 0xff;
->> +
->> +    if ( !rx_fifo_mode ) {
->> +        uartsr = linflex_uart_readl(uart, UARTSR) | UARTSR_DRFRFE;
->> +        linflex_uart_writel(uart, UARTSR, uartsr);
->> +    }
->> +
->> +    return 1;
->> +}
->> +
->> +static int __init linflex_uart_irq(struct serial_port *port)
->> +{
->> +    struct linflex_uart *uart = port->uart;
->> +
->> +    return ((uart->irq > 0) ? uart->irq : -1);
->> +}
->> +
->> +static const struct vuart_info *linflex_uart_vuart_info(
->> +                struct serial_port *port)
->> +{
->> +    struct linflex_uart *uart = port->uart;
->
-> NIT: You are not modifying uart. So this coul be const.
-Sure, but no other driver does this. Actually, this applies to most functions in this driver, right?
-I can implement this in v2 if you agree to break the pattern.
->
->
->> +
->> +    return &uart->vuart;
->> +}
->> +
->> +static void linflex_uart_start_tx(struct serial_port *port)
->> +{
->> +    struct linflex_uart *uart = port->uart;
->> +    uint32_t temp;
->> +
->> +    temp = linflex_uart_readl(uart, LINIER);
->> +    linflex_uart_writel(uart, LINIER, temp | LINIER_DTIE);
->> +}
->> +
->> +static void linflex_uart_stop_tx(struct serial_port *port)
->> +{
->> +    struct linflex_uart *uart = port->uart;
->> +    uint32_t temp;
->> +
->> +    temp = linflex_uart_readl(uart, LINIER);
->> +    temp &= ~(LINIER_DTIE);
->> +    linflex_uart_writel(uart, LINIER, temp);
->> +}
->> +
->> +static struct uart_driver __read_mostly linflex_uart_driver = {
->> +    .init_preirq = linflex_uart_init_preirq,
->> +    .init_postirq = linflex_uart_init_postirq,
->> +    .tx_ready = linflex_uart_tx_ready,
->> +    .putc = linflex_uart_putc,
->> +    .flush = linflex_uart_flush,
->> +    .getc = linflex_uart_getc,
->> +    .irq = linflex_uart_irq,
->> +    .start_tx = linflex_uart_start_tx,
->> +    .stop_tx = linflex_uart_stop_tx,
->> +    .vuart_info = linflex_uart_vuart_info,
->> +};
->> +
->> +static int __init linflex_uart_init(struct dt_device_node *dev, const void *data)
->> +{
->> +    const char *config = data;
->> +    struct linflex_uart *uart;
->> +    paddr_t addr, size;
->> +    int res;
->> +
->> +    if ( strcmp(config, "") )
->> +        printk("WARNING: UART configuration is not supported\n");
->> +
->> +    uart = &linflex_com;
->> +
->> +    res = dt_device_get_paddr(dev, 0, &addr, &size);
->> +    if ( res )
->> +    {
->> +        printk("linflex-uart: Unable to retrieve the base address of the UART\n");
->> +        return res;
->> +    }
->> +
->> +    res = platform_get_irq(dev, 0);
->> +    if ( res < 0 )
->> +    {
->> +        printk("linflex-uart: Unable to retrieve the IRQ\n");
->> +        return -EINVAL;
->> +    }
->> +    uart->irq = res;
->> +
->> +    uart->regs = ioremap_nocache(addr, size);
->> +    if ( !uart->regs )
->> +    {
->> +        printk("linflex-uart: Unable to map the UART memory\n");
->> +        return -ENOMEM;
->> +    }
->> +
->> +    uart->clock_hz = LINFLEX_CLK_FREQ;
->> +    uart->baud = LINFLEX_BAUDRATE;
->> +
->> +    uart->vuart.base_addr = addr;
->> +    uart->vuart.size = size;
->> +    uart->vuart.data_off = BDRL;
->> +    uart->vuart.status_off = UARTSR;
->> +    uart->vuart.status = UARTSR_DTFTFF;
->> +
->> +    /* Register with generic serial driver */
->> +    serial_register_uart(SERHND_DTUART, &linflex_uart_driver, uart);
->> +
->> +    dt_device_set_used_by(dev, DOMID_XEN);
->> +
->> +    return 0;
->> +}
->> +
->> +static const struct dt_device_match linflex_uart_dt_compat[] __initconst =
->> +{
->> +    DT_MATCH_COMPATIBLE("nxp,s32g2-linflexuart"),
->> +    DT_MATCH_COMPATIBLE("nxp,s32g3-linflexuart"),
->> +    DT_MATCH_COMPATIBLE("fsl,s32v234-linflexuart"),
->> +    { /* sentinel */ },
->> +};
->> +
->> +DT_DEVICE_START(linflex_uart, "NXP LINFlexD UART", DEVICE_SERIAL)
->> +    .dt_match = linflex_uart_dt_compat,
->> +    .init = linflex_uart_init,
->> +DT_DEVICE_END
+>> +/*
+>> + * wait LINFlexD UART to be ready to transmit
+>> + * xb: register which contains the UART base address
+>> + * c: scratch register number
+>> + */
+>> +.macro early_uart_ready xb, c
+>> +    ldr   w\c, [\xb, #UARTCR]       /* <= Control Register */
+>> +    and   w\c, w\c, #UARTCR_TFBM    /* Check Buffer/FIFO (0/1) Mode */
+>> +    cbz   w\c, 2f                   /* Buffer Mode => return */
+>> +1:
+>> +    ldrb  w\c, [\xb, #UARTSR]       /* <= Status Register */
+>> +    tst   w\c, #UARTSR_DTFTFF       /* FIFO Mode => Check DTF bit */
+>> +    b.ne  1b
+>> +2:
+>> +.endm
+>> +
+>> +/*
+>> + * LINFlexD UART transmit character
+>> + * xb: register which contains the UART base address
+>> + * wt: register which contains the character to transmit
+>> + */
+>> +.macro early_uart_transmit xb, wt
+>> +    strb  \wt, [\xb, #BDRL]
+>> +
+>> +    ldr   \wt, [\xb, #UARTCR]       /* <= Control Register */
+>> +    and   \wt, \wt, #UARTCR_TFBM    /* Check Buffer/FIFO (0/1) Mode */
+>> +    cbnz  \wt, 2f                   /* FIFO Mode => goto exit */
+>> +
+>> +3:  /* Buffer Mode */
+>> +    ldrb  \wt, [\xb, #UARTSR]       /* <= Status Register */
+>> +    and   \wt, \wt, #UARTSR_DTFTFF  /* Check Transmission Completed */
+>> +    cbz   \wt, 3b
+>> +
+>> +    ldr   \wt, [\xb, #UARTSR]       /* <= Status Register */
+>> +    orr   \wt, \wt, #UARTSR_DTFTFF  /* Clear DTF bit */
+>> +    str   \wt, [\xb, #UARTSR]
+>> +2:
+>> +.endm
 >> +
 >> +/*
 >> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
+>> + * mode: ASM
 >> + * indent-tabs-mode: nil
 >> + * End:
 >> + */
+>> \ No newline at end of file
+>
+> The file should end with a newline.
+>
+Will fix in v2.
+> I haven't looked at the specifics of the UART. But the code integration in Xen LGTM. So with the two comments addressed:
+>
+> Acked-by: Julien Grall <jgrall@amazon.com>
 >
 > Cheers,
 >
+Thanks for the review!
+
 Regards,
-Andrei Cherechesu
-
-
+Andrei C
 
