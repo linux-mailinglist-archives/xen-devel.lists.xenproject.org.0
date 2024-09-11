@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6A8F974E61
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 11:19:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796319.1205846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5363A974EF5
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 11:45:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796327.1205856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soJVa-0001Mf-CD; Wed, 11 Sep 2024 09:19:30 +0000
+	id 1soJuP-0005MV-2s; Wed, 11 Sep 2024 09:45:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796319.1205846; Wed, 11 Sep 2024 09:19:30 +0000
+Received: by outflank-mailman (output) from mailman id 796327.1205856; Wed, 11 Sep 2024 09:45:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soJVa-0001Jg-8n; Wed, 11 Sep 2024 09:19:30 +0000
-Received: by outflank-mailman (input) for mailman id 796319;
- Wed, 11 Sep 2024 09:19:28 +0000
+	id 1soJuO-0005KY-V6; Wed, 11 Sep 2024 09:45:08 +0000
+Received: by outflank-mailman (input) for mailman id 796327;
+ Wed, 11 Sep 2024 09:45:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=z7kF=QJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1soJVY-0001Ja-LJ
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 09:19:28 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6AyE=QJ=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1soJuN-0005KS-MV
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 09:45:07 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20629.outbound.protection.outlook.com
+ [2a01:111:f403:2414::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0e50f22-701e-11ef-99a1-01e77a169b0f;
- Wed, 11 Sep 2024 11:19:26 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5c3ed267a7bso2089794a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 02:19:26 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3ebd76f27sm5150007a12.66.2024.09.11.02.19.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Sep 2024 02:19:25 -0700 (PDT)
+ id 8560439b-7022-11ef-99a1-01e77a169b0f;
+ Wed, 11 Sep 2024 11:45:04 +0200 (CEST)
+Received: from BN0PR02CA0025.namprd02.prod.outlook.com (2603:10b6:408:e4::30)
+ by IA1PR12MB8493.namprd12.prod.outlook.com (2603:10b6:208:447::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24; Wed, 11 Sep
+ 2024 09:45:00 +0000
+Received: from MN1PEPF0000ECDA.namprd02.prod.outlook.com
+ (2603:10b6:408:e4:cafe::61) by BN0PR02CA0025.outlook.office365.com
+ (2603:10b6:408:e4::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24 via Frontend
+ Transport; Wed, 11 Sep 2024 09:45:00 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000ECDA.mail.protection.outlook.com (10.167.242.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Wed, 11 Sep 2024 09:44:59 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 11 Sep
+ 2024 04:44:59 -0500
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Wed, 11 Sep 2024 04:44:58 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +59,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0e50f22-701e-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726046366; x=1726651166; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rBq45GUCZoEeIXYSDFfILe0zt18u+wzDp+fWiV3U1xI=;
-        b=EPhqf1Fv0G8wRyJpFvCg6gESWyGwB6OrpToi8J/XAJvo99wXyc2JtfxUi2nnVs/fGa
-         oOLZbvY66r14uYKJ+BMUzqfTL4WSbr6Rc7jnE3Ez7jgs857xTWMJFwa+nBcixSGjEtz2
-         2iAeQDjFXU9VopeHDubPLxfM50CuFrkrEmn2AuLZGUK8ePh33mZoYbDBPVgmVhz+Qjek
-         NbScp7mcgcNK23NvMnssZTHQGoF21GVW5XC/qZ64AdyQ3GWV1kjlYLvn7httKhSWLQda
-         32TLfL2hsadkElOk5WWJcWo6m/WXHilDsAEmERPsjEuumQ0taUK5vwW8fJXqLWReZUVt
-         8Xxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726046366; x=1726651166;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rBq45GUCZoEeIXYSDFfILe0zt18u+wzDp+fWiV3U1xI=;
-        b=T+qDIdPkE1zC6fN/t/MFF+MAn7zkrbNcZRG9CKysg3pSVru/szOCKnK0wEwp6MF9Vs
-         p6gaboeRREseFwIbYGxGwAw3JBHnyD5C8a5WSwAJYnVPJOjIy/U9bXqf+ftHZrUtFqAE
-         qVAHQ4ZO6krPhFBydhfHyuWzIvjbdmL9k1Nc1Q9ojWJuCMXgsY4DKFCy5uU62Zj1Y92p
-         DHhX+lACmySjmWgFnPX4Pbl4G4AgWUIvesCYJRMFMz7Dfte2sqxgqw7TDfBwHGqqMGAU
-         iw+7d5RsBPvi1mwuv4ioFrr5TFo6pnWvgjsl7xqHnrVRP5ybcUth4yRqViC7qboiuZvQ
-         5ifA==
-X-Forwarded-Encrypted: i=1; AJvYcCUNr9GS70+zrxlVbq1MzZTpPtHrqD8tKN/5rRKezydigKxuqIsuDDX8Yy+LpIfl1LHRUw0W91EH4Hc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx6y8idm0mu1UES5wzIvTr1/Dx+KCpmYwY6gNB8LLQ+WtMEBd+m
-	c7WNbaT9to9UhOy2MBgUwufEiC81dT3ctSjUGDSIw+IOzccrQ4xkhmvwRxHTRA==
-X-Google-Smtp-Source: AGHT+IFgjva9sZ/QWXfG3sAHKup0y33Jlw7W97/SFlGMPIM5XgygOR1wxB2MF/NzW9XzRz0ilXbejg==
-X-Received: by 2002:a50:c90b:0:b0:5c3:d0d9:dafb with SMTP id 4fb4d7f45d1cf-5c40bc2e01dmr1163722a12.18.1726046365848;
-        Wed, 11 Sep 2024 02:19:25 -0700 (PDT)
-Message-ID: <3f876b0d-8f2e-4f92-8c94-db16d89fc102@suse.com>
-Date: Wed, 11 Sep 2024 11:19:25 +0200
+X-Inumbo-ID: 8560439b-7022-11ef-99a1-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f3RWe38lsCOJbzg2pO2Njo/+cg5xR7LnpaDffxBMec4EBj2OOfz0BmN9YU5DzAdtbMheKEdCXaHLYrOGtl0aNUuTnXMcLqt1Zxxr/wKgNIc8Gt4SrdBGfe0ib5tnN9E6JdVF5/cuB0+1xakVQUucwKZLYCB0+f7VvJB912SwygGKDLVzXJWqReFh36qVjq5wzyMxj5Na7t7G+lJoj9sj69X0I08zeDU5VhnmcPvl2yL+RvF4SY3tpIGKHqpRytUWjqfXt9ftC/n7HLs+1ESSe46zQ1jxB0GdI2uVYWGDDHnB+h7aklALgWk7Ej6eOQEipNH02k8RZnqgZ2vMWLTNsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LML8P+bgEeNgk7CDWn6yEmBnV9nLoaqMd2IDtwTDfc0=;
+ b=H5cT2+Z2IS219fbvL62X0pqwDfkI9/c/B0iWgerhrApeEocH7kNdPNA4RZLkk0hcfcvEqKa2S9+Z0V3aNF2IZ4AyrevWdBW91e5MioLmpK6CLgoxSVzLrgYIoKfRdvBTpLMbeDzwnRAi24YwSFLTIwU7FEPeFJd/17LJwVJ38SKEAVE72n06Y3RsNfeRF+RhonDOmwP5oX376vSA/AWiQ6R+KiRbC5X7BUsrPEkzLwDPy9qSeMze2tIYu2M+NYWlz3NOKjHLXNpBdXIkVaDQKlZFCFroxXiSmVmOqGHTUWahHCZ6YSzhHRH5veEzVUKVL/9RVbyw5jJPpxNyyZhC0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LML8P+bgEeNgk7CDWn6yEmBnV9nLoaqMd2IDtwTDfc0=;
+ b=K6qn1p4xW/DiHpLE57WpFaeLlMzVG4MRcExWMK9cylqK+gG42R9KuN3UFOL6wKo5QawvD2o91O2ndz5lQbzSermCqwBuGnhiOW49lww5Epo/PeL8eP1Y0qa0XTI7/gJZNIyXrNx/5XKXJ/a3yrwLHlwLNAUFVs+TeBAypwmyTH0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Ayan
+ Kumar Halder" <ayan.kumar.halder@amd.com>, Artem Mygaiev
+	<artem_mygaiev@epam.com>, Hisao Munakata <hisao.munakata.vt@renesas.com>,
+	Julien Grall <julien@xen.org>
+Subject: [PATCH v2] docs: fusa: Add Assumption of Use (AoU)
+Date: Wed, 11 Sep 2024 10:44:56 +0100
+Message-ID: <20240911094456.2156647-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] x86/HVM: drop stdvga's "vram_page[]" struct member
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cd97dd61-c75c-4ab6-b36f-b2b035c4a564@suse.com>
- <abbd917c-d13d-4572-ae9e-1c413c7d4cf2@suse.com>
- <6feab1d8-54fe-4dfb-8e4d-7e5b22099482@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6feab1d8-54fe-4dfb-8e4d-7e5b22099482@citrix.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: ayan.kumar.halder@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDA:EE_|IA1PR12MB8493:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2581e1c-16c7-4180-5c1e-08dcd2466705
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?nIsHZtG2C98KG5zmd9wjd1Pgo7ZbkP7EApNe7UBFn8KQ5qi82ue87qDsoKGr?=
+ =?us-ascii?Q?FX5CDF7bcUONByeDYj3p7xDFBJrycZqJAOHCyJx/dmqae+QWlRDnFMLGmqvJ?=
+ =?us-ascii?Q?xlOPU9zKmGEC47LXt/gliKqr4gzxLQn3fyyTWBc9txGO4HnI1/dOzmv5gECh?=
+ =?us-ascii?Q?YOrsUviDTnyLZrlSfZ/8SoQquqh+75KDKBIKzy4A58Yob1QEYTSy+FDYY/kb?=
+ =?us-ascii?Q?VHu83ZQcw18BKx+QANx+VJB/ARaGICDW9iAzLcBvZCPBzDDhkcIhqeu0JApP?=
+ =?us-ascii?Q?ezvZ8WYB5TZt+wvycKHjTrzs5XF+4A8RqbJq4gbS95sKjX/Pf3GivHtbW5H1?=
+ =?us-ascii?Q?WbaRI+U2ExALb9GHWVfljMR3uAEpDe5Ml0i7Rdxrh5cL7I2ylcNB8ka7ubQN?=
+ =?us-ascii?Q?SZA/3lcU+ORKsGGsyRxDX6Hk651oK/wtr4BtobC8v8I3D+YdXK+NCSYCrTyW?=
+ =?us-ascii?Q?zw2D0KABNVdHOL9kXHMQpDwOXN3IqxQAnIRfMl6uHJIloXP8rdrRfaPronxd?=
+ =?us-ascii?Q?A7erJcSOopc6Qd18t4bXuNT+quBBiH5MND1Y4pA3/GrlNSZydkEZtF+XsaSt?=
+ =?us-ascii?Q?iC8xI1KGpRf01h5bLiJ7U+d/3twn/ltrknuRKrrLIr05YZObedVTlK1XaOZD?=
+ =?us-ascii?Q?9Oe/sUDIQMJq4cugxGQqwJz7sqNrwS/TPlOBxd+O4ozIIQi70mgnDlrn/qvb?=
+ =?us-ascii?Q?CpHaSarSO7qiDRlAm0putLc7Ma++pY4lnoHcWsAvnAQE3eD2kMxHdPDa9+OY?=
+ =?us-ascii?Q?Ov4YD/CeARg5ujoyHVca192BTzV/ygYaRjNUWSpJNbqL2OIP6/9WXm1Kf9m5?=
+ =?us-ascii?Q?WdfdRdFQfOyemUY0QDrYXOJ6/V02+kYLnT8K362xm950OLk0OoFJgsp9/ivh?=
+ =?us-ascii?Q?pDEEL7lq/VYO2S0NG+TSC6Nck1UcIpNVefBvAwAsrWP5qezGYOTaXl8BBnVr?=
+ =?us-ascii?Q?ANnLV1VYVn/Rt1PRfJ/QlCIQ+mFj40Kkc03ORKe0D0XsIouMNwh4mLjB1Rc1?=
+ =?us-ascii?Q?lpSP/utp7fIc+jWKnjst1DlyybuKC5s+4wOVGUnyW7y4c4NXBksDD1crsFbr?=
+ =?us-ascii?Q?amtRni1OzTnHBIHcyMPG0vtuRPeLbJuewNKtbdh56RUM14vbqdKnlCIY/oRH?=
+ =?us-ascii?Q?mXkid6tahiqWzdoMiuULVy2WdluHkjDiErrGNo36+JZ9W94auRNxoad7osQa?=
+ =?us-ascii?Q?OfntCium29YI6ksUhHeAGjKuqOtloNqAaFYyD4BVFC4i5eM9+p5326nYyr8z?=
+ =?us-ascii?Q?IOcqGwX7kTkiQUz1h+m8MxS0/DiA4VAXMjplKCmtfzipGOIKLxoEimJTZ8+a?=
+ =?us-ascii?Q?MkCMXK0UxU7KtkUMgaSWUIb3HVClCXWN8/ilLjSXvMmLzYvdtYOJtgX72BaF?=
+ =?us-ascii?Q?crT0gHDvFmIbmI+BUGLursA8G6dIrWN0LgMe9VQBnig0ID7Y0qfT1IRfdglP?=
+ =?us-ascii?Q?X7Iprrnqdg5URkLcF/KA32kXI2gk1r8G?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2024 09:44:59.7090
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2581e1c-16c7-4180-5c1e-08dcd2466705
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000ECDA.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8493
 
-On 10.09.2024 20:28, Andrew Cooper wrote:
-> On 10/09/2024 3:41 pm, Jan Beulich wrote:
->> No uses are left, hence its setup, teardown, and the field itself can
->> also go away. stdvga_deinit() is then empty and can be dropped as well.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>,
+From: Michal Orzel <michal.orzel@amd.com>
 
-Thanks.
+AoU are the assumptions Xen relies on other components (eg platform, domains)
+to fulfill its requirements. In our case, platform means a combination of
+hardware, firmware and bootloader.
 
-> although I think there's more to do.
-> 
->> --- a/xen/arch/x86/include/asm/hvm/io.h
->> +++ b/xen/arch/x86/include/asm/hvm/io.h
->> @@ -111,12 +111,10 @@ struct vpci_arch_msix_entry {
->>  };
->>  
->>  struct hvm_hw_stdvga {
->> -    struct page_info *vram_page[64];  /* shadow of 0xa0000-0xaffff */
->>      spinlock_t lock;
->>  };
-> 
-> I'm pretty sure you can drop the lock too.  It's taken in accept(), and
-> dropped in complete(), but there's no state at all to be protected.
-> 
-> stdvga_mem_accept()'s return value is a simple expression of p.
+We have defined AoU in the intro.rst and added AoU for the generic timer.
 
-I think you're right. Previously I was assuming the lock was (also) about
-serializing the bufioreq sending, yet ioreq_send_buffered() has its own
-serialization. And hence yes, with all other state gone, the lock can go
-too, as can ...
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
+Changes from :-
 
-> With that dropped, the complete() handler disappears, and it's the only
-> hvm_io_ops->complete() handler in Xen so the whole field can go.
+v1 - 1. Removed the part of requirement which states that Xen exposes the
+frequency of the system timer by reading the "clock-frequency" property.
 
-... this hook.
+2. Added a rationale for AoU.
 
-> So I'm pretty sure there are 2 more patches that ought to be part of
-> this series, which go in a further negative direction.
+3. Reworded the AoU.
 
-Will do.
+ .../reqs/design-reqs/arm64/generic-timer.rst  | 24 ++++++++++++++++++-
+ docs/fusa/reqs/intro.rst                      | 10 ++++++++
+ 2 files changed, 33 insertions(+), 1 deletion(-)
 
-Jan
+diff --git a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
+index f2a0cd7fb8..86d84a3c40 100644
+--- a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
++++ b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
+@@ -30,7 +30,7 @@ Read system counter frequency
+ 
+ Description:
+ Xen shall expose the frequency of the system counter to the domains in
+-CNTFRQ_EL0 register and/or domain device tree's "clock-frequency" property.
++CNTFRQ_EL0 register.
+ 
+ Rationale:
+ 
+@@ -116,6 +116,28 @@ Rationale:
+ 
+ Comments:
+ 
++Covers:
++ - `XenProd~emulated_timer~1`
++
++Assumption of Use on the Platform
++=================================
++
++Expose system timer frequency via register
++------------------------------------------
++
++`XenSwdgn~arm64_generic_timer_plat_program_cntfrq_el0~1`
++
++Description:
++Underlying platform shall program CNTFRQ_EL0 register with the value of system
++timer frequency.
++
++Rationale:
++Xen reads the CNTFRQ_EL0 register to get the value of system timer frequency.
++While there is a provision to get this value by reading the "clock-frequency"
++dt property [2], the use of this property is strongly discouraged.
++
++Comments:
++
+ Covers:
+  - `XenProd~emulated_timer~1`
+ 
+diff --git a/docs/fusa/reqs/intro.rst b/docs/fusa/reqs/intro.rst
+index 245a219ff2..aa85ff821c 100644
+--- a/docs/fusa/reqs/intro.rst
++++ b/docs/fusa/reqs/intro.rst
+@@ -38,6 +38,16 @@ The requirements are linked using OpenFastTrace
+ OpenFastTrace parses through the requirements and generates a traceability
+ report.
+ 
++Assumption of Use
++=================
++
++To fulfill one or more design requirements, there may be underlying assumptions
++on one or more components that Xen interacts with directly or indirectly. For
++eg, there may be assumptions on the underlying platform (hardware + firmware +
++bootloader) to set certain registers, etc. The important thing here is that
++anyone who validates these requirements, need to consider the assumption on the
++other components.
++
+ The following is the skeleton for a requirement.
+ 
+ Title of the requirement
+-- 
+2.25.1
+
 
