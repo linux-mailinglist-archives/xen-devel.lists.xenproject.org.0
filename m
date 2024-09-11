@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FB1F9754EF
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 16:06:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.796677.1206427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DE8B975503
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2024 16:10:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.796685.1206437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soNya-00016f-F5; Wed, 11 Sep 2024 14:05:44 +0000
+	id 1soO3H-0002yS-WC; Wed, 11 Sep 2024 14:10:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 796677.1206427; Wed, 11 Sep 2024 14:05:44 +0000
+Received: by outflank-mailman (output) from mailman id 796685.1206437; Wed, 11 Sep 2024 14:10:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soNya-000158-CM; Wed, 11 Sep 2024 14:05:44 +0000
-Received: by outflank-mailman (input) for mailman id 796677;
- Wed, 11 Sep 2024 14:05:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1soO3H-0002wx-TS; Wed, 11 Sep 2024 14:10:35 +0000
+Received: by outflank-mailman (input) for mailman id 796685;
+ Wed, 11 Sep 2024 14:10:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z7kF=QJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1soNyZ-000152-Gn
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 14:05:43 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ee009e0a-7046-11ef-99a1-01e77a169b0f;
- Wed, 11 Sep 2024 16:05:41 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so541294366b.2
- for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 07:05:41 -0700 (PDT)
+ id 1soO3G-0002wr-I8
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2024 14:10:34 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9c02f581-7047-11ef-a0b5-8be0dac302b0;
+ Wed, 11 Sep 2024 16:10:33 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2f754d4a6e4so61233441fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Sep 2024 07:10:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25c727fcsm615515966b.119.2024.09.11.07.05.36
+ 4fb4d7f45d1cf-5c3ebd8c4d4sm5426541a12.82.2024.09.11.07.10.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Sep 2024 07:05:36 -0700 (PDT)
+ Wed, 11 Sep 2024 07:10:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee009e0a-7046-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 9c02f581-7047-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726063541; x=1726668341; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1726063833; x=1726668633; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WhLYI+WH2rjAQ15cEzLwb0tlF+B4QF8tQmpD1iXPMtg=;
-        b=ZwkxLZuduPha556fc080XUhEHSXgDG5ejoW7aqahKgImTrb44sa+XrEEoN/IYQAxsZ
-         MDojxjveAiIT8NBFpnIlfhnXUYDoGclW16NSfgnskFgvfxxUrU9H0Uikn8RQFIGptOia
-         uINVg0KMSpM8YHYNOLL+M+KXxvH4X81C4hv9Yn2wlB3Qz98YXpS38xbN4goOAK6J8kMA
-         h96iDfM+m85iWm9tTR3VdDMncLuGjx7V5iZm+ZVGZ6mzvIw9NGroUt1jU6/Hl0+U3+wT
-         Oq6JAUUZI+CFceYUmFEh3G10QB67I22fg7Cvrn1UqjWwz8fyqE7SLWOXfM/m+u6DkvYV
-         KMoQ==
+        bh=8vm6bJu/SSqasVGIXNfEM45aEzmZzIYaSIX+r0rHBU8=;
+        b=gPQJX88NAv/OlzahJDcRxxoOQFCtljrKh0H/CP1kqIyIc1Ktl5S3ERfjneERlDtBTr
+         fgZP18PRJRl3U/hy+TOiVPPI+935RtDoLr6v+gJZbI8UIKprCc339Ly8DuzGDHgX9WtJ
+         PcTE2GjCKz4nurSEof38PX8/9z50kaK/NZYzxowzTfMKAzJ4CzDzr6Zs/gX2kMFr00oW
+         wTPV0q5csELz7fogDva26AJtQAqSPslllesjvK5wUqVbtEIPgzwcAp0cVvpwmxSwgKOq
+         unb9Ap2dbboAu7m1hT/b1RvrO24A3p9woJX1cequC5aTkRLUP9+0I76c9TSpa4KaStOc
+         Ko9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726063541; x=1726668341;
+        d=1e100.net; s=20230601; t=1726063833; x=1726668633;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WhLYI+WH2rjAQ15cEzLwb0tlF+B4QF8tQmpD1iXPMtg=;
-        b=WgWRJ9qLBYj0yd4hpw6AM5BI0FvZ0fowDYzdnDeiMA+wpeReh3HdYwZsCXuVD/7QWf
-         aMphZOQsu3JIUc/fI6Vj6Vjm40n1rOqsty+jP+QBSbJlPMkYzmcjmIgvln4kbcaectuX
-         enOBFhyjxIvp8o5lDAG4o42Z1RftFG+L+Dk83/0jAI7y9hnNAm3Ruj5LRyUm7EJ6ZsP/
-         jVGMrHOqslURgU5cIpiWpDd6wfnEDc2sJV9mWzz6iFSxjqnS4tSHC5X20X8qX7PWegX+
-         tpJkn+yWYO5s4P0LiE/AxlZCGtKe8Kibv5XuIRxeeZfyyyfZWr6SqdoVYObllk6a9t/4
-         SgZg==
-X-Forwarded-Encrypted: i=1; AJvYcCU2Brf2nAJqK8zU2A02lx5aGTpGrFA6S0GdAQ6MPtWcXIg125MdVW+sIdNGG/2Gvs99R8emRcyQgRQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzCM58CB3qYWajcK5OGIrb6pJyzRIXWy+vZn8qvU/lUeYuI0MNF
-	o0hwFLePXqe8zqdfdqp6RX8zL6qlphLbvEvAY76A2CfGj7nBEchy3zuUd1cN5bo5WnyutVnlYiY
-	=
-X-Google-Smtp-Source: AGHT+IEyeFq8hsLHdogrd/8rn6+qhvbzUrav/AAq/ytx73jmyr9/QF1cYHs2bNOPKtH7vpdf6JhKIg==
-X-Received: by 2002:a17:907:9807:b0:a89:f1b9:d391 with SMTP id a640c23a62f3a-a8ffab292fcmr431803466b.14.1726063536758;
-        Wed, 11 Sep 2024 07:05:36 -0700 (PDT)
-Message-ID: <346e9f49-463a-4451-a499-8b0c3129a53b@suse.com>
-Date: Wed, 11 Sep 2024 16:05:36 +0200
+        bh=8vm6bJu/SSqasVGIXNfEM45aEzmZzIYaSIX+r0rHBU8=;
+        b=iUTr3SG1o120X4w1MCpleSxmEo0NU8qZ0DxiHg4AKT6sGs4nY8xlfy0OgaBfs6OUrN
+         aZlynqbxIF3ZKuH+ZSNtZcANnIGaZA4ISCV+McmAvEcVUtyw1ZipSeLC/uALVPaOP387
+         1DIM76JA2rY0Tz3bfG1hNT5YHnannGimPTplN96bTE4T41B53CWP3+zV3dwbM0jZNrXQ
+         9J7z5XCIK7Ww+kGapmQVlYo0x3mPzs2zjyQ7DkV4p5nPfNOOCiIYt9DkYYKjd1msAJGy
+         Idg8Iv75nWEeDF34LRiQflMIKqKW5ALbWrb6xfzjnBwj2McZkDPOcV2PDJw1nZj0SLvb
+         ywYA==
+X-Forwarded-Encrypted: i=1; AJvYcCXfUpUNNheqdNjOp0A/Ld/Pdm6+oscgOlR5OIZ943xgnXs1jn89b5DTX/E5lyAVnfyOj4y9vbZDDWo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz6OsYNuNv4hOMnGxS4IjiJTNBFg2HBBO7RNOmplcJdYKRo1cAl
+	nygeNtsi+08kvHV0uXVFsU8dxW7aMvMPrH0nkVvmQbYzw/rDXO/DVKklO7KU4A==
+X-Google-Smtp-Source: AGHT+IG4e2Q0lznVhDoBHk15si6B5JkqZGgjoChbOLQtc688bIM6GXYlJcWpZOQEljhvcC07+2hfhg==
+X-Received: by 2002:a05:651c:1989:b0:2ef:2bb4:45d with SMTP id 38308e7fff4ca-2f751eaf2c4mr90575011fa.9.1726063832729;
+        Wed, 11 Sep 2024 07:10:32 -0700 (PDT)
+Message-ID: <0a36284e-4b99-413c-bc12-0328b12da0d2@suse.com>
+Date: Wed, 11 Sep 2024 16:10:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/9] x86/HVM: drop stdvga's "lock" struct member
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <dc3faf7d-0690-46e6-8fbc-67a177a1e171@suse.com>
- <716868cb-6a94-4470-a1a5-a4b5994e8195@suse.com>
- <dcc120ce-6634-465b-81ee-d652bd0935a7@citrix.com>
- <d7394132-e3ed-4804-8da0-6333a1dcf466@suse.com>
- <db97215e-4e78-413c-b86d-aec8c87f8a86@citrix.com>
+Subject: Re: [XEN PATCH 1/3] EFI: address violations of MISRA C Rule 13.6
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Federico Serafini <federico.serafini@bugseng.com>,
+ consulting@bugseng.com, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1725994633.git.federico.serafini@bugseng.com>
+ <2e893e6e83fdfb24c5f9c4d2da59114cba9a1df8.1725994633.git.federico.serafini@bugseng.com>
+ <c068874b-a4bd-4ccc-a9bf-08a996797543@suse.com> <ZuGYOldX55_ZfJCv@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,50 +115,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <db97215e-4e78-413c-b86d-aec8c87f8a86@citrix.com>
+In-Reply-To: <ZuGYOldX55_ZfJCv@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.09.2024 15:07, Andrew Cooper wrote:
-> On 11/09/2024 1:58 pm, Jan Beulich wrote:
->> On 11.09.2024 14:42, Andrew Cooper wrote:
->>> On 11/09/2024 1:29 pm, Jan Beulich wrote:
->>> However for performance, we also want to do the dir/ptr/count exclusions
->>> before the address range exclusions, meaning that ...
->>>
->>>>  
->>>> -    spin_lock(&s->lock);
->>>> -
->>>>      if ( p->dir != IOREQ_WRITE || p->data_is_ptr || p->count != 1 )
->>>>      {
->>>>          /*
->>>>           * Only accept single direct writes, as that's the only thing we can
->>>>           * accelerate using buffered ioreq handling.
->>>>           */
->>> ... it wants merging with this into a single expression.
->> I'm not convinced, and hence would at least want to keep this separate.
->> Which exact order checks want doing in would require more detailed
->> analysis imo. Or do you have blindingly obvious reasons to believe that
->> the re-ordering you suggest is always going to be an improvement?
+On 11.09.2024 15:16, Marek Marczykowski-Górecki wrote:
+> On Wed, Sep 11, 2024 at 02:50:03PM +0200, Jan Beulich wrote:
+>> On 10.09.2024 21:06, Federico Serafini wrote:
+>>> Refactor the code to improve readability
+>>
+>> I question this aspect. I'm not the maintainer of this code anymore, so
+>> my view probably doesn't matter much here.
+>>
+>>> and address violations of
+>>> MISRA C:2012 Rule 13.6 ("The operand of the `sizeof' operator shall
+>>> not contain any expression which has potential side effect").
+>>
+>> Where's the potential side effect? Since you move ...
+>>
+>>> --- a/xen/common/efi/runtime.c
+>>> +++ b/xen/common/efi/runtime.c
+>>> @@ -250,14 +250,20 @@ int efi_get_info(uint32_t idx, union xenpf_efi_info *info)
+>>>          info->cfg.addr = __pa(efi_ct);
+>>>          info->cfg.nent = efi_num_ct;
+>>>          break;
+>>> +
+>>>      case XEN_FW_EFI_VENDOR:
+>>> +    {
+>>> +        XEN_GUEST_HANDLE_PARAM(CHAR16) vendor_name =
+>>> +            guest_handle_cast(info->vendor.name, CHAR16);
+>>
+>> .. this out, it must be the one. I've looked at it, yet I can't spot
+>> anything:
+>>
+>> #define guest_handle_cast(hnd, type) ({         \
+>>     type *_x = (hnd).p;                         \
+>>     (XEN_GUEST_HANDLE_PARAM(type)) { _x };      \
+>> })
+>>
+>> As a rule of thumb, when things aren't obvious, please call out the
+>> specific aspect / property in descriptions of such patches.
 > 
-> I'm not overly fussed if this is delayed to a later patch.  My review
-> stands as long as the comment is gone.
-> 
-> But, right now, accept() is called linearly over all handlers (there's
-> not range based registration) so *every* IO comes through this logic path.
+> I guess it's because guest_handle_cast() is a macro, yet it's lowercase
+> so looks like a function?
 
-Not exactly every, only ones not claimed earlier. But yes.
+If Eclair didn't look at the macro-expanded code, it wouldn't even see
+the sizeof(). Hence I don't expect the thing to be mistaken for a function
+call.
 
-> The likely path is the excluded path.  ioreq_mmio_{first,last}_byte()
-> are non-trivial logic because they account for DF, so being able to
-> exclude based on direction/size before the DF calculations is a definite
-> improvement.
+> Wasn't there some other MISRA rule about lowercase/uppercase for macro names?
 
-Perhaps. Yet if we were to re-order, calling ioreq_mmio_{first,last}_byte()
-becomes questionable in the first place. I wouldn't expect the compiler to
-spot that it can reduce those expressions as a result of knowing ->count
-being 1 (and hence ->df playing no role at all). Maybe I'm overly
-pessimistic ...
+I can't recall having run into one, but I also haven't memorized them all.
 
 Jan
 
