@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F326976AC9
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 15:37:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797498.1207474 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F94E976B10
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 15:48:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797505.1207484 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sok0n-0005nj-9a; Thu, 12 Sep 2024 13:37:29 +0000
+	id 1sokAy-0007nq-8O; Thu, 12 Sep 2024 13:48:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797498.1207474; Thu, 12 Sep 2024 13:37:29 +0000
+Received: by outflank-mailman (output) from mailman id 797505.1207484; Thu, 12 Sep 2024 13:48:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sok0n-0005lE-6C; Thu, 12 Sep 2024 13:37:29 +0000
-Received: by outflank-mailman (input) for mailman id 797498;
- Thu, 12 Sep 2024 13:37:27 +0000
+	id 1sokAy-0007lg-4I; Thu, 12 Sep 2024 13:48:00 +0000
+Received: by outflank-mailman (input) for mailman id 797505;
+ Thu, 12 Sep 2024 13:47:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HbDX=QK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sok0l-0005jr-99
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 13:37:27 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1sokAw-0007kB-6k
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 13:47:58 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2568576a-710c-11ef-99a1-01e77a169b0f;
- Thu, 12 Sep 2024 15:37:25 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5c251ba0d1cso1129130a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 06:37:25 -0700 (PDT)
+ id 9d7faf36-710d-11ef-99a1-01e77a169b0f;
+ Thu, 12 Sep 2024 15:47:56 +0200 (CEST)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-5366fd6fdf1so1336550e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 06:47:56 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a901c737f09sm173563066b.30.2024.09.12.06.37.23
+ 4fb4d7f45d1cf-5c3ebd76eb6sm6574622a12.61.2024.09.12.06.47.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Sep 2024 06:37:23 -0700 (PDT)
+ Thu, 12 Sep 2024 06:47:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,102 +44,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2568576a-710c-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 9d7faf36-710d-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1726148245; x=1726753045; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1726148876; x=1726753676; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=NBv5JEt9GtBVg0TetdBOd9hVeWNnAfxyytk2a4R0tEY=;
-        b=WekLCqIvfG6fMxYIlVnC6CSdUz+vwTLHpq6BF9N0+hzlMn9npQPaOkvYtQvdFp1SiT
-         mHxyAUY9gSRaJNvFiw2Kg0nHiK6HVdQyVygRnuLEw1yI5wuyVdvIkityS9vOHebPWIxD
-         m/pUVwo23FyCTcgPjmT1MM/KReAEOc81W8U1I=
+        bh=Dsth6Noo7k6lYDDpfXIP5Q/c2azbg2VnuQUgq1nBaw4=;
+        b=XI5wEtdDlSzbpVFUP2N9/RpGFYOTAIMQETPXG9x5C6KEXwUq4nDONVPSid7t3Tq4WJ
+         Y+tuvOMq25PF7MU6uS0T2ax6jlK+oxeUheLLfK3+pvyfH0WbolmCasr2gxGo9IJUNu34
+         HoVriMo7ABpUxsYhh+pBns5V3qrQ71cGBM0HI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726148245; x=1726753045;
+        d=1e100.net; s=20230601; t=1726148876; x=1726753676;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=NBv5JEt9GtBVg0TetdBOd9hVeWNnAfxyytk2a4R0tEY=;
-        b=ovvm3stv7AFhEqITIyPPg87/tYmgZf3JB1IYD6mlHoBo1OkgdEJwmF7S9Wrc29Fhwy
-         kRv2IQLJDWZehz8vAzWJnq9SX5tQijcvtMLG37V2/8YD7bJpzngW3at+oE2mP1L4ZZOC
-         tuwEPcdvw5inzBvuNaJJFM+JhdxEjqZ07153uNpzUm46Z0HomEXUnE0H/11ZD8dIGTTk
-         psp5YUZJO/pa/JT1vfYzA2b3mkUycMxRQiMeMwKa7zLqAZO5vSr/nG6dGW9NQaI9rUEf
-         O1xfpgOxgR+eXtJ9IAzbhN23qJlNpIOLld8vzkmKW3PNdZRogMIOsBPKhtN1JpTOraPd
-         HUiw==
-X-Gm-Message-State: AOJu0Ywhstqa4iPTyBnpl/WXGB9xW9w3JipoDc0mNr7vEEMlzdDHclG3
-	eGEy6YMtQrll0s3b57ba+loKwkFQMKoUQ0Sd+pWF7hNHGYaSu1/5ZVcihYA7jxY=
-X-Google-Smtp-Source: AGHT+IE28TtxUmZNNkbXPJOwzqi8bFJZsUD66rxkHlTGEkz1WLQV3xkFBqNN8hQ6/DmEsOfBuldTWQ==
-X-Received: by 2002:a17:906:bc13:b0:a86:6cb1:4d49 with SMTP id a640c23a62f3a-a90294aca05mr282117866b.13.1726148244239;
-        Thu, 12 Sep 2024 06:37:24 -0700 (PDT)
-Date: Thu, 12 Sep 2024 15:37:23 +0200
+        bh=Dsth6Noo7k6lYDDpfXIP5Q/c2azbg2VnuQUgq1nBaw4=;
+        b=MOfIWAhOURNg0EV8D0kmUfpj0Et8odwY8k9v6W+Zm6IR07o9GUnvSb597+ZD0VQKEg
+         DXdhLH2aKBvAhhAlQSJsmIsWHkOZDaJviUh/bJg272u0QU8HRnU4AhaUMqJ994im/HBE
+         mMTf9zB9KjM8o2e+ovUViHLroPHL+OeiGWy0G1n6kc07W8s8AsqyIh95kJLUGlq7hSDm
+         ZpTPLl46HkaNXP+fHTYbNhyS3xOYLyD5BVjaGmrXAs1SxcnSVTk3EhcwUFhLeefFIbS5
+         NkQQaLwYm0/qSNsvVXmCftgXj7J61KFJT/mbbsOI9z3pac32pkfnOmg96TMPmTor8VNG
+         mScA==
+X-Forwarded-Encrypted: i=1; AJvYcCW280eytDS2AnsXqEFwueMeMdA0rTNl7RSRX5rf7GkOnhkTUUUX3U3LtJ0Vc0cWIpECvWWhPkCecgA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwR/OFj+2zjkl745uRVSVFLY39AbzuTEpQCZwKGgzVuSM3G0j0t
+	mf4GGhzjjOIG9W7LVhz5ndVo75lui5gpsdT6XRCw9BFa7qc7TnZStCFC8XMdOu8=
+X-Google-Smtp-Source: AGHT+IHbyyzfck1kSCUvW20FVBU4ZOqHuCg3LPiPQkUmsc+dBzS1yoidHvSYrxRTIHPOT0+IQ4ivgg==
+X-Received: by 2002:a05:6512:31cb:b0:52e:be1f:bf7f with SMTP id 2adb3069b0e04-53678fbf751mr1650479e87.27.1726148874993;
+        Thu, 12 Sep 2024 06:47:54 -0700 (PDT)
+Date: Thu, 12 Sep 2024 15:47:53 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <JBeulich@suse.com>,
-	Daniel Smith <dpsmith@apertussolutions.com>,
-	Jason Andryuk <jandryuk@gmail.com>
-Subject: Re: [PATCH] xen/keyhandler: Move key_table[] into __ro_after_init
-Message-ID: <ZuLuk-Y3RKGZIi0d@macbook.local>
-References: <20240912125154.1708025-1-andrew.cooper3@citrix.com>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 1/2] x86/time: introduce command line option to select
+ wallclock
+Message-ID: <ZuLxCXuxFbJq-rK_@macbook.local>
+References: <20240912111514.26934-1-roger.pau@citrix.com>
+ <20240912111514.26934-2-roger.pau@citrix.com>
+ <51c8a98b-145c-4834-865c-b75b61f1d5b0@suse.com>
+ <ZuLlF1PKSOmbqr8u@macbook.local>
+ <ZuLs-htt3Kvw-M6A@mail-itl>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240912125154.1708025-1-andrew.cooper3@citrix.com>
+In-Reply-To: <ZuLs-htt3Kvw-M6A@mail-itl>
 
-On Thu, Sep 12, 2024 at 01:51:54PM +0100, Andrew Cooper wrote:
-> All registration is done at boot.  Almost...
+On Thu, Sep 12, 2024 at 03:30:29PM +0200, Marek Marczykowski-Górecki wrote:
+> On Thu, Sep 12, 2024 at 02:56:55PM +0200, Roger Pau Monné wrote:
+> > On Thu, Sep 12, 2024 at 01:57:00PM +0200, Jan Beulich wrote:
+> > > On 12.09.2024 13:15, Roger Pau Monne wrote:
+> > > > --- a/xen/arch/x86/time.c
+> > > > +++ b/xen/arch/x86/time.c
+> > > > @@ -1552,6 +1552,35 @@ static const char *__init wallclock_type_to_string(void)
+> > > >      return "";
+> > > >  }
+> > > >  
+> > > > +static int __init cf_check parse_wallclock(const char *arg)
+> > > > +{
+> > > > +    if ( !arg )
+> > > > +        return -EINVAL;
+> > > > +
+> > > > +    if ( !strcmp("auto", arg) )
+> > > > +        wallclock_source = WALLCLOCK_UNSET;
+> > > > +    else if ( !strcmp("xen", arg) )
+> > > > +    {
+> > > > +        if ( !xen_guest )
+> > > > +            return -EINVAL;
+> > > > +
+> > > > +        wallclock_source = WALLCLOCK_XEN;
+> > > > +    }
+> > > > +    else if ( !strcmp("cmos", arg) )
+> > > > +        wallclock_source = WALLCLOCK_CMOS;
+> > > > +    else if ( !strcmp("efi", arg) )
+> > > > +        /*
+> > > > +         * Checking if run-time services are available must be done after
+> > > > +         * command line parsing.
+> > > > +         */
+> > > > +        wallclock_source = WALLCLOCK_EFI;
+> > > > +    else
+> > > > +        return -EINVAL;
+> > > > +
+> > > > +    return 0;
+> > > > +}
+> > > > +custom_param("wallclock", parse_wallclock);
+> > > > +
+> > > >  static void __init probe_wallclock(void)
+> > > >  {
+> > > >      ASSERT(wallclock_source == WALLCLOCK_UNSET);
+> > > > @@ -2527,7 +2556,15 @@ int __init init_xen_time(void)
+> > > >  
+> > > >      open_softirq(TIME_CALIBRATE_SOFTIRQ, local_time_calibration);
+> > > >  
+> > > > -    probe_wallclock();
+> > > > +    /*
+> > > > +     * EFI run time services can be disabled from the command line, hence the
+> > > > +     * check for them cannot be done as part of the wallclock option parsing.
+> > > > +     */
+> > > > +    if ( wallclock_source == WALLCLOCK_EFI && !efi_enabled(EFI_RS) )
+> > > > +        wallclock_source = WALLCLOCK_UNSET;
+> > > > +
+> > > > +    if ( wallclock_source == WALLCLOCK_UNSET )
+> > > > +        probe_wallclock();
+> > > 
+> > > I don't want to stand in the way, and I can live with this form, so I'd like to
+> > > ask that EFI folks or Andrew provide the necessary A-b / R-b. I'd like to note
+> > > though that there continue to be quirks here. They may not be affecting the
+> > > overall result as long as we have only three possible wallclocks, but there
+> > > might be problems if a 4th one appeared.
+> > > 
+> > > With the EFI_RS check in the command line handler and assuming the default case
+> > > of no "efi=no-rs" on the command line, EFI_RS may still end up being off by the
+> > > time the command line is being parsed. With "wallclock=cmos wallclock=efi" this
+> > > would result in no probing and "cmos" chosen if there was that check in place.
+> > > With the logic as added here there will be probing in that case. Replace "cmos"
+> > > by a hypothetical non-default 4th wallclock type (i.e. probing picking "cmos"),
+> > > and I expect you can see how the result would then not necessarily be as
+> > > expected.
+> > 
+> > My expectation would be that if "wallclock=cmos wallclock=efi" is used
+> > the last option overrides any previous one, and hence if that last
+> > option is not valid the logic will fallback to the default selection
+> > (in this case to probing).
 > 
-> iommu_dump_page_tables() is registered in iommu_hwdom_init(), which is called
-> twice when LATE_HWDOM is in use.
+> That would be my expectation too. If some kind of preference would be
+> expected, it should looks like wallclock=efi,cmos, but I don't think we
+> need that.
 > 
-> register_irq_keyhandler() has an ASSERT() guarding againt multiple
-> registration attempts, and the absence of bug reports hints at how many
-> configurations use LATE_HWDOM in practice.
+> > Thinking about this, it might make sense to unconditionally set
+> > wallclock_source = WALLCLOCK_UNSET at the start of parse_wallclock()
+> > to avoid previous instances carrying over if later ones are not valid.
 > 
-> Move the registration into iommu_setup() just after printing the overall
-> status of the IOMMU.  For starters, the hardware domain is specifically
-> excluded by iommu_dump_page_tables().
-> 
-> ept_dump_p2m_table is registered in setup_ept_dump() which is non-__init, but
-> whose sole caller, start_vmx(), is __init.  Move setup_ept_dump() to match.
-> 
-> With these two tweeks, all keyhandler reigstration is from __init functions,
-> so register_{,irq_}keyhandler() can move, and key_table[] can become
-> __ro_after_init.
-> 
-> No practical change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> This may be a good idea. But more importantly, the behavior should be
+> included in the option documentation (that if a selected value is not
+> available, it fallback to auto). And maybe a log message when that
+> happens (but I'm okay with skipping this one, as selected wallclock
+> source is logged already)?
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Thanks, would you be fine with:
 
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Daniel Smith <dpsmith@apertussolutions.com>
-> CC: Jason Andryuk <jandryuk@gmail.com>
-> 
-> CC'ing some OpenXT folks just FYI.
-> ---
->  xen/arch/x86/mm/p2m-ept.c       |  2 +-
->  xen/common/keyhandler.c         | 10 +++++-----
->  xen/drivers/passthrough/iommu.c |  4 ++--
->  3 files changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
-> index 2ea574ca6aef..21728397f9ac 100644
-> --- a/xen/arch/x86/mm/p2m-ept.c
-> +++ b/xen/arch/x86/mm/p2m-ept.c
-> @@ -1497,7 +1497,7 @@ static void cf_check ept_dump_p2m_table(unsigned char key)
->      rcu_read_unlock(&domlist_read_lock);
->  }
->  
-> -void setup_ept_dump(void)
-> +void __init setup_ept_dump(void)
+### wallclock (x86)
+> `= auto | xen | cmos | efi`
 
-I would be tempted to just drop this function altogether and open-code
-the call to register_keyhandler().
+> Default: `auto`
 
-Thanks, Roger.
+Allow forcing the usage of a specific wallclock source.
+
+ * `auto` let the hypervisor select the clocksource based on internal
+   heuristics.
+
+ * `xen` force usage of the Xen shared_info wallclock when booted as a Xen
+   guest.  This option is only available if the hypervisor was compiled with
+   `CONFIG_XEN_GUEST` enabled.
+
+ * `cmos` force usage of the CMOS RTC wallclock.
+
+ * `efi` force usage of the EFI_GET_TIME run-time method when booted from EFI
+   firmware.
+
+If the selected option is not available Xen will default to `auto`.
+
+Regards, Roger.
 
