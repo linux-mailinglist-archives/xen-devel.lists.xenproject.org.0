@@ -2,33 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF75B976402
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 10:07:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797076.1206873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2632C976507
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 10:58:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797081.1206882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soer6-0001yU-5G; Thu, 12 Sep 2024 08:07:08 +0000
+	id 1sofdh-0007sq-IE; Thu, 12 Sep 2024 08:57:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797076.1206873; Thu, 12 Sep 2024 08:07:08 +0000
+Received: by outflank-mailman (output) from mailman id 797081.1206882; Thu, 12 Sep 2024 08:57:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1soer6-0001ve-1f; Thu, 12 Sep 2024 08:07:08 +0000
-Received: by outflank-mailman (input) for mailman id 797076;
- Thu, 12 Sep 2024 08:07:06 +0000
+	id 1sofdh-0007qI-FJ; Thu, 12 Sep 2024 08:57:21 +0000
+Received: by outflank-mailman (input) for mailman id 797081;
+ Thu, 12 Sep 2024 08:57:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UBhH=QK=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1soer3-0001vB-B9
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 08:07:06 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=pgu6=QK=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1sofdg-0007qC-9R
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 08:57:20 +0000
+Received: from pb-smtp2.pobox.com (pb-smtp2.pobox.com [64.147.108.71])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fcf35b1d-70dd-11ef-99a1-01e77a169b0f;
- Thu, 12 Sep 2024 10:07:00 +0200 (CEST)
-Received: from [192.168.1.20] (host-79-37-206-90.retail.telecomitalia.it
- [79.37.206.90])
- by support.bugseng.com (Postfix) with ESMTPSA id 790714EE0C98;
- Thu, 12 Sep 2024 10:06:59 +0200 (CEST)
+ id 00c2cc99-70e5-11ef-99a1-01e77a169b0f;
+ Thu, 12 Sep 2024 10:57:17 +0200 (CEST)
+Received: from pb-smtp2.pobox.com (unknown [127.0.0.1])
+ by pb-smtp2.pobox.com (Postfix) with ESMTP id F08272DDBC;
+ Thu, 12 Sep 2024 04:57:12 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from pb-smtp2.nyi.icgroup.com (unknown [127.0.0.1])
+ by pb-smtp2.pobox.com (Postfix) with ESMTP id E8A9B2DDBB;
+ Thu, 12 Sep 2024 04:57:12 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from localhost (unknown [185.130.54.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by pb-smtp2.pobox.com (Postfix) with ESMTPSA id 9DD2F2DDBA;
+ Thu, 12 Sep 2024 04:57:11 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,128 +50,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcf35b1d-70dd-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1726128419; bh=rVdjwtfGQfLfKfy5vfF8Lf/idGPEFClOro2/RPzIi2c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=pGbLgnx5rKQDZCDZZgHdrmzS+tZDcLzqoVxwMPvO7WAlFSq5Ym4AcQonbhjrgyWM6
-	 rN2nKyGKxgBLGIJ/3MmxsafmPepFkcAjdgxyCAvURJzj0tP2xWj3JZUwCe3+i/jzgG
-	 VnM9Y0vXWRdL7DdA1enV1BZLoM0HU/wEFVUEJ6WMmx/9j7tuqxUSkmLUAfFC3EAt/l
-	 B+YA9N5P1FkGyL9DQMc8GTPz7ud9papscoZyXiet33I1ZfsAOYgYJ8hbvuKjj0VKkq
-	 xIwOJJr0r7MNQYyRcpOQ9Q5ptukSmoPymo8c3f5HBWyZwa0mknO1P+KdFSbNFntW7p
-	 HevuuAJHZoejw==
-Message-ID: <0e04b0c1-4076-4260-9f2f-33f63732b0fe@bugseng.com>
-Date: Thu, 12 Sep 2024 10:06:58 +0200
+X-Inumbo-ID: 00c2cc99-70e5-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
+	:subject:date:message-id:mime-version:content-transfer-encoding;
+	 s=sasl; bh=ZHA30HlSsY3otp1pQ8KheiuwXPlu2pqZCOBUBPNjrDo=; b=Imgd
+	dSiMJwQU2H2UG93MBu/l880QoN3zybBqsNMMIHYqx/yiCNNyX860TwiRmAaUiIzj
+	ugAaryxnME6sZWuLkFJnlvqHqwxbIIlwDG1nFTZDUUpu7GNee2RkJdGvJyGfuSAc
+	S7GeilNNjgo0f2du+JT2OXgjkxnQ/6+FEEHwDoM=
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH] x86/hvm: make stdvga support optional
+Date: Thu, 12 Sep 2024 11:57:09 +0300
+Message-Id: <20240912085709.858052-1-Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/3] EFI: address violations of MISRA C Rule 13.6
-To: Jan Beulich <jbeulich@suse.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, consulting@bugseng.com,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1725994633.git.federico.serafini@bugseng.com>
- <2e893e6e83fdfb24c5f9c4d2da59114cba9a1df8.1725994633.git.federico.serafini@bugseng.com>
- <c068874b-a4bd-4ccc-a9bf-08a996797543@suse.com> <ZuGYOldX55_ZfJCv@mail-itl>
- <0a36284e-4b99-413c-bc12-0328b12da0d2@suse.com>
- <a679972c919f4cf281f23b63ab98f312@bugseng.com>
- <60c4bdb6-ea84-495a-a8a9-9e887181f531@suse.com>
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG
-In-Reply-To: <60c4bdb6-ea84-495a-a8a9-9e887181f531@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Pobox-Relay-ID:
+ FFB46E50-70E4-11EF-A4EE-9B0F950A682E-90055647!pb-smtp2.pobox.com
+Content-Transfer-Encoding: quoted-printable
 
-On 11/09/24 16:57, Jan Beulich wrote:
-> On 11.09.2024 16:27, Nicola Vetrini wrote:
->> On 2024-09-11 16:10, Jan Beulich wrote:
->>> On 11.09.2024 15:16, Marek Marczykowski-Górecki wrote:
->>>> On Wed, Sep 11, 2024 at 02:50:03PM +0200, Jan Beulich wrote:
->>>>> On 10.09.2024 21:06, Federico Serafini wrote:
->>>>>> Refactor the code to improve readability
->>>>>
->>>>> I question this aspect. I'm not the maintainer of this code anymore,
->>>>> so
->>>>> my view probably doesn't matter much here.
->>>>>
->>>>>> and address violations of
->>>>>> MISRA C:2012 Rule 13.6 ("The operand of the `sizeof' operator shall
->>>>>> not contain any expression which has potential side effect").
->>>>>
->>>>> Where's the potential side effect? Since you move ...
->>>>>
->>>>>> --- a/xen/common/efi/runtime.c
->>>>>> +++ b/xen/common/efi/runtime.c
->>>>>> @@ -250,14 +250,20 @@ int efi_get_info(uint32_t idx, union
->>>>>> xenpf_efi_info *info)
->>>>>>           info->cfg.addr = __pa(efi_ct);
->>>>>>           info->cfg.nent = efi_num_ct;
->>>>>>           break;
->>>>>> +
->>>>>>       case XEN_FW_EFI_VENDOR:
->>>>>> +    {
->>>>>> +        XEN_GUEST_HANDLE_PARAM(CHAR16) vendor_name =
->>>>>> +            guest_handle_cast(info->vendor.name, CHAR16);
->>>>>
->>>>> .. this out, it must be the one. I've looked at it, yet I can't spot
->>>>> anything:
->>>>>
->>>>> #define guest_handle_cast(hnd, type) ({         \
->>>>>      type *_x = (hnd).p;                         \
->>>>>      (XEN_GUEST_HANDLE_PARAM(type)) { _x };      \
->>>>> })
->>>>>
->>>>> As a rule of thumb, when things aren't obvious, please call out the
->>>>> specific aspect / property in descriptions of such patches.
->>>>
->>>> I guess it's because guest_handle_cast() is a macro, yet it's
->>>> lowercase
->>>> so looks like a function?
->>>
->>> If Eclair didn't look at the macro-expanded code, it wouldn't even see
->>> the sizeof(). Hence I don't expect the thing to be mistaken for a
->>> function
->>> call.
->>>
->>
->> Looking at the fully preprocessed code [1], there is an assignment to
->> CHAR *_x inside a sizeof(), therefore compat_handle_cast is triggering
->> the violation when used in such a way to be inside the sizeof().
-> 
-> I can see a number of initializers, but no assignment.
+Introduce config option X86_STDVGA so that stdvga driver can be disabled =
+on
+systems that don't need it.
 
-+ Stefano in CC.
+Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+---
+ xen/arch/x86/Kconfig              | 10 ++++++++++
+ xen/arch/x86/hvm/Makefile         |  2 +-
+ xen/arch/x86/include/asm/hvm/io.h |  5 +++++
+ 3 files changed, 16 insertions(+), 1 deletion(-)
 
-MISRA considers the initialization (even of a local variable)
-a side effect. This is the reason of the violations.
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 62f0b5e0f4..2ba25e6906 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -385,6 +385,16 @@ config ALTP2M
+=20
+ 	  If unsure, stay with defaults.
+=20
++config X86_STDVGA
++	bool "Standard VGA card emulation support" if EXPERT
++	default y
++	depends on HVM
++	help
++	  Build stdvga driver that emulates standard VGA card with VESA BIOS
++          Extensions for HVM guests.
++
++	  If unsure, say Y.
++
+ endmenu
+=20
+ source "common/Kconfig"
+diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
+index 4c1fa5c6c2..4d1f8e00eb 100644
+--- a/xen/arch/x86/hvm/Makefile
++++ b/xen/arch/x86/hvm/Makefile
+@@ -22,7 +22,7 @@ obj-y +=3D pmtimer.o
+ obj-y +=3D quirks.o
+ obj-y +=3D rtc.o
+ obj-y +=3D save.o
+-obj-y +=3D stdvga.o
++obj-$(CONFIG_X86_STDVGA) +=3D stdvga.o
+ obj-y +=3D vioapic.o
+ obj-y +=3D vlapic.o
+ obj-y +=3D vm_event.o
+diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm=
+/hvm/io.h
+index 24d1b6134f..9b8d4f6b7a 100644
+--- a/xen/arch/x86/include/asm/hvm/io.h
++++ b/xen/arch/x86/include/asm/hvm/io.h
+@@ -128,8 +128,13 @@ struct hvm_hw_stdvga {
+     spinlock_t lock;
+ };
+=20
++#ifdef CONFIG_X86_STDVGA
+ void stdvga_init(struct domain *d);
+ void stdvga_deinit(struct domain *d);
++#else
++static inline void stdvga_init(struct domain *d) {}
++static inline void stdvga_deinit(struct domain *d) {}
++#endif
+=20
+ extern void hvm_dpci_msi_eoi(struct domain *d, int vector);
+=20
+--=20
+2.25.1
 
-I will send a V2 with a better description.
-
-> 
->> if ( !((!!((((get_cpu_info()->current_vcpu))->domain)->arch.paging.mode
->> & ((1 << 4) << 10))) || (
->> __builtin_expect(!!(((n)) < (~0U / (sizeof(**(({ CHAR16 *_x =
->> (__typeof__(**(info->vendor.name)._) *)(full_ptr_t)(info->
->> vendor.name).c; (__compat_handle_CHAR16) { (full_ptr_t)_x };
->> }))._)))),1) && ((unsigned long)((unsigned long)((void *)(
->> full_ptr_t)(({ CHAR16 *_x = (__typeof__(**(info->vendor.name)._)
->> *)(full_ptr_t)(info->vendor.name).c; (
->> __compat_handle_CHAR16) { (full_ptr_t)_x }; })).c) + ((0 + ((n)) *
->> (sizeof(**(({ CHAR16 *_x = (__typeof__(**(info->
->> vendor.name)._) *)(full_ptr_t)(info->vendor.name).c;
->> (__compat_handle_CHAR16) { (full_ptr_t)_x }; }))._))) ? (0 + ((n))
->> * (sizeof(**(({ CHAR16 *_x = (__typeof__(**(info->vendor.name)._)
->> *)(full_ptr_t)(info->vendor.name).c; (
->> __compat_handle_CHAR16) { (full_ptr_t)_x }; }))._))) - 1 : 0)) <
->> ((void)(((get_cpu_info()->current_vcpu))->domain), 0)))
->> ) )
-> 
-
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
 
