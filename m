@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C0897747E
+	by mail.lfdr.de (Postfix) with ESMTPS id A7E3097747F
 	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 00:45:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797838.1207900 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.797844.1207909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sosXv-0008No-Gx; Thu, 12 Sep 2024 22:44:15 +0000
+	id 1sosYY-0000TW-T8; Thu, 12 Sep 2024 22:44:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797838.1207900; Thu, 12 Sep 2024 22:44:15 +0000
+Received: by outflank-mailman (output) from mailman id 797844.1207909; Thu, 12 Sep 2024 22:44:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sosXv-0008MG-DU; Thu, 12 Sep 2024 22:44:15 +0000
-Received: by outflank-mailman (input) for mailman id 797838;
- Thu, 12 Sep 2024 22:44:13 +0000
+	id 1sosYY-0000Rx-QV; Thu, 12 Sep 2024 22:44:54 +0000
+Received: by outflank-mailman (input) for mailman id 797844;
+ Thu, 12 Sep 2024 22:44:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T9bO=QK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sosXt-0008M5-3a
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 22:44:13 +0000
+ id 1sosYX-0008M5-Sz
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 22:44:53 +0000
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8707efd1-7158-11ef-a0b5-8be0dac302b0;
- Fri, 13 Sep 2024 00:44:11 +0200 (CEST)
+ id 9fea737d-7158-11ef-a0b5-8be0dac302b0;
+ Fri, 13 Sep 2024 00:44:53 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 90E2FA458A8;
- Thu, 12 Sep 2024 22:44:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1496C4CEC6;
- Thu, 12 Sep 2024 22:44:08 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id A0FAEA458B0;
+ Thu, 12 Sep 2024 22:44:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64DB6C4CEC3;
+ Thu, 12 Sep 2024 22:44:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,141 +41,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8707efd1-7158-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 9fea737d-7158-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1726181049;
-	bh=jJB8nfvGTP9u2Ff331LMF3OfyV3VDm7+Xdb3kV2sidw=;
+	s=k20201202; t=1726181092;
+	bh=S6TskvlaJKwdN7CEmsIR3brl1DHSiI+ybZceTjVIzDs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=KUhprOc45+5cfMTgPpqnIdTTsgbjSSdkfx4P/mt7ToEGu1wfDFDWXXIR6QNjOErxk
-	 tyoPYWRv5ojAw5p2sj+IpjA+Pd91yUGBZiFcDBnBUV8D5VuF7WWqJ51csQ5iz21yLC
-	 eoc6l7Q6N8Z74px62TmC4d0Mh+/j4eFrbZgPrQorZAmLHxrq95rbwUEZ8Ext579KKk
-	 +BsvalLoXIGN69GrLnldSJY9+tYAJUY7kxnp4C/bpNT3vDBIb8n7UfmZ4ocbU3EkRQ
-	 KD7CVlR99o9aNSBmQL3TqqCYLEjPfDK7TyELsuugEkep11fAcjVP8ZLDZTFdSv1zvQ
-	 FYH614zGMl+vg==
-Date: Thu, 12 Sep 2024 15:44:07 -0700 (PDT)
+	b=n+r2oHGkJdq/cmBfxtK2Y8AxVa8w1t8l2Qg0q5JR9N4XimVkAexMSk07fHggnUu6b
+	 3AlNV05LUmH2D+p6fqygkFiumHAAVEyuBGyaqiNDscrXJY4zSLUaXCQFVqd/6aCfO8
+	 +mRFaDKsb/7kVIa9vZVVmTdErCNDdxosbi2L3friG3j8Wi7GT7Ok+V91RJzmH0kKnj
+	 sTPHiI6mSJ1fP0byNaZ+2p8P9/ovm5z1Pd+rtu7uFX9PuG+AHz712MfMl9/zSOE4TG
+	 JpWDCRwnDcSGzXPqtab1sGNaCwyvLogszZ427eHqbtzQ7Os70iE1fb89G1TOF4H3B1
+	 hH7DpvZyQJkjA==
+Date: Thu, 12 Sep 2024 15:44:48 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v6] CODING_STYLE: Add a section on header guards
- naming conventions
-In-Reply-To: <e2542d65-d5a5-44aa-a90b-ea8dad6a547f@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2409121540340.611587@ubuntu-linux-20-04-desktop>
-References: <a68267c7465a9b0d2ed8f844a5e0145de50b0f3a.1725550985.git.alessandro.zucchelli@bugseng.com> <7357f6e8-2630-4027-b339-eedab9ae48c5@suse.com> <alpine.DEB.2.22.394.2409092149210.3672@ubuntu-linux-20-04-desktop> <44738f93-e99b-4f1c-9ed3-59dd2eac7aff@suse.com>
- <alpine.DEB.2.22.394.2409111808580.611587@ubuntu-linux-20-04-desktop> <e2542d65-d5a5-44aa-a90b-ea8dad6a547f@suse.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+cc: Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "S32@nxp.com" <S32@nxp.com>, Andrei Cherechesu <andrei.cherechesu@nxp.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v1 3/5] xen/arm: platforms: Add NXP S32CC platform code
+In-Reply-To: <EA3C41C1-D484-456D-A391-4FB54B51D6CD@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2409121544350.611587@ubuntu-linux-20-04-desktop>
+References: <20240910143411.178704-1-andrei.cherechesu@oss.nxp.com> <20240910143411.178704-4-andrei.cherechesu@oss.nxp.com> <f08942b8-3a01-4176-8fad-525ad3261083@xen.org> <alpine.DEB.2.22.394.2409102210310.611587@ubuntu-linux-20-04-desktop>
+ <85acbacc-2557-446c-9025-bdc7eac1cdb1@oss.nxp.com> <EA3C41C1-D484-456D-A391-4FB54B51D6CD@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 12 Sep 2024, Jan Beulich wrote:
-> On 12.09.2024 03:13, Stefano Stabellini wrote:
-> > On Tue, 10 Sep 2024, Jan Beulich wrote:
-> >> On 10.09.2024 06:57, Stefano Stabellini wrote:
-> >>> On Mon, 9 Sep 2024, Jan Beulich wrote:
-> >>>> On 05.09.2024 17:48, Alessandro Zucchelli wrote:
-> >>>>> This section explains which format should be followed by header
-> >>>>> inclusion guards via a drop-down list of rules.
-> >>>>>
-> >>>>> No functional change.
-> >>>>>
-> >>>>> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-> >>>>>
-> >>>>> ---
-> >>>>> Changes in v6:
-> >>>>> - edit inclusion guards naming conventions, including more details
-> >>>>
-> >>>> Yet I'm afraid that from my pov we're still not there. Specifically ...
-> >>>>
-> >>>>> --- a/CODING_STYLE
-> >>>>> +++ b/CODING_STYLE
-> >>>>> @@ -159,6 +159,34 @@ Emacs local variables
-> >>>>>  A comment block containing local variables for emacs is permitted at
-> >>>>>  the end of files.  It should be:
-> >>>>>  
-> >>>>> +Header inclusion guards
-> >>>>> +-----------------------
-> >>>>> +
-> >>>>> +Unless otherwise specified, all header files should include proper
-> >>>>> +guards to prevent multiple inclusions. The following naming conventions
-> >>>>> +apply:
-> >>>>
-> >>>> ... reading this, I can't derive ...
-> >>>>
-> >>>>> +- Private headers: <dir>__<filename>_H
-> >>>>> +    - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
-> >>>>> +    - arch/arm/arm32/lib/something.h -> ARM__ARM32__LIB__SOMETHING_H
-> >>>>> +    - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
-> >>>>
-> >>>> ... the absence of an equivalent of the arch/ part of the path. As per
-> >>>> my recollection we agreed on that shortening, but it needs spelling out
-> >>>> in the textual description. Such that it is possible to derived what to
-> >>>> uses as a name for, say, a header under common/, crypto/, or drivers/
-> >>>> (or anywhere else of course). Specifically with the further examples ...
-> >>>
-> >>> Are you asking for something like this?
-> >>>
-> >>> Omit the word "arch" from the filepath.
-> >>>
-> >>> If you prefer an alternative wording please suggest the text. 
-> >>>
-> >>>
-> >>>>> +- asm-generic headers: ASM_GENERIC__<filename>_H
-> >>>>> +    - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
-> >>>>> +
-> >>>>> +- arch-specific headers: ASM__<architecture>__<subdir>__<filename>_H
-> >>>>> +    - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
-> >>>>
-> >>>> ... here and ...
-> >>>
-> >>> Suggested text:
-> >>>
-> >>> Omit the words "arch" and "include/asm" from the filepath, ASM is also
-> >>> prefixed.
-> >>>
-> >>>
-> >>>>> +- Xen headers: XEN__<filename>_H
-> >>>>> +    - include/xen/something.h -> XEN__SOMETHING_H
-> >>>>
-> >>>> ... here, where more than just one path component is omitted, deriving
-> >>>> what's meant can end up ambiguous. Yet ambiguity is what we absolutely
-> >>>> want to avoid, to preempt later discussions on any such naming.
-> >>>
-> >>> Suggested text:
-> >>>
-> >>> Omit the words "include/xen" from the filepath, XEN is always prefixed.
-> >>>
-> >>> Please suggest a specific alternative if you prefer
-> >>
-> >> Looks like I still didn't get across my point: The verbal description
-> >> that's ahead of all of the examples should be complete enough to describe
-> >> the whole set of rules, in sufficiently abstract terms. Then the examples
-> >> will be easy to prove as fitting those rules, and it will be easy to
-> >> derive the naming for further identifiers. IOW - no, I'm not asking for
-> >> the examples to be further commented, but for the naming rules to be
-> >> _fully_ spelled out.
-> > 
-> > 
-> > Hi Jan, we have gone back and forth on this a few times, but neither
-> > Alessandro nor I fully understand your perspective. To help streamline
-> > the process and save time for everyone, I suggest you provide an example
-> > of the rules written in the style you believe is appropriate. Once you
-> > set the initial direction, Alessandro and I can continue and complete
-> > the rest in that preferred style.
+On Thu, 12 Sep 2024, Bertrand Marquis wrote:
+> Hi Andrei,
 > 
-> If you really expect me to do so (hence effectively me becoming the one
-> to make the proposal, which I never meant to), it'll have to wait until
-> I'm back from the GNU Tools Cauldron and the PTO I'm taking immediately
-> afterwards.
+> > On 11 Sep 2024, at 23:05, Andrei Cherechesu <andrei.cherechesu@oss.nxp.com> wrote:
+> > 
+> > Hi Julien, Stefano, 
+> > On 11/09/2024 08:19, Stefano Stabellini wrote:
+> >> On Tue, 10 Sep 2024, Julien Grall wrote:
+> >> 
+> >>> Hi,
+> >>> 
+> >>> On 10/09/2024 15:34, Andrei Cherechesu (OSS) wrote:
+> >>> 
+> >>>> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+> >>>> 
+> >>>> Added support for NXP S32CC platforms (S32G2, S32G3, S32R45),
+> >>>> which need SCMI over SMC calls forwarded to the firmware
+> >>>> running at EL3 (TF-A). Linux relies on the SCMI Platform
+> >>>> for system services such as clocking, reset, etc.
+> >>>> 
+> >>> Is it SMCI as in the Arm spec? If so, this should not be platform specific.
+> > Yes, it is SCMI as defined by Arm. I agree it shouldn't be platform specific.
+> >> 
+> >>> 
+> >>> Furthermore, I was under the impression that we can't blindly forward
+> >>> everything from a domain to the firmware. While it might be okayish for dom0,
+> >>> you also seem to give access to all the domains on the system is it intended?
+> > In our case, only Dom0 has access to the SCMI mailbox. Hence, the other unprivileged domains are not aware of SCMI and do not make any SCMI requests to FW.
+> >> 
+> >>> 
+> >>> Anyway, there is a series on the ML to add a mediator for SCMI in Xen (see
+> >>> [1]). I think it would be preferable to focus on getting it merged as it would
+> >>> 
+> >>> benefit everyone and increase the security posture (we could restrict access).
+> > I also asked a few months ago on the ML in a virtio related thread if there are any updates regarding 
+> > SCMI awareness for Xen and guests, then Stefano CCed Bertrand, but he did not comment [0].
+> > I'm curious why the SCMI mediator patch series did not progress.
+> > [0] https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2401111627360.3675@ubuntu-linux-20-04-desktop/
+> 
+> Sorry it seems i missed that one.
+> 
+> There are several initiatives ongoing to investigate the global problem of clock handling and more specifically
+> SCMI "sharing".
+> The SCMI protocol contains some features to have virtual channels and the question is how to make a transport
+> that is hypervisor agnostic to prevent to require the hypervisors to have to "decode" SCMI messages.
+> 
+> Virtio-scmi is not really used for clock management per say at the moment and more specifically I do not
+> think it is a good solution to manage clocks of non virtio devices.
+> 
+> In Soafee and in Linaro people are looking at using FF-A as a tansport for SCMI.
+> The idea would be that the hypervisor is configuring the virtual SCMI channels using FF-A as a transport
+> and then VMs are using FF-A to communicate with an SCMI server (probably sitting in secure world, at
+> least as a proxy). This is an investigation for now.
+> 
+> Requiring Xen to act as a mediator is also a solution but might require a lot of platform specific code
+> which i think we should prevent.
+> 
+> For now having a solution in Xen where SCMI calls through SMC are only allowed by Dom0 is the only
+> short term solution I think.
 
-It looks like you have specific ideas on how it should be done so I
-think it would be better if you provide a couple of complete examples
-for a subset of the proposal. For instance, only covering Private
-headers: <dir>__<filename>_H.
-
-With that example, I think we can extrapolate the others.
-
-I understand if we need to wait until you are back from PTO.
++1
 
