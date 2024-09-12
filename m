@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35C8997654B
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 11:15:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797092.1206901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F6DF976552
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 11:17:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797100.1206912 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sofuq-0002aw-5J; Thu, 12 Sep 2024 09:15:04 +0000
+	id 1sofwq-0003Fe-G8; Thu, 12 Sep 2024 09:17:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797092.1206901; Thu, 12 Sep 2024 09:15:04 +0000
+Received: by outflank-mailman (output) from mailman id 797100.1206912; Thu, 12 Sep 2024 09:17:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sofuq-0002Yx-2W; Thu, 12 Sep 2024 09:15:04 +0000
-Received: by outflank-mailman (input) for mailman id 797092;
- Thu, 12 Sep 2024 09:15:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sofwq-0003Cs-Co; Thu, 12 Sep 2024 09:17:08 +0000
+Received: by outflank-mailman (input) for mailman id 797100;
+ Thu, 12 Sep 2024 09:17:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HbDX=QK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sofuo-0002Yr-LP
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 09:15:02 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7c856c7b-70e7-11ef-99a1-01e77a169b0f;
- Thu, 12 Sep 2024 11:15:00 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5c40942358eso1150135a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 02:15:00 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3ebd8cef8sm6357065a12.89.2024.09.12.02.14.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Sep 2024 02:14:58 -0700 (PDT)
+ <SRS0=UBhH=QK=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1sofwn-0003CP-N9
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 09:17:06 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c63ad2c9-70e7-11ef-a0b5-8be0dac302b0;
+ Thu, 12 Sep 2024 11:17:04 +0200 (CEST)
+Received: from [192.168.1.20] (host-79-37-206-90.retail.telecomitalia.it
+ [79.37.206.90])
+ by support.bugseng.com (Postfix) with ESMTPSA id D83C74EE0C9C;
+ Thu, 12 Sep 2024 11:17:02 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,110 +40,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c856c7b-70e7-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1726132499; x=1726737299; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=8/XwBnEdP55i4Rgy8sCgVQ/cSoLC9OeoreKHg2Q9G8g=;
-        b=cjPfjqseTR1yz6cO2sVhxq611EYvvXDI9GdVMv1iRqe4blwLiVCqg6U5GsHBZQ7ign
-         7E6PDtMSJ2OcwxtrjFjALAM/DOe/j0Kc0joRiK0x2M6crh+RcNbGbHl2ziVhkFWlSAYH
-         nycb16DuzcXNo3/23NqEJgRLDmkaIuR1uwvaE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726132499; x=1726737299;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8/XwBnEdP55i4Rgy8sCgVQ/cSoLC9OeoreKHg2Q9G8g=;
-        b=tHzYnccIzbfvx27uAp3/lCN5hWPVz4x9lyJAZTLYyxhaC+phCxATF/7D+V3VqsBD3S
-         qz5WjoGIdaNRdW5jOD8I2WTwpDGrglJUkaabatsQBuu5n2VVyRhOeS68qblwB1RJaDAs
-         U11cp8ERt4EZExY6U4ljNHUOvhXliQwEFFNJbPpOUlVF32qugi4OwvBife5+nfuUSVFQ
-         W0npfxZuHsWPQJI699PzxUmOE5BokBaiii1Z+d87Krk41QPntkSt4CZvAFoMU+gXqjeb
-         LvuuSyS2pqNHVnMikTQoGmRBxMMx9TjKRDM1JZ6qOnozp9O6qzh1dQtSE8BzGQlCcu4l
-         ixeA==
-X-Gm-Message-State: AOJu0YzVezIciJCJPG0U3oW7oYx3kLNKNtXomh0umxuHDZ5Cx+eb/Tss
-	wSgVPohuJ9IYrFewhX6uf96AauFJnj4gRAQCeY9nG8DRaO+RQARUu0qNSqUPuXc=
-X-Google-Smtp-Source: AGHT+IEuXG47T/8bcAOGBF6BjF5xMfuGSaT4jHWJXRyZZjU7UipCiw9Bptq7p6j4Q1xqL99aPLYWhw==
-X-Received: by 2002:a05:6402:2312:b0:5c4:14ba:9cd7 with SMTP id 4fb4d7f45d1cf-5c414ba9d0emr1497362a12.10.1726132498621;
-        Thu, 12 Sep 2024 02:14:58 -0700 (PDT)
-Date: Thu, 12 Sep 2024 11:14:57 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH] x86/hvm: make stdvga support optional
-Message-ID: <ZuKxEVsbV0MqLrtb@macbook.local>
-References: <20240912085709.858052-1-Sergiy_Kibrik@epam.com>
+X-Inumbo-ID: c63ad2c9-70e7-11ef-a0b5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1726132623; bh=LEzfii6fVboMfJ4btZRa62N606nNDNRXvjxThbN/fDA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=oEoYUb4iVfiF3vjWKV2ncCS/HPel7MfbZtoFECRYsHYHPYj99RbrI+V/oUAaMV6ZS
+	 Qtt4NMSbGne3BleFM3eris0qpjnY2liWh93jTO7dSCVwGMDk+Xd8pKYqhZQF+m1TN7
+	 XmWGznAfPprcvqCRBTIiHlkQtTcaRjwId54friN8vgj2WyJpKMHmkiW5CHLezDL02V
+	 vIbY6uNWHp3A9ALIgYcKbf3ZL9fYS+SBE7csdsIisMANEnDW0vn1c+Lx81GRiF1XeD
+	 bZorSgunMgQSFhG/STuV75uqqUcs7A6kJyBDaL97sqfVIZr5n+EczcXMzd2F40Ens0
+	 yEO3YiP4RHjBg==
+Message-ID: <6b1ca033-4a6d-4f69-aa6a-54dbcb37e79e@bugseng.com>
+Date: Thu, 12 Sep 2024 11:17:02 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20240912085709.858052-1-Sergiy_Kibrik@epam.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 09/12] x86/emul: address violations of MISRA C Rule
+ 16.3
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1725958416.git.federico.serafini@bugseng.com>
+ <0fa68b9aee5a7a3f1b696bfc6b18ecc826663212.1725958417.git.federico.serafini@bugseng.com>
+ <1e6e2bb8-2a27-4cac-a888-7d785bc4c463@suse.com>
+Content-Language: en-US, it
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <1e6e2bb8-2a27-4cac-a888-7d785bc4c463@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 12, 2024 at 11:57:09AM +0300, Sergiy Kibrik wrote:
-> Introduce config option X86_STDVGA so that stdvga driver can be disabled on
-> systems that don't need it.
+On 11/09/24 14:42, Jan Beulich wrote:
+> On 10.09.2024 12:09, Federico Serafini wrote:
+>> --- a/xen/arch/x86/x86_emulate/fpu.c
+>> +++ b/xen/arch/x86/x86_emulate/fpu.c
+>> @@ -218,6 +218,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>                */
+>>               if ( dst->type == OP_MEM && !s->fpu_ctrl && !fpu_check_write() )
+>>                   dst->type = OP_NONE;
+>> +            break;
+>>           }
+>>           break;
+>>   
+>> @@ -296,6 +297,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>               default:
+>>                   generate_exception(X86_EXC_UD);
+>>               }
+>> +            break;
+>>           }
+>>           break;
+>>   
+>> @@ -386,6 +388,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>                */
+>>               if ( dst->type == OP_MEM && !s->fpu_ctrl && !fpu_check_write() )
+>>                   dst->type = OP_NONE;
+>> +            break;
+>>           }
+>>           break;
+>>   
+>> @@ -457,6 +460,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>               case 7: /* fistp m64i */
+>>                   goto fpu_memdst64;
+>>               }
+>> +            break;
 > 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> ---
->  xen/arch/x86/Kconfig              | 10 ++++++++++
->  xen/arch/x86/hvm/Makefile         |  2 +-
->  xen/arch/x86/include/asm/hvm/io.h |  5 +++++
->  3 files changed, 16 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-> index 62f0b5e0f4..2ba25e6906 100644
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -385,6 +385,16 @@ config ALTP2M
->  
->  	  If unsure, stay with defaults.
->  
-> +config X86_STDVGA
-> +	bool "Standard VGA card emulation support" if EXPERT
-> +	default y
-> +	depends on HVM
-> +	help
-> +	  Build stdvga driver that emulates standard VGA card with VESA BIOS
-> +          Extensions for HVM guests.
-> +
-> +	  If unsure, say Y.
-> +
->  endmenu
->  
->  source "common/Kconfig"
-> diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
-> index 4c1fa5c6c2..4d1f8e00eb 100644
-> --- a/xen/arch/x86/hvm/Makefile
-> +++ b/xen/arch/x86/hvm/Makefile
-> @@ -22,7 +22,7 @@ obj-y += pmtimer.o
->  obj-y += quirks.o
->  obj-y += rtc.o
->  obj-y += save.o
-> -obj-y += stdvga.o
-> +obj-$(CONFIG_X86_STDVGA) += stdvga.o
->  obj-y += vioapic.o
->  obj-y += vlapic.o
->  obj-y += vm_event.o
-> diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
-> index 24d1b6134f..9b8d4f6b7a 100644
-> --- a/xen/arch/x86/include/asm/hvm/io.h
-> +++ b/xen/arch/x86/include/asm/hvm/io.h
-> @@ -128,8 +128,13 @@ struct hvm_hw_stdvga {
->      spinlock_t lock;
->  };
->  
-> +#ifdef CONFIG_X86_STDVGA
->  void stdvga_init(struct domain *d);
->  void stdvga_deinit(struct domain *d);
-> +#else
-> +static inline void stdvga_init(struct domain *d) {}
-> +static inline void stdvga_deinit(struct domain *d) {}
-> +#endif
+> Aren't you swapping one violation for another here? Unlike in the earlier
+> three cases, this new break is unreachable, because of the nature of the
+> preceding switch() statement (cases being exhaustive and every case ending
+> in "goto"; this is something even a static analyzer can [in principle]
+> spot).
 
-Shouldn't Xen report an error if a user attempts to create a domain
-with X86_EMU_VGA set in emulation_flags, but stdvga has been built
-time disabled?
+You are right, but the resulting violation of Rule 2.1
+("A project shall not contain unreachable code") is deviated with the
+following justification:
+"The compiler implementation guarantees that the unreachable code is
+removed. Constant expressions and unreachable branches of if and switch
+statements are expected."
 
-Thanks, Roger.
+-- 
+Federico Serafini,
+
+Ph.D. Student, Ca' Foscari University of Venice
+Software Engineer, BUGSENG
 
