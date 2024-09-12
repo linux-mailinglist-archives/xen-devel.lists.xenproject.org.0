@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6747976631
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 11:58:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797210.1207092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F8E0976641
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 12:02:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797218.1207103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sogaU-0002LD-Nd; Thu, 12 Sep 2024 09:58:06 +0000
+	id 1soge8-0004PM-CA; Thu, 12 Sep 2024 10:01:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797210.1207092; Thu, 12 Sep 2024 09:58:06 +0000
+Received: by outflank-mailman (output) from mailman id 797218.1207103; Thu, 12 Sep 2024 10:01:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sogaU-0002J7-Ka; Thu, 12 Sep 2024 09:58:06 +0000
-Received: by outflank-mailman (input) for mailman id 797210;
- Thu, 12 Sep 2024 09:58:05 +0000
+	id 1soge8-0004MB-96; Thu, 12 Sep 2024 10:01:52 +0000
+Received: by outflank-mailman (input) for mailman id 797218;
+ Thu, 12 Sep 2024 10:01:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dRhM=QK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sogaT-0002HZ-6y
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 09:58:05 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1soge7-0004M5-Hg
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 10:01:51 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ff8cab5-70ed-11ef-99a1-01e77a169b0f;
- Thu, 12 Sep 2024 11:58:03 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a8d6ac24a3bso133222166b.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 02:58:03 -0700 (PDT)
+ id 06f3b1a9-70ee-11ef-99a1-01e77a169b0f;
+ Thu, 12 Sep 2024 12:01:49 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a8d51a7d6f5so91475766b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 03:01:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a902298d682sm122730366b.59.2024.09.12.02.58.01
+ a640c23a62f3a-a8d25979fa3sm716391966b.71.2024.09.12.03.01.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Sep 2024 02:58:02 -0700 (PDT)
+ Thu, 12 Sep 2024 03:01:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ff8cab5-70ed-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 06f3b1a9-70ee-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726135082; x=1726739882; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1726135309; x=1726740109; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jCKZJPlm4JHkmlw4PnF/xDN00c6n7ZYwhZ1mE1Q5GhQ=;
-        b=AjeznkYoD6v9UFrLoZoz8+G6xWRL+dMum6j2zqI3Jy0NOkxySRx17NIwTfROkxblx0
-         Kiew0P6WZauR3c67l8oj0IdQ0lvYmV3kFToHOoZ8fxlZWQNP60k28zQ2mSeryhwQyoHN
-         SpmNKYERgSEIvY0ZA+H3DAQZxWhgxkVih5ln1bUViqc2ubN1yJGYPhMJL6elq9bXHvy/
-         uDCbT87hqekAcVMEwrlYHN3Cf+zGzNG52lfIFDIPiOQBol8fHulw1akj3mIPy6Pn7nwD
-         NNffI4mk4Oz+0d1I5vOQkuTsMjkYcEqbW2x16nGi0vtSRphm/S6QtE5NvOMnFLX2Vn9h
-         tt8Q==
+        bh=MJ6IVmGsMzkAdtBbbjcJ+33G4KYRMor4RAEGkqCyC90=;
+        b=DFu7KmYmEL70IpLSmhV6RL2g07cuToPV6WsscryMHe6xPh/UVZJcv5CEmCe5wsRyqY
+         rGnSIkLxgI9yxwxdSbBuO7DUFPtI9Z+ri5hFfyFGqk8Qh/ZbmvcMrYFeVEiGsBMgGfsM
+         U487XthVMVM5xxzTkbpReDGlO2z75xsHV3pvsWTx2Fvmm2WfwuoLaO+Egi0OsodAyEPl
+         biA3bT2BJ2Vp+JMqdEIk07xdPJaCh1Ey6TV3caubP6GqfOHgSPn2Q8Lz3A+I5FY+8Tka
+         D2d/NYV1y5xy5PvReL5EdE7+JQGlQ+7TNxt+n4mzQfLB3fSvzF2LbTRy7rYr4k2b4GyW
+         puLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726135082; x=1726739882;
+        d=1e100.net; s=20230601; t=1726135309; x=1726740109;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jCKZJPlm4JHkmlw4PnF/xDN00c6n7ZYwhZ1mE1Q5GhQ=;
-        b=wnp1RJMfzQIxOPHmZDweh1LhTmW5TsuDzsHdahqFiPlY/fuZ5WTfq5efO3K5nv/4HI
-         p131/HVM2DGtHHIhO2UrsWzCHAwHCrg798bRkeCl5YcVKquQ5BLzbOfc7isAnwOVYqaH
-         aVkXWIikgj6MhMmnVGhYDtabs/08KvaLmKXjPOBDaZf2MNRhdMGdRyl0Bu0is5H+meM+
-         +1YmJhJh2erSGZqyp8h8LwlYWsUDFBDu6Nk07MQ9wYX8ISAqL954PuWruWY2AVRjgGOY
-         7wxdK6WNrJjU8CPHKaWcMiaVx0ljNKYfzeUg2vRsgwYk13ZOzAGI8wtvnWKa0AbVJ7H3
-         K9aA==
-X-Forwarded-Encrypted: i=1; AJvYcCXBCb1AzCHZ/g+QjCB4QTC6Ody+72ajBtHMp8ohJueW3AZhQNYbxZM6Uqsyu+s3D68xI9wk+au8XxU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yygiv1o11nOvm2Q0esg+o3DewD8KDi62+kTJFr/bzPKZcOZd2Js
-	z7rQMilbHY1ElMRwaxfkMXhFQmzRBF7Rz+jJmHBq5Lbce9FJhUxROtD7VJ59uA==
-X-Google-Smtp-Source: AGHT+IH5cvo3UB9mHLDzltMUkun+jZpnYN4vuT29652JNg1d9JcMMXaL8sx6JrgYs96xGr00jSS4fQ==
-X-Received: by 2002:a17:907:6d0e:b0:a8a:9243:486 with SMTP id a640c23a62f3a-a902a8c0a4emr212794166b.21.1726135082467;
-        Thu, 12 Sep 2024 02:58:02 -0700 (PDT)
-Message-ID: <adec9726-096c-40ab-8a8d-ae0c2ef216c5@suse.com>
-Date: Thu, 12 Sep 2024 11:58:01 +0200
+        bh=MJ6IVmGsMzkAdtBbbjcJ+33G4KYRMor4RAEGkqCyC90=;
+        b=r5Uc4hPYg0pQoptDurafxa/4g/1QxKqufmQBzKeJD3PpKGBeGw2zuisx6w4VbAvDwQ
+         tzRBmlcYrcy9LMrCwUchFQUnL05aPyymFzpNWwjVXacIbPU/UmJ/QGvAc+ki57ZETAef
+         1gy+/tjGroMlkvE3y8DS8ZmzXDEMzcNgwhQ9PoN7RqKHrUAzQgR4UmUp60Qr/KE5S6Ck
+         vOZ2K1WZEP373uj6l1j+iFU6FlkN1KlPOMUn0uKYHXIeH/aJug15JolN+wIwvS/gAep2
+         jotzKqwqInUh0BMUImhdgoMxcNDPU7ysLVbNuJm40dFql85E1cWBV/1uKYRvT2zGOqOG
+         52sw==
+X-Forwarded-Encrypted: i=1; AJvYcCU7FpGlBJ6oTiVKRZfUEaTcAT1+J7U+PkWdL0waK+9OOBu0FyRiYKk4LoOtyh/socQ6E+wwS+G/0lw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwYDIjvKz1vCd7ywHFyI+kOskquYhrKgODX3Uv7MotndCj3kaDn
+	vVLOJJVmpUYOy4hcyqmklGwUz45YarV78gmah1nfZGkBf5VUmNw9MYEB+89HIw==
+X-Google-Smtp-Source: AGHT+IHEF5tAiD9rmTcVFxnfVqbTpo5+R2VIlI8u2s11PLJ5G5/ykJKhaY1Qr4gXo6Xt6IIHueDNKA==
+X-Received: by 2002:a17:907:e69a:b0:a7a:9144:e256 with SMTP id a640c23a62f3a-a90293dc29dmr213850866b.6.1726135308831;
+        Thu, 12 Sep 2024 03:01:48 -0700 (PDT)
+Message-ID: <992dbde2-a1fc-472d-9bb9-a4e11a2bc21b@suse.com>
+Date: Thu, 12 Sep 2024 12:01:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 6/9] xen/riscv: introduce functionality to work with
- CPU info
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [XEN PATCH 09/12] x86/emul: address violations of MISRA C Rule
+ 16.3
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <cover.1725295716.git.oleksii.kurochko@gmail.com>
- <77a00222008f8b41d2454e74d1c9247252d7ccd9.1725295716.git.oleksii.kurochko@gmail.com>
- <6c43c528-daa9-4449-a383-aade3da73160@suse.com>
- <de3f5c4fd5dd2a8533ea376a013f8e40b85dc6b7.camel@gmail.com>
- <1ef2902e-b307-497b-9c97-d1e3771b62af@suse.com>
- <d04ad9b90347a69d88b67a2ec6861995ca10cb84.camel@gmail.com>
+References: <cover.1725958416.git.federico.serafini@bugseng.com>
+ <0fa68b9aee5a7a3f1b696bfc6b18ecc826663212.1725958417.git.federico.serafini@bugseng.com>
+ <1e6e2bb8-2a27-4cac-a888-7d785bc4c463@suse.com>
+ <6b1ca033-4a6d-4f69-aa6a-54dbcb37e79e@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,50 +116,66 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d04ad9b90347a69d88b67a2ec6861995ca10cb84.camel@gmail.com>
+In-Reply-To: <6b1ca033-4a6d-4f69-aa6a-54dbcb37e79e@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12.09.2024 11:27, oleksii.kurochko@gmail.com wrote:
-> As I mentioned above, interrupts will be disabled until tp is set.
-
-Okay, so all good then
-
-> Even
-> if they aren’t disabled, tp will be set to 0 because, at the moment the
-> secondary CPU boots, CSR_SSCRATCH will be 0, which indicates that the
-> interrupt is from Xen.
+On 12.09.2024 11:17, Federico Serafini wrote:
+> On 11/09/24 14:42, Jan Beulich wrote:
+>> On 10.09.2024 12:09, Federico Serafini wrote:
+>>> --- a/xen/arch/x86/x86_emulate/fpu.c
+>>> +++ b/xen/arch/x86/x86_emulate/fpu.c
+>>> @@ -218,6 +218,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>>                */
+>>>               if ( dst->type == OP_MEM && !s->fpu_ctrl && !fpu_check_write() )
+>>>                   dst->type = OP_NONE;
+>>> +            break;
+>>>           }
+>>>           break;
+>>>   
+>>> @@ -296,6 +297,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>>               default:
+>>>                   generate_exception(X86_EXC_UD);
+>>>               }
+>>> +            break;
+>>>           }
+>>>           break;
+>>>   
+>>> @@ -386,6 +388,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>>                */
+>>>               if ( dst->type == OP_MEM && !s->fpu_ctrl && !fpu_check_write() )
+>>>                   dst->type = OP_NONE;
+>>> +            break;
+>>>           }
+>>>           break;
+>>>   
+>>> @@ -457,6 +460,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>>               case 7: /* fistp m64i */
+>>>                   goto fpu_memdst64;
+>>>               }
+>>> +            break;
+>>
+>> Aren't you swapping one violation for another here? Unlike in the earlier
+>> three cases, this new break is unreachable, because of the nature of the
+>> preceding switch() statement (cases being exhaustive and every case ending
+>> in "goto"; this is something even a static analyzer can [in principle]
+>> spot).
 > 
->> - like you do - transiently setting tp to CPU0's value (and hence >
-> risking corruption of its state).
-> I think I’m missing something—why would the secondary CPU have the same
-> value as CPU0? If we don’t set up the tp register when the secondary
-> CPU boots, it will contain a default value, which is expected upon
-> boot. It will retain this value until setup_tp() is called, which will
-> then set tp to pcpu_info[SECONDARY_CPU_ID].
+> You are right, but the resulting violation of Rule 2.1
+> ("A project shall not contain unreachable code") is deviated with the
+> following justification:
+> "The compiler implementation guarantees that the unreachable code is
+> removed.
 
-Just to clarify (shouldn't matter in practice according to what you
-said above) - in
+I'm not convinced this is the case here in practice.
 
-FUNC(setup_tp)
-        la      tp, pcpu_info
-        li      t0, PCPU_INFO_SIZE
-        mul     t1, a0, t0
-        add     tp, tp, t1
-        ret
-END(setup_tp)
+Instead of "break", wouldn't "unreachable()" be the better construct
+to use in situations like this one?
 
-you start with setting tp to the CPU0 value. You only then adjust tp (3
-insns later) to the designated value. If you wanted to play safe, you'd
-do it e.g. like this
+> Constant expressions and unreachable branches of if and switch
+> statements are expected."
 
-FUNC(setup_tp)
-        la      t0, pcpu_info
-        li      t1, PCPU_INFO_SIZE
-        mul     t1, a0, t1
-        add     tp, t0, t1
-        ret
-END(setup_tp)
+This I don't think applies in this particular case?
 
 Jan
 
