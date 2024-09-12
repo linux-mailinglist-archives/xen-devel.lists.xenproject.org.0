@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46D67976B62
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 16:00:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797521.1207494 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44BFB976B83
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 16:05:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797525.1207503 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sokMC-0001Q3-BG; Thu, 12 Sep 2024 13:59:36 +0000
+	id 1sokRZ-0002wY-TL; Thu, 12 Sep 2024 14:05:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797521.1207494; Thu, 12 Sep 2024 13:59:36 +0000
+Received: by outflank-mailman (output) from mailman id 797525.1207503; Thu, 12 Sep 2024 14:05:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sokMC-0001Mz-87; Thu, 12 Sep 2024 13:59:36 +0000
-Received: by outflank-mailman (input) for mailman id 797521;
- Thu, 12 Sep 2024 13:59:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sokRZ-0002uL-Qc; Thu, 12 Sep 2024 14:05:09 +0000
+Received: by outflank-mailman (input) for mailman id 797525;
+ Thu, 12 Sep 2024 14:05:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kInE=QK=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1sokMA-0001Mt-QO
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 13:59:34 +0000
-Received: from fhigh8-smtp.messagingengine.com
- (fhigh8-smtp.messagingengine.com [103.168.172.159])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3bcd4926-710f-11ef-99a1-01e77a169b0f;
- Thu, 12 Sep 2024 15:59:32 +0200 (CEST)
-Received: from phl-compute-10.internal (phl-compute-10.phl.internal
- [10.202.2.50])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 0AD7911404BD;
- Thu, 12 Sep 2024 09:59:31 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-10.internal (MEProxy); Thu, 12 Sep 2024 09:59:31 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Sep 2024 09:59:29 -0400 (EDT)
+ <SRS0=lDyH=QK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sokRY-0002uF-Co
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 14:05:08 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 02ba91a4-7110-11ef-a0b5-8be0dac302b0;
+ Thu, 12 Sep 2024 16:05:06 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-53659867cbdso1511719e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 07:05:05 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a901292f81esm198479666b.1.2024.09.12.07.05.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Sep 2024 07:05:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,254 +45,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3bcd4926-710f-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1726149571;
-	 x=1726235971; bh=9SX5KOiDQADbUOKv1NMLkK95AqIZd46VkUhkctVMPbE=; b=
-	UrTZ1H0yfiE80DmbVPDtbRpry06xbIHEd7seh7Ijq6YP4TSGoKuvc1Brn0/+hL6i
-	tf3POGO8PW1hsBj/xHPDFBpUKS3+2uKgzQ6+khJTNxjVeFHyhMEO1Jkr8MWtezaX
-	ElSrUGRFXrO7VzCLjslUAybSmRwL5vF9gTFEeLDFLAh6sFRebbozGtMHImka146t
-	gKtEx9DqRpGwxXT6apwBuw1dX9//R6XmcwUhizKWc8krvS+096NbFueVphOmIvGl
-	VtHac8ZsmVBEph2ZMcoNOftg5nL20Tc6wxU8QJUfH1kuYcUbIkrekbWxUFCjzOI6
-	TFDGzlL3Teo7wrX4l8BYwA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1726149571; x=1726235971; bh=9SX5KOiDQADbUOKv1NMLkK95AqIZ
-	d46VkUhkctVMPbE=; b=B1EkeDtf/YBeTn9yqNyrSKV1iz1Nc/e5X4Za8Ej9c4Dk
-	PmlZkMSdIHG/RIoePIXwJ6aVXM8qXf6nl6JiLyUQ6c08rmkk+UQ34LJ98hrsxRjR
-	nML0SuM+2eNMDVCcqPLSDo0ji4qRKO1AqzAc2IgZJUJZO4CIEWNr9xNfBHcc/oZn
-	bSrl66ZMo0ahTgvlDpNIf4GVFnlXwf6EG6DYhIB9bSF/YrQlsqWk6vYPzOt+j3VT
-	kLQJ1FqN+f/dG9ohsb1eeQL3dAA5ax/D3M6bU+Q3ClkaI6K8rHZjwDGHLsPhpJxL
-	eNJM6vqV6q+vObUyc8BN57ncqzkg25tPlrTJ1BL64Q==
-X-ME-Sender: <xms:wvPiZuGXG1xu3n4nVQAiofdNXAHCZLLM7o-pVHgxVeKXMDPzDdHKSg>
-    <xme:wvPiZvXslWuyLpD1rSFjb_gpum6AZNxwXL1R7pSwnstKHj6aZV9-PuWyKsrf1Yszj
-    uCbqYjcVVRO8g>
-X-ME-Received: <xmr:wvPiZoJa9mCu-Xw52165CT6eNRSonpfi07krAcIujUPje-zi5Tfd6LG7ZErXXxzNBHf0RXon3-YUDa6RNP206YZTaDYVHYJBDw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrudejfedgjedvucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
-    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
-    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
-    rfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettddvge
-    euteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
-    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnh
-    gspghrtghpthhtohepjedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprhhoghgv
-    rhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuh
-    hsvgdrtghomhdprhgtphhtthhopeguphhsmhhithhhsegrphgvrhhtuhhsshholhhuthhi
-    ohhnshdrtghomhdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrih
-    igrdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpthhtohep
-    shhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepgigvnhdqug
-    gvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhg
-X-ME-Proxy: <xmx:wvPiZoHB8A677iqkjE24xomumCjdeEXawlicp5r3KmGzWPaNlT_Gxw>
-    <xmx:wvPiZkUOjCcp2uqqcAQRqUHJSKdygEWoEhJ9CFv5SAFcBSle1uZn4g>
-    <xmx:wvPiZrOt9ikVV5i1L3oVx7X-7xIAHTBwKwLhhQU3YHB4jxedMMKWuQ>
-    <xmx:wvPiZr1YuEvbktU1gXgzJHigf341Om2lX4J_Ag6TUiGrFLv8D5xdyg>
-    <xmx:w_PiZmK3kneWw8Zzj22ZGM-Vt6bPNqCjhT7KPWr4Xen6adPzRQcAaFn_>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 12 Sep 2024 15:59:27 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 1/2] x86/time: introduce command line option to select
- wallclock
-Message-ID: <ZuLzv2a5pp5yFNmc@mail-itl>
-References: <20240912111514.26934-1-roger.pau@citrix.com>
- <20240912111514.26934-2-roger.pau@citrix.com>
- <51c8a98b-145c-4834-865c-b75b61f1d5b0@suse.com>
- <ZuLlF1PKSOmbqr8u@macbook.local>
- <ZuLs-htt3Kvw-M6A@mail-itl>
- <ZuLxCXuxFbJq-rK_@macbook.local>
+X-Inumbo-ID: 02ba91a4-7110-11ef-a0b5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1726149905; x=1726754705; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=b/22D8rha8S1h7FKOosQkTt2t7d6H8HLC+SiNd7f+4k=;
+        b=Ssf7p/gldl+93Rs1uOT6LbuepTthbu4nBFiatPWFCXzl4GAbYTI0PhxJLgwgn1qb7z
+         7Ap8it5wQNHRN3lXXTx4+V6CsjFFwHnbqbwNjq1hHDT6YUmdBpgfKAReOd5uVWYgHr32
+         I4QXcAjfjLOtdOrlC1pUIAdk07PQlB3O/M4Us=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726149905; x=1726754705;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=b/22D8rha8S1h7FKOosQkTt2t7d6H8HLC+SiNd7f+4k=;
+        b=jatXNRwWCLDG2TaqJM+gVEz311LqCe+aQgJk8m3YGpHzw93rdbM5kzUcJ3u/xdD9M6
+         N+zhgdkJUayU/qqTff8sXiSZfhUt2B4dZSei1R/O8C0SnlIA5hbxYK7xbVcaWcSjZY2g
+         KuRmfl9InTvXIjwLnRARgJxCcUEpVe76iHEE0U91f1E08+EIiT1YMPJQkc+FK7fP15cw
+         6h3cS7qkW1/2OknadWlqRuUvj/quD4B5s5i/cUOjmStumNdcXabhtr4wcBmco/SIv4X9
+         jtFcQG9GL+doFrGOtsk5wvgoNg2mDr5030QHRdX7r4Hh+7+zwpsvNRT376Htotl9t/IF
+         RMng==
+X-Gm-Message-State: AOJu0Yyt3tIX/lnnyvmJwA/1UiNoSndDgGrl9344wkDl7/3E4XDaLc0o
+	WzOtgpDm7DLc9zqxhP8iKswCSU8B6r3s3/DmcxkkPKy/Cgpm2HFct8wbqwpj8KU=
+X-Google-Smtp-Source: AGHT+IFda4RR2AIl66Xk3uH4U/zktqOwIgW+SSPQkF3IkdlaZRBi7eCVrlVb7N91x1i3nTIAqAxE4g==
+X-Received: by 2002:a05:6512:3d92:b0:52c:e10b:cb33 with SMTP id 2adb3069b0e04-53678fec405mr2370253e87.50.1726149903908;
+        Thu, 12 Sep 2024 07:05:03 -0700 (PDT)
+Message-ID: <2d4c2234-c688-4e76-8d60-a08558eed7df@citrix.com>
+Date: Thu, 12 Sep 2024 15:05:01 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="9pmeCvxIqipccCDk"
-Content-Disposition: inline
-In-Reply-To: <ZuLxCXuxFbJq-rK_@macbook.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/keyhandler: Move key_table[] into __ro_after_init
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, Daniel Smith
+ <dpsmith@apertussolutions.com>, Jason Andryuk <jandryuk@gmail.com>
+References: <20240912125154.1708025-1-andrew.cooper3@citrix.com>
+ <ZuLuk-Y3RKGZIi0d@macbook.local>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ZuLuk-Y3RKGZIi0d@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 12/09/2024 2:37 pm, Roger Pau Monné wrote:
+> On Thu, Sep 12, 2024 at 01:51:54PM +0100, Andrew Cooper wrote:
+>> All registration is done at boot.  Almost...
+>>
+>> iommu_dump_page_tables() is registered in iommu_hwdom_init(), which is called
+>> twice when LATE_HWDOM is in use.
+>>
+>> register_irq_keyhandler() has an ASSERT() guarding againt multiple
+>> registration attempts, and the absence of bug reports hints at how many
+>> configurations use LATE_HWDOM in practice.
+>>
+>> Move the registration into iommu_setup() just after printing the overall
+>> status of the IOMMU.  For starters, the hardware domain is specifically
+>> excluded by iommu_dump_page_tables().
+>>
+>> ept_dump_p2m_table is registered in setup_ept_dump() which is non-__init, but
+>> whose sole caller, start_vmx(), is __init.  Move setup_ept_dump() to match.
+>>
+>> With these two tweeks, all keyhandler reigstration is from __init functions,
+>> so register_{,irq_}keyhandler() can move, and key_table[] can become
+>> __ro_after_init.
+>>
+>> No practical change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
---9pmeCvxIqipccCDk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Sep 2024 15:59:27 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 1/2] x86/time: introduce command line option to select
- wallclock
+Thanks.
 
-On Thu, Sep 12, 2024 at 03:47:53PM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Thu, Sep 12, 2024 at 03:30:29PM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > On Thu, Sep 12, 2024 at 02:56:55PM +0200, Roger Pau Monn=C3=A9 wrote:
-> > > On Thu, Sep 12, 2024 at 01:57:00PM +0200, Jan Beulich wrote:
-> > > > On 12.09.2024 13:15, Roger Pau Monne wrote:
-> > > > > --- a/xen/arch/x86/time.c
-> > > > > +++ b/xen/arch/x86/time.c
-> > > > > @@ -1552,6 +1552,35 @@ static const char *__init wallclock_type_t=
-o_string(void)
-> > > > >      return "";
-> > > > >  }
-> > > > > =20
-> > > > > +static int __init cf_check parse_wallclock(const char *arg)
-> > > > > +{
-> > > > > +    if ( !arg )
-> > > > > +        return -EINVAL;
-> > > > > +
-> > > > > +    if ( !strcmp("auto", arg) )
-> > > > > +        wallclock_source =3D WALLCLOCK_UNSET;
-> > > > > +    else if ( !strcmp("xen", arg) )
-> > > > > +    {
-> > > > > +        if ( !xen_guest )
-> > > > > +            return -EINVAL;
-> > > > > +
-> > > > > +        wallclock_source =3D WALLCLOCK_XEN;
-> > > > > +    }
-> > > > > +    else if ( !strcmp("cmos", arg) )
-> > > > > +        wallclock_source =3D WALLCLOCK_CMOS;
-> > > > > +    else if ( !strcmp("efi", arg) )
-> > > > > +        /*
-> > > > > +         * Checking if run-time services are available must be d=
-one after
-> > > > > +         * command line parsing.
-> > > > > +         */
-> > > > > +        wallclock_source =3D WALLCLOCK_EFI;
-> > > > > +    else
-> > > > > +        return -EINVAL;
-> > > > > +
-> > > > > +    return 0;
-> > > > > +}
-> > > > > +custom_param("wallclock", parse_wallclock);
-> > > > > +
-> > > > >  static void __init probe_wallclock(void)
-> > > > >  {
-> > > > >      ASSERT(wallclock_source =3D=3D WALLCLOCK_UNSET);
-> > > > > @@ -2527,7 +2556,15 @@ int __init init_xen_time(void)
-> > > > > =20
-> > > > >      open_softirq(TIME_CALIBRATE_SOFTIRQ, local_time_calibration);
-> > > > > =20
-> > > > > -    probe_wallclock();
-> > > > > +    /*
-> > > > > +     * EFI run time services can be disabled from the command li=
-ne, hence the
-> > > > > +     * check for them cannot be done as part of the wallclock op=
-tion parsing.
-> > > > > +     */
-> > > > > +    if ( wallclock_source =3D=3D WALLCLOCK_EFI && !efi_enabled(E=
-FI_RS) )
-> > > > > +        wallclock_source =3D WALLCLOCK_UNSET;
-> > > > > +
-> > > > > +    if ( wallclock_source =3D=3D WALLCLOCK_UNSET )
-> > > > > +        probe_wallclock();
-> > > >=20
-> > > > I don't want to stand in the way, and I can live with this form, so=
- I'd like to
-> > > > ask that EFI folks or Andrew provide the necessary A-b / R-b. I'd l=
-ike to note
-> > > > though that there continue to be quirks here. They may not be affec=
-ting the
-> > > > overall result as long as we have only three possible wallclocks, b=
-ut there
-> > > > might be problems if a 4th one appeared.
-> > > >=20
-> > > > With the EFI_RS check in the command line handler and assuming the =
-default case
-> > > > of no "efi=3Dno-rs" on the command line, EFI_RS may still end up be=
-ing off by the
-> > > > time the command line is being parsed. With "wallclock=3Dcmos wallc=
-lock=3Defi" this
-> > > > would result in no probing and "cmos" chosen if there was that chec=
-k in place.
-> > > > With the logic as added here there will be probing in that case. Re=
-place "cmos"
-> > > > by a hypothetical non-default 4th wallclock type (i.e. probing pick=
-ing "cmos"),
-> > > > and I expect you can see how the result would then not necessarily =
-be as
-> > > > expected.
-> > >=20
-> > > My expectation would be that if "wallclock=3Dcmos wallclock=3Defi" is=
- used
-> > > the last option overrides any previous one, and hence if that last
-> > > option is not valid the logic will fallback to the default selection
-> > > (in this case to probing).
-> >=20
-> > That would be my expectation too. If some kind of preference would be
-> > expected, it should looks like wallclock=3Defi,cmos, but I don't think =
-we
-> > need that.
-> >=20
-> > > Thinking about this, it might make sense to unconditionally set
-> > > wallclock_source =3D WALLCLOCK_UNSET at the start of parse_wallclock()
-> > > to avoid previous instances carrying over if later ones are not valid.
-> >=20
-> > This may be a good idea. But more importantly, the behavior should be
-> > included in the option documentation (that if a selected value is not
-> > available, it fallback to auto). And maybe a log message when that
-> > happens (but I'm okay with skipping this one, as selected wallclock
-> > source is logged already)?
->=20
-> Thanks, would you be fine with:
->=20
-> ### wallclock (x86)
-> > `=3D auto | xen | cmos | efi`
->=20
-> > Default: `auto`
->=20
-> Allow forcing the usage of a specific wallclock source.
->=20
->  * `auto` let the hypervisor select the clocksource based on internal
->    heuristics.
->=20
->  * `xen` force usage of the Xen shared_info wallclock when booted as a Xen
->    guest.  This option is only available if the hypervisor was compiled w=
-ith
->    `CONFIG_XEN_GUEST` enabled.
->=20
->  * `cmos` force usage of the CMOS RTC wallclock.
->=20
->  * `efi` force usage of the EFI_GET_TIME run-time method when booted from=
- EFI
->    firmware.
->=20
-> If the selected option is not available Xen will default to `auto`.
+>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Daniel Smith <dpsmith@apertussolutions.com>
+>> CC: Jason Andryuk <jandryuk@gmail.com>
+>>
+>> CC'ing some OpenXT folks just FYI.
+>> ---
+>>  xen/arch/x86/mm/p2m-ept.c       |  2 +-
+>>  xen/common/keyhandler.c         | 10 +++++-----
+>>  xen/drivers/passthrough/iommu.c |  4 ++--
+>>  3 files changed, 8 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
+>> index 2ea574ca6aef..21728397f9ac 100644
+>> --- a/xen/arch/x86/mm/p2m-ept.c
+>> +++ b/xen/arch/x86/mm/p2m-ept.c
+>> @@ -1497,7 +1497,7 @@ static void cf_check ept_dump_p2m_table(unsigned char key)
+>>      rcu_read_unlock(&domlist_read_lock);
+>>  }
+>>  
+>> -void setup_ept_dump(void)
+>> +void __init setup_ept_dump(void)
+> I would be tempted to just drop this function altogether and open-code
+> the call to register_keyhandler().
 
-Looks good.
+That would involve exporting ept_dump_p2m_table(), and quickly started
+detracting from the main purpose of the patch.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+There are a whole bunch of keyhandler registration which are
+unconditional out of an initcall.  I'd like to do something better, but
+there's nothing completely obvious.
 
---9pmeCvxIqipccCDk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmbi878ACgkQ24/THMrX
-1yzvfAf8DUw5Fo4sdy0PoB4Y+FQmWwZY07xc6AOVM3kG44Bkf14QO5jJLkME9ZwV
-qXFyewe+N2+zcPSaG3of2Ax2BOPCsLwaS1goTAIy+Ttn1Ep1GZSSELjtZrsQCIhQ
-UWpnQWeIDFSu87WyxC5VYuLXyKv4s8s9YdnO6F+hXLSrbal7DoMCWObkHkRoXpjJ
-w09Erz9TkEHJkNFNXJXI2usXxwgN3//wC+cBxBDDOu9k0wSXIO9acopJ8nb2OVzY
-lNq4wCT8jUtY9UqutEOH5MPreZ10CVNSCbYoAMnJ+7d9LD69zeVf8+nl/N/t+SAX
-lSkKZuFwYP0CtLBUHCya8kYFkVUGjw==
-=8sHb
------END PGP SIGNATURE-----
-
---9pmeCvxIqipccCDk--
+~Andrew
 
