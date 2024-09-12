@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B68B1976685
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 12:12:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797239.1207133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBB36976698
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 12:20:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797246.1207141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sognj-0007u4-MX; Thu, 12 Sep 2024 10:11:47 +0000
+	id 1sogvn-0001yH-FA; Thu, 12 Sep 2024 10:20:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797239.1207133; Thu, 12 Sep 2024 10:11:47 +0000
+Received: by outflank-mailman (output) from mailman id 797246.1207141; Thu, 12 Sep 2024 10:20:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sognj-0007qt-Jg; Thu, 12 Sep 2024 10:11:47 +0000
-Received: by outflank-mailman (input) for mailman id 797239;
- Thu, 12 Sep 2024 10:11:46 +0000
+	id 1sogvn-0001w2-CX; Thu, 12 Sep 2024 10:20:07 +0000
+Received: by outflank-mailman (input) for mailman id 797246;
+ Thu, 12 Sep 2024 10:20:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dRhM=QK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sogni-0007ql-B7
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 10:11:46 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1sogvl-0001kl-DN
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 10:20:05 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69818979-70ef-11ef-99a1-01e77a169b0f;
- Thu, 12 Sep 2024 12:11:44 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a90349aa7e5so51540166b.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 03:11:44 -0700 (PDT)
+ id 93139154-70f0-11ef-99a1-01e77a169b0f;
+ Thu, 12 Sep 2024 12:20:03 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5bf01bdaff0so896886a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 03:20:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25c624efsm725477166b.114.2024.09.12.03.11.43
+ 4fb4d7f45d1cf-5c3ebd4679csm6337617a12.32.2024.09.12.03.20.02
  for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Sep 2024 03:11:43 -0700 (PDT)
+ Thu, 12 Sep 2024 03:20:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,40 +46,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69818979-70ef-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 93139154-70f0-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726135904; x=1726740704; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1726136403; x=1726741203; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0qvVzYfHs3SUrX0X6rgBXy5x5Wt+QVKWYBbEqJ19g0A=;
-        b=T/oT7uNbQJAJHvjVCpyLfr4rbQ1WzN6CGD46rwUmBO+Y6t2BrXJyoorkGeHVvPvvfu
-         VRQxDu9DNvH6s5HcNKjVLgqInk9+cc0i9rZnEw9pcNqlblRew+5jaX7jI2bbwDk3+CDP
-         yS22EBkac0CplB/KzTIhcRKObnk+XnO40PAW3gsIyRWPDBF4Qd3B6snAK0MGo3YtlkF/
-         WsWRh4kAtFxJCLQEuBb066howb4OuH9R6pRpjdkzv9tkRsGh9kEQdGxxDL7vN1SywKu8
-         ja8J4FFCq4tsVbOmm//3jGmOypkB+Mel7UuPHCGxRW0jpAcogitFCNA6UfHH1JOvQd1V
-         MSnw==
+        bh=jWZOln5xThvtdF1LcdgOh7U+1c58bXMLBHMANtyC22U=;
+        b=YqrgkBhiv7FomBhZdwmGQrvwsuoyyOq/Qvn/Pxlbbrr7hTsG1IfI12gnqwMyrKHwsU
+         TKXlm1NfaY5Znp29OGJ//gAqjD1E+UlZyx88eXbiUabC2mX7JXP4uAi8O/8xt/PruGmG
+         msmzPtdga54DAr2R2Z9oZiUuhohvhd39TezK02iUEDv0SLD+qPmdNrEXapzixTv0JW5+
+         cRnz5p9dCaGiL6qPzW6T4Ez5dpqdVggUv+cA4IFiF5IlhY51zwOP7uCCuvcg2l/N6++R
+         s9PI+yBq4yfQDCGP2aQl8la75ZJjNVme+kBTbB2iyS1WuR4zdI8q1HG1tbYb6QCYnEqD
+         2dwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726135904; x=1726740704;
+        d=1e100.net; s=20230601; t=1726136403; x=1726741203;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=0qvVzYfHs3SUrX0X6rgBXy5x5Wt+QVKWYBbEqJ19g0A=;
-        b=hxiqlaVspWdsR3xiHvfQ0tOvsoC8C7LoZuA9m+m5j206Apq0KZwqEsPf8CSFRb9oev
-         Nq/BZayS0FLvHQ999n5ZsvCjP8Z8lCyCUTAA+v3U0eUmdyC5tw8yp79o+z/Cf1RwgHR9
-         W9S7uscJX0eTKzMKXwc/mRtuJGgRXCjr+Yoter7X9WWRKRVbQEdhTtBm1Mgga8Xtl19x
-         Q/k9eROq84RvRIvy5c4ybr3IAipdrhfODZx1aCv8FZM69GhF8lUJoREL3iPMj4BsgTCA
-         0/1zcRKlvx/tYbK2qP56pBWMBhUKCYnbgjQlgp/r+eycm9AajY2qQ/jI1LcYYdQrtA/n
-         aFhA==
-X-Gm-Message-State: AOJu0Yz9bwXhrU4DmyqlJY/hHUxqiMm56oeBON6TVXsyV2hiCRuToXQp
-	LIGcef5RM+f0mKWt+q/xE2p2XaLw94upmUVV19+NyyWzZFmp2WflJzdp6HphO5qKBfcwBVH3UYo
+        bh=jWZOln5xThvtdF1LcdgOh7U+1c58bXMLBHMANtyC22U=;
+        b=hHsUjFamz1v+ROypY4s72C8c46z6fqZR5r43tbcD92Y3It+v/zRmLI+diUPe1DRRqB
+         a7tjP51c4H2YfohBTTzRf3ZEccBIkJM0GrUijuhXPIzGDr0eZGE5z1fpWkTAflK0A4lr
+         Fc6vr/OibPwaZuixekyjeM6d78MXWQ5uFMdvONqgwqO+haA8mal56y6mbsDAgkJeKqUu
+         7fdNHSoOtvAhoBq6ehgv1+KulXT88347V5GRm7PZPZvqmOs7ov+vj3N4TMOdagzA2G0X
+         t9xZWvgBGYTqshcph7vgmsSIorK7/4o40ey/4rK/A9fOufbfUOZ+gpf/5jKCejKBrRRr
+         tVOA==
+X-Gm-Message-State: AOJu0YzyfEGRG32XpBV+DyLhC2gwGUt2VQ+6bY5g3CtLwWhr1nOdK2lA
+	DrcUxU7UHkFuK3DlJy+hAYHO5cm4Le08qHCXy9ji2ux27eQa4e5VNKf9zFq68e7spkfFb3PhJuE
 	=
-X-Google-Smtp-Source: AGHT+IHXkn+a5tkDZLiM5MlIhLlGBadSAwmXxnolUiUE9eoWK9kWyC3i3ngG2IXnTeifEh2zPeqRPg==
-X-Received: by 2002:a17:906:bc26:b0:a8d:2ec3:94f4 with SMTP id a640c23a62f3a-a902964d007mr199618866b.54.1726135903440;
-        Thu, 12 Sep 2024 03:11:43 -0700 (PDT)
-Message-ID: <271b23d7-bd7c-479b-a568-3fe8f817ebff@suse.com>
-Date: Thu, 12 Sep 2024 12:11:43 +0200
+X-Google-Smtp-Source: AGHT+IEqDv/gxPwNRv46fEfSQfgK7mCfyk4A6lxKOAUIsWSBRMLOkJF1nNtiEVEYXjxeq+5oi4sI3w==
+X-Received: by 2002:a50:cbcc:0:b0:5bf:afe:6294 with SMTP id 4fb4d7f45d1cf-5c413e207d8mr1493454a12.17.1726136402716;
+        Thu, 12 Sep 2024 03:20:02 -0700 (PDT)
+Message-ID: <c964c7f1-8953-4b18-b67a-6ab3d9c3a2c6@suse.com>
+Date: Thu, 12 Sep 2024 12:20:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: xen | Failed pipeline for staging | 6e7f7a0c
@@ -143,21 +143,14 @@ On 12.09.2024 10:12, GitLab wrote:
 > 
 > Stage: build
 > Name: ubuntu-24.04-x86_64-gcc-debug
+> Job #7805959253 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/7805959253/raw )
+> 
+> Stage: analyze
+> Name: eclair-x86_64
 
-There wasn't anything Ocaml-ish in what should be under test, yet:
-
-make -C xsd_glue install
-make[8]: Entering directory '/builds/xen-project/hardware/xen/tools/ocaml/libs/xsd_glue'
-ocamldep plugin_interface_v1.ml *.mli > .ocamldep.make.tmp; 	if ! cmp -s .ocamldep.make.tmp .ocamldep.make; then mv -f .ocamldep.make.tmp .ocamldep.make; else rm -f .ocamldep.make.tmp; fi
-/bin/sh: 1: cannot create .ocamldep.make.tmp: Permission denied
-mv: cannot stat '.ocamldep.make.tmp': No such file or directory
-ocamlc -g  -w F -warn-error F -c -o plugin_interface_v1.cmo plugin_interface_v1.ml
-File "plugin_interface_v1.ml", line 1:
-Error: Could not find the .cmi file for interface plugin_interface_v1.mli.
-make[8]: *** [/builds/xen-project/hardware/xen/tools/ocaml/libs/xsd_glue/../../Makefile.rules:25: plugin_interface_v1.cmo] Error 2
-make[8]: Leaving directory '/builds/xen-project/hardware/xen/tools/ocaml/libs/xsd_glue'
-
-I have no clue at all what's going on here.
+For this one I'm afraid I once again can't make sense of the artifacts that are
+saved. That is I can't spot what failed, and hence what may need adjustment in
+what was committed.
 
 Jan
 
