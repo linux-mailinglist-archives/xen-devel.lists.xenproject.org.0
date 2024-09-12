@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F9389769A0
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 14:52:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797447.1207403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38A7D9769AB
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 14:53:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797454.1207414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sojIo-0003zL-1O; Thu, 12 Sep 2024 12:52:02 +0000
+	id 1sojKB-0004ab-FN; Thu, 12 Sep 2024 12:53:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797447.1207403; Thu, 12 Sep 2024 12:52:02 +0000
+Received: by outflank-mailman (output) from mailman id 797454.1207414; Thu, 12 Sep 2024 12:53:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sojIn-0003wv-Uz; Thu, 12 Sep 2024 12:52:01 +0000
-Received: by outflank-mailman (input) for mailman id 797447;
- Thu, 12 Sep 2024 12:52:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sojKB-0004YD-BF; Thu, 12 Sep 2024 12:53:27 +0000
+Received: by outflank-mailman (input) for mailman id 797454;
+ Thu, 12 Sep 2024 12:53:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lDyH=QK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sojIm-0003wp-Pk
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 12:52:00 +0000
+ id 1sojK9-0004Xn-N4
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 12:53:25 +0000
 Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
  [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc39bbdd-7105-11ef-99a1-01e77a169b0f;
- Thu, 12 Sep 2024 14:51:58 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ffb1c580-7105-11ef-a0b5-8be0dac302b0;
+ Thu, 12 Sep 2024 14:53:25 +0200 (CEST)
 Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a7a81bd549eso112327366b.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 05:51:58 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ a640c23a62f3a-a8a789c4fc5so340150566b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 05:53:25 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25c72e49sm743329566b.127.2024.09.12.05.51.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Sep 2024 05:51:57 -0700 (PDT)
+ a640c23a62f3a-a8d25c72eb0sm743385966b.132.2024.09.12.05.53.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Sep 2024 05:53:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,157 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc39bbdd-7105-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: ffb1c580-7105-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1726145518; x=1726750318; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=8YEkouAvvU/30llpDDU3qJxEwFSco4VI7IUeqcZ2LMs=;
-        b=FFsm3JOVDeFs7Bc8Kh73sUo5nwG6tKDONnURJbLsgEHZr2aG+ZTCiGA4gMHHfXxPMJ
-         fdvrgn4WNUdd3ET2URKZXBSEVoCNw+7RBCBToNHOhasB2qWijPG8VWzwEpOi4XNBfoWN
-         nVw4xEzVWCGneOQ/rKw3H+ekZO2LN2Pao3zLk=
+        d=citrix.com; s=google; t=1726145604; x=1726750404; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=LJCubvm0Pa78retj+SDjg8bk2r4DG/eUlfYcPKgcBsM=;
+        b=VNmKe+FOhQZFm8q0PTPSSgePLSN+WXw5pdDcy3ykTtIo9BaIgK9sSuXkiepHa1nATX
+         xWSqdvoO7JBD+HJpg4VyWQTxiaiKxyi1v9h/SZ0tZpKhGO+gRw9tODPTg6ANOr7RxGyC
+         V5I+hJup8VZuJN9Sr37Fiw07/lBym7nGsLsr8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726145518; x=1726750318;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8YEkouAvvU/30llpDDU3qJxEwFSco4VI7IUeqcZ2LMs=;
-        b=IYzxTSDD5xNwWRDT20r0f0r204Y+EXIZy+2FEU9gMrDFej1wP+910mFOR60s0M3HCU
-         L8gkO2MGw8Tlk3np9ZMckYCVsFGWl4oZUJqrCuE+t6LsWGEvmr/gx2BayFteBxtF16j3
-         pAROSYmqNAoQp6zxq/GoxymbnP0DfQS4CycqhqeyVQXLsFfC7H37FdasfAnSmuFl+cKX
-         Q6SLKP6uJ0TTM5qpN5f9YK9EMMqTQ0u/I1Lto9yekLcdQmhYQE3QDGUGEte6WEIa7Its
-         PBjiW5iPCJChH+cPLQAdtA5AqVK64bRJTcnzfLwAWHSnxCx6u7emavw72rKkg0A9tHMx
-         9LmA==
-X-Gm-Message-State: AOJu0YwLiTJk5TTys78FSXzdtBDCbA+ce1TGPpx4GJjKT0tEJne0mFqC
-	vBrTPMxX1D77EGtDXaqYD0Ai/uePTmizhGVoJphScV1yLK6yoX893hpx+OJjfebYcVD97cSp2q4
-	N
-X-Google-Smtp-Source: AGHT+IGyh4rM/X86rR3hP6k0lhV214aDI8xNxcS5KWLOY0aW8kfkgp5eSpfw//8t6AvIs5K7T6mI2g==
-X-Received: by 2002:a17:907:9404:b0:a8d:592d:f76 with SMTP id a640c23a62f3a-a90296eab6amr267238166b.48.1726145517539;
-        Thu, 12 Sep 2024 05:51:57 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Daniel Smith <dpsmith@apertussolutions.com>,
-	Jason Andryuk <jandryuk@gmail.com>
-Subject: [PATCH] xen/keyhandler: Move key_table[] into __ro_after_init
-Date: Thu, 12 Sep 2024 13:51:54 +0100
-Message-Id: <20240912125154.1708025-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
+        d=1e100.net; s=20230601; t=1726145604; x=1726750404;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LJCubvm0Pa78retj+SDjg8bk2r4DG/eUlfYcPKgcBsM=;
+        b=EJEnH3e7WmeP6y6hl/D54eG0d67IGiAujYVwQsv+1bN/ZFYVhviKaV+/mMJathleUE
+         mx5PgJB8JEyhzlgydjtxmfmpOr5Ix52a1N7GRmypJbTLKk1oW7GZsizqtbnSG9l/8tdo
+         nKjSxQm3n61gWmu4WTbXdYsifSTie7z0Ab8j8Ri/GNA5geJmd/AR5pf+qLIk6/BZzn1d
+         qwvD4/dfwcWT3255cnWNJWAj2N9iRuH8yYAFQBfy/1f4ELpmDll2L3oqrof0Zll03PeB
+         lh01qcI6DmaGYtuVKJAd2NJcCKjiehzzH+p4AypbIp6sFPRHqo6w+TlWrys39Mne0fQd
+         u+ug==
+X-Forwarded-Encrypted: i=1; AJvYcCXTeUrA3Ugh9ljPnuiHST1hu1Rw7b9Gy+d8vwU5S32RXK0+AKYnPNtjUgD7SiHYFCvdtKjUsPwEpSo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxJNvb2fy9oDbVCINWGtItMSoSh3X8dHSq1t3AdWBkCMYm9CItb
+	tPSUSMjZdseFjeCL2NlHqX/W8t3NYZ1ArxJd0NJPODY7kXT7eLkDrZq0QGW8h4I=
+X-Google-Smtp-Source: AGHT+IFZkfHC7v4fH9GXFTpkpbQ3DVA40aSK2Bl/6psVs41YUj8ggXp07cETGbY4rvAEQxdesDXMGg==
+X-Received: by 2002:a17:906:c156:b0:a8a:85c7:8755 with SMTP id a640c23a62f3a-a8ffab6cc0cmr948671866b.11.1726145604050;
+        Thu, 12 Sep 2024 05:53:24 -0700 (PDT)
+Message-ID: <6c04773e-af67-4bd3-a95e-6e8e648cf9d7@citrix.com>
+Date: Thu, 12 Sep 2024 13:53:21 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] ubsan: use linux-compat.h
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <ab2d325e-0d91-4308-b4d1-06314ad5ba0c@suse.com>
+ <a3cbf638-5a16-4813-9606-fb0c37075b3c@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <a3cbf638-5a16-4813-9606-fb0c37075b3c@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-All registration is done at boot.  Almost...
+On 12/09/2024 1:19 pm, Jan Beulich wrote:
+> Instead of replacing the s64 (and later also u64) uses, keep the file as
+> little modified as possible from its Linux origin. (Sadly the two cast
+> adjustments are needed to avoid compiler warnings.)
+>
+> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-iommu_dump_page_tables() is registered in iommu_hwdom_init(), which is called
-twice when LATE_HWDOM is in use.
-
-register_irq_keyhandler() has an ASSERT() guarding againt multiple
-registration attempts, and the absence of bug reports hints at how many
-configurations use LATE_HWDOM in practice.
-
-Move the registration into iommu_setup() just after printing the overall
-status of the IOMMU.  For starters, the hardware domain is specifically
-excluded by iommu_dump_page_tables().
-
-ept_dump_p2m_table is registered in setup_ept_dump() which is non-__init, but
-whose sole caller, start_vmx(), is __init.  Move setup_ept_dump() to match.
-
-With these two tweeks, all keyhandler reigstration is from __init functions,
-so register_{,irq_}keyhandler() can move, and key_table[] can become
-__ro_after_init.
-
-No practical change.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Daniel Smith <dpsmith@apertussolutions.com>
-CC: Jason Andryuk <jandryuk@gmail.com>
-
-CC'ing some OpenXT folks just FYI.
----
- xen/arch/x86/mm/p2m-ept.c       |  2 +-
- xen/common/keyhandler.c         | 10 +++++-----
- xen/drivers/passthrough/iommu.c |  4 ++--
- 3 files changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
-index 2ea574ca6aef..21728397f9ac 100644
---- a/xen/arch/x86/mm/p2m-ept.c
-+++ b/xen/arch/x86/mm/p2m-ept.c
-@@ -1497,7 +1497,7 @@ static void cf_check ept_dump_p2m_table(unsigned char key)
-     rcu_read_unlock(&domlist_read_lock);
- }
- 
--void setup_ept_dump(void)
-+void __init setup_ept_dump(void)
- {
-     register_keyhandler('D', ept_dump_p2m_table, "dump VT-x EPT tables", 0);
- }
-diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
-index 674e7be39e9d..6da291b34ebc 100644
---- a/xen/common/keyhandler.c
-+++ b/xen/common/keyhandler.c
-@@ -40,7 +40,7 @@ static struct keyhandler {
-     const char *desc;    /* Description for help message.                 */
-     bool irq_callback,   /* Call in irq context? if not, tasklet context. */
-         diagnostic;      /* Include in 'dump all' handler.                */
--} key_table[128] __read_mostly =
-+} key_table[128] __ro_after_init =
- {
- #define KEYHANDLER(k, f, desc, diag)            \
-     [k] = { { .fn = (f) }, desc, 0, diag }
-@@ -99,8 +99,8 @@ void handle_keypress(unsigned char key, bool need_context)
-     }
- }
- 
--void register_keyhandler(unsigned char key, keyhandler_fn_t *fn,
--                         const char *desc, bool diagnostic)
-+void __init register_keyhandler(unsigned char key, keyhandler_fn_t *fn,
-+                                const char *desc, bool diagnostic)
- {
-     BUG_ON(key >= ARRAY_SIZE(key_table)); /* Key in range? */
-     ASSERT(!key_table[key].fn);           /* Clobbering something else? */
-@@ -111,8 +111,8 @@ void register_keyhandler(unsigned char key, keyhandler_fn_t *fn,
-     key_table[key].diagnostic = diagnostic;
- }
- 
--void register_irq_keyhandler(unsigned char key, irq_keyhandler_fn_t *fn,
--                             const char *desc, bool diagnostic)
-+void __init register_irq_keyhandler(unsigned char key, irq_keyhandler_fn_t *fn,
-+                                    const char *desc, bool diagnostic)
- {
-     BUG_ON(key >= ARRAY_SIZE(key_table)); /* Key in range? */
-     ASSERT(!key_table[key].irq_fn);       /* Clobbering something else? */
-diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-index 50bfd62553ae..1c567d441cd5 100644
---- a/xen/drivers/passthrough/iommu.c
-+++ b/xen/drivers/passthrough/iommu.c
-@@ -271,8 +271,6 @@ void __hwdom_init iommu_hwdom_init(struct domain *d)
-     if ( !is_iommu_enabled(d) )
-         return;
- 
--    register_keyhandler('o', &iommu_dump_page_tables, "dump iommu page tables", 0);
--
-     iommu_vcall(hd->platform_ops, hwdom_init, d);
- }
- 
-@@ -596,6 +594,8 @@ int __init iommu_setup(void)
-     }
-     else
-     {
-+        register_keyhandler('o', &iommu_dump_page_tables, "dump iommu page tables", 0);
-+
-         if ( iommu_quarantine_init() )
-             panic("Could not set up quarantine\n");
- 
-
-base-commit: 221f2748e8dabe8361b8cdfcffbeab9102c4c899
--- 
-2.39.2
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
