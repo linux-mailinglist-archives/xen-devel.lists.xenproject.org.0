@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5069D976BE6
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 16:24:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797555.1207543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78480976C2A
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 16:31:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797566.1207554 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sokjk-0007tU-1S; Thu, 12 Sep 2024 14:23:56 +0000
+	id 1sokqA-0001Wh-Nt; Thu, 12 Sep 2024 14:30:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797555.1207543; Thu, 12 Sep 2024 14:23:56 +0000
+Received: by outflank-mailman (output) from mailman id 797566.1207554; Thu, 12 Sep 2024 14:30:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sokjj-0007rb-V3; Thu, 12 Sep 2024 14:23:55 +0000
-Received: by outflank-mailman (input) for mailman id 797555;
- Thu, 12 Sep 2024 14:23:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sokqA-0001Te-Ke; Thu, 12 Sep 2024 14:30:34 +0000
+Received: by outflank-mailman (input) for mailman id 797566;
+ Thu, 12 Sep 2024 14:30:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dRhM=QK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sokjj-0007rT-6D
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 14:23:55 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3be5fee-7112-11ef-a0b5-8be0dac302b0;
- Thu, 12 Sep 2024 16:23:54 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-42cafda818aso9599985e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 07:23:54 -0700 (PDT)
+ id 1sokq9-0001TY-7h
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 14:30:33 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 904bbbb4-7113-11ef-99a1-01e77a169b0f;
+ Thu, 12 Sep 2024 16:30:31 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-536748c7e9aso1332060e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 07:30:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3789564a52csm14591234f8f.11.2024.09.12.07.23.53
+ a640c23a62f3a-a8d25950a7fsm758485966b.57.2024.09.12.07.30.29
+ for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Sep 2024 07:23:53 -0700 (PDT)
+ Thu, 12 Sep 2024 07:30:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +46,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3be5fee-7112-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 904bbbb4-7113-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726151034; x=1726755834; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1726151430; x=1726756230; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+zp6MJqGbL/px9Au9+eSJSTLq7YSyfb3yAbzt5SjUOc=;
-        b=ZGMpr5IxG/V0tfOpvpnlwdcR1byCZsyENYQvTdQowufzAsPTszfhuBr1RPsvFerB/O
-         w6tEKPH8uyr23RugZA+tcxUgn5rGDpEkQD8JLzJJJi6pPpAkGWfb4RiWQQe2u7gn2gTu
-         xfwXLdLQ8HzMqIEvKK+3pEFv25RdeGGdYFBdiguOtF8PF1BYqZnDvgE9nx09aKk5W8Mw
-         3r719pUICYDE2qu+BWsjmtn/J1zCFRfvMCCXMQOXWkytiBSROShuydq8sniXdqx9BQPN
-         1h1ajQkrP+rdtNWqZzq1jpZWxnHFME3VUu06fXo0ogvNawSXDG8sFHJ9tS4bwRpvZ8Ea
-         PqsA==
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=VtrI0oyL4v/gGMfAwM4vnYP97ofw88+v/9odoc9RMbI=;
+        b=GZqN5H+h5ZU+5hZLa5f4bZjA6c3ZlZfK5hHcUo/AOceWSl3IGQeTmM8aU1H7mNnUXP
+         zZxx3h3pvAgTm2iVBGXT7j67H9CCFLmcAXggITLUTqM8zk2UKGYwipaQbL3S0d2o8lxd
+         u+Z8u7Bu1pnWrgHFPzKBV0B3Ur3ilH0zg8BL0GVR0Qa4lcVqMc+R2Wdm+ruSXfUDha6c
+         fHQH+BdCVoPSsuRClzg9WAYw2t2cCAc4dj8vJWw7JruImMu4DHJdYeAgMSglfQa9WTxJ
+         vLiRbxdYcHhq1levBkAWTxs9FpQdhi8kS6ktgfTaYxJ0D8NiQPvwUzy8SUutJOnjrVRA
+         cNVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726151034; x=1726755834;
+        d=1e100.net; s=20230601; t=1726151430; x=1726756230;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+zp6MJqGbL/px9Au9+eSJSTLq7YSyfb3yAbzt5SjUOc=;
-        b=E3dFPLWKgMagaGFvqz1T7zuk+UFBEme5HJG4mCQEe3qQgkVTMt7isuKDAhqBJr8Qxb
-         OGwZA8Vkz8nIN43m6JfuvPmhsUlVbr8CsTplwaoiZwJhMxjtCIVPftrSXs5GjlDzpqh9
-         J/v5fO81+ISBEPLmLTR4buI4GYykDeVR0YHUaipkCe1tq15qjUBcfqbHBcjhzYj1Cxm0
-         RyaTZQKpZOqB82HiQs7gUMHvoJrFarsfRgy5TVBsk9yP37omTaNXV2z6oTROfl9P1zXu
-         158BbBRsZyM01WwsvcBPtNXu5WRWExqXeORmXO5AWmWEy7aRngwfeFemeFS1cFQ+OUOb
-         Mk4w==
-X-Forwarded-Encrypted: i=1; AJvYcCWZA/oFBkl58fEvNZrQrr8TulnR6RKaB6KQ1w5zo2fuqcEkLXSXDPYpaRETCdPOnlMylry/rm8vKnI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyzhX+mr3K4QswEjAPvdLUYjgrh8C2AsXkblQI49vL1th7Mponi
-	0lCQtN89JWU/TJbVcnozWAYkU3seAI/cl7l2tlOeQwlAEcbarrJlnE456NZlXw==
-X-Google-Smtp-Source: AGHT+IGYtnzRjrSIGlAi2giyiWd7SCRjmuf1zqTsingk0QW4YR6Atm/sw1lICG4H30zE+YXoJnZExg==
-X-Received: by 2002:a05:600c:45cf:b0:428:f0c2:ef4a with SMTP id 5b1f17b1804b1-42cdb531c3dmr26888205e9.13.1726151033655;
-        Thu, 12 Sep 2024 07:23:53 -0700 (PDT)
-Message-ID: <ef867f55-eaf5-4656-8915-aef0c2a25233@suse.com>
-Date: Thu, 12 Sep 2024 16:23:53 +0200
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VtrI0oyL4v/gGMfAwM4vnYP97ofw88+v/9odoc9RMbI=;
+        b=YaEvBw+bCIVewSxBTO5pFUVDw8U4TjLTKe033AU+z2Dvnp1Y8xTSFVi5QSqigv+Sw+
+         t9KMhkRPQbREeWO5YkyUnIJHMoeAZPc/phA01xpXGUmp0zaIizHbIGpd+m3DsZ/SsVVt
+         BIGmpHLpUoLaKqpV9nuoML3qqHnUZu/hyga21w9Q+51iThcewnJXv9AWXStoO8W8rOHS
+         r49/pYWYpERLtbsEPREUZaoZQveJ937Wos3eWQ5wqCH+PmI12uYlb9BUzAX9lusLMc4H
+         xkXhVjmUEHMYFHREdCdSGEgQj7QLhmRjqURyFitgoqW3Qbq0ttnn7l1XilfDcU9KV9ZW
+         lIdw==
+X-Gm-Message-State: AOJu0YyWXRuOMBA1Na6NH/1+EtvhmJ3f2ZBAZ8KK5XVJ5Vc5qyW2EqBt
+	rjScY1BKgtxrwAv3NwkFqxWWDtF+spnrM9VJx8em0ZN37UVOiyrX3vUHkUkUG0y8PpngtyYNdTU
+	=
+X-Google-Smtp-Source: AGHT+IGtCQe4CWACU9YpX6h1beQiG08bUeQK6Pe66KM+fzkhyNASmRlVvcNo9CidOIotqMC+Qy0qxQ==
+X-Received: by 2002:a05:6512:10d4:b0:52e:9b68:d2da with SMTP id 2adb3069b0e04-53678fb4635mr1942503e87.9.1726151430291;
+        Thu, 12 Sep 2024 07:30:30 -0700 (PDT)
+Message-ID: <efdda482-3fea-476b-b911-15a63a188e50@suse.com>
+Date: Thu, 12 Sep 2024 16:30:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/keyhandler: Move key_table[] into __ro_after_init
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Daniel Smith <dpsmith@apertussolutions.com>,
- Jason Andryuk <jandryuk@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240912125154.1708025-1-andrew.cooper3@citrix.com>
- <886dc591-e680-420a-a07f-ffd288ec413c@suse.com>
- <d496cb2a-5485-41ad-8c9f-d77ed680890b@citrix.com>
+Subject: Re: xen | Failed pipeline for staging | 221f2748
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <66e2e41b9f8da_2ec0c1018481a@gitlab-sidekiq-catchall-v2-85fcd868d7-x8qhw.mail>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,28 +110,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d496cb2a-5485-41ad-8c9f-d77ed680890b@citrix.com>
+In-Reply-To: <66e2e41b9f8da_2ec0c1018481a@gitlab-sidekiq-catchall-v2-85fcd868d7-x8qhw.mail>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12.09.2024 16:22, Andrew Cooper wrote:
-> On 12/09/2024 3:20 pm, Jan Beulich wrote:
->> On 12.09.2024 14:51, Andrew Cooper wrote:
->>> @@ -596,6 +594,8 @@ int __init iommu_setup(void)
->>>      }
->>>      else
->>>      {
->>> +        register_keyhandler('o', &iommu_dump_page_tables, "dump iommu page tables", 0);
->>> +
->>>          if ( iommu_quarantine_init() )
->>>              panic("Could not set up quarantine\n");
->> It's a little odd to have this immediately ahead of something that can
->> panic(), but not a big deal of course. The line wants wrapping though,
->> to stay within 80 cols.
+On 12.09.2024 14:52, GitLab wrote:
 > 
-> I'm happy to put it somewhere else if you can suggest somewhere better.
+> 
+> Pipeline #1450753094 has failed!
+> 
+> Project: xen ( https://gitlab.com/xen-project/hardware/xen )
+> Branch: staging ( https://gitlab.com/xen-project/hardware/xen/-/commits/staging )
+> 
+> Commit: 221f2748 ( https://gitlab.com/xen-project/hardware/xen/-/commit/221f2748e8dabe8361b8cdfcffbeab9102c4c899 )
+> Commit Message: blkif: reconcile protocol specification with in...
+> Commit Author: Roger Pau Monné
+> Committed by: Jan Beulich ( https://gitlab.com/jbeulich )
+> 
+> 
+> Pipeline #1450753094 ( https://gitlab.com/xen-project/hardware/xen/-/pipelines/1450753094 ) triggered by Jan Beulich ( https://gitlab.com/jbeulich )
+> had 13 failed jobs.
+> 
+> Job #7809027717 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/7809027717/raw )
+> 
+> Stage: build
+> Name: ubuntu-24.04-x86_64-clang
+> Job #7809027747 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/7809027747/raw )
+> 
+> Stage: build
+> Name: opensuse-tumbleweed-clang
+> Job #7809027539 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/7809027539/raw )
+> 
+> Stage: build
+> Name: debian-bookworm-clang-debug
 
-Just at the bottom of this very else block?
+I picked this one as example - Clang dislikes the switch to bool in
+
+--- a/xen/arch/x86/include/asm/mm.h
++++ b/xen/arch/x86/include/asm/mm.h
+@@ -286,8 +286,8 @@ struct page_info
+         struct {
+             u16 nr_validated_ptes:PAGETABLE_ORDER + 1;
+             u16 :16 - PAGETABLE_ORDER - 1 - 1;
+-            u16 partial_flags:1;
+-            s16 linear_pt_count;
++            bool partial_flags:1;
++            int16_t linear_pt_count;
+         };
+ 
+         /*
+
+for places where that field's set using PTF_partial_set:
+
+arch/x86/mm.c:1582:35: error: converting the result of '<<' to a boolean always evaluates to true [-Werror,-Wtautological-constant-compare]
+            page->partial_flags = PTF_partial_set;
+                                  ^
+I wonder why we're not using plain "true" there. Alternatively the change to
+bool would need undoing.
 
 Jan
 
