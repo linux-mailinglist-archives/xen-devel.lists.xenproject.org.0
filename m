@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE4FC976738
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 13:12:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797301.1207211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04D7D97673A
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 13:14:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797306.1207222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sohjj-0005Gt-HW; Thu, 12 Sep 2024 11:11:43 +0000
+	id 1sohm4-0005qf-SV; Thu, 12 Sep 2024 11:14:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797301.1207211; Thu, 12 Sep 2024 11:11:43 +0000
+Received: by outflank-mailman (output) from mailman id 797306.1207222; Thu, 12 Sep 2024 11:14:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sohjj-0005Fo-E8; Thu, 12 Sep 2024 11:11:43 +0000
-Received: by outflank-mailman (input) for mailman id 797301;
- Thu, 12 Sep 2024 11:11:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sohm4-0005oR-Pu; Thu, 12 Sep 2024 11:14:08 +0000
+Received: by outflank-mailman (input) for mailman id 797306;
+ Thu, 12 Sep 2024 11:14:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HbDX=QK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sohji-0005Fi-A6
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 11:11:42 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c93fbf27-70f7-11ef-a0b5-8be0dac302b0;
- Thu, 12 Sep 2024 13:11:40 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a8d4093722bso112352366b.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 04:11:40 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25c73c00sm730150866b.101.2024.09.12.04.11.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Sep 2024 04:11:39 -0700 (PDT)
+ <SRS0=UBhH=QK=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1sohm3-0005nP-A7
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 11:14:07 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1f7daea8-70f8-11ef-99a1-01e77a169b0f;
+ Thu, 12 Sep 2024 13:14:05 +0200 (CEST)
+Received: from [192.168.1.20] (host-79-37-206-90.retail.telecomitalia.it
+ [79.37.206.90])
+ by support.bugseng.com (Postfix) with ESMTPSA id 992C84EE0CA5;
+ Thu, 12 Sep 2024 13:14:04 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,74 +40,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c93fbf27-70f7-11ef-a0b5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1726139500; x=1726744300; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=rGiXrAa/3lXUHRrF9+WAZKQCnUGwlVoQfhHssSdmEr0=;
-        b=GJV6GF2IJfBfVg6csdsxnpwzxKPkl0odVEm/M8/dIIKpm53UCjPwOu2gik4f9u98ky
-         nwbc4ruiNO+dV4I3oiU8bcGyO1HD2psRno+Paty5DtPQrp+/ghebG5547TqB+867FN01
-         nZ8l7R5q/uFwfeGUiaCrk0n7a+TmWYIygfqQg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726139500; x=1726744300;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rGiXrAa/3lXUHRrF9+WAZKQCnUGwlVoQfhHssSdmEr0=;
-        b=sDQtveIuY4BxryVTSvOQinGCJf75bgq7IlwEHyZlIJWaOX7WnnyDkN5aL81sppIqVB
-         dDSW+T8fPjGuuJvQGUK1o6pKKh+2n41zPQWlwBT0kDwj0cXirHC+3m2faZUiSkyQ4o03
-         WM8tdyoxwwL6my42CQrpWQrJy7VTtxGVconBGm7iti8hxVBQYSnOH1Z4OKOzy6XEUGYL
-         rhunYUh/X6B75zSfpSC9q88ZSeaSYqym1fqQrbYUSntCR97bOqc/28inyVRm2o/3o4RW
-         c96RhZHqX9195fCyUwcQv8HzIyavAMqqjwbKfuPsTJXEvKYacjd3vFVL/jcm5FFatulL
-         Rm4Q==
-X-Gm-Message-State: AOJu0Yw/sThuzT7jj+wh3I254v8oaToJg6aLrZGvt+woywWESLlf+8rg
-	zmLRdtt4ZzA9MKp5TO32DEUTOJ+oAC4Ezpaxd83rVLzWpw6y7PF5QiLOc4hHW9s=
-X-Google-Smtp-Source: AGHT+IFw81o7ftEX3Q3EgO1t5H2ALHVbNnkj8QV7l7xQeDUsOJIdrujOXVaWQa2eqKkB/YRYGtnKKg==
-X-Received: by 2002:a17:907:3f91:b0:a8d:1284:6de5 with SMTP id a640c23a62f3a-a9029431a00mr244891466b.14.1726139499741;
-        Thu, 12 Sep 2024 04:11:39 -0700 (PDT)
-Date: Thu, 12 Sep 2024 13:11:38 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Marek Marczykowski <marmarek@invisiblethingslab.com>,
-	Daniel Smith <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH 4/5] types: replace remaining uses of s32
-Message-ID: <ZuLMav741CIM6uC1@macbook.local>
-References: <b1ded557-63b8-4999-98ca-de80488ebad1@suse.com>
- <0e6b7685-e061-4ace-88fd-86728d765e5a@suse.com>
- <ZuK50VAqUCfX29pt@macbook.local>
- <22e4c432-71c9-4d93-adc6-01136d71a093@suse.com>
+X-Inumbo-ID: 1f7daea8-70f8-11ef-99a1-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1726139644; bh=iCTntylAWwmc2me5x1xK2rD2JoghxiTT+W4zuRJFUVc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=xXNWgPjGaZLJrF9qDnWpWuv7AXFrVyTRaBm+RMJyVN7Uwc9O0uswd3UIAPwNL7CkD
+	 AUrLjBktzOpzv39jL9DqMCf1LymjeYF4/bNRp1VHxjfr9/9UvKH2jVf4C683jhkU1F
+	 Winp1Type7o03NcIOe2xTm4xlf07Vn/wc6GmRCL1650JnbDmKucY6MPlt5T3q1xVV8
+	 eb4aXGYyIvlHLr9yPh2YWc6p5yyWJ1JZ/plz9U/OUTXh3or5vrIxMYezCLf2zYnlvy
+	 e409koT38gs/VBHdyaJMx6EeZ+iXM+PXDZwkDVLxG4AnHHC7H3w2wcKZ9x6XdHVoQs
+	 lkkKZTBlsnwkA==
+Message-ID: <b474cbfe-c1bb-460f-a84d-08a439b215c3@bugseng.com>
+Date: Thu, 12 Sep 2024 13:14:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <22e4c432-71c9-4d93-adc6-01136d71a093@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 09/12] x86/emul: address violations of MISRA C Rule
+ 16.3
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1725958416.git.federico.serafini@bugseng.com>
+ <0fa68b9aee5a7a3f1b696bfc6b18ecc826663212.1725958417.git.federico.serafini@bugseng.com>
+ <1e6e2bb8-2a27-4cac-a888-7d785bc4c463@suse.com>
+ <6b1ca033-4a6d-4f69-aa6a-54dbcb37e79e@bugseng.com>
+ <992dbde2-a1fc-472d-9bb9-a4e11a2bc21b@suse.com>
+Content-Language: en-US, it
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <992dbde2-a1fc-472d-9bb9-a4e11a2bc21b@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 12, 2024 at 12:05:23PM +0200, Jan Beulich wrote:
-> On 12.09.2024 11:52, Roger Pau Monné wrote:
-> > On Thu, Aug 29, 2024 at 02:01:16PM +0200, Jan Beulich wrote:
-> >> ... and move the type itself to linux-compat.h.
-> >>
-> >> While doing so switch a few adjacent types as well, for (a little bit
-> >> of) consistency.
-> >>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+On 12/09/24 12:01, Jan Beulich wrote:
+> On 12.09.2024 11:17, Federico Serafini wrote:
+>> On 11/09/24 14:42, Jan Beulich wrote:
+>>> On 10.09.2024 12:09, Federico Serafini wrote:
+>>>> --- a/xen/arch/x86/x86_emulate/fpu.c
+>>>> +++ b/xen/arch/x86/x86_emulate/fpu.c
+>>>> @@ -218,6 +218,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>>>                 */
+>>>>                if ( dst->type == OP_MEM && !s->fpu_ctrl && !fpu_check_write() )
+>>>>                    dst->type = OP_NONE;
+>>>> +            break;
+>>>>            }
+>>>>            break;
+>>>>    
+>>>> @@ -296,6 +297,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>>>                default:
+>>>>                    generate_exception(X86_EXC_UD);
+>>>>                }
+>>>> +            break;
+>>>>            }
+>>>>            break;
+>>>>    
+>>>> @@ -386,6 +388,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>>>                 */
+>>>>                if ( dst->type == OP_MEM && !s->fpu_ctrl && !fpu_check_write() )
+>>>>                    dst->type = OP_NONE;
+>>>> +            break;
+>>>>            }
+>>>>            break;
+>>>>    
+>>>> @@ -457,6 +460,7 @@ int x86emul_fpu(struct x86_emulate_state *s,
+>>>>                case 7: /* fistp m64i */
+>>>>                    goto fpu_memdst64;
+>>>>                }
+>>>> +            break;
+>>>
+>>> Aren't you swapping one violation for another here? Unlike in the earlier
+>>> three cases, this new break is unreachable, because of the nature of the
+>>> preceding switch() statement (cases being exhaustive and every case ending
+>>> in "goto"; this is something even a static analyzer can [in principle]
+>>> spot).
+>>
+>> You are right, but the resulting violation of Rule 2.1
+>> ("A project shall not contain unreachable code") is deviated with the
+>> following justification:
+>> "The compiler implementation guarantees that the unreachable code is
+>> removed.
 > 
-> Thanks. Andrew asked for a style adjustment, which I wasn't sure about.
-> I'd like to follow whatever maintainers prefer, so could you clarify
-> that please?
+> I'm not convinced this is the case here in practice.
+> 
+> Instead of "break", wouldn't "unreachable()" be the better construct
+> to use in situations like this one?
+> 
+>> Constant expressions and unreachable branches of if and switch
+>> statements are expected."
+> 
+> This I don't think applies in this particular case?
 
-Oh, sorry, I would prefer with the alignment added, as suggested by
-Andrew.
+I agree,
+the ECLAIR configuration for the deviation covers
+more cases than expected. I'll fix it.
 
-Thanks, Roger.
+-- 
+Federico Serafini,
+
+Ph.D. Student, Ca' Foscari University of Venice
+Software Engineer, BUGSENG
 
