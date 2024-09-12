@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC74B97749B
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 00:58:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797851.1207920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3103C9774A1
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 01:00:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797855.1207929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sosl6-0002LY-0o; Thu, 12 Sep 2024 22:57:52 +0000
+	id 1sosnE-0003SW-DK; Thu, 12 Sep 2024 23:00:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797851.1207920; Thu, 12 Sep 2024 22:57:51 +0000
+Received: by outflank-mailman (output) from mailman id 797855.1207929; Thu, 12 Sep 2024 23:00:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sosl5-0002Id-Tx; Thu, 12 Sep 2024 22:57:51 +0000
-Received: by outflank-mailman (input) for mailman id 797851;
- Thu, 12 Sep 2024 22:57:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T9bO=QK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sosl4-0002IX-Sb
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 22:57:50 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6e2b9dc1-715a-11ef-99a1-01e77a169b0f;
- Fri, 13 Sep 2024 00:57:48 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id F1216A458A4;
- Thu, 12 Sep 2024 22:57:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5529C4CEC3;
- Thu, 12 Sep 2024 22:57:45 +0000 (UTC)
+	id 1sosnE-0003PS-9U; Thu, 12 Sep 2024 23:00:04 +0000
+Received: by outflank-mailman (input) for mailman id 797855;
+ Thu, 12 Sep 2024 23:00:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sosnC-00035x-Ft; Thu, 12 Sep 2024 23:00:02 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sosnC-0007f8-BO; Thu, 12 Sep 2024 23:00:02 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1sosnB-0006sE-SR; Thu, 12 Sep 2024 23:00:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1sosnB-0008GP-S1; Thu, 12 Sep 2024 23:00:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,160 +42,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e2b9dc1-715a-11ef-99a1-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1726181867;
-	bh=S3ilyZAc5jOXr9ygFvI7BVbxqIeMH+Ca+pvY5fOgGUA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=h4aLHdE/YMn0b1IfReHK9r2CgddgOrh7g8GlBBqNfgwfz/4K8NI3AVh4isJieIBXD
-	 1QzWmMgDDspJLtTWSLTJJfPhAXJJiQg/4Dy8+OJjhjPFRiqp7RPsCgpKqrn3ndmjHK
-	 9I17uqSnY0FVSdnZctpPSiUPXLQhnmvmrDKYZMJUmv+q7MQrVgFoOHXDWYaix/JhQy
-	 OKkAxWSBvOXj5iaqzaZuBbeyNqaXUE0i1SWZvvpMEFa8rMKRZSUM5I8Z1Tu/RczX7f
-	 KS/4BaMQhQaBjDa3+LxdD9dfR4EQF4XwUEXFW/renyBPV7Gp1oXf3UlTY9UCyKZyYc
-	 deoNqL355XlGw==
-Date: Thu, 12 Sep 2024 15:57:44 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, michal.orzel@amd.com, 
-    xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v2] x86: p2m-pod: address violation of MISRA C Rule
- 2.1
-In-Reply-To: <8f89be89-498f-4287-b4d5-dc519c23d84c@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2409121546380.611587@ubuntu-linux-20-04-desktop>
-References: <43b3a42f9d323cc3f9747c56e8f59f9dffa69321.1719556140.git.nicola.vetrini@bugseng.com> <38b57a6f-187c-440a-b3b4-9e7e124e1802@suse.com> <25b6a974b7c9aaec32b11930168148a5@bugseng.com> <4e54f8e0-43ce-4dd6-b1b4-cf72b59d96be@suse.com>
- <1a139b44effdeefab6b3e0ee7ae0c43d@bugseng.com> <38c34b50-56a5-498a-8ed6-d57a8f02a964@suse.com> <3f3f43e894a2b9e506dcfba38a578880@bugseng.com> <da7f6320-06e1-42f0-b507-cf1ec9415568@suse.com> <alpine.DEB.2.22.394.2409111757520.611587@ubuntu-linux-20-04-desktop>
- <8f89be89-498f-4287-b4d5-dc519c23d84c@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=oQHDaWXZVOL9AyDVN3YBI+L6JZpRcteutPgWgAPd32k=; b=jk7rFJTS7yMOmWETB3h0/akAbA
+	IjJHtvhXdWlvcVSix2mL5v3fKb+MEIS0DZgQxZal5hSVj9flecHLZCLeTV5o9zTW24XR2SaUjie/E
+	bhmTKEvWeJufNnbZUd3ws/0vRfmGhJOLb3Zhw+8tmkktQwJ5fu+rlbDTcyFo+UW3uWrI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187673-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [qemu-mainline test] 187673: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    qemu-mainline:test-armhf-armhf-xl:xen-boot:fail:heisenbug
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:leak-check/check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=4b7ea33074450bc6148c8e1545d78f179e64adb4
+X-Osstest-Versions-That:
+    qemuu=a4eb31c678400472de0b4915b9154a7c20d8332f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 12 Sep 2024 23:00:01 +0000
 
-On Thu, 12 Sep 2024, Jan Beulich wrote:
-> On 12.09.2024 03:05, Stefano Stabellini wrote:
-> > On Tue, 10 Sep 2024, Jan Beulich wrote:
-> >> On 10.09.2024 12:17, Nicola Vetrini wrote:
-> >>> On 2024-09-10 12:03, Jan Beulich wrote:
-> >>>> On 10.09.2024 11:53, Nicola Vetrini wrote:
-> >>>>> On 2024-09-10 11:08, Jan Beulich wrote:
-> >>>>>> On 10.09.2024 10:56, Nicola Vetrini wrote:
-> >>>>>>> On 2024-07-01 10:36, Jan Beulich wrote:
-> >>>>>>>> On 28.06.2024 08:30, Nicola Vetrini wrote:
-> >>>>>>>> This being about unreachable code, why are the domain_crash() not 
-> >>>>>>>> the
-> >>>>>>>> crucial points of "unreachability"? And even if they weren't there,
-> >>>>>>>> why
-> >>>>>>>> wouldn't it be the goto or ...
-> >>>>>>>>
-> >>>>>>>>> --- a/xen/arch/x86/mm/p2m-pod.c
-> >>>>>>>>> +++ b/xen/arch/x86/mm/p2m-pod.c
-> >>>>>>>>> @@ -1040,6 +1040,7 @@ out_unmap:
-> >>>>>>>>>       * Something went wrong, probably crashing the domain.  Unmap
-> >>>>>>>>>       * everything and return.
-> >>>>>>>>>       */
-> >>>>>>>>> +    /* SAF-8-safe Rule 2.1: defensive programming */
-> >>>>>>>>>      for ( i = 0; i < count; i++ )
-> >>>>>>>>>          if ( map[i] )
-> >>>>>>>>>              unmap_domain_page(map[i]);
-> >>>>>>>>
-> >>>>>>>> ... the label (just out of context) where the comment needs to go?
-> >>>>>>>
-> >>>>>>> Because of the way this rule's configuration work, deviations are
-> >>>>>>> placed
-> >>>>>>> on the construct that ends up being the target of the 
-> >>>>>>> unreachability,
-> >>>>>>
-> >>>>>> What's "target" here? What if this loop was removed from the 
-> >>>>>> function?
-> >>>>>> Then both the label and the domain_crash() invocations would still be
-> >>>>>> unreachable in debug builds. Are you telling me that this then 
-> >>>>>> wouldn't
-> >>>>>> be diagnosed by Eclair? Or that it would then consider the closing
-> >>>>>> figure brace of the function "the target of the unreachability"?
-> >>>>>
-> >>>>> Exactly, the end brace is a target to which the "function end" 
-> >>>>> construct
-> >>>>> is associated.
-> >>>>> It would be kind of strange, though: why not just doing 
-> >>>>> "domain_crash();
-> >>>>> return;" in that case?
-> >>>>
-> >>>> Sure, the question was theoretical. Now if "return" was used directly
-> >>>> there, what would then be the "target"? IOW - the more abstract 
-> >>>> question
-> >>>> of my earlier reply still wasn't answered.
-> >>>>
-> >>>
-> >>> The return statement in
-> >>>
-> >>> ...
-> >>> domain_crash();
-> >>> return;
-> >>> <~~~~~>
-> >>>
-> >>> Whichever statement is found to be unreachable in the current 
-> >>> preprocessed code.
-> >>
-> >> Yet then again: Why is it the return statement and not the function call
-> >> one (really, it being a macro invocation: the do/while one that the macro
-> >> expands to)? That's the first thing that won't be reached.
-> > 
-> > Are you trying to get clarity on the specific locations where the SAF
-> > deviations could be placed for the sake of understanding how the
-> > deviation system work?
-> > 
-> > Or are you asking for the SAF comment to be moved elsewhere because you
-> > don't like the SAF comment after the out_unmap macro?
-> 
-> The former, in order to make up my mind at all.
+flight 187673 qemu-mainline real [real]
+flight 187681 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187673/
+http://logs.test-lab.xenproject.org/osstest/logs/187681/
 
-OK.
+Failures :-/ but no regressions.
 
-Nicola, I think I understand Jan's question and I'll try to clarify. The code in
-p2m_pod_zero_check looks like this:
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-xl           8 xen-boot            fail pass in 187681-retest
 
-p2m_pod_zero_check(..
-{
-    [...]
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl         15 migrate-support-check fail in 187681 never pass
+ test-armhf-armhf-xl     16 saverestore-support-check fail in 187681 never pass
+ test-amd64-amd64-libvirt-vhd 22 leak-check/check             fail  like 187663
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187663
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187663
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187663
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187663
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
 
-    if ( something )
-    {
-        ASSERT_UNREACHABLE();
-        /* potential SAF comment position#1 */
-        domain_crash(d);
-        /* potential SAF comment position#2 */
-        goto out_unmap;
-    }
+version targeted for testing:
+ qemuu                4b7ea33074450bc6148c8e1545d78f179e64adb4
+baseline version:
+ qemuu                a4eb31c678400472de0b4915b9154a7c20d8332f
 
-    [...]
+Last test of basis   187663  2024-09-11 20:41:51 Z    1 days
+Testing same since   187673  2024-09-12 09:32:44 Z    0 days    1 attempts
 
-    return;
+------------------------------------------------------------
+People who touched revisions under test:
+  Beraldo Leal <bleal@redhat.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Philippe Mathieu-Daudé <philmd@linaro.org>
+  Richard Henderson <richard.henderson@linaro.org>
+  Thomas Huth <thuth@redhat.com>
 
-out_unmap:
-    /* SAF comment added by patch */
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-xl-qcow2                                    pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-raw                                      pass    
+ test-armhf-armhf-xl-raw                                      pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-libvirt-vhd                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
 
-    [...]
-}
 
-Jan is trying to understand why the SAF comment is placed after the
-label "out_unmap" instead of position#1 or position#2 in my example.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-The question arises from the following observations:
-- anything after ASSERT_UNREACHABLE should be unreachable
-- ignoring ASSERT_UNREACHABLE, anything after domain_crash should be
-  unreachable
-- "goto out_unmap" is a statement in itself, why is the SAF comment
-  placed after the execution of "goto out_unmap" instead of before
-  (position#2)?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-In general, I agree it would be good for us to understand which
-positions are allowed for the SAF comment. But at the same time in my
-opinion among all these possible position, Nicola already picked the
-best one and I wouldn't be in favor of moving the SAF comment in
-position#1 or position#2.
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/qemu-xen.git
+   a4eb31c6784..4b7ea330744  4b7ea33074450bc6148c8e1545d78f179e64adb4 -> upstream-tested
 
