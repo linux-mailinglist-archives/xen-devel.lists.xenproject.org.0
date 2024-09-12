@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F0E5976DCE
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 17:32:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797644.1207653 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAD94976DEA
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 17:38:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797656.1207665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1solnf-00070X-B9; Thu, 12 Sep 2024 15:32:03 +0000
+	id 1soltl-0008Rv-0B; Thu, 12 Sep 2024 15:38:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797644.1207653; Thu, 12 Sep 2024 15:32:03 +0000
+Received: by outflank-mailman (output) from mailman id 797656.1207665; Thu, 12 Sep 2024 15:38:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1solnf-0006yS-8W; Thu, 12 Sep 2024 15:32:03 +0000
-Received: by outflank-mailman (input) for mailman id 797644;
- Thu, 12 Sep 2024 15:32:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1soltk-0008Om-TK; Thu, 12 Sep 2024 15:38:20 +0000
+Received: by outflank-mailman (input) for mailman id 797656;
+ Thu, 12 Sep 2024 15:38:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dRhM=QK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1solne-0006xX-7r
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 15:32:02 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 27247f27-711c-11ef-99a1-01e77a169b0f;
- Thu, 12 Sep 2024 17:32:00 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a8d64b27c45so176124766b.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 08:32:00 -0700 (PDT)
+ id 1soltj-0008Og-6s
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 15:38:19 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0865f453-711d-11ef-a0b5-8be0dac302b0;
+ Thu, 12 Sep 2024 17:38:18 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5c255e3c327so1290136a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 08:38:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25cf03ccsm763512066b.183.2024.09.12.08.31.59
+ a640c23a62f3a-a8d25c72e7fsm760393766b.109.2024.09.12.08.38.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Sep 2024 08:31:59 -0700 (PDT)
+ Thu, 12 Sep 2024 08:38:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27247f27-711c-11ef-99a1-01e77a169b0f
+X-Inumbo-ID: 0865f453-711d-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726155120; x=1726759920; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tPtK4KfYXfGtKCPYLSuIoJhaRyHGGjo+O8Wdgy3r+gM=;
-        b=IEC0xUC5zeavwq3Jap84tCTPb+8VWzeCWv8vj3PWBvs8/+x5CcE4cuekAeMDCN5GCD
-         Pwvv0vIiyAB6Q6Ex5YmUJxGVKzV5bHyRQ+aDkk+QRr9Fo+bGqOi6DcH4tSFC1r53uwbl
-         KQfB10uF9FNxecpiDSyAUaJAKvcVkAbTOjVBADYX8ALEYxzPMiYrYxuyrBiA/dJYB5M4
-         nzevUtiXHGxFq1M81lRTPrN6C8jhVlX2R+oC6E6pSCF/oKvaRZEps8O2weDxcnzzsZHT
-         LYmYuOh7hs2OdOrgoAloE7VFgUOIIx8gOJAlzKIO0Pn8f49V9uumb8YtYrnFZOXgGrZC
-         rJHg==
+        d=suse.com; s=google; t=1726155497; x=1726760297; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6AtVc+7nHrPWj44KnO5EoZg9shgr1BIY/Jvn32C4fQM=;
+        b=WpoQNvQal7VWLi84wwd/GOmADXozPlVZTUf0zXlGqXYFt/4zTvG5J1/H3Cm8cdDYMc
+         0dQo9ZW1YDT0wfhpCbpAgadm3Noj/f1Jw8GShbIHG2krHkZ+N1cRRCKP9y+lHsFhzqmR
+         XLFHSYqRn1xaFMXObTAXZMxUcO1NXh4wVWVeWoOVgt5v4Wgzf3t5TK7t0h+51+QkZ6UO
+         q5VYDqztzr/ozXc3X9oUqLKI+ZPXZBa3JhTLNcp0mTsUw6y8/pugr9ou5TibI5lw1b+G
+         eJeZu009ovQwFMAuLHmsS43Y/sJgAnReE2khAis6+S8mukO2G/nVpzRQN2Ydot4rbBCG
+         pSAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726155120; x=1726759920;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tPtK4KfYXfGtKCPYLSuIoJhaRyHGGjo+O8Wdgy3r+gM=;
-        b=I7DUebALWlYr17TsnVHiZWPO2JXNrMYPfQ+sGFRGAFDeLAMwSjb39940ZFY8dYgCBy
-         XO8xYmAvfMq63MXD+4ebhsyFlyCcscbu1PUjwd4SdXmi+xM7hZFt6205s8QzQwZ819Ia
-         sF7uxdOtwA1QthBREAs4Q20DLPoKownwzr6RfdN2UM4OtI7dePlCUMBEFtmKa6If+36T
-         r4FN3FKer69nQJxfqI/Y8WDjA2wLFEPyJ6bFqod2yEe5Sghddk5Q8RbMjhvvE97rH7yi
-         OVFMUUZE3dSjR6qvD2WJXT8rUdg7CgABHQ0+7wzEuhKN920+WoYwmVWujaJzDNESgN1s
-         /noQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVdG+UjyulOeBi4thDFTSuSOmi2eTcZhr5URSiOIaJ5um8KrJAji0GzaPzWgX+usoyVqRZu/a5EzFI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzbIIsG5WgOLQxAc3qAVFdV3gn9b33yhT3g7JbUsMTslP5FOeeo
-	zwVcu3jrVioX2EmNTsww9nQ6F/VcecZyv1uUHhtO+TUe4lf8eM56jq0DfTDZyg==
-X-Google-Smtp-Source: AGHT+IFpps8VqwEwj2aCpDv86dzHsGRqUZ09VYoRzrRYqoNjpdSkZTjhe8c5oippL2FV3e86+ib8pQ==
-X-Received: by 2002:a17:907:efdc:b0:a86:9041:a42a with SMTP id a640c23a62f3a-a902963a320mr323820766b.62.1726155119586;
-        Thu, 12 Sep 2024 08:31:59 -0700 (PDT)
-Message-ID: <57de5f57-9de8-4b06-a1c6-d4da6e9c6735@suse.com>
-Date: Thu, 12 Sep 2024 17:31:59 +0200
+        d=1e100.net; s=20230601; t=1726155497; x=1726760297;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6AtVc+7nHrPWj44KnO5EoZg9shgr1BIY/Jvn32C4fQM=;
+        b=VZLZq9qIOzVVdYr4eiZqoSSJZzfvmK7DpthMdyxdNbuYT4QcSfKCwQc+iV3/sRmvqa
+         UDs4SJmh1VNXKzDeMLZXivRaee4M04AsFD7625V3Q+5xdl608nB+LZFJVzCoqXzMpA+X
+         K2o4RkC7msgONU0g8Je9WerH1DQn62rr1d1stxhL6h13AFQTOw1B5BdvW9RUR5RYV1yj
+         fL7LngcUma+0rj1uq/fWNOYoW371q1qesBr9nCUGh3/YMnBqu4JhDcjVYCyySP1wwMwy
+         2gp12Cj61TmG3/5thoPxljcKXhEcIPI7kewhq/hzsIDh+e8BPHbqefx2FHJDliYDx3CL
+         X+Yg==
+X-Gm-Message-State: AOJu0YwCSi8spGj4Mh70gchuRlOKx2H7srXf+4NqwpcEbqDMXflw4zOU
+	DDm4/ZWJlsCN1R2eIBwNQJJDFqrG2WXBkGqAz09kidP6w3aZCQtlYX4R9rhzT2uarh5jEEglE0g
+	=
+X-Google-Smtp-Source: AGHT+IEoNl2/smpdEMNKK5iux1McX7vjo6HCskjf41YpK1AaAIpYnqzc7gwZJMXHY9o7iXLbxRcCxQ==
+X-Received: by 2002:a17:907:1c1a:b0:a86:97c0:9bb3 with SMTP id a640c23a62f3a-a902961741bmr360609966b.51.1726155497431;
+        Thu, 12 Sep 2024 08:38:17 -0700 (PDT)
+Message-ID: <25a6b7e7-3bbe-4121-8f29-cce6f0a99206@suse.com>
+Date: Thu, 12 Sep 2024 17:38:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] xen/riscv: add section for device information in
- linker script
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1726048521.git.oleksii.kurochko@gmail.com>
- <e0d5d5505c89a81997240a4099090c96d37c1bee.1726048521.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/mm: undo type change of partial_flags
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,23 +109,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e0d5d5505c89a81997240a4099090c96d37c1bee.1726048521.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.09.2024 12:04, Oleksii Kurochko wrote:
-> Introduce a new `.dev.info` section in the RISC-V linker script to
-> handle device-specific information.
-> This section is aligned to `POINTER_ALIGN`, with `_sdevice` and `_edevice`
-> marking the start and end of the section, respectively.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Clang dislikes the boolean type combined with the field being set using
+PTF_partial_set.
 
-This (and patch 1) is okay in principle, provided the description actually
-also says "why", not just "what". Placing past .bss is questionable, though.
+Fixes: 5ffe6d4a02e0 ("types: replace remaining uses of s16")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Overall, however, this probably could do with abstracting by a macro in
-xen/xen.lds.h, then also to be used by Arm.
-
-Jan
+--- a/xen/arch/x86/include/asm/mm.h
++++ b/xen/arch/x86/include/asm/mm.h
+@@ -286,7 +286,7 @@ struct page_info
+         struct {
+             u16 nr_validated_ptes:PAGETABLE_ORDER + 1;
+             u16 :16 - PAGETABLE_ORDER - 1 - 1;
+-            bool partial_flags:1;
++            uint16_t partial_flags:1;
+             int16_t linear_pt_count;
+         };
+ 
 
