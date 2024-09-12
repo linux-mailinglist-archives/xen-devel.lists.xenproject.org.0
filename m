@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B85F976BB8
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 16:14:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.797535.1207514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD1FD976BD5
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Sep 2024 16:20:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.797544.1207523 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sokaX-0004uT-Nr; Thu, 12 Sep 2024 14:14:25 +0000
+	id 1sokgP-0006of-CN; Thu, 12 Sep 2024 14:20:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 797535.1207514; Thu, 12 Sep 2024 14:14:25 +0000
+Received: by outflank-mailman (output) from mailman id 797544.1207523; Thu, 12 Sep 2024 14:20:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sokaX-0004sL-KD; Thu, 12 Sep 2024 14:14:25 +0000
-Received: by outflank-mailman (input) for mailman id 797535;
- Thu, 12 Sep 2024 14:14:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sokgP-0006mc-8I; Thu, 12 Sep 2024 14:20:29 +0000
+Received: by outflank-mailman (input) for mailman id 797544;
+ Thu, 12 Sep 2024 14:20:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dRhM=QK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sokaV-0004s3-Vi
- for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 14:14:23 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4f368b1b-7111-11ef-a0b5-8be0dac302b0;
- Thu, 12 Sep 2024 16:14:23 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a8d3e662791so67439866b.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 07:14:23 -0700 (PDT)
+ id 1sokgN-0006mW-U1
+ for xen-devel@lists.xenproject.org; Thu, 12 Sep 2024 14:20:27 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 27709fd2-7112-11ef-99a1-01e77a169b0f;
+ Thu, 12 Sep 2024 16:20:25 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-42cb1758e41so8531775e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Sep 2024 07:20:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c3ebd76f55sm6568920a12.69.2024.09.12.07.14.21
+ 5b1f17b1804b1-42cb116f44esm167691905e9.45.2024.09.12.07.20.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Sep 2024 07:14:22 -0700 (PDT)
+ Thu, 12 Sep 2024 07:20:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f368b1b-7111-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 27709fd2-7112-11ef-99a1-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726150462; x=1726755262; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1726150825; x=1726755625; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=itO5bSVGsaZ2sJNc4X+OHDHv/llsiQbbYiIrdbqPoso=;
-        b=HKQ32bW0N33L+PJ9BawoZtnUdmM3PXQKD7WqsSGobsel0MeOb/OcVszoGP7XVnXFZm
-         3CVrPotzsWXLmLkuc0wV8cAgq3odnZwW0SLA0JmH+1BTbAO6IEoGX+Ty2LO1vixtyIrg
-         vHkM+CN2ahf/O1qwS8GJradAikptwiYXbfL356lPoDAEm/3KD1Dh5nogSS5wr0JKE8hX
-         xZblzdXaXWUt4fzQIgPPxxRZbuv4CDUbc9HsTXEhKNvHqPPh+X4btzq9UOpjFMT+NSn0
-         DBhO76U11IxjmOpSDVWqzheXDANFFLfzGu/KvsmqQaiwmKQ2mKXy67EnFcHP1QL4Ugtb
-         SXaw==
+        bh=vgSUwi68sI4ZZ0EFj4Pt1EyRlo8OTzTPiLgT0ug3sRE=;
+        b=BG8bm7ciVZJ4jEzYOPDOGHhzs0l4htbr6zQ2DeuFNiSpNW3SG6y64E/yjK2THGmrsA
+         qxny5uD1UqhsRGRpzeyz5/Wfe9kqmbp9XTb1Wg0ZqgwZywJpl511HG+vWKMW3jeUWN1j
+         ya/jbKsp7VBjzRiviOorpONL3HkezBLXXwFP/3S3XKloZjzVE33kq3jdq0fd3SQ4uuq8
+         hPeTLkZ0oQYv6StXew7rZtJjdTLO1HWZ2ej4VCFaFR9GvJh/tcXS7z5f8+PRXX8O21/1
+         mNEWunlE3dzY/UORyT97khex1x8jihSXjrtcGb5nCH7+H0fgjN1foD6a1ytT9zgDOHqb
+         Z+rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726150462; x=1726755262;
+        d=1e100.net; s=20230601; t=1726150825; x=1726755625;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=itO5bSVGsaZ2sJNc4X+OHDHv/llsiQbbYiIrdbqPoso=;
-        b=V00CYVLhz3Q/yzIr0EUD0I1jVU5rq3s2XMAJwS/WyAby5fCKo9NGmZ4m9JSX1o7YrD
-         ATyAOZCFSslHGSq8Pzq0qBtWBEotrIGLXyhRIZU+2Qx4GOcSR7ImgbOuAYDugslVXLIo
-         qJdc1hXCt2Ou7SwRgetO7d7rO5VPvOmHF2MSK/ZWzFNnvSdM2h9gLIsW+nCEvgBlzPiv
-         4OgBwWIN3WfcJBSw1tnsMjOpYEuOGgCEnZ5uhyHJR5IvKFh2sCTYTGMz7Vh6k3XmFK1T
-         AG4KTIF3JMkrc/9TeQmEBtz0N29abT7LHpzLllvs1rWxsD1DPOhsJRB/CORFyxUR03B+
-         a9zw==
-X-Gm-Message-State: AOJu0YyAMTDIm9TQW607e2ROUzUKFbflvvsHtFH0yhPuwSpkJUdkBOd/
-	q2g4x9N1MoibvCMIdrR3ioB7zOxqyl63UO6rkBYWt7oXAYVf/675Cjo7V7Fnwg==
-X-Google-Smtp-Source: AGHT+IERKFVChFKugrUMzbrlARTuhb0BQFHQ10aAvXgDkImZq4NRBv5d997y8DjvmLAv3E/4m7YTJA==
-X-Received: by 2002:a05:6402:27c6:b0:5c2:4cbe:ac17 with SMTP id 4fb4d7f45d1cf-5c413e05910mr3930382a12.4.1726150462291;
-        Thu, 12 Sep 2024 07:14:22 -0700 (PDT)
-Message-ID: <86b937d6-3cde-455b-9441-008f5323c11e@suse.com>
-Date: Thu, 12 Sep 2024 16:14:21 +0200
+        bh=vgSUwi68sI4ZZ0EFj4Pt1EyRlo8OTzTPiLgT0ug3sRE=;
+        b=Qdx+ubmeeyO/nDFvuPowcNiN/ax1pecJIqRrn3FtAN4GJP3jrxepQI0LVdz+5c0vz1
+         uKH6Wt++v7i2xvEGPQCdSAtTqau6qOTfUiLGF0Fmh1bncDur1HqK6Lo+/6M2z2M6cVKa
+         n0mvZl4HPE5A2A7lWpfXIInphvlcbkhX1+op+3oRWYv+wpuXkC2SlLKoYR7iAvKat2JG
+         B2rlsHbvnEeGdxiL60/lwwTzvMaQXvPTLwPgcz0FPYvc6ViDECYEzu25BId+zt7HU1hD
+         wOF0spia0iArxBOBXYKNVdcpK9jJGiYGxxg0W7FBuKvxZ4ZIU2FQL/373MTqZidkNI2n
+         o4bw==
+X-Forwarded-Encrypted: i=1; AJvYcCXiI30Xb8mJvDQ1aFRoCji9HKSrSLvKyg03N9tw0eLSdOyg02LYTVxXGjxqrfZeh0fnbX7hgsEN2kE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxuZXncORpww4qkcoaRc25mQDUHUfMqtUlXNYkIorNJMUh6eSG/
+	ftNKgMtCqpXVj6GrucZfSSxQf2XqYkMG7F4k6PmV63Fvg3hcGsLZmkVnVij65g==
+X-Google-Smtp-Source: AGHT+IFxB/IWKy1FB69h7DoDjK/jIRSCj2ZtJ5cUorZ0i6wBufwpo+X2+2Zn6HsVtcZDURMcJjs3Xw==
+X-Received: by 2002:a05:600c:1c85:b0:429:a05:32fb with SMTP id 5b1f17b1804b1-42cdb5318femr22426705e9.10.1726150825109;
+        Thu, 12 Sep 2024 07:20:25 -0700 (PDT)
+Message-ID: <886dc591-e680-420a-a07f-ffd288ec413c@suse.com>
+Date: Thu, 12 Sep 2024 16:20:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] types: replace remaining uses of s64
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <ab2d325e-0d91-4308-b4d1-06314ad5ba0c@suse.com>
- <a6126dc2-a10f-4a90-9d2f-80f6f32f1386@suse.com>
- <CACHz=Zgwy0XVuiXwWt+wZaE0SZkvYSp2tk-q6P9K_oqFbRkb8w@mail.gmail.com>
+Subject: Re: [PATCH] xen/keyhandler: Move key_table[] into __ro_after_init
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ Jason Andryuk <jandryuk@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240912125154.1708025-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,24 +113,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=Zgwy0XVuiXwWt+wZaE0SZkvYSp2tk-q6P9K_oqFbRkb8w@mail.gmail.com>
+In-Reply-To: <20240912125154.1708025-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12.09.2024 14:28, Frediano Ziglio wrote:
-> On Thu, Sep 12, 2024 at 1:20 PM Jan Beulich <jbeulich@suse.com> wrote:
-> Minor for the subject, there are also some removal of u64 and u8, not only s64
+On 12.09.2024 14:51, Andrew Cooper wrote:
+> @@ -596,6 +594,8 @@ int __init iommu_setup(void)
+>      }
+>      else
+>      {
+> +        register_keyhandler('o', &iommu_dump_page_tables, "dump iommu page tables", 0);
+> +
+>          if ( iommu_quarantine_init() )
+>              panic("Could not set up quarantine\n");
 
-Right, which is being said ...
-
->> ... and move the type itself to linux-compat.h.
->>
->> While doing so
->> - correct the type of union uu's uq field in lib/divmod.c,
->> - switch a few adjacent types as well, for (a little bit of)
->>   consistency.
-
-... here. The subject still says what the purpose of the change is.
+It's a little odd to have this immediately ahead of something that can
+panic(), but not a big deal of course. The line wants wrapping though,
+to stay within 80 cols.
 
 Jan
+
 
