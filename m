@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C09F9978748
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 19:56:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.798393.1208597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 822D49787B4
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 20:20:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.798404.1208613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1spAWq-0005mH-Ij; Fri, 13 Sep 2024 17:56:20 +0000
+	id 1spAtj-0000UU-Fz; Fri, 13 Sep 2024 18:19:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 798393.1208597; Fri, 13 Sep 2024 17:56:20 +0000
+Received: by outflank-mailman (output) from mailman id 798404.1208613; Fri, 13 Sep 2024 18:19:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1spAWq-0005ka-FW; Fri, 13 Sep 2024 17:56:20 +0000
-Received: by outflank-mailman (input) for mailman id 798393;
- Fri, 13 Sep 2024 17:56:20 +0000
+	id 1spAtj-0000Sa-DN; Fri, 13 Sep 2024 18:19:59 +0000
+Received: by outflank-mailman (input) for mailman id 798404;
+ Fri, 13 Sep 2024 18:19:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mG44=QL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1spAWp-0005kU-VN
- for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 17:56:19 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75b41271-71f9-11ef-a0b5-8be0dac302b0;
- Fri, 13 Sep 2024 19:56:10 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a8d100e9ce0so280158866b.2
- for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 10:56:10 -0700 (PDT)
-Received: from [172.31.47.100] ([193.118.249.27])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25cecc21sm890766466b.166.2024.09.13.10.56.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Sep 2024 10:56:09 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qEot=QL=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1spAth-0000SS-JA
+ for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 18:19:57 +0000
+Received: from fout5-smtp.messagingengine.com (fout5-smtp.messagingengine.com
+ [103.168.172.148]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c52092f0-71fc-11ef-a0b5-8be0dac302b0;
+ Fri, 13 Sep 2024 20:19:53 +0200 (CEST)
+Received: from phl-compute-08.internal (phl-compute-08.phl.internal
+ [10.202.2.48])
+ by mailfout.phl.internal (Postfix) with ESMTP id ED53513801DD;
+ Fri, 13 Sep 2024 14:19:51 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-08.internal (MEProxy); Fri, 13 Sep 2024 14:19:51 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Sep 2024 14:19:51 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +44,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75b41271-71f9-11ef-a0b5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726250170; x=1726854970; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=O2lrUk1fmnESgJITd451jLBk0SXVA7sLocOnyhdq6Nw=;
-        b=Uxxxwb1EGcPhPGqjvg11ulteCkwIO5e2mIB4fhqYaxOiL3RMtN1zfp309Gw31Rxjn8
-         0iCjqXuu1uExPYBiLWesCINA14CBCBWxZkR5FQc4DglQCKPKQH5KyZmZvR7WwpLLagjt
-         YeHVm2MSnzfQi0l1h8ksW3kAtGxB/MMxPinqJASxJxr128AMmUArDbPxReUNxZM4V8hi
-         cWmknt9imiiAaUs5+b77CglPQ0csYejsaaRYPNEZ3WEF7BLIG1r+iv+4QuQ+8JLN9FAR
-         XMwEFj9gNYCrATFfoB4I3dbvgCbtBAwecFaHwkboxEuV8LsCDt/L9yKVAfpIjEpHrXpl
-         9tvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726250170; x=1726854970;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=O2lrUk1fmnESgJITd451jLBk0SXVA7sLocOnyhdq6Nw=;
-        b=FLH+pJ/O3RhZo+Dc2it5g+Ao9zNSfsM7YVxM+BXejXPxZP1/u3fAFMQPKZMn+36LQM
-         oy1gJOQbkEcPz6v1mhszD501koHrTO/H5zubOQwbpHP3iGlq1VJx85JOBboXaVCjPt2A
-         6gCV8lzTpp/XqoyBzL7ZHMucG+ydC4T1CDYGk9f9e01V3ifWdkm9kSVCXcnA6/KqB6+R
-         Kah26tRj6SZnoqIY/Sl3AYSphoTB9TGgk1a6et7+k6LSRJ9xsmnurYLuzzSm4376s8ci
-         1sdz1PEHD/adgcVL2dg+ol4i++2pgoMm3Re+Uj5OfnFZrRgknj4ucJ8gxRb2f2+OvvjB
-         zPOw==
-X-Forwarded-Encrypted: i=1; AJvYcCWsPqUV8yn8nO8+apaw1x0zms1F7axqKfvCw5OxL0zSWYAyvLFoQUTVEurfFKlgbfTbEruJNCuynJM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwtsvIgWg9HhsrTXmFy0qZdTmoEaacmuIxxB8ggp+Rs1Wpeb7Fa
-	sk9xe0nSbqqUKKBi/RbqPoEDpXpfchXcPeQ15MGymr6EsayRXMQNZZW4FUkqvQ==
-X-Google-Smtp-Source: AGHT+IF1TCE1W0ijuJTydv4GBylX3/5yGR/Uc7jDxxpNNVwtuxk9AziS7gMbQ7ajm3b8HyS3hYW+4A==
-X-Received: by 2002:a17:907:d2a:b0:a8d:51d6:b3ef with SMTP id a640c23a62f3a-a9029668104mr748535266b.56.1726250170072;
-        Fri, 13 Sep 2024 10:56:10 -0700 (PDT)
-Message-ID: <8e3d28e4-1789-4fa9-8d9d-f2912cc28868@suse.com>
-Date: Fri, 13 Sep 2024 19:56:09 +0200
+X-Inumbo-ID: c52092f0-71fc-11ef-a0b5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1726251591;
+	 x=1726337991; bh=7XWAy5uubcapICWI7YqdFppXKAK9Jh6IdWjV5c5Kjqk=; b=
+	u7vKgMr4jpLk2ibtfWAVh9zgmVhgI1PWdQP8MZM6L9SKg/ZrXymDuBzkY3Mt+Jco
+	e5rDUq+M6SVoPCLZ6X+f9ukqda+wenJGYT1KR9XDHCe4oFyVzyceAUZ0WMc0Wyz2
+	249zM6BtUaEyW0tCfVnWX82P4TPFP3ndEga84Rfxr5egp5cLUOHhl8JtHy9iToDo
+	MMU4CEJvWSXgJdURLP9yVTxe1rK6z7RAZFEhJrFTDXBtzKJKPjasZht5fmw6dwPS
+	QRJy/anJR/mgSonaTKs705nZqC5hSkJKYmGWcr6ee09p4/JFGAMhvxlhHFiOWLho
+	u6O7JlmAIVbO8m9p7y9jRg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1726251591; x=1726337991; bh=7XWAy5uubcapICWI7YqdFppXKAK9
+	Jh6IdWjV5c5Kjqk=; b=GQIYGQmUDnG98+oLijyhDCd/DvEOF5jX/0ldLuUpwG+i
+	mLb35OpA8DDwrkx6ma8vD6jSInYGNQ4qnBblHBsqAqiHPTjWaLeudgfgtf/7Q8tM
+	Cg8HZ/rIzlKHo+6mRM1VOXfmgsPwLoIcoOx+naKnyFqIFoiwuiV5kZHAjuiu1vfT
+	tPLbg4MxHxGlUZpim6owE2SHppWROkgI6rx6B1mzHmLOkoGauoOBKrWSZXuD0HnL
+	1ir9FFKpU8udBjcB/OkmytaF3tjyliR6oYVtelzjHnMTY88NJWo3W6bmIn6FXQah
+	hMlmPboHeUyAXd1KhuMqmnyLR7PLOxDeZcuBzVO6SQ==
+X-ME-Sender: <xms:R4LkZpGXZmxbJcv775G6-frM4G_jj43xuGDqN3uU4iT49CmxKm9ycA>
+    <xme:R4LkZuXqfBM1o1KbOvrACFswB3cSbBCGg5nekncCKdgJzQoFy4fop3Qe6SN0-nOrb
+    0vtmschS6ARpSQ>
+X-ME-Received: <xmr:R4LkZrIZtp_QEr0QPGh-IFvtAvCBS62UV4fMeGDB9s5pdFxEbcikFdSeSyh0R7BCp6PZ7KOBArgdM_5T2I601xKQ7h8pEwQHDcIJBvUeOcEYH6q6>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrudejjedguddvvdcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
+    necuhfhrohhmpeffvghmihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeet
+    geekhfetudfhgfetffegfffguddvgffhffeifeeikeektdehgeetheffleenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhi
+    shhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmohguvg
+    epshhmthhpohhuthdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhr
+    ihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprh
+    hojhgvtghtrdhorhhgpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdp
+    rhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
+X-ME-Proxy: <xmx:R4LkZvFImuwKyu7tyKyDnWkhOkvn3EBmRGPKNkw4RAQBuBXlK1u8WQ>
+    <xmx:R4LkZvVYqdNNi1GWd6DczwFePpXjcb6mhY7Yq42mExqvz0CPe1wTyw>
+    <xmx:R4LkZqOayT1AR33AjZFEcPx_BRw0_B90CQc7gjjg-C8zGWKQy-Obnw>
+    <xmx:R4LkZu3apsq0SGP9P92rXoU8DFTZPgNo62YvPV50LeSbkTd2w-glrA>
+    <xmx:R4LkZqSRP6qR7bMCZ3IMAFO7i-UiqpHBNNB6Pf4mYbymzD5clGmzWSzK>
+Feedback-ID: iac594737:Fastmail
+Date: Fri, 13 Sep 2024 14:19:37 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] xen/ucode: Fix buffer under-run when parsing AMD
+ containers
+Message-ID: <ZuSCRv8g_AbHd_1x@itl-email>
+References: <20240913110907.1902340-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/ucode: Improve commentary for parsing AMD containers
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240913123954.1907305-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20240913123954.1907305-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="J2amY4CIGiATeEKI"
+Content-Disposition: inline
+In-Reply-To: <20240913110907.1902340-1-andrew.cooper3@citrix.com>
 
-On 13.09.2024 14:39, Andrew Cooper wrote:
-> Despite writing this code, it's not the easiest logic to follow.
-> 
-> Shorten the UCODE_EQUIV_TYPE name, and provide more of an explanation of
-> what's going on.
-> 
-> No functional change.
-> 
+
+--J2amY4CIGiATeEKI
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Sep 2024 14:19:37 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] xen/ucode: Fix buffer under-run when parsing AMD
+ containers
+
+On Fri, Sep 13, 2024 at 12:09:07PM +0100, Andrew Cooper wrote:
+> From: Demi Marie Obenour <demi@invisiblethingslab.com>
+>=20
+> The AMD container format has no formal spec.  It is, at best, precision
+> guesswork based on AMD's prior contributions to open source projects.  The
+> Equivalence Table has both an explicit length, and an expectation of havi=
+ng a
+> NULL entry at the end.
+>=20
+> Xen was sanity checking the NULL entry, but without confirming that an en=
+try
+> was present, resulting in a read off the front of the buffer.  With some
+> manual debugging/annotations this manifests as:
+>=20
+>   (XEN) *** Buf ffff83204c00b19c, eq ffff83204c00b194
+>   (XEN) *** eq: 0c 00 00 00 44 4d 41 00 00 00 00 00 00 00 00 00 aa aa aa =
+aa
+>                             ^-Actual buffer-------------------^
+>   (XEN) *** installed_cpu: 000c
+>   (XEN) microcode: Bad equivalent cpu table
+>   (XEN) Parsing microcode blob error -22
+>=20
+> When loaded by hypercall, the 4 bytes interpreted as installed_cpu happen=
+ to
+> be the containing struct ucode_buf's len field, and luckily will be nonze=
+ro.
+>=20
+> When loaded at boot, it's possible for the access to #PF if the module ha=
+ppens
+> to have been placed on a 2M boundary by the bootloader.  Under Linux, it =
+will
+> commonly be the end of the CPIO header.
+>=20
+> Drop the probe of the NULL entry; Nothing else cares.  A container withou=
+t one
+> is well formed, insofar that we can still parse it correctly.  With this
+> dropped, the same container results in:
+>=20
+>   (XEN) microcode: couldn't find any matching ucode in the provided blob!
+>=20
+> Fixes: 4de936a38aa9 ("x86/ucode/amd: Rework parsing logic in cpu_request_=
+microcode()")
+> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Demi Marie Obenour <demi@invisiblethingslab.com>
+>=20
+> Split out of joint patch, and analyse.
+>=20
+> I couldn't trigger any of the sanitisers with this, hence the manual
+> debugging.
+>=20
+> This patch intentionally doesn't include patch 2's extra hunk changing:
+>=20
+>   @@ -364,7 +364,8 @@ static struct microcode_patch *cf_check cpu_request=
+_microcode(
+>                if ( size < sizeof(*mc) ||
+>                     (mc =3D buf)->type !=3D UCODE_UCODE_TYPE ||
+>                     size - sizeof(*mc) < mc->len ||
+>   -                 mc->len < sizeof(struct microcode_patch) )
+>   +                 mc->len < sizeof(struct microcode_patch) ||
+>   +                 mc->len % 4 !=3D 0 )
+>                {
+>                    printk(XENLOG_ERR "microcode: Bad microcode data\n");
+>                    error =3D -EINVAL;
+>=20
+> Intel have a spec saying the length is mutliple of 4.  AMD do not, and ha=
+ve
+> microcode which genuinely isn't a multiple of 4.
 
-I'm okay with this as is, so
-Acked-by: Jan Beulich <jbeulich@suse.com>
-yet ...
+In this case the structs at the top should be __attribute__((packed)) to
+avoid undefined behavior.  That can be a separate patch, though.
 
-> @@ -335,10 +335,10 @@ static struct microcode_patch *cf_check cpu_request_microcode(
->          buf  += 4;
->          size -= 4;
->  
-> -        if ( size < sizeof(*et) ||
-> -             (et = buf)->type != UCODE_EQUIV_CPU_TABLE_TYPE ||
-> -             size - sizeof(*et) < et->len ||
-> -             et->len % sizeof(et->eq[0]) )
-> +        if ( size < sizeof(*et) ||                   /* Insufficient space for header? */
-> +             (et = buf)->type != UCODE_EQUIV_TYPE || /* Not an Equivalence Table? */
-> +             size - sizeof(*et) < et->len ||         /* Insufficient space for table? */
-> +             et->len % sizeof(et->eq[0]) )           /* Not a multiple of equiv_cpu_entry? */
+> ---
+>  xen/arch/x86/cpu/microcode/amd.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>=20
+> diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcod=
+e/amd.c
+> index d2a26967c6db..32490c8b7d2a 100644
+> --- a/xen/arch/x86/cpu/microcode/amd.c
+> +++ b/xen/arch/x86/cpu/microcode/amd.c
+> @@ -338,8 +338,7 @@ static struct microcode_patch *cf_check cpu_request_m=
+icrocode(
+>          if ( size < sizeof(*et) ||
+>               (et =3D buf)->type !=3D UCODE_EQUIV_CPU_TABLE_TYPE ||
+>               size - sizeof(*et) < et->len ||
+> -             et->len % sizeof(et->eq[0]) ||
+> -             et->eq[(et->len / sizeof(et->eq[0])) - 1].installed_cpu )
+> +             et->len % sizeof(et->eq[0]) )
+>          {
+>              printk(XENLOG_ERR "microcode: Bad equivalent cpu table\n");
+>              error =3D -EINVAL;
+> --=20
+> 2.39.2
+>=20
 
-... this of course goes quite a bit beyond 80 cols (yet worse for the
-other block further down). How about
+Reviewed-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
+--J2amY4CIGiATeEKI
+Content-Type: application/pgp-signature; name="signature.asc"
 
-        if ( /* Insufficient space for header? */
-             size < sizeof(*et) ||
-             /* Not an Equivalence Table? */
-             (et = buf)->type != UCODE_EQUIV_TYPE ||
-             /* Insufficient space for table? */
-             size - sizeof(*et) < et->len ||
-             /* Not a multiple of equiv_cpu_entry? */
-             et->len % sizeof(et->eq[0]) )
+-----BEGIN PGP SIGNATURE-----
 
-?
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmbkgkUACgkQsoi1X/+c
+IsGwbA//c2xF6zFYI7gWwqy5SZJJXx3sSqBTBBSWHUOn7fSWCm10Biwe28afNukD
+l2q5YadoGzLH7EHr68ElJFt4S1dAofUaTITlmiLqMxvWAmmhSOWziJ9Y5YIpjPBw
+QlEEjHjeKhUEE+5xTHpW9y8pI6ejgOrazWaUgIdiPGpx+JcEprvKeyNyU0PiLKoS
+KnQXkM4kVQhuTCb2sAZ+D4NjkTmZXO/V2cKB2q8XDkAjHGzicW+hqn50PS+WXqoY
+WUhG26Iz2bmMLzQBIIC3S3UIiE4T1jJsy6KylJA6HpNkwyt7YzeqyLplBDKHEx/m
+S6mu0JLG10u2eN68g+4FbmacwNyj8SBS4fln6STKANtV+S0C9WDkpb7dF/LjKfKv
+4tiQCWT2HYkaEWVdQCDPO2P085xQMkODryjObF6Wrla1ahu8rGmeEYIuxk5mPIkf
+OliEKs6vAWVqTZGAexFmkMV3pc2VG3/XbGTOpz2CcHyrSC5M7L6vmevlFXIymXtf
+iTMyGslerpG7bIQ+vkPwNPQIaKt+NcqPhivBzJvtxhMYS1LiCWywZ0wVO3hGno5Z
+ne94ew6EmkLac5PagIiXyDtITmFcMGVgOXWmAV+dgQ3EjvJ7WzEkj9Y+1M8MtYxc
+ZWqHr/OFehKaQDI3OwflGxmTkeW3DUnwBVfYCvkHWSEzST5X7DA=
+=f5i9
+-----END PGP SIGNATURE-----
 
-Jan
+--J2amY4CIGiATeEKI--
 
