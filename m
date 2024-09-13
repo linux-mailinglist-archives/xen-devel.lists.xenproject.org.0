@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EC68978306
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 16:57:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.798264.1208427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E8C197831D
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 17:00:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.798270.1208437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp7jL-0006Wo-V9; Fri, 13 Sep 2024 14:57:03 +0000
+	id 1sp7mT-0008O3-C0; Fri, 13 Sep 2024 15:00:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 798264.1208427; Fri, 13 Sep 2024 14:57:03 +0000
+Received: by outflank-mailman (output) from mailman id 798270.1208437; Fri, 13 Sep 2024 15:00:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp7jL-0006UI-S9; Fri, 13 Sep 2024 14:57:03 +0000
-Received: by outflank-mailman (input) for mailman id 798264;
- Fri, 13 Sep 2024 14:57:02 +0000
+	id 1sp7mT-0008LQ-9S; Fri, 13 Sep 2024 15:00:17 +0000
+Received: by outflank-mailman (input) for mailman id 798270;
+ Fri, 13 Sep 2024 15:00:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iQO5=QL=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sp7jK-00069r-9a
- for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 14:57:02 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e8468f4-71e0-11ef-a0b5-8be0dac302b0;
- Fri, 13 Sep 2024 16:57:01 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 04A941FD10;
- Fri, 13 Sep 2024 14:57:01 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C06C513999;
- Fri, 13 Sep 2024 14:57:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id q+FxLbxS5GZ5QwAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 13 Sep 2024 14:57:00 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9NjI=QL=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
+ id 1sp7mR-0008LK-7K
+ for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 15:00:15 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e127bfe6-71e0-11ef-a0b5-8be0dac302b0;
+ Fri, 13 Sep 2024 17:00:14 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 4B300828596A;
+ Fri, 13 Sep 2024 10:00:13 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id P6LyY1QoSsZI; Fri, 13 Sep 2024 10:00:12 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id A6DB3828680E;
+ Fri, 13 Sep 2024 10:00:12 -0500 (CDT)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id Klukh_-OHBCw; Fri, 13 Sep 2024 10:00:12 -0500 (CDT)
+Received: from [10.11.0.2] (5.edge.rptsys.com [23.155.224.38])
+ by mail.rptsys.com (Postfix) with ESMTPSA id A4156828596A;
+ Fri, 13 Sep 2024 10:00:11 -0500 (CDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,97 +51,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e8468f4-71e0-11ef-a0b5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1726239421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=MHWoAUv4ldqATPzGpmkCnxdPYx6ziXNFVp80sHhmRlM=;
-	b=Hd3d3OBG+MS0uDJ5W/ZkTD7/0ekjKu8fMqihMMXxT1pOwq2AMisqIk/5nplvH8GkPhfY7+
-	sj/YhjwnkfJxzp471M7j66qePv6D7hA6ewX0dk/3emRmcqtRShZnNktCfcgu3NFP8EXMNh
-	6dvfKiXur1eVe+PQo/GBv2lJaUCuvgo=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1726239421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=MHWoAUv4ldqATPzGpmkCnxdPYx6ziXNFVp80sHhmRlM=;
-	b=Hd3d3OBG+MS0uDJ5W/ZkTD7/0ekjKu8fMqihMMXxT1pOwq2AMisqIk/5nplvH8GkPhfY7+
-	sj/YhjwnkfJxzp471M7j66qePv6D7hA6ewX0dk/3emRmcqtRShZnNktCfcgu3NFP8EXMNh
-	6dvfKiXur1eVe+PQo/GBv2lJaUCuvgo=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH] xen/swiotlb: add alignment check for dma buffers
-Date: Fri, 13 Sep 2024 16:56:55 +0200
-Message-ID: <20240913145655.10076-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: e127bfe6-71e0-11ef-a0b5-8be0dac302b0
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com A6DB3828680E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1726239612; bh=jp0IutICP9nSFFZ61LGuxzmJTlY9XaOKnAAbm/cug/k=;
+	h=Message-ID:Date:MIME-Version:To:From;
+	b=TcRjFLNLrjrk3020r2bRQc3re8eZTTRSaffjW0ksN0qtyd+t5fzzWPkVZR4YeMFRk
+	 6l6w2H3mSMk+evmQh0pYIT0xND/Mtk9wxdU1k6YBcxYXGjxetvcyiO4vsxCHJ5BELd
+	 c9rAkt3YHiSkoSWYIgVZwM7QgdWgrmyeId7zcwR8=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <7066f690-274d-4987-8633-f183fdcee56e@raptorengineering.com>
+Date: Fri, 13 Sep 2024 10:00:10 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:helo];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Level: 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/5] xen/bitops: Implement hweight32() in terms of
+ hweightl()
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20240904225530.3888315-1-andrew.cooper3@citrix.com>
+ <20240904225530.3888315-4-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Shawn Anastasio <sanastasio@raptorengineering.com>
+In-Reply-To: <20240904225530.3888315-4-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When checking a memory buffer to be consecutive in machine memory,
-the alignment needs to be checked, too. Failing to do so might result
-in DMA memory not being aligned according to its requested size,
-leading to error messages like:
+Hi Andrew,
 
-  4xxx 0000:2b:00.0: enabling device (0140 -> 0142)
-  4xxx 0000:2b:00.0: Ring address not aligned
-  4xxx 0000:2b:00.0: Failed to initialise service qat_crypto
-  4xxx 0000:2b:00.0: Resetting device qat_dev0
-  4xxx: probe of 0000:2b:00.0 failed with error -14
+On 9/4/24 5:55 PM, Andrew Cooper wrote:
+> ... and drop generic_hweight32().
+> 
+> As noted previously, the only two users of hweight32() are in __init paths.
+> 
+> The int-optimised form of generic_hweight() is only two instructions shorter
+> than the long-optimised form, and even then only on architectures which lack
+> fast multiplication, so there's no point providing an int-optimised form.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- drivers/xen/swiotlb-xen.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 
-diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-index 35155258a7e2..11f4b1195324 100644
---- a/drivers/xen/swiotlb-xen.c
-+++ b/drivers/xen/swiotlb-xen.c
-@@ -78,9 +78,15 @@ static inline int range_straddles_page_boundary(phys_addr_t p, size_t size)
- {
- 	unsigned long next_bfn, xen_pfn = XEN_PFN_DOWN(p);
- 	unsigned int i, nr_pages = XEN_PFN_UP(xen_offset_in_page(p) + size);
-+	unsigned int order = get_order(size);
- 
- 	next_bfn = pfn_to_bfn(xen_pfn);
- 
-+	/* If buffer is physically aligned, ensure DMA alignment. */
-+	if (IS_ALIGNED(p, 1UL << (order + PAGE_SHIFT)) &&
-+	    !IS_ALIGNED(next_bfn, 1UL << order))
-+		return 1;
-+
- 	for (i = 1; i < nr_pages; i++)
- 		if (pfn_to_bfn(++xen_pfn) != ++next_bfn)
- 			return 1;
--- 
-2.43.0
-
+Thanks,
+Shawn
 
