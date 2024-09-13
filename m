@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CAE6978559
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 18:02:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.798335.1208557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B6FE978709
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 19:42:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.798375.1208576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp8kc-0006a6-Cr; Fri, 13 Sep 2024 16:02:26 +0000
+	id 1spAI0-0003dn-7s; Fri, 13 Sep 2024 17:41:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 798335.1208557; Fri, 13 Sep 2024 16:02:26 +0000
+Received: by outflank-mailman (output) from mailman id 798375.1208576; Fri, 13 Sep 2024 17:41:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp8kc-0006Yb-AI; Fri, 13 Sep 2024 16:02:26 +0000
-Received: by outflank-mailman (input) for mailman id 798335;
- Fri, 13 Sep 2024 16:02:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aSyI=QL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sp8ka-0006YR-Q3
- for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 16:02:24 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4552519d-71e9-11ef-a0b5-8be0dac302b0;
- Fri, 13 Sep 2024 18:00:17 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-5365b71a6bdso1394907e87.2
- for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 09:00:17 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5365f903ba7sm2301791e87.201.2024.09.13.09.00.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Sep 2024 09:00:16 -0700 (PDT)
+	id 1spAI0-0003bc-54; Fri, 13 Sep 2024 17:41:00 +0000
+Received: by outflank-mailman (input) for mailman id 798375;
+ Fri, 13 Sep 2024 17:40:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1spAHy-0003bS-OV; Fri, 13 Sep 2024 17:40:58 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1spAHy-0003bC-ME; Fri, 13 Sep 2024 17:40:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1spAHy-0007W0-EI; Fri, 13 Sep 2024 17:40:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1spAHy-0003Fm-Dw; Fri, 13 Sep 2024 17:40:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,90 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4552519d-71e9-11ef-a0b5-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1726243217; x=1726848017; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1IXkpNg2epbZEVRUn1i297ONeuUbbrcjWpY63769zps=;
-        b=DDLyeQCxMBYE+mJLEtE6rbdqj0l0TFsiTokPROJ96mgadbgGJjecK3W6RxGLnwTz91
-         h7QLK60yOeJhyXg+B1Q5RxfhyAb4OtJ6qCWTlphYi5P6diW+lYirf0Hebx+KLdlqtgry
-         zNLPif4kMMcZdMnMTEu0fF/+aaM88UfNWHCcxo44zPngWCgIOSo0z+wceHBfz6tNMW8h
-         C9QGm9eb1ocu/iMWzrw5TIZfjRg5ZuIzKfeundI9zfdm6KIO+ZfQYd8uWqv7h/QjsHPH
-         qJoXAC7USdQO1lDtGwR3QfH2HATrh+9z5pg3enVBEu2BZL3mabmoIU39Tn/FBBFjH4BQ
-         86DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726243217; x=1726848017;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=1IXkpNg2epbZEVRUn1i297ONeuUbbrcjWpY63769zps=;
-        b=eSsVmCjlDYFLeyZJWVmPn7ppIZg/AeFYcpLpG6clpkJ5vMxS/CPTYppIWBlcWD3ld3
-         E4sZsuUQNBt9sA0TWAsm2y2vwxAVnXvU8DLJpxwvvQv25hiRSaXa9lDJsrlFMJVV9/h1
-         8xlfIG9MmRczwtJeDueEPcz0t8swCkoaAEsm2xfiEN+KVN7NK4RXJDHnEJ5Yij4ard6j
-         nJXOM+kWF8AoMaPLQxw0q8J3GBCOps2YPSGp0PCV0VHccULuq+1grvC1fYYvc3rplSPm
-         r4dg90LrEchWdthlQnVLyBVT7TShLTj1VJjsH+KQ+dvzgb8EGt8BN2S+K5U2Ym4Wb6j0
-         lnIg==
-X-Forwarded-Encrypted: i=1; AJvYcCVK36IBBqrPuqlmL/+QsYMRagHlyUMtvDt8oePaeGikCr3BA3SEeP+LgK8algxIKUipn1sc8a2d+Eg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxz1YSQQQhFTw8wx/a+v4+paU+SyrB1pt3wNVdaPbhk3qvuIMVj
-	yoq/csvKfFgAxuefNDfXDa4WNKETorkFQQ417ypaJHlE2tzRouMkxBkVOw==
-X-Google-Smtp-Source: AGHT+IGHZPL+qsMS4Z71IHQzn3mRim3RBTNvRLb6RjF/p5EXI487aeXIzzgRyVHTVgpg0yAJzdJxVw==
-X-Received: by 2002:a05:6512:b08:b0:535:6935:7869 with SMTP id 2adb3069b0e04-5367ff3287dmr2344819e87.55.1726243216993;
-        Fri, 13 Sep 2024 09:00:16 -0700 (PDT)
-Message-ID: <a4f0b762da246754786be6d93a088ffdce14a1af.camel@gmail.com>
-Subject: Re: [PATCH v1 1/3] xen/ppc: add section for device information in
- linker script
-From: oleksii.kurochko@gmail.com
-To: Shawn Anastasio <sanastasio@raptorengineering.com>, 
-	xen-devel@lists.xenproject.org
-Date: Fri, 13 Sep 2024 18:00:16 +0200
-In-Reply-To: <1ae939b4-0d15-4406-8ac3-3e2735550b13@raptorengineering.com>
-References: <cover.1726048521.git.oleksii.kurochko@gmail.com>
-	 <395dd494ad09b315e5e383aa41f8dad4548ba613.1726048521.git.oleksii.kurochko@gmail.com>
-	 <1ae939b4-0d15-4406-8ac3-3e2735550b13@raptorengineering.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=sFVFK+vx4kj23HvRGAhMui4wOdJ8AeegobdJo17eBOg=; b=jIUg/luSlm1WABHq48rQKUKZ7E
+	YwIWg3BrrKbJ0LCvHBIcbfAP8qNXDrWSg3AkOfDPOT6cAftX7NH896PNy4d8Zqnh0trCnDsixkz/n
+	FVb2hfdMYmDNo5baF6Gg74EePLR66r2uH22BgDhgTPuVbmrOb0HePSM4Sp0tNSC6IPbs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187693-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
+Subject: [ovmf test] 187693: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=273f43cec97c48890ddd1ce08de2ca9129a8c348
+X-Osstest-Versions-That:
+    ovmf=5c8bdb190f6dd79f38ef6191754c9a26892f8d26
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 13 Sep 2024 17:40:58 +0000
 
-On Fri, 2024-09-13 at 09:35 -0500, Shawn Anastasio wrote:
-> Hi Oleksii,
->=20
-> On 9/11/24 5:04 AM, Oleksii Kurochko wrote:
-> > Introduce a new `.dev.info` section in the PPC linker script to
-> > handle device-specific information.
-> > This section is aligned to `POINTER_ALIGN`, with `_sdevice` and
-> > `_edevice`
-> > marking the start and end of the section, respectively.
-> >=20
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > =C2=A0xen/arch/ppc/xen.lds.S | 7 +++++++
-> > =C2=A01 file changed, 7 insertions(+)
-> >=20
-> > diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
-> > index 38cd857187..c087827d28 100644
-> > --- a/xen/arch/ppc/xen.lds.S
-> > +++ b/xen/arch/ppc/xen.lds.S
-> > @@ -161,6 +161,13 @@ SECTIONS
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __bss_end =3D .;
-> > =C2=A0=C2=A0=C2=A0=C2=A0 } :text
-> > =C2=A0
-> > +=C2=A0=C2=A0=C2=A0 . =3D ALIGN(POINTER_ALIGN);
-> > +=C2=A0=C2=A0=C2=A0 .dev.info : {
->=20
-> Sections in the PPC linker script must be declared with the
-> DECL_SECTION
-> macro to ensure that they are placed at the correct physical and
-> virtual
-> address (see all other sections in the file).
->=20
-> Additionally, like Jan mentioned, placing the section section before
-> .bss would probably be preferable. Right before .init.text would
-> probably be a reasonable place to put it, like ARM's linker script
-> does.
-Thanks. I will apply your comments.
+flight 187693 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187693/
 
-~ Oleksii
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 273f43cec97c48890ddd1ce08de2ca9129a8c348
+baseline version:
+ ovmf                 5c8bdb190f6dd79f38ef6191754c9a26892f8d26
+
+Last test of basis   187692  2024-09-13 13:15:18 Z    0 days
+Testing same since   187693  2024-09-13 16:13:22 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Pierre Gondois <pierre.gondois@arm.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   5c8bdb190f..273f43cec9  273f43cec97c48890ddd1ce08de2ca9129a8c348 -> xen-tested-master
 
