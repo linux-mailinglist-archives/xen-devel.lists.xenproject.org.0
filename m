@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A6A978041
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 14:40:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.798167.1208287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16FC9978054
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 14:45:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.798171.1208296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp5aj-00004s-Lx; Fri, 13 Sep 2024 12:40:01 +0000
+	id 1sp5fq-0001cv-6x; Fri, 13 Sep 2024 12:45:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 798167.1208287; Fri, 13 Sep 2024 12:40:01 +0000
+Received: by outflank-mailman (output) from mailman id 798171.1208296; Fri, 13 Sep 2024 12:45:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp5aj-0008UI-Ik; Fri, 13 Sep 2024 12:40:01 +0000
-Received: by outflank-mailman (input) for mailman id 798167;
- Fri, 13 Sep 2024 12:40:00 +0000
+	id 1sp5fq-0001a3-4Q; Fri, 13 Sep 2024 12:45:18 +0000
+Received: by outflank-mailman (input) for mailman id 798171;
+ Fri, 13 Sep 2024 12:45:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4Mtl=QL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sp5ai-0008U8-5N
- for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 12:40:00 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mG44=QL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sp5fn-0001Zr-TR
+ for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 12:45:15 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 49b6cddd-71cd-11ef-a0b5-8be0dac302b0;
- Fri, 13 Sep 2024 14:39:59 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a9018103214so286595166b.3
- for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 05:39:59 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ id 05751ca4-71ce-11ef-a0b5-8be0dac302b0;
+ Fri, 13 Sep 2024 14:45:14 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-42cb60aff1eso20321935e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 05:45:14 -0700 (PDT)
+Received: from [10.239.240.84] ([88.128.92.31])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d25953275sm867616966b.70.2024.09.13.05.39.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Sep 2024 05:39:57 -0700 (PDT)
+ 5b1f17b1804b1-42d9b16c0c5sm25302395e9.25.2024.09.13.05.45.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Sep 2024 05:45:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,124 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49b6cddd-71cd-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: 05751ca4-71ce-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1726231198; x=1726835998; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=3/ueT8uW8b4tBIRnCuXFQV/WnWZs2GVaHe/kpWB77Io=;
-        b=Okuf2beITFpaawzyaqwaHAhCD3uck2JGwsxdvnOHzAotCtuvdlqWXPg6ZIxo0HR9/p
-         UVT7PEfEUiO2qdeWczvbygiLsf45VuupGDziQhDddWGfM33epylAOZ179oMjL4dp0Z9j
-         btK36wIIpmxdru1VkOx+QVqoEmFpb/iA7iPHA=
+        d=suse.com; s=google; t=1726231513; x=1726836313; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gz42ccT1luhyhAUMz91x+Bkrq9Ir1Drr2ZsZB4ymUkk=;
+        b=QfRFHu4LI/IsYBCx5/+HSKWKM+GjB4QABlZeInprAh8lgH+M6r/09Gct0wZX9ruTNR
+         2Q9e9nboT80zMzetubeuulgc84J4XQAoyMhIMJsq6zUJrq2O5feHoWrUBFuqVi5eKwPp
+         /UWuoLJyilXexW5sm0rq69pp54+qXutZ2g20eApVig7NcVsdI5b6pP6V/RSy2wWYDd7H
+         oRLScaDgRTHul7Az7fa30jfqp9EB6z5nf4Gsg+PDjduE8djE+Hf3aQTAKlv7e7w0010L
+         dd+PJ7b2aXwTergjlVcVYi0b/bpaht6wzulZ7FQgTNQG9L7JTUwNPyXiKpC0UPfGypI9
+         asHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726231198; x=1726835998;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3/ueT8uW8b4tBIRnCuXFQV/WnWZs2GVaHe/kpWB77Io=;
-        b=WjuQjrg7cDeRoK+FFHgmRw+vAm7gOe4UwXW3luNwWucegA6JsAvdsJ4QZ8ZEDefK+9
-         K3j3GoaFc8S/noflYUf2nwIF+6ZO0V+au8fyaJe/TIL5hVtWlseqND9eS36ehQ8r484J
-         +1yZA8IzcuAPdKancWsV0JDXJopUyIn3E/MEb/EiKWdLenPzqtnl8ZxVZCnhokmO4uLS
-         nnMYo/mK+X/7bKSQ6U7wT7jFRBUxEwIdn4v7AOjj4VfYNotoTwP7grQT3qj0hr2ikZEE
-         b8ffXVnCvPOMYWrl54BKgnPdevcB8TEMBKioY7xae3zXuETgPHUYANBqD3ZGanNGE0tk
-         Sxjw==
-X-Gm-Message-State: AOJu0Yxnx5QIAUb6Rl+W45K+ouMpxSsDSSbCHNLN3fVSGOk+v7VNMJaN
-	yRp2d5j3IdIz1uCFSlIszhzaX6ohAVKY322uzzF8MV8N+HqiNhGARBazwdq09rJw8vxmVkEGLfN
-	q
-X-Google-Smtp-Source: AGHT+IG7itZmeivfoVyIcenFYmFvTw3w4sL/abmRb1dmPISH9XJgUQeU7wjukim5YCNg9KxqfzPISQ==
-X-Received: by 2002:a17:907:f752:b0:a86:a481:248c with SMTP id a640c23a62f3a-a90294465abmr529481366b.19.1726231197603;
-        Fri, 13 Sep 2024 05:39:57 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] xen/ucode: Improve commentary for parsing AMD containers
-Date: Fri, 13 Sep 2024 13:39:54 +0100
-Message-Id: <20240913123954.1907305-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.2
+        d=1e100.net; s=20230601; t=1726231513; x=1726836313;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=gz42ccT1luhyhAUMz91x+Bkrq9Ir1Drr2ZsZB4ymUkk=;
+        b=gUvx+sn97wfbLDqfSLYqT4Y9UKQctzmIuA0D/Xtn5SH5wguYcAYTBuQSHmMGR5AVmP
+         2B91U/qDXymOFedZrBdOfQh5aYWUCnJJU7dLTPabGnN2SDA/AQl+PTv9bKJpR5Mg1MVC
+         mEC0ecmhxeFgafooCiZ/R6/2wcpYefSmfDcrm51Ri+f/aRWYtJvvsYrC1+hcmRvQCC2X
+         OwOIDdp8wSxOCLErjV6XUIfQEN9AQDiYKHNl0KdMmrjbYNhPahO6M1wyq8wOET1wZJ6O
+         tKw8DYswh8TKCBuODVYk+A53qpUeCxWKF3bT/bJiSvm3DrGcm1GfX+mRSgAHlE76ECni
+         ZwnA==
+X-Forwarded-Encrypted: i=1; AJvYcCXGz8T2fjCvcu+LiurQrZd8UFAFCPoY1gI3bAsiGmXUmxIURPHT9XECrXr8ykKMWXfaABafnwKwpwE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGEXcPeiKqFlMZP4v4CqquW/o1U9y0/B+y209AWq3x89lCP4jx
+	g17RvAyuRl5ZaoIAX1ZrZ2USEfv9MjXxPrwvuSRQSZ6AMh3C38v1gb3rzUXSKw==
+X-Google-Smtp-Source: AGHT+IFs02iuGAizrV4L1vXFJyvYv4myBN1TueSdPbrpcf/1MVq5RXOXMbLlfPZL4p++o13I4oR+pA==
+X-Received: by 2002:a05:600c:1d0b:b0:42c:b309:8d1a with SMTP id 5b1f17b1804b1-42cdb549947mr56534885e9.13.1726231513389;
+        Fri, 13 Sep 2024 05:45:13 -0700 (PDT)
+Message-ID: <db2d6779-2dbb-4e0b-94f5-c6843aa09b54@suse.com>
+Date: Fri, 13 Sep 2024 14:45:11 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/ucode: Fix buffer under-run when parsing AMD
+ containers
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240913110907.1902340-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20240913110907.1902340-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Despite writing this code, it's not the easiest logic to follow.
+On 13.09.2024 13:09, Andrew Cooper wrote:
+> From: Demi Marie Obenour <demi@invisiblethingslab.com>
+> 
+> The AMD container format has no formal spec.  It is, at best, precision
+> guesswork based on AMD's prior contributions to open source projects.  The
+> Equivalence Table has both an explicit length, and an expectation of having a
+> NULL entry at the end.
+> 
+> Xen was sanity checking the NULL entry, but without confirming that an entry
+> was present, resulting in a read off the front of the buffer.  With some
+> manual debugging/annotations this manifests as:
+> 
+>   (XEN) *** Buf ffff83204c00b19c, eq ffff83204c00b194
+>   (XEN) *** eq: 0c 00 00 00 44 4d 41 00 00 00 00 00 00 00 00 00 aa aa aa aa
+>                             ^-Actual buffer-------------------^
+>   (XEN) *** installed_cpu: 000c
+>   (XEN) microcode: Bad equivalent cpu table
+>   (XEN) Parsing microcode blob error -22
+> 
+> When loaded by hypercall, the 4 bytes interpreted as installed_cpu happen to
+> be the containing struct ucode_buf's len field, and luckily will be nonzero.
+> 
+> When loaded at boot, it's possible for the access to #PF if the module happens
+> to have been placed on a 2M boundary by the bootloader.  Under Linux, it will
+> commonly be the end of the CPIO header.
+> 
+> Drop the probe of the NULL entry; Nothing else cares.  A container without one
+> is well formed, insofar that we can still parse it correctly.  With this
+> dropped, the same container results in:
+> 
+>   (XEN) microcode: couldn't find any matching ucode in the provided blob!
+> 
+> Fixes: 4de936a38aa9 ("x86/ucode/amd: Rework parsing logic in cpu_request_microcode()")
+> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Shorten the UCODE_EQUIV_TYPE name, and provide more of an explanation of
-what's going on.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-No functional change.
+I wonder though about scan_equiv_cpu_table(): Should it perhaps complain
+if it doesn't find a null entry? And when it find ones, but that's not
+last?
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/cpu/microcode/amd.c | 27 ++++++++++++++++-----------
- 1 file changed, 16 insertions(+), 11 deletions(-)
-
-diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index 32490c8b7d2a..35bcec643c04 100644
---- a/xen/arch/x86/cpu/microcode/amd.c
-+++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -52,11 +52,11 @@ struct microcode_patch {
- };
- 
- #define UCODE_MAGIC                0x00414d44
--#define UCODE_EQUIV_CPU_TABLE_TYPE 0x00000000
-+#define UCODE_EQUIV_TYPE           0x00000000
- #define UCODE_UCODE_TYPE           0x00000001
- 
- struct container_equiv_table {
--    uint32_t type; /* UCODE_EQUIV_CPU_TABLE_TYPE */
-+    uint32_t type; /* UCODE_EQUIV_TYPE */
-     uint32_t len;
-     struct equiv_cpu_entry eq[];
- };
-@@ -335,10 +335,10 @@ static struct microcode_patch *cf_check cpu_request_microcode(
-         buf  += 4;
-         size -= 4;
- 
--        if ( size < sizeof(*et) ||
--             (et = buf)->type != UCODE_EQUIV_CPU_TABLE_TYPE ||
--             size - sizeof(*et) < et->len ||
--             et->len % sizeof(et->eq[0]) )
-+        if ( size < sizeof(*et) ||                   /* Insufficient space for header? */
-+             (et = buf)->type != UCODE_EQUIV_TYPE || /* Not an Equivalence Table? */
-+             size - sizeof(*et) < et->len ||         /* Insufficient space for table? */
-+             et->len % sizeof(et->eq[0]) )           /* Not a multiple of equiv_cpu_entry? */
-         {
-             printk(XENLOG_ERR "microcode: Bad equivalent cpu table\n");
-             error = -EINVAL;
-@@ -351,7 +351,12 @@ static struct microcode_patch *cf_check cpu_request_microcode(
- 
-         error = scan_equiv_cpu_table(et);
- 
--        /* -ESRCH means no applicable microcode in this container. */
-+        /*
-+         * -ESRCH means no applicable microcode in this container.  But, there
-+         * might be subsequent containers in the blob.  Skipping to the end of
-+         * this container still requires us to follow the UCODE_UCODE_TYPE/len
-+         * metadata because there's no overall container length given.
-+         */
-         if ( error && error != -ESRCH )
-             break;
-         skip_ucode = error;
-@@ -361,10 +366,10 @@ static struct microcode_patch *cf_check cpu_request_microcode(
-         {
-             const struct container_microcode *mc;
- 
--            if ( size < sizeof(*mc) ||
--                 (mc = buf)->type != UCODE_UCODE_TYPE ||
--                 size - sizeof(*mc) < mc->len ||
--                 mc->len < sizeof(struct microcode_patch) )
-+            if ( size < sizeof(*mc) ||                      /* Insufficient space for container header? */
-+                 (mc = buf)->type != UCODE_UCODE_TYPE ||    /* Not an ucode blob? */
-+                 size - sizeof(*mc) < mc->len ||            /* Insufficient space for blob? */
-+                 mc->len < sizeof(struct microcode_patch) ) /* Insufficient space for patch header? */
-             {
-                 printk(XENLOG_ERR "microcode: Bad microcode data\n");
-                 error = -EINVAL;
--- 
-2.39.2
-
+Jan
 
