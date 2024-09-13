@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B7FF978714
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 19:45:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.798383.1208587 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C09F9978748
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 19:56:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.798393.1208597 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1spAMZ-0004EH-Pr; Fri, 13 Sep 2024 17:45:43 +0000
+	id 1spAWq-0005mH-Ij; Fri, 13 Sep 2024 17:56:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 798383.1208587; Fri, 13 Sep 2024 17:45:43 +0000
+Received: by outflank-mailman (output) from mailman id 798393.1208597; Fri, 13 Sep 2024 17:56:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1spAMZ-0004Bi-NF; Fri, 13 Sep 2024 17:45:43 +0000
-Received: by outflank-mailman (input) for mailman id 798383;
- Fri, 13 Sep 2024 17:45:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1spAWq-0005ka-FW; Fri, 13 Sep 2024 17:56:20 +0000
+Received: by outflank-mailman (input) for mailman id 798393;
+ Fri, 13 Sep 2024 17:56:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mG44=QL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1spAMZ-0004Bc-5z
- for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 17:45:43 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fe1e0b70-71f7-11ef-99a2-01e77a169b0f;
- Fri, 13 Sep 2024 19:45:40 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a8ce5db8668so377322466b.1
- for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 10:45:40 -0700 (PDT)
+ id 1spAWp-0005kU-VN
+ for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 17:56:19 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 75b41271-71f9-11ef-a0b5-8be0dac302b0;
+ Fri, 13 Sep 2024 19:56:10 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a8d100e9ce0so280158866b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 10:56:10 -0700 (PDT)
 Received: from [172.31.47.100] ([193.118.249.27])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a8d3b47d270sm831409066b.47.2024.09.13.10.45.39
+ a640c23a62f3a-a8d25cecc21sm890766466b.166.2024.09.13.10.56.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Sep 2024 10:45:39 -0700 (PDT)
+ Fri, 13 Sep 2024 10:56:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +45,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe1e0b70-71f7-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 75b41271-71f9-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726249540; x=1726854340; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1726250170; x=1726854970; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=NFEXrSZ/U6BJCbHXZTbiBSfrTSWlL7FIE3dkM0dSiU4=;
-        b=CjSch6eWYSozFPdN1oExXdtIHT3gkCQegKNrYcPHxIO0OydqOIO9WB5KqE5dPJSeHD
-         L2D1Igd2QhRCkRLRKLHnEEoJQI5lLsu1/Hb8Lk/Am2gaxX18gOx7OYGz+5W8YM9YivwN
-         xapX6AI04raiUNfthrtMUmHAAMDU5EsMhe8pNmHNvDv7z4Cxt5yAAwHm3HaB+cF6ytC6
-         Y8T9IxW6YkNts8YUZvWQeo/1Cfy5teT3qS4WxZCr0yxLrbyJoTclik4yp3A1BViptrrS
-         rjVzSMo+lWP2w/omXVb6By6g78YFh3LHebzpcxwCPqjntACwsABT3LU3a+/vDkeyGSR0
-         ehRQ==
+        bh=O2lrUk1fmnESgJITd451jLBk0SXVA7sLocOnyhdq6Nw=;
+        b=Uxxxwb1EGcPhPGqjvg11ulteCkwIO5e2mIB4fhqYaxOiL3RMtN1zfp309Gw31Rxjn8
+         0iCjqXuu1uExPYBiLWesCINA14CBCBWxZkR5FQc4DglQCKPKQH5KyZmZvR7WwpLLagjt
+         YeHVm2MSnzfQi0l1h8ksW3kAtGxB/MMxPinqJASxJxr128AMmUArDbPxReUNxZM4V8hi
+         cWmknt9imiiAaUs5+b77CglPQ0csYejsaaRYPNEZ3WEF7BLIG1r+iv+4QuQ+8JLN9FAR
+         XMwEFj9gNYCrATFfoB4I3dbvgCbtBAwecFaHwkboxEuV8LsCDt/L9yKVAfpIjEpHrXpl
+         9tvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726249540; x=1726854340;
+        d=1e100.net; s=20230601; t=1726250170; x=1726854970;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=NFEXrSZ/U6BJCbHXZTbiBSfrTSWlL7FIE3dkM0dSiU4=;
-        b=ZIOxxFbuDmYyz/x/5MuZO1JMSC7Ka/Oc4ZDRoaEpwD2vUaiP7FBsehyxhRXvO6DstH
-         fmnmcoxREXPtPwrlQsjbcjTl3Q1N9UE/dQ+vwckSBxHpo5eL91LLjWcg/6PkpMwc0FHE
-         i/c7thGTEP2ypYoWXpnlRPTIQAfOpRWqtl6rJ4caloTQmXGyUiAEYhpUTy/CinQyqcIR
-         mmbjhdF8LAUODc56ji2PAPWINtxMMejXl3E6/Yrd54Uqsn2GkdeqAsqGhqbI1nzDyUEQ
-         3KeaaWxkKH9JVie2GdZ7coa3TXEtzh2qYVvJ+c5//9nqPVXxZ8xYz8316uwi/JwgWzD4
-         jASQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVc3d3rsN4fzI/Z9BX6ssvsq3KUyd6Aj+ga65S9JUKkEf7fPIBamSdp4A80MUoVRtYoh+MJy4JQPHE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyBTv8QCg95doHx4N0SEWqa4OwLr1RYtbYGBsmFMCZodxlc+MtD
-	jTkZpIiR4CsEHOfeU71h9xErgA4M9TcR6DyGms0DOnvjCXKQDIMpcENMlb64Ew==
-X-Google-Smtp-Source: AGHT+IFCNVDJed0z5ZPDI+CwITXRtm93GslSex005D+jST++aJxuHlM30xlhQVWKqDJVN7iuEjMWXw==
-X-Received: by 2002:a17:907:3e9e:b0:a8c:78a5:8fb7 with SMTP id a640c23a62f3a-a902961bfa3mr775953966b.45.1726249540087;
-        Fri, 13 Sep 2024 10:45:40 -0700 (PDT)
-Message-ID: <f324c131-9446-4444-b5f7-65d851b2be3b@suse.com>
-Date: Fri, 13 Sep 2024 19:45:39 +0200
+        bh=O2lrUk1fmnESgJITd451jLBk0SXVA7sLocOnyhdq6Nw=;
+        b=FLH+pJ/O3RhZo+Dc2it5g+Ao9zNSfsM7YVxM+BXejXPxZP1/u3fAFMQPKZMn+36LQM
+         oy1gJOQbkEcPz6v1mhszD501koHrTO/H5zubOQwbpHP3iGlq1VJx85JOBboXaVCjPt2A
+         6gCV8lzTpp/XqoyBzL7ZHMucG+ydC4T1CDYGk9f9e01V3ifWdkm9kSVCXcnA6/KqB6+R
+         Kah26tRj6SZnoqIY/Sl3AYSphoTB9TGgk1a6et7+k6LSRJ9xsmnurYLuzzSm4376s8ci
+         1sdz1PEHD/adgcVL2dg+ol4i++2pgoMm3Re+Uj5OfnFZrRgknj4ucJ8gxRb2f2+OvvjB
+         zPOw==
+X-Forwarded-Encrypted: i=1; AJvYcCWsPqUV8yn8nO8+apaw1x0zms1F7axqKfvCw5OxL0zSWYAyvLFoQUTVEurfFKlgbfTbEruJNCuynJM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwtsvIgWg9HhsrTXmFy0qZdTmoEaacmuIxxB8ggp+Rs1Wpeb7Fa
+	sk9xe0nSbqqUKKBi/RbqPoEDpXpfchXcPeQ15MGymr6EsayRXMQNZZW4FUkqvQ==
+X-Google-Smtp-Source: AGHT+IF1TCE1W0ijuJTydv4GBylX3/5yGR/Uc7jDxxpNNVwtuxk9AziS7gMbQ7ajm3b8HyS3hYW+4A==
+X-Received: by 2002:a17:907:d2a:b0:a8d:51d6:b3ef with SMTP id a640c23a62f3a-a9029668104mr748535266b.56.1726250170072;
+        Fri, 13 Sep 2024 10:56:10 -0700 (PDT)
+Message-ID: <8e3d28e4-1789-4fa9-8d9d-f2912cc28868@suse.com>
+Date: Fri, 13 Sep 2024 19:56:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] xen/common: move device initialization code to
- common code
-To: oleksii.kurochko@gmail.com
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1726048521.git.oleksii.kurochko@gmail.com>
- <128d17f3625807a26875b7a419fb56610424b18c.1726048521.git.oleksii.kurochko@gmail.com>
- <9764051a-c4a7-4c3d-9760-1f80d5faa559@suse.com>
- <f3a16db18f98a4fff3a4b59f144d4a2fee815465.camel@gmail.com>
+Subject: Re: [PATCH] xen/ucode: Improve commentary for parsing AMD containers
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240913123954.1907305-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <f3a16db18f98a4fff3a4b59f144d4a2fee815465.camel@gmail.com>
+In-Reply-To: <20240913123954.1907305-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.09.2024 16:35, oleksii.kurochko@gmail.com wrote:
-> On Thu, 2024-09-12 at 17:28 +0200, Jan Beulich wrote:
->> On 11.09.2024 12:04, Oleksii Kurochko wrote:
->>> --- a/xen/common/Makefile
->>> +++ b/xen/common/Makefile
->>> @@ -6,6 +6,7 @@ obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
->>>  obj-$(CONFIG_CORE_PARKING) += core_parking.o
->>>  obj-y += cpu.o
->>>  obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
->>> +obj-$(call or,$(CONFIG_HAS_DEVICE_TREE),$(CONFIG_HAS_ACPI)) +=
->>> device.o
->>
->> I can't spot any HAS_ACPI in the tree. And if this was switched to
->> CONFIG_ACPI
->> I'd further ask why the file needs building on x86.
-> Oh, there is no need for building this on x86. With what you suggested
-> here ...
+On 13.09.2024 14:39, Andrew Cooper wrote:
+> Despite writing this code, it's not the easiest logic to follow.
 > 
->>
->> Also I think I'd prefer to avoid the of the "or" macro here:
->>
->> obj-$(CONFIG_ACPI) += device.o
->> obj-$(CONFIG_HAS_DEVICE_TREE) += device.o
-> ... IIUC it will fix the issue with building this file for x86 as
-> CONFIG_ACPI depends on (ARM_64 && ARM_EFI).
+> Shorten the UCODE_EQUIV_TYPE name, and provide more of an explanation of
+> what's going on.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Except that "depends on" is itself Arm-only, so won't affect x86.
-Or else x86 would end up without ACPI support, which would mean
-full breakage on about every system.
+I'm okay with this as is, so
+Acked-by: Jan Beulich <jbeulich@suse.com>
+yet ...
+
+> @@ -335,10 +335,10 @@ static struct microcode_patch *cf_check cpu_request_microcode(
+>          buf  += 4;
+>          size -= 4;
+>  
+> -        if ( size < sizeof(*et) ||
+> -             (et = buf)->type != UCODE_EQUIV_CPU_TABLE_TYPE ||
+> -             size - sizeof(*et) < et->len ||
+> -             et->len % sizeof(et->eq[0]) )
+> +        if ( size < sizeof(*et) ||                   /* Insufficient space for header? */
+> +             (et = buf)->type != UCODE_EQUIV_TYPE || /* Not an Equivalence Table? */
+> +             size - sizeof(*et) < et->len ||         /* Insufficient space for table? */
+> +             et->len % sizeof(et->eq[0]) )           /* Not a multiple of equiv_cpu_entry? */
+
+... this of course goes quite a bit beyond 80 cols (yet worse for the
+other block further down). How about
+
+
+        if ( /* Insufficient space for header? */
+             size < sizeof(*et) ||
+             /* Not an Equivalence Table? */
+             (et = buf)->type != UCODE_EQUIV_TYPE ||
+             /* Insufficient space for table? */
+             size - sizeof(*et) < et->len ||
+             /* Not a multiple of equiv_cpu_entry? */
+             et->len % sizeof(et->eq[0]) )
+
+?
 
 Jan
 
