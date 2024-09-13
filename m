@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B9B8977AD4
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 10:17:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.798067.1208225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC414977AEE
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 10:27:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.798072.1208234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp1UE-0001Re-GQ; Fri, 13 Sep 2024 08:17:02 +0000
+	id 1sp1dV-0003I7-BN; Fri, 13 Sep 2024 08:26:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 798067.1208225; Fri, 13 Sep 2024 08:17:02 +0000
+Received: by outflank-mailman (output) from mailman id 798072.1208234; Fri, 13 Sep 2024 08:26:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp1UE-0001OT-DJ; Fri, 13 Sep 2024 08:17:02 +0000
-Received: by outflank-mailman (input) for mailman id 798067;
- Fri, 13 Sep 2024 08:17:00 +0000
+	id 1sp1dV-0003FA-80; Fri, 13 Sep 2024 08:26:37 +0000
+Received: by outflank-mailman (input) for mailman id 798072;
+ Fri, 13 Sep 2024 08:26:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T2Jz=QL=embeddedor.com=gustavo@srs-se1.protection.inumbo.net>)
- id 1sp1UC-0001N4-LA
- for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 08:17:00 +0000
-Received: from omta38.uswest2.a.cloudfilter.net
- (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+ <SRS0=4Mtl=QL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sp1dT-000383-Ek
+ for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 08:26:35 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b2295ec-71a8-11ef-a0b5-8be0dac302b0;
- Fri, 13 Sep 2024 10:16:58 +0200 (CEST)
-Received: from eig-obgw-5009a.ext.cloudfilter.net ([10.0.29.176])
- by cmsmtp with ESMTPS
- id owXTsFeqiumtXp1U8saT5Z; Fri, 13 Sep 2024 08:16:56 +0000
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
- id p1U7s2WVZn3BMp1U7sVadf; Fri, 13 Sep 2024 08:16:55 +0000
-Received: from [185.44.53.103] (port=57790 helo=[192.168.1.187])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96.2)
- (envelope-from <gustavo@embeddedor.com>) id 1sp1U6-003rlv-2J;
- Fri, 13 Sep 2024 03:16:54 -0500
+ id e33abebf-71a9-11ef-a0b5-8be0dac302b0;
+ Fri, 13 Sep 2024 10:26:34 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5c4226a56a8so327583a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 01:26:34 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c3ebd77028sm7322553a12.62.2024.09.13.01.26.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Sep 2024 01:26:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,78 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b2295ec-71a8-11ef-a0b5-8be0dac302b0
-X-Authority-Analysis: v=2.4 cv=DY8RqOtW c=1 sm=1 tr=0 ts=66e3f4f7
- a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=rpUMG24A1zG+UrzXDtAMsg==:17
- a=IkcTkHD0fZMA:10 a=EaEq8P2WXUwA:10 a=7T7KSl7uo7wA:10
- a=UWiDY137rChLUBZtjNEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=Xt_RvD8W3m28Mn_h3AK8:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=+Sp7eKii8hwE9TMjnTOQoSBvNTxcsXnko4qRV4csTKc=; b=n2lQr8BVcESXKzes5CJ6MPYRWa
-	cVimG41wISMNnxtrCH/3aTGe7sQiVgvKUwZZu3R9Ctyb5cKxgX61Lh49By3UmOVHPu/95NEo/nY5h
-	E3ovmbx0l1fVJ3ao+Va7ihLsun6sYGbcjbQ72xS163E5MXk2QCxbj6Nt9TFHTlSiRKae8w2Qzyj1j
-	As4jd0O80vEmai8wCW8OOawytZBi/raJJZEpZ/7sMXy3XvD2pcfaIV32fFT0H/A3b5m46xGuRQdwO
-	nVooGUMyXYdoBMRf5Olr6SdpVvURZ3f0hYqxkAuth56K7yXbxapTm6gQVufcs5AJQnOr2fKeV0GC0
-	9nd81otw==;
-Message-ID: <ecbcc7d5-7ba1-4d3a-85d5-20c583b59766@embeddedor.com>
-Date: Fri, 13 Sep 2024 10:16:50 +0200
+X-Inumbo-ID: e33abebf-71a9-11ef-a0b5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1726215994; x=1726820794; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z+0mN9My9YCD5KRYzpShNhOJ7X9cHXBY1aupqKfPyqk=;
+        b=Z4GFnz708WlS4wCmm/MTG3atpyci7DeEitHEYSAh2zeTOMJDQjyF1n0uBJ4radt1Lg
+         9o94xmBbGGuSO2XO6loBWai+ejLYJbdJUjghimHh+mh1pyE2lJsh2y2mHWXwtaUeecCB
+         OQOCFXAvpso82wJCWm0RtSB1VFGBy9bER4s/o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726215994; x=1726820794;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Z+0mN9My9YCD5KRYzpShNhOJ7X9cHXBY1aupqKfPyqk=;
+        b=iAw1KLLC9objQ9mJSjq8CMWI/Vdku2c6SKslajfVaL51xPYW+CCO6sEGKeGNXAq9DQ
+         Pjsbbu0R24WZm5xWCCqlfgqzf+NUwv5ecehlYgr0lhij3Gff/pnz7T2JQCdZICcJiD62
+         RrRxzFnk5J0vflPG0fTA3/xK1BQg2nMq5DTpue8UMNjlnedV96LPCrHYbC/lBIAYx+wM
+         VACTcWfya4zbOIG5BCLibydpTX9Z5ubxMkiAfywi9vZowX4BgHlxf2Jy2sU0wI/F6Z1i
+         UTMJacxRMUAaYZSB6EMHbdCk4nNj3P3jUZXNMSBgSB3LGbEiqkNbYo7UB27wiBMOgXRV
+         SUyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWRXblrTcuBQBvSTXnC4CFVO+XUaTm9U1v979z9VJ2chAmxV75dsL1ZHb38EzCw1U90+9uzkC8NdhI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDpRJZMHoQlRMbSGFfWzw5+brX5VU3Xw5bbB4+zcqFoGRoF//9
+	vn1TneVzwVI+fqF3wEgzFEJCRSllG56qNqzrWEnEB3jPVleNJUm5VpqRDcGVahs=
+X-Google-Smtp-Source: AGHT+IGRpHYeQi9KObaBf75kdAo//FxDvOVi0Dh0VSsLnHIBH0JETZJsApvsWx4TZY3aL4iiwKbv3A==
+X-Received: by 2002:a05:6402:3553:b0:5be:fdc0:e704 with SMTP id 4fb4d7f45d1cf-5c413e1222fmr3876100a12.10.1726215993615;
+        Fri, 13 Sep 2024 01:26:33 -0700 (PDT)
+Message-ID: <000a8290-3e3a-4e2f-85a9-afa05c01a34e@citrix.com>
+Date: Fri, 13 Sep 2024 09:26:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH][next] xen/pci: Avoid -Wflex-array-member-not-at-end
- warning
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <ZsU58MvoYEEqBHZl@elsanto>
- <9fabe73e-23ea-49f2-9c06-17766a07fe9d@embeddedor.com>
- <4b1004d5-a8f6-4f3a-b17d-79d354a23f6a@suse.com>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <4b1004d5-a8f6-4f3a-b17d-79d354a23f6a@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - lists.xenproject.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 185.44.53.103
-X-Source-L: No
-X-Exim-ID: 1sp1U6-003rlv-2J
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: ([192.168.1.187]) [185.44.53.103]:57790
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 39
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfEZXqhjL49P75VUpzXLazkah5pxFhVdDjXMXV6wYSotfFD5tTDPLay5OPoBbPnBSnmlYUjZ6UpBQ70K3b4//HpPeK/cl5gcJvF4/P7e4L7+nZ/vxnVPJ
- NEjrseHuSkLEXyRjz7g+0pJF1NjPDNpFU/0blReXQ7eXM5QNIHB7XDdQ/tpAgYF+YkpasjnToh9UgeQwbaH9d5c5DJ2f8oM6AcnrzRpOnl5R2DJKEirc/dKl
+Subject: Re: [PATCH] arm: Drop deprecated early printk platform options
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240913061529.213002-1-michal.orzel@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240913061529.213002-1-michal.orzel@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 13/09/2024 7:15 am, Michal Orzel wrote:
+> The predefined configurations for early printk have been deprecated for
+> a sufficient amount of time. Let's finally remove them.
+>
+> Note:
+> In order not to loose these predefined configurations, I wrote a wiki
+> page: https://wiki.xenproject.org/wiki/Xen_on_ARM_Early_Printk
 
+Minor point. "lose" here; "loose" is a quite-different word.
 
-On 13/09/24 10:12, Jürgen Groß wrote:
-> On 13.09.24 10:07, Gustavo A. R. Silva wrote:
->> Hi all,
->>
->> Friendly ping: who can take this, please? 🙂
-> 
-> I can carry it via the Xen tree.
-
-Sounds good. :)
-
-Thank you!
---
-Gustavo
+~Andrew
 
