@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 267F3978546
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 17:58:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.798296.1208469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D4C7978542
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 17:58:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.798298.1208482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp8gY-0000D3-02; Fri, 13 Sep 2024 15:58:14 +0000
+	id 1sp8gY-0000RJ-Mo; Fri, 13 Sep 2024 15:58:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 798296.1208469; Fri, 13 Sep 2024 15:58:13 +0000
+Received: by outflank-mailman (output) from mailman id 798298.1208482; Fri, 13 Sep 2024 15:58:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp8gX-0000AR-S5; Fri, 13 Sep 2024 15:58:13 +0000
-Received: by outflank-mailman (input) for mailman id 798296;
- Fri, 13 Sep 2024 15:58:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sp8gY-0000MC-I1; Fri, 13 Sep 2024 15:58:14 +0000
+Received: by outflank-mailman (input) for mailman id 798298;
+ Fri, 13 Sep 2024 15:58:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aSyI=QL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sp8gW-0000A5-H1
- for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 15:58:12 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f8e3888c-71e8-11ef-a0b5-8be0dac302b0;
- Fri, 13 Sep 2024 17:58:09 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-53655b9bbcdso2934021e87.2
- for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 08:58:09 -0700 (PDT)
+ id 1sp8gX-0000AA-Q1
+ for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 15:58:13 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fa1ba0d1-71e8-11ef-99a2-01e77a169b0f;
+ Fri, 13 Sep 2024 17:58:11 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-5365cf5de24so3009708e87.1
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 08:58:11 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5365f9038e3sm2348008e87.187.2024.09.13.08.58.07
+ 2adb3069b0e04-5365f9038e3sm2348008e87.187.2024.09.13.08.58.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Fri, 13 Sep 2024 08:58:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8e3888c-71e8-11ef-a0b5-8be0dac302b0
+X-Inumbo-ID: fa1ba0d1-71e8-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1726243089; x=1726847889; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1726243091; x=1726847891; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fJg7BHwepPlrOFfGyIMBAxXTIqwMuFC09Emwsc98p9A=;
-        b=jp9ZEJNsOgo+lQdrxk99q3hiCN8Hu8AIImpRhECvzxtbnvycpszkysD4Ys66gw10e4
-         d314zWkpQNQiyGj7DR7snNwWz9uejE9RMaxwrcppQNl2nhzsQbKZ/08BMj+kEwSUn0qY
-         IoIVYKALmWfxueYgAovZKAk6Ndxdq/LWV2zoY4QCUoG4PXe0XMfe9vS+lAf+ydZQ+8cM
-         MJUviFDKdAK8YZjlw11ifO2DjuZBRmU4tHVLgT7imNg3u4i3zdOnCzcjTr2bzaciK+vF
-         pEXR1MZztHpDi7wOXKGs8GQ/xFkwLoumWUt9IkjuvjIvWVXO3BdwShXPOYFGM42SN3Bf
-         3bfQ==
+        bh=ONf+Jyq8vL0urPVIlFOHx8t/HPCfJ/6VkXsjPeGFcqo=;
+        b=dPdXEcCaDfhgCHGhDgffGOQTQhFjZQEoH2LnAqtiNV5cJ1gjYCskciGXsul+cUZDHX
+         r18T0UrK9pmdXfrnIQyoxSRXBpmDsNczgicYv87GF4kSBW6mxDGrOga9CNYEzJHUm49M
+         ugUjHbzCB0M92UetEzqZt9sn4bVmyuqT32z7s7fxlBP6Wb6vtHVPzK2HT6qqUrubehAY
+         3x21xoAD7KA4VDNeoaP2pES2itMCnLtxPu2h2cDdnmcjJGZvODlSwd08jPy31hDNh8or
+         cRV+8NhZzOnT808G4ZV/GlI0U5EpXkKT6ovuPLz+6H60PLGPEhvVG8DnomxGUcufvFbC
+         Sxiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726243089; x=1726847889;
+        d=1e100.net; s=20230601; t=1726243091; x=1726847891;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=fJg7BHwepPlrOFfGyIMBAxXTIqwMuFC09Emwsc98p9A=;
-        b=YRU9puhlA5hU9R5CLSWaDsDO7q/cLvVYIjixm5XxtvoM0o6eSS+kPXzWZTkA7Uubh4
-         cKwvmNA/8eCP6/H7Dv9B+s19FeU+nUdK+x2ZFCK7jaQOyvhyw1YCic/0sCnqtbp5rJPO
-         rXmP8k83rBkz1A2gkur58dMQyApLhNvik9h/Dt+vYukolhADgElsY4bZutr4qAhjOk3S
-         azGNOBtmgdwsvlbQPZQEGSisKF68xSsuhA5WHGKYr/TY1/IWSBGklp74w3xdyRqtAtp6
-         KVV0dU9C8xUHEjgAuXwI7xX4Y5D3DDnmn5nUvKPDYPryH7uWSmgdk4YXLeHn5wCXm1MR
-         tbHw==
-X-Gm-Message-State: AOJu0YzBecsGP8BZyTXT7zhLiy7t/TgQrf07g531hZuXgfr9h8/Gq6tg
-	tDE/epiICri3UGNRGA+YXzoFgpHH8szIlCVvqUPRXWGvlXMG0mbiZCy85Q==
-X-Google-Smtp-Source: AGHT+IGyerPNv3cTkkP8/mhFa7Oun1skPrgXmUdJP4qFrPMpotmkkHOAK1pV1Pbx0FAK+//At8N42Q==
-X-Received: by 2002:a05:6512:224c:b0:535:6892:3be3 with SMTP id 2adb3069b0e04-53678fe63c0mr4886633e87.41.1726243088410;
-        Fri, 13 Sep 2024 08:58:08 -0700 (PDT)
+        bh=ONf+Jyq8vL0urPVIlFOHx8t/HPCfJ/6VkXsjPeGFcqo=;
+        b=QgRZk53fnri1uDE9Xws5OJQ5+ms9PYKf4NEsw3nt0V+bXZm5LX74d/VDMM33XEXfHr
+         A7+o4S62OuHUNmtOlFDWqV1X8VF01EjgdEhpF1hbd0ukmUqp5dPtJNqiYCAB9EqWWa0H
+         XmgQboaPgNP4GbeqKZozDM3yjBEEB6vSoDcdAYOgq2Tn1jaZn8vb8gxgTa19iUxUSrCW
+         a4tPMkhbZvdDQUzwHo+7zdInBiOyeKhbaPGd7WyRO52ovZ4u6F/DZ0Nr7HJRqwxdhddr
+         hLnYv++30EYesorEI9af+snewWhyV6iJbuO/16hdHWfaiUY21OCxMZJ0UwFmgayE1GBf
+         s4Vg==
+X-Gm-Message-State: AOJu0YyKE+in2q1HQC69BPpijGHEJ8CICo/FFDvTAyXruGn9MTZm1fIF
+	e8d5kI8nEW7RiLzgZHhPazjM8L4IlVYgP1sv7hdbhY8wqZbg7AzjGq3jnw==
+X-Google-Smtp-Source: AGHT+IHVyV3/53mx5hSKwamO6JkZO2nG5wLriakhH4NvhfjKgxrtoFdBNL5pOhBnAZxTkHhONSS0Jg==
+X-Received: by 2002:a05:6512:39c6:b0:52f:c148:f5e4 with SMTP id 2adb3069b0e04-53678fb6fe9mr4520063e87.21.1726243090259;
+        Fri, 13 Sep 2024 08:58:10 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -84,89 +84,49 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v7 1/8] xen/riscv: use {read,write}{b,w,l,q}_cpu() to define {read,write}_atomic()
-Date: Fri, 13 Sep 2024 17:57:39 +0200
-Message-ID: <7235612db1c273638263b45c59655328256b8cf2.1726242605.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v7 2/8] xen/riscv: allow write_atomic() to work with non-scalar types
+Date: Fri, 13 Sep 2024 17:57:40 +0200
+Message-ID: <bf5c566bd4c2adf0518a9785627bdc5f12a7187b.1726242605.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <cover.1726242605.git.oleksii.kurochko@gmail.com>
 References: <cover.1726242605.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The functions {read,write}{b,w,l,q}_cpu() do not need to be memory-ordered
-atomic operations in Xen, based on their definitions for other architectures.
-
-Therefore, {read,write}{b,w,l,q}_cpu() can be used instead of
-{read,write}{b,w,l,q}(), allowing the caller to decide if additional
-fences should be applied before or after {read,write}_atomic().
+Update the defintion of write_atomic() to support non-scalar types,
+aligning it with the behavior of read_atomic().
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V7:
- - Nothing changed. Only rebase.
+ - use union in definition of write_atomic() to add support of non-scalar types. 
 ---
-Changes in V6:
- - revert changes connected to _write_atomic() prototype and in definition of write_atomic().
- - update the commit message.
----
-Changes in v5:
+Changes in v6:
  - new patch.
 ---
- xen/arch/riscv/include/asm/atomic.h | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+ xen/arch/riscv/include/asm/atomic.h | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/xen/arch/riscv/include/asm/atomic.h b/xen/arch/riscv/include/asm/atomic.h
-index 41f03b2e0c..95910ebfeb 100644
+index 95910ebfeb..e2dbb391f0 100644
 --- a/xen/arch/riscv/include/asm/atomic.h
 +++ b/xen/arch/riscv/include/asm/atomic.h
-@@ -31,21 +31,17 @@
- 
- void __bad_atomic_size(void);
- 
--/*
-- * Legacy from Linux kernel. For some reason they wanted to have ordered
-- * read/write access. Thereby read* is used instead of read*_cpu()
-- */
- static always_inline void read_atomic_size(const volatile void *p,
-                                            void *res,
-                                            unsigned int size)
- {
-     switch ( size )
-     {
--    case 1: *(uint8_t *)res = readb(p); break;
--    case 2: *(uint16_t *)res = readw(p); break;
--    case 4: *(uint32_t *)res = readl(p); break;
-+    case 1: *(uint8_t *)res = readb_cpu(p); break;
-+    case 2: *(uint16_t *)res = readw_cpu(p); break;
-+    case 4: *(uint32_t *)res = readl_cpu(p); break;
- #ifndef CONFIG_RISCV_32
--    case 8: *(uint64_t *)res = readq(p); break;
-+    case 8: *(uint64_t *)res = readq_cpu(p); break;
- #endif
-     default: __bad_atomic_size(); break;
+@@ -69,10 +69,11 @@ static always_inline void _write_atomic(volatile void *p,
      }
-@@ -58,15 +54,16 @@ static always_inline void read_atomic_size(const volatile void *p,
+ }
+ 
+-#define write_atomic(p, x)                              \
+-({                                                      \
+-    typeof(*(p)) x_ = (x);                              \
+-    _write_atomic(p, x_, sizeof(*(p)));                 \
++#define write_atomic(p, x)                                              \
++({                                                                      \
++    union { typeof(*(p)) v; unsigned long v_ul; } x_ = { .v_ul = 0UL }; \
++    x_.v = (x);                                                         \
++    _write_atomic(p, x_.v_ul, sizeof(*(p)));                            \
  })
  
- static always_inline void _write_atomic(volatile void *p,
--                                       unsigned long x, unsigned int size)
-+                                        unsigned long x,
-+                                        unsigned int size)
- {
-     switch ( size )
-     {
--    case 1: writeb(x, p); break;
--    case 2: writew(x, p); break;
--    case 4: writel(x, p); break;
-+    case 1: writeb_cpu(x, p); break;
-+    case 2: writew_cpu(x, p); break;
-+    case 4: writel_cpu(x, p); break;
- #ifndef CONFIG_RISCV_32
--    case 8: writeq(x, p); break;
-+    case 8: writeq_cpu(x, p); break;
- #endif
-     default: __bad_atomic_size(); break;
-     }
+ static always_inline void _add_sized(volatile void *p,
 -- 
 2.46.0
 
