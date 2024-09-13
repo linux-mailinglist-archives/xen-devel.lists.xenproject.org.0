@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2833977A20
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 09:46:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.798023.1208154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9E1C977A2D
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Sep 2024 09:47:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.798030.1208164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp102-0001Fe-LK; Fri, 13 Sep 2024 07:45:50 +0000
+	id 1sp11G-00020t-Vp; Fri, 13 Sep 2024 07:47:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 798023.1208154; Fri, 13 Sep 2024 07:45:50 +0000
+Received: by outflank-mailman (output) from mailman id 798030.1208164; Fri, 13 Sep 2024 07:47:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sp102-0001CX-II; Fri, 13 Sep 2024 07:45:50 +0000
-Received: by outflank-mailman (input) for mailman id 798023;
- Fri, 13 Sep 2024 07:45:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sp101-0001CQ-Kc
- for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 07:45:49 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sp100-0000WK-PG; Fri, 13 Sep 2024 07:45:48 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1sp100-00044J-Iq; Fri, 13 Sep 2024 07:45:48 +0000
+	id 1sp11G-0001zO-RE; Fri, 13 Sep 2024 07:47:06 +0000
+Received: by outflank-mailman (input) for mailman id 798030;
+ Fri, 13 Sep 2024 07:47:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jnXM=QL=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sp11F-0001zG-GQ
+ for xen-devel@lists.xenproject.org; Fri, 13 Sep 2024 07:47:05 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5e5ae581-71a4-11ef-a0b5-8be0dac302b0;
+ Fri, 13 Sep 2024 09:47:04 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-42cc8782869so17448895e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 00:47:04 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-37895675b21sm16067179f8f.49.2024.09.13.00.47.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Sep 2024 00:47:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,117 +44,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=CR1zUln5HRVI9X+GWypgT/7pl5YEO2F5iq3wZXFjfv0=; b=UshWIa818hILjhenVPahYzPk6Y
-	9KfFJAUc1gDVCdDLSNqRlFMXnz/giBXRXAZu7N4xGf7ZqIltJ/H0QJE3xlY94pPKevG9VR6cBW0Hy
-	iOSa969QLx80L5xJqSu5NlrzxqOOhdcMbLaFwPZ2lzxXpTyCLo4w7bRKv8rjo1Rr7u1w=;
-Message-ID: <ca9d2255-bb62-433b-9764-59a8712f8099@xen.org>
-Date: Fri, 13 Sep 2024 08:45:46 +0100
+X-Inumbo-ID: 5e5ae581-71a4-11ef-a0b5-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1726213624; x=1726818424; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=e2Tz+WzfBzvmAglbjVa4Bxg7SeFEinL8RXQVhGdD5x0=;
+        b=iG5RAccrBqWy+QZ5443twZRSEy5ayoHuovpVJa4gLwer6ElD00UvMp8A+SKfYAEH7w
+         MebxC2TqT1ofEVvQfEhLKJQZ3LHbyVeLgFVVD0e4fkcMjnZ9GdcjSVHk5dYCBFKF0432
+         /inGyzvLkGXPRLNHbZHvQQJGa9H1HACGO1c+0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726213624; x=1726818424;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=e2Tz+WzfBzvmAglbjVa4Bxg7SeFEinL8RXQVhGdD5x0=;
+        b=k4DpiQyuKDpfYwN94ZOpidw1OvB9HszAh8Aw1C0pAkCZBLD8Hs2T17eAEWkQUQsBdO
+         6VXk99cry55JRGlhyFR9giNSxX8v1MCE3AA2v0oFJgiV4AOhkznl5cXge3yRSL7q7RD4
+         aLDiO5GJ7bvRBlmEnsPoZfx5c6PrP6BTvWv0pyhLRBiHWvNxdHcYHDKmUY1rvIvOG6V5
+         TVpYWXTpRSzr9FIvHikk1wx9PGyUaC5av16M/6KOpHqki9sOe5E5dlFCwswsqRkU/s4Y
+         s6e3mGJcLialseWjJUXPsV/yXwFKjFGeaxfs5hOvjfXb60ErEEfqhpRH+WdfQ9JaYi0P
+         kztQ==
+X-Gm-Message-State: AOJu0Yxj+RPv9FyirLKGjqh+BnWC2l6bVC1RZpYl1+WKS0ZTINAQlGYx
+	mafRXCYabHblbLK9bs45t4Dlvxg2AVRNuJD5WRGyaMI3A7KGICtzWbhpuHMCVCamSagJZBCpj1T
+	H
+X-Google-Smtp-Source: AGHT+IEYZV4WSN0nra7OsB/CgzNshjvA1Vk1p/gOtQXbbDG7DrmOEtw02+IpeVXJpbAPemDJqyvKGg==
+X-Received: by 2002:a05:6000:1fa4:b0:374:ba2c:3028 with SMTP id ffacd0b85a97d-378c2d4c6f6mr3936455f8f.36.1726213622997;
+        Fri, 13 Sep 2024 00:47:02 -0700 (PDT)
+Date: Fri, 13 Sep 2024 09:47:01 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v2] Fix two problems in the microcode parsers
+Message-ID: <ZuPt9eROADYZqs4o@macbook.local>
+References: <06edbbb7831620bc04c6453b95aad80eaebb20a1.1726162000.git.demi@invisiblethingslab.com>
+ <a7dcfa4c8d4ca16fc734d729b34dbd693ec56f45.1726174797.git.demi@invisiblethingslab.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs: fusa: Add Assumption of Use (AoU)
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Michal Orzel <michal.orzel@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Artem Mygaiev <artem_mygaiev@epam.com>,
- Hisao Munakata <hisao.munakata.vt@renesas.com>
-References: <20240911094456.2156647-1-ayan.kumar.halder@amd.com>
- <918755fd-ef73-4dd5-b77d-f386f8f74ac6@xen.org>
- <802d7cf1-98cd-4ac9-9d60-24aabaaa9e19@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <802d7cf1-98cd-4ac9-9d60-24aabaaa9e19@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <a7dcfa4c8d4ca16fc734d729b34dbd693ec56f45.1726174797.git.demi@invisiblethingslab.com>
 
+On Thu, Sep 12, 2024 at 05:11:32PM -0400, Demi Marie Obenour wrote:
+> The microcode might come from a questionable source, so it is necessary
+> for the parsers to treat it as untrusted.  The CPU will validate the
+> microcode before applying it, so loading microcode from unofficial
+> sources is actually a legitimate thing to do in some cases.
 
+As said by Jan I think this needs expanding as to what's actually
+being fixed, to give readers context.
 
-On 11/09/2024 12:24, Ayan Kumar Halder wrote:
-> 
-> On 11/09/2024 10:55, Julien Grall wrote:
->> Hi,
-> Hi,
->>
->> On 11/09/2024 10:44, Ayan Kumar Halder wrote:
->>> From: Michal Orzel <michal.orzel@amd.com>
->>>
->>> AoU are the assumptions Xen relies on other components (eg platform, 
->>> domains)
->>> to fulfill its requirements. In our case, platform means a 
->>> combination of
->>> hardware, firmware and bootloader.
->>>
->>> We have defined AoU in the intro.rst and added AoU for the generic 
->>> timer.
->>>
->>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>> Changes from :-
->>>
->>> v1 - 1. Removed the part of requirement which states that Xen exposes 
->>> the
->>> frequency of the system timer by reading the "clock-frequency" property.
->>>
->>> 2. Added a rationale for AoU.
->>>
->>> 3. Reworded the AoU.
->>>
->>>   .../reqs/design-reqs/arm64/generic-timer.rst  | 24 ++++++++++++++++++-
->>>   docs/fusa/reqs/intro.rst                      | 10 ++++++++
->>>   2 files changed, 33 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst b/ 
->>> docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
->>> index f2a0cd7fb8..86d84a3c40 100644
->>> --- a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
->>> +++ b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
->>> @@ -30,7 +30,7 @@ Read system counter frequency
->>>     Description:
->>>   Xen shall expose the frequency of the system counter to the domains in
->>> -CNTFRQ_EL0 register and/or domain device tree's "clock-frequency" 
->>> property.
->>> +CNTFRQ_EL0 register.
->>
->> This either wants to be split or explained in the commit message.
-> 
-> Yes, I will explain this in the commit message. Does the following sound 
-> fine ?
-> 
-> ```
-> 
-> docs: fusa: Add Assumption of Use (AoU)
-> 
-> AoU are the assumptions that Xen relies on other components (eg 
-> platform, domains)
-> to fulfill its requirements. In our case, platform means a combination of
-> hardware, firmware and bootloader.
-> 
-> We have defined AoU in the intro.rst and added AoU for the generic timer.
-> 
-> Also, fixed a requirement to denote that Xen shall **not** expose the 
-> system counter frequency via the "clock-frequency" device tree property. 
-> The reason being the device tree documentation strongly discourages the 
-> use of this peoperty. Further if the "clock-frequency" is exposed, then 
-> it overrides the value programmed in the CNTFRQ_EL0 register.
-> 
-> So, the frequency shall be exposed via the CNTFRQ_EL0 register only and 
-> consequently there is an assumption on the platform to program the 
-> register correctly.
-> 
-> ```
+Additionally you want to add one or more "Fixes" tags if this is a
+bugfix.
 
-LGTM
-
-Reviewed-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
-
--- 
-Julien Grall
-
+Thanks, Roger.
 
