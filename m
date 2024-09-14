@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D87B978E23
-	for <lists+xen-devel@lfdr.de>; Sat, 14 Sep 2024 07:58:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.798564.1208771 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70880978E57
+	for <lists+xen-devel@lfdr.de>; Sat, 14 Sep 2024 08:17:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.798570.1208782 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1spLn0-0005dc-Hi; Sat, 14 Sep 2024 05:57:46 +0000
+	id 1spM5d-0008HR-3G; Sat, 14 Sep 2024 06:17:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 798564.1208771; Sat, 14 Sep 2024 05:57:46 +0000
+Received: by outflank-mailman (output) from mailman id 798570.1208782; Sat, 14 Sep 2024 06:17:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1spLn0-0005bJ-F2; Sat, 14 Sep 2024 05:57:46 +0000
-Received: by outflank-mailman (input) for mailman id 798564;
- Sat, 14 Sep 2024 05:57:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1spM5c-0008Fh-Vb; Sat, 14 Sep 2024 06:17:00 +0000
+Received: by outflank-mailman (input) for mailman id 798570;
+ Sat, 14 Sep 2024 06:17:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tSsM=QM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1spLmz-0005bD-TT
- for xen-devel@lists.xenproject.org; Sat, 14 Sep 2024 05:57:45 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 41f908e4-725e-11ef-99a2-01e77a169b0f;
- Sat, 14 Sep 2024 07:57:43 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a90349aa7e5so303469066b.0
- for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 22:57:43 -0700 (PDT)
+ id 1spM5c-0008Fb-3g
+ for xen-devel@lists.xenproject.org; Sat, 14 Sep 2024 06:17:00 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f2aa7672-7260-11ef-a0b5-8be0dac302b0;
+ Sat, 14 Sep 2024 08:16:58 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5c24ebaa427so5783824a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Sep 2024 23:16:58 -0700 (PDT)
 Received: from [172.31.47.100] ([193.118.249.27])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90610966ccsm37044366b.45.2024.09.13.22.57.41
+ a640c23a62f3a-a90613338f4sm37604766b.216.2024.09.13.23.16.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Sep 2024 22:57:42 -0700 (PDT)
+ Fri, 13 Sep 2024 23:16:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +45,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41f908e4-725e-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: f2aa7672-7260-11ef-a0b5-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1726293463; x=1726898263; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1726294618; x=1726899418; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jj7BI1d/P05L4yR+fUrwV54+pcNt/eQNbd1AyE1f2W0=;
-        b=b3phsrHOnnVAiAOtQ80kgeeVPN6UdpaIiCccwoSr6/SlPH4Qte2ujod7PXODeyIxbF
-         iq50Q1jwNCJdSlvxh51ihqU/V8RiZeuNZYM+OPyCxu8mszMdCKabuhZeCx9zSCzIfTH+
-         nzbg1osDAzjkn4xmG6FVK82aDxRKVcsiB+Nehe1aOzC64lfTU7RbqcQx6ycWJBFqqoxW
-         6d/2NYAwq9RuQQ9jn1lVctgu+6kpTCu6ETaHy3l9vtXVB8ttRg169/mLaA7ijjvTfU18
-         nmpePZadu0g5XceoyYufsv7i88EsGDHYpemZaTbVp/UcCDdRWrNIpndTSZ7XTJHjGPMU
-         dscA==
+        bh=pQBxitKYLnKEEnSEqhk+u9QNUGzBONdJpcfD4QftNFc=;
+        b=YgxLX2yO4Gp5G0NiqtVNR+zvvjynyOSSXzH3zHr5MNrwQD7FRplWPs27qMCHyS4hmk
+         e6cUk670p/4pehdNzoYyY3hD5/y6Yz7Vkb27JOV5INtbdO4AaQrIeJ6tPH/W0MYGh4I2
+         mpFJ1XHrt83WuCWV3iMt+U6sNzgdm1mbJMkfAiTucPgpVNCazxqjmUlCxkIEUsj3EGoS
+         NzgYFqNtvghIo049TJcaWIrvcs5Vkegr6arQFxTUDXXnCQusQ6VnLu5tM4fRKcVV3Bq2
+         TQw+SVH3s66kyBnVNMO0ei76QFSzaMM8ojHRB4Qs/cG9cvtumpxLCauG/o3pM5ATZSgC
+         wpVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726293463; x=1726898263;
+        d=1e100.net; s=20230601; t=1726294618; x=1726899418;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jj7BI1d/P05L4yR+fUrwV54+pcNt/eQNbd1AyE1f2W0=;
-        b=WO1QFCI922zanJfYyL9onPvhECNFh7+XKJrzd7mm7YhOIMzIkQ9mSbR1J4D9kKuuUb
-         qORsrK4B93RH6EqmkqVCexu9JtWnZyIVzLuPgZ8zp31s/0xZgvqPhK5gBaX6yRZi2ALw
-         HlxfpDFR6Moa8K/5K/xNs+BIBKD/IkHe/qezod7Q8yZHL5OfqeNnzlA4u2KYd903/NRf
-         QxhqKw+XV8DTW8gWe/1kQzevjK7AelYVKNHg9YMBCu7vNpLHzBn/u7+l/lp/l83a2cpc
-         MGdqHvnRgTJ0rmaIIFUZAY6muWntJ5XUGfweLvcmsLjyTHvQyOaGe8urw+YhlBnjueg6
-         Tdig==
-X-Forwarded-Encrypted: i=1; AJvYcCVoqqOAbTSZx3hIesxgvK3p7Aw5PusVfeB8mxG1jOe+hT7EaB7fFTGp8JMSqdfbtTjdZXbJU9VZRuU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzXGr4Kfm2oLH/2DtVFZPkkq9Dn4qPoHhugDITmBomy0YyyX4KH
-	hq6FuWIGd91uEeloxzD5n2lWoXhPLvgIM0PsWBnRFZHCNxLpBglyxQpZ8egdyg==
-X-Google-Smtp-Source: AGHT+IHQRdOpdMJ4Y1cJj+samNp4BzlrRh+uCRWFfdK6L+8JVEJRsNx51Bj2WAtb1ztXOUZFBjsz3w==
-X-Received: by 2002:a17:907:94d4:b0:a90:34e8:780f with SMTP id a640c23a62f3a-a9034e87ae4mr673589866b.63.1726293462430;
-        Fri, 13 Sep 2024 22:57:42 -0700 (PDT)
-Message-ID: <e5a05e0a-ce58-4779-ae7e-c3803af82d3a@suse.com>
-Date: Sat, 14 Sep 2024 07:57:41 +0200
+        bh=pQBxitKYLnKEEnSEqhk+u9QNUGzBONdJpcfD4QftNFc=;
+        b=Lrk99ltGI/+TDjNyPen/fCXEXPm1M+KNfENW+RJKmzYX+8+w2xqyVH1J6MaTFgI0tB
+         3/PXTAWOYEIiDhgwRJR4l7AiJJPSJOFCqZnXTVXBX0QzsOlBwUeUdVp4kWzZOMYCw6Cg
+         BYnRcNhcOnNYpWcupAB9JKglG43zSCm/skQ6ar1Hrro8eEDRlMTllO9Pe8IvEO+mA8Ys
+         5th75EvO7KkgmAlSTDIxzl7zvexN/E4tapy5DRSaNWhxg00xK5EptZWBALynCU2LCLtI
+         XjV1MoU1jkPx5fn8uVeMQNbcOsOV8999yLrspEeEj85XaT0bILUDgaT+ijqhQZYKs4M6
+         zUpw==
+X-Forwarded-Encrypted: i=1; AJvYcCWZX3PocEJjxeUO/wl+/DxbMXUFbGFxe/yJG8F8fI71yZ3Ngbdo3ztSOow/b9PoN4IqFIA4KY5QwRM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyAFezipS5PZNNXrkUML/Qoa52hMqGJvJvPB/tVpXbqyjMM+irI
+	KaB1WLkoggU89A49qQ9z3HwnZwJrhcxbtzXXJYksWIMTe55fRO7MlNJzSEKB0g==
+X-Google-Smtp-Source: AGHT+IE/VRgpT+Ii43pjsfluqSJoKUR25gsCq/NuMH0I83cW/vKjYpNHdvpOKHMGSUEvQLlDJ3BMTw==
+X-Received: by 2002:a17:907:3d8a:b0:a8b:58e3:ac1f with SMTP id a640c23a62f3a-a902a435374mr908810766b.12.1726294617923;
+        Fri, 13 Sep 2024 23:16:57 -0700 (PDT)
+Message-ID: <d8627af4-5149-48ed-b107-f2401e6dddd3@suse.com>
+Date: Sat, 14 Sep 2024 08:16:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/swiotlb: add alignment check for dma buffers
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Juergen Gross <jgross@suse.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev
-References: <20240913145655.10076-1-jgross@suse.com>
- <a0b0dec5-03c1-4b69-aa0e-65771251d859@suse.com>
- <alpine.DEB.2.22.394.2409131728420.1417852@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v2] x86: Put trampoline in separate .init.trampoline
+ section
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20240911095550.31139-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <alpine.DEB.2.22.394.2409131728420.1417852@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20240911095550.31139-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.09.2024 02:38, Stefano Stabellini wrote:
-> On Fri, 13 Sep 2024, Jan Beulich wrote:
->> On 13.09.2024 16:56, Juergen Gross wrote:
->>> --- a/drivers/xen/swiotlb-xen.c
->>> +++ b/drivers/xen/swiotlb-xen.c
->>> @@ -78,9 +78,15 @@ static inline int range_straddles_page_boundary(phys_addr_t p, size_t size)
->>>  {
->>>  	unsigned long next_bfn, xen_pfn = XEN_PFN_DOWN(p);
->>>  	unsigned int i, nr_pages = XEN_PFN_UP(xen_offset_in_page(p) + size);
->>> +	unsigned int order = get_order(size);
->>>  
->>>  	next_bfn = pfn_to_bfn(xen_pfn);
->>>  
->>> +	/* If buffer is physically aligned, ensure DMA alignment. */
->>> +	if (IS_ALIGNED(p, 1UL << (order + PAGE_SHIFT)) &&
->>
->> Why this check? xen_swiotlb_alloc_coherent() guarantees it, while
->> xen_swiotlb_free_coherent() only checks properties of the original
->> allocation. And for xen_swiotlb_map_page() this looks actively
->> wrong to me, in case that function was called with offset non-zero.
-> 
-> I understand xen_swiotlb_alloc_coherent and xen_swiotlb_free_coherent
-> not needing the check, but I think we might need the check for
-> xen_swiotlb_map_page. At that point, I would keep the check for all
-> callers.
+On 11.09.2024 11:55, Frediano Ziglio wrote:
+> --- a/xen/arch/x86/boot/head.S
+> +++ b/xen/arch/x86/boot/head.S
+> @@ -882,8 +882,9 @@ cmdline_parse_early:
+>  reloc:
+>          .incbin "reloc.bin"
+>  
+> +#include "x86_64.S"
+> +
+> +        .section .init.trampoline, "aw", @progbits
+>  ENTRY(trampoline_start)
+>  #include "trampoline.S"
+>  ENTRY(trampoline_end)
 
-Whereas I would be inclined to suggest to put it in the one place it's
-needed, not the least to avoid the abuse of the function (going just
-from its name).
+Hmm, nice - this turns out rather easier than I first thought.
 
-> Unless there is another way to detect whether the mapping needs
-> alignment specifically for map_page?
-> 
-> For the offset, in theory if the device needs alignment, the offset
-> should be zero? If the offset is not zero, then there should be no
-> alignment requirement. The way Juergen wrote the check, we would take
-> the fast path if offset != zero, which makes sense to me.
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -269,6 +269,11 @@ SECTIONS
+>         __ctors_end = .;
+>    } PHDR(text)
+>  
+> +  . = ALIGN(PAGE_SIZE);
 
-Hmm, right.
+Why? There's no special alignment right now.
+
+> +  DECL_SECTION(.init.trampoline) {
+> +       *(.init.trampoline)
+> +  } PHDR(text)
+> +
+>  #ifndef EFI
+
+If this is to be a separate section also for ELF, I think that
+wants mentioning explicitly. "Easily disassemble" is too vague
+a reason for my taste.
 
 Jan
 
