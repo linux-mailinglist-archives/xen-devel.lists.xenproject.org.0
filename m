@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5389297A803
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 21:58:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.799668.1209632 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9BE097A829
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 22:11:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.799678.1209642 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqHqe-0001IR-2D; Mon, 16 Sep 2024 19:57:24 +0000
+	id 1sqI46-0003v5-5q; Mon, 16 Sep 2024 20:11:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 799668.1209632; Mon, 16 Sep 2024 19:57:24 +0000
+Received: by outflank-mailman (output) from mailman id 799678.1209642; Mon, 16 Sep 2024 20:11:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqHqd-0001Fk-VH; Mon, 16 Sep 2024 19:57:23 +0000
-Received: by outflank-mailman (input) for mailman id 799668;
- Mon, 16 Sep 2024 19:57:22 +0000
+	id 1sqI46-0003sW-2t; Mon, 16 Sep 2024 20:11:18 +0000
+Received: by outflank-mailman (input) for mailman id 799678;
+ Mon, 16 Sep 2024 20:11:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=D3gN=QO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sqHqc-0001Fe-9I
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 19:57:22 +0000
+ id 1sqI44-0003sA-Fl
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 20:11:16 +0000
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e1062cea-7465-11ef-99a2-01e77a169b0f;
- Mon, 16 Sep 2024 21:57:19 +0200 (CEST)
+ id d2c6a651-7467-11ef-99a2-01e77a169b0f;
+ Mon, 16 Sep 2024 22:11:14 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 6D297A41FE7;
- Mon, 16 Sep 2024 19:57:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24C01C4CEC4;
- Mon, 16 Sep 2024 19:57:16 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 8F6C2A43205;
+ Mon, 16 Sep 2024 20:11:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F1FC4CECD;
+ Mon, 16 Sep 2024 20:11:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,53 +41,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1062cea-7465-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: d2c6a651-7467-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1726516637;
-	bh=niYYyfgzByocnylGii80fVD/vIhV37FgTtJzmxkgTb0=;
+	s=k20201202; t=1726517473;
+	bh=7xxeWsqRcrCxoadi3+koKT0WOIpuhPaRbtLyPtA77bs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Oj2Umh9NKiXejHdoxokK61mloMzHba9DW1T9lYT1Wc0ey+7749svCDheQLGAhEykq
-	 X81m1Q/QJ7JD1K5Zky9i/cNUDymwASqyWT8KmZ1aiHfpfp1vcSJ8hyTNRxteJGxtRE
-	 V+qvd3Shl6PD8dAet+uAuPbK3eUX9QKjp9oeu396o6MrhFvSk+X414NaggPi9qspJ1
-	 M22hbfsaRYfKAFhmHVanb6+d2hAVLi2dVIjA18goCak67+POOUbiLjsW2DVxduTLs/
-	 U6jNJzW4vpM2sih1iP/Ueos1FWwytveeHE0pDfwTaW4z/osvkIdevvRkjtWhBsfjyA
-	 RLK+Fok+jZGrQ==
-Date: Mon, 16 Sep 2024 12:57:15 -0700 (PDT)
+	b=kExIBay3WywWDJXf4lrsk3I3J3fyBZjWFSUp2wll/2aYTJz2zyTblmY9kcagsPK5e
+	 huZ6uT6Fnb+M0JEgCRX9c5YSuwG8c2/z5trX+eLloC+tDDjD61sRL5Uw60BMUQO3wq
+	 G4fXlimhNjt5kXFJIJyENxLmOurRW7l48bvfA7NGoR7bCtnUMNFmP9j4llgblBWQXP
+	 Hu0BfdXIPMbrX0Fw1UKp1gTXzgeZw2XAjtUGqLxQ98NjDqT7V7Qf/3x48DbFW91E2y
+	 qqLcjQ+Q5FYvyr5WaGughNb1Sm23LpJmrkmSCSUnsu0d3wj6iukrPYlPS3vZsP+QdC
+	 jj6I7czhS1+KA==
+Date: Mon, 16 Sep 2024 13:11:10 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org, 
-    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH] x86/hvm: make ACPI PM timer support optional
-In-Reply-To: <Zufh7DOSCwzhrpZG@macbook.local>
-Message-ID: <alpine.DEB.2.22.394.2409161252380.1417852@ubuntu-linux-20-04-desktop>
-References: <20240916063757.990070-1-Sergiy_Kibrik@epam.com> <Zufh7DOSCwzhrpZG@macbook.local>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    iommu@lists.linux.dev
+Subject: Re: [PATCH v2 2/2] xen/swiotlb: fix allocated size
+In-Reply-To: <d0075562-6a21-4a87-b7f5-854f09c0743a@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2409161311010.1417852@ubuntu-linux-20-04-desktop>
+References: <20240916064748.18071-1-jgross@suse.com> <20240916064748.18071-3-jgross@suse.com> <d0075562-6a21-4a87-b7f5-854f09c0743a@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-324846098-1726516389=:1417852"
-Content-ID: <alpine.DEB.2.22.394.2409161253250.1417852@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-324846098-1726516389=:1417852
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2409161253251.1417852@ubuntu-linux-20-04-desktop>
-
-On Mon, 16 Sep 2024, Roger Pau Monné wrote:
-> On Mon, Sep 16, 2024 at 09:37:57AM +0300, Sergiy Kibrik wrote:
-> > Introduce config option X86_PMTIMER so that pmtimer driver can be disabled on
-> > systems that don't need it.
+On Mon, 16 Sep 2024, Jan Beulich wrote:
+> On 16.09.2024 08:47, Juergen Gross wrote:
+> > The allocated size in xen_swiotlb_alloc_coherent() and
+> > xen_swiotlb_free_coherent() is calculated wrong for the case of
+> > XEN_PAGE_SIZE not matching PAGE_SIZE. Fix that.
+> > 
+> > Fixes: 7250f422da04 ("xen-swiotlb: use actually allocated size on check physical continuous")
+> > Reported-by: Jan Beulich <jbeulich@suse.com>
+> > Signed-off-by: Juergen Gross <jgross@suse.com>
 > 
-> Same comment as in the VGA patch, you need to handle the user passing
-> X86_EMU_PM.  It's not OK to just ignore the flag if the hypervisor is
-> built without ACPI PM timer support.
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-I also think that the flag should not be ignored. I think that Xen
-should return error if a user is passing a domain feature not supported
-by a particular version of the Xen build. I don't think that libxl needs
-to be changed as part of this patch necessarily.
---8323329-324846098-1726516389=:1417852--
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
