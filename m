@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D92B4979E89
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 11:36:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.799358.1209348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4050979E9F
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 11:44:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.799363.1209359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sq89V-0006eQ-GX; Mon, 16 Sep 2024 09:36:13 +0000
+	id 1sq8HX-0008P2-9q; Mon, 16 Sep 2024 09:44:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 799358.1209348; Mon, 16 Sep 2024 09:36:13 +0000
+Received: by outflank-mailman (output) from mailman id 799363.1209359; Mon, 16 Sep 2024 09:44:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sq89V-0006cX-DS; Mon, 16 Sep 2024 09:36:13 +0000
-Received: by outflank-mailman (input) for mailman id 799358;
- Mon, 16 Sep 2024 09:36:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sq8HX-0008Na-5o; Mon, 16 Sep 2024 09:44:31 +0000
+Received: by outflank-mailman (input) for mailman id 799363;
+ Mon, 16 Sep 2024 09:44:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wse+=QO=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1sq89T-0006cR-IA
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 09:36:11 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 197fc584-740f-11ef-99a2-01e77a169b0f;
- Mon, 16 Sep 2024 11:36:07 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-5365a9574b6so4178740e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 16 Sep 2024 02:36:07 -0700 (PDT)
+ id 1sq8HV-0008NU-Qx
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 09:44:29 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 44714156-7410-11ef-a0b6-8be0dac302b0;
+ Mon, 16 Sep 2024 11:44:28 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a7a81bd549eso508230866b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Sep 2024 02:44:28 -0700 (PDT)
 Received: from fziglio-desktop.. ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90610f151esm290601466b.48.2024.09.16.02.36.05
+ a640c23a62f3a-a90610f4416sm291635766b.60.2024.09.16.02.44.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Sep 2024 02:36:06 -0700 (PDT)
+ Mon, 16 Sep 2024 02:44:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,68 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 197fc584-740f-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 44714156-7410-11ef-a0b6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1726479366; x=1727084166; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1726479868; x=1727084668; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9bE42e2WU1qA3/ulfwKxHcEQXPKSFg8WdkO8Fij57Ts=;
-        b=dZJY9RI6hKDGHQwoacOUc04uu92k73q/lR1Xw3zc+uHahxeEozsA3LILLZbFlovYQL
-         ShrMVBYts45aK77tfBJfwyBG/CAa2yivmRS0P5OWq7N4dL7HGy0uyzFoUvp4QEt1XZYT
-         KUO8/jbHQm8ndZmB+eooN1S88zsfMfUvTwQy8=
+        bh=jxzMjZsG492N+ESYIzjtWdU0RNYoCUFjlB+Vf9Vw0RE=;
+        b=P9cdG+36mMQcd+K4RiTp54akhz99Fh59xMYRnuQtOVNW37gCBQXn7YNPUz1v7cBZzc
+         nOmCoqYbN5M2mC9bIP2kc4VUe6y29Cwj2D1SSjHKk+WObUr/K94Ee/4z/2dXki+iUTXK
+         +tJu1TpjVs7vdoxaybQf+XZKZad4abK/lqylQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726479366; x=1727084166;
+        d=1e100.net; s=20230601; t=1726479868; x=1727084668;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=9bE42e2WU1qA3/ulfwKxHcEQXPKSFg8WdkO8Fij57Ts=;
-        b=KXZ8aDxbY/WuzobcxnSvAxg0VxQBF7KXkOBPvOuCWsUhePpU55umoEspO3/PAlMXxg
-         3FyAMhz2moCAMVbT/t5TlSFanTSY9QojwvpVPmz/hqwi21a4+xNhIr47OGXbNQtyT1IY
-         93A7d57dXF5Zz3ttcJwV/foTeGUZIa7sT+XdaHrxWMdy9jnGkb0m8Q3UzVSukRqDIYp+
-         4TcjhTTGKfJkLCpsBoX2j32pHpo+yfAUDSv2ON+Y1zFAbxH+1WDNTFeB5wVvszliSAr8
-         6JJCtAatuh1HM1sLtzSKxjmDQRORLReH0mGH+yv+HGcyuXuVVM4+ZKFuMznFFNC4/T2R
-         Z7BQ==
-X-Gm-Message-State: AOJu0YyEp9X22IEuSEW4rm26EELXchSfzvjQ39687jYI6DrN9HbYCjYo
-	53GdxoECCLEDhmbrGpOV2Dd+2qzW+bICQPxaQTs7sX1uWzG/LJ2gEVC8Vc0MoZvFnyUh5McYm9r
-	O
-X-Google-Smtp-Source: AGHT+IFAxPvKYA8p89qSHmIiGM/nOzhEUAxWuTZhfgZMfPTiw66KbLx8kawnugSguy1N65fA15LGXQ==
-X-Received: by 2002:a05:6512:a8e:b0:52c:e17c:cd7b with SMTP id 2adb3069b0e04-5367fed250bmr6682338e87.22.1726479366392;
-        Mon, 16 Sep 2024 02:36:06 -0700 (PDT)
+        bh=jxzMjZsG492N+ESYIzjtWdU0RNYoCUFjlB+Vf9Vw0RE=;
+        b=FQD/1mZJ22RZaKLP1zSmTaKPH7hBA7dSyQkZjeRdRvEysuTxBkM32wmMGrIOxamdWs
+         vmjCJ2ZCFgcH/NV1txGVOJAeN0XBqsG+0loWY+tN9nq8mnhXMEXQ74V1wSFmU40ClFQA
+         7BbXEFkydKR2wKVb+G8uuOaFsZXlK4h2kngTwMnteY6+sQCVH1KiqEknkrxfXB8UB/Dz
+         an74S6miuGMTjXSfTGFRs/Sddeb2Qg7WxFe4nHojElTU7OcaLTC8vOk2U0lzZD//F2fh
+         0YuSDTsyqU9+MjdmdD2JzJOWgQVuJ0NyYj2K9s7xisb0t+CDQ5Tfh/AH5U3Jd7pW3JAH
+         saNQ==
+X-Gm-Message-State: AOJu0YwT8aVIYNHjLZMNf+NhV4wP8yBuUewnJ3YnzlmBWRKX+LnBfJqC
+	+Cic5vuwQ76VFtiGE4E92cvJZK+W/k3gD0e5YwnRUTYaCqKMNmdlr9qgYhnrLEPfPcMumJyDbM0
+	p
+X-Google-Smtp-Source: AGHT+IH34nXtwDfxJIlG6+S0e0tKmv3HcCtfLHESXK+0qE+L4ceBZkmlMjtv2f0Tx3heKJKTAya5nQ==
+X-Received: by 2002:a17:907:c88d:b0:a80:f358:5d55 with SMTP id a640c23a62f3a-a90295a6a7cmr1535636166b.33.1726479867943;
+        Mon, 16 Sep 2024 02:44:27 -0700 (PDT)
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] xen/efi: efibind: Fix typo in comment
-Date: Mon, 16 Sep 2024 10:35:57 +0100
-Message-Id: <20240916093557.67850-1-frediano.ziglio@cloud.com>
+Subject: [PATCH v3] x86: Put trampoline in separate .init.trampoline section
+Date: Mon, 16 Sep 2024 10:44:24 +0100
+Message-Id: <20240916094424.74002-1-frediano.ziglio@cloud.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-expresion -> expression
+This change put the trampoline in a separate, not executable section.
+The trampoline contains a mix of code and data (data which
+is modified from C code during early start so must be writable).
+This is in preparation for W^X patch in order to satisfy UEFI CA
+memory mitigation requirements.
+At the moment .init.text and .init.data in EFI mode are put together
+so they will be in the same final section as before this patch.
+Putting in a separate section (even in final executables) allows
+to easily disassembly that section. As we need to have a writable
+section and as we can't have code and data together to satisfy W^X
+requirement we need to have a data section. However tools like objdump
+by default do not disassemble data sections. Forcing disassembly of
+data sections would result in a very large output and possibly crash
+of tools. Putting in a separate section allows to selectively
+disassemble that part of code using a command like
+
+    objdump -m i386 -j .init.trampoline -d xen-syms
 
 Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 ---
- xen/arch/x86/include/asm/x86_64/efibind.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes since last version:
+- use completely separate section even on final executables
+  (suggested by Jan Beulich).
 
-diff --git a/xen/arch/x86/include/asm/x86_64/efibind.h b/xen/arch/x86/include/asm/x86_64/efibind.h
-index 28bc18c24b..b29342c61c 100644
---- a/xen/arch/x86/include/asm/x86_64/efibind.h
-+++ b/xen/arch/x86/include/asm/x86_64/efibind.h
-@@ -176,7 +176,7 @@ typedef uint64_t   UINTN;
-     #elif __clang__ || __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)
-         #define EFIAPI __attribute__((__ms_abi__))  // Force Microsoft ABI
-     #else
--        #define EFIAPI          // Substitute expresion to force C calling convention
-+        #define EFIAPI          // Substitute expression to force C calling convention
-     #endif
- #endif
+Changes since v1:
+- remove useless align.
+
+Changes since v2:
+- remove change to alignment;
+- improved commit message.
+---
+ xen/arch/x86/boot/head.S | 5 +++--
+ xen/arch/x86/xen.lds.S   | 4 ++++
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+index 12bbb97f33..493286a9fb 100644
+--- a/xen/arch/x86/boot/head.S
++++ b/xen/arch/x86/boot/head.S
+@@ -882,8 +882,9 @@ cmdline_parse_early:
+ reloc:
+         .incbin "reloc.bin"
  
++#include "x86_64.S"
++
++        .section .init.trampoline, "aw", @progbits
+ ENTRY(trampoline_start)
+ #include "trampoline.S"
+ ENTRY(trampoline_end)
+-
+-#include "x86_64.S"
+diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+index d48de67cfd..22fb7d8458 100644
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -269,6 +269,10 @@ SECTIONS
+        __ctors_end = .;
+   } PHDR(text)
+ 
++  DECL_SECTION(.init.trampoline) {
++       *(.init.trampoline)
++  } PHDR(text)
++
+ #ifndef EFI
+   /*
+    * With --orphan-sections=warn (or =error) we need to handle certain linker
 -- 
 2.34.1
 
