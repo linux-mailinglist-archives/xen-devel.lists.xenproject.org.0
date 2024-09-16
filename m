@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 323CE97A728
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 20:15:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.799644.1209619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5389297A803
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 21:58:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.799668.1209632 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqGEV-0007CH-Oy; Mon, 16 Sep 2024 18:13:55 +0000
+	id 1sqHqe-0001IR-2D; Mon, 16 Sep 2024 19:57:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 799644.1209619; Mon, 16 Sep 2024 18:13:55 +0000
+Received: by outflank-mailman (output) from mailman id 799668.1209632; Mon, 16 Sep 2024 19:57:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqGEV-0007Ah-MH; Mon, 16 Sep 2024 18:13:55 +0000
-Received: by outflank-mailman (input) for mailman id 799644;
- Mon, 16 Sep 2024 18:13:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sqGEU-0007AX-GP; Mon, 16 Sep 2024 18:13:54 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sqGEU-0001SN-FP; Mon, 16 Sep 2024 18:13:54 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sqGET-0005tj-SE; Mon, 16 Sep 2024 18:13:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sqGET-0007Vi-RX; Mon, 16 Sep 2024 18:13:53 +0000
+	id 1sqHqd-0001Fk-VH; Mon, 16 Sep 2024 19:57:23 +0000
+Received: by outflank-mailman (input) for mailman id 799668;
+ Mon, 16 Sep 2024 19:57:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=D3gN=QO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sqHqc-0001Fe-9I
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 19:57:22 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e1062cea-7465-11ef-99a2-01e77a169b0f;
+ Mon, 16 Sep 2024 21:57:19 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 6D297A41FE7;
+ Mon, 16 Sep 2024 19:57:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24C01C4CEC4;
+ Mon, 16 Sep 2024 19:57:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +41,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=LR1iLAsGk/p8C4Sxu3EA1LRsERgC9FulpYjdAMJyeiA=; b=dvkfbnlUjiqG1MQfjvuUlSKwyM
-	mMLxVXM8CNFXwgT+ndikyiA1J9IsIaDvnSRzbItkS5D+k3svhxyF0pSjdLgtKnfeEq+EiPYe2C616
-	pHfdAkzGdtMx4v1QWZngEVnPmKo4FjoRYAv0ii7YlotNe/pUt3xwAGcUYtko4oJprRLs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187722-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e1062cea-7465-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1726516637;
+	bh=niYYyfgzByocnylGii80fVD/vIhV37FgTtJzmxkgTb0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Oj2Umh9NKiXejHdoxokK61mloMzHba9DW1T9lYT1Wc0ey+7749svCDheQLGAhEykq
+	 X81m1Q/QJ7JD1K5Zky9i/cNUDymwASqyWT8KmZ1aiHfpfp1vcSJ8hyTNRxteJGxtRE
+	 V+qvd3Shl6PD8dAet+uAuPbK3eUX9QKjp9oeu396o6MrhFvSk+X414NaggPi9qspJ1
+	 M22hbfsaRYfKAFhmHVanb6+d2hAVLi2dVIjA18goCak67+POOUbiLjsW2DVxduTLs/
+	 U6jNJzW4vpM2sih1iP/Ueos1FWwytveeHE0pDfwTaW4z/osvkIdevvRkjtWhBsfjyA
+	 RLK+Fok+jZGrQ==
+Date: Mon, 16 Sep 2024 12:57:15 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] x86/hvm: make ACPI PM timer support optional
+In-Reply-To: <Zufh7DOSCwzhrpZG@macbook.local>
+Message-ID: <alpine.DEB.2.22.394.2409161252380.1417852@ubuntu-linux-20-04-desktop>
+References: <20240916063757.990070-1-Sergiy_Kibrik@epam.com> <Zufh7DOSCwzhrpZG@macbook.local>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 187722: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=670e263419eb875fd8dce0c8d18dd3ab02b83ba0
-X-Osstest-Versions-That:
-    ovmf=7843c8da060484cdb4239078544cab807377070d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 16 Sep 2024 18:13:53 +0000
+Content-Type: multipart/mixed; BOUNDARY="8323329-324846098-1726516389=:1417852"
+Content-ID: <alpine.DEB.2.22.394.2409161253250.1417852@ubuntu-linux-20-04-desktop>
 
-flight 187722 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187722/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 670e263419eb875fd8dce0c8d18dd3ab02b83ba0
-baseline version:
- ovmf                 7843c8da060484cdb4239078544cab807377070d
+--8323329-324846098-1726516389=:1417852
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2409161253251.1417852@ubuntu-linux-20-04-desktop>
 
-Last test of basis   187719  2024-09-16 09:45:07 Z    0 days
-Testing same since   187722  2024-09-16 16:43:13 Z    0 days    1 attempts
+On Mon, 16 Sep 2024, Roger Pau Monné wrote:
+> On Mon, Sep 16, 2024 at 09:37:57AM +0300, Sergiy Kibrik wrote:
+> > Introduce config option X86_PMTIMER so that pmtimer driver can be disabled on
+> > systems that don't need it.
+> 
+> Same comment as in the VGA patch, you need to handle the user passing
+> X86_EMU_PM.  It's not OK to just ignore the flag if the hypervisor is
+> built without ACPI PM timer support.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Chasel Chiu <chasel.chiu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   7843c8da06..670e263419  670e263419eb875fd8dce0c8d18dd3ab02b83ba0 -> xen-tested-master
+I also think that the flag should not be ignored. I think that Xen
+should return error if a user is passing a domain feature not supported
+by a particular version of the Xen build. I don't think that libxl needs
+to be changed as part of this patch necessarily.
+--8323329-324846098-1726516389=:1417852--
 
