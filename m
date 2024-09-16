@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69A5697A2CC
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 15:18:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.799521.1209518 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A3297A2DD
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 15:22:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.799528.1209528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqBc2-0008At-AX; Mon, 16 Sep 2024 13:17:54 +0000
+	id 1sqBfC-0001Hn-Rf; Mon, 16 Sep 2024 13:21:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 799521.1209518; Mon, 16 Sep 2024 13:17:54 +0000
+Received: by outflank-mailman (output) from mailman id 799528.1209528; Mon, 16 Sep 2024 13:21:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqBc2-00089K-7p; Mon, 16 Sep 2024 13:17:54 +0000
-Received: by outflank-mailman (input) for mailman id 799521;
- Mon, 16 Sep 2024 13:17:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sqBfC-0001Fc-P3; Mon, 16 Sep 2024 13:21:10 +0000
+Received: by outflank-mailman (input) for mailman id 799528;
+ Mon, 16 Sep 2024 13:21:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W1kI=QO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sqBc1-00089E-Ix
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 13:17:53 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 141b4f52-742e-11ef-a0b6-8be0dac302b0;
- Mon, 16 Sep 2024 15:17:52 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a8a7596b7dfso652148666b.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Sep 2024 06:17:52 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90612b3067sm315908166b.98.2024.09.16.06.17.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Sep 2024 06:17:51 -0700 (PDT)
+ <SRS0=OOdV=QO=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1sqBfA-0001FW-MG
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 13:21:09 +0000
+Received: from fout6-smtp.messagingengine.com (fout6-smtp.messagingengine.com
+ [103.168.172.149]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 84634914-742e-11ef-99a2-01e77a169b0f;
+ Mon, 16 Sep 2024 15:21:01 +0200 (CEST)
+Received: from phl-compute-05.internal (phl-compute-05.phl.internal
+ [10.202.2.45])
+ by mailfout.phl.internal (Postfix) with ESMTP id 83CD2138022B;
+ Mon, 16 Sep 2024 09:21:00 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-05.internal (MEProxy); Mon, 16 Sep 2024 09:21:00 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 16 Sep 2024 09:20:58 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +44,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 141b4f52-742e-11ef-a0b6-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1726492672; x=1727097472; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kMF5TrLypKNuLHnDGiMejOMsQQNHlG+5NdS4aYkT7pc=;
-        b=lEiKcTZ9pTh8thVWYC+IPMeeVoeFQXSxGfsNFPEH0x33tLyP3J57b0JX3YglTqsrob
-         g85mGZSwsB3KyoWuK/uNg7C2YCffiz0z5Uec9/NgU1augzeLB5bbDWFt+XfH1tZQRn8B
-         TkbNaIhk2KfwyXygE65iGvd+SHQ62eEq79Bv8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726492672; x=1727097472;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kMF5TrLypKNuLHnDGiMejOMsQQNHlG+5NdS4aYkT7pc=;
-        b=d3EEHEwuYBAkj51CjI2duc2MrXIXc3gDnbYa3zzI3vqWsycDMjBJYoAi/Z8VtWXJ3i
-         o/iiQxuyFDb2XjAYWLutODQwIBnonYwAMwOcT2oAuCZee0Y8zCTJYSH90mW8aMCUhE+z
-         MQ/ZK7jL+k28J7UlYZ2WcxvTWNKOu5Cz7GbvHIA6uhDjpCAK5F3CB2Vul4NalAx7diIn
-         L2afmxvkHmtp5PiMjsVgkLaA/bkAZGIS5IrnGv2dfgJcjznv4HzrEeg/mK3q/YaBR9TP
-         28pluW8l2X+STQpZB7osxSkP1VRegA7WL453r3PWTyZ+ypVTeLMQT5eyGXpIx4cwU2cS
-         SqxQ==
-X-Gm-Message-State: AOJu0YwYk7Lc8Il7XksgevCtF3YwSn8lU/UjP1lYabwm53u2STr2Ci8Y
-	31wwPxVAelcJeuhrNwvgzg2WMR48iWdPdf3NhsIF7gitqmNpGfTYYdaBTpzOgT4=
-X-Google-Smtp-Source: AGHT+IFcwKT/RRhbwto3FLp2E+ywBiX9p60c92Ljtr+ArQp3adoXU8VLS8/tbWxTtUohiiPcY0J7Bg==
-X-Received: by 2002:a17:907:e8e:b0:a8d:4954:c209 with SMTP id a640c23a62f3a-a8ffae0018emr2120918366b.22.1726492671957;
-        Mon, 16 Sep 2024 06:17:51 -0700 (PDT)
-Message-ID: <32136482-10e4-4f3e-ac8b-a05b7718f069@citrix.com>
-Date: Mon, 16 Sep 2024 14:17:49 +0100
+X-Inumbo-ID: 84634914-742e-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1726492860;
+	 x=1726579260; bh=6h+gY4/iOKUw2eWXEqLXr2FCw/P/6oUY3f3INUPVXJY=; b=
+	dRmLPee3ZLN4b8vhT8/y87ehy5fELsPxdRQXMEZLJFOwrqMdkIojVwl91pLrCBxw
+	w5PMiJ7yiW8fKlrEVuDlylbq6GfrIzA4FYkGiYI5wWMi0x8chsh7it0dqFrlYYe9
+	BjuDawjzUyhkjTTSHjG4wxrxky3SOb1sYQCBIaxDV6QYZoDt0aBtbK/BZIL1ZbgO
+	GywMU2S4134/0b8YFPkCE7Iga9sbAMyGZk2esCv+kGIDcDSmq4ULNbij9DIybwS4
+	KYiun1cXtOe5wyzb84OQoCxrzG3pT2hhpDvRSmJpXnSsDIqWTWc+qohZ3nmLubvu
+	Lf6W22DaIV2GxvaS8fLShA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1726492860; x=1726579260; bh=6h+gY4/iOKUw2eWXEqLXr2FCw/P/
+	6oUY3f3INUPVXJY=; b=Odq5EpDGyvbExfuJ5H5rP/3eGxbBYuAEOX0VtnWtLw+c
+	GjdRhzZd8Ehwqs3ozXxyf0cxZ4fVsnMxWqUHPVDiuY3Bb9WE7VKWqtmpsrLcyzdg
+	76U0tVc+wgf0CadULQ9fX4FbB8HDhi45FzpKgMC9+NoHKxhcndkzKVMkzXjA1oZP
+	FHc0YdaC3yCLVghSIPc0U8UeTPR1qiBpvCHmLyNaa/oQOaqllmly0OuLt32a5EZX
+	Ftpua2giY6Eqm9m1BZDey5yYZf52zVHaei5b5LqU8npAzZTrfPZcD+Vi4YhX0Dt5
+	Zrw5WF18JJFaGWB/mo1mFv5z77dfSHnHVp3gxPUmHA==
+X-ME-Sender: <xms:vDDoZnQaBLP8XvHHi1BnEBsga1aGZ-vapAUFdsvjMCnK9YjqdgrxYQ>
+    <xme:vDDoZoyXaStywP0ewEQU6zyiNVlyVlESA_s1KoUWHIXesbtRvGRJJUqxLVnZ_ze-n
+    9RuzZAOGgxDLA>
+X-ME-Received: <xmr:vDDoZs2mjW7RhseTYAQ8RzU_1an2l0XbMiUXtZ_ijC54milOmtcWB7M>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrudekhedgieduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
+    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
+    rfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettddvge
+    euteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnh
+    gspghrtghpthhtohepjedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghnughr
+    vgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopehrohhgvghrrd
+    hprghusegtihhtrhhigidrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhs
+    thhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopeguphhsmhhithhhsegrph
+    gvrhhtuhhsshholhhuthhiohhnshdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhes
+    shhushgvrdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpth
+    htohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:vDDoZnCfCybQ7jnZcYj7f9iWSAQP4zMsUQ3L-dxL9VCPl0Kb1nLjSg>
+    <xmx:vDDoZghHtftjhbhPC6njDa_iwHB_qgA77mqLKW3RovbyY21jDtoRUw>
+    <xmx:vDDoZroKR_YpD9vRQ5sC9_26aADiJzoHjCKIwIoL3Pl0kQmgqeSzJw>
+    <xmx:vDDoZrg--FGpmhXVTcjLeEmIcP1OcbvD8SNhjFXgC25UBeb0px-zyA>
+    <xmx:vDDoZrUEPaT4-nDWiQpYtPIRvVyP7eBbEbnlyyhJYRO1KSqZuk3YHBrG>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 16 Sep 2024 15:20:56 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v7 1/2] x86/time: introduce command line option to select
+ wallclock
+Message-ID: <ZugwuGWIl2Xg7EMD@mail-itl>
+References: <20240913075907.34460-1-roger.pau@citrix.com>
+ <20240913075907.34460-2-roger.pau@citrix.com>
+ <01b4b04f-d7ba-4526-b45f-2146bfc03cbe@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Drop stale comment about zeroing the stack
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20240916115811.2076392-1-andrew.cooper3@citrix.com>
- <CACHz=ZiemNMMBk7GT9+Y=WLN5zm-M7-QDwa-H760Ca=THPvkNw@mail.gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <CACHz=ZiemNMMBk7GT9+Y=WLN5zm-M7-QDwa-H760Ca=THPvkNw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="VuPRpe/WJOiDCIlt"
+Content-Disposition: inline
+In-Reply-To: <01b4b04f-d7ba-4526-b45f-2146bfc03cbe@citrix.com>
 
-On 16/09/2024 2:16 pm, Frediano Ziglio wrote:
-> On Mon, Sep 16, 2024 at 12:58 PM Andrew Cooper
-> <andrew.cooper3@citrix.com> wrote:
->> This used to be true, but was altered by commit 37786b23b027 ("x86/cet: Remove
->> writeable mapping of the BSPs shadow stack") which moved cpu0_stack into
->> .init.bss.stack_aligned.
->>
->> Fixes: 37786b23b027 ("x86/cet: Remove writeable mapping of the BSPs shadow stack")
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
->> ---
->>  xen/arch/x86/boot/head.S | 6 +-----
->>  1 file changed, 1 insertion(+), 5 deletions(-)
->>
->> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
->> index 12bbb97f33d4..cfc5a7b47d29 100644
->> --- a/xen/arch/x86/boot/head.S
->> +++ b/xen/arch/x86/boot/head.S
->> @@ -652,11 +652,7 @@ trampoline_setup:
->>          cmpb    $0, sym_esi(efi_platform)
->>          jnz     1f
->>
->> -        /*
->> -         * Initialise the BSS.
->> -         *
->> -         * !!! WARNING - also zeroes the current stack !!!
->> -         */
->> +        /* Initialise the BSS. */
->>          lea     sym_esi(__bss_start), %edi
->>          lea     sym_esi(__bss_end), %ecx
->>          sub     %edi,%ecx
->>
->> base-commit: a8bf14f6f331d4f428010b4277b67c33f561ed19
-> Nice to know!
 
-Indeed, and it certainly helps one of your rearranging patches.
+--VuPRpe/WJOiDCIlt
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Sep 2024 15:20:56 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v7 1/2] x86/time: introduce command line option to select
+ wallclock
 
-> Acked-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+On Mon, Sep 16, 2024 at 02:11:08PM +0100, Andrew Cooper wrote:
+> On 13/09/2024 8:59 am, Roger Pau Monne wrote:
+> > diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-=
+line.pandoc
+> > index 959cf45b55d9..2a9b3b9b8975 100644
+> > --- a/docs/misc/xen-command-line.pandoc
+> > +++ b/docs/misc/xen-command-line.pandoc
+> > @@ -2816,6 +2816,27 @@ vwfi to `native` reduces irq latency significant=
+ly. It can also lead to
+> >  suboptimal scheduling decisions, but only when the system is
+> >  oversubscribed (i.e., in total there are more vCPUs than pCPUs).
+> > =20
+> > +### wallclock (x86)
+> > +> `=3D auto |=C2=A0xen | cmos | efi`
+> > +
+> > +> Default: `auto`
+> > +
+> > +Allow forcing the usage of a specific wallclock source.
+> > +
+> > + * `auto` let the hypervisor select the clocksource based on internal
+> > +   heuristics.
+> > +
+> > + * `xen` force usage of the Xen shared_info wallclock when booted as a=
+ Xen
+> > +   guest.  This option is only available if the hypervisor was compile=
+d with
+> > +   `CONFIG_XEN_GUEST` enabled.
+> > +
+> > + * `cmos` force usage of the CMOS RTC wallclock.
+> > +
+> > + * `efi` force usage of the EFI_GET_TIME run-time method when booted f=
+rom EFI
+> > +   firmware.
+>=20
+> For both `xen` and `efi`, something should be said about "if selected
+> and not satisfied, Xen falls back to other heuristics".
+>=20
+> > +
+> > +If the selected option is invalid or not available Xen will default to=
+ `auto`.
+>=20
+> I'm afraid that I'm firmly of the opinion that "auto" on the cmdline is
+> unnecessary complexity.=C2=A0 Auto is the default, and doesn't need
+> specifying explicitly.=C2=A0 That in turn simplifies ...
 
-Thanks.
+What about overriding earlier choice? For example overriding a built-in
+cmdline? That said, with the current code, the same can be achieved with
+wallclock=3Dfoo, and living with the warning in boot log...
 
-~Andrew
+> > +
+> >  ### watchdog (x86)
+> >  > `=3D force | <boolean>`
+> > =20
+> > diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
+> > index 29b026735e5d..e4751684951e 100644
+> > --- a/xen/arch/x86/time.c
+> > +++ b/xen/arch/x86/time.c
+> > @@ -1552,6 +1552,37 @@ static const char *__init wallclock_type_to_stri=
+ng(void)
+> >      return "";
+> >  }
+> > =20
+> > +static int __init cf_check parse_wallclock(const char *arg)
+> > +{
+> > +    wallclock_source =3D WALLCLOCK_UNSET;
+> > +
+> > +    if ( !arg )
+> > +        return -EINVAL;
+> > +
+> > +    if ( !strcmp("auto", arg) )
+> > +        ASSERT(wallclock_source =3D=3D WALLCLOCK_UNSET);
+>=20
+> ... this.
+>=20
+> Hitting this assert will manifest as a system reboot/hang with no
+> information on serial/VGA, because all of this runs prior to getting up
+> the console.=C2=A0 You only get to see it on a PVH boot because we bodge =
+the
+> Xen console into default-existence.
+
+This assert is no-op as wallclock_source is unconditionally set to WALLCLOC=
+K_UNSET few lines above.
+
+> So, ASSERT()/etc really need avoiding wherever possible in cmdline parsin=
+g.
+>=20
+> In this case, all it serves to do is break examples like `wallclock=3Dxen
+> wallclock=3Dauto` case, which is unlike our latest-takes-precedence
+> behaviour everywhere else.
+>=20
+> > +    else if ( !strcmp("xen", arg) )
+> > +    {
+> > +        if ( !xen_guest )
+>=20
+> We don't normally treat this path as an error when parsing (we know what
+> it is, even if we can't action it).=C2=A0 Instead, there's no_config_para=
+m()
+> to be more friendly (for PVH at least).
+>=20
+> It's a bit awkward, but this should do:
+>=20
+> =C2=A0=C2=A0=C2=A0 {
+> #ifdef CONFIG_XEN_GUEST
+> =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 wallclock_source =3D WALLCLOCK_XEN;
+> #else
+> =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 no_config_param("XEN_GUEST", "wallc=
+lock", s, ss);
+> #endif
+> =C2=A0=C2=A0=C2=A0 }
+
+Can you boot the binary build with CONFIG_XEN_GUEST=3Dy as native? If so,
+the above will not be enough, a runtime check is needed anyway.
+
+> There probably wants to be something similar for EFI, although it's not
+> a plain CONFIG so it might be more tricky.
+
+It needs to be runtime check here even more. Not only because of
+different boot modes, but due to interaction with efi=3Dno-rs (or any
+other reason for not having runtime services). See the comment there.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--VuPRpe/WJOiDCIlt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmboMLgACgkQ24/THMrX
+1yx1sggAmlrjTdo2osU57WfjboWvEJXVc4c/1InzCnK8l6I2ThSYpcOiiPKuAIF9
+b8fpQov3xQS0/1jAqoJ/BiAyMKXab6QdH8QC5B14tuUFCAelPMPzZWNu/u1UFiD/
+4sGTfeoZjwUqCetHQQC55WPW4z1HYWIZ14vl21kst+FMNgnXprMRnWVNj+Tuv0nS
+i1yqXpC19Rq8h9tERfDXVh0AP74l0YxQvfF9vsY7ayOA4PgKUPAUB4I/mMTwt+e+
+8hPaAKiiLsoxnlJ7GUq6WaFZiiqgZvAg8zw699KuNawT8ehOGhfyhJxNaQenoOwu
+DI4yrr7UbuXIgjmrc5fJQXozPIySJw==
+=NPUA
+-----END PGP SIGNATURE-----
+
+--VuPRpe/WJOiDCIlt--
 
