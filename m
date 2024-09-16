@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5463C97A88E
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 23:04:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.799710.1209696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAB4697A8BB
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 23:28:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.799718.1209710 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqItQ-0003yD-00; Mon, 16 Sep 2024 21:04:20 +0000
+	id 1sqJG1-0007KS-Qr; Mon, 16 Sep 2024 21:27:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 799710.1209696; Mon, 16 Sep 2024 21:04:19 +0000
+Received: by outflank-mailman (output) from mailman id 799718.1209710; Mon, 16 Sep 2024 21:27:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqItP-0003vl-Ti; Mon, 16 Sep 2024 21:04:19 +0000
-Received: by outflank-mailman (input) for mailman id 799710;
- Mon, 16 Sep 2024 21:04:17 +0000
+	id 1sqJG1-0007Ho-NR; Mon, 16 Sep 2024 21:27:41 +0000
+Received: by outflank-mailman (input) for mailman id 799718;
+ Mon, 16 Sep 2024 21:27:40 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1sqItN-0003vd-L4
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 21:04:17 +0000
+ (envelope-from <julien@xen.org>) id 1sqJG0-0007Hi-Nu
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 21:27:40 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1sqItL-0004Yy-2D; Mon, 16 Sep 2024 21:04:15 +0000
+ id 1sqJG0-0004xX-7w; Mon, 16 Sep 2024 21:27:40 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1sqItK-0005C5-S5; Mon, 16 Sep 2024 21:04:14 +0000
+ id 1sqJG0-0007T9-0W; Mon, 16 Sep 2024 21:27:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,144 +40,115 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=ePUwAmzrzi5EnsTIyCFZphmmYlL6WK7HkYmiiBAXLy0=; b=EF0BbAfuOGeCpXNHcIHs9/ZX5k
-	EQ9JuYl3MWP1ab2JIQ76oKpjE0nv7iiHI2whVtcSFXTNSDrSSmEmOR+2cp/+cRGcKrFqi6C51iT3D
-	Foh1ar/10mTwcE6xcI2jZhsnRprJKvOqncZ4E3DkSDNL+FqzVfMN2S3SUaoQisTO+JGA=;
-Message-ID: <35fcbbca-e11f-4b88-8359-09f8da9c17a1@xen.org>
-Date: Mon, 16 Sep 2024 22:04:13 +0100
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=SDjPW1eq2lMOQYV1w09/zNdhuvz9Wk7PoNjE5SF5128=; b=rMrgX3gVKzKcbzZdpFKs/Ujn2Y
+	fCahXZZKk4b9y4qTxwI60fLYs4AzXGjAdMFNJFlVk+85fAB9qK982Cs/bOHSTFb8BqFbc+8jc9Mnh
+	16cL429g2k1vWnZ7rnd5YQUq0NeYfrl6942s+fRu2NsqSbCBPKcQ5sB4T19aGAc8XlXQ=;
+Message-ID: <c80dd525-7fb6-4e2f-99f2-5d96d3f7ec52@xen.org>
+Date: Mon, 16 Sep 2024 22:27:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/5] xen/arm: platforms: Add NXP S32CC platform code
+Subject: Re: [PATCH] ioreq: don't wrongly claim "success" in
+ ioreq_send_buffered()
 Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "S32@nxp.com" <S32@nxp.com>, Andrei Cherechesu <andrei.cherechesu@nxp.com>,
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240910143411.178704-1-andrei.cherechesu@oss.nxp.com>
- <20240910143411.178704-4-andrei.cherechesu@oss.nxp.com>
- <f08942b8-3a01-4176-8fad-525ad3261083@xen.org>
- <alpine.DEB.2.22.394.2409102210310.611587@ubuntu-linux-20-04-desktop>
- <85acbacc-2557-446c-9025-bdc7eac1cdb1@oss.nxp.com>
- <EA3C41C1-D484-456D-A391-4FB54B51D6CD@arm.com>
- <alpine.DEB.2.22.394.2409121544350.611587@ubuntu-linux-20-04-desktop>
- <7da698d1-b4ce-4152-a439-ae755847ed33@xen.org>
-In-Reply-To: <7da698d1-b4ce-4152-a439-ae755847ed33@xen.org>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <f0cd7c48-6816-4050-a505-693c4a470506@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <f0cd7c48-6816-4050-a505-693c4a470506@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Jan,
 
-On 13/09/2024 08:43, Julien Grall wrote:
-> On 12/09/2024 23:44, Stefano Stabellini wrote:
->> On Thu, 12 Sep 2024, Bertrand Marquis wrote:
->>> Hi Andrei,
->>>
->>>> On 11 Sep 2024, at 23:05, Andrei Cherechesu 
->>>> <andrei.cherechesu@oss.nxp.com> wrote:
->>>>
->>>> Hi Julien, Stefano,
->>>> On 11/09/2024 08:19, Stefano Stabellini wrote:
->>>>> On Tue, 10 Sep 2024, Julien Grall wrote:
->>>>>
->>>>>> Hi,
->>>>>>
->>>>>> On 10/09/2024 15:34, Andrei Cherechesu (OSS) wrote:
->>>>>>
->>>>>>> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
->>>>>>>
->>>>>>> Added support for NXP S32CC platforms (S32G2, S32G3, S32R45),
->>>>>>> which need SCMI over SMC calls forwarded to the firmware
->>>>>>> running at EL3 (TF-A). Linux relies on the SCMI Platform
->>>>>>> for system services such as clocking, reset, etc.
->>>>>>>
->>>>>> Is it SMCI as in the Arm spec? If so, this should not be platform 
->>>>>> specific.
->>>> Yes, it is SCMI as defined by Arm. I agree it shouldn't be platform 
->>>> specific.
->>>>>
->>>>>>
->>>>>> Furthermore, I was under the impression that we can't blindly forward
->>>>>> everything from a domain to the firmware. While it might be 
->>>>>> okayish for dom0,
->>>>>> you also seem to give access to all the domains on the system is 
->>>>>> it intended?
->>>> In our case, only Dom0 has access to the SCMI mailbox. Hence, the 
->>>> other unprivileged domains are not aware of SCMI and do not make any 
->>>> SCMI requests to FW.
->>>>>
->>>>>>
->>>>>> Anyway, there is a series on the ML to add a mediator for SCMI in 
->>>>>> Xen (see
->>>>>> [1]). I think it would be preferable to focus on getting it merged 
->>>>>> as it would
->>>>>>
->>>>>> benefit everyone and increase the security posture (we could 
->>>>>> restrict access).
->>>> I also asked a few months ago on the ML in a virtio related thread 
->>>> if there are any updates regarding
->>>> SCMI awareness for Xen and guests, then Stefano CCed Bertrand, but 
->>>> he did not comment [0].
->>>> I'm curious why the SCMI mediator patch series did not progress.
->>>> [0] 
->>>> https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2401111627360.3675@ubuntu-linux-20-04-desktop/
->>>
->>> Sorry it seems i missed that one.
->>>
->>> There are several initiatives ongoing to investigate the global 
->>> problem of clock handling and more specifically
->>> SCMI "sharing".
->>> The SCMI protocol contains some features to have virtual channels and 
->>> the question is how to make a transport
->>> that is hypervisor agnostic to prevent to require the hypervisors to 
->>> have to "decode" SCMI messages.
->>>
->>> Virtio-scmi is not really used for clock management per say at the 
->>> moment and more specifically I do not
->>> think it is a good solution to manage clocks of non virtio devices.
->>>
->>> In Soafee and in Linaro people are looking at using FF-A as a 
->>> tansport for SCMI.
->>> The idea would be that the hypervisor is configuring the virtual SCMI 
->>> channels using FF-A as a transport
->>> and then VMs are using FF-A to communicate with an SCMI server 
->>> (probably sitting in secure world, at
->>> least as a proxy). This is an investigation for now.
->>>
->>> Requiring Xen to act as a mediator is also a solution but might 
->>> require a lot of platform specific code
->>> which i think we should prevent.
->>>
->>> For now having a solution in Xen where SCMI calls through SMC are 
->>> only allowed by Dom0 is the only
->>> short term solution I think.
->>
->> +1
-> I am open to go this way. But I would like the commit message to contain 
-> some details on whether this will always work fine for dom0 (this would 
-> tell whether the feature can be supported or needs to be in 
-> experimental/tech preview).
+On 11/09/2024 13:19, Jan Beulich wrote:
+> Returning a literal number is a bad idea anyway when all other returns
+> use IOREQ_STATUS_* values. While that's maybe intended on Arm (mapping
+> to IO_ABORT), 
+
+Arm doesn't support buffered ioreq (see ioreq_server_create()) and 
+AFAICT the "0" was already there before the code was moved.
+
+ > mapping to X86EMUL_OKAY is surely wrong on x86.
+
+The code has been for nearly 10 years. So I would like to understand why 
+the change now. Did you see any issue? The unclear part for me is the 
+behavior change. Below...
+
 > 
-> At least my main concern is anything to do with RAM. On Matrix, Bertrand 
-> suggested that none of the messages should contain addresses. What about 
-> the transport? Is it using buffer? If so, are they fixed?
+> Fixes: f6bf39f84f82 ("x86/hvm: add support for broadcast of buffered ioreqs...")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Judging from history, it may want to be IOREQ_STATUS_UNHANDLED instead,
+> eliminating the need for IOREQ_STATUS_BAD. That'll be a behavioral
+> change on Arm then too, though.
+
+... you mention Arm. But not x86. This would imply there are no behavior 
+change but I don't understand why.
+
+For the Arm behavior change, per above, I don't think we can reach the 
+code on Arm so it should not be a problem to change it.
+
 > 
-> Brief looking at Linux, there are multiple DT compatible. IIUC, we would 
-> only support "arm,scmi-smc" with the implementation. If so, maybe we 
-> should check the DT.
+> Shouldn't IOREQ_READ requests also be rejected here, for the result of
+> a read not possibly coming from anywhere, yet a (bogus) caller then
+> assuming some data was actually returned?
 
-Some clarifications as I was asked on Matrix. The issue described in 
-this patch is not specific to SCMI. So I think the SCMI trapping & 
-forward should be part of common code. If it we are not sure whether it 
-is safe, then it should be protected by CONFIG_EXPERT or CONFIG_UNSUPPORTED.
+I am not sure. I understand from an hardened PoV. But this would add an 
+extra check to something the caller should be aware of. This is 
+different from the address check because this is more of an 
+implementation details.
 
-I hope this clarifies what I would like. Not sure if the others agree 
-though.
+So maybe it should be an ASSERT()?
+
+> 
+> --- a/xen/arch/arm/include/asm/ioreq.h
+> +++ b/xen/arch/arm/include/asm/ioreq.h
+> @@ -56,6 +56,7 @@ static inline void msix_write_completion
+>   #define IOREQ_STATUS_HANDLED     IO_HANDLED
+>   #define IOREQ_STATUS_UNHANDLED   IO_UNHANDLED
+>   #define IOREQ_STATUS_RETRY       IO_RETRY
+> +#define IOREQ_STATUS_BAD         IO_ABORT
+>   
+>   #endif /* __ASM_ARM_IOREQ_H__ */
+>   
+> --- a/xen/arch/x86/include/asm/hvm/ioreq.h
+> +++ b/xen/arch/x86/include/asm/hvm/ioreq.h
+> @@ -12,6 +12,7 @@
+>   #define IOREQ_STATUS_HANDLED     X86EMUL_OKAY
+>   #define IOREQ_STATUS_UNHANDLED   X86EMUL_UNHANDLEABLE
+>   #define IOREQ_STATUS_RETRY       X86EMUL_RETRY
+> +#define IOREQ_STATUS_BAD         X86EMUL_UNRECOGNIZED
+>   
+>   #endif /* __ASM_X86_HVM_IOREQ_H__ */
+>   
+> --- a/xen/common/ioreq.c
+> +++ b/xen/common/ioreq.c
+> @@ -1175,7 +1175,7 @@ static int ioreq_send_buffered(struct io
+>           return IOREQ_STATUS_UNHANDLED;
+>   
+>       /*
+> -     * Return 0 for the cases we can't deal with:
+> +     * Return BAD for the cases we can't deal with:
+>        *  - 'addr' is only a 20-bit field, so we cannot address beyond 1MB
+>        *  - we cannot buffer accesses to guest memory buffers, as the guest
+>        *    may expect the memory buffer to be synchronously accessed
+> @@ -1183,7 +1183,7 @@ static int ioreq_send_buffered(struct io
+>        *    support data_is_ptr we do not waste space for the count field either
+>        */
+>       if ( (p->addr > 0xfffffUL) || p->data_is_ptr || (p->count != 1) )
+> -        return 0;
+> +        return IOREQ_STATUS_BAD;
+>   
+>       switch ( p->size )
+>       {
 
 Cheers,
 
