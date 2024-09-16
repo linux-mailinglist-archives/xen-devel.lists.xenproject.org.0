@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AF9397A979
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Sep 2024 01:08:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.799742.1209741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD59197A9BA
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Sep 2024 01:46:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.799748.1209751 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqKpN-000362-Dd; Mon, 16 Sep 2024 23:08:17 +0000
+	id 1sqLPc-0007s6-6a; Mon, 16 Sep 2024 23:45:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 799742.1209741; Mon, 16 Sep 2024 23:08:17 +0000
+Received: by outflank-mailman (output) from mailman id 799748.1209751; Mon, 16 Sep 2024 23:45:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqKpN-00032r-Aw; Mon, 16 Sep 2024 23:08:17 +0000
-Received: by outflank-mailman (input) for mailman id 799742;
- Mon, 16 Sep 2024 23:08:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sqLPc-0007p3-3S; Mon, 16 Sep 2024 23:45:44 +0000
+Received: by outflank-mailman (input) for mailman id 799748;
+ Mon, 16 Sep 2024 23:45:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=D3gN=QO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sqKpL-00032g-PV
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 23:08:15 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c06e57c-7480-11ef-99a2-01e77a169b0f;
- Tue, 17 Sep 2024 01:08:13 +0200 (CEST)
+ id 1sqLPZ-0007ox-TF
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 23:45:41 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [2604:1380:45d1:ec00::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c6ddf584-7485-11ef-a0b7-8be0dac302b0;
+ Tue, 17 Sep 2024 01:45:40 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2D8305C0F76;
- Mon, 16 Sep 2024 23:08:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58752C4CEC4;
- Mon, 16 Sep 2024 23:08:10 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 512CDA4269D;
+ Mon, 16 Sep 2024 23:45:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC4DC4CEC4;
+ Mon, 16 Sep 2024 23:45:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,148 +42,296 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c06e57c-7480-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: c6ddf584-7485-11ef-a0b7-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1726528091;
-	bh=amvWLJA+o0DSGXAqKUY7ic+1vH7g932HpSuehOsxLYg=;
+	s=k20201202; t=1726530337;
+	bh=qVWWWq9UIXHy8aSd5DJScwNnAvgoj5FmkSawrRlvnjo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kUqvZMLBrGn3hiWTq+BBH2N412IvU7w+V1jVEQtgQb3ryuxlpl1PbumfmKXTSm9qw
-	 RdDKUSuxGJF0ddqwu3vNNG0+AITESSpQ3p0ylP5ue+nNEiwq6v+w/ZBltxH0K3Xk6O
-	 RWlH3USJOTBHkQfB5AfW4HKDK2I7eu206T9BzQPfMIqkGjV/3h9V/S7DCo2z0qZjrJ
-	 bWXEmix6DJ58U+AX681QVCiOiq2klWc6CRrOA+qf+zHbXuxIZ7ofjocghQhs3SPZCp
-	 dhFDpXOpHNfnCdVz+1s5+eVltkbx5g8r9K7CDC3ADJKy0GredgMgNwwio/8Q5kHT2x
-	 +GtmcP2mtGVog==
-Date: Mon, 16 Sep 2024 16:08:08 -0700 (PDT)
+	b=PtAK+WxVe9uecqhXbn3BtinaInXrkrK8NMLnCY77P28hG4eoYUXZ7xEnINrp59BuU
+	 xPlXYoJrNhU67/Qd64DAQeRZrllG0zYcKTJZS1NDIRo1RF9rn39H5MGSmrDwg/AgHi
+	 jBNql/71MR7e+P21rubM8YpGNEGhJkDoLQXjfTJpm5fkyRDNNYrkN3FtGE2DR2UTvd
+	 eZwRvj7rKB8uJUBAbk4n7LU0kGgLReOwfJZ9OTx1Cmyxhih0vMoYdd3FzD4qdepIHO
+	 FdSZkWLXq5qgimCidflkYT6Fk/bOKi9dUzaiF+GxOSr/fw9cbg8Wiwmarp1DEjsPxU
+	 JHvRaaYAN+tIw==
+Date: Mon, 16 Sep 2024 16:45:34 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "S32@nxp.com" <S32@nxp.com>, Andrei Cherechesu <andrei.cherechesu@nxp.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v1 3/5] xen/arm: platforms: Add NXP S32CC platform code
-In-Reply-To: <35fcbbca-e11f-4b88-8359-09f8da9c17a1@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2409161605200.1417852@ubuntu-linux-20-04-desktop>
-References: <20240910143411.178704-1-andrei.cherechesu@oss.nxp.com> <20240910143411.178704-4-andrei.cherechesu@oss.nxp.com> <f08942b8-3a01-4176-8fad-525ad3261083@xen.org> <alpine.DEB.2.22.394.2409102210310.611587@ubuntu-linux-20-04-desktop>
- <85acbacc-2557-446c-9025-bdc7eac1cdb1@oss.nxp.com> <EA3C41C1-D484-456D-A391-4FB54B51D6CD@arm.com> <alpine.DEB.2.22.394.2409121544350.611587@ubuntu-linux-20-04-desktop> <7da698d1-b4ce-4152-a439-ae755847ed33@xen.org>
- <35fcbbca-e11f-4b88-8359-09f8da9c17a1@xen.org>
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+cc: qemu-devel@nongnu.org, sstabellini@kernel.org, anthony@xenproject.org, 
+    paul@xen.org, peter.maydell@linaro.org, alex.bennee@linaro.org, 
+    edgar.iglesias@amd.com, xen-devel@lists.xenproject.org, 
+    "Michael S. Tsirkin" <mst@redhat.com>, 
+    Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
+    Paolo Bonzini <pbonzini@redhat.com>, 
+    Richard Henderson <richard.henderson@linaro.org>, 
+    Eduardo Habkost <eduardo@habkost.net>
+Subject: Re: [PATCH v1 1/4] xen: Expose handle_bufioreq in
+ xen_register_ioreq
+In-Reply-To: <20240916150853.1216703-2-edgar.iglesias@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2409161643090.1417852@ubuntu-linux-20-04-desktop>
+References: <20240916150853.1216703-1-edgar.iglesias@gmail.com> <20240916150853.1216703-2-edgar.iglesias@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 16 Sep 2024, Julien Grall wrote:
-> On 13/09/2024 08:43, Julien Grall wrote:
-> > On 12/09/2024 23:44, Stefano Stabellini wrote:
-> > > On Thu, 12 Sep 2024, Bertrand Marquis wrote:
-> > > > Hi Andrei,
-> > > > 
-> > > > > On 11 Sep 2024, at 23:05, Andrei Cherechesu
-> > > > > <andrei.cherechesu@oss.nxp.com> wrote:
-> > > > > 
-> > > > > Hi Julien, Stefano,
-> > > > > On 11/09/2024 08:19, Stefano Stabellini wrote:
-> > > > > > On Tue, 10 Sep 2024, Julien Grall wrote:
-> > > > > > 
-> > > > > > > Hi,
-> > > > > > > 
-> > > > > > > On 10/09/2024 15:34, Andrei Cherechesu (OSS) wrote:
-> > > > > > > 
-> > > > > > > > From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
-> > > > > > > > 
-> > > > > > > > Added support for NXP S32CC platforms (S32G2, S32G3, S32R45),
-> > > > > > > > which need SCMI over SMC calls forwarded to the firmware
-> > > > > > > > running at EL3 (TF-A). Linux relies on the SCMI Platform
-> > > > > > > > for system services such as clocking, reset, etc.
-> > > > > > > > 
-> > > > > > > Is it SMCI as in the Arm spec? If so, this should not be platform
-> > > > > > > specific.
-> > > > > Yes, it is SCMI as defined by Arm. I agree it shouldn't be platform
-> > > > > specific.
-> > > > > > 
-> > > > > > > 
-> > > > > > > Furthermore, I was under the impression that we can't blindly
-> > > > > > > forward
-> > > > > > > everything from a domain to the firmware. While it might be
-> > > > > > > okayish for dom0,
-> > > > > > > you also seem to give access to all the domains on the system is
-> > > > > > > it intended?
-> > > > > In our case, only Dom0 has access to the SCMI mailbox. Hence, the
-> > > > > other unprivileged domains are not aware of SCMI and do not make any
-> > > > > SCMI requests to FW.
-> > > > > > 
-> > > > > > > 
-> > > > > > > Anyway, there is a series on the ML to add a mediator for SCMI in
-> > > > > > > Xen (see
-> > > > > > > [1]). I think it would be preferable to focus on getting it merged
-> > > > > > > as it would
-> > > > > > > 
-> > > > > > > benefit everyone and increase the security posture (we could
-> > > > > > > restrict access).
-> > > > > I also asked a few months ago on the ML in a virtio related thread if
-> > > > > there are any updates regarding
-> > > > > SCMI awareness for Xen and guests, then Stefano CCed Bertrand, but he
-> > > > > did not comment [0].
-> > > > > I'm curious why the SCMI mediator patch series did not progress.
-> > > > > [0]
-> > > > > https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2401111627360.3675@ubuntu-linux-20-04-desktop/
-> > > > 
-> > > > Sorry it seems i missed that one.
-> > > > 
-> > > > There are several initiatives ongoing to investigate the global problem
-> > > > of clock handling and more specifically
-> > > > SCMI "sharing".
-> > > > The SCMI protocol contains some features to have virtual channels and
-> > > > the question is how to make a transport
-> > > > that is hypervisor agnostic to prevent to require the hypervisors to
-> > > > have to "decode" SCMI messages.
-> > > > 
-> > > > Virtio-scmi is not really used for clock management per say at the
-> > > > moment and more specifically I do not
-> > > > think it is a good solution to manage clocks of non virtio devices.
-> > > > 
-> > > > In Soafee and in Linaro people are looking at using FF-A as a tansport
-> > > > for SCMI.
-> > > > The idea would be that the hypervisor is configuring the virtual SCMI
-> > > > channels using FF-A as a transport
-> > > > and then VMs are using FF-A to communicate with an SCMI server (probably
-> > > > sitting in secure world, at
-> > > > least as a proxy). This is an investigation for now.
-> > > > 
-> > > > Requiring Xen to act as a mediator is also a solution but might require
-> > > > a lot of platform specific code
-> > > > which i think we should prevent.
-> > > > 
-> > > > For now having a solution in Xen where SCMI calls through SMC are only
-> > > > allowed by Dom0 is the only
-> > > > short term solution I think.
-> > > 
-> > > +1
-> > I am open to go this way. But I would like the commit message to contain
-> > some details on whether this will always work fine for dom0 (this would tell
-> > whether the feature can be supported or needs to be in experimental/tech
-> > preview).
-> > 
-> > At least my main concern is anything to do with RAM. On Matrix, Bertrand
-> > suggested that none of the messages should contain addresses. What about the
-> > transport? Is it using buffer? If so, are they fixed?
-> > 
-> > Brief looking at Linux, there are multiple DT compatible. IIUC, we would
-> > only support "arm,scmi-smc" with the implementation. If so, maybe we should
-> > check the DT.
+On Mon, 16 Sep 2024, Edgar E. Iglesias wrote:
+> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 > 
-> Some clarifications as I was asked on Matrix. The issue described in this
-> patch is not specific to SCMI. So I think the SCMI trapping & forward should
-> be part of common code. If it we are not sure whether it is safe, then it
-> should be protected by CONFIG_EXPERT or CONFIG_UNSUPPORTED.
+> Expose handle_bufioreq in xen_register_ioreq().
+> This is to allow machines to enable or disable buffered ioreqs.
 > 
-> I hope this clarifies what I would like. Not sure if the others agree though.
+> No functional change since all callers still set it to
+> HVM_IOREQSRV_BUFIOREQ_ATOMIC.
+> 
+> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> ---
+>  hw/i386/xen/xen-hvm.c           |   4 +-
+>  hw/xen/xen-hvm-common.c         | 100 +++++++++++++++++++-------------
+>  hw/xen/xen-pvh-common.c         |   4 +-
+>  include/hw/xen/xen-hvm-common.h |   3 +
+>  include/hw/xen/xen_native.h     |   3 +-
+>  5 files changed, 70 insertions(+), 44 deletions(-)
+> 
+> diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
+> index 4f6446600c..d3df488c48 100644
+> --- a/hw/i386/xen/xen-hvm.c
+> +++ b/hw/i386/xen/xen-hvm.c
+> @@ -614,7 +614,9 @@ void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory)
+>  
+>      state = g_new0(XenIOState, 1);
+>  
+> -    xen_register_ioreq(state, max_cpus, &xen_memory_listener);
+> +    xen_register_ioreq(state, max_cpus,
+> +                       HVM_IOREQSRV_BUFIOREQ_ATOMIC,
+> +                       &xen_memory_listener);
+>  
+>      xen_is_stubdomain = xen_check_stubdomain(state->xenstore);
+>  
+> diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
+> index 3a9d6f981b..d8824cccf1 100644
+> --- a/hw/xen/xen-hvm-common.c
+> +++ b/hw/xen/xen-hvm-common.c
+> @@ -667,6 +667,8 @@ static int xen_map_ioreq_server(XenIOState *state)
+>      xen_pfn_t ioreq_pfn;
+>      xen_pfn_t bufioreq_pfn;
+>      evtchn_port_t bufioreq_evtchn;
+> +    unsigned long num_frames = 1;
+> +    unsigned long frame = 1;
+>      int rc;
+>  
+>      /*
+> @@ -675,59 +677,72 @@ static int xen_map_ioreq_server(XenIOState *state)
+>       */
+>      QEMU_BUILD_BUG_ON(XENMEM_resource_ioreq_server_frame_bufioreq != 0);
+>      QEMU_BUILD_BUG_ON(XENMEM_resource_ioreq_server_frame_ioreq(0) != 1);
+> +
+> +    if (state->has_bufioreq) {
+> +        frame = 0;
+> +        num_frames = 2;
+> +    }
+>      state->fres = xenforeignmemory_map_resource(xen_fmem, xen_domid,
+>                                           XENMEM_resource_ioreq_server,
+> -                                         state->ioservid, 0, 2,
+> +                                         state->ioservid,
+> +                                         frame, num_frames,
+>                                           &addr,
+>                                           PROT_READ | PROT_WRITE, 0);
+>      if (state->fres != NULL) {
+>          trace_xen_map_resource_ioreq(state->ioservid, addr);
+> -        state->buffered_io_page = addr;
+> -        state->shared_page = addr + XC_PAGE_SIZE;
+> +        state->shared_page = addr;
+> +        if (state->has_bufioreq) {
+> +            state->buffered_io_page = addr;
+> +            state->shared_page = addr + XC_PAGE_SIZE;
+> +        }
+>      } else if (errno != EOPNOTSUPP) {
+>          error_report("failed to map ioreq server resources: error %d handle=%p",
+>                       errno, xen_xc);
+>          return -1;
+>      }
+>  
+> -    rc = xen_get_ioreq_server_info(xen_domid, state->ioservid,
+> -                                   (state->shared_page == NULL) ?
+> -                                   &ioreq_pfn : NULL,
+> -                                   (state->buffered_io_page == NULL) ?
+> -                                   &bufioreq_pfn : NULL,
+> -                                   &bufioreq_evtchn);
+> -    if (rc < 0) {
+> -        error_report("failed to get ioreq server info: error %d handle=%p",
+> -                     errno, xen_xc);
+> -        return rc;
+> -    }
+> -
+> -    if (state->shared_page == NULL) {
+> -        trace_xen_map_ioreq_server_shared_page(ioreq_pfn);
+> +    if (state->has_bufioreq) {
+> +        rc = xen_get_ioreq_server_info(xen_domid, state->ioservid,
+> +                                       (state->shared_page == NULL) ?
+> +                                       &ioreq_pfn : NULL,
+> +                                       (state->buffered_io_page == NULL) ?
+> +                                       &bufioreq_pfn : NULL,
+> +                                       &bufioreq_evtchn);
+> +        if (rc < 0) {
+> +            error_report("failed to get ioreq server info: error %d handle=%p",
+> +                    errno, xen_xc);
+> +            return rc;
+> +        }
+>  
+> -        state->shared_page = xenforeignmemory_map(xen_fmem, xen_domid,
+> -                                                  PROT_READ | PROT_WRITE,
+> -                                                  1, &ioreq_pfn, NULL);
+>          if (state->shared_page == NULL) {
+> -            error_report("map shared IO page returned error %d handle=%p",
+> -                         errno, xen_xc);
+> +            trace_xen_map_ioreq_server_shared_page(ioreq_pfn);
+> +
+> +            state->shared_page = xenforeignmemory_map(xen_fmem, xen_domid,
+> +                                                      PROT_READ | PROT_WRITE,
+> +                                                      1, &ioreq_pfn, NULL);
+> +            if (state->shared_page == NULL) {
+> +                error_report("map shared IO page returned error %d handle=%p",
+> +                        errno, xen_xc);
+> +            }
+>          }
+> -    }
 
-I think it is a good idea to make the SCMI trapping and forwarding in
-common code. I am fine with that. I think it is OK to enable it by
-default without CONFIG_EXPERT. I am OK with or without using
-CONFIG_UNSUPPORTED. I am happy either way. Thanks Julien, good
-suggestion.
+
+If I am reading the code right the calls to xen_get_ioreq_server_info
+and xenforeignmemory_map were not done to setup bufioreq. They were done
+for legacy compatibility to support systems where
+xenforeignmemory_map_resource returns EOPNOTSUPP.
+
+I think we should either get rid of this legacy path completely, or
+keep it for both bufioreq and non-bufioreq.
+
+
+
+> -    if (state->buffered_io_page == NULL) {
+> -        trace_xen_map_ioreq_server_buffered_io_page(bufioreq_pfn);
+> -
+> -        state->buffered_io_page = xenforeignmemory_map(xen_fmem, xen_domid,
+> -                                                       PROT_READ | PROT_WRITE,
+> -                                                       1, &bufioreq_pfn,
+> -                                                       NULL);
+>          if (state->buffered_io_page == NULL) {
+> -            error_report("map buffered IO page returned error %d", errno);
+> -            return -1;
+> +            trace_xen_map_ioreq_server_buffered_io_page(bufioreq_pfn);
+> +
+> +            state->buffered_io_page = xenforeignmemory_map(xen_fmem, xen_domid,
+> +                    PROT_READ | PROT_WRITE,
+> +                    1, &bufioreq_pfn,
+> +                    NULL);
+> +            if (state->buffered_io_page == NULL) {
+> +                error_report("map buffered IO page returned error %d", errno);
+> +                return -1;
+> +            }
+>          }
+>      }
+>  
+> -    if (state->shared_page == NULL || state->buffered_io_page == NULL) {
+> +
+> +    if (state->shared_page == NULL ||
+> +        (state->has_bufioreq && state->buffered_io_page == NULL)) {
+>          return -1;
+>      }
+>  
+> @@ -830,14 +845,15 @@ static void xen_do_ioreq_register(XenIOState *state,
+>          state->ioreq_local_port[i] = rc;
+>      }
+>  
+> -    rc = qemu_xen_evtchn_bind_interdomain(state->xce_handle, xen_domid,
+> -                                          state->bufioreq_remote_port);
+> -    if (rc == -1) {
+> -        error_report("buffered evtchn bind error %d", errno);
+> -        goto err;
+> +    if (state->has_bufioreq) {
+> +        rc = qemu_xen_evtchn_bind_interdomain(state->xce_handle, xen_domid,
+> +                                              state->bufioreq_remote_port);
+> +        if (rc == -1) {
+> +            error_report("buffered evtchn bind error %d", errno);
+> +            goto err;
+> +        }
+> +        state->bufioreq_local_port = rc;
+>      }
+> -    state->bufioreq_local_port = rc;
+> -
+>      /* Init RAM management */
+>  #ifdef XEN_COMPAT_PHYSMAP
+>      xen_map_cache_init(xen_phys_offset_to_gaddr, state);
+> @@ -865,6 +881,7 @@ err:
+>  }
+>  
+>  void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
+> +                        int handle_bufioreq,
+>                          const MemoryListener *xen_memory_listener)
+>  {
+>      int rc;
+> @@ -883,7 +900,8 @@ void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
+>          goto err;
+>      }
+>  
+> -    rc = xen_create_ioreq_server(xen_domid, &state->ioservid);
+> +    state->has_bufioreq = handle_bufioreq != HVM_IOREQSRV_BUFIOREQ_OFF;
+> +    rc = xen_create_ioreq_server(xen_domid, handle_bufioreq, &state->ioservid);
+>      if (!rc) {
+>          xen_do_ioreq_register(state, max_cpus, xen_memory_listener);
+>      } else {
+> diff --git a/hw/xen/xen-pvh-common.c b/hw/xen/xen-pvh-common.c
+> index 28d7168446..08641fdcec 100644
+> --- a/hw/xen/xen-pvh-common.c
+> +++ b/hw/xen/xen-pvh-common.c
+> @@ -194,7 +194,9 @@ static void xen_pvh_init(MachineState *ms)
+>      }
+>  
+>      xen_pvh_init_ram(s, sysmem);
+> -    xen_register_ioreq(&s->ioreq, ms->smp.max_cpus, &xen_memory_listener);
+> +    xen_register_ioreq(&s->ioreq, ms->smp.max_cpus,
+> +                       HVM_IOREQSRV_BUFIOREQ_ATOMIC,
+> +                       &xen_memory_listener);
+>  
+>      if (s->cfg.virtio_mmio_num) {
+>          xen_create_virtio_mmio_devices(s);
+> diff --git a/include/hw/xen/xen-hvm-common.h b/include/hw/xen/xen-hvm-common.h
+> index 3d796235dc..7246941fe5 100644
+> --- a/include/hw/xen/xen-hvm-common.h
+> +++ b/include/hw/xen/xen-hvm-common.h
+> @@ -81,6 +81,8 @@ typedef struct XenIOState {
+>      QLIST_HEAD(, XenPciDevice) dev_list;
+>      DeviceListener device_listener;
+>  
+> +    bool has_bufioreq;
+> +
+>      Notifier exit;
+>  } XenIOState;
+>  
+> @@ -95,6 +97,7 @@ void xen_device_unrealize(DeviceListener *listener, DeviceState *dev);
+>  
+>  void xen_hvm_change_state_handler(void *opaque, bool running, RunState rstate);
+>  void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
+> +                        int handle_bufioreq,
+>                          const MemoryListener *xen_memory_listener);
+>  
+>  void cpu_ioreq_pio(ioreq_t *req);
+> diff --git a/include/hw/xen/xen_native.h b/include/hw/xen/xen_native.h
+> index 1a5ad693a4..5caf91a616 100644
+> --- a/include/hw/xen/xen_native.h
+> +++ b/include/hw/xen/xen_native.h
+> @@ -464,10 +464,11 @@ static inline void xen_unmap_pcidev(domid_t dom,
+>  }
+>  
+>  static inline int xen_create_ioreq_server(domid_t dom,
+> +                                          int handle_bufioreq,
+>                                            ioservid_t *ioservid)
+>  {
+>      int rc = xendevicemodel_create_ioreq_server(xen_dmod, dom,
+> -                                                HVM_IOREQSRV_BUFIOREQ_ATOMIC,
+> +                                                handle_bufioreq,
+>                                                  ioservid);
+>  
+>      if (rc == 0) {
+> -- 
+> 2.43.0
+> 
 
