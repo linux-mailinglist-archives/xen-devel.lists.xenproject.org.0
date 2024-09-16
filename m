@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87E8E979C35
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 09:45:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.799255.1209189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99796979C44
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 09:50:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.799277.1209208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sq6Pg-0006Fp-3N; Mon, 16 Sep 2024 07:44:48 +0000
+	id 1sq6VL-0000Nn-2J; Mon, 16 Sep 2024 07:50:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 799255.1209189; Mon, 16 Sep 2024 07:44:48 +0000
+Received: by outflank-mailman (output) from mailman id 799277.1209208; Mon, 16 Sep 2024 07:50:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sq6Pg-0006Ce-0S; Mon, 16 Sep 2024 07:44:48 +0000
-Received: by outflank-mailman (input) for mailman id 799255;
- Mon, 16 Sep 2024 07:44:47 +0000
+	id 1sq6VK-0000Ly-Vy; Mon, 16 Sep 2024 07:50:38 +0000
+Received: by outflank-mailman (input) for mailman id 799277;
+ Mon, 16 Sep 2024 07:50:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=H51U=QO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sq6Pf-0006CY-95
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 07:44:47 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1sq6VI-0000Ls-Se
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 07:50:36 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b4a91c6-73ff-11ef-a0b6-8be0dac302b0;
- Mon, 16 Sep 2024 09:44:46 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-42cbbb1727eso33558345e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 16 Sep 2024 00:44:46 -0700 (PDT)
+ id 5b9e2d24-7400-11ef-a0b6-8be0dac302b0;
+ Mon, 16 Sep 2024 09:50:36 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-374c8cef906so3237995f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Sep 2024 00:50:35 -0700 (PDT)
 Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-378e73e84a9sm6395889f8f.44.2024.09.16.00.44.45
+ ffacd0b85a97d-378e72e4abfsm6446446f8f.16.2024.09.16.00.50.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Sep 2024 00:44:45 -0700 (PDT)
+ Mon, 16 Sep 2024 00:50:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,53 +44,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b4a91c6-73ff-11ef-a0b6-8be0dac302b0
+X-Inumbo-ID: 5b9e2d24-7400-11ef-a0b6-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1726472686; x=1727077486; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1726473035; x=1727077835; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=KDcToQTfNo5kXSDNfggI3M3nwx8KiOaWmEgg5hlnH9c=;
-        b=CPcyZinigod9bDbM8tGCPHQQwGMoPkFKjEbszpWMYtsVn4eiGYuU9ZRs3wTY8x3qYN
-         J/yx+UvJP2ZjfziAy+J2bjXbTwN8bWCG0dfHwXSbwa8u/zj66tOYAIaxvfOQStHBPKXj
-         DQ9vwUEMNT7GHwOGFpfn+MHeZnsme/L0fLK04=
+        bh=9J04bZUpf8wHgxeZ3Zu6zfuoxjXqcwGopKTjpofGJZ4=;
+        b=qetnWR+al2KQZYq2w024/WhNNZN9lt6fmremQ539NnRdSOagIkV9RjpiLVo0scOPOK
+         6gomEoqqo9gfiyB+hYJIHUr+gVzeS97m0YR3NmU/Nbseb5IGPlcSqO26bJ+jGNrmvP8f
+         22kjfPHQzfiPf5aiC63vBc9S/dXzOmwIZ7rxU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726472686; x=1727077486;
+        d=1e100.net; s=20230601; t=1726473035; x=1727077835;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KDcToQTfNo5kXSDNfggI3M3nwx8KiOaWmEgg5hlnH9c=;
-        b=tECIz1yGoNJnTJbvO7L61PwFWADnN4UA89UEFB5JnIGoK1EW+IilyhKS+927GgREOg
-         PDX02e7pbptvUOWcV/BCTdktQFDXP/hvU7canGxxIOyQAmGZL3bJHDh6tJ4zoTJkzS1B
-         uHTm0abM5m58bmrEAEow37tTqPqLP7wfOB9okxmQ3OB9gNyNC7jowsiLMmrDlmMa7m9K
-         RhHdCwRYIxXnLsRJcLnifahEBGvPkuiBfc6TxprIvbRAzzqpoXlFZbkEmDJ1xGg4D9Vo
-         YCG+5G5ottIzC1vsmQsiquOJ4g063MoYiA4ja61DRu/oU0GrBbDMDqw5eVRLwxZpZxpe
-         f97A==
-X-Gm-Message-State: AOJu0YyDLzuEF9ztoARMk75xYQKTuCceU6mgEBOLZaLC7TMtuQ8+JMVb
-	1BWtOkxIa6nXv+ZWk2gTsO6VOrLdAgvCsBJheYdGTDqmgC/K911HeAaRGcVo+1Q=
-X-Google-Smtp-Source: AGHT+IFAO5mPcIT3d8kGQ2WBHsw3/eUQBr+Xm/WHNGwS81S9AQvJ2+/w9BR973vuAFB6W5WtpEClMg==
-X-Received: by 2002:a5d:5482:0:b0:374:baeb:2ec with SMTP id ffacd0b85a97d-378c2cfc460mr7204092f8f.19.1726472685589;
-        Mon, 16 Sep 2024 00:44:45 -0700 (PDT)
-Date: Mon, 16 Sep 2024 09:44:44 +0200
+        bh=9J04bZUpf8wHgxeZ3Zu6zfuoxjXqcwGopKTjpofGJZ4=;
+        b=oEv5X+aNkACbS76i55Y/wzbZvCC22YE+XL5lXwKaDBq0JB8jlXqlxj3NJi+ZZ0ekKt
+         W7d5vVLk3qfN++tfwsnbqElfHic5EQo+l0UUv4J2wyXiZbDYaHa2sncJjRAruoZXl9ty
+         t0vscRbn9mpQGgR1735I2Fwyj4LFd+J0MPScl3bcrVkYh+3v0Lmz9ysStaEA+akbtrMr
+         7zHyrUmGjim7ScQ9orlndq419WQ42uwpODvtu5nWBzCpqMtBBm/3PAiyPtDu2wXUi8ak
+         gniHnPCAqgRy9ced41YNsiYOgiYVAXsK/Yu1JlPFl3+4pbwF6Z9zqdLm5VRJM6yOGPed
+         aNcw==
+X-Forwarded-Encrypted: i=1; AJvYcCUeGOvZaqgcP9ButSDoSjoPrUOZg+l8rMEWvuAY4NsR/x0icvIKPpGX+44+3siJAHxtExu+5W7yaB8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzpB7nzwDVklF1iS9oo6LjQgUKGiw5mMtfUDhf0xkbIVT7YhejG
+	EoyyGUajh7hApVKddF2AFR50I8/3LJlyyz41SPfRx5E5LjpVv1Fm64uliP2ksVg=
+X-Google-Smtp-Source: AGHT+IEFBBnhnHbUttpb2yOzOyRfuXcURQnyO6F3zklP/tjrqhk8HVGP/QYC5mIfjw0IHtM3SipB3g==
+X-Received: by 2002:adf:ec05:0:b0:374:c45a:8afb with SMTP id ffacd0b85a97d-378c2d0751cmr8665286f8f.19.1726473033252;
+        Mon, 16 Sep 2024 00:50:33 -0700 (PDT)
+Date: Mon, 16 Sep 2024 09:50:32 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH] x86/hvm: make ACPI PM timer support optional
-Message-ID: <Zufh7DOSCwzhrpZG@macbook.local>
-References: <20240916063757.990070-1-Sergiy_Kibrik@epam.com>
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v7 1/2] x86/time: introduce command line option to select
+ wallclock
+Message-ID: <ZufjSIH6yqKS5e_E@macbook.local>
+References: <20240913075907.34460-1-roger.pau@citrix.com>
+ <20240913075907.34460-2-roger.pau@citrix.com>
+ <bc713147-3235-4151-8026-1c922e871755@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20240916063757.990070-1-Sergiy_Kibrik@epam.com>
+In-Reply-To: <bc713147-3235-4151-8026-1c922e871755@suse.com>
 
-On Mon, Sep 16, 2024 at 09:37:57AM +0300, Sergiy Kibrik wrote:
-> Introduce config option X86_PMTIMER so that pmtimer driver can be disabled on
-> systems that don't need it.
+On Fri, Sep 13, 2024 at 02:38:14PM +0200, Jan Beulich wrote:
+> On 13.09.2024 09:59, Roger Pau Monne wrote:
+> > --- a/xen/arch/x86/time.c
+> > +++ b/xen/arch/x86/time.c
+> > @@ -1552,6 +1552,37 @@ static const char *__init wallclock_type_to_string(void)
+> >      return "";
+> >  }
+> >  
+> > +static int __init cf_check parse_wallclock(const char *arg)
+> > +{
+> > +    wallclock_source = WALLCLOCK_UNSET;
+> 
+> With this ...
+> 
+> > +    if ( !arg )
+> > +        return -EINVAL;
+> > +
+> > +    if ( !strcmp("auto", arg) )
+> > +        ASSERT(wallclock_source == WALLCLOCK_UNSET);
+> 
+> ... I'm not convinced this is (still) needed.
 
-Same comment as in the VGA patch, you need to handle the user passing
-X86_EMU_PM.  It's not OK to just ignore the flag if the hypervisor is
-built without ACPI PM timer support.
+It reduces to an empty statement in release builds, and is IMO clearer
+code wise.  I could replace the assert with a comment, but IMO the
+assert conveys the same information in a more compact format and
+provides extra safety in case the code is changed and wallclock_source
+is no longer initialized to the expected value.
 
-Regards, Roger.
+Thanks, Roger.
 
