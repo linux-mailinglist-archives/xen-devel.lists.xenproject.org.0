@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65B02979E84
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 11:31:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.799354.1209338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D92B4979E89
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 11:36:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.799358.1209348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sq83i-00062R-T5; Mon, 16 Sep 2024 09:30:14 +0000
+	id 1sq89V-0006eQ-GX; Mon, 16 Sep 2024 09:36:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 799354.1209338; Mon, 16 Sep 2024 09:30:14 +0000
+Received: by outflank-mailman (output) from mailman id 799358.1209348; Mon, 16 Sep 2024 09:36:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sq83i-00060Z-QM; Mon, 16 Sep 2024 09:30:14 +0000
-Received: by outflank-mailman (input) for mailman id 799354;
- Mon, 16 Sep 2024 09:30:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sq89V-0006cX-DS; Mon, 16 Sep 2024 09:36:13 +0000
+Received: by outflank-mailman (input) for mailman id 799358;
+ Mon, 16 Sep 2024 09:36:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wse+=QO=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1sq83h-00060T-ME
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 09:30:13 +0000
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [2607:f8b0:4864:20::22f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45ae8d16-740e-11ef-a0b6-8be0dac302b0;
- Mon, 16 Sep 2024 11:30:12 +0200 (CEST)
-Received: by mail-oi1-x22f.google.com with SMTP id
- 5614622812f47-3e040388737so2046421b6e.3
- for <xen-devel@lists.xenproject.org>; Mon, 16 Sep 2024 02:30:12 -0700 (PDT)
+ id 1sq89T-0006cR-IA
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 09:36:11 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 197fc584-740f-11ef-99a2-01e77a169b0f;
+ Mon, 16 Sep 2024 11:36:07 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-5365a9574b6so4178740e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Sep 2024 02:36:07 -0700 (PDT)
+Received: from fziglio-desktop.. ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a90610f151esm290601466b.48.2024.09.16.02.36.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Sep 2024 02:36:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,135 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45ae8d16-740e-11ef-a0b6-8be0dac302b0
+X-Inumbo-ID: 197fc584-740f-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1726479011; x=1727083811; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gwqg/7P+sTKYDec3SqnWcdpXhJ9Ej+mjaUVbHUBpS2o=;
-        b=HqA5O0HGVt+TjOmxOoOBMxSXqHzbOLd7VCyJ8oveI+ugTuSqRtif7KVohgUnklBQ0d
-         3cyKCWiTyAnYuJrU0YE59byLSeH76IqjEMEvgFuZ/e0I02C7VFo9SfdUiNRFk68Pn8mo
-         zdLZ4wCHzZ+8CFD98eKYS0JxOfcbd4UcbgrJA=
+        d=cloud.com; s=cloud; t=1726479366; x=1727084166; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9bE42e2WU1qA3/ulfwKxHcEQXPKSFg8WdkO8Fij57Ts=;
+        b=dZJY9RI6hKDGHQwoacOUc04uu92k73q/lR1Xw3zc+uHahxeEozsA3LILLZbFlovYQL
+         ShrMVBYts45aK77tfBJfwyBG/CAa2yivmRS0P5OWq7N4dL7HGy0uyzFoUvp4QEt1XZYT
+         KUO8/jbHQm8ndZmB+eooN1S88zsfMfUvTwQy8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726479011; x=1727083811;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=gwqg/7P+sTKYDec3SqnWcdpXhJ9Ej+mjaUVbHUBpS2o=;
-        b=IGIsva6KDJG5EA8BUZfe0877sIDWfqh/aO/pn2j5caNdmDX9DAG+U6PZjOadRHqzRZ
-         3WvK8juu9Lw5Er8LUApVkiJ8Y9dz8r2s+g/+rNKW40vVjZ2TnzXW4GnpsjjBb25MkeLf
-         r7kUEr3bml36GpN7Qhwvcvw4cU0QfhsOBoO5qDmIph6PqOONhQBbZM70gzQILHnLWMyl
-         f2j6MS82T3cVDOqwPez6mESvdt/LDx5aH2CZiiQIdTxe6P4NaAYeFYM5bBxv1JPKGy71
-         ej1DTUYFmJnvFUwchFbQkobWj64WY+BYvp8tzt58d4hJyHKiLdhVSQOSSDIwcnd8M7v6
-         mSgA==
-X-Forwarded-Encrypted: i=1; AJvYcCWZnMrc7+yFD77JpR9GRy3+BWl9bE+CkKuhQJXFB1oO4VVzBoxm0gadgn33kJDB/y9UziFRf+nrySs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyZS58WKAtXwBA/ldi8z9QyoO/2wlgGbHRYIcAhM18BbnLo+7Ww
-	hBRK/eb9DAk9iQiOJlPF9zxLnEZm7Jtn+tL/a8AQdo+2gfaYcAaPZZ6G4bRyYYQnpLE7csk1vWR
-	w2Rwxml1gkDsspMzDEKUh+2vf2+GNaykTcFeJkg==
-X-Google-Smtp-Source: AGHT+IGlVOG4DCSBHBWRd2d1ZYi8ZSoouPxEOqzr4LCVRgTNur+JA6hqE0vl9idN8FJLC/GhPZ2Ia3vWDVEtmGVmyX0=
-X-Received: by 2002:a05:6808:10c1:b0:3e0:37ca:1b29 with SMTP id
- 5614622812f47-3e071b32a14mr7505434b6e.46.1726479011309; Mon, 16 Sep 2024
- 02:30:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240828091956.127760-1-frediano.ziglio@cloud.com> <dd3364e4-7f40-4963-a0f1-f743527c9d9d@suse.com>
-In-Reply-To: <dd3364e4-7f40-4963-a0f1-f743527c9d9d@suse.com>
+        d=1e100.net; s=20230601; t=1726479366; x=1727084166;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9bE42e2WU1qA3/ulfwKxHcEQXPKSFg8WdkO8Fij57Ts=;
+        b=KXZ8aDxbY/WuzobcxnSvAxg0VxQBF7KXkOBPvOuCWsUhePpU55umoEspO3/PAlMXxg
+         3FyAMhz2moCAMVbT/t5TlSFanTSY9QojwvpVPmz/hqwi21a4+xNhIr47OGXbNQtyT1IY
+         93A7d57dXF5Zz3ttcJwV/foTeGUZIa7sT+XdaHrxWMdy9jnGkb0m8Q3UzVSukRqDIYp+
+         4TcjhTTGKfJkLCpsBoX2j32pHpo+yfAUDSv2ON+Y1zFAbxH+1WDNTFeB5wVvszliSAr8
+         6JJCtAatuh1HM1sLtzSKxjmDQRORLReH0mGH+yv+HGcyuXuVVM4+ZKFuMznFFNC4/T2R
+         Z7BQ==
+X-Gm-Message-State: AOJu0YyEp9X22IEuSEW4rm26EELXchSfzvjQ39687jYI6DrN9HbYCjYo
+	53GdxoECCLEDhmbrGpOV2Dd+2qzW+bICQPxaQTs7sX1uWzG/LJ2gEVC8Vc0MoZvFnyUh5McYm9r
+	O
+X-Google-Smtp-Source: AGHT+IFAxPvKYA8p89qSHmIiGM/nOzhEUAxWuTZhfgZMfPTiw66KbLx8kawnugSguy1N65fA15LGXQ==
+X-Received: by 2002:a05:6512:a8e:b0:52c:e17c:cd7b with SMTP id 2adb3069b0e04-5367fed250bmr6682338e87.22.1726479366392;
+        Mon, 16 Sep 2024 02:36:06 -0700 (PDT)
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Mon, 16 Sep 2024 10:30:00 +0100
-Message-ID: <CACHz=ZhsaZsDfNf1KDoaLe-kCkf-cLL-2r-Pi3t0TaeALW0hvw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] x86/boot: Avoid relocations in trampoline code to
- physical addresses
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] xen/efi: efibind: Fix typo in comment
+Date: Mon, 16 Sep 2024 10:35:57 +0100
+Message-Id: <20240916093557.67850-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 14, 2024 at 7:39=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 28.08.2024 11:19, Frediano Ziglio wrote:
-> > The trampoline could have "manual" relocation entries (created
-> > by assembly macros and some code to use them) and (in case of PE)
-> > normal executable relocations.
-> > Remove some normal executable ones. In this way we don't have to
-> > worry about applying both correctly (they need proper order
-> > which is hard to spot looking at the code).
->
-> I don't theink the order of applying relocations matters - the overall
-> outcome will be the same for any order. What does matter is ...
->
-> > Specifically in efi_arch_post_exit_boot trampoline is copied after
-> > fixing relocations with efi_arch_relocate_image.
->
-> ... whether they're applied by the time certain operations take place.
->
-> > These time dependencies
-> > between different part of code are hard to spot making hard to change
-> > code.
->
-> Relocation and copying sitting literally next to each other makes it
-> not really hard to spot, imo.
->
+expresion -> expression
 
-I was thinking that there should probably be a single function that
-does the relocation and also copy the trampoline in the final spot.
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+ xen/arch/x86/include/asm/x86_64/efibind.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> > In this case the copy is done in a state where code should be run
-> > at higher locations so it would be better to reduce the code between
-> > calling efi_arch_relocate_image and jumping to higher location.
-> > Absolute symbols are defined by linker in order to avoid relocations.
-> > These symbols use a "_PA" suffix to avoid possible clashes.
-> > phys_addr macro is used to make more clear the address we want and maki=
-ng
-> > symbol search easier.
->
-> At the price of introducing more absolute symbols, which are often
-> frowned upon. For example I fear this may (and the 2nd patch will)
-> get in the way of us (finally) randomizing Xen's virtual position
-> at load/boot time. Especially with xen.efi (where we already have
-> the base relocs) this shouldn't be overly difficult to arrange - as
-> long as there are no absolute symbols to take care of (ones used
-> only very early are okay of course).
->
+diff --git a/xen/arch/x86/include/asm/x86_64/efibind.h b/xen/arch/x86/include/asm/x86_64/efibind.h
+index 28bc18c24b..b29342c61c 100644
+--- a/xen/arch/x86/include/asm/x86_64/efibind.h
++++ b/xen/arch/x86/include/asm/x86_64/efibind.h
+@@ -176,7 +176,7 @@ typedef uint64_t   UINTN;
+     #elif __clang__ || __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)
+         #define EFIAPI __attribute__((__ms_abi__))  // Force Microsoft ABI
+     #else
+-        #define EFIAPI          // Substitute expresion to force C calling convention
++        #define EFIAPI          // Substitute expression to force C calling convention
+     #endif
+ #endif
+ 
+-- 
+2.34.1
 
-Considering that bootloaders (both GRUB and EFI) uses 1-to-1 mapping
-or physical addressing and that we wrap our 64 bit ELF in a 32 bit ELF
-I would assume that we want the randomization done by our code and not
-by the bootloader. In this case, I would suggest designing the output
-in order to use position independent code/data and do the
-randomization/relocation needed. That involves doing something similar
-to mkelf32 also for EFI output.
-This goes quite a lot out of the target of this series, but I agree
-this series clash a bit with address randomization (going in a
-different direction).
-I suppose I can simply respect the order of calls and drop this series.
-
-> > --- a/xen/arch/x86/boot/head.S
-> > +++ b/xen/arch/x86/boot/head.S
-> > @@ -870,8 +870,10 @@ cmdline_parse_early:
-> >  reloc:
-> >          .incbin "reloc.bin"
-> >
-> > +#include "x86_64.S"
-> > +
-> > +        .section .init.text, "ax", @progbits
-> > +
-> >  ENTRY(trampoline_start)
-> >  #include "trampoline.S"
-> >  ENTRY(trampoline_end)
-> > -
-> > -#include "x86_64.S"
->
-> I take it that this is superseded by the patch introducing
-> .init.trampoline?
->
-
-No, they happen to clash/conflict and looks similar because they move
-the trampoline inclusion later but for completely different reasons,
-one for section continuation, the other for macro preservation.
-
-> Jan
-
-Frediano
 
