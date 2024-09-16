@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB15E979C1D
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 09:37:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.799249.1209169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DA8E979C2B
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2024 09:42:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.799252.1209179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sq6IO-0003yd-4p; Mon, 16 Sep 2024 07:37:16 +0000
+	id 1sq6Na-0005ho-NI; Mon, 16 Sep 2024 07:42:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 799249.1209169; Mon, 16 Sep 2024 07:37:16 +0000
+Received: by outflank-mailman (output) from mailman id 799252.1209179; Mon, 16 Sep 2024 07:42:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sq6IO-0003uh-12; Mon, 16 Sep 2024 07:37:16 +0000
-Received: by outflank-mailman (input) for mailman id 799249;
- Mon, 16 Sep 2024 07:37:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sq6Na-0005fe-JU; Mon, 16 Sep 2024 07:42:38 +0000
+Received: by outflank-mailman (input) for mailman id 799252;
+ Mon, 16 Sep 2024 07:42:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ug6v=QO=bombadil.srs.infradead.org=BATV+500305f64adcbfb43b9e+7694+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1sq6IL-0003ub-R8
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 07:37:13 +0000
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [2607:7c80:54:3::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ad4996a-73fe-11ef-99a2-01e77a169b0f;
- Mon, 16 Sep 2024 09:37:10 +0200 (CEST)
-Received: from hch by bombadil.infradead.org with local (Exim 4.98 #2 (Red Hat
- Linux)) id 1sq6IF-00000003Kd9-3lbI; Mon, 16 Sep 2024 07:37:07 +0000
+ <SRS0=H51U=QO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sq6NZ-0005fY-Cw
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 07:42:37 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3da42e29-73ff-11ef-a0b6-8be0dac302b0;
+ Mon, 16 Sep 2024 09:42:36 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-42cbe624c59so23026915e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Sep 2024 00:42:36 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-42da22b8b5asm68469935e9.7.2024.09.16.00.42.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Sep 2024 00:42:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +44,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ad4996a-73fe-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=gju9XBeCOro1y93nA5waVyVrbX5nWYeDFXoNrraZEsk=; b=jazc38fw1Kh+LNx9gSWOMO22Uy
-	MM3h6EiwAwxcdUMkuErVz1aregLWF5DHESZ+q9zuakvOu/jVvxmkNXbgYIPq7xz4yL5JtTCeEabZ+
-	hWeE0eWeI4rydIgD43gTdxHDw/fo7eJQ1p0Sr7Ffv6Xog6cr13f0lkpZAzn8gk0mVVAp4wmGeV6NW
-	hsl3XsG/NwVC2d8ZTy582+ZkpBX6fr6epOnyKhKOmwNCIMgLDxlLwEsKlVJuEXtBl0ebNvLNyz1Pm
-	ECbYkBWhDHZr82ysQtk5zKsUhVg3OGPYilMFKfj7g19a3Yb8MogwJI8BT5ZrYRjRxiStmsYmGGzUd
-	28lNN+QQ==;
-Date: Mon, 16 Sep 2024 00:37:07 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Christoph Hellwig <hch@infradead.org>,
+X-Inumbo-ID: 3da42e29-73ff-11ef-a0b6-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1726472555; x=1727077355; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=UyahHg9GI0CF/P0AOI3nS5YJZ5Cu0KHCdf0TIljmiq0=;
+        b=NdBzV4I5QZElHspKTT65gkb1q/8vrEl4yDclsmGhWARvgd2XlUupkOKVlypY1vOsZN
+         d2herZeDoR9LQkxHhCMBcpGaUjZ/c0vEVSiBHpbtymsvWIKq9E8DC+LoId6pPRyZVLfa
+         foI/DorBanV3WmfUG1Opo/tZDQHauqRbTKXII=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726472555; x=1727077355;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UyahHg9GI0CF/P0AOI3nS5YJZ5Cu0KHCdf0TIljmiq0=;
+        b=GA5k9R090DaALH3V7HLPkzE6AnApOWKtrQmBGX1hytY/Kp+KgDlloa2iYwhi2Kl6hc
+         E+RlzezxivjbR5dP5UdQjICv0vVn8bSiwM20u8sn9vrujL533iOLB3SMsClsd3QzwpJB
+         2UndMDFsagcWVIlG9qbkXo86Lt1jDMLhPtRn6bnQr6+Fceic9diXnvH3ZpRbgeQXL8FA
+         hIBCcKWBqxmTA/0OdGG3T36FFVWKh6SNxpiWGf0Sd3anTEyFF4/Zb6Z5zNUrWWc2/xrH
+         ZLXi4A3uw36EoPtlxLrIkIXJN7j0XCaAwAutkVZ7gHIh0ANf5se6adamU8cZVr+w7BSA
+         sQEg==
+X-Gm-Message-State: AOJu0Yzf6L6DnZhueMFQwhjXZmXaSGNlgysu6/iUinzsW2zkr+BqPlOy
+	oEmk1dixs+/ZzsgZLuQtX8AdF/HhGJuGF9PsciSb1IiI5p0bsik2C1UDtqftn/E=
+X-Google-Smtp-Source: AGHT+IF541LS+LPb0mSxDGifxoPU3RrcWESZytWIGGnCx1RyNRZqJSwxrTeRRLSs0C48SCY6HqbH7g==
+X-Received: by 2002:a05:600c:468a:b0:42c:baf9:beed with SMTP id 5b1f17b1804b1-42d964e2705mr51404535e9.27.1726472554741;
+        Mon, 16 Sep 2024 00:42:34 -0700 (PDT)
+Date: Mon, 16 Sep 2024 09:42:33 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Ariadne Conill <ariadne@ariadne.space>,
-	xen-devel@lists.xenproject.org, alsa-devel@alsa-project.org,
-	stable@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org
-Subject: Re: [PATCH] Revert "ALSA: memalloc: Workaround for Xen PV"
-Message-ID: <ZufgI6gw1kA8v4OD@infradead.org>
-References: <20240906184209.25423-1-ariadne@ariadne.space>
- <877cbnewib.wl-tiwai@suse.de>
- <9eda21ac-2ce7-47d5-be49-65b941e76340@citrix.com>
- <ZuK6xcmAE4sngFqk@infradead.org>
- <874j6g9ifp.wl-tiwai@suse.de>
- <ZufdOjFCdqQQX7tz@infradead.org>
- <87wmjc8398.wl-tiwai@suse.de>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] x86/hvm: make stdvga support optional
+Message-ID: <ZufhafDwU-jgYusv@macbook.local>
+References: <20240912085709.858052-1-Sergiy_Kibrik@epam.com>
+ <ZuKxEVsbV0MqLrtb@macbook.local>
+ <0f256ef4-2059-4068-a38d-1293efbb35ca@epam.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <87wmjc8398.wl-tiwai@suse.de>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0f256ef4-2059-4068-a38d-1293efbb35ca@epam.com>
 
-On Mon, Sep 16, 2024 at 09:30:11AM +0200, Takashi Iwai wrote:
-> On Mon, 16 Sep 2024 09:24:42 +0200,
-> Christoph Hellwig wrote:
-> > 
-> > On Mon, Sep 16, 2024 at 09:16:58AM +0200, Takashi Iwai wrote:
-> > > Yes, all those are really ugly hacks and have been already removed for
-> > > 6.12.  Let's hope everything works as expected with it.
-> > 
-> > The code currently in linux-next will not work as explained in my
-> > previous mail, because it tries to side step the DMA API and abuses
-> > get_dma_ops in an unsupported way.
+On Mon, Sep 16, 2024 at 09:37:16AM +0300, Sergiy Kibrik wrote:
+> 12.09.24 12:14, Roger Pau Monné:
+> > Shouldn't Xen report an error if a user attempts to create a domain
+> > with X86_EMU_VGA set in emulation_flags, but stdvga has been built
+> > time disabled?
 > 
-> Those should have been removed since the last week.
-> Could you check the today's linux-next tree?
+> I'm afraid this can accidentally render the system unbootable, because it
+> looks like toolstack always sets X86_EMU_VGA flag.
 
-Ok, looks like the Thursday updates fix the dma_get_ops abuse.
+Not for PV or PVH guests.  It won't render the system unbootable, it
+would just leave it unable to create HVM guests.  dom0 however, and PV
+or PVH guests don't use the X86_EMU_VGA flag.
 
-They introduce new bugs at least for architectures with virtuall
-indexed caches by combining vmap and dma mappings without
-mainintaining the cache coherency using the proper helpers.
+As pointed out by Jan, we need slightly better integration with the
+toolstack.  IMO if we want to pursue this route we need a way for Xen
+to advertise which X86_EMU_* are supported at least.
 
-What confuses my about this is the need to set the DMAable memory
-to write combinable.  How does that improve things over the default
-writeback cached memory on x86?  We could trivially add support for
-WC mappings for cache coherent DMA, but someone needs to explain
-how that actually makes sense first.
+Thanks, Roger.
 
