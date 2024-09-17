@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A835E97A9C7
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Sep 2024 01:50:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.799764.1209780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBFEC97AB24
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Sep 2024 07:45:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.799773.1209809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqLU4-0002Ax-6S; Mon, 16 Sep 2024 23:50:20 +0000
+	id 1sqR0j-0000fz-0b; Tue, 17 Sep 2024 05:44:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 799764.1209780; Mon, 16 Sep 2024 23:50:20 +0000
+Received: by outflank-mailman (output) from mailman id 799773.1209809; Tue, 17 Sep 2024 05:44:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqLU4-00028D-3G; Mon, 16 Sep 2024 23:50:20 +0000
-Received: by outflank-mailman (input) for mailman id 799764;
- Mon, 16 Sep 2024 23:50:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D3gN=QO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1sqLU2-00027j-S1
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2024 23:50:18 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6c8510cc-7486-11ef-a0b7-8be0dac302b0;
- Tue, 17 Sep 2024 01:50:17 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B23245C3114;
- Mon, 16 Sep 2024 23:50:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154FDC4CEC4;
- Mon, 16 Sep 2024 23:50:13 +0000 (UTC)
+	id 1sqR0i-0000dv-UG; Tue, 17 Sep 2024 05:44:24 +0000
+Received: by outflank-mailman (input) for mailman id 799773;
+ Tue, 17 Sep 2024 00:22:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nqc/=QP=treblig.org=dave@srs-se1.protection.inumbo.net>)
+ id 1sqLz2-0007CN-6q
+ for xen-devel@lists.xenproject.org; Tue, 17 Sep 2024 00:22:20 +0000
+Received: from mx.treblig.org (mx.treblig.org [2a00:1098:5b::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e38cba57-748a-11ef-99a2-01e77a169b0f;
+ Tue, 17 Sep 2024 02:22:15 +0200 (CEST)
+Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
+ by mx.treblig.org with esmtp (Exim 4.96)
+ (envelope-from <dave@treblig.org>) id 1sqLyv-0062od-1W;
+ Tue, 17 Sep 2024 00:22:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,81 +40,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c8510cc-7486-11ef-a0b7-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1726530616;
-	bh=EcihBU2MW+o0k8STiYL5wfgfRi+z+e3ydSW7l+a5gAw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=RGB2J96z0XM6/2N1YgdJL1hrET9dwWbaDhoLTvF8NJVBBzsOIyCxVhID0f9Mm7/FI
-	 MDo1dFqc2ihsQb+75KauXTS95u5y7oB7kHJmJ8qMOv8nogC7ApweXU5PWRTKrTJmKE
-	 azIVOi20Ms9eLdjkPk9P9apALizLi5pnnfCeq5+PgYXW9V2UT0yYWQdaRsX13sOmq1
-	 KXrKpowqs+eUrVw1K5icr9oY6KsCKXROLDykw+7TaV3Aa9ntu0FHeOvv5ND1S1MtDZ
-	 FgW1X7STNq2ASK9rVzamI1jlbQulGfwtsbf0dJ7EJZzgndGWQg8LL4YmVGQ9Zaewpx
-	 BQmMWPto4BNxA==
-Date: Mon, 16 Sep 2024 16:50:12 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-cc: qemu-devel@nongnu.org, sstabellini@kernel.org, anthony@xenproject.org, 
-    paul@xen.org, peter.maydell@linaro.org, alex.bennee@linaro.org, 
-    edgar.iglesias@amd.com, xen-devel@lists.xenproject.org, 
-    qemu-arm@nongnu.org
-Subject: Re: [PATCH v1 4/4] hw/arm: xenpvh: Enable PCI for ARM PVH
-In-Reply-To: <20240916150853.1216703-5-edgar.iglesias@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2409161649590.1417852@ubuntu-linux-20-04-desktop>
-References: <20240916150853.1216703-1-edgar.iglesias@gmail.com> <20240916150853.1216703-5-edgar.iglesias@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: e38cba57-748a-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+	; s=bytemarkmx; h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+	:Subject; bh=hDyh/qvtfWyCwjoSpsGcpYhuPt331NF6LPoyYqh2KtM=; b=Wjc8Vf8hajewIYYk
+	Pp7JiY6f/Xkbq28gi8S6bsAyPua6G2Uvpxhhz+BYaLRIjViCC9tQKD31wGWK153OB9hbk2E82Q2uJ
+	yx4fFnnjN99L5JJ63vifFyqjmN92cJNnE2R/hPwM2uMDoeE8TUEMQSX07k3GzlXXB8P1RRq+d/YKh
+	KMqqO8QtHGUF3I6v0s661yMsu5HU2jgLPmHRg+Vgk+eAg1giUfAPZqn/frwyfG9oV0UyO1zrKflW0
+	Mw/fR2SjhooL/UEvecb2E+05kUYYHRoIOF9W9KAo54oxL0ZBJzR1muplI+QcY/wAO/p6JVWjQaufN
+	YA9+2J7lkpVRjNUCFA==;
+From: dave@treblig.org
+To: sstabellini@kernel.org,
+	anthony@xenproject.org,
+	paul@xen.org,
+	edgar.iglesias@gmail.com
+Cc: xen-devel@lists.xenproject.org,
+	qemu-devel@nongnu.org,
+	"Dr. David Alan Gilbert" <dave@treblig.org>
+Subject: [PATCH] hw/xen: Remove deadcode
+Date: Tue, 17 Sep 2024 01:22:12 +0100
+Message-ID: <20240917002212.330893-1-dave@treblig.org>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Mon, 16 Sep 2024, Edgar E. Iglesias wrote:
-> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-> 
-> Enable PCI support for the ARM Xen PVH machine.
-> 
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+xen_be_copy_grant_refs is unused since 2019's
+  19f87870ba ("xen: remove the legacy 'xen_disk' backend")
 
+xen_config_dev_console is unused since 2018's
+  6d7c06c213 ("Remove broken Xen PV domain builder")
 
-> ---
->  hw/arm/xen-pvh.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/hw/arm/xen-pvh.c b/hw/arm/xen-pvh.c
-> index 28af3910ea..33f0dd5982 100644
-> --- a/hw/arm/xen-pvh.c
-> +++ b/hw/arm/xen-pvh.c
-> @@ -39,6 +39,16 @@ static void xen_arm_instance_init(Object *obj)
->                                           VIRTIO_MMIO_DEV_SIZE };
->  }
->  
-> +static void xen_pvh_set_pci_intx_irq(void *opaque, int intx_irq, int level)
-> +{
-> +    XenPVHMachineState *s = XEN_PVH_MACHINE(opaque);
-> +    int irq = s->cfg.pci_intx_irq_base + intx_irq;
-> +
-> +    if (xendevicemodel_set_irq_level(xen_dmod, xen_domid, irq, level)) {
-> +        error_report("xendevicemodel_set_pci_intx_level failed");
-> +    }
-> +}
-> +
->  static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
->  {
->      XenPVHMachineClass *xpc = XEN_PVH_MACHINE_CLASS(oc);
-> @@ -69,7 +79,11 @@ static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
->      /* Xen/ARM does not use buffered IOREQs.  */
->      xpc->handle_bufioreq = HVM_IOREQSRV_BUFIOREQ_OFF;
->  
-> +    /* PCI INTX delivery.  */
-> +    xpc->set_pci_intx_irq = xen_pvh_set_pci_intx_irq;
-> +
->      /* List of supported features known to work on PVH ARM.  */
-> +    xpc->has_pci = true;
->      xpc->has_tpm = true;
->      xpc->has_virtio_mmio = true;
->  
-> -- 
-> 2.43.0
-> 
+Remove them.
+
+Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
+---
+ hw/xen/xen-legacy-backend.c         | 18 ------------------
+ hw/xen/xen_devconfig.c              |  8 --------
+ include/hw/xen/xen-legacy-backend.h |  5 -----
+ 3 files changed, 31 deletions(-)
+
+diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
+index 5514184f9c..e8e1ee4f7d 100644
+--- a/hw/xen/xen-legacy-backend.c
++++ b/hw/xen/xen-legacy-backend.c
+@@ -147,24 +147,6 @@ void xen_be_unmap_grant_refs(struct XenLegacyDevice *xendev, void *ptr,
+     }
+ }
+ 
+-int xen_be_copy_grant_refs(struct XenLegacyDevice *xendev,
+-                           bool to_domain,
+-                           XenGrantCopySegment segs[],
+-                           unsigned int nr_segs)
+-{
+-    int rc;
+-
+-    assert(xendev->ops->flags & DEVOPS_FLAG_NEED_GNTDEV);
+-
+-    rc = qemu_xen_gnttab_grant_copy(xendev->gnttabdev, to_domain, xen_domid,
+-                                    segs, nr_segs, NULL);
+-    if (rc) {
+-        xen_pv_printf(xendev, 0, "xengnttab_grant_copy failed: %s\n",
+-                      strerror(-rc));
+-    }
+-    return rc;
+-}
+-
+ /*
+  * get xen backend device, allocate a new one if it doesn't exist.
+  */
+diff --git a/hw/xen/xen_devconfig.c b/hw/xen/xen_devconfig.c
+index 2150869f60..45ae134b84 100644
+--- a/hw/xen/xen_devconfig.c
++++ b/hw/xen/xen_devconfig.c
+@@ -66,11 +66,3 @@ int xen_config_dev_vkbd(int vdev)
+     xen_config_dev_dirs("vkbd", "vkbd", vdev, fe, be, sizeof(fe));
+     return xen_config_dev_all(fe, be);
+ }
+-
+-int xen_config_dev_console(int vdev)
+-{
+-    char fe[256], be[256];
+-
+-    xen_config_dev_dirs("console", "console", vdev, fe, be, sizeof(fe));
+-    return xen_config_dev_all(fe, be);
+-}
+diff --git a/include/hw/xen/xen-legacy-backend.h b/include/hw/xen/xen-legacy-backend.h
+index 943732b8d1..e198b120c5 100644
+--- a/include/hw/xen/xen-legacy-backend.h
++++ b/include/hw/xen/xen-legacy-backend.h
+@@ -50,10 +50,6 @@ void *xen_be_map_grant_refs(struct XenLegacyDevice *xendev, uint32_t *refs,
+ void xen_be_unmap_grant_refs(struct XenLegacyDevice *xendev, void *ptr,
+                              uint32_t *refs, unsigned int nr_refs);
+ 
+-int xen_be_copy_grant_refs(struct XenLegacyDevice *xendev,
+-                           bool to_domain, XenGrantCopySegment segs[],
+-                           unsigned int nr_segs);
+-
+ static inline void *xen_be_map_grant_ref(struct XenLegacyDevice *xendev,
+                                          uint32_t ref, int prot)
+ {
+@@ -70,6 +66,5 @@ static inline void xen_be_unmap_grant_ref(struct XenLegacyDevice *xendev,
+ void xen_config_cleanup(void);
+ int xen_config_dev_vfb(int vdev, const char *type);
+ int xen_config_dev_vkbd(int vdev);
+-int xen_config_dev_console(int vdev);
+ 
+ #endif /* HW_XEN_LEGACY_BACKEND_H */
+-- 
+2.46.0
+
 
