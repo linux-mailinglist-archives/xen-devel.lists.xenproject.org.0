@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8C3997C18F
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Sep 2024 23:46:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.800442.1210374 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C24E97C196
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Sep 2024 23:53:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.800449.1210384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sr2Ur-0004fa-B9; Wed, 18 Sep 2024 21:46:01 +0000
+	id 1sr2bb-0006Cp-2R; Wed, 18 Sep 2024 21:52:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 800442.1210374; Wed, 18 Sep 2024 21:46:01 +0000
+Received: by outflank-mailman (output) from mailman id 800449.1210384; Wed, 18 Sep 2024 21:52:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sr2Ur-0004d5-8J; Wed, 18 Sep 2024 21:46:01 +0000
-Received: by outflank-mailman (input) for mailman id 800442;
- Wed, 18 Sep 2024 21:46:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sr2Uq-0004cv-0q; Wed, 18 Sep 2024 21:46:00 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sr2Up-0005my-TD; Wed, 18 Sep 2024 21:45:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sr2Up-0006FB-Fq; Wed, 18 Sep 2024 21:45:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sr2Up-0000Ob-Ev; Wed, 18 Sep 2024 21:45:59 +0000
+	id 1sr2ba-0006AQ-W3; Wed, 18 Sep 2024 21:52:58 +0000
+Received: by outflank-mailman (input) for mailman id 800449;
+ Wed, 18 Sep 2024 21:52:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uy3Y=QQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sr2ba-0006AH-2e
+ for xen-devel@lists.xenproject.org; Wed, 18 Sep 2024 21:52:58 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5bf95107-7608-11ef-99a2-01e77a169b0f;
+ Wed, 18 Sep 2024 23:52:55 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2DFA75C59AC;
+ Wed, 18 Sep 2024 21:52:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C711AC4CEC2;
+ Wed, 18 Sep 2024 21:52:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,294 +41,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=hniBZkP9lqUt7CGwK13V0PiaOVhdUStrCIf9L8m5HnI=; b=0N/vl9chXG0HC37OoS5M1vtIQ7
-	eyWnZPg1heceXbCsvpEf0LaSlXwwlJuvmTdGC87I0gA3VS04rbIRtqG0pkD9TcZdU74J1RKNPulmZ
-	fIAoW5gRiu70Ps99kP4xae3qk8HeROMhlxy0ZcM0yKaUxBIVrnO+8aWlDqOkMMW+sTtE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187743-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5bf95107-7608-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1726696373;
+	bh=KjosWc3YQGl++7cHwuyERfoMjEYoSmUFMJfCENozWAQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=dWjcEzJXX4ooRHUXZs1QKRISgq0BU0G8hNkX+kieyzIIGyJKsLFV2tRzO5yYceGcH
+	 K7MqyCs1l7uFHSn2AM8V/hxEVmDM01gL5WQ6r+lrAvkxXpRZOqEchapTg1/5N25FzV
+	 Z9J38Rzr5VyP5A4Bx36/b9OvnFCLEJ2b0XA1U2kYyX1L2ws5Oedick2Io1uyiaRVg+
+	 u13tTohXKkJbw9VooAQCTnxOPvTouaOTcoM9IOkt2An1+bqQ2Hm/PrUpAoH4oxTtIb
+	 ZFSJKoN/8RtX7NYroGqxCYTCS6cu8xp7L1Hy/OjV4h7zeTaN6KklRG9LvXy07VePbw
+	 ZFSLGUlmA9rUA==
+Date: Wed, 18 Sep 2024 14:52:50 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+cc: Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bjorn Helgaas <bhelgaas@google.com>, 
+    "Rafael J . Wysocki" <rafael@kernel.org>, xen-devel@lists.xenproject.org, 
+    linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+    linux-acpi@vger.kernel.org, Huang Rui <ray.huang@amd.com>
+Subject: Re: [KERNEL PATCH v9 1/3] xen/pci: Add a function to reset device
+ for xen
+In-Reply-To: <20240912092352.1602724-2-Jiqian.Chen@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2409181450280.1417852@ubuntu-linux-20-04-desktop>
+References: <20240912092352.1602724-1-Jiqian.Chen@amd.com> <20240912092352.1602724-2-Jiqian.Chen@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [linux-linus test] 187743: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=bdf56c7580d267a123cc71ca0f2459c797b76fde
-X-Osstest-Versions-That:
-    linux=2f27fce67173bbb05d5a0ee03dae5c021202c912
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 18 Sep 2024 21:45:59 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 187743 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187743/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187734
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 187734
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187734
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187734
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 187734
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187734
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- linux                bdf56c7580d267a123cc71ca0f2459c797b76fde
-baseline version:
- linux                2f27fce67173bbb05d5a0ee03dae5c021202c912
-
-Last test of basis   187734  2024-09-17 17:42:54 Z    1 days
-Testing same since   187743  2024-09-18 08:12:50 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  "Paul E. McKenney" <paulmck@kernel.org>
-  Akira Yokosawa <akiyks@gmail.com>
-  Andrea Parri <parri.andrea@gmail.com>
-  Axel Rasmussen <axelrasmussen@google.com>
-  Baoquan He <bhe@redhat.com>
-  Boqun Feng <boqun.feng@gmail.com>
-  Breno Leitao <leitao@debian.org>
-  Chen Ridong <chenridong@huawei.com>
-  Christian Brauner <brauner@kernel.org>
-  Christoph Lameter <cl@gentwo.org>
-  Christoph Lameter <cl@linux.com>
-  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-  David Rientjes <rientjes@google.com>
-  Frederic Weisbecker <frederic@kernel.org>
-  Jann Horn <jannh@google.com>
-  Johannes Weiner <hannes@cmpxchg.org>
-  JP Kobryn <inwardvessel@gmail.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Marco Elver <elver@google.com>
-  Mark Rutland <mark.rutland@arm.com>
-  Matthew Brost <matthew.brost@intel.com>
-  Michal Koutný <mkoutny@suse.com>
-  Neeraj Upadhyay <neeraj.upadhyay@kernel.org>
-  Oleg Nesterov <oleg@redhat.com>
-  Paolo Abeni <pabeni@redhat.com> # net
-  Paul E. McKenney <paulmck@kernel.org>
-  Pedro Falcato <pedro.falcato@gmail.com>
-  Peng Fan <peng.fan@nxp.com>
-  Rik van Riel <riel@surriel.com>
-  Roman Gushchin <roman.gushchin@linux.dev>
-  Ryo Takakura <takakura@valinux.co.jp>
-  Sangmoon Kim <sangmoon.kim@samsung.com>
-  Sean Christopherson <seanjc@google.com>
-  Sergey Senozhatsky <senozhatsky@chromium.org>
-  Shakeel Butt <shakeel.butt@linux.dev>
-  syzbot+263726e59eab6b442723@syzkaller.appspotmail.com
-  Tejun Heo <tj@kernel.org>
-  Thomas Gleixner <tglx@linutronix.de>
-  Thorsten Blum <thorsten.blum@toblux.com>
-  Uladzislau Rezki (Sony) <urezki@gmail.com>
-  Valentin Schneider <vschneid@redhat.com>
-  Vlastimil Babka <vbabka@suse.cz>
-  Vlastimil Babka <vbabka@suse.cz> #slab
-  Vlastimil Babka <vbabka@suse.cz> #slub
-  Waiman Long <longman@redhat.com>
-  Xavier <xavier_qy@163.com>
-  Xiu Jianfeng <xiujianfeng@huawei.com>
-  Yan Zhen <yanzhen@vivo.com>
-  Zhouyi Zhou <zhouzhouyi@gmail.com>
-  Zqiang <qiang.zhang1211@gmail.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+On Thu, 12 Sep 2024, Jiqian Chen wrote:
+> When device on dom0 side has been reset, the vpci on Xen side
+> won't get notification, so that the cached state in vpci is
+> all out of date with the real device state.
+> To solve that problem, add a new function to clear all vpci
+> device state when device is reset on dom0 side.
+> 
+> And call that function in pcistub_init_device. Because when
+> using "pci-assignable-add" to assign a passthrough device in
+> Xen, it will reset passthrough device and the vpci state will
+> out of date, and then device will fail to restore bar state.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-Pushing revision :
 
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   2f27fce67173b..bdf56c7580d26  bdf56c7580d267a123cc71ca0f2459c797b76fde -> tested/linux-linus
+> ---
+> v8->v9 changes:
+> Due to the struct and name of the hypercall changed on Xen side, I did the corresponding changes, so removed the Reviewed-by of Stefano. But no function changes actually.
+> 
+> v5->v8 changes:
+> No.
+> 
+> v4->v5 changes:
+> Added Reviewed-by of Stefano.
+> 
+> v3->v4 changes:
+> Changed the code comment of PHYSDEVOP_pci_device_state_reset.
+> Used a new function pcistub_reset_device_state to wrap __pci_reset_function_locked and xen_reset_device_state, and called pcistub_reset_device_state in pci_stub.c.
+> 
+> v2->v3 changes:
+> Added condition to limit do xen_reset_device_state for no-pv domain in pcistub_init_device.
+> 
+> v1->v2 changes:
+> New patch to add a new function to call reset hypercall.
+> ---
+>  drivers/xen/pci.c                  | 13 +++++++++++++
+>  drivers/xen/xen-pciback/pci_stub.c | 18 +++++++++++++++---
+>  include/xen/interface/physdev.h    | 17 +++++++++++++++++
+>  include/xen/pci.h                  |  6 ++++++
+>  4 files changed, 51 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/xen/pci.c b/drivers/xen/pci.c
+> index 72d4e3f193af..bb59524b8bbd 100644
+> --- a/drivers/xen/pci.c
+> +++ b/drivers/xen/pci.c
+> @@ -177,6 +177,19 @@ static int xen_remove_device(struct device *dev)
+>  	return r;
+>  }
+>  
+> +int xen_reset_device(const struct pci_dev *dev)
+> +{
+> +	struct pci_device_reset device = {
+> +		.dev.seg = pci_domain_nr(dev->bus),
+> +		.dev.bus = dev->bus->number,
+> +		.dev.devfn = dev->devfn,
+> +		.flags = PCI_DEVICE_RESET_FLR,
+> +	};
+> +
+> +	return HYPERVISOR_physdev_op(PHYSDEVOP_pci_device_reset, &device);
+> +}
+> +EXPORT_SYMBOL_GPL(xen_reset_device);
+> +
+>  static int xen_pci_notifier(struct notifier_block *nb,
+>  			    unsigned long action, void *data)
+>  {
+> diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
+> index 4faebbb84999..3e162c1753e2 100644
+> --- a/drivers/xen/xen-pciback/pci_stub.c
+> +++ b/drivers/xen/xen-pciback/pci_stub.c
+> @@ -89,6 +89,16 @@ static struct pcistub_device *pcistub_device_alloc(struct pci_dev *dev)
+>  	return psdev;
+>  }
+>  
+> +static int pcistub_reset_device_state(struct pci_dev *dev)
+> +{
+> +	__pci_reset_function_locked(dev);
+> +
+> +	if (!xen_pv_domain())
+> +		return xen_reset_device(dev);
+> +	else
+> +		return 0;
+> +}
+> +
+>  /* Don't call this directly as it's called by pcistub_device_put */
+>  static void pcistub_device_release(struct kref *kref)
+>  {
+> @@ -107,7 +117,7 @@ static void pcistub_device_release(struct kref *kref)
+>  	/* Call the reset function which does not take lock as this
+>  	 * is called from "unbind" which takes a device_lock mutex.
+>  	 */
+> -	__pci_reset_function_locked(dev);
+> +	pcistub_reset_device_state(dev);
+>  	if (dev_data &&
+>  	    pci_load_and_free_saved_state(dev, &dev_data->pci_saved_state))
+>  		dev_info(&dev->dev, "Could not reload PCI state\n");
+> @@ -284,7 +294,7 @@ void pcistub_put_pci_dev(struct pci_dev *dev)
+>  	 * (so it's ready for the next domain)
+>  	 */
+>  	device_lock_assert(&dev->dev);
+> -	__pci_reset_function_locked(dev);
+> +	pcistub_reset_device_state(dev);
+>  
+>  	dev_data = pci_get_drvdata(dev);
+>  	ret = pci_load_saved_state(dev, dev_data->pci_saved_state);
+> @@ -420,7 +430,9 @@ static int pcistub_init_device(struct pci_dev *dev)
+>  		dev_err(&dev->dev, "Could not store PCI conf saved state!\n");
+>  	else {
+>  		dev_dbg(&dev->dev, "resetting (FLR, D3, etc) the device\n");
+> -		__pci_reset_function_locked(dev);
+> +		err = pcistub_reset_device_state(dev);
+> +		if (err)
+> +			goto config_release;
+>  		pci_restore_state(dev);
+>  	}
+>  	/* Now disable the device (this also ensures some private device
+> diff --git a/include/xen/interface/physdev.h b/include/xen/interface/physdev.h
+> index a237af867873..df74e65a884b 100644
+> --- a/include/xen/interface/physdev.h
+> +++ b/include/xen/interface/physdev.h
+> @@ -256,6 +256,13 @@ struct physdev_pci_device_add {
+>   */
+>  #define PHYSDEVOP_prepare_msix          30
+>  #define PHYSDEVOP_release_msix          31
+> +/*
+> + * Notify the hypervisor that a PCI device has been reset, so that any
+> + * internally cached state is regenerated.  Should be called after any
+> + * device reset performed by the hardware domain.
+> + */
+> +#define PHYSDEVOP_pci_device_reset      32
+> +
+>  struct physdev_pci_device {
+>      /* IN */
+>      uint16_t seg;
+> @@ -263,6 +270,16 @@ struct physdev_pci_device {
+>      uint8_t devfn;
+>  };
+>  
+> +struct pci_device_reset {
+> +    struct physdev_pci_device dev;
+> +#define PCI_DEVICE_RESET_COLD 0x0
+> +#define PCI_DEVICE_RESET_WARM 0x1
+> +#define PCI_DEVICE_RESET_HOT  0x2
+> +#define PCI_DEVICE_RESET_FLR  0x3
+> +#define PCI_DEVICE_RESET_MASK 0x3
+> +    uint32_t flags;
+> +};
+> +
+>  #define PHYSDEVOP_DBGP_RESET_PREPARE    1
+>  #define PHYSDEVOP_DBGP_RESET_DONE       2
+>  
+> diff --git a/include/xen/pci.h b/include/xen/pci.h
+> index b8337cf85fd1..424b8ea89ca8 100644
+> --- a/include/xen/pci.h
+> +++ b/include/xen/pci.h
+> @@ -4,10 +4,16 @@
+>  #define __XEN_PCI_H__
+>  
+>  #if defined(CONFIG_XEN_DOM0)
+> +int xen_reset_device(const struct pci_dev *dev);
+>  int xen_find_device_domain_owner(struct pci_dev *dev);
+>  int xen_register_device_domain_owner(struct pci_dev *dev, uint16_t domain);
+>  int xen_unregister_device_domain_owner(struct pci_dev *dev);
+>  #else
+> +static inline int xen_reset_device(const struct pci_dev *dev)
+> +{
+> +	return -1;
+> +}
+> +
+>  static inline int xen_find_device_domain_owner(struct pci_dev *dev)
+>  {
+>  	return -1;
+> -- 
+> 2.34.1
+> 
 
