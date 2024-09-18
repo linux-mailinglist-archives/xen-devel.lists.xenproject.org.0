@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFFFB97BD76
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Sep 2024 15:57:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.800301.1210240 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6550E97BDC5
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Sep 2024 16:12:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.800309.1210251 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqvB1-0004h9-Ma; Wed, 18 Sep 2024 13:57:03 +0000
+	id 1sqvOy-0007Tb-VG; Wed, 18 Sep 2024 14:11:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 800301.1210240; Wed, 18 Sep 2024 13:57:03 +0000
+Received: by outflank-mailman (output) from mailman id 800309.1210251; Wed, 18 Sep 2024 14:11:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqvB1-0004ea-JL; Wed, 18 Sep 2024 13:57:03 +0000
-Received: by outflank-mailman (input) for mailman id 800301;
- Wed, 18 Sep 2024 13:57:02 +0000
+	id 1sqvOy-0007RQ-SK; Wed, 18 Sep 2024 14:11:28 +0000
+Received: by outflank-mailman (input) for mailman id 800309;
+ Wed, 18 Sep 2024 14:11:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yEL5=QQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1sqvAz-0004eU-Vu
- for xen-devel@lists.xenproject.org; Wed, 18 Sep 2024 13:57:02 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ <SRS0=fQyG=QQ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1sqvOx-0007RK-CL
+ for xen-devel@lists.xenproject.org; Wed, 18 Sep 2024 14:11:27 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062f.outbound.protection.outlook.com
+ [2a01:111:f403:2418::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dffa9ae0-75c5-11ef-99a2-01e77a169b0f;
- Wed, 18 Sep 2024 15:56:59 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-52f01b8738dso4945189e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 18 Sep 2024 06:56:59 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90613205b8sm589326366b.188.2024.09.18.06.56.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Sep 2024 06:56:58 -0700 (PDT)
+ id e2cd5e4b-75c7-11ef-99a2-01e77a169b0f;
+ Wed, 18 Sep 2024 16:11:24 +0200 (CEST)
+Received: from PH7P221CA0033.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::25)
+ by MW4PR12MB5641.namprd12.prod.outlook.com (2603:10b6:303:186::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.24; Wed, 18 Sep
+ 2024 14:11:15 +0000
+Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
+ (2603:10b6:510:33c:cafe::52) by PH7P221CA0033.outlook.office365.com
+ (2603:10b6:510:33c::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.30 via Frontend
+ Transport; Wed, 18 Sep 2024 14:11:14 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Wed, 18 Sep 2024 14:11:14 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 18 Sep
+ 2024 09:11:14 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 18 Sep
+ 2024 09:11:14 -0500
+Received: from [172.31.119.228] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 18 Sep 2024 09:11:13 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,119 +63,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dffa9ae0-75c5-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1726667819; x=1727272619; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ByS2rmIsnIiiOsd+rX30QsTSW5syalpi7kfsTzqZ2Xs=;
-        b=XUiuVPPXTblSmWai4Ad4JYs/YSKfPnwa+Kz4C05P4eX7TKG4DYzbl6GeeRX5hktB8u
-         5tgDTRdDFi3XsHFyx4FqpPeh/n8DVjt/NHU+mN1IsA6DdA+2Ri0+yKQh2MSSRXo7PVz9
-         X73loSxt4I8gbWVTjwBez6HZe+f6yKJN6VrOU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726667819; x=1727272619;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ByS2rmIsnIiiOsd+rX30QsTSW5syalpi7kfsTzqZ2Xs=;
-        b=sSqFFqyS3xlNlkXbjHA0O96A6nMcfRZE3NGCGfNO1LiZJX814ocNcjAUJ7YM9FLoEx
-         Kr1YF7z9liQIH9TcdbDLPvAdoq3Xi1Mn0lRa9JGaeAw3evRFSWwBN96rZKEkl6TIOtl9
-         CZ4tIlL/7CQmcUYkRWWL/hwCJOsZXTWBKVpP5NwWl6stX4PVOYrR2hC3CuqP2NbaYew8
-         /mY2dmu2x240evXcztlhaSs5cMFTRj/Gx3ZeLPQUo7ty4esYGX8R5ys2DpQL4W9/kvkO
-         NpZgvQgOwgSOIgydLsaD4SRl9HOj1M+a5LbHyD+3o+1P5E26ERLQ/1+2CgECXyfuCZJR
-         YL5g==
-X-Forwarded-Encrypted: i=1; AJvYcCXwjU9gr4B4eSy81xJ5AepyEHiM1h63KvqeqdTBNjCoFMG9GHu4jz9ki/KGf4w+L4D6fav7nEMoLcw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz8f808QPbc25GlP54ndjwnZ/gFbUa824VdTxh0DXLhOkacA1Xo
-	Rf4xn7EeVrdylOSHEUkR3324PSEZCGpNijA6uaCzvlkI5FVvUQS/MDJcaqSY3Cc=
-X-Google-Smtp-Source: AGHT+IGLwbS07qX6S5kcXwigy4lbCjoHSIKrX/fj2qMO2WEQB3JuBKLqMRPCgewUulQlrKno3IX8sA==
-X-Received: by 2002:a05:6512:ba8:b0:530:ae4a:58d0 with SMTP id 2adb3069b0e04-53678fb1d2bmr12455463e87.8.1726667818863;
-        Wed, 18 Sep 2024 06:56:58 -0700 (PDT)
-Date: Wed, 18 Sep 2024 15:56:57 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Sergiy Kibrik <sergiy_kibrik@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH] x86/hvm: make ACPI PM timer support optional
-Message-ID: <ZurcKdyfG6qh-Btq@macbook.local>
-References: <20240916063757.990070-1-Sergiy_Kibrik@epam.com>
- <Zufh7DOSCwzhrpZG@macbook.local>
- <alpine.DEB.2.22.394.2409161252380.1417852@ubuntu-linux-20-04-desktop>
- <614611f1-dfbe-4185-8f0a-dc89aa7f5a20@epam.com>
- <ZuqgTKqaUDWC_I-u@macbook.local>
- <27d717f7-3073-4139-bef0-05d1a39f1e6c@epam.com>
+X-Inumbo-ID: e2cd5e4b-75c7-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yatGcyxwIVcjGqktsGAp/tAFaHQq5fzEz98P1W6czr+uFwdaMv1W/UX9KM2eU2YEB2HzqJPgHdziSI8/uWcIdPMzwYBx1jWzK3ugs1e0WQNe4F/BcQiR3jrNbBfQxgShCQb2uOATnRN16gNAauiEaUAQV5PQdipFB/LnErTtACqElwjyrO2w0yiJGmxcd52IyZWqO8ahakmlN8lV5k1ASKTgViekQEMPEYorMqyGeFRzPE4O0nWo6RqThcR4LZ1pE3P57MsxbH3KzfSxtXABh56+/kYZFIEsOyqyO3849Exd3DtY0uCNgVW4+a/XPEv5SHrALDiBGVNDsNt9M2Zn1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7tVBfLY9awWvParslg+FQ+6B/EyqL0yQajWNCkd80W8=;
+ b=hldf85TIfCtbbrTceg3S+HYNYNV6sP/CW+DFpSA+dX8AJttyU3moFTGkXWuwnUZwEq0gZ8OaQxSmgffCrmtNTb6vE0pFGkZx1jmHVfWUeyv9lRcZ4ILfnws6XLmoiqyiCt9BO8ZJ2Xsk7eIO2Zxy0t+q28G7riTns4mEUaySc8hw+hNpX+nXMHM3hVh+UFaN7vBv91xLmT8MmJS0OPW9+pk8McCJ+V5pKPCz0ClNKOQQ+e6k629dDkk0kttXwX3ZmiFMYcBTKBD+Xi9ktAgx2HWdzTJZe7LW1/3RN/NNtyLLY2AbzRjKKJ9IHd4719jorG3a7GMbkDMdeaA/fgFGGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7tVBfLY9awWvParslg+FQ+6B/EyqL0yQajWNCkd80W8=;
+ b=ARb1QXhC7kae70uFA//LeHMy4a6HaEV+Cj8Q1q3cNtZ5o3lNzY1bpsPcGAfijDD012JgCbqFOE4vpu8Y82zdq3338OClXhEC4BpbVb75tfSmNOk7Xbhx/Ydfi03GDu1XumTxt3wYvhXIEuWbXeq1Xq4hpgVKBqoMAgJBzoy6uUg=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <1afb1c23-a0a4-4d71-9a69-fdedd01e1e0c@amd.com>
+Date: Wed, 18 Sep 2024 10:11:12 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <27d717f7-3073-4139-bef0-05d1a39f1e6c@epam.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] x86/msi: fix locking for SR-IOV devices
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Teddy Astie
+	<teddy.astie@vates.tech>, <xen-devel@lists.xenproject.org>
+References: <20240827035929.118003-1-stewart.hildebrand@amd.com>
+ <0742fd21-d606-440a-a7fa-dd3bfccfa1c4@suse.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <0742fd21-d606-440a-a7fa-dd3bfccfa1c4@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|MW4PR12MB5641:EE_
+X-MS-Office365-Filtering-Correlation-Id: a767cc88-6dec-4dea-fd42-08dcd7ebc1cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?YnMwTUVub2M3cFNGVUhta0lvSm9pU1V2L1lmWnZ5Z0xmcXhDSzU5bVB6YTJV?=
+ =?utf-8?B?QzB2bDQxV1JLYnREOWcxVVVyVkpXRmJwT29GRnFMQmoyYnZFeGlIQ1dFaTRx?=
+ =?utf-8?B?NHhXNnptMGp3OEV6aloxV3FrNUEzeGowNW5hei8wUm8rOGRLS0FUcEhmR2ZC?=
+ =?utf-8?B?Vy80bkZ6cCtjZjZYZUVHK0gxall5NXM3RDNrVnpzR2N3QUJqa1RPZDhvTEsv?=
+ =?utf-8?B?TFhGSHg1bkMvQnlvSG91V3o1Tm1mZTN5K2VWcXU1emJkU1dFdkJ6c3ZmV1dw?=
+ =?utf-8?B?OXc1SnY5aDdDeG52eEZKRXRnWHdoUXJONmFkNklES3ZHY3ZBeGc2QnVDWTNQ?=
+ =?utf-8?B?UFdaMktiYlZEMjZ2TVN2L3loMFFGV2Nlc1FpTXc3WGsvdVRVSXFiVVRnR2hY?=
+ =?utf-8?B?Q2JYTnlJMUJ6bng2NzVLZ1ZPYlo1V1Rid2YyeWErQlBPNDdLTDRVNlBKcmZt?=
+ =?utf-8?B?OEgwZzRSZFptUjRyYy9kOWVUVDkva0RBWmMrbGUxRk9oZU11VVBzbEVsL2Yx?=
+ =?utf-8?B?UDZsZUVjWElDQ002TlVSWnY3U2FvcVVLT2NoYXArTksrdjBtK1RiZTh6MnRx?=
+ =?utf-8?B?bk44SnpKUE1tWnVkL0xGYStjN25YVE9Fczg0OUV6d3lKMUxlZGJGc0lLRkFN?=
+ =?utf-8?B?amJzNWU3dEpPMXR5Y3BFbkg4RE1jZS9LTlU0WkZKa0J2dkd5YktpT1ZCWVVC?=
+ =?utf-8?B?cmJJamVmWGtZQ2ZVRVc4K0RlK0U4RkVpeTFEbjZSdzlZYVEvNFRPOW5uQ3Ru?=
+ =?utf-8?B?cXFrUnAwcVFuWndRVFJmRytQUk1ZL1ZZak94Mi9BZWFOM1h0dUowM1VaRmxq?=
+ =?utf-8?B?RmtLSkUwYVYwalhURFJINEU3dkE5U3g3RDRIdHhQc1hMWk1BSmtNS081N09H?=
+ =?utf-8?B?OUhnQ3g5anZ4akVPYTY2NEc1Z1JFYndqRnNESlBEeG1aeUhOWkp1Q0FuRVVM?=
+ =?utf-8?B?eDE4SncrdVhkRkVkKzFZTUthdkxOVjI0MEwrSnFkdU9vT250Y3JOMHNoNXNw?=
+ =?utf-8?B?YXRiZ2RjeHhhZzlsUGttQ2VLUkZJVnRoOTRQbUpidG9udFoyZDlxQ3BmTElM?=
+ =?utf-8?B?ODNyck9qa2hHQ1ZMSmZacjZDV3BlYmRPTG1yWkxTak5aSGludEhvMDJxazBi?=
+ =?utf-8?B?SEF1bVhIZDBvbkY1WVhkdnJ0UHYwZC9QQk41NXdOa3ZPNE5GZkJkWUlZVkFY?=
+ =?utf-8?B?QndwOG43bE9vVkVXYTZFYlBZa0lHNjA2WU1LaWQ1bkkyejBLRGV2VUg2ZjdZ?=
+ =?utf-8?B?MHdmakhvKzNNMzNKN1JCeURQUS8xSytZYnJFSU1TemFwWlg2clJHUDNaMkw4?=
+ =?utf-8?B?MURieUtNL0JWVWQ1MkMwK20vSkd4OVZQN1hTU1BCdUVvQmF6bTFwVVRBbExU?=
+ =?utf-8?B?UFE5cVprcGFjYWhBZDkzd0xxV1VRUHVkZCtvZmNmdGZQMkJ6ekZjUlB1YTFl?=
+ =?utf-8?B?NEJzMkVXUWZXQmRTQldQdTBZVWY5NW81RFY1RmR4TU9LbWdJVFdPZUQ0dnZq?=
+ =?utf-8?B?WkluOVJRQTZPeTV2UlUzeG55ZWlKNGFTZ2ZnSklHZUtMVFJVSE1tM1duSndZ?=
+ =?utf-8?B?WkJSbS9zWEp6UkRrN2JLc2UxdWc2SkhYak1PUDhERmJJTmwzNUV5QXFDYU1K?=
+ =?utf-8?B?bWJRL3IzbGFsWEIxZS96M1AyYjk5MXhKdWpwWVJrNjlUaFdSc1NvTTVyVnIx?=
+ =?utf-8?B?TjBIblRLVEoyT1Rnb1lFNWs5VjFjRlhjUnc0V3ptK2FnYW1VclRHRDAyallG?=
+ =?utf-8?B?YWJoaFRiem8zc1JwRVFpTUdGblJ2Ym5jNFM0UFhnWjNWRnlQZnlKOCtEdVUy?=
+ =?utf-8?B?SW1yd2M0UTVnUG1Dc0RnUHh5QUg1SklaWWJDRm9oMEI0Q3FNbk1sbjdzazNN?=
+ =?utf-8?B?RFoxcUhyOWN5Qk1VRjNLbVRGR3MrSUg5YXM4VkV1aEVzVnRLeURMM3d0ZEps?=
+ =?utf-8?Q?XdQEbJHR/GZLY7Riwa/sl+Y808g1xUJO?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2024 14:11:14.7125
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a767cc88-6dec-4dea-fd42-08dcd7ebc1cf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5641
 
-On Wed, Sep 18, 2024 at 04:35:21PM +0300, Sergiy Kibrik wrote:
-> 18.09.24 12:41, Roger Pau Monné:
-> > On Wed, Sep 18, 2024 at 12:29:39PM +0300, Sergiy Kibrik wrote:
-> > > 16.09.24 22:57, Stefano Stabellini:
-> > > > On Mon, 16 Sep 2024, Roger Pau Monné wrote:
-> > > > > On Mon, Sep 16, 2024 at 09:37:57AM +0300, Sergiy Kibrik wrote:
-> > > > > > Introduce config option X86_PMTIMER so that pmtimer driver can be disabled on
-> > > > > > systems that don't need it.
-> > > > > 
-> > > > > Same comment as in the VGA patch, you need to handle the user passing
-> > > > > X86_EMU_PM.  It's not OK to just ignore the flag if the hypervisor is
-> > > > > built without ACPI PM timer support.
-> > > > 
-> > > > I also think that the flag should not be ignored. I think that Xen
-> > > > should return error if a user is passing a domain feature not supported
-> > > > by a particular version of the Xen build. I don't think that libxl needs
-> > > > to be changed as part of this patch necessarily.
-> > > 
-> > > It looks like toolstack always leaves X86_EMU_PM bit enabled, so that part
-> > > may also require changes.
-> > 
-> > I think you will be unable to create HVM guests, but that's kind of
-> > expected if ACPI PM emulation is removed from the hypervisor (it won't
-> > be an HVM guest anymore if it doesn't have ACPI PM).
-> > 
-> > PVH guest don't set X86_EMU_PM so you should be able to create those
-> > fine.
-> > 
+On 8/28/24 06:36, Jan Beulich wrote:
+> On 27.08.2024 05:59, Stewart Hildebrand wrote:
+>> +                list_for_each_entry_safe(vf_pdev, tmp, &pdev->physfn.vf_list,
+>> +                                         virtfn.entry)
+>> +                    ret = pci_remove_device(vf_pdev->sbdf.seg,
+>> +                                            vf_pdev->sbdf.bus,
+>> +                                            vf_pdev->sbdf.devfn) ?: ret;
 > 
-> would the check like this be enough?:
-> 
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -758,6 +758,9 @@ static bool emulation_flags_ok(const struct domain *d,
-> uint32_t emflags)
->               (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
->               emflags != X86_EMU_LAPIC )
->              return false;
-> +        if ( !is_hardware_domain(d) &&
+> And if this fails, the VF will still remain orphaned. I think in the
+> model I had suggested no such risk would exist.
 
-I don't think you need to gate this to the hardware domain?  IOW: if
-it's build time disabled, it's not available for the hardware domain
-either.
+Are you referring to your suggestion "to refuse the request (in
+pci_remove_device()) when the list isn't empty" ? [1] Or something else?
 
-Seeing as there are several options you want to disable at build time, it
-might be best to keep a mask, something like:
-
-const uint32_t disabled_mask =
-    (!IS_ENABLED(CONFIG_X86_PMTIMER) ? X86_EMU_PM  : 0) |
-    (!IS_ENABLED(CONFIG_X86_STDVGA)  ? X86_EMU_VGA : 0);
-
-And then:
-
-if ( emflags & disabled_mask )
-    return false;
-
-You also want to adjust the has_foo() macros to short-circuit them:
-
-#define has_vpm(d)         (IS_ENABLED(CONFIG_X86_PMTIMER) &&
-                            !!((d)->arch.emulation_flags & X86_EMU_PM))
-
-Also all those Kconfig options likely want to be inside of a separate
-Kconfig section, rather than mixed with the rest of generic x86 arch
-options.  It would nice to have all the options grouped inside of a
-"Emulated device support" sub section or similar.
-
-Thanks, Roger.
+[1] https://lore.kernel.org/xen-devel/74f88a45-a632-4ca6-9cee-95f52370b397@suse.com/
 
