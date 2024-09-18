@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4769697BB02
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Sep 2024 12:40:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.800259.1210195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E56A97BCA1
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Sep 2024 14:59:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.800279.1210210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqs6E-0006xj-F2; Wed, 18 Sep 2024 10:39:54 +0000
+	id 1squFn-000563-0d; Wed, 18 Sep 2024 12:57:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 800259.1210195; Wed, 18 Sep 2024 10:39:54 +0000
+Received: by outflank-mailman (output) from mailman id 800279.1210210; Wed, 18 Sep 2024 12:57:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sqs6E-0006v9-B6; Wed, 18 Sep 2024 10:39:54 +0000
-Received: by outflank-mailman (input) for mailman id 800259;
- Wed, 18 Sep 2024 10:39:52 +0000
+	id 1squFm-00054X-U6; Wed, 18 Sep 2024 12:57:54 +0000
+Received: by outflank-mailman (input) for mailman id 800279;
+ Wed, 18 Sep 2024 12:57:53 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sqs6C-0006uz-Bn; Wed, 18 Sep 2024 10:39:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1squFl-00054R-RR
+ for xen-devel@lists.xenproject.org; Wed, 18 Sep 2024 12:57:53 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sqs6C-0000eg-An; Wed, 18 Sep 2024 10:39:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sqs6C-0005l5-0J; Wed, 18 Sep 2024 10:39:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sqs6B-0006A1-WD; Wed, 18 Sep 2024 10:39:51 +0000
+ (envelope-from <julien@xen.org>)
+ id 1squFl-0003OQ-EL; Wed, 18 Sep 2024 12:57:53 +0000
+Received: from [83.68.141.146] (helo=[10.134.0.208])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1squFl-0004RT-73; Wed, 18 Sep 2024 12:57:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +39,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=8LpxlVmhClaTmcad7wlaXMOcSJ3JxGg9zgEf/YIuphI=; b=UnBJmQUTHBbqHfFI7aqiwP3asm
-	+ahSIcYfORZHugsm/df2Ez7VdNE/z3cCmai+vTiVGo7we7h+qSfJbNZZRfgh6wyfM9kWksv1q+ZOC
-	rXZAt7U7yFP4p5Y7oawBLS6fpRenFLZxlMDSeGKoo7LIKjailr9IDbJgq0yXoBxORowA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187744-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=fS/6u+hGPoep8RUHAqof7I8YQuFu0BMV9dOA2nfIkys=; b=YxYETWBWW4bvTmvJB2YxASd0zA
+	uheamxVmE2yn2KOZN+ME6AOCwMVJ5V2bXqGxfJiOx8FaNE1tD40WqRS+/C9bP6HgQwPMk2Ocgeyjf
+	blBH7vuyH+qaLrEm31jCa/3fbs3WSvGs7sbdmhrrmcm3riXYAMSX+4rX9uRCDdFwydoE=;
+Message-ID: <cea6ad56-46da-44b2-87e7-2dfacfd1a8fe@xen.org>
+Date: Wed, 18 Sep 2024 14:57:50 +0200
 MIME-Version: 1.0
-Subject: [ovmf test] 187744: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=5901f19a877c87de73f6b28265ad5db60b2239e1
-X-Osstest-Versions-That:
-    ovmf=21e8a85653e104385bfb8218fe22a72053bd3d2d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 18 Sep 2024 10:39:51 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm/smmu: Complete SMR masking support
+Content-Language: en-GB
+To: Rahul Singh <Rahul.Singh@arm.com>, Michal Orzel <michal.orzel@amd.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240904124349.2058947-1-michal.orzel@amd.com>
+ <ECEB5067-7661-457C-B13B-E8E2643FDB1E@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <ECEB5067-7661-457C-B13B-E8E2643FDB1E@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 187744 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187744/
-
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 5901f19a877c87de73f6b28265ad5db60b2239e1
-baseline version:
- ovmf                 21e8a85653e104385bfb8218fe22a72053bd3d2d
-
-Last test of basis   187740  2024-09-18 04:13:29 Z    0 days
-Testing same since   187744  2024-09-18 08:13:37 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <AbdulLateef.Attar@amd.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Hi,
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+On 12/09/2024 17:59, Rahul Singh wrote:
+>> On 4 Sep 2024, at 1:43 PM, Michal Orzel <michal.orzel@amd.com> wrote:
+>>
+>> SMR masking support allows deriving a mask either using a 2-cell iommu
+>> specifier (per master) or stream-match-mask SMMU dt property (global
+>> config). Even though the mask is stored in the fwid when adding a
+>> device (in arm_smmu_dt_xlate_generic()), we still set it to 0 when
+>> allocating SMEs (in arm_smmu_master_alloc_smes()). So at the end, we
+>> always ignore the mask when programming SMRn registers. This leads to
+>> SMMU failures. Fix it by completing the support.
+>>
+>> A bit of history:
+>> Linux support for SMR allocation was mainly done with:
+>> 588888a7399d ("iommu/arm-smmu: Intelligent SMR allocation")
+>> 021bb8420d44 ("iommu/arm-smmu: Wire up generic configuration support")
+>>
+>> Taking the mask into account in arm_smmu_master_alloc_smes() was added
+>> as part of the second commit, although quite hidden in the thicket of
+>> other changes. We backported only the first patch with: 0435784cc75d
+>> ("xen/arm: smmuv1: Intelligent SMR allocation") but the changes to take
+>> the mask into account were missed.
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> 
+> Reviewed-by: Rahul Singh <rahul.singh@arm.com>
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Committed.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Cheers,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+-- 
+Julien Grall
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   21e8a85653..5901f19a87  5901f19a877c87de73f6b28265ad5db60b2239e1 -> xen-tested-master
 
