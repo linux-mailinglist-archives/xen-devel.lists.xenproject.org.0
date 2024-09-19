@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E743897CE24
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Sep 2024 21:32:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.800895.1210888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A74697CE25
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Sep 2024 21:34:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.800899.1210899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srMrc-0001lC-Ni; Thu, 19 Sep 2024 19:30:52 +0000
+	id 1srMuU-0002Jd-5c; Thu, 19 Sep 2024 19:33:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 800895.1210888; Thu, 19 Sep 2024 19:30:52 +0000
+Received: by outflank-mailman (output) from mailman id 800899.1210899; Thu, 19 Sep 2024 19:33:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srMrc-0001j1-Kr; Thu, 19 Sep 2024 19:30:52 +0000
-Received: by outflank-mailman (input) for mailman id 800895;
- Thu, 19 Sep 2024 19:30:50 +0000
+	id 1srMuU-0002H0-2H; Thu, 19 Sep 2024 19:33:50 +0000
+Received: by outflank-mailman (input) for mailman id 800899;
+ Thu, 19 Sep 2024 19:33:48 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1srMra-0001iv-SU
- for xen-devel@lists.xenproject.org; Thu, 19 Sep 2024 19:30:50 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1srMuS-0002Gq-Rn; Thu, 19 Sep 2024 19:33:48 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1srMrX-0005Ut-Vd; Thu, 19 Sep 2024 19:30:47 +0000
-Received: from [62.218.181.144] (helo=[172.20.2.228])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1srMrX-0002UO-Ov; Thu, 19 Sep 2024 19:30:47 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1srMuS-0005ZB-Qy; Thu, 19 Sep 2024 19:33:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1srMuS-0004qB-BQ; Thu, 19 Sep 2024 19:33:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1srMuS-0002q0-B1; Thu, 19 Sep 2024 19:33:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,72 +42,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=gF0VgQFzO8veiufk0Mf4CetMu8wactK583fUPWGGEEE=; b=07n3mKmnMNtLuvtneNVIVU6VJ+
-	HN8Ll3T9eyKoZptcXyDLXU7NKGtbsYv2+OmLcE810EOyEAJ4kG7qVtpxZ+8HNg39R2FxRzHVNKAYa
-	anrHzOsM3oOVTCIS3RgPqvf5aDBzF9PF2XdhqyZqxPs44XXhAiKU2q4NuLo2k+tkxNvw=;
-Message-ID: <6426e9c3-2971-4497-8703-c2653b1a164c@xen.org>
-Date: Thu, 19 Sep 2024 21:30:46 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=udbvx5i+eVcaDuFU1lILOFUviyPtfdHft2DROTTkSns=; b=Y+X+XkvrJwTi5+pCc9uksOssBt
+	xSFf/6j2mBxI0oDYLKFzsAwS0aOSwbE0g70A0gj8GL6sL9vy0+uY2gFEds+vNqNGPOYAVcaTe75gB
+	JNGWcJsalnu7PwAaUGBEHxw2iw5BfXG95svrliO4aaDOmCrEAv7hwhPF6buMTLu4n00c=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187753-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Xen 4.20 release schedule proposal
-Content-Language: en-GB
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Community Manager <community.manager@xenproject.org>,
- "committers @ xenproject . org" <committers@xenproject.org>
-References: <CAMacjJya_30yczOSBR=3f7_wGVgaSw_fWh7jhPqn3EQ3h4i2pQ@mail.gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <CAMacjJya_30yczOSBR=3f7_wGVgaSw_fWh7jhPqn3EQ3h4i2pQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 187753: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt-vhd:xen-boot:fail:heisenbug
+    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=d2dd209cdde937c69f691b8ca9f34ef1382172fa
+X-Osstest-Versions-That:
+    libvirt=200f60b2e12e68d618f6d59f0173bb507b678838
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 19 Sep 2024 19:33:48 +0000
+
+flight 187753 libvirt real [real]
+flight 187765 libvirt real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187753/
+http://logs.test-lab.xenproject.org/osstest/logs/187765/
+
+Failures :-/ but no regressions.
+
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-libvirt-vhd  8 xen-boot            fail pass in 187765-retest
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-vhd 14 migrate-support-check fail in 187765 never pass
+ test-armhf-armhf-libvirt-vhd 15 saverestore-support-check fail in 187765 never pass
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187741
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ libvirt              d2dd209cdde937c69f691b8ca9f34ef1382172fa
+baseline version:
+ libvirt              200f60b2e12e68d618f6d59f0173bb507b678838
+
+Last test of basis   187741  2024-09-18 04:18:50 Z    1 days
+Testing same since   187753  2024-09-19 04:18:46 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andi Chandler <andi@gowling.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-libvirt-vhd                                 fail    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 19/09/2024 18:10, Oleksii Kurochko wrote:
-> Hello everyone,
-> 
-> Following the 8-month release cycle, also taking into account that 4.19
-> has been released 27.07.24 and the next "good" month for release should
-> be November according to [1] but it seems to me that it could be too short,
-> below is the proposed release schedule that I come up with for Xen 4.20.
-> 
-> Please don't hesitate to provide your feedback.
-> 
-> If there are no objections, I plan to update the Wiki page
-> *Xen_Project_X.YY_Release_Notes* to make it easier to find our final
-> schedule ( especially for the people who aren't following xen-devel mailing
-> list ). As an additional benefit, it will also be accessible via
-> *SUPPORT.md* (in the wiki at
-> https://xenbits.xen.org/docs/unstable-staging/support-matrix.html).
-> 
-> Thanks!
-> 
-> ** Proposed option: Wed March 12, 2024 **
-> (+8 months from Xen 4.19 release)
-> 
-> - Last posting date          Fri Dec 20, 2023 (+13 weeks from now)
-> 
-> Patches adding new features are expected to be posted to the mailing
-> list by this date, although perhaps not in their final version.
- > > - Feature freeze             Fri Jan 10, 2024 (+3 weeks from Last 
-posting
-> date)
-> 
-> Patches adding new features should be committed by this date.
-> Straightforward bugfixes may continue to be accepted by maintainers.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-I expect a few maintainer to be off around Christmas for a couple of 
-weeks. So that will not leave much time between the last posting date 
-and feature freeze. If you don't want to push too much the release, then 
-I think it would be better if the feature freeze is just before (e.g. 
-20th December) so last posting date early December.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Cheers,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--- 
-Julien Grall
 
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   200f60b2e1..d2dd209cdd  d2dd209cdde937c69f691b8ca9f34ef1382172fa -> xen-tested-master
 
