@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A92D597C426
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Sep 2024 08:07:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.800511.1210439 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B00C97C473
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Sep 2024 08:49:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.800522.1210448 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srAJR-0001pH-VV; Thu, 19 Sep 2024 06:06:45 +0000
+	id 1srAxi-0006Xl-Qo; Thu, 19 Sep 2024 06:48:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 800511.1210439; Thu, 19 Sep 2024 06:06:45 +0000
+Received: by outflank-mailman (output) from mailman id 800522.1210448; Thu, 19 Sep 2024 06:48:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srAJR-0001mD-Sl; Thu, 19 Sep 2024 06:06:45 +0000
-Received: by outflank-mailman (input) for mailman id 800511;
- Thu, 19 Sep 2024 06:06:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l340=QR=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1srAJQ-0001m7-HU
- for xen-devel@lists.xenproject.org; Thu, 19 Sep 2024 06:06:44 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [2a07:de40:b251:101:10:150:64:1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 57cbce78-764d-11ef-a0b8-8be0dac302b0;
- Thu, 19 Sep 2024 08:06:43 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7B736337AD;
- Thu, 19 Sep 2024 06:06:42 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4E03D13A5F;
- Thu, 19 Sep 2024 06:06:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 8fAFEXK/62Z+NgAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 19 Sep 2024 06:06:42 +0000
+	id 1srAxi-0006Vl-O5; Thu, 19 Sep 2024 06:48:22 +0000
+Received: by outflank-mailman (input) for mailman id 800522;
+ Thu, 19 Sep 2024 06:48:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iWJv=QR=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
+ id 1srAxh-0006Vf-Ns
+ for xen-devel@lists.xenproject.org; Thu, 19 Sep 2024 06:48:21 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [2604:1380:45d1:ec00::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2794deb5-7653-11ef-99a2-01e77a169b0f;
+ Thu, 19 Sep 2024 08:48:19 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 687EFA43AFC;
+ Thu, 19 Sep 2024 06:48:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C55C4CEC5;
+ Thu, 19 Sep 2024 06:48:18 +0000 (UTC)
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 33F653809A80; Thu, 19 Sep 2024 06:48:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,114 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57cbce78-764d-11ef-a0b8-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1726726002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0q8lpjbBdWl/Bwvse0JH1SoZIHUQkGzm3g/hvCMqczs=;
-	b=S0sNRzj4z8lINVoaBdY2xH5OqnsEpShvCc35cy3NYCT9eyVRe6zvjsnPjpUR8qxdFcayPK
-	gEKSNU58zdKgkhKJP9FCWIUnjeafDEF9SN0Oy8W/oirqOLoL0KkaNo6SP/uyrzidjkZ0e6
-	7Kf0tH/WPJ8KclcKAgp0CmcyBBGdXqc=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1726726002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=0q8lpjbBdWl/Bwvse0JH1SoZIHUQkGzm3g/hvCMqczs=;
-	b=S0sNRzj4z8lINVoaBdY2xH5OqnsEpShvCc35cy3NYCT9eyVRe6zvjsnPjpUR8qxdFcayPK
-	gEKSNU58zdKgkhKJP9FCWIUnjeafDEF9SN0Oy8W/oirqOLoL0KkaNo6SP/uyrzidjkZ0e6
-	7Kf0tH/WPJ8KclcKAgp0CmcyBBGdXqc=
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	sstabellini@kernel.org
-Subject: [GIT PULL] xen: branch for v6.12-rc1
-Date: Thu, 19 Sep 2024 08:06:41 +0200
-Message-ID: <20240919060641.14017-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Level: 
+X-Inumbo-ID: 2794deb5-7653-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1726728498;
+	bh=qG9KokqnsOoSkRgt3TLzw35lk0ryg2+BH319dWedFcw=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
+	b=lKdaTHyyqw+3n+54/mJZv9Lxz05ACnbG2K08jcfBZ5QjW7p6GKfLnkcObXKjFbTZw
+	 sbwd5cH4wuVZAzhBdNdY+Vc0Taws13lQtGw31xDMEfH+zLeH6u0fhjZRq+pL4vqAvM
+	 WyEdWPTQWDhaHCZ9X+kLUJ3ZdXhT0qmnm1AGb8tLUZxBqoj9YaGyPdeyWVbcFQLYJZ
+	 LtCIgAD4ePqVZoA1kKPrnckLmi5/403fq6nXqpD8PcmcDWhh+3LiAAMNg/BV1O8dZs
+	 e+w660erXbvC4roRWP9GIFs2ov6L/MWobJgAMfvVHMfB3mJ4tTH5jXJsEDshsZyfus
+	 wsAPfDp3bjXuQ==
+Subject: Re: [GIT PULL] xen: branch for v6.12-rc1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20240919060641.14017-1-jgross@suse.com>
+References: <20240919060641.14017-1-jgross@suse.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20240919060641.14017-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.12-rc1-tag
+X-PR-Tracked-Commit-Id: c3dea3d54f4d399f8044547f0f1abdccbdfb0fee
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 19a519ca87b59a0031e1295674b1af0d6da83f70
+Message-Id: <172672849966.1360580.3806860916913196562.pr-tracker-bot@kernel.org>
+Date: Thu, 19 Sep 2024 06:48:19 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
 
-Linus,
+The pull request you sent on Thu, 19 Sep 2024 08:06:41 +0200:
 
-Please git pull the following tag:
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.12-rc1-tag
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.12-rc1-tag
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/19a519ca87b59a0031e1295674b1af0d6da83f70
 
-xen: branch for v6.12-rc1
+Thank you!
 
-It contains the following patches:
-
-- A 7 patch series fixing a boot problem as a Xen dom0 on some AMD systems
-- A 3 patch series fixing Xen PVH boot problems with KASAN enabled
-- A fix for a build warning
-- 2 fixes in swiotlb-xen
-
-Thanks.
-
-Juergen
-
- arch/x86/include/asm/acpi.h        |   8 ++
- arch/x86/include/asm/cpuid.h       |   7 +-
- arch/x86/kernel/acpi/boot.c        |  11 ++
- arch/x86/kernel/jailhouse.c        |   1 +
- arch/x86/kernel/mmconf-fam10h_64.c |   1 +
- arch/x86/kernel/smpboot.c          |   1 +
- arch/x86/kernel/x86_init.c         |   1 +
- arch/x86/platform/pvh/Makefile     |   1 +
- arch/x86/platform/pvh/enlighten.c  |   6 +-
- arch/x86/xen/mmu_pv.c              |   5 +-
- arch/x86/xen/p2m.c                 |  98 ++++++++++++++++++
- arch/x86/xen/setup.c               | 202 ++++++++++++++++++++++++++++---------
- arch/x86/xen/xen-ops.h             |   6 +-
- drivers/xen/pci.c                  |  14 +--
- drivers/xen/swiotlb-xen.c          |  10 +-
- drivers/xen/xenbus/xenbus_xs.c     |   6 +-
- 16 files changed, 312 insertions(+), 66 deletions(-)
-
-Alexey Dobriyan (3):
-      xen, pvh: fix unbootable VMs (PVH + KASAN - AMD_MEM_ENCRYPT)
-      x86/cpu: fix unbootable VMs by inlining memcmp() in hypervisor_cpuid_base()
-      xen, pvh: fix unbootable VMs by inlining memset() in xen_prepare_pvh()
-
-Gustavo A. R. Silva (1):
-      xen/pci: Avoid -Wflex-array-member-not-at-end warning
-
-Juergen Gross (9):
-      xen: use correct end address of kernel for conflict checking
-      xen: introduce generic helper checking for memory map conflicts
-      xen: move checks for e820 conflicts further up
-      xen: move max_pfn in xen_memory_setup() out of function scope
-      xen: add capability to remap non-RAM pages to different PFNs
-      xen: allow mapping ACPI data using a different physical address
-      xen: tolerate ACPI NVS memory overlapping with Xen allocated memory
-      xen/swiotlb: add alignment check for dma buffers
-      xen/swiotlb: fix allocated size
-
-Shen Lichuan (1):
-      xen/xenbus: Convert to use ERR_CAST()
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
