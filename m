@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2525B97C902
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Sep 2024 14:20:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.800670.1210658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E01797C8FE
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Sep 2024 14:20:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.800672.1210672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srG8W-0004sN-RD; Thu, 19 Sep 2024 12:19:52 +0000
+	id 1srG8X-00057k-Tk; Thu, 19 Sep 2024 12:19:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 800670.1210658; Thu, 19 Sep 2024 12:19:52 +0000
+Received: by outflank-mailman (output) from mailman id 800672.1210672; Thu, 19 Sep 2024 12:19:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srG8W-0004oe-NL; Thu, 19 Sep 2024 12:19:52 +0000
-Received: by outflank-mailman (input) for mailman id 800670;
- Thu, 19 Sep 2024 12:19:51 +0000
+	id 1srG8X-0004zZ-K7; Thu, 19 Sep 2024 12:19:53 +0000
+Received: by outflank-mailman (input) for mailman id 800672;
+ Thu, 19 Sep 2024 12:19:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lyjY=QR=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1srG8V-0003iL-25
- for xen-devel@lists.xenproject.org; Thu, 19 Sep 2024 12:19:51 +0000
+ id 1srG8W-0003iL-7A
+ for xen-devel@lists.xenproject.org; Thu, 19 Sep 2024 12:19:52 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 76d68b02-7681-11ef-99a2-01e77a169b0f;
- Thu, 19 Sep 2024 14:19:49 +0200 (CEST)
+ id 778474b0-7681-11ef-99a2-01e77a169b0f;
+ Thu, 19 Sep 2024 14:19:50 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F350913D5;
- Thu, 19 Sep 2024 05:20:17 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 21B671570;
+ Thu, 19 Sep 2024 05:20:19 -0700 (PDT)
 Received: from C3HXLD123V.emea.arm.com (usa-sjc-mx-foss1.foss.arm.com
  [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AD0A33F64C;
- Thu, 19 Sep 2024 05:19:47 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C7C123F86F;
+ Thu, 19 Sep 2024 05:19:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,345 +43,383 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76d68b02-7681-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 778474b0-7681-11ef-99a2-01e77a169b0f
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH 04/10] xen/arm: ffa: Fine granular call support
-Date: Thu, 19 Sep 2024 14:19:04 +0200
-Message-Id: <bb7e497fa2b03e0176b5013a05f342f3ea5ea296.1726676338.git.bertrand.marquis@arm.com>
+Subject: [PATCH 05/10] xen/arm: ffa: Rework partition info get
+Date: Thu, 19 Sep 2024 14:19:05 +0200
+Message-Id: <46037e19536f8d7ea45ce8c4e1c3f9f1726bcc3b.1726676338.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <cover.1726676338.git.bertrand.marquis@arm.com>
 References: <cover.1726676338.git.bertrand.marquis@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Create a bitmap to store which feature is supported or not by the
-firmware and use it to filter which calls done to the firmware.
+Rework the partition info get implementation to use the correct size of
+structure depending on the version of the protocol and simplifies the
+structure copy to use only memcpy and prevent recreating the structure
+each time.
+The goal here is to have an implementation that will be easier to
+maintain in the long term as the specification is only adding fields to
+structure with versions to simplify support of several protocol
+versions and as such an SPMC implementation in the future could use this
+and return a size higher than the one we expect.
+The patch is fixing the part_info_get function for this and the
+subscriber discovery on probe.
 
-With this enabled. allow FF-A support to be activated for guest even if
-the firmware does not support it.
-
-As a consequence, if the firmware is not there or not supported, we
-return an empty list of partitions to VMs requesting it through
-PARTINFO_GET ABI.
+No functional changes expected.
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
- xen/arch/arm/tee/ffa.c          | 31 ++++++++++++++++++++-----------
- xen/arch/arm/tee/ffa_notif.c    |  7 +++++++
- xen/arch/arm/tee/ffa_partinfo.c | 31 +++++++++++++++++++++++++++++--
- xen/arch/arm/tee/ffa_private.h  | 28 ++++++++++++++++++++++++++++
- xen/arch/arm/tee/ffa_rxtx.c     | 13 ++++++-------
- xen/arch/arm/tee/ffa_shm.c      | 12 ++++++++++++
- 6 files changed, 102 insertions(+), 20 deletions(-)
+ xen/arch/arm/tee/ffa.c          |  13 +--
+ xen/arch/arm/tee/ffa_partinfo.c | 185 ++++++++++++++++++++------------
+ xen/arch/arm/tee/ffa_private.h  |   4 +-
+ 3 files changed, 118 insertions(+), 84 deletions(-)
 
 diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 1f602f25d097..53960b146220 100644
+index 53960b146220..beaed63a85ae 100644
 --- a/xen/arch/arm/tee/ffa.c
 +++ b/xen/arch/arm/tee/ffa.c
-@@ -72,7 +72,10 @@
- #include "ffa_private.h"
- 
- /* Negotiated FF-A version to use with the SPMC, 0 if not there or supported */
--static uint32_t __ro_after_init ffa_fw_version;
-+uint32_t __ro_after_init ffa_fw_version;
-+
-+/* Features supported by the SPMC or secure world when present */
-+DECLARE_BITMAP(ffa_fw_feat_supported, FEAT_FUNC_BITMAP_SIZE);
- 
- /* List of ABI we use from the firmware */
- static const uint32_t ffa_fw_feat_needed[] = {
-@@ -174,6 +177,13 @@ static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
-     else
-         mask = GENMASK_ULL(31, 0);
- 
-+    if ( !ffa_fw_supports_fid(fid) )
-+    {
-+        resp.a0 = FFA_ERROR;
-+        resp.a2 = FFA_RET_NOT_SUPPORTED;
-+        goto out;
-+    }
-+
-     src_dst = get_user_reg(regs, 1);
-     if ( (src_dst >> 16) != ffa_get_vm_id(d) )
-     {
-@@ -387,8 +397,6 @@ static int ffa_domain_init(struct domain *d)
-     struct ffa_ctx *ctx;
-     int ret;
- 
--    if ( !ffa_fw_version )
--        return -ENODEV;
-      /*
-       * We can't use that last possible domain ID or ffa_get_vm_id() would
-       * cause an overflow.
-@@ -523,6 +531,9 @@ static bool ffa_probe(void)
-     printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
-            FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
- 
-+    INIT_LIST_HEAD(&ffa_teardown_head);
-+    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0);
-+
-     /*
-      * psci_init_smccc() updates this value with what's reported by EL-3
-      * or secure world.
-@@ -568,12 +579,12 @@ static bool ffa_probe(void)
- 
-     for ( int i = 0; i < ARRAY_SIZE(ffa_fw_feat_needed); i++ )
-     {
--        if ( !ffa_feature_supported(ffa_fw_feat_needed[i]) )
--        {
-+        if ( ffa_feature_supported(ffa_fw_feat_needed[i]) )
-+            set_bit(FEAT_FUNC_BITNUM(ffa_fw_feat_needed[i]),
-+                    ffa_fw_feat_supported);
-+        else
-             printk(XENLOG_INFO "ARM FF-A Firmware does not support 0x%08x\n",
--                   ffa_fw_feat_needed[i]);
--            goto err_no_fw;
--        }
-+                       ffa_fw_feat_needed[i]);
-     }
- 
-     if ( !ffa_rxtx_init() )
-@@ -586,8 +597,6 @@ static bool ffa_probe(void)
-         goto err_rxtx_destroy;
- 
-     ffa_notif_init();
--    INIT_LIST_HEAD(&ffa_teardown_head);
--    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0);
- 
-     return true;
- 
-@@ -597,7 +606,7 @@ err_no_fw:
-     ffa_fw_version = 0;
-     printk(XENLOG_INFO "ARM FF-A No firmware support\n");
- 
--    return false;
-+    return true;
- }
- 
- static const struct tee_mediator_ops ffa_ops =
-diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-index 541e61d2f606..4b3e46318f4b 100644
---- a/xen/arch/arm/tee/ffa_notif.c
-+++ b/xen/arch/arm/tee/ffa_notif.c
-@@ -377,6 +377,13 @@ void ffa_notif_init(void)
-     unsigned int irq;
-     int ret;
- 
-+    /* Only enable fw notification if all ABIs we need are supported */
-+    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
-+           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
-+           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
-+           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
-+        return;
-+
-     arm_smccc_1_2_smc(&arg, &resp);
-     if ( resp.a0 != FFA_SUCCESS_32 )
-         return;
-diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_partinfo.c
-index 93a03c6bc672..a42bd92ab8cf 100644
---- a/xen/arch/arm/tee/ffa_partinfo.c
-+++ b/xen/arch/arm/tee/ffa_partinfo.c
-@@ -77,7 +77,15 @@ int32_t ffa_handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
-      */
-     if ( w5 == FFA_PARTITION_INFO_GET_COUNT_FLAG &&
-          ctx->guest_vers == FFA_VERSION_1_1 )
--        return ffa_partition_info_get(w1, w2, w3, w4, w5, count, fpi_size);
-+    {
-+        if ( ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
-+            return ffa_partition_info_get(w1, w2, w3, w4, w5, count, fpi_size);
-+        else
-+        {
-+            *count = 0;
-+            return FFA_RET_OK;
-+        }
-+    }
-     if ( w5 )
-         return FFA_RET_INVALID_PARAMETERS;
- 
-@@ -87,6 +95,18 @@ int32_t ffa_handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
-     if ( !spin_trylock(&ctx->rx_lock) )
-         return FFA_RET_BUSY;
- 
-+    if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
-+    {
-+        if ( ctx->guest_vers == FFA_VERSION_1_0 )
-+            *fpi_size = sizeof(struct ffa_partition_info_1_0);
-+        else
-+            *fpi_size = sizeof(struct ffa_partition_info_1_1);
-+
-+        *count = 0;
-+        ret = FFA_RET_OK;
-+        goto out;
-+    }
-+
-     if ( !ctx->page_count || !ctx->rx_is_free )
-         goto out;
-     spin_lock(&ffa_rx_buffer_lock);
-@@ -250,6 +270,11 @@ bool ffa_partinfo_init(void)
-     uint32_t count;
+@@ -308,8 +308,6 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+     uint32_t fid = get_user_reg(regs, 0);
+     struct domain *d = current->domain;
+     struct ffa_ctx *ctx = d->arch.tee;
+-    uint32_t fpi_size;
+-    uint32_t count;
      int e;
  
-+    if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) ||
-+         !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) ||
-+         !ffa_rx || !ffa_tx )
-+        return false;
-+
-     e = ffa_partition_info_get(0, 0, 0, 0, 0, &count, &fpi_size);
-     if ( e )
-     {
-@@ -267,7 +292,6 @@ bool ffa_partinfo_init(void)
+     if ( !ctx )
+@@ -335,16 +333,7 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+         e = ffa_handle_rxtx_unmap();
+         break;
+     case FFA_PARTITION_INFO_GET:
+-        e = ffa_handle_partition_info_get(get_user_reg(regs, 1),
+-                                          get_user_reg(regs, 2),
+-                                          get_user_reg(regs, 3),
+-                                          get_user_reg(regs, 4),
+-                                          get_user_reg(regs, 5), &count,
+-                                          &fpi_size);
+-        if ( e )
+-            ffa_set_regs_error(regs, e);
+-        else
+-            ffa_set_regs_success(regs, count, fpi_size);
++        ffa_handle_partition_info_get(regs);
+         return true;
+     case FFA_RX_RELEASE:
+         e = ffa_handle_rx_release();
+diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_partinfo.c
+index a42bd92ab8cf..7b59fbdd3ffd 100644
+--- a/xen/arch/arm/tee/ffa_partinfo.c
++++ b/xen/arch/arm/tee/ffa_partinfo.c
+@@ -33,21 +33,24 @@ static uint16_t subscr_vm_created_count __read_mostly;
+ static uint16_t *subscr_vm_destroyed __read_mostly;
+ static uint16_t subscr_vm_destroyed_count __read_mostly;
  
- out:
-     ffa_rx_release();
--
+-static int32_t ffa_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
+-                                      uint32_t w4, uint32_t w5, uint32_t *count,
+-                                      uint32_t *fpi_size)
++static int32_t ffa_partition_info_get(uint32_t *uuid, uint32_t flags,
++                                      uint32_t *count, uint32_t *fpi_size)
+ {
+-    const struct arm_smccc_1_2_regs arg = {
++    struct arm_smccc_1_2_regs arg = {
+         .a0 = FFA_PARTITION_INFO_GET,
+-        .a1 = w1,
+-        .a2 = w2,
+-        .a3 = w3,
+-        .a4 = w4,
+-        .a5 = w5,
++        .a5 = flags,
+     };
+     struct arm_smccc_1_2_regs resp;
+     uint32_t ret;
+ 
++    if ( uuid )
++    {
++        arg.a1 = uuid[0];
++        arg.a2 = uuid[1];
++        arg.a3 = uuid[2];
++        arg.a4 = uuid[3];
++    }
++
+     arm_smccc_1_2_smc(&arg, &resp);
+ 
+     ret = ffa_get_ret_code(&resp);
+@@ -60,13 +63,31 @@ static int32_t ffa_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
      return ret;
  }
  
-@@ -313,6 +337,9 @@ int ffa_partinfo_domain_init(struct domain *d)
-     unsigned int n;
-     int32_t res;
- 
-+    if ( !ffa_fw_supports_fid(FFA_MSG_SEND_DIRECT_REQ_32) )
-+        return 0;
+-int32_t ffa_handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
+-                                      uint32_t w4, uint32_t w5, uint32_t *count,
+-                                      uint32_t *fpi_size)
++void ffa_handle_partition_info_get(struct cpu_user_regs *regs)
+ {
+-    int32_t ret = FFA_RET_DENIED;
++    int32_t ret;
+     struct domain *d = current->domain;
+     struct ffa_ctx *ctx = d->arch.tee;
++    uint32_t flags = get_user_reg(regs, 5);
++    uint32_t uuid[4] = {
++        get_user_reg(regs, 1),
++        get_user_reg(regs, 2),
++        get_user_reg(regs, 3),
++        get_user_reg(regs, 4),
++    };
++    uint32_t src_size, dst_size;
++    void *dst_buf;
++    uint32_t ffa_sp_count = 0;
 +
-     ctx->vm_destroy_bitmap = xzalloc_array(unsigned long, count);
-     if ( !ctx->vm_destroy_bitmap )
-         return -ENOMEM;
-diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
-index 7c6b06f686fc..d4dc9c8cd67b 100644
---- a/xen/arch/arm/tee/ffa_private.h
-+++ b/xen/arch/arm/tee/ffa_private.h
-@@ -14,6 +14,7 @@
- #include <xen/spinlock.h>
- #include <xen/sched.h>
- #include <xen/time.h>
-+#include <xen/bitmap.h>
- 
- /* Error codes */
- #define FFA_RET_OK                      0
-@@ -238,6 +239,23 @@
- #define FFA_NOTIFICATION_INFO_GET_32    0x84000083U
- #define FFA_NOTIFICATION_INFO_GET_64    0xC4000083U
- 
-+/**
-+ * Encoding of features supported or not by the fw in a bitmap:
-+ * - Function IDs are going from 0x60 to 0xFF
-+ * - A function can be supported in 32 and/or 64bit
-+ * The bitmap has one bit for each function in 32 and 64 bit.
-+ */
-+#define FFA_FUNC_MIN           FFA_ERROR
-+#define FFA_FUNC_MAX           FFA_NOTIFICATION_INFO_GET_64
-+#define FFA_FUNC_ID(id)        ((id) & ARM_SMCCC_FUNC_MASK)
-+#define FFA_FUNC_CONV(id)      (((id) >> ARM_SMCCC_CONV_SHIFT) & BIT(0,U))
-+
-+#define FEAT_FUNC_BITMAP_SIZE   (2 * (FFA_FUNC_ID(FFA_FUNC_MAX) - \
-+                                    FFA_FUNC_ID(FFA_FUNC_MIN) + 1))
-+#define FEAT_FUNC_BITNUM(id)    ((FFA_FUNC_ID(id) - \
-+                                    FFA_FUNC_ID(FFA_FUNC_MIN)) << 1 | \
-+                                    FFA_FUNC_CONV(id))
-+
- struct ffa_ctx_notif {
-     bool enabled;
- 
-@@ -286,6 +304,8 @@ extern void *ffa_rx;
- extern void *ffa_tx;
- extern spinlock_t ffa_rx_buffer_lock;
- extern spinlock_t ffa_tx_buffer_lock;
-+extern uint32_t __ro_after_init ffa_fw_version;
-+extern DECLARE_BITMAP(ffa_fw_feat_supported, FEAT_FUNC_BITMAP_SIZE);
- 
- bool ffa_shm_domain_destroy(struct domain *d);
- void ffa_handle_mem_share(struct cpu_user_regs *regs);
-@@ -398,4 +418,12 @@ static inline int32_t ffa_rx_release(void)
-     return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
- }
- 
-+static inline bool ffa_fw_supports_fid(uint32_t fid)
-+{
-+    if ( ffa_fw_version == 0 )
-+        return false;
++    /*
++     * If the guest is v1.0, he does not get back the entry size so we must
++     * use the v1.0 structure size in the destination buffer.
++     * Otherwise use the size of the highest version we support, here 1.1.
++     */
++    if ( ctx->guest_vers == FFA_VERSION_1_0 )
++        dst_size = sizeof(struct ffa_partition_info_1_0);
 +    else
-+        return test_bit(FEAT_FUNC_BITNUM(fid), ffa_fw_feat_supported);
-+}
-+
- #endif /*__FFA_PRIVATE_H__*/
-diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
-index 661764052e67..cb54c76911fd 100644
---- a/xen/arch/arm/tee/ffa_rxtx.c
-+++ b/xen/arch/arm/tee/ffa_rxtx.c
-@@ -193,24 +193,23 @@ bool ffa_rxtx_init(void)
- {
-     int e;
++        dst_size = sizeof(struct ffa_partition_info_1_1);
  
-+    /* Firmware not there or not supporting */
-+    if ( !ffa_fw_supports_fid(FFA_RXTX_MAP_64) )
-+        return false;
-+
-     ffa_rx = alloc_xenheap_pages(get_order_from_pages(FFA_RXTX_PAGE_COUNT), 0);
-     if ( !ffa_rx )
-         return false;
- 
-     ffa_tx = alloc_xenheap_pages(get_order_from_pages(FFA_RXTX_PAGE_COUNT), 0);
-     if ( !ffa_tx )
--        goto err;
-+        return false;
- 
-     e = ffa_rxtx_map(__pa(ffa_tx), __pa(ffa_rx), FFA_RXTX_PAGE_COUNT);
-     if ( e )
+     /*
+      * FF-A v1.0 has w5 MBZ while v1.1 allows
+@@ -75,90 +96,105 @@ int32_t ffa_handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
+      * FFA_PARTITION_INFO_GET_COUNT is only using registers and not the
+      * rxtx buffer so do the partition_info_get directly.
+      */
+-    if ( w5 == FFA_PARTITION_INFO_GET_COUNT_FLAG &&
++    if ( flags == FFA_PARTITION_INFO_GET_COUNT_FLAG &&
+          ctx->guest_vers == FFA_VERSION_1_1 )
      {
-         printk(XENLOG_ERR "ffa: Failed to map rxtx: error %d\n", e);
--        goto err;
-+        return false;
-     }
-     return true;
--
--err:
--    ffa_rxtx_destroy();
--
--    return false;
- }
-diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
-index 370d83ec5cf8..efa5b67db8e1 100644
---- a/xen/arch/arm/tee/ffa_shm.c
-+++ b/xen/arch/arm/tee/ffa_shm.c
-@@ -149,6 +149,9 @@ static int32_t ffa_mem_share(uint32_t tot_len, uint32_t frag_len,
- static int32_t ffa_mem_reclaim(uint32_t handle_lo, uint32_t handle_hi,
-                                uint32_t flags)
- {
-+    if ( !ffa_fw_supports_fid(FFA_MEM_RECLAIM) )
-+        return FFA_RET_NOT_SUPPORTED;
-+
-     return ffa_simple_call(FFA_MEM_RECLAIM, handle_lo, handle_hi, flags, 0);
- }
+         if ( ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
+-            return ffa_partition_info_get(w1, w2, w3, w4, w5, count, fpi_size);
++            ret = ffa_partition_info_get(uuid, flags, &ffa_sp_count,
++                                        &src_size);
+         else
+-        {
+-            *count = 0;
+-            return FFA_RET_OK;
+-        }
+-    }
+-    if ( w5 )
+-        return FFA_RET_INVALID_PARAMETERS;
++            ret = FFA_RET_OK;
  
-@@ -467,6 +470,12 @@ void ffa_handle_mem_share(struct cpu_user_regs *regs)
-     uint32_t range_count;
-     uint32_t region_offs;
+-    if ( !ffa_rx )
+-        return FFA_RET_DENIED;
++        goto out;
++    }
  
-+    if ( !ffa_fw_supports_fid(FFA_MEM_SHARE_64) )
+-    if ( !spin_trylock(&ctx->rx_lock) )
+-        return FFA_RET_BUSY;
++    if ( flags )
 +    {
-+        ret = FFA_RET_NOT_SUPPORTED;
-+        goto out_set_ret;
++        ret = FFA_RET_INVALID_PARAMETERS;
++        goto out;
++    }
+ 
+     if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
+     {
+-        if ( ctx->guest_vers == FFA_VERSION_1_0 )
+-            *fpi_size = sizeof(struct ffa_partition_info_1_0);
+-        else
+-            *fpi_size = sizeof(struct ffa_partition_info_1_1);
+-
+-        *count = 0;
++        /* Just give an empty partition list to the caller */
+         ret = FFA_RET_OK;
+         goto out;
+     }
+ 
+-    if ( !ctx->page_count || !ctx->rx_is_free )
++    if ( !spin_trylock(&ctx->rx_lock) )
++    {
++        ret = FFA_RET_BUSY;
+         goto out;
 +    }
 +
-     /*
-      * We're only accepting memory transaction descriptors via the rx/tx
-      * buffer.
-@@ -621,6 +630,9 @@ int ffa_handle_mem_reclaim(uint64_t handle, uint32_t flags)
-     register_t handle_lo;
-     int ret;
- 
-+    if ( !ffa_fw_supports_fid(FFA_MEM_RECLAIM) )
-+        return FFA_RET_NOT_SUPPORTED;
++    dst_buf = ctx->rx;
 +
-     spin_lock(&ctx->lock);
-     shm = find_shm_mem(ctx, handle);
-     if ( shm )
++    if ( !ffa_rx )
++    {
++        ret = FFA_RET_DENIED;
++        goto out_rx_release;
++    }
++
++    if ( !ctx->page_count || !ctx->rx_is_free )
++    {
++        ret = FFA_RET_DENIED;
++        goto out_rx_release;
++    }
++
+     spin_lock(&ffa_rx_buffer_lock);
+-    ret = ffa_partition_info_get(w1, w2, w3, w4, w5, count, fpi_size);
++
++    ret = ffa_partition_info_get(uuid, 0, &ffa_sp_count, &src_size);
++
+     if ( ret )
+         goto out_rx_buf_unlock;
++
+     /*
+      * ffa_partition_info_get() succeeded so we now own the RX buffer we
+      * share with the SPMC. We must give it back using ffa_rx_release()
+      * once we've copied the content.
+      */
+ 
+-    if ( ctx->guest_vers == FFA_VERSION_1_0 )
++    /* we cannot have a size smaller than 1.0 structure */
++    if ( src_size < sizeof(struct ffa_partition_info_1_0) )
+     {
+-        size_t n;
+-        struct ffa_partition_info_1_1 *src = ffa_rx;
+-        struct ffa_partition_info_1_0 *dst = ctx->rx;
+-
+-        if ( ctx->page_count * FFA_PAGE_SIZE < *count * sizeof(*dst) )
+-        {
+-            ret = FFA_RET_NO_MEMORY;
+-            goto out_rx_release;
+-        }
++        ret = FFA_RET_NOT_SUPPORTED;
++        goto out_rx_hyp_release;
++    }
+ 
+-        for ( n = 0; n < *count; n++ )
+-        {
+-            dst[n].id = src[n].id;
+-            dst[n].execution_context = src[n].execution_context;
+-            dst[n].partition_properties = src[n].partition_properties;
+-        }
++    if ( ctx->page_count * FFA_PAGE_SIZE < ffa_sp_count * dst_size )
++    {
++        ret = FFA_RET_NO_MEMORY;
++        goto out_rx_hyp_release;
+     }
+-    else
++
++    if ( ffa_sp_count > 0 )
+     {
+-        size_t sz = *count * *fpi_size;
++        uint32_t n;
++        void *src_buf = ffa_rx;
+ 
+-        if ( ctx->page_count * FFA_PAGE_SIZE < sz )
++        /* copy the secure partitions info */
++        for ( n = 0; n < ffa_sp_count; n++ )
+         {
+-            ret = FFA_RET_NO_MEMORY;
+-            goto out_rx_release;
++            memcpy(dst_buf, src_buf, dst_size);
++            dst_buf += dst_size;
++            src_buf += src_size;
+         }
+-
+-        memcpy(ctx->rx, ffa_rx, sz);
+     }
++
+     ctx->rx_is_free = false;
+-out_rx_release:
++
++out_rx_hyp_release:
+     ffa_rx_release();
+ out_rx_buf_unlock:
+     spin_unlock(&ffa_rx_buffer_lock);
+-out:
++out_rx_release:
+     spin_unlock(&ctx->rx_lock);
+ 
+-    return ret;
++out:
++    if ( ret )
++        ffa_set_regs_error(regs, ret);
++    else
++        ffa_set_regs_success(regs, ffa_sp_count, dst_size);
+ }
+ 
+ static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
+@@ -221,19 +257,28 @@ static void uninit_subscribers(void)
+         XFREE(subscr_vm_destroyed);
+ }
+ 
+-static bool init_subscribers(struct ffa_partition_info_1_1 *fpi, uint16_t count)
++static bool init_subscribers(uint16_t count, uint32_t fpi_size)
+ {
+     uint16_t n;
+     uint16_t c_pos;
+     uint16_t d_pos;
++    struct ffa_partition_info_1_1 *fpi;
++
++    if ( fpi_size < sizeof(struct ffa_partition_info_1_1) )
++    {
++        printk(XENLOG_ERR "ffa: partition info size invalid: %u\n", fpi_size);
++        return false;
++    }
+ 
+     subscr_vm_created_count = 0;
+     subscr_vm_destroyed_count = 0;
+     for ( n = 0; n < count; n++ )
+     {
+-        if ( fpi[n].partition_properties & FFA_PART_PROP_NOTIF_CREATED )
++        fpi = ffa_rx + n * fpi_size;
++
++        if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_CREATED )
+             subscr_vm_created_count++;
+-        if ( fpi[n].partition_properties & FFA_PART_PROP_NOTIF_DESTROYED )
++        if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_DESTROYED )
+             subscr_vm_destroyed_count++;
+     }
+ 
+@@ -252,10 +297,12 @@ static bool init_subscribers(struct ffa_partition_info_1_1 *fpi, uint16_t count)
+ 
+     for ( c_pos = 0, d_pos = 0, n = 0; n < count; n++ )
+     {
+-        if ( fpi[n].partition_properties & FFA_PART_PROP_NOTIF_CREATED )
+-            subscr_vm_created[c_pos++] = fpi[n].id;
+-        if ( fpi[n].partition_properties & FFA_PART_PROP_NOTIF_DESTROYED )
+-            subscr_vm_destroyed[d_pos++] = fpi[n].id;
++        fpi = ffa_rx + n * fpi_size;
++
++        if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_CREATED )
++            subscr_vm_created[c_pos++] = fpi->id;
++        if ( fpi->partition_properties & FFA_PART_PROP_NOTIF_DESTROYED )
++            subscr_vm_destroyed[d_pos++] = fpi->id;
+     }
+ 
+     return true;
+@@ -275,7 +322,7 @@ bool ffa_partinfo_init(void)
+          !ffa_rx || !ffa_tx )
+         return false;
+ 
+-    e = ffa_partition_info_get(0, 0, 0, 0, 0, &count, &fpi_size);
++    e = ffa_partition_info_get(NULL, 0, &count, &fpi_size);
+     if ( e )
+     {
+         printk(XENLOG_ERR "ffa: Failed to get list of SPs: %d\n", e);
+@@ -288,7 +335,7 @@ bool ffa_partinfo_init(void)
+         goto out;
+     }
+ 
+-    ret = init_subscribers(ffa_rx, count);
++    ret = init_subscribers(count, fpi_size);
+ 
+ out:
+     ffa_rx_release();
+diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_private.h
+index d4dc9c8cd67b..089607c1c321 100644
+--- a/xen/arch/arm/tee/ffa_private.h
++++ b/xen/arch/arm/tee/ffa_private.h
+@@ -314,9 +314,7 @@ int ffa_handle_mem_reclaim(uint64_t handle, uint32_t flags);
+ bool ffa_partinfo_init(void);
+ int ffa_partinfo_domain_init(struct domain *d);
+ bool ffa_partinfo_domain_destroy(struct domain *d);
+-int32_t ffa_handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
+-                                      uint32_t w4, uint32_t w5, uint32_t *count,
+-                                      uint32_t *fpi_size);
++void ffa_handle_partition_info_get(struct cpu_user_regs *regs);
+ 
+ bool ffa_rxtx_init(void);
+ void ffa_rxtx_destroy(void);
 -- 
 2.39.5 (Apple Git-154)
 
