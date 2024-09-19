@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BEB097C57C
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Sep 2024 10:01:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.800547.1210480 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40A0197C81B
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Sep 2024 12:42:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.800582.1210512 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srC5b-0008RO-Ep; Thu, 19 Sep 2024 08:00:35 +0000
+	id 1srEba-0002hO-8u; Thu, 19 Sep 2024 10:41:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 800547.1210480; Thu, 19 Sep 2024 08:00:35 +0000
+Received: by outflank-mailman (output) from mailman id 800582.1210512; Thu, 19 Sep 2024 10:41:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srC5b-0008O8-BT; Thu, 19 Sep 2024 08:00:35 +0000
-Received: by outflank-mailman (input) for mailman id 800547;
- Thu, 19 Sep 2024 08:00:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1exg=QR=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1srC5a-00089b-6b
- for xen-devel@lists.xenproject.org; Thu, 19 Sep 2024 08:00:34 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f2bcf75-765d-11ef-a0b8-8be0dac302b0;
- Thu, 19 Sep 2024 10:00:33 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a8d43657255so75177166b.0
- for <xen-devel@lists.xenproject.org>; Thu, 19 Sep 2024 01:00:33 -0700 (PDT)
-Received: from fziglio-desktop.. ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90612b3833sm686196966b.128.2024.09.19.01.00.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Sep 2024 01:00:32 -0700 (PDT)
+	id 1srEba-0002ey-6K; Thu, 19 Sep 2024 10:41:46 +0000
+Received: by outflank-mailman (input) for mailman id 800582;
+ Thu, 19 Sep 2024 10:41:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1srEbY-0002eo-O8; Thu, 19 Sep 2024 10:41:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1srEbY-0003ik-MF; Thu, 19 Sep 2024 10:41:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1srEbY-0005yz-5e; Thu, 19 Sep 2024 10:41:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1srEbY-0001TA-56; Thu, 19 Sep 2024 10:41:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,83 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f2bcf75-765d-11ef-a0b8-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1726732833; x=1727337633; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LC8M6s/MVpQRIQSwMvY2TOhq+jsgpFyl0gaX8hEkFeg=;
-        b=Bqxnlq65gXEBY8AvxRAWX5V7JSmWJl24yDTY1v2oEnc3gf0Z+kxpvNPDtpDczd8Nid
-         zUrq9bjh/YrXdkN601hc3JKQi/X8H2u8o6MgzfnpxENszxcdSGs96oZCfVAPJMj0IygD
-         ydnIIkTT9ywWtBDgbY2wnfBPDuw8yupIrtaBo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726732833; x=1727337633;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=LC8M6s/MVpQRIQSwMvY2TOhq+jsgpFyl0gaX8hEkFeg=;
-        b=DaxWU7x/PpnFr4Za3K1nQGGnooCq+6ZjJuO4WCiAtCLvRVQQLOELGscqqk6HPGHXGx
-         XiJMJ10o4OdgoI6SV1JhK73p9WMaLs1QNxO0pzFAMEXvP2LFfflNhrNmVziWrvdC2+Av
-         QMyep97FEprrkjp7OmZlojHYvjRvNnkN/o/BtwFjiAEyzSlSag6Gucn/uK3SufINhx8p
-         dIAZQoesrswjPa6Skr0isNtJzm8sf13k8cqcFNHfGSH3AfZfDmNe+sM0YIFV40DZX+W7
-         3F379b9sVRMdIhzWsVraysW+B3W4pI1ECQ5g2m43rG0GyHvFPqWtoQMN+zFlocr40HRr
-         7NEw==
-X-Gm-Message-State: AOJu0YytPkNmgd07tecADuyA49Sbe3htdCjhtPy/HeeSHbQWA2SDef1O
-	hKuIa8mqWAkk1eGrt2xSEtutU2iV3qmm+SgI8FDuWcqi7A9+yr5ZZv/YMjAvNPzEoTl6YbzJ8lN
-	W
-X-Google-Smtp-Source: AGHT+IGOsZNYCuv/0HbieXRUQDMoMUEOCgm6cKCkRH3yQfSv2nuJkEEBFPCrsnP8EALdPW7R9A9HHA==
-X-Received: by 2002:a17:907:60cd:b0:a7a:9144:e23a with SMTP id a640c23a62f3a-a904804371dmr1973443666b.43.1726732832925;
-        Thu, 19 Sep 2024 01:00:32 -0700 (PDT)
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=WYHzAED/n/6EK2wSFKA6/qQfO4SDUyjg1FI9YlnyIYs=; b=XNNiMN98py/9xmYf5bcpU4qKJ7
+	GuYCAWFINXHqRSCrLVFDvZV4A+CQGLm0dxh6araqffcDqhxeKVS5H1JuAYO+WygzUpKlxdWg9Vcwt
+	muRmtdXjnNpiEYoL2zSD5R6BivjXeXYU9p3PtQBSYMpvhAXjNQbta2r8inbZ3L88rYkw=;
 To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4 3/3] x86: Align output sections for UEFI CA memory mitigation requirements
-Date: Thu, 19 Sep 2024 09:00:21 +0100
-Message-Id: <20240919080021.20155-4-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240919080021.20155-1-frediano.ziglio@cloud.com>
-References: <20240919080021.20155-1-frediano.ziglio@cloud.com>
-MIME-Version: 1.0
+Message-ID: <osstest-187757-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 187757: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=ff8a7d101f7d892dea96254bc1309c1a7c502e02
+X-Osstest-Versions-That:
+    ovmf=5901f19a877c87de73f6b28265ad5db60b2239e1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 19 Sep 2024 10:41:44 +0000
 
-All loadable sections should be page aligned.
+flight 187757 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187757/
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
----
- xen/arch/x86/xen.lds.S | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 ff8a7d101f7d892dea96254bc1309c1a7c502e02
+baseline version:
+ ovmf                 5901f19a877c87de73f6b28265ad5db60b2239e1
 
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index b0b952dd9c..ef446e0a71 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -208,6 +208,10 @@ SECTIONS
- 
-   } PHDR(text)
- 
-+#ifdef EFI
-+  /* align to satisfy UEFI CA memory mitigation */
-+  . = ALIGN(PAGE_SIZE);
-+#endif
-   DECL_SECTION(.init.data) {
-        *(.init.bss.stack_aligned)
- 
-@@ -262,6 +266,10 @@ SECTIONS
-        __ctors_end = .;
-   } PHDR(text)
- 
-+#ifdef EFI
-+  /* align to satisfy UEFI CA memory mitigation */
-+  . = ALIGN(PAGE_SIZE);
-+#endif
-   DECL_SECTION(.init.trampoline) {
-        *(.init.trampoline)
-   } PHDR(text)
--- 
-2.34.1
+Last test of basis   187744  2024-09-18 08:13:37 Z    1 days
+Testing same since   187757  2024-09-19 08:50:33 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Sami Mujawar <sami.mujawar@arm.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   5901f19a87..ff8a7d101f  ff8a7d101f7d892dea96254bc1309c1a7c502e02 -> xen-tested-master
 
