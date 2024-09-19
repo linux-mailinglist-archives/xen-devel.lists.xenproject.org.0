@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED79F97C943
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Sep 2024 14:35:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.800743.1210739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F5DD97C966
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Sep 2024 14:42:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.800752.1210748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srGN2-0004FO-VN; Thu, 19 Sep 2024 12:34:52 +0000
+	id 1srGUL-00067L-NY; Thu, 19 Sep 2024 12:42:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 800743.1210739; Thu, 19 Sep 2024 12:34:52 +0000
+Received: by outflank-mailman (output) from mailman id 800752.1210748; Thu, 19 Sep 2024 12:42:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srGN2-0004CM-R4; Thu, 19 Sep 2024 12:34:52 +0000
-Received: by outflank-mailman (input) for mailman id 800743;
- Thu, 19 Sep 2024 12:34:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1exg=QR=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1srGN1-0004CD-6L
- for xen-devel@lists.xenproject.org; Thu, 19 Sep 2024 12:34:51 +0000
-Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
- [2607:f8b0:4864:20::c30])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f837f26-7683-11ef-a0b8-8be0dac302b0;
- Thu, 19 Sep 2024 14:34:50 +0200 (CEST)
-Received: by mail-oo1-xc30.google.com with SMTP id
- 006d021491bc7-5e57b7cac4fso441789eaf.1
- for <xen-devel@lists.xenproject.org>; Thu, 19 Sep 2024 05:34:49 -0700 (PDT)
+	id 1srGUL-00065Z-Kb; Thu, 19 Sep 2024 12:42:25 +0000
+Received: by outflank-mailman (input) for mailman id 800752;
+ Thu, 19 Sep 2024 12:42:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1srGUJ-00065S-Hm
+ for xen-devel@lists.xenproject.org; Thu, 19 Sep 2024 12:42:23 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1srGUJ-0005wh-34; Thu, 19 Sep 2024 12:42:23 +0000
+Received: from [83.68.141.146] (helo=[10.134.2.85])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1srGUI-0001Aj-Sc; Thu, 19 Sep 2024 12:42:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,73 +39,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f837f26-7683-11ef-a0b8-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1726749289; x=1727354089; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aI1mVibnoIqNM6556rC3Df5ZS/vsFBFvC7BZYbogTyQ=;
-        b=l3Op3y8Z4GioLb2lXpmg0FrYBtetbGf9aqYw3x8BzfGou13CF/F/PSsJd1jmovAcWa
-         g462AA4q/f+2wO0ElYOOrFQOyZ3GTCjr7FAWOmv2p8VvwJZM+L8nEKzqfixByaZsLpyx
-         JOo86NB9lGYW2QvEVRjRH0A1HrL896xL/M5L4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726749289; x=1727354089;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=aI1mVibnoIqNM6556rC3Df5ZS/vsFBFvC7BZYbogTyQ=;
-        b=oq/v8/VlDLtiMLBSGJnnPCJ1uvaf+kCml6YNstpbB3qQI5I3VFnXByBxxR778FfekS
-         J4KEqhlzCQeJwQ/rLs0PkkUVTBY3c7tjMwUkJqUHCdRc6P2DkX10kH2AFO0XZypbfrpL
-         ANCLlUXAnfZszHcRiZvcrE92blOyQu0dLTzSWJj5qT8Q8f63I2XUxFes8dlzi+ZbIisc
-         cy5GinjSLf4tR94NI4MYIVwhRWg0PURFAFRAiOIItpDNENPgzNJ+IYI65Cije+yZXA1f
-         QYYfm7ZzAyUe00QzR+Ol4iwfuFz8KbLjHKoR4AEHAkA0saq5rS6XWfFOcK6ApbliAxoH
-         uH4w==
-X-Gm-Message-State: AOJu0YzGmXQjmt5kqZI7WgP92XV7EByPQv+CQBebD6OfG4mhfRuEY6Nj
-	dlKU9hZcUy6vvgR9hrRCjEHu4wUY15XckNQkEj0i9o9KVGEJc84Qp5+Mcae9YeYQ7K4aUCQ/jbD
-	+Ydi4+C9g/xm0ptHX7QCvc4zsJxBVlYjUaWQh+w==
-X-Google-Smtp-Source: AGHT+IEvxtpY7A6Hq4wvaVoE8BHhj5QBL8I4GDf8uu4OgPmkuQAMPeMWWqG9wSsw4LBxyDAqjsytuQfVJ6UwMqRTS4I=
-X-Received: by 2002:a05:6820:612:b0:5e1:e87d:9e75 with SMTP id
- 006d021491bc7-5e20142f4edmr13255678eaf.5.1726749288661; Thu, 19 Sep 2024
- 05:34:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Xh3W/W60V9TuexS4l94Hq7CrykPz+Il+cG9ya2imiqc=; b=GoS8P77YVksr81VJVX5VsUBVv+
+	UE84o6ESYiyzgR51Yfwy52oKMvkw2sq1j96hLAjiI83eTMRARzx8OBlEHS574Y+zy6A18DzgCB/Ra
+	Pe+2muxKELWLS5LyegIoo86HZTa0C7k9NkAmpp/YRvMl2Fr/UcSHH5fufzQ2VMJXHeKk=;
+Message-ID: <e1930816-14ff-489e-99c1-8e832655d4af@xen.org>
+Date: Thu, 19 Sep 2024 14:42:20 +0200
 MIME-Version: 1.0
-References: <6cf2799ced7dcee515ad8a6b6657522cdc7cec61.1724699546.git.milan.djokic@verisure.com>
- <367c5d95fb89e7dd3b4260f136d194a4cd0b854a.1724765763.git.milandjokic1995@gmail.com>
- <CAKp59VFp8gNA6ndeK2DeE9EaRZJSup0ptYYPz4FwN4_Shx9SjA@mail.gmail.com>
-In-Reply-To: <CAKp59VFp8gNA6ndeK2DeE9EaRZJSup0ptYYPz4FwN4_Shx9SjA@mail.gmail.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Thu, 19 Sep 2024 13:34:37 +0100
-Message-ID: <CACHz=Zh7FB0h26zJDZnzkVRatwhTb=vWMA0TM+fpqZ=RtULTJA@mail.gmail.com>
-Subject: Re: [PATCH v2] x86/efi: Use generic PE/COFF structures
-To: =?UTF-8?B?TWlsYW4gxJBva2nEhw==?= <milandjokic1995@gmail.com>
-Cc: xen-devel@lists.xenproject.org, oleksii.kurochko@gmail.com, 
-	Nikola Jelic <nikola.jelic@rt-rk.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Milan Djokic <milan.djokic@rt-rk.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] xen/arm: mpu: Define Xen start address for MPU
+ systems
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Jiamei . Xie" <jiamei.xie@arm.com>
+References: <20240918175102.223076-1-ayan.kumar.halder@amd.com>
+ <20240918175102.223076-3-ayan.kumar.halder@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20240918175102.223076-3-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 19, 2024 at 11:42=E2=80=AFAM Milan =C4=90oki=C4=87 <milandjokic=
-1995@gmail.com> wrote:
->
-> Hello everyone,
->
-> Any comments on v2 patch?
-> Just checking if you missed this email or didn't have time for review.
->
-> BR,
-> Milan
->
+Hi Ayan,
 
-Hi,
-  it does look good to me.
-I don't like the "#include "../../../include/efi/pe.h"" line, but I
-don't exactly know how to add a -I option.
+On 18/09/2024 19:51, Ayan Kumar Halder wrote:
+> From: Wei Chen <wei.chen@arm.com>
+> 
+> On Armv8-A, Xen has a fixed virtual start address (link address too) for all
+> Armv8-A platforms. In an MMU based system, Xen can map its loaded address to
+> this virtual start address. So, on Armv8-A platforms, the Xen start address does
+> not need to be configurable. But on Armv8-R platforms, there is no MMU to map
+> loaded address to a fixed virtual address and different platforms will have very
+> different address space layout. So Xen cannot use a fixed physical address on
+> MPU based system and need to have it configurable.
+> 
+> So, we introduce a Kconfig option for users to set the start address. The start
+> address needs to be aligned to 4KB. We have a check for this alignment.
 
-There are some spurious space changes that could be removed but okay
-for the rest.
+It would suggest to add some explanation why you want the start address 
+to be 4KB aligned.
 
-Frediano
+> 
+> In case if the user forgets to set the start address, then 0xffffffff is used
+> as default. This is to trigger the error (on alignment check) and thereby prompt
+> user to set the start address.
+> 
+> Also updated config.h so that it includes mpu/layout.h when CONFIG_MPU is
+> defined.
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Jiamei.Xie <jiamei.xie@arm.com>
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> Changes from :-
+> 
+> v1 - 1. Fixed some of the coding style issues.
+> 2. Reworded the help message.
+> 3. Updated the commit message.
+> 
+>   xen/arch/arm/Kconfig                  | 10 ++++++++++
+>   xen/arch/arm/include/asm/config.h     |  4 +++-
+>   xen/arch/arm/include/asm/mpu/layout.h | 27 +++++++++++++++++++++++++++
+
+Looking at this patch again, I don't see any modification in xen.lds.S. 
+Is it intended?
+
+>   3 files changed, 40 insertions(+), 1 deletion(-)
+>   create mode 100644 xen/arch/arm/include/asm/mpu/layout.h
+> 
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index e881f5ba57..ab3ef005a6 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -23,6 +23,16 @@ config ARCH_DEFCONFIG
+>   	default "arch/arm/configs/arm32_defconfig" if ARM_32
+>   	default "arch/arm/configs/arm64_defconfig" if ARM_64
+>   
+> +config XEN_START_ADDRESS
+> +	hex "Xen start address: keep default to use platform defined address"
+> +	default 0xFFFFFFFF
+> +	depends on MPU
+> +	help
+> +	  Used to set customized address at which which Xen will be linked on MPU
+> +	  systems. Must be aligned to 4KB.
+> +	  0xFFFFFFFF is used as default value to indicate that user has not
+> +	  customized this address.
+> +
+>   menu "Architecture Features"
+>   
+>   choice
+> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
+> index a2e22b659d..0a51142efd 100644
+> --- a/xen/arch/arm/include/asm/config.h
+> +++ b/xen/arch/arm/include/asm/config.h
+> @@ -69,8 +69,10 @@
+>   #include <xen/const.h>
+>   #include <xen/page-size.h>
+>   
+> -#ifdef CONFIG_MMU
+> +#if defined(CONFIG_MMU)
+>   #include <asm/mmu/layout.h>
+> +#elif defined(CONFIG_MPU)
+> +#include <asm/mpu/layout.h>
+>   #else
+>   # error "Unknown memory management layout"
+>   #endif
+> diff --git a/xen/arch/arm/include/asm/mpu/layout.h b/xen/arch/arm/include/asm/mpu/layout.h
+> new file mode 100644
+> index 0000000000..f9a5be2d6b
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/mpu/layout.h
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#ifndef __ARM_MPU_LAYOUT_H__
+> +#define __ARM_MPU_LAYOUT_H__
+> +
+> +#define XEN_START_ADDRESS CONFIG_XEN_START_ADDRESS
+> +
+> +/*
+> + * All MPU platforms need to provide a XEN_START_ADDRESS for linker. This
+> + * address indicates where Xen image will be loaded and run from. This
+> + * address must be aligned to a PAGE_SIZE.
+
+Strictly speaking, this doesn't match the Kconfig. AFAIU, we still said 
+the internal code may continue to rely on PAGE_SIZE for the time being. 
+But I think we would want to have a BUILD_BUG_ON(PAGE_SIZE != SZ_4K) to 
+catch any value change.
+
+> + */
+> +#if (XEN_START_ADDRESS % PAGE_SIZE) != 0
+> +#error "XEN_START_ADDRESS must be aligned to PAGE_SIZE"
+
+In the error message, you want to mention 4KB.
+
+Cheers,
+
+-- 
+Julien Grall
+
 
