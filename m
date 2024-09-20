@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B01EA97D064
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Sep 2024 05:55:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.800986.1211012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 668BA97D065
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Sep 2024 05:55:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.800988.1211022 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srUjB-0008BA-Ue; Fri, 20 Sep 2024 03:54:41 +0000
+	id 1srUjN-0000HX-7y; Fri, 20 Sep 2024 03:54:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 800986.1211012; Fri, 20 Sep 2024 03:54:41 +0000
+Received: by outflank-mailman (output) from mailman id 800988.1211022; Fri, 20 Sep 2024 03:54:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srUjB-000875-R8; Fri, 20 Sep 2024 03:54:41 +0000
-Received: by outflank-mailman (input) for mailman id 800986;
- Fri, 20 Sep 2024 03:54:40 +0000
+	id 1srUjN-0000Do-2b; Fri, 20 Sep 2024 03:54:53 +0000
+Received: by outflank-mailman (input) for mailman id 800988;
+ Fri, 20 Sep 2024 03:54:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yEHU=QS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1srUjA-0007lS-R5
- for xen-devel@lists.xenproject.org; Fri, 20 Sep 2024 03:54:40 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ id 1srUjL-0007lS-T5
+ for xen-devel@lists.xenproject.org; Fri, 20 Sep 2024 03:54:51 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [2604:1380:45d1:ec00::3])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0edf753a-7704-11ef-99a2-01e77a169b0f;
- Fri, 20 Sep 2024 05:54:39 +0200 (CEST)
+ id 1580ebfe-7704-11ef-99a2-01e77a169b0f;
+ Fri, 20 Sep 2024 05:54:50 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 3DD13A440CC;
- Fri, 20 Sep 2024 03:54:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10985C4CEC3;
- Fri, 20 Sep 2024 03:54:36 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 5C57DA4411A;
+ Fri, 20 Sep 2024 03:54:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3D5C4CEC3;
+ Fri, 20 Sep 2024 03:54:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,65 +42,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0edf753a-7704-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 1580ebfe-7704-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1726804477;
-	bh=1oEgX7H/YuRUlRekxhCONVHa8B8DDOWaK+XeENb7zoA=;
+	s=k20201202; t=1726804489;
+	bh=GZTdKaczBVAv1RU5yeFOv73OuWXAGjOJAo6YB2IOBQU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VTtffezUoU3Wv5ywDrbaVZpI3IFieujW3PkufQl5r00XFYnCNPtcUJF2pNpUv8rsB
-	 BKHR4Nvc37QPOkmIo/4c13y0oo04OsD6DZcrfL0tmy4rtEwyp2bvMok1Sb3L9a7Llw
-	 hpR8F7IkHbD116YhstBuL7nqO44ARBeDGpvqn3Vd2PMXJyeYE/6qHt802G7dxtD+IC
-	 Z2Il+QEtka76qoe0hIDTSJFjiRy/Pn6APTe3e4zIW0FVXbG+OOTRDQ2fF3t8XWI0vI
-	 RhSVBAxTl77g+WxM++75efgotYzSzmp7mtw9zxn2wVALd9OpJmNB084xYfAdyEXoPl
-	 IXnkyUk/H8ZGQ==
-Date: Thu, 19 Sep 2024 20:54:35 -0700 (PDT)
+	b=cFzsjO7o2NP/grF1VY2LjEX1FhuILNeMfjDLUdcKma63Y2ZmmrXbrm+ilNMRLrjOF
+	 DNgfgRNFB5hQUif4XsksBaem1ktCT2IL2nQR5IEH8ZBM7FgEOhR/c71vdYmpRRTPmx
+	 WcKMsq71oCfU8DOhGO89/0Qoe4AmGrHjDAm7TFF2QUm4OpBKF1fpoNGtBGP1I7H8rB
+	 rK9gfp1DBcbz+L21HzRppW4puVd1RVEjtj6a1MMwkyMf6PF8inxvbHcaNr3eCmYEkU
+	 9XQVuiuKlorGuObjwy60PPJgLPOsjeKz9xSv+hnfq8IWy8KrHKKX+cxMafAEYhWxKP
+	 95+S8v2bS6tzA==
+Date: Thu, 19 Sep 2024 20:54:46 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Michal Orzel <michal.orzel@amd.com>
 cc: xen-devel@lists.xenproject.org, 
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH 3/4] dt-overlay: Remove ASSERT_UNREACHABLE from
- add_nodes()
-In-Reply-To: <20240919104238.232704-4-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2409191500270.1417852@ubuntu-linux-20-04-desktop>
-References: <20240919104238.232704-1-michal.orzel@amd.com> <20240919104238.232704-4-michal.orzel@amd.com>
+Subject: Re: [PATCH 4/4] dt-overlay: Support target-path being root node
+In-Reply-To: <20240919104238.232704-5-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2409191503580.1417852@ubuntu-linux-20-04-desktop>
+References: <20240919104238.232704-1-michal.orzel@amd.com> <20240919104238.232704-5-michal.orzel@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 19 Sep 2024, Michal Orzel wrote:
-> The assumption stated in the comment that the code will never get there
-> is incorrect. It's enough for the target-path to be incorrect (i.e. user
-> error), which will lead to an incorrect overall node path and we will end
-> up in this "unreachable" place causing a failure in debug builds.
+> Even though in most cases device nodes are not present directly under
+> the root node, it's a perfectly valid configuration (e.g. Qemu virt
+> machine dtb). At the moment, we don't handle this scenario which leads
+> to unconditional addition of extra leading '/' in the node full path.
+> This makes the attempt to add such device overlay to fail.
 > 
-> Fixes: 0c0facdab6f5 ("xen/arm: Implement device tree node addition functionalities")
 > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
 > ---
->  xen/common/dt-overlay.c | 4 ----
->  1 file changed, 4 deletions(-)
+>  xen/common/dt-overlay.c | 16 +++++++++++-----
+>  1 file changed, 11 insertions(+), 5 deletions(-)
 > 
 > diff --git a/xen/common/dt-overlay.c b/xen/common/dt-overlay.c
-> index 8606b14d1e8e..d18bd12bd38d 100644
+> index d18bd12bd38d..63b28889de90 100644
 > --- a/xen/common/dt-overlay.c
 > +++ b/xen/common/dt-overlay.c
-> @@ -596,11 +596,7 @@ static long add_nodes(struct overlay_track *tr, char **nodes_full_path)
->          overlay_node = dt_find_node_by_path_from(tr->dt_host_new,
->                                                   nodes_full_path[j]);
->          if ( overlay_node == NULL )
-> -        {
-> -            /* Sanity check. But code will never come here. */
-> -            ASSERT_UNREACHABLE();
->              return -EFAULT;
-> -        }
+> @@ -325,6 +325,7 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
+>              int node_name_len;
+>              unsigned int target_path_len = strlen(target_path);
+>              unsigned int node_full_name_len;
+> +            unsigned int extra_len;
 >  
->          /*
->           * Find previous and next node to overlay_node in dt_host_new. We will
+>              node_name = fdt_get_name(fdto, subnode, &node_name_len);
+>  
+> @@ -332,10 +333,13 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
+>                  return node_name_len;
+>  
+>              /*
+> -             * Magic number 2 is for adding '/' and '\0'. This is done to keep
+> -             * the node_full_path in the correct full node name format.
+> +             * Extra length is for adding '/' and '\0' unless the target path is
+> +             * root in which case we don't add the '/' at the beginning. This is
+> +             * done to keep the node_full_path in the correct full node name
+> +             * format.
+>               */
+> -            node_full_name_len = target_path_len + node_name_len + 2;
+> +            extra_len = (target_path_len > 1) + 1;
+
+I'd prefer to avoid the implicit bool to int conversion. I think it is
+mandated by MISRA R10.1, we have a bool exception but I don't think it
+would cover this type of usage. For instance:
+
+extra_len = ((target_path_len > 1) ? 1 : 0)  + 1;
+
+or
+
+extra_len = (target_path_len > 1) ? 2 : 1;
+
+
+> +            node_full_name_len = target_path_len + node_name_len + extra_len;
+>  
+>              nodes_full_path[node_num] = xmalloc_bytes(node_full_name_len);
+>  
+> @@ -344,9 +348,11 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
+>  
+>              memcpy(nodes_full_path[node_num], target_path, target_path_len);
+>  
+> -            nodes_full_path[node_num][target_path_len] = '/';
+> +            /* Target is not root - add separator */
+> +            if ( target_path_len > 1 )
+> +                nodes_full_path[node_num][target_path_len++] = '/';
+>  
+> -            memcpy(nodes_full_path[node_num] + target_path_len + 1,
+> +            memcpy(nodes_full_path[node_num] + target_path_len,
+>                      node_name, node_name_len);
+>  
+>              nodes_full_path[node_num][node_full_name_len - 1] = '\0';
 > -- 
 > 2.37.6
 > 
