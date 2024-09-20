@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA87B97D062
+	by mail.lfdr.de (Postfix) with ESMTPS id ACC8A97D063
 	for <lists+xen-devel@lfdr.de>; Fri, 20 Sep 2024 05:55:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.800984.1210991 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.800985.1211001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srUiv-0007Z4-DB; Fri, 20 Sep 2024 03:54:25 +0000
+	id 1srUj2-0007on-LG; Fri, 20 Sep 2024 03:54:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 800984.1210991; Fri, 20 Sep 2024 03:54:25 +0000
+Received: by outflank-mailman (output) from mailman id 800985.1211001; Fri, 20 Sep 2024 03:54:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srUiv-0007WS-9j; Fri, 20 Sep 2024 03:54:25 +0000
-Received: by outflank-mailman (input) for mailman id 800984;
- Fri, 20 Sep 2024 03:54:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1srUj2-0007m4-IC; Fri, 20 Sep 2024 03:54:32 +0000
+Received: by outflank-mailman (input) for mailman id 800985;
+ Fri, 20 Sep 2024 03:54:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yEHU=QS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1srUit-0007WM-LW
- for xen-devel@lists.xenproject.org; Fri, 20 Sep 2024 03:54:23 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04e4d5aa-7704-11ef-a0b8-8be0dac302b0;
- Fri, 20 Sep 2024 05:54:22 +0200 (CEST)
+ id 1srUj1-0007lS-Gf
+ for xen-devel@lists.xenproject.org; Fri, 20 Sep 2024 03:54:31 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 086451d0-7704-11ef-99a2-01e77a169b0f;
+ Fri, 20 Sep 2024 05:54:29 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 3AF17A4411A;
- Fri, 20 Sep 2024 03:54:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1154FC4CEC3;
- Fri, 20 Sep 2024 03:54:19 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 146255C5C68;
+ Fri, 20 Sep 2024 03:54:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4FCDC4CEC3;
+ Fri, 20 Sep 2024 03:54:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,79 +41,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04e4d5aa-7704-11ef-a0b8-8be0dac302b0
+X-Inumbo-ID: 086451d0-7704-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1726804460;
-	bh=TWDTxuh2pLqVDV6FrCvNAFpRP4EtmZ4chhd099TzUaQ=;
+	s=k20201202; t=1726804466;
+	bh=GXqH4yFqsZ3h/NZzVW1IlCj8fxEMnmdgzK1jHq3qcbE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=OzplsJqoc9xR7SR8nksBKR5UsAtJyL5o8m8xYPMsa7g/SAWlaQZ54YQlHp9gLN3e4
-	 3IAOLYtMr6qIKod1qjW4hN3APCmZ/+SDH/TMQmFARwjrd5C0HAq94ajLPrAdD7b49U
-	 N5JQRIw3ycMebmcPN7JjS8//7yB2TObhY9ohFHPum63fAuOB5yDAwZDR1UHtTuEjle
-	 xWoiQPMVp+OxyodXNYRvA1UZXI0lkIchYpvleVo69pfnbgf7e4Gw72cvayOZftzl9J
-	 QSDUL/CZpjqyDeKOMh4hD1TKKOVnrOzxSf0H9E26bbLVleLlq6cx25ZcIXLCC6yh06
-	 pGzKR8PYdoSSg==
-Date: Thu, 19 Sep 2024 20:54:18 -0700 (PDT)
+	b=NFwgxKEHhZQ3C/mFSfMuQZnH5OH7IMVFQGK/Pe+gJVWCj7yltLEbFw0D/N1DJ7MuW
+	 4l+jP+0Fi80kKv8ZQVwKJ6dckh6Rpep1gRORmM2ISvc7G7k9kdF4evW1xyKkOXGJ2m
+	 iVPhighqfZgYABRW/TjfzYAb9dXTPD93ApNFD5uyLa0Oaq7BjYUn+knAv3nQeqkFvZ
+	 bcdNTAWCDu3xSc/bbUC4WLE7EpnspNx2XaB2h8TFHWmOD6NHNba+Tm11dEmYRAGFWH
+	 wRlKqSanLfsz/W3a3cudaASGFAAk8sJNZpq7/Q3fTW3HLFya7Sr9bpEJMqODV36YJa
+	 b3PJiYDwfag6g==
+Date: Thu, 19 Sep 2024 20:54:24 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Michal Orzel <michal.orzel@amd.com>
 cc: xen-devel@lists.xenproject.org, 
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH 1/4] dt-overlay: Fix NULL pointer dereference
-In-Reply-To: <20240919104238.232704-2-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2409191457220.1417852@ubuntu-linux-20-04-desktop>
-References: <20240919104238.232704-1-michal.orzel@amd.com> <20240919104238.232704-2-michal.orzel@amd.com>
+Subject: Re: [PATCH 2/4] device-tree: Remove __init from
+ unflatten_dt_alloc()
+In-Reply-To: <20240919104238.232704-3-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2409191459150.1417852@ubuntu-linux-20-04-desktop>
+References: <20240919104238.232704-1-michal.orzel@amd.com> <20240919104238.232704-3-michal.orzel@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 19 Sep 2024, Michal Orzel wrote:
-> Attempt to attach an overlay (xl dt-overlay attach) to a domain without
-> first adding this overlay to Xen (xl dt-overlay add) results in an
-> overlay track entry being NULL in handle_attach_overlay_nodes(). This
-> leads to NULL pointer dereference and the following data abort crash:
+> With CONFIG_OVERLAY_DTB=y, unflatten_dt_alloc() is used as part of
+> unflatten_dt_node() used during runtime. In case of a binary compiled
+> such as unflatten_dt_alloc() does not get inlined (e.g. using -Og),
+> attempt to add an overlay to Xen (xl dt-overlay add) results in a crash.
 > 
-> (XEN) Cannot find any matching tracker with input dtbo. Operation is supported only for prior added dtbo.
-> (XEN) Data Abort Trap. Syndrome=0x5
-> (XEN) Walking Hypervisor VA 0x40 on CPU0 via TTBR 0x0000000046948000
-> (XEN) 0TH[0x000] = 0x46940f7f
-> (XEN) 1ST[0x000] = 0x0
-> (XEN) CPU0: Unexpected Trap: Data Abort
+> (XEN) Instruction Abort Trap. Syndrome=0x7
+> (XEN) Walking Hypervisor VA 0xa00002c8cc0 on CPU2 via TTBR 0x0000000040340000
+> (XEN) 0TH[0x014] = 0x4033ff7f
+> (XEN) 1ST[0x000] = 0x4033ef7f
+> (XEN) 2ND[0x001] = 0x4000004033af7f
+> (XEN) 3RD[0x0c8] = 0x0
+> (XEN) CPU2: Unexpected Trap: Instruction Abort
 > (XEN) ----[ Xen-4.20-unstable  arm64  debug=y  Not tainted ]----
 > ...
 > (XEN) Xen call trace:
-> (XEN)    [<00000a0000208b30>] dt_overlay_domctl+0x304/0x370 (PC)
-> (XEN)    [<00000a0000208b30>] dt_overlay_domctl+0x304/0x370 (LR)
-> (XEN)    [<00000a0000274b7c>] arch_do_domctl+0x48/0x328
+> (XEN)    [<00000a00002c8cc0>] 00000a00002c8cc0 (PC)
+> (XEN)    [<00000a0000202410>] device-tree.c#unflatten_dt_node+0xd0/0x504 (LR)
+> (XEN)    [<00000a0000204484>] unflatten_device_tree+0x54/0x1a0
+> (XEN)    [<00000a000020800c>] dt-overlay.c#handle_add_overlay_nodes+0x290/0x3d4
+> (XEN)    [<00000a0000208360>] dt_overlay_sysctl+0x8c/0x110
+> (XEN)    [<00000a000027714c>] arch_do_sysctl+0x1c/0x2c
 > 
-> Fixes: 4c733873b5c2 ("xen/arm: Add XEN_DOMCTL_dt_overlay and device attachment to domains")
+> Fixes: 9e9d2c079dc4 ("xen/arm/device: Remove __init from function type")
 > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  xen/common/dt-overlay.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>  xen/common/device-tree/device-tree.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/xen/common/dt-overlay.c b/xen/common/dt-overlay.c
-> index d53b4706cd2f..8606b14d1e8e 100644
-> --- a/xen/common/dt-overlay.c
-> +++ b/xen/common/dt-overlay.c
-> @@ -908,8 +908,11 @@ static long handle_attach_overlay_nodes(struct domain *d,
->   out:
->      spin_unlock(&overlay_lock);
->  
-> -    rangeset_destroy(entry->irq_ranges);
-> -    rangeset_destroy(entry->iomem_ranges);
-> +    if ( entry )
-> +    {
-> +        rangeset_destroy(entry->irq_ranges);
-> +        rangeset_destroy(entry->iomem_ranges);
-> +    }
->  
->      return rc;
+> diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
+> index 8d1017a49d80..d0528c582565 100644
+> --- a/xen/common/device-tree/device-tree.c
+> +++ b/xen/common/device-tree/device-tree.c
+> @@ -120,8 +120,8 @@ void dt_child_set_range(__be32 **cellp, int addrcells, int sizecells,
+>      dt_set_cell(cellp, sizecells, size);
 >  }
+>  
+> -static void __init *unflatten_dt_alloc(unsigned long *mem, unsigned long size,
+> -                                       unsigned long align)
+> +static void *unflatten_dt_alloc(unsigned long *mem, unsigned long size,
+> +                                unsigned long align)
+>  {
+>      void *res;
+>  
 > -- 
 > 2.37.6
 > 
