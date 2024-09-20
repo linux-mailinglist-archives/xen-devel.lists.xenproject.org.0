@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0482897D43C
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Sep 2024 12:34:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801124.1211172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3368197D43F
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Sep 2024 12:36:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801130.1211182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sraxL-0003D1-B8; Fri, 20 Sep 2024 10:33:43 +0000
+	id 1srazg-0003km-MV; Fri, 20 Sep 2024 10:36:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801124.1211172; Fri, 20 Sep 2024 10:33:43 +0000
+Received: by outflank-mailman (output) from mailman id 801130.1211182; Fri, 20 Sep 2024 10:36:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sraxL-0003BJ-8R; Fri, 20 Sep 2024 10:33:43 +0000
-Received: by outflank-mailman (input) for mailman id 801124;
- Fri, 20 Sep 2024 10:33:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1srazg-0003ii-Jo; Fri, 20 Sep 2024 10:36:08 +0000
+Received: by outflank-mailman (input) for mailman id 801130;
+ Fri, 20 Sep 2024 10:36:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4UDy=QS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1sraxK-0003BD-12
- for xen-devel@lists.xenproject.org; Fri, 20 Sep 2024 10:33:42 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd4dc51f-773b-11ef-a0b8-8be0dac302b0;
- Fri, 20 Sep 2024 12:33:40 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a86e9db75b9so263927266b.1
- for <xen-devel@lists.xenproject.org>; Fri, 20 Sep 2024 03:33:40 -0700 (PDT)
+ id 1srazf-0003ic-Bo
+ for xen-devel@lists.xenproject.org; Fri, 20 Sep 2024 10:36:07 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 23be9c75-773c-11ef-99a2-01e77a169b0f;
+ Fri, 20 Sep 2024 12:36:05 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5c275491c61so2478473a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Sep 2024 03:36:05 -0700 (PDT)
 Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90979ceb67sm514670366b.219.2024.09.20.03.33.38
+ 4fb4d7f45d1cf-5c42bae0f73sm7060007a12.0.2024.09.20.03.36.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Sep 2024 03:33:38 -0700 (PDT)
+ Fri, 20 Sep 2024 03:36:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd4dc51f-773b-11ef-a0b8-8be0dac302b0
+X-Inumbo-ID: 23be9c75-773c-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1726828420; x=1727433220; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1726828565; x=1727433365; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=fXfA4L39sX5G9eOd5FrgKunOUW4Ym5rPBsBYvg38bf4=;
-        b=nHdXX2pYaECsrxatxytDeFMvvSLxl1PdMhfqg7VzJAbPslvF4oIHDhvSYzhldcdPt7
-         MGNLfin/tXIErmQ1eR4TirYts0+CwCL23DDNwRiZpnwjw2uudmxV1JjZQ3yZKQnElfhx
-         GQDENOm7BgZV1cqkTwJuzTvYVYHN3HMenStjfWVlEWkOF84EVvUCQ7q7V7rO30hoTY5/
-         gJcdEy7b/4bt2XoLPgLn+IxhFKx+qNYKoI/v8ozV1xGaWU6wvJTiRnaHmGWdT+II4OcA
-         8Bx3w+6iS9ESFWww9SdK7pR8XAebf6kqpe1qAO/dkR1GrNC+fJaVtGhpGEHOm1unMM/U
-         eu1A==
+         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=g4U3HtdGLZHiyBM5ponjWiOh2zPZaOXyMjjE5GUk7dw=;
+        b=ZTonbPEdsAr23CwraIGrANHbeKIQ2FPYTuJ9fSlASW/p1K2vOYxr5pnWZAaXg/1Zxq
+         TDDk5v4xR9ekxRRpI6181VHrjQPnKfgi4dSheN0Y0d6QDaiigeYVRyj4NFWu9Awr7Chz
+         4PEYTc5OqEl1my6/H0Cvvb5SZvMXcO4jUDhUclOYMXtHpkuLpIRxPOoJMThTx2YFASJr
+         H9FXmevAr0ea7EXuv4MG24tDh0ZMccCam9QCv5e7M5bwZH7py8iah7Mv/bZRcibQ95rU
+         oXpZek8WGyNM4K6dpA4IUdC5cEcxcPA2qMC7HY8wbMtEEDzVVPJ7av4cDYbg0rYhxuAx
+         FFHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726828420; x=1727433220;
+        d=1e100.net; s=20230601; t=1726828565; x=1727433365;
         h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fXfA4L39sX5G9eOd5FrgKunOUW4Ym5rPBsBYvg38bf4=;
-        b=KptlaLzcrRQy7HpseiJWAo35yTRB3kxi+TMbCmGHDwEqnFIuqZKREmxlSqWB6dLltU
-         +U4zLmUH8uuhxm4SvoUh7zwsDpNn/PVe6M4+SXR08X2HdgJ+YLdQDccgDDF0J7La4oUb
-         i9gYghGcyjGyakSK7npoekp3lNgRh+Kg4/QLdg3edMSiiwM4FMbT9ORf3LzJcObN6eFC
-         6s1PZsnBjq6Ud8QNOOlezU1dRNq68nsVQYZDGC9NarknPLSjf9hQ81LdMdLe0AaL0TG/
-         NWgFkP/YFCimfTzaVo8vXUXAvo5/zxjnNKErux2KgHH4wfZHwhvdkhfrA189n6kaoeU5
-         GQlA==
-X-Forwarded-Encrypted: i=1; AJvYcCX5Cp7fcceEG+SPMq7edkXqtoQzUAGXmLyhGw8mhpJwzIqboRb90OGRgXZ7i3cADwLaOYaMF7xhBxU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyNs93eSsk2yeqXBpRWvB1DfnIgU0rKm7Up8k9HJ4yADtDhdsJJ
-	B1+A9Ejr1phFWUoip/tvqYa5Cj/lcLAdyfx+BGn6JyQtSfzrNXWm
-X-Google-Smtp-Source: AGHT+IFFQYM0DsmH8a+mQQadk7N7mXVFgxZmOEcBAwIgSz3CiVqwdaFuy2hPp83Ihub+2To6MHa4Jw==
-X-Received: by 2002:a17:907:e2df:b0:a8d:28dc:9e2b with SMTP id a640c23a62f3a-a90d510aa86mr187805466b.44.1726828419532;
-        Fri, 20 Sep 2024 03:33:39 -0700 (PDT)
-Message-ID: <42fcd07631d3890b6fa9be683a5b2819417b10bf.camel@gmail.com>
-Subject: Re: [PATCH v2 1/5] xen: define ACPI and DT device info sections
- macros
+         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=g4U3HtdGLZHiyBM5ponjWiOh2zPZaOXyMjjE5GUk7dw=;
+        b=GDHvdL5Jg947MvtQ3fxwINyegnstHbMHFHR8+EP4P8jJwwsYxy44gm0c5piFjUSqUU
+         fbVdDQWEnXzEt2jS2PASLgmtRhAy9+h5KrQH5wUP9IeGW+nZNmui8jQtLHA2RaMDnnH3
+         2AX58WCNrIoHIMwArPu8ykydzwM1HrqxVH34HeAes3wt4JHwH1UNoRoKklHbBiTJoujg
+         /5PbeduswQ1zrmbMrR1hqsPaQCnT7vvilFf+7/Jywon7nEdIc1J8X2MlIjpQ7v+QOr4N
+         xWAA3xl/JIxwIB6Gvt1n+52A9qsekKK+2ExbSK4giQ86WA154v68tgiBVZac3GTirgV2
+         u4Dg==
+X-Forwarded-Encrypted: i=1; AJvYcCVVz8QFIyB+TiKEkGiU1NZPZkQr5jFb8n5DKy9xQ7XB32xWdnsaD3o55wAduZylnMMDDyJ8EVHooSk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxwXh8IT72hmITBrGXxf5nJA2jjpKcM5+/RNHAOJw/1tQHIb/9g
+	XDEPoNhWSghk5lxg/EJ3/PgCxn1aMS6BU9Q2FJzkjQmdFphVh2xOoMYi6w==
+X-Google-Smtp-Source: AGHT+IEzGvwwJNo7+0jVITnpInqxr1tICFv1viE+Hb5k0ywRuaV5AO29jxi/FTZ1UbVwlYJX2VDb7g==
+X-Received: by 2002:a05:6402:34d6:b0:5be:fc1d:fd38 with SMTP id 4fb4d7f45d1cf-5c464e02e53mr1215695a12.36.1726828564558;
+        Fri, 20 Sep 2024 03:36:04 -0700 (PDT)
+Message-ID: <2420a2df140fb9b002cc467cdf15f9f065d3074b.camel@gmail.com>
+Subject: Re: [PATCH v2 3/5] xen/ppc: add section for device information in
+ linker script
 From: oleksii.kurochko@gmail.com
 To: Shawn Anastasio <sanastasio@raptorengineering.com>, 
 	xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>,  Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>
-Date: Fri, 20 Sep 2024 12:33:37 +0200
-In-Reply-To: <c7670e45-30dd-4cba-a226-a5130412a96c@raptorengineering.com>
+Date: Fri, 20 Sep 2024 12:36:03 +0200
+In-Reply-To: <2c2bd8bd-7d0f-4e47-9bab-e097a3ec8766@raptorengineering.com>
 References: <cover.1726579819.git.oleksii.kurochko@gmail.com>
-	 <3049dd691f79c688751abaae63c0ccdc36680fbb.1726579819.git.oleksii.kurochko@gmail.com>
-	 <c7670e45-30dd-4cba-a226-a5130412a96c@raptorengineering.com>
+	 <05eeb53403017fb40c4debf8a33f70438953d6de.1726579819.git.oleksii.kurochko@gmail.com>
+	 <2c2bd8bd-7d0f-4e47-9bab-e097a3ec8766@raptorengineering.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
 
-SGkgU2hhd24sCgpPbiBUaHUsIDIwMjQtMDktMTkgYXQgMTY6MDUgLTA1MDAsIFNoYXduIEFuYXN0
-YXNpbyB3cm90ZToKPiBIaSBPbGVrc2lpLAo+IAo+IE9uIDkvMTcvMjQgMTE6MTUgQU0sIE9sZWtz
-aWkgS3Vyb2Noa28gd3JvdGU6Cj4gPiBJbnRyb2R1Y2UgY29uZGl0aW9uYWwgbWFjcm9zIHRvIGRl
-ZmluZSBkZXZpY2UKPiA+IGluZm9ybWF0aW9uIHNlY3Rpb25zIGJhc2VkIG9uIHRoZSBjb25maWd1
-cmF0aW9uIG9mIEFDUEkKPiA+IG9yIGRldmljZSB0cmVlIHN1cHBvcnQuIFRoZXNlIHNlY3Rpb25z
-IGFyZSByZXF1aXJlZCBmb3IKPiA+IGNvbW1vbiBjb2RlIG9mIGRldmljZSBpbml0aWFsaXphdGlv
-biBhbmQgZ2V0dGluZyBhbiBpbmZvcm1hdGlvbgo+ID4gYWJvdXQgYSBkZXZpY2UuCj4gPiAKPiA+
-IFRoZXNlIG1hY3JvcyBhcmUgZXhwZWN0ZWQgdG8gYmUgdXNlZCBhY3Jvc3MgZGlmZmVyZW50Cj4g
-PiBhcmNoaXRlY3R1cmVzIChBcm0sIFBQQywgUklTQy1WKSwgc28gdGhleSBhcmUgbW92ZWQgdG8K
-PiA+IHRoZSBjb21tb24geGVuL3hlbi5sZHMuaCwgYmFzZWQgb24gdGhlaXIgb3JpZ2luYWwgZGVm
-aW5pdGlvbgo+ID4gaW4gQXJtLgo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBPbGVrc2lpIEt1cm9j
-aGtvIDxvbGVrc2lpLmt1cm9jaGtvQGdtYWlsLmNvbT4KPiA+IC0tLQo+ID4gQ2hhbmdlcyBpbiB2
-MjoKPiA+IMKgLSBOZXcgcGF0Y2guCj4gPiAtLS0KPiA+IMKgeGVuL2luY2x1ZGUveGVuL3hlbi5s
-ZHMuaCB8IDI2ICsrKysrKysrKysrKysrKysrKysrKysrKysrCj4gPiDCoDEgZmlsZSBjaGFuZ2Vk
-LCAyNiBpbnNlcnRpb25zKCspCj4gPiAKPiA+IGRpZmYgLS1naXQgYS94ZW4vaW5jbHVkZS94ZW4v
-eGVuLmxkcy5oIGIveGVuL2luY2x1ZGUveGVuL3hlbi5sZHMuaAo+ID4gaW5kZXggYTE3ODEwYmIy
-OC4uYWE3MzAxMTM5ZCAxMDA2NDQKPiA+IC0tLSBhL3hlbi9pbmNsdWRlL3hlbi94ZW4ubGRzLmgK
-PiA+ICsrKyBiL3hlbi9pbmNsdWRlL3hlbi94ZW4ubGRzLmgKPiA+IEBAIC0xMTQsNiArMTE0LDIx
-IEBACj4gPiDCoAo+ID4gwqAvKiBMaXN0IG9mIGNvbnN0cnVjdHMgb3RoZXIgdGhhbiAqX1NFQ1RJ
-T05TIGluIGFscGhhYmV0aWNhbCBvcmRlci4KPiA+ICovCj4gPiDCoAo+ID4gKyNkZWZpbmUgVVNF
-X0RFQ0xfU0VDVElPTih4KSBERUNMX1NFQ1RJT04oeCkKPiA+ICsKPiA+ICsjZGVmaW5lIE5PVVNF
-X0RFQ0xfU0VDVElPTih4KSB4IDoKPiA+ICsKPiA+ICsjaWZkZWYgQ09ORklHX0FDUEkKPiA+ICsj
-ZGVmaW5lIEFDUElfREVWX0lORk9fU0VDKHNlY25hbWUsIERFQ0xfU0VDVElPTl9NQUNST1NfTkFN
-RSnCoCBcCj4gPiArwqDCoMKgIERFQ0xfU0VDVElPTl9NQUNST1NfTkFNRShzZWNuYW1lKSB7wqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKgwqDCoCBf
-YXNkZXZpY2UgPSAuO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKgwqDCoCAqKHNl
-Y25hbWUpwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDCoMKgwqAgX2Fl
-ZGV2aWNlID0gLjvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDCoCB9IDp0ZXh0Cj4g
-PiArI2Vsc2UKPiA+ICsjZGVmaW5lIEFDUElfREVWX0lORk9fU0VDKHNlY25hbWUsIERFQ0xfU0VD
-VElPTl9NQUNST1NfTkFNRSkKPiA+ICsjZW5kaWYgLyogQ09ORklHX0FDUEkgKi8KPiAKPiBUaGlz
-IHdvcmtzLCBidXQgaXMgdGhlcmUgYSByZWFzb24geW91IGRpZG4ndCBqdXN0IGRlZmluZSB0aGUg
-YWN0dWFsCj4gZW50cmllcyB0aGVtc2VsdmVzIGluIHRoZSBtYWNybywgbGlrZSBpcyBkb25lIGZv
-ciBtb3N0IG9mIHRoZSBvdGhlcgo+IG1hY3JvcyBpbiB0aGlzIGZpbGUgKGluY2x1ZGluZyBCVUZS
-QU1FUyByaWdodCBiZWxvdyB0aGlzKT8KVGhlcmUgaXMgbm8gc3BlY2lmaWMgcmVhc29uLCBqdXN0
-IGRlY2lkZWQgaXQgd291bGQgYmUgbmljZSB0byBhYnN0cmFjdAp0aGUgdGhlIGZ1bGwgc2VjdGlv
-biBkZWNsYXJhdGlvbi4KCj4gIFNvbWV0aGluZwo+IGxpa2U6Cj4gCj4gI2RlZmluZSBBREVWX0lO
-Rk/CoMKgwqDCoCBcCj4gwqDCoMKgIF9hc2RldmljZSA9IC47wqDCoMKgIFwKPiDCoMKgwqAgKihz
-ZWNuYW1lKcKgwqDCoMKgwqDCoMKgIFwKPiDCoMKgwqAgX2FlZGV2aWNlID0gLjvCoMKgwqAgXAo+
-IAo+IFBhcmFtZXRlcml6aW5nIHRoZSBzZWN0aW9uIG5hbWUgc2VlbXMgcG9pbnRsZXNzIHNpbmNl
-IHRoZXJlIGFyZSBvdGhlcgo+IHBhcnRzIG9mIHRoZSBjb2RlIHRoYXQgcmVseSBvbiB0aGVtLCBh
-bmQgcGFyYW1ldGVyaXppbmcgdGhlIG1hY3JvIGZvcgo+IGRlY2xhcmluZyBhIHNlY3Rpb24gYWRk
-cyB1bm5lY2Vzc2FyeSBib2lsZXJwbGF0ZSBmb3Igbm9uLXBwYy94ODYKPiBhcmNoaXRlY3R1cmVz
-ICh0aGUgTk9VU0VfREVDTF9TRUNUSU9OIG5vLW9wKS4KSeKAmW0gb2theSB3aXRoIHRoZSBzdWdn
-ZXN0ZWQgYXBwcm9hY2guIEnigJlsbCB3YWl0IGZvciBhIGJpdCB0byBzZWUgaWYKYW55b25lIGhh
-cyBvdGhlciBjb21tZW50cy4gSWYgdGhlcmUgYXJlIG5vIHJlc3BvbnNlcywgSeKAmWxsIHJlc2Vu
-ZCB0aGUKcGF0Y2ggc2VyaWVzIHdpdGggdGhlIHByb3Bvc2VkIGNoYW5nZXMuCgpUaGFua3MhCgp+
-IE9sZWtzaWkKCj4gCj4gPiArCj4gPiDCoCNkZWZpbmUgQlVHRlJBTUVTwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+IMKgwqDC
-oMKgIF9fc3RhcnRfYnVnX2ZyYW1lc18wID0gLjvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgXAo+ID4gwqDCoMKgwqAgKiguYnVnX2ZyYW1lcy4wKcKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiBAQCAtMTMxLDYgKzE0
-NiwxNyBAQAo+ID4gwqDCoMKgwqAgKiguYnVnX2ZyYW1lcy4zKcKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiDCoMKgwqDCoCBfX3N0b3Bf
-YnVnX2ZyYW1lc18zID0gLjsKPiA+IMKgCj4gPiArI2lmZGVmIENPTkZJR19IQVNfREVWSUNFX1RS
-RUUKPiA+ICsjZGVmaW5lIERUX0RFVl9JTkZPX1NFQyhzZWNuYW1lLCBERUNMX1NFQ1RJT05fTUFD
-Uk9TX05BTUUpwqAgXAo+ID4gK8KgwqDCoCBERUNMX1NFQ1RJT05fTUFDUk9TX05BTUUoc2VjbmFt
-ZSkge8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDC
-oMKgwqAgX3NkZXZpY2UgPSAuO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+ICvCoMKgwqDC
-oMKgICooc2VjbmFtZSnCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKg
-wqDCoCBfZWRldmljZSA9IC47wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDCoCB9
-IDp0ZXh0Cj4gPiArI2Vsc2UKPiA+ICsjZGVmaW5lIERFQ0xfRFRfREVWX0lORk9fU0VDKHNlY25h
-bWUsIERFQ0xfU0VDVElPTl9NQUNST1NfTkFNRSkKPiA+ICsjZW5kaWYgLyogQ09ORklHX0hBU19E
-RVZJQ0VfVFJFRSAqLwo+IAo+IERpdHRvLiBBbHNvLCBpZiB5b3UgZ28gd2l0aCB0aGUgYXBwcm9h
-Y2ggSSBtZW50aW9uZWQsIHRoZW4geW91Cj4gd291bGRuJ3QKPiBuZWVkIHRvIGd1YXJkIHRoZXNl
-IG9uIENPTkZJR19IQVNfREVWSUNFX1RSRUUvQ09ORklHX0FDUEkgc2luY2UgdGhhdAo+IHdvdWxk
-IGJlIGRvbmUgaW4gdGhlIGxpbmtlciBzY3JpcHRzIHRoZW1zZWx2ZXMuCgo=
+Hi Shawn,
 
+On Thu, 2024-09-19 at 16:10 -0500, Shawn Anastasio wrote:
+> Hi Oleksii,
+>=20
+> On 9/17/24 11:15 AM, Oleksii Kurochko wrote:
+> > Introduce a new `.dev.info` section in the PPC linker script to
+> > handle device-specific information. This section is required by
+> > common code (common/device.c: device_init(), device_get_class() ).
+> > This section is aligned to `POINTER_ALIGN`, with `_sdevice` and
+> > `_edevice`
+> > marking the start and end of the section, respectively.
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > Changes in V2:
+> > =C2=A0- reuse DT_DEV_INFO_SEC introduced earlier in this patch series
+> > with using
+> > =C2=A0=C2=A0 of DECL_SECTION.=C2=A0=20
+> > ---
+> > =C2=A0xen/arch/ppc/xen.lds.S | 3 +++
+> > =C2=A01 file changed, 3 insertions(+)
+> >=20
+> > diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
+> > index 38cd857187..6e5582c3e4 100644
+> > --- a/xen/arch/ppc/xen.lds.S
+> > +++ b/xen/arch/ppc/xen.lds.S
+> > @@ -94,6 +94,9 @@ SECTIONS
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONSTRUCTORS
+> > =C2=A0=C2=A0=C2=A0=C2=A0 } :text
+> > =C2=A0
+> > +=C2=A0=C2=A0=C2=A0 . =3D ALIGN(POINTER_ALIGN);=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 /* Devicetree based device
+> > info */
+> > +=C2=A0=C2=A0=C2=A0 DT_DEV_INFO_SEC(.dev.info, USE_DECL_SECTION)
+> > +
+>=20
+> As I mentioned in my comment on patch 1, I think this should be done
+> in
+> the same style as the other xen.lds.h macros, which leaves the actual
+> section declaration here in xen.lds.S and just uses the macro to fill
+> in
+> the definition.
+>=20
+> Whether or not that route is ultimately taken though, this change is
+> fine from the PPC end of things:
+>=20
+> Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com>
+
+As I mentioned in the reply to patch 1 I am okay with your suggested
+approach,  I=E2=80=99ll wait for a bit to see if anyone has other comments =
+and
+if it will be necessary I will update the current patch.
+
+Thanks.
+
+~ Oleksii
 
