@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FAAC97D33E
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Sep 2024 11:02:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801068.1211092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76F7B97D3BF
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Sep 2024 11:37:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801077.1211103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srZWE-0004gX-8t; Fri, 20 Sep 2024 09:01:38 +0000
+	id 1sra4X-0000QW-Sp; Fri, 20 Sep 2024 09:37:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801068.1211092; Fri, 20 Sep 2024 09:01:38 +0000
+Received: by outflank-mailman (output) from mailman id 801077.1211103; Fri, 20 Sep 2024 09:37:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1srZWE-0004eQ-5I; Fri, 20 Sep 2024 09:01:38 +0000
-Received: by outflank-mailman (input) for mailman id 801068;
- Fri, 20 Sep 2024 09:01:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1srZWC-0004eG-R5; Fri, 20 Sep 2024 09:01:36 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1srZWC-0004FL-Q0; Fri, 20 Sep 2024 09:01:36 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1srZWC-00016p-Ig; Fri, 20 Sep 2024 09:01:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1srZWC-0003qf-IG; Fri, 20 Sep 2024 09:01:36 +0000
+	id 1sra4X-0000OO-Pa; Fri, 20 Sep 2024 09:37:05 +0000
+Received: by outflank-mailman (input) for mailman id 801077;
+ Fri, 20 Sep 2024 09:37:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Wh1w=QS=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1sra4V-0000OC-NU
+ for xen-devel@lists.xenproject.org; Fri, 20 Sep 2024 09:37:03 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e3e98b89-7733-11ef-a0b8-8be0dac302b0;
+ Fri, 20 Sep 2024 11:37:02 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c4146c7d5dso2399243a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Sep 2024 02:37:02 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c42bc88d82sm7030921a12.81.2024.09.20.02.37.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Sep 2024 02:37:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +44,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=L9O9pHOt4Odrw7uDiAfOFws8DfmW2M3yXsI5g1XTAIg=; b=LGyB6czOZv4x2cJ6H2tPfaybgO
-	sB11Df6wub3otp0EmbDDCoYH6sRSdOKWDyu3R6aJ/8CK4rmNaE8UMv25eLg4ExY5bu9E/SwLtYcoE
-	X4CAn2gd0bwu2bWX5hBYlLUnLPi+nlmf16wPkA5XR1TKSAsBfryq43/70m3JMixre0gE=;
+X-Inumbo-ID: e3e98b89-7733-11ef-a0b8-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1726825021; x=1727429821; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SIELB5IFnYt1OaK5gYb5qD4eQleLAnvXFgrDIsWDpAQ=;
+        b=FrRfrXgtyF7L8qYUjZ5/ZNY0tdkSYyYavYqaPm+RtiqRdW0mP5q2lNdi9B3yMCG1AZ
+         jPC5Rl/X9sZHCCqVQAPRhcflFv5sKj6h+Jv8mEpaHJcFW/1CAP9zgGr03ytYzQGajOpX
+         MlovpWrY0ooUaw4i82Cud4IGfD6FS6C3r/+dc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726825021; x=1727429821;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SIELB5IFnYt1OaK5gYb5qD4eQleLAnvXFgrDIsWDpAQ=;
+        b=Gg8ySxzBhyxr9gh9l6NSu3EZPiop0c0YPUc447Q4Uaj7JpfVE6GdYNLUWS0qTvb79N
+         00TEtYAWwXWKtKxJrGIa8hmHCdknfRKlA9o+poQ7tIz/1WYAGcOLocJthSTl/XsR7DwR
+         QTVmHImjahrvVW45OIIw5ZJryb3Rh3bm0AbUR2dL0PRcHukk7zaHbQNGtQSa3uS8PbKi
+         P2g991jP1uZImx9LAUer8HGgi1mwaAcxBc/CvBTEFNMStYDokIplil2gXgdD5mAWW82e
+         dv+hafdEyHgFsezQ+tTB3GUQ3v923N20WtNoTj9vuFsuttgRfe7e0qyqVZkMqYfMugL0
+         YkbQ==
+X-Gm-Message-State: AOJu0Yz/Cj7pZw0bmyrHn5EqdQES7hU8fD+LqxvpQixkAQRboNdzrp93
+	pdkeyzoA/j1kIp1eGfTqCewNepw7QDtmozK3jo9f0T5ldwkrbachL1sDsglyGxc4liaDx8PS3yb
+	S
+X-Google-Smtp-Source: AGHT+IEmdO1bE6RH81r6Sgb7+rV0anCZ8rfUGk+S8VaSCxOSTvI3pcNA8rmkieSLuG5/I9rQOPbfhQ==
+X-Received: by 2002:a05:6402:2499:b0:5c2:4a98:7520 with SMTP id 4fb4d7f45d1cf-5c464a60ae0mr1547534a12.31.1726825021472;
+        Fri, 20 Sep 2024 02:37:01 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187775-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH 0/3] xen/livepatch: improvements to loading
+Date: Fri, 20 Sep 2024 11:36:52 +0200
+Message-ID: <20240920093656.48879-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Subject: [ovmf test] 187775: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=c3580093520809cbfe2abd0e702d53707b7782a9
-X-Osstest-Versions-That:
-    ovmf=3a3b12cbdae2e89b0e365eb01c378891d0d9037c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 20 Sep 2024 09:01:36 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 187775 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187775/
+Hello,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 c3580093520809cbfe2abd0e702d53707b7782a9
-baseline version:
- ovmf                 3a3b12cbdae2e89b0e365eb01c378891d0d9037c
+Following series attempts to improve the loading of livepatches,
+specifically by doing the Xen build ID check ahead of processing any of
+the sections in the livepatch payload (alternatives, bug frames...).
 
-Last test of basis   187772  2024-09-20 02:43:17 Z    0 days
-Testing same since   187775  2024-09-20 06:43:21 Z    0 days    1 attempts
+Thanks, Roger.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Matt DeVillier <matt.devillier@gmail.com>
+Roger Pau Monne (3):
+  xen/livepatch: simplify and unify logic in prepare_payload()
+  xen/livepatch: do build-id check earlier
+  x86/alternatives: relax apply BUGs during runtime
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ xen/arch/x86/alternative.c                 |  29 +++--
+ xen/arch/x86/include/asm/alternative.h     |   3 +-
+ xen/common/livepatch.c                     | 121 ++++++++++-----------
+ xen/test/livepatch/Makefile                |   5 +
+ xen/test/livepatch/xen_alternatives_fail.c |  29 +++++
+ 5 files changed, 114 insertions(+), 73 deletions(-)
+ create mode 100644 xen/test/livepatch/xen_alternatives_fail.c
 
+-- 
+2.46.0
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   3a3b12cbda..c358009352  c3580093520809cbfe2abd0e702d53707b7782a9 -> xen-tested-master
 
