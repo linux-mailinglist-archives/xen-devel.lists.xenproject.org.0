@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CEAD97E09E
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Sep 2024 10:44:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801496.1211468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E03F97E0A4
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Sep 2024 11:02:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801506.1211482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssIC8-0008Me-1X; Sun, 22 Sep 2024 08:43:52 +0000
+	id 1ssISe-0002nv-Gd; Sun, 22 Sep 2024 09:00:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801496.1211468; Sun, 22 Sep 2024 08:43:52 +0000
+Received: by outflank-mailman (output) from mailman id 801506.1211482; Sun, 22 Sep 2024 09:00:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssIC7-0008LC-Ua; Sun, 22 Sep 2024 08:43:51 +0000
-Received: by outflank-mailman (input) for mailman id 801496;
- Sun, 22 Sep 2024 08:43:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=775k=QU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ssIC6-0008L6-H6
- for xen-devel@lists.xenproject.org; Sun, 22 Sep 2024 08:43:50 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c8d5a026-78be-11ef-99a2-01e77a169b0f;
- Sun, 22 Sep 2024 10:43:48 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a8b155b5e9eso483252066b.1
- for <xen-devel@lists.xenproject.org>; Sun, 22 Sep 2024 01:43:48 -0700 (PDT)
-Received: from [192.168.10.236] ([212.222.86.215])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90612df5afsm1058359966b.162.2024.09.22.01.43.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 22 Sep 2024 01:43:46 -0700 (PDT)
+	id 1ssISe-0002mA-DP; Sun, 22 Sep 2024 09:00:56 +0000
+Received: by outflank-mailman (input) for mailman id 801506;
+ Sun, 22 Sep 2024 09:00:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ssISd-0002m4-DP
+ for xen-devel@lists.xenproject.org; Sun, 22 Sep 2024 09:00:55 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ssISc-0007xb-Sl; Sun, 22 Sep 2024 09:00:54 +0000
+Received: from 90-181-218-29.rco.o2.cz ([90.181.218.29] helo=[10.5.48.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ssISc-0007IP-Jx; Sun, 22 Sep 2024 09:00:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,179 +39,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8d5a026-78be-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1726994627; x=1727599427; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3dy6vdQ2pV/5nhC7F42nxARvM+THTnfH+lSXnw3MJhA=;
-        b=U3NTWbCsi2YbZgQgldcHa1hGI0z4F1+EXZJlN8XB8B3EJHYW4J5r3L3EhujbLsiFsx
-         7scPnXvZmgC0+wM9UiBar1dGb8X99N35XuM2mlggY9SpRj5+cvKR0V/MatSPyOWyjJFy
-         cB2cuPIJBE37HBLf6K3A14h0abw0OIBI5CodY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726994627; x=1727599427;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3dy6vdQ2pV/5nhC7F42nxARvM+THTnfH+lSXnw3MJhA=;
-        b=pi8gwCQVM7WIQeE3LPByGQL7HPx9MI3SVufROg33PPeZg1TOKz2wlRyIEX6sijy5Kv
-         tQ759vVJ9uQdhg5LyBQ5o5uizyJvd5LhN2CgCtRmP39oLG0ityFe8SYJwmBjE0Y5wwrQ
-         Ox/Fi0EgJgOaiua5o+ZpA2izriEYuv76V3XVAeppA9bo5gb4b5H23JcDRAQQy03ZEddE
-         j1C0q/X3Ie2fug7XDo2Rg8GZSBcpezzaJ3jl/wYuNvz3UUwQUckiSjJUhKttUh68T2Hz
-         Qa3asXW/mwaNGGoOXUS9Qi3FEGEIspKN936EwCnnc+Oo4bqu11My5Q2kvHOjxx2vHs2T
-         +VxQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWJ3ysGELKsB37Uk8wwXFPCVWwvq7i2bAt8GLMi+/99qeOXyLLqQliOMZt6B+vX5/esEBjzrVvkxws=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyOla+QrnGUpo81x2208nSzZJ/InlMfiKJTWE/CWZUeKb4R74Gh
-	NG95VOdd/RkqxRKNejiulC++7ITCp5JICbJ1lClfp5wAQFqrNiKBJGN0JLroaa8=
-X-Google-Smtp-Source: AGHT+IFbtAVd0KMcl77a1NWTou6LgkC6YSZdCL/LpzBlozb2Je2irebSiEUPMo64vyjmg5a4AFs/FQ==
-X-Received: by 2002:a17:907:e662:b0:a8b:6ee7:ba22 with SMTP id a640c23a62f3a-a90d5057597mr701133266b.39.1726994627555;
-        Sun, 22 Sep 2024 01:43:47 -0700 (PDT)
-Message-ID: <0a6e2cf5-e9f9-4685-880b-0ad5e29c8265@citrix.com>
-Date: Sun, 22 Sep 2024 10:43:45 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=EQ00DFiFOQoTwvENcTRUl3UFW/IoQ/hbucvJK4up13o=; b=n+bR0hzCJqjH6XJLvhHBkrfHFp
+	RgCtosN0X50aTY1WZ1db8yA4KISY+an0bfs6QcGlNOvB1iIPucsDBD+cpEymlshStdie4JynEkXEA
+	e7gxVFZPH81NtG1fJkhV2blnHzML9ezaYBxmB4o+QN8iKLCxt+QEnKpdRQ8tSD+d8t74=;
+Message-ID: <00461ab7-1cbd-4b72-9722-293a20ebbe81@xen.org>
+Date: Sun, 22 Sep 2024 11:00:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] xen: move per-cpu area management into common code
-To: Julien Grall <julien@xen.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jan Beulich <jbeulich@suse.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <cover.1726746877.git.oleksii.kurochko@gmail.com>
- <15b9b94e1acb70ba713391de5bae42a622c29747.1726746877.git.oleksii.kurochko@gmail.com>
- <a5b7dbdf-886b-45d6-8402-db04c58423e8@xen.org>
+Subject: Re: [PATCH 01/10] xen/arm: ffa: Rework firmware discovery
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <a5b7dbdf-886b-45d6-8402-db04c58423e8@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Bertrand Marquis <bertrand.marquis@arm.com>,
+ xen-devel@lists.xenproject.org
+Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <cover.1726676338.git.bertrand.marquis@arm.com>
+ <9931c299450a1e0a2384161eb9b514ead8895ecc.1726676338.git.bertrand.marquis@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <9931c299450a1e0a2384161eb9b514ead8895ecc.1726676338.git.bertrand.marquis@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 22/09/2024 10:23 am, Julien Grall wrote:
-> On 19/09/2024 17:59, Oleksii Kurochko wrote:
->> diff --git a/xen/arch/x86/percpu.c b/xen/arch/x86/percpu.c
->> index 3205eacea6..33bded8cac 100644
->> --- a/xen/arch/x86/percpu.c
->> +++ b/xen/arch/x86/percpu.c
->> @@ -1,79 +1,19 @@
->> -#include <xen/percpu.h>
->>   #include <xen/cpu.h>
->> -#include <xen/init.h>
->> -#include <xen/mm.h>
->> -#include <xen/rcupdate.h>
->> -
->> -unsigned long __per_cpu_offset[NR_CPUS];
->> -
->> -/*
->> - * Force uses of per_cpu() with an invalid area to attempt to access
->> the
->> - * middle of the non-canonical address space resulting in a #GP,
->> rather than a
->> - * possible #PF at (NULL + a little) which has security implications
->> in the
->> - * context of PV guests.
->> - */
->> -#define INVALID_PERCPU_AREA (0x8000000000000000UL - (unsigned
->> long)__per_cpu_start)
->> -#define PERCPU_ORDER get_order_from_bytes(__per_cpu_data_end -
->> __per_cpu_start)
->> -
->> -void __init percpu_init_areas(void)
->> -{
->> -    unsigned int cpu;
->> -
->> -    for ( cpu = 1; cpu < NR_CPUS; cpu++ )
->> -        __per_cpu_offset[cpu] = INVALID_PERCPU_AREA;
->> -}
->> +#include <xen/percpu.h>
->> +#include <xen/smp.h>
->>   -static int init_percpu_area(unsigned int cpu)
->> +int arch_percpu_area_init_status(void)
->
-> I understand that Arm and x86 are returning a different value today.
-> But now that we are provising a common implementation, I think we need
-> to explain the difference. This is probably a question for the x86 folks.
+Hi Bertrand,
 
-The declarations for CPU Parking (variable, or compile time false) wants
-to be in the new common header, at which point
-arch_percpu_area_init_status() doesn't need to exist.
+On 19/09/2024 14:19, Bertrand Marquis wrote:
+> Rework firmware discovery during probe:
+> - move prints into the probe
+> - rename ffa_version to ffa_fw_version as the variable identifies the
+>    version of the firmware and not the one we support
+> - add error prints when allocation fail during probe
+> 
+> No functional changes.
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+>   xen/arch/arm/tee/ffa.c | 52 +++++++++++++++++++++++++-----------------
+>   1 file changed, 31 insertions(+), 21 deletions(-)
+> 
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 022089278e1c..7c84aa6aa43d 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -71,8 +71,8 @@
+>   
+>   #include "ffa_private.h"
+>   
+> -/* Negotiated FF-A version to use with the SPMC */
+> -static uint32_t __ro_after_init ffa_version;
+> +/* Negotiated FF-A version to use with the SPMC, 0 if not there or supported */
+> +static uint32_t __ro_after_init ffa_fw_version;
+>   
+>   
+>   /*
+> @@ -105,10 +105,7 @@ static bool ffa_get_version(uint32_t *vers)
+>   
+>       arm_smccc_1_2_smc(&arg, &resp);
+>       if ( resp.a0 == FFA_RET_NOT_SUPPORTED )
+> -    {
+> -        gprintk(XENLOG_ERR, "ffa: FFA_VERSION returned not supported\n");
+>           return false;
+> -    }
+>   
+>       *vers = resp.a0;
+>   
+> @@ -372,7 +369,7 @@ static int ffa_domain_init(struct domain *d)
+>       struct ffa_ctx *ctx;
+>       int ret;
+>   
+> -    if ( !ffa_version )
+> +    if ( !ffa_fw_version )
+>           return -ENODEV;
+>        /*
+>         * We can't use that last possible domain ID or ffa_get_vm_id() would
+> @@ -505,6 +502,9 @@ static bool ffa_probe(void)
+>        */
+>       BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE);
+>   
+> +    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
+> +           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
+ > +>       /*
+>        * psci_init_smccc() updates this value with what's reported by EL-3
+>        * or secure world.
+> @@ -514,25 +514,21 @@ static bool ffa_probe(void)
+>           printk(XENLOG_ERR
+>                  "ffa: unsupported SMCCC version %#x (need at least %#x)\n",
+>                  smccc_ver, ARM_SMCCC_VERSION_1_2);
+> -        return false;
+> +        goto err_no_fw;
+>       }
+>   
+>       if ( !ffa_get_version(&vers) )
+> -        return false;
+> +    {
+> +        gprintk(XENLOG_ERR, "ffa: FFA_VERSION returned not supported\n");
 
-That also makes it very clear that there's a difference in return value
-based on CPU Parking (and the comment beside the variable explains this
-is about not quite offlining CPUs), which is far clearer than some arch
-function.
+This error message relies on the implementation of ffa_get_version(). It 
+made sense in the previous placement, but here, it seems a little bit 
+odd. So if you want to move the error message, then I think it should be 
+reworded to be more generic.
 
->> diff --git a/xen/common/percpu.c b/xen/common/percpu.c
->> new file mode 100644
->> index 0000000000..3837ef5714
->> --- /dev/null
->> +++ b/xen/common/percpu.c
->> @@ -0,0 +1,127 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +#include <xen/percpu.h>
->> +#include <xen/cpu.h>
->> +#include <xen/init.h>
->> +#include <xen/mm.h>
->> +#include <xen/rcupdate.h>
->> +
->> +unsigned long __per_cpu_offset[NR_CPUS];
+Maybe: "Cannot retrieve the FFA version".
 
-unsigned long __per_cpu_offset[NR_CPUS] = {
-    [0 ... NR_CPUS - 1] = INVALID_PERCPU_AREA,
-};
+> +        goto err_no_fw;
+> +    }
+>   
+>       if ( vers < FFA_MIN_SPMC_VERSION || vers > FFA_MY_VERSION )
+>       {
+>           printk(XENLOG_ERR "ffa: Incompatible version %#x found\n", vers);
+> -        return false;
+> +        goto err_no_fw;
+>       }
+>   
+> -    major_vers = (vers >> FFA_VERSION_MAJOR_SHIFT) & FFA_VERSION_MAJOR_MASK;
+> -    minor_vers = vers & FFA_VERSION_MINOR_MASK;
+> -    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
+> -           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
 
-should work, removing the need for percpu_init_areas() and avoids a
-window during boot where all CPUs "share" a percpu area.
+I kind of understand why we are moving the Medatior version early but...
 
-~Andrew
+> -    printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
+> -           major_vers, minor_vers);
+
+... I am not sure why we would move this print later. Wouldn't this be 
+useful to know if there is a missing feature?
+> -
+>       /*
+>        * At the moment domains must support the same features used by Xen.
+>        * TODO: Rework the code to allow domain to use a subset of the
+> @@ -546,12 +542,24 @@ static bool ffa_probe(void)
+>            !check_mandatory_feature(FFA_MEM_SHARE_32) ||
+>            !check_mandatory_feature(FFA_MEM_RECLAIM) ||
+>            !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+> -        return false;
+> +    {
+> +        printk(XENLOG_ERR "ffa: Mandatory feature not supported by fw\n");
+> +        goto err_no_fw;
+> +    }
+>   
+> -    if ( !ffa_rxtx_init() )
+> -        return false;
+> +    major_vers = (vers >> FFA_VERSION_MAJOR_SHIFT)
+> +                 & FFA_VERSION_MAJOR_MASK;
+> +    minor_vers = vers & FFA_VERSION_MINOR_MASK;
+> +    printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
+> +           major_vers, minor_vers);
+> +
+> +    ffa_fw_version = vers;
+>   
+> -    ffa_version = vers;
+> +    if ( !ffa_rxtx_init() )
+> +    {
+> +        printk(XENLOG_ERR "ffa: Error during RXTX buffer init\n");
+> +        goto err_no_fw;
+> +    }
+>   
+>       if ( !ffa_partinfo_init() )
+>           goto err_rxtx_destroy;
+> @@ -564,7 +572,9 @@ static bool ffa_probe(void)
+>   
+>   err_rxtx_destroy:
+>       ffa_rxtx_destroy();
+> -    ffa_version = 0;
+> +err_no_fw:
+> +    ffa_fw_version = 0;
+> +    printk(XENLOG_INFO "ARM FF-A No firmware support\n");
+
+I am guessing if we are trying to probe FFA, then most likely the user 
+expected to use it. So shouldn't this be a XENLOG_WARN?
+
+Cheers,
+	
+-- 
+Julien Grall
+
 
