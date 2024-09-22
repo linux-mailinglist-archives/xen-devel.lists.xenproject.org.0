@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A90097E0A8
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Sep 2024 11:08:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801512.1211491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3A4A97E0B3
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Sep 2024 11:19:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801519.1211504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssIZR-0003YA-68; Sun, 22 Sep 2024 09:07:57 +0000
+	id 1ssIkH-0005Ek-7K; Sun, 22 Sep 2024 09:19:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801512.1211491; Sun, 22 Sep 2024 09:07:57 +0000
+Received: by outflank-mailman (output) from mailman id 801519.1211504; Sun, 22 Sep 2024 09:19:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssIZR-0003WG-3d; Sun, 22 Sep 2024 09:07:57 +0000
-Received: by outflank-mailman (input) for mailman id 801512;
- Sun, 22 Sep 2024 09:07:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ssIZP-0003WA-NJ
- for xen-devel@lists.xenproject.org; Sun, 22 Sep 2024 09:07:55 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ssIZP-00085A-Cb; Sun, 22 Sep 2024 09:07:55 +0000
-Received: from 90-181-218-29.rco.o2.cz ([90.181.218.29] helo=[10.5.48.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ssIZP-0007kO-5k; Sun, 22 Sep 2024 09:07:55 +0000
+	id 1ssIkH-0005C9-4j; Sun, 22 Sep 2024 09:19:09 +0000
+Received: by outflank-mailman (input) for mailman id 801519;
+ Sun, 22 Sep 2024 09:19:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=775k=QU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ssIkF-0005C3-8o
+ for xen-devel@lists.xenproject.org; Sun, 22 Sep 2024 09:19:07 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b5343e06-78c3-11ef-a0b8-8be0dac302b0;
+ Sun, 22 Sep 2024 11:19:04 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5c5b6161022so2141397a12.3
+ for <xen-devel@lists.xenproject.org>; Sun, 22 Sep 2024 02:19:02 -0700 (PDT)
+Received: from [192.168.10.236] ([212.222.86.215])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9061330d48sm1057916766b.207.2024.09.22.02.19.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 22 Sep 2024 02:19:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,153 +45,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=veI8H4EtlPyybJt/m3DrQOWzNoER+vmaOXBIZ4I5zN8=; b=fD19bQNL/pRdzQZn60BRCiIWKs
-	yXKyA+ATep6sgnitnYhYJYXj7wlid1lH7EvUyoLceOD6DOqLgYTzNxh0ymU3lHBI95ynNAI0tlkfZ
-	jJ0NsP5hE3qs9aNWZvaVDE0Lo5LlUp7NhKer+WVOYA8RgE9MvIWt3YqNszM8gy2I/5+E=;
-Message-ID: <4f1c91c2-a4ec-4dcf-a5b8-7d0607b1778c@xen.org>
-Date: Sun, 22 Sep 2024 11:07:52 +0200
+X-Inumbo-ID: b5343e06-78c3-11ef-a0b8-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1726996742; x=1727601542; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=jro/Nv67R6Uc5IjRma6qtqaW8uL7gMzdliNji4opUVE=;
+        b=pCeCi9LqA9owFtjeGPbJxgSMEHq9U41RnuBHxfNpdExmLMD2hJrmW9j3GGvuNsDyUn
+         wAYMNo1//YvKwO1mRkum0CeIh1BxHWOeS1rM3iSVG7J/oO+utH/oGguHkLb0tZtcOxv0
+         g0L13EVV1Vv+dZvk0mBk5m3uuMMlVvCyEZ8uo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726996742; x=1727601542;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jro/Nv67R6Uc5IjRma6qtqaW8uL7gMzdliNji4opUVE=;
+        b=rBijM7JWJxsynpUfJWu7XOZAncjVjNBwOaxklCU3q2X4L0cktcRUOlmTk9KHhkShv/
+         ycDesFn4knecxkNy27dhTEw1qEb0AUgDyE5OQ47H3A4RG/sc0Ls5xRCUiaRZBSXoPCCK
+         5JW3Uo4TR70n3Pz3xPW8PvZjK9BK47tDB3lFF6HpL2MlUUU8f0RdeqLVTQVjBiFpjs86
+         MsHElfL5mABktIJPVy10DN92dWfoRMQqaXh7LA9rQrKCYmwM2jgfUsoyckQdXS6vvTYQ
+         7E8OJzVIrBePLiy5825YqcZN5VTYNkl+zsH1Wi+fEeVU4+zdN8IjcerTQubHdMpdL4jK
+         EfKg==
+X-Forwarded-Encrypted: i=1; AJvYcCW4Ge7E4Xwfeb8irUcGDxEr0d21nbPXn492049XZJC4t6EdjS4N1Jq6txrMxYzG51LsbqflEvHOD7U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw7Yq+29ubjTlGHj6YOD8VjbUWYFcs1dlAO8dVFsIG6Ierdn2Vt
+	055Qy2HVq2Nu4OYMKPeGkHD79aIlc9NDNARIeFwWdqlkWVyMLV3sEMBP/6YMUtwXTnWP7kwU1jN
+	9lN82iw==
+X-Google-Smtp-Source: AGHT+IFlka+iwzSmYQOdTP8iyWeC9JigZi84SN7YN1+yYtDzOFRojiBuLK4u4G7Z8SSp42kRc3AFvA==
+X-Received: by 2002:a17:907:f1a9:b0:a7a:a46e:dc3f with SMTP id a640c23a62f3a-a90d510a213mr806912466b.45.1726996742048;
+        Sun, 22 Sep 2024 02:19:02 -0700 (PDT)
+Message-ID: <d7dfa01e-740d-4274-b9fb-8475224ae7a6@citrix.com>
+Date: Sun, 22 Sep 2024 11:19:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/10] xen/arm: ffa: Rework feature discovery
+Subject: Re: [PATCH 1/3] xen/livepatch: simplify and unify logic in
+ prepare_payload()
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
+References: <20240920093656.48879-1-roger.pau@citrix.com>
+ <20240920093656.48879-2-roger.pau@citrix.com>
 Content-Language: en-GB
-To: Bertrand Marquis <bertrand.marquis@arm.com>,
- xen-devel@lists.xenproject.org
-Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>
-References: <cover.1726676338.git.bertrand.marquis@arm.com>
- <6c841c341b7dc9e06eb1c02555e30b29bd400d20.1726676338.git.bertrand.marquis@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <6c841c341b7dc9e06eb1c02555e30b29bd400d20.1726676338.git.bertrand.marquis@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <20240920093656.48879-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On 20/09/2024 11:36 am, Roger Pau Monne wrote:
+> diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+> index d93a556bcda2..cea47ffe4c84 100644
+> --- a/xen/common/livepatch.c
+> +++ b/xen/common/livepatch.c
+> @@ -647,15 +647,37 @@ static inline int livepatch_check_expectations(const struct payload *payload)
+>      nhooks = __sec->sec->sh_size / sizeof(*hook);                                         \
+>  } while (0)
+>  
+> +static int fetch_buildid(const struct livepatch_elf_sec *sec,
+> +                         struct livepatch_build_id *id)
 
-On 19/09/2024 14:19, Bertrand Marquis wrote:
-> Store the list of ABI we need in a list and go through the list instead
-> of having a list of conditions inside the code.
-> 
-> No functional change.
-> 
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->   xen/arch/arm/tee/ffa.c | 61 +++++++++++++++++++++---------------------
->   1 file changed, 30 insertions(+), 31 deletions(-)
-> 
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 7c84aa6aa43d..7ff2529b2055 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -74,6 +74,24 @@
->   /* Negotiated FF-A version to use with the SPMC, 0 if not there or supported */
->   static uint32_t __ro_after_init ffa_fw_version;
->   
-> +/* List of ABI we use from the firmware */
-> +static const uint32_t ffa_fw_feat_needed[] = {
-> +    FFA_VERSION,
-> +    FFA_FEATURES,
-> +    FFA_NOTIFICATION_BITMAP_CREATE,
-> +    FFA_NOTIFICATION_BITMAP_DESTROY,
-> +    FFA_PARTITION_INFO_GET,
-> +    FFA_NOTIFICATION_INFO_GET_64,
-> +    FFA_NOTIFICATION_GET,
-> +    FFA_RX_RELEASE,
-> +    FFA_RXTX_MAP_64,
-> +    FFA_RXTX_UNMAP,
-> +    FFA_MEM_SHARE_32,
-> +    FFA_MEM_SHARE_64,
-> +    FFA_MEM_RECLAIM,
-> +    FFA_MSG_SEND_DIRECT_REQ_32,
-> +    FFA_MSG_SEND_DIRECT_REQ_64,
-> +};
+Is this really fetch?  I'd describe it as parse, more than fetch.
 
-NIT: As we are creating an array, could be take the opportunity to 
-provide a name for each feature (we could use macro for that)? This 
-would make easier for the user to know which feature is missing.
-
->   
->   /*
->    * Our rx/tx buffers shared with the SPMC. FFA_RXTX_PAGE_COUNT is the
-> @@ -112,20 +130,9 @@ static bool ffa_get_version(uint32_t *vers)
->       return true;
->   }
->   
-> -static int32_t ffa_features(uint32_t id)
-> +static bool ffa_feature_supported(uint32_t id)
->   {
-> -    return ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
-> -}
-> -
-> -static bool check_mandatory_feature(uint32_t id)
-> -{
-> -    int32_t ret = ffa_features(id);
-> -
-> -    if ( ret )
-> -        printk(XENLOG_ERR "ffa: mandatory feature id %#x missing: error %d\n",
-> -               id, ret);
-> -
-> -    return !ret;
-> +    return !ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
->   }
->   
->   static void handle_version(struct cpu_user_regs *regs)
-> @@ -529,24 +536,6 @@ static bool ffa_probe(void)
->           goto err_no_fw;
->       }
->   
-> -    /*
-> -     * At the moment domains must support the same features used by Xen.
-> -     * TODO: Rework the code to allow domain to use a subset of the
-> -     * features supported.
-> -     */
-
-You removed this TODO but I don't think it was addressed. Can you clarify?
-
-> -    if ( !check_mandatory_feature(FFA_PARTITION_INFO_GET) ||
-> -         !check_mandatory_feature(FFA_RX_RELEASE) ||
-> -         !check_mandatory_feature(FFA_RXTX_MAP_64) ||
-> -         !check_mandatory_feature(FFA_MEM_SHARE_64) ||
-> -         !check_mandatory_feature(FFA_RXTX_UNMAP) ||
-> -         !check_mandatory_feature(FFA_MEM_SHARE_32) ||
-> -         !check_mandatory_feature(FFA_MEM_RECLAIM) ||
-> -         !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
-> -    {
-> -        printk(XENLOG_ERR "ffa: Mandatory feature not supported by fw\n");
-> -        goto err_no_fw;
-> -    }
-> -
->       major_vers = (vers >> FFA_VERSION_MAJOR_SHIFT)
->                    & FFA_VERSION_MAJOR_MASK;
->       minor_vers = vers & FFA_VERSION_MINOR_MASK;
-> @@ -555,6 +544,16 @@ static bool ffa_probe(void)
->   
->       ffa_fw_version = vers;
->   
-> +    for ( int i = 0; i < ARRAY_SIZE(ffa_fw_feat_needed); i++ )
-
-This is an index, so please use unsigned int (even though it should 
-technically be size_t).
-
-> +    {
-> +        if ( !ffa_feature_supported(ffa_fw_feat_needed[i]) )
-> +        {
-> +            printk(XENLOG_INFO "ARM FF-A Firmware does not support 0x%08x\n",
-> +                   ffa_fw_feat_needed[i]);
-> +            goto err_no_fw;
-> +        }
-> +    }
+> +{
+> +    const Elf_Note *n = sec->load_addr;
+> +    int rc;
 > +
->       if ( !ffa_rxtx_init() )
->       {
->           printk(XENLOG_ERR "ffa: Error during RXTX buffer init\n");
+> +    ASSERT(sec);
 
-Cheers,
+This needs to turn back into a runtime check.  Now, if a livepatch is
+missing one of the sections, we'll dereference NULL below, rather than
+leaving no data in the struct livepatch_build_id.
 
--- 
-Julien Grall
-
+~Andrew
 
