@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 867F897ED86
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 17:01:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802139.1212303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9E4297EDF6
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 17:17:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802150.1212312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sskYj-0003Rf-H8; Mon, 23 Sep 2024 15:01:05 +0000
+	id 1sskoa-0005zC-TH; Mon, 23 Sep 2024 15:17:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802139.1212303; Mon, 23 Sep 2024 15:01:05 +0000
+Received: by outflank-mailman (output) from mailman id 802150.1212312; Mon, 23 Sep 2024 15:17:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sskYj-0003OU-EV; Mon, 23 Sep 2024 15:01:05 +0000
-Received: by outflank-mailman (input) for mailman id 802139;
- Mon, 23 Sep 2024 15:01:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sskoa-0005wc-Q1; Mon, 23 Sep 2024 15:17:28 +0000
+Received: by outflank-mailman (input) for mailman id 802150;
+ Mon, 23 Sep 2024 15:17:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sskYh-0003OO-Vs
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 15:01:03 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a5de8b2d-79bc-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 17:01:01 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so602968366b.2
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 08:01:01 -0700 (PDT)
+ id 1sskoZ-0005wW-Qm
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 15:17:27 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f050c342-79be-11ef-99a2-01e77a169b0f;
+ Mon, 23 Sep 2024 17:17:25 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-378c16a4d3eso4862842f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 08:17:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90612e1a49sm1240894066b.166.2024.09.23.08.01.00
+ a640c23a62f3a-a9061096aa2sm1245327766b.35.2024.09.23.08.17.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 08:01:00 -0700 (PDT)
+ Mon, 23 Sep 2024 08:17:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5de8b2d-79bc-11ef-a0b9-8be0dac302b0
+X-Inumbo-ID: f050c342-79be-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727103661; x=1727708461; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727104645; x=1727709445; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=trqx0VK7m9+EYUWPOe2BgM76NUBJYL36HIyKPkyWgzc=;
-        b=QTOclMi5TSVKs5lPxw7ADglVsTCqpHuqWSBDYQ3qwiKuPPPQF9GK+Y2hHWgaGJvadB
-         /yLbTsSPVsTHPnHSNdKrog7EEnA0MQ6+teeFNN716Nm1OBJgTYmXJkMph7KPnioZ3xAk
-         /bxmWSp5+nuFKEpr61XZsFWWneAQIz34te8qQ8KzI8uRh6l+dCj4qYLXj+lf65zhH0Gi
-         NoX6IbMOEqG2PVs5ZxeqVryPwVxohjmTksoUCwwZM9an50naobcyAIQBnEi3qpChUj4+
-         2Gp59N/w1zP6I7gVEFHYvm2qBaPr+N5Mirq52S7JS0PBEhnRT2790enXU+GSn+wKNWme
-         ko2g==
+        bh=pT4QaiZQssWI/mjRQvj6hOqRE18/VQw+5W4fMZfKXt0=;
+        b=BMUeEPbMUH6wZA5i288f4a2TplH49SyxYCl55R+M/prZNfHxmaqU8FRt6dkNiX7vdS
+         GRXU/LWqam0BJhSWhVmDlfLCr1GZh3zBKi+ASQnbSLynsUyQ8+5K0iYMaauSlGWGqt7W
+         pInFr8OmBmLb1aXqVEfWnjVXf61hG1XBTnbzuFH7/HfHu1L55VOWQSkTBtHY1yd/v98M
+         UJMFw7v7KDuHwM+YIBLL0ocdTjebTxzqT1sIoQIRaOZlGi53IcfqcneN0LoIO1TM/wEV
+         NBFSP5Pwa4R9nkn+Co3SxdwLbMbSfQHQzaONbI+VAPhHz/GBz0k/SQCKu3GIgXzGT74R
+         56xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727103661; x=1727708461;
+        d=1e100.net; s=20230601; t=1727104645; x=1727709445;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=trqx0VK7m9+EYUWPOe2BgM76NUBJYL36HIyKPkyWgzc=;
-        b=gikJsQ/ACiK1FlQjDnckPFIx6m8HMGB/UP3u4DC88h0WBbfctD8S78Z5JMy9pNSc6N
-         /kCF/piqaurYIxG2IkrpUwDV0dHIVS2lheR+iycdYpTyC/Gfd+TRVdy1EiO5hOqUw/IV
-         L+9vEazB1wvgxQQnQFlJpscodwZXXr1x3PphEjebVnAVkkobLunwWJqtEC/tVmC4Gp7o
-         1bANO4yvI+izl0aCr2JLyXO7tJ/Qmj6eUNFLqjp6X2w69NmsqUNkYia8S3uJQJbowbO4
-         8OjLsLjlDSJ/9DNVuMD4Bu52WUfMbQ9E+fgYyclNu98pAk3YkmRzTI31bdshGPFvBTQi
-         gJaQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX6AkSyZHvMNggZQ2mvEF/YJeTeHVhEcsIoQndScbbezwbe6Tiu2KtDy21l9kFWf5ElRcprvKKSd5M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzXePc/XBTL/zMoBWd1nMupN4dPPtSjsAmqeOOcyHtuhoStGv4z
-	+MqiaRNRSkgDlPb2NJyQq/JfYNCOToXw1isirWOTqljI6fnngXHpKlWuHgsNIg==
-X-Google-Smtp-Source: AGHT+IG4zvwjbWpYsYvIN4oqF4zpZ/Pkuucz7+Qfkq2sRP8G9B7NR20XTuA+p89Keapz+SbUn7nJFw==
-X-Received: by 2002:a17:907:f18b:b0:a8d:2e3a:5303 with SMTP id a640c23a62f3a-a90d508a9ddmr1112711066b.39.1727103661133;
-        Mon, 23 Sep 2024 08:01:01 -0700 (PDT)
-Message-ID: <27285031-3719-457f-bfd4-a888bc769be2@suse.com>
-Date: Mon, 23 Sep 2024 17:01:00 +0200
+        bh=pT4QaiZQssWI/mjRQvj6hOqRE18/VQw+5W4fMZfKXt0=;
+        b=QqQ5hbEq3RfmoeLqKWzgqiXh037EYOwIL/5LElPytIQ7+SisRQy6NBm41PDZrKHoGd
+         8giyrS+95tD1KRfE01ebFZBxZGYGgEnqmTYW3g7RIKKkKYjY+Pa5D+tq6WT5RzghWx/i
+         80JkvJKrctzG96E1c1jGYuAGQnYFd433JKFsvbmeJS4gyiJfVvLbQ44BYj1lgMtpBMVV
+         WGVdXxkHyyd0KVcpp4enxaL7OEyN36WUyEKstoeJddC8lroIhKlKnalN3+qmYPLlDIdI
+         tRKPKXrW55/9gV3yjDqqGtzMZ42XTKPxzY8+Xh+q50boL12NG7TwQlXsn9qPjewENFwv
+         LswQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWSdeW9DeRD3FnKF8aKZJNoCdBLA4hiJrlu5AoEXjcmAK409hDqtfJZhRdEVuoCmsW9MbKIIvLjtns=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwWp4LwJTH+UXpQzg3UskWSGAHY2UTKe1XWwotEm1PQV8Hrk2pJ
+	knyTBJYtrcvouybUb9tbSliH+Bfh2MiQSYU+ebILxs9UWUrJPrlKN3r22Fqrog==
+X-Google-Smtp-Source: AGHT+IEuRdd//+4hwfSPaLATtF2hm2YXJQoklqjD6AvJEFR8A/ML67mp8jhtci/alOfMT1TLlN2S3g==
+X-Received: by 2002:a5d:6a49:0:b0:378:81aa:2653 with SMTP id ffacd0b85a97d-37a422533a8mr10090089f8f.9.1727104644952;
+        Mon, 23 Sep 2024 08:17:24 -0700 (PDT)
+Message-ID: <47fc5e0d-e249-4e69-b19d-bb2c4edd1abd@suse.com>
+Date: Mon, 23 Sep 2024 17:17:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v5] x86/intel: optional build of PSR support
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240918091517.1200080-1-Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH v4 1/3] x86: Put trampoline in separate .init.trampoline
+ section
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20240919080021.20155-1-frediano.ziglio@cloud.com>
+ <20240919080021.20155-2-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -112,50 +114,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240918091517.1200080-1-Sergiy_Kibrik@epam.com>
+In-Reply-To: <20240919080021.20155-2-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.09.2024 11:15, Sergiy Kibrik wrote:
-> changes in v5:
->  - simplify psr_cmt_enabled()
->  - move PSR config option and add description
+On 19.09.2024 10:00, Frediano Ziglio wrote:
+> This change put the trampoline in a separate, not executable section.
+> The trampoline contains a mix of code and data (data which
+> is modified from C code during early start so must be writable).
+> This is in preparation for W^X patch in order to satisfy UEFI CA
+> memory mitigation requirements.
+> At the moment .init.text and .init.data in EFI mode are put together
+> so they will be in the same final section as before this patch.
+> Putting in a separate section (even in final executables) allows
+> to easily disassembly that section. As we need to have a writable
+> section and as we can't have code and data together to satisfy W^X
+> requirement we need to have a data section. However tools like objdump
+> by default do not disassemble data sections. Forcing disassembly of
+> data sections would result in a very large output and possibly crash
+> of tools. Putting in a separate section allows to selectively
+> disassemble that part of code using a command like
+> 
+>     objdump -m i386 -j .init.trampoline -d xen-syms
 
-What you did is not so much add a description, but ...
+For xen.efi it won't be quite as neat. One of the reason all .init.*
+are folded into a single section there is that the longer section names
+aren't properly represented, because of the linker apparently preferring
+to truncate them instead of using the "long section names" extension. To
+disassemble there one will need to remember to use "-j .init.tr". I'll
+have to check if there's a linker option we fail to enable, but in the
+absence of that we may want to consider to name the output section just
+".trampoline" there, abbreviating to ".trampol" (i.e. at least a little
+more descriptive).
 
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -231,6 +231,9 @@ config TBOOT
+> --- a/xen/arch/x86/boot/head.S
+> +++ b/xen/arch/x86/boot/head.S
+> @@ -882,8 +882,9 @@ cmdline_parse_early:
+>  reloc:
+>          .incbin "reloc.bin"
 >  
->  	  If unsure, stay with the default.
->  
-> +config PSR
-> +	bool "Platform Shared Resource support"
+> +#include "x86_64.S"
+> +
+> +        .section .init.trampoline, "aw", @progbits
 
-... add a prompt. With a prompt, it also wants to have help text. And with
-a prompt the question then is why ...
+I think the lack of x here requires a comment.
 
-> --- a/xen/arch/x86/Kconfig.cpu
-> +++ b/xen/arch/x86/Kconfig.cpu
-> @@ -13,6 +13,7 @@ config AMD
->  config INTEL
->  	bool "Support Intel CPUs"
->  	default y
-> +	select PSR
-
-... INTEL=y uniformly forces it on, while for INTEL=n (where it's useless)
-it can be manually set to on. Imo, if you permit user configurability (as
-was asked for), then it wants to be
-
-config PSR
-	bool "Platform Shared Resource support"
-	default INTEL
-
-Further: For an acronym like PSR I consider it reasonably likely that
-something similarly abbreviated may appear in common code. I wonder if we
-weren't better off naming this X86_PSR right away. (Likely this would
-extend to various other settings as well that we gained more or less
-recently.)
+Also did I miss any reply by you to Andrew's suggestion to move the
+trampoline to its own translation unit?
 
 Jan
 
