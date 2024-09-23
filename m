@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA4A297EE91
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 17:54:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802197.1212391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7E1A97EEBE
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 18:00:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802208.1212402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sslOK-0007Lk-BD; Mon, 23 Sep 2024 15:54:24 +0000
+	id 1sslUB-0001oE-Vx; Mon, 23 Sep 2024 16:00:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802197.1212391; Mon, 23 Sep 2024 15:54:24 +0000
+Received: by outflank-mailman (output) from mailman id 802208.1212402; Mon, 23 Sep 2024 16:00:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sslOK-0007JP-8O; Mon, 23 Sep 2024 15:54:24 +0000
-Received: by outflank-mailman (input) for mailman id 802197;
- Mon, 23 Sep 2024 15:54:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sslUB-0001mi-SS; Mon, 23 Sep 2024 16:00:27 +0000
+Received: by outflank-mailman (input) for mailman id 802208;
+ Mon, 23 Sep 2024 16:00:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dbeJ=QV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sslOI-000730-Qk
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 15:54:22 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18f56706-79c4-11ef-99a2-01e77a169b0f;
- Mon, 23 Sep 2024 17:54:21 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-53568ffc525so5123234e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 08:54:21 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ <SRS0=qfwC=QV=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
+ id 1sslUA-0001ma-C5
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 16:00:26 +0000
+Received: from mail-ua1-x92c.google.com (mail-ua1-x92c.google.com
+ [2607:f8b0:4864:20::92c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f1a6e5c5-79c4-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 18:00:25 +0200 (CEST)
+Received: by mail-ua1-x92c.google.com with SMTP id
+ a1e0cc1a2514c-846bcf3677dso1292350241.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 09:00:25 -0700 (PDT)
+Received: from gmail.com (ip190-5-140-142.intercom.com.sv. [190.5.140.142])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90613315e3sm1240926866b.209.2024.09.23.08.54.19
+ ada2fe7eead31-49e6b47dd80sm3954043137.32.2024.09.23.09.00.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Sep 2024 08:54:19 -0700 (PDT)
+ Mon, 23 Sep 2024 09:00:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,242 +45,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18f56706-79c4-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: f1a6e5c5-79c4-11ef-a0b9-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727106860; x=1727711660; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=YYwJGPHlrRxYAkIwiT1rq7m0wmSkPz2GGZv9Yo1GCoQ=;
-        b=ldyx5mIrzb2djfX02qS8Vt3kMyMedjmgxh3gH6YW7wpd0bd19rLrxgarojN7YaCfiV
-         fqo31y5T29MurrgAYlV1EAG9KUxOeOrYwrdWyyoQJNAns71A+ePZavAMuWU/6ivUM87g
-         7Nsv/3bGTVsF+hpUODsEH6BHnmB34XlkAgS8E=
+        d=gmail.com; s=20230601; t=1727107224; x=1727712024; darn=lists.xenproject.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CZO6xw2zK+FekRHP0AmCwr1+BY0iBwxezeniLtwBxfA=;
+        b=XQwb5MAu+e/HGd0YS15puEuJnql5iTDKf67qlgjBhq1rWT+iD3Uzt8cgfmNJqk9sGA
+         M/MPRLaellVEM9Gd6D+Kw8GgdgHU3O8nYrY4M4HC6d95MRynzASv2jRP8aDWbrycAI33
+         XKvzHBuc2WdNXi5f9H9tLzkgQ2qraK5Ix0bUtn/AosgFRsVm8Jj4833Klrbq5FDXXBGs
+         Bi4KPccqY29dYer+DCQIFxcnTtQff0CHDj/es+k7aOgSdoJAFTjKejOnHA6pc8uBL2qr
+         MY1wlHnMjf8vLp1AthMqgfgdGcarzTr51/ZLP/3CIMfHf4XVZ6qrHUz3JTzZsIa/Tink
+         esvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727106860; x=1727711660;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=YYwJGPHlrRxYAkIwiT1rq7m0wmSkPz2GGZv9Yo1GCoQ=;
-        b=KFu6Gc3htI9qHtjPPIlDsNnHv586Qkn6aEjjUt6XPLNFwNLrGfQuP3R1QiKen0TdQg
-         SH33d93rkU31MqKAEEeIOvI2DrQzTt5+7t2FwVj9QP7KoS4KzFzgyUggdHnpue310Vhh
-         fI+6KaBhRbhVMwqte8FUIkrqQYH5JzxdDS//WpoMdFu6bjydz4m083egjomVl+9LxKeo
-         kHC4Mf/s7QGlu7t0EgXkzrzW++OsX3CTe24LK3dU5gvhxsGeLulTVGDj+FZu4gA8JnUb
-         BwJE/HVDk4ZOqUoqEm2dZjiSZ0X7++g3+Rt9pOly4WhMm3WMBc3uLOWIkkZTG4oWMVUY
-         MIaw==
-X-Gm-Message-State: AOJu0YzLIVc7+Zey0Y8yMrNzvndff1Y9f22/0ZQeZUD6WfP83JlMU5Vz
-	p6SjDK97jSVT0BueZoHkE7vS7W7D4+mSI00NwziHV/5oPGI02TjTQfaGMjRNP7J825DmfaczzoM
-	ULGZxIg==
-X-Google-Smtp-Source: AGHT+IE13+2HF8paXNonRdWJY1840DGkVLW2sKKXETqMBn++YnaxMcz4ttxuni3k3jDsqPnGeY5dIQ==
-X-Received: by 2002:a05:6512:ba4:b0:52e:9f17:841a with SMTP id 2adb3069b0e04-536ac2d051fmr6445237e87.6.1727106860059;
-        Mon, 23 Sep 2024 08:54:20 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH] tools/libxs: Style consistency improvements
-Date: Mon, 23 Sep 2024 16:54:16 +0100
-Message-Id: <20240923155416.101538-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20230601; t=1727107224; x=1727712024;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=CZO6xw2zK+FekRHP0AmCwr1+BY0iBwxezeniLtwBxfA=;
+        b=HeFCvw1sGJHyD2jpNk4fvM7rrMh/ARPTfVKt0YhN8qTq59wPPfKmau5I7I2j+WcnqY
+         SHdakfpVqMr9Ih11aH4J0FjXL36kMlXXX9qkzNMA97F/4dpRj60R3mhULckVFVhwXwCh
+         WmlcNrpCiDAKeueEpeZcYPYgb+iR4rcPeKwLvJdoOHb8Zmp2qFO90QrMEZI1OuBdBkTX
+         7OJkuq6l32kTnsO7+okvxxpT/fSEEEPXbAAUbvvFbQkdUFpqth+vMrc3cq0LqwegVglu
+         OUHrkch/Dk+FG8hOvS0LAHN27oakuZjrJ6NbeTzgot8w4cKzddhH7sPoQq55nfPq4pW4
+         AbAg==
+X-Forwarded-Encrypted: i=1; AJvYcCVooSLQo4eGR2K50IWXjoUiuF+GcYSVTrPoAxlMUFiMBinPQlKY+I7cMGLEPqqyopqhM6Qe+zyQpFM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YypokmobsA7xtTq7XfusGIym+P61/1tpw+5vbTmhG9DmezG0dse
+	nvA+W36DtVv0Q60UYksqTHGpBkybjPVDElpiH8ulS2qncLQJbD2J
+X-Google-Smtp-Source: AGHT+IENPozg+xVMIWvMBGwR3CYA3qJoZ8EoZAcMqVrMNwVId4uYtFV9S3FOA/RS+nWXEQ9yToaOpQ==
+X-Received: by 2002:a05:6102:510b:b0:497:6bb5:398a with SMTP id ada2fe7eead31-49fc9554cfbmr7208071137.7.1727107223959;
+        Mon, 23 Sep 2024 09:00:23 -0700 (PDT)
+Date: Mon, 23 Sep 2024 18:00:21 +0200
+From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: dave@treblig.org, sstabellini@kernel.org, paul@xen.org,
+	xen-devel@lists.xenproject.org, qemu-devel@nongnu.org,
+	anthony@xenproject.org
+Subject: Re: [PATCH] hw/xen: Remove deadcode
+Message-ID: <ZvGQleGKoqrz7dkq@zapote>
+References: <20240917002212.330893-1-dave@treblig.org>
+ <ZulFy+S9b243+EQy@l14>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZulFy+S9b243+EQy@l14>
+User-Agent: Mutt/2.2.12 (2023-09-09)
 
-This is mostly Linux sytle.  Make the file self-consistent.  Drop trailing
-whitespace, and use tabs consistently.
+On Tue, Sep 17, 2024 at 09:03:09AM +0000, Anthony PERARD wrote:
+> On Tue, Sep 17, 2024 at 01:22:12AM +0100, dave@treblig.org wrote:
+> > From: "Dr. David Alan Gilbert" <dave@treblig.org>
+> > 
+> > xen_be_copy_grant_refs is unused since 2019's
+> >   19f87870ba ("xen: remove the legacy 'xen_disk' backend")
+> > 
+> > xen_config_dev_console is unused since 2018's
+> >   6d7c06c213 ("Remove broken Xen PV domain builder")
+> > 
+> > Remove them.
+> > 
+> > Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
+> 
+> Acked-by: Anthony PERARD <anthony.perard@vates.tech>
+> 
+> Thanks,
 
-No functional change.
+Reviewed-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Juergen Gross <jgross@suse.com>
-
-From the SIGPIPE work, but not submitted at the time.
----
- tools/libs/store/xs.c | 74 ++++++++++++++++++++++++-------------------
- 1 file changed, 41 insertions(+), 33 deletions(-)
-
-diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
-index 5d9c7151e8bb..e22f99b59f61 100644
---- a/tools/libs/store/xs.c
-+++ b/tools/libs/store/xs.c
-@@ -1,4 +1,4 @@
--/* 
-+/*
-     Xen Store Daemon interface providing simple tree-like database.
-     Copyright (C) 2005 Rusty Russell IBM Corporation
- 
-@@ -164,8 +164,10 @@ static void *read_thread(void *arg);
- 
- static int read_message(struct xs_handle *h, int nonblocking);
- 
--static bool setnonblock(int fd, int nonblock) {
-+static bool setnonblock(int fd, int nonblock)
-+{
- 	int flags = fcntl(fd, F_GETFL);
-+
- 	if (flags == -1)
- 		return false;
- 
-@@ -236,7 +238,7 @@ static int get_socket(const char *connect_to)
- 		goto error;
- 
- 	addr.sun_family = AF_UNIX;
--	if(strlen(connect_to) >= sizeof(addr.sun_path)) {
-+	if (strlen(connect_to) >= sizeof(addr.sun_path)) {
- 		errno = EINVAL;
- 		goto error;
- 	}
-@@ -276,9 +278,11 @@ static int get_dev(const char *connect_to)
- 	return -1;
- }
- 
--static int all_restrict_cb(Xentoolcore__Active_Handle *ah, domid_t domid) {
--    struct xs_handle *h = CONTAINER_OF(ah, *h, tc_ah);
--    return xentoolcore__restrict_by_dup2_null(h->fd);
-+static int all_restrict_cb(Xentoolcore__Active_Handle *ah, domid_t domid)
-+{
-+	struct xs_handle *h = CONTAINER_OF(ah, *h, tc_ah);
-+
-+	return xentoolcore__restrict_by_dup2_null(h->fd);
- }
- 
- static struct xs_handle *get_handle(const char *connect_to)
-@@ -362,8 +366,10 @@ struct xs_handle *xs_domain_open(void)
- static const char *xs_domain_dev(void)
- {
- 	char *s = getenv("XENSTORED_PATH");
-+
- 	if (s)
- 		return s;
-+
- #if defined(__RUMPUSER_XEN__) || defined(__RUMPRUN__)
- 	return "/dev/xen/xenbus";
- #elif defined(__linux__)
-@@ -394,7 +400,8 @@ struct xs_handle *xs_open(unsigned long flags)
- 	return xsh;
- }
- 
--static void close_free_msgs(struct xs_handle *h) {
-+static void close_free_msgs(struct xs_handle *h)
-+{
- 	struct xs_stored_msg *msg, *tmsg;
- 
- 	XEN_TAILQ_FOREACH_SAFE(msg, &h->reply_list, list, tmsg) {
-@@ -408,7 +415,8 @@ static void close_free_msgs(struct xs_handle *h) {
- 	}
- }
- 
--static void close_fds_free(struct xs_handle *h) {
-+static void close_fds_free(struct xs_handle *h)
-+{
- 	if (h->watch_pipe[0] != -1) {
- 		close(h->watch_pipe[0]);
- 		close(h->watch_pipe[1]);
-@@ -416,7 +424,7 @@ static void close_fds_free(struct xs_handle *h) {
- 
- 	xentoolcore__deregister_active_handle(&h->tc_ah);
-         close(h->fd);
--        
-+
- 	free(h);
- }
- 
-@@ -448,7 +456,7 @@ void xs_daemon_close(struct xs_handle *h)
-         close_fds_free(h);
- }
- 
--void xs_close(struct xs_handle* xsh)
-+void xs_close(struct xs_handle *xsh)
- {
- 	if (xsh)
- 		xs_daemon_close(xsh);
-@@ -995,7 +1003,7 @@ bool xs_watch(struct xs_handle *h, const char *path, const char *token)
- 
- #define READ_THREAD_STACKSIZE 					\
- 	((DEFAULT_THREAD_STACKSIZE < PTHREAD_STACK_MIN) ? 	\
--	PTHREAD_STACK_MIN : DEFAULT_THREAD_STACKSIZE)
-+	 PTHREAD_STACK_MIN : DEFAULT_THREAD_STACKSIZE)
- 
- 	/* We dynamically create a reader thread on demand. */
- 	mutex_lock(&h->request_mutex);
-@@ -1258,7 +1266,7 @@ bool xs_transaction_end(struct xs_handle *h, xs_transaction_t t,
- 		strcpy(abortstr, "F");
- 	else
- 		strcpy(abortstr, "T");
--	
-+
- 	return xs_bool(xs_single(h, t, XS_TRANSACTION_END, abortstr, NULL));
- }
- 
-@@ -1293,7 +1301,7 @@ bool xs_introduce_domain(struct xs_handle *h,
- }
- 
- bool xs_set_target(struct xs_handle *h,
--			 unsigned int domid, unsigned int target)
-+		   unsigned int domid, unsigned int target)
- {
- 	struct xsd_sockmsg msg = { .type = XS_SET_TARGET };
- 	char domid_str[MAX_STRLEN(domid)];
-@@ -1377,30 +1385,30 @@ bool xs_is_domain_introduced(struct xs_handle *h, unsigned int domid)
- 
- int xs_suspend_evtchn_port(int domid)
- {
--    char path[128];
--    char *portstr;
--    int port;
--    unsigned int plen;
--    struct xs_handle *xs;
--
--    xs = xs_daemon_open();
--    if (!xs)
--        return -1;
-+	char path[128];
-+	char *portstr;
-+	int port;
-+	unsigned int plen;
-+	struct xs_handle *xs;
-+
-+	xs = xs_daemon_open();
-+	if (!xs)
-+		return -1;
- 
--    sprintf(path, "/local/domain/%d/device/suspend/event-channel", domid);
--    portstr = xs_read(xs, XBT_NULL, path, &plen);
--    xs_daemon_close(xs);
-+	sprintf(path, "/local/domain/%d/device/suspend/event-channel", domid);
-+	portstr = xs_read(xs, XBT_NULL, path, &plen);
-+	xs_daemon_close(xs);
- 
--    if (!portstr || !plen) {
--        port = -1;
--        goto out;
--    }
-+	if (!portstr || !plen) {
-+		port = -1;
-+		goto out;
-+	}
- 
--    port = atoi(portstr);
-+	port = atoi(portstr);
- 
- out:
--    free(portstr);
--    return port;
-+	free(portstr);
-+	return port;
- }
- 
- char *xs_control_command(struct xs_handle *h, const char *cmd,
-@@ -1436,7 +1444,7 @@ static int read_message(struct xs_handle *h, int nonblocking)
- 	 * whole amount requested.  Ie as soon as we have the start of
- 	 * the message we block until we get all of it.
- 	 */
--         
-+
- 	struct xs_stored_msg *msg = NULL;
- 	char *body = NULL;
- 	int saved_errno = 0;
--- 
-2.39.5
-
+Cheers,
+Edgar
 
