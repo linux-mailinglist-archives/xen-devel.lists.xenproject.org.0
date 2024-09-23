@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BDBA97EA91
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 13:18:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801963.1212050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D098497EA9C
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 13:22:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801971.1212060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssh4o-0003FK-HF; Mon, 23 Sep 2024 11:17:58 +0000
+	id 1ssh9M-0004tq-1R; Mon, 23 Sep 2024 11:22:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801963.1212050; Mon, 23 Sep 2024 11:17:58 +0000
+Received: by outflank-mailman (output) from mailman id 801971.1212060; Mon, 23 Sep 2024 11:22:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssh4o-0003CY-DY; Mon, 23 Sep 2024 11:17:58 +0000
-Received: by outflank-mailman (input) for mailman id 801963;
- Mon, 23 Sep 2024 11:17:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ssh9L-0004sA-Uo; Mon, 23 Sep 2024 11:22:39 +0000
+Received: by outflank-mailman (input) for mailman id 801971;
+ Mon, 23 Sep 2024 11:22:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dbeJ=QV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ssh4m-0003CP-JB
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 11:17:56 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a6f8f31-799d-11ef-99a2-01e77a169b0f;
- Mon, 23 Sep 2024 13:17:54 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-53567b4c3f4so4416449e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 04:17:54 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9061096aa2sm1209688666b.35.2024.09.23.04.17.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 04:17:53 -0700 (PDT)
+ <SRS0=449k=QV=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1ssh9L-0004s4-28
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 11:22:39 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2413::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 22c33206-799e-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 13:22:37 +0200 (CEST)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by CH3PR12MB9395.namprd12.prod.outlook.com (2603:10b6:610:1ce::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.27; Mon, 23 Sep
+ 2024 11:22:34 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%4]) with mapi id 15.20.7982.022; Mon, 23 Sep 2024
+ 11:22:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,208 +47,305 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a6f8f31-799d-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727090274; x=1727695074; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7n4d7hHoPxnlW0tjFg55iKLL0xyp1Wf4icNqhIVu508=;
-        b=stJ2HUTwlsXni2j9FSaW3qJASgRA9tTNDWjpI7NgcGy3aSAc2Ti3LF1uW79lUrugW2
-         9K6QNxOQ2U7rq9Lv7uJppwEf7/g3FIHT3eA8UTNZYYi7p33QHphNS//VzH7IdC+dJ1lt
-         c7xPYoH3Sr8mMDXjjtGQXRBHfMqq0PqDnbu0E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727090274; x=1727695074;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7n4d7hHoPxnlW0tjFg55iKLL0xyp1Wf4icNqhIVu508=;
-        b=dU93Wkdgl/T/7ct6gj57g5tZoA3JKaH027RFDfQVwTSRaPIjOjB+OC4SDVN5nK8DD2
-         WECX+ESKu8wkGMzUjW4k0OufaPYF5B6EmM9ughSx7bHtPyZKfjT5HMvJyVva87lg5sVo
-         GZdX3KH1wS4U23953L8j81xFofgASwFpRVzrZ6rjf3QRfMx7EJ9hSJ9LPrm7rX/B0zj/
-         xTOC8Zf7rU7eDuaSoqNgginQOFYsi6s+5oritaIlPDUUbzYjPcgbJcK5BLfJVuCflQFe
-         1BwhJsP8Mm6wGXA8/yGShenRCcoAsqeQhWieBAofS3435mIvYW5F45vsgBCsYEoijKxe
-         RrUw==
-X-Forwarded-Encrypted: i=1; AJvYcCX+RBMz2m8b4ajVdQuTHLFjSZcXgS7OkCCWnR2OYUUnup5WV8SmuUYNGf3iAJ0oh9gUCwstEf78nU0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzxGuLp2PgfVHsCTxAdxx9BPRx1du37gPHdrjz+XrEX4+liq0Xb
-	UIudpb2CJvq+FS1zrnLN8cmakUK0XKLcv3UiedvdtlGMciQT6aQZFYQV2hTXaX8=
-X-Google-Smtp-Source: AGHT+IEcL3FZzcZW//HkvhrwOlPaidcxVkBzd5xAmIKoOdPaFppZ+5ydreldNX+4B82kVxECt/ScbA==
-X-Received: by 2002:a05:6512:32c8:b0:536:54db:ddd0 with SMTP id 2adb3069b0e04-536ac179fdamr5740031e87.0.1727090273749;
-        Mon, 23 Sep 2024 04:17:53 -0700 (PDT)
-Message-ID: <f9ff1d2e-0d4f-4b28-83dc-b7f26f3fe86c@citrix.com>
-Date: Mon, 23 Sep 2024 12:17:51 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 22c33206-799e-11ef-a0b9-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f4SFUoCsx5ZS/lRsnQoPpPIhQycVK6CoJuaw59wi/Dc2S+3Skug826rQtDUM5Y/yA033sFxRXWzTCd/vWSYEd8nkgDFNB1ychq3vQVviGr98049cp8n6rLI3MSJgVstRlbV6XYdgrAGwSqdQe0IYydHhSxPpRxnTSgtavgStAm9PYAbj3lT/rzmWZZSJTxVKqSHRk7BxS5onn7ZflgPJJiNMiXHmOgzTExClZ2LOzHoRzSlQwcF8lvAiA6SOloYEWhdOdpi4TspUvMeyssttgcxoI9FuPiWWFjzqlAdyLBr0ChjQxZElbA0F/u7Ag2KUluubplLWll2D0sTyxEecTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hmsAJSZPVAMUw1XTp2XqCD2yodSUtMSaI9vZ7rmwflQ=;
+ b=SdzPwSGCc1L5E3RJmTxm8gRLnSnh0R3ecjKkbfY+E1hHYdjcNO/wMh4QsSA7c1/7V0xLx2l97caCIbCsOCjkNLXlB19A2tLVHl5HaPXQ/XgrO+KtEB29PJ2ShRATU2OjKTHjnysu5q705JELfhBEMPAhKPDv2OV1Zn2XMjU9Q17n0OWMB5yrKROeBqkZKLjMZAJpo3dLJBj2pKD2vS0aLIc3nMOmTx1J8qmYr9L3e5JEcjUdKoCIcpVKR1XcShXOa8U8apr+Ti2EaLtszWidtr3ZZpYKYmHxQmxmSa7EsMIAqP/3qoliS6Mf4OTOrufGWpcB20be2D2kETGnUoTpTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hmsAJSZPVAMUw1XTp2XqCD2yodSUtMSaI9vZ7rmwflQ=;
+ b=Wl1syVC6lWh9tM7w0EwXzM2cdGS5gTgLer9PW0wakDYAXTBrIZi9Y1WDTj0/xh6bZ1abLui8vgFcWQpNWr3J5ObeO/sL359tt9aI7Flz/Toi4YeqUJvwokFbOuHQPakLC1jkqeYmdyT/drPz4s+cWWdfxK237/Li/q2UhNIpFdI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <ed17bac3-6505-4824-bffb-6436e0a9e3cc@amd.com>
+Date: Mon, 23 Sep 2024 12:22:28 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/alternatives: relax apply BUGs during runtime
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roge.rpau@citrix.com>
-References: <20240920093656.48879-1-roger.pau@citrix.com>
- <20240920093656.48879-5-roger.pau@citrix.com>
+Subject: Re: [PATCH v2 2/4] xen/arm: mpu: Define Xen start address for MPU
+ systems
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240920093656.48879-5-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+To: Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Jiamei . Xie" <jiamei.xie@arm.com>
+References: <20240918175102.223076-1-ayan.kumar.halder@amd.com>
+ <20240918175102.223076-3-ayan.kumar.halder@amd.com>
+ <e1930816-14ff-489e-99c1-8e832655d4af@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <e1930816-14ff-489e-99c1-8e832655d4af@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0249.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a7::20) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|CH3PR12MB9395:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ea56537-7668-4041-c608-08dcdbc20517
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SVc3NHFLRy9Kb29EOXJpY2hrZkhaR050VVh2MTJhTUt2N0ZpZnVuelk0ZERG?=
+ =?utf-8?B?NHJySis5MllycXNYQWp0QVJrSWt5cTZ3c0o5Y3cwT3dQZUwrMkY4Z211ZEJ5?=
+ =?utf-8?B?dkJnUmhibmdBVHJBWXJzdW1GSHZ6VDg3eCtlT09xeVBBRE1SMmlmUWhzRzRF?=
+ =?utf-8?B?WithQ00rQVErYVF1UG9LWGhnd0NQbkhNK1V0NTc0SVVnRWJ1NitGd25LcDhO?=
+ =?utf-8?B?NXhtNEhFeklac1E5Qms1Q1c5c1VDZU8vUlI4cm5KL1ZsRmhtUnlCRmI3L0xw?=
+ =?utf-8?B?SDAzL1BuNVBPdGxSSkpwYmYzU29LM0xKZWFZOENLd2t0SVVhUG84L0hsZDhS?=
+ =?utf-8?B?cnczNU9UWU9YVXM4cDBtNStLZnJ3TmJYVnlkUmNqU3RnRzl0NmxCb00rT3FC?=
+ =?utf-8?B?YWRyU3VnQ3N5cmVOWVRkVkJqSFhqRldaUXFSeXFJWDVKWnc2Z1BRYWFseHlM?=
+ =?utf-8?B?N2FEY3RCZXJacjhjZzBodG96VVlnY0x3N3B1Q0NuVVovMHAyOGNENTA3NFZk?=
+ =?utf-8?B?NXI0eEtxVXFJdklOZFBNMXRqM1pxRnN3U1AxenJqaUJrQ1c5b0JmQ2dlL2o2?=
+ =?utf-8?B?bUhMcXloTGdOYUg1NVpIV2d1S2FWRVZuY0xncVZkUUhJbXhxR3dDdDhLZU9F?=
+ =?utf-8?B?dElLdktYM2tBZ2MyN21acHNKU1hWRGozWXYzMkE1c2JYZGxMTFFFQlNJbDNh?=
+ =?utf-8?B?QlI5UU9GUHVKK1B3MlE5VDJPRWk0Z0JDSEJJaEJZaFg4MjRyU3FhN0RqSlJq?=
+ =?utf-8?B?SXg4UldPNW5sK1F6UGljb0JuR255NmdLU2lOdzFYVi84UDByVGhQZ1JYV0Jo?=
+ =?utf-8?B?d0psM1VEYytCemh5dFpOZTgrV0EwQ3VZQjBkMFRlSHUyRi9QNmFPdmhGcTJJ?=
+ =?utf-8?B?MW42TFZpMTJqU3YwNTF1Y1R6T0djaG9SNVNGaWhhUzZoVk4zR2N6a3RlOTNH?=
+ =?utf-8?B?Y3R4NXFUODdmVGZUbDBpOUFHT2Z2V3BuUEdUV0JjSVdCRjcvOVNWWDhRMjRE?=
+ =?utf-8?B?VS9yaXcrQnpzUURySVBWM3V1T29ISnlCOHlnaHJWZHNQb20xcENRbjFRTHdp?=
+ =?utf-8?B?bTR5QzU2dnU3VkVLdnJaZGhrV1hLR21OcDExdWU0aEs2VEhGVWt4RzVUTEFh?=
+ =?utf-8?B?cWMwbmcxMno5TzM2VVhTSlFqU3JFbzJWbDdyaFBDSjBzRWovd3BTSDYrQnJP?=
+ =?utf-8?B?bWt3UTN1RGt0NVJRR09TajBNYW9VQkIyUEhnKzU3MzViZTVrTkh2QXB1WGpm?=
+ =?utf-8?B?SnRGYkhoWTFsallPWnRlT200S0p3UGRZV0pGWG1rUWpKall2ZVBwWFJaeFdJ?=
+ =?utf-8?B?UDBlLzlKVzRDRGhsdXF4Sm85bjdNN0V5UWFVaG9ickNMdDFBdHoyVDBPQ1NR?=
+ =?utf-8?B?U3NCenZRL3ZaTlZXR3JjWEY1L0hyNWlXMmJiY3lJaEFrSnQyTVphVzVMSmRF?=
+ =?utf-8?B?bGIremdyVVJSWHdDbWVlU0hhK0I0RTJ3NEJnbFdwNVpqQ0tBaGEyR2RZQk1n?=
+ =?utf-8?B?bG9vcjAremw0T05zZVFJM013NXIrQUkvQkc4R2crWjl1ZDFEVlFybnFKN0Vw?=
+ =?utf-8?B?eXllaFVVZytwaHQ2cDIxbmc2dnF3TzdRbmNKLzJzdVdHd1o5Q0RaTm9ITHIy?=
+ =?utf-8?B?dzNReHhyWlJpTmRiN0pIZlFEWnYxQmNuY09yeE1CYlVMZ1FTV1RsM1pjK1VS?=
+ =?utf-8?B?cVBYSVE3OXRDNmdWK2pJWU9jWi8zNkFXTEZVM0srQ2Y4OXRodHA0SGt3PT0=?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T3lBM1B4eWhXbENIRml1aTdTMjZwclNYblYvNUEySmxsNklrNVNpcW9yZEYy?=
+ =?utf-8?B?b2NrQTk2ZWRmQnd2b3l2NXRta0tRZ0czN2xaVlRoOE5pQmZqQmxFMENZY0wx?=
+ =?utf-8?B?d0UwV0pQVzAyWUl6SXV0SDNVZW9LOVdzR1N3cTlLNXhaM0pwT2wyOU13TUwr?=
+ =?utf-8?B?a2YyYXlhczdhRDBNbmVHYnpEZDAxLzhPVjNiNW15MmZPd2cybmV4SVBGelQ4?=
+ =?utf-8?B?QklUcW0yN3lpUGJxd1NDV0xsMmdGYmVXcGNPVE1EbGFrSDZrOUZKZmMxT1Vz?=
+ =?utf-8?B?eXdFazdtK1BOQ21MRnNxbW5QNzdIeFg0VXRtN0EyR01PZlVoam1BejdNeXpW?=
+ =?utf-8?B?YnE1UE9rdEVhd2pMMURRTno2dExxL216STVJQ3BkcFVUM3N6SXl5M3V2RDFl?=
+ =?utf-8?B?U25zSHRkR29lY216UVlReFJrelg1Z2pRbW5QdVZNRGd3clBENFJ6NWxHbXFM?=
+ =?utf-8?B?YmFlOFRzRmh4SFRmRVRyL1oyWWtCVm9rdWRXQXp0cGIyeHBSVmYxRDcwVXZ4?=
+ =?utf-8?B?dVNDUHZxa2JodGVTanpxWlE3Wm8zRmxaYXhTbDhqUXhqVDlBRHdqcXJsa3R2?=
+ =?utf-8?B?ajQxeXQzcDF3cDJsUkR0c0FVUE8zRW1MQnZDQVdWcXFMVFExN1Z4S2ppQUpn?=
+ =?utf-8?B?U3hpMkVhY1JncUw0TFZEN284N0d3QWtoUVNobFBxbncrM1lScUNmME1hTkh1?=
+ =?utf-8?B?NHQ1Wi9ROGtXSXFTeTdzdHljMFFVK01JL2h1WG5qbFcvODg2dVBuNnR5akJS?=
+ =?utf-8?B?Vk9OenpYZUo0UFhjczczTFR5Y0hha25qbCtvWFpqNlVFSXlRcm9VZE9HWkdp?=
+ =?utf-8?B?bGVSd2dNYWlGMHZIcGhZSmdiVm5jSzlnT1RVWStKdXZ1eVRlM2I0QzBRSkJH?=
+ =?utf-8?B?MjlnRy9ONnhHaGJZK2pCQ1R0aG1IZmxiamdzZ0dNVUhORXRkTFVtbE8xYzJX?=
+ =?utf-8?B?V0pPMGZlZXFpQ3IzK29tTTN0WWlabHdqeFFXaVE2SEhyd3Y0SVJ2NWVLWDYz?=
+ =?utf-8?B?NWVtRFNtZ1FaWWM5cFFvdmxQR29xUFhsSXovSFRMelg4K2pKWmthd2hlTTZt?=
+ =?utf-8?B?ZWp6cHJXamQ2dTN5cWg2S2s3dDAwMzJzcEdxNGFFbXVFTWg2TmxUMWZ0ODFB?=
+ =?utf-8?B?WVVrcWpUN0F4ZXJjdHBwemxVeXZyTGJjRUZiNVlvcHN2eVBMcEUzVFFaZEhH?=
+ =?utf-8?B?L0h3NlFvbXhmOEJ4cjM5S3RnMmY0YXJFNU1wQnRULzFEeFRzN2FCTlFpeGhT?=
+ =?utf-8?B?S0drbnpwZU9Kb2Q0OHgyejRSaHRxRVhxMzBCbS9FL01FNURQRngwZ2tvWS92?=
+ =?utf-8?B?UVVuaG5IczJwSWZOdFhKSEZCVEhvN3F2TUt1L1E2NzJ2dVNvaE9FUGs1bDJL?=
+ =?utf-8?B?V2VZT1hOUHloT0wzVFpjN29yRUlkVEZxaVM2ZEdRb1lmZ0hqSVhnUWtEQlpI?=
+ =?utf-8?B?ZTVIdGJZejM3OUpKZVk0YXI3WUJkRDMrZWhKZVdJaFVBYXhtbG5Xc21KN09R?=
+ =?utf-8?B?cFQ1a2ZtbFJnU2ZGdnF1WGdDUlo2MHlrL0dleTdNVGdEMmNBZ0dBSEhzaXdh?=
+ =?utf-8?B?SkwyUGxVeVIwdWIwSXFVVk9vR3M2Ni9jbHVwRStnOENxV1RBcVorV2tkZ2ln?=
+ =?utf-8?B?Y0Y1TDNSbG1ZdFRJb1VFKzVaQkdEN2QxRG12SEpWMnoyZ0lsbzE1V2lvQW02?=
+ =?utf-8?B?WjhzK2I1a2dRTEVncUh4VU8vZ25wQi95UGhxVkc5MllsMXpFZHhxU0Q5R09I?=
+ =?utf-8?B?V2lTTWZYVEtWb2JpcG5tdHFraGJ0Ukd3L3UrRG1TMDB6eUJrSUZCTHRXK2Z2?=
+ =?utf-8?B?MVRobjYwNjJkSjdxUWY3eDVnNVhnT3BONjQvbncxa3ZtbVFlbmF2cUhzNldt?=
+ =?utf-8?B?YmkrVC83NENwYlpGSTVHSXhKb3NSYjdRUGh0TExIL2Y5cWpwSkVQM1R0LzRS?=
+ =?utf-8?B?dThFdWRHZzYzS3JQZm1MRWJBTXB0eTZhTUI0U1VGb1NZS2o1L1NOSXl0Nkdk?=
+ =?utf-8?B?c04zdEpIN251V1cvWllIdUhJSElUYjB6OE5HeDRsei9jSUk0MDMzbDZTTVpG?=
+ =?utf-8?B?QTRTRm5GVVRrZHJHMEJENlV6MjBBY1pGVW1xWm5DZUp1UDhTNXVuYk5Jd3lE?=
+ =?utf-8?Q?ydSni5saQX/xXE66qz24lbfmB?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ea56537-7668-4041-c608-08dcdbc20517
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2024 11:22:33.7544
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ASaOmyHx2vin56E7StPTzrY2wzvMIsR0lRegdImya+bw0p8bEIML+iSd0pnES1AkaV16lfLkhQ5Lop4Kkb1pbA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9395
 
-On 20/09/2024 10:36 am, Roger Pau Monne wrote:
-> alternatives is used both at boot time, and when loading livepatch payloads.
-> While for the former it makes sense to panic, it's not useful for the later, as
-> for livepatches it's possible to fail to load the livepatch if alternatives
-> cannot be resolved and continue operating normally.
+
+On 19/09/2024 13:42, Julien Grall wrote:
+> Hi Ayan,
+Hi Julien,
 >
-> Relax the BUGs in _apply_alternatives() to instead return an error code if
-> alternatives are applied after boot.
+> On 18/09/2024 19:51, Ayan Kumar Halder wrote:
+>> From: Wei Chen <wei.chen@arm.com>
+>>
+>> On Armv8-A, Xen has a fixed virtual start address (link address too) 
+>> for all
+>> Armv8-A platforms. In an MMU based system, Xen can map its loaded 
+>> address to
+>> this virtual start address. So, on Armv8-A platforms, the Xen start 
+>> address does
+>> not need to be configurable. But on Armv8-R platforms, there is no 
+>> MMU to map
+>> loaded address to a fixed virtual address and different platforms 
+>> will have very
+>> different address space layout. So Xen cannot use a fixed physical 
+>> address on
+>> MPU based system and need to have it configurable.
+>>
+>> So, we introduce a Kconfig option for users to set the start address. 
+>> The start
+>> address needs to be aligned to 4KB. We have a check for this alignment.
 >
-> Add a dummy livepatch test so the new logic can be assessed, with the change
-> applied the loading now fails with:
+> It would suggest to add some explanation why you want the start 
+> address to be 4KB aligned.
+
+Let me know if this makes sense.
+
+"MPU allows us to define regions which are 64 bits aligned. This 
+restriction comes from the bitfields of PRBAR, PRLAR (the lower 6 bits 
+are 0 extended to provide the base and limit address of a region). This 
+means that the start address of Xen needs to be at least 64 bits aligned 
+(as it will correspond to the start address of memory protection region).
+
+As for now Xen on MPU tries to use the same memory alignment 
+restrictions as it has been for MMU. Unlike MMU where the starting 
+virtual address is 2MB, Xen on MPU needs the start address to be 4 KB 
+(ie page size) aligned."
+
+Thinking about this a bit more (and based on the discussion in "Re: 
+[PATCH v1 2/4] xen/arm: mpu: Define Xen start address for MPU systems"), 
+I think we can keep the 4 KB restriction for now and relax it later. Let 
+me know what you think.
+
 >
-> alt table ffff82d040602024 -> ffff82d040602032
-> livepatch: xen_alternatives_fail applying alternatives failed: -22
+>>
+>> In case if the user forgets to set the start address, then 0xffffffff 
+>> is used
+>> as default. This is to trigger the error (on alignment check) and 
+>> thereby prompt
+>> user to set the start address.
+>>
+>> Also updated config.h so that it includes mpu/layout.h when 
+>> CONFIG_MPU is
+>> defined.
+>>
+>> Signed-off-by: Wei Chen <wei.chen@arm.com>
+>> Signed-off-by: Jiamei.Xie <jiamei.xie@arm.com>
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>> ---
+>> Changes from :-
+>>
+>> v1 - 1. Fixed some of the coding style issues.
+>> 2. Reworded the help message.
+>> 3. Updated the commit message.
+>>
+>>   xen/arch/arm/Kconfig                  | 10 ++++++++++
+>>   xen/arch/arm/include/asm/config.h     |  4 +++-
+>>   xen/arch/arm/include/asm/mpu/layout.h | 27 +++++++++++++++++++++++++++
 >
-> Signed-off-by: Roger Pau Monné <roge.rpau@citrix.com>
-> ---
->  xen/arch/x86/alternative.c                 | 29 ++++++++++++++++------
->  xen/arch/x86/include/asm/alternative.h     |  3 ++-
->  xen/common/livepatch.c                     | 10 +++++++-
->  xen/test/livepatch/Makefile                |  5 ++++
->  xen/test/livepatch/xen_alternatives_fail.c | 29 ++++++++++++++++++++++
->  5 files changed, 66 insertions(+), 10 deletions(-)
->  create mode 100644 xen/test/livepatch/xen_alternatives_fail.c
+> Looking at this patch again, I don't see any modification in 
+> xen.lds.S. Is it intended?
+
+If we agree with the justification provided before, then this should be 
+the modification.
+
+--- a/xen/arch/arm/xen.lds.S
++++ b/xen/arch/arm/xen.lds.S
+@@ -232,6 +232,12 @@ SECTIONS
+   */
+  ASSERT(_start == XEN_VIRT_START, "_start != XEN_VIRT_START")
+
++/*
++ * On MPU based platforms, the starting address is to be provided by user.
++ * One need to check that it is 4KB aligned.
++ */
++ASSERT(IS_ALIGNED(_start,       4096), "starting address is misaligned")
++
+
 >
-> diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
-> index 7824053c9d33..c0912cb12ea5 100644
-> --- a/xen/arch/x86/alternative.c
-> +++ b/xen/arch/x86/alternative.c
-> @@ -174,10 +174,13 @@ extern void *const __initdata_cf_clobber_end[];
->   * The caller will set the "force" argument to true for the final
->   * invocation, such that no CALLs/JMPs to NULL pointers will be left
->   * around. See also the further comment below.
-> + *
-> + * Note the function cannot fail if system_state < SYS_STATE_active, it would
-> + * panic instead.  The return value is only meaningful for runtime usage.
->   */
-> -static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
-> -                                                  struct alt_instr *end,
-> -                                                  bool force)
-> +static int init_or_livepatch _apply_alternatives(struct alt_instr *start,
-> +                                                 struct alt_instr *end,
-> +                                                 bool force)
->  {
->      struct alt_instr *a, *base;
->  
-> @@ -198,9 +201,17 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
->          uint8_t buf[MAX_PATCH_LEN];
->          unsigned int total_len = a->orig_len + a->pad_len;
->  
-> -        BUG_ON(a->repl_len > total_len);
-> -        BUG_ON(total_len > sizeof(buf));
-> -        BUG_ON(a->cpuid >= NCAPINTS * 32);
-> +#define BUG_ON_BOOT(cond)                                       \
-> +    if ( system_state < SYS_STATE_active )                      \
-> +        BUG_ON(cond);                                           \
-> +    else if ( cond )                                            \
-> +        return -EINVAL;
-> +
-> +        BUG_ON_BOOT(a->repl_len > total_len);
-> +        BUG_ON_BOOT(total_len > sizeof(buf));
-> +        BUG_ON_BOOT(a->cpuid >= NCAPINTS * 32);
-> +
-> +#undef BUG_ON_BOOT
+>>   3 files changed, 40 insertions(+), 1 deletion(-)
+>>   create mode 100644 xen/arch/arm/include/asm/mpu/layout.h
+>>
+>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>> index e881f5ba57..ab3ef005a6 100644
+>> --- a/xen/arch/arm/Kconfig
+>> +++ b/xen/arch/arm/Kconfig
+>> @@ -23,6 +23,16 @@ config ARCH_DEFCONFIG
+>>       default "arch/arm/configs/arm32_defconfig" if ARM_32
+>>       default "arch/arm/configs/arm64_defconfig" if ARM_64
+>>   +config XEN_START_ADDRESS
+>> +    hex "Xen start address: keep default to use platform defined 
+>> address"
+>> +    default 0xFFFFFFFF
+>> +    depends on MPU
+>> +    help
+>> +      Used to set customized address at which which Xen will be 
+>> linked on MPU
+>> +      systems. Must be aligned to 4KB.
+>> +      0xFFFFFFFF is used as default value to indicate that user has not
+>> +      customized this address.
+>> +
+>>   menu "Architecture Features"
+>>     choice
+>> diff --git a/xen/arch/arm/include/asm/config.h 
+>> b/xen/arch/arm/include/asm/config.h
+>> index a2e22b659d..0a51142efd 100644
+>> --- a/xen/arch/arm/include/asm/config.h
+>> +++ b/xen/arch/arm/include/asm/config.h
+>> @@ -69,8 +69,10 @@
+>>   #include <xen/const.h>
+>>   #include <xen/page-size.h>
+>>   -#ifdef CONFIG_MMU
+>> +#if defined(CONFIG_MMU)
+>>   #include <asm/mmu/layout.h>
+>> +#elif defined(CONFIG_MPU)
+>> +#include <asm/mpu/layout.h>
+>>   #else
+>>   # error "Unknown memory management layout"
+>>   #endif
+>> diff --git a/xen/arch/arm/include/asm/mpu/layout.h 
+>> b/xen/arch/arm/include/asm/mpu/layout.h
+>> new file mode 100644
+>> index 0000000000..f9a5be2d6b
+>> --- /dev/null
+>> +++ b/xen/arch/arm/include/asm/mpu/layout.h
+>> @@ -0,0 +1,27 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +
+>> +#ifndef __ARM_MPU_LAYOUT_H__
+>> +#define __ARM_MPU_LAYOUT_H__
+>> +
+>> +#define XEN_START_ADDRESS CONFIG_XEN_START_ADDRESS
+>> +
+>> +/*
+>> + * All MPU platforms need to provide a XEN_START_ADDRESS for linker. 
+>> This
+>> + * address indicates where Xen image will be loaded and run from. This
+>> + * address must be aligned to a PAGE_SIZE.
+>
+> Strictly speaking, this doesn't match the Kconfig. AFAIU, we still 
+> said the internal code may continue to rely on PAGE_SIZE for the time 
+> being. But I think we would want to have a BUILD_BUG_ON(PAGE_SIZE != 
+> SZ_4K) to catch any value change.
+Yes, I can add this.
+>
+>> + */
+>> +#if (XEN_START_ADDRESS % PAGE_SIZE) != 0
+>> +#error "XEN_START_ADDRESS must be aligned to PAGE_SIZE"
+>
+> In the error message, you want to mention 4KB.
 
-The "error handling" before was horrible and this isn't really any better.
+Ack.
 
-This function should always return int, printing more helpful info than
-that (a printk() says a thousand things better than a BUG()), and
-nmi_apply_alternatives can panic() rather than leaving these BUG()s here.
+- Ayan
 
-As a tangent, the __must_check doesn't seem to have been applied to
-nmi_apply_alternatives(), but I'd suggest dropping the attribute; I
-don't think it adds much.
-
-> diff --git a/xen/test/livepatch/xen_alternatives_fail.c b/xen/test/livepatch/xen_alternatives_fail.c
-> new file mode 100644
-> index 000000000000..01d289095a31
-> --- /dev/null
-> +++ b/xen/test/livepatch/xen_alternatives_fail.c
-> @@ -0,0 +1,29 @@
-> +/*
-> + * Copyright (c) 2024 Cloud Software Group.
-> + *
-> + */
-> +
-> +#include "config.h"
-> +#include <xen/lib.h>
-> +#include <xen/livepatch_payload.h>
-> +
-> +#include <asm/alternative.h>
-> +#include <asm/cpuid.h>
-> +
-> +void test_alternatives(void)
-> +{
-> +    alternative("", "", NCAPINTS * 32);
-> +}
-> +
-> +/* Set a hook so the loading logic in Xen don't consider the payload empty. */
-> +LIVEPATCH_LOAD_HOOK(test_alternatives);
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-
-The second half of the patch (new testcase) is all fine and good, but
-should pass with patch 2 in place?  I'd suggest splitting it out.
-
-~Andrew
+>
+> Cheers,
+>
 
