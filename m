@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71E9097E66F
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 09:21:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801676.1211644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C422297E670
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 09:23:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801682.1211653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssdN5-0000Sl-U7; Mon, 23 Sep 2024 07:20:35 +0000
+	id 1ssdPf-00011H-AS; Mon, 23 Sep 2024 07:23:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801676.1211644; Mon, 23 Sep 2024 07:20:35 +0000
+Received: by outflank-mailman (output) from mailman id 801682.1211653; Mon, 23 Sep 2024 07:23:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssdN5-0000Q3-Qm; Mon, 23 Sep 2024 07:20:35 +0000
-Received: by outflank-mailman (input) for mailman id 801676;
- Mon, 23 Sep 2024 07:20:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ssdPf-0000yp-7p; Mon, 23 Sep 2024 07:23:15 +0000
+Received: by outflank-mailman (input) for mailman id 801682;
+ Mon, 23 Sep 2024 07:23:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ssdN3-0000Pw-Md
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 07:20:33 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ff81e97-797c-11ef-99a2-01e77a169b0f;
- Mon, 23 Sep 2024 09:20:29 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-42bb7298bdeso51552605e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 00:20:29 -0700 (PDT)
+ id 1ssdPd-0000yf-RE
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 07:23:13 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b124bf25-797c-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 09:23:12 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a8d2b4a5bf1so579331466b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 00:23:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90612e7c72sm1166500366b.187.2024.09.23.00.20.28
+ a640c23a62f3a-a9061096735sm1172573066b.44.2024.09.23.00.23.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 00:20:28 -0700 (PDT)
+ Mon, 23 Sep 2024 00:23:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ff81e97-797c-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: b124bf25-797c-11ef-a0b9-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727076029; x=1727680829; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727076192; x=1727680992; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XkAp67ZiWckX1M7hqEvrJLAFzF+di+yBMHHlnIgUql0=;
-        b=LEPmxI2nZXZ4Ovq8WDmIMokHkBec8szv0yI85POcAM6Epx/GP6Ur78eW7qBVBElUnf
-         aZNmybRhjJCoqbaIDDazbapQY0dvWjVx/HXSy3OvSgqlKIL2b3TzN3yNwasd/AclpDPe
-         tkI7xK5XeZoTXd7eWaGJwUaJ17A58La2GtoYFvvRI31P3LMr46bB8YGGRNk/9oRMmU4O
-         tYkovA90tpWhm13pGT7m1dZp4fPOT6bMaqWZDT+xpvLGmvE4t4wSg/f6TKurUBLZicfT
-         z41XophZsfp+QZsVGrVc/GZoAvSHQtUzIDThxE7gocAXLvqXaJPo0IeUE2w7JzcotCKg
-         hzLg==
+        bh=lLPoP8ZotADkSYpjChIuz8uWnE+xY2qGS2KXpshVAKg=;
+        b=Jpzmu9urp7bZzcsdhImG1FnjYV2D84wCvVztqX6TPANoe9ugTi6L4EcREF94SPfg7x
+         AbwzpNwwFm0BCKa2kwbSknpbMnYKi593lqFrUHzmh9JeY+5CDlMkBHYmWqx86CL7ERnq
+         mMGQ+NKKSKR6EtmyL+Z0HhvAI8nhmMHESFWJFQXO4Yvw5sz5l6m15Jz9NAGkvg/6exeQ
+         bsrFHgzNwtysoMpAlA7S8B8wTRrzb9fl9Lkv+o8H13aQXef8QugFc77LwaORFu+tsja0
+         G2nujfEgo8BofWIbPxyjEKjKGDvWp0roXk87UKLhQon4PVaxsYPgnUz4dWjtBL+fJLUA
+         yqVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727076029; x=1727680829;
+        d=1e100.net; s=20230601; t=1727076192; x=1727680992;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XkAp67ZiWckX1M7hqEvrJLAFzF+di+yBMHHlnIgUql0=;
-        b=pzcHlJDRIeAFdO72B2UVO9Hy12P6ARKkW3iOzBZhTs9COfYrptC5RaQBSolzxWEDOA
-         rwFR1J566c7iQAgisghksb/uj9CvNz8sh6fDPGfAdyatqERd+dqr2opaM07C4yE1GCIi
-         kCwjPkfLtUb+ebwfq8wp/FZgkUIC2YbMJ6g8Fabidhokq3bqiurfMQUZEsHy4zBXBrLn
-         i8A4DF3H8qBshACiWmw9i2tG+uffQNa76rRG6AYescbYMPxrBmK4lj4K33V8aM28q6Ry
-         doGYH055FmzZsQ+gTvxW1QijMu3jDhO3qn4sxTeuNvJ8rzT87RU7LlRADov/A27mUtbN
-         3/xg==
-X-Forwarded-Encrypted: i=1; AJvYcCUSqZGhIOpfQQEzM9pd02xvoGSnNMGQRQzRB2CEDsczJrZ36XDVFhDQGHErtHFezMr6+75rHqlebW0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzkjcNhFn/PwwvVQER8QqNVnz9T2XRVke6J0lbS9uOUIwF482YD
-	wZGpPSTS4pxWzaUWpQl5Da/PyZ64pI9mMEommxqzI3Mak1xc7bmUGJGnrF3tsQ==
-X-Google-Smtp-Source: AGHT+IFhB74llan0iph1dIbawiHZxRUa+o+9O1jFvLSdumZzlwj6yguCsXexC38sItLFirUjqd9NpA==
-X-Received: by 2002:a05:6000:1543:b0:374:c7d2:4d76 with SMTP id ffacd0b85a97d-37a4238c3f4mr12115279f8f.50.1727076029151;
-        Mon, 23 Sep 2024 00:20:29 -0700 (PDT)
-Message-ID: <45d0c472-8e9a-4e07-9aa1-1b2990c41f75@suse.com>
-Date: Mon, 23 Sep 2024 09:20:36 +0200
+        bh=lLPoP8ZotADkSYpjChIuz8uWnE+xY2qGS2KXpshVAKg=;
+        b=qpxjyOta1m6lTQVH/LgyryehR3z8lRF0LZq9zNhDRBL6Amzo1wJuxRVWC3l+r2ptK/
+         27/OGqY36ydyVdrushxYNpSs7h5CJp0zzUiV28voKEq2PfwnFiZZMrIlA3frJ/DcUr+l
+         WNo8uPAhItb/1aMHtTh8cvxad9/JMcyG/6cRnhk6cEhDspAgPAKkhPLi1AVCPZ2yodqY
+         WcV/fRadvmHVyCl22pArulXZtMCASVF6BvKgWT1cx/ehTVm7AQjXezYglDdOKBV3Ox46
+         N2mO5WYus9MAEfJBvAiTYWXUitmg83wKXmXiE2R51j4DocIVIqtnzdGqen0aRN5X3IbI
+         uVMQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWzRTp+QU9boNCOZwwfQViHKVBlvCxtjeXn7FvwKbG/R/wD2eYdggcqmyaN4DCl1JwBigh9F3P+1b8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywmz6J+2Utt+tncG+7ef4m+gKYomkdhaZDMdsF9L3s4A2hzWtAc
+	DyLPaDpW0Q/BAxEcHY1Q8WzbKQHTgOiMMAuVHLI33bOjeGkwl+ZjNhbkrvQHqg==
+X-Google-Smtp-Source: AGHT+IFXnprC8dL7DD1n7ZUDTtmNRBciHrshwjJbfT8gwVUAN5O+korJUByz0lnUlf3Uc8+FO8hf/g==
+X-Received: by 2002:a17:907:7e9a:b0:a8b:6ee7:ba1e with SMTP id a640c23a62f3a-a90d51967bemr1082397866b.60.1727076192055;
+        Mon, 23 Sep 2024 00:23:12 -0700 (PDT)
+Message-ID: <bfeda8c3-6ab4-4413-86f0-f4e1e2e16527@suse.com>
+Date: Mon, 23 Sep 2024 09:23:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] xen/common: move device initialization code to
- common code
-To: oleksii.kurochko@gmail.com
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1726048521.git.oleksii.kurochko@gmail.com>
- <128d17f3625807a26875b7a419fb56610424b18c.1726048521.git.oleksii.kurochko@gmail.com>
- <9764051a-c4a7-4c3d-9760-1f80d5faa559@suse.com>
- <f3a16db18f98a4fff3a4b59f144d4a2fee815465.camel@gmail.com>
- <f324c131-9446-4444-b5f7-65d851b2be3b@suse.com>
- <4b3e6a39732bd674fcd4498cc5900f11b99044b3.camel@gmail.com>
+Subject: Re: [PATCH v4] x86/msi: fix locking for SR-IOV devices
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+References: <20240827035929.118003-1-stewart.hildebrand@amd.com>
+ <0742fd21-d606-440a-a7fa-dd3bfccfa1c4@suse.com>
+ <1afb1c23-a0a4-4d71-9a69-fdedd01e1e0c@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,55 +115,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4b3e6a39732bd674fcd4498cc5900f11b99044b3.camel@gmail.com>
+In-Reply-To: <1afb1c23-a0a4-4d71-9a69-fdedd01e1e0c@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16.09.2024 17:51, oleksii.kurochko@gmail.com wrote:
-> On Fri, 2024-09-13 at 19:45 +0200, Jan Beulich wrote:
->> On 13.09.2024 16:35, oleksii.kurochko@gmail.com wrote:
->>> On Thu, 2024-09-12 at 17:28 +0200, Jan Beulich wrote:
->>>> On 11.09.2024 12:04, Oleksii Kurochko wrote:
->>>>> --- a/xen/common/Makefile
->>>>> +++ b/xen/common/Makefile
->>>>> @@ -6,6 +6,7 @@ obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
->>>>>  obj-$(CONFIG_CORE_PARKING) += core_parking.o
->>>>>  obj-y += cpu.o
->>>>>  obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
->>>>> +obj-$(call or,$(CONFIG_HAS_DEVICE_TREE),$(CONFIG_HAS_ACPI)) +=
->>>>> device.o
->>>>
->>>> I can't spot any HAS_ACPI in the tree. And if this was switched
->>>> to
->>>> CONFIG_ACPI
->>>> I'd further ask why the file needs building on x86.
->>> Oh, there is no need for building this on x86. With what you
->>> suggested
->>> here ...
->>>
->>>>
->>>> Also I think I'd prefer to avoid the of the "or" macro here:
->>>>
->>>> obj-$(CONFIG_ACPI) += device.o
->>>> obj-$(CONFIG_HAS_DEVICE_TREE) += device.o
->>> ... IIUC it will fix the issue with building this file for x86 as
->>> CONFIG_ACPI depends on (ARM_64 && ARM_EFI).
+On 18.09.2024 16:11, Stewart Hildebrand wrote:
+> On 8/28/24 06:36, Jan Beulich wrote:
+>> On 27.08.2024 05:59, Stewart Hildebrand wrote:
+>>> +                list_for_each_entry_safe(vf_pdev, tmp, &pdev->physfn.vf_list,
+>>> +                                         virtfn.entry)
+>>> +                    ret = pci_remove_device(vf_pdev->sbdf.seg,
+>>> +                                            vf_pdev->sbdf.bus,
+>>> +                                            vf_pdev->sbdf.devfn) ?: ret;
 >>
->> Except that "depends on" is itself Arm-only, so won't affect x86.
->> Or else x86 would end up without ACPI support, which would mean
->> full breakage on about every system.
-> There is another CONFIG_ACPI in xen/drivers/acpi which is equal to 'y'
-> for x86 so it seems to me that it is needed another config (
-> GENERIC_DEVICE_INIT ? ) which will be disabled for x86 by default so
-> device.o won't be compiled for x86.
+>> And if this fails, the VF will still remain orphaned. I think in the
+>> model I had suggested no such risk would exist.
 > 
-> Have I overlooked something or better option exist? Probably it would
-> be better to use "and" macro?
+> Are you referring to your suggestion "to refuse the request (in
+> pci_remove_device()) when the list isn't empty" ? [1] Or something else?
+> 
+> [1] https://lore.kernel.org/xen-devel/74f88a45-a632-4ca6-9cee-95f52370b397@suse.com/
 
-I'm afraid I don't understand your response. There are two seemingly
-separate ACPI in distinct Kconfig files, yes. They combine when both are
-visible to kconfig (as is the case for Arm64). Can you try to re-express
-your question with this aspect in mind?
+It's been a while, but yes, I think that's the one.
 
 Jan
 
