@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2394B97E9E7
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:26:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801858.1211893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3172597E9E8
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:27:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801863.1211903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgGz-00031W-9g; Mon, 23 Sep 2024 10:26:29 +0000
+	id 1ssgHu-0003gf-IE; Mon, 23 Sep 2024 10:27:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801858.1211893; Mon, 23 Sep 2024 10:26:29 +0000
+Received: by outflank-mailman (output) from mailman id 801863.1211903; Mon, 23 Sep 2024 10:27:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgGz-0002z7-77; Mon, 23 Sep 2024 10:26:29 +0000
-Received: by outflank-mailman (input) for mailman id 801858;
- Mon, 23 Sep 2024 10:26:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ssgHu-0003dE-FW; Mon, 23 Sep 2024 10:27:26 +0000
+Received: by outflank-mailman (input) for mailman id 801863;
+ Mon, 23 Sep 2024 10:27:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=81ci=QV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ssgGx-0002yF-JO
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:26:27 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4953b0d7-7996-11ef-99a2-01e77a169b0f;
- Mon, 23 Sep 2024 12:26:25 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5c46680a71bso3290254a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:26:25 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c5c3d18cb0sm710769a12.77.2024.09.23.03.26.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Sep 2024 03:26:24 -0700 (PDT)
+ <SRS0=Qfp8=QV=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1ssgHs-0003d4-EH
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:27:24 +0000
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [2607:f8b0:4864:20::c2f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6b81a405-7996-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 12:27:23 +0200 (CEST)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ 006d021491bc7-5d5c7f23f22so2312832eaf.0
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:27:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +40,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4953b0d7-7996-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 6b81a405-7996-11ef-a0b9-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727087185; x=1727691985; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=EtFPwZJPOOk5BuK4Ciy05tc/divqztAHuZ/w8yeENnQ=;
-        b=k0jdP3b3cMkN6Vhw+vovNdMSDF+NzyLNo3lsZfhDHWUL4PsO10K5uOrfnAi3kxnmM3
-         sPbfy40lK1a4wsPdKyU1JWYzsib/TZ/XsW9ncOiemGMmsLfGgmIOgISiS/teV92XK3bt
-         Ap0CXTEPYigyZDBEKhcS0ENPzHXXe23ZFN+Q7lqu6nL/KmhDfEWskkWXSEYMyrIriYo6
-         URvj8/ChWE58Mm3wSERZO4Iff0gZFx7nF4CTF/CVMMPwMtSf5E5EP++V50PXKcJxgO7/
-         1OYwOGJwTiN3TcmGvCBg5drVl3RqrtnEH5WerOhqAvY6ko+JK/BwkEv31IkYLSj0iDuo
-         p1Hw==
+        d=cloud.com; s=cloud; t=1727087242; x=1727692042; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oM+fIIvioJjRq3qlAG37FF5BHFpu5n1rQ35NeNGjfzI=;
+        b=O0PZtQYOT9Elj/Asp5CQOexMKOCYBx9YgFvuGQPc1GFiPT7+l2oazjIrNFNaQjow4k
+         JDHp9IcX1J77rYVsD6bQ3Sqaa0XybDiPaUgO0emrGQiy04HQNw9FDDRyHq6UCSYJ5MGq
+         f9/E6F5lJC8BPT3/Ikly4Vxqqc42y1lKS272Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727087185; x=1727691985;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EtFPwZJPOOk5BuK4Ciy05tc/divqztAHuZ/w8yeENnQ=;
-        b=XkSCiaUjCBLEp/q8OUlkm4GS65NU50uVB6fu8IEat9J79Ly05iimRXzVso2JQW38nB
-         ZzMXOpjV4kOZVUkbXOb8Tvm6D5SaQi6ZaW/AsidiDgpN1QNNZzcWeXX+FGxiyM/otm/b
-         DMoVoa19BF8qPW3t0RzEzUxTa7PcPzI/t/A0jGDNtDo7LMpQrBwWKC0Ij7eGc9f/GphF
-         2zvH8/eTh5g0aKAkOzdLzb+Rj12GXOQlGt7OFn6ZcYkvjLAn5/Uf7YKy5/KzO45c2ZtL
-         +bGTaVmKqMQg6Qv24NAIspFa7/H/sg1CJI5KA3z1+ZLw1vaa0cYN6oLSjfUJkbsX7TGy
-         H/GQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX5klINj7NrxA8SK9PNFfLL0ZSz63IB2rXU/Oj8Bo3L8kRyFz/bH7OQSM06kKAxknkkByv38p0XnE0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyOs9fLD6GRB0Na9icYoC9yuSprmPQTp+9Up7hBU12kUzdOPekQ
-	drPZLZ5CIEwoME48A9s8heV+FX4WkZTpjoGeerfr2a/EPXTdmYZ6X4s8lQ==
-X-Google-Smtp-Source: AGHT+IEcVh01QFMppPrTsrD4EeAuXgCz67PENfVV8a/D8ge5mi1G8f2P2MUcNaUyGBvH+04JCD0gkg==
-X-Received: by 2002:a05:6402:5206:b0:5c2:480e:7960 with SMTP id 4fb4d7f45d1cf-5c464326770mr10323638a12.0.1727087184608;
-        Mon, 23 Sep 2024 03:26:24 -0700 (PDT)
-Message-ID: <169f8921d324504622d30efea588a04c51d1c861.camel@gmail.com>
-Subject: Re: Xen 4.20 release schedule proposal
-From: oleksii.kurochko@gmail.com
-To: Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Community Manager <community.manager@xenproject.org>, "committers @
- xenproject . org" <committers@xenproject.org>
-Date: Mon, 23 Sep 2024 12:26:23 +0200
-In-Reply-To: <6426e9c3-2971-4497-8703-c2653b1a164c@xen.org>
-References: 
-	<CAMacjJya_30yczOSBR=3f7_wGVgaSw_fWh7jhPqn3EQ3h4i2pQ@mail.gmail.com>
-	 <6426e9c3-2971-4497-8703-c2653b1a164c@xen.org>
+        d=1e100.net; s=20230601; t=1727087242; x=1727692042;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oM+fIIvioJjRq3qlAG37FF5BHFpu5n1rQ35NeNGjfzI=;
+        b=sEOHgH5I+fz4/d8aBc7vwUlamAcsFFjN6TtEaEzTuzlbyNlck7MHTlV4EJTKrxeDof
+         f+XB/EuhkAD+30RTI0AfS7n8t817Faa/eUlZCJhN/IlGBTURHVCDBpDb+BQvaOhp1kIN
+         EzZoAcKQNiaUp5b9oVVQ1tIfyIpTnHm5lULyNlyNK4sT4YdMalhPTgkx1o+g8UHr4gZX
+         9L2KyZb2s1Iqe7pQ+Bq+Q5kTTSdHtt9cMPVtiUq3BGbibeVKZg4s1V1t2Gp6MwOixGej
+         VkIx4OmvbfZxX4gCoDulIkl5u2z2sV7HrWp80PHSnI/3yUdp12jWCpvc/LiDHraJUNnI
+         t8Bg==
+X-Gm-Message-State: AOJu0YwelxtX4xWS1q7w84s9dIL3b5wehjhhS+BgxMbFUDuBgE5QsbZg
+	uCTXjyfClDGJaZac+oRQDTnhsbz9WWXd5a3hMmyFHSMl/K/Ke6FIgz4O5Ztv1kPO91sPuL0SruG
+	5f940FSx5VG+x2jSSXR+z8lQhhA+xpLlvKUGagg==
+X-Google-Smtp-Source: AGHT+IETtRMXnIvWQ99rFsYXFE1IEnyw3tZ+7KxkBCWpfvTansA4QBveehOeYK9KpFUdW0kwUajhdDrnIcJliNAG2zc=
+X-Received: by 2002:a05:6820:16ac:b0:5e1:eba9:8fee with SMTP id
+ 006d021491bc7-5e58d0fcfd0mr4822002eaf.1.1727087242154; Mon, 23 Sep 2024
+ 03:27:22 -0700 (PDT)
+MIME-Version: 1.0
+References: <6cf2799ced7dcee515ad8a6b6657522cdc7cec61.1724699546.git.milan.djokic@verisure.com>
+ <367c5d95fb89e7dd3b4260f136d194a4cd0b854a.1724765763.git.milandjokic1995@gmail.com>
+ <CAKp59VFp8gNA6ndeK2DeE9EaRZJSup0ptYYPz4FwN4_Shx9SjA@mail.gmail.com>
+ <CACHz=Zh7FB0h26zJDZnzkVRatwhTb=vWMA0TM+fpqZ=RtULTJA@mail.gmail.com> <CAKp59VEDE=9o4r_=n_bf_W=VOMvCpz5d_oBCDqkPSruO9ZUr=g@mail.gmail.com>
+In-Reply-To: <CAKp59VEDE=9o4r_=n_bf_W=VOMvCpz5d_oBCDqkPSruO9ZUr=g@mail.gmail.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 23 Sep 2024 11:27:10 +0100
+Message-ID: <CACHz=ZiVgKSPvoHd645kcMgA6e=ZP-7LapnrVeSmgieh-poqqg@mail.gmail.com>
+Subject: Re: [PATCH v2] x86/efi: Use generic PE/COFF structures
+To: =?UTF-8?B?TWlsYW4gxJBva2nEhw==?= <milandjokic1995@gmail.com>
+Cc: xen-devel@lists.xenproject.org, oleksii.kurochko@gmail.com, 
+	Nikola Jelic <nikola.jelic@rt-rk.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Milan Djokic <milan.djokic@rt-rk.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
-MIME-Version: 1.0
 
-On Thu, 2024-09-19 at 21:30 +0200, Julien Grall wrote:
->=20
->=20
-> On 19/09/2024 18:10, Oleksii Kurochko wrote:
-> > Hello everyone,
-> >=20
-> > Following the 8-month release cycle, also taking into account that
-> > 4.19
-> > has been released 27.07.24 and the next "good" month for release
-> > should
-> > be November according to [1] but it seems to me that it could be
-> > too short,
-> > below is the proposed release schedule that I come up with for Xen
-> > 4.20.
-> >=20
-> > Please don't hesitate to provide your feedback.
-> >=20
-> > If there are no objections, I plan to update the Wiki page
-> > *Xen_Project_X.YY_Release_Notes* to make it easier to find our
-> > final
-> > schedule ( especially for the people who aren't following xen-devel
-> > mailing
-> > list ). As an additional benefit, it will also be accessible via
-> > *SUPPORT.md* (in the wiki at
-> > https://xenbits.xen.org/docs/unstable-staging/support-matrix.html).
-> >=20
-> > Thanks!
-> >=20
-> > ** Proposed option: Wed March 12, 2024 **
-> > (+8 months from Xen 4.19 release)
-> >=20
-> > - Last posting date=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 Fri Dec 20, 2023 (+13 weeks from now)
-> >=20
-> > Patches adding new features are expected to be posted to the
-> > mailing
-> > list by this date, although perhaps not in their final version.
-> =C2=A0> > - Feature freeze=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 Fri Jan 10, 2024 (+3 weeks from
-> Last=20
-> posting
-> > date)
-> >=20
-> > Patches adding new features should be committed by this date.
-> > Straightforward bugfixes may continue to be accepted by
-> > maintainers.
->=20
-> I expect a few maintainer to be off around Christmas for a couple of=20
-> weeks. So that will not leave much time between the last posting date
-> and feature freeze. If you don't want to push too much the release,
-> then=20
-> I think it would be better if the feature freeze is just before (e.g.
-> 20th December) so last posting date early December.
-Thank you for the feedback.
-It makes sense to me to move the feature freeze to December 20th and
-the last posting date to November 30th.
+On Mon, Sep 23, 2024 at 9:56=E2=80=AFAM Milan =C4=90oki=C4=87 <milandjokic1=
+995@gmail.com> wrote:
+>
+> Hello Frediano,
+> Thank you for your feedback
+> >
+> > On Thu, Sep 19, 2024 at 11:42=E2=80=AFAM Milan =C4=90oki=C4=87 <milandj=
+okic1995@gmail.com> wrote:
+> > >
+> > > Hello everyone,
+> > >
+> > > Any comments on v2 patch?
+> > > Just checking if you missed this email or didn't have time for review=
+.
+> > >
+> > > BR,
+> > > Milan
+> > >
+> >
+> > Hi,
+> >   it does look good to me.
+> > I don't like the "#include "../../../include/efi/pe.h"" line, but I
+> > don't exactly know how to add a -I option.
+> >
+> Yes, this does look bad. Although, I don't see that we have other
+> options with the current build setup. mkreloc is built as a separate
+> binary and it's added to the hostprogs list, for which we are not able
+> to add additional flags. Relative paths are also used for other
+> hostprogs when some local xen file needs to be included. Only solution
+> which I see here is to have a separate makefile for mkreloc, but I
+> would say that this is also not a good option, since we will separate
+> mkreloc from other hostprogs in build config. If someone has some
+> better idea here we shall be happy to apply it.
 
-~ Oleksii
+Not strong about, a change like
+
+$ git diff
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 286c003ec3..00ab091634 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -88,6 +88,8 @@ extra-y +=3D xen.lds
+hostprogs-y +=3D boot/mkelf32
+hostprogs-y +=3D efi/mkreloc
+
++$(obj)/efi/mkreloc: HOSTCFLAGS +=3D -I$(srctree)/include
++
+# Allows usercopy.c to include itself
+$(obj)/usercopy.o: CFLAGS-y +=3D -iquote .
+
+diff --git a/xen/arch/x86/efi/mkreloc.c b/xen/arch/x86/efi/mkreloc.c
+index 89c525d81e..7c9aac49ed 100644
+--- a/xen/arch/x86/efi/mkreloc.c
++++ b/xen/arch/x86/efi/mkreloc.c
+@@ -9,7 +9,7 @@
+#include <sys/mman.h>
+#include <unistd.h>
+
+-#include "../../../include/efi/pe.h"
++#include <efi/pe.h>
+
+#define PE_PAGE_SIZE 0x1000
 
 
+would work. Not sure the best place to put the option in the Makefile
+or I should change a different macro.
+
+> > There are some spurious space changes that could be removed but okay
+> > for the rest.
+> >
+> Space changes are caused by our formatter which aligned this file
+> according to coding guidelines. We can revert those if formatting
+> needs to be done separately.
+>
+
+Minor for me. I personally cannot see anything so wrong that prevents a mer=
+ge.
+
+> Best regards,
+> Milan
+
+Frediano
 
