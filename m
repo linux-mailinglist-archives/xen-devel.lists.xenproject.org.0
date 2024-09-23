@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45C3F97EA6E
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 13:04:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801922.1212000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47B5A97EA6F
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 13:05:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801932.1212009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgrr-0006Kj-AQ; Mon, 23 Sep 2024 11:04:35 +0000
+	id 1ssgst-00077P-M5; Mon, 23 Sep 2024 11:05:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801922.1212000; Mon, 23 Sep 2024 11:04:35 +0000
+Received: by outflank-mailman (output) from mailman id 801932.1212009; Mon, 23 Sep 2024 11:05:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgrr-0006IN-5R; Mon, 23 Sep 2024 11:04:35 +0000
-Received: by outflank-mailman (input) for mailman id 801922;
- Mon, 23 Sep 2024 11:04:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ssgst-000755-JB; Mon, 23 Sep 2024 11:05:39 +0000
+Received: by outflank-mailman (input) for mailman id 801932;
+ Mon, 23 Sep 2024 11:05:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dbeJ=QV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ssgrp-0006He-I6
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 11:04:33 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9c58cfb2-799b-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 13:04:32 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a8d6d0fe021so677515766b.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 04:04:32 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9061116d67sm1209399066b.94.2024.09.23.04.04.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 04:04:31 -0700 (PDT)
+ <SRS0=WbMn=QV=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1ssgst-0006wY-20
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 11:05:39 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061c.outbound.protection.outlook.com
+ [2a01:111:f403:2415::61c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c279575a-799b-11ef-99a2-01e77a169b0f;
+ Mon, 23 Sep 2024 13:05:37 +0200 (CEST)
+Received: from PH8PR21CA0014.namprd21.prod.outlook.com (2603:10b6:510:2ce::28)
+ by PH0PR12MB8822.namprd12.prod.outlook.com (2603:10b6:510:28d::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.24; Mon, 23 Sep
+ 2024 11:05:33 +0000
+Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
+ (2603:10b6:510:2ce:cafe::a2) by PH8PR21CA0014.outlook.office365.com
+ (2603:10b6:510:2ce::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.3 via Frontend
+ Transport; Mon, 23 Sep 2024 11:05:33 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000A672F.mail.protection.outlook.com (10.167.249.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Mon, 23 Sep 2024 11:05:33 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Sep
+ 2024 06:05:32 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Sep
+ 2024 06:05:32 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 23 Sep 2024 06:05:31 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +63,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c58cfb2-799b-11ef-a0b9-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727089472; x=1727694272; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E+L41n2jhzAT3ydGhksCRgvfmETGkna3nPe9sAeJGMs=;
-        b=UCMxQtrJWLg6GiPNg/j3ekB9oTEN3qJXT0ea7i1dZsok+z574LWMSU7DIdhGy7KDfF
-         weMHKkKtWXqlAGBYVRWzoxbYM9k9HqDaCSWISnlJwI6iI+f/1zitZTh+4JteTHrQczOZ
-         tPVwY+VRZ0eY3qphUmH0ValNwojWGbLGzYng8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727089472; x=1727694272;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=E+L41n2jhzAT3ydGhksCRgvfmETGkna3nPe9sAeJGMs=;
-        b=CDsGr28uxYiyGtxdXL4Hz4G0YVZTJRqg9gx7+ecaghPiEDcRjCSxGkiL/gdhY31udj
-         tpCt9KaPgZF+gg0EXFmIk1C3mvyyt2KdlbZNC/ub1p28gosYGcq7exU77BnN2AdZVS0/
-         lt2KyT/wke0nmeetgqTuKzKydEB0v2dwJyW6Io8GJTSqrYP2YRW/rQK29+6jSgwsKMgO
-         AAjjWemP5VNzjiwDMnS+XwRP78VlYTOPX4GLyhiCgm3ZnG2jmZiMLZO1Y7thwLfX7zXz
-         NxAsO8kQjuLzxQkmWiU/3brzSbbrRUz8pEmqwXD+YUD6kAkS3gP7E9vcbtppmpwaqvXG
-         fCNg==
-X-Forwarded-Encrypted: i=1; AJvYcCUmtxiP4rkZFMHnMFwcGle0iiGYRqqkHaABnSVNUg3keNIuLIs3+S5mTGJa0jCQrrWAD8xMZHoJQtU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzo8nNxXStySSf7ItfB+kpIOo3zFqUQJ4uPsK3eBLn/LDssuRcr
-	r/X/nB1IzquiBfof4vCmSmZxfBHw4gGL5OkBNN8ui4XrbktNvDNWiB0T44NIuUyUJYFIaMH1OuO
-	Hn4iEpQ==
-X-Google-Smtp-Source: AGHT+IEw3TvF1PbbZ6DefgVCsD798c/yTbn963wBbTWh+q/if89pUdc9WM1sdEtZzAsPMHj6xtuVjQ==
-X-Received: by 2002:a17:907:d3ce:b0:a8d:60e2:3972 with SMTP id a640c23a62f3a-a90d4ffdd3bmr1038926866b.23.1727089471922;
-        Mon, 23 Sep 2024 04:04:31 -0700 (PDT)
-Message-ID: <9ca4d235-5e6a-4ee0-9cc4-721b761572d3@citrix.com>
-Date: Mon, 23 Sep 2024 12:04:30 +0100
+X-Inumbo-ID: c279575a-799b-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cVaiRgBBPgzFrEd+24vgGyBHnaU/PhjwdzVGqHlBgkyRrlbwgnV90dziL07GnLiolcIMu7+gVH6dwxMPhhs2oFQCIPjJB8tM4pjPx01r3c/ug8I1/hrIQ1BHAsg7C4bk3yjKvn0VzmC3RZz5sh4vrz1IIgBvMEIhaswCZPaFR8dqXfxzUwKlK4zX6xlJnp/dsJFdlnS7+UUFim5yZlivLDBbZm4/0y7hLtxiXc/jNbHgKbP7dgeOzRlOxU7H6rxuekUYfNkyNCqGLr+4AIIBuLYwRcTZmKqUIF8HXW/oaHoWFLBMBNZmsG23t0AEk9+AuvOaFHiMDzyIr80xbrEioQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q3sdp2muBkg4qEcmjlHN7jfdQHRuTHQcd8HuTqP/W2g=;
+ b=BehpOCRAMkNC24vNw3UsVVNCANEI96aMBlDZXaqg4EJRg35OcfTit4ovY9TVSqAypCeM5ZfJt/3X3eoIAWf3hXIHpAoEOUWcX6TCYxF/W3/XwrVby2T0Xv/AeFcn/PaUgHhyZl+Z3VXbsH5O6w8fI3B17y0SGDOe+KzcEuBzrQpdGO/HXnmtTqZKnLVJ/x3Q2C8vn4uAuIjJj2qVYI0l+RqpIRIvz5uJQLsrjGgE/FG9jr5QINRC9huWUAgO57uOt+I72cUkbQJ6oMQn4u26Y1PcJw5XgU6iPRFVsvL9TULkt5/wDRHJK2d0hFUtedeeUdlIyKTrR9rXGFDkJLa9gA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q3sdp2muBkg4qEcmjlHN7jfdQHRuTHQcd8HuTqP/W2g=;
+ b=iIp/0OAPTU6hOZERKkFBUWE5OtEHFeVGmOkWMjPJZQTVWTTnFjZ7kiMttUHcHqz/KB5NT8QlrmbeG7VlsMcA1Hjs1fd5Cw7LUFcI24cTlm7fhlqO15g1tDN1/a37udydQReJ+iEnslevSUFf3sIJGMNpiN/kTju/U0ngWEnIWi4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <74bddc2d-59f2-4961-b226-76ce62376c37@amd.com>
+Date: Mon, 23 Sep 2024 13:05:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] xen/livepatch: do Xen build-id check earlier
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <20240920093656.48879-1-roger.pau@citrix.com>
- <20240920093656.48879-3-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240920093656.48879-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 1/4] dt-overlay: Fix NULL pointer dereference
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>
+References: <20240919104238.232704-1-michal.orzel@amd.com>
+ <20240919104238.232704-2-michal.orzel@amd.com>
+ <72bd286a-9ed9-43f0-8935-fb9e07e180cd@xen.org>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <72bd286a-9ed9-43f0-8935-fb9e07e180cd@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|PH0PR12MB8822:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7836c452-96bf-4c02-8551-08dcdbbfa521
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?QTA0aS9zUElRQzhmTklKZXBpdEpSQjlLKzByNVRIMTN0VVZURjVibjJtNGF5?=
+ =?utf-8?B?S1EzQmtyMnNuNFZHMEtjZEh3YjBVRXFzMUg2SWN1QVZiTkhTQzhpZlkydDhF?=
+ =?utf-8?B?RWtzblR2bmRpUVM3QzJNeG9MUnJId0t3U1FldUkyb2ZBUU95cUZ2a3gyV0tZ?=
+ =?utf-8?B?QzhvTnhJT0wrNTkyaStRZ2k2dHJUV3NJVHIxbFJsbEFPN1NwcUZuSW1FQ0RE?=
+ =?utf-8?B?U3lzR3ozdjhQb04zN2RPRStZcUw3V05qajdXcVVvKzdmSjlOQjk4MncrZ0hp?=
+ =?utf-8?B?VzN4RTNiWmNzR1dmejBOeCtBQ2RWTTYrdUZZV2Vjdk1yUnRVQTRFamgyTURH?=
+ =?utf-8?B?MHZyWDZpa1VvTlhteXN3cWlwbjViblBiV0FHdzN4UUxjdHNMeTVUbnkxR3V2?=
+ =?utf-8?B?MVZhRnVOV2FWZWF4RWloS3R6WnAvVUFDV29wZFNleDB1d0xxdFZseE82UDlH?=
+ =?utf-8?B?MVVjYmlPSUV6KzZWZ2NhUHAydnhnTHpVSjVCOWd4M1lEeVByNG5ob3FsMzZS?=
+ =?utf-8?B?Q1liM29MQmFmNVhTbmRGcU5CTDZGM2xXbVZETURxRGdHbTVwaFVKeUZERzk4?=
+ =?utf-8?B?Q09jdDJJODNtZXdXcE5lMldza3pYVmdEYWlranROS2R0VDVZdlMzN2FNZUM5?=
+ =?utf-8?B?bHR3Nlp5bWV3WFVtNDNNSk9nWDM5NVNrbHQxazl4eHZTSmhZSFA0ZnpIc2M1?=
+ =?utf-8?B?N1J6RzNCOVd5eXFUc3RLQW5WQllZMFF3TU9GZVhoTDcxVjhRSmFrbGdramxQ?=
+ =?utf-8?B?cGNjTTBSYVZuMEdKYlZDRzJqZGtmT0pOQmxpZFVlOTR0b2ZkN0JaREx1bWJv?=
+ =?utf-8?B?MU0rQ2VEVERhd09vN0VkamJRT29HS3B0UmFsQUJlLzQzSU5jejl5dTdKU2hV?=
+ =?utf-8?B?ZEYwazNQRUttM0RzL2tLVHlJWFRVZTdjNlk5OTJsdU5NM2xQOWk0d0FnbUhH?=
+ =?utf-8?B?U2JSdWt0SjlzUHcwRTQ4R3lYRXR2YTJBL21ROThjU3A5Z2ZsMnd3Nnl1MUlK?=
+ =?utf-8?B?QWQwenRjNG5xcElrUzk2dnJ0OHczZ1dyNldKNk5mQ0dETUlNQzVZeHZmRGla?=
+ =?utf-8?B?dUI1enJtaDdFUUlXa2RDdWp3RjBITGpSbklteWorQzQxRnFrVkoyRWdjZitZ?=
+ =?utf-8?B?SnJlVElsYlhUOFNnOEhUMXpPaHdmNVJuSEVFVmZGMG9kRnNpNmhQTU9YTDYz?=
+ =?utf-8?B?anY2RkVNekFtVDYvclc3c1F5ZXJFblBhcHNXQzVLVlZXOWQzcXZZVldsTS9l?=
+ =?utf-8?B?eFV2SW5MNzFMdkdXdnVISG9rS3pFMjBnT2w4L1RPM3JYM2dpVEY3NERTMWtB?=
+ =?utf-8?B?R3VweTljcVhGeGJ3RXREcjBlemd0TzFDeEpiNzVmdEFHVGVSTEQ2S1Rrem5U?=
+ =?utf-8?B?a2RFNFNONTVVMFUreGt0eWliNjJ1RFZKVFlsNzIzWFNialFZb3Y3Q0xpMld3?=
+ =?utf-8?B?eWVPTm5PeHpRR20vRS9FWjJ5aXpJTXRkZGhxaGdDNXlSSXhkMW90WkFWVm9V?=
+ =?utf-8?B?NlZ1dDNPOUJ6UDcyOG5wTWE4YVB0YWJhYWpxbkluRmNTYnlsZTlMWHE2Vm1I?=
+ =?utf-8?B?M1BQSHVLWGdMUW0xY0xvNEFIRmNyWkRVQ0pWTEJFYUhJUXFQMUxtSTBQWDM4?=
+ =?utf-8?B?RnAxVThNQzFOZGVkL1dsRlVtY04zZGV3UXBBL0wxVUZqNGdiZkJZM0MrZ3hB?=
+ =?utf-8?B?YVFBb1hpZkZDbWg4aVdqT0RuT1VNYW9BenFoUlM5cDhKakNzMnBRaHhCUzlV?=
+ =?utf-8?B?MzZKb3FKVzd4eXVzN0hYQTdkSHFUaHlQN3loRW5TVW05bnFWZERnZ2dtalpY?=
+ =?utf-8?B?YWE4NEo4ZTE1WG1kNkx5eWUzdE9MZ2F5OWhSbE1MR0ZEbG9ES0ZTRlFOZUtn?=
+ =?utf-8?B?emR6M0pQLy9NcVgyQUJVbGVkSEFVNGZVTDYrVEl6RGhLaWYrZDY3L3NMZCtC?=
+ =?utf-8?Q?HCu7J88IAthdXdQkAz49Lm48tsOhhcbO?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2024 11:05:33.3566
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7836c452-96bf-4c02-8551-08dcdbbfa521
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000A672F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8822
 
-On 20/09/2024 10:36 am, Roger Pau Monne wrote:
-> The check against the expected Xen build ID should be done ahead of attempting
-> to apply the alternatives contained in the livepatch.
->
-> If the CPUID in the alternatives patching data is out of the scope of the
-> running Xen featureset the BUG() in _apply_alternatives() will trigger thus
-> bringing the system down.  Note the layout of struct alt_instr could also
-> change between versions.  It's also possible for struct exception_table_entry
-> to have changed format, hence possibly leading to other errors.
->
-> Move the Xen build ID check to be done ahead of any processing of the livepatch
-> payload sections.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/common/livepatch.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
->
-> diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-> index cea47ffe4c84..3e4fce036a1c 100644
-> --- a/xen/common/livepatch.c
-> +++ b/xen/common/livepatch.c
-> @@ -767,6 +767,11 @@ static int prepare_payload(struct payload *payload,
->      if ( rc )
->          return rc;
->  
-> +    /* Perform the Xen build-id check ahead of doing any more processing. */
-> +    rc = xen_build_id_dep(payload);
-> +    if ( rc )
-> +        return rc;
-> +
+Hi Julien,
 
-While a step in the right direction, I think this needs to be moved far
-earlier.  Even here, it's behind the processing of the livepatch func
-state, which is something that can also change like alt_instr.
+On 20/09/2024 10:29, Julien Grall wrote:
+> 
+> 
+> Hi Michal,
+> 
+> On 19/09/2024 12:42, Michal Orzel wrote:
+>> Attempt to attach an overlay (xl dt-overlay attach) to a domain without
+>> first adding this overlay to Xen (xl dt-overlay add) results in an
+>> overlay track entry being NULL in handle_attach_overlay_nodes(). This
+>> leads to NULL pointer dereference and the following data abort crash:
+>>
+>> (XEN) Cannot find any matching tracker with input dtbo. Operation is supported only for prior added dtbo.
+>> (XEN) Data Abort Trap. Syndrome=0x5
+>> (XEN) Walking Hypervisor VA 0x40 on CPU0 via TTBR 0x0000000046948000
+>> (XEN) 0TH[0x000] = 0x46940f7f
+>> (XEN) 1ST[0x000] = 0x0
+>> (XEN) CPU0: Unexpected Trap: Data Abort
+>> (XEN) ----[ Xen-4.20-unstable  arm64  debug=y  Not tainted ]----
+>> ...
+>> (XEN) Xen call trace:
+>> (XEN)    [<00000a0000208b30>] dt_overlay_domctl+0x304/0x370 (PC)
+>> (XEN)    [<00000a0000208b30>] dt_overlay_domctl+0x304/0x370 (LR)
+>> (XEN)    [<00000a0000274b7c>] arch_do_domctl+0x48/0x328
+>>
+>> Fixes: 4c733873b5c2 ("xen/arm: Add XEN_DOMCTL_dt_overlay and device attachment to domains")
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>> ---
+>>   xen/common/dt-overlay.c | 7 +++++--
+>>   1 file changed, 5 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/xen/common/dt-overlay.c b/xen/common/dt-overlay.c
+>> index d53b4706cd2f..8606b14d1e8e 100644
+>> --- a/xen/common/dt-overlay.c
+>> +++ b/xen/common/dt-overlay.c
+>> @@ -908,8 +908,11 @@ static long handle_attach_overlay_nodes(struct domain *d,
+>>    out:
+>>       spin_unlock(&overlay_lock);
+>>
+>> -    rangeset_destroy(entry->irq_ranges);
+>> -    rangeset_destroy(entry->iomem_ranges);
+>> +    if ( entry )
+>> +    {
+>> +        rangeset_destroy(entry->irq_ranges);
+>> +        rangeset_destroy(entry->iomem_ranges);
+>> +    }
+> 
+> While looking at the error paths in handle_attach_overlay_nodes(), I
+> noticed we don't revert any partial changes made by handle_device().
+> 
+> In this case, I am wondering whether it is correct to destroy the
+> rangeset. How would you be able to revert the changes?
+I guess the same story applies as for the partial add/remove which was stated by Vikram
+in the commit msg of 7e5c4a8b86f12942de0566b1d61f71d15774364b meaning partial success withe some
+failures may lead to other failures and might need a system reboot. I did not carefully look into
+this series, my plan was to fix the issues without changing the functional behavior. FWICS, we do not
+yet support detachment (only add/remove and attach) and removal of nodes and ranges is only
+possible if the nodes are assigned to hwdom.
 
-The buildid checks need to be as early as possible.  Looking through the
-logic (which doesn't have great names/splits), I'd say the buildid
-checks want to be between livepatch_elf_load() (which parses the
-structure of the ELF), and move_payload() (which starts copying it into
-place).
-
-That would involve moving check_special_sections() too, but I think it's
-the right thing to do.
-
-Absolutely nothing good can come from continuing to process/setup a
-livepatch identified as "not for this hypervisor".
-
-~Andrew
+~Michal
 
