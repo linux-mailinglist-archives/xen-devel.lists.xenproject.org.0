@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5F4D97ED4A
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 16:43:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802092.1212210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC80697ED4B
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 16:45:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802099.1212228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sskHR-0004uh-4S; Mon, 23 Sep 2024 14:43:13 +0000
+	id 1sskJN-0005WA-IU; Mon, 23 Sep 2024 14:45:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802092.1212210; Mon, 23 Sep 2024 14:43:13 +0000
+Received: by outflank-mailman (output) from mailman id 802099.1212228; Mon, 23 Sep 2024 14:45:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sskHR-0004rk-1V; Mon, 23 Sep 2024 14:43:13 +0000
-Received: by outflank-mailman (input) for mailman id 802092;
- Mon, 23 Sep 2024 14:43:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sskJN-0005Ti-F6; Mon, 23 Sep 2024 14:45:13 +0000
+Received: by outflank-mailman (input) for mailman id 802099;
+ Mon, 23 Sep 2024 14:45:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sskHQ-0004re-B4
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 14:43:12 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 27defeb3-79ba-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 16:43:11 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5c5c3a1f474so1207466a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 07:43:11 -0700 (PDT)
+ id 1sskJM-0005Ta-6Y
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 14:45:12 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6ec04f24-79ba-11ef-99a2-01e77a169b0f;
+ Mon, 23 Sep 2024 16:45:10 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a7a843bef98so600314266b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 07:45:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90612df770sm1250401766b.145.2024.09.23.07.43.10
+ a640c23a62f3a-a90612df51asm1260165666b.148.2024.09.23.07.45.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 07:43:10 -0700 (PDT)
+ Mon, 23 Sep 2024 07:45:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27defeb3-79ba-11ef-a0b9-8be0dac302b0
+X-Inumbo-ID: 6ec04f24-79ba-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727102591; x=1727707391; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727102710; x=1727707510; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pFPnSU0vabVk/y37OkMkcIkeR3fWzq45iRbXxid0/cg=;
-        b=COXNqgH4RXz9/Kva2rYFVj287C9r6xH/jFr0lg+9xM+9KlT0aTh13tSJVVWOCUXHFD
-         +uf7vpQ3pgUsGhZ7uTUTunC+/L/I2Rq/onTCOdGxCdngCKWFEJYtJW+b6Vr47cTysOHo
-         w/M3rMBC6fKXyl+PpzNjUQ/soZxUphWZwpcSoSq8yIkqXBu+iiGpLewqF9IDk0x/dHUw
-         Tq20jYdVxLDfIfxkBzZymIXRizhg2jix1raN8vzXGED4ohExTXaWfEHIAjsV5FjkTXMq
-         BJ7IdlwjBU3NlbbN0+Se50MfNdL+dd8B1KbvPtXe5q85F7xWvMUN6tLFcQGLskIXBNmG
-         +A4w==
+        bh=sS9carwvK0Qg9uwIDg0G1gTg98mJZVEipnUWfqYuGNg=;
+        b=bs6Ch3zGDw65lWLh9zuaSCvOm/TUPgJUks+ZRnk/3C4GmDGOXy5UDsTJ520IhmfiGV
+         Lce/m3eHcle5wTLrD3W3LKPYsTfgURBXjt3hU23IU2WjyDA83HksQUWVPhr66guBEAkn
+         jdJ8l0RxYS1odrWNHbkxv40ZJqmfe/0TEKzYNWLTn+1+FrZPLRdGEbev2MrC18d0eB6x
+         gDceRsbPbXMNYmWrMVCZZnRgsKDw680cj/Fu6Sb5zf1n31W+hhUScNHmwmTQOhMKVIll
+         sG2X1HNUtxQ0prMGi0FeKgUKscxjXLr0SbL9Y/WASN+IvLbjCC/YaR2jw9ObL+p/zOks
+         yoSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727102591; x=1727707391;
+        d=1e100.net; s=20230601; t=1727102710; x=1727707510;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pFPnSU0vabVk/y37OkMkcIkeR3fWzq45iRbXxid0/cg=;
-        b=Rvo0f+x8ADknYKRoANgCeWH0jh8gqc9mdeMqoNw71Kwy7DI8wxxDmsrg8bX/TSFk0x
-         yo7c+qs15AxOWm3AMWjdjW0WTsRPL4QuHYSqCiiAGUR+O/PYj5N0swslmaYTRSlngUhg
-         O7hr4MfvHLjUKcjJnhl0/vKi6e2pKk8/acGArrpgZDSURiGw1BE5Q2uAKHnjLF5Co4sd
-         EIMt83vqIlXmPcEcefxmpCrvQ5h6bCSwBKk+5xzmIWlhxNzcjTWnOF6/Cro+TC6caGhH
-         hb4Jzn3lP2kDQ6L7JOUzNQviJQTs9k2U7qVWSt7sD5b26uDo9YKw7Jue48kvGDPplS08
-         OvRg==
-X-Forwarded-Encrypted: i=1; AJvYcCVRIX1QunM5VZajWY1x0XIOJAKmhesaG6UGRrSPLyhHRTgErDvzUTPsIqIeJ3CSW/eQEf1YTHFWAlY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxDVBgWYjaJQEGLNF+4XpRJfHcn8pW3EG9h95K4O0GhPnNY0/RF
-	2VoBc0WNC11Lk88iEDR4bDAlpT0hspLkIAaXgvXbe9xEgEMAC6Si19+wHnHRjw==
-X-Google-Smtp-Source: AGHT+IFmNuoWqUzVBXYHPqneggrgktJ2BdSMgMQ/JqVImDPgHDqdHgk/qk2HXYmTQBvhIlIDGktDHg==
-X-Received: by 2002:a17:906:cae1:b0:a8d:2359:3160 with SMTP id a640c23a62f3a-a90d57720b1mr1073588466b.38.1727102590770;
-        Mon, 23 Sep 2024 07:43:10 -0700 (PDT)
-Message-ID: <13de4165-2df2-4481-974d-30d528dfd8cd@suse.com>
-Date: Mon, 23 Sep 2024 16:43:09 +0200
+        bh=sS9carwvK0Qg9uwIDg0G1gTg98mJZVEipnUWfqYuGNg=;
+        b=RZDNdpIJPbU5mPocf4g7yM0G8h4uAn5P+jddIQ9gXd2p+tB/KuWUdpDAI7eJ+84eQf
+         6yWAjfj5iP9eH9lMfuU6wf2ZsXl2cSWRQo968RIrMyp9AIlwG396M29jSQ6yn7w1EuU3
+         99+1iN/VNgwOEC8w4Vq1r3TIZstAVcpED+lzKhVCxUsEstkcHgMQymY8Obqk9CjpiBK5
+         oGfANJVzwj3GM8/UNtQYriU5Z19RsALj2sOUVyI1HigdyMuunptZC+JOwrualLecXrpK
+         cluRUKXCiXwvNgCr02DKyRue7+uFt731ucgn6+aBVd9srY48i8EEs2LOWUvdA1GvhM/x
+         T8dA==
+X-Forwarded-Encrypted: i=1; AJvYcCVyzo+atKGTVPsf3XbYSgWJQOGkkJFIKD2hrVjUeKbl1ovlNk358PDOVXc8lrNnbLo3tz9rs18vK0Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz47/2EqQGOErRElzXo7E2GidfKLhS3YEffXUtNmaKlVowD2Mvq
+	EGlpVT2ksSpTOBF1CI8e0idtgC56Ca0d/kDE+GYoYh2DtOEDq+gcNy9iQLzQ1w==
+X-Google-Smtp-Source: AGHT+IF3Qw+RuzFj69j+PLgUUA/cuO3MjadxVyDJSgpV7r/X6BuuVO+NPM2U3X+urhQrPVcWe80rLg==
+X-Received: by 2002:a17:906:d25b:b0:a86:f960:411d with SMTP id a640c23a62f3a-a90d4fdf842mr1218215966b.2.1727102709603;
+        Mon, 23 Sep 2024 07:45:09 -0700 (PDT)
+Message-ID: <76afce47-2785-4bac-8ef7-77e82cb6cd51@suse.com>
+Date: Mon, 23 Sep 2024 16:45:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] xen/common: move device initialization code to
- common code
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1726579819.git.oleksii.kurochko@gmail.com>
- <0b4d49742f58549ec644944ce1e02c98d7551845.1726579819.git.oleksii.kurochko@gmail.com>
+Subject: Re: [XEN PATCH v2] x86/mwait-idle: add dependency on general Intel
+ CPU support
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240918091909.1201170-1-Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,45 +113,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0b4d49742f58549ec644944ce1e02c98d7551845.1726579819.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20240918091909.1201170-1-Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.09.2024 18:15, Oleksii Kurochko wrote:
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -12,6 +12,14 @@ config CORE_PARKING
->  	bool
->  	depends on NR_CPUS > 1
->  
-> +config DEVICE_INIT
-> +	bool
-> +	default !X86
+On 18.09.2024 11:19, Sergiy Kibrik wrote:
+> Currently mwait_idle driver in Xen only implements support for Intel CPUs.
+> Thus in order to reduce dead code in non-Intel build configurations it can
+> be made explicitly dependant on CONFIG_INTEL option.
+> 
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 
-This can simply be "def_bool y" as ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> +	depends on !X86 && (ACPI || HAS_DEVICE_TREE)
 
-... this enforces all restrictions. As indicated before I'd prefer if we
-could get away without yet another Kconfig constant, which would then
-also eliminate my concern about the expression not really covering for
-the case where x86 would obtain DT support (and hence likely needing the
-initialization here, too). What about ...
-
-> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -6,6 +6,7 @@ obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
->  obj-$(CONFIG_CORE_PARKING) += core_parking.o
->  obj-y += cpu.o
->  obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
-> +obj-$(CONFIG_DEVICE_INIT) += device.o
-
-obj-$(CONFIG_HAS_DEVICE_TREE) += device.o
-obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
-
-? (Eventually we could then simplify this to just obj-$(CONFIG_ACPI),
-to allow DT on x86, making sure the ACPI part of the file builds for
-x86 but does nothing there.)
-
-Jan
 
