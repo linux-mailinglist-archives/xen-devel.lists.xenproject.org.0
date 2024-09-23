@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C57697EA81
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 13:12:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801950.1212031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 304F097EA84
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 13:13:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801958.1212039 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgzB-0001SD-Kh; Mon, 23 Sep 2024 11:12:09 +0000
+	id 1ssh0U-00021b-0P; Mon, 23 Sep 2024 11:13:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801950.1212031; Mon, 23 Sep 2024 11:12:09 +0000
+Received: by outflank-mailman (output) from mailman id 801958.1212039; Mon, 23 Sep 2024 11:13:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgzB-0001PP-HI; Mon, 23 Sep 2024 11:12:09 +0000
-Received: by outflank-mailman (input) for mailman id 801950;
- Mon, 23 Sep 2024 11:12:07 +0000
+	id 1ssh0T-0001zZ-Ty; Mon, 23 Sep 2024 11:13:29 +0000
+Received: by outflank-mailman (input) for mailman id 801958;
+ Mon, 23 Sep 2024 11:13:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ssgz9-0001PH-PF
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 11:12:07 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MtUH=QV=gmail.com=milandjokic1995@srs-se1.protection.inumbo.net>)
+ id 1ssh0R-0001z9-VH
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 11:13:27 +0000
+Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
+ [2607:f8b0:4864:20::f34])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aaab4efc-799c-11ef-99a2-01e77a169b0f;
- Mon, 23 Sep 2024 13:12:05 +0200 (CEST)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2f75aaaade6so42542251fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 04:12:05 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c42bb5df16sm10204603a12.47.2024.09.23.04.12.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 04:12:04 -0700 (PDT)
+ id da64dacb-799c-11ef-99a2-01e77a169b0f;
+ Mon, 23 Sep 2024 13:13:26 +0200 (CEST)
+Received: by mail-qv1-xf34.google.com with SMTP id
+ 6a1803df08f44-6c3552ce7faso34932356d6.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 04:13:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +40,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aaab4efc-799c-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: da64dacb-799c-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727089925; x=1727694725; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/liY+zi1qJrFtjQBvqjQWYQGBxCSwS8usbVtPcyVgzA=;
-        b=E5zPegzVR05c6eEL8tYxrMPhFiWghXhBQML+o3y8LYRy43My8QiBQmeDNSKuXVFO4Y
-         1lp5XXKXFsPzBcpZAR7UjljQit/ciLWRLi0xD3hTv22OVxBE2LlhbudcdTLbM5Ra7mFm
-         Bi1yzUlXJVZSTuiAQJLTF7kVX3C9j/BD/SiFljRyjXDJBkGYS96FRQmPH4beBzqVmQNA
-         Tb7LSBKk9uJtKi88gCNy44pZ2MDDufy0NIKHTCuM/VPvMMYIVaqk7TK0BzhdCM/BRWs4
-         8QSNz5ADRq4LB1xc1EP+yVUtFuxsVCnbg8LvDABUQZCUUC/lpgRaNyyn9r1dFLRFtTgD
-         efzw==
+        d=gmail.com; s=20230601; t=1727090005; x=1727694805; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=93WX7dNautSKAZPEiUH+4gMdnuFE7PlbaTvJHDr+Mdw=;
+        b=dRMmWyvLKVKnyJWgkCTt3PhBdYYxrEBP68eNrj9Jc/0XeI69D3G6JRnd85DjZbBEmk
+         QreZPGT3GNOvWnMAjmAaaofWcy5Fo+0wWuNZ7+S/ztayLHlIV6IJIAyhRvGsGVj0zNs8
+         3FYzCI2yu4LHGBJdOE3SKucF0pXo3zi3s+cLS3ZfRfEA+Q42jp32mFyDF5CJKV3fwC3n
+         6BGInUFaehST4/fLwsp4KgLeozlWA8OOK+NfNtIvR+THEQcgYpznJfgUKhGGl2GR9/Fm
+         iV+me287lUrTEPpB2c/I499S1v3fnDPUj7mJ36dYiqithSNqjW4Yu0ReCZYUZZvIZ7rr
+         fMwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727089925; x=1727694725;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/liY+zi1qJrFtjQBvqjQWYQGBxCSwS8usbVtPcyVgzA=;
-        b=HmK0QdNFWnZiTQpUBmvT95naCLcJ2K/CWcZE2KNGYG/leHqrhD4uNNwdesU5GaeOt9
-         YEUnUd1KN7XolCSV5EPyqU1F/cqnykbsET0gwVrQdncj1D33M4KEfopBZobQGkBMVzYE
-         Iaqqd6YRe/D0sza37n6mkkvWBkQCjpHgy8fIASW1p/jcgrlCdtiRiW7LGy7sLRXRDLE9
-         CxV3J+huyPVJnP/WhMw07lPolyVQxLmIX89Q8k8pWMLXPGAMJmHfNFfw2p3B8LKcT1UA
-         L1HHzb56yt5jl9Dw++DqnthX7a2S3DFLbS+BKsh+STFTe96SijG6ghm3XifmSTxjWbt9
-         BXSQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUroYxAdwN5DSM5r3qVmRcx3kYirHZPFMSjtlOg/3zN8ENiVA4/z+DV7b6zU0v4mXxkFyl1fuxv09A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyZIny7VAYz3tvENHXKjbhkdbxD7Sub7RM2wp/sbObagOwHQGy6
-	CsMxZHOGVcod51hZeDIiPEJ8w3ZRP+4bKF3gAVlDaTUVCrlqOB1eR7YuHQzMKA==
-X-Google-Smtp-Source: AGHT+IGIHwsPFuw82Itqsry1wIbAYX2EEinbtk3HrCK2Kp5ikesCGb7BMwZLqwU8C/VsKR+2Wot55Q==
-X-Received: by 2002:a2e:4609:0:b0:2ef:1784:a20 with SMTP id 38308e7fff4ca-2f7cc5c5c3bmr42661411fa.38.1727089925114;
-        Mon, 23 Sep 2024 04:12:05 -0700 (PDT)
-Message-ID: <4920f153-8c46-4a03-80af-92831a881cd8@suse.com>
-Date: Mon, 23 Sep 2024 13:12:12 +0200
+        d=1e100.net; s=20230601; t=1727090005; x=1727694805;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=93WX7dNautSKAZPEiUH+4gMdnuFE7PlbaTvJHDr+Mdw=;
+        b=UGG4WpxVhlurKx4Aj8o0bb6EZKeEd6QGZJk62yas/dvH8dz/ux601WnFUNcNbQ0D9C
+         MSXt4ZNxe1G0d/ggzQI5/aEejsAshCro5Q+Dqb93ljhM/wEZdIcd21Li3nJj5hbQMMkJ
+         WNQ1ZY3/bLD1DAoGJvlEol33Q2hLWEWiZ+vuqxh1nuePZwkoG4K3CKshS4XRsCPUpC3+
+         LMSy7xYUTRmkxtfhTefx/tpqmlgi9FguIR0IbY2orTISzZMSWRowLB2gL+OsKNZ14oJQ
+         0dKXzXPqKjpXYyHxXlKWmSRdOTZ/im1aPBF2k2aEqNPhfP9oeQh4H27+NEBwucgvV4rX
+         f1vQ==
+X-Gm-Message-State: AOJu0YyyyVJmuaUDdqIvqKGWuaCEhWlh0FnW3SZ1BXBEIFPhzoVvQivc
+	nTEK/0tfLaYoqj0ED+gYt03HnRY44oAzY0ravArD4GwZzc2n7qSatr7usrDJP4E2PhOZq1e9DXk
+	XyrZzwDUrx2jFfVf2FXJmfoO7NNei5j7H
+X-Google-Smtp-Source: AGHT+IHA+HoMSdUQgG9qGtyJPuuHU8YzJhox7V5SNKccdr5XO09k4pj+DkDeh6Y4rlxfifNzROI+8YV0Lm7qJayQzWI=
+X-Received: by 2002:a05:6214:2348:b0:6c3:6344:d4e1 with SMTP id
+ 6a1803df08f44-6c6823a987dmr235496036d6.20.1727090005208; Mon, 23 Sep 2024
+ 04:13:25 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/alternatives: relax apply BUGs during runtime
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240920093656.48879-1-roger.pau@citrix.com>
- <20240920093656.48879-5-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240920093656.48879-5-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <6cf2799ced7dcee515ad8a6b6657522cdc7cec61.1724699546.git.milan.djokic@verisure.com>
+ <367c5d95fb89e7dd3b4260f136d194a4cd0b854a.1724765763.git.milandjokic1995@gmail.com>
+ <CAKp59VFp8gNA6ndeK2DeE9EaRZJSup0ptYYPz4FwN4_Shx9SjA@mail.gmail.com>
+ <CACHz=Zh7FB0h26zJDZnzkVRatwhTb=vWMA0TM+fpqZ=RtULTJA@mail.gmail.com>
+ <CAKp59VEDE=9o4r_=n_bf_W=VOMvCpz5d_oBCDqkPSruO9ZUr=g@mail.gmail.com> <CACHz=ZiVgKSPvoHd645kcMgA6e=ZP-7LapnrVeSmgieh-poqqg@mail.gmail.com>
+In-Reply-To: <CACHz=ZiVgKSPvoHd645kcMgA6e=ZP-7LapnrVeSmgieh-poqqg@mail.gmail.com>
+From: =?UTF-8?B?TWlsYW4gxJBva2nEhw==?= <milandjokic1995@gmail.com>
+Date: Mon, 23 Sep 2024 13:13:14 +0200
+Message-ID: <CAKp59VGky3K9y83e9HnEJPuGVJ1JosqrQjYpK=ipGmvCV9RV7w@mail.gmail.com>
+Subject: Re: [PATCH v2] x86/efi: Use generic PE/COFF structures
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, oleksii.kurochko@gmail.com, 
+	Nikola Jelic <nikola.jelic@rt-rk.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Milan Djokic <milan.djokic@rt-rk.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 20.09.2024 11:36, Roger Pau Monne wrote:
-> @@ -198,9 +201,17 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
->          uint8_t buf[MAX_PATCH_LEN];
->          unsigned int total_len = a->orig_len + a->pad_len;
->  
-> -        BUG_ON(a->repl_len > total_len);
-> -        BUG_ON(total_len > sizeof(buf));
-> -        BUG_ON(a->cpuid >= NCAPINTS * 32);
-> +#define BUG_ON_BOOT(cond)                                       \
-> +    if ( system_state < SYS_STATE_active )                      \
-> +        BUG_ON(cond);                                           \
-> +    else if ( cond )                                            \
-> +        return -EINVAL;
+>
+> Not strong about, a change like
+>
+> $ git diff
+> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> index 286c003ec3..00ab091634 100644
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -88,6 +88,8 @@ extra-y += xen.lds
+> hostprogs-y += boot/mkelf32
+> hostprogs-y += efi/mkreloc
+>
+> +$(obj)/efi/mkreloc: HOSTCFLAGS += -I$(srctree)/include
 > +
-> +        BUG_ON_BOOT(a->repl_len > total_len);
-> +        BUG_ON_BOOT(total_len > sizeof(buf));
-> +        BUG_ON_BOOT(a->cpuid >= NCAPINTS * 32);
-> +
-> +#undef BUG_ON_BOOT
+> # Allows usercopy.c to include itself
+> $(obj)/usercopy.o: CFLAGS-y += -iquote .
+>
+> diff --git a/xen/arch/x86/efi/mkreloc.c b/xen/arch/x86/efi/mkreloc.c
+> index 89c525d81e..7c9aac49ed 100644
+> --- a/xen/arch/x86/efi/mkreloc.c
+> +++ b/xen/arch/x86/efi/mkreloc.c
+> @@ -9,7 +9,7 @@
+> #include <sys/mman.h>
+> #include <unistd.h>
+>
+> -#include "../../../include/efi/pe.h"
+> +#include <efi/pe.h>
+>
+> #define PE_PAGE_SIZE 0x1000
+>
+>
+> would work. Not sure the best place to put the option in the Makefile
+> or I should change a different macro.
+>
+Much better solution than ours. We'll try out your suggestion and send
+an updated patch. Thanks.
 
-BUG_ON() provides quite a bit of information to aid figuring what's wrong.
-Without a log message in the livepatching case ...
-
-> --- a/xen/common/livepatch.c
-> +++ b/xen/common/livepatch.c
-> @@ -882,7 +882,15 @@ static int prepare_payload(struct payload *payload,
->                  return -EINVAL;
->              }
->          }
-> -        apply_alternatives(start, end);
-> +
-> +        rc = apply_alternatives(start, end);
-> +        if ( rc )
-> +        {
-> +            printk(XENLOG_ERR LIVEPATCH "%s applying alternatives failed: %d\n",
-> +                   elf->name, rc);
-
-... this is all one would get. Since livepatching is a privileged operation,
-log-spam also shouldn't be of concern. So I'd like to ask that at least some
-detail (line number to start with) be provided.
-
-Which however leads to a follow-on concern: Those string literals then
-would also end up in LIVEPATCH=n binaries, so I'd like to further ask for
-a suitable IS_ENABLED() check to prevent that happening.
-
-Jan
+BR,
+Milan
 
