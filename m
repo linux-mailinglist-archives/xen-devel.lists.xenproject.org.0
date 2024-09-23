@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6FA197E8F6
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 11:43:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801765.1211764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5750097E908
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 11:48:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801769.1211773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssfb7-0006uT-Dk; Mon, 23 Sep 2024 09:43:13 +0000
+	id 1ssffZ-0007fy-Tf; Mon, 23 Sep 2024 09:47:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801765.1211764; Mon, 23 Sep 2024 09:43:13 +0000
+Received: by outflank-mailman (output) from mailman id 801769.1211773; Mon, 23 Sep 2024 09:47:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssfb7-0006sx-9r; Mon, 23 Sep 2024 09:43:13 +0000
-Received: by outflank-mailman (input) for mailman id 801765;
- Mon, 23 Sep 2024 09:43:12 +0000
+	id 1ssffZ-0007eS-Qr; Mon, 23 Sep 2024 09:47:49 +0000
+Received: by outflank-mailman (input) for mailman id 801769;
+ Mon, 23 Sep 2024 09:47:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dbeJ=QV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ssfb6-0006sr-Ai
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 09:43:12 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ssffY-0007eM-Tr
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 09:47:48 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3db7617a-7990-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 11:43:10 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a8d4979b843so517367566b.3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 02:43:09 -0700 (PDT)
-Received: from [10.125.226.166] ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90610f4399sm1189734866b.65.2024.09.23.02.43.07
+ id e3c87d72-7990-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 11:47:47 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a8d2daa2262so539847766b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 02:47:47 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a90612e1a55sm1186325166b.157.2024.09.23.02.47.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 02:43:07 -0700 (PDT)
+ Mon, 23 Sep 2024 02:47:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3db7617a-7990-11ef-a0b9-8be0dac302b0
+X-Inumbo-ID: e3c87d72-7990-11ef-a0b9-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727084588; x=1727689388; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727084867; x=1727689667; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PFdUTRk33KABa9RURBxmKMA7AK2S0SJYSN7g42bFK00=;
-        b=P5BQrcNmlZKgolRV8yaJcl3/IEbJRXoe6IDY9h18XIiaShrNNhZ2h+vX/TBwa7NI/6
-         a62tsWwHm1GOiFxeG6ip16oGUU8FjBs0C0i2fDgYuORF1RuV+1MACS3s7EuY5eDWCaC7
-         DUbfLE+AlMOjJ+9g3rwSL7KypzsjfYhfTxadk=
+        bh=1aeBnyvxDs6h+jxIF+2fiajAnXwfHmknD+2rTs/FAHI=;
+        b=eX37zL+cqeD/wY4WH/KBmfSL2t7KBU0qHa/UmRfNCPI/kqNmKDnpfeOtJY/iLd9xn6
+         hLAJhvbUprvJt6j6xqsx4hIMrjnBUgeS33rm94UDvToXpnsCQAVZNQKGFSokRa4Kkvvi
+         3EYGNYnN3xxH2lw8LVpo7imE5SM2oyTkKazNiXiRAxORhow/4xqz/g5kc7AX7mzHXuTH
+         5vWaH0TivB0qy7g3axIF1uoW17+9iUVjYeikWDjxUiW62PdvbTTLqD7MnspjAACLl13V
+         KHTRUDH5w1g+tPxR1UWlXnt/lKPiDbD93iQlZuGSQYnl8ICLRnXUf4jSej8qcCWjYeZ1
+         iVXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727084588; x=1727689388;
+        d=1e100.net; s=20230601; t=1727084867; x=1727689667;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PFdUTRk33KABa9RURBxmKMA7AK2S0SJYSN7g42bFK00=;
-        b=iHa4//CiuhAoOcVFr+xHfJZEjbGjLEBdhfo/d6ApcZtmL7r4odXrifnWIQuBgTj1oW
-         kOeLELZWH/K8+fl4t7G+tCWOfVVHgczdA5YvhYvOAeRXqmKxAC3lE6+RUZsbWtd6MUFj
-         ZFb0mKtgPoojfieOCxk+Hk+VaLHCaYo1SjezbSIdqD3WuaQ5eKBTi2T71w4D0cPVHD9W
-         CVAA75cGdcXIP+R1PiEgj/Q2acBSMdcflGInmPgV9B/TmJDmdF99E9P2zYgiGLoDVR2I
-         hygt6c/2jY2eLuMfUZI8Odqh5P36s+WQ5ktLtmglBVQYBoEcXC/AvEpmsAM2CHgO45xD
-         A4qA==
-X-Gm-Message-State: AOJu0Yz1p4L9HgYy1aXfbRDN5ki+quwwdiF5eM9DPgz4CACIGSwyS955
-	DgT8fCWL1DYpD/elJIFFT1LBJMeNs4hRwDhzjFNZ88wZGDpT7yPQ5x5PSYys31U=
-X-Google-Smtp-Source: AGHT+IGcLAZ1ClbeuyZYpavx/piFPNeR6tmDGUSwYtqojd4cI+XYHJJnixsASRoamPPDW3JWS5OvPA==
-X-Received: by 2002:a17:906:99c2:b0:a8a:93d4:ac21 with SMTP id a640c23a62f3a-a90d5616f2amr1020238066b.28.1727084588386;
-        Mon, 23 Sep 2024 02:43:08 -0700 (PDT)
-Message-ID: <3daaeb5f-d907-41c6-89d1-1fe1b89e9fd8@citrix.com>
-Date: Mon, 23 Sep 2024 10:43:05 +0100
+        bh=1aeBnyvxDs6h+jxIF+2fiajAnXwfHmknD+2rTs/FAHI=;
+        b=biAMzOn/bO5zQtaw07MDTUmW6ecPw7m1st3rPFE4gmU5p9royJSJrRoxNfYRxorqVH
+         6bZa7r4YjcEeSchV8O/vvEuAvvqjABUpwyA9h97Oc87GYJYKXiMZ+alQa2S6cC7niQ7I
+         z38eJwWi2g0SRPniAuWxAHNJ3DZQQQcRj6RSKbYzT+hXYoQBmQ+tyY7LWMakYV4pvSmm
+         l13Ujz9zQhzRLBHCSgcSF12X9Kr0g85Y7+3+q6sRpEyeQ6E41QjqeABwb5GtjCpd+ZiJ
+         ZCpFyBQLEzh3j+tQvp1nhmtrGs/Ty9F4WfA/EdCoJ+mxPslFdIRNqyfR2f0VFq4c93SF
+         RODQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWWWE5e5SVn1VrreoyCfmZrLjwvUWCFdieyNpJL+5RZUrwi8MEMCrHJdxs6+KutA0fPoJhY6N6Lef8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yye6h28ZeFTIGrZoA8Vhw0BbanYUd6AlBQOLfLO1lKgWOCHndKi
+	3yPBTMQ/GSFQ1lht1S5RopVbrl7XXezoQri8G3UOCv7CK2UQ2XYQLCDcKUCuHA==
+X-Google-Smtp-Source: AGHT+IEnEFCnn6G8z+wL/6JvGvATta6V7NTcG5tw6kLQSSvlUQpuZZ0OUxv2Ytiup5jAGMEeLbMPsA==
+X-Received: by 2002:a17:906:794c:b0:a86:7199:af37 with SMTP id a640c23a62f3a-a90d51601d9mr1342848566b.58.1727084867133;
+        Mon, 23 Sep 2024 02:47:47 -0700 (PDT)
+Message-ID: <d29f7235-661c-4457-959c-eeb3b553da02@suse.com>
+Date: Mon, 23 Sep 2024 11:47:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] xen/livepatch: simplify and unify logic in
- prepare_payload()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <20240920093656.48879-1-roger.pau@citrix.com>
- <20240920093656.48879-2-roger.pau@citrix.com>
- <d7dfa01e-740d-4274-b9fb-8475224ae7a6@citrix.com>
- <ZvEc0qpq2fTJtMjo@macbook.local>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ZvEc0qpq2fTJtMjo@macbook.local>
+Subject: Re: [PATCH] ioreq: don't wrongly claim "success" in
+ ioreq_send_buffered()
+To: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <f0cd7c48-6816-4050-a505-693c4a470506@suse.com>
+ <c80dd525-7fb6-4e2f-99f2-5d96d3f7ec52@xen.org>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c80dd525-7fb6-4e2f-99f2-5d96d3f7ec52@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23/09/2024 8:46 am, Roger Pau Monné wrote:
-> On Sun, Sep 22, 2024 at 11:19:01AM +0200, Andrew Cooper wrote:
->> On 20/09/2024 11:36 am, Roger Pau Monne wrote:
->>> +{
->>> +    const Elf_Note *n = sec->load_addr;
->>> +    int rc;
->>> +
->>> +    ASSERT(sec);
->> This needs to turn back into a runtime check.  Now, if a livepatch is
->> missing one of the sections, we'll dereference NULL below, rather than
->> leaving no data in the struct livepatch_build_id.
-> Loading should never get here without those sections being present,
-> check_special_sections() called earlier will return error if any of
-> the sections is not present, hence the ASSERT() is fine IMO.
+On 16.09.2024 23:27, Julien Grall wrote:
+> On 11/09/2024 13:19, Jan Beulich wrote:
+>> Returning a literal number is a bad idea anyway when all other returns
+>> use IOREQ_STATUS_* values. While that's maybe intended on Arm (mapping
+>> to IO_ABORT), 
+> 
+> Arm doesn't support buffered ioreq (see ioreq_server_create()) and 
+> AFAICT the "0" was already there before the code was moved.
 
-Ah, in which case, can we please have:
+Indeed, the bad conversion is older than the move.
 
-/* Existence of note sections already confirmed in
-check_special_sections() */
-ASSERT(sec);
+>  > mapping to X86EMUL_OKAY is surely wrong on x86.
+> 
+> The code has been for nearly 10 years. So I would like to understand why 
+> the change now. Did you see any issue?
 
-Just to show that someone did think about the provenance of the pointer,
-and where to look to check.
+Well, result of looking at the code. As said - returning success here is
+definitely wrong on x86. The open question is whether IO_ABORT was actually
+meant to be (implicitly) used here for Arm (but see below).
 
-With this and the rename, Reviewed-by: Andrew Cooper
-<andrew.cooper3@citrix.com>
+> The unclear part for me is the behavior change. Below...
+> 
+>>
+>> Fixes: f6bf39f84f82 ("x86/hvm: add support for broadcast of buffered ioreqs...")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Judging from history, it may want to be IOREQ_STATUS_UNHANDLED instead,
+>> eliminating the need for IOREQ_STATUS_BAD. That'll be a behavioral
+>> change on Arm then too, though.
+> 
+> ... you mention Arm. But not x86. This would imply there are no behavior 
+> change but I don't understand why.
+
+The way the patch is written it keeps Arm's (perceived; again see below)
+behavior unchanged, but fixes x86. The remark above is suggesting an
+alternative without need for the new IOREQ_STATUS_BAD, yet then also
+leading to a behavioral change on Arm. Hence the question whether the
+present behavior is intended. However, ...
+
+> For the Arm behavior change, per above, I don't think we can reach the 
+> code on Arm so it should not be a problem to change it.
+
+... with you pointing out that buffered ioreqs aren't supported on Arm,
+I could indeed change this whichever way suits x86, without affecting
+Arm at all. It would then be only an abstract consideration, for the
+hypothetical case that buffered ioreqs became needed on Arm as well.
+
+Buffered ioreqs not being supported on Arm of course means the function
+as a whole is unreachable, i.e. in violation of Misra rule 2.1. Which I
+find concerning, as that rule is marked as clean - indicating that
+Eclair isn't smart enough to spot the case here. (Reason for the remark:
+If the function had been marked / excluded accordingly, I would have
+noticed Arm's unaffectedness of whichever way the change is done.)
+
+>> Shouldn't IOREQ_READ requests also be rejected here, for the result of
+>> a read not possibly coming from anywhere, yet a (bogus) caller then
+>> assuming some data was actually returned?
+> 
+> I am not sure. I understand from an hardened PoV. But this would add an 
+> extra check to something the caller should be aware of. This is 
+> different from the address check because this is more of an 
+> implementation details.
+> 
+> So maybe it should be an ASSERT()?
+
+That might be an option, yet with the general movement towards also
+providing safety on release builds that would likely end up being
+
+    if ( dir != IOREQ_WRITE )
+    {
+        ASSERT_UNREACHABLE():
+        return 0;
+    }
+
+i.e. still an extra check.
+
+Jan
 
