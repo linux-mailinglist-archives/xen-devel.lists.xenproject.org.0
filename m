@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04B9897E944
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:01:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801803.1211813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D4AE97E94A
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:04:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801811.1211824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssfsS-0003nQ-M6; Mon, 23 Sep 2024 10:01:08 +0000
+	id 1ssfv5-0004OK-3z; Mon, 23 Sep 2024 10:03:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801803.1211813; Mon, 23 Sep 2024 10:01:08 +0000
+Received: by outflank-mailman (output) from mailman id 801811.1211824; Mon, 23 Sep 2024 10:03:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssfsS-0003lS-JO; Mon, 23 Sep 2024 10:01:08 +0000
-Received: by outflank-mailman (input) for mailman id 801803;
- Mon, 23 Sep 2024 10:01:07 +0000
+	id 1ssfv5-0004LW-0P; Mon, 23 Sep 2024 10:03:51 +0000
+Received: by outflank-mailman (input) for mailman id 801811;
+ Mon, 23 Sep 2024 10:03:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ssfsR-0003lM-Si
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:01:07 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1ssfv3-0004LQ-V1
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:03:49 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bfc79d81-7992-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 12:01:06 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5c5b954c359so1899164a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:01:06 -0700 (PDT)
+ id 20cc9c5d-7993-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 12:03:49 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a86e9db75b9so663074766b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:03:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c42bb495besm10098666a12.4.2024.09.23.03.01.05
+ a640c23a62f3a-a90612dfa54sm1190742466b.161.2024.09.23.03.03.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 03:01:05 -0700 (PDT)
+ Mon, 23 Sep 2024 03:03:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfc79d81-7992-11ef-a0b9-8be0dac302b0
+X-Inumbo-ID: 20cc9c5d-7993-11ef-a0b9-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727085666; x=1727690466; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727085828; x=1727690628; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+i16b0EmNFSQEoLVv0B4oaoAffRWoObwWq2nTZBZ9F4=;
-        b=AEJ0R6oaJbkDMssZNtt0Et+FNbw20waK3mDI/bzwH55JnOHuFpK0FV/hT273xdnXrl
-         zlOVWntc2AKLLZ2ZsWlSGBYeDBT5ZMfifs9etCmn2aMLkEG3WaXNDgi4BwDnARgE8xCH
-         nlnPr+N4Mn1l4pLcYToF4Q0UndAVf0tZPfKToGofRr6yoDSS1g2Wpe0ueUnY7AkBKwYZ
-         jqyPbC4xDZ+drGljAbWIBTGTloJGO93HH1GUGVQ+gbx1WsKcn6K3WTie3m0eQxahb+7c
-         g9TApqicoYxxcibGFz5XGHu86OlvTNtaFkaL4c06bgtHgwh/EbL/m/Ye8dP2A0TIsKL9
-         xmvw==
+        bh=6yKzZL3lSiAa3OmbKHBMlj3zX32+coKyQrM6ZWGCBZk=;
+        b=YWkJLxis7FXYCQ/zrEaWTjwR1C6v3EsUconhl0cHbJL1zIBqlCtqnECK1Lg5Dr2Ifl
+         bBnRUlLnhshlbWUqxWYneN18znv3lQJAL8XNzMI4k25TMBNRvpG7LTuQrPGudYba4KX6
+         GWLT5Ik9zujY/xMztV0Y9dSEtBcPS5zu7HR6/vTouH1aTu1z/E391dNoSEFR7oCq54fc
+         Zn7GO4O8uFpgAaMUbzZOJ7y9JG9hnqp7o3JYXAMTyVLM9tx+gEEQw2mFGqswIgSfMI8J
+         pFvJ4PJ9yLWfNifwHzoR1DcZ6LV0vb4bSLIDH+QwlxLAQcwhWtIFh7ZJhiW4D6RRgmpk
+         YUGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727085666; x=1727690466;
+        d=1e100.net; s=20230601; t=1727085828; x=1727690628;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+i16b0EmNFSQEoLVv0B4oaoAffRWoObwWq2nTZBZ9F4=;
-        b=N6Pj+hF1tCI+FzoKXUVY47x2Y0kzr79JxVO8Ppy04R1vTGQSZaO+btGN6zuQgDKBJr
-         0GjNcRM8oNW0pw/nIULx80ynIOfHYmVGRQ+LF3fqsdVGEioqdJeTuis+1z0VFUjVfa67
-         sR/u6cDmq97eaBt4R74yqEgEDAYVJW7PcGckqfRSmT1I+JuHF63qwwd+x8P12pnPKmRk
-         a+i3YM0UdB7K1MU0T3uj3PKeg9yXPKtcOz1vsnieUycnjrFzfl8saxpaZ2iJjFtQzuHt
-         p7joYkcbnyubRDbgWCL7wsrl6tS9FZ9uaSrCJUh17mT8/2kExByCqPB7AexsBTZ/d/OG
-         TZ4A==
-X-Forwarded-Encrypted: i=1; AJvYcCXfzzOOD4ArwO2NzXqjOn0V1/qwE5ZJ8NUnCmq/0HGVL89o3OR1p6yHJhRDIYiF5bCF3CK6K0FgdZE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwHG3eSE/lOPyuAN2UVxVjJt9P1SJkArwJQtBX6hM0SrftBenBd
-	5A73aT2iJyaqJSN3R84fPXVNhwCvVjOvFkEMNpIssSPuYd8pLyiuhjoQfFrP7w==
-X-Google-Smtp-Source: AGHT+IHioiVtj4j/AT3r63SBtFRmU0Ukck8C2PGEc0pXsetSzuqTJqMZbqjepOo9z6/MmzJBBAyyZg==
-X-Received: by 2002:a05:6402:42d3:b0:5c3:cc6d:19df with SMTP id 4fb4d7f45d1cf-5c464a5cd52mr9633518a12.28.1727085665610;
-        Mon, 23 Sep 2024 03:01:05 -0700 (PDT)
-Message-ID: <d5a6774b-3c50-4b39-9bb7-740f0763a1d4@suse.com>
-Date: Mon, 23 Sep 2024 12:01:13 +0200
+        bh=6yKzZL3lSiAa3OmbKHBMlj3zX32+coKyQrM6ZWGCBZk=;
+        b=jF4/WfOrCvBJC8TXrdHWxyb9jitbAY2MdBMMWJkI9OQ1hzS67vUNgeUojjXZ3tIdMW
+         pPSEV5V7CEG+RkTMEtADRHZ5C0HytbHWVZ0LwGAQ0CmkzFzQs4c3Xtz8njCPLFp9fInI
+         xhFOaoWVqY56RSt4UOV5RVMjfghcZ28mi310G9ASRctVEHrMJ/HLKJdwY53O2tof1EPq
+         PwaL3/LSAotIQo5wvcESldNnB0Oa0nGi1IVPRDU3l8N1KPCROlYUMn3PWB6E90obh29s
+         veqhHMVjchImEnS5dxlzt1Y8cl35sDWh7e0LbANexgDJn7WfJ2Xslqc6YQE50UuyZ02Z
+         /jZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWe/k4N5Vutx9QqKCKJdxHoDLWe8odrifc5+VsR4CwUE/Nmwq4CaaWnHjHmX3S4QWC7n3yGRaxc/bI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxOmFdJDv9W3bJHUYwD+oKm6vqwL35tul2EBhQ0HKS4/VnoX6kA
+	qpn7o/jnm4JS4FXxssxETXBgwR59Y65VfUBL3uzLkIwjjjz9MeBDCH0Z5lNOiA==
+X-Google-Smtp-Source: AGHT+IEK7xWlNQ8ANzUdPrrGFNitsH6H2I9zVZKts4A1CMsovbrGGIB0WZMdQ/za42n/8jY/xs1vqg==
+X-Received: by 2002:a17:907:f74b:b0:a8d:3b04:29db with SMTP id a640c23a62f3a-a90d508b709mr1073093466b.39.1727085828432;
+        Mon, 23 Sep 2024 03:03:48 -0700 (PDT)
+Message-ID: <4f03e2a8-7686-4a2f-9360-036a3edacaa7@suse.com>
+Date: Mon, 23 Sep 2024 12:03:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] x86/hvm: make ACPI PM timer support optional
-To: Sergiy Kibrik <sergiy_kibrik@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20240916063757.990070-1-Sergiy_Kibrik@epam.com>
- <Zufh7DOSCwzhrpZG@macbook.local>
- <alpine.DEB.2.22.394.2409161252380.1417852@ubuntu-linux-20-04-desktop>
- <614611f1-dfbe-4185-8f0a-dc89aa7f5a20@epam.com>
- <ZuqgTKqaUDWC_I-u@macbook.local>
- <27d717f7-3073-4139-bef0-05d1a39f1e6c@epam.com>
+Subject: Re: [PATCH v2] docs/misra: add R17.2 and R18.2
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
+ michal.orzel@amd.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2409181322070.1417852@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,60 +113,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <27d717f7-3073-4139-bef0-05d1a39f1e6c@epam.com>
+In-Reply-To: <alpine.DEB.2.22.394.2409181322070.1417852@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18.09.2024 15:35, Sergiy Kibrik wrote:
-> 18.09.24 12:41, Roger Pau Monné:
->> On Wed, Sep 18, 2024 at 12:29:39PM +0300, Sergiy Kibrik wrote:
->>> 16.09.24 22:57, Stefano Stabellini:
->>>> On Mon, 16 Sep 2024, Roger Pau Monné wrote:
->>>>> On Mon, Sep 16, 2024 at 09:37:57AM +0300, Sergiy Kibrik wrote:
->>>>>> Introduce config option X86_PMTIMER so that pmtimer driver can be disabled on
->>>>>> systems that don't need it.
->>>>>
->>>>> Same comment as in the VGA patch, you need to handle the user passing
->>>>> X86_EMU_PM.  It's not OK to just ignore the flag if the hypervisor is
->>>>> built without ACPI PM timer support.
->>>>
->>>> I also think that the flag should not be ignored. I think that Xen
->>>> should return error if a user is passing a domain feature not supported
->>>> by a particular version of the Xen build. I don't think that libxl needs
->>>> to be changed as part of this patch necessarily.
->>>
->>> It looks like toolstack always leaves X86_EMU_PM bit enabled, so that part
->>> may also require changes.
->>
->> I think you will be unable to create HVM guests, but that's kind of
->> expected if ACPI PM emulation is removed from the hypervisor (it won't
->> be an HVM guest anymore if it doesn't have ACPI PM).
->>
->> PVH guest don't set X86_EMU_PM so you should be able to create those
->> fine.
->>
-> 
-> would the check like this be enough?:
-> 
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -758,6 +758,9 @@ static bool emulation_flags_ok(const struct domain 
-> *d, uint32_t emflags)
->                (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
->                emflags != X86_EMU_LAPIC )
->               return false;
-> +        if ( !is_hardware_domain(d) &&
-> +             (emflags & X86_EMU_PM) && !IS_ENABLED(CONFIG_X86_PMTIMER))
-> +            return false;
->       }
->       else if ( emflags != 0 && emflags != X86_EMU_PIT )
->       {
+On 18.09.2024 22:23, Stefano Stabellini wrote:
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -561,6 +561,13 @@ maintainers if you want to suggest a change.
+>       - The features of <stdarg.h> shall not be used
+>       -
+>  
+> +   * - `Rule 17.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_02.c>`_
+> +     - Required
+> +     - Functions shall not call themselves, either directly or indirectly
+> +     - Limited forms of recursion are allowed if the recursion is bound
 
-Why the is_hardware_domain() part of the check?
-
-> (probably with X86_PMTIMER option depending on PV)
-
-HVM you mean?
+Nit: Doesn't this want to be "bounded"?
 
 Jan
 
