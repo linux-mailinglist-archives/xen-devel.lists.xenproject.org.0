@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13B0097ED2A
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 16:27:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802074.1212190 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B267097ED3B
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 16:36:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802083.1212200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssk1W-0001dg-Jg; Mon, 23 Sep 2024 14:26:46 +0000
+	id 1sskAZ-0003AM-CW; Mon, 23 Sep 2024 14:36:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802074.1212190; Mon, 23 Sep 2024 14:26:46 +0000
+Received: by outflank-mailman (output) from mailman id 802083.1212200; Mon, 23 Sep 2024 14:36:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssk1W-0001bl-F6; Mon, 23 Sep 2024 14:26:46 +0000
-Received: by outflank-mailman (input) for mailman id 802074;
- Mon, 23 Sep 2024 14:26:45 +0000
+	id 1sskAZ-000389-92; Mon, 23 Sep 2024 14:36:07 +0000
+Received: by outflank-mailman (input) for mailman id 802083;
+ Mon, 23 Sep 2024 14:36:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ssk1V-0001bf-1M
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 14:26:45 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4Zw7=QV=cloud.com=matthew.barnes@srs-se1.protection.inumbo.net>)
+ id 1sskAX-000383-Da
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 14:36:05 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id db0dd982-79b7-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 16:26:43 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so597309166b.2
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 07:26:43 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90612e1a49sm1235873866b.166.2024.09.23.07.26.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 07:26:42 -0700 (PDT)
+ id 294727c3-79b9-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 16:36:04 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a8ce5db8668so332367966b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 07:36:04 -0700 (PDT)
+Received: from EMEAENGAAD91498 ([217.156.233.154])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a90612b3f62sm1237059066b.137.2024.09.23.07.36.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Sep 2024 07:36:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +45,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db0dd982-79b7-11ef-a0b9-8be0dac302b0
+X-Inumbo-ID: 294727c3-79b9-11ef-a0b9-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727101603; x=1727706403; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DLDzDQD/wYxIveHU3ko4JiSsiaffwqCRgQeNcU258GQ=;
-        b=Y7LiWBiJFY7DtalxHM4MXhbF9wNJYthaFrwVg8y2Jwa2QPWmYh6tfqxKnFRlHzqlv1
-         GYrsyiAPzXJ7nlN+pMm3tUBrrBedGb3ER740T8chog05mzm/3CPX9+21e+QzV/JijBd6
-         XkofnY1K1yn91cRquFt61BoN7CmBBJaQrqc1KJIVpVt0MeaDtJNEMbr9+B7S0EElBBP/
-         Xt9G5ynDzPIktKJqGPozDnXwNFw+l2WazcOKLLzXyeCK0dg3VwUDI4qERRn6LgdWtNBz
-         ykb6L2KThB6W7ymA/jLVPDbW8dtArFW4GGXXD7T01Eec9UXooe9jk9dvIafOl7Y6I/fi
-         67fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727101603; x=1727706403;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1727102163; x=1727706963; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-disposition:mime-version
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DLDzDQD/wYxIveHU3ko4JiSsiaffwqCRgQeNcU258GQ=;
-        b=mEAbM+8nFdt2sy2xK71zbYZVeux/lYfQOGYtJ7UJzuEunJ8wGwKobygXCTLMVBLUWd
-         LMLuPZG+Op+nExbh1g2tLAEZy8F7g8muhN/3svvKAw8XhpOITsPtL/RHEdz3CPTUWTby
-         ErTbQhAS825iVJeh7XuGq/94T45F75QHw8WHFN9NFcLh4L7zHO1k4xqt0EQ13iy9SNdc
-         CTk2R5SFzed6MtUnBvGukkMEwbQ7SSsYvOtkHudfODT5lU7+I65NlIKmk6Vsrb2OvZm3
-         UNy2JXSIQJoacVBL7mojFQfO48EcDmHUXpgiDzXbGQ4un10csuFU79tJ6gQJ0KBTeONb
-         3JfA==
-X-Forwarded-Encrypted: i=1; AJvYcCUU2rjtgRoZYCulHYKQvSqDJ/pBaLJXosFWbLIu+ZexIeBgOFiWJgb6q0R9+pLQn5q73yst+kN4Bhc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwDTVN5T5nJ97+qMjhzhbrgCun6n55oEg9T7y0fxifh5sGLDe+X
-	5f0abK8IVN5ix0YXri9Bz4mZjJwcAfgXBiGtV/oYLp1rCqqoZzuis0SFrT3wcg==
-X-Google-Smtp-Source: AGHT+IHIHCMdeJ6tPA+kUJI/S636npHuwgETIUQXMQ+loU2KEFUTktP+MYvMiaCEqHvGge6COnUuCg==
-X-Received: by 2002:a17:906:dace:b0:a91:158f:6692 with SMTP id a640c23a62f3a-a91158f6847mr98783066b.62.1727101602928;
-        Mon, 23 Sep 2024 07:26:42 -0700 (PDT)
-Message-ID: <6133b856-1c02-486c-8932-b213e8b9ce0b@suse.com>
-Date: Mon, 23 Sep 2024 16:26:42 +0200
+        bh=0Caw0OhZmLSvMLMqx8WNB2nioCHyuvq4qLWaYxjfehg=;
+        b=UMQh1TMM/P1aB6PiJyrPwoRcJUa1QE0XraZ0idfT6n8K4shZXJ34NVCtWoVHDaz7Ld
+         oX/fyD6zFQaDhYW38ZvCeuqC1ePsaewUwNYUI2Vl3aqIGO96KUh16KPRennrp3VwX8XM
+         pNMG3hdVPmtGUOGNKs2FdxBEY6K5K2iyuas9o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727102163; x=1727706963;
+        h=content-transfer-encoding:content-disposition:mime-version
+         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0Caw0OhZmLSvMLMqx8WNB2nioCHyuvq4qLWaYxjfehg=;
+        b=ZbfifJvSMdCAJh4QZn7wadce4vEejDz80rzEWHMcb+oek39B7tk3lVsEUuC+P4uIQ1
+         ZD7vm1tDzd4NlxhI3/DmMSkdJhkT9qCR89kws6jLzJLwyA2Ic/gaSZiVKk/lS+SpLAz+
+         czDQ+weOVFvTqwdtD3nuAAMg9Q4FK+5RVuPmTjwMX47k884Ym3IoKkefiF8K/iLzmL2k
+         zQgN5aQIb3CejiC/B07Y/d8bfwpHY+cbzoiIdkptsPfEECASmDWCMp/6+9jvAunO6G/H
+         iV4Vr8Z4htbtF0b/aEGak6Aaip6GXwd/XmBp01pAiJa6EMvEekU+DnSymSVPyT8PnXZn
+         sXxw==
+X-Gm-Message-State: AOJu0Ywy1/U5SsxJ8OgOATWwo6DHIEpR4cphV4fC3kHUwyzhjubxC/D+
+	l2h+xMwhhzm6Iw/5/vSYw1lKERdQNm40zKCZuMM38nH3vMMpO++x+WK89Jq1optk/OEYSVtZ4f9
+	d
+X-Google-Smtp-Source: AGHT+IHVfK24RtDDriCuKxune6jvprFVD0cG1C28GfBJtUBqOztOkrBDBOSuYtHtWIFIXwQe1EEInA==
+X-Received: by 2002:a17:907:d85f:b0:a80:d913:be07 with SMTP id a640c23a62f3a-a90d56d3d84mr1128927766b.36.1727102163396;
+        Mon, 23 Sep 2024 07:36:03 -0700 (PDT)
+Date: Mon, 23 Sep 2024 15:35:59 +0100
+From: Matthew Barnes <matthew.barnes@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+	Community Manager <community.manager@xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/APIC: Remove x2APIC pure cluster mode
+Message-ID: <e43028a51f8cea02421d0856376faada8ab186d4.1726840133.git.matthew.barnes@cloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/boot: Rewrite EFI start part in C
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20240910161612.242702-1-frediano.ziglio@cloud.com>
- <20240910161612.242702-4-frediano.ziglio@cloud.com>
- <5cf6fad1-16ce-46b4-9bed-151f936e3772@suse.com>
- <CACHz=Zifc9rKvfxh1EmH5VQQ1YtB7L-GUrBrMP734uc6Uhk_mQ@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=Zifc9rKvfxh1EmH5VQQ1YtB7L-GUrBrMP734uc6Uhk_mQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-On 16.09.2024 10:25, Frediano Ziglio wrote:
-> On Sun, Sep 15, 2024 at 8:00â€¯AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 10.09.2024 18:16, Frediano Ziglio wrote:
->>> -.Lefi_multiboot2_proto:
->>> -        /* Zero EFI SystemTable, EFI ImageHandle addresses and cmdline. */
->>> -        xor     %esi,%esi
->>> -        xor     %edi,%edi
->>> -        xor     %edx,%edx
->>> +        /* Save Multiboot2 pointer on the stack. */
->>> +        push    %rbx
->>
->> %rbx doesn't need preserving around a C function call (which will do
->> so itself if necessary). I understand a 2nd PUSH may be necessary
->> anyway, to keep the stack aligned, yet that then would need
->> commenting differently. Plus as long as we call our own functions
->> only, we don't require such alignment.
-> 
-> Extended comment.
-> 16-byte alignment is also in SystemV ABI, I won't remove it in this series.
+With the introduction of mixed x2APIC mode (using cluster addressing for
+IPIs and physical for external interrupts) the use of pure cluster mode
+doesn't have any benefit.
 
-Except that we build with -mpreferred-stack-boundary=3, not respecting
-the ABI in this regard anyway.
+Remove the mode itself, leaving only the code required for logical
+addressing when sending IPIs.
 
->>> +    {
->>> +        if ( tag->type == MULTIBOOT2_TAG_TYPE_EFI_BS )
->>> +            have_bs = true;
->>> +        else if ( tag->type == MULTIBOOT2_TAG_TYPE_EFI64 )
->>> +            SystemTable = _p(((const multiboot2_tag_efi64_t *)tag)->pointer);
->>> +        else if ( tag->type == MULTIBOOT2_TAG_TYPE_EFI64_IH )
->>> +            ImageHandle = _p(((const multiboot2_tag_efi64_ih_t *)tag)->pointer);
->>> +        else if ( tag->type == MULTIBOOT2_TAG_TYPE_CMDLINE )
->>> +            cmdline = ((const multiboot2_tag_string_t *)tag)->string;
->>> +    }
->>> +
->>> +    if ( !have_bs )
->>> +        return "ERR: Bootloader shutdown EFI x64 boot services!";
->>> +    if ( !SystemTable )
->>> +        return "ERR: EFI SystemTable is not provided by bootloader!";
->>> +    if ( !ImageHandle )
->>> +        return "ERR: EFI ImageHandle is not provided by bootloader!";
->>> +
->>> +    efi_multiboot2(ImageHandle, SystemTable, cmdline);
->>
->> This being invoked from here now makes me wonder about the (new)
->> function's name and whether a separate new function is actually
->> needed: Can't the new code then be integrated right into
->> efi_multiboot2(), thus eliminating the question on the naming of
->> the function?
-> 
-> If you are suggesting putting this parsing code inside efi_multiboot2
-> in ef-boot.h that would change the behavior, which I would do in a
-> different commit.
-> Currently, there are 2 different efi_multiboot2 functions, one if
-> ms_abi is supported, the other an empty stubs. However, some checks
-> and tests are done in both cases (ms_abi supported or not). Also, both
-> paths uses SystemTable, so I need to parse MBI2 in any case.
+Implements: https://gitlab.com/xen-project/xen/-/issues/189
 
-It could be slightly less parsing, but I get your point.
+Signed-off-by: Matthew Barnes <matthew.barnes@cloud.com>
+---
+ CHANGELOG.md                      |  1 +
+ docs/misc/xen-command-line.pandoc |  4 +--
+ xen/arch/x86/Kconfig              | 12 --------
+ xen/arch/x86/genapic/x2apic.c     | 50 +++----------------------------
+ 4 files changed, 7 insertions(+), 60 deletions(-)
 
-Then, as indicated, the function's name needs to change. The present name
-simply fails to account for the important-ish fact that efi_multiboot2()
-is (tail-)called.
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 26e7d8dd2ac4..335e98b2e1a7 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+ ### Changed
+  - On x86:
+    - Prefer ACPI reboot over UEFI ResetSystem() run time service call.
++   - Remove x2APIC cluster mode, leaving only physical and mixed modes.
+ 
+ ### Added
+ 
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 959cf45b55d9..5ce63044ade8 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -2842,10 +2842,10 @@ the watchdog.
+ Permit use of x2apic setup for SMP environments.
+ 
+ ### x2apic-mode (x86)
+-> `= physical | cluster | mixed`
++> `= physical | mixed`
+ 
+ > Default: `physical` if **FADT** mandates physical mode, otherwise set at
+->          build time by CONFIG_X2APIC_{PHYSICAL,LOGICAL,MIXED}.
++>          build time by CONFIG_X2APIC_{PHYSICAL,MIXED}.
+ 
+ In the case that x2apic is in use, this option switches between modes to
+ address APICs in the system as interrupt destinations.
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 62f0b5e0f4c5..ab862b083fce 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -275,18 +275,6 @@ config X2APIC_PHYSICAL
+ 	  destination inter processor interrupts (IPIs) slightly slower than
+ 	  Logical Destination mode.
+ 
+-config X2APIC_CLUSTER
+-	bool "Cluster Destination mode"
+-	help
+-	  When using this mode APICs are addressed using the Cluster Logical
+-	  Destination mode.
+-
+-	  Cluster Destination has the benefit of sending IPIs faster since
+-	  multiple APICs can be targeted as destinations of a single IPI.
+-	  However the vector space is shared between all CPUs on the cluster,
+-	  and hence using this mode reduces the number of available vectors
+-	  when compared to Physical mode.
+-
+ config X2APIC_MIXED
+ 	bool "Mixed Destination mode"
+ 	help
+diff --git a/xen/arch/x86/genapic/x2apic.c b/xen/arch/x86/genapic/x2apic.c
+index d531035fa42c..c277f4f79b0a 100644
+--- a/xen/arch/x86/genapic/x2apic.c
++++ b/xen/arch/x86/genapic/x2apic.c
+@@ -63,26 +63,6 @@ static void cf_check init_apic_ldr_x2apic_cluster(void)
+     cpumask_set_cpu(this_cpu, per_cpu(cluster_cpus, this_cpu));
+ }
+ 
+-static const cpumask_t *cf_check vector_allocation_cpumask_x2apic_cluster(
+-    int cpu)
+-{
+-    return per_cpu(cluster_cpus, cpu);
+-}
+-
+-static unsigned int cf_check cpu_mask_to_apicid_x2apic_cluster(
+-    const cpumask_t *cpumask)
+-{
+-    unsigned int cpu = cpumask_any(cpumask);
+-    unsigned int dest = per_cpu(cpu_2_logical_apicid, cpu);
+-    const cpumask_t *cluster_cpus = per_cpu(cluster_cpus, cpu);
+-
+-    for_each_cpu ( cpu, cluster_cpus )
+-        if ( cpumask_test_cpu(cpu, cpumask) )
+-            dest |= per_cpu(cpu_2_logical_apicid, cpu);
+-
+-    return dest;
+-}
+-
+ static void cf_check send_IPI_self_x2apic(uint8_t vector)
+ {
+     apic_wrmsr(APIC_SELF_IPI, vector);
+@@ -169,17 +149,6 @@ static const struct genapic __initconst_cf_clobber apic_x2apic_phys = {
+     .send_IPI_self = send_IPI_self_x2apic
+ };
+ 
+-static const struct genapic __initconst_cf_clobber apic_x2apic_cluster = {
+-    APIC_INIT("x2apic_cluster", NULL),
+-    .int_delivery_mode = dest_LowestPrio,
+-    .int_dest_mode = 1 /* logical delivery */,
+-    .init_apic_ldr = init_apic_ldr_x2apic_cluster,
+-    .vector_allocation_cpumask = vector_allocation_cpumask_x2apic_cluster,
+-    .cpu_mask_to_apicid = cpu_mask_to_apicid_x2apic_cluster,
+-    .send_IPI_mask = send_IPI_mask_x2apic_cluster,
+-    .send_IPI_self = send_IPI_self_x2apic
+-};
+-
+ /*
+  * Mixed x2APIC mode: use physical for external (device) interrupts, and
+  * cluster for inter processor interrupts.  Such mode has the benefits of not
+@@ -252,15 +221,13 @@ static int8_t __initdata x2apic_phys = -1;
+ boolean_param("x2apic_phys", x2apic_phys);
+ 
+ enum {
+-   unset, physical, cluster, mixed
++   unset, physical, mixed
+ } static __initdata x2apic_mode = unset;
+ 
+ static int __init cf_check parse_x2apic_mode(const char *s)
+ {
+     if ( !cmdline_strcmp(s, "physical") )
+         x2apic_mode = physical;
+-    else if ( !cmdline_strcmp(s, "cluster") )
+-        x2apic_mode = cluster;
+     else if ( !cmdline_strcmp(s, "mixed") )
+         x2apic_mode = mixed;
+     else
+@@ -274,7 +241,7 @@ const struct genapic *__init apic_x2apic_probe(void)
+ {
+     /* Honour the legacy cmdline setting if it's the only one provided. */
+     if ( x2apic_mode == unset && x2apic_phys >= 0 )
+-        x2apic_mode = x2apic_phys ? physical : cluster;
++        x2apic_mode = x2apic_phys ? physical : mixed;
+ 
+     if ( x2apic_mode == unset )
+     {
+@@ -286,21 +253,12 @@ const struct genapic *__init apic_x2apic_probe(void)
+         else
+             x2apic_mode = IS_ENABLED(CONFIG_X2APIC_MIXED) ? mixed
+                           : (IS_ENABLED(CONFIG_X2APIC_PHYSICAL) ? physical
+-                                                                : cluster);
++                                                                : mixed);
+     }
+ 
+     if ( x2apic_mode == physical )
+         return &apic_x2apic_phys;
+ 
+-    if ( x2apic_mode == cluster && iommu_intremap != iommu_intremap_full )
+-    {
+-        printk("WARNING: x2APIC cluster mode is not supported %s interrupt remapping -"
+-               " forcing mixed mode\n",
+-               iommu_intremap == iommu_intremap_off ? "without"
+-                                                    : "with restricted");
+-        x2apic_mode = mixed;
+-    }
+-
+     if ( !this_cpu(cluster_cpus) )
+     {
+         update_clusterinfo(NULL, CPU_UP_PREPARE,
+@@ -309,7 +267,7 @@ const struct genapic *__init apic_x2apic_probe(void)
+         register_cpu_notifier(&x2apic_cpu_nfb);
+     }
+ 
+-    return x2apic_mode == cluster ? &apic_x2apic_cluster : &apic_x2apic_mixed;
++    return &apic_x2apic_mixed;
+ }
+ 
+ void __init check_x2apic_preenabled(void)
+-- 
+2.34.1
 
->>> --- a/xen/arch/x86/efi/stub.c
->>> +++ b/xen/arch/x86/efi/stub.c
->>> @@ -17,7 +17,8 @@
->>>   */
->>>
->>>  void __init noreturn efi_multiboot2(EFI_HANDLE ImageHandle,
->>> -                                    EFI_SYSTEM_TABLE *SystemTable)
->>> +                                    EFI_SYSTEM_TABLE *SystemTable,
->>> +                                    const char *cmdline)
->>>  {
->>>      static const CHAR16 __initconst err[] =
->>>          L"Xen does not have EFI code build in!\r\nSystem halted!\r\n";
->>
->> This, if not a separate change, wants mentioning in the description.
->> It's a related observation that this wasn't properly updated, but
->> nothing that necessarily needs doing here. Question is whether the
->> declaration of the function wouldn't better go into a header now in
->> the first place.
-> 
-> I had the same though about a header. But currently there's no such
-> header, I mean it should be able to be included by both stub.c and
-> efi-boot.h which are both x86 only code so it should go in
-> xen/arch/x86/ I suppose. Suggestions? Maybe a different solution would
-> be to have a xen/arch/x86/efi/efi-boot-stub.h instead of
-> xen/arch/x86/efi/stub.c ?
-
-It's not quite the right place, but maybe (ab)using asm/efibind.h would
-be slightly better than introducing asm/efi.h just for a single decl?
-
-Jan
 
