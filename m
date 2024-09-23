@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5750097E908
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 11:48:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801769.1211773 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BB0797E918
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 11:52:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801785.1211784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssffZ-0007fy-Tf; Mon, 23 Sep 2024 09:47:49 +0000
+	id 1ssfjM-0000lK-E1; Mon, 23 Sep 2024 09:51:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801769.1211773; Mon, 23 Sep 2024 09:47:49 +0000
+Received: by outflank-mailman (output) from mailman id 801785.1211784; Mon, 23 Sep 2024 09:51:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssffZ-0007eS-Qr; Mon, 23 Sep 2024 09:47:49 +0000
-Received: by outflank-mailman (input) for mailman id 801769;
- Mon, 23 Sep 2024 09:47:48 +0000
+	id 1ssfjM-0000iA-Af; Mon, 23 Sep 2024 09:51:44 +0000
+Received: by outflank-mailman (input) for mailman id 801785;
+ Mon, 23 Sep 2024 09:51:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ssffY-0007eM-Tr
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 09:47:48 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=81ci=QV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1ssfjK-0000gH-Ta
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 09:51:42 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3c87d72-7990-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 11:47:47 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a8d2daa2262so539847766b.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 02:47:47 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90612e1a55sm1186325166b.157.2024.09.23.02.47.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 02:47:46 -0700 (PDT)
+ id 6fb690e4-7991-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 11:51:42 +0200 (CEST)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2f8ca33ef19so5501861fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 02:51:42 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a90610f43f4sm1194890666b.80.2024.09.23.02.51.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Sep 2024 02:51:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,158 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3c87d72-7990-11ef-a0b9-8be0dac302b0
+X-Inumbo-ID: 6fb690e4-7991-11ef-a0b9-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727084867; x=1727689667; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1aeBnyvxDs6h+jxIF+2fiajAnXwfHmknD+2rTs/FAHI=;
-        b=eX37zL+cqeD/wY4WH/KBmfSL2t7KBU0qHa/UmRfNCPI/kqNmKDnpfeOtJY/iLd9xn6
-         hLAJhvbUprvJt6j6xqsx4hIMrjnBUgeS33rm94UDvToXpnsCQAVZNQKGFSokRa4Kkvvi
-         3EYGNYnN3xxH2lw8LVpo7imE5SM2oyTkKazNiXiRAxORhow/4xqz/g5kc7AX7mzHXuTH
-         5vWaH0TivB0qy7g3axIF1uoW17+9iUVjYeikWDjxUiW62PdvbTTLqD7MnspjAACLl13V
-         KHTRUDH5w1g+tPxR1UWlXnt/lKPiDbD93iQlZuGSQYnl8ICLRnXUf4jSej8qcCWjYeZ1
-         iVXA==
+        d=gmail.com; s=20230601; t=1727085102; x=1727689902; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=lL225Y3S+GVR5FlTMHIol9awL7Mf/SWOhHbDuHHzBsM=;
+        b=gGXqP005tgDcrgJs0eEqKfcPc/ahFy/lF7Wnb18e8tLhklAhCLgpiqPIgp14PVGLWM
+         YwwBoDccZKPONyKRMrOYSkd6cfqe7uowIUrbnNZ7cYQRzrHnYeh9va1vDxu5m0Uq7t1z
+         IaQ5+/wkDMCv54EIo6C7h4Gko9wFR2556zZbM1kH0E5euuxCtQfse0dV4+0XUrCejlch
+         zNtHOJYlMZcy9Z6da/snARlpHnMoyVcO9aZLCteZBpHEkvfv5HedNw8Gx4Y167Q2zCfS
+         xT+pH19dmz5OYKmsKgPTYk57CfIJ0FoLQGoGvoYoXXUhzea5ww58vvD9FQslT6P081p4
+         sv5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727084867; x=1727689667;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1aeBnyvxDs6h+jxIF+2fiajAnXwfHmknD+2rTs/FAHI=;
-        b=biAMzOn/bO5zQtaw07MDTUmW6ecPw7m1st3rPFE4gmU5p9royJSJrRoxNfYRxorqVH
-         6bZa7r4YjcEeSchV8O/vvEuAvvqjABUpwyA9h97Oc87GYJYKXiMZ+alQa2S6cC7niQ7I
-         z38eJwWi2g0SRPniAuWxAHNJ3DZQQQcRj6RSKbYzT+hXYoQBmQ+tyY7LWMakYV4pvSmm
-         l13Ujz9zQhzRLBHCSgcSF12X9Kr0g85Y7+3+q6sRpEyeQ6E41QjqeABwb5GtjCpd+ZiJ
-         ZCpFyBQLEzh3j+tQvp1nhmtrGs/Ty9F4WfA/EdCoJ+mxPslFdIRNqyfR2f0VFq4c93SF
-         RODQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWWWE5e5SVn1VrreoyCfmZrLjwvUWCFdieyNpJL+5RZUrwi8MEMCrHJdxs6+KutA0fPoJhY6N6Lef8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yye6h28ZeFTIGrZoA8Vhw0BbanYUd6AlBQOLfLO1lKgWOCHndKi
-	3yPBTMQ/GSFQ1lht1S5RopVbrl7XXezoQri8G3UOCv7CK2UQ2XYQLCDcKUCuHA==
-X-Google-Smtp-Source: AGHT+IEnEFCnn6G8z+wL/6JvGvATta6V7NTcG5tw6kLQSSvlUQpuZZ0OUxv2Ytiup5jAGMEeLbMPsA==
-X-Received: by 2002:a17:906:794c:b0:a86:7199:af37 with SMTP id a640c23a62f3a-a90d51601d9mr1342848566b.58.1727084867133;
-        Mon, 23 Sep 2024 02:47:47 -0700 (PDT)
-Message-ID: <d29f7235-661c-4457-959c-eeb3b553da02@suse.com>
-Date: Mon, 23 Sep 2024 11:47:54 +0200
+        d=1e100.net; s=20230601; t=1727085102; x=1727689902;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=lL225Y3S+GVR5FlTMHIol9awL7Mf/SWOhHbDuHHzBsM=;
+        b=AJoVo8h9Q3KKiHHrs46+jsGRmQBncHxod4rmsB/GLyNMZVSoXGZjCqXYaHamQYz+n8
+         9dsrtXlFEh6L0b7rBhKPBzg5ahdnePDyNsjbe3EMu7X20T2kAdfuTVX+PqCm0r4OLmUV
+         pgiLQSwIF1V0havKkf++gIzSQF2wapxM+n4k3A920dyvWEC09BwA3x8mmEpGbo92WkCM
+         ydcRCXx8AmrpzwyS+hc4f2LAIaFjhlB0NKGUtUHLi8d/YYZWn8EoneLGleI5C3Appr/Y
+         kwMx7wt9y+F0pwhohTsEYNp5bFpSHJZlxRPMNBkH0/cb56qxn1k7NloeMBlDZ1nYed7k
+         aC/w==
+X-Forwarded-Encrypted: i=1; AJvYcCV4LbM6O7EjYjyVS0P+W0kDCcHaIaqXAv9O4qA4fFyL9END+8GKXGNcfU5KrVmlVZ7L+iG9tsh3fAk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8ql1o43vpSicXam8Gy0cVq1kxV8F0OliUgwjsn+1HKQLnk5mx
+	i011j66AcRaiL+TmayKCwjqY3GyiqYNyXaBrL0CC+B5v5kRWLSbw
+X-Google-Smtp-Source: AGHT+IF7xVigoVZ+V4tX9B/OdDSnLQ6gRpH3aafTvIvur2OxRXVzt2fO7QX4wBnl2bU7+6Yi4qUjiQ==
+X-Received: by 2002:a05:651c:1509:b0:2ef:2555:e52d with SMTP id 38308e7fff4ca-2f7cb37f0a1mr61108551fa.45.1727085101572;
+        Mon, 23 Sep 2024 02:51:41 -0700 (PDT)
+Message-ID: <396a16baf5ecb383c69778885dc6c073ce43ad08.camel@gmail.com>
+Subject: Re: [PATCH v1 2/2] xen: move per-cpu area management into common
+ code
+From: oleksii.kurochko@gmail.com
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Shawn
+ Anastasio <sanastasio@raptorengineering.com>,  Alistair Francis
+ <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Connor
+ Davis <connojdavis@gmail.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
+ <roger.pau@citrix.com>
+Date: Mon, 23 Sep 2024 11:51:39 +0200
+In-Reply-To: <a5b7dbdf-886b-45d6-8402-db04c58423e8@xen.org>
+References: <cover.1726746877.git.oleksii.kurochko@gmail.com>
+	 <15b9b94e1acb70ba713391de5bae42a622c29747.1726746877.git.oleksii.kurochko@gmail.com>
+	 <a5b7dbdf-886b-45d6-8402-db04c58423e8@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ioreq: don't wrongly claim "success" in
- ioreq_send_buffered()
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <f0cd7c48-6816-4050-a505-693c4a470506@suse.com>
- <c80dd525-7fb6-4e2f-99f2-5d96d3f7ec52@xen.org>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c80dd525-7fb6-4e2f-99f2-5d96d3f7ec52@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 16.09.2024 23:27, Julien Grall wrote:
-> On 11/09/2024 13:19, Jan Beulich wrote:
->> Returning a literal number is a bad idea anyway when all other returns
->> use IOREQ_STATUS_* values. While that's maybe intended on Arm (mapping
->> to IO_ABORT), 
-> 
-> Arm doesn't support buffered ioreq (see ioreq_server_create()) and 
-> AFAICT the "0" was already there before the code was moved.
+Hi Julien,
 
-Indeed, the bad conversion is older than the move.
+On Sun, 2024-09-22 at 10:23 +0200, Julien Grall wrote:
+> > +}
+> =C2=A0> +#endif> +
+> > +#ifndef ARCH_CPU_PERCPU_CALLBACK
+> > +inline int arch_cpu_percpu_callback(struct notifier_block *nfb,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned=
+ long action, void
+> > *hcpu)
+>=20
+> I am not entirely sure we should introduce arch_cpu_percpu_callback.
+> It=20
+> seems there are some redundant work. Looking at the x86
+> implementation=20
+> the differences are:
+> =C2=A0=C2=A0 * The additional checks
+> =C2=A0=C2=A0 * Extra actions (e.g CPU_RESUME_FAILED/CPU_REMOVE).
+>=20
+> I think the extra actions also make sense for other architectures.
+> For=20
+> the additional checks, the parking feature is implemented in
+> common/*.
+>=20
+> So is there any way we could avoid introduce
+> arch_cpu_percpu_callback()?
 
->  > mapping to X86EMUL_OKAY is surely wrong on x86.
-> 
-> The code has been for nearly 10 years. So I would like to understand why 
-> the change now. Did you see any issue?
+Initially, I did not want to introduce arch_cpu_percpu_callback(), and
+if it were only the park_offline_cpus check, it would be safe enough
+since other architectures would continue to function as before ( and
+CPU parking is a common feature so it is to be expected to work on
+different architectures ), with park_offline_cpus =3D false for them.
 
-Well, result of looking at the code. As said - returning success here is
-definitely wrong on x86. The open question is whether IO_ABORT was actually
-meant to be (implicitly) used here for Arm (but see below).
+I then decided to investigate why the check system_state !=3D
+SYS_STATE_suspend is necessary, and according to the commit message:
+```
+    xen: don't free percpu areas during suspend
+   =20
+    Instead of freeing percpu areas during suspend and allocating them
+    again when resuming keep them. Only free an area in case a cpu
+didn't
+    come up again when resuming.
+   =20
+    It should be noted that there is a potential change in behaviour as
+    the percpu areas are no longer zeroed out during suspend/resume.
+While
+    I have checked the called cpu notifier hooks to cope with that
+there
+    might be some well hidden dependency on the previous behaviour.
+OTOH
+    a component not registering itself for cpu down/up and expecting to
+    see a zeroed percpu variable after suspend/resume is kind of broken
+    already. And the opposite case, where a component is not registered
+    to be called for cpu down/up and is not expecting a percpu variable
+    suddenly to be zero due to suspend/resume is much more probable,
+    especially as the suspend/resume functionality seems not to be
+tested
+    that often.
+```
+It is mentioned that "there is a potential change in behavior as the
+percpu areas are no longer zeroed out during suspend/resume." I was
+unsure if this change might break something for Arm.
 
-> The unclear part for me is the behavior change. Below...
-> 
->>
->> Fixes: f6bf39f84f82 ("x86/hvm: add support for broadcast of buffered ioreqs...")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Judging from history, it may want to be IOREQ_STATUS_UNHANDLED instead,
->> eliminating the need for IOREQ_STATUS_BAD. That'll be a behavioral
->> change on Arm then too, though.
-> 
-> ... you mention Arm. But not x86. This would imply there are no behavior 
-> change but I don't understand why.
+I can attempt to move everything to the common percpu.c and at least
+verify that there are no issues in CI. If that suffices to confirm that
+everything is okay, I can create a new patch series version.
 
-The way the patch is written it keeps Arm's (perceived; again see below)
-behavior unchanged, but fixes x86. The remark above is suggesting an
-alternative without need for the new IOREQ_STATUS_BAD, yet then also
-leading to a behavioral change on Arm. Hence the question whether the
-present behavior is intended. However, ...
+Does this make sense?
 
-> For the Arm behavior change, per above, I don't think we can reach the 
-> code on Arm so it should not be a problem to change it.
-
-... with you pointing out that buffered ioreqs aren't supported on Arm,
-I could indeed change this whichever way suits x86, without affecting
-Arm at all. It would then be only an abstract consideration, for the
-hypothetical case that buffered ioreqs became needed on Arm as well.
-
-Buffered ioreqs not being supported on Arm of course means the function
-as a whole is unreachable, i.e. in violation of Misra rule 2.1. Which I
-find concerning, as that rule is marked as clean - indicating that
-Eclair isn't smart enough to spot the case here. (Reason for the remark:
-If the function had been marked / excluded accordingly, I would have
-noticed Arm's unaffectedness of whichever way the change is done.)
-
->> Shouldn't IOREQ_READ requests also be rejected here, for the result of
->> a read not possibly coming from anywhere, yet a (bogus) caller then
->> assuming some data was actually returned?
-> 
-> I am not sure. I understand from an hardened PoV. But this would add an 
-> extra check to something the caller should be aware of. This is 
-> different from the address check because this is more of an 
-> implementation details.
-> 
-> So maybe it should be an ASSERT()?
-
-That might be an option, yet with the general movement towards also
-providing safety on release builds that would likely end up being
-
-    if ( dir != IOREQ_WRITE )
-    {
-        ASSERT_UNREACHABLE():
-        return 0;
-    }
-
-i.e. still an extra check.
-
-Jan
+~ Oleksii
 
