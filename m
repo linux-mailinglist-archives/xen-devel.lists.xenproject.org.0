@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D4AE97E94A
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:04:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801811.1211824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93DED97E95B
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:06:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801818.1211834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssfv5-0004OK-3z; Mon, 23 Sep 2024 10:03:51 +0000
+	id 1ssfxI-0004yt-Hz; Mon, 23 Sep 2024 10:06:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801811.1211824; Mon, 23 Sep 2024 10:03:51 +0000
+Received: by outflank-mailman (output) from mailman id 801818.1211834; Mon, 23 Sep 2024 10:06:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssfv5-0004LW-0P; Mon, 23 Sep 2024 10:03:51 +0000
-Received: by outflank-mailman (input) for mailman id 801811;
- Mon, 23 Sep 2024 10:03:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ssfxI-0004xM-FL; Mon, 23 Sep 2024 10:06:08 +0000
+Received: by outflank-mailman (input) for mailman id 801818;
+ Mon, 23 Sep 2024 10:06:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ssfv3-0004LQ-V1
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:03:49 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 20cc9c5d-7993-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 12:03:49 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a86e9db75b9so663074766b.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:03:49 -0700 (PDT)
+ id 1ssfxG-0004xC-QH
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:06:06 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 71d2be17-7993-11ef-99a2-01e77a169b0f;
+ Mon, 23 Sep 2024 12:06:04 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-5366fd6fdf1so4418754e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:06:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90612dfa54sm1190742466b.161.2024.09.23.03.03.47
+ 4fb4d7f45d1cf-5c42bb89dfcsm9916503a12.69.2024.09.23.03.06.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 03:03:48 -0700 (PDT)
+ Mon, 23 Sep 2024 03:06:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20cc9c5d-7993-11ef-a0b9-8be0dac302b0
+X-Inumbo-ID: 71d2be17-7993-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727085828; x=1727690628; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727085964; x=1727690764; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6yKzZL3lSiAa3OmbKHBMlj3zX32+coKyQrM6ZWGCBZk=;
-        b=YWkJLxis7FXYCQ/zrEaWTjwR1C6v3EsUconhl0cHbJL1zIBqlCtqnECK1Lg5Dr2Ifl
-         bBnRUlLnhshlbWUqxWYneN18znv3lQJAL8XNzMI4k25TMBNRvpG7LTuQrPGudYba4KX6
-         GWLT5Ik9zujY/xMztV0Y9dSEtBcPS5zu7HR6/vTouH1aTu1z/E391dNoSEFR7oCq54fc
-         Zn7GO4O8uFpgAaMUbzZOJ7y9JG9hnqp7o3JYXAMTyVLM9tx+gEEQw2mFGqswIgSfMI8J
-         pFvJ4PJ9yLWfNifwHzoR1DcZ6LV0vb4bSLIDH+QwlxLAQcwhWtIFh7ZJhiW4D6RRgmpk
-         YUGw==
+        bh=hU7zp90CNYS59mWZQBfgBsfx4MEpreczx2PT5k16ZQI=;
+        b=IcEwWA1vHZf3tN9efxFJv3HIb423l2g8+UL+x1h9fY91ZvpAQ9I6PpXWm6J5YawLy0
+         TPnxRYL8h2iM20VcTGT2CrtR6HxYUrNw2nHuoYvDOn36u13lqRlioDvo6xU7f57qoazJ
+         ZgTJGBYiivFaZSkAzb+Od5MED4LDlYCITwFvwFxdHqgTBJ2ZqQmaykpyM6bodxt57X0d
+         ZKwUUf7SlFstgWPl+V8LOVq6q/CpG/JxqpBE19eng8LJXk0cVWFBvVE8zODii0kILyOW
+         IlEPWrkVcOUa9LUfO+AALmIUCNDFCH3kOlVmMBdKB2T+CHNMC/oyGTRWuWgnMJgY7KZV
+         PopQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727085828; x=1727690628;
+        d=1e100.net; s=20230601; t=1727085964; x=1727690764;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6yKzZL3lSiAa3OmbKHBMlj3zX32+coKyQrM6ZWGCBZk=;
-        b=jF4/WfOrCvBJC8TXrdHWxyb9jitbAY2MdBMMWJkI9OQ1hzS67vUNgeUojjXZ3tIdMW
-         pPSEV5V7CEG+RkTMEtADRHZ5C0HytbHWVZ0LwGAQ0CmkzFzQs4c3Xtz8njCPLFp9fInI
-         xhFOaoWVqY56RSt4UOV5RVMjfghcZ28mi310G9ASRctVEHrMJ/HLKJdwY53O2tof1EPq
-         PwaL3/LSAotIQo5wvcESldNnB0Oa0nGi1IVPRDU3l8N1KPCROlYUMn3PWB6E90obh29s
-         veqhHMVjchImEnS5dxlzt1Y8cl35sDWh7e0LbANexgDJn7WfJ2Xslqc6YQE50UuyZ02Z
-         /jZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWe/k4N5Vutx9QqKCKJdxHoDLWe8odrifc5+VsR4CwUE/Nmwq4CaaWnHjHmX3S4QWC7n3yGRaxc/bI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxOmFdJDv9W3bJHUYwD+oKm6vqwL35tul2EBhQ0HKS4/VnoX6kA
-	qpn7o/jnm4JS4FXxssxETXBgwR59Y65VfUBL3uzLkIwjjjz9MeBDCH0Z5lNOiA==
-X-Google-Smtp-Source: AGHT+IEK7xWlNQ8ANzUdPrrGFNitsH6H2I9zVZKts4A1CMsovbrGGIB0WZMdQ/za42n/8jY/xs1vqg==
-X-Received: by 2002:a17:907:f74b:b0:a8d:3b04:29db with SMTP id a640c23a62f3a-a90d508b709mr1073093466b.39.1727085828432;
-        Mon, 23 Sep 2024 03:03:48 -0700 (PDT)
-Message-ID: <4f03e2a8-7686-4a2f-9360-036a3edacaa7@suse.com>
-Date: Mon, 23 Sep 2024 12:03:56 +0200
+        bh=hU7zp90CNYS59mWZQBfgBsfx4MEpreczx2PT5k16ZQI=;
+        b=HMkANJjHE4cWxoh3k3GK1FBr4h/ZHich7cMHaO/u5DGFub6zXT0C6oFUZjIwK+aTFW
+         yAdW1MX8hQlY/WEzFfDJgW2p/GvGM++ndZjU0VFXNxp/57YHEFZesRoCXkhVxsMdbpZp
+         oMG3Tnjd5pxsR4olWWiISue0i9+nMSxIKKnpmbaZpz2YlO017XRCH2l++A/soQA3nvqW
+         s26lY0WxT3tEYidimO2GZACCNjL4uok39kSuB6Hxsm4Ov4wxRi+YZOP5ZplM6DRoh0mM
+         xxftKEUgm1/JNYHKFQvilkAriujpFXvrvpbJTNncfZ/WxgxyXWXrS0eqJftoRr0GgqVh
+         rp3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVLDDBWRnvLpHqa4fbeKtacSDB99888U393imjoN7Bz5lbVQXR23b4HxsTUbvSU5iSmgcV4BEx6wWo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwO+98gGHp0TDyPvKxnsDk8RGAi5BCGbPN9ZJSeenrpn1n8x9hK
+	mJmTFDqyJqDUzQRgWGqzK3vdTSvPZdFTzTngNPvZD6dCY9dv5t/fiWVWoDH83A==
+X-Google-Smtp-Source: AGHT+IFdZPKopy165CLDtLHh0qG1mxaoX9UNmAFFimMaj+r2EZ1d9oJxp4zfJedsUy0Y5xtrLg9gIA==
+X-Received: by 2002:a05:6512:3da4:b0:536:561c:a0cb with SMTP id 2adb3069b0e04-536ad1649bemr5644564e87.18.1727085964261;
+        Mon, 23 Sep 2024 03:06:04 -0700 (PDT)
+Message-ID: <6b1ec425-a5f7-4c77-865e-2a244961e00c@suse.com>
+Date: Mon, 23 Sep 2024 12:06:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs/misra: add R17.2 and R18.2
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
- michal.orzel@amd.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2409181322070.1417852@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v2 1/5] xen: define ACPI and DT device info sections
+ macros
+To: Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1726579819.git.oleksii.kurochko@gmail.com>
+ <3049dd691f79c688751abaae63c0ccdc36680fbb.1726579819.git.oleksii.kurochko@gmail.com>
+ <c7670e45-30dd-4cba-a226-a5130412a96c@raptorengineering.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,23 +115,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2409181322070.1417852@ubuntu-linux-20-04-desktop>
+In-Reply-To: <c7670e45-30dd-4cba-a226-a5130412a96c@raptorengineering.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.09.2024 22:23, Stefano Stabellini wrote:
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -561,6 +561,13 @@ maintainers if you want to suggest a change.
->       - The features of <stdarg.h> shall not be used
->       -
->  
-> +   * - `Rule 17.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_02.c>`_
-> +     - Required
-> +     - Functions shall not call themselves, either directly or indirectly
-> +     - Limited forms of recursion are allowed if the recursion is bound
+On 19.09.2024 23:05, Shawn Anastasio wrote:
+> On 9/17/24 11:15 AM, Oleksii Kurochko wrote:
+>> --- a/xen/include/xen/xen.lds.h
+>> +++ b/xen/include/xen/xen.lds.h
+>> @@ -114,6 +114,21 @@
+>>  
+>>  /* List of constructs other than *_SECTIONS in alphabetical order. */
+>>  
+>> +#define USE_DECL_SECTION(x) DECL_SECTION(x)
+>> +
+>> +#define NOUSE_DECL_SECTION(x) x :
+>> +
+>> +#ifdef CONFIG_ACPI
+>> +#define ACPI_DEV_INFO_SEC(secname, DECL_SECTION_MACROS_NAME)  \
+>> +    DECL_SECTION_MACROS_NAME(secname) {                     \
+>> +      _asdevice = .;                                        \
+>> +      *(secname)                                            \
+>> +      _aedevice = .;                                        \
+>> +    } :text
+>> +#else
+>> +#define ACPI_DEV_INFO_SEC(secname, DECL_SECTION_MACROS_NAME)
+>> +#endif /* CONFIG_ACPI */
+> 
+> This works, but is there a reason you didn't just define the actual
+> entries themselves in the macro, like is done for most of the other
+> macros in this file (including BUFRAMES right below this)? Something
+> like:
+> 
+> #define ADEV_INFO     \
+>     _asdevice = .;    \
+>     *(secname)        \
+>     _aedevice = .;    \
+> 
+> Parameterizing the section name seems pointless since there are other
+> parts of the code that rely on them, and parameterizing the macro for
+> declaring a section adds unnecessary boilerplate for non-ppc/x86
+> architectures (the NOUSE_DECL_SECTION no-op).
+> 
+>> +
+>>  #define BUGFRAMES                               \
+>>      __start_bug_frames_0 = .;                   \
+>>      *(.bug_frames.0)                            \
+>> @@ -131,6 +146,17 @@
+>>      *(.bug_frames.3)                            \
+>>      __stop_bug_frames_3 = .;
+>>  
+>> +#ifdef CONFIG_HAS_DEVICE_TREE
+>> +#define DT_DEV_INFO_SEC(secname, DECL_SECTION_MACROS_NAME)  \
+>> +    DECL_SECTION_MACROS_NAME(secname) {                     \
+>> +      _sdevice = .;                                         \
+>> +      *(secname)                                            \
+>> +      _edevice = .;                                         \
+>> +    } :text
+>> +#else
+>> +#define DECL_DT_DEV_INFO_SEC(secname, DECL_SECTION_MACROS_NAME)
+>> +#endif /* CONFIG_HAS_DEVICE_TREE */
+> 
+> Ditto. Also, if you go with the approach I mentioned, then you wouldn't
+> need to guard these on CONFIG_HAS_DEVICE_TREE/CONFIG_ACPI since that
+> would be done in the linker scripts themselves.
 
-Nit: Doesn't this want to be "bounded"?
++1
 
 Jan
+
 
