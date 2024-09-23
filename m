@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6BD997ED74
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 16:55:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802116.1212292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 867F897ED86
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 17:01:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802139.1212303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sskTP-0000Wi-VJ; Mon, 23 Sep 2024 14:55:35 +0000
+	id 1sskYj-0003Rf-H8; Mon, 23 Sep 2024 15:01:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802116.1212292; Mon, 23 Sep 2024 14:55:35 +0000
+Received: by outflank-mailman (output) from mailman id 802139.1212303; Mon, 23 Sep 2024 15:01:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sskTP-0000Tv-R1; Mon, 23 Sep 2024 14:55:35 +0000
-Received: by outflank-mailman (input) for mailman id 802116;
- Mon, 23 Sep 2024 14:55:34 +0000
+	id 1sskYj-0003OU-EV; Mon, 23 Sep 2024 15:01:05 +0000
+Received: by outflank-mailman (input) for mailman id 802139;
+ Mon, 23 Sep 2024 15:01:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qfwC=QV=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1sskTO-0008CV-1u
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 14:55:34 +0000
-Received: from mail-vk1-xa2b.google.com (mail-vk1-xa2b.google.com
- [2607:f8b0:4864:20::a2b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1sskYh-0003OO-Vs
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 15:01:03 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1e5f026-79bb-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 16:55:33 +0200 (CEST)
-Received: by mail-vk1-xa2b.google.com with SMTP id
- 71dfb90a1353d-501192e8e12so783705e0c.3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 07:55:33 -0700 (PDT)
-Received: from gmail.com (ip190-5-140-142.intercom.com.sv. [190.5.140.142])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-503d7e9ea08sm1784841e0c.31.2024.09.23.07.55.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Sep 2024 07:55:31 -0700 (PDT)
+ id a5de8b2d-79bc-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 17:01:01 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a7a843bef98so602968366b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 08:01:01 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a90612e1a49sm1240894066b.166.2024.09.23.08.01.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Sep 2024 08:01:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1e5f026-79bb-11ef-a0b9-8be0dac302b0
+X-Inumbo-ID: a5de8b2d-79bc-11ef-a0b9-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727103332; x=1727708132; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7NqZgDSIdmym8k9v4wrElx9POiJdcsjS85l4BMSFw2Y=;
-        b=c3zmEOxBUbhJ1weKwK+180TKxzIClliqO+M+JgiNoGh+4Qpa4MaM2l3kvhdONLqI++
-         1NCvHm8fNrcuQO2AC33m3Du8jrNRpUI8F3qdVZIK01mbInrEPgd72jBzbwm+lZQ4Twqo
-         Bw2WxWX6Z/RCUplYO/8bUxYM8mbdkBE4i3L/CbRkwe5Gj6JcVOqI6hGBWQV40TqY4LOk
-         jjjnb68PKk/zKv0zHo4lraIVjyQJf459e7fEqXcOoMl1vjyQXqP6fXY9h96lb+G552Ix
-         5g0L4HOHMNR7mvFr/ADLy7nQUnI7J31EXGWCOUnEgU5ZLn16o9YrydYUNZPwREXmLX73
-         v7dg==
+        d=suse.com; s=google; t=1727103661; x=1727708461; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=trqx0VK7m9+EYUWPOe2BgM76NUBJYL36HIyKPkyWgzc=;
+        b=QTOclMi5TSVKs5lPxw7ADglVsTCqpHuqWSBDYQ3qwiKuPPPQF9GK+Y2hHWgaGJvadB
+         /yLbTsSPVsTHPnHSNdKrog7EEnA0MQ6+teeFNN716Nm1OBJgTYmXJkMph7KPnioZ3xAk
+         /bxmWSp5+nuFKEpr61XZsFWWneAQIz34te8qQ8KzI8uRh6l+dCj4qYLXj+lf65zhH0Gi
+         NoX6IbMOEqG2PVs5ZxeqVryPwVxohjmTksoUCwwZM9an50naobcyAIQBnEi3qpChUj4+
+         2Gp59N/w1zP6I7gVEFHYvm2qBaPr+N5Mirq52S7JS0PBEhnRT2790enXU+GSn+wKNWme
+         ko2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727103332; x=1727708132;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7NqZgDSIdmym8k9v4wrElx9POiJdcsjS85l4BMSFw2Y=;
-        b=eOf0S8jFj7GEyIbx7yIvkJ6LZz6puRzkXbhp/2V8a/jS0K9GYVpAx9IU3uJg7eI1xo
-         +TLcMNdMuuUMOAOaUInurUgjDbn9Zu58MaWSi+43dDLr7DIsUZpzGo36TQ8Jmth3qcjb
-         SWYa3ekCQX1aYlZfRUj9w3922Z0GbRndNGHQGWsEF9OqREpEL/F84NTEvXulJgjBfHKj
-         6Yi+4OAgGSCc/YHgUifq1HveBeY+vGpBcO2YNxh4YAwLUif49XAJsLBWo1gpdxTduW75
-         W3Z1QGVvApAWjQnUgRQHs2IGCXtknORdP0SO83QtbQoXwotUx/ODCn1X3eqmfUzM4QA5
-         g79w==
-X-Forwarded-Encrypted: i=1; AJvYcCWSWeWAlYMwoxEi49aR2QJD4JzOK52aMe0ihDfF5XpF7QCvEUwZTuLit9Q2Om1UPgTMJ3hnkJY3wwE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzSkAqk2A7f5SimRCVRXP0ZgQPCmT9+H0wgEt032qiRpO0Rgz4C
-	O0BGmGoNRbmyFNjiKsCfOYtfvmI2n/ZnKHtS0C+TPsUydXSwRG5C
-X-Google-Smtp-Source: AGHT+IG6dbA1Qoykmc5DxVHIT6I9aGC0+8n371MVri28ok0pj3/lLGZ93yQkgFm3m0GB4zJqdCuIOQ==
-X-Received: by 2002:a05:6122:3c91:b0:4f6:e87d:5160 with SMTP id 71dfb90a1353d-503e04cc2ffmr6905503e0c.9.1727103332294;
-        Mon, 23 Sep 2024 07:55:32 -0700 (PDT)
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-To: qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org,
-	anthony@xenproject.org,
-	paul@xen.org,
-	peter.maydell@linaro.org,
-	alex.bennee@linaro.org,
-	edgar.iglesias@amd.com,
-	xen-devel@lists.xenproject.org,
-	qemu-arm@nongnu.org
-Subject: [PATCH v2 4/4] hw/arm: xenpvh: Enable PCI for ARM PVH
-Date: Mon, 23 Sep 2024 16:55:20 +0200
-Message-ID: <20240923145520.1323504-5-edgar.iglesias@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240923145520.1323504-1-edgar.iglesias@gmail.com>
-References: <20240923145520.1323504-1-edgar.iglesias@gmail.com>
+        d=1e100.net; s=20230601; t=1727103661; x=1727708461;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=trqx0VK7m9+EYUWPOe2BgM76NUBJYL36HIyKPkyWgzc=;
+        b=gikJsQ/ACiK1FlQjDnckPFIx6m8HMGB/UP3u4DC88h0WBbfctD8S78Z5JMy9pNSc6N
+         /kCF/piqaurYIxG2IkrpUwDV0dHIVS2lheR+iycdYpTyC/Gfd+TRVdy1EiO5hOqUw/IV
+         L+9vEazB1wvgxQQnQFlJpscodwZXXr1x3PphEjebVnAVkkobLunwWJqtEC/tVmC4Gp7o
+         1bANO4yvI+izl0aCr2JLyXO7tJ/Qmj6eUNFLqjp6X2w69NmsqUNkYia8S3uJQJbowbO4
+         8OjLsLjlDSJ/9DNVuMD4Bu52WUfMbQ9E+fgYyclNu98pAk3YkmRzTI31bdshGPFvBTQi
+         gJaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX6AkSyZHvMNggZQ2mvEF/YJeTeHVhEcsIoQndScbbezwbe6Tiu2KtDy21l9kFWf5ElRcprvKKSd5M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzXePc/XBTL/zMoBWd1nMupN4dPPtSjsAmqeOOcyHtuhoStGv4z
+	+MqiaRNRSkgDlPb2NJyQq/JfYNCOToXw1isirWOTqljI6fnngXHpKlWuHgsNIg==
+X-Google-Smtp-Source: AGHT+IG4zvwjbWpYsYvIN4oqF4zpZ/Pkuucz7+Qfkq2sRP8G9B7NR20XTuA+p89Keapz+SbUn7nJFw==
+X-Received: by 2002:a17:907:f18b:b0:a8d:2e3a:5303 with SMTP id a640c23a62f3a-a90d508a9ddmr1112711066b.39.1727103661133;
+        Mon, 23 Sep 2024 08:01:01 -0700 (PDT)
+Message-ID: <27285031-3719-457f-bfd4-a888bc769be2@suse.com>
+Date: Mon, 23 Sep 2024 17:01:00 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v5] x86/intel: optional build of PSR support
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240918091517.1200080-1-Sergiy_Kibrik@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240918091517.1200080-1-Sergiy_Kibrik@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+On 18.09.2024 11:15, Sergiy Kibrik wrote:
+> changes in v5:
+>  - simplify psr_cmt_enabled()
+>  - move PSR config option and add description
 
-Enable PCI support for the ARM Xen PVH machine.
+What you did is not so much add a description, but ...
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
----
- hw/arm/xen-pvh.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -231,6 +231,9 @@ config TBOOT
+>  
+>  	  If unsure, stay with the default.
+>  
+> +config PSR
+> +	bool "Platform Shared Resource support"
 
-diff --git a/hw/arm/xen-pvh.c b/hw/arm/xen-pvh.c
-index 28af3910ea..33f0dd5982 100644
---- a/hw/arm/xen-pvh.c
-+++ b/hw/arm/xen-pvh.c
-@@ -39,6 +39,16 @@ static void xen_arm_instance_init(Object *obj)
-                                          VIRTIO_MMIO_DEV_SIZE };
- }
- 
-+static void xen_pvh_set_pci_intx_irq(void *opaque, int intx_irq, int level)
-+{
-+    XenPVHMachineState *s = XEN_PVH_MACHINE(opaque);
-+    int irq = s->cfg.pci_intx_irq_base + intx_irq;
-+
-+    if (xendevicemodel_set_irq_level(xen_dmod, xen_domid, irq, level)) {
-+        error_report("xendevicemodel_set_pci_intx_level failed");
-+    }
-+}
-+
- static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
- {
-     XenPVHMachineClass *xpc = XEN_PVH_MACHINE_CLASS(oc);
-@@ -69,7 +79,11 @@ static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
-     /* Xen/ARM does not use buffered IOREQs.  */
-     xpc->handle_bufioreq = HVM_IOREQSRV_BUFIOREQ_OFF;
- 
-+    /* PCI INTX delivery.  */
-+    xpc->set_pci_intx_irq = xen_pvh_set_pci_intx_irq;
-+
-     /* List of supported features known to work on PVH ARM.  */
-+    xpc->has_pci = true;
-     xpc->has_tpm = true;
-     xpc->has_virtio_mmio = true;
- 
--- 
-2.43.0
+... add a prompt. With a prompt, it also wants to have help text. And with
+a prompt the question then is why ...
 
+> --- a/xen/arch/x86/Kconfig.cpu
+> +++ b/xen/arch/x86/Kconfig.cpu
+> @@ -13,6 +13,7 @@ config AMD
+>  config INTEL
+>  	bool "Support Intel CPUs"
+>  	default y
+> +	select PSR
+
+... INTEL=y uniformly forces it on, while for INTEL=n (where it's useless)
+it can be manually set to on. Imo, if you permit user configurability (as
+was asked for), then it wants to be
+
+config PSR
+	bool "Platform Shared Resource support"
+	default INTEL
+
+Further: For an acronym like PSR I consider it reasonably likely that
+something similarly abbreviated may appear in common code. I wonder if we
+weren't better off naming this X86_PSR right away. (Likely this would
+extend to various other settings as well that we gained more or less
+recently.)
+
+Jan
 
