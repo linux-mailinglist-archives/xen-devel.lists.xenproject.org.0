@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D249B97E9F1
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:32:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801871.1211915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 875F197E9FF
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:39:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801882.1211931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgMH-0005kI-5D; Mon, 23 Sep 2024 10:31:57 +0000
+	id 1ssgTj-00076J-0D; Mon, 23 Sep 2024 10:39:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801871.1211915; Mon, 23 Sep 2024 10:31:57 +0000
+Received: by outflank-mailman (output) from mailman id 801882.1211931; Mon, 23 Sep 2024 10:39:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgMH-0005h7-19; Mon, 23 Sep 2024 10:31:57 +0000
-Received: by outflank-mailman (input) for mailman id 801871;
- Mon, 23 Sep 2024 10:31:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=81ci=QV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ssgMG-0005h1-4s
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:31:56 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0dd55fc6-7997-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 12:31:55 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5c5bca59416so1525098a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:31:55 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c42bb5f2b6sm10220640a12.52.2024.09.23.03.31.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Sep 2024 03:31:53 -0700 (PDT)
+	id 1ssgTi-00073o-SV; Mon, 23 Sep 2024 10:39:38 +0000
+Received: by outflank-mailman (input) for mailman id 801882;
+ Mon, 23 Sep 2024 10:39:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ssgTh-00073i-NL
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:39:37 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 204d90bf-7998-11ef-99a2-01e77a169b0f;
+ Mon, 23 Sep 2024 12:39:35 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5c26311c6f0so5786269a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:39:35 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c42bb539dasm10193819a12.34.2024.09.23.03.39.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Sep 2024 03:39:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,99 +45,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dd55fc6-7997-11ef-a0b9-8be0dac302b0
+X-Inumbo-ID: 204d90bf-7998-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727087515; x=1727692315; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=9iMEpwiF8JFXsAKE2907nKP8LFyNI0+3168tWS6XdHs=;
-        b=WyBxZ6AZJ24PaNLiRqpnxOcbSjCk/0icZEYvf0mKq4hQHnWQSHStQWYSHMiUKqr6V5
-         snSDA4tqVElj1Mgyj8tv2Je+LgrYHuh/X0Qg7PMPVJUoZLjNJDFFBQRqJ7H4L2PuVg9P
-         nH6nLS15vGwyRvZfPGzfohSsZcNz0Z9+MEz2bePEW3kTaVDQeiIljF/jwDs7yL7xPKIf
-         p3wdBIwNgx8LQDCDsnkfzOQ8QFH2wt337gV9j7qKGma6650EdpszF4Cu7ftVGW+J7397
-         6E/lP7fmE7DafaRvFNqGotJzX9CMTW8MA21RxUa5OLygOf6E+wMkm8OkVLm/fdZeWzok
-         mHig==
+        d=suse.com; s=google; t=1727087975; x=1727692775; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=HMDPaveUw2W2FYp4Oa6I4vhn+Cq8HfpwVJ6Q1xyZsJ8=;
+        b=UWfIZuUWBdN0TFDjTaarCshGo0CQIR/YWMD3s/VCF6u5kboomi2VHnY/gDAIvUJ0+Q
+         XqHwB86EaDHDzlsTwdcV8rwCaOa3GWJE7+W1bx+uoSM9VtNMN409EaGAQhseWZ/Wbuus
+         XXPoWi3ok6j6qMUWOsl7ahjRZAFaC9Dz6YSpa4b3N0HB1XmHSmxbrgjNxJJTKep6+C1z
+         IfQI4dqiX1PMG3JDVHLzt9veEkkcDgD/p+TcN9CWTIHvzbLiOEOPkPHxKelBqtrlq53I
+         VGRknaG/wkhk6AVZMrr8jkQ1WJm+hfYwxTXF97+3sENReUtVlbsonQRV2UzXnXrw+l62
+         1m3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727087515; x=1727692315;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=9iMEpwiF8JFXsAKE2907nKP8LFyNI0+3168tWS6XdHs=;
-        b=aDD72OjS/xPP5Y14EtxDlKTFNjrZ+hv/iC2UkyZ3TlBTmh/lGZB7ca2uD3ZBfkcrd+
-         WIfXz6xHHLLDSOiLy5aQzwMw5EDGiIISAEWpCVWcbIF1Z9/U8YsVap2q4WXktdgOdvpI
-         SRNJQPvtiQ0U7xF64n70b6Wz6LjBEvKfOHKylk35f/cFqDLp/ropJwcQDFVLzAFTfJzq
-         BAcC9pZ+zRXXO7Pq1yOB+WbsJ3oM2KNYUnu4g13R/PYIO9N46x3DD1FREHTzzOebEkB1
-         O+t0bm8c3nuxwSfkbY7e26lzIxY/olx7zhAS44lP4PqQyU93O7hWM72xH6QoFWALRytL
-         5ivg==
-X-Forwarded-Encrypted: i=1; AJvYcCU5yA8yffzEKWICNm8hoCWXJQ8SWMa/u/NrF0J5dTMqLVeZSNR4ouKNTqZ3+Og+lswzZRWFNyJOdXo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyCWIG0k/4hBlD4Zzp8M9glP2qX91mXu8lED6XEHPj6DY4yNsST
-	KBGgqwhU22tutZfX1FydLM9mmdnt8r/p0Zw/K01giDiyBcFfCy68bYOwyA==
-X-Google-Smtp-Source: AGHT+IFD59r5ja5pIbCtIJ1Hdw0LwSysMlt5Z5KgfzVsbfLNoaSLxnZ620tz/fc/gS3QTJW1TAWnsg==
-X-Received: by 2002:a05:6402:43cb:b0:5c5:b902:a0f with SMTP id 4fb4d7f45d1cf-5c5b9020bb4mr5790022a12.15.1727087514194;
-        Mon, 23 Sep 2024 03:31:54 -0700 (PDT)
-Message-ID: <03d6974b7fb01da8c2813f1d4f6b516bc62ea3dc.camel@gmail.com>
-Subject: Re: [PATCH v2 1/5] xen: define ACPI and DT device info sections
- macros
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall
- <julien@xen.org>,  Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Date: Mon, 23 Sep 2024 12:31:52 +0200
-In-Reply-To: <b9320c6b-9827-4826-b99e-585e0328b35a@suse.com>
-References: <cover.1726579819.git.oleksii.kurochko@gmail.com>
-	 <3049dd691f79c688751abaae63c0ccdc36680fbb.1726579819.git.oleksii.kurochko@gmail.com>
-	 <b9320c6b-9827-4826-b99e-585e0328b35a@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1727087975; x=1727692775;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HMDPaveUw2W2FYp4Oa6I4vhn+Cq8HfpwVJ6Q1xyZsJ8=;
+        b=iGz6gIATe89HkhlL4UPQ5mej/VP3tBEmZRCHk6GS1o1RmbEjyL0nLmEhiaA0n6+Lz+
+         PuIGvYSUrbPL3Pmws5DDZx/ZlTm7IiCW06zrQkVLETUCMnlI0iEuGMryL4p2QHImwZwt
+         HmQ5l9zcUiV22u67D7dCcAAN85KWS3cxK14rQuLbZfr/PkCzsBuB90kCLW6px81ERAPc
+         CW/0awSgleiF9FvDImzUvAv+bm2NsZmPBxb7fFV54/FWaIkihvywdBBOWzBAw/gF3eCS
+         YctmtNW3nVRDR/BW78eIUqLpIEh7SGlp6IDh8oNHtFePYtwHG3xsiAbvaozI6Sv+GlrE
+         SrPQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWrWHkLWL5EDKXNsZEGMuGUOwwxmezygZLUO0dlr9IcFBLryrc/mWRKOaFnxdSfKINxU0ZE7F71lsg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxX4dzKECbOhkseZym3J+2w8gv789Kx6uHMv0ID6n8/TdcGcLd5
+	2y+eVozc2Y9x9/+kiRuE9znOXpleHadtqiW/ulel3L1XGihAuDW6WAQ7RLdBiZ1FOhCTXl1UoMA
+	=
+X-Google-Smtp-Source: AGHT+IF3FVrCiq8RQnPxxAaUg01gzrSW0GhtVq2EivTJNhjpwoBjSTQxJUJkyCp5ojhTSY+iG0HKnA==
+X-Received: by 2002:a05:6402:358b:b0:5af:30d9:e2b6 with SMTP id 4fb4d7f45d1cf-5c464a5abfdmr10790195a12.23.1727087975046;
+        Mon, 23 Sep 2024 03:39:35 -0700 (PDT)
+Message-ID: <c975ac43-a4fc-4036-8e25-a02a3d5b416d@suse.com>
+Date: Mon, 23 Sep 2024 12:39:42 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ioreq: don't wrongly claim "success" in
+ ioreq_send_buffered()
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <f0cd7c48-6816-4050-a505-693c4a470506@suse.com>
+ <c80dd525-7fb6-4e2f-99f2-5d96d3f7ec52@xen.org>
+ <d29f7235-661c-4457-959c-eeb3b553da02@suse.com>
+ <85ef25890dc92f768646ac16031b84ec@bugseng.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <85ef25890dc92f768646ac16031b84ec@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-T24gTW9uLCAyMDI0LTA5LTIzIGF0IDEyOjA4ICswMjAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiBP
-biAxNy4wOS4yMDI0IDE4OjE1LCBPbGVrc2lpIEt1cm9jaGtvIHdyb3RlOgo+ID4gLS0tIGEveGVu
-L2luY2x1ZGUveGVuL3hlbi5sZHMuaAo+ID4gKysrIGIveGVuL2luY2x1ZGUveGVuL3hlbi5sZHMu
-aAo+ID4gQEAgLTExNCw2ICsxMTQsMjEgQEAKPiA+IMKgCj4gPiDCoC8qIExpc3Qgb2YgY29uc3Ry
-dWN0cyBvdGhlciB0aGFuICpfU0VDVElPTlMgaW4gYWxwaGFiZXRpY2FsIG9yZGVyLgo+ID4gKi8K
-PiA+IMKgCj4gPiArI2RlZmluZSBVU0VfREVDTF9TRUNUSU9OKHgpIERFQ0xfU0VDVElPTih4KQo+
-ID4gKwo+ID4gKyNkZWZpbmUgTk9VU0VfREVDTF9TRUNUSU9OKHgpIHggOgo+ID4gKwo+ID4gKyNp
-ZmRlZiBDT05GSUdfQUNQSQo+ID4gKyNkZWZpbmUgQUNQSV9ERVZfSU5GT19TRUMoc2VjbmFtZSwg
-REVDTF9TRUNUSU9OX01BQ1JPU19OQU1FKcKgIFwKPiA+ICvCoMKgwqAgREVDTF9TRUNUSU9OX01B
-Q1JPU19OQU1FKHNlY25hbWUpIHvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIFwKPiA+ICvCoMKgwqDCoMKgIF9hc2RldmljZSA9IC47wqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IFwKPiA+ICvCoMKgwqDCoMKgICooc2VjbmFtZSnCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBcCj4gPiArwqDCoMKgwqDCoCBfYWVkZXZpY2UgPSAuO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBc
-Cj4gPiArwqDCoMKgIH0gOnRleHQKPiA+ICsjZWxzZQo+ID4gKyNkZWZpbmUgQUNQSV9ERVZfSU5G
-T19TRUMoc2VjbmFtZSwgREVDTF9TRUNUSU9OX01BQ1JPU19OQU1FKQo+ID4gKyNlbmRpZiAvKiBD
-T05GSUdfQUNQSSAqLwo+ID4gKwo+ID4gwqAjZGVmaW5lIEJVR0ZSQU1FU8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiDCoMKg
-wqDCoCBfX3N0YXJ0X2J1Z19mcmFtZXNfMCA9IC47wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIFwKPiA+IMKgwqDCoMKgICooLmJ1Z19mcmFtZXMuMCnCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gQEAgLTEzMSw2ICsx
-NDYsMTcgQEAKPiA+IMKgwqDCoMKgICooLmJ1Z19mcmFtZXMuMynCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gwqDCoMKgwqAgX19zdG9w
-X2J1Z19mcmFtZXNfMyA9IC47Cj4gPiDCoAo+ID4gKyNpZmRlZiBDT05GSUdfSEFTX0RFVklDRV9U
-UkVFCj4gPiArI2RlZmluZSBEVF9ERVZfSU5GT19TRUMoc2VjbmFtZSwgREVDTF9TRUNUSU9OX01B
-Q1JPU19OQU1FKcKgIFwKPiA+ICvCoMKgwqAgREVDTF9TRUNUSU9OX01BQ1JPU19OQU1FKHNlY25h
-bWUpIHvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+ICvCoMKg
-wqDCoMKgIF9zZGV2aWNlID0gLjvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKg
-wqDCoCAqKHNlY25hbWUpwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDC
-oMKgwqAgX2VkZXZpY2UgPSAuO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+ICvCoMKgwqAg
-fSA6dGV4dAo+ID4gKyNlbHNlCj4gPiArI2RlZmluZSBERUNMX0RUX0RFVl9JTkZPX1NFQyhzZWNu
-YW1lLCBERUNMX1NFQ1RJT05fTUFDUk9TX05BTUUpCj4gPiArI2VuZGlmIC8qIENPTkZJR19IQVNf
-REVWSUNFX1RSRUUgKi8KPiAKPiBBbnkgc3BlY2lmaWMgcmVhc29uIGZvciB0aGUgX1NFQyBzdWZm
-aXhlcyBpbiB0aGUgbmFtZXM/IFdlIGRvbid0IGhhdmUKPiBzdWNoIGVsc2V3aGVyZSwgYXMgY2Fu
-IGJlIHNlZW4gKGJ5IGV4YW1wbGUpIC4uLgo+IAo+ID4gwqAjaWZkZWYgQ09ORklHX0hZUEZTCj4g
-PiDCoCNkZWZpbmUgSFlQRlNfUEFSQU3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiDC
-oMKgwqDCoMKgwqDCoCAuID0gQUxJR04oUE9JTlRFUl9BTElHTik7IFwKPiAKPiAuLi4gZXZlbiBp
-biBjb250ZXh0IGhlcmUuCgpUaGUgX1NFQyBzdWZmaXhlcyBjYW4gYmUgcmVtb3ZlZDsgdGhleSB3
-ZXJlIG9ubHkgdXNlZCB0byBoaWdobGlnaHQgdGhhdAppdCB3YXMgYSBzZWN0aW9uIGRlY2xhcmF0
-aW9uLiBJJ2xsIGRyb3AgaXQgaW4gdGhlIG5leHQgcGF0Y2ggdmVyc2lvbi4KCn4gT2xla3NpaQo=
+On 23.09.2024 11:55, Nicola Vetrini wrote:
+> On 2024-09-23 11:47, Jan Beulich wrote:
+>> On 16.09.2024 23:27, Julien Grall wrote:
+>>> On 11/09/2024 13:19, Jan Beulich wrote:
+>>>> Returning a literal number is a bad idea anyway when all other 
+>>>> returns
+>>>> use IOREQ_STATUS_* values. While that's maybe intended on Arm 
+>>>> (mapping
+>>>> to IO_ABORT),
+>>>
+>>> Arm doesn't support buffered ioreq (see ioreq_server_create()) and
+>>> AFAICT the "0" was already there before the code was moved.
+>>
+>> Indeed, the bad conversion is older than the move.
+>>
+>>>  > mapping to X86EMUL_OKAY is surely wrong on x86.
+>>>
+>>> The code has been for nearly 10 years. So I would like to understand 
+>>> why
+>>> the change now. Did you see any issue?
+>>
+>> Well, result of looking at the code. As said - returning success here 
+>> is
+>> definitely wrong on x86. The open question is whether IO_ABORT was 
+>> actually
+>> meant to be (implicitly) used here for Arm (but see below).
+>>
+>>> The unclear part for me is the behavior change. Below...
+>>>
+>>>>
+>>>> Fixes: f6bf39f84f82 ("x86/hvm: add support for broadcast of buffered 
+>>>> ioreqs...")
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> Judging from history, it may want to be IOREQ_STATUS_UNHANDLED 
+>>>> instead,
+>>>> eliminating the need for IOREQ_STATUS_BAD. That'll be a behavioral
+>>>> change on Arm then too, though.
+>>>
+>>> ... you mention Arm. But not x86. This would imply there are no 
+>>> behavior
+>>> change but I don't understand why.
+>>
+>> The way the patch is written it keeps Arm's (perceived; again see 
+>> below)
+>> behavior unchanged, but fixes x86. The remark above is suggesting an
+>> alternative without need for the new IOREQ_STATUS_BAD, yet then also
+>> leading to a behavioral change on Arm. Hence the question whether the
+>> present behavior is intended. However, ...
+>>
+>>> For the Arm behavior change, per above, I don't think we can reach the
+>>> code on Arm so it should not be a problem to change it.
+>>
+>> ... with you pointing out that buffered ioreqs aren't supported on Arm,
+>> I could indeed change this whichever way suits x86, without affecting
+>> Arm at all. It would then be only an abstract consideration, for the
+>> hypothetical case that buffered ioreqs became needed on Arm as well.
+>>
+>> Buffered ioreqs not being supported on Arm of course means the function
+>> as a whole is unreachable, i.e. in violation of Misra rule 2.1. Which I
+>> find concerning, as that rule is marked as clean - indicating that
+>> Eclair isn't smart enough to spot the case here. (Reason for the 
+>> remark:
+>> If the function had been marked / excluded accordingly, I would have
+>> noticed Arm's unaffectedness of whichever way the change is done.)
+>>
+> 
+> ECLAIR has been configured to mark unreferenced functions as 
+> deliberately unreachable and thus hide those reports by default in the 
+> CI analyses.
+> 
+> -doc_begin="Some functions are intended to be not referenced."
+> -config=MC3R1.R2.1,+reports={deliberate,"first_area(^.*is never 
+> referenced$)"}
+> -doc_end
 
+But the function is referenced. If it wasn't, the build would fail. It is
+just that on Arm the code path there cannot be taken, as the "buffered"
+function argument in the sole caller will only ever be false.
+
+That said - looking at docs/misra/deviations.txt I spot 4 entries for 2.1,
+yet none of them appears to fit with your reply. What's the connection?
+
+Furthermore I never fully understood Misra's separation of "unreachable"
+vs "dead", so maybe we're rather talking about dead code here (and hence
+another rule).
+
+Jan
 
