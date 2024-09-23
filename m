@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2390997EA3E
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:57:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801904.1211960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D74CB97EA58
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 13:00:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801910.1211970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgjx-0002w1-SZ; Mon, 23 Sep 2024 10:56:25 +0000
+	id 1ssgnw-0004xE-BU; Mon, 23 Sep 2024 11:00:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801904.1211960; Mon, 23 Sep 2024 10:56:25 +0000
+Received: by outflank-mailman (output) from mailman id 801910.1211970; Mon, 23 Sep 2024 11:00:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgjx-0002sq-PV; Mon, 23 Sep 2024 10:56:25 +0000
-Received: by outflank-mailman (input) for mailman id 801904;
- Mon, 23 Sep 2024 10:56:23 +0000
+	id 1ssgnw-0004vN-8Y; Mon, 23 Sep 2024 11:00:32 +0000
+Received: by outflank-mailman (input) for mailman id 801910;
+ Mon, 23 Sep 2024 11:00:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ssgjv-0002sg-Io
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:56:23 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1ssgnv-0004v6-32
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 11:00:31 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 78477c29-799a-11ef-a0b9-8be0dac302b0;
- Mon, 23 Sep 2024 12:56:22 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a8d13b83511so512376866b.2
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:56:22 -0700 (PDT)
+ id 0c332034-799b-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 13:00:30 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a8d60e23b33so564019166b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 04:00:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90610f43bbsm1203071566b.77.2024.09.23.03.56.21
+ a640c23a62f3a-a90613315e3sm1197985466b.209.2024.09.23.04.00.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 03:56:21 -0700 (PDT)
+ Mon, 23 Sep 2024 04:00:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78477c29-799a-11ef-a0b9-8be0dac302b0
+X-Inumbo-ID: 0c332034-799b-11ef-a0b9-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727088982; x=1727693782; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727089230; x=1727694030; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JoPeDylnCxxUD9jyXpqaZHj+BQmUiziF0zmtORFy+O4=;
-        b=dW4JBnbFUuNWndrr/08OcwPRC3cnjlJhUvenvcR3H22/0U+ZrpHCKzOZctTmHhgXUG
-         PUj9SNxKuw8Hwvw+/AG6NgbKlm4+EMQaIr3dg7Fn3Ooe9gqmypiZvANoo+lKs7/SbJJC
-         riYqpRWzCtLYtLv313kBo6NmBixK/027mB2wSDAB7djdpygnfSmlx6Neu0f+F49tqyNf
-         khYpbV5HbvOg7UOC0vWf46QN+cTKl942PCGsJi0H542mW5AGcvh7j1uSmnU00q++pbD7
-         ir3A+T4SiFzRtYoFRVppGiNIyJgLFe9IJAlWX68+9rzlYRAde20P878uG9HVig4pDRlD
-         S67g==
+        bh=FG4a7snmGVmjwRCelUEyytuuMzpdS/e5SGZvszA8DCc=;
+        b=Uuff194gxMEQo0w943rKAEdVWlJ0RkGpy5vkjA6S/LyDQNltnrem9C6CH7gH2ncsRf
+         PS6ZtkiqHeVm26tmlL8aDK+xGUIE62IPnqE5dQSVXOebTUVDKWeAfIPMnCllm8UF9lij
+         LV42CvFdOGyY5l9imrsY/nOXB8JDwDHrf7N4UnIJF2HaDS+zuMInZtj4re7EgI6kU1/G
+         Z3VwVDqJsRG9JsO+4Rb3MpBuCnH3+9CUmXxkV0+0SKOqFJouUbzfyaFJJXhvqfdYD77D
+         r3zqTEkVG0y2HRAGIOACUrG2RrqP63hsWdxJllACilkl6OaMP85EgDbulz/ttcIQ/tWr
+         cxsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727088982; x=1727693782;
+        d=1e100.net; s=20230601; t=1727089230; x=1727694030;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JoPeDylnCxxUD9jyXpqaZHj+BQmUiziF0zmtORFy+O4=;
-        b=O2H7z6a2+DIKSz9D/h4O4y2BcyxDObiSJBMhh3Fzyr/nZK8VBMlPzlHi/0Dd2p4BTA
-         Ww3Z9zR4M8RFM98xQvrJnjEu665kkfqWA+DbSb40oLWzVNOQXX+pipia+DrtNnNxMCjb
-         aZb5rAx6cWUDhrIX5YXqq/aaiWAM753sRDwJVGdF5Dg5/9J/chLHZjfwgeFYQGDKtztv
-         ijpBoKvds0Ys8gPCt5ql0UTL6pflwBXsYCvyM51EqNPo/KKZU/u4+7iNNgBhSbmNoG+j
-         ChNbIv4rzx5r0il/ygTPIWZUIC3sLGaJhLNTDVD5CCZll5F/g9xGAaQxe9VrHYOrhrge
-         WS/g==
-X-Forwarded-Encrypted: i=1; AJvYcCUZerR0+2jBiStZLhIop7p9WFoAkOX0xlqHQ5dSUNM7bmzKotsSvLtRtNsBLYM36EYmjiYhIcQXdj4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzG2hotsDIJx4FIaSt7iv7GSN8eOZyaqP7Z1AOiLikLfarcSD8t
-	QmNO3IovxfMYy7i0cUt/B33wslnxRVmZ+pjr8iasP6Xjlxb/RuOb+MS6PlgdFA==
-X-Google-Smtp-Source: AGHT+IGX+GmRuurrYdc9qpJXitYSoSORJrcjGdQRZYNqcq3q8XStNMf0jctM66XuQo4zTOJ3PuZiJw==
-X-Received: by 2002:a17:907:3f26:b0:a8a:445f:ac4d with SMTP id a640c23a62f3a-a90d56dad1bmr1244055466b.18.1727088981782;
-        Mon, 23 Sep 2024 03:56:21 -0700 (PDT)
-Message-ID: <a4e3de2c-2316-435e-b22f-e6efb3aa4216@suse.com>
-Date: Mon, 23 Sep 2024 12:56:29 +0200
+        bh=FG4a7snmGVmjwRCelUEyytuuMzpdS/e5SGZvszA8DCc=;
+        b=CCO7+Ld3kQpmil1bV7G31dUP/btovUaxs2otHbMvuV6LiSy18s7MOBm7UwrP/BeXdx
+         H279lvbNafILBDmdw2OYDFganYfJeRPKCAHCa6/G52kp+YXsseB9hALynKiWJrW6/+UQ
+         Km0gSTrfBUux7deuejkN90qKtaqO3KA0yAFv1AoQjn3vtExDcuQAY6U/TtiVjNhe3VYA
+         MnMJszpCQeezg4UtcEh+sSxHmhW3IV4QtehlFQP+HTkkuLwtvf8YSuLnj/9AF/5TkpfU
+         H68awfCkLBzFDqVCznEBxXRZz5sHrc+JwgirhlmBRxh+r2SHXuKr+7VbZdl0Z8s4yNmr
+         bayA==
+X-Gm-Message-State: AOJu0Yxh18gfF9WONs91tjrFfn+3KKAQpbPVJ0sBMydm2YqOTmwyXLhG
+	CQSUcZAPTeiglDWuBWX9ajkd2GTm8q/zlFh5hqa9mtPqrFN7pDWNgTGEKpvryg==
+X-Google-Smtp-Source: AGHT+IHpGsaAszEc0ptcewDzaiOKxoIXDdOweORcHOFVzc8GPR6oxED0MN3EbaR/kDFMK2/8glI7Fg==
+X-Received: by 2002:a17:907:f14f:b0:a8a:926a:d02a with SMTP id a640c23a62f3a-a90d577a4f4mr1100095066b.49.1727089229995;
+        Mon, 23 Sep 2024 04:00:29 -0700 (PDT)
+Message-ID: <bd35f4b8-756c-43f1-b5da-988bbf16631d@suse.com>
+Date: Mon, 23 Sep 2024 13:00:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] xen: introduce common macros for per-CPU sections
- defintion
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1726746877.git.oleksii.kurochko@gmail.com>
- <ed94ad588dd91733178cf505a49b82f4cf031268.1726746877.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH 1/3] xen/livepatch: simplify and unify logic in
+ prepare_payload()
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Ross Lagerwall <ross.lagerwall@citrix.com>
+References: <20240920093656.48879-1-roger.pau@citrix.com>
+ <20240920093656.48879-2-roger.pau@citrix.com>
+ <d7dfa01e-740d-4274-b9fb-8475224ae7a6@citrix.com>
+ <ZvEc0qpq2fTJtMjo@macbook.local>
+ <3daaeb5f-d907-41c6-89d1-1fe1b89e9fd8@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,34 +115,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ed94ad588dd91733178cf505a49b82f4cf031268.1726746877.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <3daaeb5f-d907-41c6-89d1-1fe1b89e9fd8@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.09.2024 17:59, Oleksii Kurochko wrote:
-> --- a/xen/arch/x86/xen.lds.S
-> +++ b/xen/arch/x86/xen.lds.S
-> @@ -321,14 +321,7 @@ SECTIONS
->    DECL_SECTION(.bss) {
->         __bss_start = .;
->         *(.bss.page_aligned*)
-> -       . = ALIGN(PAGE_SIZE);
-> -       __per_cpu_start = .;
-> -       *(.bss.percpu.page_aligned)
-> -       *(.bss.percpu)
-> -       . = ALIGN(SMP_CACHE_BYTES);
-> -       *(.bss.percpu.read_mostly)
-> -       . = ALIGN(SMP_CACHE_BYTES);
-> -       __per_cpu_data_end = .;
-> +       PERCPU_SECTION
->         *(.bss .bss.*)
->         . = ALIGN(POINTER_ALIGN);
->         __bss_end = .;
+On 23.09.2024 11:43, Andrew Cooper wrote:
+> On 23/09/2024 8:46 am, Roger Pau Monné wrote:
+>> On Sun, Sep 22, 2024 at 11:19:01AM +0200, Andrew Cooper wrote:
+>>> On 20/09/2024 11:36 am, Roger Pau Monne wrote:
+>>>> +{
+>>>> +    const Elf_Note *n = sec->load_addr;
+>>>> +    int rc;
+>>>> +
+>>>> +    ASSERT(sec);
+>>> This needs to turn back into a runtime check.  Now, if a livepatch is
+>>> missing one of the sections, we'll dereference NULL below, rather than
+>>> leaving no data in the struct livepatch_build_id.
+>> Loading should never get here without those sections being present,
+>> check_special_sections() called earlier will return error if any of
+>> the sections is not present, hence the ASSERT() is fine IMO.
+> 
+> Ah, in which case, can we please have:
+> 
+> /* Existence of note sections already confirmed in
+> check_special_sections() */
+> ASSERT(sec);
+> 
+> Just to show that someone did think about the provenance of the pointer,
+> and where to look to check.
 
-Like the _SEC in the other patch I question _SECTION here, albeit for a different
-reason: This is no separate output section, and it's more than one kind of input
-ones. Perhaps PERCPU_DATA? With that
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Yet then sec was de-referenced already ahead of the assertion, which
+static checkers may have to say something about.
 
 Jan
+
 
