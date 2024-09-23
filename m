@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 875F197E9FF
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:39:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801882.1211931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EBB497EA11
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:45:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801889.1211939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgTj-00076J-0D; Mon, 23 Sep 2024 10:39:39 +0000
+	id 1ssgYZ-0000Cm-Gs; Mon, 23 Sep 2024 10:44:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801882.1211931; Mon, 23 Sep 2024 10:39:38 +0000
+Received: by outflank-mailman (output) from mailman id 801889.1211939; Mon, 23 Sep 2024 10:44:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgTi-00073o-SV; Mon, 23 Sep 2024 10:39:38 +0000
-Received: by outflank-mailman (input) for mailman id 801882;
- Mon, 23 Sep 2024 10:39:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ssgTh-00073i-NL
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:39:37 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 204d90bf-7998-11ef-99a2-01e77a169b0f;
- Mon, 23 Sep 2024 12:39:35 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5c26311c6f0so5786269a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:39:35 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c42bb539dasm10193819a12.34.2024.09.23.03.39.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 03:39:34 -0700 (PDT)
+	id 1ssgYZ-00009o-E4; Mon, 23 Sep 2024 10:44:39 +0000
+Received: by outflank-mailman (input) for mailman id 801889;
+ Mon, 23 Sep 2024 10:44:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WbMn=QV=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1ssgYY-00009g-GW
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:44:38 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20606.outbound.protection.outlook.com
+ [2a01:111:f403:2415::606])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d316cb5e-7998-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 12:44:36 +0200 (CEST)
+Received: from MN2PR20CA0001.namprd20.prod.outlook.com (2603:10b6:208:e8::14)
+ by SJ2PR12MB8956.namprd12.prod.outlook.com (2603:10b6:a03:53a::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Mon, 23 Sep
+ 2024 10:44:33 +0000
+Received: from BN1PEPF00004681.namprd03.prod.outlook.com
+ (2603:10b6:208:e8:cafe::1b) by MN2PR20CA0001.outlook.office365.com
+ (2603:10b6:208:e8::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24 via Frontend
+ Transport; Mon, 23 Sep 2024 10:44:32 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00004681.mail.protection.outlook.com (10.167.243.87) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7918.13 via Frontend Transport; Mon, 23 Sep 2024 10:44:32 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Sep
+ 2024 05:44:31 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Sep
+ 2024 05:44:31 -0500
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 23 Sep 2024 05:44:30 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,172 +63,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 204d90bf-7998-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727087975; x=1727692775; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HMDPaveUw2W2FYp4Oa6I4vhn+Cq8HfpwVJ6Q1xyZsJ8=;
-        b=UWfIZuUWBdN0TFDjTaarCshGo0CQIR/YWMD3s/VCF6u5kboomi2VHnY/gDAIvUJ0+Q
-         XqHwB86EaDHDzlsTwdcV8rwCaOa3GWJE7+W1bx+uoSM9VtNMN409EaGAQhseWZ/Wbuus
-         XXPoWi3ok6j6qMUWOsl7ahjRZAFaC9Dz6YSpa4b3N0HB1XmHSmxbrgjNxJJTKep6+C1z
-         IfQI4dqiX1PMG3JDVHLzt9veEkkcDgD/p+TcN9CWTIHvzbLiOEOPkPHxKelBqtrlq53I
-         VGRknaG/wkhk6AVZMrr8jkQ1WJm+hfYwxTXF97+3sENReUtVlbsonQRV2UzXnXrw+l62
-         1m3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727087975; x=1727692775;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HMDPaveUw2W2FYp4Oa6I4vhn+Cq8HfpwVJ6Q1xyZsJ8=;
-        b=iGz6gIATe89HkhlL4UPQ5mej/VP3tBEmZRCHk6GS1o1RmbEjyL0nLmEhiaA0n6+Lz+
-         PuIGvYSUrbPL3Pmws5DDZx/ZlTm7IiCW06zrQkVLETUCMnlI0iEuGMryL4p2QHImwZwt
-         HmQ5l9zcUiV22u67D7dCcAAN85KWS3cxK14rQuLbZfr/PkCzsBuB90kCLW6px81ERAPc
-         CW/0awSgleiF9FvDImzUvAv+bm2NsZmPBxb7fFV54/FWaIkihvywdBBOWzBAw/gF3eCS
-         YctmtNW3nVRDR/BW78eIUqLpIEh7SGlp6IDh8oNHtFePYtwHG3xsiAbvaozI6Sv+GlrE
-         SrPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWrWHkLWL5EDKXNsZEGMuGUOwwxmezygZLUO0dlr9IcFBLryrc/mWRKOaFnxdSfKINxU0ZE7F71lsg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxX4dzKECbOhkseZym3J+2w8gv789Kx6uHMv0ID6n8/TdcGcLd5
-	2y+eVozc2Y9x9/+kiRuE9znOXpleHadtqiW/ulel3L1XGihAuDW6WAQ7RLdBiZ1FOhCTXl1UoMA
-	=
-X-Google-Smtp-Source: AGHT+IF3FVrCiq8RQnPxxAaUg01gzrSW0GhtVq2EivTJNhjpwoBjSTQxJUJkyCp5ojhTSY+iG0HKnA==
-X-Received: by 2002:a05:6402:358b:b0:5af:30d9:e2b6 with SMTP id 4fb4d7f45d1cf-5c464a5abfdmr10790195a12.23.1727087975046;
-        Mon, 23 Sep 2024 03:39:35 -0700 (PDT)
-Message-ID: <c975ac43-a4fc-4036-8e25-a02a3d5b416d@suse.com>
-Date: Mon, 23 Sep 2024 12:39:42 +0200
+X-Inumbo-ID: d316cb5e-7998-11ef-a0b9-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JClQsORBoPyVoyjymuG1f1ivl1eoByoNYNIjdkaOGz1zYEwEVxFemp6UbYi0IpEK5fgv3MXiu8dSEOvdfWN3B2VgfnfvL0+7UbYB7BmK1Scb0/WCZOKUm2wr6c2/8AmMc1RyFS6OHOI8qkoAkZeohKjoFUEfGyjZrRi9LpGJOGa1F0KSPMy2R6cMr92gByZPVEL5w90nOaCif7mmTCKZhxKRAQnUG2BqpNqXlLTaXF6XkpccBQESrHN8ofcABOWTt9RwMIRme/gXuFTyvRzAPmFBJhO4AjXerOSb9vNb+mV0ATwxLlWWiw+cCUG8hNeK1i7Vh1Yc7nTzatWdZ2ZojQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=actwuHEvnZspDQ/Z1PnYpS5hk51dpyRAjzyCpaZwyPU=;
+ b=PuKYu85lUYc2HbWS7BJoaUxxh93CMvCdr3O1K0Z9adPWUpAS2FZtgVJHEk1GUSwH5L0fA4Scy1uCqHjWRl/xtjdC3sMt1I7sJIjdwsXffDhajrUNK4euficR8ERmkBPzSeoWtEJuricRelBcZGoE94sypQlq7c6btkkMtBFTFxNNfq5PnswXngn/JfcHJQS65CS1BGvp/9Fs6zjVp4lkd/eZrTZYGC8vbZsxQS8GWH+l4jCGcuPkqCg6QO38FGNfK3iv9IYJxPpvnuHMP5HyQZuxsquThYIkWLK15b2pMcaDK02w1dW5KMlN7pbgOvLMrhREEvWmeKx9x3O0MD4HRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=actwuHEvnZspDQ/Z1PnYpS5hk51dpyRAjzyCpaZwyPU=;
+ b=QiJncn4wd2/Yf0FWiuN0D01esKqSvwouIfdJZpx8iuqFEwWj6W6Bvfwikxy3LswTuioCTB0tgoAYIYfKIjMAFneODAbKzQrdKKPP1fK5LBYxvjjhJ57JD+HWcXCqq8ToBFF6NIURyBXAfzJHKWMU0KrCGCzmQyCxj8lRHuIl8PQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <590a7788-02ad-4876-bc3a-ec58d860c420@amd.com>
+Date: Mon, 23 Sep 2024 12:44:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ioreq: don't wrongly claim "success" in
- ioreq_send_buffered()
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <f0cd7c48-6816-4050-a505-693c4a470506@suse.com>
- <c80dd525-7fb6-4e2f-99f2-5d96d3f7ec52@xen.org>
- <d29f7235-661c-4457-959c-eeb3b553da02@suse.com>
- <85ef25890dc92f768646ac16031b84ec@bugseng.com>
+Subject: Re: [PATCH 3/4] dt-overlay: Remove ASSERT_UNREACHABLE from
+ add_nodes()
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>
+References: <20240919104238.232704-1-michal.orzel@amd.com>
+ <20240919104238.232704-4-michal.orzel@amd.com>
+ <96c741b6-1938-4fdf-baf6-31c85ef0f323@xen.org>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <85ef25890dc92f768646ac16031b84ec@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <96c741b6-1938-4fdf-baf6-31c85ef0f323@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004681:EE_|SJ2PR12MB8956:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a739d40-c2b0-4e80-c71d-08dcdbbcb55b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SG5NQmdRQy9ZZGVYbkNMQmpDVHM0QnZjMTRmTlFuRUJuYkt6dXEyeWVSaTgy?=
+ =?utf-8?B?dktybE41Umg2SGlYR0UxYWtSZ01Jd3ByQzhmc2kyTHkvNHlZZHVWMDhwZXZt?=
+ =?utf-8?B?L2ZUZmdxMk1FT0hZTTV2dGhleDJZcVR6U2pCTUI1R0QzZlhTMXlQdFJrOEkz?=
+ =?utf-8?B?bER4YVZDOHBYS0FnSHBQQXlKUXJxQUtzNkpiN216UTV3emFnZm13a2xNcWF3?=
+ =?utf-8?B?MjNnOGtidTgrZUc4bDlNZThHamMvRlQ0Z3dVSHluMzJNQTlYdlpVcnp3Q2N3?=
+ =?utf-8?B?MndNYi83b3ZVeU92UEIwc2xvS3JrTExaN0ZoUU5QYWZYR3NaLzUwVGQ1anVS?=
+ =?utf-8?B?ZlRaeGxkbEF3K1Vjd0hRaXA2bnV1R3dqa2NHMDdsZWpnM21MTGVnMG1IUk8w?=
+ =?utf-8?B?VU5pVEZRL29ueW91c3RaUzV2bHQvUWdWbG5qSDlta3dJbysrRGdOTEh5L3lW?=
+ =?utf-8?B?UHpRdGlGUk5nVXZMUHVGZ0dmZjBWQXE2Mk5WTGxkaWY4MW5JYnlLL24rd0dm?=
+ =?utf-8?B?c09WSUhOT2QvcmtXaEh3SzVkZDdKMkZhdHZIdEw2NUh5a3Znd0YvckVCOE1l?=
+ =?utf-8?B?OUtnSkdsUGphTnkwV3dQM0tpY0ltMkkxOTZ4Wk9GNlFYUXRYa2lacUlLcGdY?=
+ =?utf-8?B?ZnlhTnp3dEJoUEg4ZzNxaXhzR1o2WXZhdkNrMUlKaUFGT0I4M254dXI1WDU5?=
+ =?utf-8?B?MHFVT0NYZC9ia0o4MGtLVGxtQlB2RndTZ1AxK0xKTm1rakxHak04dXVhMkZC?=
+ =?utf-8?B?YXZIT3ByZlFVQkZpc0xtVnVHZEc1NjVmOHJ1MjBheHhkQ21LY1Q4dWJZM2dy?=
+ =?utf-8?B?MmdWM3RqbFdzL1dmV0N1OHA5dWFwQWpzQm5uYjFDQ2Y4VmM5SUVYOU82OWJ6?=
+ =?utf-8?B?Q0prQkQ1cjY0RkdkVUV2M1VURTNYV2FQYU5COENxVGdFRnZQRUVtTGxOK05q?=
+ =?utf-8?B?WWZScEZTV0xPUXM4WVArdDMrd1dtdlBsSnJDblV4RVREbXg0Y3dEcEswTFBS?=
+ =?utf-8?B?NTdpOEV6VzZHbUxGWWQ5MmxjT0htbXdhV1ZuWUN0am9pOTFySW83UjdvdWp6?=
+ =?utf-8?B?S0JmRnNlUTVkNFRadk11SDVFamlSc3kxQkp1OGRVQlU2M1hzakZlT1lRSjdk?=
+ =?utf-8?B?MlhNRFBHekYxbDBZK0JLckoreStXTnZvMzVnckloRjFHMDlteEtHaEdJVDRC?=
+ =?utf-8?B?b0grZ2NwNXBvMXJkemNtVFFTcHJOKzZ0NmdxZ281Q3Z2Y3dkWnYreDlCT05K?=
+ =?utf-8?B?TGxNNTZSdkppQ0ZPSVhOSXZSZW8xTy9uam5XdDFtUUhnbFM2T0VzMXl6NDRF?=
+ =?utf-8?B?cjBQZDZ5ajdTQ0dJZ29OZXBobmtKamVrTEtFVEdWc3gyZUxKZzRlcDBXVUt0?=
+ =?utf-8?B?cllmYjZlbmwxYmRkaitvellTY3c1YXFlQVhpeCt2UW1rNDJkRlhpNDQxSU83?=
+ =?utf-8?B?b3g4a2duKzFIcWxRVExvUDZjWWZjNkd5a2VFQUpDMllpWGtkSmxQOVViMXhw?=
+ =?utf-8?B?MmlFZGpRYlJlbzhqOUZLd1MrZHYxclU2NEpkMk9za0pHdFVkMmFEM0gvVzZW?=
+ =?utf-8?B?VjZ0eEp4MVpIcHRWZVZ5a3V0VzJLZzN2bCtIZ3JON2x5YWtUbGx4LzRaTzlW?=
+ =?utf-8?B?N2k2YWhsOXdTb1VjbW5yaGRrRmErbjc0cXRMdTVSYTFMdjBPbDlFRVJURDBX?=
+ =?utf-8?B?ZUhTYW9HV1B5b2dOWlZ3c25YR2VBUWxDekV0UVRtT2NYK2wxT0E4b0I4c2NH?=
+ =?utf-8?B?MStTQW5tUHNVR2RJbkEwemk5blovV3h5RWROanNieWJaNFpnUDlBWGpOL2Ro?=
+ =?utf-8?B?OHN6UDdmNjJvMnA1alY1cURma2VRaWJrYTBLV0ZxbFhoMDgreWFXVlo2VkIx?=
+ =?utf-8?Q?bMqqT9Qr3Sr2p?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2024 10:44:32.2011
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a739d40-c2b0-4e80-c71d-08dcdbbcb55b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00004681.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8956
 
-On 23.09.2024 11:55, Nicola Vetrini wrote:
-> On 2024-09-23 11:47, Jan Beulich wrote:
->> On 16.09.2024 23:27, Julien Grall wrote:
->>> On 11/09/2024 13:19, Jan Beulich wrote:
->>>> Returning a literal number is a bad idea anyway when all other 
->>>> returns
->>>> use IOREQ_STATUS_* values. While that's maybe intended on Arm 
->>>> (mapping
->>>> to IO_ABORT),
->>>
->>> Arm doesn't support buffered ioreq (see ioreq_server_create()) and
->>> AFAICT the "0" was already there before the code was moved.
->>
->> Indeed, the bad conversion is older than the move.
->>
->>>  > mapping to X86EMUL_OKAY is surely wrong on x86.
->>>
->>> The code has been for nearly 10 years. So I would like to understand 
->>> why
->>> the change now. Did you see any issue?
->>
->> Well, result of looking at the code. As said - returning success here 
->> is
->> definitely wrong on x86. The open question is whether IO_ABORT was 
->> actually
->> meant to be (implicitly) used here for Arm (but see below).
->>
->>> The unclear part for me is the behavior change. Below...
->>>
->>>>
->>>> Fixes: f6bf39f84f82 ("x86/hvm: add support for broadcast of buffered 
->>>> ioreqs...")
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>> ---
->>>> Judging from history, it may want to be IOREQ_STATUS_UNHANDLED 
->>>> instead,
->>>> eliminating the need for IOREQ_STATUS_BAD. That'll be a behavioral
->>>> change on Arm then too, though.
->>>
->>> ... you mention Arm. But not x86. This would imply there are no 
->>> behavior
->>> change but I don't understand why.
->>
->> The way the patch is written it keeps Arm's (perceived; again see 
->> below)
->> behavior unchanged, but fixes x86. The remark above is suggesting an
->> alternative without need for the new IOREQ_STATUS_BAD, yet then also
->> leading to a behavioral change on Arm. Hence the question whether the
->> present behavior is intended. However, ...
->>
->>> For the Arm behavior change, per above, I don't think we can reach the
->>> code on Arm so it should not be a problem to change it.
->>
->> ... with you pointing out that buffered ioreqs aren't supported on Arm,
->> I could indeed change this whichever way suits x86, without affecting
->> Arm at all. It would then be only an abstract consideration, for the
->> hypothetical case that buffered ioreqs became needed on Arm as well.
->>
->> Buffered ioreqs not being supported on Arm of course means the function
->> as a whole is unreachable, i.e. in violation of Misra rule 2.1. Which I
->> find concerning, as that rule is marked as clean - indicating that
->> Eclair isn't smart enough to spot the case here. (Reason for the 
->> remark:
->> If the function had been marked / excluded accordingly, I would have
->> noticed Arm's unaffectedness of whichever way the change is done.)
->>
+Hi Julien,
+
+On 20/09/2024 10:35, Julien Grall wrote:
 > 
-> ECLAIR has been configured to mark unreferenced functions as 
-> deliberately unreachable and thus hide those reports by default in the 
-> CI analyses.
 > 
-> -doc_begin="Some functions are intended to be not referenced."
-> -config=MC3R1.R2.1,+reports={deliberate,"first_area(^.*is never 
-> referenced$)"}
-> -doc_end
+> Hi Michal,
+> 
+> On 19/09/2024 12:42, Michal Orzel wrote:
+>> The assumption stated in the comment that the code will never get there
+>> is incorrect. It's enough for the target-path to be incorrect (i.e. user
+>> error), which will lead to an incorrect overall node path and we will end
+>> up in this "unreachable" place causing a failure in debug builds.
+> 
+> Looking at the caller, nodes_full_path contain path that was computed
+> from the overlay. So I would have assumed the path would be part of the
+> new DT. What did I miss?
+nodes_full_path contains paths to nodes by combining the name of the node with the target-path string.
+It's generated in overlay_get_nodes_info(). It's a simple <target-path> + '/' + <node-path> + '\0'. It does
+not have any dt logic as for paths. On the other hand libfdt contains advanced logic and can tweak the node
+path if needed. So for example if the target-path is "////" and node path is "foo@0", libfdt full path will be "/foo@0"
+(notice how it got rid of excessive slashes) but our nodes_full_path[foo] will be "////foo@0". The only place which can
+spot this difference is our check in add_nodes().
 
-But the function is referenced. If it wasn't, the build would fail. It is
-just that on Arm the code path there cannot be taken, as the "buffered"
-function argument in the sole caller will only ever be false.
-
-That said - looking at docs/misra/deviations.txt I spot 4 entries for 2.1,
-yet none of them appears to fit with your reply. What's the connection?
-
-Furthermore I never fully understood Misra's separation of "unreachable"
-vs "dead", so maybe we're rather talking about dead code here (and hence
-another rule).
-
-Jan
+~Michal
 
