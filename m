@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E917A97EE90
+	by mail.lfdr.de (Postfix) with ESMTPS id EA4A297EE91
 	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 17:54:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802196.1212381 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.802197.1212391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sslOC-00075H-44; Mon, 23 Sep 2024 15:54:16 +0000
+	id 1sslOK-0007Lk-BD; Mon, 23 Sep 2024 15:54:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802196.1212381; Mon, 23 Sep 2024 15:54:16 +0000
+Received: by outflank-mailman (output) from mailman id 802197.1212391; Mon, 23 Sep 2024 15:54:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sslOC-000736-1R; Mon, 23 Sep 2024 15:54:16 +0000
-Received: by outflank-mailman (input) for mailman id 802196;
- Mon, 23 Sep 2024 15:54:14 +0000
+	id 1sslOK-0007JP-8O; Mon, 23 Sep 2024 15:54:24 +0000
+Received: by outflank-mailman (input) for mailman id 802197;
+ Mon, 23 Sep 2024 15:54:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sslOA-000730-A1
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 15:54:14 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dbeJ=QV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sslOI-000730-Qk
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 15:54:22 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 139b2c1d-79c4-11ef-99a2-01e77a169b0f;
- Mon, 23 Sep 2024 17:54:12 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5c2561e8041so6314959a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 08:54:12 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c42bc88d02sm10469094a12.80.2024.09.23.08.54.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 08:54:11 -0700 (PDT)
+ id 18f56706-79c4-11ef-99a2-01e77a169b0f;
+ Mon, 23 Sep 2024 17:54:21 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-53568ffc525so5123234e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 08:54:21 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a90613315e3sm1240926866b.209.2024.09.23.08.54.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Sep 2024 08:54:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,84 +45,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 139b2c1d-79c4-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 18f56706-79c4-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727106851; x=1727711651; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f2la0fBgsVVhRNpMvguxzU4ifvH20zv0Kd3AdL+2cdM=;
-        b=X+zcCCgbNqRiR4GTyImjx/Vc01ZQYBh6Zf4t/hXZynPfqT73IsO/z0g/CHw4vXtVgG
-         gPas34sLeim1tpxtgYIJn6OWzW8lZLXv/KvUj17twxr0WclIAzFuN49aPotRrDfmohcu
-         BvnNvS73cl2qzkAWdS4alsH7cpqeCr+CCyPyFIcrJqEjErvA9wtPxSmDU966kGbKfg3P
-         QuH4g1GkUijLQFuieVcBFhlh1yhpW4aK8tcB1AgsofFbxM4colci+0ToDI7D+abkQDC6
-         0ZuMAz0+xY0GVza9r+qC0rTZEcFSYRkBEe8Yx30OVt05Fj0MW7AYzOD0ss++Mel//fF4
-         +HnQ==
+        d=citrix.com; s=google; t=1727106860; x=1727711660; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YYwJGPHlrRxYAkIwiT1rq7m0wmSkPz2GGZv9Yo1GCoQ=;
+        b=ldyx5mIrzb2djfX02qS8Vt3kMyMedjmgxh3gH6YW7wpd0bd19rLrxgarojN7YaCfiV
+         fqo31y5T29MurrgAYlV1EAG9KUxOeOrYwrdWyyoQJNAns71A+ePZavAMuWU/6ivUM87g
+         7Nsv/3bGTVsF+hpUODsEH6BHnmB34XlkAgS8E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727106851; x=1727711651;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=f2la0fBgsVVhRNpMvguxzU4ifvH20zv0Kd3AdL+2cdM=;
-        b=vyQVcQT7o4vpuVFOxu/EKcbGyDPpkRY0mH9UR/MnWVz1jRkiuIp6W3WHSsHd9DDm0d
-         6G+iUEHG2blSpyjC48ygBuLSIGMHw9MGnDEsgSVq5PNL+veK1F2Ca6EzalhSTez4QhqR
-         HKMuVJFDwX6yu3EE8ea3CxbFcUg2YRonT3TzAphpEYHKOI9+3wHE/wnZXeNC05lDm8ib
-         i3j6qq2Ksf/FILYR/QsVVdgAuZJ/QNYWp6208IWzl+T6YD8nbe+Awat6CtwmobRb47nY
-         n/hCudww2L0BgCkln4ekJAW4m2s/1zwS9XLa9sw59uAwWVU2yimGpfp9YxpjeM3vBGS8
-         NgBQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXLUTRFYnhhCsgVEMgze19/DInTU3sNRdbUWUWNahro8WyhB95rRZG6Ef6DB06JchHMHoMIbP/xiuk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw94/qcHAHZT4Q1YXDQ3XVC/H0GsMouKj7KXpzGIS0DkMVl8NcG
-	X/ZiPfmkafN5RZ4NJNBMyr0CLzeXygdcUDmj6WP0ApJLELQVIOyCgGMjIyGfsQ==
-X-Google-Smtp-Source: AGHT+IE6e9Sl7hUEkR/m2DJ2s7WKnIJtm+MDXNYtio3gbWSWdVfWjcwqCckaffdfSQ01LyFiFwvKwA==
-X-Received: by 2002:a05:6402:2353:b0:5c5:c059:63ba with SMTP id 4fb4d7f45d1cf-5c5c0596470mr4726866a12.35.1727106851529;
-        Mon, 23 Sep 2024 08:54:11 -0700 (PDT)
-Message-ID: <f928cf8a-e047-43f0-bf1d-c864d5d0e317@suse.com>
-Date: Mon, 23 Sep 2024 17:54:10 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] x86: Align output sections for UEFI CA memory
- mitigation requirements
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
+        d=1e100.net; s=20230601; t=1727106860; x=1727711660;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YYwJGPHlrRxYAkIwiT1rq7m0wmSkPz2GGZv9Yo1GCoQ=;
+        b=KFu6Gc3htI9qHtjPPIlDsNnHv586Qkn6aEjjUt6XPLNFwNLrGfQuP3R1QiKen0TdQg
+         SH33d93rkU31MqKAEEeIOvI2DrQzTt5+7t2FwVj9QP7KoS4KzFzgyUggdHnpue310Vhh
+         fI+6KaBhRbhVMwqte8FUIkrqQYH5JzxdDS//WpoMdFu6bjydz4m083egjomVl+9LxKeo
+         kHC4Mf/s7QGlu7t0EgXkzrzW++OsX3CTe24LK3dU5gvhxsGeLulTVGDj+FZu4gA8JnUb
+         BwJE/HVDk4ZOqUoqEm2dZjiSZ0X7++g3+Rt9pOly4WhMm3WMBc3uLOWIkkZTG4oWMVUY
+         MIaw==
+X-Gm-Message-State: AOJu0YzLIVc7+Zey0Y8yMrNzvndff1Y9f22/0ZQeZUD6WfP83JlMU5Vz
+	p6SjDK97jSVT0BueZoHkE7vS7W7D4+mSI00NwziHV/5oPGI02TjTQfaGMjRNP7J825DmfaczzoM
+	ULGZxIg==
+X-Google-Smtp-Source: AGHT+IE13+2HF8paXNonRdWJY1840DGkVLW2sKKXETqMBn++YnaxMcz4ttxuni3k3jDsqPnGeY5dIQ==
+X-Received: by 2002:a05:6512:ba4:b0:52e:9f17:841a with SMTP id 2adb3069b0e04-536ac2d051fmr6445237e87.6.1727106860059;
+        Mon, 23 Sep 2024 08:54:20 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20240919080021.20155-1-frediano.ziglio@cloud.com>
- <20240919080021.20155-4-frediano.ziglio@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240919080021.20155-4-frediano.ziglio@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH] tools/libxs: Style consistency improvements
+Date: Mon, 23 Sep 2024 16:54:16 +0100
+Message-Id: <20240923155416.101538-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 19.09.2024 10:00, Frediano Ziglio wrote:
-> All loadable sections should be page aligned.
+This is mostly Linux sytle.  Make the file self-consistent.  Drop trailing
+whitespace, and use tabs consistently.
 
-What about .buildid? .reloc otoh is discardable, and hence presumably okay
-if mis-aligned.
+No functional change.
 
-Jan
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Juergen Gross <jgross@suse.com>
+
+From the SIGPIPE work, but not submitted at the time.
+---
+ tools/libs/store/xs.c | 74 ++++++++++++++++++++++++-------------------
+ 1 file changed, 41 insertions(+), 33 deletions(-)
+
+diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
+index 5d9c7151e8bb..e22f99b59f61 100644
+--- a/tools/libs/store/xs.c
++++ b/tools/libs/store/xs.c
+@@ -1,4 +1,4 @@
+-/* 
++/*
+     Xen Store Daemon interface providing simple tree-like database.
+     Copyright (C) 2005 Rusty Russell IBM Corporation
+ 
+@@ -164,8 +164,10 @@ static void *read_thread(void *arg);
+ 
+ static int read_message(struct xs_handle *h, int nonblocking);
+ 
+-static bool setnonblock(int fd, int nonblock) {
++static bool setnonblock(int fd, int nonblock)
++{
+ 	int flags = fcntl(fd, F_GETFL);
++
+ 	if (flags == -1)
+ 		return false;
+ 
+@@ -236,7 +238,7 @@ static int get_socket(const char *connect_to)
+ 		goto error;
+ 
+ 	addr.sun_family = AF_UNIX;
+-	if(strlen(connect_to) >= sizeof(addr.sun_path)) {
++	if (strlen(connect_to) >= sizeof(addr.sun_path)) {
+ 		errno = EINVAL;
+ 		goto error;
+ 	}
+@@ -276,9 +278,11 @@ static int get_dev(const char *connect_to)
+ 	return -1;
+ }
+ 
+-static int all_restrict_cb(Xentoolcore__Active_Handle *ah, domid_t domid) {
+-    struct xs_handle *h = CONTAINER_OF(ah, *h, tc_ah);
+-    return xentoolcore__restrict_by_dup2_null(h->fd);
++static int all_restrict_cb(Xentoolcore__Active_Handle *ah, domid_t domid)
++{
++	struct xs_handle *h = CONTAINER_OF(ah, *h, tc_ah);
++
++	return xentoolcore__restrict_by_dup2_null(h->fd);
+ }
+ 
+ static struct xs_handle *get_handle(const char *connect_to)
+@@ -362,8 +366,10 @@ struct xs_handle *xs_domain_open(void)
+ static const char *xs_domain_dev(void)
+ {
+ 	char *s = getenv("XENSTORED_PATH");
++
+ 	if (s)
+ 		return s;
++
+ #if defined(__RUMPUSER_XEN__) || defined(__RUMPRUN__)
+ 	return "/dev/xen/xenbus";
+ #elif defined(__linux__)
+@@ -394,7 +400,8 @@ struct xs_handle *xs_open(unsigned long flags)
+ 	return xsh;
+ }
+ 
+-static void close_free_msgs(struct xs_handle *h) {
++static void close_free_msgs(struct xs_handle *h)
++{
+ 	struct xs_stored_msg *msg, *tmsg;
+ 
+ 	XEN_TAILQ_FOREACH_SAFE(msg, &h->reply_list, list, tmsg) {
+@@ -408,7 +415,8 @@ static void close_free_msgs(struct xs_handle *h) {
+ 	}
+ }
+ 
+-static void close_fds_free(struct xs_handle *h) {
++static void close_fds_free(struct xs_handle *h)
++{
+ 	if (h->watch_pipe[0] != -1) {
+ 		close(h->watch_pipe[0]);
+ 		close(h->watch_pipe[1]);
+@@ -416,7 +424,7 @@ static void close_fds_free(struct xs_handle *h) {
+ 
+ 	xentoolcore__deregister_active_handle(&h->tc_ah);
+         close(h->fd);
+-        
++
+ 	free(h);
+ }
+ 
+@@ -448,7 +456,7 @@ void xs_daemon_close(struct xs_handle *h)
+         close_fds_free(h);
+ }
+ 
+-void xs_close(struct xs_handle* xsh)
++void xs_close(struct xs_handle *xsh)
+ {
+ 	if (xsh)
+ 		xs_daemon_close(xsh);
+@@ -995,7 +1003,7 @@ bool xs_watch(struct xs_handle *h, const char *path, const char *token)
+ 
+ #define READ_THREAD_STACKSIZE 					\
+ 	((DEFAULT_THREAD_STACKSIZE < PTHREAD_STACK_MIN) ? 	\
+-	PTHREAD_STACK_MIN : DEFAULT_THREAD_STACKSIZE)
++	 PTHREAD_STACK_MIN : DEFAULT_THREAD_STACKSIZE)
+ 
+ 	/* We dynamically create a reader thread on demand. */
+ 	mutex_lock(&h->request_mutex);
+@@ -1258,7 +1266,7 @@ bool xs_transaction_end(struct xs_handle *h, xs_transaction_t t,
+ 		strcpy(abortstr, "F");
+ 	else
+ 		strcpy(abortstr, "T");
+-	
++
+ 	return xs_bool(xs_single(h, t, XS_TRANSACTION_END, abortstr, NULL));
+ }
+ 
+@@ -1293,7 +1301,7 @@ bool xs_introduce_domain(struct xs_handle *h,
+ }
+ 
+ bool xs_set_target(struct xs_handle *h,
+-			 unsigned int domid, unsigned int target)
++		   unsigned int domid, unsigned int target)
+ {
+ 	struct xsd_sockmsg msg = { .type = XS_SET_TARGET };
+ 	char domid_str[MAX_STRLEN(domid)];
+@@ -1377,30 +1385,30 @@ bool xs_is_domain_introduced(struct xs_handle *h, unsigned int domid)
+ 
+ int xs_suspend_evtchn_port(int domid)
+ {
+-    char path[128];
+-    char *portstr;
+-    int port;
+-    unsigned int plen;
+-    struct xs_handle *xs;
+-
+-    xs = xs_daemon_open();
+-    if (!xs)
+-        return -1;
++	char path[128];
++	char *portstr;
++	int port;
++	unsigned int plen;
++	struct xs_handle *xs;
++
++	xs = xs_daemon_open();
++	if (!xs)
++		return -1;
+ 
+-    sprintf(path, "/local/domain/%d/device/suspend/event-channel", domid);
+-    portstr = xs_read(xs, XBT_NULL, path, &plen);
+-    xs_daemon_close(xs);
++	sprintf(path, "/local/domain/%d/device/suspend/event-channel", domid);
++	portstr = xs_read(xs, XBT_NULL, path, &plen);
++	xs_daemon_close(xs);
+ 
+-    if (!portstr || !plen) {
+-        port = -1;
+-        goto out;
+-    }
++	if (!portstr || !plen) {
++		port = -1;
++		goto out;
++	}
+ 
+-    port = atoi(portstr);
++	port = atoi(portstr);
+ 
+ out:
+-    free(portstr);
+-    return port;
++	free(portstr);
++	return port;
+ }
+ 
+ char *xs_control_command(struct xs_handle *h, const char *cmd,
+@@ -1436,7 +1444,7 @@ static int read_message(struct xs_handle *h, int nonblocking)
+ 	 * whole amount requested.  Ie as soon as we have the start of
+ 	 * the message we block until we get all of it.
+ 	 */
+-         
++
+ 	struct xs_stored_msg *msg = NULL;
+ 	char *body = NULL;
+ 	int saved_errno = 0;
+-- 
+2.39.5
+
 
