@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 933C697E9D6
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:21:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.801846.1211873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6611897E9DB
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 12:23:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.801853.1211884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgBb-0001tJ-GZ; Mon, 23 Sep 2024 10:20:55 +0000
+	id 1ssgDv-0002SG-TX; Mon, 23 Sep 2024 10:23:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 801846.1211873; Mon, 23 Sep 2024 10:20:55 +0000
+Received: by outflank-mailman (output) from mailman id 801853.1211884; Mon, 23 Sep 2024 10:23:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssgBb-0001rg-Dp; Mon, 23 Sep 2024 10:20:55 +0000
-Received: by outflank-mailman (input) for mailman id 801846;
- Mon, 23 Sep 2024 10:20:53 +0000
+	id 1ssgDv-0002Ql-Ps; Mon, 23 Sep 2024 10:23:19 +0000
+Received: by outflank-mailman (input) for mailman id 801853;
+ Mon, 23 Sep 2024 10:23:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aZUN=QV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ssgBZ-0001ra-QY
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:20:53 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ id 1ssgDt-0002Qb-Vk
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 10:23:17 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 825627c8-7995-11ef-99a2-01e77a169b0f;
- Mon, 23 Sep 2024 12:20:51 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-5365d3f9d34so4047191e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:20:51 -0700 (PDT)
+ id d852f39d-7995-11ef-99a2-01e77a169b0f;
+ Mon, 23 Sep 2024 12:23:16 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a8d13b83511so508537166b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 03:23:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a90610f3ad7sm1203431266b.52.2024.09.23.03.20.50
+ a640c23a62f3a-a90610f4400sm1195155966b.84.2024.09.23.03.23.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Sep 2024 03:20:50 -0700 (PDT)
+ Mon, 23 Sep 2024 03:23:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 825627c8-7995-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: d852f39d-7995-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727086851; x=1727691651; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727086995; x=1727691795; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2P7LcxzgZrM28thxhI9pUX0Wh64W90mKwGvDa6EtThE=;
-        b=VupiBrZIM0smyXvstQjN34jnb8r/LQZt4dUY7vuzfvxc2YxZamA6YFOyk+EtPLzCcQ
-         leQRR9DUdHwAfKDcw5QbT+Z1M5vmnimJFNF1RbU2ngQuCjBFdY0nnAMSIw3b4T/Z30dl
-         sjo+9lijrgGghA6GIQnxcTIeDhJaGrOoMrKfqiRmCCWWaFI2GSbJQnjxK3O/9Csi/+1r
-         mjxQARjB7GgsAHP5CDEdYKNN7KYMDBSzCcyAstfVMk1aibWfwIEaRF7Yem/MbgZi7l4o
-         n73BPyXx6tdbB5HD+eRBPvys/xD6fuZvMSNjmpxVG1fkeFmgO7HBJNom367t82vrsTfZ
-         OTYA==
+        bh=Mj9J+zCG5PbTG3mgyILycRM/5ZmhMObTv4pc8nbCmeg=;
+        b=U3TVvtQaasAludhoFaeEUtl2UtXp9MsHpBBaAKhKHWNr/VTu6iOoy61j4K+RziKDY2
+         jHHXRToOtYGCfh5mJFrs+EaWSSCW/fal6T2ciKkxIObqUn4x9hnGmqBGQZs+QjGxPh66
+         lpClIjQnbpo09+yNauOT4MLLTYji2WX2sYJTVoNyisNGjYYttNhNggzGMm9DsD7MMhvk
+         INU5lXewjf4VoErJui8cMahIFOlaNSPCMeTRdPPHkmBF9TiB2sEBTZkrMxsOfhbu5Oah
+         s9D2avoxS5GSs9fji1yUr5NpJXQxokN64KXQojigRTAoCe7YHIBWk/30S3H0u5Vfz17Q
+         I76g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727086851; x=1727691651;
+        d=1e100.net; s=20230601; t=1727086995; x=1727691795;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2P7LcxzgZrM28thxhI9pUX0Wh64W90mKwGvDa6EtThE=;
-        b=Z2XXo3qaYaeR8Y0QyODPJ3ZmAODzvIlF2zZ263vhuCigCcp/o09GWMmC/Ac4Ewp7p+
-         jMaLuhCP0Cumnr4xHTcqI6LTyZjlnTSGNa8sK4hQcB2Sg08uQySKOQ+HpQ1X/5kisT/x
-         QUXIErejry9nVjrK4+uWiMWDGgce1EuchR6Krd/QKbjxq4tsjlLToF3iffaj0Z1ttMjK
-         XK4R9PpQ017PkyvUTzVWd+YvTPPbPs7RfDlvrsAMxXB44cfdIfK/IfkUGkKzMFughZXv
-         aUdUSPMJkrTjnsBE1qZMU+kpy0JYd83g2xhNc+PHqBHf/G1f1DprE0ntnye32Ts2Zp3C
-         lw7g==
-X-Forwarded-Encrypted: i=1; AJvYcCUlYsxNHy7/lhfnRHVMqIsLUzzNZMmWCszBxnZ7XNIbanftuGl4W8qoBX3tbtL0LLB9gcCnawvRIo8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy590IYLC7MIFmOc2h/qIdl4BaxquYIAcu3439jz/bTwxXdxvfS
-	Bg1jfzhWHd06kSOLkf5qFpvzv36/pWbng16EQDoLeHYtu4npLaFiCSaNc11IGg==
-X-Google-Smtp-Source: AGHT+IFc9Y9P7yxTuJnwOFCy9MYCrrGlWzNn9YLFlsHoWSsBb5AWBtV2XnRQXm/fS30nFwAxoAqNaw==
-X-Received: by 2002:a05:6512:1295:b0:536:a50a:3c25 with SMTP id 2adb3069b0e04-536ac2d6914mr5820870e87.12.1727086851018;
-        Mon, 23 Sep 2024 03:20:51 -0700 (PDT)
-Message-ID: <bf4cd191-c7f0-4150-bf75-bb1359beef36@suse.com>
-Date: Mon, 23 Sep 2024 12:20:58 +0200
+        bh=Mj9J+zCG5PbTG3mgyILycRM/5ZmhMObTv4pc8nbCmeg=;
+        b=eaC/e02jf3QBwhzGUvX1CnyVgzybWdvdwWRGOk1Fw0M6567e+dvizGijlq0GOWvTMc
+         hqcuYs9z0vnzlNZMUmw8Qscq4ymX1bdSHrM/VZKL+7HnsFEa6i17XYTpRisXCjhKw6aA
+         wA2McGlLVqpv1y5LfrGOWqziIWft0AKoOL9z09YXIdwmzMfW+/GbNdjxiVCG6MsLuTS6
+         93dzfXq/0E/XN/cei17ue0jR0TzfLyOIduIQCGy3beZpbdLnl7GLOZoCBwrYcx0qX2pG
+         ShoTOESCxk4HdW6fgx7e6Zwz69xrajIC2o2Yz0dJub0mfNu4bCj/H5B1+4IuhcfSbSnZ
+         Fgkw==
+X-Forwarded-Encrypted: i=1; AJvYcCXYNwnwyn5v1OZNSsoizkaNLP/DrtfLrM1+V/KBxiJjEJYFuc1G/E+pT8n/dS4vIoHWhQmnxvQDJU8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy5xmG54xilS6KUqf6d9hz5zQGDaC1b591csklehBygZtITfR7C
+	TMdHExKaMsZ0a2pxTXIacbY1UAPW2TvEDj4DOd9JIS+eKoJJ4zf68NfTwq79rw==
+X-Google-Smtp-Source: AGHT+IH2KJJTSxc+n/auZjNhZegqMAlSJV7gd4H8A3DhyMupssQYHXI4EZMAccUhH7Uw35EEAxwqZQ==
+X-Received: by 2002:a17:906:dac5:b0:a90:41a9:7c3e with SMTP id a640c23a62f3a-a90d5b00ff3mr1297476066b.65.1727086995361;
+        Mon, 23 Sep 2024 03:23:15 -0700 (PDT)
+Message-ID: <c27ebb1a-6ca4-41d7-99d8-ea613e3120fc@suse.com>
+Date: Mon, 23 Sep 2024 12:23:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] xen/arm: mpu: Introduce choice between MMU and MPU
+Subject: Re: [PATCH v2 4/4] xen/arm: mpu: Implement a dummy
+ enable_secondary_cpu_mm
 To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
@@ -90,7 +91,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  xen-devel@lists.xenproject.org
 References: <20240918175102.223076-1-ayan.kumar.halder@amd.com>
- <20240918175102.223076-2-ayan.kumar.halder@amd.com>
+ <20240918175102.223076-5-ayan.kumar.halder@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,22 +117,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240918175102.223076-2-ayan.kumar.halder@amd.com>
+In-Reply-To: <20240918175102.223076-5-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.09.2024 19:50, Ayan Kumar Halder wrote:
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -58,10 +58,24 @@ config PADDR_BITS
->  	default 40 if ARM_PA_BITS_40
->  	default 48 if ARM_64
->  
-> +choice
-> +	prompt "Memory management system"
-> +	default MMU if ARM
+On 18.09.2024 19:51, Ayan Kumar Halder wrote:
+> Secondary cpus initialization is not yet supported. Thus, we print an
+> appropriate message and put the secondary cpus in WFE state.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> Changes from :-
+> 
+> v1 - 1. NR_CPUS is defined as 1 for MPU
 
-Why the "if ARM", when ARM=y in all cases?
+Not quite, what you do is ...
+
+> --- a/xen/arch/Kconfig
+> +++ b/xen/arch/Kconfig
+> @@ -11,6 +11,7 @@ config NR_CPUS
+>  	default "8" if ARM && RCAR3
+>  	default "4" if ARM && QEMU
+>  	default "4" if ARM && MPSOC
+> +	default "1" if ARM && MPU
+>  	default "128" if ARM
+>  	help
+>  	  Controls the build-time size of various arrays and bitmaps
+
+... merely set the default. I wonder how useful that is, the more that
+- as per the description - this is temporary only anyway.
 
 Jan
 
