@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D470F97EFE0
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 19:37:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802256.1212472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 470ED97EFFB
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2024 19:52:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802262.1212482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssmzc-0001yK-Tb; Mon, 23 Sep 2024 17:37:00 +0000
+	id 1ssnDu-0004mw-47; Mon, 23 Sep 2024 17:51:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802256.1212472; Mon, 23 Sep 2024 17:37:00 +0000
+Received: by outflank-mailman (output) from mailman id 802262.1212482; Mon, 23 Sep 2024 17:51:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssmzc-0001vQ-Qf; Mon, 23 Sep 2024 17:37:00 +0000
-Received: by outflank-mailman (input) for mailman id 802256;
- Mon, 23 Sep 2024 17:36:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ssnDu-0004kJ-0b; Mon, 23 Sep 2024 17:51:46 +0000
+Received: by outflank-mailman (input) for mailman id 802262;
+ Mon, 23 Sep 2024 17:51:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+7mE=QV=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1ssmzb-0001vI-Ih
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 17:36:59 +0000
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [2607:f8b0:4864:20::22d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6dc32317-79d2-11ef-99a2-01e77a169b0f;
- Mon, 23 Sep 2024 19:36:57 +0200 (CEST)
-Received: by mail-oi1-x22d.google.com with SMTP id
- 5614622812f47-3e03c736466so2767971b6e.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 10:36:57 -0700 (PDT)
+ <SRS0=MtUH=QV=gmail.com=milandjokic1995@srs-se1.protection.inumbo.net>)
+ id 1ssnDs-0004kD-0G
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2024 17:51:44 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7debb688-79d4-11ef-a0b9-8be0dac302b0;
+ Mon, 23 Sep 2024 19:51:42 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-42cb5b3c57eso46240925e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Sep 2024 10:51:42 -0700 (PDT)
+Received: from Xen-host.domain.local ([89.216.37.146])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-378e73e80d0sm24848887f8f.25.2024.09.23.10.51.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Sep 2024 10:51:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,445 +45,532 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6dc32317-79d2-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 7debb688-79d4-11ef-a0b9-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1727113016; x=1727717816; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1727113902; x=1727718702; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ov1xLy4ZM8m0Gy4QRSsq9pZBPPbK710WfsLEmnsRKmo=;
-        b=k5BnjjUzB0+zvbETgPqMSBRbA78Uhl8xiYNXx7zcV0nUpa0NeB8j6gdScsDUHawaKF
-         me+1ruY3KN2pWTzHjnC0ma6+3/AmvHrcJTlcQOJzkjerTFItBgk6kdVvW28pD071Eu5i
-         R05cUg4G/ezi6vyFmlgDGRag+XxpsPJoTFtM2Kksx8RJKumbgQSS4eNsxA00l7MhXKrM
-         AeATnkYNf2h2M4qFsKe3eml1vh8mWwDvkz5xHBoaUCs1cceJHylcjv0yjh/vTZEyD9uo
-         gl5qJJI53oLqxQcRzPsa/dvaUnYi0NONtTa84Y4TvNW2N7O/OwaFUfVmGDvL9H6k0mT2
-         OWGQ==
+        bh=tsXlhjU+4Hce0iMK21m8sEq36yKNuqhh64j/nnc7Ed0=;
+        b=SY8XpreedG+pNXI7sOb5Rjjp9Az13seyiJTD5MJKt1J6IBaOK/vrmweVtbVlOIHz/L
+         LkbpfbDRib9aKizEbWD2y4lvHgHxh6YTELKh7UwhDwmnEZnvioTUwDzH5pQCjE3iAlrc
+         t9QIsegeaOREQMhgbSQaGJr3LrRNxiHbbc4mxzyFtbBIPiMqTqQi8UyffbJuuvnXSwIn
+         2K7uY627fNKlNCFilJ+V377s0W9GOMsRAf/PsPFTZz08snusLvUAqqbeQ2ngtDavpYeI
+         tdtplqwWRH70h7WlX20OxXXmYDw8kgewxIALiqGC8T6Z+5fZNvpiICI243Chsc7In1aE
+         EC6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727113016; x=1727717816;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1727113902; x=1727718702;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Ov1xLy4ZM8m0Gy4QRSsq9pZBPPbK710WfsLEmnsRKmo=;
-        b=aVG7H2oGhRtYFg5bmEvOPGiBHXbafRi2gnikFDxx2yOmvAPrBlLwtFAc1Ylh5l3qCp
-         hmWsh502rjXXlBxJwZ8MsoJUOaX+AyGluCSM0am//NlYVwy4Ec/TS9gfwE6BLSONlRI4
-         aJzrlD6RIG1udth3Bcm3kLKSmt062MlyiAGH2ndTb4wwz+NsEANWkGGDFd+iNPMwJgsY
-         16QqpBWmT3YFGVABjt487dvlOLw7mKZ9SzeJu9iqOKa7k4FckDTvWVr65M+YC8Q8AKH7
-         FBs0ohLe/3UqjwyV/MFoWSqOisoGpE/+OFeNXRWwE/17kX+qWrlMeXdUBtSOrF/qjRSL
-         Dj0g==
-X-Gm-Message-State: AOJu0YwKuG00RLZcXJ/gu/zmPzzywRQlsO2KsMaNy5cl9ZH81JuYRRW7
-	GUpJ6F406YWl6a5Ukgdhw/uCKNJzpCjFRQPPAJ3tS5BcAaKCqjfG34xuO+J6tXdPfM179CeqSAw
-	xZIEwMf0Utmwn1My5osu7UQY+PG4SW88o9eYVng==
-X-Google-Smtp-Source: AGHT+IECdl7C6ii0GPpYoZ2EJb04qnodH9l5Gaci+QVxZHvCYyAYtl864ND7oU3M5oRVK1jDirgoZ2EoDzYEWkBHdxo=
-X-Received: by 2002:a05:6808:1597:b0:3e0:42ee:a8dc with SMTP id
- 5614622812f47-3e272924fabmr6008189b6e.13.1727113015737; Mon, 23 Sep 2024
- 10:36:55 -0700 (PDT)
+        bh=tsXlhjU+4Hce0iMK21m8sEq36yKNuqhh64j/nnc7Ed0=;
+        b=AsLaBl/7re0dxJrkqx4RpTPH+8sBOTo3ZN3iaXuTP/nz+MSxwNyoK8b+vipCPBIu/Q
+         CpCV7Mkyz1xBCRfTFTan27vhZXi39VnPJ5TP92yR3fVkEqOyA6JXiCcn5LT+4m/K6XuR
+         AJxC3qelfbdsukf23ECCi4FXLmbis4KK5tKc1B+nGhSetZzqAmoxZHWI9wAYXvFVO9d6
+         BRwi1KxfXHcW8l1gYOT7qrI6wj396U5AwcHTU6ZVETNp/3Q2kCDY9+x2g42HS5YnKdTn
+         QdqurNql9COkYzbBzAxLKDdxelRGQcbGGL69FiR3TuAtuy3hTqAg3/tcUYtfm19T86w1
+         S6gw==
+X-Gm-Message-State: AOJu0YwrR8OC0mSJpoaefWYgFvRecOMxfQZ2vEMUviZcEAxeW/cIYS8E
+	w1ck8iidbDCAHql3p8tySrUTVIGBz2I0mV9LXzwkFntJM+r3Cuu7el6AWDRx
+X-Google-Smtp-Source: AGHT+IFxbYux5kQsQOX+BwxSBKBGCQonCJGMSVhz6QewS99TOicmH0nDDsCduCXTH2Ka6vs6xshfEw==
+X-Received: by 2002:a05:600c:1c87:b0:42c:b7f9:4bbd with SMTP id 5b1f17b1804b1-42e7c19bb93mr88095665e9.26.1727113901349;
+        Mon, 23 Sep 2024 10:51:41 -0700 (PDT)
+From: Milan Djokic <milandjokic1995@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: frediano.ziglio@cloud.com,
+	Nikola Jelic <nikola.jelic@rt-rk.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Milan Djokic <milan.djokic@rt-rk.com>
+Subject: [PATCH v3] x86/efi: Use generic PE/COFF structures
+Date: Mon, 23 Sep 2024 19:50:08 +0200
+Message-Id: <5dfa21dd5f8e968bf38fda5690964e0f1d957ccc.1727113391.git.milandjokic1995@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <367c5d95fb89e7dd3b4260f136d194a4cd0b854a.1724765763.git.milandjokic1995@gmail.com>
+References: <367c5d95fb89e7dd3b4260f136d194a4cd0b854a.1724765763.git.milandjokic1995@gmail.com>
 MIME-Version: 1.0
-References: <cover.1726676338.git.bertrand.marquis@arm.com> <0bb3d0faf5a80112a95363ee9fd023d510e3f0c8.1726676338.git.bertrand.marquis@arm.com>
-In-Reply-To: <0bb3d0faf5a80112a95363ee9fd023d510e3f0c8.1726676338.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Mon, 23 Sep 2024 19:36:44 +0200
-Message-ID: <CAHUa44FLzkXsXoHtbiS1djDnSi5H2aupHmr0i759Ldd_NQD4ow@mail.gmail.com>
-Subject: Re: [PATCH 07/10] xen/arm: ffa: Transmit RXTX buffers to the SPMC
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Nikola Jelic <nikola.jelic@rt-rk.com>
 
-On Thu, Sep 19, 2024 at 2:20=E2=80=AFPM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> When an RXTX buffer is mapped by a VM transmit it to the SPMC when it
-> supports RX_ACQUIRE.
-> As a consequence of that, we must acquire the RX buffer of a VM from the
-> SPMC when we want to use it:
-> - create a generic acquire and release function to get the rx buffer of
->   a VM which gets it from the SPMC when supported
-> - rename the rx_acquire to hyp_rx_acquire to remove confusion
-> - rework the rx_lock to only lock access to rx_is_free and only allow
->   usage of the rx buffer to one who managed to acquire it, thus removing
->   the trylock and returning busy if rx_is_free is false
->
-> As part of this change move some structure definition to ffa_private
-> from ffa_shm as those are need for the MAP call with the SPMC.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->  xen/arch/arm/tee/ffa.c          |   2 +-
->  xen/arch/arm/tee/ffa_partinfo.c |  28 +++----
->  xen/arch/arm/tee/ffa_private.h  |  22 +++++-
->  xen/arch/arm/tee/ffa_rxtx.c     | 126 ++++++++++++++++++++++++++++----
->  xen/arch/arm/tee/ffa_shm.c      |  15 ----
->  5 files changed, 142 insertions(+), 51 deletions(-)
->
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 45f9c1db8a6e..4a769e20007b 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -344,7 +344,7 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
-s)
->          ffa_handle_partition_info_get(regs);
->          return true;
->      case FFA_RX_RELEASE:
-> -        e =3D ffa_handle_rx_release();
-> +        e =3D ffa_rx_release(d);
->          break;
->      case FFA_MSG_SEND_DIRECT_REQ_32:
->      case FFA_MSG_SEND_DIRECT_REQ_64:
-> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
-nfo.c
-> index b391b1adf9f2..fde187dba4e5 100644
-> --- a/xen/arch/arm/tee/ffa_partinfo.c
-> +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> @@ -121,11 +121,9 @@ void ffa_handle_partition_info_get(struct cpu_user_r=
-egs *regs)
->          goto out;
->      }
->
-> -    if ( !spin_trylock(&ctx->rx_lock) )
-> -    {
-> -        ret =3D FFA_RET_BUSY;
-> +    ret =3D ffa_rx_acquire(d);
-> +    if ( ret !=3D FFA_RET_OK )
->          goto out;
-> -    }
->
->      dst_buf =3D ctx->rx;
->
-> @@ -135,22 +133,16 @@ void ffa_handle_partition_info_get(struct cpu_user_=
-regs *regs)
->          goto out_rx_release;
->      }
->
-> -    if ( !ctx->page_count || !ctx->rx_is_free )
-> -    {
-> -        ret =3D FFA_RET_DENIED;
-> -        goto out_rx_release;
-> -    }
-> -
->      spin_lock(&ffa_rx_buffer_lock);
->
->      ret =3D ffa_partition_info_get(uuid, 0, &ffa_sp_count, &src_size);
->
->      if ( ret )
-> -        goto out_rx_buf_unlock;
-> +        goto out_rx_hyp_unlock;
->
->      /*
->       * ffa_partition_info_get() succeeded so we now own the RX buffer we
-> -     * share with the SPMC. We must give it back using ffa_rx_release()
-> +     * share with the SPMC. We must give it back using ffa_hyp_rx_releas=
-e()
->       * once we've copied the content.
->       */
->
-> @@ -193,15 +185,13 @@ void ffa_handle_partition_info_get(struct cpu_user_=
-regs *regs)
->          }
->      }
->
-> -    ctx->rx_is_free =3D false;
-> -
->  out_rx_hyp_release:
-> -    ffa_rx_release();
-> -out_rx_buf_unlock:
-> +    ffa_hyp_rx_release();
-> +out_rx_hyp_unlock:
->      spin_unlock(&ffa_rx_buffer_lock);
->  out_rx_release:
-> -    spin_unlock(&ctx->rx_lock);
-> -
-> +    if ( ret !=3D FFA_RET_OK )
-> +        ffa_rx_release(d);
->  out:
->      if ( ret )
->          ffa_set_regs_error(regs, ret);
-> @@ -368,7 +358,7 @@ bool ffa_partinfo_init(void)
->      ret =3D init_subscribers(count, fpi_size);
->
->  out:
-> -    ffa_rx_release();
-> +    ffa_hyp_rx_release();
->      return ret;
->  }
->
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index c6903e335489..84b0f866a71e 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -263,6 +263,21 @@
->                                      FFA_FUNC_ID(FFA_FUNC_MIN)) << 1 | \
->                                      FFA_FUNC_CONV(id))
->
-> +/* Constituent memory region descriptor */
-> +struct ffa_address_range {
-> +    uint64_t address;
-> +    uint32_t page_count;
-> +    uint32_t reserved;
-> +};
-> +
-> +/* Composite memory region descriptor */
-> +struct ffa_mem_region {
-> +    uint32_t total_page_count;
-> +    uint32_t address_range_count;
-> +    uint64_t reserved;
-> +    struct ffa_address_range address_range_array[];
-> +};
-> +
->  struct ffa_ctx_notif {
->      bool enabled;
->
-> @@ -290,7 +305,7 @@ struct ffa_ctx {
->      struct ffa_ctx_notif notif;
->      /*
->       * tx_lock is used to serialize access to tx
-> -     * rx_lock is used to serialize access to rx
-> +     * rx_lock is used to serialize access to rx_is_free
->       * lock is used for the rest in this struct
->       */
->      spinlock_t tx_lock;
-> @@ -329,7 +344,8 @@ void ffa_rxtx_domain_destroy(struct domain *d);
->  uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
->                              register_t rx_addr, uint32_t page_count);
->  uint32_t ffa_handle_rxtx_unmap(void);
-> -int32_t ffa_handle_rx_release(void);
-> +int32_t ffa_rx_acquire(struct domain *d);
-> +int32_t ffa_rx_release(struct domain *d);
->
->  void ffa_notif_init(void);
->  void ffa_notif_init_interrupt(void);
-> @@ -418,7 +434,7 @@ static inline int32_t ffa_simple_call(uint32_t fid, r=
-egister_t a1,
->      return ffa_get_ret_code(&resp);
->  }
->
-> -static inline int32_t ffa_rx_release(void)
-> +static inline int32_t ffa_hyp_rx_release(void)
->  {
->      return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
->  }
-> diff --git a/xen/arch/arm/tee/ffa_rxtx.c b/xen/arch/arm/tee/ffa_rxtx.c
-> index cb54c76911fd..dacf33cc9efc 100644
-> --- a/xen/arch/arm/tee/ffa_rxtx.c
-> +++ b/xen/arch/arm/tee/ffa_rxtx.c
-> @@ -30,6 +30,17 @@ struct ffa_endpoint_rxtx_descriptor_1_1 {
->      uint32_t tx_region_offs;
->  };
->
-> +static int32_t ffa_rxtx_map(paddr_t tx_addr, paddr_t rx_addr,
-> +                            uint32_t page_count)
-> +{
-> +    return ffa_simple_call(FFA_RXTX_MAP_64, tx_addr, rx_addr, page_count=
-, 0);
-> +}
-> +
-> +static int32_t ffa_rxtx_unmap(void)
-> +{
-> +    return ffa_simple_call(FFA_RXTX_UNMAP, 0, 0, 0, 0);
-> +}
-> +
->  uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t tx_addr,
->                              register_t rx_addr, uint32_t page_count)
->  {
-> @@ -42,6 +53,9 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t t=
-x_addr,
->      void *rx;
->      void *tx;
->
-> +    /* The code is considering that we only get one page for now */
-> +    BUILD_BUG_ON(FFA_MAX_RXTX_PAGE_COUNT !=3D 1);
-> +
->      if ( !smccc_is_conv_64(fid) )
->      {
->          /*
-> @@ -87,6 +101,65 @@ uint32_t ffa_handle_rxtx_map(uint32_t fid, register_t=
- tx_addr,
->      if ( !rx )
->          goto err_unmap_tx;
->
-> +    /*
-> +     * Transmit the RX/TX buffer information to the SPM if acquire is su=
-pported
-> +     * as the spec says that if not there is not need to acquire/release=
-/map
-> +     * rxtx buffers from the SPMC
-> +     */
-> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
-> +    {
-> +        struct ffa_endpoint_rxtx_descriptor_1_1 *rxtx_desc;
-> +        struct ffa_mem_region *mem_reg;
-> +
-> +        /* All must fit in our TX buffer */
-> +        BUILD_BUG_ON((sizeof(*rxtx_desc) + sizeof(*mem_reg)*2 +
-> +                      sizeof(struct ffa_address_range)*2) > FFA_PAGE_SIZ=
-E);
-> +
-> +        spin_lock(&ffa_tx_buffer_lock);
-> +        rxtx_desc =3D ffa_tx;
-> +
-> +        /*
-> +         * We have only one page for each so we pack everything:
-> +         * - rx region descriptor
-> +         * - rx region range
-> +         * - tx region descriptor
-> +         * - tx region range
-> +         */
-> +        rxtx_desc->sender_id =3D ffa_get_vm_id(d);
-> +        rxtx_desc->reserved =3D 0;
-> +        rxtx_desc->rx_region_offs =3D sizeof(*rxtx_desc);
-> +        rxtx_desc->tx_region_offs =3D sizeof(*rxtx_desc) +
-> +                                    offsetof(struct ffa_mem_region,
-> +                                             address_range_array[1]);
-> +
-> +        /* rx buffer */
-> +        mem_reg =3D ffa_tx + sizeof(*rxtx_desc);
-> +        mem_reg->total_page_count =3D 1;
-> +        mem_reg->address_range_count =3D 1;
-> +        mem_reg->reserved =3D 0;
-> +
-> +        mem_reg->address_range_array[0].address =3D page_to_maddr(rx_pg)=
-;
-> +        mem_reg->address_range_array[0].page_count =3D 1;
-> +        mem_reg->address_range_array[0].reserved =3D 0;
-> +
-> +        /* tx buffer */
-> +        mem_reg =3D ffa_tx + rxtx_desc->tx_region_offs;
-> +        mem_reg->total_page_count =3D 1;
-> +        mem_reg->address_range_count =3D 1;
-> +        mem_reg->reserved =3D 0;
-> +
-> +        mem_reg->address_range_array[0].address =3D page_to_maddr(tx_pg)=
-;
-> +        mem_reg->address_range_array[0].page_count =3D 1;
-> +        mem_reg->address_range_array[0].reserved =3D 0;
-> +
-> +        ret =3D ffa_rxtx_map(0, 0, 1);
+Adapted x86 efi parser and mkreloc utility to use generic PE header
+(efi/pe.h), instead of locally defined structures for each component.
 
-I can't find the corresponding ffa_rxtx_unmap() of a VM rxtx buffer.
+Signed-off-by: Nikola Jelic <nikola.jelic@rt-rk.com>
+Signed-off-by: Milan Djokic <milan.djokic@rt-rk.com>
+---
+Changes in V3:
+  - Add xen/include among include dirs for mkreloc, instead of using
+    relative path in code to include pe.h
+Changes in V2:
+  - Using pe header constants instead of hardcoded values (magic,
+    machine)
+---
+ xen/arch/x86/Makefile      |   2 +
+ xen/arch/x86/efi/mkreloc.c | 134 +++++++++++--------------------------
+ xen/common/efi/pe.c        |  92 ++++++-------------------
+ 3 files changed, 61 insertions(+), 167 deletions(-)
 
-Cheers,
-Jens
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 286c003ec3..b1c8afbf03 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -88,6 +88,8 @@ extra-y += xen.lds
+ hostprogs-y += boot/mkelf32
+ hostprogs-y += efi/mkreloc
+ 
++$(obj)/efi/mkreloc:HOSTCFLAGS += -I$(srctree)/include
++
+ # Allows usercopy.c to include itself
+ $(obj)/usercopy.o: CFLAGS-y += -iquote .
+ 
+diff --git a/xen/arch/x86/efi/mkreloc.c b/xen/arch/x86/efi/mkreloc.c
+index 083740ab8a..7c9aac49ed 100644
+--- a/xen/arch/x86/efi/mkreloc.c
++++ b/xen/arch/x86/efi/mkreloc.c
+@@ -9,45 +9,7 @@
+ #include <sys/mman.h>
+ #include <unistd.h>
+ 
+-struct mz_hdr {
+-    uint16_t signature;
+-#define MZ_SIGNATURE 0x5a4d
+-    uint16_t last_page_size;
+-    uint16_t page_count;
+-    uint16_t relocation_count;
+-    uint16_t header_paras;
+-    uint16_t min_paras;
+-    uint16_t max_paras;
+-    uint16_t entry_ss;
+-    uint16_t entry_sp;
+-    uint16_t checksum;
+-    uint16_t entry_ip;
+-    uint16_t entry_cs;
+-    uint16_t relocations;
+-    uint16_t overlay;
+-    uint8_t reserved[32];
+-    uint32_t extended_header_base;
+-};
+-
+-struct pe_hdr {
+-    uint32_t signature;
+-#define PE_SIGNATURE 0x00004550
+-    uint16_t cpu;
+-    uint16_t section_count;
+-    int32_t timestamp;
+-    uint32_t symbols_file_offset;
+-    uint32_t symbol_count;
+-    uint16_t opt_hdr_size;
+-    uint16_t flags;
+-    struct {
+-        uint16_t magic;
+-#define PE_MAGIC_EXE32     0x010b
+-#define PE_MAGIC_EXE32PLUS 0x020b
+-        uint8_t linker_major, linker_minor;
+-        uint32_t code_size, data_size, bss_size;
+-        uint32_t entry_rva, code_rva, data_rva;
+-    } opt_hdr;
+-};
++#include <efi/pe.h>
+ 
+ #define PE_PAGE_SIZE 0x1000
+ 
+@@ -55,22 +17,6 @@ struct pe_hdr {
+ #define PE_BASE_RELOC_HIGHLOW  3
+ #define PE_BASE_RELOC_DIR64   10
+ 
+-struct coff_section {
+-    char name[8];
+-    uint32_t size;
+-    uint32_t rva;
+-    uint32_t file_size;
+-    uint32_t file_offset;
+-    uint32_t relocation_file_offset;
+-    uint32_t line_number_file_offset;
+-    uint16_t relocation_count;
+-    uint16_t line_number_count;
+-    uint32_t flags;
+-#define COFF_SECTION_BSS         0x00000080U
+-#define COFF_SECTION_DISCARDABLE 0x02000000U
+-#define COFF_SECTION_WRITEABLE   0x80000000U
+-};
+-
+ static void usage(const char *cmd, int rc)
+ {
+     fprintf(rc ? stderr : stdout,
+@@ -80,7 +26,7 @@ static void usage(const char *cmd, int rc)
+ }
+ 
+ static unsigned int load(const char *name, int *handle,
+-                         struct coff_section **sections,
++                         struct section_header **sections,
+                          uint_fast64_t *image_base,
+                          uint32_t *image_size,
+                          unsigned int *width)
+@@ -88,6 +34,7 @@ static unsigned int load(const char *name, int *handle,
+     int in = open(name, O_RDONLY);
+     struct mz_hdr mz_hdr;
+     struct pe_hdr pe_hdr;
++    struct pe32_opt_hdr pe32_opt_hdr;
+     uint32_t base;
+ 
+     if ( in < 0 ||
+@@ -96,16 +43,17 @@ static unsigned int load(const char *name, int *handle,
+         perror(name);
+         exit(2);
+     }
+-    if ( mz_hdr.signature != MZ_SIGNATURE ||
+-         mz_hdr.relocations < sizeof(mz_hdr) ||
+-         !mz_hdr.extended_header_base )
++    if ( mz_hdr.magic != MZ_MAGIC ||
++         mz_hdr.reloc_table_offset < sizeof(mz_hdr) ||
++         !mz_hdr.peaddr )
+     {
+         fprintf(stderr, "%s: Wrong DOS file format\n", name);
+         exit(2);
+     }
+ 
+-    if ( lseek(in, mz_hdr.extended_header_base, SEEK_SET) < 0 ||
++    if ( lseek(in, mz_hdr.peaddr, SEEK_SET) < 0 ||
+          read(in, &pe_hdr, sizeof(pe_hdr)) != sizeof(pe_hdr) ||
++         read(in, &pe32_opt_hdr, sizeof(pe32_opt_hdr)) != sizeof(pe32_opt_hdr) ||
+          read(in, &base, sizeof(base)) != sizeof(base) ||
+          /*
+           * Luckily the image size field lives at the
+@@ -117,35 +65,33 @@ static unsigned int load(const char *name, int *handle,
+         perror(name);
+         exit(3);
+     }
+-    switch ( (pe_hdr.signature == PE_SIGNATURE &&
+-              pe_hdr.opt_hdr_size > sizeof(pe_hdr.opt_hdr)) *
+-             pe_hdr.opt_hdr.magic )
++    switch ( (pe_hdr.magic == PE_MAGIC &&
++              pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr)) *
++              pe32_opt_hdr.magic )
+     {
+-    case PE_MAGIC_EXE32:
++    case PE_OPT_MAGIC_PE32:
+         *width = 32;
+         *image_base = base;
+         break;
+-    case PE_MAGIC_EXE32PLUS:
++    case PE_OPT_MAGIC_PE32PLUS:
+         *width = 64;
+-        *image_base = ((uint64_t)base << 32) | pe_hdr.opt_hdr.data_rva;
++        *image_base = ((uint64_t)base << 32) | pe32_opt_hdr.data_base;
+         break;
+     default:
+         fprintf(stderr, "%s: Wrong PE file format\n", name);
+         exit(3);
+     }
+ 
+-    *sections = malloc(pe_hdr.section_count * sizeof(**sections));
++    *sections = malloc(pe_hdr.sections * sizeof(**sections));
+     if ( !*sections )
+     {
+         perror(NULL);
+         exit(4);
+     }
+-    if ( lseek(in,
+-               mz_hdr.extended_header_base + offsetof(struct pe_hdr, opt_hdr) +
+-                  pe_hdr.opt_hdr_size,
++    if ( lseek(in, mz_hdr.peaddr + sizeof(pe_hdr) + pe_hdr.opt_hdr_size,
+                SEEK_SET) < 0 ||
+-         read(in, *sections, pe_hdr.section_count * sizeof(**sections)) !=
+-             pe_hdr.section_count * sizeof(**sections) )
++         read(in, *sections, pe_hdr.sections * sizeof(**sections)) !=
++             pe_hdr.sections * sizeof(**sections) )
+     {
+         perror(name);
+         exit(4);
+@@ -153,12 +99,12 @@ static unsigned int load(const char *name, int *handle,
+ 
+     *handle = in;
+ 
+-    return pe_hdr.section_count;
++    return pe_hdr.sections;
+ }
+ 
+ static long page_size;
+ 
+-static const void *map_section(const struct coff_section *sec, int in,
++static const void *map_section(const struct section_header *sec, int in,
+                                const char *name)
+ {
+     const char *ptr;
+@@ -166,10 +112,10 @@ static const void *map_section(const struct coff_section *sec, int in,
+ 
+     if ( !page_size )
+         page_size = sysconf(_SC_PAGESIZE);
+-    offs = sec->file_offset & (page_size - 1);
++    offs = sec->data_addr & (page_size - 1);
+ 
+-    ptr = mmap(0, offs + sec->file_size, PROT_READ, MAP_PRIVATE, in,
+-               sec->file_offset - offs);
++    ptr = mmap(0, offs + sec->raw_data_size, PROT_READ, MAP_PRIVATE, in,
++               sec->data_addr - offs);
+     if ( ptr == MAP_FAILED )
+     {
+         perror(name);
+@@ -179,15 +125,15 @@ static const void *map_section(const struct coff_section *sec, int in,
+     return ptr + offs;
+ }
+ 
+-static void unmap_section(const void *ptr, const struct coff_section *sec)
++static void unmap_section(const void *ptr, const struct section_header *sec)
+ {
+-    unsigned long offs = sec->file_offset & (page_size - 1);
++    unsigned long offs = sec->data_addr & (page_size - 1);
+ 
+-    munmap((char *)ptr - offs, offs + sec->file_size);
++    munmap((char *)ptr - offs, offs + sec->raw_data_size);
+ }
+ 
+ static void diff_sections(const unsigned char *ptr1, const unsigned char *ptr2,
+-                          const struct coff_section *sec,
++                          const struct section_header *sec,
+                           int_fast64_t diff, unsigned int width,
+                           uint_fast64_t base, uint_fast64_t end)
+ {
+@@ -208,7 +154,7 @@ static void diff_sections(const unsigned char *ptr1, const unsigned char *ptr2,
+     while ( !(diff & (((int_fast64_t)1 << ((disp + 1) * CHAR_BIT)) - 1)) )
+         ++disp;
+ 
+-    for ( i = 0; i < sec->file_size; ++i )
++    for ( i = 0; i < sec->raw_data_size; ++i )
+     {
+         uint_fast32_t rva;
+         union {
+@@ -222,7 +168,7 @@ static void diff_sections(const unsigned char *ptr1, const unsigned char *ptr2,
+         if ( ptr1[i] == ptr2[i] )
+             continue;
+ 
+-        if ( i < disp || i + width - disp > sec->file_size )
++        if ( i < disp || i + width - disp > sec->raw_data_size )
+         {
+             fprintf(stderr,
+                     "Bogus difference at %.8s:%08" PRIxFAST32 "\n",
+@@ -250,11 +196,11 @@ static void diff_sections(const unsigned char *ptr1, const unsigned char *ptr2,
+             reloc_size += reloc_size & 2;
+             if ( reloc_size )
+                 printf("\t.equ rva_%08" PRIxFAST32 "_relocs,"
+-                             " %#08" PRIxFAST32 "\n",
++                       " %#08" PRIxFAST32 "\n",
+                        cur_rva, reloc_size);
+             printf("\t.balign 4\n"
+                    "\t.long %#08" PRIxFAST32 ","
+-                          " rva_%08" PRIxFAST32 "_relocs\n",
++                   " rva_%08" PRIxFAST32 "_relocs\n",
+                    rva, rva);
+             cur_rva = rva;
+             reloc_size = 8;
+@@ -267,7 +213,7 @@ static void diff_sections(const unsigned char *ptr1, const unsigned char *ptr2,
+             exit(3);
+         }
+ 
+-        if ( !(sec->flags & COFF_SECTION_WRITEABLE) )
++        if ( !(sec->flags & IMAGE_SCN_MEM_WRITE) )
+             fprintf(stderr,
+                     "Warning: relocation to r/o section %.8s:%08" PRIxFAST32 "\n",
+                     sec->name, i - disp);
+@@ -285,7 +231,7 @@ int main(int argc, char *argv[])
+     unsigned int i, nsec, width1, width2;
+     uint_fast64_t base1, base2;
+     uint32_t size1, size2;
+-    struct coff_section *sec1, *sec2;
++    struct section_header *sec1, *sec2;
+ 
+     if ( argc == 1 ||
+          !strcmp(argv[1], "-?") ||
+@@ -328,16 +274,16 @@ int main(int argc, char *argv[])
+ 
+         if ( memcmp(sec1[i].name, sec2[i].name, sizeof(sec1[i].name)) ||
+              sec1[i].rva != sec2[i].rva ||
+-             sec1[i].size != sec2[i].size ||
+-             sec1[i].file_size != sec2[i].file_size ||
++             sec1[i].virtual_size != sec2[i].virtual_size ||
++             sec1[i].raw_data_size != sec2[i].raw_data_size ||
+              sec1[i].flags != sec2[i].flags )
+         {
+             fprintf(stderr, "Mismatched section %u parameters\n", i);
+             return 5;
+         }
+ 
+-        if ( !sec1[i].size ||
+-             (sec1[i].flags & (COFF_SECTION_DISCARDABLE|COFF_SECTION_BSS)) )
++        if ( !sec1[i].virtual_size ||
++             (sec1[i].flags & (IMAGE_SCN_MEM_DISCARDABLE | IMAGE_SCN_CNT_UNINITIALIZED_DATA)) )
+             continue;
+ 
+         /*
+@@ -354,10 +300,10 @@ int main(int argc, char *argv[])
+             return 3;
+         }
+ 
+-        if ( sec1[i].file_size > sec1[i].size )
++        if ( sec1[i].raw_data_size > sec1[i].virtual_size )
+         {
+-            sec1[i].file_size = sec1[i].size;
+-            sec2[i].file_size = sec2[i].size;
++            sec1[i].raw_data_size = sec1[i].virtual_size;
++            sec2[i].raw_data_size = sec2[i].virtual_size;
+         }
+         ptr1 = map_section(sec1 + i, in1, argv[1]);
+         ptr2 = map_section(sec2 + i, in2, argv[2]);
+diff --git a/xen/common/efi/pe.c b/xen/common/efi/pe.c
+index ef8a2543e0..edaa37006d 100644
+--- a/xen/common/efi/pe.c
++++ b/xen/common/efi/pe.c
+@@ -20,32 +20,10 @@
+  * Lesser General Public License for more details.
+  */
+ 
+-
+ #include "efi.h"
++#include "efi/pe.h"
+ 
+-struct DosFileHeader {
+-    UINT8   Magic[2];
+-    UINT16  LastSize;
+-    UINT16  nBlocks;
+-    UINT16  nReloc;
+-    UINT16  HdrSize;
+-    UINT16  MinAlloc;
+-    UINT16  MaxAlloc;
+-    UINT16  ss;
+-    UINT16  sp;
+-    UINT16  Checksum;
+-    UINT16  ip;
+-    UINT16  cs;
+-    UINT16  RelocPos;
+-    UINT16  nOverlay;
+-    UINT16  reserved[4];
+-    UINT16  OEMId;
+-    UINT16  OEMInfo;
+-    UINT16  reserved2[10];
+-    UINT32  ExeHeader;
+-};
+-
+-#if defined(__arm__) || defined (__aarch64__)
++#if defined(__arm__) || defined(__aarch64__)
+ #define PE_HEADER_MACHINE 0xaa64
+ #elif defined(__x86_64__)
+ #define PE_HEADER_MACHINE 0x8664
+@@ -53,45 +31,17 @@ struct DosFileHeader {
+ #error "Unknown architecture"
+ #endif
+ 
+-struct PeFileHeader {
+-    UINT16  Machine;
+-    UINT16  NumberOfSections;
+-    UINT32  TimeDateStamp;
+-    UINT32  PointerToSymbolTable;
+-    UINT32  NumberOfSymbols;
+-    UINT16  SizeOfOptionalHeader;
+-    UINT16  Characteristics;
+-};
+-
+-struct PeHeader {
+-    UINT8   Magic[4];
+-    struct PeFileHeader FileHeader;
+-};
+-
+-struct PeSectionHeader {
+-    CHAR8   Name[8];
+-    UINT32  VirtualSize;
+-    UINT32  VirtualAddress;
+-    UINT32  SizeOfRawData;
+-    UINT32  PointerToRawData;
+-    UINT32  PointerToRelocations;
+-    UINT32  PointerToLinenumbers;
+-    UINT16  NumberOfRelocations;
+-    UINT16  NumberOfLinenumbers;
+-    UINT32  Characteristics;
+-};
+-
+-static bool __init pe_name_compare(const struct PeSectionHeader *sect,
++static bool __init pe_name_compare(const struct section_header *sect,
+                                    const CHAR16 *name)
+ {
+     size_t i;
+ 
+-    if ( sect->Name[0] != '.' )
++    if ( sect->name[0] != '.' )
+         return false;
+ 
+-    for ( i = 1; i < sizeof(sect->Name); i++ )
++    for ( i = 1; i < sizeof(sect->name); i++ )
+     {
+-        const char c = sect->Name[i];
++        const char c = sect->name[i];
+ 
+         if ( c != name[i - 1] )
+             return false;
+@@ -105,33 +55,29 @@ static bool __init pe_name_compare(const struct PeSectionHeader *sect,
+ const void *__init pe_find_section(const void *image, const UINTN image_size,
+                                    const CHAR16 *section_name, UINTN *size_out)
+ {
+-    const struct DosFileHeader *dos = image;
+-    const struct PeHeader *pe;
+-    const struct PeSectionHeader *sect;
++    const struct mz_hdr *mz = image;
++    const struct pe_hdr *pe;
++    const struct section_header *sect;
+     UINTN offset, i;
+ 
+-    if ( image_size < sizeof(*dos) ||
+-         dos->Magic[0] != 'M' ||
+-         dos->Magic[1] != 'Z' )
++    if ( image_size < sizeof(*mz) ||
++         mz->magic != MZ_MAGIC )
+         return NULL;
+ 
+-    offset = dos->ExeHeader;
++    offset = mz->peaddr;
+     pe = image + offset;
+ 
+     offset += sizeof(*pe);
+     if ( image_size < offset ||
+-         pe->Magic[0] != 'P' ||
+-         pe->Magic[1] != 'E' ||
+-         pe->Magic[2] != '\0' ||
+-         pe->Magic[3] != '\0' )
++         pe->magic != PE_MAGIC )
+         return NULL;
+ 
+-    if ( pe->FileHeader.Machine != PE_HEADER_MACHINE )
++    if ( pe->machine != PE_HEADER_MACHINE )
+         return NULL;
+ 
+-    offset += pe->FileHeader.SizeOfOptionalHeader;
++    offset += pe->opt_hdr_size;
+ 
+-    for ( i = 0; i < pe->FileHeader.NumberOfSections; i++ )
++    for ( i = 0; i < pe->sections; i++ )
+     {
+         sect = image + offset;
+         if ( image_size < offset + sizeof(*sect) )
+@@ -143,13 +89,13 @@ const void *__init pe_find_section(const void *image, const UINTN image_size,
+             continue;
+         }
+ 
+-        if ( image_size < sect->VirtualSize + sect->VirtualAddress )
++        if ( image_size < sect->virtual_size + sect->rva )
+             blexit(L"PE invalid section size + address");
+ 
+         if ( size_out )
+-            *size_out = sect->VirtualSize;
++            *size_out = sect->virtual_size;
+ 
+-        return image + sect->VirtualAddress;
++        return image + sect->rva;
+     }
+ 
+     return NULL;
+-- 
+2.25.1
 
-> +
-> +        spin_unlock(&ffa_tx_buffer_lock);
-> +
-> +        if ( ret !=3D FFA_RET_OK )
-> +            goto err_unmap_tx;
-> +    }
-> +
->      ctx->rx =3D rx;
->      ctx->tx =3D tx;
->      ctx->rx_pg =3D rx_pg;
-> @@ -132,34 +205,61 @@ uint32_t ffa_handle_rxtx_unmap(void)
->      return FFA_RET_OK;
->  }
->
-> -int32_t ffa_handle_rx_release(void)
-> +int32_t ffa_rx_acquire(struct domain *d)
->  {
->      int32_t ret =3D FFA_RET_DENIED;
-> -    struct domain *d =3D current->domain;
->      struct ffa_ctx *ctx =3D d->arch.tee;
->
-> -    if ( !spin_trylock(&ctx->rx_lock) )
-> -        return FFA_RET_BUSY;
-> +    spin_lock(&ctx->rx_lock);
->
-> -    if ( !ctx->page_count || ctx->rx_is_free )
-> +    if ( !ctx->page_count )
-> +    {
-> +        ret =3D FFA_RET_DENIED;
-> +        goto out;
-> +    }
-> +
-> +    if ( !ctx->rx_is_free )
-> +    {
-> +        ret =3D FFA_RET_BUSY;
->          goto out;
-> +    }
-> +
-> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
-> +    {
-> +        ret =3D ffa_simple_call(FFA_RX_ACQUIRE, ffa_get_vm_id(d), 0, 0, =
-0);
-> +        if ( ret !=3D FFA_RET_OK )
-> +            goto out;
-> +    }
->      ret =3D FFA_RET_OK;
-> -    ctx->rx_is_free =3D true;
-> +    ctx->rx_is_free =3D false;
->  out:
->      spin_unlock(&ctx->rx_lock);
->
->      return ret;
->  }
->
-> -static int32_t ffa_rxtx_map(paddr_t tx_addr, paddr_t rx_addr,
-> -                            uint32_t page_count)
-> +int32_t ffa_rx_release(struct domain *d)
->  {
-> -    return ffa_simple_call(FFA_RXTX_MAP_64, tx_addr, rx_addr, page_count=
-, 0);
-> -}
-> +    int32_t ret =3D FFA_RET_DENIED;
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
->
-> -static int32_t ffa_rxtx_unmap(void)
-> -{
-> -    return ffa_simple_call(FFA_RXTX_UNMAP, 0, 0, 0, 0);
-> +    spin_lock(&ctx->rx_lock);
-> +
-> +    if ( !ctx->page_count || ctx->rx_is_free )
-> +        goto out;
-> +
-> +    if ( ffa_fw_supports_fid(FFA_RX_ACQUIRE) )
-> +    {
-> +        ret =3D ffa_simple_call(FFA_RX_RELEASE, ffa_get_vm_id(d), 0, 0, =
-0);
-> +        if ( ret !=3D FFA_RET_OK )
-> +            goto out;
-> +    }
-> +    ret =3D FFA_RET_OK;
-> +    ctx->rx_is_free =3D true;
-> +out:
-> +    spin_unlock(&ctx->rx_lock);
-> +
-> +    return ret;
->  }
->
->  void ffa_rxtx_domain_destroy(struct domain *d)
-> diff --git a/xen/arch/arm/tee/ffa_shm.c b/xen/arch/arm/tee/ffa_shm.c
-> index 29675f9ba3f7..d628c1b70609 100644
-> --- a/xen/arch/arm/tee/ffa_shm.c
-> +++ b/xen/arch/arm/tee/ffa_shm.c
-> @@ -16,21 +16,6 @@
->
->  #include "ffa_private.h"
->
-> -/* Constituent memory region descriptor */
-> -struct ffa_address_range {
-> -    uint64_t address;
-> -    uint32_t page_count;
-> -    uint32_t reserved;
-> -};
-> -
-> -/* Composite memory region descriptor */
-> -struct ffa_mem_region {
-> -    uint32_t total_page_count;
-> -    uint32_t address_range_count;
-> -    uint64_t reserved;
-> -    struct ffa_address_range address_range_array[];
-> -};
-> -
->  /* Memory access permissions descriptor */
->  struct ffa_mem_access_perm {
->      uint16_t endpoint_id;
-> --
-> 2.39.5 (Apple Git-154)
->
->
 
