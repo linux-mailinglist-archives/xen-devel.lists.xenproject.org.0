@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 777E198433F
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 12:15:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802536.1212801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7395D98434C
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 12:15:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802539.1212813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st2ZP-0003EX-Fe; Tue, 24 Sep 2024 10:14:59 +0000
+	id 1st2Zm-0003ej-P6; Tue, 24 Sep 2024 10:15:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802536.1212801; Tue, 24 Sep 2024 10:14:59 +0000
+Received: by outflank-mailman (output) from mailman id 802539.1212813; Tue, 24 Sep 2024 10:15:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st2ZP-0003CP-Cj; Tue, 24 Sep 2024 10:14:59 +0000
-Received: by outflank-mailman (input) for mailman id 802536;
- Tue, 24 Sep 2024 10:14:09 +0000
+	id 1st2Zm-0003bX-L6; Tue, 24 Sep 2024 10:15:22 +0000
+Received: by outflank-mailman (input) for mailman id 802539;
+ Tue, 24 Sep 2024 10:15:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xwqT=QW=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1st2Yb-0003BQ-C1
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 10:14:09 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ <SRS0=4pT6=QW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1st2Zl-0003bL-Kg
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 10:15:21 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bba87554-7a5d-11ef-99a2-01e77a169b0f;
- Tue, 24 Sep 2024 12:14:07 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-42cba8340beso38953645e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 03:14:07 -0700 (PDT)
-Received: from localhost ([185.68.248.203]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42e754a6638sm151796305e9.38.2024.09.24.03.14.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Sep 2024 03:14:05 -0700 (PDT)
+ id e6f3b132-7a5d-11ef-99a2-01e77a169b0f;
+ Tue, 24 Sep 2024 12:15:19 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a90188ae58eso676209366b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 03:15:19 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9392f341eesm66751366b.9.2024.09.24.03.15.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Sep 2024 03:15:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,177 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bba87554-7a5d-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: e6f3b132-7a5d-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1727172846; x=1727777646; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=xiWESsfQBQuwtnvjeu0eZMHnAIh3u1is48SIxzmICd0=;
-        b=gZNtimi4kvWyhpfhU8Ax+lXs9rQEYESpN68EPE78Ork+q53LkRTbLGgyS6q4wOwLmo
-         UrJlKHzdC2f19AqRQ8IYm4PyMBrIQKRTDxooO6L2Vu1Q05yNOcbwu0voQov5FxEovTft
-         ywfhjPN/3UJpfoOmRdZmw90Bz55R6QGqgQhUo=
+        d=citrix.com; s=google; t=1727172919; x=1727777719; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=n/uljho0fCyPneW+Q5hsGsxHuR+jL4/Kr1SI9oveD8g=;
+        b=V8vSPsJ0WdFV/HG/p5hVrfJ0DnY7d+Muu2E2fCuKZfCLv1MgTuwDW6XdLZGe+KC1kq
+         bCQ7DE3RqwJ74E87lTLjTzWkcmtf8iJfmFW4dZGoOo1eu6sHBO8bCgxy1bq2rPrnHuC+
+         YCI76486P5lOHjdPnthzcwe140DQm+eejbLtE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727172846; x=1727777646;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xiWESsfQBQuwtnvjeu0eZMHnAIh3u1is48SIxzmICd0=;
-        b=NgMWjopI9e1QpfSKmwjtXZ/Mli0O9Tr56YO+0PFf/nDHFDtCbcBMqsk1maQHOSmdzE
-         eZtVQxcNXMCyZsi7L+tn2n+7n6F+rpzIaPf+ihs1iUzRzLAMccInN/+u/6i5VtN5tgn8
-         nTB3ZKznfMfiQAc3ezviPJxQhp6wkwAhH6bSom3NTA+aZihiSnP8107IbaJwNRH+ICpx
-         rhTtma3X2e/NsNuvnBBbdXyh+LjQsfomTzCq5X8TAwDiciywbKUe3R8UAunFqIqd+a+6
-         qZnh0BXWcrluZll4az93CDBSbLb/RdlWMv57wf8b/esIUyEZzwdSAYAeTAJJ9/2FQIuV
-         PwQQ==
-X-Gm-Message-State: AOJu0YwBOh+xNCAu4TU5ZY8ML+fhzQIek4EcD/ty4G5s7UjtZYJYiiG4
-	5o8k7NmEW8gtwiKGRIyKWQIct17W1oAfIKZeArEEKzgEBb4l4AMMdxS4irDbs+mr4UiINl2QqFS
-	GeSyiPtFw
-X-Google-Smtp-Source: AGHT+IF8Of2z2p5YmiwKZKUNy9M0YG9YIJoCrWMTv1RhM82njbJL5ell+UlAlIXI43uEHdAfmAHs5Q==
-X-Received: by 2002:a05:6000:ecf:b0:374:bd00:d1e with SMTP id ffacd0b85a97d-37c7eb99d74mr1501843f8f.3.1727172846109;
-        Tue, 24 Sep 2024 03:14:06 -0700 (PDT)
-From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] Fix XEN_SYSCTL_numainfo[node].memsize for memory holes
-Date: Tue, 24 Sep 2024 12:14:00 +0200
-Message-ID: <20240924101400.5186-1-bernhard.kaindl@cloud.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20230601; t=1727172919; x=1727777719;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=n/uljho0fCyPneW+Q5hsGsxHuR+jL4/Kr1SI9oveD8g=;
+        b=Q7gRniurff300D2imOlg6Bq44N1Rpa55um9+BxcHWEd/QcMiOrgCouFec8c0nj7NgY
+         L83GZczt6TOitjffYPrYvYrq10f2OgsN+AeROPvrKurEd2xHTjpps0zkuqNhbESXWykg
+         N3xH8JqEV3nwG6q1mLb/zPAkskOVHBy6TGL8xc2Dx4b4RXGJTVknhQ1SeBWTNglp+e/t
+         LuRlYrNjtcoy3FCqNLdt5faho/+gKare3Ydk+2DRaaInGzVK53wocfCjzqAYWf5Zgoy2
+         ces5vfkSJ1QBUq/MWbp3avvj/3jXHakuKMF1fNJ5G6+nGikj+ahEOsF+LS9qCCUxS7BV
+         s6Yw==
+X-Forwarded-Encrypted: i=1; AJvYcCUjBixc879C3VEHCJDOUPta5mk6dplo6UUHdHMeZe6mR62Gyy+unzwrtSXCM/lvtMNbEMFZKFdVDMQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwLGKm1VrGASGyR5jTf6Y3Zcog+c6W+XNbqsePYIBs9EyZ5tQB/
+	kcPeM1iaNPECRr2gLU6YOWuv9+37MnUvUsuJxlGr7n2HLvwzZU9w/1ip8zpdBDqA+SAzTSztME6
+	z4Gs=
+X-Google-Smtp-Source: AGHT+IHMipqd3X5GjJxpHk0r6c9G8RNTSM0/oWb6WBumHz/AENp356L5J/kRFwvlo8cpBw7kVp/e6w==
+X-Received: by 2002:a17:906:dac5:b0:a90:41a9:7c3e with SMTP id a640c23a62f3a-a90d5b00ff3mr1664784666b.65.1727172919235;
+        Tue, 24 Sep 2024 03:15:19 -0700 (PDT)
+Message-ID: <bfc70470-abd4-4546-ae91-4620031704ec@citrix.com>
+Date: Tue, 24 Sep 2024 11:15:17 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] x86/efi: Use generic PE/COFF structures
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Milan Djokic <milandjokic1995@gmail.com>, xen-devel@lists.xenproject.org
+Cc: frediano.ziglio@cloud.com, Nikola Jelic <nikola.jelic@rt-rk.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Milan Djokic <milan.djokic@rt-rk.com>
+References: <367c5d95fb89e7dd3b4260f136d194a4cd0b854a.1724765763.git.milandjokic1995@gmail.com>
+ <5dfa21dd5f8e968bf38fda5690964e0f1d957ccc.1727113391.git.milandjokic1995@gmail.com>
+ <8e85b16d-9ed1-41bd-86fa-b507626cb5d0@apertussolutions.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <8e85b16d-9ed1-41bd-86fa-b507626cb5d0@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Fix a long-standing issue (known at since 2014) with the numainfo call.
+On 24/09/2024 11:07 am, Daniel P. Smith wrote:
+> On 9/23/24 13:50, Milan Djokic wrote:
+>> From: Nikola Jelic <nikola.jelic@rt-rk.com>
+>>
+>> Adapted x86 efi parser and mkreloc utility to use generic PE header
+>> (efi/pe.h), instead of locally defined structures for each component.
+>>
+>> Signed-off-by: Nikola Jelic <nikola.jelic@rt-rk.com>
+>> Signed-off-by: Milan Djokic <milan.djokic@rt-rk.com>
+>> ---
+>
+> Looks good to me.
+>
+> Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-The Hypercall `XEN_SYSCTL_numainfo` returns `memsize` for each NUMA node:
+Committed, with the aformentioned minor space corrections.
 
-xl info -n:
-node:    memsize    memfree    distances
-   0:  -> 67584 <-   60672      10,21  <- memsize is off by 2048 MB
-   1:     65536      60958      21,10
-
-So far, `memsize` is calculated from `NODE_DATA->node_spanned_pages`.
-It includes memory holes, leading to wrong memsize on x86.
-
-This patch gets the sum of E820_RAM entries for each NUMA node on boot,
-stores it in NODE_DATA->node_present_pages and uses it for `memsize`.
-
-It also increases it like `total_pages` on memory_add() for memory hotplug.
-
-The new NODE_DATA->node_present_pages can be slighly lower than the
-physical node's RAM due to reserved memory for some of the NUMA nodes.
-
-For example, on this example system, NODE_DATA->node_present_pages
-reports 63.5GB of usable memory on the 1st NUMA node with this patch.
-
-This patch uses `arch_get_ram_range()` which is an architecture-provided
-call that all NUMA architectures already need to provide for iterating
-over the usable RAM of the system.
-
-- Tested on 2-socket and a 4-socket x86 systems
-- Memory hot-add not tested, but is identical to bumping total_pages.
-
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
----
- xen/arch/x86/x86_64/mm.c |  2 ++
- xen/common/numa.c        | 14 +++++++++++++-
- xen/common/sysctl.c      |  2 +-
- xen/include/xen/numa.h   |  3 +++
- 4 files changed, 19 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-index b2a280fba3..a22aa45060 100644
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -1333,6 +1333,8 @@ int memory_add(unsigned long spfn, unsigned long epfn, unsigned int pxm)
-     /* We can't revert any more */
-     share_hotadd_m2p_table(&info);
-     transfer_pages_to_heap(&info);
-+    /* Update the node's present pages (like the total_pages of the system) */
-+    NODE_DATA(node)->node_present_pages += epfn - spfn;
- 
-     return 0;
- 
-diff --git a/xen/common/numa.c b/xen/common/numa.c
-index 28a09766fa..d68cbea44c 100644
---- a/xen/common/numa.c
-+++ b/xen/common/numa.c
-@@ -504,10 +504,22 @@ void __init setup_node_bootmem(nodeid_t nodeid, paddr_t start, paddr_t end)
- {
-     unsigned long start_pfn = paddr_to_pfn(start);
-     unsigned long end_pfn = paddr_to_pfn(end);
-+    paddr_t map_start, map_end;
-+    int i = 0, err;
- 
-     NODE_DATA(nodeid)->node_start_pfn = start_pfn;
-     NODE_DATA(nodeid)->node_spanned_pages = end_pfn - start_pfn;
- 
-+    /* Add RAM pages within the node to get the present pages for memsize infos */
-+    NODE_DATA(nodeid)->node_present_pages = 0;
-+    while ( (err = arch_get_ram_range(i++, &map_start, &map_end)) != -ENOENT ) {
-+        if ( err || map_start >= end || map_end <= start )
-+            continue;  /* Skip non-RAM and maps outside of the node's memory range */
-+        /* Add memory that is in the node's memory range (within start and end): */
-+        map_start = max(map_start, start);
-+        map_end = min(map_end, end);
-+        NODE_DATA(nodeid)->node_present_pages += (map_end - map_start) >> PAGE_SHIFT;
-+    }
-     node_set_online(nodeid);
- }
- 
-@@ -675,7 +687,7 @@ static void cf_check dump_numa(unsigned char key)
-         mfn_t mfn = _mfn(node_start_pfn(i) + 1);
- 
-         printk("NODE%u start->%lu size->%lu free->%lu\n",
--               i, node_start_pfn(i), node_spanned_pages(i),
-+               i, node_start_pfn(i), node_present_pages(i),
-                avail_node_heap_pages(i));
-         /* Sanity check mfn_to_nid() */
-         if ( node_spanned_pages(i) > 1 && mfn_to_nid(mfn) != i )
-diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-index d02f44fe3a..cba6d3cfea 100644
---- a/xen/common/sysctl.c
-+++ b/xen/common/sysctl.c
-@@ -316,7 +316,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
-                 {
-                     if ( node_online(i) )
-                     {
--                        meminfo.memsize = node_spanned_pages(i) << PAGE_SHIFT;
-+                        meminfo.memsize = node_present_pages(i) << PAGE_SHIFT;
-                         meminfo.memfree = avail_node_heap_pages(i) << PAGE_SHIFT;
-                     }
-                     else
-diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-index fd1511a6fb..c860f3ad1c 100644
---- a/xen/include/xen/numa.h
-+++ b/xen/include/xen/numa.h
-@@ -71,6 +71,7 @@ extern nodeid_t *memnodemap;
- struct node_data {
-     unsigned long node_start_pfn;
-     unsigned long node_spanned_pages;
-+    unsigned long node_present_pages;
- };
- 
- extern struct node_data node_data[];
-@@ -91,6 +92,7 @@ static inline nodeid_t mfn_to_nid(mfn_t mfn)
- 
- #define node_start_pfn(nid)     (NODE_DATA(nid)->node_start_pfn)
- #define node_spanned_pages(nid) (NODE_DATA(nid)->node_spanned_pages)
-+#define node_present_pages(nid) (NODE_DATA(nid)->node_present_pages)
- #define node_end_pfn(nid)       (NODE_DATA(nid)->node_start_pfn + \
-                                  NODE_DATA(nid)->node_spanned_pages)
- 
-@@ -123,6 +125,7 @@ extern void numa_set_processor_nodes_parsed(nodeid_t node);
- extern mfn_t first_valid_mfn;
- 
- #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
-+#define node_present_pages(nid) total_pages
- #define node_start_pfn(nid) mfn_x(first_valid_mfn)
- #define __node_distance(a, b) 20
- 
--- 
-2.43.0
-
+~Andrew
 
