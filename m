@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36782984ECD
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 01:17:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803371.1213904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64573984F03
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 01:34:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803377.1213913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stEm2-0001iG-Jm; Tue, 24 Sep 2024 23:16:50 +0000
+	id 1stF30-0004ig-VG; Tue, 24 Sep 2024 23:34:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803371.1213904; Tue, 24 Sep 2024 23:16:50 +0000
+Received: by outflank-mailman (output) from mailman id 803377.1213913; Tue, 24 Sep 2024 23:34:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stEm2-0001gl-Gy; Tue, 24 Sep 2024 23:16:50 +0000
-Received: by outflank-mailman (input) for mailman id 803371;
- Tue, 24 Sep 2024 23:16:49 +0000
+	id 1stF30-0004fv-SK; Tue, 24 Sep 2024 23:34:22 +0000
+Received: by outflank-mailman (input) for mailman id 803377;
+ Tue, 24 Sep 2024 23:34:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=325E=QW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1stEm1-0001gf-0R
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 23:16:49 +0000
+ id 1stF2z-0004fp-9Q
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 23:34:21 +0000
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 11b7aac8-7acb-11ef-a0ba-8be0dac302b0;
- Wed, 25 Sep 2024 01:16:47 +0200 (CEST)
+ id 85320381-7acd-11ef-a0ba-8be0dac302b0;
+ Wed, 25 Sep 2024 01:34:19 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 05AA6A43966;
- Tue, 24 Sep 2024 23:16:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D93BC4CEC4;
- Tue, 24 Sep 2024 23:16:44 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id BAE82A436CB;
+ Tue, 24 Sep 2024 23:34:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57ECEC4CEC4;
+ Tue, 24 Sep 2024 23:34:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,148 +41,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11b7aac8-7acb-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 85320381-7acd-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727219805;
-	bh=SZLmb9VQ9zDGXnOGuXKRN8Vm7e/3QEb5HI0s6Z8Efuc=;
+	s=k20201202; t=1727220858;
+	bh=Vx5EQ6rhS3Fv6bxgBXX/Np6Kh1A0CYJmEkT48S3P11M=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=QBWOd9PniogsIUtZyFtzgxcn6zntmhE5+PaPei/zi+/CERi8qlY4VcWLV/tim3Gu9
-	 iKSQ36tWNcycKTpgwLf1pLPcIa5QVOtghVJLth1BHHfi1Xp3PloGci/OBgWVn34J6O
-	 gJSXFIiSgcTym0O9Fl6eXSNWnXGm4Ao8glIJPG8jIBC6qu5eZ8hGkFfQl5yXtSQKpC
-	 VXOXeR2UiA3BD0RPED4891Anh1KZQtjv7HvVuXeJyurFOVnkM1SXU81D1ZNTG2nbHM
-	 yEK2WLFwHgzmm8ggthoITn4xOIRqwjNVvbb4VVhm0Iz41RXQhhGsgV0IdrKgufgPcd
-	 CY1Tz4lzSMvHg==
-Date: Tue, 24 Sep 2024 16:16:43 -0700 (PDT)
+	b=moZ8owXs0U/AM5Q+y9J6xCY7v/QO3q+kNFKo2DwazCbyp1Yi9I+3OAA894p+cAsUx
+	 noe7WOh0GpaWOZJKPN4HXCHZwWdXFx+9CXzxrznvNHwbI+fRpZArbKY1se1MGEdvdf
+	 62bESD9XIBf2GcSIpFB/dtlOu54uT0SJN/WFOHJQp5yklLiMgKxI2S3kkM1Du+zbMu
+	 cdqRyV6QUxcsL7sji4+aNYxPRpSv92i0zrFhYLrMWVxFiuRTE3tHhiOdxMkkIZktqJ
+	 PSu2xIrp8dvdNJiccqH2B9DNy+cnGAEACbzwprxt6yq8V17+Gf8w4dArc3Jsyyldno
+	 nYlf2rLHBBk5Q==
+Date: Tue, 24 Sep 2024 16:34:16 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
-cc: "Edgar E. Iglesias" <edgar.iglesias@amd.com>, 
-    "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, 
+cc: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, 
     xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
     bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, 
-    dpsmith@apertussolutions.com
-Subject: Re: [PATCH v1 2/6] xen/arm: Reserve resources for virtio-pci
-In-Reply-To: <7b867cf0-9d4b-4067-ac56-a7d6b3d440f5@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2409241559150.1417852@ubuntu-linux-20-04-desktop>
-References: <20240924162359.1390487-1-edgar.iglesias@gmail.com> <20240924162359.1390487-3-edgar.iglesias@gmail.com> <465cb8b5-5f46-42ce-be8f-a38c1c23a805@xen.org> <ZvLyzZ8n-QgrYOCW@zapote> <7b867cf0-9d4b-4067-ac56-a7d6b3d440f5@xen.org>
+    dpsmith@apertussolutions.com, edgar.iglesias@amd.com
+Subject: Re: [PATCH v1 1/6] xen/arm: Decrease size of the 2nd ram bank
+In-Reply-To: <f20c2ddb-162b-4e62-93b6-882e19e17852@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2409241622320.1417852@ubuntu-linux-20-04-desktop>
+References: <20240924162359.1390487-1-edgar.iglesias@gmail.com> <20240924162359.1390487-2-edgar.iglesias@gmail.com> <f20c2ddb-162b-4e62-93b6-882e19e17852@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1353379977-1727218876=:1417852"
-Content-ID: <alpine.DEB.2.22.394.2409241601180.1417852@ubuntu-linux-20-04-desktop>
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1353379977-1727218876=:1417852
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2409241601181.1417852@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
 On Tue, 24 Sep 2024, Julien Grall wrote:
-> On 24/09/2024 18:11, Edgar E. Iglesias wrote:
-> > On Tue, Sep 24, 2024 at 05:35:20PM +0100, Julien Grall wrote:
-> > > Hi Edgar,
-> > > 
-> > > On 24/09/2024 17:23, Edgar E. Iglesias wrote:
-> > > > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-> > > > 
-> > > > Reserve memory ranges and interrupt lines for an externally
-> > > > emulated PCI controller (e.g by QEMU) dedicated to hosting
-> > > > Virtio devices and potentially other emulated devices.
-> > > > 
-> > > > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> > > > ---
-> > > >    xen/include/public/arch-arm.h | 17 +++++++++++++++++
-> > > >    1 file changed, 17 insertions(+)
-> > > > 
-> > > > diff --git a/xen/include/public/arch-arm.h
-> > > > b/xen/include/public/arch-arm.h
-> > > > index e19f0251a6..654b827715 100644
-> > > > --- a/xen/include/public/arch-arm.h
-> > > > +++ b/xen/include/public/arch-arm.h
-> > > > @@ -494,6 +494,20 @@ typedef uint64_t xen_callback_t;
-> > > >    #define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 952GB of RAM
-> > > > @ 8GB */
-> > > >    #define GUEST_RAM1_SIZE   xen_mk_ullong(0xee00000000)
-> > > > +/* Virtio PCI - Ordered by decreasing size to keep things aligned */
-> > > > +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_TYPE  xen_mk_ullong(0x43000000)
-> > > > +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_BASE
-> > > > xen_mk_ullong(0x0f000000000)
-> > > > +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_SIZE  xen_mk_ullong(0x100000000)
-> > > > +
-> > > > +#define GUEST_VIRTIO_PCI_ECAM_BASE
-> > > > (GUEST_VIRTIO_PCI_PREFETCH_MEM_BASE + \
-> > > > +
-> > > > GUEST_VIRTIO_PCI_PREFETCH_MEM_SIZE)
-> > > > +#define GUEST_VIRTIO_PCI_ECAM_SIZE      xen_mk_ullong(0x10000000)
-> > > > +
-> > > > +#define GUEST_VIRTIO_PCI_MEM_TYPE         xen_mk_ullong(0x02000000)
-> > > > +#define GUEST_VIRTIO_PCI_MEM_BASE         (GUEST_VIRTIO_PCI_ECAM_BASE +
-> > > > \
-> > > > +                                           GUEST_VIRTIO_PCI_ECAM_SIZE)
-> > > > +#define GUEST_VIRTIO_PCI_MEM_SIZE         xen_mk_ullong(0x00002000000)
-> > > 
-> > > Why is this specific to virtio PCI? However, I am not entirely convinced
-> > > we
-> > > should have a second PCI hostbridge exposed to the guest for a few
-> > > reasons:
-> > >    1. This require to reserve yet another range in the address space
-> > > (could
-> > > be solved with a more dynamic layout)
-> > >    2. From your instructions, the guest needs to explicitly do a PCI
-> > > rescan.
+> Hi Edgar,
 > 
-> Another big advantage I forgot to mention is disaggregation. In a world where
-> the hostbridge is handled in Xen, you could have a PCI device emulated by dom0
-> while the other is emulated by a stub domain.
-> 
-> > > 
-> > > So rather than having a second hostbridge, have you considered to extend
-> > > the
-> > > existing hostbridge (implemented in Xen) to support a mix of physical PCI
-> > > device and virtual one?
-> > > 
+> On 24/09/2024 17:23, Edgar E. Iglesias wrote:
+> > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 > > 
-> > Thanks Julien,
-> > 
-> > It's briefly come up in a couple of discussions but I haven't looked
-> > carefully at it. It is a good idea and it's probably worth prototyping
-> > to see what the gaps are in hypercall interfaces, QEMU support etc.
+> > The address range between 4G (32bit) and 1TB (40bit) is fully
+> > allocated. There's no more room for devices on ARM systems with
+> > 40-bit physicall address width.
+> > > This decreases the size of the second RAM bank to free up space
+> > in preparation for virtio-pci and for future use-cases.
 > 
-> I also vaguely recall to discuss it on xen-devel. But I couldn't find the
-> discussion... :(.
-> 
-> I think all the hypercalls should be there but will require some plumbing in
-> Xen on Arm. QEMU should be able to request Xen to forward configuration access
-> for a given PCI device (see XEN_DMOP_IO_RANGE_PCI). They will then be
-> forwarded to QEMU using IOREQ_TYPE_PCI_CONFIG.
-> 
-> We also have an hypercall to be able to inject interrupts from QEMU (see
-> XEN_DMOP_set_irq_level).
+> I don't think we should reduce the amount of RAM supported in the default
+> case. Instead, I think it is time to support a more dynamic layout so we still
+> allow 1TB guest when QEMU is not emulated a virtual PCI hostbridge.
 
-Hi Julien,
+Edgar, do you think it would be possible for QEMU to take the virtio-pci
+address ranges and SPIs on the command line? If yes, I think that would
+solve the problem on the QEMU side.
 
-Yes, I remember a thread on xen-devel too about this topic when EPAM
-suggested a similar two-hostbridges approach. I was one of the people
-suggesting to use a single hostbridge at the time.
+On the Xen side, you have already added "virtio-pci-ranges" as dom0less
+property and that's all we need as far as I can tell.
 
-However, when we looked at the implementation more closely, the
-two-hostbridge approach was easier to get up and running. It works
-(almost) out of the box. Currently, we have the two-hostbridge solution
-working on both ARM and x86 to enable virtio-pci to work alongside vPCI
-in Dom0less/Hyperlaunch configurations.
-
-While I think that a single hostbridge is better architecturally, it is
-important to consider that virtio is moving toward a new transport
-(virtio-msg, Bertrand is also involved) which does not require a
-hostbridge. This new transport is key for all our use-cases as it
-addresses safety requirements and supports AMP configurations without a
-shared hypervisor between the frontend and backend. Edgar is one of the
-top contributors to virtio-msg. Given this, I don't think it's
-worthwhile to invest much effort in virtio-pci, as it will be replaced
-soon in embedded applications.
-
-Cheers,
-Stefano
---8323329-1353379977-1727218876=:1417852--
+Then you can remove patch #1 and patch #2 from this series?
 
