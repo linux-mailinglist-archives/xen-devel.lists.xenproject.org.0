@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 931CC984ACC
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 20:21:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803296.1213814 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADAC2984AE7
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 20:37:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803301.1213825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stA9Z-0007gX-9z; Tue, 24 Sep 2024 18:20:49 +0000
+	id 1stAOi-00016B-J3; Tue, 24 Sep 2024 18:36:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803296.1213814; Tue, 24 Sep 2024 18:20:49 +0000
+Received: by outflank-mailman (output) from mailman id 803301.1213825; Tue, 24 Sep 2024 18:36:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stA9Z-0007dc-6U; Tue, 24 Sep 2024 18:20:49 +0000
-Received: by outflank-mailman (input) for mailman id 803296;
- Tue, 24 Sep 2024 18:20:48 +0000
+	id 1stAOi-00013C-F3; Tue, 24 Sep 2024 18:36:28 +0000
+Received: by outflank-mailman (input) for mailman id 803301;
+ Tue, 24 Sep 2024 18:36:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4pT6=QW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1stA9Y-0007dW-I1
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 18:20:48 +0000
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [2a00:1450:4864:20::243])
+ id 1stAOh-000136-G8
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 18:36:27 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b83003db-7aa1-11ef-a0ba-8be0dac302b0;
- Tue, 24 Sep 2024 20:20:47 +0200 (CEST)
-Received: by mail-lj1-x243.google.com with SMTP id
- 38308e7fff4ca-2f754d4a6e4so58714911fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 11:20:47 -0700 (PDT)
+ id e7dbe7e1-7aa3-11ef-a0ba-8be0dac302b0;
+ Tue, 24 Sep 2024 20:36:26 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a8a7cdfdd80so822282566b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 11:36:26 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9392f50b26sm115234366b.61.2024.09.24.11.20.45
+ a640c23a62f3a-a9392f4f83asm115734566b.46.2024.09.24.11.36.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Sep 2024 11:20:45 -0700 (PDT)
+ Tue, 24 Sep 2024 11:36:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b83003db-7aa1-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: e7dbe7e1-7aa3-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727202046; x=1727806846; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1727202985; x=1727807785; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=28UM27WU10UowPozqt+thUqjX0cVVL3NtF4rEFE5HBo=;
-        b=DnWK4R/pDsl9PIoroI59AKJR6oKSNXsVWpwMdqHjmyOz7HCFSso5mOZuWSdI4xBwkg
-         bcwCwAyVdY+cgIr6U9fZc0wT/RFwjxzQvZzGnxiICIx+3o1WsaFy4SrFXaFIv2uLxSZ3
-         rtzR+OavElRT+fTddOT9pUCKEsiMDOrlU+AIc=
+        bh=pkxuQzhnUPsRRT3GWzr/LBjxJqEchw8HfnVWol+LXHQ=;
+        b=Vj8SULAFjIRrFRePGDHjSpDb8Uyntub7jtIDLSXcpE53Bj5OJxUwIFJwrmYohhxqan
+         EjUgGm5uGwWBeNgh4gOLWzrWNwkmzo+V0mkHtEfqtCoWLY1j73RmPYtNOlAeuyBLJxTL
+         qynpfhM1x3jKb3yEG9ryBLyHBoM97RyF+8+64=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727202046; x=1727806846;
+        d=1e100.net; s=20230601; t=1727202985; x=1727807785;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=28UM27WU10UowPozqt+thUqjX0cVVL3NtF4rEFE5HBo=;
-        b=SjKgGfkN0id//277hnsedHHXhtlcSS7k2fVgyuQxhVdF1BeezBxMLihLjcPgYe5svm
-         b8Uyj7GbctXXjL630TL0hAGNZ/W53u0PqbttmofpGsG6DDxlHMCpZYMp2VTxLCQhBFh2
-         WvbhCIDvQKm+SV9d1giAy5LFu1MffI1YDgeQFX2F0yjcQI2UpxYaJUcDGfz74CjMvBnT
-         SncACQUji+nJFiyurl/bT0MaoGR7ctw1Z4usXpnHi238bKfXWtJ5+Yd/YFq7zsICmMgN
-         PUb4fb0JSEnLYep/ZbMNy606TQRy6cMn8FC8bX1DobZQ+HrOkaWj9DNa1olyaoG907Pj
-         CPSw==
-X-Gm-Message-State: AOJu0YxRHA3ger1W1Ix1auK1ZLAsbkQ719cg0X3rKnG9MHur1o6G8Qj/
-	+RiDC9VGUm64kKhQzS4u0VcrUAZW9Vh7G8IpPdOPy/LAKq3ODKEvwnVFPcTmCw4=
-X-Google-Smtp-Source: AGHT+IGk58TlZtjbDa1zXiKBZ1t85JXvujZqea3UXZNLPOWNBBXf6xYEYOiDVEpj8Sq8Vv/Cz03w/Q==
-X-Received: by 2002:a05:6512:3a94:b0:52e:ff2a:217 with SMTP id 2adb3069b0e04-536ad3eb9a4mr9058317e87.50.1727202046421;
-        Tue, 24 Sep 2024 11:20:46 -0700 (PDT)
-Message-ID: <22a3542c-7eb4-41fe-8c60-d9a71bd9fa4f@citrix.com>
-Date: Tue, 24 Sep 2024 19:20:44 +0100
+        bh=pkxuQzhnUPsRRT3GWzr/LBjxJqEchw8HfnVWol+LXHQ=;
+        b=qBbFU6OQb8iE3u8P00JlY5905IICtuvU84l/oweMTFnYN67Je/OVYiLDZzdg07aVcT
+         FN9zhxwGzKP0S6gZ12EuwkUCAuJiodUJzTXqUDLPOUg8gIH4p2OQGwesMtcrmODNZ/tI
+         evwwD2ZKVOa+5TtMmn6GfK82JYBVDMssByVjveiGmxytC/L943wzNMwIO8P1lzklvPl6
+         rqUT8LeRBwrvBHFbn9QVTlV36lsUD6z8Chf/HJJslMUC2UtMIVzCdH7i5AcBNL8xjZiK
+         vQZe9v2HoJkQQTqdn50KWpvmlnCl2yg1RivnDu2mIOgP1jRPwiNvEtfmSXCIqjtKrB0d
+         j2SA==
+X-Gm-Message-State: AOJu0YyYKBhkxlh0SWx8yljWPIHOXtRBAEAtv+o2VHWxhoPW7FD5z+Tg
+	9tt+sGK/AUxuxzOy4YTK1AOmUaoyRjSR/kXVwXL4SBMz90xdHEtrvFHBVTI+xyw=
+X-Google-Smtp-Source: AGHT+IHDdozfsctBC6xtAwLyP5qEUSNmsWVPFwyovu5gU3y0Zs6/9xFEAAR3J9/Npni8T9xtSnmMdA==
+X-Received: by 2002:a17:907:c7c8:b0:a7d:a080:baa with SMTP id a640c23a62f3a-a93a03b1a6fmr20260666b.34.1727202985335;
+        Tue, 24 Sep 2024 11:36:25 -0700 (PDT)
+Message-ID: <30c4303c-81a3-4507-80b5-08b1dbda6104@citrix.com>
+Date: Tue, 24 Sep 2024 19:36:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/APIC: Remove x2APIC pure cluster mode
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Matthew Barnes <matthew.barnes@cloud.com>
-References: <e43028a51f8cea02421d0856376faada8ab186d4.1726840133.git.matthew.barnes@cloud.com>
- <ZvLWSEwbdL1kpvC6@macbook.local>
- <4b7a2b84-5c5d-40e2-b20e-5c011eac7b4a@citrix.com>
- <ZvLlYp0L3Ac2O_uG@macbook.local>
- <d77b1df7-5b05-4d54-b66e-ed90a296c091@suse.com>
- <ZvLyaSqZegiPyv6B@macbook.local>
+Subject: Re: [PATCH v2] x86/traps: Re-enable interrupts after reading cr2 in
+ the #PF handler
+To: Jan Beulich <jbeulich@suse.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20240918130554.97345-1-alejandro.vallejo@cloud.com>
+ <Zu2Cyan46VVs2oef@macbook.local> <D4DL2FFRNE6R.XTS6NS9L1PHX@cloud.com>
+ <4fbfcaf2-f317-4b4f-9655-0f0c9e1e453b@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,48 +131,52 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ZvLyaSqZegiPyv6B@macbook.local>
+In-Reply-To: <4fbfcaf2-f317-4b4f-9655-0f0c9e1e453b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 24/09/2024 6:10 pm, Roger Pau Monné wrote:
-> On Tue, Sep 24, 2024 at 06:21:47PM +0200, Jan Beulich wrote:
->> On 24.09.2024 18:14, Roger Pau Monné wrote:
->>> On Tue, Sep 24, 2024 at 04:27:36PM +0100, Andrew Cooper wrote:
->>>> On 24/09/2024 4:10 pm, Roger Pau Monné wrote:
->>>>> On Mon, Sep 23, 2024 at 03:35:59PM +0100, Matthew Barnes wrote:
->>>>>> With the introduction of mixed x2APIC mode (using cluster addressing for
->>>>>> IPIs and physical for external interrupts) the use of pure cluster mode
->>>>>> doesn't have any benefit.
->>>>>>
->>>>>> Remove the mode itself, leaving only the code required for logical
->>>>>> addressing when sending IPIs.
->>>>>>
->>>>>> Implements: https://gitlab.com/xen-project/xen/-/issues/189
->>>> We use the Resolves: tag for this.  Can fix on commit.
->>>>
->>>>> There's at least one extra bit which I would also like to see removed,
->>>>> either in this patch, or as following patch.
->>>>>
->>>>> In struct arch_irq_desc we have 3 cpumasks: cpu_mask, old_cpu_mask and
->>>>> pending_mask.  After dropping cluster mode for external interrupts,
->>>>> those fields could become integers AFACT, as now interrupts can only
->>>>> target a single CPU opposed to a logical CPU set.
->>>> A separate patch for sure, but that sounds like a great improvement.
->>> Oh, there are quite some fields of struct genapic that are not needed
->>> anymore, since both implementations set it to the same function.  It
->>> would be helpful to prune them.
->> Pruning where possible - yes. But "both" won't cover it, as we have 4
->> instances of the struct (not just the two x2apic ones).
-> Yeah, realized that afterwards, we still have the xAPIC flat mode,
-> which is using logical delivery mode, but target a single CPU.  So
-> getting rid of the cpumask in arch_irq_desc seem possible, however
-> there might be nothing to prune in struct genapic.
+On 23/09/2024 2:03 pm, Jan Beulich wrote:
+> On 23.09.2024 12:14, Alejandro Vallejo wrote:
+>> On Fri Sep 20, 2024 at 3:12 PM BST, Roger Pau Monné wrote:
+>>> On Wed, Sep 18, 2024 at 02:05:54PM +0100, Alejandro Vallejo wrote:
+>>>> Moves sti directly after the cr2 read and immediately after the #PF
+>>>> handler.
+>>> I think you need to add some context about why this is needed, iow:
+>>> avoid corrupting %cr2 if a nested 3PF happens.
+>> I can send a v3 with:
+>>
+>> ```
+>>   Hitting a page fault clobbers %cr2, so if a page fault is handled while
+>>   handling a previous page fault then %cr2 will hold the address of the latter
+>>   fault rather than the former. This patch makes the page fault path delay
+>>   re-enabling IRQs until %cr2 has been read in order to ensure it stays
+>>   consistent.
+> And under what conditions would we experience #PF while already processing
+> an earlier #PF? If an interrupt kicks in, that's not supposed to by raising
+> any #PF itself. Which isn't to say that the change isn't worthwhile to make,
+> but it would be nice if it was explicit whether there are active issues, or
+> whether this is merely to be on the safe side going forward.
 
-Logical delivery mode for external interrupts in xAPIC is just as
-broken/useless as the code we've just deleted.
+My understanding is that this came from code inspection, not an active
+issue.
 
-If that's the only thing in the way of more cleanup, we delete it too.
+The same is true for %dr6 and #DB, and MSR_XFD_ERR and #NM.
+
+I think we can safely agree to veto the use of AMX in the #NM handler,
+and IST exceptions don't re-enable interrupts[1], so #PF is the only
+problem case.
+
+Debug keys happen off the back of plain IRQs, and we can get #PF when
+interrogating guest stacks.  Also, I'm far from certain we're safe to
+spurious #PF's from updating Xen mappings, so I think there are a bunch
+of risky corner cases that we might be exposed to.
+
+And I really need to find some time to get FRED working...
 
 ~Andrew
+
+[1] We do re-enable interrupts in order to IPI cpu0 for "clean"
+shutdown, and this explodes in our faces if kexec isn't active and we
+crashed in the middle of context switch.  We really need to not need
+irqs-on in order to shut down.
 
