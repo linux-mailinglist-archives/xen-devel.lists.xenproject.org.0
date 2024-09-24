@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E8DE9847AB
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 16:29:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803000.1213382 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A3989847B3
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 16:31:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803005.1213392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st6XA-0005hD-BL; Tue, 24 Sep 2024 14:28:56 +0000
+	id 1st6Yw-00076y-Mv; Tue, 24 Sep 2024 14:30:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803000.1213382; Tue, 24 Sep 2024 14:28:56 +0000
+Received: by outflank-mailman (output) from mailman id 803005.1213392; Tue, 24 Sep 2024 14:30:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st6XA-0005ea-75; Tue, 24 Sep 2024 14:28:56 +0000
-Received: by outflank-mailman (input) for mailman id 803000;
- Tue, 24 Sep 2024 14:28:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1st6Yw-00073p-KM; Tue, 24 Sep 2024 14:30:46 +0000
+Received: by outflank-mailman (input) for mailman id 803005;
+ Tue, 24 Sep 2024 14:30:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CoXS=QW=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1st6X8-0005eU-N8
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 14:28:54 +0000
-Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
- [2607:f8b0:4864:20::c2f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 52627c92-7a81-11ef-a0ba-8be0dac302b0;
- Tue, 24 Sep 2024 16:28:53 +0200 (CEST)
-Received: by mail-oo1-xc2f.google.com with SMTP id
- 006d021491bc7-5e1b55346c0so2181780eaf.3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 07:28:52 -0700 (PDT)
+ <SRS0=SZSf=QW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1st6Yv-00073j-Kn
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 14:30:45 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 94a5417d-7a81-11ef-99a2-01e77a169b0f;
+ Tue, 24 Sep 2024 16:30:43 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a83562f9be9so663755466b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 07:30:43 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9392f34076sm90734766b.7.2024.09.24.07.30.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Sep 2024 07:30:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,88 +44,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52627c92-7a81-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 94a5417d-7a81-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1727188131; x=1727792931; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=blphOGGEPum8qI2RfKqmzlaasWIc6MKUwni86lT69jo=;
-        b=THmJt9Yp9iRddcEHE6LtI+/SmKEeySLEMoFAcd+oNy7to3nNNKlG+mUGHXCmTb9F2v
-         gn/SGeTSJAVEBN4K+GdIZDKLqJac+Xh3FwofC6JLfpFl1FNQmUVvNNyBwP/tZBpffrqG
-         ExPhlJHCKzLcUXRvgCK1EUbNbRL9mdjPWkndU=
+        d=citrix.com; s=google; t=1727188243; x=1727793043; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cq151un+njjj3tGEmBCqTBqc9F1dcs/ZvFOGBJPsjLM=;
+        b=nDtAIZLLEE3xqIRd/j9hMeSJX1zqGu/0HQPq64UmjtCwe2q9AUTM4hsfBgAZbyb71L
+         +OmElBcKUAbziaSu3+PiOrWtKMjygx0Hknrari6SSCWVNr6oabOwj4vh+NAl1fMQI/gF
+         5sohEz/i0N5LDhaK2n4lFQ5bp4EFDMzeoZ8iY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727188131; x=1727792931;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=blphOGGEPum8qI2RfKqmzlaasWIc6MKUwni86lT69jo=;
-        b=i9eBZUgobe0NVzYM97BWUDehiDOjxBICg9uSeXpxnYbL0pQDIIT+PxtHHaMxEDgzv1
-         kYqfwZw7+F9O7oTtCrR4/9NJwMNUA3F2bJ/P5Kd1jjA5gYNrL/drfeRyrLMpgqIRO0ge
-         0N4Kw+S6viXw0nVhd+gx/j8lTprkx9S0L5KZGsgnX47sE/eiHz4n989KqI2kcG8VArSG
-         vCcUE+u7Mz85yN4H085+1tOwv8um6gFssjeyunb3D6aobgjOfoX/6LTbc/tbVPkfBJSd
-         NNChC4llrx4hWKUNMJfpZsAUkC4QhYZm6igHzZcQLYO80hJduRNt3/ufz94DLkuDE+dn
-         PoXA==
-X-Forwarded-Encrypted: i=1; AJvYcCXSO3LhMXy9iye4FoJxMH48Eki7BaQqBYpVpSgnFT9D3c34kmm8oNbMUlLic56BVIqnzMMRcSSVGuI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywqm9q4zCVvMFU25bc9Z+BssQgCbIeJ5V1jBpg6rCmEYLWdYd50
-	MLyfCBQZkZeK2KPnfFqawQ1AxHGpIi/YCIoSfTXgy7+m3SltHM845XMWx4X3BV2CjwPqfKkzJIC
-	dHIpZ682KoAx74bnUhmiShpsWY/VgH19/ZBWvRg==
-X-Google-Smtp-Source: AGHT+IFae3BtCXzK60E2iXlZYBvcLKqaD2MqGrKSQ0WbSlgXOWxd6jb8b+DNP+eMm18hh5AyvO0il0jcjVK9POMcqEs=
-X-Received: by 2002:a05:6820:210:b0:5e1:c9d8:38ca with SMTP id
- 006d021491bc7-5e58ba2a4f8mr7980194eaf.4.1727188131694; Tue, 24 Sep 2024
- 07:28:51 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240924102811.86884-1-frediano.ziglio@cloud.com>
- <20240924102811.86884-4-frediano.ziglio@cloud.com> <7b684c1a-0e3b-412a-ae44-995463510fa9@suse.com>
-In-Reply-To: <7b684c1a-0e3b-412a-ae44-995463510fa9@suse.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 24 Sep 2024 15:28:41 +0100
-Message-ID: <CACHz=ZhhV2bwaCJBOb2_zpe3-Z0wF7FXXMB2_WfYgOwr=3R_SA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/4] x86/boot: Rewrite EFI/MBI2 code partly in C
+        d=1e100.net; s=20230601; t=1727188243; x=1727793043;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Cq151un+njjj3tGEmBCqTBqc9F1dcs/ZvFOGBJPsjLM=;
+        b=OlSwqiIJ3RxXey/gPH/Ijh7jZkuv4Tdp0EyqzW6KjqKhNLkzpScPCiCFYOhrwZ+4wQ
+         dNfnjIK/1wTlDKGKCh814MFFJSDQBLCuYfpgjcMV4eQ80gJUu7+mxS8Dh6Yk4okcgjb2
+         frLZekiP9hoC7BzZy8O2rTmme3B9Rts7ER8/8MY9DLIOBc0njBX8ec2t87wdYk/6YQKy
+         W/ySRK0DAbi/VsZqpaQwhxfNLgGzzLdRa/JeeFIFRdD2AhqXB23jDz0aUFV+r0Tgkxti
+         VFFGK/h6JNFZWL67eT4Qfzg/NEVdN4O8Kcb87BA/zfOf7syA5myRns0LkUBWiDeO3bUv
+         yj9w==
+X-Forwarded-Encrypted: i=1; AJvYcCVLu3xGqZjGXKPTSmhHGwcEwOp3T8629iM8RKRvGDY7TDS7L4fz+81PCeR2WFpJZP6mBwcw8HrN280=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxMmBo298qolmJD3eWJDt5oi0bn8kof6jx7HrMCUbbxzF9y3lNA
+	mpbStqWARt84WoWfiiaSlmwdwigP7z5nluGUb6Qq6SbVlCRi00yCSUTEmY9ylDg=
+X-Google-Smtp-Source: AGHT+IHPj/zXfggjAms8HbROaBbpKJQS8l+av+fKJn/K9opNmP0645OPpUorNVHOla6GF7CmZmW49A==
+X-Received: by 2002:a17:907:e6ce:b0:a90:41a7:ea8a with SMTP id a640c23a62f3a-a90d4fc9076mr1432113066b.8.1727188242876;
+        Tue, 24 Sep 2024 07:30:42 -0700 (PDT)
+Date: Tue, 24 Sep 2024 16:30:41 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] x86/boot: Further simplify CR4 handling in
+ dom0_construct_pv()
+Message-ID: <ZvLNEUzn7NVMou73@macbook.local>
+References: <20240924112343.193506-1-andrew.cooper3@citrix.com>
+ <86f05490-92d7-4146-a665-a4ef8732cbe8@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <86f05490-92d7-4146-a665-a4ef8732cbe8@suse.com>
 
-On Tue, Sep 24, 2024 at 3:17=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 24.09.2024 12:28, Frediano Ziglio wrote:
-> > No need to have it coded in assembly.
-> >
-> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> > ---
-> > Changes since v1:
-> > - update some comments;
-> > - explain why %ebx is saved before calling efi_parse_mbi2;
-> > - move lea before test instruction;
-> > - removed asmlinkage from efi_multiboot2 and add to efi_parse_mbi2;
-> > - fix line length;
-> > - update an error message specifying "Multiboot2" instead of "Multiboot=
-";
-> > - use obj-bin-X instead of obj-X in Makefile;
-> > - avoid restoring %eax (MBI magic).
->
-> Despite this long list of changes earlier comments were left unaddressed.
-> The new function is still named as if it did only parsing, the stub chang=
-e
-> is still in here and (if already not separated out) not mentioned at all
-> in the description, and (as Andrew has now also pointed out) the
-> declaration of efi_multiboot2() didn't move to a header. Maybe I forgot
-> some more. Please make sure you address earlier comments before sending a
-> new version.
->
-> Jan
+On Tue, Sep 24, 2024 at 03:44:07PM +0200, Jan Beulich wrote:
+> On 24.09.2024 13:23, Andrew Cooper wrote:
+> > --- a/xen/arch/x86/pv/dom0_build.c
+> > +++ b/xen/arch/x86/pv/dom0_build.c
+> > @@ -1057,29 +1057,31 @@ int __init dom0_construct_pv(struct domain *d,
+> >                               module_t *initrd,
+> >                               const char *cmdline)
+> >  {
+> > +    unsigned long cr4 = read_cr4();
+> > +    unsigned long mask = X86_CR4_SMAP | X86_CR4_LASS;
+> >      int rc;
+> >  
+> >      /*
+> > -     * Clear SMAP in CR4 to allow user-accesses in construct_dom0().  This
+> > -     * prevents us needing to write construct_dom0() in terms of
+> > +     * Clear SMAP/LASS in CR4 to allow user-accesses in construct_dom0().
+> > +     * This prevents us needing to write construct_dom0() in terms of
+> >       * copy_{to,from}_user().
+> >       */
+> > -    if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+> > +    if ( cr4 & mask )
+> >      {
+> >          if ( IS_ENABLED(CONFIG_PV32) )
+> > -            cr4_pv32_mask &= ~X86_CR4_SMAP;
+> > +            cr4_pv32_mask &= ~mask;
+> >  
+> > -        write_cr4(read_cr4() & ~X86_CR4_SMAP);
+> > +        write_cr4(cr4 & ~mask);
+> >      }
+> >  
+> >      rc = dom0_construct(d, image, image_headroom, initrd, cmdline);
+> >  
+> > -    if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
+> > +    if ( cr4 & mask )
+> >      {
+> > -        write_cr4(read_cr4() | X86_CR4_SMAP);
+> > +        write_cr4(cr4);
+> >  
+> >          if ( IS_ENABLED(CONFIG_PV32) )
+> > -            cr4_pv32_mask |= X86_CR4_SMAP;
+> > +            cr4_pv32_mask |= mask;
+> 
+> You may end up setting a bit here which wasn't previously set, and which
+> might then fault when cr4_pv32_restore tries to OR this into %cr4. Aiui
+> you must have tested this on LASS-capable hardware, for it to have worked.
 
-What about renaming efi_parse_mbi2 to "efi_multiboot2_entry_common"
-and renaming "efi_multiboot2" as "efi_multiboot2_entry".
-I remember I replied to the stub change and nobody get back, so I
-thought it was fine as it was.
-I also replied to the header asking for a location to put it, and I
-don't remember any reply.
+Possibly also needs X86_CR4_LASS adding to the XEN_CR4_PV32_BITS
+define, as otherwise it won't end up in cr4_pv32_mask in the first
+place AFAICT.
 
-Frediano
+Thanks, Roger.
 
