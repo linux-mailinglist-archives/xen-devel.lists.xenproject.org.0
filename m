@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B0D3984476
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 13:24:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802631.1212933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DECF79844A6
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 13:31:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802637.1212943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st3e3-0003W6-Ff; Tue, 24 Sep 2024 11:23:51 +0000
+	id 1st3kv-0005WI-6e; Tue, 24 Sep 2024 11:30:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802631.1212933; Tue, 24 Sep 2024 11:23:51 +0000
+Received: by outflank-mailman (output) from mailman id 802637.1212943; Tue, 24 Sep 2024 11:30:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st3e3-0003UR-Cm; Tue, 24 Sep 2024 11:23:51 +0000
-Received: by outflank-mailman (input) for mailman id 802631;
- Tue, 24 Sep 2024 11:23:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1st3kv-0005T9-32; Tue, 24 Sep 2024 11:30:57 +0000
+Received: by outflank-mailman (input) for mailman id 802637;
+ Tue, 24 Sep 2024 11:30:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4pT6=QW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1st3e2-0003UD-Dp
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 11:23:50 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7791e882-7a67-11ef-99a2-01e77a169b0f;
- Tue, 24 Sep 2024 13:23:48 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a8d3cde1103so454499166b.2
- for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 04:23:47 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ <SRS0=Vi3U=QW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1st3kt-0005T3-Hn
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 11:30:55 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 75e609f6-7a68-11ef-a0ba-8be0dac302b0;
+ Tue, 24 Sep 2024 13:30:54 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a8d6d0fe021so894763966b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 04:30:54 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9392f36369sm72958866b.42.2024.09.24.04.23.45
+ a640c23a62f3a-a9392f4f86dsm72926266b.51.2024.09.24.04.30.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Sep 2024 04:23:46 -0700 (PDT)
+ Tue, 24 Sep 2024 04:30:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +45,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7791e882-7a67-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 75e609f6-7a68-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727177027; x=1727781827; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OnHtnZrMK2tQUalYau4hy3LFlAebzbpdz5JkhoBOtH8=;
-        b=VJ56GJJhrg8Yga/OGRJ/kW+a5KT59li9kMfzhK50rcX4ViAc4vEK+qbeXUTbLDLQTD
-         4NDadtnWEftzuiOMUnMDCncZsJM86MliKY6AZ/F8iiQoQmNUC0NtSf6ugoBZEqz4eRIh
-         aoo8Gk/tZaKQZSLbRCwHH4wsvWClcE10bAePE=
+        d=gmail.com; s=20230601; t=1727177454; x=1727782254; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ffnn9wpinXeqHklXTtSivfDr+OGvzPe4bwLzSrVoPTI=;
+        b=A5sgYE3HZska/TFmtnPby4UyNjM2IIf0JEI7bgebXI9AE8MlMGKT1lu5x9Ia8ZttiW
+         A467V/7lIiZwBuVTp0vhL12FTViRbkNd9QKfS3C8eUvPfwgFrord0aVYmEAtKs0ISGkP
+         LNkBl7ZNFIe8Yf5Y7MiwQilfpkuAemLPw84NN+/V6uCNcYy+J4Y4V4irxQAQtHuJ6r8Q
+         BlvkerxtuRe8KYG9ZVcNH4fC9NhBilJ7J0O0zayB+QHgKrN9xU+6lQsJSehoeSAtgRFm
+         EDNKKRjuXs5X9n1fBu1rpwbZwawEvOp6t2AY79XnoggxYdlam1/PtDGp5Xlk9cM7CYbb
+         HY9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727177027; x=1727781827;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OnHtnZrMK2tQUalYau4hy3LFlAebzbpdz5JkhoBOtH8=;
-        b=X1047SG9pFlvEuV1fSa2cax+qA3iQhpRnFWf6+24Ffsvjk2NnPBiv7pfZehlAgmrbW
-         2Ov79XyRgBQTqO2/iBUHb0lq4sSInAX+RLNCfyFQwMbBya7Q2zTMz8yROIsu2oUY29cP
-         JHcS0JPiVxIquGvqAHXEOSs03Gl25yzcbcZOfePLQmxk7GLtHqwY02wEqYHuIQ9yuoUa
-         SZnsF6VRHFdl0vGT0xqXVl3z5RZg5XVylt6bQJub9fDKMf3ddvjRYZtY0IBy0mG8LjBX
-         LCe2zylir0JuJuyj+ihNn9AMP1uSgCK0YUGG9hZ6LoV9CJ5xxsLUlXU2MsaAB7ypX+YY
-         GInA==
-X-Gm-Message-State: AOJu0Yz0siQoCl9cvEEYTHUY1/TbuYx4Yep0Jpb5vxKGdmLW8HVqu1Rh
-	WkVOEIIaznlrVr8RCN4sBeXqDhkX0aUhbYn/9c3W2IXxg59KJo7ZqAkEGzECrB2Vo8A46vLZQ8K
-	zGbY=
-X-Google-Smtp-Source: AGHT+IGF2SXfecs9uyaYh4U7zKGrCCfidh7U3aCH9JqLE0+9hY7WOSsWBwTLLvR+IcarFH06RSoo/A==
-X-Received: by 2002:a17:907:f79a:b0:a8a:78bb:1e2 with SMTP id a640c23a62f3a-a90d55e0b9bmr1617714266b.6.1727177026694;
-        Tue, 24 Sep 2024 04:23:46 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/boot: Further simplify CR4 handling in dom0_construct_pv()
-Date: Tue, 24 Sep 2024 12:23:43 +0100
-Message-Id: <20240924112343.193506-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20230601; t=1727177454; x=1727782254;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ffnn9wpinXeqHklXTtSivfDr+OGvzPe4bwLzSrVoPTI=;
+        b=I6ke5XL1JIgFZEgbTtkEakB0GUqTGj9Jq5Lqgssx8bMyE4mfUhJfDl1M3CYS4Uqe6e
+         gCH7tuykX8drI4NTjUbrVcLHqQSvHVN4MmI9bEXiw/On+LLkkVZn7Zo17nhyjrmaEZ59
+         UiOPWCA8aAEHPbnURkKwlZ5nm9ywCiUn1L96pbrQpZiGd1AuZGW476KYDjCNzF+VtXlY
+         Op85p/LOGVbZxT8RBNPnchK/4AIeI/fMBT4iot5DQk69ElnX+pZi60owQ9dtuKEwj4sC
+         Oq2CXLdQwR2bUQtXhTiPyrrpCM9b6TzhjblWDH7uZZXSkgytwxu7inAGfGFy4xozGtE5
+         Z+kA==
+X-Forwarded-Encrypted: i=1; AJvYcCXK2/W68ceZnGeEFrdnfNsDRkypcdrJsAWqHtX0SXdCyMaQeurlRmA5rTp/Psuvn5GNbbmOtj/pXL4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywb1CLtdwU7gkRn2bVc6VBKSFoslwzrP75xTUT8AmM8kt7huNTA
+	Wxu4Sg7lRV+ghiQrM3aF0Fx338pITV8jdX6cwQupHrz2wkHWMRobaAv48w==
+X-Google-Smtp-Source: AGHT+IGD/IUNYs/reNwQp8rgVFMJUUZ/LEQvmjkY5bHh5sKJlq5fLjKgnGHelpYcWnnzwaZbyNxwwA==
+X-Received: by 2002:a17:907:e283:b0:a8b:c9d4:5cef with SMTP id a640c23a62f3a-a90d5033e75mr1362503966b.29.1727177453655;
+        Tue, 24 Sep 2024 04:30:53 -0700 (PDT)
+Message-ID: <fc23fbd82c1495e75fc0bdcfa894cdb56262b11b.camel@gmail.com>
+Subject: Re: [PATCH v7 7/8] xen/riscv: page table handling
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Tue, 24 Sep 2024 13:30:52 +0200
+In-Reply-To: <6100a4e0-5bf3-4555-90ae-20624171ff79@suse.com>
+References: <cover.1726242605.git.oleksii.kurochko@gmail.com>
+	 <582c4cee40222e80faf1e465c011b07eeaf2c19f.1726242605.git.oleksii.kurochko@gmail.com>
+	 <6100a4e0-5bf3-4555-90ae-20624171ff79@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-The logic would be more robust disabling SMAP based on its precense in CR4,
-rather than on certain features.
+On Tue, 2024-09-24 at 12:49 +0200, Jan Beulich wrote:
+> On 13.09.2024 17:57, Oleksii Kurochko wrote:
+>=20
+>=20
+> > @@ -68,6 +108,52 @@ static inline bool pte_is_valid(pte_t p)
+> > =C2=A0=C2=A0=C2=A0=C2=A0 return p.pte & PTE_VALID;
+> > =C2=A0}
+> > =C2=A0
+> > +/*
+> > + * From the RISC-V spec:
+> > + *=C2=A0=C2=A0 The V bit indicates whether the PTE is valid; if it is =
+0, all
+> > other bits
+> > + *=C2=A0=C2=A0 in the PTE are don=E2=80=99t-cares and may be used free=
+ly by
+> > software.
+> > + *
+> > + *=C2=A0=C2=A0 If V=3D1 the encoding of PTE R/W/X bits could be find i=
+n Table
+> > 4.5.
+>=20
+> Please avoid using table numbers when not also specifying the precise
+> doc
+> version. Numbering changes, and it's table 5.5 in the doc I'm looking
+> at.
+> Use table names instead (also elsewhere of course).
+>=20
+> > + *=C2=A0=C2=A0 Table 4.5 summarizes the encoding of the permission bit=
+s.
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 X W R Meaning
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0 0 0 Pointer to next level of page t=
+able.
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0 0 1 Read-only page.
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0 1 0 Reserved for future use.
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0 1 1 Read-write page.
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1 0 0 Execute-only page.
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1 0 1 Read-execute page.
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1 1 0 Reserved for future use.
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1 1 1 Read-write-execute page.
+> > + */
+> > +inline bool pte_is_table(const pte_t p)
+>=20
+> Missing static?
+static is missed. I'll add it, thanks.
 
-A forthcoming feature, LASS, needs the same treatment here.  Introduce minimum
-enumeration information, although it will take a bit more work to get LASS
-fully usable in guests.
+>=20
+> We normally omit "const" on function arguments; the frequent request
+> to add
+> missing const is on pointed-to types. If you still want to have it,
+> ...
+>=20
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 /*
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * According to the spec if V=3D1 and W=3D1 th=
+en R also needs to
+> > be 1 as
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * R =3D 0 is reserved for future use ( look a=
+t the Table 4.5 )
+> > so check
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * in ASSERT that if (V=3D=3D1 && W=3D=3D1) th=
+en R isn't 0.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * PAGE_HYPERVISOR_RW contains PTE_VALID too.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > +=C2=A0=C2=A0=C2=A0 ASSERT(((p.pte & PAGE_HYPERVISOR_RW) !=3D (PTE_VALI=
+D |
+> > PTE_WRITABLE)));
+> > +
+> > +=C2=A0=C2=A0=C2=A0 return ((p.pte & (PTE_VALID | PTE_ACCESS_MASK)) =3D=
+=3D PTE_VALID);
+> > +}
+> > +
+> > +static inline bool pte_is_mapping(/*const*/ pte_t p)
+>=20
+> ... I wonder why it's then commented out here.
+I just experimented and missed to uncomment it. If "const" could be
+omit for none pointed-to types then I prefer to drop const here and in
+pte_is_table().
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+> > +#define XEN_TABLE_MAP_FAILED 0
+> > +#define XEN_TABLE_SUPER_PAGE 1
+> > +#define XEN_TABLE_NORMAL 2
+> > +
+> > +/*
+> > + * Take the currently mapped table, find the corresponding entry,
+> > + * and map the next table, if available.
+> > + *
+> > + * The alloc_tbl parameters indicates whether intermediate tables
+> > should
+> > + * be allocated when not present.
+> > + *
+> > + * Return values:
+> > + *=C2=A0 XEN_TABLE_MAP_FAILED: Either alloc_only was set and the entry
+> > + *=C2=A0 was empty, or allocating a new page failed.
+> > + *=C2=A0 XEN_TABLE_NORMAL: next level or leaf mapped normally
+> > + *=C2=A0 XEN_TABLE_SUPER_PAGE: The next entry points to a superpage.
+> > + */
+> > +static int pt_next_level(bool alloc_tbl, pte_t **table, unsigned
+> > int offset)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 pte_t *entry;
+> > +=C2=A0=C2=A0=C2=A0 mfn_t mfn;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 entry =3D *table + offset;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 if ( !pte_is_valid(*entry) )
+> > +=C2=A0=C2=A0=C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( !alloc_tbl )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret=
+urn XEN_TABLE_MAP_FAILED;
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( create_table(entry) )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret=
+urn XEN_TABLE_MAP_FAILED;
+>=20
+> You're still losing the -ENOMEM here.
+Agree, I will save the return value of create_table and return it.
 
-I know LASS can't be used with traditional PV guests, but I have some PV-lite
-plans.  The problem is the PV kernel, in CPL3, accessing addresses in the high
-canonincal half.
----
- xen/arch/x86/include/asm/x86-defns.h        |  1 +
- xen/arch/x86/pv/dom0_build.c                | 18 ++++++++++--------
- xen/include/public/arch-x86/cpufeatureset.h |  1 +
- 3 files changed, 12 insertions(+), 8 deletions(-)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rc =3D -EOPNOTSUPP;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0 entry =3D table + offsets[level];
+> > +
+> > +=C2=A0=C2=A0=C2=A0 rc =3D -EINVAL;
+> > +=C2=A0=C2=A0=C2=A0 if ( !pt_check_entry(*entry, mfn, flags) )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 /* We are removing the page */
+> > +=C2=A0=C2=A0=C2=A0 if ( !(flags & PTE_VALID) )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * there is also a che=
+ck in pt_check_entry() which check
+> > that
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * mfn=3DINVALID_MFN
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+>=20
+> Nit: Comments are to start with a capital letter.
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pte.pte =3D 0;
+> > +=C2=A0=C2=A0=C2=A0 else
+> > +=C2=A0=C2=A0=C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* We are inserting a mappi=
+ng =3D> Create new pte. */
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( !mfn_eq(mfn, INVALID_M=
+FN) )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pte=
+ =3D pte_from_mfn(mfn, PTE_VALID);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else /* We are updating the=
+ permission =3D> Copy the current
+> > pte. */
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pte=
+ =3D *entry;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pte=
+.pte &=3D ~(flags & PTE_ACCESS_MASK);
+>=20
+> Why does "flags" need using here? Simply clearing all PTE_ACCESS_MASK
+> bits
+> will do, won't it? And only that will guarantee that flags which are
+> to be
+> clear will actually be cleared.
+Agree, there is no any necessity for using "flags" here, they should be
+dropped.
 
-diff --git a/xen/arch/x86/include/asm/x86-defns.h b/xen/arch/x86/include/asm/x86-defns.h
-index caa92829eaa9..8f97fb1e6a12 100644
---- a/xen/arch/x86/include/asm/x86-defns.h
-+++ b/xen/arch/x86/include/asm/x86-defns.h
-@@ -75,6 +75,7 @@
- #define X86_CR4_PKE        0x00400000 /* enable PKE */
- #define X86_CR4_CET        0x00800000 /* Control-flow Enforcement Technology */
- #define X86_CR4_PKS        0x01000000 /* Protection Key Supervisor */
-+#define X86_CR4_LASS       0x08000000 /* Linear Address Space Separation */
- 
- /*
-  * XSTATE component flags in XCR0 | MSR_XSS
-diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-index 262edb6bf2f0..f5c868df384f 100644
---- a/xen/arch/x86/pv/dom0_build.c
-+++ b/xen/arch/x86/pv/dom0_build.c
-@@ -1057,29 +1057,31 @@ int __init dom0_construct_pv(struct domain *d,
-                              module_t *initrd,
-                              const char *cmdline)
- {
-+    unsigned long cr4 = read_cr4();
-+    unsigned long mask = X86_CR4_SMAP | X86_CR4_LASS;
-     int rc;
- 
-     /*
--     * Clear SMAP in CR4 to allow user-accesses in construct_dom0().  This
--     * prevents us needing to write construct_dom0() in terms of
-+     * Clear SMAP/LASS in CR4 to allow user-accesses in construct_dom0().
-+     * This prevents us needing to write construct_dom0() in terms of
-      * copy_{to,from}_user().
-      */
--    if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
-+    if ( cr4 & mask )
-     {
-         if ( IS_ENABLED(CONFIG_PV32) )
--            cr4_pv32_mask &= ~X86_CR4_SMAP;
-+            cr4_pv32_mask &= ~mask;
- 
--        write_cr4(read_cr4() & ~X86_CR4_SMAP);
-+        write_cr4(cr4 & ~mask);
-     }
- 
-     rc = dom0_construct(d, image, image_headroom, initrd, cmdline);
- 
--    if ( boot_cpu_has(X86_FEATURE_XEN_SMAP) )
-+    if ( cr4 & mask )
-     {
--        write_cr4(read_cr4() | X86_CR4_SMAP);
-+        write_cr4(cr4);
- 
-         if ( IS_ENABLED(CONFIG_PV32) )
--            cr4_pv32_mask |= X86_CR4_SMAP;
-+            cr4_pv32_mask |= mask;
-     }
- 
-     return rc;
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index 8fa3fb711a8d..cbc0a3a8aa2b 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -303,6 +303,7 @@ XEN_CPUFEATURE(SM3,          10*32+ 1) /*A  SM3 Instructions */
- XEN_CPUFEATURE(SM4,          10*32+ 2) /*A  SM4 Instructions */
- XEN_CPUFEATURE(AVX_VNNI,     10*32+ 4) /*A  AVX-VNNI Instructions */
- XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /*A  AVX512 BFloat16 Instructions */
-+XEN_CPUFEATURE(LASS,         10*32+ 6) /*   Linear Address Space Separation */
- XEN_CPUFEATURE(CMPCCXADD,    10*32+ 7) /*a  CMPccXADD Instructions */
- XEN_CPUFEATURE(FZRM,         10*32+10) /*A  Fast Zero-length REP MOVSB */
- XEN_CPUFEATURE(FSRS,         10*32+11) /*A  Fast Short REP STOSB */
--- 
-2.39.5
+>=20
+> > +/*
+> > + * If `mfn` equals `INVALID_MFN`, it indicates that the following
+> > page table
+> > + * update operation might be related to either:
+> > + *=C2=A0=C2=A0 - populating the table (PTE_POPULATE will be set
+> > additionaly),
+> > + *=C2=A0=C2=A0 - destroying a mapping (PTE_VALID=3D0),
+> > + *=C2=A0=C2=A0 - modifying an existing mapping (PTE_VALID=3D1).
+> > + *
+> > + * If `mfn` !=3D INVALID_MFN and flags has PTE_VALID bit set then it
+> > means that
+> > + * inserting will be done.
+> > + */
+> > +static int pt_update(unsigned long virt,
+>=20
+> Don't you have vaddr_t for variables/parameters like this one?
+Yes, I have. I will update update this and re-check other places.
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mfn_t mfn,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long nr_mfns,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int flags)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 int rc =3D 0;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long vfn =3D PFN_DOWN(virt);
+> > +=C2=A0=C2=A0=C2=A0 unsigned long left =3D nr_mfns;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 const mfn_t root =3D get_root_page();
+>=20
+> Why the blank line between adjacent declarations?
+No specific reason, just wanted to group variables by usage ( but then
+it should be one blank after rc ).
+But I will just drop the blank for consistency with other local
+variable of other functions.
+
+~ Oleksii
 
 
