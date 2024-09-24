@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20BB99849CC
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 18:38:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803167.1213621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB17D9849DC
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 18:42:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803175.1213631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st8YY-0005BN-PX; Tue, 24 Sep 2024 16:38:30 +0000
+	id 1st8cU-0006ch-8t; Tue, 24 Sep 2024 16:42:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803167.1213621; Tue, 24 Sep 2024 16:38:30 +0000
+Received: by outflank-mailman (output) from mailman id 803175.1213631; Tue, 24 Sep 2024 16:42:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st8YY-00059a-Mw; Tue, 24 Sep 2024 16:38:30 +0000
-Received: by outflank-mailman (input) for mailman id 803167;
- Tue, 24 Sep 2024 16:38:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1st8YX-00059U-DK
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 16:38:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1st8YX-00049T-4Q; Tue, 24 Sep 2024 16:38:29 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1st8YW-0007xm-UY; Tue, 24 Sep 2024 16:38:29 +0000
+	id 1st8cU-0006am-68; Tue, 24 Sep 2024 16:42:34 +0000
+Received: by outflank-mailman (input) for mailman id 803175;
+ Tue, 24 Sep 2024 16:42:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Vi3U=QW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1st8cS-0006ag-Vf
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 16:42:32 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fe643462-7a93-11ef-a0ba-8be0dac302b0;
+ Tue, 24 Sep 2024 18:42:31 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5c245c62362so6999528a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 09:42:32 -0700 (PDT)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9393134917sm101862166b.203.2024.09.24.09.42.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Sep 2024 09:42:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,125 +44,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=kBpLhioj9VouAcrqToKCNHE6zvUHNgT+PPO+XqEfGVE=; b=zP8Xm27CTM34+YGVQkpZBeWz4e
-	LGOcTACzf3f7OXrxKO7uPjGQnXKuATsV6nzLGjPh4wJVfabuuqpdGhUAId974EqP17+t9w/pDGBM8
-	Sdd+YIZBvY/1ZYqVWjLi3leN2cPM0c0l6HSJYIo9Ky65MEb7ZWJSjKrv0CaRbgSxOj+0=;
-Message-ID: <3fc266d5-fdec-4e1c-9805-87acf5a4d920@xen.org>
-Date: Tue, 24 Sep 2024 17:38:26 +0100
+X-Inumbo-ID: fe643462-7a93-11ef-a0ba-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1727196151; x=1727800951; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=6YKyUWDm3kn9IpzXBFrcGv2QPG2rXoIjGk8I73ONduY=;
+        b=Q/zRs6lEDiSQz9JUsxySt69EK3fb7/N8tCI+SFdNhSKytWpP2l8H0eCtEq+HwnB4Ng
+         O+2qpcY+q8vCfxy5XwAAnhfg1zRmVQM0ANgqP6Bv/GMKC2/ry1YG7q3KdyfLoVc1mNYL
+         nm4RGqkXxJCYS0ysNEwqcCxv2Sy9jT/RYCV2iaXNAnHoE6pIdrQH2+CWX0J50KfyWFno
+         cG34R4GDYb/j9X/i0KA7vzdRlwfLuQndG/sX3WlNchwqox1Loq9S42Tq7futNW09e+kE
+         C5ivW3NtlfXkP3HkbAAUnC467mk1AXtu9ps4t2tjB7oNJhoOkrl4oiPfQ1sLzrqGpWuk
+         SlEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727196151; x=1727800951;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=6YKyUWDm3kn9IpzXBFrcGv2QPG2rXoIjGk8I73ONduY=;
+        b=gV6VoX+QyHloGYVuNqsfGN/ebTOzCgYCPOpHd0UCxd/52htfMHUReuOyfUOdOFUeCO
+         R69JguFycVMIhYafATWhvjJ0VJeQ0ku3F5yZxhQmP2dg6+nuTX419zwf7ecuv32cYeft
+         0QGWVzOTjjafY5FMDtJLcKpQBGIOQ02OLWRD+39f8ePSMd/qGGQJjc9NX1voasnOK8Z2
+         y6wOnvT/wJwhdI383DZasHT/O1A2m4TYjqyiBxgZyhwYlerbrZp0EtKNYLVvCMQbHohQ
+         O+esTieK5ulBddioqXmq66EFvnRqodNMmT8d58oN3iUrbWAFIH2D60DHNKhJH+Z0Bfa6
+         BDZA==
+X-Gm-Message-State: AOJu0Ywo/AhnQsSysHKsYi2dVjuW+Nhu6H953VFigHynQRPp29ymOJGr
+	7J0BbrQjnxNo4SBZDPOVcnRAuihGnWWytskRUrEYivsRW8rwA4QNcex19g==
+X-Google-Smtp-Source: AGHT+IF49SjZk3IDGRJJ7tATvwN6P0ww0F86WV7s44P/jTgZxew4KDecXqAYTsHJxwm9wmp2tFrkvA==
+X-Received: by 2002:a17:907:3f9f:b0:a80:f81c:fd75 with SMTP id a640c23a62f3a-a90d51e1edcmr1569508466b.0.1727196150996;
+        Tue, 24 Sep 2024 09:42:30 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH v2 0/2] Move percpu code to common
+Date: Tue, 24 Sep 2024 18:42:26 +0200
+Message-ID: <cover.1727185495.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.46.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] xen/arm: mpu: Introduce choice between MMU and MPU
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240918175102.223076-1-ayan.kumar.halder@amd.com>
- <20240918175102.223076-2-ayan.kumar.halder@amd.com>
- <e32674d8-4c3c-4eda-9300-35130e048a05@xen.org>
- <8bdaf581-800f-4d00-b11f-ce051ba18f09@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <8bdaf581-800f-4d00-b11f-ce051ba18f09@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+The per-CPU area management code, which is largely common across architectures,
+is a strong candidate for consolidation into common code.
 
+Currently, there is only one architectural-specific aspect:
+1. INVALID_PERCPU_AREA:
+  ARM:
+    #define INVALID_PERCPU_AREA (-(long)__per_cpu_start)
+  x86:
+    #define INVALID_PERCPU_AREA (0x8000000000000000UL - (unsigned long)__per_cpu_start)
 
-On 23/09/2024 10:18, Ayan Kumar Halder wrote:
-> 
-> On 19/09/2024 13:33, Julien Grall wrote:
->> Hi Ayan,
-> Hi Julien,
->>
->> On 18/09/2024 19:50, Ayan Kumar Halder wrote:
->>> There are features in the forthcoming patches which are dependent on
->>> MPU. For eg fixed start address.
->>> Also, some of the Xen features (eg STATIC_MEMORY) will be selected
->>> by the MPU configuration.
->>>
->>> Thus, this patch introduces a choice between MMU and MPU for the type
->>> of memory management system. By default, MMU is selected.
->>> MPU is now gated by UNSUPPORTED.
->>>
->>> Updated SUPPORT.md to state that the support for MPU is experimental.
->>>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>> Changes from :-
->>>
->>> v1 - 1. Reworded the help messages.
->>> 2. Updated Support.md.
->>>
->>>   SUPPORT.md                     |  1 +
->>>   xen/arch/arm/Kconfig           | 16 +++++++++++++++-
->>>   xen/arch/arm/platforms/Kconfig |  2 +-
->>>   3 files changed, 17 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/SUPPORT.md b/SUPPORT.md
->>> index 23dd7e6424..3f6d788a43 100644
->>> --- a/SUPPORT.md
->>> +++ b/SUPPORT.md
->>> @@ -40,6 +40,7 @@ supported in this document.
->>>         Status, Xen in AArch64 mode: Supported
->>>       Status, Xen in AArch32 mode: Tech Preview
->>> +    Status, Xen with MPU: Experimental
->>>       Status, Cortex A57 r0p0-r1p1: Supported, not security supported
->>>       Status, Cortex A77 r0p0-r1p0: Supported, not security supported
->>>   diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
->>> index 323c967361..e881f5ba57 100644
->>> --- a/xen/arch/arm/Kconfig
->>> +++ b/xen/arch/arm/Kconfig
->>> @@ -58,10 +58,24 @@ config PADDR_BITS
->>>       default 40 if ARM_PA_BITS_40
->>>       default 48 if ARM_64
->>>   +choice
->>> +    prompt "Memory management system"
->>> +    default MMU if ARM
->>> +    help
->>> +      User can choose between the different forms of memory 
->>> management system.
->>> +
->>>   config MMU
->>> -    def_bool y
->>> +    bool "MMU"
->>>       select HAS_PMAP
->>>       select HAS_VMAP
->>> +    help
->>> +      Select it if you plan to run Xen on A-profile Armv7+
->>> +
->>> +config MPU
->>> +    bool "MPU" if UNSUPPORTED
->>> +    help
->>> +      Memory protection unit is supported on some Armv8-R systems 
->>> (UNSUPPORTED).
->>
->> I am a bit confused with this statement. Does this mean that not all 
->> Armv8-R supports MPU? Or are you trying to say that not all of them 
->> support EL2?
-> 
-> My bad. All Armv8-R system supports MPU at EL2 (as Bertrand correctly 
-> pointed out). Some of them (eg R82) supports both MMU and MPU at EL1. 
-> While others (eg R52) supports only MPU at EL1.
-> 
-> I should rewrite it as
-> 
-> "Memory protection unit is supported on Armv8-R systems (UNSUPPORTED)."
+These changes do not affect the functional behavior for x86.
 
-I think it would be more consistent with CONFIG_MMU if you write the 
-following:
+For Arm add support of CPU_RESUME_FAILED, CPU_REMOVE and freeing of percpu
+in the case when system_state != SYS_STATE_suspend.
 
-"Memory Protection Unit (MPU). Select if you plan to run Xen on ARMv8-R 
-systems supporting EL2. (UNSUPPORTED)"
+---
+Changes in V2:
+ - update the cover letter message.
+ - move CPU_RESUME_FAILED, CPU_REMOVE handling to common code.
+ - rename PERCPU_SECTION to PERCPU_BSS.
+ - drop ARCH_PERCPU_AREA_CHECK and ARCH_CPU_PERCPU_CALLBACK and connected
+   functions.
+ - All other changes look at specific patch.
+---
 
-Cheers,
+Oleksii Kurochko (2):
+  xen: introduce common macros for per-CPU sections defintion
+  xen: move per-cpu area management into common code
+
+ xen/arch/arm/Makefile             |   1 -
+ xen/arch/arm/include/asm/smp.h    |   7 +-
+ xen/arch/arm/percpu.c             |  85 -----------------------
+ xen/arch/arm/xen.lds.S            |   9 +--
+ xen/arch/ppc/include/asm/smp.h    |   6 --
+ xen/arch/ppc/stubs.c              |   1 -
+ xen/arch/ppc/xen.lds.S            |   9 +--
+ xen/arch/riscv/include/asm/smp.h  |   6 --
+ xen/arch/riscv/stubs.c            |   1 -
+ xen/arch/x86/Makefile             |   1 -
+ xen/arch/x86/include/asm/Makefile |   1 -
+ xen/arch/x86/include/asm/percpu.h |  16 +++++
+ xen/arch/x86/percpu.c             | 112 ------------------------------
+ xen/arch/x86/xen.lds.S            |   9 +--
+ xen/common/Makefile               |   1 +
+ xen/common/percpu.c               | 110 +++++++++++++++++++++++++++++
+ xen/include/asm-generic/percpu.h  |   9 ++-
+ xen/include/xen/percpu.h          |   4 ++
+ xen/include/xen/xen.lds.h         |  10 +++
+ 19 files changed, 153 insertions(+), 245 deletions(-)
+ delete mode 100644 xen/arch/arm/percpu.c
+ create mode 100644 xen/arch/x86/include/asm/percpu.h
+ delete mode 100644 xen/arch/x86/percpu.c
+ create mode 100644 xen/common/percpu.c
 
 -- 
-Julien Grall
+2.46.1
 
 
