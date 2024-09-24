@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97E08984977
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 18:22:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803093.1213512 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD49A98497F
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 18:24:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803097.1213521 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st8IR-0005Gw-RU; Tue, 24 Sep 2024 16:21:51 +0000
+	id 1st8Kl-0005qZ-7R; Tue, 24 Sep 2024 16:24:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803093.1213512; Tue, 24 Sep 2024 16:21:51 +0000
+Received: by outflank-mailman (output) from mailman id 803097.1213521; Tue, 24 Sep 2024 16:24:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st8IR-0005FM-Od; Tue, 24 Sep 2024 16:21:51 +0000
-Received: by outflank-mailman (input) for mailman id 803093;
- Tue, 24 Sep 2024 16:21:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Vfmb=QW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1st8IQ-0005FG-2Y
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 16:21:50 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 196b860b-7a91-11ef-a0ba-8be0dac302b0;
- Tue, 24 Sep 2024 18:21:48 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5c5cc65a8abso1866344a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 09:21:49 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c5cf4c4fd8sm895657a12.69.2024.09.24.09.21.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Sep 2024 09:21:48 -0700 (PDT)
+	id 1st8Kl-0005o5-4M; Tue, 24 Sep 2024 16:24:15 +0000
+Received: by outflank-mailman (input) for mailman id 803097;
+ Tue, 24 Sep 2024 16:24:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=C5PF=QW=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
+ id 1st8Kk-0005nz-4z
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 16:24:14 +0000
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [2607:f8b0:4864:20::22a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6e7d57ee-7a91-11ef-99a2-01e77a169b0f;
+ Tue, 24 Sep 2024 18:24:12 +0200 (CEST)
+Received: by mail-oi1-x22a.google.com with SMTP id
+ 5614622812f47-3e042f4636dso3396930b6e.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 09:24:12 -0700 (PDT)
+Received: from gmail.com ([168.243.189.171]) by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-84e81f8b0cesm23748241.0.2024.09.24.09.24.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Sep 2024 09:24:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +44,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 196b860b-7a91-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 6e7d57ee-7a91-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727194908; x=1727799708; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=l5VwnyOqj7bf3/PmllkILhOPImzZKKwnyzH/iHKzTAk=;
-        b=AmzdudYOMECweUI+JcTlAvTOzGELmEnmD76G8ee69A6+zqmPVJgDRAwitdORlWUsU8
-         Ulzni1Mqtn5AyRZj7KvaA4g2/mbGgqh0MkKIR05f0P1njvK6FB4ICgANhFDRmmNoQw3g
-         +wlFTVTSKGU8QMZ5a7sDawfkt1jTlQ22EHNP9YCrTj65F7fDaGTPWjRcaoAauEvTKbLV
-         XQnukNmHPe7k2FiA33oxF2rGwrBVugDQ27FY3cHfABm4BOmSHTIycjTMipbxNQeviZ9u
-         37LQU62t5AWOb/lK+qIO/Hm1pfJGolkpcW4TE+w83+mBtGi1M20/rBx4PsfX2HepbZql
-         BUlg==
+        d=gmail.com; s=20230601; t=1727195050; x=1727799850; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3zSB7UwGEkeQUEehWL9aGzmWvZ2F15GeF5/5FE0AoYM=;
+        b=Ig2YyWiewJVweZ657wTbpYaoTmd3sL9H7Pf2jIgtApD7sqwiGcW6U2o39OjodtOVS2
+         qFkCfBNDEWmNgZtm++PWfewNMKbVYwZwZjAWwUJ/IO6aIv7ntyjGbt4Ons0NSlBkeot9
+         LLUTwoZCWNe3qXSGQcwvPXzk9z11Z+LSf7jwFGuEiTLuogTdv6xm3r1Q9MFARmsnh7c+
+         soscn3eAZuw3a+ITiVKaQgw0/BGmsWTpLppRHnMEczurMm0euaXCQ5bgihefqaAqMcs4
+         ay+/P0ZCiiYdiKG1J2BIshFBZujoV8BRQIiccy5gyzokQAGYdVQ4oL9dMyPRp+v3KK5a
+         P0Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727194908; x=1727799708;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=l5VwnyOqj7bf3/PmllkILhOPImzZKKwnyzH/iHKzTAk=;
-        b=B3LBvUQzfVWO5QonMSgI1HZ7fHDJ44OdqYz3VfVkj6LhD6pBJm2e2baNgLBzdPkCW1
-         zKqWqlYWQeE94DiVEQM+PtMMh6v+OjPrCZ5gpwIL69YJHB915XnEAm6+AOpbRFkT48bn
-         OJsyhR21IpQbe/2vff2IRH0yDs6qu+Auus7TyGJEAvINtF4cjsQNx+I+PpAm3W0Va+qw
-         TJRHj0tfXTmC9kDtyT5Wt+zt0YbkwyeYhM7NbjDSQC2JP5VwaokK1+mD+MCGqL5j0wOc
-         ao1fMRSFI/Y9hekwHHhE4fpEDwg3PecHSvFK2GSXFcTjXRyCmTYFgrSlGa6pBaF3sqAD
-         ZvQQ==
-X-Gm-Message-State: AOJu0YyFMkpoF50yZGb7G0ujNuSxJFJHXGGhK3gSHcLkD8KEZRyHtTl5
-	V01//egwtCBCv5vE2En/gHQTfNWTdtOJrBj4myweZ8OO7x86Q74EjQpEW9NrMg==
-X-Google-Smtp-Source: AGHT+IGtOxl2QHzDZLpt5lbNoBE6ksMVG0Nkd2WVSpuuIEYLG2sDTcIphnQhP96yCnyhLmfesZ1Euw==
-X-Received: by 2002:a05:6402:51d4:b0:5c5:b9c2:c5bd with SMTP id 4fb4d7f45d1cf-5c5b9c2c5e3mr10019683a12.4.1727194908343;
-        Tue, 24 Sep 2024 09:21:48 -0700 (PDT)
-Message-ID: <d77b1df7-5b05-4d54-b66e-ed90a296c091@suse.com>
-Date: Tue, 24 Sep 2024 18:21:47 +0200
+        d=1e100.net; s=20230601; t=1727195050; x=1727799850;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3zSB7UwGEkeQUEehWL9aGzmWvZ2F15GeF5/5FE0AoYM=;
+        b=tanqAqAq8NO0YvwqCBV7RU0RdbHQl9r9mXXY9j6NBM7R54j2jre5dq3pUDeVulZKF5
+         50Q0Bp/ryCgfqiZnx8v4Q1XvG36G+mW4FSv9fiTQiB5qPUKbFGOoex5p6qnNYgoDOH+1
+         bAJLiyHmmAfo4NB6ZxLs4OvGzOYTfdOkwGRtzMIvtsit0RAtNemuMfnbPl7RbswvJgWH
+         eJ7WLJFG4S+SG2CxvulNXIUzQQIv1ge5OBJwLR5P2ZipfNgReEt4mQkrSCdkGgwcnmpR
+         OmeJbA88K/24z5ZBY/L7Pa2J7cwrEhksYv3ZoaArDO3hhgjSZv0wfVAt3nkcYa4S11XO
+         8DwQ==
+X-Gm-Message-State: AOJu0YxUIM4E4Ke7PEuRIfJcHuQj0LJxfcycEMYb/cw3m+XakGroZOj2
+	lHJ2CMoBrVGvEKxoOlKWmaBgCRV+u8kAJevemjOa9hhDRElizb5Z7l8OiFaF
+X-Google-Smtp-Source: AGHT+IFspUZSvUf6BJZSy6b3LqggqHfTkXtesFc8G6jMqNuoLaYdcL8+j55/Mz+LcuupdrAShnLq9Q==
+X-Received: by 2002:a05:6808:1815:b0:3e0:41fe:646b with SMTP id 5614622812f47-3e271ced890mr9632119b6e.42.1727195050254;
+        Tue, 24 Sep 2024 09:24:10 -0700 (PDT)
+From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	julien@xen.org,
+	bertrand.marquis@arm.com,
+	michal.orzel@amd.com,
+	Volodymyr_Babchuk@epam.com,
+	dpsmith@apertussolutions.com,
+	edgar.iglesias@amd.com
+Subject: [PATCH v1 0/6] xen/arm: Add Virtio-PCI for dom0less on ARM
+Date: Tue, 24 Sep 2024 18:23:53 +0200
+Message-ID: <20240924162359.1390487-1-edgar.iglesias@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/APIC: Remove x2APIC pure cluster mode
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Matthew Barnes <matthew.barnes@cloud.com>
-References: <e43028a51f8cea02421d0856376faada8ab186d4.1726840133.git.matthew.barnes@cloud.com>
- <ZvLWSEwbdL1kpvC6@macbook.local>
- <4b7a2b84-5c5d-40e2-b20e-5c011eac7b4a@citrix.com>
- <ZvLlYp0L3Ac2O_uG@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZvLlYp0L3Ac2O_uG@macbook.local>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 24.09.2024 18:14, Roger Pau Monné wrote:
-> On Tue, Sep 24, 2024 at 04:27:36PM +0100, Andrew Cooper wrote:
->> On 24/09/2024 4:10 pm, Roger Pau Monné wrote:
->>> On Mon, Sep 23, 2024 at 03:35:59PM +0100, Matthew Barnes wrote:
->>>> With the introduction of mixed x2APIC mode (using cluster addressing for
->>>> IPIs and physical for external interrupts) the use of pure cluster mode
->>>> doesn't have any benefit.
->>>>
->>>> Remove the mode itself, leaving only the code required for logical
->>>> addressing when sending IPIs.
->>>>
->>>> Implements: https://gitlab.com/xen-project/xen/-/issues/189
->>
->> We use the Resolves: tag for this.  Can fix on commit.
->>
->>> There's at least one extra bit which I would also like to see removed,
->>> either in this patch, or as following patch.
->>>
->>> In struct arch_irq_desc we have 3 cpumasks: cpu_mask, old_cpu_mask and
->>> pending_mask.  After dropping cluster mode for external interrupts,
->>> those fields could become integers AFACT, as now interrupts can only
->>> target a single CPU opposed to a logical CPU set.
->>
->> A separate patch for sure, but that sounds like a great improvement.
-> 
-> Oh, there are quite some fields of struct genapic that are not needed
-> anymore, since both implementations set it to the same function.  It
-> would be helpful to prune them.
+From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 
-Pruning where possible - yes. But "both" won't cover it, as we have 4
-instances of the struct (not just the two x2apic ones).
+This series adds support for Virtio-PCI for dom0less on ARM.
 
-Jan
+Three parts:
+1. Decrease size of second RAM bank to free up space in <40bit address range.
+2. Add generation of virtio-pci FDT nodes for domU.
+3. Add a background ECAM region always responding 0xFFFFFFFF (nothing attached).
+
+Decreasing the size of the second RAM bank is probably a bit controversial
+since it breaks backwards compatibility for guests with huge amounts of RAM.
+There are other options we could consider but the problem we've got is that
+we're running out of address-space under <40bits. There're some fragmented
+holes under <32bit but nothing between 32 - 40bits and there are ARM systems
+out there that only have 40-bit physical address space (Cortex-A53 on the
+Xilinx ZynqMP to name one).
+
+For virtio-pci the holes <32-bit are not large enough to fit the ECAM range
+nor a 4G area to map pretechable-memory BARs.
+
+Another option is to leave the second bank unmodified and default virtio-pci
+to >40bit addresses. Users that create guests with less RAM than the maximum
+can use the fdt bindings to relocate virtio-pci down to <40bit range if they
+need to.
+
+I've published some instructions on how to try this including the work in
+progress QEMU side of the ARM PVH PCI support:
+https://github.com/edgarigl/docs/blob/master/xen/pvh/virtio-pci-dom0less.md
+
+Cheers,
+Edgar
+
+Edgar E. Iglesias (5):
+  xen/arm: Decrease size of the 2nd ram bank
+  xen/arm: Reserve resources for virtio-pci
+  xen/arm: io: Add support for mmio background regions
+  xen/arm: io: Add a read-const writes-ignored mmio handler
+  xen/arm: dom0less: Add a background PCI ECAM mmio region
+
+Stewart Hildebrand (1):
+  xen/arm: create dom0less virtio-pci DT node
+
+ docs/misc/arm/device-tree/booting.txt |  21 +++
+ xen/arch/arm/dom0less-build.c         | 248 ++++++++++++++++++++++++++
+ xen/arch/arm/include/asm/kernel.h     |  15 ++
+ xen/arch/arm/include/asm/mmio.h       |  13 +-
+ xen/arch/arm/io.c                     |  39 +++-
+ xen/include/public/arch-arm.h         |  21 ++-
+ 6 files changed, 348 insertions(+), 9 deletions(-)
+
+-- 
+2.43.0
+
 
