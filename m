@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 974FD984E38
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 00:57:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803362.1213894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36782984ECD
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 01:17:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803371.1213904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stESx-0007J1-5W; Tue, 24 Sep 2024 22:57:07 +0000
+	id 1stEm2-0001iG-Jm; Tue, 24 Sep 2024 23:16:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803362.1213894; Tue, 24 Sep 2024 22:57:07 +0000
+Received: by outflank-mailman (output) from mailman id 803371.1213904; Tue, 24 Sep 2024 23:16:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stESx-0007H8-2Y; Tue, 24 Sep 2024 22:57:07 +0000
-Received: by outflank-mailman (input) for mailman id 803362;
- Tue, 24 Sep 2024 22:57:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1stESv-0007Gy-Ff; Tue, 24 Sep 2024 22:57:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1stESv-0002oW-C7; Tue, 24 Sep 2024 22:57:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1stESu-0008Hy-Sd; Tue, 24 Sep 2024 22:57:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1stESu-0003wi-SD; Tue, 24 Sep 2024 22:57:04 +0000
+	id 1stEm2-0001gl-Gy; Tue, 24 Sep 2024 23:16:50 +0000
+Received: by outflank-mailman (input) for mailman id 803371;
+ Tue, 24 Sep 2024 23:16:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=325E=QW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1stEm1-0001gf-0R
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 23:16:49 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 11b7aac8-7acb-11ef-a0ba-8be0dac302b0;
+ Wed, 25 Sep 2024 01:16:47 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 05AA6A43966;
+ Tue, 24 Sep 2024 23:16:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D93BC4CEC4;
+ Tue, 24 Sep 2024 23:16:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +41,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Ci7Wa65QKB0krVFHzPsNW+V/9gMceynk4RpmkzIYQFM=; b=WsR5UCaJAzByZUiq+ku+BEEPf5
-	k/YhbUF3Q/+3xc0t1+dV5Ee/JrFF/FylVrOuNoI9lggwtmPzMbO15p/sf3Fm+GOVlsdUnsMIp6Kcd
-	W1pD/eKmEZmV6Ex+5/5rM4wci2IJRkQJY00DdoW51zs14+4pkXKQj/dfHzhmUWO2tFrU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187849-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 11b7aac8-7acb-11ef-a0ba-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1727219805;
+	bh=SZLmb9VQ9zDGXnOGuXKRN8Vm7e/3QEb5HI0s6Z8Efuc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=QBWOd9PniogsIUtZyFtzgxcn6zntmhE5+PaPei/zi+/CERi8qlY4VcWLV/tim3Gu9
+	 iKSQ36tWNcycKTpgwLf1pLPcIa5QVOtghVJLth1BHHfi1Xp3PloGci/OBgWVn34J6O
+	 gJSXFIiSgcTym0O9Fl6eXSNWnXGm4Ao8glIJPG8jIBC6qu5eZ8hGkFfQl5yXtSQKpC
+	 VXOXeR2UiA3BD0RPED4891Anh1KZQtjv7HvVuXeJyurFOVnkM1SXU81D1ZNTG2nbHM
+	 yEK2WLFwHgzmm8ggthoITn4xOIRqwjNVvbb4VVhm0Iz41RXQhhGsgV0IdrKgufgPcd
+	 CY1Tz4lzSMvHg==
+Date: Tue, 24 Sep 2024 16:16:43 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: "Edgar E. Iglesias" <edgar.iglesias@amd.com>, 
+    "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, 
+    xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, 
+    dpsmith@apertussolutions.com
+Subject: Re: [PATCH v1 2/6] xen/arm: Reserve resources for virtio-pci
+In-Reply-To: <7b867cf0-9d4b-4067-ac56-a7d6b3d440f5@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2409241559150.1417852@ubuntu-linux-20-04-desktop>
+References: <20240924162359.1390487-1-edgar.iglesias@gmail.com> <20240924162359.1390487-3-edgar.iglesias@gmail.com> <465cb8b5-5f46-42ce-be8f-a38c1c23a805@xen.org> <ZvLyzZ8n-QgrYOCW@zapote> <7b867cf0-9d4b-4067-ac56-a7d6b3d440f5@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 187849: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=b8122cc9d8b6c9017905ac5f4c846b4c0f535d01
-X-Osstest-Versions-That:
-    ovmf=a131839a3db7f933f51efc6c13d5986d7f09eab3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 24 Sep 2024 22:57:04 +0000
+Content-Type: multipart/mixed; BOUNDARY="8323329-1353379977-1727218876=:1417852"
+Content-ID: <alpine.DEB.2.22.394.2409241601180.1417852@ubuntu-linux-20-04-desktop>
 
-flight 187849 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187849/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 b8122cc9d8b6c9017905ac5f4c846b4c0f535d01
-baseline version:
- ovmf                 a131839a3db7f933f51efc6c13d5986d7f09eab3
+--8323329-1353379977-1727218876=:1417852
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2409241601181.1417852@ubuntu-linux-20-04-desktop>
 
-Last test of basis   187833  2024-09-23 18:41:31 Z    1 days
-Testing same since   187849  2024-09-24 17:13:39 Z    0 days    1 attempts
+On Tue, 24 Sep 2024, Julien Grall wrote:
+> On 24/09/2024 18:11, Edgar E. Iglesias wrote:
+> > On Tue, Sep 24, 2024 at 05:35:20PM +0100, Julien Grall wrote:
+> > > Hi Edgar,
+> > > 
+> > > On 24/09/2024 17:23, Edgar E. Iglesias wrote:
+> > > > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+> > > > 
+> > > > Reserve memory ranges and interrupt lines for an externally
+> > > > emulated PCI controller (e.g by QEMU) dedicated to hosting
+> > > > Virtio devices and potentially other emulated devices.
+> > > > 
+> > > > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> > > > ---
+> > > >    xen/include/public/arch-arm.h | 17 +++++++++++++++++
+> > > >    1 file changed, 17 insertions(+)
+> > > > 
+> > > > diff --git a/xen/include/public/arch-arm.h
+> > > > b/xen/include/public/arch-arm.h
+> > > > index e19f0251a6..654b827715 100644
+> > > > --- a/xen/include/public/arch-arm.h
+> > > > +++ b/xen/include/public/arch-arm.h
+> > > > @@ -494,6 +494,20 @@ typedef uint64_t xen_callback_t;
+> > > >    #define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 952GB of RAM
+> > > > @ 8GB */
+> > > >    #define GUEST_RAM1_SIZE   xen_mk_ullong(0xee00000000)
+> > > > +/* Virtio PCI - Ordered by decreasing size to keep things aligned */
+> > > > +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_TYPE  xen_mk_ullong(0x43000000)
+> > > > +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_BASE
+> > > > xen_mk_ullong(0x0f000000000)
+> > > > +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_SIZE  xen_mk_ullong(0x100000000)
+> > > > +
+> > > > +#define GUEST_VIRTIO_PCI_ECAM_BASE
+> > > > (GUEST_VIRTIO_PCI_PREFETCH_MEM_BASE + \
+> > > > +
+> > > > GUEST_VIRTIO_PCI_PREFETCH_MEM_SIZE)
+> > > > +#define GUEST_VIRTIO_PCI_ECAM_SIZE      xen_mk_ullong(0x10000000)
+> > > > +
+> > > > +#define GUEST_VIRTIO_PCI_MEM_TYPE         xen_mk_ullong(0x02000000)
+> > > > +#define GUEST_VIRTIO_PCI_MEM_BASE         (GUEST_VIRTIO_PCI_ECAM_BASE +
+> > > > \
+> > > > +                                           GUEST_VIRTIO_PCI_ECAM_SIZE)
+> > > > +#define GUEST_VIRTIO_PCI_MEM_SIZE         xen_mk_ullong(0x00002000000)
+> > > 
+> > > Why is this specific to virtio PCI? However, I am not entirely convinced
+> > > we
+> > > should have a second PCI hostbridge exposed to the guest for a few
+> > > reasons:
+> > >    1. This require to reserve yet another range in the address space
+> > > (could
+> > > be solved with a more dynamic layout)
+> > >    2. From your instructions, the guest needs to explicitly do a PCI
+> > > rescan.
+> 
+> Another big advantage I forgot to mention is disaggregation. In a world where
+> the hostbridge is handled in Xen, you could have a PCI device emulated by dom0
+> while the other is emulated by a stub domain.
+> 
+> > > 
+> > > So rather than having a second hostbridge, have you considered to extend
+> > > the
+> > > existing hostbridge (implemented in Xen) to support a mix of physical PCI
+> > > device and virtual one?
+> > > 
+> > 
+> > Thanks Julien,
+> > 
+> > It's briefly come up in a couple of discussions but I haven't looked
+> > carefully at it. It is a good idea and it's probably worth prototyping
+> > to see what the gaps are in hypercall interfaces, QEMU support etc.
+> 
+> I also vaguely recall to discuss it on xen-devel. But I couldn't find the
+> discussion... :(.
+> 
+> I think all the hypercalls should be there but will require some plumbing in
+> Xen on Arm. QEMU should be able to request Xen to forward configuration access
+> for a given PCI device (see XEN_DMOP_IO_RANGE_PCI). They will then be
+> forwarded to QEMU using IOREQ_TYPE_PCI_CONFIG.
+> 
+> We also have an hypercall to be able to inject interrupts from QEMU (see
+> XEN_DMOP_set_irq_level).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Hi Julien,
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+Yes, I remember a thread on xen-devel too about this topic when EPAM
+suggested a similar two-hostbridges approach. I was one of the people
+suggesting to use a single hostbridge at the time.
 
+However, when we looked at the implementation more closely, the
+two-hostbridge approach was easier to get up and running. It works
+(almost) out of the box. Currently, we have the two-hostbridge solution
+working on both ARM and x86 to enable virtio-pci to work alongside vPCI
+in Dom0less/Hyperlaunch configurations.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+While I think that a single hostbridge is better architecturally, it is
+important to consider that virtio is moving toward a new transport
+(virtio-msg, Bertrand is also involved) which does not require a
+hostbridge. This new transport is key for all our use-cases as it
+addresses safety requirements and supports AMP configurations without a
+shared hypervisor between the frontend and backend. Edgar is one of the
+top contributors to virtio-msg. Given this, I don't think it's
+worthwhile to invest much effort in virtio-pci, as it will be replaced
+soon in embedded applications.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   a131839a3d..b8122cc9d8  b8122cc9d8b6c9017905ac5f4c846b4c0f535d01 -> xen-tested-master
+Cheers,
+Stefano
+--8323329-1353379977-1727218876=:1417852--
 
