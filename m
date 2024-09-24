@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62BC698461B
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 14:48:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802808.1213078 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A6519846B5
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 15:26:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802871.1213269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st4xL-0006jL-M4; Tue, 24 Sep 2024 12:47:51 +0000
+	id 1st5Xm-000768-EP; Tue, 24 Sep 2024 13:25:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802808.1213078; Tue, 24 Sep 2024 12:47:51 +0000
+Received: by outflank-mailman (output) from mailman id 802871.1213269; Tue, 24 Sep 2024 13:25:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st4xL-0006h0-JP; Tue, 24 Sep 2024 12:47:51 +0000
-Received: by outflank-mailman (input) for mailman id 802808;
- Tue, 24 Sep 2024 12:47:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1st5Xm-00073O-Ah; Tue, 24 Sep 2024 13:25:30 +0000
+Received: by outflank-mailman (input) for mailman id 802871;
+ Tue, 24 Sep 2024 13:25:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4pT6=QW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1st4xK-0006gq-RT
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 12:47:50 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 34ed1d92-7a73-11ef-a0ba-8be0dac302b0;
- Tue, 24 Sep 2024 14:47:50 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a86e9db75b9so869430066b.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 05:47:50 -0700 (PDT)
+ id 1st5Xl-00073I-28
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 13:25:29 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 76164d97-7a78-11ef-99a2-01e77a169b0f;
+ Tue, 24 Sep 2024 15:25:26 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a8d56155f51so667341966b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 06:25:26 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9392f36369sm80845366b.42.2024.09.24.05.47.48
+ a640c23a62f3a-a9393134950sm83365766b.212.2024.09.24.06.25.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Sep 2024 05:47:48 -0700 (PDT)
+ Tue, 24 Sep 2024 06:25:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34ed1d92-7a73-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 76164d97-7a78-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727182069; x=1727786869; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1727184326; x=1727789126; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4tuqLr91QlLY78yhu8HnvbVINnDVWvJ+uUG+EdQ9hXw=;
-        b=c1NEnIyi2aIicDsf3mH6vuADO9lY3/WZLWePEqt0+acUro7b4Uph17EVtxV68Yc29f
-         BI2WuQBcJbic9n9N8HVuxFx9k6UTy5JAjq3EsaKmvCRfHJUA92cG24W5yzJ3wGB/YWJn
-         QBcHrqBNpCKf0V5367QVwRGl5UbFoafD/GbqM=
+        bh=M2QV5ll5M2g/0tMGS4csjAUbrVrLk3moBG2wF34wPMY=;
+        b=r3hTVPeTCF4n3dGdkH2DfTf8muN7scgx6HrrQU2HogB3u19HezZdkVgaXVEEPqdSav
+         E6FNMwHpdQjTbpYgodQqKd3LRpD9XdZUNLWYGbK1WRTaNLLu5qy4yN8BTJrz2mDNuhDJ
+         qZK5ptpQH++0eS06z9boi0qtHEYk9Opi5apU4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727182069; x=1727786869;
+        d=1e100.net; s=20230601; t=1727184326; x=1727789126;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4tuqLr91QlLY78yhu8HnvbVINnDVWvJ+uUG+EdQ9hXw=;
-        b=WfYNx5KCX+/2jpd7+04sU+pVZxQPRLia4L6mgOPEfUnSPt2n5RQjkNuLNEFrwh/pkG
-         pL8g+36Q3K3ubGhehEqne1RkmsylciUx5+mP+Z4aukqkSj+i9FN69GQaGMjgWYdclb/z
-         zyOh9dDd2uQL8GSUExXDZwijNd2xT4MNEtQtxO/NiqDJx8KF1iIdz4D4LRZqAO1JxUHx
-         B/VX4pYVXHowylcOLmAHEEo5hSwKvJL8TXkRMzKiU0x39Ch995Dvdta4QmQrCC58AGiS
-         KZ9znaI9+KF4DccSIMdrF+PNSm4c8YU3C1ZtxuFp1sl4iDc0i7VmYDVWnEDfTvnL1kZH
-         uLfg==
-X-Forwarded-Encrypted: i=1; AJvYcCXIEnit1hkOnCZJmA9c12lJvv4+Bvyy/5jApqz422LxkdYrZyvUtNfC3vD5Y58ZxVOxE3uDoX/GrH0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyiF5UdbkAYqz3a0TahG+TQBAr8w2fRB1qz5dtl2FaBSdVbUFjp
-	SuRYx84hclsp8bjPc+2pK3yFlRgn3kxf2vsjMN2bECFWzcdiviytPSSvD7S5Uso=
-X-Google-Smtp-Source: AGHT+IE7sLcPYa11ndZx1ErlOFfmCI3EReSYpr/ki5JLLhd26bL7AumYBRVYKXOuUToLnC1xlL+BPQ==
-X-Received: by 2002:a17:906:bc13:b0:a77:f2c5:84a9 with SMTP id a640c23a62f3a-a90d4ffd5f0mr1483163766b.18.1727182069382;
-        Tue, 24 Sep 2024 05:47:49 -0700 (PDT)
-Message-ID: <ca1acc43-d475-4d89-8382-41a6df733d85@citrix.com>
-Date: Tue, 24 Sep 2024 13:47:47 +0100
+        bh=M2QV5ll5M2g/0tMGS4csjAUbrVrLk3moBG2wF34wPMY=;
+        b=eHMb3M4Z4yFd22Cq0608EvfUJUJIvHJjUf273H/W9DW7OAVaoPvBF5yAmdUlrFyAUV
+         86xcf7uc1OPB6oTkTnhWFTcEtiMA+l7u58lbiR9xQyW5DdDUEIwIAnAhLkJ0CNL2ZCVK
+         wF5Pyaq5oDUv/eKqrrLfwWXw575lPtedpySt57ijx8v+h4hjh9DPQ0YasONCuRqXGEvl
+         m00/1CroZKbT/UpngX+5mKEMqjIj6EfoEEWLvR0wqwAlEJ3Khqu/eQVecy12Rqnweq0r
+         zcaa3OoOXPJ5wqT1ZGGgvz4P7vWxapZFYDZw4imTjbYSVDsSniQfwTR1dH55A38rUxEe
+         FHVg==
+X-Forwarded-Encrypted: i=1; AJvYcCV9WsVKdruYPxl8WKj8FzIWY3/MK6po9GL3t/X05ZMyQ28WgRpWhNavC5xwXvLvP9qPTV4lilUi+Gk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz6Z+VRghNBUrC3ChVgDV5N7UvFEnFe7Gb/a6oZ62bwZXpMd3LM
+	trfoXDP+LNLRTid7rv+n1xdOsP49xnSAezWCQKZ+z0hyJnvv3faNS35JfqpYTb/rlKov9BPNM5j
+	55ww=
+X-Google-Smtp-Source: AGHT+IHqOc+T1GpCr9Gs4olzQWCdbFxJXyhnSH68eFZp+0fUbLOAVi0yXhzuuE43g5kYB/yavA0kqg==
+X-Received: by 2002:a17:907:f759:b0:a8a:83e9:43e2 with SMTP id a640c23a62f3a-a90d4fcb6bcmr1387464066b.12.1727184326252;
+        Tue, 24 Sep 2024 06:25:26 -0700 (PDT)
+Message-ID: <91bf7854-83e8-42cc-a28b-21aaa472bb1f@citrix.com>
+Date: Tue, 24 Sep 2024 14:25:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] x86/boot: Initialise BSS sooner
+Subject: Re: [PATCH v3 2/4] x86/boot: Refactor BIOS/PVH start
 To: Frediano Ziglio <frediano.ziglio@cloud.com>,
  xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
 References: <20240924102811.86884-1-frediano.ziglio@cloud.com>
- <20240924102811.86884-2-frediano.ziglio@cloud.com>
+ <20240924102811.86884-3-frediano.ziglio@cloud.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,23 +131,109 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240924102811.86884-2-frediano.ziglio@cloud.com>
+In-Reply-To: <20240924102811.86884-3-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 24/09/2024 11:28 am, Frediano Ziglio wrote:
-> @@ -459,6 +460,20 @@ __pvh_start:
+> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+> index fa21024042..80bba6ff21 100644
+> --- a/xen/arch/x86/boot/head.S
+> +++ b/xen/arch/x86/boot/head.S
+>  ELFNOTE(Xen, XEN_ELFNOTE_PHYS32_ENTRY, .long sym_offs(__pvh_start))
 >  
->  #endif /* CONFIG_PVH_GUEST */
+>  __pvh_start:
+> -        cld
+> +        mov     $BOOT_TYPE_PVH, %dl
+> +        jmp     .Lcommon_bios_pvh
+> +#endif /* CONFIG_PVH_GUEST */
+> +
+> +__start:
+> +        mov     $BOOT_TYPE_BIOS, %dl
+
+Even if we're generally using %dl, these must be full %edx writes.
+
+%edx commonly contains FMS on entry, and we don't want part of FMS left
+in the upper half of the register.
+
+> +
+> +.Lcommon_bios_pvh:
+>          cli
+> +        cld
 >  
-> +.Linitialise_bss:
-> +	/* Initialise the BSS. */
+>          /*
+> -         * We need one call (i.e. push) to determine the load address.  See
+> -         * __start for a discussion on how to do this safely using the PVH
+> -         * info structure.
+> +         * Multiboot (both 1 and 2) and PVH specify the stack pointer as
+> +         * undefined.  This is unhelpful for relocatable images, where one
+> +         * call (i.e. push) is required to calculate the image's load address.
+> +         *
+> +         * Durig BIOS boot, there is one area of memory we know about with
+> +         * reasonable confidence that it isn't overlapped by Xen, and that's
+> +         * the Multiboot info structure in %ebx.  Use it as a temporary stack.
+> +         *
+> +         * During PVH boot use info structure in %ebx.
+>           */
+>  
+>          /* Preserve the field we're about to clobber. */
+> -        mov     (%ebx), %edx
+> +        mov     (%ebx), %ecx
 
-You've had some tabs sneak in here.  I can drop on commit.
+Both here, and ...
 
-Also, I'd suggest:
+>          lea     4(%ebx), %esp
+>  
+>          /* Calculate the load base address. */
+> @@ -449,62 +459,40 @@ __pvh_start:
+>          mov     %ecx, %es
+>          mov     %ecx, %ss
+>  
+> -        /* Skip bootloader setup and bios setup, go straight to trampoline */
+> -        movb    $1, sym_esi(pvh_boot)
+> -        movb    $1, sym_esi(skip_realmode)
+> -
+> -        /* Set trampoline_phys to use mfn 1 to avoid having a mapping at VA 0 */
+> -        movw    $0x1000, sym_esi(trampoline_phys)
+> -        mov     (%ebx), %eax /* mov $XEN_HVM_START_MAGIC_VALUE, %eax */
+> -        jmp     trampoline_setup
+> -
+> -#endif /* CONFIG_PVH_GUEST */
+> +        /* Load null selector to unused segment registers. */
+> +        xor     %ecx, %ecx
+> +        mov     %ecx, %fs
+> +        mov     %ecx, %gs
+>  
+> -.Linitialise_bss:
+>  	/* Initialise the BSS. */
+> -        mov     %eax, %edx
+> -
+> +        mov     %eax, %ebp
 
-        /* Initialise the BSS.  Preserve %eax (BOOTLOADER_MAGIC). */
+... here, we've got changes caused by now using %edx for a long-lived
+purpose (and a change in linebreaks.)
 
-With that, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+For this, %ebp should be used straight away in patch 1.  I've not
+committed it yet, so can fix that up.
+
+
+I have to admit that I think this patch would be easier if the "use %ebx
+for BOOT_TYPE_*" change was split out of "better merge the BIOS/PVH
+paths".  That would at least get the incidental %edx changes out of the way.
+
+Also, inserting
+
+#ifdef CONFIG_PVH_GUEST
+        cmp     $BOOT_TYPE_PVH, %dl
+        jne     1f
+1:
+#endif /* CONFIG_PVH_GUEST */
+
+in the same patch will probably make the subsequent diff far more legible.
+
+Thoughts?
+
+I might give this a quick go, and see how it ends up looking...
+
+~Andrew
 
