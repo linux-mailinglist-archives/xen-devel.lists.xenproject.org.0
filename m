@@ -2,32 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8166984A24
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 19:10:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803249.1213751 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C79CB984A25
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 19:12:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803261.1213762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st93c-0001hx-4w; Tue, 24 Sep 2024 17:10:36 +0000
+	id 1st94s-0002SG-IZ; Tue, 24 Sep 2024 17:11:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803249.1213751; Tue, 24 Sep 2024 17:10:36 +0000
+Received: by outflank-mailman (output) from mailman id 803261.1213762; Tue, 24 Sep 2024 17:11:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st93c-0001gI-1Y; Tue, 24 Sep 2024 17:10:36 +0000
-Received: by outflank-mailman (input) for mailman id 803249;
- Tue, 24 Sep 2024 17:10:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1st93Z-0001em-Ta
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 17:10:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1st93Z-0004zV-Ea; Tue, 24 Sep 2024 17:10:33 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1st93Z-00073l-78; Tue, 24 Sep 2024 17:10:33 +0000
+	id 1st94s-0002QF-F4; Tue, 24 Sep 2024 17:11:54 +0000
+Received: by outflank-mailman (input) for mailman id 803261;
+ Tue, 24 Sep 2024 17:11:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OoKa=QW=amd.com=Edgar.Iglesias@srs-se1.protection.inumbo.net>)
+ id 1st94r-00010G-J8
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 17:11:53 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2413::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 169e1bac-7a98-11ef-99a2-01e77a169b0f;
+ Tue, 24 Sep 2024 19:11:51 +0200 (CEST)
+Received: from BN9PR03CA0808.namprd03.prod.outlook.com (2603:10b6:408:13f::33)
+ by CY5PR12MB6371.namprd12.prod.outlook.com (2603:10b6:930:f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.28; Tue, 24 Sep
+ 2024 17:11:47 +0000
+Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
+ (2603:10b6:408:13f:cafe::63) by BN9PR03CA0808.outlook.office365.com
+ (2603:10b6:408:13f::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.30 via Frontend
+ Transport; Tue, 24 Sep 2024 17:11:47 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8005.15 via Frontend Transport; Tue, 24 Sep 2024 17:11:47 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 24 Sep
+ 2024 12:11:46 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,419 +56,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=HqQmfMir3+0Ivs6AFDKA8yg5rNIlBbACwb9Cf9SUk5c=; b=a/l5w9G6/jdrIbWiUMG0EnlEAG
-	f2nWVuF62uP+qgELguJ+zydwxc+UbWteA0dj5CjZmMIcp1jJo1/3h5BlekfmdDu0lzXr/T497NnW/
-	Wr1JgfuduYRJrTFVy2jBRWq+4Ch+CoMD/+DAw6+20AUstDZMqQVfgazkvySq4GSWW9i8=;
-Message-ID: <59432427-950d-4667-aed9-1caad33d7cf9@xen.org>
-Date: Tue, 24 Sep 2024 18:10:31 +0100
+X-Inumbo-ID: 169e1bac-7a98-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oVlT0SEGx4Lw2r0K1SzHE5jRP2q6KinZUrYGNOKK+OuJ0TyEhwUlO6SD6bXAiMg14iDjvfYhacj7C0R0OcsfrnZFW6FmDD1PGemgojc4/I2xBrWRRBJ8WMlOb3aNqge1VFufDH843Z2lLkPMYRDnNBxZuw93e4X1ZADw5A3EMRx61vfiRpgn9hezxctXWU6N09iw8XWkGp4aTsBQHD7j93Y2lpXSF5TawcTZUc+cYK2JrYP2LG1ZRJKKd/qV/gkkypB/+V/hFRabFqURfHQy5MwWcigBJKkiOJo8pRMzkwkwoNa8moaTwfNDKN36OuL1p+4T2MXSAM0/C0LUDTYHKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BlPrTEz8wHFhdYjr41B8e88hFngiwqnen+WM8gyV6ck=;
+ b=XKAw/v84pj2Bdzg4nIPVZ18iVJeTAwrbtk8kVzYcgCaxW89WZAK4zCbX0snxoq2/MJYR/UUW+/frrCXjEK/yYaOLIc8SDAFkhAt53tUIDDQFIQ2GsX95LGIQshakdyyeM/R+M4zSekawkvPZ3LJu+zAXke16gApUYzkxJZb0TNq+vhgyV5LJ7IlnpEOYHnjp3KfMZN+gy/6yHGcAgAuOZi5yftSdye7Zu1nTWZaMX6Cs8xkx/+tGOepmVdZXNh8cayuS3JkqHpGYUqDNmC0rj/MgoF1v1CShJJqYzwAbysn3oxcP2/Ltl+MOZJ14DHuIKR9rf154Rai/ve89YI7hcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BlPrTEz8wHFhdYjr41B8e88hFngiwqnen+WM8gyV6ck=;
+ b=W8YsQ2BZjM0Kjd/TZCT33/uyDKoRBNbs5ung7HpViF3EqgYmHFro7ESaKhKIUUvhhSU5xYMmbighhH54nq11Fmaux7VI7DFqG1em9EizJd/occ6eIdvw5dqCgVanvNedZ8Ab8axlH7GJMstM08bwgixeu1q65mKFq7xOvlyAb4k=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Date: Tue, 24 Sep 2024 19:11:41 +0200
+From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+To: Julien Grall <julien@xen.org>
+CC: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	<xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
+	<bertrand.marquis@arm.com>, <michal.orzel@amd.com>,
+	<Volodymyr_Babchuk@epam.com>, <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v1 2/6] xen/arm: Reserve resources for virtio-pci
+Message-ID: <ZvLyzZ8n-QgrYOCW@zapote>
+References: <20240924162359.1390487-1-edgar.iglesias@gmail.com>
+ <20240924162359.1390487-3-edgar.iglesias@gmail.com>
+ <465cb8b5-5f46-42ce-be8f-a38c1c23a805@xen.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] xen/arm: mpu: Create boot-time MPU protection
- regions
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240918175102.223076-1-ayan.kumar.halder@amd.com>
- <20240918175102.223076-4-ayan.kumar.halder@amd.com>
- <e515dfb1-efb6-41a5-85a4-65ec7e9c60a6@xen.org>
- <04bcb27f-8139-43ed-839c-1febe2eb5a13@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <04bcb27f-8139-43ed-839c-1febe2eb5a13@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <465cb8b5-5f46-42ce-be8f-a38c1c23a805@xen.org>
+User-Agent: Mutt/2.2.12 (2023-09-09)
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|CY5PR12MB6371:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc99a0de-ce0c-44da-1ef2-08dcdcbbf90d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?4GN9bv5pjLC6o7MdES+UTIvSueu30iQKaPIH/i1HbA+VgGVy6DzgZ8x1TL3Q?=
+ =?us-ascii?Q?do6+J7iPhqIsfRjXYe0Z9mh4DGTzOX14xeWLa+2/SlbdU6TuX/xV5ve+AWN9?=
+ =?us-ascii?Q?3l56CiT7Nzpod4xAhhRjjsSBkZkNVpUdT2AtrF+S+wxaFJcadSCaWy4PQm9m?=
+ =?us-ascii?Q?LaP1Lrj56PaqOcKiQ0qEJNa1lV5B16Dlmu2gAr66Ya91o2B5QS//4ZWlNbq/?=
+ =?us-ascii?Q?48C7Po6Xptl+Q5qbyi8rFOKMtMLkbQxQZrStvZXfjSA70FTAr8YJkcT0/Tun?=
+ =?us-ascii?Q?htVw+pGgJLK35ja7EuRJKpYmUkaw4fv3sEIyRRbVNG/vanTLKmc5TQn4rkKH?=
+ =?us-ascii?Q?6RumSRzSsfidflPHr0tsRb42J8qX4zorlPMDx1/6FOKMlAjlJacb+n30mOfx?=
+ =?us-ascii?Q?D3E0usgCDgR+C6X5BaFnIy8sc4ALxU2Msn2dV74TuvmkD2UZCXnQdN0fFFHi?=
+ =?us-ascii?Q?O29fshSOfAkV8PRz0nAt+WxQ3WDZFHhuzVhbGLXEmOSHqIuXbTd+tfQVbnRG?=
+ =?us-ascii?Q?PXNrcu9Cxt+TlhRBZWISdtYiHv9vfD/6A/rc6hCFbjz5t094q29NV/Pmb/yB?=
+ =?us-ascii?Q?QNUadRwvnAElrp+fduibjt4t265ty2XgXfk+p3KAqU2A+NH9npED8T6xpi9+?=
+ =?us-ascii?Q?dv8GEDX0wIeEMqjbAjGlfI4NC962ovek2bHe4++kkMPDffQUINdnuQhlPdzB?=
+ =?us-ascii?Q?gc4/1VVjkYlnrMTbj0qCBwQcUnLoEu0BG4RIeZoi5wbTHBzPXWRsLnYjfwNZ?=
+ =?us-ascii?Q?/ryI/VVfpR9BhfIOAQAv0ExHBgtS8+hGzUK/OMA0ZPkyMHv7L7Ri/jj8FdfW?=
+ =?us-ascii?Q?qfHac7GnpIlVR8lEl7KH4+1shFN+ZclDjsWfyzXm1IiQC1WQd8Vvo3nUPq3z?=
+ =?us-ascii?Q?Kv5cTfJkAG+ojc80vrdpSylMN617hurNfN7f3TGKTwB9Rtv/jsaS4x6nxXff?=
+ =?us-ascii?Q?czkrFVBNnknZgt3uPvvXef2Adoeq5YfmJQ1hH2a9Xmmw2kNBPo2+5OAkk4Aw?=
+ =?us-ascii?Q?saIXiXauvPh3NUVtIOA5BFXKEJnFQ0/A+gOZM29HbHmnTuq8mazfZszLiiZU?=
+ =?us-ascii?Q?LWYW4Lnv/Quis9DF+rZTkov/z0FYdlE7LpLFxRDT0utCpoQRbWq4aXj5yjZL?=
+ =?us-ascii?Q?3Kk+LEkTZk9GhMXmiP47C7jQzlu+4+dZYnjKbZN8c4NcOVtGxezc/2QcZ5Xt?=
+ =?us-ascii?Q?vkxvr32/7YC5KhfLAX0j/fCPpsMSB5gIzLN/1XbVhgSGYWqabtIuhoeFlql/?=
+ =?us-ascii?Q?HkXBqDZ7EXDfNeD2QxrS3VVsnnfY42O8R423zJ7iV1eCyZrbWaLGBSB1CKb+?=
+ =?us-ascii?Q?RQxrhncdcgDcS3KOkdjMhyVswAmjsujSPUVUPCYWyAWnolB9vKwPdqaTvvl2?=
+ =?us-ascii?Q?DPAt//HV61leEBt+FuearpqKiS2W?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 17:11:47.4524
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc99a0de-ce0c-44da-1ef2-08dcdcbbf90d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000F0DF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6371
 
-Hi Ayan,
+On Tue, Sep 24, 2024 at 05:35:20PM +0100, Julien Grall wrote:
+> Hi Edgar,
+> 
+> On 24/09/2024 17:23, Edgar E. Iglesias wrote:
+> > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+> > 
+> > Reserve memory ranges and interrupt lines for an externally
+> > emulated PCI controller (e.g by QEMU) dedicated to hosting
+> > Virtio devices and potentially other emulated devices.
+> > 
+> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> > ---
+> >   xen/include/public/arch-arm.h | 17 +++++++++++++++++
+> >   1 file changed, 17 insertions(+)
+> > 
+> > diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
+> > index e19f0251a6..654b827715 100644
+> > --- a/xen/include/public/arch-arm.h
+> > +++ b/xen/include/public/arch-arm.h
+> > @@ -494,6 +494,20 @@ typedef uint64_t xen_callback_t;
+> >   #define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 952GB of RAM @ 8GB */
+> >   #define GUEST_RAM1_SIZE   xen_mk_ullong(0xee00000000)
+> > +/* Virtio PCI - Ordered by decreasing size to keep things aligned */
+> > +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_TYPE  xen_mk_ullong(0x43000000)
+> > +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_BASE  xen_mk_ullong(0x0f000000000)
+> > +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_SIZE  xen_mk_ullong(0x100000000)
+> > +
+> > +#define GUEST_VIRTIO_PCI_ECAM_BASE      (GUEST_VIRTIO_PCI_PREFETCH_MEM_BASE + \
+> > +                                         GUEST_VIRTIO_PCI_PREFETCH_MEM_SIZE)
+> > +#define GUEST_VIRTIO_PCI_ECAM_SIZE      xen_mk_ullong(0x10000000)
+> > +
+> > +#define GUEST_VIRTIO_PCI_MEM_TYPE         xen_mk_ullong(0x02000000)
+> > +#define GUEST_VIRTIO_PCI_MEM_BASE         (GUEST_VIRTIO_PCI_ECAM_BASE + \
+> > +                                           GUEST_VIRTIO_PCI_ECAM_SIZE)
+> > +#define GUEST_VIRTIO_PCI_MEM_SIZE         xen_mk_ullong(0x00002000000)
+> 
+> Why is this specific to virtio PCI? However, I am not entirely convinced we
+> should have a second PCI hostbridge exposed to the guest for a few reasons:
+>   1. This require to reserve yet another range in the address space (could
+> be solved with a more dynamic layout)
+>   2. From your instructions, the guest needs to explicitly do a PCI rescan.
+> 
+> So rather than having a second hostbridge, have you considered to extend the
+> existing hostbridge (implemented in Xen) to support a mix of physical PCI
+> device and virtual one?
+>
 
-On 24/09/2024 12:32, Ayan Kumar Halder wrote:
-> 
-> On 19/09/2024 14:16, Julien Grall wrote:
->> Hi Ayan,
-> 
-> Hi Julien,
-> 
-> I need some clarifications.
-> 
->>
->> On 18/09/2024 19:51, Ayan Kumar Halder wrote:
->>> Define enable_boot_cpu_mm() for the AArch64-V8R system.
->>>
->>> Like boot-time page table in MMU system, we need a boot-time MPU
->>> protection region configuration in MPU system so Xen can fetch code and
->>> data from normal memory.
->>>
->>> To do this, Xen maps the following sections of the binary as separate
->>> regions (with permissions) :-
->>> 1. Text (Read only at EL2, execution is permitted)
->>> 2. RO data (Read only at EL2)
->>> 3. RO after init data (Read/Write at EL2 as the data is RW during init)
->>> 4. RW data (Read/Write at EL2)
->>> 5. BSS (Read/Write at EL2)
->>> 6. Init Text (Read only at EL2, execution is permitted)
->>> 7. Init data (Read/Write at EL2)
->>>
->>> If the number of MPU regions created is greater than the count defined
->>> in  MPUIR_EL2, then the boot fails.
->>>
->>> One can refer to ARM DDI 0600B.a ID062922 G1.3  "General System Control
->>> Registers", to get the definitions of PRBAR_EL2, PRLAR_EL2 and
->>> PRSELR_EL2 registers. Also, refer to G1.2 "Accessing MPU memory region
->>> registers", the following
->>>
->>> ```
->>> The MPU provides two register interfaces to program the MPU regions:
->>>   - Access to any of the MPU regions via PRSELR_ELx, PRBAR<n>_ELx, and
->>> PRLAR<n>_ELx.
->>> ```
->>> We use the above mechanism to configure the MPU memory regions.
->>>
->>> MPU specific registers are defined in
->>> xen/arch/arm/include/asm/arm64/mpu/sysregs.h.
->>>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>> Changes from :-
->>>
->>> v1 - 1. Instead of mapping a (XEN_START_ADDRESS + 2MB) as a single 
->>> MPU region,
->>> we have separate MPU regions for different parts of the Xen binary. 
->>> The reason
->>> being different regions will nned different permissions (as mentioned 
->>> in the
->>> linker script).
->>>
->>> 2. Introduced a label (__init_data_begin) to mark the beginning of 
->>> the init data
->>> section.
->>>
->>> 3. Moved MPU specific register definitions to mpu/sysregs.h.
->>>
->>> 4. Fixed coding style issues.
->>>
->>> 5. Included page.h in mpu/head.S as page.h includes sysregs.h.
->>> I haven't seen sysregs.h included directly from head.S or mmu/head.S.
->>> (Outstanding comment not addressed).
->>>
->>>   xen/arch/arm/Makefile                        |   1 +
->>>   xen/arch/arm/arm64/mpu/Makefile              |   1 +
->>>   xen/arch/arm/arm64/mpu/head.S                | 176 +++++++++++++++++++
->>>   xen/arch/arm/include/asm/arm64/mpu/sysregs.h |  27 +++
->>>   xen/arch/arm/include/asm/arm64/sysregs.h     |   3 +
->>>   xen/arch/arm/include/asm/mm.h                |   2 +
->>>   xen/arch/arm/include/asm/mpu/arm64/mm.h      |  22 +++
->>>   xen/arch/arm/include/asm/mpu/mm.h            |  20 +++
->>>   xen/arch/arm/xen.lds.S                       |   1 +
->>>   9 files changed, 253 insertions(+)
->>>   create mode 100644 xen/arch/arm/arm64/mpu/Makefile
->>>   create mode 100644 xen/arch/arm/arm64/mpu/head.S
->>>   create mode 100644 xen/arch/arm/include/asm/arm64/mpu/sysregs.h
->>>   create mode 100644 xen/arch/arm/include/asm/mpu/arm64/mm.h
->>>   create mode 100644 xen/arch/arm/include/asm/mpu/mm.h
->>>
->>> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
->>> index 7792bff597..aebccec63a 100644
->>> --- a/xen/arch/arm/Makefile
->>> +++ b/xen/arch/arm/Makefile
->>> @@ -1,6 +1,7 @@
->>>   obj-$(CONFIG_ARM_32) += arm32/
->>>   obj-$(CONFIG_ARM_64) += arm64/
->>>   obj-$(CONFIG_MMU) += mmu/
->>> +obj-$(CONFIG_MPU) += mpu/
->>>   obj-$(CONFIG_ACPI) += acpi/
->>>   obj-$(CONFIG_HAS_PCI) += pci/
->>>   ifneq ($(CONFIG_NO_PLAT),y)
->>> diff --git a/xen/arch/arm/arm64/mpu/Makefile b/xen/arch/arm/arm64/ 
->>> mpu/Makefile
->>> new file mode 100644
->>> index 0000000000..3340058c08
->>> --- /dev/null
->>> +++ b/xen/arch/arm/arm64/mpu/Makefile
->>> @@ -0,0 +1 @@
->>> +obj-y += head.o
->>> diff --git a/xen/arch/arm/arm64/mpu/head.S b/xen/arch/arm/arm64/mpu/ 
->>> head.S
->>> new file mode 100644
->>> index 0000000000..ef55c8765c
->>> --- /dev/null
->>> +++ b/xen/arch/arm/arm64/mpu/head.S
->>> @@ -0,0 +1,176 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +/*
->>> + * Start-of-day code for an Armv8-R MPU system.
->>> + */
->>> +
->>> +#include <asm/mm.h>
->>> +#include <asm/page.h>
->>> +
->>> +#define REGION_TEXT_PRBAR       0x38    /* SH=11 AP=10 XN=00 */
->>> +#define REGION_RO_PRBAR         0x3A    /* SH=11 AP=10 XN=10 */
->>> +#define REGION_DATA_PRBAR       0x32    /* SH=11 AP=00 XN=10 */
->>> +
->>> +#define REGION_NORMAL_PRLAR     0x0f    /* NS=0 ATTR=111 EN=1 */
->>> +
->>> +/*
->>> + * Macro to round up the section address to be PAGE_SIZE aligned
->>> + * Each section(e.g. .text, .data, etc) in xen.lds.S is page-aligned,
->>> + * which is usually guarded with ". = ALIGN(PAGE_SIZE)" in the head,
->>> + * or in the end
->>> + */
->>> +.macro roundup_section, xb
->>> +        add   \xb, \xb, #(PAGE_SIZE-1)
->>> +        and   \xb, \xb, #PAGE_MASK
->>> +.endm
->>
->> Can you explain why we need the region to be page-aligned? Would not 
->> 64-bytes alignment (IIRC this is the minimum by the MPU sufficient)
-> We are aligning the limit address only (not the base address). However ...
->>
->> And more importantly, if those regions were effectively not aligned, 
->> would not this mean we would could configure the MPU with two clashing 
->> regions? IOW, this round up looks harmful to me.
-> 
-> you are correct that there is chance that limit address might overlap 
-> between 2 regions. Also (thinking again), the limit address is 0x3f 
-> extended when is programmed into PRLAR. So, we might not need alignment 
-> at all for the limit address.
+Thanks Julien,
 
-I am not sure I fully understand what you wrote. Can you point me to the 
-code you are referring to?
-
-> 
->>
->>> +
->>> +/*
->>> + * Macro to prepare and set a EL2 MPU memory region.
->>> + * We will also create an according MPU memory region entry, which
->>> + * is a structure of pr_t,  in table \prmap.
->>> + *
->>> + * Inputs:
->>> + * sel:         region selector
->>> + * base:        reg storing base address (should be page-aligned)
->>> + * limit:       reg storing limit address
->>> + * prbar:       store computed PRBAR_EL2 value
->>> + * prlar:       store computed PRLAR_EL2 value
->>> + * attr_prbar:  PRBAR_EL2-related memory attributes. If not 
->>> specified it will be
->>> + *              REGION_DATA_PRBAR
->>> + * attr_prlar:  PRLAR_EL2-related memory attributes. If not 
->>> specified it will be
->>> + *              REGION_NORMAL_PRLAR
->>> + *
->>> + * Clobber \tmp1, \tmp2
->>> + *
->>> + */
->>> +.macro prepare_xen_region, sel, base, limit, prbar, prlar, tmp1, 
->>> tmp2, attr_prbar=REGION_DATA_PRBAR, attr_prlar=REGION_NORMAL_PRLAR
->>> +    /* Prepare value for PRBAR_EL2 reg and preserve it in \prbar.*/
->>> +    and   \base, \base, #MPU_REGION_MASK
->>> +    mov   \prbar, #\attr_prbar
->>> +    orr   \prbar, \prbar, \base
->>> +
->>> +    /* Prepare value for PRLAR_EL2 reg and preserve it in \prlar.*/
->>> +    /* Round up limit address to be PAGE_SIZE aligned */
->>> +    roundup_section \limit
->>> +    /* Limit address should be inclusive */
->>> +    sub   \limit, \limit, #1
->>> +    and   \limit, \limit, #MPU_REGION_MASK
->>> +    mov   \prlar, #\attr_prlar
->>> +    orr   \prlar, \prlar, \limit
->>> +
->>> +    msr   PRSELR_EL2, \sel
->>> +    isb
->>> +    msr   PRBAR_EL2, \prbar
->>> +    msr   PRLAR_EL2, \prlar
->>> +    dsb
->>
->> Please use "dsb sy". This has the same meaning as "dsb" but more 
->> explicit for the reader.
-> Ack
->>
->>> +    isb
->>> +.endm
->>> +
->>> +/* Load the physical address of a symbol into xb */
->>> +.macro load_paddr xb, sym
->>> +    ldr \xb, =\sym
->>> +    add \xb, \xb, x20       /* x20 - Phys offset */
->>> +.endm
->>> +
->>> +.section .text.header, "ax", %progbits
->>
->> Does the code below actually need to be in .text.header?
-> 
-> I can remove this altogether.  As I understand, the code should be 
-> in .text section.
-> 
->>
->>> +
->>> +/*
->>> + * Enable EL2 MPU and data cache
->>> + * If the Background region is enabled, then the MPU uses the 
->>> default memory
->>> + * map as the Background region for generating the memory
->>> + * attributes when MPU is disabled.
->>> + * Since the default memory map of the Armv8-R AArch64 architecture is
->>> + * IMPLEMENTATION DEFINED, we intend to turn off the Background 
->>> region here.
->>
->> Based on this sentence, I was expecting an instruction to clear 
->> SCTRL_EL2.BR. What did I miss?
-> 
-> Sorry, based on https://developer.arm.com/documentation/102670/0300/ 
-> AArch64-registers/AArch64-register-descriptions/AArch64-other-register- 
-> description/SCTLR-EL2--System-Control-Register--EL2- , SCTLR_EL2.BR == 0 
-> (reset value). Thus, the background region is disabled by default.
-> 
-> Should I still set SCTLR_EL2.BR = 0 ? Or do I update the description 
-> with this info.
-
-Both the Arm Arm and the TRM will tell us the state when the CPU boot. 
-But I guess that there might be a firmware running before Xen. So we 
-can't assume the values in the registers (unless this is documented in 
-the boot protocol like Image).
-
-So I think we need to set SCTLR_EL2.BR to 0.
-
-> 
->>
->>> + *
->>> + * Clobbers x0
->>> + *
->>> + */
->>> +FUNC_LOCAL(enable_mpu)
->>> +    mrs   x0, SCTLR_EL2
->>> +    orr   x0, x0, #SCTLR_Axx_ELx_M    /* Enable MPU */
->>> +    orr   x0, x0, #SCTLR_Axx_ELx_C    /* Enable D-cache */
->>> +    orr   x0, x0, #SCTLR_Axx_ELx_WXN  /* Enable WXN */
->>> +    dsb   sy
->>
->> There is no memory access in enable_mpu. So what is this dsb for?
-> 
-> We need to ensure that the outstanding memory accesses are completed 
-> before the MPU is enabled. I think the same rationale applies here as
-> 
-> enable_mmu()
-> 
-> {
-> 
-> ...
-> 
-> "dsb   sy                     /* Flush PTE writes and finish reads */"
-> 
-> ..
-> 
-> }
-> 
-> In the case of MPU, we need the reads to be completed.
-
-I can't remember why a dsb was added there. But I don't see why we would 
-need with the MPU as:
-   1/ we have a 1:1 mapping
-   2/ everytime we touch the MPU sections, we ensure the change will be 
-visible
-
-> 
->>
->>> +    msr   SCTLR_EL2, x0
->>> +    isb
->>> +
->>> +    ret
->>> +END(enable_mpu)
->>> +
->>> +/*
->>> + * Maps the various sections of Xen (described in xen.lds.S) as 
->>> different MPU
->>> + * regions. Some of these regions will be marked read only while the 
->>> others will
->>> + * be read write or execute.
->>
->> And some in the future may need to be memory region (e.g. to use the 
->> UART early) :). So how about just dropping it?
-> Yes.
->>
->> > + *> + * Inputs:
->>> + *   lr : Address to return to.
->>> + *
->>> + * Clobbers x0 - x7
->>> + *
->>> + */
->>> +FUNC(enable_boot_cpu_mm)
->> > +    mov   x7, lr> +
->>> +    /* x0: region sel */
->>> +    mov   x0, xzr
->>> +    /* Xen text section. */
->>> +    load_paddr x1, _stext
->>> +    load_paddr x2, _etext
->>> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6, 
->>> attr_prbar=REGION_TEXT_PRBAR
->>> +
->>> +    add   x0, x0, #1
->>> +    /* Xen read-only data section. */
->>> +    load_paddr x1, _srodata
->>> +    load_paddr x2, _erodata
->>> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6, 
->>> attr_prbar=REGION_RO_PRBAR
->>> +
->>> +    add   x0, x0, #1
->>> +    /* Xen read-only after init data section. */
->>> +    load_paddr x1, __ro_after_init_start
->>> +    load_paddr x2, __ro_after_init_end
->>> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6
->>
->> Is it necessary to have a section for the ro-after-init? IOW, could we 
->> just fold into...
->>
->>> +
->>> +    add   x0, x0, #1
->>> +    /* Xen read-write data section. */
->>> +    load_paddr x1, __ro_after_init_end
->>> +    load_paddr x2, __init_begin
->>> +    prepare_xen_region x0, x1, x2, x3, x4, x5, x6
->>
->> ... this one during boot 
-> 
-> This makes sense. So what you are saying is that there should be a 
-> single RW data region from __ro_after_init_start to _eteemediator  (not 
- > __init_begin as it would overlap with the next).
-
-_eteemediator may not be properly aligned. You will likely need another 
-variable.
-
-As a side note, I don't understand why the TEE mediator are part of RW. 
-It is a separate problem though.
-
-> 
-> Followed by a text region from __init_begin to _einittext. However 
-> _eteemediator is same as __init_begin, so should we be inserting a dummy 
-> page in between ?
-
-I don't understand what you mean. _init_begin should be suitably aligned 
-to 4KB. So why would we need a page in between?
-
-> 
-> A RW data region from __init_data_begin to __bss_end. Can we combine the 
-> BSS section and init data section into one region ?
-
-If they have the same attribute then yes.
-
-> 
->> and then fold the ro-after-init to the read-only region? 
-> 
-> This I did not understand.
-
-I mean that the MPU regions would be updated so that after boot, one 
-region would cover .rodata + .ro_after_init. The other region would 
-cover .data up to .init (not included).
+It's briefly come up in a couple of discussions but I haven't looked
+carefully at it. It is a good idea and it's probably worth prototyping
+to see what the gaps are in hypercall interfaces, QEMU support etc.
 
 Cheers,
-
--- 
-Julien Grall
+Edgar
 
 
