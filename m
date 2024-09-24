@@ -2,65 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C139F984063
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 10:24:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802448.1212684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A9D798407B
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 10:27:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802458.1212693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st0qA-0007Vs-3U; Tue, 24 Sep 2024 08:24:10 +0000
+	id 1st0t5-0000BP-Jt; Tue, 24 Sep 2024 08:27:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802448.1212684; Tue, 24 Sep 2024 08:24:10 +0000
+Received: by outflank-mailman (output) from mailman id 802458.1212693; Tue, 24 Sep 2024 08:27:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st0qA-0007St-0L; Tue, 24 Sep 2024 08:24:10 +0000
-Received: by outflank-mailman (input) for mailman id 802448;
- Tue, 24 Sep 2024 08:24:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1st0t5-00008p-Gy; Tue, 24 Sep 2024 08:27:11 +0000
+Received: by outflank-mailman (input) for mailman id 802458;
+ Tue, 24 Sep 2024 08:27:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f6Gt=QW=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1st0q8-0007Sj-Qb
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 08:24:08 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20601.outbound.protection.outlook.com
- [2a01:111:f403:2614::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e070ff9-7a4e-11ef-a0ba-8be0dac302b0;
- Tue, 24 Sep 2024 10:24:08 +0200 (CEST)
-Received: from DU7P250CA0026.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:54f::9) by
- AS8PR08MB8350.eurprd08.prod.outlook.com (2603:10a6:20b:56c::11) with
+ id 1st0t3-00008j-Mi
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 08:27:09 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2062c.outbound.protection.outlook.com
+ [2a01:111:f403:2613::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c8eec85e-7a4e-11ef-99a2-01e77a169b0f;
+ Tue, 24 Sep 2024 10:27:07 +0200 (CEST)
+Received: from DBBPR09CA0001.eurprd09.prod.outlook.com (2603:10a6:10:c0::13)
+ by DB9PR08MB7583.eurprd08.prod.outlook.com (2603:10a6:10:307::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.12; Tue, 24 Sep
- 2024 08:23:58 +0000
-Received: from DU2PEPF00028D0E.eurprd03.prod.outlook.com
- (2603:10a6:10:54f:cafe::51) by DU7P250CA0026.outlook.office365.com
- (2603:10a6:10:54f::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25 via Frontend
- Transport; Tue, 24 Sep 2024 08:23:58 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DU2PEPF00028D0E.mail.protection.outlook.com (10.167.242.22) with
- Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8005.15
- via Frontend Transport; Tue, 24 Sep 2024 08:23:57 +0000
-Received: ("Tessian outbound 3e266b55d80f:v465");
- Tue, 24 Sep 2024 08:23:57 +0000
-Received: from L5b5578dced13.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- FCFF6A39-693D-4CF8-A76F-1F223B6A6790.1; 
- Tue, 24 Sep 2024 08:23:51 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id
- L5b5578dced13.1 (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 24 Sep 2024 08:23:51 +0000
-Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
- by DB5PR08MB10113.eurprd08.prod.outlook.com (2603:10a6:10:4a6::10)
- with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.13; Tue, 24 Sep
- 2024 08:23:47 +0000
+ 2024 08:26:51 +0000
+Received: from DB3PEPF00008860.eurprd02.prod.outlook.com
+ (2603:10a6:10:c0:cafe::d6) by DBBPR09CA0001.outlook.office365.com
+ (2603:10a6:10:c0::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25 via Frontend
+ Transport; Tue, 24 Sep 2024 08:26:51 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB3PEPF00008860.mail.protection.outlook.com (10.167.242.11) with
+ Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.7918.13
+ via Frontend Transport; Tue, 24 Sep 2024 08:26:50 +0000
+Received: ("Tessian outbound ff7cc14e3a8a:v465");
+ Tue, 24 Sep 2024 08:26:50 +0000
+Received: from Lfdc8015f2d2d.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ D1D59F81-BA6C-4808-8077-EC9F5625D120.1; 
+ Tue, 24 Sep 2024 08:26:44 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id
+ Lfdc8015f2d2d.1 (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 24 Sep 2024 08:26:44 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
+ by AS2PR08MB10296.eurprd08.prod.outlook.com (2603:10a6:20b:648::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.15; Tue, 24 Sep
+ 2024 08:26:36 +0000
 Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
  ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
  ([fe80::a8fc:ea0d:baf1:23a%4]) with mapi id 15.20.8005.010; Tue, 24 Sep 2024
- 08:23:47 +0000
+ 08:26:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,14 +72,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e070ff9-7a4e-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: c8eec85e-7a4e-11ef-99a2-01e77a169b0f
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=cIcy5P2xXJQiaEK9Vle/TYJ5Ho8TTOVyLIrd5MuXfMwbp6jddn4Vho2Owz1Hyaskk69l5MAd1vXEwIQRByLYJ32dF4csa6s348rn3vdq1j9cPTgXj3Ak5skCWnyt4N606/4hMuLbnZgwO2DRJP6NRXyhS2AwR4Qr6QhuVp8mgfqdIOoyVPNb+eQsS7gs2EOj12AcLQvYSZbAVMNZ1mFKlnetdz9QPemZU9lMznKoHB64bIjTML5T/kViH+httYQaRahhzVK5Xv+ciAn75TX2Yq/BCtdFVBk9T/ZuerpMz+oaLvZNsy75MDLFCKjOnr0t+X4dulRGn5ZWNw9FSje+Cw==
+ b=JWyT73TgdA3ysDOwXeYSA1Dc5vMgW9FXZy+XJoS+9P9wRDGeA0MwxrTUlTPgA9vI7uCKBJeT3SI/SRWnKDwjvUw7ROvQhdmu0AwTaB5klohQp1LSH87p1mKoAT70Aq81wClPTJsfsxurRR8WYkcmQJyoKA3HICR02q0fd8rAsW5pQm5f7Jk+eTS9joPOY4DCCb03+rOfkXFGbIlXI+Ali1NALHab7q4JcgZkfoZcu1hOa6O+1SW5DqwyLUF26QSFvJIRMn65QvqHHbnaFl6yoa+5o8TzMuUVNQiz/F2vJ2M3Bo59C9cTI+45yKGYl3oDtTkip3hhqKZEmeK2JzOLXA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LWGYdccDi4/VumoNnar6pSJ/vdRKkhVHN7xhYuL4BA4=;
- b=DbBAPUok28TJS0+SK1ZLm1y/NQddEsn73kFv+C8xdX16L4KwZUN9Xvq4jnwUmrNmjorp60nrhFuNc40d6q+JZy16Mfi/Rhq2uof0zXLvoHeC89xcHW2n6voNg9+NTcEcb8cwYZi/7eN0zemITptKMX0/zHQVTCg7uY5DK4sebkmKcYepdilU7l8hQm+b7tQ4gJRc+vVc5H4nJQAq/AaFmE2zlnXCiJ4+jMpKVJs8Dys+Xr/TErb7c9lH6gd5wuesuH/3wAaGggkf84U5d56sooVC3v0RfWboC+HPM7wxs2OO6M8oAr2N77c4LVVg2UYDJZt1AX8ZJV5muMZEkhUjdQ==
+ bh=WALSn8EshjMyNCAnuDZphwE72NLda7kXeHIAbGuXqw0=;
+ b=i+KLAw5Sqj0Mw3ws3pnfnM2G2Sx8lpQstBlw4CE50ZE/3tCmTr0nqOJfL9eZq0r47Z41BKLCXL267RJiJM6Aqmatx3TNw/ycdWrsoqfsSE89ByJ8PuaA1QYOnI/9PKjhuCnDHNpcCzm2LWwqZxvZC7aih1tgmOXNtFIk6XRgoQ2zHKfKdU7pkn3LaBEKyTa/6du/U8ZX5KFfwDfV3Lr/n6c8xI/NYpkoGS0UmaLTy+azIr7ba75fUR9rwShqWSZQDAIjb8GK3CApUIFINucm0VWR4YekhWjYuiTu9pgs128JiZJ/b1yUFDWK7ScX00z73x0KReLGOqy9G6XO9WzyBg==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -88,8 +88,8 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LWGYdccDi4/VumoNnar6pSJ/vdRKkhVHN7xhYuL4BA4=;
- b=Q+pnfApO1dQVea+/bIYOy7T49uXj71XPVYoaSlJihx5klpx0IiWZm55Sl+ny+er3HZW4/timGG9nQtfzFG/2BWhvFWJ93Q/YtJwOEONswnokMcjNrfnAQltqFYcY4soKBJLuUj0WJ3IYPUaFnvkADiO/9jyUbtBmbJTM7aiV7E4=
+ bh=WALSn8EshjMyNCAnuDZphwE72NLda7kXeHIAbGuXqw0=;
+ b=kTZXerywc4ulXGXOI4+8RH5glkgcOYDGBdWBYwj4ptPSR9f2ApbuOy1fKffeLmOHPhBUc4A3gLuRxsEZ67hw8XNqHIze5t1EXjvU+9x3E0AVzzX0A0rJF5F8G05xZtvO+N8g8ixbonMOYCAJDUb5IzGsYz0lq+jMKDTYA83E72U=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=arm.com;dmarc=pass action=none header.from=arm.com;
@@ -98,37 +98,37 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
  pr=C
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 0b41f0df655f7ee2
-X-TessianGatewayMetadata: H7DrOXuohgPlVRKX4LOozmVIPejzeObJbBHo5ofA6LFF1aJ+PxNjmaNV/CC2cqIoKCAxSCV8vVmcLu9K1jxPcoIO/G+juG9BSp0x2s22tEyPqBja9HPsuapw86GcfTvQt2GgFQQJPurxe4lILWp58rspw+jYFGChRBcr4jXyEpo=
+X-CR-MTA-CID: 09168af80780cbf3
+X-TessianGatewayMetadata: zGn5/2aWfz+85XpJGIjc6aWuTQ9ysVTI7uqbt1QYzf7HizZnI58cqMbyKqFpnEumfl3zyUrbEdYCy9anKgrTxiJLirVbwY3kaUJLOX6SJsJKi0zDdZFEjEcwXuMC9DSBmH12OPA0d82kpeGJdvH5jG0kBW3NU5+q7s4m/75CA44=
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GEcs0Z4c1FqTUesH4tcgPF97sVJrDj5dbBjhownSqcYo4ErvI4mL9fffM8p2s07rlNk4/F247plhp6j3vUHZW6LyTMYgQpsPbm2ZiZ0ly7AUiwei6Kmgnp/KnKWy36Jr9H8n54kyHNlegCS5Y1uNTA4wFTVmnNO8WDc9Q/xm+29B6V9YVr9G4XeR3NWXyx9EcqYSsTa7BtlGwlRgEHpgGhEBlkAjE25W94mzfc1tp2+eOJMOaiEFiw2xVxEgQXTVoqFfbpoIXpeoP1WJ6N3J/vb+Hn+55+92BLs1pv0sSEa3dgUgouMnXeNgekx0tKLXzoq4BizuoGqgA8xU1BassA==
+ b=qYW1MvKOZgZQMyHmf8SWu0qsuyeYgkdQLcmEkgOqs2crK7SHj10+9Zq/f4f9XDWHivZqdF0PlejsXfkzRrlQFvOyKBO6uIX+twZcsJiCtWp2qyny53AAqoCTZIxu3QEmdMZLupXF+kPeLZEYEX+RuAr3V2X6tNIC65MVUNel0RZjHlv5ex980cjA/jqMYC2d/QCHG5jm9L40SBxqT3DX9SmuebY3UWxLnAf1i1Y+sqs1lvg+fT4v86+WTJf2ouFy8YnNuT0SVx+2Gc/HhbWC2Dm1JuzKg6AFyX3qprDVYjmPQUVKHq8njYYu8NSuw3Lr9gsxn7DM5ZBRt+3jWe2WBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LWGYdccDi4/VumoNnar6pSJ/vdRKkhVHN7xhYuL4BA4=;
- b=gAqwtokPGvgGvqY1a/k7TjquVAlzyYNBEZ1QLRWcpNvgV1y/SPuCiIRbrq1s1qY9Pa/rfnFrNPm57Iz2Kpo/xMqbOLcYXfvahkE63XosUKxmZGxKY9cwY6V8BV/hCFb7EsfIYx/u93LAt+WQk5dq55GBLk+wH67C1wyeLlPjBkL60cBkYwjexeaVw3VAqgFdkO6S2sq8g9nO2L+1am8mfUahbr/sARdhCNAUdsElwzxwaOGQz0K9OtR1N9mrf+vjKmRvEAdG9zjBVybcVFk/VoUvgAaSwPFNKvpqoNg/UivPc4ZTtrc7CpAIHJS7VtYNyCmgekwTi/WaeIVmu/89kQ==
+ bh=WALSn8EshjMyNCAnuDZphwE72NLda7kXeHIAbGuXqw0=;
+ b=MV2hLdIvImrsGQHMdF+EtM5TA9lNMhyTG7tpABnSE9zan4A331nGdMdEdwyUopR2EEi4VzB0D6mR6rGzhEAIq12F1AZEWgjdgYpMsW9I7fkGOvAfWQAjg73oetxjur/YDQ/DEaNBP8Lk6DBuTod7wQ8jvDAgnDMCf+rSqNb+MRxv8d51DQUT7EJU4HMsS1NetR3KkzsB3bHQyk46uqJ0yN9Sc9XvR2ZWxF+E+or4DvJz1Fng2kryERGDhMZSqlYX5WWKNeQZZyRfWsfslFZBj/tbvfvny4GVv/1EY3xnfKcCWuS8rRr5awjuymJOMSx3HC53GRvWsiL0vxWgBEoj3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LWGYdccDi4/VumoNnar6pSJ/vdRKkhVHN7xhYuL4BA4=;
- b=Q+pnfApO1dQVea+/bIYOy7T49uXj71XPVYoaSlJihx5klpx0IiWZm55Sl+ny+er3HZW4/timGG9nQtfzFG/2BWhvFWJ93Q/YtJwOEONswnokMcjNrfnAQltqFYcY4soKBJLuUj0WJ3IYPUaFnvkADiO/9jyUbtBmbJTM7aiV7E4=
+ bh=WALSn8EshjMyNCAnuDZphwE72NLda7kXeHIAbGuXqw0=;
+ b=kTZXerywc4ulXGXOI4+8RH5glkgcOYDGBdWBYwj4ptPSR9f2ApbuOy1fKffeLmOHPhBUc4A3gLuRxsEZ67hw8XNqHIze5t1EXjvU+9x3E0AVzzX0A0rJF5F8G05xZtvO+N8g8ixbonMOYCAJDUb5IzGsYz0lq+jMKDTYA83E72U=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Julien Grall <julien@xen.org>
 CC: Xen-devel <xen-devel@lists.xenproject.org>, Volodymyr Babchuk
 	<volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH 03/10] xen/arm: ffa: fix version negotiation
-Thread-Topic: [PATCH 03/10] xen/arm: ffa: fix version negotiation
-Thread-Index: AQHbCo5DR6ro4Z09O0aiPTgUk1dK17Jjv8yAgALhMQA=
-Date: Tue, 24 Sep 2024 08:23:47 +0000
-Message-ID: <BC0BF5AD-B3DA-4007-84E4-050884BBE08F@arm.com>
+Subject: Re: [PATCH 01/10] xen/arm: ffa: Rework firmware discovery
+Thread-Topic: [PATCH 01/10] xen/arm: ffa: Rework firmware discovery
+Thread-Index: AQHbCo5BamB/XsNnokyTz9637lD4+bJjhr0AgAMbCwA=
+Date: Tue, 24 Sep 2024 08:26:36 +0000
+Message-ID: <97667604-C3F0-42FE-80BD-4531B376C9B1@arm.com>
 References: <cover.1726676338.git.bertrand.marquis@arm.com>
- <716e806316f8249611c8268f781efbea19273b4a.1726676338.git.bertrand.marquis@arm.com>
- <ec473bbd-1fea-4ccf-80d5-2f55f2db69ed@xen.org>
-In-Reply-To: <ec473bbd-1fea-4ccf-80d5-2f55f2db69ed@xen.org>
+ <9931c299450a1e0a2384161eb9b514ead8895ecc.1726676338.git.bertrand.marquis@arm.com>
+ <00461ab7-1cbd-4b72-9722-293a20ebbe81@xen.org>
+In-Reply-To: <00461ab7-1cbd-4b72-9722-293a20ebbe81@xen.org>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -137,252 +137,246 @@ x-mailer: Apple Mail (2.3776.700.51)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 x-ms-traffictypediagnostic:
-	DB9PR08MB6588:EE_|DB5PR08MB10113:EE_|DU2PEPF00028D0E:EE_|AS8PR08MB8350:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcec2a9b-d12c-40b1-1f50-08dcdc723c5c
+	DB9PR08MB6588:EE_|AS2PR08MB10296:EE_|DB3PEPF00008860:EE_|DB9PR08MB7583:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d17ca97-965e-4f3a-1ce0-08dcdc72a3a7
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|376014|10070799003|366016|38070700018;
+ BCL:0;ARA:13230040|10070799003|376014|1800799024|366016|38070700018;
 X-Microsoft-Antispam-Message-Info-Original:
- =?us-ascii?Q?JTyd3Zs0vzkzrt08vvwm97sDpJs1SBU9yJXTgYcY/QeuxhWXkYnHhzgNFxwW?=
- =?us-ascii?Q?rv6w+QQQDl1qKhAvfk2Iy7pk0iayh+zJegmpEp4aOYiRdDEuJxbNn85ZaGRH?=
- =?us-ascii?Q?NydAI3mO2Hsqy3nww0sMMpH6uOYx+zKsnw9uIoBLJjWuoM4AUjQw6NfowMQd?=
- =?us-ascii?Q?u8pAsFbo/yVeyEGW+e68DlXYi5elH9Oxn8Vj3ykKUpAo7pZ+EctEFLBX3pau?=
- =?us-ascii?Q?wPgtvpLTsGm1g+Wk4az6NKWKQKBT49nozp3DD6lRMvQGqNGQIJ4u4we+Bjtw?=
- =?us-ascii?Q?KRFPHI5nAOKwKduoNg6CoxY6T8GWhJOmTABAgdN99nLiS9y+xYfMvS7HDaWf?=
- =?us-ascii?Q?MbI31yLr9ehoyvFYbG/QAD9af6/+wL7Jlug4CBZedZUaLVSef2fLjJTfjRjx?=
- =?us-ascii?Q?CLOcgG/DRJlnhKG/sr2YMdoEDIt8Um0+CjiQKSJV8dvXVdyKr8Hj7FEc0IZs?=
- =?us-ascii?Q?mfQzLHVgjFcaTtpApmwSyvQpW4OF+Grz3Zz/LQlkXqke8KIez8EAxmz/r10R?=
- =?us-ascii?Q?PFSlNTocoFYOnDU++BXt2jPY+cpdEyJDaLuvcpcSGRCzn1jvWWazZZG9jSeI?=
- =?us-ascii?Q?hQ0fxT4gWKJZyKgmt88+qSvc161bLPEYpRV5u6mNWgrv52SYgI0c/Liu/j4K?=
- =?us-ascii?Q?+qi1zko9nqzVi4n/2CY6nQx+d6dYM71cpiSfgbhkK+KooUKQwCDfXAkXMgCF?=
- =?us-ascii?Q?GbZHZ9+geBuYjDGWBS4z6ZjdS50mfoHOcWwTrNI7B0S8u0qKFJe6g8NK8nbZ?=
- =?us-ascii?Q?INExz/+u6Vd7MPfxrrusH7lTFDQOo/bgGeEk2I5kVyHBTnXCB7RNlDlvViq9?=
- =?us-ascii?Q?/mArdj2CUKGMWVk9njeWyVnmZqRITQNH0cVD1HA2o6SFfq75CyrnCgVVL9Ps?=
- =?us-ascii?Q?O5drjASNnIUauW7WtUbBgnlMJBw+HXwvvp81P9KbHWmAU6M1AOkUdYyytOLv?=
- =?us-ascii?Q?g2raBUsgSg6s26iCHHRcn5bRTZn23Dhi7NnNrr34Y97CJPoNKefdQSIFD2zt?=
- =?us-ascii?Q?CQkDpVvEnBZJe2Q59eJBmt1Yj5Fu6udFHKL5bjwAqc1FzR2ydB3OpVZygjUL?=
- =?us-ascii?Q?7M1ibBmX9fgMFiqOUHmPLk1qc2DPAeNQSV3le/RfqZI4tHMneV+2909gz4j2?=
- =?us-ascii?Q?wk40Ok86lso5W6RV22M0MymacYB5lX4rRonLo/6A14Kxd/C0Qg9SGihG8OOP?=
- =?us-ascii?Q?/XAuPMJZGcPo5NGaUOjp8qWZU2rqXRnvrIgVf+DKBUOTOW28E9e47sH9e4Am?=
- =?us-ascii?Q?3m+0g7OZ/LwjemCctwSlFKVQzeHHic9cUqwk6tQ90wn0BPrpXru121Y8YRN7?=
- =?us-ascii?Q?2qDf+ocTw5L/MYYhaxbZ5QBAqU1ZZBjoUjboEsw2NkC/BQ=3D=3D?=
+ =?us-ascii?Q?XBHiYLrSx2sM3EIiMUspw+vZXPFeexBiZ2bp/mCrtyaRVyHRQ65RvY9ems/y?=
+ =?us-ascii?Q?NwFaMdYXX370ukIqAylNgCiQnAVhaJiQ2WJd+zCzcer/bgcF0GjEN1FDooPg?=
+ =?us-ascii?Q?vk52DP4bW5tmKl92aOIUpL7h8ZtrmXOTmPisjI+jI8EcPh98quTUZiQG7aOf?=
+ =?us-ascii?Q?wXYAnpcYCrKrfshLBxSG7c5tTECYkt+qfxDJnccBtQSEpX6TQawafMe4eATB?=
+ =?us-ascii?Q?+Q41gciyzTRWfW+ZM2iEr5gMRNDUYwaAMOyLBVaPqjTKjBWuEMGMLYjxXZjB?=
+ =?us-ascii?Q?bXXmv9GALknQWro3zcByVy0b/+inS+jtJD5zQYYAn+Oj+n5qJV0YZeUtw9zp?=
+ =?us-ascii?Q?YjkIP7W15n3zip2ZfgdbDPlcwxuI7T3zchVVyxueuRFGJ8F0DR19dR5nUgU+?=
+ =?us-ascii?Q?MShWycmoRKjqjYG7KZz1UkR5X7dM7ICUKUZM5SnYASNVZ5fTUk1GVDJLU/8e?=
+ =?us-ascii?Q?ht+cm9hU5xUOpgxTz3Ab1E+V4ZLOtfL4ixObXcEIHKEWkJlpCcL92AME31W9?=
+ =?us-ascii?Q?/0FdVDUc31l5uP97BgosFCHM7CdM4U0wwgmr9+bGGOIugOJ8d7HR2mVMXhaN?=
+ =?us-ascii?Q?fzOWjdxLzUH5LBUrYACty52PgeZJwtniOswlgknJwxAnI6lzYzyPU+Pew/uB?=
+ =?us-ascii?Q?wJuD5AVm9uevQXz9TWP6SlZbjYKFQaq6TthIj9qmdZ5Xkuk0nf2MUf98oIYP?=
+ =?us-ascii?Q?9tXtXkHljBG2sf2gY9VdYl6J0lI0Pirz2Hy00tAMNpX1hgjOlAiqPnzPV7cz?=
+ =?us-ascii?Q?fE0agIEvkxxJd6JcCx63UN6U3lOCUjW/bhPOkH+Ht6hcx5hgRECF4U9/kthu?=
+ =?us-ascii?Q?qSfb0tXxksFvD8St86Gzfrr9LChJu+jO9N1BAe+SjxPVO5Gm/tQscJwV6LLE?=
+ =?us-ascii?Q?YG8Ni6tupSkjg4bF0+vWyVmPyeDhLoL3WNsvjaqqb4PMQY5+qfQUxvv+oymc?=
+ =?us-ascii?Q?D2lsRp5BuG7vRaHfNZCm/I3t2R/gDUFTZjD027L2PB2cjNFpsToUSs6r1gcO?=
+ =?us-ascii?Q?BtoOfVazgDoM3Y/U6h+TO2Uu52oUmFL9iovKhXtDkX6SKAQPuCyeB339fSb8?=
+ =?us-ascii?Q?DsL+frgcI6xi37ALHZu9HkO6VQXzW0TD4I7Y2qEcjs6SItXk4xPYGu3atgoo?=
+ =?us-ascii?Q?mb+WoZZ1S7JWYznkaBEfrqNrMSptxJykKfSccbf/YZIbrB95Y0Ddr79hcn0e?=
+ =?us-ascii?Q?TarXsrTTl1UFzC1CDVV6x4ny7wfFMscRq3OjSTgnulpgUK/svk9KldHzI5Ul?=
+ =?us-ascii?Q?X0Wvr23OfmJYjKKkLeb2UEDMe4uAnRm4GRoijH0/mls3Aw92Xj/K7WXZHZ27?=
+ =?us-ascii?Q?ibWsh846SCcZDHWzeqWBZNFTmu9NXFpG/Ag4nCcbEl/s2A=3D=3D?=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(10070799003)(366016)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <274B27CD9A957849908D4037631BFC1F@eurprd08.prod.outlook.com>
+Content-ID: <E6DB94CC93592841B947CF7573FD709A@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR08MB10113
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB10296
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-SkipListedInternetSender:
  ip=[2603:10a6:10:25a::24];domain=DB9PR08MB6588.eurprd08.prod.outlook.com
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DU2PEPF00028D0E.eurprd03.prod.outlook.com
+ DB3PEPF00008860.eurprd02.prod.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	2e8b8c28-99a4-45ac-e666-08dcdc72362c
+	f7c920ac-a4bb-4418-185d-08dcdc729aea
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|35042699022|82310400026|36860700013|376014|1800799024;
+	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024|35042699022;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?5Ps8sOuCTRbqyO+4C1VTZiLqqknyHDkiV4M+H1P+4lJG6yClHiCPYJBqyUsu?=
- =?us-ascii?Q?RKZvX8n43qs1sTTZi815CcsXxuyM9v7FUb+cEqx2wWpT5sdFZw/o1RrMFrrU?=
- =?us-ascii?Q?pR8y+RFZHlDs6pPB4uvZLhgbCCy4ny/RkC54dmmgauiNpU6WQ8krXn4B1eLa?=
- =?us-ascii?Q?B/p4t0pCamnONz5CQve+flYL4nlwkhF31twxVyJ+UbmQ1YG2eLlgdFIwnORO?=
- =?us-ascii?Q?qsPyp+yfsdmZXYhr3axxGFbdgfShFnO+bx3FAB6Y6SsAc6CyBVoFi0m4Ivgs?=
- =?us-ascii?Q?aX26rJaY2nEXSCzfIb25X3KY/qB5Dgaya6c1CewT4vQYyVys8OkXcMYozdOd?=
- =?us-ascii?Q?7LC9mNCE1WgrXhj3EDa0pM9bLpG303eunw00z6+MCyhQnW9AIX9schZTMoHw?=
- =?us-ascii?Q?Sq+77HNldZdxhgQMn1vJilEmTNZInrDrje7fsOd59yGL6hh9hp2c0uqGuHJV?=
- =?us-ascii?Q?qx4NGI/KQ/iALiD7AfXreRxu3olNIQSf2epBfm5Ymf0tGPugWmeX0M0Ytba9?=
- =?us-ascii?Q?wHMsU1A2m/twsquzsAqiDjgT6ziqRHxUlLxYZXnm22K0YKgaBjuC7APasrJw?=
- =?us-ascii?Q?QX4lrUsx51CIV1PvFQ9j+LsKWjE5loQX/DVLK2W1MjbUAojWYwSSvpPHJ1Zg?=
- =?us-ascii?Q?VR1IaTG1YS3Wv5gM1QycWHlWpAZ91Qtjvw1p9ECLrhjROjxmbP5RsaffoeA4?=
- =?us-ascii?Q?ROqrmTi56Y42a0OqJrygQfMK6V8HpFODy2WHE+8AeoXxCql7fw0YMo3EGs+S?=
- =?us-ascii?Q?PzL99teR+RKZDGxQVBEO796mKjRb/+DXUF5gTAE74cT4P4n9+s9mnZAyZcVB?=
- =?us-ascii?Q?+QaDGhqGWdzirvyIiPmF6D5QXP2DVolpv3H0giFBwsg0Z8dQKBTHo90HvV9T?=
- =?us-ascii?Q?2a8GnwnFLguvOxgoUmD4sYKAhC+vr/+S+0bWKve5c3Oks7QumkPP3/mdNS5t?=
- =?us-ascii?Q?PFlQiGtQCIZ3ouX8SI4v+VYddM4juxceSgBX+GNrGeGvjuRSOKm1j87kEZN1?=
- =?us-ascii?Q?HccJjO94gvornjvDP8EcDajBxc3aYz9ZeLMx7GECimh0bCrEoCzAeA6XzqRV?=
- =?us-ascii?Q?tyjlUA+ojeVZvWBq8lN8JJWi1An8BiV4yEPTHVKKisVRPKTKa4Kck5cDJdrL?=
- =?us-ascii?Q?MNKZtXXt56d1qclWhO810Y8Ag8BdqAV1dQFyy8CgnnV4ELauoHVpTXCGM3DF?=
- =?us-ascii?Q?Nc6DD8JBlpHInGpmarQdW0mTO3uk+79KYabdiLCVqFqLrngwBKynn2mFy/iD?=
- =?us-ascii?Q?0huwjhBWWDG2qroFV/8hpEIFs9AJvqr1o5lUGiY2NBrGh6L55uvQozoKcuZ8?=
- =?us-ascii?Q?kPlZQhQv45eQDrmoyb2Ucyeu6tMlxqCM1/4oMGrt5uuaFiMVbkWRMWDKawOT?=
- =?us-ascii?Q?Dc+HBUAO7aZCNQNHHuMXidf4DH9KClsur83pfCgsY2W7LJwJgjta9X9tNxCP?=
- =?us-ascii?Q?0iYES6JBFSZsuNdNoa7BvU3TmXeCo0P1?=
+	=?us-ascii?Q?UA9U/VrZJDppgVMjo0SHFEDrpcKThdbM+RHcqV5KcICAFnoRYr+UAhAO7Irh?=
+ =?us-ascii?Q?NKmcxk8g7CXAgtCFSXeKvmHaEFMB30NcLqv0enSbuHsL3u1PYt0YRa1otfg/?=
+ =?us-ascii?Q?+3el+boSUxSj/IEI6uPjWKegOo+n9pRsfPIcdnM+8WM/JDXcgLjaauegKxNU?=
+ =?us-ascii?Q?ewTdJEMeWmfnPpoacLKa8b6+wTk9qwG+G90+Nnpl6r5P3X4lC2SEWMh6XNfd?=
+ =?us-ascii?Q?ySwM6uZtIO9kObIzpTU+WNiQhhk0tFlTKtYVQ7tS9OQeqAdxeDgZUs8B5dbB?=
+ =?us-ascii?Q?ITenqhhSg5DUq+ivX+Om5VGckte8tQtSxz60//UpoYCdL/M8ZQ+v8MWwOTAb?=
+ =?us-ascii?Q?/WaRme0TBlx7Az34C4VTZZL36vK9k/ed6rbXDl0uGKY7iWn3y0uIzSylbXjR?=
+ =?us-ascii?Q?1ZW0TNBcUB9QRJNltA2J/5NPnRLi+DElu0FeoS0SX/6V8ck1UqpzsYGXTJiB?=
+ =?us-ascii?Q?gR/3KRuc/3C+LzpP+ursAx3qzwvJnXvHCMu7OvVrmg+AeCCXV1j34NOm5diu?=
+ =?us-ascii?Q?mQU5xcyPCjRlX8oRfDTRWNq8uGhKoK8zNC1E9PiQA901LKQsE3BSjscnTJYJ?=
+ =?us-ascii?Q?rlzabSCsIvectWw3psO9nq8zvz4+saRwgVwqBZIfWonWvdvmTJHxB/ryOdrr?=
+ =?us-ascii?Q?BhWlBE5ONafBBEqs9EubVHMTSLMX9FqSAhoh1znlCI21o3WodKp9U5yIvgq0?=
+ =?us-ascii?Q?AWlj2mrw0vOWVmEqRVcjyRp0QJlrHoxz9oNchDe44rS0p2XqZnq8UPFNuzH3?=
+ =?us-ascii?Q?HSNX1vJIeZ86EYc3p1z+yTyNFQifSK3Sxaf1SP3lT3o0st9YIjfZ4701jkfj?=
+ =?us-ascii?Q?69sJR+2RzOnoFLcwQtRhMyHs5qejpBMLzSZtV1Hy3OJub0uDexGX7f9HpMtd?=
+ =?us-ascii?Q?QFfZFZhrUKQXcyuuZ4pegEeN73W2YLgH3f2RwbmRprvLkCwBRTe/5f3PylRb?=
+ =?us-ascii?Q?3NyJABqUYlKqUNsxfmQfzvZitNE5cxp64RVlG0b9Ad83w5G8EwTTGS31UIkp?=
+ =?us-ascii?Q?m1yHjqv4IJSgM+KYq+5gkAA67ffxNLulsfinCr5WYS3m8XMljgZdUFBYmTA6?=
+ =?us-ascii?Q?EXlpArQB4+KMVcgU2BX9vnQnDJRloIP+ltyEir4UhX7y/BtLqa3OkJs+W4NP?=
+ =?us-ascii?Q?MkMH9RZ9N1DEJ0V3oZx7ts+y48EfjCEu2TH5YtdWyeQUPePqrgL6D6lph5Rg?=
+ =?us-ascii?Q?wOUKfAStB6sgovhoDvdjTlq049gAFru1VW2/7ODOGu9e6lMNNO9QXdEPNHYW?=
+ =?us-ascii?Q?l+3iITX/5dg/LhcHtpbx6RZ9AN5yTUP8qIx1fLIU7cQ/dh/1JAxjmb4VTZnO?=
+ =?us-ascii?Q?D7wJSzZS9g/vOYdBxY2D26EZwFAL2TtHIgXpSvGXhKs1rFO6bo1N9jSixK+t?=
+ =?us-ascii?Q?JBxbPTo3bcpxFuO3ANG0ZPwRvcuwlO7GCZhEJV/lNAorDhX8Jl2iwmipPWuP?=
+ =?us-ascii?Q?zrEGqjGVuE4mHzCYu4nAXKk1Ri5Igoxw?=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230040)(35042699022)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024)(35042699022);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 08:23:57.6351
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 08:26:50.9319
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcec2a9b-d12c-40b1-1f50-08dcdc723c5c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d17ca97-965e-4f3a-1ce0-08dcdc72a3a7
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D0E.eurprd03.prod.outlook.com
+	DB3PEPF00008860.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB8350
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7583
 
 Hi Julien,
 
-> On 22 Sep 2024, at 14:25, Julien Grall <julien@xen.org> wrote:
+> On 22 Sep 2024, at 11:00, Julien Grall <julien@xen.org> wrote:
 >=20
 > Hi Bertrand,
 >=20
-> NIT Typo: s/fix/Fix/ to match the other title
-
-Ack
-
->=20
 > On 19/09/2024 14:19, Bertrand Marquis wrote:
->> Fix FFA version negotiation with the firmware to follow the
->> specification guidance more closely.
->=20
-> To confirm, below is based on 13.2.1 in DEN0077A, is that correct? If so,=
- can you add a link in the commit message (and maybe code).
-
-Yes it and i will add a link and description to the commit message.
-
->=20
->> When the firmware returns OK we can have several cases:
->> - the version requested is accepted but the firmware supports a greater
->>   one in the same major.
->> - the firmware supports a greater major version. It could still return
->>   OK even if the version requested is not accepted. Reject it.
->> - the firmware supports a lower version. It will return OK and give that
->>   version. Check if we support it and use it or reject it if we do not.
->> Adapt the code to:
->> - reject any version lower than the one we support or not with the same
->>   major version
->> - use the version returned if in our supported range (currently 1.1
->>   only)
->> - use 1.1 if the version returned is greater.
->> Also adapt the handling of version requests from VM:
->> - return an error for a different major
->> - return 1.1 for a version >=3D 1.1
->> - return 1.0 if 1.0 was requested
+>> Rework firmware discovery during probe:
+>> - move prints into the probe
+>> - rename ffa_version to ffa_fw_version as the variable identifies the
+>>   version of the firmware and not the one we support
+>> - add error prints when allocation fail during probe
+>> No functional changes.
 >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 >> ---
->>  xen/arch/arm/tee/ffa.c | 38 ++++++++++++++++++++++++++++++--------
->>  1 file changed, 30 insertions(+), 8 deletions(-)
+>>  xen/arch/arm/tee/ffa.c | 52 +++++++++++++++++++++++++-----------------
+>>  1 file changed, 31 insertions(+), 21 deletions(-)
 >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
->> index 7ff2529b2055..1f602f25d097 100644
+>> index 022089278e1c..7c84aa6aa43d 100644
 >> --- a/xen/arch/arm/tee/ffa.c
 >> +++ b/xen/arch/arm/tee/ffa.c
->> @@ -141,13 +141,24 @@ static void handle_version(struct cpu_user_regs *r=
-egs)
->>      struct ffa_ctx *ctx =3D d->arch.tee;
->>      uint32_t vers =3D get_user_reg(regs, 1);
->>  -    if ( vers < FFA_VERSION_1_1 )
->> -        vers =3D FFA_VERSION_1_0;
->> -    else
->> -        vers =3D FFA_VERSION_1_1;
->> +    /**
->=20
-> Coding style: We are use a single '*' to start comment.
-
-Ack
-
->=20
->> +     * As of now we only support 1.0 or 1.1.
->> +     * For any 1.x >=3D 1.1 return OK with 1.1
->> +     * For 1.0 return OK with 1.0
->> +     * For anything else return an error.
->> +     */
-> > +    if ( (vers >> FFA_VERSION_MAJOR_SHIFT) =3D=3D FFA_MY_VERSION_MAJOR=
- )
-> > +    {> +        if ( vers < FFA_VERSION_1_1 )
->> +            vers =3D FFA_VERSION_1_0;
->> +        else
->> +            vers =3D FFA_VERSION_1_1;
->=20
-> I feel the logic is fragile. The first ``if`` is generic and I think it w=
-ould be easy to update the major version without updating handle_version().=
- To some extend, the same problem would happen with the minor version.
-
-so something like:
-if (MAJOR(vers) =3D=3D MY_MAJOR)
-{
-   if (MINOR(vers) < MY_MIN || MINOR(vers)>MY_MIN)
-	vers =3D MY_VERSION
-   else
-        keep requested version
-}
-
->=20
-> AFAICT, this is not a new issue, but as you touch the code, we should pro=
-bably harden it. I could settle with a BUILD_BUG_ON() to catch any change o=
-f the minor/major.
-
-i could see a BUILD_BUG_ON(MAJOR(MIN_VERSION) !=3D MAJOR(MAX_VERSION))
-Is that what you have in mind ?
-
->=20
->>  -    ctx->guest_vers =3D vers;
->> -    ffa_set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
->> +        ctx->guest_vers =3D vers;
->> +        ffa_set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
->> +    }
->> +    else
->> +        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
->>  }
->>    static void handle_msg_send_direct_req(struct cpu_user_regs *regs, ui=
-nt32_t fid)
->> @@ -530,7 +541,8 @@ static bool ffa_probe(void)
->>          goto err_no_fw;
+>> @@ -71,8 +71,8 @@
+>>    #include "ffa_private.h"
+>>  -/* Negotiated FF-A version to use with the SPMC */
+>> -static uint32_t __ro_after_init ffa_version;
+>> +/* Negotiated FF-A version to use with the SPMC, 0 if not there or supp=
+orted */
+>> +static uint32_t __ro_after_init ffa_fw_version;
+>>      /*
+>> @@ -105,10 +105,7 @@ static bool ffa_get_version(uint32_t *vers)
+>>        arm_smccc_1_2_smc(&arg, &resp);
+>>      if ( resp.a0 =3D=3D FFA_RET_NOT_SUPPORTED )
+>> -    {
+>> -        gprintk(XENLOG_ERR, "ffa: FFA_VERSION returned not supported\n"=
+);
+>>          return false;
+>> -    }
+>>        *vers =3D resp.a0;
+>>  @@ -372,7 +369,7 @@ static int ffa_domain_init(struct domain *d)
+>>      struct ffa_ctx *ctx;
+>>      int ret;
+>>  -    if ( !ffa_version )
+>> +    if ( !ffa_fw_version )
+>>          return -ENODEV;
+>>       /*
+>>        * We can't use that last possible domain ID or ffa_get_vm_id() wo=
+uld
+>> @@ -505,6 +502,9 @@ static bool ffa_probe(void)
+>>       */
+>>      BUILD_BUG_ON(PAGE_SIZE !=3D FFA_PAGE_SIZE);
+>>  +    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
+>> +           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
+> > +>       /*
+>>       * psci_init_smccc() updates this value with what's reported by EL-=
+3
+>>       * or secure world.
+>> @@ -514,25 +514,21 @@ static bool ffa_probe(void)
+>>          printk(XENLOG_ERR
+>>                 "ffa: unsupported SMCCC version %#x (need at least %#x)\=
+n",
+>>                 smccc_ver, ARM_SMCCC_VERSION_1_2);
+>> -        return false;
+>> +        goto err_no_fw;
 >>      }
->>  -    if ( vers < FFA_MIN_SPMC_VERSION || vers > FFA_MY_VERSION )
->> +    if ( vers < FFA_MIN_SPMC_VERSION ||
->> +              (vers >> FFA_VERSION_MAJOR_SHIFT) !=3D FFA_MY_VERSION_MAJ=
-OR )
+>>        if ( !ffa_get_version(&vers) )
+>> -        return false;
+>> +    {
+>> +        gprintk(XENLOG_ERR, "ffa: FFA_VERSION returned not supported\n"=
+);
 >=20
-> Coding style: the second line should be aligned with 'vers' rather than i=
-ndented.
+> This error message relies on the implementation of ffa_get_version(). It =
+made sense in the previous placement, but here, it seems a little bit odd. =
+So if you want to move the error message, then I think it should be reworde=
+d to be more generic.
+>=20
+> Maybe: "Cannot retrieve the FFA version".
 
 Ack
 
 >=20
+>> +        goto err_no_fw;
+>> +    }
+>>        if ( vers < FFA_MIN_SPMC_VERSION || vers > FFA_MY_VERSION )
 >>      {
 >>          printk(XENLOG_ERR "ffa: Incompatible version %#x found\n", vers=
 );
->>          goto err_no_fw;
->> @@ -542,7 +554,17 @@ static bool ffa_probe(void)
->>      printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
->>             major_vers, minor_vers);
->>  -    ffa_fw_version =3D vers;
->> +    /**
+>> -        return false;
+>> +        goto err_no_fw;
+>>      }
+>>  -    major_vers =3D (vers >> FFA_VERSION_MAJOR_SHIFT) & FFA_VERSION_MAJ=
+OR_MASK;
+>> -    minor_vers =3D vers & FFA_VERSION_MINOR_MASK;
+>> -    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
+>> -           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
 >=20
-> Coding style: We start comment with /*.
-
-Ack
-
+> I kind of understand why we are moving the Medatior version early but...
 >=20
->> +     * If the call succeed and the version returned is higher or equal =
-to
->> +     * the one Xen requested, the version requested by Xen will be the =
-one
->> +     * used. If the version returned is lower but compatible with Xen, =
-Xen
->> +     * will use that version instead.
->> +     * A version with a different major is rejected before.
->> +     */
->> +    if ( vers > FFA_MY_VERSION )
->> +        ffa_fw_version =3D FFA_MY_VERSION;
->> +    else
->> +        ffa_fw_version =3D vers;
+>> -    printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
+>> -           major_vers, minor_vers);
 >=20
-> Looking at the code after your series (didn't check before). We don't see=
-m to use ffa_fw_version for other than checking that FFA was detected. So w=
-ouldn't it be better to stop storing the version?
+> ... I am not sure why we would move this print later. Wouldn't this be us=
+eful to know if there is a missing feature?
 
-We are only supporting a firmware version with 1.1 at the moment but when w=
-e will add support for FFA version 1.2 in the next weeks this will not be t=
-rue anymore so if this is ok with you i would rather keep it.
+True I will move it back up.
+
+>> -
+>>      /*
+>>       * At the moment domains must support the same features used by Xen=
+.
+>>       * TODO: Rework the code to allow domain to use a subset of the
+>> @@ -546,12 +542,24 @@ static bool ffa_probe(void)
+>>           !check_mandatory_feature(FFA_MEM_SHARE_32) ||
+>>           !check_mandatory_feature(FFA_MEM_RECLAIM) ||
+>>           !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+>> -        return false;
+>> +    {
+>> +        printk(XENLOG_ERR "ffa: Mandatory feature not supported by fw\n=
+");
+>> +        goto err_no_fw;
+>> +    }
+>>  -    if ( !ffa_rxtx_init() )
+>> -        return false;
+>> +    major_vers =3D (vers >> FFA_VERSION_MAJOR_SHIFT)
+>> +                 & FFA_VERSION_MAJOR_MASK;
+>> +    minor_vers =3D vers & FFA_VERSION_MINOR_MASK;
+>> +    printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
+>> +           major_vers, minor_vers);
+>> +
+>> +    ffa_fw_version =3D vers;
+>>  -    ffa_version =3D vers;
+>> +    if ( !ffa_rxtx_init() )
+>> +    {
+>> +        printk(XENLOG_ERR "ffa: Error during RXTX buffer init\n");
+>> +        goto err_no_fw;
+>> +    }
+>>        if ( !ffa_partinfo_init() )
+>>          goto err_rxtx_destroy;
+>> @@ -564,7 +572,9 @@ static bool ffa_probe(void)
+>>    err_rxtx_destroy:
+>>      ffa_rxtx_destroy();
+>> -    ffa_version =3D 0;
+>> +err_no_fw:
+>> +    ffa_fw_version =3D 0;
+>> +    printk(XENLOG_INFO "ARM FF-A No firmware support\n");
+>=20
+> I am guessing if we are trying to probe FFA, then most likely the user ex=
+pected to use it. So shouldn't this be a XENLOG_WARN?
+
+Ack.
 
 Cheers
 Bertrand
