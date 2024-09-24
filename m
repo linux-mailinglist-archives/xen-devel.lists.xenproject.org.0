@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 060DE98443B
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 13:10:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802619.1212914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C3CF984449
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 13:12:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802625.1212924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st3Q6-0008PT-4I; Tue, 24 Sep 2024 11:09:26 +0000
+	id 1st3TK-0001Qq-Hl; Tue, 24 Sep 2024 11:12:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802619.1212914; Tue, 24 Sep 2024 11:09:26 +0000
+Received: by outflank-mailman (output) from mailman id 802625.1212924; Tue, 24 Sep 2024 11:12:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st3Q6-0008Mt-0Z; Tue, 24 Sep 2024 11:09:26 +0000
-Received: by outflank-mailman (input) for mailman id 802619;
- Tue, 24 Sep 2024 11:09:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1st3TK-0001ON-E9; Tue, 24 Sep 2024 11:12:46 +0000
+Received: by outflank-mailman (input) for mailman id 802625;
+ Tue, 24 Sep 2024 11:12:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Vfmb=QW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1st3Q4-0008Mn-DQ
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 11:09:24 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73abf95d-7a65-11ef-99a2-01e77a169b0f;
- Tue, 24 Sep 2024 13:09:22 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a8d24f98215so723671766b.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 04:09:22 -0700 (PDT)
+ id 1st3TI-0001OH-HD
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 11:12:44 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eb90301c-7a65-11ef-a0ba-8be0dac302b0;
+ Tue, 24 Sep 2024 13:12:43 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a8a7b1c2f2bso898863366b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 04:12:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9392f4fb87sm70763366b.56.2024.09.24.04.09.21
+ a640c23a62f3a-a9392f32db2sm72451266b.25.2024.09.24.04.12.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Sep 2024 04:09:21 -0700 (PDT)
+ Tue, 24 Sep 2024 04:12:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73abf95d-7a65-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: eb90301c-7a65-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727176162; x=1727780962; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727176363; x=1727781163; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ISPSz4AD7k9IRDQppCndT3S7Wguno4rRVjlQgGCUcX0=;
-        b=EwU+XUHhIWuiBLiXwpMAaYkxynNql1a2eyNKX5OR4/f8tUJKiVvneu9Tt+exOPxJaS
-         jz6hOAtzscQf5zhTXvlq6hUPo/YqFkanxlhdrUIlBYUPGmRCGYSDzGdmmDmMp8Yu2K/p
-         xdfGS+Rx0+Hbjp2pFFqshN3fVRpOYbn9fBvVMNx8qqy1YY+AgT/5lEd9KcYlLsvaNmJ9
-         x+sGshAa3hmh1vxhKRo0jrAbqDFgrL0RXQZwp9NtIHxpKMeF5ngZqEoSH9eHj2899h7m
-         5uDPbB2ht76giNfEosR3Q5Nllm5ub91kO4GCcrdCuc8PzberYNFUjDcwEaUE6DZ0ArPw
-         f7Tg==
+        bh=7i2zVQxcoqKj4yCuJCKjo8zJsce91P4St2ViY9U+TUU=;
+        b=ePauLIaBHr6Rf4OgB+w+3QRRwBopll0MF2LCaljCyXJ25THa0/ct0X/PY5uUgwcubX
+         AGY0Q/827mBLXKueVGnPs4nPq4bk8O9qFwqrghDoYv5XGvuIrzxfXFYKf0xosQCoqs6s
+         Deqpcp3Winjoc6pb0Pmyx0/LOLmq4gpZBlP/kJp79dhumPD9FD5BQG2kRtEumeLLMEaE
+         5+5H9hZIRbOlyYVfoVV5JvNvkfN9MrN+TDFGlrpAsn7Ei6c0fX9S7kraazjNBvt812O/
+         cjUY/RtLTWFI2kiIPK+BYIHIErDv0JHGfcCfN7UTXol2hSIFNLOWUG1NncJzqh5hUCir
+         +Cfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727176162; x=1727780962;
+        d=1e100.net; s=20230601; t=1727176363; x=1727781163;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ISPSz4AD7k9IRDQppCndT3S7Wguno4rRVjlQgGCUcX0=;
-        b=tsDtr56Z/vXOkLQT7mjcH7earVALKG+6Ydg7o4HeSvEqpn2tkO2CnVhC3/G5BSoAgd
-         OeFPKwzOyB4YwDFGfHR8coYe4tRLkI0EIplDMz1Q9XOw65PWZ3z75/DsMZNnkBtvZ201
-         XDy2FQ27M4dORlFPoZFoXXxg7G5aIUt+6pQk9etA0BtppGG3/dfGGLN98SH6cNYcU6WT
-         V3T5YGucTArPMwOYf4JBquP76km1XJ+tSA4bM47rcAreVu1U6hNYASK8H9SwrCvmgPsg
-         vWFtRv3UnVh/GpnhWWCusHs0EWAy6WI24SzuoOqaaTA6KNIBznr4F7Sk8ajUn3/BEzeT
-         wb5A==
-X-Forwarded-Encrypted: i=1; AJvYcCUrBTFiEmimQGSnpe7FOt46E15XqRMkpiibb6rJEB1OcMa6zoHGLcme+4lCGSDLx3FQ5xUM2TQYTts=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy9qGicB05rVA+tIdZxLzyYDaf0UV33CR+/osmAUJ8a89WpcQip
-	MQBIkEwyWt3Hv7ubvw16Pul2WLo4LV5hLgJHhLsirEIGXzZQE3sl0AKHlM9HGw==
-X-Google-Smtp-Source: AGHT+IFCnjKFeFEMMi1Yl85Qdshp42DuHWxGQQDn73kJIQyeeo+NHlDhDnaeGdamfEptV+NFb8weGg==
-X-Received: by 2002:a17:907:f1a2:b0:a7a:9144:e23b with SMTP id a640c23a62f3a-a90d4fdb618mr1370111066b.19.1727176161825;
-        Tue, 24 Sep 2024 04:09:21 -0700 (PDT)
-Message-ID: <89208fd4-eef5-4bb3-b9bb-b1ee6cd0dfb0@suse.com>
-Date: Tue, 24 Sep 2024 13:09:20 +0200
+        bh=7i2zVQxcoqKj4yCuJCKjo8zJsce91P4St2ViY9U+TUU=;
+        b=wQFQnwB77VC+wWaKjHSEjuCFwO1i+xogTnF42ido8XNxZ7VFwQ+siyjyZIp72ENGpf
+         G0avoIIGTXTZM/CTUXUV5by2Hf1z+44uP6WEhN5s8VsgT7VzNS35dWwh/zxGA5+qGWvt
+         DvFxTtG9cwFmdGM7LwmpMlj2wl0owz+pjx4V7RFAeI/Hw4OueoWYm26BkK3TDszPJIYA
+         ZoxqnbkHV7j7tVAI7AhDK51fNd7VGe/A9wdwmYkPoCEDm621Z/PWQ7m7XzqGC1+keUaX
+         MxyUhVpi55wejC3zG5te3ZHfjOI11DePv3oBDwywTgXkGml03rN8ClyGYLESMWdUQgIl
+         Pl4Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXFaxRB8MvneU9LIrA3mSP8YmH3x69v3FOxC1/6h0vgxEAfjNobv/zZycjMna+Np2FehksNzg4EpPg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyzzGptizLFiILhisJNipd2kSVE8DjPrx2M0q02g1AD2dz3yM7V
+	A0LScjiwAQEaSBONeJ6UXWKXLyPwbxlh+LhTuCSGpm5vmWtvOmkPekh9Uj8MBQ==
+X-Google-Smtp-Source: AGHT+IGrWb7vmse0SyC0bqydO8Mnf9g6vgdtTkmJPw0R+wsZz+ytCF9U6Ny0XB7g2T/rvDNkAuJfbQ==
+X-Received: by 2002:a17:907:d16:b0:a8d:7b7d:8c47 with SMTP id a640c23a62f3a-a90d5197004mr1685342966b.59.1727176362858;
+        Tue, 24 Sep 2024 04:12:42 -0700 (PDT)
+Message-ID: <01f30530-1a9f-4785-9e11-40adf580eefe@suse.com>
+Date: Tue, 24 Sep 2024 13:12:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] x86: Align output sections for UEFI CA memory
- mitigation requirements
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20240919080021.20155-1-frediano.ziglio@cloud.com>
- <20240919080021.20155-4-frediano.ziglio@cloud.com>
- <f928cf8a-e047-43f0-bf1d-c864d5d0e317@suse.com>
- <CACHz=ZiFyiSaihgTL_rSqfNNag761+1QyAhytQhn5zM6tOUSsw@mail.gmail.com>
- <ac8a299d-ec25-431a-aa56-d8a10ca1220a@suse.com>
- <CACHz=Zh_Cr_Qfpz4vntBZfZ-HqYGH+DspEAJkVmeBKMNk_z-_g@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] xen/common: move device initialization code to
+ common code
+To: oleksii.kurochko@gmail.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1726579819.git.oleksii.kurochko@gmail.com>
+ <0b4d49742f58549ec644944ce1e02c98d7551845.1726579819.git.oleksii.kurochko@gmail.com>
+ <13de4165-2df2-4481-974d-30d528dfd8cd@suse.com>
+ <2727fcff560d62d2035237a225c0a14fdf0410dc.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,76 +118,75 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=Zh_Cr_Qfpz4vntBZfZ-HqYGH+DspEAJkVmeBKMNk_z-_g@mail.gmail.com>
+In-Reply-To: <2727fcff560d62d2035237a225c0a14fdf0410dc.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24.09.2024 12:22, Frediano Ziglio wrote:
-> There are indeed some oddities in the final executable(s):
+On 24.09.2024 12:16, oleksii.kurochko@gmail.com wrote:
+> On Mon, 2024-09-23 at 16:43 +0200, Jan Beulich wrote:
+>> On 17.09.2024 18:15, Oleksii Kurochko wrote:
+>>> --- a/xen/common/Kconfig
+>>> +++ b/xen/common/Kconfig
+>>> @@ -12,6 +12,14 @@ config CORE_PARKING
+>>>  	bool
+>>>  	depends on NR_CPUS > 1
+>>>  
+>>> +config DEVICE_INIT
+>>> +	bool
+>>> +	default !X86
+>>
+>> This can simply be "def_bool y" as ...
+>>
+>>> +	depends on !X86 && (ACPI || HAS_DEVICE_TREE)
+>>
+>> ... this enforces all restrictions. As indicated before I'd prefer if
+>> we
+>> could get away without yet another Kconfig constant, which would then
+>> also eliminate my concern about the expression not really covering
+>> for
+>> the case where x86 would obtain DT support (and hence likely needing
+>> the
+>> initialization here, too). What about ...
+>>
+>>> --- a/xen/common/Makefile
+>>> +++ b/xen/common/Makefile
+>>> @@ -6,6 +6,7 @@ obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
+>>>  obj-$(CONFIG_CORE_PARKING) += core_parking.o
+>>>  obj-y += cpu.o
+>>>  obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
+>>> +obj-$(CONFIG_DEVICE_INIT) += device.o
+>>
+>> obj-$(CONFIG_HAS_DEVICE_TREE) += device.o
+>> obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
+>>
+>> ? (Eventually we could then simplify this to just obj-$(CONFIG_ACPI),
+>> to allow DT on x86, making sure the ACPI part of the file builds for
+>> x86 but does nothing there.)
+> I am okay with this solution. It seems I misunderstood you in the first
+> version of this patch series. When "obj-$(or ... )" was used, I decided
+> it wasn’t a good approach to use 'or', 'filter-out', or other similar
+> functions in Makefiles for such cases. I couldn't come up with a better
+> solution at the time, so I introduced a new config instead.
 > 
-> From "objdump -x":
-> 
-> xen/normal/xen.efi:     file format pei-x86-64
-> xen/normal/xen.efi
-> architecture: i386:x86-64, flags 0x0000013b:
-> HAS_RELOC, EXEC_P, HAS_DEBUG, HAS_SYMS, HAS_LOCALS, D_PAGED
-> start address 0xffff82d04062bfdc
-> ...
-> The Data Directory
-> Entry 0 0000000000000000 00000000 Export Directory [.edata (or where
-> ever we found it)]
-> Entry 1 0000000000000000 00000000 Import Directory [parts of .idata]
-> Entry 2 0000000000000000 00000000 Resource Directory [.rsrc]
-> Entry 3 0000000000000000 00000000 Exception Directory [.pdata]
-> Entry 4 0000000000000000 00000000 Security Directory
-> Entry 5 00000000009489a0 000016c0 Base Relocation Directory [.reloc]
-> Entry 6 00000000004871c8 0000001c Debug Directory
-> Entry 7 0000000000000000 00000000 Description Directory
-> Entry 8 0000000000000000 00000000 Special Directory
-> ...
-> There is a debug directory in .buildid at 0xffff82d0404871c8
-> ...
-> Sections:
-> Idx Name          Size      VMA               LMA               File off  Algn
->  0 .text         0018c5f6  ffff82d040200000  ffff82d040200000  00001000  2**4
->                  CONTENTS, ALLOC, LOAD, CODE
->  1 .rodata       000871c8  ffff82d040400000  ffff82d040400000  0018e000  2**2
->                  CONTENTS, ALLOC, LOAD, DATA
->  2 .buildid      00000035  ffff82d0404871c8  ffff82d0404871c8  002151e0  2**2
->                  CONTENTS, ALLOC, LOAD, READONLY, DATA
->  3 .init.text    0004775b  ffff82d040600000  ffff82d040600000  00215220  2**2
->                  CONTENTS, ALLOC, LOAD, READONLY, CODE
-> ....
-> 
-> Some notes:
-> 1- I don't understand why the debug directory points to .buildid section
->   (I suppose that's the reason for the "There is a debug directory..." message);
+> The only issue I see with this approach is that in device.c, there is
+> the following code:
+>    #ifdef CONFIG_ACPI
+>    
+>    extern const struct acpi_device_desc _asdevice[], _aedevice[];
+>    
+>    int __init acpi_device_init(enum device_class class, const void *data,
+>    int class_type)
+>       ...
+>    
+>    #endif
+> This shouldn't be compiled for X86. However, it will still be compiled
+> if we simplify to:
+>    obj-$(CONFIG_HAS_DEVICE_TREE) += device.o
+>    obj-$(CONFIG_ACPI) += device.o
 
-Like in ELF final executables, in PE ones information like this should
-be locatable by means other than looking up sections by name and then
-hoping they contain what's expected. Short of program headers and
-dynamic tags, this is the scheme people invented to make the build ID
-actually locatable. If you look at how this works in our build system,
-you'll find that this even requires passing a COFF object to the linker
-(i.e. involving a little bit of trickery).
-
-> 2- .buildid follows .rodata (this is expected);
-> 3- .buildid is not page aligned but the loader I tried seems to be
-> happy with that,
->   I think it should be aligned;
-
-Generally it doesn't need to be. If the secure boot stuff requires it
-to be, then we need to live with that (and the wasted page). Preferably
-it could continue to use (in the common case) a few bytes on the last
-.rodata page. Or we could see whether folding .buildid into .rodata
-works (I don't recall whether I tried that back at the time).
-
-> 4- .rodata for some reason is not marked as READONLY, even on ELF you
-> get the same issue.
-
-I can confirm this oddity, without having an explanation. It must be
-one of the inputs; I've checked that prelink.o's .rodata is r/o. So it
-can only be some other constituent.
+Which is why I said "eventually". For now it'll be the $(filter-out ...).
+How to best adjust the code to permit above simplification is to be
+determined; what you outlined matches what I had thought of as an option.
 
 Jan
 
