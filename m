@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C78C98407C
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 10:27:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802459.1212704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64923984080
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 10:29:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802471.1212713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st0tF-0000Vr-S8; Tue, 24 Sep 2024 08:27:21 +0000
+	id 1st0vS-0001LT-C1; Tue, 24 Sep 2024 08:29:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802459.1212704; Tue, 24 Sep 2024 08:27:21 +0000
+Received: by outflank-mailman (output) from mailman id 802471.1212713; Tue, 24 Sep 2024 08:29:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1st0tF-0000Sb-Oj; Tue, 24 Sep 2024 08:27:21 +0000
-Received: by outflank-mailman (input) for mailman id 802459;
- Tue, 24 Sep 2024 08:27:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Vfmb=QW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1st0tD-0000Rn-To
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 08:27:20 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cfd70a1b-7a4e-11ef-a0ba-8be0dac302b0;
- Tue, 24 Sep 2024 10:27:18 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a8d0d82e76aso462982266b.3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Sep 2024 01:27:18 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9392f340basm56039366b.33.2024.09.24.01.27.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Sep 2024 01:27:17 -0700 (PDT)
+	id 1st0vS-0001Is-93; Tue, 24 Sep 2024 08:29:38 +0000
+Received: by outflank-mailman (input) for mailman id 802471;
+ Tue, 24 Sep 2024 08:29:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7Xj2=QW=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1st0vR-0001Im-Ci
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 08:29:37 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20602.outbound.protection.outlook.com
+ [2a01:111:f403:2415::602])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 20b95895-7a4f-11ef-99a2-01e77a169b0f;
+ Tue, 24 Sep 2024 10:29:35 +0200 (CEST)
+Received: from BN8PR07CA0006.namprd07.prod.outlook.com (2603:10b6:408:ac::19)
+ by DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.27; Tue, 24 Sep
+ 2024 08:29:30 +0000
+Received: from MN1PEPF0000F0DE.namprd04.prod.outlook.com (2603:10b6:408:ac::4)
+ by BN8PR07CA0006.outlook.office365.com (2603:10b6:408:ac::19) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7962.25 via Frontend Transport; Tue, 24 Sep 2024 08:29:30 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MN1PEPF0000F0DE.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8005.15 via Frontend Transport; Tue, 24 Sep 2024 08:29:30 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 24 Sep
+ 2024 03:29:29 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 24 Sep
+ 2024 03:29:29 -0500
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Tue, 24 Sep 2024 03:29:28 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,437 +63,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfd70a1b-7a4e-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727166438; x=1727771238; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tsk8lzTrW0H6kEgV7bFS/DZk/dFoNnFM1qzroOHBIVk=;
-        b=HgKGP446YRkkyTDMxe4iJn2luLc+/6joxHBc2eMLvseyESjWeBulE6ck/D5GM/YpnK
-         HNY+6k5oGFgnJjaDK8iH2o7Ujz0AN1cK2ew/mYZR3lnko01LErB98eXiAVV36xyyIN+1
-         SUWGOQ1U2dkyKgG+rVzGXdi91cpDM7slmVh0BkddERn0j/RLznQZUBGPUfLDmCSjAYdE
-         KLKiT2w4c+C4h9/S7QTNUVEyDby0aGpAwi0fQX0TPDPTvxnV/CYTH1NewY6nrK+QNMw+
-         2V71+SfbxM5Vfsq7XF83R7WrW1I/28/qRjgYd7OkGjIifI0IssGeG5F8QjtmBdmRGOLD
-         bdsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727166438; x=1727771238;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=tsk8lzTrW0H6kEgV7bFS/DZk/dFoNnFM1qzroOHBIVk=;
-        b=uVbP1byBVxfwHrLgXCZUHklpfE8HEGQ86AgT6waeKyNPs3ai4trXBegun3A3ytnAR+
-         Mh1uKhcwfblFj4hSc8+06G3etxml9qphHhGYitn2qQazve5Y6yxX4+jO31cXl5TmqzBF
-         ve7jxkQW74r94HcpyRjXg/QzAPJUqZCkz9s73+KEbHJaKVN7ppIpRrd6jsHa1Qc6qQ6z
-         LlF8LrT35b+1zNkpLIHJ1QBOw3lmqtGQfY+T726JE6eA/BHfZF6fG5B5IC4BvlYaaupW
-         wErykeoWdPVXj69rRkJXGoFfdgsuiizcwQskWpWl9RP/dISMMQhtUBbsbHfT3vIXHnq6
-         Frjg==
-X-Forwarded-Encrypted: i=1; AJvYcCVEwbrf5by9yoQIfPkM583o5X4lQTl6VuXkQvQ/E6hIr4bla1snA+GX7r0pHyp5+mVSo1QLXAq60PI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyv4fpQW/3K9NiLsVtHGDW3xB+DbWB4Es9LHWWPfWmXR0zzHJG+
-	4OPgNCLAyNtagJXKzfbocxx+oJpX9gnf4ymnMwTFC91Na4DWmZHB8ex/DhbiVg==
-X-Google-Smtp-Source: AGHT+IGcifHaJER7HE3cqSWvfYdIlVLlO+gEXXmQii4wuHIzogNiUXTGdGSsTbCFRk4wOPkCsQdmcw==
-X-Received: by 2002:a17:907:d597:b0:a90:13b6:3ece with SMTP id a640c23a62f3a-a90d560ff54mr1526034766b.15.1727166437971;
-        Tue, 24 Sep 2024 01:27:17 -0700 (PDT)
-Message-ID: <b950e5a6-f3dc-44d3-8e50-784292f313e0@suse.com>
-Date: Tue, 24 Sep 2024 10:27:16 +0200
+X-Inumbo-ID: 20b95895-7a4f-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r9KJDMmmWGtgEqodCs2W03DXlAHWH393OGrELxZvVixDGdnwlyw04vEPDO9lpga/lhp4vptVNuIFD/1KtKeUY023rlLhlxcH0WvMiFc6Y1kH27Re0gwfsJbkQPMrr2fyeOFRAYx2/+yedR1pMZeGjrP77zFScgq490vY0sC6+evqO1gfp3pzZLI0rDxOwsa0T1yDRxa1+LQF3Kt1N8auI7+aWt6kcNG4b5ioolk7qtVFqxAS10g7qIMARqvGl/R37LIFmorAeM1I0XANUMUvMQKgh1JqSN9kUCA2RZYdjE+dpmcJz8nSMVABjZBkWy/Gdtd0qpOz8pLbOyXhHyTCjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SpOLUaNzGFCTaVTTwD6i3Axw0ar9IW+hLBSqeIRCplo=;
+ b=id9mlw+lSYvRAZrKy3G6YJzMhQdD/BizQ5o/tcoXlKPQeA5/2e80F5SMRC+X2e1V33XRZvYoIWswtQlIAYIVH+RKyPqsdA7ZC+Pj6R8vhs9drXpEaq+/tKRpZfyG7wXK1YA+OU853a2x3o/80aOqqmmUPlJJ3SQOcQMxJDqwiB1nb7sxBRO0kCTP+OdH9W+x56i9fHzx33A7MCIE3fuJl1ZyAUnfYOIo0fKAsqpXSPeIw6/8Q6Xc0XdlbDb+xWC8qX+baslvPJOQxH/ALganKJ9ArzzrZDbhIsSqbQ1bAZqKLn9FJn8tFE5p97J03RIdDJmgQSkZ4lgZozgOeMT3Uw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SpOLUaNzGFCTaVTTwD6i3Axw0ar9IW+hLBSqeIRCplo=;
+ b=iYmB0r57kJXQ5XVRryWF5YjQicsxtFmpKKLqzR+Uqyxaf0/7Bt1Kdi6WbFQhMOrhpC6dDiiZoUIIuzs5TKtPZcNO8UdnW4IvgIYXs5l5FQzfN4bzCa8fYdVBAlgsLFN3GHBsP9BQQdJqXrf0Eoqp7aYlDaNSc6zC513Qts+WN1M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>, <michal.orzel@amd.com>,
+	<ayan.kumar.halder@amd.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Artem Mygaiev <artem_mygaiev@epam.com>, "Hisao
+ Munakata" <hisao.munakata.vt@renesas.com>, Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v4] docs: fusa: Add Assumption of Use (AOU)
+Date: Tue, 24 Sep 2024 09:29:23 +0100
+Message-ID: <20240924082923.1286023-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Ping: [PATCH v2 2/2] types: replace remaining uses of s64
-From: Jan Beulich <jbeulich@suse.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ab2d325e-0d91-4308-b4d1-06314ad5ba0c@suse.com>
- <a6126dc2-a10f-4a90-9d2f-80f6f32f1386@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a6126dc2-a10f-4a90-9d2f-80f6f32f1386@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|DM4PR12MB6280:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b530ed8-5800-49bb-c436-08dcdc73027e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?PwqZjvu+DW6gt7PP4QwpIQIyMzeqfJVGfAXaPHIRmr7Vj8mOn9Hqh/2JEGB/?=
+ =?us-ascii?Q?paQI7Ek4T2ICya+b2Xx8EU6K9/oOadQTZvA/aH9RSQ5g1d+dERZxLshqKPC8?=
+ =?us-ascii?Q?E1jT6XAedIL6Dm5E60KmLtUyQzg6iQGaA+rfikiG5ITALeQyJxAq/Ef/B3q5?=
+ =?us-ascii?Q?2lm0WA/VmQkXq+ar0qTcHL/fyjpALJwdXCgR8ATu0dP+3v41zD6ygpX4znpI?=
+ =?us-ascii?Q?cx9Ffanyv9WJhPH6qaThAWoBscRANjDf5jpNaPqAe1/xwzWWOMXavpKwiW/7?=
+ =?us-ascii?Q?ntYaUOrrvAYTcYtjZwayy2qYWTrpHyaYIBiNrjygfw/uAeiaLlkMB7mForts?=
+ =?us-ascii?Q?+/YvaYp+iRa3TXcmPHAa6rGpQHft2EypDtbqPned2u6YcLuyNflSdLVwy/YX?=
+ =?us-ascii?Q?PAc1W34vvXD1qdHGGc/H+Uf30jJvGrLuJX375quq726HKRJq0xl43HuVqCN+?=
+ =?us-ascii?Q?4BhRM74zG199SXX4Ic+bSLsfqywrwmetIwl+65M0G7qiVO+Mtv1KZAT1oslz?=
+ =?us-ascii?Q?cc68qN8BxbZrl457C8JdqC+hYYwSGbIXnBQMAlIJZ3JuSo/65igF4Fc5zS9z?=
+ =?us-ascii?Q?k3xX5yB4IK7A7e09UM1sH02GLspVJWnFzuJwRmYHdJo57wWobQIRQtIkqnhV?=
+ =?us-ascii?Q?tK6NNuuSgbhRQ5J1Hpje73uMObkH+vmB9LgHRF7ZoIxUXXX294mpjKE7P0fL?=
+ =?us-ascii?Q?Mksy8xVbNS3lvQNIL1Fa+CuNlyvgOXU9Reb045qfcvAdiAigHT1iUb5MY6Ad?=
+ =?us-ascii?Q?qOPxGuLbSCgdJayfxg/Nkaz7fa0eLJTuiuWj6HJ2nD4B9d1Vt+lvwf0+SiWd?=
+ =?us-ascii?Q?zOra57utpFPC9tmWJ0avQSOtYZH8qx7vr+sM6z6l1AEpgFrxyAD3juDrNDyx?=
+ =?us-ascii?Q?Aw8y7G8PfQGs+uumKx+ziUBX97RrbgBV2S5tZBsNgv19NkRjL9wa7ce5C4N5?=
+ =?us-ascii?Q?DH7KO8bhdDhnVTxFI9ml6e413UL6DLyxHz0nYTJul5zQEGoM4YKy1W2PyMzk?=
+ =?us-ascii?Q?OPpVKJxEIzWBZBUKrlQd5OSRwRQ8J2vwJ/rEagX4uZjjbnvvHdb3b+DWPPcd?=
+ =?us-ascii?Q?VCI6tALt6Vz6uP2UqmAPr4Vd8z4+s/tnxh1rkd9R0Rl/dZrvQ5pmDlOgESlo?=
+ =?us-ascii?Q?y1/Cm6fulyMrql9BkcXwON1PyhhHnu+iUcqoSiLQm42F5GeJL7zZS99zHN3C?=
+ =?us-ascii?Q?Em0a9piMbOf55jq4DzpK2rzhA73JIdsAIszeKf3IfeNVyAwZLZNzESNFYbLT?=
+ =?us-ascii?Q?S1kiLup5AGKvadcLb8DtgBkuWbbwm0BqR9UlYoRh3MvapS8uqNFj7HfmGe/R?=
+ =?us-ascii?Q?vHxTDcq62rYQS3vl9kjE58Dv1kFhSmhUck5YJKe0zGjfBL13l7p77HLO3l9R?=
+ =?us-ascii?Q?inksXpXirTBDCei5Kk9JJUt9fu2j?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 08:29:30.0042
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b530ed8-5800-49bb-c436-08dcdc73027e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000F0DE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6280
 
-On 12.09.2024 14:20, Jan Beulich wrote:
-> ... and move the type itself to linux-compat.h.
-> 
-> While doing so
-> - correct the type of union uu's uq field in lib/divmod.c,
-> - switch a few adjacent types as well, for (a little bit of)
->   consistency.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+From: Michal Orzel <michal.orzel@amd.com>
 
-Arm and livepatch maintainers - any chance of an ack here?
+AoU are the assumptions that Xen relies on other components (eg platform
+platform, domains) to fulfill its requirements. In our case, platform means
+a combination of hardware, firmware and bootloader.
 
-Thanls, Jan
+We have defined AoU in the intro.rst and added AoU for the generic
+timer.
 
-> --- a/xen/arch/arm/arm64/cpufeature.c
-> +++ b/xen/arch/arm/arm64/cpufeature.c
-> @@ -484,8 +484,8 @@ static const struct arm64_ftr_bits ftr_r
->  	ARM64_FTR_END,
->  };
->  
-> -static u64 arm64_ftr_set_value(const struct arm64_ftr_bits *ftrp, s64 reg,
-> -			       s64 ftr_val)
-> +static uint64_t arm64_ftr_set_value(const struct arm64_ftr_bits *ftrp,
-> +				    int64_t reg, int64_t ftr_val)
->  {
->  	u64 mask = arm64_ftr_mask(ftrp);
->  
-> @@ -494,10 +494,10 @@ static u64 arm64_ftr_set_value(const str
->  	return reg;
->  }
->  
-> -static s64 arm64_ftr_safe_value(const struct arm64_ftr_bits *ftrp, s64 new,
-> -				s64 cur)
-> +static int64_t arm64_ftr_safe_value(const struct arm64_ftr_bits *ftrp,
-> +				    int64_t new, int64_t cur)
->  {
-> -	s64 ret = 0;
-> +	int64_t ret = 0;
->  
->  	switch (ftrp->type) {
->  	case FTR_EXACT:
-> @@ -532,8 +532,8 @@ static void sanitize_reg(u64 *cur_reg, u
->  
->  	for (;ftrp->width != 0;ftrp++)
->  	{
-> -		s64 cur_field = arm64_ftr_value(ftrp, *cur_reg);
-> -		s64 new_field = arm64_ftr_value(ftrp, new_reg);
-> +		int64_t cur_field = arm64_ftr_value(ftrp, *cur_reg);
-> +		int64_t new_field = arm64_ftr_value(ftrp, new_reg);
->  
->  		if (cur_field == new_field)
->  			continue;
-> --- a/xen/arch/arm/arm64/livepatch.c
-> +++ b/xen/arch/arm/arm64/livepatch.c
-> @@ -119,7 +119,7 @@ static u64 do_reloc(enum aarch64_reloc_o
->  
->  static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len)
->  {
-> -    s64 sval = do_reloc(op, place, val);
-> +    int64_t sval = do_reloc(op, place, val);
->  
->      switch ( len )
->      {
-> @@ -136,7 +136,7 @@ static int reloc_data(enum aarch64_reloc
->          break;
->  
->      case 64:
-> -        *(s64 *)place = sval;
-> +        *(int64_t *)place = sval;
->          break;
->  
->      default:
-> @@ -155,9 +155,9 @@ enum aarch64_insn_movw_imm_type {
->  static int reloc_insn_movw(enum aarch64_reloc_op op, void *dest, u64 val,
->                             int lsb, enum aarch64_insn_movw_imm_type imm_type)
->  {
-> -    u64 imm;
-> -    s64 sval;
-> -    u32 insn = *(u32 *)dest;
-> +    uint64_t imm;
-> +    int64_t sval;
-> +    uint32_t insn = *(uint32_t *)dest;
->  
->      sval = do_reloc(op, dest, val);
->      imm = sval >> lsb;
-> @@ -200,9 +200,9 @@ static int reloc_insn_movw(enum aarch64_
->  static int reloc_insn_imm(enum aarch64_reloc_op op, void *dest, u64 val,
->                            int lsb, int len, enum aarch64_insn_imm_type imm_type)
->  {
-> -    u64 imm, imm_mask;
-> -    s64 sval;
-> -    u32 insn = *(u32 *)dest;
-> +    uint64_t imm, imm_mask;
-> +    int64_t sval;
-> +    uint32_t insn = *(uint32_t *)dest;
->  
->      /* Calculate the relocation value. */
->      sval = do_reloc(op, dest, val);
-> @@ -220,7 +220,7 @@ static int reloc_insn_imm(enum aarch64_r
->       * Extract the upper value bits (including the sign bit) and
->       * shift them to bit 0.
->       */
-> -    sval = (s64)(sval & ~(imm_mask >> 1)) >> (len - 1);
-> +    sval = (int64_t)(sval & ~(imm_mask >> 1)) >> (len - 1);
->  
->      /*
->       * Overflow has occurred if the upper bits are not all equal to
-> --- a/xen/arch/arm/include/asm/arm64/cpufeature.h
-> +++ b/xen/arch/arm/include/asm/arm64/cpufeature.h
-> @@ -39,15 +39,15 @@ struct arm64_ftr_bits {
->  	bool		visible;
->  	bool		strict;	/* CPU Sanity check: strict matching required ? */
->  	enum ftr_type	type;
-> -	u8		shift;
-> -	u8		width;
-> -	s64		safe_val; /* safe value for FTR_EXACT features */
-> +	uint8_t		shift;
-> +	uint8_t		width;
-> +	int64_t		safe_val; /* safe value for FTR_EXACT features */
->  };
->  
->  static inline int attr_const
->  cpuid_feature_extract_signed_field_width(u64 features, int field, int width)
->  {
-> -	return (s64)(features << (64 - width - field)) >> (64 - width);
-> +	return (int64_t)(features << (64 - width - field)) >> (64 - width);
->  }
->  
->  static inline int attr_const
-> @@ -87,9 +87,12 @@ cpuid_feature_extract_field(u64 features
->  	return cpuid_feature_extract_field_width(features, field, 4, sign);
->  }
->  
-> -static inline s64 arm64_ftr_value(const struct arm64_ftr_bits *ftrp, u64 val)
-> +static inline int64_t arm64_ftr_value(const struct arm64_ftr_bits *ftrp,
-> +                                      uint64_t val)
->  {
-> -	return (s64)cpuid_feature_extract_field_width(val, ftrp->shift, ftrp->width, ftrp->sign);
-> +	return (int64_t)cpuid_feature_extract_field_width(val, ftrp->shift,
-> +							  ftrp->width,
-> +							  ftrp->sign);
->  }
->  
->  #endif /* _ASM_ARM_ARM64_CPUFEATURES_H */
-> --- a/xen/arch/x86/hvm/vlapic.c
-> +++ b/xen/arch/x86/hvm/vlapic.c
-> @@ -1208,7 +1208,7 @@ void vlapic_tdt_msr_set(struct vlapic *v
->      if ( value > guest_tsc )
->      {
->          uint64_t delta = gtsc_to_gtime(v->domain, value - guest_tsc);
-> -        delta = max_t(s64, delta, 0);
-> +        delta = max_t(int64_t, delta, 0);
->  
->          HVM_DBG_LOG(DBG_LEVEL_VLAPIC_TIMER, "delta[0x%016"PRIx64"]", delta);
->  
-> --- a/xen/arch/x86/include/asm/hvm/vcpu.h
-> +++ b/xen/arch/x86/include/asm/hvm/vcpu.h
-> @@ -134,8 +134,8 @@ struct hvm_vcpu {
->      unsigned long       hw_cr[5];
->  
->      struct vlapic       vlapic;
-> -    s64                 cache_tsc_offset;
-> -    u64                 guest_time;
-> +    int64_t             cache_tsc_offset;
-> +    uint64_t            guest_time;
->  
->      /* Lock and list for virtual platform timers. */
->      spinlock_t          tm_lock;
-> --- a/xen/arch/x86/time.c
-> +++ b/xen/arch/x86/time.c
-> @@ -66,10 +66,10 @@ struct cpu_time {
->  struct platform_timesource {
->      const char *id;
->      const char *name;
-> -    u64 frequency;
-> +    uint64_t frequency;
->      /* Post-init this hook may only be invoked via the read_counter() wrapper! */
-> -    u64 (*read_counter)(void);
-> -    s64 (*init)(struct platform_timesource *);
-> +    uint64_t (*read_counter)(void);
-> +    int64_t (*init)(struct platform_timesource *);
->      void (*resume)(struct platform_timesource *);
->      int counter_bits;
->  };
-> @@ -368,7 +368,7 @@ static u64 cf_check read_pit_count(void)
->      return count32;
->  }
->  
-> -static s64 __init cf_check init_pit(struct platform_timesource *pts)
-> +static int64_t __init cf_check init_pit(struct platform_timesource *pts)
->  {
->      u8 portb = inb(0x61);
->      u64 start, end;
-> @@ -610,7 +610,7 @@ static u64 cf_check read_pmtimer_count(v
->      return inl(pmtmr_ioport);
->  }
->  
-> -static s64 __init cf_check init_pmtimer(struct platform_timesource *pts)
-> +static int64_t __init cf_check init_pmtimer(struct platform_timesource *pts)
->  {
->      if ( !pmtmr_ioport || (pmtmr_width != 24 && pmtmr_width != 32) )
->          return 0;
-> @@ -655,7 +655,7 @@ static unsigned int __initdata tsc_flags
->   * Called in verify_tsc_reliability() under reliable TSC conditions
->   * thus reusing all the checks already performed there.
->   */
-> -static s64 __init cf_check init_tsc(struct platform_timesource *pts)
-> +static int64_t __init cf_check init_tsc(struct platform_timesource *pts)
->  {
->      u64 ret = pts->frequency;
->  
-> @@ -1034,9 +1034,9 @@ static void __init reset_platform_timer(
->      spin_unlock_irq(&platform_timer_lock);
->  }
->  
-> -static s64 __init try_platform_timer(struct platform_timesource *pts)
-> +static int64_t __init try_platform_timer(struct platform_timesource *pts)
->  {
-> -    s64 rc = pts->init(pts);
-> +    int64_t rc = pts->init(pts);
->  
->      if ( rc <= 0 )
->          return rc;
-> @@ -1070,7 +1070,7 @@ static u64 __init init_platform_timer(vo
->  
->      struct platform_timesource *pts = NULL;
->      unsigned int i;
-> -    s64 rc = -1;
-> +    int64_t rc = -1;
->  
->      /* clocksource=tsc is initialized via __initcalls (when CPUs are up). */
->      if ( (opt_clocksource[0] != '\0') && strcmp(opt_clocksource, "tsc") )
-> @@ -1923,7 +1923,7 @@ static void cf_check local_time_calibrat
->       * Weirdness can happen if we lose sync with the platform timer.
->       * We could be smarter here: resync platform timer with local timer?
->       */
-> -    if ( ((s64)stime_elapsed64 < (EPOCH / 2)) )
-> +    if ( ((int64_t)stime_elapsed64 < (EPOCH / 2)) )
->          goto out;
->  
->      /*
-> @@ -2398,7 +2398,7 @@ static void __init tsc_check_writability
->  
->          write_tsc(tsc | (1ULL << 32));
->          tmp = rdtsc();
-> -        if ( ABS((s64)tmp - (s64)tmp2) < (1LL << 31) )
-> +        if ( ABS((int64_t)tmp - (int64_t)tmp2) < (1LL << 31) )
->              what = "only partially";
->      }
->      else
-> --- a/xen/drivers/acpi/apei/erst.c
-> +++ b/xen/drivers/acpi/apei/erst.c
-> @@ -105,7 +105,7 @@ static inline int erst_errno(int command
->  
->  static int erst_timedout(u64 *t, u64 spin_unit)
->  {
-> -	if ((s64)*t < spin_unit) {
-> +	if ((int64_t)*t < spin_unit) {
->  		printk(XENLOG_WARNING "Firmware does not respond in time\n");
->  		return 1;
->  	}
-> --- a/xen/include/acpi/actypes.h
-> +++ b/xen/include/acpi/actypes.h
-> @@ -147,8 +147,8 @@ typedef int INT32;
->  
->  /*! [End] no source code translation !*/
->  
-> -typedef u64 acpi_native_uint;
-> -typedef s64 acpi_native_int;
-> +typedef uint64_t acpi_native_uint;
-> +typedef int64_t acpi_native_int;
->  
->  typedef u64 acpi_io_address;
->  typedef u64 acpi_physical_address;
-> --- a/xen/include/xen/linux-compat.h
-> +++ b/xen/include/xen/linux-compat.h
-> @@ -15,7 +15,7 @@ typedef int8_t  s8, __s8;
->  typedef uint8_t __u8;
->  typedef int16_t s16, __s16;
->  typedef int32_t s32, __s32;
-> -typedef int64_t __s64;
-> +typedef int64_t s64, __s64;
->  
->  typedef paddr_t phys_addr_t;
->  
-> --- a/xen/include/xen/time.h
-> +++ b/xen/include/xen/time.h
-> @@ -29,7 +29,7 @@ struct vcpu;
->   * of real time into system time 
->   */
->  
-> -typedef s64 s_time_t;
-> +typedef int64_t s_time_t;
->  #define PRI_stime PRId64
->  
->  s_time_t get_s_time_fixed(u64 at_tick);
-> --- a/xen/include/xen/types.h
-> +++ b/xen/include/xen/types.h
-> @@ -8,7 +8,6 @@
->  typedef uint8_t u8;
->  typedef uint16_t u16, __u16;
->  typedef uint32_t u32, __u32;
-> -typedef int64_t s64;
->  typedef uint64_t u64, __u64;
->  
->  #include <asm/types.h>
-> --- a/xen/lib/divmod.c
-> +++ b/xen/lib/divmod.c
-> @@ -46,8 +46,8 @@
->   * one or more of the following formats.
->   */
->  union uu {
-> -    s64            q;              /* as a (signed) quad */
-> -    s64            uq;             /* as an unsigned quad */
-> +    int64_t        q;              /* as a (signed) quad */
-> +    uint64_t       uq;             /* as an unsigned quad */
->      long           sl[2];          /* as two signed longs */
->      unsigned long  ul[2];          /* as two unsigned longs */
->  };
-> @@ -72,7 +72,7 @@ union uu {
->   * and assembly.
->   */
->  #define CHAR_BIT        8               /* number of bits in a char */
-> -#define QUAD_BITS       (sizeof(s64) * CHAR_BIT)
-> +#define QUAD_BITS       (sizeof(int64_t) * CHAR_BIT)
->  #define LONG_BITS       (sizeof(long) * CHAR_BIT)
->  #define HALF_BITS       (sizeof(long) * CHAR_BIT / 2)
->  
-> @@ -324,7 +324,7 @@ u64 __qdivrem(u64 uq, u64 vq, u64 *arq)
->   * Divide two signed quads.
->   * Truncates towards zero, as required by C99.
->   */
-> -s64 __divdi3(s64 a, s64 b)
-> +int64_t __divdi3(int64_t a, int64_t b)
->  {
->      u64 ua, ub, uq;
->      int neg = (a < 0) ^ (b < 0);
-> @@ -361,7 +361,7 @@ u64 __umoddi3(u64 a, u64 b)
->   *  11 % -5 =  1
->   * -11 % -5 = -1
->   */
-> -s64 __moddi3(s64 a, s64 b)
-> +int64_t __moddi3(int64_t a, int64_t b)
->  {
->      u64 ua, ub, urem;
->      int neg = (a < 0);
-> @@ -374,7 +374,7 @@ s64 __moddi3(s64 a, s64 b)
->  /*
->   * Quotient and remainder of unsigned long long division
->   */
-> -s64 __ldivmod_helper(s64 a, s64 b, s64 *r)
-> +int64_t __ldivmod_helper(int64_t a, int64_t b, int64_t *r)
->  {
->      u64 ua, ub, rem, quot;
->  
-> 
+Also, fixed a requirement to denote that Xen shall **not** expose the
+system counter frequency via the "clock-frequency" device tree property.
+The reason being the device tree documentation strongly discourages the
+use of this peoperty. Further if the "clock-frequency" is exposed, then
+it overrides the value programmed in the CNTFRQ_EL0 register.
+
+So, the frequency shall be exposed via the CNTFRQ_EL0 register only and
+consequently there is an assumption on the platform to program the
+register correctly.
+
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+---
+Changes from :-
+
+v1 - 1. Removed the part of requirement which states that Xen exposes the
+frequency of the system timer by reading the "clock-frequency" property.
+
+2. Added a rationale for AoU.
+
+3. Reworded the AoU.
+
+v2 - 1. Reworded the commit message. Added R-b.
+
+v3 - 1. Fixed the definition of AoU.
+
+2. Simplified the description of "Expose system timer frequency via register"
+AoU.
+
+ .../reqs/design-reqs/arm64/generic-timer.rst  | 24 ++++++++++++++++++-
+ docs/fusa/reqs/intro.rst                      | 10 ++++++++
+ 2 files changed, 33 insertions(+), 1 deletion(-)
+
+diff --git a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
+index f2a0cd7fb8..9d2a5a8085 100644
+--- a/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
++++ b/docs/fusa/reqs/design-reqs/arm64/generic-timer.rst
+@@ -30,7 +30,7 @@ Read system counter frequency
+ 
+ Description:
+ Xen shall expose the frequency of the system counter to the domains in
+-CNTFRQ_EL0 register and/or domain device tree's "clock-frequency" property.
++CNTFRQ_EL0 register.
+ 
+ Rationale:
+ 
+@@ -116,6 +116,28 @@ Rationale:
+ 
+ Comments:
+ 
++Covers:
++ - `XenProd~emulated_timer~1`
++
++Assumption of Use on the Platform
++=================================
++
++Expose system timer frequency via register
++------------------------------------------
++
++`XenSwdgn~arm64_generic_timer_plat_program_cntfrq_el0~1`
++
++Description:
++CNTFRQ_EL0 register shall be programmed with the value of the system timer
++frequency.
++
++Rationale:
++Xen reads the CNTFRQ_EL0 register to get the value of system timer frequency.
++
++Comments:
++While there is a provision to get this value by reading the "clock-frequency"
++dt property [2], the use of this property is strongly discouraged.
++
+ Covers:
+  - `XenProd~emulated_timer~1`
+ 
+diff --git a/docs/fusa/reqs/intro.rst b/docs/fusa/reqs/intro.rst
+index 245a219ff2..48f70edab5 100644
+--- a/docs/fusa/reqs/intro.rst
++++ b/docs/fusa/reqs/intro.rst
+@@ -38,6 +38,16 @@ The requirements are linked using OpenFastTrace
+ OpenFastTrace parses through the requirements and generates a traceability
+ report.
+ 
++Assumption of Use
++=================
++
++Xen is making several assumptions on the status of the platform or on some
++functions being present and functional. For example, Xen might assume that
++some registers are set.
++Anybody who wants to use Xen must validate that the platform it is used on
++(meaning the hardware and any software running before Xen like the firmware)
++fulfils all the AoU described by Xen.
++
+ The following is the skeleton for a requirement.
+ 
+ Title of the requirement
+-- 
+2.25.1
 
 
