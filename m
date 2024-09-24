@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD207983C82
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 07:52:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.802345.1212552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27D22983CDE
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2024 08:15:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.802354.1212562 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssySZ-000884-9J; Tue, 24 Sep 2024 05:51:39 +0000
+	id 1ssypJ-0002UE-6M; Tue, 24 Sep 2024 06:15:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 802345.1212552; Tue, 24 Sep 2024 05:51:39 +0000
+Received: by outflank-mailman (output) from mailman id 802354.1212562; Tue, 24 Sep 2024 06:15:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ssySZ-00085G-4J; Tue, 24 Sep 2024 05:51:39 +0000
-Received: by outflank-mailman (input) for mailman id 802345;
- Tue, 24 Sep 2024 05:51:37 +0000
+	id 1ssypJ-0002SU-2T; Tue, 24 Sep 2024 06:15:09 +0000
+Received: by outflank-mailman (input) for mailman id 802354;
+ Tue, 24 Sep 2024 06:15:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=s02B=QW=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1ssySX-00085A-9P
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 05:51:37 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20621.outbound.protection.outlook.com
- [2a01:111:f400:7ea9::621])
+ id 1ssypI-0002SO-7q
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2024 06:15:08 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20608.outbound.protection.outlook.com
+ [2a01:111:f403:200a::608])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0e1aff57-7a39-11ef-a0ba-8be0dac302b0;
- Tue, 24 Sep 2024 07:51:35 +0200 (CEST)
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
- by MN0PR12MB6080.namprd12.prod.outlook.com (2603:10b6:208:3c8::10)
+ id 56e2de91-7a3c-11ef-a0ba-8be0dac302b0;
+ Tue, 24 Sep 2024 08:15:06 +0200 (CEST)
+Received: from SJ0PR13CA0069.namprd13.prod.outlook.com (2603:10b6:a03:2c4::14)
+ by SJ2PR12MB7868.namprd12.prod.outlook.com (2603:10b6:a03:4cd::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Tue, 24 Sep
- 2024 05:51:31 +0000
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::b77f:9333:3a5a:d285]) by BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::b77f:9333:3a5a:d285%4]) with mapi id 15.20.7982.022; Tue, 24 Sep 2024
- 05:51:31 +0000
+ 2024 06:14:59 +0000
+Received: from SJ5PEPF000001F7.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c4:cafe::c) by SJ0PR13CA0069.outlook.office365.com
+ (2603:10b6:a03:2c4::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.17 via Frontend
+ Transport; Tue, 24 Sep 2024 06:14:59 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001F7.mail.protection.outlook.com (10.167.242.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8005.15 via Frontend Transport; Tue, 24 Sep 2024 06:14:58 +0000
+Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 24 Sep
+ 2024 01:14:56 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,316 +56,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e1aff57-7a39-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 56e2de91-7a3c-11ef-a0ba-8be0dac302b0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q0dXygk5Whu2Ae8c1Z8MLWXD3T4hnHCFiBV7j8/jP5AI3MWTWffAbaGODL7qAjZ8p0vFFCplHMFuWWoRJaNqc52/HXQzSeu83cBKN0zR1hibpHD7iV7E95HmOTkDoPy/PH6Pe32zwjmNcLSm83qkSwHF9zITugM8LRkNWrk1cwAN0XwP5wY/Qqq9mT64IyFLxRlwQjE3v9VSJgdVKnIhtWb47HkJCkOPeKZ/6ehjUiY6VDH2eLoZCOY1pjycokwZ/uQpcHhAkwfyZkTb2MJC5+hSeHtFb6eK7K2zD/Q3vPSDtXsopZxJwXDq+mfxXdFxofDcehfINWvZeQFgPU4Now==
+ b=rGVwHbaBdmqnckAlOWpo5yscyVPWAxdDXQERge646nUaMGZj5wTWVuDx4Xi0Rx7IXGgxQNGx2KD2/MkGxLSP9ua5rKcFC7YSuUhyr/kSaNE3QYlJVmjQCO8TNvY7RSQSvwHDf+p/ItPlMjw/ovjcrSNAJU8PujLMy+ID9beK6XK3H5mTf1atX1bC7rpTyobFWMvhxkV3FpWOtOrj3w0vSjMwVch6O4fqJ/d8+9KjnOJgBx6E9rL1s4eEtIPHr6BzUDjjYrfb4a72hw8U79Aoxh0fAO8KXN0DZwaiwd2adEZjXZAXxwH8SLMhBp7O38qla4OXZzLqGbofDuyIQpmIpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XJSy4oH3kWcn1cnHHYEThBsIVo9chggkLQ/Ut9xtudI=;
- b=nFMJtF8G5lXCUEf8mk94luXcOXitsdoA//1Lwi/iwRHlw7PS8OxnDDMeqBD6DcOFQRmX5doZHLmzOR7xAnsV3USLY+XFgqG1+z9kpX5Ioq3KCNzUb+ysZXD1YDeBFqpGokhZ8h3Ms2YpIdvFM6Am3zb8yUWcFkiIw+Kl/dFi8BTz3iKsaqR91qB0MhzYrkU4ltig2gtQFLGudFasjIAIiR20GFQFiEaKHzZ8kTY805cd318tZ13M72luYXbTQJNnaQy0YESNo5qjj3LHfTWUlRO9LpVebpRnbw7SJ4EOI35Br2n7TfJ97TgXUkDOik093binAJxaOOv9XtDPrSfY+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=+P6yVMQhhmhdpElZWftDYs+hrztkKBINKK29tfnYhag=;
+ b=wBWrJP6pdvD4dkorHw3+q/51sLnQDUjqGQyFSsZ9ZJpkrr9PzNxPJPt4NfISF8kL922HPlVbHv9ONhSH4nKjZTa+ANDIYPd5OYju0nctzvhbcGEFJOm/oZ9eK692DMG+GlcK9/joHsTUk0XqjW4Lx2GO2BU+eJtKNwu/2KCZQiKY+SF/ZEOlUuZTtlwFh6XwfPlKDw+U1N2FdVC2oRQBgPG+FMHsvoFcjy2V0+ladlml8AenBx0jWsdlqoK27fWMhv89UbyfOQa/hFyXD8GyyF0/4ZTfQIGjoE58TAe8QZZV5XTt334Jj14ZZXYNaqDBVr5DuIWtXNzmeGRP00qgrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XJSy4oH3kWcn1cnHHYEThBsIVo9chggkLQ/Ut9xtudI=;
- b=OqhmpiYoAjaFWe42Xoaf+VjDu0W545tp9K6thfL9pIlyBUP6qFyMguUPhPqJ7eI3Lgeo6qj86eJCCRl//IoBtpEWfrPCNoZHclhHtW2IWHiP2oM5Oj3+fESGhgmzqWnQty1VtjJ9uwO26uGmT5BMcOO3tOw89InwZpBvBiUN/Gc=
-From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+ bh=+P6yVMQhhmhdpElZWftDYs+hrztkKBINKK29tfnYhag=;
+ b=e1/HJiRewK4Pxw7oJiC617iLTECuqIxBtAFfYki022fM86H43ZNCfwlxS9zXKVb09bVwQ+WdfR1C/m1bFC2DAJgtl4QkgSyMyPYjP4Qd6xX4al7+apiZ1FOfDVmku1JOqXKW3P802HoAZ5JDF3PaCD0KaYe3+f0frS6urtXxYgk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Jiqian Chen <Jiqian.Chen@amd.com>
 To: Juergen Gross <jgross@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Huang, Ray"
-	<Ray.Huang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Subject: Re: [KERNEL PATCH v9 3/3] xen/privcmd: Add new syscall to get gsi
- from dev
-Thread-Topic: [KERNEL PATCH v9 3/3] xen/privcmd: Add new syscall to get gsi
- from dev
-Thread-Index:
- AQHbBPWV6HQNxY6g2kiLkMH0yIgtQLJeMAAAgALIrQCAAEJugIAEN2gA//+gP4CAAAGmgIAB8s+A
-Date: Tue, 24 Sep 2024 05:51:31 +0000
-Message-ID:
- <BL1PR12MB58498F3F9B386B371B523647E7682@BL1PR12MB5849.namprd12.prod.outlook.com>
-References: <20240912092352.1602724-1-Jiqian.Chen@amd.com>
- <20240912092352.1602724-4-Jiqian.Chen@amd.com>
- <alpine.DEB.2.22.394.2409181522080.1417852@ubuntu-linux-20-04-desktop>
- <BL1PR12MB5849DFA05D02F1BD9A416122E76C2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <alpine.DEB.2.22.394.2409200959400.1417852@ubuntu-linux-20-04-desktop>
- <BL1PR12MB584987F7DF08909143AC0E21E76F2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <1cc89abe-3744-4c35-9d78-070e58d6836a@suse.com>
- <a7d2a3e8-e2f1-4175-b74c-2e27a909c25d@suse.com>
-In-Reply-To: <a7d2a3e8-e2f1-4175-b74c-2e27a909c25d@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-imapappendstamp: BL1PR12MB5849.namprd12.prod.outlook.com
- (15.20.7982.022)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|MN0PR12MB6080:EE_
-x-ms-office365-filtering-correlation-id: ffc07048-6a23-4cc8-e5b8-08dcdc5cf09b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?U2F3V1pJaWNVaThmUE9DcXhQbGxqWGJjVS9qV042cHR3L2s2WU9zSUlxaGRo?=
- =?utf-8?B?aS9kVVNkeFFaU2FZUVdNeFdiaWx1alRleTFVN3ZsbWUvQzRnTW5LbHdiU0gv?=
- =?utf-8?B?bk94VXFhL0lPVXFFVk1qZm9xTXQ5dnZHM0JYTDliWnlXYzlnUmdCQTJqYi9L?=
- =?utf-8?B?RytCZlpwTk5yZHRUK1I5TmtwcmVIZjJpRDNxN1NjTjRyMW54YSt0U2ZQeWpZ?=
- =?utf-8?B?emVzVWRJZTFoaHZUYUhTd2NjYjgrRWF5U2FkM25FdG9vUVcxWmw4MDV3TUhY?=
- =?utf-8?B?Vjd3aG9uRjJLeHBTa3JsVjlLLzh0NGZVZnVPQXI2b29NbitjU2NVZi9hWnRn?=
- =?utf-8?B?Z0hyaGJJUEU2eW51MUFwdG5WRXFuNU1oL3NJTzFPTXBFcWtRQjFkZ3lVM01l?=
- =?utf-8?B?Q0RGUlZ5RGEzT3BPRkk0akl5RjZZV0hVSXRoZ0d6bEhHOU01L3lmdk8xV3Zo?=
- =?utf-8?B?L3NWZXptVEhnY0FzaWhXVzVvb3hRR1JETFlkcTFZZldMbng3K3hzTHZrU2VG?=
- =?utf-8?B?TU5hOUtVNi9uV28wdC81NjJKY2RZcVJXSko2c1pJTTR1blhsUzZrYW0xMnBl?=
- =?utf-8?B?dThlUlJjZDc1dEQ4ZDJBLzJJay93cEpJdEZNekk3OXVWdXRjYit3dXlKak15?=
- =?utf-8?B?WEpqcVpNWnYrRWZxRnMxMGVVenpXQ1hicGpLcHlydnd2a084YVJmUmVlVGdm?=
- =?utf-8?B?bkFqY3NmS2lPcGwxU2Vab09qelRRVG9OcWQ3aGZScWlvRUxiOHNqV1ZvelhV?=
- =?utf-8?B?bkpBUXV4cjZyUmExOTVNY1dVYW12N3hpTkI0N0NNZGxTeXBUQWVDeTVpMVRr?=
- =?utf-8?B?U0syb2NTekZkWnZNNlBaVjNzRHN2VGtOZkZ3ZW9BMWxEaW9qQ1QwOWE4RHlY?=
- =?utf-8?B?c0xrZEU5R2ZBejJqL2FmcENZemxoeno2K25sRHRQYUdzZkVrVmtyR3Y2SllV?=
- =?utf-8?B?VmVQaTlFRVg1blIzbVE0cVNtdkVJcGxtSkZ2NGpwOHNSbEx2Qm9rcVU4eENI?=
- =?utf-8?B?ZDlkd01wUXUxTktCcGdMY0paQ3d0Q3lCS2Y2enNacC9PL3FRcThWOXJ1dU0x?=
- =?utf-8?B?U3FxcEo5Ry9KK3hSKzd0Z1hHMlBTVVdaYjZMMWVLMTJVNHorMlNFSmVpNjF6?=
- =?utf-8?B?VjJlSlh0blZnbGZBc0o5UkloQks5ZndTVkJnUnVpTnB0SSsxQ1l2bnh3Vjhh?=
- =?utf-8?B?VW03Y0JqemVZY1R4ME5vdUxrRktzNGNoQzlOdFNGTzkyM0ZwdTcvOGtyR3k2?=
- =?utf-8?B?YVlpWmh3Z3YyUVVxN0ZRRjJGNXBIZFpEdFlwNjBCTzd1bVd6eWl5RFR3dWFp?=
- =?utf-8?B?cjJCQVhocWtXY2lGdWtFUGNhSjIvM0RIbGZaT2tSVmswa1pJOW5wQ3FtYXlD?=
- =?utf-8?B?YU5nczJ6NHVLOXRrc2F5c3JhU2pYWjdvMWhkdGRGRS9wV2tQZE4zMER5NVBh?=
- =?utf-8?B?TndvNDV5VXVrc2k2YXpzSGhJQUcwczMrMy9iRDBLZVhNaGtqTWVKR2pVdzNQ?=
- =?utf-8?B?RThpbHhJejM1UzlqdHNPb1gyMm55dGpmdHc3MFozYUh0bW85bS9iV1pEVWY0?=
- =?utf-8?B?VTVFTFI2amRxR250S2ZMbG5ZeUozaHV4Y0JBV2V0c1ZnVjZ3aDN4cHgvdTRE?=
- =?utf-8?B?d2cvL3hqbE5wMW90bnlZeDh4TFg4ZHVIeTZjNEZPK0VOY3BQVzFkTmdvVVJY?=
- =?utf-8?B?cWRGQTgvT3AxR0hlYmtFcW1jWUpxMDhLZUtQU3M0aG8xQ1lpak01M1E1clFa?=
- =?utf-8?B?bEpwSVptMmJYQ2huSHcybzUxSjlpZ01vNkp2WC9xMmV2ZENZdnlZZTNhK0Mr?=
- =?utf-8?B?bW91bFFYUkdNRzY1TThNK2t6Z2tCdzhuQlBRUVg5Q1gwSDJVcll2c2oxQk5W?=
- =?utf-8?B?NFRlc3BaZllEdldsaGRGNFNrd3lqWlNPZUQxanJYcUpZdSsydHJmS2I0d2NR?=
- =?utf-8?Q?0/cqewB4CQQ=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Z09NcGxxTHhTUjVpUkYwalZkc0oxejR6RXRaaTZsRUl0aGtpN0VnSGVhZ3gr?=
- =?utf-8?B?SEFLTXU4T3VPdDFxQTNwZTFZR0lUYXE1R3gwMHdzNUhRb2w2SVpsNmVBZWF4?=
- =?utf-8?B?TnQvWS9QL1dOM2crNXI4dW1ubEFuUWJiSHFnRzlIZVh5SXN5RjlISFduL0Yv?=
- =?utf-8?B?b1R3UCtDZFozMjFXS3VIUjZxblV2VjNrKzZBenNPV3REVEpsZFdkZ1dtclhF?=
- =?utf-8?B?dEw3Ym9MZFBJTzdhSUFOeXBrNzhXTU9saVNmRy95aGRyVzR5dnVZOUZsK0RS?=
- =?utf-8?B?MkZEMWRTT1FoeHlMSXc1NzRvWFFtWTNvMmRMbk4rWU5BOFFvSXhJbXRlWmR5?=
- =?utf-8?B?RlliYlZKTWY1TjdNcklHOGEwbmdteHF1WXlPbVJaYWJsKzhqdE9FTEVnUUhv?=
- =?utf-8?B?aDA1OUQwUjZSOEJqcWZiTzF5TlYrUmx0UlM4aEdPOXRURlg2T1lUV2p5MzAr?=
- =?utf-8?B?QU5MNHNSSHZ3dkxQTHI5T01sZldjdXFlcExnRFBNVHFQa20zb0JMemFZSnR4?=
- =?utf-8?B?Q3djM3pZWkVtdGJ1Qm5kc3M1TjFJcS9KZjJqc1h6MTVVdzAwNUl3RVFIaDlD?=
- =?utf-8?B?U3YwTS9tNkNyN2Q5QXZ4NDd2SXBuTlV6S3oyWnZhcDNVOVEyaitsdGIyWXB5?=
- =?utf-8?B?QWxBVFpLUHdaa1BKOVB1Uk5FanI4Ymo5QVRmV1lYaEtqRHVRWGk1TmlTMGM3?=
- =?utf-8?B?YXpQcGYrbWFHMmI3UFprZFlEU0xjSzVvVkNWK1psY2FzbStYN0RMNGVGNXFn?=
- =?utf-8?B?TjNxL3hJMm9yanJsejlXRUZxM2N3RFVybkZkNGx6a09Lb0xwanFHK3NucFZ4?=
- =?utf-8?B?N29JUHcwekRCN0x4YjQ0MC9GTXVsNnNHSkNpNlhlbStVRHFTKzZFdWk3RmNl?=
- =?utf-8?B?WC8rSHhjeURXWiszRHdWM2xwMUxqOTZQSlFlTjNWUitZY3pabExoUWR4N3g1?=
- =?utf-8?B?NFdTcTBFQStOTnhJblAxOVMvU2FaUCtRMHFGbTg4RExZTUx5aHZKSndMMDhN?=
- =?utf-8?B?LzhibWdNcnF3TlFyRURwdmFLWHBxWEhZUThWeUhHUkFOcS91dmd4ZndhVFFM?=
- =?utf-8?B?VFpXdlJiUXpOV1VwaThUajVGb0ZFajdlNW5DNTk2RjBjU3JDTzNST25sSWhl?=
- =?utf-8?B?c3dldEpYV1pEdVR0dFlvRVVBaHlXVUhDMmhibzBEdXJ0QlRLMEE0d1NhVzVB?=
- =?utf-8?B?RzFvdUlYcWo1eUtSaGlFZnBhb3Z5aHVDUWhIK0ZwMTh0Z0tBdmlOMnNTSmFI?=
- =?utf-8?B?cmdvUVl3M1VZTlI0TWxET1NvK3ZTa3FLalVhanowNnBBQWFORFZvdHc1OUI4?=
- =?utf-8?B?bDFBcFREeTVHNnRhbW5PZXRDZktMZVJRUnNlaFk1QkRnNk1zakdWd1dzZFZ4?=
- =?utf-8?B?RzZIRzF3UmVYWkxoR1IxclAvRzNIVmovK1pCVWFMRDJ3YTNmTEg2eDIyRG1R?=
- =?utf-8?B?NnhWcFlTRkhleEo0OEN3M0xvb2o4MUJOQ2lLR2NBWTgrWEUzaGRkcG1mMUNZ?=
- =?utf-8?B?Nk9TWDhRaGh5OGJ2M1A3Q1ordHd4S3hNSEJjM3ZCbXpwYmdBYWE0SXFMajBn?=
- =?utf-8?B?U1lQRVFJRW1udUZyN3NmZm81eGhacXhQZVBkWWxlTy84Sy9YS1pPMXFRRjRx?=
- =?utf-8?B?STNWdUVGZjQyWlVTL0tFeThCMnd4L09TN3o4WTh6ZDA5d2tNcTl4a3FiMFVI?=
- =?utf-8?B?b0VwZm1JQUw4enVidUpoQkJtOHhQUkVGZXpxOEdtUiszWlo3RGc4OGQ1K3E0?=
- =?utf-8?B?UVBUaElXNTBMcjNxeXR3aGNmQXo0dHUzZ1ppQ2RzUk1tUXYzekNFR1lWUW5Y?=
- =?utf-8?B?TGNFbnZFTjI4N2VXRHNyRS9Da3dtMkNyNms2aHV0R3ZFUVVsRkt3VitFMEV4?=
- =?utf-8?B?YVNmc1crVmFUMHNMdXR5OWdsVW93MFd5YWVPVUpXTDlIVFIrTyt1QldYRUJl?=
- =?utf-8?B?VFNQNHZXckU5U21VSUhqNnFsWHBoQ3haSnBxUWdPaEErWHpwRFF1RkJiRFV3?=
- =?utf-8?B?SERQZGJXQUFUK0oxTkZ6d0V0ckwvbGNXU1J2MWxZUGM4ZG9NRVdVaytxcFQv?=
- =?utf-8?B?SUNtZ0FheWdqUnpNUSsvNWFQd29GcCtQMUgzQXhUQnBBMWVYU3dEQkQwRUJw?=
- =?utf-8?Q?ck0g=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <5BB6FDB573B13042A8F5817A641329DE@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: base64
+	<sstabellini@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, "Rafael J .
+ Wysocki" <rafael@kernel.org>
+CC: <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>,
+	<linux-pci@vger.kernel.org>, <linux-acpi@vger.kernel.org>, Jiqian Chen
+	<Jiqian.Chen@amd.com>
+Subject: [KERNEL PATCH v10 0/3] Support device passthrough when dom0 is PVH on Xen
+Date: Tue, 24 Sep 2024 14:14:34 +0800
+Message-ID: <20240924061437.2636766-1-Jiqian.Chen@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F7:EE_|SJ2PR12MB7868:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e6a56aa-8ad3-416f-ea3c-08dcdc6037d3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?jA+GadcbgkrC20ReBMz7guhGYOC8vrX4+F9HBI9G27er7Z0b23ne1cmOTfsb?=
+ =?us-ascii?Q?1W7h+FXtMgNWQK9rYQYQxx+SJNhL8x2oZBNdp46Lmhk2Ki6rNvk4pt8+P3rU?=
+ =?us-ascii?Q?nrL36mw7tfihZMZQrLbjBqbfmRlE1oMQ+lZeK1uh/6teI/bhbuA6hJYrBLv0?=
+ =?us-ascii?Q?pwWf3OyfnSUBEUP46fjuQm95evvzzp75wB5u4pZg3Sbk8rSwsQXaTf09eDo2?=
+ =?us-ascii?Q?tW6giLinRoielijZIjBnxLqt5EIwNu8hJeRRLgjL43ck+9VADH3/lk92/gWf?=
+ =?us-ascii?Q?glgxOE18rmqxPypjbDGGAkB1NRnz6bAIatKs5dBPjTJvSwP5KGVk0YEUloC5?=
+ =?us-ascii?Q?7UZkKaKdcZThtyGE/Ps9KFU0M80k+fAtbjPxzZmOzMqpjGCeq8EvVFVljy+3?=
+ =?us-ascii?Q?SGUtYqgehvv+aZeOkVSPWIcWnVZwW9M8rP/7lwARS8pQd8Hyktkk+GNGa5Ls?=
+ =?us-ascii?Q?s6P/5QjAWYgbmb5tr09FnuyYx5IjS03qHWsRTilOwOSogBKYaBGFUUKosBDo?=
+ =?us-ascii?Q?pEXOpWI19kj/aB4/nWqV+amGTgqtV69h3w0PCPsbd3SXXpH+Z7doBHaKRfF4?=
+ =?us-ascii?Q?qn+8y8oapyQ8s0UfBWh8YLDM0ctwiIXxb76AcP8HAd5Opkm5kz7QLdE16Csn?=
+ =?us-ascii?Q?psazFqiAmjfKcKYZ9pdN1jUc7ujNbPyPc9OcttTVeVMOTfyx0dHb6FGjV8dn?=
+ =?us-ascii?Q?gWTkQ4qMyqYVIW0xwtSnMEfLGWgjCUpDzmAR5oTe9rBgLsKwQEqkJFNxkm3t?=
+ =?us-ascii?Q?oV6W98V62T7XUONhTwszvKmFpdZU73B/ygs/jhmX3bSJnDavCcyPqclSdztA?=
+ =?us-ascii?Q?ukDvwfYPPsvMhnC+jfK0IzudfVRiZesfLbGH5aJCptm0IR9ekXCuBMCPSr8r?=
+ =?us-ascii?Q?fbO0fYF4oNyRC5uUx7+mQyOuNP5iEjSLCrXSlayTvYc2l+ohJ/feIa6hcvE7?=
+ =?us-ascii?Q?rJkittBxAMqbAJpqjI0n1YVM+OTFShnGhi+hKallriVLfQqQUtf5Ge/ltriL?=
+ =?us-ascii?Q?cv7OxzZmcuiMXkCVvzHTTKa6ChCQPbh4KRjDKQxBfnYl1U3AQB9hkrYuE8Ix?=
+ =?us-ascii?Q?H8CaEiOgjEEf8/TR1KVNEpMqphVLEcGf2ipspZYgE9UYyAzdEUUyADLzv9dF?=
+ =?us-ascii?Q?IuaqVRfF/9BL4VskUay4JQkaWBJCHObaCTv72aQAmxoUFyYRSWPLb+P7ZfGD?=
+ =?us-ascii?Q?DZ6UcdYK8+c1TwQVCtWJY7qzWiyz5feK/T84V6P+IdAWwnGTW3q6EfRrxHH7?=
+ =?us-ascii?Q?3SFc/SCvHBiyUzVyEiUrm6v8dWx/SDgPD05F/YIa67sLQ9YrQ3zYY82kqVeE?=
+ =?us-ascii?Q?Oy0dGcwcLd8gnqyy4Ib4mlb4VlaHgrUjyImtuBHgSlV8Ns43bKpIDNm/18OH?=
+ =?us-ascii?Q?7sTzQwp+ELQt+h0qsP3HshZMr4uM?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffc07048-6a23-4cc8-e5b8-08dcdc5cf09b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2024 05:51:31.1179
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2024 06:14:58.9967
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: srXK/G0vfzwkSMeXXW1N1/ghAnrTvUrNkubpBqfWV4G80oaH8PZiNY7zWuK6vaK1kXPHRxSw8HDvEHbxYjGpHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6080
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e6a56aa-8ad3-416f-ea3c-08dcdc6037d3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001F7.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7868
 
-T24gMjAyNC85LzIzIDE2OjA0LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPiBPbiAyMy4wOS4yNCAw
-OTo1OCwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+IE9uIDIzLjA5LjI0IDA3OjQ5LCBDaGVuLCBK
-aXFpYW4gd3JvdGU6DQo+Pj4gT24gMjAyNC85LzIxIDA1OjE3LCBTdGVmYW5vIFN0YWJlbGxpbmkg
-d3JvdGU6DQo+Pj4+IE9uIEZyaSwgMjAgU2VwIDIwMjQsIENoZW4sIEppcWlhbiB3cm90ZToNCj4+
-Pj4+IE9uIDIwMjQvOS8xOSAwNjo0OSwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOg0KPj4+Pj4+
-IE9uIFRodSwgMTIgU2VwIDIwMjQsIEppcWlhbiBDaGVuIHdyb3RlOg0KPj4+Pj4+PiBPbiBQVkgg
-ZG9tMCwgd2hlbiBwYXNzdGhyb3VnaCBhIGRldmljZSB0byBkb21VLCBRRU1VIGFuZCB4bCB0b29s
-cw0KPj4+Pj4+PiB3YW50IHRvIHVzZSBnc2kgbnVtYmVyIHRvIGRvIHBpcnEgbWFwcGluZywgc2Vl
-IFFFTVUgY29kZQ0KPj4+Pj4+PiB4ZW5fcHRfcmVhbGl6ZS0+eGNfcGh5c2Rldl9tYXBfcGlycSwg
-YW5kIHhsIGNvZGUNCj4+Pj4+Pj4gcGNpX2FkZF9kbV9kb25lLT54Y19waHlzZGV2X21hcF9waXJx
-LCBidXQgaW4gY3VycmVudCBjb2RlcywgdGhlIGdzaQ0KPj4+Pj4+PiBudW1iZXIgaXMgZ290IGZy
-b20gZmlsZSAvc3lzL2J1cy9wY2kvZGV2aWNlcy88c2JkZj4vaXJxLCB0aGF0IGlzDQo+Pj4+Pj4+
-IHdyb25nLCBiZWNhdXNlIGlycSBpcyBub3QgZXF1YWwgd2l0aCBnc2ksIHRoZXkgYXJlIGluIGRp
-ZmZlcmVudA0KPj4+Pj4+PiBzcGFjZXMsIHNvIHBpcnEgbWFwcGluZyBmYWlscy4NCj4+Pj4+Pj4g
-QW5kIGluIGN1cnJlbnQgbGludXggY29kZXMsIHRoZXJlIGlzIG5vIG1ldGhvZCB0byBnZXQgZ3Np
-DQo+Pj4+Pj4+IGZvciB1c2Vyc3BhY2UuDQo+Pj4+Pj4+DQo+Pj4+Pj4+IEZvciBhYm92ZSBwdXJw
-b3NlLCByZWNvcmQgZ3NpIG9mIHBjaXN0dWIgZGV2aWNlcyB3aGVuIGluaXQNCj4+Pj4+Pj4gcGNp
-c3R1YiBhbmQgYWRkIGEgbmV3IHN5c2NhbGwgaW50byBwcml2Y21kIHRvIGxldCB1c2Vyc3BhY2UN
-Cj4+Pj4+Pj4gY2FuIGdldCBnc2kgd2hlbiB0aGV5IGhhdmUgYSBuZWVkLg0KPj4+Pj4+Pg0KPj4+
-Pj4+PiBTaWduZWQtb2ZmLWJ5OiBKaXFpYW4gQ2hlbiA8SmlxaWFuLkNoZW5AYW1kLmNvbT4NCj4+
-Pj4+Pj4gU2lnbmVkLW9mZi1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4NCj4+Pj4+
-Pj4gU2lnbmVkLW9mZi1ieTogSmlxaWFuIENoZW4gPEppcWlhbi5DaGVuQGFtZC5jb20+DQo+Pj4+
-Pj4+IC0tLQ0KPj4+Pj4+PiB2OC0+djkgY2hhbmdlczoNCj4+Pj4+Pj4gQ2hhbmdlZCB0aGUgc3lz
-Y2FsbCBuYW1lIGZyb20gIklPQ1RMX1BSSVZDTURfR1NJX0ZST01fREVWIiB0byAiSU9DVExfUFJJ
-VkNNRF9QQ0lERVZfR0VUX0dTSSIuIEFsc28gY2hhbmdlZCB0aGUgb3RoZXIgZnVuY3Rpb25zIG5h
-bWUuDQo+Pj4+Pj4+IENoYW5nZWQgdGhlIG1hY3JvIHdyYXBwaW5nICJwY2lzdHViX2dldF9nc2lf
-ZnJvbV9zYmRmIiBmcm9tICJDT05GSUdfWEVOX0FDUEkiIHRvICJDT05GSUdfWEVOX1BDSURFVl9C
-QUNLRU5EIiB0byBmaXggY29tcGlsZSBlcnJvcnMgcmVwb3J0ZWQgYnkgQ0kgcm9ib3QuDQo+Pj4+
-Pj4+IENoYW5nZWQgdGhlIHBhcmFtZXRlciBnc2kgb2Ygc3RydWN0IHByaXZjbWRfcGNpZGV2X2dl
-dF9nc2kgZnJvbSBpbnQgdG8gdTMyLg0KPj4+Pj4+Pg0KPj4+Pj4+PiB2Ny0+djggY2hhbmdlczoN
-Cj4+Pj4+Pj4gSW4gZnVuY3Rpb24gcHJpdmNtZF9pb2N0bF9nc2lfZnJvbV9kZXYsIHJldHVybiAt
-RUlOVkFMIHdoZW4gbm90IGNvbmZpZ2UgQ09ORklHX1hFTl9BQ1BJLg0KPj4+Pj4+PiBVc2VkIFBD
-SV9CVVNfTlVNIFBDSV9TTE9UIFBDSV9GVU5DIGluc3RlYWQgb2Ygb3BlbiBjb2RpbmcuDQo+Pj4+
-Pj4+DQo+Pj4+Pj4+IHY2LT52NyBjaGFuZ2VzOg0KPj4+Pj4+PiBDaGFuZ2VkIGltcGxlbWVudGF0
-aW9uIHRvIGFkZCBhIG5ldyBwYXJhbWV0ZXIgImdzaSIgdG8gc3RydWN0IHBjaXN0dWJfZGV2aWNl
-IGFuZCBzZXQgZ3NpIHdoZW4gcGNpc3R1YiBpbml0aWFsaXplIGRldmljZS4gVGhlbiB3aGVuIHVz
-ZXJzcGFjZSB3YW50cyB0byBnZXQgZ3NpIGFuZCBwYXNzIHNiZGYsIHdlIGNhbiByZXR1cm4gdGhh
-dCBnc2kuDQo+Pj4+Pj4+DQo+Pj4+Pj4+IHY1LT52NiBjaGFuZ2VzOg0KPj4+Pj4+PiBDaGFuZ2Vk
-IGltcGxlbWVudGF0aW9uIHRvIGFkZCBhIG5ldyBzeXNjYWxsIHRvIHRyYW5zbGF0ZSBpcnEgdG8g
-Z3NpLCBpbnN0ZWFkIGFkZGluZyBhIG5ldyBnc2kgc3lzZnMgbm9kZSwgYmVjYXVzZSB0aGUgcGNp
-IE1haW50YWluZXIgZGlkbid0IGFsbG93IHRvIGFkZCB0aGF0IHN5c2ZzIG5vZGUuDQo+Pj4+Pj4+
-DQo+Pj4+Pj4+IHYzLT52NSBjaGFuZ2VzOg0KPj4+Pj4+PiBOby4NCj4+Pj4+Pj4NCj4+Pj4+Pj4g
-djItPnYzIGNoYW5nZXM6DQo+Pj4+Pj4+IFN1Z2dlc3RlZCBieSBSb2dlcjogQWJhbmRvbmVkIHBy
-ZXZpb3VzIGltcGxlbWVudGF0aW9ucyB0aGF0IGFkZGVkIG5ldyBzeXNjYWxsIHRvIGdldCBnc2kg
-ZnJvbSBpcnEgYW5kIGNoYW5nZWQgdG8gYWRkIGEgbmV3IHN5c2ZzIG5vZGUgZm9yIGdzaSwgdGhl
-biB1c2Vyc3BhY2UgY2FuIGdldCBnc2kgbnVtYmVyIGZyb20gc3lzZnMgbm9kZS4NCj4+Pj4+Pj4g
-LS0tDQo+Pj4+Pj4+IHwgUmVwb3J0ZWQtYnk6IGtlcm5lbCB0ZXN0IHJvYm90IDxsa3BAaW50ZWwu
-Y29tPg0KPj4+Pj4+PiB8IENsb3NlczogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvb2Uta2J1aWxk
-LWFsbC8yMDI0MDYwOTA4MjYud2hsNkNiN1ItbGtwQGludGVsLmNvbS8NCj4+Pj4+Pj4gLS0tDQo+
-Pj4+Pj4+IHwgUmVwb3J0ZWQtYnk6IGtlcm5lbCB0ZXN0IHJvYm90IDxsa3BAaW50ZWwuY29tPg0K
-Pj4+Pj4+PiB8IENsb3NlczogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvb2Uta2J1aWxkLWFsbC8y
-MDI0MDUxNzExMTMuVDQzMVBDOE8tbGtwQGludGVsLmNvbS8NCj4+Pj4+Pj4gLS0tDQo+Pj4+Pj4+
-IMKgIGRyaXZlcnMveGVuL3ByaXZjbWQuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMzAg
-KysrKysrKysrKysrKysrKysrKysrKysNCj4+Pj4+Pj4gwqAgZHJpdmVycy94ZW4veGVuLXBjaWJh
-Y2svcGNpX3N0dWIuYyB8IDM4ICsrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLQ0KPj4+Pj4+
-PiDCoCBpbmNsdWRlL3VhcGkveGVuL3ByaXZjbWQuaMKgwqDCoMKgwqDCoMKgwqAgfMKgIDcgKysr
-KysrDQo+Pj4+Pj4+IMKgIGluY2x1ZGUveGVuL2FjcGkuaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHzCoCA5ICsrKysrKysNCj4+Pj4+Pj4gwqAgNCBmaWxlcyBjaGFuZ2VkLCA4MSBp
-bnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPj4+Pj4+Pg0KPj4+Pj4+PiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy94ZW4vcHJpdmNtZC5jIGIvZHJpdmVycy94ZW4vcHJpdmNtZC5jDQo+Pj4+Pj4+
-IGluZGV4IDk1NjM2NTBkZmJhZi4uMWVkNjEyZDIxNTQzIDEwMDY0NA0KPj4+Pj4+PiAtLS0gYS9k
-cml2ZXJzL3hlbi9wcml2Y21kLmMNCj4+Pj4+Pj4gKysrIGIvZHJpdmVycy94ZW4vcHJpdmNtZC5j
-DQo+Pj4+Pj4+IEBAIC00Niw2ICs0Niw5IEBADQo+Pj4+Pj4+IMKgICNpbmNsdWRlIDx4ZW4vcGFn
-ZS5oPg0KPj4+Pj4+PiDCoCAjaW5jbHVkZSA8eGVuL3hlbi1vcHMuaD4NCj4+Pj4+Pj4gwqAgI2lu
-Y2x1ZGUgPHhlbi9iYWxsb29uLmg+DQo+Pj4+Pj4+ICsjaWZkZWYgQ09ORklHX1hFTl9BQ1BJDQo+
-Pj4+Pj4+ICsjaW5jbHVkZSA8eGVuL2FjcGkuaD4NCj4+Pj4+Pj4gKyNlbmRpZg0KPj4+Pj4+PiDC
-oCAjaW5jbHVkZSAicHJpdmNtZC5oIg0KPj4+Pj4+PiBAQCAtODQ0LDYgKzg0NywyOSBAQCBzdGF0
-aWMgbG9uZyBwcml2Y21kX2lvY3RsX21tYXBfcmVzb3VyY2Uoc3RydWN0IGZpbGUgKmZpbGUsDQo+
-Pj4+Pj4+IMKgwqDCoMKgwqAgcmV0dXJuIHJjOw0KPj4+Pj4+PiDCoCB9DQo+Pj4+Pj4+ICtzdGF0
-aWMgbG9uZyBwcml2Y21kX2lvY3RsX3BjaWRldl9nZXRfZ3NpKHN0cnVjdCBmaWxlICpmaWxlLCB2
-b2lkIF9fdXNlciAqdWRhdGEpDQo+Pj4+Pj4+ICt7DQo+Pj4+Pj4+ICsjaWZkZWYgQ09ORklHX1hF
-Tl9BQ1BJDQo+Pj4+Pj4+ICvCoMKgwqAgaW50IHJjOw0KPj4+Pj4+PiArwqDCoMKgIHN0cnVjdCBw
-cml2Y21kX3BjaWRldl9nZXRfZ3NpIGtkYXRhOw0KPj4+Pj4+PiArDQo+Pj4+Pj4+ICvCoMKgwqAg
-aWYgKGNvcHlfZnJvbV91c2VyKCZrZGF0YSwgdWRhdGEsIHNpemVvZihrZGF0YSkpKQ0KPj4+Pj4+
-PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FRkFVTFQ7DQo+Pj4+Pj4+ICsNCj4+Pj4+Pj4gK8Kg
-wqDCoCByYyA9IHBjaXN0dWJfZ2V0X2dzaV9mcm9tX3NiZGYoa2RhdGEuc2JkZik7DQo+Pj4+Pj4+
-ICvCoMKgwqAgaWYgKHJjIDwgMCkNCj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiByYzsN
-Cj4+Pj4+Pj4gKw0KPj4+Pj4+PiArwqDCoMKgIGtkYXRhLmdzaSA9IHJjOw0KPj4+Pj4+PiArwqDC
-oMKgIGlmIChjb3B5X3RvX3VzZXIodWRhdGEsICZrZGF0YSwgc2l6ZW9mKGtkYXRhKSkpDQo+Pj4+
-Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVGQVVMVDsNCj4+Pj4+Pj4gKw0KPj4+Pj4+PiAr
-wqDCoMKgIHJldHVybiAwOw0KPj4+Pj4+PiArI2Vsc2UNCj4+Pj4+Pj4gK8KgwqDCoCByZXR1cm4g
-LUVJTlZBTDsNCj4+Pj4+Pj4gKyNlbmRpZg0KPj4+Pj4+PiArfQ0KPj4+Pj4+PiArDQo+Pj4+Pj4+
-IMKgICNpZmRlZiBDT05GSUdfWEVOX1BSSVZDTURfRVZFTlRGRA0KPj4+Pj4+PiDCoCAvKiBJcnFm
-ZCBzdXBwb3J0ICovDQo+Pj4+Pj4+IMKgIHN0YXRpYyBzdHJ1Y3Qgd29ya3F1ZXVlX3N0cnVjdCAq
-aXJxZmRfY2xlYW51cF93cTsNCj4+Pj4+Pj4gQEAgLTE1NDMsNiArMTU2OSwxMCBAQCBzdGF0aWMg
-bG9uZyBwcml2Y21kX2lvY3RsKHN0cnVjdCBmaWxlICpmaWxlLA0KPj4+Pj4+PiDCoMKgwqDCoMKg
-wqDCoMKgwqAgcmV0ID0gcHJpdmNtZF9pb2N0bF9pb2V2ZW50ZmQoZmlsZSwgdWRhdGEpOw0KPj4+
-Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7DQo+Pj4+Pj4+ICvCoMKgwqAgY2FzZSBJT0NU
-TF9QUklWQ01EX1BDSURFVl9HRVRfR1NJOg0KPj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgcmV0ID0g
-cHJpdmNtZF9pb2N0bF9wY2lkZXZfZ2V0X2dzaShmaWxlLCB1ZGF0YSk7DQo+Pj4+Pj4+ICvCoMKg
-wqDCoMKgwqDCoCBicmVhazsNCj4+Pj4+Pj4gKw0KPj4+Pj4+PiDCoMKgwqDCoMKgIGRlZmF1bHQ6
-DQo+Pj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsNCj4+Pj4+Pj4gwqDCoMKgwqDCoCB9
-DQo+Pj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9wY2lfc3R1Yi5j
-IGIvZHJpdmVycy94ZW4veGVuLXBjaWJhY2svcGNpX3N0dWIuYw0KPj4+Pj4+PiBpbmRleCA4Y2Uy
-NzMzM2Y1NGIuLjJlYThlNDA3NWFkYyAxMDA2NDQNCj4+Pj4+Pj4gLS0tIGEvZHJpdmVycy94ZW4v
-eGVuLXBjaWJhY2svcGNpX3N0dWIuYw0KPj4+Pj4+PiArKysgYi9kcml2ZXJzL3hlbi94ZW4tcGNp
-YmFjay9wY2lfc3R1Yi5jDQo+Pj4+Pj4+IEBAIC01Niw2ICs1Niw5IEBAIHN0cnVjdCBwY2lzdHVi
-X2RldmljZSB7DQo+Pj4+Pj4+IMKgwqDCoMKgwqAgc3RydWN0IHBjaV9kZXYgKmRldjsNCj4+Pj4+
-Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgeGVuX3BjaWJrX2RldmljZSAqcGRldjsvKiBub24tTlVMTCBp
-ZiBzdHJ1Y3QgcGNpX2RldiBpcyBpbiB1c2UgKi8NCj4+Pj4+Pj4gKyNpZmRlZiBDT05GSUdfWEVO
-X0FDUEkNCj4+Pj4+Pj4gK8KgwqDCoCBpbnQgZ3NpOw0KPj4+Pj4+PiArI2VuZGlmDQo+Pj4+Pj4+
-IMKgIH07DQo+Pj4+Pj4+IMKgIC8qIEFjY2VzcyB0byBwY2lzdHViX2RldmljZXMgJiBzZWl6ZWRf
-ZGV2aWNlcyBsaXN0cyBhbmQgdGhlIGluaXRpYWxpemVfZGV2aWNlcw0KPj4+Pj4+PiBAQCAtODgs
-NiArOTEsOSBAQCBzdGF0aWMgc3RydWN0IHBjaXN0dWJfZGV2aWNlICpwY2lzdHViX2RldmljZV9h
-bGxvYyhzdHJ1Y3QgcGNpX2RldiAqZGV2KQ0KPj4+Pj4+PiDCoMKgwqDCoMKgIGtyZWZfaW5pdCgm
-cHNkZXYtPmtyZWYpOw0KPj4+Pj4+PiDCoMKgwqDCoMKgIHNwaW5fbG9ja19pbml0KCZwc2Rldi0+
-bG9jayk7DQo+Pj4+Pj4+ICsjaWZkZWYgQ09ORklHX1hFTl9BQ1BJDQo+Pj4+Pj4+ICvCoMKgwqAg
-cHNkZXYtPmdzaSA9IC0xOw0KPj4+Pj4+PiArI2VuZGlmDQo+Pj4+Pj4+IMKgwqDCoMKgwqAgcmV0
-dXJuIHBzZGV2Ow0KPj4+Pj4+PiDCoCB9DQo+Pj4+Pj4+IEBAIC0yMjAsNiArMjI2LDI1IEBAIHN0
-YXRpYyBzdHJ1Y3QgcGNpX2RldiAqcGNpc3R1Yl9kZXZpY2VfZ2V0X3BjaV9kZXYoc3RydWN0IHhl
-bl9wY2lia19kZXZpY2UgKnBkZXYsDQo+Pj4+Pj4+IMKgwqDCoMKgwqAgcmV0dXJuIHBjaV9kZXY7
-DQo+Pj4+Pj4+IMKgIH0NCj4+Pj4+Pj4gKyNpZmRlZiBDT05GSUdfWEVOX1BDSURFVl9CQUNLRU5E
-DQo+Pj4+Pj4NCj4+Pj4+Pg0KPj4+Pj4+IFRoaXMgYnJlYWtzIGNvbmZpZ3VyYXRpb25zIHdpdGhv
-dXQgQ09ORklHX0FDUEkgYW5kIHdpdGgNCj4+Pj4+PiBDT05GSUdfWEVOX1BDSURFVl9CQUNLRU5E
-Lg0KPj4+Pj4+DQo+Pj4+Pj4gQWxzbyB0aGVyZSBzaG91bGQgYmUgbm8gZGVwZW5kZW5jeSBiZXR3
-ZWVuIFBDSURFVl9CQUNLRU5EIGFuZA0KPj4+Pj4+IHBjaXN0dWJfZ2V0X2dzaV9mcm9tX3NiZGYu
-DQo+Pj4+Pj4NCj4+Pj4+PiBJIHRoaW5rIHdlIHNob3VsZCBzb2x2ZSB0aGUgYnVpbGQgaXNzdWVz
-IHRoaXMgd2F5Og0KPj4+Pj4+DQo+Pj4+Pj4gLSBwcml2Y21kX2lvY3RsX3BjaWRldl9nZXRfZ3Np
-IHNob3VsZCBoYXZlOg0KPj4+Pj4+ICNpZiBkZWZpbmVkKENPTkZJR19YRU5fQUNQSSkgJiYgZGVm
-aW5lZChDT05GSUdfWEVOX1BDSV9TVFVCKQ0KPj4+Pj4+DQo+Pj4+Pj4gLSBoZXJlIHdlIHNob3Vs
-ZCBoYXZlICNpZmRlZiBDT05GSUdfWEVOX0FDUEkgYXMgeW91IGhhZCBiZWZvcmUNCj4+Pj4+Pg0K
-Pj4+Pj4+DQo+Pj4+Pj4gQXMgZmFyIGFzIEkgY2FuIHRlbGwgdGhlIGFib3ZlIHNob3VsZCBiZSBh
-YmxlIHRvIGFkZHJlc3MgYWxsIHZhbGlkDQo+Pj4+Pj4gY29tYmluYXRpb25zLg0KPj4+Pj4gVGhp
-cyBjYW4ndCBwYXNzIGEgY29tYmluYXRpb24gdGhhdDoNCj4+Pj4+IENPTkZJR19YRU5fQUNQST15
-DQo+Pj4+PiBDT05GSUdfWEVOX1BDSV9TVFVCPXkNCj4+Pj4+IENPTkZJR19YRU5fUENJREVWX0JB
-Q0tFTkQ9bQ0KPj4+Pj4gUmVwb3J0ZWQgYnkgcm9ib3QgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcv
-b2Uta2J1aWxkLWFsbC8yMDI0MDYwOTA4MjYud2hsNkNiN1ItbGtwQGludGVsLmNvbS8NCj4+Pj4+
-DQo+Pj4+PiBBdCB0aGlzIGNvbWJpbmF0aW9uLCBwcml2Y21kX2lvY3RsX3BjaWRldl9nZXRfZ3Np
-IGNhbiBjYWxsIHBjaXN0dWJfZ2V0X2dzaV9mcm9tX3NiZGYgYmVjYXVzZSBDT05GSUdfWEVOX0FD
-UEkgYW5kIENPTkZJR19YRU5fUENJX1NUVUIgYXJlIGJvdGggInkiLg0KPj4+Pj4gQnV0IHdoZW4g
-dGhlIGNvbXBpbGVyIHRyaWVzIHRvIGZpbmQgdGhlIGltcGxlbWVudGF0aW9uIG9mIHBjaXN0dWJf
-Z2V0X2dzaV9mcm9tX3NiZGYsIGl0IGZhaWxzIChsZDogdm1saW51eC5vOiBpbiBmdW5jdGlvbiBg
-cHJpdmNtZF9pb2N0bF9wY2lkZXZfZ2V0X2dzaSc6DQo+Pj4+PiAvaG9tZS9janEvY29kZS91cHN0
-cmVhbS9rZXJuZWxfdGVzdF9yb2JvdC9saW51eF94ZW4vYnVpbGRfZGlyLy4uL2RyaXZlcnMveGVu
-L3ByaXZjbWQuYzo4NTk6IHVuZGVmaW5lZCByZWZlcmVuY2UgdG8gYHBjaXN0dWJfZ2V0X2dzaV9m
-cm9tX3NiZGYnKSwgYmVjYXVzZSB0aGUgdmFsdWUgb2YgQ09ORklHX1hFTl9QQ0lERVZfQkFDS0VO
-RCBpcyAibSIgKGZpbGUgZHJpdmVycy94ZW4veGVuLXBjaWJhY2svTWFrZWZpbGUgc2hvd3MgIm9i
-ai0kKENPTkZJR19YRU5fUENJREVWX0JBQ0tFTkQpICs9IHhlbi1wY2liYWNrLm8iKSwgc28gdGhh
-dCB4ZW4tcGNpYmFjayBpcyBidWlsdCBhcyBhIG1vZHVsZS4NCj4+Pj4NCj4+Pj4NCj4+Pj4gVGhl
-IGF0dGFjaGVkIC5jb25maWcsIHdpdGggdGhlIGFwcGVuZGVkIGNoYW5nZXMgb24gdG9wIG9mIHlv
-dXIgcGF0Y2gNCj4+Pj4gd29yayBmb3IgbWUuIEkgaGF2ZSBDT05GSUdfWEVOX1BDSURFVl9CQUNL
-RU5EPW0uDQo+Pj4gVXNpbmcgeW91ciBhdHRhY2hlZCAuY29uZmlnLCBpdCBhbHNvIHdvcmtzIGZv
-ciBtZS4NCj4+PiBUaGUgZGlmZmVyZW5jZSBiZXR3ZWVuIHlvdXIgLmNvbmZpZyBhbmQgdGhlIGNv
-bmZpZyByZXBvcnRlZCBieSBSb2JvdCAoaHR0cHM6Ly9kb3dubG9hZC4wMS5vcmcvMGRheS1jaS9h
-cmNoaXZlLzIwMjQwNjA5LzIwMjQwNjA5MDgyNi53aGw2Q2I3Ui1sa3BAaW50ZWwuY29tL2NvbmZp
-ZykgaXMgdGhhdCB5b3VyIENPTkZJR19YRU5fUFJJVkNNRD1tLCBidXQgUm9ib3QncyBDT05GSUdf
-WEVOX1BSSVZDTUQ9eS4NCj4+Pg0KPj4+IEl0IHNlZW1zIHRoYXQsIHdpdGggbXkgcGF0Y2ggY2hh
-bmdlcywgcHJpdmNtZCB1c2VzIHRoZSBmdW5jdGlvbiBpbXBsZW1lbnRlZCBieSB4ZW4tcGNpYmFj
-aywgc28gaWYgdGhlIGNvbmZpZ3VyYXRpb24gaXMgIkNPTkZJR19YRU5fUFJJVkNNRD1tICYgQ09O
-RklHX1hFTl9QQ0lERVZfQkFDS0VORD1tIiBvciAiQ09ORklHX1hFTl9QUklWQ01EPXkgJiBDT05G
-SUdfWEVOX1BDSURFVl9CQUNLRU5EPXkiLCB0aGUgY29tcGlsYXRpb24gaXMgT0ssIGJ1dCBpZiB0
-aGUgY29uZmlndXJhdGlvbiBpcyAiQ09ORklHX1hFTl9QUklWQ01EPXkgJiBDT05GSUdfWEVOX1BD
-SURFVl9CQUNLRU5EPW0iLCBpc3N1ZSBoYXBwZW5zLg0KPj4+DQo+Pj4gWW91IGNhbiBjaGFuZ2Ug
-Q09ORklHX1hFTl9QUklWQ01EIGZyb20gIm0iIHRvICJ5IiBpbiB5b3VyIC5jb25maWcsIHRoZW4g
-eW91IHdpbGwgZmFpbCBhdDoNCj4+PiBsZDogdm1saW51eC5vOiBpbiBmdW5jdGlvbiBgcHJpdmNt
-ZF9pb2N0bCc6DQo+Pj4gcHJpdmNtZC5jOigudGV4dCsweDY2NWU0Mik6IHVuZGVmaW5lZCByZWZl
-cmVuY2UgdG8gYHBjaXN0dWJfZ2V0X2dzaV9mcm9tX3NiZGYnDQo+Pg0KPj4gWW91IGNhbiBkbzoN
-Cj4+DQo+PiDCoMKgwqDCoMKgaWYgKElTX1JFQUNIQUJMRShDT05GSUdfWEVOX1BDSURFVl9CQUNL
-RU5EKSkgew0KPj4gwqDCoMKgwqDCoMKgwqDCoCByYyA9IHBjaXN0dWJfZ2V0X2dzaV9mcm9tX3Ni
-ZGYoa2RhdGEuc2JkZik7DQo+PiDCoMKgwqDCoMKgwqDCoMKgIGlmIChyYyA8IDApDQo+PiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJjOw0KPj4gwqDCoMKgwqDCoH0NCj4+DQo+PiBT
-ZWUgRG9jdW1lbnRhdGlvbi9rYnVpbGQva2NvbmZpZy1sYW5ndWFnZS5yc3QgaW4gdGhlIGtlcm5l
-bCBzb3VyY2UgdHJlZS4NCj4gDQo+IE9oLCBJIHRoaW5rIHRoaXMgd2lsbCBuZWVkOg0KPiANCj4g
-wqDCoMKgwqBpbXBseSBDT05GSUdfWEVOX1BDSURFVl9CQUNLRU5EDQo+IA0KPiBpbiB0aGUgQ09O
-RklHX1hFTl9QUklWQ01EIEtjb25maWcgZGVmaW5pdGlvbi4NCg0KVGhhbmtzLCBKdWVyZ2VuLCB0
-aGVzZSBjaGFuZ2VzIGNhbiB3b3JrIHdpdGggdGhlIGNvbWJpbmF0aW9uIG9mIFJvYm90Lg0KSSB3
-aWxsIGNoYW5nZSB0byB0aGVzZSBpbiBuZXh0IHZlcnNpb24uDQoNCj4gDQo+IA0KPiBKdWVyZ2Vu
-DQo+IA0KDQotLSANCkJlc3QgcmVnYXJkcywNCkppcWlhbiBDaGVuLg0K
+Hi All,
+This is v10 series to support passthrough on Xen when dom0 is PVH.
+v9->v10 changes:
+* patch#1: Added Reviewed-by of Stefano.
+* patch#2: Added Reviewed-by of Stefano.
+* patch#3: Changed the macro wrapping "pcistub_get_gsi_from_sbdf" from "CONFIG_XEN_PCIDEV_BACKEND" to "CONFIG_XEN_ACPI".
+           Added "imply CONFIG_XEN_PCIDEV_BACKEND" for CONFIG_XEN_PRIVCMD Kconfig definition.
+           Added check "if (IS_REACHABLE(CONFIG_XEN_PCIDEV_BACKEND))" before calling pcistub_get_gsi_from_sbdf.
+
+
+Best regards,
+Jiqian Chen
+
+
+
+v8->v9 changes:
+* patch#1: Due to the struct and name of the hypercall changed on Xen side, I did the corresponding
+           changes. But no function changes actually.
+* patch#2: Moved the calling of xen_acpi_get_gsi_info under check "if (xen_initial_domain() && xen_pvh_domain())"
+           to prevent it is called in PV dom0.
+* patch#3: Changed the syscall name from "IOCTL_PRIVCMD_GSI_FROM_DEV" to "IOCTL_PRIVCMD_PCIDEV_GET_GSI".
+           Also changed the other functions name.
+           Changed the macro wrapping "pcistub_get_gsi_from_sbdf" from "CONFIG_XEN_ACPI" to "CONFIG_XEN_PCIDEV_BACKEND"
+           to fix compile errors reported by CI robot.
+           Changed the parameter gsi of struct privcmd_pcidev_get_gsi from int to u32.
+
+
+v7->v8 change:
+* patch#1: This is the patch#1 of v6, because it is reverted from the staging branch due to the
+           API changes on Xen side.
+           Add pci_device_state_reset_type_t to distinguish the reset types.
+* patch#2: is the patch#1 of v7. Use CONFIG_XEN_ACPI instead of CONFIG_ACPI to wrap codes.
+* patch#3: is the patch#2 of v7. In function privcmd_ioctl_gsi_from_dev, return -EINVAL when not
+           confige CONFIG_XEN_ACPI.
+           Used PCI_BUS_NUM PCI_SLOT PCI_FUNC instead of open coding.
+
+
+v6->v7 change:
+* the first patch of v6 was already merged into branch linux_next.
+* patch#1: is the patch#2 of v6. move the implementation of function xen_acpi_get_gsi_info to
+           file drivers/xen/acpi.c, that modification is more convenient for the subsequent
+           patch to obtain gsi.
+* patch#2: is the patch#3 of v6. add a new parameter "gsi" to struct pcistub_device and set
+           gsi when pcistub initialize device. Then when userspace wants to get gsi by passing
+           sbdf, we can return that gsi.
+
+
+v5->v6 change:
+* patch#3: change to add a new syscall to translate irq to gsi, instead adding a new gsi sysfs.
+
+
+v4->v5 changes:
+* patch#1: Add Reviewed-by Stefano
+* patch#2: Add Reviewed-by Stefano
+* patch#3: No changes
+
+
+v3->v4 changes:
+* patch#1: change the comment of PHYSDEVOP_pci_device_state_reset; use a new function
+           pcistub_reset_device_state to wrap __pci_reset_function_locked and xen_reset_device_state,
+           and call pcistub_reset_device_state in pci_stub.c
+* patch#2: remove map_pirq from xen_pvh_passthrough_gsi
+
+
+v2->v3 changes:
+* patch#1: add condition to limit do xen_reset_device_state for no-pv domain in pcistub_init_device.
+* patch#2: Abandoning previous implementations that call unmask_irq. To setup gsi and map pirq for
+           passthrough device in pcistub_init_device.
+* patch#3: Abandoning previous implementations that adds new syscall to get gsi from irq. To add a new
+           sysfs for gsi, then userspace can get gsi number from sysfs.
+
+
+Below is the description of v2 cover letter:
+This series of patches are the v2 of the implementation of passthrough when dom0 is PVH on Xen.
+We sent the v1 to upstream before, but the v1 had so many problems and we got lots of suggestions.
+I will introduce all issues that these patches try to fix and the differences between v1 and v2.
+
+Issues we encountered:
+1. pci_stub failed to write bar for a passthrough device.
+Problem: when we run \u201csudo xl pci-assignable-add <sbdf>\u201d to assign a device, pci_stub will
+call \u201cpcistub_init_device() -> pci_restore_state() -> pci_restore_config_space() ->
+pci_restore_config_space_range() -> pci_restore_config_dword() -> pci_write_config_dword(), the pci
+config write will trigger an io interrupt to bar_write() in the xen, but the bar->enabled was set before,
+the write is not allowed now, and then when bar->Qemu config the passthrough device in xen_pt_realize(),
+it gets invalid bar values.
+
+Reason: the reason is that we don't tell vPCI that the device has been reset, so the current cached state
+in pdev->vpci is all out of date and is different from the real device state.
+
+Solution: to solve this problem, the first patch of kernel(xen/pci: Add xen_reset_device_state
+function) and the fist patch of xen(xen/vpci: Clear all vpci status of device) add a new hypercall to
+reset the state stored in vPCI when the state of real device has changed.
+Thank Roger for the suggestion of this v2, and it is different from v1
+(https://lore.kernel.org/xen-devel/20230312075455.450187-3-ray.huang@amd.com/), v1 simply allow domU to
+write pci bar, it does not comply with the design principles of vPCI.
+
+2. failed to do PHYSDEVOP_map_pirq when dom0 is PVH
+Problem: HVM domU will do PHYSDEVOP_map_pirq for a passthrough device by using gsi. See
+xen_pt_realize->xc_physdev_map_pirq and pci_add_dm_done->xc_physdev_map_pirq. Then xc_physdev_map_pirq
+will call into Xen, but in hvm_physdev_op(), PHYSDEVOP_map_pirq is not allowed.
+
+Reason: In hvm_physdev_op(), the variable "currd" is PVH dom0 and PVH has no X86_EMU_USE_PIRQ flag, it
+will fail at has_pirq check.
+
+Solution: I think we may need to allow PHYSDEVOP_map_pirq when "currd" is dom0 (at present dom0 is PVH).
+The second patch of xen(x86/pvh: Open PHYSDEVOP_map_pirq for PVH dom0) allow PVH dom0 do
+PHYSDEVOP_map_pirq. This v2 patch is better than v1, v1 simply remove the has_pirq check
+(xen https://lore.kernel.org/xen-devel/20230312075455.450187-4-ray.huang@amd.com/).
+
+3. the gsi of a passthrough device doesn't be unmasked
+ 3.1 failed to check the permission of pirq
+ 3.2 the gsi of passthrough device was not registered in PVH dom0
+
+Problem:
+3.1 callback function pci_add_dm_done() will be called when qemu config a passthrough device for domU.
+This function will call xc_domain_irq_permission()-> pirq_access_permitted() to check if the gsi has
+corresponding mappings in dom0. But it didn\u2019t, so failed. See
+XEN_DOMCTL_irq_permission->pirq_access_permitted, "current" is PVH dom0 and it return irq is 0.
+3.2 it's possible for a gsi (iow: vIO-APIC pin) to never get registered on PVH dom0, because the
+devices of PVH are using MSI(-X) interrupts. However, the IO-APIC pin must be configured for it to be
+able to be mapped into a domU.
+
+Reason: After searching codes, I find "map_pirq" and "register_gsi" will be done in function
+vioapic_write_redirent->vioapic_hwdom_map_gsi when the gsi(aka ioapic's pin) is unmasked in PVH dom0.
+So the two problems can be concluded to that the gsi of a passthrough device doesn't be unmasked.
+
+Solution: to solve these problems, the second patch of kernel(xen/pvh: Unmask irq for passthrough device
+in PVH dom0) call the unmask_irq() when we assign a device to be passthrough. So that passthrough devices
+can have the mapping of gsi on PVH dom0 and gsi can be registered. This v2 patch is different from the
+v1( kernel https://lore.kernel.org/xen-devel/20230312120157.452859-5-ray.huang@amd.com/,
+kernel https://lore.kernel.org/xen-devel/20230312120157.452859-5-ray.huang@amd.com/ and
+xen https://lore.kernel.org/xen-devel/20230312075455.450187-5-ray.huang@amd.com/),
+v1 performed "map_pirq" and "register_gsi" on all pci devices on PVH dom0, which is unnecessary and may
+cause multiple registration.
+
+4. failed to map pirq for gsi
+Problem: qemu will call xc_physdev_map_pirq() to map a passthrough device\u2019s gsi to pirq in function
+xen_pt_realize(). But failed.
+
+Reason: According to the implement of xc_physdev_map_pirq(), it needs gsi instead of irq, but qemu pass
+irq to it and treat irq as gsi, it is got from file /sys/bus/pci/devices/xxxx:xx:xx.x/irq in function
+xen_host_pci_device_get(). But actually the gsi number is not equal with irq. On PVH dom0, when it
+allocates irq for a gsi in function acpi_register_gsi_ioapic(), allocation is dynamic, and follow the
+principle of applying first, distributing first. And if you debug the kernel codes(see
+function __irq_alloc_descs), you will find the irq number is allocated from small to large by order, but
+the applying gsi number is not, gsi 38 may come before gsi 28, that causes gsi 38 get a smaller irq number
+than gsi 28, and then gsi != irq.
+
+Solution: we can record the relation between gsi and irq, then when userspace(qemu) want to use gsi, we
+can do a translation. The third patch of kernel(xen/privcmd: Add new syscall to get gsi from irq) records
+all the relations in acpi_register_gsi_xen_pvh() when dom0 initialize pci devices, and provide a syscall
+for userspace to get the gsi from irq. The third patch of xen(tools: Add new function to get gsi from irq)
+add a new function xc_physdev_gsi_from_irq() to call the new syscall added on kernel side.
+And then userspace can use that function to get gsi. Then xc_physdev_map_pirq() will success. This v2 patch
+is the same as v1( kernel https://lore.kernel.org/xen-devel/20230312120157.452859-6-ray.huang@amd.com/ and
+xen https://lore.kernel.org/xen-devel/20230312075455.450187-6-ray.huang@amd.com/)
+
+About the v2 patch of qemu, just change an included head file, other are similar to the v1 (
+qemu https://lore.kernel.org/xen-devel/20230312092244.451465-19-ray.huang@amd.com/), just call
+xc_physdev_gsi_from_irq() to get gsi from irq.
+
+Jiqian Chen (3):
+  xen/pci: Add a function to reset device for xen
+  xen/pvh: Setup gsi for passthrough device
+  xen/privcmd: Add new syscall to get gsi from dev
+
+ arch/x86/xen/enlighten_pvh.c       | 23 +++++++++
+ drivers/acpi/pci_irq.c             |  2 +-
+ drivers/xen/Kconfig                |  1 +
+ drivers/xen/acpi.c                 | 50 ++++++++++++++++++++
+ drivers/xen/pci.c                  | 13 +++++
+ drivers/xen/privcmd.c              | 32 +++++++++++++
+ drivers/xen/xen-pciback/pci_stub.c | 76 +++++++++++++++++++++++++++---
+ include/linux/acpi.h               |  1 +
+ include/uapi/xen/privcmd.h         |  7 +++
+ include/xen/acpi.h                 | 27 +++++++++++
+ include/xen/interface/physdev.h    | 17 +++++++
+ include/xen/pci.h                  |  6 +++
+ 12 files changed, 248 insertions(+), 7 deletions(-)
+
+-- 
+2.34.1
+
 
