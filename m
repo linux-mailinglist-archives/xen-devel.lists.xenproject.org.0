@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33992986294
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 17:14:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.804081.1215005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E52CC986292
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 17:14:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.804083.1215012 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stTiq-00069M-6M; Wed, 25 Sep 2024 15:14:32 +0000
+	id 1stTiq-0006I9-Mq; Wed, 25 Sep 2024 15:14:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 804081.1215005; Wed, 25 Sep 2024 15:14:32 +0000
+Received: by outflank-mailman (output) from mailman id 804083.1215012; Wed, 25 Sep 2024 15:14:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stTiq-00064z-1z; Wed, 25 Sep 2024 15:14:32 +0000
-Received: by outflank-mailman (input) for mailman id 804081;
- Wed, 25 Sep 2024 15:01:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1stTiq-0006E5-ID; Wed, 25 Sep 2024 15:14:32 +0000
+Received: by outflank-mailman (input) for mailman id 804083;
+ Wed, 25 Sep 2024 15:01:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fVAW=QX=flex--ardb.bounces.google.com=33yX0ZggKCToWnZX+cepckkcha.Ykitaj-Zarahheopo.tajlnkfaYp.knc@srs-se1.protection.inumbo.net>)
- id 1stTWc-0002k3-UV
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 15:01:54 +0000
+ <SRS0=HSPS=QX=flex--ardb.bounces.google.com=34iX0ZggKCT0Zqca+fhsfnnfkd.bnlwdm-cdudkkhrsr.wdmoqnidbs.nqf@srs-se1.protection.inumbo.net>)
+ id 1stTWd-0002UM-S3
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 15:01:55 +0000
 Received: from mail-wm1-x34a.google.com (mail-wm1-x34a.google.com
  [2a00:1450:4864:20::34a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18ffc7f3-7b4f-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 17:01:52 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1a9edb4e-7b4f-11ef-a0ba-8be0dac302b0;
+ Wed, 25 Sep 2024 17:01:55 +0200 (CEST)
 Received: by mail-wm1-x34a.google.com with SMTP id
- 5b1f17b1804b1-42cb33e6299so45729745e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 08:01:52 -0700 (PDT)
+ 5b1f17b1804b1-42f310f0ed2so5455765e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 08:01:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,50 +40,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18ffc7f3-7b4f-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 1a9edb4e-7b4f-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1727276512; x=1727881312; darn=lists.xenproject.org;
+        d=google.com; s=20230601; t=1727276515; x=1727881315; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=bvHrMBM7osvq1YNoyXkrrTpmrTIb8bNW96uzrIXNQu8=;
-        b=MG7R0YY+Tx2W+D5iKUDAZzVULY9gxuiQFXFYgFIbRsVClwykZSL8ueV0YvRZVXhai7
-         ZvC9ZcYiLcgdPex06HxOngRfGH3/yDk5VPd4pwy5Cmx10KqJN96ExrTRIl3wzzoIlO4r
-         0ntrMCTAMfoxuniNH+SBs3tqNazZ+RcSl3oTxDQd9QKncNsTx70ArBz3jrZu2EHiMjLY
-         ZkAOYVIhx0nNACVo5wSYWvXz52Ib9swxts+LiGgxkKoWw0qwCVwD5heDR+Eu3SKX3KDp
-         mR72qFt4F9Pm85iNPnKsl3UMiI+PxxrBSs8U9eyNg1YQ03nvc3HrPiL8bqLo208Cs/fk
-         vfrQ==
+        bh=yjSReXj8XxN+J1aHSpg+bgY7XO8zJXJrh2uX1BeFRGQ=;
+        b=svoGmyJb7vdOQpvetAFcCxLEGhY32/bWZxNmOUM7bzFkq6ycQlOGEy7t6wKprbfs5q
+         viqiau1wPKoed/AB98qgbUOMn+8cKvouDfDC1P9zmogiQNakEzeJyPP7GOEwDMBsC4hA
+         WjAFT3eH38OcU+gaS2KBru0FXU4BxtPd9qzs9aP1GNSzvfYxjpJIJgyWqEhwsMGRUvC2
+         l1W1EkGRm+zlM3X1N7ggshduT4/d1cT+T4i45XxZWGmanpRp9w5pc/ZT/Tx0NxCN/u9A
+         vF4lqAWZtlluMjcIaADliVfbFCk9oLpqkvcsUOhKkaJwoVrztXeNkvc8MM6OLNrLzpsM
+         h7rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727276512; x=1727881312;
+        d=1e100.net; s=20230601; t=1727276515; x=1727881315;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bvHrMBM7osvq1YNoyXkrrTpmrTIb8bNW96uzrIXNQu8=;
-        b=kms8Rm2J4j/4wbpTOX6m3XP9aPjfWxMTai32iMz4TVU9lzTeeAFzLV0CwAaT7bpUhV
-         A5hJWu4AN3jsCrAYwHMJUdBKHgjFZ06vpKtPL6m5hBn5+nsnSNJIDPZhigWBp0JuWv0m
-         hBcF1Dc9G+qji9Naom+2oofVzjRwB3I5yMF11NPcogpmaDnyT5av/CcYVvVDA2faurUJ
-         /60YsAE/khR59+ZcyrYmwmjtj341CSV0Yb3bX2F+JqLV76C5wyLPpRTYFb/FE6akm+Zl
-         /6FuLMJ4O0caYP+5asd91ACpWe64a/rXa/eeKHmAX6eTzHIcQcoWysM1FReRARNmZEm2
-         re7A==
-X-Forwarded-Encrypted: i=1; AJvYcCV+b8xtSG1LYVB/q8hNrOrRLRIF7OzhwXZPwk/oRKUnPJwR4B1bXIOkSepcPfCWFbXlaR1uxLxEFbw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4MUEsuA0B7omQiVKl5Sb96WjXcsdaOozis/MQ2xzbWOoOvVOj
-	uPlfSWvB7IKpZiGWexCnqzQUwrx1WicjhuZEjIkm8ioXJQB4VIDADI4AgW1w0Ky5HfcUzw==
-X-Google-Smtp-Source: AGHT+IGNEZwim//wtoUQ0IgEwXQAmuWMXuvjVNrkXztiUbXuSVle0sf2azOpfGly/wGUuNh4kSi9g764
+        bh=yjSReXj8XxN+J1aHSpg+bgY7XO8zJXJrh2uX1BeFRGQ=;
+        b=UTpqsy2mPLZRcrxqC1lDtHQz9lXIapIXmYaVQ1SrKcDgMx9C2xXTLqi9C0xAfKSi4n
+         aPsSUJi9y9e/a+WACzCtw8MD9v5XsbGiEfY4W4ZHR4uiZP8/NRId1JOljlNgd8SIgC+I
+         JEz9VwXv/NoHG6IOB3AX85dXMqUesa43SRrLoOvcMm85zGToVGcwtUNXUSTUoPoSvu28
+         X2Aov/b9ncIvlXgzIXa3CIbF0xgI3uHaUWoyqsA5othrCw+oxBt2U2DAZBXNwT71nz3d
+         aANzXYUZGyc1VLKPWYGltBYTb3qDIYLNCiCm1EywREPdvQCAUUvSxA6o1SwdDz6nTtVD
+         S5kw==
+X-Forwarded-Encrypted: i=1; AJvYcCUO40/g0JZsiB9JRnsNtciiaoh7uT07JvOczEaQIY6hBwfm3ISXwLXCEpjD8Uh8eJ+Z34tBdJYUQm4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzAklYtyva2eG2mtPzBDndaTe4EFbW5kCuELGrtIHbDMAUcn6LZ
+	8UUlvz69rkWkEHjN/fIt2UBzhDiK8hL38cB19etppu6FdFcekx0WrICz8RSZoTIgac5CMQ==
+X-Google-Smtp-Source: AGHT+IGzIZ2o2YM9LwRx7GUBkPXP1nnHd93bOM06M/lDtcRNJJFbQb+/UGpm4f4GZO5kVPvAO8R9y3yP
 X-Received: from palermo.c.googlers.com ([fda3:e722:ac3:cc00:7b:198d:ac11:8138])
- (user=ardb job=sendgmr) by 2002:a05:600c:4b23:b0:42c:b635:9ba7 with SMTP id
- 5b1f17b1804b1-42e961449f9mr294105e9.3.1727276511763; Wed, 25 Sep 2024
- 08:01:51 -0700 (PDT)
-Date: Wed, 25 Sep 2024 17:01:01 +0200
+ (user=ardb job=sendgmr) by 2002:a05:600c:214f:b0:42c:b32e:6ba7 with SMTP id
+ 5b1f17b1804b1-42e9624246bmr34035e9.6.1727276514236; Wed, 25 Sep 2024 08:01:54
+ -0700 (PDT)
+Date: Wed, 25 Sep 2024 17:01:02 +0200
 In-Reply-To: <20240925150059.3955569-30-ardb+git@google.com>
 Mime-Version: 1.0
 References: <20240925150059.3955569-30-ardb+git@google.com>
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1383; i=ardb@kernel.org;
- h=from:subject; bh=kkus52hb+9U3rGqLGvcTtWiqi7ULiH1wdI2hpFI7/9I=;
- b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe2L6loPG1eTz6/TRZ+ExF55v9yoPVaMz0DJP05TXvNix
- 3yvWS87SlkYxDgYZMUUWQRm/3238/REqVrnWbIwc1iZQIYwcHEKwER0vzAyLNdk+Hf0DcN93e0c
- kou2iV0ReKfEPrsn3ORh04fsoM3R+gz/0yZt5ne4cnJFldTMQpGfLor75ZYczDujFLCs+4iee6Q pMwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1869; i=ardb@kernel.org;
+ h=from:subject; bh=Etb53DEUMtJxbS45M94XzvcBugumXuKFZ3M2B/KYBNo=;
+ b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe2L6jquDX165ub5J178W1mVH21S/GxP0fqUgljlqYpRR
+ x60nEvpKGVhEONgkBVTZBGY/ffdztMTpWqdZ8nCzGFlAhnCwMUpABPRa2RkeBV2XNd/yacJf4IS
+ mc47ex9ud90aJbN1Uf8PDSuxLfrPTjD8rwhuEVogxe0Xov++IjA4keVg55+fz6JEZeM/B04o0/B nBgA=
 X-Mailer: git-send-email 2.46.0.792.g87dc391469-goog
-Message-ID: <20240925150059.3955569-31-ardb+git@google.com>
-Subject: [RFC PATCH 01/28] x86/pvh: Call C code via the kernel virtual mapping
+Message-ID: <20240925150059.3955569-32-ardb+git@google.com>
+Subject: [RFC PATCH 02/28] Documentation: Bump minimum GCC version to 8.1
 From: Ard Biesheuvel <ardb+git@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Ard Biesheuvel <ardb@kernel.org>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
@@ -108,40 +108,43 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Ard Biesheuvel <ardb@kernel.org>
 
-Calling C code via a different mapping than it was linked at is
-problematic, because the compiler assumes that RIP-relative and absolute
-symbol references are interchangeable. GCC in particular may use
-RIP-relative per-CPU variable references even when not using -fpic.
+Bump the minimum GCC version to 8.1 to gain unconditional support for
+referring to the per-task stack cookie using a symbol rather than
+relying on the fixed offset of 40 bytes from %GS, which requires
+elaborate hacks to support.
 
-So call xen_prepare_pvh() via its kernel virtual mapping on x86_64, so
-that those RIP-relative references produce the correct values. This
-matches the pre-existing behavior for i386, which also invokes
-xen_prepare_pvh() via the kernel virtual mapping before invoking
-startup_32 with paging disabled again.
-
-Fixes: 7243b93345f7 ("xen/pvh: Bootstrap PVH guest")
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- arch/x86/platform/pvh/head.S | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ Documentation/admin-guide/README.rst | 2 +-
+ Documentation/process/changes.rst    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
-index f7235ef87bc3..a308b79a887c 100644
---- a/arch/x86/platform/pvh/head.S
-+++ b/arch/x86/platform/pvh/head.S
-@@ -101,7 +101,11 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
- 	xor %edx, %edx
- 	wrmsr
+diff --git a/Documentation/admin-guide/README.rst b/Documentation/admin-guide/README.rst
+index f2bebff6a733..3dda41923ed6 100644
+--- a/Documentation/admin-guide/README.rst
++++ b/Documentation/admin-guide/README.rst
+@@ -259,7 +259,7 @@ Configuring the kernel
+ Compiling the kernel
+ --------------------
  
--	call xen_prepare_pvh
-+	/* Call xen_prepare_pvh() via the kernel virtual mapping */
-+	leaq xen_prepare_pvh(%rip), %rax
-+	addq $__START_KERNEL_map, %rax
-+	ANNOTATE_RETPOLINE_SAFE
-+	call *%rax
+- - Make sure you have at least gcc 5.1 available.
++ - Make sure you have at least gcc 8.1 available.
+    For more information, refer to :ref:`Documentation/process/changes.rst <changes>`.
  
- 	/* startup_64 expects boot_params in %rsi. */
- 	mov $_pa(pvh_bootparams), %rsi
+  - Do a ``make`` to create a compressed kernel image. It is also possible to do
+diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
+index 00f1ed7c59c3..59b7d3d8a577 100644
+--- a/Documentation/process/changes.rst
++++ b/Documentation/process/changes.rst
+@@ -29,7 +29,7 @@ you probably needn't concern yourself with pcmciautils.
+ ====================== ===============  ========================================
+         Program        Minimal version       Command to check the version
+ ====================== ===============  ========================================
+-GNU C                  5.1              gcc --version
++GNU C                  8.1              gcc --version
+ Clang/LLVM (optional)  13.0.1           clang --version
+ Rust (optional)        1.78.0           rustc --version
+ bindgen (optional)     0.65.1           bindgen --version
 -- 
 2.46.0.792.g87dc391469-goog
 
