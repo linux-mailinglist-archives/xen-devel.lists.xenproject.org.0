@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19C719857D9
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 13:16:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803866.1214706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19DE59857E8
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 13:17:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803875.1214716 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stPzt-0001OA-D6; Wed, 25 Sep 2024 11:15:53 +0000
+	id 1stQ1T-0002RI-O3; Wed, 25 Sep 2024 11:17:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803866.1214706; Wed, 25 Sep 2024 11:15:53 +0000
+Received: by outflank-mailman (output) from mailman id 803875.1214716; Wed, 25 Sep 2024 11:17:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stPzt-0001Lh-A4; Wed, 25 Sep 2024 11:15:53 +0000
-Received: by outflank-mailman (input) for mailman id 803866;
- Wed, 25 Sep 2024 11:15:51 +0000
+	id 1stQ1T-0002Om-KX; Wed, 25 Sep 2024 11:17:31 +0000
+Received: by outflank-mailman (input) for mailman id 803875;
+ Wed, 25 Sep 2024 11:17:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Mw3j=QX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1stPzr-0001Lb-08
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 11:15:51 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1stQ1S-0002ND-6q
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 11:17:30 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84858590-7b2f-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 13:15:49 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a8d29b7edc2so964910266b.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 04:15:49 -0700 (PDT)
+ id bfc032c5-7b2f-11ef-99a2-01e77a169b0f;
+ Wed, 25 Sep 2024 13:17:28 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5366fd6fdf1so3030057e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 04:17:28 -0700 (PDT)
 Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93930f46e5sm199272766b.148.2024.09.25.04.15.47
+ a640c23a62f3a-a93930cacffsm199858766b.139.2024.09.25.04.17.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 04:15:47 -0700 (PDT)
+ Wed, 25 Sep 2024 04:17:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,84 +45,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84858590-7b2f-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: bfc032c5-7b2f-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727262948; x=1727867748; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1727263048; x=1727867848; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=gsJ/I+eB+72qK5hixNPExPDHJkmpqmzKPmBBpMET0mQ=;
-        b=dBqFQB5NEucjvaf7dQF6a53fBEHQrnaC9uLzlwMoW4Z1tnz+IrXRORAybxdp5/qoek
-         obr97ShzELzmy1C8pgEhRvYV33/aje9S5MZzNUxNg9FLZ1YeW52wlGPQBcE5YfFcoP3y
-         9IDj3Uw9DRuFU3j6Sb8FPVCpV3yfIVICg7sM2V+vUtmuEyxZ2+8tnTpRHdqkbvVDx4u4
-         dSroLBs0Ydxld7jw++II3onVnAg6oH0hl15gpeP/g7xNqvF8i4gy8MTwCu/qAQAYurtX
-         r6tKfpd81KFrb+WbB41CR9nLw4tNLkgTjFqmMT8n6G10GZIFRtB4eZzMvU1QMUqZiUjt
-         dEUg==
+        bh=wuhrpnuiKYz+ESMNs9TGMC5BUhHR+paoxuKAKKQiYKs=;
+        b=A1ecR7zVnbmeC9S9nVIyDarfQTZx1d2WQEFCbuw+JjYlyUcJLVr0YZwkgdrUQ9QCnx
+         Cnniqy3fLQEKpZIqfdljepAXKo9h9ek69ktEwdG+Ejnm9WkStWBn+oNBERfwE29hX9hg
+         zKNl59bSo9LhDFYgtUkKHaGoQz3yQG8ugJfxosGLtZWgI9URBh6TBwQaqzfNfU2cCxB4
+         rOmgAsM95F5yzdH3DuT6ZfM6d35waq4gAc1BtXzsyHibB7d0vWuXLFDz81Hgps1KMbbX
+         9dOUBqfHe21tbFnlrCoXYI90bNiwuk6Y7kNVphFZsMTEzhw/RHGdGYo6w0ERAPADmNCU
+         xBiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727262948; x=1727867748;
+        d=1e100.net; s=20230601; t=1727263048; x=1727867848;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gsJ/I+eB+72qK5hixNPExPDHJkmpqmzKPmBBpMET0mQ=;
-        b=rC5XV66aBdEh5JFoFL17viYmDCS9kZ27Q6nNQxJubKgr2eBp9bSTxyzhRdudRAlsBI
-         /XYOiAliMOKLgqtvSpskD3mXeedimTV9jWF6qnJe6ewkHaPstg2GOb5FZD14bzL9HosV
-         CoZi5dAhdrmJutvZBearWyO5XlLV9x25pmPtrgWmV//B29XAGKMv6OVdh1u5hIz8QF+o
-         Wg8Yfopyk6W8B4q89ryr0OlfuFviSBJKmmC7BAihBpYHq14FRAAHohuibaHP7Tcu/EqI
-         Q58GECAGFt7KEYf3mRMIaXloSrSADTwTXOcf02SVq15V1hwSVIYCUI9e/rG6k/GcMtbf
-         OdjA==
-X-Forwarded-Encrypted: i=1; AJvYcCUYd7uul7ASFN+y7YMgaBoVEft7FLNp0SNWIsiD2lZNjVfVbrh/IM51Eckey49U3VtBBg7b38+bRyY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxJBzkWNLm4EZbggllDkV1WQ0TWgR2vWYjc07tzzidGwbgdXcWW
-	y3RKIn5hbJSyjpiBBRkSmedMkpEWKPmz3HjkPD2x5JjHRJn/K5+6
-X-Google-Smtp-Source: AGHT+IGMDoBi3Lvwo24B63VklYGdFGduFnB8vK+OcsQ6klUT/6p5ZDa6NAUGHKZbq10DyeevCS5UVQ==
-X-Received: by 2002:a17:907:e92:b0:a91:158b:122c with SMTP id a640c23a62f3a-a93a040b6c5mr212583266b.38.1727262948217;
-        Wed, 25 Sep 2024 04:15:48 -0700 (PDT)
-Message-ID: <aeb6ba1a7cbeb935f2752df93436ea8a874b649d.camel@gmail.com>
-Subject: Re: [PATCH v3 2/5] xen/arm: use {DT,ACPI}_DEV_INFO for device info
- sections
+        bh=wuhrpnuiKYz+ESMNs9TGMC5BUhHR+paoxuKAKKQiYKs=;
+        b=ROCunWL9RJOiF7BPZNjLnuQmFmDoXWyqkvXl8yWiUBV6sdBfo2J6vb02mcOb2P3uwt
+         yB4LpH/fKX9dgKFce7euYyMvgZYs9sOX+rCy3GmEBK2gPq38lygUelIipLQx6cB9lJZa
+         uXKrvrlDjestqGQaWNU4HEQzKsyU8hvPOKryBpTEICNPA8saBgAaSKlaAVJf+A+z+zZX
+         SRCUpaIB2TnHrsb/RMylb5hsryDJwz6bWmjv+qGgY7zTsZilHM8SQpx4oKcQx+s0qvRM
+         ABtRFit9LM5H/tia0Wsbk9ZmYR3vgj4f3+jG3rC/PFsUxa2pNSRyX+A4f642/QrdpC7q
+         l9tA==
+X-Gm-Message-State: AOJu0YxrRp4JnPm8zzQGNse8CxYiwAcvCTvs4PBvHCWjVDcyoHrVpZ7w
+	KmUZSZToOeAiVNxalfjEuVab99fy7Zg/2uS5iCK7mlZYQgNbcDZs
+X-Google-Smtp-Source: AGHT+IEF6ms+6R2gJQ+sHZIHrxSL7CiUywtiBeYd2l6kJopboR1oXF/M5SRV2MMaQhs8Ttyg8yje0g==
+X-Received: by 2002:ac2:4e0b:0:b0:52c:8979:9627 with SMTP id 2adb3069b0e04-5387048bcb1mr1532753e87.3.1727263047442;
+        Wed, 25 Sep 2024 04:17:27 -0700 (PDT)
+Message-ID: <16d29580094861d8fa760711726e7e9b25e2fcb8.camel@gmail.com>
+Subject: Re: [PATCH] changelog: add note about blkif protocol fixes
 From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>,  Bertrand Marquis <bertrand.marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org
-Date: Wed, 25 Sep 2024 13:15:47 +0200
-In-Reply-To: <2f140321-a897-40df-b9dc-0a4ce6243809@suse.com>
-References: <cover.1727193766.git.oleksii.kurochko@gmail.com>
-	 <1533aa9fe0a4464bd97a44fc1f68cac0a670640c.1727193766.git.oleksii.kurochko@gmail.com>
-	 <2f140321-a897-40df-b9dc-0a4ce6243809@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
+	 <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Community Manager
+ <community.manager@xenproject.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>
+Date: Wed, 25 Sep 2024 13:17:26 +0200
+In-Reply-To: <cbb8da7d-db0e-417a-a144-e9ad2ab5f72d@suse.com>
+References: <20240912132347.28756-1-roger.pau@citrix.com>
+	 <ac1317a18ddc993a5fc926a8d25feb39c5349662.camel@gmail.com>
+	 <ZvPlq0pb6QIGr6lj@macbook.local>
+	 <cbb8da7d-db0e-417a-a144-e9ad2ab5f72d@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
 
-On Wed, 2024-09-25 at 10:37 +0200, Jan Beulich wrote:
-> On 24.09.2024 18:42, Oleksii Kurochko wrote:
-> > --- a/xen/arch/arm/xen.lds.S
-> > +++ b/xen/arch/arm/xen.lds.S
-> > @@ -126,19 +126,13 @@ SECTIONS
-> > =C2=A0
-> > =C2=A0=C2=A0 . =3D ALIGN(8);
-> > =C2=A0=C2=A0 .dev.info : {
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _sdevice =3D .;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.dev.info)
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _edevice =3D .;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 DT_DEV_INFO
-> > =C2=A0=C2=A0 } :text
-> > =C2=A0
-> > -#ifdef CONFIG_ACPI
-> > =C2=A0=C2=A0 . =3D ALIGN(8);
-> > =C2=A0=C2=A0 .adev.info : {
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _asdevice =3D .;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.adev.info)
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _aedevice =3D .;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 ADEV_INFO
-> > =C2=A0=C2=A0 } :text
-> > -#endif
->=20
-> Why's the #ifdef going away here?
-It is incorrect as ADEV_INFO isn't covered by #ifdef anymore. Some
-rebasing issue happens... I will fix that in the next patch version.
-Thanks.
+On Wed, 2024-09-25 at 13:00 +0200, Jan Beulich wrote:
+> On 25.09.2024 12:27, Roger Pau Monn=C3=A9 wrote:
+> > On Fri, Sep 13, 2024 at 04:19:32PM +0200,
+> > oleksii.kurochko@gmail.com=C2=A0wrote:
+> > > On Thu, 2024-09-12 at 15:23 +0200, Roger Pau Monne wrote:
+> > > > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > > > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> > > LGTM: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> >=20
+> > Hello Oleksii,
+> >=20
+> > Could you formalize the tag into either a Reviewed-by or an Acked-
+> > by
+> > so the patch can be committed?
+Sorry, it should be:
+Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 ~ Oleksii
+
+>=20
+> Nah, I'm intending to put this in with the LGTM:.
+
+>=20
+> Jan
+
 
