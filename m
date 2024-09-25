@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB77198629E
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 17:14:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.804102.1215092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B64D498629D
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 17:14:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.804104.1215097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stTix-00087L-06; Wed, 25 Sep 2024 15:14:39 +0000
+	id 1stTix-0008Eh-BD; Wed, 25 Sep 2024 15:14:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 804102.1215092; Wed, 25 Sep 2024 15:14:38 +0000
+Received: by outflank-mailman (output) from mailman id 804104.1215097; Wed, 25 Sep 2024 15:14:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stTiw-0007mQ-Co; Wed, 25 Sep 2024 15:14:38 +0000
-Received: by outflank-mailman (input) for mailman id 804102;
- Wed, 25 Sep 2024 15:02:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1stTiw-00086G-UU; Wed, 25 Sep 2024 15:14:38 +0000
+Received: by outflank-mailman (input) for mailman id 804104;
+ Wed, 25 Sep 2024 15:02:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=254E=QX=flex--ardb.bounces.google.com=3-SX0ZggKCVQwDzx+24F2AA270.yA8J09-z0H0774EFE.J09BDA50yF.AD2@srs-se1.protection.inumbo.net>)
- id 1stTX1-0002UM-Ii
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 15:02:19 +0000
-Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com
- [2607:f8b0:4864:20::114a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 28849315-7b4f-11ef-a0ba-8be0dac302b0;
- Wed, 25 Sep 2024 17:02:19 +0200 (CEST)
-Received: by mail-yw1-x114a.google.com with SMTP id
- 00721157ae682-6d7124939beso104377427b3.2
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 08:02:19 -0700 (PDT)
+ <SRS0=G4Vb=QX=flex--ardb.bounces.google.com=3-yX0ZggKCVYyF1z+46H4CC492.0CAL2B-12J2996GHG.L2BDFC720H.CF4@srs-se1.protection.inumbo.net>)
+ id 1stTX4-0002k3-IN
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 15:02:22 +0000
+Received: from mail-ed1-x54a.google.com (mail-ed1-x54a.google.com
+ [2a00:1450:4864:20::54a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 29f85010-7b4f-11ef-99a2-01e77a169b0f;
+ Wed, 25 Sep 2024 17:02:21 +0200 (CEST)
+Received: by mail-ed1-x54a.google.com with SMTP id
+ 4fb4d7f45d1cf-5c4230b10a0so5599187a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 08:02:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,50 +40,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28849315-7b4f-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 29f85010-7b4f-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1727276538; x=1727881338; darn=lists.xenproject.org;
+        d=google.com; s=20230601; t=1727276540; x=1727881340; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=WebA59vxPkU4u7rhQajyH4BvEeqGZRhskbQXw1lowfs=;
-        b=bltNc210DV+lNvtCsuh7mnlnVNpa4SLhTYfIpX/0EPMWGKkMFSvSoOG2KROy6er6TW
-         YPSwUUH53s0UOWooHDySPwmCaKio1stBb8YY+0o60K5NYSj/7Squf4RnTwOavmpLkFKL
-         bEwi2ypcExMNcQXJzwYOsMeBpm9NTr36F9kckL1fDASMh7ZKt2RLCGeybdDPCrBQUmsr
-         mARlDpeD9kPkxWagIvb7fGUuAe6YhvmhKu0x2sDq61VaKxTwsblVA1FF4n1F+zvH33mS
-         u3PTt6ebZ9HUNv2P40mfFabxYjJZSyPudKTNk2lde2+6bn3YuqpqnhmW8pCCSGjzRjWH
-         V++w==
+        bh=sMLI1adUSxUIp8UXfDcqdD38QxXI+e+F/+Ag4yCxL7E=;
+        b=RYbNlnXxxFLiRAJ9AyvJiPiOVrWfadEIV8YL8vDT8QzEr6RTf9W5EEXLvOktBt1xLF
+         CzyI1+XSoIZ1OW1jB6P1WO8MVQe6O9Sx0Q6HZWOWJMprZLUL5pDuHVCeKllX+1ayNhxR
+         95va/IzgXJQzIGqJDXFpueajato1uc+N8toEJNcRwFqOig8PoN1XbKd7U3ZK6iYO9WR+
+         W1NoWbjkCy2cFY8+I3ZLwYwFeA1B+ePUySj5RS3lVmu82HSdynYZFU35a+7+1KptNAG2
+         pIe3nFMOCTn+rtfJ5ow+WzTFOVtbGaSg3M/PDJHQHvc9vS0WXSgcJiiEjN2GKmJ0DcZD
+         t0cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727276538; x=1727881338;
+        d=1e100.net; s=20230601; t=1727276540; x=1727881340;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WebA59vxPkU4u7rhQajyH4BvEeqGZRhskbQXw1lowfs=;
-        b=sRRBOAmqaS+K/zhl7N8l7gXHNY90uIYCExn+QCJJeW2rznzOxOJPtfwIjPjPcGVoqi
-         9CmcR6O4a+9H18ojSqh9TRZO4H6eqo7DSenv+K6+L/34s1Un7+2x0PKwcQFMLEKlDUEb
-         cAM6h4MHTUoPTwRwvjw8yvmPumSYFpTf/FSsW9X4zFhqvvPJFtSejfgile/FfQ8j+UKM
-         DC4acgBI2qye1xxeLX2/FfnWASvMrkGxpvvhcFg0+c/DT8TNdk68f0vaYOjhKa/vGNmX
-         8lD7ATUg4hWIaHxC24cAJgrpt7unIKfmoLlHRXeaTjmp+tGKWdlmKTIh40YIMczfzkb/
-         MH3w==
-X-Forwarded-Encrypted: i=1; AJvYcCXvbaO1IMcB/Gg0l/y3pmAopii/ZUHnTMc+JwJq/n8i4n90i2ekgpp0poMBb/jOoSd+1yB0m0AwPzY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzYxdYVu3cTzv5QIf5uuL2V4oMHtUqfi4TbvDlj88ZIYtQ3PLTI
-	DyfBudNSLP+9avkdJjAU7tq19igpXN/noP5Mr7WIQAi3ADjcnx86QNx4rIH1RHhgbwtTjA==
-X-Google-Smtp-Source: AGHT+IG1eaRHJ+k+oWi0MEewfWnHRvzWiyuPrZa2XUixnuMGDlz9gyzzCn4pjg7USYksDYWFG76nQbXB
+        bh=sMLI1adUSxUIp8UXfDcqdD38QxXI+e+F/+Ag4yCxL7E=;
+        b=rgnQ/fCU9I26rgZkb1bZMiqIi0z+r2/LEtnak/r4uASA98juxmU/e3GSepZi/bHekP
+         e0Q1Z7PFOAd0VqOPxcttj7k8clZGFqnInvfp0az2I89Df0Bv7cxLfyB12GOJUhmQZGQV
+         /pOyQMPsdSe6oiDl6Nv/tV+1y4BvwXmWxFpFxUIt48mUgWwQkq2BhLCv+kK+E1vWt7JX
+         wLTjC2PzKSoTAOXV6qk5ZMRhPB1TbRtfLz4svvKole9zvbUIusSaukt3KS6n91CQqyHF
+         XCzP0ZGU8X+jHVSZgDaMrFDvGj/UBLiBnkIHTw/AcG8GXoFRbbotsKjbM+YrHaL6uqw/
+         DS5A==
+X-Forwarded-Encrypted: i=1; AJvYcCVraKT35Ric9qHKi9xddAn6FXWUw7WQmoyCg1o8YEmHSyvGF+CbWuPE5/KPs4KWx+yy0kR3hnShuKo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwiWexBmNdcvb4VbCY8Y1LN3YQ9SHOybxvz4wZzWFu70mAndJwS
+	e0QVstos7ApOTPiEJCAAZ0MHqiLkM/+6hF1ObjyWZEqnPLW+mTNfb/Dwz5JO+rK1xI01mg==
+X-Google-Smtp-Source: AGHT+IHqdrbnTURYSpf/5afh17e1i3rk5opqYbKAlLurQBauppiTWqSh5+YV6ICpl369+Ha35/G5jy3r
 X-Received: from palermo.c.googlers.com ([fda3:e722:ac3:cc00:7b:198d:ac11:8138])
- (user=ardb job=sendgmr) by 2002:a81:7c46:0:b0:673:b39a:92ce with SMTP id
- 00721157ae682-6e21da5ea7bmr151347b3.3.1727276537527; Wed, 25 Sep 2024
- 08:02:17 -0700 (PDT)
-Date: Wed, 25 Sep 2024 17:01:11 +0200
+ (user=ardb job=sendgmr) by 2002:a17:906:6d8:b0:a8a:76fd:ae67 with SMTP id
+ a640c23a62f3a-a93a061ba72mr129666b.10.1727276539991; Wed, 25 Sep 2024
+ 08:02:19 -0700 (PDT)
+Date: Wed, 25 Sep 2024 17:01:12 +0200
 In-Reply-To: <20240925150059.3955569-30-ardb+git@google.com>
 Mime-Version: 1.0
 References: <20240925150059.3955569-30-ardb+git@google.com>
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3674; i=ardb@kernel.org;
- h=from:subject; bh=R6ohiPGa3ul2ikQd2A7YE6wpEPvXq0bd6W2LGMrzZ/k=;
- b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe2L6m4L/Wkc7n0aPQzsYULiEQZPMlgefsmsLHv4K8KPe
- c6T1d0dpSwMYhwMsmKKLAKz/77beXqiVK3zLFmYOaxMIEMYuDgFYCLF8YwMhwNCO7WWnu4+bHJ/
- R+KN+e/7+Z5GTZy4J83mRy0Xx+UbAowMLwuTAsXUc+SfqAVdK+gtnHdHT+jRjZtrv3D/ms77oD2 BCwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2056; i=ardb@kernel.org;
+ h=from:subject; bh=VKZKKQxE7f774DDxhaNjhf6gM8y+4CHtkhz4ITFKHVU=;
+ b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe2L6l6HjphM91K+tMbfPlum+q87xXbcaBq/plqB6J0rH
+ Clz7dQ6SlkYxDgYZMUUWQRm/3238/REqVrnWbIwc1iZQIYwcHEKwESez2L4w3XU9mNkQveSSXqf
+ bkfpTfktlPbu753X3m4//t4RvX456gUjw9ItwQrWWxY9aPiwtX3xVeeW5YpKNdGO1l4qU7KmnF4 VzwoA
 X-Mailer: git-send-email 2.46.0.792.g87dc391469-goog
-Message-ID: <20240925150059.3955569-41-ardb+git@google.com>
-Subject: [RFC PATCH 11/28] x86/pvh: Avoid absolute symbol references in .head.text
+Message-ID: <20240925150059.3955569-42-ardb+git@google.com>
+Subject: [RFC PATCH 12/28] x86/pm-trace: Use RIP-relative accesses for .tracedata
 From: Ard Biesheuvel <ardb+git@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Ard Biesheuvel <ardb@kernel.org>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
@@ -108,119 +108,57 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Ard Biesheuvel <ardb@kernel.org>
 
-The .head.text section contains code that may execute from a different
-address than it was linked at. This is fragile, given that the x86 ABI
-can refer to global symbols via absolute or relative references, and the
-toolchain assumes that these are interchangeable, which they are not in
-this particular case.
-
-In the case of the PVH code, there are some additional complications:
-- the absolute references are in 32-bit code, which get emitted with
-  R_X86_64_32 relocations, and these are not permitted in PIE code;
-- the code in question is not actually relocatable: it can only run
-  correctly from the physical load address specified in the ELF note.
-
-So rewrite the code to only rely on relative symbol references: these
-are always 32-bits wide, even in 64-bit code, and are resolved by the
-linker at build time.
+Use RIP-relative accesses and 32-bit offsets for .tracedata, to avoid
+the need for relocation fixups at boot time.
 
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- arch/x86/platform/pvh/head.S | 39 ++++++++++++++------
- 1 file changed, 27 insertions(+), 12 deletions(-)
+ arch/x86/include/asm/pm-trace.h | 4 ++--
+ drivers/base/power/trace.c      | 6 +++---
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
-index adbf57e83e4e..e6cb7da40e09 100644
---- a/arch/x86/platform/pvh/head.S
-+++ b/arch/x86/platform/pvh/head.S
-@@ -54,7 +54,20 @@ SYM_CODE_START(pvh_start_xen)
- 	UNWIND_HINT_END_OF_STACK
- 	cld
+diff --git a/arch/x86/include/asm/pm-trace.h b/arch/x86/include/asm/pm-trace.h
+index bfa32aa428e5..123faf978473 100644
+--- a/arch/x86/include/asm/pm-trace.h
++++ b/arch/x86/include/asm/pm-trace.h
+@@ -8,10 +8,10 @@
+ do {								\
+ 	if (pm_trace_enabled) {					\
+ 		const void *tracedata;				\
+-		asm volatile(_ASM_MOV " $1f,%0\n"		\
++		asm volatile("lea " _ASM_RIP(1f) ", %0\n"	\
+ 			     ".section .tracedata,\"a\"\n"	\
+ 			     "1:\t.word %c1\n\t"		\
+-			     _ASM_PTR " %c2\n"			\
++			     ".long %c2 - .\n"			\
+ 			     ".previous"			\
+ 			     :"=r" (tracedata)			\
+ 			     : "i" (__LINE__), "i" (__FILE__));	\
+diff --git a/drivers/base/power/trace.c b/drivers/base/power/trace.c
+index cd6e559648b2..686a0276ccfc 100644
+--- a/drivers/base/power/trace.c
++++ b/drivers/base/power/trace.c
+@@ -167,7 +167,7 @@ EXPORT_SYMBOL(set_trace_device);
+ void generate_pm_trace(const void *tracedata, unsigned int user)
+ {
+ 	unsigned short lineno = *(unsigned short *)tracedata;
+-	const char *file = *(const char **)(tracedata + 2);
++	const char *file = offset_to_ptr((int *)(tracedata + 2));
+ 	unsigned int user_hash_value, file_hash_value;
  
--	lgdt (_pa(gdt))
-+	/*
-+	 * This is position dependent code that can only execute correctly from
-+	 * the physical address that the kernel was linked to run at. Use the
-+	 * symbols emitted for the ELF note to construct the build time physical
-+	 * address of pvh_start_xen(), without relying on absolute 32-bit ELF
-+	 * relocations, as these are not supported by the linker when running in
-+	 * -pie mode, and should be avoided in .head.text in general.
-+	 */
-+0:	mov $xen_elfnote_phys32_entry_offset - 0b, %ebp
-+	sub $xen_elfnote_phys32_entry - 0b, %ebp
-+
-+	lea (gdt - pvh_start_xen)(%ebp), %eax
-+	add %eax, 2(%eax)
-+	lgdt (%eax)
+ 	if (!x86_platform.legacy.rtc)
+@@ -187,9 +187,9 @@ static int show_file_hash(unsigned int value)
  
- 	mov $PVH_DS_SEL,%eax
- 	mov %eax,%ds
-@@ -62,14 +75,14 @@ SYM_CODE_START(pvh_start_xen)
- 	mov %eax,%ss
- 
- 	/* Stash hvm_start_info. */
--	mov $_pa(pvh_start_info), %edi
-+	lea (pvh_start_info - pvh_start_xen)(%ebp), %edi
- 	mov %ebx, %esi
--	mov _pa(pvh_start_info_sz), %ecx
-+	mov (pvh_start_info_sz - pvh_start_xen)(%ebp), %ecx
- 	shr $2,%ecx
- 	rep
- 	movsl
- 
--	mov $_pa(early_stack_end), %esp
-+	lea (early_stack_end - pvh_start_xen)(%ebp), %esp
- 
- 	/* Enable PAE mode. */
- 	mov %cr4, %eax
-@@ -84,17 +97,21 @@ SYM_CODE_START(pvh_start_xen)
- 	wrmsr
- 
- 	/* Enable pre-constructed page tables. */
--	mov $_pa(init_top_pgt), %eax
-+	lea (init_top_pgt - pvh_start_xen)(%ebp), %eax
- 	mov %eax, %cr3
- 	mov $(X86_CR0_PG | X86_CR0_PE), %eax
- 	mov %eax, %cr0
- 
- 	/* Jump to 64-bit mode. */
--	ljmp $PVH_CS_SEL, $_pa(1f)
-+	lea  (1f - pvh_start_xen)(%ebp), %eax
-+	push $PVH_CS_SEL
-+	push %eax
-+	lret
- 
- 	/* 64-bit entry point. */
- 	.code64
- 1:
-+	UNWIND_HINT_END_OF_STACK
- 	/* Clear %gs so early per-CPU references target the per-CPU load area */
- 	mov $MSR_GS_BASE,%ecx
- 	xor %eax, %eax
-@@ -108,10 +125,8 @@ SYM_CODE_START(pvh_start_xen)
- 	call *%rax
- 
- 	/* startup_64 expects boot_params in %rsi. */
--	mov $_pa(pvh_bootparams), %rsi
--	mov $_pa(startup_64), %rax
--	ANNOTATE_RETPOLINE_SAFE
--	jmp *%rax
-+	lea pvh_bootparams(%rip), %rsi
-+	jmp startup_64
- 
- #else /* CONFIG_X86_64 */
- 
-@@ -146,8 +161,8 @@ SYM_CODE_END(pvh_start_xen)
- 	.section ".init.data","aw"
- 	.balign 8
- SYM_DATA_START_LOCAL(gdt)
--	.word gdt_end - gdt_start
--	.long _pa(gdt_start)
-+	.word gdt_end - gdt_start - 1
-+	.long gdt_start - gdt
- 	.word 0
- SYM_DATA_END(gdt)
- SYM_DATA_START_LOCAL(gdt_start)
+ 	match = 0;
+ 	for (tracedata = __tracedata_start ; tracedata < __tracedata_end ;
+-			tracedata += 2 + sizeof(unsigned long)) {
++			tracedata += 2 + sizeof(int)) {
+ 		unsigned short lineno = *(unsigned short *)tracedata;
+-		const char *file = *(const char **)(tracedata + 2);
++		const char *file = offset_to_ptr((int *)(tracedata + 2));
+ 		unsigned int hash = hash_string(lineno, file, FILEHASH);
+ 		if (hash != value)
+ 			continue;
 -- 
 2.46.0.792.g87dc391469-goog
 
