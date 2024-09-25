@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AF199865E2
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 19:44:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.804464.1215449 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC0709865E4
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 19:45:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.804469.1215459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stW2r-0003dC-LF; Wed, 25 Sep 2024 17:43:21 +0000
+	id 1stW4p-0005G2-0P; Wed, 25 Sep 2024 17:45:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 804464.1215449; Wed, 25 Sep 2024 17:43:21 +0000
+Received: by outflank-mailman (output) from mailman id 804469.1215459; Wed, 25 Sep 2024 17:45:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stW2r-0003bI-IV; Wed, 25 Sep 2024 17:43:21 +0000
-Received: by outflank-mailman (input) for mailman id 804464;
- Wed, 25 Sep 2024 17:43:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1stW4o-0005DT-U4; Wed, 25 Sep 2024 17:45:22 +0000
+Received: by outflank-mailman (input) for mailman id 804469;
+ Wed, 25 Sep 2024 17:45:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xqd3=QX=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1stW2q-0003a3-6s
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 17:43:20 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a54409a3-7b65-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 19:43:17 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EB1D35C5BFB
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 17:43:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1A4C4CECE
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 17:43:15 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-2f75c205e4aso1129631fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 10:43:15 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1stW4o-0005DL-1A
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 17:45:22 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1stW4n-0007Sb-Fe; Wed, 25 Sep 2024 17:45:21 +0000
+Received: from [15.248.2.30] (helo=[10.24.67.22])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1stW4n-0006Qv-8t; Wed, 25 Sep 2024 17:45:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,122 +39,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a54409a3-7b65-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727286195;
-	bh=F9RWq/rXxSYntRpuJCLCsbi4j1kIhMfwU6j+9oqCDbQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=M6VEBkraQSPZ8cxqReuxBwlaICA2tzRN5Zceq56xf5Mo0x9B4Z3dAcSux2zF96RN6
-	 YalpWG0dbVFqDz8qTawbEkhXKN/LYPQrPL3+8ixoIy9TWf5++k/7ic6LOUko0Q+veV
-	 gM/aSWopCbB7nG+gAczSb6bbzJSUzI71pV5Hbu1iz9Ncj3SgotN2J/tB7Mkw88wQ4V
-	 zgzFJaFoEw5v7wRC5zmL/8lR5Ap/+Z+UtF1KeFezjm7Bm2DbPA9Fxac/wRVXRVaFdH
-	 RLaNqPaV4xw96RmEbWQp8G+5I2p3MGskkBPE3W8iVOUecXG0QM+UDn4ivtteDOumUS
-	 mfsOFtWbNwlBQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX+fOq8H9ZL0dOB5Y+A7CdWYzXPktONxC7k9vN1fdvCiNQQtd9CrfLuma6UZS38OkRPfJAJ3+HJrCE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwrMz/f48UPMYtT+itBqBSCKbHdy87cfqedNwpRJtcXQr/kXjOS
-	Fje1zmNfwRwlN3TcdsS12qRNh40Od7uC5ZCZsNwrBHLW4jV8iqgFudpY6j7PBqGi2Su9sUAVMEC
-	7alN26xb3t4tulIqeJxx0LTE0f5c=
-X-Google-Smtp-Source: AGHT+IE+in2ujKNOqfeviyH74B95luqIkWPFYLgeNJlVInDDisJWQsgCamgzHX+iXC0QURdLGLDiXb1g2DagGfPNhfo=
-X-Received: by 2002:a05:651c:1504:b0:2f6:5f7b:e5e0 with SMTP id
- 38308e7fff4ca-2f915ff58a0mr23471981fa.21.1727286193113; Wed, 25 Sep 2024
- 10:43:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=czZv3N9TOLaEM4runV0b8+VxqeuN/u2jjWu+DrNpQBY=; b=fZf+H8FQ4MoIQ2D/R4PB8yzir/
+	Tym5bSvQcOyu1iABcaxUOaybBouFFgtC1jETkGDWbvxPodC/Syp7uJS0d0fal9hzHPQ0rIHEC8cQs
+	efn/+XOEOHuIeFziLy5yktgqRq76R+VoWFpmzHO7B7RYTltjdMB+mb2dUHYuEGFJhj0k=;
+Message-ID: <f7f6cf0a-5828-4053-bce2-f27df0727ab1@xen.org>
+Date: Wed, 25 Sep 2024 18:45:19 +0100
 MIME-Version: 1.0
-References: <20240925150059.3955569-30-ardb+git@google.com>
- <20240925150059.3955569-35-ardb+git@google.com> <CAP-5=fXw1rcgWgMeDSVqiDYh2XYApyaJpNvukvJ7vMs7ZPMr6g@mail.gmail.com>
-In-Reply-To: <CAP-5=fXw1rcgWgMeDSVqiDYh2XYApyaJpNvukvJ7vMs7ZPMr6g@mail.gmail.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Wed, 25 Sep 2024 19:43:01 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXEmssrOhu20aLW4v88YVdkCfbeRg6arkgUoDNHm-4vbMA@mail.gmail.com>
-Message-ID: <CAMj1kXEmssrOhu20aLW4v88YVdkCfbeRg6arkgUoDNHm-4vbMA@mail.gmail.com>
-Subject: Re: [RFC PATCH 05/28] x86: Define the stack protector guard symbol explicitly
-To: Ian Rogers <irogers@google.com>
-Cc: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Uros Bizjak <ubizjak@gmail.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@linux.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Keith Packard <keithp@keithp.com>, 
-	Justin Stitt <justinstitt@google.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Kan Liang <kan.liang@linux.intel.com>, 
-	linux-doc@vger.kernel.org, linux-pm@vger.kernel.org, kvm@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, linux-efi@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-sparse@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/6] xen/arm: create dom0less virtio-pci DT node
+Content-Language: en-GB
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
+ bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
+ dpsmith@apertussolutions.com, Stewart Hildebrand <stewart.hildebrand@amd.com>
+References: <20240924162359.1390487-1-edgar.iglesias@gmail.com>
+ <20240924162359.1390487-4-edgar.iglesias@gmail.com>
+ <ce21a173-61f4-42d5-aa72-5b50135e6d76@xen.org> <ZvQ7mf9MbmSyC6RB@zapote>
+ <d897124b-29c7-4aac-86bf-f1bec1aeade4@xen.org> <ZvQ-AK--W7sWom7r@zapote>
+ <CAJy5ezpLVciE0ENGYtC4cwJ7U4rPTR4E68M+vq=2jBgK2it3zg@mail.gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <CAJy5ezpLVciE0ENGYtC4cwJ7U4rPTR4E68M+vq=2jBgK2it3zg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 25 Sept 2024 at 17:54, Ian Rogers <irogers@google.com> wrote:
->
-> On Wed, Sep 25, 2024 at 8:02=E2=80=AFAM Ard Biesheuvel <ardb+git@google.c=
-om> wrote:
-> >
-> > From: Ard Biesheuvel <ardb@kernel.org>
-> >
-> > Specify the guard symbol for the stack cookie explicitly, rather than
-> > positioning it exactly 40 bytes into the per-CPU area. Doing so removes
-> > the need for the per-CPU region to be absolute rather than relative to
-> > the placement of the per-CPU template region in the kernel image, and
-> > this allows the special handling for absolute per-CPU symbols to be
-> > removed entirely.
-> >
-> > This is a worthwhile cleanup in itself, but it is also a prerequisite
-> > for PIE codegen and PIE linking, which can replace our bespoke and
-> > rather clunky runtime relocation handling.
-> >
-> > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> > ---
-> >  arch/x86/Makefile                     |  4 ++++
-> >  arch/x86/include/asm/init.h           |  2 +-
-> >  arch/x86/include/asm/processor.h      | 11 +++--------
-> >  arch/x86/include/asm/stackprotector.h |  4 ----
-> >  tools/perf/util/annotate.c            |  4 ++--
-> >  5 files changed, 10 insertions(+), 15 deletions(-)
-> >
-...
-> > diff --git a/tools/perf/util/annotate.c b/tools/perf/util/annotate.c
-> > index 37ce43c4eb8f..7ecfedf5edb9 100644
-> > --- a/tools/perf/util/annotate.c
-> > +++ b/tools/perf/util/annotate.c
-> > @@ -2485,10 +2485,10 @@ static bool is_stack_operation(struct arch *arc=
-h, struct disasm_line *dl)
-> >
-> >  static bool is_stack_canary(struct arch *arch, struct annotated_op_loc=
- *loc)
-> >  {
-> > -       /* On x86_64, %gs:40 is used for stack canary */
-> > +       /* On x86_64, %gs:0 is used for stack canary */
-> >         if (arch__is(arch, "x86")) {
-> >                 if (loc->segment =3D=3D INSN_SEG_X86_GS && loc->imm &&
-> > -                   loc->offset =3D=3D 40)
-> > +                   loc->offset =3D=3D 0)
->
-> As a new perf tool  can run on old kernels we may need to have this be
-> something like:
-> (loc->offset =3D=3D 40 /* pre v6.xx kernels */ || loc->offset =3D=3D 0 /*
-> v6.xx and later */ )
->
-> We could make this dependent on the kernel by processing the os_release s=
-tring:
-> https://git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.git/=
-tree/tools/perf/util/env.h#n55
-> but that could well be more trouble than it is worth.
->
+Hi Edgar,
 
-Yeah. I also wonder what the purpose of this feature is. At the end of
-this series, the stack cookie will no longer be at a fixed offset of
-%GS anyway, and so perf will not be able to identify it in the same
-manner. So it is probably better to just leave this in place, as the
-%gs:0 case will not exist in the field (assuming that the series lands
-all at once).
+On 25/09/2024 17:49, Edgar E. Iglesias wrote:
+> On Wed, Sep 25, 2024 at 10:44 AM Edgar E. Iglesias <edgar.iglesias@amd.com>
+> wrote:
+> 
+>> On Wed, Sep 25, 2024 at 05:38:13PM +0100, Julien Grall wrote:
+>>> Hi Edgar,
+>>>
+>>> On 25/09/2024 17:34, Edgar E. Iglesias wrote:
+>>>> On Wed, Sep 25, 2024 at 08:44:41AM +0100, Julien Grall wrote:
+>>>>> Hi,
+>>>>> On 24/09/2024 17:23, Edgar E. Iglesias wrote:
+>>>>>> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>>>>>>
+>>>>>> When virtio-pci is specified in the dom0less domU properties,
+>> create a
+>>>>>> virtio-pci node in the guest's device tree. Set up an mmio handler
+>> with
+>>>>>> a register for the guest to poll when the backend has connected and
+>>>>>> virtio-pci bus is ready to be probed. Grant tables may be used by
+>>>>>> specifying virtio-pci = "grants";.
+>>>>>>
+>>>>>> [Edgar: Use GPEX PCI INTX interrupt swizzling (from PCI specs).
+>>>>>>     Make grants iommu-map cover the entire PCI bus.
+>>>>>>     Add virtio-pci-ranges to specify memory-map for direct-mapped
+>> guests.
+>>>>>>     Document virtio-pci dom0less fdt bindings.]
+>>>>>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>>>>>> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+>>>>>> ---
+>>>>>>     docs/misc/arm/device-tree/booting.txt |  21 +++
+>>>>>>     xen/arch/arm/dom0less-build.c         | 238
+>> ++++++++++++++++++++++++++
+>>>>>>     xen/arch/arm/include/asm/kernel.h     |  15 ++
+>>>>>>     3 files changed, 274 insertions(+)
+>>>>>>
+>>>>>> diff --git a/docs/misc/arm/device-tree/booting.txt
+>> b/docs/misc/arm/device-tree/booting.txt
+>>>>>> index 3a04f5c57f..82f3bd7026 100644
+>>>>>> --- a/docs/misc/arm/device-tree/booting.txt
+>>>>>> +++ b/docs/misc/arm/device-tree/booting.txt
+>>>>>> @@ -276,6 +276,27 @@ with the following properties:
+>>>>>>         passed through. This option is the default if this property
+>> is missing
+>>>>>>         and the user does not provide the device partial device
+>> tree for the domain.
+>>>>>> +- virtio-pci
+>>>>>
+>>>>> Similar question to the other patches, why is this specific to
+>> virtio PCI?
+>>>>> QEMU (or another device module) is free to emulate whatever it wants
+>> behind
+>>>>> the PCI hosbtridge.
+>>>>
+>>>> There's no hard limitatino to only virtio-pci devices it's more of a
+>>>> recommendation that PVH guests should not use "emulated" devices but
+>>>> there's nothing stopping it.
+>>>
+>>> Could you provide a bit more details where this requirement is coming
+>> from?
+>>> For instance, I would expect we would need to do some emulation to boot
+>>> Windows on Arm.
+>>>
+>>
+>> I see. I guess it just came from my mental model, I thought part of the
+>> philosophy behind PVH was to avoid emulated devices and use
+>> paravirualized (virtio or something else) or passthrough whereever
+>> possible (except for the basic set of devices needed like vGIC, vuart,
+>> MMU).
+>>
+> 
+> For  example, we would recommend users to use virtio-net in favor of an
+> emulated eepro1000 or whatever other NIC models available in QEMU.
 
-Any idea why this deviates from other architectures? Is x86_64 the
-only arch that needs to identify stack canary accesses in perf? We
-could rename the symbol to something identifiable, and do it across
-all architectures, if this really serves a need (and assuming that
-perf has insight into the symbol table).
+Indeed. I would always recommend user to use virtio-net over eepro1000.
+
+> But there is no hard requirement nor limitation, a user can connect any
+> available PCI device from the QEMU set.
+
+We need to be clear about what we are exposing to the guest. With this 
+patch we will describe a PCI hostbridge in Device Tree (well it is an 
+empty region we hope the Device Model to emulate at some point). But the 
+hypervisor will not create the device model. Instead, you expect the 
+user/integrator to have extra script to launch a Device Model (So it may 
+not even be a hostbridge).
+
+>
+> Another thing we're looking to do is to minimize the QEMU build (Kconfig +
+> configure flags) to create a small build with only the stuff needed for
+> virtio-pci.
+
+It is nice to have a cut down version of QEMU :). However, Xen doesn't 
+care about the device model used for the emulation. I have seen some 
+specialized DM in the wild (and used them while I was working on 
+disaggregating the DM).
+
+Anyway, while I understand this approach works in tailored environment, 
+I am not convinced this works for a more general approach. The two 
+options I would rather consider are:
+   1. Allow the device model to receive access for a single PCI device 
+(IOW hook into vPCI).
+   2. Find a way to let the user provide the binding (maybe in a partial 
+device-tree) + the list of Interrupts/MMIO that would be emulated by QEMU.
+
+The second approach might be another way to get a second hostbridge in 
+your use case while giving a bit more flexibility in what can be done 
+(thinking about disagreggated environment).
+
+Cheers,
+
+-- 
+Julien Grall
+
 
