@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BD77985AC4
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 14:14:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803924.1214778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0E12985D33
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 15:04:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803936.1214788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stQtu-0004ym-2x; Wed, 25 Sep 2024 12:13:46 +0000
+	id 1stRg8-0003IP-NN; Wed, 25 Sep 2024 13:03:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803924.1214778; Wed, 25 Sep 2024 12:13:46 +0000
+Received: by outflank-mailman (output) from mailman id 803936.1214788; Wed, 25 Sep 2024 13:03:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stQtt-0004wG-W7; Wed, 25 Sep 2024 12:13:45 +0000
-Received: by outflank-mailman (input) for mailman id 803924;
- Wed, 25 Sep 2024 12:13:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1stRg8-0003Fc-Jh; Wed, 25 Sep 2024 13:03:36 +0000
+Received: by outflank-mailman (input) for mailman id 803936;
+ Wed, 25 Sep 2024 13:03:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w3eZ=QX=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1stQts-0004wA-Uj
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 12:13:45 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20606.outbound.protection.outlook.com
- [2a01:111:f403:2009::606])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a7a07e2-7b37-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 14:13:42 +0200 (CEST)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by IA0PR12MB7650.namprd12.prod.outlook.com (2603:10b6:208:436::14)
+ <SRS0=tJO7=QX=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1stRg6-0003FW-Tn
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 13:03:35 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20626.outbound.protection.outlook.com
+ [2a01:111:f403:2414::626])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 90cd0138-7b3e-11ef-a0ba-8be0dac302b0;
+ Wed, 25 Sep 2024 15:03:33 +0200 (CEST)
+Received: from BN8PR16CA0035.namprd16.prod.outlook.com (2603:10b6:408:4c::48)
+ by MW4PR12MB6731.namprd12.prod.outlook.com (2603:10b6:303:1eb::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.29; Wed, 25 Sep
- 2024 12:13:39 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%4]) with mapi id 15.20.7982.022; Wed, 25 Sep 2024
- 12:13:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25; Wed, 25 Sep
+ 2024 13:03:26 +0000
+Received: from BL6PEPF00022574.namprd02.prod.outlook.com
+ (2603:10b6:408:4c:cafe::67) by BN8PR16CA0035.outlook.office365.com
+ (2603:10b6:408:4c::48) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.25 via Frontend
+ Transport; Wed, 25 Sep 2024 13:03:26 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF00022574.mail.protection.outlook.com (10.167.249.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8005.15 via Frontend Transport; Wed, 25 Sep 2024 13:03:25 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 25 Sep
+ 2024 08:03:25 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 25 Sep
+ 2024 08:03:25 -0500
+Received: from [172.30.194.120] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 25 Sep 2024 08:03:24 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,272 +63,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a7a07e2-7b37-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 90cd0138-7b3e-11ef-a0ba-8be0dac302b0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ioGR+nEh778Ik2d3nAjcLXiW0pqFSVkPQSlFIaTpfcaqYmkhmvj4O7p4x50UDdOrT2ybIzmRvLJORrs7403BAbMU9Np2qzxPtzHcvNSqep3O+g4Mj61pdWKmQSABzTcZRytWtzxBk40zX9RoXFQ2+bkkuxW5gdbvFziP0RCrbAzV5EakbEIk2yFvXiZkzjd5ofyuPBaGzkkBJmPm265nFMEJmterK7HUFMMuJ91kTFbfB6OLDu/gaMTCUVUG+4WgnG2OQpEDu6SMJqYVKj4NbKiuMf34AwFOIctn/McUVQSp7qKmQYFBbedPYSDlrjLZD7QFH+3K3MixQfqFosq+5w==
+ b=p5Zdyv6PRoRZPVVrKhblUqXOeME2s128i/4pp9aaGB492/587XpPbVfz6Mxn9KxlhWhoA73NNtjCzGLLhffIbsQzjlPzuOdq+cVuwE/ZSsdofrwnWajlHhtBUKilKqb8TmrQLp9IP0j//emcNML4UDe3Ul9uZZl7kxXUH3gxzH8XayHmhRN+OpcbYbkZQh3Y0SdqGSEmg3G9yUDHvx/bYPL5jdMgWvjC9TmfY+E1wCoCDTIdljsK2I7Nbpkbg8DXtojoITNfq2LkEhPWkAUhYevN1dazFUX/sVG8G2SZ8hNS/3vMX1AqKB69BwDivrxgCcLr3qdGGbTck3MN8dYvmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4ycnMIRbZ3sau2n4Qymra2J/Mxofixt+NHYMz9/bef8=;
- b=oF6sj3KRC++t849lmSA7DPfRdVzT4K19s1F7/Sze7A0R4GWwG1SknnYE4pxYBwBlPlJIpevGBbXUv9z33X7L+Z/fJvCCHyRo21YgoSIL0wUeSuwPXMmnLrhJg/ecyxe3dUEAIXGbWnbLajPGitES0rOPkyyszgU96qzYxBdJWSEBXQHhNd+5wEsIOR6eVHtYwI8ngEnlVNEFlBdHYKuUsShNVSmPA6EscZkxz5CG/qRvMrjEwSgaZfphzcyhjvy5NSitCR5y2kNN04d1tD8FPyoSyh+0SNFjMKv89etKgnreGqM4OMBQUW/o0sC4i6+kwRhQrgOY5xHBWnwSjjxdRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=wnSbTolLKan6/waZuI4pJKgVcVd8wtWAesmkfOsessY=;
+ b=eSjEPFqiIU6djltvF/iTFDwVao5SKEtfWXNJlALNt6XU8dDKEgpqb/YcOdHb5+LLHX2MNWNRiO4YeFXvuWXTEkBpGYeaqxl5+ZWvSJ2CHth0mAYKAzmdAiP+CabNahxjQ52LqK5pr6pySPw1gZ50mCabTNVMZuBFpYjQftQQuMj3/ORFl2+BEmwkynfo+s/3BSr+ym1WeUHibaQU9dpoTYKxpsYoFoPJQAVh8hlyz3JsedCG81r4oRy1jSlomKUkl+8vdhwoa0w07PLz2fWJsrko6xW8bEgeIs1UD48SZPu4sd3LkG7U7FvMFNuBsOMLAmGofBDhU0I8JBkLhLsUgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ycnMIRbZ3sau2n4Qymra2J/Mxofixt+NHYMz9/bef8=;
- b=Gt5wixKYxnPEv4oQyIp+sqqium8JJfmWyiDYuhe2hVogy55lkZzdDu0UcYFxUBPbcYIWgMMnlRsEuDu2GyGC7KPnsxJT37e6xBQ9xkArpGM1Oluw2bUqmwPvREn7sYowvkGsYMlcVBEYphHRC+F+cwABFk85vLgq/S+BVsOs1JU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <38511a52-f641-4c4e-b011-3ce7a565ffcb@amd.com>
-Date: Wed, 25 Sep 2024 13:13:33 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] xen/arm: mpu: Define Xen start address for MPU
- systems
-Content-Language: en-GB
-To: Julien Grall <julien@xen.org>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Jiamei . Xie" <jiamei.xie@arm.com>
-References: <20240918175102.223076-1-ayan.kumar.halder@amd.com>
- <20240918175102.223076-3-ayan.kumar.halder@amd.com>
- <e1930816-14ff-489e-99c1-8e832655d4af@xen.org>
- <ed17bac3-6505-4824-bffb-6436e0a9e3cc@amd.com>
- <547f669a-9b13-47a1-aaed-07a46b096d42@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <547f669a-9b13-47a1-aaed-07a46b096d42@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0406.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:f::34) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+ bh=wnSbTolLKan6/waZuI4pJKgVcVd8wtWAesmkfOsessY=;
+ b=sWtJoHd8JxNGumAwMm9kmQUbTD42JzUaDM93ftElVASVSL5Q219bmPWGtr6K+Fq+oCEEpouIF+nh8myhCfOrVL1oC7H8h7bG34h8FrAhEJu4VVoh9Pgo3spPmiAD1426ecn92K1G36dN+MNs4lxOSnN7JCK5fYbrDgB7GH1dXvM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <e5a72684-851c-4d7c-a17a-76a26b802b84@amd.com>
+Date: Wed, 25 Sep 2024 09:03:23 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/6] xen/arm: create dom0less virtio-pci DT node
+To: Stefano Stabellini <sstabellini@kernel.org>, "Edgar E. Iglesias"
+	<edgar.iglesias@gmail.com>
+CC: <xen-devel@lists.xenproject.org>, <julien@xen.org>,
+	<bertrand.marquis@arm.com>, <michal.orzel@amd.com>,
+	<Volodymyr_Babchuk@epam.com>, <dpsmith@apertussolutions.com>,
+	<edgar.iglesias@amd.com>
+References: <20240924162359.1390487-1-edgar.iglesias@gmail.com>
+ <20240924162359.1390487-4-edgar.iglesias@gmail.com>
+ <alpine.DEB.2.22.394.2409241641250.1417852@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2409241641250.1417852@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|IA0PR12MB7650:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6c6dc97-b0ed-4036-7f87-08dcdd5b7ce4
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022574:EE_|MW4PR12MB6731:EE_
+X-MS-Office365-Filtering-Correlation-Id: a4df9dc3-ae2b-4d7c-06fa-08dcdd627180
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RktCQk1pZ3pEOTRKOEpwdlhrdytTVjhJcHBMOHBLT3NsWU9VUlNTdTlNcVp4?=
- =?utf-8?B?anRmMlhVakJYM3FiSzNWcUZrSnBBdXB0bVZzajB6TkRPYTVsQVdPSThqemlG?=
- =?utf-8?B?NG9aMVpMS1BLamt2MGhIdjlrMnRsQmhla3B1QzIzRlgvK2pyckUyS2x6TzA3?=
- =?utf-8?B?OEMrMFl3MEFrMjdPUlQ0bW0xTGwwZFFCUXU1K1IrZm9WNExHV25DNEtVTXZU?=
- =?utf-8?B?U2ZBQlE1Z3lmazArSVliV1ZOdzF1d2JNL1BYV21tWHkwRVVkZnNOTURKOG1s?=
- =?utf-8?B?K0o4elNaak5yV3Vjb2hvbmEwNzZXM21kU0NUQ0tmdFV0TVdRMmEwSFNRbUs4?=
- =?utf-8?B?eUMvR295M080K3FxMnVVclZJaG5zWmo4Uy9pa0RyZkFUOUZieWdNRnNQalJS?=
- =?utf-8?B?aVVtR2lPZG5UTVpXNUxQdnNuMlNYL1pSSGM2V3VUUzFCYy84U0FNemFoLzNv?=
- =?utf-8?B?UTc0K3JqUFhIMVlYd2U5Ym9ZbmRwYVdXWUFqdjd0em90d1NxZ0c2WjVmenFM?=
- =?utf-8?B?dlhVVlMzSGhBNTVVa0RzajBuZ1R5K2s3ZFBYWW1tYzB0RWduV1Y0K2d4UUMy?=
- =?utf-8?B?K1gxSVhDNE5ha3REb0VBSHIrR0JQUjRIdWlpbHRqaGJGZXBMSmFNNHFVS1E3?=
- =?utf-8?B?UjdvMWN0c1VWeTVrMmpTYjNKQXRxTWN3REpFcGtXNHlwOFdkM2psdTIvU1ZW?=
- =?utf-8?B?Rml5eXpHL204UmJ0WlViQlVTak1RNU5ra29pVlA1eHQ5aFBJcmtXcEdiK3Ax?=
- =?utf-8?B?SGtVNG0wZU1ndFVIL0pZSXJWWkhFWkdBNTh3dHBacEJla1R3QnlRS2VYQlla?=
- =?utf-8?B?Z24rTUlqc0ZLMDYvZWc2ZDlBdXVRR09vbjB4cnUydDBIc2cvUW1oMkpMSEtS?=
- =?utf-8?B?RW1Ldkx6U2ZkQm5Dc1Ayb0tOTllUb3dER0cveGV0Y1YrbFBoc3R4bnJQcmk5?=
- =?utf-8?B?dFdoV214N0xQR3FHVnR2TWNlcU5RMm5VelNsbWR3MjhFWjZjVEpON0tOcnov?=
- =?utf-8?B?MVdOTW9zWmtDc2liZXM0SmhheWRRalRoRWRBQU9wbE1zQW93NVNUdVc0aWps?=
- =?utf-8?B?U0k1SXFBOXF2bVBoOVJEcFFnOVd3OC9iUmZwWEVHZ1BZR0x1VUFWSVY4aGw5?=
- =?utf-8?B?bUp4VXpaaGRnZ0ZhZzMyS1pEazBoNzRucEU1cFVIZUErcnpRZUlTRlh6SFVz?=
- =?utf-8?B?VUZDb3lDQ29JWkR3VmxSeEEvOVlCVHRIbUhlaXNwei9nWk5ZbTRWSnRuSFUr?=
- =?utf-8?B?TnhmaTQwTGNHUmRTMWd4UlgrM3JTWG5PMTZ3NnRSK3dBL2xyb3lGRVlSRkpq?=
- =?utf-8?B?VC9YYnJabXIxQ0hjdVdGMXpwT0JIbXJDTGpuTTZZVkNEbmdWUEpOVkljZWpH?=
- =?utf-8?B?bS9tYW1WMzlJRzB2TkRDWlVtOWdHTGxraVhicTkrc3dRY0o1dmRXaHVHUWdy?=
- =?utf-8?B?MUpBQzdaNTdqRGFaQWhaMUk3YUxWR21MbFNnSjQ5eStDQmdjMWVjLzJNYzdH?=
- =?utf-8?B?ZFE1cWVURXU5UCtHUEVDb2dBaHUwUDhxb0RYMVR5SHV2elFwZUw4NlFOK253?=
- =?utf-8?B?Z2ZubTlPa3FUVkhadjFJSlA5WmliVU1GQS9ZdTR4U0NxN2FwVFJXWVAvRG5p?=
- =?utf-8?B?S2IzZG1jWFJ4V0E2TURxR3Y4NUpXcUoxaHNCYUE2TmRTM3RGcXpOR0lLOEVj?=
- =?utf-8?B?SmhsYXFuQjc3RnM1ek4vWW01cnhDZ2gwZlRHMk1DMXlDZjZGN3FJMWE0OW1Q?=
- =?utf-8?B?MExobVhUSEgrOFNSZkJVQXVHM3VMR1JlYzNsd1QwcnBZVFkwV0VHbmpxREpK?=
- =?utf-8?B?Zzc5MW44VnU2ZWhRejlMZz09?=
+	=?utf-8?B?RU02Q2c5OVRIdWlBeUw1Q28vSTh6eDZYZ3AxMFJQSkp5ZTJEamxCcTVIaWs3?=
+ =?utf-8?B?SHFCNGZXOVo4Z0M3cGQrWHpMWFRTM2pMeUNNcWZWdzgvVTdNeDEvR1pTeWZU?=
+ =?utf-8?B?OXAyZE82Yy9jcFVlL3BFUnBvM01YYjM5YUhSbzk5aU9yS3BoMTRWM1hvUEJU?=
+ =?utf-8?B?YWZhdjRmWjBFS0s4c2t2NUtGV2d1ZzJOYy93bk9vYzB3L0FTT3JBUTJVY3VC?=
+ =?utf-8?B?RERrb0RhdDdrZFdyN0l4WFNER2cxOGFEY1pYK2lVOVFyWE9PeExCalEyd2do?=
+ =?utf-8?B?T014MFdSTmxkeHM0NmRqM3phUk5SREliRXlFbUtrVGwyYlphR3h4NmNWVnBr?=
+ =?utf-8?B?NGN5WEFCTmtNZVFmOVVrZEMzeEJTbDB4U2xGWElody9hR01QczBlMnFUTnVN?=
+ =?utf-8?B?NHgzWi9aNXowN0NvWXFWNVFRa01ucDZ4UEQrWVpXT2hxTmtXYzZlM0hwSUVL?=
+ =?utf-8?B?U080UE9mcnNIRTM2bEdraDFHaVVJMUwxZmNBZ0RCZFRqS1YzKzJtUEZQOEdj?=
+ =?utf-8?B?Z3dMQmJHQkEwYlNBVWx6aUNjYTdBYlVsdS9yNXExUFVvSU1NNlpENjBPb29W?=
+ =?utf-8?B?c1crTERMaDdDVUhpdVpLUmRRSGUwZXMxVkY2THNqNEQrbjBKYjFMd2djZmNk?=
+ =?utf-8?B?YVNSeFRsZUdsSWx5R1pBRjhYQ0UxbmxOVlR6U080cWlCaWlBdHFVclBPK0to?=
+ =?utf-8?B?WGJQRnpjVWowSGhTZkZ6bVdvcnVTYjhMbGxrb3R1Vmd6ek1DVWRhcGFnaEdD?=
+ =?utf-8?B?MkhVZFBML090STVydnkwdjVCNXU1TVJkblg2aEpvTCs5REt2Y2FvMTRMZkdB?=
+ =?utf-8?B?TjhteEgwSHhKRENlbU9RM2RRclNzSHJDUUZYZURRM0c2Tm1GeHNqN2tEdCtk?=
+ =?utf-8?B?bWtiSGwyMmczMWVoN1VNTDRGZkRkaG1tdE51QVhNeFQ5QmhHZXdINTl5eWhk?=
+ =?utf-8?B?NjhISURQeHV5RFh0NlNyLzd2QUpYeU03bW9lQ3hEOERqSXBQNzVvY2p0a3Bp?=
+ =?utf-8?B?SW9xZk9KSEJGbzFsWktKWnV1UjdGenh0ZW5PZDJNVjhkdktmVTBDT3Zpcktp?=
+ =?utf-8?B?MzdxU3gyK1JacmJQKy9CWjgxTnQ3OFIxcnlYYUN4VElKRVRsOExWZVRqWTBj?=
+ =?utf-8?B?RHZmZTM4SVd2YmNuc0ZVcGl3a1UwS3o4cEszMmZtTkdBKzZBRFp3T0J2UE5n?=
+ =?utf-8?B?YTJaSHlIQkk5S2lScmEvcHo0UFU5UlprRnVYclh2c1lTUlZnTHFnVFBuL1Vr?=
+ =?utf-8?B?ZFdSOTFvb1dqODlNWmh0djJlU1dtQ21WSFVaamRjYXYyb2ttK0YvK0dXN2Jj?=
+ =?utf-8?B?d2o4cFFHckphRk9nQk9GMGF3U0dSSnhEckF5cnVmVU1OSXlZQ3pBK2M0VWRC?=
+ =?utf-8?B?V0J2VjlOcnMzaEkyNTVWSjlmaS9IVmlaNGxDTGhETXBiVEtpeEpaTHZWZ0xD?=
+ =?utf-8?B?ODNCenNRYlUwRGdXbzhzcHRzNGFHTUxxaFYxM0FPZXVxYkNXeGt1bGFBeHhL?=
+ =?utf-8?B?Q0dqTEJjRk9YNHZxQmRVVnhHeENFSHYzT242cjJtUVZpaGoybGF4Vm43UVdz?=
+ =?utf-8?B?elBiUzdNbzI0SHZHd01jZGZTZDg0TW5Jd3BBUkQyWWJOaWlLd1lESHlFc1lV?=
+ =?utf-8?B?a1oycjY3U3J4QVMwUDlXbnNseTRiVUxqQk1EcGVLd3E0OWxNUkwzMHBKZlRU?=
+ =?utf-8?B?dklvakJva0ZTQnc2QnVnbkNyTk5sd2FpV0R6M3Rya1g5VHdCM1FPM09BSWlz?=
+ =?utf-8?B?cG9oTVlIWEtXUVp6V05YcEtLSm85VTJSUURPenF1TjJQaTFtUEZLZnRuTkJB?=
+ =?utf-8?B?Qmp1WDkvYmdYSnpwVGx6YnhjdXVkMGZaR2gvVzVyVGx0Z1dVcHh6aWthcDlm?=
+ =?utf-8?B?NjVmclNzT296U1cvWlBudDMvRkhCbzlSMFYybW9oeUkySXFsVXpMaFhxamFw?=
+ =?utf-8?Q?tdIdJVOFata1wosTAuWS9FtsRUnZLAfI?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T0VVRGFheU8rc2RpcklaK1Nmclp5NTNlcHkwUVJ6cncxVnZWVmxiTDBGejJM?=
- =?utf-8?B?QUpLV3YwWFNVM2VJb3hpOXNBTk9CSUFrSFRlZkxqY0Qza2hhVXo2TDJhdTY5?=
- =?utf-8?B?YjhYNW42WGliUjFDT0FxZGpNMG1HRWlHWkJsZnNBZHg0OUhIbWlJNEE4WnR2?=
- =?utf-8?B?bTZ1TE8rOHpXSXdGaFNkd2R3emNJT05aMXNncFcyLzd6VUdidlY2V1pyckZC?=
- =?utf-8?B?NndMTE9OZDN2cTd0OUFIbEcvdkt1UGtWSDc5Qy9ic2t3Z0tnZ1pydURIbGtt?=
- =?utf-8?B?MFJYQnMwTkgzQnhFMTJHdGdlUVpLM0hBNG9yVFAzREQzdHdQTlU0Qitkcklq?=
- =?utf-8?B?N2FYMW9BaHV2aGpCUWp4aDZmMTRZQU4yVk9PeEV2T1JRamFSR2Ftc05qNnlE?=
- =?utf-8?B?Y0YxSzF3SUZOOHZvOEZaTTM0a2hLcXEwS0Jrb2NFM0JMbmR3am1rYUJKbGVk?=
- =?utf-8?B?TjMyUkM2cXoxZC9UdDhJNDhwTDZ0czVkckNBUzdrMmJPV1YvZnVwSDlRMUFN?=
- =?utf-8?B?SU80NDk5cEF4b3g1N2U4SG5INE14Ti9wbzQyM1Jhak81eEtCV3BFVFJoT2xU?=
- =?utf-8?B?M2lvc1h4WlZWNXYrWWxDVGZ6RHhuc2RwdGUwMDlVNG9kOXB0YnR6RjNOMzFn?=
- =?utf-8?B?RXJOTSs4VlhFa01iKzNxTDlEL2sza0tPK2oxWG1ncGdrc2ZXR3kxQ3B1S1ha?=
- =?utf-8?B?ZFdHMmV6TWhCMjB2OXczS0FMNkpFUDVFRWZDeXJhSU14TW1YWHZrK0o2YnRC?=
- =?utf-8?B?c3V2Z21yK3h4Y2RyTG9ZeDRtR2Z1eUsvdE9CeHRjdDd6R0phNkdPUTliMDF0?=
- =?utf-8?B?NGxzZ2xVR2VOZHBnVlB2VXI5ZWtQeEltREwraXVOd2V6dm5Lc01SWWk4QXVm?=
- =?utf-8?B?Y09GZzBHMmtHNHBIVFZGU2FjclZwYytBcnZXWTFlVEU3cEdBMElpeXFHRjZZ?=
- =?utf-8?B?Q2ZydG1lVkE1Z3RvcEl0emtaWUYvV0h4ZGpaaWw1cHFJZWorbHRIbkhsNDhE?=
- =?utf-8?B?c0FoSVIrTWVyQkgwWjhYTjdEZjJtZWs5eU0vWlcyVzk4cFVZUWJ0UU1tWVNw?=
- =?utf-8?B?MDdaRk81R2IyUmQyVjF3UHBCVDdJOWswMW9oY3Y0R1FoaXpRWElsNWtZSDd1?=
- =?utf-8?B?YTFlWjgwYTNOWHRXSlRUaTNXQkJURFlUemZwdjJSenNNczlnZUJUbUczYzJn?=
- =?utf-8?B?SGpKbkRSRHJxWFBjeU5TOVpJNmVCVUIxMStwS1hsVzZuaFJUZXU4QzRrL2xn?=
- =?utf-8?B?dVBINEhjU2xYRlA2TlhQcG1iMDEvaWtHaUkyVXpvb0ZQa1ZtWTVJb0Z6dnZ2?=
- =?utf-8?B?QnprdUNaY2ZFYlp5MW9la3JESXVkRWEyQk8xbDh1KzVSVldlNG5EM2IzKzBV?=
- =?utf-8?B?OXR0dHJIbDNNL1JhbDNmWjArd0trZlAxa2JXRW9uNExFWHVQWHYyS1NMNjVI?=
- =?utf-8?B?ZURGcktRbnlqVUxvYksvd3ExOEJha2VRcFpwS1RQMjVZbDB0bjF4SlFvaHA3?=
- =?utf-8?B?WlNWMGRFQ0hJY3E1Q0VRVk51NEtCUkNyeUI4Z1ZzbVZvZGF6WjVEU3l1Z05K?=
- =?utf-8?B?TlZKSGk4RzRVbmNleGJ6UW0xbXU2czd1OURtdmxWeGF5SWhxYmNPd0RXSzJ0?=
- =?utf-8?B?U0R3cFFiclI1MGwrVkoreWxzd1FheUJDUVVVOGtTSUo5WGovZStWS2ZobWUw?=
- =?utf-8?B?VHJRdmJIZUlRWGVQUlF2Y3hoSkd0NXFYTkdYa3RKR3B1NlV5TU42VWlDUmFk?=
- =?utf-8?B?eEEvVzlaeWtOdmZQbE50bklWL2JFV2p4cTlQcVZHWVJoTEhyS0tRQ0JvYkcy?=
- =?utf-8?B?ZTYzVjUxNWhwYVJNWDFXclFyMHdWSFU5dDJiOWR4T1o5R2xaYXJSNTBrQmF0?=
- =?utf-8?B?cVRRR1JQdkJ4QUVoTk90OHYwSUdVZ01HWk9qN3B3cVNmZGlOQ1ZnYis5VVFZ?=
- =?utf-8?B?SU93aXpjSHBWSXdaUEFJLzl6WSs5V0k4dC96VHM5eis3K0tWMGFkWlpyMDRs?=
- =?utf-8?B?RHdlQW5KN2ttdnAzVjUxTExudzRWQ1pVOTgrUnhqQ0JNeWd3Q2l2VTRGMHBK?=
- =?utf-8?B?NE5uNXFKUGxSMjk2bUwrWkZ3dHBpTVhleHpuYnRPUHZWbnByWXJ2VTJ5dkdD?=
- =?utf-8?Q?EgQWM70am9SaY4kD81gP0GY8U?=
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6c6dc97-b0ed-4036-7f87-08dcdd5b7ce4
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2024 12:13:38.9235
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2024 13:03:25.9735
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4df9dc3-ae2b-4d7c-06fa-08dcdd627180
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZbC4Cq++6MR6NF86/W2Oc49uitiHX7KyGwOAejpHimLXTrzo9R/GbF6l2qO7btmT79shLK6YmXnH8QrjZ/YCkQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7650
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00022574.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6731
 
-Hi Julien,
+On 9/24/24 19:55, Stefano Stabellini wrote:
+> On Tue, 24 Sep 2024, Edgar E. Iglesias wrote:
+>> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+>> index 09b65e44ae..dab24fa9e2 100644
+>> --- a/xen/arch/arm/dom0less-build.c
+>> +++ b/xen/arch/arm/dom0less-build.c
+>> @@ -744,11 +934,24 @@ static int __init alloc_xenstore_evtchn(struct domain *d)
+>>      return 0;
+>>  }
+>>  
+>> +static u64 combine_u64(u32 v[2])
+> 
+> Let's make this a static inline or a macro. I can't believe we don't
+> have one already.
 
-On 24/09/2024 17:44, Julien Grall wrote:
->
->
-> On 23/09/2024 12:22, Ayan Kumar Halder wrote:
->>
->> On 19/09/2024 13:42, Julien Grall wrote:
->>> Hi Ayan,
->> Hi Julien,
->>>
->>> On 18/09/2024 19:51, Ayan Kumar Halder wrote:
->>>> From: Wei Chen <wei.chen@arm.com>
->>>>
->>>> On Armv8-A, Xen has a fixed virtual start address (link address 
->>>> too) for all
->>>> Armv8-A platforms. In an MMU based system, Xen can map its loaded 
->>>> address to
->>>> this virtual start address. So, on Armv8-A platforms, the Xen start 
->>>> address does
->>>> not need to be configurable. But on Armv8-R platforms, there is no 
->>>> MMU to map
->>>> loaded address to a fixed virtual address and different platforms 
->>>> will have very
->>>> different address space layout. So Xen cannot use a fixed physical 
->>>> address on
->>>> MPU based system and need to have it configurable.
->>>>
->>>> So, we introduce a Kconfig option for users to set the start 
->>>> address. The start
->>>> address needs to be aligned to 4KB. We have a check for this 
->>>> alignment.
->>>
->>> It would suggest to add some explanation why you want the start 
->>> address to be 4KB aligned.
->>
->> Let me know if this makes sense.
->>
->> "MPU allows us to define regions which are 64 bits aligned. This 
->> restriction comes from the bitfields of PRBAR, PRLAR (the lower 6 
->> bits are 0 extended to provide the base and limit address of a 
->> region). This means that the start address of Xen needs to be at 
->> least 64 bits aligned (as it will correspond to the start address of 
->> memory protection region).
->>
->> As for now Xen on MPU tries to use the same memory alignment 
->> restrictions as it has been for MMU. Unlike MMU where the starting 
->> virtual address is 2MB, Xen on MPU needs the start address to be 4 KB 
->> (ie page size) aligned."
->>
->> Thinking about this a bit more (and based on the discussion in "Re: 
->> [PATCH v1 2/4] xen/arm: mpu: Define Xen start address for MPU 
->> systems"), I think we can keep the 4 KB restriction for now and relax 
->> it later. Let me know what you think.
->
-> I am fine with that.
->
->>
->>>
->>>>
->>>> In case if the user forgets to set the start address, then 
->>>> 0xffffffff is used
->>>> as default. This is to trigger the error (on alignment check) and 
->>>> thereby prompt
->>>> user to set the start address.
->>>>
->>>> Also updated config.h so that it includes mpu/layout.h when 
->>>> CONFIG_MPU is
->>>> defined.
->>>>
->>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
->>>> Signed-off-by: Jiamei.Xie <jiamei.xie@arm.com>
->>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>>> ---
->>>> Changes from :-
->>>>
->>>> v1 - 1. Fixed some of the coding style issues.
->>>> 2. Reworded the help message.
->>>> 3. Updated the commit message.
->>>>
->>>>   xen/arch/arm/Kconfig                  | 10 ++++++++++
->>>>   xen/arch/arm/include/asm/config.h     |  4 +++-
->>>>   xen/arch/arm/include/asm/mpu/layout.h | 27 
->>>> +++++++++++++++++++++++++++
->>>
->>> Looking at this patch again, I don't see any modification in 
->>> xen.lds.S. Is it intended?
->>
->> If we agree with the justification provided before, then this should 
->> be the modification.
->>
->> --- a/xen/arch/arm/xen.lds.S
->> +++ b/xen/arch/arm/xen.lds.S
->> @@ -232,6 +232,12 @@ SECTIONS
->>    */
->>   ASSERT(_start == XEN_VIRT_START, "_start != XEN_VIRT_START")
->>
->> +/*
->> + * On MPU based platforms, the starting address is to be provided by 
->> user.
->> + * One need to check that it is 4KB aligned.
->> + */
->> +ASSERT(IS_ALIGNED(_start,       4096), "starting address is 
->> misaligned")
+We have dt_read_number(). You'd need to use it with dt_get_property().
+In this case, it might look something like:
+
+__be32 *val = dt_get_property(node, "virtio-pci-ranges", &len);
+
+/* TODO: check len */
+
+...ecam.base = dt_read_number(&val[0], 2);
+...mem.base = dt_read_number(&val[2], 2);
+...pf_mem.base = dt_read_number(&val[4], 2);
+
+>> +{
+>> +    u64 v64;
 >> +
->
-> Ah I wasn't asking to add an ASSERT (although it would be good so long 
-> it is protected by CONFIG_MPU). Instead I was expecting XEN_VIRT_START 
-> to be replaced. But looking at the code again, I see you define
-> XEN_VIRT_START for the MPU.
->
-> I think this is a little bit odd to use XEN_VIRT_* defined for the MPU 
-> but it would be ok. Is the expectation that all the MPU code should be 
-> using XEN_START_ADDRESS? If so, maybe it would be worth add a comment 
-> on top of XEN_VIRT_ADDRESS.
-
-I have defined XEN_VIRT_START as XEN_START_ADDRESS , so that the code 
-continues to use XEN_VIRT_START (as it does for the MMU) and we avoid 
-introducing #if-defs.
-
-Does this comment make sense ?
-
-/*
-  * For MPU, XEN's virtual start address is same as the physical address.
-  * The reason being MPU treats VA == PA. IOW, it cannot map the physical
-  * address to a different fixed virtual address. So, the virtual start
-  * address is determined by the physical address at which Xen is loaded.
-  */
-#define XEN_VIRT_START         _AT(paddr_t, XEN_START_ADDRESS)
-
-- Ayan
-
->
-> Cheers,
->
+>> +    v64 = v[0];
+>> +    v64 <<= 32;
+>> +    v64 |= v[1];
+>> +    return v64;
+>> +}
+>> +
+>>  static int __init construct_domU(struct domain *d,
+>>                                   const struct dt_device_node *node)
+>>  {
+>>      struct kernel_info kinfo = KERNEL_INFO_INIT;
+>>      const char *dom0less_enhanced;
+>> +    const char *virtio_pci;
+>> +    /* virtio-pci ECAM, MEM, PF-MEM each carrying 2 x Address cells.  */
+>> +    u32 virtio_pci_ranges[3 * 2];
+>>      int rc;
+>>      u64 mem;
+>>      u32 p2m_mem_mb;
+>> @@ -779,6 +982,41 @@ static int __init construct_domU(struct domain *d,
+>>  
+>>      kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
+>>  
+>> +    rc = dt_property_read_string(node, "virtio-pci", &virtio_pci);
+>> +    if ( !rc )
+>> +    {
+>> +        if ( !strcmp(virtio_pci, "enabled") )
+>> +            kinfo.virtio_pci.mode = VIRTIO_PCI;
+>> +        else if ( !strcmp(virtio_pci, "grants") )
+>> +            kinfo.virtio_pci.mode = VIRTIO_PCI_GRANTS;
+>> +        else
+>> +        {
+>> +            printk("Invalid \"virtio-pci\" property value (%s)\n", virtio_pci);
+>> +            return -EINVAL;
+>> +        }
+>> +    }
+>> +    else if ( rc == -ENODATA )
+>> +    {
+>> +        /* Handle missing property value */
+>> +        kinfo.virtio_pci.mode = dt_property_read_bool(node, "virtio-pci");
+>> +    }
+>> +
+>> +    if ( kinfo.virtio_pci.mode != VIRTIO_PCI_NONE )
+>> +    {
+>> +        rc = dt_property_read_u32_array(node, "virtio-pci-ranges",
+>> +                                        virtio_pci_ranges,
+>> +                                        ARRAY_SIZE(virtio_pci_ranges));
+>> +        if ( rc == 0 ) {
+>> +            kinfo.virtio_pci.ecam.base = combine_u64(&virtio_pci_ranges[0]);
+>> +            kinfo.virtio_pci.mem.base = combine_u64(&virtio_pci_ranges[2]);
+>> +            kinfo.virtio_pci.pf_mem.base = combine_u64(&virtio_pci_ranges[4]);
+>> +        } else {
+>> +            kinfo.virtio_pci.ecam.base = GUEST_VIRTIO_PCI_ECAM_BASE;
+>> +            kinfo.virtio_pci.mem.base = GUEST_VIRTIO_PCI_MEM_BASE;
+>> +            kinfo.virtio_pci.pf_mem.base = GUEST_VIRTIO_PCI_PREFETCH_MEM_BASE;
+>> +        }
+>> +    }
+>> +
+>>      rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
+>>      if ( rc == -EILSEQ ||
+>>           rc == -ENODATA ||
 
