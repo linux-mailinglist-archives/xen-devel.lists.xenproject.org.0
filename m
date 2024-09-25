@@ -2,37 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C8FE9864AF
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 18:20:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.804384.1215349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26B659864E5
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 18:35:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.804395.1215359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stUjz-0005X8-FT; Wed, 25 Sep 2024 16:19:47 +0000
+	id 1stUyj-00061a-RT; Wed, 25 Sep 2024 16:35:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 804384.1215349; Wed, 25 Sep 2024 16:19:47 +0000
+Received: by outflank-mailman (output) from mailman id 804395.1215359; Wed, 25 Sep 2024 16:35:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stUjz-0005Up-Ci; Wed, 25 Sep 2024 16:19:47 +0000
-Received: by outflank-mailman (input) for mailman id 804384;
- Wed, 25 Sep 2024 16:19:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1stUyj-000600-Or; Wed, 25 Sep 2024 16:35:01 +0000
+Received: by outflank-mailman (input) for mailman id 804395;
+ Wed, 25 Sep 2024 16:35:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aBXn=QX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1stUjx-0005Uh-Sd
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 16:19:45 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f8faab2c-7b59-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 18:19:43 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a8d0d82e76aso2885766b.3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 09:19:43 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93930f78a1sm223697866b.161.2024.09.25.09.19.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 09:19:42 -0700 (PDT)
+ <SRS0=L/LJ=QX=amd.com=Edgar.Iglesias@srs-se1.protection.inumbo.net>)
+ id 1stUyi-0005zu-FY
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 16:35:00 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2413::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1a1fbda8-7b5c-11ef-a0ba-8be0dac302b0;
+ Wed, 25 Sep 2024 18:34:59 +0200 (CEST)
+Received: from DM6PR12CA0031.namprd12.prod.outlook.com (2603:10b6:5:1c0::44)
+ by CH3PR12MB8584.namprd12.prod.outlook.com (2603:10b6:610:164::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.28; Wed, 25 Sep
+ 2024 16:34:53 +0000
+Received: from DS1PEPF00017092.namprd03.prod.outlook.com
+ (2603:10b6:5:1c0:cafe::2) by DM6PR12CA0031.outlook.office365.com
+ (2603:10b6:5:1c0::44) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.30 via Frontend
+ Transport; Wed, 25 Sep 2024 16:34:53 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017092.mail.protection.outlook.com (10.167.17.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8005.15 via Frontend Transport; Wed, 25 Sep 2024 16:34:52 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 25 Sep
+ 2024 11:34:51 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,192 +56,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8faab2c-7b59-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727281183; x=1727885983; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=L10pjNtOTGB1AbMCAXmQMqcO768MO1PVnuUs9U7cYmY=;
-        b=Jl/Yi7ETl2FS1nrnJO+dilBEap1+aT2R0/eEPEqvME4M86XvKp+wl8Q1Ld6hk7Dq4u
-         tcQcoW07U9j2E0IHsqmwSEVkzPEaFrgF3wfwy/UCKiGmaD58pmHfO3Nj/oUpJv5OzZbm
-         wl2TMzSL/bs2WbLrm5doxGuqal78q+lT4MMjQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727281183; x=1727885983;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=L10pjNtOTGB1AbMCAXmQMqcO768MO1PVnuUs9U7cYmY=;
-        b=fWq9qBHz/EZqobJ/+ylArm+V4SwRvPJgewW8AfZuZsP2e8R9bXmIczEIbDB5dbN0o7
-         UadI/yCgbkRhdJOVXpcmK4oKK4LCtWS66nJvOngueRFRp6JTWy85VUNBlQ6vxvMSl0js
-         UC1JOKEq3YRCQyd6Qzi2fWDDmCURFhNTR7aguDY+1sDxB1UPRfYM9BucM0gohuhmdDog
-         xU+0prLv2aC/oq4LUw0EzgCiuhUYb7sA/gcdBfhTSuvQ16drTTZzviKX36dyTAs8Mw6z
-         cYjwn+bEzLOp/hY3WDVQ+VyPLyoWCkd5QRpkgy4NCW313ebkZeZD/WoKAd1xzl1T0daz
-         HoQw==
-X-Gm-Message-State: AOJu0YwLKBksI4GJOjzz/h4xUk62TTArLsExpxqOtY7/hdUL02T/qZR5
-	DL2b3NJ31ifOMrLLANB3G+m26BIZY16ScOGRe5JcnlXXmZyG7gk8Ue0HATVB7YA=
-X-Google-Smtp-Source: AGHT+IFFnV0ZU5MiTAPMxPoN1AeuB1yKQRWrHPXVM8BU6PpdoSWGJZFed+P67CDSy91OSpxUlgAfMw==
-X-Received: by 2002:a17:907:9718:b0:a86:8285:24a0 with SMTP id a640c23a62f3a-a93a037ed7emr316053966b.23.1727281182591;
-        Wed, 25 Sep 2024 09:19:42 -0700 (PDT)
-Date: Wed, 25 Sep 2024 18:19:41 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 13/22] x86/hvm: use a per-pCPU monitor table in HAP mode
-Message-ID: <ZvQ4HfbsVKmJrl-7@macbook.local>
-References: <20240726152206.28411-1-roger.pau@citrix.com>
- <20240726152206.28411-14-roger.pau@citrix.com>
- <D3HJ80ZGO0MR.2JCGJIV5JPYQP@cloud.com>
+X-Inumbo-ID: 1a1fbda8-7b5c-11ef-a0ba-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lucJJZOKVZNadLlcXQ/+ObKc+uhgfnQ4ePuZcKcVag+NtAi0a3ObnMzimXO7KBpQp7EVGumrN8zj0l7n8PxEc8BKzba1511EJVfWsUF7mh0+lcsH1RZBGD8LzOVDAu7KKiN3QJnEhFU0V2e9mmDtqIU2MiscVe9ecwK6qYfwU9hOUsjGW7UQBLRiRwtZEcbK3eF/6Q5PT9jZJZM+K1IwQmhLVLlc45h4QSLwKuRJmrTDBwCViNxzeMp774Ylzv7QD/Bi6I/yHAIpDHM+m9VuWGO0amnhpxIPV8tSvyVyMjmpf+9cvbg1SLPrTQvWRrQzFqC7MuwvgVweRb/uzTH9HA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HLLGHw2hT/VCMB5LiPTD33CwtbOG3nrcPshqAqMQmAs=;
+ b=MJ+SJxSg79QuSM2yk2W592ZW77DfgYIP7ECXCZoT99nJWnKj26C+ZRVm4d9nV3NQcz8TOaTcnKBlmrNm1Wll7vlBdZ1E0vB6Qo4u0fyFHQdISvCypinqIse4RiDKhBJVeZTyL/9NLllNR/9K2d1Bq5f+ilG3mttTQO6nnUdHvNhHg0nI2IPYG4tYIu4iHh0VKMQUcNJTrdTKU2SQ0+FL2QSewbhT64emEF5kSkvBi4jVK3a5BVoSb9ZF7sJD3BOr/zjA5q6vkeD1/fGaIUPAB3+tdMgskAZM/cPOU/lBlswoFWK4VPxXKZtg1N9mtLCJtYaeRgXUKWtgviJ9Qqg6nQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HLLGHw2hT/VCMB5LiPTD33CwtbOG3nrcPshqAqMQmAs=;
+ b=QawEekbHrcyBD0toj3op2Xzk9apjEgtTiJjFnZMQA7E+8TCSvOzDcuLKjWOQKFu3HgKC/mVp2g2o9T//hH0jIbp1lgKDqSPzwtk8FoLmbHbR90YEd5MZrxZnA7+vnynYu0EQCZrhAktjGzxkYZeZBlUSPEmb4d1g8DZdgXpETvM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Date: Wed, 25 Sep 2024 18:34:48 +0200
+From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+To: Julien Grall <julien@xen.org>
+CC: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	<xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
+	<bertrand.marquis@arm.com>, <michal.orzel@amd.com>,
+	<Volodymyr_Babchuk@epam.com>, <dpsmith@apertussolutions.com>, "Stewart
+ Hildebrand" <stewart.hildebrand@amd.com>
+Subject: Re: [PATCH v1 3/6] xen/arm: create dom0less virtio-pci DT node
+Message-ID: <ZvQ7mf9MbmSyC6RB@zapote>
+References: <20240924162359.1390487-1-edgar.iglesias@gmail.com>
+ <20240924162359.1390487-4-edgar.iglesias@gmail.com>
+ <ce21a173-61f4-42d5-aa72-5b50135e6d76@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <D3HJ80ZGO0MR.2JCGJIV5JPYQP@cloud.com>
+In-Reply-To: <ce21a173-61f4-42d5-aa72-5b50135e6d76@xen.org>
+User-Agent: Mutt/2.2.12 (2023-09-09)
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017092:EE_|CH3PR12MB8584:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a3cc48c-649b-4126-f970-08dcdd7ffb80
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?hj2PcQ1rJZgbdcX0zAm1ZwIKNESwOtT8Cy0hONHvzmtAkPKIqjYAAkJ1I6Ue?=
+ =?us-ascii?Q?zRHKHiIAbyHn5b5mHOVIQyWyiNx5RRm1r6c6/yWsn7CJYJ2XHnlqyQCNssQj?=
+ =?us-ascii?Q?crLp0ZJnmhKWx4L/M3hdy1N465SSS3Pg7yVZwv+v83qL2ouSYIx2NqfEytAQ?=
+ =?us-ascii?Q?1sRcgI/1xYg1o93Nzb1VVNLS+eCeF5lvv4SZaSoCAXa5DdM8i6Mub+fHMag4?=
+ =?us-ascii?Q?RVzPobaUKQXgzqkqzTeEEyYnI4Eo1PUER0Hv4mbcJuI7oAq52lz7E7o7xV5v?=
+ =?us-ascii?Q?6mp5TLPxnmBWNzL70oxNIpKP2B1Deda1rCX+Vq/VDZJ98DPIfhnHiP0xoZjI?=
+ =?us-ascii?Q?6uLRfiIAnBIiPZ6b+1hySDPQd+hB2kpx3E5TnI0D8WoFQ6InHCD/kgQa9jh7?=
+ =?us-ascii?Q?FfQ7CbxiUAWvzVimKZx3RjtmOYeYXwBhL54qYKkpT1Y1Th5gndMhtAdN4iIE?=
+ =?us-ascii?Q?ob2JV+htIjoWwxdfoJajqyIe5rguNz/lxI/QIiJHPRcF/hX3R/DeCaFe3Aa+?=
+ =?us-ascii?Q?j9XwoQrw8Ty2tuVYzxU7u311AGdCD5kGwpVJqMV9VwlWQMiueZ4Q9KPcDQ8f?=
+ =?us-ascii?Q?cMl+KG9jnFztss47QKk87Gd1ZloU7ORwE3MGYqoa/zilYzPnMsKiJFTrIohx?=
+ =?us-ascii?Q?GRVKXppqjz2+qJX3dgev01wWr7B2E6cprJ2Kas3njICZ6dD3x2Q78Q9O3jaF?=
+ =?us-ascii?Q?1JUAxLx/h1sy0AFkK6yTRHyAFZHRieeeQMgGXfCCDYGZk6BR3dNGzrIS1uY0?=
+ =?us-ascii?Q?UDSuod1Ym8hSKguUt/Rs78M+kmFTQh+FjeXGB15a9RABKclMNpW3wqSQHn68?=
+ =?us-ascii?Q?oa1lxU8gPvk4TJakWDAuU6Ntv+dGJlyEqBKlpNcRBU/Ua+QV5piJcdAt0fB0?=
+ =?us-ascii?Q?+o1uAJFmAZ62Wa4KFOiaiiQ/FiynFnu9PKqCn6vvzSyel1cyAln5fX/tUEgI?=
+ =?us-ascii?Q?fv21ou6fj+ZMMmGPmc1GUdtlbYoGciVkgDMerYoDKZCO4cSecZyACqU8OR62?=
+ =?us-ascii?Q?VATuIh8Bc9MBmrzjwXyCryOvXYwbXT95fDfk/KNgDDjpsoGToYRLSXNqTICd?=
+ =?us-ascii?Q?vPbtZ9+3n20hzC6xxapPfIc8aKywENrzgCLEyCdtw4/NBJpWy4OFAqalAe4D?=
+ =?us-ascii?Q?O0arjFl55u63CmKcC8Dsd5+O6o8G0HzSr/22DmgO7c6PNAI1QJdHjB4aXtMM?=
+ =?us-ascii?Q?8kIGu12nNZbIHn29OWszPP5FXe1M77uPYUxNoNXwxDRxEUfTCr0X02/7jflm?=
+ =?us-ascii?Q?yHg3m7N1dd+TdFHCQFLRRlYVVVvjSQHxcayvUALka79TUbkJ1om6e6ttXaWk?=
+ =?us-ascii?Q?bW1h8Pr7Uq/1+NMQlduQMkKyyyeH6LX4sKEEhb1Dkq9SxGjg6xcmHUo0tymy?=
+ =?us-ascii?Q?yzFD6kXZUwOU/J5j93cvpmYz3V5EW2cG0bHMIj7JKLyW7K5cLZjt7y9DuZiK?=
+ =?us-ascii?Q?DoC+dWz7snOSi8Y7j8W3hek1URpOWYXT?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2024 16:34:52.8792
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a3cc48c-649b-4126-f970-08dcdd7ffb80
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017092.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8584
 
-On Fri, Aug 16, 2024 at 07:02:54PM +0100, Alejandro Vallejo wrote:
-> On Fri Jul 26, 2024 at 4:21 PM BST, Roger Pau Monne wrote:
-> > Instead of allocating a monitor table for each vCPU when running in HVM HAP
-> > mode, use a per-pCPU monitor table, which gets the per-domain slot updated on
-> > guest context switch.
-> >
-> > This limits the amount of memory used for HVM HAP monitor tables to the amount
-> > of active pCPUs, rather than to the number of vCPUs.  It also simplifies vCPU
-> > allocation and teardown, since the monitor table handling is removed from
-> > there.
-> >
-> > Note the switch to using a per-CPU monitor table is done regardless of whether
+On Wed, Sep 25, 2024 at 08:44:41AM +0100, Julien Grall wrote:
+> Hi,
 > 
-> s/per-CPU/per-pCPU/
 
-Sorry, I might not has been as consistent as I wanted with using pCPU
-everywhere.
+Hi Julien,
 
-> > Address Space Isolation is enabled or not.  Partly for the memory usage
-> > reduction, and also because it allows to simplify the VM tear down path by not
-> > having to cleanup the per-vCPU monitor tables.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+
+> On 24/09/2024 17:23, Edgar E. Iglesias wrote:
+> > From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> > 
+> > When virtio-pci is specified in the dom0less domU properties, create a
+> > virtio-pci node in the guest's device tree. Set up an mmio handler with
+> > a register for the guest to poll when the backend has connected and
+> > virtio-pci bus is ready to be probed. Grant tables may be used by
+> > specifying virtio-pci = "grants";.
+> > 
+> > [Edgar: Use GPEX PCI INTX interrupt swizzling (from PCI specs).
+> >   Make grants iommu-map cover the entire PCI bus.
+> >   Add virtio-pci-ranges to specify memory-map for direct-mapped guests.
+> >   Document virtio-pci dom0less fdt bindings.]
+> > Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
 > > ---
-> > Note the monitor table is not made static because uses outside of the file
-> > where it's defined will be added by further patches.
-> > ---
-> >  xen/arch/x86/hvm/hvm.c             | 60 ++++++++++++++++++++++++
-> >  xen/arch/x86/hvm/svm/svm.c         |  5 ++
-> >  xen/arch/x86/hvm/vmx/vmcs.c        |  1 +
-> >  xen/arch/x86/hvm/vmx/vmx.c         |  4 ++
-> >  xen/arch/x86/include/asm/hap.h     |  1 -
-> >  xen/arch/x86/include/asm/hvm/hvm.h |  8 ++++
-> >  xen/arch/x86/mm.c                  |  8 ++++
-> >  xen/arch/x86/mm/hap/hap.c          | 75 ------------------------------
-> >  xen/arch/x86/mm/paging.c           |  4 +-
-> >  9 files changed, 87 insertions(+), 79 deletions(-)
-> >
-> > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> > index 7f4b627b1f5f..3f771bc65677 100644
-> > --- a/xen/arch/x86/hvm/hvm.c
-> > +++ b/xen/arch/x86/hvm/hvm.c
-> > @@ -104,6 +104,54 @@ static const char __initconst warning_hvm_fep[] =
-> >  static bool __initdata opt_altp2m_enabled;
-> >  boolean_param("altp2m", opt_altp2m_enabled);
-> >  
-> > +DEFINE_PER_CPU(root_pgentry_t *, monitor_pgt);
-> > +
-> > +static int allocate_cpu_monitor_table(unsigned int cpu)
+> >   docs/misc/arm/device-tree/booting.txt |  21 +++
+> >   xen/arch/arm/dom0less-build.c         | 238 ++++++++++++++++++++++++++
+> >   xen/arch/arm/include/asm/kernel.h     |  15 ++
+> >   3 files changed, 274 insertions(+)
+> > 
+> > diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> > index 3a04f5c57f..82f3bd7026 100644
+> > --- a/docs/misc/arm/device-tree/booting.txt
+> > +++ b/docs/misc/arm/device-tree/booting.txt
+> > @@ -276,6 +276,27 @@ with the following properties:
+> >       passed through. This option is the default if this property is missing
+> >       and the user does not provide the device partial device tree for the domain.
+> > +- virtio-pci
 > 
-> To avoid ambiguity, could we call these *_pcpu_*() instead?
+> Similar question to the other patches, why is this specific to virtio PCI?
+> QEMU (or another device module) is free to emulate whatever it wants behind
+> the PCI hosbtridge.
 
-As replied by Jan, plain 'cpu' is physical CPU on hypervisor code
-function names usually.  '_pcpu_' here would IMO imply per-CPU, which
-it also is, but likely doesn't need spelling in the function name.
+There's no hard limitatino to only virtio-pci devices it's more of a
+recommendation that PVH guests should not use "emulated" devices but
+there's nothing stopping it.
 
-> > +{
-> > +    root_pgentry_t *pgt = alloc_xenheap_page();
-> > +
-> > +    if ( !pgt )
-> > +        return -ENOMEM;
-> > +
-> > +    clear_page(pgt);
-> > +
-> > +    init_xen_l4_slots(pgt, _mfn(virt_to_mfn(pgt)), INVALID_MFN, NULL,
-> > +                      false, true, false);
-> > +
-> > +    ASSERT(!per_cpu(monitor_pgt, cpu));
-> > +    per_cpu(monitor_pgt, cpu) = pgt;
-> > +
-> > +    return 0;
-> > +}
-> > +
-> > +static void free_cpu_monitor_table(unsigned int cpu)
-> > +{
-> > +    root_pgentry_t *pgt = per_cpu(monitor_pgt, cpu);
-> > +
-> > +    if ( !pgt )
-> > +        return;
-> > +
-> > +    per_cpu(monitor_pgt, cpu) = NULL;
-> > +    free_xenheap_page(pgt);
-> > +}
-> > +
-> > +void hvm_set_cpu_monitor_table(struct vcpu *v)
-> > +{
-> > +    root_pgentry_t *pgt = this_cpu(monitor_pgt);
-> > +
-> > +    ASSERT(pgt);
-> > +
-> > +    setup_perdomain_slot(v, pgt);
+Perhaps the names of these properties are missleading, I'm happy to
+change them if there are better suggestions!
+
+I can also clarify it in the documentation.
+
+
 > 
-> Why not modify them as part of write_ptbase() instead? As it stands, it appears
-> to be modifying the PTEs of what may very well be our current PT, which makes
-> the perdomain slot be in a $DEITY-knows-what state until the next flush
-> (presumably the write to cr3 in write_ptbase()?; assuming no PCIDs).
-> 
-> Setting the slot up right before the cr3 change should reduce the potential for
-> misuse.
-
-The reasoning for doing it here it that the per-domain slot only needs
-setting on context switch.  In the PV case write_ptbase() will be
-called each time the guest switches %cr3, but setting the per-domain
-slot is not required for each call if the vCPU hasn't changed.
-
-Let me see if I can arrange for the current contents of
-setup_perdomain_slot() to be merged into write_ptbase(). Note
-setup_perdomain_slot() started as a wrapper to extract XPTI specific
-code from paravirt_ctxt_switch_to().
-
 > > +
-> > +    make_cr3(v, _mfn(virt_to_mfn(pgt)));
-> > +}
+> > +    A string property specifying whether virtio-pci is enabled for the
+> > +    domain and if grant table mappings should be used. If no value is set
+> > +    this property is treated as a boolean and the same way as if set to
+> > +    "enabled".
+> > +    Possible property values are:
 > > +
-> > +void hvm_clear_cpu_monitor_table(struct vcpu *v)
+> > +    - "enabled"
+> > +    Virtio-pci is enabled for the domain.
+> > +
+> > +    - "grants"
+> > +    Virtio-pci is enabled for the domain and an grants IOMMU node will be
+> > +    generated in the domains device-tree.
+> > +
+> > +- virtio-pci-ranges
+> > +
+> > +    An optional array of 6 u32 values specifying the 2 cells base addresses of
+> > +    the ECAM, Memory and Prefetchable-Memory regions for virtio-pci. This is
+> > +    useful to avoid memory-map collisions when using direct-mapped guests.
+> > +
+> >   Under the "xen,domain" compatible node, one or more sub-nodes are present
+> >   for the DomU kernel and ramdisk.
+> > diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> > index 09b65e44ae..dab24fa9e2 100644
+> > --- a/xen/arch/arm/dom0less-build.c
+> > +++ b/xen/arch/arm/dom0less-build.c
+> > @@ -586,6 +586,189 @@ static int __init domain_handle_dtb_bootmodule(struct domain *d,
+> >       return res;
+> >   }
+> > +static int __init make_virtio_pci_domU_node(const struct kernel_info *kinfo)
 > > +{
-> > +    /* Poison %cr3, it will be updated when the vCPU is scheduled. */
-> > +    make_cr3(v, INVALID_MFN);
+> > +    void *fdt = kinfo->fdt;
+> > +    /* reg is sized to be used for all the needed properties below */
+> > +    __be32 reg[(1 + (GUEST_ROOT_ADDRESS_CELLS * 2) + GUEST_ROOT_SIZE_CELLS)
+> > +               * 2];
+> > +    __be32 irq_map[4 * 4 * 8];
+> > +    __be32 *cells;
+> > +    char buf[22]; /* pcie@ + max 16 char address + '\0' */
+> > +    int res;
+> > +    int devfn, intx_pin;
+> > +    static const char compat[] = "pci-host-ecam-generic";
+> > +    static const char reg_names[] = "ecam";
+> > +
+> > +    if ( p2m_ipa_bits <= 40 ) {
+> > +        printk("PA bits %d is too small!\nvirtio-pci is only supported "
+> > +               "on platforms with PA bits > 40\n", p2m_ipa_bits);
+> > +        return -EINVAL;
+> > +    }
 > 
-> I think this would benefit from more exposition in the comment. If I'm getting
-> this right, after descheduling this vCPU we can't assume it'll be rescheduled
-> on the same pCPU, and if it's not it'll end up using a different monitor table.
-> This poison value is meant to highlight forgetting to set cr3 in the
-> "ctxt_switch_to()" path. 
+> Please add a comment explaining where does this requires come from. If this
+> is the Address layout, then probably be to avoid relying on hardcoded number
+> of bits.
+>
 
-Indeed, we would like to avoid running on a different pCPU while still
-using the monitor page-tables from whatever pCPU the vCPU previously
-had been running.
+Oops, sorry, I had actually removed this part from my git branch but I
+forgot to regenerated the patch series.
 
-> All of that can be deduced from what you wrote and sufficient headscratching
-> but seeing how this is invoked from the context switch path it's not incredibly
-> clear wether you meant the perdomain slot would be updated by the next vCPU or
-> what I stated in the previous paragraph.
+I'll remove it.
 
-No, it's just about not leaving stale values in the vcpu struct.
-
-> Assuming it is as I mentioned, maybe hvm_forget_cpu_monitor_table() would
-> convey what it does better? i.e: the vCPU forgets/unbinds the monitor table
-> from its internal state.
-
-Right, I assumed that 'clear' already conveyed the concept of
-unbinding from a pCPU.  If I use unbind, then I guess I should also
-use 'bind' for what I currently call 'set'.
-
-Thanks, Roger.
+Best regards,
+Edgar
 
