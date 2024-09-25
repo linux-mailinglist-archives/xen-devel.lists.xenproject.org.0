@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58D50985718
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 12:21:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803806.1214616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCEED98571F
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 12:25:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803811.1214626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stP8u-0005rl-MP; Wed, 25 Sep 2024 10:21:08 +0000
+	id 1stPD7-0006RO-5i; Wed, 25 Sep 2024 10:25:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803806.1214616; Wed, 25 Sep 2024 10:21:08 +0000
+Received: by outflank-mailman (output) from mailman id 803811.1214626; Wed, 25 Sep 2024 10:25:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stP8u-0005pF-Ja; Wed, 25 Sep 2024 10:21:08 +0000
-Received: by outflank-mailman (input) for mailman id 803806;
- Wed, 25 Sep 2024 10:21:07 +0000
+	id 1stPD7-0006PV-2w; Wed, 25 Sep 2024 10:25:29 +0000
+Received: by outflank-mailman (input) for mailman id 803811;
+ Wed, 25 Sep 2024 10:25:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lFoA=QX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1stP8t-0005p9-Mh
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 10:21:07 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1stPD6-0006PP-Ed
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 10:25:28 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ddef1c6e-7b27-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 12:21:03 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5c5c3a1f474so3709914a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 03:21:03 -0700 (PDT)
+ id 7ac1e32a-7b28-11ef-99a2-01e77a169b0f;
+ Wed, 25 Sep 2024 12:25:26 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5c24ebaa427so1311330a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 03:25:26 -0700 (PDT)
 Received: from ?IPV6:2a00:23ee:19c8:3368:2340:cc04:33fd:b83a?
  ([2a00:23ee:19c8:3368:2340:cc04:33fd:b83a])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c5cf4c5002sm1690937a12.65.2024.09.25.03.21.01
+ a640c23a62f3a-a93930cb0afsm193363566b.138.2024.09.25.03.25.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Sep 2024 03:21:01 -0700 (PDT)
+ Wed, 25 Sep 2024 03:25:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,44 +46,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ddef1c6e-7b27-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 7ac1e32a-7b28-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727259662; x=1727864462; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1727259925; x=1727864725; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3grR5TuetlbWM25oskqOdGHs2vwZJxvLzXwYWXO2k90=;
-        b=H4uyS/dXinYQzNKQbEp0Gbqe1m7nDS9YNQGPAOw60ulVvH++r4VgVxI8FY1ZJzZfK7
-         yRe8qqkXzbUO0C5mza9fGbjljcweRtetTU20jUGhZUbLWMQhSIA1fjyqdakF7ynoru6g
-         w+PwiwKba+MF8ncC+CQqDcs+b4ysRnzTObjYY=
+        bh=e9sPicUzZHkXQmTLP4F5KJcMA2Qv6Gf6fwKHiuQ5BL0=;
+        b=XJhLvR2GOQJ0HSaRd5vY128eVBNfbsWDwWiLP0MLkwy0u4oXZdECMSY3KMvCiIBGA1
+         YruRf8Pc0hrbdYaU1MHK1xtPBE5lq2ReYyvrsahGV1k1H1vKtezIovTkKCpWRAdF/p0L
+         xmB2HnZ3ubSv8Z4IPenmTLFaQrXotMNJwnT70=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727259662; x=1727864462;
+        d=1e100.net; s=20230601; t=1727259925; x=1727864725;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3grR5TuetlbWM25oskqOdGHs2vwZJxvLzXwYWXO2k90=;
-        b=XkZXpBZkVnFmfLb36l/BaYzGcZW3/nvA3n5NpkGBz8AIAjCFUEjrD7R41JjKiYlS67
-         njjSFZbOisokfdTCW5E/B4Y/Y7C94axHaWbMe0FnB0E9dO7fvANxllI1JupVcth2dyCC
-         KedKCInTbFLQPPcNn3Vo+4rjvBC/UvVfZZL4G+jLWP707SLYUYbS/JNmlcRyiUui/D0x
-         UA8WLqzdz6bfSwqzJ2VZAM6j2xkiVNILjBVhtBbgi52MJfCM6BZF4CQsXBPTUxiSRowk
-         TtDSt1Dj9/Ma2HrJXxK5XfWV3CxPtD6RlUwTBAw2LXIRrxIeK4ZH5wItYOS/XX+7TogK
-         Z8TQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV35lpevt+K51CFEojDEpv3KoLWfpXm6C20rZMIcCEnHFuL+7wM6/IIw5yRCIAgMdgExtM+nrhnbws=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyNFV3m+Riyh6kE5TYiBJzjGZRwiSUUJk8sCN6TvZO8PfEFpB8c
-	Sb0OLb8F//+nGKVOhmFRzywyRxDh0uf0Oc5LgYV8EgrxcxZJ62ojkwm/QbAe638=
-X-Google-Smtp-Source: AGHT+IHE8GWD8RYBE9hhgy1yEDchEnxuKAeORU9flByt79v4oqLFn23rYOKwM2zzqUFM+nGF90datQ==
-X-Received: by 2002:a05:6402:40c5:b0:5c5:cb4a:a6f3 with SMTP id 4fb4d7f45d1cf-5c72060a57cmr1667566a12.3.1727259662334;
-        Wed, 25 Sep 2024 03:21:02 -0700 (PDT)
-Message-ID: <eaa4a524-fd12-4716-9d9f-cff25a4c9bbf@citrix.com>
-Date: Wed, 25 Sep 2024 11:21:01 +0100
+        bh=e9sPicUzZHkXQmTLP4F5KJcMA2Qv6Gf6fwKHiuQ5BL0=;
+        b=gXcfVF1vHSFZQtRNnzyjQVRRL2XNyg8RJmjpyi6le32BKRZgdnjaMD2jjnUhEK6Kno
+         WXJm1lrOqVHQO1vSsDRYUouYxm4t1DYwHN4uoRhYGzCye4WKbXzSq7AtRgl5JgcaRNDQ
+         rmx846n5lQuJIn4ZMfWmkV6/sI4961/84rZ5tVEOPB6jnf7URg8aNSX0c5x4am1SuNQR
+         UxhoXxzEyLMYUKb1TGhgl+dSq3wjOzwIcS6/wCe9+nkI9tG8RZxZfM3FneKDRj0+IUH5
+         6b68/zSJ5hn6bnxFVRl/iVWGc9TBweGAIUI5pFSea0tmNbNxCk7hCp2GLRnp34LdgP9o
+         vSJw==
+X-Forwarded-Encrypted: i=1; AJvYcCUhD0YwBPpDdtJ5uBpmAltgen2m5wkShvQlGZt936u5EVydrK7QdBxwo35ioqGO1JWp7Zki6E29PgE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxrlf3FjjbLU6QuV3+VeUn7sXd8dB3jLYTR7bL9wjzccPYge3kO
+	55MdM3WsewRJ0pzQE62MkFmrJ1Rlqb2qFXruwA91G1BXA+85deBBez8sZPqlbbk=
+X-Google-Smtp-Source: AGHT+IG1XyL2LyVdPCJYeNuPpiPx3mdQ1NMp2plrBaY3oPDEVoOKW/0w694nK3+6tLxv8PDsT3UrUA==
+X-Received: by 2002:a17:907:e8d:b0:a91:161d:7e7a with SMTP id a640c23a62f3a-a93a16854bdmr229616966b.3.1727259925571;
+        Wed, 25 Sep 2024 03:25:25 -0700 (PDT)
+Message-ID: <cf996644-cfe3-4a93-a13a-175925f498bf@citrix.com>
+Date: Wed, 25 Sep 2024 11:25:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] xen/livepatch: do Xen build-id check earlier
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: Re: [PATCH v2 5/6] x86/alternatives: do not BUG during apply
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
 References: <20240925084239.85649-1-roger.pau@citrix.com>
- <20240925084239.85649-5-roger.pau@citrix.com>
+ <20240925084239.85649-6-roger.pau@citrix.com>
+ <5a22e8a0-da9d-415f-85a5-42d2a372a08e@suse.com>
+ <ZvPX1jFl7DLyXHk8@macbook.local>
+ <d7fc6937-e384-4340-b946-2774ceec373d@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,137 +133,57 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240925084239.85649-5-roger.pau@citrix.com>
+In-Reply-To: <d7fc6937-e384-4340-b946-2774ceec373d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 25/09/2024 9:42 am, Roger Pau Monne wrote:
-> The check against the expected Xen build ID should be done ahead of attempting
-> to apply the alternatives contained in the livepatch.
+On 25/09/2024 11:02 am, Jan Beulich wrote:
+> On 25.09.2024 11:28, Roger Pau Monné wrote:
+>> On Wed, Sep 25, 2024 at 11:01:08AM +0200, Jan Beulich wrote:
+>>> On 25.09.2024 10:42, Roger Pau Monne wrote:
+>>>> alternatives is used both at boot time, and when loading livepatch payloads.
+>>>> While for the former it makes sense to panic, it's not useful for the later, as
+>>>> for livepatches it's possible to fail to load the livepatch if alternatives
+>>>> cannot be resolved and continue operating normally.
+>>>>
+>>>> Relax the BUGs in _apply_alternatives() to instead return an error code.  The
+>>>> caller will figure out whether the failures are fatal and panic.
+>>>>
+>>>> Print an error message to provide some user-readable information about what
+>>>> went wrong.
+>>>>
+>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> Albeit ...
+>>>
+>>>> @@ -394,8 +418,10 @@ static int __init cf_check nmi_apply_alternatives(
+>>>>                                   PAGE_HYPERVISOR_RWX);
+>>>>          flush_local(FLUSH_TLB_GLOBAL);
+>>>>  
+>>>> -        _apply_alternatives(__alt_instructions, __alt_instructions_end,
+>>>> -                            alt_done);
+>>>> +        rc = _apply_alternatives(__alt_instructions, __alt_instructions_end,
+>>>> +                                 alt_done);
+>>>> +        if ( rc )
+>>>> +            panic("Unable to apply alternatives: %d\n", rc);
+>>> ... I see little value in logging rc here - the other log message will
+>>> provide better detail anyway.
+>> Current log messages do indeed provide better detail, but maybe we end
+>> up adding new return error paths to _apply_alternatives() in the
+>> future.
+> I'd expect such error paths to then also have dedicated logging.
 >
-> If the CPUID in the alternatives patching data is out of the scope of the
-> running Xen featureset the BUG() in _apply_alternatives() will trigger thus
-> bringing the system down.  Note the layout of struct alt_instr could also
-> change between versions.  It's also possible for struct exception_table_entry
-> to have changed format, hence leading to other kind of errors if parsing of the
-> payload is done ahead of checking if the Xen build-id matches.
->
-> Move the Xen build ID check as early as possible.  To do so introduce a new
-> check_xen_buildid() function that parses and checks the Xen build-id before
-> moving the payload.  Since the expected Xen build-id is used early to
-> detect whether the livepatch payload could be loaded, there's no reason to
-> store it in the payload struct, as a non-matching Xen build-id won't get the
-> payload populated in the first place.
->
-> Note parse_buildid() has to be slightly adjusted to allow fetching the section
-> data from the 'data' field instead of the 'load_addr' one: with the Xen build
-> ID moved ahead of move_payload() 'load_addr' is not yet set when the Xen build
-> ID check is performed.  Also printing the expected Xen build ID has part of
-> dumping the payload is no longer done, as all loaded payloads would have Xen
-> build IDs matching the running Xen, otherwise they would have failed to load.
->
-> Fixes: 879615f5db1d ('livepatch: Always check hypervisor build ID upon livepatch upload')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>  I see no harm in printing the error code if there's one.
+> Well, it's not much harm indeed, yet imo extra data logged also normally
+> wants to have a reason for the logging. After if you look at the log,
+> you'd expect every detail to tell you something (useful; in some certain
+> cases at least). Anyway - I don't mean to insist on the removal, it just
+> looked pretty useless to me.
 
-Much nicer.  A couple of suggestions.
+People reading the logs can ignore bits they don't think are useful.
 
-> ---
-> Changes since v1:
->  - Do the Xen build-id check even earlier.
-> ---
->  xen/common/livepatch.c              | 66 +++++++++++++++++++----------
->  xen/include/xen/livepatch_payload.h |  1 -
->  2 files changed, 44 insertions(+), 23 deletions(-)
->
-> diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-> index 8e61083f23a7..895c425cd5ea 100644
-> --- a/xen/common/livepatch.c
-> +++ b/xen/common/livepatch.c
-> @@ -448,24 +448,21 @@ static bool section_ok(const struct livepatch_elf *elf,
->      return true;
->  }
->  
-> -static int xen_build_id_dep(const struct payload *payload)
-> +static int xen_build_id_dep(const struct livepatch_build_id *expected)
->  {
->      const void *id = NULL;
->      unsigned int len = 0;
->      int rc;
->  
-> -    ASSERT(payload->xen_dep.len);
-> -    ASSERT(payload->xen_dep.p);
-> +    ASSERT(expected->len);
-> +    ASSERT(expected->p);
->  
->      rc = xen_build_id(&id, &len);
->      if ( rc )
->          return rc;
->  
-> -    if ( payload->xen_dep.len != len || memcmp(id, payload->xen_dep.p, len) ) {
-> -        printk(XENLOG_ERR LIVEPATCH "%s: check against hypervisor build-id failed\n",
-> -               payload->name);
-> +    if ( expected->len != len || memcmp(id, expected->p, len) )
->          return -EINVAL;
-> -    }
-
-I'd suggest merging this into check_xen_buildid(), which is the single
-caller and serves the same singular purpose.
-
-It removes the ASSERT() (expected is now a local variable), and it helps
-with some diagnostic improvements.
-
->  
->      return 0;
->  }
-> @@ -495,11 +493,44 @@ static int parse_buildid(const struct livepatch_elf_sec *sec,
->     return 0;
->  }
->  
-> +static int check_xen_buildid(const struct livepatch_elf *elf)
-> +{
-> +    struct livepatch_build_id id;
-> +    const struct livepatch_elf_sec *sec =
-> +        livepatch_elf_sec_by_name(elf, ELF_LIVEPATCH_XEN_DEPENDS);
-> +    int rc;
-> +
-> +    if ( !sec )
-> +    {
-> +        printk(XENLOG_ERR LIVEPATCH "%s: %s is missing\n",
-
-"%s: Section: '%s' missing\n".
-
-(Maybe no single quotes around the section as we know it's non-empty.)
-
-> +               elf->name, ELF_LIVEPATCH_XEN_DEPENDS);
-> +        return -EINVAL;
-> +    }
-> +
-> +    rc = parse_buildid(sec, &id);
-> +    if ( rc )
-> +    {
-> +        printk(XENLOG_ERR LIVEPATCH "%s: failed to parse build-id at %s: %d\n",
-
-"%s: Failed to parse section '%s' as build id: %d\n".
-
-> +               elf->name, ELF_LIVEPATCH_XEN_DEPENDS, rc);
-> +        return -EINVAL;
-> +    }
-> +
-> +    rc = xen_build_id_dep(&id);
-> +    if ( rc )
-> +    {
-> +        printk(XENLOG_ERR LIVEPATCH
-> +               "%s: check against hypervisor build-id failed: %d\n",
-
-"%s: build-id mismatch:\n"
-"  livepatch: %*phN\n"
-"        xen: %*phN\n"
-
-This needs xen_build_id_dep() inlining in order to have the xen build-id
-string, but the end result is much more informative.
-
-I think I'm happy doing all of this on commit, but it might be a better
-idea not to.
+What they cannot do is read data which should have been there but wasn't.
 
 ~Andrew
 
