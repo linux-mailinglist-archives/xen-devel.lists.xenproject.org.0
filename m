@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1E5985F58
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 15:55:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803990.1214847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4226F985FA5
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 16:02:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803999.1214859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stSUL-0004Gl-Ky; Wed, 25 Sep 2024 13:55:29 +0000
+	id 1stSb7-0006Cr-FA; Wed, 25 Sep 2024 14:02:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803990.1214847; Wed, 25 Sep 2024 13:55:29 +0000
+Received: by outflank-mailman (output) from mailman id 803999.1214859; Wed, 25 Sep 2024 14:02:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stSUL-0004EV-IP; Wed, 25 Sep 2024 13:55:29 +0000
-Received: by outflank-mailman (input) for mailman id 803990;
- Wed, 25 Sep 2024 13:55:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1stSb7-00069u-C1; Wed, 25 Sep 2024 14:02:29 +0000
+Received: by outflank-mailman (input) for mailman id 803999;
+ Wed, 25 Sep 2024 14:02:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aBXn=QX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1stSUL-0004EP-32
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 13:55:29 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d17cce28-7b45-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 15:55:27 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a8d4979b843so854734466b.3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 06:55:27 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93930cb0afsm210575066b.138.2024.09.25.06.55.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 06:55:26 -0700 (PDT)
+ <SRS0=NvxM=QX=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
+ id 1stSb6-00069m-1N
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 14:02:28 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c9c39f16-7b46-11ef-a0ba-8be0dac302b0;
+ Wed, 25 Sep 2024 16:02:25 +0200 (CEST)
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2024 07:02:09 -0700
+Received: from uaeoff-desk2.amr.corp.intel.com (HELO [10.124.221.107])
+ ([10.124.221.107])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2024 07:02:08 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,112 +43,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d17cce28-7b45-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727272526; x=1727877326; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/ROTjEnKJxL57B5fWN0TIbo0ChriJWF+JYVCoP2RyLU=;
-        b=bT+QVoLp7e9e8LusIcYnQ5Kqoi+va5Jfka04y/UN3vHQgC1prqD4gQcQvApA7DeTXS
-         a7OMKa9bngmrurwhMcQS120GQFuy48AT0lH+Yu3gY8EgX6HfB1u3SW8wsuL3t3kDmEor
-         weIcmvrwPmplOKLdL5aBDkSZeXF/LQnmt+iS8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727272526; x=1727877326;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/ROTjEnKJxL57B5fWN0TIbo0ChriJWF+JYVCoP2RyLU=;
-        b=P6o344a9QIjpibcgetUqY2+I//hlwA8oX46oZoPxtDz64oqVTyQGJmwSO8voq5Bcui
-         Q0Wguk2Kg6xv5apmEwdILkVyYWPpJctQJ5UyHYsxpyXHLzTdQToj5S3KIkTAvje8A0Z2
-         pK1XskiFBmRVFH2E5TXpdIJiJ2VRwZYzvLDsB1LLyW9uV5sXJJOiKc3brlUMJ/N3ECPi
-         /LEjFKxWlsk0Mo2hZyS6gxoYg3FUvEla9hh5CpZPBIqfJ/gFmOMtg7zR92MGhf0N4rzI
-         8Aut/DEi90yhsB8w8wSCKILT6ZwR0+UVdTL2CTkxN3e7VsvTERBPL/GFvSSMinZuDOz5
-         Nr8g==
-X-Gm-Message-State: AOJu0Ywdwc3tou7kMBTe8okUBf6XOfQozeNUAuJ10ySFSltyBnQdMyq7
-	py0vJIXEHhCWXjXN2HDzL5VSj3owifdsfeiU5cPphTWxTxVHLHCD9LtDVP5P8/A=
-X-Google-Smtp-Source: AGHT+IEOb9inat3k6yOE2UeHfoW2pTwMngDDTyQieMl5Qa2O1AJNreWiOgTc8nrxBjKSEa7yhqhxsA==
-X-Received: by 2002:a17:907:1ca1:b0:a8c:78a5:8fc4 with SMTP id a640c23a62f3a-a93a036a36bmr219989966b.19.1727272526366;
-        Wed, 25 Sep 2024 06:55:26 -0700 (PDT)
-Date: Wed, 25 Sep 2024 15:55:25 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: Re: [PATCH v2 5/6] x86/alternatives: do not BUG during apply
-Message-ID: <ZvQWTSr7o8V3UW6p@macbook.local>
-References: <20240925084239.85649-1-roger.pau@citrix.com>
- <20240925084239.85649-6-roger.pau@citrix.com>
- <00ad838a-a086-4b18-a32e-0a4a6cd52fe4@citrix.com>
+X-Inumbo-ID: c9c39f16-7b46-11ef-a0ba-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1727272945; x=1758808945;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=O44H/n/+tVb3mLkqeDDuyNfWJRDl/PFxhugutpg7oqE=;
+  b=EWPadHeqLPhm1F9xtZPbLfpuBWFT/Ct5aZ+rxXE/pwcuAjVwN0k5bjK6
+   C1iuo4rVVC7Fx6FBNz2JJztygyBsA0N+Gl+a7GO5IMdfZUSj9xSqDEIlL
+   zH3NqUuAJDF2dE4+DQ+lrvSJQoWu2yIafmImF2VlLkUk+eizE/c212Z3n
+   bHiiVw2OHlvV4ZXOB2/3TdcM9tUOqoYxgptk+g10vBacASarZPG7pPM2G
+   6qO2tiLYlShDY/dv0ja1kMHPsOFUD/nVE1yQRhksx6pIOnf1Byotl6gzH
+   zAF9IIRxRrzw1o8oU9oevnDEZIM8/X3IRGe8T5dOSqj2JzGCLkWuyyK3X
+   A==;
+X-CSE-ConnectionGUID: OuM11SMmRVeUBRoQ4MguKg==
+X-CSE-MsgGUID: UKI9ye6WTYK7GUfNW0R+8g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11206"; a="37678651"
+X-IronPort-AV: E=Sophos;i="6.10,257,1719903600"; 
+   d="scan'208";a="37678651"
+X-CSE-ConnectionGUID: sxTgu0K3TNChIcMimDbWag==
+X-CSE-MsgGUID: sQjQcspGRHe3msbj5Tmpig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,257,1719903600"; 
+   d="scan'208";a="71449598"
+Message-ID: <d769353a-7290-405b-9585-a88a0743bb77@intel.com>
+Date: Wed, 25 Sep 2024 07:02:07 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <00ad838a-a086-4b18-a32e-0a4a6cd52fe4@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/5] x86/kernel: Move page table macros to header
+To: Jason Andryuk <jason.andryuk@amd.com>, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Brian Gerst <brgerst@gmail.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <20240823193630.2583107-1-jason.andryuk@amd.com>
+ <20240823193630.2583107-5-jason.andryuk@amd.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20240823193630.2583107-5-jason.andryuk@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 25, 2024 at 11:53:30AM +0100, Andrew Cooper wrote:
-> On 25/09/2024 9:42 am, Roger Pau Monne wrote:
-> > alternatives is used both at boot time, and when loading livepatch payloads.
-> > While for the former it makes sense to panic, it's not useful for the later, as
-> > for livepatches it's possible to fail to load the livepatch if alternatives
-> > cannot be resolved and continue operating normally.
-> >
-> > Relax the BUGs in _apply_alternatives() to instead return an error code.  The
-> > caller will figure out whether the failures are fatal and panic.
-> >
-> > Print an error message to provide some user-readable information about what
-> > went wrong.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 8/23/24 12:36, Jason Andryuk wrote:
+> The PVH entry point will need an additional set of prebuild page tables.
+> Move the macros and defines to pgtable_64.h, so they can be re-used.
 > 
-> Much nicer.  A few more diagnostic comments.
-> 
-> > diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
-> > index 7824053c9d33..c8848ba6006e 100644
-> > --- a/xen/arch/x86/alternative.c
-> > +++ b/xen/arch/x86/alternative.c
-> > @@ -198,9 +198,29 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
-> >          uint8_t buf[MAX_PATCH_LEN];
-> >          unsigned int total_len = a->orig_len + a->pad_len;
-> >  
-> > -        BUG_ON(a->repl_len > total_len);
-> > -        BUG_ON(total_len > sizeof(buf));
-> > -        BUG_ON(a->cpuid >= NCAPINTS * 32);
-> > +        if ( a->repl_len > total_len )
-> > +        {
-> > +            printk(XENLOG_ERR
-> > +                   "alt replacement size (%#x) bigger than destination (%#x)\n",
-> 
-> These all say "some alternative went wrong", without identifying which. 
-> For x86_decode_lite(), debugging was far easier when using:
-> 
-> "Alternative for %ps ...", ALT_ORIG_PTR(a)
-> 
-> If we get the order of loading correct, then %ps will even work for a
-> livepatch, but that's secondary - even the raw number is slightly useful
-> given the livepatch load address.
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> Reviewed-by: Juergen Gross <jgross@suse.com>
 
-I don't think this will work as-is for livepatches.  The call to
-register the virtual region is currently done in livepatch_upload(),
-after load_payload_data() has completed.
-
-We could see about registering the virtual region earlier (no
-volunteering to do that work right now).
-
-> I could be talked down to just "Alt for %ps" as you've got it here.  I
-> think it's clear enough in context.  So, I'd recommend:
-> 
-> "Alt for %ps, replacement size %#x larger than origin %#x\n".
-> 
-> Here, I think origin is better than destination, when discussing
-> alternatives.
-
-Sure.
-
-> I can adjust on commit.  Everything else is fine.
-
-If you are comfortable with doing the adjustments on commit, please go
-ahead.
-
-Thanks, Roger.
+Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
 
