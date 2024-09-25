@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B719985667
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 11:34:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803701.1214431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CCC098567D
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 11:38:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803711.1214442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stOP3-0007jd-8n; Wed, 25 Sep 2024 09:33:45 +0000
+	id 1stOTC-0000AD-QW; Wed, 25 Sep 2024 09:38:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803701.1214431; Wed, 25 Sep 2024 09:33:45 +0000
+Received: by outflank-mailman (output) from mailman id 803711.1214442; Wed, 25 Sep 2024 09:38:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stOP3-0007hW-6G; Wed, 25 Sep 2024 09:33:45 +0000
-Received: by outflank-mailman (input) for mailman id 803701;
- Wed, 25 Sep 2024 09:33:44 +0000
+	id 1stOTC-000074-My; Wed, 25 Sep 2024 09:38:02 +0000
+Received: by outflank-mailman (input) for mailman id 803711;
+ Wed, 25 Sep 2024 09:38:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lFoA=QX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1stOP2-0007hQ-5G
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 09:33:44 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1stOTA-00006y-Tu
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 09:38:00 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 40ad619b-7b21-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 11:33:42 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a8ce5db8668so638644466b.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 02:33:42 -0700 (PDT)
+ id d9c1102f-7b21-11ef-99a2-01e77a169b0f;
+ Wed, 25 Sep 2024 11:37:59 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-a8d2daa2262so832343566b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 02:37:59 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93930c5824sm188943666b.129.2024.09.25.02.33.41
+ a640c23a62f3a-a93930f83adsm189475866b.167.2024.09.25.02.37.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Sep 2024 02:33:41 -0700 (PDT)
+ Wed, 25 Sep 2024 02:37:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40ad619b-7b21-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: d9c1102f-7b21-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727256822; x=1727861622; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1727257078; x=1727861878; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IFuLBGdI4mydAZCukqIxkvKgAuJxAoU/tpxv4aGhfrY=;
-        b=SqVgRH3/d512w0EPZVjZiLiqSZ3RUtjrV9s63hVlJcO9qd9P9jxzDRO+1mnoM6/hn0
-         8U3t8BwNPut0Xq1yuowOJ3Uxnm8eKebr8qCM/BBxGK0nl0Fgx6HU5HG/deytDbF3/cx3
-         hZGjCs88xp7vcIsZxGEBlUK2Y2eZXtOBRU7RU=
+        bh=KhpjpiIdmsgRCCcD5YJuhmwSOrjfQs5MEGcBeIdVlMg=;
+        b=W8RzyYJj3iaYSLBX52/lXA9McO0ZdT5bCZFL36bCgroSvHD+EuPSFMOgjPx+KT6vNa
+         18hTNnLdAba0uNgFCgVDAzn5GGxiVjlFrI+pyJx/B6ln5TM88fNf13U4QZf+UNpPevpO
+         mdmTj0azx8kA2C6fJLHBKiRWTFu+m/1ZN8stk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727256822; x=1727861622;
+        d=1e100.net; s=20230601; t=1727257078; x=1727861878;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IFuLBGdI4mydAZCukqIxkvKgAuJxAoU/tpxv4aGhfrY=;
-        b=o2DbzHBlZ/GM9myaCHeBcz2XyztKnilKhNHe2jvzse7AJJRjuz+NMFh8hjCOl9jMS2
-         Z92tTeRwY2NKF5hQGZ0R5QHoT57WPMOT90eXEBLn+SORWQ1J7/J5kxi1/OpoxP79c47D
-         8BXfMVgaMGpcClymMN77WCVpoiaAt1QgfLr9t/tIhMbbKK++ryLapZ69y5yk2wCg5zOf
-         g7eesRzDsG5DCYG5bZZlXzga3KeykE9C7sqcDaNkXyMu0Jp30lEFg/unssWXi0tD2lw5
-         tmzMD8jr/vIg5Xf2SXL63TNGkUMGEOZRvr2n0mhb5b6BuI+9eN7nglYgzLqP4530VcKs
-         OPZg==
-X-Forwarded-Encrypted: i=1; AJvYcCXLkWjSt6wfOeKFKcUNpG86Z0ufHV34d9OaM10IivbWNXV7WxVd6oUN463ZTbO21wj51+/W6Jo+pOw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyEoWYUm0c/MyD3m/kN7/NKk1XQL2R30GmB/Z05rJp4P95/+ROJ
-	htGI1AwStAipIWXk73Gk9Z5pmpg/7lE5K+WRTvmKuZICZqpe8bDWi0uNu9UqyHe5PTjcK0zxS5V
-	S+VU=
-X-Google-Smtp-Source: AGHT+IG4aFImU3dcw1/PsBjETL1/pnU1YTCZOExLFjv+cmOadcfqFYfaDtZ5cjY2pW+ewsTrASTpHg==
-X-Received: by 2002:a17:907:78e:b0:a86:ab84:7fc1 with SMTP id a640c23a62f3a-a93a061b805mr188890066b.50.1727256821667;
-        Wed, 25 Sep 2024 02:33:41 -0700 (PDT)
-Message-ID: <c357ec68-bfd2-427e-8f33-5826a2252b0e@citrix.com>
-Date: Wed, 25 Sep 2024 10:33:39 +0100
+        bh=KhpjpiIdmsgRCCcD5YJuhmwSOrjfQs5MEGcBeIdVlMg=;
+        b=BSZnWlGmaMLJ36uaEiOEgaiNRF8nE5yXmANrUrL1xMJ5ssY1U12G1rzIFAw8Uk8ROS
+         O6UojctoGdvlgCbhTfRVLp9toDr3HQOpRiP8v/vXjb0+gpSOSXQmyt0QdzJJRY85EMUR
+         vFA8y5WA0JzYYjx5MgmD3kirOkKJZNBr7IL0a4tPl2H38ouRDC/mFXFvq3S8S/ThIal8
+         jaSop4U0Xl39Yo46C5QAOrHw8MexznilP0hJSHQZ6bDVGlWVVQ2Gzjce1EWNvDwYDb4a
+         sm0Ehjte7FcSQgCHnzLsf91YNCKkpyAUBJwjgZ9cDkOAE++zfyR4UR9k3XvBnp3dQ3T5
+         b4Og==
+X-Forwarded-Encrypted: i=1; AJvYcCXRGjyQG8g/W4OmVXgUWxr1mBLbEMcaevz8OcDjpQSN0kv96Yx+uUfzJ/7rc158ZRWqVp2VTPcaC7o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwwmzP2DWgKe+qxLvbByN+aYahQffMDfzl2g1iyq/dHnJcAbb/n
+	6QLAHyguRo6RulF1iL8uCgO921NWK4aHGMrxorI0pASi6R7j5KAI8aNBgIbV594=
+X-Google-Smtp-Source: AGHT+IHaGFBei82tNnz+I5evKW5pO9/eEs22SFI0inhqw4z/Vgua+w4C5Pl/FwWVS4mCoXr8dBVA3Q==
+X-Received: by 2002:a17:907:7e95:b0:a90:b646:8e4a with SMTP id a640c23a62f3a-a93a066d95amr231476866b.65.1727257078444;
+        Wed, 25 Sep 2024 02:37:58 -0700 (PDT)
+Message-ID: <c2009427-f284-4cd2-b704-f5afc563f324@citrix.com>
+Date: Wed, 25 Sep 2024 10:37:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] xen/livepatch: zero pointer to temporary load
- buffer
+Subject: Re: [PATCH v2 3/6] xen/livepatch: simplify and unify logic in
+ prepare_payload()
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
 References: <20240925084239.85649-1-roger.pau@citrix.com>
- <20240925084239.85649-3-roger.pau@citrix.com>
+ <20240925084239.85649-4-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -130,44 +129,41 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240925084239.85649-3-roger.pau@citrix.com>
+In-Reply-To: <20240925084239.85649-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 25/09/2024 9:42 am, Roger Pau Monne wrote:
-> The livepatch_elf_sec data field points to the temporary load buffer, it's the
-> load_addr field that points to the stable loaded section data.  Zero the data
-> field once load_addr is set, as it would otherwise become a dangling pointer
-> once the load buffer is freed.
->
-> No functional change intended.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> Changes since v1:
->  - New in this version.
-> ---
->  xen/common/livepatch.c | 3 +++
->  1 file changed, 3 insertions(+)
->
 > diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-> index df41dcce970a..87b3db03e26d 100644
+> index 87b3db03e26d..8e61083f23a7 100644
 > --- a/xen/common/livepatch.c
 > +++ b/xen/common/livepatch.c
-> @@ -383,6 +383,9 @@ static int move_payload(struct payload *payload, struct livepatch_elf *elf)
->              }
->              else
->                  memset(elf->sec[i].load_addr, 0, elf->sec[i].sec->sh_size);
-> +
-> +            /* Avoid leaking pointers to temporary load buffers. */
-> +            elf->sec[i].data = NULL;
->          }
->      }
+> @@ -470,6 +470,31 @@ static int xen_build_id_dep(const struct payload *payload)
+>      return 0;
+>  }
 >  
+> +/* Parses build-id sections into the given destination. */
+> +static int parse_buildid(const struct livepatch_elf_sec *sec,
+> +                         struct livepatch_build_id *id)
+> +{
+> +    const Elf_Note *n;
+> +    int rc;
+> +
+> +    /* Presence of the sections is ensured by check_special_sections(). */
+> +    ASSERT(sec);
+> +
+> +    n = sec->load_addr;
+> +
+> +    if ( sec->sec->sh_size <= sizeof(*n) )
+> +        return -EINVAL;
+> +
+> +    rc = xen_build_id_check(n, sec->sec->sh_size, &id->p, &id->len);
 
-Where is the data allocated and freed?
+I've just realised what is so confusing.
 
-I don't see it being freed in this loop, so how is freed subsequently?
+This function is not a Xen buildid check, it's an ELF buildid note check.
 
-~Andrew
+I'll do a followup patch after yours goes in renaming it.
+
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
