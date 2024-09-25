@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CD9F98647B
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 18:08:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.804377.1215340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C8FE9864AF
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 18:20:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.804384.1215349 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stUYs-0008B3-Gh; Wed, 25 Sep 2024 16:08:18 +0000
+	id 1stUjz-0005X8-FT; Wed, 25 Sep 2024 16:19:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 804377.1215340; Wed, 25 Sep 2024 16:08:18 +0000
+Received: by outflank-mailman (output) from mailman id 804384.1215349; Wed, 25 Sep 2024 16:19:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stUYs-00088t-E0; Wed, 25 Sep 2024 16:08:18 +0000
-Received: by outflank-mailman (input) for mailman id 804377;
- Wed, 25 Sep 2024 16:08:16 +0000
+	id 1stUjz-0005Up-Ci; Wed, 25 Sep 2024 16:19:47 +0000
+Received: by outflank-mailman (input) for mailman id 804384;
+ Wed, 25 Sep 2024 16:19:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mw3j=QX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1stUYq-00086A-Mw
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 16:08:16 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ <SRS0=aBXn=QX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1stUjx-0005Uh-Sd
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 16:19:45 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e088413-7b58-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 18:08:13 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-5365aa568ceso45758e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 09:08:13 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9392f342b2sm226492366b.35.2024.09.25.09.08.11
+ id f8faab2c-7b59-11ef-99a2-01e77a169b0f;
+ Wed, 25 Sep 2024 18:19:43 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a8d0d82e76aso2885766b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 09:19:43 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93930f78a1sm223697866b.161.2024.09.25.09.19.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 09:08:12 -0700 (PDT)
+ Wed, 25 Sep 2024 09:19:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +44,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e088413-7b58-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: f8faab2c-7b59-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727280493; x=1727885293; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=6djaZ0i0UcLAQOEF1aMz+/6MjQ2USThbc7kTlX/IVDk=;
-        b=YBwHFE2Q7QkO1BzEFSmYkcyt+nf47WiYuzF9Gc1Eos+GLc4Dx+bLHWB9XDO9OKWxac
-         SP6CTeJL1hvBD4BNNXZb19dS9c+QieSq3jCAGMa+VpVqAolIQcfXNMWRfx4kZ3boKDq4
-         2Fk3Z2V1BcPosKX1c+5fwPX8aba22gCyKRuEeL7DcNSJdr26drHfDl9pHKS9Yq5H/p+a
-         dtEohsWw/aNRGtXzcDG0rftuATSg2AMpTTA72YwAqRmzcZuzwadoD6ZNTW5RJzHt1PV8
-         L2n+fdybl8ILEJ+0zKPVueo2+5Rzqgj3+6ydYAepQSHz2V2O471U+RA0aKwiGFA/oHNS
-         DLVw==
+        d=citrix.com; s=google; t=1727281183; x=1727885983; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=L10pjNtOTGB1AbMCAXmQMqcO768MO1PVnuUs9U7cYmY=;
+        b=Jl/Yi7ETl2FS1nrnJO+dilBEap1+aT2R0/eEPEqvME4M86XvKp+wl8Q1Ld6hk7Dq4u
+         tcQcoW07U9j2E0IHsqmwSEVkzPEaFrgF3wfwy/UCKiGmaD58pmHfO3Nj/oUpJv5OzZbm
+         wl2TMzSL/bs2WbLrm5doxGuqal78q+lT4MMjQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727280493; x=1727885293;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6djaZ0i0UcLAQOEF1aMz+/6MjQ2USThbc7kTlX/IVDk=;
-        b=O+C6FpfinfeB0DgcAkrGBoueViksE85EyryePJ4NcbDHCacBYmg99V9d/evc7Jfd4j
-         Wh2xlWZNeoVfgypz2LJKQ+ooH46GiVhgUjLwqyJHkwpBIZKRyIjPa1XyXmfrK/fLXWBs
-         4Taeka/iVVF4QH7ghxw0TquMy59TNTfrCu6Lzy5T2vL3ricoweneD4hjqfaGtoKUBRPM
-         y42BSs9LRt7qikhPZQc+zQ2dgyUnhFC/4ha/UGynDdQDmRJn2kzyLTtvtOzAGwuwerBB
-         E7KQE2P3tOATMOyxEVhCWHdZL1z7VhgLiSE6u62gH3lib36dMsjLYruyFtjLo9+fNqgr
-         7HPw==
-X-Forwarded-Encrypted: i=1; AJvYcCUCcjrxF8v30Z5yj8QJGd8j1fpRw5vCoeW3V5t3KkkVzSUeCez817Zqe7VPxnad4TCJUNbfbWwnjI8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYvVkYgzrwENnYPc8q7ZNe8knf0U60sOcvYDZkAZmDYPkiW26I
-	g1kzcevbJ56ag0lkfZksceV9xT0a886jr8Hjfl1gfcN/YxCfIXv8
-X-Google-Smtp-Source: AGHT+IFZYWTDkbSqil3GuCgrvM2AL9hQcvrygCaygfWhMnA3SIyJlvdTtDmukDU9trDkfSg6If9mKw==
-X-Received: by 2002:a05:6512:1303:b0:536:5509:8862 with SMTP id 2adb3069b0e04-53877538bf6mr3117193e87.36.1727280492816;
-        Wed, 25 Sep 2024 09:08:12 -0700 (PDT)
-Message-ID: <81b676ae5958d93ecbc3a552c1c0a208dfa2d18a.camel@gmail.com>
-Subject: Re: [PATCH v3 1/5] xen: define ACPI and DT device info sections
- macros
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Date: Wed, 25 Sep 2024 18:08:11 +0200
-In-Reply-To: <82125953-99b5-4fde-83b8-51643cce793b@suse.com>
-References: <cover.1727193766.git.oleksii.kurochko@gmail.com>
-	 <7521839bd265e0520fc448adf50361d18dfe53df.1727193766.git.oleksii.kurochko@gmail.com>
-	 <82125953-99b5-4fde-83b8-51643cce793b@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1727281183; x=1727885983;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=L10pjNtOTGB1AbMCAXmQMqcO768MO1PVnuUs9U7cYmY=;
+        b=fWq9qBHz/EZqobJ/+ylArm+V4SwRvPJgewW8AfZuZsP2e8R9bXmIczEIbDB5dbN0o7
+         UadI/yCgbkRhdJOVXpcmK4oKK4LCtWS66nJvOngueRFRp6JTWy85VUNBlQ6vxvMSl0js
+         UC1JOKEq3YRCQyd6Qzi2fWDDmCURFhNTR7aguDY+1sDxB1UPRfYM9BucM0gohuhmdDog
+         xU+0prLv2aC/oq4LUw0EzgCiuhUYb7sA/gcdBfhTSuvQ16drTTZzviKX36dyTAs8Mw6z
+         cYjwn+bEzLOp/hY3WDVQ+VyPLyoWCkd5QRpkgy4NCW313ebkZeZD/WoKAd1xzl1T0daz
+         HoQw==
+X-Gm-Message-State: AOJu0YwLKBksI4GJOjzz/h4xUk62TTArLsExpxqOtY7/hdUL02T/qZR5
+	DL2b3NJ31ifOMrLLANB3G+m26BIZY16ScOGRe5JcnlXXmZyG7gk8Ue0HATVB7YA=
+X-Google-Smtp-Source: AGHT+IFFnV0ZU5MiTAPMxPoN1AeuB1yKQRWrHPXVM8BU6PpdoSWGJZFed+P67CDSy91OSpxUlgAfMw==
+X-Received: by 2002:a17:907:9718:b0:a86:8285:24a0 with SMTP id a640c23a62f3a-a93a037ed7emr316053966b.23.1727281182591;
+        Wed, 25 Sep 2024 09:19:42 -0700 (PDT)
+Date: Wed, 25 Sep 2024 18:19:41 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 13/22] x86/hvm: use a per-pCPU monitor table in HAP mode
+Message-ID: <ZvQ4HfbsVKmJrl-7@macbook.local>
+References: <20240726152206.28411-1-roger.pau@citrix.com>
+ <20240726152206.28411-14-roger.pau@citrix.com>
+ <D3HJ80ZGO0MR.2JCGJIV5JPYQP@cloud.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <D3HJ80ZGO0MR.2JCGJIV5JPYQP@cloud.com>
 
-On Wed, 2024-09-25 at 10:36 +0200, Jan Beulich wrote:
-> PPC's desire to use DECL_SECTION() can certainly be covered by
-> providing
-> a (trivial) DECL_SECTION() also for Arm and RISC-V. Seeing that even
-> x86
-> overrides the default to the trivial form for building xen.efi, I'm
-> inclined to suggest we should actually have a way for an arch to
-> indicate
-> to xen.lds.h that it wants just the trivial form (avoiding a later
-> #undef).
-If to go with what I suggested before then x86 will look like:
+On Fri, Aug 16, 2024 at 07:02:54PM +0100, Alejandro Vallejo wrote:
+> On Fri Jul 26, 2024 at 4:21 PM BST, Roger Pau Monne wrote:
+> > Instead of allocating a monitor table for each vCPU when running in HVM HAP
+> > mode, use a per-pCPU monitor table, which gets the per-domain slot updated on
+> > guest context switch.
+> >
+> > This limits the amount of memory used for HVM HAP monitor tables to the amount
+> > of active pCPUs, rather than to the number of vCPUs.  It also simplifies vCPU
+> > allocation and teardown, since the monitor table handling is removed from
+> > there.
+> >
+> > Note the switch to using a per-CPU monitor table is done regardless of whether
+> 
+> s/per-CPU/per-pCPU/
 
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index d48de67cfd..911585541e 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -3,6 +3,10 @@
-=20
- #include <xen/cache.h>
- #include <xen/lib.h>
-+
-+#ifdef EFI
-+#define SIMPLE_DECL_SECTION
-+#endif
- #include <xen/xen.lds.h>
- #include <asm/page.h>
- #undef ENTRY
-@@ -12,9 +16,7 @@
-=20
- #define FORMAT "pei-x86-64"
- #undef __XEN_VIRT_START
--#undef DECL_SECTION
- #define __XEN_VIRT_START __image_base__
--#define DECL_SECTION(x) x :
-=20
- ENTRY(efi_start)
-=20
-diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
-index a17810bb28..fb11ba7357 100644
---- a/xen/include/xen/xen.lds.h
-+++ b/xen/include/xen/xen.lds.h
-@@ -5,6 +5,8 @@
-  * Common macros to be used in architecture specific linker scripts.
-  */
-=20
-+#ifdef SIMPLE_DECL_SECTION
-+
- /*
-  * Declare a section whose load address is based at PA 0 rather than
-  * Xen's virtual base address.
-@@ -15,6 +17,10 @@
- # define DECL_SECTION(x) x : AT(ADDR(x) - __XEN_VIRT_START)
- #endif
-=20
-+#else /* SIMPLE_DECL_SECION */
-+# define DECL_SECTION(x) x :
-+#endif
-+
- /*
-  * To avoid any confusion, please note that the EFI macro does not
-correspond
-  * to EFI support and is used when linking a native EFI (i.e. PE/COFF)
-binary,
+Sorry, I might not has been as consistent as I wanted with using pCPU
+everywhere.
 
-Does it make sense? Or it would be better to follow way for each
-architecture:
-   #undef DECL_SECTION
-   #define DECL_SECTION(x) x :
-  =20
-~ Oleksii
+> > Address Space Isolation is enabled or not.  Partly for the memory usage
+> > reduction, and also because it allows to simplify the VM tear down path by not
+> > having to cleanup the per-vCPU monitor tables.
+> >
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > Note the monitor table is not made static because uses outside of the file
+> > where it's defined will be added by further patches.
+> > ---
+> >  xen/arch/x86/hvm/hvm.c             | 60 ++++++++++++++++++++++++
+> >  xen/arch/x86/hvm/svm/svm.c         |  5 ++
+> >  xen/arch/x86/hvm/vmx/vmcs.c        |  1 +
+> >  xen/arch/x86/hvm/vmx/vmx.c         |  4 ++
+> >  xen/arch/x86/include/asm/hap.h     |  1 -
+> >  xen/arch/x86/include/asm/hvm/hvm.h |  8 ++++
+> >  xen/arch/x86/mm.c                  |  8 ++++
+> >  xen/arch/x86/mm/hap/hap.c          | 75 ------------------------------
+> >  xen/arch/x86/mm/paging.c           |  4 +-
+> >  9 files changed, 87 insertions(+), 79 deletions(-)
+> >
+> > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> > index 7f4b627b1f5f..3f771bc65677 100644
+> > --- a/xen/arch/x86/hvm/hvm.c
+> > +++ b/xen/arch/x86/hvm/hvm.c
+> > @@ -104,6 +104,54 @@ static const char __initconst warning_hvm_fep[] =
+> >  static bool __initdata opt_altp2m_enabled;
+> >  boolean_param("altp2m", opt_altp2m_enabled);
+> >  
+> > +DEFINE_PER_CPU(root_pgentry_t *, monitor_pgt);
+> > +
+> > +static int allocate_cpu_monitor_table(unsigned int cpu)
+> 
+> To avoid ambiguity, could we call these *_pcpu_*() instead?
+
+As replied by Jan, plain 'cpu' is physical CPU on hypervisor code
+function names usually.  '_pcpu_' here would IMO imply per-CPU, which
+it also is, but likely doesn't need spelling in the function name.
+
+> > +{
+> > +    root_pgentry_t *pgt = alloc_xenheap_page();
+> > +
+> > +    if ( !pgt )
+> > +        return -ENOMEM;
+> > +
+> > +    clear_page(pgt);
+> > +
+> > +    init_xen_l4_slots(pgt, _mfn(virt_to_mfn(pgt)), INVALID_MFN, NULL,
+> > +                      false, true, false);
+> > +
+> > +    ASSERT(!per_cpu(monitor_pgt, cpu));
+> > +    per_cpu(monitor_pgt, cpu) = pgt;
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +static void free_cpu_monitor_table(unsigned int cpu)
+> > +{
+> > +    root_pgentry_t *pgt = per_cpu(monitor_pgt, cpu);
+> > +
+> > +    if ( !pgt )
+> > +        return;
+> > +
+> > +    per_cpu(monitor_pgt, cpu) = NULL;
+> > +    free_xenheap_page(pgt);
+> > +}
+> > +
+> > +void hvm_set_cpu_monitor_table(struct vcpu *v)
+> > +{
+> > +    root_pgentry_t *pgt = this_cpu(monitor_pgt);
+> > +
+> > +    ASSERT(pgt);
+> > +
+> > +    setup_perdomain_slot(v, pgt);
+> 
+> Why not modify them as part of write_ptbase() instead? As it stands, it appears
+> to be modifying the PTEs of what may very well be our current PT, which makes
+> the perdomain slot be in a $DEITY-knows-what state until the next flush
+> (presumably the write to cr3 in write_ptbase()?; assuming no PCIDs).
+> 
+> Setting the slot up right before the cr3 change should reduce the potential for
+> misuse.
+
+The reasoning for doing it here it that the per-domain slot only needs
+setting on context switch.  In the PV case write_ptbase() will be
+called each time the guest switches %cr3, but setting the per-domain
+slot is not required for each call if the vCPU hasn't changed.
+
+Let me see if I can arrange for the current contents of
+setup_perdomain_slot() to be merged into write_ptbase(). Note
+setup_perdomain_slot() started as a wrapper to extract XPTI specific
+code from paravirt_ctxt_switch_to().
+
+> > +
+> > +    make_cr3(v, _mfn(virt_to_mfn(pgt)));
+> > +}
+> > +
+> > +void hvm_clear_cpu_monitor_table(struct vcpu *v)
+> > +{
+> > +    /* Poison %cr3, it will be updated when the vCPU is scheduled. */
+> > +    make_cr3(v, INVALID_MFN);
+> 
+> I think this would benefit from more exposition in the comment. If I'm getting
+> this right, after descheduling this vCPU we can't assume it'll be rescheduled
+> on the same pCPU, and if it's not it'll end up using a different monitor table.
+> This poison value is meant to highlight forgetting to set cr3 in the
+> "ctxt_switch_to()" path. 
+
+Indeed, we would like to avoid running on a different pCPU while still
+using the monitor page-tables from whatever pCPU the vCPU previously
+had been running.
+
+> All of that can be deduced from what you wrote and sufficient headscratching
+> but seeing how this is invoked from the context switch path it's not incredibly
+> clear wether you meant the perdomain slot would be updated by the next vCPU or
+> what I stated in the previous paragraph.
+
+No, it's just about not leaving stale values in the vcpu struct.
+
+> Assuming it is as I mentioned, maybe hvm_forget_cpu_monitor_table() would
+> convey what it does better? i.e: the vCPU forgets/unbinds the monitor table
+> from its internal state.
+
+Right, I assumed that 'clear' already conveyed the concept of
+unbinding from a pCPU.  If I use unbind, then I guess I should also
+use 'bind' for what I currently call 'set'.
+
+Thanks, Roger.
 
