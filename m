@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B65889857A5
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 13:09:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803848.1214675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9E8F9857AA
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 13:10:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803853.1214685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stPtD-0007CV-8H; Wed, 25 Sep 2024 11:08:59 +0000
+	id 1stPuA-0007hX-Gt; Wed, 25 Sep 2024 11:09:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803848.1214675; Wed, 25 Sep 2024 11:08:59 +0000
+Received: by outflank-mailman (output) from mailman id 803853.1214685; Wed, 25 Sep 2024 11:09:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stPtD-0007Az-5V; Wed, 25 Sep 2024 11:08:59 +0000
-Received: by outflank-mailman (input) for mailman id 803848;
- Wed, 25 Sep 2024 11:08:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0GdR=QX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1stPtB-0007At-Ic
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 11:08:57 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8e103dcf-7b2e-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 13:08:55 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5c42e7adbddso8710088a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 04:08:55 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93a238bc4esm81868766b.81.2024.09.25.04.08.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Sep 2024 04:08:54 -0700 (PDT)
+	id 1stPuA-0007fT-Dp; Wed, 25 Sep 2024 11:09:58 +0000
+Received: by outflank-mailman (input) for mailman id 803853;
+ Wed, 25 Sep 2024 11:09:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0N7N=QX=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1stPu9-0007XF-0t
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 11:09:57 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b256d3de-7b2e-11ef-a0ba-8be0dac302b0;
+ Wed, 25 Sep 2024 13:09:56 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a8a6d1766a7so920254366b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 04:09:56 -0700 (PDT)
+Received: from fziglio-desktop.. ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9392f4f83asm196069666b.46.2024.09.25.04.09.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Sep 2024 04:09:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e103dcf-7b2e-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: b256d3de-7b2e-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727262535; x=1727867335; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Hd7FOw/l8eiQFV2fcuXzIykmEt5gFhpSZpvKjd5i0xg=;
-        b=bH06vQRWAuGSB3xxzHOa+fRVuZ3WQqBddr8jzUjd16tmwA92QxzSl7irONHStCe5zj
-         fS66T/UgZ9I02H9LudWzVWuFlLpsCFEfYU1je+HNF0iPhwZ9126CjeUWsM1Oc+aZgUpr
-         lh4yaU8YQh5srTf1YVmxcQpc41KTxbnAOkHRpOpVeeGfga5uFRMNQHQno7T1KSEfpRim
-         rFoGkrsVb8hnVKVmSQdWlfbGOp5p0Oa4jvj1lbC4qUG12sdjoUY0m5LIkgOjktVTwLv6
-         TZkw7H+V6kYIkVgsf83hVvrvBCbnhbGpUxA9zxp5mnbbjpYKRKc74BjCBN7jwakXyGE4
-         oz2g==
+        d=cloud.com; s=cloud; t=1727262595; x=1727867395; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hlYfqSBjPhKnWypPWIY9SM1OmE/N7sm9NnQUnXVH7E4=;
+        b=ECo/GFvr++INtsriez0zQEVgeznA6s0z7YuNnx/sd62jWGSkz2B7l0wkUG7sJwxEhu
+         lBStB8Khia3IfrUsdXT5wOrekGnxabLhqm+mSzsgQ8K7nKiX9hiZ9+AabV5H2/JGJtJ5
+         KADTKrpbPkSssfazrxWBCNGSvKk6wSeGy1zls=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727262535; x=1727867335;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Hd7FOw/l8eiQFV2fcuXzIykmEt5gFhpSZpvKjd5i0xg=;
-        b=kQdmt3Dc0MqSz1UuRGUU5/zlQl+O+Vji/a+4hRmZXeuRvW2Nc6WGDwSypT4GPCYqN2
-         DIFHGa0zyZhlozFrfR8bHsxqoO9VytAP4M+OCdRyOi4tF243J56E6reA6YMHvZk3ucyN
-         t6HeMIoYvSvZ4ZLDPpJQl2sNZhQ11fQsgj+pDWD8JAvTVzBxVFiOeXupxD7J8xJO0Owj
-         Dj/k+5CVA+x5e9r59YBJ4fXLYjX83eLwKwxb2bAsCmWq/H65JrUdx9iIPuWFzuGdKTXY
-         YvwOBAxNL00dVB6ab7NUxkyIDmVO/3w0nCRbBNT1quPYo4Ky1D9ZcmBblL0gUhfLLQsA
-         VKeQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXwD2A/ochdRdLrnlBRrtFUinvnjDfd+pHqGBh00+2WjMmmejCLQnCHOVJEwTYZPjW4sXQUTY7+Sa0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxn10B8cJcPTL5P1W5cEuZZf9aeFNjuXuuBiBatLogtwsnkkC+7
-	orZIPTGRUSJaqGxBVmMQZYKUoc5Er/s+tHWGzFTl4NilZyIJbZTTAZxzorpBrg==
-X-Google-Smtp-Source: AGHT+IHc9/dJb1l1duCEquwhurdVhPbG5Sfqtir/bW5ivhNHKx9E2O7unKC3a0oe2yuIfWOg7v/DEQ==
-X-Received: by 2002:a17:907:7ba3:b0:a86:8ff8:1dd8 with SMTP id a640c23a62f3a-a93a06331ddmr191826166b.46.1727262534919;
-        Wed, 25 Sep 2024 04:08:54 -0700 (PDT)
-Message-ID: <3d774029-d1f0-47cb-910d-c70a6c6c15b0@suse.com>
-Date: Wed, 25 Sep 2024 13:08:54 +0200
+        d=1e100.net; s=20230601; t=1727262595; x=1727867395;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hlYfqSBjPhKnWypPWIY9SM1OmE/N7sm9NnQUnXVH7E4=;
+        b=MH2ZWzgpmmBNKPXPck08dGW6v4o3OCAkzWJZLteVGxMZVRoZqf7P88q/ahs0IOD5Od
+         eEEPsUDTndXeGWlpoJ9rKed3kQj2iR5ILQLxfN/BnC9sceeXhowutaHMCyAR3tVDkuvR
+         VNNUUgXttTuR+mFy8QcX+WL8fKDUeOBvyw3mRQWxNEsS/a1AkyB1sZhi+KJw1wxqjVCa
+         dHaIyN4d1vfvZEx9mgXSKMvEgXcKlgRsXK5AiapXf1bNN3nzJFa82itP4/O1qa8+IF2g
+         TadpZFqGi0/bQkgT/e0N1Y3yJGGElgeH9YSygbUpqgmwaPIgmD/OwtsejxLuJTU0uTSc
+         YijQ==
+X-Gm-Message-State: AOJu0Yx4mHYfG5FO9My8kZY4u8e6WdHx6bUyGT3Z5BjpwvsgxaKfFeQb
+	S1GV/j/hreLtEwqOO8guKryiO5s6tPBV+NuERo1qZnJQgYpy/u6Qy9L8dq5Pyk0K7WWLh+ua8FV
+	P
+X-Google-Smtp-Source: AGHT+IGJD09htlzub8DnBfbh8EyHVjOvZWVwIz7Lm1c8ZNWriLNGvPVc5gh7aDST68iE6XrgatIOFQ==
+X-Received: by 2002:a17:907:9411:b0:a8a:809b:14ed with SMTP id a640c23a62f3a-a93a0646977mr185357666b.44.1727262595502;
+        Wed, 25 Sep 2024 04:09:55 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/defns: Fix typo in comment "Porection" -> "Protection"
+Date: Wed, 25 Sep 2024 12:09:46 +0100
+Message-Id: <20240925110946.277588-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] xen: define ACPI and DT device info sections
- macros
-To: oleksii.kurochko@gmail.com
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <cover.1727193766.git.oleksii.kurochko@gmail.com>
- <7521839bd265e0520fc448adf50361d18dfe53df.1727193766.git.oleksii.kurochko@gmail.com>
- <82125953-99b5-4fde-83b8-51643cce793b@suse.com>
- <4ae840502ca2b60e0e46a1760e9170e1474b5c7e.camel@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4ae840502ca2b60e0e46a1760e9170e1474b5c7e.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25.09.2024 13:02, oleksii.kurochko@gmail.com wrote:
-> Or alignment could be also inside the macros:
->  (if Arm is okay with using POINTER_ALIGN instead of 8 ):
->    +#define DT_DEV_INFO_SEC(secname)  \
->    +    . = ALIGN(POINTER_ALIGN)      \
->    +    DECL_SECTION(secname) {       \
->    +      _sdevice = .;               \
->    +      *(secname)                  \
->    +      _edevice = .;               \
->    +    } :text
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+ xen/arch/x86/include/asm/x86-defns.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-#define DT_DEV_INFO_SEC(secname)  \
-    DECL_SECTION(secname) {       \
-      . = ALIGN(POINTER_ALIGN);   \
-      _sdevice = .;               \
-      *(secname)                  \
-      _edevice = .;               \
-    } :text
-
-would be my preferred form then.
-
-Jan
-
->  ( or if Arm isn't okay ):
->    +#define DT_DEV_INFO_SEC(secname, align)  \
->    +    . = ALIGN(align)              \
->    +    DECL_SECTION(secname) {       \
->    +      _sdevice = .;               \
->    +      *(secname)                  \
->    +      _edevice = .;               \
->    +    } :text
-> 
-> 
-> ~ Oleksii
+diff --git a/xen/arch/x86/include/asm/x86-defns.h b/xen/arch/x86/include/asm/x86-defns.h
+index caa92829ea..7abc5bcd42 100644
+--- a/xen/arch/x86/include/asm/x86-defns.h
++++ b/xen/arch/x86/include/asm/x86-defns.h
+@@ -171,7 +171,7 @@
+ #define X86_EXC_TS            10 /* Invalid TSS */
+ #define X86_EXC_NP            11 /* Segment Not Present */
+ #define X86_EXC_SS            12 /* Stack-Segment Fault */
+-#define X86_EXC_GP            13 /* General Porection Fault */
++#define X86_EXC_GP            13 /* General Protection Fault */
+ #define X86_EXC_PF            14 /* Page Fault */
+ #define X86_EXC_SPV           15 /* PIC Spurious Interrupt Vector */
+ #define X86_EXC_MF            16 /* Maths fault (x87 FPU) */
+-- 
+2.34.1
 
 
