@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04C8D9856D3
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 12:03:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803774.1214586 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 661E69856E8
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 12:08:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803789.1214595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stOrP-0000m5-N6; Wed, 25 Sep 2024 10:03:03 +0000
+	id 1stOw2-0001sl-7W; Wed, 25 Sep 2024 10:07:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803774.1214586; Wed, 25 Sep 2024 10:03:03 +0000
+Received: by outflank-mailman (output) from mailman id 803789.1214595; Wed, 25 Sep 2024 10:07:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stOrP-0000jZ-KG; Wed, 25 Sep 2024 10:03:03 +0000
-Received: by outflank-mailman (input) for mailman id 803774;
- Wed, 25 Sep 2024 10:03:02 +0000
+	id 1stOw2-0001rA-4v; Wed, 25 Sep 2024 10:07:50 +0000
+Received: by outflank-mailman (input) for mailman id 803789;
+ Wed, 25 Sep 2024 10:07:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aBXn=QX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1stOrO-0000J7-1u
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 10:03:02 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ <SRS0=Mw3j=QX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1stOw1-0001r4-5l
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 10:07:49 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 591d3205-7b25-11ef-a0ba-8be0dac302b0;
- Wed, 25 Sep 2024 12:03:01 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a8b155b5e9eso959035466b.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 03:03:01 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9392f541c3sm191322566b.69.2024.09.25.03.03.00
+ id 03f42ca7-7b26-11ef-a0ba-8be0dac302b0;
+ Wed, 25 Sep 2024 12:07:48 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5c26311c6f0so8725004a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 03:07:47 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9392f3427bsm195903866b.15.2024.09.25.03.07.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 03:03:00 -0700 (PDT)
+ Wed, 25 Sep 2024 03:07:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,87 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 591d3205-7b25-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 03f42ca7-7b26-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727258581; x=1727863381; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=l34AsP2RCcPJIICmvnQBN1rnCuDiEWBR/lmz+rdL6FI=;
-        b=RSnFXzmmBO4R0iol0QhbYBZXiqnaZx2Yww2QHUgwAzXAlQbGf5lAjUwvuLkp9jmTQl
-         T8Bwsp6LAanwGSn8bXMx3fuSj3w9dHbNmpoxDEwAUR/RnBqv8JWbWFzcSppil6PiJiJT
-         s3YItZ0qaLIJjVY/2bJtt1ifJ+hqc9cbYoMak=
+        d=gmail.com; s=20230601; t=1727258867; x=1727863667; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=UpmB/RqHd2HzyBRLaFIPSA08hQdvKzim2Fm347BZHW4=;
+        b=aDj1C1Nh9kahchEMKS9ldS0mrcYSZ/MUBafaVeZLSQIFbsMAuVCSBWlUVDn+xQ8fa9
+         xnrfI0eGt1pdfFRXxIb1MPUF/FH+IBPoMVYFvPnba8dK0FGQSjGUPq/3wO7c9mQeVeBf
+         Z/fmhJmLUs2irQlKw3qgYRT/GUhUKHdYlGKwX7a7JFSrB0u0zHuN4dWidytusKB3bpGc
+         tV3K4j/eRTaxyA3XPUC0BCSppp8LQboUXJvRGnGq2PgU0rtg5qPa3xt+OhHJq+A3MYH7
+         OEjxmsrM/X9/HVuArhmuYrsVLMzkn+bid2SapSpSE5MBgbk/tnGfyJeQKlzfFF18nykn
+         mdZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727258581; x=1727863381;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=l34AsP2RCcPJIICmvnQBN1rnCuDiEWBR/lmz+rdL6FI=;
-        b=LuW9GRjE0N+/46U3Vxt7siAOVrnvaLsFuYlxPs5TG4/3XNru/z3MGEsY+ZU8uBsSuI
-         S1CZdtN78EWV6ni1yeQWsofpCYbKpDvxzHITCKHG6luvS5ZVsw4wjdjWvD/4eftlnMzE
-         83xPpFLa8RNcKgoCg0KPM6qpw09Ka9erApqX2Z7cZeglcW5N8xV5WFR2/mCXWeNqFlAq
-         8hrw56C61cIPdT+D9cUA6byHwqITDp90Yger0Yb5pH+qWc24/jjB1wawzfyFeyGvUAHt
-         7Lzn476osH+5SZ8siXowBrq2nRO/1uJyrxpaMrOmZlBTr72wC+Ff1dzLWD0OymycxFjm
-         4Ucg==
-X-Gm-Message-State: AOJu0YwigxmydWnNJsiD9U66pm5Zqk8KhuKjIeGS2C31zqz4YsxqbiN0
-	Kiqx6KGUohcXSXSJTsKAsk3McRtqZwrn9XRNqdldUiWJv8nXo1I+6nK9Jys/43Vf8s1PfsQP9iH
-	j
-X-Google-Smtp-Source: AGHT+IExqZ33JOTQTS643xrMj4gH97jaheELWC4dIJh0XGBL9MF/Y4TY/tyOzYa4f5N5xXPk6me6RA==
-X-Received: by 2002:a17:907:7e8d:b0:a8d:250a:52b2 with SMTP id a640c23a62f3a-a93a0341a30mr189407166b.6.1727258580614;
-        Wed, 25 Sep 2024 03:03:00 -0700 (PDT)
-Date: Wed, 25 Sep 2024 12:02:59 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: Re: [PATCH v2 3/6] xen/livepatch: simplify and unify logic in
- prepare_payload()
-Message-ID: <ZvPf0wqL7cpLzf5i@macbook.local>
-References: <20240925084239.85649-1-roger.pau@citrix.com>
- <20240925084239.85649-4-roger.pau@citrix.com>
- <c2009427-f284-4cd2-b704-f5afc563f324@citrix.com>
+        d=1e100.net; s=20230601; t=1727258867; x=1727863667;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UpmB/RqHd2HzyBRLaFIPSA08hQdvKzim2Fm347BZHW4=;
+        b=lSeU1lNnxMSEoRd+gEWq12Frf9VSns4yQ+dyzTeguCnE5s9RYD9Lc5GA7SeTiHfq4e
+         no2dFxh/KJuRfTwm7HUOxWODyHJMrYZ8ATxGLD1zN0ETG+FWwp87AV4NsOPoCiPoHSOB
+         kreyYfspvNmnL7O6s1MTfLnJS+Et/VBJRC1udmFu/ZxOSern5mSPK8RCKf31KB4GY3Bv
+         PZ34f2yN9ttu0TSAdpwWwXF/GgPPCXSskXSz6j9KAZDbBfLxSPza84gXcKEmHVbxmvxT
+         PIW+y3Qq3U8O1PA5o8u3hGYFJLG5q5Ze5+lMoTe4cNdhKiE9VjKsDsCaFCedQ3NDfaMk
+         o4pA==
+X-Forwarded-Encrypted: i=1; AJvYcCV4//qxNq6xzMMQn/PKVqyBS2LxmD9L+A9Fjcr80irKh3LrAuaxYXF4tfImq+TT5kB5HCfVnyu8FRA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyuW9CLkn0V74O8PhQq6fCVb/MVR1L2WLddHejPmQFKILXgX95A
+	JAgb+P8Upp9tnSOAwBepFejXnixgR1z09RX1/REa0Bu/f5Eg/16+
+X-Google-Smtp-Source: AGHT+IH/Vk1dDxdDJQMvXOedS0TOHew7OLb6HOdXrdB78gMOwas1XcVHjXDORZrjfnr3NBdG74xurA==
+X-Received: by 2002:a17:906:f5a9:b0:a8d:2faf:d337 with SMTP id a640c23a62f3a-a93a0325e08mr222661966b.7.1727258866812;
+        Wed, 25 Sep 2024 03:07:46 -0700 (PDT)
+Message-ID: <ecab08fbbe1a1e364cf6d4bf9dafa42ced4faef4.camel@gmail.com>
+Subject: Re: [PATCH v7 7/8] xen/riscv: page table handling
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Wed, 25 Sep 2024 12:07:45 +0200
+In-Reply-To: <9371e8fd-a1de-40df-8994-814dd6196953@suse.com>
+References: <cover.1726242605.git.oleksii.kurochko@gmail.com>
+	 <582c4cee40222e80faf1e465c011b07eeaf2c19f.1726242605.git.oleksii.kurochko@gmail.com>
+	 <6100a4e0-5bf3-4555-90ae-20624171ff79@suse.com>
+	 <fc23fbd82c1495e75fc0bdcfa894cdb56262b11b.camel@gmail.com>
+	 <9371e8fd-a1de-40df-8994-814dd6196953@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <c2009427-f284-4cd2-b704-f5afc563f324@citrix.com>
 
-On Wed, Sep 25, 2024 at 10:37:56AM +0100, Andrew Cooper wrote:
-> On 25/09/2024 9:42 am, Roger Pau Monne wrote:
-> > diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-> > index 87b3db03e26d..8e61083f23a7 100644
-> > --- a/xen/common/livepatch.c
-> > +++ b/xen/common/livepatch.c
-> > @@ -470,6 +470,31 @@ static int xen_build_id_dep(const struct payload *payload)
-> >      return 0;
-> >  }
-> >  
-> > +/* Parses build-id sections into the given destination. */
-> > +static int parse_buildid(const struct livepatch_elf_sec *sec,
-> > +                         struct livepatch_build_id *id)
-> > +{
-> > +    const Elf_Note *n;
-> > +    int rc;
-> > +
-> > +    /* Presence of the sections is ensured by check_special_sections(). */
-> > +    ASSERT(sec);
-> > +
-> > +    n = sec->load_addr;
-> > +
-> > +    if ( sec->sec->sh_size <= sizeof(*n) )
-> > +        return -EINVAL;
-> > +
-> > +    rc = xen_build_id_check(n, sec->sec->sh_size, &id->p, &id->len);
-> 
-> I've just realised what is so confusing.
-> 
-> This function is not a Xen buildid check, it's an ELF buildid note check.
-> 
-> I'll do a followup patch after yours goes in renaming it.
-> 
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On Tue, 2024-09-24 at 15:31 +0200, Jan Beulich wrote:
+> On 24.09.2024 13:30, oleksii.kurochko@gmail.com=C2=A0wrote:
+> > On Tue, 2024-09-24 at 12:49 +0200, Jan Beulich wrote:
+> > > On 13.09.2024 17:57, Oleksii Kurochko wrote:
+> > > > +static int pt_next_level(bool alloc_tbl, pte_t **table,
+> > > > unsigned
+> > > > int offset)
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 pte_t *entry;
+> > > > +=C2=A0=C2=A0=C2=A0 mfn_t mfn;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 entry =3D *table + offset;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0 if ( !pte_is_valid(*entry) )
+> > > > +=C2=A0=C2=A0=C2=A0 {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( !alloc_tbl )
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ return XEN_TABLE_MAP_FAILED;
+> > > > +
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( create_table(entry=
+) )
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ return XEN_TABLE_MAP_FAILED;
+> > >=20
+> > > You're still losing the -ENOMEM here.
+> > Agree, I will save the return value of create_table and return it.
+>=20
+> That won't work very well, will it?=C2=A0
+I think it will work, just will be needed another one check in
+pt_update_entry() where pt_next_level() is called:
+        if ( (rc =3D=3D XEN_TABLE_MAP_FAILED) || (rc =3D=3D -ENOMEM) )
+        ...
 
-Yeah, the naming of xen_build_id_check is confusing, as it's not just
-a check, it also populates livepatch_build_id fields.  Thought about
-renaming it, but the series was already long enough...
-
-Thanks, Roger.
+> Imo you need a new XEN_TABLE_MAP_NOMEM.
+> (And then XEN_TABLE_MAP_FAILED may want renaming to e.g.
+> XEN_TABLE_MAP_NONE).
+I am still curious if we really need this separation. If to in this way
+then it should be updated the check in pt_update_entry():
+   --- a/xen/arch/riscv/pt.c
+   +++ b/xen/arch/riscv/pt.c
+   @@ -165,10 +165,10 @@ static int pt_next_level(bool alloc_tbl, pte_t
+   **table, unsigned int offset)
+        if ( !pte_is_valid(*entry) )
+        {
+            if ( !alloc_tbl )
+   -            return XEN_TABLE_MAP_FAILED;
+   +            return XEN_TABLE_MAP_NONE;
+   =20
+            if ( create_table(entry) )
+   -            return XEN_TABLE_MAP_FAILED;
+   +            return XEN_TABLE_MAP_NOMEM;
+        }
+   =20
+        if ( pte_is_mapping(*entry) )
+   @@ -209,7 +209,7 @@ static int pt_update_entry(mfn_t root, unsigned
+   long virt,
+        for ( ; level > target; level-- )
+        {
+            rc =3D pt_next_level(alloc_tbl, &table, offsets[level]);
+   -        if ( rc =3D=3D XEN_TABLE_MAP_FAILED )
+   +        if ( (rc =3D=3D XEN_TABLE_MAP_NONE) && (rc =3D=3D XEN_TABLE_MAP=
+_NOMEM)
+   )
+            {
+                rc =3D 0;
+But the handling of XEN_TABLE_MAP_NONE and XEN_TABLE_MAP_NOMEM seems to
+me should be left the same as this one part of the code actually
+catching the case when create_table() returns -ENOMEM:
+   pt_next_level()
+   {
+   ...
+               if ( flags & (PTE_VALID | PTE_POPULATE) )
+               {
+                   dprintk(XENLOG_ERR,
+                           "%s: Unable to map level %u\n", __func__,
+   level);
+                   rc =3D -ENOMEM;
+               }
+   ...
+  =20
+~ Oleksii
 
