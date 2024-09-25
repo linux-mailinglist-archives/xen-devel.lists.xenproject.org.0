@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39D1B986837
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 23:15:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.804610.1215649 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CC64986855
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 23:30:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.804618.1215659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stZMN-0001t6-Pa; Wed, 25 Sep 2024 21:15:43 +0000
+	id 1stZZk-0005rA-Vx; Wed, 25 Sep 2024 21:29:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 804610.1215649; Wed, 25 Sep 2024 21:15:43 +0000
+Received: by outflank-mailman (output) from mailman id 804618.1215659; Wed, 25 Sep 2024 21:29:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stZMN-0001rb-Mo; Wed, 25 Sep 2024 21:15:43 +0000
-Received: by outflank-mailman (input) for mailman id 804610;
- Wed, 25 Sep 2024 21:15:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1stZZk-0005oo-So; Wed, 25 Sep 2024 21:29:32 +0000
+Received: by outflank-mailman (input) for mailman id 804618;
+ Wed, 25 Sep 2024 21:29:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lFoA=QX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1stZMM-0001rV-SJ
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 21:15:42 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 51d5dabf-7b83-11ef-a0ba-8be0dac302b0;
- Wed, 25 Sep 2024 23:15:41 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-536748c7e9aso393301e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 14:15:41 -0700 (PDT)
+ id 1stZZj-0005og-Sy
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 21:29:31 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3ee45318-7b85-11ef-99a2-01e77a169b0f;
+ Wed, 25 Sep 2024 23:29:28 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a8d4093722bso42192066b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 14:29:28 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c5cf4c5157sm2354665a12.60.2024.09.25.14.15.40
+ a640c23a62f3a-a9393134a97sm264614266b.207.2024.09.25.14.29.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Sep 2024 14:15:40 -0700 (PDT)
+ Wed, 25 Sep 2024 14:29:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51d5dabf-7b83-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 3ee45318-7b85-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727298941; x=1727903741; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1727299768; x=1727904568; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WbKBa1Ko9k5g/X6RAPJbwcWYFeaiuRnwhWN1R44SHnc=;
-        b=o3HoWugfzUmjdMsxOjeF5/lOb6nELpDxtVdjmgJ4IhHQzCM0Fa1wtxjhGUebUkWqmF
-         bQDntLW1aVh4JYMNTzd2NvCprmYTEwt6vGBwumU+9+j02qRDkafkfNNXsbVgjAbGUnBx
-         2ZA+Ggt4t6t8iJPzX/68b3szsqnl4ZzVPpids=
+        bh=GogM9yRFHrnlxx5yGVTNJNqwfxiaE2vxod6EsEK2SmM=;
+        b=RqTmdbkTXCJdEyNhbiL5gCBkcy5op++p39U+SqtjZqWBZyTTz1+up4TCb2NUHMge/9
+         5z/AS4MptjNMxNBSmS0RU4iU4UxM7jczcym2DHZdaBEtMfpVX8BErxC8EgjcNPZ8rbcP
+         96jC/9e0sFAU6IbY/qeYUQGRbZZrLATTycL9U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727298941; x=1727903741;
+        d=1e100.net; s=20230601; t=1727299768; x=1727904568;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WbKBa1Ko9k5g/X6RAPJbwcWYFeaiuRnwhWN1R44SHnc=;
-        b=lsuiOCU3E46lVVkzOMd92FSZFdaa8Yx4e/VYYm8EmZ+r2ST2DgG7cvcWUYiVfS/Qr7
-         yT/DliqI1odQZpY/kGk2wsk2J36IXclRWScMJzcuQWxOS3wa2oft7tq0bfYAHuRvqz1M
-         2HVpwc9Sf2iPL5NISfwblf4ri9uCIwaEc1Jw2DLT65gZCVv0uwNgHnl3cDU4BjxWTz9G
-         SwD7iWkEBxC8XOILfw2tiN7RzpFytgN2VQcXS8D6oREluj9dlGJCJFelDRcFw6iaGPfx
-         ZKK0OcIZcA8XEXp4958Ork8ImKHnsTOME/At0paSoj9R6VpnOdFAMeXnWjG1wNnUMTYp
-         V4uQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU6Ts523XqZWeVsN9U4e02LZh+pZZNHi8g9lN9N7WFJgN+9YnJOjtBcdhIDOpP04SMDjzg3mkiccsw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwkCW5py7Kbyh/hV4P5SJ+a3Tc+kErkID2V9buKQ5BHeKOMbXf1
-	3AfGn+1hQ5KnwcS1F2c2cbBdWQYBq8UzuNzPpzqBgImeB7pmkSPdTzDAa9dKiMk=
-X-Google-Smtp-Source: AGHT+IGdFFQecUttNGxmEx5yntLYsdH1ojKC/LXkDWEFQOUoglYGX5o34voz+y9eftSZdxPGijsChg==
-X-Received: by 2002:a05:6512:b9b:b0:536:553f:3ef9 with SMTP id 2adb3069b0e04-5387754d42fmr2609813e87.27.1727298941050;
-        Wed, 25 Sep 2024 14:15:41 -0700 (PDT)
-Message-ID: <3e439093-a9bb-4213-b28f-25fa09b5eecd@citrix.com>
-Date: Wed, 25 Sep 2024 22:15:40 +0100
+        bh=GogM9yRFHrnlxx5yGVTNJNqwfxiaE2vxod6EsEK2SmM=;
+        b=Z6d12KwbVi/u5BRYowBZfFKytTJRsNRrPNRGAatYRfXkGZVG+iilawayh8tzVCEr8Z
+         FKh9k/iyyrqLVTJiWL/Qwa6WSDfeJqeg5TUXRvUTzDUleL+SbwOunpbWCBFYhnWqyFMO
+         n7Vt6RKkbjEGdpR96MfkaQ5nrKpP7OhkEdJ3m8Sj2LBFycqWmMf7GSawuwt1CGGjwXGg
+         0GQiiqiVoTq6Olm+TnG2dFl2jin3iTFzaR5bbi3E0DP+2QSNrLaUG5TZTEruh4U3OUJU
+         Ua8fEM/8qtpk1VrY2HeAynsLTql0W7qSI1hQCD0Ixn7saSi8e24z1gUD+sDYpzgLswZ/
+         nw3A==
+X-Forwarded-Encrypted: i=1; AJvYcCWnrAUJxArf/PZ+T/CJ6yh7TLiqLthmIB4/6s+slDlGcp2muPpa62la3J2pr4qcKpyNNVwXvXknWBM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx1K+DwhjXSGoAIelPPW78yHGciTBckPRPldz4rFwfEy1/tDrWJ
+	bKSn2XqLgn8/yweIx6/HY2npZlltxLWudQhQdj5jo/9iJqVcXUkDJWvcrQdUEZ8=
+X-Google-Smtp-Source: AGHT+IGAqoEEnMZzx4bWA+QI3Pz4r1jdENghLOUeXL5I+yddFk9m8d5P6oCP/Kn+yEA6lRhWeXuIPg==
+X-Received: by 2002:a17:907:7f23:b0:a90:b73f:61d7 with SMTP id a640c23a62f3a-a93a0617d22mr387164266b.42.1727299768191;
+        Wed, 25 Sep 2024 14:29:28 -0700 (PDT)
+Message-ID: <cb713898-ed4d-49dc-b621-8228c0d1ace4@citrix.com>
+Date: Wed, 25 Sep 2024 22:29:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] x86/alternative: Walk all replacements in debug
- builds
+Subject: Re: [PATCH 5/6] x86/alternative: Relocate all insn-relative fields
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
- <20240422181434.3463252-3-andrew.cooper3@citrix.com>
- <b1333d62-b738-4a61-9c68-ba7903f2e92d@suse.com>
+ <20240422181434.3463252-6-andrew.cooper3@citrix.com>
+ <b0412697-d258-447a-9470-09590744c2c9@suse.com>
+ <2b84b989-ec54-4e43-8c55-ed60cb5838a4@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -131,63 +131,55 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <b1333d62-b738-4a61-9c68-ba7903f2e92d@suse.com>
+In-Reply-To: <2b84b989-ec54-4e43-8c55-ed60cb5838a4@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23/04/2024 3:44 pm, Jan Beulich wrote:
-> On 22.04.2024 20:14, Andrew Cooper wrote:
->> In debug builds, walk all alternative replacements with x86_decode_lite().
->>
->> This checks that we can decode all instructions, and also lets us check that
->> disp8's don't leave the replacement block.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> With pointed-to types consistently constified, technically:
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 24/04/2024 6:54 am, Jan Beulich wrote:
+> On 23.04.2024 16:59, Jan Beulich wrote:
+>> On 22.04.2024 20:14, Andrew Cooper wrote:
+>>> --- a/xen/arch/x86/alternative.c
+>>> +++ b/xen/arch/x86/alternative.c
+>>> @@ -244,10 +244,31 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
+>>>  
+>>>          memcpy(buf, repl, a->repl_len);
+>>>  
+>>> +        /* Walk buf[] and adjust any insn-relative operands. */
+>>> +        if ( a->repl_len )
+>>>          {
+>>> -            /* 0xe8/0xe9 are relative branches; fix the offset. */
+>>> -            if ( a->repl_len >= 5 && (*buf & 0xfe) == 0xe8 )
+>>> +            uint8_t *ip = buf, *end = ip + a->repl_len;
+>>> +
+>>> +            for ( x86_decode_lite_t res; ip < end; ip += res.len )
+>>>              {
+>>> +                int32_t *d32;
+>>> +                uint8_t *target;
+>>> +
+>>> +                res = x86_decode_lite(ip, end);
+>>> +
+>>> +                if ( res.len <= 0 )
+>>> +                {
+>>> +                    printk("Alternative for %ps [%*ph]\n",
+>>> +                           ALT_ORIG_PTR(a), a->repl_len, repl);
+>>> +                    printk("Unable to decode instruction in alternative - ignoring.\n");
+>>> +                    goto skip_this_alternative;
+>> Can this really be just a log message? There are cases where patching has
+>> to happen for things to operate correctly. Hence if not panic()ing, I'd
+>> say we at least want to taint the hypervisor.
+> Actually, after some further thought, I don't even think we should skip
+> such alternatives. Think of e.g. cases where in principle we could get
+> away with just patching the prefix of an insn. Yet even without such
+> trickery - there's a fair chance that the alternative doesn't need
+> fiddling with, and hence putting it in unaltered is likely the best we
+> can do here.
 
-Thanks.
->> @@ -464,6 +465,54 @@ static void __init _alternative_instructions(bool force)
->>  void __init alternative_instructions(void)
->>  {
->>      arch_init_ideal_nops();
->> +
->> +    /*
->> +     * Walk all replacement instructions with x86_decode_lite().  This checks
->> +     * both that we can decode all instructions within the replacement, and
->> +     * that any near branch with a disp8 stays within the alternative itself.
->> +     */
->> +    if ( IS_ENABLED(CONFIG_DEBUG) )
+Following Roger's series, it needs to be a `return -Exx` and non-fatal
+in livepatch context.
 
-I've swapped this for SELF_TESTS now it exists.
-
->> +                }
->> +
->> +                if ( res.rel_type == REL_TYPE_d8 )
->> +                {
->> +                    int8_t *d8 = res.rel;
->> +                    void *target = ip + res.len + *d8;
->> +
->> +                    if ( target < repl || target > end )
->> +                    {
->> +                        printk("Alternative for %ps [%*ph]\n",
->> +                               ALT_ORIG_PTR(a), a->repl_len, repl);
->> +                        panic("'JMP/Jcc disp8' at +%u leaves alternative block\n",
->> +                              (unsigned int)(unsigned long)(ip - repl));
->> +                    }
->> +                }
-> Why's Disp8 more important to check than Disp32? A bad CALL in a
-> replacement can't possibly be encoded with Disp8, and both JMP and Jcc
-> are also more likely to be encoded with Disp32 when their target isn't
-> in the same blob (but e.g. in a different section).
-
-Whatever the likelihood of them existing, Disp8's cannot possibly be
-correct if they cross the boundary of the replacement.  Checking for
-them has the side effect of running decode_lite() over all replacements.
-
-Disp32's do exist in both external and internal forms (retpoline), and
-the point of this series is to make all external cases usable. 
-Therefore, there are no invalid cases.
+That said, the point of the SELF_TESTS, and the userspace harness I
+didn't finish for v1, is to avoid (as far as possible) getting into the
+situation where we can't decode the replacements.
 
 ~Andrew
 
