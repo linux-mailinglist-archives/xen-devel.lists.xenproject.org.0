@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47EA898544F
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 09:37:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803488.1214063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E953B985462
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 09:45:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803496.1214074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stMZx-0008Rx-1f; Wed, 25 Sep 2024 07:36:53 +0000
+	id 1stMhY-0001d2-TK; Wed, 25 Sep 2024 07:44:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803488.1214063; Wed, 25 Sep 2024 07:36:53 +0000
+Received: by outflank-mailman (output) from mailman id 803496.1214074; Wed, 25 Sep 2024 07:44:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stMZw-0008QJ-Uj; Wed, 25 Sep 2024 07:36:52 +0000
-Received: by outflank-mailman (input) for mailman id 803488;
- Wed, 25 Sep 2024 07:36:52 +0000
+	id 1stMhY-0001a1-QI; Wed, 25 Sep 2024 07:44:44 +0000
+Received: by outflank-mailman (input) for mailman id 803496;
+ Wed, 25 Sep 2024 07:44:43 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1stMZv-0008QD-Ty
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 07:36:51 +0000
+ (envelope-from <julien@xen.org>) id 1stMhX-0001Zv-M4
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 07:44:43 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1stMZu-0003e2-JS; Wed, 25 Sep 2024 07:36:50 +0000
+ id 1stMhX-0003nH-8D; Wed, 25 Sep 2024 07:44:43 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1stMZu-0000sr-Aj; Wed, 25 Sep 2024 07:36:50 +0000
+ id 1stMhW-0001kt-Vv; Wed, 25 Sep 2024 07:44:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,150 +42,118 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=GgfdtX07kWAbpLDtk53jjMZOFvy5CWJBu2TrqQQCnDM=; b=s2t72qBGvMinewAY57Rcy5OM6G
-	yRtSE/rErVzHiHPwlA/K1Zg8PL9pGxZhRKO0XijNb3s36oQFZqy5/gQZ1FBJAosT0dty2k9rSWJ9n
-	FS+fQb0bXlDrVtSWsT5rojGUD+VT7MnPwcX1fDq/uputKOnSLT5PwR+X+FZ0UJeakozw=;
-Message-ID: <f9682602-9e76-493c-8315-6b71905d33b7@xen.org>
-Date: Wed, 25 Sep 2024 08:36:47 +0100
+	bh=4i0zJOyjnsRkinwaGLJHX3vSoJlBFUWBfWrKW0xk17U=; b=yQy3jNEYq64tTVi2STT/Uu5v+0
+	KDmdz/4eaWZDUcwJMaWFtIp1mq+ttF1vwhGUf84ZsL824czhaeoc/uOwfL6zQHJiHcT6NZAcSqSps
+	ihiqBROkal0FYvYYJ8RsJ9Ou0H3pYQ1spMENKwSkjFDBaq5mAtr+pL1g8UZwdup0q3pg=;
+Message-ID: <ce21a173-61f4-42d5-aa72-5b50135e6d76@xen.org>
+Date: Wed, 25 Sep 2024 08:44:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/6] xen/arm: Reserve resources for virtio-pci
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: "Edgar E. Iglesias" <edgar.iglesias@amd.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
- michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
- dpsmith@apertussolutions.com
-References: <20240924162359.1390487-1-edgar.iglesias@gmail.com>
- <20240924162359.1390487-3-edgar.iglesias@gmail.com>
- <465cb8b5-5f46-42ce-be8f-a38c1c23a805@xen.org> <ZvLyzZ8n-QgrYOCW@zapote>
- <7b867cf0-9d4b-4067-ac56-a7d6b3d440f5@xen.org>
- <alpine.DEB.2.22.394.2409241559150.1417852@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v1 3/6] xen/arm: create dom0less virtio-pci DT node
 Content-Language: en-GB
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, bertrand.marquis@arm.com, michal.orzel@amd.com,
+ Volodymyr_Babchuk@epam.com, dpsmith@apertussolutions.com,
+ edgar.iglesias@amd.com, Stewart Hildebrand <stewart.hildebrand@amd.com>
+References: <20240924162359.1390487-1-edgar.iglesias@gmail.com>
+ <20240924162359.1390487-4-edgar.iglesias@gmail.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2409241559150.1417852@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20240924162359.1390487-4-edgar.iglesias@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
+Hi,
 
-On 25/09/2024 00:16, Stefano Stabellini wrote:
-> On Tue, 24 Sep 2024, Julien Grall wrote:
->> On 24/09/2024 18:11, Edgar E. Iglesias wrote:
->>> On Tue, Sep 24, 2024 at 05:35:20PM +0100, Julien Grall wrote:
->>>> Hi Edgar,
->>>>
->>>> On 24/09/2024 17:23, Edgar E. Iglesias wrote:
->>>>> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
->>>>>
->>>>> Reserve memory ranges and interrupt lines for an externally
->>>>> emulated PCI controller (e.g by QEMU) dedicated to hosting
->>>>> Virtio devices and potentially other emulated devices.
->>>>>
->>>>> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
->>>>> ---
->>>>>     xen/include/public/arch-arm.h | 17 +++++++++++++++++
->>>>>     1 file changed, 17 insertions(+)
->>>>>
->>>>> diff --git a/xen/include/public/arch-arm.h
->>>>> b/xen/include/public/arch-arm.h
->>>>> index e19f0251a6..654b827715 100644
->>>>> --- a/xen/include/public/arch-arm.h
->>>>> +++ b/xen/include/public/arch-arm.h
->>>>> @@ -494,6 +494,20 @@ typedef uint64_t xen_callback_t;
->>>>>     #define GUEST_RAM1_BASE   xen_mk_ullong(0x0200000000) /* 952GB of RAM
->>>>> @ 8GB */
->>>>>     #define GUEST_RAM1_SIZE   xen_mk_ullong(0xee00000000)
->>>>> +/* Virtio PCI - Ordered by decreasing size to keep things aligned */
->>>>> +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_TYPE  xen_mk_ullong(0x43000000)
->>>>> +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_BASE
->>>>> xen_mk_ullong(0x0f000000000)
->>>>> +#define GUEST_VIRTIO_PCI_PREFETCH_MEM_SIZE  xen_mk_ullong(0x100000000)
->>>>> +
->>>>> +#define GUEST_VIRTIO_PCI_ECAM_BASE
->>>>> (GUEST_VIRTIO_PCI_PREFETCH_MEM_BASE + \
->>>>> +
->>>>> GUEST_VIRTIO_PCI_PREFETCH_MEM_SIZE)
->>>>> +#define GUEST_VIRTIO_PCI_ECAM_SIZE      xen_mk_ullong(0x10000000)
->>>>> +
->>>>> +#define GUEST_VIRTIO_PCI_MEM_TYPE         xen_mk_ullong(0x02000000)
->>>>> +#define GUEST_VIRTIO_PCI_MEM_BASE         (GUEST_VIRTIO_PCI_ECAM_BASE +
->>>>> \
->>>>> +                                           GUEST_VIRTIO_PCI_ECAM_SIZE)
->>>>> +#define GUEST_VIRTIO_PCI_MEM_SIZE         xen_mk_ullong(0x00002000000)
->>>>
->>>> Why is this specific to virtio PCI? However, I am not entirely convinced
->>>> we
->>>> should have a second PCI hostbridge exposed to the guest for a few
->>>> reasons:
->>>>     1. This require to reserve yet another range in the address space
->>>> (could
->>>> be solved with a more dynamic layout)
->>>>     2. From your instructions, the guest needs to explicitly do a PCI
->>>> rescan.
->>
->> Another big advantage I forgot to mention is disaggregation. In a world where
->> the hostbridge is handled in Xen, you could have a PCI device emulated by dom0
->> while the other is emulated by a stub domain.
->>
->>>>
->>>> So rather than having a second hostbridge, have you considered to extend
->>>> the
->>>> existing hostbridge (implemented in Xen) to support a mix of physical PCI
->>>> device and virtual one?
->>>>
->>>
->>> Thanks Julien,
->>>
->>> It's briefly come up in a couple of discussions but I haven't looked
->>> carefully at it. It is a good idea and it's probably worth prototyping
->>> to see what the gaps are in hypercall interfaces, QEMU support etc.
->>
->> I also vaguely recall to discuss it on xen-devel. But I couldn't find the
->> discussion... :(.
->>
->> I think all the hypercalls should be there but will require some plumbing in
->> Xen on Arm. QEMU should be able to request Xen to forward configuration access
->> for a given PCI device (see XEN_DMOP_IO_RANGE_PCI). They will then be
->> forwarded to QEMU using IOREQ_TYPE_PCI_CONFIG.
->>
->> We also have an hypercall to be able to inject interrupts from QEMU (see
->> XEN_DMOP_set_irq_level).
+On 24/09/2024 17:23, Edgar E. Iglesias wrote:
+> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 > 
-> Hi Julien,
+> When virtio-pci is specified in the dom0less domU properties, create a
+> virtio-pci node in the guest's device tree. Set up an mmio handler with
+> a register for the guest to poll when the backend has connected and
+> virtio-pci bus is ready to be probed. Grant tables may be used by
+> specifying virtio-pci = "grants";.
 > 
-> Yes, I remember a thread on xen-devel too about this topic when EPAM
-> suggested a similar two-hostbridges approach. I was one of the people
-> suggesting to use a single hostbridge at the time.
+> [Edgar: Use GPEX PCI INTX interrupt swizzling (from PCI specs).
+>   Make grants iommu-map cover the entire PCI bus.
+>   Add virtio-pci-ranges to specify memory-map for direct-mapped guests.
+>   Document virtio-pci dom0less fdt bindings.]
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> ---
+>   docs/misc/arm/device-tree/booting.txt |  21 +++
+>   xen/arch/arm/dom0less-build.c         | 238 ++++++++++++++++++++++++++
+>   xen/arch/arm/include/asm/kernel.h     |  15 ++
+>   3 files changed, 274 insertions(+)
 > 
-> However, when we looked at the implementation more closely, the
-> two-hostbridge approach was easier to get up and running. It works
-> (almost) out of the box. Currently, we have the two-hostbridge solution
-> working on both ARM and x86 to enable virtio-pci to work alongside vPCI
-> in Dom0less/Hyperlaunch configurations.
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 3a04f5c57f..82f3bd7026 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -276,6 +276,27 @@ with the following properties:
+>       passed through. This option is the default if this property is missing
+>       and the user does not provide the device partial device tree for the domain.
+>   
+> +- virtio-pci
 
-I understand this is the easiest solution... However, this requires code 
-in Xen that I am not yet convinced it is good to have.
+Similar question to the other patches, why is this specific to virtio 
+PCI? QEMU (or another device module) is free to emulate whatever it 
+wants behind the PCI hosbtridge.
 
-I am not too concerned about the MMIO range part. This can be (easily) 
-solved. I am more concerned about the support of background region and 
-the fact the OS needs to be able to rescan.
+> +
+> +    A string property specifying whether virtio-pci is enabled for the
+> +    domain and if grant table mappings should be used. If no value is set
+> +    this property is treated as a boolean and the same way as if set to
+> +    "enabled".
+> +    Possible property values are:
+> +
+> +    - "enabled"
+> +    Virtio-pci is enabled for the domain.
+> +
+> +    - "grants"
+> +    Virtio-pci is enabled for the domain and an grants IOMMU node will be
+> +    generated in the domains device-tree.
+> +
+> +- virtio-pci-ranges
+> +
+> +    An optional array of 6 u32 values specifying the 2 cells base addresses of
+> +    the ECAM, Memory and Prefetchable-Memory regions for virtio-pci. This is
+> +    useful to avoid memory-map collisions when using direct-mapped guests.
+> +
+>   Under the "xen,domain" compatible node, one or more sub-nodes are present
+>   for the DomU kernel and ramdisk.
+>   
+> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> index 09b65e44ae..dab24fa9e2 100644
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -586,6 +586,189 @@ static int __init domain_handle_dtb_bootmodule(struct domain *d,
+>       return res;
+>   }
+>   
+> +static int __init make_virtio_pci_domU_node(const struct kernel_info *kinfo)
+> +{
+> +    void *fdt = kinfo->fdt;
+> +    /* reg is sized to be used for all the needed properties below */
+> +    __be32 reg[(1 + (GUEST_ROOT_ADDRESS_CELLS * 2) + GUEST_ROOT_SIZE_CELLS)
+> +               * 2];
+> +    __be32 irq_map[4 * 4 * 8];
+> +    __be32 *cells;
+> +    char buf[22]; /* pcie@ + max 16 char address + '\0' */
+> +    int res;
+> +    int devfn, intx_pin;
+> +    static const char compat[] = "pci-host-ecam-generic";
+> +    static const char reg_names[] = "ecam";
+> +
+> +    if ( p2m_ipa_bits <= 40 ) {
+> +        printk("PA bits %d is too small!\nvirtio-pci is only supported "
+> +               "on platforms with PA bits > 40\n", p2m_ipa_bits);
+> +        return -EINVAL;
+> +    }
 
-I am definitely not an expert of PCI, but AFAIK, it is possible to have 
-the guest to be notified when a PCI device is hotplug. Why can't we use it?
-
-> 
-> While I think that a single hostbridge is better architecturally, it is
-> important to consider that virtio is moving toward a new transport
-> (virtio-msg, Bertrand is also involved) which does not require a
-> hostbridge. This new transport is key for all our use-cases as it
-> addresses safety requirements and supports AMP configurations without a
-> shared hypervisor between the frontend and backend. Edgar is one of the
-> top contributors to virtio-msg. Given this, I don't think it's
-> worthwhile to invest much effort in virtio-pci, as it will be replaced
-> soon in embedded applications.
-To me this raises the question why we should have a temporary solution 
-upstream then?
+Please add a comment explaining where does this requires come from. If 
+this is the Address layout, then probably be to avoid relying on 
+hardcoded number of bits.
 
 Cheers,
 
