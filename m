@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20EDA9862A3
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 17:14:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.804107.1215110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAB129862A7
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 17:14:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.804128.1215146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stTiz-0000CJ-82; Wed, 25 Sep 2024 15:14:41 +0000
+	id 1stTj3-0001EZ-FH; Wed, 25 Sep 2024 15:14:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 804107.1215110; Wed, 25 Sep 2024 15:14:40 +0000
+Received: by outflank-mailman (output) from mailman id 804128.1215146; Wed, 25 Sep 2024 15:14:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stTiy-0008Ea-5U; Wed, 25 Sep 2024 15:14:40 +0000
-Received: by outflank-mailman (input) for mailman id 804107;
- Wed, 25 Sep 2024 15:02:24 +0000
+	id 1stTj2-0000vy-HC; Wed, 25 Sep 2024 15:14:44 +0000
+Received: by outflank-mailman (input) for mailman id 804128;
+ Wed, 25 Sep 2024 15:06:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1DAC=QX=flex--ardb.bounces.google.com=3_yX0ZggKCVo2J53+8AL8GG8D6.4GEP6F-56N6DDAKLK.P6FHJGB64L.GJ8@srs-se1.protection.inumbo.net>)
- id 1stTX6-0002UM-Nw
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 15:02:24 +0000
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [2607:f8b0:4864:20::b49])
+ <SRS0=qUHm=QX=flex--ardb.bounces.google.com=3ASb0ZggKCVw4L75+ACNAIIAF8.6IGR8H-78P8FFCMNM.R8HJLID86N.ILA@srs-se1.protection.inumbo.net>)
+ id 1stTX9-0002UM-DT
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 15:02:27 +0000
+Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com
+ [2607:f8b0:4864:20::114a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ba19c93-7b4f-11ef-a0ba-8be0dac302b0;
- Wed, 25 Sep 2024 17:02:24 +0200 (CEST)
-Received: by mail-yb1-xb49.google.com with SMTP id
- 3f1490d57ef6-e035949cc4eso10635363276.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 08:02:24 -0700 (PDT)
+ id 2d3cb473-7b4f-11ef-a0ba-8be0dac302b0;
+ Wed, 25 Sep 2024 17:02:27 +0200 (CEST)
+Received: by mail-yw1-x114a.google.com with SMTP id
+ 00721157ae682-6db7a8c6910so102659327b3.0
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 08:02:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,50 +40,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ba19c93-7b4f-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 2d3cb473-7b4f-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1727276543; x=1727881343; darn=lists.xenproject.org;
+        d=google.com; s=20230601; t=1727276546; x=1727881346; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vu/ZbROFphQGBAR+273iXbk1tlXuWo8crbz4dEomRj0=;
-        b=TW2scN/LTDHYWp4wNaMlQkFwTLRjiBq8eEtajXeRp1/aQRmFm/ah0xqQhGIV0miBAG
-         sLNcNgurgDXn75/p0l9nd2V814sl+mRoJbiNxjhe06aISPDjCkQCcMaZ4P+NS0eWhsaQ
-         kU2UTh0pRu8WfblmdA8vhkEhDu5AKQPMHZC9kTDHnvE4QOyz0kOexKbIxadGMXlQYPPw
-         3qaUUAgF3YK0+nsAuLJVP7iQFKHtOcvam/9xVFA1Vm5JqLMNMrhOhfYg0z0SkhPQufL5
-         iduXXKF3vmTMRr68hbMm/E1nxKDm1CUZjM4BujkEMxdloB9gQv9o8Y1e09LEIsUIbRgD
-         oAFg==
+        bh=TEh1/zkt2ebfm60sAnflL74oR8UqJJcIMQFWRvgC+dE=;
+        b=VPnRY32Mtyae7+f45FGGXIcq9WJ1V15y38o7AYk8G/gDTvWhrLwChDB/aW75CnwuSr
+         dWGMHA0KvecQYVK8rW3OmP1L4iBgY0W89+xzmLOz6oZke99tCfiTHOoc4fqGa5DED0Kt
+         M01CV/CU1DCq8QxjOj9NgsO4WbLyl59zCKoiLTXJ2qq0VeaCuTI+H1HvZ+ceTBU6KQ6Y
+         uFDNChQ4P5ewhPNpiV2rDwxLeVjsgGyKH6iyI/ZLwxtNsh4KvTa9SXeU2IFE6KSTrryr
+         jhn2XNjfDBCfyOBQh6dqKhAOH9sRaCOrP8Wh4CQH4Bcr4hjPmC9RcuFDTL0RL36kgRJq
+         XRcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727276543; x=1727881343;
+        d=1e100.net; s=20230601; t=1727276546; x=1727881346;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vu/ZbROFphQGBAR+273iXbk1tlXuWo8crbz4dEomRj0=;
-        b=LrtxIMKQ4uysiA4rrcgjWjc3b06KAejNnejOJnJft1ptHAnu5AmSGJGopvRyYUb8Pr
-         Hv5MgTuwoPl6jTRK+kcMgHhG02v2r+W1+GGMF5KdUWB/0R0Xvk9pNAmFGHoxjFdY78jg
-         ZPK01wI/2SA/JKih6zoLRkvwFK5qyh0dzHNNp4gW2q46XcxKLNP8CEp8atPXRHN59ro6
-         xwPQ05/iVY016K4GG0k1AmLYSHd+00HMiEqOhC7FcoC346KVHsL/JnGaTbzEYzuWgi8I
-         DanvFEJqcF86ombT0m76NC9p4JLc1XHxVdbtbDVM5GFncjpVVWageqCwieu1nMREi+x8
-         gvbg==
-X-Forwarded-Encrypted: i=1; AJvYcCUBOuZ/R5mBbVskTzucHssTefNY14ixziawV6crwT4c6OUEqqX7kzU22d8KDnVutCurHlbXHWm03GY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwkZZwNneG8oHGvbLoHcr/8A/qwEnUegXOvQDvG0FXmnOlEDece
-	jKFUngw5VFTQvzAJvhawj96pe6GWuNhFHbwfOeAYSMLFHrYtwqCNLt3seFzzotCz6lpQZQ==
-X-Google-Smtp-Source: AGHT+IEyaWBDeaj2o4LzPpSYVvpQbis55gp/KI/SuWbxXUep7wBTAaa7DqSfUrTGsylfjBz2VoxVb7Nf
+        bh=TEh1/zkt2ebfm60sAnflL74oR8UqJJcIMQFWRvgC+dE=;
+        b=DOTXp333o6Iyv/Gm139DYHFZfkON+5gZhahBHlPhA3qProaAv39la/HMmL50qowz5K
+         nb4vImO+S/AvCwihG5isuiEyzy4HL6tPOP+eaF5cQTlHqRYaGGubj/yxoVHug5VF9jOS
+         YglBiIZn0EQFNmiDvQrmrolJXqABR8U7Uf1Qy8nDHu/cKxh6Eb8uoUz8ZSpJ+zCujCBJ
+         wBxvJMCpwfuAJ50ptrWOxxZ7UuOCB0Zp4GP7BjXsfotLNfR23fd8q9m37fMytdtTCEZW
+         tX6AxR3qp5Zx0+PdCrCG3Ld1FZt0QmOxS4bwig46zrrvbhmF5RfiOhvpC7biGhgz4sdi
+         aGvg==
+X-Forwarded-Encrypted: i=1; AJvYcCU596DNS2rVtbspHNdW+NH2lP/tD3CqdcQWYeDMTOly9d4+v7eYPkRJkSYHRhLxiW2kypeY/W+dDy4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzibzm8KK7+zU0uPOS5A13uKNHhS3U2Pt82Tux78pd1y9k6RnVP
+	RuohOOP+V1XdxQfINIBCUlNgNs1qqAj7Z/NDe7thl69Qu0YWfEONKlXjgS95KIK84KVG+Q==
+X-Google-Smtp-Source: AGHT+IGW5+6XYu5evov+Dvb+HROZj8E6YTyxVVP1a7XWDg5djajQJxqHbA/Whb8+5/ewCu11GBBmm/SO
 X-Received: from palermo.c.googlers.com ([fda3:e722:ac3:cc00:7b:198d:ac11:8138])
- (user=ardb job=sendgmr) by 2002:a05:6902:1782:b0:e0b:958a:3344 with SMTP id
- 3f1490d57ef6-e24da39b0c3mr17936276.10.1727276543053; Wed, 25 Sep 2024
- 08:02:23 -0700 (PDT)
-Date: Wed, 25 Sep 2024 17:01:13 +0200
+ (user=ardb job=sendgmr) by 2002:a05:690c:438d:b0:6b1:8b74:978a with SMTP id
+ 00721157ae682-6e21d9d4ae9mr51697b3.4.1727276545723; Wed, 25 Sep 2024 08:02:25
+ -0700 (PDT)
+Date: Wed, 25 Sep 2024 17:01:14 +0200
 In-Reply-To: <20240925150059.3955569-30-ardb+git@google.com>
 Mime-Version: 1.0
 References: <20240925150059.3955569-30-ardb+git@google.com>
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1397; i=ardb@kernel.org;
- h=from:subject; bh=OCB6ogDK8zWwsvV7jOJ7CFiQBF2ggvTbOxK6mQJaX9A=;
- b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe2L6r76WO61FcfVRPyObM7vdxPl3nB63j7e+T6H1Wu+r
- TX46mXYUcrCIMbBICumyCIw+++7nacnStU6z5KFmcPKBDKEgYtTACYyaR4jwzOv6S8kr9nwfXyX
- 9iPzW9q5kzeEqzTXKbA29B6+VB8ddZORYZns0cK9u93/3DfuTd/m9X/T7v+32d81/dIy2BMjHfO RgwMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=934; i=ardb@kernel.org;
+ h=from:subject; bh=DJZDFnSYvzXqQFYRPN/gizuDfobz3ccWU866DGFdU/U=;
+ b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe2L6v7XV9cI3q9cJcJR8+Vf2+Fz2Wk/Dh/Y/X1ToOXyt
+ a351cxsHaUsDGIcDLJiiiwCs/++23l6olSt8yxZmDmsTCBDGLg4BWAiXdsZGZaErou6cPCEcv22
+ Prcpp+bqHWznepHA8X6Z9Zn/83etFNBlZOg9+zlgLqMlq/AX9n2rM647K2+Mmvyn9GzNS4f81qf fJ/EAAA==
 X-Mailer: git-send-email 2.46.0.792.g87dc391469-goog
-Message-ID: <20240925150059.3955569-43-ardb+git@google.com>
-Subject: [RFC PATCH 13/28] x86/kvm: Use RIP-relative addressing
+Message-ID: <20240925150059.3955569-44-ardb+git@google.com>
+Subject: [RFC PATCH 14/28] x86/rethook: Use RIP-relative reference for return address
 From: Ard Biesheuvel <ardb+git@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Ard Biesheuvel <ardb@kernel.org>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
@@ -108,36 +108,29 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Ard Biesheuvel <ardb@kernel.org>
 
-Avoid absolute references in code, which require fixing up at boot time,
-and replace them with RIP-relative ones. In this particular case, due to
-the register pressure, they cannot be avoided entirely, so one absolute
-reference is retained but the resulting reference via the GOT is
-compatible with running the linker in PIE mode.
+Instead of pushing an immediate absolute address, which is incompatible
+with PIE codegen or linking, use a LEA instruction to take the address
+into a register.
 
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- arch/x86/kernel/kvm.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ arch/x86/kernel/rethook.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 263f8aed4e2c..8eac209a31aa 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -800,9 +800,11 @@ extern bool __raw_callee_save___kvm_vcpu_is_preempted(long);
-  * Hand-optimize version for x86-64 to avoid 8 64-bit register saving and
-  * restoring to/from the stack.
-  */
--#define PV_VCPU_PREEMPTED_ASM						     \
-- "movq   __per_cpu_offset(,%rdi,8), %rax\n\t"				     \
-- "cmpb   $0, " __stringify(KVM_STEAL_TIME_preempted) "+steal_time(%rax)\n\t" \
-+#define PV_VCPU_PREEMPTED_ASM						\
-+ "leaq   __per_cpu_offset(%rip), %rax				\n\t"	\
-+ "movq   (%rax,%rdi,8), %rax					\n\t"	\
-+ "addq   steal_time@GOTPCREL(%rip), %rax			\n\t"	\
-+ "cmpb   $0, " __stringify(KVM_STEAL_TIME_preempted) "(%rax)	\n\t"	\
-  "setne  %al\n\t"
- 
- DEFINE_ASM_FUNC(__raw_callee_save___kvm_vcpu_is_preempted,
+diff --git a/arch/x86/kernel/rethook.c b/arch/x86/kernel/rethook.c
+index 8a1c0111ae79..3b3c17ba3cd5 100644
+--- a/arch/x86/kernel/rethook.c
++++ b/arch/x86/kernel/rethook.c
+@@ -27,7 +27,8 @@ asm(
+ #ifdef CONFIG_X86_64
+ 	ANNOTATE_NOENDBR	/* This is only jumped from ret instruction */
+ 	/* Push a fake return address to tell the unwinder it's a rethook. */
+-	"	pushq $arch_rethook_trampoline\n"
++	"	leaq arch_rethook_trampoline(%rip), %rdi\n"
++	"	pushq %rdi\n"
+ 	UNWIND_HINT_FUNC
+ 	"       pushq $" __stringify(__KERNEL_DS) "\n"
+ 	/* Save the 'sp - 16', this will be fixed later. */
 -- 
 2.46.0.792.g87dc391469-goog
 
