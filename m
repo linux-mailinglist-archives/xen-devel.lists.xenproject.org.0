@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B64D498629D
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 17:14:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.804104.1215097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20EDA9862A3
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 17:14:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.804107.1215110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stTix-0008Eh-BD; Wed, 25 Sep 2024 15:14:39 +0000
+	id 1stTiz-0000CJ-82; Wed, 25 Sep 2024 15:14:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 804104.1215097; Wed, 25 Sep 2024 15:14:39 +0000
+Received: by outflank-mailman (output) from mailman id 804107.1215110; Wed, 25 Sep 2024 15:14:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stTiw-00086G-UU; Wed, 25 Sep 2024 15:14:38 +0000
-Received: by outflank-mailman (input) for mailman id 804104;
- Wed, 25 Sep 2024 15:02:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1stTiy-0008Ea-5U; Wed, 25 Sep 2024 15:14:40 +0000
+Received: by outflank-mailman (input) for mailman id 804107;
+ Wed, 25 Sep 2024 15:02:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G4Vb=QX=flex--ardb.bounces.google.com=3-yX0ZggKCVYyF1z+46H4CC492.0CAL2B-12J2996GHG.L2BDFC720H.CF4@srs-se1.protection.inumbo.net>)
- id 1stTX4-0002k3-IN
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 15:02:22 +0000
-Received: from mail-ed1-x54a.google.com (mail-ed1-x54a.google.com
- [2a00:1450:4864:20::54a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 29f85010-7b4f-11ef-99a2-01e77a169b0f;
- Wed, 25 Sep 2024 17:02:21 +0200 (CEST)
-Received: by mail-ed1-x54a.google.com with SMTP id
- 4fb4d7f45d1cf-5c4230b10a0so5599187a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 08:02:21 -0700 (PDT)
+ <SRS0=1DAC=QX=flex--ardb.bounces.google.com=3_yX0ZggKCVo2J53+8AL8GG8D6.4GEP6F-56N6DDAKLK.P6FHJGB64L.GJ8@srs-se1.protection.inumbo.net>)
+ id 1stTX6-0002UM-Nw
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 15:02:24 +0000
+Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
+ [2607:f8b0:4864:20::b49])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2ba19c93-7b4f-11ef-a0ba-8be0dac302b0;
+ Wed, 25 Sep 2024 17:02:24 +0200 (CEST)
+Received: by mail-yb1-xb49.google.com with SMTP id
+ 3f1490d57ef6-e035949cc4eso10635363276.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 08:02:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,50 +40,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29f85010-7b4f-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 2ba19c93-7b4f-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1727276540; x=1727881340; darn=lists.xenproject.org;
+        d=google.com; s=20230601; t=1727276543; x=1727881343; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=sMLI1adUSxUIp8UXfDcqdD38QxXI+e+F/+Ag4yCxL7E=;
-        b=RYbNlnXxxFLiRAJ9AyvJiPiOVrWfadEIV8YL8vDT8QzEr6RTf9W5EEXLvOktBt1xLF
-         CzyI1+XSoIZ1OW1jB6P1WO8MVQe6O9Sx0Q6HZWOWJMprZLUL5pDuHVCeKllX+1ayNhxR
-         95va/IzgXJQzIGqJDXFpueajato1uc+N8toEJNcRwFqOig8PoN1XbKd7U3ZK6iYO9WR+
-         W1NoWbjkCy2cFY8+I3ZLwYwFeA1B+ePUySj5RS3lVmu82HSdynYZFU35a+7+1KptNAG2
-         pIe3nFMOCTn+rtfJ5ow+WzTFOVtbGaSg3M/PDJHQHvc9vS0WXSgcJiiEjN2GKmJ0DcZD
-         t0cw==
+        bh=vu/ZbROFphQGBAR+273iXbk1tlXuWo8crbz4dEomRj0=;
+        b=TW2scN/LTDHYWp4wNaMlQkFwTLRjiBq8eEtajXeRp1/aQRmFm/ah0xqQhGIV0miBAG
+         sLNcNgurgDXn75/p0l9nd2V814sl+mRoJbiNxjhe06aISPDjCkQCcMaZ4P+NS0eWhsaQ
+         kU2UTh0pRu8WfblmdA8vhkEhDu5AKQPMHZC9kTDHnvE4QOyz0kOexKbIxadGMXlQYPPw
+         3qaUUAgF3YK0+nsAuLJVP7iQFKHtOcvam/9xVFA1Vm5JqLMNMrhOhfYg0z0SkhPQufL5
+         iduXXKF3vmTMRr68hbMm/E1nxKDm1CUZjM4BujkEMxdloB9gQv9o8Y1e09LEIsUIbRgD
+         oAFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727276540; x=1727881340;
+        d=1e100.net; s=20230601; t=1727276543; x=1727881343;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sMLI1adUSxUIp8UXfDcqdD38QxXI+e+F/+Ag4yCxL7E=;
-        b=rgnQ/fCU9I26rgZkb1bZMiqIi0z+r2/LEtnak/r4uASA98juxmU/e3GSepZi/bHekP
-         e0Q1Z7PFOAd0VqOPxcttj7k8clZGFqnInvfp0az2I89Df0Bv7cxLfyB12GOJUhmQZGQV
-         /pOyQMPsdSe6oiDl6Nv/tV+1y4BvwXmWxFpFxUIt48mUgWwQkq2BhLCv+kK+E1vWt7JX
-         wLTjC2PzKSoTAOXV6qk5ZMRhPB1TbRtfLz4svvKole9zvbUIusSaukt3KS6n91CQqyHF
-         XCzP0ZGU8X+jHVSZgDaMrFDvGj/UBLiBnkIHTw/AcG8GXoFRbbotsKjbM+YrHaL6uqw/
-         DS5A==
-X-Forwarded-Encrypted: i=1; AJvYcCVraKT35Ric9qHKi9xddAn6FXWUw7WQmoyCg1o8YEmHSyvGF+CbWuPE5/KPs4KWx+yy0kR3hnShuKo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwiWexBmNdcvb4VbCY8Y1LN3YQ9SHOybxvz4wZzWFu70mAndJwS
-	e0QVstos7ApOTPiEJCAAZ0MHqiLkM/+6hF1ObjyWZEqnPLW+mTNfb/Dwz5JO+rK1xI01mg==
-X-Google-Smtp-Source: AGHT+IHqdrbnTURYSpf/5afh17e1i3rk5opqYbKAlLurQBauppiTWqSh5+YV6ICpl369+Ha35/G5jy3r
+        bh=vu/ZbROFphQGBAR+273iXbk1tlXuWo8crbz4dEomRj0=;
+        b=LrtxIMKQ4uysiA4rrcgjWjc3b06KAejNnejOJnJft1ptHAnu5AmSGJGopvRyYUb8Pr
+         Hv5MgTuwoPl6jTRK+kcMgHhG02v2r+W1+GGMF5KdUWB/0R0Xvk9pNAmFGHoxjFdY78jg
+         ZPK01wI/2SA/JKih6zoLRkvwFK5qyh0dzHNNp4gW2q46XcxKLNP8CEp8atPXRHN59ro6
+         xwPQ05/iVY016K4GG0k1AmLYSHd+00HMiEqOhC7FcoC346KVHsL/JnGaTbzEYzuWgi8I
+         DanvFEJqcF86ombT0m76NC9p4JLc1XHxVdbtbDVM5GFncjpVVWageqCwieu1nMREi+x8
+         gvbg==
+X-Forwarded-Encrypted: i=1; AJvYcCUBOuZ/R5mBbVskTzucHssTefNY14ixziawV6crwT4c6OUEqqX7kzU22d8KDnVutCurHlbXHWm03GY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwkZZwNneG8oHGvbLoHcr/8A/qwEnUegXOvQDvG0FXmnOlEDece
+	jKFUngw5VFTQvzAJvhawj96pe6GWuNhFHbwfOeAYSMLFHrYtwqCNLt3seFzzotCz6lpQZQ==
+X-Google-Smtp-Source: AGHT+IEyaWBDeaj2o4LzPpSYVvpQbis55gp/KI/SuWbxXUep7wBTAaa7DqSfUrTGsylfjBz2VoxVb7Nf
 X-Received: from palermo.c.googlers.com ([fda3:e722:ac3:cc00:7b:198d:ac11:8138])
- (user=ardb job=sendgmr) by 2002:a17:906:6d8:b0:a8a:76fd:ae67 with SMTP id
- a640c23a62f3a-a93a061ba72mr129666b.10.1727276539991; Wed, 25 Sep 2024
- 08:02:19 -0700 (PDT)
-Date: Wed, 25 Sep 2024 17:01:12 +0200
+ (user=ardb job=sendgmr) by 2002:a05:6902:1782:b0:e0b:958a:3344 with SMTP id
+ 3f1490d57ef6-e24da39b0c3mr17936276.10.1727276543053; Wed, 25 Sep 2024
+ 08:02:23 -0700 (PDT)
+Date: Wed, 25 Sep 2024 17:01:13 +0200
 In-Reply-To: <20240925150059.3955569-30-ardb+git@google.com>
 Mime-Version: 1.0
 References: <20240925150059.3955569-30-ardb+git@google.com>
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2056; i=ardb@kernel.org;
- h=from:subject; bh=VKZKKQxE7f774DDxhaNjhf6gM8y+4CHtkhz4ITFKHVU=;
- b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe2L6l6HjphM91K+tMbfPlum+q87xXbcaBq/plqB6J0rH
- Clz7dQ6SlkYxDgYZMUUWQRm/3238/REqVrnWbIwc1iZQIYwcHEKwESez2L4w3XU9mNkQveSSXqf
- bkfpTfktlPbu753X3m4//t4RvX456gUjw9ItwQrWWxY9aPiwtX3xVeeW5YpKNdGO1l4qU7KmnF4 VzwoA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1397; i=ardb@kernel.org;
+ h=from:subject; bh=OCB6ogDK8zWwsvV7jOJ7CFiQBF2ggvTbOxK6mQJaX9A=;
+ b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe2L6r76WO61FcfVRPyObM7vdxPl3nB63j7e+T6H1Wu+r
+ TX46mXYUcrCIMbBICumyCIw+++7nacnStU6z5KFmcPKBDKEgYtTACYyaR4jwzOv6S8kr9nwfXyX
+ 9iPzW9q5kzeEqzTXKbA29B6+VB8ddZORYZns0cK9u93/3DfuTd/m9X/T7v+32d81/dIy2BMjHfO RgwMA
 X-Mailer: git-send-email 2.46.0.792.g87dc391469-goog
-Message-ID: <20240925150059.3955569-42-ardb+git@google.com>
-Subject: [RFC PATCH 12/28] x86/pm-trace: Use RIP-relative accesses for .tracedata
+Message-ID: <20240925150059.3955569-43-ardb+git@google.com>
+Subject: [RFC PATCH 13/28] x86/kvm: Use RIP-relative addressing
 From: Ard Biesheuvel <ardb+git@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Ard Biesheuvel <ardb@kernel.org>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
@@ -108,57 +108,36 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Ard Biesheuvel <ardb@kernel.org>
 
-Use RIP-relative accesses and 32-bit offsets for .tracedata, to avoid
-the need for relocation fixups at boot time.
+Avoid absolute references in code, which require fixing up at boot time,
+and replace them with RIP-relative ones. In this particular case, due to
+the register pressure, they cannot be avoided entirely, so one absolute
+reference is retained but the resulting reference via the GOT is
+compatible with running the linker in PIE mode.
 
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- arch/x86/include/asm/pm-trace.h | 4 ++--
- drivers/base/power/trace.c      | 6 +++---
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ arch/x86/kernel/kvm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/include/asm/pm-trace.h b/arch/x86/include/asm/pm-trace.h
-index bfa32aa428e5..123faf978473 100644
---- a/arch/x86/include/asm/pm-trace.h
-+++ b/arch/x86/include/asm/pm-trace.h
-@@ -8,10 +8,10 @@
- do {								\
- 	if (pm_trace_enabled) {					\
- 		const void *tracedata;				\
--		asm volatile(_ASM_MOV " $1f,%0\n"		\
-+		asm volatile("lea " _ASM_RIP(1f) ", %0\n"	\
- 			     ".section .tracedata,\"a\"\n"	\
- 			     "1:\t.word %c1\n\t"		\
--			     _ASM_PTR " %c2\n"			\
-+			     ".long %c2 - .\n"			\
- 			     ".previous"			\
- 			     :"=r" (tracedata)			\
- 			     : "i" (__LINE__), "i" (__FILE__));	\
-diff --git a/drivers/base/power/trace.c b/drivers/base/power/trace.c
-index cd6e559648b2..686a0276ccfc 100644
---- a/drivers/base/power/trace.c
-+++ b/drivers/base/power/trace.c
-@@ -167,7 +167,7 @@ EXPORT_SYMBOL(set_trace_device);
- void generate_pm_trace(const void *tracedata, unsigned int user)
- {
- 	unsigned short lineno = *(unsigned short *)tracedata;
--	const char *file = *(const char **)(tracedata + 2);
-+	const char *file = offset_to_ptr((int *)(tracedata + 2));
- 	unsigned int user_hash_value, file_hash_value;
+diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+index 263f8aed4e2c..8eac209a31aa 100644
+--- a/arch/x86/kernel/kvm.c
++++ b/arch/x86/kernel/kvm.c
+@@ -800,9 +800,11 @@ extern bool __raw_callee_save___kvm_vcpu_is_preempted(long);
+  * Hand-optimize version for x86-64 to avoid 8 64-bit register saving and
+  * restoring to/from the stack.
+  */
+-#define PV_VCPU_PREEMPTED_ASM						     \
+- "movq   __per_cpu_offset(,%rdi,8), %rax\n\t"				     \
+- "cmpb   $0, " __stringify(KVM_STEAL_TIME_preempted) "+steal_time(%rax)\n\t" \
++#define PV_VCPU_PREEMPTED_ASM						\
++ "leaq   __per_cpu_offset(%rip), %rax				\n\t"	\
++ "movq   (%rax,%rdi,8), %rax					\n\t"	\
++ "addq   steal_time@GOTPCREL(%rip), %rax			\n\t"	\
++ "cmpb   $0, " __stringify(KVM_STEAL_TIME_preempted) "(%rax)	\n\t"	\
+  "setne  %al\n\t"
  
- 	if (!x86_platform.legacy.rtc)
-@@ -187,9 +187,9 @@ static int show_file_hash(unsigned int value)
- 
- 	match = 0;
- 	for (tracedata = __tracedata_start ; tracedata < __tracedata_end ;
--			tracedata += 2 + sizeof(unsigned long)) {
-+			tracedata += 2 + sizeof(int)) {
- 		unsigned short lineno = *(unsigned short *)tracedata;
--		const char *file = *(const char **)(tracedata + 2);
-+		const char *file = offset_to_ptr((int *)(tracedata + 2));
- 		unsigned int hash = hash_string(lineno, file, FILEHASH);
- 		if (hash != value)
- 			continue;
+ DEFINE_ASM_FUNC(__raw_callee_save___kvm_vcpu_is_preempted,
 -- 
 2.46.0.792.g87dc391469-goog
 
