@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC84B985659
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 11:30:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803698.1214422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B719985667
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 11:34:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803701.1214431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stOLN-0006Fc-Qb; Wed, 25 Sep 2024 09:29:57 +0000
+	id 1stOP3-0007jd-8n; Wed, 25 Sep 2024 09:33:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803698.1214422; Wed, 25 Sep 2024 09:29:57 +0000
+Received: by outflank-mailman (output) from mailman id 803701.1214431; Wed, 25 Sep 2024 09:33:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stOLN-0006DA-Nu; Wed, 25 Sep 2024 09:29:57 +0000
-Received: by outflank-mailman (input) for mailman id 803698;
- Wed, 25 Sep 2024 09:29:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1stOP3-0007hW-6G; Wed, 25 Sep 2024 09:33:45 +0000
+Received: by outflank-mailman (input) for mailman id 803701;
+ Wed, 25 Sep 2024 09:33:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lFoA=QX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1stOLM-0006Cp-U5
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 09:29:56 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba1c082b-7b20-11ef-a0ba-8be0dac302b0;
- Wed, 25 Sep 2024 11:29:56 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5c241feb80dso1385270a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 02:29:56 -0700 (PDT)
+ id 1stOP2-0007hQ-5G
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 09:33:44 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 40ad619b-7b21-11ef-99a2-01e77a169b0f;
+ Wed, 25 Sep 2024 11:33:42 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a8ce5db8668so638644466b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 02:33:42 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c5cf48c10esm1650504a12.13.2024.09.25.02.29.55
+ a640c23a62f3a-a93930c5824sm188943666b.129.2024.09.25.02.33.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Sep 2024 02:29:55 -0700 (PDT)
+ Wed, 25 Sep 2024 02:33:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba1c082b-7b20-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 40ad619b-7b21-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727256596; x=1727861396; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1727256822; x=1727861622; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0EUdqcXKPtvz6ks9ytx5s3lxTIGSYvsH6enI5SLDdc0=;
-        b=psOeB7F8SqWh/hmAkzKXg4ohyiw/y/bV+szutoYoP0RdAk716MbfWZ/GUqyYNvaOmS
-         dGSQxSAgYuHW7zktG1iDp6gmJS+ihpWdhNawoqNVeq310+CbN9V8G95sWS80/PFnD564
-         jABlwsIhwaNzPINd4ddQhM97/CBMhMcJDJzCI=
+        bh=IFuLBGdI4mydAZCukqIxkvKgAuJxAoU/tpxv4aGhfrY=;
+        b=SqVgRH3/d512w0EPZVjZiLiqSZ3RUtjrV9s63hVlJcO9qd9P9jxzDRO+1mnoM6/hn0
+         8U3t8BwNPut0Xq1yuowOJ3Uxnm8eKebr8qCM/BBxGK0nl0Fgx6HU5HG/deytDbF3/cx3
+         hZGjCs88xp7vcIsZxGEBlUK2Y2eZXtOBRU7RU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727256596; x=1727861396;
+        d=1e100.net; s=20230601; t=1727256822; x=1727861622;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0EUdqcXKPtvz6ks9ytx5s3lxTIGSYvsH6enI5SLDdc0=;
-        b=YrWayTLf3+x60pQPTzmUX6TK599BKLpKy31/9WLCTZsvRhzwOv+rNDYgvbEq8IIX7n
-         +9tCZu1y2naTFMnI/RylcE3M3YCzB4ExaSOvU9a43w+b6gOzD3TVQGav0kMdQ9bTsW/K
-         nHOS6p0QkYayH0tFrRopLU1YB72LURBE1ur4ObNVOalumsVgauqWgc8CLNkDGbFLDujE
-         62yleSgoSV4P93vn07bCWLXCe7nz7LH+jF+qra2pgRuq/TqV6pCjnVTxEn/uofe71XRU
-         PEAK/5tlHD+PpAmYX0cWQ2qShofoijXrG4b9c5NKRYE2aWsBiQu1LlkhzyiJN590FZRG
-         clfg==
-X-Forwarded-Encrypted: i=1; AJvYcCVicK6jFvAYe5DJOS7/uP5rAWMQrFKvwXg1Nb21w17PDEHiWf9mdAsQ96oZVzrG+Vu0Oje8NtjgYrM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywymi1vCatJn+hvB+zIkU97bSC44hgX7vm7degUeGSLzd6gHClP
-	+UvbL9LtdoLHJ7b9O3mUze7qgInSECKbTk7PN/pk4WeS77YuyAV6vywL/gb+BGo=
-X-Google-Smtp-Source: AGHT+IGSOxs8zu1CrfxrhhvzCprBLkXMLkfr2axDCAHJO8ZzyjQ8kHs8Dv94VyXs/nklQdoiq960yQ==
-X-Received: by 2002:a17:906:4fcd:b0:a8a:8dd3:f135 with SMTP id a640c23a62f3a-a92c4814211mr622250166b.14.1727256595935;
-        Wed, 25 Sep 2024 02:29:55 -0700 (PDT)
-Message-ID: <3ad42bc5-ad48-4684-ba3f-7c88cfa3458e@citrix.com>
-Date: Wed, 25 Sep 2024 10:29:53 +0100
+        bh=IFuLBGdI4mydAZCukqIxkvKgAuJxAoU/tpxv4aGhfrY=;
+        b=o2DbzHBlZ/GM9myaCHeBcz2XyztKnilKhNHe2jvzse7AJJRjuz+NMFh8hjCOl9jMS2
+         Z92tTeRwY2NKF5hQGZ0R5QHoT57WPMOT90eXEBLn+SORWQ1J7/J5kxi1/OpoxP79c47D
+         8BXfMVgaMGpcClymMN77WCVpoiaAt1QgfLr9t/tIhMbbKK++ryLapZ69y5yk2wCg5zOf
+         g7eesRzDsG5DCYG5bZZlXzga3KeykE9C7sqcDaNkXyMu0Jp30lEFg/unssWXi0tD2lw5
+         tmzMD8jr/vIg5Xf2SXL63TNGkUMGEOZRvr2n0mhb5b6BuI+9eN7nglYgzLqP4530VcKs
+         OPZg==
+X-Forwarded-Encrypted: i=1; AJvYcCXLkWjSt6wfOeKFKcUNpG86Z0ufHV34d9OaM10IivbWNXV7WxVd6oUN463ZTbO21wj51+/W6Jo+pOw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyEoWYUm0c/MyD3m/kN7/NKk1XQL2R30GmB/Z05rJp4P95/+ROJ
+	htGI1AwStAipIWXk73Gk9Z5pmpg/7lE5K+WRTvmKuZICZqpe8bDWi0uNu9UqyHe5PTjcK0zxS5V
+	S+VU=
+X-Google-Smtp-Source: AGHT+IG4aFImU3dcw1/PsBjETL1/pnU1YTCZOExLFjv+cmOadcfqFYfaDtZ5cjY2pW+ewsTrASTpHg==
+X-Received: by 2002:a17:907:78e:b0:a86:ab84:7fc1 with SMTP id a640c23a62f3a-a93a061b805mr188890066b.50.1727256821667;
+        Wed, 25 Sep 2024 02:33:41 -0700 (PDT)
+Message-ID: <c357ec68-bfd2-427e-8f33-5826a2252b0e@citrix.com>
+Date: Wed, 25 Sep 2024 10:33:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] xen/livepatch: remove useless check for duplicated
- sections
+Subject: Re: [PATCH v2 2/6] xen/livepatch: zero pointer to temporary load
+ buffer
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
 References: <20240925084239.85649-1-roger.pau@citrix.com>
- <20240925084239.85649-2-roger.pau@citrix.com>
+ <20240925084239.85649-3-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,31 +130,44 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240925084239.85649-2-roger.pau@citrix.com>
+In-Reply-To: <20240925084239.85649-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 25/09/2024 9:42 am, Roger Pau Monne wrote:
-> The current check for duplicated sections in a payload is not effective.  Such
-> check is done inside a loop that iterates over the sections names, it's
-> logically impossible for the bitmap to be set more than once.
+> The livepatch_elf_sec data field points to the temporary load buffer, it's the
+> load_addr field that points to the stable loaded section data.  Zero the data
+> field once load_addr is set, as it would otherwise become a dangling pointer
+> once the load buffer is freed.
 >
-> The usage of a bitmap in check_patching_sections() has been replaced with a
-> boolean, since the function just cares that at least one of the special
-> sections is present.
+> No functional change intended.
 >
-> No functional change intended, as the check was useless.
->
-> Fixes: 29f4ab0b0a4f ('xsplice: Implement support for applying/reverting/replacing patches.')
-> Fixes: 76b3d4098a92 ('livepatch: Do not enforce ELF_LIVEPATCH_FUNC section presence')
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v1:
+>  - New in this version.
+> ---
+>  xen/common/livepatch.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+> index df41dcce970a..87b3db03e26d 100644
+> --- a/xen/common/livepatch.c
+> +++ b/xen/common/livepatch.c
+> @@ -383,6 +383,9 @@ static int move_payload(struct payload *payload, struct livepatch_elf *elf)
+>              }
+>              else
+>                  memset(elf->sec[i].load_addr, 0, elf->sec[i].sec->sh_size);
+> +
+> +            /* Avoid leaking pointers to temporary load buffers. */
+> +            elf->sec[i].data = NULL;
+>          }
+>      }
+>  
 
-Yes I agree.  This is useless logic.
+Where is the data allocated and freed?
 
-The only time we could spot such a case is when matching the section
-table with the string table.  For this logic, we always only get
-whichever answer livepatch_elf_sec_by_name() decides.
+I don't see it being freed in this loop, so how is freed subsequently?
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com> and I'm very
-happy to see some atomics disappear.
+~Andrew
 
