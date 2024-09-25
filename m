@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66FFF9855C1
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 10:43:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.803578.1214292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 038729855D9
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2024 10:52:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.803618.1214301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stNc9-0006yJ-Fm; Wed, 25 Sep 2024 08:43:13 +0000
+	id 1stNkL-0002CW-84; Wed, 25 Sep 2024 08:51:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 803578.1214292; Wed, 25 Sep 2024 08:43:13 +0000
+Received: by outflank-mailman (output) from mailman id 803618.1214301; Wed, 25 Sep 2024 08:51:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stNc9-0006u6-Bo; Wed, 25 Sep 2024 08:43:13 +0000
-Received: by outflank-mailman (input) for mailman id 803578;
- Wed, 25 Sep 2024 08:43:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1stNkL-0002Ap-5M; Wed, 25 Sep 2024 08:51:41 +0000
+Received: by outflank-mailman (input) for mailman id 803618;
+ Wed, 25 Sep 2024 08:51:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aBXn=QX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1stNc8-0005cc-9Y
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 08:43:12 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3261813b-7b1a-11ef-a0ba-8be0dac302b0;
- Wed, 25 Sep 2024 10:43:11 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-53655b9bbcdso7758254e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 01:43:11 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c5cf49dd5asm1622425a12.54.2024.09.25.01.43.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Sep 2024 01:43:10 -0700 (PDT)
+ <SRS0=lFoA=QX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1stNkK-0002Aj-45
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2024 08:51:40 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 601b3943-7b1b-11ef-99a2-01e77a169b0f;
+ Wed, 25 Sep 2024 10:51:38 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5c25f01879fso8083659a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 01:51:38 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9392f57fdfsm186568766b.90.2024.09.25.01.51.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Sep 2024 01:51:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,100 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3261813b-7b1a-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 601b3943-7b1b-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727253790; x=1727858590; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rrbFrcCzYWqGSlmqm3wvIVsZFjBZlvkit6WWzCebR78=;
-        b=h5EDLLBWm3irhhH5RwI9Ay1w4no/akJzdHNv0Txoq0BOQ4Zl2ya8rNe5lpcyXmCuZx
-         eVG7bYrKov7Am3LKeGYKspKLod5L+nTUIW52aBK15YKH4Lci4ben1FcRZxhVvm5M6FPo
-         Harzt0sdPBn8KNN0KBtTIbzd/6eu2HTQUJ358=
+        d=citrix.com; s=google; t=1727254297; x=1727859097; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=AAc33UcWa2W1MsvdYtPw5Yuse75KweBQxY31pqOUX4Y=;
+        b=T0zrpO29luhJluCw5sdFOH371UGYNESzFR5ETrkgbinM3obFgeeGipOKAHqJFqTrvM
+         GXaJifBk0sPqk3JKXQDKt+3lGf/b1vmbVay3nC72I+AREkjZupxnr/vzsybARCrOcZ1p
+         7wRcSQyO8YxXJc91NWB+OUg0I8BUFxAvNBjMw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727253790; x=1727858590;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=rrbFrcCzYWqGSlmqm3wvIVsZFjBZlvkit6WWzCebR78=;
-        b=MFCQnAEAGWXNJEJERBmDsdWYvvcc1gxR3nLzbgPyZFom7DesaVNIY4fManGHlt8CLT
-         EW9EDZL8xH1M0reXKeF9BC8C5F0zJtDUZui8EChPsSlLfFjRVy/wiknqN/oqBpvW84hS
-         Vw7XEaPTyywqX0DX2EN0A0q5Zh14hTEG3hELoWELiMDxZW4arVj454h1uZTrKP5/IHsR
-         AktUNpv+Ap8+qcXmAvSWqmGfxwAt9wA0xM4FOQ/GkJ4h71JVzHpFzpEc2OKE7M0uJ2A/
-         XhHpJBQ8BtJjkKpWquZAfDdhyF89wR7pPJygocx9k20D97yvsUV/RVwv3mN8GGhPq7X7
-         UkAQ==
-X-Gm-Message-State: AOJu0YzJmqBoi6WJ6LlwBsNeYD2iqB+4NTgAVow7D1oPFLEX7CITOi54
-	NZGpCU7GlNt1H+Re7MW7JmCoENd69Uo/TSVI6chNzmywC4/NPFunh3GZ9eunIxZnyBnBEuxu5sc
-	D
-X-Google-Smtp-Source: AGHT+IF4iBlhUrjeezjidJmN8G+fTE1LWrk+c4d+nA9SwONISctrd7n8uEp8ZsmksdKzywULm6KjSA==
-X-Received: by 2002:a05:6512:318c:b0:536:542d:d7e8 with SMTP id 2adb3069b0e04-5387048ad56mr1099902e87.8.1727253790416;
-        Wed, 25 Sep 2024 01:43:10 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 6/6] x86/alternative: build time check feature is in range
-Date: Wed, 25 Sep 2024 10:42:39 +0200
-Message-ID: <20240925084239.85649-7-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240925084239.85649-1-roger.pau@citrix.com>
-References: <20240925084239.85649-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1727254297; x=1727859097;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AAc33UcWa2W1MsvdYtPw5Yuse75KweBQxY31pqOUX4Y=;
+        b=Ze62H74nwyYFrWjSu99BM6ixS88UWnbz+GkrvNnn3wLH1AFnIjWcLm7VHBgRW1hQiM
+         mZIg/PReXTmNlKSVXx3H6Edqv2uStlJmJ4i6vBAJe23D+dRIDCUyRiM0t1njwkZJnGGi
+         mcRh64JoMtzCPYwySCrE+hEW40Yfedarbppc2Oz6I298XeHnR/JUyhO4QgdkyYwO+Nii
+         ks7ZHaXMXTUefnVuMWj+hs9BD/QXwL7+hVOQUP2WiKwn9AGpR+h5qNGM4FdmKnGumKDE
+         IuKdVXZQ/4LGFZu/02Lu/bTQV92kd79cYBciijGlwZuXzi+OiKimUZbpCNfd+z9acIHy
+         22hg==
+X-Forwarded-Encrypted: i=1; AJvYcCWxzfucBL7X8IYOCp9nJo2HAuZULBHYGkYt0N7xUXUlbDBIIf+aYty1mBS4wyWOJyQG1b0VfJqVkr4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzY/tsXFvl71uRLfAW33TaoYzivqCvyiCU71gqGMaoYRFmM7NV7
+	YFHIMfRHqOQIZd3ZYNefZjkAKW5duceCeixymxIS8AEVE20zMIgWsipxGNcvxQw=
+X-Google-Smtp-Source: AGHT+IH8QgMzlflCGdmg3F/FcnTqu9kfRu3FLyrXcMzuXK1SVT0llZpztoxsoLcbGfLmMuTFx3GQLA==
+X-Received: by 2002:a17:907:1b02:b0:a8a:794b:9888 with SMTP id a640c23a62f3a-a93a03f578amr151816366b.36.1727254297349;
+        Wed, 25 Sep 2024 01:51:37 -0700 (PDT)
+Message-ID: <07b73cc7-2129-4ef8-8bc5-f85417f74ea7@citrix.com>
+Date: Wed, 25 Sep 2024 09:51:36 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/6] x86/alternative: build time check feature is in
+ range
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20240925084239.85649-1-roger.pau@citrix.com>
+ <20240925084239.85649-7-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240925084239.85649-7-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Ensure at build time the feature(s) used for the alternative blocks are in
-range of the featureset.
+On 25/09/2024 9:42 am, Roger Pau Monne wrote:
+> diff --git a/xen/arch/x86/include/asm/alternative.h b/xen/arch/x86/include/asm/alternative.h
+> index 69555d781ef9..b7f155994b2c 100644
+> --- a/xen/arch/x86/include/asm/alternative.h
+> +++ b/xen/arch/x86/include/asm/alternative.h
+> @@ -7,6 +7,7 @@
+>  #include <xen/lib.h>
+>  #include <xen/stringify.h>
+>  #include <asm/asm-macros.h>
+> +#include <asm/cpufeatureset.h>
+>  
+>  struct __packed alt_instr {
+>      int32_t  orig_offset;   /* original instruction */
+> @@ -59,6 +60,9 @@ extern void alternative_branches(void);
+>                      alt_repl_len(n2)) "-" alt_orig_len)
+>  
+>  #define ALTINSTR_ENTRY(feature, num)                                    \
+> +        " .if " __stringify(feature) " >= " __stringify(NCAPINTS * 32) "\n"\
 
-No functional change intended, as all current usages are correct.
+Please use STR() from macros.h.  It's shorter, and we're trying to
+retire the use of __stringify().
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - New in this version.
----
- xen/arch/x86/include/asm/alternative-asm.h | 3 +++
- xen/arch/x86/include/asm/alternative.h     | 4 ++++
- 2 files changed, 7 insertions(+)
-
-diff --git a/xen/arch/x86/include/asm/alternative-asm.h b/xen/arch/x86/include/asm/alternative-asm.h
-index 4092f5ba70a6..83e8594f0eaf 100644
---- a/xen/arch/x86/include/asm/alternative-asm.h
-+++ b/xen/arch/x86/include/asm/alternative-asm.h
-@@ -12,6 +12,9 @@
-  * instruction. See apply_alternatives().
-  */
- .macro altinstruction_entry orig, repl, feature, orig_len, repl_len, pad_len
-+    .if \feature >= NCAPINTS * 32
-+        .error "alternative feature outside of featureset range"
-+    .endif
-     .long \orig - .
-     .long \repl - .
-     .word \feature
-diff --git a/xen/arch/x86/include/asm/alternative.h b/xen/arch/x86/include/asm/alternative.h
-index 69555d781ef9..b7f155994b2c 100644
---- a/xen/arch/x86/include/asm/alternative.h
-+++ b/xen/arch/x86/include/asm/alternative.h
-@@ -7,6 +7,7 @@
- #include <xen/lib.h>
- #include <xen/stringify.h>
- #include <asm/asm-macros.h>
-+#include <asm/cpufeatureset.h>
- 
- struct __packed alt_instr {
-     int32_t  orig_offset;   /* original instruction */
-@@ -59,6 +60,9 @@ extern void alternative_branches(void);
-                     alt_repl_len(n2)) "-" alt_orig_len)
- 
- #define ALTINSTR_ENTRY(feature, num)                                    \
-+        " .if " __stringify(feature) " >= " __stringify(NCAPINTS * 32) "\n"\
-+        " .error \"alternative feature outside of featureset range\"\n" \
-+        " .endif\n"                                                     \
-         " .long .LXEN%=_orig_s - .\n"             /* label           */ \
-         " .long " alt_repl_s(num)" - .\n"         /* new instruction */ \
-         " .word " __stringify(feature) "\n"       /* feature bit     */ \
--- 
-2.46.0
-
+Happy to fix on commit.  Reviewed-by: Andrew Cooper
+<andrew.cooper3@citrix.com>
 
