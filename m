@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23139986FBE
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 11:15:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805070.1216094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14894986FBF
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 11:16:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805071.1216104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stkbC-0007wE-FX; Thu, 26 Sep 2024 09:15:46 +0000
+	id 1stkbG-0008DT-SE; Thu, 26 Sep 2024 09:15:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805070.1216094; Thu, 26 Sep 2024 09:15:46 +0000
+Received: by outflank-mailman (output) from mailman id 805071.1216104; Thu, 26 Sep 2024 09:15:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stkbC-0007uR-CI; Thu, 26 Sep 2024 09:15:46 +0000
-Received: by outflank-mailman (input) for mailman id 805070;
- Thu, 26 Sep 2024 09:15:44 +0000
+	id 1stkbG-0008BH-Oi; Thu, 26 Sep 2024 09:15:50 +0000
+Received: by outflank-mailman (input) for mailman id 805071;
+ Thu, 26 Sep 2024 09:15:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ukdd=QY=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1stkbA-0007od-Mo
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 09:15:44 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+ <SRS0=rvAu=QY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1stkbF-0007od-Ci
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 09:15:49 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e7e22987-7be7-11ef-99a2-01e77a169b0f;
- Thu, 26 Sep 2024 11:15:43 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-536a2759f0eso1251257e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 02:15:43 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
+ id eab0af3b-7be7-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 11:15:47 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2f75b13c2a8so8180161fa.3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 02:15:47 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9392f346f6sm327016966b.44.2024.09.26.02.15.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Sep 2024 02:15:41 -0700 (PDT)
+ 4fb4d7f45d1cf-5c5cf4c5081sm2923761a12.64.2024.09.26.02.15.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Sep 2024 02:15:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +45,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7e22987-7be7-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: eab0af3b-7be7-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727342142; x=1727946942; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Bz+Paslzm+oDtzRzrU/+0ti5cLlFksM+sMp9RRxtfpk=;
-        b=DHn3T6yfY64ch8F2a3HosXR+NjBqfwxCdMMBAyBdyz6uUU9JkmkVX2HpxGBZYuqqAO
-         VYPtMUa7zEbiYwzvmF18pxoXtPOPCsHrst7mOcxJVMC1LO8nbCuEavLthZizzJ0W2hWA
-         XoL2ABDNs7t07ZGWRKpgSxgwY0aqvQk7iulhBXyVXVOTgCw7c6F7RrkK6jPMAYoG5tfS
-         H5c4huIn71zlct1w/MyKLiGjMenZqKz0fXhF+41SpZ560aoLzGaFrj20Se8fXQDHv8+f
-         mNM+RYeoh08BipuoxTOJUIyfgywqry1C5O8hP2ZYNPjJoIQsFxrVqHVGAoTbEvvVnTyo
-         0sOg==
+        d=citrix.com; s=google; t=1727342147; x=1727946947; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PvKThLDTXocu01fauTJ++rxc9Jv5RMfcfbvVTrTlBbQ=;
+        b=EyDktz3qzNjdbrnO1BkCAQdY/EqKSBGjxPx5pgxWiyT7VqdiNetWXROF9wkxL53iM5
+         n51Y5I2NLKy1QkqrbhUW2vh1Uum7KG9abG8+v2MHY4WsbmTwat+mydVAgaALiq/uxHAZ
+         SCxiVZSR7fnZSyiOodmk4P4tixqFBUm5xa0bw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727342142; x=1727946942;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Bz+Paslzm+oDtzRzrU/+0ti5cLlFksM+sMp9RRxtfpk=;
-        b=YB7eeiR+pi8SW2Zazr4jOigJHVaj3zyOSCcOR5YEVnDBZVpahUJsqeaOdZCJ+4GEmY
-         gFXn+TwS7teErvErQVdEjfHTacq0DnFJqgli9lUjaWJaLCtX9T+B0gWrx3+MDmXt7iL+
-         AKXWoX7/gVXWGM14npucbRgnHdykYNcARU8sRSe9i6FwS+TP/FTJbJU2zZUwFZ8LMg8Z
-         OKMH6GnfQuoAQTVi+SsFvp/gtQ2Hk7fJZk8QLKO7X+7+SfWy7dWjXIWCAXAOEqbdMz1i
-         MT0/ajoMFCyDc3o/cg/rrgN6na1nCaHQqLjH96Jbg3+m6uR8Yq2nwe3LHQvIUojG4CET
-         Q82Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUZLCtTjU3XPpY+nIb1NQwYrIhZgMLhRf1jxZdhHA0eWwFxobqvia2dUTM/TT58t46ML97peYZ4onc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxNV1LBtLLNkSTzvwl+qBjIr+ExDmKPLwwzI5YzBCShq+GG3me3
-	9hBzqhTpPhhll54chRLYRp/Pn9cYVDoj7H/wlyPDqC9qJZzmdWbi
-X-Google-Smtp-Source: AGHT+IEWbOeepKoFWzdUfJTxIZUM6er4fgqA1HWbsYZM/Uucs7lM5OYyFtU1wNRFSD6nmHzGBPFFGQ==
-X-Received: by 2002:a05:6512:3d86:b0:536:581c:9d9f with SMTP id 2adb3069b0e04-53877530f8bmr3752865e87.24.1727342142024;
-        Thu, 26 Sep 2024 02:15:42 -0700 (PDT)
-Message-ID: <6800a465792d27de0ea4943df9c7e2b5ac3b39d2.camel@gmail.com>
-Subject: Re: [PATCH v3 1/5] xen: define ACPI and DT device info sections
- macros
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org,  Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
-Date: Thu, 26 Sep 2024 11:15:40 +0200
-In-Reply-To: <540a900e-9bff-40d0-8ace-6b443bbfca41@suse.com>
-References: <cover.1727193766.git.oleksii.kurochko@gmail.com>
-	 <7521839bd265e0520fc448adf50361d18dfe53df.1727193766.git.oleksii.kurochko@gmail.com>
-	 <82125953-99b5-4fde-83b8-51643cce793b@suse.com>
-	 <81b676ae5958d93ecbc3a552c1c0a208dfa2d18a.camel@gmail.com>
-	 <540a900e-9bff-40d0-8ace-6b443bbfca41@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1727342147; x=1727946947;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PvKThLDTXocu01fauTJ++rxc9Jv5RMfcfbvVTrTlBbQ=;
+        b=RUWl41A9afti2SPYGH4vcgk3v5YTE57n534N90+lydb0d58AfNxjYz7SA0UM+5G2GF
+         ngua2y/F5msPzUtzu4VRoS3q0dp74UGcN2fruw4zO9BfsgiKg48mYu8aaILddt/9IfMx
+         yBYFRqif+5O/VuCMfiSC85vV+cHOfBLfB+1V+9WCbf5sM8lGjbjO5Ag38Yo9LaDVUtyd
+         jsv4ti3ePKDz9LfwJ9kxNggB/Dkl5fhoAeoOTo8lbLUsbYRMICAzAqWcWcAYdyEhTc1F
+         9hIhKXIgGxUEIQ3lubfBsl7hjWwNz7TSntyVd+BFCZ2l46f7BVFUdfzEKPGjr58cE14p
+         Y98A==
+X-Gm-Message-State: AOJu0YzQ2WrFBybRg6aq0WTj04coHf6rguaXMuXyqjPCNSWVvH5+7Vqx
+	8jz6ojkAfPNaPEztWZ/9bLlCfTFzvo/IPtcSROPaLzJi/G5iOiwgLBaQUChZim8=
+X-Google-Smtp-Source: AGHT+IF44AfKnTHC2N1we7DK+bn3aNK4QC+mSh95cRJ/NuGlAJtcxQ2vhc8WlIsYw73HatRv0dkcRQ==
+X-Received: by 2002:a05:651c:19a0:b0:2f7:4fac:f69f with SMTP id 38308e7fff4ca-2f916003547mr34882161fa.12.1727342147113;
+        Thu, 26 Sep 2024 02:15:47 -0700 (PDT)
+Message-ID: <9715fa7c-342e-4945-a3e7-d825878b676a@citrix.com>
+Date: Thu, 26 Sep 2024 10:15:45 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/4] x86/boot: Rewrite EFI/MBI2 code partly in C
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20240925060101.259244-1-frediano.ziglio@cloud.com>
+ <20240925060101.259244-4-frediano.ziglio@cloud.com>
+ <70416976-c18a-425d-95f0-ab218e101113@citrix.com>
+ <CACHz=ZgSzBgxSgPzGJ-gkE9yCcPFx8jeX-Le9aHK+ROYff6nhQ@mail.gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <CACHz=ZgSzBgxSgPzGJ-gkE9yCcPFx8jeX-Le9aHK+ROYff6nhQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2024-09-26 at 08:23 +0200, Jan Beulich wrote:
-> On 25.09.2024 18:08, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > On Wed, 2024-09-25 at 10:36 +0200, Jan Beulich wrote:
-> > > PPC's desire to use DECL_SECTION() can certainly be covered by
-> > > providing
-> > > a (trivial) DECL_SECTION() also for Arm and RISC-V. Seeing that
-> > > even
-> > > x86
-> > > overrides the default to the trivial form for building xen.efi,
-> > > I'm
-> > > inclined to suggest we should actually have a way for an arch to
-> > > indicate
-> > > to xen.lds.h that it wants just the trivial form (avoiding a
-> > > later
-> > > #undef).
-> > If to go with what I suggested before then x86 will look like:
-> >=20
-> > diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-> > index d48de67cfd..911585541e 100644
-> > --- a/xen/arch/x86/xen.lds.S
-> > +++ b/xen/arch/x86/xen.lds.S
-> > @@ -3,6 +3,10 @@
-> > =C2=A0
-> > =C2=A0#include <xen/cache.h>
-> > =C2=A0#include <xen/lib.h>
-> > +
-> > +#ifdef EFI
-> > +#define SIMPLE_DECL_SECTION
-> > +#endif
-> > =C2=A0#include <xen/xen.lds.h>
-> > =C2=A0#include <asm/page.h>
-> > =C2=A0#undef ENTRY
-> > @@ -12,9 +16,7 @@
-> > =C2=A0
-> > =C2=A0#define FORMAT "pei-x86-64"
-> > =C2=A0#undef __XEN_VIRT_START
-> > -#undef DECL_SECTION
-> > =C2=A0#define __XEN_VIRT_START __image_base__
-> > -#define DECL_SECTION(x) x :
-> > =C2=A0
-> > =C2=A0ENTRY(efi_start)
-> > =C2=A0
-> > diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
-> > index a17810bb28..fb11ba7357 100644
-> > --- a/xen/include/xen/xen.lds.h
-> > +++ b/xen/include/xen/xen.lds.h
-> > @@ -5,6 +5,8 @@
-> > =C2=A0 * Common macros to be used in architecture specific linker
-> > scripts.
-> > =C2=A0 */
-> > =C2=A0
-> > +#ifdef SIMPLE_DECL_SECTION
->=20
-> #ifndef I guess?
->=20
-> > @@ -15,6 +17,10 @@
-> > =C2=A0# define DECL_SECTION(x) x : AT(ADDR(x) - __XEN_VIRT_START)
-> > =C2=A0#endif
-> > =C2=A0
-> > +#else /* SIMPLE_DECL_SECION */
-> > +# define DECL_SECTION(x) x :
-> > +#endif
-> > +
-> > =C2=A0/*
-> > =C2=A0 * To avoid any confusion, please note that the EFI macro does no=
-t
-> > correspond
-> > =C2=A0 * to EFI support and is used when linking a native EFI (i.e.
-> > PE/COFF)
-> > binary,
-> >=20
-> > Does it make sense? Or it would be better to follow way for each
-> > architecture:
-> > =C2=A0=C2=A0 #undef DECL_SECTION
-> > =C2=A0=C2=A0 #define DECL_SECTION(x) x :
->=20
-> Hard to tell which one's better; I was asking myself that same
-> question
-> when writing an earlier reply. I'm slightly in favor of the form you
-> have
-> now.
-Do you mean moving only a content of section without secname and laddr
-( in case of x86 and PPC ), and alignment to xen.lds.h ?
+On 26/09/2024 10:14 am, Frediano Ziglio wrote:
+> On Wed, Sep 25, 2024 at 9:20 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>> On 25/09/2024 7:01 am, Frediano Ziglio wrote:
+>>> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+>>> index 2d2f56ad22..859f7055dc 100644
+>>> --- a/xen/arch/x86/boot/head.S
+>>> +++ b/xen/arch/x86/boot/head.S
+>>> @@ -252,36 +243,30 @@ __efi64_mb2_start:
+>>> <snip>
+>>>
+>>>          /* We are on EFI platform and EFI boot services are available. */
+>>>          incb    efi_platform(%rip)
+>>> @@ -291,77 +276,6 @@ __efi64_mb2_start:
+>>>           * be run on EFI platforms.
+>>>           */
+>>>          incb    skip_realmode(%rip)
+>> Well, these are two unfounded assumptions about the compile-time
+>> defaults of certain variables.
+>>
+>> Lets fix it afterwards, to save interfering with this series.
+>>
+>>> diff --git a/xen/arch/x86/efi/parse-mbi2.c b/xen/arch/x86/efi/parse-mbi2.c
+>>> new file mode 100644
+>>> index 0000000000..89c562cf6a
+>>> --- /dev/null
+>>> +++ b/xen/arch/x86/efi/parse-mbi2.c
+>>> @@ -0,0 +1,56 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> GPL-2.0-only.  The unsuffixed form is deprecated now.
+>>
+>>> +
+>>> +#include <xen/efi.h>
+>>> +#include <xen/init.h>
+>>> +#include <xen/multiboot2.h>
+>>> +#include <asm/asm_defns.h>
+>>> +#include <asm/efi.h>
+>>> +
+>>> +const char * asmlinkage __init
+>>> +efi_multiboot2_prelude(uint32_t magic, const multiboot2_fixed_t *mbi)
+>>> +{
+>>> +    const multiboot2_tag_t *tag;
+>>> +    EFI_HANDLE ImageHandle = NULL;
+>>> +    EFI_SYSTEM_TABLE *SystemTable = NULL;
+>>> +    const char *cmdline = NULL;
+>>> +    bool have_bs = false;
+>>> +
+>>> +    if ( magic != MULTIBOOT2_BOOTLOADER_MAGIC )
+>>> +        return "ERR: Not a Multiboot2 bootloader!";
+>>> +
+>>> +    /* Skip Multiboot2 information fixed part. */
+>>> +    tag = _p(ROUNDUP((unsigned long)(mbi + 1), MULTIBOOT2_TAG_ALIGN));
+>>> +
+>>> +    for ( ; (const void *)tag - (const void *)mbi < mbi->total_size
+>>> +            && tag->type != MULTIBOOT2_TAG_TYPE_END;
+>> && on previous line.
+>>
+>> But, this can move into the switch statement and reduce the for()
+>> expression somewhat.
+>>
+> I forgot to reply this, I even though about what to write.
+> There are multiple reasons:
+> - having now a switch, it would require a goto/label or an additional
+> variable to exit the loop,
 
-~ Oleksii
+Oh, of course.  Sorry, my mistake.  Leave it as is.
+
+~Andrew
 
