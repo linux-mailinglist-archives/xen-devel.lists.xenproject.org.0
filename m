@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB67E9876B5
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 17:41:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805655.1216807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04E4A9876E4
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 17:49:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805664.1216817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stqcL-0007Ib-Hf; Thu, 26 Sep 2024 15:41:21 +0000
+	id 1stqjR-0008Pj-CG; Thu, 26 Sep 2024 15:48:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805655.1216807; Thu, 26 Sep 2024 15:41:21 +0000
+Received: by outflank-mailman (output) from mailman id 805664.1216817; Thu, 26 Sep 2024 15:48:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stqcL-0007Gk-Do; Thu, 26 Sep 2024 15:41:21 +0000
-Received: by outflank-mailman (input) for mailman id 805655;
- Thu, 26 Sep 2024 15:41:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1stqjR-0008Mq-8V; Thu, 26 Sep 2024 15:48:41 +0000
+Received: by outflank-mailman (input) for mailman id 805664;
+ Thu, 26 Sep 2024 15:48:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1stqcJ-0007Ge-Gk
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 15:41:19 +0000
+ id 1stqjP-0008Mk-Rl
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 15:48:39 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c4ade325-7c1d-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 17:41:18 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1727365271566543.8698239125034;
- Thu, 26 Sep 2024 08:41:11 -0700 (PDT)
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca65b530-7c1e-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 17:48:37 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1727365708730543.5536461193848;
+ Thu, 26 Sep 2024 08:48:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,38 +38,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4ade325-7c1d-11ef-a0ba-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1727365273; cv=none; 
+X-Inumbo-ID: ca65b530-7c1e-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1727365710; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=Kl4kBqUXRZjJoWptuTw2g0LncRlvxi1h72HDiCl0Uh/Xu/Z2G//pLGX8zNHJRaT+0DBxv1iw1HQ6Ot/5Kn5GclEpyYybhUAeShRFDkGRKHAk3tBYp/V4tM55VFYz5r8rt28XQn9KIhe8DN3LeMF+ZmlivN3EUElaTzLpSsPj3Uk=
+	b=A2tlIfZtm03vb/y0KdYBs68iRwMTQq7OTe0TLiqYvt8oPfEgTXQFaFDKaavcXEE6tsVj01eNRQqFn0NF76O/4OuhK4V4no61hs8pRAviCBsR0kd5I+u547iKGa2GRHApDiAubs4shUYrZGwZpqP8yT+z8VtekPVkBtTGRgyLFzY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1727365273; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=OgimkvmoZ8xF8OanrFHw1w6qxGqQR/kCFawhSltRIxY=; 
-	b=AWCbZgEyLgRv0nUCZHrtlCNNpM33+YO1Sw6SbKKnXLyN90Tbl/NOV/Bxm8Eirk2u21kaIAYPn8gBXgkgR4pgFuFL7IHyUNK9aCcr0s/FwgXgs4QyLev64yzJeFd/1bIWJkLK88ujiDFjg5y1uO/AKhwEo+k4DBT1BFI/8bwDBxE=
+	t=1727365710; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4Alj3LTYMBhpm+HJy3lkKfqrBAk0tSgBQ5EFAcw8h8I=; 
+	b=GL4dYt2KPkKcAT2o1vP/p/UQ1huDiToBeo232gnb+4vLDHKo8qWrV5b3mkyBQn41tD0MxS74CK4lx/NPzOK6BGSCXw3kIDrrcYFnD904+hqykyXny4Sd1VSyKoAYlMnIyfVqhQCvs75vi+zUk+5MkdoqTQyZ/ZtQudS6luEaM8o=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727365273;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727365710;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=OgimkvmoZ8xF8OanrFHw1w6qxGqQR/kCFawhSltRIxY=;
-	b=apGXWodeLW5f0zx1pQN5Ecy/2FLdwRe3gI4PQPXV+vKetqhEhGqUHj/68Xit1Mv7
-	CvwxnlhSnN8/Q1imj2UjrZc+I8pS0Ja1xsDLe03JWEbQz/y/Xbuj4fNiDNXKiSqGsDU
-	FlhNkQVmHdjgMuCaOdLKglL06fzH8tCEwV05Z/fk=
-Message-ID: <eaa343f1-6e39-4751-9e46-a295c70143ab@apertussolutions.com>
-Date: Thu, 26 Sep 2024 11:41:09 -0400
+	bh=4Alj3LTYMBhpm+HJy3lkKfqrBAk0tSgBQ5EFAcw8h8I=;
+	b=fRPI8zVFIqT0KTQlInu1LajZunzfCa/pNdsRV2EcCNxxXd8u9SC4HHIEXUq2tS4d
+	6GDiP0smHikQ5UUaee1Vbd20xbiL+0dQ2Of8M5hpzQXBz7aKQZWjymEgcZ5Waf3GvTB
+	rTg0gBingQOg+VUEfcijZWszAxTef+KUywGrgj0Q=
+Message-ID: <982ffc14-b916-495b-991d-b010a7eda46a@apertussolutions.com>
+Date: Thu, 26 Sep 2024 11:48:27 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/44] x86/boot: move cmdline to boot info
+Subject: Re: [PATCH v4 04/44] x86/boot: move mmap info to boot info
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-4-dpsmith@apertussolutions.com>
- <287f0214-2278-4032-bcc3-db14936f1985@citrix.com>
+ <20240830214730.1621-5-dpsmith@apertussolutions.com>
+ <1a185804-2ffe-4d70-8219-b55992836ac6@citrix.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -102,62 +102,75 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <287f0214-2278-4032-bcc3-db14936f1985@citrix.com>
+In-Reply-To: <1a185804-2ffe-4d70-8219-b55992836ac6@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-On 9/3/24 19:04, Andrew Cooper wrote:
+On 9/3/24 19:18, Andrew Cooper wrote:
 > On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
->> Transition Xen's command line to being held in struct boot_info.
+>> Transition the memory map info to be held in struct boot_info.
 >>
 >> No functional change intended.
 >>
 >> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>>   xen/arch/x86/include/asm/bootinfo.h |  5 +++++
+>>   xen/arch/x86/setup.c                | 12 +++++++++---
+>>   2 files changed, 14 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+>> index d2ca077d2356..e785ed1c5982 100644
+>> --- a/xen/arch/x86/include/asm/bootinfo.h
+>> +++ b/xen/arch/x86/include/asm/bootinfo.h
+>> @@ -8,11 +8,16 @@
+>>   #ifndef __XEN_X86_BOOTINFO_H__
+>>   #define __XEN_X86_BOOTINFO_H__
+>>   
+>> +#include <xen/types.h>
+>> +
+>>   struct boot_info {
+>>       unsigned int nr_mods;
+>>   
+>>       const char *boot_loader_name;
+>>       const char *cmdline;
+>> +
+>> +    paddr_t mmap_addr;
+>> +    uint32_t mmap_length;
 > 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> memmap please.
 
-Thank you.
+Ack.
 
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index 432b7d1701e4..a945fa10555f 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -1049,11 +1058,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>   
->>       multiboot_to_bootinfo(mbi);
->>   
->> -    /* Parse the command-line options. */
->> -    if ( mbi->flags & MBI_CMDLINE )
->> -        cmdline = cmdline_cook(__va(mbi->cmdline), boot_info->boot_loader_name);
->> -
->> -    if ( (kextra = strstr(cmdline, " -- ")) != NULL )
->> +    if ( (kextra = strstr(boot_info->cmdline, " -- ")) != NULL )
+>> @@ -1200,13 +1206,13 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
 >>       {
->>           /*
->>            * Options after ' -- ' separator belong to dom0.
->> @@ -1064,7 +1069,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>           kextra += 3;
->>           while ( kextra[1] == ' ' ) kextra++;
+>>           memmap_type = "Xen-e820";
 >>       }
->> -    cmdline_parse(cmdline);
->> +    cmdline_parse(boot_info->cmdline);
+>> -    else if ( mbi->flags & MBI_MEMMAP )
+>> +    else if ( boot_info->mmap_addr )
+>>       {
+>>           memmap_type = "Multiboot-e820";
+>> -        while ( bytes < mbi->mmap_length &&
+>> +        while ( bytes < boot_info->mmap_length &&
+>>                   e820_raw.nr_map < ARRAY_SIZE(e820_raw.map) )
+>>           {
+>> -            memory_map_t *map = __va(mbi->mmap_addr + bytes);
+>> +            memory_map_t *map = __va(boot_info->mmap_addr + bytes);
+>>   
+>>               /*
+>>                * This is a gross workaround for a BIOS bug. Some bootloaders do
 > 
-> It would be nice to get this kextra handling out of __start_xen(), but
-> I'm not entirely sure how.
+> This is some very gnarly logic.  pvh_init() plays with e820_raw behind
+> the scenes and doesn't set MBI_MEMMAP.
 > 
-> It shouldn't live in multiboot_fill_boot_info() if that's going to be
-> split for pvh, yet it really ought to live with the other editing of
-> bi->cmdline.
-> 
-> Something that is very subtle is that the *kextra = '\0' between these
-> two hunks ends up truncating bi->cmdline.
-> 
-> Perhaps best to leave it alone until inspiration strikes.
+> Perhaps for later cleanup too, this logic wants folding into the new
+> multiboot_fill_boot_info() and leave __start_xen().
 
-One thought is to move all the logic into a function and make it the 
-responsibility of fill function(s) to call it, since each entry point 
-has its own unique way for the xen command line to be passed in.
+I can add another patch that focuses on moving this to 
+multiboot_fill_boot_info(). If there is also a transition to 
+pvh_fill_boot_info(), then the question I have is, should this be better
+served as a separate function similar to my proposal with the command 
+line parsing?
 
 v/r,
 dps
