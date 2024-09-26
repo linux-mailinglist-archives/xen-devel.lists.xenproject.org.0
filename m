@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 876259871A4
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 12:36:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805288.1216336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7469B9871A8
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 12:38:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805292.1216346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stlrJ-0000Rl-70; Thu, 26 Sep 2024 10:36:29 +0000
+	id 1stlt9-0001Kk-HD; Thu, 26 Sep 2024 10:38:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805288.1216336; Thu, 26 Sep 2024 10:36:29 +0000
+Received: by outflank-mailman (output) from mailman id 805292.1216346; Thu, 26 Sep 2024 10:38:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stlrJ-0000Q4-4E; Thu, 26 Sep 2024 10:36:29 +0000
-Received: by outflank-mailman (input) for mailman id 805288;
- Thu, 26 Sep 2024 10:36:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1stlt9-0001J0-Ea; Thu, 26 Sep 2024 10:38:23 +0000
+Received: by outflank-mailman (input) for mailman id 805292;
+ Thu, 26 Sep 2024 10:38:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J7u3=QY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1stlrH-0000N3-Lk
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 10:36:27 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2f0e2dc1-7bf3-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 12:36:26 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-5365c512b00so1001101e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 03:36:26 -0700 (PDT)
+ id 1stlt8-0001Iu-Aw
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 10:38:22 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 72b244c3-7bf3-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 12:38:20 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5c5b954c359so844270a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 03:38:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93931348cfsm330766066b.200.2024.09.26.03.36.25
+ a640c23a62f3a-a9393134bc5sm331207566b.208.2024.09.26.03.38.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Sep 2024 03:36:25 -0700 (PDT)
+ Thu, 26 Sep 2024 03:38:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f0e2dc1-7bf3-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 72b244c3-7bf3-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727346986; x=1727951786; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727347100; x=1727951900; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qO7Xj1kgRMoBkbWCSxmHShmH1uP2Kl1bh2sQ4uo7rbQ=;
-        b=KXjXoTy+g+0FDtV7qpX8d1nrLwE6bZD/2P/+THdHdG+lsApYXXhqx5QReva6iWJWoa
-         xwy0kZr6a2PNFwbIexxPwBj/9qg6jfStGY7fY/qGcHkwxlaeQUzrRt1M6nqGKqpa5i5C
-         Yfj4Q8BUY95Fe2vBvuUnOiTkncKlDp9KCmmek4h8TSE3vZ2Fvx2m0C9OuHQC8VwuWUNu
-         GtMSV58a22iJkrV5x4gFnWnIWjgLdcA05elLRs6Ab6jw6ZjI91hGIaIl5uojF65WN8Sw
-         4bdCRGPEkQHCWpT9MQ904Iz6m48Zh3cz7Wk2fV18jNRWy6E7W1IHmk4dvxljG5R6/k6c
-         wgtg==
+        bh=KJVYwRJFziSQ9u6ZcEW4SjxbyugV+9jWZJuh/qeWOH0=;
+        b=FJWif9LDRSNyBnYB2PqXsTrR/bKRTdj2ePZd81izCUw902mQa0ogt5gBgQc2sXSqHa
+         qXIj+Nqj0TI8bM20PfSbSe30riRwtVNl3mYmesaTF/6RIYljKZpKuPUX+cAJvlgk0qVN
+         9F/OwtUDymNEp6qS+n9RjlKa//mskhzc5/FJwJQ4HUXIyZ+zYk3zvt83gW4d3FdkMxwK
+         TRDsOqQamPssLdj8jeNPlpEOPAtZObs2XEDTQffeKkC5LUv1FftYbS/mo+whbP8LU8Tw
+         Pw8L7zN9iusOQSz5TNrNumxU2UKtlGa9LIY9eoUsxg0ZzA40wweKwsMS1O3pj68FhpXG
+         rN6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727346986; x=1727951786;
+        d=1e100.net; s=20230601; t=1727347100; x=1727951900;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qO7Xj1kgRMoBkbWCSxmHShmH1uP2Kl1bh2sQ4uo7rbQ=;
-        b=IV7hAKxDCC0qST9kvZQnKCvxbB6V1rcGIcJ5SqFK+KzZLktkAARfdXCyI1VthFJUaI
-         Ix7dlDFAM6DG9lw5tqsIw08WLPhm3zyzCg8qowhVTi8df/U2ErPh5MLX+2hb2un3ZDMe
-         TpYMrXG3/D6GaonNekDDn82ds3l4ZsWbtI7NyhqBslgbbpxDWyDc+P/sVXTuHDwYBgwy
-         h5hsTV6LRxQRhjgOBvzhwY6MgHl86G1X6ej9RHbzl6/8v6FdQoehoyELV+1T6P5J8mAY
-         /ETwhxuI9rQHF1siU1W5NKNhqirirovSgqLKZa8P++bYV3q5G0x1u9p5Uwj+as/3XMBr
-         EV/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWVFb74lfG2lFUbYk92QB2Ekl/76+Sb1lfduQ3hTRpPkX3ZIwLzaUj51HTcveoVx4ddnU7YGcseF+g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwElf6hpl4bEmm0dP5ncG7Q0ka7JmLpCoo8dqRSZ98pYAGHzLr4
-	yDTP1cXRMv9sXCmvZD3sXHA18bUwJ1BFL9JWSGNRAiLo8W5q0kz+UQ98VLHp2A==
-X-Google-Smtp-Source: AGHT+IEPw2lX3mNaYWO7IPtQofniHR5s2RnbLlmEghCVLv3N5fr6t/lxA84a4EKst6OQMwAYlUooFQ==
-X-Received: by 2002:a05:6512:114b:b0:533:3268:b959 with SMTP id 2adb3069b0e04-538804af02cmr3705643e87.53.1727346986167;
-        Thu, 26 Sep 2024 03:36:26 -0700 (PDT)
-Message-ID: <7755652f-4f30-473e-b268-ccae340cfbd3@suse.com>
-Date: Thu, 26 Sep 2024 12:36:25 +0200
+        bh=KJVYwRJFziSQ9u6ZcEW4SjxbyugV+9jWZJuh/qeWOH0=;
+        b=Um+Kq+g3YO6Bsm/pE76x3taIJf8C8f8hXgBbNnwqvnKb6Okvlylx7cHDi5UCeI7H3h
+         4mO3QIzIbi8qiOUW94Xtx9NNlr2aQBQrB43xkN7L50f1Ut6YV58txNZG8saxIDFNZn6V
+         BpeamTSUNs+zYcmccB+GDS0VFyhFVXn7lMmvMzmeRQQQz1vTI+YMYat65HjxcIn2OuFX
+         VG+KXjLUbEe2yWtmusXgtlGuwmCyvJL92kqvckPuIH/2Uo7jvgX1KbSVPypu0zOhY3Xc
+         SQxJE1pmTt1aLU4/6I0/yk2kmdn++oxocUZHY07muGQ2pKK7iX8BAjaKk5uv/kHhtOyK
+         Fgfw==
+X-Forwarded-Encrypted: i=1; AJvYcCV5fhny1op6OE8OizONRbsoP3YLLbSWt5p0jxkEWdfMu20zi4/V1o2z5hMvl99I7/Z3k8/iYzE3yL4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyHJmujKABdDtGf4uCA49F4pUSK2mrO5n3PTzw7bcSH9FZcmegd
+	rMJSg2CD4bWmH8HG7KCLgAzDOoJ3G/fDGEZicpZ1sITIMg+yDXUlypcrpqC+pZmJvdC8CBtnXfk
+	=
+X-Google-Smtp-Source: AGHT+IHd06LL/dsrcmTqMEApZHhPNDCPzTG13VonsfJLpnCocbjq5JsIHNQH2YkpuwwtKlC9hMjFSw==
+X-Received: by 2002:a17:907:940a:b0:a91:15dc:34e4 with SMTP id a640c23a62f3a-a93a06bd2bdmr507628266b.59.1727347099777;
+        Thu, 26 Sep 2024 03:38:19 -0700 (PDT)
+Message-ID: <d71f0aeb-dbfc-488a-b6be-e930297ed393@suse.com>
+Date: Thu, 26 Sep 2024 12:38:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] xen: define ACPI and DT device info sections
- macros
-To: oleksii.kurochko@gmail.com
+Subject: Re: [PATCH v4 2/4] x86/boot: Refactor BIOS/PVH start
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <cover.1727193766.git.oleksii.kurochko@gmail.com>
- <7521839bd265e0520fc448adf50361d18dfe53df.1727193766.git.oleksii.kurochko@gmail.com>
- <82125953-99b5-4fde-83b8-51643cce793b@suse.com>
- <81b676ae5958d93ecbc3a552c1c0a208dfa2d18a.camel@gmail.com>
- <540a900e-9bff-40d0-8ace-6b443bbfca41@suse.com>
- <6800a465792d27de0ea4943df9c7e2b5ac3b39d2.camel@gmail.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20240925060101.259244-1-frediano.ziglio@cloud.com>
+ <20240925060101.259244-3-frediano.ziglio@cloud.com>
+ <88189db4-c89c-430d-b96f-46259993fb5e@citrix.com>
+ <2c550860-97fc-487d-9799-e543de15fff7@suse.com>
+ <CACHz=ZieO0T0zb0+O9SKJTnDiaF3gEsA=AaGQghqkBMNGvgaug@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,95 +117,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6800a465792d27de0ea4943df9c7e2b5ac3b39d2.camel@gmail.com>
+In-Reply-To: <CACHz=ZieO0T0zb0+O9SKJTnDiaF3gEsA=AaGQghqkBMNGvgaug@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26.09.2024 11:15, oleksii.kurochko@gmail.com wrote:
-> On Thu, 2024-09-26 at 08:23 +0200, Jan Beulich wrote:
->> On 25.09.2024 18:08, oleksii.kurochko@gmail.com wrote:
->>> On Wed, 2024-09-25 at 10:36 +0200, Jan Beulich wrote:
->>>> PPC's desire to use DECL_SECTION() can certainly be covered by
->>>> providing
->>>> a (trivial) DECL_SECTION() also for Arm and RISC-V. Seeing that
->>>> even
->>>> x86
->>>> overrides the default to the trivial form for building xen.efi,
->>>> I'm
->>>> inclined to suggest we should actually have a way for an arch to
->>>> indicate
->>>> to xen.lds.h that it wants just the trivial form (avoiding a
->>>> later
->>>> #undef).
->>> If to go with what I suggested before then x86 will look like:
+On 26.09.2024 11:24, Frediano Ziglio wrote:
+> On Thu, Sep 26, 2024 at 7:50 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 25.09.2024 21:33, Andrew Cooper wrote:
+>>> On 25/09/2024 7:00 am, Frediano Ziglio wrote:
+>>>> @@ -449,62 +458,40 @@ __pvh_start:
+>>>>          mov     %ecx, %es
+>>>>          mov     %ecx, %ss
+>>>>
+>>>> -        /* Skip bootloader setup and bios setup, go straight to trampoline */
+>>>> -        movb    $1, sym_esi(pvh_boot)
+>>>> -        movb    $1, sym_esi(skip_realmode)
+>>>> +        /* Load null selector to unused segment registers. */
+>>>> +        xor     %ecx, %ecx
+>>>> +        mov     %ecx, %fs
+>>>> +        mov     %ecx, %gs
 >>>
->>> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
->>> index d48de67cfd..911585541e 100644
->>> --- a/xen/arch/x86/xen.lds.S
->>> +++ b/xen/arch/x86/xen.lds.S
->>> @@ -3,6 +3,10 @@
->>>  
->>>  #include <xen/cache.h>
->>>  #include <xen/lib.h>
->>> +
->>> +#ifdef EFI
->>> +#define SIMPLE_DECL_SECTION
->>> +#endif
->>>  #include <xen/xen.lds.h>
->>>  #include <asm/page.h>
->>>  #undef ENTRY
->>> @@ -12,9 +16,7 @@
->>>  
->>>  #define FORMAT "pei-x86-64"
->>>  #undef __XEN_VIRT_START
->>> -#undef DECL_SECTION
->>>  #define __XEN_VIRT_START __image_base__
->>> -#define DECL_SECTION(x) x :
->>>  
->>>  ENTRY(efi_start)
->>>  
->>> diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
->>> index a17810bb28..fb11ba7357 100644
->>> --- a/xen/include/xen/xen.lds.h
->>> +++ b/xen/include/xen/xen.lds.h
->>> @@ -5,6 +5,8 @@
->>>   * Common macros to be used in architecture specific linker
->>> scripts.
->>>   */
->>>  
->>> +#ifdef SIMPLE_DECL_SECTION
->>
->> #ifndef I guess?
->>
->>> @@ -15,6 +17,10 @@
->>>  # define DECL_SECTION(x) x : AT(ADDR(x) - __XEN_VIRT_START)
->>>  #endif
->>>  
->>> +#else /* SIMPLE_DECL_SECION */
->>> +# define DECL_SECTION(x) x :
->>> +#endif
->>> +
->>>  /*
->>>   * To avoid any confusion, please note that the EFI macro does not
->>> correspond
->>>   * to EFI support and is used when linking a native EFI (i.e.
->>> PE/COFF)
->>> binary,
+>>> Honestly, the more I look at this, the more bizarre it is.
 >>>
->>> Does it make sense? Or it would be better to follow way for each
->>> architecture:
->>>    #undef DECL_SECTION
->>>    #define DECL_SECTION(x) x :
+>>> We should just set up %fs/gs like we do %ds/es, which in this case is
+>>> simply to drop the comment and the xor.
 >>
->> Hard to tell which one's better; I was asking myself that same
->> question
->> when writing an earlier reply. I'm slightly in favor of the form you
->> have
->> now.
-> Do you mean moving only a content of section without secname and laddr
-> ( in case of x86 and PPC ), and alignment to xen.lds.h ?
+>> What's bizarre here? As long as we don't use %fs/%gs, it doesn't matter
+>> much what we set them to. So yes, they may be set to what %ds etc are set
+>> to, but they may as well be marked unusable. Documentation-wise that's
+>> cleaner imo, as down the road - when a need to use one arises - it then
+>> won't require auditing of all code to figure where the register(s) is(are)
+>> actually used (just to find: nowhere). Even if a comment to this effect
+>> was left here, I for one wouldn't trust it in a couple of years time, but
+>> rather fear it went stale.
+> 
+> Hi,
+>   are you against this change and asking to roll it back?
 
-No. I was solely referring to the DECL_SECTION() aspect.
+Well, first of all I'm hoping for a reply by Andrew. Maybe I'm overlooking
+something. As it stands right now I indeed think we'd be better off keeping
+nul selectors in %fs and %gs.
 
 Jan
 
