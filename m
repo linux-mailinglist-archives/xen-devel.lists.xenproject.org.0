@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D49F98755B
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 16:22:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805576.1216714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88283987599
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 16:29:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805587.1216724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stpNH-00075k-K8; Thu, 26 Sep 2024 14:21:43 +0000
+	id 1stpUU-0008I8-Ei; Thu, 26 Sep 2024 14:29:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805576.1216714; Thu, 26 Sep 2024 14:21:43 +0000
+Received: by outflank-mailman (output) from mailman id 805587.1216724; Thu, 26 Sep 2024 14:29:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stpNH-00073d-Gv; Thu, 26 Sep 2024 14:21:43 +0000
-Received: by outflank-mailman (input) for mailman id 805576;
- Thu, 26 Sep 2024 14:21:41 +0000
+	id 1stpUU-0008Gd-BS; Thu, 26 Sep 2024 14:29:10 +0000
+Received: by outflank-mailman (input) for mailman id 805587;
+ Thu, 26 Sep 2024 14:29:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1stpNF-00073X-Of
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 14:21:41 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a3b131e5-7c12-11ef-99a2-01e77a169b0f;
- Thu, 26 Sep 2024 16:21:38 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1727360491017942.6164412087988;
- Thu, 26 Sep 2024 07:21:31 -0700 (PDT)
+ <SRS0=rvAu=QY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1stpUS-0008Fm-OE
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 14:29:08 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id afb13911-7c13-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 16:29:06 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a7a843bef98so133148466b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 07:29:06 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c27ed180sm3931466b.94.2024.09.26.07.29.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Sep 2024 07:29:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,320 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3b131e5-7c12-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1727360492; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=aYGITz/XGJv4InTleVznJg0bPdaHautU4yLE71Gw4XCjOS8ZXTqWdDbBvAZXetOgpPVtGzB7PGXw0T3mz4nyvBrI1jnO0Q5u79+aCdKd/zkwlkvXx2vrXaD8YGh7QcupXAlQMno1wp+FIqRpchKhQ8kamoj1mV1gOh9x50j8KXU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1727360492; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=qQ5C+w9XnSwJ4Fd2J6RIPSDNhSeUXHtU1K9bchPKlvI=; 
-	b=SOyKGk1mAYa47wq9Qeobzz+1p8cAXQu3e3yLuPB7XkyEAY9+m7PvSHkPiZRUMMAm6NfBG/VXYrY83mE1DzeZbhuTMiAwiFw5sdZS2R9UcKpMOtSpQ5ZhW2bbiVpPbsmj61Q0sorGSaI/Fm35IWW00SndBUjfkq79Zvnyaxfbe/g=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727360492;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=qQ5C+w9XnSwJ4Fd2J6RIPSDNhSeUXHtU1K9bchPKlvI=;
-	b=oOy0sAYud1Ar4tTAPdm7qE8NupoATW06yT9+Od5rYZ4uyLbYlUicUaqBm5FWu1LE
-	kl5b3q1pPhGfsDmAhQaf7WtEzwabDr8s5Ef1TuzGETiui4Og27DisYjYnpON5N5s5Fc
-	rTotjc/jY3s5Y/E+kDZmEkRf5wltncrAHoCoYWUM=
-Message-ID: <326b9238-59a9-4234-8a17-ddfa68793d88@apertussolutions.com>
-Date: Thu, 26 Sep 2024 10:21:29 -0400
+X-Inumbo-ID: afb13911-7c13-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1727360946; x=1727965746; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cdqsg12Th8pY+VhJMMNOf+yQ4otb2UeseulmZlbQikc=;
+        b=uPd0K4R9rI5OiZVDH0bhIagbHqyE40YTGSFOmO99UqqOLNeQKIl8FfN/6cyayzwaP+
+         r4EySqhbFQWeXx8k7BCzHbkNkfhWvL4T6zwvkwDUVjcZ39EurhKw1F9AxNGuWmDLLaiC
+         i7OKhQ4ziUKViz9hQuFwMSQ7bsV0ccQMhqGvI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727360946; x=1727965746;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cdqsg12Th8pY+VhJMMNOf+yQ4otb2UeseulmZlbQikc=;
+        b=aeogR/SoGEilbYYT5LyxKQ9s6tAk37lvZkdkCQZLH5TPsEOhNbt0wmYbCWPiHJf+JV
+         l181LzmV7FkIuolmT7jjUBmc8AKyRO6ECC5n1MEFk7sdXG8PcGlcpFPQfhtHpgkOki3r
+         dZbxJpoGRFHobx8A7erth8FSf2wFvSnn17ZgU+cxm3gbbKAOpXTkZnJXCtFN5LF2tmW3
+         gL57wX7xD+u0dwoS36NdT3BtyeE0OQblJxZJxgs+/fX37Zxks/3vbF4BWAXcIX9oDbDL
+         iAJQw1bEEUkjb9ag3qAhqhr+H2kpxMxk/SuD9Vaf7hPjVzyK58H86fx51+e+sye2zWOc
+         eSdQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVUQLEBv/TxHYL5lNew2AN4dVluhTmYeHnnG7r6PvvR0/Ofion2d6v4vT5yDqAcbJLEPUgIZ9UUh/Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx9fmL9K5hUqwNtwl/vCsE9raViVBlZGVy3vqneuSDrMayjUaEU
+	MKANSUkYv5gYD88w3qA7jfOXCMs5Srp30hmE2K9+Lvc5a4gAjPxbFyfcMxo8GZg=
+X-Google-Smtp-Source: AGHT+IGMtUnALNXPc2s8mnYmofslUn552g1MRinkA40I8yvEUDNCEWjBnzXw9ksOajNQtqNyBkoSxQ==
+X-Received: by 2002:a17:906:d25e:b0:a90:df6f:f086 with SMTP id a640c23a62f3a-a93a032011bmr624567166b.11.1727360946013;
+        Thu, 26 Sep 2024 07:29:06 -0700 (PDT)
+Message-ID: <58eb8a15-4369-40c6-90fe-71999cffcb63@citrix.com>
+Date: Thu, 26 Sep 2024 15:29:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/44] x86/boot: move x86 boot module counting into a
- new boot_info struct
-Content-Language: en-US
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Christopher Clark <christopher.w.clark@gmail.com>, jason.andryuk@amd.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-2-dpsmith@apertussolutions.com>
- <D3VUFEINDZZJ.3OHX2CEG4T0JU@cloud.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <D3VUFEINDZZJ.3OHX2CEG4T0JU@cloud.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH 2/5] x86/pvh: Use correct size value in GDT descriptor
+To: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org
+Cc: Ard Biesheuvel <ardb@kernel.org>, Jason Andryuk <jason.andryuk@amd.com>,
+ Juergen Gross <jgross@suse.com>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, x86@kernel.org, xen-devel@lists.xenproject.org
+References: <20240926104113.80146-7-ardb+git@google.com>
+ <20240926104113.80146-9-ardb+git@google.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <20240926104113.80146-9-ardb+git@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 9/2/24 09:47, Alejandro Vallejo wrote:
-> I haven't read the entire series yet, but here's my .02 so far
-> 
-> On Fri Aug 30, 2024 at 10:46 PM BST, Daniel P. Smith wrote:
->> From: Christopher Clark <christopher.w.clark@gmail.com>
->>
->> An initial step towards a non-multiboot internal representation of boot
->> modules for common code, starting with x86 setup and converting the fields
->> that are accessed for the startup calculations.
->>
->> Introduce a new header, <xen/asm/bootinfo.h>, and populate it with a new
->> boot_info structure initially containing a count of the number of boot
->> modules.
->>
->> No functional change intended.
->>
->> Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/arch/x86/include/asm/bootinfo.h | 25 +++++++++++++
->>   xen/arch/x86/setup.c                | 58 +++++++++++++++++------------
->>   2 files changed, 59 insertions(+), 24 deletions(-)
->>   create mode 100644 xen/arch/x86/include/asm/bootinfo.h
->>
->> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
->> new file mode 100644
->> index 000000000000..e850f80d26a7
->> --- /dev/null
->> +++ b/xen/arch/x86/include/asm/bootinfo.h
->> @@ -0,0 +1,25 @@
->> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->> +/*
->> + * Copyright (c) 2024 Christopher Clark <christopher.w.clark@gmail.com>
->> + * Copyright (c) 2024 Apertus Solutions, LLC
->> + * Author: Daniel P. Smith <dpsmith@apertussolutions.com>
->> + */
->> +
->> +#ifndef __XEN_X86_BOOTINFO_H__
->> +#define __XEN_X86_BOOTINFO_H__
->> +
-> 
-> This struct would benefit from a comment stating what it's for and how it's
-> meant to be used. At a glance it seems like it's meant to be serve as a
-> boot-protocol agnostic representation of boot-parameters, used as a generic
-> means of information handover. Which would imply multiboot_info is parsed onto
-> it when booting from multiboot and is synthesised from scratch in other cases
-> (e.g: direct EFI?).
+On 26/09/2024 11:41 am, Ard Biesheuvel wrote:
+> From: Ard Biesheuvel <ardb@kernel.org>
+>
+> The size field in a GDT descriptor is offset by 1, so subtract 1 from
+> the calculated range.
+>
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 
-Yes, some inline documentation can be added.
+I realise this is probably nitpicking, but the GDT descriptor has a
+limit field, which is (intentionally) not a size field.
 
->> +struct boot_info {
->> +    unsigned int nr_mods;
-> 
-> It's imo better to treat this as an ABI. That would allow using this layer as a
-> boot protocol in itself (which I'm guessing is the objective? I haven't gotten
-> that far in the series). If so, this would need to be a fixed-width uintN_t.
-> 
-> Same with other fields in follow-up patches.
+This is why there's a difference of 1 between them.
 
-The intent is to provide a clean internal abstraction around the boot 
-material provided to Xen and not as an external boot protocol. The 
-follow-on series to come will build upon this to introduce a 
-representation of domains to be constructed at boot. A side goal with 
-later introduced fields is to use proper xen types for the fields, eg. 
-paddr_t, and mfn_t.
+Working in terms of limits rather than sizes avoids needing a 16th bit
+on the segment limit circuitry, which mattered for the 286.
 
->> +};
->> +
->> +#endif
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * tab-width: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index eee20bb1753c..dd94ee2e736b 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -32,6 +32,7 @@
->>   #include <compat/xen.h>
->>   #endif
->>   #include <xen/bitops.h>
->> +#include <asm/bootinfo.h>
->>   #include <asm/smp.h>
->>   #include <asm/processor.h>
->>   #include <asm/mpspec.h>
->> @@ -276,7 +277,16 @@ static int __init cf_check parse_acpi_param(const char *s)
->>   custom_param("acpi", parse_acpi_param);
->>   
->>   static const module_t *__initdata initial_images;
->> -static unsigned int __initdata nr_initial_images;
->> +static struct boot_info __initdata *boot_info;
->> +
->> +static void __init multiboot_to_bootinfo(multiboot_info_t *mbi)
-> 
-> If this function returned boot_info instead and the caller made the
-> assignment then it would be possible to unit-test/fuzz it.
-> 
-> It also fits a bit more nicely with the usual implications of that function
-> name pattern, I think.
-
-As the larger capability continues to be developed, it is becoming 
-necessary to get access to the reference from other areas of the code. 
-Currently, I just move boot_info outside the function and exported the 
-reference. I still have as an open question if the declaration should be 
-static and access is obtained through an accessor function(s). I'm open 
-to suggestions here.
-
->> +{
->> +    static struct boot_info __initdata info;
->> +
->> +    info.nr_mods = mbi->mods_count;
-> 
-> Shouldn't this be gated on MBI_MODULES being set?
-> 
->     info.nr_mods = (mbi->flags & MBI_MODULES) ? mbi->mods_count : 0;
-
-Yes.
-
->> +
->> +    boot_info = &info;
->> +}
->>   
->>   unsigned long __init initial_images_nrpages(nodeid_t node)
->>   {
->> @@ -285,7 +295,7 @@ unsigned long __init initial_images_nrpages(nodeid_t node)
->>       unsigned long nr;
->>       unsigned int i;
->>   
->> -    for ( nr = i = 0; i < nr_initial_images; ++i )
->> +    for ( nr = i = 0; i < boot_info->nr_mods; ++i )
->>       {
->>           unsigned long start = initial_images[i].mod_start;
->>           unsigned long end = start + PFN_UP(initial_images[i].mod_end);
->> @@ -301,7 +311,7 @@ void __init discard_initial_images(void)
->>   {
->>       unsigned int i;
->>   
->> -    for ( i = 0; i < nr_initial_images; ++i )
->> +    for ( i = 0; i < boot_info->nr_mods; ++i )
->>       {
->>           uint64_t start = (uint64_t)initial_images[i].mod_start << PAGE_SHIFT;
->>   
->> @@ -309,7 +319,7 @@ void __init discard_initial_images(void)
->>                              start + PAGE_ALIGN(initial_images[i].mod_end));
->>       }
->>   
->> -    nr_initial_images = 0;
->> +    boot_info->nr_mods = 0;
-> 
-> Out of curiosity, why is this required?
-
-At this point, the boot modules have been "consumed" and are no longer 
-safe to access. This ensures that if for some reason any module access 
-code gets invoked that attempts to walk the modules, this will ensure
-it will result in no access.
-
->>       initial_images = NULL;
->>   }
->>   
->> @@ -1034,9 +1044,10 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>           mod = __va(mbi->mods_addr);
->>       }
->>   
->> +    multiboot_to_bootinfo(mbi);
->> +
->>       loader = (mbi->flags & MBI_LOADERNAME) ? __va(mbi->boot_loader_name)
->>                                              : "unknown";
->> -
-> 
-> Stray newline removal?
-> 
->>       /* Parse the command-line options. */
->>       if ( mbi->flags & MBI_CMDLINE )
->>           cmdline = cmdline_cook(__va(mbi->cmdline), loader);
->> @@ -1141,18 +1152,18 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>              bootsym(boot_edd_info_nr));
->>   
->>       /* Check that we have at least one Multiboot module. */
->> -    if ( !(mbi->flags & MBI_MODULES) || (mbi->mods_count == 0) )
->> +    if ( !(mbi->flags & MBI_MODULES) || (boot_info->nr_mods == 0) )
-> 
-> With MBI_MODULES accounted for during conversion, the first part of the
-> conditional can be ellided and you could simply do:
-> 
->      if ( !boot_info->nr_mods )
->          panic(...)
-
-This eventually happens, the goal in this revision was to slowly unhook 
-the mbi usage as it is pervasive and so the reviewers can ensure we are 
-correctly replacing all of its usage. With that said, I can look to see 
-if it is reasonable to add its usage here.
-
-> Also, could we move this to multiboot_to_bootinfo()? It'd contain these sorts
-> of boot argument checks to a much more self contained function and help check
-> at the point of assignment, preventing misuse.
-
-These checks could be moved up into that function, but then you would 
-lose the ability to print messages since the conversion function is 
-invoked before serial is initialized.
-
->>           panic("dom0 kernel not specified. Check bootloader configuration\n");
->>   
->>       /* Check that we don't have a silly number of modules. */
-> 
->> -    if ( mbi->mods_count > sizeof(module_map) * 8 )
->> +    if ( boot_info->nr_mods > sizeof(module_map) * 8 )
-> 
-> Like above, this check would be much more neatly contained where boot_info
-> is created, imo.
-
-Again, you would lose the ability to print the error message.
-
->>       {
->> -        mbi->mods_count = sizeof(module_map) * 8;
->> +        boot_info->nr_mods = sizeof(module_map) * 8;
->>           printk("Excessive multiboot modules - using the first %u only\n",
-> 
-> Does the comment need adjusting too to make it more general? As in
-> s/multiboot/boot.
-
-I don't see why the message couldn't be generalized.
-
->> -               mbi->mods_count);
->> +               boot_info->nr_mods);
->>       }
->>   
->> -    bitmap_fill(module_map, mbi->mods_count);
->> +    bitmap_fill(module_map, boot_info->nr_mods);
->>       __clear_bit(0, module_map); /* Dom0 kernel is always first */
->>   
->>       if ( pvh_boot )
-> 
-> Cheers,
-> Alejandro
-
-Thanks for the review.
-
-v/r
-dps
+~Andrew
 
