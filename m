@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18A6D987783
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:27:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805729.1216916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFD1998778A
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:29:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805735.1216927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1strKK-0003Tv-5s; Thu, 26 Sep 2024 16:26:48 +0000
+	id 1strMG-0004Xu-Hm; Thu, 26 Sep 2024 16:28:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805729.1216916; Thu, 26 Sep 2024 16:26:48 +0000
+Received: by outflank-mailman (output) from mailman id 805735.1216927; Thu, 26 Sep 2024 16:28:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1strKK-0003RH-36; Thu, 26 Sep 2024 16:26:48 +0000
-Received: by outflank-mailman (input) for mailman id 805729;
- Thu, 26 Sep 2024 16:26:46 +0000
+	id 1strMG-0004Vx-EU; Thu, 26 Sep 2024 16:28:48 +0000
+Received: by outflank-mailman (input) for mailman id 805735;
+ Thu, 26 Sep 2024 16:28:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1strKI-0003PT-CZ
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:26:46 +0000
+ id 1strMF-0004Vr-4j
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:28:47 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1df1d79e-7c24-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 18:26:45 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1727367998644255.7763143240444;
- Thu, 26 Sep 2024 09:26:38 -0700 (PDT)
+ id 660e1c3d-7c24-11ef-a0ba-8be0dac302b0;
+ Thu, 26 Sep 2024 18:28:46 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 172736811735094.21255602946292;
+ Thu, 26 Sep 2024 09:28:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,39 +38,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1df1d79e-7c24-11ef-a0ba-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1727367999; cv=none; 
+X-Inumbo-ID: 660e1c3d-7c24-11ef-a0ba-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1727368119; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=kPpJhuJcVEUf4LMLfeufL5tj6h0nj43lKAtggdIgOoF5pFmpyu4VsLLQHqfLMhx+SggwIbp9mHN5X0F2QORRiCB1yyu8pGZJqRu5IcTneBciT4x0kAG5BeDEgjWYP49KoLe5phL9rrlXpy3r7n/WJV71hxddZW+N5BpDukBR3Qw=
+	b=DY9giBflrY4bmqiy9NYuOxyxeqASAfp2JtmpvecblNg+DYdoysKtfdjRfSmYGeOnBkQiV0nABuGkf67fz2YAqV4GgiqeQoK4cvsoYrg2FmVbrSfcfGJETCyeuSszEY+559ELTs4D/FMeoixaoKzHtKWDxeI6e2NXNfPg7CP6B0Y=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1727367999; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iyHYaAAW+udJjzX8hQZK/Gl2M6ySYGD4C6sl+q9woOk=; 
-	b=MSs4/ygDjLmTdj7sEMA6qQZi3O9iGHWnwzgp7tW+YylWai8iL7FMNAhhELD1c4C6gkcVu5VKexhev3MwNCVCBoK3OmX7CY5FgLlacE8lBpLLoTTQRJwrnVyPsWKMQ41b3Zd9Z0pjJX1tqQzUbVYmIyLPKmyT1yElraqQo+fH8Os=
+	t=1727368119; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=S8PtHETWCxUJiiwdz2ExmZ3+WX3N7TMWK2Aedkc2wrE=; 
+	b=DR0ndpcPzmbxXe1nF12kenG1HbZV9qXew3lOFiCVwwv/3UmjIPvjXt7Ul4fnBYGogA5rFjohISPUJT2E9j2Vu4a+JGjMxBeiNwFMfmKuk57Q5H5ESbLPuxv9Yk87DPPlEsTnleNOWlA6YT+i9ipRGPrFxPMjZzUiI0yfnynKCWE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727367999;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727368119;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=iyHYaAAW+udJjzX8hQZK/Gl2M6ySYGD4C6sl+q9woOk=;
-	b=fc5sDTSUTCdZZtDPwAKWCVKdvxcSDde+lpfpue7mTg9/A0fC4FJYTqxv7SqXRrbf
-	PZrPAQFR2UcQQYI4l/eE05yBkNZ4lIu2L5UWxRO9G47qbfjxXycy4ADMysAr6P8eZvv
-	mUxwu1tHsNk/LgzyXJx7Ly/lKZ84vsMe7pUMaiM4=
-Message-ID: <cd7c0a71-f5c4-47cf-8985-e3c977a5343f@apertussolutions.com>
-Date: Thu, 26 Sep 2024 12:26:37 -0400
+	bh=S8PtHETWCxUJiiwdz2ExmZ3+WX3N7TMWK2Aedkc2wrE=;
+	b=CAOzg30TJl+lk26ISSSiJmAa/8y3bd++LAhdr8crTtb+Wv7P4qqQRlVw9yot7jU6
+	Rzm4gEfDwHFaON6NmbgmdCcl/9SADliOtLwPLarrzcZuRskzNWdRpN4q2QdkgzQxMRZ
+	r9v4RRRV5NqrWrxR4qBbWXfYI2GZz0Sy6Q+GIrjs=
+Message-ID: <9e342613-ddc2-4ea3-8476-c81eab13e1fc@apertussolutions.com>
+Date: Thu, 26 Sep 2024 12:28:36 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/44] x86/boot: move headroom to boot modules
+Subject: Re: [PATCH v4 08/44] x86/boot: convert setup.c mod refs to early_mod
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-8-dpsmith@apertussolutions.com>
- <564c11d1-4e06-4af0-bbdb-c4cbcf3df26a@suse.com>
+ <20240830214730.1621-9-dpsmith@apertussolutions.com>
+ <54d6eaaa-da36-4040-b01e-f45a555d0a3c@citrix.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -103,54 +102,23 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <564c11d1-4e06-4af0-bbdb-c4cbcf3df26a@suse.com>
+In-Reply-To: <54d6eaaa-da36-4040-b01e-f45a555d0a3c@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 9/4/24 02:45, Jan Beulich wrote:
-> On 30.08.2024 23:46, Daniel P. Smith wrote:
->> The purpose of struct boot_module is to encapsulate the state of boot modules.
->> Doing locates boot module state with its respective boot module, reduces
-> 
-> I'm struggling with the start of this sentence.
-
-Yep, grammar check failed to catch. Will fix.
-
->> @@ -1390,7 +1390,9 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>           mod[boot_info->nr_mods].mod_end = __2M_rwdata_end - _stext;
->>       }
+On 9/3/24 19:50, Andrew Cooper wrote:
+> On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
+>> @@ -1379,6 +1379,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
 >>   
->> -    modules_headroom = bzimage_headroom(bootstrap_map(mod), mod->mod_end);
->> +    boot_info->mods[0].headroom = bzimage_headroom(
->> +                        bootstrap_map(boot_info->mods[0].early_mod),
->> +                        boot_info->mods[0].early_mod->mod_end);
+>>       if ( xen_phys_start )
+>>       {
+>> +        int idx = boot_info->nr_mods;
 > 
-> Nit: This is badly indented. Either
-> 
->      boot_info->mods[0].headroom = bzimage_headroom(
->          bootstrap_map(boot_info->mods[0].early_mod),
->          boot_info->mods[0].early_mod->mod_end);
-> 
-> or
-> 
->      boot_info->mods[0].headroom =
->          bzimage_headroom(
->              bootstrap_map(boot_info->mods[0].early_mod),
->              boot_info->mods[0].early_mod->mod_end);
-> 
-> or
-> 
->      boot_info->mods[0].headroom =
->          bzimage_headroom(bootstrap_map(boot_info->mods[0].early_mod),
->                           boot_info->mods[0].early_mod->mod_end);
-> 
-> Even shortening "boot_info" will not avoid some line wrapping here, as it
-> looks.
+> unsigned int, but I'd be tempted to name it xen, so the hunk below is a
+> bit more intuitive to read.
 
-I would lean towards the latter, as I find it the most clear. With the 
-shortening of "boot_info" and dropping "early_" per Andy, It might bring 
-it up one line. Will see when I do it.
+Ack on both parts.
 
 v/r,
 dps
