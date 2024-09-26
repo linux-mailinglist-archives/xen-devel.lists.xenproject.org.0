@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB41598781E
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 19:06:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805824.1217056 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEA1498782A
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 19:09:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805828.1217066 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1strwb-00018M-P1; Thu, 26 Sep 2024 17:06:21 +0000
+	id 1strz3-0002hx-5U; Thu, 26 Sep 2024 17:08:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805824.1217056; Thu, 26 Sep 2024 17:06:21 +0000
+Received: by outflank-mailman (output) from mailman id 805828.1217066; Thu, 26 Sep 2024 17:08:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1strwb-00015g-ML; Thu, 26 Sep 2024 17:06:21 +0000
-Received: by outflank-mailman (input) for mailman id 805824;
- Thu, 26 Sep 2024 17:06:20 +0000
+	id 1strz3-0002f9-2n; Thu, 26 Sep 2024 17:08:53 +0000
+Received: by outflank-mailman (input) for mailman id 805828;
+ Thu, 26 Sep 2024 17:08:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1strwa-00015W-71
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 17:06:20 +0000
+ id 1strz1-0002dm-LJ
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 17:08:51 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a44164d9-7c29-11ef-99a2-01e77a169b0f;
- Thu, 26 Sep 2024 19:06:18 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1727370371880544.4448130410378;
- Thu, 26 Sep 2024 10:06:11 -0700 (PDT)
+ id fea9a254-7c29-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 19:08:49 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1727370511156139.12785590247825;
+ Thu, 26 Sep 2024 10:08:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,40 +38,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a44164d9-7c29-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1727370372; cv=none; 
+X-Inumbo-ID: fea9a254-7c29-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1727370513; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=dIN60mjqSAJMykGNF+FuRcHzW05Hgx7Wxm8nqwtpjGVYX0UMvpqWYuqJ5UQxdbjV202vJCOANIls2Pw0DyCG1rFfywg2qr7z78JifdrBB3I/ENVbWNFPcoBfcJoMYwRdRiFCvWW8LLCi7phlaf2eCgAoJhya29DFjPTFjPtFv8k=
+	b=KXFZscra8PfEItn3jI/KDkBrT2dcwHq0ZKKoIcSopu7xoF5hqumOaf35wAwYC0Q8ajy8Cqm+gQY3mqM9V+ReD07JCP7IMY8NIRH6aH+fLzkNMyvHNLfZO/nsjlz0WR8goT8R/DL2qHhJKkHDccN+e7pCDDMI93oX1K0sGys09SQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1727370372; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=09NTtv0QtyrQERx+9IgLR8hk1wDZmELXa5CmP/QXjoM=; 
-	b=d+pGQl1kitzU4aXTAJL7JRswPhRMcNZGM3Qgj+KCizciIjG4H5/BPhIutb9m5oFcBiYs8MmGd8q/6wKjYoK7Tb1Tja74jgTKb+uRaZFvQDBESHPQBoWQNo0yUhjorjhgPqgeRj+NZX3urn2JGiAMpS1nz6iE12KaHdfxYTd+Ss0=
+	t=1727370513; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=w48LFyEb8d2m1NrEbm3POZmrm+zZSKvatsXhy1kVtwA=; 
+	b=Uv2+upA7+iq86yaPiQNoLuFEHHgV78SWE9qf1NTdm33dXNkiBVTkhDWDGz5PXWeCX9aOmde9jJ+hcLknsjqvu0UAuNqrXsf4lq2FegQ687fmQIav1twIlmRSZv8tXgy6x4ORkBB97COcvJlA/oSr1tFaaxahdiFQXgUewfem5VU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727370372;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727370513;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=09NTtv0QtyrQERx+9IgLR8hk1wDZmELXa5CmP/QXjoM=;
-	b=cQ6nWoXIE4OI11hnnawDK5RmKRCP3yyf+Zv9NnV+C0lLFJEjJBLbItnu5bNsED/f
-	rI+8TXGP2S+KZ1fnulyE6wUnfvmKPWUgW+VN4ZICexuaeUlxfJ9B8w9zE3hoEyvYghj
-	rwci04f+rOSCMKlJKUU48PFfKwvrqEEUQatBYbRM=
-Message-ID: <4ad17d5e-f698-4320-ab91-67dc6ab24d3a@apertussolutions.com>
-Date: Thu, 26 Sep 2024 13:06:10 -0400
+	bh=w48LFyEb8d2m1NrEbm3POZmrm+zZSKvatsXhy1kVtwA=;
+	b=sYcKVTmx1mhonWBwunyzk2eRLhvHfSwsWLLsk4DdnMWsEJ/DR3QB7dgrjeRr62nR
+	cnDF77xfgVlN3t7XUsD/nX4wgiEmL7z9Ze7LzTgNEzAIzxuZT9FI43oQiwavcJ4ztH+
+	oGdLUveuPIdNvYKWb+8CDx16BwmXorw38dKZV8YU=
+Message-ID: <a913ea8d-0c08-44f0-845f-cb9402b93dc9@apertussolutions.com>
+Date: Thu, 26 Sep 2024 13:08:29 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/44] x86/boot: split bootstrap_map_addr() out of
- bootstrap_map()
+Subject: Re: [PATCH v4 13/44] x86/boot: update struct boot_module on module
+ relocation
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-10-dpsmith@apertussolutions.com>
- <10217d0f-441c-4991-b935-d27a6dd4b49b@suse.com>
- <6297d50d-8c9f-4618-9c8c-ea43631abf0e@citrix.com>
+ <20240830214730.1621-14-dpsmith@apertussolutions.com>
+ <c5a44f74-9aa8-468b-9125-3c9f903e4dea@citrix.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -104,27 +103,35 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <6297d50d-8c9f-4618-9c8c-ea43631abf0e@citrix.com>
+In-Reply-To: <c5a44f74-9aa8-468b-9125-3c9f903e4dea@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 9/4/24 06:47, Andrew Cooper wrote:
-> On 04/09/2024 7:49 am, Jan Beulich wrote:
->> On 30.08.2024 23:46, Daniel P. Smith wrote:
->>> From: Andrew Cooper <andrew.cooper3@citrix.com>
->>>
->>> Using an interface based on addresses directly, not modules.
->>>
->>> No functional change.
->> Okay, a mechanical transformation. But what's the goal?
+On 9/3/24 19:48, Andrew Cooper wrote:
+> On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index 021c5699f86c..27517d24b2ea 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -1408,8 +1408,10 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>            * respective reserve_e820_ram() invocation below. No need to
+>>            * query efi_boot_mem_unused() here, though.
+>>            */
+>> -        boot_info->mods[idx].early_mod->mod_start = virt_to_mfn(_stext);
+>> -        boot_info->mods[idx].early_mod->mod_end = __2M_rwdata_end - _stext;
+>> +        boot_info->mods[idx].start = boot_info->mods[idx].early_mod->mod_start
+>> +                                   = virt_to_mfn(_stext);
+>> +        boot_info->mods[idx].size = boot_info->mods[idx].early_mod->mod_end
+>> +                                  = __2M_rwdata_end - _stext;
 > 
-> Its used by patch 12 which adds boostrap_map_bm(), but does want to be
-> reordered later in the series to immediately before it's used.
+> MISRA objects to using a = b = c; syntax, and we're being asked to take
+> it out elsewhere.
+> 
+> It would be best to make local start/size variables, and the resulting
+> code will have less churn through the rest of the series.
 
-I can reorder the series to make these this happen just before patch 12 
-and ensure that they aren't introduced until the first usage of 
-boostrap_map_bm().
+I will drop the "a = b =c;" syntax and update appropriately.
 
 v/r,
 dps
