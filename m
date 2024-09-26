@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4958698724A
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 13:04:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805359.1216435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0580987254
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 13:07:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805367.1216446 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stmIB-0004H9-Kx; Thu, 26 Sep 2024 11:04:15 +0000
+	id 1stmKW-00056v-1G; Thu, 26 Sep 2024 11:06:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805359.1216435; Thu, 26 Sep 2024 11:04:15 +0000
+Received: by outflank-mailman (output) from mailman id 805367.1216446; Thu, 26 Sep 2024 11:06:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stmIB-0004Ej-IN; Thu, 26 Sep 2024 11:04:15 +0000
-Received: by outflank-mailman (input) for mailman id 805359;
- Thu, 26 Sep 2024 11:04:13 +0000
+	id 1stmKV-000558-TX; Thu, 26 Sep 2024 11:06:39 +0000
+Received: by outflank-mailman (input) for mailman id 805367;
+ Thu, 26 Sep 2024 11:06:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rvAu=QY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1stmI9-0004EY-Md
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 11:04:13 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1stmKU-0004x3-Hp
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 11:06:38 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f483302-7bf7-11ef-99a2-01e77a169b0f;
- Thu, 26 Sep 2024 13:04:11 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5c718bb04a3so949498a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 04:04:11 -0700 (PDT)
+ id 65ed38d0-7bf7-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 13:06:37 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a7a843bef98so104109866b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 04:06:37 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93930caf5bsm334702766b.122.2024.09.26.04.04.09
+ a640c23a62f3a-a93930f794bsm342691866b.147.2024.09.26.04.06.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Sep 2024 04:04:09 -0700 (PDT)
+ Thu, 26 Sep 2024 04:06:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f483302-7bf7-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 65ed38d0-7bf7-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727348651; x=1727953451; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1727348796; x=1727953596; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iuEOkMz1BkCkG7DzkfVUByAm+RF+Z3Mu3yaOKSLHU5c=;
-        b=IUhK9CSHtGVCPprgS66TinwaknQL9/1DAyQttvm1L4YE+wQelaKkzMlsaQD/mdUiA8
-         5ulnXCAH0r2RokxEbqUTwOc5DIeXaWlUHWOoHmS8NUCKO1mYEJYliawxYX9NOMeMhOWS
-         +5AQpn40Wa7QS5MS9366d+xTKiVkJOMnqMTd0=
+        bh=WDj88KV+i9wg8jDlLzozeb+t+G119f21fy9rBSyeyH4=;
+        b=SsbD3239ij40FsuwVPg7lWXfdsRDyUtfBBfB1BtHkfA9HyzRz3+TqO7gcX3uQ0sHad
+         ea1OC6B8tP0wprK5RMTdECHAJNpaXEYau4jko0k60GEh6Au+c9mjC3hphUudKY+g1Adk
+         vp+3UnUgHYp4kiO5OMDFNqEQFeQigBSCEJWks=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727348651; x=1727953451;
+        d=1e100.net; s=20230601; t=1727348796; x=1727953596;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iuEOkMz1BkCkG7DzkfVUByAm+RF+Z3Mu3yaOKSLHU5c=;
-        b=H3aMuex+b2pY1eCe6zJ/HuOcjCrgIMG3Rkv86aroGdajMn19BuPaPSHFwrBQH8S3hr
-         23U4DENyNYQ1xXCse671OYKNU+eosRngNDI50tm61Ebe/d4g7ccKPQ4Wr/Ofl9En2+lB
-         6aH9wZckubz8FdCwhMCrZyGNbHTBJeDAmNxsfHmD1Vd4yGsrUwiDm08zm9S+aQ6W3D4y
-         mOUhcpczNRU7oDJZ0+Z9aPOldJUClJ4AuU0mi+4+FIBet9pGNnoT1BTkCQs0T/TtRECc
-         Q3agTocbnYaOorlxb7ZxyzeskaCzCesM09ZJi/QTPP8RdddaOAN3hKjyRzAJMIQXVrmx
-         VilA==
-X-Forwarded-Encrypted: i=1; AJvYcCXNQlXuHAReal6LOGqf//9iZxHZ/yEr4vaPQZ3sFlVCepNJrw2IgjdD/0JvnL6mHaBDOXX5vCwX21o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzH84NyjDzFFTXfdpeu3UC8oyQ93zGFCgzXa2uERBy3f/FQT7qh
-	uP//D2vWeUx+K+vStCR1oVJrQC9VJK342yYCvzy5AmkBKpFWLJlSnly3xmWQsUU=
-X-Google-Smtp-Source: AGHT+IFUVRA8I6Ldlwxnk25/JsZh/aq4+qOA8XPhISve/6teXZ/JlPJ+2oj+wdriCabPCae/d41DYw==
-X-Received: by 2002:a17:907:9487:b0:a8d:caa:7fee with SMTP id a640c23a62f3a-a93a033804emr647560666b.7.1727348651041;
-        Thu, 26 Sep 2024 04:04:11 -0700 (PDT)
-Message-ID: <4d9da48c-00ba-476d-8915-96ed765cdfbe@citrix.com>
-Date: Thu, 26 Sep 2024 12:04:06 +0100
+        bh=WDj88KV+i9wg8jDlLzozeb+t+G119f21fy9rBSyeyH4=;
+        b=oB2bHLJa7lR30tkNVjknudCMmreuoUzNymrbNLkD3Ywn0Wz41D++sqc/Eqk2osu9sC
+         EHSMWusYIEV6n63jZK84ZjhR1ZKBjJYaQIn7Uy3aI5voydzubis0xlNv8NnpxQXTHVF1
+         euLCAYHwr9r2ooxaf2X63nIREHheh2A8TB4xTVZgeLQUa4D+7Rd8QXPJdrDcKwK+d60Q
+         immruvg48QtZVrMMC9pyaprpkO+uBjSv2ju6focE+P0NDHTNh3V0cNO5aVFr6Dt1oO6s
+         iTOhbqzl1KruyfPueZ4K4TSpFESOv6+Tis1rZxjGP7zGLv5ZNOxmYLDGERStE54wfjbQ
+         ttDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUOSayFKkq8pBJmOGUfIRAPsPUGS/sWecBXL4YS07KJGlfcGvW+YutqZHn6VWr3wxDBR76cYLXbQ0E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxf7+XrYu1DFCiXqZxlQAuIi41VYZtgzvM36UtSQuulTGS9qqOo
+	f+vwXedT2UzmkOnawjeHFiOHE28hyWqQFsKzz6t6r1tGvG1nljSzjfup8eNgs8E=
+X-Google-Smtp-Source: AGHT+IFHMtlM4AEZAe5rHKBFTjRKEuQBIe2qorUs+tjtUPD8n//7jkl4XI146g8XWvXiWqlVNv5zhQ==
+X-Received: by 2002:a17:906:cac9:b0:a8d:44a5:1c2f with SMTP id a640c23a62f3a-a93a03200e6mr506579666b.6.1727348796417;
+        Thu, 26 Sep 2024 04:06:36 -0700 (PDT)
+Message-ID: <ac19ae47-f866-4060-8eb9-eadb925c4cad@citrix.com>
+Date: Thu, 26 Sep 2024 12:06:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] xen/livepatch: drop load_addr Elf section field
+Subject: Re: [PATCH v3 3/5] xen/livepatch: do Xen build-id check earlier
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jan Beulich <jbeulich@suse.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
 References: <20240926101431.97444-1-roger.pau@citrix.com>
- <20240926101431.97444-2-roger.pau@citrix.com>
+ <20240926101431.97444-4-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,65 +128,34 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240926101431.97444-2-roger.pau@citrix.com>
+In-Reply-To: <20240926101431.97444-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 26/09/2024 11:14 am, Roger Pau Monne wrote:
-> The Elf loading logic will initially use the `data` section field to stash a
-> pointer to the temporary loaded data (from the buffer allocated in
-> livepatch_upload(), which is later relocated and the new pointer stashed in
-> `load_addr`.
+> The check against the expected Xen build ID should be done ahead of attempting
+> to apply the alternatives contained in the livepatch.
 >
-> Remove this dual field usage and use an `addr` uniformly.  Initially data will
-> point to the temporary buffer, until relocation happens, at which point the
-> pointer will be updated to the relocated address.
+> If the CPUID in the alternatives patching data is out of the scope of the
+> running Xen featureset the BUG() in _apply_alternatives() will trigger thus
+> bringing the system down.  Note the layout of struct alt_instr could also
+> change between versions.  It's also possible for struct exception_table_entry
+> to have changed format, hence leading to other kind of errors if parsing of the
+> payload is done ahead of checking if the Xen build-id matches.
 >
-> This avoids leaking a dangling pointer in the `data` field once the temporary
-> buffer is freed by livepatch_upload().
+> Move the Xen build ID check as early as possible.  To do so introduce a new
+> check_xen_buildid() function that parses and checks the Xen build-id before
+> moving the payload.  Since the expected Xen build-id is used early to
+> detect whether the livepatch payload could be loaded, there's no reason to
+> store it in the payload struct, as a non-matching Xen build-id won't get the
+> payload populated in the first place.
 >
-> Note the `addr` field cannot retain the const attribute from the previous
-> `data`field, as there's logic that performs manipulations against the loaded
-> sections, like applying relocations or sorting the exception table.
+> Note printing the expected Xen build ID has part of dumping the payload
+> information is no longer done: all loaded payloads would have Xen build IDs
+> matching the running Xen, otherwise they would have failed to load.
 >
-> No functional change intended.
->
+> Fixes: 879615f5db1d ('livepatch: Always check hypervisor build ID upon livepatch upload')
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-> diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-> index df41dcce970a..7e6bf58f4408 100644
-> --- a/xen/common/livepatch.c
-> +++ b/xen/common/livepatch.c
-> @@ -371,18 +371,21 @@ static int move_payload(struct payload *payload, struct livepatch_elf *elf)
->  
->              ASSERT(offset[i] != UINT_MAX);
->  
-> -            elf->sec[i].load_addr = buf + offset[i];
-> +            buf += offset[i];
->  
->              /* Don't copy NOBITS - such as BSS. */
->              if ( elf->sec[i].sec->sh_type != SHT_NOBITS )
->              {
-> -                memcpy(elf->sec[i].load_addr, elf->sec[i].data,
-> +                memcpy(buf, elf->sec[i].addr,
->                         elf->sec[i].sec->sh_size);
->                  dprintk(XENLOG_DEBUG, LIVEPATCH "%s: Loaded %s at %p\n",
-> -                        elf->name, elf->sec[i].name, elf->sec[i].load_addr);
-> +                        elf->name, elf->sec[i].name, buf);
->              }
->              else
-> -                memset(elf->sec[i].load_addr, 0, elf->sec[i].sec->sh_size);
-> +                memset(buf, 0, elf->sec[i].sec->sh_size);
-> +
-> +            /* Replace the temporary buffer with the relocated one. */
-> +            elf->sec[i].addr = buf;
-
-I'd suggest /* Update sec[] to refer to its final location. */
-
-Replace is technically the memcpy() above, and "relocate" means
-something else in ELF terms.
-
-Can fix on commit.
 
