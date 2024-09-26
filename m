@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 685B1987732
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:04:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805695.1216867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C851098775A
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:11:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805701.1216877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stqym-0005h6-Lo; Thu, 26 Sep 2024 16:04:32 +0000
+	id 1str5D-0007oB-AW; Thu, 26 Sep 2024 16:11:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805695.1216867; Thu, 26 Sep 2024 16:04:32 +0000
+Received: by outflank-mailman (output) from mailman id 805701.1216877; Thu, 26 Sep 2024 16:11:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stqym-0005eL-Hc; Thu, 26 Sep 2024 16:04:32 +0000
-Received: by outflank-mailman (input) for mailman id 805695;
- Thu, 26 Sep 2024 16:04:31 +0000
+	id 1str5D-0007mP-6n; Thu, 26 Sep 2024 16:11:11 +0000
+Received: by outflank-mailman (input) for mailman id 805701;
+ Thu, 26 Sep 2024 16:11:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1stqyl-0004pB-5U
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:04:31 +0000
+ id 1str5B-0007mD-SS
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:11:09 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 01e181df-7c21-11ef-99a2-01e77a169b0f;
- Thu, 26 Sep 2024 18:04:29 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1727366662393981.5563844146808;
- Thu, 26 Sep 2024 09:04:22 -0700 (PDT)
+ id eda476a8-7c21-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 18:11:05 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1727367057720666.52120740873;
+ Thu, 26 Sep 2024 09:10:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,30 +38,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01e181df-7c21-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1727366664; cv=none; 
+X-Inumbo-ID: eda476a8-7c21-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1727367060; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=Pk7HxrIGlIsuV+9OEiUolPj8y7F+9zVxP1zTovhyrDh0f2TOrQcU7g395rwXAeXGUdsi3tE6VOpPa+jHfu5WHSQVa12PSxuhGEFgzXECXimpWXsH06t+AjBZLqFZzd8/I8sG6Yu4R4n6n+LI7iellkwvvCTES2BYyhBdS2eUzfw=
+	b=JRFr+w2qlJ/b8sB1NmtsGKoIgZnCmiowQ3EBpkzGTGDbxTjl/SWLqlBgrIoZo+x4/hNtqsjdJU216kQB4j8zsG9xOqapTui3F2gnHhmSbd/YnDTfe3aqutTXy+N0aQcDZO6Wggn3fXVkYmGYrfXCVTfPx3SDJl0KeiiBGXMuENc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1727366664; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=/fzOEcA7PkLDQ7YGSGrVlpDs7e1ywsE2tRSLfN9Vu0M=; 
-	b=elWNb/pWzlfyKbAjZROhgjw1UbvSDvVX7O7pVA5a1CEMbuxIa7h3XE0ZLKMJ01AgRunTHusXAJa5509XidzalrXmKsHYdT8Su+2qPhTzQHppq3fT9d7UB6NvtrcNDHYmyYjKElbcfgRMDkBUN7yuOifj9rW2orqMMsY4utxiopE=
+	t=1727367060; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=I9Y82SmeXNCqrNv7YD0ewwD1pXbo1mm/SWP2Sabpygo=; 
+	b=HD5RAVhV8zRBtqj6os7uOJeMlv4WBQuLezfRtq0TJwuga7Hh3zdK1tIma/THYDNsyoltq9ZLT2AwhH531beG+6hO7yYftk9M8tqp6S6+ekBfOfQ2J72PpovOtcslbburzdgnB5fsvljH118xr7PQ4dNoD+a/IO6NTgBwV9GOmjE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727366664;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727367060;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=/fzOEcA7PkLDQ7YGSGrVlpDs7e1ywsE2tRSLfN9Vu0M=;
-	b=K8mx7kBox7H2efLC6tBX6Qw3hkfC5aIT/3IHCiHFhPJMw3viXu5CELh8QRL8adtR
-	wvtqlsNDXOF4rDWwanQZKRgt2WpD6l5pdM7lDLjfM8LXk67LU4y3JVQwNKPL9jjRVzg
-	TOGjIpdxrnQLuITSSwA7wW7jA2foC8Ja0s7GKdE8=
-Message-ID: <3822e8a1-a5fe-48c5-990e-89fcccd5b2da@apertussolutions.com>
-Date: Thu, 26 Sep 2024 12:04:21 -0400
+	bh=I9Y82SmeXNCqrNv7YD0ewwD1pXbo1mm/SWP2Sabpygo=;
+	b=Gh3iZhQc5bYSyzlCH6+wLAChIrFd/uQKHvSwo1C0TQQ8Wqk9j8Tx7gBQtjg+levE
+	951tYTv/JX2FEeeNublzFmEmanX52Nry3n5uuiGgqJ71WQXK0nwpWBS6m4ikvHiMjyR
+	ATxTesWfztLQpljHila+KogHFucxgBEd53N/XdHQ=
+Message-ID: <1094155e-e03f-4a25-8285-43eea8dc31d6@apertussolutions.com>
+Date: Thu, 26 Sep 2024 12:10:56 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/44] x86/boot: introduce struct boot_module
+Subject: Re: [PATCH v4 06/44] x86/boot: convert consider_modules to struct
+ boot_module
 Content-Language: en-US
 To: Jan Beulich <jbeulich@suse.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
@@ -69,8 +70,8 @@ Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-6-dpsmith@apertussolutions.com>
- <ac41cfe3-5ad2-4a6f-8e3d-973021923ec3@suse.com>
+ <20240830214730.1621-7-dpsmith@apertussolutions.com>
+ <f6c938b4-3c28-4dc8-bc3a-3becb3a0c2cd@suse.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -103,27 +104,74 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <ac41cfe3-5ad2-4a6f-8e3d-973021923ec3@suse.com>
+In-Reply-To: <f6c938b4-3c28-4dc8-bc3a-3becb3a0c2cd@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 9/4/24 02:33, Jan Beulich wrote:
+On 9/4/24 02:40, Jan Beulich wrote:
 > On 30.08.2024 23:46, Daniel P. Smith wrote:
->> @@ -303,6 +308,14 @@ static void __init multiboot_to_bootinfo(multiboot_info_t *mbi)
->>           info.mmap_length = mbi->mmap_length;
->>       }
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -632,7 +632,7 @@ static void __init noinline move_xen(void)
+>>   #undef BOOTSTRAP_MAP_LIMIT
 >>   
->> +    info.mods = boot_mods;
->> +
->> +    for ( i=0; i < info.nr_mods; i++ )
->> +        boot_mods[i].early_mod = &mods[i];
->> +
->> +    /* map the last mb module for xen entry */
+>>   static uint64_t __init consider_modules(
+>> -    uint64_t s, uint64_t e, uint32_t size, const module_t *mod,
+>> +    uint64_t s, uint64_t e, uint32_t size, const struct boot_module *mods,
 > 
-> Nit: Comment style.
+> As an array is meant, may I ask to switch to mods[] at this occasion?
 
-Ack, will fix as part of relocation per Andy's comment.
+Sure.
+
+>> @@ -642,20 +642,20 @@ static uint64_t __init consider_modules(
+>>   
+>>       for ( i = 0; i < nr_mods ; ++i )
+>>       {
+>> -        uint64_t start = (uint64_t)mod[i].mod_start << PAGE_SHIFT;
+>> -        uint64_t end = start + PAGE_ALIGN(mod[i].mod_end);
+>> +        uint64_t start = (uint64_t)mods[i].early_mod->mod_start << PAGE_SHIFT;
+> 
+> Similarly, may I ask to stop open-coding {,__}pfn_to_paddr() while
+> transforming this?
+
+Yep, I can convert it. I was trying to be conscious of this, and you 
+should see it in other places.
+
+>> @@ -1447,7 +1447,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>           {
+>>               /* Don't overlap with modules. */
+>>               end = consider_modules(s, e, reloc_size + mask,
+>> -                                   mod, boot_info->nr_mods, -1);
+>> +                                   boot_info->mods, boot_info->nr_mods, -1);
+>>               end &= ~mask;
+>>           }
+>>           else
+>> @@ -1482,7 +1482,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>                   continue;
+>>   
+>>               /* Don't overlap with other modules (or Xen itself). */
+>> -            end = consider_modules(s, e, size, mod,
+>> +            end = consider_modules(s, e, size, boot_info->mods,
+>>                                      boot_info->nr_mods + relocated, j);
+>>   
+>>               if ( highmem_start && end > highmem_start )
+>> @@ -1509,7 +1509,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>           while ( !kexec_crash_area.start )
+>>           {
+>>               /* Don't overlap with modules (or Xen itself). */
+>> -            e = consider_modules(s, e, PAGE_ALIGN(kexec_crash_area.size), mod,
+>> +            e = consider_modules(s, e, PAGE_ALIGN(kexec_crash_area.size), boot_info->mods,
+>>                                    boot_info->nr_mods + relocated, -1);
+> 
+> All of these show a meaningful increase of line lengths, up to the point of
+> ending up with too long a line here. I really wonder if the variable name
+> "boot_info" isn't too long for something that's going to be used quite
+> frequently. Just "bi" maybe?
+
+Yes, in fact, my apologies as this appears to be a comment you made from 
+a previous review. The suggestion from Alejandro will make this easier 
+since it will become a local variable to __start_xen().
 
 v/r,
 dps
