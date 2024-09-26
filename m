@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06A0B9871C1
+	by mail.lfdr.de (Postfix) with ESMTPS id 767E29871C3
 	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 12:42:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805303.1216366 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.805304.1216376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stlwZ-0003jB-Aq; Thu, 26 Sep 2024 10:41:55 +0000
+	id 1stlwa-0003ys-Ie; Thu, 26 Sep 2024 10:41:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805303.1216366; Thu, 26 Sep 2024 10:41:55 +0000
+Received: by outflank-mailman (output) from mailman id 805304.1216376; Thu, 26 Sep 2024 10:41:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stlwZ-0003g1-75; Thu, 26 Sep 2024 10:41:55 +0000
-Received: by outflank-mailman (input) for mailman id 805303;
- Thu, 26 Sep 2024 10:41:53 +0000
+	id 1stlwa-0003vY-FW; Thu, 26 Sep 2024 10:41:56 +0000
+Received: by outflank-mailman (input) for mailman id 805304;
+ Thu, 26 Sep 2024 10:41:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q9u9=QY=flex--ardb.bounces.google.com=3bzr1ZggKCfYYpbZ+egremmejc.amkvcl-bctcjjgqrq.vclnpmhcar.mpe@srs-se1.protection.inumbo.net>)
- id 1stlwX-0003PD-7F
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 10:41:53 +0000
-Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
- [2607:f8b0:4864:20::1149])
+ <SRS0=bue4=QY=flex--ardb.bounces.google.com=3cTr1ZggKCfgfwig+lnylttlqj.htr2js-ij0jqqnxyx.2jsuwtojhy.twl@srs-se1.protection.inumbo.net>)
+ id 1stlwZ-0003PD-9I
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 10:41:55 +0000
+Received: from mail-wr1-x44a.google.com (mail-wr1-x44a.google.com
+ [2a00:1450:4864:20::44a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f0f0000b-7bf3-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 12:41:52 +0200 (CEST)
-Received: by mail-yw1-x1149.google.com with SMTP id
- 00721157ae682-6de0b23f4c5so11273067b3.1
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 03:41:52 -0700 (PDT)
+ id f27938ae-7bf3-11ef-a0ba-8be0dac302b0;
+ Thu, 26 Sep 2024 12:41:54 +0200 (CEST)
+Received: by mail-wr1-x44a.google.com with SMTP id
+ ffacd0b85a97d-37ccc188d6aso477081f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 03:41:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,50 +40,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0f0000b-7bf3-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: f27938ae-7bf3-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1727347311; x=1727952111; darn=lists.xenproject.org;
+        d=google.com; s=20230601; t=1727347314; x=1727952114; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=TwoP1rcUlc5IEWvZoDzQ3o2b6cQ+HDztqml72ZvJe/8=;
-        b=PPedG0qk0tfIYEQrKQph4LgquD03MY4RfJQTe1p0uczGCBmAopCU0JmIGH5HSvpuyF
-         XSx5c6WOlE+09Pr1Yy+jzb5K5/AH6ypjPICTAY3cMH7hq5XHZJPKi8SHVSGzLyL5tGri
-         RZx9X63EFv0pPr8pStSEX0EAPSFgsYf5GWJwG+l5EIdW6crwxWuMwWu1gf0Ki/PbYIS6
-         XzM5C2D+0J9gKsHrfpZoH9EGbVTpl9gOfCNxPZJuED8s8saOW5g2wXfQ+FrVNWPLvH3S
-         7qj9UttAXruDZN7CJoWCNqAQJM22DloRKHaGZRiFZiDVobjJL+X2pd8/WpBFMcqNp7db
-         +c4w==
+        bh=iGUWykkQN0qvnmtiNNnHPsRB647HBGhIOvWdjI4gnIE=;
+        b=4r2BqoD67WQ099RItlQm64rEL1/F10o8akgCrpJ3+XWDWyn5RrYk5yQbXlD/775o2K
+         OYaOVkAeSJFerW/e1+SeDKZXKB+c54nIUDcC1Flw98cp0YPVZRtnAjRp8udaELjLQoVA
+         Jwz6iPt6fZFNKTAc9FKZXx4H0T3id5LRafyPDExK7R3ejKJzYwEuIDIpfs8eCE4zEtyk
+         a3lXP3RpTtjliBNYoD8uL/41VUCnejNH0IytIuzIjKNED5H7C+H3IdBVNfoQONE7+WPi
+         EyUJadXmRNDX8QkGgqkwh+YpBG3hjTwkzh6vC1jFIsUO57wZiAhdIftSe25bp9+qqwKr
+         3u0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727347311; x=1727952111;
+        d=1e100.net; s=20230601; t=1727347314; x=1727952114;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=TwoP1rcUlc5IEWvZoDzQ3o2b6cQ+HDztqml72ZvJe/8=;
-        b=asTJEYVEePRac3wisxStr8J3VcRF83Dl9N0/7pSGtcrxT21oUJGIxnIS6HcGf7tYI3
-         2HVhmIdNrLf6dDvNXNuoQRGvCiCC2SZ6YE4OGA2Z4WjUArKAZz+Kzd9F1hVAPuwfaxGE
-         tlgwiwRNm6aUCghUB5TyQTUmcEsHy8q11DhWnCCTdGJADP1oiwoLqKBEzfHXARKn9rZ3
-         VfySW3hS495K957YibEEs7/bBy4LGUPY3VPZfoVJCPnF59LJtmHbvP64vKYhMBrC5WhI
-         vQfOwMad0hRBt5/xGgZHWWpFny9TBvtOVIGPPfNrapgSeocFwQuwz1UoXmxbuz/SL+cB
-         dYFw==
-X-Forwarded-Encrypted: i=1; AJvYcCU7s35pbR2MFxjFfwez2hfNafcpY5fxJJiQ94lJZmodRIXtNitov4yc1+OLWue3X5/C+dmJ7O35DHw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLkf05qMEE59qh1YKjrrIPAou6dj916PsCmkhoIMCoNp+h3WQO
-	iImqGTfTKSl0r232Vd1wbRMoRaUA2XoPnRb1VobcI0XYDepfwmZ8lZ9cgvHFewZSgvSyRQ==
-X-Google-Smtp-Source: AGHT+IGFcogBWg0YNHvYrp22ksYkslUYaSpidn/WqA3QXt5WaLA/ISxC26Dr6MxOSXjYzk1lqyi8vs0/
+        bh=iGUWykkQN0qvnmtiNNnHPsRB647HBGhIOvWdjI4gnIE=;
+        b=ArSpRGNnRVPcWMr+FoH5HuwjXp5HFmoMvFZhoeKUwbftLQN+oGj6XpUXYhrQncX3Ir
+         kl0HFNPZndVsXbRxJFLlzmGiWWjQ1MV+daftBRFY94Add78Zh7w3LbN8p2ZEi4ko+zjd
+         QP/IZ28/nHYwbEaItvd75Z5+/vLE3I0XhBE9x5NIP+Pi0zyk2bwg/QzKcrTQc7T14exb
+         3NvncXZX7WabCAwVocGGbbDT2lxRRGgMeIsAdn2Ow1ET2jKRkQl0RNffOIve0lNcuOrn
+         jJNsDN/Ro9MfAjMuC/1RJl089XNEwJ6rrX95SPUEw+lAl69SC1bLMK49iE9tFq0BHGrJ
+         W75Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWWeqYPEgVkRUEb27sZCQEAy52xNNHh8Og08EUIDXNs9B1LeUU5SdWxVyDGmUzCbsxq91bQ0kUTNIQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy18Mqq/gwvG7bzuBQB7Y381yQBnAtjirH40mk1WTmh/U4OrzxA
+	VD6YdyL25rYf27j6jQGjoOOjZCg2mUj88GzbfgMkqvIeHGda+J0mpmEJPqJ3msQUAKcbZg==
+X-Google-Smtp-Source: AGHT+IEW8daEir8doMTYKMTvqxc57QBSWijUw3aucG3twtEOjb20bOmmyd2zxDXhxhBNFQdIHerVpIzL
 X-Received: from palermo.c.googlers.com ([fda3:e722:ac3:cc00:7b:198d:ac11:8138])
- (user=ardb job=sendgmr) by 2002:a05:690c:7203:b0:6dc:836a:e272 with SMTP id
- 00721157ae682-6e22ec9e35fmr540887b3.0.1727347311481; Thu, 26 Sep 2024
- 03:41:51 -0700 (PDT)
-Date: Thu, 26 Sep 2024 12:41:15 +0200
+ (user=ardb job=sendgmr) by 2002:adf:f5cc:0:b0:374:ba5c:d59 with SMTP id
+ ffacd0b85a97d-37cc22c28c9mr3799f8f.0.1727347313937; Thu, 26 Sep 2024 03:41:53
+ -0700 (PDT)
+Date: Thu, 26 Sep 2024 12:41:16 +0200
 In-Reply-To: <20240926104113.80146-7-ardb+git@google.com>
 Mime-Version: 1.0
 References: <20240926104113.80146-7-ardb+git@google.com>
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1549; i=ardb@kernel.org;
- h=from:subject; bh=nGFC7zN3evy7O6d/rvxHyA6d64EhlpFJ+bJvxzbH5PE=;
- b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe2rlfekYxbphgk37j1fI2+6+6JyzKRrSvf5uPkYr2770
- /vy3/atHaUsDGIcDLJiiiwCs/++23l6olSt8yxZmDmsTCBDGLg4BWAiV4oY/uneq+0IOFzKn64x
- 6dHOnxXrpRKSfhs4zFp0WuTkvae5c6cxMhxm0Y98ri366awCh9g15YlN/ov+djz78lvU7gN3WcX 8FTwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=738; i=ardb@kernel.org;
+ h=from:subject; bh=duJbwDYusVICSqLA5fZPaN2Y/gts1cbjl01DSFcZijg=;
+ b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe2rle/zunAFTQ8uo0anZz3lB82OHO8LP3L+2lmd1bueh
+ fjq+tl0lLIwiHEwyIopsgjM/vtu5+mJUrXOs2Rh5rAygQxh4OIUgIk8O8XwT5P3of6psH2Nt6wt
+ 14S9Tru+QX3jdqMNE9bvFVnYGfCEdT0jwxaP/S0RDQ9cdv5L82B1q3ql4Zzkajwh8LCzSIzBPTM mXgA=
 X-Mailer: git-send-email 2.46.0.792.g87dc391469-goog
-Message-ID: <20240926104113.80146-8-ardb+git@google.com>
-Subject: [PATCH 1/5] x86/pvh: Call C code via the kernel virtual mapping
+Message-ID: <20240926104113.80146-9-ardb+git@google.com>
+Subject: [PATCH 2/5] x86/pvh: Use correct size value in GDT descriptor
 From: Ard Biesheuvel <ardb+git@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Ard Biesheuvel <ardb@kernel.org>, Jason Andryuk <jason.andryuk@amd.com>, 
@@ -93,44 +93,27 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Ard Biesheuvel <ardb@kernel.org>
 
-Calling C code via a different mapping than it was linked at is
-problematic, because the compiler assumes that RIP-relative and absolute
-symbol references are interchangeable. GCC in particular may use
-RIP-relative per-CPU variable references even when not using -fpic.
+The size field in a GDT descriptor is offset by 1, so subtract 1 from
+the calculated range.
 
-So call xen_prepare_pvh() via its kernel virtual mapping on x86_64, so
-that those RIP-relative references produce the correct values. This
-matches the pre-existing behavior for i386, which also invokes
-xen_prepare_pvh() via the kernel virtual mapping before invoking
-startup_32 with paging disabled again.
-
-Fixes: 7243b93345f7 ("xen/pvh: Bootstrap PVH guest")
-Tested-by: Jason Andryuk <jason.andryuk@amd.com>
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- arch/x86/platform/pvh/head.S | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ arch/x86/platform/pvh/head.S | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
-index 64fca49cd88f..98ddd552885a 100644
+index 98ddd552885a..f09e0fb832e4 100644
 --- a/arch/x86/platform/pvh/head.S
 +++ b/arch/x86/platform/pvh/head.S
-@@ -172,7 +172,13 @@ SYM_CODE_START_LOCAL(pvh_start_xen)
- 	movq %rbp, %rbx
- 	subq $_pa(pvh_start_xen), %rbx
- 	movq %rbx, phys_base(%rip)
--	call xen_prepare_pvh
-+
-+	/* Call xen_prepare_pvh() via the kernel virtual mapping */
-+	leaq xen_prepare_pvh(%rip), %rax
-+	addq $__START_KERNEL_map, %rax
-+	ANNOTATE_RETPOLINE_SAFE
-+	call *%rax
-+
- 	/*
- 	 * Clear phys_base.  __startup_64 will *add* to its value,
- 	 * so reset to 0.
+@@ -223,7 +223,7 @@ SYM_CODE_END(pvh_start_xen)
+ 	.section ".init.data","aw"
+ 	.balign 8
+ SYM_DATA_START_LOCAL(gdt)
+-	.word gdt_end - gdt_start
++	.word gdt_end - gdt_start - 1
+ 	.long _pa(gdt_start) /* x86-64 will overwrite if relocated. */
+ 	.word 0
+ SYM_DATA_END(gdt)
 -- 
 2.46.0.792.g87dc391469-goog
 
