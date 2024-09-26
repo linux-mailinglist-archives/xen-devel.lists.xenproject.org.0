@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CA559877E2
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:56:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805752.1216962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2E89877DC
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:55:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805754.1216982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1strlC-0001l5-GN; Thu, 26 Sep 2024 16:54:34 +0000
+	id 1strlE-0002LU-0z; Thu, 26 Sep 2024 16:54:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805752.1216962; Thu, 26 Sep 2024 16:54:34 +0000
+Received: by outflank-mailman (output) from mailman id 805754.1216982; Thu, 26 Sep 2024 16:54:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1strlC-0001iF-BR; Thu, 26 Sep 2024 16:54:34 +0000
-Received: by outflank-mailman (input) for mailman id 805752;
- Thu, 26 Sep 2024 16:54:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1strlD-0002Cj-TR; Thu, 26 Sep 2024 16:54:35 +0000
+Received: by outflank-mailman (input) for mailman id 805754;
+ Thu, 26 Sep 2024 16:54:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ukdd=QY=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1strlB-0001SU-6H
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:54:33 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0072edca-7c28-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 18:54:32 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a93c1cc74fdso38881966b.3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 09:54:32 -0700 (PDT)
+ id 1strlC-0001ST-RG
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:54:34 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 012ea90a-7c28-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 18:54:33 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-5365aa568ceso1492701e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 09:54:33 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c2979e00sm16981566b.158.2024.09.26.09.54.30
+ a640c23a62f3a-a93c2979e00sm16981566b.158.2024.09.26.09.54.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Sep 2024 09:54:30 -0700 (PDT)
+ Thu, 26 Sep 2024 09:54:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,110 +44,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0072edca-7c28-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 012ea90a-7c28-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727369671; x=1727974471; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1727369672; x=1727974472; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/Me01IlmWn5ZXb/VKWHt5wAOgVcX8vvbwAiPhcFzwz0=;
-        b=TsEpjwmIy/fiRv+OxB8HeW8p79G75MGcaw7mtYn024YB9wCyqncHMQ3w2jGx+K0WRr
-         96XAj5HbvsXqza6NCqmNk/89w6vsnL9CkxsFvSz6qB6Mac28+PUbhaTf/noi8xxvSUN+
-         zfNMiThN67jBNBekZhvfsnEamSqLfCw87zoh8L//X3IE/fs9zqnYVJbxO/tpjy8K+dU9
-         4tMiN4xfC4TRbN3r53IKA1TXpzdeB02ciyoJVqAvSj92xeKJ3nn0s4L3Dbv6vaz0lbRF
-         jkfa9HcS7KsvI+t8SANopO/CFfWyRBhDnkW0z3NPESmIuLZJniWPkNHoG6s9r/4ZdPA/
-         +v8A==
+        bh=JQIIQr4UWTptg8Aejtk0NghHPcRH7JuS3+zpBsqfsg8=;
+        b=eCkky41bTqXf5MEQzg89wdxfmXePTFu7VXNHdA6Ml0vlBFh3fDoK0pdqSdG9DJxM8t
+         5pzozVqNzxoVhV7a2Zj/Wo1KTPhYanm4Ix+4vJqAmrAfaF9K4mgn8Ymj4z4w09U8pxjq
+         XMu6RKl7vwX5V/bScybRH8YuwAAT/dtWik0Pf3maQTFhQrsaAdaFg+b4uhsghVE6xeVX
+         AqKThGXJ8B71C4hnKVXpQi5LusUefKPZ2BBnvQun1vImG2a+yA7Q6EjKdtKCIhI+t61X
+         vDIbKtZkXWnZYajknOpetr02gepnKuYLZkAcBABPPliTY0fXl1GfjVNnAA2W7WamabUg
+         WQog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727369671; x=1727974471;
+        d=1e100.net; s=20230601; t=1727369672; x=1727974472;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=/Me01IlmWn5ZXb/VKWHt5wAOgVcX8vvbwAiPhcFzwz0=;
-        b=WZi/k4s2X0UzMaD+h//rHeLvIT2KpGnFzYHz8pvmgK9QRHFWdNjgU8ywO6EoBFSjt7
-         4i/FLMMBAO6+kZfTb5MtijkHLyDZX9AbC1PNN9kZUM1yGKitpfHIRUlCDXw6yManPaeu
-         YcqTlULz+6TwuxInoT3WcxF1XLdl6eN1WSkPMUc8NncJLfRD2yM1u2/kLW0Dq13Iz8Fo
-         M+A+wEFmH8R/JOGuVYuEYIokQsqIDmaO0mvAg9ZjhD5dXsSjYZS7qwHjIN0dA5UtpicK
-         UoEC8Zer2b9IopepLB3/lKKDHCenNO9NX6oaSm3c20mpljrirtvACTo0ixaWGJqF5Kk8
-         IQbQ==
-X-Gm-Message-State: AOJu0YwTn1IuSSvi8VGq/zL5X+805JrWXYf0vIJRV2SgzeAYbPQA0LzY
-	7on5aYZ7aXNvd/VbsJQ/CnZRXdBDc9WM0oeIGw2LvUYgUnJMiNvook+xlQ==
-X-Google-Smtp-Source: AGHT+IENxhW8Z6GwOSQEBYUaU5Ssy8Dm29D6OtuPMVh8LwjaxL6cuq1Jq2ETxT/5xAHcm5tHy+QvDA==
-X-Received: by 2002:a17:907:60cc:b0:a86:7a84:abb7 with SMTP id a640c23a62f3a-a93c4915538mr16959066b.20.1727369671152;
-        Thu, 26 Sep 2024 09:54:31 -0700 (PDT)
+        bh=JQIIQr4UWTptg8Aejtk0NghHPcRH7JuS3+zpBsqfsg8=;
+        b=WK6XjAyK5TwnUiJ/wsZihS/sp/Skf5oronQFffM7SGy4UU1yzkG63BvL+LxgCHMGMX
+         5aY0eNoG0yvSkSNDfsrqcCFd8KDipCeBwknNMYsw6K4GY1sbeSVeNHMRWyxr3SLKiSHi
+         t5/nS0IH/WGFyRxpk5U3vAAL5E/hGw32uWZ2ZYK6PxBXq+C39O5j9xtDnAn9JA/s+uXd
+         xcodyITbdQ1ANjLlEon75ydUnHB9CJE+ltRGd1HfsBfdyPI1K7UWHwIzQ4EiGN5X0XY/
+         Lm1pxDuSm+CclRVJNjrOvUk5zvNXrkjyOS/fvbvPVC3LEXU6W2kDqlqRcoWbrIuyqGl2
+         6BxA==
+X-Gm-Message-State: AOJu0YykzxCjczZdteG7TGGjz8gqoBg39QSmVw2GMu8Kd0PLHdHBpITG
+	qmabTuJlIPyND9UtoKvjCNIIEaCy+62j8k/5mGQuDHaAuHuJjA+9mAWQPw==
+X-Google-Smtp-Source: AGHT+IFbuc19mZ6WQ7B3+O6sfjgA9vkYIGDrEAgw1pzkytyRcgldlpExwOPYD6WPVeHFo4Ln1Dauxg==
+X-Received: by 2002:a05:6512:114c:b0:52e:fa5f:b6a7 with SMTP id 2adb3069b0e04-5389fc3bd7cmr240506e87.13.1727369672200;
+        Thu, 26 Sep 2024 09:54:32 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 2/6] xen: define ACPI and DT device info sections macros
-Date: Thu, 26 Sep 2024 18:54:21 +0200
-Message-ID: <c5fd649a4ccd3a65a81dfab505fc99b2a679cda6.1727365854.git.oleksii.kurochko@gmail.com>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v4 3/6] xen/arm: use {DT,ACPI}_DEV_INFO for device info sections
+Date: Thu, 26 Sep 2024 18:54:22 +0200
+Message-ID: <fc4243be6e43224f27311d96512dc0f465c73a38.1727365854.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <cover.1727365854.git.oleksii.kurochko@gmail.com>
 References: <cover.1727365854.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce macros to define device information sections based on
-the configuration of ACPI or device tree support. These sections
-are required for common code of device initialization and getting
-an information about a device.
-
-These macros are expected to be used across different
-architectures (Arm, PPC, RISC-V), so they are moved to
-the common xen/xen.lds.h, based on their original definition
-in Arm.
+Refactor arm/xen.lds.S by replacing the inline definitions for
+device info sections with the newly introduced {DT,ACPI}_DEV_INFO
+macros from xen/xen.lds.h.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V4:
- - rename ADEV_INFO to ACPI_DEV_INFO.
- - refactor ADEV_INFO and DT_DEV_INFO: add alignment and DECL_SECTION.
+ - use newly refactored ACPI_DEV_INFO and DT_DEV_INFO
 ---
- Changes in V3:
-  - drop SEC* at the end of ACPI AND DT device info
-    section mancros.
-  - refactor ADEV_INFO and DT_DEV_INFO macros.
+Changes in V3:
+ - use refactored ADEV_INFO and DT_DEV_INFO macros.
 ---
- xen/include/xen/xen.lds.h | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ xen/arch/arm/xen.lds.S | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
-diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
-index 8135732756..cec86d0781 100644
---- a/xen/include/xen/xen.lds.h
-+++ b/xen/include/xen/xen.lds.h
-@@ -120,6 +120,14 @@
+diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
+index 0987052f1a..3b7b677197 100644
+--- a/xen/arch/arm/xen.lds.S
++++ b/xen/arch/arm/xen.lds.S
+@@ -4,6 +4,8 @@
  
- /* List of constructs other than *_SECTIONS in alphabetical order. */
- 
-+#define ACPI_DEV_INFO(secname)  \
-+  . = ALIGN(POINTER_ALIGN);     \
-+  DECL_SECTION(secname) {       \
-+      _asdevice = .;            \
-+      *(secname)                \
-+      _aedevice = .;            \
-+  } :text
+ #include <xen/cache.h>
+ #include <xen/lib.h>
 +
- #define BUGFRAMES                               \
-     __start_bug_frames_0 = .;                   \
-     *(.bug_frames.0)                            \
-@@ -137,6 +145,14 @@
-     *(.bug_frames.3)                            \
-     __stop_bug_frames_3 = .;
++#define SIMPLE_DECL_SECTION
+ #include <xen/xen.lds.h>
+ #include <asm/page.h>
+ #undef ENTRY
+@@ -124,20 +126,10 @@ SECTIONS
+       _eplatform = .;
+   } :text
  
-+#define DT_DEV_INFO(secname)    \
-+  . = ALIGN(POINTER_ALIGN);     \
-+  DECL_SECTION(secname) {       \
-+       _sdevice = .;           \
-+       *(secname)              \
-+       _edevice = .;           \
-+  } :text
-+
- #ifdef CONFIG_HYPFS
- #define HYPFS_PARAM              \
-        . = ALIGN(POINTER_ALIGN); \
+-  . = ALIGN(8);
+-  .dev.info : {
+-      _sdevice = .;
+-      *(.dev.info)
+-      _edevice = .;
+-  } :text
++  DT_DEV_INFO(.dev.info)
+ 
+ #ifdef CONFIG_ACPI
+-  . = ALIGN(8);
+-  .adev.info : {
+-      _asdevice = .;
+-      *(.adev.info)
+-      _aedevice = .;
+-  } :text
++  ACPI_DEV_INFO(adev.info)
+ #endif
+ 
+   . = ALIGN(8);
 -- 
 2.46.1
 
