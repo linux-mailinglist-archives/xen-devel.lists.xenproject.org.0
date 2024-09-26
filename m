@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CF9E98754C
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 16:18:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805571.1216703 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D49F98755B
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 16:22:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805576.1216714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stpJx-0005Xz-5m; Thu, 26 Sep 2024 14:18:17 +0000
+	id 1stpNH-00075k-K8; Thu, 26 Sep 2024 14:21:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805571.1216703; Thu, 26 Sep 2024 14:18:17 +0000
+Received: by outflank-mailman (output) from mailman id 805576.1216714; Thu, 26 Sep 2024 14:21:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stpJx-0005Vi-37; Thu, 26 Sep 2024 14:18:17 +0000
-Received: by outflank-mailman (input) for mailman id 805571;
- Thu, 26 Sep 2024 14:18:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J7u3=QY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1stpJw-0005VZ-9r
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 14:18:16 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b80275b-7c12-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 16:18:15 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so131534766b.2
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 07:18:15 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c297bcccsm2297166b.173.2024.09.26.07.18.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Sep 2024 07:18:14 -0700 (PDT)
+	id 1stpNH-00073d-Gv; Thu, 26 Sep 2024 14:21:43 +0000
+Received: by outflank-mailman (input) for mailman id 805576;
+ Thu, 26 Sep 2024 14:21:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1stpNF-00073X-Of
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 14:21:41 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a3b131e5-7c12-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 16:21:38 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1727360491017942.6164412087988;
+ Thu, 26 Sep 2024 07:21:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +38,320 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b80275b-7c12-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727360295; x=1727965095; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8OfibIq/5ee+V0nuhTIcHj8+6/ABNXE4K1yVQC6qVV4=;
-        b=MIqIoLoaZiwo4/zPWCea7/zKJfyMql15Em4Xw2VoTkqmo5+KEMD8xyxF/3ebxvE393
-         H5siRdhPDmGfy1BBctayQfg4pywNjBnnsSoUkV7xLwn+wv57IzpcsIHe0UdxSkdyFabx
-         3rlG8VFQV9ZJoXejlZklieNj+SY9jBZnJ5KCOhMT3i5c8bUKlDhHgsDmceCEVHiGrn87
-         GENsS7BbE1ts4wUEILVysN2SA6NDlXd1lbPoO2pMoh7wt1xubtoGFOP09cnLHYAzchja
-         /2yRPdRCraLDUv0BgF3xz48q2oLYsHaECSUStnpHU8SwWWkTZgAvMCUpAz8GyzUaqrBp
-         ZNOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727360295; x=1727965095;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8OfibIq/5ee+V0nuhTIcHj8+6/ABNXE4K1yVQC6qVV4=;
-        b=pBoSoQURLOz2tf/wRyKVnOPBws+t+jpfmi2jQ7sGuPE/n5l/x9QIM7rZ7cMk/gpWro
-         VR7Qb8rXOmIWDIwEbi5nBhnAP5987k9Bazd6Rdrm0c3AD+PpF6PqjYwO8bPsE/aIcKAY
-         6gwgwZ3tgbDFRwtH6UeNOaz5HLGduJx8ycNw/Ym0E+nHienHF8BDAOoseiWEF22DNgGh
-         sWd9BDIT8+TNQ23Fc1uOkpwW2APqOBKLTT68Z3CvhuVdEtP09mhCfMaCaydoghEdghk5
-         6BFwjtsAxVUqB9I0veNO9Y6mxnrvflxYKKEm00AsqySDm8c8zCf1VXO2+EMFSn2MpJfL
-         XV/w==
-X-Gm-Message-State: AOJu0YyLgCbfCM3Y7IHcsf3mMmPt/zFoiFyhEf9BIRJylsnjGYj6exX+
-	IVsyj8lo5lSr8LZfqAFrn/E6gbx5aUnG7E3I3Q6Gc9eI7azYeflKJ+mvEwROjQ==
-X-Google-Smtp-Source: AGHT+IFJ0267b6G1Hs5U0hQ85uzodwpoamvDDTUjUlzLD17kXoLBkJfdvSZSNS1zcPLtxTonjMB/Kw==
-X-Received: by 2002:a17:907:7b9f:b0:a8a:7027:c015 with SMTP id a640c23a62f3a-a93a0664dd9mr675727766b.56.1727360294828;
-        Thu, 26 Sep 2024 07:18:14 -0700 (PDT)
-Message-ID: <09cb0ef1-3969-42cc-aa2b-06a565892925@suse.com>
-Date: Thu, 26 Sep 2024 16:18:14 +0200
+X-Inumbo-ID: a3b131e5-7c12-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1727360492; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=aYGITz/XGJv4InTleVznJg0bPdaHautU4yLE71Gw4XCjOS8ZXTqWdDbBvAZXetOgpPVtGzB7PGXw0T3mz4nyvBrI1jnO0Q5u79+aCdKd/zkwlkvXx2vrXaD8YGh7QcupXAlQMno1wp+FIqRpchKhQ8kamoj1mV1gOh9x50j8KXU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1727360492; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=qQ5C+w9XnSwJ4Fd2J6RIPSDNhSeUXHtU1K9bchPKlvI=; 
+	b=SOyKGk1mAYa47wq9Qeobzz+1p8cAXQu3e3yLuPB7XkyEAY9+m7PvSHkPiZRUMMAm6NfBG/VXYrY83mE1DzeZbhuTMiAwiFw5sdZS2R9UcKpMOtSpQ5ZhW2bbiVpPbsmj61Q0sorGSaI/Fm35IWW00SndBUjfkq79Zvnyaxfbe/g=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727360492;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=qQ5C+w9XnSwJ4Fd2J6RIPSDNhSeUXHtU1K9bchPKlvI=;
+	b=oOy0sAYud1Ar4tTAPdm7qE8NupoATW06yT9+Od5rYZ4uyLbYlUicUaqBm5FWu1LE
+	kl5b3q1pPhGfsDmAhQaf7WtEzwabDr8s5Ef1TuzGETiui4Og27DisYjYnpON5N5s5Fc
+	rTotjc/jY3s5Y/E+kDZmEkRf5wltncrAHoCoYWUM=
+Message-ID: <326b9238-59a9-4234-8a17-ddfa68793d88@apertussolutions.com>
+Date: Thu, 26 Sep 2024 10:21:29 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] Avoid crash calling PrintErrMesg from efi_multiboot2
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-References: <20240819142953.415817-1-frediano.ziglio@cloud.com>
- <ZvVhIYMTuRU2Erqe@mail-itl> <4fbd5e3e-8dfe-4c7b-9737-50f4a5dd224b@citrix.com>
+Subject: Re: [PATCH v4 01/44] x86/boot: move x86 boot module counting into a
+ new boot_info struct
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4fbd5e3e-8dfe-4c7b-9737-50f4a5dd224b@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Christopher Clark <christopher.w.clark@gmail.com>, jason.andryuk@amd.com,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
+ <20240830214730.1621-2-dpsmith@apertussolutions.com>
+ <D3VUFEINDZZJ.3OHX2CEG4T0JU@cloud.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <D3VUFEINDZZJ.3OHX2CEG4T0JU@cloud.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 26.09.2024 16:11, Andrew Cooper wrote:
-> On 26/09/2024 2:26 pm, Marek Marczykowski-Górecki wrote:
->> On Mon, Aug 19, 2024 at 03:29:52PM +0100, Frediano Ziglio wrote:
->>> Although code is compiled with -fpic option data is not position
->>> independent. This causes data pointer to become invalid if
->>> code is not relocated properly which is what happens for
->>> efi_multiboot2 which is called by multiboot entry code.
->>>
->>> Code tested adding
->>>    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
->>> in efi_multiboot2 before calling efi_arch_edd (this function
->>> can potentially call PrintErrMesg).
->>>
->>> Before the patch (XenServer installation on Qemu, xen replaced
->>> with vanilla xen.gz):
->>>   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
->>>   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic ID - 00000000 !!!!
->>>   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
->>>   RIP  - 000000007DC29E46, CS  - 0000000000000038, RFLAGS - 0000000000210246
->>>   RAX  - 0000000000000000, RCX - 0000000000000050, RDX - 0000000000000000
->>>   RBX  - 000000007DAB4558, RSP - 000000007EFA1200, RBP - 0000000000000000
->>>   RSI  - FFFF82D040467A88, RDI - 0000000000000000
->>>   R8   - 000000007EFA1238, R9  - 000000007EFA1230, R10 - 0000000000000000
->>>   R11  - 000000007CF42665, R12 - FFFF82D040467A88, R13 - 000000007EFA1228
->>>   R14  - 000000007EFA1225, R15 - 000000007DAB45A8
->>>   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
->>>   GS   - 0000000000000030, SS  - 0000000000000030
->>>   CR0  - 0000000080010033, CR2 - FFFF82D040467A88, CR3 - 000000007EC01000
->>>   CR4  - 0000000000000668, CR8 - 0000000000000000
->>>   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
->>>   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
->>>   GDTR - 000000007E9E2000 0000000000000047, LDTR - 0000000000000000
->>>   IDTR - 000000007E4E5018 0000000000000FFF,   TR - 0000000000000000
->>>   FXSAVE_STATE - 000000007EFA0E60
->>>   !!!! Find image based on IP(0x7DC29E46) (No PDB)  (ImageBase=000000007DC28000, EntryPoint=000000007DC2B917) !!!!
->>>
->>> After the patch:
->>>   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
->>>   Test message: Buffer too small
->>>   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
->>>   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
->>>
->>> Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platforms")
->>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
->> I was hoping it would fix also an issue with xen.efi as the crash is
->> pretty similar
->> (https://github.com/QubesOS/qubes-issues/issues/8206#issuecomment-2366835136),
->> but it seems to be something different.
+On 9/2/24 09:47, Alejandro Vallejo wrote:
+> I haven't read the entire series yet, but here's my .02 so far
+> 
+> On Fri Aug 30, 2024 at 10:46 PM BST, Daniel P. Smith wrote:
+>> From: Christopher Clark <christopher.w.clark@gmail.com>
 >>
->> Anyway, 
+>> An initial step towards a non-multiboot internal representation of boot
+>> modules for common code, starting with x86 setup and converting the fields
+>> that are accessed for the startup calculations.
 >>
->> Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>> Introduce a new header, <xen/asm/bootinfo.h>, and populate it with a new
+>> boot_info structure initially containing a count of the number of boot
+>> modules.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>>   xen/arch/x86/include/asm/bootinfo.h | 25 +++++++++++++
+>>   xen/arch/x86/setup.c                | 58 +++++++++++++++++------------
+>>   2 files changed, 59 insertions(+), 24 deletions(-)
+>>   create mode 100644 xen/arch/x86/include/asm/bootinfo.h
+>>
+>> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+>> new file mode 100644
+>> index 000000000000..e850f80d26a7
+>> --- /dev/null
+>> +++ b/xen/arch/x86/include/asm/bootinfo.h
+>> @@ -0,0 +1,25 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> +/*
+>> + * Copyright (c) 2024 Christopher Clark <christopher.w.clark@gmail.com>
+>> + * Copyright (c) 2024 Apertus Solutions, LLC
+>> + * Author: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> + */
+>> +
+>> +#ifndef __XEN_X86_BOOTINFO_H__
+>> +#define __XEN_X86_BOOTINFO_H__
+>> +
 > 
-> While I hate to drag this on further, there's a very relevant observation in
-> 
-> https://lore.kernel.org/xen-devel/20240925150059.3955569-31-ardb+git@google.com/T/#u
-> 
-> which was posted yesterday.  Exactly the same is true of the early MB2
-> code calling into regular EFI code, and I wonder if it's causing the
-> other issue too.
-> 
-> I suspect following that pattern will be rather more robust.  Thoughts?
+> This struct would benefit from a comment stating what it's for and how it's
+> meant to be used. At a glance it seems like it's meant to be serve as a
+> boot-protocol agnostic representation of boot-parameters, used as a generic
+> means of information handover. Which would imply multiboot_info is parsed onto
+> it when booting from multiboot and is synthesised from scratch in other cases
+> (e.g: direct EFI?).
 
-That builds upon there being a secondary mapping, which isn't the case here
-I'm afraid.
+Yes, some inline documentation can be added.
 
-Jan
+>> +struct boot_info {
+>> +    unsigned int nr_mods;
+> 
+> It's imo better to treat this as an ABI. That would allow using this layer as a
+> boot protocol in itself (which I'm guessing is the objective? I haven't gotten
+> that far in the series). If so, this would need to be a fixed-width uintN_t.
+> 
+> Same with other fields in follow-up patches.
+
+The intent is to provide a clean internal abstraction around the boot 
+material provided to Xen and not as an external boot protocol. The 
+follow-on series to come will build upon this to introduce a 
+representation of domains to be constructed at boot. A side goal with 
+later introduced fields is to use proper xen types for the fields, eg. 
+paddr_t, and mfn_t.
+
+>> +};
+>> +
+>> +#endif
+>> +
+>> +/*
+>> + * Local variables:
+>> + * mode: C
+>> + * c-file-style: "BSD"
+>> + * c-basic-offset: 4
+>> + * tab-width: 4
+>> + * indent-tabs-mode: nil
+>> + * End:
+>> + */
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index eee20bb1753c..dd94ee2e736b 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -32,6 +32,7 @@
+>>   #include <compat/xen.h>
+>>   #endif
+>>   #include <xen/bitops.h>
+>> +#include <asm/bootinfo.h>
+>>   #include <asm/smp.h>
+>>   #include <asm/processor.h>
+>>   #include <asm/mpspec.h>
+>> @@ -276,7 +277,16 @@ static int __init cf_check parse_acpi_param(const char *s)
+>>   custom_param("acpi", parse_acpi_param);
+>>   
+>>   static const module_t *__initdata initial_images;
+>> -static unsigned int __initdata nr_initial_images;
+>> +static struct boot_info __initdata *boot_info;
+>> +
+>> +static void __init multiboot_to_bootinfo(multiboot_info_t *mbi)
+> 
+> If this function returned boot_info instead and the caller made the
+> assignment then it would be possible to unit-test/fuzz it.
+> 
+> It also fits a bit more nicely with the usual implications of that function
+> name pattern, I think.
+
+As the larger capability continues to be developed, it is becoming 
+necessary to get access to the reference from other areas of the code. 
+Currently, I just move boot_info outside the function and exported the 
+reference. I still have as an open question if the declaration should be 
+static and access is obtained through an accessor function(s). I'm open 
+to suggestions here.
+
+>> +{
+>> +    static struct boot_info __initdata info;
+>> +
+>> +    info.nr_mods = mbi->mods_count;
+> 
+> Shouldn't this be gated on MBI_MODULES being set?
+> 
+>     info.nr_mods = (mbi->flags & MBI_MODULES) ? mbi->mods_count : 0;
+
+Yes.
+
+>> +
+>> +    boot_info = &info;
+>> +}
+>>   
+>>   unsigned long __init initial_images_nrpages(nodeid_t node)
+>>   {
+>> @@ -285,7 +295,7 @@ unsigned long __init initial_images_nrpages(nodeid_t node)
+>>       unsigned long nr;
+>>       unsigned int i;
+>>   
+>> -    for ( nr = i = 0; i < nr_initial_images; ++i )
+>> +    for ( nr = i = 0; i < boot_info->nr_mods; ++i )
+>>       {
+>>           unsigned long start = initial_images[i].mod_start;
+>>           unsigned long end = start + PFN_UP(initial_images[i].mod_end);
+>> @@ -301,7 +311,7 @@ void __init discard_initial_images(void)
+>>   {
+>>       unsigned int i;
+>>   
+>> -    for ( i = 0; i < nr_initial_images; ++i )
+>> +    for ( i = 0; i < boot_info->nr_mods; ++i )
+>>       {
+>>           uint64_t start = (uint64_t)initial_images[i].mod_start << PAGE_SHIFT;
+>>   
+>> @@ -309,7 +319,7 @@ void __init discard_initial_images(void)
+>>                              start + PAGE_ALIGN(initial_images[i].mod_end));
+>>       }
+>>   
+>> -    nr_initial_images = 0;
+>> +    boot_info->nr_mods = 0;
+> 
+> Out of curiosity, why is this required?
+
+At this point, the boot modules have been "consumed" and are no longer 
+safe to access. This ensures that if for some reason any module access 
+code gets invoked that attempts to walk the modules, this will ensure
+it will result in no access.
+
+>>       initial_images = NULL;
+>>   }
+>>   
+>> @@ -1034,9 +1044,10 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>           mod = __va(mbi->mods_addr);
+>>       }
+>>   
+>> +    multiboot_to_bootinfo(mbi);
+>> +
+>>       loader = (mbi->flags & MBI_LOADERNAME) ? __va(mbi->boot_loader_name)
+>>                                              : "unknown";
+>> -
+> 
+> Stray newline removal?
+> 
+>>       /* Parse the command-line options. */
+>>       if ( mbi->flags & MBI_CMDLINE )
+>>           cmdline = cmdline_cook(__va(mbi->cmdline), loader);
+>> @@ -1141,18 +1152,18 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>              bootsym(boot_edd_info_nr));
+>>   
+>>       /* Check that we have at least one Multiboot module. */
+>> -    if ( !(mbi->flags & MBI_MODULES) || (mbi->mods_count == 0) )
+>> +    if ( !(mbi->flags & MBI_MODULES) || (boot_info->nr_mods == 0) )
+> 
+> With MBI_MODULES accounted for during conversion, the first part of the
+> conditional can be ellided and you could simply do:
+> 
+>      if ( !boot_info->nr_mods )
+>          panic(...)
+
+This eventually happens, the goal in this revision was to slowly unhook 
+the mbi usage as it is pervasive and so the reviewers can ensure we are 
+correctly replacing all of its usage. With that said, I can look to see 
+if it is reasonable to add its usage here.
+
+> Also, could we move this to multiboot_to_bootinfo()? It'd contain these sorts
+> of boot argument checks to a much more self contained function and help check
+> at the point of assignment, preventing misuse.
+
+These checks could be moved up into that function, but then you would 
+lose the ability to print messages since the conversion function is 
+invoked before serial is initialized.
+
+>>           panic("dom0 kernel not specified. Check bootloader configuration\n");
+>>   
+>>       /* Check that we don't have a silly number of modules. */
+> 
+>> -    if ( mbi->mods_count > sizeof(module_map) * 8 )
+>> +    if ( boot_info->nr_mods > sizeof(module_map) * 8 )
+> 
+> Like above, this check would be much more neatly contained where boot_info
+> is created, imo.
+
+Again, you would lose the ability to print the error message.
+
+>>       {
+>> -        mbi->mods_count = sizeof(module_map) * 8;
+>> +        boot_info->nr_mods = sizeof(module_map) * 8;
+>>           printk("Excessive multiboot modules - using the first %u only\n",
+> 
+> Does the comment need adjusting too to make it more general? As in
+> s/multiboot/boot.
+
+I don't see why the message couldn't be generalized.
+
+>> -               mbi->mods_count);
+>> +               boot_info->nr_mods);
+>>       }
+>>   
+>> -    bitmap_fill(module_map, mbi->mods_count);
+>> +    bitmap_fill(module_map, boot_info->nr_mods);
+>>       __clear_bit(0, module_map); /* Dom0 kernel is always first */
+>>   
+>>       if ( pvh_boot )
+> 
+> Cheers,
+> Alejandro
+
+Thanks for the review.
+
+v/r
+dps
 
