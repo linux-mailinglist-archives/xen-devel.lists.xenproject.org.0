@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C344987113
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 12:15:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805155.1216203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 513E6987142
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 12:22:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805201.1216250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stlW4-0005nY-9L; Thu, 26 Sep 2024 10:14:32 +0000
+	id 1stld6-0001Qi-Tb; Thu, 26 Sep 2024 10:21:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805155.1216203; Thu, 26 Sep 2024 10:14:32 +0000
+Received: by outflank-mailman (output) from mailman id 805201.1216250; Thu, 26 Sep 2024 10:21:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stlW4-0005lR-6I; Thu, 26 Sep 2024 10:14:32 +0000
-Received: by outflank-mailman (input) for mailman id 805155;
- Thu, 26 Sep 2024 10:14:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1stld6-0001OL-Op; Thu, 26 Sep 2024 10:21:48 +0000
+Received: by outflank-mailman (input) for mailman id 805201;
+ Thu, 26 Sep 2024 10:21:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2S5w=QY=bounce.vates.tech=bounce-md_30504962.66f53402.v1-8b1e87364ec749e9a3ab06a7add22449@srs-se1.protection.inumbo.net>)
- id 1stlW3-0005XB-0K
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 10:14:31 +0000
-Received: from mail177-9.suw61.mandrillapp.com
- (mail177-9.suw61.mandrillapp.com [198.2.177.9])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1c950d43-7bf0-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 12:14:29 +0200 (CEST)
-Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail177-9.suw61.mandrillapp.com (Mailchimp) with ESMTP id 4XDqFt4t2GzK5vrtM
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 10:14:26 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 8b1e87364ec749e9a3ab06a7add22449; Thu, 26 Sep 2024 10:14:26 +0000
+ <SRS0=ahor=QY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1stld5-0001Nm-Bu
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 10:21:47 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2164b3eb-7bf1-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 12:21:45 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a8d29b7edc2so97830066b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 03:21:45 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a9392f3420esm329957766b.40.2024.09.26.03.21.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Sep 2024 03:21:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,187 +44,406 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c950d43-7bf0-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1727345666; x=1727606166;
-	bh=DRimZkyYpcmRSMJFhksb4hjZDJ7L7Xbrn74CwG57nLQ=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=PcNK7XF9kRnnlvT9kGbORay6vWsL6O+Rtr0rnOG24qAZrkA+/HIf7lrTq3PNi2vpa
-	 aiJjklG1TCPArzdY4YU+1cqR0OzCk5jmDk7dnNqH12OiW0+j8LmW0qK0YCbFEgWtrc
-	 kZyfNZImwJY/WM0Q8xZcD9jwGJ/8zfCm1TI5mhslpZjIPoZNwUMPnKK4piqmhB+x07
-	 F/SZOu3JvJFY8Vx1eHJ30w4YFlnLB9BGpCaKsY+AMq5pfgP/Zw03NlVI41vQJms58b
-	 IQIL5c5rkbnVz+aOqPbzrBcXWOwzT9TyPmYO/snnaZ7xgXd6ElEldptlmiHUebW/+o
-	 wlFsRViXzAWhw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1727345666; x=1727606166; i=anthony.perard@vates.tech;
-	bh=DRimZkyYpcmRSMJFhksb4hjZDJ7L7Xbrn74CwG57nLQ=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=z394Zolb7zwu51I2V02EKnuWI1LoPjiI4ff/pA04qh80FrJYDFXuTf0RDkyRTCOop
-	 F34fKxGDYAyOMoEJwu72SryC442VwNtFz3gEcZcl55bzq9+hmxshoQrHYgIKh5+WOe
-	 le2IZV56UYP4viMzB+kUyDN67dab/iYoNe9D2tgs99qViSh/6J9LzpMTvsHRSQhYQ7
-	 XNNNJWm9QIt9pJA8v3Zpapja477MDrSGUKCrl5l1P3e9z749Xs2v65xATbcdyoMS6f
-	 C5qBjU6bOl9qW+opVcLCZp2hoIlfg3rLWOqQl3PZR2JqExS354FYwND7G9M0YJ+iFt
-	 tgK0NcfrABdUA==
-From: Anthony PERARD <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?[PATCH=202/2]=20hw/block/xen-block:=20Update=20sector-size=20handling?=
-X-Mailer: git-send-email 2.39.2
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1727345665867
-To: qemu-devel@nongnu.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>, Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, Stefan Hajnoczi <stefanha@redhat.com>, Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>, xen-devel@lists.xenproject.org, qemu-block@nongnu.org
-Message-Id: <20240926101334.2388-3-anthony.perard@vates.tech>
-In-Reply-To: <20240926101334.2388-1-anthony.perard@vates.tech>
-References: <20240926101334.2388-1-anthony.perard@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.8b1e87364ec749e9a3ab06a7add22449?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240926:md
-Date: Thu, 26 Sep 2024 10:14:26 +0000
+X-Inumbo-ID: 2164b3eb-7bf1-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1727346104; x=1727950904; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eDso/Pr8s7RpxPIwn6UDYP8gOZplQOaVxuligGB90sQ=;
+        b=rENQF9NQxCZq4wlrOY70MdmrBlz/SYY+5AJIqhtrDpFrnJ7kBh1Qe7d1fudb347YK6
+         oOA98F5rzyygUactTzDHd0ViJQn2mUtGzkZdVkhUnK06J80kOLDk9ma10C5hl8n78x7S
+         WgDBa8kMBtIhim0987KmXlBrLsOUnqt0rYNtA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727346104; x=1727950904;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=eDso/Pr8s7RpxPIwn6UDYP8gOZplQOaVxuligGB90sQ=;
+        b=MMrKmdUcHzQNXVqLnFKj5ZxeUe6i83XReJb5fA1MxbcOnogkyjr/pKHY4dGvCbKNdn
+         4AY4d48LwX8XAEDlmRQAKlE0WiwQzUMLLbYXCspopooDIx52DIiwaWa4mJu1Qttj4spp
+         VFTIrwpTkaur9+BGZC11SF6sB5LmtcQDa1tgEhxo8tAShiJ8cUvleLgU0B5wV1GxmIK7
+         M5h4v1/7SUHhGWvkXNmrhkcKWMAX07tW5ts2n329OIRUdqHZo5RDrU9dYeJFrcvAv8It
+         zRZEDQJlM16wL+21buokqg2pteakHwS5tAAJE5kKJpbYJiufxeljJN9WnLsplz4AvrDI
+         ZI8g==
+X-Gm-Message-State: AOJu0YychFahvbUAdp+Ytvd/ntxzFc2jzVu7CJ9bbRTgqtzY7BNZZ3oh
+	qt/Z4+BIg0T1cLhSoRIhD7yLOP3YjW2UxpNKyThgBdrMGIn1PH6n8SpD9+wNjuQQ487lLsL2cE9
+	s
+X-Google-Smtp-Source: AGHT+IEvsbzLb/qGdqqJ0XTDWcyfYeCjaaAUF7ElCrZjELC3nWpE3pht/kOZv3/RRWA68fzj8NrG0w==
+X-Received: by 2002:a17:907:1ca1:b0:a8c:78a5:8fc4 with SMTP id a640c23a62f3a-a93a036a36bmr444073166b.19.1727346104080;
+        Thu, 26 Sep 2024 03:21:44 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v3 1/5] xen/livepatch: drop load_addr Elf section field
+Date: Thu, 26 Sep 2024 12:14:27 +0200
+Message-ID: <20240926101431.97444-2-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20240926101431.97444-1-roger.pau@citrix.com>
+References: <20240926101431.97444-1-roger.pau@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The use of "feature-large-sector-size" have been removed from the
-protocol, as it hasn't been evenly implemented across all backend and
-frontend. Linux for example will happily expose "sector-size" != 512
-even when "feature-large-sector-size" hasn't been set by the frontend.
+The Elf loading logic will initially use the `data` section field to stash a
+pointer to the temporary loaded data (from the buffer allocated in
+livepatch_upload(), which is later relocated and the new pointer stashed in
+`load_addr`.
 
-The specification have been clarified regarding what "sector" is by
-Xen commit 221f2748e8da ("blkif: reconcile protocol specification with
-in-use implementations").
+Remove this dual field usage and use an `addr` uniformly.  Initially data will
+point to the temporary buffer, until relocation happens, at which point the
+pointer will be updated to the relocated address.
 
-https://xenbits.xenproject.org/gitweb/?p=xen.git;a=commit;h=221f2748e8dabe8361b8cdfcffbeab9102c4c899
+This avoids leaking a dangling pointer in the `data` field once the temporary
+buffer is freed by livepatch_upload().
 
-So change QEMU to follow the updated specification.
+Note the `addr` field cannot retain the const attribute from the previous
+`data`field, as there's logic that performs manipulations against the loaded
+sections, like applying relocations or sorting the exception table.
 
-Frontends that exposes "feature-large-sector-size" will most certainly
-misbehave if "sector-size" is different than 512, so don't even try.
-(Windows driver is likely to be the only one having implemented it.)
+No functional change intended.
 
-Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- hw/block/dataplane/xen-block.c | 31 ++++++++++++++++++++++---------
- hw/block/xen-block.c           |  8 ++++----
- 2 files changed, 26 insertions(+), 13 deletions(-)
+Changes since v2:
+ - New in this version.
+---
+ xen/arch/arm/arm32/livepatch.c  |  8 +++---
+ xen/arch/arm/arm64/livepatch.c  |  4 +--
+ xen/arch/x86/livepatch.c        |  4 +--
+ xen/common/livepatch.c          | 43 ++++++++++++++++++---------------
+ xen/common/livepatch_elf.c      | 20 +++++++--------
+ xen/include/xen/livepatch_elf.h | 11 +++++----
+ 6 files changed, 47 insertions(+), 43 deletions(-)
 
-diff --git a/hw/block/dataplane/xen-block.c b/hw/block/dataplane/xen-block.c
-index 98501e6885..43be97b4f3 100644
---- a/hw/block/dataplane/xen-block.c
-+++ b/hw/block/dataplane/xen-block.c
-@@ -176,7 +176,11 @@ static int xen_block_parse_request(XenBlockRequest *request)
-         goto err;
-     }
+diff --git a/xen/arch/arm/arm32/livepatch.c b/xen/arch/arm/arm32/livepatch.c
+index d50066564666..134d07a175bb 100644
+--- a/xen/arch/arm/arm32/livepatch.c
++++ b/xen/arch/arm/arm32/livepatch.c
+@@ -239,20 +239,20 @@ int arch_livepatch_perform(struct livepatch_elf *elf,
  
--    request->start = request->req.sector_number * dataplane->sector_size;
-+    request->start = request->req.sector_number * XEN_BLKIF_SECTOR_SIZE;
-+    if (!QEMU_IS_ALIGNED(request->start, dataplane->sector_size)) {
-+        error_report("error: sector_number missaligned with sector-size");
-+        goto err;
-+    }
-     for (i = 0; i < request->req.nr_segments; i++) {
-         if (i == BLKIF_MAX_SEGMENTS_PER_REQUEST) {
-             error_report("error: nr_segments too big");
-@@ -186,14 +190,23 @@ static int xen_block_parse_request(XenBlockRequest *request)
-             error_report("error: first > last sector");
-             goto err;
+         if ( use_rela )
+         {
+-            const Elf_RelA *r_a = rela->data + i * rela->sec->sh_entsize;
++            const Elf_RelA *r_a = rela->addr + i * rela->sec->sh_entsize;
+ 
+             symndx = ELF32_R_SYM(r_a->r_info);
+             type = ELF32_R_TYPE(r_a->r_info);
+-            dest = base->load_addr + r_a->r_offset; /* P */
++            dest = base->addr + r_a->r_offset; /* P */
+             addend = r_a->r_addend;
          }
--        if (request->req.seg[i].last_sect * dataplane->sector_size >=
-+        if (request->req.seg[i].last_sect * XEN_BLKIF_SECTOR_SIZE >=
-             XEN_PAGE_SIZE) {
-             error_report("error: page crossing");
-             goto err;
+         else
+         {
+-            const Elf_Rel *r = rela->data + i * rela->sec->sh_entsize;
++            const Elf_Rel *r = rela->addr + i * rela->sec->sh_entsize;
+ 
+             symndx = ELF32_R_SYM(r->r_info);
+             type = ELF32_R_TYPE(r->r_info);
+-            dest = base->load_addr + r->r_offset; /* P */
++            dest = base->addr + r->r_offset; /* P */
+             addend = get_addend(type, dest);
          }
-+        if (!QEMU_IS_ALIGNED(request->req.seg[i].first_sect,
-+                             dataplane->sector_size / XEN_BLKIF_SECTOR_SIZE)) {
-+            error_report("error: first_sect missaligned with sector-size");
-+            goto err;
-+        }
  
-         len = (request->req.seg[i].last_sect -
--               request->req.seg[i].first_sect + 1) * dataplane->sector_size;
-+               request->req.seg[i].first_sect + 1) * XEN_BLKIF_SECTOR_SIZE;
-+        if (!QEMU_IS_ALIGNED(len, dataplane->sector_size)) {
-+            error_report("error: segment size missaligned with sector-size");
-+            goto err;
-+        }
-         request->size += len;
-     }
-     if (request->start + request->size > blk_getlength(dataplane->blk)) {
-@@ -227,17 +240,17 @@ static int xen_block_copy_request(XenBlockRequest *request)
-         if (to_domain) {
-             segs[i].dest.foreign.ref = request->req.seg[i].gref;
-             segs[i].dest.foreign.offset = request->req.seg[i].first_sect *
--                dataplane->sector_size;
-+                XEN_BLKIF_SECTOR_SIZE;
-             segs[i].source.virt = virt;
-         } else {
-             segs[i].source.foreign.ref = request->req.seg[i].gref;
-             segs[i].source.foreign.offset = request->req.seg[i].first_sect *
--                dataplane->sector_size;
-+                XEN_BLKIF_SECTOR_SIZE;
-             segs[i].dest.virt = virt;
+diff --git a/xen/arch/arm/arm64/livepatch.c b/xen/arch/arm/arm64/livepatch.c
+index dfb72be44fb8..d80051f9dc67 100644
+--- a/xen/arch/arm/arm64/livepatch.c
++++ b/xen/arch/arm/arm64/livepatch.c
+@@ -246,9 +246,9 @@ int arch_livepatch_perform_rela(struct livepatch_elf *elf,
+ 
+     for ( i = 0; i < (rela->sec->sh_size / rela->sec->sh_entsize); i++ )
+     {
+-        const Elf_RelA *r = rela->data + i * rela->sec->sh_entsize;
++        const Elf_RelA *r = rela->addr + i * rela->sec->sh_entsize;
+         unsigned int symndx = ELF64_R_SYM(r->r_info);
+-        void *dest = base->load_addr + r->r_offset; /* P */
++        void *dest = base->addr + r->r_offset; /* P */
+         bool overflow_check = true;
+         int ovf = 0;
+         uint64_t val;
+diff --git a/xen/arch/x86/livepatch.c b/xen/arch/x86/livepatch.c
+index 4f76127e1f77..be40f625d206 100644
+--- a/xen/arch/x86/livepatch.c
++++ b/xen/arch/x86/livepatch.c
+@@ -258,9 +258,9 @@ int arch_livepatch_perform_rela(struct livepatch_elf *elf,
+ 
+     for ( i = 0; i < (rela->sec->sh_size / rela->sec->sh_entsize); i++ )
+     {
+-        const Elf_RelA *r = rela->data + i * rela->sec->sh_entsize;
++        const Elf_RelA *r = rela->addr + i * rela->sec->sh_entsize;
+         unsigned int symndx = ELF64_R_SYM(r->r_info);
+-        uint8_t *dest = base->load_addr + r->r_offset;
++        uint8_t *dest = base->addr + r->r_offset;
+         uint64_t val;
+ 
+         if ( symndx == STN_UNDEF )
+diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+index df41dcce970a..7e6bf58f4408 100644
+--- a/xen/common/livepatch.c
++++ b/xen/common/livepatch.c
+@@ -371,18 +371,21 @@ static int move_payload(struct payload *payload, struct livepatch_elf *elf)
+ 
+             ASSERT(offset[i] != UINT_MAX);
+ 
+-            elf->sec[i].load_addr = buf + offset[i];
++            buf += offset[i];
+ 
+             /* Don't copy NOBITS - such as BSS. */
+             if ( elf->sec[i].sec->sh_type != SHT_NOBITS )
+             {
+-                memcpy(elf->sec[i].load_addr, elf->sec[i].data,
++                memcpy(buf, elf->sec[i].addr,
+                        elf->sec[i].sec->sh_size);
+                 dprintk(XENLOG_DEBUG, LIVEPATCH "%s: Loaded %s at %p\n",
+-                        elf->name, elf->sec[i].name, elf->sec[i].load_addr);
++                        elf->name, elf->sec[i].name, buf);
+             }
+             else
+-                memset(elf->sec[i].load_addr, 0, elf->sec[i].sec->sh_size);
++                memset(buf, 0, elf->sec[i].sec->sh_size);
++
++            /* Replace the temporary buffer with the relocated one. */
++            elf->sec[i].addr = buf;
          }
-         segs[i].len = (request->req.seg[i].last_sect -
-                        request->req.seg[i].first_sect + 1) *
--                      dataplane->sector_size;
-+                      XEN_BLKIF_SECTOR_SIZE;
-         virt += segs[i].len;
      }
  
-@@ -331,12 +344,12 @@ static bool xen_block_split_discard(XenBlockRequest *request,
+@@ -616,7 +619,7 @@ static inline int livepatch_check_expectations(const struct payload *payload)
+         break;                                                                            \
+     if ( !section_ok(elf, __sec, sizeof(*hook)) || __sec->sec->sh_size != sizeof(*hook) ) \
+         return -EINVAL;                                                                   \
+-    hook = __sec->load_addr;                                                              \
++    hook = __sec->addr;                                                                   \
+ } while (0)
  
-     /* Wrap around, or overflowing byte limit? */
-     if (sec_start + sec_count < sec_count ||
--        sec_start + sec_count > INT64_MAX / dataplane->sector_size) {
-+        sec_start + sec_count > INT64_MAX / XEN_BLKIF_SECTOR_SIZE) {
-         return false;
+ /*
+@@ -630,7 +633,7 @@ static inline int livepatch_check_expectations(const struct payload *payload)
+         break;                                                                            \
+     if ( !section_ok(elf, __sec, sizeof(*hook)) )                                         \
+         return -EINVAL;                                                                   \
+-    hook = __sec->load_addr;                                                              \
++    hook = __sec->addr;                                                                   \
+     nhooks = __sec->sec->sh_size / sizeof(*hook);                                         \
+ } while (0)
+ 
+@@ -650,7 +653,7 @@ static int prepare_payload(struct payload *payload,
+         if ( !section_ok(elf, sec, sizeof(*payload->funcs)) )
+             return -EINVAL;
+ 
+-        payload->funcs = funcs = sec->load_addr;
++        payload->funcs = funcs = sec->addr;
+         payload->nfuncs = sec->sec->sh_size / sizeof(*payload->funcs);
+ 
+         payload->fstate = xzalloc_array(typeof(*payload->fstate),
+@@ -709,7 +712,7 @@ static int prepare_payload(struct payload *payload,
+     {
+         const struct payload *data;
+ 
+-        n = sec->load_addr;
++        n = sec->addr;
+ 
+         if ( sec->sec->sh_size <= sizeof(*n) )
+             return -EINVAL;
+@@ -739,7 +742,7 @@ static int prepare_payload(struct payload *payload,
+     sec = livepatch_elf_sec_by_name(elf, ELF_LIVEPATCH_DEPENDS);
+     if ( sec )
+     {
+-        n = sec->load_addr;
++        n = sec->addr;
+ 
+         if ( sec->sec->sh_size <= sizeof(*n) )
+             return -EINVAL;
+@@ -755,7 +758,7 @@ static int prepare_payload(struct payload *payload,
+     sec = livepatch_elf_sec_by_name(elf, ELF_LIVEPATCH_XEN_DEPENDS);
+     if ( sec )
+     {
+-        n = sec->load_addr;
++        n = sec->addr;
+ 
+         if ( sec->sec->sh_size <= sizeof(*n) )
+             return -EINVAL;
+@@ -794,8 +797,8 @@ static int prepare_payload(struct payload *payload,
+         if ( !section_ok(elf, sec, sizeof(*region->frame[i].start)) )
+             return -EINVAL;
+ 
+-        region->frame[i].start = sec->load_addr;
+-        region->frame[i].stop  = sec->load_addr + sec->sec->sh_size;
++        region->frame[i].start = sec->addr;
++        region->frame[i].stop  = sec->addr + sec->sec->sh_size;
      }
  
--    byte_offset = sec_start * dataplane->sector_size;
--    byte_remaining = sec_count * dataplane->sector_size;
-+    byte_offset = sec_start * XEN_BLKIF_SECTOR_SIZE;
-+    byte_remaining = sec_count * XEN_BLKIF_SECTOR_SIZE;
+     sec = livepatch_elf_sec_by_name(elf, ".altinstructions");
+@@ -843,8 +846,8 @@ static int prepare_payload(struct payload *payload,
+             return -EINVAL;
+         }
  
-     do {
-         byte_chunk = byte_remaining > BDRV_REQUEST_MAX_BYTES ?
-diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-index aed1d5c330..8c150c6c69 100644
---- a/hw/block/xen-block.c
-+++ b/hw/block/xen-block.c
-@@ -189,10 +189,10 @@ static void xen_block_connect(XenDevice *xendev, Error **errp)
-         feature_large_sector_size = 0;
-     }
+-        start = sec->load_addr;
+-        end = sec->load_addr + sec->sec->sh_size;
++        start = sec->addr;
++        end = sec->addr + sec->sec->sh_size;
  
--    if (feature_large_sector_size != 1 &&
-+    if (feature_large_sector_size == 1 &&
-         conf->logical_block_size != XEN_BLKIF_SECTOR_SIZE) {
--        error_setg(errp, "logical_block_size != %u not supported by frontend",
--                   XEN_BLKIF_SECTOR_SIZE);
-+        error_setg(errp,
-+                   "\"feature-large-sector-size\" not supported by backend");
-         return;
-     }
+         for ( a = start; a < end; a++ )
+         {
+@@ -867,14 +870,14 @@ static int prepare_payload(struct payload *payload,
+              * repl must be fully within .altinstr_replacement, even if the
+              * replacement and the section happen to both have zero length.
+              */
+-            if ( repl               < repl_sec->load_addr ||
++            if ( repl               < repl_sec->addr ||
+                  a->repl_len        > repl_sec->sec->sh_size ||
+-                 repl + a->repl_len > repl_sec->load_addr + repl_sec->sec->sh_size )
++                 repl + a->repl_len > repl_sec->addr + repl_sec->sec->sh_size )
+             {
+                 printk(XENLOG_ERR LIVEPATCH
+                        "%s Alternative repl %p+%#x outside .altinstr_replacement %p+%#"PRIxElfWord"\n",
+                        elf->name, repl, a->repl_len,
+-                       repl_sec->load_addr, repl_sec->sec->sh_size);
++                       repl_sec->addr, repl_sec->sec->sh_size);
+                 return -EINVAL;
+             }
+         }
+@@ -896,8 +899,8 @@ static int prepare_payload(struct payload *payload,
+         if ( !section_ok(elf, sec, sizeof(*region->ex)) )
+             return -EINVAL;
  
-@@ -294,7 +294,7 @@ static void xen_block_set_size(XenBlockDevice *blockdev)
-     const char *type = object_get_typename(OBJECT(blockdev));
-     XenBlockVdev *vdev = &blockdev->props.vdev;
-     BlockConf *conf = &blockdev->props.conf;
--    int64_t sectors = blk_getlength(conf->blk) / conf->logical_block_size;
-+    int64_t sectors = blk_getlength(conf->blk) / XEN_BLKIF_SECTOR_SIZE;
-     XenDevice *xendev = XEN_DEVICE(blockdev);
+-        s = sec->load_addr;
+-        e = sec->load_addr + sec->sec->sh_size;
++        s = sec->addr;
++        e = sec->addr + sec->sec->sh_size;
  
-     trace_xen_block_size(type, vdev->disk, vdev->partition, sectors);
+         sort_exception_table(s ,e);
+ 
+@@ -916,7 +919,7 @@ static int prepare_payload(struct payload *payload,
+         if ( !section_ok(elf, sec, sizeof(*payload->metadata.data)) )
+             return -EINVAL;
+ 
+-        payload->metadata.data = sec->load_addr;
++        payload->metadata.data = sec->addr;
+         payload->metadata.len = sec->sec->sh_size;
+ 
+         /* The metadata is required to consists of null terminated strings. */
+diff --git a/xen/common/livepatch_elf.c b/xen/common/livepatch_elf.c
+index 45d73912a3cd..25ce1bd5a0ad 100644
+--- a/xen/common/livepatch_elf.c
++++ b/xen/common/livepatch_elf.c
+@@ -36,7 +36,7 @@ static int elf_verify_strtab(const struct livepatch_elf_sec *sec)
+     if ( !s->sh_size )
+         return -EINVAL;
+ 
+-    contents = sec->data;
++    contents = sec->addr;
+ 
+     if ( contents[0] || contents[s->sh_size - 1] )
+         return -EINVAL;
+@@ -44,7 +44,7 @@ static int elf_verify_strtab(const struct livepatch_elf_sec *sec)
+     return 0;
+ }
+ 
+-static int elf_resolve_sections(struct livepatch_elf *elf, const void *data)
++static int elf_resolve_sections(struct livepatch_elf *elf, void *data)
+ {
+     struct livepatch_elf_sec *sec;
+     unsigned int i;
+@@ -104,7 +104,7 @@ static int elf_resolve_sections(struct livepatch_elf *elf, const void *data)
+                   sec[i].sec->sh_size > LIVEPATCH_MAX_SIZE )
+             return -EINVAL;
+ 
+-        sec[i].data = data + delta;
++        sec[i].addr = data + delta;
+         /* Name is populated in elf_resolve_section_names. */
+         sec[i].name = NULL;
+ 
+@@ -226,14 +226,14 @@ static int elf_get_sym(struct livepatch_elf *elf, const void *data)
+     strtab_sec = elf->strtab;
+ 
+     /* Pointers arithmetic to get file offset. */
+-    offset = strtab_sec->data - data;
++    offset = strtab_sec->addr - data;
+ 
+     /* Checked already in elf_resolve_sections, but just in case. */
+     ASSERT(offset == strtab_sec->sec->sh_offset);
+     ASSERT(offset < elf->len && (offset + strtab_sec->sec->sh_size <= elf->len));
+ 
+-    /* symtab_sec->data was computed in elf_resolve_sections. */
+-    ASSERT((symtab_sec->sec->sh_offset + data) == symtab_sec->data);
++    /* symtab_sec->addr was computed in elf_resolve_sections. */
++    ASSERT((symtab_sec->sec->sh_offset + data) == symtab_sec->addr);
+ 
+     /* No need to check values as elf_resolve_sections did it. */
+     nsym = symtab_sec->sec->sh_size / symtab_sec->sec->sh_entsize;
+@@ -251,7 +251,7 @@ static int elf_get_sym(struct livepatch_elf *elf, const void *data)
+ 
+     for ( i = 1; i < nsym; i++ )
+     {
+-        const Elf_Sym *s = symtab_sec->data + symtab_sec->sec->sh_entsize * i;
++        const Elf_Sym *s = symtab_sec->addr + symtab_sec->sec->sh_entsize * i;
+ 
+         delta = s->st_name;
+         /* Boundary check within the .strtab. */
+@@ -263,7 +263,7 @@ static int elf_get_sym(struct livepatch_elf *elf, const void *data)
+         }
+ 
+         sym[i].sym = s;
+-        sym[i].name = strtab_sec->data + delta;
++        sym[i].name = strtab_sec->addr + delta;
+         if ( arch_livepatch_symbol_deny(elf, &sym[i]) )
+         {
+             printk(XENLOG_ERR LIVEPATCH "%s: Symbol '%s' should not be in payload\n",
+@@ -342,7 +342,7 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
+                 break;
+             }
+ 
+-            st_value += (unsigned long)elf->sec[idx].load_addr;
++            st_value += (unsigned long)elf->sec[idx].addr;
+             if ( elf->sym[i].name )
+                 dprintk(XENLOG_DEBUG, LIVEPATCH "%s: Symbol resolved: %s => %#"PRIxElfAddr" (%s)\n",
+                        elf->name, elf->sym[i].name,
+@@ -503,7 +503,7 @@ static int livepatch_header_check(const struct livepatch_elf *elf)
+     return 0;
+ }
+ 
+-int livepatch_elf_load(struct livepatch_elf *elf, const void *data)
++int livepatch_elf_load(struct livepatch_elf *elf, void *data)
+ {
+     int rc;
+ 
+diff --git a/xen/include/xen/livepatch_elf.h b/xen/include/xen/livepatch_elf.h
+index 7116deaddc28..842111e14518 100644
+--- a/xen/include/xen/livepatch_elf.h
++++ b/xen/include/xen/livepatch_elf.h
+@@ -13,10 +13,11 @@ struct livepatch_elf_sec {
+     const Elf_Shdr *sec;                 /* Hooked up in elf_resolve_sections.*/
+     const char *name;                    /* Human readable name hooked in
+                                             elf_resolve_section_names. */
+-    const void *data;                    /* Pointer to the section (done by
+-                                            elf_resolve_sections). */
+-    void *load_addr;                     /* A pointer to the allocated destination.
+-                                            Done by load_payload_data. */
++    void *addr;                          /*
++                                          * Pointer to the section.  This is
++                                          * first a temporary buffer, then
++                                          * later the relocated load address.
++                                          */
+ };
+ 
+ struct livepatch_elf_sym {
+@@ -41,7 +42,7 @@ struct livepatch_elf {
+ const struct livepatch_elf_sec *
+ livepatch_elf_sec_by_name(const struct livepatch_elf *elf,
+                           const char *name);
+-int livepatch_elf_load(struct livepatch_elf *elf, const void *data);
++int livepatch_elf_load(struct livepatch_elf *elf, void *data);
+ void livepatch_elf_free(struct livepatch_elf *elf);
+ 
+ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf);
 -- 
+2.46.0
 
-
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
 
