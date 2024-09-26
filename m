@@ -2,31 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367639877FA
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:58:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805796.1217027 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECA3E987800
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:59:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805813.1217036 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stroG-0006Gc-FO; Thu, 26 Sep 2024 16:57:44 +0000
+	id 1strph-0007Uu-Sp; Thu, 26 Sep 2024 16:59:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805796.1217027; Thu, 26 Sep 2024 16:57:44 +0000
+Received: by outflank-mailman (output) from mailman id 805813.1217036; Thu, 26 Sep 2024 16:59:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stroG-0006Dt-Ca; Thu, 26 Sep 2024 16:57:44 +0000
-Received: by outflank-mailman (input) for mailman id 805796;
- Thu, 26 Sep 2024 16:57:43 +0000
+	id 1strph-0007Sg-Pe; Thu, 26 Sep 2024 16:59:13 +0000
+Received: by outflank-mailman (input) for mailman id 805813;
+ Thu, 26 Sep 2024 16:59:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1strlq-0001SU-Ax
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:55:14 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 17f95047-7c28-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 18:55:13 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1727369705031839.5978858011581;
- Thu, 26 Sep 2024 09:55:05 -0700 (PDT)
+ <SRS0=ahor=QY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1strpg-0007SY-C5
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:59:12 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a6e3ea8f-7c28-11ef-a0ba-8be0dac302b0;
+ Thu, 26 Sep 2024 18:59:11 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a8d6ac24a3bso232338666b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 09:59:11 -0700 (PDT)
+Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c2998d38sm16969666b.209.2024.09.26.09.59.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Sep 2024 09:59:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,110 +44,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17f95047-7c28-11ef-a0ba-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1727369706; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=gO0Tkv9cjbPD+U6MmGd7nHKDrf0ZIdyHBCj4DHuggMLEMRwwOP3yS479oIavzs8pwNWXhKzdQlhI6hHhFwcgawsUY7dW99FwIZr2l7aDLoPJqH6LXJTKhIIfNKwrryAKHsfI2IWAstA62GygS0+iaE0prAvdNFwhVRs1DzHoqNE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1727369706; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=7E8w9pZUwxfioCpPwkzlZRNZLXgEIQJhNg2k5qAmQmI=; 
-	b=OrscVVZ1HmcbJt/ebvefaCqgouwdY8IqYwLLUjo5xhjJ33odX4AXIAzJi/Dg40gd2TFbyDQrpePfXM1Y5zyvmnV6Ne6OrUwQ644jhXP7gfl8oWnjgdnTmOgq5Z6euN0ML4noVhJMRxI4cajdQF8UyEPdPhIGjljCnUeum8zwdMU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727369706;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=7E8w9pZUwxfioCpPwkzlZRNZLXgEIQJhNg2k5qAmQmI=;
-	b=Y49M3SNzV0PuIvcXbAPqqNQun4AZUwFNaANRXf9p0nUqvubXunnP43pO7RFvRXjK
-	0LXJS03npMDgbHd9M6wyhbpUf+8RGDeVypY6qrKucEnSNTB4Ujuk943nNC270sbxes3
-	8rR1Tm1d0mz5B8vfhX3b/+zkR6MyXZLA7iKwNRZU=
-Message-ID: <1a9ccd2e-0862-4797-8b7d-5f4942b83fa2@apertussolutions.com>
-Date: Thu, 26 Sep 2024 12:55:03 -0400
+X-Inumbo-ID: a6e3ea8f-7c28-11ef-a0ba-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1727369951; x=1727974751; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=7XoFXYKU35nmrRiFM+zRlLoNlQI9pX3wU1zQAbBWp8s=;
+        b=LChz3YyXDgpY67TZPZTAOP81IwjaOvtRNBpP7qkDPRIZtcvX9eOlvu97Jtic+UzR89
+         t6LQRlYSvbgqoeNr2BfVzx9IyUy/gZY1+2kswhMqnrBC4nzp4504ixDo9oVfDn2OATQa
+         pZ0obfk/XT2VzDY5wjuTely7LJ0uPf+VjglhM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727369951; x=1727974751;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=7XoFXYKU35nmrRiFM+zRlLoNlQI9pX3wU1zQAbBWp8s=;
+        b=BK45ksE1FBvUHAxfoIOv1HL4DbEGD9Ypk7/GGHnJJZXCiqBUQMU6n6J3byVjP3woN8
+         CO4pE65nos2FSt2vAaXQt2b8FcjlwSkKQRWef6xtOEPm4ALeAl915KOEPwFapPu1zHqP
+         mgGytwmI1TIfQYgdfJO0Sndn8n0Ox4sHIiOlfaNwpBe0xS/ple3gBdDDMD/hy8K9lXe2
+         7K1yWC9ZCmvosBhvqZOphaVt4VcHDaLNQKxs8qlnzoLgfRhXD1MrnGa8cb1HF0NeKg+X
+         nSSYgGKXZ4MSjR7BWzQMQ70i8GQDIKOc6X7aJmBLgv5zQitibfof9FlmhlkmtITY6/n6
+         jlzg==
+X-Gm-Message-State: AOJu0YzDbs6KrDWum8cxDEE7YsgBmhCWhzJhL/zEQrGGCwhtqtXexQKQ
+	tP/dO4Q3fgB7HNMAP0YX4G0ofH1Fu9dIrMSPYrE3qKCBYV2dyhaI95YS+q4irXWCD3Uw1I4qGWr
+	2
+X-Google-Smtp-Source: AGHT+IFAGuZYU4kBD/ihDDO0GTxxpH+2qlE5/mQD6fCdOL0/in9vpXFryz2z/5tXhAY9Ohcj8O6bbw==
+X-Received: by 2002:a17:907:8687:b0:a8d:4954:c209 with SMTP id a640c23a62f3a-a93b165dacamr504680366b.22.1727369950745;
+        Thu, 26 Sep 2024 09:59:10 -0700 (PDT)
+Date: Thu, 26 Sep 2024 18:59:09 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 3/5] xen/livepatch: do Xen build-id check earlier
+Message-ID: <ZvWS3W9L_Zt_6ENJ@macbook.local>
+References: <20240926101431.97444-1-roger.pau@citrix.com>
+ <20240926101431.97444-4-roger.pau@citrix.com>
+ <CAG7k0Eq=TO+fPULFqCwmbPQtGVmn9+8JNOSnXxOAux=CTakEow@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/44] x86/boot: convert setup.c mod refs to early_mod
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-9-dpsmith@apertussolutions.com>
- <789911fc-eb37-427e-9d3e-b82f93a61099@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <789911fc-eb37-427e-9d3e-b82f93a61099@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAG7k0Eq=TO+fPULFqCwmbPQtGVmn9+8JNOSnXxOAux=CTakEow@mail.gmail.com>
 
-On 9/4/24 02:47, Jan Beulich wrote:
-> On 30.08.2024 23:46, Daniel P. Smith wrote:
->> To allow a slow conversion of x86 over to struct boot_module, start with
->> replacing all references to struct mod to the early_mod element of struct
->> boot_module. These serves twofold, first to allow the incremental transition
->> from struct mod fields to struct boot_module fields.  The second is to allow
->> the conversion of function definitions from taking struct mod parameters to
->> accepting struct boot_module as needed when a transitioned field will be
->> accessed.
+On Thu, Sep 26, 2024 at 05:11:19PM +0100, Ross Lagerwall wrote:
+> On Thu, Sep 26, 2024 at 11:21 AM Roger Pau Monne <roger.pau@citrix.com> wrote:
+> >
+> > The check against the expected Xen build ID should be done ahead of attempting
+> > to apply the alternatives contained in the livepatch.
+> >
+> > If the CPUID in the alternatives patching data is out of the scope of the
+> > running Xen featureset the BUG() in _apply_alternatives() will trigger thus
+> > bringing the system down.  Note the layout of struct alt_instr could also
+> > change between versions.  It's also possible for struct exception_table_entry
+> > to have changed format, hence leading to other kind of errors if parsing of the
+> > payload is done ahead of checking if the Xen build-id matches.
+> >
+> > Move the Xen build ID check as early as possible.  To do so introduce a new
+> > check_xen_buildid() function that parses and checks the Xen build-id before
+> > moving the payload.  Since the expected Xen build-id is used early to
+> > detect whether the livepatch payload could be loaded, there's no reason to
+> > store it in the payload struct, as a non-matching Xen build-id won't get the
+> > payload populated in the first place.
+> >
+> > Note printing the expected Xen build ID has part of dumping the payload
+> > information is no longer done: all loaded payloads would have Xen build IDs
+> > matching the running Xen, otherwise they would have failed to load.
+> >
+> > Fixes: 879615f5db1d ('livepatch: Always check hypervisor build ID upon livepatch upload')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> Yet earlier it was mentioned that early_mod is a transitory name. Will all of
-> this then need touching a 2nd time?
+> Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> 
+> Should the ELF_LIVEPATCH_XEN_DEPENDS check also be dropped from
+> check_special_sections() since it is no longer necessary?
 
-Correct, but a lot of these references are parameters to functions who 
-then call other functions that are passed the reference, turtles all the 
-way down. To ease from having to wholesale convert every function down 
-when switching to struct boot_module, a methodical approach was taken. 
-To ensure there isn't an mix of using both the mods[] array and 
-bm->early_mod, I did a wholesale switch which allows the immediate drop 
-of the mods[] array. This way, as the last usage of early_mod is 
-removed, then it is known that it can be dropped from struct boot_module.
+It's dropped from check_special_sections() in this patch, just not
+mentioned in the commit message I'm afraid.
 
-The need for early_mod is that starting with __start_xen(), a commit can 
-be done for each function with the conversion to accepting struct 
-boot_module. The function is changed such that any accesses to address 
-and size at that level to use struct boot_module directly. Any function 
-calls within the function being converted that take an instance of 
-module_t, would be handed bm->early_mod. The next commit would then 
-descend into the next level, doing the same conversion.
-
-The only other approach is to have a commit for the conversion of each 
-function call in __start_xen() that accepts module_t along with the 
-entire call chain under that function. That gets ugly very quickly.
-
-v/r,
-dps
+Thanks, Roger.
 
