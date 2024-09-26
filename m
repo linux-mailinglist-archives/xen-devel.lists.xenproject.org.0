@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 204419873B0
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 14:37:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805415.1216496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36CBD9873AF
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 14:37:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805416.1216505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stnjH-0005qz-HI; Thu, 26 Sep 2024 12:36:19 +0000
+	id 1stnjL-000654-Nr; Thu, 26 Sep 2024 12:36:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805415.1216496; Thu, 26 Sep 2024 12:36:19 +0000
+Received: by outflank-mailman (output) from mailman id 805416.1216505; Thu, 26 Sep 2024 12:36:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stnjH-0005oW-E2; Thu, 26 Sep 2024 12:36:19 +0000
-Received: by outflank-mailman (input) for mailman id 805415;
- Thu, 26 Sep 2024 12:36:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1stnjL-000630-L4; Thu, 26 Sep 2024 12:36:23 +0000
+Received: by outflank-mailman (input) for mailman id 805416;
+ Thu, 26 Sep 2024 12:36:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rGGY=QY=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1stnjG-0005oQ-6f
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 12:36:18 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2060f.outbound.protection.outlook.com
- [2a01:111:f403:2408::60f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb451881-7c03-11ef-99a2-01e77a169b0f;
- Thu, 26 Sep 2024 14:36:15 +0200 (CEST)
-Received: from CH2PR08CA0030.namprd08.prod.outlook.com (2603:10b6:610:5a::40)
- by MW4PR12MB7429.namprd12.prod.outlook.com (2603:10b6:303:21b::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.28; Thu, 26 Sep
- 2024 12:36:11 +0000
-Received: from CH3PEPF00000010.namprd04.prod.outlook.com
- (2603:10b6:610:5a:cafe::63) by CH2PR08CA0030.outlook.office365.com
- (2603:10b6:610:5a::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.21 via Frontend
- Transport; Thu, 26 Sep 2024 12:36:11 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH3PEPF00000010.mail.protection.outlook.com (10.167.244.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8005.15 via Frontend Transport; Thu, 26 Sep 2024 12:36:11 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 26 Sep
- 2024 07:36:09 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 26 Sep 2024 07:36:02 -0500
+ <SRS0=rvAu=QY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1stnjK-00062e-G1
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 12:36:22 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eee543f9-7c03-11ef-a0ba-8be0dac302b0;
+ Thu, 26 Sep 2024 14:36:20 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5c874f6f119so1035082a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 05:36:20 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c5cf4c5248sm3082485a12.70.2024.09.26.05.36.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Sep 2024 05:36:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,129 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb451881-7c03-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FjR+jEMaMD1b3c2GOlzI1V1cbpsE7poidy3ck7S9ZgLAnP2PpmqaEy4ZiPNKG4uBLNwoJ/lB+LBuwLFzVnTaJUL8Y2dAAemWWkVvvXybrFhRTyhF6eoKheLVweKjY4IULBrY2InGMYx5ujbFPAaH2GA4ynDYD3o9ZgMq9PD4bEBOUq+ihoXJn5fEkc2kdJK90c5C56YW3JWKrU3HbqXrvQ8AjfRyBwP85yv8nEOZwOpev/ol1wEY4DPVwYO7GW8XWD0kyeJwam0VcvtGGx7N3YahuUk/fsLWABZ+MNc3PzUgMk7lbai5aVatQZ5cSwrQY3PC7VFE8Nq2+79GiAOEDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Iqt8yQpY7eJkVtkAsCyd+/WLRRQw+5JuiyQ5cX6j2F8=;
- b=du1NvIMZh4Jh5KBeBNQVMNXt3GqIL9rk47njpfp9j0u8WjLcZG3RNzac97TN7sOPFlh3aAekbB/q9p4Urk14r45rqMQSkXYaWwAkqGR1mFxyfxjCHfRBIWXBNiJQ48rybwMMCNhi6KkuS93hQJZTmo6wVaWRywt+r5dBqDe1RhNfLqnej+BqQ3Bbod8Xr5Btpf0A+r0UfERJHjSttNlQKTXSWY8YpcyXVZ4QBzIYqvT+6J/4C2wzfi+51frsbkdGLnHdRk4OYzJSsFWFO5xwbLMp5GEW8RML3yF+9f1W4RdeOKIpk1StEeAyMdCR4J4mgZlgRO1TiBnV/licG1+nJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Iqt8yQpY7eJkVtkAsCyd+/WLRRQw+5JuiyQ5cX6j2F8=;
- b=UaQVBTd6iDKVdaDvjZ8g2h2Vy1bcwBxc2/IWV9uBGgEEHAGz/FzxhbASitzmTiTrvQew1QBLp+Fff2QBP+4x2CSl3WNtoqB3KlyH7fbGrN8V86JxjEH7oDwbAQuwgNbY4OGzNXMmrqt3iy4Cch9R3vB07ElZOi9BJrIh9j4YhG8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <bf90fb6f-bbd3-4b72-9bbb-61cba58016e4@amd.com>
-Date: Thu, 26 Sep 2024 14:35:55 +0200
+X-Inumbo-ID: eee543f9-7c03-11ef-a0ba-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1727354180; x=1727958980; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1dTwBzs2aitPgUdmyF2RiXeqH8SUjI/4aRXzRQvnUmE=;
+        b=uzuPn0ilimVP/X/PzBcOCKchCXtSdOw3DqiDthcXUeFdqXZHdnlmDnPgz7pfL3Hf25
+         gerdH0UlWXdAgvoufO7jD2AG2+UI4pI3lJwuhNzcmCHKf40JZElpPzyBT0Y77eTjlWZc
+         E+m8Igv9Z6kTRd75pjtdAsRhavRP3srWy5pvA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727354180; x=1727958980;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1dTwBzs2aitPgUdmyF2RiXeqH8SUjI/4aRXzRQvnUmE=;
+        b=YMW55n1TQQ9DEtEUJEU+Ud/IVkl232WyTnTv+ExjI+Tm+J6Vaddl5Jv2iBiNCgdu7j
+         58WC8VEcyZUgtmqYojEWbh1GIk1+NU60ImgycVHdwnDhfTEdm2PMeh7IW5w/1xeWB+fd
+         vz8puaAWcSC3V5wLu3qZ31JYqryIxXvrXoU0qLlO9biwvf5q6hwwVyLmlhTp90oUwajY
+         clRGftk+OKoHzPkYFhzBqQwgV6qg9H8CwUx2K7htxDjqlGIh3B58RPFPju0u/WHyiIv9
+         JBsXHb/TGh0wwbWm0vhkhxCb8Vk3gaJJjHfVp7DXU2nX8+6ohKNMqyH7DvBzO/irOofV
+         7ymg==
+X-Forwarded-Encrypted: i=1; AJvYcCX7YvY98Bj42UP5yfA8exBFPZ1fOsCvuKumKpwPHdPt2NmLIOK8/Osm3L+HfZVSeK129MmboxmuGEE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwaPgIjW8K3fKF7umTZJXYA/hN3w3z1u9uK8dSD5xaBo0wFL5k0
+	gCJCjEONi8td9CEexpK9RtavgRkgiIm3trkP0m63iiZMPnw7wVB9cazazYYdXyI=
+X-Google-Smtp-Source: AGHT+IFH9GZm3ggdS80EypR8iBt5JVibRDpk+JQMzX6O7yICN3JvbA5X8/HyV06pmzV9DRSBfGL89w==
+X-Received: by 2002:a05:6402:2810:b0:5c7:1efc:a8c3 with SMTP id 4fb4d7f45d1cf-5c720623de0mr5187776a12.15.1727354180051;
+        Thu, 26 Sep 2024 05:36:20 -0700 (PDT)
+Message-ID: <6f7961ff-3940-4f56-b497-9af779b15d46@citrix.com>
+Date: Thu, 26 Sep 2024 13:36:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] xen/livepatch: drop load_addr Elf section field
-To: Roger Pau Monne <roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
-CC: Ross Lagerwall <ross.lagerwall@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20240926101431.97444-1-roger.pau@citrix.com>
- <20240926101431.97444-2-roger.pau@citrix.com>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240926101431.97444-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000010:EE_|MW4PR12MB7429:EE_
-X-MS-Office365-Filtering-Correlation-Id: d84e62f3-77f6-42ca-2c68-08dcde27cdb9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SkhHVnV5Nk15YjVyOU5velhrYUpYeGdSdFVmUVBLdjRzcjZWR0pxb2dLSHdu?=
- =?utf-8?B?ZXh4bGwwbVVXSDVnRFg2OTY3dGx4RnYvbzBrVmE4dkZqbDF4bk0xNEdKSlFq?=
- =?utf-8?B?d01XVmxqV0txS0w5T3I2dFlGUm5tKzVLOUhGY2dFVWhYNVQrd1A3WFA3K2s3?=
- =?utf-8?B?WUplVWhncnh3MjZDVnJHTmxvaWVJMUN6Ny9wYXdFNTNYTmhhcnkzZDluYUJW?=
- =?utf-8?B?eis1V0NTKzZkazFBYkFmZ3A4dUYxQ2VKaEtYMW5ZY1BHWUVBbk9vZzJEVlFR?=
- =?utf-8?B?aUxIWVpuODkxODhBN2t3aVUwbWtacXQ3NHBoNnMwNmR3RXdWRVM1eTVxNjho?=
- =?utf-8?B?d2Uya05DaEFTZndDeExMR2FGVmJGQlJRZy9jb1dUaDhsbnFld0UzNm9lYzVu?=
- =?utf-8?B?V05oQXE1emJvbFZ1S1ZleVAvTEVGMFhraS9Ydm01aDhSTk03QTFmS3pTYjMw?=
- =?utf-8?B?L3VVSXFaMUNENUM4OGk1cFU3VHRiekhJQ21iY3M1S0cwaFhzQ2V2Sk1DOW0y?=
- =?utf-8?B?M1F4Y3NJd1NrUFdFTnZPcko5MFdwVnUxSlhlcVdOZ3pWY0hCUDFLb2pya1dy?=
- =?utf-8?B?REpUVVNuVmN3QUJyVnovRWdGVnZQcCs2NFBpeklFajJNRjg0eWdDejFRaUtF?=
- =?utf-8?B?bDBhQVV2YVU3b0ljSmo5aUVpZm0wd0ZQUFQ3YUl1cy85bTh5aS9obU82N0h1?=
- =?utf-8?B?dFg1dW85bWRHZTdUNWg4bkJFVFNXSG5XdHFRYW91aVcwOHh0UHZtbmxOcS8x?=
- =?utf-8?B?Tnc1QXY3OUlWNmVScjRSenpFNlZjVTNwSmMrK2tkTngrTS84MFU5aU1mMUVp?=
- =?utf-8?B?N0RiVmg1ZDRwMmd0K3NkVEJ3VytKc0pYU1BXYytaVHBkTTZvK0xuRG5sTTYv?=
- =?utf-8?B?Y1pGYlhjSE9pQ0Z3RDFsQnhCaXZZSmEvenRBNm5LMFVITVZ6QWtmQ0FpTDE0?=
- =?utf-8?B?dUVPL3Y1SGpuS1FVYkFjelp6U0pma1VzeWduNXhldHBMNFJrU0RVZkNHWk81?=
- =?utf-8?B?M0VPaUtNWmJ3aXNNdG5PSXhGbFN4RHA5VDlmanN5TmFhd3A5cHk5dmlGQ1FU?=
- =?utf-8?B?YlJKS3JSSUIvb2tHSFBwSmQ0MUlJL0tWNEsxRjkzemlGRGNwRzRZbU4wZHd5?=
- =?utf-8?B?RGFKbThZVXU4K01yUnZtbnJ3eGdnU2cxalZiV0xZRGlVVzNVdGZNbitXeFc0?=
- =?utf-8?B?aXdBRzMvdlFuYUg5bGhwNW84TmpvZS9YSXEydndidW83K0ovUlQyOW4zODNU?=
- =?utf-8?B?ODg4Zyt4N1hsNlora2h6ZWx6ckM2Ry9yekdaOHZUa1c3L0hLcnpCSUNiWjVX?=
- =?utf-8?B?SEN0RlpmdENCTFpmQVlUWFl2WGZCRGgwaW9ZY1RzN2JxWmRVS2l0Tjlpa2wy?=
- =?utf-8?B?dG5YN3hLZWVhVlZYdGVGWlRhUDBNZ2QrcERnZkNERGFpRXI4TzRmQmJEMTQz?=
- =?utf-8?B?WDFsZzYvUmdRdW5WL1RaWTJ1RWwxV0Q1OEh0VnZseHBtTW5Ja3VWaStHRmVR?=
- =?utf-8?B?VHRDVW5IQ1ZSSGF3Y2x5MmlOUFVTNWw1SjNUamRFZ3FIRUFYd3M2aVlYYzVH?=
- =?utf-8?B?SzN5ZTR5TWloZUthTXlQWGpYb1o4YWMvWkNzQk5hREUzUTVSdHVlVGloMHVE?=
- =?utf-8?B?MnF3YWlRdVIvT01CUDJrK21sTldzRlJUdEVRMFNRUUtSU1pjbmtta01kaHRH?=
- =?utf-8?B?dG01dDhadlZaaU5JeTdNNTNvdndaVDB1Nk53WFFKNDZOQzBKdFVzZnpXRzdL?=
- =?utf-8?B?dkRMR3grZ0U0QTQ2UGMzZllqM0Y0eG43YUJ6RVBVcnkzZ25XZ3ZpZGlGOE5E?=
- =?utf-8?B?OStpY3d4VFYzRlh4dy9ZNFF6eWU5R0QzS0QwM3VaZDlmNi9BRHRrS1NsVzNI?=
- =?utf-8?B?Z0JZMm5CWWxpSjB0VGFJSzVReUdRZXdWWEpLMnhwQ2Y4aEV1Um53UXh5RWZG?=
- =?utf-8?Q?DV8IYW7OMfO4LmhY/HtL0LKV0eMOdbiF?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2024 12:36:11.5385
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d84e62f3-77f6-42ca-2c68-08dcde27cdb9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000010.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7429
+Subject: Re: [RFC PATCH] arm: introduce kconfig options to disable hypercalls
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20240926095806.67149-1-Sergiy_Kibrik@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240926095806.67149-1-Sergiy_Kibrik@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 26/09/2024 10:58 am, Sergiy Kibrik wrote:
+> diff --git a/xen/common/Makefile b/xen/common/Makefile
+> index fc52e0857d..ea0557aee5 100644
+> --- a/xen/common/Makefile
+> +++ b/xen/common/Makefile
+> @@ -64,10 +64,14 @@ obj-bin-$(CONFIG_X86) += $(foreach n,decompress bunzip2 unxz unlzma lzo unlzo un
+>  obj-$(CONFIG_COMPAT) += $(addprefix compat/,domain.o memory.o multicall.o xlat.o)
+>  
+>  ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
+> +ifeq ($(CONFIG_DOMCTL),y)
+>  obj-y += domctl.o
+> +endif
+>  obj-y += monitor.o
+> +ifeq ($(CONFIG_SYSCTL),y)
+>  obj-y += sysctl.o
+>  endif
+> +endif
 
+This patch is tagged ARM, but as you can see from this bodge, it's
+already used on x86 for SHIM_EXCLUSIVE mode.
 
-On 26/09/2024 12:14, Roger Pau Monne wrote:
-> 
-> 
-> The Elf loading logic will initially use the `data` section field to stash a
-> pointer to the temporary loaded data (from the buffer allocated in
-> livepatch_upload(), which is later relocated and the new pointer stashed in
-> `load_addr`.
-> 
-> Remove this dual field usage and use an `addr` uniformly.  Initially data will
-> point to the temporary buffer, until relocation happens, at which point the
-> pointer will be updated to the relocated address.
-> 
-> This avoids leaking a dangling pointer in the `data` field once the temporary
-> buffer is freed by livepatch_upload().
-> 
-> Note the `addr` field cannot retain the const attribute from the previous
-> `data`field, as there's logic that performs manipulations against the loaded
-> sections, like applying relocations or sorting the exception table.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-For Arm part:
-Acked-by: Michal Orzel <michal.orzel@amd.com>
+(I came very close to insisting that it was done like this originally,
+but alas.)
 
-~Michal
+Please incorporate PV_SHIM_EXCLUSIVE at the Kconfig level, and turn
+these into simple obj-$(...) += foo.o
+
+~Andrew
 
