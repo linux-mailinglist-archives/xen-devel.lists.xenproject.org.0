@@ -2,37 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECA3E987800
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:59:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805813.1217036 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B1BF98781B
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 19:05:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805820.1217046 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1strph-0007Uu-Sp; Thu, 26 Sep 2024 16:59:13 +0000
+	id 1strui-0000av-Dr; Thu, 26 Sep 2024 17:04:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805813.1217036; Thu, 26 Sep 2024 16:59:13 +0000
+Received: by outflank-mailman (output) from mailman id 805820.1217046; Thu, 26 Sep 2024 17:04:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1strph-0007Sg-Pe; Thu, 26 Sep 2024 16:59:13 +0000
-Received: by outflank-mailman (input) for mailman id 805813;
- Thu, 26 Sep 2024 16:59:12 +0000
+	id 1strui-0000ZQ-Aw; Thu, 26 Sep 2024 17:04:24 +0000
+Received: by outflank-mailman (input) for mailman id 805820;
+ Thu, 26 Sep 2024 17:04:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ahor=QY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1strpg-0007SY-C5
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:59:12 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6e3ea8f-7c28-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 18:59:11 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a8d6ac24a3bso232338666b.1
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 09:59:11 -0700 (PDT)
-Received: from localhost ([213.195.124.163]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c2998d38sm16969666b.209.2024.09.26.09.59.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Sep 2024 09:59:10 -0700 (PDT)
+ <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1struh-0000ZK-3X
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 17:04:23 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5f4162bd-7c29-11ef-a0ba-8be0dac302b0;
+ Thu, 26 Sep 2024 19:04:22 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1727370253541397.23243337335043;
+ Thu, 26 Sep 2024 10:04:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,83 +38,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6e3ea8f-7c28-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727369951; x=1727974751; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7XoFXYKU35nmrRiFM+zRlLoNlQI9pX3wU1zQAbBWp8s=;
-        b=LChz3YyXDgpY67TZPZTAOP81IwjaOvtRNBpP7qkDPRIZtcvX9eOlvu97Jtic+UzR89
-         t6LQRlYSvbgqoeNr2BfVzx9IyUy/gZY1+2kswhMqnrBC4nzp4504ixDo9oVfDn2OATQa
-         pZ0obfk/XT2VzDY5wjuTely7LJ0uPf+VjglhM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727369951; x=1727974751;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7XoFXYKU35nmrRiFM+zRlLoNlQI9pX3wU1zQAbBWp8s=;
-        b=BK45ksE1FBvUHAxfoIOv1HL4DbEGD9Ypk7/GGHnJJZXCiqBUQMU6n6J3byVjP3woN8
-         CO4pE65nos2FSt2vAaXQt2b8FcjlwSkKQRWef6xtOEPm4ALeAl915KOEPwFapPu1zHqP
-         mgGytwmI1TIfQYgdfJO0Sndn8n0Ox4sHIiOlfaNwpBe0xS/ple3gBdDDMD/hy8K9lXe2
-         7K1yWC9ZCmvosBhvqZOphaVt4VcHDaLNQKxs8qlnzoLgfRhXD1MrnGa8cb1HF0NeKg+X
-         nSSYgGKXZ4MSjR7BWzQMQ70i8GQDIKOc6X7aJmBLgv5zQitibfof9FlmhlkmtITY6/n6
-         jlzg==
-X-Gm-Message-State: AOJu0YzDbs6KrDWum8cxDEE7YsgBmhCWhzJhL/zEQrGGCwhtqtXexQKQ
-	tP/dO4Q3fgB7HNMAP0YX4G0ofH1Fu9dIrMSPYrE3qKCBYV2dyhaI95YS+q4irXWCD3Uw1I4qGWr
-	2
-X-Google-Smtp-Source: AGHT+IFAGuZYU4kBD/ihDDO0GTxxpH+2qlE5/mQD6fCdOL0/in9vpXFryz2z/5tXhAY9Ohcj8O6bbw==
-X-Received: by 2002:a17:907:8687:b0:a8d:4954:c209 with SMTP id a640c23a62f3a-a93b165dacamr504680366b.22.1727369950745;
-        Thu, 26 Sep 2024 09:59:10 -0700 (PDT)
-Date: Thu, 26 Sep 2024 18:59:09 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 3/5] xen/livepatch: do Xen build-id check earlier
-Message-ID: <ZvWS3W9L_Zt_6ENJ@macbook.local>
-References: <20240926101431.97444-1-roger.pau@citrix.com>
- <20240926101431.97444-4-roger.pau@citrix.com>
- <CAG7k0Eq=TO+fPULFqCwmbPQtGVmn9+8JNOSnXxOAux=CTakEow@mail.gmail.com>
+X-Inumbo-ID: 5f4162bd-7c29-11ef-a0ba-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1727370256; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ONY46fMVThxq8xzaqeSM5C/CD3uiYsdQdp0bSJ5YD8PfdJqlocMGjqzJKIBY05XYp1/AFC8HfRe56twxS1BRdgE81ObR+U3xL+lJ9RCMHiP3Ve9se+L8wlDmrkoO417DlK99hcwCPIBBt7dO2rhCQWqPYQxvo49juLo83nk5eEs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1727370256; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4gJYTIwepA8VoDbkOkHTpDNcs0TrMyCWhkmcclRP3JE=; 
+	b=EADoLHZZkUvN+9/Wjnx/memQNUHGvNZrs7qhMWSODf/a1OCxsy56HLIqpHCpOt/njuHF6j/Hh+n8xed+mrlalbgPf5Tgu5aemxEg8PtZ8MjgJWbzdvVfqFJb24cWkl1J2O/8fbu7/uEOZLpxEVk+0K1GbSZ7IzVkelluHMkvFBM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727370256;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=4gJYTIwepA8VoDbkOkHTpDNcs0TrMyCWhkmcclRP3JE=;
+	b=Scl3Lzjamw0UgItgPTa6V/Gqf1sNJgsLQ2yv0HNez3yh/03M3iJXWpu/jGN1zqZo
+	X77x8TYez0saCYu7geEOR30WOaKrJFf9WW6sh1QIQ+2V8njdJew0vXEeYotEeRAM01Y
+	g6yOfQwy1YZstlpmba76M48XKRkDsZtU5EbfjIto=
+Message-ID: <4baaf012-fa7b-4e37-9910-f4f01a5ea40e@apertussolutions.com>
+Date: Thu, 26 Sep 2024 13:04:12 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG7k0Eq=TO+fPULFqCwmbPQtGVmn9+8JNOSnXxOAux=CTakEow@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/44] x86/boot: split bootstrap_map_addr() out of
+ bootstrap_map()
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
+ <20240830214730.1621-10-dpsmith@apertussolutions.com>
+ <10217d0f-441c-4991-b935-d27a6dd4b49b@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
+ JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
+ G7D08iZg94ZsnUdeXfgYdJrqmdiWA6iX9u84ARHUtb0K4r5WpLUMcQ8PVmnv1vVrs/3Wy/Rb
+ foxebZNWxgUiSx+d02e3Ad0aEIur1SYXXv71mqKwyi/40CBSHq2jk9eF6zmEhaoFi5+MMMgX
+ X0i+fcBkvmT0N88W4yCtHhHQds+RDbTPLGm8NBVJb7R5zbJmuQX7ADBVuNYIU8hx3dF3AQCm
+ 601w0oZJ0jGOV1vXQgHqZYJGHg5wuImhzhZJCRESIwf+PJxik7TJOgBicko1hUVOxJBZxoe0
+ x+/SO6tn+s8wKlR1Yxy8gYN9ZRqV2I83JsWZbBXMG1kLzV0SAfk/wq0PAppA1VzrQ3JqXg7T
+ MZ3tFgxvxkYqUP11tO2vrgys+InkZAfjBVMjqXWHokyQPpihUaW0a8mr40w9Qui6DoJj7+Gg
+ DtDWDZ7Zcn2hoyrypuht88rUuh1JuGYD434Q6qwQjUDlY+4lgrUxKdMD8R7JJWt38MNlTWvy
+ rMVscvZUNc7gxcmnFUn41NPSKqzp4DDRbmf37Iz/fL7i01y7IGFTXaYaF3nEACyIUTr/xxi+
+ MD1FVtEtJncZNkRn7WBcVFGKMAf+NEeaeQdGYQ6mGgk++i/vJZxkrC/a9ZXme7BhWRP485U5
+ sXpFoGjdpMn4VlC7TFk2qsnJi3yF0pXCKVRy1ukEls8o+4PF2JiKrtkCrWCimB6jxGPIG3lk
+ 3SuKVS/din3RHz+7Sr1lXWFcGYDENmPd/jTwr1A1FiHrSj+u21hnJEHi8eTa9029F1KRfocp
+ ig+k0zUEKmFPDabpanI323O5Tahsy7hwf2WOQwTDLvQ+eqQu40wbb6NocmCNFjtRhNZWGKJS
+ b5GrGDGu/No5U6w73adighEuNcCSNBsLyUe48CE0uTO7eAL6Vd+2k28ezi6XY4Y0mgASJslb
+ NwW54LzSSM0uRGFuaWVsIFAuIFNtaXRoIDxkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29t
+ PsJ6BBMRCAAiBQJWK7ngAhsjBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRBTc6WbYpR8
+ KrQ9AP94+xjtFfJ8gj5c7PVx06Zv9rcmFUqQspZ5wSEkvxOuQQEAg6qEsPYegI7iByLVzNEg
+ 7B7fUG7pqWIfMqFwFghYhQzOwU0EViu54BAIAL6MXXNlrJ5tRUf+KMBtVz1LJQZRt/uxWrCb
+ T06nZjnbp2UcceuYNbISOVHGXTzu38r55YzpkEA8eURQf+5hjtvlrOiHxvpD+Z6WcpV6rrMB
+ kcAKWiZTQihW2HoGgVB3gwG9dCh+n0X5OzliAMiGK2a5iqnIZi3o0SeW6aME94bSkTkuj6/7
+ OmH9KAzK8UnlhfkoMg3tXW8L6/5CGn2VyrjbB/rcrbIR4mCQ+yCUlocuOjFCJhBd10AG1IcX
+ OXUa/ux+/OAV9S5mkr5Fh3kQxYCTcTRt8RY7+of9RGBk10txi94dXiU2SjPbassvagvu/hEi
+ twNHms8rpkSJIeeq0/cAAwUH/jV3tXpaYubwcL2tkk5ggL9Do+/Yo2WPzXmbp8vDiJPCvSJW
+ rz2NrYkd/RoX+42DGqjfu8Y04F9XehN1zZAFmCDUqBMa4tEJ7kOT1FKJTqzNVcgeKNBGcT7q
+ 27+wsqbAerM4A0X/F/ctjYcKwNtXck1Bmd/T8kiw2IgyeOC+cjyTOSwKJr2gCwZXGi5g+2V8
+ NhJ8n72ISPnOh5KCMoAJXmCF+SYaJ6hIIFARmnuessCIGw4ylCRIU/TiXK94soilx5aCqb1z
+ ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
+ p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
+ NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
+In-Reply-To: <10217d0f-441c-4991-b935-d27a6dd4b49b@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Thu, Sep 26, 2024 at 05:11:19PM +0100, Ross Lagerwall wrote:
-> On Thu, Sep 26, 2024 at 11:21 AM Roger Pau Monne <roger.pau@citrix.com> wrote:
-> >
-> > The check against the expected Xen build ID should be done ahead of attempting
-> > to apply the alternatives contained in the livepatch.
-> >
-> > If the CPUID in the alternatives patching data is out of the scope of the
-> > running Xen featureset the BUG() in _apply_alternatives() will trigger thus
-> > bringing the system down.  Note the layout of struct alt_instr could also
-> > change between versions.  It's also possible for struct exception_table_entry
-> > to have changed format, hence leading to other kind of errors if parsing of the
-> > payload is done ahead of checking if the Xen build-id matches.
-> >
-> > Move the Xen build ID check as early as possible.  To do so introduce a new
-> > check_xen_buildid() function that parses and checks the Xen build-id before
-> > moving the payload.  Since the expected Xen build-id is used early to
-> > detect whether the livepatch payload could be loaded, there's no reason to
-> > store it in the payload struct, as a non-matching Xen build-id won't get the
-> > payload populated in the first place.
-> >
-> > Note printing the expected Xen build ID has part of dumping the payload
-> > information is no longer done: all loaded payloads would have Xen build IDs
-> > matching the running Xen, otherwise they would have failed to load.
-> >
-> > Fixes: 879615f5db1d ('livepatch: Always check hypervisor build ID upon livepatch upload')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 9/4/24 02:49, Jan Beulich wrote:
+> On 30.08.2024 23:46, Daniel P. Smith wrote:
+>> From: Andrew Cooper <andrew.cooper3@citrix.com>
+>>
+>> Using an interface based on addresses directly, not modules.
+>>
+>> No functional change.
 > 
-> Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> Okay, a mechanical transformation. But what's the goal?
+
+I would defer to Andy's reply.
+
+>> --- a/xen/arch/x86/include/asm/setup.h
+>> +++ b/xen/arch/x86/include/asm/setup.h
+>> @@ -34,6 +34,7 @@ void setup_io_bitmap(struct domain *d);
+>>   
+>>   unsigned long initial_images_nrpages(nodeid_t node);
+>>   void discard_initial_images(void);
+>> +void *bootstrap_map_addr(uint64_t start, uint64_t end);
 > 
-> Should the ELF_LIVEPATCH_XEN_DEPENDS check also be dropped from
-> check_special_sections() since it is no longer necessary?
+> Better paddr_t?
 
-It's dropped from check_special_sections() in this patch, just not
-mentioned in the commit message I'm afraid.
+I don't see why not. It was Andy's patch, so unless he has an objection, 
+I can change it.
 
-Thanks, Roger.
+v/r,
+dps
 
