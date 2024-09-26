@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 155499873E3
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 14:54:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805431.1216529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AF179873FD
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 15:00:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805450.1216545 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sto0J-0001Aa-Mo; Thu, 26 Sep 2024 12:53:55 +0000
+	id 1sto5t-000376-Aj; Thu, 26 Sep 2024 12:59:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805431.1216529; Thu, 26 Sep 2024 12:53:55 +0000
+Received: by outflank-mailman (output) from mailman id 805450.1216545; Thu, 26 Sep 2024 12:59:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sto0J-00013H-GE; Thu, 26 Sep 2024 12:53:55 +0000
-Received: by outflank-mailman (input) for mailman id 805431;
- Thu, 26 Sep 2024 12:53:53 +0000
+	id 1sto5t-00034v-7u; Thu, 26 Sep 2024 12:59:41 +0000
+Received: by outflank-mailman (input) for mailman id 805450;
+ Thu, 26 Sep 2024 12:59:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4Hhf=QY=bounce.vates.tech=bounce-md_30504962.66f5595e.v1-fe2bd7a58ced47f285932fb5db668bcf@srs-se1.protection.inumbo.net>)
- id 1sto0H-0000wg-Mu
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 12:53:53 +0000
-Received: from mail137-23.atl71.mandrillapp.com
- (mail137-23.atl71.mandrillapp.com [198.2.137.23])
+ <SRS0=GedV=QY=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1sto5s-00034p-4A
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 12:59:40 +0000
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [2001:4860:4864:20::2a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60ac2c48-7c06-11ef-99a2-01e77a169b0f;
- Thu, 26 Sep 2024 14:53:51 +0200 (CEST)
-Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail137-23.atl71.mandrillapp.com (Mailchimp) with ESMTP id
- 4XDtnp20TWz1XLGNW
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 12:53:50 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- fe2bd7a58ced47f285932fb5db668bcf; Thu, 26 Sep 2024 12:53:50 +0000
+ id 2f4c6f73-7c07-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 14:59:37 +0200 (CEST)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-277df202ca9so454135fac.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 05:59:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,81 +40,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60ac2c48-7c06-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1727355230; x=1727615730;
-	bh=bqBQgdFu7ue35t1gEEJMNLjaBSVlQaaf2h4TrHlMzIA=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=nFjDeqALLCe4hlD+f1a6Gu+hEzOpHcXdo87mcv9WSYOAbJq2MTvnCAViCVqL8ELeL
-	 uDu1i97IH3Kown/JSCfcxZE908ZJMr8H3jcI722ufU9vNQWBCNjJ6dIt+uz95NPKhi
-	 EK/33yBaA970PVUag4ZBL2YYhjGjMSK4F9QmlZz8XxdJQ/s0cmE/1RqxWYpeyJwtnn
-	 wcXrhMmGTz0MAh7LeLq8SbnZ7T8oeY912DpUu9Y0dGKNX7XN3pB3uvj0D3g7+QqFzs
-	 +OkwnDEmp8XwMM8b3tvM2aMzzBS83n1fXPmg3mw8odjzgK/swNKr/Ql1esi4O3QWms
-	 uWFb21ZS9aFiQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1727355230; x=1727615730; i=anthony.perard@vates.tech;
-	bh=bqBQgdFu7ue35t1gEEJMNLjaBSVlQaaf2h4TrHlMzIA=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ihqwDZRbi47tsDpw7XvJNeN2Pd7/XQ7PGDRVG5KoVrZhXfyxcDhnuOyjdYnCEiVBm
-	 DiRbYR3gPaPkaKVa2tZa5I8vSuQkLKgVvW9zzrn/7yS8vUdxo7JxckTrVXimKGY72p
-	 oZEUuKzLbCI1ZtePe2RAmFKVmmdEsmV/ET5EgZHQE/LWYzozEbVMeXUFrQEB6tIpBC
-	 pHxji9Hy5Sy7ff3aFHs+Gbrppz4plJ8hZugreZVm+F3lEjS/gGgGbNiPba+M1neTjW
-	 BL3i7mZiVd7sJgm6loXsRKNgEusvVodqgCJg9zZk9ZFJy6IZaXTRmBmX7EwbNNuWwP
-	 BMRmuArHw4ykA==
-From: Anthony PERARD <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?[XEN=20PATCH=201/2]=20blkif:=20Fix=20alignment=20description=20for=20discard=20request?=
-X-Mailer: git-send-email 2.39.2
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1727355229388
-To: xen-devel@lists.xenproject.org
-Cc: =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
-Message-Id: <20240926125347.23738-2-anthony.perard@vates.tech>
-In-Reply-To: <20240926125347.23738-1-anthony.perard@vates.tech>
-References: <20240926125347.23738-1-anthony.perard@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.fe2bd7a58ced47f285932fb5db668bcf?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20240926:md
-Date: Thu, 26 Sep 2024 12:53:50 +0000
+X-Inumbo-ID: 2f4c6f73-7c07-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1727355576; x=1727960376; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=c9rbQ1hFC3VL1Fi+1C6fBfRc3HlSLZK45AN1XwCzUHQ=;
+        b=VRMZiO0UJZPNKM6VWYJUomWHZxcH+pKISHfMN5YMZyk9u2aBM8Y1yOzVl5LaQlJSGY
+         qpjKBJdvsqN6BHiKJFHJk9e6pZnrB/1MUmYzYl341u3m15fDZuUiHEq38OHANaIrl3LL
+         n1eDKzJC6SbinnNlWhb6iAGTw7Rw1Zz3ackfU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727355576; x=1727960376;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=c9rbQ1hFC3VL1Fi+1C6fBfRc3HlSLZK45AN1XwCzUHQ=;
+        b=PUnydZUqPBBQbaeYbtxJHb2E/RIl2WcA+3bB2UJ0b35JMatq3mXSpcUIE2MiBQc4C4
+         A3JAy9uLqA+LtBqFZpTYFH/DILo5ouz9YYEe05fyqO1IWPI7CPFiAl2qGaTg0J/OG0Lc
+         xrIg1+OQmDAARLvwDEMws0Jlmzfgr49D9YOLkA1/10Zdb/2JLmBahDrn6i6q6WVsFvMU
+         w6N6d6eBRxquflfEqQwuSw1t+UIY+mLT5Kn99keYjoKHY1oVbEvK6l7qDKf6zJa5ejzn
+         IlZZv4090E9sb9mZhZzvhKaNR9/4KPnb5swsVTbE3A63JTc+Wt53eraTCRw4greXt7qY
+         lG7w==
+X-Gm-Message-State: AOJu0YxokqMG1ayN0VhRcugCjEEfniLvfHlwSlTvYmRM2Xp2FnviLemt
+	DCa3jZxki3uJE1SGjsrg8sgNdYXMa8duqsyiAiUsqgKHLVmhwdKWx9h7FXvEbeOmH1TwmadZSV3
+	e4il9gDVtdjw1XbF/XWO8VCUVh/atqHxEP8ImHA==
+X-Google-Smtp-Source: AGHT+IHLsPSja69dWYejwo/xYPe3hK2qmheDEVkVP1aFk2a6YwsNQN8/E0nfi1Ps/ahv+byxu6OadhE45QNgAIYrG5I=
+X-Received: by 2002:a05:6870:4711:b0:277:f301:40d5 with SMTP id
+ 586e51a60fabf-286e15ce4cdmr5139343fac.31.1727355576717; Thu, 26 Sep 2024
+ 05:59:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+References: <20240926125347.23738-1-anthony.perard@vates.tech> <20240926125347.23738-3-anthony.perard@vates.tech>
+In-Reply-To: <20240926125347.23738-3-anthony.perard@vates.tech>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Thu, 26 Sep 2024 13:59:25 +0100
+Message-ID: <CACHz=ZjGmo0tY5s5t=sMZwE7=vym5cUDPeLUyfQymbLPVq1CcA@mail.gmail.com>
+Subject: Re: [XEN PATCH 2/2] blkif: Fix a couple of typos
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Juergen Gross <jgross@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The discard feature have an other xenstore node to described the size
-of the blocks than can be discarded, "discard-granularity", which
-default to "sector-size" when absent as noted in the properties and in
-note 4. So discard request should be aligned on this value.
+On Thu, Sep 26, 2024 at 1:54=E2=80=AFPM Anthony PERARD
+<anthony.perard@vates.tech> wrote:
+>
+> Those where fixed in OVMF's copy. (And one of them fixed in QEMU's
+> copy but later discarded by an update.)
+>
+> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+> ---
+>  xen/include/public/io/blkif.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/xen/include/public/io/blkif.h b/xen/include/public/io/blkif.=
+h
+> index 789bab65ab..8407453324 100644
+> --- a/xen/include/public/io/blkif.h
+> +++ b/xen/include/public/io/blkif.h
+> @@ -42,7 +42,7 @@
+>   * All data in the XenStore is stored as strings.  Nodes specifying nume=
+ric
+>   * values are encoded in decimal.  Integer value ranges listed below are
+>   * expressed as fixed sized integer types capable of storing the convers=
+ion
+> - * of a properly formated node string, without loss of information.
+> + * of a properly formatted node string, without loss of information.
+>   *
+>   * Any specified default value is in effect if the corresponding XenBus =
+node
+>   * is not present in the XenStore.
+> @@ -328,7 +328,7 @@
+>   *      access (even when it should be read-only). If the frontend hits =
+the
+>   *      maximum number of allowed persistently mapped grants, it can fal=
+lback
+>   *      to non persistent mode. This will cause a performance degradatio=
+n,
+> - *      since the the backend driver will still try to map those grants
+> + *      since the backend driver will still try to map those grants
+>   *      persistently. Since the persistent grants protocol is compatible=
+ with
+>   *      the previous protocol, a frontend driver can choose to work in
+>   *      persistent mode even when the backend doesn't support it.
 
-Fixes: 221f2748e8da ("blkif: reconcile protocol specification with in-use implementations")
-Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
----
- xen/include/public/io/blkif.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-diff --git a/xen/include/public/io/blkif.h b/xen/include/public/io/blkif.h
-index 9b00d633d3..789bab65ab 100644
---- a/xen/include/public/io/blkif.h
-+++ b/xen/include/public/io/blkif.h
-@@ -668,7 +668,7 @@ typedef struct blkif_request blkif_request_t;
-  *
-  * The 'sector_number' field is in units of 512b, despite the value of the
-  * 'sector-size' xenstore node.  Note however that the offset in
-- * 'sector_number' must be aligned to 'sector-size'.
-+ * 'sector_number' must be aligned to 'discard-granularity'.
-  */
- struct blkif_request_discard {
-     uint8_t        operation;    /* BLKIF_OP_DISCARD                     */
--- 
-
-
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Frediano
 
