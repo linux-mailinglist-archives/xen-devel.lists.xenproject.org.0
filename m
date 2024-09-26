@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 813F4986C68
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 08:24:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.804910.1215880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A231986C8C
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 08:32:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.804919.1215890 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sthuO-00078r-Ol; Thu, 26 Sep 2024 06:23:24 +0000
+	id 1sti2i-0000Zq-KW; Thu, 26 Sep 2024 06:32:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 804910.1215880; Thu, 26 Sep 2024 06:23:24 +0000
+Received: by outflank-mailman (output) from mailman id 804919.1215890; Thu, 26 Sep 2024 06:32:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sthuO-00077A-Kn; Thu, 26 Sep 2024 06:23:24 +0000
-Received: by outflank-mailman (input) for mailman id 804910;
- Thu, 26 Sep 2024 06:23:22 +0000
+	id 1sti2i-0000XI-Hf; Thu, 26 Sep 2024 06:32:00 +0000
+Received: by outflank-mailman (input) for mailman id 804919;
+ Thu, 26 Sep 2024 06:31:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J7u3=QY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1sthuM-000771-O5
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 06:23:22 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1sti2g-0000XC-Mp
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 06:31:58 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d2708137-7bcf-11ef-99a2-01e77a169b0f;
- Thu, 26 Sep 2024 08:23:19 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5c40aea5c40so1113481a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 23:23:19 -0700 (PDT)
+ id 06f0397b-7bd1-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 08:31:56 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a8a897bd4f1so83985466b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2024 23:31:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c5cf4d7926sm2756610a12.93.2024.09.25.23.23.17
+ a640c23a62f3a-a93930f8440sm309228866b.182.2024.09.25.23.31.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Sep 2024 23:23:17 -0700 (PDT)
+ Wed, 25 Sep 2024 23:31:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2708137-7bcf-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 06f0397b-7bd1-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727331799; x=1727936599; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727332316; x=1727937116; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1hEH3ESYmZdhGK9b5Zr5K7sOCMwI55aB30tq5Zx8rP0=;
-        b=FC2j0vzxg5be1PxvmTHEvgIpJwXbuq5Wl7Cqa5XzeEWAv+7mHhHW1FVyQduQY3Fpn2
-         i8oyxaj12cjnDSjCALm1fJyga5O2uOkyrMaZVh5JqvHScSVymvG+nF+vgYlRtmf+z2Jm
-         NRJ2aTOWQPXz7nHRmK2Yv92ZaMA1srFYq7db9iGY+N/Z73/BLBi7QRWHslcPJyszIHXH
-         tKT/lZa1M6hKwsW5wAc/59N+PtcO+Y8V4EziOA3oWSx0TJe6/U/8m6eP410PZBp6KPfY
-         f517qpzH1QUQtQBYzcP4KEkQb5AJ1PMumPG+REy9NanLlVvNJvCcAn/ZnxEBfIg7lqiz
-         i7Zg==
+        bh=O2SsTDsKWqtl8rt+GwTOL5Px/asshtE+mvCp7N8Z+Vg=;
+        b=AS6Al7VxlIbl+JNe9rha4Kxx687DLVLOcWsw4VFqr2YZDVg4fSfZ3yg5UnoCNE1X8B
+         gReC/MQwxOAW2prdJEPnKn0F4cYy6TwRaEkRjB2rk2G/AKySlja8JrauetVsUBeI1GL+
+         RkJp1ws/vnhaDDD3voJLk3cPEeluBVOVCrSYWWIhE/dGmcghktQjgajJOMQ2e/IwJE9i
+         3Gngi9a8SFfmhdYOuJZZnFBGOAxuibfF1YkHbg5qtpt9QCokFwAYvnRHDmzzdOhLEKZG
+         hp5HuLKlZ+ry6PcrBd1XE/SqkpJmGw5GWoAuBbMmJF9aADoKbtO4dSlZO8tWDtA//PLp
+         CHKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727331799; x=1727936599;
+        d=1e100.net; s=20230601; t=1727332316; x=1727937116;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1hEH3ESYmZdhGK9b5Zr5K7sOCMwI55aB30tq5Zx8rP0=;
-        b=pPZTfzy1ZE7cYDtxkaOTvV/2+ZqYCM57epgtQFcztJE4bwzkdRXD3mIM3fF9eiQZAx
-         R1qUi0gAgn98sc39tIfHnXJZEtmzkE5rmXD2iYb/W9oGdA9qm5bjAfjO3eDAbPZ67Btc
-         STcYBkiQvxFVIwraO+LSwz+OT9mN6FvYZbw/Y8nCpqc2XN1DARIQlqSa1pXCtsjlrf6j
-         3vDHhdhXLB1Cz5Dqxes6oLPiDGdVwQc/VEDk0XqjD3LFRw1kOVzL2YXkaNbl/T+4hJc3
-         0zWmzE1SES17ISvEukOVLXNkJ/SOpdo/gc+5SLSgiPjFVszwn3SA+YXW29dbDtwpKbl5
-         NuCg==
-X-Forwarded-Encrypted: i=1; AJvYcCWUMe+fIVKfVuVvcBm3rg/xkPg+yBarsDBpHSQWzhwlEQ7qdkang2Uuup29nGp44eOF+4WXEWgdAWw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxSXUd8djCI5EoZhsBd1QWrsZHXgFdkaODprQzgyMesQGzZpoXL
-	YN85lCOoAF7NndBQYmC2pUd40CYwMHedwuZW+/OyNIu1komxEftpfcQ5qYGBiUUVpN8k/lBMUa4
-	=
-X-Google-Smtp-Source: AGHT+IE1kuT5Oe9xW+022jtvT+eAPKYsPciMvCjZqhChqL94o6m9oJtkRfOT2bKOXs6D8rImSt+Tww==
-X-Received: by 2002:a05:6402:35d0:b0:5c3:d8fb:df6a with SMTP id 4fb4d7f45d1cf-5c8777d3471mr1995701a12.14.1727331798541;
-        Wed, 25 Sep 2024 23:23:18 -0700 (PDT)
-Message-ID: <540a900e-9bff-40d0-8ace-6b443bbfca41@suse.com>
-Date: Thu, 26 Sep 2024 08:23:17 +0200
+        bh=O2SsTDsKWqtl8rt+GwTOL5Px/asshtE+mvCp7N8Z+Vg=;
+        b=ACzvUQ5FkfR/BPKTJWAWhzhY+1Hkh7vMs7ePZdCndKnOY00YFkhHsxXjAu2RAKvEXR
+         0GSEQeYEaeH6xNexdeQWHnlymM8XAg34rtsjnhlgKQ+HN03ELC8QlN6ZrIxHZgv4EV2k
+         YXRcMt6TJ5ZX8uu8wcPO+99lDxdqH/wxoYNfqW3u4wRTewEUM1WFSK6pejNcXr7qLnnN
+         RwzZRj4QMsgMhzPMirA0sd/iukagKjPwj/zTz9jbAMmiHfdV20OFtjjoWqDMZ3Vi+cGx
+         MQUMupYA/NV1DSqIv9eS6MttPh/GJ9bhIlcqc42/Az5HJFOStggxG581zdXkzQGA6Wxf
+         b0OQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWfG+cmVGATuTHuPJSbUIKBWTcWhUVhSYooug/v+rH7+ewo68IN77tWH9R1OZF63tDK5RZODCvip00=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxO2qswBex4UpR522T/615rxG+la10keqIy0p50yI1l9bq7tyH3
+	6ECFSDnWGR9wKvMvQYzo07Nz0PRA0iDby7kO9cltM6Jugrh1CVAtBNjwyQUHVw==
+X-Google-Smtp-Source: AGHT+IGWNj+S0jM8je0BoCwlyz4B0hiGFCc5oXwrxbTRzORNJGs8XGNqOoeJ8VzfMISR5143YY4XBQ==
+X-Received: by 2002:a17:906:f59a:b0:a7a:a212:be4e with SMTP id a640c23a62f3a-a93a03431a4mr499255966b.7.1727332316170;
+        Wed, 25 Sep 2024 23:31:56 -0700 (PDT)
+Message-ID: <dfa6f9b1-b02f-4e43-962b-33014310f08e@suse.com>
+Date: Thu, 26 Sep 2024 08:31:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] xen: define ACPI and DT device info sections
- macros
-To: oleksii.kurochko@gmail.com
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <cover.1727193766.git.oleksii.kurochko@gmail.com>
- <7521839bd265e0520fc448adf50361d18dfe53df.1727193766.git.oleksii.kurochko@gmail.com>
- <82125953-99b5-4fde-83b8-51643cce793b@suse.com>
- <81b676ae5958d93ecbc3a552c1c0a208dfa2d18a.camel@gmail.com>
+Subject: Re: [PATCH 2/6] x86/alternative: Walk all replacements in debug
+ builds
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240422181434.3463252-1-andrew.cooper3@citrix.com>
+ <20240422181434.3463252-3-andrew.cooper3@citrix.com>
+ <b1333d62-b738-4a61-9c68-ba7903f2e92d@suse.com>
+ <3e439093-a9bb-4213-b28f-25fa09b5eecd@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,82 +115,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <81b676ae5958d93ecbc3a552c1c0a208dfa2d18a.camel@gmail.com>
+In-Reply-To: <3e439093-a9bb-4213-b28f-25fa09b5eecd@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25.09.2024 18:08, oleksii.kurochko@gmail.com wrote:
-> On Wed, 2024-09-25 at 10:36 +0200, Jan Beulich wrote:
->> PPC's desire to use DECL_SECTION() can certainly be covered by
->> providing
->> a (trivial) DECL_SECTION() also for Arm and RISC-V. Seeing that even
->> x86
->> overrides the default to the trivial form for building xen.efi, I'm
->> inclined to suggest we should actually have a way for an arch to
->> indicate
->> to xen.lds.h that it wants just the trivial form (avoiding a later
->> #undef).
-> If to go with what I suggested before then x86 will look like:
+On 25.09.2024 23:15, Andrew Cooper wrote:
+> On 23/04/2024 3:44 pm, Jan Beulich wrote:
+>> On 22.04.2024 20:14, Andrew Cooper wrote:
+>>> +                if ( res.rel_type == REL_TYPE_d8 )
+>>> +                {
+>>> +                    int8_t *d8 = res.rel;
+>>> +                    void *target = ip + res.len + *d8;
+>>> +
+>>> +                    if ( target < repl || target > end )
+>>> +                    {
+>>> +                        printk("Alternative for %ps [%*ph]\n",
+>>> +                               ALT_ORIG_PTR(a), a->repl_len, repl);
+>>> +                        panic("'JMP/Jcc disp8' at +%u leaves alternative block\n",
+>>> +                              (unsigned int)(unsigned long)(ip - repl));
+>>> +                    }
+>>> +                }
+>> Why's Disp8 more important to check than Disp32? A bad CALL in a
+>> replacement can't possibly be encoded with Disp8, and both JMP and Jcc
+>> are also more likely to be encoded with Disp32 when their target isn't
+>> in the same blob (but e.g. in a different section).
 > 
-> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-> index d48de67cfd..911585541e 100644
-> --- a/xen/arch/x86/xen.lds.S
-> +++ b/xen/arch/x86/xen.lds.S
-> @@ -3,6 +3,10 @@
->  
->  #include <xen/cache.h>
->  #include <xen/lib.h>
-> +
-> +#ifdef EFI
-> +#define SIMPLE_DECL_SECTION
-> +#endif
->  #include <xen/xen.lds.h>
->  #include <asm/page.h>
->  #undef ENTRY
-> @@ -12,9 +16,7 @@
->  
->  #define FORMAT "pei-x86-64"
->  #undef __XEN_VIRT_START
-> -#undef DECL_SECTION
->  #define __XEN_VIRT_START __image_base__
-> -#define DECL_SECTION(x) x :
->  
->  ENTRY(efi_start)
->  
-> diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
-> index a17810bb28..fb11ba7357 100644
-> --- a/xen/include/xen/xen.lds.h
-> +++ b/xen/include/xen/xen.lds.h
-> @@ -5,6 +5,8 @@
->   * Common macros to be used in architecture specific linker scripts.
->   */
->  
-> +#ifdef SIMPLE_DECL_SECTION
-
-#ifndef I guess?
-
-> @@ -15,6 +17,10 @@
->  # define DECL_SECTION(x) x : AT(ADDR(x) - __XEN_VIRT_START)
->  #endif
->  
-> +#else /* SIMPLE_DECL_SECION */
-> +# define DECL_SECTION(x) x :
-> +#endif
-> +
->  /*
->   * To avoid any confusion, please note that the EFI macro does not
-> correspond
->   * to EFI support and is used when linking a native EFI (i.e. PE/COFF)
-> binary,
+> Whatever the likelihood of them existing, Disp8's cannot possibly be
+> correct if they cross the boundary of the replacement.  Checking for
+> them has the side effect of running decode_lite() over all replacements.
 > 
-> Does it make sense? Or it would be better to follow way for each
-> architecture:
->    #undef DECL_SECTION
->    #define DECL_SECTION(x) x :
+> Disp32's do exist in both external and internal forms (retpoline), and
+> the point of this series is to make all external cases usable. 
 
-Hard to tell which one's better; I was asking myself that same question
-when writing an earlier reply. I'm slightly in favor of the form you have
-now.
+Okay, fine then.
+
+> Therefore, there are no invalid cases.
+
+There definitely are: Any pointing outside of the present replacement
+block, into another replacement block. Which can in principle happen if
+a label was used wrongly. Anything pointing outside the block really
+needs to be covered by logic adjusting the displacement when the
+alternative is being put in place.
 
 Jan
 
