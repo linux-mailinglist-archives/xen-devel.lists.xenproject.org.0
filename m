@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D13CB9875FE
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 16:52:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805612.1216764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E7D6987607
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 16:54:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805619.1216774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stpqI-000648-VA; Thu, 26 Sep 2024 14:51:42 +0000
+	id 1stpsf-0006bc-AR; Thu, 26 Sep 2024 14:54:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805612.1216764; Thu, 26 Sep 2024 14:51:42 +0000
+Received: by outflank-mailman (output) from mailman id 805619.1216774; Thu, 26 Sep 2024 14:54:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stpqI-000614-S3; Thu, 26 Sep 2024 14:51:42 +0000
-Received: by outflank-mailman (input) for mailman id 805612;
- Thu, 26 Sep 2024 14:51:41 +0000
+	id 1stpsf-0006ZW-7f; Thu, 26 Sep 2024 14:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 805619;
+ Thu, 26 Sep 2024 14:54:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1stpqH-00060y-6I
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 14:51:41 +0000
+ id 1stpsd-0006ZQ-La
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 14:54:07 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d4ab3a30-7c16-11ef-99a2-01e77a169b0f;
- Thu, 26 Sep 2024 16:51:38 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1727362292590172.67430958537568;
- Thu, 26 Sep 2024 07:51:32 -0700 (PDT)
+ id 2c475126-7c17-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 16:54:05 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 172736243875457.783131189196865;
+ Thu, 26 Sep 2024 07:53:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,39 +38,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4ab3a30-7c16-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1727362293; cv=none; 
+X-Inumbo-ID: 2c475126-7c17-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1727362440; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=fiudTYLwOx1DN5zCG4z+gLE+KxR+cBSO/X5FeIFbtyw6U+TKDXX0B1m46DU+snZvChqT6PeEvgCznnymmAEyUFtP0yI3gw3TIL3AYSzPfjpRZuFaEF/HoKVosZncZ82ZTX79cqu3TUTe3iRxQ4+uXwLZF5Cf9Whi/Zcd+A1PPTA=
+	b=QEvyxNbsa6St0G10Gns2XesQD4YIA7OXcFkeLvyrcKVVpqvu/2kl+6pzlqqpSXxJRcmgR4LZaAuYSnIk3Tz3pHjoNYYSsWmLg/407XVayLvmkL8V1ryndg+jc1qKjvIjoEiJ/1QZZ99IrZ0oBgY7bDACRKAqeOSLtctEII4Z3nc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1727362293; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Y77w4rIqyuPyduzqzI4MnD1HMk0tL3nLkByeaBanpdw=; 
-	b=ZmbtHV4kLXUUSeQ4XzlK5Bi25fB6syxQEm4Qw7z7PD65q9JsOiteAoR/ubpoOmhsvAb48DUk4ftW/3lTf1+35zt7T6KDw8xjyv3xAbTUa49lQzZXnB84Dh7Gwq0t8klYqeosFDo6mRCFHt4W4nyIAI0oKOoCN4IVxOl/9haveQk=
+	t=1727362440; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=/t8nWm4ii9Let6QaMpdwk6VLulpZO6MmIjzXVduFZ5E=; 
+	b=lNjJ+tVPZioM5UXmrJOT9pEx3X3fbisV38M2gyTCtk1kh3RJNxKWQEMBg9LG6Fi4MZ3Jp33rhrCi4r1EXOm2w4yxFZOSjdvQXFQXDjQvg1CwPdv9NFleo2XmIeZ30shx1eoLYySendYPZ2/UE4Bz8AF/EQg8TtP149pzF5GO/U4=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727362293;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727362440;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Y77w4rIqyuPyduzqzI4MnD1HMk0tL3nLkByeaBanpdw=;
-	b=uMvBB3BFv2vfLxY6UYDTW8w1sHS8J5xMFHHxAZEReTHgPdxe4TNnvefHBdrnGOHz
-	UJ7IbfwE8DP1/KqXpmRmj5DkYdGb4vXyZXDHonBXv98OHbYcjOu5QE9cNAKLRyYio5F
-	Z2giXmvRoSvhOUY3A9lLcb/2jQ1caMAK5TL+pWQg=
-Message-ID: <937c0741-c905-4f29-a813-60c0000f4064@apertussolutions.com>
-Date: Thu, 26 Sep 2024 10:51:30 -0400
+	bh=/t8nWm4ii9Let6QaMpdwk6VLulpZO6MmIjzXVduFZ5E=;
+	b=jeoXMcnylm5lt0k6oQ/+4Mbl1ahe+fituHepE97/6ZjYdWK8kZpa7phhDD7ZbvL6
+	zYb3x4EVgDfv+zG6p4krYyzousDaikr9+pHXEx1vs/XLj1Q4diVm+A9vy1AOynk3FfS
+	WR60krZejVMAr6SyOjcn/mFbGGAOjiTqqux3295U=
+Message-ID: <b844e3c7-df58-45df-9398-cbf1bfdd6bff@apertussolutions.com>
+Date: Thu, 26 Sep 2024 10:53:57 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 01/44] x86/boot: move x86 boot module counting into a
  new boot_info struct
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Christopher Clark <christopher.w.clark@gmail.com>, jason.andryuk@amd.com,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
  <20240830214730.1621-2-dpsmith@apertussolutions.com>
- <9a87ab05-b95a-4613-adb1-95b5f4a55c4b@citrix.com>
+ <ea1c567e-93d7-4e98-b184-81a85715c3fc@suse.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -103,115 +104,32 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <9a87ab05-b95a-4613-adb1-95b5f4a55c4b@citrix.com>
+In-Reply-To: <ea1c567e-93d7-4e98-b184-81a85715c3fc@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 9/3/24 18:35, Andrew Cooper wrote:
-> On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index eee20bb1753c..dd94ee2e736b 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -1034,9 +1044,10 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>           mod = __va(mbi->mods_addr);
->>       }
+
+
+V/r,
+Daniel P. Smith
+Apertus Solutions, LLC
+
+On 9/4/24 02:31, Jan Beulich wrote:
+> On 30.08.2024 23:46, Daniel P. Smith wrote:
+>> @@ -276,7 +277,16 @@ static int __init cf_check parse_acpi_param(const char *s)
+>>   custom_param("acpi", parse_acpi_param);
 >>   
->> +    multiboot_to_bootinfo(mbi);
+>>   static const module_t *__initdata initial_images;
+>> -static unsigned int __initdata nr_initial_images;
+>> +static struct boot_info __initdata *boot_info;
+>> +
+>> +static void __init multiboot_to_bootinfo(multiboot_info_t *mbi)
 > 
-> Actually, peeking ahead to the end of the series, we've got this:
-> 
-> void __start_xen(unsigned long mbi_p)
-> {
->      ...
->      multiboot_info_t *mbi;
->      module_t *mod;
->      ...
-> 
->      if ( pvh_boot )
->      {
->          ASSERT(mbi_p == 0);
->          pvh_init(&mbi, &mod);
->      }
->      else
->      {
->          mbi = __va(mbi_p);
->          mod = __va(mbi->mods_addr);
->      }
-> 
->      multiboot_to_bootinfo(mbi, mod);
-> 
-> 
-> which are the sum total of the mbi and mod pointers.  Worse, pvh_init()
-> is transforming the PVH into into MB1 info, just to be transformed
-> immediately to BI.
-> 
-> I expect this is work for the end of the series (I can't think of a nice
-> way to disentangle it earlier), but could we end up with something more
-> like:
-> 
->      if ( pvh_boot )
->      {
->          ASSERT(mbi_p == 0);
->          pvh_fill_boot_info();
->      }
->      else
->      {
->          multiboot_info_t *mbi = __va(mbi_p);
-> 
->          multiboot_fill_boot_info(mbi, __va(mbi->mods_addr));
->      }
-> 
-> ?
-> 
-> Or perhaps even just pass mbi_p in, and have multiboot_fill_boot_info()
-> do the __va()'s itself.
-> 
-> If so, we probably want to make a naming and possibly prototype
-> difference in this patch.
+> Pointer-to-const please.
 
-Let me combine this with some of Alejandro's comments. What if I were to 
-reshape it to look like this,
-
-/*
-  * This level of indirection may not be desired, dropping it is not an
-  * issue. I am proposing it because there is going to be a need to
-  * access the instance from distant unit files.
-  */
-struct boot_info __init *get_boot_info(void)
-{
-     static struct boot_info __initdata info;
-
-     return &info;
-}
-
-static struct boot_info __init *multiboot_fill_boot_info(
-     unsigned long mbi_p)
-{
-     struct boot_info *bi = get_boot_info();
-     multiboot_info_t *mbi = __va(mbi_p);
-     module_t mods = __va(mbi->mods_addr);
-
-     ...
-
-     return bi;
-}
-
-, then in the PVH boot code
-
-struct boot_info __init *pvh_fill_boot_info(void)
-{
-     struct boot_info *bi = get_boot_info();
-
-     ...
-
-     return bi;
-}
-
-, and then something similar for efi.
-
-What does everyone think?
+Provided it does not change based on other feedback, you are correct 
+that it should be const.
 
 v/r,
 dps
