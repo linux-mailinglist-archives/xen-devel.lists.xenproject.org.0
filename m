@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58F8A986EBA
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 10:25:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805034.1216043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B938986EC4
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 10:28:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805044.1216054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stjo4-0007QW-W5; Thu, 26 Sep 2024 08:25:00 +0000
+	id 1stjrG-0008JI-HZ; Thu, 26 Sep 2024 08:28:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805034.1216043; Thu, 26 Sep 2024 08:25:00 +0000
+Received: by outflank-mailman (output) from mailman id 805044.1216054; Thu, 26 Sep 2024 08:28:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stjo4-0007NO-T5; Thu, 26 Sep 2024 08:25:00 +0000
-Received: by outflank-mailman (input) for mailman id 805034;
- Thu, 26 Sep 2024 08:24:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1stjrG-0008H7-EX; Thu, 26 Sep 2024 08:28:18 +0000
+Received: by outflank-mailman (input) for mailman id 805044;
+ Thu, 26 Sep 2024 08:28:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rvAu=QY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1stjo2-0007NE-UI
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 08:24:58 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d0f2fc16-7be0-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 10:24:58 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a8a6d1766a7so94438966b.3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 01:24:58 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ <SRS0=ukdd=QY=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1stjrF-0008H1-5Z
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 08:28:17 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 46763982-7be1-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 10:28:15 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-535dc4ec181so801099e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 01:28:15 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93930c8a98sm321168966b.124.2024.09.26.01.24.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Sep 2024 01:24:56 -0700 (PDT)
+ 2adb3069b0e04-537a85e634bsm729382e87.77.2024.09.26.01.28.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Sep 2024 01:28:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0f2fc16-7be0-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 46763982-7be1-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727339097; x=1727943897; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7bL2qfZeiJhfu3qPYThFtTWPc8cW6sDIfnYX7YFHkCk=;
-        b=oELQYwgoTjEqyx0+r61f8FlzCzSMAEiOwTnEkdzQ239OU7aaSWQpfx4xaGqxo0I8YE
-         9V1bplW7yvpO5TqIBJU/PJf+2T1lIo/0IbMMUASroNXM0O20NREOiIiHZd4KrJlMGssw
-         yE0uFC8gCoSWh/DbWxsiUPlN5hJvRH5pVETSc=
+        d=gmail.com; s=20230601; t=1727339295; x=1727944095; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=lGRp41j8jBr+fOL6zCtCnSshxAN4WSLO1iAz64CXBhA=;
+        b=SsTLSc7Zam8wODU3k8m+nfjUNdT2ZOl8rmPH5HCJ2LKR1r/pQ3D3e4VAUogzQosEH2
+         bOFDD4PrQXE9kyk2V791Lnd9DYqXhhrty7AsE6XGLHFAb++MFQIDxk0S8hHb3mySh62a
+         nOF7wsnulIsckFJ08bCtGxmJmr87gE/5gaknnMayAyfwhIhteHKOcDRA90Up9E72Tnye
+         JbWcStOI1Fr1Q8aTeWsy0SsSOTa3ccQ0mAZuJYu1hBjsjeUULg85UXJ32VfOs+lw/UhT
+         wZAMTuzm0bje9KlOGFiOC26FDvTTH4yxjlRyYOpWLBnkhXcmwyz0v76PAgXNV7QXB8Wq
+         Z6xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727339097; x=1727943897;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7bL2qfZeiJhfu3qPYThFtTWPc8cW6sDIfnYX7YFHkCk=;
-        b=Nv8IXCE3Ufae4IaBBJcpQuzkVHFzyIGOATaxZCS+TnKyS0noOcY3TyJMAbRFrGMOuJ
-         Gjo1tKF68eQF5AJqY5/pQQrTMr52qFIw/vfdr/LN1Uex8gzQxqk4UpXZiVFUq+g+FJ1X
-         5vFic28IcHrUkXcIeRH3Q3VSjLUIcnnqMo3RB308W45zjeX2WhzdxvaOjmFqaWKRNj7R
-         tScYH5FUYC/kiBBf1gHS1TJnGFy3hMlDgbwlKCU2g3rdd2nWDVBtd199mEcAZPdd9YoZ
-         KvOD1nbi59ENem/T+UK3cyH6cvv8qdsPAKF4+ERWWj8bpAR0vqmCIjkpYVBdMSLt+GR4
-         XzTg==
-X-Gm-Message-State: AOJu0YwMxkOjOVnYuEeENhzuw+VsMMuopvBE0qVrMxOV8KGJ9KpmTrxs
-	5gCK4/6hH1YNiy7/IBF10QSbmsm/VpcPyh0eg/8SSSQxH9juHH7K6jEJ1n0fgQs=
-X-Google-Smtp-Source: AGHT+IEBPFRVSQrfVZ3iNceVi50X7+LNnqjeGg6KuYVKvdQszhO8b+O9g8Yxm6wCWqIB0PdZquQmgQ==
-X-Received: by 2002:a17:906:dc8f:b0:a86:83f8:f5a2 with SMTP id a640c23a62f3a-a93a038c991mr489979566b.19.1727339097408;
-        Thu, 26 Sep 2024 01:24:57 -0700 (PDT)
-Message-ID: <7ce3e68e-8e55-4cb1-8568-b1ce3b207866@citrix.com>
-Date: Thu, 26 Sep 2024 09:24:56 +0100
+        d=1e100.net; s=20230601; t=1727339295; x=1727944095;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=lGRp41j8jBr+fOL6zCtCnSshxAN4WSLO1iAz64CXBhA=;
+        b=K/sYAcB6wElLLmYsoA1HvyNwiw/f4t2ZriVBH95gffpcczbkvaYNO5Vmus8UlQfbfM
+         XKAcn2QygEVHvbyVFKPMVRg93jd+CT2V+aH8N/s+aAbjp3i4PqVX35H7opJKPiQJ+fML
+         WeBz8KPFx3DNLa/g2uQjoWaM4vUX388YLwALycEWk1fpJO++M67OPw1dWKY1aA5ur7fO
+         LIqOaObcCXxorcouqXTAP8B0NXMhw8dMUru6Cip+mb5XNp87XDEYUGjvpK6JXWwNVAwY
+         OCfS5ePRyP4MRgTq8uDr5y8y105KLis38WrNF2HdwH7FKEZGD8Hn78FPpTxsondxN8rU
+         l7Ww==
+X-Forwarded-Encrypted: i=1; AJvYcCVxo9Td0GO4Mintg+4Szqjc5MQMNTeICOKagLAgz8OwbCEbdNDwCVerDr09/OtPED6KLjlQEQzl8bM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw9s1NmAdHSQywGnV2oXc7igLH8dEaDpzrw7s3UNHXvwtt/oaJv
+	+ZuPYSqbChyci4GDvz1XvCYXGCttwU97S+LoUBNiGPMNTSUZrZdd
+X-Google-Smtp-Source: AGHT+IFDPjFXr7mWPe80f06uvFnItJCSd9+8+KDyOBrJWzU9de/vCxYviVK/mKVUPoOwZ/NIWPbsjA==
+X-Received: by 2002:a05:6512:128b:b0:536:54df:bffa with SMTP id 2adb3069b0e04-5387755cc03mr3523734e87.45.1727339294225;
+        Thu, 26 Sep 2024 01:28:14 -0700 (PDT)
+Message-ID: <fb48c9346b18d78b0bd94443d2d7505b0eeed438.camel@gmail.com>
+Subject: Re: [PATCH v2 2/2] xen: move per-cpu area management into common
+ code
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>,  Bertrand Marquis <bertrand.marquis@arm.com>, Michal
+ Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+ Shawn Anastasio <sanastasio@raptorengineering.com>, Alistair Francis
+ <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Connor
+ Davis <connojdavis@gmail.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Date: Thu, 26 Sep 2024 10:28:12 +0200
+In-Reply-To: <9256b42d-fc9d-4a4a-b2b6-799da107bdbf@suse.com>
+References: <cover.1727185495.git.oleksii.kurochko@gmail.com>
+	 <e573f9d46e7af0806381f6a41af00dc415bf87bb.1727185495.git.oleksii.kurochko@gmail.com>
+	 <9256b42d-fc9d-4a4a-b2b6-799da107bdbf@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] xen/livepatch: zero pointer to temporary load
- buffer
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <20240925084239.85649-1-roger.pau@citrix.com>
- <20240925084239.85649-3-roger.pau@citrix.com>
- <c357ec68-bfd2-427e-8f33-5826a2252b0e@citrix.com>
- <ZvPfVokJHOpzEZXc@macbook.local>
- <14e0bb5d-7f68-418e-8313-48593ceea7d5@citrix.com>
- <ZvUZu8wDk9aBiscx@macbook.local>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ZvUZu8wDk9aBiscx@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 26/09/2024 9:22 am, Roger Pau Monné wrote:
-> On Wed, Sep 25, 2024 at 07:28:42PM +0100, Andrew Cooper wrote:
->> On 25/09/2024 11:00 am, Roger Pau Monné wrote:
->>> On Wed, Sep 25, 2024 at 10:33:39AM +0100, Andrew Cooper wrote:
->>>> On 25/09/2024 9:42 am, Roger Pau Monne wrote:
->>>>> The livepatch_elf_sec data field points to the temporary load buffer, it's the
->>>>> load_addr field that points to the stable loaded section data.  Zero the data
->>>>> field once load_addr is set, as it would otherwise become a dangling pointer
->>>>> once the load buffer is freed.
->>>>>
->>>>> No functional change intended.
->>>>>
->>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>> ---
->>>>> Changes since v1:
->>>>>  - New in this version.
->>>>> ---
->>>>>  xen/common/livepatch.c | 3 +++
->>>>>  1 file changed, 3 insertions(+)
->>>>>
->>>>> diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
->>>>> index df41dcce970a..87b3db03e26d 100644
->>>>> --- a/xen/common/livepatch.c
->>>>> +++ b/xen/common/livepatch.c
->>>>> @@ -383,6 +383,9 @@ static int move_payload(struct payload *payload, struct livepatch_elf *elf)
->>>>>              }
->>>>>              else
->>>>>                  memset(elf->sec[i].load_addr, 0, elf->sec[i].sec->sh_size);
->>>>> +
->>>>> +            /* Avoid leaking pointers to temporary load buffers. */
->>>>> +            elf->sec[i].data = NULL;
->>>>>          }
->>>>>      }
->>>>>  
->>>> Where is the data allocated and freed?
->>>>
->>>> I don't see it being freed in this loop, so how is freed subsequently?
->>> It's allocated and freed by livepatch_upload(), it's the raw_data
->>> buffer that's allocated in the context of that function.
->> Well, this is a mess isn't it.
->>
->> Ok, so livepatch_upload() makes a temporary buffer to copy everything into.
->>
->> In elf_resolve_sections(), we set up sec[i].data pointing into this
->> temporary buffer.
->>
->> And here, we copy the data from the temporary buffer, into the final
->> destination in the Xen .text/data/rodata region.
->>
->> So yes, this does end up being a dangling pointer, and clobbering it is
->> good.
->>
->>
->> But, seeing the `n = sec->load_addr ?: sec->data` in patch 4, wouldn't
->> it be better to drop this second pointer and just have move_payload()
->> update it here?
->>
->> I can't see anything good which can come from having two addresses, nor
->> a reason why we'd need both.
->>
->> Then again, if this is too hard to arrange, it probably can be left as
->> an exercise to a future developer.
-> So this is how it ends up looking,  there's a bit of churn due to
-> having to drop const on some function parameters.
+On Wed, 2024-09-25 at 17:12 +0200, Jan Beulich wrote:
+> On 24.09.2024 18:42, Oleksii Kurochko wrote:
+> > --- a/xen/include/asm-generic/percpu.h
+> > +++ b/xen/include/asm-generic/percpu.h
+> > @@ -10,7 +10,14 @@
+> > =C2=A0extern char __per_cpu_start[];
+> > =C2=A0extern const char __per_cpu_data_end[];
+>=20
+> Afaics the only users of these two are in the new common/percpu.c.
+> These
+> decls want to mover there then, I think, to limit exposure.
+>=20
+> > =C2=A0extern unsigned long __per_cpu_offset[NR_CPUS];
+>=20
+> The definition for this moves to the new common/percpu.c. Hence this
+> declaration wants to move to xen/percpu.c.
+>=20
+> Overall with the generalization you do I'd expect asm-
+> generic/percpu.h
+> to go away altogether. That is, ...
+>=20
+> > -void percpu_init_areas(void);
+> > +
+> > +#ifndef PARK_OFFLINE_CPUS
+> > +/*
+> > + * Do we, for platform reasons, need to actually keep CPUs online
+> > when we
+> > + * would otherwise prefer them to be off?
+> > + */
+> > +#define park_offline_cpus false
+> > +#endif
+>=20
+> ... this, for example, would likely also better be put in
+> xen/percpu.h in
+> the new model.
+Agree, we could move everything to xen/percpu.h and just leave asm-
+generic/percpu.h empty for Arm, PPC and RISC-V usage and define
+asm/percpu.h only for x86.
 
-Looks fine to me.
+I will stick to this approach.
 
-I'd be tempted to name the final field 'addr' because for most of its
-life it is the load address.
+Thanks.
 
-For the comment on the field, I'd say "this is first a temporary buffer,
-then later the load address".
-
-~Andrew
+~ Oleksii
 
