@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B995987731
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:04:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805683.1216857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 685B1987732
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:04:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805695.1216867 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stqy0-0004sz-8r; Thu, 26 Sep 2024 16:03:44 +0000
+	id 1stqym-0005h6-Lo; Thu, 26 Sep 2024 16:04:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805683.1216857; Thu, 26 Sep 2024 16:03:44 +0000
+Received: by outflank-mailman (output) from mailman id 805695.1216867; Thu, 26 Sep 2024 16:04:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stqy0-0004q5-4k; Thu, 26 Sep 2024 16:03:44 +0000
-Received: by outflank-mailman (input) for mailman id 805683;
- Thu, 26 Sep 2024 16:03:42 +0000
+	id 1stqym-0005eL-Hc; Thu, 26 Sep 2024 16:04:32 +0000
+Received: by outflank-mailman (input) for mailman id 805695;
+ Thu, 26 Sep 2024 16:04:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1stqxy-0004pB-1h
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:03:42 +0000
+ id 1stqyl-0004pB-5U
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:04:31 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e3fe7287-7c20-11ef-99a2-01e77a169b0f;
- Thu, 26 Sep 2024 18:03:39 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 172736660725586.7212940189462;
- Thu, 26 Sep 2024 09:03:27 -0700 (PDT)
+ id 01e181df-7c21-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 18:04:29 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1727366662393981.5563844146808;
+ Thu, 26 Sep 2024 09:04:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,38 +38,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3fe7287-7c20-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; t=1727366610; cv=none; 
+X-Inumbo-ID: 01e181df-7c21-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; t=1727366664; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=S5f8/fqpn3yewnnJkbgC1bNoi+DqUQLyEO/xUUCWHHKN9/HCdELIDgrg8bxklefOKdLuoY23oox7wlQntKiGhEVfT0SJ0Ywo3TeOjr+BunOTgN35KgPDIbom3584hEOtah6eSH4q9Mm0xR7s8Inx8ODqfZbfjY3Znefe/KXwweU=
+	b=Pk7HxrIGlIsuV+9OEiUolPj8y7F+9zVxP1zTovhyrDh0f2TOrQcU7g395rwXAeXGUdsi3tE6VOpPa+jHfu5WHSQVa12PSxuhGEFgzXECXimpWXsH06t+AjBZLqFZzd8/I8sG6Yu4R4n6n+LI7iellkwvvCTES2BYyhBdS2eUzfw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1727366610; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Yhm8YElX58SenLl+/atJ7UYppjXZd8mhf6XqTG7Zo+E=; 
-	b=LOhERc9p1338ha8g7O9HBOdD/qWx/CRU3J+1WqRhXtX9MWz6GMazjMcTlUNEf2uUo+WvxGJv4YWstdlYc0FDirX57e30SLNrnF4qdUZ6h7TrAIuz9mkfHYc4V3NbNI6rj3NT5FTntERktIKWd/rmsAHtMee2bx1jtsxctjLKT9Y=
+	t=1727366664; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=/fzOEcA7PkLDQ7YGSGrVlpDs7e1ywsE2tRSLfN9Vu0M=; 
+	b=elWNb/pWzlfyKbAjZROhgjw1UbvSDvVX7O7pVA5a1CEMbuxIa7h3XE0ZLKMJ01AgRunTHusXAJa5509XidzalrXmKsHYdT8Su+2qPhTzQHppq3fT9d7UB6NvtrcNDHYmyYjKElbcfgRMDkBUN7yuOifj9rW2orqMMsY4utxiopE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727366610;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727366664;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Yhm8YElX58SenLl+/atJ7UYppjXZd8mhf6XqTG7Zo+E=;
-	b=swBsCSjorX6Kq02ZT1iPZcQYSEJrbJzawDhh5Hjqxl5nsSrlTrf28d8JkhZrYcCN
-	UPYPY2aTmLiDQE/2vOPjOZZMpCiMT8YBwaAvVxKH7W0HS/jpUZur7WucIuzL4t7wFn/
-	7VIqLrrdzWgb46+0JUR0Yrm42SKW1Jrq11G2QHV4=
-Message-ID: <2ec7703b-c3e4-4539-9256-070634a99d2e@apertussolutions.com>
-Date: Thu, 26 Sep 2024 12:03:26 -0400
+	bh=/fzOEcA7PkLDQ7YGSGrVlpDs7e1ywsE2tRSLfN9Vu0M=;
+	b=K8mx7kBox7H2efLC6tBX6Qw3hkfC5aIT/3IHCiHFhPJMw3viXu5CELh8QRL8adtR
+	wvtqlsNDXOF4rDWwanQZKRgt2WpD6l5pdM7lDLjfM8LXk67LU4y3JVQwNKPL9jjRVzg
+	TOGjIpdxrnQLuITSSwA7wW7jA2foC8Ja0s7GKdE8=
+Message-ID: <3822e8a1-a5fe-48c5-990e-89fcccd5b2da@apertussolutions.com>
+Date: Thu, 26 Sep 2024 12:04:21 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 05/44] x86/boot: introduce struct boot_module
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+To: Jan Beulich <jbeulich@suse.com>
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
  <20240830214730.1621-6-dpsmith@apertussolutions.com>
- <bc8987f6-e2cf-4ab7-b493-6fd00b89108a@citrix.com>
+ <ac41cfe3-5ad2-4a6f-8e3d-973021923ec3@suse.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -102,83 +103,13 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <bc8987f6-e2cf-4ab7-b493-6fd00b89108a@citrix.com>
+In-Reply-To: <ac41cfe3-5ad2-4a6f-8e3d-973021923ec3@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 9/3/24 19:29, Andrew Cooper wrote:
-> On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
->> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
->> index e785ed1c5982..844262495962 100644
->> --- a/xen/arch/x86/include/asm/bootinfo.h
->> +++ b/xen/arch/x86/include/asm/bootinfo.h
->> @@ -8,10 +8,16 @@
->>   #ifndef __XEN_X86_BOOTINFO_H__
->>   #define __XEN_X86_BOOTINFO_H__
->>   
->> +#include <xen/multiboot.h>
->>   #include <xen/types.h>
->>   
->> +struct boot_module {
->> +    module_t *early_mod;
-> 
-> This could do with a /* Transitionary only */ comment.  In this patch
-> it's not too bad, but it does get worse as new fields are added, before
-> being removed.
-
-Yep, can add a comment.
-
-> I'd also drop the "early_" part.  I know it's the initial_images array
-> we're converting, but "early_" doesn't convey any extra meaning, and it
-> makes a number of lines get quite hairy.
-
-I can drop it.
-
->> +};
->> +
->>   struct boot_info {
->>       unsigned int nr_mods;
->> +    struct boot_module *mods;
-> 
-> struct boot_module modules[MAX_NR_BOOTMODS + 1];
-> 
-> Probably at the end of the structure.  In turn it ...
-
-I can move it here, though just to be clear, are you suggesting that it 
-is kept at the end of the structure as more fields are added.
-
->>   
->>       const char *boot_loader_name;
->>       const char *cmdline;
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index c6b45ced00ae..28fdbf4d4c2b 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -278,12 +278,17 @@ custom_param("acpi", parse_acpi_param);
->>   
->>   static const char *cmdline_cook(const char *p, const char *loader_name);
->>   
->> +/* Max number of boot modules a bootloader can provide in addition to Xen */
->> +#define MAX_NR_BOOTMODS 63
->> +
->>   static const module_t *__initdata initial_images;
->>   static struct boot_info __initdata *boot_info;
->>   
->> -static void __init multiboot_to_bootinfo(multiboot_info_t *mbi)
->> +static void __init multiboot_to_bootinfo(multiboot_info_t *mbi, module_t *mods)
->>   {
->>       static struct boot_info __initdata info;
->> +    static struct boot_module __initdata boot_mods[MAX_NR_BOOTMODS + 1];
-> 
-> ... drops this static.
-
-Will be dropped.
-
->> +    unsigned int i;
->>   
->>       info.nr_mods = mbi->mods_count;
->>   
+On 9/4/24 02:33, Jan Beulich wrote:
+> On 30.08.2024 23:46, Daniel P. Smith wrote:
 >> @@ -303,6 +308,14 @@ static void __init multiboot_to_bootinfo(multiboot_info_t *mbi)
 >>           info.mmap_length = mbi->mmap_length;
 >>       }
@@ -186,22 +117,14 @@ Will be dropped.
 >> +    info.mods = boot_mods;
 >> +
 >> +    for ( i=0; i < info.nr_mods; i++ )
-> 
-> i = 0
-
-Ack.
-
 >> +        boot_mods[i].early_mod = &mods[i];
 >> +
 >> +    /* map the last mb module for xen entry */
->> +    boot_mods[info.nr_mods].early_mod = &mods[info.nr_mods];
 > 
-> The comment is good, but note how this is just one extra iteration of
-> the loop, (so use <= for the bound).
+> Nit: Comment style.
 
-I will move the comment above the loop and adjust the condition.
+Ack, will fix as part of relocation per Andy's comment.
 
 v/r,
 dps
-
 
