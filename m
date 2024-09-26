@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38D43987766
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:16:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805713.1216897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C5B98777C
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 18:22:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805721.1216907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1str9o-0000UL-0y; Thu, 26 Sep 2024 16:15:56 +0000
+	id 1strFm-0002iA-JV; Thu, 26 Sep 2024 16:22:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805713.1216897; Thu, 26 Sep 2024 16:15:56 +0000
+Received: by outflank-mailman (output) from mailman id 805721.1216907; Thu, 26 Sep 2024 16:22:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1str9n-0000S4-TT; Thu, 26 Sep 2024 16:15:55 +0000
-Received: by outflank-mailman (input) for mailman id 805713;
- Thu, 26 Sep 2024 16:15:54 +0000
+	id 1strFm-0002fc-FL; Thu, 26 Sep 2024 16:22:06 +0000
+Received: by outflank-mailman (input) for mailman id 805721;
+ Thu, 26 Sep 2024 16:22:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SdHj=QY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1str9m-0000Ry-86
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:15:54 +0000
+ id 1strFk-0002fQ-Iw
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 16:22:04 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 98cb49fc-7c22-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 18:15:52 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1727367342369981.0432054851354;
- Thu, 26 Sep 2024 09:15:42 -0700 (PDT)
+ id 7623467e-7c23-11ef-a0ba-8be0dac302b0;
+ Thu, 26 Sep 2024 18:22:03 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1727367715240243.07052733828652;
+ Thu, 26 Sep 2024 09:21:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,40 +38,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98cb49fc-7c22-11ef-a0ba-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; t=1727367345; cv=none; 
+X-Inumbo-ID: 7623467e-7c23-11ef-a0ba-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; t=1727367716; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=ke+40/2PyIXftExaHV3bQvulPITnjafqM6hU0NhoOQpY7vDruHuEIwZQhGBlC10X9iYWCPYOB1zOJoU/S17fMy/TIJ0lrGmNGhJNnEZ23ecp0eSdHWMJREz8GNe5ULyU/nmvrCYpsRcrpF9lhsNw9aFVO5IVfvaOZPQ6wUeDP/k=
+	b=j4uonRTm9g3bUAOAO5NkloQ+QcgeM+AJ6Cmwgfb0kL3OAAreoQ9zjzpMaydE+NAjbofK12fP83ZeoZj0TZrqdPQHS/zbSf7x+rrDLmmrWAPL/u9Ujx4FwtekoB4usRWdG2wv7ZJ2cvrhJ/g6wGRSNC4BtV2EA9Si1JqQKkjZXEg=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1727367345; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=3EAQu6pDQRb/Oty2zf7xDRxJkrZGmKoVbL1XyCh+9rg=; 
-	b=iuBp4YxGJZVAal/1rKiLMF1ec7Q/fyILExSH2cOg7JzqLiUl7XiYqzeOzbnVoDuIeAQB+hRs5Ut8uKfHmn16XhWJ4KUkysX5uTdTTgFeSP9YGd5EjUvKeZ2YdJSa8NnPLlLK3JMjGH0pz8opKql3ZupRndlRHndw3c+14vZtQa8=
+	t=1727367716; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=jRyLGJQ+h0e2ZnYONUgmFoDmC5xDHy/3Dl6tQeKlsjY=; 
+	b=nK+4rvp4hbQRDEQTRuHhbnyXAKfC+Qx8f2Wpf+rsLq1GR84UVQ9APgLB3co6ccIgFAGguCn3n/lq2L7smcTsqaff5S22SX/diSiSijWQfQw7i7DCjTdt5X6WofvcyEHVYxyYOp0HqmXXAKFIgR8Z+IjUn2ESN51wQjEOB1H7Jyk=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727367345;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1727367716;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=3EAQu6pDQRb/Oty2zf7xDRxJkrZGmKoVbL1XyCh+9rg=;
-	b=ZdeHytsx2rRhGCNBU0gnnTQqxsQIfSJfCTz2/WtVv2YzmgxRXQ+63P1k/k5Lve4n
-	ULlTsbBeDHBthMnJufS0MTyGkBNVECVl5A9PELFgjlvdnJ64MWOGn8lh8Ic0203vn2O
-	6R+qtkjwB1qJ2RqAAmKqpDP7yZjUAsu0LYshThSQ=
-Message-ID: <a508e9a0-d730-4d37-bf2e-83ba0b3a907d@apertussolutions.com>
-Date: Thu, 26 Sep 2024 12:15:41 -0400
+	bh=jRyLGJQ+h0e2ZnYONUgmFoDmC5xDHy/3Dl6tQeKlsjY=;
+	b=BT0KYJlosjnR8HvL+B0Enc+h3Tobcr7bQ/NB9kZf0D6sJitZ42URadQrwwgA2T4P
+	QplDxTNgeFbavuIk0s5CYBNh/ArV0XQnL+JmfIWYL4CCCbijIAIczbJpUd3mCCVi/Is
+	zrOUmNlCfzlBlYRB2+wIj3lfvJKuPxcMTUgqfGy0=
+Message-ID: <97b0e4dc-995c-457c-b300-24f991bf5708@apertussolutions.com>
+Date: Thu, 26 Sep 2024 12:21:53 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/44] x86/boot: convert consider_modules to struct
- boot_module
+Subject: Re: [PATCH v4 07/44] x86/boot: move headroom to boot modules
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 References: <20240830214730.1621-1-dpsmith@apertussolutions.com>
- <20240830214730.1621-7-dpsmith@apertussolutions.com>
- <f6c938b4-3c28-4dc8-bc3a-3becb3a0c2cd@suse.com>
- <9208e790-e772-4f42-8fdc-38fe1976dc34@citrix.com>
+ <20240830214730.1621-8-dpsmith@apertussolutions.com>
+ <9c9a5720-6d5e-4367-a54b-85c6b54089cb@citrix.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -104,56 +102,43 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <9208e790-e772-4f42-8fdc-38fe1976dc34@citrix.com>
+In-Reply-To: <9c9a5720-6d5e-4367-a54b-85c6b54089cb@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-On 9/4/24 06:41, Andrew Cooper wrote:
-> On 04/09/2024 7:40 am, Jan Beulich wrote:
->> On 30.08.2024 23:46, Daniel P. Smith wrote:
->>> @@ -1447,7 +1447,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>>           {
->>>               /* Don't overlap with modules. */
->>>               end = consider_modules(s, e, reloc_size + mask,
->>> -                                   mod, boot_info->nr_mods, -1);
->>> +                                   boot_info->mods, boot_info->nr_mods, -1);
->>>               end &= ~mask;
->>>           }
->>>           else
->>> @@ -1482,7 +1482,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>>                   continue;
->>>   
->>>               /* Don't overlap with other modules (or Xen itself). */
->>> -            end = consider_modules(s, e, size, mod,
->>> +            end = consider_modules(s, e, size, boot_info->mods,
->>>                                      boot_info->nr_mods + relocated, j);
->>>   
->>>               if ( highmem_start && end > highmem_start )
->>> @@ -1509,7 +1509,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>>           while ( !kexec_crash_area.start )
->>>           {
->>>               /* Don't overlap with modules (or Xen itself). */
->>> -            e = consider_modules(s, e, PAGE_ALIGN(kexec_crash_area.size), mod,
->>> +            e = consider_modules(s, e, PAGE_ALIGN(kexec_crash_area.size), boot_info->mods,
->>>                                    boot_info->nr_mods + relocated, -1);
->> All of these show a meaningful increase of line lengths, up to the point of
->> ending up with too long a line here. I really wonder if the variable name
->> "boot_info" isn't too long for something that's going to be used quite
->> frequently. Just "bi" maybe?
+On 9/3/24 19:40, Andrew Cooper wrote:
+> On 30/08/2024 10:46 pm, Daniel P. Smith wrote:
+>> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+>> index 844262495962..3e0e36df096b 100644
+>> --- a/xen/arch/x86/include/asm/bootinfo.h
+>> +++ b/xen/arch/x86/include/asm/bootinfo.h
+>> @@ -13,6 +13,7 @@
+>>   
+>>   struct boot_module {
+>>       module_t *early_mod;
+>> +    unsigned long headroom;
 > 
-> Actually I noticed that too.
-> 
-> It's boot_info-> in setup.c, and bi-> everywhere else (with bm later too).
-> 
-> We should just use "bi" uniformly even in setup.c  (Or some other name,
-> but I'm happy with bi here - it's very easily qualified by it's field
-> names.)
+> This needs a comment explaining what it's for.  Perhaps crib from ...
 
-Yes, I did make it "bi" as it was passed around, and will move setup.c 
-to that as well. As for "bm", I will be moving the array into struct 
-boot_info. When I do, is there a desire to see the element name to be 
-"bm" or "bms"?
+Ack.
+
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index 8912956ee7f1..fd6cc7fac907 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -1475,8 +1477,10 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>                * decompressor overheads of mod[0] (the dom0 kernel).  When we
+>>                * move mod[0], we incorporate this as extra space at the start.
+>>                */
+> 
+> ... here, while also editing to to prevent it going stale.
+> 
+> It is this patch which stops modules_headroom being strictly the dom0
+> kernel.
+
+Correct, because once multi-domain construction is introduced, there 
+will be more than one kernel needing headroom for extraction.
 
 v/r,
 dps
