@@ -2,33 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 781E198716D
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 12:24:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.805231.1216299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DCC498717C
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2024 12:26:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.805260.1216325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stlfe-0004Rz-He; Thu, 26 Sep 2024 10:24:26 +0000
+	id 1stlhP-0005vT-AP; Thu, 26 Sep 2024 10:26:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 805231.1216299; Thu, 26 Sep 2024 10:24:26 +0000
+Received: by outflank-mailman (output) from mailman id 805260.1216325; Thu, 26 Sep 2024 10:26:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1stlfe-0004Q9-Ef; Thu, 26 Sep 2024 10:24:26 +0000
-Received: by outflank-mailman (input) for mailman id 805231;
- Thu, 26 Sep 2024 10:24:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1stlhP-0005tA-7p; Thu, 26 Sep 2024 10:26:15 +0000
+Received: by outflank-mailman (input) for mailman id 805260;
+ Thu, 26 Sep 2024 10:26:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o4mB=QY=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1stlfd-0004Pj-8A
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 10:24:25 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8092f925-7bf1-11ef-a0ba-8be0dac302b0;
- Thu, 26 Sep 2024 12:24:24 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5c46680a71bso909735a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 03:24:24 -0700 (PDT)
+ <SRS0=SK2l=QY=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1stlhO-0005sp-6Q
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2024 10:26:14 +0000
+Received: from pb-smtp1.pobox.com (pb-smtp1.pobox.com [64.147.108.70])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c03b7fd1-7bf1-11ef-99a2-01e77a169b0f;
+ Thu, 26 Sep 2024 12:26:11 +0200 (CEST)
+Received: from pb-smtp1.pobox.com (unknown [127.0.0.1])
+ by pb-smtp1.pobox.com (Postfix) with ESMTP id 1FBEA187C3;
+ Thu, 26 Sep 2024 06:26:11 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from pb-smtp1.nyi.icgroup.com (unknown [127.0.0.1])
+ by pb-smtp1.pobox.com (Postfix) with ESMTP id 18690187C2;
+ Thu, 26 Sep 2024 06:26:11 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
+Received: from localhost (unknown [185.130.54.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by pb-smtp1.pobox.com (Postfix) with ESMTPSA id 6D2E2187C1;
+ Thu, 26 Sep 2024 06:26:10 -0400 (EDT)
+ (envelope-from sakib@darkstar.site)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,238 +50,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8092f925-7bf1-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1727346264; x=1727951064; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=bg48u1uQd1pUehJ/hHMQ+MHq+B19qtPPewIAyiRk0g4=;
-        b=Q42aaLOYEgxvqeH0AaFAhqPPROJfE9T4LkBtzpRs8JCHymAd4mf6Ys83YyJ4bTZD93
-         /zumJuIZ42BNHWwMvZhN9S7UCi3YgkFpdawwsP4Mxli8doCmD74N3IcJyx6XoLjxz6QL
-         MDzqYPLbXYFY6gQ27pKTV5xiGAwSciSBy86Iw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727346264; x=1727951064;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bg48u1uQd1pUehJ/hHMQ+MHq+B19qtPPewIAyiRk0g4=;
-        b=xK/3qquhNHOnusT5gsoTKaMZC9Oiv+qmb/P3yTLLZETW3VbuYhjnPkCsnoAppQFQzR
-         g7dxY0eJrqaX2fTbRr6hkpSFIdIqFVxy7YichAKR/5KYZ3Tbb1SJdGNCUVuAoGidCK3A
-         piqHdJU3mfcOcZJMZX1K1OjDsUL/+iIKOiX6gQw/npjKs3/Z//Cgc503nFrRrRlScJpn
-         4H545QP+RzRY1ciAFT2RAJEAEHdh/xr2qnRIQ1RtB5VbfYyM+mbKzeYwdluI7ANa+yYL
-         VsI2OR0blG/Pu1Thb+tGMPR+BZOCWdW9X13c0A0qjebY6Pr92juFq3YKy6SfwKS7SOWQ
-         Dung==
-X-Gm-Message-State: AOJu0Yx8YedoLHOrL8FZJykIETKYdjP/hPjBGQRQE06hmpc56rCSw0oa
-	qOmmqpLBPE7EwHTswO8ANbz+JSyAVd/q5gWFFTuPAEaQMm2Vcb3tZWm7IGUAjH9IvbNdgxPjkfp
-	40lHEQXu54D3gZPO3xDGI7P0TU9oZ65kCgIKuoQ==
-X-Google-Smtp-Source: AGHT+IEZqfE9s+ZTogVRznXAzR2tSui1onCPVzDwvupg205SuTpgzsQ4nF5wNMvRGnFLwHQS7pZSVx0jASZvKh/RUkw=
-X-Received: by 2002:a05:6402:40c5:b0:5c5:c4e9:c8a2 with SMTP id
- 4fb4d7f45d1cf-5c720608de8mr4710389a12.3.1727346264116; Thu, 26 Sep 2024
- 03:24:24 -0700 (PDT)
+X-Inumbo-ID: c03b7fd1-7bf1-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
+	:subject:date:message-id:mime-version:content-transfer-encoding;
+	 s=sasl; bh=20ETVpIheobn7vEm20ssPBBVK1jiYJcRhNy3IbxSAbg=; b=RtGH
+	E6GvGQ6GwsrMLVlpe7B7n/Jet/nkViw+BMk0tWog6DROAI2iG9zhHZVMdJoI8CZp
+	EnuJeF+tsCXuUOB2AilNLhi4bl/j//CkWMCSeOeO20AWsb0NVbxLL8/6BRdazuiq
+	z17L1VE/9LTgCHJqFAFpgGDPO2xV8AnVKYo8uL8=
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [XEN PATCH v6] x86/intel: optional build of PSR support
+Date: Thu, 26 Sep 2024 13:26:07 +0300
+Message-Id: <20240926102607.95896-1-Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <CAO-mL=wCxPT+QiDW0Cb-LTQrkcfNTT8Eo_2kWsWHLrKJkhs8Mw@mail.gmail.com>
- <PAXPR04MB8459A05A8841D93593D73DE2886A2@PAXPR04MB8459.eurprd04.prod.outlook.com>
-In-Reply-To: <PAXPR04MB8459A05A8841D93593D73DE2886A2@PAXPR04MB8459.eurprd04.prod.outlook.com>
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Thu, 26 Sep 2024 11:23:48 +0100
-Message-ID: <CAO-mL=x3Twc+JtvZa9EeFEEri9bJKg=RHDjuooXxz41pTy+Aew@mail.gmail.com>
-Subject: Re: [POLL] Interest in next Xen Project meetup (Cambridge)
-To: Peng Fan <peng.fan@nxp.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, 
-	"xen-users@lists.xenproject.org" <xen-users@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="0000000000007a4f1a06230324fb"
-
---0000000000007a4f1a06230324fb
-Content-Type: text/plain; charset="UTF-8"
+X-Pobox-Relay-ID:
+ BFA8DEF0-7BF1-11EF-BD2C-2BAEEB2EC81B-90055647!pb-smtp1.pobox.com
 Content-Transfer-Encoding: quoted-printable
 
-Hi Peng,
+Xen's implementation of PSR only supports Intel CPUs right now, hence it =
+can be
+made dependant on CONFIG_INTEL build option.
+Since platform implementation is not limited to single vendor, intermedia=
+te
+option CONFIG_X86_PSR introduced, which selected by CONFIG_INTEL.
 
-There are no current plans to record this as these types of meetups are
-best in person.
-However, If there's enough interest, we can consider adding a virtual or
-recorded element where possible.
+When !X86_PSR then PSR-related sysctls XEN_SYSCTL_psr_cmt_op &
+XEN_SYSCTL_psr_alloc are off as well.
 
-Kelly Choi
-Community Manager
-Xen Project <https://xenproject.org/>
+Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+v5 patch here:
+https://lore.kernel.org/xen-devel/20240918091517.1200080-1-Sergiy_Kibrik@=
+epam.com/
 
+changes in v6:
+ - rename option PSR -> X86_PSR
+ - add help text for X86_PSR option and default value
+ - do not force X86_PSR option by 'select'
+changes in v5:
+ - simplify psr_cmt_enabled()
+ - move PSR config option and add description
+changes in v4:
+ - introduced CONFIG_PSR
+ - changed description
+ - changes to psr stubs
+---
+ xen/arch/x86/Kconfig           | 10 ++++++++++
+ xen/arch/x86/Makefile          |  2 +-
+ xen/arch/x86/domctl.c          |  3 +++
+ xen/arch/x86/include/asm/psr.h | 10 ++++++++--
+ xen/arch/x86/sysctl.c          |  4 +++-
+ 5 files changed, 25 insertions(+), 4 deletions(-)
 
-On Thu, Sep 26, 2024 at 1:20=E2=80=AFAM Peng Fan <peng.fan@nxp.com> wrote:
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 62f0b5e0f4..924b60cfcc 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -231,6 +231,16 @@ config TBOOT
+=20
+ 	  If unsure, stay with the default.
+=20
++config X86_PSR
++	bool "Platform Shared Resource support" if EXPERT
++	default INTEL
++	help
++	  Support of Platform Shared Resource technology, which is basis for
++	  monitoring and control of resources like cache and memory bandwidth.
++	  See xl-psr documentation for details.
++
++	  If unsure, stay with the default.
++
+ choice
+ 	prompt "Alignment of Xen image"
+ 	default XEN_ALIGN_2M if PV_SHIM_EXCLUSIVE
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 286c003ec3..76ffe5a561 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -57,7 +57,7 @@ obj-y +=3D pci.o
+ obj-y +=3D percpu.o
+ obj-y +=3D physdev.o
+ obj-$(CONFIG_COMPAT) +=3D x86_64/physdev.o
+-obj-y +=3D psr.o
++obj-$(CONFIG_X86_PSR) +=3D psr.o
+ obj-y +=3D setup.o
+ obj-y +=3D shutdown.o
+ obj-y +=3D smp.o
+diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
+index 68b5b46d1a..6c1355e378 100644
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -1195,6 +1195,7 @@ long arch_do_domctl(
+     case XEN_DOMCTL_psr_alloc:
+         switch ( domctl->u.psr_alloc.cmd )
+         {
++#ifdef CONFIG_X86_PSR
+         case XEN_DOMCTL_PSR_SET_L3_CBM:
+             ret =3D psr_set_val(d, domctl->u.psr_alloc.target,
+                               domctl->u.psr_alloc.data,
+@@ -1257,6 +1258,8 @@ long arch_do_domctl(
+=20
+ #undef domctl_psr_get_val
+=20
++#endif /* CONFIG_X86_PSR */
++
+         default:
+             ret =3D -EOPNOTSUPP;
+             break;
+diff --git a/xen/arch/x86/include/asm/psr.h b/xen/arch/x86/include/asm/ps=
+r.h
+index 51df78794c..d21a59d98f 100644
+--- a/xen/arch/x86/include/asm/psr.h
++++ b/xen/arch/x86/include/asm/psr.h
+@@ -69,12 +69,11 @@ extern struct psr_cmt *psr_cmt;
+=20
+ static inline bool psr_cmt_enabled(void)
+ {
+-    return !!psr_cmt;
++    return IS_ENABLED(CONFIG_X86_PSR) && psr_cmt;
+ }
+=20
+ int psr_alloc_rmid(struct domain *d);
+ void psr_free_rmid(struct domain *d);
+-void psr_ctxt_switch_to(struct domain *d);
+=20
+ int psr_get_info(unsigned int socket, enum psr_type type,
+                  uint32_t data[], unsigned int array_len);
+@@ -83,8 +82,15 @@ int psr_get_val(struct domain *d, unsigned int socket,
+ int psr_set_val(struct domain *d, unsigned int socket,
+                 uint64_t new_val, enum psr_type type);
+=20
++#ifdef CONFIG_X86_PSR
++void psr_ctxt_switch_to(struct domain *d);
+ void psr_domain_init(struct domain *d);
+ void psr_domain_free(struct domain *d);
++#else
++static inline void psr_ctxt_switch_to(struct domain *d) {}
++static inline void psr_domain_init(struct domain *d) {}
++static inline void psr_domain_free(struct domain *d) {}
++#endif
+=20
+ #endif /* __ASM_PSR_H__ */
+=20
+diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
+index 1d40d82c5a..1b04947516 100644
+--- a/xen/arch/x86/sysctl.c
++++ b/xen/arch/x86/sysctl.c
+@@ -225,10 +225,11 @@ long arch_do_sysctl(
+=20
+     case XEN_SYSCTL_psr_alloc:
+     {
+-        uint32_t data[PSR_INFO_ARRAY_SIZE] =3D { };
++        uint32_t __maybe_unused data[PSR_INFO_ARRAY_SIZE] =3D { };
+=20
+         switch ( sysctl->u.psr_alloc.cmd )
+         {
++#ifdef CONFIG_X86_PSR
+         case XEN_SYSCTL_PSR_get_l3_info:
+             ret =3D psr_get_info(sysctl->u.psr_alloc.target,
+                                PSR_TYPE_L3_CBM, data, ARRAY_SIZE(data));
+@@ -279,6 +280,7 @@ long arch_do_sysctl(
+             if ( __copy_field_to_guest(u_sysctl, sysctl, u.psr_alloc) )
+                 ret =3D -EFAULT;
+             break;
++#endif /* CONFIG_X86_PSR */
+=20
+         default:
+             ret =3D -EOPNOTSUPP;
+--=20
+2.25.1
 
-> Hi Kelly,
->
->
->
-> Wonder whether there will be recording or notes for this and public later=
-?
->
->
->
-> Thanks,
->
-> Peng.
->
->
->
-> *From:* Xen-users <xen-users-bounces@lists.xenproject.org> *On Behalf Of =
-*Kelly
-> Choi
-> *Sent:* Wednesday, September 25, 2024 10:59 PM
-> *To:* xen-devel <xen-devel@lists.xenproject.org>;
-> xen-users@lists.xenproject.org
-> *Subject:* [POLL] Interest in next Xen Project meetup (Cambridge)
->
->
->
-> Hi all,
->
->
->
-> Quick poll to gather interest for next Xen Project/Zephyr meetup in
-> Cambridge.
->
-> *Date: 24th October 2024*
->
->
->
-> We are also seeking two speakers for demos/lightning talks.
->
->
->
-> Could you reply with a +1 if interested in attending?
->
-> Just looking to gather numbers for now.
->
->
->
-> Kelly Choi
->
-> Community Manager
->
-> Xen Project <https://xenproject.org/>
->
-
---0000000000007a4f1a06230324fb
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Peng,<div><br></div><div>There are no current plans to =
-record this as these types of meetups are best in person.</div><div>However=
-, If there&#39;s enough interest, we can consider=C2=A0adding a virtual or =
-recorded element where possible.=C2=A0</div><div><div><div dir=3D"ltr" clas=
-s=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><=
-div><br></div><div>Kelly Choi<br></div><div><div style=3D"color:rgb(136,136=
-,136)">Community Manager</div><div style=3D"color:rgb(136,136,136)"><a href=
-=3D"https://xenproject.org/" target=3D"_blank">Xen Project</a><br></div></d=
-iv></div></div></div><br></div></div><br><div class=3D"gmail_quote"><div di=
-r=3D"ltr" class=3D"gmail_attr">On Thu, Sep 26, 2024 at 1:20=E2=80=AFAM Peng=
- Fan &lt;<a href=3D"mailto:peng.fan@nxp.com">peng.fan@nxp.com</a>&gt; wrote=
-:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
-8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div class=3D"=
-msg-7682911502129946961">
-
-
-
-
-
-<div lang=3D"EN-US" style=3D"overflow-wrap: break-word;">
-<div class=3D"m_-7682911502129946961WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">Hi Kelly,<u></u><u>=
-</u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt"><u></u>=C2=A0<u></u=
-></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">Wonder whether ther=
-e will be recording or notes for this and public later?<u></u><u></u></span=
-></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt"><u></u>=C2=A0<u></u=
-></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">Thanks,<u></u><u></=
-u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt">Peng.<u></u><u></u>=
-</span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt"><u></u>=C2=A0<u></u=
-></span></p>
-<div style=3D"border-top:none;border-right:none;border-bottom:none;border-l=
-eft:1.5pt solid blue;padding:0cm 0cm 0cm 4pt">
-<div>
-<div style=3D"border-right:none;border-bottom:none;border-left:none;border-=
-top:1pt solid rgb(225,225,225);padding:3pt 0cm 0cm">
-<p class=3D"MsoNormal"><b>From:</b> Xen-users &lt;<a href=3D"mailto:xen-use=
-rs-bounces@lists.xenproject.org" target=3D"_blank">xen-users-bounces@lists.=
-xenproject.org</a>&gt;
-<b>On Behalf Of </b>Kelly Choi<br>
-<b>Sent:</b> Wednesday, September 25, 2024 10:59 PM<br>
-<b>To:</b> xen-devel &lt;<a href=3D"mailto:xen-devel@lists.xenproject.org" =
-target=3D"_blank">xen-devel@lists.xenproject.org</a>&gt;; <a href=3D"mailto=
-:xen-users@lists.xenproject.org" target=3D"_blank">xen-users@lists.xenproje=
-ct.org</a><br>
-<b>Subject:</b> [POLL] Interest in next Xen Project meetup (Cambridge)<u></=
-u><u></u></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p class=3D"MsoNormal">Hi all,<u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Quick poll to gather interest for next Xen Project/Z=
-ephyr meetup in Cambridge.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><b>Date: 24th October 2024</b><u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">We are also seeking two speakers for demos/lightning=
- talks.=C2=A0<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Could you reply with a +1 if interested in attending=
-?<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Just looking to gather numbers for now.=C2=A0<u></u>=
-<u></u></p>
-</div>
-<div>
-<div>
-<div>
-<div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Kelly Choi<u></u><u></u></p>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:rgb(136,136,136)">Community Man=
-ager<u></u><u></u></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:rgb(136,136,136)"><a href=3D"ht=
-tps://xenproject.org/" target=3D"_blank">Xen Project</a><u></u><u></u></spa=
-n></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-</div></blockquote></div>
-
---0000000000007a4f1a06230324fb--
 
