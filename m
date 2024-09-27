@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6FA398818B
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 11:44:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.806175.1217515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6478988197
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 11:45:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.806180.1217525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su7Vm-0004vr-TO; Fri, 27 Sep 2024 09:43:42 +0000
+	id 1su7Wv-0005W3-6Q; Fri, 27 Sep 2024 09:44:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 806175.1217515; Fri, 27 Sep 2024 09:43:42 +0000
+Received: by outflank-mailman (output) from mailman id 806180.1217525; Fri, 27 Sep 2024 09:44:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su7Vm-0004uM-Qe; Fri, 27 Sep 2024 09:43:42 +0000
-Received: by outflank-mailman (input) for mailman id 806175;
- Fri, 27 Sep 2024 09:43:40 +0000
+	id 1su7Wv-0005Td-2l; Fri, 27 Sep 2024 09:44:53 +0000
+Received: by outflank-mailman (input) for mailman id 806180;
+ Fri, 27 Sep 2024 09:44:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J2Or=QZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1su7Vk-0004kt-S6
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 09:43:40 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ (envelope-from <SRS0=xuKF=QZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1su7Wt-0005TT-N9
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 09:44:51 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f93a5414-7cb4-11ef-99a2-01e77a169b0f;
- Fri, 27 Sep 2024 11:43:39 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8846C21BAE;
- Fri, 27 Sep 2024 09:43:38 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5744D13A73;
- Fri, 27 Sep 2024 09:43:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id dw+vE0p+9mbcSwAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 27 Sep 2024 09:43:38 +0000
+ id 236d0e2b-7cb5-11ef-99a2-01e77a169b0f;
+ Fri, 27 Sep 2024 11:44:49 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a90188ae58eso232662766b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 02:44:49 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c2777baasm110598866b.25.2024.09.27.02.44.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Sep 2024 02:44:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,113 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f93a5414-7cb4-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1727430218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=2Uu1EfCgnj4wDrzRwDuAI68ysm7+uYD9d5yxXTU5Yw0=;
-	b=hzC5h/a7+zFH4q3ZcenRbERSq1ayIZA6/MS2Xr3UMo4IJIuCHTAmLv9f2auffRtQIB7D4f
-	5o1jfFPzAK7EVMSzvwI/9uhRfzYa6870TeDkbtJgevy5pfNsByuKeXLVaWz9YbcD9PdJoR
-	kwFDQ5TkgdYH7tuhN2MoPkAxr9Viv5o=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1727430218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=2Uu1EfCgnj4wDrzRwDuAI68ysm7+uYD9d5yxXTU5Yw0=;
-	b=hzC5h/a7+zFH4q3ZcenRbERSq1ayIZA6/MS2Xr3UMo4IJIuCHTAmLv9f2auffRtQIB7D4f
-	5o1jfFPzAK7EVMSzvwI/9uhRfzYa6870TeDkbtJgevy5pfNsByuKeXLVaWz9YbcD9PdJoR
-	kwFDQ5TkgdYH7tuhN2MoPkAxr9Viv5o=
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	sstabellini@kernel.org
-Subject: [GIT PULL] xen: branch for v6.12-rc1a
-Date: Fri, 27 Sep 2024 11:43:37 +0200
-Message-ID: <20240927094337.32387-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 236d0e2b-7cb5-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1727430289; x=1728035089; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=mfxkqc4cnCjZrv9fJs1e9eAIBfCw+sqZF5jFObp88p0=;
+        b=ar9PUM3aaAYxwZ8bI3QHH+pCmzIDSd7BVOwN/cl2xcqgUIFqdl8BLYxzCcUP9lj4AX
+         VgWuNy6GGBJDJ8cqPBUpwP0UUSAx+sOpe4mgpcpJaQFPY+DsdHysSKGnRHkDiYGdN2Xh
+         G7G1+VUjWSa1GWOd0LyI7fHSSaODvPesaVphDHOyxb0sDX8/JSPdXuB/StccJW+TuOaS
+         qe5qv3mdETY87XnWK9XfHkOgLiztZtWs4St6VAlfcSzuTcVyh61IABiaAWCVcG8BQvle
+         Lc9cL6mtve0lgzkGVzEJZ1KWvAvxjsN/MHzESIgd2ABMo000QMVOOjAM4kKxrr+z1idf
+         p3xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727430289; x=1728035089;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mfxkqc4cnCjZrv9fJs1e9eAIBfCw+sqZF5jFObp88p0=;
+        b=HWjm5AKoLgxvnw+t/ei20H5zQhwFCXnaTNuVpVxELIvGY51+PyVQE9LwyLxZTcPGoe
+         KfsAHV4ysSysgYIBQXnbVgiEHGfVIFWC85qe4fTn4VVZmbg5bXZwgTBJ7LQ7tiQtOh6V
+         SuIB1W4Udr0JvUCJ2IH2Q8Qcu8ZgRWCZEL+j/LBjX1jiaqf092Y3I8XP8hib6kJb7b8w
+         uO3aqFUmTsBGWc3lK3EZAGcbZUrsR4iRIXcakgH8k9IZbFkXfi/an30Bum8HWOIhTOYE
+         4yt6z2gEp70lxR0kykJRKgmmwHwU8v+TG+384PYpWT5w/zUoTfsrP7istYSt1v88l/5F
+         PWCA==
+X-Forwarded-Encrypted: i=1; AJvYcCX4amjUpkYS9vhjB7ytj7aRZXxWhuxQtVkKInKLHaqRsQimrpcXXmaW6yZPEwBnJSrs6n+wBerFczc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxLYHFwgBLXItsgSlHIeIRdRnfG+a1mEAQLnCXK18TftbuMewAE
+	kUNKaVq91Ke5B9ff5hrtcsu8m5iXBwJ8IAN1YJg9w2S7Y4iZsTZ4CgZVJnBUkg==
+X-Google-Smtp-Source: AGHT+IHcfNbKVWfnXqzxWl1zsUmSeaul7W+36kMVANYo45f4ng8PAU8EAfz4S1jNlXWA9S//GvgirQ==
+X-Received: by 2002:a17:907:9307:b0:a8a:7bed:d327 with SMTP id a640c23a62f3a-a93c4946ce0mr191301866b.36.1727430289200;
+        Fri, 27 Sep 2024 02:44:49 -0700 (PDT)
+Message-ID: <15d79e3e-dea6-4c07-82c6-43e17e429123@suse.com>
+Date: Fri, 27 Sep 2024 11:44:48 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,imap1.dmz-prg2.suse.org:helo];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] x86/hvm: make ACPI PM timer support optional
+To: Sergiy Kibrik <sergiy_kibrik@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20240916063757.990070-1-Sergiy_Kibrik@epam.com>
+ <Zufh7DOSCwzhrpZG@macbook.local>
+ <alpine.DEB.2.22.394.2409161252380.1417852@ubuntu-linux-20-04-desktop>
+ <614611f1-dfbe-4185-8f0a-dc89aa7f5a20@epam.com>
+ <ZuqgTKqaUDWC_I-u@macbook.local>
+ <27d717f7-3073-4139-bef0-05d1a39f1e6c@epam.com>
+ <d5a6774b-3c50-4b39-9bb7-740f0763a1d4@suse.com>
+ <12072ee1-5a39-4c19-a442-c5be45fb968e@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <12072ee1-5a39-4c19-a442-c5be45fb968e@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Linus,
+On 27.09.2024 11:42, Sergiy Kibrik wrote:
+> 23.09.24 13:01, Jan Beulich:
+>>> --- a/xen/arch/x86/domain.c
+>>> +++ b/xen/arch/x86/domain.c
+>>> @@ -758,6 +758,9 @@ static bool emulation_flags_ok(const struct domain
+>>> *d, uint32_t emflags)
+>>>                 (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
+>>>                 emflags != X86_EMU_LAPIC )
+>>>                return false;
+>>> +        if ( !is_hardware_domain(d) &&
+>>> +             (emflags & X86_EMU_PM) && !IS_ENABLED(CONFIG_X86_PMTIMER))
+>>> +            return false;
+>>>        }
+>>>        else if ( emflags != 0 && emflags != X86_EMU_PIT )
+>>>        {
+>> Why the is_hardware_domain() part of the check?
+> 
+> the idea was that since hardware domain has full hardware access it 
+> probably doesn't need emulated timer. But this check will be dropped 
+> anyway, as Roger suggested.
+> 
+>>
+>>> (probably with X86_PMTIMER option depending on PV)
+>> HVM you mean?
+>>
+> 
+> I wanted to do it like this:
+> 
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -386,7 +386,7 @@ config ALTP2M
+>            If unsure, stay with defaults.
+> 
+>   config X86_PMTIMER
+> -       bool "ACPI PM timer emulation support" if EXPERT
+> +       bool "ACPI PM timer emulation support" if EXPERT && PV
+>          default y
+>          depends on HVM
+>          help
+> 
+> to allow it to be disabled when PV is on and prevent situation when pvh 
+> domain can't be created because !PV and hvm domain can't be created 
+> either without emulated timer.
 
-Please git pull the following tag:
+How does PV matter for this "depends on HVM" setting?
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.12-rc1a-tag
-
-xen: branch for v6.12-rc1a
-
-It contains a second round of Xen related changes and features for the
-6.12 merge window:
-
-- A small fix of the xen-pciback driver for a warning issued by sparse
-
-- A series of 3 patches supporting PCI passthrough when using a PVH
-  dom0
-
-- A series of 5 patches enabling to load the kernel in PVH mode at
-  arbitrary addresses, avoiding conflicts with the memory map when
-  running as a Xen dom0 using the host memory layout
-
-Thanks.
-
-Juergen
-
- arch/x86/include/asm/pgtable_64.h               |  23 +++-
- arch/x86/kernel/head_64.S                       |  20 ---
- arch/x86/platform/pvh/head.S                    | 161 ++++++++++++++++++++++--
- arch/x86/xen/enlighten_pvh.c                    |  23 ++++
- drivers/acpi/pci_irq.c                          |   2 +-
- drivers/xen/Kconfig                             |   1 +
- drivers/xen/acpi.c                              |  50 ++++++++
- drivers/xen/pci.c                               |  13 ++
- drivers/xen/privcmd.c                           |  32 +++++
- drivers/xen/xen-pciback/conf_space_capability.c |   2 +-
- drivers/xen/xen-pciback/pci_stub.c              |  78 ++++++++++--
- include/linux/acpi.h                            |   1 +
- include/uapi/xen/privcmd.h                      |   7 ++
- include/xen/acpi.h                              |  27 ++++
- include/xen/interface/elfnote.h                 |  93 +++++++++++++-
- include/xen/interface/physdev.h                 |  17 +++
- include/xen/pci.h                               |   6 +
- 17 files changed, 509 insertions(+), 47 deletions(-)
-
-Jason Andryuk (5):
-      xen: sync elfnote.h from xen tree
-      x86/pvh: Make PVH entrypoint PIC for x86-64
-      x86/pvh: Set phys_base when calling xen_prepare_pvh()
-      x86/kernel: Move page table macros to header
-      x86/pvh: Add 64bit relocation page tables
-
-Jiqian Chen (3):
-      xen/pci: Add a function to reset device for xen
-      xen/pvh: Setup gsi for passthrough device
-      xen/privcmd: Add new syscall to get gsi from dev
-
-Min-Hua Chen (1):
-      xen/pciback: fix cast to restricted pci_ers_result_t and pci_power_t
+Jan
 
