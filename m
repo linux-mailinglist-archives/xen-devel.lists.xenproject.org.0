@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25F36987E83
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 08:38:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.806044.1217348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00935987E84
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 08:39:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.806048.1217359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su4cF-0001TI-S7; Fri, 27 Sep 2024 06:38:11 +0000
+	id 1su4dD-000215-5N; Fri, 27 Sep 2024 06:39:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 806044.1217348; Fri, 27 Sep 2024 06:38:11 +0000
+Received: by outflank-mailman (output) from mailman id 806048.1217359; Fri, 27 Sep 2024 06:39:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su4cF-0001Rn-PK; Fri, 27 Sep 2024 06:38:11 +0000
-Received: by outflank-mailman (input) for mailman id 806044;
- Fri, 27 Sep 2024 06:38:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1su4dD-0001yG-2A; Fri, 27 Sep 2024 06:39:11 +0000
+Received: by outflank-mailman (input) for mailman id 806048;
+ Fri, 27 Sep 2024 06:39:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xuKF=QZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1su4cE-0001Rf-H0
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 06:38:10 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f7c3e67-7c9b-11ef-a0ba-8be0dac302b0;
- Fri, 27 Sep 2024 08:38:09 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a8a7cdfdd80so234860766b.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 23:38:09 -0700 (PDT)
+ id 1su4dB-0001xy-0u
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 06:39:09 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 31c08260-7c9b-11ef-99a2-01e77a169b0f;
+ Fri, 27 Sep 2024 08:39:07 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-374c3400367so1566666f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 23:39:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c27c70dfsm88007166b.52.2024.09.26.23.38.08
+ a640c23a62f3a-a93c299abd0sm87132266b.213.2024.09.26.23.39.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Sep 2024 23:38:08 -0700 (PDT)
+ Thu, 26 Sep 2024 23:39:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f7c3e67-7c9b-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 31c08260-7c9b-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727419089; x=1728023889; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727419146; x=1728023946; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HN702yu+Wq+pRfujzx1CtByaTy+YzI7Ahs/FZAsW5j8=;
-        b=Fc2Ut7l8heR/36WNrKUHWGLBHqVcci8Yv2zsHlvVX+hP7cMAKo6KYlRaE5vraK4PeM
-         vEMSeaX3ESj2iu4JGb3P3VNp+P94cmwGxDtZ/yaEb3IZxiNtLYnZTzFVFiZ0/5PzzTH2
-         cg27kTn4IeQ+JpOKDXv9/gdYG+uRR5nO0p9jtwjThEXiP+m5Nlvx4EI246DZpeiS5l+6
-         dmnMWR3zl2tOoKeBfSKFL5d51J5uz1N0fl83WC9gmX9y+PqDDnvC8f5FaRHCmqAm/OjL
-         YZhvixy0vOZmTpOyhUggipzvrlVphb1nwRT0d8zikKv2MLmgGtj5kDDGsnyuu9JLcy8h
-         FkJw==
+        bh=Xk3gWQ0g3CO1ZxNLjteF4Sdfq/Kl66r8MGaoWBb5Ji4=;
+        b=XIumpKSsstqKXATKX2zx5cVBY3s6sK1zAeEh9t3GnlL3B/YF55PFgF7w9SHFkzqfeQ
+         QKzXIp9RBN+Th4yFp4r5ztQNwiOlQzQFJxw2lbU9PYY7D69z4uZcPp7rNZj4kZwtERxh
+         2rbqd+XV808Dn7pOBAR/KloqjEPhjkHh/WOzVwFdNMN4grc4uVrafdWpwtim+6pm2BvC
+         OzDhrXCB6mK7mI1pvpxHgdLlG7GtXXJ+tycvEilgu2sPYe0fn5BRDcj9G0KWjokNYo8D
+         /BxbJ96ll/ZOWz6NwYxm2bN4bHFeGCWThWGA0dmTPMr/qhS8wMb63HGsrKybh9cPGWwr
+         RI0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727419089; x=1728023889;
+        d=1e100.net; s=20230601; t=1727419146; x=1728023946;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HN702yu+Wq+pRfujzx1CtByaTy+YzI7Ahs/FZAsW5j8=;
-        b=wFWb3iiNrkuzw7Hbrypz9A1YhwnjveD3fZDUAGs7RSuIAo/PG6aqPOFmKU+DvOsul6
-         1v2Eu+j1BwnsaG/1WgZ6d785YufjiSxbtotf0D1caN46U+YFMhpu480rTSLxRIxOvKT2
-         mIZxnIMqq7iBiSPiROg878Z+GnT3NMvrbZcMeLDkdKptssJEGgnCGz0V5URjO2KgpbiN
-         4KOZUxVxs60jMzJbD0CMRX4t0RFhrguFo0JeKx+t+ACcFso1TOcThL9sB5y9KXa3/Vcp
-         I7KRItaFt0u6vfJUirIb+p8/Nv1hpzVnCd++ZE5N9w9bD7ib3OsZHiMYnk8NcO2+0Cqw
-         s9hA==
-X-Forwarded-Encrypted: i=1; AJvYcCUGWd5OK1qyHOShHUWtUFSWPkRAUGcdkBI9F1cSncNJR7k/56Aaw/Tbi/yZhH3UD9l2kbVlhEXbZ2w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQLrZwOSC7xP35UGjfZHGSHIDUVLaNHdVROJcFlImnNKweB0Ek
-	KQUu1+M8NUwAq+nHEa2N4lW2Ig6gR9YFmnyA3DFnE8Gksqpw3vJVWvCeYi1DYg==
-X-Google-Smtp-Source: AGHT+IEdSC1Lr2tIswxT8ZAjo9n4wHetS6GApCyGhJQkwGBPK7ncjrIV8SfqKPesCaHWHzj4LY4sHA==
-X-Received: by 2002:a17:906:7946:b0:a8e:a578:29d8 with SMTP id a640c23a62f3a-a93c4acab60mr156697066b.64.1727419088970;
-        Thu, 26 Sep 2024 23:38:08 -0700 (PDT)
-Message-ID: <f86eda2e-43eb-4f93-8d79-c615212baafc@suse.com>
-Date: Fri, 27 Sep 2024 08:38:08 +0200
+        bh=Xk3gWQ0g3CO1ZxNLjteF4Sdfq/Kl66r8MGaoWBb5Ji4=;
+        b=oa9rEwEvrFEPJdPRXVU1r5dW9RNqc1VjL16jKPXOlODTvyqyF/rEK3ZxI/qo6yxIKv
+         GfQaNWis+dlDJ6iNEsOdV/ddlfBc6o6yHpv0QZ/p+r6jy/aknwA9X68EDpYLezBTzOwQ
+         PTk15FqnSTgTozJdgxa4gudKFudMRjbdyGEmvxz2fswCvEBKrR3DRv3MycHAqqF5Z3qp
+         /zLCbpw5w47puqGt2B15mhw/I24Gz7x5kHr1Adizv3rCuzfdsIxFA+nDY0ciRwg1CTp7
+         7CFj/ZxKLH0Yy4WLTwGlX4QUhZpVohomHogiuzOufVB7Oo5pvVzGwTTGyCYOZ7OCdGDC
+         n/dw==
+X-Forwarded-Encrypted: i=1; AJvYcCUsmQa8wRhxQF3Ub8rC0Nx6wP6CCE4nyNfUWJTZFvBr7i2Mp3jT2WCPeoXcCVFD906eMnqa3g9+5nE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwW0XWGjxohR4jipBwA70PoCscaTEZq4Vuo04FW2EJHMad5E2Zv
+	Y3pMmnUcObpxNUfL226Xsz752/nM4vH0Ogb83+/8Zc+weC4SnXjfSKOT9WtYpw==
+X-Google-Smtp-Source: AGHT+IFQcbkdgJGglth5swUzr+63sX0XrqBtGOZPVHpQUjD6ZilgT6wQfU0R4leeZCKWqrf4isTjEA==
+X-Received: by 2002:a05:6000:b8b:b0:374:c658:706e with SMTP id ffacd0b85a97d-37cd5b04975mr1780308f8f.39.1727419146556;
+        Thu, 26 Sep 2024 23:39:06 -0700 (PDT)
+Message-ID: <1b1a0518-fc62-43b5-980d-fcb96a9799e1@suse.com>
+Date: Fri, 27 Sep 2024 08:39:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/6] xen: define ACPI and DT device info sections
- macros
+Subject: Re: [PATCH v4 5/6] xen/riscv: add section for device information in
+ linker script
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
 References: <cover.1727365854.git.oleksii.kurochko@gmail.com>
- <c5fd649a4ccd3a65a81dfab505fc99b2a679cda6.1727365854.git.oleksii.kurochko@gmail.com>
+ <b8b42cd4241ceb7f5b80c28579a421554300368f.1727365854.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -113,40 +116,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c5fd649a4ccd3a65a81dfab505fc99b2a679cda6.1727365854.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <b8b42cd4241ceb7f5b80c28579a421554300368f.1727365854.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.09.2024 18:54, Oleksii Kurochko wrote:
-> Introduce macros to define device information sections based on
-> the configuration of ACPI or device tree support. These sections
-> are required for common code of device initialization and getting
-> an information about a device.
-> 
-> These macros are expected to be used across different
-> architectures (Arm, PPC, RISC-V), so they are moved to
-> the common xen/xen.lds.h, based on their original definition
-> in Arm.
+> Introduce a new `.dev.info` section in the RISC-V linker script to
+> handle device-specific information. This section is required by
+> common code (common/device.c: device_init(), device_get_class() ).
+> This section is aligned to `POINTER_ALIGN`, with `_sdevice` and `_edevice`
+> marking the start and end of the section, respectively.
 > 
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
-with ...
 
-> @@ -137,6 +145,14 @@
->      *(.bug_frames.3)                            \
->      __stop_bug_frames_3 = .;
->  
-> +#define DT_DEV_INFO(secname)    \
-> +  . = ALIGN(POINTER_ALIGN);     \
-> +  DECL_SECTION(secname) {       \
-> +       _sdevice = .;           \
-> +       *(secname)              \
-> +       _edevice = .;           \
-> +  } :text
 
-... the trailing backslashes all aligned here (can likely be taken care of
-while committing).
-
-Jan
 
