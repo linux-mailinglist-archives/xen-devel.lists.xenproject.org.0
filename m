@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F079987F50
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 09:22:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.806076.1217389 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB9E9987F6F
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 09:28:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.806083.1217398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su5Im-0004Gs-F4; Fri, 27 Sep 2024 07:22:08 +0000
+	id 1su5On-0005r6-2y; Fri, 27 Sep 2024 07:28:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 806076.1217389; Fri, 27 Sep 2024 07:22:08 +0000
+Received: by outflank-mailman (output) from mailman id 806083.1217398; Fri, 27 Sep 2024 07:28:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su5Im-0004FI-CK; Fri, 27 Sep 2024 07:22:08 +0000
-Received: by outflank-mailman (input) for mailman id 806076;
- Fri, 27 Sep 2024 07:22:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1su5On-0005pb-0I; Fri, 27 Sep 2024 07:28:21 +0000
+Received: by outflank-mailman (input) for mailman id 806083;
+ Fri, 27 Sep 2024 07:28:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=soaG=QZ=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1su5Il-0004F9-Rc
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 07:22:07 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 327bd16c-7ca1-11ef-a0ba-8be0dac302b0;
- Fri, 27 Sep 2024 09:22:06 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5525C5C56F2
- for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 07:22:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 025DEC4CED1
- for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 07:22:03 +0000 (UTC)
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-2f75b13c2a8so19942041fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 00:22:03 -0700 (PDT)
+ (envelope-from <SRS0=xuKF=QZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1su5Ol-0005pV-Id
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 07:28:19 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 102b72b8-7ca2-11ef-99a2-01e77a169b0f;
+ Fri, 27 Sep 2024 09:28:17 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-5365aa568ceso2223290e87.0
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 00:28:17 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c2947a7asm93258166b.103.2024.09.27.00.28.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Sep 2024 00:28:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,82 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 327bd16c-7ca1-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727421724;
-	bh=XXyorE3NYuaIDyKhE8tOm3HgUiabzoTflJQVXTwEZ5I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=jXzY+jXb8Dv8w6jzWwjSyIsOThAJIUQrgM3HbBpuauw9kIRF6mQc3AoQonlaGfFTu
-	 6EYEFlnXbMEaj7BGEkzKnpAulGc46TCpO+/81JXHY6Rrwhk2uPJ9L7rO3zv7U0cMvH
-	 smgsOKwJvCkG6KwN3xO+kvplq13fhPraadiAGXQd8+roeB6AX1qAGCJ6294Ax4neb9
-	 LL5VP5G0Ximam4INJiXJ0AiLn9YhojrfnGTj5Ue7XVTgCfaAdhNulZ36tEUSo3qyKs
-	 qUadbCC0CxTE2h4SRRj42tVzfwAcwMIluHzDJ0vci7/2VWpT33sNemUIlB6obhhPNx
-	 E028f5lW4Fopw==
-X-Forwarded-Encrypted: i=1; AJvYcCX52R6PxjM8KruTUNFEPe3qSovnPGRpobHTIDykwTDiWpJi57rXkCa/RljtejEsvX93pF0h1LQBkzw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxKFj0NBLI/dEbLzSZdyGMCl8gdV1ZNRnT9hg7F5P5O/kmh6Pkf
-	LRsq1ecI7bcVBQVMaUAk46AOjeU4MkMQhWJgoGhA/Vway12LyfmGc8BHOEoiCcLblAMNO3SeDFV
-	n3XRHK5/9toS3LAh5If9kVVGFk0g=
-X-Google-Smtp-Source: AGHT+IHge0Y7vPBswWpBlfdMpGay8Cj7KoMmh1SqNdtIRPMbR5P+1BFic2AQtpeOfD0rJjofWLR8ftJJRjSH+e4kQmY=
-X-Received: by 2002:a2e:9401:0:b0:2f6:5f0a:9cfe with SMTP id
- 38308e7fff4ca-2f9d417b457mr10213891fa.30.1727421722306; Fri, 27 Sep 2024
- 00:22:02 -0700 (PDT)
+X-Inumbo-ID: 102b72b8-7ca2-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1727422096; x=1728026896; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=hwJYOeYxGA0OuEWQ0NxuMMwMLgp2SfUmSQIu+HJxyuA=;
+        b=MKMa7XflsdYa6oDWiuwKb30gXxaFrUe+rd4sOE8CP0kV28iMvM/92QMSmCsV47pamF
+         xVfXQ0pdd+BB2foqiTrT0pASSjghlzvWkhnCPDMjx8dGugXtcnD08mUlnQw/9P6OUxBt
+         vVt+4B5627IvdLHuDP+J5tO2cm51Fyd9pEVwNInxbSqonwraQaCiGC9GPmE4NeDcAfTr
+         X5b9rUu/XI+mmAF63p4FWr9+9hYyv91uBuAAi09xZNh12r6buQf/cM7sGUc05h9TtNXK
+         rayzttx7I/5ySMU//85+eXWDb2eEWkvI5fzY0wPonMw1UJ+8AoXK0SKA58JbYqE6dx0m
+         Q5WA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727422096; x=1728026896;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hwJYOeYxGA0OuEWQ0NxuMMwMLgp2SfUmSQIu+HJxyuA=;
+        b=uKZUV0ld8W9F+a51Yna+5uTtHWkufCXXoakp7q1mMDJTp5TDgwGEM2MSDPojnc2ijc
+         n2+vXtoW2TuGS8ExIXXeLfX9T3Wswtzvv1hQgo0iBLVyjs3EfTV9z0bBkrRf9M1vWKa/
+         /Saevxv8Rs3aGqJlfg4hwegKM5xORiOFOcnCW3jWh/kXiOa/8n65d3fVayIfIQraBDFN
+         7S/f4IWsgtf/olVJTd0VRehnzO/7QKb/3mM6OrBa/Y1+rhb47QzSIrbFeZldR+x7B8Re
+         VNHoYDhafdMW8FxV9Cyz79cLSmEfvvoKlB+JdnmXIRrbjkqvza7ky/zDlhcDkN1Kkv3n
+         +5hw==
+X-Forwarded-Encrypted: i=1; AJvYcCVyw5a126pO32Yohzs/vrLwRhBBWrM+26JA17XJl4luZFhQhkQNigdptO5Ww9tdvclp6tIpmxAKbmY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwPWqGEb7zZQZ0WNqNezT3L6CyYIDMF/icqMKBeXDzLmNDiKnoF
+	Lm+ysJj9anD/r4iK1QUS9ifNcGCJ4frWBFj7fGsugLTsmfnxryK5o++7DQMMOA==
+X-Google-Smtp-Source: AGHT+IE85zPRnNTQ7+z6zKZyRvexj6ZJgacyi8F8BXJ5fpei9ZaBn/NWdqRVJlmEn7/6Z336Z1v2Vw==
+X-Received: by 2002:ac2:4c43:0:b0:52c:e10b:cb33 with SMTP id 2adb3069b0e04-5389fca3ae2mr1758892e87.50.1727422096425;
+        Fri, 27 Sep 2024 00:28:16 -0700 (PDT)
+Message-ID: <18b146cf-c49f-4133-ac21-b710bf59d113@suse.com>
+Date: Fri, 27 Sep 2024 09:28:15 +0200
 MIME-Version: 1.0
-References: <20240926104113.80146-7-ardb+git@google.com> <20240926104113.80146-11-ardb+git@google.com>
- <572b339b-7dab-4db0-8ee8-d805f8211aa3@amd.com> <CAMj1kXGt76Z0VsWog5Y2srBp8MiYXqkkhOQvFiZ7ULhNB3p6KA@mail.gmail.com>
-In-Reply-To: <CAMj1kXGt76Z0VsWog5Y2srBp8MiYXqkkhOQvFiZ7ULhNB3p6KA@mail.gmail.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Fri, 27 Sep 2024 09:21:50 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXFL_a1DTzzXBaNZyU=4ho_NPYG7tceo-wNu9ehQ-72+gA@mail.gmail.com>
-Message-ID: <CAMj1kXFL_a1DTzzXBaNZyU=4ho_NPYG7tceo-wNu9ehQ-72+gA@mail.gmail.com>
-Subject: Re: [PATCH 4/5] x86/xen: Avoid relocatable quantities in Xen ELF notes
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, 
-	Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, x86@kernel.org, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/6] xen: define ACPI and DT device info sections
+ macros
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1727365854.git.oleksii.kurochko@gmail.com>
+ <c5fd649a4ccd3a65a81dfab505fc99b2a679cda6.1727365854.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c5fd649a4ccd3a65a81dfab505fc99b2a679cda6.1727365854.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 27 Sept 2024 at 07:49, Ard Biesheuvel <ardb@kernel.org> wrote:
->
-> On Fri, 27 Sept 2024 at 03:47, Jason Andryuk <jason.andryuk@amd.com> wrote:
-> >
-> > On 2024-09-26 06:41, Ard Biesheuvel wrote:
-> > > From: Ard Biesheuvel <ardb@kernel.org>
-> > >
-> > > Xen puts virtual and physical addresses into ELF notes that are treated
-> > > by the linker as relocatable by default. Doing so is not only pointless,
-> > > given that the ELF notes are only intended for consumption by Xen before
-> > > the kernel boots. It is also a KASLR leak, given that the kernel's ELF
-> > > notes are exposed via the world readable /sys/kernel/notes.
-> > >
-> > > So emit these constants in a way that prevents the linker from marking
-> > > them as relocatable. This involves place-relative relocations (which
-> > > subtract their own virtual address from the symbol value) and linker
-> > > provided absolute symbols that add the address of the place to the
-> > > desired value.
-> > >
-> > > While at it, switch to a 32-bit field for XEN_ELFNOTE_PHYS32_ENTRY,
-> > > which better matches the intent as well as the Xen documentation and
-> > > source code.
-> >
-> > QEMU parses this according to the ELF bitness.  It looks like this reads
-> > 8 bytes on 64bit, and 4 on 32.  So I think this change would break its
-> > parsing.
-> >
->
-> Indeed, well spotted.
->
-> > (I don't use QEMU PVH and I'm not that familiar with its implementation.)
-> >
->
-> This is what I used for testing, and it worked fine.
->
-> But looking at the code, it does dereference a size_t*, which seems
-> bizarre but will clearly produce garbage in the upper bits if the note
-> is 32-bits only and followed by unrelated non-zero data.
->
-> I'll just back out this part of the change - it isn't really necessary anyway.
+On 26.09.2024 18:54, Oleksii Kurochko wrote:
+> --- a/xen/include/xen/xen.lds.h
+> +++ b/xen/include/xen/xen.lds.h
+> @@ -120,6 +120,14 @@
+>  
+>  /* List of constructs other than *_SECTIONS in alphabetical order. */
+>  
+> +#define ACPI_DEV_INFO(secname)  \
+> +  . = ALIGN(POINTER_ALIGN);     \
+> +  DECL_SECTION(secname) {       \
+> +      _asdevice = .;            \
+> +      *(secname)                \
+> +      _aedevice = .;            \
+> +  } :text
+> +
+>  #define BUGFRAMES                               \
+>      __start_bug_frames_0 = .;                   \
+>      *(.bug_frames.0)                            \
+> @@ -137,6 +145,14 @@
+>      *(.bug_frames.3)                            \
+>      __stop_bug_frames_3 = .;
+>  
+> +#define DT_DEV_INFO(secname)    \
+> +  . = ALIGN(POINTER_ALIGN);     \
+> +  DECL_SECTION(secname) {       \
+> +       _sdevice = .;           \
+> +       *(secname)              \
+> +       _edevice = .;           \
+> +  } :text
+> +
+>  #ifdef CONFIG_HYPFS
+>  #define HYPFS_PARAM              \
+>         . = ALIGN(POINTER_ALIGN); \
 
-... and fix QEMU as well:
+Michal's comment made me notice that I overlooked the section names being
+macro parameters. Why's that?
 
-https://lore.kernel.org/qemu-devel/20240927071950.1458596-1-ardb+git@google.com/T/#u
+Jan
 
