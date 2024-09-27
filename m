@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1D9E987E81
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 08:37:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.806039.1217336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25F36987E83
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 08:38:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.806044.1217348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su4al-0000W3-I3; Fri, 27 Sep 2024 06:36:39 +0000
+	id 1su4cF-0001TI-S7; Fri, 27 Sep 2024 06:38:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 806039.1217336; Fri, 27 Sep 2024 06:36:39 +0000
+Received: by outflank-mailman (output) from mailman id 806044.1217348; Fri, 27 Sep 2024 06:38:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su4al-0000TC-F3; Fri, 27 Sep 2024 06:36:39 +0000
-Received: by outflank-mailman (input) for mailman id 806039;
- Fri, 27 Sep 2024 06:36:38 +0000
+	id 1su4cF-0001Rn-PK; Fri, 27 Sep 2024 06:38:11 +0000
+Received: by outflank-mailman (input) for mailman id 806044;
+ Fri, 27 Sep 2024 06:38:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xuKF=QZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1su4ak-0000QU-9P
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 06:36:38 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1su4cE-0001Rf-H0
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 06:38:10 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d850c108-7c9a-11ef-a0ba-8be0dac302b0;
- Fri, 27 Sep 2024 08:36:37 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-37cd26c6dd1so1095448f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 23:36:37 -0700 (PDT)
+ id 0f7c3e67-7c9b-11ef-a0ba-8be0dac302b0;
+ Fri, 27 Sep 2024 08:38:09 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a8a7cdfdd80so234860766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2024 23:38:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c2946cb2sm86704166b.121.2024.09.26.23.36.36
+ a640c23a62f3a-a93c27c70dfsm88007166b.52.2024.09.26.23.38.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Sep 2024 23:36:36 -0700 (PDT)
+ Thu, 26 Sep 2024 23:38:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d850c108-7c9a-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 0f7c3e67-7c9b-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727418996; x=1728023796; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727419089; x=1728023889; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9TB+PBknjbjnHiH/EBKK2Khsl+ZxuHjlpQNRp+V0WwM=;
-        b=blaK5Qcj6JfETYIB+9fLaB7BZfkzORDaveL+THkh5p7Lb9Q4i26s8ahLelm8n/ZFTG
-         5wZUmUZ3bi8cPg3y01V01v5EPiWfrgHkT6m9oFmFsd3iodK4uBCdiJ2bva/SBuxXD6CI
-         VeG6kLg+yvrLpa4DSXTZ6YauMc9M5QQn2IPg11ut2njLU1OfeHArcfNqHsAOFrAJRq4i
-         VfqGNDIy4clbcm/obVYYAyE6ZP45UD6/yLMBliIXZ3aaJvc6woCq8SlyH+uxTzi0fY6G
-         fwxGpdJvPWrykBk1b8lvxxSxqiI441AdZ+a8HGZqLip+XY2vlbqH4N0qpuMl8BMzoCYO
-         /RAg==
+        bh=HN702yu+Wq+pRfujzx1CtByaTy+YzI7Ahs/FZAsW5j8=;
+        b=Fc2Ut7l8heR/36WNrKUHWGLBHqVcci8Yv2zsHlvVX+hP7cMAKo6KYlRaE5vraK4PeM
+         vEMSeaX3ESj2iu4JGb3P3VNp+P94cmwGxDtZ/yaEb3IZxiNtLYnZTzFVFiZ0/5PzzTH2
+         cg27kTn4IeQ+JpOKDXv9/gdYG+uRR5nO0p9jtwjThEXiP+m5Nlvx4EI246DZpeiS5l+6
+         dmnMWR3zl2tOoKeBfSKFL5d51J5uz1N0fl83WC9gmX9y+PqDDnvC8f5FaRHCmqAm/OjL
+         YZhvixy0vOZmTpOyhUggipzvrlVphb1nwRT0d8zikKv2MLmgGtj5kDDGsnyuu9JLcy8h
+         FkJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727418996; x=1728023796;
+        d=1e100.net; s=20230601; t=1727419089; x=1728023889;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9TB+PBknjbjnHiH/EBKK2Khsl+ZxuHjlpQNRp+V0WwM=;
-        b=XwWjS0cWWRrdvP+hC0weQwFfwoZptaT4anWdX8JvcUyLec38x4cNz64xxoMFgFNGtF
-         6+NliCkrJTt9Ce3eY7rW3K3xmalohLQXCvB1ZYNvFBle+PS9qhKtcWBnywizdi/dxEPK
-         u1ppl+U2YVPP7hrfTDGAKTjHaUZ0l5QMfwrxSrUEqZrh0cF9g/DcUbI4snY07qWFcaro
-         iTHlZk9fxc0NAbwS175+kDvxIec2EhOxuApLoOlwH8kYD6ujtdrpxzO/XFuUaIgEJ2mh
-         7MKyLBenBXWslfjp0Mi1gYtPrYsWU+RktexH8MW01Q5as3Hl72BcMnZmXP4mdBXXWSEa
-         24Yg==
-X-Forwarded-Encrypted: i=1; AJvYcCX41FnsvoYaFUn7jmA4eT7DePYmpcVvkp6tpmcqgl6INkEaZx1rYkBXFrpI6U91nQybAw2PB4ogoy0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxnINuSKsDHMAc9A75C20l+KTZyWqZcALDwhodYtkbUsKxYlrS0
-	mAcCUTLA3bHfT4iJiJ7PXNdfpO609N8cew+Jz7jtbYRy7x/nWyz30gOapAe1wQ==
-X-Google-Smtp-Source: AGHT+IEz8OqzbgMhFGpuwFPKVM+B+ODWg9g++EZBHG1mkqtkSBFOXIGkQo1MYBIwSAJHKkRBd8qCnQ==
-X-Received: by 2002:a5d:5258:0:b0:37c:cc60:2c56 with SMTP id ffacd0b85a97d-37cd5a695a6mr1565932f8f.5.1727418996514;
-        Thu, 26 Sep 2024 23:36:36 -0700 (PDT)
-Message-ID: <91a080b4-b864-48e7-bb10-cbc8e99c8a30@suse.com>
-Date: Fri, 27 Sep 2024 08:36:35 +0200
+        bh=HN702yu+Wq+pRfujzx1CtByaTy+YzI7Ahs/FZAsW5j8=;
+        b=wFWb3iiNrkuzw7Hbrypz9A1YhwnjveD3fZDUAGs7RSuIAo/PG6aqPOFmKU+DvOsul6
+         1v2Eu+j1BwnsaG/1WgZ6d785YufjiSxbtotf0D1caN46U+YFMhpu480rTSLxRIxOvKT2
+         mIZxnIMqq7iBiSPiROg878Z+GnT3NMvrbZcMeLDkdKptssJEGgnCGz0V5URjO2KgpbiN
+         4KOZUxVxs60jMzJbD0CMRX4t0RFhrguFo0JeKx+t+ACcFso1TOcThL9sB5y9KXa3/Vcp
+         I7KRItaFt0u6vfJUirIb+p8/Nv1hpzVnCd++ZE5N9w9bD7ib3OsZHiMYnk8NcO2+0Cqw
+         s9hA==
+X-Forwarded-Encrypted: i=1; AJvYcCUGWd5OK1qyHOShHUWtUFSWPkRAUGcdkBI9F1cSncNJR7k/56Aaw/Tbi/yZhH3UD9l2kbVlhEXbZ2w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQLrZwOSC7xP35UGjfZHGSHIDUVLaNHdVROJcFlImnNKweB0Ek
+	KQUu1+M8NUwAq+nHEa2N4lW2Ig6gR9YFmnyA3DFnE8Gksqpw3vJVWvCeYi1DYg==
+X-Google-Smtp-Source: AGHT+IEdSC1Lr2tIswxT8ZAjo9n4wHetS6GApCyGhJQkwGBPK7ncjrIV8SfqKPesCaHWHzj4LY4sHA==
+X-Received: by 2002:a17:906:7946:b0:a8e:a578:29d8 with SMTP id a640c23a62f3a-a93c4acab60mr156697066b.64.1727419088970;
+        Thu, 26 Sep 2024 23:38:08 -0700 (PDT)
+Message-ID: <f86eda2e-43eb-4f93-8d79-c615212baafc@suse.com>
+Date: Fri, 27 Sep 2024 08:38:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/6] xen: introduce SIMPLE_DECL_SECTION
+Subject: Re: [PATCH v4 2/6] xen: define ACPI and DT device info sections
+ macros
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1727365854.git.oleksii.kurochko@gmail.com>
- <413dfb16280c3ec541df8775d31902a4b12a64fe.1727365854.git.oleksii.kurochko@gmail.com>
+ <c5fd649a4ccd3a65a81dfab505fc99b2a679cda6.1727365854.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,20 +113,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <413dfb16280c3ec541df8775d31902a4b12a64fe.1727365854.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <c5fd649a4ccd3a65a81dfab505fc99b2a679cda6.1727365854.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.09.2024 18:54, Oleksii Kurochko wrote:
-> Introduce SIMPLE_DECL_SECTION to cover the case when
-> an architecture wants to declare a section without specifying
-> of load address for the section.
+> Introduce macros to define device information sections based on
+> the configuration of ACPI or device tree support. These sections
+> are required for common code of device initialization and getting
+> an information about a device.
 > 
-> Update x86/xen.lds.S to use SIMPLE_DECL_SECTION.
+> These macros are expected to be used across different
+> architectures (Arm, PPC, RISC-V), so they are moved to
+> the common xen/xen.lds.h, based on their original definition
+> in Arm.
 > 
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
+with ...
 
+> @@ -137,6 +145,14 @@
+>      *(.bug_frames.3)                            \
+>      __stop_bug_frames_3 = .;
+>  
+> +#define DT_DEV_INFO(secname)    \
+> +  . = ALIGN(POINTER_ALIGN);     \
+> +  DECL_SECTION(secname) {       \
+> +       _sdevice = .;           \
+> +       *(secname)              \
+> +       _edevice = .;           \
+> +  } :text
 
+... the trailing backslashes all aligned here (can likely be taken care of
+while committing).
+
+Jan
 
