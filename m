@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D0329883A3
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 13:59:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.806245.1217587 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D1909883B7
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 14:00:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.806253.1217598 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su9cv-0002GT-Kp; Fri, 27 Sep 2024 11:59:13 +0000
+	id 1su9eJ-0003p8-AP; Fri, 27 Sep 2024 12:00:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 806245.1217587; Fri, 27 Sep 2024 11:59:13 +0000
+Received: by outflank-mailman (output) from mailman id 806253.1217598; Fri, 27 Sep 2024 12:00:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su9cv-0002Eu-I7; Fri, 27 Sep 2024 11:59:13 +0000
-Received: by outflank-mailman (input) for mailman id 806245;
- Fri, 27 Sep 2024 11:59:12 +0000
+	id 1su9eJ-0003mi-6v; Fri, 27 Sep 2024 12:00:39 +0000
+Received: by outflank-mailman (input) for mailman id 806253;
+ Fri, 27 Sep 2024 12:00:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xuKF=QZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1su9cu-0002Eo-6A
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 11:59:12 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1su9eH-0003mK-4K
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 12:00:37 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e7a70173-7cc7-11ef-99a2-01e77a169b0f;
- Fri, 27 Sep 2024 13:59:10 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5c4146c7b28so2326101a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 04:59:10 -0700 (PDT)
+ id 1a779ce8-7cc8-11ef-99a2-01e77a169b0f;
+ Fri, 27 Sep 2024 14:00:35 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a7aa086b077so277142266b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 05:00:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c88248af26sm1113600a12.63.2024.09.27.04.59.08
+ a640c23a62f3a-a93c27c70c4sm126393066b.65.2024.09.27.05.00.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Sep 2024 04:59:08 -0700 (PDT)
+ Fri, 27 Sep 2024 05:00:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7a70173-7cc7-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 1a779ce8-7cc8-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727438349; x=1728043149; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727438435; x=1728043235; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sSBmQwORV2aDa0yYoX0xUI0DcRm86/rhOSiWBpISbms=;
-        b=eHrekxzjwoykEWXZ7ZYn7D/uf0mwNWFDdx9snC1dg1swFyduliEpgV5JTKm2JSyG+6
-         rSPr64PSQ68YpvwZD2Lhtx2YoLiMVMp5CkUzhLIXDKBeIkUC14oL61zfJ4GtV41wgXdh
-         n2IePR40ib+NC7aPrI8+RBlpc6RrNsxXs0wN7KGLjNfby+v91oUizTIvP3nGSIGmsTaZ
-         J9iAleuHpy0rROkGzWRxFX8qS2fTpCqJWBkpHIv1QyTiVAenmIuGM1NV688BQdeHK7eT
-         7jfLf5/v0jGaOaadPnwi/VVJasyOem2UCh9E4iSv0D4t3fbE6gcMirp2yDm2L82k7eqi
-         YuoQ==
+        bh=Bm0Ck5rGubWw5FYtzYMw8DalxbtTujRfTr/+PrcK430=;
+        b=A1pWC0DfURyE1Bcq31xhg6IU/f9rUIGGzuuoazeJ5l8Tgaj0RCI+2adHwtQ7FUoedy
+         Wvkh0tnJmzSWPyIC76nkZf22yJXdFZjLeaiZbGFHix9X7vu/BQx55s0XBBhAANWiGxxK
+         CZ5re7205H/vgA2zzG33TcVyXnpM/bpFmVSKD8q5PYS9LoEdbRcEAYUWpepO9BQcZkNi
+         sd/UN9Faa+fpDQqi9DPJs/nTBjQZxyFtHadcXJDDt6+Ol3NU2BVyAmWPNJDK63mw8TPa
+         qYbH0NoL6lAx4lYGO4dJPGJ+n85ccwqXX4RAwDC2GNrNMzYVOBzCj+BqfKZFW2OsKD/K
+         3qNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727438349; x=1728043149;
+        d=1e100.net; s=20230601; t=1727438435; x=1728043235;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sSBmQwORV2aDa0yYoX0xUI0DcRm86/rhOSiWBpISbms=;
-        b=Bl+QidAq4gJ1bARu3qETSFwhs6f42PwRJtwZpHiB54ET46da6uHCBpRoTXXdN7hFLm
-         gau189Iiwcgj8grDZQvklhI2aiWV6NYkD/fq5AO3iaMRJZSB6doSNSABmUk3lbws+FDB
-         5w68h5ITfpy/8KILnAEGfdLn2ay0hQXF0iv2ssoOSJJ6K2yiZF5r81KU/Skbn4SBUypn
-         enuMpNlDVHwCEb599OwrYf6m3+HpVxAGwkEDs76K3TMjKqBCrt73CZrUq0saIDL54ZmX
-         oIXk6NTSwDMcCLE3DlFOAbvcKAAAi97GG2LsZqSnIeszmaD67d0osOovVaGwIYcpOj4b
-         Hp4A==
-X-Gm-Message-State: AOJu0Ywrg8uiubGyTNACtx9ISU/hpHPN0TMPoX6XVl26NI6ySPzZF5Lf
-	MlV43MsiIvaZLNbibzysWscYory4sRrEbXeblkS7cObLHxd0ZOHe52GF+f80ag==
-X-Google-Smtp-Source: AGHT+IFgUjA9iS+RSAIOMQTBo+kciWiB3qLW/3MV10IsCsRDhf1vqY9oFOlwtyTt/7MxEi9Dy4xmNw==
-X-Received: by 2002:a05:6402:5003:b0:5c7:227f:3735 with SMTP id 4fb4d7f45d1cf-5c882608447mr2662395a12.34.1727438349277;
-        Fri, 27 Sep 2024 04:59:09 -0700 (PDT)
-Message-ID: <ea96c191-5f3b-445c-a8bd-f4da56eed5aa@suse.com>
-Date: Fri, 27 Sep 2024 13:59:08 +0200
+        bh=Bm0Ck5rGubWw5FYtzYMw8DalxbtTujRfTr/+PrcK430=;
+        b=T5os8l3eIczBmHxEbysY3A4H8oH9s9oTdQeZi8IIfcRi+kaqD8etnIxdGc7TQvTZ68
+         21lUUyoeJiz2Px4Y6WeGP/SnNVUeQrs8lGrc6WQeLIKoWaj1qCh10ntjyZV/UrjpRxNG
+         7NhImL9Yqhdko/HVR8RgY1/HEuRfX7xM6/y7POdvLa1tiXFs8kHg1LaQu+kP8pK0DCmR
+         sUNgRewWvk+o+FyTgHifsMWyUNQFUC5fQ/sNbR5EMAzeIEU1lzUOyxAMnZ8ySnVFMMgi
+         tuwomxGTs6VA+iKIvxkKBPRWi1dJRlcqTnwCXFwFAeJgcrLZTaOBV7GjrK02PiDlyWWx
+         Ea2w==
+X-Forwarded-Encrypted: i=1; AJvYcCUMa+2vQ4+SlZ2Zd40MFT29S4LD53SVUcvhEZuGurhIJ6YB9u6y8G49XhV75yBm3RRx4sjdB9yEVEo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxA94X1eLjYq9bHGf/IsIOekWHl3RdC2XxHCLSubke6aw7NqNzj
+	2TlSyzob1iRRgpyhLta3goyb6/GZ5ci4XO7vKruSwTGJbIj2z+iigALmO4flKw==
+X-Google-Smtp-Source: AGHT+IEgj3LlVRBLsdBPs7EPnT0wVysBzm+wVz5sigbqKPJOUIBDjx6CVrtwZlF5/ZDJ77yF79ybug==
+X-Received: by 2002:a17:907:1c8d:b0:a8a:9054:8399 with SMTP id a640c23a62f3a-a93c492f8b7mr325033366b.27.1727438434605;
+        Fri, 27 Sep 2024 05:00:34 -0700 (PDT)
+Message-ID: <82a81ef3-9502-4891-841f-9946f44ff2eb@suse.com>
+Date: Fri, 27 Sep 2024 14:00:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/6] xen: introduce SIMPLE_DECL_SECTION
-To: oleksii.kurochko@gmail.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1727365854.git.oleksii.kurochko@gmail.com>
- <413dfb16280c3ec541df8775d31902a4b12a64fe.1727365854.git.oleksii.kurochko@gmail.com>
- <ZvZlqy4Y57ewtcq9@macbook.local>
- <05958c4be241866a5698a1396416b2d6317acc17.camel@gmail.com>
- <ZvZ9zkCme0r8bqmC@macbook.local>
- <d06c89fed69930f03db078d3d9d633026d5a604a.camel@gmail.com>
+Subject: Re: [PATCH v7 7/8] xen/riscv: page table handling
+To: oleksii.kurochko@gmail.com
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1726242605.git.oleksii.kurochko@gmail.com>
+ <582c4cee40222e80faf1e465c011b07eeaf2c19f.1726242605.git.oleksii.kurochko@gmail.com>
+ <6100a4e0-5bf3-4555-90ae-20624171ff79@suse.com>
+ <fc23fbd82c1495e75fc0bdcfa894cdb56262b11b.camel@gmail.com>
+ <9371e8fd-a1de-40df-8994-814dd6196953@suse.com>
+ <ecab08fbbe1a1e364cf6d4bf9dafa42ced4faef4.camel@gmail.com>
+ <03b67663-1a55-4642-b997-8680961aadeb@suse.com>
+ <cf994aa4f9dbef890f53cf8567519b840da8faf4.camel@gmail.com>
+ <60dd2287-351c-4fd1-bf2d-00645342fc73@suse.com>
+ <dc14add3e5daa4db91955127812b84fb03209831.camel@gmail.com>
+ <c5b22604-5fa5-4034-8596-654be962ad84@suse.com>
+ <edc8bda6d7cf67b370652ea17b5d3ce462adf962.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,74 +125,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d06c89fed69930f03db078d3d9d633026d5a604a.camel@gmail.com>
+In-Reply-To: <edc8bda6d7cf67b370652ea17b5d3ce462adf962.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27.09.2024 12:42, oleksii.kurochko@gmail.com wrote:
-> On Fri, 2024-09-27 at 11:41 +0200, Roger Pau Monné wrote:
->> On Fri, Sep 27, 2024 at 11:07:58AM +0200,
->> oleksii.kurochko@gmail.com wrote:
->>> On Fri, 2024-09-27 at 09:58 +0200, Roger Pau Monné wrote:
->>>> On Thu, Sep 26, 2024 at 06:54:20PM +0200, Oleksii Kurochko wrote:
->>>>> Introduce SIMPLE_DECL_SECTION to cover the case when
->>>>> an architecture wants to declare a section without specifying
->>>>> of load address for the section.
->>>>>
->>>>> Update x86/xen.lds.S to use SIMPLE_DECL_SECTION.
->>>>
->>>> No strong opinion, but I feel SIMPLE is not very descriptive.  It
->>>> might be better to do it the other way around: introduce a define
->>>> for
->>>> when the DECL_SECTION macro should specify a load address:
->>>> DECL_SECTION_WITH_LADDR for example.
->>> In the next patch, two sections are introduced: dt_dev_info and
->>> acpi_dev_info. The definition of these sections has been made
->>> common
->>> and moved to xen.lds.h, and it looks like this:
->>>    +#define DT_DEV_INFO(secname)    \
->>>    +  . = ALIGN(POINTER_ALIGN);     \
->>>    +  DECL_SECTION(secname) {       \
->>>    +       _sdevice = .;           \
->>>    +       *(secname)              \
->>>    +       _edevice = .;           \
->>>    +  } :text
->>> (A similar approach is used for ACPI, please refer to the next
->>> patch in
->>> this series.)
->>>
->>> For PPC, DECL_SECTION should specify a load address, whereas for
->>> Arm
->>> and RISC-V, it should not.
->>>
->>> With this generalization, the name of DECL_SECTION should have the
->>> same
->>> name in both cases, whether a load address needs to be specified or
->>> not
->>
->> Oh, sorry, I think you misunderstood my suggestion.
->>
->> I'm not suggesting to introduce a new macro named
->> DECL_SECTION_WITH_LADDR(), but rather to use DECL_SECTION_WITH_LADDR
->> instead of SIMPLE_DECL_SECTION in order to signal whether
->> DECL_SECTION() should specify a load address or not, iow:
->>
->> #ifdef DECL_SECTION_WITH_LADDR
->> # define DECL_SECTION(x) x : AT(ADDR(x) - __XEN_VIRT_START)
->> #else
->> # define DECL_SECTION(x) x :
->> #endif
-> Thanks for the clarification, I really misunderstood your initial
-> suggestion.
+On 27.09.2024 13:32, oleksii.kurochko@gmail.com wrote:
+> Just to be sure. Do you mean the following:
 > 
-> I'm okay with the renaming; perhaps it will indeed make things a bit
-> clearer.
-> 
-> If Jan doesn’t mind (since he gave the Ack), I'll rename the define in
-> the next patch version.
-> Jan, do you mind if I proceed with the renaming?
+> diff --git a/xen/arch/riscv/pt.c b/xen/arch/riscv/pt.c
+> index d7eb207ddc..6cd2e595b6 100644
+> --- a/xen/arch/riscv/pt.c
+> +++ b/xen/arch/riscv/pt.c
+> @@ -209,24 +209,15 @@ static int pt_update_entry(mfn_t root, unsigned
+> long virt,
+>      for ( ; level > target; level-- )
+>      {
+>          rc = pt_next_level(alloc_tbl, &table, offsets[level]);
+> -        if ( rc == XEN_TABLE_MAP_FAILED )
+> +        if ( rc == XEN_TABLE_MAP_NOMEM )
+>          {
+> -            rc = 0;
+> -
+> -            /*
+> -             * We are here because pt_next_level has failed to map
+> -             * the intermediate page table (e.g the table does not
+> exist
+> -             * and the pt couldn't be allocated). It is a valid case
+> when
+> -             * removing a mapping as it may not exist in the page
+> table.
+> -             * In this case, just ignore it.
+> -             */
+> -            if ( flags & (PTE_VALID | PTE_POPULATE) )
+> -            {
+> -                dprintk(XENLOG_ERR,
+> -                        "%s: Unable to map level %u\n", __func__,
+> level);
+> -                rc = -ENOMEM;
+> -            }
+> +            rc = -ENOMEM;
+> +            goto out;
+> +        }
+>  
+> +        if ( rc == XEN_TABLE_MAP_NONE )
+> +        {
+> +            rc = 0;
+>              goto out;
+>          }
 
-I'm not overly fussed, so fee free to go ahead and retain my ack.
+Yes.
 
 Jan
 
