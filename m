@@ -2,52 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2207987F3B
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 09:17:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.806071.1217378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F079987F50
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 09:22:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.806076.1217389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su5Dn-0002Lf-TM; Fri, 27 Sep 2024 07:16:59 +0000
+	id 1su5Im-0004Gs-F4; Fri, 27 Sep 2024 07:22:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 806071.1217378; Fri, 27 Sep 2024 07:16:59 +0000
+Received: by outflank-mailman (output) from mailman id 806076.1217389; Fri, 27 Sep 2024 07:22:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su5Dn-0002Jr-QP; Fri, 27 Sep 2024 07:16:59 +0000
-Received: by outflank-mailman (input) for mailman id 806071;
- Fri, 27 Sep 2024 07:16:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tfRU=QZ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1su5Dl-0002JS-Kc
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 07:16:57 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060a.outbound.protection.outlook.com
- [2a01:111:f403:2414::60a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 788ad35c-7ca0-11ef-99a2-01e77a169b0f;
- Fri, 27 Sep 2024 09:16:53 +0200 (CEST)
-Received: from SJ0PR05CA0110.namprd05.prod.outlook.com (2603:10b6:a03:334::25)
- by MN2PR12MB4254.namprd12.prod.outlook.com (2603:10b6:208:1d0::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.23; Fri, 27 Sep
- 2024 07:16:49 +0000
-Received: from SJ5PEPF000001F3.namprd05.prod.outlook.com
- (2603:10b6:a03:334:cafe::b0) by SJ0PR05CA0110.outlook.office365.com
- (2603:10b6:a03:334::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.17 via Frontend
- Transport; Fri, 27 Sep 2024 07:16:48 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ5PEPF000001F3.mail.protection.outlook.com (10.167.242.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8005.15 via Frontend Transport; Fri, 27 Sep 2024 07:16:48 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 27 Sep
- 2024 02:16:47 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 27 Sep 2024 02:16:46 -0500
+	id 1su5Im-0004FI-CK; Fri, 27 Sep 2024 07:22:08 +0000
+Received: by outflank-mailman (input) for mailman id 806076;
+ Fri, 27 Sep 2024 07:22:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=soaG=QZ=kernel.org=ardb@srs-se1.protection.inumbo.net>)
+ id 1su5Il-0004F9-Rc
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 07:22:07 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 327bd16c-7ca1-11ef-a0ba-8be0dac302b0;
+ Fri, 27 Sep 2024 09:22:06 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5525C5C56F2
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 07:22:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 025DEC4CED1
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 07:22:03 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-2f75b13c2a8so19942041fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 00:22:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,164 +44,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 788ad35c-7ca0-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=soV2pZ1jRb50CBlsY6PwbdHFHDiy2DSTy1Iyx5tluZzw9KBlz4ugQA0jn31X2j8axgH7wLkv8+sfj3eTYmvKBqGDf/5pVgbV+6c4DkqLFFTskNpMYW3mXiMw9QzMTlxnmInLshyFSjd1rNnZU+1mRhG5t4GcSPQouAiRHDr/3ZDMwJ2zGj1Rvt3Rr85B38BJow9YMeUvzUVnyUexDZb1akqioR5bbkJmCP8YJNEExVRnEaVnm2FwRQZxIgcRQyOqsYmdt7XIcWAwR+Ynefe+T8kyQhF2frP3zGO4fQJUFKQ7Uv0ycS1o/z4Cx1MrIvhZxiNXDoQqghUzlVCsc7+kZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g6NO069kaw5dxx9clmpVHXUlfBD56QiTFYtC503U7Zg=;
- b=ovQpjc2udQZg7aDOvLICRV3aS4/kbi371gLEIKFbrqiqEK1H5APEvqft5eK9le8JDCUhf85IQOlxWp2KX0lehPYnB43x4qbjSN8aNPlPc0AIhYQSqQNUs18ax2OG3CqhSjWPz8jUvJ8z4kxuUPDKrOIKHSrPqgZjoYXslhvLXl67hVpfUZfuyCzH/qFk/MwHvFFA25z5g9OuE8GD+rQlXNnlrKTMD20q5GNhGWctUkWC5OXSuyjR60m3DRmwnXNPZVdd7RLXigp/WbeJsq7wwyrkt2wS5gzsHNsIKvvpREYlTj2dFCU2hXWjalaLoKARSfbvEU+YCi12P3r4Di9fnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g6NO069kaw5dxx9clmpVHXUlfBD56QiTFYtC503U7Zg=;
- b=kTMIW/LUKWR9W3ZicklXXhyBHkUThYAPe4kPdy9ZQ5b0a8bqPGiz2ULnah8srVUvI57ePRyhMUWdfsziwp1xZJm5Bz3caOz46ZXU2ExzyIiAAzQ9JICkEgk45qlUEI3tuHIR0MPXD6unozaZUeV5imuSOlYuIAOLkF4UmF90xqU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <fc736022-1114-48f8-a20e-fd67060716f8@amd.com>
-Date: Fri, 27 Sep 2024 09:16:46 +0200
+X-Inumbo-ID: 327bd16c-7ca1-11ef-a0ba-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1727421724;
+	bh=XXyorE3NYuaIDyKhE8tOm3HgUiabzoTflJQVXTwEZ5I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=jXzY+jXb8Dv8w6jzWwjSyIsOThAJIUQrgM3HbBpuauw9kIRF6mQc3AoQonlaGfFTu
+	 6EYEFlnXbMEaj7BGEkzKnpAulGc46TCpO+/81JXHY6Rrwhk2uPJ9L7rO3zv7U0cMvH
+	 smgsOKwJvCkG6KwN3xO+kvplq13fhPraadiAGXQd8+roeB6AX1qAGCJ6294Ax4neb9
+	 LL5VP5G0Ximam4INJiXJ0AiLn9YhojrfnGTj5Ue7XVTgCfaAdhNulZ36tEUSo3qyKs
+	 qUadbCC0CxTE2h4SRRj42tVzfwAcwMIluHzDJ0vci7/2VWpT33sNemUIlB6obhhPNx
+	 E028f5lW4Fopw==
+X-Forwarded-Encrypted: i=1; AJvYcCX52R6PxjM8KruTUNFEPe3qSovnPGRpobHTIDykwTDiWpJi57rXkCa/RljtejEsvX93pF0h1LQBkzw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxKFj0NBLI/dEbLzSZdyGMCl8gdV1ZNRnT9hg7F5P5O/kmh6Pkf
+	LRsq1ecI7bcVBQVMaUAk46AOjeU4MkMQhWJgoGhA/Vway12LyfmGc8BHOEoiCcLblAMNO3SeDFV
+	n3XRHK5/9toS3LAh5If9kVVGFk0g=
+X-Google-Smtp-Source: AGHT+IHge0Y7vPBswWpBlfdMpGay8Cj7KoMmh1SqNdtIRPMbR5P+1BFic2AQtpeOfD0rJjofWLR8ftJJRjSH+e4kQmY=
+X-Received: by 2002:a2e:9401:0:b0:2f6:5f0a:9cfe with SMTP id
+ 38308e7fff4ca-2f9d417b457mr10213891fa.30.1727421722306; Fri, 27 Sep 2024
+ 00:22:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/6] xen/arm: use {DT,ACPI}_DEV_INFO for device info
- sections
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1727365854.git.oleksii.kurochko@gmail.com>
- <fc4243be6e43224f27311d96512dc0f465c73a38.1727365854.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <fc4243be6e43224f27311d96512dc0f465c73a38.1727365854.git.oleksii.kurochko@gmail.com>
+References: <20240926104113.80146-7-ardb+git@google.com> <20240926104113.80146-11-ardb+git@google.com>
+ <572b339b-7dab-4db0-8ee8-d805f8211aa3@amd.com> <CAMj1kXGt76Z0VsWog5Y2srBp8MiYXqkkhOQvFiZ7ULhNB3p6KA@mail.gmail.com>
+In-Reply-To: <CAMj1kXGt76Z0VsWog5Y2srBp8MiYXqkkhOQvFiZ7ULhNB3p6KA@mail.gmail.com>
+From: Ard Biesheuvel <ardb@kernel.org>
+Date: Fri, 27 Sep 2024 09:21:50 +0200
+X-Gmail-Original-Message-ID: <CAMj1kXFL_a1DTzzXBaNZyU=4ho_NPYG7tceo-wNu9ehQ-72+gA@mail.gmail.com>
+Message-ID: <CAMj1kXFL_a1DTzzXBaNZyU=4ho_NPYG7tceo-wNu9ehQ-72+gA@mail.gmail.com>
+Subject: Re: [PATCH 4/5] x86/xen: Avoid relocatable quantities in Xen ELF notes
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, 
+	Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, x86@kernel.org, 
+	xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F3:EE_|MN2PR12MB4254:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d014f49-5e93-4fe6-d2ab-08dcdec45a4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?V1liK3JvUzB3ak9zTDVRaVNPMGcxTXArbjNMVlJqcWx3MGdMbkIxbStjWW9H?=
- =?utf-8?B?YmJLUmFZSjRHL01HZHI5SHc0bjg1b1NZWGRCQW8wOWw2aHNKOHRiRkZFZHFH?=
- =?utf-8?B?QzhnWkJNaldQL0lUVmk1N3VwOWFRTWVNMmN0d0xEWm95VSttU0cvZTl6MVJN?=
- =?utf-8?B?OWpSVlRrV09LK0hNa2VDb3VGRzdWRjk3L2JsZWtwL29hWTlWSU1oUVFJZkkw?=
- =?utf-8?B?VW03YVZ5ZU5QVWExRWxnU01vQmpERkFuazRGV3JoRCtvNi8yemowTzBTblNu?=
- =?utf-8?B?aG1BSnh4WnB5NVNza2xFa0o5a3g4b0pnNmIwU0NUQ3dGb1BhdENGb3p1dW9r?=
- =?utf-8?B?OUdLd2hJdm8wZ3pBVXFrQjRTdFBQeWhpZ003dWhkbW9OWEN0WDlkM1BZT1Zy?=
- =?utf-8?B?WFpNMmVneGpwbHJWZytKdG1DbGZlVlhwT0FnY0w5L3ZrYlEzU2M4YXpTdExC?=
- =?utf-8?B?TGQrNDhoU1VUR2crTkJMYVFmOERabHd6ZEZpUVczdzdtZFh4dEhQVVFGa3N4?=
- =?utf-8?B?NnU2eGxVUG1ERThGTmErTHdDWTdad2l4c0FvWW90VzduM01GcExqR1F0bEpV?=
- =?utf-8?B?L2sveUR1NjVrTHV3NWJ3VnkzckhvYURNamo1TkZKV3JZQ0N4bi81ZWpndDdj?=
- =?utf-8?B?dU92MUE1cXNvVTFyeWlQeER0QnNDb3N4cVYvMWkxNHRaRnV6SDJ2UXIyTlNB?=
- =?utf-8?B?K1lMc0tkc1Ava0RtZG41K2EwandraVQ0dXZXWVlvNk0yaHJjZDVGMkx6WUda?=
- =?utf-8?B?cmRQYW9oYko1N1NEekNkSmh6bTZxa0lxWCswTGNqOFptQUtvV3psYTBZTGZP?=
- =?utf-8?B?K3NWc2RscTU4YTI1NFNUeW9BWXU4MjBLSDh1U28wdi95QTI3N3B4Rmh6UjFy?=
- =?utf-8?B?OXk2SHhkRmpWejJ3VnlwMDlTVHU4cUlZQ29Jd1c1bEdLNkM4VmdyUVJTWjRR?=
- =?utf-8?B?SVNQTmF5NlE0djh4SUZ3V3hFNnI0U24xcUxWdGhkd3AwSnRWQjFBWlpPL1dQ?=
- =?utf-8?B?RzJiRVUxVnBpVHdJeS9ZcGRwem1JVzl2bjdUNnYvRlNjZ3R0aXUrNzIwNXJF?=
- =?utf-8?B?VFg0aGdwanpKMVJTZWx5MzBHUTMyakpqcDluRTYwU01IbzFzeU9zTHZXNVJ2?=
- =?utf-8?B?V1pBUFlwNldTZ3VraVgvbThpOG84K01FUlpNMEtPcXEvbTFOR3V0WlBidDl6?=
- =?utf-8?B?cS9NMFl1Z2YzZlRtMUJDK1pnRVk4SnVnMmlaWWo0TlVEdk1EMnljZmkvb3Jk?=
- =?utf-8?B?V0tnL0VPMTRGeXhmV3ZlQS9XQWhhRVd3Zm43Ykozd09qNG0velRYQ1dTTlNv?=
- =?utf-8?B?VG5yb0tiOS9sOExnSE91WUt1V2dZVitibHg0aFUxRGlmMEp3N0lkZ2g4eHhl?=
- =?utf-8?B?YklvMU8vdGZPQ1FLZDJjK3NvV1JFSUptTDUzU1NlRmMxT3RxRlkxamlrSHhx?=
- =?utf-8?B?SDk4UjBZOWxRSS8zL2x6SWhYLzZ5TFBKVFF1QU5RZ1B6eWRJUkduTkFoc25I?=
- =?utf-8?B?OFQyZTBsQ3l2aGZhZ255ZGluaEIrS2d0dUs4b1FESHg1alA3K3hpWXVkMklr?=
- =?utf-8?B?Mm9pNXo3ZUJ0b0xFZkpMM3V5UTNrVnh3RXQ1NTBGTmVqS2l3L1N6bVBYeDVm?=
- =?utf-8?B?R3FVQWZWeVNNdjBkaHBDWEIxR3BLYU9kZEM1c1BNTkdwK2t1a0R0aTBabUc4?=
- =?utf-8?B?NWlOaFl0Q1BNVUFieVJ0cUVZWjcySEs2ZUREcEIrY1dOS2lkQWpOMWY2blRw?=
- =?utf-8?B?WUZjNWVLN1NEWVVZNU9aZTNVaXBHeGNXWFo1M1M3R0xhTGRRdkF2NUVGVExp?=
- =?utf-8?B?WmlHZ0JGbEs3RjRHMmIwNTBlditvSmxrTFZnN3NjSW04QUw3YUdybDU1RGY2?=
- =?utf-8?Q?x44G3ZlbOClc8?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Sep 2024 07:16:48.8014
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d014f49-5e93-4fe6-d2ab-08dcdec45a4a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4254
 
-Hi Oleksii,
+On Fri, 27 Sept 2024 at 07:49, Ard Biesheuvel <ardb@kernel.org> wrote:
+>
+> On Fri, 27 Sept 2024 at 03:47, Jason Andryuk <jason.andryuk@amd.com> wrote:
+> >
+> > On 2024-09-26 06:41, Ard Biesheuvel wrote:
+> > > From: Ard Biesheuvel <ardb@kernel.org>
+> > >
+> > > Xen puts virtual and physical addresses into ELF notes that are treated
+> > > by the linker as relocatable by default. Doing so is not only pointless,
+> > > given that the ELF notes are only intended for consumption by Xen before
+> > > the kernel boots. It is also a KASLR leak, given that the kernel's ELF
+> > > notes are exposed via the world readable /sys/kernel/notes.
+> > >
+> > > So emit these constants in a way that prevents the linker from marking
+> > > them as relocatable. This involves place-relative relocations (which
+> > > subtract their own virtual address from the symbol value) and linker
+> > > provided absolute symbols that add the address of the place to the
+> > > desired value.
+> > >
+> > > While at it, switch to a 32-bit field for XEN_ELFNOTE_PHYS32_ENTRY,
+> > > which better matches the intent as well as the Xen documentation and
+> > > source code.
+> >
+> > QEMU parses this according to the ELF bitness.  It looks like this reads
+> > 8 bytes on 64bit, and 4 on 32.  So I think this change would break its
+> > parsing.
+> >
+>
+> Indeed, well spotted.
+>
+> > (I don't use QEMU PVH and I'm not that familiar with its implementation.)
+> >
+>
+> This is what I used for testing, and it worked fine.
+>
+> But looking at the code, it does dereference a size_t*, which seems
+> bizarre but will clearly produce garbage in the upper bits if the note
+> is 32-bits only and followed by unrelated non-zero data.
+>
+> I'll just back out this part of the change - it isn't really necessary anyway.
 
-On 26/09/2024 18:54, Oleksii Kurochko wrote:
-> 
-> 
-> Refactor arm/xen.lds.S by replacing the inline definitions for
-> device info sections with the newly introduced {DT,ACPI}_DEV_INFO
-> macros from xen/xen.lds.h.
+... and fix QEMU as well:
 
-I would expect so see a note about s/8/POINTER_ALIGN/ that it's safe to do that.
-
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in V4:
->  - use newly refactored ACPI_DEV_INFO and DT_DEV_INFO
-> ---
-> Changes in V3:
->  - use refactored ADEV_INFO and DT_DEV_INFO macros.
-> ---
->  xen/arch/arm/xen.lds.S | 16 ++++------------
->  1 file changed, 4 insertions(+), 12 deletions(-)
-> 
-> diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-> index 0987052f1a..3b7b677197 100644
-> --- a/xen/arch/arm/xen.lds.S
-> +++ b/xen/arch/arm/xen.lds.S
-> @@ -4,6 +4,8 @@
-> 
->  #include <xen/cache.h>
->  #include <xen/lib.h>
-> +
-> +#define SIMPLE_DECL_SECTION
->  #include <xen/xen.lds.h>
->  #include <asm/page.h>
->  #undef ENTRY
-> @@ -124,20 +126,10 @@ SECTIONS
->        _eplatform = .;
->    } :text
-> 
-> -  . = ALIGN(8);
-> -  .dev.info : {
-> -      _sdevice = .;
-> -      *(.dev.info)
-> -      _edevice = .;
-> -  } :text
-> +  DT_DEV_INFO(.dev.info)
-> 
->  #ifdef CONFIG_ACPI
-> -  . = ALIGN(8);
-> -  .adev.info : {
-The name of the section is ".adev.info", but ...
-> -      _asdevice = .;
-> -      *(.adev.info)
-> -      _aedevice = .;
-> -  } :text
-> +  ACPI_DEV_INFO(adev.info)
-here you're missing the leading dot which will cause the probe to fail.
-
-Apart from that:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-
-~Michal
+https://lore.kernel.org/qemu-devel/20240927071950.1458596-1-ardb+git@google.com/T/#u
 
