@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EE21988789
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 16:50:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.806347.1217678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 717879887B0
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 16:58:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.806356.1217688 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1suCIi-0006wt-GX; Fri, 27 Sep 2024 14:50:32 +0000
+	id 1suCPP-0008OU-6P; Fri, 27 Sep 2024 14:57:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 806347.1217678; Fri, 27 Sep 2024 14:50:32 +0000
+Received: by outflank-mailman (output) from mailman id 806356.1217688; Fri, 27 Sep 2024 14:57:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1suCIi-0006v3-D6; Fri, 27 Sep 2024 14:50:32 +0000
-Received: by outflank-mailman (input) for mailman id 806347;
- Fri, 27 Sep 2024 14:50:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lwNM=QZ=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1suCIh-0006uv-As
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 14:50:31 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d737ed80-7cdf-11ef-a0ba-8be0dac302b0;
- Fri, 27 Sep 2024 16:50:30 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a8d446adf6eso319408866b.2
- for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 07:50:30 -0700 (PDT)
-Received: from localhost ([52.174.59.202]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c27773c0sm143643866b.1.2024.09.27.07.50.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Sep 2024 07:50:29 -0700 (PDT)
+	id 1suCPP-0008Lg-3N; Fri, 27 Sep 2024 14:57:27 +0000
+Received: by outflank-mailman (input) for mailman id 806356;
+ Fri, 27 Sep 2024 14:57:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1suCPN-0008BZ-GO; Fri, 27 Sep 2024 14:57:25 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1suCPN-00035S-5m; Fri, 27 Sep 2024 14:57:25 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1suCPM-0002x5-Sb; Fri, 27 Sep 2024 14:57:24 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1suCPM-0003JX-SD; Fri, 27 Sep 2024 14:57:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,59 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d737ed80-7cdf-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1727448630; x=1728053430; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=k3gd1328KWvh145grTgDSM4/u8C9esU1aVT7nnzi/lU=;
-        b=WWoL/98i5V4PFiIpfDP89Txp0HkiSwdWCg0grotFzHjxROpn2UahlJdiDwORGVJp0l
-         /8ui51xHQ0i6bZ3GsyEXOm1bMoRT7R8Cjs5n7F/IAp0LXMsnXx6jqxyGp2wJWRqij6Ak
-         tgvKmU2nvK8XycsYCqZlqjLUOnMEZZmN6i6Y8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727448630; x=1728053430;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=k3gd1328KWvh145grTgDSM4/u8C9esU1aVT7nnzi/lU=;
-        b=p3bEOHczf/T+m1NuRKoLppUYSLd33+NdiQEO/6VLTZmQKqpuyg99YKtbqatEtaGgq5
-         tP8/tGhbin9M0XV6UQGiatqElKVnJHzK5J2E6NHiZshBCxeR8sk7W4q/3oiPmzXIcTI4
-         JssfWiFum9MD1G3BYU3M5qL3WmGmMYIkqnyFiA5rNvuvDM8dciuMBVpVteR5kv3QpKkk
-         zx1FqKwWXk3yaYs6aPkqikN9snAU28ZmXxUDb6R3+cOTtJ2Gite3+00tupZ2WdgtM7d4
-         S1mZEBff57YX2tecJs10Kdj9iX4UxDetDO4HVoTel7+58k0Sny+map/aUIC6dvg+vHAf
-         YNTA==
-X-Forwarded-Encrypted: i=1; AJvYcCVQ5B9dQxcpHWFud4dDMp2vpQg8v36M1SAmDGiwFUfNjZaTS0OU9lU7h61cqjV3lLMB99r2+Fto03A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw1NjgktJmto7wijTWAMf1uMox0Kaz6F2xcM9TElWOpsWwPAE4N
-	cqr29wOMYcBov0TOLr4bHubvceYDCvh5JTT4e7XpI98cmQwT2InwHmVAjMeibqE=
-X-Google-Smtp-Source: AGHT+IHl2UU1PqB7RurWWwVjZO9gPByiHgANjIdrME7wnpAvS7SzoG9qYF8b5hY/xFrHWy9u/HCoaw==
-X-Received: by 2002:a17:907:9493:b0:a77:cca9:b212 with SMTP id a640c23a62f3a-a93c4a60b54mr362197566b.45.1727448629793;
-        Fri, 27 Sep 2024 07:50:29 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Sep 2024 15:50:28 +0100
-Message-Id: <D4H5FKL5IER9.JQFC7I39P8EU@cloud.com>
-Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Subject: Re: [PATCH v3] x86/traps: Re-enable interrupts after reading cr2 in
- the #PF handler
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>, "Xen-devel"
- <xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.18.2
-References: <20240927142305.299841-1-alejandro.vallejo@cloud.com>
- <D4H575Q7NIO1.155E12B37CBAQ@cloud.com>
-In-Reply-To: <D4H575Q7NIO1.155E12B37CBAQ@cloud.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=zNNpkqBHT/CoSqo6MKnJPWLxUrCyzaV/U4xR9tgEM5Q=; b=LUc05snLjTaCZ//0fLYFH0hfV1
+	ZH4Wyfe7x/D5q2OHk9yGqnITw/bXTjN/FvnHXJb8N0Fe/CvRh/DMO+5aZMGCSCeFF2agpAi/R8Jlb
+	hyAjm1Hg7rL5gQV11EjfTsWtLsgwecwzXsW2xBPyFKqsk2e69a5ntZcUazQxjlC/yheY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-187877-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 187877: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=ded3ae2cf4ba974313f8ab043f610b1e6d3ddcdc
+X-Osstest-Versions-That:
+    ovmf=fe93b3745f13d7eb891d9666debf2689a8975e5b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 27 Sep 2024 14:57:24 +0000
 
-On Fri Sep 27, 2024 at 3:39 PM BST, Alejandro Vallejo wrote:
-> Would whoever planned to commit this mind replacing the commit msg on com=
-mit?
-> Otherwise I'll just resend.
+flight 187877 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/187877/
 
-Actually, I've just re-sent it to avoid confusions. Apologies.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 ded3ae2cf4ba974313f8ab043f610b1e6d3ddcdc
+baseline version:
+ ovmf                 fe93b3745f13d7eb891d9666debf2689a8975e5b
 
-Cheers,
-Alejandro
+Last test of basis   187874  2024-09-27 07:43:20 Z    0 days
+Testing same since   187877  2024-09-27 13:13:17 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Leif Lindholm <quic_llindhol@quicinc.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   fe93b3745f..ded3ae2cf4  ded3ae2cf4ba974313f8ab043f610b1e6d3ddcdc -> xen-tested-master
 
