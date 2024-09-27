@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D1909883B7
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 14:00:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.806253.1217598 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 691579883FD
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2024 14:15:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.806265.1217608 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su9eJ-0003p8-AP; Fri, 27 Sep 2024 12:00:39 +0000
+	id 1su9rf-0006Ur-EO; Fri, 27 Sep 2024 12:14:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 806253.1217598; Fri, 27 Sep 2024 12:00:39 +0000
+Received: by outflank-mailman (output) from mailman id 806265.1217608; Fri, 27 Sep 2024 12:14:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1su9eJ-0003mi-6v; Fri, 27 Sep 2024 12:00:39 +0000
-Received: by outflank-mailman (input) for mailman id 806253;
- Fri, 27 Sep 2024 12:00:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xuKF=QZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1su9eH-0003mK-4K
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 12:00:37 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1a779ce8-7cc8-11ef-99a2-01e77a169b0f;
- Fri, 27 Sep 2024 14:00:35 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a7aa086b077so277142266b.0
- for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 05:00:35 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c27c70c4sm126393066b.65.2024.09.27.05.00.34
+	id 1su9rf-0006Ss-BP; Fri, 27 Sep 2024 12:14:27 +0000
+Received: by outflank-mailman (input) for mailman id 806265;
+ Fri, 27 Sep 2024 12:14:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vzYf=QZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1su9rd-0006Sm-55
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2024 12:14:25 +0000
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
+ [2a00:1450:4864:20::641])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0848854f-7cca-11ef-a0ba-8be0dac302b0;
+ Fri, 27 Sep 2024 14:14:23 +0200 (CEST)
+Received: by mail-ej1-x641.google.com with SMTP id
+ a640c23a62f3a-a8b155b5e9eso298927166b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2024 05:14:23 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c2979d88sm127679566b.156.2024.09.27.05.14.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Sep 2024 05:00:34 -0700 (PDT)
+ Fri, 27 Sep 2024 05:14:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,135 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a779ce8-7cc8-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 0848854f-7cca-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727438435; x=1728043235; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1727439263; x=1728044063; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bm0Ck5rGubWw5FYtzYMw8DalxbtTujRfTr/+PrcK430=;
-        b=A1pWC0DfURyE1Bcq31xhg6IU/f9rUIGGzuuoazeJ5l8Tgaj0RCI+2adHwtQ7FUoedy
-         Wvkh0tnJmzSWPyIC76nkZf22yJXdFZjLeaiZbGFHix9X7vu/BQx55s0XBBhAANWiGxxK
-         CZ5re7205H/vgA2zzG33TcVyXnpM/bpFmVSKD8q5PYS9LoEdbRcEAYUWpepO9BQcZkNi
-         sd/UN9Faa+fpDQqi9DPJs/nTBjQZxyFtHadcXJDDt6+Ol3NU2BVyAmWPNJDK63mw8TPa
-         qYbH0NoL6lAx4lYGO4dJPGJ+n85ccwqXX4RAwDC2GNrNMzYVOBzCj+BqfKZFW2OsKD/K
-         3qNw==
+        bh=PE+BZlV167dqOaqqagcFWYnTg3ynlX8ami1pqkJU0Is=;
+        b=Mz72tc3ZdcIkmJxzoBvthVjVkWRf5zdyO94ei1Jvhhv6Uc/Ta4PHY5V4J0s43P0/mu
+         EpKptWpGkqMsdb58e0wxVn26UMIfgSRCXxvaR6VJzrj4O9nXUcMKrpD6GlrVTjl31cgs
+         mOpbVTUMKJaW2f0qRr1BpxUGaFDrH+6lCwils=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727438435; x=1728043235;
+        d=1e100.net; s=20230601; t=1727439263; x=1728044063;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Bm0Ck5rGubWw5FYtzYMw8DalxbtTujRfTr/+PrcK430=;
-        b=T5os8l3eIczBmHxEbysY3A4H8oH9s9oTdQeZi8IIfcRi+kaqD8etnIxdGc7TQvTZ68
-         21lUUyoeJiz2Px4Y6WeGP/SnNVUeQrs8lGrc6WQeLIKoWaj1qCh10ntjyZV/UrjpRxNG
-         7NhImL9Yqhdko/HVR8RgY1/HEuRfX7xM6/y7POdvLa1tiXFs8kHg1LaQu+kP8pK0DCmR
-         sUNgRewWvk+o+FyTgHifsMWyUNQFUC5fQ/sNbR5EMAzeIEU1lzUOyxAMnZ8ySnVFMMgi
-         tuwomxGTs6VA+iKIvxkKBPRWi1dJRlcqTnwCXFwFAeJgcrLZTaOBV7GjrK02PiDlyWWx
-         Ea2w==
-X-Forwarded-Encrypted: i=1; AJvYcCUMa+2vQ4+SlZ2Zd40MFT29S4LD53SVUcvhEZuGurhIJ6YB9u6y8G49XhV75yBm3RRx4sjdB9yEVEo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxA94X1eLjYq9bHGf/IsIOekWHl3RdC2XxHCLSubke6aw7NqNzj
-	2TlSyzob1iRRgpyhLta3goyb6/GZ5ci4XO7vKruSwTGJbIj2z+iigALmO4flKw==
-X-Google-Smtp-Source: AGHT+IEgj3LlVRBLsdBPs7EPnT0wVysBzm+wVz5sigbqKPJOUIBDjx6CVrtwZlF5/ZDJ77yF79ybug==
-X-Received: by 2002:a17:907:1c8d:b0:a8a:9054:8399 with SMTP id a640c23a62f3a-a93c492f8b7mr325033366b.27.1727438434605;
-        Fri, 27 Sep 2024 05:00:34 -0700 (PDT)
-Message-ID: <82a81ef3-9502-4891-841f-9946f44ff2eb@suse.com>
-Date: Fri, 27 Sep 2024 14:00:33 +0200
+        bh=PE+BZlV167dqOaqqagcFWYnTg3ynlX8ami1pqkJU0Is=;
+        b=Y4+3VKXQhE14Lzud7pmLzymHDMrLhPMt4E3oqnbnPDQzRTQ12fqnhc0OUdzFI/Kn+F
+         hWHGs8Zx4XUUEwdogWNYcIBLC0fT3rjZL9RhRJZQxmVbxSrJJEOIiYtisjgF4NcSOx0R
+         E0lJFIKIyKUNkBiE7YumaoY+86eq6H5Zm1LW3xAFMYX//BfpCE+g8fJIiWIrC05RBPcI
+         hkr7iesYwsAtFXdya5UuxOsc4uZZ602u5RKbrvOTgjtQjNpQHcrH/Y3D+0IE7231oKO7
+         Ei73qg38Cb82QeuWX+cmB3V1Cach2B+hvUmjX7/sXlDUXwWOKcXT8KsXIljX0J0VeTpn
+         909g==
+X-Forwarded-Encrypted: i=1; AJvYcCVJnGn6hx5h0VKgLWzY4EmFZs/t0FcWmp97irIe1yU11SVub3xDImj72FChXyLjzVDIC0IpxfzWCUA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxXujYqmMfhsLRjUKfI/VC8W7srynRTZIakJ0L+IgqelgW3IZub
+	jCOBSAsHGFT7TL5kj6hi1IPnEeb/6a91tJ0PsEcMi5vdpV0uxKqoKBSjRqsxOkY=
+X-Google-Smtp-Source: AGHT+IHrdQfZme0ruPOLyynqo+sKovzxEYw+xvfcyFQkaaLDxBLIKwf2xyLQAqlxO7HDn4+9f16G8Q==
+X-Received: by 2002:a17:907:3e1c:b0:a8d:495b:c52d with SMTP id a640c23a62f3a-a93c4969f43mr254094066b.33.1727439263060;
+        Fri, 27 Sep 2024 05:14:23 -0700 (PDT)
+Message-ID: <fe90d65b-ba86-4c3b-ba7c-1eca17993618@citrix.com>
+Date: Fri, 27 Sep 2024 13:14:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 7/8] xen/riscv: page table handling
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1726242605.git.oleksii.kurochko@gmail.com>
- <582c4cee40222e80faf1e465c011b07eeaf2c19f.1726242605.git.oleksii.kurochko@gmail.com>
- <6100a4e0-5bf3-4555-90ae-20624171ff79@suse.com>
- <fc23fbd82c1495e75fc0bdcfa894cdb56262b11b.camel@gmail.com>
- <9371e8fd-a1de-40df-8994-814dd6196953@suse.com>
- <ecab08fbbe1a1e364cf6d4bf9dafa42ced4faef4.camel@gmail.com>
- <03b67663-1a55-4642-b997-8680961aadeb@suse.com>
- <cf994aa4f9dbef890f53cf8567519b840da8faf4.camel@gmail.com>
- <60dd2287-351c-4fd1-bf2d-00645342fc73@suse.com>
- <dc14add3e5daa4db91955127812b84fb03209831.camel@gmail.com>
- <c5b22604-5fa5-4034-8596-654be962ad84@suse.com>
- <edc8bda6d7cf67b370652ea17b5d3ce462adf962.camel@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <edc8bda6d7cf67b370652ea17b5d3ce462adf962.camel@gmail.com>
+Subject: Re: [PATCH v2] drivers/video: Convert source files to UTF-8
+To: Jan Beulich <jbeulich@suse.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20240926134823.688372-1-frediano.ziglio@cloud.com>
+ <63129694-ace9-4b55-92c2-7cfb8a2c1386@suse.com>
+ <CACHz=Zj0K+uYt7h80p3Crkom-VNoLbH_4Wt04jdNDYs28tApdg@mail.gmail.com>
+ <2f13ea6d-adeb-49b4-80f7-415d9503c7c7@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <2f13ea6d-adeb-49b4-80f7-415d9503c7c7@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27.09.2024 13:32, oleksii.kurochko@gmail.com wrote:
-> Just to be sure. Do you mean the following:
-> 
-> diff --git a/xen/arch/riscv/pt.c b/xen/arch/riscv/pt.c
-> index d7eb207ddc..6cd2e595b6 100644
-> --- a/xen/arch/riscv/pt.c
-> +++ b/xen/arch/riscv/pt.c
-> @@ -209,24 +209,15 @@ static int pt_update_entry(mfn_t root, unsigned
-> long virt,
->      for ( ; level > target; level-- )
->      {
->          rc = pt_next_level(alloc_tbl, &table, offsets[level]);
-> -        if ( rc == XEN_TABLE_MAP_FAILED )
-> +        if ( rc == XEN_TABLE_MAP_NOMEM )
->          {
-> -            rc = 0;
-> -
-> -            /*
-> -             * We are here because pt_next_level has failed to map
-> -             * the intermediate page table (e.g the table does not
-> exist
-> -             * and the pt couldn't be allocated). It is a valid case
-> when
-> -             * removing a mapping as it may not exist in the page
-> table.
-> -             * In this case, just ignore it.
-> -             */
-> -            if ( flags & (PTE_VALID | PTE_POPULATE) )
-> -            {
-> -                dprintk(XENLOG_ERR,
-> -                        "%s: Unable to map level %u\n", __func__,
-> level);
-> -                rc = -ENOMEM;
-> -            }
-> +            rc = -ENOMEM;
-> +            goto out;
-> +        }
->  
-> +        if ( rc == XEN_TABLE_MAP_NONE )
-> +        {
-> +            rc = 0;
->              goto out;
->          }
+On 27/09/2024 7:25 am, Jan Beulich wrote:
+> On 26.09.2024 18:03, Frediano Ziglio wrote:
+>> On Thu, Sep 26, 2024 at 3:46 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>> On 26.09.2024 15:48, Frediano Ziglio wrote:
+>>>> --- a/xen/drivers/video/font_8x14.c
+>>>> +++ b/xen/drivers/video/font_8x14.c
+>>>> @@ -2059,7 +2059,7 @@ static const unsigned char fontdata_8x14[FONTDATAMAX] = {
+>>>>      0x00, /* 00000000 */
+>>>>      0x00, /* 00000000 */
+>>>>
+>>>> -    /* 128 0x80 'Ÿˆ */
+>>>> +    /* 128 0x80 'ÂŸÂˆ */
+>>> I'm unconvinced this representation is any better. The data that follows
+>>> right here clearly means 'Ç', not 'Ÿ'. Which is U+00c7, not U+0080. I
+>>> don't have my Unicode manual to hand, but I seem to vaguely recall that
+>>> U+0080 doesn't really have a glyph associated with it.
+>>>
+>>> Of course I'm also uncertain whether my mail UI actually correctly decoded
+>>> the transfer encoding (base64) that you now used. In any event I'm unsure
+>>> of associating the upper 128 code points with any particular characters
+>>> (glyphs). We don't render UTF-8 to the console, and what those code points
+>>> mean is unknown until code page information is provided. I see the
+>>> following options:
+>>> 1) The glyphs represent what the bit patterns encode, encoded as UTF-8.
+>> That was what I was trying to do.
+>> I wrongly thought it was latin1, in reality looking at the font (why
+>> not?) it's code page 437, so this commit is doing the right thing
+>> https://gitlab.com/xen-project/people/fziglio/xen/-/commit/7ca512e8ae21bb02339ed7a1a78409827a08aea4.
+> Yes, this looks good (after looking at just a few entries).
+>
+>> Now... I'm trying to send the patch to the mailing list, which seems
+>> easy, but I have to find the right combination of options, tools get
+>> very easily confused about (that's why I send the link of the commit,
+>> at least people can take a look and see that is correct)
+> Maybe this is a case where, besides inlining, it would help to also
+> attach the patch, to remove any possible ambiguity due to back and
+> forth en-/decoding?
 
-Yes.
+I'm just going to take it straight from git.  That has the least chance
+of errors.
 
-Jan
+~Andrew
 
