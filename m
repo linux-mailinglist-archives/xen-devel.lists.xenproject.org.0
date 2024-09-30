@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30B3398A840
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 17:13:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807459.1218955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACC3898A847
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 17:15:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807470.1218965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svI5X-0006ij-4s; Mon, 30 Sep 2024 15:13:27 +0000
+	id 1svI7W-0007q4-Fa; Mon, 30 Sep 2024 15:15:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807459.1218955; Mon, 30 Sep 2024 15:13:27 +0000
+Received: by outflank-mailman (output) from mailman id 807470.1218965; Mon, 30 Sep 2024 15:15:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svI5X-0006fL-1z; Mon, 30 Sep 2024 15:13:27 +0000
-Received: by outflank-mailman (input) for mailman id 807459;
- Mon, 30 Sep 2024 15:13:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PdoV=Q4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1svI5V-0006B5-Bx
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 15:13:25 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 88c7501b-7f3e-11ef-99a2-01e77a169b0f;
- Mon, 30 Sep 2024 17:13:23 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-53994aadb66so1118189e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 08:13:23 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5398fd3533asm677366e87.133.2024.09.30.08.13.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 08:13:22 -0700 (PDT)
+	id 1svI7W-0007o1-Cy; Mon, 30 Sep 2024 15:15:30 +0000
+Received: by outflank-mailman (input) for mailman id 807470;
+ Mon, 30 Sep 2024 15:15:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1QIX=Q4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1svI7V-0007nv-J2
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 15:15:29 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d38a118d-7f3e-11ef-a0ba-8be0dac302b0;
+ Mon, 30 Sep 2024 17:15:28 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2facf48157dso12772741fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 08:15:28 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c882405b3bsm4615526a12.20.2024.09.30.08.15.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Sep 2024 08:15:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,88 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88c7501b-7f3e-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: d38a118d-7f3e-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727709202; x=1728314002; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GQPlcp4J7UY3xUa4Yir9mgOyu5m5demVYWlTB9RFCqs=;
-        b=VgYi9AocfmVJPJvAB7FWqKnIL9MXsBbAzq+oZiH0U208luttz3sIz0JrYUSddSOWql
-         XjCy0Tt8cXnyggaW8wIJfxWLhyfe3V6AarQCtlwPphvZdXxR9kk3XFem3pL5nnbB0HNr
-         EK9JhDbg2fjZHkrpk1Kgdc/WWYQVZFKAV5TkEzV0YSphbN6FY7/p2kghpje7KSb2lAz8
-         xL6E1mQOiIFrv21qQi05JIncCC9clUHvpP+HcVZWlw8ad+ZFBLIGV90VKIPvJ0HAt+bM
-         HN47V1v9xJOBvPf+9xhVYpgTufQQRyNTwMTuVXpB+jwabfaoR4lXzo+e1p3zF7oE7+lc
-         702w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727709202; x=1728314002;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=suse.com; s=google; t=1727709328; x=1728314128; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=GQPlcp4J7UY3xUa4Yir9mgOyu5m5demVYWlTB9RFCqs=;
-        b=RzygBTpNL59U5kDyNS5Wgu4fuP+RT63uCu9z/7MPpD2vtUE7gu9hrQGENRRT8OG9dv
-         i9JLCk0wMyrbIRBy3BT3bc0Hh8B1bGYPQ+6ajpcgdm74N9KEzm0h8ikH4k82lnuefdiv
-         a54OcLcD8TAbutNZIcpF6h5rBV3vYih4WSoYgZtc1cXYektT7YSZk0D1sYgj0/DyKKWi
-         9kNn3DplO2/yn2K2C02QD5ddrnRVlXMR3qVdJAxXPQVT0WR7YkmxKKNoRdw25ZdTN1Hv
-         lrOkUBczn5nelU+ejls47VPQIj3LcOyRYLEn1FvRU33lVvvrVOCin1oQry1pxFqYOeq1
-         2t6Q==
-X-Gm-Message-State: AOJu0Yxq1xdsTx7YrDvs5x9WEAG48AObu76SXBCfn20w1pIPCPTEtwF1
-	HJAygi67KGSC+xykJxMjsZzVOlKphgUTBnk5l7fdv2T8IUchKn/tJJep2g==
-X-Google-Smtp-Source: AGHT+IEqsZoErr5jyG7/truV0AzL2SRFb19JmtQNA7qX3TFeC/odWGrlBjGHU1H4atjX8cBT4zrYyw==
-X-Received: by 2002:a05:6512:281e:b0:539:93ef:9ed9 with SMTP id 2adb3069b0e04-53993efa007mr2253850e87.36.1727709202274;
-        Mon, 30 Sep 2024 08:13:22 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 2/2] xen/riscv: parse and handle fdt command line
-Date: Mon, 30 Sep 2024 17:13:18 +0200
-Message-ID: <e914d15b82d2a28fcd1690dd68af9a61c4cb272e.1727708956.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.46.1
-In-Reply-To: <cover.1727708956.git.oleksii.kurochko@gmail.com>
-References: <cover.1727708956.git.oleksii.kurochko@gmail.com>
+        bh=BUEvGmUbLl9Xu5HOzdd8BnTUCVg2AIbSq59ZEl0em3M=;
+        b=SsAdb8JYNKVQcAmSnTgQ6w2d53atarLanWHocAWiYuYgJv4tVItVYAnBNixlUnbcHd
+         OcJkQ7mtaiL2LLQhoPbV8k1/uDFnIEdywaepm1YgGKMobTsPxf/r2SiH6VRGNWGBgprr
+         U83ail0S8jddcd+M9nuN+5cP9FEy9KBiNKKno4rYMQzuooP1qO8O5Yn2DPP9Pjm2YNCL
+         fM5ckR3KQgYOwdeHpr0CmWy7b/RysxqRbEqd1T8y/0fpkL9Z0boGMVW8eIACnTQzX4GV
+         Xfji+R8wkHWzqdDS3VOZMoRGfQEViCigKQnkAi3/yyTIJYXAEN0g4Rmm2KFViBESsL1F
+         +U6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727709328; x=1728314128;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=BUEvGmUbLl9Xu5HOzdd8BnTUCVg2AIbSq59ZEl0em3M=;
+        b=B/JjRqXp6Gtz1GSswev3Umyy2o6ugE0uehOW+6TdhoMIiLmx8bCO+EPxXs4gxPx6ev
+         0TuMaY7RpXuwgEbMYixenc+F92cd6aAwc98MDpcme1c4wArjgBjOfYNb8xRUIjVtdNuH
+         3TXFcGMZBMjCWqjNDOjel4xV1Q0SSXakCumxGoK3+lT9rW+OwoscX/JpDP1kZkHyPo2G
+         eX2mRThvNUy9J0tkEBpX4DxlNyOOquoU39l4o1sVFupzp2uw9isU1mF13McvHA9tXEB/
+         JkEL0u5EbnyPnfMe/uQr6IVg/DEAZyiwrlVzkMiVAt5sYvdVZ313oQFFCSktqiovexxM
+         5R9g==
+X-Gm-Message-State: AOJu0Yxoxtd8r7SefQiIiZhvBBdymUnTXQb14yUc2Os1HKOT/wiKnAtI
+	b5yZNqsoCQmXczbuAWpp9UusUF0g9DiNsi8N4eOlYZMXodyOtezCFlEnuh8BkiohA2oFWCvE/OM
+	=
+X-Google-Smtp-Source: AGHT+IGhIo49eR4FBa0vR8AG74a1NE4NIaRkpzEhvxlSo5E+oEe0v/nanSMb+AiowEsYNd/rCoFy9A==
+X-Received: by 2002:a2e:a99d:0:b0:2fa:c57a:3b19 with SMTP id 38308e7fff4ca-2fac57a3f49mr32519011fa.12.1727709328038;
+        Mon, 30 Sep 2024 08:15:28 -0700 (PDT)
+Message-ID: <e379a005-a9ee-41ae-a797-9768c6aeb52e@suse.com>
+Date: Mon, 30 Sep 2024 17:15:27 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/MSR: improve code gen for rdmsr_safe() and rdtsc()
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Receive Xen's command line passed by DTB using boot_fdt_cmdline()
-and passed it to cmdline_parse() for further procesinng and setup
-of Xen-specific parameters.
+To fold two 32-bit outputs from the asm()-s into a single 64-bit value
+the compiler needs to emit a zero-extension insn for the low half. Both
+RDMSR and RDTSC clear the upper halves of their output registers anyway,
+though. So despite that zero-extending insn (a simple MOV) being cheap,
+we can do better: Without one, by declaring the local variables as 64-
+bit ones.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- xen/arch/riscv/setup.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index a8d8ef793d..0d1b52f8d0 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -29,6 +29,7 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+--- a/xen/arch/x86/include/asm/msr.h
++++ b/xen/arch/x86/include/asm/msr.h
+@@ -54,17 +54,17 @@ static inline void wrmsr_ns(uint32_t msr
+ /* rdmsr with exception handling */
+ #define rdmsr_safe(msr,val) ({\
+     int rc_; \
+-    uint32_t lo_, hi_; \
++    uint64_t lo_, hi_; \
+     __asm__ __volatile__( \
+         "1: rdmsr\n2:\n" \
+         ".section .fixup,\"ax\"\n" \
+-        "3: xorl %0,%0\n; xorl %1,%1\n" \
++        "3: xorl %k0,%k0\n; xorl %k1,%k1\n" \
+         "   movl %5,%2\n; jmp 2b\n" \
+         ".previous\n" \
+         _ASM_EXTABLE(1b, 3b) \
+         : "=a" (lo_), "=d" (hi_), "=&r" (rc_) \
+         : "c" (msr), "2" (0), "i" (-EFAULT)); \
+-    val = lo_ | ((uint64_t)hi_ << 32); \
++    val = lo_ | (hi_ << 32); \
+     rc_; })
+ 
+ /* wrmsr with exception handling */
+@@ -99,11 +99,11 @@ static inline void weak_wrmsr_fence(bool
+ 
+ static inline uint64_t rdtsc(void)
  {
-     struct bootmodule *xen_bootmodule;
-     size_t fdt_size;
-+    const char *cmdline;
+-    uint32_t low, high;
++    uint64_t low, high;
  
-     remove_identity_mapping();
+     __asm__ __volatile__("rdtsc" : "=a" (low), "=d" (high));
  
-@@ -58,6 +59,10 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
-     fdt_size = boot_fdt_info(device_tree_flattened, dtb_addr);
-     BUG_ON(!fdt_size);
+-    return ((uint64_t)high << 32) | low;
++    return (high << 32) | low;
+ }
  
-+    cmdline = boot_fdt_cmdline(device_tree_flattened);
-+    printk("Command line: %s\n", cmdline);
-+    cmdline_parse(cmdline);
-+
-     printk("All set up\n");
- 
-     machine_halt();
--- 
-2.46.1
-
+ static inline uint64_t rdtsc_ordered(void)
 
