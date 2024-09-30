@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 521AA98A8C8
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 17:40:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807504.1219015 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8CBC98A8FE
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 17:47:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807512.1219026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svIV0-0006KT-9B; Mon, 30 Sep 2024 15:39:46 +0000
+	id 1svIcM-0008MN-0P; Mon, 30 Sep 2024 15:47:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807504.1219015; Mon, 30 Sep 2024 15:39:46 +0000
+Received: by outflank-mailman (output) from mailman id 807512.1219026; Mon, 30 Sep 2024 15:47:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svIV0-0006Hn-5n; Mon, 30 Sep 2024 15:39:46 +0000
-Received: by outflank-mailman (input) for mailman id 807504;
- Mon, 30 Sep 2024 15:39:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1svIcL-0008JL-TX; Mon, 30 Sep 2024 15:47:21 +0000
+Received: by outflank-mailman (input) for mailman id 807512;
+ Mon, 30 Sep 2024 15:47:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5Bw3=Q4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1svIUy-0005zN-C5
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 15:39:44 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36526171-7f42-11ef-99a2-01e77a169b0f;
- Mon, 30 Sep 2024 17:39:42 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5c896b9b3e1so2020731a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 08:39:42 -0700 (PDT)
+ id 1svIcK-0008JF-G2
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 15:47:20 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 46786674-7f43-11ef-a0ba-8be0dac302b0;
+ Mon, 30 Sep 2024 17:47:19 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a7a843bef98so654577066b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 08:47:19 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c88245ec1bsm4858375a12.44.2024.09.30.08.39.41
+ a640c23a62f3a-a93c2775ceasm547941166b.21.2024.09.30.08.47.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Sep 2024 08:39:41 -0700 (PDT)
+ Mon, 30 Sep 2024 08:47:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36526171-7f42-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 46786674-7f43-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727710782; x=1728315582; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1727711239; x=1728316039; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Hb6O4m9dnMzo8siQnz2tbPNmVbQhFw4pCsN6LvoMyuo=;
-        b=HK7ILOu9qy17oeKb6LiHxnX6565QcqalPQO9haKocrVrUAM6Hs+osu2sCzIEUUAAHx
-         cxgidEXUwOXFZHFt3Ll97LB3bNn9B7ydNDgHYEMcXgZW3ZYkHOyoGkXJVuB/2vtcNFc4
-         Db3eo+gBNI5iCKe0YZM+KpHp3nGcUOFAYnjjo=
+        bh=I8dPNaId8MNwyenAoG/ufqj5g2nGItYdtyE5XYj/kcE=;
+        b=PsiBUMQlok9DeNFrvBzwzvw3HSVksgOIaiLhVbs9SG5y5V/IixVvl9w4WLKYdqL2pR
+         WW+nER4BsYCUlgRq53W1Ip9qC2YqQLNPn9BHTDx/+AE5zfml35IagsKlxW9uUy7+pIGw
+         BMZFyhybEOVif628J5IyNGtw4hTdLxD002+4g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727710782; x=1728315582;
+        d=1e100.net; s=20230601; t=1727711239; x=1728316039;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Hb6O4m9dnMzo8siQnz2tbPNmVbQhFw4pCsN6LvoMyuo=;
-        b=k3mwQjpVmbZz9MdMjmwErbLZrP7d7a/PhWV4hRvMFxjYJvi3DbEKEItv8ckgWi87AG
-         XqEo9tCTmNt1D87ufKaLNHPXWZhi9v5ele6xOVPAEkR1tapgznXfB5htFZl3eXyTdLkI
-         F58tTwQP91hO40gCSr9VGuS5pboWCL42wDiwlMBPeHcRwTpv0+VAHedZ+LNoa8cHUiAV
-         +wmbRjsn63FXrc+86VM+aUN6cBxypDB3L6Y5w0rGAtqGOhzis1ApkRRhxml5uWcS3PlE
-         iJJhAIJ8IshNwjyT//z/I3xBVvUW+8k5Ny8ulmb6+0BUBHfAz7PslQV5F54EoX51cj6+
-         HzFw==
-X-Forwarded-Encrypted: i=1; AJvYcCVeJNRNOY/efGW6VjIlOOCJWff/fiS35fg+/aQy29dsEvtFY5JsNsNl0x7cQrUrCJtWgE0VEOqza8U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxn+Dql8dMwQ+pwrOA0xKHif9lIWJ/gRbH1l8dja6QWEtcDlA8O
-	mJAcywRIltNM9kJXxJpuRwXSpK30jNJOwO+daSbzqgF5ss0B545Yv1lfVzl4We+SmRQ8LW1Svps
-	yXK0=
-X-Google-Smtp-Source: AGHT+IEgz6RcWA1zDTkRxaI/JyrSwnkqLNiTJ0YWmi/8myeJC4PJPGQtYCrC0KMDanvxG+q7s85Eew==
-X-Received: by 2002:a05:6402:3718:b0:5c5:c4e9:c83e with SMTP id 4fb4d7f45d1cf-5c8824d644bmr11677775a12.14.1727710782267;
-        Mon, 30 Sep 2024 08:39:42 -0700 (PDT)
-Message-ID: <ee679588-d992-4bbe-806a-acd8491d85b9@citrix.com>
-Date: Mon, 30 Sep 2024 16:39:40 +0100
+        bh=I8dPNaId8MNwyenAoG/ufqj5g2nGItYdtyE5XYj/kcE=;
+        b=HQT/nijP7aOImNvEDVHZYAyrLp629BWH5ZCZfcnrL3VABu4pewvIii9rL+lKVO7xjC
+         8TeQOOXEQWVSuVv3skALS5C9xVdtAPBgTFZNTv1VmsYgIwB3gQmE6x5yoEeUW6XYqiaU
+         UkOEPJYMWRH3ku4K5PtfD4ICBogQFFZtj3bjoq5RjJzcPTcs20Wckx6RSYynmFTBawkw
+         EEXLSNyiAJsP+eGg9z3txj0zVMuyZBipzkD0e0nLme2sTGsNj8gNZ4GK8xVO+/RdypiP
+         R5IuyT6pZoHOTCXPQC552QrsFiYYItDAMgY+Loutflj84yNQR6QGhY+iRyhXK62nsrji
+         cNJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXg+bnGprxQb8HW90U/kTUdifon6Vzg3Slz2wCWL/heS/kOxim3kAnfXTVqA4BcU4SoceQr8A8GhSk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwNl3ZQyhBsrIzRntVHaZWt0oxhmTJf17TtGCOurolRU45zBpmf
+	KJIEgnKYbVlFxp8FdSLUayeclxOBU6wEOTEV3Mb8nblAWzBJVg3EdH2KCaoMvJXnyAI2GGszo4I
+	3aBU=
+X-Google-Smtp-Source: AGHT+IGiNIuhcQHUH7JWQYNupfXH/AjVot1CrwDKH06aHv8YJuYtvjFLRworpYi2s7I02KrgxXeBaw==
+X-Received: by 2002:a17:907:8692:b0:a8d:44a5:1c2f with SMTP id a640c23a62f3a-a93c48f089bmr1228059166b.6.1727711238855;
+        Mon, 30 Sep 2024 08:47:18 -0700 (PDT)
+Message-ID: <f103b9bf-9cf0-414b-8b89-d15ec00fcc1f@citrix.com>
+Date: Mon, 30 Sep 2024 16:47:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/MSR: improve code gen for rdmsr_safe() and rdtsc()
-To: Jan Beulich <jbeulich@suse.com>,
+Subject: Re: [PATCH] x86: use alternative_input() in cache_flush()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <e379a005-a9ee-41ae-a797-9768c6aeb52e@suse.com>
+References: <60fb1103-aef3-40dd-afd0-44f594753165@suse.com>
+ <ec956d90-0ee6-43a6-9c6d-0f8b97a7c570@citrix.com>
+ <768e57f0-5856-4213-992c-414f3fdc5430@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,77 +131,45 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e379a005-a9ee-41ae-a797-9768c6aeb52e@suse.com>
+In-Reply-To: <768e57f0-5856-4213-992c-414f3fdc5430@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30/09/2024 4:15 pm, Jan Beulich wrote:
-> To fold two 32-bit outputs from the asm()-s into a single 64-bit value
-> the compiler needs to emit a zero-extension insn for the low half. Both
-> RDMSR and RDTSC clear the upper halves of their output registers anyway,
-> though. So despite that zero-extending insn (a simple MOV) being cheap,
-> we can do better: Without one, by declaring the local variables as 64-
-> bit ones.
+On 30/09/2024 4:39 pm, Jan Beulich wrote:
+> On 30.09.2024 17:27, Andrew Cooper wrote:
+>> On 30/09/2024 4:09 pm, Jan Beulich wrote:
+>>> There's no point using alternative_io() when there are no outputs.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> --- a/xen/arch/x86/flushtlb.c
+>>> +++ b/xen/arch/x86/flushtlb.c
+>>> @@ -286,11 +286,10 @@ void cache_flush(const void *addr, unsig
+>>>           * + prefix than a clflush + nop, and hence the prefix is added instead
+>>>           * of letting the alternative framework fill the gap by appending nops.
+>>>           */
+>>> -        alternative_io("ds; clflush %[p]",
+>>> -                       "data16 clflush %[p]", /* clflushopt */
+>>> -                       X86_FEATURE_CLFLUSHOPT,
+>>> -                       /* no outputs */,
+>>> -                       [p] "m" (*(const char *)(addr)));
+>>> +        alternative_input("ds; clflush %[p]",
+>> Drop the ; as you're altering the line anyway?
+> Oh, sure.
 >
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Thanks.
+>
+>> However, switching to ds ds will avoid a trailing nop, so will be
+>> marginally better.
+> I don't think I understand, which may or may not be due to me not being
+> sure whether "ds ds" is a typo. What trailing NOP are you seeing? The
+> "ds" that's there already covers for the sole trailing NOP that would
+> otherwise result due to the "data16" prefix.
 
-Hmm.  This is generally better, but not universally so.
+Oh of course.  I can't count.  Sorry for the noise.
 
-xen$ ../scripts/bloat-o-meter xen-syms-before xen-syms-after
-add/remove: 0/0 grow/shrink: 2/29 up/down: 24/-193 (-169)
-Function                                     old     new   delta
-pci_cfg_ok                                   335     351     +16
-arch_ioreq_server_get_type_addr              251     259      +8
-udelay                                        81      79      -2
-tsc_get_info                                 258     256      -2
-trace                                       1320    1318      -2
-time_latch_stamps                             76      74      -2
-set_legacy_ssbd.isra                         146     144      -2
-read_hyperv_timer                             81      79      -2
-read_counter                                  47      45      -2
-read_clocks_slave                            135     133      -2
-mcheck_mca_logout                           2059    2057      -2
-hwp_write_request                            105     103      -2
-get_s_time_fixed                              91      89      -2
-get_s_time                                    77      75      -2
-cpu_init                                     251     249      -2
-amd_mcheck_init                              754     752      -2
-_svm_cpu_up                                  467     465      -2
-tsc_check_writability                        187     184      -3
-_probe_mask_msr                              106      99      -7
-time_calibration_tsc_rendezvous              541     533      -8
-time_calibration_std_rendezvous              197     189      -8
-probe_cpuid_faulting                         180     172      -8
-hvm_save                                     343     335      -8
-amd_check_erratum_1474                       140     132      -8
-calibrate_tsc                                382     372     -10
-wait_for_nmis                                134     119     -15
-read_msr                                    1220    1204     -16
-guest_rdmsr                                 1869    1853     -16
-check_tsc_warp.constprop                     201     185     -16
-hwp_init_msrs                                440     420     -20
-amd_log_freq.cold                            519     499     -20
-Total: Before=3895379, After=3895210, chg -0.00%
-
-arch_ioreq_server_get_type_addr goes from:
-
-    and    $0x40,%dh
-    je ...
-
-to
-
-    shl    $0x20,%rdx
-    or     %rax,%rdx
-    bt     $0x2e,%rdx
-    jae ...
-
-and pci_cfg_ok gets a "movabs $0x400000000000,%rcx" and 64bit test,
-where previously it used "and    $0x40,%dh"
-
-So, the use of 64bit variables as opposed to 32bit does seem to break
-GCC's ability to substitute %dh.
-
-Oh well - it's minor either way.
-
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+~Andrew
 
