@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E762989CF2
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 10:39:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807138.1218406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C01C989D7D
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 10:59:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807145.1218415 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svBvl-000702-16; Mon, 30 Sep 2024 08:38:57 +0000
+	id 1svCEs-00029A-Is; Mon, 30 Sep 2024 08:58:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807138.1218406; Mon, 30 Sep 2024 08:38:57 +0000
+Received: by outflank-mailman (output) from mailman id 807145.1218415; Mon, 30 Sep 2024 08:58:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svBvk-0006xt-Ub; Mon, 30 Sep 2024 08:38:56 +0000
-Received: by outflank-mailman (input) for mailman id 807138;
- Mon, 30 Sep 2024 08:38:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PdoV=Q4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1svBvj-0006xn-U2
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 08:38:55 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6d958fca-7f07-11ef-a0ba-8be0dac302b0;
- Mon, 30 Sep 2024 10:38:55 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-53959a88668so3065730e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 01:38:55 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539984577c3sm64289e87.135.2024.09.30.01.38.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 01:38:50 -0700 (PDT)
+	id 1svCEs-00027f-G8; Mon, 30 Sep 2024 08:58:42 +0000
+Received: by outflank-mailman (input) for mailman id 807145;
+ Mon, 30 Sep 2024 08:58:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1QIX=Q4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1svCEr-00027Z-8t
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 08:58:41 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2f2b3e06-7f0a-11ef-99a2-01e77a169b0f;
+ Mon, 30 Sep 2024 10:58:39 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5c89bdb9019so730161a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 01:58:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c2998634sm493041066b.206.2024.09.30.01.58.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Sep 2024 01:58:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,232 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d958fca-7f07-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 2f2b3e06-7f0a-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727685534; x=1728290334; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=TLhw1l1tDF7LsCOOXf1MT/0xAYC1d0fLZSBNlqk3q1I=;
-        b=Yx/b2soc7S5nE68N6CQPsVZDrQPZrWYzYu7LVxWyL/5+Mpck9eoYdIJ9+PipkbrwKg
-         eBPAuj0V0pOoAHlhG9PzyOJPWJ9dp6cFbepLzC4g3BZzOy0mKrv5snwk4Nmp5dCjybEF
-         kCr8L5M1pfmFPfE3xsdlozMzMoW1OW5yVUkJcQB83SuQtltbmoHyAlsURQ6zVF50wCG9
-         q/0ZQyRhOB+7/Mh8v3JAwWfKWeTHiGbr1mZYFSSQbTTZXkHXX9pNS/E2h2bWofynLpFv
-         gGnYt7jlQc1b8gxhooFAV1GdV1k6eSpmvADdzzqK69Gu+0LUrbHLkBNa5xTICHUrzYfE
-         6zRg==
+        d=suse.com; s=google; t=1727686718; x=1728291518; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=E3I/RP8hlqcAqiU9FFWAAqoAnJ+mbCEq43PiRYWre3I=;
+        b=ExYbye1KSzNJh0AvbduWpjZguYZB9qoKqb/Jlqi93dkf5QqqOk9foLKDCBEClkqeO7
+         XnqgiMJRf8D9PaRaAjsSGDUVULZDEzjy8ozHGuJGNHjkiG98r0n2Mi0asPy+W2s0PS+1
+         5BXGEZdpPytby6FLWLDWVm3XhdYjUKFniXnEx2iEtEHMB+J/JfuI4jtYBrxGk8FRc+ew
+         OwUrMouKMSUld+Nff1obv60LYV7csdIN1AzGn0+//g1zHIw/cG2oIspv//Fsb9Uu7Yrp
+         83fe0Jkjr3WF2JrWkAbTtD7pVAGlQpbung+NeXALVvQNXIYKbs6jnSQobGK4KkXBMJsP
+         WsaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727685534; x=1728290334;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=TLhw1l1tDF7LsCOOXf1MT/0xAYC1d0fLZSBNlqk3q1I=;
-        b=Rv8c9FDOBKc44gZHsHNE7cXmz6IPF7SSGst3BmKlU0balyANsQ4Wsjpr/A/ENnf6Bp
-         G/tyS6YT2Bzm49cUhGbqdv7elXJPoRJVnCKbsr8Q82/8DAOA8jwt2AONsvRhff6H26Vu
-         XlDYSocjC7EnyyQ8dGAtIgJ2hq+yOioM7MleYF1s6yfBWAliVypRE6hbHOhTJ2WQJz/M
-         zyfblSLFL8CUnkGSSQO4/ycQswo9bng732whadBYB6LFG5u4SmwP4iLlw/HUVF9KcMeX
-         V10wgmr8whXUcftC8TI+yPwNg0a4/DC+3YAo0KLwHbVc6KUrK9YFiK16f4t2a0wut+3B
-         QP6A==
-X-Forwarded-Encrypted: i=1; AJvYcCXvCMUfXfssy9HWqSQ3wi6/+YjQMtotkxdXWrQ+Cf+vK2BtEbi5trSetFY9MfOwc5K2BYNl4SiXLu4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyDnxRfKzTetCT4dHnHVIMqx2Izr3qw50wXn3+hmfcUt9XmMedO
-	ycPMasYqz7pyY8Bk72LMRAQaaTtRsDH5Qf4fhdBY2+j7NZO6bTPz
-X-Google-Smtp-Source: AGHT+IFLle/+xNy4seH3wJpPUMXCVT2cTNB8BrNPej6EAI+K07i8uAYOu61aUHz+YmvSr67bprfBMQ==
-X-Received: by 2002:a05:6512:acd:b0:539:8f68:e035 with SMTP id 2adb3069b0e04-5398f68e08fmr1588514e87.20.1727685531157;
-        Mon, 30 Sep 2024 01:38:51 -0700 (PDT)
-Message-ID: <c1426b095aafcb3492edb679195342c4d0387626.camel@gmail.com>
-Subject: Re: [PATCH v8 0/7] device tree mapping
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Mon, 30 Sep 2024 10:38:50 +0200
-In-Reply-To: <5565ec42-4985-44a0-a8ac-c348c24dcede@suse.com>
-References: <cover.1727449154.git.oleksii.kurochko@gmail.com>
-	 <863cdc98-a811-485d-8c21-fbde9dedd070@suse.com>
-	 <f12ad3bbe24b611c68be75abeab722571fe4e655.camel@gmail.com>
-	 <5565ec42-4985-44a0-a8ac-c348c24dcede@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
+        d=1e100.net; s=20230601; t=1727686718; x=1728291518;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E3I/RP8hlqcAqiU9FFWAAqoAnJ+mbCEq43PiRYWre3I=;
+        b=wcsAhRdvjZVOdH24l73lIzUOGNky4R5nDpqU86gNZSuAnHAeoHw0Y/qwm1AaISeQel
+         LYxLoqjiMC33G082AAYNYEXV0ibZbk3AH0OgoMzyW4rx3P23LsAqfDAarMMr6AQHRLZh
+         jaT2D97EoYQ2Udb0KuesBIU4LJeqYyjiLPy+k0EweRh0QeAXL+E2f/dlD/SVW+PHBjN4
+         laezglXHtCebZ9rVHomooJuvoiyNGTz/YH6DorJs1hTmmsY1kzuPb9SRRnETct/YGCdf
+         KbstCCGuxlyhxeS07jRR0H/FZ+kbEdr5CnA1fZwXcNF9PG5ReNwC/Lpt2OGrkX1UFj3W
+         K8Dg==
+X-Forwarded-Encrypted: i=1; AJvYcCUSsC9LTq+5vpcyGcNAIOX79zFiIkXpvX36BIXCMlKhuKZfSFwjsLG6IAcv8KwfrgrLzuKv+4vw84M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyqk1PkXyC/8+OPUZGJT7DQ246hOm88C0y0mmnYSCi8u09wNzKW
+	gtkEF/ir3LP/jQWHUaVvDHdxZPGgYlgb2fCRWDcwuLoaH4IZ7t1VCR8M/cA/qA==
+X-Google-Smtp-Source: AGHT+IGXaCr9r9yks2csmlSWAYsIa1Hob+ezUHMKYiKeKhFOdwP/B8sBrTYLEaZk3ImG2lOb90l9Rg==
+X-Received: by 2002:a17:906:da89:b0:a8d:3705:4115 with SMTP id a640c23a62f3a-a93c4948a64mr1238856966b.32.1727686718468;
+        Mon, 30 Sep 2024 01:58:38 -0700 (PDT)
+Message-ID: <24e33cc2-c9eb-4609-a074-51df81997aba@suse.com>
+Date: Mon, 30 Sep 2024 10:58:37 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v6] CODING_STYLE: Add a section on header guards
+ naming conventions
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
+ consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+References: <a68267c7465a9b0d2ed8f844a5e0145de50b0f3a.1725550985.git.alessandro.zucchelli@bugseng.com>
+ <7357f6e8-2630-4027-b339-eedab9ae48c5@suse.com>
+ <alpine.DEB.2.22.394.2409092149210.3672@ubuntu-linux-20-04-desktop>
+ <44738f93-e99b-4f1c-9ed3-59dd2eac7aff@suse.com>
+ <alpine.DEB.2.22.394.2409111808580.611587@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2409111808580.611587@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2024-09-30 at 10:32 +0200, Jan Beulich wrote:
-> On 30.09.2024 10:24, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > On Mon, 2024-09-30 at 10:17 +0200, Jan Beulich wrote:
-> > > On 27.09.2024 18:33, Oleksii Kurochko wrote:
-> > > > Current patch series introduces device tree mapping for RISC-V
-> > > > and necessary things for that such as:
-> > > > - Fixmap mapping
-> > > > - pmap
-> > > > - Xen page table processing
-> > >=20
-> > > While nothing is being said here towards a dependency, ...
-> > >=20
-> > > > ---
-> > > > Changes in v8:
-> > > > =C2=A0- The following patch was merged to staging:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 [PATCH v5 1/7] xen/riscv: use {read,write}=
-{b,w,l,q}_cpu()
-> > > > to
-> > > > define {read,write}_atomic()
-> > > > =C2=A0- All other changes are patch specific so please look at the
-> > > > patch.
-> > > > ---
-> > > > Changes in v7:
-> > > > =C2=A0- Drop the patch "xen/riscv: prevent recursion when ASSERT(),
-> > > > BUG*(), or panic() are called"
-> > > > =C2=A0- All other changes are patch specific so please look at the
-> > > > patch.
-> > > > ---
-> > > > Changes in v6:
-> > > > =C2=A0- Add patch to fix recursion when ASSERT(), BUG*(), panic()
-> > > > are
-> > > > called.
-> > > > =C2=A0- Add patch to allow write_atomic() to work with=C2=A0 non-sc=
-alar
-> > > > types
-> > > > for consistence
-> > > > =C2=A0=C2=A0 with read_atomic().
-> > > > =C2=A0- All other changes are patch specific so please look at the
-> > > > patch.=20
-> > > > ---
-> > > > Changes in v5:
-> > > > =C2=A0- The following patch was merged to staging:
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 [PATCH v3 3/9] xen/riscv: enable CONFIG_HA=
-S_DEVICE_TREE
-> > > > =C2=A0- Drop depedency from "RISCV basic exception handling
-> > > > implementation" as
-> > > > =C2=A0=C2=A0 it was meged to staging branch.
-> > > > =C2=A0- All other changes are patch specific so please look at the
-> > > > patch.
-> > > > ---
-> > > > Changes in v4:
-> > > > =C2=A0- Drop depedency from common devicre tree patch series as it
-> > > > was
-> > > > merged to
-> > > > =C2=A0=C2=A0 staging.
-> > > > =C2=A0- Update the cover letter message.
-> > > > =C2=A0- All other changes are patch specific so please look at the
-> > > > patch.
-> > > > ---
-> > > > Changes in v3:
-> > > > =C2=A0- Introduce SBI RFENCE extension support.
-> > > > =C2=A0- Introduce and initialize pcpu_info[] and
-> > > > __cpuid_to_hartid_map[]
-> > > > and functionality
-> > > > =C2=A0=C2=A0 to work with this arrays.
-> > > > =C2=A0- Make page table handling arch specific instead of trying to
-> > > > make
-> > > > it generic.
-> > > > =C2=A0- All other changes are patch specific so please look at the
-> > > > patch.
-> > > > ---
-> > > > Changes in v2:
-> > > > =C2=A0- Update the cover letter message
-> > > > =C2=A0- introduce fixmap mapping
-> > > > =C2=A0- introduce pmap
-> > > > =C2=A0- introduce CONFIG_GENREIC_PT
-> > > > =C2=A0- update use early_fdt_map() after MMU is enabled.
-> > > > ---
-> > > >=20
-> > > > Oleksii Kurochko (7):
-> > > > =C2=A0 xen/riscv: allow write_atomic() to work with non-scalar type=
-s
-> > > > =C2=A0 xen/riscv: set up fixmap mappings
-> > > > =C2=A0 xen/riscv: introduce asm/pmap.h header
-> > > > =C2=A0 xen/riscv: introduce functionality to work with CPU info
-> > > > =C2=A0 xen/riscv: introduce and initialize SBI RFENCE extension
-> > > > =C2=A0 xen/riscv: page table handling
-> > > > =C2=A0 xen/riscv: introduce early_fdt_map()
-> > > >=20
-> > > > =C2=A0xen/arch/riscv/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> > > > =C2=A0xen/arch/riscv/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 2 +
-> > > > =C2=A0xen/arch/riscv/include/asm/atomic.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 11 +-
-> > > > =C2=A0xen/arch/riscv/include/asm/config.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 16 +-
-> > > > =C2=A0xen/arch/riscv/include/asm/current.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 27 +-
-> > > > =C2=A0xen/arch/riscv/include/asm/fixmap.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 46 +++
-> > > > =C2=A0xen/arch/riscv/include/asm/flushtlb.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 15 +
-> > > > =C2=A0xen/arch/riscv/include/asm/mm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +
-> > > > =C2=A0xen/arch/riscv/include/asm/page.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 99 +++++
-> > > > =C2=A0xen/arch/riscv/include/asm/pmap.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 36 ++
-> > > > =C2=A0xen/arch/riscv/include/asm/processor.h=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 3 -
-> > > > =C2=A0xen/arch/riscv/include/asm/riscv_encoding.h |=C2=A0=C2=A0 2 +
-> > > > =C2=A0xen/arch/riscv/include/asm/sbi.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 62 +++
-> > > > =C2=A0xen/arch/riscv/include/asm/smp.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 18 +
-> > > > =C2=A0xen/arch/riscv/mm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 101 ++++-
-> > > > =C2=A0xen/arch/riscv/pt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 421
-> > > > ++++++++++++++++++++
-> > > > =C2=A0xen/arch/riscv/riscv64/asm-offsets.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +
-> > > > =C2=A0xen/arch/riscv/riscv64/head.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 14 +
-> > > > =C2=A0xen/arch/riscv/sbi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 | 273
-> > > > ++++++++++++-
-> > > > =C2=A0xen/arch/riscv/setup.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 17 +
-> > >=20
-> > > ... I had to fiddle with three of the patches touching this file,
-> > > to
-> > > accommodate for an apparent debugging patch you have in your
-> > > tree.
-> > > Please can you make sure to submit patches against plain staging,
-> > > or
-> > > to clearly state dependencies?
-> > I am always trying not to forget to rebase on top of staging for
-> > this
-> > patch series:
-> >=20
-> > 65c49e7aa2 (HEAD -> riscv-dt-support-v8, origin/riscv-dt-support-
-> > v8)
-> > xen/riscv: introduce early_fdt_map()
-> > ead52f68ce xen/riscv: page table handling
-> > c3aba0520f xen/riscv: introduce and initialize SBI RFENCE extension
-> > 3ffb3ffd38 xen/riscv: introduce functionality to work with CPU info
-> > 4bfd2bfdb2 xen/riscv: introduce asm/pmap.h header
-> > 87bc91db10 xen/riscv: set up fixmap mappings
-> > 09b925f973 xen/riscv: allow write_atomic() to work with non-scalar
-> > types
-> > 625ee7650c xen/README: add compiler and binutils versions for RISC-
-> > V64
-> > 5379a23ad7 xen/riscv: test basic exception handling stuff
-> > 2b6fb9f3c4 (origin/staging, origin/HEAD, staging) blkif: Fix a
-> > couple
-> > of typos
-> > 6e73a16230 blkif: Fix alignment description for discard request
-> > 0111c86bfa x86/boot: Refactor BIOS/PVH start
->=20
-> This looks to be a mix of several series. And "xen/riscv: test basic
-> exception handling stuff" looks to be what the problem was with, as
-> that
-> wasn't committed yet (and imo also shouldn't be committed, as
-> expressed
-> before; of course you can try to find someone else to approve it).
-Oh, you are right. I will put it to separate branch to not breaking the
-things. Thanks.
+On 12.09.2024 03:13, Stefano Stabellini wrote:
+> Hi Jan, we have gone back and forth on this a few times, but neither
+> Alessandro nor I fully understand your perspective. To help streamline
+> the process and save time for everyone, I suggest you provide an example
+> of the rules written in the style you believe is appropriate. Once you
+> set the initial direction, Alessandro and I can continue and complete
+> the rest in that preferred style.
 
-~ Oleksii
+Header inclusion guards
+-----------------------
 
+Unless otherwise specified, all header files should include proper
+guards to prevent multiple inclusions. The following naming conventions
+apply:
+
+- Guard names are derived from directory path underneath xen/ and the
+  actual file name.  Path components are separated by double underscores.
+  Alphabetic characters are converted to upper case.  Non-alphanumeric
+  characters are replaced by single underscores.
+- Certain directory components are omitted, to keep identifier length
+  bounded:
+  - The top level include/,
+  - Any architecture's arch/<arch>/include/asm/ collapses to
+    ASM__<ARCH>__,
+  - Architecture-specific private files' arch/.
+
+For example:
+
+- Xen headers: XEN__<filename>_H
+  - include/xen/something.h -> XEN__SOMETHING_H
+
+- asm-generic headers: ASM_GENERIC__<filename>_H
+  - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
+
+- arch-specific headers: ASM__<architecture>__<subdir>__<filename>_H
+  - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
+
+- Private headers: <dir>__<filename>_H
+  - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
+  - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+  - common/something.h -> COMMON__SOMETHING_H
+
+Note that this requires some discipline on the naming of future new
+sub-directories: There shouldn't be any random asm/ one anywhere, for
+example.  Nor should any new ports be named the same as top-level (within
+xen/) directories.  Which may in turn require some care if any new top-
+level directories were to be added.  Rule of thumb: Whenever a new sub-
+directory is added, check the rules for no collisions to result.
+
+Jan
 
