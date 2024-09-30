@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8467F98A100
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 13:43:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807244.1218565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DA0A98A10E
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 13:48:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807250.1218576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svEng-0007mR-0P; Mon, 30 Sep 2024 11:42:48 +0000
+	id 1svEsK-0000Ei-I2; Mon, 30 Sep 2024 11:47:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807244.1218565; Mon, 30 Sep 2024 11:42:47 +0000
+Received: by outflank-mailman (output) from mailman id 807250.1218576; Mon, 30 Sep 2024 11:47:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svEnf-0007jy-UA; Mon, 30 Sep 2024 11:42:47 +0000
-Received: by outflank-mailman (input) for mailman id 807244;
- Mon, 30 Sep 2024 11:42:46 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1svEne-0007js-K4
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 11:42:46 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1svEne-0002Zu-Bg; Mon, 30 Sep 2024 11:42:46 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1svEne-0004xv-4v; Mon, 30 Sep 2024 11:42:46 +0000
+	id 1svEsK-0000D9-EU; Mon, 30 Sep 2024 11:47:36 +0000
+Received: by outflank-mailman (input) for mailman id 807250;
+ Mon, 30 Sep 2024 11:47:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=orP2=Q4=oss.nxp.com=andrei.cherechesu@srs-se1.protection.inumbo.net>)
+ id 1svEsI-0000Cy-UY
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 11:47:34 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20604.outbound.protection.outlook.com
+ [2a01:111:f403:2613::604])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c7cc1765-7f21-11ef-a0ba-8be0dac302b0;
+ Mon, 30 Sep 2024 13:47:33 +0200 (CEST)
+Received: from PA4PR04MB9565.eurprd04.prod.outlook.com (2603:10a6:102:26b::13)
+ by AS8PR04MB8357.eurprd04.prod.outlook.com (2603:10a6:20b:3f1::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.26; Mon, 30 Sep
+ 2024 11:47:30 +0000
+Received: from PA4PR04MB9565.eurprd04.prod.outlook.com
+ ([fe80::d8ae:2e16:5a97:1709]) by PA4PR04MB9565.eurprd04.prod.outlook.com
+ ([fe80::d8ae:2e16:5a97:1709%4]) with mapi id 15.20.8005.024; Mon, 30 Sep 2024
+ 11:47:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,305 +47,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=U2cQu6pfwVpPB7BaRFBvRc8xB2W2fpU9tZkkL6oBs+Q=; b=K5slhJPXevMT3oU3RR73Hf0oed
-	WkePUrIRS0xTiikyQidQJEg524JyaHtnyY/AJYOvYdo1ieEhNcua9HUGk9up/ikS/RdxKveNAmH3Q
-	HLoiJZrrhJIdHqiWUh1ABzUUEusEdTin5oXqYz6CGqQgZaCqSD5igUbaXIlBD6YWeblI=;
-Message-ID: <10824512-99b2-4a66-91b6-f2b03d35e9e2@xen.org>
-Date: Mon, 30 Sep 2024 12:42:44 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] xen/arm: mpu: Create boot-time MPU protection
- regions
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240918175102.223076-1-ayan.kumar.halder@amd.com>
- <20240918175102.223076-4-ayan.kumar.halder@amd.com>
- <e515dfb1-efb6-41a5-85a4-65ec7e9c60a6@xen.org>
- <04bcb27f-8139-43ed-839c-1febe2eb5a13@amd.com>
- <59432427-950d-4667-aed9-1caad33d7cf9@xen.org>
- <edb07929-32af-493b-91e9-debe06be4bc3@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <edb07929-32af-493b-91e9-debe06be4bc3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Inumbo-ID: c7cc1765-7f21-11ef-a0ba-8be0dac302b0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QVIoG+YplFbPgemqjPSBSP5diNvtpNroXHGJrS6EbGvjV16mRVp3zl+HtD8Rdler81N1xKBN+fxC0bSjFoBCzn2ytjLLkW44YRBar9f9zP56N6AbtWXjBOf7TAUryV8/GTicrNrJy8j8HHrDV90yt1Fbp49/DqWA84v/3A8i0kPua67pvke7ZL+sHgeDuLqPv56ZdPcA79TPab1jgYH1H4DXLvV/Ncoi8c6kOGLL1ywQR6Mn2OpKQkH2NQwpGPAY4mqsFdmoE2TNN9+XnXXngUyUWhaj7yMlEa6qxRAp2pw8CX9MAhWdKw87FCGdfr0iRNJOidBxvDAXovv/oJFkCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9Ktb7BFEA+nwWhTb7xzRuQ8LAB28nGozc1HHijK7ALA=;
+ b=Cs+jdRo8R9W36d40NP4Y2OfZ4b4qWtHuvu7u5DFAwsgJ4cy2HihRI/Byvdv8tT9b4MrG+5g5N2ODkTX8ko8v66I1BqYA6uPNvNYQBko3EGjnSzqpny8WPOHxrM/pI3VsC++kXgp94rGbObDWmABT/75/JCI4353x6IKKnsHQtiqDSLWHaNRTifcsKYpRWfdGXaliFjT1OcBIUzAShOq33A+pmSIiMPnOdyQ2dwV4XBO+jQn6BGRIYpm1tI+MS1jPx7ySASaxloZ/Ry/iDw43k6RL2ddyQ4AlyYN6MuLnDzI0J9LEwOX6oNKqC/lglMCY/z6tCNvHDwrWcuQNHh2L0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9Ktb7BFEA+nwWhTb7xzRuQ8LAB28nGozc1HHijK7ALA=;
+ b=C+McCWFELtG42IdlU7e0EmLswLNRxeYbCsU2wO90Qs49+C3YkbiguSrYP6NJUToxW0wb4Udqg2Ie1Os4l/TTSWbh5tuUIlr00khjT0XR9F1TNvRRA06R90p7LU1xgav8fReWqHyAI29Uf98u7UgVCIbQ0ygxKEC58K8Of6JUn8jY7gPAYmFMkMMzBEw/IQbaCt59L+Fj+BOzl7U7D5dB/YdMeKaYICmtm1nqXRcXh9xB/RltCUXdx2IPIPJmluIApUwZhZTM2tvhCwsLMhKM2rKziGVVtz3YKJbgAAeH6cV+Gs5XlSADjrRwxzmkICv47sYpFTqIWkQ8oLd8pHppiA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+From: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
+To: xen-devel@lists.xenproject.org
+Cc: andrei.cherechesu@oss.nxp.com,
+	S32@nxp.com,
+	Andrei Cherechesu <andrei.cherechesu@nxp.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	s32@nxp.com,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>
+Subject: [PATCH v2 0/8] xen/arm: Add support for S32CC platforms and LINFlexD UART
+Date: Mon, 30 Sep 2024 14:47:06 +0300
+Message-ID: <20240930114715.642978-1-andrei.cherechesu@oss.nxp.com>
+X-Mailer: git-send-email 2.45.2
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AM0PR10CA0016.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:208:17c::26) To PA4PR04MB9565.eurprd04.prod.outlook.com
+ (2603:10a6:102:26b::13)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9565:EE_|AS8PR04MB8357:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9d3d0ea-c815-4e7a-fa1c-08dce145a9b1
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|52116014|7416014|1800799024|366016|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?6BWA0ScaXtjHNisMMXdZGG8/gGoquYgGlPAynlwzf53ZIA7bpd+2JTFj7mT/?=
+ =?us-ascii?Q?PGpMWmT1OeTjyJV6JpfRqTeov+bNrIEie2tyTBjG9/v+ln2Ukd5ZZsvTuzQO?=
+ =?us-ascii?Q?0BvwgPXsJTKvb6WMpQl9y+yYog3z8nntrWzfUvkkGlnoIg4AkVBp22leksI5?=
+ =?us-ascii?Q?paai85Ksbyif9YFW7c6i5e0BHtrZThW5eq4ES3EQgMWSKULl0cKebtPINJLx?=
+ =?us-ascii?Q?dXK4J8DiDnr3ftqDnk8Y9G3zGRdFFQ+NaGEDIXvAix6s74cW+vmZk02yfYA6?=
+ =?us-ascii?Q?FGozFC60GjZLk5utfVnalVJLueicRQ3uBOWu1V6KG6XywDWRdjlAN9BuEGXo?=
+ =?us-ascii?Q?L/xxD4uxZDtBQeS6kFJNlII8e4a8eIBeTBRanqqYPx736doynG/14ofHMUyu?=
+ =?us-ascii?Q?FhaC8CcJ3O+3BLrGwM8HfIbuHaoTg0vVmEriCl8uVltrvfUfnjv2TDI36AqW?=
+ =?us-ascii?Q?+Ky/ANeLp3mvNuowc1ubLIg8CzsM/8Pt7Eh+fAjFAbeVLIuuIbO0fy/q+9fM?=
+ =?us-ascii?Q?SVlCSp7LPNsujdFnPw+x1AEaQRdm3uHr4cYzeooyzv/irqf4ERe3Eewco+a/?=
+ =?us-ascii?Q?FijRBDLNEpNp5rZb56yT01bdpBI3C93xfo7rfxXS7hNlUW4X5OwUHqVXPORK?=
+ =?us-ascii?Q?zcXVu8TqGeTxzKK40dlS58hIZh7Ce78LKhZZVa3ze5AT3uJ0HFXH3sbaX0V3?=
+ =?us-ascii?Q?ENe0l40gwileAg7G+VJrjsogupWqrrp3DI9bbwThEEBoojpsmd65eQY7/caq?=
+ =?us-ascii?Q?27Z+ggOEKVVFu9hfxrtm8nkP7e2FDqsx1VOQ7HIr/3TK0iQtWDNu5hy6Yano?=
+ =?us-ascii?Q?WOG2V8Jy3YrN81OJDuHJzgzK0ij6cw5pvmPJkWl5NxrdDbdGMASiK3X/4jWk?=
+ =?us-ascii?Q?3imbySOPEH9Suc+BDTS6mSbZkVc08GBBlKEVcnHmHWoA3s6kPHeibupKLANs?=
+ =?us-ascii?Q?88T9WdURkinHBwyZM3xqWcPQe49PKTJyS16tIEDQm/FsrdnUP3RWYw3Awtqv?=
+ =?us-ascii?Q?3pY6BW2AKSGDTO1IUu8VjHcJ0cDBboABE4UzCxTa9Cy7wpN9dm3AYtsI1WIV?=
+ =?us-ascii?Q?SqnuvLry7gENO4NE9GyllwrxJcyd35wv4Q8zMQ5wRl1o9AW5TZ2sXFh8nNpq?=
+ =?us-ascii?Q?rQanokQYOXvEoibRl8koPY5Cu84ki/hl6b9LPYyRhKqmQVNHPspjh4as9XKC?=
+ =?us-ascii?Q?x7P2kyChWt4AK8y+xjTFc/XD1lksmOzR399nYZanuQ1hbmr8sDsumg/OZw+z?=
+ =?us-ascii?Q?+YSRhgw6Wkhts+fp/XKD2uVbRoEqpJyEQAkjenC6ng=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9565.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(7416014)(1800799024)(366016)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?g/Bj2j10NlBA+Rea/Fcg1Y2lfKCy7b9Gil8SAbdk118DmOXmAaavhjj1lUhP?=
+ =?us-ascii?Q?axf6MiUiWNRfk7Dgptb8fxMUlXncHpUSw/prfrBoWhoEpRVeJXUSnCnHDfIu?=
+ =?us-ascii?Q?qZzY+YC6SvtSRfn/42OwPAfbJUcuHI6rn+UatrhHdRwVfg1uDV7IhLo96cwP?=
+ =?us-ascii?Q?3hbaiHR2JMC2tNalKnkmZWz+qGbtUx0JBpSPS2YcRme6lmGfIFH6tHzoPOpY?=
+ =?us-ascii?Q?GgToFrNkUbEz4C0k3+ElW20y+8AEcvbwV2oKMp3QclQbnvfa2aYfq4Vid/VD?=
+ =?us-ascii?Q?A85wDUfhx6Sb9he14eByPuh7qJoHBTRg0FgyyQMqQDi/mUaS5JIW0x7o8i3b?=
+ =?us-ascii?Q?BppgM5kZKt4BIeNa7gbC7qptcaNHGaAK7xmTq5WoA19tue6OUmsn6KRZENF/?=
+ =?us-ascii?Q?fZ1ZXchVoBdOByLPoWpWW4/e3xJN+hFev9TcanuSRC27AV20yYhioVYOLsJ4?=
+ =?us-ascii?Q?o/ismvFiHKMDqcCZOdBFXHU8H4NHrxf+py/bznhuJus5xoVsXgWtpY3gER5e?=
+ =?us-ascii?Q?G2jpgXgFERnLXoHgM0OuPYIqpZqqzJ0xxwivSgY1Aqxx02AFzUAt6SCmgflx?=
+ =?us-ascii?Q?0gRlf1hbSev4SRyx832VnCTYuImW3otcoEScbseyDToE9AuuBJ2nnFzRmyie?=
+ =?us-ascii?Q?Z54EGtC35nS4nm4Kk1e8Cs1xic7S9eDKq1eFbpi3Y93MgJt+lTrHjLL/dFYj?=
+ =?us-ascii?Q?X2gqiUi7NjuU/TTlu+/sAAFv4RBBnuoXhDFv+4nJ+apA8iIGtPlslT+U8TNA?=
+ =?us-ascii?Q?sQoACHH5JyeSKBN89SSCY6dXolz6bUJiz/NT+M6B6I7hRdT3IPKvEKRnK/zv?=
+ =?us-ascii?Q?l9Dqkjynx0LW8mpE2PFHyEKwo0MrxMy7UFha0IJVaB+VNaPYMSqGzbgTFaPW?=
+ =?us-ascii?Q?EHA1RZuSp4OyGUpJPGAAvqH4R1PUqnyMJM1LgU3NOOQ0IlMdKJ07nCLCN0LT?=
+ =?us-ascii?Q?5xKq3E/yGKQzuKdwmVmEI19TFeyfQGLJ8HbsfF+OLGBozI6AbTnSSX8Jwc9e?=
+ =?us-ascii?Q?VWe6BuNgL7rYkALVWkijvSZwWX7OqbosBFoZ+J2qezquKIg/cZgpG565u/th?=
+ =?us-ascii?Q?TC6XNYjll6c48whNNJjGfhi87UgMCNID09NIzSQudJMzkjptdfsiqURvo5qW?=
+ =?us-ascii?Q?Xmn8Beec/m2fU+NKE0l6i7Tn8cR3GJ9fLjv3+jCCKmn4JQQ1wUIPzE+faSKB?=
+ =?us-ascii?Q?Gc+IJvnZ7qet34/Vgy4c2w4DTWv5nQR0zDLfXVcdr34v6kOYR67Ao+06xqm5?=
+ =?us-ascii?Q?rMMNqBKB5XOkZLboPBcoz9D+IyC1ubXp87U3otft3bWYez3G1+EWN3Bm5gtS?=
+ =?us-ascii?Q?gQZPmqc82b7V/WdTsFBgx6guR76mMMpQDOGb905IiRwoHc27ZauDTZGkfC5q?=
+ =?us-ascii?Q?jTjSGB7BwM0WwEdkizZ7nNncaNhMrATDkznO7v89Ikaicquv3k0G6ZUVu+rg?=
+ =?us-ascii?Q?SAOGFG2oj1PiH7Bd51indGTdBNnIgp+C1ARlOn5yTh0AVHqH8XG6DNSyMdAn?=
+ =?us-ascii?Q?KPdPvEQJ01ID2byCiF6VRvr2V2KojSkv5WECxKg2Frt4dbuYFWrbaGdsVNss?=
+ =?us-ascii?Q?vY8LQMt/GLHV+9y+eJ61x0RgTPVcO5zNXQwlDS3vPz7dTk0r0e/c/q9iyQnf?=
+ =?us-ascii?Q?Ww=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9d3d0ea-c815-4e7a-fa1c-08dce145a9b1
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9565.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2024 11:47:29.9690
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MpKM68g3HjzqcnwSICLLhXQ1gdoKXtqpzX6GmSyoE7MX36RXx83kCn+GJi/EWl3wnVILSjTpRwM9SrEzz5HF2+GAY7/RYmQwuqkvaPtimpU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8357
 
-Hi,
+From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 
-On 25/09/2024 14:22, Ayan Kumar Halder wrote:
-> 
-> On 24/09/2024 18:10, Julien Grall wrote:
->> On 24/09/2024 12:32, Ayan Kumar Halder wrote:
->>>
->>> On 19/09/2024 14:16, Julien Grall wrote:
->>>> On 18/09/2024 19:51, Ayan Kumar Halder wrote:
->>>>> Define enable_boot_cpu_mm() for the AArch64-V8R system.
->>>>>
->>>>> Like boot-time page table in MMU system, we need a boot-time MPU
->>>>> protection region configuration in MPU system so Xen can fetch code 
->>>>> and
->>>>> data from normal memory.
->>>>>
->>>>> To do this, Xen maps the following sections of the binary as separate
->>>>> regions (with permissions) :-
->>>>> 1. Text (Read only at EL2, execution is permitted)
->>>>> 2. RO data (Read only at EL2)
->>>>> 3. RO after init data (Read/Write at EL2 as the data is RW during 
->>>>> init)
->>>>> 4. RW data (Read/Write at EL2)
->>>>> 5. BSS (Read/Write at EL2)
->>>>> 6. Init Text (Read only at EL2, execution is permitted)
->>>>> 7. Init data (Read/Write at EL2)
->>>>>
->>>>> If the number of MPU regions created is greater than the count defined
->>>>> in  MPUIR_EL2, then the boot fails.
->>>>>
->>>>> One can refer to ARM DDI 0600B.a ID062922 G1.3  "General System 
->>>>> Control
->>>>> Registers", to get the definitions of PRBAR_EL2, PRLAR_EL2 and
->>>>> PRSELR_EL2 registers. Also, refer to G1.2 "Accessing MPU memory region
->>>>> registers", the following
->>>>>
->>>>> ```
->>>>> The MPU provides two register interfaces to program the MPU regions:
->>>>>   - Access to any of the MPU regions via PRSELR_ELx, PRBAR<n>_ELx, and
->>>>> PRLAR<n>_ELx.
->>>>> ```
->>>>> We use the above mechanism to configure the MPU memory regions.
->>>>>
->>>>> MPU specific registers are defined in
->>>>> xen/arch/arm/include/asm/arm64/mpu/sysregs.h.
->>>>>
->>>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>>>> ---
->>>>> Changes from :-
->>>>>
->>>>> v1 - 1. Instead of mapping a (XEN_START_ADDRESS + 2MB) as a single 
->>>>> MPU region,
->>>>> we have separate MPU regions for different parts of the Xen binary. 
->>>>> The reason
->>>>> being different regions will nned different permissions (as 
->>>>> mentioned in the
->>>>> linker script).
->>>>>
->>>>> 2. Introduced a label (__init_data_begin) to mark the beginning of 
->>>>> the init data
->>>>> section.
->>>>>
->>>>> 3. Moved MPU specific register definitions to mpu/sysregs.h.
->>>>>
->>>>> 4. Fixed coding style issues.
->>>>>
->>>>> 5. Included page.h in mpu/head.S as page.h includes sysregs.h.
->>>>> I haven't seen sysregs.h included directly from head.S or mmu/head.S.
->>>>> (Outstanding comment not addressed).
->>>>>
->>>>>   xen/arch/arm/Makefile                        |   1 +
->>>>>   xen/arch/arm/arm64/mpu/Makefile              |   1 +
->>>>>   xen/arch/arm/arm64/mpu/head.S                | 176 ++++++++++++++ 
->>>>> +++++
->>>>>   xen/arch/arm/include/asm/arm64/mpu/sysregs.h |  27 +++
->>>>>   xen/arch/arm/include/asm/arm64/sysregs.h     |   3 +
->>>>>   xen/arch/arm/include/asm/mm.h                |   2 +
->>>>>   xen/arch/arm/include/asm/mpu/arm64/mm.h      |  22 +++
->>>>>   xen/arch/arm/include/asm/mpu/mm.h            |  20 +++
->>>>>   xen/arch/arm/xen.lds.S                       |   1 +
->>>>>   9 files changed, 253 insertions(+)
->>>>>   create mode 100644 xen/arch/arm/arm64/mpu/Makefile
->>>>>   create mode 100644 xen/arch/arm/arm64/mpu/head.S
->>>>>   create mode 100644 xen/arch/arm/include/asm/arm64/mpu/sysregs.h
->>>>>   create mode 100644 xen/arch/arm/include/asm/mpu/arm64/mm.h
->>>>>   create mode 100644 xen/arch/arm/include/asm/mpu/mm.h
->>>>>
->>>>> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
->>>>> index 7792bff597..aebccec63a 100644
->>>>> --- a/xen/arch/arm/Makefile
->>>>> +++ b/xen/arch/arm/Makefile
->>>>> @@ -1,6 +1,7 @@
->>>>>   obj-$(CONFIG_ARM_32) += arm32/
->>>>>   obj-$(CONFIG_ARM_64) += arm64/
->>>>>   obj-$(CONFIG_MMU) += mmu/
->>>>> +obj-$(CONFIG_MPU) += mpu/
->>>>>   obj-$(CONFIG_ACPI) += acpi/
->>>>>   obj-$(CONFIG_HAS_PCI) += pci/
->>>>>   ifneq ($(CONFIG_NO_PLAT),y)
->>>>> diff --git a/xen/arch/arm/arm64/mpu/Makefile b/xen/arch/arm/arm64/ 
->>>>> mpu/Makefile
->>>>> new file mode 100644
->>>>> index 0000000000..3340058c08
->>>>> --- /dev/null
->>>>> +++ b/xen/arch/arm/arm64/mpu/Makefile
->>>>> @@ -0,0 +1 @@
->>>>> +obj-y += head.o
->>>>> diff --git a/xen/arch/arm/arm64/mpu/head.S b/xen/arch/arm/arm64/ 
->>>>> mpu/ head.S
->>>>> new file mode 100644
->>>>> index 0000000000..ef55c8765c
->>>>> --- /dev/null
->>>>> +++ b/xen/arch/arm/arm64/mpu/head.S
->>>>> @@ -0,0 +1,176 @@
->>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>>>> +/*
->>>>> + * Start-of-day code for an Armv8-R MPU system.
->>>>> + */
->>>>> +
->>>>> +#include <asm/mm.h>
->>>>> +#include <asm/page.h>
->>>>> +
->>>>> +#define REGION_TEXT_PRBAR       0x38    /* SH=11 AP=10 XN=00 */
->>>>> +#define REGION_RO_PRBAR         0x3A    /* SH=11 AP=10 XN=10 */
->>>>> +#define REGION_DATA_PRBAR       0x32    /* SH=11 AP=00 XN=10 */
->>>>> +
->>>>> +#define REGION_NORMAL_PRLAR     0x0f    /* NS=0 ATTR=111 EN=1 */
->>>>> +
->>>>> +/*
->>>>> + * Macro to round up the section address to be PAGE_SIZE aligned
->>>>> + * Each section(e.g. .text, .data, etc) in xen.lds.S is page-aligned,
->>>>> + * which is usually guarded with ". = ALIGN(PAGE_SIZE)" in the head,
->>>>> + * or in the end
->>>>> + */
->>>>> +.macro roundup_section, xb
->>>>> +        add   \xb, \xb, #(PAGE_SIZE-1)
->>>>> +        and   \xb, \xb, #PAGE_MASK
->>>>> +.endm
->>>>
->>>> Can you explain why we need the region to be page-aligned? Would not 
->>>> 64-bytes alignment (IIRC this is the minimum by the MPU sufficient)
->>> We are aligning the limit address only (not the base address). 
->>> However ...
->>>>
->>>> And more importantly, if those regions were effectively not aligned, 
->>>> would not this mean we would could configure the MPU with two 
->>>> clashing regions? IOW, this round up looks harmful to me.
->>>
->>> you are correct that there is chance that limit address might overlap 
->>> between 2 regions. Also (thinking again), the limit address is 0x3f 
->>> extended when is programmed into PRLAR. So, we might not need 
->>> alignment at all for the limit address.
->>
->> I am not sure I fully understand what you wrote. Can you point me to 
->> the code you are referring to?
-> 
-> Actually I was referring to the ArmV8-R AArch32 docs ( ARM DDI 0568A.c 
-> ID110520) here.
+This patch series adds support for NXP Automotive S32CC platform
+family, which includes S32G [0] and S32R [1].
 
-The code you are writing is for 64-bit :). So please provide some 
-reference using the ArmV8-R AArch64 docs.
+First patch adds the driver for the NXP LINFlexD UART, available
+on S32V, S32G and S32R automotive processors. The compatibles in
+the driver match the ones in upstream Linux [2]. The 2nd patch
+adds early printk support via LINFlexD UART.
 
-> 
-> In case of HPRBAR "Address[31:6] concatenated with zeroes to form 
-> Address[31:0]" , so the base address need to be at least 64 byte aligned.
+The 3rd patch introduces a generic mechanism for forwarding SCMI
+over SMC calls to firmware running at EL3, selected via
+CONFIG_SCMI_SMC. The 4th patch refactors the SiP SMC handling in
+vSMC mechanism, to rely firstly on `platform_smc()` if implemented,
+then on the previously introduced generic SCMI handling/forwarding
+mechanism if enabled.
 
-AFAICT, the 64-bit equivalent is PRBAR<n>_EL2. But indeed, we need the 
-address to be 64-byte. That said, I would simply mask the bits rather 
-than rounding up because all the address should be properly aligned (as 
-we do for the MMU).
+The 5th patch adds S32CC platform code stub and configs to enable
+the required drivers for S32CC platforms.
 
-> 
-> However for HPRLAR, "Address[31:6] concatenated with the value 0x3F to 
-> form Address[31:0],". So even if we align the limit address to 4 KB or 
-> 64 byte or anything, the actual limit address will  always be unaligned.
+The 6th, 7th and 8th patches modify the CHANGELOG.md, SUPPORT.md
+and MAINTAINERS files, respectively, to add mentions about LINFlexD
+UART support, S32CC platforms support, and the new SCMI-SMC layer
+introduced.
 
-That's just the limit is inclusive. So it will always be 64-byte aligned 
-- 1. Anyway...
+[0] https://www.nxp.com/products/processors-and-microcontrollers/s32-automotive-platform/s32g-vehicle-network-processors:S32G-PROCESSORS
+[1] https://www.nxp.com/products/processors-and-microcontrollers/s32-automotive-platform/s32r-radar-processing:S32R-FAMILY
+[2] https://elixir.bootlin.com/linux/v6.11/source/Documentation/devicetree/bindings/serial/fsl,s32-linflexuart.yaml#L27
 
-> So, I am thinking that aligning limit address might not make sense.
+v1->v2:
+  - linflex-uart: 
+    - Addressed coding style comments from Julien:
+      - spaces vs. tabs
+      - indentation
+      - license issue
+      - comments format
+      - code reusage
+      - misplaced loop exit
+    - Made the pointer to struct linflex_uart const in most functions
+    since it's not modified
+    - Added support for customizable baud rate through console options,
+    parsing what Xen gets in its bootargs. other parameters following
+    <baud> are discarded for the moment.
+  - SCMI SMC handling:
+    - Added a generic `scmi-smc` layer (enabled by CONFIG_SCMI_SMC)
+    to enable forwarding SCMI requests over SMC to EL3 FW if issued
+    by Dom0. If the SCMI firmware node is not found in Dom0's DT during
+    initialization, it fails silently as it's not mandatory.
+    - Changed the handling for SiP SMCs in vsmc.c to firstly try
+    the `platform_smc()` callback if implemented, then try to
+    handle the SiP SMC as SCMI if enabled and SMC ID matches.
+  - S32CC Platform support:
+    - Added dependency on CONFIG_SCMI_SMC
+    - Removed the S32CC platform-specific forwarding to EL3 mechanism.
+    - Dropped unused headers
+  - CHANGELOG.md:
+    - Added mentions about S32CC support and SCMI-SMC layer.
+  - SUPPORT.md:
+    - Added SCMI over SMC forwarding to EL3 feature for Arm as supported.
+  - MAINTAINERS:
+    - Added myself as maintainer for S32CC platforms and NXP S32 Linux Team
+    as reviewer list.
 
-... same as I above. I don't think we need to align anything. We can 
-just mask it.
+Andrei Cherechesu (8):
+  xen/arm: Add NXP LINFlexD UART Driver
+  xen/arm: Add NXP LINFlexD UART early printk support
+  xen/arm: Add SCMI over SMC calls handling layer
+  xen/arm: vsmc: Enable handling SiP-owned SCMI SMC calls
+  xen/arm: platforms: Add NXP S32CC platform code
+  CHANGELOG.md: Add NXP S32CC and SCMI-SMC layer support mentions
+  SUPPORT.md: Describe SCMI-SMC layer feature
+  MAINTAINERS: Add myself as maintainer for NXP S32CC
 
-[...]
-
->>> Followed by a text region from __init_begin to _einittext. However 
->>> _eteemediator is same as __init_begin, so should we be inserting a 
->>> dummy page in between ?
->>
->> I don't understand what you mean. _init_begin should be suitably 
->> aligned to 4KB. So why would we need a page in between?
-> 
-> Sorry I didn't explain clearly. In my xen-syms.map
-> 
-> 0x202000 D __ro_after_init_start
-> 
-> 0x202000 D _eteemediator
-> 
-> 0x202000 T __init_begin
-> 
-> 
-> So since __ro_after_init_start == _eteemediator, so the RW data region 
-> is empty. There is nothing to map here.
-> 
-> However if  _eteemediator  and __init_begin were 0x203000 , so I should 
-> create a RW data region from 0x202000 - 0x202FFF (ie __init_begin - 1).
-> 
-> And then there will be Text region from __init_begin to _einittext - 1.
-> 
-> Is my understanding correct ?
-
-Ah I understand your problem now. Technically all the regions can be 
-empty. I don't think add a page between is nice because we would end up 
-to waste some space in memory. Instead, we should check if a region is 
-empty, if it is then skip it.
-
-> 
->>
->>>
->>> A RW data region from __init_data_begin to __bss_end. Can we combine 
->>> the BSS section and init data section into one region ?
->>
->> If they have the same attribute then yes.
-> 
-> ok, so my sections look like this (from readelf -DS)
-> 
->    [ 0]                   NULL             0000000000000000 00000000
->         0000000000000000  0000000000000000           0     0     0
->    [ 1] .text             PROGBITS         0000000000200000 00000100
->         0000000000000832  0000000000000000 WAX       0     0     32
->    [ 2] .rodata           PROGBITS         0000000000201000 00001100
->         0000000000000d78  0000000000000000   A       0     0 256
->    [ 3] .note.gnu.bu[...] NOTE             0000000000201d78 00001e78
->         0000000000000024  0000000000000000   A       0     0     4
->    [ 4] .data.ro_aft[...] PROGBITS         0000000000202000 00003170
->         0000000000000000  0000000000000000  WA       0     0     1
->    [ 5] .data             PROGBITS         0000000000202000 00002100
->         0000000000000000  0000000000000000  WA       0     0     1
->    [ 6] .init.text        PROGBITS         0000000000202000 00002100
->         0000000000000048  0000000000000000  AX       0     0     4
->    [ 7] .init.data        PROGBITS         0000000000203000 00003100
->         0000000000000070  0000000000000000   A       0     0     1
->    [ 8] .bss              NOBITS           0000000000208000 00003170
->         0000000000000000  0000000000000000  WA       0     0     1
-> 
-> IIUC, [2] and [3] will be combined.
-> 
-> [4] and [5] will be combined.
-> 
-> So we will be creating 6 MPU regions in total. Is this correct ?
-
-I think you could combine [7] and [8] as well. So it would look like:
-   1. [1] .text
-   2. [2] .rodata [3] .note.gnu.bu[...]
-   3. [4] .data.ro_aft[...] [3] .data
-   4. [6] .init.text
-   4. [7] .init.data [8] .bss
-
-After boot, you would have:
-
-   1. [1] .text
-   2. [2] .rodata [3] .note.gnu.bu[...] [4] .data.ro_aft[...]
-   3. [3] .data
-   4. [8] .bss
-
-Cheers,
+ CHANGELOG.md                            |   4 +
+ MAINTAINERS                             |   8 +
+ SUPPORT.md                              |   8 +
+ xen/arch/arm/Kconfig                    |  10 +
+ xen/arch/arm/Kconfig.debug              |  12 +
+ xen/arch/arm/Makefile                   |   1 +
+ xen/arch/arm/arm64/debug-linflex.inc    |  58 ++++
+ xen/arch/arm/include/asm/linflex-uart.h |  63 ++++
+ xen/arch/arm/include/asm/scmi-smc.h     |  52 ++++
+ xen/arch/arm/platforms/Kconfig          |  11 +
+ xen/arch/arm/platforms/Makefile         |   1 +
+ xen/arch/arm/platforms/s32cc.c          |  32 ++
+ xen/arch/arm/scmi-smc.c                 | 163 ++++++++++
+ xen/arch/arm/vsmc.c                     |  19 +-
+ xen/drivers/char/Kconfig                |   8 +
+ xen/drivers/char/Makefile               |   1 +
+ xen/drivers/char/linflex-uart.c         | 381 ++++++++++++++++++++++++
+ 17 files changed, 831 insertions(+), 1 deletion(-)
+ create mode 100644 xen/arch/arm/arm64/debug-linflex.inc
+ create mode 100644 xen/arch/arm/include/asm/linflex-uart.h
+ create mode 100644 xen/arch/arm/include/asm/scmi-smc.h
+ create mode 100644 xen/arch/arm/platforms/s32cc.c
+ create mode 100644 xen/arch/arm/scmi-smc.c
+ create mode 100644 xen/drivers/char/linflex-uart.c
 
 -- 
-Julien Grall
+2.45.2
 
 
