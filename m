@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5884598A826
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 17:09:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807435.1218916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7610998A827
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 17:09:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807434.1218903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svI0l-00034W-Nr; Mon, 30 Sep 2024 15:08:31 +0000
+	id 1svI0k-0002ga-G1; Mon, 30 Sep 2024 15:08:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807435.1218916; Mon, 30 Sep 2024 15:08:31 +0000
+Received: by outflank-mailman (output) from mailman id 807434.1218903; Mon, 30 Sep 2024 15:08:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svI0l-000311-Jx; Mon, 30 Sep 2024 15:08:31 +0000
-Received: by outflank-mailman (input) for mailman id 807435;
+	id 1svI0k-0002a2-BI; Mon, 30 Sep 2024 15:08:30 +0000
+Received: by outflank-mailman (input) for mailman id 807434;
  Mon, 30 Sep 2024 15:08:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PdoV=Q4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1svI0j-00022q-Lb
+ id 1svI0j-0002H5-3d
  for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 15:08:29 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d8ceb4b8-7f3d-11ef-99a2-01e77a169b0f;
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d9146b33-7f3d-11ef-a0ba-8be0dac302b0;
  Mon, 30 Sep 2024 17:08:28 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2fac49b17ebso12486181fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 08:08:27 -0700 (PDT)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-53959a88668so3586288e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 08:08:28 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-538a0432219sm1264423e87.132.2024.09.30.08.08.26
+ 2adb3069b0e04-538a0432219sm1264423e87.132.2024.09.30.08.08.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 08:08:26 -0700 (PDT)
+ Mon, 30 Sep 2024 08:08:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8ceb4b8-7f3d-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: d9146b33-7f3d-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727708907; x=1728313707; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1727708908; x=1728313708; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=d/37IdOCxVXI2z1guCYamgvqmlzEY2bjfj9nmrfmg4E=;
-        b=MAnG1ScBxLNvzfkD+zRAKoWNNNjzQ/K5+BEbp6sa+AUqavcBDs+HMIGeEhjXZL8JSK
-         TeHVC+CiSVNEDinvEoou7OOIOOtKVeDye2tnaVyAmdJSp6nFCmh8g+yg0iN2O9WasmEM
-         +vUk4UZJRQJ7YhnlSI5rNkxNUKHAEUV7UCkpI56GPuaNnOJRbmpNK8P6amOT1TZPhmbO
-         VW90mPdY+XB6c/EpyjTjaHUJBl8F6L//jFyha4sD7IUqueRXHjmyaSnnPoHBGXf9nYnq
-         Y4WTyy4k5455RNUdiSRyREs5zRH7Hhd/EuRKyLmfZFpfjcgUUkQoPH2d1oXO2hDg7eDw
-         HLhw==
+        bh=TSOroKPGJr4XSbKSq9mzOX8MhVcwff6sm7/6Oa6ej/U=;
+        b=GB1Om2QF3d2TE65T/jY4ZKyvMJfcWFB+f6I7/CZD6hfgM7M2oZTmjw7aVaPGui3JHz
+         whJKpoWfo/azX+dpX3oFQ70gCDfZt+rcGePlqlYfLuW9g6VlQluKNhU7F4OOFTy+hU5R
+         DEqE1ZQD2bcRlhEnGo59JFCT0+sjfpbSCY2w+aytVGLE9ORjbr1sIJ+aN6KKztDFKREz
+         R6Lahop7ZSJ6VKxM6htnaw61sKKlnCk+VNXHffn6GOisGFoiqWXXFEWM00YdMZnhDLR/
+         R7fFvdm+sNGRueA9ooSMNcD7rOBScvrw9Ff8UjHugnexmR2hJ7gLMIiyQu6sfZMZoc/U
+         +jIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727708907; x=1728313707;
+        d=1e100.net; s=20230601; t=1727708908; x=1728313708;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=d/37IdOCxVXI2z1guCYamgvqmlzEY2bjfj9nmrfmg4E=;
-        b=NcHYO05EI58TelKfiLHcjLCYfpV/Cs2YzxH6Ydj81UqB6w3dm9XMSaKU7nxo0Ljc0y
-         8jZhneLaYhW42IkCH1KC9SLmbFqaOxm6ZYCSes3BtuwrpJXxrZJzih1YeA3qXosk6x6h
-         TKiXaz5sRxhhfbO0XcjjMwwU1YlSOyApeul0K9UCSMg1zHeuNszMgSnlF0U7roWShnmM
-         WjZ71lOc0EsYi2EPSN3jT90k7oKnOoMWfgE1dYgSln3lgTEpUOkVJPLMDstyEnMk+9jb
-         KZy+ZEiS2ub8L8u02X3q5epvoKtGvhFj7YYQwXoAqZtjF/aSczAJxfwR1wz19D9IRNjD
-         uBJA==
-X-Gm-Message-State: AOJu0Yxwu5yriCzSogqP51VKJwigLVagECHk3hhn/QjocJz7CoF/hxlB
-	oBR3/6XW498G/RLFUCnnkzba3kV6ohLtJgHf2alz5OhZpPa+1lpWKlBVDg==
-X-Google-Smtp-Source: AGHT+IGq/yaJsQpWzmrjwiC8QsA6trMJCZDFbf4/V9BBieWtt8Z4Zgm8g0b3EEMhx+BRdc6+0/KDEA==
-X-Received: by 2002:a05:6512:334f:b0:539:8847:d7e9 with SMTP id 2adb3069b0e04-5398847d900mr4524107e87.35.1727708906904;
-        Mon, 30 Sep 2024 08:08:26 -0700 (PDT)
+        bh=TSOroKPGJr4XSbKSq9mzOX8MhVcwff6sm7/6Oa6ej/U=;
+        b=QRnhcAE7ZS4lLz6FJe13df+2VVcBhImib5C2VVrI2N23nKebsBVZOJ/LkKl/5fC9D7
+         nSBKbCK1+ef00UXTzYvgokkx6mYtXkaDjOjotnQbjZ/sQdfZgcq2k5Dv/obg3enoQaS0
+         sPXN4a6zWLfsQ+sBwWKzJv/W2THPvOF1rrhH8Gh1/6r0WZuuoX/N1YxNLdqpUAHEhuT0
+         Rs65hro1a7GZqCoHdjEuTrbDoixaU59BGvE1uFkHPFbZJU1+uQlNRL/VlJEYzFtuboQa
+         6UeHziPhlrlOsfwsN9YP+POI2FdcXeTR3Uag69ZSsV7kFzuhxK1G06qtUm4hxB8A6lJo
+         2FKw==
+X-Gm-Message-State: AOJu0Yw3krN+K5lHhVpWhDOGGxHdMGY0w3aNKj1LU/zop8ePhnMG2rkx
+	7y3sOejl+AX5KS1ajvZw7Apx8qV9/xlZzZVwlYhcAdD0GDL3QVgVFq22tg==
+X-Google-Smtp-Source: AGHT+IHiBtjsiueFbwVyej97It6FzP3dmxCYRHI65dyUougsaNjUslq5ZDsmuTVVeoorhen+1N9V2w==
+X-Received: by 2002:a05:6512:4010:b0:539:8ef3:6688 with SMTP id 2adb3069b0e04-5398ef368c5mr3442546e87.23.1727708907546;
+        Mon, 30 Sep 2024 08:08:27 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -84,63 +84,58 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 2/3] xen/riscv: switch LINK_TO_LOAD() to virt_to_maddr()
-Date: Mon, 30 Sep 2024 17:08:21 +0200
-Message-ID: <9a462c58f3af0ff5e5d312777cd1552b2a5a930c.1727708665.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 3/3] xen/riscv: register Xen's load address as a boot module
+Date: Mon, 30 Sep 2024 17:08:22 +0200
+Message-ID: <2bd3589f322d30e93d81d091ca64439048c068fc.1727708665.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <cover.1727708665.git.oleksii.kurochko@gmail.com>
 References: <cover.1727708665.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Except for switching LINK_TO_LOAD() to virt_to_maddr(),
-LINK_TO_LOAD() is dropped, as virt_to_maddr() covers all
-the cases where LINK_TO_LOAD() is used.
+Avoid using BOOTMOD_XEN region for other purposes or boot modules
+which could result in memory corruption or undefined behaviour.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/mm.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ xen/arch/riscv/setup.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-index 7a1919e07e..59da61716c 100644
---- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -29,7 +29,6 @@ struct mmu_desc {
- unsigned long __ro_after_init phys_offset;
+diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+index 6d156c3a40..39375b3366 100644
+--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -1,6 +1,7 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
  
- #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
--#define LINK_TO_LOAD(addr) ((unsigned long)(addr) + phys_offset)
+ #include <xen/bug.h>
++#include <xen/bootfdt.h>
+ #include <xen/compile.h>
+ #include <xen/device_tree.h>
+ #include <xen/init.h>
+@@ -26,6 +27,8 @@ unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
+ void __init noreturn start_xen(unsigned long bootcpu_id,
+                                paddr_t dtb_addr)
+ {
++    struct bootmodule *xen_bootmodule;
++
+     remove_identity_mapping();
  
- /*
-  * It is expected that Xen won't be more then 2 MB.
-@@ -122,7 +121,7 @@ static void __init setup_initial_mapping(struct mmu_desc *mmu_desc,
-                 unsigned long paddr = (page_addr - map_start) + pa_start;
-                 unsigned int permissions = PTE_LEAF_DEFAULT;
-                 unsigned long addr = is_identity_mapping
--                                     ? page_addr : LINK_TO_LOAD(page_addr);
-+                                     ? page_addr : virt_to_maddr(page_addr);
-                 pte_t pte_to_be_written;
+     set_processor_id(0);
+@@ -44,6 +47,13 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+               "Please check your bootloader.\n",
+               dtb_addr, BOOT_FDT_VIRT_SIZE);
  
-                 index = pt_index(0, page_addr);
-@@ -225,7 +224,7 @@ void __init setup_fixmap_mappings(void)
++    /* Register Xen's load address as a boot module. */
++    xen_bootmodule = add_boot_module(BOOTMOD_XEN,
++                                     virt_to_maddr(_start),
++                                     (paddr_t)(_end - _start), false);
++
++    BUG_ON(!xen_bootmodule);
++
+     printk("All set up\n");
  
-     BUG_ON(pte_is_valid(*pte));
- 
--    tmp = paddr_to_pte(LINK_TO_LOAD((unsigned long)&xen_fixmap), PTE_TABLE);
-+    tmp = paddr_to_pte(virt_to_maddr(&xen_fixmap), PTE_TABLE);
-     write_pte(pte, tmp);
- 
-     RISCV_FENCE(rw, rw);
-@@ -312,7 +311,7 @@ void __init remove_identity_mapping(void)
-     pte_t *pgtbl;
-     unsigned int index, xen_index;
-     unsigned long ident_start =
--        LINK_TO_LOAD(turn_on_mmu) & XEN_PT_LEVEL_MAP_MASK(0);
-+        virt_to_maddr((unsigned long)turn_on_mmu) & XEN_PT_LEVEL_MAP_MASK(0);
- 
-     for ( pgtbl = stage1_pgtbl_root, i = CONFIG_PAGING_LEVELS; i; i-- )
-     {
+     machine_halt();
 -- 
 2.46.1
 
