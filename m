@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1343F98A9FB
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 18:39:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807581.1219136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F13C598A9FD
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 18:40:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807585.1219145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svJQm-0007VH-7o; Mon, 30 Sep 2024 16:39:28 +0000
+	id 1svJRY-0000QQ-GR; Mon, 30 Sep 2024 16:40:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807581.1219136; Mon, 30 Sep 2024 16:39:28 +0000
+Received: by outflank-mailman (output) from mailman id 807585.1219145; Mon, 30 Sep 2024 16:40:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svJQm-0007SU-4z; Mon, 30 Sep 2024 16:39:28 +0000
-Received: by outflank-mailman (input) for mailman id 807581;
- Mon, 30 Sep 2024 16:39:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1svJRY-0000Ov-DR; Mon, 30 Sep 2024 16:40:16 +0000
+Received: by outflank-mailman (input) for mailman id 807585;
+ Mon, 30 Sep 2024 16:40:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PdoV=Q4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1svJQl-0007SO-1d
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 16:39:27 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8ddad504-7f4a-11ef-a0ba-8be0dac302b0;
- Mon, 30 Sep 2024 18:39:25 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-5398e4ae9efso2127047e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 09:39:25 -0700 (PDT)
-Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5398c9cabc5sm907209e87.169.2024.09.30.09.39.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Sep 2024 09:39:24 -0700 (PDT)
+ <SRS0=5Bw3=Q4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1svJRW-0007vF-QW
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 16:40:14 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aa1baafb-7f4a-11ef-99a2-01e77a169b0f;
+ Mon, 30 Sep 2024 18:40:13 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a910860e4dcso799176066b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 09:40:13 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c2997445sm550291666b.202.2024.09.30.09.40.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Sep 2024 09:40:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,686 +45,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ddad504-7f4a-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: aa1baafb-7f4a-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727714365; x=1728319165; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=D1pDeiz8nM4t6DuT/iEUYMl7LEw5I2rMp9tqNS0aro4=;
-        b=GmF+KWVvwYPH5/6BgRX02IxtCfo4uPHdI8k3OqvsZ3pSFK4ei+/6jzn12LgVMrrI8S
-         /j3+roOUU8xYDFjb7/E9fNE8RG6DJNgf2E+4BrqGHV9u0Nj2Ha7ATZiBEPB/dEBnxDRu
-         0qXa1Z2Pr4tU/Dp7z61vYgS5YykuXDiVDDT7zazPLaSn8YytBeGSuSvAGAHSMNXOrWH+
-         EU8aOb9nzshD42VqlatmvvzmRjUj42WEGyVn393NITTyVYHnIeQTGkknHBP/A7xWEE+c
-         4dWuYuUwGZpwSYMYuepd8HO+NHvtFcf0OSa0lCdUSo9Hsrd3Hsg7gCjq3VbR64CxL1Bw
-         QImA==
+        d=citrix.com; s=google; t=1727714412; x=1728319212; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=yNtVTjbAfjf74NeCfHJPK2dgdfDw2U5anVBnwYCBSSQ=;
+        b=C92Qbrh4Bd16T4RHOXGDWMi5n0z+lM1GA/UHScTqldm/JJjXoKtufsG6mbLmCs2r0l
+         4K6g/hZN3CWuQTjPup0TpzK1uRF1DAzmNV85hhHivWIY6PwjVZx65U3PHo4XvUNaLq3T
+         mZyAchQ8cOQzuXRqVJ7k3UC4LJg92v/Rb/e80=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727714365; x=1728319165;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=D1pDeiz8nM4t6DuT/iEUYMl7LEw5I2rMp9tqNS0aro4=;
-        b=RNCqjb7MNBNaxTlxT8U8X1WQjjVlUzcu6s2vYWcYOMh+LEleMqYMGZlGpfjJnb9AVe
-         CqdFIkSYSgyBmS/Sfg8Rc7izRahbhD3RPalRFS31CszlfoNGlbiMkNeBuqXte/0C5jEK
-         wKQHh8RAk4uNOzlPevnhRZ8ESn9jsWZ3N7+k9UHs2KS8rI4XXUCUNmQxHyjdI/z6oS0y
-         lyJJ+fNQLc6VBGmKdOQRKFNaQFcuD79vlRaYutDaKkcvN5UXvOE0XxqE8hnQWP16ejRC
-         uR+N+HohJoXnPXsm1nPK7TFH9wnHDiYMrxZH6cZlLc4E9dtrUEVaE8oiIfaScRJW9BSi
-         27bQ==
-X-Gm-Message-State: AOJu0YxUClfy/BZt34vP2l+nVFhvdKxLzNnAVQsm9v5u0xuTlR+05xMN
-	GDcwoIV/X8XUFEUJ2xXLza8Ap5h2N/qx49N4ad4b0uke+E8ed5iesM7X7w==
-X-Google-Smtp-Source: AGHT+IF+YYu2XdTL2N7RjKRBQHA171AE+sA0NF6x1dcJVLJ2vUSplwoDcfeKWyvBNOEe9U3DMxqppg==
-X-Received: by 2002:a05:6512:334e:b0:539:8af8:159b with SMTP id 2adb3069b0e04-5398af81608mr3247741e87.34.1727714364254;
-        Mon, 30 Sep 2024 09:39:24 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4] xen: move per-cpu area management into common code
-Date: Mon, 30 Sep 2024 18:39:18 +0200
-Message-ID: <584dab4111041a660377f677cd829d4b2b4b8b2d.1727714022.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.46.1
+        d=1e100.net; s=20230601; t=1727714412; x=1728319212;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yNtVTjbAfjf74NeCfHJPK2dgdfDw2U5anVBnwYCBSSQ=;
+        b=Q35rqJHQniLWp10d+ePzkQJtbgX69jBiK0lAD1LPTfOEAGKEGxxi3tKqAhIdox8tGT
+         OROK98PnUNRzffCj2YnnAFlP+n2uNGgMabepHIlN3mIrNW/JsjAvckk3Rnz6U5map9VB
+         Hcc0CqpQl7dZjfB1qd9dk18WWAxol1tpCafpCDVQXOJa6yQ59PgZ4ih7IwfjxP2s0mgH
+         tRpnZOP4oCsWgE+VIPQkhbiYa4gMLO/JCiFITuxbhf3QSIe66aeoyr4cZIKHDKCc+0GU
+         +MC9AnukjnS75iUvahzKgrcHMA1dYaL910zen1pw4XMH9hIJYNtwm2Bk70JD6TQsA/3V
+         rjxw==
+X-Forwarded-Encrypted: i=1; AJvYcCXqVhlqMgLAAMTiLjREAqKiiJqAB+rjv9LwI6+CLUkV+NiBMc82GmlBsReilOGsGWLdJ1zQuf2mA6Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyWO36Msyy+nn6EwL12b3KJ8bCLtRZCXjWrrxVqQArxhh8Uqtzz
+	109uea/caDuUebOl4cw5ESJyzCosAIywexUyiRc0wRGKMUNXnNBl6FtWz9HFWTtihnswsyozRDA
+	L1xE=
+X-Google-Smtp-Source: AGHT+IFUzC9UAuAu6hd7ZYvjdDBvvWrxmYAnnp1dLemLBBDsthu4xjVMTooZ4HHwbQ28CP0NvwFIxA==
+X-Received: by 2002:a17:907:3e99:b0:a7a:a46e:dc3f with SMTP id a640c23a62f3a-a93c4a68ae8mr1623805966b.45.1727714412551;
+        Mon, 30 Sep 2024 09:40:12 -0700 (PDT)
+Message-ID: <14ab2f50-e58c-4cb4-b976-4cb5ec14d908@citrix.com>
+Date: Mon, 30 Sep 2024 17:40:10 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86: prefer RDTSCP in rdtsc_ordered()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <cae006a7-c1be-4608-a011-dda1fb4a0312@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <cae006a7-c1be-4608-a011-dda1fb4a0312@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Centralize per-cpu area management to reduce code duplication and
-enhance maintainability across architectures.
+On 30/09/2024 4:08 pm, Jan Beulich wrote:
+> If available, its use is supposed to be cheaper than LFENCE+RDTSC, and
+> is virtually guaranteed to be cheaper than MFENCE+RDTSC.
+>
+> Unlike in rdtsc() use 64-bit local variables, eliminating the need for
 
-The per-cpu area management code, which is largely common among
-architectures, is moved to a shared implementation in
-xen/common/percpu.c. This change includes:
- * Remove percpu.c from the X86 and Arm architectures.
- * For x86, define INVALID_PERCPU_AREAS and PARK_OFFLINE_CPUS_VAR.
- * Drop the declaration of __per_cpu_offset[] from stubs.c in
-   PPC and RISC-V to facilitate the build of the common per-cpu code.
+I'd drop this reference to rdtsc() seeing as you adjust it in a parallel
+patch.
 
-No functional changes for x86.
+> the compiler to emit a zero-extension insn for %eax (that's a cheap MOV,
+> yet still pointless to have).
+>
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>
+> --- a/xen/arch/x86/include/asm/msr.h
+> +++ b/xen/arch/x86/include/asm/msr.h
+> @@ -108,18 +108,30 @@ static inline uint64_t rdtsc(void)
+>  
+>  static inline uint64_t rdtsc_ordered(void)
+>  {
+> -	/*
+> -	 * The RDTSC instruction is not ordered relative to memory access.
+> -	 * The Intel SDM and the AMD APM are both vague on this point, but
+> -	 * empirically an RDTSC instruction can be speculatively executed
+> -	 * before prior loads.  An RDTSC immediately after an appropriate
+> -	 * barrier appears to be ordered as a normal load, that is, it
+> -	 * provides the same ordering guarantees as reading from a global
+> -	 * memory location that some other imaginary CPU is updating
+> -	 * continuously with a time stamp.
+> -	 */
+> -	alternative("lfence", "mfence", X86_FEATURE_MFENCE_RDTSC);
+> -	return rdtsc();
+> +    uint64_t low, high, aux;
+> +
+> +    /*
+> +     * The RDTSC instruction is not ordered relative to memory access.
+> +     * The Intel SDM and the AMD APM are both vague on this point, but
+> +     * empirically an RDTSC instruction can be speculatively executed
+> +     * before prior loads.
 
-For Arm add support of CPU_RESUME_FAILED, CPU_REMOVE and freeing of
-percpu in the case when system_state != SYS_STATE_suspend.
+This part of the comment is stale now.  For RDTSC, AMD state:
 
-Move the asm-generic/percpu.h definitions to xen/percpu.h, except for
-__per_cpu_start[] and __per_cpu_data_end[], which are moved to
-common/percpu.c as they are only used in common/percpu.c.
+"This instruction is not serializing. Therefore, there is no guarantee
+that all instructions have completed at the time the time-stamp counter
+is read."
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-Changes in V4:
- - s/GPL-2.0/GPL-2.0-only.
- - add __read_mostly to __percpu_cpu_offset variable definition.
- - s/PARK_OFFLINE_CPUS/PARK_OFFLINE_CPUS_VAR.
- - update the commit message ( s/PARK_OFFLINE_CPUS/PARK_OFFLINE_CPUS_VAR ).
----
-Changes in V3:
- - move __per_cpu_start[] and __per_cpu_data_end[] to xen/percpu.c.
- - move declaration of __per_cpu_offset[] to xen/percpu.h.
- - move park_offline_cpus, per_cpu{_ptr}, this_cpu{_ptr} to xen/percpu.h.
- - drop inclusion of <asm-generic/percpu.h> in x86/asm/percpu.h.
- - add inclusion of <xen/types.h> ( as in asm/curren.h is used types from
-   asm/current.h ) and <asm/current.h> ( get_per_cpu_offset() )
-   to xen/percpu.h to deal with compilation errors.
- - xen/types.h and asm/current.h to avoid compilation errors in case when
-   xen/percpu.h is included explicitly or implicitly in assembler code.
- - update the commit message.
----
-Changes in V2:
- - move definition of park_offline_cpus for Arm, PPC and RISC-V to
-   <asm-generic/percpu.h>
- - add to arm/asm/smp.h inclusion of <xen/percpu.h>
-   ( at least, it is needed as it uses DECLARE_PER_CPU and also
-   to not break the build because of moved definition of 
-   park_offline_cpus to asm-generic/percpu.h )
- - remove x86/percpu.c as all the code was moved to common percpu.c.
- - add define PARK_OFFLINE_CPUS to x86/asm/percpu.h as x86 defines it
-   in own way.
- - drop ARCH_PERCPU_AREA_CHECK and ARCH_CPU_PERCPU_CALLBACK as the code
-   inside this definitions were integrated to common code.
- - use park_offline_cpus ? 0 : -EBUSY;
-   instead of arch_percpu_area_init_status() in init_percpu_area().
- - update cpu_percpu_callback() to handle CPU_UP_CANCELED, case CPU_DEAD,
-   case CPU_RESUME_FAILED and also CPU parking and SYS_STATE_suspend.
- - move declaration of percpu_init_areas() to xen/percpu.h.
----
- xen/arch/arm/Makefile             |   1 -
- xen/arch/arm/include/asm/smp.h    |   7 +-
- xen/arch/arm/percpu.c             |  85 ----------------------
- xen/arch/ppc/include/asm/smp.h    |   6 --
- xen/arch/ppc/stubs.c              |   1 -
- xen/arch/riscv/include/asm/smp.h  |   6 --
- xen/arch/riscv/stubs.c            |   1 -
- xen/arch/x86/Makefile             |   1 -
- xen/arch/x86/include/asm/Makefile |   1 -
- xen/arch/x86/include/asm/percpu.h |  14 ++++
- xen/arch/x86/percpu.c             | 112 -----------------------------
- xen/common/Makefile               |   1 +
- xen/common/percpu.c               | 114 ++++++++++++++++++++++++++++++
- xen/include/asm-generic/percpu.h  |  23 ------
- xen/include/xen/percpu.h          |  30 ++++++++
- 15 files changed, 160 insertions(+), 243 deletions(-)
- delete mode 100644 xen/arch/arm/percpu.c
- create mode 100644 xen/arch/x86/include/asm/percpu.h
- delete mode 100644 xen/arch/x86/percpu.c
- create mode 100644 xen/common/percpu.c
+and for RDTSCP:
 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 7792bff597..e4ad1ce851 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -39,7 +39,6 @@ obj-$(CONFIG_MEM_ACCESS) += mem_access.o
- obj-y += mm.o
- obj-y += monitor.o
- obj-y += p2m.o
--obj-y += percpu.o
- obj-y += platform.o
- obj-y += platform_hypercall.o
- obj-y += physdev.o
-diff --git a/xen/arch/arm/include/asm/smp.h b/xen/arch/arm/include/asm/smp.h
-index e99a3a3f53..8f765ed12a 100644
---- a/xen/arch/arm/include/asm/smp.h
-+++ b/xen/arch/arm/include/asm/smp.h
-@@ -2,6 +2,7 @@
- #define __ASM_SMP_H
- 
- #ifndef __ASSEMBLY__
-+#include <xen/percpu.h>
- #include <xen/cpumask.h>
- #include <asm/current.h>
- #endif
-@@ -12,12 +13,6 @@ extern unsigned long smp_up_cpu;
- DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
- DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
- 
--/*
-- * Do we, for platform reasons, need to actually keep CPUs online when we
-- * would otherwise prefer them to be off?
-- */
--#define park_offline_cpus false
--
- extern void noreturn stop_cpu(void);
- 
- extern int arch_smp_init(void);
-diff --git a/xen/arch/arm/percpu.c b/xen/arch/arm/percpu.c
-deleted file mode 100644
-index 87fe960330..0000000000
---- a/xen/arch/arm/percpu.c
-+++ /dev/null
-@@ -1,85 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#include <xen/percpu.h>
--#include <xen/cpu.h>
--#include <xen/init.h>
--#include <xen/mm.h>
--#include <xen/rcupdate.h>
--
--unsigned long __per_cpu_offset[NR_CPUS];
--#define INVALID_PERCPU_AREA (-(long)__per_cpu_start)
--#define PERCPU_ORDER (get_order_from_bytes(__per_cpu_data_end-__per_cpu_start))
--
--void __init percpu_init_areas(void)
--{
--    unsigned int cpu;
--    for ( cpu = 1; cpu < NR_CPUS; cpu++ )
--        __per_cpu_offset[cpu] = INVALID_PERCPU_AREA;
--}
--
--static int init_percpu_area(unsigned int cpu)
--{
--    char *p;
--    if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
--        return -EBUSY;
--    if ( (p = alloc_xenheap_pages(PERCPU_ORDER, 0)) == NULL )
--        return -ENOMEM;
--    memset(p, 0, __per_cpu_data_end - __per_cpu_start);
--    __per_cpu_offset[cpu] = p - __per_cpu_start;
--    return 0;
--}
--
--struct free_info {
--    unsigned int cpu;
--    struct rcu_head rcu;
--};
--static DEFINE_PER_CPU(struct free_info, free_info);
--
--static void _free_percpu_area(struct rcu_head *head)
--{
--    struct free_info *info = container_of(head, struct free_info, rcu);
--    unsigned int cpu = info->cpu;
--    char *p = __per_cpu_start + __per_cpu_offset[cpu];
--    free_xenheap_pages(p, PERCPU_ORDER);
--    __per_cpu_offset[cpu] = INVALID_PERCPU_AREA;
--}
--
--static void free_percpu_area(unsigned int cpu)
--{
--    struct free_info *info = &per_cpu(free_info, cpu);
--    info->cpu = cpu;
--    call_rcu(&info->rcu, _free_percpu_area);
--}
--
--static int cpu_percpu_callback(
--    struct notifier_block *nfb, unsigned long action, void *hcpu)
--{
--    unsigned int cpu = (unsigned long)hcpu;
--    int rc = 0;
--
--    switch ( action )
--    {
--    case CPU_UP_PREPARE:
--        rc = init_percpu_area(cpu);
--        break;
--    case CPU_UP_CANCELED:
--    case CPU_DEAD:
--        free_percpu_area(cpu);
--        break;
--    default:
--        break;
--    }
--
--    return notifier_from_errno(rc);
--}
--
--static struct notifier_block cpu_percpu_nfb = {
--    .notifier_call = cpu_percpu_callback,
--    .priority = 100 /* highest priority */
--};
--
--static int __init percpu_presmp_init(void)
--{
--    register_cpu_notifier(&cpu_percpu_nfb);
--    return 0;
--}
--presmp_initcall(percpu_presmp_init);
-diff --git a/xen/arch/ppc/include/asm/smp.h b/xen/arch/ppc/include/asm/smp.h
-index 7b1517ce18..2b872218be 100644
---- a/xen/arch/ppc/include/asm/smp.h
-+++ b/xen/arch/ppc/include/asm/smp.h
-@@ -7,10 +7,4 @@
- DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
- DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
- 
--/*
-- * Do we, for platform reasons, need to actually keep CPUs online when we
-- * would otherwise prefer them to be off?
-- */
--#define park_offline_cpus false
--
- #endif
-diff --git a/xen/arch/ppc/stubs.c b/xen/arch/ppc/stubs.c
-index bdb5f8c66d..fff82f5cf3 100644
---- a/xen/arch/ppc/stubs.c
-+++ b/xen/arch/ppc/stubs.c
-@@ -141,7 +141,6 @@ void smp_send_state_dump(unsigned int cpu)
- /* domain.c */
- 
- DEFINE_PER_CPU(struct vcpu *, curr_vcpu);
--unsigned long __per_cpu_offset[NR_CPUS];
- 
- void context_switch(struct vcpu *prev, struct vcpu *next)
- {
-diff --git a/xen/arch/riscv/include/asm/smp.h b/xen/arch/riscv/include/asm/smp.h
-index a824be8e78..092b101ff4 100644
---- a/xen/arch/riscv/include/asm/smp.h
-+++ b/xen/arch/riscv/include/asm/smp.h
-@@ -10,12 +10,6 @@
- DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
- DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
- 
--/*
-- * Do we, for platform reasons, need to actually keep CPUs online when we
-- * would otherwise prefer them to be off?
-- */
--#define park_offline_cpus false
--
- /*
-  * Mapping between Xen logical cpu index and hartid.
-  */
-diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index 2aa245f272..5951b0ce91 100644
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -133,7 +133,6 @@ void smp_send_state_dump(unsigned int cpu)
- /* domain.c */
- 
- DEFINE_PER_CPU(struct vcpu *, curr_vcpu);
--unsigned long __per_cpu_offset[NR_CPUS];
- 
- void context_switch(struct vcpu *prev, struct vcpu *next)
- {
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index 1fa12ed4aa..b35fd5196c 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -54,7 +54,6 @@ obj-y += mpparse.o
- obj-y += nmi.o
- obj-y += numa.o
- obj-y += pci.o
--obj-y += percpu.o
- obj-y += physdev.o
- obj-$(CONFIG_COMPAT) += x86_64/physdev.o
- obj-$(CONFIG_X86_PSR) += psr.o
-diff --git a/xen/arch/x86/include/asm/Makefile b/xen/arch/x86/include/asm/Makefile
-index daab34ff0a..2c27787d31 100644
---- a/xen/arch/x86/include/asm/Makefile
-+++ b/xen/arch/x86/include/asm/Makefile
-@@ -1,3 +1,2 @@
- # SPDX-License-Identifier: GPL-2.0-only
- generic-y += div64.h
--generic-y += percpu.h
-diff --git a/xen/arch/x86/include/asm/percpu.h b/xen/arch/x86/include/asm/percpu.h
-new file mode 100644
-index 0000000000..34f589f990
---- /dev/null
-+++ b/xen/arch/x86/include/asm/percpu.h
-@@ -0,0 +1,14 @@
-+#ifndef __X86_PERCPU_H__
-+#define __X86_PERCPU_H__
-+
-+#define PARK_OFFLINE_CPUS_VAR
-+
-+/*
-+ * Force uses of per_cpu() with an invalid area to attempt to access the
-+ * middle of the non-canonical address space resulting in a #GP, rather than a
-+ * possible #PF at (NULL + a little) which has security implications in the
-+ * context of PV guests.
-+ */
-+#define INVALID_PERCPU_AREA (0x8000000000000000UL - (unsigned long)__per_cpu_start)
-+
-+#endif /* __X86_PERCPU_H__ */
-diff --git a/xen/arch/x86/percpu.c b/xen/arch/x86/percpu.c
-deleted file mode 100644
-index 3205eacea6..0000000000
---- a/xen/arch/x86/percpu.c
-+++ /dev/null
-@@ -1,112 +0,0 @@
--#include <xen/percpu.h>
--#include <xen/cpu.h>
--#include <xen/init.h>
--#include <xen/mm.h>
--#include <xen/rcupdate.h>
--
--unsigned long __per_cpu_offset[NR_CPUS];
--
--/*
-- * Force uses of per_cpu() with an invalid area to attempt to access the
-- * middle of the non-canonical address space resulting in a #GP, rather than a
-- * possible #PF at (NULL + a little) which has security implications in the
-- * context of PV guests.
-- */
--#define INVALID_PERCPU_AREA (0x8000000000000000UL - (unsigned long)__per_cpu_start)
--#define PERCPU_ORDER get_order_from_bytes(__per_cpu_data_end - __per_cpu_start)
--
--void __init percpu_init_areas(void)
--{
--    unsigned int cpu;
--
--    for ( cpu = 1; cpu < NR_CPUS; cpu++ )
--        __per_cpu_offset[cpu] = INVALID_PERCPU_AREA;
--}
--
--static int init_percpu_area(unsigned int cpu)
--{
--    char *p;
--
--    if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
--        return 0;
--
--    if ( (p = alloc_xenheap_pages(PERCPU_ORDER, 0)) == NULL )
--        return -ENOMEM;
--
--    memset(p, 0, __per_cpu_data_end - __per_cpu_start);
--    __per_cpu_offset[cpu] = p - __per_cpu_start;
--
--    return 0;
--}
--
--struct free_info {
--    unsigned int cpu;
--    struct rcu_head rcu;
--};
--static DEFINE_PER_CPU(struct free_info, free_info);
--
--static void cf_check _free_percpu_area(struct rcu_head *head)
--{
--    struct free_info *info = container_of(head, struct free_info, rcu);
--    unsigned int cpu = info->cpu;
--    char *p = __per_cpu_start + __per_cpu_offset[cpu];
--
--    free_xenheap_pages(p, PERCPU_ORDER);
--    __per_cpu_offset[cpu] = INVALID_PERCPU_AREA;
--}
--
--static void free_percpu_area(unsigned int cpu)
--{
--    struct free_info *info = &per_cpu(free_info, cpu);
--
--    info->cpu = cpu;
--    call_rcu(&info->rcu, _free_percpu_area);
--}
--
--static int cf_check cpu_percpu_callback(
--    struct notifier_block *nfb, unsigned long action, void *hcpu)
--{
--    unsigned int cpu = (unsigned long)hcpu;
--    int rc = 0;
--
--    switch ( action )
--    {
--    case CPU_UP_PREPARE:
--        rc = init_percpu_area(cpu);
--        break;
--    case CPU_UP_CANCELED:
--    case CPU_DEAD:
--    case CPU_RESUME_FAILED:
--        if ( !park_offline_cpus && system_state != SYS_STATE_suspend )
--            free_percpu_area(cpu);
--        break;
--    case CPU_REMOVE:
--        if ( park_offline_cpus )
--            free_percpu_area(cpu);
--        break;
--    }
--
--    return notifier_from_errno(rc);
--}
--
--static struct notifier_block cpu_percpu_nfb = {
--    .notifier_call = cpu_percpu_callback,
--    .priority = 100 /* highest priority */
--};
--
--static int __init cf_check percpu_presmp_init(void)
--{
--    register_cpu_notifier(&cpu_percpu_nfb);
--
--    return 0;
--}
--presmp_initcall(percpu_presmp_init);
--
--/*
-- * Local variables:
-- * mode: C
-- * c-file-style: "BSD"
-- * c-basic-offset: 4
-- * indent-tabs-mode: nil
-- * End:
-- */
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index fc52e0857d..f90bb00d23 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -31,6 +31,7 @@ obj-y += notifier.o
- obj-$(CONFIG_NUMA) += numa.o
- obj-y += page_alloc.o
- obj-y += pdx.o
-+obj-y += percpu.o
- obj-$(CONFIG_PERF_COUNTERS) += perfc.o
- obj-bin-$(CONFIG_HAS_PMAP) += pmap.init.o
- obj-y += preempt.o
-diff --git a/xen/common/percpu.c b/xen/common/percpu.c
-new file mode 100644
-index 0000000000..09b12be1b0
---- /dev/null
-+++ b/xen/common/percpu.c
-@@ -0,0 +1,114 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#include <xen/percpu.h>
-+#include <xen/cpu.h>
-+#include <xen/init.h>
-+#include <xen/mm.h>
-+#include <xen/rcupdate.h>
-+#include <xen/sections.h>
-+
-+#ifndef INVALID_PERCPU_AREA
-+#define INVALID_PERCPU_AREA (-(long)__per_cpu_start)
-+#endif
-+
-+#define PERCPU_ORDER get_order_from_bytes(__per_cpu_data_end - __per_cpu_start)
-+
-+extern char __per_cpu_start[];
-+extern const char __per_cpu_data_end[];
-+
-+unsigned long __read_mostly __per_cpu_offset[NR_CPUS];
-+
-+void __init percpu_init_areas(void)
-+{
-+    unsigned int cpu;
-+
-+    for ( cpu = 1; cpu < NR_CPUS; cpu++ )
-+        __per_cpu_offset[cpu] = INVALID_PERCPU_AREA;
-+}
-+
-+static int init_percpu_area(unsigned int cpu)
-+{
-+    char *p;
-+
-+    if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
-+        return park_offline_cpus ? 0 : -EBUSY;
-+
-+    if ( (p = alloc_xenheap_pages(PERCPU_ORDER, 0)) == NULL )
-+        return -ENOMEM;
-+
-+    memset(p, 0, __per_cpu_data_end - __per_cpu_start);
-+    __per_cpu_offset[cpu] = p - __per_cpu_start;
-+
-+    return 0;
-+}
-+
-+struct free_info {
-+    unsigned int cpu;
-+    struct rcu_head rcu;
-+};
-+static DEFINE_PER_CPU(struct free_info, free_info);
-+
-+static void cf_check _free_percpu_area(struct rcu_head *head)
-+{
-+    struct free_info *info = container_of(head, struct free_info, rcu);
-+    unsigned int cpu = info->cpu;
-+    char *p = __per_cpu_start + __per_cpu_offset[cpu];
-+
-+    free_xenheap_pages(p, PERCPU_ORDER);
-+    __per_cpu_offset[cpu] = INVALID_PERCPU_AREA;
-+}
-+
-+static void free_percpu_area(unsigned int cpu)
-+{
-+    struct free_info *info = &per_cpu(free_info, cpu);
-+
-+    info->cpu = cpu;
-+    call_rcu(&info->rcu, _free_percpu_area);
-+}
-+
-+static int cf_check cpu_percpu_callback(
-+    struct notifier_block *nfb, unsigned long action, void *hcpu)
-+{
-+    unsigned int cpu = (unsigned long)hcpu;
-+    int rc = 0;
-+
-+    switch ( action )
-+    {
-+    case CPU_UP_PREPARE:
-+        rc = init_percpu_area(cpu);
-+        break;
-+    case CPU_UP_CANCELED:
-+    case CPU_DEAD:
-+    case CPU_RESUME_FAILED:
-+        if ( !park_offline_cpus && system_state != SYS_STATE_suspend )
-+            free_percpu_area(cpu);
-+        break;
-+    case CPU_REMOVE:
-+        if ( park_offline_cpus )
-+            free_percpu_area(cpu);
-+        break;
-+    }
-+
-+    return notifier_from_errno(rc);
-+}
-+
-+static struct notifier_block cpu_percpu_nfb = {
-+    .notifier_call = cpu_percpu_callback,
-+    .priority = 100 /* highest priority */
-+};
-+
-+static int __init cf_check percpu_presmp_init(void)
-+{
-+    register_cpu_notifier(&cpu_percpu_nfb);
-+
-+    return 0;
-+}
-+presmp_initcall(percpu_presmp_init);
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/include/asm-generic/percpu.h b/xen/include/asm-generic/percpu.h
-index 60af4f9ff9..3fdb3a2a02 100644
---- a/xen/include/asm-generic/percpu.h
-+++ b/xen/include/asm-generic/percpu.h
-@@ -2,29 +2,6 @@
- #ifndef __ASM_GENERIC_PERCPU_H__
- #define __ASM_GENERIC_PERCPU_H__
- 
--#ifndef __ASSEMBLY__
--
--#include <xen/types.h>
--#include <asm/current.h>
--
--extern char __per_cpu_start[];
--extern const char __per_cpu_data_end[];
--extern unsigned long __per_cpu_offset[NR_CPUS];
--void percpu_init_areas(void);
--
--#define per_cpu(var, cpu)  \
--    (*RELOC_HIDE(&per_cpu__##var, __per_cpu_offset[cpu]))
--
--#define this_cpu(var) \
--    (*RELOC_HIDE(&per_cpu__##var, get_per_cpu_offset()))
--
--#define per_cpu_ptr(var, cpu)  \
--    (*RELOC_HIDE(var, __per_cpu_offset[cpu]))
--#define this_cpu_ptr(var) \
--    (*RELOC_HIDE(var, get_per_cpu_offset()))
--
--#endif
--
- #endif /* __ASM_GENERIC_PERCPU_H__ */
- 
- /*
-diff --git a/xen/include/xen/percpu.h b/xen/include/xen/percpu.h
-index 57522f346b..e7f585c7ed 100644
---- a/xen/include/xen/percpu.h
-+++ b/xen/include/xen/percpu.h
-@@ -29,6 +29,36 @@
- 
- #include <asm/percpu.h>
- 
-+#ifndef __ASSEMBLY__
-+
-+#include <xen/types.h>
-+#include <asm/current.h>
-+
-+#ifndef PARK_OFFLINE_CPUS_VAR
-+/*
-+ * Do we, for platform reasons, need to actually keep CPUs online when we
-+ * would otherwise prefer them to be off?
-+ */
-+#define park_offline_cpus false
-+#endif
-+
-+extern unsigned long __per_cpu_offset[];
-+
-+#define per_cpu(var, cpu)  \
-+    (*RELOC_HIDE(&per_cpu__##var, __per_cpu_offset[cpu]))
-+
-+#define this_cpu(var) \
-+    (*RELOC_HIDE(&per_cpu__##var, get_per_cpu_offset()))
-+
-+#define per_cpu_ptr(var, cpu)  \
-+    (*RELOC_HIDE(var, __per_cpu_offset[cpu]))
-+#define this_cpu_ptr(var) \
-+    (*RELOC_HIDE(var, get_per_cpu_offset()))
-+
-+void percpu_init_areas(void);
-+
-+#endif /* __ASSEMBLY__ */
-+
- /* Linux compatibility. */
- #define get_cpu_var(var) this_cpu(var)
- #define put_cpu_var(var)
--- 
-2.46.1
+"Unlike the RDTSC instruction, RDTSCP forces all older instructions to
+retire before reading the time-stamp counter."
 
+i.e. it's dispatch serialising, given our new post-Spectre terminology.
+
+
+Intel OTOH have much more extensive information.  For RDTSC:
+
+The RDTSC instruction is not a serializing instruction. It does not
+necessarily wait until all previous instructions have been executed
+before reading the counter. Similarly, subsequent instructions may begin
+execution before the read operation is performed. The following items
+may guide software seeking to order executions of RDTSC:
+
+•If software requires RDTSC to be executed only after all previous
+instructions have executed and all previous loads are globally visible,1
+it can execute LFENCE immediately before RDTSC.
+
+•If software requires RDTSC to be executed only after all previous
+instructions have executed and all previous loads and stores are
+globally visible, it can execute the sequence MFENCE;LFENCE immediately
+before RDTSC.
+
+•If software requires RDTSC to be executed prior to execution of any
+subsequent instruction (including any memory accesses), it can execute
+the sequence LFENCE immediately after RDTSC.
+
+Similarly, for RDTSCP:
+
+The RDTSCP instruction is not a serializing instruction, but it does
+wait until all previous instructions have executed and all previous
+loads are globally visible.  But it does not wait for previous stores to
+be globally visible, and subsequent instructions may begin execution
+before the read operation is performed. The following items may guide
+software seeking to order executions of RDTSCP:
+
+•If software requires RDTSCP to be executed only after all previous
+stores are globally visible, it can execute MFENCE immediately before
+RDTSCP.
+
+•If software requires RDTSCP to be executed prior to execution of any
+subsequent instruction (including any memory accesses), it can execute
+LFENCE immediately after RDTSCP.
+
+
+
+I'd delete most of the paragraph, and just state the recommendation to
+use LFENCE.
+
+In truth, X86_FEATURE_MFENCE_RDTSC is useless now that we unilaterally
+activate LFENCE_DISPATCH on CPUs where it's optional.  Linux went as far
+as removing the case entirely, because if you're running under a
+hypervisor which hasn't set LFENCE_DISPATCH, then the misbehaviour of
+lfence;rdtsc is the least of your problems.
+
+~Andrew
 
