@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1ACF98A10A
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 13:48:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807254.1218616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A3298A10B
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 13:48:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807255.1218626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svEsN-0001Ds-SK; Mon, 30 Sep 2024 11:47:39 +0000
+	id 1svEsQ-0001WD-7W; Mon, 30 Sep 2024 11:47:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807254.1218616; Mon, 30 Sep 2024 11:47:39 +0000
+Received: by outflank-mailman (output) from mailman id 807255.1218626; Mon, 30 Sep 2024 11:47:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svEsN-0001Aw-OO; Mon, 30 Sep 2024 11:47:39 +0000
-Received: by outflank-mailman (input) for mailman id 807254;
- Mon, 30 Sep 2024 11:47:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1svEsQ-0001TB-3J; Mon, 30 Sep 2024 11:47:42 +0000
+Received: by outflank-mailman (input) for mailman id 807255;
+ Mon, 30 Sep 2024 11:47:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=orP2=Q4=oss.nxp.com=andrei.cherechesu@srs-se1.protection.inumbo.net>)
- id 1svEsM-0000Cy-Ke
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 11:47:38 +0000
+ id 1svEsO-0001MH-Lx
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 11:47:40 +0000
 Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20629.outbound.protection.outlook.com
- [2a01:111:f403:2613::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c9ca7cda-7f21-11ef-a0ba-8be0dac302b0;
- Mon, 30 Sep 2024 13:47:37 +0200 (CEST)
+ (mail-vi1eur05on20605.outbound.protection.outlook.com
+ [2a01:111:f403:2613::605])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cacf8c2f-7f21-11ef-99a2-01e77a169b0f;
+ Mon, 30 Sep 2024 13:47:38 +0200 (CEST)
 Received: from PA4PR04MB9565.eurprd04.prod.outlook.com (2603:10a6:102:26b::13)
  by AS8PR04MB8357.eurprd04.prod.outlook.com (2603:10a6:20b:3f1::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.26; Mon, 30 Sep
- 2024 11:47:35 +0000
+ 2024 11:47:36 +0000
 Received: from PA4PR04MB9565.eurprd04.prod.outlook.com
  ([fe80::d8ae:2e16:5a97:1709]) by PA4PR04MB9565.eurprd04.prod.outlook.com
  ([fe80::d8ae:2e16:5a97:1709%4]) with mapi id 15.20.8005.024; Mon, 30 Sep 2024
- 11:47:34 +0000
+ 11:47:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,22 +47,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9ca7cda-7f21-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: cacf8c2f-7f21-11ef-99a2-01e77a169b0f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eswTL4dCWaUGm2FhyGxDJgZShHhEtcrCiidfky5fGZQRo5kU9YfB3F3Y550aoHZ59jqGm9L9SNc9HT+yHC3Ha74dZFoty/dXwvX2v7aysdBw4jzp0EHo+1SAq2yXLoLeXYzGW4kk2PQ0PDAVAmRf27Tn5aUq7oRMi8yhWDQ38On7SZEGUkh8iyCMtoeTUKr3RP6Pnne47jvg7/VhB4ONtFNgeldGIer+0WofFOIzuI8dC3T8V9mR+VdsPwdxz8ZujIibVN9zL6nkbe7EdoXEwrQVHU7y8WOSkitK36Brc3w2Zve4P5mBDZeTpGVsy5N8L0vAROhsiCDHKaLJYDK2Fg==
+ b=B1sBmOKJkp9yq3cPjJmOCtZURxJLsGYbYnWja8fNdCOfyFLKD1w/ixTiX/Io00GOZjcu6mKl5DQPUTQFhJQ4bKVlnN4nW5MQ+2rH6FwQURsBFZ0yhrTWZ43j5GIy3Dh7010Egg9zW+u84PjcCVreJluvgzZYbkZQ3VWf6Za2pASKHMM3RMASkcRYUvJBOhVp5M57EXneFFwU9PwEptkDUor/HikKM1NlsC9JQyEBMoqdEleRtF68pXbuPKh1Wa7zRh7mG/ti35p5h8nl6ZvEEOrx6nZcs05EHjV4qFk3cVsr60LAVNRUUZBnfjdHWaqt+W3i9Xwn1Ku9BO/4LhWG4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DoDhdTF0A/O26QnYxCxxYly+yAcFFjFRVafIQNru3ks=;
- b=qTj713nPY0q1JtOAEtohKEh3LtvoS1eauVmGxypPPFoLE/dxPTCA9ViMHqLN9QVKFwSu/6D128l6mWnESenoN0Y/mI9YSig7/XElcTWyoZeW9zM3M4UWCJVTSmknVDNQ4gTIyUYV4pEweJY+zX8COX7VldQHLjuP/U+uI1yct2FCh+CSGj+6alDHjTYF1q0WSK6tnpJbn7hg8yfOEjwQ/2niWO8hJanlTNRZb+w5y9oalSdvSqIF7rQP3Tg8A5w15b3upZ4w7tuz/8qo2I6A9M5N6LFuAo34VuTdy2RIsHG8jDayviC3iNHGQwd2C9Riv2v1LRQUROcKkvsYJY870Q==
+ bh=wX/sA+HbyjLIrbQJLtP2qYPtkhD5N253XrdmtBbQxPg=;
+ b=IZ0PvksUZp7j1xOmGJymXfK7eRJggyh+PRJQQfNiYt2XWahJFDJIY5wQXEiO3xDGODekTwhJU2bmCpLWXHb9auU3tYgtamNCK/6L3t2wY4MO0wr0kY4vTWuMu4ZNZtNM3gshkOR6yG63U/5qenIrQfu8tWAYabwQ/RjAs+HC+yP7ijcauSvX7rdSVtPmY2iobAJDykEVzbFsLNcQ9Bd3r+otdVekfhvmezESdRW6OWlR4dLWFrTa8cYc/UAS4iCjZ4aGKbt8aefuk93bhdvI2xmrD0t7vvPUoGlDdiwPoGOFkpi+N/+D8g2GmYOkwMvft2QMyCny6lWbtUSEH3F6hQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DoDhdTF0A/O26QnYxCxxYly+yAcFFjFRVafIQNru3ks=;
- b=Lgj1ntiAjzjZjTpUJWElA49MLuuXQa2AcuVlLM805VSQg+rOAcxy7JwYuA3RfFEoALAIslXCPs/YY9juTSItuwGlRO8l9wujQECcL0ATLMGUSUGVsRHiCD+UOYZYYxV6jtif2LcdFdsT1AJUcLlwUsgr87LRhABKqmpUDCMsBXFCRdN5ZnHwis2itQSLMmpQo19n24JDJXWzjMAtHTU6mDKl3nQ04vCp1otA7zX0f7uiZ9Wahr1dFxZElYlfVAIXK5mNyzUXaZdVwetUzDzumgmjJFT9G2HWuOSfVDGCHOYsrQ1MeRBvZNln0SxJk3AaA2XaoyY28+kraEocdeXPOw==
+ bh=wX/sA+HbyjLIrbQJLtP2qYPtkhD5N253XrdmtBbQxPg=;
+ b=fbiZ7E3QakNJBW45SoL+lrEI7Hl/dYZw3FdSQZ+5FPO1FNfydWIfZL4PHtGTJMj1Hn0vc/w4BjnTtJ7PwhFzVVkz4cd1BgzC7McFOWo7JupJiD+T72UqmHDajn3VxnCrQFtKBOOpnueXsOMJbzGqV1oO5OBwi0pyZ7spPaCu5n7KayhcT0G2FXgcUlQWMgxRqGMU9CxeAfSE747vkAmjng3GZ/9ccfaE/RQwINWMXUo3mi6mM0CWTjx0aZGDtYKkLbklQcG4aipo8dwdsQJrK2kz0vT8Q9Rbq36fh6LT0WrIz8zIOGZqhQWZ0CHz4kgzUKTVyOIowEvexL7MPpp1cA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 From: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
@@ -74,10 +74,11 @@ Cc: andrei.cherechesu@oss.nxp.com,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 4/8] xen/arm: vsmc: Enable handling SiP-owned SCMI SMC calls
-Date: Mon, 30 Sep 2024 14:47:10 +0300
-Message-ID: <20240930114715.642978-5-andrei.cherechesu@oss.nxp.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	s32@nxp.com
+Subject: [PATCH v2 5/8] xen/arm: platforms: Add NXP S32CC platform code
+Date: Mon, 30 Sep 2024 14:47:11 +0300
+Message-ID: <20240930114715.642978-6-andrei.cherechesu@oss.nxp.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240930114715.642978-1-andrei.cherechesu@oss.nxp.com>
 References: <20240930114715.642978-1-andrei.cherechesu@oss.nxp.com>
@@ -90,141 +91,175 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PA4PR04MB9565:EE_|AS8PR04MB8357:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6495c173-cd34-4d0b-c602-08dce145acc4
+X-MS-Office365-Filtering-Correlation-Id: 98730b9b-71fb-4a3c-42ef-08dce145ad66
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|376014|52116014|1800799024|366016|38350700014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?IhKpMS2LSaTUDsXr4ohdnuP+L/Lo27SbxC+0gVVAflBJ1TYr75rvjS5987/5?=
- =?us-ascii?Q?x58RD23a5SMVc4rcUBeI8vY9KazP9zRjnPKYhv6e5k1YGdYc1A3wVaQC/oh5?=
- =?us-ascii?Q?7LqsbvSqqBQvB7p8wqVvZFAgp462oBQ9UZhWCFenz4vRlFG2HfSIo+gYn7qj?=
- =?us-ascii?Q?CutX6ncDDxhmbV1LHmh0jMlEJoLwfdxDjw/uQoNBEYficO0tB+NHbJ7eSyji?=
- =?us-ascii?Q?awpD46HVBEkiHCgomWcFeIrRoZitVnQEx+NVTlgbDBTHozQqV6BkVnIhPNou?=
- =?us-ascii?Q?Cgb1TVuMvlPHOIEs8Bm31xdqa8yoyLfYyuc/yMAcOI1GLo4VbDJfZ5wR85CW?=
- =?us-ascii?Q?oymvbizcioe3SyryTR2SLQgeUgb27ZVv+TXMhG7hZTC6ZlVUajaDvWXUvEJE?=
- =?us-ascii?Q?VfM9tRIYabIdzVLSYBthNHrelLIHDHT3Mz98/rBi3JaLxZ7V2DsuZndQajfu?=
- =?us-ascii?Q?AfaSm0VVjvRBXKDmsqF7fBS8d1jUpGUimja2TUSlI3WYcnB8HbALEkOmiyHR?=
- =?us-ascii?Q?KrFTSO8CVusQ7kaltZfqJ0YY0qwJwrsL0J6Re57tb7zE7BChSEAUoIMt7OfC?=
- =?us-ascii?Q?Jq+1FU/3bMJ2GpRq2QzeBHj1SNfRIYHystP1CV46ypwLyP0Daz11UkeAIboG?=
- =?us-ascii?Q?2Fu++acGIOrWOZax5RMUvFilr4cWyrEhCO5Qqz+b3X2jyY8zvqlxlDODssXJ?=
- =?us-ascii?Q?qvOrwkojB9EUjpfdZXY/iSSj7aSRWqCx3dftDIuHtyM16fpUbB8Mlo8EKano?=
- =?us-ascii?Q?dbSwCkJefqcjOg6KD9C67HUcOBwdq755meRFvhwHtF+5eWFRs2pjsGDKVVWs?=
- =?us-ascii?Q?UXSZSx1OTARmw6AC8I+0HE1nZZ08UsTzZrUXHg7XLIfn/mLhVn97nHRkKMrg?=
- =?us-ascii?Q?DWT3xl5Ietzn1tHGDAA91bGCCsD+n60Q6vqy4oZtlp35ezb4TEAJgp8INpdH?=
- =?us-ascii?Q?mFz+4ZaqsFOnAorsNEke8aywPWvPcHGYKTXbW8Cb1kOUgLs8KFwic1NtsDkf?=
- =?us-ascii?Q?kPrjYUKOgTsrwHt8/i25iS1zOhYHXSOp5heUFWVS5Tobop3qzYTAOfxcq0xG?=
- =?us-ascii?Q?p+bit4PtKsLz/xqGt4+QJBPVx/CIu0SnCnDG6WNyiGJmH1jgiV9eectHTeVM?=
- =?us-ascii?Q?QeUO2nYrvLywrII9otFIJYNs4Oxz3eLOLzYz+8cNYypv8DcNUMbYxc6trvlk?=
- =?us-ascii?Q?xa5TwDHptuQt/nFkszfIvQ0aJ0M5wXrqhHLdsi5uZyKVNF8/Fkls+pLbaJ39?=
- =?us-ascii?Q?igBdkBLpo3p0D5zUxmKDo7o/Zm8xNkdQmtv3Qk/bRJ2aHOhflvtczeWZu2Hs?=
- =?us-ascii?Q?X71dR92DT//SFNlopYItUl9CAIkg49/iDAn4876COstpDw=3D=3D?=
+	=?us-ascii?Q?E3g0GugfsiPtud6qW82PHGgoVx35DcM01XVdp3WErxzJtAtkz60Hn99+oE1n?=
+ =?us-ascii?Q?wTv6xpj53ezyj1JNTtHGvfULr9dH9+V673XDrBmlZGELpD8piRJgZIp5aUUH?=
+ =?us-ascii?Q?0+nLJF5Hdf0RyFQwDm9/XaNm+IJaTEKXPflVP2M3fzdq2hKQkBS8th0IQyQ1?=
+ =?us-ascii?Q?7BhN7bIuMXNchvJ2bhWYpAap8+0SwSF/3qqXqOIsQvVNQFuczH8igrK2oufW?=
+ =?us-ascii?Q?A0hao5u495WVqrnS7rQLmkc7R2Zi0QY3GK/E9HqIamkQKIjZJv2km1CWGnbD?=
+ =?us-ascii?Q?e401v/VhU+5Vqol96IokQTJAsa/nPzM7aSE+gVjAMhBjfAmPn1ec9PQg6zt1?=
+ =?us-ascii?Q?hBQmT/rjFyLAZTFzwcOG3OBWvx969fD5PExcdxFGzAbav4HaT+w8gzgvoAyN?=
+ =?us-ascii?Q?Vz6hiqVcLEVk+liYd6UxFvf+0XmAxQkz/QvNuyBH1e9iR5mpg9bV0wEHyti9?=
+ =?us-ascii?Q?wD+2TYxwNgc/7GZATT/sY3oVlmkKjdis0Xm7L8qEd14dQ3yzg/nLDg1jjSyI?=
+ =?us-ascii?Q?sjg2Hkn1E3tqThsv3PDX4Q6jGqI5r5s9zxfF9j5a1jQNtX63fDJT8SLk1pzr?=
+ =?us-ascii?Q?ORCQ05MrnxqI9zjaSSxRn7ZCbowS5OxwPIknhE9RKm3I9w59iVW9J9l56XEg?=
+ =?us-ascii?Q?nEcArfsWUgmgUgxEAurLfwrZw6NGBpHBiKR1DL1MxlWQR2neN3gNKSzXhK5r?=
+ =?us-ascii?Q?IU95FcBKC2a8zQSL8/XCVUJC+B5NBT5B+Tv1BT85SBYu0hi2rlpVsLA82kaL?=
+ =?us-ascii?Q?UF2cgbLsHHpIUQKOXxdxjhjNPWGdxQ+F2kayAQMRuoavfdKNjwfxh6ES3wZ3?=
+ =?us-ascii?Q?r690mlhdblIs6rEXCoJowX6Gd0W27r+/PQVnAzLSUmRUvJvSMylxMT6VJUuq?=
+ =?us-ascii?Q?gYX3p600OdKdPZeVFvt/MQZBsOevm+i8Ahz+bFLMES9xhv1iYDyoyj+/ecTC?=
+ =?us-ascii?Q?pi6fI2XM2I57fHt80kinwypLN3jOSLCX7KgcebJv1qyKckPRFuR1DT6u4RZu?=
+ =?us-ascii?Q?tvGo/LhHJq1Fzq0PUNRtbfaQ4cdzp9+Ay7+990qFPjwP8Fzv2UwiLMXjT/Zt?=
+ =?us-ascii?Q?E/YJzc/oa9vTEfrE3GxxHbJhbqSFcc/lPCIObsL/CubHiiqJ7zA0J562It/b?=
+ =?us-ascii?Q?Lzrqn/Z3HcPlUJYygcA1PmzSu3qGXWY29zYD3xeaz4ODaJYDyYEvXAz2Pe/M?=
+ =?us-ascii?Q?ioBUnrGa9Tf2Ql5wxizAhuO7hMM+hdd+YKeJKHgJzWBWAxERUyOQL7ABf66+?=
+ =?us-ascii?Q?fHiIulHTMZtCyrPZmqmosrhob6WlEagL824eKnyfEw2+9ocZOEB3QL4qnUwG?=
+ =?us-ascii?Q?NIvfWhLNximVOw/POLcXUkTCbOXhM2mxnFtiWY+iFlKE1w=3D=3D?=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9565.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(1800799024)(366016)(38350700014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ciWkBClUl86MQvUKEwJEpHFhHrtkzaBBnec/QbheaI+3qCb0iWPB+v25nM5x?=
- =?us-ascii?Q?pxLcg9faFZGAYGPkTGW0pcqOq0BKuJBVMOIXfx76gYaQsGNVy0ORCyvZDs8p?=
- =?us-ascii?Q?IPDyBwR4VyrujHPdWMhc6wESo8D0ElkZ1MnQ4gZsLDxwtQHiDues88CL5YIi?=
- =?us-ascii?Q?rJfQiXy5qC/VN4c9T0I6wKwGWaUqvEuchej1TVDOKpqfHumSUi7A+CjLPC/s?=
- =?us-ascii?Q?FfoLG7BSB0w4D5JpJEV3LT4RQZq76mQLJz25jU1fozSouj9KfEDsBZH55itN?=
- =?us-ascii?Q?d/ryqvjS+30CzvgkBA4ivif41jj/buT0bit7HkEbDSY6kQlvkNaH9Z79wGsZ?=
- =?us-ascii?Q?3yJD1OSHtWldmS5Pnh6X5+DHgkBXNkMGZYxqUZwv7o3JBppXiA/8jXQ6ZmqO?=
- =?us-ascii?Q?6xiWPzesu9lDYk9d/QaWktMxGvVyog7ciw/7dyPAx+0SnvHOPwE45ou39hyi?=
- =?us-ascii?Q?xv6Iir9sIGLy/6N9g6PNT8p8e5aO6DBGO9vR07wyo29sB5HPE0dQDBNA4SBg?=
- =?us-ascii?Q?Fb4WwtEf3Sb2ik0lOf/41IZw6UzC1zybr/PrWEkk+ufW3AzZWXU2n2ZqdtUn?=
- =?us-ascii?Q?y2IlaNwNPH6uY83ezBl1J93Rr2KPNosZv7fIj0CAFN+wYxag7CH99XyM85Hi?=
- =?us-ascii?Q?a4fYAbRwFRXqtYgbbzu4qdc/P0hV540VMxQs4JOr0bXh3wh4rrA9WURzkq52?=
- =?us-ascii?Q?jWZ/eIVHUzZ6wAzQgrLpLIut7MI0c3lhtH2xcf78NUC3OlV2z9SSSwvd2Opu?=
- =?us-ascii?Q?eGps5cq9KuwsQYSKnScMycvDM9eyBWZrhvoZT94sOiy4pHuz7zH/qgFNZkqm?=
- =?us-ascii?Q?nQlBbKDwgiX7HSNERVa0m6cSWdcVrgZnjSswqvLfR+VqZY/GlbWK49pg41YG?=
- =?us-ascii?Q?TqEHbOj8L/jWN6o43hBXc89TIyPqMNr2t4MCNHr3xvbLXDvhe7SZx4UO32D+?=
- =?us-ascii?Q?NG2qucblZhy0nO0bNLl5UwHCineHE9ik28cI60NB+VjjNOPE02aEveLN0mpA?=
- =?us-ascii?Q?LMYGS/eM3S8MfrwfZY0P68NlKu0s5lNcOqD4TJ8UL8gQ/gfawP86fS6ryYrZ?=
- =?us-ascii?Q?mlKfdvJbgeiQmH2UkMAfGeUu/5QHhlcM56626roD8iKNy3RaFsqtoZa7KV77?=
- =?us-ascii?Q?B8hFVfS+AkyB2XfGV4z3WxdrzLEDVwB2wowLLeM7b+m9UVrt8Ty6gEmZxH14?=
- =?us-ascii?Q?mYbJEuUkWSP5bR4+5Uy5BZx/gRe4UCPvKEtSm05IGbOzvP6tLJ0ycPu5Eszt?=
- =?us-ascii?Q?S7Cvkj7phhYieCxwTnTNn527QXRe5Sv9Aqmu6dynwfjMu0kKkZuhDwX8lWHk?=
- =?us-ascii?Q?qloGXCElsSYGjEHwK+M4nB2H+xEgfXIwm6JnMooOgGEeGqSGncnxG8lUvi3g?=
- =?us-ascii?Q?gjR2N8qXTSqPzHpjiZsLCIM/sC3E8z9Q85gWdNO+1oABhiwsf9bp+nY7qRig?=
- =?us-ascii?Q?7fnq5ekkBn2Py0g5xiYdAsjZJ/qoXUyP6C9mikjEjKOPVRLLsyRqvNFhAz0j?=
- =?us-ascii?Q?3LY29iw6+ShXH+GmzrhLRMb3h0v0Lygms8VkiMDDzbgiLatZIfd9adNfDX2e?=
- =?us-ascii?Q?LHf9Yt2842uTrcKHyPcGoimpGb7At7yGSrkMxMOdKr9tH+qtVb5u8Do4S/I5?=
- =?us-ascii?Q?5g=3D=3D?=
+	=?us-ascii?Q?MNdGevpOQHc65sCY8SzNnD8emq0+WCCb2by23UXm688n3+AglKXpA7GYa5/V?=
+ =?us-ascii?Q?rI+/H5x22WuE0M1TpMr2E+92W3FUINucSG7D5IbA6m9lnSDohv6IXu7WLJ6V?=
+ =?us-ascii?Q?beFAqfl47yLiknoMMJQjVRrOrI9ZQQGVv8J/twv0Ys3Vmn5Vz8o0ilJM6KVK?=
+ =?us-ascii?Q?m5WBngnKW8h+ISegBEmMXTImqWLsdYST0k7Kt+ONG+eEJTZUV1AUmzKPlCMz?=
+ =?us-ascii?Q?coKoPAUcam9Ho1areHlagkDf93QIbD+XEqpPFsplE3YIzZNqLxgVtjNBjgZz?=
+ =?us-ascii?Q?NDRiB4dgMLSreDPeQgsgHmOIOfCQs5dcFtyCeDnWO2LSqMDSnoQinYcoFcAC?=
+ =?us-ascii?Q?qdRAHMnZnipfnSuutiw3iFYU5N6bx13JJGaa1rV7zFwpPZlDCKJ6OhrCjPaV?=
+ =?us-ascii?Q?AXbvSuCUEKe0huN0TrWVNi8RQMI2arNSlnrcZWjHTXpK5mPgnhl1/MqyoGkH?=
+ =?us-ascii?Q?aYvjHgon1Is1Ji2nNz3vKZWyMrZrzSLSs+4p5uqJimRjpz9s05Dl+QaV3Ia/?=
+ =?us-ascii?Q?vktDMqlIoo7mdn5LHf26dYjtyKmzGohF9BhrJEWzphRJBpXFPOFhzWVTCSpD?=
+ =?us-ascii?Q?/lO1G2HHWSrV4EzXklMZFz/NlybLYj0mUIgdzvs9v6ujq+iyUXz/dOWVembK?=
+ =?us-ascii?Q?pFTP1dEufpnnLzQtVaoN592hvqpMmvxS6qvD8yBkTRnVTGl8RlGEni79jjpH?=
+ =?us-ascii?Q?NnysZnybJaTdNPZ/3OHlsQ0JOUGRPiDxqyrqZp7Epnt1b3xSD4mSF1GcS4lf?=
+ =?us-ascii?Q?c+bWpWlrQtr3SOLqds3QuW8MVwhjhi9HuEoZPQF1+GmOSl24/Xxuz1+qOEy/?=
+ =?us-ascii?Q?WS785XJWwmBJ19Qku7LVWcUNr1UqpjdByVdNWev8SIqFzaj6IaeXjb0SjdnT?=
+ =?us-ascii?Q?mGOSObyciL+tp3JhirL1HSAT3DlWwlUobRkS2G32MhtyXfIXz/woc8ZlRayr?=
+ =?us-ascii?Q?EkBQbb4SqCPUG/uxMfft5HMGD32LE5cmsVRhPfBuDVokwp+uKNiyEhm/zJYz?=
+ =?us-ascii?Q?8fXbbKHiwIeplS2tzSe1RrN1Ka7tE/MLs4ysBt4GPdF5nT/C6VQ5UG2eCjB/?=
+ =?us-ascii?Q?C3jHARhdErOdY+GF+0Yybh564ruduUK6e9mXm5xNJVEtO4FSNNYIA9pFrw12?=
+ =?us-ascii?Q?tHvdB5rkMQHLutGaT3mWU1mS9n8ypSmZbEQ6Splk10ym+mklT276tPrwToSu?=
+ =?us-ascii?Q?3NqPBHyz9xCPEtFHe/UwSeecfAuSh76SUmRZ7Gx6gQTwMeNPe3kgTisZ71+k?=
+ =?us-ascii?Q?4HznPlwVl6XrfTlgHa43ApAPIxr5J/hgLrhV3BkOwe02EscerHUpZf7GeNCX?=
+ =?us-ascii?Q?kDXGVEY5hM0XC18wKydZ0l9P3TNinv3SmU8MSDcd2Ys1HpsWjt67Xntb6b9m?=
+ =?us-ascii?Q?+sBzMgqJZqB7tExW6hYel6lQ51Umz8H9j6Gjwbtd43CDnvujGK8F3YhQfKQO?=
+ =?us-ascii?Q?l1HG42iuQ5t1xHIl9bH/tpt+H45gW9xcmic9s32Ic04mrvBw2awwNzPEgVeL?=
+ =?us-ascii?Q?X75Ehn7xdyHjPhDBDL98UymqdwtmYPMfCfCjf27+XfY7tm4OP4GzCczFzz5C?=
+ =?us-ascii?Q?75FVBf9C+m1IyFTeSEGH1xjmlWPyxWusWZpp/Posda4VM4OE30lw+rA3p5vk?=
+ =?us-ascii?Q?Nw=3D=3D?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6495c173-cd34-4d0b-c602-08dce145acc4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98730b9b-71fb-4a3c-42ef-08dce145ad66
 X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9565.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2024 11:47:34.9063
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2024 11:47:35.9870
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9aWJ3JREzReLbf2a2z/nY2+xwcHzurCDas5SQ1Ecs6tkk4DwjH3hzEn5Vr8Hgrc57YWx8a37HKzel84VPiuTQvlgpr2+nH2zTvq4XAmmKB0=
+X-MS-Exchange-CrossTenant-UserPrincipalName: VMz2Ga6/eY4McP1BLH+ShRxpd8HidvSLgTzqTk/EXe6zH729eU6J7qMajvcvbvjSAqmweP5OrveJgUwwYohUcWmEALTN48o72z7FGuQJ2vQ=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8357
 
 From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 
-Change the handling of SiP SMC calls to be more generic,
-instead of directly relying on the `platform_smc()` callback
-implementation.
+Add code for NXP S32CC platforms (S32G2, S32G3, S32R45).
 
-Try to handle the SiP SMC first through the `platform_smc()`
-callback (if implemented). If not handled, check if the
-SCMI layer is available and that the SMC is a valid SCMI
-message. Handle it then within the SCMI layer which forwards
-it to EL3 FW, only if the SMC comes from Dom0.
+S32CC platforms use the NXP LINFlexD UART driver for
+console by default, and rely on Dom0 having access to
+SCMI services for system-level resources from firmware
+at EL3.
+
+Platform-related quirks will be addressed in following
+commits.
 
 Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 ---
- xen/arch/arm/vsmc.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ xen/arch/arm/platforms/Kconfig  | 11 +++++++++++
+ xen/arch/arm/platforms/Makefile |  1 +
+ xen/arch/arm/platforms/s32cc.c  | 32 ++++++++++++++++++++++++++++++++
+ 3 files changed, 44 insertions(+)
+ create mode 100644 xen/arch/arm/platforms/s32cc.c
 
-diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
-index 7f2f5eb9ce..0de194a132 100644
---- a/xen/arch/arm/vsmc.c
-+++ b/xen/arch/arm/vsmc.c
-@@ -14,6 +14,7 @@
- #include <asm/cpufeature.h>
- #include <asm/monitor.h>
- #include <asm/regs.h>
-+#include <asm/scmi-smc.h>
- #include <asm/smccc.h>
- #include <asm/tee/ffa.h>
- #include <asm/tee/tee.h>
-@@ -224,6 +225,22 @@ static bool handle_sssc(struct cpu_user_regs *regs)
-     }
- }
+diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/Kconfig
+index 76f7e76b1b..9837cba475 100644
+--- a/xen/arch/arm/platforms/Kconfig
++++ b/xen/arch/arm/platforms/Kconfig
+@@ -37,6 +37,14 @@ config MPSOC
+ 	help
+ 	Enable all the required drivers for Xilinx Ultrascale+ MPSoC
  
-+/* Secure Calls defined by the Silicon Provider (SiP) */
-+static bool handle_sip(struct cpu_user_regs *regs)
++config S32CC
++	bool "NXP S32CC platforms support"
++	depends on ARM_64
++	select HAS_LINFLEX
++	select SCMI_SMC
++	help
++	Enable all the required drivers for NXP S32CC platforms
++
+ config NO_PLAT
+ 	bool "No Platforms"
+ 	help
+@@ -56,3 +64,6 @@ config MPSOC_PLATFORM
+ 	bool
+ 	default (ALL64_PLAT || MPSOC)
+ 
++config S32CC_PLATFORM
++	bool
++	default (ALL64_PLAT || S32CC)
+diff --git a/xen/arch/arm/platforms/Makefile b/xen/arch/arm/platforms/Makefile
+index bec6e55d1f..2c304b964d 100644
+--- a/xen/arch/arm/platforms/Makefile
++++ b/xen/arch/arm/platforms/Makefile
+@@ -10,5 +10,6 @@ obj-$(CONFIG_ALL64_PLAT) += thunderx.o
+ obj-$(CONFIG_ALL64_PLAT) += xgene-storm.o
+ obj-$(CONFIG_ALL64_PLAT) += brcm-raspberry-pi.o
+ obj-$(CONFIG_ALL64_PLAT) += imx8qm.o
++obj-$(CONFIG_S32CC_PLATFORM)  += s32cc.o
+ obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp.o
+ obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp-eemi.o
+diff --git a/xen/arch/arm/platforms/s32cc.c b/xen/arch/arm/platforms/s32cc.c
+new file mode 100644
+index 0000000000..f99a2d56f6
+--- /dev/null
++++ b/xen/arch/arm/platforms/s32cc.c
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * xen/arch/arm/platforms/s32cc.c
++ *
++ * NXP S32CC Platform-specific settings
++ *
++ * Andrei Cherechesu <andrei.cherechesu@nxp.com>
++ * Copyright 2021-2024 NXP
++ */
++
++#include <asm/platform.h>
++
++static const char * const s32cc_dt_compat[] __initconst =
 +{
-+    uint32_t fid = (uint32_t)get_user_reg(regs, 0);
++    "nxp,s32g2",
++    "nxp,s32g3",
++    "nxp,s32r45",
++    NULL
++};
 +
-+    /* Firstly, let each platform define custom handling for these SMCs */
-+    if ( platform_smc(regs) )
-+        return true;
++PLATFORM_START(s32cc, "NXP S32CC")
++    .compatible = s32cc_dt_compat,
++PLATFORM_END
 +
-+    /* Otherwise, if valid SCMI SMC, forward the call to EL3 */
-+    if ( scmi_is_enabled() && scmi_is_valid_smc_id(fid) )
-+        return scmi_handle_smc(regs);
-+
-+    return false;
-+}
-+
- /*
-  * vsmccc_handle_call() - handle SMC/HVC call according to ARM SMCCC.
-  * returns true if that was valid SMCCC call (even if function number
-@@ -288,7 +305,7 @@ static bool vsmccc_handle_call(struct cpu_user_regs *regs)
-             handled = handle_sssc(regs);
-             break;
-         case ARM_SMCCC_OWNER_SIP:
--            handled = platform_smc(regs);
-+            handled = handle_sip(regs);
-             break;
-         case ARM_SMCCC_OWNER_TRUSTED_APP ... ARM_SMCCC_OWNER_TRUSTED_APP_END:
-         case ARM_SMCCC_OWNER_TRUSTED_OS ... ARM_SMCCC_OWNER_TRUSTED_OS_END:
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.45.2
 
