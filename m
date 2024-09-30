@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA5CA98A0F8
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 13:40:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807235.1218556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8467F98A100
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 13:43:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807244.1218565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svElQ-00079u-Fw; Mon, 30 Sep 2024 11:40:28 +0000
+	id 1svEng-0007mR-0P; Mon, 30 Sep 2024 11:42:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807235.1218556; Mon, 30 Sep 2024 11:40:28 +0000
+Received: by outflank-mailman (output) from mailman id 807244.1218565; Mon, 30 Sep 2024 11:42:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svElQ-00077j-CK; Mon, 30 Sep 2024 11:40:28 +0000
-Received: by outflank-mailman (input) for mailman id 807235;
- Mon, 30 Sep 2024 11:40:26 +0000
+	id 1svEnf-0007jy-UA; Mon, 30 Sep 2024 11:42:47 +0000
+Received: by outflank-mailman (input) for mailman id 807244;
+ Mon, 30 Sep 2024 11:42:46 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1svElO-00077Y-5O; Mon, 30 Sep 2024 11:40:26 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1svEne-0007js-K4
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 11:42:46 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1svElN-0002W9-Tm; Mon, 30 Sep 2024 11:40:25 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1svElN-0007FD-Fm; Mon, 30 Sep 2024 11:40:25 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1svElN-0004gi-FP; Mon, 30 Sep 2024 11:40:25 +0000
+ (envelope-from <julien@xen.org>)
+ id 1svEne-0002Zu-Bg; Mon, 30 Sep 2024 11:42:46 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.0.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1svEne-0004xv-4v; Mon, 30 Sep 2024 11:42:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,253 +39,305 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=nCBnkWk3zv4Ly3+pPZhmADTgcFUiwnNxxOZ6e7JVEA8=; b=UYthrZlvQVO+f4NfxWLev6ZPfK
-	Q52i1IxXQCZ65WS266xwYfYIpzKEbRrGYW7mz81YUC63YZOVqasuh8U1r6/4XVTgIpPCGWmysXgI3
-	bieIK1a57+eDwCdLpBdFZJunAg2cWCDpEr5L57EZCLg3OwOL8vcYxFEwpmdXjEmUphwM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187899-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=U2cQu6pfwVpPB7BaRFBvRc8xB2W2fpU9tZkkL6oBs+Q=; b=K5slhJPXevMT3oU3RR73Hf0oed
+	WkePUrIRS0xTiikyQidQJEg524JyaHtnyY/AJYOvYdo1ieEhNcua9HUGk9up/ikS/RdxKveNAmH3Q
+	HLoiJZrrhJIdHqiWUh1ABzUUEusEdTin5oXqYz6CGqQgZaCqSD5igUbaXIlBD6YWeblI=;
+Message-ID: <10824512-99b2-4a66-91b6-f2b03d35e9e2@xen.org>
+Date: Mon, 30 Sep 2024 12:42:44 +0100
 MIME-Version: 1.0
-Subject: [xen-unstable test] 187899: tolerable FAIL
-X-Osstest-Failures:
-    xen-unstable:test-armhf-armhf-xl-multivcpu:xen-boot:fail:heisenbug
-    xen-unstable:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:heisenbug
-    xen-unstable:test-armhf-armhf-libvirt-vhd:xen-boot:fail:heisenbug
-    xen-unstable:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-raw:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=457052167b4dbcda59e06300039302479cc1debf
-X-Osstest-Versions-That:
-    xen=457052167b4dbcda59e06300039302479cc1debf
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 30 Sep 2024 11:40:25 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] xen/arm: mpu: Create boot-time MPU protection
+ regions
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayankuma@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240918175102.223076-1-ayan.kumar.halder@amd.com>
+ <20240918175102.223076-4-ayan.kumar.halder@amd.com>
+ <e515dfb1-efb6-41a5-85a4-65ec7e9c60a6@xen.org>
+ <04bcb27f-8139-43ed-839c-1febe2eb5a13@amd.com>
+ <59432427-950d-4667-aed9-1caad33d7cf9@xen.org>
+ <edb07929-32af-493b-91e9-debe06be4bc3@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <edb07929-32af-493b-91e9-debe06be4bc3@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 187899 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187899/
+Hi,
 
-Failures :-/ but no regressions.
+On 25/09/2024 14:22, Ayan Kumar Halder wrote:
+> 
+> On 24/09/2024 18:10, Julien Grall wrote:
+>> On 24/09/2024 12:32, Ayan Kumar Halder wrote:
+>>>
+>>> On 19/09/2024 14:16, Julien Grall wrote:
+>>>> On 18/09/2024 19:51, Ayan Kumar Halder wrote:
+>>>>> Define enable_boot_cpu_mm() for the AArch64-V8R system.
+>>>>>
+>>>>> Like boot-time page table in MMU system, we need a boot-time MPU
+>>>>> protection region configuration in MPU system so Xen can fetch code 
+>>>>> and
+>>>>> data from normal memory.
+>>>>>
+>>>>> To do this, Xen maps the following sections of the binary as separate
+>>>>> regions (with permissions) :-
+>>>>> 1. Text (Read only at EL2, execution is permitted)
+>>>>> 2. RO data (Read only at EL2)
+>>>>> 3. RO after init data (Read/Write at EL2 as the data is RW during 
+>>>>> init)
+>>>>> 4. RW data (Read/Write at EL2)
+>>>>> 5. BSS (Read/Write at EL2)
+>>>>> 6. Init Text (Read only at EL2, execution is permitted)
+>>>>> 7. Init data (Read/Write at EL2)
+>>>>>
+>>>>> If the number of MPU regions created is greater than the count defined
+>>>>> in  MPUIR_EL2, then the boot fails.
+>>>>>
+>>>>> One can refer to ARM DDI 0600B.a ID062922 G1.3  "General System 
+>>>>> Control
+>>>>> Registers", to get the definitions of PRBAR_EL2, PRLAR_EL2 and
+>>>>> PRSELR_EL2 registers. Also, refer to G1.2 "Accessing MPU memory region
+>>>>> registers", the following
+>>>>>
+>>>>> ```
+>>>>> The MPU provides two register interfaces to program the MPU regions:
+>>>>>   - Access to any of the MPU regions via PRSELR_ELx, PRBAR<n>_ELx, and
+>>>>> PRLAR<n>_ELx.
+>>>>> ```
+>>>>> We use the above mechanism to configure the MPU memory regions.
+>>>>>
+>>>>> MPU specific registers are defined in
+>>>>> xen/arch/arm/include/asm/arm64/mpu/sysregs.h.
+>>>>>
+>>>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>>>>> ---
+>>>>> Changes from :-
+>>>>>
+>>>>> v1 - 1. Instead of mapping a (XEN_START_ADDRESS + 2MB) as a single 
+>>>>> MPU region,
+>>>>> we have separate MPU regions for different parts of the Xen binary. 
+>>>>> The reason
+>>>>> being different regions will nned different permissions (as 
+>>>>> mentioned in the
+>>>>> linker script).
+>>>>>
+>>>>> 2. Introduced a label (__init_data_begin) to mark the beginning of 
+>>>>> the init data
+>>>>> section.
+>>>>>
+>>>>> 3. Moved MPU specific register definitions to mpu/sysregs.h.
+>>>>>
+>>>>> 4. Fixed coding style issues.
+>>>>>
+>>>>> 5. Included page.h in mpu/head.S as page.h includes sysregs.h.
+>>>>> I haven't seen sysregs.h included directly from head.S or mmu/head.S.
+>>>>> (Outstanding comment not addressed).
+>>>>>
+>>>>>   xen/arch/arm/Makefile                        |   1 +
+>>>>>   xen/arch/arm/arm64/mpu/Makefile              |   1 +
+>>>>>   xen/arch/arm/arm64/mpu/head.S                | 176 ++++++++++++++ 
+>>>>> +++++
+>>>>>   xen/arch/arm/include/asm/arm64/mpu/sysregs.h |  27 +++
+>>>>>   xen/arch/arm/include/asm/arm64/sysregs.h     |   3 +
+>>>>>   xen/arch/arm/include/asm/mm.h                |   2 +
+>>>>>   xen/arch/arm/include/asm/mpu/arm64/mm.h      |  22 +++
+>>>>>   xen/arch/arm/include/asm/mpu/mm.h            |  20 +++
+>>>>>   xen/arch/arm/xen.lds.S                       |   1 +
+>>>>>   9 files changed, 253 insertions(+)
+>>>>>   create mode 100644 xen/arch/arm/arm64/mpu/Makefile
+>>>>>   create mode 100644 xen/arch/arm/arm64/mpu/head.S
+>>>>>   create mode 100644 xen/arch/arm/include/asm/arm64/mpu/sysregs.h
+>>>>>   create mode 100644 xen/arch/arm/include/asm/mpu/arm64/mm.h
+>>>>>   create mode 100644 xen/arch/arm/include/asm/mpu/mm.h
+>>>>>
+>>>>> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+>>>>> index 7792bff597..aebccec63a 100644
+>>>>> --- a/xen/arch/arm/Makefile
+>>>>> +++ b/xen/arch/arm/Makefile
+>>>>> @@ -1,6 +1,7 @@
+>>>>>   obj-$(CONFIG_ARM_32) += arm32/
+>>>>>   obj-$(CONFIG_ARM_64) += arm64/
+>>>>>   obj-$(CONFIG_MMU) += mmu/
+>>>>> +obj-$(CONFIG_MPU) += mpu/
+>>>>>   obj-$(CONFIG_ACPI) += acpi/
+>>>>>   obj-$(CONFIG_HAS_PCI) += pci/
+>>>>>   ifneq ($(CONFIG_NO_PLAT),y)
+>>>>> diff --git a/xen/arch/arm/arm64/mpu/Makefile b/xen/arch/arm/arm64/ 
+>>>>> mpu/Makefile
+>>>>> new file mode 100644
+>>>>> index 0000000000..3340058c08
+>>>>> --- /dev/null
+>>>>> +++ b/xen/arch/arm/arm64/mpu/Makefile
+>>>>> @@ -0,0 +1 @@
+>>>>> +obj-y += head.o
+>>>>> diff --git a/xen/arch/arm/arm64/mpu/head.S b/xen/arch/arm/arm64/ 
+>>>>> mpu/ head.S
+>>>>> new file mode 100644
+>>>>> index 0000000000..ef55c8765c
+>>>>> --- /dev/null
+>>>>> +++ b/xen/arch/arm/arm64/mpu/head.S
+>>>>> @@ -0,0 +1,176 @@
+>>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>>>> +/*
+>>>>> + * Start-of-day code for an Armv8-R MPU system.
+>>>>> + */
+>>>>> +
+>>>>> +#include <asm/mm.h>
+>>>>> +#include <asm/page.h>
+>>>>> +
+>>>>> +#define REGION_TEXT_PRBAR       0x38    /* SH=11 AP=10 XN=00 */
+>>>>> +#define REGION_RO_PRBAR         0x3A    /* SH=11 AP=10 XN=10 */
+>>>>> +#define REGION_DATA_PRBAR       0x32    /* SH=11 AP=00 XN=10 */
+>>>>> +
+>>>>> +#define REGION_NORMAL_PRLAR     0x0f    /* NS=0 ATTR=111 EN=1 */
+>>>>> +
+>>>>> +/*
+>>>>> + * Macro to round up the section address to be PAGE_SIZE aligned
+>>>>> + * Each section(e.g. .text, .data, etc) in xen.lds.S is page-aligned,
+>>>>> + * which is usually guarded with ". = ALIGN(PAGE_SIZE)" in the head,
+>>>>> + * or in the end
+>>>>> + */
+>>>>> +.macro roundup_section, xb
+>>>>> +        add   \xb, \xb, #(PAGE_SIZE-1)
+>>>>> +        and   \xb, \xb, #PAGE_MASK
+>>>>> +.endm
+>>>>
+>>>> Can you explain why we need the region to be page-aligned? Would not 
+>>>> 64-bytes alignment (IIRC this is the minimum by the MPU sufficient)
+>>> We are aligning the limit address only (not the base address). 
+>>> However ...
+>>>>
+>>>> And more importantly, if those regions were effectively not aligned, 
+>>>> would not this mean we would could configure the MPU with two 
+>>>> clashing regions? IOW, this round up looks harmful to me.
+>>>
+>>> you are correct that there is chance that limit address might overlap 
+>>> between 2 regions. Also (thinking again), the limit address is 0x3f 
+>>> extended when is programmed into PRLAR. So, we might not need 
+>>> alignment at all for the limit address.
+>>
+>> I am not sure I fully understand what you wrote. Can you point me to 
+>> the code you are referring to?
+> 
+> Actually I was referring to the ArmV8-R AArch32 docs ( ARM DDI 0568A.c 
+> ID110520) here.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl-multivcpu  8 xen-boot                  fail pass in 187892
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail pass in 187892
- test-armhf-armhf-libvirt-vhd  8 xen-boot                   fail pass in 187892
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 187892
+The code you are writing is for 64-bit :). So please provide some 
+reference using the ArmV8-R AArch64 docs.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check fail in 187892 never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check fail in 187892 never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check fail in 187892 never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check fail in 187892 never pass
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 187892
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 187892
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 187892
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187892
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 187892
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 187892
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-qcow2    14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-qcow2    15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-raw      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-raw      15 saverestore-support-check    fail   never pass
+> 
+> In case of HPRBAR "Address[31:6] concatenated with zeroes to form 
+> Address[31:0]" , so the base address need to be at least 64 byte aligned.
 
-version targeted for testing:
- xen                  457052167b4dbcda59e06300039302479cc1debf
-baseline version:
- xen                  457052167b4dbcda59e06300039302479cc1debf
+AFAICT, the 64-bit equivalent is PRBAR<n>_EL2. But indeed, we need the 
+address to be 64-byte. That said, I would simply mask the bits rather 
+than rounding up because all the address should be properly aligned (as 
+we do for the MMU).
 
-Last test of basis   187899  2024-09-30 01:54:07 Z    0 days
-Testing same since                          (not found)         0 attempts
+> 
+> However for HPRLAR, "Address[31:6] concatenated with the value 0x3F to 
+> form Address[31:0],". So even if we align the limit address to 4 KB or 
+> 64 byte or anything, the actual limit address will  always be unaligned.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-xl-qcow2                                    pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-xl-raw                                      pass    
- test-armhf-armhf-xl-raw                                      pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 fail    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
+That's just the limit is inclusive. So it will always be 64-byte aligned 
+- 1. Anyway...
 
+> So, I am thinking that aligning limit address might not make sense.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+... same as I above. I don't think we need to align anything. We can 
+just mask it.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+[...]
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+>>> Followed by a text region from __init_begin to _einittext. However 
+>>> _eteemediator is same as __init_begin, so should we be inserting a 
+>>> dummy page in between ?
+>>
+>> I don't understand what you mean. _init_begin should be suitably 
+>> aligned to 4KB. So why would we need a page in between?
+> 
+> Sorry I didn't explain clearly. In my xen-syms.map
+> 
+> 0x202000 D __ro_after_init_start
+> 
+> 0x202000 D _eteemediator
+> 
+> 0x202000 T __init_begin
+> 
+> 
+> So since __ro_after_init_start == _eteemediator, so the RW data region 
+> is empty. There is nothing to map here.
+> 
+> However if  _eteemediator  and __init_begin were 0x203000 , so I should 
+> create a RW data region from 0x202000 - 0x202FFF (ie __init_begin - 1).
+> 
+> And then there will be Text region from __init_begin to _einittext - 1.
+> 
+> Is my understanding correct ?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Ah I understand your problem now. Technically all the regions can be 
+empty. I don't think add a page between is nice because we would end up 
+to waste some space in memory. Instead, we should check if a region is 
+empty, if it is then skip it.
 
+> 
+>>
+>>>
+>>> A RW data region from __init_data_begin to __bss_end. Can we combine 
+>>> the BSS section and init data section into one region ?
+>>
+>> If they have the same attribute then yes.
+> 
+> ok, so my sections look like this (from readelf -DS)
+> 
+>    [ 0]                   NULL             0000000000000000 00000000
+>         0000000000000000  0000000000000000           0     0     0
+>    [ 1] .text             PROGBITS         0000000000200000 00000100
+>         0000000000000832  0000000000000000 WAX       0     0     32
+>    [ 2] .rodata           PROGBITS         0000000000201000 00001100
+>         0000000000000d78  0000000000000000   A       0     0 256
+>    [ 3] .note.gnu.bu[...] NOTE             0000000000201d78 00001e78
+>         0000000000000024  0000000000000000   A       0     0     4
+>    [ 4] .data.ro_aft[...] PROGBITS         0000000000202000 00003170
+>         0000000000000000  0000000000000000  WA       0     0     1
+>    [ 5] .data             PROGBITS         0000000000202000 00002100
+>         0000000000000000  0000000000000000  WA       0     0     1
+>    [ 6] .init.text        PROGBITS         0000000000202000 00002100
+>         0000000000000048  0000000000000000  AX       0     0     4
+>    [ 7] .init.data        PROGBITS         0000000000203000 00003100
+>         0000000000000070  0000000000000000   A       0     0     1
+>    [ 8] .bss              NOBITS           0000000000208000 00003170
+>         0000000000000000  0000000000000000  WA       0     0     1
+> 
+> IIUC, [2] and [3] will be combined.
+> 
+> [4] and [5] will be combined.
+> 
+> So we will be creating 6 MPU regions in total. Is this correct ?
 
-Published tested tree is already up to date.
+I think you could combine [7] and [8] as well. So it would look like:
+   1. [1] .text
+   2. [2] .rodata [3] .note.gnu.bu[...]
+   3. [4] .data.ro_aft[...] [3] .data
+   4. [6] .init.text
+   4. [7] .init.data [8] .bss
+
+After boot, you would have:
+
+   1. [1] .text
+   2. [2] .rodata [3] .note.gnu.bu[...] [4] .data.ro_aft[...]
+   3. [3] .data
+   4. [8] .bss
+
+Cheers,
+
+-- 
+Julien Grall
 
 
