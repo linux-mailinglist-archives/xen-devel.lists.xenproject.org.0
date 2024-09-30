@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CF0D98A376
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B26098A374
 	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 14:50:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807348.1218746 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.807350.1218766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svFqa-0005iw-20; Mon, 30 Sep 2024 12:49:52 +0000
+	id 1svFqc-0006Dz-KR; Mon, 30 Sep 2024 12:49:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807348.1218746; Mon, 30 Sep 2024 12:49:52 +0000
+Received: by outflank-mailman (output) from mailman id 807350.1218766; Mon, 30 Sep 2024 12:49:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svFqZ-0005gI-Ui; Mon, 30 Sep 2024 12:49:51 +0000
-Received: by outflank-mailman (input) for mailman id 807348;
- Mon, 30 Sep 2024 12:49:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1svFqc-0006B8-Ec; Mon, 30 Sep 2024 12:49:54 +0000
+Received: by outflank-mailman (input) for mailman id 807350;
+ Mon, 30 Sep 2024 12:49:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LvNS=Q4=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1svFqX-0005M5-Vk
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 12:49:50 +0000
+ id 1svFqa-0005el-DJ
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 12:49:52 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7aa7dad5-7f2a-11ef-a0ba-8be0dac302b0;
- Mon, 30 Sep 2024 14:49:49 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b738270-7f2a-11ef-99a2-01e77a169b0f;
+ Mon, 30 Sep 2024 14:49:51 +0200 (CEST)
 Received: from truciolo.bugseng.com (unknown [37.161.44.57])
- by support.bugseng.com (Postfix) with ESMTPSA id 86F224EE0746;
- Mon, 30 Sep 2024 14:49:47 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 8E5524EE074C;
+ Mon, 30 Sep 2024 14:49:49 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,28 +39,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7aa7dad5-7f2a-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 7b738270-7f2a-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1727700589; bh=QeRq5WatM5/gynhxqWft0r5yBBUgCUUQ3Qn003k14R0=;
+	t=1727700590; bh=tAlH5qx3tE+Jaw9OwhxZVte9uodMsa8rU6Z7XQGTGJU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=F2S5X2u1gO2RIoVnDJLQE2s1VuP3OmT57wAOwC51Lbs5wJ2TwvrrlmuDBAaxR7ypG
-	 LHQnkUq0vQqmulVdxcox1DXj8M32lActpeOB9RoJT4Bmc2ianwWVn6+iRbu+9jvvKK
-	 BODpWPz8C9zigzTwJak1zE9YHOgQIsfPtw3EzjOLuxHsIX7jbcEzv1JbejDNkmMnpg
-	 5TVD0xVp3KBxQt2H5aXbbGLvzr2KL6JmmO4XtRuCbooYgDLjRPBJWMrG8MpYaMXM9K
-	 W9EXToQhI3fUrprZ2tScNMK9eOTgOAV0hkf+F1KRvJe9aA8BITrdZtaDp2Uf87AUxV
-	 AapPGP0Usim8A==
+	b=u3kEpWfdlOTNaxngRs6M4fiXbraQFOJoW1z9LpehVzN30ejy7IH0qIhKVkSoXPcuF
+	 O64OCK9wymMLkdpbhbuA3R1Wt5prdinNMm1tsWl4zNUSzt6xWFyV7eGLqH0fGXoCto
+	 JQ0LIV/uPGoBfM+oAcKBrnV/fHf9Uqyiru5+sX35nmasde1EsUtcJs85Bge3BUwoL6
+	 /Y0PkOqHNxakut4CAUdGe0tKJ4L8OX5aIXElC3Qjbo/1yNl8SgkUKxx9BbHviEBXyp
+	 1ZsUCtvkx1A58MLDIh9EZuD9f8Nk0wEkr/TO2gnnxXgwiJlZ9iakwAPxTZ3/pF+Vuo
+	 OMrK/E1pqxwQg==
 From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Federico Serafini <federico.serafini@bugseng.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [XEN PATCH v2 1/3] EFI: address a violation of MISRA C Rule 13.6
-Date: Mon, 30 Sep 2024 14:49:15 +0200
-Message-ID: <c447f9faf0283bc6b83bbfbf05acd7acca00762d.1727690180.git.federico.serafini@bugseng.com>
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v2 2/3] xen/gnttab: address a violation of MISRA C Rule 13.6
+Date: Mon, 30 Sep 2024 14:49:16 +0200
+Message-ID: <cfd2873eb69707ec3f33ea888951ae5676c43bab.1727690180.git.federico.serafini@bugseng.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1727690180.git.federico.serafini@bugseng.com>
 References: <cover.1727690180.git.federico.serafini@bugseng.com>
@@ -68,7 +67,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 guest_handle_ok()'s expansion contains a sizeof() involving its
-first argument which is guest_handle_cast().
+first argument guest_handle_cast().
 The expansion of the latter, in turn, contains a variable
 initialization.
 
@@ -83,47 +82,38 @@ Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 ---
 Changes in v2:
-- better description.
+- better description;
+- preserved original indentation.
 ---
- xen/common/efi/runtime.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ xen/common/compat/grant_table.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-index d03e5c90ce..acf08dcaa3 100644
---- a/xen/common/efi/runtime.c
-+++ b/xen/common/efi/runtime.c
-@@ -250,14 +250,20 @@ int efi_get_info(uint32_t idx, union xenpf_efi_info *info)
-         info->cfg.addr = __pa(efi_ct);
-         info->cfg.nent = efi_num_ct;
-         break;
-+
-     case XEN_FW_EFI_VENDOR:
-+    {
-+        XEN_GUEST_HANDLE_PARAM(CHAR16) vendor_name =
-+            guest_handle_cast(info->vendor.name, CHAR16);
-+
-         if ( !efi_fw_vendor )
-             return -EOPNOTSUPP;
-+
-         info->vendor.revision = efi_fw_revision;
-         n = info->vendor.bufsz / sizeof(*efi_fw_vendor);
--        if ( !guest_handle_okay(guest_handle_cast(info->vendor.name,
--                                                  CHAR16), n) )
-+        if ( !guest_handle_okay(vendor_name, n) )
-             return -EFAULT;
-+
-         for ( i = 0; i < n; ++i )
-         {
-             if ( __copy_to_guest_offset(info->vendor.name, i,
-@@ -267,6 +273,8 @@ int efi_get_info(uint32_t idx, union xenpf_efi_info *info)
-                 break;
-         }
-         break;
-+    }
-+
-     case XEN_FW_EFI_MEM_INFO:
-         for ( i = 0; i < efi_memmap_size; i += efi_mdesc_size )
-         {
+diff --git a/xen/common/compat/grant_table.c b/xen/common/compat/grant_table.c
+index 5ad0debf96..bbb717bf64 100644
+--- a/xen/common/compat/grant_table.c
++++ b/xen/common/compat/grant_table.c
+@@ -78,12 +78,15 @@ int compat_grant_table_op(
+         cmd_op = cmd;
+     switch ( cmd_op )
+     {
+-#define CASE(name) \
+-    case GNTTABOP_##name: \
+-        if ( unlikely(!guest_handle_okay(guest_handle_cast(uop, \
+-                                                           gnttab_##name##_compat_t), \
+-                                         count)) ) \
+-            rc = -EFAULT; \
++#define CASE(name)                                                  \
++    case GNTTABOP_ ## name:                                         \
++    {                                                               \
++        XEN_GUEST_HANDLE_PARAM(gnttab_ ## name ## _compat_t) h =    \
++            guest_handle_cast(uop, gnttab_ ## name ## _compat_t);   \
++                                                                    \
++        if ( unlikely(!guest_handle_okay(h, count)) )               \
++            rc = -EFAULT;                                           \
++    }                                                               \
+         break
+ 
+ #ifndef CHECK_gnttab_map_grant_ref
 -- 
 2.43.0
 
