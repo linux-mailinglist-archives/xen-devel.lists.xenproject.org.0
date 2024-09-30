@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C01C989D7D
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 10:59:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807145.1218415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09DA0989DC4
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 11:14:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807155.1218427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svCEs-00029A-Is; Mon, 30 Sep 2024 08:58:42 +0000
+	id 1svCTG-0005Bt-Uj; Mon, 30 Sep 2024 09:13:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807145.1218415; Mon, 30 Sep 2024 08:58:42 +0000
+Received: by outflank-mailman (output) from mailman id 807155.1218427; Mon, 30 Sep 2024 09:13:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svCEs-00027f-G8; Mon, 30 Sep 2024 08:58:42 +0000
-Received: by outflank-mailman (input) for mailman id 807145;
- Mon, 30 Sep 2024 08:58:41 +0000
+	id 1svCTG-00058h-RZ; Mon, 30 Sep 2024 09:13:34 +0000
+Received: by outflank-mailman (input) for mailman id 807155;
+ Mon, 30 Sep 2024 09:13:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1QIX=Q4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svCEr-00027Z-8t
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 08:58:41 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Slsa=Q4=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1svCTF-00058a-6G
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 09:13:33 +0000
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [2607:f8b0:4864:20::c30])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2f2b3e06-7f0a-11ef-99a2-01e77a169b0f;
- Mon, 30 Sep 2024 10:58:39 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5c89bdb9019so730161a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 01:58:39 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c2998634sm493041066b.206.2024.09.30.01.58.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Sep 2024 01:58:38 -0700 (PDT)
+ id 4261399f-7f0c-11ef-99a2-01e77a169b0f;
+ Mon, 30 Sep 2024 11:13:31 +0200 (CEST)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ 006d021491bc7-5da686531d3so2394437eaf.3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 02:13:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +40,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f2b3e06-7f0a-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 4261399f-7f0c-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727686718; x=1728291518; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E3I/RP8hlqcAqiU9FFWAAqoAnJ+mbCEq43PiRYWre3I=;
-        b=ExYbye1KSzNJh0AvbduWpjZguYZB9qoKqb/Jlqi93dkf5QqqOk9foLKDCBEClkqeO7
-         XnqgiMJRf8D9PaRaAjsSGDUVULZDEzjy8ozHGuJGNHjkiG98r0n2Mi0asPy+W2s0PS+1
-         5BXGEZdpPytby6FLWLDWVm3XhdYjUKFniXnEx2iEtEHMB+J/JfuI4jtYBrxGk8FRc+ew
-         OwUrMouKMSUld+Nff1obv60LYV7csdIN1AzGn0+//g1zHIw/cG2oIspv//Fsb9Uu7Yrp
-         83fe0Jkjr3WF2JrWkAbTtD7pVAGlQpbung+NeXALVvQNXIYKbs6jnSQobGK4KkXBMJsP
-         WsaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727686718; x=1728291518;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1727687609; x=1728292409; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E3I/RP8hlqcAqiU9FFWAAqoAnJ+mbCEq43PiRYWre3I=;
-        b=wcsAhRdvjZVOdH24l73lIzUOGNky4R5nDpqU86gNZSuAnHAeoHw0Y/qwm1AaISeQel
-         LYxLoqjiMC33G082AAYNYEXV0ibZbk3AH0OgoMzyW4rx3P23LsAqfDAarMMr6AQHRLZh
-         jaT2D97EoYQ2Udb0KuesBIU4LJeqYyjiLPy+k0EweRh0QeAXL+E2f/dlD/SVW+PHBjN4
-         laezglXHtCebZ9rVHomooJuvoiyNGTz/YH6DorJs1hTmmsY1kzuPb9SRRnETct/YGCdf
-         KbstCCGuxlyhxeS07jRR0H/FZ+kbEdr5CnA1fZwXcNF9PG5ReNwC/Lpt2OGrkX1UFj3W
-         K8Dg==
-X-Forwarded-Encrypted: i=1; AJvYcCUSsC9LTq+5vpcyGcNAIOX79zFiIkXpvX36BIXCMlKhuKZfSFwjsLG6IAcv8KwfrgrLzuKv+4vw84M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyqk1PkXyC/8+OPUZGJT7DQ246hOm88C0y0mmnYSCi8u09wNzKW
-	gtkEF/ir3LP/jQWHUaVvDHdxZPGgYlgb2fCRWDcwuLoaH4IZ7t1VCR8M/cA/qA==
-X-Google-Smtp-Source: AGHT+IGXaCr9r9yks2csmlSWAYsIa1Hob+ezUHMKYiKeKhFOdwP/B8sBrTYLEaZk3ImG2lOb90l9Rg==
-X-Received: by 2002:a17:906:da89:b0:a8d:3705:4115 with SMTP id a640c23a62f3a-a93c4948a64mr1238856966b.32.1727686718468;
-        Mon, 30 Sep 2024 01:58:38 -0700 (PDT)
-Message-ID: <24e33cc2-c9eb-4609-a074-51df81997aba@suse.com>
-Date: Mon, 30 Sep 2024 10:58:37 +0200
+        bh=8dsp8968ebIRuffewtTBriJKIPW7grSzD/WXH0iBkGg=;
+        b=ISUtp/o4wtlUDlcelmB8udfXk7jWMykdRezwbIPWg2lzr8Tju4TC6AoRgjPfoKizGG
+         1IWYDnh3+c9hpobBBVpZ8p6qYHU2UO8KjQACwFXTfYGBEVEIJJUP2dxYoSXV0+bXg5oo
+         75siwxSLTIyZP+DdiICv7sXDjcTM2eNCnh7H0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727687609; x=1728292409;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=8dsp8968ebIRuffewtTBriJKIPW7grSzD/WXH0iBkGg=;
+        b=uhsSiCDHSiQQByiEFc4EuQ0DlnJ9BqX27AOJzenFnpVmovLjxdyDtcvSm5D/72KEdt
+         ayMYrtlUvCPeP5bn9bSvZR6OZ79SrtR23yyPWY1JaUNnlqIdvg80lK9ItBx3KRkpQnBQ
+         26lkzbSHwWsiUhFFijXIlY980m/mi4k7PUWV5E7CUUdYdh8mJ19MnbNYZmjWi7PM8W0h
+         Qcm6SJS5YaTaW/RFawF9ah9/AVqt6Vm2gbdPyoMrZRkjhDAPt9W710ztiaEUSTm7CyDB
+         iqZ2QanSATIFC12ktFG7zFyLUx2lMVm7gM+Nr2cjgohwTbwSeDIeamh4v3xbFVXpetuJ
+         ECaA==
+X-Forwarded-Encrypted: i=1; AJvYcCXQrkJLv50fYgKNr8LMcya1T8bHElbCrei39EpWJguKXbfwTHZZAhw1V692J4LvuZTz8NicCcv8J7A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz5Cm7nAAjr6jfIJ/nliMmywroWrpP5BN9nMxsqWVlm64qYHyWg
+	ekrqTvoJR9WpINvvYt0xELBuaLHsVST5Ufe8OU714+HAxQ51smV3CuJWN7XVSUrPjLZHfarDNjx
+	zqe3cjErI5twtfKoY8jjqcRRKWFG0Kw0ssEgP/A==
+X-Google-Smtp-Source: AGHT+IF61HSVLojzLivVS4D5RHKKuNeRVKg21rAi/nI0lAHOM6Qw3wd5MHX53dvgrrcDz4JgTDU10OgYeXzUI4uWoiw=
+X-Received: by 2002:a05:6870:71c1:b0:268:2efa:2de0 with SMTP id
+ 586e51a60fabf-28710a4c863mr6427888fac.13.1727687609603; Mon, 30 Sep 2024
+ 02:13:29 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+References: <a68267c7465a9b0d2ed8f844a5e0145de50b0f3a.1725550985.git.alessandro.zucchelli@bugseng.com>
+ <7357f6e8-2630-4027-b339-eedab9ae48c5@suse.com> <alpine.DEB.2.22.394.2409092149210.3672@ubuntu-linux-20-04-desktop>
+ <44738f93-e99b-4f1c-9ed3-59dd2eac7aff@suse.com> <alpine.DEB.2.22.394.2409111808580.611587@ubuntu-linux-20-04-desktop>
+ <24e33cc2-c9eb-4609-a074-51df81997aba@suse.com>
+In-Reply-To: <24e33cc2-c9eb-4609-a074-51df81997aba@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 30 Sep 2024 10:12:32 +0100
+Message-ID: <CACHz=Zg7_h8Aqpf2=Gwnec5+TnoxoERa=VZNaQ4F=t+1WKjOKg@mail.gmail.com>
 Subject: Re: [XEN PATCH v6] CODING_STYLE: Add a section on header guards
  naming conventions
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
- consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <a68267c7465a9b0d2ed8f844a5e0145de50b0f3a.1725550985.git.alessandro.zucchelli@bugseng.com>
- <7357f6e8-2630-4027-b339-eedab9ae48c5@suse.com>
- <alpine.DEB.2.22.394.2409092149210.3672@ubuntu-linux-20-04-desktop>
- <44738f93-e99b-4f1c-9ed3-59dd2eac7aff@suse.com>
- <alpine.DEB.2.22.394.2409111808580.611587@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2409111808580.611587@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, 
+	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, consulting@bugseng.com, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 12.09.2024 03:13, Stefano Stabellini wrote:
-> Hi Jan, we have gone back and forth on this a few times, but neither
-> Alessandro nor I fully understand your perspective. To help streamline
-> the process and save time for everyone, I suggest you provide an example
-> of the rules written in the style you believe is appropriate. Once you
-> set the initial direction, Alessandro and I can continue and complete
-> the rest in that preferred style.
+On Mon, Sep 30, 2024 at 9:58=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 12.09.2024 03:13, Stefano Stabellini wrote:
+> > Hi Jan, we have gone back and forth on this a few times, but neither
+> > Alessandro nor I fully understand your perspective. To help streamline
+> > the process and save time for everyone, I suggest you provide an exampl=
+e
+> > of the rules written in the style you believe is appropriate. Once you
+> > set the initial direction, Alessandro and I can continue and complete
+> > the rest in that preferred style.
+>
+> Header inclusion guards
+> -----------------------
+>
+> Unless otherwise specified, all header files should include proper
+> guards to prevent multiple inclusions. The following naming conventions
+> apply:
+>
+> - Guard names are derived from directory path underneath xen/ and the
+>   actual file name.  Path components are separated by double underscores.
+>   Alphabetic characters are converted to upper case.  Non-alphanumeric
+>   characters are replaced by single underscores.
 
-Header inclusion guards
------------------------
+Possibly there should be no cases; but about "Non-alphanumeric
+characters are replaced by single underscores" are we talking about
+sequences or single entities? I would say sequences so
+"Non-alphanumeric character sequences are replaced by single
+underscores".
+For instance "foo--bar.h" -> "FOO_BAR_H" and not "foo--bar.h" -> "FOO__BAR_=
+H".
 
-Unless otherwise specified, all header files should include proper
-guards to prevent multiple inclusions. The following naming conventions
-apply:
+Another maybe not supported case is no ASCII characters in name. As
+far as I can see they are not supported. Is it written somewhere?
 
-- Guard names are derived from directory path underneath xen/ and the
-  actual file name.  Path components are separated by double underscores.
-  Alphabetic characters are converted to upper case.  Non-alphanumeric
-  characters are replaced by single underscores.
-- Certain directory components are omitted, to keep identifier length
-  bounded:
-  - The top level include/,
-  - Any architecture's arch/<arch>/include/asm/ collapses to
-    ASM__<ARCH>__,
-  - Architecture-specific private files' arch/.
+> - Certain directory components are omitted, to keep identifier length
+>   bounded:
+>   - The top level include/,
+>   - Any architecture's arch/<arch>/include/asm/ collapses to
+>     ASM__<ARCH>__,
+>   - Architecture-specific private files' arch/.
+>
+> For example:
+>
+> - Xen headers: XEN__<filename>_H
+>   - include/xen/something.h -> XEN__SOMETHING_H
+>
+> - asm-generic headers: ASM_GENERIC__<filename>_H
+>   - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
+>
+> - arch-specific headers: ASM__<architecture>__<subdir>__<filename>_H
+>   - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
+>
+> - Private headers: <dir>__<filename>_H
+>   - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
+>   - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+>   - common/something.h -> COMMON__SOMETHING_H
+>
+> Note that this requires some discipline on the naming of future new
+> sub-directories: There shouldn't be any random asm/ one anywhere, for
+> example.  Nor should any new ports be named the same as top-level (within
+> xen/) directories.  Which may in turn require some care if any new top-
+> level directories were to be added.  Rule of thumb: Whenever a new sub-
+> directory is added, check the rules for no collisions to result.
+>
+> Jan
+>
 
-For example:
+Thanks for taking time to get to a proposal.
 
-- Xen headers: XEN__<filename>_H
-  - include/xen/something.h -> XEN__SOMETHING_H
-
-- asm-generic headers: ASM_GENERIC__<filename>_H
-  - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
-
-- arch-specific headers: ASM__<architecture>__<subdir>__<filename>_H
-  - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
-
-- Private headers: <dir>__<filename>_H
-  - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
-  - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
-  - common/something.h -> COMMON__SOMETHING_H
-
-Note that this requires some discipline on the naming of future new
-sub-directories: There shouldn't be any random asm/ one anywhere, for
-example.  Nor should any new ports be named the same as top-level (within
-xen/) directories.  Which may in turn require some care if any new top-
-level directories were to be added.  Rule of thumb: Whenever a new sub-
-directory is added, check the rules for no collisions to result.
-
-Jan
+Frediano
 
