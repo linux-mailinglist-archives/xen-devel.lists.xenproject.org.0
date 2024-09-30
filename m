@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C425A98B021
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 00:42:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807642.1219209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C26CC98B029
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 00:44:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807646.1219220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svP58-0004mL-Ny; Mon, 30 Sep 2024 22:41:30 +0000
+	id 1svP7P-0005LQ-39; Mon, 30 Sep 2024 22:43:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807642.1219209; Mon, 30 Sep 2024 22:41:30 +0000
+Received: by outflank-mailman (output) from mailman id 807646.1219220; Mon, 30 Sep 2024 22:43:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svP58-0004kZ-LJ; Mon, 30 Sep 2024 22:41:30 +0000
-Received: by outflank-mailman (input) for mailman id 807642;
- Mon, 30 Sep 2024 22:41:29 +0000
+	id 1svP7P-0005Jq-0U; Mon, 30 Sep 2024 22:43:51 +0000
+Received: by outflank-mailman (input) for mailman id 807646;
+ Mon, 30 Sep 2024 22:43:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yJxO=Q4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1svP57-0004kT-BD
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 22:41:29 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1svP7N-0005Ji-5A
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 22:43:49 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2057ebbc-7f7d-11ef-99a2-01e77a169b0f;
- Tue, 01 Oct 2024 00:41:27 +0200 (CEST)
+ id 739415b4-7f7d-11ef-99a2-01e77a169b0f;
+ Tue, 01 Oct 2024 00:43:46 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 26F7E5C069A;
- Mon, 30 Sep 2024 22:41:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63BE2C4CED2;
- Mon, 30 Sep 2024 22:41:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 525615C481C;
+ Mon, 30 Sep 2024 22:43:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432B4C4CEC7;
+ Mon, 30 Sep 2024 22:43:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2057ebbc-7f7d-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 739415b4-7f7d-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727736075;
-	bh=NuQ4tiv3kApTQah1aCO7nnZfM85Q9cKA9jrPdNlfmgI=;
+	s=k20201202; t=1727736223;
+	bh=gK8QEo9vI8qzXCISsGZX4YAbNHw/T1aoiD/7CehbI7w=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=XAPvs68hnQmIa07WD2wlefTf5EzLTql4QrLiTBLq2KLd63z3wcY22oSFU9Sh7SbKB
-	 m0moJeE+r4LsrAVlPJFxYcr0w/aekefNaoR4c3gxf3UullnszlW/thO88uir9kTQUJ
-	 pbgRhFbkSsWjpeK1F6eftW/ZwcP0ZE/MouuVShPHIFJ2gDZL1tvGA86TmM+2+oJQts
-	 m2EpR78EWY6aUrveSOlDm5HUlEIqKv5XVNNo28CCkBq4gx+Dfe33O45EhYBPt/sqFI
-	 YMUHtnLpioLg44Myfs+ClqT5H3M0Np57AE3CkcuBY1qt2E5oeibyZQdZy5mTyDfQdx
-	 4ngI9FLjwhmwg==
-Date: Mon, 30 Sep 2024 15:41:13 -0700 (PDT)
+	b=SStLU+lVnApg8yqu/G+GFrB9pv4t/9NTmeCz8PAHqHot/IJLNB6Qey/56Hd/2AcZl
+	 FWkvLcq+3+Go2SMsXRPm9xHu9wTOTM60YAQCA8JAzRmueopk0XFVefYTWkuOyNcbr5
+	 TmTd3nXlBgk1FJKbefJNyfWL35efBSTB97tjWF6F6FIdYB0Aiun/8BrMAekX1wBHHL
+	 vz5ecOM4GxS/A/MpZL65nFj8mQCm/oHV+dskc7Ansvnbrpyh3sG+l5AE4Bg/epQ2QT
+	 yVbUjGug6OQUnn58ZqPsZQhz/BvK4Otc3ZE1CmEXOiHGfntTsSdD/G0ily4M9375kv
+	 t/OukLVR3WuRg==
+Date: Mon, 30 Sep 2024 15:43:41 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
@@ -62,12 +61,11 @@ cc: xen-devel@lists.xenproject.org, S32@nxp.com,
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 4/8] xen/arm: vsmc: Enable handling SiP-owned SCMI
- SMC calls
-In-Reply-To: <20240930114715.642978-5-andrei.cherechesu@oss.nxp.com>
-Message-ID: <alpine.DEB.2.22.394.2409301539470.451631@ubuntu-linux-20-04-desktop>
-References: <20240930114715.642978-1-andrei.cherechesu@oss.nxp.com> <20240930114715.642978-5-andrei.cherechesu@oss.nxp.com>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, s32@nxp.com
+Subject: Re: [PATCH v2 5/8] xen/arm: platforms: Add NXP S32CC platform code
+In-Reply-To: <20240930114715.642978-6-andrei.cherechesu@oss.nxp.com>
+Message-ID: <alpine.DEB.2.22.394.2409301543290.451631@ubuntu-linux-20-04-desktop>
+References: <20240930114715.642978-1-andrei.cherechesu@oss.nxp.com> <20240930114715.642978-6-andrei.cherechesu@oss.nxp.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -75,15 +73,15 @@ Content-Type: text/plain; charset=US-ASCII
 On Mon, 30 Sep 2024, Andrei Cherechesu (OSS) wrote:
 > From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 > 
-> Change the handling of SiP SMC calls to be more generic,
-> instead of directly relying on the `platform_smc()` callback
-> implementation.
+> Add code for NXP S32CC platforms (S32G2, S32G3, S32R45).
 > 
-> Try to handle the SiP SMC first through the `platform_smc()`
-> callback (if implemented). If not handled, check if the
-> SCMI layer is available and that the SMC is a valid SCMI
-> message. Handle it then within the SCMI layer which forwards
-> it to EL3 FW, only if the SMC comes from Dom0.
+> S32CC platforms use the NXP LINFlexD UART driver for
+> console by default, and rely on Dom0 having access to
+> SCMI services for system-level resources from firmware
+> at EL3.
+> 
+> Platform-related quirks will be addressed in following
+> commits.
 > 
 > Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 
@@ -91,53 +89,87 @@ Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  xen/arch/arm/vsmc.c | 19 ++++++++++++++++++-
->  1 file changed, 18 insertions(+), 1 deletion(-)
+>  xen/arch/arm/platforms/Kconfig  | 11 +++++++++++
+>  xen/arch/arm/platforms/Makefile |  1 +
+>  xen/arch/arm/platforms/s32cc.c  | 32 ++++++++++++++++++++++++++++++++
+>  3 files changed, 44 insertions(+)
+>  create mode 100644 xen/arch/arm/platforms/s32cc.c
 > 
-> diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
-> index 7f2f5eb9ce..0de194a132 100644
-> --- a/xen/arch/arm/vsmc.c
-> +++ b/xen/arch/arm/vsmc.c
-> @@ -14,6 +14,7 @@
->  #include <asm/cpufeature.h>
->  #include <asm/monitor.h>
->  #include <asm/regs.h>
-> +#include <asm/scmi-smc.h>
->  #include <asm/smccc.h>
->  #include <asm/tee/ffa.h>
->  #include <asm/tee/tee.h>
-> @@ -224,6 +225,22 @@ static bool handle_sssc(struct cpu_user_regs *regs)
->      }
->  }
+> diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/Kconfig
+> index 76f7e76b1b..9837cba475 100644
+> --- a/xen/arch/arm/platforms/Kconfig
+> +++ b/xen/arch/arm/platforms/Kconfig
+> @@ -37,6 +37,14 @@ config MPSOC
+>  	help
+>  	Enable all the required drivers for Xilinx Ultrascale+ MPSoC
 >  
-> +/* Secure Calls defined by the Silicon Provider (SiP) */
-> +static bool handle_sip(struct cpu_user_regs *regs)
+> +config S32CC
+> +	bool "NXP S32CC platforms support"
+> +	depends on ARM_64
+> +	select HAS_LINFLEX
+> +	select SCMI_SMC
+> +	help
+> +	Enable all the required drivers for NXP S32CC platforms
+> +
+>  config NO_PLAT
+>  	bool "No Platforms"
+>  	help
+> @@ -56,3 +64,6 @@ config MPSOC_PLATFORM
+>  	bool
+>  	default (ALL64_PLAT || MPSOC)
+>  
+> +config S32CC_PLATFORM
+> +	bool
+> +	default (ALL64_PLAT || S32CC)
+> diff --git a/xen/arch/arm/platforms/Makefile b/xen/arch/arm/platforms/Makefile
+> index bec6e55d1f..2c304b964d 100644
+> --- a/xen/arch/arm/platforms/Makefile
+> +++ b/xen/arch/arm/platforms/Makefile
+> @@ -10,5 +10,6 @@ obj-$(CONFIG_ALL64_PLAT) += thunderx.o
+>  obj-$(CONFIG_ALL64_PLAT) += xgene-storm.o
+>  obj-$(CONFIG_ALL64_PLAT) += brcm-raspberry-pi.o
+>  obj-$(CONFIG_ALL64_PLAT) += imx8qm.o
+> +obj-$(CONFIG_S32CC_PLATFORM)  += s32cc.o
+>  obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp.o
+>  obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp-eemi.o
+> diff --git a/xen/arch/arm/platforms/s32cc.c b/xen/arch/arm/platforms/s32cc.c
+> new file mode 100644
+> index 0000000000..f99a2d56f6
+> --- /dev/null
+> +++ b/xen/arch/arm/platforms/s32cc.c
+> @@ -0,0 +1,32 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * xen/arch/arm/platforms/s32cc.c
+> + *
+> + * NXP S32CC Platform-specific settings
+> + *
+> + * Andrei Cherechesu <andrei.cherechesu@nxp.com>
+> + * Copyright 2021-2024 NXP
+> + */
+> +
+> +#include <asm/platform.h>
+> +
+> +static const char * const s32cc_dt_compat[] __initconst =
 > +{
-> +    uint32_t fid = (uint32_t)get_user_reg(regs, 0);
+> +    "nxp,s32g2",
+> +    "nxp,s32g3",
+> +    "nxp,s32r45",
+> +    NULL
+> +};
 > +
-> +    /* Firstly, let each platform define custom handling for these SMCs */
-> +    if ( platform_smc(regs) )
-> +        return true;
+> +PLATFORM_START(s32cc, "NXP S32CC")
+> +    .compatible = s32cc_dt_compat,
+> +PLATFORM_END
 > +
-> +    /* Otherwise, if valid SCMI SMC, forward the call to EL3 */
-> +    if ( scmi_is_enabled() && scmi_is_valid_smc_id(fid) )
-> +        return scmi_handle_smc(regs);
-> +
-> +    return false;
-> +}
-> +
->  /*
->   * vsmccc_handle_call() - handle SMC/HVC call according to ARM SMCCC.
->   * returns true if that was valid SMCCC call (even if function number
-> @@ -288,7 +305,7 @@ static bool vsmccc_handle_call(struct cpu_user_regs *regs)
->              handled = handle_sssc(regs);
->              break;
->          case ARM_SMCCC_OWNER_SIP:
-> -            handled = platform_smc(regs);
-> +            handled = handle_sip(regs);
->              break;
->          case ARM_SMCCC_OWNER_TRUSTED_APP ... ARM_SMCCC_OWNER_TRUSTED_APP_END:
->          case ARM_SMCCC_OWNER_TRUSTED_OS ... ARM_SMCCC_OWNER_TRUSTED_OS_END:
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
 > -- 
 > 2.45.2
 > 
