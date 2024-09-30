@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 123B1989F56
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 12:29:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807176.1218446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90F77989F57
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 12:29:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807177.1218457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svDe3-0007Xz-7y; Mon, 30 Sep 2024 10:28:47 +0000
+	id 1svDeI-0007rw-G9; Mon, 30 Sep 2024 10:29:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807176.1218446; Mon, 30 Sep 2024 10:28:47 +0000
+Received: by outflank-mailman (output) from mailman id 807177.1218457; Mon, 30 Sep 2024 10:29:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svDe3-0007Vg-4b; Mon, 30 Sep 2024 10:28:47 +0000
-Received: by outflank-mailman (input) for mailman id 807176;
- Mon, 30 Sep 2024 10:28:45 +0000
+	id 1svDeI-0007om-Ct; Mon, 30 Sep 2024 10:29:02 +0000
+Received: by outflank-mailman (input) for mailman id 807177;
+ Mon, 30 Sep 2024 10:29:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1QIX=Q4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svDe1-0007Va-1x
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 10:28:45 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J1RI=Q4=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1svDeG-0007Va-RY
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 10:29:00 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c44c4912-7f16-11ef-a0ba-8be0dac302b0;
- Mon, 30 Sep 2024 12:28:43 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a8d2daa2262so483070366b.1
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 03:28:43 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c2947e3esm510350866b.111.2024.09.30.03.28.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Sep 2024 03:28:42 -0700 (PDT)
+ id ce56d76c-7f16-11ef-a0ba-8be0dac302b0;
+ Mon, 30 Sep 2024 12:29:00 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5c40aea5c40so7610003a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 03:28:59 -0700 (PDT)
+Received: from localhost ([213.195.117.215]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c88245fa97sm4336493a12.43.2024.09.30.03.28.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Sep 2024 03:28:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +44,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c44c4912-7f16-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: ce56d76c-7f16-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727692122; x=1728296922; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=ME4QojNVUiTbPsd9jwESzhxc0Hev6CvJD8k6A3wfRjU=;
-        b=bFgg0cALeFwNJBwxUBNzHLMLqncdCBgADhfT6D63GpwaXLpimBqTsW04F+qn0HuamS
-         xSG3FZYMbqyhHNtNsklMYwakUTf6UMn6mOMSvZCwKlMxM7WriuEysb3l2WU04GDwafNd
-         WctANhKIr81ow3dirny407PyM6xL2NJMIPrmX6bGYJfyjiGjARHdlit9iEwwuOSZlf1P
-         z8XDyRfq2rUDIBZGkE+b88BoM0bsZ2Ns0/Pjap6we5zeZ6BPl0yBJrxoGmJTQXMZ9XK6
-         UVTEZeZlgZ+qJ3shEGV/2gB45YSUSDWUnjG/wWL3qUVnfonQG+oTedBpLPteLN3305qc
-         3QUw==
+        d=citrix.com; s=google; t=1727692138; x=1728296938; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=c7w0RhKBAmLGt5Q8j1v3GtRtu3ApeY2RliT9YAxTkbM=;
+        b=gLEotAMEvXhF+FHtQDvEe2Iv9yH5z5Z2pvoTWnrw6FOzIQjG7jCCFp0RL6gc86qjrc
+         l63Dn/Whi7LpTEKv0eTWyLhqaLuRlzwKP8E2u1gHCUSEnjT9irXnOiNVHcONj3UPAMtt
+         lXj0ASAEVvGROwLCRHkSsFiRRrO8u0/B/SQao=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727692122; x=1728296922;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ME4QojNVUiTbPsd9jwESzhxc0Hev6CvJD8k6A3wfRjU=;
-        b=tYJJYgpl5CwaoYX4hik4L4A/HIP4CCN1iJrpkTiRf8Gr/nGH8inovVH61rEQ8B7TDR
-         Qv6JQbJn2eWX+5rSDccXK6P6N9CRHr/d2wvSw9SrpsNmXfCG7oXRzi7IUL1NniEtG3H4
-         l+kEeeBKbhfnF2n7FiQrzHxj+Dw2VDpHbsGQndQ0ou4NHsgKdHm5SNwcjoNih99tX/zZ
-         ui2vqKE1WHwXXfKwjiDFaHgMZLv8mrqSGm/JnIig1RSQRuga47BQp2CyDc4qodukANmw
-         bIkMeut0y0yHcC/9uut7wI+SGVf2GUPXBdFBJhCdUDrno6vE0WGI121J3aVrpd+bW/xt
-         AI9w==
-X-Gm-Message-State: AOJu0YyVKpfIdiWy9YcCcAl2jcAbLuKFVe6I7py5HNftlLDr5NcN10XS
-	CKwGMBYJrrhx5AZcDlmYFQatyrl1I5/YWsTUgg5MCav5ytauy8YtlEyT7PqjqO7RedKL4/q6WLU
-	=
-X-Google-Smtp-Source: AGHT+IGKDcjMf4WpkwGak0rjb5ve4LVP0WGcsQujx+ppwik35Rmmh1+M2iHOexlGUBf3U96Mxtb08A==
-X-Received: by 2002:a17:907:9706:b0:a8d:1774:eb59 with SMTP id a640c23a62f3a-a93c4ab15dcmr1228584066b.54.1727692122413;
-        Mon, 30 Sep 2024 03:28:42 -0700 (PDT)
-Message-ID: <3b4a324c-dbe6-4647-a73a-afdb94ff2ecd@suse.com>
-Date: Mon, 30 Sep 2024 12:28:41 +0200
+        d=1e100.net; s=20230601; t=1727692138; x=1728296938;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=c7w0RhKBAmLGt5Q8j1v3GtRtu3ApeY2RliT9YAxTkbM=;
+        b=XyBAkG7A4gTPwhIGGbB87pQSlQPxlt12H4gpHuQsO9oIxEodJOHKadxR0oF/y47IAh
+         RwB6/FPqiYqclUd64nDyGuh5to30HlG7g4e09o6+J9grVc/2V1VPxKHWAtUlI9aYzy0S
+         ZrlKeVZ3Ca3D/b5RvTi8gEQ6dQUGJLws++3bvn2O7c51CT7yZ2aeCzeI6Bn1bKmoFJIy
+         eYzvH4uSkrItUYpTzsoaQFR11Nee/N//cY7V647/f7KOMh9Bvd76CuQn02CY74jsEzRO
+         H/Py+DN9ESxQd+o6Ieh2w4/5WtF9a7Pv358OLWMbwl+XdiR4EZZu0SUw2bsAjjYry8jK
+         q7ww==
+X-Gm-Message-State: AOJu0YxmgJMcxUJUy88He6icSbBFKEWlAR/0pSqk+Ygh6KqWSq3ud30n
+	d5SS4nfSrSwXjVKkckcpq0mp5UhdEpWPG6T0H6VYVJ6ui0Ep2kobXXDom9GIHpgLiclTPcXzFiZ
+	d
+X-Google-Smtp-Source: AGHT+IGw1HVqLNottYMT6Aa3DJp5+PMxUQwL8zlVHlUT40Mn+ZZUevsFJhX5577YUoygjLp4rfPNmA==
+X-Received: by 2002:a05:6402:50d3:b0:5c8:a01c:e9b2 with SMTP id 4fb4d7f45d1cf-5c8a01cea2cmr766203a12.17.1727692138513;
+        Mon, 30 Sep 2024 03:28:58 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH] iommu/amd-vi: make IOMMU list ro after init
+Date: Mon, 30 Sep 2024 12:28:49 +0200
+Message-ID: <20240930102849.18309-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] ioreq: don't wrongly claim "success" in
- ioreq_send_buffered()
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Returning a literal number is a bad idea anyway when all other returns
-use IOREQ_STATUS_* values. The function is dead on Arm, and mapping to
-X86EMUL_OKAY is surely wrong on x86.
+The only functions to modify the list, amd_iommu_detect_one_acpi() and
+amd_iommu_init_cleanup(), are already init.
 
-Fixes: f6bf39f84f82 ("x86/hvm: add support for broadcast of buffered ioreqs...")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-Shouldn't IOREQ_READ requests also be rejected here, for the result of
-a read not possibly coming from anywhere, yet a (bogus) caller then
-assuming some data was actually returned?
+ xen/drivers/passthrough/amd/iommu_init.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-ioreq_send_buffered() being built on Arm is a violation of Misra rule
-2.1, which apparently Eclair doesn't flag (the rule is marked clean).
----
-v2: Use IOREQ_STATUS_UNHANDLED.
+diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
+index 6c0dc2d5cb69..302362502033 100644
+--- a/xen/drivers/passthrough/amd/iommu_init.c
++++ b/xen/drivers/passthrough/amd/iommu_init.c
+@@ -32,7 +32,7 @@ unsigned int __read_mostly amd_iommu_acpi_info;
+ unsigned int __read_mostly ivrs_bdf_entries;
+ u8 __read_mostly ivhd_type;
+ static struct radix_tree_root ivrs_maps;
+-LIST_HEAD_READ_MOSTLY(amd_iommu_head);
++LIST_HEAD_RO_AFTER_INIT(amd_iommu_head);
+ bool iommuv2_enabled;
+ 
+ bool __ro_after_init amd_iommu_perdev_intremap = true;
+-- 
+2.46.0
 
---- unstable.orig/xen/common/ioreq.c	2024-09-30 12:22:03.759445625 +0200
-+++ unstable/xen/common/ioreq.c	2024-09-30 12:24:06.516408920 +0200
-@@ -1175,7 +1175,7 @@ static int ioreq_send_buffered(struct io
-         return IOREQ_STATUS_UNHANDLED;
- 
-     /*
--     * Return 0 for the cases we can't deal with:
-+     * Return UNHANDLED for the cases we can't deal with:
-      *  - 'addr' is only a 20-bit field, so we cannot address beyond 1MB
-      *  - we cannot buffer accesses to guest memory buffers, as the guest
-      *    may expect the memory buffer to be synchronously accessed
-@@ -1183,7 +1183,7 @@ static int ioreq_send_buffered(struct io
-      *    support data_is_ptr we do not waste space for the count field either
-      */
-     if ( (p->addr > 0xfffffUL) || p->data_is_ptr || (p->count != 1) )
--        return 0;
-+        return IOREQ_STATUS_UNHANDLED;
- 
-     switch ( p->size )
-     {
 
