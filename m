@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41B5698B072
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 00:48:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807657.1219239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 172E798B08A
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 00:53:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807665.1219250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svPBs-0006qK-Pk; Mon, 30 Sep 2024 22:48:28 +0000
+	id 1svPGl-0008N7-F9; Mon, 30 Sep 2024 22:53:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807657.1219239; Mon, 30 Sep 2024 22:48:28 +0000
+Received: by outflank-mailman (output) from mailman id 807665.1219250; Mon, 30 Sep 2024 22:53:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svPBs-0006nf-Mw; Mon, 30 Sep 2024 22:48:28 +0000
-Received: by outflank-mailman (input) for mailman id 807657;
- Mon, 30 Sep 2024 22:48:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1svPGl-0008KC-CZ; Mon, 30 Sep 2024 22:53:31 +0000
+Received: by outflank-mailman (input) for mailman id 807665;
+ Mon, 30 Sep 2024 22:53:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yJxO=Q4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1svPBr-0006nZ-I6
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 22:48:27 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a47263f-7f7e-11ef-a0ba-8be0dac302b0;
- Tue, 01 Oct 2024 00:48:26 +0200 (CEST)
+ id 1svPGj-0008K6-Vc
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 22:53:29 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cdfbdc09-7f7e-11ef-99a2-01e77a169b0f;
+ Tue, 01 Oct 2024 00:53:27 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id ABCCE5C4973;
- Mon, 30 Sep 2024 22:48:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C53C1C4CEC7;
- Mon, 30 Sep 2024 22:48:21 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 31C6BA418C5;
+ Mon, 30 Sep 2024 22:53:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34DBBC4CEC7;
+ Mon, 30 Sep 2024 22:53:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,85 +41,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a47263f-7f7e-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: cdfbdc09-7f7e-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727736502;
-	bh=zhfz0OV36+vUQwEpU+99jVDGrFF9w7/1kGmCTA8hHvw=;
+	s=k20201202; t=1727736806;
+	bh=TfJhImQo+pUZg9exQyjud2/Wduxmg3FAc6+gHIxLPY4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=XXOVfb7yslfQvH5T7Q5jUX2k7Pucnik9GovUvguBKcBHHTFrq+E7zXoIXMYdMI73g
-	 wMJI4QpBuZcZphtPM7px/2jYLoai9K74LZ27/v6gC9DqNSAqoMP8kKvWeuhBhczgFo
-	 SceS9jjUXPwBlGPCdSYxkM55uXB++B7CvRFuBP7l+DXnlWc7Cy6AzTUk31IejNUNQF
-	 iqBRKrP/WUMbTTUVrd93jBz94em2qjD9n70JedWPtdv2ttJeMM/cJ2DYAp0mLzrXxE
-	 N2/k57lOeg9WbVb+VuFqFgaEmT2Bv2h5pFSI2/2JuS0cI/Ap2W84PquS6cZac4kLsL
-	 lkMfCPT8/GCRA==
-Date: Mon, 30 Sep 2024 15:48:21 -0700 (PDT)
+	b=r/1FAQW2aBvcko1hdZ+T1N3EYA60HtNZLOK3PR3VOMaldfC7JGTx9CIJvzKSSo+Pt
+	 8PzTdWNSttOHUfkK+UU40Ks+2LKFzewfKRoUpExsp0Q+L2d4PWAOBfJ76AQlRVIJQN
+	 cfpdB3MSsk6gYIhp6wzBzq/vbNcjHdVYylBLM/UT6IyUNWb0sjJ76ztpKy2VmPuP0m
+	 yckMz0F0qdW6uo7Md1nTamdvJVIl2cAj8U1fz4CidDnLJ5/12AbIF9+hl4k1/ctPoP
+	 euhr78XTr/bjfTdCdjXUEQnStnl+ny8kK7WtjO++LzTCP9TRUUm3sCMXL1MB4+6phy
+	 z1zjyTn8v0Xxg==
+Date: Mon, 30 Sep 2024 15:53:24 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
-cc: xen-devel@lists.xenproject.org, S32@nxp.com, 
-    Andrei Cherechesu <andrei.cherechesu@nxp.com>, 
+To: Federico Serafini <federico.serafini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
     Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
     Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 8/8] MAINTAINERS: Add myself as maintainer for NXP
- S32CC
-In-Reply-To: <20240930114715.642978-9-andrei.cherechesu@oss.nxp.com>
-Message-ID: <alpine.DEB.2.22.394.2409301546380.451631@ubuntu-linux-20-04-desktop>
-References: <20240930114715.642978-1-andrei.cherechesu@oss.nxp.com> <20240930114715.642978-9-andrei.cherechesu@oss.nxp.com>
+Subject: Re: [XEN PATCH v2 2/3] xen/gnttab: address a violation of MISRA C
+ Rule 13.6
+In-Reply-To: <cfd2873eb69707ec3f33ea888951ae5676c43bab.1727690180.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2409301549100.451631@ubuntu-linux-20-04-desktop>
+References: <cover.1727690180.git.federico.serafini@bugseng.com> <cfd2873eb69707ec3f33ea888951ae5676c43bab.1727690180.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 30 Sep 2024, Andrei Cherechesu (OSS) wrote:
-> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+On Mon, 30 Sep 2024, Federico Serafini wrote:
+> guest_handle_ok()'s expansion contains a sizeof() involving its
+> first argument guest_handle_cast().
+> The expansion of the latter, in turn, contains a variable
+> initialization.
 > 
-> Add myself as maintainer for NXP S32CC SoCs Family,
-> and the S32 Linux Team as relevant reviewers list.
+> Since MISRA considers the initialization (even of a local variable)
+> a side effect, the chain of expansions mentioned above violates
+> MISRA C:2012 Rule 13.6 (The operand of the `sizeof' operator shall not
+> contain any expression which has potential side effect).
 > 
-> Also add the linflex-uart.c driver to the list of other
-> UART drivers in the ARM section.
+> Refactor the code to address the rule violation.
 > 
-> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+There is a pending interesting comment from Jan on patch #1 that affects
+this patch too, but I think this patch is good even just as a
+readability improvement so I'll review it as is
 
 
 > ---
->  MAINTAINERS | 8 ++++++++
->  1 file changed, 8 insertions(+)
+> Changes in v2:
+> - better description;
+> - preserved original indentation.
+> ---
+>  xen/common/compat/grant_table.c | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index fb0ebf0939..2e273a5c78 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -249,6 +249,7 @@ F:	xen/drivers/char/arm-uart.c
->  F:	xen/drivers/char/cadence-uart.c
->  F:	xen/drivers/char/exynos4210-uart.c
->  F:	xen/drivers/char/imx-lpuart.c
-> +F:	xen/drivers/char/linflex-uart.c
+> diff --git a/xen/common/compat/grant_table.c b/xen/common/compat/grant_table.c
+> index 5ad0debf96..bbb717bf64 100644
+> --- a/xen/common/compat/grant_table.c
+> +++ b/xen/common/compat/grant_table.c
+> @@ -78,12 +78,15 @@ int compat_grant_table_op(
+>          cmd_op = cmd;
+>      switch ( cmd_op )
+>      {
+> -#define CASE(name) \
+> -    case GNTTABOP_##name: \
+> -        if ( unlikely(!guest_handle_okay(guest_handle_cast(uop, \
+> -                                                           gnttab_##name##_compat_t), \
+> -                                         count)) ) \
+> -            rc = -EFAULT; \
+> +#define CASE(name)                                                  \
+> +    case GNTTABOP_ ## name:                                         \
+> +    {                                                               \
+> +        XEN_GUEST_HANDLE_PARAM(gnttab_ ## name ## _compat_t) h =    \
+> +            guest_handle_cast(uop, gnttab_ ## name ## _compat_t);   \
+> +                                                                    \
+> +        if ( unlikely(!guest_handle_okay(h, count)) )               \
+> +            rc = -EFAULT;                                           \
+> +    }                                                               \
+>          break
 
-I would be also happy if you left this out from here and only have it
-below under "NXP S32CC FAMILY SUPPORT"
+We would typically put the break within the case { }
+
+Other than that, I think this. With that change:
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 
->  F:	xen/drivers/char/meson-uart.c
->  F:	xen/drivers/char/mvebu-uart.c
->  F:	xen/drivers/char/omap-uart.c
-> @@ -428,6 +429,13 @@ L:	minios-devel@lists.xenproject.org
->  T:	git https://xenbits.xenproject.org/git-http/mini-os.git
->  F:	config/MiniOS.mk
->  
-> +NXP S32CC FAMILY SUPPORT
-> +M:	Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>
-> +L:	NXP S32 Linux Team <s32@nxp.com>
-> +F:	xen/arch/arm/include/asm/linflex-uart.h
-> +F:	xen/arch/arm/platforms/s32cc.c
-> +F:	xen/drivers/char/linflex-uart.c
-> +
->  OCAML TOOLS
->  M:	Christian Lindig <christian.lindig@citrix.com>
->  M:	David Scott <dave@recoil.org>
+>  #ifndef CHECK_gnttab_map_grant_ref
 > -- 
-> 2.45.2
+> 2.43.0
 > 
 
