@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00FF5989B25
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 09:15:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807026.1218226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA416989B6D
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 09:27:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807070.1218256 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svAdB-0000gS-Fj; Mon, 30 Sep 2024 07:15:41 +0000
+	id 1svAo5-0005cv-TV; Mon, 30 Sep 2024 07:26:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807026.1218226; Mon, 30 Sep 2024 07:15:41 +0000
+Received: by outflank-mailman (output) from mailman id 807070.1218256; Mon, 30 Sep 2024 07:26:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svAdB-0000dt-Af; Mon, 30 Sep 2024 07:15:41 +0000
-Received: by outflank-mailman (input) for mailman id 807026;
- Mon, 30 Sep 2024 07:15:40 +0000
+	id 1svAo5-0005bR-Qd; Mon, 30 Sep 2024 07:26:57 +0000
+Received: by outflank-mailman (input) for mailman id 807070;
+ Mon, 30 Sep 2024 07:26:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=caOs=Q4=flex--ardb.bounces.google.com=3GVD6ZggKCeACTFD+IKVIQQING.EQOZGP-FGXGNNKUVU.ZGPRTQLGEV.QTI@srs-se1.protection.inumbo.net>)
- id 1svAdA-0007Ms-5i
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 07:15:40 +0000
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [2607:f8b0:4864:20::b49])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1QIX=Q4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1svAe1-0007Ms-Me
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 07:16:33 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id caf6518b-7efb-11ef-99a2-01e77a169b0f;
- Mon, 30 Sep 2024 09:15:38 +0200 (CEST)
-Received: by mail-yb1-xb49.google.com with SMTP id
- 3f1490d57ef6-e25d494faa4so4172309276.0
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 00:15:38 -0700 (PDT)
+ id eb40ca97-7efb-11ef-99a2-01e77a169b0f;
+ Mon, 30 Sep 2024 09:16:32 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-5398cc2fcb7so1487181e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 00:16:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c88240517fsm4094921a12.4.2024.09.30.00.16.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Sep 2024 00:16:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,160 +45,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: caf6518b-7efb-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: eb40ca97-7efb-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1727680537; x=1728285337; darn=lists.xenproject.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=/CFvtg1tsmmc7nnsyP1PbKrXmu+3EkOxGHWY/dTtKRQ=;
-        b=2IngiC6a3qv9Wa9UpBDvkt0EccAfduBBcicBePh1dPHdhyp9q3YTjBJEuZJzg8V1QG
-         JKEOMYO2oTckGUR/qmvoBpyeCoeGy43q5LeNexGyyC7AdPQ0OS0oKmUqi71iClvnsyLH
-         xOmZNoRjdZtI97jZCATNYfzLy4hdEPTFqSJK5PdYE/Kb+z0cFYhDZZoAxGdARGz7pvuq
-         QTygFhbYEtD5j/e1vC5u2+7Hm3XBcZiHWgg0OPs75QKu5s553b6VPQ/NcUD19HsoT25y
-         E5Gf8apGLnWj5LUMaoo6Auy23bAWBWWGDwDFyz0E2KMt8Xu2UF3VjKNyYKwRT3cx4xDt
-         mRgw==
+        d=suse.com; s=google; t=1727680592; x=1728285392; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=foimRIS275MpfFDXNsS49f2iptZHhoiDiKYcSLdjkGw=;
+        b=HScEIEuSnNsCGNAvZbpgTBOvLtBO2a0MS4eaEVi3i1evIYx/bEao9E/yZ/QwVJII8n
+         BV6x6JM5bZKDIfVl09tHESZ4XUlN1RiHJUeL17r15RCIQsiIU9reOZumkUMNu9eT2Hg9
+         jbCC9HlfAkiFRz9YmY07L86nwint3NYXVcXyZJbbZ728owyzEXrIrHpCWUseqlOZx9E7
+         ELfi0vwemsrZaBZmd6CjENzgTV6LnY551B2LQHEvitwDTHpdPCdDoEQLKwBsIMr4c+dC
+         jZHYB1t3t/sPMKDM0Fq8w7rKZoGLDW3AjM97vHcWk0DChjCPOGz0Uli6Oz4+q/XQekh3
+         Pc4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727680537; x=1728285337;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/CFvtg1tsmmc7nnsyP1PbKrXmu+3EkOxGHWY/dTtKRQ=;
-        b=wE5yeOTKbnJzrfEhOy6XBCrkuSY+1+Cl4waszKgxxcJ0yQ8c4pHeTjulB+9v1dLoru
-         I+EC3IrnjVDtP10LqZX7fBzyJtHWMygdfY3BH3dusdRVAKhNHji5oUfGLYqodE3ZsYjN
-         oFaJtyI76JKdeZzNpq1mZGQ/+nd0BnDScRBlJmoKo1eS1wBI11y7fIEy7N0lyd3H5JEa
-         XriUB2xGHACc0ZTl7ufNsXE8vKgb7MVC4cRi8nZzdNj5tUlCe6P9G0o3x6kSooYGiMQv
-         8Y5vFGrwBtic1gRJ/vLAdzLd1LHlJHvuceKA47t/rEBU5PqrCMUFT+3dDjOdE5G5Q5L2
-         LHmg==
-X-Forwarded-Encrypted: i=1; AJvYcCVihqMktqjZooP5/d51FW5bBjQLZztAirGJG9IBNIA//VI0U7XDvixoc8r0UsVFHjP1xJaOodbFkD4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx2GnoS1VZSpKqjGNU2heT97kSacVL0buDUj8rfWiUG245ZL96d
-	jVyxqVDiMEN3NyA2fRTG4f4qtbRtenpCz3Ir6f+SSEi0TNToMnbPkrLgtmk6s92KwyQuEw==
-X-Google-Smtp-Source: AGHT+IFA41+aY1vjA3qRLYDvZ5y36Ykxv072kp8hE6GaWoKZfJQ0OURO8Mgln/pCtspPyxRtv5RBaV37
-X-Received: from palermo.c.googlers.com ([fda3:e722:ac3:cc00:7b:198d:ac11:8138])
- (user=ardb job=sendgmr) by 2002:a25:b2a5:0:b0:e20:1596:87b8 with SMTP id
- 3f1490d57ef6-e2604c96b81mr122133276.11.1727680537310; Mon, 30 Sep 2024
- 00:15:37 -0700 (PDT)
-Date: Mon, 30 Sep 2024 09:15:19 +0200
-In-Reply-To: <20240930071513.909462-7-ardb+git@google.com>
-Mime-Version: 1.0
-References: <20240930071513.909462-7-ardb+git@google.com>
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3514; i=ardb@kernel.org;
- h=from:subject; bh=egKJbcLb5hGkTqo8SwRF/Pu4TXJQbEy7JOjiJJa0ERg=;
- b=owGbwMvMwCFmkMcZplerG8N4Wi2JIe1XAEestNQGk6l50lmPs5eufzv/6Lmly76atGQ+v9Td+
- ewGZyprRykLgxgHg6yYIovA7L/vdp6eKFXrPEsWZg4rE8gQBi5OAZiI/HmG/+4pHxsFSpvWz+3h
- OKl79PF2Vud3V+eaLVi24Y1424yTaUsYGXatXdDioZAscT/1TO/jQ6Gq9w1elZ7/7bfv2KxbgaU /y1gB
-X-Mailer: git-send-email 2.46.1.824.gd892dcdcdd-goog
-Message-ID: <20240930071513.909462-12-ardb+git@google.com>
-Subject: [PATCH v2 5/5] x86/pvh: Avoid absolute symbol references in .head.text
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-kernel@vger.kernel.org
-Cc: Ard Biesheuvel <ardb@kernel.org>, Jason Andryuk <jason.andryuk@amd.com>, 
-	Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, x86@kernel.org, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+        d=1e100.net; s=20230601; t=1727680592; x=1728285392;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=foimRIS275MpfFDXNsS49f2iptZHhoiDiKYcSLdjkGw=;
+        b=DNPksJrv7bX731AKUW4VBY+OXz6885gLg9I7qTtTcMXEbaovmxsvybqDmriesB90Ln
+         0K8++GvwTCJAy1vuKdE/prSEGMZ3UgvWa9uy5zqygqQVahmbi4eJzkEWJ9DTVp/SX5F+
+         Br+cAvjRIhkz7/4xdwesfp9BbyX8GG/Kj3JZdGoRbFgTTO97i9yZAMUDo7nqjiI+oVbE
+         Okw1bjw611ya7N0fDfBYkgia3MIKOZtx2FOB5h3Jf4CY97A8tTyH1unLGqH1sL61QWFf
+         M7xA8VCdstf6op2GrQ8TrbPD7xtHhJALoS/02BQuJtbIEPqQvr2Gg1C80qPiXAaBm6HP
+         h1Hg==
+X-Forwarded-Encrypted: i=1; AJvYcCVyZ01mw0TIP95/4WKavg/Yv1dRm3ZcQpra1Zjg1WZbuTiuTh6DYhtj9deaiqkVVTq0rY8xLu5/1/o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx8ppdLFZ05zVBXxHaeywK4iUq8NuPlWokE9aB8zrT2O+eVhfdy
+	ChTDRfNWHxI4I8hRgAfC9nijPDfcOLS4t08lMVguz7l7rontXL2MKUm+qA3ROQ==
+X-Google-Smtp-Source: AGHT+IEyQnMzNJj4T0FdfpUw92OU0CTCnxpBFyqRbLnN5p+RzO1t7/sjMonCK2pDVIOU4UijozF4UQ==
+X-Received: by 2002:a05:6512:3192:b0:52c:e17c:3741 with SMTP id 2adb3069b0e04-5389fc3308fmr4870902e87.5.1727680591549;
+        Mon, 30 Sep 2024 00:16:31 -0700 (PDT)
+Message-ID: <aee1082c-f1ab-4bf9-a731-c9bf59add151@suse.com>
+Date: Mon, 30 Sep 2024 09:16:30 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v6] x86/intel: optional build of PSR support
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20240926102607.95896-1-Sergiy_Kibrik@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240926102607.95896-1-Sergiy_Kibrik@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Ard Biesheuvel <ardb@kernel.org>
+On 26.09.2024 12:26, Sergiy Kibrik wrote:
+> Xen's implementation of PSR only supports Intel CPUs right now, hence it can be
+> made dependant on CONFIG_INTEL build option.
+> Since platform implementation is not limited to single vendor, intermediate
+> option CONFIG_X86_PSR introduced, which selected by CONFIG_INTEL.
+> 
+> When !X86_PSR then PSR-related sysctls XEN_SYSCTL_psr_cmt_op &
+> XEN_SYSCTL_psr_alloc are off as well.
+> 
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 
-The .head.text section contains code that may execute from a different
-address than it was linked at. This is fragile, given that the x86 ABI
-can refer to global symbols via absolute or relative references, and the
-toolchain assumes that these are interchangeable, which they are not in
-this particular case.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-For this reason, all absolute symbol references are being removed from
-code that is emitted into .head.text. Subsequently, build time
-validation may be added that ensures that no absolute ELF relocations
-exist at all in that ELF section.
-
-In the case of the PVH code, the absolute references are in 32-bit code,
-which gets emitted with R_X86_64_32 relocations, and these are even more
-problematic going forward, as it prevents running the linker in PIE
-mode.
-
-So update the 64-bit code to avoid _pa(), and to only rely on relative
-symbol references: these are always 32-bits wide, even in 64-bit code,
-and are resolved by the linker at build time.
-
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-Tested-by: Jason Andryuk <jason.andryuk@amd.com>
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
----
- arch/x86/platform/pvh/head.S | 30 ++++++++++++--------
- 1 file changed, 18 insertions(+), 12 deletions(-)
-
-diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
-index 2b0d887e0872..cf89b2385c5a 100644
---- a/arch/x86/platform/pvh/head.S
-+++ b/arch/x86/platform/pvh/head.S
-@@ -6,7 +6,9 @@
- 
- 	.code32
- 	.text
-+#ifdef CONFIG_X86_32
- #define _pa(x)          ((x) - __START_KERNEL_map)
-+#endif
- #define rva(x)          ((x) - pvh_start_xen)
- 
- #include <linux/elfnote.h>
-@@ -72,8 +74,7 @@ SYM_CODE_START(pvh_start_xen)
- 	movl $0, %esp
- 
- 	leal rva(gdt)(%ebp), %eax
--	leal rva(gdt_start)(%ebp), %ecx
--	movl %ecx, 2(%eax)
-+	addl %eax, 2(%eax)
- 	lgdt (%eax)
- 
- 	mov $PVH_DS_SEL,%eax
-@@ -103,10 +104,23 @@ SYM_CODE_START(pvh_start_xen)
- 	btsl $_EFER_LME, %eax
- 	wrmsr
- 
-+	/*
-+	 * Reuse the non-relocatable symbol emitted for the ELF note to
-+	 * subtract the build time physical address of pvh_start_xen() from
-+	 * its actual runtime address, without relying on absolute 32-bit ELF
-+	 * relocations, as these are not supported by the linker when running
-+	 * in -pie mode, and should be avoided in .head.text in general.
-+	 */
- 	mov %ebp, %ebx
--	subl $_pa(pvh_start_xen), %ebx /* offset */
-+	subl rva(xen_elfnote_phys32_entry)(%ebp), %ebx
- 	jz .Lpagetable_done
- 
-+	/*
-+	 * Store the resulting load offset in phys_base.  __pa() needs
-+	 * phys_base set to calculate the hypercall page in xen_pvh_init().
-+	 */
-+	movl %ebx, rva(phys_base)(%ebp)
-+
- 	/* Fixup page-tables for relocation. */
- 	leal rva(pvh_init_top_pgt)(%ebp), %edi
- 	movl $PTRS_PER_PGD, %ecx
-@@ -165,14 +179,6 @@ SYM_CODE_START(pvh_start_xen)
- 	xor %edx, %edx
- 	wrmsr
- 
--	/*
--	 * Calculate load offset and store in phys_base.  __pa() needs
--	 * phys_base set to calculate the hypercall page in xen_pvh_init().
--	 */
--	movq %rbp, %rbx
--	subq $_pa(pvh_start_xen), %rbx
--	movq %rbx, phys_base(%rip)
--
- 	/* Call xen_prepare_pvh() via the kernel virtual mapping */
- 	leaq xen_prepare_pvh(%rip), %rax
- 	subq phys_base(%rip), %rax
-@@ -218,7 +224,7 @@ SYM_CODE_END(pvh_start_xen)
- 	.balign 8
- SYM_DATA_START_LOCAL(gdt)
- 	.word gdt_end - gdt_start - 1
--	.long _pa(gdt_start) /* x86-64 will overwrite if relocated. */
-+	.long gdt_start - gdt
- 	.word 0
- SYM_DATA_END(gdt)
- SYM_DATA_START_LOCAL(gdt_start)
--- 
-2.46.1.824.gd892dcdcdd-goog
 
 
