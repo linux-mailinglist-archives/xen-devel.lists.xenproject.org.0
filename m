@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4F5B989B47
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 09:20:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807056.1218236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D86F989B62
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 09:25:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807060.1218245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svAhZ-000464-Us; Mon, 30 Sep 2024 07:20:13 +0000
+	id 1svAmU-0004ff-GR; Mon, 30 Sep 2024 07:25:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807056.1218236; Mon, 30 Sep 2024 07:20:13 +0000
+Received: by outflank-mailman (output) from mailman id 807060.1218245; Mon, 30 Sep 2024 07:25:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svAhZ-00043m-Ry; Mon, 30 Sep 2024 07:20:13 +0000
-Received: by outflank-mailman (input) for mailman id 807056;
- Mon, 30 Sep 2024 07:20:12 +0000
+	id 1svAmU-0004dU-DI; Mon, 30 Sep 2024 07:25:18 +0000
+Received: by outflank-mailman (input) for mailman id 807060;
+ Mon, 30 Sep 2024 07:25:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1QIX=Q4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svAhY-00043g-8J
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 07:20:12 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1svAmS-0004dO-Cr
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 07:25:16 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e08d5f2-7efc-11ef-a0ba-8be0dac302b0;
- Mon, 30 Sep 2024 09:20:11 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5c88370ad7bso3543016a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 00:20:11 -0700 (PDT)
+ id 2359a3ca-7efd-11ef-a0ba-8be0dac302b0;
+ Mon, 30 Sep 2024 09:25:15 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a8d51a7d6f5so537894166b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 00:25:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c88249540bsm4042270a12.96.2024.09.30.00.20.10
+ a640c23a62f3a-a93d4bd51f3sm353605066b.92.2024.09.30.00.25.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Sep 2024 00:20:10 -0700 (PDT)
+ Mon, 30 Sep 2024 00:25:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e08d5f2-7efc-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 2359a3ca-7efd-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727680811; x=1728285611; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727681115; x=1728285915; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0C8c75/pymvSL/a0y2EXBtHeTKqMXFWopjCGX1muFso=;
-        b=RZOTz4n3Czv+230UJpJ5pjGLn4z2wQppssGvFZhFCooq4mRnAOOUD+Vu3AOvoihqNu
-         neoJYfrfses1njZtjB/p8raFKjhpTAk3MGL6ZBzifbwqxjmetlGb+hUeYmf0OSgRjwKj
-         r4hI5xb2+qXdbHr2ZciOYFvkRZ0E52FLCQNQTbGYEBFqOg3Z0HyaupqhJu79N5IDvacq
-         7W/XljtpM7+gOptuS0K1yTEDQ2jBt7++j3rPczYfYYu2GSobMBFvmSAEikbRRCdPdFs5
-         HmM1SEdCNsBMXTXF41sZhavVyN6tleqYJepiPZQkZOSXq14ZTyVw6K7BH84KWjo7hRW8
-         uoNg==
+        bh=ICiNjIx0yrRRvrVmCtM9+OIZ7DbJQF77phagiTd4XNs=;
+        b=N6VUxA4ds9E+Vt08umvSWDfX0/tBx2ahdtJdx63ROjNkATCDxSzQy039HZz8hTYVBQ
+         CtcmjQbq27IBWSJDnnLrcX2Bhpws/NO7h53ngmpEYF6o/xUdYIeE9dOkWUTDrr46Lmwt
+         EL6RVDQqeFhjZT9VNBi5IpBQwAMvKRTPfpduhAawCSAxMiVHuKOqGUAJeXyv0uFNm7QJ
+         HTDQQx9ZkO/4zX5n5DttNyBoW9BxBBQlctuvMV+s1e5AW9q4xdX0U84qFPEn/SCdWj3e
+         U8feQzwRc7kZO/byvTb5q6Bsq7f7mk+PLlgB4abTrv6xttXsbBRul8q+6L3FcNrWC+b7
+         3ddA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727680811; x=1728285611;
+        d=1e100.net; s=20230601; t=1727681115; x=1728285915;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0C8c75/pymvSL/a0y2EXBtHeTKqMXFWopjCGX1muFso=;
-        b=uuFGc4VqqCR87VeL8hgkGLTQJHTmlElKQznZVs3vFw9OyIheFCHS/xBf2+hqQu7+pc
-         jCRXh1pydkfECpTmATG3be7Ua2KNQ2SoWr7wv9UFOCBRO5PupxSStUFxc8P7z1gIk3cP
-         dPV+LA6paPtncpFBeNQlRQ1nFAVyBBWq4xj7rXTP4gNx6HGeV1pM9ojiww6VCqPKos9X
-         HhYOdzz/SGSKxPPBbeggRgGdgQRz+UVqPoab9NyP4QTJICoT80k+sKU5LyIwGNvennjH
-         UbT3DXHa5tyeWHdjjyt2EO+gw2yn+bgGuOwjzruuGjNaFrrIfa5JOhtPcdfFkoyrBxrR
-         mOKA==
-X-Forwarded-Encrypted: i=1; AJvYcCUoEk38VZcZEei5o9eqHD9UvPE71N8iwIL4w8YrAjBU/KZc+pVz1h9kzXaNC2vnGI1oXHejnau1ciU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzjIika9yQq/5SW5LhYwtQ8M2N3NEEOIwcWvzCYmjpxi31VI44M
-	8HnH8GvI2TfiF72t3fvVo9pobXw//bKpEHGBnNvduRrPc4jS2IfW16d4hFQT2A==
-X-Google-Smtp-Source: AGHT+IF4iKcYhwGnLvughFVI2+prYHknAKsa6HYtwR/FU4S/F95FTatii4QxlPLRhsI+8Nk9SyWlyQ==
-X-Received: by 2002:a05:6402:524a:b0:5c8:9668:45a6 with SMTP id 4fb4d7f45d1cf-5c89668469amr3021434a12.13.1727680810749;
-        Mon, 30 Sep 2024 00:20:10 -0700 (PDT)
-Message-ID: <12348b6e-2dc8-4b58-b360-578f0fdd8a14@suse.com>
-Date: Mon, 30 Sep 2024 09:20:09 +0200
+        bh=ICiNjIx0yrRRvrVmCtM9+OIZ7DbJQF77phagiTd4XNs=;
+        b=vQUNR82qcHFmsY3H1tBrSL3yyS0Y8qfdkW4p12dUt8j86sWPfSE1lLW9mrq7PG35v0
+         kRmN77hJ7DqVUIxOiTv/yyyZDX7MFNckufYMEpKwuhCtzJtP/gVU1AYKILwdMFf0lF3J
+         DRw4aPMAyMKPA2WDEuh1h9L9myBKJosOdKve3EjUBqOZSMAwSkBpSsKaLe4QHf2DRBIL
+         7JkXMw9SH+a2MnJqi55BaoxgSeuHbn8jWAPl00eIGtkk1KbxhAWPfcv9jwQSkNydDAhh
+         zmx0WqykwHw9uMNxJMtBFMi7HHLnFrp3BlOCKFSUphyjv5779yagZ9o308AS58B10XE8
+         PE/Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVfGYa+dBuuqRqteXxcT8YoyV1NaDxDRmrePHZs4CTt/dUF1XYJHgzrBzs4PbxDnwvpNUyocnnex5w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz8JRLSwZYqj/lXevF4X0qiZ8CQ/VZ7IY3shFHD9fzOhJ4sOYnN
+	aPA/Vk6wyPBOOYoB22FhAsmWT8Aa2LF3Ami1swcIwyNu4Z1igpBWJge/Qg3cow==
+X-Google-Smtp-Source: AGHT+IEnZP4SbR9qSwQsfFitrT5J1uCo6PznfL+q9huvRVCx8Fi0fJy6xOgCstqIHD1KOW6/eHN5uQ==
+X-Received: by 2002:a17:907:96a9:b0:a8a:7f08:97a6 with SMTP id a640c23a62f3a-a93c4919aaemr1341722166b.24.1727681115037;
+        Mon, 30 Sep 2024 00:25:15 -0700 (PDT)
+Message-ID: <4a82adf0-28ee-4d2e-ad94-66d3224b66e5@suse.com>
+Date: Mon, 30 Sep 2024 09:25:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/6] xen: introduce DECL_SECTION_WITH_LADDR
+Subject: Re: [PATCH v8 4/7] xen/riscv: introduce functionality to work with
+ CPU info
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-References: <cover.1727452451.git.oleksii.kurochko@gmail.com>
- <e835f07478a528266f72d9ac99c090464522bbdf.1727452451.git.oleksii.kurochko@gmail.com>
+References: <cover.1727449154.git.oleksii.kurochko@gmail.com>
+ <3ffb3ffd38b2e0d3568bfd3f9ef974d61b0d2508.1727449154.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,29 +116,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e835f07478a528266f72d9ac99c090464522bbdf.1727452451.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <3ffb3ffd38b2e0d3568bfd3f9ef974d61b0d2508.1727449154.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.09.2024 18:32, Oleksii Kurochko wrote:
-> --- a/xen/arch/x86/xen.lds.S
-> +++ b/xen/arch/x86/xen.lds.S
-> @@ -3,6 +3,10 @@
->  
->  #include <xen/cache.h>
->  #include <xen/lib.h>
-> +
-> +#ifndef EFI
-> +# define DECL_SECTION_WITH_LADDR
-> +#endif
+On 27.09.2024 18:33, Oleksii Kurochko wrote:
+> Introduce struct pcpu_info to store pCPU-related information.
+> Initially, it includes only processor_id and hart id, but it
+> will be extended to include guest CPU information and
+> temporary variables for saving/restoring vCPU registers.
+> 
+> Add set_processor_id() function to set processor_id stored in
+> pcpu_info.
+> 
+> Define smp_processor_id() to provide accurate information,
+> replacing the previous "dummy" value of 0.
+> 
+> Initialize tp registers to point to pcpu_info[0].
+> Set processor_id to 0 for logical CPU 0 and store the physical
+> CPU ID in pcpu_info[0].
+> 
+> Introduce helpers for getting/setting hart_id ( physical CPU id
+> in RISC-V terms ) from Xen CPU id.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-I think either this wants inserting at the very top or it wants moving down
-together with ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
->  #include <xen/xen.lds.h>
 
-... this line, past all the #includes (and, much you have it, separated by a
-blank line, just at both sides). Can adjust while committing of course.
-
-Jan
 
