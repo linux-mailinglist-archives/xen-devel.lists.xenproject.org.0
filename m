@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D86F989B62
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 09:25:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807060.1218245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 575B2989B6F
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2024 09:28:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807072.1218266 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svAmU-0004ff-GR; Mon, 30 Sep 2024 07:25:18 +0000
+	id 1svAoz-0006Pn-7M; Mon, 30 Sep 2024 07:27:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807060.1218245; Mon, 30 Sep 2024 07:25:18 +0000
+Received: by outflank-mailman (output) from mailman id 807072.1218266; Mon, 30 Sep 2024 07:27:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svAmU-0004dU-DI; Mon, 30 Sep 2024 07:25:18 +0000
-Received: by outflank-mailman (input) for mailman id 807060;
- Mon, 30 Sep 2024 07:25:16 +0000
+	id 1svAoz-0006Ma-4Y; Mon, 30 Sep 2024 07:27:53 +0000
+Received: by outflank-mailman (input) for mailman id 807072;
+ Mon, 30 Sep 2024 07:27:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1QIX=Q4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svAmS-0004dO-Cr
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 07:25:16 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1svAox-0006MQ-Mf
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2024 07:27:51 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2359a3ca-7efd-11ef-a0ba-8be0dac302b0;
- Mon, 30 Sep 2024 09:25:15 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a8d51a7d6f5so537894166b.2
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 00:25:15 -0700 (PDT)
+ id 7fff4d26-7efd-11ef-a0ba-8be0dac302b0;
+ Mon, 30 Sep 2024 09:27:51 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-5398e33155fso1526966e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 00:27:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93d4bd51f3sm353605066b.92.2024.09.30.00.25.14
+ a640c23a62f3a-a93c2777214sm478897266b.36.2024.09.30.00.27.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Sep 2024 00:25:14 -0700 (PDT)
+ Mon, 30 Sep 2024 00:27:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2359a3ca-7efd-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 7fff4d26-7efd-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727681115; x=1728285915; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727681270; x=1728286070; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ICiNjIx0yrRRvrVmCtM9+OIZ7DbJQF77phagiTd4XNs=;
-        b=N6VUxA4ds9E+Vt08umvSWDfX0/tBx2ahdtJdx63ROjNkATCDxSzQy039HZz8hTYVBQ
-         CtcmjQbq27IBWSJDnnLrcX2Bhpws/NO7h53ngmpEYF6o/xUdYIeE9dOkWUTDrr46Lmwt
-         EL6RVDQqeFhjZT9VNBi5IpBQwAMvKRTPfpduhAawCSAxMiVHuKOqGUAJeXyv0uFNm7QJ
-         HTDQQx9ZkO/4zX5n5DttNyBoW9BxBBQlctuvMV+s1e5AW9q4xdX0U84qFPEn/SCdWj3e
-         U8feQzwRc7kZO/byvTb5q6Bsq7f7mk+PLlgB4abTrv6xttXsbBRul8q+6L3FcNrWC+b7
-         3ddA==
+        bh=Ha3p4L4JyHkoNbxHu5fyjnASeQonBflFUMrPv5EaFJs=;
+        b=I4mbjPnz2IgRXkVpHTDV4JoryxEw5bfLQlIYC+lB2GKzCkDogEUCuAsRaSJKTuuwDH
+         zihtUdN45llqW5OrVPDBGTX/K+sLfI5cqFxyP2Z1eEvjSaEa45YnVC/s8q7Mcxnh8Ley
+         CniZh4O1cI4rIBH0cnXY5Hehw2e16MhrHHniASxbO69Lfvbauyk9n9veIiS5AB8foene
+         MeZCCiV2GPZXC4ryP1XnDDFg2IS4l7Barf+on6cMUgOC4pxEBBL3haIiqWohEs69MwNs
+         92IcixpVvbNw3OyPCtIKduYwIgWtvsMljLAvLU0Nj7MGQZjIuyM9rAHJht4qqMtnAP5v
+         XmGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727681115; x=1728285915;
+        d=1e100.net; s=20230601; t=1727681270; x=1728286070;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ICiNjIx0yrRRvrVmCtM9+OIZ7DbJQF77phagiTd4XNs=;
-        b=vQUNR82qcHFmsY3H1tBrSL3yyS0Y8qfdkW4p12dUt8j86sWPfSE1lLW9mrq7PG35v0
-         kRmN77hJ7DqVUIxOiTv/yyyZDX7MFNckufYMEpKwuhCtzJtP/gVU1AYKILwdMFf0lF3J
-         DRw4aPMAyMKPA2WDEuh1h9L9myBKJosOdKve3EjUBqOZSMAwSkBpSsKaLe4QHf2DRBIL
-         7JkXMw9SH+a2MnJqi55BaoxgSeuHbn8jWAPl00eIGtkk1KbxhAWPfcv9jwQSkNydDAhh
-         zmx0WqykwHw9uMNxJMtBFMi7HHLnFrp3BlOCKFSUphyjv5779yagZ9o308AS58B10XE8
-         PE/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVfGYa+dBuuqRqteXxcT8YoyV1NaDxDRmrePHZs4CTt/dUF1XYJHgzrBzs4PbxDnwvpNUyocnnex5w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz8JRLSwZYqj/lXevF4X0qiZ8CQ/VZ7IY3shFHD9fzOhJ4sOYnN
-	aPA/Vk6wyPBOOYoB22FhAsmWT8Aa2LF3Ami1swcIwyNu4Z1igpBWJge/Qg3cow==
-X-Google-Smtp-Source: AGHT+IEnZP4SbR9qSwQsfFitrT5J1uCo6PznfL+q9huvRVCx8Fi0fJy6xOgCstqIHD1KOW6/eHN5uQ==
-X-Received: by 2002:a17:907:96a9:b0:a8a:7f08:97a6 with SMTP id a640c23a62f3a-a93c4919aaemr1341722166b.24.1727681115037;
-        Mon, 30 Sep 2024 00:25:15 -0700 (PDT)
-Message-ID: <4a82adf0-28ee-4d2e-ad94-66d3224b66e5@suse.com>
-Date: Mon, 30 Sep 2024 09:25:13 +0200
+        bh=Ha3p4L4JyHkoNbxHu5fyjnASeQonBflFUMrPv5EaFJs=;
+        b=Q8waC1px52LmeSy0ZVjj7fgbTHn4qxpa7WIDZsecFwbSy+X3UqI3kl5fMGbZQjt9Tz
+         uFEBoLcSzKDQbhQC66DIfBKtJ76Qu044Vlv4ZF6CC047lgYuqlMrfUIXX6z+YGTCp7v6
+         oH6vaOdhR8GgPCXh7rsz548MEPVwRB90PDg/l+WFoA/BnAYoKFE1sWrxHSL8ngqTw01p
+         CB6/R97XwpVToBa+9SVr/PFx0UDWnmTqabSbW8aikEwzWV2t8buSziBQN5zJXpQCyKoN
+         50Ck7yMEGz/9w2/gJ7xfOdTtpuEufODXiHGFruaNC2uhBa09CurC6N/Hirej6d6I0iUr
+         rREw==
+X-Forwarded-Encrypted: i=1; AJvYcCXyCCt20iWhrC13q5goBv4jHJ0QQyb8baAos3sfXQD0N7W5D/oVMqjn+tgxVQZ/STm4Zc3LxVliaMc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVt2NxjiRCONPJRiWRBGuDK+Ssj3IhHjUetfd+G8olwC7Xlsd3
+	iEIgNgRxZ9FU8ErnZBorXgwNqFqthkXAbhtCNC9z9k4pcLejV5gv86y9u+SIVg==
+X-Google-Smtp-Source: AGHT+IG1b3ewiIaJyOQweTHoP6v93vrh7/DmtHHhYFY2IsGg4wRSExgqP7lnAjC08PTqKPRJPptZGQ==
+X-Received: by 2002:a05:6512:12d2:b0:52f:c148:f5e4 with SMTP id 2adb3069b0e04-5389fc3cb4bmr5630791e87.21.1727681270397;
+        Mon, 30 Sep 2024 00:27:50 -0700 (PDT)
+Message-ID: <db29de6d-5feb-4972-b60a-012f0dd9a307@suse.com>
+Date: Mon, 30 Sep 2024 09:27:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 4/7] xen/riscv: introduce functionality to work with
- CPU info
+Subject: Re: [PATCH v8 0/7] device tree mapping
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -90,7 +89,6 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1727449154.git.oleksii.kurochko@gmail.com>
- <3ffb3ffd38b2e0d3568bfd3f9ef974d61b0d2508.1727449154.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,32 +114,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3ffb3ffd38b2e0d3568bfd3f9ef974d61b0d2508.1727449154.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <cover.1727449154.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27.09.2024 18:33, Oleksii Kurochko wrote:
-> Introduce struct pcpu_info to store pCPU-related information.
-> Initially, it includes only processor_id and hart id, but it
-> will be extended to include guest CPU information and
-> temporary variables for saving/restoring vCPU registers.
+> Current patch series introduces device tree mapping for RISC-V
+> and necessary things for that such as:
+> - Fixmap mapping
+> - pmap
+> - Xen page table processing
 > 
-> Add set_processor_id() function to set processor_id stored in
-> pcpu_info.
-> 
-> Define smp_processor_id() to provide accurate information,
-> replacing the previous "dummy" value of 0.
-> 
-> Initialize tp registers to point to pcpu_info[0].
-> Set processor_id to 0 for logical CPU 0 and store the physical
-> CPU ID in pcpu_info[0].
-> 
-> Introduce helpers for getting/setting hart_id ( physical CPU id
-> in RISC-V terms ) from Xen CPU id.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in v8:
+>  - The following patch was merged to staging:
+>      [PATCH v5 1/7] xen/riscv: use {read,write}{b,w,l,q}_cpu() to define {read,write}_atomic()
+>  - All other changes are patch specific so please look at the patch.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Except that afaics none of the patches has any revision log.
 
-
+Jan
 
