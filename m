@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7419098B69C
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 10:16:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807800.1219460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCBA198B70F
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 10:36:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807810.1219470 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svY35-0007dK-Uq; Tue, 01 Oct 2024 08:15:59 +0000
+	id 1svYM6-0002Mv-GC; Tue, 01 Oct 2024 08:35:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807800.1219460; Tue, 01 Oct 2024 08:15:59 +0000
+Received: by outflank-mailman (output) from mailman id 807810.1219470; Tue, 01 Oct 2024 08:35:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svY35-0007bd-Ri; Tue, 01 Oct 2024 08:15:59 +0000
-Received: by outflank-mailman (input) for mailman id 807800;
- Tue, 01 Oct 2024 08:15:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jjk+=Q5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svY34-0007bX-Ii
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 08:15:58 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 624beb2a-7fcd-11ef-99a2-01e77a169b0f;
- Tue, 01 Oct 2024 10:15:56 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5c5bca59416so6391686a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 01:15:56 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c297a2ffsm664129266b.157.2024.10.01.01.15.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Oct 2024 01:15:55 -0700 (PDT)
+	id 1svYM6-0002Js-Cp; Tue, 01 Oct 2024 08:35:38 +0000
+Received: by outflank-mailman (input) for mailman id 807810;
+ Tue, 01 Oct 2024 08:35:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=i7H1=Q5=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1svYM4-0002Jm-HY
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 08:35:36 +0000
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [2607:f8b0:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1ff7afbd-7fd0-11ef-a0ba-8be0dac302b0;
+ Tue, 01 Oct 2024 10:35:34 +0200 (CEST)
+Received: by mail-ot1-x333.google.com with SMTP id
+ 46e09a7af769-710e14e2134so2888044a34.0
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 01:35:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +40,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 624beb2a-7fcd-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 1ff7afbd-7fd0-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727770556; x=1728375356; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=a4gMfIFPUAaK2nqbir6IXSjpJskN0iJBMl8Ep6+D95o=;
-        b=CNtVr4IjQBNzO2N0+aII+ussugw+vOQGTs5+FxYS8BV6f+mhiQSDrDVJMXTbJBo5Vx
-         9DU6uuMkaycycZJnbTKUT5AF3HbB0zsmzih9bAgRQiGzzC3BnO07fi87morxJo98zpH+
-         86Y73N/M1u59VIcWvVhxAszFWLDLzjDGE7VUIg5xIGshwIq+hdcTlc7nBJ6SIuGvHRwn
-         ZngjOrTHd9stZtJPd3YM8eTIxZRN2v4QPJ5SGMy7a9EzhT/cxaes08ZToORfDN103bRg
-         yHvLVjvzMeyLPHn4EBQlUWOfDfUY91THOSort4hTJzMZM5Yxdkn1VyfmhUYNKTKS4Ewq
-         RbCg==
+        d=cloud.com; s=cloud; t=1727771733; x=1728376533; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bR/E6Kd3KorSxT+iMi28Cu97at4KfTtYRUNGDauOYMI=;
+        b=Inc4EwXRaFETj66Iky1lxzmAof97KpdH26Fs7ujsRZ5jxj2js2FenFF1s1kSA1Qykj
+         CS2uBLUhWempgEmTzI/horJ3hbI36Y+e+83lp6nbAIevDwQMzATYZIMfa+6nCgm1xSy0
+         sLGpKiorlsjVZPDrnjKEn/q9OBZC/O5WsDmMI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727770556; x=1728375356;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=a4gMfIFPUAaK2nqbir6IXSjpJskN0iJBMl8Ep6+D95o=;
-        b=RX/Io4YKDi7prQfyhWYxBoMrQRMPSTgAUglDY1uyn6Y+BYed0WprUQu1aYNfhOkYVj
-         7Mgz5iyTh8karDqz3c5/yraeIV5jEcf/Lb0Viz3U3CoNFfmTpd/X3TAtEP53OLXCfsN/
-         Ywt+h3slgIPhkmiPHxb6DC9kwuHPwN77can84wwOwgOc5xqApnCQ0xYIUhP9zkalYh2I
-         yUbI2cr/txeaX7Ku/45Tnw03EBl3T4TALGtxZZCHSrW32PuxyDvmdRIlBKP5IRmFAy1U
-         Hae8CTTNC8dQqbRe9d9D1gtm6gHTuG4dji3NoWOcvGRLL9s+ckQ1Ctt7Rz7Z9oEjw3ww
-         u3Aw==
-X-Gm-Message-State: AOJu0YzokSJyzbIhoMEHq73h6DvE+jXcneHllvERtrvtWUSrP7u7iAm5
-	cbvfYk4eYkVb6kuf9T6HTTC7ZRaIWvh+DMLQXM4Zwg23twRbgrOVYD5KCiaCwZqW3q9hkkWyprc
-	=
-X-Google-Smtp-Source: AGHT+IGtdvRwTtTL1Xzfs8DVctFj6Tmsn7Mq9t9PLMvIgunZfoB/fDzcq3OeO58+QrKeOochSazeDQ==
-X-Received: by 2002:a17:907:7d93:b0:a8d:2faf:d333 with SMTP id a640c23a62f3a-a93c4967988mr1351988366b.35.1727770556138;
-        Tue, 01 Oct 2024 01:15:56 -0700 (PDT)
-Message-ID: <7d60fb7a-8db2-49cc-b7ba-bab023c6ed1f@suse.com>
-Date: Tue, 1 Oct 2024 10:15:55 +0200
+        d=1e100.net; s=20230601; t=1727771733; x=1728376533;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=bR/E6Kd3KorSxT+iMi28Cu97at4KfTtYRUNGDauOYMI=;
+        b=wU9qcw8/UP2/NNoFw0IW/zUzOn0Q+4p9TDb767/zDGrThJ81Y3sgQ8lgCiEdvh3Tk8
+         X5XYYQI1Si9KavZ7nwWLI5HlQDRxVEIWn0YymssNowtM7iMLIjDeUhVUhMPGmPc/S5jk
+         J2XEX62d0YKeEukW1gG+K159qkeH5ZOh9XdmPXz5HEhIWAitwdWlUrL476hz98Z9gXlG
+         yKT3TyKPrEXLvm6pmWXmVHAFw3x+O4WzMF2WOGRMYazRJX7KQDVOPDzpT8vdDTRHgC+P
+         SYJ20nOep9tcIBPms9WZ15sbjijXeRK27rlJAXD317DtBGPYgeH/9M44elM+UWm96rXJ
+         Rc/Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWHjKtgAIafjdWaR7Rn5HvlwVpX2dC8NG2qO3SBUSB3lCwknigMtSUIB2GwHbHoDTySsIUoW3EoyEM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx5luNU2OuTT21XHOJwkRDpZ8QFB3IWuYf8VdrE7YzYXPlErMJT
+	fOboJxLYkCWFogfLpbto0IQVVpi1SpnaBkSV4bPQ/yNpUCIpv3lWkn7xgDObDLfihPp+umqgq9Z
+	VlTRWMdTraqFp5WnJN5c8oe3/g7X3UQsRcpZrmQ==
+X-Google-Smtp-Source: AGHT+IFF5nOk65nGqZm7GXuwxvW/NHGNCBryeRX/qvX6aChuEXzvptNJL4SoahhWDkyuI72p4yUd7gIpyGpBKbAi3W0=
+X-Received: by 2002:a05:6870:e310:b0:25e:23b4:cf3e with SMTP id
+ 586e51a60fabf-28710bd9a0fmr9272218fac.44.1727771733174; Tue, 01 Oct 2024
+ 01:35:33 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] x86: prefer RDTSCP in rdtsc_ordered()
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240926092109.475271-1-frediano.ziglio@cloud.com>
+ <20240926092109.475271-3-frediano.ziglio@cloud.com> <e17b2afc-3647-4472-9d37-1510b40ff23d@suse.com>
+In-Reply-To: <e17b2afc-3647-4472-9d37-1510b40ff23d@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Tue, 1 Oct 2024 09:35:22 +0100
+Message-ID: <CACHz=ZhtYik3p4z2mc1PYG9M68Mwap68_DdoE7MWksW0VW+BTw@mail.gmail.com>
+Subject: Re: [PATCH v6 2/3] x86/boot: Rewrite EFI/MBI2 code partly in C
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If available, its use is supposed to be cheaper than LFENCE+RDTSC, and
-is virtually guaranteed to be cheaper than MFENCE+RDTSC.
+On Mon, Sep 30, 2024 at 4:51=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 26.09.2024 11:21, Frediano Ziglio wrote:
+> > @@ -243,7 +234,7 @@ __efi64_mb2_start:
+> >          /*
+> >           * Initialize BSS (no nasty surprises!).
+> >           * It must be done earlier than in BIOS case
+> > -         * because efi_multiboot2() touches it.
+> > +         * because efi_multiboot2_prelude() touches it.
+> >           */
+> >          mov     %eax, %edx
+>
+> I think this MOV wants to gain a comment, now that ...
+>
+> >          lea     __bss_start(%rip), %edi
+> > @@ -252,36 +243,30 @@ __efi64_mb2_start:
+> >          shr     $3, %ecx
+> >          xor     %eax, %eax
+> >          rep stosq
+> > -        mov     %edx, %eax
+>
+> ... this one's going away.
+>
 
-Update commentary (and indentation) while there.
+What about
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Replace original part of the comment with more up-to-date info.
+diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+index 89b5e2af88..6fa6ea93e5 100644
+--- a/xen/arch/x86/boot/head.S
++++ b/xen/arch/x86/boot/head.S
+@@ -231,12 +231,14 @@ __efi64_mb2_start:
+         */
+        and     $~15, %rsp
 
---- a/xen/arch/x86/include/asm/msr.h
-+++ b/xen/arch/x86/include/asm/msr.h
-@@ -108,18 +108,24 @@ static inline uint64_t rdtsc(void)
- 
- static inline uint64_t rdtsc_ordered(void)
- {
--	/*
--	 * The RDTSC instruction is not ordered relative to memory access.
--	 * The Intel SDM and the AMD APM are both vague on this point, but
--	 * empirically an RDTSC instruction can be speculatively executed
--	 * before prior loads.  An RDTSC immediately after an appropriate
--	 * barrier appears to be ordered as a normal load, that is, it
--	 * provides the same ordering guarantees as reading from a global
--	 * memory location that some other imaginary CPU is updating
--	 * continuously with a time stamp.
--	 */
--	alternative("lfence", "mfence", X86_FEATURE_MFENCE_RDTSC);
--	return rdtsc();
-+    uint64_t low, high, aux;
++       /* Move away magic number, we need it later but we need to use %eax=
+ */
++        mov     %eax, %edx
 +
-+    /*
-+     * The RDTSC instruction is not serializing.  Make it dispatch serializing
-+     * for the purposes here by issuing LFENCE (or MFENCE if necessary) ahead
-+     * of it.
-+     *
-+     * RDTSCP, otoh, "does wait until all previous instructions have executed
-+     * and all previous loads are globally visible" (SDM) / "forces all older
-+     * instructions to retire before reading the timestamp counter" (APM).
-+     */
-+    alternative_io_2("lfence; rdtsc",
-+                     "mfence; rdtsc", X86_FEATURE_MFENCE_RDTSC,
-+                     "rdtscp",        X86_FEATURE_RDTSCP,
-+                     ASM_OUTPUT2("=a" (low), "=d" (high), "=c" (aux)),
-+                     /* no inputs */);
-+
-+    return (high << 32) | low;
- }
- 
- #define __write_tsc(val) wrmsrl(MSR_IA32_TSC, val)
+        /*
+         * Initialize BSS (no nasty surprises!).
+         * It must be done earlier than in BIOS case
+         * because efi_multiboot2_prelude() touches it.
+         */
+-        mov     %eax, %edx
+        lea     __bss_start(%rip), %edi
+        lea     __bss_end(%rip), %ecx
+        sub     %edi, %ecx
+
+??
+
+> > --- a/xen/arch/x86/efi/stub.c
+> > +++ b/xen/arch/x86/efi/stub.c
+> > @@ -17,7 +17,8 @@
+> >   */
+> >
+> >  void __init noreturn efi_multiboot2(EFI_HANDLE ImageHandle,
+> > -                                    EFI_SYSTEM_TABLE *SystemTable)
+> > +                                    EFI_SYSTEM_TABLE *SystemTable,
+> > +                                    const char *cmdline)
+>
+> While with ...
+>
+> > --- /dev/null
+> > +++ b/xen/arch/x86/include/asm/efi.h
+> > @@ -0,0 +1,18 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +
+> > +#ifndef X86_ASM_EFI_H
+> > +#define X86_ASM_EFI_H
+> > +
+> > +#include <xen/types.h>
+> > +#include <asm/x86_64/efibind.h>
+> > +#include <efi/efidef.h>
+> > +#include <efi/eficapsule.h>
+> > +#include <efi/eficon.h>
+> > +#include <efi/efidevp.h>
+> > +#include <efi/efiapi.h>
+> > +
+> > +void efi_multiboot2(EFI_HANDLE ImageHandle,
+> > +                    EFI_SYSTEM_TABLE *SystemTable,
+> > +                    const char *cmdline);
+>
+> ... the declaration now (supposedly) in scope the need for that earlier
+> adjustment may be a little more obvious, you still ought to mention it
+> in the description. If you did, you'd might have noticed that stub.c now
+> also needs to include the new asm/efi.h, for the declaration to actually
+> have its full intended effect.
+>
+> Jan
+
+Done, both stub and normal code.
+
+Frediano
 
