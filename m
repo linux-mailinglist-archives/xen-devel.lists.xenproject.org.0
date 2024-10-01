@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B1D198B74E
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 10:42:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807817.1219480 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C31C498B76A
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 10:48:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807822.1219490 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svYSC-0004BG-39; Tue, 01 Oct 2024 08:41:56 +0000
+	id 1svYXe-0004xL-Gp; Tue, 01 Oct 2024 08:47:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807817.1219480; Tue, 01 Oct 2024 08:41:56 +0000
+Received: by outflank-mailman (output) from mailman id 807822.1219490; Tue, 01 Oct 2024 08:47:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svYSC-00048l-0A; Tue, 01 Oct 2024 08:41:56 +0000
-Received: by outflank-mailman (input) for mailman id 807817;
- Tue, 01 Oct 2024 08:41:54 +0000
+	id 1svYXe-0004ux-ED; Tue, 01 Oct 2024 08:47:34 +0000
+Received: by outflank-mailman (input) for mailman id 807822;
+ Tue, 01 Oct 2024 08:47:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i7H1=Q5=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1svYSA-00048f-Dh
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 08:41:54 +0000
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [2607:f8b0:4864:20::331])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jjk+=Q5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1svYXd-0004ur-9h
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 08:47:33 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 01db6d60-7fd1-11ef-a0ba-8be0dac302b0;
- Tue, 01 Oct 2024 10:41:53 +0200 (CEST)
-Received: by mail-ot1-x331.google.com with SMTP id
- 46e09a7af769-710d5d9aac1so2121968a34.3
- for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 01:41:53 -0700 (PDT)
+ id cc30df6a-7fd1-11ef-a0ba-8be0dac302b0;
+ Tue, 01 Oct 2024 10:47:32 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5c87ab540b3so7992714a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 01:47:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c88248af7dsm5849487a12.78.2024.10.01.01.47.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 01 Oct 2024 01:47:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,95 +45,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01db6d60-7fd1-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: cc30df6a-7fd1-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1727772112; x=1728376912; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ooJkGzXfRVbKeOOteEuZ0xqFg0WE6wVrHlIQ3sOznq4=;
-        b=jkCrfoRAJOLLGHPdLcvC7w2+xkEnGlN6AguxZCcuIgWEz674hfDT5syP6eL9ooqKbk
-         rLASd3lgbR0J7V7NTrT51Irt/Vq65aBPda0duudt63Aj8SY0HdyhXdkAwD8yrq/uFcjz
-         xB0SxPuoPSh+x/9XdV1KVohINQ2ABD5szUlPQ=
+        d=suse.com; s=google; t=1727772452; x=1728377252; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Yx3djm+KgRN0/wMPIxYFQPNTLNEWcKl1KUaoaIpX+h4=;
+        b=EN92oQpLimCCemlGkSiOkIv4sKr8iz7mGf0S41/O18a70/f1dFYMT4IbDhpvxQz7/p
+         KSWFROK/IWzpYdRnc3SVeERVTAVZupNL+9106Jyfvs/+yPrNSCB8eRYLAgwvmVZdbRnk
+         wJxi/1J2xngNKU2PLfG+HDb0bVtNiKOUorSyfy5e+c7897O0IJWxq1dYC4g0dlYjxriI
+         xXlQbHPBpQjyiViAVZvVeDX59KO3GqVWC5e4qSQbf05vVIGv4DtAlJwhOIxaevrRDZFj
+         jEr+8jAq78guG5DwN/zO90QE+LhtnqN3FiM8HQx1+6LPt+OI0jNF3uW4Op0JPaHN5iL3
+         S29g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727772112; x=1728376912;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ooJkGzXfRVbKeOOteEuZ0xqFg0WE6wVrHlIQ3sOznq4=;
-        b=mwjgoLFPJnFFQEEITJn5dikdLNyLb5FY5p4PL4epevz+1eEul3xdmK4yR9CLqz8pMw
-         TpI0VcQb8O2ZozoG39237DuP8o+e9FBRAIorSyddrd7kLjO4qvwiIir/zeDwe5PhER8j
-         /rBMhScFKBoifMNTp1e7WSh0M1vXYsH2RfzBtfaqN6q7LdDchh+YCGClp1fvK6fFCJki
-         9mCfmE0AgMKa0+6dRGTVz6nrljzYheOmcR4pN4iSxOUp16tTjeKByxOvgkrpY2PzuFFJ
-         nDdFXt+iUHvtQvr9Vx13qjrWJBtdRAQXGjr/wn/sfBdDxZoA0FTxDae/nJfdfTCfp3cF
-         /kFg==
-X-Forwarded-Encrypted: i=1; AJvYcCWdWQ01Z/HYEDrZfSeWZlTYPtCh6Akc+s0Da9C4oXXhO3xIoCWlpBB+RntvXaOSUj5nthX/k+NAAJ0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwOiYP8lbcfcVvHVUz2UDS1sZpt3ypYoQUeBCBmvfyx8rroh8R8
-	dGlWnL2IFQx+qk2Wqdarm/v5YFvEd2AseJE1KBTIvSk0/xi82jHWc6wHBjsRoT6vWJYBJciqoLy
-	0VB80NUQMT6WzcpfGROHZX1i52fBeRMUeoOfwjg==
-X-Google-Smtp-Source: AGHT+IE8pjum6ICxqJO3TXiRL/kIdvAgvpx7hd1TO0Q1JEwHHYbNMB+3064mlxw4LZKswt7I1Kx6hCu4VKKV7Xlks6A=
-X-Received: by 2002:a05:6870:f695:b0:277:e7bc:69fd with SMTP id
- 586e51a60fabf-28710a70e50mr7704699fac.13.1727772112177; Tue, 01 Oct 2024
- 01:41:52 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1727772452; x=1728377252;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Yx3djm+KgRN0/wMPIxYFQPNTLNEWcKl1KUaoaIpX+h4=;
+        b=wZo+kXzbHe9F46ebPBmU+kTozwMmhx5DcNvBczPyf4zxrUzxDEx/VggngsIgR/PqzT
+         /tKxvHxWYLRjkQ9jzfUpMUy6Fy6vRRLsvmPAQAM77m8CagBFtQ2WkIGXlh2rzpz8gF0g
+         sbdbbR4IH1qJVxYSBdWR672eLiTBi3YE83WuVUptTZ5R4yF4ofu7u99bMPPyg4MA/Hhy
+         miN07fFrLZTM+BBcxYzhpv9/LxBAG7aY+spfuTPAIhlyori/j5Tn+odWPUXwyNw4pvUp
+         F8anR/TRrp/QTj40TiPtuRc1X306zGMYT/LqamRwEErXmxQyg4ChvtRs/7tRaXGv5ztV
+         y9ew==
+X-Gm-Message-State: AOJu0YxtvASXnsU18ZBJZIId5QH/rngb+4kcynQ1s61h/OAGKVCiZGF5
+	bStZECSw0n1xMbEjyBFPEz2SSlQCugY7Sh3BiHs0zb5KnXn+7zNBiecwQ1D2eeUv70/giWEVKD8
+	=
+X-Google-Smtp-Source: AGHT+IHa6JVDOBiROhK2soMZLF/XMrCFTzZLC4qSw/x1Fk8FegmkGB4C12n1NOcZ2p1WQFEnvsegOQ==
+X-Received: by 2002:a05:6402:50d3:b0:5c8:843c:7a74 with SMTP id 4fb4d7f45d1cf-5c8a2a558e3mr2460688a12.12.1727772451801;
+        Tue, 01 Oct 2024 01:47:31 -0700 (PDT)
+Message-ID: <3294f629-f91f-4b5d-9eb0-40a34aa2ec3e@suse.com>
+Date: Tue, 1 Oct 2024 10:47:30 +0200
 MIME-Version: 1.0
-References: <20240926092109.475271-1-frediano.ziglio@cloud.com>
- <20240926092109.475271-4-frediano.ziglio@cloud.com> <b68528a0-0e0b-4b8c-bd9d-b7d845905711@suse.com>
-In-Reply-To: <b68528a0-0e0b-4b8c-bd9d-b7d845905711@suse.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 1 Oct 2024 09:41:41 +0100
-Message-ID: <CACHz=ZjwTJRwaSXf5GB5WPByxHy0unjZw0ysUNWFEkpm3VAwKg@mail.gmail.com>
-Subject: Re: [PATCH v6 3/3] x86/boot: Improve MBI2 structure check
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2 0/5] x86/HVM: emulation (MMIO) improvements
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 30, 2024 at 4:55=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 26.09.2024 11:21, Frediano Ziglio wrote:
-> > --- a/xen/arch/x86/efi/parse-mbi2.c
-> > +++ b/xen/arch/x86/efi/parse-mbi2.c
-> > @@ -13,6 +13,7 @@ efi_multiboot2_prelude(uint32_t magic, const multiboo=
-t2_fixed_t *mbi)
-> >      EFI_HANDLE ImageHandle =3D NULL;
-> >      EFI_SYSTEM_TABLE *SystemTable =3D NULL;
-> >      const char *cmdline =3D NULL;
-> > +    const void *const mbi_end =3D (const void *)mbi + mbi->total_size;
-> >      bool have_bs =3D false;
-> >
-> >      if ( magic !=3D MULTIBOOT2_BOOTLOADER_MAGIC )
-> > @@ -21,7 +22,9 @@ efi_multiboot2_prelude(uint32_t magic, const multiboo=
-t2_fixed_t *mbi)
-> >      /* Skip Multiboot2 information fixed part. */
-> >      tag =3D _p(ROUNDUP((unsigned long)(mbi + 1), MULTIBOOT2_TAG_ALIGN)=
-);
-> >
-> > -    for ( ; (const void *)tag - (const void *)mbi < mbi->total_size &&
-> > +    for ( ; (const void *)(tag + 1) <=3D mbi_end &&
->
-> It may be possible to argue away overflow concerns here. I'm not so sure =
-though
-> for the case ...
->
+The main fix is patch 3, with the earlier patches setting the stage
+and the latter ones simplifying other things at least a little in
+exchange.
 
-Do you mean tag + 1 ?
-For the same reason, computing tag above could have an overflow.
-If the caller pass invalid data range, we will have overflows in either cas=
-e.
+1: correct MMIO emulation cache bounds check
+2: allocate emulation cache entries dynamically
+3: correct read/write split at page boundaries
+4: slightly improve CMPXCHG16B emulation
+5: drop redundant access splitting
 
-> > +            tag->size >=3D sizeof(*tag) &&
-> > +            (const void *)tag + tag->size <=3D mbi_end &&
->
-> ... here. The earlier logic subtracting pointers wasn't susceptible to su=
-ch.
->
-> Jan
-
-Can you suggest a change ?
-
-Frediano
+Jan
 
