@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C67B998BC07
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 14:25:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808059.1219850 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB06198BC4C
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 14:39:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808066.1219860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svbvp-0000nw-GS; Tue, 01 Oct 2024 12:24:45 +0000
+	id 1svc9C-0002yp-OJ; Tue, 01 Oct 2024 12:38:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808059.1219850; Tue, 01 Oct 2024 12:24:45 +0000
+Received: by outflank-mailman (output) from mailman id 808066.1219860; Tue, 01 Oct 2024 12:38:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svbvp-0000ko-DE; Tue, 01 Oct 2024 12:24:45 +0000
-Received: by outflank-mailman (input) for mailman id 808059;
- Tue, 01 Oct 2024 12:24:44 +0000
+	id 1svc9C-0002vq-LX; Tue, 01 Oct 2024 12:38:34 +0000
+Received: by outflank-mailman (input) for mailman id 808066;
+ Tue, 01 Oct 2024 12:38:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+oTF=Q5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1svbvo-0000ki-ER
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 12:24:44 +0000
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
- [2a00:1450:4864:20::642])
+ <SRS0=qrgx=Q5=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1svc9B-0002va-CX
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 12:38:33 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22a4f42b-7ff0-11ef-99a2-01e77a169b0f;
- Tue, 01 Oct 2024 14:24:42 +0200 (CEST)
-Received: by mail-ej1-x642.google.com with SMTP id
- a640c23a62f3a-a93c1cc74fdso830994566b.3
- for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 05:24:42 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ id 10b62fee-7ff2-11ef-99a2-01e77a169b0f;
+ Tue, 01 Oct 2024 14:38:31 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-5398d171fa2so3118499e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 05:38:31 -0700 (PDT)
+Received: from mewpvdipd1023.corp.cloud.com ([52.166.251.127])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c27c70fesm700089266b.57.2024.10.01.05.24.40
+ 4fb4d7f45d1cf-5c88248ac03sm6132630a12.70.2024.10.01.05.38.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Oct 2024 05:24:40 -0700 (PDT)
+ Tue, 01 Oct 2024 05:38:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +45,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22a4f42b-7ff0-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 10b62fee-7ff2-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727785481; x=1728390281; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qHkm+gTmN+S5hP1Q9mE4edudlBV+IDvZ/Wxl24devZo=;
-        b=ugbyEaEGFXDTnyR8o+7bO1koejkUPi1y6jVcxTF7fHmUgfYIC3MsSJR3u2qjqlESnf
-         R8IFNMxla3Byb70AGDjfUO+pVQZJ7mxWLyDW511zcL5urh4TpJ/qzay6Wf6URpwgjngs
-         8MjZlGeQhBF/2dQ4EARrkLdwrXroTRWkoauLs=
+        d=cloud.com; s=cloud; t=1727786310; x=1728391110; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8I9vUyTCDxKTgbtQS46FbfAQY00LnIcMBSmmBqvIyVY=;
+        b=e2Z7T0gk5do8F7INwq+nCXCsNsnUDJVCcWEG7lQ32Y0XULh/sYC3X2G4xq5jdk+eWt
+         bC20cg6oaFCOOugZQ+aIGV0TCS8UeKrz2ZCuAnkOV38tlXBXJydnt9AWGFMFNnG+mAWd
+         MyYgRoVALaxexg486gTr1P81A4WV2n/171PgY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727785481; x=1728390281;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qHkm+gTmN+S5hP1Q9mE4edudlBV+IDvZ/Wxl24devZo=;
-        b=FmRK7QVnSswq0mY51VAYV51GrqzAHgxE2PzMT+kzDUYqFbQNE66OwDxMt3WmvpAj7m
-         wb0ZWom7gUKO1WWEVi1CS0L93PduuoxpdYZH04+hkHDWOyUddvgfLYvrEUozphcQ9n9y
-         KIj5MddKcnjyPt5s2UFZpF4pzM7za4yTmlHDWjxHcZDBrgdF1izkmzR+UiBnRc+CHIkc
-         bt8ju6butepMMEvX7MXtTdJB41b/JA4yqQ6XZZW0bK087utx/ybs/wyo7NO8GnqCf1uU
-         T/cCp/HEAfSNfae5Pr1v04rUHU1/6YWohexeCXSkFCNjIx/6v5usmwLpUQDb9FDziF5o
-         WeLg==
-X-Gm-Message-State: AOJu0Yw2CeZLPH57fLpjz4DwNP7BscyLBbKsd0vA/vUIdd5+gIW2OyDg
-	OM1oE9+vl+wI5++G1e973xsKoOG/8jK2LvFZlrC974RAud34VZ0jNe5Px4M2OHo2QJQYq+BFvmk
-	Tf3QFnA==
-X-Google-Smtp-Source: AGHT+IFXb+nZshPjMeWW4itYiYhIxAwo6/5FdstYB+n+kXcxh8r2whiBxQZfHzyKz+GNVCW6/W4dzw==
-X-Received: by 2002:a17:907:7e8c:b0:a8d:2ab2:c9a0 with SMTP id a640c23a62f3a-a93c4aae066mr1531904366b.53.1727785481370;
-        Tue, 01 Oct 2024 05:24:41 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1727786310; x=1728391110;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8I9vUyTCDxKTgbtQS46FbfAQY00LnIcMBSmmBqvIyVY=;
+        b=wrz3eq+l7v2IQB4kiqU0INkinvSlOO/qgIlP3hYHphAu8AeFT+PFxHxy6Lxompys2w
+         rLBlI2jBmsCjza3qHwfhzhGbts4W46Lk4i9bKbyX1MM6KAkMQOBzRNYbtqr2kyh8LXI7
+         R2CzLyMgtKvw+pTMDjs/E0AZAqJacrk2K8qoqyj1waOTJb8YlIzDOeUz4E16KBt0F6gf
+         jpeRkADcZ2Y6KZVNLZUw8G4XR4IZvUanO2F/iG8HHNzqP9svXOCJAI0JZfshdhXnsSbg
+         C2hcfyTTYFGlIrX9jr76RJ8xPy3tKlx7Sw3jojxfkk54rwXXVzmQL3+i9xxFuDWeNShB
+         0NuA==
+X-Gm-Message-State: AOJu0YzuZVFpfKDkQKs8IpuUUx1cdof07O8cndfCUQCrjJxHSkYkJd9D
+	WY4Hm5rYaYZI5V1Nt/p+5Bzvvilp/xRowl9kzgsxdCX3POmWqN3KvLLNUF0aIih5aRBl+imv1nx
+	M9rQ=
+X-Google-Smtp-Source: AGHT+IGNh8YiqZHSmXP3SfZkvWfUZMCy3tQ19UeQ739eGYUvmnyI9eLXyq0bUf23ifScRMo8J0LKIQ==
+X-Received: by 2002:a05:6512:3d93:b0:530:abec:9a23 with SMTP id 2adb3069b0e04-5389fc3b407mr8096417e87.17.1727786310063;
+        Tue, 01 Oct 2024 05:38:30 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 3/2] x86/pv: Rename pv.iobmp_limit to iobmp_nr and clarify behaviour
-Date: Tue,  1 Oct 2024 13:24:38 +0100
-Message-Id: <20241001122438.1454218-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20240930161837.1248144-1-andrew.cooper3@citrix.com>
-References: <20240930161837.1248144-1-andrew.cooper3@citrix.com>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v6 00/11] x86: Expose consistent topology to guests
+Date: Tue,  1 Oct 2024 13:37:56 +0100
+Message-ID: <20241001123807.605-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Ever since it's introduction in commit 013351bd7ab3 ("Define new event-channel
-and physdev hypercalls"), the public interface was named nr_ports while the
-internal field was called iobmp_limit.
+(original cover letter at the bottom)
 
-Rename the intenral field to iobmp_nr to match the public interface, and
-clarify that, when nonzero, Xen will read 2 bytes.
+The series wasn't taking proper precautions to not break PVH. In particular,
+because new APIC IDs break with the old convention, PVH is not something that
+can be left for later as it otherwise suffers a mismatch between APIC IDs in
+the vLAPICs and the MADT table.
 
-There isn't a perfect parallel with a real TSS, but iobmp_nr being 0 is the
-paravirt "no IOPB" case, and it is important that no read occurs in this case.
+This version is a rebased v5 with the additional fixes of:
+  1. PVH should now work, because libacpi was refactored to stop taking a
+     function pointer and start taking a LUT for the cpu->apic_id mapping.
+  2. Expose leaf 0xb to guests even on hosts that don't themselves do so.
+     (e.g: AMD Lisbon). Otherwise all such hosts are unable to create
+     guests with this patch series on, and there's no good reason not to do so.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/include/asm/domain.h | 2 +-
- xen/arch/x86/physdev.c            | 2 +-
- xen/arch/x86/pv/emul-priv-op.c    | 7 ++++++-
- xen/include/public/physdev.h      | 3 +++
- 4 files changed, 11 insertions(+), 3 deletions(-)
+Hypervisor prerequisites:
 
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index 811251852f79..bdcdb8de09f1 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -573,7 +573,7 @@ struct pv_vcpu
- 
-     /* I/O-port access bitmap. */
-     XEN_GUEST_HANDLE(uint8) iobmp; /* Guest kernel vaddr of the bitmap. */
--    unsigned int iobmp_limit; /* Number of ports represented in the bitmap. */
-+    unsigned int iobmp_nr;    /* Number of ports represented in the bitmap. */
- #define IOPL(val) MASK_INSR(val, X86_EFLAGS_IOPL)
-     unsigned int iopl;        /* Current IOPL for this VCPU, shifted left by
-                                * 12 to match the eflags register. */
-diff --git a/xen/arch/x86/physdev.c b/xen/arch/x86/physdev.c
-index d6dd622952a9..69fd42667c69 100644
---- a/xen/arch/x86/physdev.c
-+++ b/xen/arch/x86/physdev.c
-@@ -436,7 +436,7 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- #else
-         guest_from_compat_handle(curr->arch.pv.iobmp, set_iobitmap.bitmap);
- #endif
--        curr->arch.pv.iobmp_limit = set_iobitmap.nr_ports;
-+        curr->arch.pv.iobmp_nr = set_iobitmap.nr_ports;
-         break;
-     }
- 
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index e35285d4ab69..cefa38d56138 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -167,7 +167,12 @@ static int guest_io_okay(unsigned int port, unsigned int bytes,
-     if ( iopl_ok(v, regs) )
-         return X86EMUL_OKAY;
- 
--    if ( (port + bytes) <= v->arch.pv.iobmp_limit )
-+    /*
-+     * When @iobmp_nr is non-zero, Xen, like real CPUs and the TSS IOPB,
-+     * always reads 2 bytes from @iobmp, which might be one byte beyond
-+     * @nr_ports.
-+     */
-+    if ( (port + bytes) <= v->arch.pv.iobmp_nr )
-     {
-         const void *__user addr = v->arch.pv.iobmp.p + (port >> 3);
-         uint16_t mask;
-diff --git a/xen/include/public/physdev.h b/xen/include/public/physdev.h
-index 45e1c18541c8..3149049a9a57 100644
---- a/xen/include/public/physdev.h
-+++ b/xen/include/public/physdev.h
-@@ -87,6 +87,9 @@ DEFINE_XEN_GUEST_HANDLE(physdev_set_iopl_t);
- /*
-  * Set the current VCPU's I/O-port permissions bitmap.
-  * @arg == pointer to physdev_set_iobitmap structure.
-+ *
-+ * When @nr_ports is non-zero, Xen, like real CPUs and the TSS IOPB, always
-+ * reads 2 bytes from @bitmap, which might be one byte beyond @nr_ports.
-  */
- #define PHYSDEVOP_set_iobitmap           7
- struct physdev_set_iobitmap {
+  patch 1: lib/x86: Relax checks about policy compatibility
+    * new patch to properly operate (after this series) on older AMD hardware. 
+  patch 2: x86/vlapic: Move lapic migration checks to the check hooks
+    * Same as in v5
+  patch 3: xen/x86: Add initial x2APIC ID to the per-vLAPIC save area
+    * Same as in v5.
+  patch 4: xen/x86: Add supporting code for uploading LAPIC contexts during
+           domain create
+    * Same as in v5.
+
+hvmloader prerequisites
+
+  patch 5: tools/hvmloader: Retrieve (x2)APIC IDs from the APs themselves
+    * Same as in v5.
+
+Toolstack prerequisites:
+
+  patch 6: tools/libacpi: Use LUT of APIC IDs rather than function pointer
+    * new patch to enable proper topology reporting to PVH guests.
+  patch 7: tools/libguest: Always set vCPU context in vcpu_hvm()
+    * Same as in v5.
+
+No functional changes:
+
+  patch 8: xen/lib: Add topology generator for x86
+    * Same as in v5.
+  patch 9: xen/x86: Derive topologically correct x2APIC IDs from the policy
+    * Same as in v5.
+
+Final toolstack/xen stitching:
+
+  patch 10: tools/libguest: Set distinct x2APIC IDs for each vCPU
+    * Unlikely in v5, this patch takes the APIC IDs from a LUT stored in
+      the xc_dom_image structure.
+  patch 11: xen/x86: Synthesise domain topologies
+    * Same as v5.
+
+====================================================================
+
+v5: https://lore.kernel.org/xen-devel/20240808134251.29995-1-alejandro.vallejo@cloud.com/
+v4 -> v5:
+
+Largely unchanged and resent for review after the 4.20 dev cycle started.
+
+  * Addressed Andrew's nits in v4/patch1
+  * Addressed Jan's concern with MTRR overrides in v4/patch6 by keeping the
+    same MTRR data in the vCPU contexts for HVM domain creations.
+
+v4: https://lore.kernel.org/xen-devel/cover.1719416329.git.alejandro.vallejo@cloud.com/
+v3 -> v4:
+
+  * Fixed cpuid() bug in hvmloader, causing UB in v3
+  * Fixed a bogus assert in hvmloader, also causing a crash in v3
+  * Used HVM contexts rather than sync'd algos between Xen and toolstack in
+    order to initialise the per-vCPU LAPIC state.
+  * Formatting asjustments.
+
+v3: https://lore.kernel.org/xen-devel/cover.1716976271.git.alejandro.vallejo@cloud.com/
+v2 -> v3:
+
+  (v2/patch2 and v2/patch4 are already committed)
+
+  * Moved the vlapic check hook addition to v3/patch1
+    * And created a check hook for the architectural state too for consistency.
+  * Fixed migrations from Xen <= 4.13 by reconstructing the previous topology.
+  * Correctly set the APIC ID after a policy change when vlapic is already in
+    x2APIC mode.
+  * Removed bogus assumption introduced in v1 and v2 on hvmloader about which
+    8bit APIC IDs represent ids > 254. (it's "id % 0xff", not "min(id, 0xff)".
+        * Used an x2apic flag check instead.
+  * Various formatting adjustments.
+
+v2: https://lore.kernel.org/xen-devel/cover.1715102098.git.alejandro.vallejo@cloud.com/
+v1 -> v2:
+
+  * v1/patch 4 replaced by a different strategy (See patches 4 and 5 in v2):
+      * Have hvmloader populate MADT with the real APIC IDs as read by the APs
+        themselves rather than giving it knowledge on how to derive them.
+  * Removed patches 2 and 3 in v1, as no longer relevant.
+  * Split v1/patch6 in two parts ((a) creating the generator and (b) plugging it
+    in) and use the generator in the unit tests of the vcpuid->apicid mapping
+    function. Becomes patches 6 and 8 in v2.
+
+  Patch 1: Same as v1/patch1.
+  Patch 2: Header dependency cleanup in preparation for patch3.
+  Patch 3: Adds vlapic_hidden check for the newly introduced reserved area.
+  Patch 4: [hvmloader] Replaces INIT+SIPI+SIPI sequences with hypercalls.
+  Patch 5: [hvmloader] Retrieve the per-CPU APIC IDs from the APs themselves.
+  Patch 6: Split from v1/patch6.
+  Patch 7: Logically matching v1/patch5, but using v2/patch6 for testing.
+  Patch 8: Split from v1/patch6.
+
+v1: https://lore.kernel.org/xen-devel/20240109153834.4192-1-alejandro.vallejo@cloud.com/
+=== Original cover letter ===
+
+Current topology handling is close to non-existent. As things stand, APIC
+IDs are allocated through the apic_id=vcpu_id*2 relation without giving any
+hints to the OS on how to parse the x2APIC ID of a given CPU and assuming
+the guest will assume 2 threads per core.
+
+This series involves bringing x2APIC IDs into the migration stream, so
+older guests keep operating as they used to and enhancing Xen+toolstack so
+new guests get topology information consistent with their x2APIC IDs. As a
+side effect of this, x2APIC IDs are now packed and don't have (unless under
+a pathological case) gaps.
+
+Further work ought to allow combining this topology configurations with
+gang-scheduling of guest hyperthreads into affine physical hyperthreads.
+For the time being it purposefully keeps the configuration of "1 socket" +
+"1 thread per core" + "1 core per vCPU".
+
+Patch 1: Includes x2APIC IDs in the migration stream. This allows Xen to
+         reconstruct the right x2APIC IDs on migrated-in guests, and
+         future-proofs itself in the face of x2APIC ID derivation changes.
+Patch 2: Minor refactor to expose xc_cpu_policy in libxl
+Patch 3: Refactors xen/lib/x86 to work on non-Xen freestanding environments
+         (e.g: hvmloader)
+Patch 4: Remove old assumptions about vcpu_id<->apic_id relationship in hvmloader
+Patch 5: Add logic to derive x2APIC IDs given a CPU policy and vCPU IDs
+Patch 6: Includes a simple topology generator for toolstack so new guests
+         have topologically consistent information in CPUID
+
+===================================================================
+v6:
+
+Alejandro Vallejo (11):
+  lib/x86: Relax checks about policy compatibility
+  x86/vlapic: Move lapic migration checks to the check hooks
+  xen/x86: Add initial x2APIC ID to the per-vLAPIC save area
+  xen/x86: Add supporting code for uploading LAPIC contexts during
+    domain create
+  tools/hvmloader: Retrieve (x2)APIC IDs from the APs themselves
+  tools/libacpi: Use LUT of APIC IDs rather than function pointer
+  tools/libguest: Always set vCPU context in vcpu_hvm()
+  xen/lib: Add topology generator for x86
+  xen/x86: Derive topologically correct x2APIC IDs from the policy
+  tools/libguest: Set distinct x2APIC IDs for each vCPU
+  xen/x86: Synthesise domain topologies
+
+ tools/firmware/hvmloader/config.h        |   5 +-
+ tools/firmware/hvmloader/hvmloader.c     |   6 +-
+ tools/firmware/hvmloader/mp_tables.c     |   4 +-
+ tools/firmware/hvmloader/smp.c           |  54 ++++--
+ tools/firmware/hvmloader/util.c          |   7 +-
+ tools/include/xen-tools/common-macros.h  |   5 +
+ tools/include/xenguest.h                 |   8 +
+ tools/libacpi/build.c                    |   6 +-
+ tools/libacpi/libacpi.h                  |   2 +-
+ tools/libs/guest/xg_cpuid_x86.c          |  29 +++-
+ tools/libs/guest/xg_dom_x86.c            |  93 ++++++----
+ tools/libs/light/libxl_dom.c             |  25 +++
+ tools/libs/light/libxl_x86_acpi.c        |   7 +-
+ tools/tests/cpu-policy/test-cpu-policy.c | 207 ++++++++++++++++++++++-
+ xen/arch/x86/cpu-policy.c                |   9 +-
+ xen/arch/x86/cpuid.c                     |  14 +-
+ xen/arch/x86/hvm/vlapic.c                | 126 ++++++++++----
+ xen/arch/x86/include/asm/hvm/vlapic.h    |   1 +
+ xen/include/public/arch-x86/hvm/save.h   |   2 +
+ xen/include/xen/lib/x86/cpu-policy.h     |  27 +++
+ xen/lib/x86/policy.c                     | 175 ++++++++++++++++++-
+ xen/lib/x86/private.h                    |   4 +
+ 22 files changed, 704 insertions(+), 112 deletions(-)
+
 -- 
-2.39.5
+2.46.0
 
 
