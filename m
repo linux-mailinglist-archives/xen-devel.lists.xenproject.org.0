@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C5F998C207
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 17:49:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808320.1220228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B334498C213
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 17:54:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808325.1220240 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svf83-000335-UQ; Tue, 01 Oct 2024 15:49:35 +0000
+	id 1svfCs-0004hd-GZ; Tue, 01 Oct 2024 15:54:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808320.1220228; Tue, 01 Oct 2024 15:49:35 +0000
+Received: by outflank-mailman (output) from mailman id 808325.1220240; Tue, 01 Oct 2024 15:54:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svf83-00030P-RS; Tue, 01 Oct 2024 15:49:35 +0000
-Received: by outflank-mailman (input) for mailman id 808320;
- Tue, 01 Oct 2024 15:49:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1svfCs-0004ej-Cd; Tue, 01 Oct 2024 15:54:34 +0000
+Received: by outflank-mailman (input) for mailman id 808325;
+ Tue, 01 Oct 2024 15:54:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jjk+=Q5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svf82-0002yz-Dn
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 15:49:34 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0346f60-800c-11ef-99a2-01e77a169b0f;
- Tue, 01 Oct 2024 17:49:32 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5c896b9b3e1so3530279a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 08:49:32 -0700 (PDT)
+ id 1svfCq-0004ed-Sf
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 15:54:32 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7297235f-800d-11ef-a0ba-8be0dac302b0;
+ Tue, 01 Oct 2024 17:54:31 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a98f6f777f1so15596366b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 08:54:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c88248abf5sm6356806a12.77.2024.10.01.08.49.31
+ a640c23a62f3a-a93c2775c2dsm731582166b.38.2024.10.01.08.54.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Oct 2024 08:49:31 -0700 (PDT)
+ Tue, 01 Oct 2024 08:54:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0346f60-800c-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 7297235f-800d-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727797772; x=1728402572; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727798071; x=1728402871; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RFIZ8Z4CFYIEZ+qNDXiCK8ID3k/lwBX2+rAOICZEhGU=;
-        b=DHuxBMurw7VNCRWJwS2HaOl0s4OiKPCTFRlWSIYQwksOJs7j0X5L02qfDrS6m4CNB3
-         gTLOP5RnS+dH3MQZGYiCu4RCUGOYgaBABr1bFv4bWZel4c6oK7gdiWxrkqSj683rP/LA
-         fsuxushutF3QnkFt5oB8356mCVD7IC6LuH2Zl6PrHzOHL2WkbGoYLJhA496VDshzLFWc
-         UYuRjG/aovPLfe2OmVfU4lx0iREkqO70/gr1HE8+n8guApWS3fTjgdXgSktFCwK550Fo
-         p5kn6z62bcPKWgwjXoQDb858lJ1fHWHgDZpz9vRNdkXiruPHA60JREzRUIpEDRUL550l
-         OyEw==
+        bh=drE2WmsZrTEqp5q6o0pgSzRjvGJLyPArM1st1iYNJOo=;
+        b=cvznw9xA8pDbmUxxBYaS+bEdYsqxCTYWkyQJo/EyJNR2HnoQt26KasOhrRBv14Xh7/
+         99GhLq9WxnFxdtYKLDHCDvCrn3ElBmNPbJGgUnLy/sgUikaECPTjHTZ7dHQQMz2cvz79
+         XB89QlkLdZbP+eHP5NpxfR2hIJTFGJobuxGb9wL8tSfJ5llo877Ji0SnXExM11Ga0C3k
+         sBb3gUQexx9Of4MTUxRII4ER679YT7M3TNLsXokZ/8MQ9DHu3Opa9toDZQ3hyRfGEPpK
+         uYFvehsMN9n5e+XZkwGXW0iC/vfmmy7lexmfI6LDpI0iB1CwLpxYhpHCFWlbB1nI7gBu
+         wgyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727797772; x=1728402572;
+        d=1e100.net; s=20230601; t=1727798071; x=1728402871;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RFIZ8Z4CFYIEZ+qNDXiCK8ID3k/lwBX2+rAOICZEhGU=;
-        b=Ir4jAHGIN2fViDdlijdU+XBGwb6WXKnU4e3BKzoMRM2m4cgVSGep87t608uVjY0h2f
-         tQcSDuIz+F+nUA7SVt4iL3MJtGwIKm/mFZoWknKvZIWQUdg+kDoKwGJqI9jJsi5h/w1t
-         JT+TFdbw9hqzDy/OF8pCzUdsXCU+vYtedVemcbNtmb6c+PHolFmcd/NRwhzQiIffnDIv
-         EiY2qO5ZkuSMciSNTVOfc0ZVcaGZMQb4yhsdF8RvwnM0AR+rJBzCxQAu1JJfi/IglD+7
-         DwZ6VdFUP4cfoyvVpWxiiZ+s4b3Fix3fGjCkbPewVO1DU5wajY59PlsqnRCS78i6x5Ac
-         ONZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVoE4QbeqO3S2J9hGmBujV9sE5iwVMTVDBoh3RIGPTGm6eJaumIq5eUCmnoPAt5BUtnrBvgiZObpVg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz+A/GREn5uujxtOwB76sC7yeqh6xIll7f6KbAJhKmyIyKkaEuF
-	KRvqAKapC9P4tsD2KPW+c73iPhG/79souo2+JFIL9qKoaebekutseZMYkgPrEA==
-X-Google-Smtp-Source: AGHT+IGpz/g1G8ffCXHjZgrPz9VLwu1/4htEdHpKEEmfU1acSzDYI6EUjgCM3DbkMfOSWyFVOFfAgg==
-X-Received: by 2002:a50:85c3:0:b0:5c8:7696:79f1 with SMTP id 4fb4d7f45d1cf-5c8826084e5mr11379963a12.33.1727797772023;
-        Tue, 01 Oct 2024 08:49:32 -0700 (PDT)
-Message-ID: <178b61bc-d3e5-4c9d-a8c0-88363911bc8f@suse.com>
-Date: Tue, 1 Oct 2024 17:49:30 +0200
+        bh=drE2WmsZrTEqp5q6o0pgSzRjvGJLyPArM1st1iYNJOo=;
+        b=J5umTryjoNK+RZA5rE9Vem44mA+R/LyMf4E2vSc/KanfAMg8pVObjbG+AJFt2uzKuQ
+         cJBrrsNu/xW0qO5xzfNhHWAEkpNylNIa5kPYSZef98yHrYwOZpDqYpbQfq4M0UgvAqgJ
+         GgftZBAjSIelYGTUQZYkigTv3cB/J5d6x4kh+SnSs7pwSsugxSm+eIUqiAGmeZFjT9jc
+         RBmxGLANpNBDy9gDtrjtifzFy/1dS27sgrI4m/qbmMnx3MbJyjR69l7goJuFW6QkmQ0J
+         0AXteGG32BufxYXnIafJXNBhmIkMezsUC6aXdjcfQpcNDeZeM13XyK2x8U449RuTfwH2
+         2mgw==
+X-Forwarded-Encrypted: i=1; AJvYcCVMvyXYMcMCPYZoM4CgZgoKvGCM8JTDmMUcrgvuWlBc15nwnpc258lPneh6OmFaYev6I78Ld/b6Kqo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywrw85dAN56bz1KvRWf1j9fyPku81DHJsUb6ABoqAtslGHVN0E7
+	3mYk/IwHrdZKEciGWPdEYWRbeldmMt/ba30AbrVbSf8oQ/DiNvPdxtBwakO4ZQ==
+X-Google-Smtp-Source: AGHT+IE2w36jxuIUA0eucIryh8EK2sAAp0GA/DBo/07YFX4E4Bc30fHvhmySzkz0j4GOuiW2/261zw==
+X-Received: by 2002:a17:907:745:b0:a91:1592:f5cf with SMTP id a640c23a62f3a-a98f8225973mr4553066b.15.1727798071314;
+        Tue, 01 Oct 2024 08:54:31 -0700 (PDT)
+Message-ID: <18cfcda5-d2b4-47d6-9f5e-a240e46661c1@suse.com>
+Date: Tue, 1 Oct 2024 17:54:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] xen/riscv: register Xen's load address as a boot
- module
+Subject: Re: [PATCH v1 1/2] xen/riscv: initialize bootinfo from dtb
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-References: <cover.1727708665.git.oleksii.kurochko@gmail.com>
- <2bd3589f322d30e93d81d091ca64439048c068fc.1727708665.git.oleksii.kurochko@gmail.com>
+References: <cover.1727708956.git.oleksii.kurochko@gmail.com>
+ <f04a3cc3e543298f63845728c599410258a336ca.1727708956.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,31 +115,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2bd3589f322d30e93d81d091ca64439048c068fc.1727708665.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <f04a3cc3e543298f63845728c599410258a336ca.1727708956.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.09.2024 17:08, Oleksii Kurochko wrote:
-> @@ -26,6 +27,8 @@ unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
->  void __init noreturn start_xen(unsigned long bootcpu_id,
+On 30.09.2024 17:13, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/setup.c
+> +++ b/xen/arch/riscv/setup.c
+> @@ -28,6 +28,7 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
 >                                 paddr_t dtb_addr)
 >  {
-> +    struct bootmodule *xen_bootmodule;
-
-With just the uses below this can be pointer-to-const. Question of course
-is whether you already know of further uses.
-
-> @@ -44,6 +47,13 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
->                "Please check your bootloader.\n",
->                dtb_addr, BOOT_FDT_VIRT_SIZE);
+>      struct bootmodule *xen_bootmodule;
+> +    size_t fdt_size;
 >  
-> +    /* Register Xen's load address as a boot module. */
-> +    xen_bootmodule = add_boot_module(BOOTMOD_XEN,
-> +                                     virt_to_maddr(_start),
-> +                                     (paddr_t)(_end - _start), false);
+>      remove_identity_mapping();
+>  
+> @@ -54,6 +55,9 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>  
+>      BUG_ON(!xen_bootmodule);
+>  
+> +    fdt_size = boot_fdt_info(device_tree_flattened, dtb_addr);
+> +    BUG_ON(!fdt_size);
+> +
+>      printk("All set up\n");
+>  
+>      machine_halt();
 
-There's no real need for the cast, is there? Plus if anything, it would be
-more to size_t than to paddr_t.
+Looks plausible, and judging from Arm code there'll be an actual use of fdt_size
+down the road. Or else I would have asked what use the local variable is. In
+fact, again from looking at Arm code, I now question the need for the
+xen_bootmodule local var - that has no further use in Arm, and hence that's
+likely going to be the case for RISC-V, too.
+
+However, may I ask that you limit the dependency trees in what you submit? This
+series depends on another series, which in turn depends on yet something else,
+all not yet committed. That's getting unwieldy, I'm afraid.
 
 Jan
 
