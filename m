@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9468198C1EA
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 17:45:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808306.1220209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE48498C1F3
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 17:46:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808312.1220218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svf3S-00018U-2v; Tue, 01 Oct 2024 15:44:50 +0000
+	id 1svf51-0001jL-GJ; Tue, 01 Oct 2024 15:46:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808306.1220209; Tue, 01 Oct 2024 15:44:50 +0000
+Received: by outflank-mailman (output) from mailman id 808312.1220218; Tue, 01 Oct 2024 15:46:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svf3R-00015v-Uu; Tue, 01 Oct 2024 15:44:49 +0000
-Received: by outflank-mailman (input) for mailman id 808306;
- Tue, 01 Oct 2024 15:44:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1svf51-0001gb-Dc; Tue, 01 Oct 2024 15:46:27 +0000
+Received: by outflank-mailman (input) for mailman id 808312;
+ Tue, 01 Oct 2024 15:46:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jjk+=Q5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svf3Q-00015p-Lc
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 15:44:48 +0000
+ id 1svf4z-0001gT-Hz
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 15:46:25 +0000
 Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
  [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1673cc4b-800c-11ef-a0ba-8be0dac302b0;
- Tue, 01 Oct 2024 17:44:47 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f97237c-800c-11ef-99a2-01e77a169b0f;
+ Tue, 01 Oct 2024 17:46:23 +0200 (CEST)
 Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5c89f3e8a74so2554247a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 08:44:47 -0700 (PDT)
+ 4fb4d7f45d1cf-5c87c7d6ad4so5833167a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 08:46:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c882c7d23asm6251050a12.32.2024.10.01.08.44.46
+ 4fb4d7f45d1cf-5c8831c9055sm6231060a12.31.2024.10.01.08.46.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Oct 2024 08:44:46 -0700 (PDT)
+ Tue, 01 Oct 2024 08:46:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1673cc4b-800c-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 4f97237c-800c-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727797487; x=1728402287; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tnmCKXbU4lxxNYvMon/HLz6AQJ1irS12uZOKgrfmjwI=;
-        b=OAI34R3jGO+rkVwVKn8Z8xFOcRvG5O+jR9zES1IAVvnP7kT9/ZQMJ5f24ljT7HkLLm
-         0WDoLC0bt2gOf7axX87lvB3PUMDFaeAAFtCOvWZfGFMrvu4b1em9/+aIZZvnou5S21+N
-         Ny8OCDlzp8/mrZuRHPl7bH0y0pB0HKptgTH8FV83gJjbenU9EsUH+12IZ0ww0jTxpvst
-         5gnwqNq/NtZ+j2zdSBWlnLSXNpLDYDkBqz2iap4bNW2cN4+NShp6luhX0R9C7/lAGIz+
-         YJJHxwKPgM78rHEye6+oyBBfwNDefB5sdZ7zt39a1+lOyTorbEWLaI/hLVFIOssDhbh4
-         QP+A==
+        d=suse.com; s=google; t=1727797583; x=1728402383; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=pt4WxeG269rjnvpGpYIsW0dDJqXjk2pp6L+bUkiEgBs=;
+        b=CZfM1IR4EcF2bB5/NRxXGkr94iE0zmlv+PXcWl+hlLnpmNxmI3xFk5NbarWEYP2g/a
+         /qNu8UJ4zrKjUy6k/wVhXhHQBvb/MYc37ELXdJkq7GlzlMRR7nnQxUPyFA2FFQcyPlO+
+         U8Niz9CFLgbzYKW5aYAKNLPgZu+iTCOECSgLGY+i3m+zykIwrdfTvZjmXr6EdwHHkIFq
+         AJVk0VRDr5SQFhHaoAUWCJ7R0j+wSXvO116uWHIgcMDsD71il0dJ1im0XeMJXUiHqSgZ
+         BlpvA4xxJ/OJYy20lfYUCzETv3rZ7Ew4zW4g4Own5l97XPzNRyVG4EWtWajFEqrd6QeN
+         qTrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727797487; x=1728402287;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tnmCKXbU4lxxNYvMon/HLz6AQJ1irS12uZOKgrfmjwI=;
-        b=uOm0FwF4CXGVmGf+P2ZlD6h/ULpSsVVp5Ran28bRcPn6styavwCLwzTcIwNqC2LI+4
-         tjwl5xdRMy0sjc4q+Cz/mWSmWPpZ27ROKcAjXYYbVS0/7tTOu3mVFnYzL4TkWla+o6dl
-         y+BApMnNKbx1on+6T8mRzfczpF3daN7J1JaaeFVonK9bVK4OjYTxp6zcTlzb9wtyzqe9
-         xg6syVJ70nlgDylH/BrWT40qcGjbrOwkgjJ5U8whAxP4bVaE/x6uQDO96FaXJ3UzaJL+
-         KQnWPP/AeQHKKqP64M+eTc4X1TZQFDx/I2CbJWQzjKhZurMq9FyaDlpm82Hl1q9pvqzP
-         ltTA==
-X-Forwarded-Encrypted: i=1; AJvYcCVJTVpy4/EDB4ChUnTE0OVaHmtegG2A5QhbtcO7N8VQjsUZUXF/mVrHYIVUhMD6IAm8b19fYM5XKZY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFNE1cb77cbb23o5DoiwczdlwRTcwECgNKRitx6jxvnTYXixFd
-	8glAD+eToWvdp7LmZ0FPOPwSvoK771HPnHHRuJSdjf493c/Fa+hVPIpj0EuU7g==
-X-Google-Smtp-Source: AGHT+IE67JLx/MlFiHeNIrB+OK6iNr0pI3M2NFd/ODRtulDhfRAmixvxEb0q+7GXFtpkTuaJK2dlWg==
-X-Received: by 2002:a05:6402:1ec5:b0:5c8:aecf:8e93 with SMTP id 4fb4d7f45d1cf-5c8aecf9a9cmr1181738a12.0.1727797487184;
-        Tue, 01 Oct 2024 08:44:47 -0700 (PDT)
-Message-ID: <c5b75ca4-7fe2-4919-a9b0-0bf56947a247@suse.com>
-Date: Tue, 1 Oct 2024 17:44:45 +0200
+        d=1e100.net; s=20230601; t=1727797583; x=1728402383;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=pt4WxeG269rjnvpGpYIsW0dDJqXjk2pp6L+bUkiEgBs=;
+        b=P1V20PJR0/yUc3szypRq8z9c8TeazQpsAdyMyFxjY7Jc5MwO1AAUi7A4W4ZVKK1WJa
+         4WhjD1crW54aDeoVaqIGkx8y3ARfxPEj63EuAQRvun3kJO1NrPjOaJt7DOsvDYks9DfP
+         /PZ5thsX4a/oa2RXk9FB5//BCvvQSftCpG/vQVpWVQPtgelkLtyT0xuLEfmfgxV9rjtr
+         4+gms8H0iVjMxqeuyr1ePwzcD05fNFEG7kxEGpSY9NHip6Ql71uYOTvK8NGGGwU/z8gM
+         y6rh5mQQCWLAwRPl5ZpIpXx9/fom6W4FX8PCbn8tbP6tGWpEgSz6CEgQmoR1XVFCSaae
+         tsXg==
+X-Forwarded-Encrypted: i=1; AJvYcCVQ+ZLAKazR4IfZo1CREEr0YoXiJj9wKc/mneuXcGc5pPFPsRe6VCgAKFKu6jTDzxfDHVrIDbQnhK4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwXRDXl8QuQXtEGXulD9R6krXYf6KvZxKFO03q79aHM9oJ8P252
+	qqEYJ1f1fBtgG+z0LCfuO6mU677qu0vEon8AvTxFNcqecrIwvTQNOVM+ho2NZw==
+X-Google-Smtp-Source: AGHT+IF/qjxCsLRSFPJlDjrF8qxfmVNh1sz8Z6idB2Y4OgyvQrnv9O8ZlY52erpNvuYFecBTAkYxtg==
+X-Received: by 2002:a05:6402:1947:b0:5bf:50:266b with SMTP id 4fb4d7f45d1cf-5c8824e7f04mr14748391a12.19.1727797583016;
+        Tue, 01 Oct 2024 08:46:23 -0700 (PDT)
+Message-ID: <e210faa2-ffb3-4572-afc6-62fd622fba68@suse.com>
+Date: Tue, 1 Oct 2024 17:46:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] xen/riscv: switch LINK_TO_LOAD() to
- virt_to_maddr()
+Subject: Re: [PATCH v1 1/3] xen/riscv: implement virt_to_maddr()
+From: Jan Beulich <jbeulich@suse.com>
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -90,9 +90,9 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1727708665.git.oleksii.kurochko@gmail.com>
- <9a462c58f3af0ff5e5d312777cd1552b2a5a930c.1727708665.git.oleksii.kurochko@gmail.com>
+ <1d4270af6469af2f95ede34abd8e9f98f775c1f1.1727708665.git.oleksii.kurochko@gmail.com>
+ <61347488-6b4b-442d-9058-cafd65b0834d@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,34 +116,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9a462c58f3af0ff5e5d312777cd1552b2a5a930c.1727708665.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <61347488-6b4b-442d-9058-cafd65b0834d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.09.2024 17:08, Oleksii Kurochko wrote:
-> Except for switching LINK_TO_LOAD() to virt_to_maddr(),
-> LINK_TO_LOAD() is dropped, as virt_to_maddr() covers all
-> the cases where LINK_TO_LOAD() is used.
+On 01.10.2024 17:41, Jan Beulich wrote:
+> On 30.09.2024 17:08, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/include/asm/mm.h
+>> +++ b/xen/arch/riscv/include/asm/mm.h
+>> @@ -28,7 +28,20 @@ static inline void *maddr_to_virt(paddr_t ma)
+>>      return NULL;
+>>  }
+>>  
+>> -#define virt_to_maddr(va) ({ BUG_ON("unimplemented"); 0; })
+>> +static inline unsigned long virt_to_maddr(unsigned long va)
+>> +{
+>> +    ASSERT(va >= (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE));
+>> +    if ((va >= DIRECTMAP_VIRT_START) &&
+>> +        (va < (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE)))
+>> +        return directmapoff_to_maddr(va - DIRECTMAP_VIRT_START);
+> 
+> While the cover letter states a dependency on another series, I'm unable
+> to spot directmapoff_to_maddr() in the tree or in that other series.
+> 
+>> +    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+>> +    ASSERT(((long)va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+>> +           ((long)XEN_VIRT_START >> (PAGETABLE_ORDER + PAGE_SHIFT)));
+> 
+> What's the point of the casts here? va is unsigned long and XEN_VIRT_START
+> is a literal number (which probably ought to have a UL suffix).
+> 
+>> +    return phys_offset + va;
+> 
+> Don't you need to subtract XEN_VIRT_START here?
 
-Why "Except for ..."? I'm afraid I can'rt make sense of this.
-
-> @@ -225,7 +224,7 @@ void __init setup_fixmap_mappings(void)
->  
->      BUG_ON(pte_is_valid(*pte));
->  
-> -    tmp = paddr_to_pte(LINK_TO_LOAD((unsigned long)&xen_fixmap), PTE_TABLE);
-> +    tmp = paddr_to_pte(virt_to_maddr(&xen_fixmap), PTE_TABLE);
-
-Just like you don't open-code a cast here, ...
-
-> @@ -312,7 +311,7 @@ void __init remove_identity_mapping(void)
->      pte_t *pgtbl;
->      unsigned int index, xen_index;
->      unsigned long ident_start =
-> -        LINK_TO_LOAD(turn_on_mmu) & XEN_PT_LEVEL_MAP_MASK(0);
-> +        virt_to_maddr((unsigned long)turn_on_mmu) & XEN_PT_LEVEL_MAP_MASK(0);
-
-... you shouldn't do so here. The virt_to_maddr() wrapper macro does so already.
+Oh, that subtraction is part of the calculation of phys_offset. The variable's
+name then doesn't really reflect its purpose, imo.
 
 Jan
 
