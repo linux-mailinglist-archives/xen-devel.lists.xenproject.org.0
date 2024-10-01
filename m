@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1955A98B79B
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 10:53:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807848.1219549 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA7C198B7AD
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 10:56:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807854.1219559 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svYcc-0000qK-G7; Tue, 01 Oct 2024 08:52:42 +0000
+	id 1svYg7-0001QR-V5; Tue, 01 Oct 2024 08:56:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807848.1219549; Tue, 01 Oct 2024 08:52:42 +0000
+Received: by outflank-mailman (output) from mailman id 807854.1219559; Tue, 01 Oct 2024 08:56:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svYcc-0000nn-DG; Tue, 01 Oct 2024 08:52:42 +0000
-Received: by outflank-mailman (input) for mailman id 807848;
- Tue, 01 Oct 2024 08:52:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1svYg7-0001Nn-ST; Tue, 01 Oct 2024 08:56:19 +0000
+Received: by outflank-mailman (input) for mailman id 807854;
+ Tue, 01 Oct 2024 08:56:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jjk+=Q5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svYcb-0000nh-D5
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 08:52:41 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8353bf82-7fd2-11ef-99a2-01e77a169b0f;
- Tue, 01 Oct 2024 10:52:39 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-53959a88668so4565332e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 01:52:39 -0700 (PDT)
+ id 1svYg6-0001NX-QC
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 08:56:18 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0595ce4e-7fd3-11ef-a0ba-8be0dac302b0;
+ Tue, 01 Oct 2024 10:56:18 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a8d56155f51so672954266b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 01:56:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8ae440857sm176181a12.13.2024.10.01.01.52.38
+ a640c23a62f3a-a93c2946bddsm666771266b.123.2024.10.01.01.56.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Oct 2024 01:52:38 -0700 (PDT)
+ Tue, 01 Oct 2024 01:56:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8353bf82-7fd2-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 0595ce4e-7fd3-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727772759; x=1728377559; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727772977; x=1728377777; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YXW502KHO7TrBBjtU7liWw5he436NlY4BeR9yb3ZT8U=;
-        b=XsK6musthvzg/xqDwrBhFn1vsOf8DkeFmnOB2wyL+jKFq6Wyb6uWMJzCQHjZzoiVoy
-         a92wER9ZbRBSIgjHrY3Y17YbAxQpdrOUtFiMIY6BGx3gc+9Vvfgy6A4iEwcS1UotFjQl
-         t6NBfJ8i9oOS47O+ood6hOlPJSPM8sKGmqfIe/T9UQj9R5LrZBP7E4KTC2b5EHt+Kzlr
-         TKAWtQgZcloDwsLo5O3h5yBYiDPINMwecElHF8swnhzyWBl7E6r40sRAOSxYZwp32x2u
-         xiWyRjxTs3dC96ns7GKfLKkymNSjyYgJguPNf4VdpN9I+iVu6UAEGX+ESXSGwRPs0ve/
-         5BlQ==
+        bh=GwsTVlUE+WfxHpR9ah13NBsnzeAKuqVnUxQdij3tlUk=;
+        b=d3neXUEe4lGwtdZJ5Pa9dn7u3bzOVkNDWk5ZnZPqYgwVm4OKm3OEoJebPdwTusEYlC
+         6E6hMKZVaT/Yj1LRDPdFPvH2fMwlR7DG0hOKL3ZlDkqPQlk8uB2/lJ1AeMzS8Hmf7P+y
+         sgVX8uaBmOAa+XkA3hKgeXVV1CfIWVIsKl+SuC7RwppORbts1Y7pieYurDdUS64zJQOd
+         sxSZ+3slAurzj0NRJJmUEvY8kakis9R1BvTUY5G71sOs5X+2DlAP5LiuGjKDPCny9KkX
+         6U0XPK40QuI2mAynr07z1m5+/l6ASjLaD1rpvPcH6SBuykZBxK1IqS/utJjX/8ZBtBdN
+         GuUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727772759; x=1728377559;
+        d=1e100.net; s=20230601; t=1727772977; x=1728377777;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YXW502KHO7TrBBjtU7liWw5he436NlY4BeR9yb3ZT8U=;
-        b=a29PL+Hyjj8uaR4PFRXPzc0jowD+BW5i0jZ6vBNTMdmSDJIXsuYKLlNEf0j1MTbYym
-         bl8dZ53SPuI7SbmhtDOVyIrNNmbt3HJSTDmzixMdkUZzUN2Mq+Qf4oFwkubZcrXrYL79
-         MZsnZizWBg7sPk1HFMWfa57OuuXGF4MyIvC3lB87RzMdgUa78ildgH4QrJlZg1keQ6rq
-         UqpKyGjPHl+flstOdqv1eJGJzDn+JU/rlSeHmyxYdbRoMzRIqEfV3wNnwQdTFvkRnBHj
-         xZNjxH8/fbzF3/R+l7WuV5d+UMVXQnNOZf/YusvLLRhpuTeTpnsAQp872seLEW+czjuG
-         3I0A==
-X-Forwarded-Encrypted: i=1; AJvYcCXSdZQo0LQcFNTSQrv1Yc9khEjwkh/15kj/k57snojkpUwSZ/mjULY1G/a/fRKZNxAHro7oioQUMuE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx6oBBJlSZVm+btVTlVNkEOmonnfmp10QDbXxVq0Mya8phADQPC
-	9wxiJj47xW1jyav5VxAQHUrGRB49+3Ki2xtaFimb6KGrIfCM08RsSNsRYmVoFw==
-X-Google-Smtp-Source: AGHT+IGDSTo5nyioBULbzM/R/TnlvCqxO8e0BBI4gpdie0yfhyG2hEmigQCFpK5rgIC4wI3icJbkCg==
-X-Received: by 2002:a05:6512:33d3:b0:539:944c:1543 with SMTP id 2adb3069b0e04-539944c1822mr3809625e87.33.1727772758900;
-        Tue, 01 Oct 2024 01:52:38 -0700 (PDT)
-Message-ID: <b2a8b468-5745-4f58-bb86-721ea055c1b1@suse.com>
-Date: Tue, 1 Oct 2024 10:52:38 +0200
+        bh=GwsTVlUE+WfxHpR9ah13NBsnzeAKuqVnUxQdij3tlUk=;
+        b=lfaFSELK0qEHoqh5/J+i6mY6/vOWQtuE2aQj9XXby9ysPSy4wxTu2OPoyYWoU5NoaW
+         Gz5D0C6V7JzQuxLT0yGkYn3EJ6rVvEOFrhuck52rKR9OjGhQS2kvBUNnDvhFHCHWEdJY
+         VaSBVNGuftlii3N1Gzy6ZsG9YCpMg/TI0ppbhS10HZPtoAUqoZKJN7wQ9fwZR10ocT8k
+         e4ScxefFHSgZURCvy1FPCErgXg7h+V8Ziz/WajSgbS4XsY3/Gcrmo1gmSFJdAeNmsxx+
+         EMzroQURY84wAeFLOkQTMMeD0h5uy9UwqXN+DiUePvVZUr79akf6/OVhrJnb+1EJGO3V
+         LO9w==
+X-Forwarded-Encrypted: i=1; AJvYcCUSJxSeKxjWNPyEMMcL1teGK3vXzMxTblqvQv58LbES/yR9O6yW2vIWfiieOsCt4fCN5QsYRweFo1I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwY3r+FHSMPSoUI24xWI2c+T/qHT5iZ3mDzdwZjgp75CpZ5UeOG
+	BWhcwF+qZCXkiUrMINyW8hhqGDyyYlzHleIuE7PQX5qLkNRFoZtCCVv9mXxiaGMcZN7ZwR/yVfY
+	=
+X-Google-Smtp-Source: AGHT+IFiL2jTMxYrsdRgTjUW2kw9ONVv/pD4tP0Tr/z2o/g5b1TUqYe1+mCZNcQA/aEs+lNoFwYf0Q==
+X-Received: by 2002:a17:907:d14:b0:a8a:83e9:43e2 with SMTP id a640c23a62f3a-a93c48f926amr1330412266b.12.1727772977561;
+        Tue, 01 Oct 2024 01:56:17 -0700 (PDT)
+Message-ID: <ad7f22ad-0373-45d7-943e-816d385e6750@suse.com>
+Date: Tue, 1 Oct 2024 10:56:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] x86/boot: Rewrite EFI/MBI2 code partly in C
+Subject: Re: [PATCH v6 3/3] x86/boot: Improve MBI2 structure check
 To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 References: <20240926092109.475271-1-frediano.ziglio@cloud.com>
- <20240926092109.475271-3-frediano.ziglio@cloud.com>
- <e17b2afc-3647-4472-9d37-1510b40ff23d@suse.com>
- <CACHz=ZhtYik3p4z2mc1PYG9M68Mwap68_DdoE7MWksW0VW+BTw@mail.gmail.com>
+ <20240926092109.475271-4-frediano.ziglio@cloud.com>
+ <b68528a0-0e0b-4b8c-bd9d-b7d845905711@suse.com>
+ <CACHz=ZjwTJRwaSXf5GB5WPByxHy0unjZw0ysUNWFEkpm3VAwKg@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,60 +118,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CACHz=ZhtYik3p4z2mc1PYG9M68Mwap68_DdoE7MWksW0VW+BTw@mail.gmail.com>
+In-Reply-To: <CACHz=ZjwTJRwaSXf5GB5WPByxHy0unjZw0ysUNWFEkpm3VAwKg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 01.10.2024 10:35, Frediano Ziglio wrote:
-> On Mon, Sep 30, 2024 at 4:51 PM Jan Beulich <jbeulich@suse.com> wrote:
+On 01.10.2024 10:41, Frediano Ziglio wrote:
+> On Mon, Sep 30, 2024 at 4:55 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>
 >> On 26.09.2024 11:21, Frediano Ziglio wrote:
->>> @@ -243,7 +234,7 @@ __efi64_mb2_start:
->>>          /*
->>>           * Initialize BSS (no nasty surprises!).
->>>           * It must be done earlier than in BIOS case
->>> -         * because efi_multiboot2() touches it.
->>> +         * because efi_multiboot2_prelude() touches it.
->>>           */
->>>          mov     %eax, %edx
+>>> --- a/xen/arch/x86/efi/parse-mbi2.c
+>>> +++ b/xen/arch/x86/efi/parse-mbi2.c
+>>> @@ -13,6 +13,7 @@ efi_multiboot2_prelude(uint32_t magic, const multiboot2_fixed_t *mbi)
+>>>      EFI_HANDLE ImageHandle = NULL;
+>>>      EFI_SYSTEM_TABLE *SystemTable = NULL;
+>>>      const char *cmdline = NULL;
+>>> +    const void *const mbi_end = (const void *)mbi + mbi->total_size;
+>>>      bool have_bs = false;
+>>>
+>>>      if ( magic != MULTIBOOT2_BOOTLOADER_MAGIC )
+>>> @@ -21,7 +22,9 @@ efi_multiboot2_prelude(uint32_t magic, const multiboot2_fixed_t *mbi)
+>>>      /* Skip Multiboot2 information fixed part. */
+>>>      tag = _p(ROUNDUP((unsigned long)(mbi + 1), MULTIBOOT2_TAG_ALIGN));
+>>>
+>>> -    for ( ; (const void *)tag - (const void *)mbi < mbi->total_size &&
+>>> +    for ( ; (const void *)(tag + 1) <= mbi_end &&
 >>
->> I think this MOV wants to gain a comment, now that ...
->>
->>>          lea     __bss_start(%rip), %edi
->>> @@ -252,36 +243,30 @@ __efi64_mb2_start:
->>>          shr     $3, %ecx
->>>          xor     %eax, %eax
->>>          rep stosq
->>> -        mov     %edx, %eax
->>
->> ... this one's going away.
->>
+>> It may be possible to argue away overflow concerns here. I'm not so sure though
+>> for the case ...
 > 
-> What about
-> 
-> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-> index 89b5e2af88..6fa6ea93e5 100644
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -231,12 +231,14 @@ __efi64_mb2_start:
->          */
->         and     $~15, %rsp
-> 
-> +       /* Move away magic number, we need it later but we need to use %eax */
-> +        mov     %eax, %edx
-> +
->         /*
->          * Initialize BSS (no nasty surprises!).
->          * It must be done earlier than in BIOS case
->          * because efi_multiboot2_prelude() touches it.
->          */
-> -        mov     %eax, %edx
->         lea     __bss_start(%rip), %edi
->         lea     __bss_end(%rip), %ecx
->         sub     %edi, %ecx
-> 
-> ??
+> Do you mean tag + 1 ?
 
-Fine with me. Maybe s/Move away/Save"?
+Yes.
+
+> For the same reason, computing tag above could have an overflow.
+> If the caller pass invalid data range, we will have overflows in either case.
+
+Indeed. Yet as said, for these "+ 1" it may be okay to keep them like
+that; the check below is certainly more risky.
+
+>>> +            tag->size >= sizeof(*tag) &&
+>>> +            (const void *)tag + tag->size <= mbi_end &&
+>>
+>> ... here. The earlier logic subtracting pointers wasn't susceptible to such.
+> 
+> Can you suggest a change ?
+
+Keep comparing (pointer differences) against mbi->total_size.
 
 Jan
 
