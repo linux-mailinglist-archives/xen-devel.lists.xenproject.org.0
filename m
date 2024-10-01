@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 971A498BC44
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 14:39:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808067.1219870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9B6198BC4B
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 14:39:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808069.1219884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svc9D-0003Ck-Vw; Tue, 01 Oct 2024 12:38:35 +0000
+	id 1svc9E-0003SL-Qu; Tue, 01 Oct 2024 12:38:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808067.1219870; Tue, 01 Oct 2024 12:38:35 +0000
+Received: by outflank-mailman (output) from mailman id 808069.1219884; Tue, 01 Oct 2024 12:38:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svc9D-0003A5-Sg; Tue, 01 Oct 2024 12:38:35 +0000
-Received: by outflank-mailman (input) for mailman id 808067;
- Tue, 01 Oct 2024 12:38:34 +0000
+	id 1svc9E-0003L6-Lq; Tue, 01 Oct 2024 12:38:36 +0000
+Received: by outflank-mailman (input) for mailman id 808069;
+ Tue, 01 Oct 2024 12:38:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qrgx=Q5=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1svc9C-0002va-1O
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 12:38:34 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1svc9D-0002va-1i
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 12:38:35 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10f95c99-7ff2-11ef-99a2-01e77a169b0f;
- Tue, 01 Oct 2024 14:38:31 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a8a706236bfso450422566b.0
- for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 05:38:31 -0700 (PDT)
+ id 1186ec32-7ff2-11ef-99a2-01e77a169b0f;
+ Tue, 01 Oct 2024 14:38:32 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5c87853df28so6153650a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 05:38:32 -0700 (PDT)
 Received: from mewpvdipd1023.corp.cloud.com ([52.166.251.127])
  by smtp.gmail.com with ESMTPSA id
  4fb4d7f45d1cf-5c88248ac03sm6132630a12.70.2024.10.01.05.38.30
@@ -45,109 +45,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10f95c99-7ff2-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 1186ec32-7ff2-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloud.com; s=cloud; t=1727786311; x=1728391111; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6CLVhmVmABNvSZWpsVfABNNcbL+sBo7kkWt6jjP+OBE=;
-        b=NJ/szdGP36LpKNG2bVcKYbzIORaDGjl3I5iEdHoxURAQ+JQDnqAMWBSSWAd4XGInYj
-         FUTUEwaXk46QijxCWi+MwoZna31DnD6ooBABZMFT0OfG2+QRx/Ei2vvvraqell4aAfMd
-         WpgPdoe3mie20w0bFOYjwOAbdVcYY6XfD3XHk=
+        bh=UB02sToOMWoS+3+bvVBptWjoHbPyERDalpALvStk7iE=;
+        b=C26rpQfH5gIZ6gzOlY/vAxSiFxOAwu9t2tAqKdVoQqAWCG81shbNyXSIuOuc/LhBDO
+         agnwLrAiAU5AQ3FtoggFyG+zXSv1YKMnG3J5IuQkYDb43EWqV8wY1qgufm5rwl4ig1TE
+         ub3ycllDRLekx/BIw46uQvgoyDKWE56yk0mXg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1727786311; x=1728391111;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=6CLVhmVmABNvSZWpsVfABNNcbL+sBo7kkWt6jjP+OBE=;
-        b=YsYFmaE5QVS03GvPJYvGQAMWwWBavPBxXVQRhUCyGJY7YvrTFicZns+6L4nuSlLSPf
-         iV9yMc1qvfthAZOv/qYPPwax28NAG/S/5/9RmcGimBmbMiu12N4QVTZBD1KosjLASQSq
-         espHzA95wfEoHV88j7DHRkwU7YSfLW5KdAF+PcJdgBXCfw2R4f3ShaGSEunpica7rWWS
-         SYJUeoJpA0duHq9OAz9CDOBLjQgxfUKItlmmvUiiRRT8OsgYY8qHGJLDdIZYMy+sd20X
-         dcaZ5m6WdCJTccguUVcPUHcA+NsJZjJFy8g9vZh5b3tXmM/13s13XlvzATAywNfuHhSp
-         GJQA==
-X-Gm-Message-State: AOJu0YzYinCn532Z0LEhSC4Dg12R30Adfnqi5AAxo3w46dTe9KQfNrdx
-	Ag7SZz7+i02fsLxnJ+DzC3PO954TgJqB34i5RP95It9L1z6mO3IqeDwVvL7FoD/xzmSiL3yKuPo
-	kA2U=
-X-Google-Smtp-Source: AGHT+IGBeJtPNsZn+19IIMd92YMaOk91ubtWYoKiFy2/Ft20p7KGSCFMPdE+4Gfcl9TA9oN7LlEddw==
-X-Received: by 2002:a05:6402:2743:b0:5c8:9553:a1fb with SMTP id 4fb4d7f45d1cf-5c89553a26emr13424439a12.9.1727786310712;
-        Tue, 01 Oct 2024 05:38:30 -0700 (PDT)
+        bh=UB02sToOMWoS+3+bvVBptWjoHbPyERDalpALvStk7iE=;
+        b=aU0/p8yTG7zKpUHGkeWzAFWqsWoZIfhn2ocgDhAsmj2lZ1bUGbKedkpIqow0gbThK+
+         3rb1eUoOS8vzIvBJhbPfMEuOUk6y9ZQ6iZn1G/dn/+kGlfO97tEBCC7VerTUYclJ2WWq
+         tYzb6G3/5VbZT/LOuuIeXbLbkWsQmaeqPSd9DpYL6cjYXZq0sszGtodpNfZrAM4ylu1Y
+         6ywjEys9ac3oTbakS1m/qNvCjruWgdjv5r/jCymZQi2F52zQrVbGUCFKXRaMpZNW0ysj
+         lmIHib+43l4X2wMOXjZ0nNBTnVbjBVoE0ac60Og7vtQrMC9YAZi479c52FDOdKOkAioe
+         Wn3A==
+X-Gm-Message-State: AOJu0YzI7TJ2wcNG7QcveW5g2t1cODf35fWC2p2aLl3K2JBFsYl7KBxM
+	K00XQN9gV6S1eB3yR6PMxAXFryjT2WyRHqHBXERmVryBms4NGN8WhgWBh9NRqDKYgB4ScYIsArk
+	u6+k=
+X-Google-Smtp-Source: AGHT+IGO1GpmPkOQcfrmzXZzq9xBvb8Osa2Y450r5q4s9sfSXZx7bSEFH+ArJLFDVvvgsLXIky/HWQ==
+X-Received: by 2002:a05:6402:26c8:b0:5c4:1320:e5a3 with SMTP id 4fb4d7f45d1cf-5c8824e7972mr14658094a12.16.1727786311392;
+        Tue, 01 Oct 2024 05:38:31 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v6 01/11] lib/x86: Relax checks about policy compatibility
-Date: Tue,  1 Oct 2024 13:37:57 +0100
-Message-ID: <20241001123807.605-2-alejandro.vallejo@cloud.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v6 02/11] x86/vlapic: Move lapic migration checks to the check hooks
+Date: Tue,  1 Oct 2024 13:37:58 +0100
+Message-ID: <20241001123807.605-3-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.46.0
 In-Reply-To: <20241001123807.605-1-alejandro.vallejo@cloud.com>
 References: <20241001123807.605-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Allow a guest policy have up to leaf 0xb even if the host doesn't.
-Otherwise it's not possible to show leaf 0xb to guests we're emulating
-an x2APIC for on old AMD machines.
-
-No externally visible changes though because toolstack doesn't yet
-populate that leaf.
+While doing this, factor out checks common to architectural and hidden
+state.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
----
- tools/tests/cpu-policy/test-cpu-policy.c |  6 +++++-
- xen/lib/x86/policy.c                     | 11 ++++++++++-
- 2 files changed, 15 insertions(+), 2 deletions(-)
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+--
+Last reviewed in the topology series v3. Fell under the cracks.
 
-diff --git a/tools/tests/cpu-policy/test-cpu-policy.c b/tools/tests/cpu-policy/test-cpu-policy.c
-index 301df2c00285..9216010b1c5d 100644
---- a/tools/tests/cpu-policy/test-cpu-policy.c
-+++ b/tools/tests/cpu-policy/test-cpu-policy.c
-@@ -586,6 +586,10 @@ static void test_is_compatible_success(void)
-                 .platform_info.cpuid_faulting = true,
-             },
-         },
-+        {
-+            .name = "Host missing leaf 0xb, Guest wanted",
-+            .guest.basic.max_leaf = 0xb,
-+        },
-     };
-     struct cpu_policy_errors no_errors = INIT_CPU_POLICY_ERRORS;
+  https://lore.kernel.org/xen-devel/ZlhP11Vvk6c1Ix36@macbook/
+---
+ xen/arch/x86/hvm/vlapic.c | 84 ++++++++++++++++++++++++++-------------
+ 1 file changed, 56 insertions(+), 28 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index 992355e511cd..101902cff889 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -1571,60 +1571,88 @@ static void lapic_load_fixup(struct vlapic *vlapic)
+                v, vlapic->loaded.id, vlapic->loaded.ldr, good_ldr);
+ }
  
-@@ -614,7 +618,7 @@ static void test_is_compatible_failure(void)
-     } tests[] = {
-         {
-             .name = "Host basic.max_leaf out of range",
--            .guest.basic.max_leaf = 1,
-+            .guest.basic.max_leaf = 0xc,
-             .e = { 0, -1, -1 },
-         },
-         {
-diff --git a/xen/lib/x86/policy.c b/xen/lib/x86/policy.c
-index f033d22785be..63bc96451d2c 100644
---- a/xen/lib/x86/policy.c
-+++ b/xen/lib/x86/policy.c
-@@ -15,7 +15,16 @@ int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
- #define FAIL_MSR(m) \
-     do { e.msr = (m); goto out; } while ( 0 )
+-static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
+-{
+-    unsigned int vcpuid = hvm_load_instance(h);
+-    struct vcpu *v;
+-    struct vlapic *s;
  
--    if ( guest->basic.max_leaf > host->basic.max_leaf )
-+    /*
-+     * Old AMD hardware doesn't expose topology information in leaf 0xb. We
-+     * want to emulate that leaf with credible information because it must be
-+     * present on systems in which we emulate the x2APIC.
-+     *
-+     * For that reason, allow the max basic guest leaf to be larger than the
-+     * hosts' up until 0xb.
-+     */
-+    if ( guest->basic.max_leaf > 0xb &&
-+         guest->basic.max_leaf > host->basic.max_leaf )
-         FAIL_CPUID(0, NA);
++static int lapic_check_common(const struct domain *d, unsigned int vcpuid)
++{
+     if ( !has_vlapic(d) )
+         return -ENODEV;
  
-     if ( guest->feat.max_subleaf > host->feat.max_subleaf )
+     /* Which vlapic to load? */
+-    if ( vcpuid >= d->max_vcpus || (v = d->vcpu[vcpuid]) == NULL )
++    if ( !domain_vcpu(d, vcpuid) )
+     {
+-        dprintk(XENLOG_G_ERR, "HVM restore: dom%d has no apic%u\n",
++        dprintk(XENLOG_G_ERR, "HVM restore: dom%d has no vCPU %u\n",
+                 d->domain_id, vcpuid);
+         return -EINVAL;
+     }
+-    s = vcpu_vlapic(v);
++
++    return 0;
++}
++
++static int cf_check lapic_check_hidden(const struct domain *d,
++                                       hvm_domain_context_t *h)
++{
++    unsigned int vcpuid = hvm_load_instance(h);
++    struct hvm_hw_lapic s;
++    int rc = lapic_check_common(d, vcpuid);
++
++    if ( rc )
++        return rc;
++
++    if ( hvm_load_entry_zeroextend(LAPIC, h, &s) != 0 )
++        return -ENODATA;
++
++    /* EN=0 with EXTD=1 is illegal */
++    if ( (s.apic_base_msr & (APIC_BASE_ENABLE | APIC_BASE_EXTD)) ==
++         APIC_BASE_EXTD )
++        return -EINVAL;
++
++    return 0;
++}
++
++static int cf_check lapic_load_hidden(struct domain *d, hvm_domain_context_t *h)
++{
++    unsigned int vcpuid = hvm_load_instance(h);
++    struct vcpu *v = d->vcpu[vcpuid];
++    struct vlapic *s = vcpu_vlapic(v);
+ 
+     if ( hvm_load_entry_zeroextend(LAPIC, h, &s->hw) != 0 )
++    {
++        ASSERT_UNREACHABLE();
+         return -EINVAL;
++    }
+ 
+     s->loaded.hw = 1;
+     if ( s->loaded.regs )
+         lapic_load_fixup(s);
+ 
+-    if ( !(s->hw.apic_base_msr & APIC_BASE_ENABLE) &&
+-         unlikely(vlapic_x2apic_mode(s)) )
+-        return -EINVAL;
+-
+     hvm_update_vlapic_mode(v);
+ 
+     return 0;
+ }
+ 
+-static int cf_check lapic_load_regs(struct domain *d, hvm_domain_context_t *h)
++static int cf_check lapic_check_regs(const struct domain *d,
++                                     hvm_domain_context_t *h)
+ {
+     unsigned int vcpuid = hvm_load_instance(h);
+-    struct vcpu *v;
+-    struct vlapic *s;
++    int rc;
+ 
+-    if ( !has_vlapic(d) )
+-        return -ENODEV;
++    if ( (rc = lapic_check_common(d, vcpuid)) )
++        return rc;
+ 
+-    /* Which vlapic to load? */
+-    if ( vcpuid >= d->max_vcpus || (v = d->vcpu[vcpuid]) == NULL )
+-    {
+-        dprintk(XENLOG_G_ERR, "HVM restore: dom%d has no apic%u\n",
+-                d->domain_id, vcpuid);
+-        return -EINVAL;
+-    }
+-    s = vcpu_vlapic(v);
++    if ( !hvm_get_entry(LAPIC_REGS, h) )
++        return -ENODATA;
++
++    return 0;
++}
++
++static int cf_check lapic_load_regs(struct domain *d, hvm_domain_context_t *h)
++{
++    unsigned int vcpuid = hvm_load_instance(h);
++    struct vcpu *v = d->vcpu[vcpuid];
++    struct vlapic *s = vcpu_vlapic(v);
+ 
+     if ( hvm_load_entry(LAPIC_REGS, h, s->regs) != 0 )
+-        return -EINVAL;
++        ASSERT_UNREACHABLE();
+ 
+     s->loaded.id = vlapic_get_reg(s, APIC_ID);
+     s->loaded.ldr = vlapic_get_reg(s, APIC_LDR);
+@@ -1641,9 +1669,9 @@ static int cf_check lapic_load_regs(struct domain *d, hvm_domain_context_t *h)
+     return 0;
+ }
+ 
+-HVM_REGISTER_SAVE_RESTORE(LAPIC, lapic_save_hidden, NULL,
++HVM_REGISTER_SAVE_RESTORE(LAPIC, lapic_save_hidden, lapic_check_hidden,
+                           lapic_load_hidden, 1, HVMSR_PER_VCPU);
+-HVM_REGISTER_SAVE_RESTORE(LAPIC_REGS, lapic_save_regs, NULL,
++HVM_REGISTER_SAVE_RESTORE(LAPIC_REGS, lapic_save_regs, lapic_check_regs,
+                           lapic_load_regs, 1, HVMSR_PER_VCPU);
+ 
+ int vlapic_init(struct vcpu *v)
 -- 
 2.46.0
 
