@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 182BA98B8C6
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 11:59:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807926.1219659 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CB2098B8D3
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 12:01:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807930.1219669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svZey-0000rp-Ml; Tue, 01 Oct 2024 09:59:12 +0000
+	id 1svZhE-0002MP-22; Tue, 01 Oct 2024 10:01:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807926.1219659; Tue, 01 Oct 2024 09:59:12 +0000
+Received: by outflank-mailman (output) from mailman id 807930.1219669; Tue, 01 Oct 2024 10:01:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svZey-0000pi-KF; Tue, 01 Oct 2024 09:59:12 +0000
-Received: by outflank-mailman (input) for mailman id 807926;
- Tue, 01 Oct 2024 09:59:11 +0000
+	id 1svZhD-0002Ku-Vh; Tue, 01 Oct 2024 10:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 807930;
+ Tue, 01 Oct 2024 10:01:30 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1svZew-0000pc-UT
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 09:59:10 +0000
+ (envelope-from <julien@xen.org>) id 1svZhC-0002Ko-0k
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 10:01:30 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1svZew-0007qd-5E; Tue, 01 Oct 2024 09:59:10 +0000
+ id 1svZhB-0007yx-8L; Tue, 01 Oct 2024 10:01:29 +0000
 Received: from [15.248.2.236] (helo=[10.24.67.28])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1svZev-0008KH-TG; Tue, 01 Oct 2024 09:59:10 +0000
+ id 1svZhB-0000LB-2B; Tue, 01 Oct 2024 10:01:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,14 +42,14 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jDaGoK8BkK7EgKhZMDc++1g0Km/DRcTRj6IPdmGIrks=; b=GKG3pyt1Sh6+STQd74qZyk3rSV
-	DnNswx6yLbysyyXa6sdncWMSJvuvSgiqG2wqYRMApH5EhZubUuYjdgeuqXfw3qD+cCLIT0QWMnQKQ
-	io7n6ce//CGBxIKqWFvKjKAUnUP2l6E2U07PeERierCPzATg/5vVqjwaAHxmYJkd74jU=;
-Message-ID: <b06a2506-92d0-4bd2-b377-c9d140c0d6ce@xen.org>
-Date: Tue, 1 Oct 2024 10:59:07 +0100
+	bh=zlrRLOtlPJNj8d4BaX3pPVvL0/9TzwrxxVmjdq/GVi8=; b=Rt2oHciDRefw9pYAX6+nyeI4uw
+	mw/k4JQQW5pn8SvF2TFHj5nxQ7xdZvh2fxpHQSOzHGfHy3zB5fdff6op+Vk/Nw21/2KJBFKS7kx7i
+	oeeebUV9tE5DmC4vdXTbbODsouH5qEyhz3eMM2xJ0kP906e/T2ld32fBj4D0LvQFzD6c=;
+Message-ID: <94dc1668-5215-424c-9dcb-1e343451d464@xen.org>
+Date: Tue, 1 Oct 2024 11:01:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] xen/arm: Add SCMI over SMC calls handling layer
+Subject: Re: [PATCH v2 5/8] xen/arm: platforms: Add NXP S32CC platform code
 Content-Language: en-GB
 To: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>,
  xen-devel@lists.xenproject.org
@@ -59,42 +59,51 @@ Cc: S32@nxp.com, Andrei Cherechesu <andrei.cherechesu@nxp.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20240930114715.642978-1-andrei.cherechesu@oss.nxp.com>
- <20240930114715.642978-4-andrei.cherechesu@oss.nxp.com>
+ <20240930114715.642978-6-andrei.cherechesu@oss.nxp.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240930114715.642978-4-andrei.cherechesu@oss.nxp.com>
+In-Reply-To: <20240930114715.642978-6-andrei.cherechesu@oss.nxp.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Andrei,
 
 On 30/09/2024 12:47, Andrei Cherechesu (OSS) wrote:
-> +/*
-> + * Generic handler for SCMI-SMC requests, currently only forwarding the
-> + * request to FW running at EL3 if it came from Dom0. Is called from the vSMC
-> + * layer for SiP SMCs, since SCMI calls are usually provided this way.
-> + * Can also be called from `platform_smc()` plat-specific callback.
-> + *
-> + * Returns true if SMC was handled (regardless of response), false otherwise.
-> + */
-> +bool scmi_handle_smc(struct cpu_user_regs *regs)
-> +{
-> +    struct arm_smccc_res res;
-> +
-> +    /* Only the hardware domain should use SCMI calls */
-> +    if ( !is_hardware_domain(current->domain) )
-> +    {
-> +        gprintk(XENLOG_ERR, "SCMI: Unprivileged d%d cannot use SCMI.\n",
-> +                current->domain->domain_id);
-> +        return false;
-> +    }
-> +
-> +    /* For the moment, forward the SCMI Request to FW running at EL3 */
-> +    arm_smccc_1_1_smc(scmi_smc_id,
+> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+> 
+> Add code for NXP S32CC platforms (S32G2, S32G3, S32R45).
+> 
+> S32CC platforms use the NXP LINFlexD UART driver for
+> console by default, and rely on Dom0 having access to
+> SCMI services for system-level resources from firmware
+> at EL3.
+> 
+> Platform-related quirks will be addressed in following
+> commits.
 
-Actually, shouldn't this be get_user_reg(regs, 0) so we don't rely on 
-scmi_handle_smc() to be called only when this is equal to scmi_smc_id?
+I don't see any specific quirks in the series. Are you intended to send 
+follow-up?
 
-The other option is to move the check for scmi_smc_id in this function.
+[...]
+
+> diff --git a/xen/arch/arm/platforms/Makefile b/xen/arch/arm/platforms/Makefile
+> index bec6e55d1f..2c304b964d 100644
+> --- a/xen/arch/arm/platforms/Makefile
+> +++ b/xen/arch/arm/platforms/Makefile
+> @@ -10,5 +10,6 @@ obj-$(CONFIG_ALL64_PLAT) += thunderx.o
+>   obj-$(CONFIG_ALL64_PLAT) += xgene-storm.o
+>   obj-$(CONFIG_ALL64_PLAT) += brcm-raspberry-pi.o
+>   obj-$(CONFIG_ALL64_PLAT) += imx8qm.o
+> +obj-$(CONFIG_S32CC_PLATFORM)  += s32cc.o
+>   obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp.o
+>   obj-$(CONFIG_MPSOC_PLATFORM)  += xilinx-zynqmp-eemi.o
+> diff --git a/xen/arch/arm/platforms/s32cc.c b/xen/arch/arm/platforms/s32cc.c
+> new file mode 100644
+> index 0000000000..f99a2d56f6
+> --- /dev/null
+> +++ b/xen/arch/arm/platforms/s32cc.c
+
+We only add a new platform if there are platform specific hook to 
+implement. AFAICT, you don't implement any, so it should not be necessary.
 
 Cheers,
 
