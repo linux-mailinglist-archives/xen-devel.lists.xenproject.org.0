@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3EC298C7A9
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 23:35:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808523.1220442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEAF898C7AB
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 23:37:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808527.1220451 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svkWn-0001Fh-IK; Tue, 01 Oct 2024 21:35:29 +0000
+	id 1svkYG-0002BV-RX; Tue, 01 Oct 2024 21:37:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808523.1220442; Tue, 01 Oct 2024 21:35:29 +0000
+Received: by outflank-mailman (output) from mailman id 808527.1220451; Tue, 01 Oct 2024 21:37:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svkWn-0001DF-FS; Tue, 01 Oct 2024 21:35:29 +0000
-Received: by outflank-mailman (input) for mailman id 808523;
- Tue, 01 Oct 2024 21:35:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1svkYG-0002A0-Oi; Tue, 01 Oct 2024 21:37:00 +0000
+Received: by outflank-mailman (input) for mailman id 808527;
+ Tue, 01 Oct 2024 21:36:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=O0ff=Q5=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1svkWm-0001D9-0L
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 21:35:28 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12282c20-803d-11ef-a0ba-8be0dac302b0;
- Tue, 01 Oct 2024 23:35:26 +0200 (CEST)
+ id 1svkYF-00029u-Iz
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 21:36:59 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [2604:1380:45d1:ec00::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 48677568-803d-11ef-99a2-01e77a169b0f;
+ Tue, 01 Oct 2024 23:36:57 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 18F4E5C0252;
- Tue,  1 Oct 2024 21:35:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3EACC4CEC6;
- Tue,  1 Oct 2024 21:35:23 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id EB4AAA432DF;
+ Tue,  1 Oct 2024 21:36:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1323C4CEC6;
+ Tue,  1 Oct 2024 21:36:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,68 +42,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12282c20-803d-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 48677568-803d-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727818524;
-	bh=6I4dXHMTxzj/LFVucix2L+nSq/dLwqUZqHSBO22muLk=;
+	s=k20201202; t=1727818615;
+	bh=Gk6tXihXCvSCwPFumkL2CxhYEa/MIBNmXvWuzxB88R8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=FBy807igMdBHqxSng0+wlZn0bkltRg9xi3XBzf8TkqioEd538jXs0XUNfsGzyBX5N
-	 sF4TEBywDfCjiIq9dVIx09qbTBsbpi8ghs1Gal47MqVG5VuQa1U1dgeqNWrPJjUkJV
-	 w6QqNu0qT8duX38A5YfrHOtGV/mZKoYYEqo+kq6PS5LZiLf2oIyFpsFnIzR4FHYoRV
-	 PUecn93GVKffB9qb4vQctDzPAB9AUKu+VdhzLRhkX9HpuXedCr+3kem9KZnIL0WsF1
-	 n2c+giaL+hw1TViqK+6wKm6HyrvczCDSkeBIZGT8hy2PjYpijH4GVue+ym8rsKbMu0
-	 hb4pJ/OVQR1ng==
-Date: Tue, 1 Oct 2024 14:35:22 -0700 (PDT)
+	b=rWdwbNEHngt+u9fVprukPnaqMg6WWy9uMP+562LxH2DJ/3A7RsFmdonct6eYK2eqD
+	 PqQRTZmi2W/XypWFIaiL8tivuSIAWVOW/oaCAD6+S9q15Cl/Y6OCqq0DzTCj/tQISc
+	 kFjt/0NddIO8KY5qbViEAOmP0fDgMGlm7liTxZBge8meVfP3mItn4brsl6Jzp0gkRI
+	 Vt7ZvDqxdL7mw0NFDs6rTW/md8jUaoTHRVnRFMeI/Qcqidy6Wenb9sz8pUnBPOKwuc
+	 R65y2Mvu465/aBwemun3G+JsdjHZSoFrI1bobY+gG+tRhMcldGvNGmfX61VrnBoVJc
+	 d1rTvRyPdXc9Q==
+Date: Tue, 1 Oct 2024 14:36:53 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
-    Federico Serafini <federico.serafini@bugseng.com>
-Subject: Re: [XEN PATCH v2 2/3] xen/gnttab: address a violation of MISRA C
- Rule 13.6
-In-Reply-To: <f54ffc9e-3721-412e-be52-c93a1a801cca@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2410011433361.451631@ubuntu-linux-20-04-desktop>
-References: <cover.1727690180.git.federico.serafini@bugseng.com> <cfd2873eb69707ec3f33ea888951ae5676c43bab.1727690180.git.federico.serafini@bugseng.com> <alpine.DEB.2.22.394.2409301549100.451631@ubuntu-linux-20-04-desktop>
- <f54ffc9e-3721-412e-be52-c93a1a801cca@suse.com>
+cc: Roberto Bagnara <roberto.bagnara@bugseng.com>, 
+    Federico Serafini <federico.serafini@bugseng.com>, consulting@bugseng.com, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v2 1/3] EFI: address a violation of MISRA C Rule
+ 13.6
+In-Reply-To: <8d5e4761-9fc2-4e18-a6c2-9df1822dbbea@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2410011431360.451631@ubuntu-linux-20-04-desktop>
+References: <cover.1727690180.git.federico.serafini@bugseng.com> <c447f9faf0283bc6b83bbfbf05acd7acca00762d.1727690180.git.federico.serafini@bugseng.com> <b4fafd2c-d71a-4336-b009-07f3474f5a04@suse.com> <a8dfe133-6f9b-4a26-918b-d0531d6af918@bugseng.com>
+ <8d5e4761-9fc2-4e18-a6c2-9df1822dbbea@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Tue, 1 Oct 2024, Jan Beulich wrote:
-> On 01.10.2024 00:53, Stefano Stabellini wrote:
-> > On Mon, 30 Sep 2024, Federico Serafini wrote:
-> >> --- a/xen/common/compat/grant_table.c
-> >> +++ b/xen/common/compat/grant_table.c
-> >> @@ -78,12 +78,15 @@ int compat_grant_table_op(
-> >>          cmd_op = cmd;
-> >>      switch ( cmd_op )
-> >>      {
-> >> -#define CASE(name) \
-> >> -    case GNTTABOP_##name: \
-> >> -        if ( unlikely(!guest_handle_okay(guest_handle_cast(uop, \
-> >> -                                                           gnttab_##name##_compat_t), \
-> >> -                                         count)) ) \
-> >> -            rc = -EFAULT; \
-> >> +#define CASE(name)                                                  \
-> >> +    case GNTTABOP_ ## name:                                         \
-> >> +    {                                                               \
-> >> +        XEN_GUEST_HANDLE_PARAM(gnttab_ ## name ## _compat_t) h =    \
-> >> +            guest_handle_cast(uop, gnttab_ ## name ## _compat_t);   \
-> >> +                                                                    \
-> >> +        if ( unlikely(!guest_handle_okay(h, count)) )               \
-> >> +            rc = -EFAULT;                                           \
-> >> +    }                                                               \
-> >>          break
+> On 01.10.2024 07:25, Roberto Bagnara wrote:
+> > On 2024-09-30 15:07, Jan Beulich wrote:
+> >> On 30.09.2024 14:49, Federico Serafini wrote:
+> >>> guest_handle_ok()'s expansion contains a sizeof() involving its
+> >>> first argument which is guest_handle_cast().
+> >>> The expansion of the latter, in turn, contains a variable
+> >>> initialization.
+> >>>
+> >>> Since MISRA considers the initialization (even of a local variable)
+> >>> a side effect, the chain of expansions mentioned above violates
+> >>> MISRA C:2012 Rule 13.6 (The operand of the `sizeof' operator shall not
+> >>> contain any expression which has potential side effect).
+> >>
+> >> I'm afraid I need to ask for clarification of terminology and alike here.
+> >> While the Misra doc has a section on Persistent Side Effects in its
+> >> Glossary appendix, what constitutes a side effect from its pov isn't
+> >> really spelled out anywhere. Which in turn raises the question whether it
+> >> is indeed Misra (and not just Eclair) which deems initialization a side
+> >> effect. This is even more so relevant as 13.6 talks of only expressions,
+> >> yet initializers fall under declarations (in turn involving an expression
+> >> on the rhs of the equal sign).
+> >>
+> >> All the same of course affects patch 2 then, too.
 > > 
-> > We would typically put the break within the case { }
+> > MISRA C leaves the definition of "side effect" to the C Standard.
+> > E.g., C18 5.1.2.3p2:
+> > 
+> >    Accessing a volatile object, modifying an object, modifying a file,
+> >    or calling a function that does any of those operations are all
+> >    side effects,[omitted irrelevant footnote reference] which are
+> >    changes in the state of the execution environment.
+> > 
+> > The MISRA C:2012/2023 Glossary entry for "Persistent side effect"
+> > indirectly confirms that initialization is always a side effect.
 > 
-> That won't work very well with the break not having a semicolon, for the
-> semicolon to actually be used when invoking the macro. Moving the break
-> (while adding a semicolon there) as you suggest would then mean the use
-> site semicolon to end up being an unreachable statement.
+> Hmm, that's interesting: There's indeed an example with an initializer
+> there. Yet to me the text you quote from the C standard does not say
+> that initialization is a side effect - it would be "modifying an
+> object" aiui, yet ahead of initialization being complete the object
+> doesn't "exist" imo, and hence can be "modified" only afterwards.
 
-I didn't think of the extra semicolon posing a problem. In that case, it
-is better as it is in this patch
+Hi Jan,
+
+I feel it's becoming a bit too philosophical. Since there's some room
+for interpretation and only two violations left to address, I believe
+it's best to stick with the stricter interpretation of the definition.
+Therefore, I'd proceed with this series in its current form.
 
