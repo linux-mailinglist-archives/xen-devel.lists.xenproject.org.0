@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4051298B474
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 08:32:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807734.1219360 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3617498B4E7
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 08:52:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807744.1219370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svWQk-0006SC-SO; Tue, 01 Oct 2024 06:32:18 +0000
+	id 1svWjZ-00012T-A6; Tue, 01 Oct 2024 06:51:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807734.1219360; Tue, 01 Oct 2024 06:32:18 +0000
+Received: by outflank-mailman (output) from mailman id 807744.1219370; Tue, 01 Oct 2024 06:51:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svWQk-0006Pj-PC; Tue, 01 Oct 2024 06:32:18 +0000
-Received: by outflank-mailman (input) for mailman id 807734;
- Tue, 01 Oct 2024 06:32:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1svWjZ-0000zK-7V; Tue, 01 Oct 2024 06:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 807744;
+ Tue, 01 Oct 2024 06:51:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jjk+=Q5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svWQj-0006Pd-Ba
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 06:32:17 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e62553c6-7fbe-11ef-99a2-01e77a169b0f;
- Tue, 01 Oct 2024 08:32:15 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a86e9db75b9so967768566b.1
- for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 23:32:15 -0700 (PDT)
+ id 1svWjX-0000zE-Jq
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 06:51:43 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9d977090-7fc1-11ef-a0ba-8be0dac302b0;
+ Tue, 01 Oct 2024 08:51:42 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a7aa086b077so752785066b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Sep 2024 23:51:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c2775d23sm652331166b.4.2024.09.30.23.32.14
+ a640c23a62f3a-a93c277723esm652918666b.7.2024.09.30.23.51.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Sep 2024 23:32:14 -0700 (PDT)
+ Mon, 30 Sep 2024 23:51:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e62553c6-7fbe-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 9d977090-7fc1-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727764335; x=1728369135; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727765502; x=1728370302; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rPf8JphMMaG1HIFqoHxUuiHW3PDeMWgjRaCIs+S372U=;
-        b=aLKAepyRiOnDRcagMf5E/gIzgixZbxM4DayeRs+xyOuE0HaUOL3LyowiXrEyQ4rm6l
-         r6+Ewo+Qjzjn9V07oEAnvEeqO8kmnix9Hd2PwtXywFaYR2NjtrwqdQrb6EicDnlu13j0
-         XelHr5sSSb14wbWSxDhjcOC+plJuivEYq4yiG4U8Xxls65Z40JJZGgZHbx+xGciKA0zj
-         lxfLLZP+74VdPL2XZX1Z3sdBIvZv65FoS5+ee+3GwGMKnoqeo8YdDgDSZmK55v3ABgSA
-         26cXO4U23bUTDoeGWv7Go1T2KS8t8n++boQU5Qk6CYHdINsPJJx10aKNCyv3wWZTB4Wk
-         MKWA==
+        bh=8zGY+OJrdYmX0G9sEikgnWJLXAaxn5SiznBF4h7VZG4=;
+        b=WWKFuN9ZufxlKwCvT2tvXkD1QBawc4kXm10JWYxUrtWkOe3yYX7AvDlDzqbCBrnyAx
+         tCQu7lwzfI0jn+KTA10XUai8j7kZfYdNXHNexjt+jlmdzrbbShVJFHjqHgWvVFjlrPiK
+         je9N9olGZCefgX9ACXnj/KxhffgxDPNRi25A9bbQ2p93oWSqDmPiLPTYooshFuMAZO2Z
+         wroGBDwujEZI8m4tKH8JwsYvNzdeIKP7CRuPV5yaECBfKWn5Hmnx3NZcrzgXfly1OJl9
+         T0EvMVtm6a21px7IU23AlGtbnm7FtL69cX2nPh+JINInBkpSr60YWCqFw16/dD9hDJNS
+         jpxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727764335; x=1728369135;
+        d=1e100.net; s=20230601; t=1727765502; x=1728370302;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rPf8JphMMaG1HIFqoHxUuiHW3PDeMWgjRaCIs+S372U=;
-        b=RbkCBbyihEF8iyzQJDr86fGUZJ1KF1NZ53zBFB3QDzi33MTxc192AP/MPA2oIN3wiT
-         ro3cd76Hk0rla3xcBTbUCLPY2aNzXUdf/d3TXX41h0dTcEDgY1pabntDEgw0wwbV6Zz/
-         75BSuuGpGRC6U1CtLV4TAaZKaJ0/eEjAlmUE2pvhnSmxK1YF3glhVEeC1QeYiIjAIQul
-         gTMFkQGkbgDjoMSlHvZ1gtsOOXOPdtAegnTsyjQPSN7kQv9+v2Xo8CXsAXTjmIIQEKro
-         cH3EMJD+k52uwp08w7yuz+ZdPv/imyp6zQySg+mvtN6ff6or5bcff+i9hQ8i5piw+WgP
-         Ci8g==
-X-Forwarded-Encrypted: i=1; AJvYcCV49ixHaZbQ3TCXkKsMi8ZlIwO108pDth9gFiyKjGP/YTk6ZGCY3CmhU4dxllXGwRcvKz7KI6XIZds=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywt6zMxZcZZwdN2+csWMxzMC542j1ApFc9CR/aCmUgRITymJ3ch
-	vJQ1S6VLNbxTolujmNMoaLIUNIwT9IE5NRQTfie6usciueKXy7my/LnW8ljT6Q==
-X-Google-Smtp-Source: AGHT+IGKli2++IfpWNTtTd9sMbTfHPF5i+latI4NG+eq5cx9vJnd5La69x9uR5j9fS7vYnVZl4blug==
-X-Received: by 2002:a17:907:1ca7:b0:a8d:28dc:9e2b with SMTP id a640c23a62f3a-a93c4a68381mr1783607766b.44.1727764334930;
-        Mon, 30 Sep 2024 23:32:14 -0700 (PDT)
-Message-ID: <8d5e4761-9fc2-4e18-a6c2-9df1822dbbea@suse.com>
-Date: Tue, 1 Oct 2024 08:32:13 +0200
+        bh=8zGY+OJrdYmX0G9sEikgnWJLXAaxn5SiznBF4h7VZG4=;
+        b=DTt4fHKEfPFpgJ8UG3PBdivMs/W1AnjHlG2oLf445XyZ8Ep4Vik2Tfwa2yYSU3i3gj
+         ik3KxBDIf06/qj43Q4d814KgP6a5vEzhDP06mtLLwkHERmigJ4eUDpjhfYbr/ka1SSm9
+         9MfEtzPAtchJ5hMV3Z5XMfLUhRAj1ShvAbwqtXy54zWXGVOp+agpsmDwBD8mbAQIFR06
+         R5IbP5e5kcAekevweqtKOEzhskddRHODwYH6/BXIdRhbpHVA1J1nbo1+mSDLidGwNJOg
+         AHgpP810mr87Gf+F+24fY5g8Ih0612u6LWAwe0m8KW4j7G3NdcX4JF1TFn3JbAvofRlX
+         9Dig==
+X-Forwarded-Encrypted: i=1; AJvYcCXoJJx7ZksmCbd/V3LMDxAVrZd1Fr77ozmi5dE4oMSye2vGLgVB3/W2EJkQnm/4LISWko6n4WkAVNA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQdu5D9BaH5yBAxGPAajxCnpAn87gvxyFgWRVfOSTLotbzy0ke
+	VMa/e4Zfq7Jtpsa6QrvjKzRX1PyUrTIPNhZrL/o66yWFLy8O7jpzDp3Ium3T6w==
+X-Google-Smtp-Source: AGHT+IE6MykuZp/13za5xckSxXeSQIN4HmiPcMGcWZ6OoDrJDNMjr1wls2EIzmhOTW7LbpSfZQVC5Q==
+X-Received: by 2002:a17:907:9450:b0:a8a:8d81:97b2 with SMTP id a640c23a62f3a-a93c4946cebmr1495065566b.34.1727765501619;
+        Mon, 30 Sep 2024 23:51:41 -0700 (PDT)
+Message-ID: <60eb8a53-20b3-4b34-91f0-8d22332cf119@suse.com>
+Date: Tue, 1 Oct 2024 08:51:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 1/3] EFI: address a violation of MISRA C Rule 13.6
-To: Roberto Bagnara <roberto.bagnara@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1727690180.git.federico.serafini@bugseng.com>
- <c447f9faf0283bc6b83bbfbf05acd7acca00762d.1727690180.git.federico.serafini@bugseng.com>
- <b4fafd2c-d71a-4336-b009-07f3474f5a04@suse.com>
- <a8dfe133-6f9b-4a26-918b-d0531d6af918@bugseng.com>
+Subject: Re: [PATCH v4] xen: move per-cpu area management into common code
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <584dab4111041a660377f677cd829d4b2b4b8b2d.1727714022.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,50 +119,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a8dfe133-6f9b-4a26-918b-d0531d6af918@bugseng.com>
+In-Reply-To: <584dab4111041a660377f677cd829d4b2b4b8b2d.1727714022.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.10.2024 07:25, Roberto Bagnara wrote:
-> On 2024-09-30 15:07, Jan Beulich wrote:
->> On 30.09.2024 14:49, Federico Serafini wrote:
->>> guest_handle_ok()'s expansion contains a sizeof() involving its
->>> first argument which is guest_handle_cast().
->>> The expansion of the latter, in turn, contains a variable
->>> initialization.
->>>
->>> Since MISRA considers the initialization (even of a local variable)
->>> a side effect, the chain of expansions mentioned above violates
->>> MISRA C:2012 Rule 13.6 (The operand of the `sizeof' operator shall not
->>> contain any expression which has potential side effect).
->>
->> I'm afraid I need to ask for clarification of terminology and alike here.
->> While the Misra doc has a section on Persistent Side Effects in its
->> Glossary appendix, what constitutes a side effect from its pov isn't
->> really spelled out anywhere. Which in turn raises the question whether it
->> is indeed Misra (and not just Eclair) which deems initialization a side
->> effect. This is even more so relevant as 13.6 talks of only expressions,
->> yet initializers fall under declarations (in turn involving an expression
->> on the rhs of the equal sign).
->>
->> All the same of course affects patch 2 then, too.
+On 30.09.2024 18:39, Oleksii Kurochko wrote:
+> Centralize per-cpu area management to reduce code duplication and
+> enhance maintainability across architectures.
 > 
-> MISRA C leaves the definition of "side effect" to the C Standard.
-> E.g., C18 5.1.2.3p2:
+> The per-cpu area management code, which is largely common among
+> architectures, is moved to a shared implementation in
+> xen/common/percpu.c. This change includes:
+>  * Remove percpu.c from the X86 and Arm architectures.
+>  * For x86, define INVALID_PERCPU_AREAS and PARK_OFFLINE_CPUS_VAR.
+>  * Drop the declaration of __per_cpu_offset[] from stubs.c in
+>    PPC and RISC-V to facilitate the build of the common per-cpu code.
 > 
->    Accessing a volatile object, modifying an object, modifying a file,
->    or calling a function that does any of those operations are all
->    side effects,[omitted irrelevant footnote reference] which are
->    changes in the state of the execution environment.
+> No functional changes for x86.
 > 
-> The MISRA C:2012/2023 Glossary entry for "Persistent side effect"
-> indirectly confirms that initialization is always a side effect.
+> For Arm add support of CPU_RESUME_FAILED, CPU_REMOVE and freeing of
+> percpu in the case when system_state != SYS_STATE_suspend.
+> 
+> Move the asm-generic/percpu.h definitions to xen/percpu.h, except for
+> __per_cpu_start[] and __per_cpu_data_end[], which are moved to
+> common/percpu.c as they are only used in common/percpu.c.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Hmm, that's interesting: There's indeed an example with an initializer
-there. Yet to me the text you quote from the C standard does not say
-that initialization is a side effect - it would be "modifying an
-object" aiui, yet ahead of initialization being complete the object
-doesn't "exist" imo, and hence can be "modified" only afterwards.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
