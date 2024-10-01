@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1121E98B8E8
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 12:04:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.807948.1219710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CC7898B8F4
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 12:07:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.807957.1219720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svZkJ-0004Xb-7B; Tue, 01 Oct 2024 10:04:43 +0000
+	id 1svZmx-0005Uc-Ky; Tue, 01 Oct 2024 10:07:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 807948.1219710; Tue, 01 Oct 2024 10:04:43 +0000
+Received: by outflank-mailman (output) from mailman id 807957.1219720; Tue, 01 Oct 2024 10:07:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svZkJ-0004VY-4K; Tue, 01 Oct 2024 10:04:43 +0000
-Received: by outflank-mailman (input) for mailman id 807948;
- Tue, 01 Oct 2024 10:04:41 +0000
+	id 1svZmx-0005Ra-HQ; Tue, 01 Oct 2024 10:07:27 +0000
+Received: by outflank-mailman (input) for mailman id 807957;
+ Tue, 01 Oct 2024 10:07:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jjk+=Q5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svZkH-0004VS-FO
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 10:04:41 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1svZmv-0005QH-Oj
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 10:07:25 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92436e81-7fdc-11ef-99a2-01e77a169b0f;
- Tue, 01 Oct 2024 12:04:39 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a8a6d1766a7so774413566b.3
- for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 03:04:39 -0700 (PDT)
+ id f43ceb76-7fdc-11ef-99a2-01e77a169b0f;
+ Tue, 01 Oct 2024 12:07:24 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a7a843bef98so772197966b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 03:07:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c27ed053sm685985066b.93.2024.10.01.03.04.38
+ a640c23a62f3a-a93c2947e49sm683550366b.135.2024.10.01.03.07.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Oct 2024 03:04:38 -0700 (PDT)
+ Tue, 01 Oct 2024 03:07:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92436e81-7fdc-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: f43ceb76-7fdc-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727777079; x=1728381879; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727777243; x=1728382043; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RZCXAbrHKz7DVVCCaFP9YEWhq0hbpxKqJljgHoXZMMk=;
-        b=S4zoYsRTOLOuQirabxdu14Jsa65c4WVKKkqK3eoTB/r8KmUrvRZa9ivwzOsbtE+Heg
-         D/EoivjoLn+PmqGDIcg3WwWyE6Tl9sUCWG5EpSoN/zGwWJ7LO+Zov9DsGjSthf51XTMH
-         3umA27ybvpgBQVlE6xUuzeX7+cmrawVwbGOTrM48y5gtbxhDeqd19QrgqTaMjqY6b6ZA
-         YXzODWqibMCobOK+ABVBemDafUwwveq6DXryG8r1Xo1UkuPFkY0oQNT6DW6cQlq5SHAB
-         qgfgG4ThNJ0T7A2SK3PkBR3sJpmm8WacNkuQ5RdQTLlD9VqrQoU0xy7fMsaHfBbEQb+N
-         IdVg==
+        bh=CEMFbpLXOkPdN8935sPXKcLmYx/DtVHcb9gVW2NXeuQ=;
+        b=Sr9o39M1TFNCPUI8YP7VGRljmqq81c/Tk7PK+xAskPhsflCrmfe9cpE2d9GDKjf5bh
+         YoUfkU7XpUHR8/Md9VnZjXqgQ2hJf6KI/jlYQywzwAH7YgK8EmeojCFlQKRkzTyZPJxd
+         NJR1Gl5wHIs/X7SkiY+c/IZbbm5nqLuUWl7p4fgqL2CjNPrq5DRu4I1YkbbTndKW0shV
+         +1gGRGqqu2dyab5KN5iEi0oJ6RiZFKlQaQEei5IPWEqVuTr67WPoLks0/HkqnG9kGvCD
+         szbT/SEA7zBFickv4VKmJihOSgBymbfuN3YEsNfLVkw7Naa3YDV9dTWmeeqkA2O8xf0H
+         lcXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727777079; x=1728381879;
+        d=1e100.net; s=20230601; t=1727777243; x=1728382043;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RZCXAbrHKz7DVVCCaFP9YEWhq0hbpxKqJljgHoXZMMk=;
-        b=aLpauGZka6TtvNM4GiJ3K/F1nnkCDuOKGMOiUM1/Tfup/2Z200P+h25MHPdH2CLVmi
-         5y1t+fWbNRvdA2GGCPyBvhAsWbHFWTEXOe2uw7oPJz9Ilu0IOex111gKLRwkGmfplVtH
-         LXpCg0Y0rmluNA2HRvAZH7ftSTNWMXJxVFZaNW1C+y6R7MIXFDzGi38fK+kI761xajjb
-         Ri6io14JDOmWjsnxdWeq/pbu/j4zWAN3DPDANLcFKcIo22y3H5hkWFeJ+rOiRB027b2Q
-         jI/O2jmcFzWPLXEhTQQiyhRGyjn/qDqF7sZORCSLLqQFxQ7XVAGZTNVSV+MJBp4/ilnp
-         3I9g==
-X-Forwarded-Encrypted: i=1; AJvYcCVNTs+c3vrdA9lwnHokOPsZKbP4Y4q3K3dOEudCS2ZuOKDq2akLDMBbvhMicNhQGQSZ7pVkMTC/AdA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4PqEW31I0w/aGDksz490YH9TIS9lsg42xjoHwRFK4+GnrdrFK
-	wRpQw74Bhp73tQ8x50LvOaPZnJdQJGaiO87UEDKvljVBT8FcXRcz3vb+LzjjEA==
-X-Google-Smtp-Source: AGHT+IFPPhcqAh/86G2qQsEoeh4IgMLieY9t/yfm20AEhodZej+KjfAssVGvY3uI+OB1+7fXAiIrjg==
-X-Received: by 2002:a17:907:9344:b0:a8d:55ce:fb7f with SMTP id a640c23a62f3a-a93c4c40561mr1521495666b.62.1727777079046;
-        Tue, 01 Oct 2024 03:04:39 -0700 (PDT)
-Message-ID: <2f1bb7ef-01f4-443e-8be5-5459fb6e618b@suse.com>
-Date: Tue, 1 Oct 2024 12:04:38 +0200
+        bh=CEMFbpLXOkPdN8935sPXKcLmYx/DtVHcb9gVW2NXeuQ=;
+        b=Nnv/jBZWtexeFhBaItEashbGd+O6SEUhdK/mh4yOvc1uvnwskfRwvttBm6kNT3sbiw
+         6YfAKekIjQwo6gbMNMcCqVnK11VEuJxCfAN/+4pppCgUushejEDFUWCZzJ90Ff6OjV7E
+         Nkecn0XubM8VYXFSi8V2W/CwZXHVH2/Kn5hDMafSyMnyqfZWz6Kk6egUCNV6ggxAAo2i
+         fR50xu1C8U4GSe5wQolJckv/J0V0FjOrsIIrwCwQEdhaJ0X7qGIeIbU7o/FbOhiVXrkM
+         3wmjz13MUqpK403kyGkxckuc7WhxkqIlW2Xw1TABxYBaoanBKUZbiErl03W93U1JgeJV
+         EUiQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWO4z88dudXycPYwY9nqPA6t8vAcsfaH74qMzOXOyvkFXbyb7+xSgb+PeedLJZv2W69fZtrUmSy34A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyuoun95RYv7xV6PxoUf8uBCecmFu+8gjSvj2vDyDFXkdLain1+
+	wS9ryL/FH+QEgV2C8rXR57s3hK4VSly7QQYf9USvz5v0xQChBuMt0ay7bl7xMg==
+X-Google-Smtp-Source: AGHT+IFVwxDjlK0o4yqAL/lbs+m9ihgjS659KCs6LdXUjJWDYOVbz0D5Ng/c8NH0aKPu3kczavdIKQ==
+X-Received: by 2002:a17:906:7946:b0:a8e:a578:29d8 with SMTP id a640c23a62f3a-a93c4acab60mr1486764066b.64.1727777243466;
+        Tue, 01 Oct 2024 03:07:23 -0700 (PDT)
+Message-ID: <e1c8d10b-7926-4f62-8421-ad2ba55573c7@suse.com>
+Date: Tue, 1 Oct 2024 12:07:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/pv: Rework guest_io_okay() to return X86EMUL_*
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240930161837.1248144-1-andrew.cooper3@citrix.com>
- <20240930161837.1248144-2-andrew.cooper3@citrix.com>
- <76819790-abde-4b61-8dd7-68dd9db8cfd1@suse.com>
- <e31a6eaa-2f19-479b-8e1f-ae7d7743d27f@citrix.com>
+Subject: Re: [PATCH v6 2/3] x86/boot: Rewrite EFI/MBI2 code partly in C
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20240926092109.475271-1-frediano.ziglio@cloud.com>
+ <20240926092109.475271-3-frediano.ziglio@cloud.com>
+ <e17b2afc-3647-4472-9d37-1510b40ff23d@suse.com>
+ <CACHz=ZhtYik3p4z2mc1PYG9M68Mwap68_DdoE7MWksW0VW+BTw@mail.gmail.com>
+ <b2a8b468-5745-4f58-bb86-721ea055c1b1@suse.com>
+ <CACHz=ZhhpU2S1Nt2EW-LL=r8fZSbCLMhFMWD2SWvPP094gc1rQ@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -114,44 +119,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e31a6eaa-2f19-479b-8e1f-ae7d7743d27f@citrix.com>
+In-Reply-To: <CACHz=ZhhpU2S1Nt2EW-LL=r8fZSbCLMhFMWD2SWvPP094gc1rQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.10.2024 12:02, Andrew Cooper wrote:
-> On 01/10/2024 8:11 am, Jan Beulich wrote:
->> On 30.09.2024 18:18, Andrew Cooper wrote:
->>> @@ -190,10 +192,12 @@ static bool guest_io_okay(unsigned int port, unsigned int bytes,
->>>              toggle_guest_pt(v);
->>>  
->>>          if ( (x.mask & (((1 << bytes) - 1) << (port & 7))) == 0 )
->>> -            return true;
->>> +            return X86EMUL_OKAY;
->>>      }
->>>  
->>> -    return false;
->>> +    x86_emul_hw_exception(X86_EXC_GP, 0, ctxt);
->> do_general_protection() has
->>
->>     /* Pass on GPF as is. */
->>     pv_inject_hw_exception(X86_EXC_GP, regs->error_code);
->>
->> which may make a difference in case the insn changes under our feet.
-> 
-> It would make a difference if we chose to raise #GP[non-0].
-> 
-> But, see how the call to pv_emulate_privileged_op() is guarded on
-> error_code == 0.
+On 01.10.2024 11:48, Frediano Ziglio wrote:
+> One last though. Do you think I should now rename
+> xen/arch/x86/efi/parse-mbi2.c file ?
 
-Oh, good point - I overlooked that.
-
-> Prior X86EMUL_UNHANDLEABLE can't ever have raised anything other than
-> #GP[0], (excusing cases of memory corruption in regs->error_code).
-> 
-> So, there is not a change in behaviour, even if the reason why is
-> less-than-obvious.
-
-I agree then.
+I wouldn't mind if it was named just mbi2.c, but the ultimate decision is
+with the EFI maintainers.
 
 Jan
 
