@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFC7E98C214
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 17:55:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808328.1220249 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E958D98C21E
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2024 18:03:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808336.1220258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svfDb-0005Bi-Og; Tue, 01 Oct 2024 15:55:19 +0000
+	id 1svfL0-0008K5-G4; Tue, 01 Oct 2024 16:02:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808328.1220249; Tue, 01 Oct 2024 15:55:19 +0000
+Received: by outflank-mailman (output) from mailman id 808336.1220258; Tue, 01 Oct 2024 16:02:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svfDb-00058d-LT; Tue, 01 Oct 2024 15:55:19 +0000
-Received: by outflank-mailman (input) for mailman id 808328;
- Tue, 01 Oct 2024 15:55:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1svfL0-0008Hp-D5; Tue, 01 Oct 2024 16:02:58 +0000
+Received: by outflank-mailman (input) for mailman id 808336;
+ Tue, 01 Oct 2024 16:02:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jjk+=Q5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svfDa-00058U-S5
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 15:55:18 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d910834-800d-11ef-99a2-01e77a169b0f;
- Tue, 01 Oct 2024 17:55:17 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-5399041167cso4177007e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 08:55:17 -0700 (PDT)
+ id 1svfKz-0008Hf-Lb
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2024 16:02:57 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9f123c90-800e-11ef-a0ba-8be0dac302b0;
+ Tue, 01 Oct 2024 18:02:56 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2fabd2c4ac0so40582171fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 09:02:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c2978a71sm731911366b.161.2024.10.01.08.55.15
+ 4fb4d7f45d1cf-5c88245ea57sm6357326a12.55.2024.10.01.09.02.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Oct 2024 08:55:16 -0700 (PDT)
+ Tue, 01 Oct 2024 09:02:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d910834-800d-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 9f123c90-800e-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727798116; x=1728402916; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727798575; x=1728403375; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BjyQZ0fV2393b3M8XEjuSgwsSBhv9Smv8eLNwLejmIQ=;
-        b=QxfyhN+4RkV6z/Wf9zmJe6yiGG6cI8MZy5n9yfAxKUW6QMcDcc2a63KJpnvQXAgiBK
-         GWpavu5QoGXbbfUByaeHCRg6t5X/c+H7robDURUnb4zz4zISZyHM66pXPsfvbIezAA5N
-         TuvOrlHYDHSNJHm/zRnwi6sX9P2fpRCU8pjn9InC92uGGFhyZyP7MEB09xIAArnmSeki
-         6XtwGR3xhwrs8bcyBuAWxJJQhR4aDY4Ftvh5ST8B8mn8yT/8ioBz+kpHvhpKLwNc8nIN
-         29+Ja+x1XnHUUOwuBCqOmD6sfqzRWlX/Gt6MLt+4NeHY5sBL05cw1b4+Ewhzk9kpiEuq
-         UefQ==
+        bh=lzPTkHfSbyTni4eb9B9/vAO9Elzqh50Bauo7x+cTXls=;
+        b=D8QWSm4JVHmsRP703KEmsylapyrhL2nKIsx9gJ6yTI4BIfhzOU//YR/vOC8gHcr1Ik
+         aNInfRp2/ANxzAGEA/XAcRhwoy3RTqpe/93sCpj1NGRMtrDK/oy1MiMuO6EgYMXwZMkc
+         2awVhXpktXjsNMLRDg6DoE6plx/HmF9MaaXqdlddFkVf/0KTWpk2hjS+lo3KLMJPLAym
+         uy9MhzV2grHt8QpyeDPbOxIBJogcXCQzVFp9ZDmv90L4x6eUtGbj5npaGoPCQQLrTQGd
+         vJQrPBhyFQIvS+AthPEC2iIHnlAevdnQ45bU7tUR/SNS/gbLJ4lniDxTbM9lu5GNuIEE
+         s4iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727798116; x=1728402916;
+        d=1e100.net; s=20230601; t=1727798575; x=1728403375;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BjyQZ0fV2393b3M8XEjuSgwsSBhv9Smv8eLNwLejmIQ=;
-        b=uSeIusiMW2zFA7AaNT0wkxLdVX1FbIGY24YfremxkW0LEULeooBaNbc8O08gqENSs6
-         s/WShkj/WXKYZ8zqRadiRDg+pL67cb7FScontcGYgP6Z3QxBfeoY5LTIeLyR39gUrLso
-         kpBL+wSE2KTwUijBJXJl3yHMOEIhzb/efH5sAF+o3P7JAbF57bLMeIvEwiuSRIdZhSPA
-         UJYV5dNcBF4WOkCsB42QfljvNEmbfugQM5+41qSBBHQH3qkVdttr0z5CZUVAbRIhpfoM
-         LQhe8L5T+T5CGw2KhtDqtZH5lcvlZYUpECajCretTGegzOBRgpwwLwVJsGIQuWOojcDD
-         FEzw==
-X-Forwarded-Encrypted: i=1; AJvYcCVbDDwyt1rsNV6ERiuRB8jJXPjrnm0KNqtVxOjCR0fEp8KJcYsaab0o2rUNxuHoM/6QlvcivLvp0Cc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzxJomHB5Yw8cj1UHU9JpIE/GC8b3lUjXfH12sDiY9S9wrhNKgk
-	DLdc6shkg2+WHIoI2HFy+0MkeutPDJS4pO6C8C50P0++A8enlrPmWpKkZCc8EA==
-X-Google-Smtp-Source: AGHT+IFwyjtHXnRyRg1DiGGSpL0zwzOvVyAOqMab7D4uSm/k+1NkKsjCPIZSu2O0llnfGSxVEPWaUA==
-X-Received: by 2002:a05:6512:3996:b0:539:8f68:e036 with SMTP id 2adb3069b0e04-5398f68e084mr6819510e87.34.1727798116343;
-        Tue, 01 Oct 2024 08:55:16 -0700 (PDT)
-Message-ID: <68c8b84a-fe05-46fa-b084-ee4ea601b27b@suse.com>
-Date: Tue, 1 Oct 2024 17:55:15 +0200
+        bh=lzPTkHfSbyTni4eb9B9/vAO9Elzqh50Bauo7x+cTXls=;
+        b=sVaQvHjx3uXIteIeq5vN/PcmaE+XYNG+9wOCZfdxOyPDptd2/pvL8ORXm/dexlfCqe
+         dWC1b/lXMmy96iQCXG0/4i2XwG8pxJ24IUzyFJTuRKBVMitEIxwPE5H/4irtFxRx9LkL
+         kwzl2jdDCQaxPcbH7Ezjoptoqb07MIwUq8eem7yrW74pSUxelTHFgbevmfyMZCPiZzrR
+         yt991QxZNJmYNgbStPWcTaWE5jc55Y4oLcWJz+uOVR1TOgiuW7zHUReNuK93qaNGIRCG
+         HcQsMUtIJxz8KCGxvxY099bYIkUPHLbBkko9DkP6WIiBR/9JYcc/HI5j77ZSHd9XGKs/
+         v52A==
+X-Forwarded-Encrypted: i=1; AJvYcCW7oZ7qBMCuilqfTq/MDHKig+mRSRdQ2iYrU16d13LKIRozKJJ6zPDSAUFpQmtey7w+S1zyrT1f5EE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw3edaBrNrWh2y9JTp3l88BIGlrSCFLdIXcR1CY2cPUXwk9daiK
+	yRfQoRLIAf4BtVDOuBZZEC5Re+qD3Bkpo+g1DFipwylQwMIeI1nt41YeYLlxwg==
+X-Google-Smtp-Source: AGHT+IEK6gITCp6ea0CUX0obcR/XzNLNEbEZRppBofyUvvm763aOsPd9evsMF0yOvioOf4QKGpkbGw==
+X-Received: by 2002:a2e:be24:0:b0:2f6:4f17:aeaf with SMTP id 38308e7fff4ca-2fae10ba2e6mr1689891fa.45.1727798575204;
+        Tue, 01 Oct 2024 09:02:55 -0700 (PDT)
+Message-ID: <0d49ee74-9e19-4f77-9c5c-cbd86cac4b0d@suse.com>
+Date: Tue, 1 Oct 2024 18:02:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] xen/riscv: parse and handle fdt command line
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1727708956.git.oleksii.kurochko@gmail.com>
- <e914d15b82d2a28fcd1690dd68af9a61c4cb272e.1727708956.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v7 2/2] x86/boot: Improve MBI2 structure check
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20241001102239.2609631-1-frediano.ziglio@cloud.com>
+ <20241001102239.2609631-3-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,18 +115,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e914d15b82d2a28fcd1690dd68af9a61c4cb272e.1727708956.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20241001102239.2609631-3-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.09.2024 17:13, Oleksii Kurochko wrote:
-> Receive Xen's command line passed by DTB using boot_fdt_cmdline()
-> and passed it to cmdline_parse() for further procesinng and setup
-> of Xen-specific parameters.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On 01.10.2024 12:22, Frediano Ziglio wrote:
+> --- a/xen/arch/x86/efi/mbi2.c
+> +++ b/xen/arch/x86/efi/mbi2.c
+> @@ -13,6 +13,7 @@ efi_multiboot2_prelude(uint32_t magic, const multiboot2_fixed_t *mbi)
+>      EFI_HANDLE ImageHandle = NULL;
+>      EFI_SYSTEM_TABLE *SystemTable = NULL;
+>      const char *cmdline = NULL;
+> +    const void *const mbi_raw = (const void *)mbi;
+>      bool have_bs = false;
+>  
+>      if ( magic != MULTIBOOT2_BOOTLOADER_MAGIC )
+> @@ -21,7 +22,9 @@ efi_multiboot2_prelude(uint32_t magic, const multiboot2_fixed_t *mbi)
+>      /* Skip Multiboot2 information fixed part. */
+>      tag = _p(ROUNDUP((unsigned long)(mbi + 1), MULTIBOOT2_TAG_ALIGN));
+>  
+> -    for ( ; (const void *)tag - (const void *)mbi < mbi->total_size &&
+> +    for ( ; (const void *)(tag + 1) - mbi_raw <= mbi->total_size &&
+> +            tag->size >= sizeof(*tag) &&
+> +            (const void *)tag + tag->size - mbi_raw <= mbi->total_size &&
+>              tag->type != MULTIBOOT2_TAG_TYPE_END;
+>            tag = _p(ROUNDUP((unsigned long)tag + tag->size,
+>                     MULTIBOOT2_TAG_ALIGN)) )
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Hmm, looks like what I said on the earlier version still wasn't unambiguous
+enough; I'm sorry. There is still potential for intermediate overflows in
+the calculations. _If_ we care about avoiding overflows, we need to avoid
+all of that. Even more so that Misra may not like this sort of pointer
+calculations. You know tag >= mbi_raw, so tag - mbi_raw is always valid to
+calculate. tag->size can further be checked to be less than mbi->total_size,
+at which point mbi->total_size - tag->size can also be calculated without
+risking {over,under}flow. (Similar then for the earlier (tag + 1) check.)
 
-
+Jan
 
