@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9661598D69B
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 15:42:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808798.1220817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3544C98D8BA
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 16:05:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808807.1220827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svzcf-0002Jm-Ec; Wed, 02 Oct 2024 13:42:33 +0000
+	id 1svzy8-0005tc-4v; Wed, 02 Oct 2024 14:04:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808798.1220817; Wed, 02 Oct 2024 13:42:33 +0000
+Received: by outflank-mailman (output) from mailman id 808807.1220827; Wed, 02 Oct 2024 14:04:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svzcf-0002Ht-BN; Wed, 02 Oct 2024 13:42:33 +0000
-Received: by outflank-mailman (input) for mailman id 808798;
- Wed, 02 Oct 2024 13:42:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1svzy8-0005r2-1Y; Wed, 02 Oct 2024 14:04:44 +0000
+Received: by outflank-mailman (input) for mailman id 808807;
+ Wed, 02 Oct 2024 14:04:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tl1C=Q6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1svzcd-0001kP-FH
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 13:42:31 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2bb58680-80c4-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 15:42:30 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-5398df2c871so4551256e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 06:42:30 -0700 (PDT)
-Received: from [192.168.219.191] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5399f98281bsm333352e87.210.2024.10.02.06.42.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Oct 2024 06:42:29 -0700 (PDT)
+ <SRS0=3lMz=Q6=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1svzy6-0005qw-Uq
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 14:04:43 +0000
+Received: from fhigh-a1-smtp.messagingengine.com
+ (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4396be8c-80c7-11ef-99a2-01e77a169b0f;
+ Wed, 02 Oct 2024 16:04:40 +0200 (CEST)
+Received: from phl-compute-04.internal (phl-compute-04.phl.internal
+ [10.202.2.44])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 10A4C114009C;
+ Wed,  2 Oct 2024 10:04:39 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-04.internal (MEProxy); Wed, 02 Oct 2024 10:04:39 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 2 Oct 2024 10:04:36 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,96 +45,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2bb58680-80c4-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727876550; x=1728481350; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=hpzR6wPZSpC4EkfaQznkhdhnQj6hr870Dz8nP0zCGCg=;
-        b=FBG/D25v3aBwb+aJM9QFuH2REy1y2PiDEJXxrlTiuu58OIBLpk9PerUH+sm+klgEdg
-         trpu/fz8X6jiFNkQlRVuxgxZi3/4t0cztge0MQ2DJpEMSjsebJeS8NYJJNGP0ggJ8/ta
-         bsc7aogtDRw87odHUSRZeSGwRSRWS8Rwk6JrqRKaB1lVZ3XRTuAxoDkDOpR6NfDDxdbK
-         m6NzfUCt5dAqfhnbjfoOvnqFL6WacWnqVodjXAQ0rsoebaJJNPDptUkAlJd1qaDVapLq
-         M1C5kb/tEnxXAL0RWOy+a99kpuEeFm4KfKC+VtJ+w1Os3qGh39DYD9OdeTJZsy9njQAp
-         lB7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727876550; x=1728481350;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hpzR6wPZSpC4EkfaQznkhdhnQj6hr870Dz8nP0zCGCg=;
-        b=Kf6dfQwmNB8RjgEe77ZSzGBx9/yu0wehWpaD8mYmng3CbH3YvwERX63TYJbwmzURRe
-         UbZ02utAs5QV7WerST/4stGUZfkikpUS6yNaq6uXGhkqpFIw/rYOAdzN9BjImec9r0Sy
-         OGHvu1B/Z86hOMCrl/mO1O/3tym12FzrnFIQIXIEPWGGWFoWSWQSRrujisSJ8awlz9Nk
-         LySspYRDslzvjfb3PITVCbhExxpWlWczWWw1wXHlvK2QMFKStoSFniVgB7+r2V9hciOM
-         ZgkrVuqz6Ce0y3Vrh4LQLtzkAQNLztSIyX2/MUsF7Z6JWtG/7f+Ha36kWIaTKxpXq69y
-         Y5qA==
-X-Forwarded-Encrypted: i=1; AJvYcCUJvJuXYn/i9Xq6zbgo3pYkSmQ8AavJ2al7quKKZXmS4O6c1iLQGRvxPq5pjVVnASQZ3aE4rY5xLzg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyXQ8iOxCPJVfJil4fxY2VH0AvrazsJFo8ttuTfMG8oP3wePSNt
-	Et8el8MHBz5nPXCbxNvk/bWMrD+8Eu7cV9OdQIjYbIsYl3VSI5L4
-X-Google-Smtp-Source: AGHT+IEcFwz9+hVWJOrZwKEt48jDUpN6pHVx4WPM5yPMO69a6N610bxj6RquaB/mFFan5/ZIbSazvg==
-X-Received: by 2002:a05:6512:3088:b0:533:46cc:a736 with SMTP id 2adb3069b0e04-539a0795bbdmr1926895e87.37.1727876549808;
-        Wed, 02 Oct 2024 06:42:29 -0700 (PDT)
-Message-ID: <7a087c1844019ea49757b1390ad3fe496b7b2c35.camel@gmail.com>
-Subject: Re: [PATCH v1 3/3] xen/riscv: register Xen's load address as a boot
- module
-From: oleksii.kurochko@gmail.com
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Date: Wed, 02 Oct 2024 15:42:28 +0200
-In-Reply-To: <1bd67367-0928-4f16-958c-f45612689346@suse.com>
-References: <cover.1727708665.git.oleksii.kurochko@gmail.com>
-	 <2bd3589f322d30e93d81d091ca64439048c068fc.1727708665.git.oleksii.kurochko@gmail.com>
-	 <178b61bc-d3e5-4c9d-a8c0-88363911bc8f@suse.com>
-	 <418443ea4017c401d944971898cb298ef2f826d6.camel@gmail.com>
-	 <1bd67367-0928-4f16-958c-f45612689346@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
+X-Inumbo-ID: 4396be8c-80c7-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1727877879;
+	 x=1727964279; bh=5lQqEsdx0CFV7+w9KNwfj3mLkJMhU7CBwPratBvDi3w=; b=
+	hIV9z2B9/BLfUEiQ2A3FY1yj2FEym8969VU9WjG4M1gu13dm0gxmzuqrHJcRU/O5
+	SqIG1JxbrKnzlB3tKfPv8UWE/8nhSe8SyaJsIRGMeucdJxVqOzZX6ivAqbFV2tGz
+	O1JN9b/TrK8PpPlhLPcptJj1+97XQlb0hMFnr1R+tR8pE2XwmW6ip2/e34hrs2lq
+	CUX6ItowRkMCqpeN26vhXrhbjJr39QjjcVN+abrkoB39Z2mrCrdgUC1PdaSWESVU
+	2yX1kbCGOi1GObzib/WjXyLg9LrOmynlzOuESMWz5k5VNztNCimMFf4vmEWZV+my
+	SqAEXiPtnR8dPlB2HWJTDQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1727877879; x=1727964279; bh=5lQqEsdx0CFV7+w9KNwfj3mLkJMh
+	U7CBwPratBvDi3w=; b=Clu1G4ssXZiZYzbTV9Aj0+kiLiZsk/b3f2iqksUTW+Fb
+	KUDu/YSGJsKwdMCm4RzgcMCjgvfiZQEfu+WPW1G+JMupCa2TBzB9C+0Skm8DlYNE
+	M6RayYC0nW35MzhCrtytANztPlstxCfAeeFo7YdfFX1D1C5BzMt2rse4XC5LTx20
+	iiazTmdfudiTjx72wfKXdgaUxNt+rXwbLR4lSmG2Ym9pSvz8EoB/Q7+kRbMy3egd
+	L1zklEytOfQ1gqX9PzFRD2rZikDvyG6+zA/cwYpsS4amfBtWdF4dWMmNtDL7pGAL
+	/HKOeaweSEsCz4D2p+CgURwR1FdAv0SQ01ptnfxYfQ==
+X-ME-Sender: <xms:9lL9Ztoh5_cqA6p9uX7E_xxlzgcoBd4RPpKKop9h5tihzjByNMlHyw>
+    <xme:9lL9Zvphwb6s6GfD6vWHvlm-kEODFoV9XlTpHE88OwSs-S5sGncKWlCL-hwhhSwll
+    wfR1tO8gxpExA>
+X-ME-Received: <xmr:9lL9ZqOrNQwUt7mmnFOKeasAF_uI5m0CfWX9CUz3LcOFr7nYo46nyIOafmNT-oPuJONFYeCZwMY9lLsGugKzUJELzuhBrckiRg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdduledgieekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
+    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
+    rfgrthhtvghrnhepveeujeetgeelleetudeuvefhtefgffejvedtvdfgieevheetheelge
+    euledvjeevnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhenucevlhhushhtvghrufhi
+    iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeeipdhmohguvgep
+    shhmthhpohhuthdprhgtphhtthhopehfrhgvughirghnohdriihighhlihhosegtlhhouh
+    gurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhho
+    jhgvtghtrdhorhhgpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprh
+    gtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghp
+    thhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepughpsh
+    hmihhthhesrghpvghrthhushhsohhluhhtihhonhhsrdgtohhm
+X-ME-Proxy: <xmx:9lL9Zo7yNUTsyBKgg6Oj-ja8kOewXC-3SAl-Wkybq-jhXQ75Z1PHGQ>
+    <xmx:9lL9Zs6eD35TrZTW5KZBtwI1R6w7jhy2xi6-p7cXfLGB5BnOxeskdA>
+    <xmx:9lL9ZghOIkCSZIUYYe060OaBOhauIF01-CusklEWy1ZISp0ALmmJlA>
+    <xmx:9lL9Zu76s3JMSe1AA5uUNp9mFkNtQ2HA2Pl9HLQaxASN8gkGKOfTZw>
+    <xmx:91L9ZmQ-DvyKz3ePyF3Z-aWrwz76T0nd-EscQ-MYrcvOQzE7cAA1GeQY>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 2 Oct 2024 16:04:34 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v7 0/2] x86/boot: Reduce assembly code
+Message-ID: <Zv1S88isxSSMuqqk@mail-itl>
+References: <20241001102239.2609631-1-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="o0uWTmDI7XYT7Mcq"
+Content-Disposition: inline
+In-Reply-To: <20241001102239.2609631-1-frediano.ziglio@cloud.com>
 
-On Wed, 2024-10-02 at 14:11 +0200, Jan Beulich wrote:
-> On 02.10.2024 13:25, oleksii.kurochko@gmail.com=C2=A0wrote:
-> > On Tue, 2024-10-01 at 17:49 +0200, Jan Beulich wrote:
-> > > On 30.09.2024 17:08, Oleksii Kurochko wrote:
-> > > > @@ -26,6 +27,8 @@ unsigned char __initdata
-> > > > cpu0_boot_stack[STACK_SIZE]
-> > > > =C2=A0void __init noreturn start_xen(unsigned long bootcpu_id,
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 paddr_t dtb_addr)
-> > > > =C2=A0{
-> > > > +=C2=A0=C2=A0=C2=A0 struct bootmodule *xen_bootmodule;
-> > >=20
-> > > With just the uses below this can be pointer-to-const. Question
-> > > of
-> > > course
-> > > is whether you already know of further uses.
-> > It could be dropped as it is used only for BUG_ON(!xen_bootmodule)
-> > as
-> > it looks to me a little bit better then:
-> > =C2=A0=C2=A0=C2=A0 BUG_ON(!add_boot_module(BOOTMOD_XEN, virt_to_maddr(_=
-start),
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 (_end - _start), false));
->=20
-> Yet that's undesirable for other reasons. Did you consider
->=20
-> =C2=A0=C2=A0=C2=A0 if ( !add_boot_module(BOOTMOD_XEN, virt_to_maddr(_star=
-t),
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 _end - _start, false) )
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BUG();
->=20
-> ? Maybe panic() would be even better for cases like this one.
-It looks fine to me. Thanks for suggestion.
 
-~ Oleksii
+--o0uWTmDI7XYT7Mcq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 2 Oct 2024 16:04:34 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v7 0/2] x86/boot: Reduce assembly code
 
+On Tue, Oct 01, 2024 at 11:22:37AM +0100, Frediano Ziglio wrote:
+> This series came from part of the work of removing duplications between
+> boot code and rewriting part of code from assembly to C.
+> Rewrites EFI code in pure C.
+
+The MB2+EFI tests on Adler Lake fail with this series:
+https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1478766782
+Looking at the VGA output (unfortunately not collected by the test
+itself) it hangs just after bootloader, before printing anything on the
+screen (or even clearing it after bootloader). The serial is silent too.
+
+It does pass on Zen 3+ runners.
+
+Since there were some issues with the ADL runner today on plain staging,
+I'm not 100% sure if it isn't some infrastructure issue yet. But the
+symptoms look different than usual infra issues (and different than
+todays failures on staging), so I think it's more likely an issue with
+the patches here.
+
+> Changes since v1, more details in specific commits:
+> - style updates;
+> - comments and descriptions improvements;
+> - other improvements.
+>=20
+> Changes since v2:
+> - rebased on master, resolved conflicts;
+> - add comment on trampoline section.
+>=20
+> Changes since v3:
+> - changed new function name;
+> - declare efi_multiboot2 in a separate header;
+> - distinguish entry point from using magic number;
+> - other minor changes (see commens in commits).
+>=20
+> Changes since v4:
+> - rebase on staging;
+> - set %fs and %gs as other segment registers;
+> - style and other changes.
+>=20
+> Changes since v5:
+> - fixed a typo.
+>=20
+> Changes since v6:
+> - remove merged patch;
+> - comment and style;
+> - change some pointer checks to avoid overflows;
+> - rename parse-mbi2.c to mbi2.c.
+>=20
+> Frediano Ziglio (2):
+>   x86/boot: Rewrite EFI/MBI2 code partly in C
+>   x86/boot: Improve MBI2 structure check
+>=20
+>  xen/arch/x86/boot/head.S       | 146 +++++++--------------------------
+>  xen/arch/x86/efi/Makefile      |   1 +
+>  xen/arch/x86/efi/efi-boot.h    |   7 +-
+>  xen/arch/x86/efi/mbi2.c        |  66 +++++++++++++++
+>  xen/arch/x86/efi/stub.c        |  10 +--
+>  xen/arch/x86/include/asm/efi.h |  18 ++++
+>  6 files changed, 123 insertions(+), 125 deletions(-)
+>  create mode 100644 xen/arch/x86/efi/mbi2.c
+>  create mode 100644 xen/arch/x86/include/asm/efi.h
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--o0uWTmDI7XYT7Mcq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmb9UvMACgkQ24/THMrX
+1yxxXggAhkNXUPwtMm5WYb8vxh4ORDoIB8O8LA5pWsByrw8xz6e78rfLtnW9AAsO
+ZEpuyWSVhaie8jPzM1HTIUbxyBteSlbsRIIsR9mjoMlgEp5DUgEP6HCLKSiPs2H3
+YXPchdg0Q3xOui31+L9hD9OF5m+gLOn+vpKZLErLAFuzA5tGhQU3aRL+3T2frgCH
+TkHWbReFX/Yp31QBPXg8GKhKjnBmwnwG7SMWs17nD9dVd7ORlJqgIQkfDMr7icaD
+IAcZPbvwRnlh37nhTsEhRUqZ5GClKWCIo8T7wI9x4/TnMST/RhoZjiJf9YTWEO+n
+lUjF0E4LjYYd29zymMLUBiNTbZ6c1g==
+=ZRAU
+-----END PGP SIGNATURE-----
+
+--o0uWTmDI7XYT7Mcq--
 
