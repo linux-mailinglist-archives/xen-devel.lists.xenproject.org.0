@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14E2998DF14
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 17:27:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808906.1221040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B10598DF69
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 17:38:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808936.1221055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw1GV-0001Hh-7L; Wed, 02 Oct 2024 15:27:47 +0000
+	id 1sw1Qi-0005hE-8v; Wed, 02 Oct 2024 15:38:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808906.1221040; Wed, 02 Oct 2024 15:27:47 +0000
+Received: by outflank-mailman (output) from mailman id 808936.1221055; Wed, 02 Oct 2024 15:38:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw1GU-00018O-W1; Wed, 02 Oct 2024 15:27:46 +0000
-Received: by outflank-mailman (input) for mailman id 808906;
- Wed, 02 Oct 2024 15:27:44 +0000
+	id 1sw1Qi-0005ej-5F; Wed, 02 Oct 2024 15:38:20 +0000
+Received: by outflank-mailman (input) for mailman id 808936;
+ Wed, 02 Oct 2024 15:38:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VgkK=Q6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sw1GS-00070n-G8
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 15:27:44 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1sw1Qg-0005ed-8e
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 15:38:18 +0000
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
+ [2a00:1450:4864:20::642])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id deb2ef59-80d2-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 17:27:44 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a8d6ac24a3bso187271366b.1
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 08:27:44 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ id 57fbf788-80d4-11ef-a0ba-8be0dac302b0;
+ Wed, 02 Oct 2024 17:38:17 +0200 (CEST)
+Received: by mail-ej1-x642.google.com with SMTP id
+ a640c23a62f3a-a8d6ac24a3bso189477866b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 08:38:17 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c299ac8esm880024566b.222.2024.10.02.08.27.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Oct 2024 08:27:41 -0700 (PDT)
+ a640c23a62f3a-a93c2997d20sm874817666b.196.2024.10.02.08.38.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Oct 2024 08:38:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: deb2ef59-80d2-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 57fbf788-80d4-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727882863; x=1728487663; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bUmCjdSTNNz/bYZNosiPwxy4sAkcSDlDvTaqnGpBKLQ=;
-        b=SwZhQ+6WsrrkThYLfUhF3ZhBf8FNy1hE+2faWX3m0EMLqLW9B7Hqr+oar23AjEF9iw
-         r9XJisJBpLM56SvmCiI4blgEfi+7vubVrAemYaQfMA7LUdr3mdv1A4o2FKb+LjSL7o9s
-         1bwTmds51XIq55tobkeJwhbTUD0HINeLit00o=
+        d=citrix.com; s=google; t=1727883495; x=1728488295; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=hdOPL7AftgZQrQMFkTjChNLFVT380AYsuZ/+lmmki/o=;
+        b=AcNJBUaFDY5x2YRclQPO/wjJSDYrhp2ShjiRGO13uA2KmzP4OzColjMW4x+13OqcJI
+         ijDwOGY5sR6YPat12lMXzQ8cLhcmKE5eqWtKT63T/Qp6okeNXyyYoWRpwsYKTuIOh86n
+         zk7d8M40w0G/eBr+kj4hd3Q8BfqyBk/YUHZ9k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727882863; x=1728487663;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bUmCjdSTNNz/bYZNosiPwxy4sAkcSDlDvTaqnGpBKLQ=;
-        b=iyW51Zk88pbF4VzDjsD0cBk6XxPjSxBbJVgoWif/vGGZWWXI0nq/cdbiey7rd1QRZO
-         HM4Ug/bRNe40NzfHtbIrLZRI/YDfTH7rBPkoiTnSo2eQTa/IiBtxqsqVXP6MYuIWqkvL
-         PFSoUN0ov+reeGcCNvqhe2MuP2rkMNk7EZrlzPqw5Z0gB2M9+PvzyyJ1flFpdj/Qs1ig
-         wyG/OzmdwdIbVPK2Xft/Cd1im9/zTZr9uhMPP9cQbx2XMfPr+hCNHqzCgcH5/+W4eu1I
-         2nietFMwv5u0P78hnIwUj2itKQ+MOQUjiSuyr6zRPvzd8wuUP4J48CmgbpUl511PBNAz
-         lQrg==
-X-Gm-Message-State: AOJu0YwFk3y8smbOb1yUTGvVA0PDxw75o6rdtib9WAqubdTmag5h5lqJ
-	+KaOs42EfGPHqmQsK9pZE1KyK3i3HL/23STlqgLj94oSP4WY+XhZYGbSfYKUr3tmJ5nifVydWgL
-	aP/I=
-X-Google-Smtp-Source: AGHT+IGpegr0xxYsCZ+z9qYO4dCzrS7LRSj3afqU4XsleDv+WYP+JIFC1n1LDhSpV8GKeuZQvfoQzg==
-X-Received: by 2002:a17:906:c107:b0:a90:3494:2aa9 with SMTP id a640c23a62f3a-a990a03470emr1993866b.2.1727882863066;
-        Wed, 02 Oct 2024 08:27:43 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 7/7] x86/spec-ctrl: Introduce and use DO_COND_BHB_SEQ
-Date: Wed,  2 Oct 2024 16:27:25 +0100
-Message-Id: <20241002152725.1841575-8-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241002152725.1841575-1-andrew.cooper3@citrix.com>
-References: <20241002152725.1841575-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1727883495; x=1728488295;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hdOPL7AftgZQrQMFkTjChNLFVT380AYsuZ/+lmmki/o=;
+        b=l5de+ouGTv7rl73VRUaHMqGxfeSHHo36XTSkQBXeH3zhSukIOjAXU3jPZpL4eB5aJi
+         r2iRtQvgTfY8qP+Kl7ON2UHm+KcivQSXaZfghHsyTFS8r2HuvgLsGoIR686BLcJXZaTk
+         aPvSMLiNIUweLQa2kPDbwR/paU3mqVX2qiaAwfu8RtIQmKPt5vFO134BC+mmvVZSksKr
+         s313HkxF5Rd6Z8pRRCigDTs+o+6gvQSbTKobSNKhdAADPq8O7gsVx+kQvimtnf200i7o
+         AVgiK5X6WDx8piWLj3t+lX5Rl/lBYaVUE6inf/iBQiBZ4oI/ffeGRlp8doXQ+SxygGAf
+         VLFw==
+X-Gm-Message-State: AOJu0Yzu3+zrRsvZvOlEoO5y6x5uhmxCKuscK5e52uje9vbNp+/pN4tm
+	aEtfJp+AFwCPeEHaMkeKkWNk+LIBB2GXfydTp5EFPABbInJqBxtsLtCCdU3rDDNuZUblumDSO2R
+	fV1j1yA==
+X-Google-Smtp-Source: AGHT+IEgG3gVGHpXbtKSWRX1Dpck3IT28Ykzdks3I+UaWSjvOfCEa7jh5zJct3Ji73uo5yiLGMEj5Q==
+X-Received: by 2002:a17:907:3f9d:b0:a98:f6dc:6cf3 with SMTP id a640c23a62f3a-a990a21d55emr3303666b.21.1727883495366;
+        Wed, 02 Oct 2024 08:38:15 -0700 (PDT)
+Message-ID: <8827ea2c-bac3-47c1-b1b1-9a2a02168c43@citrix.com>
+Date: Wed, 2 Oct 2024 16:38:13 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] tests/x86: Introduce a userspace test harness for
+ x86_decode_lite()
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20241002152725.1841575-1-andrew.cooper3@citrix.com>
+ <20241002152725.1841575-3-andrew.cooper3@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20241002152725.1841575-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Now that alternatives can fix up call displacements even when they're not the
-first instruction of the replacement, move the SCF_entry_bhb conditional
-inside the replacement block.
+On 02/10/2024 4:27 pm, Andrew Cooper wrote:
+> Despite claiming full APX support in the 2.43 release, binutils trunk doesn't
+> tolerate JMPABS at all.  Clang-IAS like it but only when encoded as an
+> immediate, despite the fact the operand should be a moffset and encoded
+> without a $ prefix.  https://godbolt.org/z/P4Ph3svha
 
-This removes a conditional branch from the fastpaths of BHI-unaffected
-hardware.
+Actually, no.  Despite overlaying MOV moffs/rax, to share decode with
+another instruction that has a forced 8-byte immedate operation, it's
+used as a proper immediate, not a memory address.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/hvm/vmx/entry.S             | 12 +++----
- xen/arch/x86/include/asm/spec_ctrl_asm.h | 43 +++++++++++++-----------
- 2 files changed, 30 insertions(+), 25 deletions(-)
+So on further consideration, the $ prefix is correct.
 
-diff --git a/xen/arch/x86/hvm/vmx/entry.S b/xen/arch/x86/hvm/vmx/entry.S
-index 6aaeb28a5b96..e901a41f252a 100644
---- a/xen/arch/x86/hvm/vmx/entry.S
-+++ b/xen/arch/x86/hvm/vmx/entry.S
-@@ -62,12 +62,12 @@ FUNC(vmx_asm_vmexit_handler)
-          * Clear the BHB to mitigate BHI.  Used on eIBRS parts, and uses RETs
-          * itself so must be after we've perfomed all the RET-safety we can.
-          */
--        testb $SCF_entry_bhb, CPUINFO_scf(%rsp)
--        jz .L_skip_bhb
--        ALTERNATIVE_2 "",                                    \
--            "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
--            "call clear_bhb_tsx", X86_SPEC_BHB_TSX
--.L_skip_bhb:
-+        .macro VMX_BHB_SEQ fn:req
-+            DO_COND_BHB_SEQ \fn scf=CPUINFO_scf(%rsp)
-+        .endm
-+        ALTERNATIVE_2 "",                                         \
-+            "VMX_BHB_SEQ fn=clear_bhb_loops", X86_SPEC_BHB_LOOPS, \
-+            "VMX_BHB_SEQ fn=clear_bhb_tsx",   X86_SPEC_BHB_TSX
- 
-         ALTERNATIVE "lfence", "", X86_SPEC_NO_LFENCE_ENTRY_VMX
-         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
-diff --git a/xen/arch/x86/include/asm/spec_ctrl_asm.h b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-index 729a830411eb..559dad88f967 100644
---- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-@@ -92,6 +92,21 @@
- .L\@_skip:
- .endm
- 
-+.macro DO_COND_BHB_SEQ fn:req, scf=%bl
-+/*
-+ * Requires SCF (defaults to %rbx), fn=clear_bhb_{loops,tsx}
-+ * Clobbers %rax, %rcx
-+ *
-+ * Conditionally use a BHB clearing software sequence.
-+ */
-+    testb  $SCF_entry_bhb, \scf
-+    jz     .L\@_skip_bhb
-+
-+    call   \fn
-+
-+.L\@_skip_bhb:
-+.endm
-+
- .macro DO_OVERWRITE_RSB tmp=rax, xu
- /*
-  * Requires nothing
-@@ -277,12 +292,9 @@
-      * Clear the BHB to mitigate BHI.  Used on eIBRS parts, and uses RETs
-      * itself so must be after we've perfomed all the RET-safety we can.
-      */
--    testb $SCF_entry_bhb, %bl
--    jz .L\@_skip_bhb
--    ALTERNATIVE_2 "",                                    \
--        "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
--        "call clear_bhb_tsx", X86_SPEC_BHB_TSX
--.L\@_skip_bhb:
-+    ALTERNATIVE_2 "",                                          \
-+        "DO_COND_BHB_SEQ clear_bhb_loops", X86_SPEC_BHB_LOOPS, \
-+        "DO_COND_BHB_SEQ clear_bhb_tsx",   X86_SPEC_BHB_TSX
- 
-     ALTERNATIVE "lfence", "", X86_SPEC_NO_LFENCE_ENTRY_PV
- .endm
-@@ -322,12 +334,9 @@
-     ALTERNATIVE "", __stringify(DO_SPEC_CTRL_ENTRY maybexen=1),         \
-         X86_FEATURE_SC_MSR_PV
- 
--    testb $SCF_entry_bhb, %bl
--    jz .L\@_skip_bhb
--    ALTERNATIVE_2 "",                                    \
--        "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
--        "call clear_bhb_tsx", X86_SPEC_BHB_TSX
--.L\@_skip_bhb:
-+    ALTERNATIVE_2 "",                                          \
-+        "DO_COND_BHB_SEQ clear_bhb_loops", X86_SPEC_BHB_LOOPS, \
-+        "DO_COND_BHB_SEQ clear_bhb_tsx",   X86_SPEC_BHB_TSX
- 
-     ALTERNATIVE "lfence", "", X86_SPEC_NO_LFENCE_ENTRY_INTR
- .endm
-@@ -433,13 +442,9 @@
-      * Clear the BHB to mitigate BHI.  Used on eIBRS parts, and uses RETs
-      * itself so must be after we've perfomed all the RET-safety we can.
-      */
--    testb $SCF_entry_bhb, %bl
--    jz .L\@_skip_bhb
--
--    ALTERNATIVE_2 "",                                    \
--        "call clear_bhb_loops", X86_SPEC_BHB_LOOPS,      \
--        "call clear_bhb_tsx", X86_SPEC_BHB_TSX
--.L\@_skip_bhb:
-+    ALTERNATIVE_2 "",                                          \
-+        "DO_COND_BHB_SEQ clear_bhb_loops", X86_SPEC_BHB_LOOPS, \
-+        "DO_COND_BHB_SEQ clear_bhb_tsx",   X86_SPEC_BHB_TSX
- 
-     lfence
- .endm
--- 
-2.39.5
-
+~Andrew
 
