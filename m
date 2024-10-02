@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 700DD98E3DF
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 22:03:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809006.1221109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D3FB98E3F7
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 22:09:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809009.1221119 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw5YB-00064X-9U; Wed, 02 Oct 2024 20:02:19 +0000
+	id 1sw5ex-0006uK-Uv; Wed, 02 Oct 2024 20:09:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809006.1221109; Wed, 02 Oct 2024 20:02:19 +0000
+Received: by outflank-mailman (output) from mailman id 809009.1221119; Wed, 02 Oct 2024 20:09:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw5YB-00062g-6d; Wed, 02 Oct 2024 20:02:19 +0000
-Received: by outflank-mailman (input) for mailman id 809006;
- Wed, 02 Oct 2024 20:02:17 +0000
+	id 1sw5ex-0006sX-Qv; Wed, 02 Oct 2024 20:09:19 +0000
+Received: by outflank-mailman (input) for mailman id 809009;
+ Wed, 02 Oct 2024 20:09:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N+S4=Q6=linuxfoundation.org=torvalds@srs-se1.protection.inumbo.net>)
- id 1sw5Y9-00062a-Bx
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 20:02:17 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ <SRS0=VgkK=Q6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sw5ew-0006rI-3a
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 20:09:18 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3865613a-80f9-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 22:02:15 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-53992157528so162081e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 13:02:15 -0700 (PDT)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com.
- [209.85.167.47]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5389fd5f5d1sm1983619e87.114.2024.10.02.13.02.09
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Oct 2024 13:02:13 -0700 (PDT)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-53992157528so161959e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 13:02:09 -0700 (PDT)
+ id 33c27f29-80fa-11ef-a0ba-8be0dac302b0;
+ Wed, 02 Oct 2024 22:09:17 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5c89f3f28b6so128046a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 13:09:17 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c882405bb8sm7939677a12.12.2024.10.02.13.09.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Oct 2024 13:09:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,92 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3865613a-80f9-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 33c27f29-80fa-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1727899335; x=1728504135; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=felyUMZ1epn3qYN0qQZjWDzIrXK7nsXRUmOCiXehfgQ=;
-        b=XF9zsgj6bnmeQOuIr7l9cEdtTeQSeSCQPzDqt/+6feU4tl9Nv3nmcmwakZNfD2H0w2
-         OMEru+LK545dmNFz7Y3xFBukxtq5po+Vkp91ukjbnm7Mpm3W2m7FYYiPF38REa7CpmSD
-         g9TN1Gj4dl6W4cCujwZ9EKzM1Rzz6LybiQJDA=
+        d=citrix.com; s=google; t=1727899756; x=1728504556; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8mpxVnw2rtIsaSdMnuwMlxzK800socadVEux++4FjuU=;
+        b=j7oTTqofEU6gw4rzqDrJGmf75cKv3AVEKjlT1eav3zIoQyg7fzEGyqAegrqF7n+9k6
+         Ya5x3X7B4WvdLBpYZu39H754pBkJ6SMFdn/KAlRUB9vD/wLDxz5v19j+TnJmfB0AksOl
+         ++mHpEAapbOojB7mjHjg81lNzL0JX00cPgN48=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727899335; x=1728504135;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1727899756; x=1728504556;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=felyUMZ1epn3qYN0qQZjWDzIrXK7nsXRUmOCiXehfgQ=;
-        b=aRkKelNPfzp6btusntzmX21Oyn81/EB4RCQ8U4ySo9d++idIYf3rKO/xfgJfi2t1b0
-         CQAvG1qfHwVP9MD6qV4X8bv/KB6FQk3Jkoe5w6HnAeSLqWD5/BBWxxpGnI3mWF8kG0tS
-         ftWGIll6PHu6/luRBi/osZVTIWkN0yQcgzZ6Yakgvm1YbuKlyuW1gJSZHUkF3tuzCFLD
-         uLAtO5pJKACXA1EKl5IdIVeWy73wQbdYMv09GpNK1EB7RTEI8E7bOeN5sMHzR1mkONUE
-         cGp7NjVWI9PQxSo3kwGmNHrT60dUcZWvJQKA5T5sTrJ8r4OmXpEzt7ClJbqyI3WKzuQ+
-         VzQA==
-X-Forwarded-Encrypted: i=1; AJvYcCUTbtBtYjT2srNDhhFO5RQ25vcRYN1uiU3fgHmhfdkKZMUrbmD5VNnBqWyV2lyDfFFI71DC+tzoQ7M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw0RessRlkrXRnbllRh4o32TJQQ2dVyY8U08GAqblPI/j3iAZ6j
-	pg5AY7jxWz1oENaruYAfriMINDR98r4l6J9MPhVvTnNWrdF7qyY6cl9N1UPcDqQdzf2dmfH2O8x
-	QP9evxQ==
-X-Google-Smtp-Source: AGHT+IGwHDPxC44I1CDtJXRhcNBt7uLVO4GK31CwAvVdJyhqnKNqz/17Gxetu8NkTQEpYBPUTqccBA==
-X-Received: by 2002:a05:6512:31cd:b0:533:4676:c21c with SMTP id 2adb3069b0e04-539a079f587mr2834173e87.44.1727899334641;
-        Wed, 02 Oct 2024 13:02:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCXLDA8jnqNqmfbJkxAO5MCbO59uSypho9Mhddhh7gDWudJp8OrYcl2UD7z+o6oi8D9ZMfUdB4HVhG8=@lists.xenproject.org
-X-Received: by 2002:a05:6512:e9e:b0:535:6795:301a with SMTP id
- 2adb3069b0e04-539a079eb59mr2506573e87.47.1727899328912; Wed, 02 Oct 2024
- 13:02:08 -0700 (PDT)
+        bh=8mpxVnw2rtIsaSdMnuwMlxzK800socadVEux++4FjuU=;
+        b=L2ifUeo5SLFdBhZkJV8QCVQNaei4Ca6JFAcDucnjqWE5gKrnR38eocqkqp/+QR2lZW
+         2nh0eVwN7Pb6g/hhL3PIV1PTVzo2swukUFyqtDPoSC6SdTcMHbOanxA6iG5nwYo09nFV
+         3X6DzMCZXS8NFPRMSTYooGp7R3E8FpIL+wrlk04Vx/5AycQmtwCLDiCsZH8u2XKbFdax
+         OT6I5BfjVp6Nq6EgF1VBu9Fb7hOzxvB2tI7/u6nrkonZ1CL/YBSWh5lc8vLeUSkGvSWi
+         qTANpDWcC4SFXzJe7Bikt7YxL5yFQDwi/5aCsUmp3sLPCDzybcYvEZ2IYMvTM8QBof/I
+         DSxw==
+X-Gm-Message-State: AOJu0YxvLiJgC0UTTEt7XkzCOt957vMFPVNRGUHBSmi/w8zRh1C+yJHU
+	LIlz4UWjDqr1JLdJa6MHqs5+XWbOtbEz2OWmHzLKIDQoWQjlA6cRM23VD91Z2mY+e9Qut8JmqbV
+	hz6U=
+X-Google-Smtp-Source: AGHT+IEixX0Bsej9XM12xmY27f0Lzd6EtV/5EFDvjGApFVel/3DcNQCYom44RLt6QUltjbo5CfWTAA==
+X-Received: by 2002:a05:6402:4402:b0:5c5:c060:420d with SMTP id 4fb4d7f45d1cf-5c8b1b6ffebmr3405946a12.25.1727899756072;
+        Wed, 02 Oct 2024 13:09:16 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/boot: Convert remaining uses of the legacy ALIGN
+Date: Wed,  2 Oct 2024 21:09:13 +0100
+Message-Id: <20241002200913.1963443-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-References: <20240925150059.3955569-30-ardb+git@google.com>
- <20240925150059.3955569-55-ardb+git@google.com> <99446363-152f-43a8-8b74-26f0d883a364@zytor.com>
- <CAMj1kXG7ZELM8D7Ft3H+dD5BHqENjY9eQ9kzsq2FzTgP5+2W3A@mail.gmail.com>
-In-Reply-To: <CAMj1kXG7ZELM8D7Ft3H+dD5BHqENjY9eQ9kzsq2FzTgP5+2W3A@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 2 Oct 2024 13:01:52 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wj0HG2M1JgoN-zdCwFSW=N7j5iMB0RR90aftTS3oqwKTg@mail.gmail.com>
-Message-ID: <CAHk-=wj0HG2M1JgoN-zdCwFSW=N7j5iMB0RR90aftTS3oqwKTg@mail.gmail.com>
-Subject: Re: [RFC PATCH 25/28] x86: Use PIE codegen for the core kernel
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, 
-	x86@kernel.org, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Uros Bizjak <ubizjak@gmail.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@linux.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Keith Packard <keithp@keithp.com>, 
-	Justin Stitt <justinstitt@google.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Kan Liang <kan.liang@linux.intel.com>, linux-doc@vger.kernel.org, 
-	linux-pm@vger.kernel.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	linux-efi@vger.kernel.org, linux-arch@vger.kernel.org, 
-	linux-sparse@vger.kernel.org, linux-kbuild@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2 Oct 2024 at 08:31, Ard Biesheuvel <ardb@kernel.org> wrote:
->
-> I guess you are referring to the use of a GOT? That is a valid
-> concern, but it does not apply here. With hidden visibility and
-> compiler command line options like -mdirect-access-extern, all emitted
-> symbol references are direct.
+There are only two remaining standalone uses the legacy ALIGN macro.
 
-I absolutely hate GOT entries. We definitely shouldn't ever do
-anything that causes them on x86-64.
+Drop these by switching the .incbin's over to using FUNC()/END() which has
+alignment handled internally.  While the incbin's aren't technically one
+single function, they're as good as one single function.
 
-I'd much rather just do boot-time relocation, and I don't think the
-"we run code at a different location than we told the linker" is an
-arghument against it.
+Finally, expand ALIGN inside the legacy ENTRY() macro in order to remove ALIGN
+itself.
 
-Please, let's make sure we never have any of the global offset table horror.
+No functional change.
 
-Yes, yes, you can't avoid them on other architectures.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
-That said, doing changes like changing "mov $sym" to "lea sym(%rip)" I
-feel are a complete no-brainer and should be done regardless of any
-other code generation issues.
+before/after builds show no change at all, except for
+cmdline_parse_early()/reloc() ELF metadata.
+---
+ xen/arch/x86/boot/head.S | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-Let's not do relocation for no good reason.
+diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+index 6a06f6c9ea46..837740477c6e 100644
+--- a/xen/arch/x86/boot/head.S
++++ b/xen/arch/x86/boot/head.S
+@@ -10,9 +10,8 @@
+ #include <asm/cpufeature.h>
+ #include <public/elfnote.h>
+ 
+-#define ALIGN .align CONFIG_FUNCTION_ALIGNMENT, CODE_FILL
+ #define ENTRY(name)                             \
+-  ALIGN;                                        \
++  .align CONFIG_FUNCTION_ALIGNMENT, CODE_FILL;  \
+   GLOBAL(name)
+ #define GLOBAL(name)                            \
+   .globl name;                                  \
+@@ -850,13 +849,13 @@ trampoline_setup:
+          * cmdline and reloc are written in C, and linked to be 32bit PIC with
+          * entrypoints at 0 and using the fastcall convention.
+          */
+-        ALIGN
+-cmdline_parse_early:
++FUNC_LOCAL(cmdline_parse_early)
+         .incbin "cmdline.bin"
++END(cmdline_parse_early)
+ 
+-        ALIGN
+-reloc:
++FUNC_LOCAL(reloc)
+         .incbin "reloc.bin"
++END(reloc)
+ 
+ ENTRY(trampoline_start)
+ #include "trampoline.S"
 
-             Linus
+base-commit: 41190d2ceb03b12ffc17a66c04de519c26a6052a
+-- 
+2.39.5
+
 
