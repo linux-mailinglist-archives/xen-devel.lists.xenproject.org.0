@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4435F98CDE5
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 09:42:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808628.1220591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC55998CEBD
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 10:28:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808635.1220602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svtzH-0000jh-Lb; Wed, 02 Oct 2024 07:41:31 +0000
+	id 1svuh6-0007Ax-1a; Wed, 02 Oct 2024 08:26:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808628.1220591; Wed, 02 Oct 2024 07:41:31 +0000
+Received: by outflank-mailman (output) from mailman id 808635.1220602; Wed, 02 Oct 2024 08:26:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svtzH-0000gu-Ix; Wed, 02 Oct 2024 07:41:31 +0000
-Received: by outflank-mailman (input) for mailman id 808628;
- Wed, 02 Oct 2024 07:41:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RwxN=Q6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svtzG-0000go-Uu
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 07:41:30 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bcf1b238-8091-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 09:41:30 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-5399651d21aso2663791e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 00:41:30 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c2776d92sm815990766b.29.2024.10.02.00.41.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Oct 2024 00:41:29 -0700 (PDT)
+	id 1svuh5-00077u-UH; Wed, 02 Oct 2024 08:26:47 +0000
+Received: by outflank-mailman (input) for mailman id 808635;
+ Wed, 02 Oct 2024 08:26:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Tl1C=Q6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1svuh4-00077o-Ty
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 08:26:46 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0efea913-8098-11ef-99a2-01e77a169b0f;
+ Wed, 02 Oct 2024 10:26:44 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5389e24a4d1so6410499e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 01:26:44 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5389fd54e80sm1848077e87.43.2024.10.02.01.26.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Oct 2024 01:26:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bcf1b238-8091-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 0efea913-8098-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727854889; x=1728459689; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=W5CHaMSAiL5AEl471kqqmTQg9/r6lFXAI5Aki2hX8i4=;
-        b=JoSphJNJjP6rZXngSYoXTQaPWWXR00Jz0V9iDVSvDGotlTE/ttVPogmTGuejwGQMOC
-         A0r01jX1hfMBk28GM3vBs01l45it6hJWVW07FnSMVaIUt45eCPK1pNunXG+FJklBXG/f
-         6tl4+3BM36elsEWyaZ+GxrJ5glm2ow/qOCdF9qIzDodA5mnLTdIfSOC5UgKrO5N1jUgZ
-         O0skjRrPJHLQZ8j9nrXmsCnA6T+yygw3DVYuU7WnIYfkrp21NqcEnUNuolWdp1K0YQ4T
-         Kb4ne63jKmXtqVD2X0oIIFOY7relSwj4ae8Q+cmg3UAh+3CL67tehmSHh5DpAUBKsRXu
-         FO1A==
+        d=gmail.com; s=20230601; t=1727857604; x=1728462404; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=E+zDyLfjwAZ8Q/13bnws/oxcrTUQAX3DXSXjHlzhBso=;
+        b=AvuHlXHLnc1M5F00CkuskHLXTeU45uNUP2FaMV7rtZs4w4tOJgKPLhN2j4DiFM9PzH
+         hRnizW0RWpOwf53UQHFDB3YlW8jzkheZgSmf6a1TA/i9P90RZqUF2Ie1h1fjUFPSfXav
+         fNGELD4Sp/jQyH06Adu+vLGHLhxMZvcRJgybctlWINj2ZceJWc99mo7gS5lIC/OgqEbj
+         lYC/7ZLiHWiWq3kfOgLujqE549u/y1xLMTImVhb/JdkVr+TF/TdzGNtWQpShvJ9YwF2z
+         KN2GOT6FA1hpYEAhwm0pNYtjvjPnMmkl2ziD9iCryTU/bM+yrwdsup/7Juw4CqtU/g9/
+         WrPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727854889; x=1728459689;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=W5CHaMSAiL5AEl471kqqmTQg9/r6lFXAI5Aki2hX8i4=;
-        b=SLTQNp9ZUAFae7Q+3XjPBiLIg+3iNZPryyYd4cVuloc/tR1mKsIa0KfXUCBryEmXqn
-         PpkYQ5B/Fwe88rMmfzwrsAzznDtK99pKBY4YZ6RR2X15j8ESIiI5W1Q/Ga1RYVAIWMkV
-         AMyqOBuKr/Xka3cJ2CnZ63562/r96V1x8MWGBACu9waC3GJ9RYoxNJR0EObDqZw5Erup
-         AkAsAGi/w8wH9n2JHuj0T7hDvvE7piktL5THUTj0o6K33GMn6Kj8DHZ/9wmkMpnJMG2d
-         15uRmQRKRqozqMieQ0Ymnoir2UyTqAvzHcwCJtbkWp5pdsjAVQim0IlF3VOUoGZ8eatO
-         fyyg==
-X-Gm-Message-State: AOJu0Yx7CSimLwPla1YCZa6Dyq44DGzQ88kLDKZ9aT8fH5Bn+3MpLK9B
-	qskjlftpIKo5f3zslbrASACFP1IcC2BPZO2QkBqhLPpye03QNw34RLFc8lgaRQQgmBDqvqX4OeM
-	=
-X-Google-Smtp-Source: AGHT+IERdqb9qdHStl8or4ETA8QyqQH0N09K/GXe6HtT9FCs2ZdArU+R3G+yiOCIJZXE2u5kWS7jGQ==
-X-Received: by 2002:a05:6512:1245:b0:538:9b5d:9885 with SMTP id 2adb3069b0e04-539a0601d0amr1167689e87.0.1727854889539;
-        Wed, 02 Oct 2024 00:41:29 -0700 (PDT)
-Message-ID: <26cfd90a-91f2-4bf4-9607-8ab6c7823048@suse.com>
-Date: Wed, 2 Oct 2024 09:41:28 +0200
+        d=1e100.net; s=20230601; t=1727857604; x=1728462404;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=E+zDyLfjwAZ8Q/13bnws/oxcrTUQAX3DXSXjHlzhBso=;
+        b=RDOjhN6wigQvUNmGD/pAdCy/SMEmBhNQ+EtQuVpzqrsmdCBe355N4ImBOU4ketrZER
+         9brLd8lMczS/gL9ivtl9vgB3Opb3mcCZzasf0fv/3KLHd63HRnn0Ole7rFC7StRmveUP
+         Heyu8eT580Z4re9quukIWFVESDWvTs/5Ee4/dLqSkUhKoqsXjOBKRHTeLvBu2V3HH9SZ
+         vxWU7V5IxRV0BqAB7RY+3nGmOatJinjLs0HBYV885yK9LF29/tPG76c5vSaTKiQENefX
+         ikIwgz7iJwWaLE5DoFo19JH1B6LlR4iZDWHHU+u1wxRne0csBOcURmdQJ7ac70LYeph5
+         GT5g==
+X-Forwarded-Encrypted: i=1; AJvYcCWyTt83N33BJZ2/tkw24wEuENHZjJ8QEZ7szjfnDqt5XTXaTt72LVJOUuk6gKhtV1W1eaiHPzkvZvo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy4EdByiktSjyUMXj2voRzRJvY74zNdTbg8pHYDAxl2z9tBkho0
+	W1o2abNMn//iQTFabsckrE4qS/W5lZHb1VIm6oxt8ACD3YdwRE0N
+X-Google-Smtp-Source: AGHT+IHt87KSLVJ3w9ZYoEPF8AyowUnlKq/KglRob5/YaQyXpDBjlAm839otyfgWpQqody4xclBXhw==
+X-Received: by 2002:a05:6512:114c:b0:539:8aec:ecd3 with SMTP id 2adb3069b0e04-539a07a8384mr1240051e87.55.1727857603764;
+        Wed, 02 Oct 2024 01:26:43 -0700 (PDT)
+Message-ID: <062739b1537c64690cd969b3262d5b677cf15ac4.camel@gmail.com>
+Subject: Re: [PATCH v1 1/2] xen/riscv: initialize bootinfo from dtb
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Wed, 02 Oct 2024 10:26:42 +0200
+In-Reply-To: <18cfcda5-d2b4-47d6-9f5e-a240e46661c1@suse.com>
+References: <cover.1727708956.git.oleksii.kurochko@gmail.com>
+	 <f04a3cc3e543298f63845728c599410258a336ca.1727708956.git.oleksii.kurochko@gmail.com>
+	 <18cfcda5-d2b4-47d6-9f5e-a240e46661c1@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/ACPI: annotate assembly data with type and size
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Further use the generic framework from xen/linkage.h. While there drop
-excess alignment and move to .bss.
+On Tue, 2024-10-01 at 17:54 +0200, Jan Beulich wrote:
+> On 30.09.2024 17:13, Oleksii Kurochko wrote:
+> > --- a/xen/arch/riscv/setup.c
+> > +++ b/xen/arch/riscv/setup.c
+> > @@ -28,6 +28,7 @@ void __init noreturn start_xen(unsigned long
+> > bootcpu_id,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 paddr_t dtb_addr)
+> > =C2=A0{
+> > =C2=A0=C2=A0=C2=A0=C2=A0 struct bootmodule *xen_bootmodule;
+> > +=C2=A0=C2=A0=C2=A0 size_t fdt_size;
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0 remove_identity_mapping();
+> > =C2=A0
+> > @@ -54,6 +55,9 @@ void __init noreturn start_xen(unsigned long
+> > bootcpu_id,
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0 BUG_ON(!xen_bootmodule);
+> > =C2=A0
+> > +=C2=A0=C2=A0=C2=A0 fdt_size =3D boot_fdt_info(device_tree_flattened, d=
+tb_addr);
+> > +=C2=A0=C2=A0=C2=A0 BUG_ON(!fdt_size);
+> > +
+> > =C2=A0=C2=A0=C2=A0=C2=A0 printk("All set up\n");
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0 machine_halt();
+>=20
+> Looks plausible, and judging from Arm code there'll be an actual use
+> of fdt_size
+> down the road. Or else I would have asked what use the local variable
+> is. In
+> fact, again from looking at Arm code, I now question the need for the
+> xen_bootmodule local var - that has no further use in Arm, and hence
+> that's
+> likely going to be the case for RISC-V, too.
+fdt_size and xen_bootmodule are used only for BUG_ON() now and in
+future ( the same as you mentioned as in Arm ). They could be dropped.
+I'll do that in the next patch version.
 
-Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Of course alongside ASM_INT() we could introduce ASM_QUAD() and
-ASM_QUAD_LOCAL() (only the latter needed right here) to aid readability.
-Thoughts?
+>=20
+> However, may I ask that you limit the dependency trees in what you
+> submit? This
+> series depends on another series, which in turn depends on yet
+> something else,
+> all not yet committed. That's getting unwieldy, I'm afraid.
+Sure, sorry for that. I will limit the depedency trees in future.
 
---- a/xen/arch/x86/acpi/wakeup_prot.S
-+++ b/xen/arch/x86/acpi/wakeup_prot.S
-@@ -1,3 +1,5 @@
-+#define DATA_FILL 0 /* For the .bss contributions at the bottom. */
-+
- #include <asm/asm_defns.h>
- #include <asm/msr-index.h>
- #include <asm/page.h>
-@@ -134,13 +136,20 @@ LABEL(s3_resume)
-         ret
- END(do_suspend_lowlevel)
- 
--.data
--        .align 16
-+        .bss
- 
--saved_rsp:      .quad   0
--saved_cr0:      .quad   0
-+DATA_LOCAL(saved_rsp, 8)
-+        .quad   0
-+END(saved_rsp)
-+DATA_LOCAL(saved_cr0, 8)
-+        .quad   0
-+END(saved_cr0)
- #ifdef CONFIG_XEN_SHSTK
--saved_ssp:      .quad   0
-+DATA_LOCAL(saved_ssp, 8)
-+        .quad   0
-+END(saved_ssp)
- #endif
- 
-+        .data
-+
- ASM_INT(saved_magic, 0x9abcdef0)
+~ Oleksii
 
