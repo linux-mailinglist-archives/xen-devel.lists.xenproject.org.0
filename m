@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 200FB98E490
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 23:04:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809028.1221149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A00E098E4DF
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 23:26:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809035.1221159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw6VF-00087M-83; Wed, 02 Oct 2024 21:03:21 +0000
+	id 1sw6qk-000311-10; Wed, 02 Oct 2024 21:25:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809028.1221149; Wed, 02 Oct 2024 21:03:21 +0000
+Received: by outflank-mailman (output) from mailman id 809035.1221159; Wed, 02 Oct 2024 21:25:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw6VF-00085r-5E; Wed, 02 Oct 2024 21:03:21 +0000
-Received: by outflank-mailman (input) for mailman id 809028;
- Wed, 02 Oct 2024 21:03:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sw6qj-0002zV-UP; Wed, 02 Oct 2024 21:25:33 +0000
+Received: by outflank-mailman (input) for mailman id 809035;
+ Wed, 02 Oct 2024 21:25:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VgkK=Q6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sw6VE-00085l-G9
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 21:03:20 +0000
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [2a00:1450:4864:20::542])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bfd577a2-8101-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 23:03:18 +0200 (CEST)
-Received: by mail-ed1-x542.google.com with SMTP id
- 4fb4d7f45d1cf-5c88370ad7bso151913a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 14:03:18 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c88245ea57sm7992339a12.55.2024.10.02.14.03.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Oct 2024 14:03:17 -0700 (PDT)
+ <SRS0=rzV7=Q6=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1sw6qi-0002zP-UI
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 21:25:32 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20618.outbound.protection.outlook.com
+ [2a01:111:f403:200a::618])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d8c57126-8104-11ef-99a2-01e77a169b0f;
+ Wed, 02 Oct 2024 23:25:30 +0200 (CEST)
+Received: from DM6PR14CA0053.namprd14.prod.outlook.com (2603:10b6:5:18f::30)
+ by MN2PR12MB4238.namprd12.prod.outlook.com (2603:10b6:208:199::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.16; Wed, 2 Oct
+ 2024 21:25:24 +0000
+Received: from CY4PEPF0000E9CE.namprd03.prod.outlook.com
+ (2603:10b6:5:18f:cafe::30) by DM6PR14CA0053.outlook.office365.com
+ (2603:10b6:5:18f::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.15 via Frontend
+ Transport; Wed, 2 Oct 2024 21:25:24 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000E9CE.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8026.11 via Frontend Transport; Wed, 2 Oct 2024 21:25:24 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 2 Oct
+ 2024 16:25:23 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 2 Oct
+ 2024 16:25:23 -0500
+Received: from [172.24.163.62] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 2 Oct 2024 16:25:23 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,213 +63,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfd577a2-8101-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727902998; x=1728507798; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZMm12Vk+aQuWYxQ7Mg0jWOkwQBlvOnHjRhtdFvVYk0w=;
-        b=os/iTZgvYhTcYVbOA/zy/nrTqHZtk5CjMgO9Z7ElLV5Id98//BeLOIkS5eHFefF4dS
-         M8wApPN1CwrFwvClz+Vs/Lj0jbT8L3v+7kGTYPaHIJBnhlcJzYVnAoYSwmHfiXdqYqxf
-         JhOU7PZ2Z/41HXmSLmlC/tbYVdf6rEGBuFH68=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727902998; x=1728507798;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZMm12Vk+aQuWYxQ7Mg0jWOkwQBlvOnHjRhtdFvVYk0w=;
-        b=fRr3yrAHt2xF347Ht6fWEDpfkOiq+rbO3BUAKTekK647RiO/tx3Z9ejbYJqiXX83TT
-         kwhfIUQR+RfBVUrL8/OLmbCZh7j09C5EwCfOI7Sw8I6hRKarqCvfJoIrxDuJJUmUDY0l
-         o63CUBd7vHFqfQQPaxVA5lm1Ez3rjr61HdS7GLTjrHcqAljCg47r33nvezdk6y/KZ97O
-         wB+glr4JSI/OZMa3MKTWtJZJc4ECRlLu0OyamYMmiIGm9GozKAeAbdtHXvEb+UY9PvFy
-         sxjA85JO3/vgk3rosuUYxv5ZVjjFITxxFkxSK430P34PdUDuLUOBswBuIgKXoGuICdXU
-         MiyA==
-X-Forwarded-Encrypted: i=1; AJvYcCU4HgAo7Z+7dV8nKabC9R/fUeO80gfqutgWip6ObEI6aTyQkHMKjSjGQV13rALUk86/49K4nTjmLmY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz2wBfWXundjVfKgx0Q2TQtfiPP79vZcfWYt9HhDxRS/LgHZb+e
-	xxC7I9HEMA3jGBwc/4RpS2cSsI47IJ8NyGQVvNjJhDJNJXSme4t1VxkOphZR3aM=
-X-Google-Smtp-Source: AGHT+IFIIe/5ZGceCJZ9GwB9ODhj8ewzyMgSP4d0IYPIyreUK0Xd3aoUMLZ/8lxL0NTHf2ESUZK7cw==
-X-Received: by 2002:a05:6402:51cc:b0:5c5:c4ab:c2c8 with SMTP id 4fb4d7f45d1cf-5c8b1727e54mr3392071a12.0.1727902998032;
-        Wed, 02 Oct 2024 14:03:18 -0700 (PDT)
-Message-ID: <596535b2-8c59-4e03-befe-92f3b58ca5a9@citrix.com>
-Date: Wed, 2 Oct 2024 22:03:17 +0100
+X-Inumbo-ID: d8c57126-8104-11ef-99a2-01e77a169b0f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SCRvoQAodFAdKCy8xWEwOOlgxwUX3aO/Cqq68XSVLUGkZ8ZNct0DhDfCtZt0QPaX7F8cN5bnQLg/6U7CTVS9NTbSq1oegI4SYM9qloo6/pyFZcNv1j/YtgxNRCZeM+e3eYxyKnYrLb1nYDxKqTNRCOUqpPvaaKg5MvQ5QyshM5OPuol8V7QmNPOMup/kawApZdU58oyJjAoj/MZpr9Fk++sqesWDKHN3O7iZctLLX0nMZztsITqcDZ8u7ikNlNvrM8nUHEHBRTzWCOGj1aV7euHmxtAE8DHtRRz+sUHe44o05MCv1Z87cl7f5b4u/e2eCMb2MmJb3naRFozC+ZKmqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5QerY6aZNBZaxaESyMpRmZVmsTez1kpiiUfAtqGL5JY=;
+ b=C9rdLLbK57U0r/xMadnTjT+0KVmMo6onRb8jLq19MGMTOlmm58Y/qzHckjEPKIbKoruZ2En7pUxhr3O/hRA9nU/+jX7fOgT0dyN7FhE7cdXD6zGHNGBiUAIsLJOLAFFvpFGOlpWRqcZLdg9ZI/m1zF1bXNNV4fvrpGXLlI/t/taPk8u5PU0lE/R/g3C0bd0oFpVQBYTJato7834Zn+Mg/W4+EymG8NIDxGETJF7ihAvABhRrF8Qdcn0MkixZmTeYnflBa+TaELJZH6kFijHiXjUJRuy6Q12XvbV3CQ7A9N6j9NOrZA+lnF/GkMu7PlIawHZ0ntS/kDzQiocQSZE8BA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5QerY6aZNBZaxaESyMpRmZVmsTez1kpiiUfAtqGL5JY=;
+ b=k1aSOwNGTcSRQlPLx5QkOsTDmI4FmtwnZoLM4WjUn5j8K4OBkVT8RZRtg6GCO7rTnBj4ikBE3CH+289N74AiF+CNBxMu46BlMkRMX/VlfOBf+gbJRCbQeiKaQ2klc3d6QynO64P3ZVcBGfw/audThIDcwL1HPpovDloc1hBb0lI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <b2b23136-fd57-4bc8-bb80-604cc4da0920@amd.com>
+Date: Wed, 2 Oct 2024 17:25:19 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] automation: add a smoke test for xen.efi on X86
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20241002124245.716302-1-marmarek@invisiblethingslab.com>
- <20241002124245.716302-2-marmarek@invisiblethingslab.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20241002124245.716302-2-marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH v2 4/5] x86/xen: Avoid relocatable quantities in Xen ELF
+ notes
+To: Ard Biesheuvel <ardb+git@google.com>, <linux-kernel@vger.kernel.org>
+CC: Ard Biesheuvel <ardb@kernel.org>, Juergen Gross <jgross@suse.com>, "Boris
+ Ostrovsky" <boris.ostrovsky@oracle.com>, <x86@kernel.org>,
+	<xen-devel@lists.xenproject.org>
+References: <20240930071513.909462-7-ardb+git@google.com>
+ <20240930071513.909462-11-ardb+git@google.com>
+Content-Language: en-US
+In-Reply-To: <20240930071513.909462-11-ardb+git@google.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CE:EE_|MN2PR12MB4238:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b8823f3-625a-43c9-9141-08dce328ba82
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RU5mbER5UFBINVJOdUdkNGNFanBDb2p0OWNpVUZ6YTczT2l3YWhrSjlPRnpx?=
+ =?utf-8?B?V3FLQ3ExZzc1anU4cytTWDNXbXZMaTVvVEJDSG1VM3QvOVY1UEFKSFlyVmdG?=
+ =?utf-8?B?MmtIZkwrZ0ZmN0Y4SmFMdE9yOXJ1d3daVHpHLzVkdkdkY1lBNnRJOGxyL2oy?=
+ =?utf-8?B?cFh6WUpMK05ZUDZzWmxLTi82Z0xsS1gzeE5ZbDE3RllWVStFbzBDSW9jOEtM?=
+ =?utf-8?B?OFJlYUFCTVE3OVRZUmtDNzJMUkJuZUZodXA5N0tGQnJLUlJ0Y0NXVExMVGsv?=
+ =?utf-8?B?THFmeVQwV3FLTi9haWxZSTUwT3V4MEhVMlFoWk5YWDdNaUd5OXcySEtjcENj?=
+ =?utf-8?B?aHZ1VFlLd3F4T0phUkwrUVNuN296Tk5lRFJyVE9vdm5adTZEZFVEais3UzNI?=
+ =?utf-8?B?N2dqMjVYNCtVWmJlbU1CZ3I0bHV4Z2JtSUUrakFZU1VHdlEyT09GK0JUaVlo?=
+ =?utf-8?B?OVJ1RWM3aEVmTks3Nm5qL2Jla2phSUV2RDlSYVE1YUNUN3gwSlBkWklML3Ni?=
+ =?utf-8?B?dzJPNnpHSFdYMUM0cUVsY21CVWVqS1QzNzVXa1N4dDNhdlkvd3Bja2t0M0g5?=
+ =?utf-8?B?YjVqZm1tWVZiMjFLRUR6dUlrdHdKMTFNZkhYWDVDblZiNlhEdXhUWmVRaHNW?=
+ =?utf-8?B?bGRuUWRCbXFUK2gvWDNsUXMyZ0NBU09DVkZWTjdOK2MrL3kwaVpPWVRueFRl?=
+ =?utf-8?B?WHIyU0FYdHVPL3NJTS9GRFhaWmtQTFAwM296RkNyenRqNDJVMm4yTVFqMXBl?=
+ =?utf-8?B?ekhMWW92YmUwTUFmQkY5UytDMVN0NTRwTjdmMkVzM25OajdYSWVySm1WcnBY?=
+ =?utf-8?B?N2FMdnpPei9GbFBkMVlxejBKMENtOTAvdHRlTlVjdTF1aWl5RFlOaG1mZkxI?=
+ =?utf-8?B?cktqNjJZeVRDQzJ0QzFPb0RwZlRMU2xSbWxBN1phNnV4UXM4OE5BdXR5ZHJX?=
+ =?utf-8?B?RTNOUmJxTXFjTXZnS0JiRkMwZVlaUE15OWR5WTZGaFBVTFlXZXpWdE5LTUVW?=
+ =?utf-8?B?SUg3OFF1SEcxc2NCekFIQzNNaTFVNmhRVGdsQjZYcjlTaGVEVE93ZlArWVdU?=
+ =?utf-8?B?aGhPVkZsbDVvNjZsL044bDRQV04vRXNWZDdwNjlFcFFFdWhYU0RzZm12d1Vr?=
+ =?utf-8?B?SWNGMkI0RENpRlJ4cDdWOUxFZ1p2bHlIZ2d5K29wR2I0cFY2UVFXc1pIOVJJ?=
+ =?utf-8?B?RlBKV1JJU2lGRno0MFFnVzJqTDlrNHlYZTllL2xyOUZOcktFNTBXZWRwRTBT?=
+ =?utf-8?B?eHNOQTVVbkprLy9senhtcmNSdmRaamdKM0ErcTBKQ3pmMWk5ZE16SVMzWTQz?=
+ =?utf-8?B?RFc5L3VGL2IvTXVqa3NvelZnQmp3SGpQblFwVGJrWHNWcExWME0yelFuZXNK?=
+ =?utf-8?B?K2N4S2g2MUMxTUphTXNpa2xHa0tkOEIyLzYzQ3k5VWRoeld5L00zTFhuYzkv?=
+ =?utf-8?B?S2RRb3VWYS9NYU93cWdjYmdkd2VlNndudVBDZ3pIUzRFUjRCeFJtSzdSVWpK?=
+ =?utf-8?B?a0M2bzNFWlZ4dGdEaFNxVU1zQWNpM2tzNWhrcWdBelgwUE1CblhxWm9LMVNW?=
+ =?utf-8?B?WFB6Q1RNaWVSUGx0WHhneVA5N2tEYlV2eis2dHQ4T3Q2aGxBM1B1bVJ2Vk9K?=
+ =?utf-8?B?TEdCYlJiSlE1Y05TU0RURnNzdTk0aVdnYjBjbjdadWZBM1BvekVhWlhzRW5i?=
+ =?utf-8?B?dHhSNXdUbURkOVB3TmJjK2JxcDJFdlZoenZFbFR3Y013c01ubVc4TnpmVDZq?=
+ =?utf-8?B?T0Vmc1pML2xFcU1ZbTF3NElzVFVKWUVLMDNLaGdXcWRXMEs3dnRhR3ZZNHN3?=
+ =?utf-8?B?T01GbzF1cFFiZWRkU2hzRjBkYzJqWTRYWVVaQm05cWtKbkM4T2dWZ3JWZ3VL?=
+ =?utf-8?Q?6QVflFtCiABkM?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2024 21:25:24.5365
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b8823f3-625a-43c9-9141-08dce328ba82
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9CE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4238
 
-On 02/10/2024 1:42 pm, Marek Marczykowski-Górecki wrote:
-> Check if xen.efi is bootable with an XTF dom0.
->
-> The TEST_TIMEOUT is set in the script to override project-global value.
-> Setting it in the gitlab yaml file doesn't work, as it's too low
-> priority
-> (https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence).
->
-> The multiboot2+EFI path is tested on hardware tests already.
->
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+On 2024-09-30 03:15, Ard Biesheuvel wrote:
+> From: Ard Biesheuvel <ardb@kernel.org>
+> 
+> Xen puts virtual and physical addresses into ELF notes that are treated
+> by the linker as relocatable by default. Doing so is not only pointless,
+> given that the ELF notes are only intended for consumption by Xen before
+> the kernel boots. It is also a KASLR leak, given that the kernel's ELF
+> notes are exposed via the world readable /sys/kernel/notes.
+> 
+> So emit these constants in a way that prevents the linker from marking
+> them as relocatable. This involves place-relative relocations (which
+> subtract their own virtual address from the symbol value) and linker
+> provided absolute symbols that add the address of the place to the
+> desired value.
+> 
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+
+Tested-by: Jason Andryuk <jason.andryuk@amd.com>
+
+The generated values look ok.
+
 > ---
-> This requires rebuilding debian:bookworm container.
-
-Noted.
-
->
-> The TEST_TIMEOUT issue mentioned above applies to xilix-* jobs too. It's
-> not clear to me why the default TEST_TIMEOUT is set at the group level
-> instead of in the yaml file, so I'm not adjusting the other places.
-
-I'll leave that side of things to Stefano.
-
-> ---
->  automation/build/debian/bookworm.dockerfile |  1 +
->  automation/gitlab-ci/test.yaml              |  7 ++++
->  automation/scripts/qemu-smoke-x86-64-efi.sh | 44 +++++++++++++++++++++
->  3 files changed, 52 insertions(+)
->  create mode 100755 automation/scripts/qemu-smoke-x86-64-efi.sh
->
-> diff --git a/automation/build/debian/bookworm.dockerfile b/automation/build/debian/bookworm.dockerfile
-> index 3dd70cb6b2e3..061114ba522d 100644
-> --- a/automation/build/debian/bookworm.dockerfile
-> +++ b/automation/build/debian/bookworm.dockerfile
-> @@ -46,6 +46,7 @@ RUN apt-get update && \
->          # for test phase, qemu-smoke-* jobs
->          qemu-system-x86 \
->          expect \
-
-# for test phase efi jobs
-
-> +        ovmf \
->          # for test phase, qemu-alpine-* jobs
->          cpio \
->          busybox-static \
-> diff --git a/automation/scripts/qemu-smoke-x86-64-efi.sh b/automation/scripts/qemu-smoke-x86-64-efi.sh
-> new file mode 100755
-> index 000000000000..e053cfa995ba
-> --- /dev/null
-> +++ b/automation/scripts/qemu-smoke-x86-64-efi.sh
-> @@ -0,0 +1,44 @@
-> +#!/bin/bash
+>   arch/x86/kernel/vmlinux.lds.S | 13 +++++++++++++
+>   arch/x86/platform/pvh/head.S  |  6 +++---
+>   arch/x86/tools/relocs.c       |  1 +
+>   arch/x86/xen/xen-head.S       |  6 ++++--
+>   4 files changed, 21 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/x86/kernel/vmlinux.lds.S b/arch/x86/kernel/vmlinux.lds.S
+> index 6726be89b7a6..2b7c8c14c6fd 100644
+> --- a/arch/x86/kernel/vmlinux.lds.S
+> +++ b/arch/x86/kernel/vmlinux.lds.S
+> @@ -527,3 +527,16 @@ INIT_PER_CPU(irq_stack_backing_store);
+>   #endif
+>   
+>   #endif /* CONFIG_X86_64 */
 > +
-> +set -ex -o pipefail
-> +
-> +# variant should be either pv or pvh
-> +variant=$1
-> +
-> +# Clone and build XTF
-> +git clone https://xenbits.xen.org/git-http/xtf.git
-> +cd xtf && make -j$(nproc) && cd -
+> +#ifdef CONFIG_XEN
+> +#ifdef CONFIG_XEN_PV
+> +xen_elfnote_entry_offset =
+> +	ABSOLUTE(xen_elfnote_entry) + ABSOLUTE(startup_xen);
+> +#endif
+> +xen_elfnote_hypercall_page_offset =
+> +	ABSOLUTE(xen_elfnote_hypercall_page) + ABSOLUTE(hypercall_page);
+> +#endif
+> +#ifdef CONFIG_PVH
+> +xen_elfnote_phys32_entry_offset =
+> +	ABSOLUTE(xen_elfnote_phys32_entry) + ABSOLUTE(pvh_start_xen - LOAD_OFFSET);
+> +#endif
 
-make -C xtf -j$(nproc)
+It seems to me, these aren't really offsets, but instead an address + value.
 
-I still haven't got XTF nicely working in Gitlab CI, but if my plans
-work out, we will be able to replace this with a job-level artefact import.
+> diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
+> index 7ca51a4da217..2b0d887e0872 100644
+> --- a/arch/x86/platform/pvh/head.S
+> +++ b/arch/x86/platform/pvh/head.S
 
+> @@ -300,5 +300,5 @@ SYM_DATA_END(pvh_level2_kernel_pgt)
+>   		     .long KERNEL_IMAGE_SIZE - 1)
+>   #endif
+>   
+> -	ELFNOTE(Xen, XEN_ELFNOTE_PHYS32_ENTRY,
+> -	             _ASM_PTR (pvh_start_xen - __START_KERNEL_map))
+> +	ELFNOTE(Xen, XEN_ELFNOTE_PHYS32_ENTRY, .global xen_elfnote_phys32_entry;
+> +		xen_elfnote_phys32_entry: _ASM_PTR xen_elfnote_phys32_entry_offset - .)
 
-> +
-> +case $variant in
-> +    pvh) k=test-hvm64-example    extra="dom0-iommu=none dom0=pvh" ;;
-> +    *)   k=test-pv64-example     extra= ;;
-> +esac
-> +
-> +mkdir -p boot-esp/EFI/BOOT
-> +cp binaries/xen.efi boot-esp/EFI/BOOT/BOOTX64.EFI
-> +cp xtf/tests/example/$k boot-esp/EFI/BOOT/kernel
+So here you have `address + value - address` to put the desired value in 
+the elf note?
 
-Looking at this split, I'd suggest having
-
-k=example/test-... in the case, and cp xtf/tests/$k boot-... here.
-
-That way, it's easier to swap out e.g. k=selftest/test-pv64-selftest
-
-
-> +
-> +cat > boot-esp/EFI/BOOT/BOOTX64.cfg <<EOF
-> +[global]
-> +default=test
-> +
-> +[test]
-> +options=loglvl=all console=com1 noreboot console_timestamps=boot $extra
-
-Bah - we still can't select the timestamp mode at Kconfig time, can we. 
-Because that would have been helpful...
-
-Something for the todo list.  Individual tests should not be needing to
-arrange this.
-
-I think you can drop the loglvl=all.  That (and guest_loglvl, and
-CONFIG_VERBOSE which you depend on) is already arranged by virtue of
-using a debug Xen.  I don't think this is liable to change.
-
-> +kernel=kernel
-> +EOF
-> +
-> +cp /usr/share/OVMF/OVMF_CODE.fd OVMF_CODE.fd
-> +cp /usr/share/OVMF/OVMF_VARS.fd OVMF_VARS.fd
-> +
-> +rm -f smoke.serial
-> +export TEST_CMD="qemu-system-x86_64 -nographic -M q35,kernel-irqchip=split \
-> +        -drive if=pflash,format=raw,readonly=on,file=OVMF_CODE.fd \
-> +        -drive if=pflash,format=raw,file=OVMF_VARS.fd \
-
-Why do you copy OVMF_*.fd out of /usr/share to the local dir, then pass
-them as paths here?
-
-Can't qemu be pointed at /usr/share directly?
-
-~Andrew
+Regards,
+Jason
 
