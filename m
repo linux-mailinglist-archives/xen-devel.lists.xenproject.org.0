@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A38BC98DEFA
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 17:26:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808890.1220955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A10398DF0A
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 17:27:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808899.1220985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw1FL-0006ZW-4V; Wed, 02 Oct 2024 15:26:35 +0000
+	id 1sw1GM-00080c-Ue; Wed, 02 Oct 2024 15:27:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808890.1220955; Wed, 02 Oct 2024 15:26:35 +0000
+Received: by outflank-mailman (output) from mailman id 808899.1220985; Wed, 02 Oct 2024 15:27:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw1FL-0006XJ-1A; Wed, 02 Oct 2024 15:26:35 +0000
-Received: by outflank-mailman (input) for mailman id 808890;
- Wed, 02 Oct 2024 15:26:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qBk0=Q6=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1sw1Ey-0004SG-8p
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 15:26:12 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a712d4ae-80d2-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 17:26:11 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 94CF0A43E41
- for <xen-devel@lists.xenproject.org>; Wed,  2 Oct 2024 15:26:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83D1CC4CED6
- for <xen-devel@lists.xenproject.org>; Wed,  2 Oct 2024 15:26:08 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2fad15b3eeeso33591811fa.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 08:26:08 -0700 (PDT)
+	id 1sw1GM-0007yP-R8; Wed, 02 Oct 2024 15:27:38 +0000
+Received: by outflank-mailman (input) for mailman id 808899;
+ Wed, 02 Oct 2024 15:27:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VgkK=Q6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sw1GK-0007h7-VB
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 15:27:36 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d9347e47-80d2-11ef-99a2-01e77a169b0f;
+ Wed, 02 Oct 2024 17:27:34 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a8d60e23b33so996971366b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 08:27:34 -0700 (PDT)
+Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a93c299ac8esm880024566b.222.2024.10.02.08.27.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Oct 2024 08:27:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,159 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a712d4ae-80d2-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727882768;
-	bh=h4ubFnE46xeI8wN9+4BYkWAbARBnOtNFKXLTjQ3iYxs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=KFl7hH8baEyBXLc9YdutCabBIIsebd7h0c09OkpKue3HyYk0dPbzyKEPIAYZw8EA0
-	 OSqK38e9b/ZQqENWs+TnswX2GzFQqN2nL0SRR4IVxtTfVUlSFGfffBS7Jg4BMNQIz8
-	 HMkEBAAndduR9nNbwqZIze+PTqfQzCMnCy8hpJdW/BS84scv9IwY4mniaBcqBDDZua
-	 ZBd9lUJThYLwrBMX2si1+483PfVcboCG4r+GJNcdiKhotGYBsctAy1Sareu7r1J5jh
-	 Wd6eNnpiy5IQorN76AsuNn8HDWHvuwIblRMKj84P4HPuwkx+3e6SIsEVpTzuDrCbzg
-	 6kBiHvv5uu5wg==
-X-Forwarded-Encrypted: i=1; AJvYcCXZp675azna1l5vzhhkhNCfOgoOaQAK5EOUeyioq2PEm52aZ0XKc0BpULoa5iDzHbfN6TsFIeKdwcA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvYfK2KM5B3fNYkg1OuNsxyQG68AiADTXebokrNLtoydUktwBT
-	572gCWSmArlRSsIjwqr72Sa8g9XYPZc8nAhrWRNCUoSInuZ8nhoy/7boV8K821vxEzBzIsJE4Er
-	3t6rGa2gC3XfjWsJwLSDqJjWAJZE=
-X-Google-Smtp-Source: AGHT+IFjphesp/WsGS3U0PINOY0QAoUmw2aq4caedP0chVHCCyNa6a0rrCXQNZVU8wv2cCgEaQKnFwQhCH9Io7gBKbI=
-X-Received: by 2002:a05:651c:1502:b0:2fa:d84a:bd83 with SMTP id
- 38308e7fff4ca-2fae106e266mr23266981fa.24.1727882766692; Wed, 02 Oct 2024
- 08:26:06 -0700 (PDT)
+X-Inumbo-ID: d9347e47-80d2-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1727882853; x=1728487653; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QNpzenwNX1xQ9mu7HMeabzs8vltFJnRXlsr3r5RUzqo=;
+        b=BHcqN9ciFN1OnXnQ2n7ibhwEDFrBO8RU2exthpJ9CJqdCkzVaGk0LE7E4uyr7ehE/m
+         cKWe/UwhpBstNSQsZnP/3OHlfH3qv6qmDm0Krh7obGtDiUZiFpbIq+5yoBU/zxY/i3F5
+         4sNSibCxFeU5CcTe4h7U2JomL3AmTl8emlTgw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727882853; x=1728487653;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QNpzenwNX1xQ9mu7HMeabzs8vltFJnRXlsr3r5RUzqo=;
+        b=htTQzGN3mrdrqKz5d7Ot7Hfkxu4D2BXjDXC1qyPn05ZodYf6l5A2JPhJkKTgcdL0NL
+         +64FoXXmedxqh+9YGZjiJDcp3cDnCvTbWbvnsBR3G8R1dxaOl143liu9Ve/qMBQUd0gc
+         DsqxgJmxu3dEwHN1N5PIUjA2NoXMvoKqiXnAkoLBwN2uZwVhX+Uy5OHaQzTCb6mzjyTr
+         YhH+TUjBcUQYBxZAVaIlfSRWWcwhJ2pTovnp9UiCQPqgcYG4rP7QIGh8iiZeYcSeMOTa
+         1rGr9OgVvkVJObNkpTPH31eDODVDqpvcFq09ynfpHqhFnMRfLJNuMHOQINh/pPAzwGKa
+         2+2A==
+X-Gm-Message-State: AOJu0YydX/+D4tgph+20Tlyrnc2IvFQVSEI+gGeBoivs4rv85J9At/r3
+	FZyoHfJgA68+iVBaG8yvND8Vax5Jajo04eQ5DOUKVbvQy1oLyFBZP54NkJuG9dZ27TlwtyIOBYb
+	QuII=
+X-Google-Smtp-Source: AGHT+IFQ2XX6ISngkSTnqF89HuOKeJjRhoa7+qtvJ67fSE4AOF1Zgmx8YWcGi7gmdPIBoldy4uAzPw==
+X-Received: by 2002:a17:907:6d1b:b0:a86:a1cd:5a8c with SMTP id a640c23a62f3a-a98f823cbb3mr296401266b.22.1727882853483;
+        Wed, 02 Oct 2024 08:27:33 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 0/7] x86/alternatives: Adjust all insn-relative fields
+Date: Wed,  2 Oct 2024 16:27:18 +0100
+Message-Id: <20241002152725.1841575-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-References: <20240925150059.3955569-30-ardb+git@google.com>
- <20240925150059.3955569-55-ardb+git@google.com> <99446363-152f-43a8-8b74-26f0d883a364@zytor.com>
-In-Reply-To: <99446363-152f-43a8-8b74-26f0d883a364@zytor.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Wed, 2 Oct 2024 17:25:54 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXG7ZELM8D7Ft3H+dD5BHqENjY9eQ9kzsq2FzTgP5+2W3A@mail.gmail.com>
-Message-ID: <CAMj1kXG7ZELM8D7Ft3H+dD5BHqENjY9eQ9kzsq2FzTgP5+2W3A@mail.gmail.com>
-Subject: Re: [RFC PATCH 25/28] x86: Use PIE codegen for the core kernel
-To: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, x86@kernel.org, 
-	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Uros Bizjak <ubizjak@gmail.com>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@linux.com>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross <jgross@suse.com>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Keith Packard <keithp@keithp.com>, 
-	Justin Stitt <justinstitt@google.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Kan Liang <kan.liang@linux.intel.com>, linux-doc@vger.kernel.org, 
-	linux-pm@vger.kernel.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	linux-efi@vger.kernel.org, linux-arch@vger.kernel.org, 
-	linux-sparse@vger.kernel.org, linux-kbuild@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Peter,
+Alternatives have had a reasonably severe restriction since their
+introduction.  This has been the source of several bugs, and several
+inefficiencies particularly in the speculative safety paths.
 
-Thanks for taking a look.
+v2:
+  Most work is in patch 1 and the new patch 2 (userspace harness).  Other
+  patches with minor or no change.
 
-On Tue, 1 Oct 2024 at 23:13, H. Peter Anvin <hpa@zytor.com> wrote:
->
-> On 9/25/24 08:01, Ard Biesheuvel wrote:
-> > From: Ard Biesheuvel <ardb@kernel.org>
-> >
-> > As an intermediate step towards enabling PIE linking for the 64-bit x86
-> > kernel, enable PIE codegen for all objects that are linked into the
-> > kernel proper.
-> >
-> > This substantially reduces the number of relocations that need to be
-> > processed when booting a relocatable KASLR kernel.
-> >
->
-> This really seems like going completely backwards to me.
->
-> You are imposing a more restrictive code model on the kernel, optimizing
-> for boot time in a way that will exert a permanent cost on the running
-> kernel.
->
+Andrew Cooper (7):
+  x86: Introduce x86_decode_lite()
+  tests/x86: Introduce a userspace test harness for x86_decode_lite()
+  x86/alternative: Walk all replacements during self tests
+  x86/alternative: Indent the relocation logic
+  x86/alternative: Replace a continue with a goto
+  x86/alternative: Relocate all insn-relative fields
+  x86/spec-ctrl: Introduce and use DO_COND_BHB_SEQ
 
-Fair point about the boot time. This is not the only concern, though,
-and arguably the least important one.
+ tools/tests/Makefile                      |   1 +
+ tools/tests/x86-decode-lite/.gitignore    |   1 +
+ tools/tests/x86-decode-lite/Makefile      |  45 ++
+ tools/tests/x86-decode-lite/insns.S       | 703 ++++++++++++++++++++++
+ tools/tests/x86-decode-lite/macro-magic.h |  52 ++
+ tools/tests/x86-decode-lite/main.c        | 111 ++++
+ tools/tests/x86-decode-lite/x86-emulate.h |  27 +
+ xen/arch/x86/alternative.c                | 213 +++++--
+ xen/arch/x86/hvm/vmx/entry.S              |  12 +-
+ xen/arch/x86/include/asm/spec_ctrl_asm.h  |  43 +-
+ xen/arch/x86/x86_emulate/Makefile         |   6 +
+ xen/arch/x86/x86_emulate/decode-lite.c    | 311 ++++++++++
+ xen/arch/x86/x86_emulate/private.h        |   2 +
+ xen/arch/x86/x86_emulate/x86_emulate.h    |  14 +
+ 14 files changed, 1456 insertions(+), 85 deletions(-)
+ create mode 100644 tools/tests/x86-decode-lite/.gitignore
+ create mode 100644 tools/tests/x86-decode-lite/Makefile
+ create mode 100644 tools/tests/x86-decode-lite/insns.S
+ create mode 100644 tools/tests/x86-decode-lite/macro-magic.h
+ create mode 100644 tools/tests/x86-decode-lite/main.c
+ create mode 100644 tools/tests/x86-decode-lite/x86-emulate.h
+ create mode 100644 xen/arch/x86/x86_emulate/decode-lite.c
 
-As I responded to Andi before, it is also about using a code model and
-relocation model that matches the reality of how the code is executed:
-- the early C code runs from the 1:1 mapping, and needs special hacks
-to accommodate this
-- KASLR runs the kernel from a different virtual address than the one
-we told the linker about
+-- 
+2.39.5
 
-> There is a *huge* difference between the kernel and user space here:
->
-> KERNEL MEMORY IS PERMANENTLY ALLOCATED, AND IS NEVER SHARED.
->
-
-No need to shout.
-
-> Dirtying user pages requires them to be unshared and dirty, which is
-> undesirable. Kernel pages are *always* unshared and dirty.
->
-
-I guess you are referring to the use of a GOT? That is a valid
-concern, but it does not apply here. With hidden visibility and
-compiler command line options like -mdirect-access-extern, all emitted
-symbol references are direct. Disallowing text relocations could be
-trivially enabled with this series if desired, and actually helps
-avoid the tricky bugs we keep fixing in the early startup code that
-executes from the 1:1 mapping (the C code in .head.text)
-
-So it mostly comes down to minor differences in addressing modes, e.g.,
-
-  movq $sym, %reg
-
-actually uses more bytes than
-
-  leaq sym(%rip), %reg
-
-whereas
-
-  movq sym, %reg
-
-and
-
-  movq sym(%rip), %reg
-
-are the same length.
-
-OTOH, indexing a statically allocated global array like
-
-  movl array(,%reg1,4), %reg2
-
-will be converted into
-
-  leaq array(%rip), %reg2
-  movl (%reg2,%reg1,4), %reg2
-
-and is therefore less efficient in terms of code footprint. But in
-general, the x86_64 ISA and psABI are quite flexible in this regard,
-and extrapolating from past experiences with PIC code on i386 is not
-really justified here.
-
-As Andi also pointed out, what ultimately matters is the performance,
-as well as code size where it impacts performance, through the I-cache
-footprint. I'll do some testing before reposting, and maybe not bother
-if the impact is negative.
-
-> > It also brings us much closer to the ordinary PIE relocation model used
-> > for most of user space, which is therefore much better supported and
-> > less likely to create problems as we increase the range of compilers and
-> > linkers that need to be supported.
->
-> We have been resisting *for ages* making the kernel worse to accomodate
-> broken compilers. We don't "need" to support more compilers -- we need
-> the compilers to support us. We have working compilers; any new compiler
-> that wants to play should be expected to work correctly.
->
-
-We are in a much better place now than we were before in that regard,
-which is actually how this effort came about: instead of lying to the
-compiler, and maintaining our own pile of scripts and relocation
-tools, we can just do what other arches are doing in Linux, and let
-the toolchain do it for us.
 
