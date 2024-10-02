@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06F8998D2BE
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 14:09:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808742.1220738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B00E98D2D8
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 14:12:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808747.1220747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svy9N-0001Os-6T; Wed, 02 Oct 2024 12:08:13 +0000
+	id 1svyD2-0002qu-Kv; Wed, 02 Oct 2024 12:12:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808742.1220738; Wed, 02 Oct 2024 12:08:13 +0000
+Received: by outflank-mailman (output) from mailman id 808747.1220747; Wed, 02 Oct 2024 12:12:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svy9N-0001Lh-3R; Wed, 02 Oct 2024 12:08:13 +0000
-Received: by outflank-mailman (input) for mailman id 808742;
- Wed, 02 Oct 2024 12:08:12 +0000
+	id 1svyD2-0002o2-IJ; Wed, 02 Oct 2024 12:12:00 +0000
+Received: by outflank-mailman (input) for mailman id 808747;
+ Wed, 02 Oct 2024 12:11:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RwxN=Q6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svy9M-0001Lb-49
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 12:08:12 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ id 1svyD0-0002nw-U6
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 12:11:58 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fe00a86f-80b6-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 14:08:10 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-53995380bb3so3830284e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 05:08:10 -0700 (PDT)
+ id 859d7f64-80b7-11ef-a0ba-8be0dac302b0;
+ Wed, 02 Oct 2024 14:11:58 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-53995380bb3so3835148e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 05:11:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c297c2c7sm849725366b.180.2024.10.02.05.08.09
+ 4fb4d7f45d1cf-5c88245e9efsm7539974a12.58.2024.10.02.05.11.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Oct 2024 05:08:09 -0700 (PDT)
+ Wed, 02 Oct 2024 05:11:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe00a86f-80b6-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: 859d7f64-80b7-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727870890; x=1728475690; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727871117; x=1728475917; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BSpaNHtVe2VYxXwXm6BRwx2bRh43b6VH6C+y2IpSS9A=;
-        b=PF4ASNPTop2EGUrjWUU8kzmnMC2d19su0OJoZ7gpZpppCpM+X5NKQT2tVfp5Pvw/MK
-         Xge4HykPkjGxyjdpdKet8/RIXDtDO8ZNU+tEQ0C/madrrlHiOxbkrvHltSv+7ULG0XfB
-         aGiXn/CPwdSsAwNulpr2iIKRAHiF9GUjXCssjMkgs+zU86LcNiaMcZiRtvhstACzDxU1
-         pdWWc0EYz2/sdfITG+2cVtvJwVH6ZXlwIKyzPz0Xyz7hzCAIcfmUWy6C03Pdr258qzph
-         j9Gsa3w5tf+bUcQZgXzJbSLrrnlJZz5nXNuBUUabaeF3ZskPJGRnrLl73TbW8eEU3IEK
-         zPvA==
+        bh=DOKb6zVDn/0VH4+KbpW87lTh/3r6c/GObL88XQjIbzs=;
+        b=P3Yfp/xrGR5cbYxU+Gzk7R549XJPidV8I0m2+p0mBAqrk/NSrghq85TXJsCC0kOCe3
+         wgVpbGzVD3nE9H2961Xk9CTLDaHnzto+LINCAKkjOSEU1sY0BsfKdBL8bBk79GktG/dn
+         7j6pOr8i5TGABXwyGVyVU3str+TvXhZF7JSZCnH7668z7x57O5EI5vyXfsASQhObd8yi
+         3hJ+0wKREmjiqJ2e5p1NzRMOjATmJQoE+jKjaIoAa4QLPoVaAvf3/oihJC07n4Dt3O2T
+         DHCVZ1g7aOJXw+fgQ5fPGijnQIcNzHEPPdh8norlVSmr33uOAH1JwOHGq+0vezRqnbXf
+         hRqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727870890; x=1728475690;
+        d=1e100.net; s=20230601; t=1727871117; x=1728475917;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BSpaNHtVe2VYxXwXm6BRwx2bRh43b6VH6C+y2IpSS9A=;
-        b=RCb6WvLdT0HcSgEsghD1w7UkajFSYQRoG/hV1fkkwa8gSwLQb/TEYkJV90nI4HHe/g
-         INnjTDTjKaSWwEWJ/HgaJrNiMKN+xgwOpaIfnrmpWDeqHrMc0lSVGfzd1DT6DQilsv9z
-         KlmM9RsigT1kW3cVQ3f/16IgTJlGRVSyzq+NE9ijQj9X1qdUNc7P3QKiKbDp9B5teTtI
-         ZJqhmnDeKDj6Q7Xny/AkziWA0IEoNnCM7Qud8Y59USDoxCYozZ6VV3g1tevDFLwhcGnb
-         7S2sGroCeyElOEivdKjhHYLR0x4LQMtIHYDYyZ2TZCoq34t2Unnwk2cSj4bbhyb3XKMK
-         zHpQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXxx5n57hT6Ab+dKIm/MZOjgo68vJ0pF+NrOEY0fTBQuFQATDZbhAUBap0cRsIOHz9UvWZ3DalUSY4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyHQUKvfofWrnaN7BpZPz9Plu57qyHJ4j65DmNnta6s4D7F8MZi
-	nT64+J/ps7nttnONFWgCEtchIHjd6MU+VoYYOOYWKxeqwtt2jYxDS2viTBagWQ==
-X-Google-Smtp-Source: AGHT+IHvlr0NVUD6CsoIEtC8U9V3Wt0Ud3GgZQ4YfxV0HFLyngouWXfK90AvVa9wQGMb73N62eLg+w==
-X-Received: by 2002:a05:6512:1054:b0:530:e323:b1cd with SMTP id 2adb3069b0e04-539a07a1dffmr1917029e87.40.1727870889930;
-        Wed, 02 Oct 2024 05:08:09 -0700 (PDT)
-Message-ID: <b917b21a-6d2b-46b2-a30d-7bab5ebff631@suse.com>
-Date: Wed, 2 Oct 2024 14:08:08 +0200
+        bh=DOKb6zVDn/0VH4+KbpW87lTh/3r6c/GObL88XQjIbzs=;
+        b=GTUNM8jzPjtHckOQZrBH/enMHmw1PiB8L/ZM88yZ5eNOxuWI6IyfP5AFjHMkAIVMFa
+         FFNq6p6jBUPtlmkaFsjOdu7OS2St3M/vBECrTgssFFxr1JEaLeUJksGaKoN+a1k+Dk9q
+         CACtnlPJAr3aJGvXLpL5wc50G0ULo7fZIWZ5HfOF/QEyGb3y/j1E8kvObJOpM/s8YKLS
+         tQG79woTwvREIfsv/GLF2DhYY+8dpft1ycRo+1LGi8tPuAi3N10NYH5KeU8YZUmgfJr9
+         9y8Gu+qBKeF/U7KP0R0+O1M9CkDD6XluoLd0AHF4IkUTC6jfoT6FLQ0NGT+SjBeibpvM
+         b2bQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVCTyJNVNPf2LvkLNLxmGKulqOI+cQVqjcEsL4HYZ69oiPq6OeNcE+hhwXjPWnogu2G/DPVrcTocK4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZOpzMUiCF0WYWxTesWq5T2UeCSlSaZ6k+s3KkP7RaaDPkcpjJ
+	a0K45yN/X8Yt2xD/klRmtf7Fw8qUOJLs5BSHBOQqXP3hgKj75/ppW7ti0ABMfw==
+X-Google-Smtp-Source: AGHT+IHIgXoNl9eAE+xXw2Lbpvd2QKnez2zgZHCakzLxuK7hN1DxtPCZzvib/32St1X9VkwpSrTFsQ==
+X-Received: by 2002:a05:6512:2387:b0:530:c239:6fad with SMTP id 2adb3069b0e04-539a05fffc0mr1789223e87.0.1727871117518;
+        Wed, 02 Oct 2024 05:11:57 -0700 (PDT)
+Message-ID: <1bd67367-0928-4f16-958c-f45612689346@suse.com>
+Date: Wed, 2 Oct 2024 14:11:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/kexec: Separate code and data by at least 1 cacheline
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241002103052.1797237-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v1 3/3] xen/riscv: register Xen's load address as a boot
+ module
+To: oleksii.kurochko@gmail.com
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1727708665.git.oleksii.kurochko@gmail.com>
+ <2bd3589f322d30e93d81d091ca64439048c068fc.1727708665.git.oleksii.kurochko@gmail.com>
+ <178b61bc-d3e5-4c9d-a8c0-88363911bc8f@suse.com>
+ <418443ea4017c401d944971898cb298ef2f826d6.camel@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -111,45 +118,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241002103052.1797237-1-andrew.cooper3@citrix.com>
+In-Reply-To: <418443ea4017c401d944971898cb298ef2f826d6.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02.10.2024 12:30, Andrew Cooper wrote:
-> No functional change, but it performs a bit better.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 02.10.2024 13:25, oleksii.kurochko@gmail.com wrote:
+> On Tue, 2024-10-01 at 17:49 +0200, Jan Beulich wrote:
+>> On 30.09.2024 17:08, Oleksii Kurochko wrote:
+>>> @@ -26,6 +27,8 @@ unsigned char __initdata
+>>> cpu0_boot_stack[STACK_SIZE]
+>>>  void __init noreturn start_xen(unsigned long bootcpu_id,
+>>>                                 paddr_t dtb_addr)
+>>>  {
+>>> +    struct bootmodule *xen_bootmodule;
+>>
+>> With just the uses below this can be pointer-to-const. Question of
+>> course
+>> is whether you already know of further uses.
+> It could be dropped as it is used only for BUG_ON(!xen_bootmodule) as
+> it looks to me a little bit better then:
+>     BUG_ON(!add_boot_module(BOOTMOD_XEN, virt_to_maddr(_start),
+>                             (_end - _start), false));
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Yet that's undesirable for other reasons. Did you consider
 
-A question nevertheless:
+    if ( !add_boot_module(BOOTMOD_XEN, virt_to_maddr(_start),
+                          _end - _start, false) )
+        BUG();
 
-> --- a/xen/arch/x86/x86_64/kexec_reloc.S
-> +++ b/xen/arch/x86/x86_64/kexec_reloc.S
-> @@ -19,6 +19,7 @@
->  #include <xen/kimage.h>
->  
->  #include <asm/asm_defns.h>
-> +#include <asm/cache.h>
->  #include <asm/msr-index.h>
->  #include <asm/page.h>
->  #include <asm/machine_kexec.h>
-> @@ -174,6 +175,9 @@ FUNC_LOCAL(compatibility_mode)
->          ud2
->  END(compatibility_mode)
->  
-> +        /* Separate code and data into into different cache lines */
-> +        .balign L1_CACHE_BYTES
-> +
->  DATA_LOCAL(compat_mode_gdt_desc, 4)
->          .word .Lcompat_mode_gdt_end - compat_mode_gdt -1
->          .quad 0x0000000000000000     /* set in call_32_bit above */
-
-Because of L1_CACHE_BYTES being 128, you indeed put at least 1 cache line in
-between. Is that necessary, though? Just starting data on the next cache line
-ought to be enough? IOW if and when we adjust L1_CACHE_BYTES, we won't need
-to touch this again, just that the title here then would end up slightly
-misleading.
+? Maybe panic() would be even better for cases like this one.
 
 Jan
 
