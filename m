@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9710798D125
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 12:26:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808678.1220657 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B05ED98D12B
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 12:27:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808685.1220667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svwYN-00089P-6R; Wed, 02 Oct 2024 10:25:55 +0000
+	id 1svwZS-0000a6-HS; Wed, 02 Oct 2024 10:27:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808678.1220657; Wed, 02 Oct 2024 10:25:55 +0000
+Received: by outflank-mailman (output) from mailman id 808685.1220667; Wed, 02 Oct 2024 10:27:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svwYN-00086Y-2O; Wed, 02 Oct 2024 10:25:55 +0000
-Received: by outflank-mailman (input) for mailman id 808678;
- Wed, 02 Oct 2024 10:25:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dlN+=Q6=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1svwYM-00086S-4S
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 10:25:54 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b298abb4-80a8-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 12:25:52 +0200 (CEST)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-589-OuKjrCFRPf-1wKQBz_-ajg-1; Wed, 02 Oct 2024 06:25:49 -0400
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-42cb6f3c476so49846455e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 03:25:49 -0700 (PDT)
-Received: from [192.168.0.7] (ip-109-42-49-143.web.vodafone.de.
- [109.42.49.143]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42f79ff92desm14912885e9.40.2024.10.02.03.25.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Oct 2024 03:25:47 -0700 (PDT)
+	id 1svwZS-0000Xg-ET; Wed, 02 Oct 2024 10:27:02 +0000
+Received: by outflank-mailman (input) for mailman id 808685;
+ Wed, 02 Oct 2024 10:27:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Tl1C=Q6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1svwZR-0000Xa-E6
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 10:27:01 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id db5b70f6-80a8-11ef-99a2-01e77a169b0f;
+ Wed, 02 Oct 2024 12:26:59 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-5399041167cso5414285e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 03:26:59 -0700 (PDT)
+Received: from [192.168.219.191] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-538a0439a98sm1880888e87.211.2024.10.02.03.26.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Oct 2024 03:26:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,186 +45,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b298abb4-80a8-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1727864751;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XMwMtz76lfJcPKySIzdnPKszxiHpDniIFN0UI66uwGE=;
-	b=e6OhCbAA/jkESTbyBJN86dZTTD99WkoBrWBHTrv7g+JdLdLBvqgSyHRhGevRGA+8yuq6G1
-	IFBlrCRDczN/C82Y8FaDmzNXIw6LRGSXr0I/usFugAAmRKyORcxg2nO9l4gq/915CRsOSq
-	SgRI+u+3II25hawtCkK71hXOX5CtcI4=
-X-MC-Unique: OuKjrCFRPf-1wKQBz_-ajg-1
+X-Inumbo-ID: db5b70f6-80a8-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1727864819; x=1728469619; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=NGOJlVwtKFRB2vOSAddY/X76t5Zsej5l4QecAB/2cS0=;
+        b=hH6duw6P+l9No3Za4pRGyJLO0fxCBSfZNeUInkvF/31qbMLTNeztoL5zgjRytgPNAk
+         JNM/iIHDTXkdMAQ4kBuRs/d6QztBAEdY1maO9TPLdjWGlVwAo71zKOrlITlJ7YF/oKmV
+         d74yss/BzCBxKN07/gNIJwBhxKD7YE1OQJ0SkVgiFnkEMTRJRUssD4hedDZTWTcmRMMs
+         9Z/TY3oxZYhNnslpXjDZMvCBwrgrQgXqqcfqUVR+TLrsBqMEkHtBCLV2evmcc54NM9zK
+         cnq9RQDEvzMDm5lIO+AHmKI65R4rvg6hTijeVZvWkUNZkQtl7+yWpLuvUMHniRMfmlsd
+         QvbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727864748; x=1728469548;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XMwMtz76lfJcPKySIzdnPKszxiHpDniIFN0UI66uwGE=;
-        b=vcqs/EO88PDI51BOV5HRX1cBfPRi+a9/5HuoXdk5mO6mKvY5BZeLPLcphG62muvYyS
-         3wHGmBgsaz0mYwN3mgT/tsvsNWLPYArmqh/fz7bO7+9fueMPa3krVlM2AA7BdSalNJmL
-         TDuNfX814UkReuYRHRgPqupv4oAEe0ecj25yBBT9ztUwg4nriH7gKvcva+ZXiHGW0D2D
-         nnRtJVsB3Hcx1RpOUI61cj+ucz/mT+oJX68XYq7sfTnRmfuVIh4lIDz/NgZGNFSG2gs+
-         k4Rg8n0STu6hVzpkBiifx9hEEvcI7M8Dy/hftuVJxfGa6VdTanjsFRgV0j5DDF0/bVDs
-         Cs2A==
-X-Gm-Message-State: AOJu0YxMTBwGtx5XjxAQmiX9D0AIa4sBlH0Q1wuHzaGtkylHdWODh/VJ
-	hV3Xz4UualWe5iyQdyrZ/PVGUhWBqE/BxTmYWUhD6PtpQ2DQVwWdjQ6pADcymJWcxTiokHhGWn9
-	zTdkuOELnvWSmngutzlwhGeSbvTAB9YAluQoD9/s6mQ4kmI6kTt2ONhvOzKS1s8pfYufkF4sHsV
-	U=
-X-Received: by 2002:a05:600c:3b03:b0:42c:b63e:fea6 with SMTP id 5b1f17b1804b1-42f777ee31amr21694765e9.22.1727864748358;
-        Wed, 02 Oct 2024 03:25:48 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IF+jLvOZbOcEN+T8mygG4Xp+1ksnZoFvPLzjm0Rx8NQIi1TBH5V/5NqSM0WWZG1ZJ6kX9tmgw==
-X-Received: by 2002:a05:600c:3b03:b0:42c:b63e:fea6 with SMTP id 5b1f17b1804b1-42f777ee31amr21694565e9.22.1727864747907;
-        Wed, 02 Oct 2024 03:25:47 -0700 (PDT)
-Message-ID: <408f72f4-4d18-46e6-9e8a-89542acaa306@redhat.com>
-Date: Wed, 2 Oct 2024 12:25:45 +0200
+        d=1e100.net; s=20230601; t=1727864819; x=1728469619;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=NGOJlVwtKFRB2vOSAddY/X76t5Zsej5l4QecAB/2cS0=;
+        b=V+Iqsr5HKMho9M8y1IV6lgqyvDx2lCQV65VLoDW/N7GTryy0OPYByjJEEa4bxS+yjD
+         NG/v7JUarUJ4RJcML5/DuUmyGNSBQnCrSpinsiZXorXA8F0Gx6at3MRRro5oKxzA+lMO
+         K82ksLPisBmoRIInu5Pg+MFsZ2U0d/+7o+9LMTTCW6xd9jfciatx8icH69DM4v/mNbNM
+         jbpiFsGB9bdnAkldeT8mijiv47fWgFgzdmMi4NHuk04m19aQyfHc4eyH636KPMO4fsl1
+         q0gcDTJ96wvZy61NCI2+CA7QI61L5mks6u7kPzzKmL7pSfuFMZGjuyI0phAiUYHGlwhL
+         ltAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVsmowO1EdQgl3XwQRGpJCj+DAfc//YV47lQkVjtG/5atZefU9N7j2dTmVpFsJkpbpBEqsBf/3xlZM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzWDKJa15LL7WO+UtrSEq8ycWjnz/veea4p2KkjKd3pfRtXhOWK
+	5pHhnmxMFAwauikADbf1zTslU529M1TPJIn+87gR1jQjBxClBUZx
+X-Google-Smtp-Source: AGHT+IEjFUx8xXeBPD/Isk6XhbDoXjP16lyY1+kvq71M6jksqT9kmx7S/bnU1SOieMD49WXETyUcEw==
+X-Received: by 2002:a05:6512:31cc:b0:539:9767:903d with SMTP id 2adb3069b0e04-539a07a66b3mr1541597e87.60.1727864818735;
+        Wed, 02 Oct 2024 03:26:58 -0700 (PDT)
+Message-ID: <6aa27e6f75af3ad2f81eb5e43e213aa386460ed5.camel@gmail.com>
+Subject: Re: [PATCH v1 1/3] xen/riscv: implement virt_to_maddr()
+From: oleksii.kurochko@gmail.com
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Date: Wed, 02 Oct 2024 12:26:57 +0200
+In-Reply-To: <61347488-6b4b-442d-9058-cafd65b0834d@suse.com>
+References: <cover.1727708665.git.oleksii.kurochko@gmail.com>
+	 <1d4270af6469af2f95ede34abd8e9f98f775c1f1.1727708665.git.oleksii.kurochko@gmail.com>
+	 <61347488-6b4b-442d-9058-cafd65b0834d@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40app2) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hw/xen: Remove deadcode
-To: dave@treblig.org, sstabellini@kernel.org, anthony@xenproject.org,
- paul@xen.org, edgar.iglesias@gmail.com
-Cc: xen-devel@lists.xenproject.org, qemu-devel@nongnu.org,
- QEMU Trivial <qemu-trivial@nongnu.org>
-References: <20240917002212.330893-1-dave@treblig.org>
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <20240917002212.330893-1-dave@treblig.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 17/09/2024 02.22, dave@treblig.org wrote:
-> From: "Dr. David Alan Gilbert" <dave@treblig.org>
-> 
-> xen_be_copy_grant_refs is unused since 2019's
->    19f87870ba ("xen: remove the legacy 'xen_disk' backend")
-> 
-> xen_config_dev_console is unused since 2018's
->    6d7c06c213 ("Remove broken Xen PV domain builder")
-> 
-> Remove them.
-> 
-> Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
-> ---
->   hw/xen/xen-legacy-backend.c         | 18 ------------------
->   hw/xen/xen_devconfig.c              |  8 --------
->   include/hw/xen/xen-legacy-backend.h |  5 -----
->   3 files changed, 31 deletions(-)
-> 
-> diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
-> index 5514184f9c..e8e1ee4f7d 100644
-> --- a/hw/xen/xen-legacy-backend.c
-> +++ b/hw/xen/xen-legacy-backend.c
-> @@ -147,24 +147,6 @@ void xen_be_unmap_grant_refs(struct XenLegacyDevice *xendev, void *ptr,
->       }
->   }
->   
-> -int xen_be_copy_grant_refs(struct XenLegacyDevice *xendev,
-> -                           bool to_domain,
-> -                           XenGrantCopySegment segs[],
-> -                           unsigned int nr_segs)
-> -{
-> -    int rc;
-> -
-> -    assert(xendev->ops->flags & DEVOPS_FLAG_NEED_GNTDEV);
-> -
-> -    rc = qemu_xen_gnttab_grant_copy(xendev->gnttabdev, to_domain, xen_domid,
-> -                                    segs, nr_segs, NULL);
-> -    if (rc) {
-> -        xen_pv_printf(xendev, 0, "xengnttab_grant_copy failed: %s\n",
-> -                      strerror(-rc));
-> -    }
-> -    return rc;
-> -}
-> -
->   /*
->    * get xen backend device, allocate a new one if it doesn't exist.
->    */
-> diff --git a/hw/xen/xen_devconfig.c b/hw/xen/xen_devconfig.c
-> index 2150869f60..45ae134b84 100644
-> --- a/hw/xen/xen_devconfig.c
-> +++ b/hw/xen/xen_devconfig.c
-> @@ -66,11 +66,3 @@ int xen_config_dev_vkbd(int vdev)
->       xen_config_dev_dirs("vkbd", "vkbd", vdev, fe, be, sizeof(fe));
->       return xen_config_dev_all(fe, be);
->   }
-> -
-> -int xen_config_dev_console(int vdev)
-> -{
-> -    char fe[256], be[256];
-> -
-> -    xen_config_dev_dirs("console", "console", vdev, fe, be, sizeof(fe));
-> -    return xen_config_dev_all(fe, be);
-> -}
-> diff --git a/include/hw/xen/xen-legacy-backend.h b/include/hw/xen/xen-legacy-backend.h
-> index 943732b8d1..e198b120c5 100644
-> --- a/include/hw/xen/xen-legacy-backend.h
-> +++ b/include/hw/xen/xen-legacy-backend.h
-> @@ -50,10 +50,6 @@ void *xen_be_map_grant_refs(struct XenLegacyDevice *xendev, uint32_t *refs,
->   void xen_be_unmap_grant_refs(struct XenLegacyDevice *xendev, void *ptr,
->                                uint32_t *refs, unsigned int nr_refs);
->   
-> -int xen_be_copy_grant_refs(struct XenLegacyDevice *xendev,
-> -                           bool to_domain, XenGrantCopySegment segs[],
-> -                           unsigned int nr_segs);
-> -
->   static inline void *xen_be_map_grant_ref(struct XenLegacyDevice *xendev,
->                                            uint32_t ref, int prot)
->   {
-> @@ -70,6 +66,5 @@ static inline void xen_be_unmap_grant_ref(struct XenLegacyDevice *xendev,
->   void xen_config_cleanup(void);
->   int xen_config_dev_vfb(int vdev, const char *type);
->   int xen_config_dev_vkbd(int vdev);
-> -int xen_config_dev_console(int vdev);
->   
->   #endif /* HW_XEN_LEGACY_BACKEND_H */
+On Tue, 2024-10-01 at 17:41 +0200, Jan Beulich wrote:
+> On 30.09.2024 17:08, Oleksii Kurochko wrote:
+> > --- a/xen/arch/riscv/include/asm/mm.h
+> > +++ b/xen/arch/riscv/include/asm/mm.h
+> > @@ -28,7 +28,20 @@ static inline void *maddr_to_virt(paddr_t ma)
+> > =C2=A0=C2=A0=C2=A0=C2=A0 return NULL;
+> > =C2=A0}
+> > =C2=A0
+> > -#define virt_to_maddr(va) ({ BUG_ON("unimplemented"); 0; })
+> > +static inline unsigned long virt_to_maddr(unsigned long va)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 ASSERT(va >=3D (DIRECTMAP_VIRT_START + DIRECTMAP_SI=
+ZE));
+> > +=C2=A0=C2=A0=C2=A0 if ((va >=3D DIRECTMAP_VIRT_START) &&
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (va < (DIRECTMAP_VIRT_START=
+ + DIRECTMAP_SIZE)))
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return directmapoff_to_madd=
+r(va - DIRECTMAP_VIRT_START);
+>=20
+> While the cover letter states a dependency on another series, I'm
+> unable
+> to spot directmapoff_to_maddr() in the tree or in that other series.
+The definition of directmap_off_to_maddr() is in xen/pdx.h:
 
-Reviewed-by: Thomas Huth <thuth@redhat.com>
+#ifdef CONFIG_PDX_COMPRESSION
+...
+/**
+ * Computes a machine address given a direct map offset
+ *
+ * @param offset Offset into the direct map
+ * @return Corresponding machine address of that virtual location
+ */
+static inline paddr_t directmapoff_to_maddr(unsigned long offset)
+{
+    return ((((paddr_t)offset << pfn_pdx_hole_shift) & ma_top_mask) |
+            (offset & ma_va_bottom_mask));
+}
+...
+#else /* !CONFIG_PDX_COMPRESSION */
+...
+/* directmap is indexed by by maddr */
+#define maddr_to_directmapoff(x) (x)
+#define directmapoff_to_maddr(x) (x)
+...
+#endif
 
+>=20
+> > +=C2=A0=C2=A0=C2=A0 BUILD_BUG_ON(XEN_VIRT_SIZE !=3D MB(2));
+> > +=C2=A0=C2=A0=C2=A0 ASSERT(((long)va >> (PAGETABLE_ORDER + PAGE_SHIFT))=
+ =3D=3D
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((long)XE=
+N_VIRT_START >> (PAGETABLE_ORDER +
+> > PAGE_SHIFT)));
+>=20
+> What's the point of the casts here? va is unsigned long and
+> XEN_VIRT_START
+> is a literal number (which probably ought to have a UL suffix).
+I thought that it could be the same as for x86 that:
+ /* Signed, so ((long)XEN_VIRT_START >> 30) fits in an imm32. */
+But checking the generated code for RISC-V casts could be dropped
+as the generated code is the same.
+
+Regarding UL, I will update to _AC(XEN_VIRT_START, UL).
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0 return phys_offset + va;
+>=20
+> Don't you need to subtract XEN_VIRT_START here?
+It shouldn't as XEN_VIRT_START is taken into account during phys_offset
+calculation ( as you mentioned in the reply ).
+
+Regarding the name of phys_offset variable, could it be better to
+rename it to load_offset?
+
+As an option I can just add the comment above return:
+ /* phys_offset =3D load_start - XEN_VIRT_START */
+
+~ Oleksii
 
