@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D55B98E547
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 23:33:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809050.1221178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAB1B98E602
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 00:17:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809057.1221189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw6yO-0005W2-5K; Wed, 02 Oct 2024 21:33:28 +0000
+	id 1sw7eB-0003EW-6f; Wed, 02 Oct 2024 22:16:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809050.1221178; Wed, 02 Oct 2024 21:33:28 +0000
+Received: by outflank-mailman (output) from mailman id 809057.1221189; Wed, 02 Oct 2024 22:16:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw6yO-0005Ua-2c; Wed, 02 Oct 2024 21:33:28 +0000
-Received: by outflank-mailman (input) for mailman id 809050;
- Wed, 02 Oct 2024 21:33:27 +0000
+	id 1sw7eB-0003Br-3m; Wed, 02 Oct 2024 22:16:39 +0000
+Received: by outflank-mailman (input) for mailman id 809057;
+ Wed, 02 Oct 2024 22:16:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VgkK=Q6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sw6yN-0005UU-AV
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 21:33:27 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ <SRS0=x6XJ=Q6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1sw7eA-0003Bk-2h
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 22:16:38 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4840f9b-8105-11ef-99a2-01e77a169b0f;
- Wed, 02 Oct 2024 23:33:25 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a8d3cde1103so21919866b.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 14:33:25 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c297dda9sm917351666b.166.2024.10.02.14.33.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Oct 2024 14:33:23 -0700 (PDT)
+ id faa77c48-810b-11ef-99a2-01e77a169b0f;
+ Thu, 03 Oct 2024 00:16:33 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3A93A5C0F73;
+ Wed,  2 Oct 2024 22:16:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69FB9C4CEC2;
+ Wed,  2 Oct 2024 22:16:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,154 +41,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4840f9b-8105-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727904804; x=1728509604; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fcusw84TCVSrenkHmdU4KckVgKTNxVRFd99wzfkSrqo=;
-        b=ubkfjeG5XL4pxviRvdiTh8Jhs8E1Bsjio5CfF3WhWIIWuVjqWA/a4ZEYO0PbesaomX
-         PS8LkjVwadqaYcVvUCz83GZiKI2gBzBGxkpgPkugx3C+HAML62+XlLotMNxPPuSs3NG4
-         R5JefWXM6VHtEWsAUwJVH9UeUcXLEUn3KjADg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727904804; x=1728509604;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fcusw84TCVSrenkHmdU4KckVgKTNxVRFd99wzfkSrqo=;
-        b=vV2g0i4IcoKTE09w7piHxNpm0EJrdOeuzqcxKXOb5JzDg9SpTnGTF79jWgiwNkyJl3
-         GkBc1Noyd69hI2dlQsbg8mQBhlqeGF+mD8E7Dz7rvGCGRS54CQ+0loB7w48981MBDuyn
-         YW27SaS3nooMO8Qo/w+yCfkBvteC4BO7qEPaamQuG0AAKJWapGQzIyT/7cijsYg5kcKS
-         NY3hbtmSRgcioBUgs4xdiCAocYHEUzE4I3eS8M7Z6xttYCuZxrkUNna6WRgk02eX5epE
-         NII2VA4JccR6mzyfg8nUIBFsQjNFxRmHrA9RneiVC+B2g3+26N8IiPoJCJ2jzEUter+x
-         e+Pg==
-X-Forwarded-Encrypted: i=1; AJvYcCWoGViiZNI9ZvCCfgrjNd6uvXGf1CC1k77VaVJWZMIVp0nrQKPyGNtsrFq5sD8kuhrX6WP31IGwFuY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzPj+c/dRLP3uTs8ByKqkcIhe0pRi+Ia0z6UzyA6/Czm5jGe+nG
-	rvYX57ec8+1/QYT6X6cXAT/cw6MZRD84xdkOup675otKIGArOfx0xqhCi7pzpicCTVlGqtt4LdR
-	u4tH2YQ==
-X-Google-Smtp-Source: AGHT+IFnEc5XzfN+F5fren4HMmmPZMwKS907FvwMSaK07l6ILYuGG1GfScWDDiZ3b2bELnQhkdOEag==
-X-Received: by 2002:a17:907:7ea2:b0:a86:c372:14c3 with SMTP id a640c23a62f3a-a98f8363884mr448185666b.48.1727904804387;
-        Wed, 02 Oct 2024 14:33:24 -0700 (PDT)
-Message-ID: <34074457-8730-435f-a6b6-3f43fee6620e@citrix.com>
-Date: Wed, 2 Oct 2024 22:33:23 +0100
+X-Inumbo-ID: faa77c48-810b-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1727907391;
+	bh=1oDAxY34+y+Hw4tZ44s5sG8yvhoKexghuodeJjA+qUc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=tGpdb+ow8fILnnqovgRKF4ioIP6ch7HLMHm8pC5DxKjUryYF1qXa9c5u0j49xnwkX
+	 NzsODOFzncnl3R62HSqi9a4WG0K3y2qFZjHDgvcwUMuQK/FHpWj6xUthOT1fBRsCor
+	 grVu9ipVnhiPP6lOnt5+D51WFNwVszOR8Kan3Dg5NYiKQzKekP7EP3n+N8/MzLzQR4
+	 VT64wmmXp5PglDwPXA/kCRa1igvnF/h8AK+aaAxciJN7x9Yys3FKugZcNFrSW6GoW0
+	 DtREtm9x74LOnhH/lLBdT5stilrJ+UvhHkn//CjDHUMeWe/T/yCoNaqdzRn5bWiG80
+	 eUwvLb4BDRIHA==
+Date: Wed, 2 Oct 2024 15:16:22 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 2/2] automation: add a smoke test for xen.efi on X86
+In-Reply-To: <20241002124245.716302-2-marmarek@invisiblethingslab.com>
+Message-ID: <alpine.DEB.2.22.394.2410021516180.1138574@ubuntu-linux-20-04-desktop>
+References: <20241002124245.716302-1-marmarek@invisiblethingslab.com> <20241002124245.716302-2-marmarek@invisiblethingslab.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC-for-4.20 v2 1/1] x86/hvm: Introduce Xen-wide ASID allocator
-To: Jan Beulich <jbeulich@suse.com>,
- Vaishali Thakkar <vaishali.thakkar@vates.tech>
-Cc: roger.pau@citrix.com, xen-devel@lists.xenproject.org
-References: <cover.1723574652.git.vaishali.thakkar@vates.tech>
- <8512ff4c4d78fcd59e6f3185d8a5abd9ef3168b8.1723574652.git.vaishali.thakkar@vates.tech>
- <c618d4ac-0735-44ac-9f37-f3146039d0d7@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <c618d4ac-0735-44ac-9f37-f3146039d0d7@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; BOUNDARY="8323329-274103806-1727906580=:1138574"
+Content-ID: <alpine.DEB.2.22.394.2410021505330.1138574@ubuntu-linux-20-04-desktop>
 
-On 02/10/2024 12:02 pm, Jan Beulich wrote:
-> On 13.08.2024 21:01, Vaishali Thakkar wrote:
->> +static DEFINE_SPINLOCK(hvm_asid_lock);
->> +
->>  /*
->> - * ASIDs partition the physical TLB.  In the current implementation ASIDs are
->> - * introduced to reduce the number of TLB flushes.  Each time the guest's
->> - * virtual address space changes (e.g. due to an INVLPG, MOV-TO-{CR3, CR4}
->> - * operation), instead of flushing the TLB, a new ASID is assigned.  This
->> - * reduces the number of TLB flushes to at most 1/#ASIDs.  The biggest
->> - * advantage is that hot parts of the hypervisor's code and data retain in
->> - * the TLB.
->> - *
->>   * Sketch of the Implementation:
->> - *
->> - * ASIDs are a CPU-local resource.  As preemption of ASIDs is not possible,
->> - * ASIDs are assigned in a round-robin scheme.  To minimize the overhead of
->> - * ASID invalidation, at the time of a TLB flush,  ASIDs are tagged with a
->> - * 64-bit generation.  Only on a generation overflow the code needs to
->> - * invalidate all ASID information stored at the VCPUs with are run on the
->> - * specific physical processor.  This overflow appears after about 2^80
->> - * host processor cycles, so we do not optimize this case, but simply disable
->> - * ASID useage to retain correctness.
->> + * ASIDs are assigned in a round-robin scheme per domain as part of
->> + * global allocator scheme and doesn't change during the lifecycle of
->> + * the domain. Once vcpus are initialized and are up, we assign the
->> + * same ASID to all vcpus of that domain at the first VMRUN. With the
->> + * new scheme, we don't need to assign the new ASID during MOV-TO-{CR3,
->> + * CR4}. In the case of INVLPG, we flush the TLB entries belonging to
->> + * the vcpu and do the reassignment of the ASID belonging to the given
->> + * domain.
-> Why reassignment? In the description you say that ASIDs no longer change while
-> a domain exists.
->
->>  Currently we do not do anything special for flushing guest
->> + * TLBs in flush_area_local as wbinvd() should able to handle this.
-> How's WBINVD coming into the picture here? Here we solely care about TLBs,
-> which WBINVD is solely about caches.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-I suspect there might be confusion based on the eventual linkage in
-encrypted VMs.
+--8323329-274103806-1727906580=:1138574
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2410021505331.1138574@ubuntu-linux-20-04-desktop>
 
-The ASID (== encryption key index) is stuffed in the upper physical
-address bits, and memory accesses are non-content between different
-encryption domains (they're genuinely different as far as physical
-address logic is concerned).
+On Wed, 2 Oct 2024, Marek Marczykowski-Górecki wrote:
+> Check if xen.efi is bootable with an XTF dom0.
+> 
+> The TEST_TIMEOUT is set in the script to override project-global value.
+> Setting it in the gitlab yaml file doesn't work, as it's too low
+> priority
+> (https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence).
+> 
+> The multiboot2+EFI path is tested on hardware tests already.
+> 
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> ---
+> This requires rebuilding debian:bookworm container.
+> 
+> The TEST_TIMEOUT issue mentioned above applies to xilix-* jobs too. It's
+> not clear to me why the default TEST_TIMEOUT is set at the group level
+> instead of in the yaml file, so I'm not adjusting the other places.
 
-Therefore in due course, Xen will need to issue WBINVD on all CPUs
-before the ASP will free up the ASID for reuse.
+Let me premise that now that we use "expect" all successful tests will
+terminate as soon as the success condition is met, without waiting for
+the test timeout to expire.
 
-But - this is a policy requirement for managing the VM lifecycle with
-the platform, rather than an actual linkage of TLB and caches.
+There is a CI/CD variable called TEST_TIMEOUT set at the
+gitlab.com/xen-project level. (There is also a check in console.exp in
+case TEST_TIMEOUT is not set so that we don't run into problems in case
+the CI/CD variable is removed accidentally.) The global TEST_TIMEOUT is
+meant to be a high value to account for slow QEMU tests running
+potentially on our slowest cloud runners.
 
-Otherwise a malicious Xen could create a new encrypted VM using the
-ASID, and the old VM's key (there's a protocol for using the same key
-"opaquely" to Xen for NVDIMM reasons), and read any not-yet-evicted
-cachelines in the clear (because both the ASID and the loaded key are
-the same).
+However, for hardware-based tests such as the xilinx-* jobs, we know
+that the timeout is supposed to be less than that. The test is running
+on real hardware which is considerably faster than QEMU running on our
+slowest runners. Basically, the timeout depends on the runner more than
+the test. So we override the TEST_TIMEOUT variable for the xilinx-* jobs
+providing a lower timeout value.
 
-~Andrew
+The global TEST_TIMEOUT is set to 1500.
+The xilinx-* timeout is set to 120 for ARM and 1000 for x86.
+
+You are welcome to override the TEST_TIMEOUT value for the
+hardware-based QubesOS tests. At the same time, given that on success
+the timeout is not really used, it is also OK to leave it like this.
+
+
+> ---
+>  automation/build/debian/bookworm.dockerfile |  1 +
+>  automation/gitlab-ci/test.yaml              |  7 ++++
+>  automation/scripts/qemu-smoke-x86-64-efi.sh | 44 +++++++++++++++++++++
+>  3 files changed, 52 insertions(+)
+>  create mode 100755 automation/scripts/qemu-smoke-x86-64-efi.sh
+> 
+> diff --git a/automation/build/debian/bookworm.dockerfile b/automation/build/debian/bookworm.dockerfile
+> index 3dd70cb6b2e3..061114ba522d 100644
+> --- a/automation/build/debian/bookworm.dockerfile
+> +++ b/automation/build/debian/bookworm.dockerfile
+> @@ -46,6 +46,7 @@ RUN apt-get update && \
+>          # for test phase, qemu-smoke-* jobs
+>          qemu-system-x86 \
+>          expect \
+> +        ovmf \
+>          # for test phase, qemu-alpine-* jobs
+>          cpio \
+>          busybox-static \
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 8675016b6a37..74fd3f3109ae 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -463,6 +463,13 @@ qemu-smoke-x86-64-clang-pvh:
+>    needs:
+>      - debian-bookworm-clang-debug
+>  
+> +qemu-smoke-x86-64-gcc-efi:
+> +  extends: .qemu-x86-64
+> +  script:
+> +    - ./automation/scripts/qemu-smoke-x86-64-efi.sh pv 2>&1 | tee ${LOGFILE}
+> +  needs:
+> +    - debian-bookworm-gcc-debug
+
+Given that the script you wrote (thank you!) can also handle pvh, can we
+directly add a pvh job to test.yaml too?
+
+
+>  qemu-smoke-riscv64-gcc:
+>    extends: .qemu-riscv64
+>    script:
+> diff --git a/automation/scripts/qemu-smoke-x86-64-efi.sh b/automation/scripts/qemu-smoke-x86-64-efi.sh
+> new file mode 100755
+> index 000000000000..e053cfa995ba
+> --- /dev/null
+> +++ b/automation/scripts/qemu-smoke-x86-64-efi.sh
+> @@ -0,0 +1,44 @@
+> +#!/bin/bash
+> +
+> +set -ex -o pipefail
+> +
+> +# variant should be either pv or pvh
+> +variant=$1
+> +
+> +# Clone and build XTF
+> +git clone https://xenbits.xen.org/git-http/xtf.git
+> +cd xtf && make -j$(nproc) && cd -
+> +
+> +case $variant in
+> +    pvh) k=test-hvm64-example    extra="dom0-iommu=none dom0=pvh" ;;
+> +    *)   k=test-pv64-example     extra= ;;
+> +esac
+> +
+> +mkdir -p boot-esp/EFI/BOOT
+> +cp binaries/xen.efi boot-esp/EFI/BOOT/BOOTX64.EFI
+> +cp xtf/tests/example/$k boot-esp/EFI/BOOT/kernel
+> +
+> +cat > boot-esp/EFI/BOOT/BOOTX64.cfg <<EOF
+> +[global]
+> +default=test
+> +
+> +[test]
+> +options=loglvl=all console=com1 noreboot console_timestamps=boot $extra
+> +kernel=kernel
+> +EOF
+> +
+> +cp /usr/share/OVMF/OVMF_CODE.fd OVMF_CODE.fd
+> +cp /usr/share/OVMF/OVMF_VARS.fd OVMF_VARS.fd
+> +
+> +rm -f smoke.serial
+> +export TEST_CMD="qemu-system-x86_64 -nographic -M q35,kernel-irqchip=split \
+> +        -drive if=pflash,format=raw,readonly=on,file=OVMF_CODE.fd \
+> +        -drive if=pflash,format=raw,file=OVMF_VARS.fd \
+> +        -drive file=fat:rw:boot-esp,media=disk,index=0,format=raw \
+> +        -m 512 -monitor none -serial stdio"
+> +
+> +export TEST_LOG="smoke.serial"
+> +export PASSED="Test result: SUCCESS"
+> +export TEST_TIMEOUT=120
+> +
+> +./automation/scripts/console.exp | sed 's/\r\+$//'
+> -- 
+> 2.46.0
+> 
+--8323329-274103806-1727906580=:1138574--
 
