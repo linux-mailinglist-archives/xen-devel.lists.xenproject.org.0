@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69A7498D387
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 14:43:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808770.1220786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4067898D405
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 15:09:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808786.1220797 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svyhZ-0000U5-Qy; Wed, 02 Oct 2024 12:43:33 +0000
+	id 1svz5Y-0004bs-MH; Wed, 02 Oct 2024 13:08:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808770.1220786; Wed, 02 Oct 2024 12:43:33 +0000
+Received: by outflank-mailman (output) from mailman id 808786.1220797; Wed, 02 Oct 2024 13:08:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svyhZ-0000Rs-OK; Wed, 02 Oct 2024 12:43:33 +0000
-Received: by outflank-mailman (input) for mailman id 808770;
- Wed, 02 Oct 2024 12:43:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1svz5Y-0004aB-IU; Wed, 02 Oct 2024 13:08:20 +0000
+Received: by outflank-mailman (input) for mailman id 808786;
+ Wed, 02 Oct 2024 13:08:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3lMz=Q6=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1svyhY-0007os-Os
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 12:43:32 +0000
-Received: from fhigh-a8-smtp.messagingengine.com
- (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ed9a28da-80bb-11ef-99a2-01e77a169b0f;
- Wed, 02 Oct 2024 14:43:31 +0200 (CEST)
-Received: from phl-compute-12.internal (phl-compute-12.phl.internal
- [10.202.2.52])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 5E2DF114011C;
- Wed,  2 Oct 2024 08:43:30 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-12.internal (MEProxy); Wed, 02 Oct 2024 08:43:30 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Oct 2024 08:43:29 -0400 (EDT)
+ <SRS0=VgkK=Q6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1svz5X-0004a5-G7
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 13:08:19 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 63ecb6cf-80bf-11ef-a0ba-8be0dac302b0;
+ Wed, 02 Oct 2024 15:08:17 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-53959a88668so6371709e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 06:08:17 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c88570261bsm6934734a12.89.2024.10.02.06.08.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Oct 2024 06:08:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,221 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed9a28da-80bb-11ef-99a2-01e77a169b0f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1727873010;
-	 x=1727959410; bh=7/0UCJCwm6rA/xWNes7/Pozgf1OPFzbyYIgmccNS0Po=; b=
-	I7trwh/DcATFYaHTbFxvB+D96Rftfw0iREnhTIHVv/+dGSQVODnNYanzA6xOygB1
-	KYYlRLhGVKeBK6HMzCiNQ17vJCr/734FRAeHG90+YvNI7ogPgYF52DWe5SksQsZe
-	1ZOS3IbcqUxruCwOmWm5wgThLE0DS8jgl6HqTKpHolR2060lVKNJQoxzNQI8YO/t
-	PtopcYBcw1NI4t2Ftx0qi95inyCeRwZpRgV52Gplx3EZtXx00zlKA94JeGqEd3Xj
-	VPRtugbSdZBGcXR8+Z2sCuakGIGUVCyTgOhCo9BR/MsHuJYbLghp2R9pqrHJw67p
-	EFQXAzaz7Oter+IRK+SqxA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1727873010; x=1727959410; bh=7/0UCJCwm6rA/xWNes7/Pozgf1OP
-	FzbyYIgmccNS0Po=; b=asCV7gU4rnJexzSLVgFVszDPfc3r5QSHTsIQjGxHqis6
-	YLeJpJcUckiKf2eCcycIXde0vRxbKfYU0ogf7c16hBocwGX2ZyLSidKgY1NXUsnB
-	UzOkvSUDSb/aoZyh2ASzXkYJLR1I//2eAfWEU5eO/Gu69dOli5LBxwt3NqKvVxwR
-	l24J9UitJp867LG3HLs0xglvjaI9w+Np9KwzGZmWU5uXnTWalVmeLVo2yE27khTZ
-	p8X5AMX+k3HftYtZu+0ZY0FLSXf6GJX5cAywtRsh8rQxt5tTIOkYmD2m/Tt76VGm
-	ZS2CCsbFjAyw/Qa2YJvPBb9YbhSBU2qtGvppu6a9WQ==
-X-ME-Sender: <xms:8j_9ZjipaOhoTtqjoRh6peq2IC-MsZ3Q2FFrc8h7fz8EDM78FQ1Tig>
-    <xme:8j_9ZgB5LtS3zsm5s9bLrYudazaeWYeTA_CI3Kv5BsjebN0SyKQm9aDtgQpCptffR
-    sHJ_2ytarYGrg>
-X-ME-Received: <xmr:8j_9ZjHd35vNUcgIqIKM1pHriALZmIxOv7M4INeUTgdu3wUrId6cItxRwvPdVpP_HnQqHNnUEbtJ8ySATtQbz6K_XMXoEFfpDw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdduledghedvucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
-    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
-    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
-    rfgrthhtvghrnhepuddtudeuffeggeejudeftedvueehudekueelleekgffgjeegveehhf
-    evfeejheelnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhdpgigvnhdrohhrghenucev
-    lhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrh
-    gvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthho
-    peefpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlih
-    hsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegtrghrughovgestggr
-    rhguohgvrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrd
-    horhhg
-X-ME-Proxy: <xmx:8j_9ZgSgGivOrdzYYnAtogLaM-OI1J66AZdBnbMjx1k-Yvk8T--C8Q>
-    <xmx:8j_9Zgx-DX4_DYz69uGVhBrOYAlEMDdjOFe0ERlWCUbp1yQbgYaaWw>
-    <xmx:8j_9Zm4P9OZfqq02dXj8OGpq-ei1WbJyQh97SYeU9muWaQWwjZdeHQ>
-    <xmx:8j_9Zlz3zKtpIjy0kzkOvzehL_UDV8CwESHpGj59s1dQAFBvI4h23A>
-    <xmx:8j_9Zr_AjQlQnh--11q7kIO0sYs9XZNWouPmSMqngvpxd3BDInsDebkF>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 2 Oct 2024 14:43:27 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] automation: add a smoke test for xen.efi on X86
-Message-ID: <Zv0_7636eK87pQqd@mail-itl>
-References: <20241002124159.716270-1-marmarek@invisiblethingslab.com>
+X-Inumbo-ID: 63ecb6cf-80bf-11ef-a0ba-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1727874497; x=1728479297; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ij3bX1ryoi5r5bo3NWs8NNPzHhMdxDOp9tqLc+uQiME=;
+        b=VF8GTQGDHnWGP30i+32+0CV+Rv1m2oYmXJO6oifPwqoDER2WAftI0W+31g43YnVo23
+         9C8OpZpoVsDGA+neSGbPmXO2kBf3lyrfFhaTQkuQ1gDMqRwV6tj+rcszQblsosgoCLgt
+         BXbRGeDRtAV7FUfccd9UnBTKF/l5Nk2UP+dJs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727874497; x=1728479297;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ij3bX1ryoi5r5bo3NWs8NNPzHhMdxDOp9tqLc+uQiME=;
+        b=xS3Vwyn9GKkNsEBy4EAfnn8/Gkj6LphmpTydhe2iEddK+yCf1pNurVeuPUnaZ1kAoI
+         dBoV6xVp9m3Ubaoq6Y2GaGJ/CUb8pTfYvR/KcF2BqsnmGrVMvkiO+tUwiUa+jyVfeMIm
+         twYW3lK9d+JgHcXW5G6g2y6dq2TrXU8976KSdgXFF48KdezQGPjcdU+fmij4exeYbANZ
+         ylQWxgr+jU6RsxdMPkmAYh/gcV8iHS9fdXp4siJP3n+H4rIlLOl+J6pOKBtF/nrSngOV
+         PZZcIbB9AqDeBdOkgaZtG88XJLHawnT3N7RUSdHUV5DUtnC89pbvKf7tHiPfs+JtrYdG
+         sHsQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVNtTSesiHYACUCv3ekuhg899LWS00pX9BB4k9Mz4UVS0VgkSgMQNkBoTG5X95OKcYmhmzy+BjtYoU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxLcJyAmB+BUh8seXeBGaQtL9pVSOvYHIYE54JuA3UZalRlT81z
+	Hl4pFJosG+BKQPRh1i3jeQNbUOyS9KnNoeJE5AspNg9AoemYhTdQo4LQ1znW+jw=
+X-Google-Smtp-Source: AGHT+IHTMhGMSjFqN+ZdRPD1aUJICMRam0JsvzbB/sLN0DfDWqzETOHhgQ2U9U92xGtTsuxEdxtYHg==
+X-Received: by 2002:a2e:4619:0:b0:2fa:c014:4b6b with SMTP id 38308e7fff4ca-2fae10a90c5mr13897491fa.41.1727874496867;
+        Wed, 02 Oct 2024 06:08:16 -0700 (PDT)
+Message-ID: <de6809f6-de70-457d-a430-774d6b2b94b6@citrix.com>
+Date: Wed, 2 Oct 2024 14:08:13 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="gydAsc5+2+Zddl6P"
-Content-Disposition: inline
-In-Reply-To: <20241002124159.716270-1-marmarek@invisiblethingslab.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/kexec: Separate code and data by at least 1 cacheline
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241002103052.1797237-1-andrew.cooper3@citrix.com>
+ <b917b21a-6d2b-46b2-a30d-7bab5ebff631@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <b917b21a-6d2b-46b2-a30d-7bab5ebff631@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 02/10/2024 1:08 pm, Jan Beulich wrote:
+> On 02.10.2024 12:30, Andrew Cooper wrote:
+>> No functional change, but it performs a bit better.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---gydAsc5+2+Zddl6P
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 2 Oct 2024 14:43:27 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] automation: add a smoke test for xen.efi on X86
+Thanks.
 
-On Wed, Oct 02, 2024 at 02:41:55PM +0200, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> Check if xen.efi is bootable with an XTF dom0.
->=20
-> The TEST_TIMEOUT is set in the script to override project-global value.
-> Setting it in the gitlab yaml file doesn't work, as it's too low
-> priority
-> (https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence).
->=20
-> The multiboot2+EFI path is tested on hardware tests already.
->=20
-> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
-ab.com>
+>
+> A question nevertheless:
+>
+>> --- a/xen/arch/x86/x86_64/kexec_reloc.S
+>> +++ b/xen/arch/x86/x86_64/kexec_reloc.S
+>> @@ -19,6 +19,7 @@
+>>  #include <xen/kimage.h>
+>>  
+>>  #include <asm/asm_defns.h>
+>> +#include <asm/cache.h>
+>>  #include <asm/msr-index.h>
+>>  #include <asm/page.h>
+>>  #include <asm/machine_kexec.h>
+>> @@ -174,6 +175,9 @@ FUNC_LOCAL(compatibility_mode)
+>>          ud2
+>>  END(compatibility_mode)
+>>  
+>> +        /* Separate code and data into into different cache lines */
+>> +        .balign L1_CACHE_BYTES
+>> +
+>>  DATA_LOCAL(compat_mode_gdt_desc, 4)
+>>          .word .Lcompat_mode_gdt_end - compat_mode_gdt -1
+>>          .quad 0x0000000000000000     /* set in call_32_bit above */
+> Because of L1_CACHE_BYTES being 128, you indeed put at least 1 cache line in
+> between. Is that necessary, though? Just starting data on the next cache line
+> ought to be enough?
 
-Sorry, forgot a prerequisite patch - resent now as 2 patch series.
+Correct.  Specifically, we want the write into compat_mode_gdt_desc not
+hitting a line in L1i.
 
-> ---
-> This requires rebuilding debian:bookworm container.
->=20
-> The TEST_TIMEOUT issue mentioned above applies to xilix-* jobs too. It's
-> not clear to me why the default TEST_TIMEOUT is set at the group level
-> instead of in the yaml file, so I'm not adjusting the other places.
-> ---
->  automation/build/debian/bookworm.dockerfile |  1 +
->  automation/gitlab-ci/test.yaml              |  7 ++++
->  automation/scripts/qemu-smoke-x86-64-efi.sh | 44 +++++++++++++++++++++
->  3 files changed, 52 insertions(+)
->  create mode 100755 automation/scripts/qemu-smoke-x86-64-efi.sh
->=20
-> diff --git a/automation/build/debian/bookworm.dockerfile b/automation/bui=
-ld/debian/bookworm.dockerfile
-> index 3dd70cb6b2e3..061114ba522d 100644
-> --- a/automation/build/debian/bookworm.dockerfile
-> +++ b/automation/build/debian/bookworm.dockerfile
-> @@ -46,6 +46,7 @@ RUN apt-get update && \
->          # for test phase, qemu-smoke-* jobs
->          qemu-system-x86 \
->          expect \
-> +        ovmf \
->          # for test phase, qemu-alpine-* jobs
->          cpio \
->          busybox-static \
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.y=
-aml
-> index 8675016b6a37..74fd3f3109ae 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -463,6 +463,13 @@ qemu-smoke-x86-64-clang-pvh:
->    needs:
->      - debian-bookworm-clang-debug
-> =20
-> +qemu-smoke-x86-64-gcc-efi:
-> +  extends: .qemu-x86-64
-> +  script:
-> +    - ./automation/scripts/qemu-smoke-x86-64-efi.sh pv 2>&1 | tee ${LOGF=
-ILE}
-> +  needs:
-> +    - debian-bookworm-gcc-debug
-> +
->  qemu-smoke-riscv64-gcc:
->    extends: .qemu-riscv64
->    script:
-> diff --git a/automation/scripts/qemu-smoke-x86-64-efi.sh b/automation/scr=
-ipts/qemu-smoke-x86-64-efi.sh
-> new file mode 100755
-> index 000000000000..e053cfa995ba
-> --- /dev/null
-> +++ b/automation/scripts/qemu-smoke-x86-64-efi.sh
-> @@ -0,0 +1,44 @@
-> +#!/bin/bash
-> +
-> +set -ex -o pipefail
-> +
-> +# variant should be either pv or pvh
-> +variant=3D$1
-> +
-> +# Clone and build XTF
-> +git clone https://xenbits.xen.org/git-http/xtf.git
-> +cd xtf && make -j$(nproc) && cd -
-> +
-> +case $variant in
-> +    pvh) k=3Dtest-hvm64-example    extra=3D"dom0-iommu=3Dnone dom0=3Dpvh=
-" ;;
-> +    *)   k=3Dtest-pv64-example     extra=3D ;;
-> +esac
-> +
-> +mkdir -p boot-esp/EFI/BOOT
-> +cp binaries/xen.efi boot-esp/EFI/BOOT/BOOTX64.EFI
-> +cp xtf/tests/example/$k boot-esp/EFI/BOOT/kernel
-> +
-> +cat > boot-esp/EFI/BOOT/BOOTX64.cfg <<EOF
-> +[global]
-> +default=3Dtest
-> +
-> +[test]
-> +options=3Dloglvl=3Dall console=3Dcom1 noreboot console_timestamps=3Dboot=
- $extra
-> +kernel=3Dkernel
-> +EOF
-> +
-> +cp /usr/share/OVMF/OVMF_CODE.fd OVMF_CODE.fd
-> +cp /usr/share/OVMF/OVMF_VARS.fd OVMF_VARS.fd
-> +
-> +rm -f smoke.serial
-> +export TEST_CMD=3D"qemu-system-x86_64 -nographic -M q35,kernel-irqchip=
-=3Dsplit \
-> +        -drive if=3Dpflash,format=3Draw,readonly=3Don,file=3DOVMF_CODE.f=
-d \
-> +        -drive if=3Dpflash,format=3Draw,file=3DOVMF_VARS.fd \
-> +        -drive file=3Dfat:rw:boot-esp,media=3Ddisk,index=3D0,format=3Dra=
-w \
-> +        -m 512 -monitor none -serial stdio"
-> +
-> +export TEST_LOG=3D"smoke.serial"
-> +export PASSED=3D"Test result: SUCCESS"
-> +export TEST_TIMEOUT=3D120
-> +
-> +./automation/scripts/console.exp | sed 's/\r\+$//'
-> --=20
-> 2.46.0
->=20
+> IOW if and when we adjust L1_CACHE_BYTES, we won't need
+> to touch this again, just that the title here then would end up slightly
+> misleading.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Oh - I'll just copy the comment and say "different".  That is slightly
+poor grammar.
 
---gydAsc5+2+Zddl6P
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmb9P+8ACgkQ24/THMrX
-1ywMOAf/QfekrM0rpsAUDKZONFDBNhhI11Zs1LDCgAwOPCq2QdWU7Q5QPv6nawl2
-NnIgdvfpq9fRV4ogCh/KpO6bpsij1Uxls+bi8grPi63X6Uv2fZ3+2PfYvZaYqSED
-AdeqsS2owrCTbazSinimAMvVEn85ev6TrTtwk9TJMk2ADVkoFgCfyX0nE5uVaBzg
-BiFTpNubhEGoKr4OGX+jsdOUP5zX7sbplGBy3F6R4ZJ6nKqIyTAnZB/62lZOhKT4
-m3LedikJpSLQJCpj2Lz2XCVxNJyP9qIQ885mWu1NMrDxpb/NgFFZO/+D63DgDmHh
-UW31TSQaL+ly+IzUN1nRE/a3KZ8ETw==
-=hhu+
------END PGP SIGNATURE-----
-
---gydAsc5+2+Zddl6P--
+~Andrew
 
