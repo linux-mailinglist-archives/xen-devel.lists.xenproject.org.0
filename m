@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29CB998CCF0
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 08:09:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808591.1220520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35D9098CD5A
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 08:49:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808602.1220529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svsY4-0002TB-9f; Wed, 02 Oct 2024 06:09:20 +0000
+	id 1svtAK-00081z-4z; Wed, 02 Oct 2024 06:48:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808591.1220520; Wed, 02 Oct 2024 06:09:20 +0000
+Received: by outflank-mailman (output) from mailman id 808602.1220529; Wed, 02 Oct 2024 06:48:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svsY4-0002Qi-5y; Wed, 02 Oct 2024 06:09:20 +0000
-Received: by outflank-mailman (input) for mailman id 808591;
- Wed, 02 Oct 2024 06:09:19 +0000
+	id 1svtAK-00081Q-1n; Wed, 02 Oct 2024 06:48:52 +0000
+Received: by outflank-mailman (input) for mailman id 808602;
+ Wed, 02 Oct 2024 06:48:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RwxN=Q6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svsY3-0002Qc-F9
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 06:09:19 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ id 1svtAI-00080W-KE
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 06:48:50 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id db01ddf9-8084-11ef-99a2-01e77a169b0f;
- Wed, 02 Oct 2024 08:09:17 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a8d29b7edc2so865895566b.1
- for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 23:09:17 -0700 (PDT)
+ id 5f8b369e-808a-11ef-99a2-01e77a169b0f;
+ Wed, 02 Oct 2024 08:48:47 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a8d6d0fe021so1082333966b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2024 23:48:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c297bd26sm811081966b.164.2024.10.01.23.09.15
+ a640c23a62f3a-a93c27d42e3sm819235466b.82.2024.10.01.23.48.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Oct 2024 23:09:16 -0700 (PDT)
+ Tue, 01 Oct 2024 23:48:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db01ddf9-8084-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 5f8b369e-808a-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727849356; x=1728454156; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727851726; x=1728456526; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rsuvjbu+aIj57I/2FWpYkZdGJ/PRVI4xWWPfN4cBu/o=;
-        b=GWSqLPhWhOQN4Rc3ElNUEYhdsfWDRSUakA001WM5nfhV00xqReRGnuBtu80HsccZBx
-         +NbPxNL5Kl0DZsjW+olQSFZTZ9S/qZxqNlfXaBe8HkHrApe93CxD9ZMO9tOoMGFlOJeK
-         VNK0IhHkPNEK/pvFweJ3JuODT3iU0JAHawcrC2R81e5KmDGuTAns1ebK2BCIuyuHgBBK
-         xcEJ/hTDBXFnlnxD5O/v4ZZCNlKe2+fflG1Uwaabg2PvIfxRBM9h2Y2sz0lYqfnEi82m
-         uNQMdYfDB8fG+elmLcolDKcwp1HGbmrdda4ScVjFt9jvgdoiVfzoaClM9No1bmL/AMWM
-         5RdA==
+        bh=FlWFXIjnCDKjAtOuPtExjYh4CMIMeQIKG+6CBXp26bU=;
+        b=aoVxyT/KJzmyyqccsgN/x6FLibRxblsn4GbF6yX996+Rx5+sD6qZk4Xt0dEQCrRP6+
+         luhInC3VIQxTCcIdLQ8WoGTfVhaT9xGjIbIbUUDAWhj6oA4RLmxbGsVOgWc7LFKh8mqU
+         Ezv2z8ZJp3DpJ56oi26SQ/BeDIzMBkpM3WDFEZghdSNnMhpjys/FU5xAYH/YFSmA2ngN
+         8NzvwR77J4OGMC1rwKwwC3Zt6xUJkCJY+Hv94M78Q+ogZcceyx1GI3J2Z7WCjhzOib9a
+         QrnMjNfkdSmFK2rSN7xg3MymfjqGzloH+gQfeGMSLLOLGJwinBBIWOewb3/ZOT9304YB
+         U8ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727849356; x=1728454156;
+        d=1e100.net; s=20230601; t=1727851726; x=1728456526;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rsuvjbu+aIj57I/2FWpYkZdGJ/PRVI4xWWPfN4cBu/o=;
-        b=ox+IFm/OKGCPFM9toQKUqtnbOaENkAKM1gizciBsAvMFR8KHTgvYBCWxnIC1fVTs6E
-         MZY57UpSjRp+1LAL/mgJQ25hTwSQnd1atDjsKEYeqvoOgDFA+5daeZvQ261mUUnSrmOY
-         hWoK2WJgCrdCbDBiJBd187C9vlG5wkg5E3sZKXgy+nYY6Tejv7ADnD45DYq8xZQH3Ez+
-         a5MH2eS5Fe7aQqdIoM2qkPVgpf9aJUe/kT+eyufE34sfzY6GEQu1eGl8Xh5zGlzaLwq4
-         rmtPHmggufL+eSc0O1mAyPKQfDs8iSNaUx9jED3v7V3ULji1jiVKwq3GE5zWcVSOHeP9
-         pcbg==
-X-Forwarded-Encrypted: i=1; AJvYcCXxoVS+2Ay24ti+3vFFfLFedHtnn5DvRCKo/UTeQgZai8GpwlrZZsN45p36pTSY3JDd/DricIZbuLY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwlQYSFaY8YrrNni3/xWsysQRxWKc2owDwPk+sseJXsKD+f/WhR
-	Z0VpPx72V9Ka+TSsRBFKltNv1o+ie0bxHOK38Sz/d76GBBLkpwgeA+PiBaTf8g==
-X-Google-Smtp-Source: AGHT+IEWKNLms4rDM0WVUmocWxzsq1EqA9RzC66Z+KfPBOwQLKvUL8d4xhzkR4M3csxMQOVWB+2+4g==
-X-Received: by 2002:a17:907:7fa7:b0:a90:b67e:7aa9 with SMTP id a640c23a62f3a-a98f838b0b8mr181209166b.55.1727849356472;
-        Tue, 01 Oct 2024 23:09:16 -0700 (PDT)
-Message-ID: <02833aad-d6f1-4ffa-8d4a-d8c31e9b0524@suse.com>
-Date: Wed, 2 Oct 2024 08:09:15 +0200
+        bh=FlWFXIjnCDKjAtOuPtExjYh4CMIMeQIKG+6CBXp26bU=;
+        b=xC5x5R87IMoz82B6H5l1aps+CH6oJMp5zW6AP/1WI5aTqRMCsLa3HXSzaf1mfPK3lk
+         N/CHcCINQeYZeFe4YWBR5xPyPirx+Fusd0qsuQCSwgpbBACkE12YxF+4n6ErtI/ttkOy
+         Rkl3my9LK8gcLmVnNpp7jZeVjwAw7m0QmcwFoKWn1edykuGWq1NIXJWSm2oMBaKlCqyh
+         CbbLUFGHIgfhxpbY87Ep7Ag5yp9jkMhf8ZH+IXZw9Xflocq3sx8PY76+bOpzBeI0GWEN
+         KABy7wl35D8qa0695ZGdqg0q1d2WUfnGy2r76TmAYxbVmP2ZkgXzTRxnw1rK+TvRYSOy
+         Soig==
+X-Forwarded-Encrypted: i=1; AJvYcCWpyI0HGd6c4C+ZdM47uifP4GNcLvAjNZll2svk0qqMDe8dekZZFYwjKOQBzm75toY7TCF+aPYAu5w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyBad7nOoCRpaIUqQWOC+kW14yEKZCQbz4sAQxTTCcL0ZYRLzTM
+	GucykMWOC4ymUni0u6+ubgvMSb9AMskQ4WZhNCb1Gu07fla0LQwUWAvOO0wJZw==
+X-Google-Smtp-Source: AGHT+IFQKLmxoMIFt47Wl37195TQtKmR2mLHZ5RYvOLeuZEF4WZ84B3li2hma6M+knOfyi7oEhJvlw==
+X-Received: by 2002:a17:907:9495:b0:a8a:9207:c4c1 with SMTP id a640c23a62f3a-a98f839e360mr169688366b.58.1727851725217;
+        Tue, 01 Oct 2024 23:48:45 -0700 (PDT)
+Message-ID: <a13f5f67-8ea7-44a5-ad44-7866786cdf50@suse.com>
+Date: Wed, 2 Oct 2024 08:48:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 1/3] EFI: address a violation of MISRA C Rule 13.6
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Roberto Bagnara <roberto.bagnara@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>, consulting@bugseng.com,
+Subject: Re: [PATCH v7 1/2] x86/boot: Rewrite EFI/MBI2 code partly in C
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1727690180.git.federico.serafini@bugseng.com>
- <c447f9faf0283bc6b83bbfbf05acd7acca00762d.1727690180.git.federico.serafini@bugseng.com>
- <b4fafd2c-d71a-4336-b009-07f3474f5a04@suse.com>
- <a8dfe133-6f9b-4a26-918b-d0531d6af918@bugseng.com>
- <8d5e4761-9fc2-4e18-a6c2-9df1822dbbea@suse.com>
- <alpine.DEB.2.22.394.2410011431360.451631@ubuntu-linux-20-04-desktop>
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20241001102239.2609631-1-frediano.ziglio@cloud.com>
+ <20241001102239.2609631-2-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,70 +115,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2410011431360.451631@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20241001102239.2609631-2-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01.10.2024 23:36, Stefano Stabellini wrote:
-> On Tue, 1 Oct 2024, Jan Beulich wrote:
->> On 01.10.2024 07:25, Roberto Bagnara wrote:
->>> On 2024-09-30 15:07, Jan Beulich wrote:
->>>> On 30.09.2024 14:49, Federico Serafini wrote:
->>>>> guest_handle_ok()'s expansion contains a sizeof() involving its
->>>>> first argument which is guest_handle_cast().
->>>>> The expansion of the latter, in turn, contains a variable
->>>>> initialization.
->>>>>
->>>>> Since MISRA considers the initialization (even of a local variable)
->>>>> a side effect, the chain of expansions mentioned above violates
->>>>> MISRA C:2012 Rule 13.6 (The operand of the `sizeof' operator shall not
->>>>> contain any expression which has potential side effect).
->>>>
->>>> I'm afraid I need to ask for clarification of terminology and alike here.
->>>> While the Misra doc has a section on Persistent Side Effects in its
->>>> Glossary appendix, what constitutes a side effect from its pov isn't
->>>> really spelled out anywhere. Which in turn raises the question whether it
->>>> is indeed Misra (and not just Eclair) which deems initialization a side
->>>> effect. This is even more so relevant as 13.6 talks of only expressions,
->>>> yet initializers fall under declarations (in turn involving an expression
->>>> on the rhs of the equal sign).
->>>>
->>>> All the same of course affects patch 2 then, too.
->>>
->>> MISRA C leaves the definition of "side effect" to the C Standard.
->>> E.g., C18 5.1.2.3p2:
->>>
->>>    Accessing a volatile object, modifying an object, modifying a file,
->>>    or calling a function that does any of those operations are all
->>>    side effects,[omitted irrelevant footnote reference] which are
->>>    changes in the state of the execution environment.
->>>
->>> The MISRA C:2012/2023 Glossary entry for "Persistent side effect"
->>> indirectly confirms that initialization is always a side effect.
->>
->> Hmm, that's interesting: There's indeed an example with an initializer
->> there. Yet to me the text you quote from the C standard does not say
->> that initialization is a side effect - it would be "modifying an
->> object" aiui, yet ahead of initialization being complete the object
->> doesn't "exist" imo, and hence can be "modified" only afterwards.
+On 01.10.2024 12:22, Frediano Ziglio wrote:
+> No need to have it coded in assembly.
+> Declare efi_multiboot2 in a new header to reuse between implementations
+> and caller.
 > 
-> I feel it's becoming a bit too philosophical. Since there's some room
-> for interpretation and only two violations left to address, I believe
-> it's best to stick with the stricter interpretation of the definition.
-> Therefore, I'd proceed with this series in its current form.
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-Proceeding with the series in its current form may be okay (as you say,
-you view the changes as readability improvements anyway), but imo the
-interpretation needs settling on no matter what. In fact even for these
-two patches it may affect what their descriptions ought to say (would
-be nice imo to avoid permanently recording potentially misleading
-information by committing as is). And of course clarity would help
-dealing with future instances that might appear. I take it you realize
-that if someone had submitted a patch adding code similar to the
-original forms of what's being altered here, it would be relatively
-unlikely for a reviewer to spot the issue. IOW here we're making
-ourselves heavily dependent upon Eclair spotting (supposed) issues,
-adding extra work and delays for such changes to go in.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
