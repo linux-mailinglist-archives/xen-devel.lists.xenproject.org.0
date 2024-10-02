@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B00E98D2D8
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 14:12:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808747.1220747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BE5798D381
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 14:42:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808759.1220757 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svyD2-0002qu-Kv; Wed, 02 Oct 2024 12:12:00 +0000
+	id 1svygG-0007OY-Vk; Wed, 02 Oct 2024 12:42:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808747.1220747; Wed, 02 Oct 2024 12:12:00 +0000
+Received: by outflank-mailman (output) from mailman id 808759.1220757; Wed, 02 Oct 2024 12:42:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svyD2-0002o2-IJ; Wed, 02 Oct 2024 12:12:00 +0000
-Received: by outflank-mailman (input) for mailman id 808747;
- Wed, 02 Oct 2024 12:11:58 +0000
+	id 1svygG-0007Lo-Sn; Wed, 02 Oct 2024 12:42:12 +0000
+Received: by outflank-mailman (input) for mailman id 808759;
+ Wed, 02 Oct 2024 12:42:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RwxN=Q6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svyD0-0002nw-U6
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 12:11:58 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3lMz=Q6=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1svygF-0007Li-Jr
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 12:42:11 +0000
+Received: from fout-a2-smtp.messagingengine.com
+ (fout-a2-smtp.messagingengine.com [103.168.172.145])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 859d7f64-80b7-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 14:11:58 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-53995380bb3so3835148e87.1
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 05:11:58 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c88245e9efsm7539974a12.58.2024.10.02.05.11.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Oct 2024 05:11:57 -0700 (PDT)
+ id bce199b1-80bb-11ef-a0ba-8be0dac302b0;
+ Wed, 02 Oct 2024 14:42:09 +0200 (CEST)
+Received: from phl-compute-11.internal (phl-compute-11.phl.internal
+ [10.202.2.51])
+ by mailfout.phl.internal (Postfix) with ESMTP id 3DC0E1380198;
+ Wed,  2 Oct 2024 08:42:08 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-11.internal (MEProxy); Wed, 02 Oct 2024 08:42:08 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 2 Oct 2024 08:42:07 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +45,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 859d7f64-80b7-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727871117; x=1728475917; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DOKb6zVDn/0VH4+KbpW87lTh/3r6c/GObL88XQjIbzs=;
-        b=P3Yfp/xrGR5cbYxU+Gzk7R549XJPidV8I0m2+p0mBAqrk/NSrghq85TXJsCC0kOCe3
-         wgVpbGzVD3nE9H2961Xk9CTLDaHnzto+LINCAKkjOSEU1sY0BsfKdBL8bBk79GktG/dn
-         7j6pOr8i5TGABXwyGVyVU3str+TvXhZF7JSZCnH7668z7x57O5EI5vyXfsASQhObd8yi
-         3hJ+0wKREmjiqJ2e5p1NzRMOjATmJQoE+jKjaIoAa4QLPoVaAvf3/oihJC07n4Dt3O2T
-         DHCVZ1g7aOJXw+fgQ5fPGijnQIcNzHEPPdh8norlVSmr33uOAH1JwOHGq+0vezRqnbXf
-         hRqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727871117; x=1728475917;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DOKb6zVDn/0VH4+KbpW87lTh/3r6c/GObL88XQjIbzs=;
-        b=GTUNM8jzPjtHckOQZrBH/enMHmw1PiB8L/ZM88yZ5eNOxuWI6IyfP5AFjHMkAIVMFa
-         FFNq6p6jBUPtlmkaFsjOdu7OS2St3M/vBECrTgssFFxr1JEaLeUJksGaKoN+a1k+Dk9q
-         CACtnlPJAr3aJGvXLpL5wc50G0ULo7fZIWZ5HfOF/QEyGb3y/j1E8kvObJOpM/s8YKLS
-         tQG79woTwvREIfsv/GLF2DhYY+8dpft1ycRo+1LGi8tPuAi3N10NYH5KeU8YZUmgfJr9
-         9y8Gu+qBKeF/U7KP0R0+O1M9CkDD6XluoLd0AHF4IkUTC6jfoT6FLQ0NGT+SjBeibpvM
-         b2bQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVCTyJNVNPf2LvkLNLxmGKulqOI+cQVqjcEsL4HYZ69oiPq6OeNcE+hhwXjPWnogu2G/DPVrcTocK4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxZOpzMUiCF0WYWxTesWq5T2UeCSlSaZ6k+s3KkP7RaaDPkcpjJ
-	a0K45yN/X8Yt2xD/klRmtf7Fw8qUOJLs5BSHBOQqXP3hgKj75/ppW7ti0ABMfw==
-X-Google-Smtp-Source: AGHT+IHIgXoNl9eAE+xXw2Lbpvd2QKnez2zgZHCakzLxuK7hN1DxtPCZzvib/32St1X9VkwpSrTFsQ==
-X-Received: by 2002:a05:6512:2387:b0:530:c239:6fad with SMTP id 2adb3069b0e04-539a05fffc0mr1789223e87.0.1727871117518;
-        Wed, 02 Oct 2024 05:11:57 -0700 (PDT)
-Message-ID: <1bd67367-0928-4f16-958c-f45612689346@suse.com>
-Date: Wed, 2 Oct 2024 14:11:56 +0200
+X-Inumbo-ID: bce199b1-80bb-11ef-a0ba-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
+	 t=1727872928; x=1727959328; bh=aS+PJ7LKA9tUCRQKTc93IyrC3+X3cz76
+	nEll6rzei8A=; b=GlpGjK8P0qbYCEXK0eoXL2W3hGksPF62OP3cgnhVEJfulYoe
+	nPmG0wOkg8yoMzEGjUtV0wINsVGij2RDpxv373+0m+F3SChKMrbE/wPJ6y2WyvXO
+	VJ0Bw6+JZFIlToOW0s6aQoc1XPdsOScRU2H3dGFpz45LTH9opFo4jevbKQEa+x1j
+	zyQ39tkQr11f/W+fkt2tKMG4ZkkVOSQGXkK1GzJVSqRo3lx8o+M1qdJAdXjESrPd
+	ESRl0400UTZzKu9LLjIWMmpIc09mngFC4UtOW80Lm/wAu65JyuB5AGt1LDX2RaHX
+	cMGl+avIM2Nyt3EFXS9D24GtQ0C9klgBkce9pQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1727872928; x=1727959328; bh=aS+PJ7LKA9tUC
+	RQKTc93IyrC3+X3cz76nEll6rzei8A=; b=DWLi9o7VdfMGSkzNIAUMZqVf12Z83
+	Ssrq7PRdnLTIpQrxNjiQtiGAsRn05N3I9/we3WeCcrSng+Kb1mgw7s8cca5mxHH7
+	/SlJlNn2JFlm68PIYTne+PcaGCeoz+nO+iLftkfHAjAzs56bI4Ia12CA84iJWdmG
+	/T/uxMs+xBW+djZWiPpCRWFn/FBcuYgeR3fCDbbfRRbZ6NgrmFEkRpSYqLZbuWd3
+	lUC7cmRJPnwpfyrEfB/3HOqVO73sdo++hP66+4fAR+cfr2TzRgXMsc2FqCL+2hBd
+	odpG3Napq2iqv5+u0ZS5GcyfD0nUjJw4Epilz/zmqnOI0qA7fD3fancpQ==
+X-ME-Sender: <xms:nz_9Zrbnpf2PQOX-ZB_SbztiXAKv7II7ZILUPdI8LGzTeMQMziruFQ>
+    <xme:nz_9ZqZIj8XD8sGNdJQ--rf5ktL9I9j9-tD29gEB1q3oLt5IrA3NkS12dW-UvdDGI
+    c01cp4h4qCs_Q>
+X-ME-Received: <xmr:nz_9Zt9qr71lNBjrkWlQIQrMeLkznv7Niow0RhSn-GX_sUw7nRc9sMJWIGaPvwVEcmcywcOs6zucOegeh2gu1xG18ZGdXTLUFiv__QKDk5acepLp_V8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdduledghedvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecu
+    hfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrg
+    hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffr
+    rghtthgvrhhnpefhkeduleeggfeihedtvddvveeileduueeugefftddvfeelkeeggfehje
+    ffhfetkeenucffohhmrghinhepghhithhlrggsrdgtohhmpdigvghnrdhorhhgnecuvehl
+    uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvg
+    hksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohep
+    gedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhish
+    htshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdprhgtphhtthhopegtrghrughovg
+    estggrrhguohgvrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhn
+    vghlrdhorhhg
+X-ME-Proxy: <xmx:oD_9ZhpHLIpa-f6cgWc4Ek07QSSFnKnRMpzmRwX2_6UHc8709KFYpg>
+    <xmx:oD_9Zmpm9_Aj5H-SBck9b83cYp9Hdhx1R98o8jevHBYAyIOh3lYhDQ>
+    <xmx:oD_9ZnRz-LU-T2-NmyRpE28Iym2r_BZ_QNiXk61epW_tu2OSaA0sQA>
+    <xmx:oD_9ZurxECwbQYLWzql-_nKIIgsvlbBNDM6LF3D_eVrY0kK5GnPRnw>
+    <xmx:oD_9ZpVTKGZUcPibiLbyGTBs_EVlfQ9I7eer0fCUUoOYmwLLYT30HWIL>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] automation: add a smoke test for xen.efi on X86
+Date: Wed,  2 Oct 2024 14:41:55 +0200
+Message-ID: <20241002124159.716270-1-marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] xen/riscv: register Xen's load address as a boot
- module
-To: oleksii.kurochko@gmail.com
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1727708665.git.oleksii.kurochko@gmail.com>
- <2bd3589f322d30e93d81d091ca64439048c068fc.1727708665.git.oleksii.kurochko@gmail.com>
- <178b61bc-d3e5-4c9d-a8c0-88363911bc8f@suse.com>
- <418443ea4017c401d944971898cb298ef2f826d6.camel@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <418443ea4017c401d944971898cb298ef2f826d6.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 02.10.2024 13:25, oleksii.kurochko@gmail.com wrote:
-> On Tue, 2024-10-01 at 17:49 +0200, Jan Beulich wrote:
->> On 30.09.2024 17:08, Oleksii Kurochko wrote:
->>> @@ -26,6 +27,8 @@ unsigned char __initdata
->>> cpu0_boot_stack[STACK_SIZE]
->>>  void __init noreturn start_xen(unsigned long bootcpu_id,
->>>                                 paddr_t dtb_addr)
->>>  {
->>> +    struct bootmodule *xen_bootmodule;
->>
->> With just the uses below this can be pointer-to-const. Question of
->> course
->> is whether you already know of further uses.
-> It could be dropped as it is used only for BUG_ON(!xen_bootmodule) as
-> it looks to me a little bit better then:
->     BUG_ON(!add_boot_module(BOOTMOD_XEN, virt_to_maddr(_start),
->                             (_end - _start), false));
+Check if xen.efi is bootable with an XTF dom0.
 
-Yet that's undesirable for other reasons. Did you consider
+The TEST_TIMEOUT is set in the script to override project-global value.
+Setting it in the gitlab yaml file doesn't work, as it's too low
+priority
+(https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence).
 
-    if ( !add_boot_module(BOOTMOD_XEN, virt_to_maddr(_start),
-                          _end - _start, false) )
-        BUG();
+The multiboot2+EFI path is tested on hardware tests already.
 
-? Maybe panic() would be even better for cases like this one.
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+This requires rebuilding debian:bookworm container.
 
-Jan
+The TEST_TIMEOUT issue mentioned above applies to xilix-* jobs too. It's
+not clear to me why the default TEST_TIMEOUT is set at the group level
+instead of in the yaml file, so I'm not adjusting the other places.
+---
+ automation/build/debian/bookworm.dockerfile |  1 +
+ automation/gitlab-ci/test.yaml              |  7 ++++
+ automation/scripts/qemu-smoke-x86-64-efi.sh | 44 +++++++++++++++++++++
+ 3 files changed, 52 insertions(+)
+ create mode 100755 automation/scripts/qemu-smoke-x86-64-efi.sh
+
+diff --git a/automation/build/debian/bookworm.dockerfile b/automation/build/debian/bookworm.dockerfile
+index 3dd70cb6b2e3..061114ba522d 100644
+--- a/automation/build/debian/bookworm.dockerfile
++++ b/automation/build/debian/bookworm.dockerfile
+@@ -46,6 +46,7 @@ RUN apt-get update && \
+         # for test phase, qemu-smoke-* jobs
+         qemu-system-x86 \
+         expect \
++        ovmf \
+         # for test phase, qemu-alpine-* jobs
+         cpio \
+         busybox-static \
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 8675016b6a37..74fd3f3109ae 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -463,6 +463,13 @@ qemu-smoke-x86-64-clang-pvh:
+   needs:
+     - debian-bookworm-clang-debug
+ 
++qemu-smoke-x86-64-gcc-efi:
++  extends: .qemu-x86-64
++  script:
++    - ./automation/scripts/qemu-smoke-x86-64-efi.sh pv 2>&1 | tee ${LOGFILE}
++  needs:
++    - debian-bookworm-gcc-debug
++
+ qemu-smoke-riscv64-gcc:
+   extends: .qemu-riscv64
+   script:
+diff --git a/automation/scripts/qemu-smoke-x86-64-efi.sh b/automation/scripts/qemu-smoke-x86-64-efi.sh
+new file mode 100755
+index 000000000000..e053cfa995ba
+--- /dev/null
++++ b/automation/scripts/qemu-smoke-x86-64-efi.sh
+@@ -0,0 +1,44 @@
++#!/bin/bash
++
++set -ex -o pipefail
++
++# variant should be either pv or pvh
++variant=$1
++
++# Clone and build XTF
++git clone https://xenbits.xen.org/git-http/xtf.git
++cd xtf && make -j$(nproc) && cd -
++
++case $variant in
++    pvh) k=test-hvm64-example    extra="dom0-iommu=none dom0=pvh" ;;
++    *)   k=test-pv64-example     extra= ;;
++esac
++
++mkdir -p boot-esp/EFI/BOOT
++cp binaries/xen.efi boot-esp/EFI/BOOT/BOOTX64.EFI
++cp xtf/tests/example/$k boot-esp/EFI/BOOT/kernel
++
++cat > boot-esp/EFI/BOOT/BOOTX64.cfg <<EOF
++[global]
++default=test
++
++[test]
++options=loglvl=all console=com1 noreboot console_timestamps=boot $extra
++kernel=kernel
++EOF
++
++cp /usr/share/OVMF/OVMF_CODE.fd OVMF_CODE.fd
++cp /usr/share/OVMF/OVMF_VARS.fd OVMF_VARS.fd
++
++rm -f smoke.serial
++export TEST_CMD="qemu-system-x86_64 -nographic -M q35,kernel-irqchip=split \
++        -drive if=pflash,format=raw,readonly=on,file=OVMF_CODE.fd \
++        -drive if=pflash,format=raw,file=OVMF_VARS.fd \
++        -drive file=fat:rw:boot-esp,media=disk,index=0,format=raw \
++        -m 512 -monitor none -serial stdio"
++
++export TEST_LOG="smoke.serial"
++export PASSED="Test result: SUCCESS"
++export TEST_TIMEOUT=120
++
++./automation/scripts/console.exp | sed 's/\r\+$//'
+-- 
+2.46.0
+
 
