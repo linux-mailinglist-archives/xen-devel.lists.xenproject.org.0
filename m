@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D3FB98E3F7
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 22:09:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809009.1221119 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60D6998E452
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 22:42:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809015.1221129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw5ex-0006uK-Uv; Wed, 02 Oct 2024 20:09:19 +0000
+	id 1sw6Au-0003ec-8S; Wed, 02 Oct 2024 20:42:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809009.1221119; Wed, 02 Oct 2024 20:09:19 +0000
+Received: by outflank-mailman (output) from mailman id 809015.1221129; Wed, 02 Oct 2024 20:42:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sw5ex-0006sX-Qv; Wed, 02 Oct 2024 20:09:19 +0000
-Received: by outflank-mailman (input) for mailman id 809009;
- Wed, 02 Oct 2024 20:09:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sw6Au-0003cJ-5F; Wed, 02 Oct 2024 20:42:20 +0000
+Received: by outflank-mailman (input) for mailman id 809015;
+ Wed, 02 Oct 2024 20:42:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VgkK=Q6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sw5ew-0006rI-3a
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 20:09:18 +0000
+ id 1sw6As-0003cD-5V
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 20:42:18 +0000
 Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
  [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33c27f29-80fa-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 22:09:17 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cf30a3c8-80fe-11ef-99a2-01e77a169b0f;
+ Wed, 02 Oct 2024 22:42:16 +0200 (CEST)
 Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5c89f3f28b6so128046a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 13:09:17 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
+ 4fb4d7f45d1cf-5c896b9b4e0so182981a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 13:42:15 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c882405bb8sm7939677a12.12.2024.10.02.13.09.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Oct 2024 13:09:15 -0700 (PDT)
+ 4fb4d7f45d1cf-5c88694e9f9sm6836931a12.16.2024.10.02.13.42.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Oct 2024 13:42:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +45,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33c27f29-80fa-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: cf30a3c8-80fe-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727899756; x=1728504556; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=8mpxVnw2rtIsaSdMnuwMlxzK800socadVEux++4FjuU=;
-        b=j7oTTqofEU6gw4rzqDrJGmf75cKv3AVEKjlT1eav3zIoQyg7fzEGyqAegrqF7n+9k6
-         Ya5x3X7B4WvdLBpYZu39H754pBkJ6SMFdn/KAlRUB9vD/wLDxz5v19j+TnJmfB0AksOl
-         ++mHpEAapbOojB7mjHjg81lNzL0JX00cPgN48=
+        d=citrix.com; s=google; t=1727901735; x=1728506535; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=w0XKkhuv2WRNftd4ru60jUn4l6VxTheDHRufkV2dNHQ=;
+        b=dLrdWVsfTauE/pQElH/iN+X9mG5HffCl3FDNUoFKsDmFBFnDhkX4EYE5il+1xs1tra
+         lll1CFQ198vVF+1kU2HnWCZqFXXKNAT5jbjuY2xd1pz6UafctiYKERVGlYr5jn9fQLL6
+         xNlKoM3NwI6++emdSFoKd597oj8WoDbU2Pwtg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727899756; x=1728504556;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8mpxVnw2rtIsaSdMnuwMlxzK800socadVEux++4FjuU=;
-        b=L2ifUeo5SLFdBhZkJV8QCVQNaei4Ca6JFAcDucnjqWE5gKrnR38eocqkqp/+QR2lZW
-         2nh0eVwN7Pb6g/hhL3PIV1PTVzo2swukUFyqtDPoSC6SdTcMHbOanxA6iG5nwYo09nFV
-         3X6DzMCZXS8NFPRMSTYooGp7R3E8FpIL+wrlk04Vx/5AycQmtwCLDiCsZH8u2XKbFdax
-         OT6I5BfjVp6Nq6EgF1VBu9Fb7hOzxvB2tI7/u6nrkonZ1CL/YBSWh5lc8vLeUSkGvSWi
-         qTANpDWcC4SFXzJe7Bikt7YxL5yFQDwi/5aCsUmp3sLPCDzybcYvEZ2IYMvTM8QBof/I
-         DSxw==
-X-Gm-Message-State: AOJu0YxvLiJgC0UTTEt7XkzCOt957vMFPVNRGUHBSmi/w8zRh1C+yJHU
-	LIlz4UWjDqr1JLdJa6MHqs5+XWbOtbEz2OWmHzLKIDQoWQjlA6cRM23VD91Z2mY+e9Qut8JmqbV
-	hz6U=
-X-Google-Smtp-Source: AGHT+IEixX0Bsej9XM12xmY27f0Lzd6EtV/5EFDvjGApFVel/3DcNQCYom44RLt6QUltjbo5CfWTAA==
-X-Received: by 2002:a05:6402:4402:b0:5c5:c060:420d with SMTP id 4fb4d7f45d1cf-5c8b1b6ffebmr3405946a12.25.1727899756072;
-        Wed, 02 Oct 2024 13:09:16 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/boot: Convert remaining uses of the legacy ALIGN
-Date: Wed,  2 Oct 2024 21:09:13 +0100
-Message-Id: <20241002200913.1963443-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20230601; t=1727901735; x=1728506535;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=w0XKkhuv2WRNftd4ru60jUn4l6VxTheDHRufkV2dNHQ=;
+        b=DTOePNnO6AqYgTVOYa5CQJruDlm/c5vakN8zmVZPRf0/M9oXv/s1+Zgka0BHHGlNBY
+         Pax+mRVTkk6i1w0MIjr2qJeKvnhUAzck7OQ6fCqbXA79lY/KdqB1RQROhIFaGaLOqYZv
+         9o8bLdF/S/XaZCtDj8hfNL4vKm2/2sjYTLXRvo6zqtvQDWfuUXwyZqS11Lg2ZgAMSV0C
+         TBogqWVL+bANnjxBqM/OCPF8eCl9fOqVZKO2j4KUMdjz0IGRjI7gqFmnLh2t2bDYVL3j
+         l86gzWmuNqpdJ+agewPOdOP9M1bZdY5Wld0NNq6lr92BDBH4C6Y8Cs60xeszKOwGJyOX
+         WFYQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWr2d9GbqRgMSjSI+hSoi/i0ItzItQTVt4dbdHMU8ijAui51lF0FLL1hiE/CRT8UTb9SX8z3eeg8TQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwjZ4GPymzx/OG3D7M+UVoBUEgc5GeA0r/4RkzVYuQp5uRc/w9+
+	L5EofaQpuV9wjM9WaSmuKbPjq7/9bZ0c8lELqb5xavPBDk6HC48pgkdox8Qp6YQ=
+X-Google-Smtp-Source: AGHT+IGf3KLvkONw4X+fBPxxEx3q15M+/eCjlvXGE1Ewp/8LjqJTKRbtzNUBN34g1wBPQMgREvoWSA==
+X-Received: by 2002:a05:6402:43ce:b0:5c0:ac1d:b970 with SMTP id 4fb4d7f45d1cf-5c8b1b8255fmr3686131a12.32.1727901735319;
+        Wed, 02 Oct 2024 13:42:15 -0700 (PDT)
+Message-ID: <3ca5faa7-2276-4c85-a4ee-cc6ad5af3238@citrix.com>
+Date: Wed, 2 Oct 2024 21:42:13 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] automation: preserve built xen.efi
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20241002124245.716302-1-marmarek@invisiblethingslab.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20241002124245.716302-1-marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-There are only two remaining standalone uses the legacy ALIGN macro.
+On 02/10/2024 1:42 pm, Marek Marczykowski-Górecki wrote:
+> It will be useful for further tests.
+>
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> ---
+>  automation/scripts/build | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/automation/scripts/build b/automation/scripts/build
+> index b3c71fb6fb60..4cd41cb2c471 100755
+> --- a/automation/scripts/build
+> +++ b/automation/scripts/build
+> @@ -47,6 +47,7 @@ if [[ "${CPPCHECK}" == "y" ]] && [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
+>  
+>      # Preserve artefacts
+>      cp xen/xen binaries/xen
+> +    if [[ -f xen/xen.efi ]]; then cp xen/xen.efi binaries/xen.efi; fi
 
-Drop these by switching the .incbin's over to using FUNC()/END() which has
-alignment handled internally.  While the incbin's aren't technically one
-single function, they're as good as one single function.
+Wouldn't
 
-Finally, expand ALIGN inside the legacy ENTRY() macro in order to remove ALIGN
-itself.
+    # Preserve xen and optionally xen.efi
+    cp -f xen/xen xen/xen.efi binaries/
 
-No functional change.
+do this in a more concise way?
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+Alternatively, what about this:
 
-before/after builds show no change at all, except for
-cmdline_parse_early()/reloc() ELF metadata.
----
- xen/arch/x86/boot/head.S | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+diff --git a/automation/scripts/build b/automation/scripts/build
+index b3c71fb6fb60..14815ea7ad9c 100755
+--- a/automation/scripts/build
++++ b/automation/scripts/build
+@@ -41,6 +41,15 @@ cp xen/.config xen-config
+ # Directory for the artefacts to be dumped into
+ mkdir -p binaries
+ 
++collect_xen_artefacts ()
++{
++    for A in xen/xen xen/xen.efi; do
++        if [[ -f $A ]]; then
++            cp $A binaries/
++        fi
++    done
++}
++
+ if [[ "${CPPCHECK}" == "y" ]] && [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
+     # Cppcheck analysis invokes Xen-only build
+     xen/scripts/xen-analysis.py --run-cppcheck --cppcheck-misra --
+-j$(nproc)
+@@ -53,7 +62,7 @@ elif [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
+     make -j$(nproc) xen
+ 
+     # Preserve artefacts
+-    cp xen/xen binaries/xen
++    collect_xen_artefacts
+ else
+     # Full build.  Figure out our ./configure options
+     cfgargs=()
 
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index 6a06f6c9ea46..837740477c6e 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -10,9 +10,8 @@
- #include <asm/cpufeature.h>
- #include <public/elfnote.h>
- 
--#define ALIGN .align CONFIG_FUNCTION_ALIGNMENT, CODE_FILL
- #define ENTRY(name)                             \
--  ALIGN;                                        \
-+  .align CONFIG_FUNCTION_ALIGNMENT, CODE_FILL;  \
-   GLOBAL(name)
- #define GLOBAL(name)                            \
-   .globl name;                                  \
-@@ -850,13 +849,13 @@ trampoline_setup:
-          * cmdline and reloc are written in C, and linked to be 32bit PIC with
-          * entrypoints at 0 and using the fastcall convention.
-          */
--        ALIGN
--cmdline_parse_early:
-+FUNC_LOCAL(cmdline_parse_early)
-         .incbin "cmdline.bin"
-+END(cmdline_parse_early)
- 
--        ALIGN
--reloc:
-+FUNC_LOCAL(reloc)
-         .incbin "reloc.bin"
-+END(reloc)
- 
- ENTRY(trampoline_start)
- #include "trampoline.S"
+so we don't triplicate the handling?
 
-base-commit: 41190d2ceb03b12ffc17a66c04de519c26a6052a
--- 
-2.39.5
-
+~Andrew
 
