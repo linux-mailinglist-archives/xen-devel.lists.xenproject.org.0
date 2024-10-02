@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7FB498CDA0
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 09:14:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.808621.1220581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4435F98CDE5
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2024 09:42:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.808628.1220591 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svtXx-0004iT-H9; Wed, 02 Oct 2024 07:13:17 +0000
+	id 1svtzH-0000jh-Lb; Wed, 02 Oct 2024 07:41:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 808621.1220581; Wed, 02 Oct 2024 07:13:17 +0000
+Received: by outflank-mailman (output) from mailman id 808628.1220591; Wed, 02 Oct 2024 07:41:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1svtXx-0004fw-ER; Wed, 02 Oct 2024 07:13:17 +0000
-Received: by outflank-mailman (input) for mailman id 808621;
- Wed, 02 Oct 2024 07:13:15 +0000
+	id 1svtzH-0000gu-Ix; Wed, 02 Oct 2024 07:41:31 +0000
+Received: by outflank-mailman (input) for mailman id 808628;
+ Wed, 02 Oct 2024 07:41:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RwxN=Q6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1svtXv-0004fn-GR
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 07:13:15 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ id 1svtzG-0000go-Uu
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2024 07:41:30 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca23618e-808d-11ef-a0ba-8be0dac302b0;
- Wed, 02 Oct 2024 09:13:14 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2fad6de2590so32356321fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 00:13:14 -0700 (PDT)
+ id bcf1b238-8091-11ef-a0ba-8be0dac302b0;
+ Wed, 02 Oct 2024 09:41:30 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-5399651d21aso2663791e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Oct 2024 00:41:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c299aca5sm822545666b.224.2024.10.02.00.13.13
+ a640c23a62f3a-a93c2776d92sm815990766b.29.2024.10.02.00.41.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Oct 2024 00:13:13 -0700 (PDT)
+ Wed, 02 Oct 2024 00:41:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca23618e-808d-11ef-a0ba-8be0dac302b0
+X-Inumbo-ID: bcf1b238-8091-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1727853194; x=1728457994; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1727854889; x=1728459689; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=GiX/v88DnQtK6zdQ+BL0d3mjMtINKCgQD8boqnd4tE4=;
-        b=WdAg52U16p8YPjE37Oa8mVOg6eoQhHFMNIUPOThYm4fejr900TZX4MO9Y9W762pDr/
-         dqaMq8rnHm3EyfTZE2gFUQsBpRA30abryiwsKYDZcv40T6GwI5sBclmBvvGbwYTrG/+m
-         lbZEcNn8dLxm1BkKr08ntgecKlsDLu5v3zh8acuY77NceXUtFC/FMyY5s4BKKfg6pU41
-         Yf/dlhnBHMg0NLqS09/9wuMj7EYmuE7f7j0VRcQG1Vcwai1GEMDYFsitZIijEe8p2/OM
-         SFYHp3KG/55fAD68IvYZ6pKvsrrlOtM80AMm+lTmF3Q83zsApmDCvtXMwN4doRSvXWNA
-         Y/Xg==
+        bh=W5CHaMSAiL5AEl471kqqmTQg9/r6lFXAI5Aki2hX8i4=;
+        b=JoSphJNJjP6rZXngSYoXTQaPWWXR00Jz0V9iDVSvDGotlTE/ttVPogmTGuejwGQMOC
+         A0r01jX1hfMBk28GM3vBs01l45it6hJWVW07FnSMVaIUt45eCPK1pNunXG+FJklBXG/f
+         6tl4+3BM36elsEWyaZ+GxrJ5glm2ow/qOCdF9qIzDodA5mnLTdIfSOC5UgKrO5N1jUgZ
+         O0skjRrPJHLQZ8j9nrXmsCnA6T+yygw3DVYuU7WnIYfkrp21NqcEnUNuolWdp1K0YQ4T
+         Kb4ne63jKmXtqVD2X0oIIFOY7relSwj4ae8Q+cmg3UAh+3CL67tehmSHh5DpAUBKsRXu
+         FO1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727853194; x=1728457994;
+        d=1e100.net; s=20230601; t=1727854889; x=1728459689;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GiX/v88DnQtK6zdQ+BL0d3mjMtINKCgQD8boqnd4tE4=;
-        b=GeZWiR4h0Sf5GGSkmb+HWhHSmEiL4PazFyzM0yNB3nuZKZzHpbqhyM5kgPYaX0uvLN
-         8GXQi/bOcASPtndnqZ7TR8uQFsCL3HrpmqEp9BVtd2CQ2FFeSkpClAOMmSzI26Ut/4ge
-         vjAHwpzdjoVMJKb99t4JmHiGn3HTSKYmjJk6FHhhdKzufYCFSIXqtmGcF5ud2aRtkwV5
-         JLfxfKUBTinHIUA83xpjVQHuSc/WtZn4EQzO6pg9y9ZdhmrwZWc05UjVWV7G9CZqE0wG
-         T2/Z9Q4N86I6D2zqJEHn03ttiVfgLFhs1ZIJ9jvatFPuFwhJDutT/L19EFepPgrVhyn2
-         iQkw==
-X-Gm-Message-State: AOJu0Yw71gqkieexAW45ZuZD6gA0GQZAJ48nrECHcSQ/FGgXtcfkofZm
-	P7rBgUYEaaYAXXX8aqQXsC2JAABqtZQBt8T7cx3B0UaFOme86lHnCzqZT8xuJlAqbHK5EwTQd8s
+        bh=W5CHaMSAiL5AEl471kqqmTQg9/r6lFXAI5Aki2hX8i4=;
+        b=SLTQNp9ZUAFae7Q+3XjPBiLIg+3iNZPryyYd4cVuloc/tR1mKsIa0KfXUCBryEmXqn
+         PpkYQ5B/Fwe88rMmfzwrsAzznDtK99pKBY4YZ6RR2X15j8ESIiI5W1Q/Ga1RYVAIWMkV
+         AMyqOBuKr/Xka3cJ2CnZ63562/r96V1x8MWGBACu9waC3GJ9RYoxNJR0EObDqZw5Erup
+         AkAsAGi/w8wH9n2JHuj0T7hDvvE7piktL5THUTj0o6K33GMn6Kj8DHZ/9wmkMpnJMG2d
+         15uRmQRKRqozqMieQ0Ymnoir2UyTqAvzHcwCJtbkWp5pdsjAVQim0IlF3VOUoGZ8eatO
+         fyyg==
+X-Gm-Message-State: AOJu0Yx7CSimLwPla1YCZa6Dyq44DGzQ88kLDKZ9aT8fH5Bn+3MpLK9B
+	qskjlftpIKo5f3zslbrASACFP1IcC2BPZO2QkBqhLPpye03QNw34RLFc8lgaRQQgmBDqvqX4OeM
 	=
-X-Google-Smtp-Source: AGHT+IEVfuctcUZTyYMDMNLWyveaQtojzbMJOtuS4RsbeOQLkQic3v0qoT1Ct0tYQn6M+yHeBiThFg==
-X-Received: by 2002:a2e:9907:0:b0:2fa:bd56:98c5 with SMTP id 38308e7fff4ca-2fae10a628cmr15409081fa.33.1727853193507;
-        Wed, 02 Oct 2024 00:13:13 -0700 (PDT)
-Message-ID: <bf96d727-77d1-4aa3-b81b-3fc32e602fe0@suse.com>
-Date: Wed, 2 Oct 2024 09:13:12 +0200
+X-Google-Smtp-Source: AGHT+IERdqb9qdHStl8or4ETA8QyqQH0N09K/GXe6HtT9FCs2ZdArU+R3G+yiOCIJZXE2u5kWS7jGQ==
+X-Received: by 2002:a05:6512:1245:b0:538:9b5d:9885 with SMTP id 2adb3069b0e04-539a0601d0amr1167689e87.0.1727854889539;
+        Wed, 02 Oct 2024 00:41:29 -0700 (PDT)
+Message-ID: <26cfd90a-91f2-4bf4-9607-8ab6c7823048@suse.com>
+Date: Wed, 2 Oct 2024 09:41:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "consulting@bugseng.com" <consulting@bugseng.com>,
- Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] CODING_STYLE: header file guard naming rules
+Subject: [PATCH] x86/ACPI: annotate assembly data with type and size
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -114,62 +112,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Provide a (small) set of rules on how header guard identifiers ought to
-be spelled and what precautions ought to be taken to avoid name
-collisions.
+Further use the generic framework from xen/linkage.h. While there drop
+excess alignment and move to .bss.
 
+Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+Of course alongside ASM_INT() we could introduce ASM_QUAD() and
+ASM_QUAD_LOCAL() (only the latter needed right here) to aid readability.
+Thoughts?
 
---- a/CODING_STYLE
-+++ b/CODING_STYLE
-@@ -153,6 +153,48 @@ E.g. timer-works.
- Note that some of the options and filenames are using '_'. This is now
- deprecated.
+--- a/xen/arch/x86/acpi/wakeup_prot.S
++++ b/xen/arch/x86/acpi/wakeup_prot.S
+@@ -1,3 +1,5 @@
++#define DATA_FILL 0 /* For the .bss contributions at the bottom. */
++
+ #include <asm/asm_defns.h>
+ #include <asm/msr-index.h>
+ #include <asm/page.h>
+@@ -134,13 +136,20 @@ LABEL(s3_resume)
+         ret
+ END(do_suspend_lowlevel)
  
-+Header inclusion guards
-+-----------------------
-+
-+Unless otherwise specified, all header files should include proper
-+guards to prevent multiple inclusions. The following naming conventions
-+apply:
-+
-+- Guard names are derived from directory path underneath xen/ and the
-+  actual file name.  Path components are separated by double
-+  underscores.  Alphabetic characters are converted to upper case.  Non-
-+  alphanumeric characters are replaced by single underscores.
-+- Certain directory components are omitted, to keep identifier length
-+  bounded:
-+  - the top level include/,
-+  - architecture-specific private files' arch/,
-+  - any architecture's arch/<arch>/include/asm/ collapses to
-+    ASM__<ARCH>__.
-+
-+For example:
-+
-+- Xen headers: XEN__<filename>_H
-+  - include/xen/something.h -> XEN__SOMETHING_H
-+
-+- asm-generic headers: ASM_GENERIC__<filename>_H
-+  - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
-+
-+- arch-specific headers: ASM__<architecture>__<subdir>__<filename>_H
-+  - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
-+
-+- Private headers: <dir>__<filename>_H
-+  - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
-+  - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
-+  - common/something.h -> COMMON__SOMETHING_H
-+
-+Note that this requires some discipline on the naming of future new
-+sub-directories: There shouldn't be any other asm/ one anywhere, for
-+example.  Nor should any new ports be named the same as top-level
-+(within xen/) directories.  Which may in turn require some care if any
-+new top-level directories were to be added.  Rule of thumb: Whenever
-+adding a new subdirectory, check the rules to prevent any potential
-+collisions.
-+
- Emacs local variables
- ---------------------
+-.data
+-        .align 16
++        .bss
  
+-saved_rsp:      .quad   0
+-saved_cr0:      .quad   0
++DATA_LOCAL(saved_rsp, 8)
++        .quad   0
++END(saved_rsp)
++DATA_LOCAL(saved_cr0, 8)
++        .quad   0
++END(saved_cr0)
+ #ifdef CONFIG_XEN_SHSTK
+-saved_ssp:      .quad   0
++DATA_LOCAL(saved_ssp, 8)
++        .quad   0
++END(saved_ssp)
+ #endif
+ 
++        .data
++
+ ASM_INT(saved_magic, 0x9abcdef0)
 
