@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A17298F332
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 17:50:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809611.1222030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 511DB98F353
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 17:56:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809617.1222040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swO5d-0006Ej-TZ; Thu, 03 Oct 2024 15:50:05 +0000
+	id 1swOBJ-0006y6-G0; Thu, 03 Oct 2024 15:55:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809611.1222030; Thu, 03 Oct 2024 15:50:05 +0000
+Received: by outflank-mailman (output) from mailman id 809617.1222040; Thu, 03 Oct 2024 15:55:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swO5d-0006DA-Qg; Thu, 03 Oct 2024 15:50:05 +0000
-Received: by outflank-mailman (input) for mailman id 809611;
- Thu, 03 Oct 2024 15:50:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1swOBJ-0006vd-DG; Thu, 03 Oct 2024 15:55:57 +0000
+Received: by outflank-mailman (input) for mailman id 809617;
+ Thu, 03 Oct 2024 15:55:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CNe7=Q7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1swO5c-0005yS-K2
- for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 15:50:04 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 269fcf9d-819f-11ef-99a2-01e77a169b0f;
- Thu, 03 Oct 2024 17:50:02 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a910860e4dcso180612566b.3
- for <xen-devel@lists.xenproject.org>; Thu, 03 Oct 2024 08:50:02 -0700 (PDT)
+ id 1swOBI-0006vX-BL
+ for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 15:55:56 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f959d9b4-819f-11ef-a0ba-8be0dac302b0;
+ Thu, 03 Oct 2024 17:55:55 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-5398cc2fcb7so1365637e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Oct 2024 08:55:55 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99103b32c1sm100788166b.133.2024.10.03.08.50.00
+ a640c23a62f3a-a9910472ba1sm100622966b.161.2024.10.03.08.55.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Oct 2024 08:50:01 -0700 (PDT)
+ Thu, 03 Oct 2024 08:55:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 269fcf9d-819f-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: f959d9b4-819f-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727970601; x=1728575401; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1727970955; x=1728575755; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LiZhG8myK6zhll5rKFd+aK+8En+t5qp2DgVt1qXZGGg=;
-        b=a0sJLzE1JsM90/WREq3a9y2T2EjsgbWwp/E8rpmX02u9HxWcbVKQH9PDMDGa1V0TrF
-         FdQRCoruKiJFwo0GUUqeJCkgGoD33LqLPGU04xWH/hvQf2zf3I8czkWOH9pRlNMUC/mx
-         Iva/eeQ1lIIRi3+GdsgOTn0ZxACZ8ejhmnCNM=
+        bh=33kSgyhQmgeJG1ypM+SZFw9jtkXS2IvainDxKi4tE4c=;
+        b=Q1Rnb6xsncUhEjoo2reR2nWNrJf4J19IwVEvmhxeRVGjVhE/3Usoe6ofxJ0QeUBPNe
+         QAckUtnyqzW0A1QIjoXXO1ykKg1RhXwUpBR65QgxlUNsSUZYRKX2tKlWYaY8MDfwiSHo
+         RhaG0RQ/seBIMiX0uVarKGJQbkYekNYWIOJzE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727970601; x=1728575401;
+        d=1e100.net; s=20230601; t=1727970955; x=1728575755;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LiZhG8myK6zhll5rKFd+aK+8En+t5qp2DgVt1qXZGGg=;
-        b=pxWkVRLSJ5YbrZ/+4QYuZ5/9sSFdFRvOPGkWkFZxydkWVp2Cjs1dqD4iFON7H3dj5O
-         YoPM+r5Te4ivrVtrFWsAlOkoVoE1VOdx568TAxBVaVNZmXxax2qL2zNECz88BvD5ggoD
-         aS4E7DyO4GGnKmpvZ/s6iv1SUohmvAf6tnL/vyYTcOJ367Y9zZrJ2RSK2ZF7UmxVdqi1
-         UI2pC7aDm6omfZK0phbyD3T8qucqGnBD7P/oTlfzZSPL47VJQVFj7nqJFV9e3qjhuT5c
-         DgjILrGjjBJ1/z3zWPQSMhH3TEOM1KIJdlVR84scl1mzWA8AkJkG/VTunV8x93WkUDF+
-         3trA==
-X-Gm-Message-State: AOJu0YyTzapv11lHwB7QUnJUkChVvMhmRubeOweu/4kDVbOCUX9k8frD
-	tQGauTbTI5v4psKCNw+gl2fYp3ib884WqFgE2kuWOk0dsSbE72/XjOKBJY/E2oEJhmZLlGFDa2t
-	KLY8=
-X-Google-Smtp-Source: AGHT+IHsZtmcLNNNErhUByPuKqrCvAfwFjcz9yNq6cYVEI/+B2HdcGSo//JB6v3HWT5MzNNoY9C+hg==
-X-Received: by 2002:a17:907:9304:b0:a77:f2c5:84a9 with SMTP id a640c23a62f3a-a98f821de96mr839360366b.18.1727970601473;
-        Thu, 03 Oct 2024 08:50:01 -0700 (PDT)
-Message-ID: <eed00d56-2a96-419d-88c6-0704a8843b63@citrix.com>
-Date: Thu, 3 Oct 2024 16:49:59 +0100
+        bh=33kSgyhQmgeJG1ypM+SZFw9jtkXS2IvainDxKi4tE4c=;
+        b=Jt8X/iybVKWlZWkGTCyn0/lB3JRdIvIzVTfulP1WsOeVqLqjrBlnJFI9U3TWgX29ag
+         La7Zfkrsv/B91mwnShgYqIzGS+YaSgxcE9dcxJBNeaQixQRCiYGxAls2VJKGjoJeGc/G
+         Qzixv/H094KOShjjLP5+b7Lsm8Vwe9VTG5y9K1vvft6kA3jqG7gkwJMg3stjWMO09iPd
+         sxx6ODTC+68fYazJLVckdV1PG54+ChQOD7HiMzL0cbKYfhZpk3IgXTKCLQ5jV5I2+zSy
+         p3E0wYuqxetDtjfOX5ffuLOCqnk1KJBMr0B6OAMOlIDCmI1dlPhUwKnD4/pKWlxaojrN
+         P0rg==
+X-Forwarded-Encrypted: i=1; AJvYcCUVmjjPxa00FueMAT8pGjofKxhGTlLj/xp1YilA/M0Ukpu7LO+Wku6beuLmK6wuEiCqMxxgNqBH3Pg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzkXXA0elPChkj1uuRb8oxSQn2m2CjoZVVJnlLE97sA1aPWAqW/
+	Q29DZXTJaf+nkFpg9fwWdkEgyYU1XFkpdWyB3U1129lwKqlpyQ5WU5Zhi8I/aHk=
+X-Google-Smtp-Source: AGHT+IEhhiQhjYR3gP0QLu8zCBTrdovTb9KN4ZFotYcBNCnInfziVYwJpTP4T7/lx5ff1I0y4tz5xA==
+X-Received: by 2002:a05:6512:e9e:b0:539:8b81:7f04 with SMTP id 2adb3069b0e04-539a067b936mr4759518e87.32.1727970954811;
+        Thu, 03 Oct 2024 08:55:54 -0700 (PDT)
+Message-ID: <b9f609a0-d641-4cd9-bf2c-eb1929038587@citrix.com>
+Date: Thu, 3 Oct 2024 16:55:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Don't use INC to set defaults
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>
-References: <20241003145810.2217075-1-andrew.cooper3@citrix.com>
- <CACHz=ZhDuQd5CGY+05dCciu7K1xFKwpN1NORbqHdG4wijivzMQ@mail.gmail.com>
- <Zv681_sK3WQ4xYy9@macbook.local>
+Subject: Re: [PATCH] x86/dpci: do not leak pending interrupts on CPU offline
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20241003142036.43287-1-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,68 +127,35 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <Zv681_sK3WQ4xYy9@macbook.local>
+In-Reply-To: <20241003142036.43287-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/10/2024 4:48 pm, Roger Pau Monné wrote:
-> On Thu, Oct 03, 2024 at 04:42:23PM +0100, Frediano Ziglio wrote:
->> On Thu, Oct 3, 2024 at 3:58 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->>> __efi64_mb2_start() makes some bold assumptions about the efi_platform and
->>> skip_realmode booleans.  Set them to 1 explicitly, which is more robust.
->>>
->>> Make the comment a little more consice.
->>>
->>> No practical change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Jan Beulich <JBeulich@suse.com>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->>> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
->>> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
->>> ---
->>>  xen/arch/x86/boot/head.S | 10 ++++------
->>>  1 file changed, 4 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
->>> index d1856d8012c9..af776c201a15 100644
->>> --- a/xen/arch/x86/boot/head.S
->>> +++ b/xen/arch/x86/boot/head.S
->>> @@ -279,14 +279,12 @@ __efi64_mb2_start:
->>>          pop     %rbx
->>>          pop     %rax
->>>
->>> -        /* We are on EFI platform and EFI boot services are available. */
->>> -        incb    efi_platform(%rip)
->>> -
->>>          /*
->>> -         * Disable real mode and other legacy stuff which should not
->>> -         * be run on EFI platforms.
->>> +         * efi_multiboot2_prelude() is happy that we're on EFI platform.  Skip
->>> +         * the BIOS initialisation path.
->>>           */
->>> -        incb    skip_realmode(%rip)
->>> +        movb    $1, efi_platform(%rip)
->>> +        movb    $1, skip_realmode(%rip)
->>>
->>>          /* Jump to trampoline_setup after switching CPU to x86_32 mode. */
->>>          lea     trampoline_setup(%rip),%r15
->>>
->>> base-commit: eb21ce14d709ef0c0030d0625028a4868c81126f
->> Reviewed-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+On 03/10/2024 3:20 pm, Roger Pau Monne wrote:
+> The current dpci logic relies on a softirq being executed as a side effect of
+> the cpu_notifier_call_chain() call in the code path that offlines the target
+> CPU.  However the call to cpu_notifier_call_chain() won't trigger any softirq
+> processing, and even if it did, such processing should be done after all
+> interrupts have been migrated off the current CPU, otherwise new pending dpci
+> interrupts could still appear.
+>
+> Current ASSERT in
 
+"Currently the ASSERT() in"
 
-Thanks both.
+>  the cpu callback notifier is fairly easy to trigger by doing
+> CPU offline from a PVH dom0.
+>
+> Solve this by instead moving out any dpci interrupts pending processing once
+> the CPU is dead.  This might introduce more latency than attempting to drain
+> before the CPU is put offline, but it's less complex, and CPU online/offline is
+> not a common action.  Any extra introduced latency should be tolerable.
+>
+> Fixes: f6dd295381f4 ('dpci: replace tasklet with softirq')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-I further note that efi_platform is used exclusively to skip early
-cmdline parsing, and I'm sure there's probably a better way of doing
-this, but nothing obvious jumps out to me.
+Yeah, I'm not concerned with minor extra latency in the offline path. 
+In production it's used 0% of the time to many many significant figures.
 
-I suspect that getting rid of it will be easier when we've moved more
-logic to be in C.
-
-~Andrew
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
