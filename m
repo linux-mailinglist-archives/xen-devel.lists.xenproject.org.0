@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1491898F173
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 16:31:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809513.1221887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 593E298F16F
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 16:31:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809514.1221897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swMrJ-00008F-1z; Thu, 03 Oct 2024 14:31:13 +0000
+	id 1swMrK-0000Op-AE; Thu, 03 Oct 2024 14:31:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809513.1221887; Thu, 03 Oct 2024 14:31:13 +0000
+Received: by outflank-mailman (output) from mailman id 809514.1221897; Thu, 03 Oct 2024 14:31:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swMrI-00005f-UN; Thu, 03 Oct 2024 14:31:12 +0000
-Received: by outflank-mailman (input) for mailman id 809513;
- Thu, 03 Oct 2024 14:31:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1swMrK-0000MA-4j; Thu, 03 Oct 2024 14:31:14 +0000
+Received: by outflank-mailman (input) for mailman id 809514;
+ Thu, 03 Oct 2024 14:31:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3wyt=Q7=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1swMrH-0008IT-Kh
- for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 14:31:11 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2226ecd8-8194-11ef-99a2-01e77a169b0f;
- Thu, 03 Oct 2024 16:31:10 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-53993564cb1so1186811e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 03 Oct 2024 07:31:10 -0700 (PDT)
+ id 1swMrI-00005c-Vv
+ for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 14:31:12 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 234b232f-8194-11ef-a0ba-8be0dac302b0;
+ Thu, 03 Oct 2024 16:31:12 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-5398e4ae9efso1187354e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Oct 2024 07:31:11 -0700 (PDT)
 Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539a8296ba3sm191801e87.133.2024.10.03.07.31.07
+ 2adb3069b0e04-539a82a38a6sm191699e87.217.2024.10.03.07.31.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Oct 2024 07:31:07 -0700 (PDT)
+ Thu, 03 Oct 2024 07:31:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2226ecd8-8194-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 234b232f-8194-11ef-a0ba-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727965869; x=1728570669; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1727965871; x=1728570671; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5QkDAThvHzn8nk+HGJi0H/5a08f7RDTFwzrMcXuWa4E=;
-        b=hqZ2Y5WtNcSUKmWSMjYQGi7qgPnQ3oD3AXa6ssY6M0yTMUxl+FR1BOJNMPzGtpcjup
-         QbFLIZo0twFdwVUGT1blzdqjIhfDDlxLA6QmsdP3W+VoYUDsNGhtmwAU7nPAzzzdnDi+
-         2UWvmz/6Uc2eIjf378jSzC4MgQi68jBfRDY0ObxuiO8nywH9tDFP/QlxVqaO+TZDk66G
-         Q9g7mKZvk214TbJUBNTRIl3dmf8lN65PIteAIJufgO60XEEvnI3zuznEzJ5n3V97V9ZK
-         bkMDStBEeq+4s74X0i78o4Lq89T+WyvCBE1lWfKd/t/aI3kkizXhbkdr4HP3Nc1CYs3P
-         8SKQ==
+        bh=opHAkxizOwjrlq5VyQ2hdU0DAn4w0L6+u/XZM8FV3ts=;
+        b=WHmdUbdpZRYHiUNxWz5mCYDoDF0EfA/dUxPSAzIDafcK3zd0cPBGgd5uSinHz1NUX5
+         4LUObLC7786bkelRURFHoaTMR0yTlDicINlLc1QtEINHk5vGSCPnTyYVE2kBRv3gKujR
+         8JHFSkusoTtgx7p6OQi5pr8VwOCvjoYHO0+HsW+AS9GY+o+XSs+tCALf2jTjonakg+fH
+         dsK//9hV+Dk0zLHBSWZp9xlK6K13MYpFxlAAMwJ+OVwNIPXhRFVhSg9S76PSuQ4McOH/
+         dzMfkG0b3amuI/C/KB3qin+dpsg3O6iMD99ZDcXd0tTZlK21Saf7q2oq2z9mqt58MpW4
+         2Q1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727965869; x=1728570669;
+        d=1e100.net; s=20230601; t=1727965871; x=1728570671;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5QkDAThvHzn8nk+HGJi0H/5a08f7RDTFwzrMcXuWa4E=;
-        b=ALaidEvUMDQ6xK6lZLIn3T/aHb57Xm3boIIV/+6aPRC4fXDqPpIp4wznHigX5Toqr5
-         10SxsLqkYRC7Sp8TNwo75qCFKzGhKzGXfy5YLOwr+tnl1oDuR7YgyOtty9whPNR3z3Ly
-         ymTQO0kuZlK57PWttpJLrStFAI9Frlkk7InXVFZISggkTcNX5YKB5yUAI/oOj88JJET1
-         tXP33EAYR6OcKbEA6NZhzvGO8kCqaVR0gWiPHxVZq1bnB1vEK1UkStTBPx6op/HLE8FK
-         uGZY7Hde+lZVnwltXe7esWMrXjmSspF+x/RuCQ9UKOOscpNidsiN67N28m2FnkN62cA6
-         hdTg==
-X-Forwarded-Encrypted: i=1; AJvYcCVFkm1iCLHiQ7NqEcv82M/iyuhDBpIN+7/Qo4qvi1RGlWDTD3x6wler644Y+JW3ZkvmPWMzLXlW4ew=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzIxv6ulixkpKlXCPTGE7pZ5cBAoe8cJUEBtdHlcAb6bwlOPQev
-	/7FyGqyFxgflEAy1WYzaX5mTLqBGIFLpePDrQru48X2IM9BEj3DE
-X-Google-Smtp-Source: AGHT+IENz5mwtWHtkPPjZFK+I8sGggUcDkXaE5WZHxkY3QmdHU4icE62BAzIHG+lJO+kM3iPAsGlug==
-X-Received: by 2002:a05:6512:2813:b0:539:9746:2d77 with SMTP id 2adb3069b0e04-539a07af74fmr3419652e87.61.1727965869012;
-        Thu, 03 Oct 2024 07:31:09 -0700 (PDT)
+        bh=opHAkxizOwjrlq5VyQ2hdU0DAn4w0L6+u/XZM8FV3ts=;
+        b=Ao9Zh9ShAbfmjcmk8Htf7NzgDjoRtzkjwxX6dtSaJdHkaQlmLfhV369cz+fTz4cL5F
+         Tbal9tGfeFrH3N3Icrs2hfVPFmFu8jxD61mmDS3VisDc8MX1wXnQTG281sC9lq919z7O
+         1U9jKJYpSfGH8OoyHTxuTn/6PFs1yKGThdEDUZ/7InNd9tFNevhdYeEa5AYbZLkIfYYc
+         LiiDEjRnAJ+NoXs9/1eYZ2s4fh2xSRbyB7MEkiN0GV7st9gDGOC+FVIxwu9CtIkI4/2T
+         RoWbv3FdUReQsCzNOvq9WFRCwh6KFmG22RGR1zmBIn5+3xixWhQZOMmpex32uvcSseNf
+         3bjg==
+X-Forwarded-Encrypted: i=1; AJvYcCWkaWHQw0HzfMVmFO+mRNkZbY6ZAR9Y8QI9SnvuzpKD5vqH8zGMklfQd18gqKv6U/7p4ybmcvsy/rA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzwMN1TACKKJy8husGBYDBhnMEwrAIXSWJDuQt1/lWtJ6YhZ0zw
+	FhwsPRzNZ2pzz9sFgyacrUyHr3rg8XrAe45el7SpdmTb9/X7T1hV
+X-Google-Smtp-Source: AGHT+IHt76trfUAo3X2djdRCfcBNTLDwcCDmqbU8H2X/oCHrgaYE6gDJizIgEZU7Zmu/NUrFBvluYg==
+X-Received: by 2002:a05:6512:6288:b0:539:a3cd:97cb with SMTP id 2adb3069b0e04-539a3cde6b7mr3099308e87.43.1727965871243;
+        Thu, 03 Oct 2024 07:31:11 -0700 (PDT)
 From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
 To: qemu-devel@nongnu.org
 Cc: sstabellini@kernel.org,
@@ -84,107 +84,271 @@ Cc: sstabellini@kernel.org,
 	peter.maydell@linaro.org,
 	edgar.iglesias@amd.com,
 	xen-devel@lists.xenproject.org,
-	"Dr. David Alan Gilbert" <dave@treblig.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Thomas Huth <thuth@redhat.com>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Subject: [PULL v1 1/5] hw/xen: Remove deadcode
-Date: Thu,  3 Oct 2024 16:30:58 +0200
-Message-ID: <20241003143103.1476805-2-edgar.iglesias@gmail.com>
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Subject: [PULL v1 2/5] hw/xen: Expose handle_bufioreq in xen_register_ioreq
+Date: Thu,  3 Oct 2024 16:30:59 +0200
+Message-ID: <20241003143103.1476805-3-edgar.iglesias@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20241003143103.1476805-1-edgar.iglesias@gmail.com>
 References: <20241003143103.1476805-1-edgar.iglesias@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Dr. David Alan Gilbert" <dave@treblig.org>
+From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 
-xen_be_copy_grant_refs is unused since 2019's
-  19f87870ba ("xen: remove the legacy 'xen_disk' backend")
+Expose handle_bufioreq in xen_register_ioreq().
+This is to allow machines to enable or disable buffered ioreqs.
 
-xen_config_dev_console is unused since 2018's
-  6d7c06c213 ("Remove broken Xen PV domain builder")
+No functional change since all callers still set it to
+HVM_IOREQSRV_BUFIOREQ_ATOMIC.
 
-Remove them.
-
-Signed-off-by: Dr. David Alan Gilbert <dave@treblig.org>
-Acked-by: Anthony PERARD <anthony.perard@vates.tech>
-Reviewed-by: Thomas Huth <thuth@redhat.com>
-Reviewed-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
 ---
- hw/xen/xen-legacy-backend.c         | 18 ------------------
- hw/xen/xen_devconfig.c              |  8 --------
- include/hw/xen/xen-legacy-backend.h |  5 -----
- 3 files changed, 31 deletions(-)
+ hw/i386/xen/xen-hvm.c           |   4 +-
+ hw/xen/xen-hvm-common.c         | 101 ++++++++++++++++++++------------
+ hw/xen/xen-pvh-common.c         |   4 +-
+ include/hw/xen/xen-hvm-common.h |   3 +
+ include/hw/xen/xen_native.h     |   3 +-
+ 5 files changed, 74 insertions(+), 41 deletions(-)
 
-diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
-index 5514184f9c..e8e1ee4f7d 100644
---- a/hw/xen/xen-legacy-backend.c
-+++ b/hw/xen/xen-legacy-backend.c
-@@ -147,24 +147,6 @@ void xen_be_unmap_grant_refs(struct XenLegacyDevice *xendev, void *ptr,
+diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
+index 4f6446600c..d3df488c48 100644
+--- a/hw/i386/xen/xen-hvm.c
++++ b/hw/i386/xen/xen-hvm.c
+@@ -614,7 +614,9 @@ void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory)
+ 
+     state = g_new0(XenIOState, 1);
+ 
+-    xen_register_ioreq(state, max_cpus, &xen_memory_listener);
++    xen_register_ioreq(state, max_cpus,
++                       HVM_IOREQSRV_BUFIOREQ_ATOMIC,
++                       &xen_memory_listener);
+ 
+     xen_is_stubdomain = xen_check_stubdomain(state->xenstore);
+ 
+diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
+index 3a9d6f981b..3ce994fc3a 100644
+--- a/hw/xen/xen-hvm-common.c
++++ b/hw/xen/xen-hvm-common.c
+@@ -667,6 +667,8 @@ static int xen_map_ioreq_server(XenIOState *state)
+     xen_pfn_t ioreq_pfn;
+     xen_pfn_t bufioreq_pfn;
+     evtchn_port_t bufioreq_evtchn;
++    unsigned long num_frames = 1;
++    unsigned long frame = 1;
+     int rc;
+ 
+     /*
+@@ -675,59 +677,79 @@ static int xen_map_ioreq_server(XenIOState *state)
+      */
+     QEMU_BUILD_BUG_ON(XENMEM_resource_ioreq_server_frame_bufioreq != 0);
+     QEMU_BUILD_BUG_ON(XENMEM_resource_ioreq_server_frame_ioreq(0) != 1);
++
++    if (state->has_bufioreq) {
++        frame = 0;
++        num_frames = 2;
++    }
+     state->fres = xenforeignmemory_map_resource(xen_fmem, xen_domid,
+                                          XENMEM_resource_ioreq_server,
+-                                         state->ioservid, 0, 2,
++                                         state->ioservid,
++                                         frame, num_frames,
+                                          &addr,
+                                          PROT_READ | PROT_WRITE, 0);
+     if (state->fres != NULL) {
+         trace_xen_map_resource_ioreq(state->ioservid, addr);
+-        state->buffered_io_page = addr;
+-        state->shared_page = addr + XC_PAGE_SIZE;
++        state->shared_page = addr;
++        if (state->has_bufioreq) {
++            state->buffered_io_page = addr;
++            state->shared_page = addr + XC_PAGE_SIZE;
++        }
+     } else if (errno != EOPNOTSUPP) {
+         error_report("failed to map ioreq server resources: error %d handle=%p",
+                      errno, xen_xc);
+         return -1;
      }
- }
  
--int xen_be_copy_grant_refs(struct XenLegacyDevice *xendev,
--                           bool to_domain,
--                           XenGrantCopySegment segs[],
--                           unsigned int nr_segs)
--{
--    int rc;
--
--    assert(xendev->ops->flags & DEVOPS_FLAG_NEED_GNTDEV);
--
--    rc = qemu_xen_gnttab_grant_copy(xendev->gnttabdev, to_domain, xen_domid,
--                                    segs, nr_segs, NULL);
--    if (rc) {
--        xen_pv_printf(xendev, 0, "xengnttab_grant_copy failed: %s\n",
--                      strerror(-rc));
+-    rc = xen_get_ioreq_server_info(xen_domid, state->ioservid,
+-                                   (state->shared_page == NULL) ?
+-                                   &ioreq_pfn : NULL,
+-                                   (state->buffered_io_page == NULL) ?
+-                                   &bufioreq_pfn : NULL,
+-                                   &bufioreq_evtchn);
+-    if (rc < 0) {
+-        error_report("failed to get ioreq server info: error %d handle=%p",
+-                     errno, xen_xc);
+-        return rc;
 -    }
--    return rc;
--}
 -
- /*
-  * get xen backend device, allocate a new one if it doesn't exist.
-  */
-diff --git a/hw/xen/xen_devconfig.c b/hw/xen/xen_devconfig.c
-index 2150869f60..45ae134b84 100644
---- a/hw/xen/xen_devconfig.c
-+++ b/hw/xen/xen_devconfig.c
-@@ -66,11 +66,3 @@ int xen_config_dev_vkbd(int vdev)
-     xen_config_dev_dirs("vkbd", "vkbd", vdev, fe, be, sizeof(fe));
-     return xen_config_dev_all(fe, be);
+-    if (state->shared_page == NULL) {
++    /*
++     * If we fail to map the shared page with xenforeignmemory_map_resource()
++     * or if we're using buffered ioreqs, we need xen_get_ioreq_server_info()
++     * to provide the the addresses to map the shared page and/or to get the
++     * event-channel port for buffered ioreqs.
++     */
++    if (state->shared_page == NULL || state->has_bufioreq) {
+         trace_xen_map_ioreq_server_shared_page(ioreq_pfn);
++        rc = xen_get_ioreq_server_info(xen_domid, state->ioservid,
++                                       (state->shared_page == NULL) ?
++                                       &ioreq_pfn : NULL,
++                                       (state->has_bufioreq &&
++                                        state->buffered_io_page == NULL) ?
++                                       &bufioreq_pfn : NULL,
++                                       &bufioreq_evtchn);
++        if (rc < 0) {
++            error_report("failed to get ioreq server info: error %d handle=%p",
++                         errno, xen_xc);
++            return rc;
++        }
+ 
+-        state->shared_page = xenforeignmemory_map(xen_fmem, xen_domid,
+-                                                  PROT_READ | PROT_WRITE,
+-                                                  1, &ioreq_pfn, NULL);
++        if (state->shared_page == NULL) {
++            trace_xen_map_ioreq_server_shared_page(ioreq_pfn);
++
++            state->shared_page = xenforeignmemory_map(xen_fmem, xen_domid,
++                                                      PROT_READ | PROT_WRITE,
++                                                      1, &ioreq_pfn, NULL);
++        }
+         if (state->shared_page == NULL) {
+             error_report("map shared IO page returned error %d handle=%p",
+                          errno, xen_xc);
+         }
+-    }
+ 
+-    if (state->buffered_io_page == NULL) {
+-        trace_xen_map_ioreq_server_buffered_io_page(bufioreq_pfn);
++        if (state->has_bufioreq && state->buffered_io_page == NULL) {
++            trace_xen_map_ioreq_server_buffered_io_page(bufioreq_pfn);
+ 
+-        state->buffered_io_page = xenforeignmemory_map(xen_fmem, xen_domid,
+-                                                       PROT_READ | PROT_WRITE,
+-                                                       1, &bufioreq_pfn,
+-                                                       NULL);
+-        if (state->buffered_io_page == NULL) {
+-            error_report("map buffered IO page returned error %d", errno);
+-            return -1;
++            state->buffered_io_page = xenforeignmemory_map(xen_fmem, xen_domid,
++                                                        PROT_READ | PROT_WRITE,
++                                                        1, &bufioreq_pfn,
++                                                        NULL);
++            if (state->buffered_io_page == NULL) {
++                error_report("map buffered IO page returned error %d", errno);
++                return -1;
++            }
+         }
+     }
+ 
+-    if (state->shared_page == NULL || state->buffered_io_page == NULL) {
++    if (state->shared_page == NULL ||
++        (state->has_bufioreq && state->buffered_io_page == NULL)) {
+         return -1;
+     }
+ 
+@@ -830,14 +852,15 @@ static void xen_do_ioreq_register(XenIOState *state,
+         state->ioreq_local_port[i] = rc;
+     }
+ 
+-    rc = qemu_xen_evtchn_bind_interdomain(state->xce_handle, xen_domid,
+-                                          state->bufioreq_remote_port);
+-    if (rc == -1) {
+-        error_report("buffered evtchn bind error %d", errno);
+-        goto err;
++    if (state->has_bufioreq) {
++        rc = qemu_xen_evtchn_bind_interdomain(state->xce_handle, xen_domid,
++                                              state->bufioreq_remote_port);
++        if (rc == -1) {
++            error_report("buffered evtchn bind error %d", errno);
++            goto err;
++        }
++        state->bufioreq_local_port = rc;
+     }
+-    state->bufioreq_local_port = rc;
+-
+     /* Init RAM management */
+ #ifdef XEN_COMPAT_PHYSMAP
+     xen_map_cache_init(xen_phys_offset_to_gaddr, state);
+@@ -865,6 +888,7 @@ err:
  }
--
--int xen_config_dev_console(int vdev)
--{
--    char fe[256], be[256];
--
--    xen_config_dev_dirs("console", "console", vdev, fe, be, sizeof(fe));
--    return xen_config_dev_all(fe, be);
--}
-diff --git a/include/hw/xen/xen-legacy-backend.h b/include/hw/xen/xen-legacy-backend.h
-index 943732b8d1..e198b120c5 100644
---- a/include/hw/xen/xen-legacy-backend.h
-+++ b/include/hw/xen/xen-legacy-backend.h
-@@ -50,10 +50,6 @@ void *xen_be_map_grant_refs(struct XenLegacyDevice *xendev, uint32_t *refs,
- void xen_be_unmap_grant_refs(struct XenLegacyDevice *xendev, void *ptr,
-                              uint32_t *refs, unsigned int nr_refs);
  
--int xen_be_copy_grant_refs(struct XenLegacyDevice *xendev,
--                           bool to_domain, XenGrantCopySegment segs[],
--                           unsigned int nr_segs);
--
- static inline void *xen_be_map_grant_ref(struct XenLegacyDevice *xendev,
-                                          uint32_t ref, int prot)
+ void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
++                        uint8_t handle_bufioreq,
+                         const MemoryListener *xen_memory_listener)
  {
-@@ -70,6 +66,5 @@ static inline void xen_be_unmap_grant_ref(struct XenLegacyDevice *xendev,
- void xen_config_cleanup(void);
- int xen_config_dev_vfb(int vdev, const char *type);
- int xen_config_dev_vkbd(int vdev);
--int xen_config_dev_console(int vdev);
+     int rc;
+@@ -883,7 +907,8 @@ void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
+         goto err;
+     }
  
- #endif /* HW_XEN_LEGACY_BACKEND_H */
+-    rc = xen_create_ioreq_server(xen_domid, &state->ioservid);
++    state->has_bufioreq = handle_bufioreq != HVM_IOREQSRV_BUFIOREQ_OFF;
++    rc = xen_create_ioreq_server(xen_domid, handle_bufioreq, &state->ioservid);
+     if (!rc) {
+         xen_do_ioreq_register(state, max_cpus, xen_memory_listener);
+     } else {
+diff --git a/hw/xen/xen-pvh-common.c b/hw/xen/xen-pvh-common.c
+index 28d7168446..08641fdcec 100644
+--- a/hw/xen/xen-pvh-common.c
++++ b/hw/xen/xen-pvh-common.c
+@@ -194,7 +194,9 @@ static void xen_pvh_init(MachineState *ms)
+     }
+ 
+     xen_pvh_init_ram(s, sysmem);
+-    xen_register_ioreq(&s->ioreq, ms->smp.max_cpus, &xen_memory_listener);
++    xen_register_ioreq(&s->ioreq, ms->smp.max_cpus,
++                       HVM_IOREQSRV_BUFIOREQ_ATOMIC,
++                       &xen_memory_listener);
+ 
+     if (s->cfg.virtio_mmio_num) {
+         xen_create_virtio_mmio_devices(s);
+diff --git a/include/hw/xen/xen-hvm-common.h b/include/hw/xen/xen-hvm-common.h
+index 3d796235dc..0f586c4384 100644
+--- a/include/hw/xen/xen-hvm-common.h
++++ b/include/hw/xen/xen-hvm-common.h
+@@ -81,6 +81,8 @@ typedef struct XenIOState {
+     QLIST_HEAD(, XenPciDevice) dev_list;
+     DeviceListener device_listener;
+ 
++    bool has_bufioreq;
++
+     Notifier exit;
+ } XenIOState;
+ 
+@@ -95,6 +97,7 @@ void xen_device_unrealize(DeviceListener *listener, DeviceState *dev);
+ 
+ void xen_hvm_change_state_handler(void *opaque, bool running, RunState rstate);
+ void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
++                        uint8_t handle_bufioreq,
+                         const MemoryListener *xen_memory_listener);
+ 
+ void cpu_ioreq_pio(ioreq_t *req);
+diff --git a/include/hw/xen/xen_native.h b/include/hw/xen/xen_native.h
+index 1a5ad693a4..5caf91a616 100644
+--- a/include/hw/xen/xen_native.h
++++ b/include/hw/xen/xen_native.h
+@@ -464,10 +464,11 @@ static inline void xen_unmap_pcidev(domid_t dom,
+ }
+ 
+ static inline int xen_create_ioreq_server(domid_t dom,
++                                          int handle_bufioreq,
+                                           ioservid_t *ioservid)
+ {
+     int rc = xendevicemodel_create_ioreq_server(xen_dmod, dom,
+-                                                HVM_IOREQSRV_BUFIOREQ_ATOMIC,
++                                                handle_bufioreq,
+                                                 ioservid);
+ 
+     if (rc == 0) {
 -- 
 2.43.0
 
