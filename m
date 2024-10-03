@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96EF998EC61
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 11:41:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809244.1221469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D75698ED4E
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 12:48:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809253.1221480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swIKh-0003Kf-NT; Thu, 03 Oct 2024 09:41:15 +0000
+	id 1swJLv-0003j6-Ae; Thu, 03 Oct 2024 10:46:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809244.1221469; Thu, 03 Oct 2024 09:41:15 +0000
+Received: by outflank-mailman (output) from mailman id 809253.1221480; Thu, 03 Oct 2024 10:46:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swIKh-0003Ib-KN; Thu, 03 Oct 2024 09:41:15 +0000
-Received: by outflank-mailman (input) for mailman id 809244;
- Thu, 03 Oct 2024 09:41:13 +0000
+	id 1swJLv-0003g9-72; Thu, 03 Oct 2024 10:46:35 +0000
+Received: by outflank-mailman (input) for mailman id 809253;
+ Thu, 03 Oct 2024 10:46:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mkok=Q7=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1swIKf-0003IV-FZ
- for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 09:41:13 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20621.outbound.protection.outlook.com
- [2a01:111:f403:2009::621])
+ <SRS0=GA31=Q7=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1swJLt-0003g3-Ih
+ for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 10:46:33 +0000
+Received: from fhigh-a5-smtp.messagingengine.com
+ (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9fc9a453-816b-11ef-a0ba-8be0dac302b0;
- Thu, 03 Oct 2024 11:41:12 +0200 (CEST)
-Received: from BN9PR03CA0559.namprd03.prod.outlook.com (2603:10b6:408:138::24)
- by IA1PR12MB8465.namprd12.prod.outlook.com (2603:10b6:208:457::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.18; Thu, 3 Oct
- 2024 09:41:08 +0000
-Received: from BL02EPF00021F6B.namprd02.prod.outlook.com
- (2603:10b6:408:138:cafe::a2) by BN9PR03CA0559.outlook.office365.com
- (2603:10b6:408:138::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.17 via Frontend
- Transport; Thu, 3 Oct 2024 09:41:07 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00021F6B.mail.protection.outlook.com (10.167.249.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8026.11 via Frontend Transport; Thu, 3 Oct 2024 09:41:07 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 3 Oct
- 2024 04:41:07 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 3 Oct
- 2024 04:41:07 -0500
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 3 Oct 2024 04:41:04 -0500
+ id bf6996b8-8174-11ef-a0ba-8be0dac302b0;
+ Thu, 03 Oct 2024 12:46:31 +0200 (CEST)
+Received: from phl-compute-10.internal (phl-compute-10.phl.internal
+ [10.202.2.50])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 576C11140299;
+ Thu,  3 Oct 2024 06:46:29 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-10.internal (MEProxy); Thu, 03 Oct 2024 06:46:29 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 3 Oct 2024 06:46:27 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,154 +45,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9fc9a453-816b-11ef-a0ba-8be0dac302b0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YtwwlqijsXrHYhxDLYqXUGoHwiaVh0z5GZBw2+bGGl8sWj2xf7s+RkHD36cpGKEHJcVkxKU1hS9jvlFNgM1fo5LjkBfV/R3ityYfNkB2s9gd0eiH9myvreAyhj3/EaZb6N8gqJY0VoSwcQp+Faj2Z2HRPP+PIQL4Y70oi+cupp8FbG7wZk4OEYAc1X7BKqlXrSd6hsxfQxZ6a9HG7ZpvLPPzM11GK1f5MkiKDdrS1qGnlWeTuEgcqOR79VOVPGw/NBP55dGgSstJV1+0WolG/vSOmznXnafOe7YK3LzFjbdfAiCZ8DYWDKoJii84AmkCLsfqRMF0gF7LuPEwN8ieXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q+GlfTuyCcRlG6HAwCrHTSEasIZQnqrq4e/lxe3027o=;
- b=LS/MvAcIa7q4eJOlu0ewNwKkELJsL1ivvFq19qAwq7Wb/wCnJ2TbrubO1oE1vgqBynTzjJRctZNPLIt1XGzDoq8c9p0vQmTCKg35fU/dA58wEZtiVaeDKlHMwfCUJgF5MH+uQvrErZ7FWm15/D+CxhNmjZysTzDf/q97oCqK4oH3PV153Ha5PCFOaZpevBQQEpabcYT8Si0S9vvDn1h3hFxoCh0KZrsVFyZ7gDNbK8chpTu26RKjG1DyEC30awQmiWPuDLUqNnzfmUPRoIeKBD8VQ4UHSJIPm4e+tfB63kUXroFGZ0bBPVdbSuPvCn9XfK3aEoq0Tz+CHhSHZiRGzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q+GlfTuyCcRlG6HAwCrHTSEasIZQnqrq4e/lxe3027o=;
- b=MteAkCFJiC63Zm3UXPiea0WAbcGz9QhSJpWgTxkWKlADcFxGSBu6HlN+uSkP+XUP5J0EopfRI6dMPw2qh+O2vsoBVrh9+/KWeAMOL5ECdNjNOws2h+8aKAMietaL3TDu1ji0PbcSBds6fL5kFT/NyzcKALmJw6eYHYO1FFxYHnM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <5d3d4e88-52b3-40d7-aa65-30af88094622@amd.com>
-Date: Thu, 3 Oct 2024 11:41:04 +0200
+X-Inumbo-ID: bf6996b8-8174-11ef-a0ba-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1727952389;
+	 x=1728038789; bh=XfMvtogohk3mqqlQkyqZQEFn/uiGgj0gyaYLu0hSgz0=; b=
+	XCCbKFdmkjucxFSahXHzr3cV89zubPH+UlEEf5gVrj18MsDPTFjBLb2wZ4S6RCsp
+	+1uWBrA4FooNRK1vaa0CRTJDFs/OzflMbsbNK02EOho+eOVWdnAiZAcYgoJaXsIM
+	4iQYWnxe9eycEsRLHg+5lRP5AWOElc5+XGqdKmlk4EnRnG4bTcO29YhUGgQGqCRD
+	1TEZJ82df7b+XBWgvqYJ/tQbTgGmtFIpKQc8ESXzrTzdTWvD0zKi8/DASihHQp0V
+	X67h+PgepYcrxKZ+hA1nIr5tWZTb7716HEzhj7gJCSdyWo2ztUCtSaA6QqvKAH8z
+	GQdV6uHRgvPO22LbnKuE5Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1727952389; x=1728038789; bh=XfMvtogohk3mqqlQkyqZQEFn/uiG
+	gj0gyaYLu0hSgz0=; b=UL3Kl4jRtmM5PqmQncGZuqCepuc0/baUP1YptXt41A8y
+	kofT57pd+dDkUM0EpEkYwsTnyKSB26LmvL5JgkzS+48gz/qEUe3qMaqSnC16YgTt
+	4tJdDfmbVKQSQmYsX3+tLSr+viRxYtB+S7A+nh6ZUkO4MZPsMIcQ20m6ybjj/yC3
+	9z3dGbPet7Cm6bUXlqtmWO/jgnkViS5g53qkKmvDRb4787DmOjMWxXUbLs06G69P
+	guzgMaRPfY1SaVLlSd66Y/pX2Fp9TyIojBGIZCJSfbh50dgwddJtjvLvyngpfPY8
+	4ppm63lEt0WlxHQ2sFIvE//dM5pyaN3MdNsy29VGnA==
+X-ME-Sender: <xms:BHb-ZhDxO8ex3jc7tLW-BPfUu3-U23Ed9-xkEPzjVMCKCnzPiriOug>
+    <xme:BHb-Zvgf0BEHensypq0cereMCC_TxM0ag8athMz-DpU1tHOBc53kYR21puCVjTZbS
+    qypEVnczV_vZw>
+X-ME-Received: <xmr:BHb-ZsnEVhLr-Up1ZIv_umEBBQpoOn6JBWYKVTe5kB0y0lkzO5EcbryC0XlO6Mo2hUbpQUgJqeUEJqjRFzjfaAmi4uH6dq9AIw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvddvuddgfedvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
+    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
+    rfgrthhtvghrnhepveeujeetgeelleetudeuvefhtefgffejvedtvdfgieevheetheelge
+    euledvjeevnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhenucevlhhushhtvghrufhi
+    iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeeipdhmohguvgep
+    shhmthhpohhuthdprhgtphhtthhopehfrhgvughirghnohdriihighhlihhosegtlhhouh
+    gurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhho
+    jhgvtghtrdhorhhgpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprh
+    gtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghp
+    thhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepughpsh
+    hmihhthhesrghpvghrthhushhsohhluhhtihhonhhsrdgtohhm
+X-ME-Proxy: <xmx:BHb-ZrzL7b9MDMuyULZbhrqMPcPKI8IvY2eifl5hxinNTdlOBI1Yeg>
+    <xmx:BHb-ZmRr3nKJxQoiYtpNGVWgp2WVmDM1cz5wh_YQvvQkERk-KAKfcQ>
+    <xmx:BHb-ZuYtRvZ1himWEFyzR4Ez6OXWXB1XE_EzJ33gS7KyeWcxNITgLw>
+    <xmx:BHb-ZnTAwx-f1Gcf2jfjFcSFLt_bESXTrslMjbhXCMr8JzpDd_Mgaw>
+    <xmx:BXb-ZjIwxJyUlT8NFl_HUMQVWSd8jWAxf3NB7y_c-2z7H1vl0SI5YEcN>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 3 Oct 2024 12:46:25 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v7 0/2] x86/boot: Reduce assembly code
+Message-ID: <Zv52ARxdQmDmM9V6@mail-itl>
+References: <20241001102239.2609631-1-frediano.ziglio@cloud.com>
+ <Zv1S88isxSSMuqqk@mail-itl>
+ <CACHz=ZhmsA_7eiV+MXi6=3NRzro_sZZK+-Kt-PJ_FS6RfZPZ6g@mail.gmail.com>
+ <Zv3vUCLlaZSN84D_@mail-itl>
+ <CACHz=Zj141V4LCfDHKqV6ie9AHkYom4DaaJjxh9DQQaoe7bnGA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] xen: move per-cpu area management into common code
-To: <oleksii.kurochko@gmail.com>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Shawn Anastasio
-	<sanastasio@raptorengineering.com>, Alistair Francis
-	<alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, "Connor
- Davis" <connojdavis@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-References: <584dab4111041a660377f677cd829d4b2b4b8b2d.1727714022.git.oleksii.kurochko@gmail.com>
- <1c930c7a-50a4-403d-a867-b569e1efced6@amd.com>
- <5778c6f610e36fbb34485790a8ac3e2227518db5.camel@gmail.com>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <5778c6f610e36fbb34485790a8ac3e2227518db5.camel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6B:EE_|IA1PR12MB8465:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17eabcbf-b058-491f-ca05-08dce38f81e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700013|1800799024|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TjZCYzZLV3Z4ZmtRYmdYdUpuanpTQUpNc1RadVJTZlhMT21HK1JnUm92R1Br?=
- =?utf-8?B?b01xQlNzcFZrWWtpbXpFbHl0UzVkMmhFSWNXUjhMMytaT2hheGdiMUR4R1py?=
- =?utf-8?B?SEIwUVlDenZheHA3RHlGQ2hqSUJPSjFCd0tidDZDUzM2OVRXVzBQY0ZEMmow?=
- =?utf-8?B?dHNpVEZHazJhSkwveThLS1k5dmZreU1oYW03NmhLOGwyMWFvblMwZHZKVmZj?=
- =?utf-8?B?UkwrTVRMK1NYZm1BaUM5ZXR1QWxLc2UzakljSWVoc0VkeXMxZGZUZE5wc3VZ?=
- =?utf-8?B?NUpLV1UwZjlMWHpaQ3ROUmxkdzZWamZ2c2wrMkpYYzgydmFqUE1sMlZJbDRk?=
- =?utf-8?B?QWRzcE5aeitDdS9UYzNwMlg0Vmh0OHk5TjN4M0syU2ZvelAzVmdzM2syWE8z?=
- =?utf-8?B?TllrMUtKRFR6MmNGS3VVcXd6bFFIMGp2QmtocG41NGYzaGdnYndzMkYvelZi?=
- =?utf-8?B?eFZBMDhwZ0pLSUwwVnNVWnFYVWQrdGYrbE5hSUFvUFNJdXdQVzUxalh0djRB?=
- =?utf-8?B?YVI3NlhjeXhpS2YxQ1JEVXJsTkVtT3h2TFdQNXJMRWxoVlhGNGxRaitsZ3pt?=
- =?utf-8?B?WC9JcndYbW1aVUoydjJPM0lzc0FSMHJBWEF5aGF2bktpd2NiQk92SGpha1lt?=
- =?utf-8?B?M052U016M1YyREVEaW1DSnNPUnJoREtscG80SUhLbTVLVjArM0NieFppMG5I?=
- =?utf-8?B?dlFZZy8zUjk4d2t1eWZJZmd0UmM3MEZXbkRDdzJ0R3RNNk1oKzl2YTJKZWts?=
- =?utf-8?B?Z1lvQ1Q1bjFmT3dRNWIwSlFtV0UyTTZIdXRsTDFkeFY1L05QWTdiSnViZkMz?=
- =?utf-8?B?YndrQmU0VDZOb1I5cnVlRENkaE0rYW0wcWh6Q2VpVzNsTU1oR3h6WFdzU0Nh?=
- =?utf-8?B?RVZRQVU4ZlZJMjFVRGZ6bWxtUWFWVFQ1WktRMzluYVJDL1h1TWFxejVwRzVW?=
- =?utf-8?B?NVdEMm1vR3ZYTkNmSWlQdkRCbW02VVZGbGdDSFhaNnVHQ3NtTnNPUnRyT0Ji?=
- =?utf-8?B?N0FyU3MyK2s2ZmhuN0FQQ1E3TEowLys4Q1VEVHVjSnYrVnhVREdOLzM1RUZs?=
- =?utf-8?B?SjFSYW9Kdkp2OUZaN3MxaDFHa2ZHUlNyY056OWt3SjU0M3M5cFc1d0NFQy9p?=
- =?utf-8?B?S3lFdFNsdjdoMTRHaUhXYTVkU3Rlb1BxUmJ4M1hYUzdXcG9uWE8yOXJlbE90?=
- =?utf-8?B?ZUVuQnU3b21XT2ttajE1RW5uVkUzTTUrZUJOK1BuOUFNWVM3UWpQbnVSdUZK?=
- =?utf-8?B?eExTb0luOW05aXprSzgrNXBsZHRHdnBuUzMzRU5WcExLbHJBbnMxWmM0Mnk2?=
- =?utf-8?B?NTdEaFIwVnpWS1RDaFltUjZaM1Z2WThXcW5hcHBUdlJwOFNYQ1ZEb0pRQkpN?=
- =?utf-8?B?R0lIS3RSV0N3ZXlnL2dDbWFNWEJzNlFkM0Z4MUM2Nk5lTVAzalhibnpMMUdK?=
- =?utf-8?B?YlBmWVlUelFWY1ZDcW1nNTIxdE5iOHB3K2NEdjZrZjV4QkZqMTlJNEZ5SXlF?=
- =?utf-8?B?SHJQVlg0K3B4Sml2VENKTThwNjBxekNaUFZnNFhaV1JtRUZJRzlxNGFDOFla?=
- =?utf-8?B?ZDhFUHljemlyRXZpaU00NVo3NzhJWTFxbUhDS1I2bVlMaDdIWXdIeEVRemgy?=
- =?utf-8?B?czF6OGVSSHUwZGRnRDI0VG1raGFqcHlGbDNBbmovdnQrU1M1NGRRYkF4MVFs?=
- =?utf-8?B?MHJvcjRTNG9jNFc2ejJEZ1BMUGV3VklBK051S0s3eFArZndTUGpqQlg2cHVR?=
- =?utf-8?B?MTBOa2RvWkpHMWtiV0pVeElMc2I5M1FaY2xnaCtHTzdDdm12ZFVqMjVPaTI3?=
- =?utf-8?Q?W79ZvHDYGdnSarXEAqMObJWr83DqEWn6cGj34=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2024 09:41:07.8095
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17eabcbf-b058-491f-ca05-08dce38f81e2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F6B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8465
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="3H+0HaVIyNTfPwe2"
+Content-Disposition: inline
+In-Reply-To: <CACHz=Zj141V4LCfDHKqV6ie9AHkYom4DaaJjxh9DQQaoe7bnGA@mail.gmail.com>
 
 
+--3H+0HaVIyNTfPwe2
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 3 Oct 2024 12:46:25 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v7 0/2] x86/boot: Reduce assembly code
 
-On 03/10/2024 11:35, oleksii.kurochko@gmail.com wrote:
-> 
-> 
-> On Wed, 2024-10-02 at 15:41 +0200, Michal Orzel wrote:
->>
->>
->> On 30/09/2024 18:39, Oleksii Kurochko wrote:
->>>
->>>
->>> Centralize per-cpu area management to reduce code duplication and
->>> enhance maintainability across architectures.
->>>
->>> The per-cpu area management code, which is largely common among
->>> architectures, is moved to a shared implementation in
->>> xen/common/percpu.c. This change includes:
->>>  * Remove percpu.c from the X86 and Arm architectures.
->>>  * For x86, define INVALID_PERCPU_AREAS and PARK_OFFLINE_CPUS_VAR.
->>>  * Drop the declaration of __per_cpu_offset[] from stubs.c in
->>>    PPC and RISC-V to facilitate the build of the common per-cpu
->>> code.
->>>
->>> No functional changes for x86.
->>>
->>> For Arm add support of CPU_RESUME_FAILED, CPU_REMOVE and freeing of
->>> percpu in the case when system_state != SYS_STATE_suspend.
->> Behaviorwise there is no change for Arm given that none of these
->> actions can be executed.
->> That said, by looking at the code I realized that we never call
->> CPU_REMOVE so it is effectively
->> a dead code.
-> There is no change for now but what I mean by this message if one day,
-> for example, enable_nonboot_cpus() will be called and park_offline_cpus
-> will be enabled/implemented for Arm then CPU_RESUME_FAILED will be
-> handled differently in comparison with original Arm code. In original
-> Arm code it will do just break but for common code it will do
-> free_percpu_area().
-> And the similar for CPU_REMOVE if park_offline_cpus is enabled and
-> cpu_notifier_call_chain(..., CPU_REMOVE,...) will be called then the
-> behaviour of common code will be different from Arm code.
-> 
-> Do you think it would be better just drop this part of the commit
-> message?
-> Or would it be better to add:
->   ...(what I wrote before), however, there is no change in behavior for
-> Arm at this time.
-Yes, this one lgtm.
+On Thu, Oct 03, 2024 at 10:27:15AM +0100, Frediano Ziglio wrote:
+> On Thu, Oct 3, 2024 at 2:11=E2=80=AFAM Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com> wrote:
+> >
+> > On Wed, Oct 02, 2024 at 04:27:19PM +0100, Frediano Ziglio wrote:
+> > > On Wed, Oct 2, 2024 at 3:04=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+> > > <marmarek@invisiblethingslab.com> wrote:
+> > > >
+> > > > On Tue, Oct 01, 2024 at 11:22:37AM +0100, Frediano Ziglio wrote:
+> > > > > This series came from part of the work of removing duplications b=
+etween
+> > > > > boot code and rewriting part of code from assembly to C.
+> > > > > Rewrites EFI code in pure C.
+> > > >
+> > > > The MB2+EFI tests on Adler Lake fail with this series:
+> > > > https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1478=
+766782
+> > > > Looking at the VGA output (unfortunately not collected by the test
+> > > > itself) it hangs just after bootloader, before printing anything on=
+ the
+> > > > screen (or even clearing it after bootloader). The serial is silent=
+ too.
+> > > >
+> > >
+> > > I tried multiple times to take a look at the logs, but I keep getting=
+ error 500.
+> >
+> > 500? That's weird. Anyway, serial log is empty, so you haven't lost
+> > much.
+>=20
+> I'm getting pretty consistently. I can see the full pipeline, but not
+> the single logs. I tried with both Firefox and Chrome, I also tried
+> from home (just to check for something like firewall issues), always
+> error 500.
+>=20
+> > But also, I've ran it a couple more times and it is some regression.
+> > Staging reliably passes while staging+this series fails.
+> >
+> > Unfortunately I don't have any more info besides it hangs before
+> > printing anything on serial or VGA. Maybe it hanging only on Intel but
+> > not AMD is some hint? Or maybe it's some memory layout or firmware
+> > differences that matter here (bootloader is exactly the same)?
+> > FWIW some links:
+> > successful staging run on ADL: https://gitlab.com/xen-project/people/ma=
+rmarek/xen/-/jobs/7980146338
+> > failed staging+this run on ADL: https://gitlab.com/xen-project/people/m=
+armarek/xen/-/jobs/7980330394
+> > successful staging run on Zen3+: https://gitlab.com/xen-project/people/=
+marmarek/xen/-/jobs/7980146359
+> > successful staging+this run on Zen3+: https://gitlab.com/xen-project/pe=
+ople/marmarek/xen/-/jobs/7980146359
+> >
+>=20
+> Furthermore, I tried with 2 additional machines in our Lab, one Intel,
+> another AMD, both working for me.
+> Either your compiler did something different or something special on
+> the firmware.
+>=20
+> I could try downloading your executables and machines there, but as I
+> said, I'm getting error 500 (not sure if we package artifacts).
+>=20
+> Can you try without last commit ?
 
-~Michal
+Yes, this seems to work:
+https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1480052345
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--3H+0HaVIyNTfPwe2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmb+dgEACgkQ24/THMrX
+1yyQaQf/c5yiyxsWrU8wrbjhF8Rmdd1M5HtPB2mrcvJ0fM0pNdxoNlJy9weQLFSA
+HC1F9osDwgp+DFcORXTj8mxvk8k3v37uNaz3dL+0AYuBQKleHprLncZdh8LHxsOU
+s9ftJ2tEftKst/09gl0TpTOr3Nc0dQphVbsOobDqFqcgADVlWBXNBVirOdm4vM37
+G7zhDFa9MtkkEDl8oh3GKLCBvve5AVCD/nBUfkZRvlC6OJ4aJ/qKqdTwSK9TGCJW
+ISy8bixBitztPwdYOzvOp5lSj2b8qTmJNtLfAf7Uf+K/Gc7MyPYu37tRVx1eMMsx
+x14xmtaztPZr1U9wZG1ycgXU+Q3c3Q==
+=clWq
+-----END PGP SIGNATURE-----
+
+--3H+0HaVIyNTfPwe2--
 
