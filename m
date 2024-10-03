@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29E8698F2D3
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 17:43:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809592.1222001 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 446A698F2FF
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 17:45:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809597.1222011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swNyQ-0002mm-KQ; Thu, 03 Oct 2024 15:42:38 +0000
+	id 1swO15-0003Mh-0v; Thu, 03 Oct 2024 15:45:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809592.1222001; Thu, 03 Oct 2024 15:42:38 +0000
+Received: by outflank-mailman (output) from mailman id 809597.1222011; Thu, 03 Oct 2024 15:45:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swNyQ-0002kg-HM; Thu, 03 Oct 2024 15:42:38 +0000
-Received: by outflank-mailman (input) for mailman id 809592;
- Thu, 03 Oct 2024 15:42:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1swO14-0003K7-UI; Thu, 03 Oct 2024 15:45:22 +0000
+Received: by outflank-mailman (input) for mailman id 809597;
+ Thu, 03 Oct 2024 15:45:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=d1Re=Q7=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1swNyO-0002ka-Um
- for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 15:42:37 +0000
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [2001:4860:4864:20::2c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1c57eff2-819e-11ef-a0ba-8be0dac302b0;
- Thu, 03 Oct 2024 17:42:36 +0200 (CEST)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-27b7a1480bdso495648fac.2
- for <xen-devel@lists.xenproject.org>; Thu, 03 Oct 2024 08:42:35 -0700 (PDT)
+ <SRS0=187q=Q7=bootlin.com=louis.chauvet@srs-se1.protection.inumbo.net>)
+ id 1swO12-0003Jz-6p
+ for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 15:45:21 +0000
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [2001:4b98:dc4:8::224])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7c38e32d-819e-11ef-99a2-01e77a169b0f;
+ Thu, 03 Oct 2024 17:45:18 +0200 (CEST)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 6E6A6E0002;
+ Thu,  3 Oct 2024 15:45:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,104 +39,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c57eff2-819e-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1727970154; x=1728574954; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7TgMKQEUnWh0lDCfN36M+VOq1kl4DP/9LuG15M+vcAQ=;
-        b=RLgdKwiATNaF5DMrSN7w45Ed2WNp9DD3g6vOaZOdr9JPgDYqw0+HoWlkMWWJOkYtgD
-         XcvkV425g6J18gX1ZmbeKdSMyBCvr6eRJdzLgt/9NPWDhVYMBbYg1d+LF3G/HgUPnvqb
-         DHbWuvOpqrtRUBzpIPKpYhNP7NF78eZs/kRB4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727970154; x=1728574954;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7TgMKQEUnWh0lDCfN36M+VOq1kl4DP/9LuG15M+vcAQ=;
-        b=XW2hRijfr0/av/l0P9bMk6k64Ko7BfkZgWQDYTLKVYFh0GSuWyTr0Qr4D/vwkNcdat
-         4iUCRjswXKyWy7+iFl26VkoUekdpRouW5F7/B5UzZdaCOz575fDB1TVnfvo78Ke0/fSa
-         aDPjrSScMOGEUdjurUiySFvanFM7ix6s8lrVc5ZPs/jt3m4jrnhztmYfyFwb38vvoEAM
-         Ac7oH9sFS861Qpn6Txu3kzmvYLle9+OeY4nK/R1cGRsgu9Zcw9dyXYVuDLVSpxXvN/50
-         JaJwdu6i0ZKxGlRp3LCmT/Xg64wRFr5E6MaJ+UDmPzvp+VwKwcbbeJSVA5k8YBKIdT8z
-         0rgg==
-X-Gm-Message-State: AOJu0YzOoMwutQDiTOGGhI7XaC9jaxbKPfYi3T8DerfKryOlMtmrA9AM
-	+V+yahD7UJxlelGnGNjCq4rdKeSdLp2TyDVrpDeiv0GYeKtxDirVtkiwFNeyyAUTtje1RL+WYt/
-	EeqsBw6G0HAMvinvh8JYSXmtZ+snZqf92pGKjlQ==
-X-Google-Smtp-Source: AGHT+IHBCCAxr5AemcMOmGd2TiquPoXpOZca8TY0SUXiGfkLYN2i12RVyeKqmF+zLlUc8upHOn+f1o0IB3Z+oIUSzCM=
-X-Received: by 2002:a05:687c:2bea:b0:277:bc16:12c3 with SMTP id
- 586e51a60fabf-28788a7378bmr4364244fac.17.1727970154620; Thu, 03 Oct 2024
- 08:42:34 -0700 (PDT)
+X-Inumbo-ID: 7c38e32d-819e-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1727970315;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KEG391uPbET+smFrjuUd3Gbf+SfD/X5R0PGVdaNVyDQ=;
+	b=TICrwrFPqNQr0FkllJojskNhDNyxJBBjJ7p1KfIigSpe1yz5eAAGd2ZrO2BidvC6/A+Qom
+	NZAd/9RJSz1RiDd3lLdtADp5nqX9bQyWNoBMaYmxSJhOSDe0T0fZ3BzR0Se1uCIXgHLatP
+	0EnPqF616SrgdCpZaDlShmBrP13ZbIXW9Bj7Oi5IuZvb8HSqOh6m1SReSPJmtquU99Yk9c
+	wA7Vpopy8iwsQYMzzsZgtNT4idP5iRQdLFv3pdXkbJyEmdQQR3dqplUNNyYzH1sATd/MpW
+	BCY3lPJp+f+t7R9s2mNyuYyLKxVcwMtVAupvHPO8B9IX4HLM2IwIi9MsvKSHrQ==
+Date: Thu, 3 Oct 2024 17:45:10 +0200
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Inki Dae <inki.dae@samsung.com>,
+	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Sandy Huang <hjc@rock-chips.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+	Alexey Brodkin <abrodkin@synopsys.com>,
+	Hans de Goede <hdegoede@redhat.com>,
+	=?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
+	Zack Rusin <zack.rusin@broadcom.com>, amd-gfx@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 2/2] drm: Move crtc->{x, y, mode, enabled} to legacy
+ sub-structure
+Message-ID: <Zv68Bj8UTNvRSmFj@louis-chauvet-laptop>
+Mail-Followup-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Inki Dae <inki.dae@samsung.com>,
+	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Sandy Huang <hjc@rock-chips.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+	Alexey Brodkin <abrodkin@synopsys.com>,
+	Hans de Goede <hdegoede@redhat.com>,
+	=?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
+	Zack Rusin <zack.rusin@broadcom.com>, amd-gfx@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org, xen-devel@lists.xenproject.org
+References: <20241002182200.15363-1-ville.syrjala@linux.intel.com>
+ <20241002182200.15363-3-ville.syrjala@linux.intel.com>
+ <Zv6QF2EmIcogtlLA@louis-chauvet-laptop>
+ <Zv6gSGMXZZARf3oV@intel.com>
+ <Zv6zN7Go_XG44P2-@louis-chauvet-laptop>
+ <Zv64RktMPv2rpCZf@intel.com>
 MIME-Version: 1.0
-References: <20241003145810.2217075-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20241003145810.2217075-1-andrew.cooper3@citrix.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Thu, 3 Oct 2024 16:42:23 +0100
-Message-ID: <CACHz=ZhDuQd5CGY+05dCciu7K1xFKwpN1NORbqHdG4wijivzMQ@mail.gmail.com>
-Subject: Re: [PATCH] x86/boot: Don't use INC to set defaults
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <JBeulich@suse.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Zv64RktMPv2rpCZf@intel.com>
+X-GND-Sasl: louis.chauvet@bootlin.com
 
-On Thu, Oct 3, 2024 at 3:58=E2=80=AFPM Andrew Cooper <andrew.cooper3@citrix=
-.com> wrote:
+Le 03/10/24 - 18:29, Ville Syrjälä a écrit :
+> On Thu, Oct 03, 2024 at 05:07:35PM +0200, Louis Chauvet wrote:
+> > 
+> > > > > diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
+> > > > > index a40295c18b48..780681ea77e4 100644
+> > > > > --- a/drivers/gpu/drm/vkms/vkms_crtc.c
+> > > > > +++ b/drivers/gpu/drm/vkms/vkms_crtc.c
+> > > > > @@ -64,7 +64,7 @@ static int vkms_enable_vblank(struct drm_crtc *crtc)
+> > > > >  	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+> > > > >  	struct vkms_output *out = drm_crtc_to_vkms_output(crtc);
+> > > > >  
+> > > > > -	drm_calc_timestamping_constants(crtc, &crtc->mode);
+> > > > > +	drm_calc_timestamping_constants(crtc, &crtc->legacy.mode);
+> > > > 
+> > > > 	drm_calc_timestamping_constants(crtc, &crtc->state->mode);
+> > > 
+> > > This one doesn't look safe. You want to call that during your atomic
+> > > commit already.
+> > > 
+> > 
+> > This was already not safe with the previous implementation? Or it is only 
+> > unsafe because now I use state->mode instead of legacy.mode?
+> 
+> Yeah, if you want to look at obj->state then you need the corresponding
+> lock.
+> 
+> obj->state is also not necessarily the correct state you want because
+> a parallel commit could have already swapped in a new state but the
+> hardware is still on the old state.
+> 
+> Basically 99.9% of code should never even look at obj->state, and
+> instead should always use the for_each_new_<obj>_in_state()
+> and drm_atomic_get_new_<obj>_state() stuff. Currently that is a
+> pipe dream though because a lot of drivers haven't been fixed to
+> do things properly. If we ever manage to fix everything then we
+> could remove the stall hacks from drm_atomic_helper_swap_state()
+> and allow a commit pipeline of arbitrary length.
 >
-> __efi64_mb2_start() makes some bold assumptions about the efi_platform an=
-d
-> skip_realmode booleans.  Set them to 1 explicitly, which is more robust.
->
-> Make the comment a little more consice.
->
-> No practical change.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
-> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
->  xen/arch/x86/boot/head.S | 10 ++++------
->  1 file changed, 4 insertions(+), 6 deletions(-)
->
-> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-> index d1856d8012c9..af776c201a15 100644
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -279,14 +279,12 @@ __efi64_mb2_start:
->          pop     %rbx
->          pop     %rax
->
-> -        /* We are on EFI platform and EFI boot services are available. *=
-/
-> -        incb    efi_platform(%rip)
-> -
->          /*
-> -         * Disable real mode and other legacy stuff which should not
-> -         * be run on EFI platforms.
-> +         * efi_multiboot2_prelude() is happy that we're on EFI platform.=
-  Skip
-> +         * the BIOS initialisation path.
->           */
-> -        incb    skip_realmode(%rip)
-> +        movb    $1, efi_platform(%rip)
-> +        movb    $1, skip_realmode(%rip)
->
->          /* Jump to trampoline_setup after switching CPU to x86_32 mode. =
-*/
->          lea     trampoline_setup(%rip),%r15
->
-> base-commit: eb21ce14d709ef0c0030d0625028a4868c81126f
+> > 
+> > After inspecting the code, I think I don't need to call it as:
+> > 
+> > In `vkms_atomic_commit_tail` (used in 
+> > `@vkms_mode_config_helpers.atomic_commit_tail`), we call 
+> > `drm_atomic_helper_commit_modeset_disables`, which call 
+> > `drm_atomic_helper_calc_timestamping_constants` which call 
+> > `drm_calc_timestamping_constants` for every CRTC.
+> 
+> Slightly odd place for it, but I think that's just because it was
+> originally part of drm_atomic_helper_update_legacy_modeset_state()
+> and I didn't bother looking for a better home for it when I split
+> it out. But seems like it should work fine as is.
 
-Reviewed-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+I just send a patch for this! Thanks for your help!
 
-I like _Bool !
+[1]:https://lore.kernel.org/all/20241003-remove-legacy-v1-1-0b7db1f1a1a6@bootlin.com/
+ 
+> > 
+> > I tested kms_vblank, all of them are SUCCESS/SKIP, do you know other tests 
+> > that can trigger bugs?
+> 
+> You would explicitly have to race commits against vblank_enable.
+> Could of course sprinkle sleep()s around to widen the race window
+> if you're really keen to hit it.
+> 
+> -- 
+> Ville Syrjälä
+> Intel
 
-Frediano
+-- 
+Louis Chauvet, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
