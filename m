@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B20798F1FC
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 16:59:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809559.1221950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D34698F226
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 17:08:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809563.1221960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swNHW-0000R8-Et; Thu, 03 Oct 2024 14:58:18 +0000
+	id 1swNQh-0002MP-8z; Thu, 03 Oct 2024 15:07:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809559.1221950; Thu, 03 Oct 2024 14:58:18 +0000
+Received: by outflank-mailman (output) from mailman id 809563.1221960; Thu, 03 Oct 2024 15:07:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swNHW-0000Ok-CO; Thu, 03 Oct 2024 14:58:18 +0000
-Received: by outflank-mailman (input) for mailman id 809559;
- Thu, 03 Oct 2024 14:58:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1swNQh-0002Jn-6S; Thu, 03 Oct 2024 15:07:47 +0000
+Received: by outflank-mailman (input) for mailman id 809563;
+ Thu, 03 Oct 2024 15:07:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CNe7=Q7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1swNHU-0000Ob-FA
- for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 14:58:16 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ea58d975-8197-11ef-a0ba-8be0dac302b0;
- Thu, 03 Oct 2024 16:58:14 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5c8844f0ccaso1383144a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 03 Oct 2024 07:58:14 -0700 (PDT)
-Received: from andrewcoop.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99102859casm94462866b.47.2024.10.03.07.58.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Oct 2024 07:58:12 -0700 (PDT)
+ <SRS0=187q=Q7=bootlin.com=louis.chauvet@srs-se1.protection.inumbo.net>)
+ id 1swNQe-0002Jh-Pf
+ for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 15:07:45 +0000
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
+ [217.70.183.193]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3cddfbcb-8199-11ef-99a2-01e77a169b0f;
+ Thu, 03 Oct 2024 17:07:42 +0200 (CEST)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 11E6024000C;
+ Thu,  3 Oct 2024 15:07:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +38,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea58d975-8197-11ef-a0ba-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1727967493; x=1728572293; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=JGsl96EbJi//MexkeYAYAOH4FIDs3vyRmf07tQpcP8o=;
-        b=QgqalzLmx+kSEMaq4JaJz5zA39TqecoTtI1XvCNABQoY+vUqBe0XZ430qjF0h0Mpb2
-         lYPGvfWVJq4MeGWCYA9JOfW85T5SlW+VhjInAuQ6e1/f0KO74QURbmyAbzV38rYOFsOj
-         poRF1yEtAU2NlMO8p4uC/ZWKVflOMtIIr9pAs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727967493; x=1728572293;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=JGsl96EbJi//MexkeYAYAOH4FIDs3vyRmf07tQpcP8o=;
-        b=mReVhFkvWbvo6EUHY3UAofF44/80OOnmemp9Bz/1xHKRdjWoqd9z9179MEXPUoiZYG
-         SSxHBiPVRRnjDSr/Ivcy81AVQIpjpzIRofm+AndGj0Oez7a6sfVgeauTnnfNiPjxNcoO
-         +5sidh/stZFzFEYzTw6ezzdVHjdqjFv9w3HQSe88+5VzEMJW+kXA884ygEhasv31+/6n
-         G2b4PUVU8RqpCE6JCU+uvgvKDD02+yMSV7tPnfE218dHqesqGfDoHZSh7gQyw3gAYJcD
-         Dc9fW7cLJk9EoK2eh6iPBthQ9iwA1tJdJKl6Cx9rZLdQDL71z7I3MgnHiN3X+V70EfTV
-         O5Hw==
-X-Gm-Message-State: AOJu0YwyjyaZgSXNtZEVmWF3fxwOi2qo3QAv2mr9yi5qRwKMzlkD+kUl
-	CinnhkeWCTw1yRsu4GyEdvYT6TaZuyQfxtu0JbJXXncyDiEn8vfRuVGdvn+H2VgMZl0hGuR5JS+
-	XsJ4=
-X-Google-Smtp-Source: AGHT+IGUL/HZNccId+soyn3Qd3Ghz0NZo0SrhW0cj1SSeugN+ZN9/nQqP5oFTEuPOYgQ5optixsdCQ==
-X-Received: by 2002:a17:907:8015:b0:a99:9e9:a401 with SMTP id a640c23a62f3a-a9909e9a892mr265023766b.19.1727967493407;
-        Thu, 03 Oct 2024 07:58:13 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Frediano Ziglio <frediano.ziglio@cloud.com>
-Subject: [PATCH] x86/boot: Don't use INC to set defaults
-Date: Thu,  3 Oct 2024 15:58:10 +0100
-Message-Id: <20241003145810.2217075-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: 3cddfbcb-8199-11ef-99a2-01e77a169b0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1727968061;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YZElLwQ5mHYReOaSmSvT7278JqqhnnyULQk+/1+1kJk=;
+	b=YEH2YnPwiMskls9hd/gfzbIgYfC1qkcLesGnJNkrsmHEe3zu8VFZWm6BdgmnrnZ2Qgf6Mu
+	rl3svRb/4mCMycfcmpARRBvji7+Ry/w2vzIC3T393ERmy9UbpVYnNhM87rfFxR4CxUfMDQ
+	ksrKmVA99rcw5b1jA2ZNxjOLpTc24XkDfONA9tFeR45nmPl6UkQuJxTG6VYt19wt2k0OWd
+	ly5GPToqHmZiL+uWVlGQozyWeIO9rxeLv5puwAjVLmo/Jys8TaMxMe0xWkBxg30yo2dr0e
+	+qHYoE0Ir3I/BslTW53FebEDYX6GCccBs1oOkCfEqWwDeCFPtxDgi2SkeFavmA==
+Date: Thu, 3 Oct 2024 17:07:35 +0200
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Inki Dae <inki.dae@samsung.com>,
+	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Sandy Huang <hjc@rock-chips.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+	Alexey Brodkin <abrodkin@synopsys.com>,
+	Hans de Goede <hdegoede@redhat.com>,
+	=?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
+	Zack Rusin <zack.rusin@broadcom.com>, amd-gfx@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 2/2] drm: Move crtc->{x, y, mode, enabled} to legacy
+ sub-structure
+Message-ID: <Zv6zN7Go_XG44P2-@louis-chauvet-laptop>
+Mail-Followup-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Inki Dae <inki.dae@samsung.com>,
+	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Sandy Huang <hjc@rock-chips.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+	Alexey Brodkin <abrodkin@synopsys.com>,
+	Hans de Goede <hdegoede@redhat.com>,
+	=?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
+	Zack Rusin <zack.rusin@broadcom.com>, amd-gfx@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org, xen-devel@lists.xenproject.org
+References: <20241002182200.15363-1-ville.syrjala@linux.intel.com>
+ <20241002182200.15363-3-ville.syrjala@linux.intel.com>
+ <Zv6QF2EmIcogtlLA@louis-chauvet-laptop>
+ <Zv6gSGMXZZARf3oV@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Zv6gSGMXZZARf3oV@intel.com>
+X-GND-Sasl: louis.chauvet@bootlin.com
 
-__efi64_mb2_start() makes some bold assumptions about the efi_platform and
-skip_realmode booleans.  Set them to 1 explicitly, which is more robust.
 
-Make the comment a little more consice.
+> > > diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
+> > > index a40295c18b48..780681ea77e4 100644
+> > > --- a/drivers/gpu/drm/vkms/vkms_crtc.c
+> > > +++ b/drivers/gpu/drm/vkms/vkms_crtc.c
+> > > @@ -64,7 +64,7 @@ static int vkms_enable_vblank(struct drm_crtc *crtc)
+> > >  	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+> > >  	struct vkms_output *out = drm_crtc_to_vkms_output(crtc);
+> > >  
+> > > -	drm_calc_timestamping_constants(crtc, &crtc->mode);
+> > > +	drm_calc_timestamping_constants(crtc, &crtc->legacy.mode);
+> > 
+> > 	drm_calc_timestamping_constants(crtc, &crtc->state->mode);
+> 
+> This one doesn't look safe. You want to call that during your atomic
+> commit already.
+> 
 
-No practical change.
+This was already not safe with the previous implementation? Or it is only 
+unsafe because now I use state->mode instead of legacy.mode?
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-CC: Daniel P. Smith <dpsmith@apertussolutions.com>
-CC: Frediano Ziglio <frediano.ziglio@cloud.com>
----
- xen/arch/x86/boot/head.S | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+After inspecting the code, I think I don't need to call it as:
 
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index d1856d8012c9..af776c201a15 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -279,14 +279,12 @@ __efi64_mb2_start:
-         pop     %rbx
-         pop     %rax
- 
--        /* We are on EFI platform and EFI boot services are available. */
--        incb    efi_platform(%rip)
--
-         /*
--         * Disable real mode and other legacy stuff which should not
--         * be run on EFI platforms.
-+         * efi_multiboot2_prelude() is happy that we're on EFI platform.  Skip
-+         * the BIOS initialisation path.
-          */
--        incb    skip_realmode(%rip)
-+        movb    $1, efi_platform(%rip)
-+        movb    $1, skip_realmode(%rip)
- 
-         /* Jump to trampoline_setup after switching CPU to x86_32 mode. */
-         lea     trampoline_setup(%rip),%r15
+In `vkms_atomic_commit_tail` (used in 
+`@vkms_mode_config_helpers.atomic_commit_tail`), we call 
+`drm_atomic_helper_commit_modeset_disables`, which call 
+`drm_atomic_helper_calc_timestamping_constants` which call 
+`drm_calc_timestamping_constants` for every CRTC.
 
-base-commit: eb21ce14d709ef0c0030d0625028a4868c81126f
+I tested kms_vblank, all of them are SUCCESS/SKIP, do you know other tests 
+that can trigger bugs?
+
 -- 
-2.39.5
-
+Louis Chauvet, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
