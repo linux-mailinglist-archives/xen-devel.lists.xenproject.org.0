@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6399098F5A5
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 20:00:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809690.1222208 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF4E698F5AB
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 20:00:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809691.1222218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swQ79-00009G-0X; Thu, 03 Oct 2024 17:59:47 +0000
+	id 1swQ79-0000OE-Rr; Thu, 03 Oct 2024 17:59:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809690.1222208; Thu, 03 Oct 2024 17:59:46 +0000
+Received: by outflank-mailman (output) from mailman id 809691.1222218; Thu, 03 Oct 2024 17:59:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swQ78-0008VB-L2; Thu, 03 Oct 2024 17:59:46 +0000
-Received: by outflank-mailman (input) for mailman id 809690;
- Thu, 03 Oct 2024 17:59:44 +0000
+	id 1swQ79-0000CX-F0; Thu, 03 Oct 2024 17:59:47 +0000
+Received: by outflank-mailman (input) for mailman id 809691;
+ Thu, 03 Oct 2024 17:59:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=d1Re=Q7=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1swQ76-0006qR-7H
- for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 17:59:44 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1swQ77-0006qR-7o
+ for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 17:59:45 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 434fc622-81b1-11ef-99a2-01e77a169b0f;
+ id 43a23eb7-81b1-11ef-99a2-01e77a169b0f;
  Thu, 03 Oct 2024 19:59:41 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a8d60e23b33so182225966b.0
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5c896b9b3e1so1682255a12.2
  for <xen-devel@lists.xenproject.org>; Thu, 03 Oct 2024 10:59:41 -0700 (PDT)
 Received: from fziglio-desktop.. ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99104731a5sm111876166b.180.2024.10.03.10.59.39
+ a640c23a62f3a-a99104731a5sm111876166b.180.2024.10.03.10.59.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Oct 2024 10:59:39 -0700 (PDT)
+ Thu, 03 Oct 2024 10:59:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,186 +45,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 434fc622-81b1-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 43a23eb7-81b1-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1727978380; x=1728583180; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1727978381; x=1728583181; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tUCJBvhofnmQKNA8lGIkGO7D/fxxaw9oGLj4xWZ4GLk=;
-        b=lbObnK9PMzidM0KTsKc4KRKtljSn+CiwqDhs0JEUqi6w7woUwgIEc2ANWLGf96UCwC
-         NqWQdIFcT488d9A/Oz6p+mgMp6CoMeZOKedC8pF0ED3UsqJ00kKxM7Vfs7ekmUzrj752
-         iQ4nDYQ3zFbySsxoqf0a3b8qGgBWdqWxLpVgI=
+        bh=Q5H5vzGEUHF5T8160M9z8v6UqIQnE5siB1MdqRXTDEQ=;
+        b=Zwo4jlMqRIkuo9aOFaoZqfl/Zz90GVQz/KTxFalpJBra78EkPkOaoiymj864VF9lme
+         l5NhYUNDjDUGy7/eJZiWrdTzXOQBMWmIvYLjy0KXlqbB62YVgfIreNhHeOwHqQ3lcIc0
+         MLDZtGfNfiZuEzWKcC5v6G5m3OYZLoeMkesWg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727978380; x=1728583180;
+        d=1e100.net; s=20230601; t=1727978381; x=1728583181;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=tUCJBvhofnmQKNA8lGIkGO7D/fxxaw9oGLj4xWZ4GLk=;
-        b=t81E7PpGNUWIalLL+QQrVXMb4z8Ddv4uPiA60wi6A1E+xO/RoBBhz+LKNhtFaI44BU
-         olBC92MSMXq92c4ucCWoQjl0r+FAYisCoqVk8dY4tlniMOCiVLemGnIEKUrSpdJLYmAR
-         EPPWHY9MiYFJbvqFpZNQBd/HZQ1UPlk5u5hm/wTkTYXjgozre8SM5a6KnSDwx4PMHGtG
-         8mVLZQZ9t/+HZ0iSKXmD5XKNov04GIs6j3q7ZNCm+s4+rFJya9VM6sRMDnlLUGjuECQ+
-         EWGywR5VscJLYpoOuOsx/jY5Od4bacG7OU89MlTmk5FH7cCvni9LjalEtX753TwZSNxf
-         Ey/w==
-X-Gm-Message-State: AOJu0Yw1N4p9AxF0oefvn5CLue1FIKaQC3iQRDRzQw4JPf0NfSX4gobH
-	q9wlSKqS06Zql69SftbpN6QME0WZs8cWpPD9g2GLykB2Q51KEF3gg6QLKpSY0k48Zjs+ZP4JfKF
-	1
-X-Google-Smtp-Source: AGHT+IEgLs3fSh1AFu7vCS5IRA8EZ8IHJtCnA3mTsn85nbRiOOk0ZeUdWbrMNm48WX5qsJSvmRN2vQ==
-X-Received: by 2002:a17:907:f1e6:b0:a8c:78a5:8fc4 with SMTP id a640c23a62f3a-a991bd43d13mr19775066b.19.1727978380214;
+        bh=Q5H5vzGEUHF5T8160M9z8v6UqIQnE5siB1MdqRXTDEQ=;
+        b=oeAGsqmWj0fHBXv0ZTHgK8dv4dCMVTXxr6lz3/O06eO0XHECPdKH3DleQ53o/MuRbL
+         k+GYTNH8SQSOV0nfLxLIXKqN1Wo0605NTYgyDx1lAoLlnW/ZsxquM5FabEbSIiiCGQBE
+         adcdKqi24gpUMqMCGu7srHwXA0klzRlr0aMR1+NNt/ppb7EbodJ+9XlZihuMQKPFzDoI
+         Jg6G5fNS0ZypQ0elwJscEMI/oY1+CcG/BAIgThxA+81uzychpEOqT+miWRZUDItLAcrP
+         k9Ji47Q0ZattbZe5zQLktkrVu4CPfpoWlUj6jQi3nC1uPGMaxOMF7/kFKbzvxLYFj2Qi
+         x6HA==
+X-Gm-Message-State: AOJu0Yx921Wg+xW/KTtingRdELwSdl55wj4FouE0zl1yd+qaWH0vcD64
+	zZ0OANpb4Q51pMW5Cf4qs+PNsVnK6/iGCPuIfoI9ytQAyaIelqeTbvi7D3Gpby37GHGqdE2wCDq
+	B
+X-Google-Smtp-Source: AGHT+IHmeQUHZPmc8iPrJIjuIzCdQw3ZXJkUj7BsND84KEb5v+REaWhBPvZugWwjiy4b37RnVDOBGw==
+X-Received: by 2002:a17:907:3d8f:b0:a8d:1655:a423 with SMTP id a640c23a62f3a-a991c077e2bmr15511866b.56.1727978380897;
         Thu, 03 Oct 2024 10:59:40 -0700 (PDT)
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 07/19] xen: Update header guards - EFI
-Date: Thu,  3 Oct 2024 18:59:07 +0100
-Message-Id: <20241003175919.472774-8-frediano.ziglio@cloud.com>
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v2 08/19] xen: Update header guards - HYPFS
+Date: Thu,  3 Oct 2024 18:59:08 +0100
+Message-Id: <20241003175919.472774-9-frediano.ziglio@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241003175919.472774-1-frediano.ziglio@cloud.com>
 References: <20241003175919.472774-1-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Updated headers related to EFI.
+Updated headers related to HYPFS.
 
 Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 ---
- xen/arch/x86/include/asm/x86_64/efibind.h | 4 ++--
- xen/include/efi/efiapi.h                  | 4 ++--
- xen/include/efi/eficapsule.h              | 4 ++--
- xen/include/efi/eficon.h                  | 4 ++--
- xen/include/efi/efidef.h                  | 4 ++--
- xen/include/efi/efidevp.h                 | 4 ++--
- xen/include/efi/efierr.h                  | 4 ++--
- xen/include/efi/efipciio.h                | 6 +++---
- xen/include/efi/efiprot.h                 | 4 ++--
- 9 files changed, 19 insertions(+), 19 deletions(-)
+ xen/include/xen/hypfs.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/x86_64/efibind.h b/xen/arch/x86/include/asm/x86_64/efibind.h
-index b29342c61c..a4b8ec52b3 100644
---- a/xen/arch/x86/include/asm/x86_64/efibind.h
-+++ b/xen/arch/x86/include/asm/x86_64/efibind.h
-@@ -16,8 +16,8 @@ Abstract:
- Revision History
+diff --git a/xen/include/xen/hypfs.h b/xen/include/xen/hypfs.h
+index d8fcac23b4..d6f5725221 100644
+--- a/xen/include/xen/hypfs.h
++++ b/xen/include/xen/hypfs.h
+@@ -1,5 +1,5 @@
+-#ifndef __XEN_HYPFS_H__
+-#define __XEN_HYPFS_H__
++#ifndef XEN__HYPFS_H
++#define XEN__HYPFS_H
  
- --*/
--#ifndef X86_64_EFI_BIND
--#define X86_64_EFI_BIND
-+#ifndef ASM__X86__X86_64__EFIBIND_H
-+#define ASM__X86__X86_64__EFIBIND_H
- #ifndef __GNUC__
- #pragma pack()
+ #ifdef CONFIG_HYPFS
+ #include <xen/lib.h>
+@@ -206,4 +206,4 @@ unsigned int hypfs_dynid_entry_size(const struct hypfs_entry *template,
+                                     unsigned int id);
  #endif
-diff --git a/xen/include/efi/efiapi.h b/xen/include/efi/efiapi.h
-index a616d1238a..c9e6a531ba 100644
---- a/xen/include/efi/efiapi.h
-+++ b/xen/include/efi/efiapi.h
-@@ -1,5 +1,5 @@
--#ifndef _EFI_API_H
--#define _EFI_API_H
-+#ifndef EFI__EFIAPI_H
-+#define EFI__EFIAPI_H
  
- /*++
- 
-diff --git a/xen/include/efi/eficapsule.h b/xen/include/efi/eficapsule.h
-index 481af2816a..5764f36e9f 100644
---- a/xen/include/efi/eficapsule.h
-+++ b/xen/include/efi/eficapsule.h
-@@ -19,8 +19,8 @@ Abstract:
- 
- --*/
- 
--#ifndef _EFI_CAPSULE_H
--#define _EFI_CAPSULE_H
-+#ifndef EFI__EFICAPSULE_H
-+#define EFI__EFICAPSULE_H
- 
- 
- #define CAPSULE_BLOCK_DESCRIPTOR_SIGNATURE  EFI_SIGNATURE_32 ('C', 'B', 'D', 'S')
-diff --git a/xen/include/efi/eficon.h b/xen/include/efi/eficon.h
-index 089db9816c..952022b734 100644
---- a/xen/include/efi/eficon.h
-+++ b/xen/include/efi/eficon.h
-@@ -1,5 +1,5 @@
--#ifndef _EFI_CON_H
--#define _EFI_CON_H
-+#ifndef EFI__EFICON_H
-+#define EFI__EFICON_H
- 
- /*++
- 
-diff --git a/xen/include/efi/efidef.h b/xen/include/efi/efidef.h
-index 86a7e111bf..20cf269e8f 100644
---- a/xen/include/efi/efidef.h
-+++ b/xen/include/efi/efidef.h
-@@ -1,5 +1,5 @@
--#ifndef _EFI_DEF_H
--#define _EFI_DEF_H
-+#ifndef EFI__EFIDEF_H
-+#define EFI__EFIDEF_H
- 
- /*++
- 
-diff --git a/xen/include/efi/efidevp.h b/xen/include/efi/efidevp.h
-index beb5785a45..fd88b66a56 100644
---- a/xen/include/efi/efidevp.h
-+++ b/xen/include/efi/efidevp.h
-@@ -1,5 +1,5 @@
--#ifndef _DEVPATH_H
--#define _DEVPATH_H
-+#ifndef EFI__EFIDEVP_H
-+#define EFI__EFIDEVP_H
- 
- /*++
- 
-diff --git a/xen/include/efi/efierr.h b/xen/include/efi/efierr.h
-index cdca210414..1d2ed125d8 100644
---- a/xen/include/efi/efierr.h
-+++ b/xen/include/efi/efierr.h
-@@ -1,5 +1,5 @@
--#ifndef _EFI_ERR_H
--#define _EFI_ERR_H
-+#ifndef EFI__EFIERR_H
-+#define EFI__EFIERR_H
- 
- /*++
- 
-diff --git a/xen/include/efi/efipciio.h b/xen/include/efi/efipciio.h
-index 0724f957a3..8f8c81d043 100644
---- a/xen/include/efi/efipciio.h
-+++ b/xen/include/efi/efipciio.h
-@@ -1,5 +1,5 @@
--#ifndef _EFI_PCI_IO_H
--#define _EFI_PCI_IO_H
-+#ifndef EFI__EFIPCIIO_H
-+#define EFI__EFIPCIIO_H
- 
- #define EFI_PCI_IO_PROTOCOL \
-     { 0x4cf5b200, 0x68b8, 0x4ca5, {0x9e, 0xec, 0xb2, 0x3e, 0x3f, 0x50, 0x02, 0x9a} }
-@@ -216,4 +216,4 @@ typedef struct _EFI_PCI_IO {
-   VOID                                   *RomImage;
- } EFI_PCI_IO;
- 
--#endif /* _EFI_PCI_IO_H */
-+#endif /* EFI__EFIPCIIO_H */
-diff --git a/xen/include/efi/efiprot.h b/xen/include/efi/efiprot.h
-index 56d7636b2b..8a56b3faa5 100644
---- a/xen/include/efi/efiprot.h
-+++ b/xen/include/efi/efiprot.h
-@@ -1,5 +1,5 @@
--#ifndef _EFI_PROT_H
--#define _EFI_PROT_H
-+#ifndef EFI__EFIPROT_H
-+#define EFI__EFIPROT_H
- 
- /*++
- 
+-#endif /* __XEN_HYPFS_H__ */
++#endif /* XEN__HYPFS_H */
 -- 
 2.34.1
 
