@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD01A98F611
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 20:29:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.809805.1222329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9DE198F6A5
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2024 20:57:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.809817.1222349 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swQZ9-0007yH-Pr; Thu, 03 Oct 2024 18:28:43 +0000
+	id 1swR0c-0007bD-1m; Thu, 03 Oct 2024 18:57:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 809805.1222329; Thu, 03 Oct 2024 18:28:43 +0000
+Received: by outflank-mailman (output) from mailman id 809817.1222349; Thu, 03 Oct 2024 18:57:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swQZ9-0007wB-Lg; Thu, 03 Oct 2024 18:28:43 +0000
-Received: by outflank-mailman (input) for mailman id 809805;
- Thu, 03 Oct 2024 18:28:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1swQZ8-0007w1-DQ; Thu, 03 Oct 2024 18:28:42 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1swQZ8-0000ep-8m; Thu, 03 Oct 2024 18:28:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1swQZ7-0001Lv-Q1; Thu, 03 Oct 2024 18:28:41 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1swQZ7-0005p1-PS; Thu, 03 Oct 2024 18:28:41 +0000
+	id 1swR0b-0007Z6-Ua; Thu, 03 Oct 2024 18:57:05 +0000
+Received: by outflank-mailman (input) for mailman id 809817;
+ Thu, 03 Oct 2024 18:57:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3wyt=Q7=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
+ id 1swR0a-0007Yu-6r
+ for xen-devel@lists.xenproject.org; Thu, 03 Oct 2024 18:57:04 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4715a050-81b9-11ef-a0ba-8be0dac302b0;
+ Thu, 03 Oct 2024 20:57:03 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2facf48166bso18749831fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Oct 2024 11:57:03 -0700 (PDT)
+Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2faecbf6feesm2796571fa.18.2024.10.03.11.57.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Oct 2024 11:57:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +45,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=IWq1h8HkCbNDLUo0uZJQNkcLxilohWBSxm0D+z34Ih0=; b=ANv/Q48jue7ZyaA45xZ6fwrLbU
-	EzFUnQgZza+kMvsPNwViW26sm69/ab/96Y39qPHhvVApVjB21YILf3gQE+0mzl+pOXR/HskSV6o1C
-	Zx/wabW1mkOHGIAvByXqEmwJijN4Bes4enHNxzJiRZ9ykyuk/8ZsOokpEb3KtBZw/NkQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187954-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4715a050-81b9-11ef-a0ba-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1727981823; x=1728586623; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=cdaNDaEOcn6vuQNjiuMDjzYnUO3vmcmh1n8TpB8KZRA=;
+        b=iqqAN6+ECcPR8Vo/eH6aBmLojnXBTlcAuHsArR+YHJQWeSfHBkHZnFbtbBbTzs+9B5
+         KNe9lG4TnX/eg6Szn9bc/e9bIeEosdVGfeech9SVBnz8OJQ9X8auFsYdExU2wlcwR9jC
+         WAL3TNi0HHyH3TseORfuIBjX03Zr9FEC78abcPCBbCk4ZuEMea5VHoj3YagnKsf8noTX
+         UPY9CZsTvf6Ndfi1F4EpjbsXgDznSTgcKwQcyY0vNcbamvp/DHBo/XfjW66hvlr5/F1c
+         G+7Gdlx551gWAhc9JVDp2jevAL/3VfyIFxrpqgHYB0muWc6rOEWNZYnI2pOS8PHo2Y8P
+         rNUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727981823; x=1728586623;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cdaNDaEOcn6vuQNjiuMDjzYnUO3vmcmh1n8TpB8KZRA=;
+        b=Lx7zus6p9cUNvBNo40TaB0mgah4tA2CyJ8rBiS0vC2jWk/2GEGEEYzc2xVz7JwlW0g
+         UB4D3Svb8UOg9VyyPeEY/9PqniHwZWTTlyKkkJ7shO/JPeVGf3Qrcr4l4LeD8pCXv7SX
+         N30iqK6SYuKDPaVGTWNABbBmbsV6FZtIpSBlHJi15lrols7wIEzQ6+E/FUCE52PnTFag
+         bAl/r5dedPi4p71obdgdKXzpAG1WY7fEuwfF99L7cWenTbvvzHdO1qaCzy5GtZangMMI
+         e0lGENT1ZU2nHFFpNZoMNUUUR62G2ihuYojbrDGOcPm5NJrJWj2w81qPLpZ0Tfone4zh
+         DIcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUshneErrw+/USrmrieITJ/9Juh5Q09Nk5IiIzyupqfMeO24lbUdPCWiROpnIQ7Ga1bNoADUMSbpWA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwEc41TLoEBvbcEx81yYyqMT2Gq4uaQ+E2c9hDTGDPFHBisZQy1
+	MfZ0juG3qPlHNO4vn3Q61ROj9uF5Yfk+zQBBnE4Atq0MDqdoLJdw
+X-Google-Smtp-Source: AGHT+IFdeBkkNKz7zU2CTecNYILP4aX1U9f8WPyScxz91qp4ENEdsSBhsUSyvViSiJmd41SQ99VMWA==
+X-Received: by 2002:a2e:b8c3:0:b0:2ec:55b5:ed45 with SMTP id 38308e7fff4ca-2faf3c420b2mr190871fa.24.1727981822607;
+        Thu, 03 Oct 2024 11:57:02 -0700 (PDT)
+From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+To: qemu-devel@nongnu.org
+Cc: sstabellini@kernel.org,
+	anthony@xenproject.org,
+	paul@xen.org,
+	peter.maydell@linaro.org,
+	edgar.iglesias@amd.com,
+	xen-devel@lists.xenproject.org
+Subject: [PULL v2 0/5] Xen Queue
+Date: Thu,  3 Oct 2024 20:56:49 +0200
+Message-ID: <20241003185655.1480819-1-edgar.iglesias@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 187954: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=eb21ce14d709ef0c0030d0625028a4868c81126f
-X-Osstest-Versions-That:
-    xen=444cb9350f2c1cc202b6b86176ddd8e57525e2d9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 03 Oct 2024 18:28:41 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 187954 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187954/
+From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 
-Failures :-/ but no regressions.
+The following changes since commit 423be09ab9492735924e73a2d36069784441ebc6:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+  Merge tag 'warn-pull-request' of https://gitlab.com/marcandre.lureau/qemu into staging (2024-10-03 10:32:54 +0100)
 
-version targeted for testing:
- xen                  eb21ce14d709ef0c0030d0625028a4868c81126f
-baseline version:
- xen                  444cb9350f2c1cc202b6b86176ddd8e57525e2d9
+are available in the Git repository at:
 
-Last test of basis   187950  2024-10-03 10:00:24 Z    0 days
-Testing same since   187954  2024-10-03 14:02:14 Z    0 days    1 attempts
+  https://gitlab.com/edgar.iglesias/qemu.git tags/edgar/xen-queue-2024-10-03-v2.for-upstream
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Frediano Ziglio <frediano.ziglio@cloud.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+for you to fetch changes up to ca9275a4b11aced3074219d1712e29fce5036f72:
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+  hw/arm: xenpvh: Enable PCI for ARM PVH (2024-10-03 19:37:35 +0200)
 
+----------------------------------------------------------------
+Edgars Xen Queue.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+----------------------------------------------------------------
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+ChangeLog:
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+v1 -> v2:
+* Removed left over trace call
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+----------------------------------------------------------------
 
+Dr. David Alan Gilbert (1):
+      hw/xen: Remove deadcode
 
-Pushing revision :
+Edgar E. Iglesias (4):
+      hw/xen: Expose handle_bufioreq in xen_register_ioreq
+      hw/xen: xenpvh: Disable buffered IOREQs for ARM
+      hw/xen: xenpvh: Add pci-intx-irq-base property
+      hw/arm: xenpvh: Enable PCI for ARM PVH
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   444cb9350f..eb21ce14d7  eb21ce14d709ef0c0030d0625028a4868c81126f -> smoke
+ hw/arm/xen-pvh.c                    |  17 ++++++
+ hw/i386/xen/xen-hvm.c               |   4 +-
+ hw/i386/xen/xen-pvh.c               |   3 ++
+ hw/xen/xen-hvm-common.c             | 100 ++++++++++++++++++++++--------------
+ hw/xen/xen-legacy-backend.c         |  18 -------
+ hw/xen/xen-pvh-common.c             |  40 ++++++++++++++-
+ hw/xen/xen_devconfig.c              |   8 ---
+ include/hw/xen/xen-hvm-common.h     |   3 ++
+ include/hw/xen/xen-legacy-backend.h |   5 --
+ include/hw/xen/xen-pvh-common.h     |   3 ++
+ include/hw/xen/xen_native.h         |   3 +-
+ 11 files changed, 132 insertions(+), 72 deletions(-)
+-- 
+2.43.0
+
 
