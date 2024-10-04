@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EAB1990E57
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 21:32:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.810615.1223336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 301D799110D
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 23:01:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.810630.1223346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swo1l-0008DL-U8; Fri, 04 Oct 2024 19:31:49 +0000
+	id 1swpPW-00035i-88; Fri, 04 Oct 2024 21:00:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 810615.1223336; Fri, 04 Oct 2024 19:31:49 +0000
+Received: by outflank-mailman (output) from mailman id 810630.1223346; Fri, 04 Oct 2024 21:00:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swo1l-0008AV-R1; Fri, 04 Oct 2024 19:31:49 +0000
-Received: by outflank-mailman (input) for mailman id 810615;
- Fri, 04 Oct 2024 19:31:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1swo1k-0008AL-Vd; Fri, 04 Oct 2024 19:31:48 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1swo1k-0003Px-PX; Fri, 04 Oct 2024 19:31:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1swo1k-0005Kc-AP; Fri, 04 Oct 2024 19:31:48 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1swo1k-00036p-9y; Fri, 04 Oct 2024 19:31:48 +0000
+	id 1swpPW-00034C-5M; Fri, 04 Oct 2024 21:00:26 +0000
+Received: by outflank-mailman (input) for mailman id 810630;
+ Fri, 04 Oct 2024 21:00:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rX0y=RA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1swpPU-000346-NU
+ for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 21:00:24 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [2604:1380:45d1:ec00::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab64c39d-8293-11ef-a0bb-8be0dac302b0;
+ Fri, 04 Oct 2024 23:00:22 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 01C27A4187E;
+ Fri,  4 Oct 2024 21:00:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68C33C4CEC6;
+ Fri,  4 Oct 2024 21:00:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,133 +42,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=w+E6eBkPu54suW6JbFW8b693yWQffHpSzzR2zDkK6J8=; b=2/AGFHuN3P0te/67JBhnA1KWE5
-	0EGOOuzYCctiw+yxddHk8YQQOkQCJvUjfo3+vLylhYiwUsyztd0X5DD1T00VL6JDPN4AhSZurmDx7
-	tn3bPPsujLQ7S8wAYF2ZByXsKHW04k15fVWYVJXvnUWCDr9I2Ihvjf1Sr9A/auir42hc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187961-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: ab64c39d-8293-11ef-a0bb-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1728075621;
+	bh=YCqKB4xMI//wg9hUiR3UkGuVmjEvths1jKvjyC8RrIc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Qv72VAyN7DwOTGBD3bjppdr4aWyUVOPUEXwH/KdI1/+Ijno/0rtssWSNIvSIPXMXo
+	 u0ViwvBcLvGMUau7HBI8yEyhiE2zz+VsFrm3Z3wNf+Esrcyvpo7Xsw0O/h58PzvR0i
+	 db6k9UPUd3fbrKmuAJJwKvCluZEHNFdleBTuJFK/paBOpEi+70z6KZzImIzMgm7NQG
+	 IbuJr4rX1GlB75G4PQ/YV1BJNE5DDoWOhqrRZZPvFv2FEqIbxbn95uaQIDRKHr/YLq
+	 q/LHUDM4BdMq6VMOE31OJvTgCRzEfLB7r+Kr+1RM3GFKQ5QuynX2wQiC/6dC9Pt59w
+	 pobni7FLQ9eZw==
+Date: Fri, 4 Oct 2024 14:00:19 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Michal Orzel <michal.orzel@amd.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [PATCH v2 4/6] dt-overlay: Support target-path being root node
+In-Reply-To: <20241004122220.234817-5-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2410041400120.1138574@ubuntu-linux-20-04-desktop>
+References: <20241004122220.234817-1-michal.orzel@amd.com> <20241004122220.234817-5-michal.orzel@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [libvirt test] 187961: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=215cada34395b6b2caad507393e043594d6c86fc
-X-Osstest-Versions-That:
-    libvirt=3b296a98aaf43310f85f7e51d89791b985204173
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 04 Oct 2024 19:31:48 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 187961 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187961/
+On Fri, 4 Oct 2024, Michal Orzel wrote:
+> Even though in most cases device nodes are not present directly under
+> the root node, it's a perfectly valid configuration (e.g. Qemu virt
+> machine dtb). At the moment, we don't handle this scenario which leads
+> to unconditional addition of extra leading '/' in the node full path.
+> This makes the attempt to add such device overlay to fail.
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 187945
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-vhd 15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- libvirt              215cada34395b6b2caad507393e043594d6c86fc
-baseline version:
- libvirt              3b296a98aaf43310f85f7e51d89791b985204173
-
-Last test of basis   187945  2024-10-03 04:20:39 Z    1 days
-Testing same since   187961  2024-10-04 04:22:33 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  John Levon <john.levon@nutanix.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-libvirt-vhd                                 pass    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   3b296a98aa..215cada343  215cada34395b6b2caad507393e043594d6c86fc -> xen-tested-master
+> ---
+> Changes in v2:
+>  - Use ?: instead of implicit bool->int conversion
+> ---
+>  xen/common/dt-overlay.c | 16 +++++++++++-----
+>  1 file changed, 11 insertions(+), 5 deletions(-)
+> 
+> diff --git a/xen/common/dt-overlay.c b/xen/common/dt-overlay.c
+> index d18bd12bd38d..bfa153250922 100644
+> --- a/xen/common/dt-overlay.c
+> +++ b/xen/common/dt-overlay.c
+> @@ -325,6 +325,7 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
+>              int node_name_len;
+>              unsigned int target_path_len = strlen(target_path);
+>              unsigned int node_full_name_len;
+> +            unsigned int extra_len;
+>  
+>              node_name = fdt_get_name(fdto, subnode, &node_name_len);
+>  
+> @@ -332,10 +333,13 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
+>                  return node_name_len;
+>  
+>              /*
+> -             * Magic number 2 is for adding '/' and '\0'. This is done to keep
+> -             * the node_full_path in the correct full node name format.
+> +             * Extra length is for adding '/' and '\0' unless the target path is
+> +             * root in which case we don't add the '/' at the beginning. This is
+> +             * done to keep the node_full_path in the correct full node name
+> +             * format.
+>               */
+> -            node_full_name_len = target_path_len + node_name_len + 2;
+> +            extra_len = (target_path_len > 1) ? 2 : 1;
+> +            node_full_name_len = target_path_len + node_name_len + extra_len;
+>  
+>              nodes_full_path[node_num] = xmalloc_bytes(node_full_name_len);
+>  
+> @@ -344,9 +348,11 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
+>  
+>              memcpy(nodes_full_path[node_num], target_path, target_path_len);
+>  
+> -            nodes_full_path[node_num][target_path_len] = '/';
+> +            /* Target is not root - add separator */
+> +            if ( target_path_len > 1 )
+> +                nodes_full_path[node_num][target_path_len++] = '/';
+>  
+> -            memcpy(nodes_full_path[node_num] + target_path_len + 1,
+> +            memcpy(nodes_full_path[node_num] + target_path_len,
+>                      node_name, node_name_len);
+>  
+>              nodes_full_path[node_num][node_full_name_len - 1] = '\0';
+> -- 
+> 2.25.1
+> 
 
