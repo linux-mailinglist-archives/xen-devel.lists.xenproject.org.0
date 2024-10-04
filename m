@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B0BF98FED9
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 10:18:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.810099.1222847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A77E98FEDC
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 10:18:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.810100.1222860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swdVU-00014q-VH; Fri, 04 Oct 2024 08:17:48 +0000
+	id 1swdVX-0001Y9-6E; Fri, 04 Oct 2024 08:17:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 810099.1222847; Fri, 04 Oct 2024 08:17:48 +0000
+Received: by outflank-mailman (output) from mailman id 810100.1222860; Fri, 04 Oct 2024 08:17:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swdVT-0000l1-UL; Fri, 04 Oct 2024 08:17:47 +0000
-Received: by outflank-mailman (input) for mailman id 810099;
- Fri, 04 Oct 2024 08:17:42 +0000
+	id 1swdVW-0001Lr-2j; Fri, 04 Oct 2024 08:17:50 +0000
+Received: by outflank-mailman (input) for mailman id 810100;
+ Fri, 04 Oct 2024 08:17:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=njpt=RA=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1swdVN-0005Vm-Bv
- for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 08:17:41 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1swdVO-0005Vm-U7
+ for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 08:17:43 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1fa4fed4-8229-11ef-a0bb-8be0dac302b0;
- Fri, 04 Oct 2024 10:17:40 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a83562f9be9so181725066b.0
- for <xen-devel@lists.xenproject.org>; Fri, 04 Oct 2024 01:17:40 -0700 (PDT)
+ id 2048fcd1-8229-11ef-a0bb-8be0dac302b0;
+ Fri, 04 Oct 2024 10:17:42 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c8844f0ccaso2288157a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Oct 2024 01:17:42 -0700 (PDT)
 Received: from fziglio-desktop.. ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99102858a4sm189829366b.49.2024.10.04.01.17.39
+ a640c23a62f3a-a99102858a4sm189829366b.49.2024.10.04.01.17.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Oct 2024 01:17:39 -0700 (PDT)
+ Fri, 04 Oct 2024 01:17:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,471 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fa4fed4-8229-11ef-a0bb-8be0dac302b0
+X-Inumbo-ID: 2048fcd1-8229-11ef-a0bb-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728029860; x=1728634660; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1728029861; x=1728634661; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=I3DKuhQNv3MsZ5QX5cGeELREhQ+CQGQiRyTh9z9amE0=;
-        b=YMsPcRFvQMpQTvtd2qnBOgoq0x6AEmm63FsROKxudHdxS8K4gAqCjNA73QVoiGZUNN
-         HZVfZ8X7f7MaQJLTthMY0dDevhYNk8xVgxiOWDdhY6N68tqnp3S63323ps2xJbiPgR28
-         9KKE8DwfEBN35vyp2cSttzPtMjAgPhuXw9ZA4=
+        bh=8sG+uwolPFDTJ+3qXbxOoScuyE6ezletDmbjlj5s8lQ=;
+        b=JEnZtngRaL0Q7lP7I2g1sBgriijKpD/XxOVlOm2KZlUeZyxhvFRrEz/TN3//Ez7dsV
+         xc4dYIwkEyg2ZfUrbDMR273AzwtvyuSSDEpxJ7gjGXQeuaeTRL3HA2PF69prx9T5Ao8a
+         lhb6XL3Fl4Iuw6dW0+2isA0o8J9nnWx4wxECg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728029860; x=1728634660;
+        d=1e100.net; s=20230601; t=1728029861; x=1728634661;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=I3DKuhQNv3MsZ5QX5cGeELREhQ+CQGQiRyTh9z9amE0=;
-        b=hYwfXrZ5U5GEaW8YZfCD7EHgeYBh4W6/ibnlECOcG1W6QJClWGzmjc31Eur8VcWLAa
-         RySbgq6M8/fOO0PNsnXyBDRpvLcPbjzKZlDq061f28NE3Hx3wnpu4qL5jYHjUBbvB9T1
-         AVu8RGWqDJmUS0nYg2QzxPbWAcd8WXjS96qHY/TK1my1WzyNjFwKDBpTAVYY9mDSOLnj
-         9PBf+/k7pbFlWNb8v9YktUvqVGjnBO7VfCYSWzs4t7lhatQvzXehINxClhmqBcPBi5vD
-         9AFjoArpPKXwcGTvfBljkFGkqsfSB4r9AvKu/stJ/mDgLUvCJ1oZQlZocwC21kE/hWT4
-         ncFg==
-X-Gm-Message-State: AOJu0Yz1oKIxou3hd02kevZiERUo/kgLqX67rM+YJLvk0E0ab2y6MILq
-	VX1+BbXH6PL2hgv42Szuw08r1r/E/B+/NmFsHT7dO41LUHgwIggaUPBi0q7cOftqWvjwxiOlFNr
-	N
-X-Google-Smtp-Source: AGHT+IE2P6bTmkP4WyoRi0mlV1wW2wJvlrHKdRpyxStOSbVPpyLjhCkn1VuZ5K2L5OgKcWoOcjudWA==
-X-Received: by 2002:a17:906:4fd0:b0:a8d:4db8:9edf with SMTP id a640c23a62f3a-a991bff02d6mr187522166b.42.1728029860154;
+        bh=8sG+uwolPFDTJ+3qXbxOoScuyE6ezletDmbjlj5s8lQ=;
+        b=A/rLaC/9tgV5G5XmwAl0oyuzz0Lh09UqsEu6xOTfdHhQqKcXwxbmCgxKsCNVpCp5Qc
+         +acJgMvlAjL0x/E6xhKhMlVXbFyQu8bXBhxk74/P+57xxqtSSCsNNOqlb65ehbLklZPI
+         a9M6Vb3xKRCNmAgqbM7+nF4Tf2hgXrsG4HgM7fdCUC636wtymJwsmki7Kfp1Mvz+1rai
+         UlVxD0K32EFP5cRhwR5MCn5S/bY6EFiXFyJwO0jTCNaVTRVLVQPKY5hDwsReLtWmRo/8
+         5+cF4KAcVCZwC9c13a39LDclMyd/xkSKpVJAsN8cwsKy1Qg6VOfRq4xUaF3eZoKsz0LC
+         3XOw==
+X-Gm-Message-State: AOJu0Yz5AcKAZfvtrUsaagcsueU4iOK+0vSA9foAepJfVANhr8luT/i4
+	aNpcXB2wqYrTTCcBQCiMX5SBTA7ztSfq0tk0uezRVNura0b91BhpNEQLaaKvG1Ea++P7L5JMFFl
+	e
+X-Google-Smtp-Source: AGHT+IFdw7GHnSiNwuqsxVxdP7PU0Q/Op9KGdvq2UiTEC30Hk8rim06Tokw4WoV0T0Dy7+47k81K4A==
+X-Received: by 2002:a17:907:7fa6:b0:a91:158a:a900 with SMTP id a640c23a62f3a-a991c07a527mr184832966b.58.1728029860932;
         Fri, 04 Oct 2024 01:17:40 -0700 (PDT)
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v3 18/19] xen: Update header guards - VPCI
-Date: Fri,  4 Oct 2024 09:17:12 +0100
-Message-Id: <20241004081713.749031-19-frediano.ziglio@cloud.com>
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v3 19/19] xen: Update header guards - XSM/Flask
+Date: Fri,  4 Oct 2024 09:17:13 +0100
+Message-Id: <20241004081713.749031-20-frediano.ziglio@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241004081713.749031-1-frediano.ziglio@cloud.com>
 References: <20241004081713.749031-1-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Updated headers related to VPCI.
+Updated headers related to XSM/Flask.
 
 Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 ---
- xen/include/xen/vpci.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ xen/include/xsm/dummy.h             | 6 +++---
+ xen/include/xsm/xsm.h               | 4 ++--
+ xen/xsm/flask/include/avc.h         | 6 +++---
+ xen/xsm/flask/include/avc_ss.h      | 6 +++---
+ xen/xsm/flask/include/conditional.h | 4 ++--
+ xen/xsm/flask/include/objsec.h      | 6 +++---
+ xen/xsm/flask/include/security.h    | 6 +++---
+ xen/xsm/flask/private.h             | 6 +++---
+ xen/xsm/flask/ss/avtab.h            | 6 +++---
+ xen/xsm/flask/ss/conditional.h      | 6 +++---
+ xen/xsm/flask/ss/constraint.h       | 6 +++---
+ xen/xsm/flask/ss/context.h          | 6 +++---
+ xen/xsm/flask/ss/ebitmap.h          | 6 +++---
+ xen/xsm/flask/ss/hashtab.h          | 4 ++--
+ xen/xsm/flask/ss/mls.h              | 4 ++--
+ xen/xsm/flask/ss/mls_types.h        | 6 +++---
+ xen/xsm/flask/ss/policydb.h         | 6 +++---
+ xen/xsm/flask/ss/services.h         | 6 +++---
+ xen/xsm/flask/ss/sidtab.h           | 6 +++---
+ xen/xsm/flask/ss/symtab.h           | 6 +++---
+ 20 files changed, 56 insertions(+), 56 deletions(-)
 
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 41e7c3bc27..d2d2905447 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -1,5 +1,5 @@
--#ifndef _XEN_VPCI_H_
--#define _XEN_VPCI_H_
-+#ifndef XEN__VPCI_H
-+#define XEN__VPCI_H
+diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+index 7956f27a29..19d838e1db 100644
+--- a/xen/include/xsm/dummy.h
++++ b/xen/include/xsm/dummy.h
+@@ -15,8 +15,8 @@
+  *  value of action.
+  */
  
- #ifdef CONFIG_HAS_VPCI
+-#ifndef __XEN_XSM_DUMMY_H__
+-#define __XEN_XSM_DUMMY_H__
++#ifndef XSM__DUMMY_H
++#define XSM__DUMMY_H
+ 
+ #include <xen/sched.h>
+ #include <xsm/xsm.h>
+@@ -847,4 +847,4 @@ static XSM_INLINE int cf_check xsm_domain_resource_map(
+     return xsm_default_action(action, current->domain, d);
+ }
+ 
+-#endif /* __XEN_XSM_DUMMY_H__ */
++#endif /* XSM__DUMMY_H */
+diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+index 627c0d2731..24aa9777db 100644
+--- a/xen/include/xsm/xsm.h
++++ b/xen/include/xsm/xsm.h
+@@ -12,8 +12,8 @@
+  *  as published by the Free Software Foundation.
+  */
+ 
+-#ifndef __XSM_H__
+-#define __XSM_H__
++#ifndef XSM__XSM_H
++#define XSM__XSM_H
+ 
+ #include <xen/alternative-call.h>
+ #include <xen/sched.h>
+diff --git a/xen/xsm/flask/include/avc.h b/xen/xsm/flask/include/avc.h
+index e29949f5a8..7510415f2a 100644
+--- a/xen/xsm/flask/include/avc.h
++++ b/xen/xsm/flask/include/avc.h
+@@ -6,8 +6,8 @@
+ 
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+-#ifndef _FLASK_AVC_H_
+-#define _FLASK_AVC_H_
++#ifndef XSM__FLASK__INCLUDE__AVC_H
++#define XSM__FLASK__INCLUDE__AVC_H
+ 
+ #include <xen/errno.h>
+ #include <xen/lib.h>
+@@ -100,5 +100,5 @@ extern unsigned int avc_cache_threshold;
+ DECLARE_PER_CPU(struct avc_cache_stats, avc_cache_stats);
+ #endif
+ 
+-#endif /* _FLASK_AVC_H_ */
++#endif /* XSM__FLASK__INCLUDE__AVC_H */
+ 
+diff --git a/xen/xsm/flask/include/avc_ss.h b/xen/xsm/flask/include/avc_ss.h
+index a3d7d1ef07..dfc8e148e9 100644
+--- a/xen/xsm/flask/include/avc_ss.h
++++ b/xen/xsm/flask/include/avc_ss.h
+@@ -3,8 +3,8 @@
+  *
+  * Author : Stephen Smalley, <sds@epoch.ncsc.mil>
+  */
+-#ifndef _FLASK_AVC_SS_H_
+-#define _FLASK_AVC_SS_H_
++#ifndef XSM__FLASK__INCLUDE__AVC_SS_H
++#define XSM__FLASK__INCLUDE__AVC_SS_H
+ 
+ #include "flask.h"
+ 
+@@ -25,5 +25,5 @@ struct selinux_class_perm {
+ 
+ extern const struct selinux_class_perm selinux_class_perm;
+ 
+-#endif /* _FLASK_AVC_SS_H_ */
++#endif /* XSM__FLASK__INCLUDE__AVC_SS_H */
+ 
+diff --git a/xen/xsm/flask/include/conditional.h b/xen/xsm/flask/include/conditional.h
+index 879d40e147..4592875731 100644
+--- a/xen/xsm/flask/include/conditional.h
++++ b/xen/xsm/flask/include/conditional.h
+@@ -10,8 +10,8 @@
+  *    the Free Software Foundation, version 2.
+  */
+ 
+-#ifndef _FLASK_CONDITIONAL_H_
+-#define _FLASK_CONDITIONAL_H_
++#ifndef XSM__FLASK__INCLUDE__CONDITIONAL_H
++#define XSM__FLASK__INCLUDE__CONDITIONAL_H
+ 
+ #include <xen/types.h>
+ 
+diff --git a/xen/xsm/flask/include/objsec.h b/xen/xsm/flask/include/objsec.h
+index b576a5dd43..54be75bcc3 100644
+--- a/xen/xsm/flask/include/objsec.h
++++ b/xen/xsm/flask/include/objsec.h
+@@ -10,8 +10,8 @@
+  *      as published by the Free Software Foundation.
+  */
+ 
+-#ifndef _FLASK_OBJSEC_H_
+-#define _FLASK_OBJSEC_H_
++#ifndef XSM__FLASK__INCLUDE__OBJSEC_H
++#define XSM__FLASK__INCLUDE__OBJSEC_H
+ 
+ #include <xen/sched.h>
+ #include "flask.h"
+@@ -23,4 +23,4 @@ struct domain_security_struct {
+     u32 target_sid;        /* SID for device model target domain */
+ };
+ 
+-#endif /* _FLASK_OBJSEC_H_ */
++#endif /* XSM__FLASK__INCLUDE__OBJSEC_H */
+diff --git a/xen/xsm/flask/include/security.h b/xen/xsm/flask/include/security.h
+index ec8b442a8f..f6806b28cb 100644
+--- a/xen/xsm/flask/include/security.h
++++ b/xen/xsm/flask/include/security.h
+@@ -7,8 +7,8 @@
+ 
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+-#ifndef _FLASK_SECURITY_H_
+-#define _FLASK_SECURITY_H_
++#ifndef XSM__FLASK__INCLUDE__SECURITY_H
++#define XSM__FLASK__INCLUDE__SECURITY_H
+ 
+ #include "flask.h"
+ 
+@@ -107,4 +107,4 @@ int security_ocontext_add(u32 ocontext, unsigned long low,
+ int security_ocontext_del(u32 ocontext, unsigned long low, unsigned long high);
+ 
+ int security_devicetree_setlabel(char *path, u32 sid);
+-#endif /* _FLASK_SECURITY_H_ */
++#endif /* XSM__FLASK__INCLUDE__SECURITY_H */
+diff --git a/xen/xsm/flask/private.h b/xen/xsm/flask/private.h
+index 429f213cce..93022627dc 100644
+--- a/xen/xsm/flask/private.h
++++ b/xen/xsm/flask/private.h
+@@ -1,9 +1,9 @@
+-#ifndef XSM_FLASK_PRIVATE
+-#define XSM_FLASK_PRIVATE
++#ifndef XSM__FLASK__PRIVATE_H
++#define XSM__FLASK__PRIVATE_H
+ 
+ #include <public/xen.h>
+ 
+ long cf_check do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op);
+ int cf_check compat_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op);
+ 
+-#endif /* XSM_FLASK_PRIVATE */
++#endif /* XSM__FLASK__PRIVATE_H */
+diff --git a/xen/xsm/flask/ss/avtab.h b/xen/xsm/flask/ss/avtab.h
+index 591604f927..cb595e1250 100644
+--- a/xen/xsm/flask/ss/avtab.h
++++ b/xen/xsm/flask/ss/avtab.h
+@@ -23,8 +23,8 @@
+ 
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+-#ifndef _SS_AVTAB_H_
+-#define _SS_AVTAB_H_
++#ifndef XSM__FLASK__SS__AVTAB_H
++#define XSM__FLASK__SS__AVTAB_H
+ 
+ struct avtab_key {
+     u16 source_type;    /* source type */
+@@ -87,5 +87,5 @@ struct avtab_node *avtab_search_node_next(struct avtab_node *node,
+ #define MAX_AVTAB_HASH_MASK (MAX_AVTAB_HASH_BUCKETS-1)
+ #define MAX_AVTAB_SIZE MAX_AVTAB_HASH_BUCKETS
+ 
+-#endif    /* _SS_AVTAB_H_ */
++#endif    /* XSM__FLASK__SS__AVTAB_H */
+ 
+diff --git a/xen/xsm/flask/ss/conditional.h b/xen/xsm/flask/ss/conditional.h
+index 500fe4305a..4f966c82ed 100644
+--- a/xen/xsm/flask/ss/conditional.h
++++ b/xen/xsm/flask/ss/conditional.h
+@@ -7,8 +7,8 @@
+  *    the Free Software Foundation, version 2.
+  */
+ 
+-#ifndef _CONDITIONAL_H_
+-#define _CONDITIONAL_H_
++#ifndef XSM__FLASK__SS__CONDITIONAL_H
++#define XSM__FLASK__SS__CONDITIONAL_H
+ 
+ #include "avtab.h"
+ #include "symtab.h"
+@@ -74,4 +74,4 @@ void cond_compute_av(struct avtab *ctab, struct avtab_key *key, struct av_decisi
+ 
+ int evaluate_cond_node(struct policydb *p, struct cond_node *node);
+ 
+-#endif /* _CONDITIONAL_H_ */
++#endif /* XSM__FLASK__SS__CONDITIONAL_H */
+diff --git a/xen/xsm/flask/ss/constraint.h b/xen/xsm/flask/ss/constraint.h
+index 0fa5b31237..a0a2156017 100644
+--- a/xen/xsm/flask/ss/constraint.h
++++ b/xen/xsm/flask/ss/constraint.h
+@@ -12,8 +12,8 @@
+  *
+  * Author : Stephen Smalley, <sds@epoch.ncsc.mil>
+  */
+-#ifndef _SS_CONSTRAINT_H_
+-#define _SS_CONSTRAINT_H_
++#ifndef XSM__FLASK__SS__CONSTRAINT_H
++#define XSM__FLASK__SS__CONSTRAINT_H
+ 
+ #include "ebitmap.h"
+ 
+@@ -58,4 +58,4 @@ struct constraint_node {
+     struct constraint_node *next;    /* next constraint */
+ };
+ 
+-#endif    /* _SS_CONSTRAINT_H_ */
++#endif    /* XSM__FLASK__SS__CONSTRAINT_H */
+diff --git a/xen/xsm/flask/ss/context.h b/xen/xsm/flask/ss/context.h
+index 311edf8794..d868141699 100644
+--- a/xen/xsm/flask/ss/context.h
++++ b/xen/xsm/flask/ss/context.h
+@@ -15,8 +15,8 @@
+ 
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+-#ifndef _SS_CONTEXT_H_
+-#define _SS_CONTEXT_H_
++#ifndef XSM__FLASK__SS__CONTEXT_H
++#define XSM__FLASK__SS__CONTEXT_H
+ 
+ #include "ebitmap.h"
+ #include "mls_types.h"
+@@ -129,5 +129,5 @@ static inline int context_cmp(struct context *c1, struct context *c2)
+         mls_context_cmp(c1, c2));
+ }
+ 
+-#endif    /* _SS_CONTEXT_H_ */
++#endif    /* XSM__FLASK__SS__CONTEXT_H */
+ 
+diff --git a/xen/xsm/flask/ss/ebitmap.h b/xen/xsm/flask/ss/ebitmap.h
+index 7b2da8179a..8a99f1dd70 100644
+--- a/xen/xsm/flask/ss/ebitmap.h
++++ b/xen/xsm/flask/ss/ebitmap.h
+@@ -11,8 +11,8 @@
+  *
+  * Author : Stephen Smalley, <sds@epoch.ncsc.mil>
+  */
+-#ifndef _SS_EBITMAP_H_
+-#define _SS_EBITMAP_H_
++#ifndef XSM__FLASK__SS__EBITMAP_H
++#define XSM__FLASK__SS__EBITMAP_H
+ 
+ #include <xen/bitmap.h>
+ #include <xen/bug.h>
+@@ -127,4 +127,4 @@ int ebitmap_set_bit(struct ebitmap *e, unsigned long bit, int value);
+ void ebitmap_destroy(struct ebitmap *e);
+ int ebitmap_read(struct ebitmap *e, void *fp);
+ 
+-#endif    /* _SS_EBITMAP_H_ */
++#endif    /* XSM__FLASK__SS__EBITMAP_H */
+diff --git a/xen/xsm/flask/ss/hashtab.h b/xen/xsm/flask/ss/hashtab.h
+index 44ed6c01cf..531b68c9b2 100644
+--- a/xen/xsm/flask/ss/hashtab.h
++++ b/xen/xsm/flask/ss/hashtab.h
+@@ -7,8 +7,8 @@
+  *
+  * Author : Stephen Smalley, <sds@epoch.ncsc.mil>
+  */
+-#ifndef _SS_HASHTAB_H_
+-#define _SS_HASHTAB_H_
++#ifndef XSM__FLASK__SS__HASHTAB_H
++#define XSM__FLASK__SS__HASHTAB_H
+ 
+ #define HASHTAB_MAX_NODES    0xffffffff
+ 
+diff --git a/xen/xsm/flask/ss/mls.h b/xen/xsm/flask/ss/mls.h
+index 39572bdf7a..d5cf00c7ae 100644
+--- a/xen/xsm/flask/ss/mls.h
++++ b/xen/xsm/flask/ss/mls.h
+@@ -11,8 +11,8 @@
+  * Copyright (C) 2004-2006 Trusted Computer Solutions, Inc.
+  */
+ 
+-#ifndef _SS_MLS_H_
+-#define _SS_MLS_H_
++#ifndef XSM__FLASK__SS__MLS_H
++#define XSM__FLASK__SS__MLS_H
+ 
+ #include "context.h"
+ #include "policydb.h"
+diff --git a/xen/xsm/flask/ss/mls_types.h b/xen/xsm/flask/ss/mls_types.h
+index 7199227312..fc392a559d 100644
+--- a/xen/xsm/flask/ss/mls_types.h
++++ b/xen/xsm/flask/ss/mls_types.h
+@@ -13,8 +13,8 @@
+ 
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+-#ifndef _SS_MLS_TYPES_H_
+-#define _SS_MLS_TYPES_H_
++#ifndef XSM__FLASK__SS__MLS_TYPES_H
++#define XSM__FLASK__SS__MLS_TYPES_H
+ 
+ #include "security.h"
+ 
+@@ -55,4 +55,4 @@ static inline int mls_level_dom(struct mls_level *l1, struct mls_level *l2)
+ (mls_level_dom(&(r2).level[0], &(r1).level[0]) && \
+  mls_level_dom(&(r1).level[1], &(r2).level[1]))
+ 
+-#endif    /* _SS_MLS_TYPES_H_ */
++#endif    /* XSM__FLASK__SS__MLS_TYPES_H */
+diff --git a/xen/xsm/flask/ss/policydb.h b/xen/xsm/flask/ss/policydb.h
+index d3b409a554..8cfbd173b2 100644
+--- a/xen/xsm/flask/ss/policydb.h
++++ b/xen/xsm/flask/ss/policydb.h
+@@ -23,8 +23,8 @@
+ 
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+-#ifndef _SS_POLICYDB_H_
+-#define _SS_POLICYDB_H_
++#ifndef XSM__FLASK__SS__POLICYDB_H
++#define XSM__FLASK__SS__POLICYDB_H
+ 
+ #include "symtab.h"
+ #include "avtab.h"
+@@ -292,5 +292,5 @@ static inline int next_entry(void *buf, struct policy_file *fp, size_t bytes)
+     return 0;
+ }
+ 
+-#endif    /* _SS_POLICYDB_H_ */
++#endif    /* XSM__FLASK__SS__POLICYDB_H */
+ 
+diff --git a/xen/xsm/flask/ss/services.h b/xen/xsm/flask/ss/services.h
+index 43fb876a7c..6282107f47 100644
+--- a/xen/xsm/flask/ss/services.h
++++ b/xen/xsm/flask/ss/services.h
+@@ -3,13 +3,13 @@
+  *
+  * Author : Stephen Smalley, <sds@epoch.ncsc.mil>
+  */
+-#ifndef _SS_SERVICES_H_
+-#define _SS_SERVICES_H_
++#ifndef XSM__FLASK__SS__SERVICES_H
++#define XSM__FLASK__SS__SERVICES_H
+ 
+ #include "policydb.h"
+ #include "sidtab.h"
+ 
+ extern struct policydb policydb;
+ 
+-#endif    /* _SS_SERVICES_H_ */
++#endif    /* XSM__FLASK__SS__SERVICES_H */
+ 
+diff --git a/xen/xsm/flask/ss/sidtab.h b/xen/xsm/flask/ss/sidtab.h
+index 0e48ec6eae..3f1e66334d 100644
+--- a/xen/xsm/flask/ss/sidtab.h
++++ b/xen/xsm/flask/ss/sidtab.h
+@@ -7,8 +7,8 @@
+ 
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+-#ifndef _SS_SIDTAB_H_
+-#define _SS_SIDTAB_H_
++#ifndef XSM__FLASK__SS__SIDTAB_H
++#define XSM__FLASK__SS__SIDTAB_H
+ 
+ #include "context.h"
+ #include <xen/spinlock.h>
+@@ -50,4 +50,4 @@ void sidtab_destroy(struct sidtab *s);
+ void sidtab_set(struct sidtab *dst, struct sidtab *src);
+ void sidtab_shutdown(struct sidtab *s);
+ 
+-#endif    /* _SS_SIDTAB_H_ */
++#endif    /* XSM__FLASK__SS__SIDTAB_H */
+diff --git a/xen/xsm/flask/ss/symtab.h b/xen/xsm/flask/ss/symtab.h
+index fc442a2f7e..ed0f0ca6b9 100644
+--- a/xen/xsm/flask/ss/symtab.h
++++ b/xen/xsm/flask/ss/symtab.h
+@@ -6,8 +6,8 @@
+  *
+  * Author : Stephen Smalley, <sds@epoch.ncsc.mil>
+  */
+-#ifndef _SS_SYMTAB_H_
+-#define _SS_SYMTAB_H_
++#ifndef XSM__FLASK__SS__SYMTAB_H
++#define XSM__FLASK__SS__SYMTAB_H
+ 
+ #include "hashtab.h"
+ 
+@@ -18,6 +18,6 @@ struct symtab {
+ 
+ int symtab_init(struct symtab *s, unsigned int size);
+ 
+-#endif    /* _SS_SYMTAB_H_ */
++#endif    /* XSM__FLASK__SS__SYMTAB_H */
+ 
  
 -- 
 2.34.1
