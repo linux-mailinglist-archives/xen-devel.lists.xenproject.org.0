@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E2B499038F
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 15:08:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.810393.1223094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E214399039C
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 15:10:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.810404.1223103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swi28-0008Ma-MX; Fri, 04 Oct 2024 13:07:48 +0000
+	id 1swi4A-0000VL-0e; Fri, 04 Oct 2024 13:09:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 810393.1223094; Fri, 04 Oct 2024 13:07:48 +0000
+Received: by outflank-mailman (output) from mailman id 810404.1223103; Fri, 04 Oct 2024 13:09:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swi28-0008KO-JF; Fri, 04 Oct 2024 13:07:48 +0000
-Received: by outflank-mailman (input) for mailman id 810393;
- Fri, 04 Oct 2024 13:07:46 +0000
+	id 1swi49-0000Ss-UH; Fri, 04 Oct 2024 13:09:53 +0000
+Received: by outflank-mailman (input) for mailman id 810404;
+ Fri, 04 Oct 2024 13:09:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v+dN=RA=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1swi26-0008If-QS
- for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 13:07:46 +0000
-Received: from fhigh-a5-smtp.messagingengine.com
- (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+ <SRS0=OiC3=RA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1swi48-0000SW-GO
+ for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 13:09:52 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3118647-8251-11ef-a0bb-8be0dac302b0;
- Fri, 04 Oct 2024 15:07:44 +0200 (CEST)
-Received: from phl-compute-12.internal (phl-compute-12.phl.internal
- [10.202.2.52])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 8F40911401DA;
- Fri,  4 Oct 2024 09:07:40 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-12.internal (MEProxy); Fri, 04 Oct 2024 09:07:40 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 4 Oct 2024 09:07:39 -0400 (EDT)
+ id f090679e-8251-11ef-a0bb-8be0dac302b0;
+ Fri, 04 Oct 2024 15:09:51 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2fabb837ddbso31338321fa.1
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Oct 2024 06:09:51 -0700 (PDT)
+Received: from localhost ([213.195.117.215]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a99103b4bcfsm223869566b.138.2024.10.04.06.09.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Oct 2024 06:09:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +44,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3118647-8251-11ef-a0bb-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm2; t=1728047260; x=1728133660; bh=2N
-	cX0jHSCgfN9L5WNlnDgOC4yrQEEz7nSps6JqoB5wM=; b=XKhxLBVgreU484AoVV
-	+4grawtWitdURDKSFI4TKq4BM8KsHq2EerTWuhdjAqdxKqukJ8yd+IGHK3v14Wws
-	oiyX/rrdyJx5SutcLclxxbawjtnBmb9GFzHMeJzbKnIDZhI0so7sf1zmJ2/RxF37
-	UxM/6bIgVVrwhttq4XTvzVewmTkfWNK7l3pPPunfBX8qCzuaptSb60QSw3ikb6iZ
-	WOmhSZlyW4CrzA4dnFKNCYidTeaLOOXAd3tSWZdt2pCFa2DKPSBk9p/y8bGj9CUi
-	rL5mbOzH8wr3LKXTzsfpVGZDMikTDG9jdQn5i3eTF7+foz72nx7mY5N0BaPOP1Vz
-	lb/g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1728047260; x=1728133660; bh=2NcX0jHSCgfN9L5WNlnDgOC4yrQEEz7nSps
-	6JqoB5wM=; b=Wq271bZ5E+KJNPv859vGqmFT/oyz+WLzU7mrjoqdWx4wKvdhBQQ
-	9D827EZeYJdLcLU7WpHdxVp4CFX7dTXwi+9+l5L3YYKt6HX5KE8/B92P2ZXuadNd
-	AQIwoPniBLSs2YhzLefupR7vg1akHHrNgvko4w2nDzVOtG56nzSrBZnRHP0AtPNU
-	ZJYDqOJDcervuL4QxxRPZWI5N3Eiq3JuDneqOWLIh45HXey85sTeUBxrcGL4pZo2
-	tStuJBQBbP4qThTC7agHEmTuUuKknSVIb3T5CKunDNvcGoOCUsY2tYdVL7LgR8w0
-	glZLjd0t+MYimN876pFkDV6YB0H+5ZW89Hg==
-X-ME-Sender: <xms:nOj_Zvm55qxJPUcCQzq1FaUANE0JsCg0-Qax43aryIkhmKWeIPEa7g>
-    <xme:nOj_Zi0B1ZAUAQlgFlytav-oG9zpb93mmhdpvhCGjUIo3yg_35_vk0urg4JnOhJEj
-    LRWOKUuZyQ_IQ>
-X-ME-Received: <xmr:nOj_ZlpGnBzEfVKZzKjq1F5g4ll5TvrRMBbvqy9uQL1qcH2t8p-EFZ-IAuOb71VM4Agrt37GWCEY2dtgiIxOF9hWkqfN0Qu3cg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvddvfedgiedtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvve
-    fukfggtggusehgtderredttdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohif
-    shhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinh
-    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefhteeuhfeigfdttdelgffggfeg
-    veehtddvfeffuefgieeiieehfeetfeeggfegjeenucffohhmrghinhepghhithhhuhgsrd
-    gtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhep
-    mhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspg
-    hrtghpthhtohepvddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepfihinhdqphhv
-    qdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhope
-    igvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
-X-ME-Proxy: <xmx:nOj_Znk8msFTmSN9K2zLBr7YBmHh0-rAyTup32WyNANEk5mPtZ_MLw>
-    <xmx:nOj_Zt050OrRRa5MVn3HnR6t_VqR7hT8waZ9rPiWuVpqzr7C2d61tw>
-    <xmx:nOj_ZmvNR426XrYQjInQD0e2VvPP4eW6E41vmpZsg7ZibebhDrzYwA>
-    <xmx:nOj_ZhUqYkVv7wqLXIbxhHcytKOISYav3Rm4qkWfZfwFtlWfxPByJg>
-    <xmx:nOj_Zu_9RMABc7wuoSSc0vm0Lm-aLk5qxKZDrLn-5y2J6U2Ui7zT2Bek>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 4 Oct 2024 15:07:37 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: win-pv-devel@lists.xenproject.org
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: xenvbd driver modifies in-flight data?
-Message-ID: <Zv_omQjCFbw8sQRb@mail-itl>
+X-Inumbo-ID: f090679e-8251-11ef-a0bb-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1728047391; x=1728652191; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=jnxb7QU9O8EisVsWM7vO+5waVFhI0EzzuPLHSXN758c=;
+        b=Boz/+3a1+wAREGgpNpRo2/8jxeBM4CD1bQC9DeMWqhN+A6hHmziJUAsVGFmoBWCqdD
+         tWeBfE8J+8XMPjKyxC2rUlEswt/1QBrsFXBMMRA2GhaFU5/SDFRuTtAnNJIKdlBmvpk/
+         3FVutbX1JxKR8FEvgvpDjWY7wOmJdHU6r52Mk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728047391; x=1728652191;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jnxb7QU9O8EisVsWM7vO+5waVFhI0EzzuPLHSXN758c=;
+        b=YgI3n1SkfloTf8zXwP6ai0eSqaXNhoe5la/0aP/Sk9fb3WZJoZ0YZULpbM9Fwt46XY
+         bRJyL1ftFyzsc70z3cSFiNwAQRr8n5mBUyks1QvP44EdRs2GFyHWbPecFpr3Ft8yEW/u
+         JW89/gZ0ijCKCnt70FOewRko28cT+q95wYsni9otJaRMrh7MtMRdoS3WW3hHcVaqcYTP
+         gtGuUfPf6b3DmINaSRlUDa6ZZODFDBQ/B3cXbb0P3NN8hgo+GI6R0DtxTKB9MtmGQYY6
+         yPKdI7q6lfTb/J3V7OeIyouRX7CAR6WAcCBl7f4ylnCImmYfuYDaykdwEpfl0n24abXk
+         ch+Q==
+X-Gm-Message-State: AOJu0YxwlSH5OkvqBzPmKfbxfIHJcFpPsgbxhg1HhnthfqOaCW44229e
+	2hlcrkG0ZqHQxAJjjo6YMbgHdDcZOp7ddHE8ePnMd6jQvG2rDwOhP0xGOsxwmZw=
+X-Google-Smtp-Source: AGHT+IFA8t5HKKDq6LjtdGzdF4mUa67DBjJch281hDq2KGNu7GI9Y2AArBbUrZlkI6mA4ORnzBmDIQ==
+X-Received: by 2002:a05:651c:a0b:b0:2fa:e52f:4476 with SMTP id 38308e7fff4ca-2faf3d897b9mr18422001fa.45.1728047390454;
+        Fri, 04 Oct 2024 06:09:50 -0700 (PDT)
+Date: Fri, 4 Oct 2024 15:09:49 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [XEN PATCH v1 1/3] x86/hvm: introduce config option for ACPI PM
+ timer
+Message-ID: <Zv_pHR8gUrcHQU5I@macbook.local>
+References: <cover.1728032664.git.Sergiy_Kibrik@epam.com>
+ <3ef3724e21b196edd277c94598ebe6624813ede4.1728032664.git.Sergiy_Kibrik@epam.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="1K61LwtFAmappi+0"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+In-Reply-To: <3ef3724e21b196edd277c94598ebe6624813ede4.1728032664.git.Sergiy_Kibrik@epam.com>
 
+On Fri, Oct 04, 2024 at 12:31:50PM +0300, Sergiy Kibrik wrote:
+> Introduce config option X86_PMTIMER so that pmtimer emulation driver can later
+> be made configurable and be disabled on systems that don't need it.
+> 
+> As a first step the option is hidden from user, thus not making any functional
+> changes here.
+> 
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> ---
+>  xen/arch/x86/Kconfig               |  3 +++
+>  xen/arch/x86/hvm/Makefile          |  2 +-
+>  xen/arch/x86/include/asm/acpi.h    |  5 +++++
+>  xen/arch/x86/include/asm/domain.h  |  3 ++-
+>  xen/arch/x86/include/asm/hvm/vpt.h | 10 ++++++++++
+>  5 files changed, 21 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+> index 9cdd04721a..95275dc17e 100644
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -144,6 +144,9 @@ config INTEL_VMX
+>  	  If your system includes a processor with Intel VT-x support, say Y.
+>  	  If in doubt, say Y.
+>  
+> +config X86_PMTIMER
+> +	def_bool HVM
 
---1K61LwtFAmappi+0
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 4 Oct 2024 15:07:37 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: win-pv-devel@lists.xenproject.org
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: xenvbd driver modifies in-flight data?
+The chunk in patch 3 that fill this option needs to be moved here,
+together with the updated checks in emulation_flags_ok().
 
-Hi,
+>  config XEN_SHSTK
+>  	bool "Supervisor Shadow Stacks"
+>  	depends on HAS_AS_CET_SS
+> diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
+> index 4c1fa5c6c2..321241f0bf 100644
+> --- a/xen/arch/x86/hvm/Makefile
+> +++ b/xen/arch/x86/hvm/Makefile
+> @@ -18,7 +18,7 @@ obj-y += irq.o
+>  obj-y += monitor.o
+>  obj-y += mtrr.o
+>  obj-y += nestedhvm.o
+> -obj-y += pmtimer.o
+> +obj-$(CONFIG_X86_PMTIMER) += pmtimer.o
 
-I've got a bit worrying report[1], that using Windows PV block driver,
-together with backing file opened with O_DIRECT on BTRFS results in
-checksum errors. At this point it's unclear what exactly happens there,
-it could be some BTRFS issue, some xen-blkback issue, but since
-according to reports it happens only with Windows DomU, the most likely
-culprit is PV driver inside Windows DomU. It was detected on BTRFS
-because it does checksumming, but it isn't clear whether other file
-systems are not affected too.=20
+I think you can also make the hvm_hw_acpi field in struct hvm_domain
+presence dependent on CONFIG_X86_PMTIMER being enabled.
 
-I guess using O_DIRECT is asking for troubles here, but nevertheless, it
-looks like it might have uncovered some issue that would be silently
-ignored otherwise.
+>  obj-y += quirks.o
+>  obj-y += rtc.o
+>  obj-y += save.o
+> diff --git a/xen/arch/x86/include/asm/acpi.h b/xen/arch/x86/include/asm/acpi.h
+> index 217819dd61..8d92014ae9 100644
+> --- a/xen/arch/x86/include/asm/acpi.h
+> +++ b/xen/arch/x86/include/asm/acpi.h
+> @@ -150,8 +150,13 @@ void acpi_mmcfg_init(void);
+>  /* Incremented whenever we transition through S3. Value is 1 during boot. */
+>  extern uint32_t system_reset_counter;
+>  
+> +#ifdef CONFIG_X86_PMTIMER
+>  void hvm_acpi_power_button(struct domain *d);
+>  void hvm_acpi_sleep_button(struct domain *d);
+> +#else
+> +static inline void hvm_acpi_power_button(struct domain *d) {}
+> +static inline void hvm_acpi_sleep_button(struct domain *d) {}
+> +#endif
 
-[1] https://github.com/QubesOS/qubes-issues/issues/9488#issuecomment-238915=
-2014
+It would be best if those functions returned -ENODEV when the
+interface is not available, but that's an existing issue, so won't
+insist in you fixing it here.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+>  /* suspend/resume */
+>  void save_rest_processor_state(void);
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+> index bdcdb8de09..3f65bfd190 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -496,7 +496,8 @@ struct arch_domain
+>  
+>  #define has_vlapic(d)      (!!((d)->arch.emulation_flags & X86_EMU_LAPIC))
+>  #define has_vhpet(d)       (!!((d)->arch.emulation_flags & X86_EMU_HPET))
+> -#define has_vpm(d)         (!!((d)->arch.emulation_flags & X86_EMU_PM))
+> +#define has_vpm(d)         (IS_ENABLED(CONFIG_X86_PMTIMER) && \
+> +                            !!((d)->arch.emulation_flags & X86_EMU_PM))
 
---1K61LwtFAmappi+0
-Content-Type: application/pgp-signature; name="signature.asc"
+Do you really need the IS_ENABLED() here?  If you modify
+emulation_flags_ok() to reject the flag if not available it won't be
+possible for any domain to have it set.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmb/6JkACgkQ24/THMrX
-1yzZ0Qf7B6Xl0cPD5MjF0AAuw6NLe7U9/6s9sypNh26znx1dLLgB230Q0firIM3Y
-5BKOFOHqqw1nZ5t1h4QyArfe0y35Mrrx+0iqJUR/8p59J+hnxESNNIwuTax9y+ZC
-OnYR/gSD8n82pSXj0LW7CwB600CRcanoX0A9RFZjiN3jGcch670dFtJ55uXFJF7M
-QY98JiKsCoFQftkWYOmQANyez4AJDkxJiyinUKkMSqW7az3cTTWm6w/3lh4bnPKi
-GJO5lZQS6ADqCvuXbgyu9TgcLqZ6cCIKi6EKvT2VoyTMULsoUdpOk+ahKKqL2OVg
-DH/zEvSh1t+xjCK6W7sfC9mdvIe27w==
-=3dN4
------END PGP SIGNATURE-----
-
---1K61LwtFAmappi+0--
+Thanks, Roger.
 
