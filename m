@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62AD699005A
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 11:56:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.810247.1222939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2264599006E
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 12:02:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.810256.1222949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swf2D-0005qp-0Y; Fri, 04 Oct 2024 09:55:41 +0000
+	id 1swf8E-00084N-K7; Fri, 04 Oct 2024 10:01:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 810247.1222939; Fri, 04 Oct 2024 09:55:40 +0000
+Received: by outflank-mailman (output) from mailman id 810256.1222949; Fri, 04 Oct 2024 10:01:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swf2C-0005oA-UD; Fri, 04 Oct 2024 09:55:40 +0000
-Received: by outflank-mailman (input) for mailman id 810247;
- Fri, 04 Oct 2024 09:55:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=njpt=RA=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1swf2B-0005nI-F8
- for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 09:55:39 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cd6d157b-8236-11ef-99a2-01e77a169b0f;
- Fri, 04 Oct 2024 11:55:36 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-37ce14ab7eeso1611954f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 04 Oct 2024 02:55:36 -0700 (PDT)
-Received: from fziglio-desktop.. ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99104c75b4sm200968066b.202.2024.10.04.02.55.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Oct 2024 02:55:34 -0700 (PDT)
+	id 1swf8E-00082u-HV; Fri, 04 Oct 2024 10:01:54 +0000
+Received: by outflank-mailman (input) for mailman id 810256;
+ Fri, 04 Oct 2024 10:01:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6mAw=RA=gmail.com=ubizjak@srs-se1.protection.inumbo.net>)
+ id 1swf8D-00082o-GE
+ for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 10:01:53 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ad8586ac-8237-11ef-a0bb-8be0dac302b0;
+ Fri, 04 Oct 2024 12:01:51 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2fac47f0b1aso24491561fa.1
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Oct 2024 03:01:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,80 +40,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd6d157b-8236-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: ad8586ac-8237-11ef-a0bb-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728035735; x=1728640535; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TzFi01ZFHHEu7FaARB4F4ZRxCS6RfmPm39Tq3Q1bTWw=;
-        b=DY8NbrlsY5DwwL0zEdxz0zQAQQHGqpCrGlPv9FmQwMyyRNnB+uDThSvswIADWP+7tf
-         H0lPA3zruy9UlZy5EYOS1n2h03p1QFwQ2Rx9aWHMmniRLz+OnTU4zHHS5k5ksX1sN3Aj
-         PnnLf6xQICvf8d5J206p6YGmdCKVriqLjTHMM=
+        d=gmail.com; s=20230601; t=1728036111; x=1728640911; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cieeCIQbn3uKGp6ANoCcdjT0voB4iLaxe9sLqJZ6O1w=;
+        b=Ex7uWdy/1/CSu7pPIk02hJIUh0DvP9y1+DLBLU0aFiydbz7oxinvP6zMhN09xhJOLA
+         vaVg/rrd5NWuF3Dmj6T4ssOrr5TGpjemHw8mGigEOjifXmCmtNTutQtWGwaFmHhgzl8d
+         ozqA7e4TmfSgddvtrqkWpJr6Y2Q8V5ipRYfzMhVzTFld0ubohyjQCH4HW2keJOUrNIJB
+         9xvmXPMWFGlJmhMOOvuxAG/GuLoXW2yv1Fk4/cMl2UW+J5iEBLdyKH0Dwb34pipEGE0p
+         /DhtCXSrgMGkevtDQ125jqZHEjyM9wRr7e9w6WPFzfZz799dSfnpVpEj26zes7jHWyia
+         5/EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728035735; x=1728640535;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TzFi01ZFHHEu7FaARB4F4ZRxCS6RfmPm39Tq3Q1bTWw=;
-        b=Nnmmlc5yq4WVQZ15uIH9c42M7blHDuf/vKecudEgaofVLCLeMm+0bcCZnJj4bVzKzr
-         Ek08qjf0ccdrDklRdULxJErDsSaVEcnFb8vElLOOdyQDzGnffvX/k5hennkAH++kEtnp
-         bk0xKNBHeFrQH1Ur8p7Jrf+nvoJc3R8pZKADImHNuLh+2xF0U1oc9ZSCsV8UtH/RvsGU
-         XqOzOFN7zeI3D2EL51V5k9XCiYH92RYF4kKLCq8wz4iq+2fO/7ev/XwpNSI9Adogdvkk
-         gO+aqe73NCUAvVM9ClCn0V64wEQvgvi0+9pcj3J23zy8U4pP1HIwJeL5qeboVA7WKY1G
-         UyBw==
-X-Gm-Message-State: AOJu0Yx5wQEWQI6XcUrLChh03KprvMVRMDjD0JJeiH477tnC9Ko3OnFq
-	TuwUXO1LscThPXd8aajVRql8dthu++RW6bF+wec4cdu88lJk2gOrHqu1RTTh1FpilYEmOyKFTOo
-	9
-X-Google-Smtp-Source: AGHT+IFEl87T4x4slYP3lPu/6a0cqpoSAdT/an35en90ezbVeYwnDOUPHBMSDesaEfYt9sV8GuYOlg==
-X-Received: by 2002:a5d:50c2:0:b0:37c:cda4:a6ca with SMTP id ffacd0b85a97d-37d0e72b9e6mr1892515f8f.17.1728035735047;
-        Fri, 04 Oct 2024 02:55:35 -0700 (PDT)
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] MAINTAINERS: minor file line updates
-Date: Fri,  4 Oct 2024 10:55:26 +0100
-Message-Id: <20241004095526.889790-1-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20230601; t=1728036111; x=1728640911;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=cieeCIQbn3uKGp6ANoCcdjT0voB4iLaxe9sLqJZ6O1w=;
+        b=C+xdp0oMZNt+sqvKU8aPL7Rlo0fQVys0oO8uYQfsDpH/3JnksAPcll5xxD6cbcAPUI
+         Ytsk1FLGL/FHdor1Nz6Ep6vY9hOskLF6sm0cT5BnQu2s3JNwSF3CFa0JnUiRarMpwty1
+         +4Em581SKfz9ZXVMYjJ/jfTaGQWhf0N31bDnDbfNMlID9EEjNv4wcoDnESYQ3q7yXdC0
+         59X6jSsue3k6xk2NVG+W5P81I4KN0ryUMDXYW43wyZc47VUpiicmXrqsE/awJ+nFUK/i
+         i3nWbMCPuTDt+R15xcPY431K7GOj7NaqQYZRYnWYNkSvhPOznepE4kZqahfL8afnyBEV
+         MmWA==
+X-Forwarded-Encrypted: i=1; AJvYcCWA80IOJRmQ+wI100r0tgr9N0r+qKU74BDYGTvvjzWVYcvW434mQbBjQTc3G3ZIv7lfquhsPtLTAac=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw0sgg2I2hTkVj2EcXcGXXfF/xkQaUlPz8rNHYEI87JABFKBKvv
+	971EN0vmdHj1wXaNNM9vgTuL9wk1WqJTERYybaFXselRfV5JJkrSPJ3SCo5vcedTe2cPepSrU7T
+	LFslov7X1MLafB79kAQyM4V+uTPc=
+X-Google-Smtp-Source: AGHT+IFNljN6dwZlkogrdacVOY8k+lgMnJISEE8yVKjz9PNhP8aN8ZuhCudCHYoRMsLr1EPgwfyfZf3qjEWBYLSi1O4=
+X-Received: by 2002:a2e:b889:0:b0:2ef:20ae:d113 with SMTP id
+ 38308e7fff4ca-2faf3d8a95emr9412991fa.40.1728036110938; Fri, 04 Oct 2024
+ 03:01:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240925150059.3955569-30-ardb+git@google.com> <20240925150059.3955569-35-ardb+git@google.com>
+In-Reply-To: <20240925150059.3955569-35-ardb+git@google.com>
+From: Uros Bizjak <ubizjak@gmail.com>
+Date: Fri, 4 Oct 2024 12:01:39 +0200
+Message-ID: <CAFULd4an+aN4iJ7T0DdMQDOBWrTZPJ4Oyy9ULm6R29fLNQND9Q@mail.gmail.com>
+Subject: Re: [RFC PATCH 05/28] x86: Define the stack protector guard symbol explicitly
+To: Ard Biesheuvel <ardb+git@google.com>
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@linux.com>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross <jgross@suse.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Keith Packard <keithp@keithp.com>, 
+	Justin Stitt <justinstitt@google.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Kan Liang <kan.liang@linux.intel.com>, linux-doc@vger.kernel.org, 
+	linux-pm@vger.kernel.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org, 
+	linux-efi@vger.kernel.org, linux-arch@vger.kernel.org, 
+	linux-sparse@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-"xen/arch/arm/include/asm/tee" is a directory and should be terminated
-by a slash ("/").
-"xen/arch/*/include/asm/*/mem_access.h" did not match any files
-from shell, all "mem_access.h" files are directly under "asm" directory.
+On Wed, Sep 25, 2024 at 5:02=E2=80=AFPM Ard Biesheuvel <ardb+git@google.com=
+> wrote:
+>
+> From: Ard Biesheuvel <ardb@kernel.org>
+>
+> Specify the guard symbol for the stack cookie explicitly, rather than
+> positioning it exactly 40 bytes into the per-CPU area. Doing so removes
+> the need for the per-CPU region to be absolute rather than relative to
+> the placement of the per-CPU template region in the kernel image, and
+> this allows the special handling for absolute per-CPU symbols to be
+> removed entirely.
+>
+> This is a worthwhile cleanup in itself, but it is also a prerequisite
+> for PIE codegen and PIE linking, which can replace our bespoke and
+> rather clunky runtime relocation handling.
+>
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> ---
+>  arch/x86/Makefile                     |  4 ++++
+>  arch/x86/include/asm/init.h           |  2 +-
+>  arch/x86/include/asm/processor.h      | 11 +++--------
+>  arch/x86/include/asm/stackprotector.h |  4 ----
+>  tools/perf/util/annotate.c            |  4 ++--
+>  5 files changed, 10 insertions(+), 15 deletions(-)
+>
+> diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+> index 6b3fe6e2aadd..b78b7623a4a9 100644
+> --- a/arch/x86/Makefile
+> +++ b/arch/x86/Makefile
+> @@ -193,6 +193,10 @@ else
+>          KBUILD_RUSTFLAGS +=3D -Cno-redzone=3Dy
+>          KBUILD_RUSTFLAGS +=3D -Ccode-model=3Dkernel
+>
+> +        ifeq ($(CONFIG_STACKPROTECTOR),y)
+> +                KBUILD_CFLAGS +=3D -mstack-protector-guard-symbol=3Dfixe=
+d_percpu_data
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
----
- MAINTAINERS | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Looking at:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fb0ebf0939..13d718f7f0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -517,7 +517,7 @@ F:	stubdom/
- TEE MEDIATORS
- M:	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
- S:	Supported
--F:	xen/arch/arm/include/asm/tee
-+F:	xen/arch/arm/include/asm/tee/
- F:	xen/arch/arm/tee/
- 
- TOOLSTACK
-@@ -545,7 +545,7 @@ F:	tools/misc/xen-access.c
- F:	xen/arch/*/*/mem_access.c
- F:	xen/arch/*/*/monitor.c
- F:	xen/arch/*/*/vm_event.c
--F:	xen/arch/*/include/asm/*/mem_access.h
-+F:	xen/arch/*/include/asm/mem_access.h
- F:	xen/arch/*/include/asm/*/monitor.h
- F:	xen/arch/*/include/asm/*/vm_event.h
- F:	xen/arch/*/include/asm/mem_access.h
--- 
-2.34.1
+> +        * Since the irq_stack is the object at %gs:0, the bottom 8 bytes=
+ of
+> +        * the irq stack are reserved for the canary.
 
+Please note that %gs:0 can also be achieved with
+-mstack-protector-guard-offset=3D0
+
+Uros.
 
