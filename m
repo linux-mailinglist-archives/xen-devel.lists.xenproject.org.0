@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74555990872
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 18:05:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.810515.1223201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44CDC990874
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 18:05:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.810516.1223208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swknN-0005cS-OS; Fri, 04 Oct 2024 16:04:45 +0000
+	id 1swknO-0005hQ-22; Fri, 04 Oct 2024 16:04:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 810515.1223201; Fri, 04 Oct 2024 16:04:45 +0000
+Received: by outflank-mailman (output) from mailman id 810516.1223208; Fri, 04 Oct 2024 16:04:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swknN-0005bO-Lf; Fri, 04 Oct 2024 16:04:45 +0000
-Received: by outflank-mailman (input) for mailman id 810515;
- Fri, 04 Oct 2024 16:04:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1swknN-0005cZ-Sd; Fri, 04 Oct 2024 16:04:45 +0000
+Received: by outflank-mailman (input) for mailman id 810516;
+ Fri, 04 Oct 2024 16:04:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jgwL=RA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1swknM-0005bC-M5
+ id 1swknM-0005bD-V2
  for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 16:04:44 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e0deeac-826a-11ef-99a2-01e77a169b0f;
- Fri, 04 Oct 2024 18:04:42 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a8d0d0aea3cso301671466b.3
- for <xen-devel@lists.xenproject.org>; Fri, 04 Oct 2024 09:04:42 -0700 (PDT)
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5e7a90fc-826a-11ef-a0bb-8be0dac302b0;
+ Fri, 04 Oct 2024 18:04:43 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a8d6d0fe021so375249366b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Oct 2024 09:04:43 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a992e5c3c8fsm10040166b.3.2024.10.04.09.04.40
+ a640c23a62f3a-a992e5c3c8fsm10040166b.3.2024.10.04.09.04.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Oct 2024 09:04:41 -0700 (PDT)
+ Fri, 04 Oct 2024 09:04:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e0deeac-826a-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 5e7a90fc-826a-11ef-a0bb-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1728057882; x=1728662682; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=yGXhc0yICj2K+QEEiwngvwgzC9xM8NG/E1TGVjkBmus=;
-        b=TI3dK0o6ssG2Ijpx2L337hRBC4nea8fGHml48N1fJqcCuJkO0+nqfoBN/mmJw1HE+d
-         L4IkFb7BSMpQHrP0fAueU4d8OHI+Rd8aAYiO2I6/W09fyIRjsOIYaEpbHVyFp5coeRj5
-         L97DaQDTN5YvjRrg7ZcB2yjoy6yeVtL5VQvQCdZ4ijnFEsIQl3tF1SStzvrEetc4PtL5
-         YfXnQKV+3IiIHtjVgUDuTyMPANHaj9NRVx0mzNtityXE7RRVjpe3ZVnEHbFu678M/mVJ
-         EZIRqN25iUJ/BTNHztqe7/TtQOUW+zdn/5UCg60iFpQEwOl8Y2xzwlMrzaJBcyGYaDcg
-         XqZA==
+        d=gmail.com; s=20230601; t=1728057883; x=1728662683; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cdM3rVoapplxeHku40PfEDhlvEAoP8or8VBCiItUFOc=;
+        b=CkyNdKzM/VnFOel8c/5b6ET+cs1sOeb4SFdTj6a1zDZkSbSZzZrcSqFzzdTtd8H7uL
+         1d/JIhwDZKN82LogP0kXuwZR8Q4jijkKtbDrB7+hOVLm8AsTBwce5pWCcGNRI5osW5zl
+         FTNOvk3aLAdgZNUcqze/tti8O4df7C3Nk112Cni3EUBQwpHenkblB546zGZjIWv/7mLE
+         +ZCjco1ZJ5loDaHx+Zrgp04AfNpfzQYyR/5s+RiwjHb68Tw8C2Z4/ZeO2bPgwR0Fxuf/
+         tZ4EFLJ7XZ/Ci0vrZYoFo9K6mvQcfEcdjtybM1EdvQ77FivRWH73KC62MZJ1a41EA6kF
+         C8VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728057882; x=1728662682;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yGXhc0yICj2K+QEEiwngvwgzC9xM8NG/E1TGVjkBmus=;
-        b=ObaCYSpzB3BZAD3yv1Zb/DVQofZmHADO6abOiRR0dgAi7wOIme7WDYryzqyiXx9FeA
-         jtKgR6aIcZNBGZk2PmfOSaNYeoeBETsVGtmQZtuk3nHHR5xky5LTxlpeGVHjh/n8VZ6Y
-         BvCkrI+6Jq+KZGLEXcL4RT4xTRTRTsDT+T+p0LD5t10NUjok9SVbmbSWPKJHS+zNnQeg
-         w0CGfb08xzR4lScRAMKXtE9CrL+D22sN/SIC2MzZFXoD9AD2nGZf0wDaQEOnzOHJ6RV5
-         1tVS19wLHxdKDTK0NtevY9ZvgZ17LXvozz9+Q/7gJwmJJQpTg9C2KcfVm5Q6okSCg63V
-         VUVA==
-X-Gm-Message-State: AOJu0YwiY4NYRd2h9MJlwFslU4vgrPO5ooTbMHyXoEZwgJfRaz1zKXiB
-	gJX03I9tLLo/K8zFCPtUnKZlh+HUHyjkVsioRG2jUMIdvrE4vn52PE8tjQ==
-X-Google-Smtp-Source: AGHT+IE7HSO6d0uXf2nrKReQy+nuyaUF/Ts9WrSMU6/kNrBrGkHabLyqXuQ5/Erdmpgnfc2DL55iKg==
-X-Received: by 2002:a17:907:3f86:b0:a8a:6c5d:63b2 with SMTP id a640c23a62f3a-a991bd09b0amr291003766b.18.1728057881731;
-        Fri, 04 Oct 2024 09:04:41 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1728057883; x=1728662683;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=cdM3rVoapplxeHku40PfEDhlvEAoP8or8VBCiItUFOc=;
+        b=OmUNwvkaP9ysCua4oDWDU+Uj24ViCsPvU0MCzu9tTLiY3SnM2egHGOh3T9zQ3I+NsX
+         BxpFM2kdYsUuLk7y4slBM+CNmGAu4laU2evyn/OcNJr8e3HymOnIannwd9BIGo+dOuVm
+         MSGppURtm0fG4LoCnUNhXu4vjSm7Hxa9CJ1ePCKzdX10hYSpjUNouh3hC8mcyjzAZnio
+         SvihTkYYA3PWSIedi7B6Z7+8KJs+ojObvShwCfSPL1YSJmjlQu49gq7imWlTl288dBi1
+         31aBGBarVVQ6uU2scPQKYfW5H9jv7FzDozkhLOnUqxDVsUnBmnC4jzKqiaJ2u9cnlqjR
+         k1Yw==
+X-Gm-Message-State: AOJu0YwrZUt9jtm7HMoiVW04c9REiJWdA/Vfzcx2g4rBEWaiNKg5oBbO
+	bR9O01tISMQ8vrywqPzpc+fzEhtUNRvl3o1uVemh8eD0ylDe7MyuEDy9HA==
+X-Google-Smtp-Source: AGHT+IE++eGydoiKYdy+iIjJIslZ+fal52kCcQO0wvQi82zmiSnq0kh3OJ0mvrKPWReqFBzFK7D02A==
+X-Received: by 2002:a17:906:6a20:b0:a8d:51a7:d5e8 with SMTP id a640c23a62f3a-a991bd09b15mr370159466b.15.1728057882579;
+        Fri, 04 Oct 2024 09:04:42 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -83,35 +84,99 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 0/3]  Register Xen's load address as a boot module
-Date: Fri,  4 Oct 2024 18:04:34 +0200
-Message-ID: <cover.1728057657.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 1/3] xen/riscv: implement virt_to_maddr()
+Date: Fri,  4 Oct 2024 18:04:35 +0200
+Message-ID: <25a0fa030db90c929379a799aa5e03bed0197665.1728057657.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.46.2
+In-Reply-To: <cover.1728057657.git.oleksii.kurochko@gmail.com>
+References: <cover.1728057657.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series registers Xen's load address as a boot module and
-introduce virt_to_maddr(), and drops LINK_TO_LOAD() to use virt_to_maddr()
-instead.
+Implement the virt_to_maddr() function to convert virtual addresses
+to machine addresses, including checks for address ranges such as
+the direct mapping area (DIRECTMAP_VIRT_START) and the Xen virtual
+address space. To implement this, the phys_offset variable is made
+accessible outside of riscv/mm.c.
 
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V2:
- - Update the commit message ( drop depency from "device tree mapping" patch
-   series as it was merged to staging )
- - Other changes please look at the specific patch.
+  - Drop casts in virt_to_maddr() for ASSERT which checks that VA is
+    in the range of where Xen is located.
+  - Add UL suffix for or XEN_VIRT_START by using _AC(..., UL) and add inclusion
+    of <xen/const.h>
+  - Add the comment above return which explains why there is no need
+    to do " - XEN_VIRT_START.
 ---
-
-Oleksii Kurochko (3):
-  xen/riscv: implement virt_to_maddr()
-  xen/riscv: switch LINK_TO_LOAD() to virt_to_maddr()
-  xen/riscv: register Xen's load address as a boot module
-
  xen/arch/riscv/include/asm/config.h |  4 ++++
  xen/arch/riscv/include/asm/mm.h     | 17 ++++++++++++++++-
- xen/arch/riscv/mm.c                 |  9 ++++-----
- xen/arch/riscv/setup.c              |  6 ++++++
- 4 files changed, 30 insertions(+), 6 deletions(-)
+ xen/arch/riscv/mm.c                 |  2 +-
+ 3 files changed, 21 insertions(+), 2 deletions(-)
 
+diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
+index 7dbb235685..8884aeab16 100644
+--- a/xen/arch/riscv/include/asm/config.h
++++ b/xen/arch/riscv/include/asm/config.h
+@@ -155,6 +155,10 @@
+ 
+ #define IDENT_AREA_SIZE 64
+ 
++#ifndef __ASSEMBLY__
++extern unsigned long phys_offset;
++#endif
++
+ #endif /* __RISCV_CONFIG_H__ */
+ /*
+  * Local variables:
+diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
+index 4b7b00b850..0f7879d685 100644
+--- a/xen/arch/riscv/include/asm/mm.h
++++ b/xen/arch/riscv/include/asm/mm.h
+@@ -5,6 +5,7 @@
+ 
+ #include <public/xen.h>
+ #include <xen/bug.h>
++#include <xen/const.h>
+ #include <xen/mm-frame.h>
+ #include <xen/pdx.h>
+ #include <xen/types.h>
+@@ -28,7 +29,21 @@ static inline void *maddr_to_virt(paddr_t ma)
+     return NULL;
+ }
+ 
+-#define virt_to_maddr(va) ({ BUG_ON("unimplemented"); 0; })
++static inline unsigned long virt_to_maddr(unsigned long va)
++{
++    ASSERT(va >= (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE));
++    if ((va >= DIRECTMAP_VIRT_START) &&
++        (va < (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE)))
++        return directmapoff_to_maddr(va - DIRECTMAP_VIRT_START);
++
++    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
++    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
++           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
++
++    /* phys_offset = load_start - XEN_VIRT_START */
++    return phys_offset + va;
++}
++#define virt_to_maddr(va) virt_to_maddr((unsigned long)(va))
+ 
+ /* Convert between Xen-heap virtual addresses and machine frame numbers. */
+ #define __virt_to_mfn(va)  mfn_x(maddr_to_mfn(virt_to_maddr(va)))
+diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+index 4a628aef83..7a1919e07e 100644
+--- a/xen/arch/riscv/mm.c
++++ b/xen/arch/riscv/mm.c
+@@ -26,7 +26,7 @@ struct mmu_desc {
+     pte_t *pgtbl_base;
+ };
+ 
+-static unsigned long __ro_after_init phys_offset;
++unsigned long __ro_after_init phys_offset;
+ 
+ #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
+ #define LINK_TO_LOAD(addr) ((unsigned long)(addr) + phys_offset)
 -- 
 2.46.2
 
