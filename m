@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10C989902D8
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 14:23:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.810342.1223050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 423D89902DC
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 14:23:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.810345.1223079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swhKW-0006fL-D8; Fri, 04 Oct 2024 12:22:44 +0000
+	id 1swhKa-0007T2-Dv; Fri, 04 Oct 2024 12:22:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 810342.1223050; Fri, 04 Oct 2024 12:22:44 +0000
+Received: by outflank-mailman (output) from mailman id 810345.1223079; Fri, 04 Oct 2024 12:22:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swhKW-0006dO-8m; Fri, 04 Oct 2024 12:22:44 +0000
-Received: by outflank-mailman (input) for mailman id 810342;
- Fri, 04 Oct 2024 12:22:42 +0000
+	id 1swhKa-0007R5-AX; Fri, 04 Oct 2024 12:22:48 +0000
+Received: by outflank-mailman (input) for mailman id 810345;
+ Fri, 04 Oct 2024 12:22:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=djJ5=RA=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1swhKU-0005ue-DK
- for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 12:22:42 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20603.outbound.protection.outlook.com
- [2a01:111:f403:2417::603])
+ id 1swhKX-0005ue-Va
+ for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 12:22:45 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20617.outbound.protection.outlook.com
+ [2a01:111:f403:2416::617])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 597c7128-824b-11ef-a0bb-8be0dac302b0;
- Fri, 04 Oct 2024 14:22:41 +0200 (CEST)
-Received: from BL0PR1501CA0011.namprd15.prod.outlook.com
- (2603:10b6:207:17::24) by LV2PR12MB5847.namprd12.prod.outlook.com
- (2603:10b6:408:174::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.19; Fri, 4 Oct
- 2024 12:22:37 +0000
-Received: from BN2PEPF000055DC.namprd21.prod.outlook.com
- (2603:10b6:207:17:cafe::77) by BL0PR1501CA0011.outlook.office365.com
- (2603:10b6:207:17::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.18 via Frontend
- Transport; Fri, 4 Oct 2024 12:22:37 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN2PEPF000055DC.mail.protection.outlook.com (10.167.245.6) with Microsoft
+ id 5b6f64b9-824b-11ef-a0bb-8be0dac302b0;
+ Fri, 04 Oct 2024 14:22:45 +0200 (CEST)
+Received: from BY5PR13CA0004.namprd13.prod.outlook.com (2603:10b6:a03:180::17)
+ by MN0PR12MB5713.namprd12.prod.outlook.com (2603:10b6:208:370::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.18; Fri, 4 Oct
+ 2024 12:22:38 +0000
+Received: from SJ5PEPF000001F2.namprd05.prod.outlook.com
+ (2603:10b6:a03:180:cafe::e5) by BY5PR13CA0004.outlook.office365.com
+ (2603:10b6:a03:180::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.10 via Frontend
+ Transport; Fri, 4 Oct 2024 12:22:38 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001F2.mail.protection.outlook.com (10.167.242.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8048.2 via Frontend Transport; Fri, 4 Oct 2024 12:22:37 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8026.11 via Frontend Transport; Fri, 4 Oct 2024 12:22:37 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Oct
- 2024 07:22:35 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 07:22:36 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Oct
- 2024 07:22:34 -0500
+ 2024 07:22:36 -0500
 Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Fri, 4 Oct 2024 07:22:33 -0500
+ via Frontend Transport; Fri, 4 Oct 2024 07:22:35 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,148 +63,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 597c7128-824b-11ef-a0bb-8be0dac302b0
+X-Inumbo-ID: 5b6f64b9-824b-11ef-a0bb-8be0dac302b0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iG6IjzYO9AO3iSWdMkQcIP4fBNpwJMmjxBx2GU/iT7GyCzFUDIYfXjgUBCHGnVti4rEcHzilB/92aR4L6TKUpj/KH9BqTXylzKcezFs01fK3QZ4kyjFHnbLzlEKKMruLtbw6UHY6ShKVsY1rbDv/o3Q4cFKHLZQmBraI6msGfM2/UqDrgLVLpgf50AWdKwOAZbQslWCZW0kPxNLleR3iOQ8/DQSzaeKFZg2+hR7tU0SHc2ztmWbxLOLTeAHKgeb3zd27PgLe+1stEqGKdxkmF4LTmyUqHyU0clqMZni4RUbThcZ81UFbQV151DHqUxYcvlv5fr0orQJ9TmCR8VxaFg==
+ b=oLEncfoH8xaSWzO7h/E+0tPRLcqlcBRxUIXkZZgUF2RgePyqZVvBPBbT4UfS221bZAT6IjiQTMIqaN9sEZiGp+f+SL8zv+8jA2zddWTNomBQcpzI3+EgUsoyvOWJqtM/8k592zy4qwRwdB7FfHDjtVjp2Qy3ENyn2gkivPHHZVeQogs0z2vc25sMG13GGXKOjzmlpfzNrdUgMOetzkeJ7n2ehZpjY1SqGEeSC/PVMA+wm7UZTjrj0KI65W4MMorEgNRqnJzoxJqm7vfYQaCgyyC2/E6U9DUlS18LT1DT4c309xtMm0ChSlmq9OReQWx25mUCSCQSzzHXDD4KDZ2jxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rJLyeaB5M/7YIwM/WFENv9oGD3G+4gjHz/pbXz8yRWs=;
- b=gxhVCnpZNNyBEmNsXydXPkhHMV19LJkkc0cC5N2KCiO+p5wSW6epJg0cdl0s+J2HtCNz7tOWG27qx3P9QLdMBSE8DM2xBS3/N0pz7E0yQQLo+obskig5UqhdJvSehieRKkNuguu04P9E8ovGSfxPJ5NjSLPMSdZKrtuTu5Cezevk2a7QGTKqC+o3O66UdbXzi41m7fv1K78cFHls+AljWWdM4l8z+zT17V8y2s6aVvYcunMHcUir0Zd1RoxoIVSmJA5S0JLwz+AgDn7di4uyGnMjB5aNlWOyWrXIUwNjZAwK8qwegzkSGy+L32T69AZe6Mzt6hDxpKzNjsj/IM2aNw==
+ bh=3coa7/Q00XcmaWZs7n/oiZYQzKwgScWsvnM72TeQSnY=;
+ b=PgABqA59YjClm1v6vFW9bg/zDJd8e+htlibpbR3WLNq24vnC5ok5wOPuUU7crQ/Zx1ZP6Fk6SRHQ/CIGFI687giyfIcD2lJBIFlHo0CuQ8dNHTtrMKsZ1Eo9AGH0GtmtjIQyAnqELMGbaCFk2e2kclip0mans65qrXQQI7I+rYGMQwP8NuUttK1YNZNcUGn4dVUPudCnpT5brM2ywV2ZbkC3TOoxMxisv8gdefVEuWNFDvGheGQdP1hJGXzIU/6f40U9LPnQF8j8dTF/Y0W8VBz9k4BGgGdJx39KPESByrqrLZMZOLkxI1oKk2STT2lHbI46krZ+DjofOXugjAKHzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rJLyeaB5M/7YIwM/WFENv9oGD3G+4gjHz/pbXz8yRWs=;
- b=tbPmPGJXMG4WP7YElZ4G03hNWJwAh++5FxEUhEFcIlrtlZQeO0lMa2BSRJBxjpZ+GMZ0gCw+n8RLjfkS8UWrYBPh6V0zMGOzEIK0pPMrFTGIs8MfTDIjOIWUc0eVn6pbZP8iM+fZjKz19L8tV9O5jhXl/0nPl53YQmReBYINU54=
+ bh=3coa7/Q00XcmaWZs7n/oiZYQzKwgScWsvnM72TeQSnY=;
+ b=SNdYynGWb6wXIFzz+CRjLqTjrLUJKbBUyRJqyv0LHsCc6wS4Zt9DZpCWQgZPbJyoEMrvisaXzt1JdV3mIYR6p//2CbC+BS1M0jUb41iLbGApV8b9I4VktGKWP8XfJTEx/4gA2oNZU9qCjv4YWgbUoRLSDxmpqHhvO/4qkpqFOxg=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Michal Orzel <michal.orzel@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>
-Subject: [PATCH v2 4/6] dt-overlay: Support target-path being root node
-Date: Fri, 4 Oct 2024 14:22:18 +0200
-Message-ID: <20241004122220.234817-5-michal.orzel@amd.com>
+Subject: [PATCH v2 5/6] dt-overlay: Ignore nodes that do not have __overlay__ as their subnode
+Date: Fri, 4 Oct 2024 14:22:19 +0200
+Message-ID: <20241004122220.234817-6-michal.orzel@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241004122220.234817-1-michal.orzel@amd.com>
 References: <20241004122220.234817-1-michal.orzel@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DC:EE_|LV2PR12MB5847:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e894b71-36ed-455d-4fd6-08dce46f3bd3
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F2:EE_|MN0PR12MB5713:EE_
+X-MS-Office365-Filtering-Correlation-Id: d50d2992-d97a-4037-6573-08dce46f3ba9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026;
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?0EX1QhFSaSjFvuLtjA82g4DgiUP1k2e9Itab9WnCxo9S4wGAouMj9bLrDVaW?=
- =?us-ascii?Q?TjVCN0RetPuxc4kCaSl3HzOxc4Rz4WfAETM74mHLeMgR8YgLvkUI/i86TBIg?=
- =?us-ascii?Q?XBTdf2oU+upvzb8sUUhiSgSGFrqtl8KUgAR8j/q9aP1pdV6Cr98xd63vUVbZ?=
- =?us-ascii?Q?++0QgfBabOuIbcRQ2p12KWPNfpkCHaI8qoVgikkonrJ4r2+VaZgKx3I3Nq2k?=
- =?us-ascii?Q?bSybsj3BkF+zkn8XFH1c7yJnJ5+uWYa7NQe6+0Bi/PKYJO14aobdHRgrWIJ2?=
- =?us-ascii?Q?5y15x8We8S/0Ni1KBMtXf77B549fEym+p2m/IpD/SseOWKfx2KKgi75kV/54?=
- =?us-ascii?Q?c+oC6x0hIHkBiotX7/E2mauE0E6iyD62X6Gt2+7LxQ2kBPW6Or//YdkNIgWK?=
- =?us-ascii?Q?aNoE9dinOKj4oyV06WH6E1TAv1f2/XpGvkNZ6hBOBH81e+F1G65gEVff/Lw1?=
- =?us-ascii?Q?GBKGzwI9CyFdWYsyytCvvRj/JjIbJmpnp68/e5Hv7ibfU5qQhovbpN+O7v82?=
- =?us-ascii?Q?kaydyOyI9wrYk1X9ycHldmPEjnhBknYJVdHJvfmhCyMkeAd2nix2rE+7UF2a?=
- =?us-ascii?Q?mURZKVHwLi9H4lUj2Z3QWRBf/h27VI2aOAxfXFUun6oqyN2FJ6OwQCJT6bGI?=
- =?us-ascii?Q?FEI499q65g/9Zw6y0mgXQi8kzb4S0rpXqlT2QrHUOOi2pNnC810rrNi4pUVD?=
- =?us-ascii?Q?VbeFpdNJIGqiAcVnBnt4Z9q1NSIoXiA10KZcvnETYRWmm5W0cUrC/gI1F9NU?=
- =?us-ascii?Q?W028hyL1iuEZpnO3OlDLkGKicc1lFxykHJVmXfiJDtq23OTw8xH4RREMxmhI?=
- =?us-ascii?Q?O9MQWQ0ZqgCB+GFGYMdU7ZKid55a/3GpSRTFyUp8uVDvqhDtK8RerEnFxg3v?=
- =?us-ascii?Q?6I5LTez1HUwYzQaVzEaxPsEi1bXCM4EKG+nVDJPgfTZRpRnjQNJDlNO5HpPy?=
- =?us-ascii?Q?FTctP1zx/YyTV3OuJklnM6rP8ZkQAuVh6sRFXNSeWZ5g0R9nFLV4JtacywQy?=
- =?us-ascii?Q?+mx394Om2yTV8/QCpLcSqVQXeGS3XFV4PyTsuazVU5rSJtUXQFLQtXYyt/ni?=
- =?us-ascii?Q?TtjssAaVuxXdirpu6Mpy0jikJJC2b82zXapX6jvooZYkPQJ0bU0kYwVThcfi?=
- =?us-ascii?Q?YIbVMJTt7AHm3mdEJSGlEfDJ9ZpFNFgVpXv+o5L0E3Hmfw4sPLDkfcA3/Ing?=
- =?us-ascii?Q?DvfHaKT18Wye1Lq2dF9LWRBm4PVAIsywXPE5P8scK/t+3tgGtR0LYF9ZgqsW?=
- =?us-ascii?Q?zeg/IEFKSQm9IDcaWVE1VRZxbQQ8UiY9R4DB1gF1EK6tW2NR267+BWNWtTXq?=
- =?us-ascii?Q?EMnl1zO25yLz1a/Y9Od0ZR/B+BdNdWElmIIiCnLA9nNf153fqUxvI21riMqQ?=
- =?us-ascii?Q?l+nz4tX+7l9gqU0shXXySjsKFzv2?=
+	=?us-ascii?Q?RqcX9FUAhYGsmfVzXBm8fKtaPZngTcBEO3PnXqHwebzbC8TLC99FH1l4Eja3?=
+ =?us-ascii?Q?xuMBdgHL2/mAW/aaL6xY50WAuwaFJ8dU7fcBWC5mIeMIuRUWVAzL/PSB2/iT?=
+ =?us-ascii?Q?9FAxuM3quRXTpplL3XsP92SpaykZWaedo42o/Ris0cBoHlVSRzqlK4/zKwfV?=
+ =?us-ascii?Q?8i7ZaR3J7ZwvCRkFEzU5gwbeOp0dg7mHV86qVEiYF+A4xuMHBsx0iYhKd6Lf?=
+ =?us-ascii?Q?tA2NwkY0kNVRMkuqtLNV/KURKMbudxi9TXOCpv1G92uhYKQ6yPQLZqVF5g8o?=
+ =?us-ascii?Q?D9qAS6bzakJ3rRcb4Rwj51+wxd+V4T8Zt0aKzBqoxAF4iY2Djj7qj6KLQnQg?=
+ =?us-ascii?Q?f1yO1b/lDdu3PVeT0QVopxfSHclo4fPUPy15bcQTogLHjxIkKCIczZshWxOG?=
+ =?us-ascii?Q?y5RQatGQUJQJTC6bwJH+MaabAkpKZZ5alxHFU4+OvbrXHQD8mnC4w4H/+Hgo?=
+ =?us-ascii?Q?9JcmdGmw5V+kU013lE/y5g9QjN3wI4a5MJfQv7WvNpnLHPbo07JyRcUl9vsA?=
+ =?us-ascii?Q?CE8/INo3VNIO3qNF8OakySEiZOcFMn/fVULQEqzh5fDRAjzi19BZ3GbsYwxr?=
+ =?us-ascii?Q?xjeYzex6h88j6cDQT3++ChGj2UPqqEvAlzeQWCSP6ytwfHE4NPVlwPN3vIg9?=
+ =?us-ascii?Q?7aacCQH6E5AMNPEwIO/YzPFPKWQTcVbFmH6716iWaP2jVQO3Bz5hNQJmrvju?=
+ =?us-ascii?Q?7ut4c+HigLk2u6V06xvdmNR91mJ2HPb9rYm8s6gu5mnRECC9oNmZQ2ptF0zA?=
+ =?us-ascii?Q?yvbCSV3pk79kdNYxsaWBPr/9X7iU3iFTn22NhoZBydFZJ2a0lU7iXxdrjz5Z?=
+ =?us-ascii?Q?l8ir8ax5dte0bG+9DCiXYsAcGY4MwnB5e9v6Pj/bxKd25NAVXPHuiXRs+q27?=
+ =?us-ascii?Q?cUILLb+DmlI4mx9WEFdXyNxkXo+Nvr6YrWTdRVt81NXV4CvqGu5yyyuEp0TW?=
+ =?us-ascii?Q?DNpWxoZfLsseyqusWmkouwKgorQUuft5WA2Tbm65UbZxwBYI833cNbCDOdLG?=
+ =?us-ascii?Q?lrAH30q1Nk1vrki1ieqUckfVup4mnwYtL9frKRVtQD2tNiaH0JTI+hN/dBi+?=
+ =?us-ascii?Q?5ZG/4JD5wb1iiSs9LTEfCUNGhtSF8j2KuHcbqd8ilG6MAYW17+MKfJKy2nBk?=
+ =?us-ascii?Q?Jm4QCaWkifzLovMQBHpGPtKC1x43qjiiBnO+TPX9OhnbkxNJLM/stSALTZ55?=
+ =?us-ascii?Q?2Xv4BiSYC9i2ROV3ws6a1TApNjEn+nNsEbs90oGoNSU9wEiRqEyscK95pHm5?=
+ =?us-ascii?Q?d1KmGRUZ5fi5LkH8OJ4V8pEGRnGxYulHAxICsVbCmmrSIFq4VAeUonPGW4Vr?=
+ =?us-ascii?Q?Moihe/pZCgg4bYuRV/1tqzjf6SPbe74lu4ytBHPj1GaLiqLX5sjy0vQfBX1p?=
+ =?us-ascii?Q?bXCanP41xoRXo1KcopSbK9unu+Q2?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2024 12:22:37.5193
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2024 12:22:37.1821
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e894b71-36ed-455d-4fd6-08dce46f3bd3
+X-MS-Exchange-CrossTenant-Network-Message-Id: d50d2992-d97a-4037-6573-08dce46f3ba9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DC.namprd21.prod.outlook.com
+	SJ5PEPF000001F2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5847
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5713
 
-Even though in most cases device nodes are not present directly under
-the root node, it's a perfectly valid configuration (e.g. Qemu virt
-machine dtb). At the moment, we don't handle this scenario which leads
-to unconditional addition of extra leading '/' in the node full path.
-This makes the attempt to add such device overlay to fail.
+Assumption stated in the comments as if fdt_for_each_subnode() checks
+for parent < 0 is utterly wrong. If parent is < 0, node offset is set to
+0 (i.e. the very first node in the tree) and the loop's body is executed.
+This incorrect assumption causes overlay_node_count() to also count nodes
+that do not have __overlay__ as their subnode. The same story goes for
+overlay_get_nodes_info(), where we end up requiring each node directly
+under root node to have "target-path" set. DTBOs can specify other nodes
+including special ones like __symbols__, __fixups__ that can be left to
+reduce the number of steps a user needs to do to when it comes to invalid
+phandles.
+
+Fix it by adding checks if overlay < 0 after respective calls to
+fdt_subnode_offset().
 
 Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 ---
 Changes in v2:
- - Use ?: instead of implicit bool->int conversion
+ - New patch
 ---
- xen/common/dt-overlay.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ xen/common/dt-overlay.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
 diff --git a/xen/common/dt-overlay.c b/xen/common/dt-overlay.c
-index d18bd12bd38d..bfa153250922 100644
+index bfa153250922..4d75b5b36a99 100644
 --- a/xen/common/dt-overlay.c
 +++ b/xen/common/dt-overlay.c
-@@ -325,6 +325,7 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
-             int node_name_len;
-             unsigned int target_path_len = strlen(target_path);
-             unsigned int node_full_name_len;
-+            unsigned int extra_len;
+@@ -274,11 +274,9 @@ static unsigned int overlay_node_count(const void *overlay_fdt)
+         int overlay;
  
-             node_name = fdt_get_name(fdto, subnode, &node_name_len);
+         overlay = fdt_subnode_offset(overlay_fdt, fragment, "__overlay__");
++        if ( overlay < 0 )
++            continue;
  
-@@ -332,10 +333,13 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
-                 return node_name_len;
+-        /*
+-         * overlay value can be < 0. But fdt_for_each_subnode() loop checks for
+-         * overlay >= 0. So, no need for a overlay>=0 check here.
+-         */
+         fdt_for_each_subnode(subnode, overlay_fdt, overlay)
+         {
+             num_overlay_nodes++;
+@@ -305,6 +303,10 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
+         int subnode;
+         const char *target_path;
  
-             /*
--             * Magic number 2 is for adding '/' and '\0'. This is done to keep
--             * the node_full_path in the correct full node name format.
-+             * Extra length is for adding '/' and '\0' unless the target path is
-+             * root in which case we don't add the '/' at the beginning. This is
-+             * done to keep the node_full_path in the correct full node name
-+             * format.
-              */
--            node_full_name_len = target_path_len + node_name_len + 2;
-+            extra_len = (target_path_len > 1) ? 2 : 1;
-+            node_full_name_len = target_path_len + node_name_len + extra_len;
++        overlay = fdt_subnode_offset(fdto, fragment, "__overlay__");
++        if ( overlay < 0 )
++            continue;
++
+         target = fdt_overlay_target_offset(device_tree_flattened, fdto,
+                                            fragment, &target_path);
+         if ( target < 0 )
+@@ -313,12 +315,6 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
+         if ( target_path == NULL )
+             return -EINVAL;
  
-             nodes_full_path[node_num] = xmalloc_bytes(node_full_name_len);
- 
-@@ -344,9 +348,11 @@ static int overlay_get_nodes_info(const void *fdto, char **nodes_full_path)
- 
-             memcpy(nodes_full_path[node_num], target_path, target_path_len);
- 
--            nodes_full_path[node_num][target_path_len] = '/';
-+            /* Target is not root - add separator */
-+            if ( target_path_len > 1 )
-+                nodes_full_path[node_num][target_path_len++] = '/';
- 
--            memcpy(nodes_full_path[node_num] + target_path_len + 1,
-+            memcpy(nodes_full_path[node_num] + target_path_len,
-                     node_name, node_name_len);
- 
-             nodes_full_path[node_num][node_full_name_len - 1] = '\0';
+-        overlay = fdt_subnode_offset(fdto, fragment, "__overlay__");
+-
+-        /*
+-         * overlay value can be < 0. But fdt_for_each_subnode() loop checks for
+-         * overlay >= 0. So, no need for a overlay>=0 check here.
+-         */
+         fdt_for_each_subnode(subnode, fdto, overlay)
+         {
+             const char *node_name = NULL;
 -- 
 2.25.1
 
