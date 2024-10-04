@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90FE998FD73
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 08:43:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.810010.1222600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6560D98FD80
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 08:48:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.810016.1222609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swc1v-000286-8h; Fri, 04 Oct 2024 06:43:11 +0000
+	id 1swc6j-0003DE-OL; Fri, 04 Oct 2024 06:48:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 810010.1222600; Fri, 04 Oct 2024 06:43:11 +0000
+Received: by outflank-mailman (output) from mailman id 810016.1222609; Fri, 04 Oct 2024 06:48:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swc1v-00026a-4n; Fri, 04 Oct 2024 06:43:11 +0000
-Received: by outflank-mailman (input) for mailman id 810010;
- Fri, 04 Oct 2024 06:43:09 +0000
+	id 1swc6j-0003AD-Lg; Fri, 04 Oct 2024 06:48:09 +0000
+Received: by outflank-mailman (input) for mailman id 810016;
+ Fri, 04 Oct 2024 06:48:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=E5lv=RA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1swc1t-00026T-Oy
- for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 06:43:09 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1swc6h-0003A7-WF
+ for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 06:48:08 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea144d5c-821b-11ef-99a2-01e77a169b0f;
- Fri, 04 Oct 2024 08:43:07 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-5c87ab540b3so5164268a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 03 Oct 2024 23:43:07 -0700 (PDT)
+ id 9c0ba310-821c-11ef-99a2-01e77a169b0f;
+ Fri, 04 Oct 2024 08:48:06 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a8d6ac24a3bso342559566b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Oct 2024 23:48:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8ca3e02b0sm1498027a12.32.2024.10.03.23.43.06
+ a640c23a62f3a-a9910285701sm183244266b.52.2024.10.03.23.48.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Oct 2024 23:43:06 -0700 (PDT)
+ Thu, 03 Oct 2024 23:48:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea144d5c-821b-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 9c0ba310-821c-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1728024187; x=1728628987; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1728024485; x=1728629285; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hmYxHGg9YSO1d/YtR/JpWZEGn3yWbjxfedTFSJ5zNwk=;
-        b=SyyPTn4oZTDTUoQZqDKyqIXE9+UKby/CVc69dKnggtdRaD5vlCqCdSLxIdattrAkne
-         46xEGYArWo1IN6Pjmovf6XXYX+SjHczPp0y1vrTC7p0bImAkc77qhdxkz4BQKfh5u1O8
-         fL0kL4/Unu6Ea9vCt6iy2WzZNcmFqjZH+zyYOVMqcZJpmjBP6djBky6de789X/ErWRBU
-         f8VBXUQ3NgARVaED6hUHIq1VXoWxFcT9yxwhwLF2EL+v+I/Emz0lC6i6VeeVUTBnr2T6
-         9/SvhTXgFXtnIIrFqdn/41gDTCqAoHaibCYR8pvTCMdNXy8gjOK5fNVhmKmzuyDXdlP6
-         xtiQ==
+        bh=EYdymnkFdan5/zJYRg6cH81Z0APzLjbE6Q0L0i/nahA=;
+        b=Abrzs14P6mQ5Ty0q6HhZ+CfG88e/DD/qM9wX6KfG2m5P6K25wRVk15VJSSYUEVSoRq
+         1DBNIbvhoThqAp9yJRVv0Umu/ZbkxL1YJfsHa7fYukT1ja6pDrKYJVnbc3puXsy0x9D4
+         6uD/Buq395k5mYz2QjF0lV2FS/GG1yJoPnB662EfxfmNhrSatw0pn6DfG5WuN57NkhMr
+         v6sk5ORRrRhzxFxJPQZugc6tAhIvkZuPvcPdi7I65T7afG+wMa9ZE21OktSps9ulhFaN
+         eujsH9tir2AVbZtb5w+CoTE1cfHWNrToWoPbrFRkiEzBFfTkWIe2eeqxW2qGWeyW+mL+
+         AO0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728024187; x=1728628987;
+        d=1e100.net; s=20230601; t=1728024485; x=1728629285;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hmYxHGg9YSO1d/YtR/JpWZEGn3yWbjxfedTFSJ5zNwk=;
-        b=lRPYNmdeGvOfOzS0rb4MfTNTGKyBNnDs2rQFxHKmYjxmASQbyHZOiO3KqP4Qm83nKZ
-         gIhl1T2TuChwAKBxATf2CHuDJndNLIP1Mz3B1tHA/6As0lCkS1cmy9Qws/6WKNdM4X5B
-         Ad4y7qiIok26LRzv67QBKC1WndUn/qa1pmD5nUwucLVKoW/czyGlt0xnm5z7ZGprQUTn
-         MVfygVD8T+rQA34sRnLREEqVEaszbRR8cku4B7R/eKyoBRa8kFZOJfGlbp+2cA7qg5lY
-         RCtVUqtHOKQbX2VDjqYq0BCKHmfXF3OttdwKggpI7llCM/rUV/ZsNqZ8aWRKJ8+NELbp
-         mkcA==
-X-Forwarded-Encrypted: i=1; AJvYcCVwYp4QKiGK+KMYQiLlU4DBPNQ9kuY74ObcUD6Al0KeJ251VlQqVkmmTrvb8zVYlfoWM7vTIVZ05FE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YymA3plVLI1j1b41p/HRqnElcUpgZRnXE1m6rcN5epZypV9a34q
-	7LHiGKMhiWQ9uH2ws91KPp3Wsv/s7B06hX0GKReQV1aet6tmb26SNq5b+TTNsw==
-X-Google-Smtp-Source: AGHT+IEF95BprliiUZbUKXYpy0NRLRNAR1D6LM4YeNcu5tb3zMuQohJ5wS9eK1pMxwfOEP1Ry9hyLQ==
-X-Received: by 2002:a05:6402:2551:b0:5c4:2d5d:b25f with SMTP id 4fb4d7f45d1cf-5c8c0a65941mr5489705a12.13.1728024186906;
-        Thu, 03 Oct 2024 23:43:06 -0700 (PDT)
-Message-ID: <39fc1c44-ec09-4df2-86bc-c86717ef7a86@suse.com>
-Date: Fri, 4 Oct 2024 08:43:05 +0200
+        bh=EYdymnkFdan5/zJYRg6cH81Z0APzLjbE6Q0L0i/nahA=;
+        b=u0zPw7m48qYm4dnwqTbSirpxLUbXcmEWBO+vLqDv78ntlXGwfwlavJAP1Hup3bLtPM
+         hPj4H1bU+EXuJdWXv0q50EJEAxtUGfr26ld6iP1+K9h/bxGrVnrqY7Jw6KmQ+3cxsR4M
+         4y+OG3VwPBxNftuTDV/Brs1rloyZtiuEt163VZZ599SE/mGMqdVPW3t5OnooxV+ZFobg
+         2ckWaRs58l/YtIvkItAsv/H9IcVBmVDMGoWaDgFUPrgmJ0YXAZUk/7QKCYsIejBR6ZNg
+         hptZ99/ELui4eh9bWRK04WpyaiBXbV6vsw2IfvNKegVDjR7G6E5EzPa1xbo6d6delip9
+         92YQ==
+X-Gm-Message-State: AOJu0YxpfkDeoWJHBnnsUmEYP5RqL0/lxVbDWNtd/lxLMGOCGBcjHV+4
+	8rIiUbnZdMtXWJ87qCiahLzji8S0rgoHKrbxkDvyEkp/u32CQA3dNLQjKyLCwQ==
+X-Google-Smtp-Source: AGHT+IEc2QSukVHcbdKHU9djwnweh7plWgSb8BKNRaX6dnbl4sMOxr47HZmpfegfxhBAiIWQ+M0SNA==
+X-Received: by 2002:a17:907:36c8:b0:a8d:43c5:9a16 with SMTP id a640c23a62f3a-a991cede585mr152704266b.6.1728024485484;
+        Thu, 03 Oct 2024 23:48:05 -0700 (PDT)
+Message-ID: <ef73f945-1fc0-4f91-a185-0b74e393e89c@suse.com>
+Date: Fri, 4 Oct 2024 08:48:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Introduce X86_ET_* constants in x86-defns.h
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20241003170413.2227753-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 1/3] x86/APIC: Switch flat driver to use phys dst for ext
+ ints
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Matthew Barnes <matthew.barnes@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <cover.1727880621.git.matthew.barnes@cloud.com>
+ <8c6d1fee5261169a9bbc62ed1bafd2c32406fb4c.1727880621.git.matthew.barnes@cloud.com>
+ <Zv53FGD0ju5XsVjz@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -111,44 +113,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20241003170413.2227753-1-andrew.cooper3@citrix.com>
+In-Reply-To: <Zv53FGD0ju5XsVjz@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 03.10.2024 19:04, Andrew Cooper wrote:
-> The FRED spec architecturalises the Event Type encoding, previously exposed
-> only in VMCB/VMCS fields.
+On 03.10.2024 12:51, Roger Pau Monné wrote:
+> On Wed, Oct 02, 2024 at 04:17:24PM +0100, Matthew Barnes wrote:
 > 
-> Introduce the constants in x86-defns.h, making them a bit more consice, and
-> retire enum x86_event_type.
-> 
-> Take the opportunity to introduce X86_ET_OTHER.  It's absence appears to be a
-> bug in Introspection's Monitor Trap Flag support, when considering VECTORING
-> events during another VMExit.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> The commit needs a log, doesn't need to be extremely long, but it's
+> important to note the reasoning behind using physical delivery for
+> external interrupts vs logial mode.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-> --- a/xen/arch/x86/include/asm/x86-defns.h
-> +++ b/xen/arch/x86/include/asm/x86-defns.h
-> @@ -204,4 +204,13 @@
->  #define X86_MT_UCM    0x07 /* UC- */
->  #define X86_NUM_MT    0x08
->  
-> +/* Event Types. */
-> +#define X86_ET_EXT_INTR    0 /* External Interrupt */
-> +#define X86_ET_NMI         2 /* NMI */
-> +#define X86_ET_HW_EXC      3 /* Hardware Exception (#PF/#GP/etc) */
-> +#define X86_ET_SW_INT      4 /* Software Interrupt (INT $n) */
-> +#define X86_ET_PRIV_SW_EXC 5 /* Privileged Software Exception (ICEBP/INT1) */
-> +#define X86_ET_SW_EXC      6 /* Software Exception (INT3, INTO) */
-> +#define X86_ET_OTHER       7 /* Misc event: MTF=0, SYSCALL=1, SYSENTER=2 */
-
-ET could of course mean a lot of things; sadly no sufficiently short but
-still less ambiguous alternative comes to mind, so ET is going to be it.
+Furthermore I question that the naming can remain as is - the driver
+is no longer uniformly "flat" then.
 
 Jan
 
