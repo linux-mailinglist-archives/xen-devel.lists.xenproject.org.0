@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92FA698FEDB
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 10:18:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.810093.1222793 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52B3398FECF
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Oct 2024 10:17:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.810094.1222800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swdVL-0007aT-Rh; Fri, 04 Oct 2024 08:17:39 +0000
+	id 1swdVM-0007k4-GY; Fri, 04 Oct 2024 08:17:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 810093.1222793; Fri, 04 Oct 2024 08:17:39 +0000
+Received: by outflank-mailman (output) from mailman id 810094.1222800; Fri, 04 Oct 2024 08:17:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1swdVL-0007SM-0X; Fri, 04 Oct 2024 08:17:39 +0000
-Received: by outflank-mailman (input) for mailman id 810093;
+	id 1swdVL-0007Zy-Js; Fri, 04 Oct 2024 08:17:39 +0000
+Received: by outflank-mailman (input) for mailman id 810094;
  Fri, 04 Oct 2024 08:17:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=njpt=RA=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1swdVH-0005Vm-TB
- for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 08:17:35 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1swdVI-0005Vm-Fy
+ for xen-devel@lists.xenproject.org; Fri, 04 Oct 2024 08:17:36 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1c490f4b-8229-11ef-a0bb-8be0dac302b0;
- Fri, 04 Oct 2024 10:17:35 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5c88b5c375fso2062666a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 04 Oct 2024 01:17:35 -0700 (PDT)
+ id 1cc1f655-8229-11ef-a0bb-8be0dac302b0;
+ Fri, 04 Oct 2024 10:17:36 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a8d100e9ce0so216182066b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Oct 2024 01:17:36 -0700 (PDT)
 Received: from fziglio-desktop.. ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a99102858a4sm189829366b.49.2024.10.04.01.17.33
+ a640c23a62f3a-a99102858a4sm189829366b.49.2024.10.04.01.17.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Fri, 04 Oct 2024 01:17:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,133 +45,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c490f4b-8229-11ef-a0bb-8be0dac302b0
+X-Inumbo-ID: 1cc1f655-8229-11ef-a0bb-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728029854; x=1728634654; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1728029855; x=1728634655; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ihqfJnptAe3gMr73Ctv/JCvxYIXJfjbjM0EEMcUbg4M=;
-        b=AKg0Glu5vXg5Mb9jLHbO0WT5dQRMid6lj5mTIug6biZv63tUW+hlIW35w2Bh3glzlT
-         a7eR0XnWvUMlh0fQRDw+jtn77nAj/azxvACHYjqwy2xH8MSvzl4CQaLphHMfkEz8V/Du
-         UGyBzN8UKEOKlHZbfemI1ro2eT9/Jj2LMl5mo=
+        bh=JzvJYHGLE9z5OUSnbhsIqX8inHPsJLzDP+/krirdPTI=;
+        b=IuXtHddlJF4EVBm4cqlg6dny3eR6w2F+vRxFaUPx3+WlJ1gglEHZisEgjHVzWEknht
+         axH92xjNeZbahM1RtLAv4xemTNvJoWfy+2JQJ3KUEazidRhWGe1CQQx0I9ZwiSNcl2JP
+         6+emAUnryy0Hnrt+WV7ST8+F9um2Ufec73jGw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728029854; x=1728634654;
+        d=1e100.net; s=20230601; t=1728029855; x=1728634655;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ihqfJnptAe3gMr73Ctv/JCvxYIXJfjbjM0EEMcUbg4M=;
-        b=t1P0ZMEYBIzlTBIkPGFt7orXqYNjFdj63oRzH5zrhgIUkULEuJmRa7hYD32Afw3WZc
-         g2SAB7zSJ4u2KDk1oHpcqlKPIehm2vnIoZChKw1hIEJ0V7bAho4JpAbJ2nMsWyY2M9+l
-         QUJ8t2jD5KJ4s4zirdmL7PHu8n6BI8NcA0mUjBbfF2lKf9rh0qiMMxCTO/+jRa04MlGt
-         tfRaJIKd+haFHFW22ekkN+QH770vKNNiv4/RK6lU06xY6lBTzuJPU9nhm2AWj9BICQ2P
-         a130bm5SJ6ffQFOlN8i9d/v8k5QehVa/yydrlSvHkwg4K9GKwSaAZmEQ8kzf5oGituRv
-         yYYw==
-X-Gm-Message-State: AOJu0YwekiH7gP77Xggkk28H6JiyGXfslw5hwbjajwQnxgSa3KPzXjz+
-	yEwdmxECLqEImZzbTiYTKiT4xruBUL+Q6RU405iFtXH+ieZYwZffnLx/tSYeSgA7KPqubtb6RgG
-	v
-X-Google-Smtp-Source: AGHT+IHrsJWbh0dZK0nQkMeMOYldxh0qESnEek/YB7M5NUhS0mXgiDWGbzZLJ0VedI6/6o3QdXtmVQ==
-X-Received: by 2002:a17:906:cae5:b0:a7a:b561:3575 with SMTP id a640c23a62f3a-a991bed8a5dmr168686766b.56.1728029854523;
-        Fri, 04 Oct 2024 01:17:34 -0700 (PDT)
+        bh=JzvJYHGLE9z5OUSnbhsIqX8inHPsJLzDP+/krirdPTI=;
+        b=rVD9v3LDrBx61BhH6xDS7sDtfAARMrBJ3/04fRG09xVxe+0eEv6BrjZQ0QfBCLjL/8
+         DxcG2U6tSOPQIyL3AfLlfTAz0R8uUscIFTJh9b9/CB0DBM/I2NDJ2l3vxPfgX8xD8dJm
+         KdjCv6yMIcdY9pTv3BiC/oqjZ1YB4TbJFo03i+/p/EhAPVuJskM5Ygx4RIgmZBnWyyL5
+         pvWzkXiaHyYF2XHwj3nR3fYGiwVhIGKKrbBfUfWVLqOlqXuR91MBafAe3ECvZ6ZP6wsG
+         3Mo2WotV+lOY7rsHDYwh0CcMljLM6leKPB4I0sNXbTxq0JzL70ceLnyeBInLEp7dtkYa
+         7D5Q==
+X-Gm-Message-State: AOJu0YwsV3x6Kx5cu25aUvzBmWbLdhk44WnVd0KyT9MC4y+/NrxJbFK/
+	Fm2Tl8vRwe6F0gZ2VCmpid96Q5Epkjnbr6JnoQn3PrVY5s/xU/oZKC4lP1nBlS9uDW0F/MU+Pvi
+	L
+X-Google-Smtp-Source: AGHT+IG8JPvjC/d5jR3p1u5p5sQB7WkJpeE9C11xw13r1L+TkaUuny8oO0QufPVblaJ0CDtACtb4/Q==
+X-Received: by 2002:a17:907:3e03:b0:a99:bb:735d with SMTP id a640c23a62f3a-a991c00e0ebmr174070666b.54.1728029855274;
+        Fri, 04 Oct 2024 01:17:35 -0700 (PDT)
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: [PATCH v3 11/19] xen: Update header guards - Kconfig
-Date: Fri,  4 Oct 2024 09:17:05 +0100
-Message-Id: <20241004081713.749031-12-frediano.ziglio@cloud.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v3 12/19] xen: Update header guards - KEXEC
+Date: Fri,  4 Oct 2024 09:17:06 +0100
+Message-Id: <20241004081713.749031-13-frediano.ziglio@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241004081713.749031-1-frediano.ziglio@cloud.com>
 References: <20241004081713.749031-1-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Updated headers related to Kconfig.
+Updated headers related to KEXEC.
 
 Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 ---
- xen/tools/kconfig/expr.h   | 6 +++---
- xen/tools/kconfig/images.h | 6 +++---
- xen/tools/kconfig/list.h   | 4 ++--
- xen/tools/kconfig/lkc.h    | 6 +++---
- 4 files changed, 11 insertions(+), 11 deletions(-)
+ xen/include/xen/kexec.h  | 6 +++---
+ xen/include/xen/kimage.h | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/xen/tools/kconfig/expr.h b/xen/tools/kconfig/expr.h
-index 017843c9a4..044e88deac 100644
---- a/xen/tools/kconfig/expr.h
-+++ b/xen/tools/kconfig/expr.h
-@@ -3,8 +3,8 @@
-  * Copyright (C) 2002 Roman Zippel <zippel@linux-m68k.org>
-  */
+diff --git a/xen/include/xen/kexec.h b/xen/include/xen/kexec.h
+index e66eb6a8e5..d9d79902a9 100644
+--- a/xen/include/xen/kexec.h
++++ b/xen/include/xen/kexec.h
+@@ -1,5 +1,5 @@
+-#ifndef __XEN_KEXEC_H__
+-#define __XEN_KEXEC_H__
++#ifndef XEN__KEXEC_H
++#define XEN__KEXEC_H
  
--#ifndef EXPR_H
--#define EXPR_H
-+#ifndef TOOLS__KCONFIG__EXPR_H
-+#define TOOLS__KCONFIG__EXPR_H
+ #include <xen/keyhandler.h>
  
- #ifdef __cplusplus
- extern "C" {
-@@ -329,4 +329,4 @@ static inline int expr_is_no(struct expr *e)
- }
+@@ -94,7 +94,7 @@ static inline void set_kexec_crash_area_size(u64 system_ram) {}
+ 
  #endif
  
--#endif /* EXPR_H */
-+#endif /* TOOLS__KCONFIG__EXPR_H */
-diff --git a/xen/tools/kconfig/images.h b/xen/tools/kconfig/images.h
-index d8ff614bd0..4093e881db 100644
---- a/xen/tools/kconfig/images.h
-+++ b/xen/tools/kconfig/images.h
-@@ -3,8 +3,8 @@
-  * Copyright (C) 2002 Roman Zippel <zippel@linux-m68k.org>
-  */
- 
--#ifndef IMAGES_H
--#define IMAGES_H
-+#ifndef TOOLS__KCONFIG__IMAGES_H
-+#define TOOLS__KCONFIG__IMAGES_H
- 
- #ifdef __cplusplus
- extern "C" {
-@@ -30,4 +30,4 @@ extern const char *xpm_void[];
- }
- #endif
- 
--#endif /* IMAGES_H */
-+#endif /* TOOLS__KCONFIG__IMAGES_H */
-diff --git a/xen/tools/kconfig/list.h b/xen/tools/kconfig/list.h
-index 45cb237ab7..5d30f91282 100644
---- a/xen/tools/kconfig/list.h
-+++ b/xen/tools/kconfig/list.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0 */
--#ifndef LIST_H
--#define LIST_H
-+#ifndef TOOLS__KCONFIG__LIST_H
-+#define TOOLS__KCONFIG__LIST_H
+-#endif /* __XEN_KEXEC_H__ */
++#endif /* XEN__KEXEC_H */
  
  /*
-  * Copied from include/linux/...
-diff --git a/xen/tools/kconfig/lkc.h b/xen/tools/kconfig/lkc.h
-index 4fb16f3166..aee4a94696 100644
---- a/xen/tools/kconfig/lkc.h
-+++ b/xen/tools/kconfig/lkc.h
-@@ -3,8 +3,8 @@
-  * Copyright (C) 2002 Roman Zippel <zippel@linux-m68k.org>
-  */
+  * Local variables:
+diff --git a/xen/include/xen/kimage.h b/xen/include/xen/kimage.h
+index 348f07f5c8..139d4366ab 100644
+--- a/xen/include/xen/kimage.h
++++ b/xen/include/xen/kimage.h
+@@ -1,5 +1,5 @@
+-#ifndef __XEN_KIMAGE_H__
+-#define __XEN_KIMAGE_H__
++#ifndef XEN__KIMAGE_H
++#define XEN__KIMAGE_H
  
--#ifndef LKC_H
--#define LKC_H
-+#ifndef TOOLS__KCONFIG__LKC_H
-+#define TOOLS__KCONFIG__LKC_H
+ #define IND_DESTINATION  0x1
+ #define IND_INDIRECTION  0x2
+@@ -55,7 +55,7 @@ int kimage_build_ind(struct kexec_image *image, mfn_t ind_mfn,
  
- #include "expr.h"
+ #endif /* __ASSEMBLY__ */
  
-@@ -155,4 +155,4 @@ static inline bool sym_has_value(struct symbol *sym)
- }
- #endif
+-#endif /* __XEN_KIMAGE_H__ */
++#endif /* XEN__KIMAGE_H */
  
--#endif /* LKC_H */
-+#endif /* TOOLS__KCONFIG__LKC_H */
+ /*
+  * Local variables:
 -- 
 2.34.1
 
