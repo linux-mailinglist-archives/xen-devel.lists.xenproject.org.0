@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED59C9917A5
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Oct 2024 17:16:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.810958.1223654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7D4E9917A7
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Oct 2024 17:16:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.810959.1223664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sx6Vq-0006mw-Iv; Sat, 05 Oct 2024 15:16:06 +0000
+	id 1sx6Vw-00078a-Pi; Sat, 05 Oct 2024 15:16:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 810958.1223654; Sat, 05 Oct 2024 15:16:06 +0000
+Received: by outflank-mailman (output) from mailman id 810959.1223664; Sat, 05 Oct 2024 15:16:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sx6Vq-0006kO-Es; Sat, 05 Oct 2024 15:16:06 +0000
-Received: by outflank-mailman (input) for mailman id 810958;
- Sat, 05 Oct 2024 15:16:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1sx6Vw-00076B-MC; Sat, 05 Oct 2024 15:16:12 +0000
+Received: by outflank-mailman (input) for mailman id 810959;
+ Sat, 05 Oct 2024 15:16:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=edRR=RB=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1sx6Vp-0006TD-3r
- for xen-devel@lists.xenproject.org; Sat, 05 Oct 2024 15:16:05 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bcdfd6bc-832c-11ef-a0bb-8be0dac302b0;
- Sat, 05 Oct 2024 17:16:04 +0200 (CEST)
+ id 1sx6Vv-0006E7-Ie
+ for xen-devel@lists.xenproject.org; Sat, 05 Oct 2024 15:16:11 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c03215f7-832c-11ef-99a2-01e77a169b0f;
+ Sat, 05 Oct 2024 17:16:10 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0F20B1FDBD;
- Sat,  5 Oct 2024 15:16:04 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9C05021E1D;
+ Sat,  5 Oct 2024 15:16:09 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D131E13A8F;
- Sat,  5 Oct 2024 15:16:03 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7746513A8F;
+ Sat,  5 Oct 2024 15:16:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 3XJtMTNYAWf1CAAAD6G6ig
- (envelope-from <jgross@suse.com>); Sat, 05 Oct 2024 15:16:03 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 7ZSkGzlYAWf+CAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Sat, 05 Oct 2024 15:16:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,164 +51,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bcdfd6bc-832c-11ef-a0bb-8be0dac302b0
+X-Inumbo-ID: c03215f7-832c-11ef-99a2-01e77a169b0f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1728141364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1728141369; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gqQWygSSK4ytl3fKX2xJfCRM7bub9g07ORkZhe7KAkQ=;
-	b=G/GENQ8FHHuThLUbP6nX92T+t5BxBIGtZ7/Ii0BO/IrfOjzKCljvJdjgADziygNVySe9Bk
-	R0sXlh3rKRkp7lLILgz8VKGuRd26SFut/3L0SDKLsExjYqAhD8x/jdfUSKkcqoADjX+n/u
-	PjwXdCDIus0gT7UVpM1BSo6wnLc3qEM=
-Authentication-Results: smtp-out2.suse.de;
+	bh=Qa1gW4DnBfzxqPMf4tD8MwJ65mRwo8BvZFHY8vU0Kx8=;
+	b=N8rRKyv8Cg3c26WTDtn0+GMJ3bJl/tXLKuGUO+2oDMZUdO2P/ky7iwCSdwAcViNl0NunHB
+	CD677e2i8jKUzAwq44uasGIYYD2svFLaPbpK23Y17ALfGhe7JYV+LIWgs+j8qk/OcY8OfB
+	imPJ/GYgEHS/8QPNgEpSP1xhJwJ4tAM=
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1728141364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1728141369; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gqQWygSSK4ytl3fKX2xJfCRM7bub9g07ORkZhe7KAkQ=;
-	b=G/GENQ8FHHuThLUbP6nX92T+t5BxBIGtZ7/Ii0BO/IrfOjzKCljvJdjgADziygNVySe9Bk
-	R0sXlh3rKRkp7lLILgz8VKGuRd26SFut/3L0SDKLsExjYqAhD8x/jdfUSKkcqoADjX+n/u
-	PjwXdCDIus0gT7UVpM1BSo6wnLc3qEM=
+	bh=Qa1gW4DnBfzxqPMf4tD8MwJ65mRwo8BvZFHY8vU0Kx8=;
+	b=N8rRKyv8Cg3c26WTDtn0+GMJ3bJl/tXLKuGUO+2oDMZUdO2P/ky7iwCSdwAcViNl0NunHB
+	CD677e2i8jKUzAwq44uasGIYYD2svFLaPbpK23Y17ALfGhe7JYV+LIWgs+j8qk/OcY8OfB
+	imPJ/GYgEHS/8QPNgEpSP1xhJwJ4tAM=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Quan Xu <quan.xu0@gmail.com>
-Subject: [PATCH 2/4] stubdom: explcitly add libc and lwip Mini-OS config options
-Date: Sat,  5 Oct 2024 17:15:46 +0200
-Message-ID: <20241005151548.29184-3-jgross@suse.com>
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH 3/4] build: move xenlibs-dependencies make definition to uselibs.mk
+Date: Sat,  5 Oct 2024 17:15:47 +0200
+Message-ID: <20241005151548.29184-4-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20241005151548.29184-1-jgross@suse.com>
 References: <20241005151548.29184-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: -5.30
-X-Spamd-Result: default: False [-5.30 / 50.00];
+X-Spam-Level: 
+X-Spamd-Result: default: False [-6.77 / 50.00];
 	REPLY(-4.00)[];
 	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.17)[-0.833];
 	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,ens-lyon.org,tycho.nsa.gov,gmail.com];
-	FROM_HAS_DN(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email];
-	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid];
+	FROM_EQ_ENVFROM(0.00)[];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+	RCPT_COUNT_THREE(0.00)[3];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -6.77
 X-Spam-Flag: NO
-X-Spam-Level: 
 
-Today the Mini-OS build systems derives libc and lwip config options
-from the stubdom and LWIPDIR make variables supplied by the Xen build
-system.
+In order to be able to use the xenlibs-dependencies macro from stubdom
+build, move it to tools/libs/uselibs.mk, which is included from
+current users and stubdom/Makefile.
 
-In order to prepare those being explicit Mini-OS config options, add
-them to the related stubdom Mini-OS config files.
-
-While at it remove the CONFIG_START_NETWORK setting from config files
-disabling lwip, as CONFIG_START_NETWORK requires lwip for becoming
-effective.
+No functional change intended.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- stubdom/c/minios.cfg           | 2 ++
- stubdom/grub/minios.cfg        | 3 ++-
- stubdom/ioemu-minios.cfg       | 2 ++
- stubdom/vtpm/minios.cfg        | 3 ++-
- stubdom/vtpmmgr/minios.cfg     | 3 ++-
- stubdom/xenstore-minios.cfg    | 1 +
- stubdom/xenstorepvh-minios.cfg | 1 +
- 7 files changed, 12 insertions(+), 3 deletions(-)
+ tools/Rules.mk        | 7 -------
+ tools/libs/uselibs.mk | 7 +++++++
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/stubdom/c/minios.cfg b/stubdom/c/minios.cfg
-index e69de29bb2..56d65510cd 100644
---- a/stubdom/c/minios.cfg
-+++ b/stubdom/c/minios.cfg
-@@ -0,0 +1,2 @@
-+CONFIG_LIBC=y
-+CONFIG_LWIP=y
-diff --git a/stubdom/grub/minios.cfg b/stubdom/grub/minios.cfg
-index 8df49092cd..5145b357e0 100644
---- a/stubdom/grub/minios.cfg
-+++ b/stubdom/grub/minios.cfg
-@@ -1,3 +1,4 @@
--CONFIG_START_NETWORK=n
-+CONFIG_LIBC=y
-+CONFIG_LWIP=n
- CONFIG_SPARSE_BSS=n
- CONFIG_TPMFRONT=y
-diff --git a/stubdom/ioemu-minios.cfg b/stubdom/ioemu-minios.cfg
-index a65baa3765..6153ae05f8 100644
---- a/stubdom/ioemu-minios.cfg
-+++ b/stubdom/ioemu-minios.cfg
-@@ -1,3 +1,5 @@
-+CONFIG_LIBC=y
-+CONFIG_LWIP=y
- CONFIG_START_NETWORK=n
- CONFIG_QEMU_XS_ARGS=y
- CONFIG_PCIFRONT=y
-diff --git a/stubdom/vtpm/minios.cfg b/stubdom/vtpm/minios.cfg
-index 31652ee4f2..22f66f1351 100644
---- a/stubdom/vtpm/minios.cfg
-+++ b/stubdom/vtpm/minios.cfg
-@@ -1,7 +1,8 @@
-+CONFIG_LIBC=y
-+CONFIG_LWIP=n
- CONFIG_TPMFRONT=y
- CONFIG_TPM_TIS=n
- CONFIG_TPMBACK=y
--CONFIG_START_NETWORK=n
- CONFIG_TEST=n
- CONFIG_PCIFRONT=n
- CONFIG_BLKFRONT=y
-diff --git a/stubdom/vtpmmgr/minios.cfg b/stubdom/vtpmmgr/minios.cfg
-index 3fb383d30f..a9f13a2fd2 100644
---- a/stubdom/vtpmmgr/minios.cfg
-+++ b/stubdom/vtpmmgr/minios.cfg
-@@ -1,7 +1,8 @@
-+CONFIG_LIBC=y
-+CONFIG_LWIP=n
- CONFIG_TPMFRONT=y
- CONFIG_TPM_TIS=y
- CONFIG_TPMBACK=y
--CONFIG_START_NETWORK=n
- CONFIG_TEST=n
- CONFIG_PCIFRONT=n
- CONFIG_BLKFRONT=y
-diff --git a/stubdom/xenstore-minios.cfg b/stubdom/xenstore-minios.cfg
-index 239da519b9..0252b59432 100644
---- a/stubdom/xenstore-minios.cfg
-+++ b/stubdom/xenstore-minios.cfg
-@@ -1,3 +1,4 @@
-+CONFIG_LIBC=y
- CONFIG_BLKFRONT=n
- CONFIG_NETFRONT=n
- CONFIG_FBFRONT=n
-diff --git a/stubdom/xenstorepvh-minios.cfg b/stubdom/xenstorepvh-minios.cfg
-index 752b90d7d3..62a228f33d 100644
---- a/stubdom/xenstorepvh-minios.cfg
-+++ b/stubdom/xenstorepvh-minios.cfg
-@@ -1,3 +1,4 @@
-+CONFIG_LIBC=y
- CONFIG_PARAVIRT=n
- CONFIG_BLKFRONT=n
- CONFIG_NETFRONT=n
+diff --git a/tools/Rules.mk b/tools/Rules.mk
+index e2289c25b4..6bd636709f 100644
+--- a/tools/Rules.mk
++++ b/tools/Rules.mk
+@@ -81,13 +81,6 @@ endif
+ # include any CFLAGS or LDLIBS relating to libbar or libbaz unless
+ # they use those libraries directly (not via libfoo) too.
+ 
+-# Give the list of Xen library that the libraries in $(1) are linked against,
+-# directly or indirectly.
+-define xenlibs-dependencies
+-    $(sort $(foreach lib,$(1), \
+-        $(USELIBS_$(lib)) $(call xenlibs-dependencies,$(USELIBS_$(lib)))))
+-endef
+-
+ # Flags for linking recursive dependencies of Xen libraries in $(1)
+ define xenlibs-rpath
+     $(addprefix -Wl$(comma)-rpath-link=$(XEN_ROOT)/tools/libs/,$(call xenlibs-dependencies,$(1)))
+diff --git a/tools/libs/uselibs.mk b/tools/libs/uselibs.mk
+index efd7a475ba..7aa8d83e06 100644
+--- a/tools/libs/uselibs.mk
++++ b/tools/libs/uselibs.mk
+@@ -31,3 +31,10 @@ USELIBS_light := toollog evtchn toolcore ctrl store hypfs guest
+ LIBS_LIBS += util
+ USELIBS_util := light
+ FILENAME_util := xlutil
++
++# Give the list of Xen library that the libraries in $(1) are linked against,
++# directly or indirectly.
++define xenlibs-dependencies
++    $(sort $(foreach lib,$(1), \
++        $(USELIBS_$(lib)) $(call xenlibs-dependencies,$(USELIBS_$(lib)))))
++endef
 -- 
 2.43.0
 
