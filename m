@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71CCA992990
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 12:57:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.811921.1224614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A5F2992C61
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 14:49:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.811968.1224623 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxlQ4-0002Ap-MD; Mon, 07 Oct 2024 10:56:52 +0000
+	id 1sxn9W-0000KO-8t; Mon, 07 Oct 2024 12:47:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 811921.1224614; Mon, 07 Oct 2024 10:56:52 +0000
+Received: by outflank-mailman (output) from mailman id 811968.1224623; Mon, 07 Oct 2024 12:47:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxlQ4-00029B-JB; Mon, 07 Oct 2024 10:56:52 +0000
-Received: by outflank-mailman (input) for mailman id 811921;
- Mon, 07 Oct 2024 10:56:51 +0000
+	id 1sxn9W-0000Gk-6E; Mon, 07 Oct 2024 12:47:54 +0000
+Received: by outflank-mailman (input) for mailman id 811968;
+ Mon, 07 Oct 2024 12:47:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aWQm=RD=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1sxlQ2-000293-Vn
- for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 10:56:51 +0000
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [2607:f8b0:4864:20::330])
+ <SRS0=A6ez=RD=bounce.vates.tech=bounce-md_30504962.6703d874.v1-9f5efe9abb5e4bfe8737a8c13d10aab3@srs-se1.protection.inumbo.net>)
+ id 1sxn9T-0000Ge-WB
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 12:47:52 +0000
+Received: from mail137-12.atl71.mandrillapp.com
+ (mail137-12.atl71.mandrillapp.com [198.2.137.12])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d9fe005f-849a-11ef-a0bb-8be0dac302b0;
- Mon, 07 Oct 2024 12:56:49 +0200 (CEST)
-Received: by mail-ot1-x330.google.com with SMTP id
- 46e09a7af769-71547c00de3so2208006a34.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Oct 2024 03:56:49 -0700 (PDT)
+ id 5c1d89c2-84aa-11ef-a0bb-8be0dac302b0;
+ Mon, 07 Oct 2024 14:47:50 +0200 (CEST)
+Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail137-12.atl71.mandrillapp.com (Mailchimp) with ESMTP id
+ 4XMf7m5Rkfz5QkPWm
+ for <xen-devel@lists.xenproject.org>; Mon,  7 Oct 2024 12:47:48 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 9f5efe9abb5e4bfe8737a8c13d10aab3; Mon, 07 Oct 2024 12:47:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,98 +43,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9fe005f-849a-11ef-a0bb-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1728298608; x=1728903408; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0T78XKq+HRxXQOqIXXjmBCiLh1IZoWrjBdx1HfgWpEc=;
-        b=dwRw0NutDZ2cKpIJUOgf3PXdZnr99fBh1y0PkSv4Se3Name/wdZBctQG459AtdV5k5
-         iP1GLePqvPWJ4xcVN2KAyvGkpQ3l2GU4+wwvgfdIZzpDg3p0nsK7cROMeRBeG5jq7J2G
-         p1h0d6g2eIeXZWQqsLryYAWXa5FRX6Z42eltk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728298608; x=1728903408;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0T78XKq+HRxXQOqIXXjmBCiLh1IZoWrjBdx1HfgWpEc=;
-        b=RFcIbclDBtt5TXw80FXjBhZNY5Kn/UNqiwDIpEyxEZUWFP0SEgakSjl10D6DaMtatF
-         rV9iz6/qz15aBHpQ5IAtT9PiPfuDNle8+QaKfrM8FAu3ZyCcU3gePpAk6rNq89LCo3dj
-         eF8RR2IEnxkaoi6fvIyr2LxgzIM7V5Dfb7qqvxPepWlmavDoVWLWeeS7dzkGsClMITAb
-         NrlrZ1F5BptktiUmUvhvst8lvvWj/fkXEKN002Iwd8794hSqvBxXrhxjAfE1NoC19kax
-         ix1vKYgi1t12ZZtT/LunK1vC1Hy32eucoyCWobgHtxBHQMR7stLwjlo4mZbE6xdsXAw4
-         JzKg==
-X-Gm-Message-State: AOJu0YxEKe8SQfCFNVv7ADRmKGWGXrh2B3YwbxiBgRC+B+1ZxLL+4DgY
-	Rt38p80DtvW95zh/DThZ0aTjB09nksI65p5Uqjq/ezJ+bBcaK9v0FqW1KF9Kcrtz4rIob5BN7aC
-	tsj9iJL3GMcRUoyHk9lCHFPwY4+IzOfG223Mn9A==
-X-Google-Smtp-Source: AGHT+IEeEjwFvSn0l2wxSlAl2D9YTFozdTG1nWwF59KskADYra4My/GR6ACYzN68Zx395cjF0IuthgTOuFzDY0SzQ5U=
-X-Received: by 2002:a05:6870:b69e:b0:270:1fc6:18 with SMTP id
- 586e51a60fabf-287c1d38cbfmr7915573fac.3.1728298608316; Mon, 07 Oct 2024
- 03:56:48 -0700 (PDT)
+X-Inumbo-ID: 5c1d89c2-84aa-11ef-a0bb-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1728305268; x=1728565768;
+	bh=QXW5FrsKYwaOPiXwxcQJyb9Hb2CF90cx9YcRtpeM+Ak=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=iu7y3Lx2Fp5RaQ67OTdCjkk0IzeC0JiIVBmGQifNHyICD4KaNQviujCnXbVTpJ8ZZ
+	 2Be5M+pvJo2kA666BTwfctkp8X4YcDJTxAjNiSzM1kki1nEx+8UlRuxb/qmAQk0pVi
+	 gxBdE9Ch3uU2WQ7WW2+A6Nzr/3xtXG5lIgeHxEBTA5B7JFzKEEJRN9yaeiWH8knuXb
+	 xKzsliSNnlmbFvWo2FBso9Y2PGSYMJUiovaob+mqRlt5uzPqbUMOHqwEJmjTJXPDol
+	 SsLXHa1ja9UVl8PRtTqj2OdIpdzu17vAjpCkygFW6ecN/qErynS+FKB0CX8sKIFVt7
+	 7G8Qs2kuuQbOw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1728305268; x=1728565768; i=anthony.perard@vates.tech;
+	bh=QXW5FrsKYwaOPiXwxcQJyb9Hb2CF90cx9YcRtpeM+Ak=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=XDo0TIsl1MnRCcEuTQlCa+9AUpE/HsVgVLHsuvrmwKOAUzDcv83B3mDeQ4N3W47ZK
+	 O+or7uDs8PkoSbWYPP1VqYwKVSDb66B9iigsBKVATp4vyCj1AAMEjwiDSJun7uwVLs
+	 mzqGUxh9RdYSPCX7QKrjg0n0mF+2k6kBC5tHFjXDoGtQQ/KHZD+JJVVcSqGoCuURHO
+	 S/5GBnY8Qq9Oa/yR4GURer12F6hs1v0rDsfCerKpnKprZio6us0xupsx6UptCGdnrH
+	 3448UwZFIlKZ8TCh7ztjLgYqRa+NVDrpiiC2o5e+qsXqcMvChno00sIfDTG1otibjB
+	 AIqSQ8etLMcdg==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=201/4]=20stubdom:=20add=20local=20.gitignore=20file?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1728305267516
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Samuel Thibault <samuel.thibault@ens-lyon.org>
+Message-Id: <ZwPYcubFAkIs+pf9@l14>
+References: <20241005151548.29184-1-jgross@suse.com> <20241005151548.29184-2-jgross@suse.com>
+In-Reply-To: <20241005151548.29184-2-jgross@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.9f5efe9abb5e4bfe8737a8c13d10aab3?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20241007:md
+Date: Mon, 07 Oct 2024 12:47:48 +0000
 MIME-Version: 1.0
-References: <20241005080233.1248850-1-frediano.ziglio@cloud.com>
- <20241005080233.1248850-4-frediano.ziglio@cloud.com> <10890c99-f1ed-4e59-a86b-f79cb6065aa9@citrix.com>
- <CACHz=Zj=Bf9cXML1XcHYpC3wXi0A-wvYvy3DTSAVn4xtmOii6w@mail.gmail.com>
-In-Reply-To: <CACHz=Zj=Bf9cXML1XcHYpC3wXi0A-wvYvy3DTSAVn4xtmOii6w@mail.gmail.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Mon, 7 Oct 2024 11:56:37 +0100
-Message-ID: <CACHz=ZigY-vWGK3vpBUVqBO5KGmKD+CZCAavyW+-FV1qZ=3Z9Q@mail.gmail.com>
-Subject: Re: [PATCH 3/3] x86/boot: Use boot_vid_info and trampoline_phys
- variables directly from C code
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 7, 2024 at 11:06=E2=80=AFAM Frediano Ziglio
-<frediano.ziglio@cloud.com> wrote:
->
-> On Sat, Oct 5, 2024 at 2:43=E2=80=AFPM Andrew Cooper <andrew.cooper3@citr=
-ix.com> wrote:
-> >
-> > On 05/10/2024 9:02 am, Frediano Ziglio wrote:
-> > > diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-> > > index ade2c5c43d..dcda91cfda 100644
-> > > --- a/xen/arch/x86/boot/head.S
-> > > +++ b/xen/arch/x86/boot/head.S
-> > > @@ -510,22 +510,10 @@ trampoline_setup:
-> > >          mov     %esi, sym_esi(xen_phys_start)
-> > >          mov     %esi, sym_esi(trampoline_xen_phys_start)
-> > >
-> > > -        /* Get bottom-most low-memory stack address. */
-> > > -        mov     sym_esi(trampoline_phys), %ecx
-> > > -        add     $TRAMPOLINE_SPACE,%ecx
-> > > -
-> > > -#ifdef CONFIG_VIDEO
-> > > -        lea     sym_esi(boot_vid_info), %edx
-> > > -#else
-> > > -        xor     %edx, %edx
-> > > -#endif
-> > > -
-> > >          /* Save Multiboot / PVH info struct (after relocation) for l=
-ater use. */
-> > > -        push    %edx                /* Boot video info to be filled =
-from MB2. */
-> > >          mov     %ebx, %edx          /* Multiboot / PVH information a=
-ddress. */
-> > > -        /*      reloc(magic/eax, info/edx, trampoline/ecx, video/stk=
-) using fastcall. */
-> > > +        /*      reloc(magic/eax, info/edx) using fastcall. */
-> > >          call    reloc
-> > > -        add     $4, %esp
-> > >
-> >
-> > Please split this patch in two.  Just for testing sanity sake if nothin=
-g
-> > else.
-> >
->
-> Sorry, it's not clear how it should be split. What are the 2 parts ?
->
+On Sat, Oct 05, 2024 at 05:15:45PM +0200, Juergen Gross wrote:
+> Add a stubdom specfic .gitignore file.
 
-Never mind, understood, one variable per commit.
+More like "Move stubdom specific ignored file into it." because there's
+no changes to the list of ignored paths, and we don't usually need to
+repeate the title of the commit in its description in the Xen repo.
 
-Frediano
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+
+In any case all looks fine:
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+
+Thanks,
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
