@@ -2,52 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79F5E99387C
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 22:45:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812449.1225203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C2F99938AC
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 22:59:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812456.1225213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxuaY-0007Lo-5v; Mon, 07 Oct 2024 20:44:18 +0000
+	id 1sxuos-0001PF-C3; Mon, 07 Oct 2024 20:59:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812449.1225203; Mon, 07 Oct 2024 20:44:18 +0000
+Received: by outflank-mailman (output) from mailman id 812456.1225213; Mon, 07 Oct 2024 20:59:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxuaY-0007Jl-3H; Mon, 07 Oct 2024 20:44:18 +0000
-Received: by outflank-mailman (input) for mailman id 812449;
- Mon, 07 Oct 2024 20:44:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EMKW=RD=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1sxuaW-0007Jf-IP
- for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 20:44:16 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061d.outbound.protection.outlook.com
- [2a01:111:f403:2412::61d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8693cb2-84ec-11ef-99a2-01e77a169b0f;
- Mon, 07 Oct 2024 22:44:13 +0200 (CEST)
-Received: from MN2PR18CA0026.namprd18.prod.outlook.com (2603:10b6:208:23c::31)
- by SA3PR12MB8021.namprd12.prod.outlook.com (2603:10b6:806:305::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.22; Mon, 7 Oct
- 2024 20:44:08 +0000
-Received: from BL02EPF0001A103.namprd05.prod.outlook.com
- (2603:10b6:208:23c:cafe::2d) by MN2PR18CA0026.outlook.office365.com
- (2603:10b6:208:23c::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.21 via Frontend
- Transport; Mon, 7 Oct 2024 20:44:08 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL02EPF0001A103.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8048.13 via Frontend Transport; Mon, 7 Oct 2024 20:44:08 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 7 Oct
- 2024 15:44:07 -0500
-Received: from [172.21.103.178] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 7 Oct 2024 15:44:06 -0500
+	id 1sxuos-0001KO-9J; Mon, 07 Oct 2024 20:59:06 +0000
+Received: by outflank-mailman (input) for mailman id 812456;
+ Mon, 07 Oct 2024 20:59:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1sxuor-0001Ig-4U
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 20:59:05 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sxuoq-0001Hm-NB; Mon, 07 Oct 2024 20:59:04 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.244])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1sxuoq-0006cA-FL; Mon, 07 Oct 2024 20:59:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,182 +39,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8693cb2-84ec-11ef-99a2-01e77a169b0f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l3Cg+g5KZ0dziZTabN8I5EY/7PJqW884FSFwP/cAAJlVJMyUT8IEIekxNpd0QOd4AVOtYtuAhK55+kUnErcPbLZgHCOGv/kF9mi/KNAlCDB3DXInMUoqA9SFMPRQ+h7MmqVv/EgzAeJYgkSehsBq+hRLvsGJjvxdqd/JKCtNqShcxrybBw0o6kE6k6obGZebCFTERp42nShypVJhhuVi8aVapduroRcpLzGI0NPvqcyOpC93gVRS0j94iKUYYFLk2YUfED5bhlX+pSo+KfOdEnD3WSKWxYWc3nxHe+lTAM8T3phD4IFLbPDkAloPvxUqVM9VwQpSGs5pydETJNITQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7aFKNN8zeTmL9p0hh2u5Ql5ouGkss6IbcxyAIunV52o=;
- b=NotYfhBlz5yM23RIwsQCRGNcvGPdqaakgb5wWuEWIowaUmFgVlJQfBm2BtqC09jFbnTAi0pGw46dBHwceERYqhShNCmUETV5R7TvawyKf3unu7mgRrq9oRg9EuJbViFk2pHBUv1D1dpcpkscxamlOrxhnSuiLdDsyONpD8hAu8Ln89gc8hNjeObtqtjLc4xLia0ZNK+BVS7pEp3mCNNVn38FUrZgoyaWJbWSJnt7zU5e9vVOsOasIG0DjFaYLMxMRcC7A6yNayrtI3AIl3lg44EFnHUk7/V1HeUDagSCVXfIdnYjkSAY6++6lfEV0ofNYIbSyMkpa9fiq5QVc4zJBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7aFKNN8zeTmL9p0hh2u5Ql5ouGkss6IbcxyAIunV52o=;
- b=pcz7IG9gTVCGExZONIkabs96c0UEUcIDTcX0chj28F/qe794QeunOzvlc9IleI1jBsi2kDG7/nqulxn+9j7NrbJ/PIN5FQXScGgNGg87VPDXbsRYZm3tDOa1W4OBsIefrDx1lh3yHeoGG5+97+2ShM0CtdHL/rUTnscHLJyqm2Y=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <bd0e24a2-dbd5-41d7-a85f-6aa6f90c0e54@amd.com>
-Date: Mon, 7 Oct 2024 16:44:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=pj+K4SNah9KojAvbwf89QgPYuu7KXHUgK2rehIlQMRc=; b=qfIBGgrlgK8+GhAelOqKj9vywP
+	3p9f66zahChdXTdWZhOHDQJiZX8WCT4o55Ut0zvJTehR80c2f5biQR2VZ2a84s0btaL/I0/9p6yHO
+	sxS6BYfL+23r+L9NzN3IxRTQ5j7GPaIgy2q8HIE2VHjPTgciJRX5UaYt0d/fIK36N/TQ=;
+Message-ID: <cbd48ae4-e8c8-443c-bc1f-f8f99e0a2301@xen.org>
+Date: Mon, 7 Oct 2024 21:59:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 14/44] x86/boot: transition relocation calculations to
- struct boot_module
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <christopher.w.clark@gmail.com>, <stefano.stabellini@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20241006214956.24339-1-dpsmith@apertussolutions.com>
- <20241006214956.24339-15-dpsmith@apertussolutions.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20241006214956.24339-15-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A103:EE_|SA3PR12MB8021:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1ea8454-6663-4f99-4ad4-08dce710ca83
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eHJEeXVkaDYwYVMydmI1a2RNR2hoRnRIS1FCVS94TktzM2RrU0lGbDhMeExu?=
- =?utf-8?B?blcrdTB6N0hKT0V3VnIwT0Y4UkQ2Qk5XSlJFUkU4S2ZLNXVYcUo1L1hPYVJP?=
- =?utf-8?B?WUlMS3p3YVhBQkJLdGh6WFpPQWgwa28rT3N6SUx3cXBWM1RtN3cwWXQ1WDBF?=
- =?utf-8?B?Z251VS9PY2d0dWtsb2FUTWxJOXNaMVRUWkxUeExKT2EyRzlWeGJoKzVnOWVk?=
- =?utf-8?B?Si9tM08ySnZPamdVWjZNaTV4d3RCVjdoRklhbVJlcUZGZ2VRUU1SY1hESTBt?=
- =?utf-8?B?R3BzTTRMbWh2RlovYlFoOFl6VDV5WU1oVEpiNHpXRzV1aFdxSE92SDcxNWxU?=
- =?utf-8?B?T2lRb2s5am9TMjE5TTI2V3JzMFpueDM3S1VQbmY5cjNYelpoUXZiS3JwZkVs?=
- =?utf-8?B?SzdWSUFkUDBXOHV2MktvNDlLOGNlYjM3YzM4Z0htNXFvalJENHYxODNLTURX?=
- =?utf-8?B?MmIrMEhWSFlqWVZlWlowM2srb2ZVQnBjSGlUNlJiU3VHb3AxbFFLeDZIVUZv?=
- =?utf-8?B?OGswbHZWRGZBbkRlMzdNK0pOL3RwQVVJSlJRY09rZWhLSHFyT3FjZWg4SFc1?=
- =?utf-8?B?bUd0d2FLamNYUEdkSTkvRXA2SlkxdmZuL2FlYWFRSEMrS1FBNGNLMXRaVW1O?=
- =?utf-8?B?OGU1SVQ0alpiakpBd1lvR1B3QW54aHNoZDNmQ2N1czFUb3JNY3FydnZxL1BW?=
- =?utf-8?B?Qld0M0hMWEVlUFZndmE0MHBPR1A1a1JFQnFnTWJjVWIzRzRjL3BnNzdPYlhI?=
- =?utf-8?B?cnU0STNyMW42UGJhNXZRR3BvN0JzKzVyUjRTVFhhWk5oY0Z2QkdidThPTm9U?=
- =?utf-8?B?czA1TnN1S3NaRXdNbmlHWjRXakthaTBQaS8xdklXdkJhejRpQXMvcDZJK0tL?=
- =?utf-8?B?aUtJNTlLRFRLZUk0ZjVlQTlWcWJ5WHJjNGNqeGdaSnZrVHhoKzBoYldvK1Fu?=
- =?utf-8?B?RE4rbjlZT3pPVVFaeDB3STVMblZQSTlvSnJHL3phTk9xNTk2R2N3WCtsRWlQ?=
- =?utf-8?B?cFBna0RjU0cwMGRzcEU3ZERNeE56TmNiOXJheS9hcTZNZjgzdFVHQkQrQWls?=
- =?utf-8?B?MWZ1cUJLcFY2NVo4QkYxM3lKdldQaHNjWFZSRzFJdEZOTmpvcGVGdStGcm1X?=
- =?utf-8?B?Q1c5bVZKUXpJKzVobG5lYmpVd2g0ZXVhSmNDbnh5eHgvbXFKenhLZlRRYTdI?=
- =?utf-8?B?dW16a1pISkY2RzVPTjNkY2lXcGZXWmM3ZGxDeFdRdDZ6Y1h1NzA2YjQ3eC9m?=
- =?utf-8?B?T09nN3E4eDk4eVFHTW1lVE45cGQ2S1BEZUk3dktOeDFlQldQVE5OZkFQT2oy?=
- =?utf-8?B?bTN6ZUNXOXdUSzdyRjlvOFVpbDZnSnMySnFRV2ZsQXZ3NXNPTXNHVFRMMmtL?=
- =?utf-8?B?R2hXa2pYSExVaDBiY2ZrbVNDYkk2c0w1cEpEdXNYekNYTThYaGNkSnVPUWsw?=
- =?utf-8?B?NmV3RjhOWm9URTlQVWRuaXlKQm5uZFUvTzZ2MElSU3pxbjlmUlRDUW1zNUlr?=
- =?utf-8?B?YnlSK2k4cStMMG5ydTVKaVc2YVR6ZHl4M0Yrc3pSaDF6QmZqazZhZytGdk5X?=
- =?utf-8?B?Z2JrK3QzaWM3ZkFCczV4eDlYRy9aUlhVSnpoTlNTQkFBSTlOTGdBVjNLc20r?=
- =?utf-8?B?ZldETnUyT0xsbmthdU95bDhldW10TEJybXpzUlV6MzBqbnlWZlAxSi9VVWtv?=
- =?utf-8?B?MzNKQWpLTUlDSnVvWmFxVDh4aGplWWR6Y2RvVVNDTGx1ZVY5NkpVeXZFN2Jr?=
- =?utf-8?B?emtiNEFrVFc1Y0svNWlNaHVPaWMydTVJbVpvSHArZkdMUCtlTE1qdHo0eTlT?=
- =?utf-8?B?azRUdnFtWkpLOWtHU29DRWlwcERGTlBRTTFVN3ZISWF6d3dta3Q2OHAxMHZv?=
- =?utf-8?Q?O9xu2iwoPRi2J?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2024 20:44:08.2081
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1ea8454-6663-4f99-4ad4-08dce710ca83
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A103.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8021
+Subject: Re: [PATCH v2 3/8] xen/arm: Add SCMI over SMC calls handling layer
+To: Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>,
+ xen-devel@lists.xenproject.org
+Cc: S32@nxp.com, Andrei Cherechesu <andrei.cherechesu@nxp.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240930114715.642978-1-andrei.cherechesu@oss.nxp.com>
+ <20240930114715.642978-4-andrei.cherechesu@oss.nxp.com>
+ <e713ae46-104a-4414-8ad3-02ca8b0a521d@xen.org>
+ <3092497c-8626-4e86-b28a-16594eb2a4f0@oss.nxp.com>
+ <45a70cd4-f7a0-4ef8-ab90-c256ec6e544e@xen.org>
+ <206efc95-7ba4-4df3-99ea-d40b4540c5aa@oss.nxp.com>
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <206efc95-7ba4-4df3-99ea-d40b4540c5aa@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2024-10-06 17:49, Daniel P. Smith wrote:
-> Use struct boot_module fields, start and size, when calculating the relocation
-> address and size. It also ensures that early_mod references are kept in sync.
+Hi,
+
+On 03/10/2024 17:40, Andrei Cherechesu wrote:
+> Hi Julien,
 > 
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> ---
->   xen/arch/x86/setup.c | 36 +++++++++++++++++-------------------
->   1 file changed, 17 insertions(+), 19 deletions(-)
+> On 03/10/2024 19:07, Julien Grall wrote:
+>>
+>>
+>> On 03/10/2024 16:27, Andrei Cherechesu wrote:
+>>> Hi Julien,
+>>
+>> Hi Andrei,
+>>
+>>> On 01/10/2024 12:35, Julien Grall wrote:
+>>>>
+>>>>> , the initialization fails silently, as it's not mandatory.
+>>>>> Otherwise, we get the 'arm,smc-id' DT property from the node,
+>>>>> to know the SCMI SMC ID we handle. The 'shmem' memory ranges
+>>>>> are not validated, as the SMC calls are only passed through
+>>>>> to EL3 FW if coming from Dom0 and as if Dom0 would be natively
+>>>>> running.
+>>>>>
+>>>>> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+>>>>> ---
+>>>>>     xen/arch/arm/Kconfig                |  10 ++
+>>>>>     xen/arch/arm/Makefile               |   1 +
+>>>>>     xen/arch/arm/include/asm/scmi-smc.h |  52 +++++++++
+>>>>>     xen/arch/arm/scmi-smc.c             | 163 ++++++++++++++++++++++++++++
+>>>>>     4 files changed, 226 insertions(+)
+>>>>>     create mode 100644 xen/arch/arm/include/asm/scmi-smc.h
+>>>>>     create mode 100644 xen/arch/arm/scmi-smc.c
+>>>>>
+>>>>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>>>>> index 323c967361..adf53e2de1 100644
+>>>>> --- a/xen/arch/arm/Kconfig
+>>>>> +++ b/xen/arch/arm/Kconfig
+>>>>> @@ -245,6 +245,16 @@ config PARTIAL_EMULATION
+>>>>>           not been emulated to their complete functionality. Enabling this might
+>>>>>           result in unwanted/non-spec compliant behavior.
+>>>>>     +config SCMI_SMC
+>>>>> +    bool "Enable forwarding SCMI over SMC calls from Dom0 to EL3 firmware"
+>>>>
+>>>> Strictly speaking you are forwarding SMC from the hardware domain. For Arm, it is dom0 but it doesn't need to.
+>>>
+>>> Well, SCMI is Arm-specific and so are SMCs, but I agree to change
+>>> to "hardware domain" / "hwdom" in order to keep the language generic.
+>>
+>> To clarify, I meant that it would be possible to have an hardware domain on Arm. This is not used/implemented today but most of the code is adhering to the language. The only reason where we would use dom0 is when we explicitely check for domain_id 0 in the code.
+>>
+>> [...]
 > 
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index f968758048ed..4f540c461b26 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1490,7 +1490,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->               struct boot_module *bm = &bi->mods[j];
->               unsigned long size;
->   
-> -            size = PAGE_ALIGN(bm->headroom + bm->mod->mod_end);
-> +            size = PAGE_ALIGN(bm->headroom + bm->size);
+> Thank you for the clarification.
+> 
+>>
+>>>>> +        return -EINVAL;
+>>>>> +    }
+>>>>> +
+>>>>> +    ret = scmi_check_smccc_ver();
+>>>>> +    if ( ret )
+>>>>> +        goto err;
+>>>>> +
+>>>>> +    ret = scmi_dt_init_smccc();
+>>>>> +    if ( ret == -EOPNOTSUPP )
+>>>>> +        return ret;
+>>>>> +    if ( ret )
+>>>>> +        goto err;
+>>>>> +
+>>>>> +    printk(XENLOG_INFO "Using SCMI with SMC ID: 0x%x\n", scmi_smc_id);
+>>>>> +
+>>>>> +    return 0;
+>>>>> +
+>>>>> +err:
+>>>>> +    printk(XENLOG_ERR "SCMI: Initialization failed (ret = %d)\n", ret);
+>>>>
+>>>> In the commit message, you said the SCMI subsystem was optional. But here you use XENLOG_ERR. Shouldn't it be a warn or XENLOG_INFO/XENLOG_WARN?
+>>>
+>>> Well, SCMI is optional, in the sense that if we don't find the
+>>> SCMI firmware node in the host DT, we exit silently (-EOPNOTSUPP)
+>>> and we return right away (no error printed).
+>>>
+>>> But if we do find the SCMI node, it means that we should initialize
+>>> the SCMI subsystem, right? And if we're trying to do that and we
+>>> find that the DT node is not correctly formatted (i.e. the
+>>> 'arm,smc-id' property), I think we should print an error.
+>>
+>> Correct me if I am wrong, but from the doc, I understood that the property arm,smc-id is only necessary if the transport is SMC/HVC.
+>>
+>> So I don't think we should print an error if it is not found as this is effectively optional.
+> 
+> I believe your understanding is correct, the 'arm,smc-id' property
+> is needed if the SCMI firmware node has either "arm,scmi-smc" or
+> "arm,scmi-smc-param" compatibles [0]. We only support the
+> "arm,scmi-smc" compatible with our implementation, though, as you
+> mentioned there should not be any addresses passed in the regs
+> alongside the SMC call. That would need to happen with the
+> "arm,scmi-smc-param" compatible.
+> 
+> But, by "if we do find the SCMI firmware node" I effectively meant
+> "if we find the node in Host DT with 'arm,scmi-smc' compatible",
+> since we're only implementing this specific variant. And that's
+> why I implied that a valid 'arm,smc-id' property is equivalent to
+> having a correctly defined SCMI firmware node. Having found the
+> "arm,scmi-smc" compatible node (which IMO means we should commit to
+> initializing the SCMI layer), shouldn't we print if we tried to init
+> the SCMI layer and failed (due to incorrect formatting of the node)?
+> 
+> I hope I explained it better now.
 
-Is there a mismatch from mod_end in PFNs to bm->size in bytes?  Or is 
-mod_start in pfns and mod_end in bytes?
+Yes. Thanks for the clarification!
 
->   
->               if ( bi->mods[j].flags & BOOTMOD_FLAG_X86_RELOCATED )
->                   continue;
-> @@ -1504,13 +1504,13 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->   
->               if ( s < end &&
->                    (bm->headroom ||
-> -                  ((end - size) >> PAGE_SHIFT) > bm->mod->mod_start) )
-> +                  paddr_to_pfn(end - size) > paddr_to_pfn(bm->start)) )
+  If there's still anything unclear,
+> let me know.
 
-Drop the paddr_to_pfn if both sides are now in bytes?
+It is now clear. For I agree this should be an error if we can't find 
+the property arm,smc-id.
 
->               {
-> -                move_memory(end - size + bm->headroom,
-> -                            (uint64_t)bm->mod->mod_start << PAGE_SHIFT,
-> -                            bm->mod->mod_end);
-> -                bm->mod->mod_start = (end - size) >> PAGE_SHIFT;
-> -                bm->mod->mod_end += bm->headroom;
-> +                move_memory(end - size + bm->headroom, bm->start, bm->size);
-> +                bm->start = (end - size);
-> +                bm->mod->mod_start = paddr_to_pfn(bm->start);
-> +                bm->size += bm->headroom;
-> +                bm->mod->mod_end = bm->size;
->                   bm->flags |= BOOTMOD_FLAG_X86_RELOCATED;
->               }
->           }
+Cheers,
 
-> @@ -1700,13 +1698,13 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->   
->       for ( i = 0; i < bi->nr_modules; ++i )
->       {
-> -        set_pdx_range(bi->mods[i].mod->mod_start,
-> -                      bi->mods[i].mod->mod_start +
-> -                      PFN_UP(bi->mods[i].mod->mod_end));
-> +        set_pdx_range(paddr_to_pfn(bi->mods[i].mod->mod_start),
-> +                      paddr_to_pfn(bi->mods[i].mod->mod_start) +
-
-Shouldn't these be
-     paddr_to_pfn(bi->mods[i].start)
-?
-
-> +                      PFN_UP(bi->mods[i].size));
->           map_pages_to_xen(
-> -            (unsigned long)mfn_to_virt(bi->mods[i].mod->mod_start),
-> -            _mfn(bi->mods[i].mod->mod_start),
-> -            PFN_UP(bi->mods[i].mod->mod_end), PAGE_HYPERVISOR);
-> +            (unsigned long)maddr_to_virt(bi->mods[i].start),
-> +            maddr_to_mfn(bi->mods[i].start),
-> +            PFN_UP(bi->mods[i].size), PAGE_HYPERVISOR);
-
-First argument should fit on same line as map_pages_to_xen().
-
->       }
->   
->   #ifdef CONFIG_KEXEC
-
-Regards,
-Jason
+-- 
+Julien Grall
 
