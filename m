@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F26909938E5
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 23:17:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812487.1225254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14A4A9938E6
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 23:17:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812488.1225264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxv63-0005fj-I5; Mon, 07 Oct 2024 21:16:51 +0000
+	id 1sxv64-0005tT-O9; Mon, 07 Oct 2024 21:16:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812487.1225254; Mon, 07 Oct 2024 21:16:51 +0000
+Received: by outflank-mailman (output) from mailman id 812488.1225264; Mon, 07 Oct 2024 21:16:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxv63-0005cf-Er; Mon, 07 Oct 2024 21:16:51 +0000
-Received: by outflank-mailman (input) for mailman id 812487;
- Mon, 07 Oct 2024 21:16:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sxv64-0005qi-KV; Mon, 07 Oct 2024 21:16:52 +0000
+Received: by outflank-mailman (input) for mailman id 812488;
+ Mon, 07 Oct 2024 21:16:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=siVB=RD=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1sxv61-0005cT-IA
- for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 21:16:49 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 761cb62f-84f1-11ef-99a2-01e77a169b0f;
- Mon, 07 Oct 2024 23:16:47 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-5369f1c7cb8so5193912e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 07 Oct 2024 14:16:47 -0700 (PDT)
+ id 1sxv62-0005cZ-Q7
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 21:16:50 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 775dd5cf-84f1-11ef-a0bb-8be0dac302b0;
+ Mon, 07 Oct 2024 23:16:49 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-5398e33155fso6148915e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Oct 2024 14:16:49 -0700 (PDT)
 Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-539aff1d1f3sm940665e87.153.2024.10.07.14.16.45
+ 2adb3069b0e04-539aff1d214sm945051e87.132.2024.10.07.14.16.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Oct 2024 14:16:46 -0700 (PDT)
+ Mon, 07 Oct 2024 14:16:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 761cb62f-84f1-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 775dd5cf-84f1-11ef-a0bb-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1728335807; x=1728940607; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WTsx4tGg+0BZ0batbq5fRRa5gbLdHaXOR3GOVsVa/MI=;
-        b=Zk8TM0izDAjuDtXwcoLR5sSdPnDrXfSlZwAVFKTj61GNXYGTDpU6eI+mQNRM8xL5/k
-         Ml45zEaBZzvPvd/Xd1Yr9VSzGzoV0iCVaS4QJh8WbdgkbOdk4fom7QpRXlwYyNMtElGX
-         JiddsgiK93PDHBZiZ+2KAz4zb5c1OnrcUepdujJbpgU9muNJjUXLOVqQq8JxHMrc2ai1
-         E05ypUglKj9sk3UzzMmA4jHBrpCFjFtV9D2oSeq7PUS1Rsa5gXcZwmc46GQ6ZQM+XUNE
-         +duACPICsEFRixpKBy3S6Hp1f5r4cmRDMsHUqMNWT+VujJlgovHCeTEau0WsiObbDZSV
-         fZZQ==
+        d=gmail.com; s=20230601; t=1728335809; x=1728940609; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nOZFp0KYwy2xarbmigXeGI5Kh1b1KEGSJbQb+7v41UY=;
+        b=ciWCKC877jDoBu+nQy8mdklxzVY0cll1eTi/IkSbRhKTD2pZEaRc/VuHOL6w+vWXMs
+         g7Agbyi691eXU/rxRKQ0CA/bp9cVqX5jBOKHcGs3vX0K+0xAmIB/mCiLgjbDVZKfKxPr
+         D48GrXXbjlcutIvKT/a1XkuhkN/zMNyPlLzTSd3H3jy2OLGj4EvGn69mQ1udX967aE8j
+         S75tPAjE9gntII0BeaDJpbu0VItYRYxTBNzrDXDMlbZclBJirWybveAB8Hvk0l5puGUe
+         B31Kq922qWjT1gB908sRZFR2VHSsw/jXK+Q7AyzLXxaYZENH3YAQA/gIWCPSFOAyJnf0
+         58xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728335807; x=1728940607;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WTsx4tGg+0BZ0batbq5fRRa5gbLdHaXOR3GOVsVa/MI=;
-        b=UheHQ8gLYis93U6j9GvziPaY5AvdYclYOwML2cFP/AmmfGikMMZScGFAV600kJWgHz
-         GSd6ufNdzS1+/dAnVBOfSGQDBlwkuN+IiS+5/0lGFUJ+Yj3uUKOEERsP2SZ7o0TLJXgV
-         2i+WNPaiuBtDdfEnCCyMVG26CZR1zxeC7Cuk+TdISt1G20sSpP/LyfR+VkVmhhDR8+UQ
-         PEgM1mZwt/iYkxJfod5C43BSKGSdbfuxZSgf4OY0wax6cr85N/Y6OyXZbVx8plUmNMts
-         VV1+iVVGmn9zVdc59dx20/FWJZwxyr8meTOPvHIMJIlQDb1mVzBVUSgKhBlwBC/NHN8U
-         DLuA==
-X-Forwarded-Encrypted: i=1; AJvYcCUuf/Y90qkE3yFF5zDlCKTF/GmQiqd5usqjaXZ/1PggDvd+yYpWEO16qdW11UkXVfYrlbd4xAxX90E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzliFvsMw/rDAyfV0pUoCH3wwTyVRhnCyoWGHLh9PHWYjAmAU/c
-	gmMmXvU/XdfK2hpmsDPT7NiPj1+qJM6aUXuO8d/IlfKG1OAoGlqu
-X-Google-Smtp-Source: AGHT+IHM96Ou/Yg0S6T+8VUjhm8uxhY/cn7FmBubowF4/pRcTBUlupijb+NR9My3MkGaQGgdakpFhQ==
-X-Received: by 2002:a05:6512:ba2:b0:536:9f02:17b4 with SMTP id 2adb3069b0e04-539ab9cf41bmr6550868e87.40.1728335806821;
-        Mon, 07 Oct 2024 14:16:46 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1728335809; x=1728940609;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nOZFp0KYwy2xarbmigXeGI5Kh1b1KEGSJbQb+7v41UY=;
+        b=jaYmD3HwOb5XqBnMcp4NaPGs9uXcDqwgi6efyg/b5C1I6vClHrraS7mdsB1144qbxs
+         6d14IFyMWhj0JlbMzfrbsgvSQZOK+J4uUA1ItLqKeyM93BU8Ufpw0TaQLWwhZI5nhg79
+         22LNfMOmqIZojs5WW2prnpwYHe5/Mm/1NeM2TLIoeLDK9cacMatS9BjioyGrAicJscpQ
+         RDcnEtyhBtlUREy2v5+6WXfDL5eNyoEdq2jNvXLYkJ8ADuB90Akw43xqYzmfTkqFF6Kn
+         iBq5M6k+OWC0D3guMiQ9ZFOkTImIHRhCa/xoo7LaGl9S/dthsGAmyFXKaSIFKtJoX6lZ
+         h5Hw==
+X-Forwarded-Encrypted: i=1; AJvYcCWyXrPHlShBN8oq1EY68cPlXWnLJHpp7s+Zrty2HolLURtUo+bSFiFHl8IHPu6nVPt8TtjnaT2hx0k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwsZeCunnBwJZfhtW6byJ1nvsvnmjHNGdmLkMWLNqduodgck6P7
+	0PCH4VWqaM+/kJeK1uRlq26SQ+tm/Sxye6HcNQqNUanOs9v9gkkz
+X-Google-Smtp-Source: AGHT+IEDn3064h8cU2IDaRl8of4yOaXKWQsj91WD4UsSn5HTEcpmp2TwGmNka3Rpk/B+XuSHazDZAQ==
+X-Received: by 2002:a05:6512:304b:b0:539:93b2:1383 with SMTP id 2adb3069b0e04-539ab9e1738mr6600333e87.46.1728335808875;
+        Mon, 07 Oct 2024 14:16:48 -0700 (PDT)
 From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
 To: qemu-devel@nongnu.org
 Cc: sstabellini@kernel.org,
@@ -82,30 +83,47 @@ Cc: sstabellini@kernel.org,
 	paul@xen.org,
 	peter.maydell@linaro.org,
 	edgar.iglesias@amd.com,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v1 0/1] hw/xen: Avoid Avoid use of uninitialized bufioreq_evtchn
-Date: Mon,  7 Oct 2024 23:16:41 +0200
-Message-ID: <20241007211643.1572271-1-edgar.iglesias@gmail.com>
+	xen-devel@lists.xenproject.org,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+Subject: [PATCH v1 1/1] hw/xen: Avoid use of uninitialized bufioreq_evtchn
+Date: Mon,  7 Oct 2024 23:16:42 +0200
+Message-ID: <20241007211643.1572271-2-edgar.iglesias@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20241007211643.1572271-1-edgar.iglesias@gmail.com>
+References: <20241007211643.1572271-1-edgar.iglesias@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 
-This has a fix for Coverity CID 1563383 reported by Peter.
-
 Avoid use of uninitialized bufioreq_evtchn. It should only
 be used if buffered IOREQs are enabled.
 
-Cheers,
-Edgar
-
-Edgar E. Iglesias (1):
-  hw/xen: Avoid use of uninitialized bufioreq_evtchn
-
+Resolves: Coverity CID 1563383
+Reported-by: Peter Maydell <peter.maydell@linaro.org>
+Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+---
  hw/xen/xen-hvm-common.c | 7 ++++---
  1 file changed, 4 insertions(+), 3 deletions(-)
 
+diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
+index 7d2b72853b..7ffbbfea23 100644
+--- a/hw/xen/xen-hvm-common.c
++++ b/hw/xen/xen-hvm-common.c
+@@ -752,9 +752,10 @@ static int xen_map_ioreq_server(XenIOState *state)
+         return -1;
+     }
+ 
+-    trace_xen_map_ioreq_server_buffered_io_evtchn(bufioreq_evtchn);
+-
+-    state->bufioreq_remote_port = bufioreq_evtchn;
++    if (state->has_bufioreq) {
++        trace_xen_map_ioreq_server_buffered_io_evtchn(bufioreq_evtchn);
++        state->bufioreq_remote_port = bufioreq_evtchn;
++    }
+ 
+     return 0;
+ }
 -- 
 2.43.0
 
