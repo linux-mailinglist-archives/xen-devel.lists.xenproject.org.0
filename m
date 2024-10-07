@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 124F799303E
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 16:58:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812146.1224854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A82999303F
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 16:58:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812151.1224864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxpBd-0005qw-Ej; Mon, 07 Oct 2024 14:58:13 +0000
+	id 1sxpC3-0007Oo-OK; Mon, 07 Oct 2024 14:58:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812146.1224854; Mon, 07 Oct 2024 14:58:13 +0000
+Received: by outflank-mailman (output) from mailman id 812151.1224864; Mon, 07 Oct 2024 14:58:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxpBd-0005os-Bi; Mon, 07 Oct 2024 14:58:13 +0000
-Received: by outflank-mailman (input) for mailman id 812146;
- Mon, 07 Oct 2024 14:58:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sxpBb-0005oi-Hc; Mon, 07 Oct 2024 14:58:11 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sxpBb-0002kJ-EW; Mon, 07 Oct 2024 14:58:11 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1sxpBb-0000ZC-3E; Mon, 07 Oct 2024 14:58:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1sxpBb-0004gq-2q; Mon, 07 Oct 2024 14:58:11 +0000
+	id 1sxpC3-0007MQ-LT; Mon, 07 Oct 2024 14:58:39 +0000
+Received: by outflank-mailman (input) for mailman id 812151;
+ Mon, 07 Oct 2024 14:58:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2eb/=RD=bounce.vates.tech=bounce-md_30504962.6703f71b.v1-7602c395d26546e39c5f9dc8eef4f58c@srs-se1.protection.inumbo.net>)
+ id 1sxpC2-0007G0-3G
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 14:58:38 +0000
+Received: from mail136-19.atl41.mandrillapp.com
+ (mail136-19.atl41.mandrillapp.com [198.2.136.19])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a1208466-84bc-11ef-a0bb-8be0dac302b0;
+ Mon, 07 Oct 2024 16:58:37 +0200 (CEST)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-19.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4XMj2g0GzszRKLmR5
+ for <xen-devel@lists.xenproject.org>; Mon,  7 Oct 2024 14:58:35 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 7602c395d26546e39c5f9dc8eef4f58c; Mon, 07 Oct 2024 14:58:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +43,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=eYk8zlFZVW3eUZHBhLHAm/4lxZ0XRkvFnQp5oBoxBy0=; b=CLSZSO6FrWvCdzCOZQ2cuXc0Fj
-	U6E78lFYZCkrFwt3fIixBjmivz8g8gzr/6kMTtQ+GWnkaKk+Et6YPgsQDujyiGHkke9B5pYIFJKX8
-	tFHKlESH0wANwRGM6Jx77zJ5uf+jtyupd4cvgkRj2XSzdxQzyPSDO51iQegfW2k95mLU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-187998-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: a1208466-84bc-11ef-a0bb-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1728313115; x=1728573615;
+	bh=Tu49QG85yQ27QrS1s7PP1qXcOb4aQI1T1GQD/voDLUg=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=eP4cjJYWoNDAGLkK0m+/4lZLiRAYoB8p4p8otxAYzDP/BNsR4wl/AA2bWyQsPKKK5
+	 pZf6aubu1akV97O+OlW3rcQLG2TsagNYzJVRMhRZxPlaD539XtHnGkQflxi8uWp1RL
+	 IY/XkA5DC1YdFzgXURE8bzlDoDPv5WhjJvTCXCFrKX8NvXEzGX8OaeQJkHdv/jwm4a
+	 DlnaSamcRCl+n1GhbsQlJUzBlHS0VGqeiHr+89/41cYWmJe5F1Re3jrXUryD2P+RZk
+	 aUC7OWjDahlksongj0ndDqf3Z4VP0ob4fEVA/OGWANyGfsv77Gwf82ApoPQDMTXyU1
+	 jhUxPqDvTShBw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1728313115; x=1728573615; i=anthony.perard@vates.tech;
+	bh=Tu49QG85yQ27QrS1s7PP1qXcOb4aQI1T1GQD/voDLUg=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=baaDN7A1l4Uw8Ykr/uoEjZdKXrW5kxwZ959yC1vB04XMRcjpAX+epl286XiFKX7gQ
+	 kb6D3FuRQQcmTa30ndTsOKXsC4eVVyKSL70XMd0gNmj2kMc10lkwAbP1a/LNKlEVuM
+	 a4t6e2eTQuKs++2F0geIV2+wjT3ReJ2pgIxXygUjasYdoi5aDhyZNBvuro66BHWVOx
+	 Nlz6tsZKonB+gx/m0/+gTJy7BsWijDm9CQxXeqIUGo+O0tlmfLO3b9p18uSeoGiTWT
+	 LazX/bRW7EJMROk6jbfQdaHDqxEQ62HbO8pILGjur80GeaXLtoUSGzTqv6WzzlW6bM
+	 mCaKDAL4NtRcg==
+From: Anthony PERARD <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20CI:=20Drop=20bin86/dev86=20from=20archlinux=20container?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1728313111091
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Doug Goldstein <cardoe@cardoe.com>
+Message-Id: <ZwP3FiXXCmlyxeHF@l14>
+References: <20241007095637.2450599-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20241007095637.2450599-1-andrew.cooper3@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.7602c395d26546e39c5f9dc8eef4f58c?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20241007:md
+Date: Mon, 07 Oct 2024 14:58:35 +0000
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 187998: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=29555668b5725b9d5393b72bfe7ff9a3fa606714
-X-Osstest-Versions-That:
-    xen=6b20755c24ccd69d2482b45dfb9193940cdc346e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 07 Oct 2024 14:58:11 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-flight 187998 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/187998/
+On Mon, Oct 07, 2024 at 10:56:37AM +0100, Andrew Cooper wrote:
+> These packages have moved out of main to AUR, and are not easily accessib=
+le
+> any more.  Drop them, because they're only needed for RomBIOS which is ve=
+ry
+> legacy these days.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-Failures :-/ but no regressions.
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Thanks,
 
-version targeted for testing:
- xen                  29555668b5725b9d5393b72bfe7ff9a3fa606714
-baseline version:
- xen                  6b20755c24ccd69d2482b45dfb9193940cdc346e
+-- 
 
-Last test of basis   187975  2024-10-05 01:02:06 Z    2 days
-Testing same since   187998  2024-10-07 10:04:08 Z    0 days    1 attempts
+Anthony Perard | Vates XCP-ng Developer
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Federico Serafini <federico.serafini@bugseng.com>
-  Jan Beulich <jbeulich@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
+XCP-ng & Xen Orchestra - Vates solutions
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+web: https://vates.tech
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6b20755c24..29555668b5  29555668b5725b9d5393b72bfe7ff9a3fa606714 -> smoke
 
