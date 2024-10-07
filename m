@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B90D992F17
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 16:26:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812062.1224774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022F5992F1C
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 16:26:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812071.1224793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxogs-0005bP-Ew; Mon, 07 Oct 2024 14:26:26 +0000
+	id 1sxoh9-0006tc-T3; Mon, 07 Oct 2024 14:26:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812062.1224774; Mon, 07 Oct 2024 14:26:26 +0000
+Received: by outflank-mailman (output) from mailman id 812071.1224793; Mon, 07 Oct 2024 14:26:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxogs-0005Yx-Bl; Mon, 07 Oct 2024 14:26:26 +0000
-Received: by outflank-mailman (input) for mailman id 812062;
- Mon, 07 Oct 2024 14:26:25 +0000
+	id 1sxoh9-0006rj-Pt; Mon, 07 Oct 2024 14:26:43 +0000
+Received: by outflank-mailman (input) for mailman id 812071;
+ Mon, 07 Oct 2024 14:26:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/gRD=RD=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1sxoXO-0002yM-3E
- for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 14:16:38 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=arWC=RD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1sxoXb-0002yM-0G
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 14:16:51 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3bc471c-84b6-11ef-a0bb-8be0dac302b0;
- Mon, 07 Oct 2024 16:16:37 +0200 (CEST)
-Received: from truciolo.bugseng.com (unknown [37.162.58.49])
- by support.bugseng.com (Postfix) with ESMTPSA id 4C67E4EE074C;
- Mon,  7 Oct 2024 16:16:36 +0200 (CEST)
+ id cb5b7f2f-84b6-11ef-a0bb-8be0dac302b0;
+ Mon, 07 Oct 2024 16:16:50 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5c718bb04a3so6355922a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Oct 2024 07:16:50 -0700 (PDT)
+Received: from [10.125.226.166] ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a99420bcc1esm293784766b.199.2024.10.07.07.16.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Oct 2024 07:16:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,63 +45,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3bc471c-84b6-11ef-a0bb-8be0dac302b0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1728310597; bh=Cj7N+K8vyoIngmTvtRYCAMfqpWWddHIl9pmTFZ7wneY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=HlM9scJN3uJ3HDUAg+2dJHb1oLxWkXIjhV32iHKtNcMKHzFdTtGNxjUfVtugP5QZf
-	 pinxogS46o5Y5Vq9wmzsTzfT5LtLERkht6uXnM+jIQGHCJbAQ45yG1ckvoTa5PBIH8
-	 hCLAgvPD74v/aZa42Ji+wDxzrJXWnrZstmeFw1bJMszg1MWt2GxMaEaibWDnRBaMwj
-	 LugF/OPtHc8rdwS/+F2oAsmwO/Wq935GBF+GPJyj7Ku3Ihp+rgZ481hUrV1EfT1cAh
-	 walqsVhR3YBwGY7C0LUc6C4CrKeQOizm7nVh8LJa7sfcezrrbU5S4tz8y4bOTrdrrC
-	 XUHLbd6hHFOxA==
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH v2 4/4] xen/pci: address a violation of MISRA C Rule 16.3
-Date: Mon,  7 Oct 2024 16:16:19 +0200
-Message-ID: <c662cae0f545a4e4e3921ae13bf69dc02884d9ee.1728308312.git.federico.serafini@bugseng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1728308312.git.federico.serafini@bugseng.com>
-References: <cover.1728308312.git.federico.serafini@bugseng.com>
+X-Inumbo-ID: cb5b7f2f-84b6-11ef-a0bb-8be0dac302b0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1728310610; x=1728915410; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=v9PKZQwIn/DtPDlzLfWy1uQqywpKMW3MzbGHsy0oE7A=;
+        b=lOMjpVJcv4/H+WmdDrvYQlXppoXf4UxUstX1Opoo/sTacr+COqq0hj4UHZCSWBLbui
+         ewQey1pl9kLrY5YkjsnBrVpR/MQkP/F2wosLwdJzdGg+nakX8NUQMRKvn1gRxiA0Rcsv
+         KhjBolkGFAqBfekJLhJQOTi8whGNT5ik6oa0s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1728310610; x=1728915410;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=v9PKZQwIn/DtPDlzLfWy1uQqywpKMW3MzbGHsy0oE7A=;
+        b=WI+6ondPGKH9wrl+UdQW2LG7frZ4ELMp/DYTdXQILexa3v7Nx/fjJtjic1dC/GORez
+         1Ae+NQVisnakVFcBhD6kOlyYab5Mi7NyKtM9ELCIYb9qfUI7ibCVmfZfXxdx81ozOgjI
+         ENwfVDirp2z0HaVJ9/hoEd0dDIQ8fisLxFn+m2R+SasDJPFHjIb2mQp5kjjX2vR4xCeO
+         7XYZqXRa6Ktda93zoHWDmZktC2yNM30ppxRXh1AXD68l6K0HL4hQTNTkUquVDfT0u+vA
+         0xyy2oQQVc003wvUN9sDp44KA1gplMzmJAHxETvbVxyVFqoAhjzkygcKoekUJb1q+8Lz
+         aZiA==
+X-Forwarded-Encrypted: i=1; AJvYcCUQK4UhStGCaLTonEFj44mAqEUtTjNu5zeaBARP3oAyR01Z2X77TP1+Sa7IDCEgYyayqNEqkOtjBpQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzvNZfHyYmUGls1W8Sk/JVyd/vo5YRNfPcu1kh53PcwhpZOjiWp
+	PUYmslO/3tnstCS+QM6wmaUerHyGguz9E4/8YRtudEe+6hOsZxsgcjXlyVDxQ5E=
+X-Google-Smtp-Source: AGHT+IFzjg7iAkfO/wHvo/8jgxSTXCTz6uIYd3Y8CdEE2ov20gdY8rEkaM+a6xTrhhloAQBK/k3nHw==
+X-Received: by 2002:a17:907:94c3:b0:a86:96f5:fa81 with SMTP id a640c23a62f3a-a991bd757admr1565945966b.32.1728310609754;
+        Mon, 07 Oct 2024 07:16:49 -0700 (PDT)
+Message-ID: <765f0d29-8be8-4f53-90df-c9fbeb1eca68@citrix.com>
+Date: Mon, 7 Oct 2024 15:16:47 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/msr: add log messages to MSR state load error paths
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20241007140317.67478-1-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20241007140317.67478-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Refactor the code to avoid an implicit fallthrough and address
-a violation of MISRA C:2012 Rule 16.3: "An unconditional `break'
-statement shall terminate every switch-clause".
+On 07/10/2024 3:03 pm, Roger Pau Monne wrote:
+> Some error paths in the MSR state loading logic don't contain error messages,
+> which makes debugging them quite hard without adding extra patches to print the
+> information.
+>
+> Add two new log messages to the MSR state load path that print information
+> about the entry that failed to load.
+>
+> No functional change intended.
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/hvm/hvm.c | 9 +++++++++
 
-No functional change.
+Can we fix the PV side at the same time too?
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
----
-Changes in v2:
-- improved description.
----
- xen/drivers/passthrough/pci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 69a25571db8d..c71087f636c4 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -1598,10 +1598,19 @@ static int cf_check hvm_load_cpu_msrs(struct domain *d, hvm_domain_context_t *h)
+>              rc = guest_wrmsr(v, ctxt->msr[i].index, ctxt->msr[i].val);
+>  
+>              if ( rc != X86EMUL_OKAY )
+> +            {
+> +                printk(XENLOG_G_ERR
+> +                       "HVM%d.%d load MSR %#x with value %#lx failed: %d\n",
+> +                       d->domain_id, vcpuid, ctxt->msr[i].index,
+> +                       ctxt->msr[i].val, rc);
 
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 5a446d3dce..a5705def3f 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -170,8 +170,10 @@ static int __init cf_check parse_phantom_dev(const char *str)
-     {
-     case 1: case 2: case 4:
-         if ( *s )
--    default:
-             return -EINVAL;
-+        break;
-+    default:
-+        return -EINVAL;
-     }
- 
-     phantom_devs[nr_phantom_devs++] = phantom;
--- 
-2.43.0
+Just %pv please.  I don't want to propagate the (occasionally ambiguous)
+HVM%d form.
 
+Also, rc may not be great to render.  It's an X86EMUL_*, not an errno.
+
+And saying that, we have a discontinuity between PV and HVM.  PV
+translates !OKAY into -EINVAL, whereas HVM translates into -ENXIO.  /sigh
+
+~Andrew
 
