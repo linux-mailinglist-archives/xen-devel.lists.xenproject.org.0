@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D32E79932C1
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 18:11:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.812246.1224984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57F3F9934B9
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2024 19:19:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.812255.1224994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxqJk-0002t5-Hk; Mon, 07 Oct 2024 16:10:40 +0000
+	id 1sxrMf-0002cW-8E; Mon, 07 Oct 2024 17:17:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 812246.1224984; Mon, 07 Oct 2024 16:10:40 +0000
+Received: by outflank-mailman (output) from mailman id 812255.1224994; Mon, 07 Oct 2024 17:17:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1sxqJk-0002rX-E1; Mon, 07 Oct 2024 16:10:40 +0000
-Received: by outflank-mailman (input) for mailman id 812246;
- Mon, 07 Oct 2024 16:10:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1sxrMf-0002aJ-4e; Mon, 07 Oct 2024 17:17:45 +0000
+Received: by outflank-mailman (input) for mailman id 812255;
+ Mon, 07 Oct 2024 17:17:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=arWC=RD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1sxqJi-0002rR-Iv
- for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 16:10:38 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aff245bf-84c6-11ef-99a2-01e77a169b0f;
- Mon, 07 Oct 2024 18:10:36 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2fac3f20f1dso48546161fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Oct 2024 09:10:36 -0700 (PDT)
+ id 1sxrMd-0002Zu-0b
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2024 17:17:43 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0ea4cc24-84d0-11ef-a0bb-8be0dac302b0;
+ Mon, 07 Oct 2024 19:17:40 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a9932aa108cso385427066b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Oct 2024 10:17:40 -0700 (PDT)
 Received: from [10.125.226.166] ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8e05ecda3sm3327589a12.73.2024.10.07.09.10.35
+ a640c23a62f3a-a99501181a6sm198410266b.139.2024.10.07.10.17.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Oct 2024 09:10:35 -0700 (PDT)
+ Mon, 07 Oct 2024 10:17:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aff245bf-84c6-11ef-99a2-01e77a169b0f
+X-Inumbo-ID: 0ea4cc24-84d0-11ef-a0bb-8be0dac302b0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1728317436; x=1728922236; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1728321460; x=1728926260; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VFTyB/AkP4fpgABVjnSWtiP1n6mALu5+GNw6wcNlCr0=;
-        b=SqOcBu5VoVcbvt5+0KXUIDdg6EQuDmQeW2e8935zpSCKzbVO2ykkSL98Vra+rjqbKM
-         dBsfga/8f/ilUop6/O9vwjj90uPaK9wIyAB71wlg8rKIfLyM7Sm5g7vJG9qtB4TaPrrU
-         82jSx8TARZ2usIkjuYTNtXRKubbB2IFdcuFfE=
+        bh=pnYbBSFeug3l/M+BpSP9PM1bv9hDXAFVFf88pRbo3RY=;
+        b=eY9kjghQatM4rcx/MNokhyVEE0UCq07kLg+Bi0e+tDTqF2DrqVYIg0P+feGm4cDssh
+         mdCY6VylU5rsBcYc6gXtCjJUYwhdFP+oYQYmzc7ENmWFr3JYj56sNsFrneFwphuC5ymK
+         8KZDI5nqDfOnXoIvYwtGKr5b+KER4GuRB5MRs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728317436; x=1728922236;
+        d=1e100.net; s=20230601; t=1728321460; x=1728926260;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VFTyB/AkP4fpgABVjnSWtiP1n6mALu5+GNw6wcNlCr0=;
-        b=Iv9pqBaZm2k0bRzZvGEVhHcRIPo7Fo8/xhSVmGAcCZgYIHDHQ+WkpTTv+WTq4mTMO2
-         Nsr6f7b/qNiBUKXIMlpkbd8wm9z9s2Dz5fziclyHFWSj+9JjDsymWkJ2CZ+9BlidwNR3
-         WH7vhV5zGNCmBjKzLea5mYxz00RCemJ3KZ75UU/HzqkpPdl7LTjEe5VlXF0eyx3SHowg
-         Z14CfDy7aj2n6+eQCNcelgGM10rlZglETmzt4YgBi9xeZ8IUjAH0jOal0rGw1puiYrbm
-         uc3kzETweoqLRFK98XCF8vCAjpBfv7JnGDSjDKYYZ7XKQNu/affBUeTS715Fgl/x11dD
-         ns3g==
-X-Forwarded-Encrypted: i=1; AJvYcCW6IFcHrIzfAdCS99YzPG0Z3VzKPzTEeaofwQPebvx0Zo6tVna9jeynRc/eBo0Q07oOVrNDstd0G+s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzIQuDj4MfG4TQXk2X4dVYVrVwuf+5Sp5AxB8tiJrvRwcOthxbn
-	QaXuXi2vyZ9hnIjStd9OGws3UcgwvEqey4QhRhfSsqs8O7VD5rURUYrShNATBIuB/osO95w0N/6
-	l1is=
-X-Google-Smtp-Source: AGHT+IF8JkSGx3x1oyL8MgNcKrnOgkHoV0syF+T83ExyM/iNJMd5WNm95KcSU+RgJrHxXNIbtffkPQ==
-X-Received: by 2002:a05:651c:154a:b0:2fa:cfcc:6227 with SMTP id 38308e7fff4ca-2faf3c13beamr58111401fa.17.1728317435724;
-        Mon, 07 Oct 2024 09:10:35 -0700 (PDT)
-Message-ID: <a831b390-5136-40fd-8bc3-2b373ec0ec84@citrix.com>
-Date: Mon, 7 Oct 2024 17:10:33 +0100
+        bh=pnYbBSFeug3l/M+BpSP9PM1bv9hDXAFVFf88pRbo3RY=;
+        b=MgOtPIzz0xgQVl/HE+ZJYdKbmRddoNWoPFK+DPicy+ix4yh6MhHKVEsZ43YiloSapC
+         q0FDEpjhy8piax48JLVV/VC1k6PNcWzbadt22D92BHYd4dcow48J/pMXSps3KkaR9AvS
+         9Op+MCor1ggKke+B6a7SJng5BKpPnbGCuYeyA/UpI6x+s4H7yEqDXqvpB7DRSVoN6bZt
+         rI0F7RhC1FdB9UmN/lCTtLBnsIR5bVBHJK93Q3KQ4QyM0bjM3pyMfIoohPKNsSCfjV5I
+         WLubpzKkNLu9HWcUe1p8T+1xt46hAmW2Fylm4ez+T8Ey5ddxKkI8+CqUqGONLPX/4jQ+
+         ZqPg==
+X-Forwarded-Encrypted: i=1; AJvYcCV2KNe9bRs1cuynkn5DWR0ZwDIJ89m6ZElVsbmgcYUp6v7bjxE9PR2OCCL9u/7kR9pkd5jnJFNr98I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzqLd77zgjkf/CeLHHKWLKYDTDKM3A9aKL0oyO53l/wDwOg81zE
+	ELDHDus4N1BT4nLewUucVITEEunQjBDhyPA7c1BZpGGZf2fzo7POYSrJOaKRHAo=
+X-Google-Smtp-Source: AGHT+IExTs0BhJWgd+zyZFZEi05/ok5Keasq0OSLCH5tLD6pVVmO6Mq29r3mZDyCFnVdY4AS/1VMsg==
+X-Received: by 2002:a17:907:7288:b0:a86:7cac:f871 with SMTP id a640c23a62f3a-a991c01a735mr1528698466b.54.1728321459924;
+        Mon, 07 Oct 2024 10:17:39 -0700 (PDT)
+Message-ID: <c83b550f-9cba-4ae5-a887-6a962588df88@citrix.com>
+Date: Mon, 7 Oct 2024 18:17:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] automation: use python-3.11 in Leap container
-To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20241007152518.1416-1-olaf@aepfle.de>
+Subject: Re: [PATCH v2 1/7] x86: Introduce x86_decode_lite()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20241002152725.1841575-1-andrew.cooper3@citrix.com>
+ <20241002152725.1841575-2-andrew.cooper3@citrix.com>
+ <82d6f3a3-b3bf-4e4b-bf5c-39f5b857897a@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -129,17 +130,329 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20241007152518.1416-1-olaf@aepfle.de>
+In-Reply-To: <82d6f3a3-b3bf-4e4b-bf5c-39f5b857897a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07/10/2024 4:25 pm, Olaf Hering wrote:
-> python311 is available since Leap 15.4 as additional Python variant.
+On 07/10/2024 1:56 pm, Jan Beulich wrote:
+> On 02.10.2024 17:27, Andrew Cooper wrote:
+>> --- /dev/null
+>> +++ b/xen/arch/x86/x86_emulate/decode-lite.c
+>> @@ -0,0 +1,311 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +
+>> +#include "private.h"
+>> +
+>> +#define Imm8   (1 << 0)
+>> +#define Imm    (1 << 1)
+>> +#define Moffs  (1 << 2)
+>> +#define Branch (1 << 5) /* ... that we care about */
+>> +/*      ModRM  (1 << 6) */
+>> +#define Known  (1 << 7)
+>> +
+>> +#define ALU_OPS                                 \
+>> +    (Known|ModRM),                              \
+>> +    (Known|ModRM),                              \
+>> +    (Known|ModRM),                              \
+>> +    (Known|ModRM),                              \
+>> +    (Known|Imm8),                               \
+>> +    (Known|Imm)
+>> +
+>> +static const uint8_t init_or_livepatch_const onebyte[256] = {
+>> +    [0x00] = ALU_OPS, /* ADD */ [0x08] = ALU_OPS, /* OR  */
+>> +    [0x10] = ALU_OPS, /* ADC */ [0x18] = ALU_OPS, /* SBB */
+>> +    [0x20] = ALU_OPS, /* AND */ [0x28] = ALU_OPS, /* SUB */
+>> +    [0x30] = ALU_OPS, /* XOR */ [0x38] = ALU_OPS, /* CMP */
+>> +/*  [0x40 ... 0x4f] = REX prefixes */
+> For these and other aspects further down, may I ask for a comment at the
+> top of the file setting the scope for this new function (and its
+> associated data) as being strictly 64-bit only? And perhaps even strictly
+> covering only what Xen may legitimately use (largely excluding APX for
+> the foreseeable future, i.e. until such time that we might decide to
+> allow Xen itself to use APX throughout its code).
 >
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
+> Besides APX, with more immediate uses in mind, I wonder about e.g.
+> BMI/BMI2 insns, which live outside the one/two-byte maps.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+They're not needed yet, and it would require extra decode complexity.
 
-I'm tempted to take and deploy this immediately.  Leap is already not
-building QEMU, and this patch doesn't change.
+> I would further appreciate if we could be consistent with the mentioning
+> (or not) of prefixes: The REX ones here are the only ones that the table
+> mentions right now. In fact I wonder whether a Prefix attribute wouldn't
+> be nice to have, so you don't need to open-code all of them in the
+> function itself.
+
+The comment about REX prefixes is only here because you insisted on it.
+
+But I really don't like double-explaining things.
+
+>> +    [0x6c ... 0x6f] = (Known),             /* INS/OUTS */
+>> +
+>> +    [0x70 ... 0x7f] = (Known|Branch|Imm8), /* Jcc disp8 */
+>> +    [0x80]          = (Known|ModRM|Imm8),  /* Grp1 */
+>> +    [0x81]          = (Known|ModRM|Imm),   /* Grp1 */
+>> +
+>> +    [0x83]          = (Known|ModRM|Imm8),  /* Grp1 */
+>> +    [0x84 ... 0x8e] = (Known|ModRM),       /* TEST/XCHG/MOV/MOV-SREG/LEA r/rm */
+>> +
+>> +    [0x90 ... 0x99] = (Known),             /* NOP/XCHG rAX/CLTQ/CQTO */
+> Omitting PUSH (at 0x8f) is somewhat odd, considering that it's a pretty
+> "normal" insn.
+
+Except it's not.  It's the XOP prefix too, and would require extra
+decode complexity.
+
+>> +    [0xc6]          = (Known|ModRM|Imm8),  /* Grp11, Further ModRM decode */
+>> +    [0xc7]          = (Known|ModRM|Imm),   /* Grp11, Further ModRM decode */
+>> +
+>> +    [0xcb ... 0xcc] = (Known),             /* LRET/INT3 */
+>> +    [0xcd]          = (Known|Imm8),        /* INT $imm8 */
+> No IRET, when you have things like e.g. ICEBP and CLTS?
+
+The absence of IRET is intentional, because it can't be used safely. 
+SYSRET/EXIT are excluded too for consistency.
+
+IRET can be added if/when it is needed, and someone has figured out a
+way of adjusting the exception table entry.
+
+>> +};
+>> +
+>> +/*
+>> + * Bare minimum x86 instruction decoder to parse the alternative replacement
+>> + * instructions and locate the IP-relative references that may need updating.
+>> + *
+>> + * These are:
+>> + *  - disp8/32 from near branches
+>> + *  - RIP-relative memory references
+>> + *
+>> + * The following simplifications are used:
+>> + *  - All code is 64bit, and the instruction stream is safe to read.
+>> + *  - The 67 prefix is not implemented, so the address size is only 64bit.
+> As to the earlier remark - maybe this part of the comment could simply
+> move to the top of the file?
+
+I really don't want to split the comment.  It needs to all live together.
+
+Given this is a single-function file, I also don't see the need for this
+comment to move away from here.  You can't interpret the decode tables
+without reading the function.
+
+>
+>> + * Inputs:
+>> + *  @ip  The position to start decoding from.
+>> + *  @end End of the replacement block.  Exceeding this is considered an error.
+>> + *
+>> + * Returns: x86_decode_lite_t
+>> + *  - On failure, length of 0.
+>> + *  - On success, length > 0.  For rel_sz > 0, rel points at the relative
+>> + *    field in the instruction stream.
+>> + */
+>> +x86_decode_lite_t init_or_livepatch x86_decode_lite(void *ip, void *end)
+> Imo both pointers would be nice to be to-const.
+
+In v1, you also identified why that wouldn't compile.
+
+>
+>> +{
+>> +    void *start = ip, *rel = NULL;
+>> +    unsigned int opc, rel_sz = 0;
+>> +    uint8_t b, d, rex = 0, osize = 4;
+>> +
+>> +#define OPC_TWOBYTE (1 << 8)
+>> +
+>> +    /* Mutates IP, uses END. */
+>> +#define FETCH(ty)                                       \
+>> +    ({                                                  \
+>> +        ty _val;                                        \
+>> +                                                        \
+>> +        if ( (ip + sizeof(ty)) > end )                  \
+>> +            goto overrun;                               \
+>> +        _val = *(ty *)ip;                               \
+>> +        ip += sizeof(ty);                               \
+>> +        _val;                                           \
+>> +    })
+>> +
+>> +    for ( ;; ) /* Prefixes */
+>> +    {
+>> +        switch ( b = FETCH(uint8_t) )
+>> +        {
+>> +        case 0x26: /* ES override */
+>> +        case 0x2e: /* CS override */
+>> +        case 0x36: /* DS override */
+>> +        case 0x3e: /* SS override */
+>> +        case 0x64: /* FS override */
+>> +        case 0x65: /* GS override */
+> If you don't like the idea of a Prefix attribute
+
+I don't like the idea of making this intentionally dissimilar to the
+main decoder, just to safe a few lines of source code.
+
+GCC optimises it into a bitmap anyway.
+
+>  I wonder in how far we
+> actually need all of the above, when you already ...
+>
+>> +        case 0xf0: /* LOCK */
+>> +        case 0xf2: /* REPNE */
+>> +        case 0xf3: /* REP */
+>> +            break;
+>> +
+>> +        case 0x66: /* Operand size override */
+>> +            osize = 2;
+>> +            break;
+>> +
+>> +        /* case 0x67: Address size override, not implemented */
+> ... deliberately leave of this one.
+
+Excluding 67 is intentional because it a) has no business being used,
+and b) adds a huge amount of decode complexity.
+
+Whereas two of segment prefixes are already necessary to decode the
+alternatives we have today.
+>> +        case 0x40 ... 0x4f: /* REX */
+>> +            rex = b;
+>> +            continue;
+>> +
+>> +        default:
+>> +            goto prefixes_done;
+>> +        }
+>> +        rex = 0; /* REX cancelled by subsequent legacy prefix. */
+>> +    }
+>> + prefixes_done:
+>> +
+>> +    if ( rex & 0x08 ) /* REX.W */
+> Can you please use REX_W here?
+
+Oh, it is available.  Ok.
+
+>
+>> +        osize = 8;
+>> +
+>> +    /* Fetch the main opcode byte(s) */
+>> +    if ( b == 0x0f )
+>> +    {
+>> +        b = FETCH(uint8_t);
+>> +        opc = OPC_TWOBYTE | b;
+>> +
+>> +        d = twobyte[b];
+>> +    }
+>> +    else
+>> +    {
+>> +        opc = b;
+>> +        d = onebyte[b];
+>> +    }
+>> +
+>> +    if ( unlikely(!(d & Known)) )
+>> +        goto unknown;
+>> +
+>> +    if ( d & ModRM )
+>> +    {
+>> +        uint8_t modrm = FETCH(uint8_t);
+>> +        uint8_t mod = modrm >> 6;
+>> +        uint8_t reg = (modrm >> 3) & 7;
+>> +        uint8_t rm = modrm & 7;
+>> +
+>> +        /* ModRM/SIB decode */
+>> +        if ( mod == 0 && rm == 5 ) /* RIP relative */
+>> +        {
+>> +            rel = ip;
+>> +            rel_sz = 4;
+>> +            FETCH(uint32_t);
+>> +        }
+>> +        else if ( mod != 3 && rm == 4 ) /* SIB */
+>> +        {
+>> +            uint8_t sib = FETCH(uint8_t);
+>> +            uint8_t base = sib & 7;
+>> +
+>> +            if ( mod == 0 && base == 5 )
+>> +                goto disp32;
+>> +        }
+>> +
+>> +        if ( mod == 1 ) /* disp8 */
+>> +            FETCH(uint8_t);
+>> +        else if ( mod == 2 ) /* disp32 */
+>> +        {
+>> +        disp32:
+>> +            FETCH(uint32_t);
+> The values aren't used, so the types don't matter overly much, yet int8_t
+> and int32_t would be a more accurate representation of what's being
+> fetched.
+
+Why does that matter?  I'm skipping a number of bytes, not interpreting
+the result.
+
+>
+>> +        }
+>> +
+>> +        /* ModRM based decode adjustements */
+>> +        switch ( opc )
+>> +        {
+>> +        case 0xc7: /* Grp11 XBEGIN is a branch. */
+>> +            if ( modrm == 0xf8 )
+>> +                d |= Branch;
+>> +            break;
+>> +        case 0xf6: /* Grp3 TEST(s) have extra Imm8 */
+>> +            if ( reg == 0 || reg == 1 )
+>> +                d |= Imm8;
+>> +            break;
+>> +        case 0xf7: /* Grp3 TEST(s) have extra Imm */
+>> +            if ( reg == 0 || reg == 1 )
+>> +                d |= Imm;
+>> +            break;
+>> +        }
+> In this switch() you don't distinguish 1- and 2-byte maps at all.
+
+See OPC_TWOBYTE.  They are distinguished here.
+>> +    }
+>> +
+>> +    if ( d & Branch )
+>> +    {
+>> +        /*
+>> +         * We don't tolerate 66-prefixed call/jmp in alternatives.  Some are
+>> +         * genuinely decoded differently between Intel and AMD CPUs.
+>> +         *
+>> +         * We also don't support APX instructions, so don't have to cope with
+>> +         * JMPABS which is the first branch to have an 8-byte immediate.
+>> +         */
+>> +        if ( osize < 4 )
+>> +            goto bad_osize;
+>> +
+>> +        rel = ip;
+>> +        rel_sz = (d & Imm8) ? 1 : 4;
+>> +    }
+>> +
+>> +    if ( d & (Imm | Imm8 | Moffs) )
+>> +    {
+>> +        if ( d & Imm8 )
+>> +            osize = 1;
+>> +        else if ( d & Moffs )
+>> +            osize = 8;
+>> +        else if ( osize == 8 && !(opc >= 0xb8 && opc <= 0xbf) )
+> Again want to also take the opcode map into account, even if - by luck -
+> this would work as is for now.
+>
+> Also could I talk you into converting the two comparisons into one, along
+> the lines of "(opc | 7) != 0xbf"?
+
+That's the kind of obfuscation which should be left to the compiler.
+
+I know you think like that, but most others (including myself) do not.
+>> --- a/xen/arch/x86/x86_emulate/private.h
+>> +++ b/xen/arch/x86/x86_emulate/private.h
+>> @@ -9,7 +9,9 @@
+>>  #ifdef __XEN__
+>>  
+>>  # include <xen/bug.h>
+>> +# include <xen/init.h>
+>>  # include <xen/kernel.h>
+>> +# include <xen/livepatch.h>
+>>  # include <asm/endbr.h>
+>>  # include <asm/msr-index.h>
+>>  # include <asm/x86-vendors.h>
+> It's only the new file that needs these - can we limit the dependencies
+> to just that one by putting these new #include-s there?
+
+Not if you want the userspace harness in patch 2 to compile.
+
+~Andrew
 
